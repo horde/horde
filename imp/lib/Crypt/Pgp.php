@@ -219,7 +219,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Try retrieving by e-mail only first. */
-        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
         $result = null;
         try {
             $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
@@ -271,7 +271,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function listPublicKeys()
     {
-        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
 
         return empty($params['sources'])
             ? array()
@@ -287,7 +287,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function deletePublicKey($email)
     {
-        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
         return $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 
@@ -628,97 +628,6 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         return parent::publicKeyMimePart($this->getPersonalPublicKey());
     }
 
-    /* UI related functions. */
-
-    /**
-     * Print PGP Key information.
-     *
-     * @param string $key  The PGP key.
-     */
-    public function printKeyInfo($key = '')
-    {
-        try {
-            $key_info = $this->pgpPrettyKey($key);
-        } catch (Horde_Crypt_Exception $e) {
-            Horde::log($e, 'INFO');
-            $key_info = $e->getMessage();
-        }
-
-        $this->textWindowOutput('PGP Key Information', $key_info);
-    }
-
-    /**
-     * Output text in a window.
-     *
-     * @param string $name  The window name.
-     * @param string $msg   The text contents.
-     */
-    public function textWindowOutput($name, $msg)
-    {
-        $GLOBALS['browser']->downloadHeaders($name, 'text/plain; charset=' . 'UTF-8', true, strlen($msg));
-        echo $msg;
-    }
-
-    /**
-     * Generate import key dialog.
-     *
-     * @param string $target  Action ID for the UI screen.
-     * @param string $reload  The reload cache value.
-     */
-    public function importKeyDialog($target, $reload)
-    {
-        global $notification, $page_output, $registry;
-
-        $page_output->topbar = $page_output->sidebar = false;
-
-        $page_output->addInlineScript(array(
-            '$$("INPUT.horde-cancel").first().observe("click", function() { window.close(); })'
-        ), true);
-
-        IMP::header(_("Import PGP Key"));
-
-        /* Need to use regular status notification - AJAX notifications won't
-         * show in popup windows. */
-        if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC) {
-            $notification->detach('status');
-            $notification->attach('status');
-        }
-        IMP::status();
-
-        $view = new Horde_View(array(
-            'templatePath' => IMP_TEMPLATES . '/pgp'
-        ));
-        $view->addHelper('Text');
-
-        $view->forminput = Horde_Util::formInput();
-        $view->reload = $reload;
-        $view->selfurl = Horde::url('pgp.php');
-        $view->target = $target;
-
-        echo $view->render('import_key');
-
-        $page_output->footer();
-    }
-
-    /**
-     * Reload the window.
-     *
-     * @param string $reload  The reload cache value.
-     */
-    public function reloadWindow($reload)
-    {
-        global $session;
-
-        $href = $session->retrieve($reload);
-        $session->purge($reload);
-
-        echo Horde::wrapInlineScript(array(
-            'opener.focus();'.
-            'opener.location.href="' . $href . '";',
-            'window.close();'
-        ));
-    }
-
     /**
      * Extracts public/private keys from armor data.
      *
@@ -751,6 +660,12 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
                 }
                 break;
             }
+        }
+
+        if (!empty($out['private']) &&
+            empty($out['public']) &&
+            $res = $this->getPublicKeyFromPrivateKey(reset($out['private']))) {
+            $out['public'][] = $res;
         }
 
         return $out;

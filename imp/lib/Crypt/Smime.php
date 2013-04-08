@@ -209,7 +209,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             }
         } catch (Horde_Exception_HookNotSet $e) {}
 
-        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
 
         try {
             $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
@@ -238,7 +238,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function listPublicKeys()
     {
-        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
 
         return empty($params['sources'])
             ? array()
@@ -254,7 +254,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function deletePublicKey($email)
     {
-        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
         $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 
@@ -456,115 +456,6 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             : $GLOBALS['conf']['openssl']['path'];
 
         return parent::extractSignedContents($data, $sslpath);
-    }
-
-    /* UI related functions. */
-
-    /**
-     * Print certificate information.
-     *
-     * @param string $cert  The S/MIME certificate.
-     */
-    public function printCertInfo($cert = '')
-    {
-        $cert_info = $this->certToHTML($cert);
-
-        if (empty($cert_info)) {
-            $this->textWindowOutput('S/MIME Key Information', _("Invalid key"));
-        } else {
-            $this->textWindowOutput('S/MIME Key Information', $cert_info, true);
-        }
-    }
-
-    /**
-     * Output text in a window.
-     *
-     * @param string $name  The window name.
-     * @param string $msg   The text contents.
-     * @param string $html  $msg is HTML format?
-     */
-    public function textWindowOutput($name, $msg, $html = false)
-    {
-        $GLOBALS['browser']->downloadHeaders($name, $html ? 'text/html' : 'text/plain; charset=' . 'UTF-8', true, strlen($msg));
-        echo $msg;
-    }
-
-    /**
-     * Generate import key dialog.
-     *
-     * @param string $target  Action ID for the UI screen.
-     * @param string $reload  The reload cache value.
-     */
-    public function importKeyDialog($target, $reload)
-    {
-        global $notification, $page_output, $registry;
-
-        $page_output->topbar = $page_output->sidebar = false;
-
-        $page_output->addInlineScript(array(
-            '$$("INPUT.horde-cancel").first().observe("click", function() { window.close(); })'
-        ), true);
-
-        IMP::header(_("Import Personal S/MIME Certificate"));
-
-        /* Need to use regular status notification - AJAX notifications won't
-         * show in popup windows. */
-        if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC) {
-            $notification->detach('status');
-            $notification->attach('status');
-        }
-        IMP::status();
-
-        $view = new Horde_View(array(
-            'templatePath' => IMP_TEMPLATES . '/smime'
-        ));
-        $view->addHelper('Text');
-
-        $view->forminput = Horde_Util::formInput();
-        $view->reload = $reload;
-        $view->selfurl = Horde::url('smime.php');
-        $view->target = $target;
-
-        echo $view->render('import_key');
-
-        $page_output->footer();
-    }
-
-    /**
-     * Attempt to import a key from form/uploaded data.
-     *
-     * @param string $key  Key string.
-     *
-     * @return string  The key contents.
-     * @throws Horde_Browser_Exception
-     */
-    public function getImportKey($key)
-    {
-        if (!empty($key)) {
-            return $key;
-        }
-
-        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
-        return file_get_contents($_FILES['upload_key']['tmp_name']);
-    }
-
-    /**
-     * Reload the window.
-     *
-     * @param string $reload  The reload cache value.
-     */
-    public function reloadWindow($reload)
-    {
-        global $session;
-
-        $href = $session->retrieve($reload);
-        $session->purge($reload);
-
-        echo Horde::wrapInlineScript(array(
-            'opener.focus();',
-            'opener.location.href="' . $href . '";',
-            'window.close();'
-        ));
     }
 
 }

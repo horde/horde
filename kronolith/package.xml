@@ -22,19 +22,20 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-20</date>
- <time>00:20:27</time>
+ <date>2013-04-08</date>
+ <time>16:40:58</time>
  <version>
-  <release>4.1.0</release>
-  <api>4.0.0</api>
+  <release>4.1.0beta1</release>
+  <api>4.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * [jan] Use Horde_Dav for accessing remote calendars.
+* [mjr] Expose Kronolith_FreeBusy::get() via the external API.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -756,6 +757,12 @@
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
+    <dir name="webcenter">
+     <dir name="dynamic">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/webcenter/dynamic -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/webcenter -->
     </dir> <!-- /themes -->
    <file name="add.php" role="horde" />
    <file name="attend.php" role="horde" />
@@ -1038,7 +1045,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.4.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1506,6 +1513,8 @@
    <install as="kronolith/week.php" name="week.php" />
    <install as="kronolith/workweek.php" name="workweek.php" />
    <install as="kronolith/year.php" name="year.php" />
+   <install as="kronolith/themes/webcenter/screen.css" name="themes/webcenter/screen.css" />
+   <install as="kronolith/themes/webcenter/dynamic/screen.css" name="themes/webcenter/dynamic/screen.css" />
   </filelist>
  </phprelease>
  <changelog>
@@ -2101,16 +2110,20 @@
    </notes>
   </release>
   <release>
+   <date>2013-04-08</date>
+   <time>16:40:30</time>
    <version>
-    <release>4.1.0</release>
-    <api>4.0.0</api></version>
+    <release>4.1.0beta1</release>
+    <api>4.1.0</api>
+   </version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-02-20</date>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Use Horde_Dav for accessing remote calendars.
+* [mjr] Expose Kronolith_FreeBusy::get() via the external API.
    </notes>
   </release>
  </changelog>

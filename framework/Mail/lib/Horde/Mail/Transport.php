@@ -163,8 +163,9 @@ abstract class Horde_Mail_Transport
      * addresses (forward paths) that can be passed to sendmail or an SMTP
      * server with the 'RCPT TO:' command.
      *
-     * @param mixed  Either a comma-separated list of recipients (RFC822
-     *               compliant), or an array of recipients, each RFC822 valid.
+     * @param mixed $recipients  Either a comma-separated list of recipients
+     *                           (RFC822 compliant), or an array of
+     *                           recipients, each RFC822 valid.
      *
      * @return array  Forward paths (bare addresses, IDN encoded).
      * @throws Horde_Mail_Exception

@@ -1,16 +1,24 @@
 <?php
 /**
- * Special prefs handling for the 'searchesmanagement' preference.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Special prefs handling for the 'searchesmanagement' preference.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
 {
@@ -24,7 +32,7 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output, $prefs, $registry;
+        global $injector, $page_output, $prefs;
 
         $page_output->addScriptFile('hordecore.js', 'horde');
         $page_output->addScriptFile('searchesprefs.js');
@@ -49,7 +57,7 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
 
             $editable = !$vfolder_locked && $imp_search->isVFolder($val, true);
             $m_url = $val->enabled
-                ? $val->mbox_ob->url('mailbox.php')->link()
+                ? $val->mbox_ob->url('mailbox')->link()
                 : null;
 
             $vout[] = array(

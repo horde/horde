@@ -114,7 +114,7 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
      */
     protected function _getHordeImageOb($load)
     {
-        if (!$GLOBALS['conf']['image']['driver']) {
+        if (!$this->getConfigParam('thumbnails')) {
             return false;
         }
 

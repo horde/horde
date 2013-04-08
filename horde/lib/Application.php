@@ -10,7 +10,10 @@
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @package Horde
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
  */
 
 /* Load the Horde Framework core (needed to autoload
@@ -21,7 +24,7 @@ class Horde_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '5.0.5-git';
+    public $version = '5.1.0-git';
 
     /**
      */
@@ -126,7 +129,7 @@ class Horde_Application extends Horde_Registry_Application
                 'Cloudmade' => 'CloudMade',
                 // @TODO: API has evidently changed somewhat. Disable until
                 // I can get an API key to fully test.
-                //'Mytopo' => 'MyTopo',
+                'Mytopo' => 'MyTopo',
                 'Osm' => 'OpenStreetMap',
                 'Ocm' => 'OpenCycleMap',
                 'Mapquest' => 'OpenMapquest'

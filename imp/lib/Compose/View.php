@@ -35,7 +35,7 @@ class IMP_Compose_View
     public function composeAttachPreview($id, $autodetect = false,
                                          $ctype = null)
     {
-        if (!$mime = $this->_compose->buildAttachment($id)) {
+        if (!$mime = $this->_compose[$id]->getPart(true)) {
             $e = new IMP_Exception(_("Could not display attachment data."));
             $e->logged = true;
             throw $e;

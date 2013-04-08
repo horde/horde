@@ -73,13 +73,6 @@ abstract class Horde_ActiveSync_Request_Base
     protected $_provisioning;
 
     /**
-     * The ActiveSync Version
-     *
-     * @var float
-     */
-    protected $_version;
-
-    /**
      * Used to track what error code to send back to PIM on failure
      *
      * @var integer
@@ -103,7 +96,7 @@ abstract class Horde_ActiveSync_Request_Base
     /**
      * The device info
      *
-     * @var stdClass
+     * @var Horde_ActiveSync_Device
      */
     protected $_device;
 
@@ -117,8 +110,8 @@ abstract class Horde_ActiveSync_Request_Base
     /**
      * Const'r
      *
-     * @param Horde_ActiveSync $as                       The ActiveSync server.
-     * @param stdClass $device                           The device descriptor.
+     * @param Horde_ActiveSync $as             The ActiveSync server.
+     * @param Horde_ActiveSync_Device $device  The device descriptor.
      *
      * @return Horde_ActiveSync_Request_Base
      */
@@ -151,13 +144,15 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Ensure the PIM's policy key is current.
+     * Ensure the client's policy key is current.
      *
-     * @param string $sentKey  The policykey sent to us by the PIM
+     * @param string $sentKey      The policykey sent to us by the client
+     * @param string $requestType  The type of request we are handling. A
+     *                             Horde_ActiveSync constant.
      *
      * @return boolean
      */
-    public function checkPolicyKey($sentKey)
+    public function checkPolicyKey($sentKey, $requestType = null)
     {
         $this->_logger->debug(sprintf(
             '[%s] Checking policykey for device: %s user: %s',
@@ -166,27 +161,51 @@ abstract class Horde_ActiveSync_Request_Base
             $this->_driver->getUser()));
 
         // Use looseprovisioning?
-        if (empty($sentKey) && $this->_hasBrokenProvisioning() &&
+        if (empty($sentKey) && !$this->_device->enforceProvisioning() &&
             $this->_provisioning == Horde_ActiveSync::PROVISIONING_LOOSE) {
             $sentKey = null;
         }
 
         // Don't attempt if we don't care
         if ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_NONE) {
+            // Get the stored key
             $storedKey = $this->_stateDriver->getPolicyKey($this->_device->id);
             $this->_logger->debug('[' . $this->_device->id . '] Stored key: ' . $storedKey);
 
-            // Loose provsioning should allow a blank key
-            if ((empty($storedKey) || $storedKey != $sentKey) &&
-               ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_LOOSE ||
-               ($this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
+            // Did we request a remote wipe?
+            if ($this->_stateDriver->getDeviceRWStatus($this->_device->id) == Horde_ActiveSync::RWSTATUS_PENDING) {
+                $this->_requireProvisionWbxml($requestType, Horde_ActiveSync_Status::REMOTEWIPE_REQUESTED);
+                return false;
+            }
 
+            // Validate the stored key against the device key, honoring
+            // the value of _provisioning.
+            if ((empty($storedKey) || $storedKey != $sentKey) &&
+               ($this->_provisioning != Horde_ActiveSync::PROVISIONING_LOOSE ||
+               ($this->_provisioning == Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
+
+                // We send the headers AND the WBXML if EAS 12.1+ since some
+                // devices report EAS 14.1 but don't accept the WBXML.
                 $this->_activeSync->provisioningRequired();
+                if ($this->_device->version > Horde_ActiveSync::VERSION_TWELVEONE) {
+                    // Read the input stream and discard.
+                    while (!feof($this->_decoder->getStream())) {
+                        fread($this->_decoder->getStream(), 8192);
+                    }
+                    if (empty($sentKey)) {
+                        $status = Horde_ActiveSync_Status::DEVICE_NOT_PROVISIONED;
+                    } else {
+                        $status = Horde_ActiveSync_Status::INVALID_POLICY_KEY;
+                    }
+                    $this->_requireProvisionWbxml($requestType, Horde_ActiveSync_Status::DEVICE_NOT_PROVISIONED);
+                }
+
                 return false;
             }
         }
-        $this->_logger->debug('Policykey: ' . $sentKey . ' verified.');
 
+        // Either successfully validated, or we didn't care enough to check.
+        $this->_logger->debug('Policykey: ' . $sentKey . ' verified.');
         return true;
     }
 
@@ -207,11 +226,10 @@ abstract class Horde_ActiveSync_Request_Base
      */
     public function handle()
     {
-        $this->_version = $this->_activeSync->getProtocolVersion();
         $this->_logger->info(sprintf(
             'Request being handled for device: %s Supporting protocol version: %s',
             $this->_device->id,
-            $this->_version)
+            $this->_device->version)
         );
 
         try {
@@ -223,20 +241,13 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Implementation method for handling request.
-     *
-     * @return string|boolean  Content-Type of results if not wbxml, or boolean.
-     */
-    abstract protected function _handle();
-
-    /**
      * Simple factory for the Sync object.
      *
      * @return Horde_ActiveSync_Sync
      */
     protected function _getSyncObject()
     {
-        $sync = new Horde_ActiveSync_Sync($this->_driver);
+        $sync = new Horde_ActiveSync_Sync($this->_driver, $this->_device);
         $sync->setLogger($this->_logger);
 
         return $sync;
@@ -254,45 +265,9 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Utility function to help determine if a device has broken provisioning.
-     * This is impossible to get 100% right since versions of Android that
-     * are broken and versions that are not both use the same User-Agent string
-     * (Android/0.3 for both 2.1, 2.2 and even 2.3). We err on the side
-     * of device compatibility at the expense of not being able to provision
-     * some non-broken android devices when provisioning is set to
-     * Horde_ActiveSync::PROVISIONING_LOOSE.
-     *
-     * @TODO This should be added to a device object, once we implement
-     * Horde_ActiveSync_Device API.
-     *
-     * @return boolean
-     */
-    protected function _hasBrokenProvisioning()
-    {
-        if (strpos($this->_device->userAgent, 'Android') !== false) {
-            if (preg_match('@EAS[/-]{0,1}([.0-9]{2,})@', $this->_device->userAgent, $matches)) {
-                return ($matches[1] < 1.2);
-            }
-            return true;
-        }
-
-        // WP7 not only doesn't support all EAS 2.5 security poliices, it flat
-        // out refuses to notify the server of a partial acceptance and just
-        // completely fails.
-        if (strpos($this->_device->userAgent, 'MSFT-WP/7') !== false) {
-            return true;
-        }
-
-        // Not an android device - enforce provisioning if needed.
-        return false;
-    }
-
-    /**
      * Clean up after initial pairing. Initial pairing can happen either as a
      * result of either a FOLDERSYNC or PROVISION command, depending on the
      * device capabilities.
-     *
-     * @TODO Move this to a device object??
      */
     protected function _cleanUpAfterPairing()
     {
@@ -305,5 +280,28 @@ abstract class Horde_ActiveSync_Request_Base
             $this->_stateDriver->removeState(array('devId' => 'validate'));
         }
     }
+
+    /**
+     * Send WBXML to indicate provisioning is required.
+     *
+     * @param string $requestType  The type of request we are handling.
+     * @param integer $status      The reason we need to provision.
+     */
+    protected function _requireProvisionWbxml($requestType, $status)
+    {
+        $this->_encoder->startWBXML();
+        $this->_encoder->startTag($requestType);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+        $this->_encoder->content($status);
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
+    }
+
+    /**
+     * Implementation method for handling request.
+     *
+     * @return string|boolean  Content-Type of results if not wbxml, or boolean.
+     */
+    abstract protected function _handle();
 
 }

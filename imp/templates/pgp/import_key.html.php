@@ -1,7 +1,6 @@
 <form enctype="multipart/form-data" method="post" name="import_pgp_key" action="<?php echo $this->selfurl ?>">
  <input type="hidden" name="reload" value="<?php echo $this->h($this->reload) ?>" />
  <input type="hidden" name="actionID" value="<?php echo $this->target ?>" />
- <?php echo $this->formInput ?>
 
  <table class="importKeyTable">
   <tr>
@@ -9,7 +8,7 @@
 <?php if ($this->target == 'process_import_public_key'): ?>
     <?php echo _("Import Public PGP Key") ?>
 <?php elseif ($this->target == 'process_import_personal_key'): ?>
-    <?php echo _("Import Personal Keys") ?>
+    <?php echo _("Import Personal Key") ?>
 <?php endif; ?>
    </td>
   </tr>
@@ -19,7 +18,7 @@
 <?php if ($this->target == 'process_import_public_key'): ?>
     <?php echo _("Paste PGP public keys into the textarea, upload a file containing PGP public keys, or combine both methods. Multiple keys are supported.") ?>
 <?php elseif ($this->target == 'process_import_personal_key'): ?>
-    <?php echo _("Paste your PGP public and private key into the textarea, upload a file containing your keys, or combine both methods. The first public key and private key recognized in the input will be used as your personal keys.") ?>
+    <?php echo _("Paste your PGP private key into the textarea or upload a file containing your key.") ?>
 <?php endif; ?>
    </td>
   </tr>
@@ -32,7 +31,7 @@
 <?php if ($this->target == 'process_import_public_key'): ?>
        <?php echo _("Import Public Key") ?>:
 <?php elseif ($this->target == 'process_import_personal_key'): ?>
-       <?php echo _("Import Personal Keys") ?>:
+       <?php echo _("Import Personal Key") ?>:
 <?php endif; ?>
       </label></td>
      </tr>

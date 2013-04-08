@@ -41,7 +41,7 @@ class IMP_LoginTasks_Task_Autocreate extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
-        $this->active = !empty($GLOBALS['conf']['user']['autocreate_special']);
+        $this->active = $GLOBALS['injector']->getInstance('IMP_Imap')->config->autocreate_special;
     }
 
     /**

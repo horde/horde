@@ -2,8 +2,9 @@
 
 <div><?php echo _("Menu") ?></div>
 
-<ul class="mimpMenu">
+<ol class="mimpMenu">
+<?php $i = 0; ?>
 <?php foreach ($this->menu as $val): ?>
- <li><a href="<?php echo $val[1] ?>"><?php echo $this->h($val[0]) ?></a></li>
+ <li><a accesskey="<?php echo ++$i ?>" href="<?php echo $val[1] ?>"><?php echo $this->h($val[0]) ?></a></li>
 <?php endforeach; ?>
 </ul>

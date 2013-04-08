@@ -55,6 +55,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     public $multipart;
 
+    protected $_lastWasEmpty = false;
+
     /**
      * Const'r
      *
@@ -120,7 +122,6 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         if (!$output_empty) {
             $stackelem['tag'] = $tag;
             $stackelem['attributes'] = $attributes;
-            $stackelem['nocontent'] = $output_empty;
             $stackelem['sent'] = false;
             $this->_stack[] = $stackelem;
         } else {
@@ -233,12 +234,11 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _outputStack()
     {
-        for ($i=0; $i < count($this->_stack); $i++) {
+        for ($i = 0; $i < count($this->_stack); $i++) {
             if (!$this->_stack[$i]['sent']) {
                 $this->_startTag(
                     $this->_stack[$i]['tag'],
-                    $this->_stack[$i]['attributes'],
-                    $this->_stack[$i]['nocontent']);
+                    $this->_stack[$i]['attributes']);
                 $this->_stack[$i]['sent'] = true;
             }
         }
@@ -253,6 +253,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _startTag($tag, $attributes = false, $output_empty = false)
     {
+        $this->_lastWasEmpty = $output_empty;
         $this->_logStartTag($tag, $attributes, $output_empty);
         $mapping = $this->_getMapping($tag);
         if (!$mapping) {
@@ -269,7 +270,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         $code = $mapping['code'];
         if (isset($attributes) && is_array($attributes) && count($attributes) > 0) {
             $code |= 0x80;
-        } elseif (!isset($output_empty) || !$output_empty) {
+        } elseif (!$output_empty) {
             $code |= 0x40;
         }
         $this->_outByte($code);
@@ -290,7 +291,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         } else {
             $this->_logContent('[STREAM]');
         }
-        $this->_outByte(Horde_ActiveSync_Wbxml::STR_I);
+        $this->_outByte(self::STR_I);
         $this->_outTermStr($content);
     }
 
@@ -300,7 +301,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _endTag() {
         $this->_logEndTag();
-        $this->_outByte(Horde_ActiveSync_Wbxml::END);
+        $this->_outByte(self::END);
     }
 
     /**
@@ -359,7 +360,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         // to build a string table before sending the data (but we can't
         // because we're streaming), so we'll just send an END, which just
         // terminates the attribute list with 0 attributes.
-        $this->_outByte(Horde_ActiveSync_Wbxml::END);
+        $this->_outByte(self::END);
     }
 
     /**
@@ -369,7 +370,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _outSwitchPage($page)
     {
-        $this->_outByte(Horde_ActiveSync_Wbxml::SWITCH_PAGE);
+        $this->_outByte(self::SWITCH_PAGE);
         $this->_outByte($page);
     }
 
@@ -460,6 +461,10 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _logEndTag()
     {
+        if ($this->_lastWasEmpty) {
+            $this->_lastWasEmpty = false;
+            return;
+        }
         $spaces = str_repeat(' ', count($this->_logStack) - 1);
         $tag = array_pop($this->_logStack);
         $this->_logger->debug(sprintf(

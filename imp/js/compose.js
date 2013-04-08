@@ -1,31 +1,35 @@
 /**
- * Provides the javascript for the compose.php script (standard view).
+ * Provides the javascript for the basic view compose page.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var ImpCompose = {
-    // Variables defined in compose.php:
+
+    // Variables defined in PHP code:
     //   cancel_url, cursor_pos, editor_wait, last_msg, max_attachments,
     //   popup, redirect, reloaded, sc_submit, sm_check, skip_spellcheck,
     //   spellcheck, text
-    display_unload_warning: true,
 
-    confirmCancel: function(e)
+    display_unload_warning: true,
+    seed: 3,
+
+    confirmCancel: function(discard, e)
     {
         e.stop();
 
         if (window.confirm(this.text.cancel)) {
             this.display_unload_warning = false;
+
             if (this.popup) {
                 if (this.cancel_url) {
-                    self.location = this.cancel_url;
+                    self.location = this.cancel_url + '&actionID=' + (discard ? 'discard_compose' : 'cancel_compose');
                 } else {
                     self.close();
                 }
             } else {
-                window.location = this.cancel_url;
+                window.location = this.cancel_url + '&actionID=' + (discard ? 'discard_compose' : 'cancel_compose');
             }
         }
     },
@@ -81,7 +85,7 @@ var ImpCompose = {
 
         switch (actionID) {
         case 'redirect':
-            if ($F('to') == '') {
+            if ($F('to').empty()) {
                 alert(this.text.recipient);
                 $('to').focus();
                 return;
@@ -102,7 +106,7 @@ var ImpCompose = {
                 return;
             }
 
-            if (($F('subject') == '') &&
+            if ($F('subject').empty() &&
                 !window.confirm(this.text.nosubject)) {
                 return;
             }
@@ -112,7 +116,6 @@ var ImpCompose = {
             if (sc) {
                 sc.resume();
             }
-
             // fall through
 
         case 'add_attachment':
@@ -131,7 +134,7 @@ var ImpCompose = {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
 
-            cur_msg = MD5.hash($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0') + $F('composeMessage'));
+            cur_msg = murmurhash3($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0') + $F('composeMessage'), this.seed);
             if (this.last_msg && curr_hash != this.last_msg) {
                 // Use an AJAX submit here so that the page doesn't reload.
                 $('actionID').setValue(actionID);
@@ -193,7 +196,7 @@ var ImpCompose = {
         if (usedFields == fields.length) {
             lastRow = $('attachment_row_' + usedFields);
             if (lastRow) {
-                td = new Element('TD', { align: 'left' }).insert(new Element('STRONG').insert(this.text.file + ' ' + (usedFields + 1) + ':')).insert('&nbsp;')
+                td = new Element('TD', { align: 'left' }).insert(new Element('STRONG').insert(this.text.file + ' ' + (usedFields + 1) + ':')).insert('&nbsp;');
 
                 input = new Element('INPUT', { type: 'file', id: 'upload_' + (usedFields + 1), name: 'upload_' + (usedFields + 1), size: 25 });
                 if (Prototype.Browser.IE) {
@@ -243,7 +246,8 @@ var ImpCompose = {
                     break;
 
                 case 'btn_cancel_compose':
-                    this.confirmCancel(e.memo);
+                case 'btn_discard_compose':
+                    this.confirmCancel(name == 'btn_discard_compose', e.memo);
                     break;
                 }
             }

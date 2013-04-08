@@ -34,7 +34,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_Base
+class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_SyncBase
 {
     const ITEMOPERATIONS_ITEMOPERATIONS     = 'ItemOperations:ItemOperations';
     const ITEMOPERATIONS_FETCH              = 'ItemOperations:Fetch';
@@ -53,6 +53,12 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
     const ITEMOPERATIONS_DELETESUBFOLDERS   = 'ItemOperations:DeleteSubFolders';
     const ITEMOPERATIONS_USERNAME           = 'ItemOperations:UserName';
     const ITEMOPERATIONS_PASSWORD           = 'ItemOperations:Password';
+
+    // 14.0
+    const ITEMOPERATIONS_MOVE               = 'ItemOperations:Move';
+    const ITEMOPERATIONS_DSTFLDID           = 'ItemOperations:DstFldId';
+    const ITEMOPERATIONS_CONVERSATIONID     = 'ItemOperations:ConversationId';
+    const ITEMOPERATIONS_MOVEALWAYS         = 'ItemOperations:MoveAlways';
 
     /* Status */
     const STATUS_SUCCESS         = 1;
@@ -108,7 +114,8 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                     if ($reqtag == self::ITEMOPERATIONS_OPTIONS) {
                         while (($thisoption = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT) ? Horde_ActiveSync::SYNC_MIMESUPPORT :
                                ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE :
-                               -1))) != -1) {
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE :
+                               -1)))) != -1) {
 
                             switch ($thisoption) {
                             case Horde_ActiveSync::SYNC_MIMESUPPORT:
@@ -116,39 +123,13 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                                 $this->_decoder->getElementEndTag();
                                 break;
                             case Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE:
-                                $bodypreference = array();
-                                while(1) {
-                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
-                                        $bodypreference['type'] = $this->_decoder->getElementContent();
-                                        if (!$this->_decoder->getElementEndTag()) {
-                                            throw new Horde_ActiveSync_Exception('Protocol Error');
-                                        }
-                                    }
-                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
-                                        $bodypreference['truncationsize'] = $this->_decoder->getElementContent();
-                                        if (!$this->_decoder->getElementEndTag()) {
-                                            throw new Horde_ActiveSync_Exception('Protocol Error');
-                                        }
-                                    }
-                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_ALLORNONE)) {
-                                        $bodypreference['allornone'] = $this->_decoder->getElementContent();
-                                        if (!$this->_decoder->getElementEndTag()) {
-                                            throw new Horde_ActiveSync_Exception('Protocol Error');
-                                        }
-                                    }
-
-                                    $e = $this->_decoder->peek();
-                                    if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
-                                        $this->_decoder->getElementEndTag();
-                                        if (!isset($thisio['bodyprefs']['wanted'])) {
-                                            $thisio['bodyprefs']['wanted'] = $bodypreference['type'];
-                                        }
-                                        if (isset($bodypreference['type'])) {
-                                            $thisio['bodyprefs'][$bodypreference['type']] = $bodypreference;
-                                        }
-                                        break;
-                                    }
-                                }
+                                $this->_bodyPrefs($thisio);
+                                break;
+                            case Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE:
+                                $this->_bodyPartPrefs($thisio);
+                                break;
+                            case Horde_ActiveSync::RM_SUPPORT:
+                                $this->_rightsManagement($thisio);
                                 break;
                             }
                         }
@@ -300,6 +281,15 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
         } else {
             return strlen(bin2hex($data)) / 2;
         }
+    }
+
+    protected function _handleError(array $data, $error)
+    {
+        $this->_decoder->getElementEndTag(); // end SYNC_ITEMOPERATIONS_ITEMOPERATIONS
+        $this->_encoder->startWBXML($this->_activeSync->multipart);
+        $this->_encoder->startTag(self::ITEMOPERATIONS_ITEMOPERATIONS);
+        $this->_outputStatus();
+        $this->_encoder->endTag();
     }
 
 }

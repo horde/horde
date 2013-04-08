@@ -59,7 +59,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
         $datetime = new DateTime();
         $now = $datetime->format($date_format);
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         foreach ($this->_getSentmail() as $sent) {
             /* Display a message to the user and rename the mailbox.

@@ -118,13 +118,12 @@ class Horde_ActiveSync_Message_Base
         if (!empty($options['protocolversion'])) {
             $this->_version = $options['protocolversion'];
         }
-
     }
 
     /**
      * Return the EAS version this object supports.
      *
-     * @return float  The EAS version (2.5, 12, or 12.1).
+     * @return float  A Horde_ActiveSync::VERSION_* constant.
      */
     public function getProtocolVersion()
     {
@@ -420,9 +419,8 @@ class Horde_ActiveSync_Message_Base
                           // Do not output empty items except for the following:
                           if ($this->_checkSendEmpty($tag)) {
                               $encoder->startTag($tag, $this->$map[self::KEY_ATTRIBUTE], true);
-                          } else {
-                            continue;
                           }
+                          continue;
                     } elseif ($encoder->multipart &&
                               in_array($tag, array(
                                 Horde_ActiveSync::SYNC_DATA,
@@ -435,9 +433,9 @@ class Horde_ActiveSync_Message_Base
                         $encoder->content((string)(count($encoder->getParts()) - 1));
                         $encoder->endTag();
                         continue;
-                    } else {
-                        $encoder->startTag($tag);
                     }
+
+                    $encoder->startTag($tag);
                     if (isset($map[self::KEY_TYPE]) && ($map[self::KEY_TYPE] == self::TYPE_DATE || $map[self::KEY_TYPE] == self::TYPE_DATE_DASHES)) {
                         if (!empty($this->$map[self::KEY_ATTRIBUTE])) { // don't output 1-1-1970
                             $encoder->content(self::_formatDate($this->$map[self::KEY_ATTRIBUTE], $map[self::KEY_TYPE]));

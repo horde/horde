@@ -18,6 +18,7 @@
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @copyright  2012-2013 Horde LLC
+ * @ignore
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
  * @subpackage UnitTests

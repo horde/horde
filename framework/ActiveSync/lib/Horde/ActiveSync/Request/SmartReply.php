@@ -36,7 +36,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Request_SmartReply extends Horde_ActiveSync_Request_Base
+class Horde_ActiveSync_Request_SmartReply extends Horde_ActiveSync_Request_SendMail
 {
     /**
      * Handle request
@@ -45,6 +45,10 @@ class Horde_ActiveSync_Request_SmartReply extends Horde_ActiveSync_Request_Base
      */
     protected function _handle()
     {
+        if ($this->_decoder->isWbxml()) {
+            return $this->_handleWbxmlRequest();
+        }
+
         // Smart reply should add the original message to the end of the message body
         $rfc822 = file_get_contents('php://input');
         $get = $this->_activeSync->getGetVars();
@@ -60,7 +64,20 @@ class Horde_ActiveSync_Request_SmartReply extends Horde_ActiveSync_Request_Base
             $parent = $get['CollectionId'];
         }
 
-        return $this->_driver->sendMail($rfc822, false, $orig, $parent);
+        try {
+            return $this->_driver->sendMail($rfc822, false, $orig, $parent);
+        } catch (Horde_Exception_NotFound $e) {
+            $this->_logger->err($e->getMessage());
+            $this->_handleError(
+                Horde_ActiveSync_Status::ITEM_NOT_FOUND,
+                Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTREPLY);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_handleError(
+                Horde_ActiveSync_Status::MAIL_REPLY_FAILED,
+                Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTREPLY);
+        }
+
+        return true;
     }
 
 }

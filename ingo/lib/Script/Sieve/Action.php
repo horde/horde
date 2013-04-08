@@ -1,20 +1,29 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Action class represents an action in a Sieve script.
- *
- * An action is anything that has a side effect eg: discard, redirect.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Sieve_Action
+
+/**
+ * The Ingo_Script_Sieve_Action class represents an action in a Sieve script.
+ *
+ * An action is anything that has a side effect eg: discard, redirect.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+abstract class Ingo_Script_Sieve_Action implements Ingo_Script_Item
 {
     /**
      * Any necessary action parameters.
@@ -28,15 +37,7 @@ class Ingo_Script_Sieve_Action
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
-    {
-        return 'toCode() Function Not Implemented in class ' . get_class($this) ;
-    }
-
-    public function toString()
-    {
-        return $this->toCode();
-    }
+    abstract public function generate();
 
     /**
      * Checks if the rule parameters are valid.
@@ -44,10 +45,7 @@ class Ingo_Script_Sieve_Action
      * @return boolean|string  True if this rule is valid, an error message
      *                         otherwise.
      */
-    public function check()
-    {
-        return 'check() Function Not Implemented in class ' . get_class($this) ;
-    }
+    abstract public function check();
 
     /**
      * Returns a list of sieve extensions required for this rule and any
@@ -59,5 +57,4 @@ class Ingo_Script_Sieve_Action
     {
         return array();
     }
-
 }

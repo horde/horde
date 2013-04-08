@@ -29,6 +29,143 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading IMP From 6.0.x To 6.1
+===============================
+
+Server Options (backends.php)
+-----------------------------
+
+Sorting on non-IMAP servers, or IMAP servers that do not support the SORT
+extension, has been disabled by default in IMP 6.1. To restore the old
+behavior (NOT RECOMMENDED), see the 'sort_force' option in
+``config/backends.local.php``.
+
+The 'debug' option has been added to the SMTP configuration.
+
+
+Configuration Options (conf.php)
+--------------------------------
+
+The $conf['user']['allow_folders'] option has been removed. This can now be
+set per-backend using the Horde permissions system.
+
+The $conf['server']['fixed_folders'] option has been removed. Preventing
+actions on a specific mailbox can be controlled via native IMAP ACLs or,
+alternatively, by the 'mbox_acl' hook.
+
+The $conf['user']['autocreate_special'] option has been removed. This can now
+be set on a per-backend basis in ``config/backends.local.php``
+('autocreate_special' option).
+
+The $conf['msgsettings']['filtering'] and $conf['msgsettings']['replacement']
+options have been removed. This feature has been moved to the 'msg_filter'
+hook.
+
+The following spam-reporting options have been removed and can now be
+configured per-backend in ``config/backends.local.php``::
+
+   $conf['notspam']['email']
+   $conf['notspam']['email_format']
+   $conf['notspam']['program']
+   $conf['notspam']['reporting']
+   $conf['notspam']['spamfolder']
+   $conf['spam']['email']
+   $conf['spam']['email_format']
+   $conf['spam']['program']
+   $conf['spam']['reporting']
+   $conf['spam']['spamfolder']
+
+The following options have been added::
+
+   $conf['pgp']['keylength']
+
+The following options have been removed::
+
+   $conf['compose']['link_all_attachments']
+
+
+Hooks (hooks.php)
+-----------------
+
+The 'attach_body_check' hook has been added. This hook handles the attachment
+word checking code that previously was provided as an example in the
+'pre_sent' hook.
+
+The 'compose_attach' hook has been removed and replaced by the
+'compose_attachment' hook. Both hooks are designed for the same purpose;
+however, the arguments have been completely changed so it is safest to
+entirely deprecate usage of the previous hook.
+
+The 'mbox_readonly' hook has been removed. Mailbox permissions can instead be
+controlled via native IMAP ACLs or, alternatively, by the 'mbox_acl' hook.
+
+The 'mbox_special' hook has been removed. Additional special mailboxes can
+now be defined per-backend in ``config/backends.local.php``.
+
+The 'mailboxarray' and 'msglist_flags' hooks have been altered to remove the
+second argument ($mode). If the current view mode is needed, it can be
+obtained via a call to $GLOBALS['registry']->getView().
+
+The 'spam_email' hook has been removed. This configuration can now be defined
+per-backend in ``config/backends.local.php``.
+
+The $html argument to the 'trailer' hook has been added.
+
+The following hooks have been added::
+
+   mbox_acl
+   msg_filter
+
+The following hooks have been removed::
+
+   dimp_messageview
+   dimp_previewview
+   mimp_advanced
+   signature
+
+
+MIME Viewer Options (mime_drivers.php)
+--------------------------------------
+
+Thumbnails can now be disabled for images and PDF attachments.
+
+
+Permissions
+-----------
+
+IMP permissions are now applied per backend. To upgrade existing permissions,
+an admin needs to run the following script::
+
+   bin/imp-admin-upgrade --task=backend_perms
+
+
+Preferences (prefs.php)
+-----------------------
+
+The default values for these preferences have been changed::
+
+   request_mdn
+
+The following preferences are no longer used and may be safely removed from
+your preference backend (only after all users have logged in - these
+preferences MAY be used to automatically upgrade to new preferences when
+a user logs into IMP 6 for the first time)::
+
+   compose_bcc
+   compose_cc
+   link_attach
+
+
+API Changes
+-----------
+
+These API calls have been added::
+
+   - getMaillog
+   - getMaillogChanges
+   - logMaillog
+
+
 Upgrading IMP From 5.x To 6.x
 =============================
 
@@ -159,6 +296,14 @@ API Changes
   - searchMailbox
 
     The $mailbox parameter is now required to be a UTF-8 string.
+
+
+Compose: Linked Attachments
+---------------------------
+
+Linking attachments is no longer a user-configurable action. If enabled, ALL
+attachments are now linked unless the size of the attachment is less than
+$conf['compose']['link_attach_threshold'].
 
 
 

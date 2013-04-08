@@ -44,6 +44,14 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
     const TAG_CERTIFICATECOUNT       = 'ResolveRecipients:CertificateCount';
     const TAG_MAXSIZE                = 'ResolveRecipients:MaxSize';
     const TAG_DATA                   = 'ResolveRecipients:Data';
+    const TAG_PICTURE                = 'ResolveRecipients:Picture';
+    const TAG_MAXPICTURES            = 'ResolveRecipients:MaxPictures';
+
+    // 14
+    const TAG_AVAILABILITY           = 'ResolveRecipients:Availability';
+    const TAG_STARTTIME              = 'ResolveRecipients:StartTime';
+    const TAG_ENDTIME                = 'ResolveRecipients:EndTime';
+    const TAG_MERGEDFREEBUSY         = 'ResolveRecipients:MergedFreeBusy';
 
     /* Certificate Retrieval */
     const CERT_RETRIEVAL_NONE        = 1;
@@ -64,6 +72,13 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
     const STATUS_CERT_SUCCESS        = 1;
     const STATUS_CERT_NOCERT         = 7;
     const STATUS_LIMIT               = 8;
+
+    /* Availability Status */
+    const STATUS_AVAIL_SUCCESS       = 1;
+    const STATUS_AVAIL_MAXRECIPIENTS = 160;
+    const STATUS_AVAIL_MAXLIST       = 161;
+    const STATUS_AVAIL_TEMPFAILURE   = 162;
+    const STATUS_AVAIL_NOTFOUND      = 163;
 
     /**
      * Handle the request
@@ -92,9 +107,40 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                     ($option = ($this->_decoder->getElementStartTag(self::TAG_CERTIFICATERETRIEVAL) ? self::TAG_CERTIFICATERETRIEVAL :
                     ($this->_decoder->getElementStartTag(self::TAG_MAXCERTIFICATES) ? self::TAG_MAXCERTIFICATES :
                     ($this->_decoder->getElementStartTag(self::TAG_MAXAMBIGUOUSRECIPIENTS) ? self::TAG_MAXAMBIGUOUSRECIPIENTS :
-                    -1)))) != -1) {
+                    ($this->_decoder->getElementStartTag(self::TAG_AVAILABILITY) ? self::TAG_AVAILABILITY :
+                    -1))))) != -1) {
 
-                    $options[$option] = $this->_decoder->getElementContent();
+                    if ($option == self::TAG_AVAILABILITY) {
+                        $options[self::TAG_AVAILABILITY] = true;
+                        while ($status == self::STATUS_SUCCESS &&
+                            ($tag = ($this->_decoder->getElementStartTag(self::TAG_STARTTIME) ? self::TAG_STARTTIME :
+                                ($this->_decoder->getElementStartTag(self::TAG_ENDTIME) ? self::TAG_ENDTIME :
+                                -1))) != -1) {
+                            $options[$tag] = $this->_decoder->getElementContent();
+                            if (!$this->_decoder->getElementEndTag()) {
+                                $status = self::STATUS_PROTERR;
+                            }
+                        }
+                    } else {
+                        $options[$option] = $this->_decoder->getElementContent();
+                    }
+
+                    if ($option == self::TAG_PICTURE) {
+                        $options[self::TAG_PICTURE] = true;
+                        if ($this->_decoder->getElementStartTag(self::TAG_MAXSIZE)) {
+                            $options[self::TAG_MAXSIZE] = $this->_decoder->getElementContent();
+                        }
+                        if (!$this->_decoder->getElementEndTag()) {
+                            $status = self::STATUS_PROTERR;
+                        }
+                        if ($this->_decoder->getElementStartTag(self::TAG_MAXPICTURES)) {
+                            $options[self::TAG_MAXPICTURES] = $this->_decoder->getElementContent();
+                        }
+                        if (!$this->_decoder->getElementEndTag()) {
+                                $status = self::STATUS_PROTERR;
+                        }
+                    }
+
                     if (!$this->_decoder->getElementEndTag()) {
                         $status = self::STATUS_PROTERR;
                     }
@@ -104,7 +150,6 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                 }
             } elseif ($field == self::TAG_TO) {
                 $content = $this->_decoder->getElementContent();
-                $this->_logger->debug($content);
                 $to[] = $content;
                 if (!$this->_decoder->getElementEndTag()) {
                     $status = self::STATUS_PROTERR;
@@ -112,20 +157,36 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
             }
         }
 
+        // Verify max isn't attempted.
+        if (isset($options[self::TAG_AVAILABILITY]) && count($to) > 100) {
+            // Specs say to send this, but it's defined as a child of the
+            // self::TAG_AVAILABILITY response. If we have too many recipients,
+            // we don't check the availability?? Not sure what to do with this.
+            // For now, treat it as a protocol error.
+            //$avail_status = self::STATUS_AVAIL_MAXRECIPIENTS;
+            $status = self::STATUS_PROTERR;
+        }
+
         $results = array();
-        foreach ($to as $item) {
-            if (isset($options[self::TAG_CERTIFICATERETRIEVAL])) {
-                $result = $this->_driver->resolveRecipient(
-                    'certificate',
-                    $item,
-                    array(
-                        'maxcerts' => $options[self::TAG_MAXCERTIFICATES],
-                        'maxambiguous' => $options[self::TAG_MAXAMBIGUOUSRECIPIENTS],
-                    )
+        if ($status == self::STATUS_SUCCESS) {
+            foreach ($to as $item) {
+                $driver_opts = array(
+                    'maxcerts' => !empty($options[self::TAG_MAXCERTIFICATES]) ? $options[self::TAG_MAXCERTIFICATES] : false,
+                    'maxambiguous' => !empty($options[self::TAG_MAXAMBIGUOUSRECIPIENTS]) ? $options[self::TAG_MAXAMBIGUOUSRECIPIENTS] : false,
+                    'starttime' => !empty($options[self::TAG_STARTTIME]) ? new Horde_Date($options[self::TAG_STARTTIME], 'utc') : false,
+                    'endtime' => !empty($options[self::TAG_ENDTIME]) ? new Horde_Date($options[self::TAG_ENDTIME], 'utc') : false,
+                    'pictures' => !empty($options[self::TAG_PICTURE]),
+                    'maxsize' => !empty($options[self::TAG_MAXSIZE]) ? $options[self::TAG_MAXSIZE] : false,
+                    'maxpictures' => !empty($options[self::TAG_MAXPICTURES]) ? $options[self::TAG_MAXPICTURES] : false,
                 );
-                $results[$item] = $result;
+                $results[$item] = $this->_driver->resolveRecipient(
+                    isset($options[self::TAG_CERTIFICATERETRIEVAL]) ? 'certificate' : 'availability',
+                    $item,
+                    $driver_opts
+                );
             }
         }
+
 
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(self::TAG_RESOLVERECIPIENTS);
@@ -142,10 +203,10 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
             $this->_encoder->endTag();
 
             $this->_encoder->startTag(self::TAG_STATUS);
-            if (count($results[$item]) > 1) {
-                $responseStatus = self::STATUS_RESPONSE_AMBSUGG;
-            } elseif (count($results[$item]) == 0) {
+            if (empty($results[$item])) {
                 $responseStatus = self::STATUS_RESPONSE_NONE;
+            } elseif (count($results[$item]) > 1) {
+                $responseStatus = self::STATUS_RESPONSE_AMBSUGG;
             } else {
                 $responseStatus = self::STATUS_RESPONSE_SUCCESS;
             }
@@ -211,12 +272,34 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                     $this->_encoder->endTag();
                 }
 
+                if (isset($options[self::TAG_AVAILABILITY])) {
+                    $this->_encoder->startTag(self::TAG_AVAILABILITY);
+
+                    $this->_encoder->startTag(self::TAG_STATUS);
+                    $this->_encoder->content(empty($value['availability']) ? self::STATUS_AVAIL_NOTFOUND : self::STATUS_AVAIL_SUCCESS);
+                    $this->_encoder->endTag();
+
+                    if (!empty($value['availability'])) {
+                        $this->_encoder->startTag(self::TAG_MERGEDFREEBUSY);
+                        $this->_encoder->content($value['availability']);
+                        $this->_encoder->endTag();
+                    }
+                    $this->_encoder->endTag();
+                }
+
+                if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE &&
+                    isset($options[self::TAG_PICTURE]) &&
+                    !empty($value['picture'])) {
+
+                    $this->_encoder->startTag(self::TAG_PICTURE);
+                    $value['picture']->encodeStream($this->_encoder);
+                    $this->_encoder->endTag();
+                }
+
                 $this->_encoder->endTag(); // end self::TAG_RECIPIENT
             }
-
             $this->_encoder->endTag(); // end self::TAG_RESPONSE
         }
-
         $this->_encoder->endTag(); // end self::TAG_RESOLVERECIPIENTS
 
         return true;

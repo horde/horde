@@ -1,11 +1,19 @@
 <?php
 /**
- * Ingo base class.
- *
  * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo base class.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
@@ -25,6 +33,27 @@ class Ingo
      * Define the key to use to indicate a user-defined header is requested.
      */
     const USER_HEADER = '++USER_HEADER++';
+
+    /**
+     * Only filter unseen messages.
+     */
+    const FILTER_UNSEEN = 1;
+
+    /**
+     * Only filter seen messages.
+     */
+    const FILTER_SEEN = 2;
+
+    /**
+     * Constants for rule types.
+     */
+    const RULE_ALL = 0;
+    const RULE_FILTER = 1;
+    const RULE_BLACKLIST = 2;
+    const RULE_WHITELIST = 3;
+    const RULE_VACATION = 4;
+    const RULE_FORWARD = 5;
+    const RULE_SPAM = 6;
 
     /**
      * hasSharePermission() cache.
@@ -142,27 +171,28 @@ class Ingo
     }
 
     /**
-     * Connects to the backend and uploads the script and sets it active.
+     * Connects to the backend, uploads the scripts and sets them active.
      *
-     * @param string $script       The script to set active.
+     * @param array $scripts       A list of scripts to set active.
      * @param boolean $deactivate  If true, notification will identify the
      *                             script as deactivated instead of activated.
-     * @param array $additional    Any additional scripts that need to uploaded.
      *
      * @throws Ingo_Exception
      */
-    static public function activateScript($script, $deactivate = false,
-                                          $additional = array())
+    static public function activateScripts($scripts, $deactivate = false)
     {
-        try {
-            $GLOBALS['injector']
-                ->getInstance('Ingo_Transport')
-                ->setScriptActive($script, $additional);
-        } catch (Ingo_Exception $e) {
-            $msg = $deactivate
-              ? _("There was an error deactivating the script.")
-              : _("There was an error activating the script.");
-            throw new Ingo_Exception(sprintf(_("%s The driver said: %s"), $msg, $e->getMessage()));
+        foreach ($scripts as $script) {
+            try {
+                $GLOBALS['injector']
+                    ->getInstance('Ingo_Factory_Transport')
+                    ->create($script['transport'])
+                  ->setScriptActive($script);
+            } catch (Ingo_Exception $e) {
+                $msg = $deactivate
+                  ? _("There was an error deactivating the script.")
+                  : _("There was an error activating the script.");
+                throw new Ingo_Exception(sprintf(_("%s The driver said: %s"), $msg, $e->getMessage()));
+            }
         }
 
         $msg = ($deactivate)
@@ -178,17 +208,14 @@ class Ingo
      */
     static public function updateScript()
     {
-        if ($GLOBALS['session']->get('ingo', 'script_generate')) {
-            try {
-                $ingo_script = $GLOBALS['injector']->getInstance('Ingo_Script');
-
-                /* Generate and activate the script. */
-                self::activateScript(
-                    $ingo_script->generate(),
-                    false,
-                    $ingo_script->additionalScripts());
-            } catch (Ingo_Exception $e) {
-                throw new Ingo_Exception(sprintf(_("Script not updated: %s"), $e->getMessage()));
+        foreach ($GLOBALS['injector']->getInstance('Ingo_Factory_Script')->createAll() as $script) {
+            if ($script->hasFeature('script_file')) {
+                try {
+                    /* Generate and activate the script. */
+                    self::activateScripts($script->generate());
+                } catch (Ingo_Exception $e) {
+                    throw new Ingo_Exception(sprintf(_("Script not updated: %s"), $e->getMessage()));
+                }
             }
         }
     }
@@ -269,13 +296,27 @@ class Ingo
                                         $permission = Horde_Perms::SHOW)
     {
         try {
-            $rulesets = $GLOBALS['ingo_shares']->listShares(
+            $tmp = $GLOBALS['ingo_shares']->listShares(
                 $GLOBALS['registry']->getAuth(),
                 array('perm' => $permission,
                       'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
+        }
+
+        /* Check if filter backend of the share still exists. */
+        $backends = Horde::loadConfiguration('backends.php', 'backends', 'ingo');
+        if (!isset($backends) || !is_array($backends)) {
+            throw new Ingo_Exception(_("No backends configured in backends.php"));
+        }
+        $rulesets = array();
+        foreach ($tmp as $id => $ruleset) {
+            list($backend) = explode(':', $id);
+            if (isset($backends[$backend]) &&
+                empty($backends[$backend]['disabled'])) {
+                $rulesets[$id] = $ruleset;
+            }
         }
 
         return $rulesets;
@@ -325,33 +366,6 @@ class Ingo
                                  $start ? strftime($format, $start) : '',
                                  $end ? strftime($format, $end) : ''),
                            $reason);
-    }
-
-    /**
-     * Create ingo's menu.
-     *
-     * @return string  The menu text.
-     */
-    static public function menu()
-    {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->set('form_url', Horde::url('filters.php'));
-        $t->set('forminput', Horde_Util::formInput());
-
-        if (!empty($GLOBALS['ingo_shares']) &&
-            (count($GLOBALS['all_rulesets']) > 1)) {
-            $options = array();
-            foreach (array_keys($GLOBALS['all_rulesets']) as $id) {
-                $options[] = array(
-                    'name' => htmlspecialchars($GLOBALS['all_rulesets'][$id]->get('name')),
-                    'selected' => ($GLOBALS['session']->get('ingo', 'current_share') == $id),
-                    'val' => htmlspecialchars($id)
-                );
-            }
-            $t->set('options', $options);
-        }
-
-        return $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
     }
 
     /**

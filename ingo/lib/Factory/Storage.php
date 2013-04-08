@@ -1,8 +1,9 @@
 <?php
 /**
- * A Horde_Injector:: based Ingo_Storage:: factory.
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
@@ -12,12 +13,7 @@
  */
 
 /**
- * A Horde_Injector:: based Ingo_Storage:: factory.
- *
- * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/apache.
+ * A Horde_Injector based Ingo_Storage factory.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde

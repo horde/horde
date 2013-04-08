@@ -201,6 +201,7 @@
  *   VP_domid: (string) The DOM ID of the row.
  *   VP_id: (string) The unique ID used to store the data entry.
  *   VP_rownum: (integer) The row number of the row.
+ *   VP_view: (string) The containing view.
  *
  *
  * Scroll bars are styled using these CSS class names:
@@ -211,8 +212,12 @@
  * vpScrollDown - The DOWN arrow.
  *
  *
- * Requires prototypejs 1.6+, scriptaculous 1.8+ (effects.js only), and
- * Horde's dragdrop2.js and slider2.js.
+ * Requires:
+ *   - prototypejs 1.6+
+ *   - scriptaculous 1.8+ (effects.js only)
+ *   - dragdrop2.js (Horde)
+ *   - slider2.js (Horde)
+ *   - viewport_utils.js
  *
  * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
@@ -316,7 +321,7 @@ var ViewPort = Class.create({
             this.view = view;
         }
 
-        if (curr = this.views[view]) {
+        if ((curr = this.views[view])) {
             this._updateContent(curr.getMetaData('offset') || 0, f_opts);
             if (!opts.background) {
                 this.opts.container.fire('ViewPort:fetch', view);
@@ -419,9 +424,6 @@ var ViewPort = Class.create({
                 this.isbusy = true;
                 try {
                     this._remove(vs);
-                    if (vs.getBuffer().getView() == this.view) {
-                        this.requestContentRefresh(this.currentOffset());
-                    }
                 } catch (e) {
                     this.isbusy = false;
                     throw e;
@@ -441,6 +443,10 @@ var ViewPort = Class.create({
 
         buffer.remove(vs.get('rownum'));
         buffer.setMetaData({ total_rows: buffer.getMetaData('total_rows') - vs.size() }, true);
+
+        if (vs.getBuffer().getView() == this.view) {
+            this.requestContentRefresh(this.currentOffset());
+        }
     },
 
     // nowait = (boolean) If true, don't delay before resizing.
@@ -778,7 +784,7 @@ var ViewPort = Class.create({
 
         cached = this._getBuffer(opts.view).getAllUIDs();
         if (cached.size()) {
-            params.set('cache', Object.toJSON(cached));
+            params.set('cache', cached.toViewportUidString());
         }
 
         params.update(args);
@@ -1039,12 +1045,12 @@ var ViewPort = Class.create({
 
     _getLineHeight: function()
     {
-        var mode = this.pane_mode || 'horiz';
+        var d, mode = this.pane_mode || 'horiz';
 
         if (!this.split_pane[mode].lh) {
             // To avoid hardcoding the line height, create a temporary row to
             // figure out what the CSS says.
-            var d = new Element('DIV', { className: this.opts.list_class }).insert(this.prepareRow({ VP_domid: null }, mode)).hide();
+            d = new Element('DIV', { className: this.opts.list_class }).insert(this.prepareRow({ VP_domid: null }, mode)).hide();
             $(document.body).insert(d);
             this.split_pane[mode].lh = d.getHeight();
             d.remove();
@@ -1133,7 +1139,7 @@ var ViewPort = Class.create({
                 nodrop: true,
                 snap: function(x, y, elt) {
                     var sp = this.split_pane,
-                        l = parseInt((y - sp.pos) / sp.lh);
+                        l = parseInt((y - sp.pos) / sp.lh, 10);
                     if (l < 1) {
                         l = 1;
                     } else if (l > sp.max) {
@@ -1520,14 +1526,14 @@ ViewPort_Buffer = Class.create({
         range = $A($R(offset + 1, Math.min(offset + this.vp.getPageSize() - 1, tr)));
 
         return rows
-            ? (range.diff(this.rowlist.keys().concat(rows)).size() == 0)
+            ? (range.diff(this.rowlist.keys().concat(rows)).size() === 0)
             : !this._rangeCheck(range);
     },
 
     isNearingLimit: function(offset)
     {
         if (this.rowlist.size() != this.getMetaData('total_rows')) {
-            if (offset != 0 &&
+            if (offset !== 0 &&
                 this._rangeCheck($A($R(Math.max(offset + 1 - this.vp.limitTolerance(), 1), offset)))) {
                 return 'top';
             } else if (this._rangeCheck($A($R(offset + 1, Math.min(offset + this.vp.limitTolerance() + this.vp.getPageSize() - 1, this.getMetaData('total_rows')))).reverse())) {
@@ -1556,6 +1562,7 @@ ViewPort_Buffer = Class.create({
                     e.VP_domid = 'VProw_' + (++this.vp.id);
                 }
                 e.VP_id = u;
+                e.VP_view = this.view;
                 return e;
             }
         }, this).compact();
@@ -1804,6 +1811,8 @@ ViewPort_Selection = Class.create({
             return $H(params).all(function(k) {
                 // k.key = search key; k.value = search criteria
                 return $H(k.value).all(function(s) {
+                    var r;
+
                     // Normalize dynamically created values. We know the
                     // required types for these values, and certain browsers
                     // do strict type-checking (e.g. Chrome).
@@ -1825,12 +1834,12 @@ ViewPort_Selection = Class.create({
                     switch (s.key) {
                     case 'equal':
                     case 'notequal':
-                        var r = i[k.key] && s.value.include(i[k.key]);
+                        r = i[k.key] && s.value.include(i[k.key]);
                         return (s.key == 'equal') ? r : !r;
 
                     case 'include':
                     case 'notinclude':
-                        var r = i[k.key] && Object.isArray(i[k.key]) && i[k.key].include(s.value);
+                        r = i[k.key] && Object.isArray(i[k.key]) && i[k.key].include(s.value);
                         return (s.key == 'include') ? r : !r;
 
                     case 'regex':
@@ -1860,22 +1869,4 @@ ViewPort_Selection = Class.create({
         return this.buffer;
     }
 
-});
-
-/** Utility Functions **/
-Object.extend(Array.prototype, {
-    // Need our own diff() function because prototypejs's without() function
-    // does not handle array input.
-    diff: function(values)
-    {
-        return this.select(function(value) {
-            return !values.include(value);
-        });
-    },
-    numericSort: function()
-    {
-        return this.collect(Number).sort(function(a, b) {
-            return (a > b) ? 1 : ((a < b) ? -1 : 0);
-        });
-    }
 });

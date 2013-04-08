@@ -1,8 +1,5 @@
 <?php
 /**
- * Ingo_Storage_Mock:: is used for testing purposes.  It just keeps the
- * data local and doesn't put it anywhere.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -14,6 +11,15 @@
  * @package  Ingo
  */
 
+/**
+ * Ingo_Storage_Mock is used for testing purposes.  It just keeps the data
+ * local and doesn't put it anywhere.
+ *
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
 class Ingo_Storage_Mock extends Ingo_Storage
 {
     /**

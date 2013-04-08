@@ -290,6 +290,20 @@ class IMP_Maillog
     }
 
     /**
+     * Retrieve changes to the Maillog since the provided timestamp.
+     *
+     * @param integer $ts  Timestamp.
+     *
+     * @return array  An array of changes, keyed by the history guid.
+     */
+    public function getChanges($ts)
+    {
+        $parent = implode(':', array('imp', str_replace('.', '*', $GLOBALS['registry']->getAuth())));
+
+        return $GLOBALS['injector']->getInstance('Horde_History')->getByTimestamp('>', $ts, array(), $parent);
+    }
+
+    /**
      * Generate the unique log ID for a forward/reply/redirect event.
      *
      * @param string $msgid  The Message-ID of the original message.

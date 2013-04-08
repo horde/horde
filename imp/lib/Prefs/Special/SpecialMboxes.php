@@ -1,16 +1,24 @@
 <?php
 /**
- * Shared code for handling special mailboxes preferences.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Shared code for handling special mailboxes preferences.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Prefs_Special_SpecialMboxes
 {
@@ -41,7 +49,7 @@ class IMP_Prefs_Special_SpecialMboxes
     {
         global $injector, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS) ||
             $prefs->isLocked($pref)) {
@@ -100,7 +108,7 @@ class IMP_Prefs_Special_SpecialMboxes
         global $injector;
 
         if (is_null($this->_cache)) {
-            $this->_cache = $injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
+            $this->_cache = $injector->getInstance('IMP_Imap')->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
                 'attributes' => true,
                 'special_use' => true,
                 'sort' => true

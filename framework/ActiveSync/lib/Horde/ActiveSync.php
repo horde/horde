@@ -94,8 +94,10 @@ class Horde_ActiveSync
     const SYNC_PARTIAL                          = 'Partial';
     const SYNC_WAIT                             = 'Wait';
     const SYNC_LIMIT                            = 'Limit';
+    // 14
     const SYNC_HEARTBEATINTERVAL                = 'HeartbeatInterval';
     const SYNC_CONVERSATIONMODE                 = 'ConversationMode';
+    const SYNC_MAXITEMS                         = 'MaxItems';
 
     /* Document library */
     const SYNC_DOCUMENTLIBRARY_LINKID           = 'DocumentLibrary:LinkId';
@@ -126,7 +128,12 @@ class Horde_ActiveSync
     const AIRSYNCBASE_ISINLINE                  = 'AirSyncBase:IsInline';
     const AIRSYNCBASE_NATIVEBODYTYPE            = 'AirSyncBase:NativeBodyType';
     const AIRSYNCBASE_CONTENTTYPE               = 'AirSyncBase:ContentType';
+    // 14.0
     const AIRSYNCBASE_PREVIEW                   = 'AirSyncBase:Preview';
+    // 14.1
+    const AIRSYNCBASE_BODYPARTPREFERENCE        = 'AirSyncBase:BodyPartPreference';
+    const AIRSYNCBASE_BODYPART                  = 'AirSyncBase:BodyPart';
+    const AIRSYNCBASE_STATUS                    = 'AirSyncBase:Status';
 
     /* Body type prefs */
     const BODYPREF_TYPE_PLAIN                   = 1;
@@ -150,6 +157,7 @@ class Horde_ActiveSync
     const POLICYTYPE_WBXML                      = 'MS-EAS-Provisioning-WBXML';
 
     /* Flags */
+    // @TODO: H6 Change this to CHANGE_TYPE_NEW
     const FLAG_NEWMESSAGE                       = 'NewMessage';
 
     /* Folder types */
@@ -172,7 +180,7 @@ class Horde_ActiveSync
     const FOLDER_TYPE_USER_NOTE                 =  17;
     const FOLDER_TYPE_UNKNOWN                   =  18;
     const FOLDER_TYPE_RECIPIENT_CACHE           =  19;
-    const FOLDER_TYPE_DUMMY                     =  '__dummy.Folder.Id__';
+    const FOLDER_TYPE_DUMMY                     =  999999;
 
     /* Origin of changes **/
     const CHANGE_ORIGIN_PIM                     = 0;
@@ -197,6 +205,10 @@ class Horde_ActiveSync
     const GAL_HOMEPHONE                         = 'GAL:HomePhone';
     const GAL_MOBILEPHONE                       = 'GAL:MobilePhone';
     const GAL_EMAILADDRESS                      = 'GAL:EmailAddress';
+    // 14.1
+    const GAL_PICTURE                           = 'GAL:Picture';
+    const GAL_STATUS                            = 'GAL:Status';
+    const GAL_DATA                              = 'GAL:Data';
 
     /* Request Type */
     const REQUEST_TYPE_SYNC                     = 'sync';
@@ -209,11 +221,20 @@ class Horde_ActiveSync
     const CHANGE_TYPE_MOVE                      = 'move';
     const CHANGE_TYPE_FOLDERSYNC                = 'foldersync';
 
+    /* Internal flags to indicate change is a change in reply/forward state */
+    const CHANGE_REPLY_STATE                    = '@--reply--@';
+    const CHANGE_REPLYALL_STATE                 = '@--replyall--@';
+    const CHANGE_FORWARD_STATE                  = '@--forward--@';
+
+    /* RM */
+    const RM_SUPPORT                            = 'RightsManagement:RightsManagementSupport';
+
     /* Collection Classes */
     const CLASS_EMAIL                           = 'Email';
     const CLASS_CONTACTS                        = 'Contacts';
     const CLASS_CALENDAR                        = 'Calendar';
     const CLASS_TASKS                           = 'Tasks';
+    const CLASS_NOTES                           = 'Notes';
 
     /* Filtertype constants */
     const FILTERTYPE_ALL                        = 0;
@@ -224,6 +245,7 @@ class Horde_ActiveSync
     const FILTERTYPE_1MONTH                     = 5;
     const FILTERTYPE_3MONTHS                    = 6;
     const FILTERTYPE_6MONTHS                    = 7;
+    const FILTERTYPE_INCOMPLETETASKS            = 8;
 
     const PROVISIONING_FORCE                    = true;
     const PROVISIONING_LOOSE                    = 'loose';
@@ -231,13 +253,22 @@ class Horde_ActiveSync
 
     const FOLDER_ROOT                           = 0;
 
-    const VERSION_TWOFIVE                       = 2.5;
-    const VERSION_TWELVE                        = 12;
-    const VERSION_TWELVEONE                     = 12.1;
+    const VERSION_TWOFIVE                       = '2.5';
+    const VERSION_TWELVE                        = '12';
+    const VERSION_TWELVEONE                     = '12.1';
+    const VERSION_FOURTEEN                      = '14';
+    const VERSION_FOURTEENONE                   = '14.1';
 
     const MIME_SUPPORT_NONE                     = 0;
     const MIME_SUPPORT_SMIME                    = 1;
     const MIME_SUPPORT_ALL                      = 2;
+
+    const IMAP_FLAG_REPLY                       = 'reply';
+    const IMAP_FLAG_FORWARD                     = 'forward';
+
+    /* Result Type */
+    const RESOLVE_RESULT_GAL                    = 1;
+    const RESOLVE_RESULT_ADDRESSBOOK            = 2;
 
     /* Maximum number of times we can see the same synckey before we call it an
     infinite loop */
@@ -255,8 +286,7 @@ class Horde_ActiveSync
      *
      * @var Horde_Log_Logger
      */
-    protected $_logger;
-
+    static protected $_logger;
 
     /**
      * Provisioning support
@@ -270,14 +300,14 @@ class Horde_ActiveSync
      *
      * @var float
      */
-    protected $_maxVersion = self::VERSION_TWELVEONE;
+    protected $_maxVersion = self::VERSION_FOURTEENONE;
 
     /**
      * The actual version we are supporting.
      *
      * @var float
      */
-    protected $_version;
+    static protected $_version;
 
     /**
      * Multipart support?
@@ -336,6 +366,36 @@ class Horde_ActiveSync
     );
 
     /**
+     * Supported EAS versions.
+     *
+     * @var array
+     */
+    static protected $_supportedVersions = array(
+        self::VERSION_TWOFIVE,
+        self::VERSION_TWELVE,
+        self::VERSION_TWELVEONE,
+        self::VERSION_FOURTEEN,
+        self::VERSION_FOURTEENONE
+    );
+
+    /**
+     * Factory method for creating Horde_ActiveSync_Message objects.
+     *
+     * @param string $message  The message type.
+     *
+     * @return Horde_ActiveSync_Message_Base   The concrete message object.
+     */
+    static public function messageFactory($message)
+    {
+        $class = 'Horde_ActiveSync_Message_' . $message;
+        if (!class_exists($class)) {
+            throw new InvalidArgumentException(sprintf('Class %s does not exist.', $class));
+        }
+
+        return new $class(array('logger' => self::$_logger, 'protocolversion' => self::$_version));
+    }
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_Driver_Base $driver      The backend driver.
@@ -390,10 +450,10 @@ class Horde_ActiveSync
             $user = !empty($username) ? $username : $user;
         } else {
             // No provided username or Authorization header.
-            $this->_logger->debug('Client did not provide authentication data.');
+            self::$_logger->debug('Client did not provide authentication data.');
             return false;
         }
-
+        $user = $this->_driver->getUsernameFromEmail($user);
         $pos = strrpos($user, '\\');
         if ($pos !== false) {
             $domain = substr($user, 0, $pos);
@@ -421,7 +481,7 @@ class Horde_ActiveSync
             }
 
             if (empty($get['User'])) {
-                $this->_logger->err('Missing required parameters.');
+                self::$_logger->err('Missing required parameters.');
                 throw new Horde_ActiveSync_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
             }
         }
@@ -495,11 +555,11 @@ class Horde_ActiveSync
 
     protected function _setLogger(array $options)
     {
-        $this->_logger = $this->_loggerFactory->create($options);
-        $this->_encoder->setLogger($this->_logger);
-        $this->_decoder->setLogger($this->_logger);
-        $this->_driver->setLogger($this->_logger);
-        $this->_state->setLogger($this->_logger);
+        self::$_logger = $this->_loggerFactory->create($options);
+        $this->_encoder->setLogger(self::$_logger);
+        $this->_decoder->setLogger(self::$_logger);
+        $this->_driver->setLogger(self::$_logger);
+        $this->_state->setLogger(self::$_logger);
     }
 
     /**
@@ -550,8 +610,8 @@ class Horde_ActiveSync
 
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
-            $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
-            $request->setLogger($this->_logger);
+            $request = new Horde_ActiveSync_Request_Autodiscover($this, new Horde_ActiveSync_Device());
+            $request->setLogger(self::$_logger);
 
             return $request->handle();
         }
@@ -566,7 +626,7 @@ class Horde_ActiveSync
         // Set provisioning support now that we are authenticated.
         $this->setProvisioning($this->_driver->getProvisioning());
 
-        $this->_logger->debug(sprintf(
+        self::$_logger->debug(sprintf(
             '[%s] %s request received for user %s',
             getmypid(),
             strtoupper($cmd),
@@ -590,13 +650,17 @@ class Horde_ActiveSync
         // Normalize Device Id.
         $devId = strtoupper($devId);
 
+        // EAS Version
+        $version = $this->getProtocolVersion();
+
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
 
             // Device might exist, but with a new (additional) user account
-            $device = new StdClass();
             if ($this->_state->deviceExists($devId)) {
                 $device = $this->_state->loadDeviceInfo($devId);
+            } else {
+                $device = new Horde_ActiveSync_Device();
             }
             $device->policykey = 0;
             $device->userAgent = $this->_request->getHeader('User-Agent');
@@ -608,6 +672,10 @@ class Horde_ActiveSync
         } else {
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
+
+        // Always set the version information instead of caching it, some
+        // clients may allow changing the protocol version.
+        $device->version = $version;
 
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
@@ -623,7 +691,7 @@ class Horde_ActiveSync
         if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
             (isset($get['Options']) && ($get['Options'] & 0x02))) {
             $this->_multipart = true;
-            $this->_logger->debug('MULTIPART REQUEST');
+            self::$_logger->debug('MULTIPART REQUEST');
         }
 
         // Support gzip encoding?
@@ -635,10 +703,9 @@ class Horde_ActiveSync
         // output and be large enough to flush the buffer (e.g., GetAttachement)
         $this->activeSyncHeader();
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
-        $version = $this->getProtocolVersion();
         if (class_exists($class)) {
             $request = new $class($this, $device);
-            $request->setLogger($this->_logger);
+            $request->setLogger(self::$_logger);
             $result = $request->handle();
             $this->_driver->clearAuthentication();
 
@@ -663,6 +730,12 @@ class Horde_ActiveSync
             break;
         case self::VERSION_TWELVEONE:
             header('MS-Server-ActiveSync: 12.1');
+            break;
+        case self::VERSION_FOURTEEN:
+            header('MS-Server-ActiveSync: 14.0');
+            break;
+        case self::VERSION_FOURTEENONE:
+            header('MS-Server-ActiveSync: 14.1');
         }
     }
 
@@ -672,17 +745,18 @@ class Horde_ActiveSync
      */
     public function versionHeader()
     {
-        switch ($this->_maxVersion) {
-        case self::VERSION_TWOFIVE:
-            header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5');
-            break;
-        case self::VERSION_TWELVE:
-            header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0');
-            break;
-        case self::VERSION_TWELVEONE:
-            header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0,12.1');
-            header('MS-ASProtocolRevisions: 12.1r1');
-        }
+        header('MS-ASProtocolVersions: ' . $this->getSupportedVersions());
+    }
+
+    /**
+     * Return supported versions in a comma delimited string suitable for
+     * sending as the MS-ASProtocolVersions header.
+     *
+     * @return string
+     */
+    public function getSupportedVersions()
+    {
+        return implode(',', array_slice(self::$_supportedVersions, 0, (array_search($this->_maxVersion, self::$_supportedVersions) + 1)));
     }
 
     /**
@@ -691,13 +765,26 @@ class Horde_ActiveSync
      */
     public function commandsHeader()
     {
+        header('MS-ASProtocolCommands: ' . $this->getSupportedCommands());
+    }
+
+    /**
+     * Return the supported commands in a comma delimited string suitable for
+     * sending as the MS-ASProtocolCommands header.
+     *
+     * @return string
+     */
+    public function getSupportedCommands()
+    {
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
-            header('MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Search,Ping');
-            break;
+            return 'Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Search,Ping';
+
         case self::VERSION_TWELVE:
         case self::VERSION_TWELVEONE:
-            header('MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations');
+        case self::VERSION_FOURTEEN:
+        case self::VERSION_FOURTEENONE:
+            return 'Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations';
         }
     }
 
@@ -738,18 +825,21 @@ class Horde_ActiveSync
      */
     public function getProtocolVersion()
     {
-        if (isset($this->_version)) {
-            return $this->_version;
+        if (isset(self::$_version)) {
+            return self::$_version;
         }
-        $this->_version = $this->_request->getHeader('MS-ASProtocolVersion');
-        if (empty($this->_version)) {
+        self::$_version = $this->_request->getHeader('MS-ASProtocolVersion');
+        if (empty(self::$_version)) {
             $get = $this->getGetVars();
-            $this->_version = empty($get['ProtVer']) ? '1.0' : $get['ProtVer'];
-            if ($this->_version == 121) {
-                $this->_version = 12.1;
+            self::$_version = empty($get['ProtVer']) ? '1.0' : $get['ProtVer'];
+            if (self::$_version == 121) {
+                self::$_version = 12.1;
+            }
+            if (self::$_version == 141) {
+                self::$_version = 14.1;
             }
         }
-        return $this->_version;
+        return self::$_version;
     }
 
     /**
@@ -778,6 +868,9 @@ class Horde_ActiveSync
                     break;
                 case 'SP':
                     $results['DeviceType'] = 'SmartPhone';
+                    break;
+                case 'WP':
+                    $results['DeviceType'] = 'WindowsPhone';
                 }
                 $results['Cmd'] = $this->_commandMap[$decoded['Command']];
                 if (isset($decoded['AttachmentName'])) {

@@ -47,11 +47,12 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
             'HordeActiveSyncPrefs.devices' => $js
         ));
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => HORDE_TEMPLATES . '/prefs'
+        ));
 
         $selfurl = $ui->selfUrl();
-        $t->set('reset', $selfurl->copy()->add('reset', 1));
+        $view->reset = $selfurl->copy()->add('reset', 1);
         $devs = array();
 
         foreach ($devices as $key => $device) {
@@ -85,9 +86,9 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
             $devs[] = $device;
         }
 
-        $t->set('devices', $devs);
+        $view->devices = $devs;
 
-        return $t->fetch(HORDE_TEMPLATES . '/prefs/activesync.html');
+        return $view->render('activesync');
     }
 
     /**

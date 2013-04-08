@@ -64,7 +64,7 @@ class IMP_Block_Summary extends Horde_Core_Block
         /* Filter on INBOX display.  INBOX is always polled. */
         IMP_Mailbox::get('INBOX')->filterOnDisplay();
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         /* Get list of mailboxes to poll. */
         $poll = $injector->getInstance('IMP_Imap_Tree')->getPollList(true);
@@ -77,12 +77,11 @@ class IMP_Block_Summary extends Horde_Core_Block
             $mbox_str = strval($mbox);
 
             if (isset($status[$mbox_str]) &&
-                ($mbox->inbox || $imp_imap->imap) &&
                 (empty($this->_params['show_unread']) ||
                  !empty($status[$mbox_str]['unseen']))) {
                 $mbox_status = $status[$mbox_str];
 
-                $label = $mbox->url('mailbox.php')->link() . $mbox->display_html . '</a>';
+                $label = $mbox->url('mailbox')->link() . $mbox->display_html . '</a>';
                 if (!empty($mbox_status['unseen'])) {
                     $label = '<strong>' . $label . '</strong>';
                     $anyUnseen = true;

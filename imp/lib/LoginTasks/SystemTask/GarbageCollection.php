@@ -34,7 +34,7 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
      */
     public function execute()
     {
-        global $conf, $injector;
+        global $injector, $registry;
 
         /* These require mail server authentication. */
         try {
@@ -45,15 +45,14 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
             $injector->getInstance('IMP_Prefs_Sort')->gc();
         } catch (Exception $e) {}
 
-        /* Do garbage collection on sentmail entries. */
-        $injector->getInstance('IMP_Sentmail')->gc();
+        /* Only do these tasks as admin, or else they are duplicative across
+         * all users. */
+        if ($registry->isAdmin()) {
+            /* Do garbage collection on sentmail entries. */
+            $injector->getInstance('IMP_Sentmail')->gc();
 
-        /* Do garbage collection on compose VFS data. */
-        if ($conf['compose']['use_vfs']) {
-            try {
-                $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
-                Horde_Vfs_Gc::gc($vfs, IMP_Compose::VFS_ATTACH_PATH, 86400);
-            } catch (Horde_Vfs_Exception $e) {}
+            /* Do garbage collection on compose VFS data. */
+            $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, null, 'atc')->gc();
         }
     }
 

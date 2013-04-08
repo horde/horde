@@ -36,7 +36,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_Base
+class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_SendMail
 {
     /**
      * Handle request
@@ -45,6 +45,10 @@ class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_Bas
      */
     protected function _handle()
     {
+        if ($this->_decoder->isWbxml()) {
+            return $this->_handleWbxmlRequest();
+        }
+
         $rfc822 = file_get_contents('php://input');
         $get = $this->_activeSync->getGetVars();
         if (empty($get['ItemId'])) {
@@ -58,7 +62,20 @@ class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_Bas
             $parent = $get['CollectionId'];
         }
 
-        return $this->_driver->sendMail($rfc822, $orig, false, $parent);
+        try {
+            return $this->_driver->sendMail($rfc822, $orig, false, $parent);
+        } catch (Horde_Exception_NotFound $e) {
+            $this->_logger->err($e->getMessage());
+            $this->_handleError(
+                Horde_ActiveSync_Status::ITEM_NOT_FOUND,
+                Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTFORWARD);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_handleError(
+                Horde_ActiveSync_Status::MAIL_SUBMISSION_FAILED,
+                Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTFORWARD);
+        }
+
+        return true;
     }
 
 }

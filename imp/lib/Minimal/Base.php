@@ -15,6 +15,11 @@
 abstract class IMP_Minimal_Base
 {
     /**
+     * @var IMP_Indices_Mailbox
+     */
+    public $indices;
+
+    /**
      * @var string
      */
     public $title;
@@ -41,6 +46,8 @@ abstract class IMP_Minimal_Base
     public function __construct(Horde_Variables $vars)
     {
         $this->vars = $vars;
+
+        $this->indices = new IMP_Indices_Mailbox($vars);
 
         $this->view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/minimal'
@@ -72,16 +79,17 @@ abstract class IMP_Minimal_Base
     public function getMenu($page, $items = array())
     {
         if (!in_array($page, array('mailbox', 'message')) ||
-            (IMP::mailbox() != 'INBOX')) {
+            !$this->indices->mailbox->inbox) {
             $items[] = array(_("Inbox"), IMP_Minimal_Mailbox::url(array('mailbox' => 'INBOX')));
         }
 
-        if (!in_array($page, array('compose', 'search')) && IMP::canCompose()) {
+        if (!in_array($page, array('compose', 'search')) &&
+            IMP_Compose::canCompose()) {
             $items[] = array(_("New Message"), IMP_Minimal_Compose::url());
         }
 
         if (!in_array($page, array('folders', 'search')) &&
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+            $GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
             $items[] = array(_("Folders"), IMP_Minimal_Folders::url());
         }
 

@@ -149,6 +149,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         case self::CREATE_QUERY:
             $this->_search['query'][$ob->id] = $ob;
+            $ob->mbox_ob->list_ob->rebuild(true);
             break;
 
         case self::CREATE_VFOLDER:
@@ -394,7 +395,9 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         switch ($registry->getView()) {
         case $registry::VIEW_BASIC:
-            return $mbox->url('search.php')->add(array('edit_query' => 1));
+            return $mbox->url(IMP_Basic_Search::url())->add(array(
+                'edit_query' => 1
+            ));
 
         case $registry::VIEW_DYNAMIC:
             return IMP_Dynamic_Mailbox::url()->setAnchor(

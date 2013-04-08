@@ -18,34 +18,38 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
      * URL Parameters:
      *   a: (string) actionID
      *   allto: (boolean) View all To addresses?
+     *   buid: (string) TODO
      *   mt: (string) Message token
      *   fullmsg: (boolean) View full message?
      */
     protected function _init()
     {
-        global $conf, $injector, $notification, $page_output, $prefs;
+        global $injector, $notification, $page_output, $prefs;
+
+        $imp_mailbox = $this->indices->mailbox->list_ob;
+        $imp_mailbox->setIndex($this->indices);
+
+        $mailbox_url = IMP_Minimal_Mailbox::url(array(
+            'mailbox' => $this->indices->mailbox
+        ));
 
         /* Make sure we have a valid index. */
-        $imp_mailbox = IMP::mailbox()->getListOb(IMP::mailbox(true)->getIndicesOb(IMP::uid()));
         if (!$imp_mailbox->isValidIndex()) {
-            IMP_Minimal_Mailbox::url()->add('a', 'm')->redirect();
+            $mailbox_url->add('a', 'm')->redirect();
         }
 
-        $imp_hdr_ui = new IMP_Ui_Headers();
-        $imp_ui = new IMP_Ui_Message();
+        $imp_ui = $injector->getInstance('IMP_Message_Ui');
 
         /* Run through action handlers */
         $msg_delete = false;
         switch ($this->vars->a) {
         // 'd' = delete message
         case 'd':
-            $msg_index = $imp_mailbox->getMessageIndex();
-            $imp_indices = new IMP_Indices($imp_mailbox);
-            $imp_message = $injector->getInstance('IMP_Message');
+            $msg_index = $imp_mailbox->getIndex();
             try {
                 $injector->getInstance('Horde_Token')->validate($this->vars->mt, 'imp.message-mimp');
-                $msg_delete = (bool)$imp_message->delete(
-                    $imp_indices,
+                $msg_delete = (bool)$injector->getInstance('IMP_Message')->delete(
+                    $this->indices,
                     array('mailboxob' => $imp_mailbox)
                 );
             } catch (Horde_Token_Exception $e) {
@@ -55,42 +59,35 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         // 'u' = undelete message
         case 'u':
-            $msg_index = $imp_mailbox->getMessageIndex();
-            $imp_indices = new IMP_Indices($imp_mailbox);
-            $imp_message = $injector->getInstance('IMP_Message');
-            $imp_message->undelete($imp_indices);
+            $msg_index = $imp_mailbox->getIndex();
+            $injector->getInstance('IMP_Message')->undelete($this->indices);
             break;
 
         // 'rs' = report spam
         // 'ri' = report innocent
         case 'rs':
         case 'ri':
-            $msg_index = $imp_mailbox->getMessageIndex();
-            $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($imp_mailbox), $this->vars->a == 'rs' ? 'spam' : 'notspam', array('mailboxob' => $imp_mailbox)) === 1);
+            $msg_index = $imp_mailbox->getIndex();
+            $msg_delete = ($injector->getInstanc('IMP_Spam')->report($this->indices, $this->vars->a == 'rs' ? IMP_Spam::SPAM : IMP_Spam::INNOCENT, array('mailboxob' => $imp_mailbox)) === 1);
             break;
         }
 
-        if ($msg_delete && $imp_ui->moveAfterAction()) {
+        if ($msg_delete && $imp_ui->moveAfterAction($this->indices->mailbox)) {
             $imp_mailbox->setIndex(1);
         }
 
         /* We may have done processing that has taken us past the end of the
-         * message array, so we will return to mailbox.php if that is the
-         * case. */
+         * message array, so we will return to the mailbox. */
         if (!$imp_mailbox->isValidIndex() ||
             ($msg_delete && $prefs->getValue('mailbox_return'))) {
-                IMP_Minimal_Mailbox::url()->add('s', $msg_index)->redirect();
+            $mailbox_url->add('s', $msg_index)->redirect();
         }
 
-        /* Now that we are done processing the messages, get the index and
-         * array index of the current message. */
-        $index_ob = $imp_mailbox->getIMAPIndex();
-        $mailbox = $index_ob['mailbox'];
-        $uid = $index_ob['uid'];
+        list($mailbox, $uid) = $this->indices->getSingle();
 
         /* Get envelope/flag/header information. */
         try {
-            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+            $imp_imap = $injector->getInstance('IMP_Imap');
 
             /* Need to fetch flags before HEADERTEXT, because SEEN flag might
              * be set before we can grab it. */
@@ -106,7 +103,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
                 'ids' => $imp_imap->getIdsOb($uid)
             ));
         } catch (IMP_Imap_Exception $e) {
-            IMP_Minimal_Mailbox::url(array('mailbox' => $mailbox))->add('a', 'm')->redirect();
+            $mailbox_url->add('a', 'm')->redirect();
         }
 
         $envelope = $fetch_ret->first()->getEnvelope();
@@ -114,20 +111,23 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         /* Parse the message. */
         try {
-            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
+            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($this->indices);
             $mime_headers = $imp_contents->getHeaderAndMarkAsSeen();
         } catch (IMP_Exception $e) {
-            IMP_Minimal_Mailbox::url(array('mailbox' => $mailbox))->add('a', 'm')->redirect();
+            $mailbox_url->add('a', 'm')->redirect();
         }
 
         /* Get the starting index for the current message and the message
          * count. */
-        $msgindex = $imp_mailbox->getMessageIndex();
+        $msgindex = $imp_mailbox->getIndex();
         $msgcount = count($imp_mailbox);
 
         /* Generate the mailbox link. */
-        $mailbox_link = IMP_Minimal_Mailbox::url()->add('s', $msgindex);
-        $self_link = self::url(array('mailbox' => $mailbox, 'uid' => $uid));
+        $mailbox_link = $mailbox_url->add('s', $msgindex);
+        $self_link = self::url(array(
+            'buid' => $this->vars->buid,
+            'mailbox' => $mailbox
+        ));
 
         /* Create the Identity object. */
         $user_identity = $injector->getInstance('IMP_Identity');
@@ -165,7 +165,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         $list_info = $imp_ui->getListInformation($mime_headers);
 
         /* See if the priority has been set. */
-        switch($priority = $imp_hdr_ui->getPriority($mime_headers)) {
+        switch($priority = $injector->getInstance('IMP_Mime_Headers')->getPriority($mime_headers)) {
         case 'high':
         case 'low':
             $basic_headers['priority'] = _("Priority");
@@ -216,13 +216,13 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         $this->view->msg = nl2br($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg_text, 'space2html'));
 
         $compose_params = array(
+            'buid' => $this->vars->buid,
             'identity' => $identity,
-            'thismailbox' => $mailbox,
-            'uid' => $uid,
+            'mailbox' => $this->indices->mailbox
         );
 
         $menu = array();
-        if (IMP::mailbox()->access_deletemsgs) {
+        if ($this->indices->mailbox->access_deletemsgs) {
             $menu[] = in_array(Horde_Imap_Client::FLAG_DELETED, $flags)
                 ? array(_("Undelete"), $self_link->copy()->add('a', 'u'))
                 : array(_("Delete"), $self_link->copy()->add(array('a' => 'd', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
@@ -230,11 +230,14 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         /* Add compose actions (Reply, Reply List, Reply All, Forward,
          * Redirect, Edit as New). */
-        if (IMP::canCompose()) {
-            $menu[] = array(_("Reply"), IMP::composeLink(array(), array('a' => 'r') + $compose_params));
+        if (IMP_Compose::canCompose()) {
+            $clink_ob = new IMP_Compose_Link();
+            $clink = $clink_ob->link()->add($compose_params);
+
+            $menu[] = array(_("Reply"), $clink->add(array('a' => 'r')));
 
             if ($list_info['reply_list']) {
-                $menu[] = array(_("Reply to List"), IMP::composeLink(array(), array('a' => 'rl') + $compose_params));
+                $menu[] = array(_("Reply to List"), $clink->add(array('a' => 'rl')));
             }
 
             $addr_ob = clone($envelope->to);
@@ -242,31 +245,35 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
             $addr_ob->setIteratorFilter(0, $user_identity->getAllFromAddresses());
 
             if (count($addr_ob)) {
-                $menu[] = array(_("Reply All"), IMP::composeLink(array(), array('a' => 'ra') + $compose_params));
+                $menu[] = array(_("Reply All"), $clink->add(array('a' => 'ra')));
             }
 
-            $menu[] = array(_("Forward"), IMP::composeLink(array(), array('a' => 'f') + $compose_params));
-            $menu[] = array(_("Redirect"), IMP::composeLink(array(), array('a' => 'rc') + $compose_params));
-            $menu[] = array(_("Edit as New"), IMP::composeLink(array(), array('a' => 'en') + $compose_params));
+            $menu[] = array(_("Forward"), $clink->add(array('a' => 'f')));
+            $menu[] = array(_("Redirect"), $clink->add(array('a' => 'rc')));
+            $menu[] = array(_("Edit as New"), $clink->add(array('a' => 'en')));
         }
 
         /* Generate previous/next links. */
-        if ($prev_msg = $imp_mailbox->getIMAPIndex(-1)) {
-            $menu[] = array(_("Previous Message"), self::url(array('mailbox' => $prev_msg['mailbox'], 'uid' => $prev_msg['uid'])));
+        if ($prev_msg = $imp_mailbox[$imp_mailbox->getIndex() - 1]) {
+            $menu[] = array(_("Previous Message"), self::url(array(
+                'buid' => $imp_mailbox->getBuid($prev_msg['m'], $prev_msg['u']),
+                'mailbox' => $this->indices->mailbox
+            )));
         }
-        if ($next_msg = $imp_mailbox->getIMAPIndex(1)) {
-            $menu[] = array(_("Next Message"), self::url(array('mailbox' => $next_msg['mailbox'], 'uid' => $next_msg['uid'])));
+        if ($next_msg = $imp_mailbox[$imp_mailbox->getIndex() + 1]) {
+            $menu[] = array(_("Next Message"), self::url(array(
+                'buid' => $imp_mailbox->getBuid($next_msg['m'], $next_msg['u']),
+                'mailbox' => $this->indices->mailbox
+            )));
         }
 
-        $menu[] = array(sprintf(_("To %s"), IMP::mailbox()->label), $mailbox_link);
+        $menu[] = array(sprintf(_("To %s"), $this->indices->mailbox->label), $mailbox_link);
 
-        if ($conf['spam']['reporting'] &&
-            ($conf['spam']['spamfolder'] || !$mailbox->spam)) {
+        if ($mailbox->spam_show) {
             $menu[] = array(_("Report as Spam"), $self_link->copy()->add(array('a' => 'rs', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
         }
 
-        if ($conf['notspam']['reporting'] &&
-            (!$conf['notspam']['spamfolder'] || $mailbox->spam)) {
+        if ($mailbox->innocent_show) {
             $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
         }
 
@@ -302,12 +309,18 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
                 /* Preference: if set, only show download confirmation screen
                  * if attachment over a certain size. */
                 $tmp['download'] = ($summary['bytes'] > $prefs->getValue('mimp_download_confirm'))
-                    ? IMP_Minimal_Messagepart::url(array('mailbox' => $mailbox, 'uid' => $uid))->add('atc', $key)
+                    ? IMP_Minimal_Messagepart::url(array(
+                          'buid' => $this->vars->buid,
+                          'mailbox' => $this->indices->mailbox
+                      ))->add('atc', $key)
                     : $summary['download_url'];
             }
 
             if ($imp_contents->canDisplay($key, IMP_Contents::RENDER_INLINE)) {
-                $tmp['view'] = IMP_Minimal_Messagepart::url(array('mailbox' => $mailbox, 'uid' => $uid))->add('id', $key);
+                $tmp['view'] = IMP_Minimal_Messagepart::url(array(
+                    'buid' => $this->vars->buid,
+                    'mailbox' => $this->indices->mailbox
+                ))->add('id', $key);
             }
 
             $atc[] = $tmp;
@@ -325,12 +338,12 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
     /**
      * @param array $opts  Options:
+     *   - buid: (string) BUID of message.
      *   - mailbox: (string) Mailbox of message.
-     *   - uid: (string) UID of message.
      */
     static public function url(array $opts = array())
     {
-        return IMP::mailbox()->url('minimal.php', $opts['uid'], $opts['mailbox'])->add('page', 'message');
+        return IMP_Mailbox::get($opts['mailbox'])->url('minimal', $opts['buid'])->add('page', 'message');
     }
 
 }

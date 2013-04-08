@@ -30,7 +30,8 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
      */
     protected $_versions = array(
         '5.0',
-        '6.0'
+        '6.0',
+        '6.1'
     );
 
     /**
@@ -62,6 +63,11 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $this->_upgradeSaveAttachments();
             $this->_upgradeStationeryToTemplates();
             $this->_upgradeVirtualFolders6();
+            break;
+
+        case '6.1':
+            $this->_upgradeComposePrefs61();
+            $this->_upgradeRequestMdn();
             break;
         }
     }
@@ -630,6 +636,29 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                 $val->replace($tmp);
                 $imp_search[$key] = $val;
             }
+        }
+    }
+
+    /**
+     * IMP 6.1: Upgrade compose preferences.
+     */
+    protected function _upgradeComposePrefs61()
+    {
+        global $prefs;
+
+        $prefs->remove('compose_bcc');
+        $prefs->remove('compose_cc');
+    }
+
+    /**
+     * IMP 6.1: Upgrade from removed 'ask' option for 'request_mdn' pref.
+     */
+    protected function _upgradeRequestMdn()
+    {
+        global $prefs;
+
+        if ($prefs->getValue('request_mdn') == 'ask') {
+            $prefs->remove('request_mdn');
         }
     }
 

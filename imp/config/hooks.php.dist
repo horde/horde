@@ -128,65 +128,21 @@ class IMP_Hooks
 
 
     /**
-     * AJAX HOOK: Add user-defined AJAX action handlers.
+     * Perform actions on compose attachments.
      *
-     * See horde/config/hooks.php.dist for more information.
+     * @param IMP_Compose_Attachment $atc  The attachment object.
      *
-     * @param string $action         The AJAX action.
-     * @param Horde_Variables $vars  The URL parameters.
-     *
-     * @return mixed  The data to send to the browser (will be JSON encoded).
-     * @throws Horde_Exception
-     */
-//     public function ajaxaction($action, $vars)
-//     {
-//        switch ($action) {
-//        case 'Foo':
-//            return 'bar';
-//        }
-//
-//        throw new Horde_Exception('Unknown action');
-//     }
-
-
-    /**
-     * Perform actions on files uploaded for use as compose attachments.
-     *
-     * This hook is enabled by default.
-     *
-     * @param string $filename  The filename.
-     * @param string $tempfile  The location on the local server of the
-     *                          temporary file that contains the attachment
-     *                          data.
-     * @param string $type      The MIME type as reported by the browser.
-     *
-     * @return string  The MIME type of the file.
      * @throws IMP_Compose_Exception
      */
-     public function compose_attach($filename, $tempfile, $type)
+     public function compose_attachment(IMP_Compose_Attachment $atc)
      {
-        /* Do MIME type determination for compose attachments. */
-
-        /* By default, the MIME type reported by the browser is trusted if it
-         * is something other than the generic octet-stream type. */
-        if ($type == 'application/octet-stream') {
-            /* Try to determine the MIME type from 1) analysis of the file
-             * (if available) and, if that fails, 2) from the extension. We
-             * do it in this order here because, most likely, if a browser
-             * can't identify the type of a file, it is because the file
-             * extension isn't available and/or recognized. */
-            $type = Horde_Mime_Magic::analyzeFile($tempfile, !empty($GLOBALS['conf']['mime']['magic_db']) ? $GLOBALS['conf']['mime']['magic_db'] : null);
-            if (!$type) {
-                $type = Horde_Mime_Magic::filenameToMIME($filename, false);
-            }
-        }
-
 //        // Example: Do a virus scan on the attachment, and reject attachment
 //        // if a virus is found.
 //        // This example uses the open source ClamAV binary (tested with
 //        // v0.96). See: http://www.clamav.net/
 //        $clamscan = '/path/to/clamscan';
-//        exec($clamscan . ' --quiet ' . escapeshellarg($tempfile), $output, $return_var);
+//        exec($clamscan . ' --quiet ' . escapeshellarg($atc->tmpfile), $output, $return_var);
+//
 //        switch ($return_var) {
 //        case 1:
 //            // Virus found.
@@ -197,9 +153,27 @@ class IMP_Hooks
 //            Horde::log('Unknown error when scanning message for virus.', 'INFO');
 //            break;
 //        }
-
-        return $type;
     }
+
+
+    /**
+     * Checks the raw text of the outoging compose message for words that
+     * might indicate an attachment is present, and issues a warning if no
+     * attachments are indeed present.
+     *
+     * If this hook is not defined, this check is not performed.
+     *
+     * This hook is run at most once per message.
+     *
+     * @return array  A list of words to search for in the body text.
+     */
+//     public function attach_body_check($body)
+//     {
+//         /* List of words to search for. */
+//         return array(
+//             'attachment', 'attached'
+//         );
+//     }
 
 
     /**
@@ -233,26 +207,6 @@ class IMP_Hooks
 //        foreach ($custom_hdrs as $key => $val) {
 //            $headers->addHeader($key, $val);
 //        }
-//
-//
-//        // Example #2: Check for forgotten attachments when sending.
-//        if (!count($compose) &&
-//            !$GLOBALS['session']->get('imp', 'attach_check/' . strval($compose))) {
-//            /* List of words to search for. */
-//            $word_list = array(
-//                'attachment', 'attached'
-//            );
-//
-//            /* Check the plaintext version of the message. */
-//            $imp_contents = new IMP_Contents($message);
-//            if (($body_id = $imp_contents->findBody()) &&
-//                preg_match('/\b(' . implode('|', array_map('preg_quote', $word_list)) . ')\b/i', $imp_contents->getMIMEPart($body_id)->getContents(), $matches)) {
-//                // Set flag in the session to indicate this message should
-//                // not be checked for attachments again.
-//                $GLOBALS['session']->set('imp', 'attach_check/' . strval($compose), 1);
-//                throw IMP_Compose_Exception::createAndLog('DEBUG', 'Found the word "' . $matches[1] . '" in the message text although there are no files attached to the message. Did you forget to attach a file? (This check will not be performed again for this message.)');
-//            }
-//        }
 //    }
 
 
@@ -271,13 +225,21 @@ class IMP_Hooks
     /**
      * Dynamically create the contents of the message trailer text.
      *
+     * @param boolean $html  If true, the trailer text to be used in the HTML
+                             part. If null is returned, the plaintext trailer
+                             text will be used.
+     *
      * @return string  The trailer text to be used.
      */
-//    public function trailer()
+//    public function trailer($html = false)
 //    {
 //        // Example #1: Static trailer text.
-//        return "--------------------------------\n" .
-//               "This message was sent using IMP.";
+//        if ($html) {
+//            return "<hr /><div>This message was sent using IMP.</div>";
+//        } else {
+//            return "--------------------------------\n" .
+//                "This message was sent using IMP.";
+//        }
 //
 //
 //        // Example #2: Set the trailer from the system taglines file,
@@ -304,41 +266,19 @@ class IMP_Hooks
 
 
     /**
-     * Dynamically set the signature preference.
-     *
-     * @param string $sig  The signature.
-     *
-     * @return string  The signature text to use.
-     */
-//    public function signature($sig)
-//    {
-//        // Example #1: Set the signature from the system taglines file; the
-//        // string "%TAG%" (if present in a user's signature) will be replaced
-//        // by the content of the file "/usr/share/tagline" (generated by the
-//        // "TaRT" utility).
-//        if (preg_match('/%TAG%/', $sig)) {
-//            $tag = `cat /usr/share/tagline`;
-//            $sig = preg_replace('|%TAG%|', $tag, $sig);
-//        }
-//        return $sig;
-//    }
-
-
-    /**
      * Add additional message flags in the message listing screen for a
      * mailbox.
      *
-     * @param array $data   The overview information for a message as returned
-     *                      from the IMP_Mailbox_List::getMailboxArray() call
-     *                      (see lib/Mailbox/List.php for documentation on the
-     *                      structure of the array).
-     * @param string $mode  Either 'imp' or 'dimp'.
+     * @param array $data  The overview information for a message as returned
+     *                     from the IMP_Mailbox_List::getMailboxArray() call
+     *                     (see lib/Mailbox/List.php for documentation on the
+     *                     structure of the array).
      *
      * @return array  An array of additional flags to add. These flags must be
      *                defined in the 'msgflags' preference. On error, return
      *                an empty array.
      */
-//    public function msglist_flags($data, $mode)
+//    public function msglist_flags($data)
 //    {
 //        // Example #1: Add a icon if the message was sent from a user within
 //        // the same domain.
@@ -352,6 +292,65 @@ class IMP_Hooks
 //        }
 //
 //        return $flags;
+//    }
+
+
+    /**
+     * If message content filtering is enabled (see 'filtering' preference),
+     * this defines the message filtering configuration.
+     *
+     * @return array  An array with the following keys:
+     *   - replacement: (string) The string filtered words will be replaced
+     *                  with.
+     *   - words: (array) The list of words to filter.
+     */
+    public function msg_filter()
+    {
+        return array(
+            'replacement' => '****',
+            'words' => array(
+                'poop'
+            )
+        );
+    }
+
+
+    /**
+     * Alter access permissions for a mailbox.
+     *
+     * The better way to accomplish this is to directly manipulate the ACLs
+     * on the IMAP server (admins can do this via the ACL management page in
+     * IMP's preferences). However, if ACL is not available on the remote
+     * server, or mailbox permissions need to be dynamically altered, this
+     * hook can be used instead.
+     *
+     * NOTE: This hook is only called once during a user's session - the
+     * results of this hook are cached within the session.
+     *
+     * @param IMP_Mailbox $mailbox             The mailbox.
+     * @param Horde_Imap_Client_Data_Acl $acl  The mailbox ACL.
+     */
+//    public function mbox_acl(IMP_Mailbox $mailbox,
+//                             Horde_Imap_Client_Data_Acl $acl)
+//    {
+//        // Example #1: Make the 'Foo' mailbox a "fixed" folder (can't be
+//        // renamed or deleted).
+//        if ($mailbox == 'Foo') {
+//            unset($acl[Horde_Imap_Client::ACL_DELETEMBOX]);
+//        }
+//
+//
+//        // Example #2: Make the 'Bar' mailbox read-only.
+//        if ($mailbox == 'Bar') {
+//            unset(
+//                $acl[Horde_Imap_Client::ACL_DELETEMBOX],
+//                $acl[Horde_Imap_Client::ACL_DELETEMSGS],
+//                $acl[Horde_Imap_Client::ACL_EXPUNGE],
+//                $acl[Horde_Imap_Client::ACL_INSERT],
+//                $acl[Horde_Imap_Client::ACL_SEEN],
+//                $acl[Horde_Imap_Client::ACL_WRITE]
+//            );
+//        }
 //    }
 
 
@@ -474,22 +473,6 @@ class IMP_Hooks
 
 
     /**
-     * Provide additional mailboxes to be treated as "special".
-     *
-     * @return array  An array of mailboxes to be treated as special. Keys
-     *                are the IMAP mailbox name (in UTF-8), values are the
-     *                mailbox display label.
-     */
-//    public function mbox_special()
-//    {
-//        // Example #1: Mark the 'Foo' mailbox as a special mailbox.
-//        return array(
-//            'Foo' => _("Foo Special Mailbox")
-//        );
-//    }
-
-
-    /**
      * Dynamically alter a mailbox display label.
      *
      * @param string $mbox   The mailbox name.
@@ -503,20 +486,6 @@ class IMP_Hooks
 //        return ($mbox == 'foo')
 //            ? 'bar'
 //            : $label;
-//    }
-
-
-    /**
-     * Mark a mailbox as read-only.
-     *
-     * @param string $mailbox  The mailbox name.
-     *
-     * @return boolean  Is the mailbox read-only?
-     */
-//    public function mbox_readonly($mailbox)
-//    {
-//        // Example #1: Make messages in the 'foo' mailbox readonly.
-//        return ($mailbox == 'foo');
 //    }
 
 
@@ -566,25 +535,24 @@ class IMP_Hooks
     /**
      * Allow additional information to be added/edited from the data that is
      * passed to the mailbox display template:
-     *   imp: imp/templates/basic/mailbox/mailbox.html
-     *   dimp: imp/templates/dynamic/msglist_[horiz|vert].html
+     *   basic: imp/templates/basic/mailbox/mailbox.html
+     *   dynamic: imp/templates/dynamic/msglist_[horiz|vert].html
      *
      * If you are going to add new columns, you also have to update these
      * fields:
-     *   imp: imp/mailbox.php to specify the column width.
-     *   dimp: imp/themes/dynamic/screen.css to specify the column width.
+     *   basic: imp/lib/Basic/Mailbox.php to specify the column width.
+     *   dynamic: imp/themes/dynamic/screen.css to specify the column width.
      *
-     * @param array $msgs   The mailbox data.
-     * @param string $view  Either 'imp' or 'dimp'.
+     * @param array $msgs  The mailbox data.
      *
      * @return array  The altered array to use in the template.
      */
-//    public function mailboxarray($msgs, $view)
+//    public function mailboxarray($msgs)
 //    {
 //        // Example #1: Adds a 'foo' entry to each message element.
-//        switch ($view) {
-//        case 'dimp':
-//        case 'imp':
+//        switch ($GLOBALS['registry']->getView()) {
+//        case Horde_Registry::VIEW_BASIC:
+//        case Horde_Registry::VIEW_DYNAMIC:
 //            foreach (array_keys($msgs) as $key) {
 //                $msgs[$key]['foo'] = true;
 //            }
@@ -608,7 +576,7 @@ class IMP_Hooks
 
 
     /**
-     * Hide specified IMAP mailboxes in folder listings.
+     * Hide IMAP mailboxes in folder listings.
      *
      * @param string $mailbox  The mailbox name.
      *
@@ -628,28 +596,11 @@ class IMP_Hooks
 
 
     /**
-     * Provide email to use for spam reporting. This is handy for spam
-     * reporting software (e.g. DSPAM) which has different e-mail aliases for
-     * spam reporting for each user.
-     *
-     * @param string $action  Either 'spam' or 'innocent'.
-     *
-     * @return string  An e-mail address.
-     */
-//    public function spam_email($action)
-//    {
-//        // Example #1: Create e-mail for DSPAM setup.
-//        $prefix = ($action == 'spam') ? 'spam-' : 'fp-';
-//        return $prefix . $GLOBALS['registry']->getAuth('bare') . '@example.com';
-//    }
-
-
-    /**
      * Perform an action after messages have been reported as spam/innocent.
      *
      * @param string $action        Either 'spam' or 'innocent'.
      * @param IMP_Indices $indices  The list of indices that have been
-                                    reported as spam/innocent.
+     *                              reported as spam/innocent.
      */
 //    public function post_spam($action, $indices)
 //    {
@@ -678,10 +629,10 @@ class IMP_Hooks
 //        // Requires the 'command' parameter to be defined in backends.php,
 //        // which defines the quota reporting function to run on the SSH
 //        // host.
-//        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-//        $host = $imap_ob->ob->getParam('hostspec');
+//        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap');
+//        $host = $imap_ob->getParam('hostspec');
 //        $user = $params['host'];
-//        $pass = $imap_ob->ob->getParam('password');
+//        $pass = $imap_ob->getParam('password');
 //        $command = $params['command'];
 //
 //        $session = ssh2_connect($host);
@@ -787,93 +738,5 @@ class IMP_Hooks
 //        return $information[0][$attribute][0];
 //    }
 
-
-    /**
-     * Dynamic view: Allow additional information to be added to the array
-     * that is passed to the message text display template:
-     *   imp/templates/dynamic/message.html.php.
-     *
-     * @param array $msg  The current entry array (see the showMessage()
-     *                    function in lib/Views/ShowMessage.php for the
-     *                    format.
-     *
-     * @return array  The altered array to use in the template.
-     */
-//    public function dimp_messageview($msg)
-//    {
-//        // Example #1: Add a new foo variable
-//        $msg['foo'] = '<div class="foo">BAR</div>';
-//        return $msg;
-//    }
-
-
-    /**
-     * Dynamic view: Allows additional information to be added to the preview
-     * view and its corresponding template:
-     *   imp/templates/dynamic/mailbox.html.php.
-     *
-     * Since the preview pane is dynamically updated via javascript, all
-     * updates other than the base entries must be provided in javascript code
-     * to be run at update time.
-     *
-     * @param array $msg  The current entry array (see the showMessage()
-     *                    function in lib/Views/ShowMessage.php for the
-     *                    format.
-     *
-     * @return array  A 2 element array - the first element is the original
-     *                array with any changes made to the initial data. The
-     *                second element is an array of javascript commands, one
-     *                command per array value.
-     */
-//    public function dimp_previewview($msg)
-//    {
-//        // Example #1: Alter the subject
-//        $msg['subject'] .= 'test';
-//
-//        // Example #2: Update the DOM ID 'foo' with the value 'bar'. 'foo'
-//        // needs to be manually added to the HTML template.
-//        $js_code = array(
-//            "$('foo').update('bar')"
-//        );
-//
-//        return array($msg, $js_code);
-//    }
-
-
-    /**
-     * Minimal view: Activate advanced features.
-     *
-     * The combination of the rapid pace of development for both mobile
-     * devices and their browsers, coupled with the limited resources of an
-     * open source project to test and track these developments, make it
-     * near impossible to accurately identify a list of mobile browsers
-     * that can handle a interface with more features than the base
-     * mobile view. Therefore, this hook provides a way for a site
-     * administrator to best decide when (and if) they want to allow this
-     * advanced functionality to be available in the mobile view.
-     *
-     * @param string $feature  The advanced feature. One of the following:
-     *   - checkbox: Adds a checkbox interface to selecting messages on the
-     *               mailbox listing page.
-     *   - compose_attach: Allow attachments to be attached in the compose
-     *                     screen.
-     *
-     * @return boolean  If true, activates the feature. By default, these
-     *                  advanced features are NOT active.
-     */
-//     public function mimp_advanced($feature)
-//     {
-//         switch ($feature) {
-//         case 'checkbox':
-//             // Activate the mailbox checkbox interface.
-//             return true;
-//
-//         case 'compose_attach':
-//             // Activate the compose attachment interface.
-//             return true;
-//         }
-//
-//         return false;
-//     }
 
 }

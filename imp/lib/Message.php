@@ -50,7 +50,7 @@ class IMP_Message
     public function copy($targetMbox, $action, IMP_Indices $indices,
                          array $opts = array())
     {
-        global $conf, $notification;
+        global $conf, $injector, $notification;
 
         if (!count($indices)) {
             return false;
@@ -90,7 +90,7 @@ class IMP_Message
             break;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         foreach ($indices as $ob) {
             try {
@@ -147,24 +147,25 @@ class IMP_Message
      */
     public function delete(IMP_Indices $indices, array $opts = array())
     {
-        global $conf, $injector, $notification, $prefs;
+        global $injector, $notification, $prefs;
 
         if (!count($indices)) {
             return false;
         }
 
-        $trash = IMP_Mailbox::getPref('trash_folder');
+        $trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH);
         $use_trash = $prefs->getValue('use_trash');
         if ($use_trash && !$trash) {
             $notification->push(_("Cannot move messages to Trash - no Trash mailbox set in preferences."), 'horde.error');
             return false;
         }
 
-        $maillog_update = (empty($opts['keeplog']) && !empty($conf['maillog']['use_maillog']));
-        $return_value = 0;
-
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
+        $maillog = $injector->getInstance('IMP_Maillog');
+
+        $maillog_update = (empty($opts['keeplog']) && $maillog);
+        $return_value = 0;
 
         /* Check for Trash mailbox. */
         $no_expunge = $use_trash_mbox = $use_vtrash = false;
@@ -298,7 +299,7 @@ class IMP_Message
                     foreach ($fetch as $v) {
                         $msg_ids[] = $v->getEnvelope()->message_id;
                     }
-                    $injector->getInstance('IMP_Maillog')->deleteLog(array_filter($msg_ids));
+                    $maillog->deleteLog(array_filter($msg_ids));
                 }
             }
         }
@@ -334,12 +335,12 @@ class IMP_Message
     protected function _createTasksOrNotes($list, $action,
                                            IMP_Indices $indices, $type)
     {
-        global $registry, $notification;
+        global $injector, $registry, $notification;
 
         foreach ($indices as $ob) {
             foreach ($ob->uids as $uid) {
                 /* Fetch the message contents. */
-                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($uid));
+                $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($uid));
 
                 /* Fetch the message headers. */
                 $imp_headers = $imp_contents->getHeader();
@@ -361,7 +362,7 @@ class IMP_Message
 
                 /* Create a new iCalendar. */
                 $vCal = new Horde_Icalendar();
-                $vCal->setAttribute('PRODID', '-//The Horde Project//IMP ' . $GLOBALS['registry']->getVersion() . '//EN');
+                $vCal->setAttribute('PRODID', '-//The Horde Project//IMP ' . $registry->getVersion() . '//EN');
                 $vCal->setAttribute('METHOD', 'PUBLISH');
 
                 switch ($type) {
@@ -501,7 +502,7 @@ class IMP_Message
         $url->uid = $uid;
         $url->uidvalidity = $uidvalidity;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         /* Always add the header to output. */
         $url->section = 'HEADER';
@@ -603,8 +604,11 @@ class IMP_Message
             $opts['mailboxob']->setIndex($indices_ob);
         }
 
-        /* We need to replace the old index in the URL params. */
+        /* We need to replace the old UID(s) in the URL params. */
         $vars = $injector->getInstance('Horde_Variables');
+        if (isset($vars->buid)) {
+            list(,$vars->buid) = $mbox->toBuids($indices_ob)->getSingle();
+        }
         if (isset($vars->uid)) {
             $vars->uid = $new_uid;
         }
@@ -621,20 +625,32 @@ class IMP_Message
      * @param IMP_Indices $indices  An indices object.
      * @param boolean $action       If true, set the flag(s), otherwise clear
      *                              the flag(s).
+     * @param array $opts           Additional options:
+     *   - unchangedsince: (array) The unchangedsince value to pass to the
+     *                     IMAP store command. Keys are mailbox names, values
+     *                     are the unchangedsince values to use for that
+     *                     mailbox.
      *
      * @return boolean  True if successful, false if not.
      */
-    public function flag($flags, IMP_Indices $indices, $action = true)
+    public function flag($flags, IMP_Indices $indices, $action = true,
+                         array $opts = array())
     {
+        global $injector, $notification;
+
         if (!count($indices)) {
             return false;
         }
 
+        $opts = array_merge(array(
+            'unchangedsince' => array()
+        ), $opts);
+
         $action_array = $action
             ? array('add' => $flags)
             : array('remove' => $flags);
-        $ajax_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $ret = true;
 
         foreach ($indices as $ob) {
@@ -645,14 +661,28 @@ class IMP_Message
 
                 $ob->mbox->uidvalid;
 
-                /* Flag/unflag the messages now. */
-                $imp_imap->store($ob->mbox, array_merge($action_array, array(
-                    'ids' => $imp_imap->getIdsOb($ob->uids)
-                )));
+                $unchangedsince = isset($opts['unchangedsince'][strval($ob->mbox)])
+                    ? $opts['unchangedsince'][strval($ob->mbox)]
+                    : null;
 
-                $ajax_queue->flag(reset($action_array), $action, $ob->mbox->getIndicesOb($ob->uids));
+                /* Flag/unflag the messages now. */
+                $res = $imp_imap->store($ob->mbox, array_merge($action_array, array_filter(array(
+                    'ids' => $imp_imap->getIdsOb($ob->uids),
+                    'unchangedsince' => $unchangedsince
+                ))));
+
+                $flag_change = $ob->mbox->getIndicesOb($ob->uids);
+
+                if ($unchangedsince && count($res)) {
+                    foreach ($res as $val) {
+                        unset($flag_change[$val]);
+                    }
+                    $notification->push(sprintf(_("Flags were not changed for at least one message in the mailbox \"%s\" because the flags were altered by another connection to the mailbox prior to this request. You may redo the flag action if desired; this warning is precautionary to ensure you don't overwrite flag changes."), $ob->mbox->display), 'horde.warning');
+                }
+
+                $ajax_queue->flag(reset($action_array), $action, $flag_change);
             } catch (Exception $e) {
-                $GLOBALS['notification']->push(sprintf(_("There was an error flagging messages in the mailbox \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
+                $notification->push(sprintf(_("There was an error flagging messages in the mailbox \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
                 $ret = false;
             }
         }
@@ -681,7 +711,7 @@ class IMP_Message
             ? array('add' => $flags)
             : array('remove' => $flags);
         $ajax_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
 
         $ajax_queue->poll($mboxes);
 
@@ -689,7 +719,7 @@ class IMP_Message
             try {
                 /* Grab list of UIDs before flagging, to make sure we
                  * determine the exact subset that has been flagged. */
-                $mailbox_list = $val->getListOb()->getIndicesOb();
+                $mailbox_list = $val->list_ob->getIndicesOb();
                 $imp_imap->store($val, $action_array);
                 $ajax_queue->flag(reset($action_array), $action, $mailbox_list);
             } catch (IMP_Imap_Exception $e) {
@@ -725,7 +755,7 @@ class IMP_Message
             return $msg_list ? new IMP_Indices() : null;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         $process_list = $update_list = array();
 
         foreach ($mbox_list as $key => $val) {
@@ -781,11 +811,11 @@ class IMP_Message
      */
     public function emptyMailbox($mbox_list)
     {
-        global $notification, $prefs;
+        global $injector, $notification, $prefs;
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $trash = ($prefs->getValue('use_trash'))
-            ? IMP_Mailbox::getPref('trash_folder')
+            ? IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)
             : null;
 
         foreach (IMP_Mailbox::get($mbox_list) as $mbox) {
@@ -837,7 +867,7 @@ class IMP_Message
         $query->size();
 
         try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
             $res = $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
             ));

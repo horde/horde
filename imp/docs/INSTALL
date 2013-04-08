@@ -119,19 +119,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
    You must use the 2.x branch of Ingo with IMP 6.
 
-3. A web server with PATH_INFO support.
-
-   IMP requires the PATH_INFO environment variable for several features. Every
-   modern web server supports this, but you might have to enable this feature
-   in the web server configuration. e.g. Apache servers require::
-
-      AcceptPathInfo On
-
-   Lighttpd servers require::
-
-     "broken-scriptfilename" => "enable"
-
-4. A configured VFS backend.
+3. A configured VFS backend.
 
    During composition of messages, it is possible that the PHP session may
    timeout. If VFS is enabled in Horde, IMP can store the draft message and

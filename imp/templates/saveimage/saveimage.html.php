@@ -1,8 +1,7 @@
 <form method="post" name="save_image_dialog" action="<?php echo $this->action ?>">
  <input type="hidden" name="actionID" value="save_image" />
  <input type="hidden" name="id" value="<?php echo $this->h($this->id) ?>" />
- <input type="hidden" name="uid" value="<?php echo $this->h($this->uid) ?>" />
- <input type="hidden" name="mbox" value="<?php echo $this->h($this->mbox) ?>" />
+ <input type="hidden" name="muid" value="<?php echo $this->h($this->muid) ?>" />
 
  <h1 class="header">
   <?php echo $this->hordeImage('mime/image.png', _("Image")) ?>

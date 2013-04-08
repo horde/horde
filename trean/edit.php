@@ -20,6 +20,12 @@ try {
     Horde::url('browse.php', true)->redirect();
 }
 
+if ($GLOBALS['conf']['content_index']['enabled']) {
+    $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
+    $topbar->search = true;
+    $topbar->searchAction = Horde::url('search.php');
+}
+
 $injector->getInstance('Horde_Core_Factory_Imple')
     ->create('Trean_Ajax_Imple_TagAutoCompleter', array(
         'id' => 'treanBookmarkTags',

@@ -136,7 +136,12 @@ class Horde_Service_Facebook_Request_Graph extends Horde_Service_Facebook_Reques
         }
 
         if ($result->code != '200') {
-            throw new Horde_Service_Facebook_Exception($result->getBody());
+            $body = $result->getBody();
+            if (($error = json_decode($body, true)) &&
+                isset($error['error']['message'])) {
+                throw new Horde_Service_Facebook_Exception($error['error']['message']);
+            }
+            throw new Horde_Service_Facebook_Exception($body);
         }
 
         return json_decode($result->getBody());

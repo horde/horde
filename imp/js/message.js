@@ -1,5 +1,5 @@
 /**
- * Provides the javascript for the message.php script (standard view).
+ * Provides the javascript for the basic view message page.
  *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
@@ -13,7 +13,7 @@
 
 var ImpMessage = {
 
-    // Set in message.php: pop3delete, stripatc
+    // Set in PHP code: pop3delete, text
 
     arrowHandler: function(e)
     {
@@ -40,13 +40,13 @@ var ImpMessage = {
     {
         switch (actID) {
         case 'spam_report':
-            if (!window.confirm(IMP.text.spam_report)) {
+            if (!window.confirm(this.text.spam_report)) {
                 return;
             }
             break;
 
-        case 'notspam_report':
-            if (!window.confirm(IMP.text.notspam_report)) {
+        case 'innocent_report':
+            if (!window.confirm(this.text.innocent_report)) {
                 return;
             }
             break;
@@ -60,8 +60,8 @@ var ImpMessage = {
     {
         var f1 = $('flag1'), f2 = $('flag2');
 
-        if ((form == 1 && $F(f1) != "") ||
-            (form == 2 && $F(f2) != "")) {
+        if ((form == 1 && !$F(f1).empty()) ||
+            (form == 2 && !$F(f2).empty())) {
             $('messages').down('[name=flag]').setValue((form == 1) ? $F(f1) : $F(f2));
             this.submit('flag_message');
         }
@@ -78,21 +78,21 @@ var ImpMessage = {
 
         // Check for a mailbox actually being selected.
         if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
-            newMbox = window.prompt(IMP.text.newmbox, '');
-            if (newMbox != null && newMbox != '') {
+            newMbox = window.prompt(this.text.newmbox, '');
+            if (newMbox !== null && !newMbox.empty()) {
                 $('newMbox').setValue(1);
                 tmbox.setValue(newMbox);
                 this.submit(actID);
             }
         } else if (target.empty()) {
-            window.alert(IMP.text.target_mbox);
+            window.alert(this.text.target_mbox);
         } else if (target.startsWith("notepad\0") ||
                    target.startsWith("tasklist\0")) {
             this.actIDconfirm = actID;
             HordeDialog.display({
                 form_id: 'RB_ImpMessageConfirm',
                 noinput: true,
-                text: IMP.text.moveconfirm
+                text: this.text.moveconfirm
             });
         } else {
             this.submit(actID);
@@ -124,7 +124,7 @@ var ImpMessage = {
             fixcopy.clonePosition(ul);
 
             zindex = li.getStyle('zIndex');
-            if (zindex === null || zindex == '') {
+            if (zindex === null || zindex.empty()) {
                 li.setStyle({ zIndex: 2 });
                 fixcopy.setStyle({ zIndex: 1 });
             } else {
@@ -200,12 +200,12 @@ var ImpMessage = {
                 this.submit('spam_report');
                 break;
 
-            case 'notspamAction':
-                this.submit('notspam_report');
+            case 'innocentAction':
+                this.submit('innocent_report');
                 break;
 
             case 'stripAllAtc':
-                if (!window.confirm(this.stripallwarn)) {
+                if (!window.confirm(this.text.stripallwarn)) {
                     e.memo.stop();
                 }
                 break;
@@ -215,7 +215,7 @@ var ImpMessage = {
                 break;
 
             case 'stripAtc':
-                if (!window.confirm(this.stripwarn)) {
+                if (!window.confirm(this.text.stripwarn)) {
                     e.memo.stop();
                 }
                 break;

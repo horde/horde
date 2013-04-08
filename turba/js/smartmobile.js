@@ -36,6 +36,11 @@ var TurbaMobile = {
     {
         var purl = data.options.parsedUrl;
 
+        /* We may have reached here from a group contact link. */
+        if (HordeMobile.currentPage() == 'entry') {
+            HordeMobile.updateHash(purl);
+        }
+
         HordeMobile.changePage('entry', data);
 
         $('#entry :jqmData(role="content")').hide();
@@ -93,7 +98,17 @@ var TurbaMobile = {
             });
         });
 
-        ted.collapsibleset('refresh')
+        if (r.group) {
+            html.push('<div data-role="collapsible"><h3>' + r.group.l + '</h3><div><ul data-role="listview" data-inset="true">');
+            $.each(r.group.m, function(k, v) {
+                html.push('<li><a href=' + v.u + '>' + v.n + '</a></li>');
+            });
+            html.push('</ul></div></div>');
+        }
+
+        $('#turba-entry-data')
+            .html(html.join(''))
+            .collapsibleset('refresh')
             .find(':jqmData(role="listview")').listview();
         $('#entry :jqmData(role="content")').show();
     },

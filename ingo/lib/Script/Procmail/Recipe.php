@@ -1,18 +1,27 @@
 <?php
 /**
- * The Ingo_Script_Procmail_Recipe:: class represents a Procmail recipe.
- *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Ben Chavet <ben@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Procmail_Recipe
+
+/**
+ * The Ingo_Script_Procmail_Recipe class represents a Procmail recipe.
+ *
+ * @author   Ben Chavet <ben@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
 {
     /**
      */
@@ -404,10 +413,10 @@ class Ingo_Script_Procmail_Recipe
                 $comment = new Ingo_Script_Procmail_Comment($val);
                 $code .= $comment->generate() . "\n";
             }
-            return $code . "\n";
-        } else {
-            return implode("\n", $text) . "\n";
+            return $code;
         }
+
+        return implode("\n", $text);
     }
 
     /**

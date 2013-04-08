@@ -67,7 +67,7 @@ var HordeTopbar = {
                     elm.insert(new Element('SPAN', { className: 'horde-point-arrow' + active })
                                .insert('&#9662;'));
                 }
-                item.insert(this._renderBranch(nodes, nodes[root_node].children))
+                item.insert(this._renderBranch(nodes, nodes[root_node].children));
             }
             elm.insert(nodes[root_node].label);
             $('horde-navigation')
@@ -100,7 +100,7 @@ var HordeTopbar = {
             elm.insert(nodes[child].label);
             item = new Element('LI', attr).insert(container);
             if (nodes[child].children) {
-                item.insert(this._renderBranch(nodes, nodes[child].children))
+                item.insert(this._renderBranch(nodes, nodes[child].children));
             }
             list.insert(item);
         }, this);
@@ -118,6 +118,6 @@ var HordeTopbar = {
                                    this.conf.refresh);
         }
     }
-}
+};
 
 document.observe('dom:loaded', HordeTopbar.onDomLoad.bind(HordeTopbar));

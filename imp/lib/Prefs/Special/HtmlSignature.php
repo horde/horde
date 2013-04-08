@@ -1,16 +1,24 @@
 <?php
 /**
- * Special prefs handling for the 'signature_html_select' preference.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Special prefs handling for the 'signature_html_select' preference.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Prefs_Special_HtmlSignature implements Horde_Core_Prefs_Ui_Special
 {
@@ -27,7 +35,7 @@ class IMP_Prefs_Special_HtmlSignature implements Horde_Core_Prefs_Ui_Special
         global $injector, $page_output, $prefs;
 
         $page_output->addScriptFile('signaturehtml.js');
-        $injector->getInstance('IMP_Ui_Editor')->init(false, 'signature_html');
+        $injector->getInstance('IMP_Editor')->init(false, 'signature_html');
 
         $identity = $injector->getInstance('IMP_Identity');
 

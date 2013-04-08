@@ -1,18 +1,27 @@
 <?php
 /**
- * The Ingo_Script_Maildrop_Variable:: class represents a Maildrop variable.
- *
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Matt Weyland <mathias@weyland.ch>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Maildrop_Variable
+
+/**
+ * The Ingo_Script_Maildrop_Variable class represents a Maildrop variable.
+ *
+ * @author   Matt Weyland <mathias@weyland.ch>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+class Ingo_Script_Maildrop_Variable implements Ingo_Script_Item
 {
     /**
      */
@@ -41,7 +50,6 @@ class Ingo_Script_Maildrop_Variable
      */
     public function generate()
     {
-        return $this->_name . '=' . $this->_value . "\n";
+        return $this->_name . '=' . $this->_value;
     }
-
 }

@@ -34,7 +34,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
+class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
 {
     /** Search code page **/
     const SEARCH_SEARCH              = 'Search:Search';
@@ -62,11 +62,21 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     const SEARCH_SUPPORTED           = 'Search:Supported';
     const SEARCH_USERNAME            = 'Search:UserName';
     const SEARCH_PASSWORD            = 'Search:Password';
+
+    // 14
     const SEARCH_CONVERSATIONID      = 'Search:ConversationId';
+
+    // 14.1
+    const SEARCH_PICTURE             = 'Search:Picture';
+    const SEARCH_MAXSIZE             = 'Search:MaxSize';
+    const SEARCH_MAXPICTURES         = 'Search:MaxPictures';
 
     /** Search Status **/
     const SEARCH_STATUS_SUCCESS      = 1;
     const SEARCH_STATUS_ERROR        = 3;
+
+    /** Compat **/
+    const STATUS_PROTERROR           = 3;
 
     /** Store Status **/
     const STORE_STATUS_SUCCESS       = 1;
@@ -125,88 +135,78 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
         }
         $mime = Horde_ActiveSync::MIME_SUPPORT_NONE;
         if ($this->_decoder->getElementStartTag(self::SEARCH_OPTIONS)) {
+            $searchbodypreference = array();
             while(1) {
                 if ($this->_decoder->getElementStartTag(self::SEARCH_RANGE)) {
-                    $search_range = $this->_decoder->getElementContent();
+                    $search_query['search_range'] = $this->_decoder->getElementContent();
                     if (!$this->_decoder->getElementEndTag()) {
                         $search_status = self::SEARCH_STATUS_ERROR;
                         $store_status = self::STORE_STATUS_PROTERR;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_DEEPTRAVERSAL)) {
-                    if (!($searchdeeptraversal = $this->_decoder->getElementContent())) {
-                        $search_querydeeptraversal = true;
+                    if (!($search_query['deeptraversal'] = $this->_decoder->getElementContent())) {
+                        $search_query['deeptraversal'] = true;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_REBUILDRESULTS)) {
-                    if (!($searchrebuildresults = $this->_decoder->getElementContent())) {
-                        $search_queryrebuildresults = true;
+                    if (!($search_query['rebuildresults'] = $this->_decoder->getElementContent())) {
+                        $search_query['rebuildresults'] = true;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_USERNAME)) {
-                    if (!($search_queryusername = $this->_decoder->getElementContent())) {
+                    if (!($search_query['username'] = $this->_decoder->getElementContent())) {
                         return false;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_PASSWORD)) {
-                    if (!($search_querypassword = $this->_decoder->getElementContent()))
+                    if (!($search_query['password'] = $this->_decoder->getElementContent()))
                         return false;
                     else
                         if(!$this->_decoder->getElementEndTag())
                         return false;
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_SCHEMA)) {
-                    if (!($searchschema = $this->_decoder->getElementContent())) {
-                        $searchschema = true;
+                    if (!($search_query['schema'] = $this->_decoder->getElementContent())) {
+                        $search_query['schema'] = true;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
                 }
-                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
-                    $bodypreference=array();
-                    while(1) {
-                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
-                            $bodypreference['type'] = $this->_decoder->getElementContent();
-                            if (!$this->_decoder->getElementEndTag()) {
-                                return false;
-                            }
+                // 14.1 Only
+                if ($this->_decoder->getElementStartTag(self::SEARCH_PICTURE)) {
+                    $search_query[self::SEARCH_PICTURE] = true;
+                    if ($this->_decoder->getElementStartTag(self::SEARCH_MAXSIZE)) {
+                        $search_query[self::SEARCH_MAXSIZE] = $this->_decoder->getElementContent();
+                        if (!$this->_decoder->getElementEndTag()) {
+                            return false;
                         }
-                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
-                            $bodypreference['truncationsize'] = $this->_decoder->getElementContent();
-                            if(!$this->_decoder->getElementEndTag())
-                                return false;
-                        }
-                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_ALLORNONE)) {
-                            $bodypreference['allornone'] = $this->_decoder->getElementContent();
-                            if (!$this->_decoder->getElementEndTag()) {
-                                return false;
-                            }
-                        }
-                        $e = $this->_decoder->peek();
-                        if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
-                            $this->_decoder->getElementEndTag();
-                            if (!isset($searchbodypreference['wanted'])) {
-                                $searchbodypreference['wanted'] = $bodypreference['type'];
-                            }
-                            if (isset($bodypreference['type'])) {
-                                $searchbodypreference[$bodypreference['type']] = $bodypreference;
-                            }
-                            break;
+                    }
+                    if ($this->_decoder->getElementStartTag(self::SEARCH_MAXPICTURES)) {
+                        $search_query[self::SEARCH_MAXPICTURES] = $this->_decoder->getElementContent();
+                        if (!$this->_decoder->getElementEndTag()) {
+                            return false;
                         }
                     }
                 }
-                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
-                    $bodypreference['mimesupport'] = $this->_decoder->getElementContent();
-                    if (!$this->_decoder->getElementEndTag()) {
-                        return false;
-                    }
+
+                $this->_bodyPrefs($searchbodypreference);
+                $searchbodypreference = empty($searchbodypreference['bodyprefs']) ? array() : $searchbodypreference['bodyprefs'];
+                $this->_mimeSupport($searchbodypreference);
+
+                // EAS 14.1
+                if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+                    $rm = array();
+                    $this->_rightsManagement($rm);
+                    $this->_bodyPartPrefs($search_query);
                 }
+
                 $e = $this->_decoder->peek();
                 if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                     $this->_decoder->getElementEndTag();
@@ -224,15 +224,14 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $store_status = self::STORE_STATUS_PROTERR;
         }
 
-        $search_range = empty($search_range) ? '0-99' : $search_range;
-        $search_query['range'] = $search_range;
+        $search_query['range'] = empty($search_query['range']) ? '0-99' : $search_query['range'];
         switch(strtolower($search_name)) {
         case 'documentlibrary':
             // not supported
             break;
         case 'mailbox':
-            $search_query['rebuildresults'] = !empty($search_queryrebuildresults);
-            $search_query['deeptraversal'] =  !empty($search_querydeeptraversal);
+            $search_query['rebuildresults'] = !empty($search_query['rebuildresults']);
+            $search_query['deeptraversal'] =  !empty($search_query['deeptraversal']);
             break;
         }
 
@@ -309,8 +308,15 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                     $this->_encoder->content($u[Horde_ActiveSync::GAL_EMAILADDRESS]);
                     $this->_encoder->endTag();
 
-                    $this->_encoder->endTag();//result
+                    if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE &&
+                        !empty($u[Horde_ActiveSync::GAL_PICTURE])) {
+                        $this->_encoder->startTag(Horde_ActiveSync::GAL_PICTURE);
+                        $u[Horde_ActiveSync::GAL_PICTURE]->encodeStream($this->_encoder);
+                        $this->_encoder->endTag();
+                    }
+
                     $this->_encoder->endTag();//properties
+                    $this->_encoder->endTag();//result
                     break;
                 case 'mailbox':
                     $this->_encoder->startTag(self::SEARCH_RESULT);
@@ -410,6 +416,17 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
         }
 
         return $query;
+    }
+
+    protected function _handleError(array $data)
+    {
+        $this->_decoder->getElementEndTag(); // end SYNC_ITEMOPERATIONS_ITEMOPERATIONS
+        $this->_encoder->startWBXML($this->_activeSync->multipart);
+        $this->_encoder->startTag(self::ITEMOPERATIONS_ITEMOPERATIONS);
+        $this->_encoder->startTag(self::SEARCH_STATUS);
+        $this->_encoder->content($this->_statusCode);
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
     }
 
 }

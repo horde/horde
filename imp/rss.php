@@ -37,7 +37,7 @@ $request = Horde_Util::getPathInfo();
 if (!empty($request)) {
     $request_parts = explode('/-/', $request);
     if (!empty($request_parts[0])) {
-        $ns_info = $injector->getInstance('IMP_Factory_Imap')->create()->getNamespace();
+        $ns_info = $injector->getInstance('IMP_Imap')->getNamespace();
         $mailbox = IMP_Mailbox::get(preg_replace('/\//', $ns_info['delimiter'], trim($request_parts[0], '/')))->namespace_append;
 
         /* Make sure mailbox exists or else exit immediately. */
@@ -48,7 +48,7 @@ if (!empty($request)) {
     $new_mail = (isset($request_parts[1]) && ($request_parts[1] === 'new'));
 }
 
-$imp_mailbox = $mailbox->getListOb();
+$imp_mailbox = $mailbox->list_ob;
 
 /* Obtain some information describing the mailbox state. */
 $total_num = count($imp_mailbox);
@@ -63,7 +63,7 @@ if ($new_mail) {
 $ids = $mailbox->runSearchQuery($query, Horde_Imap_Client::SORT_ARRIVAL, 1);
 
 if (count($ids)) {
-    $imp_ui = new IMP_Ui_Mailbox($mailbox);
+    $imp_ui = new IMP_Mailbox_Ui($mailbox);
 
     $overview = $imp_mailbox->getMailboxArray(array_slice($ids[strval($mailbox)], 0, 20), array('preview' => $prefs->getValue('preview_enabled')));
 
@@ -73,7 +73,7 @@ if (count($ids)) {
             'title' => $imp_ui->getSubject($ob['envelope']->subject),
             'pubDate' => $ob['envelope']->date->format('r'),
             'description' => isset($ob['preview']) ? $ob['preview'] : '',
-            'url' => Horde::url($mailbox->url('message.php', $ob['uid'], $mailbox), true, array('append_session' => -1)),
+            'url' => Horde::url($mailbox->url('message', $imp_mailbox->getBuid($mailbox, $ob['uid'])), true, array('append_session' => -1)),
             'fromAddr' => strval($from_addr['from_list']),
             'toAddr' => strval($ob['envelope']->to)
         ));
@@ -94,8 +94,8 @@ $view->items = $items;
 $view->pubDate = date('r');
 $view->rss_url = Horde::url('rss.php', true, array('append_session' => -1));
 $view->title = $registry->get('name') . ' - ' . $mailbox->label;
-$view->url = Horde::url($mailbox->url('message.php'), true, array('append_session' => -1));
+$view->url = Horde::url($mailbox->url('message'), true, array('append_session' => -1));
 $view->xsl = Horde_Themes::getFeedXsl();
 
 $browser->downloadHeaders('mailbox.rss', 'text/xml', true);
-echo $view->render('mailbox.rss');
+echo $view->render('mailbox.rss.php');

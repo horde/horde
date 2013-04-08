@@ -1,14 +1,23 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Test_Not class represents the inverse of a given
- * test.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The Ingo_Script_Sieve_Test_Not class represents the inverse of a given
+ * test.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -45,9 +54,9 @@ class Ingo_Script_Sieve_Test_Not extends Ingo_Script_Sieve_Test
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
-        return 'not ' . $this->_test->toCode();
+        return 'not ' . $this->_test->generate();
     }
 
     /**
@@ -60,5 +69,4 @@ class Ingo_Script_Sieve_Test_Not extends Ingo_Script_Sieve_Test
     {
         return $this->_test->requires();
     }
-
 }

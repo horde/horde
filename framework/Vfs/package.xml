@@ -27,11 +27,11 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-30</date>
- <time>14:25:34</time>
+ <date>2012-10-26</date>
+ <time>20:52:53</time>
  <version>
-  <release>2.0.5</release>
-  <api>2.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Use ssh2_sftp_chmod() if available (ssh2 0.12).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1146,7 +1146,20 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2013-01-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Use ssh2_sftp_chmod() if available (ssh2 0.12).
    </notes>
   </release>
  </changelog>

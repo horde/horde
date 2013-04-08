@@ -16,3 +16,13 @@ TODO
   outside of the client's advertised timespan. This should only run once per
   day .. probably on the first connection of the day, or perhaps a randomized
   connection to lessen the chance of every user having this run at once.
+
+- Move all non-specific constants to single class.
+
+- Extract/Implement a full fledged device object from the state driver.
+
+- Email recurrence related properties for recurring meeting requests.
+
+- Recipient Information Cache: Sync with Turba's favorites source.
+
+- Email categories - possible to map to custom IMAP Flags?

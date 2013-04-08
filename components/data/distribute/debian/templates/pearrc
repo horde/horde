@@ -1,2 +1,0 @@
-#PEAR_Config 0.9
-a:2:{s:12:"download_dir";s:14:"/tmp/pear/temp";s:10:"__channels";a:1:{s:14:"pear.horde.org";a:1:{s:9:"horde_dir";s:16:"/usr/share/horde";}}}

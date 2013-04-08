@@ -30,29 +30,26 @@ class IMP_Factory_AuthImap extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        $params = $GLOBALS['registry']->callByPackage('imp', 'server');
+        global $injector, $registry;
+
+        $params = $registry->callByPackage('imp', 'server');
         if (is_null($params)) {
             throw new IMP_Exception('No server parameters found.');
         }
 
-        foreach ($GLOBALS['session']->get('imp', 'imap_admin', Horde_Session::TYPE_ARRAY) as $key => $val) {
-            switch ($key) {
-            case 'password':
-                $secret = $injector->getInstance('Horde_Secret');
-                $params['admin_password'] = $secret->read($secret->getKey(), $val);
-                break;
+        $params_map = array(
+            'password' => 'admin_password',
+            'user' => 'admin_user',
+            'userhierarchy' => 'userhierarchy'
+        );
 
-            case 'user':
-                $key = 'admin_user';
-                // Fall-through
-
-            case 'userhierarchy':
-                $params[$key] = $val;
-                break;
+        foreach ($injector->getInstance('IMP_Imap')->config->admin as $key => $val) {
+            if (isset($params_map[$key])) {
+                $params[$params_map[$key]] = $val;
             }
         }
 
-        $params['default_user'] = $GLOBALS['registry']->getAuth();
+        $params['default_user'] = $registry->getAuth();
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
         return Horde_Auth::factory('Imap', $params);

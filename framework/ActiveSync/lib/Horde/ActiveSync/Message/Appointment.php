@@ -75,7 +75,19 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const POOMCAL_SUBJECT            = 'POOMCAL:Subject';
     const POOMCAL_STARTTIME          = 'POOMCAL:StartTime';
     const POOMCAL_UID                = 'POOMCAL:UID';
-    const POOMCAL_RESPONSETYPE       = 'POOMCAL:ResponseType';
+
+    // 14.0
+    const POOMCAL_DISALLOWNEWTIMEPROPOSAL = 'POOMCAL:DisallowNewTimeProposal';
+    const POOMCAL_RESPONSEREQUESTED       = 'POOMCAL:ResponseRequested';
+    const POOMCAL_APPOINTMENTREPLYTIME    = 'POOMCAL:AppointmentReplyTime';
+    const POOMCAL_CALENDARTYPE            = 'POOMCAL:CalendarType';
+    const POOMCAL_ISLEAPMONTH             = 'POOMCAL:IsLeapMonth';
+    const POOMCAL_RESPONSETYPE            = 'POOMCAL:ResponseType';
+
+    // 14.1
+    const POOMCAL_FIRSTDAYOFWEEK          = 'POOMCAL:FirstDayOfWeek';
+    const POOMCAL_ONLINECONFLINK          = 'POOMCAL:OnlineMeetingConfLink';
+    const POOMCAL_ONLINEEXTLINK           = 'POOMCAL:OnlineMeetingExternalLink';
 
     /* Sensitivity */
     const SENSITIVITY_NORMAL         = 0;
@@ -146,7 +158,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         self::POOMCAL_ATTENDEES      => array (self::KEY_ATTRIBUTE => 'attendees', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attendee', self::KEY_VALUES => self::POOMCAL_ATTENDEE),
         self::POOMCAL_EXCEPTIONS     => array (self::KEY_ATTRIBUTE => 'exceptions', self::KEY_TYPE => 'Horde_ActiveSync_Message_Exception', self::KEY_VALUES => self::POOMCAL_EXCEPTION),
         self::POOMCAL_CATEGORIES     => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMCAL_CATEGORY),
-        //self::POOMCAL_RESPONSETYPE => array(self::KEY_ATTRIBUTE => 'responsetype'),
     );
 
     /**
@@ -208,6 +219,31 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $this->_properties += array(
                 'airsyncbasebody' => false
             );
+
+            if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+                $this->_mapping += array(
+                    self::POOMCAL_DISALLOWNEWTIMEPROPOSAL => array(self::KEY_ATTRIBUTE => 'disallownewtimeproposal'),
+                    self::POOMCAL_RESPONSEREQUESTED => array(self::KEY_ATTRIBUTE => 'responserequested'),
+                    self::POOMCAL_APPOINTMENTREPLYTIME => array(self::KEY_ATTRIBUTE => 'appointmentreplytime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+                    self::POOMCAL_RESPONSETYPE => array(self::KEY_ATTRIBUTE => 'responsetype'),
+                );
+                $this->_properties += array(
+                    'disallownewtimeproposal' => false,
+                    'responserequested' => false,
+                    'appointmentreplytime' => false,
+                    'responsetype' => false,
+                );
+           }
+           if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+                $this->_mapping += array(
+                    self::POOMCAL_ONLINECONFLINK => array(self::KEY_ATTRIBUTE => 'onlinemeetingconflink'),
+                    self::POOMCAL_ONLINEEXTLINK  => array(self::KEY_ATTRIBUTE => 'onlinemeetingexternallink')
+                );
+                $this->_properties += array(
+                    'onlinemeetingconflink' => false,
+                    'onlinemeetingexternallink' => false
+                );
+           }
         }
     }
 
@@ -453,11 +489,17 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Set recurrence information for this appointment
      *
-     * @param Horde_Date_Recurrence $recurrence
+     * @param Horde_Date_Recurrence $recurrence  The recurrence data.
+     * @param integer $fdow                      The first day of the week.
+     *        (A Horde_ActiveSync_Message_Recurrence:: constant).  @since 2.4.0
      */
-    public function setRecurrence(Horde_Date_Recurrence $recurrence)
+    public function setRecurrence(Horde_Date_Recurrence $recurrence, $fdow = null)
     {
-        $r = new Horde_ActiveSync_Message_Recurrence();
+        $r = Horde_ActiveSync::messageFactory('Recurrence');
+
+        if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+            $r->firstdayofweek = $fdow;
+        }
 
         /* Map the type fields */
         switch ($recurrence->recurType) {
@@ -495,6 +537,11 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $r->occurrences = $recurrence->getRecurCount();
         } elseif ($recurrence->hasRecurEnd()) {
             $r->until = $recurrence->getRecurEnd();
+        }
+
+        // We don't support non-gregorian calendars.
+        if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+            $r->calendartype = Horde_ActiveSync_Message_Recurrence::CALENDAR_TYPE_GREGORIAN;
         }
 
         $this->_properties['recurrence'] = $r;

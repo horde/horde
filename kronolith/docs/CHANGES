@@ -3,11 +3,12 @@ v4.1.0-git
 ----------
 
 [jan] Use Horde_Dav for accessing remote calendars.
+[mjr] Expose Kronolith_FreeBusy::get() via the external API.
 
 
-----------
-v4.0.5-git
-----------
+------
+v4.0.5
+------
 
 [jan] Don't send notifications for all recurrence exceptions when deleting
       events.

@@ -1,11 +1,18 @@
 <?php
 /**
- * Block to show filter information.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Oliver Kuhl <okuhl@netcologne.de>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Block to show filter information.
  *
  * @author   Oliver Kuhl <okuhl@netcologne.de>
  * @category Horde

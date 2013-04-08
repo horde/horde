@@ -1,17 +1,18 @@
 /**
- * Provides the javascript for the mailbox.php script (standard view).
+ * Provides the javascript for the basic view mailbox page.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var ImpMailbox = {
-    // The following variables are defined in mailbox.php:
-    //  text, unread
+
+    // The following variables are defined in PHP code:
+    //   pop3, text, unread
 
     countSelected: function()
     {
-        return $('messages').select('[name="indices[]"]').findAll(Form.Element.getValue).size();
+        return $('messages').select('[name="buid[]"]').findAll(Form.Element.getValue).size();
     },
 
     selectRow: function(id, select)
@@ -39,19 +40,19 @@ var ImpMailbox = {
 
         switch (actID) {
         case 'delete_messages':
-            if (IMP.conf.pop3 && !confirm(this.text.delete_messages)) {
+            if (this.pop3 && !confirm(this.text.delete_messages)) {
                 return;
             }
             break;
 
         case 'spam_report':
-            if (!confirm(IMP.text.spam_report)) {
+            if (!confirm(this.text.spam_report)) {
                 return;
             }
             break;
 
-        case 'nostpam_report':
-            if (!confirm(IMP.text.notspam_report)) {
+        case 'innocent_report':
+            if (!confirm(this.text.innocent_report)) {
                 return;
             }
             break;
@@ -121,23 +122,23 @@ var ImpMailbox = {
 
             // Check for a mailbox actually being selected.
             if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
-                newMbox = prompt(IMP.text.newmbox, '');
-                if (newMbox != null && newMbox != '') {
+                newMbox = prompt(this.text.newmbox, '');
+                if (newMbox !== null && !newMbox.empty()) {
                     $('newMbox').setValue(1);
                     tmbox.setValue(newMbox);
                     this.submit(actID);
                 }
             } else if (target.empty()) {
-                alert(IMP.text.target_mbox);
+                alert(this.text.target_mbox);
             } else if (target.startsWith("notepad\0") ||
                        target.startsWith("tasklist\0")) {
                 this.actIDconfirm = actID;
                 HordeDialog.display({
-                    cancel_text: IMP.text.no,
+                    cancel_text: this.text.no,
                     form_id: 'RB_ImpMailboxConfirm',
                     noinput: true,
-                    ok_text: IMP.text.yes,
-                    text: IMP.text.moveconfirm
+                    ok_text: this.text.yes,
+                    text: this.text.moveconfirm
                 });
             } else {
                 this.submit(actID);
@@ -151,8 +152,8 @@ var ImpMailbox = {
     {
         var f1 = $('flag1'), f2 = $('flag2');
 
-        if ((form == 1 && $F(f1) != "") ||
-            (form == 2 && $F(f2) != "")) {
+        if ((form == 1 && !$F(f1).empty()) ||
+            (form == 2 && !$F(f2).empty())) {
             if (this.countSelected()) {
                 $('messages').down('[name=flag]').setValue((form == 1) ? $F(f1) : $F(f2));
                 this.submit('flag_messages');
@@ -171,8 +172,8 @@ var ImpMailbox = {
     {
         var f1 = $('filter1'), f2 = $('filter2');
 
-        if ((form == 1 && $F(f1) != "") ||
-            (form == 2 && $F(f2) != "")) {
+        if ((form == 1 && !$F(f1).empty()) ||
+            (form == 2 && !$F(f2).empty())) {
             $('messages').down('[name=filter]').setValue((form == 1) ? $F(f1) : $F(f2));
             this.submit('filter_messages');
         }
@@ -270,8 +271,8 @@ var ImpMailbox = {
                 e.memo.stop();
                 break;
 
-            case 'notspamAction':
-                this.submit('notspam_report');
+            case 'innocentAction':
+                this.submit('innocent_report');
                 e.memo.stop();
                 break;
 
@@ -423,13 +424,6 @@ var ImpMailbox = {
         e.stop();
     },
 
-    submitHandler: function(e)
-    {
-        if (e.element().hasClassName('navbarselect')) {
-            e.stop();
-        }
-    },
-
     onDomLoad: function()
     {
         HordeCore.initHandler('click');
@@ -453,7 +447,7 @@ document.observe('dom:loaded', ImpMailbox.onDomLoad.bind(ImpMailbox));
 
 document.observe('HordeCore:click', ImpMailbox.clickHandler.bindAsEventListener(ImpMailbox));
 document.observe('keydown', ImpMailbox.keyDownHandler.bindAsEventListener(ImpMailbox));
-document.observe('submit', ImpMailbox.submitHandler.bindAsEventListener(ImpMailbox));
+document.on('submit', '.navbarselect', Event.stop);
 
 document.observe('HordeDialog:onClick', function(e) {
     switch (e.element().identify()) {

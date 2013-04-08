@@ -1491,6 +1491,11 @@ abstract class Kronolith_Event
         /* Categories (Tags) */
         $this->_tags = $message->getCategories();
 
+        // 14.1
+        if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+            $this->url = $message->onlinemeetingexternallink;
+        }
+
         /* Flag that we are initialized */
         $this->initialized = true;
     }
@@ -1584,7 +1589,7 @@ abstract class Kronolith_Event
 
         // Recurrence
         if ($this->recurs()) {
-            $message->setRecurrence($this->recurrence);
+            $message->setRecurrence($this->recurrence, $GLOBALS['prefs']->getValue('week_start_monday'));
 
             /* Exceptions are tricky. Exceptions, even those that represent
              * deleted instances of a recurring event, must be added. To do this
@@ -1737,6 +1742,30 @@ abstract class Kronolith_Event
             foreach ($this->tags as $tag) {
                 $message->addCategory($tag);
             }
+        }
+
+        // EAS 14
+        if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
+            // We don't track the actual responses we sent to other's invitations.
+            // Set this based on the status flag.
+            switch ($this->status) {
+            case Kronolith::STATUS_TENTATIVE;
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_TENTATIVE;
+                break;
+            case Kronolith::STATUS_NONE:
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NORESPONSE;
+                break;
+            case Kronolith::STATUS_CONFIRMED:
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_ACCEPTED;
+                break;
+            default:
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NONE;
+            }
+        }
+
+        // 14.1
+        if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+            $message->onlinemeetingexternallink = $this->url;
         }
 
         return $message;

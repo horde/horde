@@ -1,6 +1,13 @@
 ----------
-v4.0.3-git
+v4.1.0-git
 ----------
+
+[jan] Update design to closer match the Horde 5 UI.
+
+
+------
+v4.0.3
+------
 
 [jan] Fix listing alarms of recurring tasks.
 [jan] Fix default task list in portal block (Bug #12133).

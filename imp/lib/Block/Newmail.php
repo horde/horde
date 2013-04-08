@@ -67,7 +67,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
         if (empty($indices)) {
             $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
-            $imp_ui = new IMP_Ui_Mailbox($inbox);
+            $imp_ui = new IMP_Mailbox_Ui($inbox);
             $shown = empty($this->_params['msgs_shown'])
                 ? 3
                 : $this->_params['msgs_shown'];
@@ -76,7 +76,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
             $query->envelope();
 
             try {
-                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
                 $fetch_ret = $imp_imap->fetch($inbox, $query, array(
                     'ids' => $imp_imap->getIdsOb(array_slice($indices, 0, $shown))
                 ));
@@ -92,7 +92,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
                 $subject = $imp_ui->getSubject($envelope->subject, true);
 
                 $html .= '<tr style="cursor:pointer" class="text"><td>' .
-                    $inbox->url('message.php', $uid)->link() .
+                    $inbox->url('message', $uid)->link() .
                     '<strong>' . htmlspecialchars($from['from'], ENT_QUOTES, 'UTF-8') . '</strong><br />' .
                     $subject . '</a></td>' .
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, 'UTF-8') . '</td></tr>';
@@ -105,7 +105,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
         }
 
         return $html .
-               '<tr><td colspan="2" style="cursor:pointer" align="right">' . $inbox->url('mailbox.php')->link() . $text . '</a></td></tr>' .
+               '<tr><td colspan="2" style="cursor:pointer" align="right">' . $inbox->url('mailbox')->link() . $text . '</a></td></tr>' .
                '</table>';
     }
 

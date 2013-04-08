@@ -354,9 +354,16 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
     public function changePermissions($path, $name, $permission)
     {
         $this->_connect();
+        $full = $this->_getPath($path, $name);
 
-        if (!@ssh2_exec($this->_stream, 'chmod ' . escapeshellarg($permission) . ' ' . escapeshellarg($this->_getPath($path, $name)))) {
-            throw new Horde_Vfs_Exception(sprintf('Unable to change permission for VFS file "%s".', $this->_getPath($path, $name)));
+        /* ssh2_sftp_chmod() has been added with ssh2 0.12. */
+        if (function_exists('ssh2_sftp_chmod')) {
+            $result = @ssh2_sftp_chmod($this->_sftp, $full, $permission);
+        } else {
+            $result = @ssh2_exec($this->_stream, 'chmod ' . escapeshellarg($permission) . ' ' . escapeshellarg($full));
+        }
+        if (!$result) {
+            throw new Horde_Vfs_Exception(sprintf('Unable to change permission for VFS file "%s".', $full));
         }
     }
 

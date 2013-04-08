@@ -38,27 +38,19 @@ class IMP_Quota_Mercury32 extends IMP_Quota
      * @param array $params  Parameters:
      *   - mail_user_folder: (string) [REQUIRED] The path to folder mail
      *                       mercury.
-     *
-     * @throws IMP_Exception
      */
     public function __construct(array $params = array())
     {
         if (!isset($params['mail_user_folder'])) {
-            throw new IMP_Exception('Missing mail_user_folder parameter in quota config.');
+            throw new InvalidArgumentException('Missing mail_user_folder parameter in quota config.');
         }
 
         parent::__construct($params);
     }
 
     /**
-     * Get quota information (used/allocated), in bytes.
-     *
-     * @return array  An array with the following keys:
-     *                'limit' = Maximum quota allowed
-     *                'usage' = Currently used portion of quota (in bytes)
-     * @throws IMP_Exception
      */
-    public function getQuota()
+    public function getQuota($mailbox = null)
     {
         $quota = 0;
 

@@ -22,27 +22,19 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-11</date>
- <time>15:48:19</time>
+ <date>2013-04-08</date>
+ <time>16:35:26</time>
  <version>
-  <release>4.0.3</release>
+  <release>4.1.0beta1</release>
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix listing alarms of recurring tasks.
-* [jan] Fix default task list in portal block (Bug #12133).
-* [jan] Fix displaying of due dates of recurring events in some views.
-* [jan] Update broken rows due to migration bug in PostgreSQL (Bug #12101).
-* [mjr] Fix uncompleting tasks from task view in smartmobile view (Bug #12098, &lt;ctimoteo@sapo.pt&gt;).
-* [jan] Include parent tasks in cost object labels.
-* [jan] Only return completed tasks up to a week old as cost objects.
-* [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Update design to closer match the Horde 5 UI.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -508,6 +500,9 @@
       <file name="big_alarm.png" role="horde" />
       <file name="checkbox.png" role="horde" />
       <file name="checked.png" role="horde" />
+      <file name="complete.png" role="horde" />
+      <file name="delete.png" role="horde" />
+      <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="nag.png" role="horde" />
@@ -714,7 +709,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.4.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -959,6 +954,9 @@
    <install as="nag/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
    <install as="nag/themes/default/graphics/checkbox.png" name="themes/default/graphics/checkbox.png" />
    <install as="nag/themes/default/graphics/checked.png" name="themes/default/graphics/checked.png" />
+   <install as="nag/themes/default/graphics/complete.png" name="themes/default/graphics/complete.png" />
+   <install as="nag/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
+   <install as="nag/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="nag/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="nag/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
    <install as="nag/themes/default/graphics/nag.png" name="themes/default/graphics/nag.png" />
@@ -1315,6 +1313,22 @@
 * [jan] Only return completed tasks up to a week old as cost objects.
 * [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <date>2013-04-08</date>
+   <time>11:35:08</time>
+   <version>
+    <release>4.1.0beta1</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update design to closer match the Horde 5 UI.
    </notes>
   </release>
  </changelog>

@@ -29,6 +29,17 @@ class IMP_Mime_Status
     const WARNING = 3;
 
     /**
+     * Views to display this status in.
+     *
+     * @var array
+     */
+    public $views = array(
+        Horde_Registry::VIEW_BASIC,
+        Horde_Registry::VIEW_DYNAMIC,
+        Horde_Registry::VIEW_MINIMAL
+    );
+
+    /**
      * DOM ID to use for the status block.
      *
      * @var string
@@ -125,24 +136,38 @@ class IMP_Mime_Status
      */
     public function __toString()
     {
-        $out = '<div><table class="mimeStatusMessageTable"' .
-            (isset($this->_domid) ? (' id="' . $this->_domid . '" ') : '')
-            . '>';
+        global $registry;
 
-        /* If no image, simply print out the message. */
-        if (empty($this->_icon)) {
+        $out = '';
+
+        switch ($registry->getView()) {
+        case $registry::VIEW_SMARTMOBILE:
             foreach ($this->_text as $val) {
-                $out .= '<tr><td>' . $val . '</td></tr>';
+                $out .= '<div>' . $val . '</div>';
             }
-        } else {
-            $out .= '<tr><td class="mimeStatusIcon">' . $this->_icon . '</td><td><table>';
-            foreach ($this->_text as $val) {
-                $out .= '<tr><td>' . $val . '</td></tr>';
+            break;
+
+        default:
+            $out = '<div><table class="mimeStatusMessageTable"' .
+                (isset($this->_domid) ? (' id="' . $this->_domid . '" ') : '')
+                . '>';
+
+            /* If no image, simply print out the message. */
+            if (empty($this->_icon)) {
+                foreach ($this->_text as $val) {
+                    $out .= '<tr><td>' . $val . '</td></tr>';
+                }
+            } else {
+                $out .= '<tr><td class="mimeStatusIcon">' . $this->_icon . '</td><td><table>';
+                foreach ($this->_text as $val) {
+                    $out .= '<tr><td>' . $val . '</td></tr>';
+                }
+                $out .= '</table></td></tr>';
             }
-            $out .= '</table></td></tr>';
+
+            $out .= '</table></div>';
+            break;
         }
-
-        $out .= '</table></div>';
 
         return '<div class="mimeStatusMessage">' . $out . '</div>';
     }

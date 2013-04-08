@@ -28,6 +28,7 @@ class IMP_Dynamic_Compose_Common
      * @param IMP_Dynamic_Base $base  Base dynamic view object.
      * @param array $args             Configuration parameters:
      *   - redirect: (string) Display the redirect interface?
+     *   - resume: (boolean) Are we resuming a saved draft?
      *   - show_editor: (boolean) Show the HTML editor?
      *   - template: (string) Display the edit template interface?
      *
@@ -35,11 +36,11 @@ class IMP_Dynamic_Compose_Common
      */
     public function compose(IMP_Dynamic_Base $base, array $args = array())
     {
-        global $page_output, $prefs, $registry;
+        global $page_output, $prefs;
 
         $page_output->addScriptPackage('Imp_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
-        $page_output->addScriptFile('md5.js', 'horde');
+        $page_output->addScriptFile('murmurhash3.js');
         $page_output->addScriptFile('textarearesize.js', 'horde');
 
         if (!$prefs->isLocked('default_encrypt') &&
@@ -54,9 +55,7 @@ class IMP_Dynamic_Compose_Common
         $view->addHelper('Tag');
         $view->addHelper('FormTag');
 
-        $view->bcc = $prefs->getValue('compose_bcc');
-        $view->cc = $prefs->getValue('compose_cc');
-        $view->compose_enable = IMP::canCompose();
+        $view->compose_enable = IMP_Compose::canCompose();
 
         if (!empty($args['redirect'])) {
             $this->_redirect($base, $view, $args);
@@ -71,7 +70,7 @@ class IMP_Dynamic_Compose_Common
      */
     protected function _compose($base, $view, $args)
     {
-        global $conf, $injector, $registry, $prefs, $session;
+        global $injector, $registry, $prefs, $session;
 
         $view->title = $args['title'];
 
@@ -80,27 +79,27 @@ class IMP_Dynamic_Compose_Common
         $selected_identity = intval($identity->getDefault());
 
         /* Generate identities list. */
-        $injector->getInstance('IMP_Ui_Compose')->addIdentityJs();
+        $injector->getInstance('IMP_Compose_Ui')->addIdentityJs();
 
         if ($session->get('imp', 'rteavail')) {
             $view->compose_html = !empty($args['show_editor']);
             $view->rte = true;
 
-            $injector->getInstance('IMP_Ui_Editor')->init(!$view->compose_html);
+            $injector->getInstance('IMP_Editor')->init(!$view->compose_html);
         }
 
         /* Create list for sent-mail selection. */
-        if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS) &&
+        if ($injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS) &&
             !$prefs->isLocked('save_sent_mail')) {
             $view->save_sent_mail = true;
 
-            if (!$prefs->isLocked('sent_mail_folder')) {
+            if (!$prefs->isLocked(IMP_Mailbox::MBOX_SENT)) {
                 $view->save_sent_mail_select = true;
 
                 /* Check to make sure the sent-mail mailboxes are created;
                  * they need to exist to show up in drop-down list. */
                 foreach (array_keys($identity->getAll('id')) as $ident) {
-                    $mbox = $identity->getValue('sent_mail_folder', $ident);
+                    $mbox = $identity->getValue(IMP_Mailbox::MBOX_SENT, $ident);
                     if ($mbox instanceof IMP_Mailbox) {
                         $mbox->create();
                     }
@@ -127,18 +126,26 @@ class IMP_Dynamic_Compose_Common
         }
 
         $view->compose_link = $registry->getServiceLink('ajax', 'imp')->url . 'addAttachment';
+        $view->resume = !empty($args['resume']);
         $view->is_template = !empty($args['template']);
+        $view->read_receipt_set = (strcasecmp($prefs->getValue('request_mdn'), 'always') === 0);
+        $view->user = $registry->getAuth();
+
         if (IMP_Compose::canUploadAttachment()) {
             $view->attach = true;
+            $view->max_size = $session->get('imp', 'file_upload');
             $view->save_attach_set = (strcasecmp($prefs->getValue('save_attachments'), 'always') === 0);
         } else {
             $view->attach = false;
         }
-        $view->user = $registry->getAuth();
 
-        $d_read = $prefs->getValue('request_mdn');
-        if ($d_read != 'never') {
-            $view->read_receipt_set = ($d_read != 'ask');
+        if ($prefs->getValue('use_pgp') &&
+            $prefs->getValue('pgp_public_key')) {
+            $view->pgp_pubkey = $prefs->getValue('pgp_attach_pubkey');
+        }
+
+        if ($registry->hasMethod('contacts/ownVCard')) {
+            $view->vcard_attach = true;
         }
 
         $view->priority = $prefs->getValue('set_priority');
@@ -170,32 +177,40 @@ class IMP_Dynamic_Compose_Common
      */
     protected function _addComposeVars($base)
     {
-        global $browser, $conf, $prefs, $registry;
+        global $browser, $prefs, $registry;
 
         /* Context menu definitions. */
-        $base->js_context['ctx_msg_other'] = new stdClass;
-
-        if ($prefs->getValue('request_mdn') == 'ask') {
-            $base->js_context['ctx_msg_other']->rr = _("Read Receipt");
+        $base->js_context['ctx_other'] = new stdClass;
+        if (!$prefs->isLocked('request_mdn')) {
+            $base->js_context['ctx_other']->rr = _("Read Receipt");
         }
 
-        if (($attach_upload = IMP_Compose::canUploadAttachment()) &&
-            !$prefs->isLocked('save_attachments')) {
-            $base->js_context['ctx_msg_other']->saveatc = _("Save Attachments in Sent Mailbox");
+        $base->js_context['ctx_atc'] = new stdClass;
+        if (IMP_Compose::canUploadAttachment() &&
+            (!$prefs->isLocked('save_attachments') &&
+             (!$prefs->isLocked('save_sent_mail') ||
+              $prefs->getValue('save_sent_mail')))) {
+             $base->js_context['ctx_atc']->save = _("Save Attachments in Sent Mailbox");
+        }
+
+        if ($prefs->getValue('use_pgp') &&
+            $prefs->getValue('pgp_public_key')) {
+            $base->js_context['ctx_atc']->pgppubkey = _("Attach Personal PGP Public Key?");
+        }
+
+        if ($registry->hasMethod('contacts/ownVCard')) {
+            $base->js_context['ctx_atc']->vcard = _("Attach your contact information?");
         }
 
         /* Variables used in compose page. */
         $compose_cursor = $prefs->getValue('compose_cursor');
-        $drafts_mbox = IMP_Mailbox::getPref('drafts_folder');
-        $templates_mbox = IMP_Mailbox::getPref('composetemplates_mbox');
+        $drafts_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS);
+        $templates_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TEMPLATES);
 
         $base->js_conf += array_filter(array(
             'URI_MAILBOX' => strval(IMP_Dynamic_Mailbox::url()),
 
-            'attach_limit' => ($attach_upload && $conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
             'auto_save_interval_val' => intval($prefs->getValue('auto_save_drafts')),
-            'bcc' => intval($prefs->getValue('compose_bcc')),
-            'cc' => intval($prefs->getValue('compose_cc')),
             'close_draft' => intval($prefs->getValue('close_draft')),
             'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
             'drafts_mbox' => $drafts_mbox ? $drafts_mbox->form_to : null,
@@ -205,7 +220,7 @@ class IMP_Dynamic_Compose_Common
         ));
 
         if ($registry->hasMethod('contacts/search')) {
-            $base->js_conf['URI_ABOOK'] = strval(Horde::url('contacts.php'));
+            $base->js_conf['URI_ABOOK'] = strval(IMP_Basic_Contacts::url());
         }
 
         if ($prefs->getValue('set_priority')) {

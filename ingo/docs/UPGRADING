@@ -29,6 +29,23 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Ingo From 3.0.x To 3.1.x
+==================================
+
+Backend Configuration (backends.php)
+------------------------------------
+
+The 'script' and 'transport' settings of the backend configuration have been
+changed from strings to arrays, to allow different backends for different
+filter rules.
+
+
+API Changes
+-----------
+
+The applyFilters() no longer returns a value.
+
+
 Upgrading Ingo From 2.x To 3.x
 ==============================
 

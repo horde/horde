@@ -33,7 +33,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $prefs, $session, $registry;
+        global $injector, $notification, $prefs, $registry;
 
         /* The message text and headers. */
         $expand = array();
@@ -46,13 +46,11 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         $this->title = _("Compose Message");
 
         /* Get the list of headers to display. */
-        $display_hdrs = array('to' => _("To: "));
-        if ($prefs->getValue('compose_cc')) {
-            $display_hdrs['cc'] = _("Cc: ");
-        }
-        if ($prefs->getValue('compose_bcc')) {
-            $display_hdrs['bcc'] = ("Bcc: ");
-        }
+        $display_hdrs = array(
+            'to' => _("To: "),
+            'cc' => _("Cc: "),
+            'bcc' => ("Bcc: ")
+        );
 
         /* Set the current identity. */
         $identity = $injector->getInstance('IMP_Identity');
@@ -62,19 +60,18 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         }
 
         /* Determine if mailboxes are readonly. */
-        $drafts = IMP_Mailbox::getPref('drafts_folder');
+        $drafts = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS);
         $readonly_drafts = $drafts && $drafts->readonly;
-        $sent_mail = $identity->getValue('sent_mail_folder');
+        $sent_mail = $identity->getValue(IMP_Mailbox::MBOX_SENT);
         $save_sent_mail = (!$sent_mail || $sent_mail->readonly)
             ? false
             : $prefs->getValue('save_sent_mail');
 
         /* Determine if compose mode is disabled. */
-        $compose_disable = !IMP::canCompose();
+        $compose_disable = !IMP_Compose::canCompose();
 
         /* Initialize objects. */
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
-        $imp_ui = new IMP_Ui_Compose();
 
         /* Are attachments allowed? */
         $attach_upload = $imp_compose->canUploadAttachment();
@@ -103,9 +100,9 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
             isset($_FILES['upload_1']) &&
             strlen($_FILES['upload_1']['name'])) {
             try {
-                $filename = $imp_compose->addFileFromUpload('upload_1');
+                $atc_ob = $imp_compose->addAttachmentFromUpload($this->vars, 'upload_1');
                 if ($this->vars->a == _("Expand Names")) {
-                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob->getPart()->getName()), 'horde.success');
                 }
             } catch (IMP_Compose_Exception $e) {
                 $this->vars->a = null;
@@ -122,35 +119,37 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         case 'en':
         case 't':
             try {
-                $indices_ob = IMP::mailbox(true)->getIndicesOb(IMP::uid());
-
                 switch ($this->vars->a) {
                 case 'd':
-                    $result = $imp_compose->resumeDraft($indices_ob, array(
+                    $result = $imp_compose->resumeDraft($this->indices, array(
                         'format' => 'text'
                     ));
+                    $this->view->resume = true;
                     break;
 
                 case 'en':
-                    $result = $imp_compose->editAsNew($indices_ob, array(
+                    $result = $imp_compose->editAsNew($this->indices, array(
                         'format' => 'text'
                     ));
                     break;
 
                 case 't':
-                    $result = $imp_compose->useTemplate($indices_ob, array(
+                    $result = $imp_compose->useTemplate($this->indices, array(
                         'format' => 'text'
                     ));
                     break;
                 }
 
                 $msg = $result['body'];
-                $header = array_merge($header, $result['headers']);
+                $header = array_merge(
+                    $header,
+                    $this->_convertToHeader($result)
+                );
                 if (!is_null($result['identity']) &&
                     ($result['identity'] != $identity->getDefault()) &&
                     !$prefs->isLocked('default_identity')) {
                     $identity->setDefault($result['identity']);
-                    $sent_mail = $identity->getValue('sent_mail_folder');
+                    $sent_mail = $identity->getValue(IMP_Mailbox::MBOX_SENT);
                 }
             } catch (IMP_Compose_Exception $e) {
                 $notification->push($e);
@@ -182,7 +181,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         case 'ra':
         case 'rl':
             try {
-                $imp_contents = $imp_ui->getContents();
+                $imp_contents = $this->_getContents();
             } catch (IMP_Exception $e) {
                 $notification->push($e, 'horde.error');
                 break;
@@ -198,7 +197,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 'format' => 'text',
                 'to' => $header['to']
             ));
-            $header = $reply_msg['headers'];
+            $header = $this->_convertToHeader($reply_msg);
 
             $notification->push(_("Reply text will be automatically appended to your outgoing message."), 'horde.message');
             $this->title = _("Reply");
@@ -207,14 +206,14 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         // 'f' = forward
         case 'f':
             try {
-                $imp_contents = $imp_ui->getContents();
+                $imp_contents = $this->_getContents();
             } catch (IMP_Exception $e) {
                 $notification->push($e, 'horde.error');
                 break;
             }
 
             $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_contents, false);
-            $header = $fwd_msg['headers'];
+            $header = $this->_convertToHeader($fwd_msg);
 
             $notification->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
             $this->title = _("Forward");
@@ -222,7 +221,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
         // 'rc' = redirect compose
         case 'rc':
-            $imp_compose->redirectMessage($imp_ui->getIndices());
+            $imp_compose->redirectMessage($this->indices);
             $this->title = _("Redirect");
             break;
 
@@ -232,7 +231,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 $imp_compose->destroy('send');
 
                 $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully.", count($num_msgs)), 'horde.success');
-                IMP_Minimal_Mailbox::url()->redirect();
+                IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
             } catch (Horde_Exception $e) {
                 $this->vars->a = 'rc';
                 $notification->push($e);
@@ -294,12 +293,12 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     $notification->push($imp_compose->saveDraft($header, $message), 'horde.success');
                     if ($prefs->getValue('close_draft')) {
                         $imp_compose->destroy('save_draft');
-                        IMP_Minimal_Mailbox::url()->redirect();
+                        IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
                     }
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e);
                 }
-            break;
+                break;
 
             case _("Send"):
                 $options = array(
@@ -315,7 +314,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     $imp_compose->destroy('send');
 
                     $notification->push(_("Message sent successfully."), 'horde.success');
-                    IMP_Minimal_Mailbox::url()->redirect();
+                    IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e);
 
@@ -331,7 +330,12 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
         case _("Cancel"):
             $imp_compose->destroy('cancel');
-            IMP_Minimal_Mailbox::url()->redirect();
+            IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
+            exit;
+
+        case _("Discard Draft"):
+            $imp_compose->destroy('discard');
+            IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
             exit;
         }
 
@@ -361,7 +365,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
             $this->view->compose_enable = !$compose_disable;
             $this->view->msg = $msg;
-            $this->view->save_draft = ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts);
+            $this->view->save_draft = ($injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts);
             $this->view->subject = $header['subject'];
 
             $select_list = $identity->getSelectList();
@@ -383,19 +387,15 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
             }
             $this->view->identities = $tmp;
 
-            /* Activate advanced compose attachments UI? */
-            try {
-                if ($attach_upload &&
-                    Horde::callHook('mimp_advanced', array('compose_attach'), 'imp')) {
-                    $this->view->attach = true;
-                    if (count($imp_compose)) {
-                        $imp_ui_mbox = new IMP_Ui_Mailbox();
-                        $this->view->attach_name = $imp_compose[0]['part']->getName();
-                        $this->view->attach_type = $imp_compose[0]['part']->getType();
-                        $this->view->attach_size = $imp_ui_mbox->getSize($imp_compose[0]['part']->getBytes());
-                    }
+            if ($attach_upload) {
+                $this->view->attach = true;
+                if (count($imp_compose)) {
+                    $atc_part = $imp_compose[0]->getPart();
+                    $this->view->attach_name = $atc_part->getName();
+                    $this->view->attach_size = IMP::sizeFormat($atc_part->getBytes());
+                    $this->view->attach_type = $atc_part->getType();
                 }
-            } catch (Horde_Exception_HookNotSet $e) {}
+            }
 
             $this->title = _("Message Composition");
         }
@@ -489,6 +489,50 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 $res
             );
         }
+    }
+
+    /**
+     * Create the IMP_Contents objects needed to create a message.
+     *
+     * @param Horde_Variables $vars  The variables object.
+     *
+     * @return IMP_Contents  The IMP_Contents object.
+     * @throws IMP_Exception
+     */
+    protected function _getContents()
+    {
+        try {
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($this->indices);
+        } catch (Horde_Exception $e) {}
+
+        $this->vars->buid = null;
+        $this->vars->type = 'new';
+
+        throw new IMP_Exception(_("Could not retrieve message data from the mail server."));
+    }
+
+    /**
+     * Convert a compose response object to header values.
+     *
+     * @param array $in  Compose response object.
+     *
+     * @return array  Header entry.
+     */
+    protected function _convertToHeader($in)
+    {
+        $out = array();
+
+        if (isset($in['addr'])) {
+            $out['to'] = strval($in['addr']['to']);
+            $out['cc'] = strval($in['addr']['cc']);
+            $out['bcc'] = strval($in['addr']['bcc']);
+        }
+
+        if (isset($in['subject'])) {
+            $out['subject'] = $in['subject'];
+        }
+
+        return $out;
     }
 
 }

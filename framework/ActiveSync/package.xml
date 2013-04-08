@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-11</date>
- <time>10:31:56</time>
+ <date>2013-04-04</date>
+ <time>16:39:10</time>
  <version>
-  <release>2.3.3</release>
-  <api>2.3.0</api>
+  <release>2.4.0</release>
+  <api>2.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Work around broken HTC clients when creating appointments with no reminders (Bug #12155).
-* [mjr] Fix setting User Agent value for certain clients in EAS 12.1 or greater (Bug #12154).
-* [mjr] Properly set disposition and content-id properties when building attachments from multipart/related parts (Bug #12123).
+* [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -79,9 +77,14 @@
        <file name="Exception.php" role="php" />
        <file name="Flag.php" role="php" />
        <file name="Folder.php" role="php" />
+       <file name="GalPicture.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="MeetingRequest.php" role="php" />
+       <file name="Note.php" role="php" />
        <file name="Recurrence.php" role="php" />
+       <file name="ResolveRecipientsPicture.php" role="php" />
+       <file name="SendMail.php" role="php" />
+       <file name="SendMailSource.php" role="php" />
        <file name="Task.php" role="php" />
        <file name="TaskRecurrence.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Message -->
@@ -105,6 +108,7 @@
        <file name="SmartForward.php" role="php" />
        <file name="SmartReply.php" role="php" />
        <file name="Sync.php" role="php" />
+       <file name="SyncBase.php" role="php" />
        <file name="ValidateCert.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Request -->
       <dir name="State">
@@ -115,9 +119,12 @@
        <file name="Decoder.php" role="php" />
        <file name="Encoder.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Wbxml -->
+      <file name="Collections.php" role="php" />
+      <file name="Device.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Policies.php" role="php" />
       <file name="Rfc822.php" role="php" />
+      <file name="Status.php" role="php" />
       <file name="Sync.php" role="php" />
       <file name="SyncCache.php" role="php" />
       <file name="Timezone.php" role="php" />
@@ -217,6 +224,7 @@
       <file name="phpunit.xml" role="test" />
       <file name="PolicyTest.php" role="test" />
       <file name="Rfc822Test.php" role="test" />
+      <file name="ServerTest.php" role="test" />
       <file name="TimezoneTest.php" role="test" />
       <file name="UtilsTest.php" role="test" />
      </dir> <!-- /test/Horde/ActiveSync -->
@@ -319,9 +327,12 @@
    <install as="TODO" name="doc/Horde/ActiveSync/TODO" />
    <install as="UPGRADING" name="doc/Horde/ActiveSync/UPGRADING" />
    <install as="Horde/ActiveSync.php" name="lib/Horde/ActiveSync.php" />
+   <install as="Horde/ActiveSync/Collections.php" name="lib/Horde/ActiveSync/Collections.php" />
+   <install as="Horde/ActiveSync/Device.php" name="lib/Horde/ActiveSync/Device.php" />
    <install as="Horde/ActiveSync/Exception.php" name="lib/Horde/ActiveSync/Exception.php" />
    <install as="Horde/ActiveSync/Policies.php" name="lib/Horde/ActiveSync/Policies.php" />
    <install as="Horde/ActiveSync/Rfc822.php" name="lib/Horde/ActiveSync/Rfc822.php" />
+   <install as="Horde/ActiveSync/Status.php" name="lib/Horde/ActiveSync/Status.php" />
    <install as="Horde/ActiveSync/Sync.php" name="lib/Horde/ActiveSync/Sync.php" />
    <install as="Horde/ActiveSync/SyncCache.php" name="lib/Horde/ActiveSync/SyncCache.php" />
    <install as="Horde/ActiveSync/Timezone.php" name="lib/Horde/ActiveSync/Timezone.php" />
@@ -354,9 +365,14 @@
    <install as="Horde/ActiveSync/Message/Exception.php" name="lib/Horde/ActiveSync/Message/Exception.php" />
    <install as="Horde/ActiveSync/Message/Flag.php" name="lib/Horde/ActiveSync/Message/Flag.php" />
    <install as="Horde/ActiveSync/Message/Folder.php" name="lib/Horde/ActiveSync/Message/Folder.php" />
+   <install as="Horde/ActiveSync/Message/GalPicture.php" name="lib/Horde/ActiveSync/Message/GalPicture.php" />
    <install as="Horde/ActiveSync/Message/Mail.php" name="lib/Horde/ActiveSync/Message/Mail.php" />
    <install as="Horde/ActiveSync/Message/MeetingRequest.php" name="lib/Horde/ActiveSync/Message/MeetingRequest.php" />
+   <install as="Horde/ActiveSync/Message/Note.php" name="lib/Horde/ActiveSync/Message/Note.php" />
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
+   <install as="Horde/ActiveSync/Message/ResolveRecipientsPicture.php" name="lib/Horde/ActiveSync/Message/ResolveRecipientsPicture.php" />
+   <install as="Horde/ActiveSync/Message/SendMail.php" name="lib/Horde/ActiveSync/Message/SendMail.php" />
+   <install as="Horde/ActiveSync/Message/SendMailSource.php" name="lib/Horde/ActiveSync/Message/SendMailSource.php" />
    <install as="Horde/ActiveSync/Message/Task.php" name="lib/Horde/ActiveSync/Message/Task.php" />
    <install as="Horde/ActiveSync/Message/TaskRecurrence.php" name="lib/Horde/ActiveSync/Message/TaskRecurrence.php" />
    <install as="Horde/ActiveSync/Request/Autodiscover.php" name="lib/Horde/ActiveSync/Request/Autodiscover.php" />
@@ -378,6 +394,7 @@
    <install as="Horde/ActiveSync/Request/SmartForward.php" name="lib/Horde/ActiveSync/Request/SmartForward.php" />
    <install as="Horde/ActiveSync/Request/SmartReply.php" name="lib/Horde/ActiveSync/Request/SmartReply.php" />
    <install as="Horde/ActiveSync/Request/Sync.php" name="lib/Horde/ActiveSync/Request/Sync.php" />
+   <install as="Horde/ActiveSync/Request/SyncBase.php" name="lib/Horde/ActiveSync/Request/SyncBase.php" />
    <install as="Horde/ActiveSync/Request/ValidateCert.php" name="lib/Horde/ActiveSync/Request/ValidateCert.php" />
    <install as="Horde/ActiveSync/State/Base.php" name="lib/Horde/ActiveSync/State/Base.php" />
    <install as="Horde/ActiveSync/State/Sql.php" name="lib/Horde/ActiveSync/State/Sql.php" />
@@ -419,6 +436,7 @@
    <install as="Horde/ActiveSync/phpunit.xml" name="test/Horde/ActiveSync/phpunit.xml" />
    <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
    <install as="Horde/ActiveSync/Rfc822Test.php" name="test/Horde/ActiveSync/Rfc822Test.php" />
+   <install as="Horde/ActiveSync/ServerTest.php" name="test/Horde/ActiveSync/ServerTest.php" />
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
    <install as="Horde/ActiveSync/UtilsTest.php" name="test/Horde/ActiveSync/UtilsTest.php" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
@@ -1254,12 +1272,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-11</date>
+   <date>2013-03-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Work around broken HTC clients when creating appointments with no reminders (Bug #12155).
 * [mjr] Fix setting User Agent value for certain clients in EAS 12.1 or greater (Bug #12154).
 * [mjr] Properly set disposition and content-id properties when building attachments from multipart/related parts (Bug #12123).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.0</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
    </notes>
   </release>
  </changelog>

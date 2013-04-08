@@ -14,8 +14,9 @@
 require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
-$path = Horde_Util::getFormData('path');
+$vars = $injector->getInstance('Horde_Variables');
 
+$path = $vars->path;
 if (empty($path)) {
     $list = array();
     $apps = $registry->listApps(null, false, Horde_Perms::READ);
@@ -34,43 +35,6 @@ if (empty($path)) {
 if (!count($list)) {
     throw new Horde_Exception(_("Nothing to browse, go back."));
 }
-
-$tpl = <<<TPL
-<script type="text/javascript">
-function chooseObject(oid)
-{
-    if (!window.opener || !window.opener.obrowserCallback) {
-        return false;
-    }
-
-    var result = window.opener.obrowserCallback(window.name, oid);
-    if (!result) {
-        window.close();
-        return;
-    }
-
-    alert(result);
-    return false;
-}
-</script>
-
-<div class="header">
- <span class="rightFloat"><tag:close /></span>
- <gettext>Object Browser</gettext>
-</div>
-<div class="headerbox">
- <table class="striped" cellspacing="0" style="width:100%">
- <loop:rows>
-  <tr>
-   <td>
-    <tag:rows.icon />
-    <tag:rows.name />
-   </td>
-  </tr>
- </loop:rows>
- </table>
-</div>
-TPL;
 
 $rows = array();
 foreach ($list as $path => $values) {
@@ -97,12 +61,16 @@ foreach ($list as $path => $values) {
     $rows[] = $row;
 }
 
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
-$template->set('rows', $rows);
-$template->set('close', '<a href="#" onclick="window.close(); return false;">' . Horde::img('close.png') . '</a>');
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/services'
+));
+$view->addHelper('Horde_Core_View_Helper_Image');
 
+$view->rows = $rows;
+
+$page_output->addScriptFile('obrowser.js', 'horde');
 $page_output->addScriptFile('stripe.js', 'horde');
+
 $page_output->header();
-echo $template->parse($tpl);
+echo $view->render('obrowser');
 $page_output->footer();

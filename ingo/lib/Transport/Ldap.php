@@ -1,19 +1,28 @@
 <?php
 /**
- * Ingo_Transport_Ldap implements the Sieve_Driver api to allow scripts to be
- * installed and set active via an LDAP server.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Transport_Ldap extends Ingo_Transport
+
+/**
+ * Ingo_Transport_Ldap implements an Ingo transport driver to allow scripts to
+ * be installed and set active via an LDAP server.
+ *
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+class Ingo_Transport_Ldap extends Ingo_Transport_Base
 {
     /**
      * Constructor.
@@ -188,14 +197,14 @@ class Ingo_Transport_Ldap extends Ingo_Transport
     /**
      * Sets a script running on the backend.
      *
-     * @todo No idea how to handle $additional.
-     *
-     * @param string $script     The filter script.
-     * @param array $additional  Any additional scripts that need to uploaded.
+     * @param array $script  The filter script information. Passed elements:
+     *                       - 'name': (string) the script name.
+     *                       - 'recipes': (array) the filter recipe objects.
+     *                       - 'script': (string) the filter script.
      *
      * @throws Ingo_Exception
      */
-    protected function setScriptActive($script, $additional = array())
+    public function setScriptActive($script)
     {
         $ldapcn = $this->_connect();
         $values = $this->_getScripts($ldapcn, $userDN);
@@ -203,18 +212,18 @@ class Ingo_Transport_Ldap extends Ingo_Transport
         $found = false;
         foreach ($values as $i => $value) {
             if (strpos($value, "# Sieve Filter\n") !== false) {
-                if (empty($script)) {
+                if (empty($script['script'])) {
                     unset($values[$i]);
                 } else {
-                    $values[$i] = $script;
+                    $values[$i] = $script['script'];
                 }
                 $found = true;
                 break;
             }
         }
 
-        if (!$found && !empty($script)) {
-            $values[] = $script;
+        if (!$found && !empty($script['script'])) {
+            $values[] = $script['script'];
         }
 
         $replace = array(Horde_String::lower($this->_params['script_attribute']) => $values);
@@ -253,7 +262,14 @@ class Ingo_Transport_Ldap extends Ingo_Transport
         }
 
         @ldap_close($ldapcn);
-        return $script;
+
+        if (!strlen($script)) {
+            throw new Horde_Exception_NotFound();
+        }
+        return array(
+            'name' => '',
+            'script' => $script
+        );
     }
 
 }

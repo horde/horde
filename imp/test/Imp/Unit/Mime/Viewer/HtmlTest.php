@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category   Horde
- * @copyright 2010-2013 Horde LLC
+ * @copyright  2010-2013 Horde LLC
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
  * @subpackage UnitTests
@@ -17,7 +17,8 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright 2010-2013 Horde LLC
+ * @copyright  2010-2013 Horde LLC
+ * @ignore
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
  * @subpackage UnitTests
@@ -27,6 +28,12 @@ class Imp_Unit_Mime_Viewer_HtmlTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $GLOBALS['browser'] = $this->getMock('Horde_Browser');
+
+        $prefs = $this->getMock('Horde_Prefs', array(), array(), '', false);
+        $prefs->expects($this->any())
+            ->method('getValue')
+            ->will($this->returnValue(false));
+        $GLOBALS['prefs'] = $prefs;
     }
 
     // Test regex for converting links to open in a new window.

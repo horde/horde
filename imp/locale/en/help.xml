@@ -333,13 +333,6 @@
         </para>
     </entry>
 
-    <entry id="pgp-personalkey-create-keylength">
-        <title>PGP: Preferences: Create Personal Key: Keylength</title>
-        <para>
-            The keylength, in bits, of your generated key. The greater the value, the greater the protection (but will take significantly longer to generate). 1024 bits should be sufficient for most users.
-        </para>
-    </entry>
-
     <entry id="pgp-personalkey-create-passphrase">
         <title>PGP: Preferences: Create Personal Key: Passphrase</title>
         <para>
@@ -349,13 +342,16 @@
 
     <entry id="pgp-personalkey-create-actions">
         <title>PGP: Preferences: Create Personal Key: Actions</title>
-        <heading>Create Keys</heading>
+        <heading>Create Key</heading>
         <para>
-            Create and store your personal public/private keypair.
+            Create and store your personal key.
         </para>
-        <heading>Import Keypair</heading>
+        <heading>Import Key</heading>
         <para>
-            Import a personal/private keypair. This button opens a window where you can manually import your existing PGP personal public/private keypair. The keys can either be pasted into a textfield or, if the keys reside in a file on your local computer, you can import them. If the keys are valid they will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
+            This button opens a window where you can manually import your existing PGP personal key. The key can either be pasted into a textfield or, if the key resides in a file on your local computer, can be uploaded. If the key is valid it will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
+        </para>
+        <para>
+            Only the private portion of your key is needed; the public key will be automatically generated from the private key.
         </para>
     </entry>
 

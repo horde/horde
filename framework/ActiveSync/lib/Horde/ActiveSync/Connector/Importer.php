@@ -111,7 +111,7 @@ class Horde_ActiveSync_Connector_Importer
      * @param string|boolean $id                       A server message id or
      *                                                 false if a new message.
      * @param Horde_ActiveSync_Message_Base $message   A message object
-     * @param StdClass $device                         A device descriptor
+     * @param Horde_ActiveSync_Device $device          A device descriptor
      * @param integer $clientid                        Client id sent from PIM
      *                                                 on message addition.
      *

@@ -28,9 +28,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 
     /**
      * @param array $params  Configuration parameters:
-     *   - mailbox: (IMP_Mailbox) The mailbox of the message.
      *   - mime_id: (string) The MIME ID of the message part with the key.
-     *   - uid: (string) The UID of the message.
+     *   - muid: (string) MUID of the message.
      */
     public function __construct(array $params = array())
     {
@@ -42,9 +41,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
     protected function _attach($init)
     {
         return array(
-            'mailbox' => $this->_params['mailbox']->form_to,
             'mime_id' => $this->_params['mime_id'],
-            'uid' => $this->_params['uid']
+            'muid' => $this->_params['muid']
         );
     }
 
@@ -52,9 +50,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
      * Variables required in form input:
      *   - identity (TODO: ? Code uses it, but it is never set anywhere)
      *   - imple_submit: itip_action(s)
-     *   - mailbox
      *   - mime_id
-     *   - uid
+     *   - muid
      *
      * @return boolean  True on success.
      */
@@ -68,7 +65,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 
         /* Retrieve the calendar data from the message. */
         try {
-            $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP_Mailbox::formFrom($vars->mailbox), $vars->uid));
+            $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Mailbox($vars));
             $mime_part = $contents->getMIMEPart($vars->mime_id);
             if (empty($mime_part)) {
                 throw new IMP_Exception(_("Cannot retrieve calendar data from message."));
@@ -114,9 +111,10 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 // vEvent reply.
                 if ($registry->hasMethod('calendar/updateAttendee')) {
                     try {
+                        $from = $contents->getHeader()->getOb('from');
                         $registry->call('calendar/updateAttendee', array(
                             $components[$key],
-                            IMP::bareAddress($contents->getHeader()->getValue('From'))
+                            $from[0]->bare_address
                         ));
                         $notification->push(_("Respondent Status Updated."), 'horde.success');
                         $result = true;

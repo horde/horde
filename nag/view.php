@@ -61,17 +61,6 @@ try {
     Horde::logMessage($e->getMessage(), 'ERR');
     throw new Nag_Exception($e);
 }
-if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-    if (!$task->completed) {
-        $links[] = Horde::widget(array('url' => $task->complete_link, 'class' => 'smallheader', 'title' => _("_Complete")));
-    }
-    if (!$task->private || $task->owner == $GLOBALS['registry']->getAuth()) {
-        $links[] = Horde::widget(array('url' => $taskurl->add('actionID', 'modify_task'), 'class' => 'smallheader', 'title' => _("_Edit")));
-    }
-}
-if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-    $links[] = Horde::widget(array('url' => $taskurl->add('actionID', 'delete_task'), 'class' => 'smallheader', 'onclick' => $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', 'title' => _("_Delete")));
-}
 
 /* Set up alarm units and value. */
 $task_alarm = $task->alarm;

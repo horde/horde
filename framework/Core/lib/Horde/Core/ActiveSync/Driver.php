@@ -18,6 +18,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const APPOINTMENTS_FOLDER_UID = '@Calendar@';
     const CONTACTS_FOLDER_UID     = '@Contacts@';
     const TASKS_FOLDER_UID        = '@Tasks@';
+    const NOTES_FOLDER_UID        = '@Notes@';
 
     const SPECIAL_SENT   = 'sent';
     const SPECIAL_SPAM   = 'spam';
@@ -131,7 +132,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $this->_displayMap = array(
             self::APPOINTMENTS_FOLDER_UID => Horde_ActiveSync_Translation::t('Calendar'),
             self::CONTACTS_FOLDER_UID     => Horde_ActiveSync_Translation::t('Contacts'),
-            self::TASKS_FOLDER_UID        => Horde_ActiveSync_Translation::t('Tasks')
+            self::TASKS_FOLDER_UID        => Horde_ActiveSync_Translation::t('Tasks'),
+            self::NOTES_FOLDER_UID        => Horde_ActiveSync_Translation::t('Notes'),
         );
     }
 
@@ -283,6 +285,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folders[] = $this->getFolder(self::TASKS_FOLDER_UID);
             }
 
+            if (array_search('notes', $supported) !== false) {
+                $folders[] = $this->getFolder(self::NOTES_FOLDER_UID);
+            }
+
             if (array_search('mail', $supported) !== false) {
                 try {
                     $folders = array_merge($folders, $this->_getMailFolders());
@@ -333,6 +339,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 Horde_ActiveSync::FOLDER_TYPE_TASK,
                 $this->_displayMap[self::TASKS_FOLDER_UID]);
             break;
+        case self::NOTES_FOLDER_UID:
+            $folder = $this->_buildNonMailFolder(
+                $id,
+                0,
+                Horde_ActiveSync::FOLDER_TYPE_NOTE,
+                $this->_displayMap[self::NOTES_FOLDER_UID]);
+                break;
         default:
             // Must be a mail folder
             $folders = $this->_getMailFolders();
@@ -366,6 +379,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return Horde_ActiveSync::FOLDER_TYPE_CONTACT;
         case self::TASKS_FOLDER_UID:
             return Horde_ActiveSync::FOLDER_TYPE_TASK;
+        case self::NOTES_FOLDER_UID:
+            return Horde_ActiveSync::FOLDER_TYPE_NOTE;
         default:
             return Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
         }
@@ -548,6 +563,34 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             break;
+
+        case Horde_ActiveSync::CLASS_NOTES:
+            // Can't use History for first sync
+            if ($from_ts == 0) {
+                try {
+                    $changes['add'] = $this->_connector->notes_listUids();
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+            } else {
+                try {
+                    $changes = $this->_connector->getChanges('notes', $from_ts, $to_ts);
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+            }
+            break;
+
         case Horde_ActiveSync::CLASS_EMAIL:
             if (empty($this->_imap)) {
                 $this->_endBuffer();
@@ -577,11 +620,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } else {
                 try {
+                    // Poll IMAP server for changes.
                     $folder = $this->_imap->getMessageChanges(
                         $folder,
                         array(
                             'sincedate' => (int)$cutoffdate,
-                            'protocolversion' => $this->_version));
+                            'protocolversion' => $this->_version,
+                            'timestamp' => $from_ts));
+                    // Poll the maillog for reply/forward state changes.
+                    $folder = $this->_getMaillogChanges($folder, $from_ts);
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -714,11 +761,26 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
+        case Horde_ActiveSync::FOLDER_TYPE_NOTE:
+            try {
+                $message = $this->_connector->notes_export($id, array(
+                    'protocolversion' => $this->_version,
+                    'truncation' => $collection['truncation'],
+                    'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
+                    'mimesupport' => $collection['mimesupport']));
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                $this->_endBuffer();
+                throw new Horde_ActiveSync_Exception($e->getMessage);
+            }
+            break;
+
         case Horde_ActiveSync::FOLDER_TYPE_INBOX:
         case Horde_ActiveSync::FOLDER_TYPE_SENTMAIL:
         case Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET:
         case Horde_ActiveSync::FOLDER_TYPE_DRAFTS:
         case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
+            // Get the message from the IMAP server.
             try {
                 $messages = $this->_imap->getMessages(
                     $folderid,
@@ -737,11 +799,43 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_endBuffer();
                 throw $e;
             }
-            $this->_endBuffer();
             if (empty($messages)) {
+                $this->_endBuffer();
                 throw new Horde_Exception_NotFound();
             }
             $msg = current($messages);
+
+            // Check for verb status from the Maillog.
+            if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+                $last = $this->_getLastVerb($msg->messageid);
+                if (!empty($last)) {
+                    switch ($last['action']) {
+                    case 'reply':
+                    case 'reply_list':
+                        $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
+                        break;
+                    case 'reply_all':
+                        $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_ALL;
+                        break;
+                    case 'forward':
+                        $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
+                    }
+                    $msg->lastverbexecutiontime = new Horde_Date($last['ts']);
+                } else {
+                    // No maillog found, double check the IMAP flags.
+                    // We favor the Maillog since EAS allows for a complete log
+                    // of actions - and it requires a timestamp.
+                    if ($msg->answered) {
+                        $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
+                        $msg->lastverbexecutiontime = new Horde_Date(time());
+                    } elseif ($msg->forwarded) {
+                        $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
+                        $msg->lastverbexecutiontime = new Horde_Date(time());
+                    }
+                }
+            }
+
+            $this->_endBuffer();
 
             // Should we import an iTip response if we have one?
             if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE &&
@@ -758,12 +852,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             return $msg;
-            break;
 
         default:
             $this->_endBuffer();
             throw new Horde_ActiveSync_Exception('Unsupported type');
         }
+
         $this->_endBuffer();
 
         return $message;
@@ -911,6 +1005,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_logger->err($e->getMessage());
             }
             break;
+
+        case self::NOTES_FOLDER_UID:
+            try {
+                $this->_connector->notes_delete($ids);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+            }
+            break;
         default:
             // Must be mail folder
             try {
@@ -947,6 +1049,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case self::APPOINTMENTS_FOLDER_UID:
         case self::CONTACTS_FOLDER_UID:
         case self::TASKS_FOLDER_UID:
+        case self::NOTES_FOLDER_UID:
             $this->_endBuffer();
             throw new Horde_ActiveSync_Exception('Not supported');
         default:
@@ -1063,6 +1166,32 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             break;
 
+        case self::NOTES_FOLDER_UID:
+            if (!$id) {
+                try {
+                    $id = $this->_connector->notes_import($message);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return false;
+                }
+                $stat = $this->_smartStatMessage($folderid, $id, false);
+                $stat['mod'] = time();
+            } else {
+                if (!empty($device->supported[self::NOTES_FOLDER_UID])) {
+                    $message->setSupported($device->supported[self::NOTES_FOLDER_UID]);
+                }
+                try {
+                    $this->_connector->notes_replace($id, $message);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return false;
+                }
+                $stat = $this->_smartStatMessage($folderid, $id, false);
+            }
+            break;
+
         default:
             // Email?
             if ($message instanceof Horde_ActiveSync_Message_Mail) {
@@ -1109,21 +1238,52 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Sends the email represented by the rfc822 string received by the PIM.
      *
-     * @param mixed $rfc822     The rfc822 mime message, a string or stream
-     *                          resource.
-     * @param integer $forward  The UID of the message, if forwarding.
-     * @param integer $reply    The UID of the message if replying.
-     * @param string $parent    The collection id of parent message if
-     *                          forwarding/replying.
-     * @param boolean $save     Save in sent messages.
+     * @param mixed $rfc822             The rfc822 mime message, a string or
+     *                                  stream resource.
+     * @param integer|boolean $forward  The UID of the message, if forwarding or
+     *                                  true if forwarding and EAS >= 14.0
+     * @param integer|boolean $reply    The UID of the message if replying or
+     *                                  true if replying and EAS >= 14.0
+     * @param string $parent            The collection id of parent message if
+     *                                  forwarding/replying.
+     * @param boolean $save             Save in sent messages.
+     * @param Horde_ActiveSync_Message_SendMail $message  The entire message
+     *                          object for EAS 14+ requests. @since 5.1.0
+     * @todo H6 - Either make this take an options array or break it into two
+     *            separate methods - one for EAS < 14 and one for EAS > 14.
      *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
     public function sendMail(
-        $rfc822, $forward = null, $reply = null, $parent = null, $save = true)
+        $rfc822, $forward = false, $reply = false, $parent = false, $save = true,
+        Horde_ActiveSync_Message_SendMail $message = null)
     {
-        $raw_message = new Horde_ActiveSync_Rfc822($rfc822);
+        if (empty($rfc822) && !empty($message)) {
+            // Get the raw message from the message object.
+            $raw_message = new Horde_ActiveSync_Rfc822($message->mime);
+
+            // Parse out any smart reply or forward requests.
+            if ($forward) {
+                $forward = $message->source->itemid;
+                $parent = $message->source->folderid;
+            } elseif ($reply) {
+                $reply = $message->source->itemid;
+                $parent = $message->source->folderid;
+            }
+
+            // Override the $save value since it's sent as part of the message
+            // object in EAS 14+
+            $save = $message->saveinsent;
+
+            // Did we edit the smart text? @TODO: Still need to research what
+            // the difference is between this and just pretending it was a
+            // plain SENDMAIL request.
+            // $replace = $message->replacemime;
+        } else {
+            $raw_message = new Horde_ActiveSync_Rfc822($rfc822);
+        }
+
         $headers = $raw_message->getHeaders();
 
         // Add From, but only if needed.
@@ -1159,7 +1319,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $source_uid = empty($forward) ? $reply : $forward;
             $imap_message = array_pop($this->_imap->getImapMessage($parent, $source_uid, array('headers' => true)));
             if (empty($imap_message)) {
-                return false;
+                throw new Horde_Exception_NotFound('The forwarded/replied message was not found.');
             }
             $base_part = $imap_message->getStructure();
             $plain_id = $base_part->findBody('plain');
@@ -1263,6 +1423,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_logger->err($e->getMessage());
                 }
             }
+        }
+
+        if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE &&
+            (!empty($forward) || !empty($reply))) {
+
+            // Sync reply/forward state.
+            $this->_logger->debug(sprintf(
+                'Logging LASTVERBEXECUTED to Maillog: %s, %s, %s',
+                !empty($reply) ? 'reply' : 'forward',
+                $imap_message->getHeaders()->getValue('Message-ID'),
+                $headers->getValue('To')));
+            $this->_connector->mail_logMaillog(
+                !empty($reply) ? 'reply' : 'forward',
+                $imap_message->getHeaders()->getValue('Message-ID'),
+                $headers->getValue('To'));
+            $this->_imap->setImapFlag(
+                $parent,
+                !empty($reply) ? $reply : $forward,
+                !empty($reply) ? Horde_ActiveSync::IMAP_FLAG_REPLY : Horde_ActiveSync::IMAP_FLAG_FORWARD);
         }
 
         return true;
@@ -1432,11 +1611,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Return the security policies
+     * Return the security policies.
      *
+     * @param boolean|array $device  The device information sent by EAS 14.1
+     *                               set to false otherwise.
      * @return array  An array of provisionable properties and values.
      */
-    public function getCurrentPolicy()
+    public function getCurrentPolicy($device = false)
     {
         return $this->_getPolicyFromPerms();
     }
@@ -1611,28 +1792,168 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @param string $type    The type of recipient request. e.g., 'certificate'
      * @param string $search  The email to resolve.
-     * @param array $opts  Any options required to perform the resolution.
+     * @param array $opts     Any options required to perform the resolution.
+     *  - maxcerts: (integer)     The maximum number of certificates to return
+     *                             as provided by the client.
+     *  - maxambiguous: (integer) The maximum number of ambiguous results. If
+     *                            set to zero, we MUST have an exact match.
+     *  - starttime: (Horde_Date) The start time for the availability window if
+     *                            requesting AVAILABILITY.
+     *  - endtime: (Horde_Date)   The end of the availability window if
+     *                            requesting AVAILABILITY.
+     *  - maxsize: (integer)      The maximum size of any pictures.
+     *                            DEFAULT: 0 (No limit).
+     *  - maxpictures: (integer)  The maximum count of images to return.
+     *                            DEFAULT: - (No limit).
+     *  - pictures: (boolean)     Return pictures.
      *
-     * @return array  The results.
+     * @return array  An array of results containing any of the following:
+     *   - type: (string)  The type of result a GAL entry or personal
+     *                     address book entry. A
+     *                     Horde_ActiveSync::RESOLVE_RESULT constant.
+     *   - displayname: (string)   The display name of the contact.
+     *   - emailaddress: (string)  The emailaddress.
+     *   - entries: (array)        An array of certificates.
+     *   - availability: (string)  A EAS style FB string.
+     *   - picture: (Horde_ActiveSync_Message_ResolveRecipientsPicture)
      */
     public function resolveRecipient($type, $search, array $opts = array())
     {
         $return = array();
-        $gal = $this->_connector->contacts_getGal();
-        $results = $this->_connector->resolveRecipient($search);
-        if (count($results) && isset($results[$search])) {
-            foreach ($results[$search] as $result) {
-                // Do maxabiguous filtering etc...
-                $return[] = array(
-                    'displayname' => $result['name'],
-                    'emailaddress' => $result['email'],
-                    'entries' => array($this->_mungeCert($result['smimePublicKey'])),
-                    'type' => $result['source'] == $gal ? 1 : 2
-                );
+
+        if ($type == 'certificate') {
+            $results = $this->_connector->resolveRecipient($search, $opts);
+
+            if (count($results) && isset($results[$search])) {
+                $gal = $this->_connector->contacts_getGal();
+                $picture_count = 0;
+                foreach ($results[$search] as $result) {
+                    if (!empty($opts['pictures'])) {
+                        $picture = new Horde_ActiveSync_Message_ResolveRecipientsPicture(
+                            array('protocolversion' => $this->_version, 'logger' => $this->_logger));
+                        if (empty($result['photo'])) {
+                            $picture->status = Horde_ActiveSync_Status::NO_PICTURE;
+                        } elseif (!empty($opts['maxpictures']) &&
+                                  $picture_count > $opts['maxpictures']) {
+                            $picture->status = Horde_ActiveSync_Status::PICTURE_LIMIT_REACHED;
+                        } elseif (!empty($opts['maxsize']) &&
+                                  strlen($result['photo']) > $query['maxsize']) {
+                            $picture->status = Horde_ActiveSync_Status::PICTURE_TOO_LARGE;
+                        } else {
+                            $picture->data = $result['photo'];
+                            $picture->status = Horde_ActiveSync_Status::PICTURE_SUCCESS;
+                            ++$picture_count;
+                        }
+                        $entry[Horde_ActiveSync::GAL_PICTURE] = $picture;
+                    }
+                    $result = array(
+                        'displayname' => $result['name'],
+                        'emailaddress' => $result['email'],
+                        'entries' => array($this->_mungeCert($result['smimePublicKey'])),
+                        'type' => $result['source'] == $gal ? Horde_ActiveSync::RESOLVE_RESULT_GAL : Horde_ActiveSync::RESOLVE_RESULT_ADDRESSBOOK,
+                        'picture' => !empty($picture) ? $picture : null
+                    );
+                    $return[] = $result;
+                }
+            }
+
+        } else {
+            $options = array(
+                'maxcerts' => 0,
+                'maxambiguous' => $opts['maxambiguous'],
+                'maxsize' => !empty($opts['maxsize']) ? $opts['maxsize'] : null,
+                'maxpictures' => !empty($opts['maxpictures']) ? $opts['maxpictures'] : null,
+                'pictures' => !empty($opts['pictures'])
+            );
+            $entry = current($this->resolveRecipient('certificate', $search, $options));
+            $opts['starttime']->setTimezone(date_default_timezone_get());
+            $opts['endtime']->setTimezone(date_default_timezone_get());
+            if (!empty($entry)) {
+                $fb = $this->_connector->resolveRecipient($search, $opts);
+                $entry['availability'] = self::buildFbString($fb[$search], $opts['starttime'], $opts['endtime']);
+                $return[] = $entry;
             }
         }
 
         return $return;
+    }
+
+    /**
+     * Build a EAS style FB string. Essentially, each digit represents 1/2 hour.
+     * The values are as follows:
+     *  0 - Free
+     *  1 - Tentative
+     *  2 - Busy
+     *  3 - OOF
+     *  4 - No data available.
+     *
+     * Though currently we only provide a Free/Busy/Unknown differentiation.
+     *
+     * @param stdClass $fb  The fb information. An object containing:
+     *   - s: The start of the period covered.
+     *   - e: The end of the period covered.
+     *   - b: An array of busy periods.
+     *
+     * @param Horde_Date $start  The start of the period requested by the client.
+     * @param Horde_Date $end    The end of the period requested by the client.
+     *
+     * @return string   The EAS freebusy string.
+     * @since 2.4.0
+     */
+    static public function buildFbString($fb, Horde_Date $start, Horde_Date $end)
+    {
+        if (empty($fb)) {
+            return false;
+        }
+
+        // Calculate total time span.
+        $end_ts = $end->timestamp();
+        $start_ts = $start->timestamp();
+        $sec = $end_ts - $start_ts;
+
+        $fb_start = new Horde_Date($fb->s);
+        $fb_end = new Horde_Date($fb->e);
+
+        // Number of 30 minute periods.
+        $period_cnt = ceil($sec / 1800);
+
+        // Requested range is completely out of the available range.
+        if ($start_ts >= $fb_end->timestamp() || $end_ts < $fb_start->timestamp()) {
+            return str_repeat('4', $period_cnt);
+        }
+
+        // We already know we don't have any busy periods.
+        if (empty($fb->b) && $fb_end->timestamp() <= $end_ts) {
+            return str_repeat('0', $period_cnt);
+        }
+
+        $eas_fb = '';
+        // Move $start to the start of the available data.
+        while ($start_ts < $fb_start->timestamp() && $start_ts <= $end_ts) {
+            $eas_fb .= '4';
+            $start_ts += 1800; // 30 minutes
+        }
+        // The rest is assumed free up to $fb->e
+        while ($start_ts <= $fb_end->timestamp() && $start_ts <= $end_ts) {
+            $eas_fb .= '0';
+            $start_ts += 1800;
+        }
+        // The remainder is also unavailable
+        while ($start_ts <= $end_ts) {
+            $eas_fb .= '4';
+            $start_ts += 1800;
+        }
+
+        // Now put in the busy blocks.
+        while (list($b_start, $b_end) = each($fb->b)) {
+            $offset = $b_start - $start->timestamp();
+            $duration = ceil(($b_end - $b_start) / 1800);
+            if ($offset > 0) {
+                $eas_fb = substr_replace($eas_fb, str_repeat('2', $duration), floor($offset / 1800), $duration);
+            }
+        }
+
+        return $eas_fb;
     }
 
     /**
@@ -1826,6 +2147,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $mod = $this->_modCache[$statKey];
         } else {
             try {
+                // @TODO Horde 6 - combine into single getActionTimestamp method
+                // and pass the folderid.
                 switch ($folderid) {
                 case self::APPOINTMENTS_FOLDER_UID:
                     $mod = $this->_connector->calendar_getActionTimestamp($id, 'modify');
@@ -1839,6 +2162,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $mod = $this->_connector->tasks_getActionTimestamp($id, 'modify');
                     break;
 
+                case self::NOTES_FOLDER_UID:
+                    $mod = $this->_connector->notes_getActionTimestamp($id, 'modify');
+                    break;
                 default:
                     try {
                         return $this->statMailMessage($folderid, $id);
@@ -2046,7 +2372,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS
         );
         try {
-            $results = $this->_connector->contacts_search($query['query']);
+            $results = $this->_connector->contacts_search(
+                $query['query'],
+                array('pictures' => !empty($query[Horde_ActiveSync_Request_Search::SEARCH_PICTURE])));
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e);
             $this->_endBuffer();
@@ -2073,8 +2401,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $rows = array_pop($results);
         }
 
+        $picture_count = 0;
         foreach ($rows as $row) {
-            $return['rows'][] = array(
+            $entry = array(
                 Horde_ActiveSync::GAL_ALIAS => !empty($row['alias']) ? $row['alias'] : '',
                 Horde_ActiveSync::GAL_DISPLAYNAME => $row['name'],
                 Horde_ActiveSync::GAL_EMAILADDRESS => !empty($row['email']) ? $row['email'] : '',
@@ -2087,6 +2416,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 Horde_ActiveSync::GAL_TITLE => !empty($row['title']) ? $row['title'] : '',
                 Horde_ActiveSync::GAL_OFFICE => !empty($row['office']) ? $row['office'] : '',
             );
+            if (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_PICTURE])) {
+                $picture = new Horde_ActiveSync_Message_GalPicture(
+                    array('protocolversion' => $this->_version, 'logger' => $this->_logger));
+                if (empty($row['photo'])) {
+                    $picture->status = Horde_ActiveSync_Status::NO_PICTURE;
+                } elseif (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_MAXPICTURES]) &&
+                          $picture_count > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXPICTURES]) {
+                    $picture->status = Horde_ActiveSync_Status::PICTURE_LIMIT_REACHED;
+                } elseif (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_MAXSIZE]) &&
+                          strlen($row['photo']) > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXSIZE]) {
+                    $picture->status = Horde_ActiveSync_Status::PICTURE_TOO_LARGE;
+                } else {
+                    $picture->data = $row['photo'];
+                    $picture->status = Horde_ActiveSync_Status::PICTURE_SUCCESS;
+                    ++$picture_count;
+                }
+                $entry[Horde_ActiveSync::GAL_PICTURE] = $picture;
+            }
+            $return['rows'][] = $entry;
         }
         $this->_endBuffer();
 
@@ -2175,9 +2523,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Return a policy array suitable for transforming into either wbxml or xml
      * to send to the device in the provision response.
      *
+     * @param boolean $deviceinfo  EAS 14.1 DEVICESETTINGS sent with PROVISION.
+     *                             @since 5.1
      * @return array
      */
-    protected function _getPolicyFromPerms()
+    protected function _getPolicyFromPerms($deviceinfo = false)
     {
         $prefix = 'horde:activesync:provisioning:';
         $policy = array();
@@ -2255,6 +2605,69 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $from_addr = $ident->getValue('from_addr');
 
         return $name . ' <' . $from_addr . '>';
+    }
+
+    /**
+     * Get verb changes from the maillog.
+     *
+     * @param Horde_ActiveSync_Folder_Imap $folder  The folder to search.
+     * @param integer $ts                           The timestamp to start from.
+     *
+     * @return Horde_ActiveSync_Folder_Imap  The folder object, with any changes
+     *                                       added accordingly.
+     */
+    protected function _getMaillogChanges(Horde_ActiveSync_Folder_Imap $folder, $ts)
+    {
+        $changes = $this->_connector->mail_getMaillogChanges($ts);
+        $flags = array();
+        $s_changes = array();
+        foreach ($changes as $mid) {
+            try {
+                $uid = $this->_imap->getUidFromMid($mid, $folder);
+            } catch (Horde_Exception_NotFound $e) {
+                continue;
+            }
+            $s_changes[] = $uid;
+            $verb = $this->_getLastVerb($mid);
+            if (!empty($verb)) {
+                switch ($verb['action']) {
+                case 'reply':
+                case 'reply_list':
+                    $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLY_STATE => $verb['ts']);
+                    break;
+                case 'reply_all':
+                   $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLYALL_STATE => $verb['ts']);
+                    break;
+                case 'forward':
+                    $flags[$uid] = array(Horde_ActiveSync::CHANGE_FORWARD_STATE => $verb['ts']);
+                }
+            }
+        }
+        if (!empty($s_changes)) {
+            $folder->setChanges($s_changes, $flags);
+        }
+
+        return $folder;
+    }
+
+    /**
+     * Return the last verb executed for the specified Message-ID.
+     *
+     * @param string $mid  The Message-ID.
+     *
+     * @return array  The most recent history log entry array for $mid.
+     */
+    protected function _getLastVerb($mid)
+    {
+        $log = $this->_connector->mail_getMaillog($mid);
+        $last = array();
+        foreach ($log as $entry) {
+            if (empty($last) || $last['ts'] < $entry['ts']) {
+                $last = $entry;
+            }
+        }
+
+        return $last;
     }
 
 }

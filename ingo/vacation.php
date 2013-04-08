@@ -36,7 +36,14 @@ if ($vars->submitbutton == _("Return to Rules List")) {
 }
 
 /* Build form. */
-$form = new Ingo_Form_Vacation($vars);
+$form = new Ingo_Form_Vacation(
+    $vars,
+    '',
+    null,
+    $injector->getInstance('Ingo_Factory_Script')
+        ->create(Ingo::RULE_VACATION)
+        ->availableCategoryFeatures(Ingo_Storage::ACTION_VACATION)
+);
 
 /* Perform requested actions. */
 if ($form->validate($vars)) {
@@ -120,11 +127,9 @@ Horde::startBuffer();
 $form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, Horde::url('vacation.php'), 'post');
 $form_output = Horde::endBuffer();
 
-$menu = Ingo::menu();
 $page_output->header(array(
     'title' => _("Vacation Edit")
 ));
-echo $menu;
 Ingo::status();
 echo $form_output;
 $page_output->footer();

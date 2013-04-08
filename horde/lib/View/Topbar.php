@@ -18,7 +18,7 @@
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl LGPL-2
- * @package  horde
+ * @package  Horde
  */
 class Horde_View_Topbar extends Horde_View
 {

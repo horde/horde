@@ -12,4 +12,5 @@ var HordeSyncMLPrefs = {
         document.forms.prefs.actionID = 'update_special';
         document.forms.prefs.submit();
     }
-}
+
+};

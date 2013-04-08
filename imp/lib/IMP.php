@@ -44,128 +44,6 @@ class IMP
     const IMAP_SORT_DATE = 100;
 
     /**
-     * Current mailbox/UID information.
-     *
-     * @var array
-     */
-    static private $_mboxinfo;
-
-    /**
-     * Initialize the JS browser environment and output everything up to, and
-     * including, the <body> tag.
-     *
-     * @param string $title  The title of the page.
-     */
-    static public function header($title, array $header_params = array())
-    {
-        global $conf, $injector, $page_output, $registry;
-
-        switch ($registry->getView()) {
-        case Horde_Registry::VIEW_BASIC:
-            $code = array(
-                /* Variables used in core javascript files. */
-                'conf' => array(
-                    'pop3' => intval($injector->getInstance('IMP_Factory_Imap')->create()->pop3),
-                    'fixed_mboxes' => empty($conf['server']['fixed_folders'])
-                        ? array()
-                        : $conf['server']['fixed_folders']
-                ),
-
-                /* Gettext strings used in core javascript files. */
-                'text' => array(
-                    'moveconfirm' => _("Are you sure you want to move the message(s)? (Some message information might get lost, like message headers, text formatting or attachments!)"),
-                    'spam_report' => _("Are you sure you wish to report this message as spam?"),
-                    'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
-                    'newmbox' => _("You are copying/moving to a new mailbox.") . "\n" . _("Please enter a name for the new mailbox:") . "\n",
-                    'no' => _("No"),
-                    'target_mbox' => _("You must select a target mailbox first."),
-                    'yes' => _("Yes")
-                )
-            );
-
-            $page_output->addInlineJsVars(array(
-                'var IMP' => $code
-            ), array('top' => true));
-
-            $page_output->addLinkTag(array(
-                'href' => Horde::url('search.php', true),
-                'rel' => 'search',
-                'type' => null
-            ));
-
-            $mimecss = new Horde_Themes_Element('mime.css');
-            $page_output->addStylesheet($mimecss->fs, $mimecss->uri);
-            break;
-        }
-
-        $GLOBALS['page_output']->header(array_merge(array(
-            'title' => $title
-        ), $header_params));
-    }
-
-    /**
-     * Returns mailbox info for the current page.
-     *
-     * @param boolean $uidmbox  If true, return mailbox associated with UID.
-     *                          Otherwise, return master mailbox.
-     *
-     * @return IMP_Mailbox  Mailbox object.
-     */
-    static public function mailbox($uidmbox = false)
-    {
-        if (!isset(self::$_mboxinfo)) {
-            self::setMailboxInfo();
-        }
-
-        return self::$_mboxinfo[$uidmbox ? 'thismailbox' : 'mailbox'];
-    }
-
-    /**
-     * Returns UID info for the current page.
-     *
-     * @return string  UID.
-     */
-    static public function uid()
-    {
-        if (!isset(self::$_mboxinfo)) {
-            self::setMailboxInfo();
-        }
-
-        return self::$_mboxinfo['uid'];
-    }
-
-    /**
-     * Sets mailbox/index information for current page load.
-     *
-     * @param boolean $mbox  Use this mailbox, instead of form data.
-     */
-    static public function setMailboxInfo($mbox = null)
-    {
-        if (is_null($mbox)) {
-            $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
-
-            $mailbox = isset($vars->mailbox)
-                ? IMP_Mailbox::formFrom($vars->mailbox)
-                : IMP_Mailbox::get('INBOX');
-
-            $thismailbox = isset($vars->thismailbox)
-                ? IMP_Mailbox::formFrom($vars->thismailbox)
-                : $mailbox;
-
-            $uid = $vars->uid;
-        } else {
-            $mailbox = $thismailbox = IMP_Mailbox::get($mbox);
-            $uid = null;
-        }
-
-        self::$_mboxinfo = array(
-            'mailbox' => $mailbox,
-            'thismailbox' => $thismailbox,
-            'uid' => $uid
-        );
-    }
-
-    /**
      * Generates a select form input from a mailbox list. The &lt;select&gt;
      * and &lt;/select&gt; tags are NOT included in the output.
      *
@@ -214,156 +92,6 @@ class IMP
     }
 
     /**
-     * Checks for To:, Subject:, Cc:, and other compose window arguments and
-     * pass back an associative array of those that are present.
-     *
-     * @param Horde_Variables $vars  Form variables.
-     *
-     * @return string  An associative array with compose arguments.
-     */
-    static public function getComposeArgs(Horde_Variables $vars)
-    {
-        $args = array();
-        $fields = array('to', 'cc', 'bcc', 'body', 'subject');
-
-        foreach ($fields as $val) {
-            if (isset($vars->$val)) {
-                $args[$val] = $vars->$val;
-            }
-        }
-
-        return self::_decodeMailto($args);
-    }
-
-    /**
-     * Checks for mailto: prefix in the To field.
-     *
-     * @param array $args  A list of compose arguments.
-     *
-     * @return array  The array with the To: argument stripped of mailto:.
-     */
-    static protected function _decodeMailto($args)
-    {
-        $fields = array('to', 'cc', 'bcc', 'message', 'body', 'subject');
-
-        if (isset($args['to']) && (strpos($args['to'], 'mailto:') === 0)) {
-            $mailto = @parse_url($args['to']);
-            if (is_array($mailto)) {
-                $args['to'] = isset($mailto['path']) ? $mailto['path'] : '';
-                if (!empty($mailto['query'])) {
-                    parse_str($mailto['query'], $vals);
-                    foreach ($fields as $val) {
-                        if (isset($vals[$val])) {
-                            $args[$val] = $vals[$val];
-                        }
-                    }
-                }
-            }
-        }
-
-        return $args;
-    }
-
-    /**
-     * Returns the appropriate link to call the message composition script.
-     *
-     * @param mixed $args       List of arguments to pass to compose script.
-     *                          If this is passed in as a string, it will be
-     *                          parsed as a toaddress?subject=foo&cc=ccaddress
-     *                          (mailto-style) string.
-     * @param array $extra      Hash of extra, non-standard arguments to pass
-     *                          to compose script.
-     * @param string $simplejs  Use simple JS (instead of HordePopup JS)?
-     *
-     * @return Horde_Url  The link to the message composition script.
-     */
-    static public function composeLink($args = array(), $extra = array(),
-                                       $simplejs = false)
-    {
-        if (is_string($args)) {
-            $string = $args;
-            $args = array();
-            if (($pos = strpos($string, '?')) !== false) {
-                parse_str(substr($string, $pos + 1), $args);
-                $args['to'] = substr($string, 0, $pos);
-            } else {
-                $args['to'] = $string;
-            }
-        }
-
-        $args = array_merge(self::_decodeMailto($args), $extra);
-        $callback = $raw = false;
-        $uid = isset($args['uid'])
-            ? $args['uid']
-            : null;
-        $view = $GLOBALS['registry']->getView();
-
-        if ($simplejs || ($view == Horde_Registry::VIEW_DYNAMIC)) {
-            $args['popup'] = 1;
-
-            $url = ($view == Horde_Registry::VIEW_DYNAMIC)
-                ? IMP_Dynamic_Compose::url()
-                : 'compose.php';
-            $raw = true;
-            $callback = array(__CLASS__, 'composeLinkSimpleCallback');
-        } elseif ($view == Horde_Registry::VIEW_SMARTMOBILE) {
-            $url = new Horde_Core_Smartmobile_Url(Horde::url('smartmobile.php'));
-            $url->setAnchor('compose');
-        } elseif (($view != Horde_Registry::VIEW_MINIMAL) &&
-                  $GLOBALS['prefs']->getValue('compose_popup') &&
-                  $GLOBALS['browser']->hasFeature('javascript')) {
-            $url = 'compose.php';
-            $callback = array(__CLASS__, 'composeLinkJsCallback');
-        } else {
-            $url = ($view == Horde_Registry::VIEW_MINIMAL)
-                ? IMP_Minimal_Compose::url()
-                : 'compose.php';
-        }
-
-        if (isset($args['thismailbox'])) {
-            $url = IMP_Mailbox::get($args['thismailbox'])->url($url, $uid);
-        } elseif (isset($args['mailbox'])) {
-            $url = IMP_Mailbox::get($args['mailbox'])->url($url, $uid);
-        } elseif (!($url instanceof Horde_Url)) {
-            $url = Horde::url($url);
-        }
-
-        unset($args['mailbox'], $args['thismailbox'], $args['uid']);
-
-        $url->setRaw($raw)->add($args);
-        if ($callback) {
-            $url->toStringCallback = $callback;
-        }
-
-        return $url;
-    }
-
-    /**
-     * Callback for Horde_Url when generating "simple" compose links. Simple
-     * links don't require exterior javascript libraries.
-     *
-     * @param Horde_Url $url  URL object.
-     *
-     * @return string  URL string representation.
-     */
-    static public function composeLinkSimpleCallback($url)
-    {
-        return "javascript:void(window.open('" . strval($url) . "','','width=820,height=610,status=1,scrollbars=yes,resizable=yes'))";
-    }
-
-    /**
-     * Callback for Horde_Url when generating javascript compose links.
-     *
-     * @param Horde_Url $url  URL object.
-     *
-     * @return string  URL string representation.
-     */
-    static public function composeLinkJsCallback($url)
-    {
-        return 'javascript:' . Horde::popupJs(strval($url), array('urlencode' => true));
-    }
-
-    /**
      * Filters a string, if requested.
      *
      * @param string $text  The text to filter.
@@ -372,66 +100,15 @@ class IMP
      */
     static public function filterText($text)
     {
-        if ($GLOBALS['prefs']->getValue('filtering') && strlen($text)) {
-            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($text, 'words', array(
-                'replacement' => $GLOBALS['conf']['msgsettings']['filtering']['replacement'],
-                'words_file' => $GLOBALS['conf']['msgsettings']['filtering']['words']
-            ));
+        global $injector, $prefs;
+
+        if ($prefs->getValue('filtering') && strlen($text)) {
+            try {
+                return $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($text, 'words', Horde::callHook('msg_filter', array(), 'imp'));
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         return $text;
-    }
-
-    /**
-     * Returns whether the specified permission is granted.
-     *
-     * @param string $permission  The permission to check.
-     * @param array $opts         Additional options:
-     *   - For 'max_recipients' and 'max_timelimit', 'value' is the number of
-     *     recipients in the current message.
-     *
-     * @return boolean  Whether the specified permission is allowed.
-     */
-    static public function hasPermission($permission, $opts = array())
-    {
-        $allowed = $GLOBALS['injector']->getInstance('Horde_Core_Perms')
-            ->hasAppPermission($permission);
-        if ($allowed === true) {
-            return true;
-        }
-
-        switch ($permission) {
-        case 'create_folders':
-            // No-op
-            break;
-
-        case 'max_folders':
-            return (intval($allowed) >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
-
-        case 'max_recipients':
-            if (isset($opts['value'])) {
-                return (intval($allowed) >= $opts['value']);
-            }
-            break;
-
-        case 'max_timelimit':
-            if (isset($opts['value'])) {
-                $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
-                if (!($sentmail instanceof IMP_Sentmail)) {
-                    Horde::log('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
-                    return true;
-                }
-
-                try {
-                    $opts['value'] += $sentmail->numberOfRecipients($GLOBALS['conf']['sentmail']['params']['limit_period'], true);
-                } catch (IMP_Exception $e) {}
-
-                return (intval($allowed) >= $opts['value']);
-            }
-            break;
-        }
-
-        return (bool)$allowed;
     }
 
     /**
@@ -489,42 +166,16 @@ class IMP
     }
 
     /**
-     * Determine the status of composing.
      *
-     * @return boolean  Is compose allowed?
-     * @throws Horde_Exception
+     * @param integer $size  The byte size of data.
+     *
+     * @return string  A formatted size string.
      */
-    static public function canCompose()
+    static public function sizeFormat($size)
     {
-        try {
-            return !Horde::callHook('disable_compose', array(), 'imp');
-        } catch (Horde_Exception_HookNotSet $e) {
-            return true;
-        }
-    }
-
-    /**
-     * Base64url (RFC 4648 [5]) encode a string.
-     *
-     * @param string $in  Unencoded string.
-     *
-     * @return string  Encoded string.
-     */
-    static public function base64urlEncode($in)
-    {
-        return strtr(rtrim(base64_encode($in), '='), '+/', '-_');
-    }
-
-    /**
-     * Base64url (RFC 4648 [5]) decode a string.
-     *
-     * @param string $in  Encoded string.
-     *
-     * @return string  Decoded string.
-     */
-    static public function base64urlDecode($in)
-    {
-        return base64_decode(strtr($in, '-_', '+/'));
+        return ($size >= 1048576)
+            ? sprintf(_("%s MB"), self::numberFormat($size / 1048576, 1))
+            : sprintf(_("%s KB"), self::numberFormat($size / 1024, 0));
     }
 
     /**
@@ -547,61 +198,38 @@ class IMP
     }
 
     /**
-     * Wrapper around Horde_Mail_Rfc822#parseAddressList().
+     * Wrapper around Horde_Mail_Rfc822#parseAddressList(). Ensures all
+     * addresses have a default mail domain appended.
      *
-     * @param string $str  The address string.
+     * @param mixed $in    The address string or an address list object.
      * @param array $opts  Options to override the default.
      *
      * @return array  See Horde_Mail_Rfc822#parseAddressList().
      *
      * @throws Horde_Mail_Exception
      */
-    static public function parseAddressList($str, array $opts = array())
+    static public function parseAddressList($in, array $opts = array())
     {
-        $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
-        $res = $rfc822->parseAddressList($str, array_merge(array(
-            'default_domain' => $GLOBALS['session']->get('imp', 'maildomain'),
-            'validate' => false
-        ), $opts));
+        $md = $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
+
+        if ($in instanceof Horde_Mail_Rfc822_List) {
+            $res = clone $in;
+            foreach ($res->raw_addresses as $val) {
+                if (is_null($val->host)) {
+                    $val->host = $md;
+                 }
+            }
+        } else {
+            $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
+            $res = $rfc822->parseAddressList($in, array_merge(array(
+                'default_domain' => $md,
+                'validate' => false
+            ), $opts));
+        }
+
         $res->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
+
         return $res;
-    }
-
-    /**
-     * Shortcut method to get the bare address of an e-mail string.
-     *
-     * @param string $str              The address string.
-     * @param boolean $default_domain  Append default domain, if needed?
-     *
-     * @return string  The bare address.
-     */
-    static public function bareAddress($str, $default_domain = false)
-    {
-        $ob = new Horde_Mail_Rfc822_Address($str);
-        if ($default_domain && is_null($ob->host)) {
-            $ob->host = $GLOBALS['session']->get('imp', 'maildomain');
-        }
-        return $ob->bare_address;
-    }
-
-    /**
-     * Are appliable filters available?
-     *
-     * @return boolean  True if appliable filters are available.
-     */
-    static public function applyFilters()
-    {
-        global $registry, $session;
-
-        if (!$session->exists('imp', 'filteravail')) {
-            $apply = false;
-            try {
-                $apply = $registry->call('mail/canApplyFilters');
-            } catch (Horde_Exception $e) {}
-            $session->set('imp', 'filteravail', $apply);
-        }
-
-        return $session->get('imp', 'filteravail');
     }
 
 }

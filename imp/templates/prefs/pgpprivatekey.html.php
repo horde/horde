@@ -8,7 +8,7 @@
 
 <?php if ($this->notsecure): ?>
  <div>
-  <em class="prefsPgpWarning"><?php echo _("PGP Personal Keypair support requires a secure web connection.") ?></em>
+  <em class="prefsPgpWarning"><?php echo _("PGP Personal Key support requires a secure web connection.") ?></em>
  </div>
 <?php elseif ($this->has_key): ?>
  <div>
@@ -84,20 +84,6 @@
    </tr>
    <tr>
     <td>
-     <label for="generate_keylength"><?php echo _("Key Length") ?>:</label>
-    </td>
-    <td>
-     <select id="generate_keylength" name="generate_keylength">
-      <option value="1024">1024</option>
-      <option value="2048">2048</option>
-     </select>
-    </td>
-    <td>
-     <?php echo $this->hordeHelp('imp', 'pgp-personalkey-create-keylength') ?>
-    </td>
-   </tr>
-   <tr>
-    <td>
      <label for="generate_passphrase1"><?php echo _("Passphrase") ?>:</label>
     </td>
     <td>
@@ -138,7 +124,7 @@
   <p>
    <input type="submit" id="create_pgp_key" name="create_pgp_key" class="horde-create" value="<?php echo _("Create Keys") ?>" />
 <?php if ($this->import_pgp_private): ?>
-   <input type="submit" name="save" class="horde-default" id="import_pgp_personal" value="<?php echo _("Import Keypair") ?>" />
+   <input type="submit" name="save" class="horde-default" id="import_pgp_personal" value="<?php echo _("Import Key") ?>" />
 <?php endif; ?>
    <?php echo $this->hordeHelp('imp', 'pgp-personalkey-create-actions') ?>
   </p>

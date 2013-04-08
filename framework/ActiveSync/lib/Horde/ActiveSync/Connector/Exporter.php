@@ -146,35 +146,6 @@ class Horde_ActiveSync_Connector_Exporter
     }
 
     /**
-     * Output a POOMMAIL_FLAG change.
-     *
-     * @param integer $id    The IMAP UID of the message.
-     * @param integer $flag  The flag value (1 == FLAG_STATUS_ACTIVE).
-     */
-    public function messageFlag($id, $readFlag = null, $flag = null)
-    {
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-        $this->_encoder->content($id);
-        $this->_encoder->endTag();
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
-        if (!is_null($readFlag)) {
-            $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_READ);
-            $this->_encoder->content($readFlag);
-            $this->_encoder->endTag();
-        }
-        if (!is_null($flag)) {
-            $pflag = new Horde_ActiveSync_Message_Flag();
-            $pflag->flagstatus = $flag == 1 ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
-            $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_FLAG);
-            $pflag->encodeStream($this->_encoder);
-            $this->_encoder->endTag();
-        }
-        $this->_encoder->endTag();
-        $this->_encoder->endTag();
-    }
-
-    /**
      * Move a message to a different folder.
      *
      * @param Horde_ActiveSync_Message_Base $message  The message

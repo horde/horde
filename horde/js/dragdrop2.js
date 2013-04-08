@@ -479,7 +479,7 @@ Drag = Class.create({
             }
             try {
                 this.ghost.elt.remove();
-            } catch (e) {}
+            } catch (ex) {}
             this.ghost = null;
         }
 

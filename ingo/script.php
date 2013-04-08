@@ -6,6 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -15,22 +16,23 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if script updating is not available. */
-if (!$session->get('ingo', 'script_generate')) {
+if (!$injector->getInstance('Ingo_Factory_Script')->hasFeature('script_file')) {
     Horde::url('filters.php', true)->redirect();
 }
 
 /* Generate the script. */
-$ingo_script = $injector->getInstance('Ingo_Script');
-$script = $ingo_script->generate();
-$additional = $ingo_script->additionalScripts();
+$scripts = array();
+foreach ($injector->getInstance('Ingo_Factory_Script')->createAll() as $script) {
+    $scripts = array_merge($scripts, $script->generate());
+}
 
 /* Activate/deactivate script if requested. */
 $actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'action_activate':
-    if (!empty($script)) {
+    if (!empty($scripts)) {
         try {
-            Ingo::activateScript($script, false, $additional);
+            Ingo::activateScripts($scripts, false);
         } catch (Ingo_Exception $e) {
             $notification->push($e);
         }
@@ -39,42 +41,53 @@ case 'action_activate':
 
 case 'action_deactivate':
     try {
-        Ingo::activateScript('', true, $additional);
+        Ingo::activateScripts('', true);
     } catch (Ingo_Exception $e) {
         $notification->push($e);
     }
     break;
 
 case 'show_active':
-    try {
-        $script = $injector->getInstance('Ingo_Transport')->getScript();
-    } catch (Ingo_Exception $e) {
-        $notification->push($e);
-        $script = '';
+    $scripts = array();
+    foreach ($session->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY) as $transport) {
+        try {
+            $backend = $injector->getInstance('Ingo_Factory_Transport')
+                ->create($transport);
+            if (method_exists($backend, 'getScript')) {
+                $scripts[] = $backend->getScript();
+            }
+        } catch (Horde_Exception_NotFound $e) {
+        } catch (Ingo_Exception $e) {
+            $notification->push($e);
+        }
     }
     break;
 }
 
-$menu = Ingo::menu();
+/* Prepare the view. */
+$view = new Horde_View(array(
+    'templatePath' => INGO_TEMPLATES . '/basic/script'
+));
+$view->addHelper('Text');
+
+if (empty($scripts)) {
+    $view->scriptexists = false;
+} else {
+    $view->scriptexists = true;
+    foreach ($scripts as &$script) {
+        $script['lines'] = preg_split('(\r\n|\n|\r)', trim($script['script']));
+        $script['width'] = strlen(count($script['lines']));
+    }
+}
+$view->scripturl = Horde::url('script.php');
+$view->showactivate = ($actionID != 'show_active');
+if ($view->scriptexists) {
+    $view->scripts = $scripts;
+}
+
 $page_output->header(array(
     'title' => _("Filter Script Display")
 ));
-echo $menu;
 Ingo::status();
-require INGO_TEMPLATES . '/script/header.inc';
-if (!empty($script)) {
-    require INGO_TEMPLATES . '/script/activate.inc';
-}
-require INGO_TEMPLATES . '/script/script.inc';
-if (!empty($script)) {
-    $lines = preg_split('(\r\n|\n|\r)', $script);
-    $i = 0;
-    foreach ($lines as $line) {
-        printf("%3d: %s\n", ++$i, htmlspecialchars($line));
-    }
-} else {
-    echo '[' . _("No script generated.") . ']';
-}
-
-require INGO_TEMPLATES . '/script/footer.inc';
+echo $view->render('script');
 $page_output->footer();

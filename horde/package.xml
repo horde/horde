@@ -28,21 +28,19 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-20</date>
- <time>00:20:19</time>
+ <date>2013-04-08</date>
  <version>
-  <release>5.0.5</release>
+  <release>5.1.0beta1</release>
   <api>5.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado &lt;geral@jpaulo.eu&gt;).
-* [mms] Login screen now hides the mode input if javascript is not available, as minimal view is the only supported mode (Request #12093).
-* [jan] Fix searching from topbar if search URL contains parameters.
+* [jan] Check all installed PEAR packages when checking for updates.
+* [mms] Add &apos;ajaxaction_data&apos; hook.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -214,6 +212,7 @@
     <file name="logintasks-jquery.js" role="horde" />
     <file name="logintasks.js" role="horde" />
     <file name="md5.js" role="horde" />
+    <file name="obrowser.js" role="horde" />
     <file name="problem.js" role="horde" />
     <file name="quickfinder.js" role="horde" />
     <file name="sidebar.js" role="horde" />
@@ -661,9 +660,9 @@
       <file name="list.html.php" role="horde" />
      </dir> <!-- /templates/admin/alarms -->
      <dir name="config">
-      <file name="config.html" role="horde" />
-      <file name="diff.html" role="horde" />
-      <file name="index.html" role="horde" />
+      <file name="config.html.php" role="horde" />
+      <file name="diff.html.php" role="horde" />
+      <file name="index.html.php" role="horde" />
      </dir> <!-- /templates/admin/config -->
      <dir name="groups">
       <file name="add.inc" role="horde" />
@@ -720,8 +719,8 @@
      <file name="smartmobile.html.php" role="horde" />
     </dir> <!-- /templates/login -->
     <dir name="logintasks">
-     <file name="logintasks.html" role="horde" />
-     <file name="smartmobile.html" role="horde" />
+     <file name="logintasks.html.php" role="horde" />
+     <file name="smartmobile.html.php" role="horde" />
     </dir> <!-- /templates/logintasks -->
     <dir name="portal">
      <file name="add.inc" role="horde" />
@@ -732,18 +731,18 @@
      <file name="smartmobile.inc" role="horde" />
     </dir> <!-- /templates/portal -->
     <dir name="prefs">
-     <file name="activesync.html" role="horde" />
+     <file name="activesync.html.php" role="horde" />
      <file name="addressbooks.html" role="horde" />
      <file name="alarm.html" role="horde" />
      <file name="app.html" role="horde" />
      <file name="begin.html" role="horde" />
-     <file name="category.html" role="horde" />
+     <file name="category.html.php" role="horde" />
      <file name="checkbox.html" role="horde" />
      <file name="end.html" role="horde" />
      <file name="enum.html" role="horde" />
      <file name="error_end.html" role="horde" />
      <file name="error_start.html" role="horde" />
-     <file name="facebook.html" role="horde" />
+     <file name="facebook.html.php" role="horde" />
      <file name="identityselect.html" role="horde" />
      <file name="link.html" role="horde" />
      <file name="multienum.html" role="horde" />
@@ -753,14 +752,17 @@
      <file name="rawhtml.html" role="horde" />
      <file name="rpc.html" role="horde" />
      <file name="source.html" role="horde" />
-     <file name="syncml.html" role="horde" />
+     <file name="syncml.html.php" role="horde" />
      <file name="text.html" role="horde" />
      <file name="textarea.html" role="horde" />
-     <file name="twitter.html" role="horde" />
+     <file name="twitter.html.php" role="horde" />
     </dir> <!-- /templates/prefs -->
     <dir name="problem">
      <file name="problem.inc" role="horde" />
     </dir> <!-- /templates/problem -->
+    <dir name="services">
+     <file name="obrowser.html.php" role="horde" />
+    </dir> <!-- /templates/services -->
     <dir name="shares">
      <file name="edit.inc" role="horde" />
     </dir> <!-- /templates/shares -->
@@ -1561,6 +1563,21 @@
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
+    <dir name="webcenter">
+     <dir name="graphics">
+      <file name="logo.png" role="horde" />
+      <file name="logout.png" role="horde" />
+      <file name="navi-arrow-active.png" role="horde" />
+      <file name="navi-arrow-normal.png" role="horde" />
+      <file name="navi-subnavi-active.png" role="horde" />
+      <file name="navi-subnavi.png" role="horde" />
+      <file name="search-topbar.png" role="horde" />
+      <file name="settings-active.png" role="horde" />
+      <file name="settings.png" role="horde" />
+     </dir> <!-- /themes/webcenter/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/webcenter -->
     </dir> <!-- /themes -->
    <dir name="util">
     <file name="barcode.php" role="horde" />
@@ -1623,7 +1640,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.8</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1727,13 +1744,6 @@
    </package>
    <package>
     <name>Horde_Support</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Template</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -1977,6 +1987,7 @@
    <install as="js/logintasks-jquery.js" name="js/logintasks-jquery.js" />
    <install as="js/logintasks.js" name="js/logintasks.js" />
    <install as="js/md5.js" name="js/md5.js" />
+   <install as="js/obrowser.js" name="js/obrowser.js" />
    <install as="js/problem.js" name="js/problem.js" />
    <install as="js/quickfinder.js" name="js/quickfinder.js" />
    <install as="js/sidebar.js" name="js/sidebar.js" />
@@ -2220,9 +2231,9 @@
    <install as="templates/admin/sessions.html.php" name="templates/admin/sessions.html.php" />
    <install as="templates/admin/sqlshell.html.php" name="templates/admin/sqlshell.html.php" />
    <install as="templates/admin/alarms/list.html.php" name="templates/admin/alarms/list.html.php" />
-   <install as="templates/admin/config/config.html" name="templates/admin/config/config.html" />
-   <install as="templates/admin/config/diff.html" name="templates/admin/config/diff.html" />
-   <install as="templates/admin/config/index.html" name="templates/admin/config/index.html" />
+   <install as="templates/admin/config/config.html.php" name="templates/admin/config/config.html.php" />
+   <install as="templates/admin/config/diff.html.php" name="templates/admin/config/diff.html.php" />
+   <install as="templates/admin/config/index.html.php" name="templates/admin/config/index.html.php" />
    <install as="templates/admin/groups/add.inc" name="templates/admin/groups/add.inc" />
    <install as="templates/admin/groups/delete.inc" name="templates/admin/groups/delete.inc" />
    <install as="templates/admin/groups/edit.inc" name="templates/admin/groups/edit.inc" />
@@ -2255,26 +2266,26 @@
    <install as="templates/login/resetpassword.inc" name="templates/login/resetpassword.inc" />
    <install as="templates/login/signup.inc" name="templates/login/signup.inc" />
    <install as="templates/login/smartmobile.html.php" name="templates/login/smartmobile.html.php" />
-   <install as="templates/logintasks/logintasks.html" name="templates/logintasks/logintasks.html" />
-   <install as="templates/logintasks/smartmobile.html" name="templates/logintasks/smartmobile.html" />
+   <install as="templates/logintasks/logintasks.html.php" name="templates/logintasks/logintasks.html.php" />
+   <install as="templates/logintasks/smartmobile.html.php" name="templates/logintasks/smartmobile.html.php" />
    <install as="templates/portal/add.inc" name="templates/portal/add.inc" />
    <install as="templates/portal/block.inc" name="templates/portal/block.inc" />
    <install as="templates/portal/edit.inc" name="templates/portal/edit.inc" />
    <install as="templates/portal/layout.inc" name="templates/portal/layout.inc" />
    <install as="templates/portal/new.inc" name="templates/portal/new.inc" />
    <install as="templates/portal/smartmobile.inc" name="templates/portal/smartmobile.inc" />
-   <install as="templates/prefs/activesync.html" name="templates/prefs/activesync.html" />
+   <install as="templates/prefs/activesync.html.php" name="templates/prefs/activesync.html.php" />
    <install as="templates/prefs/addressbooks.html" name="templates/prefs/addressbooks.html" />
    <install as="templates/prefs/alarm.html" name="templates/prefs/alarm.html" />
    <install as="templates/prefs/app.html" name="templates/prefs/app.html" />
    <install as="templates/prefs/begin.html" name="templates/prefs/begin.html" />
-   <install as="templates/prefs/category.html" name="templates/prefs/category.html" />
+   <install as="templates/prefs/category.html.php" name="templates/prefs/category.html.php" />
    <install as="templates/prefs/checkbox.html" name="templates/prefs/checkbox.html" />
    <install as="templates/prefs/end.html" name="templates/prefs/end.html" />
    <install as="templates/prefs/enum.html" name="templates/prefs/enum.html" />
    <install as="templates/prefs/error_end.html" name="templates/prefs/error_end.html" />
    <install as="templates/prefs/error_start.html" name="templates/prefs/error_start.html" />
-   <install as="templates/prefs/facebook.html" name="templates/prefs/facebook.html" />
+   <install as="templates/prefs/facebook.html.php" name="templates/prefs/facebook.html.php" />
    <install as="templates/prefs/identityselect.html" name="templates/prefs/identityselect.html" />
    <install as="templates/prefs/link.html" name="templates/prefs/link.html" />
    <install as="templates/prefs/multienum.html" name="templates/prefs/multienum.html" />
@@ -2284,11 +2295,12 @@
    <install as="templates/prefs/rawhtml.html" name="templates/prefs/rawhtml.html" />
    <install as="templates/prefs/rpc.html" name="templates/prefs/rpc.html" />
    <install as="templates/prefs/source.html" name="templates/prefs/source.html" />
-   <install as="templates/prefs/syncml.html" name="templates/prefs/syncml.html" />
+   <install as="templates/prefs/syncml.html.php" name="templates/prefs/syncml.html.php" />
    <install as="templates/prefs/text.html" name="templates/prefs/text.html" />
    <install as="templates/prefs/textarea.html" name="templates/prefs/textarea.html" />
-   <install as="templates/prefs/twitter.html" name="templates/prefs/twitter.html" />
+   <install as="templates/prefs/twitter.html.php" name="templates/prefs/twitter.html.php" />
    <install as="templates/problem/problem.inc" name="templates/problem/problem.inc" />
+   <install as="templates/services/obrowser.html.php" name="templates/services/obrowser.html.php" />
    <install as="templates/shares/edit.inc" name="templates/shares/edit.inc" />
    <install as="templates/sidebar/sidebar.html.php" name="templates/sidebar/sidebar.html.php" />
    <install as="templates/sidebar/_container.html.php" name="templates/sidebar/_container.html.php" />
@@ -3034,6 +3046,17 @@
    <install as="themes/default/sounds/jetsndb.wav" name="themes/default/sounds/jetsndb.wav" />
    <install as="themes/default/sounds/reminder.wav" name="themes/default/sounds/reminder.wav" />
    <install as="themes/default/sounds/theetone.wav" name="themes/default/sounds/theetone.wav" />
+   <install as="themes/webcenter/info.php" name="themes/webcenter/info.php" />
+   <install as="themes/webcenter/screen.css" name="themes/webcenter/screen.css" />
+   <install as="themes/webcenter/graphics/logo.png" name="themes/webcenter/graphics/logo.png" />
+   <install as="themes/webcenter/graphics/logout.png" name="themes/webcenter/graphics/logout.png" />
+   <install as="themes/webcenter/graphics/navi-arrow-active.png" name="themes/webcenter/graphics/navi-arrow-active.png" />
+   <install as="themes/webcenter/graphics/navi-arrow-normal.png" name="themes/webcenter/graphics/navi-arrow-normal.png" />
+   <install as="themes/webcenter/graphics/navi-subnavi-active.png" name="themes/webcenter/graphics/navi-subnavi-active.png" />
+   <install as="themes/webcenter/graphics/navi-subnavi.png" name="themes/webcenter/graphics/navi-subnavi.png" />
+   <install as="themes/webcenter/graphics/search-topbar.png" name="themes/webcenter/graphics/search-topbar.png" />
+   <install as="themes/webcenter/graphics/settings-active.png" name="themes/webcenter/graphics/settings-active.png" />
+   <install as="themes/webcenter/graphics/settings.png" name="themes/webcenter/graphics/settings.png" />
    <install as="util/barcode.php" name="util/barcode.php" />
    <install as="util/icon_browser.php" name="util/icon_browser.php" />
    <install as=".htaccess" name=".htaccess" />
@@ -3606,9 +3629,26 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is installed
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Login screen now hides the mode input if javascript is not available, as minimal view is the only supported mode (Request #12093).
 * [jan] Fix searching from topbar if search URL contains parameters.
+   </notes>
+  </release>
+  <release>
+   <date>2013-04-08</date>
+   <version>
+    <release>5.1.0beta1</release>
+    <api>5.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] Check all installed PEAR packages when checking for updates.
+* [mms] Add &apos;ajaxaction_data&apos; hook.
    </notes>
   </release>
  </changelog>

@@ -54,6 +54,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     const FOLDER            = 'Ping:Folder';
     const SERVERENTRYID     = 'Ping:ServerEntryId';
     const FOLDERTYPE        = 'Ping:FolderType';
+    const MAXFOLDERS        = 'Ping:MaxFolders';
+    const VERSION           = 'Ping:Version';
 
     /**
      * The device's PING configuration (obtained from state)

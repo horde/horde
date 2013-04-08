@@ -2,7 +2,6 @@
  <input type="hidden" name="searched" value="1" />
  <input type="hidden" name="to_only" id="to_only" value="<?php echo $this->to_only ?>" />
  <input type="hidden" id="sa" name="sa" />
-<?php echo $this->formInput ?>
 
 <h1 class="header">
  <?php echo _("Address Book") ?>

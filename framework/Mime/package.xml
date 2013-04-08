@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-11</date>
- <time>19:32:36</time>
+ <date>2013-04-07</date>
+ <time>00:37:15</time>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Content-Type parameters are case-insensitive (Bug #12161).
 * [mms] Sanity checking: ignore empty values for Content-Transfer-Encoding MIME header (Bug #12146).
 * [mms] Null characters are no longer allowed in e-mail headers as of RFC 2822.
 * [mms] More accurate/comprehensive Horde_Mime::is8bit() check (Bug #12127).
@@ -337,6 +338,7 @@
        <file name="related_msg.txt" role="test" />
        <file name="samplemultipart_msg.txt" role="test" />
        <file name="sample_msg.txt" role="test" />
+       <file name="sample_msg2.txt" role="test" />
        <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
       <file name="AllTests.php" role="test" />
@@ -385,7 +387,7 @@
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -566,6 +568,7 @@
    <install as="Horde/Mime/fixtures/related_msg.txt" name="test/Horde/Mime/fixtures/related_msg.txt" />
    <install as="Horde/Mime/fixtures/samplemultipart_msg.txt" name="test/Horde/Mime/fixtures/samplemultipart_msg.txt" />
    <install as="Horde/Mime/fixtures/sample_msg.txt" name="test/Horde/Mime/fixtures/sample_msg.txt" />
+   <install as="Horde/Mime/fixtures/sample_msg2.txt" name="test/Horde/Mime/fixtures/sample_msg2.txt" />
    <install as="Horde/Mime/fixtures/uudecode.txt" name="test/Horde/Mime/fixtures/uudecode.txt" />
   </filelist>
  </phprelease>
@@ -1083,9 +1086,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-11</date>
+   <date>2013-04-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Content-Type parameters are case-insensitive (Bug #12161).
 * [mms] Sanity checking: ignore empty values for Content-Transfer-Encoding MIME header (Bug #12146).
 * [mms] Null characters are no longer allowed in e-mail headers as of RFC 2822.
 * [mms] More accurate/comprehensive Horde_Mime::is8bit() check (Bug #12127).

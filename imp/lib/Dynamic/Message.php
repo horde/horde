@@ -27,9 +27,9 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $notification, $page_output, $prefs;
+        global $conf, $injector, $notification, $page_output;
 
-        if (!IMP::uid() || !IMP::mailbox()) {
+        if (!$this->indices) {
             throw new IMP_Exception(_("No message index given."));
         }
 
@@ -40,14 +40,15 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $js_vars = array();
-        $uid = IMP::uid();
 
         switch ($this->vars->actionID) {
         case 'strip_attachment':
             try {
-                $indices = $injector->getInstance('IMP_Message')->stripPart(IMP::mailbox()->getIndicesOb($uid), $this->vars->id);
+                $this->indices = new IMP_Indices_Mailbox(
+                    $this->indices->mailbox,
+                    $injector->getInstance('IMP_Message')->stripPart($this->indices, $this->vars->id)
+                );
                 $js_vars['-DimpMessage.strip'] = 1;
-                list(,$uid) = $indices->getSingle();
                 $notification->push(_("Attachment successfully stripped."), 'horde.success');
             } catch (IMP_Exception $e) {
                 $notification->push($e);
@@ -55,10 +56,10 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             break;
         }
 
-        $show_msg = new IMP_Ajax_Application_ShowMessage(IMP::mailbox(), $uid);
         try {
+            $show_msg = new IMP_Ajax_Application_ShowMessage($this->indices);
             $msg_res = $show_msg->showMessage(array(
-                'headers' => array_diff(array_keys($injector->getInstance('IMP_Ui_Message')->basicHeaders()), array('subject')),
+                'headers' => array_diff(array_keys($injector->getInstance('IMP_Message_Ui')->basicHeaders()), array('subject')),
                 'preview' => false
             ));
         } catch (IMP_Exception $e) {
@@ -70,9 +71,9 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         }
 
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-        $ajax_queue->poll(IMP::mailbox());
+        $ajax_queue->poll($this->indices->mailbox);
 
-        foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox') as $val) {
+        foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log') as $val) {
             if (!empty($msg_res[$val])) {
                 $js_vars['DimpMessage.' . $val] = $msg_res[$val];
             }
@@ -80,6 +81,8 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         if (!empty($msg_res['list_info']['exists'])) {
             $js_vars['DimpMessage.reply_list'] = true;
         }
+        list(,$js_vars['DimpMessage.buid']) = $this->indices->buids->getSingle();
+        $js_vars['DimpMessage.mbox'] = $this->indices->mailbox->form_to;
         $js_vars['DimpMessage.tasks'] = $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks();
 
         $page_output->addInlineJsVars($js_vars);
@@ -90,7 +93,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $this->_pages[] = 'message';
 
         /* Determine if compose mode is disabled. */
-        if (IMP::canCompose()) {
+        if (IMP_Compose::canCompose()) {
             $this->view->qreply = $injector
                 ->getInstance('IMP_Dynamic_Compose_Common')
                 ->compose(
@@ -102,24 +105,18 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             $this->js_conf['qreply'] = 1;
 
             /* Attach spellchecker & auto completer. */
-            $imp_ui = new IMP_Ui_Compose();
-            $acomplete = array('to', 'redirect_to');
-            foreach (array('cc', 'bcc') as $val) {
-                if ($prefs->getValue('compose_' . $val)) {
-                    $acomplete[] = $val;
-                }
-            }
-            $imp_ui->attachAutoCompleter($acomplete);
+            $imp_ui = new IMP_Compose_Ui();
+            $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
             $imp_ui->attachSpellChecker();
         }
 
         $page_output->noDnsPrefetch();
 
-        $this->view->show_delete = IMP::mailbox()->access_deletemsgs;
+        $this->view->show_delete = $this->indices->mailbox->access_deletemsgs;
 
-        $spam_mbox = IMP::mailbox()->spam;
-        $this->view->show_innocent = (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || $spam_mbox));
-        $this->view->show_spam = (!empty($conf['spam']['reporting']) && ($conf['spam']['spamfolder'] || !$spam_mbox));
+        list($real_mbox,) = $this->indices->getSingle();
+        $this->view->show_innocent = $real_mbox->innocent_show;
+        $this->view->show_spam = $real_mbox->spam_show;
 
         $this->view->show_view_all = empty($msg_res['onepart']);
         $this->view->show_view_source = !empty($conf['user']['allow_view_source']);
