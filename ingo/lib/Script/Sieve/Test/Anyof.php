@@ -1,15 +1,24 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Test_Anyof class represents an Anyof test structure.
- *
- * Equivalent to a logical OR of all the tests it contains.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The Ingo_Script_Sieve_Test_Anyof class represents an Anyof test structure.
+ *
+ * Equivalent to a logical OR of all the tests it contains.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -38,19 +47,19 @@ class Ingo_Script_Sieve_Test_Anyof extends Ingo_Script_Sieve_Test
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
         $testlist = '';
         if (count($this->_tests) > 1) {
             $testlist = '';
             foreach ($this->_tests as $test) {
                 $testlist .= (empty($testlist)) ? '' : ', ';
-                $testlist .= trim($test->toCode());
+                $testlist .= trim($test->generate());
             }
 
             $code = "anyof ( $testlist )";
         } elseif (count($this->_tests) == 1) {
-            $code = $this->_tests[0]->toCode();
+            $code = $this->_tests[0]->generate();
         } else {
             return 'true';
         }
@@ -105,5 +114,4 @@ class Ingo_Script_Sieve_Test_Anyof extends Ingo_Script_Sieve_Test
 
         return $requires;
     }
-
 }

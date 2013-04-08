@@ -1,10 +1,12 @@
 <?php
 /**
- * A Horde_Injector:: based Ingo_Transport factory.
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @link     http://pear.horde.org/index.php?package=Ingo
@@ -12,39 +14,32 @@
  */
 
 /**
- * A Horde_Injector:: based Ingo_Transport factory.
- *
- * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/apache.
+ * A Horde_Injector based Ingo_Transport factory.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @link     http://pear.horde.org/index.php?package=Ingo
  * @package  Ingo
  */
-class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
+class Ingo_Factory_Transport extends Horde_Core_Factory_Base
 {
     /**
-     * Return the Ingo_Transport instance.
+     * Returns a Ingo_Transport instance.
      *
-     * @return Ingo_Transport  The singleton instance.
+     * @param array $transport  A transport driver name and parameter hash.
      *
+     * @return Ingo_Transport  The Ingo_Transport instance.
      * @throws Ingo_Exception
      */
-    public function create(Horde_Injector $injector)
+    public function create(array $transport)
     {
         global $registry, $session;
 
-        $transport = strlen($transport = $session->get('ingo', 'backend/transport'))
-            ? basename($transport)
-            : 'null';
-
         /* Get authentication parameters. */
         try {
-            $auth = Horde::callHook('transport_auth', array($transport), 'ingo');
+            $auth = Horde::callHook('transport_auth', array($transport['driver']), 'ingo');
         } catch (Horde_Exception_HookNotSet $e) {
             $auth = null;
         }
@@ -59,18 +54,13 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
         if (!isset($auth['username'])) {
             $auth['username'] = $registry->getAuth('bare');
         }
-
-        /* Sieve configuration only. */
-        if (!isset($auth['euser']) && ($transport == 'timsieved')) {
+        if (!isset($auth['euser'])) {
             $auth['euser'] = Ingo::getUser(false);
         }
 
-        $class = 'Ingo_Transport_' . ucfirst($transport);
+        $class = 'Ingo_Transport_' . ucfirst($transport['driver']);
         if (class_exists($class)) {
-            return new $class(array_merge(
-                $session->get('ingo', 'backend/params', Horde_Session::TYPE_ARRAY),
-                $auth
-            ));
+            return new $class(array_merge($auth, $transport['params']));
         }
 
         throw new Ingo_Exception(sprintf(_("Unable to load the transport driver \"%s\"."), $class));

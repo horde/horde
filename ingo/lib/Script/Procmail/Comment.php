@@ -1,21 +1,27 @@
 <?php
 /**
- * The Ingo_Script_Procmail_Comment:: class represents a Procmail comment.
- * This is a simple class, but it makes the code in Ingo_Script_Procmail::
- * cleaner as it provides a generate() function and can be added to the
- * recipe list the same way as a recipe can be.
- *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Ben Chavet <ben@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Procmail_Comment
+
+/**
+ * The Ingo_Script_Procmail_Comment class represents a Procmail comment.
+ *
+ * @author   Ben Chavet <ben@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+class Ingo_Script_Procmail_Comment implements Ingo_Script_Item
 {
     /**
      * The comment text.
@@ -51,5 +57,4 @@ class Ingo_Script_Procmail_Comment
     {
         return $this->_comment;
     }
-
 }

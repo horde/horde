@@ -1,11 +1,18 @@
 <?php
 /**
- * Base class for smartmobile view pages.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Base class for smartmobile view pages.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde

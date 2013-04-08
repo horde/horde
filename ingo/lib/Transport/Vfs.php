@@ -1,7 +1,5 @@
 <?php
 /**
- * Ingo_Transport_Vfs implements an Ingo storage driver using Horde VFS.
- *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -13,7 +11,17 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Transport_Vfs extends Ingo_Transport
+
+/**
+ * Ingo_Transport_Vfs implements an Ingo transport driver using Horde VFS.
+ *
+ * @author   Brent J. Nordquist <bjn@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+class Ingo_Transport_Vfs extends Ingo_Transport_Base
 {
     /**
      * Constructs a new VFS-based storage driver.
@@ -39,27 +47,22 @@ class Ingo_Transport_Vfs extends Ingo_Transport
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script     The filter script.
-     * @param array $additional  Any additional scripts that need to uploaded.
+     * @param array $script  The filter script information. Passed elements:
+     *                       - 'name': (string) the script name.
+     *                       - 'recipes': (array) the filter recipe objects.
+     *                       - 'script': (string) the filter script.
      *
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script, $additional = array())
+    public function setScriptActive($script)
     {
         $this->_connect();
 
         try {
-            if (!empty($script)) {
-                $this->_vfs->writeData($this->_params['vfs_path'], $this->_params['filename'], $script, true);
-            } elseif ($this->_vfs->exists($this->_params['vfs_path'], $this->_params['filename'])) {
-                $this->_vfs->deleteFile($this->_params['vfs_path'], $this->_params['filename']);
-            }
-            foreach ($additional as $filename => $content) {
-                if (strlen($content)) {
-                    $this->_vfs->writeData($this->_params['vfs_path'], $filename, $content, true);
-                } elseif ($this->_vfs->exists($this->_params['vfs_path'], $filename)) {
-                    $this->_vfs->deleteFile($this->_params['vfs_path'], $filename);
-                }
+            if (!empty($script['script'])) {
+                $this->_vfs->writeData($this->_params['vfs_path'], $script['name'], $script['script'], true);
+            } elseif ($this->_vfs->exists($this->_params['vfs_path'], $script['name'])) {
+                $this->_vfs->deleteFile($this->_params['vfs_path'], $script['name']);
             }
         } catch (Horde_Vfs_Exception $e) {
             throw new Ingo_Exception($e);
@@ -67,13 +70,8 @@ class Ingo_Transport_Vfs extends Ingo_Transport
 
         if (isset($this->_params['file_perms'])) {
             try {
-                if (!empty($script)) {
-                    $this->_vfs->changePermissions($this->_params['vfs_path'], $this->_params['filename'], $this->_params['file_perms']);
-                }
-                foreach ($additional as $filename => $content) {
-                    if (strlen($content)) {
-                        $this->_vfs->changePermissions($this->_params['vfs_path'], $filename, $this->_params['file_perms']);
-                    }
+                if (!empty($script['script'])) {
+                    $this->_vfs->changePermissions($this->_params['vfs_path'], $script['name'], $this->_params['file_perms']);
                 }
             } catch (Horde_Vfs_Exception $e) {
                 throw new Ingo_Exception($e);
@@ -84,16 +82,21 @@ class Ingo_Transport_Vfs extends Ingo_Transport
     /**
      * Returns the content of the currently active script.
      *
-     * @return string  The complete ruleset of the specified user.
+     * @return array  The complete ruleset of the specified user.
      * @throws Ingo_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getScript()
     {
         $this->_connect();
         try {
-            return $this->_vfs->exists($this->_params['vfs_path'], $this->_params['filename'])
-                ? $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename'])
-                : '';
+            if (!$this->_vfs->exists($this->_params['vfs_path'], $this->_params['filename'])) {
+                throw new Horde_Exception_NotFound();
+            }
+            return array(
+                'name' => $this->_params['filename'],
+                'script' => $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename'])
+            );
         } catch (Horde_Vfs_Exception $e) {
             throw new Ingo_Exception($e);
         }
@@ -115,7 +118,7 @@ class Ingo_Transport_Vfs extends Ingo_Transport
         }
 
         if (!empty($this->_vfs)) {
-            return true;
+            return;
         }
 
         try {

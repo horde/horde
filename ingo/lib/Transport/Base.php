@@ -1,18 +1,27 @@
 <?php
 /**
- * Ingo_Transport defines an API to activate filter scripts on a server.
- *
  * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Transport
+
+/**
+ * Ingo_Transport defines an API to activate filter scripts on a server.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+abstract class Ingo_Transport_Base
 {
     /**
      * Congifuration parameters.
@@ -44,15 +53,15 @@ class Ingo_Transport
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script     The filter script.
-     * @param array $additional  Any additional scripts that need to uploaded.
+     * @param array $script  The filter script information. Passed elements:
+     *                       - 'name': (string) the script name.
+     *                       - 'recipes': (array) the filter recipe objects.
+     *                       - 'script': (string) the filter script.
      *
-     * @return boolean  True on success, false if script can't be activated.
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script, $additional = array())
+    public function setScriptActive($script)
     {
-        return false;
     }
 
     /**
@@ -66,4 +75,15 @@ class Ingo_Transport
                 $GLOBALS['session']->get('ingo', 'backend/shares'));
     }
 
+    /**
+     * Quotes user input if supported by the transport driver.
+     *
+     * @param string $string  A string to quote.
+     *
+     * @return string  The quoted string.
+     */
+    public function quote($string)
+    {
+        return $string;
+    }
 }

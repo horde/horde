@@ -122,12 +122,10 @@ if (!empty($spam_rule['disable'])) {
 $form_title .= ' ' . Horde_Help::link('ingo', 'spam');
 $form->setTitle($form_title);
 
-$menu = Ingo::menu();
 
 $page_output->header(array(
     'title' => _("Spam Filtering")
 ));
-echo $menu;
 Ingo::status();
 $form->renderActive($renderer, $vars, Horde::url('spam.php'), 'post');
 $page_output->footer();

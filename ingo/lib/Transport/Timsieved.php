@@ -1,8 +1,5 @@
 <?php
 /**
- * Ingo_Transport_Timsieved implements the Sieve_Driver api to allow scripts
- * to be installed and set active via a Cyrus timsieved server.
- *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -14,7 +11,18 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Transport_Timsieved extends Ingo_Transport
+
+/**
+ * Ingo_Transport_Timsieved implements an Ingo transport driver to allow
+ * scripts to be installed and set active via a Cyrus timsieved server.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+class Ingo_Transport_Timsieved extends Ingo_Transport_Base
 {
     /**
      * The Net_Sieve object.
@@ -100,52 +108,24 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script     The filter script.
-     * @param array $additional  Any additional scripts that need to uploaded.
+     * @param array $script  The filter script information. Passed elements:
+     *                       - 'name': (string) the script name.
+     *                       - 'recipes': (array) the filter recipe objects.
+     *                       - 'script': (string) the filter script.
      *
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script, $additional = array())
+    public function setScriptActive($script)
     {
         $this->_connect();
 
-        if (!strlen($script)) {
-            Ingo_Exception_Pear::catchError($this->_sieve->setActive(''));
-            $this->_uploadAdditional($additional);
+        if (!strlen($script['script'])) {
+            Ingo_Exception_Pear::catchError($this->_sieve->removeScript($script['name']));
             return;
         }
 
-        Ingo_Exception_Pear::catchError($this->_sieve->haveSpace($this->_params['scriptname'], strlen($script)));
-        Ingo_Exception_Pear::catchError($this->_sieve->installScript($this->_params['scriptname'], $script, true));
-        $this->_uploadAdditional($additional);
-    }
-
-    /**
-     * Uploads additional scripts.
-     *
-     * This doesn't make much sense in Sieve though, because only one script
-     * can be active at any time.
-     *
-     * @param array $additional  Any additional scripts that need to uploaded.
-     *
-     * @throws Ingo_Exception
-     */
-    protected function _uploadAdditional($additional = array())
-    {
-        /* Delete first. */
-        foreach ($additional as $scriptname => $script) {
-            if (!strlen($script)) {
-                Ingo_Exception_Pear::catchError($this->_sieve->removeScript($scriptname));
-            }
-        }
-
-        /* Now upload. */
-        foreach ($additional as $scriptname => $script) {
-            if (strlen($script)) {
-                Ingo_Exception_Pear::catchError($this->_sieve->haveSpace($scriptname, strlen($script)));
-                Ingo_Exception_Pear::catchError($this->_sieve->installScript($scriptname, $script));
-            }
-        }
+        Ingo_Exception_Pear::catchError($this->_sieve->haveSpace($script['name'], strlen($script['script'])));
+        Ingo_Exception_Pear::catchError($this->_sieve->installScript($script['name'], $script['script'], true));
     }
 
     /**
@@ -153,15 +133,18 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
      *
      * @return string  The complete ruleset of the specified user.
      * @throws Ingo_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getScript()
     {
         $this->_connect();
         $active = Ingo_Exception_Pear::catchError($this->_sieve->getActive());
-
-        return empty($active)
-            ? ''
-            : Ingo_Exception_Pear::catchError($this->_sieve->getScript($active));
+        if (!strlen($active)) {
+            throw new Horde_Exception_NotFound();
+        }
+        return array(
+            'name' => $active,
+            'script' => Ingo_Exception_Pear::catchError($this->_sieve->getScript($active))
+        );
     }
-
 }

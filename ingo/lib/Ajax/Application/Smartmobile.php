@@ -1,11 +1,18 @@
 <?php
 /**
- * Defines AJAX actions used in the Ingo smartmobile view.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Defines AJAX actions used in the Ingo smartmobile view.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
@@ -31,11 +38,16 @@ class Ingo_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Hand
 
         $out = new stdClass;
 
-        if (!$injector->getInstance('Ingo_Script')->availableActions()) {
+        $ingo_script = $injector->getInstance('Ingo_Factory_Script')
+            ->create(Ingo::RULE_FILTER);
+        if (!$ingo_script->availableActions()) {
             $notification->push(_("Individual rules are not supported in the current filtering driver."), 'horde.error');
             $out->error = 1;
         } else {
-            $rule = $injector->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_FILTERS)->getRule($this->vars->rule);
+            $rule = $injector->getInstance('Ingo_Factory_Storage')
+                ->create()
+                ->retrieve(Ingo_Storage::ACTION_FILTERS)
+                ->getRule($this->vars->rule);
 
             if (!$rule) {
                 $notification->push(_("Rule not found."), 'horde.error');

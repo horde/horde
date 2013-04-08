@@ -1,13 +1,22 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Test_Relational class represents a relational test.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Todd Merritt <tmerritt@email.arizona.edu>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The Ingo_Script_Sieve_Test_Relational class represents a relational test.
+ *
+ * @author   Todd Merritt <tmerritt@email.arizona.edu>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -37,7 +46,7 @@ class Ingo_Script_Sieve_Test_Relational extends Ingo_Script_Sieve_Test
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
         $code = 'header :value "' .
             $this->_vars['comparison'] . '" ' .
@@ -107,5 +116,4 @@ class Ingo_Script_Sieve_Test_Relational extends Ingo_Script_Sieve_Test
     {
         return array('relational', 'comparator-i;ascii-numeric');
     }
-
 }

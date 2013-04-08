@@ -1,14 +1,23 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Test_Body class represents a test on the contents of
- * the body in a message.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Menge <michael.menge@zdv.uni-tuebingen.de>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The Ingo_Script_Sieve_Test_Body class represents a test on the contents of
+ * the body in a message.
+ *
+ * @author   Michael Menge <michael.menge@zdv.uni-tuebingen.de>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -49,7 +58,7 @@ class Ingo_Script_Sieve_Test_Body extends Ingo_Script_Sieve_Test
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
         $code = 'body ' .
             ':comparator "' . $this->_vars['comparator'] . '" ' .
@@ -86,5 +95,4 @@ class Ingo_Script_Sieve_Test_Body extends Ingo_Script_Sieve_Test
             ? array('regex', 'body')
             : array('body');
     }
-
 }

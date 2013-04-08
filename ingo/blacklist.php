@@ -23,7 +23,8 @@ if (!in_array(Ingo_Storage::ACTION_BLACKLIST, $session->get('ingo', 'script_cate
     Horde::url('filters.php', true)->redirect();
 }
 
-$ingo_script = $injector->getInstance('Ingo_Script');
+$ingo_script = $injector->getInstance('Ingo_Factory_Script')
+    ->create(Ingo::RULE_BLACKLIST);
 $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $folder = $blacklist_folder = null;
 
@@ -85,16 +86,33 @@ if (!isset($blacklist_folder)) {
 $folder_list = Ingo::flistSelect($blacklist_folder, 'actionvalue');
 
 /* Get the blacklist rule. */
-$filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-$bl_rule = $filters->findRule(Ingo_Storage::ACTION_BLACKLIST);
+$bl_rule = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS)->findRule(Ingo_Storage::ACTION_BLACKLIST);
+
+/* Prepare the view. */
+$view = new Horde_View(array(
+    'templatePath' => INGO_TEMPLATES . '/basic/blacklist'
+));
+$view->addHelper('Horde_Core_View_Helper_Help');
+$view->addHelper('Horde_Core_View_Helper_Label');
+$view->addHelper('FormTag');
+$view->addHelper('Tag');
+$view->addHelper('Text');
+
+$view->blacklist = implode("\n", $blacklist->getBlacklist());
+$view->disabled = !empty($bl_rule['disable']);
+$view->flagonly = $flagonly;
+$view->folder = $blacklist_folder;
+$view->folderlist = $folder_list;
+$view->formurl = Horde::url('blacklist.php');
 
 $page_output->addScriptFile('blacklist.js');
+$page_output->addInlineJsVars(array(
+    'IngoBlacklist.filtersurl' => strval(Horde::url('filters.php', true)->setRaw(true))
+));
 
-$menu = Ingo::menu();
 $page_output->header(array(
     'title' => _("Blacklist Edit")
 ));
-echo $menu;
 Ingo::status();
-require INGO_TEMPLATES . '/blacklist/blacklist.inc';
+echo $view->render('blacklist');
 $page_output->footer();

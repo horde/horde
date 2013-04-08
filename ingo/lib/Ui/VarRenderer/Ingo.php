@@ -1,12 +1,19 @@
 <?php
 /**
- * Extension of Horde's variable renderer that support Ingo's folders variable
- * type.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Extension of Horde's variable renderer that support Ingo's folders variable
+ * type.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde

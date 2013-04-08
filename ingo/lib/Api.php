@@ -1,14 +1,20 @@
 <?php
 /**
- * Ingo external API interface.
- *
- * This file defines Ingo's external API interface. Other applications
- * can interact with Ingo through this API.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo external API interface.
+ *
+ * This file defines Ingo's external API interface. Other applications
+ * can interact with Ingo through this API.
  *
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
@@ -106,11 +112,11 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function canApplyFilters()
     {
-        try {
-            return $GLOBALS['injector']->getInstance('Ingo_Script')->performAvailable();
-        } catch (Ingo_Exception $e) {
-            return false;
-        }
+        /* We intentionally check on_demand instead of calling canPerform()
+         * because we only want to check if we can potentially apply filters,
+         * not whether we are able to do this right now. */
+        return $GLOBALS['injector']->getInstance('Ingo_Factory_Script')
+            ->hasFeature('on_demand');
     }
 
     /**
@@ -120,21 +126,17 @@ class Ingo_Api extends Horde_Registry_Api
      *   - filter_seen
      *   - mailbox (UTF-8)
      *   - show_filter_msg
-     *
-     * @return boolean  True if filtering was performed, false if not.
      */
     public function applyFilters(array $params = array())
     {
-        try {
-            if (isset($params['mailbox'])) {
-                $params['mailbox'] = Horde_String::convertCharset($params['mailbox'], 'UTF-8', 'UTF7-IMAP');
-            }
-            return $GLOBALS['injector']->getInstance('Ingo_Script')->perform(array_merge(array(
-                'filter_seen' => $GLOBALS['prefs']->getValue('filter_seen'),
-                'show_filter_msg' => $GLOBALS['prefs']->getValue('show_filter_msg')
-            ), $params));
-        } catch (Ingo_Exception $e) {
-            return false;
+        if (isset($params['mailbox'])) {
+            $params['mailbox'] = Horde_String::convertCharset(
+                $params['mailbox'], 'UTF-8', 'UTF7-IMAP');
+        }
+        foreach ($GLOBALS['injector']->getInstance('Ingo_Factory_Script')->createAll() as $script) {
+            $script
+                ->setParams($params)
+                ->perform($GLOBALS['session']->get('ingo', 'change'));
         }
     }
 

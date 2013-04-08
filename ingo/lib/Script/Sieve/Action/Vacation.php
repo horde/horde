@@ -1,13 +1,22 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Action_Vacation class represents a vacation action.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The Ingo_Script_Sieve_Action_Vacation class represents a vacation action.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -42,7 +51,7 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
         $start_year = $this->_vars['start_year'];
         $start_month = $this->_vars['start_month'];
@@ -79,7 +88,7 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
             $code .= $this->_monthCheck($end_month, $end_month)
                 . $this->_dayCheck(1, $end_day)
                 . $this->_vacationCode()
-                . "\n}\n}\n}\n";
+                . "\n}\n}\n}";
         } elseif ($end_year == $start_year + 1) {
             $code .= $this->_yearCheck($start_year, $start_year);
             if ($start_month < 12) {
@@ -100,7 +109,7 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
             $code .= $this->_monthCheck($end_month, $end_month)
                 . $this->_dayCheck(1, $end_day)
                 . $this->_vacationCode()
-                . "\n}\n}\n}\n";
+                . "\n}\n}\n}";
         } elseif ($end_year == $start_year) {
             $code .= $this->_yearCheck($start_year, $start_year);
             if ($end_month > $start_month) {
@@ -123,7 +132,7 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
                     . $this->_vacationCode()
                     . "\n}\n}\n";
             }
-            $code .= "}\n";
+            $code .= "}";
         }
 
         return $code;
@@ -229,5 +238,4 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
             . ') (\\\\(.*\\\\) )?... (\\\\(.*\\\\) )?.... (\\\\(.*\\\\) )?..:..:.. (\\\\(.*\\\\) )?((\\\\+|\\\\-)[[:digit:]]{4}|.{1,5})( \\\\(.*\\\\))?$" {'
             . "\n    ";
     }
-
 }
