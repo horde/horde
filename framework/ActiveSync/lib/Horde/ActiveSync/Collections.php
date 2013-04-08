@@ -301,7 +301,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             $found = false;
             foreach ($this->_cache->getCollections() as $value) {
                 if (isset($value['synckey'])) {
-                    $this->_logger->debug('Found a syncable collection: ' . $value['type'] . ' : ' . $value['synckey']);
+                    $this->_logger->debug('Found a syncable collection: ' . $value['id'] . ' : ' . $value['synckey']);
                     $found = true;
                     break;
                 }
