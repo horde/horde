@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Kolab_Format</extends>
  <summary>A package for reading/writing Kolab data formats.</summary>
- <description>This package allows to convert Kolab data objects from XML to data arrays.</description>
+ <description>This package allows converting Kolab data objects from XML to data arrays.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
