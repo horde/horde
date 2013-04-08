@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Make Horde_Compress_Fast a required package (Bug #12166).
 * [mms] Fix serialization of all storage drivers.
  </notes>
  <contents>
@@ -81,6 +82,13 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Compress_Fast</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -99,13 +107,6 @@
    </extension>
   </required>
   <optional>
-   <package>
-    <name>Horde_Compress_Fast</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0alpha1</max>
-    <exclude>2.0.0alpha1</exclude>
-   </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
@@ -439,6 +440,7 @@ Initial packaging.
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Make Horde_Compress_Fast a required package (Bug #12166).
 * [mms] Fix serialization of all storage drivers.
    </notes>
   </release>
