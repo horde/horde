@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Convert Data URLs in a reply message into attachments so that compose attachment limits can be enforced (Bug #12167).
 * [mms] Allow attachments to be dragged/dropped from local filesystem on the dynamic compose page.
 * [mms] Hide browser generated file input widget for attachment upload in dynamic compose page.
 * [mms] Add attachment upload capability to smartmobile compose page.
@@ -1286,7 +1287,7 @@
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3138,6 +3139,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Convert Data URLs in a reply message into attachments so that compose attachment limits can be enforced (Bug #12167).
 * [mms] Allow attachments to be dragged/dropped from local filesystem on the dynamic compose page.
 * [mms] Hide browser generated file input widget for attachment upload in dynamic compose page.
 * [mms] Add attachment upload capability to smartmobile compose page.

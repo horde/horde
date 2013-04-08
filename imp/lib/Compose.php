@@ -2624,7 +2624,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _getMessageText($contents, array $options = array())
     {
-        global $conf, $injector, $prefs, $session;
+        global $conf, $injector, $notification, $prefs, $session;
 
         $body_id = null;
         $mode = 'text';
@@ -2681,7 +2681,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         if ($mode == 'html') {
-            $msg = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, array('Cleanhtml', 'Xss'), array(array('body_only' => true), array('strip_style_attributes' => false)));
+            $filters = array(
+                'Cleanhtml' => array(
+                    'body_only' => true
+                ),
+                'Xss' => array(
+                    'return_dom' => true,
+                    'strip_style_attributes' => false
+                )
+            );
+
+            $dom = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, array_keys($filters), array_values($filters));
 
             /* If we are replying to a related part, and this part refers
              * to local message parts, we need to move those parts into this
@@ -2690,9 +2700,30 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             if ($related_part = $contents->findMimeType($body_id, 'multipart/related')) {
                 $this->_metadata['related_contents'] = $contents;
                 $related_ob = new Horde_Mime_Related($related_part);
-                $msg = $related_ob->cidReplace($msg, array($this, '_getMessageTextCallback'), $part_charset)->returnBody();
+                $related_ob->cidReplace($dom, array($this, '_getMessageTextCallback'), $part_charset);
                 unset($this->_metadata['related_contents']);
             }
+
+            /* Convert any Data URLs to attachments. */
+            $xpath = new DOMXPath($dom->dom);
+            foreach ($xpath->query('//*[@src]') as $val) {
+                $data_url = new Horde_Url_Data($val->getAttribute('src'));
+                if (strlen($data_url->data)) {
+                    $data_part = new Horde_Mime_Part();
+                    $data_part->setContents($data_url->data);
+                    $data_part->setType($data_url->type);
+
+                    try {
+                        $atc = $this->addAttachmentFromPart($data_part);
+                        $val->setAttribute('src', $atc->viewUrl());
+                        $this->addRelatedAttachment($atc, $val, 'src');
+                    } catch (IMP_Compose_Exception $e) {
+                        $notification->push($e, 'horde.warning');
+                    }
+                }
+            }
+
+            $msg = $dom->returnBody();
         } elseif ($type == 'text/html') {
             $msg = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Html2text');
             $type = 'text/plain';
