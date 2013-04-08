@@ -152,7 +152,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 switch($sync_tag) {
                 case Horde_ActiveSync::SYNC_HEARTBEATINTERVAL:
                     if ($hbinterval = $this->_decoder->getElementContent()) {
-                        $this->_collections->setHeatbeat(array('hbinterval' => $hbinterval));
+                        $this->_collections->setHeartbeat(array('hbinterval' => $hbinterval));
                         $this->_decoder->getElementEndTag();
                     }
                     $this->_logger->debug(sprintf(
