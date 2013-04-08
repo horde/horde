@@ -37,6 +37,13 @@ class IMP_Ajax_Application_ShowMessage
     protected $_envelope;
 
     /**
+     * Indices object.
+     *
+     * @var IMP_Indices
+     */
+    protected $_indices;
+
+    /**
      * Don't seen seen flag?
      *
      * @var boolean
@@ -44,37 +51,27 @@ class IMP_Ajax_Application_ShowMessage
     protected $_peek;
 
     /**
-     * Mailbox.
-     *
-     * @var IMP_Mailbox
-     */
-    protected $_mbox;
-
-    /**
-     * UID.
-     *
-     * @var string
-     */
-    protected $_uid;
-
-    /**
      * Constructor.
      *
-     * @param IMP_Mailbox $mbox  The mailbox of the message.
-     * @param integer $uid       The UID of the message.
-     * @param boolean $peek      Don't set seen flag?
+     * @param IMP_Indices $indices  The index of the message.
+     * @param boolean $peek         Don't set seen flag?
      */
-    public function __construct(IMP_Mailbox $mbox, $uid, $peek = false)
+    public function __construct(IMP_Indices $indices, $peek = false)
     {
         global $injector;
 
         /* Get envelope/header information. We don't use flags in this
          * view. */
         try {
+            list($mbox, $uid) = $indices->getSingle();
+            if (!$uid) {
+                throw new Exception();
+            }
+
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
 
-            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+            $imp_imap = $injector->getInstance('IMP_Imap');
             $ret = $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($uid)
             ));
@@ -83,16 +80,15 @@ class IMP_Ajax_Application_ShowMessage
                 throw new Exception();
             }
 
-            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($mbox->getIndicesOb($uid));
+            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
         } catch (Exception $e) {
             throw new IMP_Exception(_("Requested message not found."));
         }
 
         $this->_contents = $imp_contents;
         $this->_envelope = $ob->getEnvelope();
-        $this->_mbox = $mbox;
+        $this->_indices = $indices;
         $this->_peek = $peek;
-        $this->_uid = $uid;
     }
 
     /**
@@ -114,7 +110,6 @@ class IMP_Ajax_Application_ShowMessage
      *   - js: Javascript code to run on display
      *   - list_info (FULL): List information.
      *   - localdate (PREVIEW): The date formatted to the user's timezone
-     *   - mbox: The mailbox (base64url encoded)
      *   - msgtext: The text of the message
      *   - onepart: True if message only contains one part.
      *   - replyTo (FULL): The Reply-to addresses
@@ -124,29 +119,28 @@ class IMP_Ajax_Application_ShowMessage
      *                  to 'subject')
      *   - title (FULL): The title of the page
      *   - to: The To addresses
-     *   - uid: The message UID
      *
      * @throws IMP_Exception
      */
     public function showMessage($args)
     {
+        global $injector, $page_output, $prefs, $registry;
+
         $preview = !empty($args['preview']);
 
         $result = array(
-            'js' => array(),
-            'mbox' => $this->_mbox->form_to,
-            'uid' => $this->_uid
+            'js' => array()
         );
 
         /* Set the current time zone. */
-        $GLOBALS['registry']->setTimeZone();
+        $registry->setTimeZone();
 
         $mime_headers = $this->_peek
             ? $this->_contents->getHeader()
             : $this->_contents->getHeaderAndMarkAsSeen();
 
         $headers = array();
-        $imp_ui = new IMP_Ui_Message();
+        $imp_ui = $injector->getInstance('IMP_Message_Ui');
 
         /* Develop the list of Headers to display now. Deal with the 'basic'
          * header information first since there are various manipulations
@@ -203,7 +197,8 @@ class IMP_Ajax_Application_ShowMessage
         }
 
         /* Maillog information. */
-        $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->maillog($this->_mbox, $this->_uid, $this->_envelope->message_id);
+        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+        $ajax_queue->maillog($this->_indices, $this->_envelope->message_id);
 
         if (!$preview) {
             /* Display the user-specified headers for the current identity. */
@@ -220,8 +215,16 @@ class IMP_Ajax_Application_ShowMessage
         /* Process the subject. */
         $subject = $mime_headers->getValue('subject');
         if ($subject) {
-            $result['subject'] = $imp_ui->getDisplaySubject($subject, Horde_Text_Filter_Text2html::NOHTML);
-            $subjectlink = $imp_ui->getDisplaySubject($subject);
+            $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
+            $filtered_subject = preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject));
+
+            $result['subject'] = $text_filter->filter($filtered_subject, 'text2html', array(
+                'parselevel' => Horde_Text_Filter_Text2html::NOHTML
+            ));
+            $subjectlink = $text_filter->filter($filtered_subject, 'text2html', array(
+                'parselevel' => Horde_Text_Filter_Text2html::MICRO
+            ));
+
             if ($subjectlink != $result['subject']) {
                 $result['subjectlink'] = $subjectlink;
             }
@@ -237,21 +240,31 @@ class IMP_Ajax_Application_ShowMessage
 
         // Create message text and attachment list.
         $result['msgtext'] = '';
-        $show_parts = $GLOBALS['prefs']->getValue('parts_display');
+        $show_parts = $prefs->getValue('parts_display');
 
-        $contents_mask = IMP_Contents::SUMMARY_BYTES |
-            IMP_Contents::SUMMARY_SIZE |
-            IMP_Contents::SUMMARY_ICON |
-            IMP_Contents::SUMMARY_DESCRIP_LINK |
-            IMP_Contents::SUMMARY_DOWNLOAD |
-            IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
-            IMP_Contents::SUMMARY_PRINT_STUB;
+        switch ($registry->getView()) {
+        case $registry::VIEW_SMARTMOBILE:
+            $contents_mask = 0;
+            break;
+
+        default:
+            $contents_mask = IMP_Contents::SUMMARY_BYTES |
+                IMP_Contents::SUMMARY_SIZE |
+                IMP_Contents::SUMMARY_ICON |
+                IMP_Contents::SUMMARY_DESCRIP_LINK |
+                IMP_Contents::SUMMARY_DOWNLOAD |
+                IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
+                IMP_Contents::SUMMARY_PRINT_STUB;
+            break;
+        }
 
         $part_info = $part_info_display = array('icon', 'description', 'size', 'download', 'download_zip');
         $part_info_display[] = 'print';
 
+        list($mbox, $uid) = $this->_indices->getSingle();
+
         /* Do MDN processing now. */
-        if ($imp_ui->MDNCheck($this->_mbox, $this->_uid, $mime_headers)) {
+        if ($imp_ui->MDNCheck($mbox, $uid, $mime_headers)) {
             $status = new IMP_Mime_Status(array(
                 _("The sender of this message is requesting notification from you when you have read this message."),
                 sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')
@@ -295,7 +308,8 @@ class IMP_Ajax_Application_ShowMessage
             }
 
             foreach ($inlineout['atc_parts'] as $id) {
-                $contents_mask |= IMP_Contents::SUMMARY_DESCRIP;
+                $contents_mask |= IMP_Contents::SUMMARY_DESCRIP |
+                    IMP_Contents::SUMMARY_SIZE;
                 $part_info[] = 'description_raw';
                 $part_info[] = 'download_url';
 
@@ -314,30 +328,18 @@ class IMP_Ajax_Application_ShowMessage
             $result['atc_list'] = $partlist;
         }
 
-        $result['save_as'] = $GLOBALS['registry']->downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $this->_mbox->urlParams($this->_uid)));
+        $result['save_as'] = $registry->downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $mbox->urlParams($uid)));
 
         if ($preview) {
-            try {
-                $res = Horde::callHook('dimp_previewview', array($result), 'imp');
-                if (!empty($res)) {
-                    $result = $res[0];
-                    $result['js'] = array_merge($result['js'], $res[1]);
-                }
-            } catch (Horde_Exception_HookNotSet $e) {}
-
             /* Need to grab cached inline scripts. */
             Horde::startBuffer();
-            $GLOBALS['page_output']->outputInlineScript(true);
+            $page_output->outputInlineScript(true);
             if ($js_inline = Horde::endBuffer()) {
                 $result['js'][] = $js_inline;
             }
 
             $result['save_as'] = strval($result['save_as']->setRaw(true));
         } else {
-            try {
-                $result = Horde::callHook('dimp_messageview', array($result), 'imp');
-            } catch (Horde_Exception_HookNotSet $e) {}
-
             $list_info = $imp_ui->getListInformation($mime_headers);
             if (!empty($list_info['exists'])) {
                 $result['list_info'] = $list_info;
@@ -349,11 +351,10 @@ class IMP_Ajax_Application_ShowMessage
         }
 
         /* Add changed flag information. */
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        if (!$this->_peek && $imp_imap->imap) {
-            $status = $imp_imap->status($this->_mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
+        if (!$this->_peek && $mbox->is_imap) {
+            $status = $injector->getInstance('IMP_Imap')->status($mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
             if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
-                $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $this->_mbox->getIndicesOb($this->_uid));
+                $ajax_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $this->_indices);
             }
         }
 

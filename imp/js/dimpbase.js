@@ -1,5 +1,5 @@
 /**
- * dimpbase.js - Javascript used in the base DIMP page.
+ * dimpbase.js - Javascript used in the base dynamic page.
  *
  * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
@@ -8,8 +8,9 @@
  */
 
 var DimpBase = {
+
     // Vars used and defaulting to null/false:
-    //   expandmbox, pollPE, pp, resize, rownum, search,
+    //   expandmbox, init, pollPE, pp, resize, rownum, search,
     //   searchbar_time, searchbar_time_mins, splitbar, sort_init, switchmbox,
     //   template, uid, view, viewaction, viewport, viewswitch
 
@@ -136,7 +137,7 @@ var DimpBase = {
             }
             curr = num;
         } else {
-            if (num == 0) {
+            if (num === 0) {
                 return;
             }
 
@@ -163,7 +164,7 @@ var DimpBase = {
         row = this.viewport.createSelection('rownum', curr);
         if (row.size()) {
             row_data = row.get('dataob').first();
-            if (!curr_row || row_data.uid != curr_row.uid) {
+            if (!curr_row || row_data.VP_id != curr_row.VP_id) {
                 this.viewport.scrollTo(row_data.VP_rownum, { bottom: bottom });
                 this.viewport.select(row, { delay: 0.5 });
             }
@@ -180,7 +181,7 @@ var DimpBase = {
     //     'app' - (object) [app, data]
     //     'mbox' - (string) Mailbox to display
     //     'menu' - (string) Menu item to display
-    //     'msg' - (string) IMAP sequence string
+    //     'msg' - (string) Mailbox [;] Compressed UID string
     //     'prefs' - (object) Extra parameters to add to prefs URL
     //     'search' - (object)
     //         'edit_query' = If 1, mailbox will be edited
@@ -190,7 +191,7 @@ var DimpBase = {
     //         default search mailbox
     go: function(type, data)
     {
-        var msg, tmp;
+        var tmp;
 
         if (!type) {
             type = 'mbox';
@@ -202,9 +203,9 @@ var DimpBase = {
 
         if (type == 'msg') {
             type = 'mbox';
-            msg = DimpCore.parseUIDString(data);
-            data = Object.keys(msg).first();
-            this.uid = msg[data].first();
+            tmp = data.split(';');
+            data = tmp[0];
+            this.uid = tmp[1].parseViewportUidString().first();
             // Fall through to the 'mbox' check below.
         }
 
@@ -268,21 +269,14 @@ var DimpBase = {
 
     setMsgHash: function()
     {
-        var msg,
-            vs = this.viewport.getSelection(),
+        var vs = this.viewport.getSelection(),
             view = vs.getBuffer().getView();
 
         if (this.isQSearch()) {
             // Quicksearch is not saved after page reload.
             this.setHash('mbox', this.search.mbox);
         } else if (vs.size()) {
-            if (this.isSearch()) {
-                msg = {};
-                msg[this.view] = vs.get('uid');
-            } else {
-                msg = DimpCore.selectionToRange(vs);
-            }
-            this.setHash('msg', DimpCore.toUIDString(msg, { raw: this.isSearch() }));
+            this.setHash('msg', view + ';' + vs.get('uid').toViewportUidString());
         } else {
             this.setHash('mbox', view);
         }
@@ -344,10 +338,10 @@ var DimpBase = {
     msgWindow: function(r)
     {
         HordeCore.popupWindow(DimpCore.conf.URI_MESSAGE, {
-            mailbox: r.mbox,
-            uid: r.uid
+            buid: r.VP_id,
+            mailbox: r.VP_view
         }, {
-            name: 'msgview' + r.mbox + r.uid
+            name: 'msgview' + r.VP_view + r.VP_id
         });
     },
 
@@ -355,7 +349,10 @@ var DimpBase = {
     {
         var sel = this.viewport.getSelected();
         if (sel.size()) {
-            DimpCore.compose(type, { uids: sel });
+            DimpCore.compose(type, {
+                buid: sel.get('uid').toViewportUidString(),
+                mailbox: this.view
+            });
         }
     },
 
@@ -390,7 +387,7 @@ var DimpBase = {
         }
 
         if (this.uid) {
-            opts.search = { uid: this.uid };
+            opts.search = { buid: this.uid };
         }
 
         this.viewport.loadView(f, opts);
@@ -414,11 +411,20 @@ var DimpBase = {
             ajax: function(params) {
                 /* Store the requestid locally, so we don't need to
                  * round-trip to the server. We'll re-add it later. */
-                var r_id = params.unset('requestid');
-                DimpCore.doAction('viewPort', params, {
+                var action, r_id = params.unset('requestid');
+                if (this.init) {
+                    action = 'viewPort';
+                } else {
+                    action = 'dynamicInit';
+                    if (this.uid) {
+                        params.set('msgload', this.uid);
+                    }
+                    this.init = true;
+                }
+                DimpCore.doAction(action, params, {
                     loading: 'viewport'
                 }).rid = r_id;
-            },
+            }.bind(this),
             container: container,
             onContent: function(r, mode) {
                 var bg, re, u,
@@ -437,7 +443,7 @@ var DimpBase = {
 
                 // Add thread graphics
                 if (tsort && mode != 'vert') {
-                    u = thread.get(r.uid);
+                    u = thread.get(r.VP_id);
                     if (u) {
                         $R(0, u.length, true).each(function(i) {
                             var c = u.charAt(i);
@@ -450,7 +456,7 @@ var DimpBase = {
                 }
 
                 /* Generate the status flags. */
-                if (!DimpCore.conf.pop3 && r.flag) {
+                if (r.flag) {
                     r.flag.each(function(a) {
                         var ptr = DimpCore.conf.flags[a];
                         if (ptr.u) {
@@ -511,14 +517,13 @@ var DimpBase = {
                     r.VP_bg.unshift('vpRowVert');
                     r.className = r.VP_bg.join(' ');
                     return this.template.vert.evaluate(r);
-
-                default:
-                    $('msglistHeaderVert').hide();
-                    $('msglistHeaderHoriz').show();
-                    r.VP_bg.unshift('vpRowHoriz');
-                    r.className = r.VP_bg.join(' ');
-                    return this.template.horiz.evaluate(r);
                 }
+
+                $('msglistHeaderVert').hide();
+                $('msglistHeaderHoriz').show();
+                r.VP_bg.unshift('vpRowHoriz');
+                r.className = r.VP_bg.join(' ');
+                return this.template.horiz.evaluate(r);
             }.bind(this),
 
             // Optional config
@@ -541,7 +546,6 @@ var DimpBase = {
             // Callbacks
             onAjaxRequest: function(params) {
                 var r_id = params.unset('requestid'),
-                    tmp = params.get('cache'),
                     view = params.get('view');
 
                 if (this.viewswitch &&
@@ -562,15 +566,13 @@ var DimpBase = {
                     }
                 }
 
-                if (tmp) {
-                    params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(true), view))));
-                }
-
                 params = $H({
-                    requestid: r_id,
                     viewport: Object.toJSON(params),
                     view: view
                 });
+                if (r_id) {
+                    params.set('requestid', r_id);
+                }
                 HordeCore.addRequestParams(params);
 
                 return params;
@@ -607,9 +609,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:contentComplete', function() {
-            var flags, ssc, tmp,
-                innocent = 'show',
-                spam = 'show';
+            var ssc, tmp;
 
             this.setMessageListTitle();
             this.setMsgHash();
@@ -678,28 +678,15 @@ var DimpBase = {
                 } else {
                     $('button_resume', 'button_template').compact().invoke('up').invoke('hide');
                     $('button_reply', 'button_forward').compact().invoke('up').invoke('show');
-
-                    if (this.viewport.getMetaData('spam')) {
-                        if (!DimpCore.conf.spam_spammbox) {
-                            spam = 'hide';
-                        }
-                    } else if (DimpCore.conf.innocent_spammbox) {
-                        innocent = 'hide';
-                    }
-
-                    if (tmp = $('button_innocent')) {
-                        [ tmp.up() ].invoke(innocent);
-                    }
-                    if (tmp = $('button_spam')) {
-                        [ tmp.up() ].invoke(spam);
-                    }
+                    [ $('button_innocent') ].compact().invoke('up').invoke(this.viewport.getMetaData('innocent_show') ? 'show' : 'hide');
+                    [ $('button_spam') ].compact().invoke('up').invoke(this.viewport.getMetaData('spam_show') ? 'show' : 'hide');
                 }
 
                 /* Read-only changes. */
                 [ $('mailboxName').next('SPAN.readonlyImg') ].invoke(this.viewport.getMetaData('readonly') ? 'show' : 'hide');
 
                 /* ACL changes. */
-                if (tmp = $('button_delete')) {
+                if ((tmp = $('button_delete'))) {
                     [ tmp.up() ].invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
                 }
             } else if (this.filtertoggle && this.isThreadSort()) {
@@ -737,13 +724,8 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:remove', function(e) {
-            var v = e.memo.getBuffer().getView();
-
             e.memo.get('dataob').each(function(d) {
-                this._expirePPCache([ this._getPPId(d.uid, d.mbox) ]);
-                if (this.isSearch(v)) {
-                    this.viewport.remove(this.viewport.createSelectionBuffer(d.mbox).search({ uid: { equal: [ d.uid ] }, mbox: { equal: [ d.mbox ] } }));
-                }
+                this._expirePPCache([ this._getPPId(d.VP_id, d.VP_view) ]);
             }, this);
         }.bindAsEventListener(this));
 
@@ -770,7 +752,7 @@ var DimpBase = {
                             limit: 1,
                             scope: 'previewInfo'
                         }
-                    })
+                    });
                 } else if (e.memo.opts.delay) {
                     this.initPreviewPane.bind(this).delay(e.memo.opts.delay);
                 } else {
@@ -843,7 +825,7 @@ var DimpBase = {
         var d, id = $(elt).readAttribute('id');
 
         if (id) {
-            if (d = DragDrop.Drags.getDrag(id)) {
+            if ((d = DragDrop.Drags.getDrag(id))) {
                 d.destroy();
             }
 
@@ -931,6 +913,8 @@ var DimpBase = {
 
             HordeDialog.display({
                 form: new Element('DIV').insert(
+                          new Element('INPUT', { name: 'MAX_FILE_SIZE', value: DimpCore.conf.MAX_FILE_SIZE }).hide()
+                      ).insert(
                           new Element('INPUT', { name: 'import_file', type: 'file' })
                       ).insert(
                           new Element('INPUT', { name: 'import_mbox', value: tmp }).hide()
@@ -1036,11 +1020,11 @@ var DimpBase = {
             this.viewport.getSelected().get('dataob').each(function(v) {
                 HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                     actionID: 'view_source',
+                    buid: v.VP_id,
                     id: 0,
-                    mailbox: v.mbox,
-                    uid: v.uid
+                    mailbox: v.VP_view
                 }, {
-                    name: v.uid + '|' + v.view
+                    name: v.VP_id + '|' + v.VP_view
                 });
             }, this);
             break;
@@ -1097,6 +1081,14 @@ var DimpBase = {
         case 'ctx_oa_hide_deleted':
         case 'ctx_oa_show_deleted':
             this.viewport.reload({ delhide: Number(id == 'ctx_oa_hide_deleted') });
+            break;
+
+        case 'ctx_oa_growler_log':
+            HordeCore.Growler.toggleLog();
+            break;
+
+        case 'ctx_oa_clear_sort':
+            this.sort(DimpCore.conf.sort.get('sequence').v);
             break;
 
         case 'ctx_sortopts_date':
@@ -1174,7 +1166,7 @@ var DimpBase = {
                     filter: elt.identify().substring('ctx_filter_'.length),
                     label: this.viewport.getMetaData('label'),
                     mbox: this.view
-                }
+                };
                 this.go('mbox', DimpCore.conf.fsearchid);
             } else if (menu.endsWith('_setflag')) {
                 tmp = elt.down('DIV');
@@ -1216,8 +1208,7 @@ var DimpBase = {
                     [ $('ctx_mbox_unsub') ].invoke(tmp ? 'hide' : 'show');
                 }
 
-                if (DimpCore.conf.fixed_mboxes &&
-                    DimpCore.conf.fixed_mboxes.indexOf(baseelt.retrieve('mbox')) != -1) {
+                if (baseelt.retrieve('fixed')) {
                     elts.shift();
                     elts.invoke('hide');
                 } else {
@@ -1240,7 +1231,6 @@ var DimpBase = {
             [ $('ctx_mbox_expand').up() ].invoke(this.getSubMboxElt(baseelt) ? 'show' : 'hide');
 
             [ $('ctx_mbox_acl').up() ].invoke(DimpCore.conf.acl ? 'show' : 'hide');
-
             // Fall-through
 
         case 'ctx_container':
@@ -1280,7 +1270,8 @@ var DimpBase = {
             sel = this.viewport.getSelected();
 
             if ($('ctx_oa_setflag')) {
-                if (this.viewport.getMetaData('readonly')) {
+                if (this.viewport.getMetaData('readonly') ||
+                    this.viewport.getMetaData('pop3')) {
                     $('ctx_oa_setflag').up().hide();
                 } else {
                     tmp.push($('ctx_oa_setflag').up());
@@ -1290,17 +1281,22 @@ var DimpBase = {
 
             tmp.compact().invoke(sel.size() ? 'show' : 'hide');
 
-            if (tmp = $('ctx_oa_purge_deleted')) {
-                if (this.viewport.getMetaData('noexpunge')) {
-                    tmp.hide();
+            if ((tmp = $('ctx_oa_purge_deleted'))) {
+                if (this.viewport.getMetaData('pop3')) {
+                    tmp.up().hide();
                 } else {
-                    tmp.show();
-                    [ tmp.up() ].invoke(tmp.up().select('> a').any(Element.visible) ? 'show' : 'hide');
+                    tmp.up().show();
+                    if (this.viewport.getMetaData('noexpunge')) {
+                        tmp.hide();
+                    } else {
+                        tmp.show();
+                        [ tmp.up() ].invoke(tmp.up().select('> a').any(Element.visible) ? 'show' : 'hide');
+                    }
                 }
             }
 
-            if (tmp = $('ctx_oa_hide_deleted')) {
-                if (this.isThreadSort()) {
+            if ((tmp = $('ctx_oa_hide_deleted'))) {
+                if (this.isThreadSort() || this.viewport.getMetaData('pop3')) {
                     $(tmp, 'ctx_oa_show_deleted').invoke('hide');
                 } else if (this.viewport.getMetaData('delhide')) {
                     tmp.hide();
@@ -1309,6 +1305,10 @@ var DimpBase = {
                     tmp.show();
                     $('ctx_oa_show_deleted').hide();
                 }
+            }
+
+            if ((tmp = $('ctx_oa_clear_sort'))) {
+                [ tmp.up() ].invoke(this.viewport.getMetaData('sortby') == DimpCore.conf.sort.get('sequence').v ? 'hide' : 'show');
             }
             break;
 
@@ -1339,9 +1339,10 @@ var DimpBase = {
 
         case 'ctx_message':
             [ $('ctx_message_source').up() ].invoke(this._getPref('preview') ? 'hide' : 'show');
-            $('ctx_message_delete', 'ctx_message_undelete').compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
+            [ $('ctx_message_delete') ].compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
+            [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('nodelete') || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
-            [ $('ctx_message_setflag').up() ].invoke((this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) ? 'hide' : 'show');
+            [ $('ctx_message_setflag').up() ].invoke((this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
@@ -1429,6 +1430,10 @@ var DimpBase = {
         case 'ctx_folderopts':
             $('ctx_folderopts_sub').hide();
             break;
+
+        case 'ctx_oa':
+            [ $('ctx_oa_growler_log').up() ].invoke($('GrowlerLog') ? 'show' : 'remove');
+            break;
         }
     },
 
@@ -1476,7 +1481,7 @@ var DimpBase = {
             if (this.isQSearch()) {
                 label += ' (' + this.search.label + ')';
             }
-        } else if (elt = this.getMboxElt(this.view)) {
+        } else if ((elt = this.getMboxElt(this.view))) {
             unseen = elt.retrieve('u');
         }
 
@@ -1551,7 +1556,7 @@ var DimpBase = {
             if (sortby != s.value.v) {
                 return false;
             }
-            if (elt = m.down('.' + s.value.c)) {
+            if ((elt = m.down('.' + s.value.c))) {
                 elt.addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown').store('sortby', s.value.v);
             }
             return true;
@@ -1587,7 +1592,7 @@ var DimpBase = {
 
         // If single message is loaded, and this mailbox is polled, try to
         // preload next unseen messages that exists in current buffer.
-        if (data && !Object.isUndefined(this.getUnseenCount(data.mbox))) {
+        if (data && !Object.isUndefined(this.getUnseenCount(data.VP_view))) {
             curr = this.viewport.getSelected().get('rownum').first();
             rows = this.viewport.createSelectionBuffer().search({
                 flag: { notinclude: DimpCore.conf.FLAG_SEEN }
@@ -1598,24 +1603,27 @@ var DimpBase = {
                     return (r > curr);
                 });
 
-                msgload = DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('rownum', [ p[1].last(), p[0].first() ].compact())));
+                msgload = this.viewport.createSelection('rownum', [ p[1].last(), p[0].first() ]).get('uid').first();
             }
         }
 
         if (!params) {
             if (!data ||
                 (this.pp &&
-                 this.pp.uid == data.uid &&
-                 this.pp.mbox == data.mbox)) {
+                 this.pp.VP_id == data.VP_id &&
+                 this.pp.VP_view == data.VP_view)) {
                 return;
             }
-            this.pp = data;
-            pp_uid = this._getPPId(data.uid, data.mbox);
+            this.pp = {
+                VP_id: data.VP_id,
+                VP_view: data.VP_view
+            };
+            pp_uid = this._getPPId(data.VP_id, data.VP_view);
 
             if (this.ppfifo.indexOf(pp_uid) != -1) {
                 params = {
-                    mailbox: data.mbox,
-                    uid: data.uid
+                    buid: data.VP_id,
+                    mailbox: data.VP_view
                 };
 
                 if (msgload) {
@@ -1624,7 +1632,7 @@ var DimpBase = {
 
                 this.flag('\\seen', true, params);
 
-                return this._loadPreview(data.uid, data.mbox);
+                return this._loadPreview(data.VP_id, data.VP_view);
             }
 
             params = {};
@@ -1639,15 +1647,14 @@ var DimpBase = {
             callback: function(r) {
                 if (!r) {
                     this.clearPreviewPane();
-                } else if (this.view == r.view &&
-                           this.pp &&
-                           this.pp.uid == r.uid &&
-                           this.pp.mbox == r.mbox) {
+                } else if (this.pp &&
+                           this.pp.VP_id == r.buid &&
+                           this.pp.VP_view == r.view) {
                     if (r.error) {
                         HordeCore.notify(r.error, r.errortype);
                         this.clearPreviewPane();
                     } else {
-                        this._loadPreview(r.uid, r.mbox);
+                        this._loadPreview(r.buid, r.view);
                     }
                 }
             }.bind(this),
@@ -1738,11 +1745,6 @@ var DimpBase = {
                 : r.msgtext
         );
 
-        // See: http://www.thecssninja.com/javascript/gmail-dragout
-        if (Prototype.Browser.WebKit) {
-            $('messageBody').select('DIV.mimePartInfo A.downloadAtc').invoke('observe', 'dragstart', this._dragAtc);
-        }
-
         $('previewInfo').hide();
         $('previewPane').scrollTop = 0;
         pm.show();
@@ -1756,15 +1758,21 @@ var DimpBase = {
     {
         // Store messages in cache.
         r.each(function(msg) {
-            var ppuid = this._getPPId(msg.uid, msg.mbox);
+            var ppuid = this._getPPId(msg.buid, msg.mbox);
             this._expirePPCache([ ppuid ]);
-            this.ppcache[ppuid] = msg;
+            this.ppcache[ppuid] = msg.data;
             this.ppfifo.push(ppuid);
         }, this);
     },
 
     _dragAtc: function(e)
     {
+        // As of now, only WebKit supports DownloadURL
+        if (!Prototype.Browser.Webkit) {
+            e.stop();
+            return;
+        }
+
         var base = e.element().up();
 
         e.dataTransfer.setData(
@@ -1819,11 +1827,11 @@ var DimpBase = {
 
     _sendMdnCallback: function(r)
     {
-        this._expirePPCache([ this._getPPId(r.uid, r.mbox) ]);
+        this._expirePPCache([ this._getPPId(r.buid, r.mbox) ]);
 
         if (this.pp &&
-            this.pp.uid == r.uid &&
-            this.pp.mbox == r.mbox) {
+            this.pp.VP_id == r.buid &&
+            this.pp.VP_view == r.mbox) {
             $('sendMdnMessage').up(1).fade({ duration: 0.2 });
         }
     },
@@ -1831,13 +1839,13 @@ var DimpBase = {
     maillogCallback: function(r)
     {
         r.each(function(l) {
-            var tmp = this._getPPId(l.uid, l.mbox);
+            var tmp = this._getPPId(l.buid, l.mbox);
             if (this.ppcache[tmp]) {
                 this.ppcache[tmp].log = l.log;
                 if (l.log &&
                     this.pp &&
-                    this.pp.uid == l.uid &&
-                    this.pp.mbox == l.mbox) {
+                    this.pp.VP_id == l.buid &&
+                    this.pp.VP_view == l.mbox) {
                     this.updateMsgLog(l.log);
                 }
             }
@@ -1856,27 +1864,11 @@ var DimpBase = {
 
     clearPreviewPane: function()
     {
-        var sel, txt;
-
         this.loadingImg('msg', false);
         $('previewMsg').hide();
         $('previewPane').scrollTop = 0;
 
-        sel = this.selectedCount();
-        switch (sel) {
-        case 0:
-            txt = DimpCore.text.nomessages;
-            break;
-
-        case 1:
-            txt = 1 + ' ' + DimpCore.text.message;
-            break;
-
-        default:
-            txt = sel + ' ' + DimpCore.text.messages;
-            break;
-        }
-        $('previewInfo').update(txt + ' ' + DimpCore.text.selected + '.').show();
+        $('previewInfo').update(DimpCore.text.selected.sub('%s', this.messageCountText(this.selectedCount()))).show();
 
         delete this.pp;
     },
@@ -1941,11 +1933,7 @@ var DimpBase = {
 
         if (rows) {
             range = this.viewport.currentViewableRange();
-            text += ' (' + (
-                (rows == 1)
-                    ? 1 + ' ' + DimpCore.text.message :
-                    rows + ' ' + DimpCore.text.messages
-            ) + ')';
+            text += ' (' + this.messageCountText(rows) + ')';
         }
 
         $('mailboxName').update(text);
@@ -2146,14 +2134,9 @@ var DimpBase = {
     // 'noload' = (boolean) If true, don't load the mailbox
     quicksearchClear: function(noload)
     {
-        var f = this.view,
-            qs = $('horde-search');
+        var qs = $('horde-search');
 
-        if (!qs) {
-            return;
-        }
-
-        if (this.isSearch()) {
+        if (qs && this.isSearch()) {
             $(qs, 'horde-search-dropdown', 'horde-search-input').invoke('show');
             if (!noload) {
                 this.go('mbox', (this.search ? this.search.mbox : this.INBOX));
@@ -2170,7 +2153,7 @@ var DimpBase = {
     /* Set quicksearch text. */
     _setQsearchText: function()
     {
-        $('horde-search-input').writeAttribute('title', DimpCore.text.search + ' (' + DimpCore.context.ctx_qsearchopts['*' + this._getPref('qsearch_field')] + ')');
+        $('horde-search-input').writeAttribute('title', DimpCore.text.search_input.sub('%s', DimpCore.context.ctx_qsearchopts['*' + this._getPref('qsearch_field')]));
         if (HordeTopbar.searchGhost) {
             HordeTopbar.searchGhost.refresh();
         }
@@ -2210,10 +2193,10 @@ var DimpBase = {
         }
     },
 
-    /* Enable/Disable DIMP action buttons as needed. */
+    /* Enable/Disable action buttons as needed. */
     toggleButtons: function()
     {
-        DimpCore.toggleButtons($('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'), this.selectedCount() == 0);
+        DimpCore.toggleButtons($('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'), this.selectedCount() === 0);
     },
 
     /* Drag/Drop handler. */
@@ -2248,20 +2231,38 @@ var DimpBase = {
 
             if (uids.size()) {
                 if (e.memo.dragevent.ctrlKey) {
-                    DimpCore.doAction('copyMessages', this.addViewportParams({ mboxto: mboxname }), { uids: uids });
+                    DimpCore.doAction('copyMessages', this.addViewportParams({
+                        mboxto: mboxname
+                    }), {
+                        uids: uids,
+                        view: this.view
+                    });
                 } else if (this.view != mboxname) {
                     // Don't allow drag/drop to the current mailbox.
                     this.updateFlag(uids, DimpCore.conf.FLAG_DELETED, true);
-                    DimpCore.doAction('moveMessages', this.addViewportParams({ mboxto: mboxname }), { uids: uids });
+                    DimpCore.doAction('moveMessages', this.addViewportParams({
+                        mboxto: mboxname
+                    }), {
+                        uids: uids,
+                        view: this.view
+                    });
                 }
             }
         }
     },
 
-    dragCaption: function()
+    messageCountText: function(cnt)
     {
-        var cnt = this.selectedCount();
-        return cnt + ' ' + (cnt == 1 ? DimpCore.text.message : DimpCore.text.messages);
+        switch (cnt) {
+        case 0:
+            return DimpCore.text.message_0;
+
+        case 1:
+            return DimpCore.text.message_1;
+
+        default:
+            return DimpCore.text.message_2.sub('%d', cnt);
+        }
     },
 
     onDragMouseDown: function(e)
@@ -2541,7 +2542,7 @@ var DimpBase = {
     dblclickHandler: function(e)
     {
         var elt = e.element(),
-            tmp, tmp2;
+            tmp;
 
         if (elt.hasClassName('splitBarVertSidebar')) {
             this._setPref('splitbar_side', null);
@@ -2550,14 +2551,19 @@ var DimpBase = {
             return;
         } else if (elt.hasClassName('vpRow')) {
             tmp = this.viewport.createSelection('domid', elt.identify());
-            tmp2 = tmp.get('dataob').first();
 
             if (this.viewport.getMetaData('templates')) {
-                DimpCore.compose('template', { uids: tmp });
+                DimpCore.compose('template', {
+                    buid: tmp.get('uid').toViewportUidString(),
+                    mailbox: this.view
+                });
             } else if (this.isDraft(tmp)) {
-                DimpCore.compose('resume', { uids: tmp });
+                DimpCore.compose('resume', {
+                    buid: tmp.get('uid').toViewportUidString(),
+                    mailbox: this.view
+                });
             } else {
-                this.msgWindow(tmp2);
+                this.msgWindow(tmp.get('dataob').first());
             }
             e.memo.stop();
         }
@@ -2607,10 +2613,6 @@ var DimpBase = {
                 mailbox: this.view
             });
             e.memo.stop();
-            break;
-
-        case 'alertsloglink':
-            HordeCore.Growler.toggleLog();
             break;
 
         case 'appprefs':
@@ -2699,12 +2701,9 @@ var DimpBase = {
         case 'msg_newwin':
         case 'msg_newwin_options':
         case 'ppane_view_error':
-            this.msgWindow(this.viewport.getSelection().search({
-                mbox: {
-                    equal: [ this.pp.mbox ]
-                },
-                uid: {
-                    equal: [ this.pp.uid ]
+            this.msgWindow(this.viewport.getSelection(this.pp.VP_view).search({
+                VP_id: {
+                    equal: [ this.pp.VP_id ]
                 }
             }).get('dataob').first());
             e.memo.stop();
@@ -2717,30 +2716,31 @@ var DimpBase = {
         case 'ctx_preview_viewsource':
             HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                 actionID: 'view_source',
+                buid: this.pp.VP_id,
                 id: 0,
-                mailbox: this.pp.mbox,
-                uid: this.pp.uid
+                mailbox: this.pp.VP_view
             }, {
-                name: this.pp.uid + '|' + this.pp.mbox
+                name: this.pp.VP_id + '|' + this.pp.VP_view
             });
             break;
 
         case 'ctx_preview_thread':
             HordeCore.popupWindow(DimpCore.conf.URI_THREAD, {
-                mailbox: this.pp.mbox,
-                uid: this.pp.uid
+                buid: this.pp.VP_id,
+                mailbox: this.pp.VP_view
             }, {
-                name: this.pp.uid + '|' + this.pp.mbox
+                name: this.pp.VP_id + '|' + this.pp.VP_view
             });
             break;
 
         case 'ctx_preview_allparts':
             DimpCore.doAction('messageMimeTree', {
-                preview: 1
+                preview: 1,
+                view: this.pp.VP_view
             }, {
                 callback: this._mimeTreeCallback.bind(this),
                 loading: 'msg',
-                uids: this.viewport.createSelection('dataob', this.pp)
+                uids: [ this.pp.VP_id ]
             });
             break;
 
@@ -2758,12 +2758,10 @@ var DimpBase = {
             break;
 
         case 'send_mdn_link':
-            tmp = {};
-            tmp[this.pp.mbox] = [ this.pp.uid ];
-            DimpCore.doAction('sendMDN', {
-                uid: DimpCore.toUIDString(tmp)
-            }, {
-                callback: this._sendMdnCallback.bind(this)
+            DimpCore.doAction('sendMDN', {}, {
+                callback: this._sendMdnCallback.bind(this),
+                uids: [ this.pp.VP_id ],
+                view: this.pp.VP_view
             });
             e.memo.stop();
             break;
@@ -2772,11 +2770,11 @@ var DimpBase = {
             if (e.element().hasClassName('printAtc')) {
                 HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                     actionID: 'print_attach',
+                    buid: this.pp.VP_id,
                     id: e.element().readAttribute('mimeid'),
-                    mailbox: this.pp.mbox,
-                    uid: this.pp.uid
+                    mailbox: this.pp.VP_view
                 }, {
-                    name: this.pp.uid + '|' + this.pp.mbox + '|print',
+                    name: this.pp.VP_id + '|' + this.pp.VP_view + '|print',
                     onload: IMP_JS.printWindow
                 });
                 e.memo.stop();
@@ -2787,31 +2785,19 @@ var DimpBase = {
                     }), {
                         callback: function(r) {
                             if (!this.pp) {
-                                this.viewport.select(this.viewport.createSelectionBuffer().search({
-                                    mbox: {
-                                        equal: [ r.newmbox ]
-                                    },
-                                    uid: {
-                                        equal: [ r.newuid ]
+                                this.viewport.select(this.viewport.createSelectionBuffer(r.newmbox).search({
+                                    VP_id: {
+                                        equal: [ r.newbuid ]
                                     }
                                 }).get('rownum'));
                             }
                         }.bind(this),
                         loading: 'msg',
-                        uids: this.viewport.createSelection('dataob', this.pp)
+                        uids: [ this.pp.VP_id ],
+                        view: this.pp.VP_view
                     });
                 }
                 e.memo.stop();
-            }
-        }
-    },
-
-    mouseoverHandler: function(e)
-    {
-        if (DragDrop.Drags.drag) {
-            var elt = e.element();
-            if (elt.hasClassName('exp')) {
-                this._toggleSubFolder(elt.up(), 'tog');
             }
         }
     },
@@ -2985,10 +2971,9 @@ var DimpBase = {
     flagCallback: function(r)
     {
         r.each(function(entry) {
-            $H(DimpCore.parseUIDString(entry.uids)).each(function(m) {
-                var s = this.viewport.createSelectionBuffer(this.isSearch() ? null : m.key).search({
-                    uid: { equal: m.value },
-                    mbox: { equal: m.key }
+            $H(entry.buids).each(function(m) {
+                var s = this.viewport.createSelectionBuffer(m.key).search({
+                    VP_id: { equal: m.value.parseViewportUidString() }
                 });
 
                 if (entry.add) {
@@ -3184,6 +3169,7 @@ var DimpBase = {
 
         li = new Element('DIV', { className: 'horde-subnavi', title: title })
             .addClassName(cname)
+            .store('fixed', ob.f)
             .store('l', label)
             .store('mbox', ob.m)
             .insert(div)
@@ -3401,17 +3387,14 @@ var DimpBase = {
         }
     },
 
-    /* Flag actions for message list. */
-    _getFlagSelection: function(opts)
+    _getSelection: function(opts)
     {
         var vs;
 
         if (opts.vs) {
             vs = opts.vs;
         } else if (opts.uid) {
-            vs = opts.mailbox
-                ? this.viewport.createSelectionBuffer().search({ uid: { equal: [ opts.uid ] }, mbox: { equal: [ opts.mailbox ] } })
-                : this.viewport.createSelection('dataob', opts.uid);
+            vs = this.viewport.createSelection('uid', [ opts.uid ], opts.mailbox ? opts.mailbox : this.view);
         } else {
             vs = this.viewport.getSelected();
         }
@@ -3424,7 +3407,7 @@ var DimpBase = {
     // args = (Object) Parameters to pass to AJAX call
     _doMsgAction: function(type, opts, args)
     {
-        var vs = this._getFlagSelection(opts);
+        var vs = this._getSelection(opts);
 
         if (vs.size()) {
             // This needs to be synchronous Ajax if we are calling from a
@@ -3433,7 +3416,8 @@ var DimpBase = {
             DimpCore.doAction(type, this.addViewportParams(args), {
                 ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) },
                 loading: opts,
-                uids: vs
+                uids: vs,
+                view: opts.mailbox
             });
             return vs;
         }
@@ -3447,7 +3431,11 @@ var DimpBase = {
     {
         opts = opts || {};
         opts.loading = 'viewport';
-        this._doMsgAction('reportSpam', opts, { spam: Number(spam) });
+        opts.vs = this._getSelection(opts);
+
+        if (this._doMsgAction('reportSpam', opts, { spam: Number(spam) })) {
+            this.updateFlag(opts.vs, spam ? DimpCore.conf.FLAG_SPAM : DimpCore.conf.FLAG_INNOCENT, true);
+        }
     },
 
     // blacklist = (boolean) True for blacklist, false for whitelist
@@ -3461,10 +3449,11 @@ var DimpBase = {
     deleteMsg: function(opts)
     {
         opts = opts || {};
-        opts.vs = this._getFlagSelection(opts);
+        opts.vs = this._getSelection(opts);
 
-        this._doMsgAction('deleteMessages', opts, {});
-        this.updateFlag(opts.vs, DimpCore.conf.FLAG_DELETED, true);
+        if (this._doMsgAction('deleteMessages', opts, {})) {
+            this.updateFlag(opts.vs, DimpCore.conf.FLAG_DELETED, true);
+        }
     },
 
     // flag = (string) IMAP flag name
@@ -3476,7 +3465,7 @@ var DimpBase = {
 
         var need,
             params = $H(opts.params),
-            vs = this._getFlagSelection(opts);
+            vs = this._getSelection(opts);
 
         need = vs.get('dataob').any(function(ob) {
             return add
@@ -3489,53 +3478,31 @@ var DimpBase = {
                 add: Number(add),
                 flags: Object.toJSON([ flag ])
             })), {
-                uids: vs
+                uids: vs,
+                view: opts.mailbox
             });
         }
     },
 
     updateFlag: function(vs, flag, add)
     {
-        var s = {};
-
         vs.get('dataob').each(function(ob) {
-            this._updateFlag(ob, flag, add);
+            var hasflag;
 
-            if (this.isSearch()) {
-                if (!s[ob.mbox]) {
-                    s[ob.mbox] = [];
-                }
-                s[ob.mbox].push(ob.uid);
+            if (!ob.flag) {
+                ob.flag = [];
+            } else {
+                hasflag = ob.flag.include(flag);
+            }
+
+            if (add && !hasflag) {
+                ob.flag.push(flag);
+                this.viewport.updateRow(ob);
+            } else if (!add && hasflag) {
+                ob.flag = ob.flag.without(flag);
+                this.viewport.updateRow(ob);
             }
         }, this);
-
-        /* If this is a search mailbox, also need to update flag in base view,
-         * if it is in the buffer. */
-        $H(s).each(function(m) {
-            var tmp = this.viewport.createSelectionBuffer(m.key).search({ uid: { equal: m.value }, mbox: { equal: [ m.key ] } });
-            if (tmp.size()) {
-                this._updateFlag(tmp.get('dataob').first(), flag, add);
-            }
-        }, this);
-    },
-
-    _updateFlag: function(ob, flag, add)
-    {
-        var hasflag;
-
-        if (!ob.flag) {
-            ob.flag = [];
-        } else {
-            hasflag = ob.flag.include(flag);
-        }
-
-        if (add && !hasflag) {
-            ob.flag.push(flag);
-            this.viewport.updateRow(ob);
-        } else if (!add && hasflag) {
-            ob.flag = ob.flag.without(flag);
-            this.viewport.updateRow(ob);
-        }
     },
 
     isDraft: function(vs)
@@ -3611,7 +3578,11 @@ var DimpBase = {
     /* AJAX tasks handler. */
     tasksHandler: function(e)
     {
-        var t = e.tasks;
+        var t = e.tasks || {};
+
+        if (t['imp:message']) {
+            this.messageCallback(t['imp:message']);
+        }
 
         if (this.viewport && t['imp:viewport']) {
             t['imp:viewport'].requestid = e.response.request.rid;
@@ -3624,10 +3595,6 @@ var DimpBase = {
 
         if (t['imp:flag']) {
             this.flagCallback(t['imp:flag']);
-        }
-
-        if (t['imp:message']) {
-            this.messageCallback(t['imp:message']);
         }
 
         if (t['imp:maillog']) {
@@ -3657,7 +3624,11 @@ var DimpBase = {
         DimpCore.conf.sort = $H(DimpCore.conf.sort);
 
         /* Limit to folders sidebar only. */
-        $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
+        $('foldersSidebar').on('mouseover', '.exp', function(e, elt) {
+            if (DragDrop.Drags.drag) {
+                this._toggleSubFolder(elt.up(), 'tog');
+            }
+        }.bind(this));
 
         /* Create splitbar for sidebar. */
         this.splitbar = $('horde-slideleft');
@@ -3690,7 +3661,7 @@ var DimpBase = {
                 type: 'qsearchopts'
             });
 
-            DimpCore.addPopdownButton('button_filter', 'filteropts', {
+            DimpCore.addPopdown('button_filter', 'filteropts', {
                 trigger: true
             });
             DM.addSubMenu('ctx_filteropts_filter', 'ctx_filter');
@@ -3702,10 +3673,8 @@ var DimpBase = {
             $('horde-search-input').up('FORM').observe('submit', Event.stop);
         }
 
-        /* Store these text strings for updating purposes. */
-        //DimpCore.text.showalog = $('alertsloglink').down('A').innerHTML;
-
-        /* Initialize the starting page. */
+        /* Initialize the starting page. The initial call to viewPort will
+         * return the mailbox list and pending notifications. */
         tmp = decodeURIComponent(location.hash);
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? "" : tmp.substring(1);
@@ -3720,13 +3689,9 @@ var DimpBase = {
             this.go();
         }
 
-        /* Create the folder list. Any pending notifications will be caught
-         * via the return from this call. */
-        this._listMboxes({ initial: 1, mboxes: this.view });
-
         /* Add popdown menus. */
-        DimpCore.addPopdownButton('button_template', 'template');
-        DimpCore.addPopdownButton('button_other', 'oa', {
+        DimpCore.addPopdown('button_template', 'template');
+        DimpCore.addPopdown('button_other', 'oa', {
             trigger: true
         });
         DimpCore.addPopdown('folderopts_link', 'folderopts', {
@@ -3758,18 +3723,17 @@ var DimpBase = {
         if (DimpCore.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up').concat($('button_compose', 'horde-new-link', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
-            DimpCore.addPopdownButton('button_reply', 'reply');
-            DimpCore.addPopdownButton('button_forward', 'forward');
+            DimpCore.addPopdown('button_reply', 'reply');
+            DimpCore.addPopdown('button_forward', 'forward');
         }
 
         new Drop('dropbase', this._mboxDropConfig);
 
+        // See: http://www.thecssninja.com/javascript/gmail-dragout
+        $('messageBody').on('dragstart', 'DIV.mimePartInfo A.downloadAtc', this._dragAtc.bind(this));
+
         if (this._getPref('toggle_hdrs')) {
             this._toggleHeaders($('th_expand'));
-        }
-
-        if (!$('GrowlerLog')) {
-            //$('alertsloglink').remove();
         }
 
         /* Check for new mail. */
@@ -3812,7 +3776,9 @@ DimpBase._msgDragConfig = {
     classname: 'msgdrag',
     scroll: 'imp-normalmboxes',
     threshold: 5,
-    caption: DimpBase.dragCaption.bind(DimpBase)
+    caption: function() {
+        return DimpBase.messageCountText(DimpBase.selectedCount());
+    }
 };
 
 DimpBase._mboxDragConfig = {
@@ -3855,7 +3821,7 @@ DimpBase._mboxDropConfig = {
 
         return drag.hasClassName('imp-sidebar-mbox')
             ? ((ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.sub('%s', d).sub('%s', l) : '')
-            : ((ftype != 'container') ? m.sub('%s', DimpBase.dragCaption()).sub('%s', l) : '');
+            : ((ftype != 'container') ? m.sub('%s', DimpBase.messageCountText(DimpBase.selectedCount())).sub('%s', l) : '');
     },
     keypress: true
 };
@@ -3882,12 +3848,13 @@ document.observe('HordeDialog:onClick', function(e) {
     case 'mbox_import':
         HordeCore.submit(e.element(), {
             callback: function(r) {
+                HordeDialog.close();
                 if (r.action == 'importMailbox') {
                     this.viewport.reload();
                 }
             }.bind(this)
         });
-        HordeDialog.close();
+        e.element().update(DimpCore.text.import_mbox_loading);
         break;
     }
 }.bindAsEventListener(DimpBase));
@@ -3932,8 +3899,3 @@ document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bi
 DimpCore.reloadMessage = function(params) {
     DimpBase.loadPreview(null, params);
 };
-
-/* Growler handlers. */
-document.observe('Growler:toggled', function(e) {
-    $('alertsloglink').down('A').update(e.memo.visible ? DimpCore.text.hidealog : DimpCore.text.showalog);
-});

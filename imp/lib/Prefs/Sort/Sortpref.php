@@ -1,17 +1,25 @@
 <?php
 /**
- * This class provides the object representation for the sort preference for
- * a mailbox.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This class provides the object representation for the sort preference for
+ * a mailbox.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  *
  * @property IMP_Mailbox $mbox  Mailbox for these preferences.
  * @property integer $sortby  The sortby value.
@@ -131,20 +139,20 @@ class IMP_Prefs_Sort_Sortpref
                 }
                 break;
 
-             case Horde_Imap_Client::SORT_FROM:
-                 /* If the preference is to sort by From Address, when we are
-                  * in the Drafts or Sent mailboxes, sort by To Address. */
-                 if ($this->_mbox->special_outgoing) {
-                     $this->_sortby = Horde_Imap_Client::SORT_TO;
-                 }
-                 break;
+            case Horde_Imap_Client::SORT_FROM:
+                /* If the preference is to sort by From Address, when we are
+                 * in the Drafts or Sent mailboxes, sort by To Address. */
+                if ($this->_mbox->special_outgoing) {
+                    $this->_sortby = Horde_Imap_Client::SORT_TO;
+                }
+                break;
 
-              case Horde_Imap_Client::SORT_TO:
-                  if (!$this->_mbox->special_outgoing) {
-                      $this->_sortby = Horde_Imap_Client::SORT_FROM;
-                  }
-                  break;
-              }
+            case Horde_Imap_Client::SORT_TO:
+                if (!$this->_mbox->special_outgoing) {
+                    $this->_sortby = Horde_Imap_Client::SORT_FROM;
+                }
+                break;
+            }
         } else {
             $this->_sortby = Horde_Imap_Client::SORT_SEQUENCE;
         }

@@ -1,16 +1,24 @@
 <?php
 /**
- * Special prefs handling for the 'draftsselect' preference.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Special prefs handling for the 'draftsselect' preference.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implements Horde_Core_Prefs_Ui_Special
 {
@@ -40,7 +48,7 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
             'basename' => true,
             'filter' => array('INBOX'),
             'new_mbox' => true,
-            'selected' => IMP_Mailbox::getPref('drafts_folder')
+            'selected' => IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)
         ));
         $view->nombox = IMP_Mailbox::formTo(self::PREF_NO_MBOX);
         $view->special_use = $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_DRAFTS);
@@ -53,7 +61,7 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
     public function update(Horde_Core_Prefs_Ui $ui)
     {
         return $this->_updateSpecialMboxes(
-            'drafts_folder',
+            IMP_Mailbox::MBOX_DRAFTS,
             IMP_Mailbox::formFrom($ui->vars->drafts),
             $ui->vars->drafts_new,
             Horde_Imap_Client::SPECIALUSE_DRAFTS,

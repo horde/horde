@@ -32,18 +32,12 @@ class IMP_Quota_Mdaemon extends IMP_Quota
     }
 
     /**
-     * Get quota information (used/allocated), in bytes.
-     *
-     * @return array  An array with the following keys:
-     *                'limit' = Maximum quota allowed
-     *                'usage' = Currently used portion of quota (in bytes)
-     * @throws IMP_Exception
      */
-    public function getQuota()
+    public function getQuota($mailbox = null)
     {
         $userDetails = $this->_getUserDetails(
             $this->_params['username'],
-            $GLOBALS['session']->get('imp', 'maildomain')
+            $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain
         );
 
         if ($userDetails !== false) {

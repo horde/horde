@@ -1,16 +1,24 @@
 <?php
 /**
- * Special prefs handling for the 'trashselect' preference.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Special prefs handling for the 'trashselect' preference.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements Horde_Core_Prefs_Ui_Special
 {
@@ -32,7 +40,7 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         ));
 
         $imp_search = $injector->getInstance('IMP_Search');
-        $trash = IMP_Mailbox::getPref('trash_folder');
+        $trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH);
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'
@@ -65,7 +73,7 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         global $injector, $prefs;
 
         $imp_search = $injector->getInstance('IMP_Search');
-        $curr_vtrash = IMP_Mailbox::getPref('trash_folder')->vtrash;
+        $curr_vtrash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)->vtrash;
         $trash = IMP_Mailbox::formFrom($ui->vars->trash);
 
         if (!$prefs->isLocked('vfolder')) {
@@ -74,11 +82,11 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
             $imp_search['vtrash'] = $vtrash;
         }
 
-        if (!$this->_updateSpecialMboxes('trash_folder', $trash, $ui->vars->trash_new, Horde_Imap_Client::SPECIALUSE_TRASH, $ui)) {
+        if (!$this->_updateSpecialMboxes(IMP_Mailbox::MBOX_TRASH, $trash, $ui->vars->trash_new, Horde_Imap_Client::SPECIALUSE_TRASH, $ui)) {
             return false;
         }
 
-        $injector->getInstance('IMP_Factory_Imap')->create()->updateFetchIgnore();
+        $injector->getInstance('IMP_Imap')->updateFetchIgnore();
 
         /* Switching to/from Virtual Trash requires us to expire all currently
          * cached mailbox lists (hide deleted status may have changed). */

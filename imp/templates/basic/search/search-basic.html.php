@@ -1,7 +1,6 @@
 <form method="post" action="<?php echo $this->action ?>">
  <?php echo $this->hiddenFieldTag('mailbox', $this->mbox) ?>
  <?php echo $this->hiddenFieldTag('search_basic', 1) ?>
- <?php echo $this->forminput ?>
 
  <h1 class="header">
   <strong><?php echo $this->search_title ?></strong>

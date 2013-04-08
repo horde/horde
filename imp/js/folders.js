@@ -1,5 +1,5 @@
 /**
- * Provides the javascript for the folders tree view (standard view).
+ * Provides the javascript for the folders tree page in basic view.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -7,7 +7,7 @@
 
 var ImpFolders = {
 
-    // The following variables are defined in folders.php:
+    // The following variables are defined in PHP code:
     //   displayNames, folders_url, text
 
     getChecked: function()
@@ -54,7 +54,7 @@ var ImpFolders = {
 
         default:
             if (!this.getChecked().size()) {
-                if (action != '') {
+                if (!action.empty()) {
                     alert(this.text.select);
                 }
                 break;
@@ -123,14 +123,10 @@ var ImpFolders = {
 
         this.getMboxes().each(function(f) {
             if (f.checked) {
-                if (IMP.conf.fixed_mboxes.indexOf(this.displayNames[j]) != -1) {
-                    window.alert(this.text.no_rename + ' ' + this.displayNames[j]);
-                } else {
-                    var tmp = window.prompt(this.text.rename1 + ' ' + this.displayNames[j] + "\n" + this.text.rename2, this.fullNames[j] ? this.fullNames[j] : this.displayNames[j]);
-                    if (tmp) {
-                        newnames += tmp + "\n";
-                        oldnames += f.value + "\n";
-                    }
+                var tmp = window.prompt(this.text.rename1 + ' ' + this.displayNames[j] + "\n" + this.text.rename2, this.fullNames[j] ? this.fullNames[j] : this.displayNames[j]);
+                if (tmp) {
+                    newnames += tmp + "\n";
+                    oldnames += f.value + "\n";
                 }
             }
             ++j;
@@ -158,16 +154,6 @@ var ImpFolders = {
         new Ajax.Request(this.ajax + type + 'Mailboxes', { parameters: { mboxes: Object.toJSON([ e.memo ]) } });
     },
 
-    changeHandler: function(e)
-    {
-        switch (e.element().readAttribute('id')) {
-        case 'action_choose0':
-        case 'action_choose1':
-            this.chooseAction(e);
-            break;
-        }
-    },
-
     clickHandler: function(e)
     {
         switch (e.element().readAttribute('id')) {
@@ -192,7 +178,7 @@ var ImpFolders = {
         HordeCore.initHandler('click');
 
         // Observe actual form element since IE does not bubble change events.
-        $('action_choose0', 'action_choose1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+        $('action_choose0', 'action_choose1').compact().invoke('observe', 'change', this.chooseAction.bindAsEventListener(this));
 
         if (this.mbox_expand) {
             $('fmanager').observe('Horde_Tree:collapse', this.toggleSubfolder.bindAsEventListener(this, 'collapse'));

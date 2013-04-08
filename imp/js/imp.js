@@ -8,21 +8,16 @@
 var IMP_JS = {
 
     keydownhandler: null,
-    imgs: {},
 
     /**
      * Use DOM manipulation to un-block images.
      */
     unblockImages: function(e)
     {
-        var a, callback,
+        var a, callback, doc,
             elt = e.element(),
             iframe = elt.up('.mimePartBase').down('.mimePartData IFRAME.htmlMsgData'),
-            iframeid = iframe.readAttribute('id'),
-            imgload = false,
-            s = new Selector('[htmlimgblocked]'),
-            s2 = new Selector('[htmlcssblocked]'),
-            s3 = new Selector('STYLE[type="text/x-imp-cssblocked"]');
+            imgload = false;
 
         e.stop();
 
@@ -32,8 +27,7 @@ var IMP_JS = {
                 var box = e.element().up('.mimeStatusMessageTable').up();
 
                 HordeCore.doAction('imageUnblockAdd', {
-                    mbox: elt.readAttribute('mailbox'),
-                    uid: elt.readAttribute('uid')
+                    muid: elt.readAttribute('muid')
                 });
 
                 box.slideUp({
@@ -48,13 +42,13 @@ var IMP_JS = {
             )
         );
 
-        callback = this.imgOnload.bind(this, iframeid);
+        callback = this.iframeResize.bind(this, iframe);
+        doc = iframe.contentDocument || iframe.contentWindow.document;
 
-        s.findElements(iframe.contentWindow.document).each(function(img) {
+        Prototype.Selector.select('[htmlimgblocked]', doc).each(function(img) {
             var src = img.getAttribute('htmlimgblocked');
             if (img.getAttribute('src')) {
                 img.onload = callback;
-                ++this.imgs[iframeid];
                 img.setAttribute('src', src);
                 imgload = true;
             } else {
@@ -72,23 +66,16 @@ var IMP_JS = {
             }
         }, this);
 
-        s2.findElements(iframe.contentWindow.document).each(function(link) {
+        Prototype.Selector.select('[htmlcssblocked]', doc).each(function(link) {
             link.setAttribute('href', link.getAttribute('htmlcssblocked'));
         });
 
-        s3.findElements(iframe.contentWindow.document).each(function(style) {
+        Prototype.Selector.select('STYLE[type="text/x-imp-cssblocked"]', doc).each(function(style) {
             style.setAttribute('type', 'text/css');
         });
 
         if (!imgload) {
-            this.iframeResize(iframeid);
-        }
-    },
-
-    imgOnload: function(id)
-    {
-        if (!(--this.imgs[id])) {
-            this.iframeResize(id);
+            this.iframeResize(iframe);
         }
     },
 

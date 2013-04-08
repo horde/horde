@@ -17,14 +17,4 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-switch ($registry->getView()) {
-case $registry::VIEW_DYNAMIC:
-case $registry::VIEW_MINIMAL:
-case $registry::VIEW_SMARTMOBILE:
-    IMP_Auth::getInitialPage()->url->redirect();
-    break;
-
-default:
-    require IMP_Auth::getInitialPage()->fullpath;
-    break;
-}
+IMP_Auth::getInitialPage()->url->redirect();

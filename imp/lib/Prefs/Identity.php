@@ -1,19 +1,27 @@
 <?php
 /**
- * This class provides an IMP-specific interface to all identities a
- * user might have. Its methods take care of any site-specific
- * restrictions configured in prefs.php and conf.php.
- *
  * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This class provides an IMP-specific interface to all identities a
+ * user might have. Its methods take care of any site-specific
+ * restrictions configured in prefs.php and conf.php.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
 {
@@ -36,7 +44,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     protected $_impPrefs = array(
         'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr', 'signature',
-        'signature_html', 'save_sent_mail', 'sent_mail_folder'
+        'signature_html', 'save_sent_mail', IMP_Mailbox::MBOX_SENT
     );
 
     /**
@@ -161,7 +169,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             }
 
             if (!strstr($val, '@')) {
-                $val .= '@' . $GLOBALS['session']->get('imp', 'maildomain');
+                $val .= '@' . $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
             }
 
             $ob = new Horde_Mail_Rfc822_Address($val);
@@ -409,10 +417,6 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             $val = '<div>' . $val . '</div>';
         }
 
-        try {
-            $val = Horde::callHook('signature', array($val), 'imp');
-        } catch (Horde_Exception_HookNotSet $e) {}
-
         $this->_cached['signatures'][$key] = $val;
 
         return $val;
@@ -444,7 +448,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         $val = parent::getValue($key, $identity);
 
         switch ($key) {
-        case 'sent_mail_folder':
+        case IMP_Mailbox::MBOX_SENT:
             return (is_string($val) && strlen($val))
                 ? IMP_Mailbox::get(IMP_Mailbox::prefFrom($val))
                 : null;
@@ -487,7 +491,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             $val = $ob->addresses;
             break;
 
-        case 'sent_mail_folder':
+        case IMP_Mailbox::MBOX_SENT:
             if ($val) {
                 $val->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
             } else {
@@ -510,7 +514,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         $list = array();
 
         foreach (array_keys($this->_identities) as $key) {
-            if ($mbox = $this->getValue('sent_mail_folder', $key)) {
+            if ($mbox = $this->getValue(IMP_Mailbox::MBOX_SENT, $key)) {
                 $list[strval($mbox)] = 1;
             }
         }
@@ -527,7 +531,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function saveSentmail($ident = null)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)
+        return $GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)
             ? $this->getValue('save_sent_mail', $ident)
             : false;
     }

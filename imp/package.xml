@@ -22,10 +22,9 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-20</date>
- <time>00:20:23</time>
+ <date>2013-04-01</date>
  <version>
-  <release>6.0.5</release>
+  <release>6.1.0</release>
   <api>6.0.0</api>
  </version>
  <stability>
@@ -34,24 +33,64 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado &lt;geral@jpaulo.eu&gt;).
-* [mms] Don&apos;t display empty mailbox action for mailboxes when Virtual Trash is active (Bug #12162).
-* [mms] Fix renaming mailboxes in dynamic view.
-* [mms] Switching from HTML to text in dynamic compose view must be a synchronous operation, or else HTML tags may appear in compose window.
-* [mms] Fix ability to switch to non-default date sorting algorithm in dynamic view (Bug #12139).
-* [mms] Fix printing quoted text when viewing a list message.
-* [mms] Use Horde_Css_Parser package, which is compatible with CSS3 declarations, instead of the unmaintained Horde_Text_Filter_Csstidy code.
-* [mms] Fix verifying signed &amp; encrypted PGP messages (Bug #12100).
-* [mms] Update virtual folder name in folder tree when editing the label (Bug #12079).
-* [mms] Fix links to virtual folders on search preferences page.
-* [mms] Fix edit links for virtual folders in dynamic view (Bug #12072).
-* [mms] Fix regression in displaying user-defined virtual folders in folder listings.
-* [mms] Correctly generate self URLs if a URL parameter is altered by the current message action (Bug #12058).
-* [mms] Fix possible issue creating folder tree if multiple special mailboxes appeared in the same branch (Bug #12050).
+* [mms] Allow attachments to be dragged/dropped from local filesystem on the dynamic compose page.
+* [mms] Hide browser generated file input widget for attachment upload in dynamic compose page.
+* [mms] Add attachment upload capability to smartmobile compose page.
+* [mms] Add HTML image/style blocking to smartmobile view.
+* [mms] Improved autocompleter in smartmobile compose view.
+* [mms] Add saving compose drafts in smartmobile view.
+* [mms] Rename &apos;compose_attach&apos; hook as &apos;compose_attachment&apos;.
+* [mms] Honor forward_default preference in smartmobile view.
+* [mms] Add PGP keylength configuration option (Request #12099).
+* [mjr] Expose the Maillog via the public API.
+* [mms] Better handling of flag change attempts when browser cached state (dynamic/smartmobile view) is different than the server state.
+* [mms] Move backend configuration parsing/retrieval to IMP_Imap_Config.
+* [mms] Spam reporting configuration has been moved to the backends file.
+* [mms] Support showing blocked Data URIs in HTML message data.
+* [mms] Add the &apos;mbox_acl&apos; hook.
+* [mms] Move folder disabling configuration into the permission system.
+* [mms] Upgraded IMP permissions to allow permissions to be set per active backend.
+* [mms] Allow the active search query to be edited in the smartmobile view.
+* [mms] Add link to exit out of search view in smartmobile view into the original mailbox.
+* [mms] Allow default special mailbox names to be overriden by a backend.
+* [mms] Move special mailboxes autocreation configuration into backends.php.
+* [mms] Add SMTP debugging.
+* [mms] Disable mailbox sorting by default if the remote server does not natively support it (Bug #12001).
+* [mms] Add the &apos;msg_filter&apos; hook.
+* [mms] Added the &apos;attach_body_check&apos; hook.
+* [mms] Add linked attachment information directly to main body text.
+* [mms] Added argument to the &apos;trailer&apos; hook to allow HTML trailers to be generated.
+* [mms] Attachments can now be configured to be linked only if over a configurable size threshold.
+* [mms] Linked attachments are no longer a user-configurable action.
+* [mms] Spam/innocent reporting on the smartmobile message page now uses a popup instead of a modal dialog.
+* [mms] Re-add alerts log to dynamic mailbox view.
+* [mms] Rewritten/improved linked attachment code.
+* [mms] Add discard draft option to compose page allowing the user to cancel composition and permanently delete the original draft (Request #12017).
+* [mms] Minimal view menu entries are now accessible via numbered accesskeys (Request #5847).
+* [mms] Add image upload feature to the HTML editor image plugin.
+* [mms] Allow drag &amp; drop/pasting of images into the HTML editor.
+* [mms] All basic view pages are now routed through the basic.php endpoint.
+* [mms] Save AJAX showMessage call when reloading the dynamic mailbox page with a message preview active.
+* [mms] Dynamically display MIME type icon for attachments uploaded on the dynamic compose page.
+* [mms] Remove &apos;compose_cc&apos; and &apos;compose_bcc&apos; preferences.
+* [mms] Support attaching vCard in dynamic compose.
+* [mms] Support attaching PGP public keys in dynamic compose.
+* [mms] Smartmobile view now uses additive loading instead of pagination on the mailbox page.
+* [mms] Removed &apos;link_all_attachments&apos; configuration option.
+* [mms] Support link attachment feature in dynamic view.
+* [mms] Display Virtual Folders in smartmobile view.
+* [mms] Abstract all UIDs used for mailbox/message navigation on the browser to BUIDs (browser UIDs) (Bug #10719).
+* [mms] Use more efficient murmurhash3 to determine changes in compose message that will trigger auto saved drafts.
+* [mms] Initialize viewport and mailbox list in single AJAX call when initially loading the dynamic mailbox view.
+* [mms] Add message thread view to dynamic mailbox preview.
+* [mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
+* [mms] Collapse multiple mailbox export options in dynamic mailbox view to single action.
+* [mms] Importing a PGP personal key now only requires the private key.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
+    <file name="imp-admin-upgrade" role="script" />
     <file name="imp-bounce-spam" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -66,7 +105,6 @@
     <file name=".htaccess" role="horde" />
     <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
-    <file name="filter.txt.dist" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="menu.php.dist" role="horde" />
     <file name="mime_drivers.php" role="horde" />
@@ -82,6 +120,11 @@
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
+    <dir name="ckeditor">
+     <file name="imageupload.js" role="horde" />
+     <file name="pasteattachment.js" role="horde" />
+     <file name="pasteignore.js" role="horde" />
+    </dir> <!-- /js/ckeditor -->
     <file name="acl.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
@@ -93,11 +136,11 @@
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
     <file name="imp.js" role="horde" />
-    <file name="indices.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="mailbox.js" role="horde" />
     <file name="message-dimp.js" role="horde" />
     <file name="message.js" role="horde" />
+    <file name="murmurhash3.js" role="horde" />
     <file name="passphrase.js" role="horde" />
     <file name="pgp.js" role="horde" />
     <file name="search.js" role="horde" />
@@ -105,12 +148,15 @@
     <file name="signaturehtml.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
     <file name="viewport.js" role="horde" />
+    <file name="viewport_utils.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Application">
       <dir name="Handler">
        <file name="Common.php" role="horde" />
+       <file name="ComposeAttach.php" role="horde" />
+       <file name="Draft.php" role="horde" />
        <file name="Dynamic.php" role="horde" />
        <file name="ImageUnblock.php" role="horde" />
        <file name="Mboxtoggle.php" role="horde" />
@@ -131,13 +177,42 @@
      <file name="Application.php" role="horde" />
      <file name="Queue.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
+    <dir name="Basic">
+     <file name="Base.php" role="horde" />
+     <file name="Compose.php" role="horde" />
+     <file name="Contacts.php" role="horde" />
+     <file name="Folders.php" role="horde" />
+     <file name="Mailbox.php" role="horde" />
+     <file name="Message.php" role="horde" />
+     <file name="Pgp.php" role="horde" />
+     <file name="Saveimage.php" role="horde" />
+     <file name="Search.php" role="horde" />
+     <file name="Searchbasic.php" role="horde" />
+     <file name="Smime.php" role="horde" />
+     <file name="Thread.php" role="horde" />
+    </dir> <!-- /lib/Basic -->
     <dir name="Block">
      <file name="Newmail.php" role="horde" />
      <file name="Summary.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Compose">
+     <dir name="Attachment">
+      <dir name="Linked">
+       <file name="Metadata.php" role="horde" />
+      </dir> <!-- /lib/Compose/Attachment/Linked -->
+      <dir name="Storage">
+       <file name="Vfs.php" role="horde" />
+       <file name="VfsLinked.php" role="horde" />
+      </dir> <!-- /lib/Compose/Attachment/Storage -->
+      <file name="Linked.php" role="horde" />
+      <file name="Storage.php" role="horde" />
+     </dir> <!-- /lib/Compose/Attachment -->
+     <file name="Attachment.php" role="horde" />
      <file name="Exception.php" role="horde" />
+     <file name="Link.php" role="horde" />
+     <file name="LinkedAttachment.php" role="horde" />
      <file name="References.php" role="horde" />
+     <file name="Ui.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Compose -->
     <dir name="Contents">
@@ -163,6 +238,7 @@
     <dir name="Factory">
      <file name="AuthImap.php" role="horde" />
      <file name="Compose.php" role="horde" />
+     <file name="ComposeAtc.php" role="horde" />
      <file name="Contents.php" role="horde" />
      <file name="Flags.php" role="horde" />
      <file name="Identity.php" role="horde" />
@@ -171,6 +247,7 @@
      <file name="Mail.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="MailboxList.php" role="horde" />
+     <file name="Maillog.php" role="horde" />
      <file name="MimeViewer.php" role="horde" />
      <file name="Pgp.php" role="horde" />
      <file name="PrefsSort.php" role="horde" />
@@ -211,12 +288,13 @@
     </dir> <!-- /lib/Flag -->
     <dir name="Imap">
      <file name="Acl.php" role="horde" />
+     <file name="Config.php" role="horde" />
      <file name="Exception.php" role="horde" />
      <file name="PermanentFlags.php" role="horde" />
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
     <dir name="Indices">
-     <file name="Form.php" role="horde" />
+     <file name="Mailbox.php" role="horde" />
     </dir> <!-- /lib/Indices -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
@@ -238,14 +316,21 @@
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Mailbox">
      <dir name="List">
+      <file name="Pop3.php" role="horde" />
       <file name="Thread.php" role="horde" />
-      <file name="Track.php" role="horde" />
+      <file name="Virtual.php" role="horde" />
      </dir> <!-- /lib/Mailbox/List -->
      <file name="List.php" role="horde" />
+     <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Mailbox -->
     <dir name="Mbox">
+     <file name="Generate.php" role="horde" />
+     <file name="Import.php" role="horde" />
      <file name="Parse.php" role="horde" />
     </dir> <!-- /lib/Mbox -->
+    <dir name="Message">
+     <file name="Ui.php" role="horde" />
+    </dir> <!-- /lib/Message -->
     <dir name="Mime">
      <dir name="Viewer">
       <file name="Alternative.php" role="horde" />
@@ -270,6 +355,7 @@
       <file name="Video.php" role="horde" />
       <file name="Zip.php" role="horde" />
      </dir> <!-- /lib/Mime/Viewer -->
+     <file name="Headers.php" role="horde" />
      <file name="Status.php" role="horde" />
     </dir> <!-- /lib/Mime -->
     <dir name="Minimal">
@@ -294,7 +380,11 @@
      </dir> <!-- /lib/Notification -->
     <dir name="Prefs">
      <dir name="Sort">
-      <file name="Fixed.php" role="horde" />
+      <dir name="Sortpref">
+       <file name="Locked.php" role="horde" />
+      </dir> <!-- /lib/Prefs/Sort/Sortpref -->
+      <file name="FixedDate.php" role="horde" />
+      <file name="None.php" role="horde" />
       <file name="Sortpref.php" role="horde" />
      </dir> <!-- /lib/Prefs/Sort -->
      <dir name="Special">
@@ -331,6 +421,7 @@
      <file name="Mercury32.php" role="horde" />
      <file name="Null.php" role="horde" />
      <file name="Sql.php" role="horde" />
+     <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Quota -->
     <dir name="Script">
      <dir name="Package">
@@ -373,6 +464,7 @@
      <file name="Element.php" role="horde" />
      <file name="Filter.php" role="horde" />
      <file name="Query.php" role="horde" />
+     <file name="Ui.php" role="horde" />
      <file name="Vfolder.php" role="horde" />
     </dir> <!-- /lib/Search -->
     <dir name="Sentmail">
@@ -384,18 +476,6 @@
      <file name="Jquerymobile.php" role="horde" />
      <file name="Simplehtml.php" role="horde" />
     </dir> <!-- /lib/Tree -->
-    <dir name="Ui">
-     <file name="Compose.php" role="horde" />
-     <file name="Contacts.php" role="horde" />
-     <file name="Editor.php" role="horde" />
-     <file name="Folder.php" role="horde" />
-     <file name="Headers.php" role="horde" />
-     <file name="Imageview.php" role="horde" />
-     <file name="Mailbox.php" role="horde" />
-     <file name="Message.php" role="horde" />
-     <file name="Quota.php" role="horde" />
-     <file name="Search.php" role="horde" />
-    </dir> <!-- /lib/Ui -->
     <dir name="View">
      <file name="Subinfo.php" role="horde" />
     </dir> <!-- /lib/View -->
@@ -404,16 +484,20 @@
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
     <file name="Compose.php" role="horde" />
+    <file name="Contacts.php" role="horde" />
     <file name="Contents.php" role="horde" />
+    <file name="Editor.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
     <file name="Flags.php" role="horde" />
+    <file name="Images.php" role="horde" />
     <file name="Imap.php" role="horde" />
     <file name="IMP.php" role="horde" />
     <file name="Indices.php" role="horde" />
     <file name="Mailbox.php" role="horde" />
     <file name="Maillog.php" role="horde" />
     <file name="Message.php" role="horde" />
+    <file name="Perms.php" role="horde" />
     <file name="Quota.php" role="horde" />
     <file name="Search.php" role="horde" />
     <file name="Sentmail.php" role="horde" />
@@ -723,6 +807,7 @@
    <dir name="migration">
     <file name="1_imp_base_tables.php" role="horde" />
     <file name="2_imp_autoincrement_sentmail.php" role="horde" />
+    <file name="3_imp_maillog_update.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="basic">
@@ -833,7 +918,6 @@
     </dir> <!-- /templates/search -->
     <dir name="smartmobile">
      <file name="compose.html.php" role="horde" />
-     <file name="confirm.html.php" role="horde" />
      <file name="copymove.html.php" role="horde" />
      <file name="folders.html.php" role="horde" />
      <file name="mailbox.html.php" role="horde" />
@@ -1038,24 +1122,14 @@
     </dir> <!-- /themes/default -->
     </dir> <!-- /themes -->
    <file name="attachment.php" role="horde" />
-   <file name="compose.php" role="horde" />
-   <file name="contacts.php" role="horde" />
+   <file name="basic.php" role="horde" />
    <file name="COPYING" role="doc" />
    <file name="dynamic.php" role="horde" />
-   <file name="folders.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="mailbox.php" role="horde" />
-   <file name="message.php" role="horde" />
    <file name="minimal.php" role="horde" />
-   <file name="pgp.php" role="horde" />
    <file name="README" role="doc" />
    <file name="rss.php" role="horde" />
-   <file name="saveimage.php" role="horde" />
-   <file name="search-basic.php" role="horde" />
-   <file name="search.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
-   <file name="smime.php" role="horde" />
-   <file name="thread.php" role="horde" />
    <file name="view.php" role="horde" />
   </dir> <!-- / -->
  </contents>
@@ -1089,23 +1163,34 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Compress</name>
+    <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Core</name>
+    <name>Horde_Compress</name>
     <channel>pear.horde.org</channel>
     <min>2.3.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>2.5.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Crypt</name>
     <channel>pear.horde.org</channel>
+<<<<<<< HEAD
     <min>2.1.0</min>
+=======
+    <min>2.0.0</min>
+>>>>>>> imp_6_1
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1115,6 +1200,13 @@
     <min>1.0.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
@@ -1138,13 +1230,6 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Form</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1161,7 +1246,11 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
+<<<<<<< HEAD
     <min>2.2.0</min>
+=======
+    <min>2.8.0</min>
+>>>>>>> imp_6_1
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1229,6 +1318,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Secret</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1243,6 +1339,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Stream</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+  </package>
+  <package>
     <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1252,14 +1355,14 @@
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.5</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1287,14 +1390,14 @@
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1320,6 +1423,34 @@
   </required>
   <optional>
    <package>
+    <name>Horde_History</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Stream_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Text_Filter_Csstidy</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1338,13 +1469,13 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="imp-admin-upgrade" name="bin/imp-admin-upgrade" />
    <install as="imp-bounce-spam" name="bin/imp-bounce-spam" />
    <install as="imp-mailbox-decode" name="bin/imp-mailbox-decode" />
    <install as="imp-query-imap-cache" name="bin/imp-query-imap-cache" />
    <install as="imp/config/.htaccess" name="config/.htaccess" />
    <install as="imp/config/backends.php" name="config/backends.php" />
    <install as="imp/config/conf.xml" name="config/conf.xml" />
-   <install as="imp/config/filter.txt.dist" name="config/filter.txt.dist" />
    <install as="imp/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="imp/config/menu.php.dist" name="config/menu.php.dist" />
    <install as="imp/config/mime_drivers.php" name="config/mime_drivers.php" />
@@ -1367,11 +1498,11 @@
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
-   <install as="imp/js/indices.js" name="js/indices.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
    <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
    <install as="imp/js/message.js" name="js/message.js" />
+   <install as="imp/js/murmurhash3.js" name="js/murmurhash3.js" />
    <install as="imp/js/passphrase.js" name="js/passphrase.js" />
    <install as="imp/js/pgp.js" name="js/pgp.js" />
    <install as="imp/js/search.js" name="js/search.js" />
@@ -1379,21 +1510,29 @@
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
    <install as="imp/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
+   <install as="imp/js/viewport_utils.js" name="js/viewport_utils.js" />
+   <install as="imp/js/ckeditor/imageupload.js" name="js/ckeditor/imageupload.js" />
+   <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
+   <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
    <install as="imp/lib/Auth.php" name="lib/Auth.php" />
    <install as="imp/lib/Compose.php" name="lib/Compose.php" />
+   <install as="imp/lib/Contacts.php" name="lib/Contacts.php" />
    <install as="imp/lib/Contents.php" name="lib/Contents.php" />
+   <install as="imp/lib/Editor.php" name="lib/Editor.php" />
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
    <install as="imp/lib/Flags.php" name="lib/Flags.php" />
+   <install as="imp/lib/Images.php" name="lib/Images.php" />
    <install as="imp/lib/Imap.php" name="lib/Imap.php" />
    <install as="imp/lib/IMP.php" name="lib/IMP.php" />
    <install as="imp/lib/Indices.php" name="lib/Indices.php" />
    <install as="imp/lib/Mailbox.php" name="lib/Mailbox.php" />
    <install as="imp/lib/Maillog.php" name="lib/Maillog.php" />
    <install as="imp/lib/Message.php" name="lib/Message.php" />
+   <install as="imp/lib/Perms.php" name="lib/Perms.php" />
    <install as="imp/lib/Quota.php" name="lib/Quota.php" />
    <install as="imp/lib/Search.php" name="lib/Search.php" />
    <install as="imp/lib/Sentmail.php" name="lib/Sentmail.php" />
@@ -1406,6 +1545,8 @@
    <install as="imp/lib/Ajax/Application/ListMessages.php" name="lib/Ajax/Application/ListMessages.php" />
    <install as="imp/lib/Ajax/Application/ShowMessage.php" name="lib/Ajax/Application/ShowMessage.php" />
    <install as="imp/lib/Ajax/Application/Handler/Common.php" name="lib/Ajax/Application/Handler/Common.php" />
+   <install as="imp/lib/Ajax/Application/Handler/ComposeAttach.php" name="lib/Ajax/Application/Handler/ComposeAttach.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Draft.php" name="lib/Ajax/Application/Handler/Draft.php" />
    <install as="imp/lib/Ajax/Application/Handler/Dynamic.php" name="lib/Ajax/Application/Handler/Dynamic.php" />
    <install as="imp/lib/Ajax/Application/Handler/ImageUnblock.php" name="lib/Ajax/Application/Handler/ImageUnblock.php" />
    <install as="imp/lib/Ajax/Application/Handler/Mboxtoggle.php" name="lib/Ajax/Application/Handler/Mboxtoggle.php" />
@@ -1416,11 +1557,32 @@
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
+   <install as="imp/lib/Basic/Base.php" name="lib/Basic/Base.php" />
+   <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
+   <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
+   <install as="imp/lib/Basic/Folders.php" name="lib/Basic/Folders.php" />
+   <install as="imp/lib/Basic/Mailbox.php" name="lib/Basic/Mailbox.php" />
+   <install as="imp/lib/Basic/Message.php" name="lib/Basic/Message.php" />
+   <install as="imp/lib/Basic/Pgp.php" name="lib/Basic/Pgp.php" />
+   <install as="imp/lib/Basic/Saveimage.php" name="lib/Basic/Saveimage.php" />
+   <install as="imp/lib/Basic/Search.php" name="lib/Basic/Search.php" />
+   <install as="imp/lib/Basic/Searchbasic.php" name="lib/Basic/Searchbasic.php" />
+   <install as="imp/lib/Basic/Smime.php" name="lib/Basic/Smime.php" />
+   <install as="imp/lib/Basic/Thread.php" name="lib/Basic/Thread.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
+   <install as="imp/lib/Compose/Attachment.php" name="lib/Compose/Attachment.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
+   <install as="imp/lib/Compose/Link.php" name="lib/Compose/Link.php" />
+   <install as="imp/lib/Compose/LinkedAttachment.php" name="lib/Compose/LinkedAttachment.php" />
    <install as="imp/lib/Compose/References.php" name="lib/Compose/References.php" />
+   <install as="imp/lib/Compose/Ui.php" name="lib/Compose/Ui.php" />
    <install as="imp/lib/Compose/View.php" name="lib/Compose/View.php" />
+   <install as="imp/lib/Compose/Attachment/Linked.php" name="lib/Compose/Attachment/Linked.php" />
+   <install as="imp/lib/Compose/Attachment/Storage.php" name="lib/Compose/Attachment/Storage.php" />
+   <install as="imp/lib/Compose/Attachment/Linked/Metadata.php" name="lib/Compose/Attachment/Linked/Metadata.php" />
+   <install as="imp/lib/Compose/Attachment/Storage/Vfs.php" name="lib/Compose/Attachment/Storage/Vfs.php" />
+   <install as="imp/lib/Compose/Attachment/Storage/VfsLinked.php" name="lib/Compose/Attachment/Storage/VfsLinked.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
@@ -1433,6 +1595,7 @@
    <install as="imp/lib/Dynamic/Helper/Base.php" name="lib/Dynamic/Helper/Base.php" />
    <install as="imp/lib/Factory/AuthImap.php" name="lib/Factory/AuthImap.php" />
    <install as="imp/lib/Factory/Compose.php" name="lib/Factory/Compose.php" />
+   <install as="imp/lib/Factory/ComposeAtc.php" name="lib/Factory/ComposeAtc.php" />
    <install as="imp/lib/Factory/Contents.php" name="lib/Factory/Contents.php" />
    <install as="imp/lib/Factory/Flags.php" name="lib/Factory/Flags.php" />
    <install as="imp/lib/Factory/Identity.php" name="lib/Factory/Identity.php" />
@@ -1441,6 +1604,7 @@
    <install as="imp/lib/Factory/Mail.php" name="lib/Factory/Mail.php" />
    <install as="imp/lib/Factory/Mailbox.php" name="lib/Factory/Mailbox.php" />
    <install as="imp/lib/Factory/MailboxList.php" name="lib/Factory/MailboxList.php" />
+   <install as="imp/lib/Factory/Maillog.php" name="lib/Factory/Maillog.php" />
    <install as="imp/lib/Factory/MimeViewer.php" name="lib/Factory/MimeViewer.php" />
    <install as="imp/lib/Factory/Pgp.php" name="lib/Factory/Pgp.php" />
    <install as="imp/lib/Factory/PrefsSort.php" name="lib/Factory/PrefsSort.php" />
@@ -1471,10 +1635,11 @@
    <install as="imp/lib/Flag/System/Match/Flag.php" name="lib/Flag/System/Match/Flag.php" />
    <install as="imp/lib/Flag/System/Match/Header.php" name="lib/Flag/System/Match/Header.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
+   <install as="imp/lib/Imap/Config.php" name="lib/Imap/Config.php" />
    <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
-   <install as="imp/lib/Indices/Form.php" name="lib/Indices/Form.php" />
+   <install as="imp/lib/Indices/Mailbox.php" name="lib/Indices/Mailbox.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeAuth.php" name="lib/LoginTasks/SystemTask/UpgradeAuth.php" />
@@ -1488,9 +1653,15 @@
    <install as="imp/lib/LoginTasks/Task/RecoverDraft.php" name="lib/LoginTasks/Task/RecoverDraft.php" />
    <install as="imp/lib/LoginTasks/Task/RenameSentmailMonthly.php" name="lib/LoginTasks/Task/RenameSentmailMonthly.php" />
    <install as="imp/lib/Mailbox/List.php" name="lib/Mailbox/List.php" />
+   <install as="imp/lib/Mailbox/Ui.php" name="lib/Mailbox/Ui.php" />
+   <install as="imp/lib/Mailbox/List/Pop3.php" name="lib/Mailbox/List/Pop3.php" />
    <install as="imp/lib/Mailbox/List/Thread.php" name="lib/Mailbox/List/Thread.php" />
-   <install as="imp/lib/Mailbox/List/Track.php" name="lib/Mailbox/List/Track.php" />
+   <install as="imp/lib/Mailbox/List/Virtual.php" name="lib/Mailbox/List/Virtual.php" />
+   <install as="imp/lib/Mbox/Generate.php" name="lib/Mbox/Generate.php" />
+   <install as="imp/lib/Mbox/Import.php" name="lib/Mbox/Import.php" />
    <install as="imp/lib/Mbox/Parse.php" name="lib/Mbox/Parse.php" />
+   <install as="imp/lib/Message/Ui.php" name="lib/Message/Ui.php" />
+   <install as="imp/lib/Mime/Headers.php" name="lib/Mime/Headers.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
    <install as="imp/lib/Mime/Viewer/Appledouble.php" name="lib/Mime/Viewer/Appledouble.php" />
@@ -1525,8 +1696,10 @@
    <install as="imp/lib/Notification/Handler/Decorator/NewmailNotify.php" name="lib/Notification/Handler/Decorator/NewmailNotify.php" />
    <install as="imp/lib/Prefs/Identity.php" name="lib/Prefs/Identity.php" />
    <install as="imp/lib/Prefs/Sort.php" name="lib/Prefs/Sort.php" />
-   <install as="imp/lib/Prefs/Sort/Fixed.php" name="lib/Prefs/Sort/Fixed.php" />
+   <install as="imp/lib/Prefs/Sort/FixedDate.php" name="lib/Prefs/Sort/FixedDate.php" />
+   <install as="imp/lib/Prefs/Sort/None.php" name="lib/Prefs/Sort/None.php" />
    <install as="imp/lib/Prefs/Sort/Sortpref.php" name="lib/Prefs/Sort/Sortpref.php" />
+   <install as="imp/lib/Prefs/Sort/Sortpref/Locked.php" name="lib/Prefs/Sort/Sortpref/Locked.php" />
    <install as="imp/lib/Prefs/Special/Acl.php" name="lib/Prefs/Special/Acl.php" />
    <install as="imp/lib/Prefs/Special/ComposeTemplates.php" name="lib/Prefs/Special/ComposeTemplates.php" />
    <install as="imp/lib/Prefs/Special/Drafts.php" name="lib/Prefs/Special/Drafts.php" />
@@ -1555,11 +1728,13 @@
    <install as="imp/lib/Quota/Mercury32.php" name="lib/Quota/Mercury32.php" />
    <install as="imp/lib/Quota/Null.php" name="lib/Quota/Null.php" />
    <install as="imp/lib/Quota/Sql.php" name="lib/Quota/Sql.php" />
+   <install as="imp/lib/Quota/Ui.php" name="lib/Quota/Ui.php" />
    <install as="imp/lib/Script/Package/ComposeBase.php" name="lib/Script/Package/ComposeBase.php" />
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
    <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />
    <install as="imp/lib/Search/Filter.php" name="lib/Search/Filter.php" />
    <install as="imp/lib/Search/Query.php" name="lib/Search/Query.php" />
+   <install as="imp/lib/Search/Ui.php" name="lib/Search/Ui.php" />
    <install as="imp/lib/Search/Vfolder.php" name="lib/Search/Vfolder.php" />
    <install as="imp/lib/Search/Element/Attachment.php" name="lib/Search/Element/Attachment.php" />
    <install as="imp/lib/Search/Element/Autogenerated.php" name="lib/Search/Element/Autogenerated.php" />
@@ -1591,16 +1766,6 @@
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
    <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
-   <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
-   <install as="imp/lib/Ui/Contacts.php" name="lib/Ui/Contacts.php" />
-   <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
-   <install as="imp/lib/Ui/Folder.php" name="lib/Ui/Folder.php" />
-   <install as="imp/lib/Ui/Headers.php" name="lib/Ui/Headers.php" />
-   <install as="imp/lib/Ui/Imageview.php" name="lib/Ui/Imageview.php" />
-   <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
-   <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
-   <install as="imp/lib/Ui/Quota.php" name="lib/Ui/Quota.php" />
-   <install as="imp/lib/Ui/Search.php" name="lib/Ui/Search.php" />
    <install as="imp/lib/View/Subinfo.php" name="lib/View/Subinfo.php" />
    <install as="imp/locale/.htaccess" name="locale/.htaccess" />
    <install as="imp/locale/imp.pot" name="locale/imp.pot" />
@@ -1723,6 +1888,7 @@
    <install as="imp/locale/zh_TW/LC_MESSAGES/imp.po" name="locale/zh_TW/LC_MESSAGES/imp.po" />
    <install as="imp/migration/1_imp_base_tables.php" name="migration/1_imp_base_tables.php" />
    <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
+   <install as="imp/migration/3_imp_maillog_update.php" name="migration/3_imp_maillog_update.php" />
    <install as="imp/templates/.htaccess" name="templates/.htaccess" />
    <install as="imp/templates/basic/subinfo.html.php" name="templates/basic/subinfo.html.php" />
    <install as="imp/templates/basic/compose/compose.html.php" name="templates/basic/compose/compose.html.php" />
@@ -1797,7 +1963,6 @@
    <install as="imp/templates/search/search-all.html.php" name="templates/search/search-all.html.php" />
    <install as="imp/templates/search/search.html.php" name="templates/search/search.html.php" />
    <install as="imp/templates/smartmobile/compose.html.php" name="templates/smartmobile/compose.html.php" />
-   <install as="imp/templates/smartmobile/confirm.html.php" name="templates/smartmobile/confirm.html.php" />
    <install as="imp/templates/smartmobile/copymove.html.php" name="templates/smartmobile/copymove.html.php" />
    <install as="imp/templates/smartmobile/folders.html.php" name="templates/smartmobile/folders.html.php" />
    <install as="imp/templates/smartmobile/mailbox.html.php" name="templates/smartmobile/mailbox.html.php" />
@@ -1955,24 +2120,14 @@
    <install as="imp/themes/default/minimal/screen.css" name="themes/default/minimal/screen.css" />
    <install as="imp/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="imp/attachment.php" name="attachment.php" />
-   <install as="imp/compose.php" name="compose.php" />
-   <install as="imp/contacts.php" name="contacts.php" />
+   <install as="imp/basic.php" name="basic.php" />
    <install as="COPYING" name="COPYING" />
    <install as="imp/dynamic.php" name="dynamic.php" />
-   <install as="imp/folders.php" name="folders.php" />
    <install as="imp/index.php" name="index.php" />
-   <install as="imp/mailbox.php" name="mailbox.php" />
-   <install as="imp/message.php" name="message.php" />
    <install as="imp/minimal.php" name="minimal.php" />
-   <install as="imp/pgp.php" name="pgp.php" />
    <install as="README" name="README" />
    <install as="imp/rss.php" name="rss.php" />
-   <install as="imp/saveimage.php" name="saveimage.php" />
-   <install as="imp/search-basic.php" name="search-basic.php" />
-   <install as="imp/search.php" name="search.php" />
    <install as="imp/smartmobile.php" name="smartmobile.php" />
-   <install as="imp/smime.php" name="smime.php" />
-   <install as="imp/thread.php" name="thread.php" />
    <install as="imp/view.php" name="view.php" />
   </filelist>
  </phprelease>
@@ -2841,7 +2996,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
+<<<<<<< HEAD
    <date>2012-11-07</date>
+=======
+   <date>2012-11-06</date>
+>>>>>>> imp_6_1
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix shift-clicking in dynamic mailbox view when navigating to other mailboxes (Bug #11520).

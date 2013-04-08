@@ -62,7 +62,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             reset($ret);
             $GLOBALS['page_output']->topbar = $GLOBALS['page_output']->sidebar = false;
             Horde::startBuffer();
-            $GLOBALS['page_output']->header();
+            $GLOBALS['page_output']->header(array(
+                'html_id' => 'htmlAllowScroll'
+            ));
             echo $ret[key($ret)]['data'];
             $GLOBALS['page_output']->footer();
             $ret[key($ret)]['data'] = Horde::endBuffer();
@@ -103,9 +105,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ItipRequest', array(
-            'mailbox' => $imp_contents->getMailbox(),
             'mime_id' => $mime_id,
-            'uid' => $imp_contents->getUid()
+            'muid' => strval($imp_contents->getIndicesOb())
         ));
 
         // Get the method type.
@@ -316,13 +317,14 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         case 'REPLY':
             $desc = _("%s has replied to the invitation to \"%s\".");
-            $sender = $this->getConfigParam('imp_contents')->getHeader()->getValue('From');
+            $sender_ob = $this->getConfigParam('imp_contents')->getHeader()->getOb('From');
+            $sender = $sender_ob[0]->bare_address;
             if ($registry->hasMethod('calendar/updateAttendee') &&
                 $this->_autoUpdateReply('auto_update_eventreply', $sender)) {
                 try {
                     $registry->call('calendar/updateAttendee', array(
                         $vevent,
-                        IMP::bareAddress($sender)
+                        $sender
                     ));
                     $notification->push(_("Respondent Status Updated."), 'horde.success');
                 } catch (Horde_Exception $e) {
@@ -643,7 +645,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
     {
         if (!empty($this->_conf[$type])) {
             if (is_array($this->_conf[$type])) {
-                $ob = new Horde_Mail_Rfc822_Address(IMP::bareAddress($sender));
+                $ob = new Horde_Mail_Rfc822_Address($sender);
                 foreach ($this->_conf[$type] as $val) {
                     if ($ob->matchDomain($val)) {
                         return true;

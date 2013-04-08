@@ -20,14 +20,8 @@
 class IMP_Quota_Hook extends IMP_Quota
 {
     /**
-     * Get quota information (used/allocated), in bytes.
-     *
-     * @return array  An array with the following keys:
-     *                'limit' = Maximum quota allowed
-     *                'usage' = Currently used portion of quota (in bytes)
-     * @throws IMP_Exception
      */
-    public function getQuota()
+    public function getQuota($mailbox = null)
     {
         try {
             $quota = Horde::callHook('quota', array($this->_params), 'imp');

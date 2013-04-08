@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category   Horde
- * @copyright 2010-2013 Horde LLC
+ * @copyright  2010-2013 Horde LLC
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
  * @subpackage UnitTests
@@ -18,7 +18,7 @@
  * @author     Michael Slusarz <slusarz@horde.org>
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
- * @copyright 2010-2013 Horde LLC
+ * @copyright  2010-2013 Horde LLC
  * @ignore
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
@@ -114,7 +114,10 @@ extends PHPUnit_Framework_TestCase
                     ->will($this->returnCallback(array($this, '_identityGetDefault')));
                 $identity->expects($this->any())
                     ->method('getFromAddress')
-                    ->will($this->returnValue(new Horde_Mail_Rfc822_Address('test@example.org')));
+                    ->will($this->returnCallback(array($this, '_identityGetFromAddress')));
+                $identity->expects($this->any())
+                    ->method('getDefaultFromAddress')
+                    ->will($this->returnValue(new Horde_Mail_Rfc822_Address('"Mr. Test" <test@example.org>')));
                 $identity->expects($this->any())
                     ->method('getValue')
                     ->will($this->returnCallback(array($this, '_identityGetValue')));
@@ -130,6 +133,9 @@ extends PHPUnit_Framework_TestCase
                 $this->_mail = new Horde_Mail_Transport_Mock();
             }
             return $this->_mail;
+
+        case 'IMP_Imap':
+            return new IMP_Imap();
         }
     }
 
@@ -163,14 +169,22 @@ extends PHPUnit_Framework_TestCase
         return $this->_identityId;
     }
 
-    public function _identityGetValue($value)
+    public function _identityGetFromAddress($value)
+    {
+        return new Horde_Mail_Rfc822_Address($this->_identityGetValue('replyto_addr'), $value);
+    }
+
+    public function _identityGetValue($value, $identity = null)
     {
         switch ($value) {
         case 'fullname':
             return 'Mr. Test';
 
         case 'replyto_addr':
-            switch ($this->_identityId) {
+            $id = is_null($identity)
+                ? $this->_identityId
+                : $identity;
+            switch ($id) {
             case 'test':
                 return 'test@example.org';
 

@@ -61,14 +61,8 @@ class IMP_Quota_Command extends IMP_Quota
     }
 
     /**
-     * Get quota information (used/allocated), in bytes.
-     *
-     * @return array  An array with the following keys:
-     *                'limit' = Maximum quota allowed
-     *                'usage' = Currently used portion of quota (in bytes)
-     * @throws IMP_Exception
      */
-    public function getQuota()
+    public function getQuota($mailbox = null)
     {
         if (empty($this->_params['partition'])) {
             $passwd_array = posix_getpwnam($this->_params['username']);

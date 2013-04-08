@@ -18,7 +18,6 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
      * URL Parameters:
      *   - a: (string) Action ID.
      *   - checkbox: TODO
-     *   - indices: TODO
      *   - mt: TODO
      *   - p: (integer) Page.
      *   - search: (sring) The search string
@@ -28,14 +27,14 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
     {
         global $injector, $notification, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $imp_search = $injector->getInstance('IMP_Search');
 
         /* Determine if mailbox is readonly. */
-        $readonly = IMP::mailbox()->readonly;
+        $readonly = $this->indices->mailbox->readonly;
 
         /* Get the base URL for this page. */
-        $mailbox_url = self::url();
+        $mailbox_url = self::url(array('mailbox' => $this->indices->mailbox));
 
         /* Perform message actions (via advanced UI). */
         switch ($this->vars->checkbox) {
@@ -48,12 +47,12 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
             if ($this->vars->checkbox == 'd') {
                 try {
                     $injector->getInstance('Horde_Token')->validate($this->vars->mt, 'imp.message-mimp');
-                    $imp_message->delete(new IMP_Indices($this->vars->indices));
+                    $imp_message->delete($this->indices);
                 } catch (Horde_Token_Exception $e) {
                     $notification->push($e);
                 }
             } else {
-                $imp_message->undelete(new IMP_Indices($this->vars->indices));
+                $imp_message->undelete($this->indices);
             }
             break;
 
@@ -61,7 +60,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
         // 'ri' = report innocent
         case 'rs':
         case 'ri':
-            IMP_Spam::reportSpam(new IMP_Indices($this->vars->indices), $this->vars->checkbox == 'rs' ? 'spam' : 'notspam');
+            $injector->getInstance('IMP_Spam')->report($this->indices, $this->vars->checkbox == 'rs' ? IMP_Spam::SPAM : IMP_Spam::INNOCENT);
             break;
         }
 
@@ -74,33 +73,33 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
 
         // 'e' = expunge mailbox
         case 'e':
-            $injector->getInstance('IMP_Message')->expungeMailbox(array(strval(IMP::mailbox()) => 1));
+            $injector->getInstance('IMP_Message')->expungeMailbox(array(strval($this->indices->mailbox) => 1));
             break;
 
         // 'ds' = do search
         case 'ds':
             if (!empty($this->vars->search) &&
-                $imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+                $this->indices->mailbox->access_search) {
                 /* Create the search query and reset the global mailbox
                  * variable. */
                 $q_ob = $imp_search->createQuery(array(new IMP_Search_Element_Text($this->vars->search, false)), array(
-                    'mboxes' => array(IMP::mailbox())
+                    'mboxes' => array($this->indices->mailbox)
                 ));
-                IMP::setMailboxInfo($q_ob);
 
                 /* Need to re-calculate these values. */
-                $readonly = IMP::mailbox()->readonly;
-                $mailbox_url = self::url();
+                $this->indices->mailbox = IMP_Mailbox::get($q_ob);
+                $readonly = $this->indices->mailbox->readonly;
+                $mailbox_url = self::url(array('mailbox' => $this->indices->mailbox));
             }
             break;
         }
 
         /* Build the list of messages in the mailbox. */
-        $imp_mailbox = IMP::mailbox()->getListOb();
+        $imp_mailbox = $this->indices->mailbox->list_ob;
         $pageOb = $imp_mailbox->buildMailboxPage($this->vars->p, $this->vars->start);
 
         /* Generate page title. */
-        $this->title = IMP::mailbox()->display;
+        $this->title = $this->indices->mailbox->display;
 
         /* Modify title for display on page. */
         if ($pageOb['msgcount']) {
@@ -120,16 +119,16 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
         $this->view->title = $this->title;
 
         /* Build the array of message information. */
-        $imp_ui = new IMP_Ui_Mailbox(IMP::mailbox());
+        $imp_ui = new IMP_Mailbox_Ui($this->indices->mailbox);
         $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => true));
         $msgs = array();
 
         while (list(,$ob) = each($mbox_info['overview'])) {
             /* Initialize the header fields. */
             $msg = array(
+                'buid' => $imp_mailbox->getBuid($ob['mailbox'], $ob['uid']),
                 'status' => '',
-                'subject' => trim($imp_ui->getSubject($ob['envelope']->subject)),
-                'uid' => strval(new IMP_Indices($ob['mailbox'], $ob['uid']))
+                'subject' => trim($imp_ui->getSubject($ob['envelope']->subject))
             );
 
             /* Format the from header. */
@@ -152,21 +151,25 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
             }
 
             /* Generate the target link. */
-            if (IMP::mailbox()->templates) {
+            if ($this->indices->mailbox->templates) {
                 $compose = 't';
-            } elseif (IMP::mailbox()->draft ||
+            } elseif ($this->indices->mailbox->draft ||
                       in_array(Horde_Imap_Client::FLAG_DRAFT, $ob['flags'])) {
                 $compose = 'd';
             } else {
-                $msg['target'] = IMP_Minimal_Message::url(array('mailbox' => $ob['mailbox'], 'uid' => $ob['uid']));
+                $msg['target'] = IMP_Minimal_Message::url(array(
+                    'buid' => $msg['buid'],
+                    'mailbox' => $this->indices->mailbox
+                ));
             }
 
             if (!isset($msg['target'])) {
-                $msg['target'] = IMP::composeLink(array(), array(
+                $clink = new IMP_Compose_Link();
+                $msg['target'] = $clink->link()->add(array(
                     'a' => $compose,
-                    'thismailbox' => IMP::mailbox(),
-                    'uid' => $ob['uid'],
-                    'bodypart' => 1
+                    'buid' => $msg['buid'],
+                    'bodypart' => 1,
+                    'mailbox' => $this->indices->mailbox
                 ));
             }
 
@@ -176,23 +179,23 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
 
         $mailbox = $mailbox_url->copy()->add('p', $pageOb['page']);
         $menu = array(array(_("Refresh"), $mailbox));
-        $search_mbox = $imp_search->isSearchMbox(IMP::mailbox());
+        $search_mbox = $this->indices->mailbox->search;
 
         /* Determine if we are going to show the Purge Deleted link. */
         if (!$prefs->getValue('use_trash') &&
-            !$imp_search->isVinbox(IMP::mailbox()) &&
-            IMP::mailbox()->access_expunge) {
+            !$this->indices->mailbox->vinbox &&
+            $this->indices->mailbox->access_expunge) {
             $menu[] = array(_("Purge Deleted"), $mailbox->copy()->add('a', 'e'));
         }
 
         /* Add search link. */
-        if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+        if ($this->indices->mailbox->access_search) {
             if ($search_mbox) {
-                $mboxes = $imp_search[strval(IMP::mailbox())]->mboxes;
+                $mboxes = $imp_search[strval($this->indices->mailbox)]->mboxes;
                 $orig_mbox = IMP_Mailbox::get(reset($mboxes));
                 $menu[] = array(sprintf(_("New Search in %s"), $orig_mbox->label), IMP_Minimal_Search::url(array('mailbox' => $orig_mbox)));
             } else {
-                $menu[] = array(_("Search"), IMP_Minimal_Search::url());
+                $menu[] = array(_("Search"), IMP_Minimal_Search::url(array('mailbox' => $this->indices->mailbox)));
             }
         }
 
@@ -208,14 +211,9 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
 
         $this->view->menu = $this->getMenu('mailbox', $menu);
 
-        /* Activate advanced checkbox UI? */
-        try {
-            if (Horde::callHook('mimp_advanced', array('checkbox'), 'imp')) {
-                $this->view->checkbox = $mailbox_url->copy()->add('p', $pageOb['page']);
-                $this->view->delete = IMP::mailbox()->access_deletemsgs;
-                $this->view->mt = $injector->getInstance('Horde_Token')->get('imp.message-mimp');
-            }
-        } catch (Horde_Exception_HookNotSet $e) {}
+        $this->view->checkbox = $mailbox_url->copy()->add('p', $pageOb['page']);
+        $this->view->delete = $this->indices->mailbox->access_deletemsgs;
+        $this->view->mt = $injector->getInstance('Horde_Token')->get('imp.message-mimp');
 
         $this->_pages[] = 'mailbox';
         $this->_pages[] = 'menu';
@@ -223,16 +221,13 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
 
     /**
      * @param array $opts  Options:
-     *   - mailbox: (string) The mailbox to link to. Defaults to current
-     *              mailbox.
+     *   - mailbox: (string) The mailbox to link to.
      */
     static public function url(array $opts = array())
     {
-        $mbox = isset($opts['mailbox'])
-            ? IMP_Mailbox::get($opts['mailbox'])
-            : IMP::mailbox();
+        $opts = array_merge(array('mailbox' => 'INBOX'), $opts);
 
-        return $mbox->url('minimal.php')->add('page', 'mailbox');
+        return IMP_Mailbox::get($opts['mailbox'])->url('minimal')->add('page', 'mailbox');
     }
 
 }

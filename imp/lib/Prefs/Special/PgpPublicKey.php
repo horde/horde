@@ -1,16 +1,24 @@
 <?php
 /**
- * Special prefs handling for the 'pgppublickey' preference.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Special prefs handling for the 'pgppublickey' preference.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Prefs_Special_PgpPublicKey implements Horde_Core_Prefs_Ui_Special
 {
@@ -37,7 +45,7 @@ class IMP_Prefs_Special_PgpPublicKey implements Horde_Core_Prefs_Ui_Special
             $pubkey_list = array();
         }
 
-        $pgp_url = Horde::url('pgp.php');
+        $pgp_url = IMP_Basic_Pgp::url();
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'

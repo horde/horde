@@ -22,9 +22,6 @@
  */
 class IMP_Ajax_Application_ListMessages
 {
-    /* String used to separate mailboxes/indexes in search mailboxes. */
-    const IDX_SEP = "\0";
-
     /**
      * Does the flags hook exist?
      *
@@ -50,7 +47,7 @@ class IMP_Ajax_Application_ListMessages
      */
     public function listMessages($args)
     {
-        global $injector;
+        global $injector, $notification, $registry;
 
         $initial = $args['initial'];
         $is_search = false;
@@ -93,7 +90,7 @@ class IMP_Ajax_Application_ListMessages
                             $args['qsearch'],
                             $args['qsearchfield']
                         );
-                    break;
+                        break;
 
                     case 'recip':
                         $c_list[] = new IMP_Search_Element_Recipient(
@@ -121,7 +118,7 @@ class IMP_Ajax_Application_ListMessages
         }
 
         /* Set the current time zone. */
-        $GLOBALS['registry']->setTimeZone();
+        $registry->setTimeZone();
 
         /* Run filters now. */
         if (!empty($args['applyfilter'])) {
@@ -131,7 +128,7 @@ class IMP_Ajax_Application_ListMessages
         }
 
         /* Generate the sorted mailbox list now. */
-        $mailbox_list = $mbox->getListOb();
+        $mailbox_list = $mbox->list_ob;
         $msgcount = count($mailbox_list);
 
         /* Create the base object. */
@@ -139,7 +136,7 @@ class IMP_Ajax_Application_ListMessages
         $result->cacheid = $mbox->cacheid_date;
         $result->totalrows = $msgcount;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
@@ -155,7 +152,7 @@ class IMP_Ajax_Application_ListMessages
                     $imp_imap->sync($mbox, $parsed['token'], array(
                         'criteria' => Horde_Imap_Client::SYNC_UIDVALIDITY
                     ));
-                } catch (Horde_Imap_Cache_Exception_Sync $e) {
+                } catch (Horde_Imap_Client_Exception_Sync $e) {
                     $uid_expire = true;
                 }
             }
@@ -186,6 +183,9 @@ class IMP_Ajax_Application_ListMessages
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {
+            if (!$mbox->is_imap) {
+                $md->pop3 = 1;
+            }
             if ($sortpref->sortby_locked) {
                 $md->sortbylock = 1;
             }
@@ -203,11 +203,19 @@ class IMP_Ajax_Application_ListMessages
                     $md->templates = 1;
                 }
             } elseif ($mbox->spam) {
-                $md->spam = 1;
+                $md->innocent_show = 1;
+                if ($mbox->spam_show) {
+                    $md->spam_show = 1;
+                }
+            } else {
+                if ($mbox->innocent_show) {
+                    $md->innocent_show = 1;
+                }
+                $md->spam_show = 1;
             }
 
             if ($is_search) {
-                $md->search = 1;
+                $md->innocent_show = $md->search = $md->spam_show = 1;
             }
 
             /* Generate flag array. */
@@ -255,7 +263,7 @@ class IMP_Ajax_Application_ListMessages
          * 1 message, we don't need this check. */
         if (empty($msgcount) && !$is_search) {
             if (!$mbox->exists) {
-                $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $mbox->label), 'horde.error');
+                $notification->push(sprintf(_("Mailbox %s does not exist."), $mbox->label), 'horde.error');
             }
 
             if (!empty($args['change'])) {
@@ -274,19 +282,12 @@ class IMP_Ajax_Application_ListMessages
         }
 
         /* Get the cached list. */
-        $cached = array();
-        if (!empty($args['cache'])) {
-            $ids = new IMP_Indices($args['cache']);
-            foreach ($ids as $val) {
-                $val->mbox = IMP_Mailbox::formFrom($val->mbox);
-
-                foreach ($val->uids as $val2) {
-                    $cached[] = $is_search
-                        ? $this->searchUid($val->mbox, $val2)
-                        : $val2;
-                }
-            }
-            $cached = array_flip($cached);
+        if (empty($args['cache'])) {
+            $cached = array();
+        } else {
+            $cache_indices = new IMP_Indices($mbox, $args['cache']);
+            $cache_uids = $cache_indices->getSingle(true);
+            $cached = array_flip($cache_uids[1]);
         }
 
         if (!$is_search && !empty($args['search_unseen'])) {
@@ -309,7 +310,7 @@ class IMP_Ajax_Application_ListMessages
                 : (isset($rownum) ? ($rownum + 1) : null);
 
         /* Determine the row slice to process. */
-        if (is_null($rownum)) {
+        if (is_null($rownum) || isset($args['slice_start'])) {
             $slice_start = $args['slice_start'];
             $slice_end = $args['slice_end'];
         } else {
@@ -320,19 +321,19 @@ class IMP_Ajax_Application_ListMessages
             } elseif ($slice_end > $msgcount) {
                 $slice_start -= $slice_end - $msgcount;
             }
+        }
 
+        if (!is_null($rownum)) {
             $result->rownum = $rownum;
         }
 
         $slice_start = max(1, $slice_start);
         $slice_end = min($msgcount, $slice_end);
 
-        /* Generate UID list. */
-        $changed = $data = $msglist = $rowlist = $uidlist = array();
-        foreach ($mailbox_list as $key => $val) {
-            $uidlist[] = $is_search
-                ? $this->searchUid($val['m'], $val['u'])
-                : $val['u'];
+        /* Generate BUID list. */
+        $buidlist = $changed = $data = $msglist = $rowlist = array();
+        foreach ($mailbox_list as $val) {
+            $buidlist[] = $mailbox_list->getBuid($val['m'], $val['u']);
         }
 
         /* If we are updating the rowlist on the browser, and we have cached
@@ -340,7 +341,7 @@ class IMP_Ajax_Application_ListMessages
          * have 'disappeared'. */
         if (!empty($cached) && isset($result->rowlist_reset)) {
             $disappear = array();
-            foreach (array_diff(array_keys($cached), $uidlist) as $uid) {
+            foreach (array_diff(array_keys($cached), $buidlist) as $uid) {
                 $disappear[] = $uid;
                 unset($cached[$uid]);
             }
@@ -359,7 +360,7 @@ class IMP_Ajax_Application_ListMessages
             $changed = array_flip($sync_ob->flagsuids->ids);
         }
 
-        foreach (array_slice($uidlist, $slice_start - 1, $slice_end - $slice_start + 1, true) as $key => $uid) {
+        foreach (array_slice($buidlist, $slice_start - 1, $slice_end - $slice_start + 1, true) as $key => $uid) {
             $seq = ++$key;
             $msglist[$seq] = $mailbox_list[$seq]['u'];
             $rowlist[$uid] = $seq;
@@ -418,32 +419,27 @@ class IMP_Ajax_Application_ListMessages
         }
 
         /* Get mailbox information. */
-        $overview = $mbox->getListOb()->getMailboxArray($msglist, array(
+        $flags = $mbox->access_flags;
+        $imp_ui = new IMP_Mailbox_Ui($mbox);
+        $list_ob = $mbox->list_ob;
+        $overview = $list_ob->getMailboxArray($msglist, array(
             'headers' => true,
             'type' => $GLOBALS['prefs']->getValue('atc_flag')
         ));
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        $imp_ui = new IMP_Ui_Mailbox($mbox);
-
-        $flags = $imp_imap->access(IMP_Imap::ACCESS_FLAGS);
-        $pop3 = $imp_imap->pop3;
-        $search = $mbox->search;
 
         /* Display message information. */
         reset($overview['overview']);
         while (list(,$ob) = each($overview['overview'])) {
             /* Initialize the header fields. */
             $msg = array(
-                'flag' => array(),
-                'mbox' => IMP_Mailbox::formTo($ob['mailbox']),
-                'uid' => ($pop3 ? $ob['uid'] : intval($ob['uid']))
+                'flag' => array()
             );
 
             /* Get all the flag information. */
             if ($flags) {
                 if ($this->_flaghook) {
                     try {
-                        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'dimp'), 'imp'));
+                        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob), 'imp'));
                     } catch (Horde_Exception_HookNotSet $e) {
                         $this->_flaghook = false;
                     }
@@ -461,7 +457,7 @@ class IMP_Ajax_Application_ListMessages
             }
 
             /* Format size information. */
-            $msg['size'] = $imp_ui->getSize($ob['size']);
+            $msg['size'] = IMP::sizeFormat($ob['size']);
 
             /* Format the Date: Header. */
             $msg['date'] = $imp_ui->getDate($ob['envelope']->date);
@@ -481,18 +477,12 @@ class IMP_Ajax_Application_ListMessages
                 $msg['listmsg'] = 1;
             }
 
-            /* Need both mailbox and UID to create a unique ID string if
-             * using a search mailbox.  Otherwise, use only the UID. */
-            if ($search) {
-                $msgs[$this->searchUid($ob['mailbox'], $ob['uid'])] = $msg;
-            } else {
-                $msgs[$ob['uid']] = $msg;
-            }
+            $msgs[$list_ob->getBuid($ob['mailbox'], $ob['uid'])] = $msg;
         }
 
         /* Allow user to alter template array. */
         try {
-            $msgs = Horde::callHook('mailboxarray', array($msgs, 'dimp'), 'imp');
+            $msgs = Horde::callHook('mailboxarray', array($msgs), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $msgs;
@@ -517,19 +507,6 @@ class IMP_Ajax_Application_ListMessages
         $ob->view = $mbox->form_to;
 
         return $ob;
-    }
-
-    /**
-     * Generate the ViewPort UID to use for search mailboxes.
-     *
-     * @param string $mbox  Message mailbox.
-     * @param string $uid   Message UID.
-     *
-     * @return string  ViewPort UID.
-     */
-    static public function searchUid($mbox, $uid)
-    {
-        return IMP::base64urlEncode(strval($mbox) . self::IDX_SEP . $uid);
     }
 
 }

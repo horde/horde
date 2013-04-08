@@ -6,6 +6,7 @@
  */
 
 var ImpFlagPrefs = {
+
     // Variables set by other code: confirm_delete, new_prompt
 
     addFlag: function()
@@ -18,17 +19,15 @@ var ImpFlagPrefs = {
 
     _sendData: function(a, d)
     {
-        $('flag_action').setValue(a)
+        $('flag_action').setValue(a);
         $('flag_data').setValue(d);
         $('prefs').submit();
     },
 
-    changeHandler: function(e)
+    changeHandler: function(e, elt)
     {
-        var elt = e.element(), elt2;
-
-        if (elt.tagName == 'INPUT' && elt.identify().startsWith('bg_')) {
-            elt.setStyle({'background': elt.getValue()});
+        if (elt.identify().startsWith('bg_')) {
+            elt.setStyle({ background: elt.getValue() });
         }
     },
 
@@ -80,4 +79,4 @@ var ImpFlagPrefs = {
 
 document.observe('dom:loaded', ImpFlagPrefs.onDomLoad.bind(ImpFlagPrefs));
 document.observe('HordeCore:click', ImpFlagPrefs.clickHandler.bindAsEventListener(ImpFlagPrefs));
-document.observe('change', ImpFlagPrefs.changeHandler.bindAsEventListener(ImpFlagPrefs));
+document.on('change', 'INPUT', ImpFlagPrefs.changeHandler.bind(ImpFlagPrefs));

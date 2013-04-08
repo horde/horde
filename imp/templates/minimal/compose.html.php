@@ -54,6 +54,9 @@
 <?php endif; ?>
   <input type="submit" name="a" value="<?php echo _("Expand Names") ?>" />
   <input type="submit" name="a" value="<?php echo _("Cancel") ?>" />
+<?php if ($this->resume): ?>
+  <input type="submit" name="a" value="<?php echo _("Discard Draft") ?>" />
+<?php endif; ?>
  </p>
 
 <?php if ($this->attach): ?>

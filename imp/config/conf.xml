@@ -2,20 +2,8 @@
 <!-- $Id$ -->
 <configuration>
  <configtab name="user" desc="User Capabilities and Constraints">
-  <configsection name="user">
-   <configswitch name="allow_folders" desc="Are users allowed to use
-    folders? (Only affects IMAP servers; POP servers never support
-    folders)">true
-    <case name="true" desc="Yes">
-     <configboolean name="autocreate_special" required="false"
-     desc="Automatically create special mailboxes (Drafts, Sent Mail, Spam,
-     Trash) on login?">false</configboolean>
-    </case>
-    <case name="false" desc="No" />
-   </configswitch>
-   <configboolean name="allow_view_source" desc="If true, a user will be
-   allowed to view the raw source of a message.">true</configboolean>
-  </configsection>
+  <configboolean name="allow_view_source" desc="If true, a user will be
+  allowed to view the raw source of a message.">true</configboolean>
  </configtab>
 
  <configtab name="server" desc="Server">
@@ -30,84 +18,6 @@
     <case name="shown" desc="Shown" />
     <case name="hidden" desc="Hidden" />
    </configswitch>
-   <configlist name="fixed_folders" required="false" desc="A comma separated
-   list of mailboxes that can't be modified (deleted, renamed, etc) by the
-   user, e.g.: &quot;Drafts, Trash&quot;."/>
-  </configsection>
- </configtab>
-
- <configtab name="msgsettings" desc="Message and Spam">
-  <configheader>Message Settings</configheader>
-  <configsection name="msgsettings">
-   <configsection name="filtering">
-    <configstring name="words" desc="If message content filtering is enabled
-    (see 'filtering' preference), this is the filesystem location of the
-    filtered words list.">./config/filter.txt</configstring>
-    <configstring name="replacement" desc="What should filtered words be
-    replaced with?">****</configstring>
-   </configsection>
-  </configsection>
-
-  <configsection name="spam">
-   <configheader>Spam Reporting</configheader>
-   <configswitch name="reporting" desc="Should a spam reporting link be
-   displayed?">false
-    <case name="true" desc="Yes">
-     <configboolean name="spamfolder" desc="Should the spam link also appear
-     in the user's spam mailbox?">false</configboolean>
-     <configstring name="email" required="false" desc="Should spam messages be
-     reported via e-mail? If you need to dynamically set the e-mail address for
-     each user (e.g. DSPAM), leave this setting empty and use the 'spam_email'
-     hook instead."/>
-     <configswitch name="email_format" required="false" desc="If reporting
-     via email, what format should the spam messages be sent as? The default
-     and recommended value is 'digest', which packages the raw data of all
-     spam messages to report in a single multipart/digest message. 'redirect'
-     will redirect the spam messages instead, but note that this alters the
-     original message's headers and may break embedded signature
-     information.">digest
-      <case name="digest" desc="Digest" />
-      <case name="redirect" desc="Redirect" />
-     </configswitch>
-     <configstring name="program" required="false" desc="Should spam messages
-     be reported via an external program (e.g. the spamassassin binary)? The
-     placeholder %u in this string will be replaced with the current Horde
-     username. The placeholder %l in this string will be replaced with the
-     current short username. The placeholder %d in this string will be
-     replaced with the current domain name."/>
-    </case>
-    <case name="false" desc="No" />
-   </configswitch>
-  </configsection>
-
-  <configheader>Innocent (not-spam) Reporting</configheader>
-  <configsection name="notspam">
-   <configswitch name="reporting" desc="Should a innocent message (not-spam)
-   reporting link be displayed?">false
-    <case name="true" desc="Yes">
-     <configboolean name="spamfolder" desc="Should the link only appear in the
-     user's spam mailbox?">true</configboolean>
-     <configstring name="email" required="false" desc="Should innocent messages
-     be reported via e-mail? If you need to dynamically set the e-mail address
-     for each user (e.g. DSPAM), leave this setting empty and use the
-     'spam_email' hook instead."/>
-     <configswitch name="email_format" required="false" desc="If reporting
-     via email, what format should the innocent messages be sent as? The
-     default and recommended value is 'digest', which packages the raw data of
-     all innocent messages to report in a single multipart/digest message.
-     'redirect' will redirect the innocent messages instead, but note that this
-     alters the original message's headers and may break embedded signature
-     information.">digest
-      <case name="digest" desc="Digest" />
-      <case name="redirect" desc="Redirect" />
-     </configswitch>
-     <configstring name="program" required="false" desc="Should innocent
-     messages be reported via an external program (e.g. the spamassasin
-     binary)? The placeholder %u in this string will be replaced with the
-     current username."/>
-    </case>
-    <case name="false" desc="No" />
-   </configswitch>
   </configsection>
  </configtab>
 
@@ -116,16 +26,17 @@
    <configheader>Attachments</configheader>
    <configboolean name="use_vfs" desc="Should the Horde VFS system be used for
    storing uploaded attachments?">false</configboolean>
-   <configswitch name="link_attachments" desc="Should users be allowed to send
-   attachments as links?">true
+   <configswitch name="link_attachments" desc="Should attachments be sent as
+   web-accessible links?">true
     <case name="true" desc="Yes">
-     <configboolean name="link_all_attachments" desc="Send all attachments as
-     links? If false, the user will be given the option to individually link
-     any attachment.">false</configboolean>
      <configboolean name="link_attachments_notify" desc="Send an e-mail
      notification to the sender when the first person attempts to download the
      linked attachment? This notification includes a link to delete the
      file.">true</configboolean>
+     <configinteger name="link_attach_threshold" desc="The size of an
+     attachment (in bytes) at which point the file is linked. Files below
+     this threshold will be directly attached to the message. Set to 0 to
+     attach all files as links.">5242880</configinteger>
      <configinteger name="link_attach_size_limit" desc="The maximum total size
      of linked attachments allowed per message (in bytes)? Set to 0 for no
      limit.">0</configinteger>
@@ -161,6 +72,23 @@
    <configinteger name="ac_threshold" desc="When autocompleting addresses on
    the compose screen, the minimum number of characters required before the
    the addressbook is searched.">3</configinteger>
+  </configsection>
+ </configtab>
+
+ <configtab name="pgp" desc="PGP Settings">
+  <configsection name="pgp">
+   <configswitch name="keylength" desc="The keylength (in bits) to use for
+   generation of a new PGP keypair. GnuPG recommends the creation of 2048 bit
+   keys. The IMP default is, however, 1024 bits since key generation requires
+   sufficient entropy in the local random source pool - a decision which can
+   only be made by the local administrator. (A pool with insufficient random
+   output can cause key generation to timeout before successful generation can
+   be completed).">1024
+    <case name="0" desc="Disable generation" />
+    <case name="1024" desc="1024" />
+    <case name="2048" desc="2048" />
+    <case name="4096" desc="4096" />
+   </configswitch>
   </configsection>
  </configtab>
 

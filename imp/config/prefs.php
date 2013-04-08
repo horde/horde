@@ -53,7 +53,7 @@ $_prefs['signature'] = array(
 );
 
 $_prefs['sig_dashes'] = array(
-    'value' => 0,
+    'value' => 1,
     'type' => 'checkbox',
     'desc' => _("Precede your text signature with dashes ('-- ')?")
 );
@@ -82,11 +82,9 @@ $_prefs['save_sent_mail'] = array(
 // sent mail mailbox
 $_prefs['sent_mail_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Sent'
-    // Exchange servers use this default value instead.
-    // 'value' => 'Sent Items'
 );
 
 // sent mail mailbox selection widget.
@@ -106,12 +104,7 @@ $prefGroups['acl'] = array(
     'desc' => _("Share your mailboxes with other users."),
     'members' => array('aclmanagement'),
     'suppress' => function() {
-        try {
-            $GLOBALS['injector']->getInstance('IMP_Imap_Acl');
-            return false;
-        } catch (IMP_Exception $e) {
-            return true;
-        }
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_ACL);
     }
 );
 
@@ -139,7 +132,7 @@ $prefGroups['searches'] = array(
         'searchesmanagement'
     ),
     'suppress' => function() {
-        $imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         return (!$imap->access(IMP_Imap::ACCESS_SEARCH) ||
                 !$imap->access(IMP_Imap::ACCESS_FOLDERS));
     }
@@ -237,7 +230,7 @@ $_prefs['filter_on_login'] = array(
     'desc' => _("Apply filter rules upon logging on?"),
     'help' => 'filter-on-login',
     'suppress' => function() {
-        return !IMP::applyFilters();
+        return !IMP_Filter::canApplyFilters();
     }
 );
 
@@ -247,7 +240,7 @@ $_prefs['filter_on_display'] = array(
     'desc' => _("Apply filter rules whenever Inbox is displayed?"),
     'help' => 'filter-on-display',
     'suppress' => function() {
-        return !IMP::applyFilters();
+        return !IMP_Filter::canApplyFilters();
     }
 );
 
@@ -257,7 +250,7 @@ $_prefs['filter_any_mailbox'] = array(
     'desc' => _("Allow filter rules to be applied in any mailbox?"),
     'help' => 'filter-any-mailbox',
     'suppress' => function() {
-        return !IMP::applyFilters();
+        return !IMP_Filter::canApplyFilters();
     }
 );
 
@@ -334,7 +327,7 @@ $_prefs['pgp_attach_pubkey'] = array(
 $_prefs['pgp_scan_body'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Should the body of text/plain messages be scanned for PGP data?"),
+    'desc' => _("Should the body of plaintext messages be scanned for PGP data?"),
     'help' => 'pgp-option-scan-body',
     'requires' => array('use_pgp')
 );
@@ -458,11 +451,11 @@ $prefGroups['compose'] = array(
     'label' => _("Composition"),
     'desc' => _("Configure how you send mail."),
     'members' => array(
-        'mailto_handler', 'compose_cc', 'compose_bcc', 'compose_spellcheck',
-        'set_priority', 'compose_html', 'compose_html_font_family',
-        'compose_html_font_size', 'mail_domain',
-        'compose_cursor', 'encryptselect', 'delete_attachments_monthly_keep',
-        'request_mdn', 'reply_lang', 'compose_popup', 'compose_confirm'
+        'mailto_handler', 'compose_spellcheck', 'set_priority',
+        'compose_html', 'compose_html_font_family', 'compose_html_font_size',
+        'mail_domain', 'compose_cursor', 'encryptselect',
+        'delete_attachments_monthly_keep', 'request_mdn', 'reply_lang',
+        'compose_popup', 'compose_confirm'
     )
 );
 
@@ -470,18 +463,6 @@ $prefGroups['compose'] = array(
 $_prefs['mailto_handler'] = array(
     'type' => 'special',
     'handler' => 'IMP_Prefs_Special_Mailto'
-);
-
-$_prefs['compose_cc'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Show the Cc: header field when composing mail?")
-);
-
-$_prefs['compose_bcc'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Show the Bcc: header field when composing mail?")
 );
 
 $_prefs['compose_spellcheck'] = array(
@@ -567,7 +548,7 @@ $_prefs['delete_attachments_monthly_keep'] = array(
     'advanced' => true,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Delete old linked attachments after this many months (0 to never delete)?"),
+    'desc' => _("Delete linked attachments after this many months (0 to never delete)?"),
     'help' => 'prefs-delete_attachments_monthly_keep',
     'suppress' => function() {
         return empty($GLOBALS['conf']['compose']['link_attachments']);
@@ -575,12 +556,12 @@ $_prefs['delete_attachments_monthly_keep'] = array(
 );
 
 $_prefs['request_mdn'] = array(
-    'value' => 'ask',
+    'value' => 'never',
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array(
-        'never' => _("Never"),
-        'ask' => _("Ask"),
-        'always' => _("Always")
+        'never' => _("No"),
+        'always' => _("Yes")
     ),
     'desc' => _("Request read receipts?"),
     'help' => 'prefs-request_mdn'
@@ -632,7 +613,7 @@ $prefGroups['composetemplates'] = array(
     'desc' => _("Edit compose templates."),
     'members' => array('composetemplates_management', 'composetemplates_new'),
     'suppress' => function() {
-        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3;
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->isImap();
     }
 );
 
@@ -652,7 +633,8 @@ $_prefs['composetemplates_new'] = array(
         return !IMP_Mailbox::getPref('composetemplates_mbox');
     },
     'on_init' => function($ui) {
-        $ui->prefs['composetemplates_new']['xurl'] = IMP::composeLink(array(), array(
+        $clink = new IMP_Compose_Link();
+        $ui->prefs['composetemplates_new']['xurl'] = $clink->link()->add(array(
             'actionID' => 'template_new',
             'type' => 'template_new'
         ));
@@ -662,8 +644,8 @@ $_prefs['composetemplates_new'] = array(
 // Compose templates mailbox
 $_prefs['composetemplates_mbox'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Templates'
 );
 
@@ -684,7 +666,7 @@ $prefGroups['reply'] = array(
 $_prefs['reply_format'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When replying to a message, use the same format as the original message?")
+    'desc' => _("When replying, use the same format as the original message?")
 );
 
 $_prefs['reply_charset'] = array(
@@ -695,7 +677,7 @@ $_prefs['reply_charset'] = array(
 );
 
 $_prefs['reply_headers'] = array(
-    'desc' => _("Include a brief summary of the header in a reply?"),
+    'desc' => _("Include a brief summary of the original message's header in a reply?"),
     'value' => 0,
     'type' => 'checkbox'
 );
@@ -711,7 +693,7 @@ $_prefs['attrib_text'] = array(
     'value' => _("Quoting %f:"),
     'advanced' => true,
     'type' => 'text',
-    'desc' => _("How to attribute quoted lines in a reply"),
+    'desc' => _("How to attribute quoted lines in a reply?"),
     'help' => 'prefs-attrib_text',
     'requires' => array('reply_quote')
 );
@@ -740,7 +722,7 @@ $_prefs['forward_default'] = array(
     'advanced' => true,
     // If this preference is locked, the user will not be able to select the
     // forward method.
-    // 'locked' => false,
+    // 'locked' => true,
     'type' => 'enum',
     'enum' => array(
         'attach' => _("As attachment"),
@@ -781,15 +763,15 @@ $_prefs['draftsselect'] = array(
 // drafts mailbox
 $_prefs['drafts_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Drafts'
 );
 
 $_prefs['close_draft'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should the compose window be closed after saving a draft?")
+    'desc' => _("Close the compose window after saving a draft?")
 );
 
 $_prefs['unseen_drafts'] = array(
@@ -834,7 +816,7 @@ $_prefs['save_attachments'] = array(
         'always' => _("Save attachments"),
         'never' => _("Do not save attachments")
     ),
-    'desc' => _("Should attachments be saved in the sent-mail message?"),
+    'desc' => _("Save attachments in the sent-mail message?"),
     'help' => 'prefs-save_attachments'
 );
 
@@ -844,7 +826,7 @@ $_prefs['rename_sentmail_monthly'] = array(
     'desc' => _("Rename sent mail mailbox at beginning of month?"),
     'help' => 'prefs-rename_sentmail_monthly',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -855,7 +837,7 @@ $_prefs['delete_sentmail_monthly_keep'] = array(
     'desc' => _("Delete old sent mail mailboxes after this many months (0 to never delete)?"),
     'help' => 'prefs-delete_sentmail_monthly_keep',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -866,7 +848,7 @@ $_prefs['purge_sentmail_interval'] = array(
     'desc' => _("Purge sent mail how often:"),
     'help' => 'prefs-purge_sentmail_interval',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -877,7 +859,7 @@ $_prefs['purge_sentmail_keep'] = array(
     'help' => 'prefs-purge_sentmail_keep',
     'requires' => array('purge_sentmail_interval'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -888,7 +870,7 @@ $_prefs['purge_sentmail_keep'] = array(
 $prefGroups['addressbooks'] = array(
     'column' => _("Compose"),
     'label' => _("Address Books"),
-    'desc' => _("Select address book sources for adding and searching for addresses."),
+    'desc' => _("Select address book sources for adding/searching."),
    'members' => array(
         'save_recipients', 'display_contact', 'sourceselect', 'add_source'
     ),
@@ -995,7 +977,7 @@ $_prefs['filtering'] = array(
 $_prefs['strip_attachments'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Show an icon to allow stripping of attachments from messages?"));
+    'desc' => _("Allow attachments to be stripped from messages?"));
 
 $_prefs['alternative_display'] = array(
     'value' => 'html',
@@ -1005,7 +987,7 @@ $_prefs['alternative_display'] = array(
         'html' => _("HTML part"),
         'text' => _("Plaintext part")
     ),
-    'desc' => _("For messages with alternative representations of the text part, which part should be displayed?"),
+    'desc' => _("For messages with alternative representations of a text part, which part should be displayed?"),
     'suppress' => function() {
         $mock_part = new Horde_Mime_Part();
         $mock_part->setType('text/html');
@@ -1060,7 +1042,7 @@ $_prefs['show_quoteblocks'] = array(
         'listthread' => _("Hidden in Thread View and List Messages"),
         'hidden' => _("Hidden")
     ),
-    'desc' => _("Should large blocks of quoted text be shown or hidden by default? It can be toggled easily whichever you choose.")
+    'desc' => _("How should large blocks of quoted text be shown by default? (Toggling the block will always be available).")
 );
 
 $_prefs['dim_signature'] = array(
@@ -1107,7 +1089,7 @@ $_prefs['default_msg_charset'] = array(
     'enum' => array_merge(
         array('' => _("Default (US-ASCII)")), $GLOBALS['registry']->nlsconfig->encodings_sort
     ),
-    'desc' => _("The default charset for messages with no charset information:"),
+    'desc' => _("The default charset for messages:"),
     'help' => 'prefs-default_msg_charset'
 );
 
@@ -1169,13 +1151,13 @@ $_prefs['delete_mark_seen'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Mark messages as Seen when deleting?")
+    'desc' => _("Mark messages as seen when deleting?")
 );
 
 $_prefs['use_trash'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When deleting messages, move them to your Trash mailbox instead of marking them as deleted?"),
+    'desc' => _("Move deleted messages to your Trash mailbox instead of marking them as deleted in the current mailbox?"),
     'on_change' => function() {
         if ($trash_mbox = IMP_Mailbox::getPref('trash_folder')) {
             $trash_mbox->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
@@ -1194,18 +1176,16 @@ $_prefs['trashselect'] = array(
     'requires' => array('use_trash'),
     'requires_nolock' => array('use_trash', 'trash_folder'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
     }
 );
 
 // trash mailbox
 $_prefs['trash_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Trash',
-    // Exchange servers use this default value instead.
-    // 'value' => 'Deleted Items',
     'on_change' => function() {
         if ($GLOBALS['prefs']->getValue('use_trash') &&
             !$GLOBALS['prefs']->getValue('trash_folder')) {
@@ -1234,7 +1214,7 @@ $_prefs['empty_trash_menu'] = array(
     'requires' => array('use_trash'),
     'requires_nolock' => array('use_trash'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
     }
 );
 
@@ -1247,7 +1227,7 @@ $_prefs['purge_trash_interval'] = array(
     'requires' => array('use_trash'),
     'requires_nolock' => array('use_trash'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
     }
 );
 
@@ -1259,7 +1239,7 @@ $_prefs['purge_trash_keep'] = array(
     'requires' => array('use_trash', 'purge_trash_interval'),
     'requires_nolock' => array('use_trash'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
     }
 );
 
@@ -1292,8 +1272,8 @@ $_prefs['spamselect'] = array(
 // spam mailbox
 $_prefs['spam_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Spam'
 );
 
@@ -1308,8 +1288,8 @@ $_prefs['delete_spam_after_report'] = array(
             0 => _("Nothing"),
             1 => _("Delete message")
         );
-        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $enum[2] = _("Move to spam mailbox");
+        if ($GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
+            $enum[2] = _("Move to Spam mailbox");
         }
         $ui->prefs['delete_spam_after_report']['enum'] = $enum;
     }
@@ -1325,7 +1305,7 @@ $_prefs['move_innocent_after_report'] = array(
     'desc' => _("What to do with messages after they have been reported as innocent?"),
     'help' => 'prefs-move_innocent_after_report',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1334,7 +1314,7 @@ $_prefs['empty_spam_menu'] = array(
     'type' => 'checkbox',
     'desc' => _("Display the \"Empty Spam\" link in the menubar?"),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1342,10 +1322,10 @@ $_prefs['purge_spam_interval'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array_merge(array(0 => _("Never")), Horde_LoginTasks::getLabels()),
-    'desc' => _("Purge Spam how often:"),
+    'desc' => _("Purge Spam mailbox how often:"),
     'help' => 'prefs-purge_spam_interval',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1356,7 +1336,7 @@ $_prefs['purge_spam_keep'] = array(
     'help' => 'prefs-purge_spam_keep',
     'requires' => array('purge_spam_interval'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1385,7 +1365,7 @@ $_prefs['refresh_time'] = array(
         900 => _("Every 15 minutes"),
         1800 => _("Every half hour")
     ),
-    'desc' => _("Poll for New Mail:"),
+    'desc' => _("Poll for new mail:"),
 );
 
 $_prefs['newmail_notify'] = array(
@@ -1417,7 +1397,7 @@ $prefGroups['flags'] = array(
     'desc' => _("Configure flag highlighting."),
     'members' => array('flagmanagement', 'show_all_flags'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FLAGS);
     }
 );
 
@@ -1481,7 +1461,7 @@ $_prefs['initialpageselect'] = array(
     'handler' => 'IMP_Prefs_Special_InitialPage',
     'requires_nolock' => array('initial_page'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1573,10 +1553,11 @@ $_prefs['from_link'] = array(
 $_prefs['atc_flag'] = array(
     // Disabled by default since display requires a bit of extra overhead to
     // obtain the MIME Content-Type of the base portion of the message.
+    // Additionally, this algorithm is not 100% accurate.
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Display attachment information about a message in the mailbox listing?")
+    'desc' => _("Indicate whether attachments exist in a message in the mailbox listing?")
 );
 
 $_prefs['preview_enabled'] = array(
@@ -1665,7 +1646,7 @@ $_prefs['nav_expanded'] = array(
     ),
     'desc' => _("Expand the entire folder tree by default in the folders view?"),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1679,7 +1660,7 @@ $_prefs['tree_view'] = array(
     ),
     'desc' => _("How should namespaces be displayed in the folder tree view?"),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     },
     'on_change' => function() {
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
@@ -1698,7 +1679,7 @@ $_prefs['nav_poll_all'] = array(
     'type' => 'checkbox',
     'desc' => _("Poll all mailboxes for new mail?"),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     },
     'on_change' => function() {
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();

@@ -1,13 +1,9 @@
-/**
- * DIMP core CSS.
- */
-
 /* Make sure we never scroll vertically. */
 html {
     overflow-y: hidden;
 }
-#search_page {
-    overflow-y: auto;
+#htmlAllowScroll {
+    overflow-y: scroll;
 }
 
 /* global */
@@ -391,7 +387,7 @@ div.vpRowVert div.msgSubject span.flagUser {
 .dimpOptions a:hover {
     text-decoration: underline;
 }
-.dimpOptions .horde-popdown {
+.dimpOptions .horde-popdown, .atcrow .horde-popdown {
     display: inline-block;
     float: none;
     height: 16px;
@@ -597,15 +593,6 @@ div.dimpActionsMsg #windowclose {
     cursor: default;
     padding: 10px;
 }
-.msgwrite .msgwritehdr {
-    font-size: 120%;
-    font-weight: bold;
-    overflow: hidden;
-    padding: 0 10px 8px 0;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    white-space: nowrap;
-}
 .msgwrite .dimpOptions {
     padding: 8px 8px 0 0;
 }
@@ -619,7 +606,7 @@ div.dimpActionsMsg #windowclose {
     height: 18px;
     margin-top: -6px;
 }
-.msgwrite #msg_other_options .horde-popdown {
+.msgwrite #other_options .horde-popdown {
     height: 16px;
 }
 #noticerow li span.closeImg {
@@ -644,6 +631,20 @@ div.dimpActionsMsg #windowclose {
     filter: alpha(opacity=75);
     -moz-opacity: .75;
     opacity: .75;
+}
+
+#compose_upload_add {
+    color: blue;
+    display: inline-block;
+    font-weight: bold;
+    margin-top: 4px;
+}
+#upload {
+    position: absolute;
+    top: -5000px;
+}
+.atcrow .horde-popdown {
+    padding-left: 0;
 }
 
 .msgwrite .sendtextarea {
@@ -685,14 +686,19 @@ div.dimpActionsMsg #windowclose {
 
 /* Attachment file list */
 #attach_list {
+    list-style: none;
     max-height: 125px;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 0 0 2px 15px;
+    padding: 0 0 2px;
     width: 500px;
 }
+#attach_list canvas {
+    margin-bottom: -4px;
+    padding-right: 4px;
+}
 #attach_list li {
-    padding-top: 5px;
+    padding-top: 7px;
 }
 #attach_list span.remove {
     border: 1px solid #ccc;
@@ -709,16 +715,19 @@ div.dimpActionsMsg #windowclose {
 #attach_list span.attachName:hover, #attach_list span.remove:hover {
     color: red;
 }
-#attach_list span.attachNameFwdmsg {
-    font-weight: bold;
-}
 
+#upload_limit {
+    color: darkred;
+    display: -moz-inline-stack;
+    display: inline-block;
+    margin-top: 4px;
+}
 #upload_wait {
     display: -moz-inline-stack;
     display: inline-block;
     font-weight: bold;
     overflow: hidden;
-    padding-top: 2px;
+    padding-top: 4px;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     width: 500px;
@@ -946,6 +955,9 @@ span.logoutIcon {
 }
 #ctx_message_whitelist span.iconImg, #ctx_oa_whitelist span.iconImg {
     background-image: url("../graphics/whitelist.png");
+}
+#ctx_oa_growler_log span.iconImg {
+    background-image: url("../graphics/info_icon.png");
 }
 #ctx_message_editasnew span.iconImg, #ctx_contacts_new span.iconImg, #ctx_forward_editasnew span.iconImg {
     background-image: url("../graphics/compose.png");

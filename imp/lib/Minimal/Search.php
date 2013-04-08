@@ -18,7 +18,6 @@ class IMP_Minimal_Search extends IMP_Minimal_Base
      * URL Parameters:
      *   - a: (string) Action ID.
      *   - checkbox: TODO
-     *   - indices: TODO
      *   - mt: TODO
      *   - p: (integer) Page.
      *   - search: (sring) The search string
@@ -26,9 +25,9 @@ class IMP_Minimal_Search extends IMP_Minimal_Base
      */
     protected function _init()
     {
-        $this->title = sprintf(_("Search %s"), IMP::mailbox()->display);
+        $this->title = sprintf(_("Search %s"), $this->indicees->mailbox->display);
 
-        $this->view->mailbox = IMP::mailbox()->form_to;
+        $this->view->mailbox = $this->indices->mailbox->form_to;
         $this->view->menu = $this->getMenu('search');
         $this->view->title = $this->title;
         $this->view->url = IMP_Minimal_Mailbox::url();
@@ -39,16 +38,13 @@ class IMP_Minimal_Search extends IMP_Minimal_Base
 
     /**
      * @param array $opts  Options:
-     *   - mailbox: (string) The mailbox to search. Defaults to current
-     *              mailbox.
+     *   - mailbox: (string) The mailbox to search. Defaults to INBOX.
      */
     static public function url(array $opts = array())
     {
-        $mbox = isset($opts['mailbox'])
-            ? IMP_Mailbox::get($opts['mailbox'])
-            : IMP::mailbox();
+        $opts = array_merge(array('mailbox' => 'INBOX'), $opts);
 
-        return $mbox->url('minimal.php')->add('page', 'search');
+        return IMP_Mailbox::get($opts['mailbox'])->url('minimal')->add('page', 'search');
     }
 
 }

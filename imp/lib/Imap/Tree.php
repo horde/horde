@@ -201,9 +201,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         global $injector, $prefs, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
+        $access_folders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
 
-        $unsubmode = (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS) ||
+        $unsubmode = (!$access_folders ||
                       !$prefs->getValue('subscribe') ||
                       $session->get('imp', 'showunsub'));
 
@@ -221,11 +222,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $this->track = false;
 
         /* Do IMAP specific initialization. */
-        if ($imp_imap->imap) {
+        if ($imp_imap->isImap()) {
             $ns = $imp_imap->getNamespaceList();
             $ptr = reset($ns);
             $this->_delimiter = $ptr['delimiter'];
-            if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
+            if ($access_folders) {
                 $this->_namespaces = $ns;
             }
         }
@@ -239,7 +240,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Add INBOX and exit if folders aren't allowed or if we are using
          * POP3. */
-        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
+        if (!$access_folders) {
             $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
             return;
         }
@@ -302,7 +303,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $searches[] = $val . '*';
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         $result = $imp_imap->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array(
             'attributes' => true,
             'delimiter' => true,
@@ -524,7 +525,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $this->_sortList($to_insert);
 
             try {
-                $this->_insert($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes($to_insert, Horde_Imap_Client::MBOX_ALL, array(
+                $this->_insert($GLOBALS['injector']->getInstance('IMP_Imap')->listMailboxes($to_insert, Horde_Imap_Client::MBOX_ALL, array(
                     'attributes' => true,
                     'delimiter' => true,
                     'sort' => true
@@ -1417,7 +1418,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         default:
             return (strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0)
-                ? $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getNamespace($mailbox)
+                ? $GLOBALS['injector']->getInstance('IMP_Imap')->getNamespace($mailbox)
                 : null;
         }
     }
@@ -1569,7 +1570,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     public function createMailboxName($parent, $new)
     {
         $ns_info = empty($parent)
-            ? $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->defaultNamespace()
+            ? $GLOBALS['injector']->getInstance('IMP_Imap')->defaultNamespace()
             : $this->_getNamespace($parent);
 
         if (is_null($ns_info)) {
@@ -1736,7 +1737,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     break;
 
                 default:
-                    $params['url'] = $val->url('mailbox.php')->setRaw(true);
+                    $params['url'] = $val->url('mailbox')->setRaw(true);
                     break;
                 }
 
@@ -1854,6 +1855,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *         DEFAULT: 'base'
      *   - co: (boolean) [container] Is this mailbox a container element?
      *         DEFAULT: no
+     *   - f: (boolean) [fixed] True if this is a fixed element.
+     *        DEFAULT: no
      *   - i: (string) [icon] A user defined icon to use.
      *        DEFAULT: none
      *   - l: (string) [label] The mailbox display label.
@@ -1911,6 +1914,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $ob->v = $elt->editvfolder ? 2 : 1;
         }
 
+        if (!$elt->access_deletembox) {
+            $ob->f = 1;
+        }
+
         if ($this->isContainer($elt)) {
             $ob->cl = 'exp';
             $ob->co = 1;
@@ -1931,7 +1938,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
             if ($elt->inbox || $elt->special) {
                 $ob->s = 1;
-            } elseif (empty($ob->v) && $this->hasChildren($elt, true)) {
+            } elseif (empty($ob->v) && !empty($ob->ch)) {
                 $ob->cl = 'exp';
             }
         }
@@ -2229,11 +2236,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         $c = &$this->_cache['filter'];
 
-        /* Skip virtual folders unless told to display them. */
-        if ($elt->vfolder) {
-            return false;
-        }
-
+        /* This will catch Virtual Folders (they don't have children). */
         if (!isset($this->_parent[$elt->value])) {
             return false;
         }

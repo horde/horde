@@ -25,6 +25,20 @@
 class IMP_Ajax_Queue
 {
     /**
+     * The list of attachments.
+     *
+     * @var array
+     */
+    protected $_atc = array();
+
+    /**
+     * The compose object.
+     *
+     * @var IMP_Compose
+     */
+    protected $_compose;
+
+    /**
      * Flag entries to add to response.
      *
      * @var array
@@ -62,12 +76,26 @@ class IMP_Ajax_Queue
     /**
      * Add quota information to response?
      *
-     * @var boolean
+     * @var string
      */
     protected $_quota = false;
 
     /**
      * Generates AJAX response task data from the queue.
+     *
+     * For compose attachment data (key: 'compose-atc'), an array of objects
+     * with these properties:
+     *   - icon: (string) Data url string containing icon information.
+     *   - name: (string) The attachment name
+     *   - num: (integer) The current attachment number
+     *   - size: (string) The size of the attachment
+     *   - type: (string) The MIME type of the attachment
+     *   - view: (boolean) Link to attachment preivew page
+     *
+     * For compose cacheid data (key: 'compose'), an object with these
+     * properties:
+     *   - atclimit: (integer) If set, no further attachments are allowed.
+     *   - cacheid: (string) Current cache ID of the compose message.
      *
      * For flag data (key: 'flag'), an array of objects with these properties:
      *   - add: (array) The list of flags that were added.
@@ -86,11 +114,15 @@ class IMP_Ajax_Queue
      *   - switch: (string) Load this mailbox (base64url encoded).
      *
      * For maillog data (key: 'maillog'), an object with these properties:
+     *   - buid: (integer) BUID.
      *   - log: (array) List of log entries.
      *   - mbox: (string) Mailbox.
-     *   - uid: (string) UID.
      *
-     * For message preview data (key: 'message'), an array with these keys:
+     * For message preview data (key: 'message'), an object with these
+     * properties:
+     *   - buid: (integer) BUID.
+     *   - data: (object) Message viewport data.
+     *   - mbox: (string) Mailbox.
      *
      * For poll data (key: 'poll'), an array with keys as base64url encoded
      * mailbox names, values as the number of unseen messages.
@@ -103,6 +135,24 @@ class IMP_Ajax_Queue
      */
     public function add(IMP_Ajax_Application $ajax)
     {
+        /* Add compose attachment information. */
+        if (!empty($this->_atc)) {
+            $ajax->addTask('compose-atc', $this->_atc);
+            $this->_atc = array();
+        }
+
+        /* Add compose information. */
+        if (!is_null($this->_compose)) {
+            $compose = new stdClass;
+            if (!$this->_compose->additionalAttachmentsAllowed()) {
+                $compose->atclimit = 1;
+            }
+            $compose->cacheid = $this->_compose->getCacheId();
+
+            $ajax->addTask('compose', $compose);
+            $this->_compose = null;
+        }
+
         /* Add flag information. */
         if (!empty($this->_flag)) {
             $ajax->addTask('flag', $this->_flag);
@@ -125,9 +175,9 @@ class IMP_Ajax_Queue
             foreach ($this->_maillog as $val) {
                 if ($tmp = $imp_maillog->getLogObs($val['msg_id'])) {
                     $log_ob = new stdClass;
+                    $log_ob->buid = intval($val['buid']);
                     $log_ob->log = $tmp;
                     $log_ob->mbox = $val['mailbox']->form_to;
-                    $log_ob->uid = $val['uid'];
                     $maillog[] = $log_ob;
                 }
             }
@@ -149,8 +199,8 @@ class IMP_Ajax_Queue
             $poll_list[strval($val)] = 1;
         }
 
-        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        if ($imap_ob->ob) {
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap');
+        if ($imap_ob->init) {
             foreach ($imap_ob->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
                 $poll[IMP_Mailbox::formTo($key)] = intval($val['unseen']);
             }
@@ -162,8 +212,8 @@ class IMP_Ajax_Queue
         }
 
         /* Add quota information. */
-        if ($this->_quota &&
-            ($quotadata = $GLOBALS['injector']->getInstance('IMP_Ui_Quota')->quota())) {
+        if (($this->_quota !== false) &&
+            ($quotadata = $GLOBALS['injector']->getInstance('IMP_Quota_Ui')->quota($this->_quota))) {
             $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
                 'p' => round($quotadata['percent']),
@@ -176,17 +226,61 @@ class IMP_Ajax_Queue
     }
 
     /**
+     * Return information about the current attachment(s) for a message.
+     *
+     * @param mixed $ob      If an IMP_Compose object, return info on all
+     *                       attachments. If an IMP_Compose_Attachment object,
+     *                       only return information on that object.
+     * @param integer $type  The compose type.
+     */
+    public function attachment($ob, $type = IMP_Compose::COMPOSE)
+    {
+        global $injector;
+
+        $parts = ($ob instanceof IMP_Compose)
+            ? iterator_to_array($ob)
+            : array($ob);
+
+        foreach ($parts as $val) {
+            $mime = $val->getPart();
+            $mtype = $mime->getType();
+
+            $this->_atc[] = array(
+                'icon' => strval(Horde_Url_Data::create('image/png', file_get_contents($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mtype)->fs))),
+                'name' => $mime->getName(true),
+                'num' => $val->id,
+                'type' => $mtype,
+                'size' => IMP::sizeFormat($mime->getBytes()),
+                'url' => strval($val->viewUrl()->setRaw(true)),
+                'view' => intval(!in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH)) && ($mtype != 'application/octet-stream'))
+            );
+        }
+    }
+
+    /**
+     * Add compose data to the output.
+     *
+     * @param IMP_Compose $ob  The compose object.
+     */
+    public function compose(IMP_Compose $ob)
+    {
+        $this->_compose = $ob;
+    }
+
+    /**
      * Add flag entry to response queue.
      *
      * @param array $flags          List of flags that have changed.
      * @param boolean $add          Were the flags added?
      * @param IMP_Indices $indices  Indices object.
      */
-    public function flag($flags, $add, $indices)
+    public function flag($flags, $add, IMP_Indices $indices)
     {
         global $injector;
 
-        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
+        if (($indices instanceof IMP_Indices_Mailbox) &&
+            (!$indices->mailbox->access_flags ||
+             !count($indices = $indices->joinIndices()))) {
             return;
         }
 
@@ -200,47 +294,67 @@ class IMP_Ajax_Queue
             $result->remove = array_map('strval', $changed['remove']);
         }
 
-        if (count($indices)) {
-            $result->uids = $indices->formTo();
-            $this->_flag[] = $result;
-        }
+        $result->buids = $indices->toArray();
+        $this->_flag[] = $result;
     }
 
     /**
      * Add message data to output.
      *
-     * @param string $mailbox   The mailbox name.
-     * @param string $uid       The message UID.
-     * @param boolean $preview  Preview data?
-     * @param boolean $peek     Don't set seen flag?
+     * @param IMP_Indices $indices  Index of the message.
+     * @param boolean $preview      Preview data?
+     * @param boolean $peek         Don't set seen flag?
      */
-    public function message($mailbox, $uid, $preview = false, $peek = false)
+    public function message(IMP_Indices $indices, $preview = false,
+                            $peek = false)
     {
         try {
-            $show_msg = new IMP_Ajax_Application_ShowMessage($mailbox, $uid, $peek);
+            $show_msg = new IMP_Ajax_Application_ShowMessage($indices, $peek);
             $msg = (object)$show_msg->showMessage(array(
                 'preview' => $preview
             ));
             $msg->save_as = strval($msg->save_as);
-            $this->_messages[] = $msg;
+
+            if ($indices instanceof IMP_Indices_Mailbox) {
+                $indices = $indices->joinIndices();
+            }
+
+            foreach ($indices as $val) {
+                foreach ($val->uids as $val2) {
+                    $ob = new stdClass;
+                    $ob->buid = $val2;
+                    $ob->data = $msg;
+                    $ob->mbox = $val->mbox->form_to;
+                    $this->_messages[] = $ob;
+                }
+            }
         } catch (Exception $e) {}
     }
 
     /**
      * Add mail log data to output.
      *
-     * @param string $mailbox  The mailbox name.
-     * @param string $uid      The message UID.
-     * @param string $msg_id   The message ID of the original message.
+     * @param IMP_Indices $indices  Indices object.
+     * @param string $msg_id        The message ID of the original message.
      */
-    public function maillog($mailbox, $uid, $msg_id)
+    public function maillog(IMP_Indices $indices, $msg_id)
     {
-        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            $this->_maillog[] = array(
-                'mailbox' => IMP_Mailbox::get($mailbox),
-                'msg_id' => $msg_id,
-                'uid' => $uid
-            );
+        if (!$GLOBALS['injector']->getInstance('IMP_Maillog')) {
+            return;
+        }
+
+        if ($indices instanceof IMP_Indices_Mailbox) {
+            $indices = $indices->joinIndices();
+        }
+
+        foreach ($indices as $val) {
+            foreach ($val->uids as $val2) {
+                $this->_maillog[] = array(
+                    'buid' => $val2,
+                    'mailbox' => $val->mbox,
+                    'msg_id' => $msg_id
+                );
+            }
         }
     }
 
@@ -275,10 +389,12 @@ class IMP_Ajax_Queue
 
     /**
      * Add quota entry to response queue.
+     *
+     * @param string $mailbox  Mailbox to query for quota.
      */
-    public function quota()
+    public function quota($mailbox)
     {
-        $this->_quota = true;
+        $this->_quota = $mailbox;
     }
 
 }

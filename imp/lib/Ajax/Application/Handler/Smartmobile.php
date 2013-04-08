@@ -44,28 +44,13 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
      */
     public function smartmobileGetForwardData()
     {
-        $GLOBALS['notification']->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
+        $result = $this->_base->callAction('getForwardData');
 
-        return $this->_base->callAction('getForwardData');
-    }
-
-    /**
-     * AJAX action: Generate data necessary to display a message.
-     *
-     * @see IMP_Ajax_Application#showMessage()
-     *
-     * @return object  Adds the following entries to the base object:
-     *   - suid: (string) The search mailbox UID.
-     */
-    public function smartmobileShowMessage()
-    {
-        $output = $this->_base->callAction('showMessage');
-
-        if (IMP_Mailbox::formFrom($this->vars->view)->search) {
-            $output->suid = IMP_Ajax_Application_ListMessages::searchUid(IMP_Mailbox::formFrom($output->mbox), $output->uid);
+        if ($result && $result->opts->attach) {
+            $GLOBALS['notification']->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
         }
 
-        return $output;
+        return $result;
     }
 
     /**
@@ -80,7 +65,12 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
     public function smartmobileFolderTree()
     {
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imptree->setIteratorFilter($this->vars->all ? 0 : Imp_Imap_Tree::FLIST_POLLED);
+
+        $mask = $imptree::FLIST_VFOLDER;
+        if (!$this->vars->all) {
+            $mask |= $imptree::FLIST_POLLED;
+        }
+        $imptree->setIteratorFilter($mask);
 
         return $imptree->createTree($this->vars->all ? 'smobile_folders_all' : 'smobile_folders', array(
             'poll_info' => true,
@@ -107,7 +97,7 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         /* There is no sent-mail config option on smartmobile compose page,
          * so need to add that information now. */
         if ($identity->getValue('save_sent_mail', $send_id)) {
-            $sent_mbox = $identity->getValue('sent_mail_folder', $send_id);
+            $sent_mbox = $identity->getValue(IMP_Mailbox::MBOX_SENT, $send_id);
             if ($sent_mbox && !$sent_mbox->readonly) {
                 $this->vars->save_sent_mail = true;
                 $this->vars->save_sent_mail_mbox = $sent_mbox->form_to;

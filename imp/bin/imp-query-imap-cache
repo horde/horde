@@ -24,44 +24,33 @@ if (file_exists($baseFile)) {
 }
 Horde_Registry::appInit('imp', array('cli' => true));
 
-$c = new Console_Getopt();
-$argv = $c->readPHPArgv();
-array_shift($argv);
-$options = $c->getopt2($argv, '', array('user=', 'pass=', 'server='));
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-p', '--pass', array(
+    'action' => 'store',
+    'dest' => 'pass',
+    'help' => 'Password (otherwise, is prompted)'
+));
+$parser->addOption('-s', '--server', array(
+    'dest' => 'server',
+    'help' => 'Server key (otherwise, is prompted)'
+));
+$parser->addOption('-u', '--user', array(
+    'dest' => 'user',
+    'help' => 'Username (otherwise, is prompted)'
+));
+list($values,) = $parser->parseArgs();
 
-if (PEAR::isError($options)) {
-    _usage();
-}
+$compress = $injector->getInstance('Horde_Compress_Fast');
+$imp_imap = $injector->getInstance('IMP_Imap');
 
-$pass = $server = $user = null;
-foreach ($options[0] as $val) {
-    switch ($val[0]) {
-    case '--help':
-        _usage();
-
-    case '--pass':
-        $pass = $val[1];
-        break;
-
-    case '--server':
-        $server = $val[1];
-        break;
-
-    case '--user':
-        $user = $val[1];
-        break;
-    }
-}
-
-$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-
+$server = $values->server;
 if (is_null($server)) {
     /* Set first entry to 1, not 0. */
     $sconfig = $slookup = array('');
     $i = 1;
 
     foreach ($imp_imap->loadServerConfig() as $key => $val) {
-        $sconfig[$i] = $val['name'] . ' [' . $key . ']';
+        $sconfig[$i] = $val->name . ' [' . $key . ']';
         $slookup[$i++] = $key;
     }
 
@@ -75,6 +64,7 @@ if (is_null($server)) {
     $cli->message('Server: ' . $server);
 }
 
+$user = $values->user;
 if (is_null($user)) {
     while (is_null($user)) {
         $user = $cli->prompt('Username:');
@@ -86,6 +76,7 @@ if (is_null($user)) {
     $cli->message('Username: ' . $user);
 }
 
+$pass = $values->pass;
 while (is_null($pass)) {
     $pass = $cli->passwordPrompt('Password:');
     if (!strlen($pass)) {
@@ -136,8 +127,6 @@ $opts = array(
     8 => 'Expire specific UIDs',
     0 => 'Exit'
 );
-
-$use_lzf = (!empty($conf['cache']['compress']) && Horde_Util::extensionExists('lzf'));
 
 while (true) {
     $cli->writeln();
@@ -193,18 +182,16 @@ while (true) {
                 $cli->message('Mailbox: ' . $cli->green($mbox));
                 $cli->message('Cached messages: ' . count($res) . ' [' . $imp_imap->getIdsOb($uids[1])->tostring_sort . ']');
 
-                $lzf_size = $total_size = 0;
+                $compress_size = $total_size = 0;
                 foreach ($cache->get($mbox, $res, null) as $val) {
                     $data = serialize($val);
                     $total_size += strlen($data);
-                    if ($use_lzf) {
-                        $lzf_size += strlen(lzf_compress($data));
-                    }
+                    $compress_size += strlen($compress->compress($data));
                 }
 
                 $cli->message('Approximate size (bytes): ' . $total_size);
-                if (!empty($lzf_size)) {
-                    $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 - round($lzf_size / $total_size * 100, 1) . '% savings') . ']');
+                if ($compress_size != $total_size) {
+                    $cli->message('Approximate size - Compressed (bytes): ' . $compress_size . ' [' . $cli->red(100 - round($compress_size / $total_size * 100, 1) . '% savings') . ']');
                 }
 
                 if ($res = $cache->getMetaData($mbox)) {
@@ -248,9 +235,8 @@ while (true) {
             $msg_size = strlen($data);
             $cli->message('Approximate size (bytes): ' . $msg_size);
 
-            if ($use_lzf) {
-                $lzf_size = strlen(lzf_compress($data));
-                $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 - round($lzf_size / $msg_size * 100, 1) . '% savings') . ']');
+            if (($compress_size = strlen($compress->compress($data))) != $msg_size) {
+                $cli->message('Approximate size - Compressed (bytes): ' . $compress_size . ' [' . $cli->red(100 - round($compress_size / $msg_size * 100, 1) . '% savings') . ']');
             }
 
             if ($action == 5) {
@@ -311,18 +297,4 @@ while (true) {
         }
         break;
     }
-}
-
-function _usage()
-{
-    global $cli;
-
-    $cli->writeln($cli->bold('Usage: imp-query-imap-cache [--user=username]'));
-    $cli->writeln($cli->bold('                            [--pass=password]'));
-    $cli->writeln($cli->bold('                            [--server=serverkey]'));
-    $cli->writeln();
-    $cli->writeln($cli->indent('--pass    Use this password (otherwise, is prompted)'));
-    $cli->writeln($cli->indent('--server  Use this server key (otherwise, is prompted)'));
-    $cli->writeln($cli->indent('--user    Use this username (otherwise, is prompted)'));
-    exit;
 }

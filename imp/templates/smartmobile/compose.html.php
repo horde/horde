@@ -20,12 +20,14 @@
     </select>
 
     <label for="imp-compose-to"><?php echo _("To:") ?></label>
-    <input type="text" id="imp-compose-to" name="to" />
+    <input type="text" id="imp-compose-to" name="to[]" />
     <ul id="imp-compose-to-suggestions" data-role="listview" data-inset="true"></ul>
+    <div id="imp-compose-to-addr"></div>
 
     <label for="imp-compose-cc"><?php echo _("Cc:") ?></label>
-    <input type="text" id="imp-compose-cc" name="cc" />
+    <input type="text" id="imp-compose-cc" name="cc[]" />
     <ul id="imp-compose-cc-suggestions" data-role="listview" data-inset="true"></ul>
+    <div id="imp-compose-cc-addr"></div>
 
     <label for="imp-compose-subject"><?php echo _("Subject:") ?></label>
     <input type="text" id="imp-compose-subject" name="subject" />
@@ -39,5 +41,43 @@
  <div data-role="footer" class="ui-bar" data-position="fixed">
   <a href="#compose-submit"><?php echo _("Send Message") ?></a>
   <a href="#compose-cancel"><?php echo _("Cancel") ?></a>
+  <a href="#compose-more" data-rel="popup"><?php echo _("More...") ?></a>
  </div>
+
+ <div data-role="popup" data-history="false" data-theme="a" id="compose-more">
+  <ul data-role="listview" data-inset="true">
+<?php if ($this->draft): ?>
+   <li>
+    <a href="#compose-draft"><?php echo _("Save Draft") ?></a>
+   </li>
+   <li>
+    <a href="#compose-discard" id="imp-compose-discard"><?php echo _("Discard Draft") ?></a>
+   </li>
+<?php endif; ?>
+<?php if ($this->attach): ?>
+   <li>
+    <a href="#compose-attach"><?php echo _("Attachments...") ?></a>
+   </li>
+<?php endif; ?>
+  </ul>
+ </div>
+
+<?php if ($this->attach): ?>
+ <div data-role="popup" data-overlay-theme="a" data-history="false" id="imp-compose-attach">
+  <div data-role="header" class="ui-corner-top">
+   <h1><?php echo _("Attachments") ?></h1>
+  </div>
+  <div data-role="content" class="ui-corner-bottom ui-content">
+   <ul data-role="listview" data-inset="true"></ul>
+   <form id="imp-compose-attach-form" enctype="multipart/form-data" method="post">
+    <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo intval($this->max_size) ?>" />
+    <div id="imp-compose-upload-container">
+     <a data-role="button"><?php echo _("Add Attachment") ?></a>
+     <input type="file" name="file_upload" />
+    </div>
+   </form>
+   <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c"><?php echo _("Close") ?></a>
+  </div>
+ </div>
+<?php endif; ?>
 </div>

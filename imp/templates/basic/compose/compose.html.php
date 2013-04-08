@@ -2,7 +2,6 @@
 <?php foreach ($this->hidden as $k => $v): ?>
  <?php echo $this->hiddenFieldTag($k, $v) ?>
 <?php endforeach; ?>
- <?php echo $this->forminput ?>
 
  <h1 class="header">
   <span class="rightFloat">
@@ -12,8 +11,6 @@
  </h1>
 
  <br />
-
- <?php echo $this->status ?>
 
  <table cellspacing="0">
   <tr>
@@ -30,6 +27,9 @@
     <?php echo $this->submitTag(_("Save Template"), array('name' => 'btn_save_template')) ?>
 <?php endif; ?>
     <?php echo $this->submitTag(_("Cancel Message"), array('class' => 'horde-cancel', 'name' => 'btn_cancel_compose', 'title' => _("Cancel Message"))) ?>
+<?php if ($this->resume): ?>
+    <?php echo $this->submitTag(_("Discard Draft"), array('class' => 'horde-cancel', 'name' => 'btn_discard_compose', 'title' => _("Discard Draft"))) ?>
+<?php endif; ?>
    </td>
   </tr>
 
@@ -130,7 +130,7 @@
   </tr>
 <?php endif; ?>
 
-<?php if ($this->rrr): ?>
+<?php if (!is_null($this->rrr_selected)): ?>
   <tr>
    <td></td>
    <td class="item">
@@ -260,11 +260,6 @@
 
  <table width="100%" cellspacing="0">
   <tr class="item" id="upload_atc">
-<?php if ($this->maxattachsize): ?>
-   <td>
-    <?php echo _("Maximum total attachment size reached.") ?>
-   </td>
-<?php else: ?>
 <?php if ($this->maxattachmentnumber): ?>
    <td>
     <?php echo _("Maximum number of attachments reached.") ?>
@@ -285,7 +280,6 @@
      </tr>
     </table>
    </td>
-<?php endif; ?>
 <?php endif; ?>
    <td class="rightAlign">
     <input type="submit" name="btn_add_attachment" value="<?php echo _("Update") ?>" />
@@ -311,7 +305,7 @@
  <br />
 
  <div class="smallheader leftAlign">
-  <?php echo _("Current Attachments") ?> (<?php echo _("Total Size") ?>: <?php echo $this->total_attach_size ?> <?php echo _("KB") ?><?php echo $this->perc_attach ?>)
+  <?php echo _("Current Attachments") ?>
  </div>
 
  <table class="leftAlign attachList">
@@ -320,18 +314,12 @@
    <td>
     <img style="padding-right:5px" src="<?php echo $v['icon'] ?>" />
     <strong><?php echo $v['name'] ?></strong>
-<?php if ($v['fwdattach']): ?>
-    (<strong><?php echo _("Size") ?>:</strong>
-    <?php echo $v['size'] . ' ' . _("KB") ?>)
-<?php else: ?>
     (<?php echo $this->escape($v['type']) ?>)
     <strong><?php echo _("Size") ?>:</strong>
     <?php echo $v['size'] . ' ' . _("KB") ?>
-<?php endif; ?>
    </td>
   </tr>
   <tr class="item">
-<?php if (!$v['fwdattach']): ?>
    <td style="padding-left:30px">
     <table>
      <tr>
@@ -352,7 +340,6 @@
      </tr>
     </table>
    </td>
-<?php endif; ?>
 <?php endforeach; ?>
   </tr>
  </table>

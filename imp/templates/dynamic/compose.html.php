@@ -5,6 +5,13 @@
  <?php echo $this->hiddenFieldTag('user', $this->h($this->user)) ?>
 <?php if ($this->attach): ?>
  <?php echo $this->hiddenFieldTag('save_attachments_select', intval($this->save_attach_set)) ?>
+ <?php echo $this->hiddenFieldTag('MAX_FILE_SIZE', intval($this->max_size)) ?>
+<?php endif; ?>
+<?php if (isset($this->pgp_pubkey)): ?>
+ <?php echo $this->hiddenFieldTag('pgp_attach_pubkey', intval($this->pgp_pubkey)) ?>
+<?php endif; ?>
+<?php if ($this->vcard_attach): ?>
+ <?php echo $this->hiddenFieldTag('vcard_attach') ?>
 <?php endif; ?>
 
  <div class="horde-buttonbar">
@@ -12,22 +19,27 @@
 <?php if ($this->compose_enable): ?>
 <?php if (!$this->is_template): ?>
   <ul>
-  <li class="horde-icon">
-   <?php echo $this->actionButton(array('htmltitle' => _("Accesskey Ctrl-Enter"), 'icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
-  </li>
+   <li class="horde-icon">
+    <?php echo $this->actionButton(array('htmltitle' => _("Accesskey Ctrl-Enter"), 'icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
+   </li>
 <?php endif; ?>
 <?php endif; ?>
 <?php if ($this->is_template): ?>
-  <li class="horde-icon">
-   <?php echo $this->actionButton(array('icon' => 'Templates', 'id' => 'template_button', 'title' => _("Save Template"))) ?>
-  </li>
+   <li class="horde-icon">
+    <?php echo $this->actionButton(array('icon' => 'Templates', 'id' => 'template_button', 'title' => _("Save Template"))) ?>
+   </li>
 <?php else: ?>
-  <li class="horde-icon">
-   <?php echo $this->actionButton(array('icon' => 'Spellcheck', 'id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
-  </li>
-  <li class="horde-icon">
-   <?php echo $this->actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))) ?>
-  </li>
+   <li class="horde-icon">
+    <?php echo $this->actionButton(array('icon' => 'Spellcheck', 'id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
+   </li>
+   <li class="horde-icon">
+    <?php echo $this->actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))) ?>
+   </li>
+<?php endif; ?>
+<?php if ($this->resume): ?>
+   <li class="horde-icon">
+    <?php echo $this->actionButton(array('icon' => 'Delete', 'id' => 'discard_button', 'title' => _("Discard Draft"))) ?>
+   </li>
 <?php endif; ?>
   </ul>
  </div>
@@ -70,15 +82,11 @@
     </div>
 <?php endif; ?>
     <div>
-     <span id="msg_other_options">
+     <span id="other_options">
       <a><?php echo _("Other Options") ?></a>
      </span>
     </div>
    </div>
-
-<?php if (strlen($this->title)): ?>
-   <div class="msgwritehdr"><?php echo $this->h($this->title) ?></div>
-<?php endif; ?>
 
    <table>
     <tr>
@@ -100,7 +108,6 @@
       <span id="to_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
-<?php if ($this->cc): ?>
     <tr id="sendcc" style="display:none">
      <td class="label">
       <span><?php echo _("Cc") ?>:</span>
@@ -110,8 +117,6 @@
       <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
-<?php endif; ?>
-<?php if ($this->bcc): ?>
     <tr id="sendbcc" style="display:none">
      <td class="label">
       <span><?php echo _("Bcc") ?>:</span>
@@ -121,20 +126,13 @@
       <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
-<?php endif; ?>
-<?php if ($this->cc || $this->bcc): ?>
     <tr>
      <td></td>
      <td>
-<?php if ($this->cc): ?>
       <span id="togglecc"><?php echo _("Add Cc") ?></span>
-<?php endif; ?>
-<?php if ($this->bcc): ?>
       <span id="togglebcc"><?php echo _("Add Bcc") ?></span>
-<?php endif; ?>
      </td>
     </tr>
-<?php endif; ?>
     <tr>
      <td class="label"><?php echo _("Subject")?>:</td>
      <td class="subject">
@@ -146,11 +144,12 @@
      <td class="label">
       <span class="iconImg attachmentImg"></span>:
      </td>
-     <td>
+     <td id="atctd">
       <span id="upload_limit" style="display:none"><?php echo _("The attachment limit has been reached.") ?></span>
       <span id="upload_wait" style="display:none"></span>
       <span>
-       <?php echo $this->fileFieldTag('file_1', array('id' => 'upload')) ?>
+       <a id="compose_upload_add"><?php echo _("Add Attachment") ?></a>
+       <?php echo $this->fileFieldTag('file_upload', array('id' => 'upload')) ?>
       </span>
 <?php else: ?>
      <td></td>

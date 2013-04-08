@@ -84,20 +84,6 @@
    </tr>
    <tr>
     <td>
-     <label for="generate_keylength"><?php echo _("Key Length") ?>:</label>
-    </td>
-    <td>
-     <select id="generate_keylength" name="generate_keylength">
-      <option value="1024">1024</option>
-      <option value="2048">2048</option>
-     </select>
-    </td>
-    <td>
-     <?php echo $this->hordeHelp('imp', 'pgp-personalkey-create-keylength') ?>
-    </td>
-   </tr>
-   <tr>
-    <td>
      <label for="generate_passphrase1"><?php echo _("Passphrase") ?>:</label>
     </td>
     <td>

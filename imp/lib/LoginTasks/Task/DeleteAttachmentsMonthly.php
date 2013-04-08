@@ -7,6 +7,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
+
 /**
  * Login tasks module that deletes old linked attachments.
  *
@@ -33,42 +34,15 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
     }
 
     /**
-     * Purges the old linked attachment folders.
+     * Purges the old linked attachments.
      *
-     * @return boolean  Whether any old attachments were deleted.
+     * @return boolean  True.
      */
     public function execute()
     {
-        /* Find the UNIX timestamp of the last second that we will not
-         * purge. */
-        $del_time = gmmktime(0, 0, 0, date('n') - $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep'), 1, date('Y'));
+        $GLOBALS['injector']->getInstance('IMP_Factory_ComposeAtc')->create(null, null, 'linked')->gc();
 
-        try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (Horde_Vfs_Exception $e) {
-            return false;
-        }
-        $path = IMP_Compose::VFS_LINK_ATTACH_PATH . '/' . $GLOBALS['registry']->getAuth();
-
-        /* Make sure cleaning is done recursively. */
-        try {
-            $files = $vfs->listFolder($path, null, true, false, true);
-        } catch (Horde_Vfs_Exception $e) {
-            return false;
-        }
-
-        $retval = false;
-        foreach ($files as $dir) {
-            $filetime = (isset($dir['date'])) ? $dir['date'] : intval(basename($dir['name']));
-            if ($del_time > $filetime) {
-                try {
-                    $vfs->deleteFolder($path, $dir['name'], true);
-                    $retval = true;
-                } catch (Horde_Vfs_Exception $e) {}
-            }
-        }
-
-        return $retval;
+        return true;
     }
 
     /**

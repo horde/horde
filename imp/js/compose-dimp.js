@@ -1,5 +1,5 @@
 /**
- * compose.js - Javascript code used in the DIMP compose view.
+ * compose.js - Javascript code used in the dynamic compose view.
  *
  * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
@@ -13,9 +13,20 @@ var DimpCompose = {
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
     //   editor_wait, fwdattach, is_popup, knl, md5_hdrs, md5_msg, md5_msgOrig,
     //   onload_show, old_action, old_identity, rte, rte_loaded,
-    //   sc_submit, skip_spellcheck, spellcheck, uploading
+    //   sc_submit, skip_spellcheck, spellcheck, tasks, uploading
 
+    checkbox_context: $H({
+        ctx_atc: $H({
+            pgppubkey: 'pgp_attach_pubkey',
+            save: 'save_attachments_select',
+            vcard: 'vcard_attach'
+        }),
+        ctx_other: $H({
+            rr: 'request_read_receipt'
+        })
+    }),
     knl: {},
+    seed: 3,
 
     getCacheElt: function()
     {
@@ -25,7 +36,13 @@ var DimpCompose = {
             : $('composeCache');
     },
 
-    confirmCancel: function()
+    actionParams: function(p)
+    {
+        p.imp_compose = $F(this.getCacheElt());
+        return p;
+    },
+
+    confirmCancel: function(discard)
     {
         if (window.confirm(DimpCore.text.compose_cancel)) {
             if (!DimpCore.conf.qreply &&
@@ -33,9 +50,9 @@ var DimpCompose = {
                 HordeCore.base.focus();
             }
 
-            DimpCore.doAction('cancelCompose', {
-                imp_compose: $F(this.getCacheElt())
-            });
+            DimpCore.doAction('cancelCompose', this.actionParams({
+                discard: Number(Boolean(discard))
+            }));
             this.updateDraftsMailbox();
             return this.closeCompose();
         }
@@ -87,7 +104,7 @@ var DimpCompose = {
         var identity = ImpComposeBase.identities[$F('identity')];
 
         this.setPopdownLabel('sm', identity.sm_name, identity.sm_display);
-        if (DimpCore.conf.bcc && identity.bcc) {
+        if (identity.bcc) {
             $('bcc').setValue(($F('bcc') ? $F('bcc') + ', ' : '') + identity.bcc);
             this.toggleCC('bcc');
         }
@@ -173,27 +190,25 @@ var DimpCompose = {
             return this.uniqueSubmit.bind(this, action).defer();
         }
 
-        if (action == 'sendMessage' ||
-            action == 'saveDraft' ||
-            action == 'saveTemplate') {
-            switch (action) {
-            case 'sendMessage':
-                if (!this.skip_spellcheck &&
-                    DimpCore.conf.spellcheck &&
-                    sc &&
-                    !sc.isActive()) {
-                    this.sc_submit = action;
-                    sc.spellCheck();
-                    return;
-                }
-
-                if (($F('subject') == '') &&
-                    !window.confirm(DimpCore.text.nosubject)) {
-                    return;
-                }
-                break;
+        switch (action) {
+        case 'sendMessage':
+            if (!this.skip_spellcheck &&
+                DimpCore.conf.spellcheck &&
+                sc &&
+                !sc.isActive()) {
+                this.sc_submit = action;
+                sc.spellCheck();
+                return;
             }
 
+            if ($F('subject').empty() &&
+                !window.confirm(DimpCore.text.nosubject)) {
+                return;
+            }
+            // Fall-through
+
+        case 'saveDraft':
+        case 'saveTemplate':
             // Don't send/save until uploading is completed.
             if (this.uploading) {
                 (function() { if (this.disabled) { this.uniqueSubmit(action); } }).bind(this).delay(0.25);
@@ -233,10 +248,6 @@ var DimpCompose = {
 
     uniqueSubmitCallback: function(d)
     {
-        if (d.imp_compose) {
-            this.getCacheElt().setValue(d.imp_compose);
-        }
-
         if (d.success || d.action == 'addAttachment') {
             switch (d.action) {
             case 'autoSaveDraft':
@@ -284,13 +295,8 @@ var DimpCompose = {
 
             case 'addAttachment':
                 this.uploading = false;
-                if (d.success) {
-                    this.addAttach(d.atc);
-                }
-
                 $('upload_wait').hide();
                 this.initAttachList();
-                this.resizeMsgArea();
                 break;
             }
         } else {
@@ -333,7 +339,7 @@ var DimpCompose = {
             HordeCore.loadingImg('sendingImg', 'composeMessageParent', disable);
             DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
             [ $('compose') ].invoke(disable ? 'disable' : 'enable');
-            if (sc = ImpComposeBase.getSpellChecker()) {
+            if ((sc = ImpComposeBase.getSpellChecker())) {
                 sc.disable(disable);
             }
             if (ImpComposeBase.editor_on) {
@@ -346,18 +352,16 @@ var DimpCompose = {
 
     toggleHtmlEditor: function(noupdate)
     {
-        var sc;
+        var changed, sc, text, tmp;
 
         if (!DimpCore.conf.rte_avail) {
             return;
         }
 
         noupdate = noupdate || false;
-        if (sc = ImpComposeBase.getSpellChecker()) {
+        if ((sc = ImpComposeBase.getSpellChecker())) {
            sc.resume();
         }
-
-        var changed, text;
 
         if (ImpComposeBase.editor_on) {
             this.RTELoading('show');
@@ -365,11 +369,10 @@ var DimpCompose = {
             changed = (this.msgHash() != this.md5_msgOrig);
             text = this.rte.getData();
 
-            DimpCore.doAction('html2Text', {
+            DimpCore.doAction('html2Text', this.actionParams({
                 changed: Number(changed),
-                imp_compose: $F(this.getCacheElt()),
                 text: text
-            }, {
+            }), {
                 ajaxopts: { asynchronous: false },
                 callback: this.setMessageText.bind(this, false)
             });
@@ -380,13 +383,15 @@ var DimpCompose = {
             this.RTELoading('show');
 
             if (!noupdate) {
-                DimpCore.doAction('text2Html', {
-                    changed: Number(this.msgHash() != this.md5_msgOrig),
-                    imp_compose: $F(this.getCacheElt()),
-                    text: $F('composeMessage')
-                }, {
-                    callback: this.setMessageText.bind(this, true)
-                });
+                tmp = $F('composeMessage');
+                if (!tmp.blank()) {
+                    DimpCore.doAction('text2Html', this.actionParams({
+                        changed: Number(this.msgHash() != this.md5_msgOrig),
+                        text: tmp
+                    }), {
+                        callback: this.setMessageText.bind(this, true)
+                    });
+                }
             }
 
             if (Object.isUndefined(this.rte_loaded)) {
@@ -491,7 +496,7 @@ var DimpCompose = {
         this.resizeMsgArea();
     },
 
-    // ob = body, format, header, identity, imp_compose, opts, type
+    // ob = addr, body, format, identity, opts, subject, type
     // ob.opts = auto, focus, fwd_list, noupdate, priority, readreceipt,
     //           reply_lang, reply_recip, reply_list_id, show_editor
     fillForm: function(ob)
@@ -501,10 +506,6 @@ var DimpCompose = {
             return;
         }
 
-        if (ob.imp_compose) {
-            this.getCacheElt().setValue(ob.imp_compose);
-        }
-
         switch (ob.type) {
         case 'forward_redirect':
             return;
@@ -512,20 +513,22 @@ var DimpCompose = {
 
         ob.opts = ob.opts || {};
 
-        $('to').setValue(ob.header.to);
-        if (DimpCore.conf.cc && ob.header.cc) {
-            this.toggleCC('cc');
-            $('cc').setValue(ob.header.cc);
-        }
-        if (DimpCore.conf.bcc && ob.header.bcc) {
-            this.toggleCC('bcc');
-            $('bcc').setValue(ob.header.bcc);
+        if (ob.addr) {
+            $('to').setValue(ob.addr.to.join(', '));
+            if (ob.addr.cc.size()) {
+                this.toggleCC('cc');
+                $('cc').setValue(ob.addr.cc.join(', '));
+            }
+            if (ob.addr.bcc.size()) {
+                this.toggleCC('bcc');
+                $('bcc').setValue(ob.addr.cc.join(', '));
+            }
         }
 
         $('identity').setValue(ob.identity);
         this.changeIdentity();
 
-        $('subject').setValue(ob.header.subject);
+        $('subject').setValue(ob.subject);
 
         if (DimpCore.conf.priority && ob.opts.priority) {
             this.setPopdownLabel('p', ob.opts.priority);
@@ -535,22 +538,20 @@ var DimpCompose = {
             $('request_read_receipt').setValue(true);
         }
 
-        this.processAttach(ob.opts.atc);
-
         switch (ob.opts.auto) {
         case 'forward_attach':
             $('noticerow', 'fwdattachnotice').invoke('show');
             this.fwdattach = true;
-            break
+            break;
 
         case 'forward_body':
             $('noticerow', 'fwdbodynotice').invoke('show');
-            break
+            break;
 
         case 'reply_all':
             $('replyallnotice').down('SPAN.replyAllNoticeCount').setText(DimpCore.text.replyall.sub('%d', ob.opts.reply_recip));
             $('noticerow', 'replyallnotice').invoke('show');
-            break
+            break;
 
         case 'reply_list':
             $('replylistnotice').down('SPAN.replyListNoticeId').setText(ob.opts.reply_list_id ? (' (' + ob.opts.reply_list_id + ')') : '');
@@ -587,7 +588,7 @@ var DimpCompose = {
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
                 if ($('compose').visible()) {
-                    var hdrs = MD5.hash($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0')), msg;
+                    var hdrs = murmurhash3($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0'), this.seed), msg;
                     if (this.md5_hdrs) {
                         msg = this.msgHash();
                         if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
@@ -601,14 +602,14 @@ var DimpCompose = {
                 }
             }.bind(this), DimpCore.conf.auto_save_interval_val * 60);
 
-            /* Immediately execute to get MD5 hash of headers. */
+            /* Immediately execute to get hash of headers. */
             this.auto_save_interval.execute();
         }
     },
 
     msgHash: function()
     {
-        return MD5.hash(ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage'));
+        return murmurhash3(ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage'), this.seed);
     },
 
     fadeNotice: function(elt)
@@ -648,43 +649,20 @@ var DimpCompose = {
         }
     },
 
-    processAttach: function(f)
-    {
-        if (f && f.size()) {
-            f.each(this.addAttach.bind(this));
-        }
-    },
-
     swapToAddressCallback: function(r)
     {
-        if (r.header) {
-            $('to').setValue(r.header.to);
+        if (r.addr) {
+            $('to').setValue(r.addr.to.join(', '));
             [ 'cc', 'bcc' ].each(function(t) {
-                if (r.header[t] || $(t).visible()) {
+                if (r.addr[t].size() || $(t).visible()) {
                     if (!$(t).visible()) {
                         this.toggleCC(t);
                     }
-                    $(t).setValue(r.header.cc);
+                    $(t).setValue(r.addr[t].join(', '));
                 }
             }, this);
         }
         $('to_loading_img').hide();
-    },
-
-    forwardAddCallback: function(r)
-    {
-        if (r.type) {
-            switch (r.type) {
-            case 'forward_attach':
-                this.processAttach(r.opts.atc);
-                break;
-
-            case 'forward_body':
-                this.removeAttach([ $('attach_list').down() ]);
-                this.setBodyText(r);
-                break;
-            }
-        }
     },
 
     focusEditor: function()
@@ -697,76 +675,85 @@ var DimpCompose = {
     },
 
     // opts = (Object)
-    //   fwdattach: (integer) Attachment is forwarded message
+    //   icon: (string) Data url of icon data
     //   name: (string) Attachment name
     //   num: (integer) Attachment number
-    //   size: (integer) Size, in KB
+    //   size: (string) Size.
     //   type: (string) MIME type
+    //   url: (string) Data view URL
+    //   view: (boolean) Link to attachment preview page
     addAttach: function(opts)
     {
-        var span = new Element('SPAN').insert(opts.name.escapeHTML()),
-            li = new Element('LI').insert(span).store('atc_id', opts.num);
-        if (opts.fwdattach) {
-            li.insert(' (' + opts.size + ' KB)');
-            span.addClassName('attachNameFwdmsg');
-        } else {
-            li.insert(' [' + opts.type + '] (' + opts.size + ' KB) ').insert(new Element('SPAN', { className: 'button remove' }).insert(DimpCore.text.remove));
-            if (opts.type != 'application/octet-stream') {
-                span.addClassName('attachName');
-            }
+        var canvas, img,
+            li = new Element('LI')
+                .store('atc_id', opts.num)
+                .store('atc_url', opts.url),
+            span = new Element('SPAN').insert(opts.name.escapeHTML());
+
+        if (opts.icon) {
+            canvas = new Element('CANVAS', { height: '16px', width: '16px' });
+            li.insert(canvas);
+            img = new Image();
+            img.onload = function() {
+                canvas.getContext('2d').drawImage(img, 0, 0, 16, 16);
+            };
+            img.src = opts.icon;
         }
+
+        li.insert(span);
+
+        canvas.writeAttribute('title', opts.type);
+        li.insert(' (' + opts.size + ') ').insert(new Element('SPAN', { className: 'button remove' }).insert(DimpCore.text.remove));
+        if (opts.view) {
+            span.addClassName('attachName');
+        }
+
         $('attach_list').insert(li).show();
 
         this.resizeMsgArea();
     },
 
-    removeAttach: function(e)
+    getAttach: function(id)
     {
-        var ids = [];
+        return $('attach_list').childElements().detect(function(e) {
+            return e.retrieve('atc_id') == id;
+        });
+    },
 
-        e.each(function(n) {
-            n = $(n);
-            ids.push(n.retrieve('atc_id'));
-            n.fade({
+    removeAttach: function(elt)
+    {
+        DimpCore.doAction('deleteAttach', this.actionParams({
+            atc_indices: Object.toJSON([ elt.retrieve('atc_id') ])
+        }), {
+            callback: this.removeAttachCallback.bind(this)
+        });
+    },
+
+    removeAttachCallback: function(r)
+    {
+        r.collect(this.getAttach.bind(this)).compact().each(function(elt) {
+            elt.fade({
                 afterFinish: function() {
-                    n.remove();
+                    elt.remove();
                     this.initAttachList();
-                    this.resizeMsgArea();
                 }.bind(this),
                 duration: 0.4
             });
         }, this);
-
-        if (!$('attach_list').childElements().size()) {
-            $('attach_list').hide();
-        }
-
-        DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F(this.getCacheElt()) });
     },
 
     initAttachList: function()
     {
-        var u = $('upload'),
-            u_parent = u.up();
+        var al = $('attach_list'),
+            u = $('upload');
 
-        if (DimpCore.conf.attach_limit != -1 &&
-            $('attach_list').childElements().size() >= DimpCore.conf.attach_limit) {
-            $('upload_limit').show();
-        } else if (!u_parent.visible()) {
-            $('upload_limit').hide();
+        u.clear();
 
-            if (Prototype.Browser.IE) {
-                // Trick to allow us to clear the file input on IE without
-                // creating a new node.  Need to re-add the event handler
-                // however, as it won't survive this assignment.
-                u.stopObserving();
-                u_parent.innerHTML = u_parent.innerHTML;
-                u = $('upload');
-                u.observe('change', this.changeHandler.bindAsEventListener(this));
-            }
-
-            u.clear().up().show();
+        if (!al.childElements().size()) {
+            al.hide();
         }
+
+        this.resizeMsgArea();
     },
 
     resizeMsgArea: function(e)
@@ -794,7 +781,7 @@ var DimpCompose = {
 
         try {
             mah = document.viewport.getHeight() - cmp.get('top') - cmp.get('margin-box-height') + cmp.get('height');
-        } catch (e) {
+        } catch (ex) {
             return;
         }
 
@@ -815,6 +802,34 @@ var DimpCompose = {
         this.uniqueSubmit('addAttachment');
         u.up().hide();
         $('upload_wait').update(DimpCore.text.uploading + ' (' + $F(u).escapeHTML() + ')').show();
+    },
+
+    uploadAttachmentAjax: function(dt, params, callback)
+    {
+        if (dt && dt.files) {
+            params = $H(params).update({
+                composeCache: $F(this.getCacheElt()),
+                json_return: 1
+            });
+            HordeCore.addRequestParams(params);
+
+            $R(0, dt.files.length - 1).each(function(n) {
+                var fd = new FormData();
+
+                params.merge({ file_upload: dt.files[n] }).each(function(p) {
+                    fd.append(p.key, p.value);
+                });
+
+                HordeCore.doAction('addAttachment', {}, {
+                    ajaxopts: {
+                        contentType: 'multipart/form-data',
+                        postBody: fd,
+                        requestHeaders: { "content-type": '' }
+                    },
+                    callback: callback
+                });
+            });
+        }
     },
 
     toggleCC: function(type)
@@ -857,7 +872,7 @@ var DimpCompose = {
     /* Click observe handler. */
     clickHandler: function(e)
     {
-        var elt = e.memo.element();
+        var elt = e.memo.element(), tmp;
 
         /* Needed because reply/forward buttons need to be of type="submit"
          * for FF to correctly size. */
@@ -866,8 +881,6 @@ var DimpCompose = {
             e.memo.hordecore_stop = true;
             return;
         }
-
-        var atc_num, tmp;
 
         switch (e.element().readAttribute('id')) {
         case 'togglebcc':
@@ -883,6 +896,10 @@ var DimpCompose = {
         case 'compose_close':
         case 'redirect_close':
             this.confirmCancel();
+            break;
+
+        case 'discard_button':
+            this.confirmCancel(true);
             break;
 
         case 'draft_button':
@@ -936,16 +953,9 @@ var DimpCompose = {
 
         case 'attach_list':
             if (elt.match('SPAN.remove')) {
-                this.removeAttach([ elt.up() ]);
+                this.removeAttach(elt.up());
             } else if (elt.match('SPAN.attachName')) {
-                atc_num = elt.up('LI').retrieve('atc_id');
-                HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
-                    actionID: 'compose_attach_preview',
-                    composeCache: $F(this.getCacheElt()),
-                    id: atc_num
-                }, {
-                    name: $F(this.getCacheElt()) + '|' + atc_num
-                });
+                HordeCore.popupWindow(elt.up('LI').retrieve('atc_url'));
             }
             break;
 
@@ -953,16 +963,28 @@ var DimpCompose = {
             this.setSaveSentMail($F(e.element()));
             break;
 
+        case 'compose_upload_add':
+            $('upload').click();
+            break;
+
         case 'fwdattachnotice':
+            this.fadeNotice(e.element());
+            DimpCore.doAction('getForwardData', this.actionParams({
+                dataonly: 1,
+                type: 'forward_body'
+            }), {
+                callback: this.setBodyText.bind(this)
+            });
+            this.fwdattach = false;
+            e.memo.stop();
+            break;
+
         case 'fwdbodynotice':
             this.fadeNotice(e.element());
-            DimpCore.doAction('GetForwardData', {
+            DimpCore.doAction('getForwardData', this.actionParams({
                 dataonly: 1,
-                imp_compose: $F(this.getCacheElt()),
-                type: (e.element().identify() == 'fwdattachnotice' ? 'forward_body' : 'forward_attach')
-            }, {
-                callback: this.forwardAddCallback.bind(this)
-            });
+                type: 'forward_attach'
+            }));
             this.fwdattach = false;
             e.memo.stop();
             break;
@@ -978,11 +1000,10 @@ var DimpCompose = {
         case 'replylist_revert':
             this.fadeNotice(e.element().up('LI'));
             $('to_loading_img').show();
-            DimpCore.doAction('getReplyData', {
+            DimpCore.doAction('getReplyData', this.actionParams({
                 headeronly: 1,
-                imp_compose: $F(this.getCacheElt()),
                 type: 'reply'
-            }, {
+            }), {
                 callback: this.swapToAddressCallback.bind(this)
             });
             e.memo.stop();
@@ -1033,30 +1054,29 @@ var DimpCompose = {
 
     contextOnClick: function(e)
     {
-        switch (e.memo.elt.readAttribute('id')) {
-        case 'ctx_msg_other_rr':
-            $('request_read_receipt').setValue(Number(!Number($F('request_read_receipt'))));
-            break;
+        var id = e.memo.elt.readAttribute('id');
 
-        case 'ctx_msg_other_saveatc':
-            $('save_attachments_select').setValue(Number(!Number($F('save_attachments_select'))));
-            break;
-        }
+        this.checkbox_context.each(function(pair) {
+            if (id.startsWith(pair.key + '_')) {
+                var t = pair.value.get(id.substring(pair.key.length + 1));
+                if (t) {
+                    $(t).setValue(Number(!Number($F(t))));
+                }
+            }
+        });
     },
 
     contextOnShow: function(e)
     {
-        var tmp;
+        var tmp = this.checkbox_context.get(e.memo);
 
-        switch (e.memo) {
-        case 'ctx_msg_other':
-            if (tmp = $('ctx_msg_other_rr')) {
-                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('request_read_receipt')));
-            }
-            if (tmp = $('ctx_msg_other_saveatc')) {
-                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('save_attachments_select')));
-            }
-            break;
+        if (tmp) {
+            tmp.each(function(pair) {
+                var t = $(e.memo + '_' + pair.key);
+                if (t) {
+                    DimpCore.toggleCheck(t.down('SPAN'), Number($F(pair.value)));
+                }
+            });
         }
     },
 
@@ -1082,7 +1102,22 @@ var DimpCompose = {
 
     tasksHandler: function(e)
     {
-        var t = e.tasks;
+        var t = e.tasks || {};
+
+        if (t['imp:compose']) {
+            this.getCacheElt().setValue(t['imp:compose'].cacheid);
+            if (t['imp:compose'].atclimit) {
+                $('upload_limit').show();
+                $('upload').up().hide();
+            } else {
+                $('upload_limit').hide();
+                $('upload').up().show();
+            }
+        }
+
+        if (t['imp:compose-atc']) {
+            t['imp:compose-atc'].each(this.addAttach.bind(this));
+        }
 
         if (this.baseAvailable()) {
             if (t['imp:flag']) {
@@ -1134,12 +1169,22 @@ var DimpCompose = {
             callback: this.uniqueSubmitCallback.bind(this)
         });
 
-        if ($H(DimpCore.context.ctx_msg_other).size()) {
-            DimpCore.addPopdown($('msg_other_options').down('A'), 'msg_other', {
+        if ($H(DimpCore.context.ctx_atc).size()) {
+            $('atctd').observe('drop', function(e) {
+                this.uploadAttachmentAjax(e.dataTransfer);
+                e.stop();
+            }.bindAsEventListener(this)).observe('dragover', Event.stop);
+            DimpCore.addPopdown($('upload'), 'atc', {
+                no_offset: true
+            });
+        }
+
+        if ($H(DimpCore.context.ctx_other).size()) {
+            DimpCore.addPopdown($('other_options').down('A'), 'other', {
                 trigger: true
             });
         } else {
-            $('msg_other_options').hide();
+            $('other_options').hide();
         }
 
         /* Create sent-mail list. */
@@ -1186,6 +1231,8 @@ var DimpCompose = {
 
         $('dimpLoading').hide();
         $('composeContainer', 'compose').compact().invoke('show');
+
+        this.tasksHandler({ tasks: this.tasks });
 
         if (this.onload_show) {
             this.fillForm(this.onload_show);

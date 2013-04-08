@@ -30,7 +30,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $page_output, $registry, $session;
+        global $injector, $page_output, $registry, $session;
 
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('passphrase.js');
@@ -45,17 +45,17 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $this->_addMailboxVars();
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
-        $this->view->show_notspam = !empty($conf['notspam']['reporting']);
+        $this->view->show_innocent = !empty($imp_imap->config->innocent_params);
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
-        $this->view->show_spam = !empty($conf['spam']['reporting']);
+        $this->view->show_spam = !empty($imp_imap->config->spam_params);
 
         $impSubinfo = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/dynamic'
         ));
         $impSubinfo->addHelper('Text');
-        $impSubinfo->quota = $session->get('imp', 'imap_quota');
+        $impSubinfo->quota = (bool)$imp_imap->config->quota;
 
         $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
         $topbar->search = $this->view->show_search;
@@ -76,7 +76,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'id' => 'imp-specialmboxes'
             )
         );
-        if ($imp_imap->imap) {
+        if ($imp_imap->isImap()) {
             $impSidebar->containers[] = array(
                 'rows' => array(
                     array(
@@ -142,25 +142,23 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
 
         /* Does server support ACLs? */
-        try {
-            $injector->getInstance('IMP_Imap_Acl');
-            $acl = true;
-        } catch (IMP_Exception $e) {
-            $acl = false;
-        }
+        $imp_imap = $injector->getInstance('IMP_Imap');
+        $acl = $imp_imap->access(IMP_Imap::ACCESS_ACL);
 
         $this->js_conf += array_filter(array(
             // URLs
             'URI_MESSAGE' => strval(IMP_Dynamic_Message::url()->setRaw(true)),
             'URI_PORTAL' => strval($registry->getServiceLink('portal')->setRaw(true)),
             'URI_PREFS_IMP' => strval($registry->getServiceLink('prefs', 'imp')->setRaw(true)),
-            'URI_SEARCH' => strval(Horde::url('search.php')),
-            'URI_THREAD' => strval(Horde::url('thread.php')),
+            'URI_SEARCH' => strval(IMP_Basic_Search::url()),
+            'URI_THREAD' => strval(IMP_Basic_Thread::url()),
 
             // IMAP Flags
             'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
             'FLAG_DRAFT' => Horde_Imap_Client::FLAG_DRAFT,
+            'FLAG_INNOCENT' => Horde_Imap_Client::FLAG_NOTJUNK,
             'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
+            'FLAG_SPAM' => Horde_Imap_Client::FLAG_JUNK,
 
             // Message list templates
             'msglist_template_horiz' => file_get_contents(IMP_TEMPLATES . '/dynamic/msglist_horiz.html'),
@@ -173,15 +171,11 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'mboxzip' => _("Download into a MBOX file (ZIP compressed)")
             ),
             'filter_any' => intval($prefs->getValue('filter_any_mailbox')),
-            'fixed_mboxes' => empty($conf['server']['fixed_folders'])
-                ? array()
-                : array_map(array('IMP_Mailbox', 'formTo'), array_map(array('IMP_Mailbox', 'prefFrom'), $conf['server']['fixed_folders'])),
             'flags' => $flags,
             /* Needed to maintain flag ordering. */
             'flags_o' => array_keys($flags),
             'fsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH),
             'initial_page' => IMP_Auth::getInitialPage()->mbox->form_to,
-            'innocent_spammbox' => intval(!empty($conf['notspam']['spamfolder'])),
             'mbox_expand' => intval($prefs->getValue('nav_expanded') == 2),
             'name' => $registry->get('name', 'imp'),
             'poll_alter' => intval(!$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all')),
@@ -230,8 +224,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                     't' => _("Size"),
                     'v' => Horde_Imap_Client::SORT_SIZE
                 )
-            ),
-            'spam_spammbox' => intval(!empty($conf['spam']['spamfolder']))
+            )
         ));
 
         $context = array(
@@ -293,10 +286,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         );
 
         /* Folder options context menu. */
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $context['ctx_folderopts'] = array(
-                'new' => _("New Mailbox"),
+                'new' => _("Create Mailbox"),
                 'sub' => _("Hide Unsubscribed"),
                 'unsub' => _("Show All Mailboxes"),
                 'expand' => _("Expand All"),
@@ -334,10 +326,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             )
         );
 
-        if (empty($conf['spam']['reporting'])) {
+        if (empty($imp_imap->config->spam_params)) {
             unset($context['ctx_message']['spam']);
         }
-        if (empty($conf['notspam']['reporting'])) {
+        if (empty($imp_imap->config->innocent_params)) {
             unset($context['ctx_message']['innocent']);
         }
         if (!$registry->hasMethod('mail/blacklistFrom')) {
@@ -351,12 +343,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
         if (empty($conf['user']['allow_view_source'])) {
             unset($context['ctx_message']['_sub3']);
-        }
-        if ($imp_imap->pop3) {
-            unset(
-                $context['ctx_message']['_sub2'],
-                $context['ctx_message']['undelete']
-            );
         }
 
         /* Mailbox context menu. */
@@ -414,6 +400,14 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             ),
             'show_deleted' => _("Show Deleted"),
             'hide_deleted' => _("Hide Deleted"),
+            '_sub3' => array(
+                '_sep3' => null,
+                'growler_log' => _("Toggle Alerts Log")
+            ),
+            '_sub4' => array(
+                '_sep4' => null,
+                'clear_sort' => _("Clear Sort")
+            )
         );
         if ($prefs->getValue('use_trash')) {
             unset($context['ctx_oa']['_sub2']);
@@ -421,15 +415,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         if ($prefs->isLocked('delhide')) {
             unset($context['ctx_oa']['hide_deleted']);
         }
-        if ($imp_imap->pop3) {
-            unset(
-                $context['ctx_oa']['_sub1'],
-                $context['ctx_oa']['_sub2'],
-                $context['ctx_oa']['show_deleted'],
-                $context['ctx_oa']['hide_deleted']
-            );
-        }
-
 
         /* Preview context menu. */
         $context['ctx_preview'] = array(
@@ -450,7 +435,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 '*flag' => _("Show Only"),
                 '*flagnot' => _("Don't Show")
             );
-            if (IMP::applyFilters()) {
+            if (IMP_Filter::canApplyFilters()) {
                 $context['ctx_filteropts']['_sub1'] = array(
                     '_sep1' => null,
                     'applyfilters' => _("Apply Filters")
@@ -492,21 +477,22 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'delete_mbox_subfolders' => _("Delete all subfolders of %s?"),
             'download_mbox' => _("All messages in this mailbox will be downloaded into the format that you choose. Depending on the size of the mailbox, this action may take awhile."),
             'empty_mbox' => _("Permanently delete all %d messages in %s?"),
-            'hidealog' => Horde::highlightAccessKey(_("Hide Alerts _Log"), Horde::getAccessKey(_("Alerts _Log"), true)),
             'import_mbox' => _("Mbox or .eml file:"),
+            'import_mbox_loading' => _("Importing (this may take some time)..."),
             'listmsg_wait' => _("The server is still generating the message list."),
             'listmsg_timeout' => _("The server was unable to generate the message list."),
-            'message' => _("Message"),
-            'messages' => _("Messages"),
+            'message_0' => _("No messages"),
+            'message_1' => _("1 message"),
+            'message_2' => _("%d messages"),
             'moveto' => _("Move %s to %s"),
-            'nomessages' => _("No Messages"),
             'onlogout' => _("Logging Out..."),
             'portal' => _("Portal"),
             'prefs' => _("User Options"),
             'rename_prompt' => _("Rename %s to:"),
             'search' => _("Search"),
+            'search_input' => _("Search (%s)"),
             'search_time' => _("Results are %d Minutes Old"),
-            'selected' => _("selected"),
+            'selected' => _("%s selected."),
             'slidertext' => _("Messages %d - %d"),
             'vfolder' => _("Virtual Folder: %s"),
             'vp_empty' => _("There are no messages in this mailbox."),

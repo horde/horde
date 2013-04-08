@@ -15,8 +15,8 @@
  * Defines the AJAX interface for IMP.
  *
  * Global tasks:
- *   - msgload: (string) Indices of the messages to load in the background
- *              (IMAP sequence string; mailboxes are base64url encoded).
+ *   - msgload: (string) BUID of a message to load in the background (mailbox
+ *              is located in 'mailbox' parameter).
  *   - poll: (string) The list of mailboxes to process (JSON encoded
  *           array; mailboxes are base64url encoded). If an empty array, polls
  *           all mailboxes.
@@ -33,11 +33,11 @@
 class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
-     * The mailbox (view) we are dealing with on the browser.
+     * The IMP_Indices_Mailbox object based on form data.
      *
-     * @var IMP_Mailbox
+     * @var IMP_Indices_Mailbox
      */
-    public $mbox;
+    public $indices;
 
     /**
      * Queue object.
@@ -60,16 +60,23 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             break;
 
         case $registry::VIEW_DYNAMIC:
-            $this->addHandler('IMP_Ajax_Application_Handler_Dynamic');
             $this->addHandler('IMP_Ajax_Application_Handler_Common');
+            $this->addHandler('IMP_Ajax_Application_Handler_ComposeAttach');
+            $this->addHandler('IMP_Ajax_Application_Handler_Draft');
+            $this->addHandler('IMP_Ajax_Application_Handler_Dynamic');
             $this->addHandler('IMP_Ajax_Application_Handler_Mboxtoggle');
             $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
             $this->addHandler('IMP_Ajax_Application_Handler_Search');
             break;
 
         case $registry::VIEW_SMARTMOBILE:
-            $this->addHandler('IMP_Ajax_Application_Handler_Smartmobile');
             $this->addHandler('IMP_Ajax_Application_Handler_Common');
+            $this->addHandler('IMP_Ajax_Application_Handler_ComposeAttach');
+            $this->addHandler('IMP_Ajax_Application_Handler_Draft')->disabled = array(
+                'autoSaveDraft',
+                'saveTemplate'
+            );
+            $this->addHandler('IMP_Ajax_Application_Handler_Smartmobile');
             break;
         }
 
@@ -78,11 +85,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $this->queue = $injector->getInstance('IMP_Ajax_Queue');
 
-        /* Bug #10462: 'view' POST parameter is base64url encoded to
-         * workaround suhosin. */
+        /* Copy 'view' paramter to 'mailbox', because this is what
+         * IMP_Indices_Mailbox expects. */
         if (isset($this->_vars->view)) {
-            $this->mbox = IMP_Mailbox::formFrom($this->_vars->view);
+            $this->_vars->mailbox = $this->_vars->view;
         }
+
+        $this->indices = new IMP_Indices_Mailbox($this->_vars);
 
         /* Make sure the viewport entry is initialized. */
         $vp = isset($this->_vars->viewport)
@@ -94,22 +103,17 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Check for global msgload task. */
         if (isset($this->_vars->msgload)) {
-            $indices = new IMP_Indices_Form($this->_vars->msgload);
-            foreach ($indices as $ob) {
-                foreach ($ob->uids as $val) {
-                    $this->queue->message($ob->mbox, $val, true, true);
-                }
-            }
+            $this->queue->message($this->indices->mailbox->fromBuids(array($this->_vars->msgload)), true, true);
         }
 
         /* Check for global poll task. */
         if (isset($this->_vars->poll)) {
             $poll = Horde_Serialize::unserialize($this->_vars->poll, Horde_Serialize::JSON);
-            if (empty($poll)) {
-                $this->queue->poll($injector->getInstance('IMP_Imap_Tree')->getPollList());
-            } else {
-                $this->queue->poll(IMP_Mailbox::formFrom($poll));
-            }
+            $this->queue->poll(
+                empty($poll)
+                    ? $injector->getInstance('IMP_Imap_Tree')->getPollList()
+                    : IMP_Mailbox::formFrom($poll)
+            );
         }
     }
 
@@ -151,11 +155,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $ob->compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->imp_compose);
         $ob->ajax = new IMP_Ajax_Application_Compose($ob->compose, $this->_vars->type);
 
-        if (!($ob->contents = $ob->compose->getContentsOb())) {
-            $ob->contents = $this->_vars->uid
-                ? $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Form($this->_vars->uid))
-                : null;
+        if (!($ob->contents = $ob->compose->getContentsOb()) &&
+            count($this->indices)) {
+            $ob->contents = $injector->getInstance('IMP_Factory_Contents')->create($this->indices);
         }
+
+        $this->queue->compose($ob->compose);
 
         return $ob;
     }
@@ -168,7 +173,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function checkUidvalidity()
     {
         try {
-            $this->mbox->uidvalid;
+            $this->indices->mailbox->uidvalid;
         } catch (IMP_Exception $e) {
             $this->addTask('viewport', $this->viewPortData(true));
         }
@@ -202,7 +207,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $args = array(
             'change' => $change,
-            'mbox' => strval($this->mbox)
+            'mbox' => strval($this->indices->mailbox)
         );
 
         $params = array(
@@ -261,22 +266,26 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         /* Only update search mailboxes on forced refreshes. */
-        if ($this->mbox->search) {
+        if ($this->indices->mailbox->search) {
             return !empty($this->_vars->forceUpdate);
+        }
+
+        if (!$this->_vars->viewport->cacheid) {
+            return false;
         }
 
         /* We know we are going to be dealing with this mailbox, so select it
          * on the IMAP server (saves some STATUS calls). */
         if (!is_null($rw)) {
             try {
-                $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->openMailbox($this->mbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+                $GLOBALS['injector']->getInstance('IMP_Imap')->openMailbox($this->indices->mailbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (IMP_Imap_Exception $e) {
                 $e->notify();
                 return null;
             }
         }
 
-        return ($this->mbox->cacheid_date != $this->_vars->viewport->cacheid);
+        return ($this->indices->mailbox->cacheid_date != $this->_vars->viewport->cacheid);
     }
 
     /**
@@ -290,7 +299,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function viewPortOb($mbox = null)
     {
         if (is_null($mbox)) {
-            $mbox = $this->mbox;
+            $mbox = $this->indices->mailbox;
         }
 
         $vp = new stdClass;
@@ -332,17 +341,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Set up the From address based on the identity. */
         $headers = array(
-            'from' => strval($identity->getFromLine(null, $this->_vars->from))
+            'from' => strval($identity->getFromLine(null, $this->_vars->from)),
+            'to' => $this->_vars->to,
+            'cc' => $this->_vars->cc,
+            'bcc' => $this->_vars->bcc,
+            'subject' => $this->_vars->subject
         );
-
-        $headers['to'] = $this->_vars->to;
-        if ($prefs->getValue('compose_cc')) {
-            $headers['cc'] = $this->_vars->cc;
-        }
-        if ($prefs->getValue('compose_bcc')) {
-            $headers['bcc'] = $this->_vars->bcc;
-        }
-        $headers['subject'] = $this->_vars->subject;
 
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
 
@@ -366,49 +370,20 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         /* Check if we need to update thread information. */
         if (!$changed) {
-            $changed = ($this->mbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
+            $changed = ($this->indices->mailbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
         }
 
         if ($changed) {
             $vp = $this->viewPortData(true);
             $this->addTask('viewport', $vp);
-        } elseif ($force || $this->mbox->hideDeletedMsgs(true)) {
+        } elseif (($indices instanceof IMP_Indices_Mailbox) &&
+                  ($force || $this->indices->mailbox->hideDeletedMsgs(true))) {
             $vp = $this->viewPortOb();
-
-            if ($this->mbox->search) {
-                $disappear = array();
-                foreach ($indices as $val) {
-                    foreach ($val->uids as $val2) {
-                        $disappear[] = IMP_Ajax_Application_ListMessages::searchUid($val->mbox, $val2);
-                    }
-                }
-            } else {
-                $disappear = end($indices->getSingle(true));
-            }
-            $vp->disappear = $disappear;
-
+            $vp->disappear = $indices->buids[strval($this->indices->mailbox)];
             $this->addTask('viewport', $vp);
         }
 
         $this->queue->poll(array_keys($indices->indices()));
-    }
-
-    /**
-     * Explicitly call an action.
-     *
-     * @todo Move to Horde_Core_Ajax_Application
-     *
-     * @param string $action  The action to call.
-     *
-     * @return mixed  The response from the called action.
-     */
-    public function callAction($action)
-    {
-        foreach ($this->_handlers as $ob) {
-            if ($ob->has($action)) {
-                return call_user_func(array($ob, $action));
-            }
-        }
     }
 
 }

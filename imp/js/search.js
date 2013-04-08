@@ -1,5 +1,5 @@
 /**
- * Provides the javascript for the search.php script (advanced view).
+ * Provides the javascript for the advanced search page.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -7,7 +7,7 @@
 
 var ImpSearch = {
 
-    // The following variables are defined in search.php:
+    // The following variables are defined in PHP code:
     //   data, i_criteria, i_mboxes, i_recent, text
     criteria: {},
     mboxes: $H(),
@@ -333,7 +333,7 @@ var ImpSearch = {
     deleteMailbox: function(div)
     {
         var first, keys,
-            id = div.identify()
+            id = div.identify();
 
         this.disableMailbox(false, this.mboxes.get(id));
         this.mboxes.unset(id);
@@ -423,7 +423,6 @@ var ImpSearch = {
         var criteria,
             data = [],
             f_out = { mbox: [], subfolder: [] },
-            sflist = [],
             type = $F('search_type');
 
         if (type && !$('search_label').present()) {
@@ -465,10 +464,10 @@ var ImpSearch = {
                 break;
 
             case 'size':
-                tmp2 = Number($F($(c).down('INPUT')));
-                if (!isNaN(tmp2)) {
+                tmp = Number($F($(c).down('INPUT')));
+                if (!isNaN(tmp)) {
                     // Convert KB to bytes
-                    this.criteria[c].v = tmp2 * 1024;
+                    this.criteria[c].v = tmp * 1024;
                     data.push(this.criteria[c]);
                 }
                 break;
@@ -522,7 +521,7 @@ var ImpSearch = {
 
     clickHandler: function(e)
     {
-        var elt = e.element(), tmp;
+        var elt = e.element();
 
         switch (elt.readAttribute('id')) {
         case 'search_submit':
@@ -535,14 +534,14 @@ var ImpSearch = {
             this.resetMailboxes();
             return;
 
-        case 'search_dimp_return':
+        case 'search_dynamic_return':
             e.memo.hordecore_stop = true;
             window.parent.DimpBase.go('mbox', this.data.searchmbox);
             break;
 
         case 'search_edit_query_cancel':
             e.memo.hordecore_stop = true;
-            if (this.data.dimp) {
+            if (this.data.dynamic_view) {
                 window.parent.DimpBase.go();
             } else {
                 document.location.href = this.prefsurl;

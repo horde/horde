@@ -30,6 +30,11 @@ abstract class IMP_Dynamic_Base
     public $growlerLog = false;
 
     /**
+     * @var IMP_Indices_Mailbox
+     */
+    public $indices;
+
+    /**
      * @var array
      */
     public $js_conf = array();
@@ -75,10 +80,12 @@ abstract class IMP_Dynamic_Base
         $this->vars = $vars;
         $this->view = $this->getEmptyView();
 
+        $this->indices = new IMP_Indices_Mailbox($vars);
+
         $this->_addBaseVars();
 
         $page_output->addScriptFile('dimpcore.js');
-        $page_output->addScriptFile('indices.js');
+        $page_output->addScriptFile('viewport_utils.js');
         $page_output->addScriptFile('contextsensitive.js', 'horde');
         $page_output->addScriptFile('imple.js', 'horde');
 
@@ -126,17 +133,17 @@ abstract class IMP_Dynamic_Base
      */
     protected function _addBaseVars()
     {
-        global $injector, $prefs;
+        global $prefs, $session;
 
         /* Variables used in core javascript files. */
         $this->js_conf = array_filter(array(
             // URL variables
+            'MAX_FILE_SIZE' => intval($session->get('imp', 'file_upload')),
             'URI_COMPOSE' => strval(IMP_Dynamic_Compose::url()->setRaw(true)),
             'URI_VIEW' => strval(Horde::url('view.php')),
 
             // Other variables
-            'disable_compose' => !IMP::canCompose(),
-            'pop3' => intval($injector->getInstance('IMP_Factory_Imap')->create()->pop3)
+            'disable_compose' => !IMP_Compose::canCompose()
         ));
 
         /* Context menu definitions.

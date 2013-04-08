@@ -24,10 +24,9 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
 {
     /**
      * @param array $params  Configuration parameters:
-     *   - mailbox: (IMP_Mailbox) The mailbox of the message.
      *   - mime_id: (string) The MIME ID of the message part with the key.
+     *   - muid: (string) The MUID of the message.
      *   - type: (string) Key type. Either 'pgp' or 'smime'.
-     *   - uid: (string) The UID of the message.
      */
     public function __construct(array $params = array())
     {
@@ -43,19 +42,17 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
         }
 
         return array(
-            'mailbox' => $this->_params['mailbox']->form_to,
             'mime_id' => $this->_params['mime_id'],
-            'type' => $this->_params['type'],
-            'uid' => $this->_params['uid']
+            'muid' => $this->_params['muid'],
+            'type' => $this->_params['type']
         );
     }
 
     /**
      * Variables required in form input:
-     *   - mailbox
      *   - mime_id
+     *   - muid
      *   - type
-     *   - uid
      *
      * @return boolean  True on success.
      * @throws IMP_Exception
@@ -66,7 +63,7 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
 
         /* Retrieve the key from the message. */
         try {
-            $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP_Mailbox::formFrom($vars->mailbox), $vars->uid));
+            $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Mailbox($vars));
             $mime_part = $contents->getMIMEPart($vars->mime_id);
             if (empty($mime_part)) {
                 throw new IMP_Exception(_("Cannot retrieve public key from message."));

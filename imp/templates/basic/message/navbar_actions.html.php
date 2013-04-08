@@ -52,8 +52,8 @@
 <?php if ($this->spam): ?>
   <li><?php echo $this->spam ?></li>
 <?php endif; ?>
-<?php if ($this->notspam): ?>
-  <li><?php echo $this->notspam ?></li>
+<?php if ($this->innocent): ?>
+  <li><?php echo $this->innocent ?></li>
 <?php endif; ?>
   <li>
    <?php echo $this->headers ?>

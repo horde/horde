@@ -20,8 +20,13 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
+class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_Shutdown_Task
 {
+    /**
+     * @var IMP_Imap_Tree
+     */
+    private $_instance;
+
     /**
      * Return the IMP_Imap_Tree object.
      *
@@ -31,8 +36,6 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
     {
         global $registry, $session;
 
-        $instance = null;
-
         /* If an IMP_Imap_Tree object is currently stored in the cache,
          * re-create that object.  Else, create a new instance. */
         if ($session->exists('imp', 'treeob')) {
@@ -41,10 +44,10 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
              * backend is setup. */
             $cache = $injector->getInstance('Horde_Cache');
             if ($cache instanceof Horde_Cache_Null) {
-                $instance = $session->retrieve('imp_imaptree');
+                $this->_instance = $session->retrieve('imp_imaptree');
             } else {
                 try {
-                    $instance = @unserialize($cache->get($session->get('imp', 'treeob'), 86400));
+                    $this->_instance = @unserialize($cache->get($session->get('imp', 'treeob'), 86400));
                 } catch (Exception $e) {
                     Horde::log('Could not unserialize stored IMP_Imap_Tree object.', 'DEBUG');
                 }
@@ -53,39 +56,36 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
             $session->set('imp', 'treeob', strval(new Horde_Support_Randomid()));
         }
 
-        if (!($instance instanceof IMP_Imap_Tree)) {
-            $instance = new IMP_Imap_Tree();
+        if (!($this->_instance instanceof IMP_Imap_Tree)) {
+            $this->_instance = new IMP_Imap_Tree();
         }
 
         switch ($registry->getView()) {
         case $registry::VIEW_DYNAMIC:
         case $registry::VIEW_SMARTMOBILE:
-            $instance->track = true;
+            $this->_instance->track = true;
             break;
         }
 
-        register_shutdown_function(array($this, 'shutdown'), $instance, $injector);
+        Horde_Shutdown::add($this);
 
-        return $instance;
+        return $this->_instance;
     }
 
     /**
      * Store serialized version of object in the current session.
-     *
-     * @param IMP_Imap_Tree $instance   Tree object.
-     * @param Horde_Injector $injector  Injector object.
      */
-    public function shutdown($instance, $injector)
+    public function shutdown()
     {
         global $session;
 
         /* Only need to store the object if the tree has changed. */
-        if ($instance->changed) {
-            $cache = $injector->getInstance('Horde_Cache');
+        if ($this->_instance->changed) {
+            $cache = $this->_injector->getInstance('Horde_Cache');
             if ($cache instanceof Horde_Cache_Null) {
-                $session->store($instance, true, 'imp_imaptree');
+                $session->store($this->_instance, true, 'imp_imaptree');
             } else {
-                $cache->set($GLOBALS['session']->get('imp', 'treeob'), serialize($instance), 86400);
+                $cache->set($session->get('imp', 'treeob'), serialize($this->_instance), 86400);
             }
         }
     }

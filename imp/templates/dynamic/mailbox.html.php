@@ -36,7 +36,7 @@
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?>
      </li>
 <?php endif; ?>
-<?php if ($this->show_notspam): ?>
+<?php if ($this->show_innocent): ?>
      <li class="horde-icon" style="display:none">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Innocent', 'id' => 'button_innocent', 'title' => _("Innocent"))) ?>
      </li>

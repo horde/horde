@@ -4,6 +4,7 @@
  *
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
+ * @ignore
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
  * @subpackage UnitTests

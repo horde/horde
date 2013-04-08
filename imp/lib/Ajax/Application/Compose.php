@@ -71,12 +71,15 @@ class IMP_Ajax_Application_Compose
      */
     public function getResponse($result)
     {
-        $ob = $this->getBaseResponse();
+        $ob = $this->getBaseResponse($result);
 
         $ob->body = $result['body'];
         $ob->format = $result['format'];
-        $ob->header = $result['headers'];
         $ob->identity = $result['identity'];
+
+        if (!empty($result['attach'])) {
+            $ob->opts->attach = 1;
+        }
 
         if ($search = array_search($result['type'], $this->reply_map)) {
             if ($this->_type == 'reply_auto') {
@@ -104,57 +107,30 @@ class IMP_Ajax_Application_Compose
             $ob->opts->readreceipt = $result['readreceipt'];
         }
 
-        if ($atc = $this->getAttachmentInfo($result['type'])) {
-            $ob->opts->atc = $atc;
-        }
-
         return $ob;
     }
 
     /**
      */
-    public function getBaseResponse()
+    public function getBaseResponse($result)
     {
         $ob = new stdClass;
         $ob->body = '';
-        $ob->header = array();
-        $ob->imp_compose = $this->_composeOb->getCacheId();
         $ob->opts = new stdClass;
+        $ob->subject = isset($result['subject'])
+            ? $result['subject']
+            : '';
         $ob->type = $this->_type;
 
-        return $ob;
-    }
-
-    /**
-     * Return information about the current attachments for a message.
-     *
-     * @param integer $type  The compose type.
-     *
-     * @return array  An array of arrays with the following keys:
-     *   - fwdattach: (integer) If non-zero, this is a forward attachment
-     *   - name: (string) The attachment name
-     *   - num: (integer) The current attachment number
-     *   - size: (string) The size of the attachment in KB
-     *   - type: (string) The MIME type of the attachment
-     */
-    public function getAttachmentInfo($type = IMP_Compose::COMPOSE)
-    {
-        $atc = array();
-
-        foreach ($this->_composeOb as $atc_num => $data) {
-            $mime = $data['part'];
-
-            $atc[] = array(
-                'fwdattach' => intval(in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH))),
-                'name' => $mime->getName(true),
-                'num' => $atc_num,
-                'type' => $mime->getType(),
-                'size' => $mime->getSize()
+        if (isset($result['addr'])) {
+            $ob->addr = array(
+                'to' => array_map('strval', $result['addr']['to']->base_addresses),
+                'cc' => array_map('strval', $result['addr']['cc']->base_addresses),
+                'bcc' => array_map('strval', $result['addr']['bcc']->base_addresses),
             );
         }
 
-        return $atc;
+        return $ob;
     }
-
 
 }

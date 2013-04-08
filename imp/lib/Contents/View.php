@@ -23,18 +23,20 @@
 class IMP_Contents_View
 {
     /**
+     * @var IMP_Contents
      */
     protected $_contents;
 
     /**
+     * @param IMP_Indices $indices
      */
-    public function __construct($mailbox, $uid)
+    public function __construct(IMP_Indices $indices)
     {
-        if (!$mailbox || !$uid) {
+        try {
+            $this->_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
+        } catch (Exception $e) {
             exit;
         }
-
-        $this->_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($mailbox->getIndicesOb($uid));
     }
 
     /**
@@ -227,9 +229,8 @@ class IMP_Contents_View
             return $part;
         }
 
-        $imp_ui = new IMP_Ui_Message();
-        $imp_ui_mbox = new IMP_Ui_Mailbox();
-        $basic_headers = $imp_ui->basicHeaders();
+        $imp_ui_mbox = new IMP_Mailbox_Ui();
+        $basic_headers = $injector->getInstance('IMP_Message_Ui')->basicHeaders();
         unset($basic_headers['bcc'], $basic_headers['reply-to']);
         $headerob = $this->_contents->getHeader();
 
@@ -240,7 +241,7 @@ class IMP_Contents_View
             if ($hdr_val = $headerob->getValue($key)) {
                 /* Format date string. */
                 if ($key == 'date') {
-                    $hdr_val = $imp_ui_mbox->getDate($hdr_val, IMP_Ui_Mailbox::DATE_FORCE | IMP_Ui_Mailbox::DATE_FULL);
+                    $hdr_val = $imp_ui_mbox->getDate($hdr_val, $imp_ui_mbox::DATE_FORCE | $imp_ui_mbox::DATE_FULL);
                 }
 
                 $headers[] = array(

@@ -106,7 +106,7 @@ class Horde_Kolab_Test_Filter
      */
     public function prepareUsers(&$server)
     {
-        parent::prepareUsers(&$server);
+        parent::prepareUsers($server);
         $result = $server->add($this->provideFilterUserOne());
         $this->assertNoError($result);
         $result = $server->add($this->provideFilterUserTwo());

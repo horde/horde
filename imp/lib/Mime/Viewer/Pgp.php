@@ -67,7 +67,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     /**
      * The address of the sender.
      *
-     * @var string
+     * @var Horde_Mail_Rfc822_Address
      */
     protected $_address = null;
 
@@ -148,7 +148,8 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         /* Determine the address of the sender. */
         if (is_null($this->_address)) {
             $headers = $this->getConfigParam('imp_contents')->getHeader();
-            $this->_address = IMP::bareAddress($headers->getValue('from'));
+            $tmp = $headers->getOb('from');
+            $this->_address = $tmp[0];
         }
 
         switch ($this->_mimepart->getType()) {
@@ -372,10 +373,9 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             $GLOBALS['registry']->hasMethod('contacts/addField')) {
             // TODO: Check for key existence.
             $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ImportEncryptKey', array(
-                'mailbox' => $imp_contents->getMailbox(),
                 'mime_id' => $mime_id,
-                'type' => 'pgp',
-                'uid' => $imp_contents->getUid()
+                'muid' => strval($imp_contents->getIndicesOb()),
+                'type' => 'pgp'
             ));
             $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Save the key to your address book.") . '</a>');
         }
@@ -436,7 +436,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             try {
                 $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
                 if ($sig_part->getMetadata(self::PGP_SIG)) {
-                    $sig_result = $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address, null, $sig_part->getMetadata(self::PGP_CHARSET));
+                    $sig_result = $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address->bare_address, null, $sig_part->getMetadata(self::PGP_CHARSET));
                 } else {
                     $stream = $imp_contents->isEmbedded($signed_id)
                         ? $this->_mimepart->getMetadata(self::PGP_SIGN_ENC)
@@ -446,7 +446,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                         'eol' => Horde_Mime_Part::RFC_EOL
                     ));
 
-                    $sig_result = $imp_pgp->verifySignature(stream_get_contents($stream, -1, 0), $this->_address, $sig_part->getContents());
+                    $sig_result = $imp_pgp->verifySignature(stream_get_contents($stream, -1, 0), $this->_address->bare_address, $sig_part->getContents());
                 }
 
                 $status2->action(IMP_Mime_Status::SUCCESS);

@@ -106,7 +106,7 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
                 }
             }
         }
-        parent::prepareObjectInformation(&$info);
+        parent::prepareObjectInformation($info);
     }
 
 }

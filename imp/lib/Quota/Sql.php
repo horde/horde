@@ -36,13 +36,11 @@ class IMP_Quota_Sql extends IMP_Quota
      *   - query_used: (string) SQL query which returns single row/column with
      *                 user used space (in bytes). Placeholders are the same
      *                 as in 'query_quota'.
-     *
-     * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
         if (!isset($params['db'])) {
-            throw new IMP_Exception('Missing db parameter.');
+            throw new InvalidArgumentException('Missing db parameter.');
         }
         $this->_db = $params['db'];
         unset($params['db']);
@@ -56,14 +54,8 @@ class IMP_Quota_Sql extends IMP_Quota
     }
 
     /**
-     * Returns quota information.
-     *
-     * @return array  An array with the following keys:
-     *   - limit: Maximum quota allowed
-     *   - usage: Currently used portion of quota (in bytes)
-     * @throws IMP_Exception
      */
-    public function getQuota()
+    public function getQuota($mailbox = null)
     {
         $quota = array(
             'limit' => 0,
