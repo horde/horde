@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>18:47:23</time>
+ <date>2013-04-08</date>
+ <time>17:00:25</time>
  <version>
   <release>2.0.4</release>
   <api>1.0.0</api>
@@ -437,7 +437,7 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-04-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Make Horde_Compress_Fast a required package (Bug #12166).
