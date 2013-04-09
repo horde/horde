@@ -668,9 +668,12 @@ class Horde_ActiveSync
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
-            $this->_state->setDeviceInfo($device);
+            $device->properties['version'] = $version;
+            $device->save();
         } else {
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
+            $device->properties['version'] = $version;
+            $device->save();
         }
 
         // Always set the version information instead of caching it, some

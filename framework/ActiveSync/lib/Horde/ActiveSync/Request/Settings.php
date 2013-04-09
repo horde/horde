@@ -208,6 +208,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                             }
                         }
                         try {
+                            $deviceinfo['version'] = $this->_device->version;
                             $this->_device->setDeviceProperties($deviceinfo);
                         } catch (Horde_ActiveSync_Exception $e) {
                             $this->_logger->err($e->getMessage());

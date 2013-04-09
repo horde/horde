@@ -42,6 +42,7 @@ class Horde_ActiveSync_Device
     const OS           = 'Settings:OS';
     const OS_LANGUAGE  = 'Settings:OSLanguage';
     const PHONE_NUMBER = 'Settings:PhoneNumber';
+    const VERSION      = 'version';
 
     /**
      * Device properties.
@@ -164,6 +165,11 @@ class Horde_ActiveSync_Device
     public function getLastSyncTimestamp()
     {
         return $this->_state->getLastSyncTimestamp($this->id, $this->user);
+    }
+
+    public function save()
+    {
+        $this->_state->setDeviceInfo($this);
     }
 
 }
