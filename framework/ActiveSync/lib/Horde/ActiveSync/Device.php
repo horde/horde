@@ -36,6 +36,13 @@
  */
 class Horde_ActiveSync_Device
 {
+    const MODEL        = 'Settings:Model';
+    const IMEI         = 'Settings:IMEI';
+    const NAME         = 'Settings:FriendlyName';
+    const OS           = 'Settings:OS';
+    const OS_LANGUAGE  = 'Settings:OSLanguage';
+    const PHONE_NUMBER = 'Settings:PhoneNumber';
+
     /**
      * Device properties.
      *
@@ -126,11 +133,32 @@ class Horde_ActiveSync_Device
      */
     public function getFormattedDeviceProperties()
     {
-        return array(
+        $data = array(
             _("Id") => $this->id,
             _("Policy Key") => $this->policykey,
             _("User Agent") => $this->userAgent
         );
+
+        if ($this->properties[self::MODEL]) {
+            $data[_("Model")] = $this->properties[self::MODEL];
+        }
+        if ($this->properties[self::IMEI]) {
+            $data[_("IMEI")] = $this->properties[self::IMEI];
+        }
+        if ($this->properties[self::NAME]) {
+            $data[_("Common Name")] = $this->properties[self::NAME];
+        }
+        if ($this->properties[self::OS]) {
+            $data[_("OS")] = $this->properties[self::OS];
+        }
+        if ($this->properties[self::OS_LANGUAGE]) {
+            $data[_("OS Language")] = $this->properties[self::OS_LANGUAGE];
+        }
+        if ($this->properties[self::PHONE_NUMBER]) {
+            $data[_("Phone Number")] = $this->properties[self::PHONE_NUMBER];
+        }
+
+        return $data;
     }
 
     public function getLastSyncTimestamp()
