@@ -746,6 +746,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $indices->indices = $expunged;
 
         $this->_base->deleteMsgs($indices, $change, true);
+        $this->_base->queue->poll($this->_base->indices->mailbox);
 
         return true;
     }
