@@ -15,26 +15,37 @@
 <input type="hidden" name="wipeid" id="wipeid" />
 <input type="hidden" name="cancelwipe" id="cancelwipe" />
 <table class="horde-table striped">
- <tr>
+ <tr class="header">
   <th></th>
-  <th><?php echo _("Device") ?></th>
-  <th><?php echo _("Last Sync Time") ?></th>
-  <th><?php echo _("Status") ?></th>
+  <th class="smallheader"><?php echo _("Device") ?></th>
+  <th class="smallheader"><?php echo _("Last Sync Time") ?></th>
+  <th class="smallheader"><?php echo _("Status") ?></th>
+  <th class="smallheader"><?php echo _("Device Information") ?></th>
  </tr>
 <?php foreach ($this->devices as $d): ?>
- <tr class="<tag:devices.class />">
+ <tr>
   <td>
-<?php if ($d['device_policykey']): ?>
-   <input class="horde-delete" type="button" value="<?php echo _("Wipe") ?>" id="wipe_<?php echo $d['key'] ?>" />
-<?php endif; ?>
-<?php if ($d['ispending']): ?>
-   <input type="button" value="<?php echo _("Cancel Wipe") ?>" id="cancel_<?php echo $d['key'] ?>" />
-<?php endif; ?>
-   <input class="horde-delete" type="button" value="<?php echo _("Remove") ?>" id="remove_<?php echo $d['key'] ?>" />
+    <?php if ($d->policykey): ?>
+      <input class="horde-delete" type="button" value="<?php echo _("Wipe") ?>" id="wipe_<?php echo $d->id ?>" />
+    <?php endif; ?>
+    <?php if ($d->rwstatus == Horde_ActiveSync::RWSTATUS_PENDING): ?>
+      <?php $status = $this->contentTag('span', _("Wipe Pending"), array('class' => 'notice')) ?>
+      <input type="button" value="<?php echo _("Cancel Wipe") ?>" id="cancel_<?php echo $d->id ?>" />
+    <?php elseif ($d->rwstatus == Horde_ActiveSync::RWSTATUS_WIPED): ?>
+      <?php $status = $this->contentTag('span', _("Device is Wiped"), array('class' => 'notice')) ?>
+    <?php else: ?>
+      <?php $status = $d->policykey ? _("Provisioned") : _("Not Provisioned") ?>
+    <?php endif; ?>
+    <input class="horde-delete" type="button" value="<?php echo _("Remove") ?>" id="remove_<?php echo $d->id ?>" />
   </td>
-  <td><?php echo $d['device_type'] ?></td>
-  <td><?php echo $d['ts'] ?></td>
-  <td><?php echo $d['status'] ?></td>
+  <td><?php echo $d->deviceType ?></td>
+  <td><?php echo strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $d->getLastSyncTimestamp()) ?></td>
+  <td><?php echo $status ?></td>
+  <td>
+    <?php foreach ($d->getFormattedDeviceProperties() as $key => $value): ?>
+      <?php echo '<b>' . $key . '</b>: ' . $value . '<br />' ?>
+    <?php endforeach; ?>
+  </td>
  </tr>
 <?php endforeach; ?>
 </table>

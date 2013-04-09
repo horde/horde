@@ -34,19 +34,6 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         $stateMachine = $injector->getInstance('Horde_ActiveSyncState');
         $devices = $stateMachine->listDevices($auth);
 
-        $js = array();
-        foreach ($devices as $key => $val) {
-            $js[$key] = array(
-                'id' => $val['device_id'],
-                'user' => $val['device_user']
-            );
-        }
-
-        $page_output->addScriptFile('activesyncprefs.js', 'horde');
-        $page_output->addInlineJsVars(array(
-            'HordeActiveSyncPrefs.devices' => $js
-        ));
-
         $view = new Horde_View(array(
             'templatePath' => HORDE_TEMPLATES . '/prefs'
         ));
@@ -54,38 +41,19 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         $selfurl = $ui->selfUrl();
         $view->reset = $selfurl->copy()->add('reset', 1);
         $devs = array();
-
+        $js = array();
         foreach ($devices as $key => $device) {
-            $device['key'] = $key;
-
-            $stateMachine->loadDeviceInfo($device['device_id'], $auth);
-            $ts = $stateMachine->getLastSyncTimestamp();
-            $device['ts'] = empty($ts) ? _("None") : strftime($prefs->getValue('date_format') . ' %H:%M', $ts);
-
-            switch ($device['device_rwstatus']) {
-            case Horde_ActiveSync::RWSTATUS_PENDING:
-                $status = '<span class="notice">' . _("Wipe is pending") . '</span>';
-                $device['ispending'] = true;
-                break;
-
-            case Horde_ActiveSync::RWSTATUS_WIPED:
-                $status = '<span class="notice">' . _("Device is wiped") . '</span>';
-                break;
-
-            default:
-                $status = $device['device_policykey']
-                    ? _("Provisioned")
-                    : _("Not Provisioned");
-                break;
-            }
-
-            $device['wipe'] = $selfurl->copy()->add('wipe', $device['device_id']);
-            $device['remove'] = $selfurl->copy()->add('remove', $device['device_id']);
-            $device['status'] = $status . '<br />' . _("Device id:") . $device['device_id'] . '<br />' . _("Policy Key:") . $device['device_policykey'] . '<br />' . _("User Agent:") . $device['device_agent'];
-
-            $devs[] = $device;
+            $dev = $stateMachine->loadDeviceInfo($device['device_id'], $auth);
+            $js[$dev->id] = array(
+                'id' => $dev->id,
+                'user' => $dev->user
+            );
+            $devs[] = $dev;
         }
-
+        $page_output->addScriptFile('activesyncprefs.js', 'horde');
+        $page_output->addInlineJsVars(array(
+            'HordeActiveSyncPrefs.devices' => $js
+        ));
         $view->devices = $devs;
 
         return $view->render('activesync');
