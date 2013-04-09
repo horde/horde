@@ -143,23 +143,26 @@ class Horde_ActiveSync_Device
             _("User Agent") => $this->userAgent
         );
 
-        if ($this->properties[self::MODEL]) {
+        if (!empty($this->properties[self::MODEL])) {
             $data[_("Model")] = $this->properties[self::MODEL];
         }
-        if ($this->properties[self::IMEI]) {
+        if (!empty($this->properties[self::IMEI])) {
             $data[_("IMEI")] = $this->properties[self::IMEI];
         }
-        if ($this->properties[self::NAME]) {
+        if (!empty($this->properties[self::NAME])) {
             $data[_("Common Name")] = $this->properties[self::NAME];
         }
-        if ($this->properties[self::OS]) {
+        if (!empty($this->properties[self::OS])) {
             $data[_("OS")] = $this->properties[self::OS];
         }
-        if ($this->properties[self::OS_LANGUAGE]) {
+        if (!empty($this->properties[self::OS_LANGUAGE])) {
             $data[_("OS Language")] = $this->properties[self::OS_LANGUAGE];
         }
-        if ($this->properties[self::PHONE_NUMBER]) {
+        if (!empty($this->properties[self::PHONE_NUMBER])) {
             $data[_("Phone Number")] = $this->properties[self::PHONE_NUMBER];
+        }
+        if (!empty($this->properties[self::VERSION])) {
+            $data[_("EAS Version")] = $this->properties[self::VERSION];
         }
 
         return $data;
