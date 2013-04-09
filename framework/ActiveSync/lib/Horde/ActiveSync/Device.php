@@ -100,13 +100,6 @@ class Horde_ActiveSync_Device
             return false;
         }
 
-        // WP7 not only doesn't support all EAS 2.5 security poliices, it flat
-        // out refuses to notify the server of a partial acceptance and just
-        // completely fails.
-        if (strpos($this->userAgent, 'MSFT-WP/7') !== false) {
-            return false;
-        }
-
         // Outlook?
         if (strpos($this->userAgent, 'Microsoft.Outlook') !== false) {
             return false;
