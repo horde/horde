@@ -2282,8 +2282,17 @@ left.horde-point-right {
         color: #000;
     }
 
-    #menu, .togglequotehide, .togglequoteshow {
+    #horde-head, #horde-sub, #horde-sidebar, #horde-slideleft, .togglequotehide, .togglequoteshow {
         display: none;
+    }
+
+    .horde-ajax #horde-body {
+        top: 0;
+    }
+
+    #horde-page {
+        left: 0 !important;
+        padding-left: 0;
     }
 
     .headerbox {
