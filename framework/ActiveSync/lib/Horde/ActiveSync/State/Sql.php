@@ -1106,7 +1106,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
             if (!empty($device_query)) {
                 $this->_db->delete($device_query, $values);
-            } elseif (!empty($user_query)) {
+            } elseif (!empty($user_query) && empty($options['devId'])) {
                 // If there was a user_deletion, check if we should remove the
                 // device entry as well
                 $sql = 'SELECT COUNT(*) FROM ' . $this->_syncUsersTable . ' WHERE device_id = ?';
