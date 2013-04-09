@@ -33,7 +33,7 @@ CKEDITOR.plugins.add('pasteattachment', {
             if (ev.data.html) {
                 var span = new Element('SPAN').insert(ev.data.html).down();
 
-                if (span.match('IMG')) {
+                if (span && span.match('IMG')) {
                     HordeCore.doAction('addAttachment', {
                         composeCache: $F(DimpCompose.getCacheElt()),
                         file_upload: span.readAttribute('src'),
