@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] If a preg call exceeds the backtrack limit, fallback to the original text (Bug #12152).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -929,7 +929,7 @@ Initial release as a PEAR package
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] If a preg call exceeds the backtrack limit, fallback to the original text (Bug #12152).
    </notes>
   </release>
  </changelog>
