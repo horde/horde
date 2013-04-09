@@ -66,22 +66,22 @@ var TurbaMobile = {
             return;
         }
 
-        var tmp, tmp2,
+        var tmp,
             ted = $('#turba-entry-data');
 
         $.each(r.entry, function(k, v) {
-            tmp = $('<div></div>');
-            tmp2 = $('<div data-role="collapsible"></div>').append(
+            var tmp2 = $('<div></div>');
+
+            ted.append($('<div data-role="collapsible"></div>').append(
                 $('<h3></h3>').text(k)
-            ).append(tmp);
-            ted.append(tmp2);
+            ).append(tmp2));
 
             $.each(v, function(k2, v2) {
-                tmp.append(
+                tmp2.append(
                     $('<div class="turba-entry-label"></div>').text(v2.l)
                 );
                 if (v2.u) {
-                    tmp.append(
+                    tmp2.append(
                         $('<ul data-role="listview" data-inset="true"></ul>').append(
                             $('<li></li>').append(
                                 $('<a data-ajax="false"></a>')
@@ -91,7 +91,7 @@ var TurbaMobile = {
                         )
                     );
                 } else {
-                    tmp.append(
+                    tmp2.append(
                         $('<div class="turba-entry-value"></div>').text(v2.v)
                     );
                 }
@@ -99,16 +99,30 @@ var TurbaMobile = {
         });
 
         if (r.group) {
-            html.push('<div data-role="collapsible"><h3>' + r.group.l + '</h3><div><ul data-role="listview" data-inset="true">');
+            tmp = $('<ul></ul>')
+                .attr('data-role', 'listview')
+                .attr('data-inset', 'true');
+
             $.each(r.group.m, function(k, v) {
-                html.push('<li><a href=' + v.u + '>' + v.n + '</a></li>');
+                tmp.append(
+                    $('<li></li>').append(
+                        $('<a></a>').attr('href', v.u).text(v.n)
+                    )
+                );
             });
-            html.push('</ul></div></div>');
+
+            ted.append(
+                $('<div></div>')
+                    .attr('data-role', 'collapsible')
+                    .append(
+                        $('<h3></h3>').text(r.group.l)
+                    ).append(
+                        $('<div></div>').append(tmp)
+                    )
+            );
         }
 
-        $('#turba-entry-data')
-            .html(html.join(''))
-            .collapsibleset('refresh')
+        ted.collapsibleset('refresh')
             .find(':jqmData(role="listview")').listview();
         $('#entry :jqmData(role="content")').show();
     },
