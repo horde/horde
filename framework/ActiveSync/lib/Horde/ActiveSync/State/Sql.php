@@ -606,7 +606,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 ? 0
                 : $duser['device_policykey'];
         }
-        $this->_deviceInfo->properties = $device['device_properties'];
+        $this->_deviceInfo->properties = unserialize($device['device_properties']);
 
         return $this->_deviceInfo;
     }
