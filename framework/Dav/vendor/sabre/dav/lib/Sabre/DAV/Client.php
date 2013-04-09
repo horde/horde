@@ -63,7 +63,7 @@ class Client {
      *
      * @var boolean
      */
-    protected $verifyPeer;
+    private $verifyPeer;
 
     /**
      * Constructor

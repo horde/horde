@@ -1,18 +1,22 @@
 {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
     "hash": "a6351ecf8803fabb8c3788c20ded7d94",
     "packages": [
         {
             "name": "sabre/dav",
-            "version": "1.8.3",
+            "version": "1.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/evert/SabreDAV.git",
-                "reference": "1.8.3"
+                "reference": "1.8.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/evert/SabreDAV/zipball/1.8.3",
-                "reference": "1.8.3",
+                "url": "https://api.github.com/repos/evert/SabreDAV/zipball/1.8.4",
+                "reference": "1.8.4",
                 "shasum": ""
             },
             "require": {
@@ -75,7 +79,7 @@
                 "framework",
                 "iCalendar"
             ],
-            "time": "2013-03-01 11:34:58"
+            "time": "2013-04-08 22:48:48"
         },
         {
             "name": "sabre/vobject",

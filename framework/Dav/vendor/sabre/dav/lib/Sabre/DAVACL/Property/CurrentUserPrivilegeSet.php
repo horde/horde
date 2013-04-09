@@ -55,19 +55,6 @@ class CurrentUserPrivilegeSet extends DAV\Property {
     }
 
     /**
-     * Returns true or false, wether the specified principal appears in the
-     * list.
-     *
-     * @return bool
-     */
-    public function has($privilegeName) {
-
-        return in_array($privilegeName, $this->privileges);
-
-    }
-
-
-    /**
      * Serializes one privilege
      *
      * @param \DOMDocument $doc
@@ -87,39 +74,4 @@ class CurrentUserPrivilegeSet extends DAV\Property {
 
     }
 
-    /**
-     * Unserializes the {DAV:}current-user-privilege-set element.
-     *
-     * @param \DOMElement $node
-     * @param array $propertyMap
-     * @return CurrentUserPrivilegeSet
-     */
-    static public function unserialize(\DOMElement $node) {
-
-        $result = array();
-
-        $xprivs = $node->getElementsByTagNameNS('urn:DAV','privilege');
-
-        for($jj=0; $jj<$xprivs->length; $jj++) {
-
-            $xpriv = $xprivs->item($jj);
-
-            $privilegeName = null;
-
-            for ($kk=0;$kk<$xpriv->childNodes->length;$kk++) {
-
-                $childNode = $xpriv->childNodes->item($kk);
-                if ($t = DAV\XMLUtil::toClarkNotation($childNode)) {
-                    $privilegeName = $t;
-                    break;
-                }
-            }
-
-            $result[] = $privilegeName;
-
-        }
-
-        return new self($result);
-
-    }
 }

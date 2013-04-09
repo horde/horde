@@ -50,17 +50,17 @@
     },
     {
         "name": "sabre/dav",
-        "version": "1.8.3",
-        "version_normalized": "1.8.3.0",
+        "version": "1.8.4",
+        "version_normalized": "1.8.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/evert/SabreDAV.git",
-            "reference": "1.8.3"
+            "reference": "1.8.4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/evert/SabreDAV/zipball/1.8.3",
-            "reference": "1.8.3",
+            "url": "https://api.github.com/repos/evert/SabreDAV/zipball/1.8.4",
+            "reference": "1.8.4",
             "shasum": ""
         },
         "require": {
@@ -89,7 +89,7 @@
             "ext-curl": "*",
             "ext-pdo": "*"
         },
-        "time": "2013-03-01 11:34:58",
+        "time": "2013-04-08 22:48:48",
         "bin": [
             "bin/sabredav"
         ],
