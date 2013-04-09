@@ -398,28 +398,54 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     /**
      * Decrypt a message with user's public/private keypair or a passphrase.
      *
-     * @param string $text         The text to decrypt.
-     * @param string $type         Either 'literal', 'personal', or
-     *                             'symmetric'.
-     * @param boolean $passphrase  If $type is 'personal' or 'symmetrical',
-     *                             the passphrase to use.
+     * @param string $text  The text to decrypt.
+     * @param string $type  Either 'literal', 'personal', or 'symmetric'.
+     * @param array $opts   Additional options:
+     *   - passphrase: (boolean) If $type is 'personal' or 'symmetrical', the
+     *                 passphrase to use.
+     *   - sender: (string) The sender of the message (used to check signature
+     *             if message is both encrypted & signed).
      *
      * @return stdClass  See Horde_Crypt_Pgp::decrypt().
      * @throws Horde_Crypt_Exception
      */
-    public function decryptMessage($text, $type, $passphrase = null)
+    public function decryptMessage($text, $type, array $opts = array())
     {
+        $opts = array_merge(array(
+            'passphrase' => null
+        ), $opts);
+
+        $pubkey = $this->getPersonalPublicKey();
+        if (isset($opts['sender'])) {
+            try {
+                $pubkey .= "\n" . $this->getPublicKey($opts['sender']);
+            } catch (Horde_Crypt_Exception $e) {}
+        }
+
         switch ($type) {
         case 'literal':
-            return $this->decrypt($text, array('type' => 'message', 'no_passphrase' => true));
+            return $this->decrypt($text, array(
+                'no_passphrase' => true,
+                'pubkey' => $pubkey,
+                'type' => 'message'
+            ));
             break;
 
         case 'symmetric':
-            return $this->decrypt($text, array('type' => 'message', 'passphrase' => $passphrase));
+            return $this->decrypt($text, array(
+                'passphrase' => $opts['passphrase'],
+                'pubkey' => $pubkey,
+                'type' => 'message'
+            ));
             break;
 
         case 'personal':
-            return $this->decrypt($text, array('type' => 'message', 'pubkey' => $this->getPersonalPublicKey(), 'privkey' => $this->getPersonalPrivateKey(), 'passphrase' => $passphrase));
+            return $this->decrypt($text, array(
+                'passphrase' => $opts['passphrase'],
+                'privkey' => $this->getPersonalPrivateKey(),
+                'pubkey' => $pubkey,
+                'type' => 'message'
+            ));
         }
     }
 
