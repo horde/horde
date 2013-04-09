@@ -179,16 +179,23 @@ class Horde_Core_Log_Object
             $app = isset($GLOBALS['registry'])
                 ? $GLOBALS['registry']->getApp()
                 : 'horde';
-            $file = isset($options['file'])
-                ? $options['file']
-                : $trace['file'];
-            $line = isset($options['line'])
-                ? $options['line']
-                : $trace['line'];
 
             $this->_message = ($app ? '[' . $app . '] ' : '') .
                 $text .
-                ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
+                ' [pid ' . getmypid();
+
+            if (isset($options['file']) || isset($trace['file'])) {
+                $file = isset($options['file'])
+                    ? $options['file']
+                    : $trace['file'];
+                $line = isset($options['line'])
+                    ? $options['line']
+                    : $trace['line'];
+
+                $this->_message .= ' on line ' . $line . ' of "' . $file . '"]';
+            } else {
+                $this->_message .= ']';
+            }
         }
 
         $this->_timestamp = $timestamp;
