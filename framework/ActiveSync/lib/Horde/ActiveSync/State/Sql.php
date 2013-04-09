@@ -634,7 +634,21 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $data->id,
                     (!empty($data->supported) ? serialize($data->supported) : '')
                 );
-                $this->_db->execute($query, $values);
+                $this->_db->insert($query, $values);
+            } else {
+                $this->_logger->debug((sprintf('
+                    [%s] Device entry exists for %s, updating userAgent and version.',
+                    $this->_procid,
+                    $data->id)));
+                $query = 'UPDATE ' . $this->_syncDeviceTable
+                    . ' SET device_agent = ?, device_properties = ?'
+                    . ' WHERE device_id = ?';
+                $values = array(
+                    (!empty($data->userAgent) ? $data->userAgent : ''),
+                    serialize($data->properties),
+                    $data->id
+                );
+                $this->_db->update($query, $values);
             }
         } catch(Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
