@@ -817,32 +817,30 @@ var DimpCompose = {
         $('upload_wait').update(DimpCore.text.uploading + ' (' + $F(u).escapeHTML() + ')').show();
     },
 
-    uploadAttachmentAjax: function(dt, params, callback)
+    uploadAttachmentAjax: function(data, params, callback)
     {
-        if (dt && dt.files) {
-            params = $H(params).update({
-                composeCache: $F(this.getCacheElt()),
-                json_return: 1
+        params = $H(params).update({
+            composeCache: $F(this.getCacheElt()),
+            json_return: 1
+        });
+        HordeCore.addRequestParams(params);
+
+        data.each(function(n) {
+            var fd = new FormData();
+
+            params.merge({ file_upload: n }).each(function(p) {
+                fd.append(p.key, p.value);
             });
-            HordeCore.addRequestParams(params);
 
-            $R(0, dt.files.length - 1).each(function(n) {
-                var fd = new FormData();
-
-                params.merge({ file_upload: dt.files[n] }).each(function(p) {
-                    fd.append(p.key, p.value);
-                });
-
-                HordeCore.doAction('addAttachment', {}, {
-                    ajaxopts: {
-                        contentType: 'multipart/form-data',
-                        postBody: fd,
-                        requestHeaders: { "content-type": '' }
-                    },
-                    callback: callback
-                });
+            HordeCore.doAction('addAttachment', {}, {
+                ajaxopts: {
+                    contentType: 'multipart/form-data',
+                    postBody: fd,
+                    requestHeaders: { "content-type": '' }
+                },
+                callback: callback
             });
-        }
+        });
     },
 
     toggleCC: function(type)
@@ -1196,7 +1194,9 @@ var DimpCompose = {
 
         if ($H(DimpCore.context.ctx_atc).size()) {
             $('atctd').observe('drop', function(e) {
-                this.uploadAttachmentAjax(e.dataTransfer);
+                if (e.dataTransfer) {
+                    this.uploadAttachmentAjax(e.dataTransfer.files);
+                }
                 e.stop();
             }.bindAsEventListener(this)).observe('dragover', Event.stop);
             DimpCore.addPopdown($('upload'), 'atc', {
