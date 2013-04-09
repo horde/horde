@@ -592,7 +592,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
         }
 
-        $this->_deviceInfo = new Horde_ActiveSync_Device();
+        $this->_deviceInfo = new Horde_ActiveSync_Device($this);
         $this->_deviceInfo->rwstatus = $device['device_rwstatus'];
         $this->_deviceInfo->deviceType = $device['device_type'];
         $this->_deviceInfo->userAgent = $device['device_agent'];

@@ -32,8 +32,22 @@ class Horde_ActiveSync_Device
      */
     protected $_properties = array();
 
-    public function __construct($data = array())
+    /**
+     * State handler
+     *
+     * @var Horde_ActiveSync_State_Base
+     */
+    protected $_state;
+
+    /**
+     * Const'r
+     *
+     * @param Horde_ActiveSync_State_Base $state  The state driver.
+     * @param array $data                         The current device data.
+     */
+    public function __construct(Horde_ActiveSync_State_Base $state, array $data = array())
     {
+        $this->_state = $state;
         $this->_properties = $data;
     }
 
