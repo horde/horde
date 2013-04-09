@@ -22,6 +22,17 @@
  * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property string id          The device id.
+ * @property string deviceType  The device type string.
+ * @property integer rwstatus   The RemoteWipe status - a
+ *                              Horde_ActiveSync::RWSTATUS_* constant.
+ * @property string userAgent   The device's user agent string.
+ * @property string user        The user id for the current device account.
+ * @property array supported    The SUPPORTED data sent from this device.
+ * @property string policykey   The current policykey, if provisioned.
+ * @property array properties   The device properties, as sent in DEVICEINFO.
+ *
  */
 class Horde_ActiveSync_Device
 {
@@ -51,16 +62,25 @@ class Horde_ActiveSync_Device
         $this->_properties = $data;
     }
 
+    /**
+     * Getter
+     */
     public function __get($property)
     {
         return $this->_properties[$property];
     }
 
+    /**
+     * Setter
+     */
     public function __set($property, $value)
     {
         $this->_properties[$property] = $value;
     }
 
+    /**
+     * Magic isset
+     */
     public function __isset($property)
     {
         return !empty($this->_properties[$property]);
