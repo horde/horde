@@ -571,7 +571,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
 
         $query = 'SELECT device_type, device_agent, '
-            . 'device_rwstatus, device_supported FROM '
+            . 'device_rwstatus, device_supported, device_properties FROM '
             . $this->_syncDeviceTable . ' WHERE device_id = ?';
 
         try {
@@ -606,6 +606,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 ? 0
                 : $duser['device_policykey'];
         }
+        $this->_deviceInfo->properties = $device['device_properties'];
 
         return $this->_deviceInfo;
     }
@@ -727,7 +728,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function listDevices($user = null)
     {
         $query = 'SELECT d.device_id AS device_id, device_type, device_agent,'
-            . ' device_policykey, device_rwstatus, device_user FROM '
+            . ' device_policykey, device_rwstatus, device_user, device_properties FROM '
             . $this->_syncDeviceTable . ' d  INNER JOIN ' . $this->_syncUsersTable
             . ' u ON d.device_id = u.device_id';
         $values = array();
