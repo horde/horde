@@ -747,18 +747,25 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Get the last time the loaded device issued a SYNC request.
      *
+     * @param string $id   The (optional) devivce id. If empty will use the
+     *                     currently loaded device.
+     * @param string $user The (optional) user id. If empty wil use the
+     *                     currently loaded device.
+     *
      * @return integer  The timestamp of the last sync, regardless of collection
      * @throws Horde_ActiveSync_Exception
      */
-    public function getLastSyncTimestamp()
+    public function getLastSyncTimestamp($id = null, $user = null)
     {
-        if (empty($this->_deviceInfo)) {
+        if (empty($this->_deviceInfo) && empty($id) && empty($user)) {
             throw new Horde_ActiveSync_Exception('Device not loaded.');
         }
+        $id = empty($id) ? $this->_deviceInfo->id : $id;
+        $user = empty($user) ? $this->_deviceInfo->user : $user;
 
         $sql = 'SELECT MAX(sync_time) FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_user = ?';
         try {
-            return $this->_db->selectValue($sql, array($this->_deviceInfo->id, $this->_deviceInfo->user));
+            return $this->_db->selectValue($sql, array($id, $user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
