@@ -116,4 +116,23 @@ class Horde_ActiveSync_Device
         return true;
     }
 
+    /**
+     * Return an array of DEVICEINFO data, with keys suitable for displaying.
+     *
+     * @return array
+     */
+    public function getFormattedDeviceProperties()
+    {
+        return array(
+            _("Id") => $this->id,
+            _("Policy Key") => $this->policykey,
+            _("User Agent") => $this->userAgent
+        );
+    }
+
+    public function getLastSyncTimestamp()
+    {
+        return $this->_state->getLastSyncTimestamp($this->id, $this->user);
+    }
+
 }
