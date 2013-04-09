@@ -700,19 +700,15 @@ div.dimpActionsMsg #windowclose {
 #attach_list li {
     padding-top: 7px;
 }
-#attach_list span.remove {
-    border: 1px solid #ccc;
-    font-weight: bold;
-    padding: 1px;
-}
-#attach_list span.attachName, #attach_list span.remove:hover {
-    cursor: pointer;
-    text-decoration: underline;
+#attach_list span.attachName, #attach_list span.attachNameNoview {
+    padding-right: 3px;
 }
 #attach_list span.attachName {
     color: blue;
+    cursor: pointer;
+    text-decoration: underline;
 }
-#attach_list span.attachName:hover, #attach_list span.remove:hover {
+#attach_list span.attachName:hover {
     color: red;
 }
 
@@ -735,6 +731,10 @@ div.dimpActionsMsg #windowclose {
 
 span.attachmentImg {
     background-image: url("../graphics/attachment.png");
+}
+
+#ctx_atcfile_delete span.iconImg {
+    background-image: url("../graphics/delete.png");
 }
 
 /* Context Menus */
