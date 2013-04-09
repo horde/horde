@@ -110,6 +110,16 @@ class Horde_ActiveSync_Device
     }
 
     /**
+     * Set the device's DEVICEINFO data.
+     *
+     * @param array $data  The data array sent from the device.
+     */
+    public function setDeviceProperties(array $data)
+    {
+        $this->_state->setDeviceProperties($data, $this->id);
+    }
+
+    /**
      * Return an array of DEVICEINFO data, with keys suitable for displaying.
      *
      * @return array

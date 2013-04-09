@@ -1685,8 +1685,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param stdClass $device  The device to store settings for.
      *
      * @return array  An array of status responses for each set request. e.g.,:
-     *   array('oof' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
-     *         'deviceinformation' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
+     *   array('oof' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
      */
     public function setSettings(array $settings, $device)
     {
@@ -1701,14 +1700,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $res['oof'] = Horde_ActiveSync_Request_Settings::STATUS_ERROR;
                 }
                 break;
-            case 'deviceinformation':
-                try {
-                    $state = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
-                    $state->setDeviceProperties($setting, $device);
-                    $res['deviceinformation'] = Horde_ActiveSync_Request_Settings::STATUS_SUCCESS;
-                } catch (Horde_Exception $e) {
-                    $res['deviceinformation'] = Horde_ActiveSync_Request_Settings::STATUS_ERROR;
-                }
             }
         }
 
