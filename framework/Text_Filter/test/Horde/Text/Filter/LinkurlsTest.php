@@ -111,4 +111,19 @@ class Horde_Text_Filter_LinkurlsTest extends Horde_Test_Case
         );
     }
 
+    public function testBug12152()
+    {
+        $text = 'http://imslp.org/wiki/Symphony_No.5,_D.485_(Schubert,_Franz)';
+
+        $old_ini = ini_get('pcre.backtrack_limit');
+        ini_set('pcre.backtrack_limit', 1000);
+
+        $this->assertEquals(
+            $text,
+            Horde_Text_Filter::filter($text, 'linkurls')
+        );
+
+        ini_set('pcre.backtrack_limit', $old_ini);
+    }
+
 }
