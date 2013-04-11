@@ -388,6 +388,8 @@ class IMP_Ajax_Application_ShowMessage
 
         foreach ($addrlist->base_addresses as $ob) {
             if ($ob instanceof Horde_Mail_Rfc822_Group) {
+                $ob->addresses->unique();
+
                 $tmp = array(
                     'g' => $ob->groupname
                 );
