@@ -391,17 +391,18 @@ class IMP_Ajax_Application_ShowMessage
                 $ob->addresses->unique();
 
                 $tmp = array(
+                    'a' => array(),
                     'g' => $ob->groupname
                 );
 
-                $count += count($ob->addresses);
-                if (is_null($limit) || ($count <= $limit)) {
-                    $tmp['a'] = array();
-                    foreach ($ob->addresses as $val) {
-                        $tmp['a'][] = array_filter(array(
-                            'b' => $val->bare_address,
-                            'p' => $val->personal
-                        ));
+                foreach ($ob->addresses as $val) {
+                    $tmp['a'][] = array_filter(array(
+                        'b' => $val->bare_address,
+                        'p' => $val->personal
+                    ));
+
+                    if (!is_null($limit) && ($count++ > $limit)) {
+                        break;
                     }
                 }
             } else {
