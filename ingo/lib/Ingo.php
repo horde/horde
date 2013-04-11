@@ -127,7 +127,7 @@ class Ingo
 
         if (isset($vars->$new_id)) {
             if ($GLOBALS['registry']->hasMethod('mail/createMailbox') &&
-                $GLOBALS['registry']->call('mail/createMailbox', $vars->$new_id)) {
+                $GLOBALS['registry']->call('mail/createMailbox', array($vars->$new_id))) {
                 return $vars->$new_id;
             }
         } elseif (isset($vars->$name) && strlen($vars->$name)) {
