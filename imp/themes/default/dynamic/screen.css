@@ -755,6 +755,7 @@ span.attachmentImg {
     background-color: #aaa;
     display: -moz-inline-stack;
     display: inline-block;
+    margin: 1px;
     padding: 4px 2px 3px;
 }
 
