@@ -136,9 +136,9 @@
      <?php echo $this->optionTag($v['value'], $this->h($v['label']), $v['selected']) ?>
 <?php endforeach; ?>
     </select>
-<?php if ($view->actionvaluelabel): ?>
-    <label for="actionvalue" class="hidden"><?php echo $view->actionvaluelabel ?></label>
-    <?php echo $view->actionvalue ?>
+<?php if ($this->actionvaluelabel): ?>
+    <label for="actionvalue" class="hidden"><?php echo $this->actionvaluelabel ?></label>
+    <?php echo $this->actionvalue ?>
 <?php endif; ?>
    </td>
    <td>
