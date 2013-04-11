@@ -15,7 +15,10 @@
     <?php echo $this->radioButtonTag('newmail_audio', $v['v'], $v['c']) ?>
     <?php echo $this->h($v['l']) ?>
    </label>
-   <embed autostart="false" src="<?php echo $this->h($v['s']) ?>" />
+   <audio controls="controls">
+    <source src="<?php echo $this->h($v['s']) ?>" />
+    <embed src="<?php echo $this->h($v['s']) ?>" />
+   </audio>
   </li>
 <?php endforeach; ?>
  </ul>
