@@ -1787,7 +1787,8 @@ var DimpBase = {
     updateAddressHeader: function(e)
     {
         DimpCore.doAction('addressHeader', {
-            header: $w(e.element().className).first()
+            header: $w(e.element().className).first(),
+            view: this.view
         }, {
             callback: this._updateAddressHeaderCallback.bind(this),
             loading: 'msg',
