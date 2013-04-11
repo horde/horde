@@ -250,6 +250,7 @@ foreach ($rule['conditions'] as $cond_num => $condition) {
     );
 
     if ($view->userheader &&
+        isset($condition['type']) &&
         ($condition['type'] == Ingo_Storage::TYPE_HEADER) &&
         !isset($ingo_fields[$tmp['field']])) {
         $tmp['userheader'] = $tmp['field'];

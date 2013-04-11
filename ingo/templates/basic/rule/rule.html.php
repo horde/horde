@@ -35,9 +35,9 @@
 
   <tr>
    <td>
-    <?php echo $this->radioButtonTag('combine', Ingo_Storage::COMBINE_ALL, $this->rule['combine'] == Ingo_Storage_COMBINE_ALL, array('id' => 'all')) ?>
+    <?php echo $this->radioButtonTag('combine', Ingo_Storage::COMBINE_ALL, $this->rule['combine'] == Ingo_Storage::COMBINE_ALL, array('id' => 'all')) ?>
     <?php echo $this->hordeLabel('all', _("All of the following")) ?>
-    <?php echo $this->radioButtonTag('combine', Ingo_Storage::COMBINE_ANY, $this->rule['combine'] == Ingo_Storage_COMBINE_ANY, array('id' => 'any')) ?>
+    <?php echo $this->radioButtonTag('combine', Ingo_Storage::COMBINE_ANY, $this->rule['combine'] == Ingo_Storage::COMBINE_ANY, array('id' => 'any')) ?>
     <?php echo $this->hordeLabel('any', _("Any of the following")) ?>
    </td>
    <td>
@@ -113,7 +113,7 @@
 <?php endif; ?>
 <?php if (!$f['lastfield']): ?>
       <td>
-       <?php echo Horde::link('javascript:IngoRule.delete_condition(' . (int)$cond_num . ');', _("Delete Condition")) . Horde::img('delete.png', _("Delete Condition")) ?></a>
+       <?php echo Horde::link('javascript:IngoRule.delete_condition(' . intval($f['cond_num']) . ');', _("Delete Condition")) . Horde::img('delete.png', _("Delete Condition")) ?></a>
       </td>
 <?php elseif ($f['cond_num'] != 0): ?>
       <td></td>
