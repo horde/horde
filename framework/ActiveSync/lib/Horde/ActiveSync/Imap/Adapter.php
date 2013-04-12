@@ -160,8 +160,18 @@ class Horde_ActiveSync_Imap_Adapter
     {
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
+
+        // Check for CONDSTORE
+        if ($condstore = $imap->queryCapability('CONDSTORE')) {
+            $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
+                Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
+        } else {
+            $status_flags = Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
+        }
+
+        // Get IMAP status.
         try {
-            $status = $imap->status($mbox, Horde_Imap_Client::STATUS_UIDNEXT_FORCE);
+            $status = $imap->status($mbox, $status_flags);
         } catch (Horde_Imap_Client_Exception $e) {
             // See if the folder disappeared.
             if (!$this->_mailboxExists($mbox->utf8)) {
@@ -170,10 +180,18 @@ class Horde_ActiveSync_Imap_Adapter
             throw new Horde_ActiveSync_Exception($e);
         }
 
+        // Increase in UIDNEXT is always a positive PING.
         if ($folder->uidnext() < $status['uidnext']) {
             return true;
         }
 
+        // If we have per mailbox MODSEQ then we can pick up flag changes too.
+        if ($condstore && $folder->modseq() > 0 &&
+            $folder->modseq() < $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ]) {
+            return true;
+        }
+
+        // Otherwise, no PING detectable changes present.
         return false;
     }
 
