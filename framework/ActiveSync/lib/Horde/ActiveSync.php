@@ -553,7 +553,9 @@ class Horde_ActiveSync
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
             $request->setLogger($this->_logger);
 
-            return $request->handle();
+            $result = $request->handle();
+            $this->_driver->clearAuthentication();
+            return $result;
         }
 
         if (!$this->authenticate()) {
@@ -582,8 +584,10 @@ class Horde_ActiveSync
         if (empty($devId)) {
             if ($cmd == 'Options') {
                 $this->_doOptionsRequest();
+                $this->_driver->clearAuthentication();
                 return true;
             }
+            $this->_driver->clearAuthentication();
             throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
 
@@ -612,6 +616,7 @@ class Horde_ActiveSync
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             $this->_doOptionsRequest();
+            $this->_driver->clearAuthentication();
             return true;
         }
 
@@ -645,6 +650,7 @@ class Horde_ActiveSync
             return $result;
         }
 
+        $this->_driver->clearAuthentication();
         throw new Horde_ActiveSync_Exception_InvalidRequest(basename($cmd) . ' not supported.');
     }
 
