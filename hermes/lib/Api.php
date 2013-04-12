@@ -470,4 +470,66 @@ class Hermes_Api extends Horde_Registry_Api
 
     }
 
+    /**
+     * Retrieves a list of available time objects categories.
+     *
+     * @return array  An array of all configured time object categories.
+     */
+    public function listTimeObjectCategories()
+    {
+        return array(
+            'submitted' => array('title' => _("Submitted time"), 'type' => 'single'),
+            'unsubmitted' => array('title' => _("Unsubmitted time"), 'type' => 'single')
+        );
+    }
+
+    /**
+     * Lists timeslices as timeobjects.
+     *
+     * @param array $time_categories  The time categories (from
+     *                                listTimeObjectCategories) to list.
+     * @param mixed $start            The start date of the period.
+     * @param mixed $end              The end date of the period.
+     *
+     * @return array  An array of timeObject results.
+     * @throws Hermes_Exception
+     */
+    public function listTimeObjects($time_categories, $start, $end)
+    {
+        $slices = $GLOBALS['injector']
+            ->getInstance('Hermes_Driver')
+            ->getHours($params);
+
+        $objects = array();
+
+        foreach ($time_categories as $category) {
+            $params = array(
+                'start' => $start->timestamp(),
+                'end' => $end->timestamp(),
+                'submitted' => intval($category == 'submitted'),
+                'employee' => $GLOBALS['registry']->getAuth()
+            );
+
+            $slices = $GLOBALS['injector']
+                ->getInstance('Hermes_Driver')
+                ->getHours($params);
+
+            foreach ($slices as $slice) {
+                $cn = current($GLOBALS['registry']->clients->getClients(array($slice['client'])));
+                $co = $slice['_costobject_name'];
+                $tobj = array($slice['id'] => array(
+                    'title' => sprintf(_("%d hours: %s"),
+                        $slice['hours'],
+                        empty($cn['name']) ? (empty($co) ? $slice['description'] : $co) : $cn['name']),
+                    'description' => $slice->toString(),
+                    'start' => date('Y-m-d\TH:i:s', $slice['date']->timestamp()),
+                    'end' => date('Y-m-d\TH:i:s', $slice['date']->timestamp() + ($slice['hours'] * 3600)),
+                ));
+                $objects = array_merge($objects, $tobj);
+            }
+        }
+
+        return $objects;
+    }
+
 }
