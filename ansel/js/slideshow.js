@@ -111,8 +111,8 @@ Slide.prototype = {
     initialize: function(photoId) {
         this.photoId = photoId;
         this.photo = 'Photo';
-        this.captionBox = 'CaptionContainer';
-        this.caption = 'Caption';
+        this.captionBox = 'anselcaptioncontainer';
+        this.caption = 'anselcaption';
     },
     setNewPhotoParams: function() {
         // Set source of new image.

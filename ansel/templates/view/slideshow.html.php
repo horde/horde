@@ -27,10 +27,11 @@
       <?php echo $this->contentTag('a', Horde::img('slideshow_prev.png', _("Previous")), array('id' => 'PrevLink', 'title' => _("Previous"))); ?>
       <?php echo $this->contentTag('a', Horde::img('slideshow_next.png', _("Next")), array('id' => 'NextLink', 'title' => _("Next"))); ?>
     </div>
+
     <div id="anselimagecontainer">
       <?php echo Horde::img('blank.gif', '', array('id' => 'Photo', 'width' => $this->geometry['width'], 'height' => $this->geometry['height'])) ?>
-      <div id="CaptionContainer" style="width:<?php echo $this->geometry['width']?>px;">
-        <p id="Caption">
+      <div id="anselcaptioncontainer" style="width:<?php echo $this->geometry['width']?>px;">
+        <p id="anselcaption">
           <?php echo $this->caption ?>
         </p>
       </div>
