@@ -106,7 +106,7 @@
        <input id="value_<?php echo $f['cond_num'] ?>" name="value[<?php echo $f['cond_num'] ?>]" size="40" value="<?php echo $this->h($f['match_value']) ?>" />
 <?php endif; ?>
 <?php if (isset($f['case_sensitive'])): ?>
-       <?php echo $this->checkBoxTag('case[' . $f['cond_num'] . ']', 1, $f['case_sensitive'], array('class' => 'caseSensitive', 'id' => 'case_' . $f['cond_num'])) ?>
+       <?php echo $this->checkBoxTag('case[' . $f['cond_num'] . ']', 1, (bool)$f['case_sensitive'], array('class' => 'caseSensitive', 'id' => 'case_' . $f['cond_num'])) ?>
        <?php echo $this->hordeLabel('case_' . $f['cond_num'], _("Case Sensitive")) ?>
 <?php endif; ?>
       </td>
@@ -154,19 +154,19 @@
     <table>
      <tr>
       <td>
-       <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_SEEN, Ingo_Storage::FLAG_SEEN & $this->rule['flags'], array('id' => 'seen')) ?>
+       <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_SEEN, (bool)(Ingo_Storage::FLAG_SEEN & $this->rule['flags']), array('id' => 'seen')) ?>
        <?php echo $this->hordeLabel('seen', _("Seen")) ?>
       </td>
       <td>
-       <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_FLAGGED, Ingo_Storage::FLAG_FLAGGED & $this->rule['flags'], array('id' => 'flagged')) ?>
+       <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_FLAGGED, (bool)(Ingo_Storage::FLAG_FLAGGED & $this->rule['flags']), array('id' => 'flagged')) ?>
        <?php echo $this->hordeLabel('flagged', _("Flagged")) ?>
       </td>
       <td>
-       <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_ANSWERED, Ingo_Storage::FLAG_ANSWERED & $this->rule['flags'], array('id' => 'answered')) ?>
+       <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_ANSWERED, (bool)(Ingo_Storage::FLAG_ANSWERED & $this->rule['flags']), array('id' => 'answered')) ?>
        <?php echo $this->hordeLabel('answered', _("Answered")) ?>
       </td>
       <td>
-       <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_DELETED, Ingo_Storage::FLAG_DELETED & $this->rule['flags'], array('id' => 'deleted')) ?>
+       <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_DELETED, (bool)(Ingo_Storage::FLAG_DELETED & $this->rule['flags']), array('id' => 'deleted')) ?>
        <?php echo $this->hordeLabel('deleted', _("Deleted")) ?>
       </td>
      </tr>
@@ -181,7 +181,7 @@
 <?php if ($this->stop): ?>
   <tr>
    <td>
-    <?php echo $this->checkBoxTag('stop', '1', $this->rule['stop']) ?>
+    <?php echo $this->checkBoxTag('stop', '1', (bool)$this->rule['stop']) ?>
     <?php echo $this->hordeLabel('stop', _("Stop checking if this rule matches?")) ?>
    </td>
    <td>
