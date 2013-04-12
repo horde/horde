@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [mjr] Add listTimeObjects support.
 * [jan] Fix listing per-client cost objects in search form.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [mjr] Allow pausing and restarting timers.
@@ -493,6 +494,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [mjr] Add listTimeObjects support.
 * [jan] Fix listing per-client cost objects in search form.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [mjr] Allow pausing and restarting timers.
