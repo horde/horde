@@ -207,6 +207,7 @@ Slide.prototype =
     {
         $(this.photo).width = w;
         $(this.photo).height = h;
+        $(this.captionBox).style.width = w + 'px';
     }
 
 }
