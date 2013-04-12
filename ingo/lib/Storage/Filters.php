@@ -67,7 +67,7 @@ class Ingo_Storage_Filters
     {
         $skip = array_flip($skip);
         $filters = array();
-        foreach ($this->_filters as $filter) {
+        foreach ($this->_filters as $id => $filter) {
             switch ($filter['action']) {
             case Ingo_Storage::ACTION_BLACKLIST:
                 if (isset($skip[Ingo::RULE_BLACKLIST])) {
@@ -100,7 +100,7 @@ class Ingo_Storage_Filters
                 }
                 break;
             }
-            $filters[] = $filter;
+            $filters[$id] = $filter;
         }
         return $filters;
     }
