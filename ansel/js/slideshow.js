@@ -28,21 +28,22 @@ var SlideController = {
     /**
      * Initialization.
      */
-    initialize: function(photos, start, baseUrl, galleryId) {
+    initialize: function(photos, start, baseUrl, galleryId)
+    {
         SlideController.photoId = start || 0;
         SlideController.baseUrl = baseUrl;
         SlideController.galleryId = galleryId;
 
         Event.observe(window, 'load', function() {
+            SlideController.photos = photos;
+            SlideController.photo = new Slide(SlideController.photoId);
             Event.observe(SlideController.tempImage, 'load', function() {
-                SlideController.photo.initSwap();
+                SlideController.photo.initSwap(SlideController.tempImage.width, SlideController.tempImage.height);
             });
-            Event.observe($('Photo'), 'load', function() {
+            Event.observe($(SlideController.photo.photo), 'load', function() {
                 SlideController.photo.showPhoto();
             });
 
-            SlideController.photos = photos;
-            SlideController.photo = new Slide(SlideController.photoId);
             SlideController.photo.initSwap();
             SlideController.play();
 
@@ -50,9 +51,10 @@ var SlideController = {
     },
 
     /**
-     *
+     * Play the slideshow.
      */
-    play: function() {
+    play: function()
+    {
         $('ssPlay').hide();
         $('ssPause').show();
         // This sets the first interval for the currently displayed image.
@@ -66,7 +68,8 @@ var SlideController = {
     /**
      * Leaving this in here, but currently we just redirect back to the Image view
      */
-    pause: function() {
+    pause: function()
+    {
         $('ssPause').hide();
         $('ssPlay').show();
         if (SlideController.interval) {
@@ -76,14 +79,18 @@ var SlideController = {
     },
 
     /**
+     * Move to previous image.
      */
-    prev: function() {
+    prev: function()
+    {
         SlideController.photo.prevPhoto();
     },
 
     /**
+     * Move to next image.
      */
-    next: function() {
+    next: function()
+    {
         SlideController.photo.nextPhoto();
     }
 
@@ -107,14 +114,18 @@ var SlideController = {
 // of redundant functions that prototype can take care of etc...
 // added 4/07 by Michael Rubinsky <mrubinsk@horde.org>
 var Slide = Class.create();
-Slide.prototype = {
-    initialize: function(photoId) {
+Slide.prototype =
+{
+    initialize: function(photoId)
+    {
         this.photoId = photoId;
-        this.photo = 'Photo';
+        this.photo = 'anselphoto';
         this.captionBox = 'anselcaptioncontainer';
         this.caption = 'anselcaption';
     },
-    setNewPhotoParams: function() {
+
+    setNewPhotoParams: function()
+    {
         // Set source of new image.
         $(this.photo).src = SlideController.photos[SlideController.photoId][0];
 
@@ -124,7 +135,9 @@ Slide.prototype = {
         document.title = document.title.replace(SlideController.photos[this.photoId][1],
                                                 SlideController.photos[SlideController.photoId][1]);
     },
-    updateLinks: function() {
+
+    updateLinks: function()
+    {
         var params = '?gallery=' + SlideController.galleryId + '&image=' + SlideController.photos[SlideController.photoId][3] + '&page=' + SlideController.photos[SlideController.photoId][4];
         $('PhotoName').update(SlideController.photos[SlideController.photoId][1]);
         if ($('image_properties_link')) {
@@ -152,7 +165,8 @@ Slide.prototype = {
         $('image_download_link').observe('click', function(e) { SlideController.pause(); e.stop(); });
     },
 
-    showPhoto: function() {
+    showPhoto: function()
+    {
         new Effect.Appear(this.photo, { duration: 1.0, queue: 'end', afterFinish: (function() { $(this.captionBox).show(); this.updateLinks();}).bind(this) });
 
         if (SlideController.playing) {
@@ -162,31 +176,43 @@ Slide.prototype = {
             SlideController.interval = setTimeout(SlideController.next, SlideController.intervalSeconds * 1000);
         }
     },
-    nextPhoto: function() {
+
+    nextPhoto: function()
+    {
         // Figure out which photo is next.
         (SlideController.photoId == (SlideController.photos.length - 1)) ? SlideController.photoId = 0 : ++SlideController.photoId;
         // Make sure the photo is loaded locally before we fade the current image.
         SlideController.tempImage.src = SlideController.photos[SlideController.photoId][0];
 
     },
-    prevPhoto: function() {
+
+    prevPhoto: function()
+    {
         // Figure out which photo is previous.
         (SlideController.photoId == 0) ? SlideController.photoId = SlideController.photos.length - 1 : --SlideController.photoId;
         SlideController.tempImage.src = SlideController.photos[SlideController.photoId][0];
     },
-    initSwap: function() {
+
+    initSwap: function(w, h)
+    {
         // Begin by hiding main elements.
         new Effect.Fade(this.captionBox, {duration: 0.5 });
-        new Effect.Fade(this.photo, { duration: 1.0, afterFinish: (function() { SlideController.photo.setNewPhotoParams();})});
+        new Effect.Fade(this.photo, { duration: 1.0, afterFinish: (function(w, h) { if (w) { this.fixSize(w, h); } SlideController.photo.setNewPhotoParams();}.bind(this, w, h))});
 
         // Update the current photo id.
         this.photoId = SlideController.photoId;
+    },
+
+    fixSize: function(w, h)
+    {
+        $(this.photo).width = w;
+        $(this.photo).height = h;
     }
+
 }
- // Arrow keys for navigation
- document.observe('keydown', arrowHandler);
-function arrowHandler(e)
-{
+
+// Arrow keys for navigation
+document.observe('keydown', function(e) {
     if (e.altKey || e.shiftKey || e.ctrlKey) {
         return;
     }
@@ -200,4 +226,4 @@ function arrowHandler(e)
         SlideController.next();
         break;
     }
-}
+});
