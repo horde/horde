@@ -271,7 +271,7 @@
 
 <div class="kronolithFormActions">
   <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="horde-default" tabindex="13" />
-  <input id="kronolithEventSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" />
+  <input id="kronolithEventSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="horde-create" />
   <input id="kronolithEventDelete" type="button" value="<?php echo _("Delete") ?>" class="horde-delete" tabindex="14" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span>
   <input type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
