@@ -151,6 +151,15 @@ class Horde_Core_Topbar
             }
         }
 
+        /* Add notification log. */
+        $menu['growlerlog'] = array(
+            'icon' => 'info.png',
+            'menu_parent' => 'settings',
+            'name' => Horde_Core_Translation::t("Toggle Alerts Log"),
+            'status' => 'active',
+            'url' => 'javascript:void(HordeCore.Growler.toggleLog());'
+        );
+
         /* Add problem link. */
         if ($registry->showService('problem') &&
             ($problem_link = $registry->getServiceLink('problem', $current))) {

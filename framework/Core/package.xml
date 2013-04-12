@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add menu entry to show the notification log.
 * [mms] Dynamic javascript framework now has support for audio notification events.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
 * [mms] Add ability to submit form data to AJAX action in smartmobile view.
@@ -2878,6 +2879,7 @@
    <date>2013-04-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add menu entry to show the notification log.
 * [mms] Dynamic javascript framework now has support for audio notification events.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
 * [mms] Add ability to submit form data to AJAX action in smartmobile view.

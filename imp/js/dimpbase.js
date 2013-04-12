@@ -1083,10 +1083,6 @@ var DimpBase = {
             this.viewport.reload({ delhide: Number(id == 'ctx_oa_hide_deleted') });
             break;
 
-        case 'ctx_oa_growler_log':
-            HordeCore.Growler.toggleLog();
-            break;
-
         case 'ctx_oa_clear_sort':
             this.sort(DimpCore.conf.sort.get('sequence').v);
             break;
@@ -1429,10 +1425,6 @@ var DimpBase = {
 
         case 'ctx_folderopts':
             $('ctx_folderopts_sub').hide();
-            break;
-
-        case 'ctx_oa':
-            [ $('ctx_oa_growler_log').up() ].invoke($('GrowlerLog') ? 'show' : 'remove');
             break;
         }
     },
