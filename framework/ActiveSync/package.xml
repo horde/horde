@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-04-12</date>
- <time>10:46:40</time>
+ <time>10:50:52</time>
  <version>
-  <release>2.3.4</release>
+  <release>2.3.5</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix typo that could cause device information to not be saved correctly.
-* [mjr] Fix authentication clean up during certain request types.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1273,6 +1272,19 @@
    <notes>
 * [mjr] Fix typo that could cause device information to not be saved correctly.
 * [mjr] Fix authentication clean up during certain request types.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.5</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
