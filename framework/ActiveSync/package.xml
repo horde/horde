@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix typo that could cause device information to not be saved correctly.
+* [mjr] Fix authentication clean up during certain request types.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1270,7 +1271,8 @@
    <date>2013-04-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix typo that could cause device information to not be saved correctly.
+* [mjr] Fix authentication clean up during certain request types.
    </notes>
   </release>
  </changelog>
