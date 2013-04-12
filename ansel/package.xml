@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-21</date>
- <time>13:57:26</time>
+ <date>2013-04-12</date>
+ <time>13:55:57</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -103,6 +103,7 @@
     </dir> <!-- /js/blocks -->
     <dir name="views">
      <file name="common.js" role="horde" />
+     <file name="gallery.js" role="horde" />
      <file name="image.js" role="horde" />
      <file name="slideshow.js" role="horde" />
     </dir> <!-- /js/views -->
@@ -442,6 +443,7 @@
      <file name="begin.html.php" role="horde" />
      <file name="end.html.php" role="horde" />
      <file name="geotag.html.php" role="horde" />
+     <file name="imagefaces.html.php" role="horde" />
      <file name="links.html.php" role="horde" />
      <file name="othergalleries.html.php" role="horde" />
      <file name="tags.html.php" role="horde" />
@@ -867,6 +869,7 @@
    <install as="ansel/js/togglewidget.js" name="js/togglewidget.js" />
    <install as="ansel/js/blocks/geotag.js" name="js/blocks/geotag.js" />
    <install as="ansel/js/views/common.js" name="js/views/common.js" />
+   <install as="ansel/js/views/gallery.js" name="js/views/gallery.js" />
    <install as="ansel/js/views/image.js" name="js/views/image.js" />
    <install as="ansel/js/views/slideshow.js" name="js/views/slideshow.js" />
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
@@ -1057,6 +1060,7 @@
    <install as="ansel/templates/widgets/begin.html.php" name="templates/widgets/begin.html.php" />
    <install as="ansel/templates/widgets/end.html.php" name="templates/widgets/end.html.php" />
    <install as="ansel/templates/widgets/geotag.html.php" name="templates/widgets/geotag.html.php" />
+   <install as="ansel/templates/widgets/imagefaces.html.php" name="templates/widgets/imagefaces.html.php" />
    <install as="ansel/templates/widgets/links.html.php" name="templates/widgets/links.html.php" />
    <install as="ansel/templates/widgets/othergalleries.html.php" name="templates/widgets/othergalleries.html.php" />
    <install as="ansel/templates/widgets/tags.html.php" name="templates/widgets/tags.html.php" />

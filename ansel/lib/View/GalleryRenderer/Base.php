@@ -188,6 +188,7 @@ abstract class Ansel_View_GalleryRenderer_Base
 
         if (empty($this->view->api)) {
             $page_output->addScriptFile('views/common.js');
+            $page_output->addScriptFile('views/gallery.js');
             $page_output->addScriptFile('popup.js', 'horde');
 
             $strings = array (

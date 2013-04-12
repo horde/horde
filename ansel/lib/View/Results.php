@@ -193,6 +193,7 @@ class Ansel_View_Results extends Ansel_View_Ansel
                 'perpage' => $this->_perPage)
         );
         $GLOBALS['page_output']->addScriptFile('views/common.js');
+        $GLOBALS['page_output']->addScriptFile('views/gallery.js');
 
         return $view->render('results');
     }

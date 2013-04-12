@@ -525,6 +525,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
 
     protected function _includeViewSpecificScripts()
     {
+      $GLOBALS['page_output']->addScriptFile('views/common.js');
       $GLOBALS['page_output']->addScriptFile('views/image.js');
     }
 
