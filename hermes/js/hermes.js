@@ -101,7 +101,7 @@ HermesCore = {
                     duration: this.effectDur,
                     queue: 'end',
                     afterFinish: function() {
-                        this.loadNextView();
+                       this.loadNextView();
                     }.bind(this)});
                 break;
             }
