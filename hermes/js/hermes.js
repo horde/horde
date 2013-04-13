@@ -439,7 +439,9 @@ HermesCore = {
 
         // We might be on the search form when we click edit.
         this.fromSearch = (this.view == 'search');
-        this.go('time');
+        if (this.view != 'time') {
+            this.go('time');
+        }
     },
 
     /**
