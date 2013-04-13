@@ -18,11 +18,13 @@ var IngoFilters = {
 
     onDomLoad: function()
     {
-        $('apply_filters').observe('click', function(e) {
-            $('actionID').setValue('apply_filters');
-            $('filters').submit();
-            e.stop();
-        });
+        if ($('apply_filters')) {
+            $('apply_filters').observe('click', function(e) {
+                $('actionID').setValue('apply_filters');
+                $('filters').submit();
+                e.stop();
+            });
+        }
     }
 
 };
