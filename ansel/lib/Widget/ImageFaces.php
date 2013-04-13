@@ -23,6 +23,8 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
      * Attach widget to supplied view.
      *
      * @param Ansel_View_Base $view
+     *
+     * @return boolean
      */
     public function attach(Ansel_View_Base $view)
     {
@@ -30,7 +32,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
             return false;
         }
         $GLOBALS['page_output']->addScriptFile('imagefaces.js');
-        parent::attach($view);
+        return parent::attach($view);
     }
 
     /**
