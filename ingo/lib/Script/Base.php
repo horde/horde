@@ -302,6 +302,29 @@ abstract class Ingo_Script_Base
     }
 
     /**
+     * Inserts an item into the recipe list.
+     *
+     * @param integer $rule           One of the Ingo::RULE_* constants.
+     * @param Ingo_Script_Item $item  An item to add to the recipe list.
+     * @param string $name            A script name.
+     * @þaram integer $position       Where to add the item.
+     */
+    protected function _insertItem($rule, Ingo_Script_Item $item, $name = null,
+                                   $position = 0)
+    {
+        array_splice(
+            $this->_recipes,
+            $position,
+            0,
+            array(array(
+                'rule' => $rule,
+                'object' => $item,
+                'name' => $name
+            ))
+        );
+    }
+
+    /**
      * Performs the filtering specified in the rules.
      *
      * @param integer $change  The timestamp of the latest rule change during
