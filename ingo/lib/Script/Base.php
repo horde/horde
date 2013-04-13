@@ -255,11 +255,14 @@ abstract class Ingo_Script_Base
             $rule = isset($this->_params['transport'][$item['rule']])
                 ? $item['rule']
                 : Ingo::RULE_ALL;
-            $name = strlen($item['name'])
-                ? $item['name']
-                : (isset($this->_params['transport'][$rule]['params']['filename'])
-                   ? $this->_params['transport'][$rule]['params']['filename']
-                   : '');
+            $name = '';
+            if (strlen($item['name'])) {
+                $name = $item['name'];
+            } elseif (isset($this->_params['transport'][$rule]['params']['filename'])) {
+                $name = $this->_params['transport'][$rule]['params']['filename'];
+            } elseif (isset($this->_params['transport'][$rule]['params']['scriptname'])) {
+                $name = $this->_params['transport'][$rule]['params']['scriptname'];
+            }
 
             if (!isset($scripts[$rule . $name])) {
                 $scripts[$rule . $name] = array(
