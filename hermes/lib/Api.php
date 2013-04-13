@@ -522,6 +522,7 @@ class Hermes_Api extends Horde_Registry_Api
                         $slice['hours'],
                         empty($cn['name']) ? (empty($co) ? $slice['description'] : $co) : $cn['name']),
                     'description' => $slice->toString(),
+                    'link' => ($category == 'submitted') ? false : Hermes::url('entry', array('id' => $slice['id'])),
                     'start' => date('Y-m-d\TH:i:s', $slice['date']->timestamp()),
                     'end' => date('Y-m-d\TH:i:s', $slice['date']->timestamp() + ($slice['hours'] * 3600)),
                 ));
