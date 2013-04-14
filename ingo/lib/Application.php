@@ -175,7 +175,7 @@ class Ingo_Application extends Horde_Registry_Application
     {
         $s_categories = $GLOBALS['session']->get('ingo', 'script_categories');
 
-        $menu->add(Horde::url('filters.php'), _("Filter _Rules"), 'ingo-rules', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Ingo_Basic_Filters::url(), _("Filter _Rules"), 'ingo-rules', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
         try {
             if (in_array(Ingo_Storage::ACTION_WHITELIST, $s_categories)) {
@@ -189,21 +189,21 @@ class Ingo_Application extends Horde_Registry_Application
         }
 
         if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
-            $menu->add(Horde::url('vacation.php'), _("_Vacation"), 'ingo-vacation');
+            $menu->add(Ingo_Basic_Vacation::url(), _("_Vacation"), 'ingo-vacation');
         }
 
         if (in_array(Ingo_Storage::ACTION_FORWARD, $s_categories)) {
-            $menu->add(Horde::url('forward.php'), _("_Forward"), 'ingo-forward');
+            $menu->add(Ingo_Basic_Forward::url(), _("_Forward"), 'ingo-forward');
         }
 
         if (in_array(Ingo_Storage::ACTION_SPAM, $s_categories)) {
-            $menu->add(Horde::url('spam.php'), _("S_pam"), 'ingo-spam');
+            $menu->add(Ingo_Basic_Spam::url(), _("S_pam"), 'ingo-spam');
         }
 
         if ((!$GLOBALS['prefs']->isLocked('auto_update') ||
              !$GLOBALS['prefs']->getValue('auto_update')) &&
             $GLOBALS['injector']->getInstance('Ingo_Factory_Script')->hasFeature('script_file')) {
-            $menu->add(Horde::url('script.php'), _("_Script"), 'ingo-script');
+            $menu->add(Ingo_Basic_Script::url(), _("_Script"), 'ingo-script');
         }
 
         if (!empty($GLOBALS['ingo_shares']) &&
@@ -235,12 +235,12 @@ class Ingo_Application extends Horde_Registry_Application
             ($perms->hasAppPermission('allow_rules') &&
              ($perms->hasAppPermission('max_rules') === true ||
               $perms->hasAppPermission('max_rules') > count($filters)))) {
-            $sidebar->addNewButton(_("New Rule"), Horde::url('rule.php'));
+            $sidebar->addNewButton(_("New Rule"), Ingo_Basic_Rule::url());
         }
 
         if (!empty($GLOBALS['ingo_shares']) &&
             (count($GLOBALS['all_rulesets']) > 1)) {
-            $url = Horde::url('filters.php');
+            $url = Ingo_Basic_Filters::url();
             $current = $GLOBALS['session']->get('ingo', 'current_share');
 
             $sidebar->containers['rulesets'] = array(

@@ -369,16 +369,6 @@ class Ingo
     }
 
     /**
-     * Outputs Ingo's status/notification bar.
-     */
-    static public function status()
-    {
-        $GLOBALS['notification']->notify(array(
-            'listeners' => array('status', 'audio')
-        ));
-    }
-
-    /**
      * Updates a list (blacklist/whitelist) filter.
      *
      * @param mixed $addresses  Addresses of the filter.
