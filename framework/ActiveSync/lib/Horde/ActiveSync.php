@@ -228,6 +228,7 @@ class Horde_ActiveSync
 
     /* RM */
     const RM_SUPPORT                            = 'RightsManagement:RightsManagementSupport';
+    const RM_TEMPLATEID                         = 'RightsManagement:TemplateId';
 
     /* Collection Classes */
     const CLASS_EMAIL                           = 'Email';
