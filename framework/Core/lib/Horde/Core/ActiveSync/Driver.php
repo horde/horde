@@ -1670,6 +1670,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'subject' => $vacation['subject']
                 );
                 break;
+            case 'userinformation':
+                $ident = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Identity')
+                    ->create($GLOBALS['registry']->getAuth());
+                $res['userinformation']['emailaddresses'] = array_keys(array_flip($ident->getAll('from_addr')));
             }
         }
 
