@@ -1147,10 +1147,13 @@ class IMP_Contents
         $tree->addNode(array(
             'id' => $mimeid,
             'parent' => $parent,
-            'label' => sprintf('%s %s (%s) %s %s',
-                               $mimeid, $summary['description'],
-                               $summary['size'], $summary['download'],
-                               $summary['strip']),
+            'label' => sprintf(
+                '%s (%s) %s %s',
+                $summary['description'],
+                $summary['size'],
+                $summary['download'],
+                $summary['strip']
+            ),
             'params' => array(
                 'class' => 'partsTreeDiv',
                 'icon' => $summary['icon']
