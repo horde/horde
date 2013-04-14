@@ -115,7 +115,6 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         $request['get']['oof']['bodytype'] = $bodytype;
                         break;
                     case self::SETTINGS_USERINFORMATION:
-                        // @TODO
                         $request['get']['userinformation'] = array();
                         break;
                     }
