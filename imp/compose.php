@@ -859,8 +859,6 @@ if ($redirect) {
         $view->pri_opt = $priority_option;
     }
 
-    $menu_view = $prefs->getValue('menu_view');
-    $show_text = in_array($menu_view, array('both', 'text'));
     $compose_options = array();
 
     if ($registry->hasMethod('contacts/search')) {
@@ -870,7 +868,7 @@ if ($redirect) {
                 'id' => 'addressbook_popup'
             )),
             'img' => Horde::img('addressbook_browse.png'),
-            'label' => $show_text ? _("Address Book") : ''
+            'label' => _("Address Book")
         );
         $js_vars['ImpCompose.contacts_url'] = strval(Horde::url('contacts.php')->setRaw(true));
     }
@@ -889,7 +887,7 @@ if ($redirect) {
         $compose_options[] = array(
             'url' => $url->link(array('class' => 'widget')),
             'img' => Horde::img('attachment.png'),
-            'label' => $show_text ? _("Attachments") : ''
+            'label' => _("Attachments")
         );
     }
     $view->compose_options = $compose_options;

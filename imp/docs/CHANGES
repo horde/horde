@@ -4,6 +4,7 @@ v6.0.5-git
 
 [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado
       <geral@jpaulo.eu>).
+[jan] Fix empty label for spellcheck button.
 [mms] Fix signature verification for PGP combined signed & encrypted messages
       (Bug #12142).
 [mms] Don't display empty mailbox action for mailboxes when Virtual Trash is

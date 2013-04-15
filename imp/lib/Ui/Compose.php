@@ -41,12 +41,11 @@ class IMP_Ui_Compose
         } else {
             $spell_img = $br = '';
         }
-        $menu_view = $prefs->getValue('menu_view');
 
         $injector->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', array(
             'id' => 'spellcheck',
             'states' => array(
-                'CheckSpelling' => $spell_img . (in_array($menu_view, array('both', 'text')) ? $br . _("Check Spelling") : ''),
+                'CheckSpelling' => $spell_img . $br . _("Check Spelling"),
                 'Checking' => $spell_img . $br . _("Checking..."),
                 'Error' => $spell_img . $br . _("Spell Check Failed"),
                 'ResumeEdit' => $spell_img . $br . _("Resume Editing")
