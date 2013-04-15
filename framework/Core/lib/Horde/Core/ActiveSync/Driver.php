@@ -149,7 +149,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Authenticate to Horde
      *
-     * @see Horde_ActiveSync_Driver_Base#authenticate()
+     * @param string $username  The username to authenticate as
+     * @param string $password  The password
+     * @param string $domain    The user domain (unused in this driver).
+     *
+     * @return mixed  Boolean true on success, boolean false on credential
+     *                failure or Horde_ActiveSync::AUTH_REASON_*
+     *                constant on policy failure.
      */
     public function authenticate($username, $password, $domain = null)
     {
