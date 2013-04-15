@@ -394,6 +394,7 @@ class Horde_ActiveSync
      * Factory method for creating Horde_ActiveSync_Message objects.
      *
      * @param string $message  The message type.
+     * @since 2.4.0
      *
      * @return Horde_ActiveSync_Message_Base   The concrete message object.
      */
@@ -679,7 +680,6 @@ class Horde_ActiveSync
 
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
-
             // Device might exist, but with a new (additional) user account
             if ($this->_state->deviceExists($devId)) {
                 $device = $this->_state->loadDeviceInfo($devId);
@@ -722,13 +722,9 @@ class Horde_ActiveSync
             self::$_logger->debug('MULTIPART REQUEST');
         }
 
-        // Support gzip encoding?
-        // We have to manage it ourselves, since only portions of the data
-        // are expected to be encoded.
-
         // Load the request handler to handle the request
         // We must send the eas header here, since some requests may start
-        // output and be large enough to flush the buffer (e.g., GetAttachement)
+        // output and be large enough to flush the buffer (e.g., GetAttachment)
         $this->activeSyncHeader();
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
