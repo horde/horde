@@ -275,6 +275,10 @@ class Horde_ActiveSync
     infinite loop */
     const MAXIMUM_SYNCKEY_COUNT                 = 10;
 
+    /* Auth failure reasons */
+    const AUTH_REASON_USER_DENIED               = 'user';
+    const AUTH_REASON_DEVICE_DENIED             = 'device';
+
     /**
      * Logger
      *
@@ -365,6 +369,13 @@ class Horde_ActiveSync
         21 => 'ResolveRecipients',
         22 => 'ValidateCert'
     );
+
+    /**
+     * Global error flag.
+     *
+     * @var boolean
+     */
+    protected $_globalError = false;
 
     /**
      * Supported EAS versions.
@@ -464,7 +475,15 @@ class Horde_ActiveSync
         }
 
         // Authenticate
-        if (!$this->_driver->authenticate($user, $pass, $domain)) {
+        if ($result = $this->_driver->authenticate($user, $pass, $domain)) {
+            if ($result == self::AUTH_REASON_USER_DENIED) {
+                $this->_globalError = Horde_ActiveSync_Status::SYNC_NOT_ALLOWED;
+            } elseif ($result == self::AUTH_REASON_DEVICE_DENIED) {
+                $this->_globalError = Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER;
+            } elseif ($result !== true) {
+                $this->_globalError = Horde_ActiveSync_Status::DENIED;
+            }
+        } else {
             return false;
         }
 
@@ -921,6 +940,18 @@ class Horde_ActiveSync
         }
 
         return $this->_get;
+    }
+
+    /**
+     * Return any global errors that occured during initial connection.
+     *
+     * @since 2.4.0
+     * @return mixed  A Horde_ActiveSync_Status:: constant of boolean false if
+     *                no errors.
+     */
+    public function checkGlobalError()
+    {
+        return $this->_globalError;
     }
 
     /**

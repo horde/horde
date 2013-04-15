@@ -80,6 +80,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             return true;
         }
 
+        // Check global errors.
+        if ($error = $this->_activeSync->checkGlobalError()) {
+            $this->_statusCode = $error;
+            $this->_handleGlobalSyncError();
+            return true;
+        }
+
         // Defaults
         $this->_statusCode = self::STATUS_SUCCESS;
         $partial = false;
