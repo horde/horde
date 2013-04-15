@@ -669,7 +669,7 @@ abstract class Kronolith_Event
                 }
             }
             $vEvent->setAttribute('DTSTART', clone $this->start, $params);
-            $vEvent->setAttribute('DTEND', clone $this->end, $params);
+            $vEvent->setAttribute('DTEND', clone $end, $params);
         }
 
         $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
