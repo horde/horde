@@ -255,7 +255,9 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         $this->view->compose = $injector->getInstance('IMP_Dynamic_Compose_Common')->compose($this, $compose_opts);
 
         Horde::startBuffer();
-        IMP::status();
+        $notification->notify(array(
+            'listeners' => array('status', 'audio')
+        ));
         $this->view->status = Horde::endBuffer();
 
         $this->_pages[] = 'compose-base';

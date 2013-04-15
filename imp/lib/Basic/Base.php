@@ -81,7 +81,9 @@ abstract class IMP_Basic_Base
     public function status()
     {
         Horde::startBuffer();
-        IMP::status();
+        $GLOBALS['notification']->notify(array(
+            'listeners' => array('status', 'audio')
+        ));
         return Horde::endBuffer();
     }
 

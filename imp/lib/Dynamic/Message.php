@@ -63,7 +63,9 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
                 'preview' => false
             ));
         } catch (IMP_Exception $e) {
-            IMP::status();
+            $notification->notify(array(
+                'listeners' => array('status', 'audio')
+            ));
             echo Horde::wrapInlineScript(array(
                 'parent.close()'
             ));
@@ -153,7 +155,9 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $this->view->msgtext = $msg_res['msgtext'];
 
         Horde::startBuffer();
-        IMP::status();
+        $notification->notify(array(
+            'listeners' => array('status', 'audio')
+        ));
         $this->view->status = Horde::endBuffer();
 
         $this->title = $msg_res['title'];
