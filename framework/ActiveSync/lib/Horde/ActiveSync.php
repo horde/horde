@@ -629,6 +629,13 @@ class Horde_ActiveSync
         }
         $this->_setLogger($get);
 
+        // @TODO: Remove is_callable check for H6.
+        // Callback to give the backend the option to limit EAS version based
+        // on user/device/etc...
+        if (is_callable(array($this->_driver, 'versionCallback')) {
+            $this->_driver->versionCallback($this);
+        }
+
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new Horde_ActiveSync_Device($this->_state));
@@ -693,7 +700,26 @@ class Horde_ActiveSync
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
             $device->properties['version'] = $version;
-            $device->save();
+            // @TODO: Remove is_callable check (and extra else clause) for H6.
+            if (is_callable(array($this->_driver, 'createDeviceCallback'))) {
+                if (!$this->_driver->createDeviceCallback($device)) {
+                    // Do not allow pairing.
+                    if ($version > self::VERSION_TWELVEONE) {
+                        $this->_globalError = Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER;
+                    } else {
+                        $msg = sprintf(
+                            'The device %s was disallowed for user %s per policy settings.',
+                            $device->id
+                            $device->user);
+                        $this->_logger->err($msg);
+                        throw new Horde_ActiveSync_Exception($msg);
+                    }
+                } else {
+                    $device->save();
+                }
+            } else {
+                $device->save();
+            }
         } else {
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
             $device->properties['version'] = $version;
