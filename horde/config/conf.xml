@@ -103,21 +103,27 @@
    off&lt;/b&gt;. Cookies must be working and enabled in the browser though, or
    you won't be able to login to Horde. If false, session information will be
    passed via both the URL and cookies.">true</configboolean>
+   <configinteger name="timeout" desc="The cookie lifetime (in seconds). If 0,
+   (DEFAULT; RECOMMENDED) cookies will expire when the browser closes.
+   Otherwise, this is the length after which a cookie will expire (this
+   lifetime is updated after every browser request). Setting a non-zero value
+   is NOT RECOMMENDED as there is no guarantee a session will ever expire;
+   additionally, the session expiration value is based on the SERVER, not the
+   CLIENT, so this will most certainly not work the way you want/think it
+   should (see
+   http://www.php.net/manual/en/function.session-set-cookie-params.php) for
+   further information.">0</configinteger>
    <configstring name="cache_limiter" desc="What caching level should we use
    for the session? DO NOT CHANGE THIS UNLESS YOU &lt;strong&gt;REALLY
    &lt;/strong&gt; KNOW WHAT YOU ARE DOING. Setting this to anything other
    than 'nocache' will almost certainly result in severely broken script
    behavior.">nocache</configstring>
-   <configinteger name="timeout" desc="How long should sessions last (in
-   seconds)? 0 means that the session ends when the user closes their browser.
-   Set other values with care - see
-   http://www.php.net/manual/en/function.session-set-cookie-params.php.">
-   0</configinteger>
    <configinteger name="max_time" desc="The maximum length of time (in
-   seconds) a session can be active before it will be destroyed by Horde.
-   Allows an admin to forcibly expire sessions (e.g. to ensure that logintasks
-   are periodically run for every user). 0 means there is no maximum session
-   time.">0</configinteger>
+   seconds) a session can be active before it will be forcibly destroyed by
+   Horde. Allows an admin to forcibly expire sessions (e.g. to ensure that
+   logintasks are periodically run for every user) as opposed to relying on
+   PHP's session garbage collection to remove stale sessions. 0 means there is
+   no maximum session time.">0</configinteger>
   </configsection>
   <configsection name="cookie">
    <configphp name="domain" desc="What domain should we set cookies from? If
