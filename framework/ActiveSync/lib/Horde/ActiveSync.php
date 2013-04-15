@@ -632,7 +632,7 @@ class Horde_ActiveSync
         // @TODO: Remove is_callable check for H6.
         // Callback to give the backend the option to limit EAS version based
         // on user/device/etc...
-        if (is_callable(array($this->_driver, 'versionCallback')) {
+        if (is_callable(array($this->_driver, 'versionCallback'))) {
             $this->_driver->versionCallback($this);
         }
 
@@ -709,7 +709,7 @@ class Horde_ActiveSync
                     } else {
                         $msg = sprintf(
                             'The device %s was disallowed for user %s per policy settings.',
-                            $device->id
+                            $device->id,
                             $device->user);
                         $this->_logger->err($msg);
                         throw new Horde_ActiveSync_Exception($msg);
