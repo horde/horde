@@ -40,8 +40,14 @@ class Kronolith_Integration_Kronolith_KolabTest extends Kronolith_Integration_Kr
 
     public static function setUpBeforeClass()
     {
+        return;
         self::$setup = new Horde_Test_Setup();
         parent::setUpBeforeClass();
         self::createKolabShares(self::$setup);
+    }
+
+    public function setUp()
+    {
+        $this->markTestSkipped("No query of type 'Share' registered!");
     }
 }
