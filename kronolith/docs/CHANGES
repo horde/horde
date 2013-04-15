@@ -9,7 +9,6 @@ v4.1.0-git
 v4.0.5
 ------
 
-=======
 [jan] Don't send notifications for all recurrence exceptions when deleting
       events.
 [jan] Only send update notifications for local calendars.
