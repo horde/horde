@@ -201,6 +201,11 @@ class Horde_Application extends Horde_Registry_Application
             'type' => 'boolean'
         );
 
+        $permissions['activesync:max_devices'] = array(
+            'title' => _("Maximum number of devices"),
+            'type' => 'int'
+        );
+
         $permissions['activesync:provisioning'] = array(
             'title' => _("Provisioning"),
             'type' => 'enum',
