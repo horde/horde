@@ -68,6 +68,7 @@ class Horde_Session_Null extends Horde_Session
     {
         $this->_active = true;
         $this->_data[Horde_Session::BEGIN] = time();
+        $this->_data[Horde_Session::MODIFIED] = time();
     }
 
     /**

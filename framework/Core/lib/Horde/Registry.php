@@ -2520,6 +2520,12 @@ class Horde_Registry
             return false;
         }
 
+        if (!empty($conf['session']['timeout']) &&
+            (($conf['session']['timeout'] + $session->modified) < time())) {
+            $auth->setError(Horde_Core_Auth_Application::REASON_SESSIONMAXTIME);
+            return false;
+        }
+        
         if (!empty($conf['session']['max_time']) &&
             (($conf['session']['max_time'] + $session->begin) < time())) {
             $auth->setError(Horde_Core_Auth_Application::REASON_SESSIONMAXTIME);
