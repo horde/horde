@@ -180,7 +180,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     "Access denied for user %s per policy settings.",
                     $username)
                 );
-                return false;
+                return Horde_ActiveSync::AUTH_REASON_USER_DENIED;
             }
         }
 
