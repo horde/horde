@@ -477,9 +477,9 @@ class Horde_ActiveSync
 
         // Authenticate
         if ($result = $this->_driver->authenticate($user, $pass, $domain)) {
-            if ($result == self::AUTH_REASON_USER_DENIED) {
+            if ($result === self::AUTH_REASON_USER_DENIED) {
                 $this->_globalError = Horde_ActiveSync_Status::SYNC_NOT_ALLOWED;
-            } elseif ($result == self::AUTH_REASON_DEVICE_DENIED) {
+            } elseif ($result === self::AUTH_REASON_DEVICE_DENIED) {
                 $this->_globalError = Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER;
             } elseif ($result !== true) {
                 $this->_globalError = Horde_ActiveSync_Status::DENIED;
