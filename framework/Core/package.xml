@@ -40,11 +40,12 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] SECURITY: Fix token validation of AJAX actions.
+* [mms] Re-enable support for $conf['session']['timeout'] to allow for non-session based cookie lifetimes.
 * [jan] Add menu entry to show the notification log.
 * [mms] Dynamic javascript framework now has support for audio notification events.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
 * [mms] Add ability to submit form data to AJAX action in smartmobile view.
-* [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Upgrade jQuery Mobile to v1.2.1/jQuery Core to v1.8.3.
 * [mms] Smartmobile view now honors the current CSS caching configuration.
 * [mms] Add Horde_Core_Ajax_Application#callAction().
@@ -2879,11 +2880,12 @@
    <date>2013-04-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] SECURITY: Fix token validation of AJAX actions.
+* [mms] Re-enable support for $conf['session']['timeout'] to allow for non-session based cookie lifetimes.
 * [jan] Add menu entry to show the notification log.
 * [mms] Dynamic javascript framework now has support for audio notification events.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
 * [mms] Add ability to submit form data to AJAX action in smartmobile view.
-* [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Upgrade jQuery Mobile to v1.2.1/jQuery Core to v1.8.3.
 * [mms] Smartmobile view now honors the current CSS caching configuration.
 * [mms] Add Horde_Core_Ajax_Application#callAction().

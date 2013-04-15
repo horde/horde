@@ -144,7 +144,7 @@ class Horde_Session
         }
 
         session_set_cookie_params(
-            0,
+            $conf['session']['timeout'],
             $conf['cookie']['path'],
             $conf['cookie']['domain'],
             $conf['use_ssl'] == 1 ? 1 : 0,
