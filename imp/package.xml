@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix empty label for spellcheck button.
 * [mms] Convert Data URLs in a reply message into attachments so that compose attachment limits can be enforced (Bug #12167).
 * [mms] Allow attachments to be dragged/dropped from local filesystem on the dynamic compose page.
 * [mms] Hide browser generated file input widget for attachment upload in dynamic compose page.
@@ -3140,6 +3141,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix empty label for spellcheck button.
 * [mms] Convert Data URLs in a reply message into attachments so that compose attachment limits can be enforced (Bug #12167).
 * [mms] Allow attachments to be dragged/dropped from local filesystem on the dynamic compose page.
 * [mms] Hide browser generated file input widget for attachment upload in dynamic compose page.
