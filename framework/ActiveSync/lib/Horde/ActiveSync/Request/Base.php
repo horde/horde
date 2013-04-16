@@ -261,6 +261,7 @@ abstract class Horde_ActiveSync_Request_Base
     protected function _getImporter()
     {
         $importer = new Horde_ActiveSync_Connector_Importer($this->_driver);
+        $importer->setLogger($this->_logger);
         return $importer;
     }
 
