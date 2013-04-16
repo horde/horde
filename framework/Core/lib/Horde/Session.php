@@ -9,9 +9,6 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
- *
- * @property integer $begin  The timestamp when this session began (0 if
- *                           session is not active).
  */
 
 /**
