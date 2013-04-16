@@ -156,10 +156,24 @@ var HordeCore = {
     // params: (Hash) URL parameters
     addRequestParams: function(params)
     {
-        if (this.conf.SID) {
-            params.update(this.conf.SID.toQueryParams());
+        var sid = this.sessionId();
+
+        if (sid) {
+            params.update(sid.toQueryParams());
         }
         params.set('token', this.conf.TOKEN);
+    },
+
+    sessionId: function(sid)
+    {
+        var conf = (this.base || window).HordeCore.conf;
+
+        if (conf.SID) {
+            if (sid) {
+                conf.SID = sid;
+            }
+            return conf.SID;
+        }
     },
 
     // action = Action (string or DOM element if form submission)
@@ -183,9 +197,7 @@ var HordeCore = {
 
         var r = resp.responseJSON;
 
-        if (r.sid) {
-            this.conf.SID = r.sid;
-        }
+        this.sessionId(r.sid);
 
         if (r.reload) {
             if (r.reload === true) {
