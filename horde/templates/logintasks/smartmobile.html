@@ -11,9 +11,9 @@
 <loop:tasks>
 <div class="logintasks-item">
 <if:confirm>
-   <input type="checkbox" class="checkbox" name="logintasks_confirm_<tag:tasks.key />" id="logintasks_confirm_<tag:tasks.key />"<if:tasks.checked> checked="checked"</if:tasks.checked>>
+   <input type="checkbox" class="checkbox" name="<tag:tasks.name />" id="<tag:tasks.name />"<if:tasks.checked> checked="checked"</if:tasks.checked>>
 </if:confirm>
-   <if:confirm><label for="logintasks_confirm_<tag:tasks.key />"></if:confirm><tag:tasks.descrip /><if:confirm></label></if:confirm>
+   <if:confirm><label for="<tag:tasks.name />"></if:confirm><tag:tasks.descrip /><if:confirm></label></if:confirm>
 </div>
 </loop:tasks>
 
