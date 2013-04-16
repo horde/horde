@@ -654,4 +654,88 @@ class Kronolith_Application extends Horde_Registry_Application
         return Horde_Data::IMPORT_FILE;
     }
 
+    /* DAV methods. */
+
+    /**
+     */
+    public function davGetCollections($user)
+    {
+        $shares = $GLOBALS['injector']
+            ->getInstance('Kronolith_Shares')
+            ->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => Horde_Perms::SHOW,
+                      'attributes' => $user)
+            );
+        $calendars = array();
+        foreach ($shares as $id => $share) {
+            $calendars[] = array(
+                'id' => $id,
+                'uri' => $id,
+                'principaluri' => 'principals/' . $user,
+                '{DAV:}displayname' => Kronolith::getLabel($share),
+                '{urn:ietf:params:xml:ns:caldav}calendar-description' =>
+                    $share->get('desc'),
+                '{http://apple.com/ns/ical/}calendar-color' =>
+                    $share->get('color'),
+            );
+        }
+        return $calendars;
+    }
+
+    /**
+     */
+    public function davGetObjects($collection)
+    {
+        $kronolith_driver = Kronolith::getDriver(null, $collection);
+        $allEvents = $kronolith_driver->listEvents(
+            null,
+            null,
+            array('cover_dates' => false, 'hide_exceptions' => true)
+        );
+        $events = array();
+        foreach ($allEvents as $dayevents) {
+            foreach ($dayevents as $event) {
+                $event->loadHistory();
+                $modified = $event->modified ?: ($event->created ?: time());
+                $events[] = array(
+                    'id' => $event->id,
+                    'uri' => $event->id,
+                    'lastmodified' => $modified,
+                    'etag' => '"' . md5($event->id . '|' . $modified) . '"',
+                    'calendarid' => $collection,
+                );
+            }
+        }
+        return $events;
+    }
+
+    /**
+     */
+    public function davGetObject($collection, $object)
+    {
+        $kronolith_driver = Kronolith::getDriver(null, $collection);
+        $event = $kronolith_driver->getEvent($object);
+
+        $event->loadHistory();
+        $modified = $event->modified ?: ($event->created ?: time());
+
+        $share = $GLOBALS['injector']
+            ->getInstance('Kronolith_Shares')
+            ->getShare($event->calendar);
+        $ical = new Horde_Icalendar('2.0');
+        $ical->setAttribute('X-WR-CALNAME', $share->get('name'));
+        $ical->addComponent($event->toiCalendar($ical));
+        $data = $ical->exportvCalendar();
+
+        return array(
+            'id' => $event->id,
+            'calendardata' => $data,
+            'uri' => $event->id,
+            'lastmodified' => $modified,
+            'etag' => '"' . md5($event->id . '|' . $modified) . '"',
+            'calendarid' => $collection,
+            'size' => strlen($data),
+        );
+    }
 }

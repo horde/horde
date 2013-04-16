@@ -13,6 +13,7 @@
 
 use Sabre\DAV;
 use Sabre\DAVACL;
+use Sabre\CalDAV;
 
 /**
  * @author   Ben Klang <bklang@horde.org>
@@ -49,19 +50,23 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
         parent::__construct($request, $params);
 
-        $principals = new DAVACL\PrincipalCollection(
-            new Horde_Dav_Principals(
-                $injector->getInstance('Horde_Core_Factory_Auth')->create(),
-                $injector->getInstance('Horde_Core_Factory_Identity')
-            )
+        $principalBackend = new Horde_Dav_Principals(
+            $injector->getInstance('Horde_Core_Factory_Auth')->create(),
+            $injector->getInstance('Horde_Core_Factory_Identity')
         );
+        $principals = new DAVACL\PrincipalCollection($principalBackend);
         $principals->disableListing = $conf['auth']['list_users'] == 'input';
+
+        $calendarBackend = new Horde_Dav_Calendar_Backend($registry);
+        $caldav = new Horde_Dav_Calendar_RootNode($principalBackend, $calendarBackend, $registry);
+
         $this->_server = new DAV\Server(
             new Horde_Dav_Collection(
                 null,
                 array(),
                 $registry,
                 $principals,
+                $caldav,
                 isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null
             )
         );
@@ -76,6 +81,9 @@ class Horde_Rpc_Webdav extends Horde_Rpc
                 ),
                 'Horde DAV Server'
             )
+        );
+        $this->_server->addPlugin(
+            new CalDAV\Plugin()
         );
         $this->_server->addPlugin(
             new DAV\Locks\Plugin(
@@ -102,6 +110,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
      */
     public function getResponse($request)
     {
+        //xdebug_break();
         $this->_server->exec();
     }
 

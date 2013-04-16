@@ -13,6 +13,7 @@
 
 use Sabre\DAV;
 use Sabre\DAVACL;
+use Sabre\CalDAV;
 
 /**
  * A collection (directory) object.
@@ -75,12 +76,14 @@ class Horde_Dav_Collection extends DAV\Collection
                                 array $item = array(),
                                 Horde_Registry $registry,
                                 DAVACL\PrincipalCollection $principals,
+                                CalDAV\BackendInterface $caldav,
                                 $mimedb)
     {
         $this->_path = $path;
         $this->_item = $item;
         $this->_registry = $registry;
         $this->_principals = $principals;
+        $this->_caldav = $caldav;
         $this->_mimedb = $mimedb;
     }
 
@@ -124,7 +127,7 @@ class Horde_Dav_Collection extends DAV\Collection
     public function getChildren()
     {
         if (!$this->_path) {
-            $apps = array($this->_principals);
+            $apps = array($this->_principals, $this->_caldav);
             foreach ($this->_registry->listApps() as $app) {
                 if ($this->_registry->hasMethod('browse', $app)) {
                     $apps[] = new Horde_Dav_Collection(
@@ -132,6 +135,7 @@ class Horde_Dav_Collection extends DAV\Collection
                         array(),
                         $this->_registry,
                         $this->_principals,
+                        $this->_caldav,
                         $this->_mimedb
                     );
                 }
@@ -174,6 +178,7 @@ class Horde_Dav_Collection extends DAV\Collection
                     $item,
                     $this->_registry,
                     $this->_principals,
+                    $this->_caldav,
                     $this->_mimedb
                 );
             } else {

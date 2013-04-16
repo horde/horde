@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-02</date>
- <time>16:34:22</time>
+ <date>2013-04-16</date>
+ <time>15:23:10</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -41,11 +41,10 @@
         <file name="Horde.php" role="php" />
        </dir> <!-- /lib/Horde/Dav/Auth/Backend -->
       </dir> <!-- /lib/Horde/Dav/Auth -->
-      <dir name="CalDav">
-       <dir name="Backend">
-        <file name="Horde.php" role="php" />
-       </dir> <!-- /lib/Horde/Dav/CalDav/Backend -->
-      </dir> <!-- /lib/Horde/Dav/CalDav -->
+      <dir name="Calendar">
+       <file name="Backend.php" role="php" />
+       <file name="RootNode.php" role="php" />
+      </dir> <!-- /lib/Horde/Dav/Calendar -->
       <file name="Auth.php" role="php" />
       <file name="Client.php" role="php" />
       <file name="Collection.php" role="php" />
@@ -361,6 +360,13 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -368,11 +374,11 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Auth</name>
+    <name>Horde_Stream</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
+    <min>1.2.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
   </required>
  </dependencies>
@@ -387,7 +393,8 @@
    <install as="Horde/Dav/Locks.php" name="lib/Horde/Dav/Locks.php" />
    <install as="Horde/Dav/Principals.php" name="lib/Horde/Dav/Principals.php" />
    <install as="Horde/Dav/Auth/Backend/Horde.php" name="lib/Horde/Dav/Auth/Backend/Horde.php" />
-   <install as="Horde/Dav/CalDav/Backend/Horde.php" name="lib/Horde/Dav/CalDav/Backend/Horde.php" />
+   <install as="Horde/Dav/Calendar/Backend.php" name="lib/Horde/Dav/Calendar/Backend.php" />
+   <install as="Horde/Dav/Calendar/RootNode.php" name="lib/Horde/Dav/Calendar/RootNode.php" />
    <install as="LICENSE.dav" name="vendor/sabre/dav/LICENSE" />
    <install as="Sabre/CalDAV/Calendar.php" name="vendor/sabre/dav/lib/Sabre/CalDAV/Calendar.php" />
    <install as="Sabre/CalDAV/CalendarObject.php" name="vendor/sabre/dav/lib/Sabre/CalDAV/CalendarObject.php" />
