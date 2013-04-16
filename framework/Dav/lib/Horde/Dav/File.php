@@ -99,6 +99,34 @@ class Horde_Dav_File extends Sabre\DAV\File
     }
 
     /**
+     * Updates the data
+     *
+     * data is a readable stream resource.
+     *
+     * @param resource $data
+     * @return void
+     */
+    public function put($data)
+    {
+        list($base) = explode('/', $this->_path);
+        try {
+            $this->_registry->callByPackage(
+                $base,
+                'put',
+                array(
+                    $this->_path,
+                    strval(new Horde_Stream_Existing(array('stream' => $data))),
+                    $this->getContentType() ?: 'application/octet-stream'
+                )
+            );
+        } catch (Horde_Exception_NotFound $e) {
+            throw new DAV\Exception\NotFound($this->_path . ' not found');
+        } catch (Horde_Exception $e) {
+            throw new DAV\Exception($e);
+        }
+    }
+
+    /**
      * Returns the data
      *
      * This method may either return a string or a readable stream resource
@@ -109,7 +137,9 @@ class Horde_Dav_File extends Sabre\DAV\File
     {
         list($base) = explode('/', $this->_path);
         try {
-            $items = $this->_registry->callByPackage($base, 'browse', array('path' => $this->_path));
+            $items = $this->_registry->callByPackage(
+                $base, 'browse', array($this->_path)
+            );
         } catch (Horde_Exception_NotFound $e) {
             throw new DAV\Exception\NotFound($this->_path . ' not found');
         } catch (Horde_Exception $e) {
