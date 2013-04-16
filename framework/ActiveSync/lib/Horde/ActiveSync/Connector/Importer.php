@@ -118,8 +118,7 @@ class Horde_ActiveSync_Connector_Importer
      * @return string|boolean The server message id or false
      */
     public function importMessageChange(
-        $id, Horde_ActiveSync_Message_Base $message,
-        Horde_ActiveSync_Device $device, $clientid)
+        $id, Horde_ActiveSync_Message_Base $message, $device, $clientid)
     {
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
