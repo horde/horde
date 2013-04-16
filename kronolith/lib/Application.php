@@ -678,6 +678,7 @@ class Kronolith_Application extends Horde_Registry_Application
                     $share->get('desc'),
                 '{http://apple.com/ns/ical/}calendar-color' =>
                     $share->get('color'),
+                '{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set' => new Sabre\CalDAV\Property\SupportedCalendarComponentSet(array('VEVENT')),
             );
         }
         return $calendars;
@@ -687,6 +688,10 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function davGetObjects($collection)
     {
+        if (!Kronolith::hasPermission($collection, Horde_Perms::READ)) {
+            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+        }
+
         $kronolith_driver = Kronolith::getDriver(null, $collection);
         $allEvents = $kronolith_driver->listEvents(
             null,
@@ -714,6 +719,10 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function davGetObject($collection, $object)
     {
+        if (!Kronolith::hasPermission($collection, Horde_Perms::READ)) {
+            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+        }
+
         $kronolith_driver = Kronolith::getDriver(null, $collection);
         $event = $kronolith_driver->getEvent($object);
 
@@ -737,5 +746,66 @@ class Kronolith_Application extends Horde_Registry_Application
             'calendarid' => $collection,
             'size' => strlen($data),
         );
+    }
+
+    /**
+     */
+    public function davPutObject($collection, $object, $data)
+    {
+        if (!Kronolith::hasPermission($collection, Horde_Perms::EDIT)) {
+            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+        }
+
+        $kronolith_driver = Kronolith::getDriver(null, $collection);
+
+        $ical = new Horde_Icalendar();
+        if (!$ical->parsevCalendar($data)) {
+            throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
+        }
+
+        foreach ($ical->getComponents() as $content) {
+            if (!($content instanceof Horde_Icalendar_Vevent)) {
+                continue;
+            }
+
+            $event = $kronolith_driver->getEvent();
+            $event->fromiCalendar($content);
+
+            try {
+                $existing_event = $kronolith_driver->getEvent($object);
+                /* Check if our event is newer then the existing - get the
+                 * event's history. */
+                $existing_event->loadHistory();
+                $modified = $existing_event->modified
+                    ?: $existing_event->created;
+                try {
+                    if (!empty($modified) &&
+                        $content->getAttribute('LAST-MODIFIED')->before($modified)) {
+                        /* LAST-MODIFIED timestamp of existing entry is newer:
+                         * don't replace it. */
+                        continue;
+                    }
+                } catch (Horde_Icalendar_Exception $e) {
+                }
+
+                // Don't change creator/owner.
+                $event->creator = $existing_event->creator;
+            } catch (Horde_Exception_NotFound $e) {
+            }
+
+            // Save entry.
+            $event->save();
+        }
+    }
+
+    /**
+     */
+    public function davDeleteObject($collection, $object)
+    {
+        if (!Kronolith::hasPermission($collection, Horde_Perms::EDIT)) {
+            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+        }
+
+        Kronolith::getDriver(null, $collection)->deleteEvent($object);
     }
 }

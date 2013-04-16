@@ -172,14 +172,6 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
     /**
      * Creates a new calendar object.
      *
-     * It is possible return an etag from this function, which will be used in
-     * the response to this PUT request. Note that the ETag must be surrounded
-     * by double-quotes.
-     *
-     * However, you should only really return this ETag if you don't mangle the
-     * calendar-data. If the result of a subsequent GET to this object is not
-     * the exact same as this request body, you should omit the ETag.
-     *
      * @param mixed $calendarId
      * @param string $objectUri
      * @param string $calendarData
@@ -187,18 +179,11 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
      */
     public function createCalendarObject($calendarId, $objectUri, $calendarData)
     {
+        $this->updateCalendarObject($calendarId, $objectUri, $calendarData);
     }
 
     /**
      * Updates an existing calendarobject, based on it's uri.
-     *
-     * It is possible return an etag from this function, which will be used in
-     * the response to this PUT request. Note that the ETag must be surrounded
-     * by double-quotes.
-     *
-     * However, you should only really return this ETag if you don't mangle the
-     * calendar-data. If the result of a subsequent GET to this object is not
-     * the exact same as this request body, you should omit the ETag.
      *
      * @param mixed $calendarId
      * @param string $objectUri
@@ -207,6 +192,15 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
      */
     public function updateCalendarObject($calendarId, $objectUri, $calendarData)
     {
+        try {
+            return $this->_registry->callAppMethod(
+                $this->_calendar(),
+                'davPutObject',
+                array('args' => array($calendarId, $objectUri, $calendarData))
+            );
+        } catch (Horde_Exception $e) {
+            throw new DAV\Exception($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**
@@ -218,6 +212,15 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
      */
     public function deleteCalendarObject($calendarId, $objectUri)
     {
+        try {
+            return $this->_registry->callAppMethod(
+                $this->_calendar(),
+                'davDeleteObject',
+                array('args' => array($calendarId, $objectUri))
+            );
+        } catch (Horde_Exception $e) {
+            throw new DAV\Exception($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**

@@ -403,7 +403,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (count($parts) == 3) {
             // Delete just a single entry
-            return Kronolith::getDriver(null, $calendarId)->deleteEvent($parts[2]);
+            Kronolith::getDriver(null, $calendarId)->deleteEvent($parts[2]);
         } else {
             // Delete the entire calendar
             try {
