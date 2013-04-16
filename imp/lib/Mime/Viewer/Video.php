@@ -12,8 +12,10 @@
  */
 
 /**
- * Renderer to output information on the duration of the video data, if that
- * information was provided in the original message.
+ * Renderer to output information on:
+ *   1. The duration of the video data, if that information was provided in
+ *      the original message.
+ *   2. Output thumbnails of the video file.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -31,9 +33,30 @@ class IMP_Mime_Viewer_Video extends Horde_Mime_Viewer_Default
     protected $_capability = array(
         'full' => false,
         'info' => true,
-        'inline' => false,
+        'inline' => true,
         'raw' => false
     );
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * URL parameters used by this function:
+     *   - imp_video_view: (string) One of the following:
+     *     - view_thumbnail: Create thumbnail and display.
+     *
+     * @return array  See parent::render().
+     */
+    protected function _render()
+    {
+        switch ($GLOBALS['injector']->getInstance('Horde_Variables')->imp_video_view) {
+        case 'view_thumbnail':
+            /* Create thumbnail and display. */
+            return $this->_thumbnail();
+
+        default:
+            return parent::_render();
+        }
+    }
 
     /**
      * Return the rendered information about the Horde_Mime_Part object.
@@ -42,26 +65,109 @@ class IMP_Mime_Viewer_Video extends Horde_Mime_Viewer_Default
      */
     protected function _renderInfo()
     {
+        global $registry;
+
+        if ($registry->getView() == $registry::VIEW_MINIMAL) {
+            return array();
+        }
+
+        $status = array();
+
         $mime_id = $this->_mimepart->getMimeId();
         $headers = Horde_Mime_Headers::parseHeaders($this->getConfigParam('imp_contents')->getBodyPart($mime_id, array(
             'length' => 0,
             'mimeheaders' => true
         )));
 
-        if (($duration = $headers->getValue('content-duration')) === null) {
+        if (($duration = $headers->getValue('content-duration')) !== null) {
+            $status[] = sprintf(_("This video file is reported to be %d minutes, %d seconds in length."), floor($duration / 60), $duration % 60);
+        }
+
+        if ($this->_thumbnailBinary()) {
+            $status[] = _("This is a thumbnail of a video attachment.");
+            $status[] = $this->getConfigParam('imp_contents')->linkViewJS(
+                $this->_mimepart,
+                'view_attach',
+                '<img src="' . $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_video_view' => 'view_thumbnail'))) . '" />',
+                null,
+                null,
+                null
+            );
+        }
+
+        if (empty($status)) {
             return array();
         }
 
-        $status = new IMP_Mime_Status(sprintf(_("This video file is reported to be %d minutes, %d seconds in length."), floor($duration / 60), $duration % 60));
-        $status->icon('mime/video.png');
+        $s = new IMP_Mime_Status($status);
+        $s->icon('mime/video.png');
 
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => '',
-                'status' => $status,
+                'status' => $s,
                 'type' => 'text/html; charset=UTF-8'
             )
         );
+    }
+
+    /**
+     * Generate thumbnail for the video.
+     *
+     * @return array  See parent::render().
+     */
+    protected function _thumbnail($output = false)
+    {
+        if (!($ffmpeg = $this->_thumbnailBinary())) {
+            return array();
+        }
+
+        $process = proc_open(
+            escapeshellcmd($ffmpeg) . ' -i pipe:0 -vframes 1 -an -ss 1 -s 240x180 -f mjpeg pipe:1',
+            array(
+                0 => array('pipe', 'r'),
+                1 => array('pipe', 'w')
+            ),
+            $pipes
+        );
+
+        $out = null;
+        if (is_resource($process)) {
+            fwrite($pipes[0], $this->_mimepart->getContents());
+            fclose($pipes[0]);
+
+            $out = stream_get_contents($pipes[1]);
+            fclose($pipes[1]);
+        }
+
+        if (strlen($out)) {
+            $type = 'image/jpeg';
+        } else {
+            $type = 'image/png';
+            $img_ob = Horde_Themes::img('mini-error.png', 'imp');
+            $out = file_get_contents($img_ob->fs);
+        }
+
+        return array(
+            $this->_mimepart->getMimeId() => array(
+                'data' => $out,
+                'type' => 'image/jpeg'
+            )
+        );
+    }
+
+    /**
+     * Get the ffmpeg binary.
+     *
+     * @return mixed  The binary location, or false if not available.
+     */
+    protected function _thumbnailBinary()
+    {
+        return ($this->getConfigParam('thumbnails') &&
+                ($ffmpeg = $this->getConfigParam('ffmpeg')) &&
+                is_executable($ffmpeg))
+            ? $ffmpeg
+            : false;
     }
 
 }

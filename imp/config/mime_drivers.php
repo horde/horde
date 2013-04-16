@@ -242,7 +242,14 @@ $mime_drivers = array(
         ),
         'icons' => array(
             'default' => 'video.png'
-        )
+        ),
+
+        /* Display video thumbnails? */
+        'thumbnails' => true,
+
+        /* REQUIRED for thumbnails: location of ffmpeg binary.
+         * http://ffmpeg.org/ */
+        'ffmpeg' => '/usr/bin/ffmpeg'
     ),
 
     /* Alternative part display.
