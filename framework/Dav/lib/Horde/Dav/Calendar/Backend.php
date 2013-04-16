@@ -162,6 +162,8 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
                 'davGetObject',
                 array('args' => array($calendarId, $objectUri))
             );
+        } catch (Horde_Exception_NotFound $e) {
+            return null;
         } catch (Horde_Exception $e) {
             throw new DAV\Exception($e->getMessage(), $e->getCode(), $e);
         }
