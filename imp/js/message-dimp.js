@@ -62,11 +62,11 @@ var DimpMessage = {
     updateAddressHeader: function(e)
     {
         DimpCore.doAction('addressHeader', {
-            header: e.element().up('TR').identify().substring(9).toLowerCase()
+            header: e.element().up('TR').identify().substring(9).toLowerCase(),
+            view: this.mbox
         }, {
             callback: this._updateAddressHeaderCallback.bind(this),
-            uids: [ this.buid ],
-            view: this.mbox
+            uids: [ this.buid ]
         });
     },
     _updateAddressHeaderCallback: function(r)

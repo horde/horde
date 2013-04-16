@@ -72,6 +72,8 @@ abstract class Ansel_Widget_Base
      * by the Ansel_View once this widget is added.
      *
      * @param Ansel_View_Base $view  The view to attach
+     *
+     * @return boolean
      */
     public function attach(Ansel_View_Base $view)
     {

@@ -12,8 +12,10 @@ function hideFace(id)
 }
 document.observe('dom:loaded', function() {
     Event.observe($('ansel-photodiv'), 'load', function() {
-        $('faces-on-image').immediateDescendants().collect(function(element) {
-            element.clonePosition($('ansel-photodiv'), {setWidth: false, setHeight: false});
-        });
+        if ($('faces-on-image')) {
+            $('faces-on-image').immediateDescendants().collect(function(element) {
+                element.clonePosition($('ansel-photodiv'), {setWidth: false, setHeight: false});
+            });
+        }
     });
 });

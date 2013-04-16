@@ -166,6 +166,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         $view->tree = $tree;
 
         $page_output->addScriptFile('stripe.js', 'horde');
+        $page_output->addScriptFile('toggle_quotes.js', 'horde');
         $page_output->noDnsPrefetch();
 
         $this->output = $view->render('thread');

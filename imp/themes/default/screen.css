@@ -17,7 +17,6 @@
 
 /* Attachment tree styling. */
 div.partsTreeDiv span span:last-child {
-    padding-left: 3px;
     vertical-align: bottom;
 }
 
@@ -329,6 +328,14 @@ table.searchesmanagement td.searchdescription {
     font-weight: bold;
     font-size: 110%;
     padding: 10px 0;
+}
+.sound-list li {
+    height: auto;
+}
+.sound-list audio {
+    margin-left: 8px;
+    padding-bottom: 2px;
+    vertical-align: middle;
 }
 
 /* Quota styles. */

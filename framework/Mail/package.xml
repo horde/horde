@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>17:02:41</time>
+ <date>2013-04-08</date>
+ <time>17:00:06</time>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.6</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Correctly encode IDN domains when sending mail (Bug #12116).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -438,10 +438,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-04-08</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Correctly encode IDN domains when sending mail (Bug #12116).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-08</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

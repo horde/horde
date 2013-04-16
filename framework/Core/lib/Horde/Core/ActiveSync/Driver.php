@@ -149,7 +149,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Authenticate to Horde
      *
-     * @see Horde_ActiveSync_Driver_Base#authenticate()
+     * @param string $username  The username to authenticate as
+     * @param string $password  The password
+     * @param string $domain    The user domain (unused in this driver).
+     *
+     * @return mixed  Boolean true on success, boolean false on credential
+     *                failure or Horde_ActiveSync::AUTH_REASON_*
+     *                constant on policy failure.
      */
     public function authenticate($username, $password, $domain = null)
     {
@@ -174,7 +180,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     "Access denied for user %s per policy settings.",
                     $username)
                 );
-                return false;
+                return Horde_ActiveSync::AUTH_REASON_USER_DENIED;
             }
         }
 
@@ -1670,6 +1676,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'subject' => $vacation['subject']
                 );
                 break;
+            case 'userinformation':
+                $ident = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Identity')
+                    ->create($GLOBALS['registry']->getAuth());
+                $res['userinformation'] = array(
+                    'emailaddresses' => array_keys(array_flip($ident->getAll('from_addr'))),
+                    'status' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS
+                );
             }
         }
 
@@ -1685,8 +1699,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param stdClass $device  The device to store settings for.
      *
      * @return array  An array of status responses for each set request. e.g.,:
-     *   array('oof' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
-     *         'deviceinformation' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
+     *   array('oof' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
      */
     public function setSettings(array $settings, $device)
     {
@@ -1701,14 +1714,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $res['oof'] = Horde_ActiveSync_Request_Settings::STATUS_ERROR;
                 }
                 break;
-            case 'deviceinformation':
-                try {
-                    $state = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
-                    $state->setDeviceProperties($setting, $device);
-                    $res['deviceinformation'] = Horde_ActiveSync_Request_Settings::STATUS_SUCCESS;
-                } catch (Horde_Exception $e) {
-                    $res['deviceinformation'] = Horde_ActiveSync_Request_Settings::STATUS_ERROR;
-                }
             }
         }
 

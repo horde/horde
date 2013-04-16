@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-08</date>
- <time>16:36:20</time>
+ <date>2013-04-13</date>
+ <time>23:31:30</time>
  <version>
   <release>3.1.0beta1</release>
   <api>3.0.0</api>
@@ -85,6 +85,17 @@
      </dir> <!-- /lib/Ajax/Application -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
+    <dir name="Basic">
+     <file name="Base.php" role="horde" />
+     <file name="Blacklist.php" role="horde" />
+     <file name="Filters.php" role="horde" />
+     <file name="Forward.php" role="horde" />
+     <file name="Rule.php" role="horde" />
+     <file name="Script.php" role="horde" />
+     <file name="Spam.php" role="horde" />
+     <file name="Vacation.php" role="horde" />
+     <file name="Whitelist.php" role="horde" />
+    </dir> <!-- /lib/Basic -->
     <dir name="Block">
      <file name="Overview.php" role="horde" />
     </dir> <!-- /lib/Block -->
@@ -482,18 +493,11 @@
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     </dir> <!-- /themes -->
-   <file name="blacklist.php" role="horde" />
-   <file name="filters.php" role="horde" />
-   <file name="forward.php" role="horde" />
+   <file name="basic.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="LICENSE" role="doc" />
    <file name="README" role="doc" />
-   <file name="rule.php" role="horde" />
-   <file name="script.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
-   <file name="spam.php" role="horde" />
-   <file name="vacation.php" role="horde" />
-   <file name="whitelist.php" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -655,6 +659,15 @@
    <install as="ingo/lib/Test.php" name="lib/Test.php" />
    <install as="ingo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="ingo/lib/Ajax/Application/Smartmobile.php" name="lib/Ajax/Application/Smartmobile.php" />
+   <install as="ingo/lib/Basic/Base.php" name="lib/Basic/Base.php" />
+   <install as="ingo/lib/Basic/Blacklist.php" name="lib/Basic/Blacklist.php" />
+   <install as="ingo/lib/Basic/Filters.php" name="lib/Basic/Filters.php" />
+   <install as="ingo/lib/Basic/Forward.php" name="lib/Basic/Forward.php" />
+   <install as="ingo/lib/Basic/Rule.php" name="lib/Basic/Rule.php" />
+   <install as="ingo/lib/Basic/Script.php" name="lib/Basic/Script.php" />
+   <install as="ingo/lib/Basic/Spam.php" name="lib/Basic/Spam.php" />
+   <install as="ingo/lib/Basic/Vacation.php" name="lib/Basic/Vacation.php" />
+   <install as="ingo/lib/Basic/Whitelist.php" name="lib/Basic/Whitelist.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
    <install as="ingo/lib/Exception/Pear.php" name="lib/Exception/Pear.php" />
    <install as="ingo/lib/Factory/Script.php" name="lib/Factory/Script.php" />
@@ -843,18 +856,11 @@
    <install as="ingo/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
    <install as="ingo/themes/default/graphics/vacation.png" name="themes/default/graphics/vacation.png" />
    <install as="ingo/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
-   <install as="ingo/blacklist.php" name="blacklist.php" />
-   <install as="ingo/filters.php" name="filters.php" />
-   <install as="ingo/forward.php" name="forward.php" />
+   <install as="ingo/basic.php" name="basic.php" />
    <install as="ingo/index.php" name="index.php" />
    <install as="LICENSE" name="LICENSE" />
    <install as="README" name="README" />
-   <install as="ingo/rule.php" name="rule.php" />
-   <install as="ingo/script.php" name="script.php" />
    <install as="ingo/smartmobile.php" name="smartmobile.php" />
-   <install as="ingo/spam.php" name="spam.php" />
-   <install as="ingo/vacation.php" name="vacation.php" />
-   <install as="ingo/whitelist.php" name="whitelist.php" />
    <install as="ingo/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
   </filelist>
  </phprelease>
@@ -1238,7 +1244,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-04-08</date>
+   <date>2013-04-13</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add composite script backends.

@@ -228,6 +228,7 @@ class Horde_ActiveSync
 
     /* RM */
     const RM_SUPPORT                            = 'RightsManagement:RightsManagementSupport';
+    const RM_TEMPLATEID                         = 'RightsManagement:TemplateId';
 
     /* Collection Classes */
     const CLASS_EMAIL                           = 'Email';
@@ -273,6 +274,10 @@ class Horde_ActiveSync
     /* Maximum number of times we can see the same synckey before we call it an
     infinite loop */
     const MAXIMUM_SYNCKEY_COUNT                 = 10;
+
+    /* Auth failure reasons */
+    const AUTH_REASON_USER_DENIED               = 'user';
+    const AUTH_REASON_DEVICE_DENIED             = 'device';
 
     /**
      * Logger
@@ -366,6 +371,13 @@ class Horde_ActiveSync
     );
 
     /**
+     * Global error flag.
+     *
+     * @var boolean
+     */
+    protected $_globalError = false;
+
+    /**
      * Supported EAS versions.
      *
      * @var array
@@ -382,6 +394,7 @@ class Horde_ActiveSync
      * Factory method for creating Horde_ActiveSync_Message objects.
      *
      * @param string $message  The message type.
+     * @since 2.4.0
      *
      * @return Horde_ActiveSync_Message_Base   The concrete message object.
      */
@@ -463,7 +476,15 @@ class Horde_ActiveSync
         }
 
         // Authenticate
-        if (!$this->_driver->authenticate($user, $pass, $domain)) {
+        if ($result = $this->_driver->authenticate($user, $pass, $domain)) {
+            if ($result === self::AUTH_REASON_USER_DENIED) {
+                $this->_globalError = Horde_ActiveSync_Status::SYNC_NOT_ALLOWED;
+            } elseif ($result === self::AUTH_REASON_DEVICE_DENIED) {
+                $this->_globalError = Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER;
+            } elseif ($result !== true) {
+                $this->_globalError = Horde_ActiveSync_Status::DENIED;
+            }
+        } else {
             return false;
         }
 
@@ -608,12 +629,21 @@ class Horde_ActiveSync
         }
         $this->_setLogger($get);
 
+        // @TODO: Remove is_callable check for H6.
+        // Callback to give the backend the option to limit EAS version based
+        // on user/device/etc...
+        if (is_callable(array($this->_driver, 'versionCallback'))) {
+            $this->_driver->versionCallback($this);
+        }
+
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
-            $request = new Horde_ActiveSync_Request_Autodiscover($this, new Horde_ActiveSync_Device());
+            $request = new Horde_ActiveSync_Request_Autodiscover($this, new Horde_ActiveSync_Device($this->_state));
             $request->setLogger(self::$_logger);
 
-            return $request->handle();
+            $result = $request->handle();
+            $this->_driver->clearAuthentication();
+            return $result;
         }
 
         if (!$this->authenticate()) {
@@ -642,8 +672,10 @@ class Horde_ActiveSync
         if (empty($devId)) {
             if ($cmd == 'Options') {
                 $this->_doOptionsRequest();
+                $this->_driver->clearAuthentication();
                 return true;
             }
+            $this->_driver->clearAuthentication();
             throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
 
@@ -655,12 +687,11 @@ class Horde_ActiveSync
 
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
-
             // Device might exist, but with a new (additional) user account
             if ($this->_state->deviceExists($devId)) {
                 $device = $this->_state->loadDeviceInfo($devId);
             } else {
-                $device = new Horde_ActiveSync_Device();
+                $device = new Horde_ActiveSync_Device($this->_state);
             }
             $device->policykey = 0;
             $device->userAgent = $this->_request->getHeader('User-Agent');
@@ -668,9 +699,31 @@ class Horde_ActiveSync
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
-            $this->_state->setDeviceInfo($device);
+            $device->properties['version'] = $version;
+            // @TODO: Remove is_callable check (and extra else clause) for H6.
+            if (is_callable(array($this->_driver, 'createDeviceCallback'))) {
+                if (!$this->_driver->createDeviceCallback($device)) {
+                    // Do not allow pairing.
+                    if ($version > self::VERSION_TWELVEONE) {
+                        $this->_globalError = Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER;
+                    } else {
+                        $msg = sprintf(
+                            'The device %s was disallowed for user %s per policy settings.',
+                            $device->id,
+                            $device->user);
+                        $this->_logger->err($msg);
+                        throw new Horde_ActiveSync_Exception($msg);
+                    }
+                } else {
+                    $device->save();
+                }
+            } else {
+                $device->save();
+            }
         } else {
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
+            $device->properties['version'] = $version;
+            $device->save();
         }
 
         // Always set the version information instead of caching it, some
@@ -680,6 +733,7 @@ class Horde_ActiveSync
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             $this->_doOptionsRequest();
+            $this->_driver->clearAuthentication();
             return true;
         }
 
@@ -694,13 +748,9 @@ class Horde_ActiveSync
             self::$_logger->debug('MULTIPART REQUEST');
         }
 
-        // Support gzip encoding?
-        // We have to manage it ourselves, since only portions of the data
-        // are expected to be encoded.
-
         // Load the request handler to handle the request
         // We must send the eas header here, since some requests may start
-        // output and be large enough to flush the buffer (e.g., GetAttachement)
+        // output and be large enough to flush the buffer (e.g., GetAttachment)
         $this->activeSyncHeader();
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
@@ -712,6 +762,7 @@ class Horde_ActiveSync
             return $result;
         }
 
+        $this->_driver->clearAuthentication();
         throw new Horde_ActiveSync_Exception_InvalidRequest(basename($cmd) . ' not supported.');
     }
 
@@ -911,6 +962,18 @@ class Horde_ActiveSync
         }
 
         return $this->_get;
+    }
+
+    /**
+     * Return any global errors that occured during initial connection.
+     *
+     * @since 2.4.0
+     * @return mixed  A Horde_ActiveSync_Status:: constant of boolean false if
+     *                no errors.
+     */
+    public function checkGlobalError()
+    {
+        return $this->_globalError;
     }
 
     /**

@@ -38,7 +38,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
         $this->_properties = array (
             'client' => $json->c,
             'costobject' => $json->co,
-            'c_costobject_name' => $json->con,
+            '_costobject_name' => $json->con,
             'date' => $json->d,
             'description' => $json->desc,
             'employee' => $json->e,
@@ -131,6 +131,31 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
         );
 
         return $json;
+    }
+
+    /**
+     * Render this slice as a string.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        $fields = array(
+            'h' => _("Hours"),
+            'con' => _("Cost object"),
+            'desc' => _("Description"),
+            'n' => _("Notes"),
+            'tn' => _("Job Type"),
+            'b' => _("Billable")
+        );
+        $string = '';
+        $values = $this->toJson();
+        foreach ($fields as $field => $title) {
+            $string .= sprintf("%s: %s \n", $title, $values[$field]);
+        }
+        $string .= sprintf("%s: %s", _("Client"), $values['cn']['name']);
+
+        return $string;
     }
 
     /**

@@ -21,6 +21,12 @@ Upgrading to 2.1
       The 'escape' option has been removed.
       The MIME_PARAM_QUOTED constant has been added.
 
+  - Horde_Mime_Related
+
+    - cidReplace()
+
+      The $text parameter can now be a Horde_Domhtml object.
+
 
 Upgrading to 2.0
 ================

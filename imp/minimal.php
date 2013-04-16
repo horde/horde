@@ -35,7 +35,10 @@ $page_output->header(array(
     'view' => $registry::VIEW_MINIMAL
 ));
 
-IMP::status();
+$notification->notify(array(
+    'listeners' => array('status')
+));
+
 $ob->render();
 
 $page_output->footer();

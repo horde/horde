@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Flag changes will now trigger a positive PING/SYNC if the IMAP server supports per-mailbox MODSEQ and CONDSTORE.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
  </notes>
  <contents>
@@ -1290,6 +1291,7 @@
    <date>2013-04-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Flag changes will now trigger a positive PING/SYNC if the IMAP server supports per-mailbox MODSEQ and CONDSTORE.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
    </notes>
   </release>

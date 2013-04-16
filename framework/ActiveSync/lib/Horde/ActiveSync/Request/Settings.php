@@ -115,7 +115,6 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         $request['get']['oof']['bodytype'] = $bodytype;
                         break;
                     case self::SETTINGS_USERINFORMATION:
-                        // @TODO
                         $request['get']['userinformation'] = array();
                         break;
                     }
@@ -207,7 +206,13 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                                 $this->_decoder->getElementEndTag(); // end $field
                             }
                         }
-                        $request['set']['deviceinformation'] = $deviceinfo;
+                        try {
+                            $deviceinfo['version'] = $this->_device->version;
+                            $this->_device->setDeviceProperties($deviceinfo);
+                        } catch (Horde_ActiveSync_Exception $e) {
+                            $this->_logger->err($e->getMessage());
+                            unset($deviceinfo);
+                        }
                         $this->_decoder->getElementEndTag(); // end self::SETTINGS_DEVICEINFORMATION
                         break;
                     case self::SETTINGS_DEVICEPASSWORD :
@@ -255,13 +260,13 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
             $this->_encoder->endTag(); // end self::SETTINGS_OOF
         }
-        if (isset($request['set']['deviceinformation'])) {
+        if (isset($deviceinfo)) {
             $this->_encoder->startTag(self::SETTINGS_DEVICEINFORMATION);
             $this->_encoder->startTag(self::SETTINGS_STATUS);
             if (!isset($result['set']['deviceinformation'])) {
                 $this->_encoder->content(0);
             } else {
-                $this->_encoder->content($result['set']['deviceinformation']);
+                $this->_encoder->content(Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
             }
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
             $this->_encoder->endTag(); // end self::SETTINGS_DEVICEINFORMATION

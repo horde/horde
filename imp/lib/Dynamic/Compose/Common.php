@@ -186,11 +186,17 @@ class IMP_Dynamic_Compose_Common
         }
 
         $base->js_context['ctx_atc'] = new stdClass;
-        if (IMP_Compose::canUploadAttachment() &&
-            (!$prefs->isLocked('save_attachments') &&
-             (!$prefs->isLocked('save_sent_mail') ||
-              $prefs->getValue('save_sent_mail')))) {
-             $base->js_context['ctx_atc']->save = _("Save Attachments in Sent Mailbox");
+
+        if (IMP_Compose::canUploadAttachment()) {
+            if (!$prefs->isLocked('save_attachments') &&
+                (!$prefs->isLocked('save_sent_mail') ||
+                 $prefs->getValue('save_sent_mail'))) {
+                $base->js_context['ctx_atc']->save = _("Save Attachments in Sent Mailbox");
+            }
+
+            $atcfile = new stdClass;
+            $atcfile->delete = _("Delete");
+            $base->js_context['ctx_atcfile'] = $atcfile;
         }
 
         if ($prefs->getValue('use_pgp') &&
@@ -259,7 +265,6 @@ class IMP_Dynamic_Compose_Common
         $base->js_text += array(
             'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
             'nosubject' => _("The message does not have a subject entered.") . "\n" . _("Send message without a subject?"),
-            'remove' => _("Remove"),
             'replyall' => _("%d recipients"),
             'spell_noerror' => _("No spelling errors found."),
             'toggle_html' => _("Discard all text formatting information (by converting from HTML to plain text)? This conversion cannot be reversed."),

@@ -32,7 +32,6 @@ $ob = new $class($injector->getInstance('Horde_Variables'));
 
 $page_output->header(array(
     'body_class' => 'horde-ajax',
-    'growler_log' => $ob->growlerLog,
     'title' => $ob->title,
     'view' => $registry::VIEW_DYNAMIC
 ));

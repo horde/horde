@@ -623,8 +623,6 @@ class Horde_PageOutput
      * @param array $opts  Options:
      *   - body_class: (string)
      *   - body_id: (string)
-     *   - growler_log: (boolean) If true, initialize Growler log.
-     *                  DEFAULT: false
      *   - html_id: (string)
      *   - smartmobileinit: (string)
      *   - stylesheet_opts: (array)
@@ -731,7 +729,7 @@ class Horde_PageOutput
                 'TOKEN' => $session->getToken(),
 
                 /* Other config. */
-                'growler_log' => !empty($opts['growler_log']),
+                'growler_log' => $this->topbar,
                 'popup_height' => 610,
                 'popup_width' => 820
             ));
@@ -752,7 +750,7 @@ class Horde_PageOutput
                 )
             );
 
-            if (!empty($opts['growler_log'])) {
+            if ($this->topbar) {
                 $js_text['growlerinfo'] = Horde_Core_Translation::t("This is the notification log.");
                 $js_text['growlernoalerts'] = Horde_Core_Translation::t("No Alerts");
             }

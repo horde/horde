@@ -255,11 +255,14 @@ abstract class Ingo_Script_Base
             $rule = isset($this->_params['transport'][$item['rule']])
                 ? $item['rule']
                 : Ingo::RULE_ALL;
-            $name = strlen($item['name'])
-                ? $item['name']
-                : (isset($this->_params['transport'][$rule]['params']['filename'])
-                   ? $this->_params['transport'][$rule]['params']['filename']
-                   : '');
+            $name = '';
+            if (strlen($item['name'])) {
+                $name = $item['name'];
+            } elseif (isset($this->_params['transport'][$rule]['params']['filename'])) {
+                $name = $this->_params['transport'][$rule]['params']['filename'];
+            } elseif (isset($this->_params['transport'][$rule]['params']['scriptname'])) {
+                $name = $this->_params['transport'][$rule]['params']['scriptname'];
+            }
 
             if (!isset($scripts[$rule . $name])) {
                 $scripts[$rule . $name] = array(
@@ -295,6 +298,29 @@ abstract class Ingo_Script_Base
             'rule' => $rule,
             'object' => $item,
             'name' => $name
+        );
+    }
+
+    /**
+     * Inserts an item into the recipe list.
+     *
+     * @param integer $rule           One of the Ingo::RULE_* constants.
+     * @param Ingo_Script_Item $item  An item to add to the recipe list.
+     * @param string $name            A script name.
+     * @þaram integer $position       Where to add the item.
+     */
+    protected function _insertItem($rule, Ingo_Script_Item $item, $name = null,
+                                   $position = 0)
+    {
+        array_splice(
+            $this->_recipes,
+            $position,
+            0,
+            array(array(
+                'rule' => $rule,
+                'object' => $item,
+                'name' => $name
+            ))
         );
     }
 

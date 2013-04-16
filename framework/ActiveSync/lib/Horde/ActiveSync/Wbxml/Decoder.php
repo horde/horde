@@ -583,7 +583,31 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      */
     private function _getOpaque($len)
     {
-        return fread($this->_stream, $len);
+        // See http://php.net/fread for why we can't simply use a single fread()
+        // here. Bottom line, for buffered network streams it may be possible
+        // that fread will only return a portion of the stream if chunk
+        // is smaller then $len, so we use a loop to reach $len.
+        $d = '';
+        while (1) {
+            $l = (($len - strlen($d)) > 8192) ? 8192 : ($len - strlen($d));
+            if ($l > 0) {
+                $data = fread($this->_stream, $l);
+                // Stream ends prematurely on instable connections and big mails
+                if ($data === false || feof($this->_stream)) {
+                    throw new Horde_ActiveSync_Exception(sprintf(
+                        'Connection unavailable while trying to read %d bytes from stream. Aborting after %d bytes read.',
+                        $len,
+                        strlen($d)));
+                } else {
+                    $d .= $data;
+                }
+            }
+            if (strlen($d) >= $len) {
+                break;
+            }
+        }
+
+        return $d;
     }
 
     /**

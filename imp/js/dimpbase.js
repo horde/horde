@@ -1083,10 +1083,6 @@ var DimpBase = {
             this.viewport.reload({ delhide: Number(id == 'ctx_oa_hide_deleted') });
             break;
 
-        case 'ctx_oa_growler_log':
-            HordeCore.Growler.toggleLog();
-            break;
-
         case 'ctx_oa_clear_sort':
             this.sort(DimpCore.conf.sort.get('sequence').v);
             break;
@@ -1429,10 +1425,6 @@ var DimpBase = {
 
         case 'ctx_folderopts':
             $('ctx_folderopts_sub').hide();
-            break;
-
-        case 'ctx_oa':
-            [ $('ctx_oa_growler_log').up() ].invoke($('GrowlerLog') ? 'show' : 'remove');
             break;
         }
     },
@@ -1787,7 +1779,8 @@ var DimpBase = {
     updateAddressHeader: function(e)
     {
         DimpCore.doAction('addressHeader', {
-            header: $w(e.element().className).first()
+            header: $w(e.element().className).first(),
+            view: this.view
         }, {
             callback: this._updateAddressHeaderCallback.bind(this),
             loading: 'msg',
@@ -2993,7 +2986,8 @@ var DimpBase = {
 
     _handleMboxMouseClick: function(e)
     {
-        var elt = e.element(),
+        var tmp,
+            elt = e.element(),
             li = elt.match('DIV') ? elt : elt.up('DIV.horde-subnavi');
 
         if (!li) {
@@ -3014,7 +3008,11 @@ var DimpBase = {
             case 'special':
             case 'vfolder':
                 e.stop();
-                return this.go('mbox', li.retrieve('mbox'));
+                tmp = li.retrieve('mbox');
+                if (tmp != this.view) {
+                    this.go('mbox', li.retrieve('mbox'));
+                }
+                break;
             }
         }
     },

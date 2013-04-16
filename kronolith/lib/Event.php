@@ -669,7 +669,7 @@ abstract class Kronolith_Event
                 }
             }
             $vEvent->setAttribute('DTSTART', clone $this->start, $params);
-            $vEvent->setAttribute('DTEND', clone $this->end, $params);
+            $vEvent->setAttribute('DTEND', clone $end, $params);
         }
 
         $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
@@ -848,11 +848,17 @@ abstract class Kronolith_Event
                 $email = '';
             }
             if ($v1) {
-                $tmp = new Horde_Mail_Rfc822_Address($email);
-                if (!empty($status['name'])) {
-                    $tmp->personal = $status['name'];
+                if (empty($email)) {
+                    if (!empty($status['name'])) {
+                        $email = $status['name'];
+                    }
+                } else {
+                    $tmp = new Horde_Mail_Rfc822_Address($email);
+                    if (!empty($status['name'])) {
+                        $tmp->personal = $status['name'];
+                    }
+                    $email = strval($tmp);
                 }
-                $email = strval($tmp);
             } else {
                 if (!empty($status['name'])) {
                     $params['CN'] = $status['name'];

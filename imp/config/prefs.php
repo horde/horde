@@ -1085,6 +1085,7 @@ $_prefs['default_msg_charset'] = array(
         : ($GLOBALS['registry']->getLanguageCharset()
             ? $GLOBALS['registry']->getLanguageCharset()
             : ''),
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array_merge(
         array('' => _("Default (US-ASCII)")), $GLOBALS['registry']->nlsconfig->encodings_sort

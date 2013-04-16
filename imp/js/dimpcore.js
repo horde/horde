@@ -110,25 +110,18 @@ var DimpCore = {
 
         this._buildAddressLinks(alist.addr, df);
 
-        if (alist.addr.size() > 15) {
+        if (limit && alist.limit) {
             tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active').writeAttribute({ id: null });
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
             tmp = tmp.down('.largeaddrlist');
-            if (limit && alist.limit) {
-                base.down('.largeaddrlistlimit').show();
-                tmp.setText((tmp.textContent || tmp.innerText).replace('%d', alist.limit));
-            } else {
-                tmp.setText((tmp.textContent || tmp.innerText).replace('%d', alist.addr.size()));
-            }
+            base.down('.largeaddrlistlimit').show();
+            tmp.setText((tmp.textContent || tmp.innerText).replace('%d', alist.limit));
         } else {
             base = elt;
         }
 
         base.appendChild(df);
-        if (limit && alist.limit) {
-            base.insert(', [...]');
-        }
 
         return elt;
     },

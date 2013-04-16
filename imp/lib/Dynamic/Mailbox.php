@@ -24,10 +24,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 {
     /**
      */
-    public $growlerLog = true;
-
-    /**
-     */
     protected function _init()
     {
         global $injector, $page_output, $registry, $session;
@@ -402,10 +398,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'hide_deleted' => _("Hide Deleted"),
             '_sub3' => array(
                 '_sep3' => null,
-                'growler_log' => _("Toggle Alerts Log")
-            ),
-            '_sub4' => array(
-                '_sep4' => null,
                 'clear_sort' => _("Clear Sort")
             )
         );

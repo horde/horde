@@ -142,7 +142,6 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
                         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE)) {
                             // Set filtertype? self::$decoder->getElementContent());
                             $filtertype = $this->_decoder->getElementContent();
-                            $this->_logger->debug('Filter Type: ' . $filtertype);
                             if (!$this->_decoder->getElementEndTag()) {
                                 throw new Horde_ActiveSync_Exception('Protocol Error');
                             }

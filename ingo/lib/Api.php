@@ -23,18 +23,6 @@
 class Ingo_Api extends Horde_Registry_Api
 {
     /**
-     * Links.
-     *
-     * @var array
-     */
-    protected $_links = array(
-        'showBlacklist' => '%application%/blacklist.php',
-        'showWhitelist' => '%application%/whitelist.php',
-        'showFilters' => '%application%/filters.php',
-        'showVacation' => '%application%/vacation.php'
-    );
-
-    /**
      */
     public function disabled()
     {
@@ -59,6 +47,18 @@ class Ingo_Api extends Horde_Registry_Api
         }
 
         return array_merge(parent::disabled(), $disabled);
+    }
+
+    /**
+     */
+    public function links()
+    {
+        return array(
+            'showBlacklist' => strval(Ingo_Basic_Blacklist::url()),
+            'showWhitelist' => strval(Ingo_Basic_Whitelist::url()),
+            'showFilters' => strval(Ingo_Basic_Filters::url()),
+            'showVacation' => strval(Ingo_Basic_Vacation::url())
+        );
     }
 
     /**

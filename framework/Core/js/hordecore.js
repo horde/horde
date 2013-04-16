@@ -20,7 +20,7 @@
 var HordeCore = {
 
     // Vars used and defaulting to null/false:
-    //   Growler, conf, inAjaxCallback, is_logout, submit_frame, text
+    //   Growler, audio, conf, inAjaxCallback, is_logout, submit_frame, text
 
     alarms: [],
     base: null,
@@ -275,13 +275,23 @@ var HordeCore = {
         }
 
         msgs.find(function(m) {
-            var alarm, growl, message, select;
+            var alarm, audio, growl, message, select;
 
             if (!Object.isString(m.message)) {
                 return;
             }
 
             switch (m.type) {
+            case 'audio':
+                if (!this.audio) {
+                    this.audio = new Element('AUDIO');
+                    $(document.body).insert(this.audio);
+                }
+                this.audio.pause();
+                this.audio.writeAttribute('src', m.message);
+                this.audio.play();
+                break;
+
             case 'horde.ajaxtimeout':
             case 'horde.noauth':
                 this.logout(m.message);

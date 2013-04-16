@@ -80,6 +80,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             return true;
         }
 
+        // Check global errors.
+        if ($error = $this->_activeSync->checkGlobalError()) {
+            $this->_statusCode = $error;
+            $this->_handleGlobalSyncError();
+            return true;
+        }
+
         // Defaults
         $this->_statusCode = self::STATUS_SUCCESS;
         $partial = false;
@@ -152,7 +159,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 switch($sync_tag) {
                 case Horde_ActiveSync::SYNC_HEARTBEATINTERVAL:
                     if ($hbinterval = $this->_decoder->getElementContent()) {
-                        $this->_collections->setHeatbeat(array('hbinterval' => $hbinterval));
+                        $this->_collections->setHeartbeat(array('hbinterval' => $hbinterval));
                         $this->_decoder->getElementEndTag();
                     }
                     $this->_logger->debug(sprintf(
@@ -307,7 +314,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     print_r($csk, true))
                 );
                 $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
-                $this->_collections->confirmed_synckeys = array();
                 $this->_collections->save();
                 $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                 $this->_handleGlobalSyncError();
@@ -420,7 +426,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $changecount = $sync->getChangeCount();
                     if (($changecount > 0)) {
                         $dataavailable = true;
-                        $collections->setGetChangesFlag($id);
+                        $this->_collections->setGetChangesFlag($id);
                     }
                 }
 

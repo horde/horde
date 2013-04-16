@@ -60,7 +60,7 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
         $ob->response = $this->data;
 
         $stack = $GLOBALS['notification']->notify(array(
-            'listeners' => 'status',
+            'listeners' => array('status', 'audio'),
             'raw' => true
         ));
         if (!empty($stack)) {

@@ -118,7 +118,8 @@ class Horde_ActiveSync_Connector_Importer
      * @return string|boolean The server message id or false
      */
     public function importMessageChange(
-        $id, Horde_ActiveSync_Message_Base $message, $device, $clientid)
+        $id, Horde_ActiveSync_Message_Base $message,
+        Horde_ActiveSync_Device $device, $clientid)
     {
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
@@ -131,16 +132,28 @@ class Horde_ActiveSync_Connector_Importer
                 $this->_folderId,
                 $id);
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
+                $this->_logger->debug(sprintf(
+                    '[%s] Conflict when updating %s.',
+                    getmypid(), $id)
+                );
                 return $id;
             }
         } else {
             if ($uid = $this->_state->isDuplicatePIMAddition($clientid)) {
                 // Already saw this addition, but PIM never received UID
+                $this->_logger->debug(sprintf(
+                    '[%s] Duplicate addition for %s',
+                    getmypid(), $uid)
+                );
                 return $uid;
             }
         }
         // Tell the backend about the change
         if (!$stat = $this->_backend->changeMessage($this->_folderId, $id, $message, $device)) {
+            $this->_logger->err(sprintf(
+                '[%s] Change message failed when updating %s',
+                getmypid(), $id)
+            );
             return false;
         }
         $stat['parent'] = $this->_folderId;

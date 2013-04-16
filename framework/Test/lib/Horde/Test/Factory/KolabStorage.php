@@ -56,7 +56,8 @@ class Horde_Test_Factory_KolabStorage
                             'permissions' => array('anyone' => 'alrid')
                         )
                     )
-                )
+                ),
+                'logger' => new Horde_Support_Stub()
             )
         );
         return $kolab_factory->create();

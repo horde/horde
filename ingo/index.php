@@ -22,6 +22,6 @@ case $registry::VIEW_SMARTMOBILE:
     break;
 
 default:
-    require __DIR__ . '/filters.php';
+    Ingo_Basic_Filters::url()->redirect();
     break;
 }

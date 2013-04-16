@@ -122,18 +122,11 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
         $event->start = new Horde_Date(0);
         $event->end = new Horde_Date(14400);
         $event->recurrence = new Horde_Date_Recurrence($event->start);
-        $event->recurrence->fromHash(
-            array(
-                'interval' => 1,
-                'cycle' => 'daily',
-                'range-type' => 'number',
-                'range' => 4,
-                'exceptions' => array(
-                    '19700102',
-                    '19700103'
-                )
-            )
-        );
+        $event->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
+        $event->recurrence->setRecurInterval(1);
+        $event->recurrence->setRecurCount(4);
+        $event->recurrence->exceptions[] = '19700102';
+        $event->recurrence->exceptions[] = '19700103';
         return $event;
     }
 }

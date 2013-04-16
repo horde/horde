@@ -287,6 +287,7 @@ class Ansel_View_List extends Ansel_View_Ansel
             $this->_view->cellwidth = round(100 / $this->_view->tilesperrow);
             $this->_view->params = $this->_params;
 
+            $GLOBALS['page_output']->addScriptFile('views/common.js');
             return $this->_view->render('list');
         }
 

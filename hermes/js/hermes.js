@@ -87,8 +87,10 @@ HermesCore = {
             switch (loc) {
             case 'time':
                 this.updateView(loc);
-                this.loadSlices();
+                var id = locParts.shift();
+                this.loadSlices(id);
                 // Fall through
+
             default:
                 if (!$('hermesView' + locCap)) {
                     break;
@@ -99,7 +101,7 @@ HermesCore = {
                     duration: this.effectDur,
                     queue: 'end',
                     afterFinish: function() {
-                        this.loadNextView();
+                       this.loadNextView();
                     }.bind(this)});
                 break;
             }
@@ -437,7 +439,9 @@ HermesCore = {
 
         // We might be on the search form when we click edit.
         this.fromSearch = (this.view == 'search');
-        this.go('time');
+        if (this.view != 'time') {
+            this.go('time');
+        }
     },
 
     /**
@@ -1011,24 +1015,27 @@ HermesCore = {
     /**
      * Fetch timeslices from the server for the current user.
      */
-    loadSlices: function()
+    loadSlices: function(id)
     {
         $('hermesLoadingTime').show();
         this.slices = [];
         HordeCore.doAction('loadSlices',
             { 'e': Hermes.conf.user, 's': false },
-            { 'callback': this.loadSlicesCallback.bind(this) }
+            { 'callback': this.loadSlicesCallback.bind(this, id) }
         );
     },
 
     /**
      * Build the slice display
      */
-    loadSlicesCallback: function(r)
+    loadSlicesCallback: function(id, r)
     {
         $('hermesLoadingTime').hide();
         this.slices = r;
         this.buildTimeTable();
+        if (id) {
+            this.populateSliceForm(id);
+        }
     },
 
     /**
@@ -1449,7 +1456,8 @@ HermesCore = {
         }
         if (!tmp.empty()) {
             this.go(decodeURIComponent(tmp));
-            if (decodeURIComponent(tmp) != 'time') {
+            locParts = tmp.split(':');
+            if (locParts.shift() != 'time') {
                 // We need to load the slices so the time summary can display.
                 this.loadSlices();
             }

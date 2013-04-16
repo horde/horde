@@ -69,7 +69,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
      *
      * @var Horde_Mail_Rfc822_Address
      */
-    protected $_address = null;
+    protected $_sender = null;
 
     /**
      * Cached data.
@@ -144,13 +144,6 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     protected function _renderInline()
     {
         $id = $this->_mimepart->getMimeId();
-
-        /* Determine the address of the sender. */
-        if (is_null($this->_address)) {
-            $headers = $this->getConfigParam('imp_contents')->getHeader();
-            $tmp = $headers->getOb('from');
-            $this->_address = $tmp[0];
-        }
 
         switch ($this->_mimepart->getType()) {
         case 'application/pgp-keys':
@@ -296,9 +289,15 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
         try {
             if (!is_null($symmetric_pass)) {
-                $decrypted_data = $imp_pgp->decryptMessage($encrypted_data, 'symmetric', $symmetric_pass);
+                $decrypted_data = $imp_pgp->decryptMessage($encrypted_data, 'symmetric', array(
+                    'passphrase' => $symmetric_pass,
+                    'sender' => $this->_getSender()->bare_address
+                ));
             } elseif (!is_null($personal_pass)) {
-                $decrypted_data = $imp_pgp->decryptMessage($encrypted_data, 'personal', $personal_pass);
+                $decrypted_data = $imp_pgp->decryptMessage($encrypted_data, 'personal', array(
+                    'passphrase' => $personal_pass,
+                    'sender' => $this->_getSender()->bare_address
+                ));
             } else {
                 $decrypted_data = $imp_pgp->decryptMessage($encrypted_data, 'literal');
             }
@@ -436,7 +435,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             try {
                 $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
                 if ($sig_part->getMetadata(self::PGP_SIG)) {
-                    $sig_result = $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address->bare_address, null, $sig_part->getMetadata(self::PGP_CHARSET));
+                    $sig_result = $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_getSender()->bare_address, null, $sig_part->getMetadata(self::PGP_CHARSET));
                 } else {
                     $stream = $imp_contents->isEmbedded($signed_id)
                         ? $this->_mimepart->getMetadata(self::PGP_SIGN_ENC)
@@ -446,7 +445,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                         'eol' => Horde_Mime_Part::RFC_EOL
                     ));
 
-                    $sig_result = $imp_pgp->verifySignature(stream_get_contents($stream, -1, 0), $this->_address->bare_address, $sig_part->getContents());
+                    $sig_result = $imp_pgp->verifySignature(stream_get_contents($stream, -1, 0), $this->_getSender()->bare_address, $sig_part->getContents());
                 }
 
                 $status2->action(IMP_Mime_Status::SUCCESS);
@@ -485,6 +484,22 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     protected function _getSymmetricID()
     {
         return $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->getSymmetricID($this->getConfigParam('imp_contents')->getMailbox(), $this->getConfigParam('imp_contents')->getUid(), $this->_mimepart->getMimeId());
+    }
+
+    /**
+     * Determine the address of the sender.
+     *
+     * @return Horde_Mail_Rfc822_Address  The from address.
+     */
+    protected function _getSender()
+    {
+        if (is_null($this->_sender)) {
+            $headers = $this->getConfigParam('imp_contents')->getHeader();
+            $tmp = $headers->getOb('from');
+            $this->_sender = $tmp[0];
+        }
+
+        return $this->_sender;
     }
 
     /**

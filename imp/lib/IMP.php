@@ -112,14 +112,6 @@ class IMP
     }
 
     /**
-     * Outputs IMP's status/notification bar.
-     */
-    static public function status()
-    {
-        $GLOBALS['notification']->notify(array('listeners' => array('status', 'audio')));
-    }
-
-    /**
      * Return a list of valid encrypt HTML option tags.
      *
      * @param string $default      The default encrypt option.

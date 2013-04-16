@@ -159,7 +159,9 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param string $password  The password
      * @param string $domain    The user domain (unused in this driver).
      *
-     * @return boolean
+     * @return mixed  Boolean true on success, boolean false on credential
+     *                failure or Horde_ActiveSync::AUTH_REASON_*
+     *                constant on policy failure.
      */
     public function authenticate($username, $password, $domain = null)
     {

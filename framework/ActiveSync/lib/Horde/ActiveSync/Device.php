@@ -22,9 +22,28 @@
  * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property string id          The device id.
+ * @property string deviceType  The device type string.
+ * @property integer rwstatus   The RemoteWipe status - a
+ *                              Horde_ActiveSync::RWSTATUS_* constant.
+ * @property string userAgent   The device's user agent string.
+ * @property string user        The user id for the current device account.
+ * @property array supported    The SUPPORTED data sent from this device.
+ * @property string policykey   The current policykey, if provisioned.
+ * @property array properties   The device properties, as sent in DEVICEINFO.
+ *
  */
 class Horde_ActiveSync_Device
 {
+    const MODEL        = 'Settings:Model';
+    const IMEI         = 'Settings:IMEI';
+    const NAME         = 'Settings:FriendlyName';
+    const OS           = 'Settings:OS';
+    const OS_LANGUAGE  = 'Settings:OSLanguage';
+    const PHONE_NUMBER = 'Settings:PhoneNumber';
+    const VERSION      = 'version';
+
     /**
      * Device properties.
      *
@@ -32,21 +51,44 @@ class Horde_ActiveSync_Device
      */
     protected $_properties = array();
 
-    public function __construct($data = array())
+    /**
+     * State handler
+     *
+     * @var Horde_ActiveSync_State_Base
+     */
+    protected $_state;
+
+    /**
+     * Const'r
+     *
+     * @param Horde_ActiveSync_State_Base $state  The state driver.
+     * @param array $data                         The current device data.
+     */
+    public function __construct(Horde_ActiveSync_State_Base $state, array $data = array())
     {
+        $this->_state = $state;
         $this->_properties = $data;
     }
 
-    public function __get($property)
+    /**
+     * Getter
+     */
+    public function &__get($property)
     {
         return $this->_properties[$property];
     }
 
+    /**
+     * Setter
+     */
     public function __set($property, $value)
     {
         $this->_properties[$property] = $value;
     }
 
+    /**
+     * Magic isset
+     */
     public function __isset($property)
     {
         return !empty($this->_properties[$property]);
@@ -66,13 +108,6 @@ class Horde_ActiveSync_Device
             return false;
         }
 
-        // WP7 not only doesn't support all EAS 2.5 security poliices, it flat
-        // out refuses to notify the server of a partial acceptance and just
-        // completely fails.
-        if (strpos($this->userAgent, 'MSFT-WP/7') !== false) {
-            return false;
-        }
-
         // Outlook?
         if (strpos($this->userAgent, 'Microsoft.Outlook') !== false) {
             return false;
@@ -80,6 +115,67 @@ class Horde_ActiveSync_Device
 
         // Enforce provisioning if needed.
         return true;
+    }
+
+    /**
+     * Set the device's DEVICEINFO data.
+     *
+     * @param array $data  The data array sent from the device.
+     */
+    public function setDeviceProperties(array $data)
+    {
+        if (empty($data['userAgent']) && !empty($this->_properties['userAgent'])) {
+            $data['userAgent'] = $this->_properties['userAgent'];
+        }
+        $this->_state->setDeviceProperties($data, $this->id);
+    }
+
+    /**
+     * Return an array of DEVICEINFO data, with keys suitable for displaying.
+     *
+     * @return array
+     */
+    public function getFormattedDeviceProperties()
+    {
+        $data = array(
+            _("Id") => $this->id,
+            _("Policy Key") => $this->policykey,
+            _("User Agent") => $this->userAgent
+        );
+
+        if (!empty($this->properties[self::MODEL])) {
+            $data[_("Model")] = $this->properties[self::MODEL];
+        }
+        if (!empty($this->properties[self::IMEI])) {
+            $data[_("IMEI")] = $this->properties[self::IMEI];
+        }
+        if (!empty($this->properties[self::NAME])) {
+            $data[_("Common Name")] = $this->properties[self::NAME];
+        }
+        if (!empty($this->properties[self::OS])) {
+            $data[_("OS")] = $this->properties[self::OS];
+        }
+        if (!empty($this->properties[self::OS_LANGUAGE])) {
+            $data[_("OS Language")] = $this->properties[self::OS_LANGUAGE];
+        }
+        if (!empty($this->properties[self::PHONE_NUMBER])) {
+            $data[_("Phone Number")] = $this->properties[self::PHONE_NUMBER];
+        }
+        if (!empty($this->properties[self::VERSION])) {
+            $data[_("EAS Version")] = $this->properties[self::VERSION];
+        }
+
+        return $data;
+    }
+
+    public function getLastSyncTimestamp()
+    {
+        return $this->_state->getLastSyncTimestamp($this->id, $this->user);
+    }
+
+    public function save()
+    {
+        $this->_state->setDeviceInfo($this);
     }
 
 }

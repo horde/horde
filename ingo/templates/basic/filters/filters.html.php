@@ -60,7 +60,9 @@
 <?php endif ?>
     </td>
     <td class="nowrap">
+<?php if ($v['downlink']): ?>
      <?php echo $v['downlink'] . $this->hordeImage('nav/down.png', _("Move Rule Down")) ?></a>
+<?php endif ?>
     </td>
     <td class="nowrap">
      <label>

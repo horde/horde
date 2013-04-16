@@ -10,10 +10,10 @@
 var DimpCompose = {
 
     // Variables defaulting to empty/false:
-    //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
-    //   editor_wait, fwdattach, is_popup, knl, md5_hdrs, md5_msg, md5_msgOrig,
-    //   onload_show, old_action, old_identity, rte, rte_loaded,
-    //   sc_submit, skip_spellcheck, spellcheck, tasks, uploading
+    //   atc_context, auto_save_interval, compose_cursor, disabled,
+    //   drafts_mbox, editor_wait, fwdattach, is_popup, knl, md5_hdrs,
+    //   md5_msg, md5_msgOrig, onload_show, old_action, old_identity, rte,
+    //   rte_loaded, sc_submit, skip_spellcheck, spellcheck, tasks, uploading
 
     checkbox_context: $H({
         ctx_atc: $H({
@@ -81,7 +81,7 @@ var DimpCompose = {
     {
         this.md5_hdrs = this.md5_msg = this.md5_msgOrig = '';
 
-        $('attach_list').hide().childElements().invoke('remove');
+        $('attach_list').hide().childElements().each(this.removeAttachRow.bind(this));
         this.getCacheElt().clear();
         $('qreply', 'sendcc', 'sendbcc').compact().invoke('hide');
         $('noticerow').down('UL.notices').childElements().invoke('hide');
@@ -688,7 +688,9 @@ var DimpCompose = {
             li = new Element('LI')
                 .store('atc_id', opts.num)
                 .store('atc_url', opts.url),
-            span = new Element('SPAN').insert(opts.name.escapeHTML());
+            span = new Element('SPAN')
+                .addClassName(opts.view ? 'attachName' : 'attachNameNoview')
+                .insert(opts.name.escapeHTML());
 
         if (opts.icon) {
             canvas = new Element('CANVAS', { height: '16px', width: '16px' });
@@ -703,12 +705,17 @@ var DimpCompose = {
         li.insert(span);
 
         canvas.writeAttribute('title', opts.type);
-        li.insert(' (' + opts.size + ') ').insert(new Element('SPAN', { className: 'button remove' }).insert(DimpCore.text.remove));
-        if (opts.view) {
-            span.addClassName('attachName');
-        }
+        li.insert(
+            new Element('SPAN')
+                .addClassName('attachSize')
+                .insert('(' + opts.size + ')')
+        );
 
         $('attach_list').insert(li).show();
+
+        DimpCore.addPopdown(li.down(':last'), 'atcfile', {
+            no_offset: true
+        });
 
         this.resizeMsgArea();
     },
@@ -734,12 +741,18 @@ var DimpCompose = {
         r.collect(this.getAttach.bind(this)).compact().each(function(elt) {
             elt.fade({
                 afterFinish: function() {
-                    elt.remove();
+                    this.removeAttachRow(elt);
                     this.initAttachList();
                 }.bind(this),
                 duration: 0.4
             });
         }, this);
+    },
+
+    removeAttachRow: function(elt)
+    {
+        DimpCore.DMenu.removeElement(elt.down('.horde-popdown').identify());
+        elt.remove();
     },
 
     initAttachList: function()
@@ -804,32 +817,30 @@ var DimpCompose = {
         $('upload_wait').update(DimpCore.text.uploading + ' (' + $F(u).escapeHTML() + ')').show();
     },
 
-    uploadAttachmentAjax: function(dt, params, callback)
+    uploadAttachmentAjax: function(data, params, callback)
     {
-        if (dt && dt.files) {
-            params = $H(params).update({
-                composeCache: $F(this.getCacheElt()),
-                json_return: 1
+        params = $H(params).update({
+            composeCache: $F(this.getCacheElt()),
+            json_return: 1
+        });
+        HordeCore.addRequestParams(params);
+
+        data.each(function(n) {
+            var fd = new FormData();
+
+            params.merge({ file_upload: n }).each(function(p) {
+                fd.append(p.key, p.value);
             });
-            HordeCore.addRequestParams(params);
 
-            $R(0, dt.files.length - 1).each(function(n) {
-                var fd = new FormData();
-
-                params.merge({ file_upload: dt.files[n] }).each(function(p) {
-                    fd.append(p.key, p.value);
-                });
-
-                HordeCore.doAction('addAttachment', {}, {
-                    ajaxopts: {
-                        contentType: 'multipart/form-data',
-                        postBody: fd,
-                        requestHeaders: { "content-type": '' }
-                    },
-                    callback: callback
-                });
+            HordeCore.doAction('addAttachment', {}, {
+                ajaxopts: {
+                    contentType: 'multipart/form-data',
+                    postBody: fd,
+                    requestHeaders: { "content-type": '' }
+                },
+                callback: callback
             });
-        }
+        });
     },
 
     toggleCC: function(type)
@@ -952,9 +963,7 @@ var DimpCompose = {
             break;
 
         case 'attach_list':
-            if (elt.match('SPAN.remove')) {
-                this.removeAttach(elt.up());
-            } else if (elt.match('SPAN.attachName')) {
+            if (elt.match('SPAN.attachName')) {
                 HordeCore.popupWindow(elt.up('LI').retrieve('atc_url'));
             }
             break;
@@ -1054,16 +1063,24 @@ var DimpCompose = {
 
     contextOnClick: function(e)
     {
-        var id = e.memo.elt.readAttribute('id');
+        var id = e.memo.elt.identify();
 
-        this.checkbox_context.each(function(pair) {
-            if (id.startsWith(pair.key + '_')) {
-                var t = pair.value.get(id.substring(pair.key.length + 1));
-                if (t) {
-                    $(t).setValue(Number(!Number($F(t))));
+        switch (id) {
+        case 'ctx_atcfile_delete':
+            this.removeAttach(this.atc_context);
+            break;
+
+        default:
+            this.checkbox_context.each(function(pair) {
+                if (id.startsWith(pair.key + '_')) {
+                    var t = pair.value.get(id.substring(pair.key.length + 1));
+                    if (t) {
+                        $(t).setValue(Number(!Number($F(t))));
+                    }
                 }
-            }
-        });
+            });
+            break;
+        }
     },
 
     contextOnShow: function(e)
@@ -1077,6 +1094,12 @@ var DimpCompose = {
                     DimpCore.toggleCheck(t.down('SPAN'), Number($F(pair.value)));
                 }
             });
+        }
+
+        if (e.element().up('#attach_list')) {
+            this.atc_context = e.element().up('LI');
+        } else {
+            delete this.atc_context;
         }
     },
 
@@ -1171,7 +1194,9 @@ var DimpCompose = {
 
         if ($H(DimpCore.context.ctx_atc).size()) {
             $('atctd').observe('drop', function(e) {
-                this.uploadAttachmentAjax(e.dataTransfer);
+                if (e.dataTransfer) {
+                    this.uploadAttachmentAjax(e.dataTransfer.files);
+                }
                 e.stop();
             }.bindAsEventListener(this)).observe('dragover', Event.stop);
             DimpCore.addPopdown($('upload'), 'atc', {

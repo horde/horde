@@ -65,6 +65,7 @@ class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
         self::COMPOSEMAIL_ACCOUNTID       => array(self::KEY_ATTRIBUTE => 'accountid'),
         self::COMPOSEMAIL_SOURCE          => array(self::KEY_ATTRIBUTE => 'source', self::KEY_TYPE => 'Horde_ActiveSync_Message_SendMailSource'),
         self::COMPOSEMAIL_MIME            => array(self::KEY_ATTRIBUTE => 'mime'),
+        Horde_ActiveSync::RM_TEMPLATEID   => array(self::KEY_ATTRIBUTE => 'templateid')
     );
 
     /**
@@ -79,6 +80,7 @@ class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
         'accountid'   => false,
         'source'      => false,
         'mime'        => false,
+        'templateid'  => false,
     );
 
     /**

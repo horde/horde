@@ -23,13 +23,6 @@
 abstract class IMP_Dynamic_Base
 {
     /**
-     * Display the growler log?
-     *
-     * @var boolean
-     */
-    public $growlerLog = false;
-
-    /**
      * @var IMP_Indices_Mailbox
      */
     public $indices;

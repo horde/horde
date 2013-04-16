@@ -469,9 +469,36 @@ class Hermes
      *
      * @return boolean
      */
-    static public function showAjaxView()
+    public static function showAjaxView()
     {
         return $GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC && $GLOBALS['prefs']->getValue('dynamic_view');
+    }
+
+    /**
+     * Return a URL to a specific view, taking self::showAjaxView() into account
+     *
+     * @param string $view   The view to link to.
+     * @param array $params  Optional paramaters.
+     *   - id: A slice id.
+     *
+     * @return Horde_Url  The Url
+     */
+    public static function url($view, array $params = array())
+    {
+        if (self::showAjaxView()) {
+            // For ajax view 'entry' is done on the 'time' view.
+            if ($view == 'entry') {
+                $view = 'time';
+            }
+            $url = Horde::url('')->setAnchor($view . (!empty($params['id']) ? ':' . $params['id'] : ''));
+        } else {
+            $url = Horde::url($view . '.php');
+            if (!empty($params['id'])) {
+                $url->add('id', $params['id']);
+            }
+        }
+
+        return $url;
     }
 
 }

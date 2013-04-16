@@ -10,6 +10,7 @@ v5.1.0-git
 v5.0.5
 ------
 
+[jan] Hide navigation elements from print layout (Bug #12163).
 [cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is
       installed
 [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado

@@ -571,7 +571,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
 
         $query = 'SELECT device_type, device_agent, '
-            . 'device_rwstatus, device_supported FROM '
+            . 'device_rwstatus, device_supported, device_properties FROM '
             . $this->_syncDeviceTable . ' WHERE device_id = ?';
 
         try {
@@ -592,7 +592,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
         }
 
-        $this->_deviceInfo = new Horde_ActiveSync_Device();
+        $this->_deviceInfo = new Horde_ActiveSync_Device($this);
         $this->_deviceInfo->rwstatus = $device['device_rwstatus'];
         $this->_deviceInfo->deviceType = $device['device_type'];
         $this->_deviceInfo->userAgent = $device['device_agent'];
@@ -606,6 +606,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 ? 0
                 : $duser['device_policykey'];
         }
+        $this->_deviceInfo->properties = unserialize($device['device_properties']);
 
         return $this->_deviceInfo;
     }
@@ -633,7 +634,21 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $data->id,
                     (!empty($data->supported) ? serialize($data->supported) : '')
                 );
-                $this->_db->execute($query, $values);
+                $this->_db->insert($query, $values);
+            } else {
+                $this->_logger->debug((sprintf('
+                    [%s] Device entry exists for %s, updating userAgent and version.',
+                    $this->_procid,
+                    $data->id)));
+                $query = 'UPDATE ' . $this->_syncDeviceTable
+                    . ' SET device_agent = ?, device_properties = ?'
+                    . ' WHERE device_id = ?';
+                $values = array(
+                    (!empty($data->userAgent) ? $data->userAgent : ''),
+                    serialize($data->properties),
+                    $data->id
+                );
+                $this->_db->update($query, $values);
             }
         } catch(Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
@@ -677,7 +692,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             . ' device_agent = ? WHERE device_id = ?';
         $properties = array(
             serialize($data),
-            !emtpy($data[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT]) ? $data[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT] : '',
+            !empty($data[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT]) ? $data[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT] : '',
             $deviceId);
         try {
             $this->_db->update($query, $properties);
@@ -727,7 +742,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function listDevices($user = null)
     {
         $query = 'SELECT d.device_id AS device_id, device_type, device_agent,'
-            . ' device_policykey, device_rwstatus, device_user FROM '
+            . ' device_policykey, device_rwstatus, device_user, device_properties FROM '
             . $this->_syncDeviceTable . ' d  INNER JOIN ' . $this->_syncUsersTable
             . ' u ON d.device_id = u.device_id';
         $values = array();
@@ -746,18 +761,25 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Get the last time the loaded device issued a SYNC request.
      *
+     * @param string $id   The (optional) devivce id. If empty will use the
+     *                     currently loaded device.
+     * @param string $user The (optional) user id. If empty wil use the
+     *                     currently loaded device.
+     *
      * @return integer  The timestamp of the last sync, regardless of collection
      * @throws Horde_ActiveSync_Exception
      */
-    public function getLastSyncTimestamp()
+    public function getLastSyncTimestamp($id = null, $user = null)
     {
-        if (empty($this->_deviceInfo)) {
+        if (empty($this->_deviceInfo) && empty($id) && empty($user)) {
             throw new Horde_ActiveSync_Exception('Device not loaded.');
         }
+        $id = empty($id) ? $this->_deviceInfo->id : $id;
+        $user = empty($user) ? $this->_deviceInfo->user : $user;
 
         $sql = 'SELECT MAX(sync_time) FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_user = ?';
         try {
-            return $this->_db->selectValue($sql, array($this->_deviceInfo->id, $this->_deviceInfo->user));
+            return $this->_db->selectValue($sql, array($id, $user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1084,7 +1106,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
             if (!empty($device_query)) {
                 $this->_db->delete($device_query, $values);
-            } elseif (!empty($user_query)) {
+            } elseif (!empty($user_query) && empty($options['devId'])) {
                 // If there was a user_deletion, check if we should remove the
                 // device entry as well
                 $sql = 'SELECT COUNT(*) FROM ' . $this->_syncUsersTable . ' WHERE device_id = ?';

@@ -700,19 +700,15 @@ div.dimpActionsMsg #windowclose {
 #attach_list li {
     padding-top: 7px;
 }
-#attach_list span.remove {
-    border: 1px solid #ccc;
-    font-weight: bold;
-    padding: 1px;
-}
-#attach_list span.attachName, #attach_list span.remove:hover {
-    cursor: pointer;
-    text-decoration: underline;
+#attach_list span.attachName, #attach_list span.attachNameNoview {
+    padding-right: 3px;
 }
 #attach_list span.attachName {
     color: blue;
+    cursor: pointer;
+    text-decoration: underline;
 }
-#attach_list span.attachName:hover, #attach_list span.remove:hover {
+#attach_list span.attachName:hover {
     color: red;
 }
 
@@ -737,6 +733,10 @@ span.attachmentImg {
     background-image: url("../graphics/attachment.png");
 }
 
+#ctx_atcfile_delete span.iconImg {
+    background-image: url("../graphics/delete.png");
+}
+
 /* Context Menus */
 .context div.contactAddr, .context div.mboxName {
     font-style: italic;
@@ -755,6 +755,7 @@ span.attachmentImg {
     background-color: #aaa;
     display: -moz-inline-stack;
     display: inline-block;
+    margin: 1px;
     padding: 4px 2px 3px;
 }
 
@@ -955,9 +956,6 @@ span.logoutIcon {
 }
 #ctx_message_whitelist span.iconImg, #ctx_oa_whitelist span.iconImg {
     background-image: url("../graphics/whitelist.png");
-}
-#ctx_oa_growler_log span.iconImg {
-    background-image: url("../graphics/info_icon.png");
 }
 #ctx_message_editasnew span.iconImg, #ctx_contacts_new span.iconImg, #ctx_forward_editasnew span.iconImg {
     background-image: url("../graphics/compose.png");

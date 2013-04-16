@@ -66,6 +66,13 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             return true;
         }
 
+        // Check global errors from pairing.
+        if ($error = $this->_activeSync->checkGlobalError()) {
+            $this->_statusCode = $error;
+            $this->_handleError();
+            return true;
+        }
+
         // Start parsing input
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_FOLDERSYNC)) {
             $this->_logger->err('[Horde_ActiveSync::handleFolderSync] No input to parse');

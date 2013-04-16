@@ -443,6 +443,11 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
      */
     public function generate()
     {
+        if (!$this->_generated) {
+            $this->_generate();
+            $this->_generated = true;
+        }
+
         /* Build a list of required sieve extensions. */
         $requires = array();
         foreach ($this->_recipes as $item) {
@@ -456,9 +461,11 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                                            $item['object']->requires());
         }
         foreach ($requires as $rule => $require) {
-            $this->_addItem(
+            $this->_insertItem(
                 $rule,
-                new Ingo_Script_Sieve_Require(array_unique($require))
+                new Ingo_Script_Sieve_Require(array_unique($require)),
+                null,
+                1
             );
         }
 
