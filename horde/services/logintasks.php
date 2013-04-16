@@ -17,6 +17,7 @@
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
+$form_key = 'logintasks_confirm_';
 $vars = $injector->getInstance('Horde_Variables');
 
 /* If no 'module' parameter passed in, die with an error. */
@@ -34,8 +35,8 @@ if (!($tasks = $injector->getInstance('Horde_Core_Factory_LoginTasks')->create($
 $confirmed = array();
 if ($vars->logintasks_page) {
     foreach ($vars as $key => $val) {
-        if ($val && (strpos($key, 'logintasks_confirm_') === 0)) {
-            $confirmed[] = $key;
+        if ($val && (strpos($key, $form_key) === 0)) {
+            $confirmed[] = substr($key, strlen($form_key));
         }
     }
 }
@@ -98,7 +99,7 @@ foreach ($tasklist as $key => $ob) {
     $display_tasks[] = array(
         'checked' => ($ob->display == Horde_LoginTasks::DISPLAY_CONFIRM_YES),
         'descrip' => $ob->describe(),
-        'key' => $key
+        'name' => $form_key . $key
     );
 }
 

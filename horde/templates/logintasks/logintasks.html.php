@@ -9,8 +9,8 @@
 <?php foreach ($this->tasks as $t): ?>
    <div class="logintasks-item">
 <?php if ($this->confirm): ?>
-    <input type="checkbox" class="checkbox" name="logintasks_confirm_<?php echo $t['key'] ?>" id="logintasks_confirm_<?php echo $t['key'] ?>"<?php if ($t['checked']) echo ' checked="checked"' ?> />
-    <label for="logintasks_confirm_<?php echo $t['key'] ?>">
+    <input type="checkbox" class="checkbox" name="<?php echo $t['name'] ?>" id="<?php echo $t['name'] ?>"<?php if ($t['checked']) echo ' checked="checked"' ?> />
+    <label for="<?php echo $t['name'] ?>">
 <?php endif ?>
     <?php $t['descrip'] ?>
 <?php if ($this->confirm): ?>
