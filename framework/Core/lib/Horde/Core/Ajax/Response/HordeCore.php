@@ -52,6 +52,9 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
      * The object may include a 'tasks' property, which is an array of
      * keys (task names) / values (task data).
      *
+     * The object may include a 'sid' property, which is the current session
+     * ID (non-cookie based sessions only).
+     *
      * @return object  HordeCore JSON object.
      */
     protected function _jsonData()
@@ -69,6 +72,10 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
 
         if (!empty($this->tasks)) {
             $ob->tasks = $this->tasks;
+        }
+
+        if (defined('SID')) {
+            $ob->sid = SID;
         }
 
         return $ob;

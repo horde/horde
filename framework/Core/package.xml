@@ -40,8 +40,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Regenerate session IDs during an active session to protect against session fixation attacks.
 * [mms] SECURITY: Fix token validation of AJAX actions.
-* [mms] Re-enable support for $conf['session']['timeout'] to allow for non-session based cookie lifetimes.
+* [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.
 * [jan] Add menu entry to show the notification log.
 * [mms] Dynamic javascript framework now has support for audio notification events.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
@@ -2880,8 +2881,9 @@
    <date>2013-04-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Regenerate session IDs during an active session to protect against session fixation attacks.
 * [mms] SECURITY: Fix token validation of AJAX actions.
-* [mms] Re-enable support for $conf['session']['timeout'] to allow for non-session based cookie lifetimes.
+* [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.
 * [jan] Add menu entry to show the notification log.
 * [mms] Dynamic javascript framework now has support for audio notification events.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).

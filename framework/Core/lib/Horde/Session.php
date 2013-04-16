@@ -28,8 +28,11 @@ class Horde_Session
     /* Class constants. */
     const BEGIN = '_b';
     const DATA = '_d';
-    const MODIFIED = '_m';
     const PRUNE = '_p';
+    /* @since 2.5.0 */
+    const REGENERATE = '_r';
+    /* @deprecated */
+    const MODIFIED = '_m';
 
     const TYPE_ARRAY = 1;
     const TYPE_OBJECT = 2;
@@ -196,27 +199,29 @@ class Horde_Session
         $curr_time = time();
 
         /* Create internal data arrays. */
-        if (!isset($this->_data[self::MODIFIED])) {
+        if (!isset($this->_data[self::BEGIN])) {
             $this->_data[self::BEGIN] = $curr_time;
-
-            /* Last modification time of session.
-             * This will cause the check below to always return true
-             * (time() >= 0) and will set the initial value. */
-            $this->_data[self::MODIFIED] = 0;
+            $this->_data[self::REGENERATE] = $curr_time + $this->_regenerateInterval();
         }
 
-        /* Determine if we need to force write the session to avoid a
-         * session timeout, even though the session is unchanged.
-         * Theory: On initial login, set the current time plus half of the
-         * max lifetime in the session.  Then check this timestamp before
-         * saving. If we exceed, force a write of the session and set a
-         * new timestamp. Why half the maxlifetime?  It guarantees that if
-         * we are accessing the server via a periodic mechanism (think
-         * folder refreshing in IMP) that we will catch this refresh. */
-        if ($curr_time >= $this->_data[self::MODIFIED]) {
-            $this->_data[self::MODIFIED] = intval($curr_time + (ini_get('session.gc_maxlifetime') / 2));
+        /* Determine if we need to regenerate the session ID. */
+        if ($curr_time >= $this->_data[self::REGENERATE]) {
+            session_regenerate_id(true);
+            $this->_data[self::REGENERATE] += $this->_regenerateInterval();
             $this->sessionHandler->changed = true;
         }
+    }
+
+    /**
+     * Return the regeneration interval.
+     *
+     * @return integer  Regeneration interval (in seconds).
+     */
+    protected function _regenerateInterval()
+    {
+        return ($max_lt = ini_get('session.gc_maxlifetime'))
+            ? intval($max_lt / 2)
+            : 86400;
     }
 
     /**

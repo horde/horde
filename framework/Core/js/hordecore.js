@@ -183,6 +183,10 @@ var HordeCore = {
 
         var r = resp.responseJSON;
 
+        if (r.sid) {
+            this.conf.SID = r.sid;
+        }
+
         if (r.reload) {
             if (r.reload === true) {
                 window.location.reload();
