@@ -1283,6 +1283,33 @@
   </release>
   <release>
    <version>
+    <release>2.3.4</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix typo that could cause device information to not be saved correctly.
+* [mjr] Fix authentication clean up during certain request types.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.5</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix issue with importing messages due to bad merge (Bug #12185).
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>2.4.0</release>
     <api>2.4.0</api></version>
    <stability>
