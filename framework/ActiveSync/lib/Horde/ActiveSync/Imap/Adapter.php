@@ -525,7 +525,10 @@ class Horde_ActiveSync_Imap_Adapter
         }
         foreach ($results as $data) {
             if ($data->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
-                $ret[] = $this->_buildMailMessage($mbox, $data, $options);
+                try {
+                    $ret[] = $this->_buildMailMessage($mbox, $data, $options);
+                } catch (Horde_Exception_NotFound $e) {
+                }
             }
         }
 
