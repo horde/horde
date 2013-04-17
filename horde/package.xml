@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Fix displaying activesync devices when a username hook is being used (Bug #12186).
 * [jan] Hide navigation elements from print layout (Bug #12163).
 * [cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is installed
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado &lt;geral@jpaulo.eu&gt;).
@@ -3608,6 +3609,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Fix displaying activesync devices when a username hook is being used (Bug #12186).
 * [jan] Hide navigation elements from print layout (Bug #12163).
 * [cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is installed
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado &lt;geral@jpaulo.eu&gt;).

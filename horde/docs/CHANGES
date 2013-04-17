@@ -2,6 +2,8 @@
 v5.0.5-git
 ----------
 
+[mjr] Fix displaying activesync devices when a username hook is being used
+      (Bug #12186).
 [jan] Hide navigation elements from print layout (Bug #12163).
 [cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is
       installed
