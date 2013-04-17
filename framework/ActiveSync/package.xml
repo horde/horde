@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix mail synch failure due to messages being deleted on server during initial synch.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1297,7 +1297,7 @@
    <date>2013-04-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix mail synch failure due to messages being deleted on server during initial synch.
    </notes>
   </release>
  </changelog>
