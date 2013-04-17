@@ -30,7 +30,7 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
             return _("ActiveSync not activated.");
         }
 
-        $auth = $registry->getAuth();
+        $auth = $registry->convertUsername($registry->getAuth(), false);
         $stateMachine = $injector->getInstance('Horde_ActiveSyncState');
         $devices = $stateMachine->listDevices($auth);
 
@@ -96,7 +96,7 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
     {
         global $injector, $notification, $registry;
 
-        $auth = $registry->getAuth();
+        $auth = $registry->convertUsername($registry->getAuth(), false);
         $stateMachine = $injector->getInstance('Horde_ActiveSyncState');
         $stateMachine->setLogger($injector->getInstance('Horde_Log_Logger'));
 
