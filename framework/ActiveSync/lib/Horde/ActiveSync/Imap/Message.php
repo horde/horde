@@ -205,7 +205,7 @@ class Horde_ActiveSync_Imap_Message
      *
      * @return array  An array of one or both of 'plain' and 'html' content.
      *
-     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
      */
     public function getMessageBodyData(array $options = array())
     {
@@ -283,7 +283,10 @@ class Horde_ActiveSync_Imap_Message
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
-        $data = $fetch_ret->first();
+        if (!$data = $fetch_ret->first()) {
+            throw new Horde_Exception_NotFound(
+                sprintf('Could not load message %s from server.', $this->_uid));
+        }
 
         // Save the envelope for later, if we asked for it.
         if (empty($this->_envelope)) {
