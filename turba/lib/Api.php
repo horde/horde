@@ -595,9 +595,18 @@ class Turba_Api extends Horde_Registry_Api
         /* Get default address book from user preferences. */
         if (empty($source) &&
             !($source = $prefs->getValue('default_dir'))) {
-            /* On new installations default_dir is not set; use first source
-             * instead. */
-            $source = key(Turba::getAddressBooks(Horde_Perms::EDIT));
+            // On new installations default_dir is not set. Try default
+            // addressbook if it's editable. Otherwise use first editable
+            // addressbook.
+            $edit_sources = Turba::getAddressBooks(Horde_Perms::EDIT);
+            $default_source = Turba::getDefaultAddressbook();
+            if (isset($edit_sources[$default_source])) {
+                // use default addressbook
+                $source = $default_source;
+            } else {
+                // Use first writable source
+                $source = reset($edit_sources);
+            }
         }
 
         // Check existence of and permissions on the specified source.
