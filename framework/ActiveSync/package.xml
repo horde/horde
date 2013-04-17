@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-12</date>
- <time>10:50:52</time>
+ <date>2013-04-16</date>
+ <time>23:05:58</time>
  <version>
   <release>2.3.5</release>
   <api>2.3.0</api>
@@ -1281,7 +1281,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-12</date>
+   <date>2013-04-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue with importing messages due to bad merge (Bug #12185).
