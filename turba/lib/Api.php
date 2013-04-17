@@ -751,7 +751,7 @@ class Turba_Api extends Horde_Registry_Api
             if (count($result) == 0) {
                 continue;
             } elseif (count($result) > 1) {
-                throw new Turba_Exception("Internal Horde Error: multiple Turba objects with same objectId.");
+                throw new Turba_Exception(sprintf("Internal Horde Error: multiple Turba objects with same objectId %s.", $uid));
             }
 
             $version = '3.0';
@@ -794,7 +794,7 @@ class Turba_Api extends Horde_Registry_Api
             }
         }
 
-        throw new Turba_Exception(_("Object not found."));
+        throw new Turba_Exception(sprintf(_("Object %s not found."), $uid));
     }
 
     /**
@@ -950,7 +950,7 @@ class Turba_Api extends Horde_Registry_Api
             if (!count($result)) {
                 continue;
             } elseif (count($result) > 1) {
-                throw new Turba_Exception(_("Multiple contacts found with same unique ID."));
+                throw new Turba_Exception(sprintf(_("Multiple contacts found with same unique ID %s."), $uid));
             }
 
             $object = $result->objects[0];
@@ -1002,7 +1002,7 @@ class Turba_Api extends Horde_Registry_Api
             return $object->store();
         }
 
-        throw new Turba_Exception(_("Object not found."));
+        throw new Turba_Exception(sprintf(_("Object %s not found."), $uid));
     }
 
     /**
