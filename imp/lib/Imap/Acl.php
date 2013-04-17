@@ -75,9 +75,13 @@ class IMP_Imap_Acl
             switch ($e->getCode()) {
             case $e::NOPERM:
                 throw new IMP_Exception(_("You do not have permission to view the ACLs on this mailbox."));
+            }
 
-            default:
-                throw new IMP_Exception(_("Could not retrieve ACL."));
+            $ret = new Horde_Imap_Client_Data_Acl(implode('', array_keys($this->getRights())));
+            unset($ret[Horde_Imap_Client::ACL_ADMINISTER]);
+
+            if (!$user) {
+                $ret = array($imp_imap->getParam('username') => $ret);
             }
         }
 
