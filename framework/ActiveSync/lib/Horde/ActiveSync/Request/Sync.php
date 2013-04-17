@@ -842,7 +842,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
         if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
             if (!$this->_syncCache->validateCache()) {
-                $this->_logger->err('Changes detected in sync_cache during wait interval, exiting without updating cache.');
+                $this->_logger->debug('Changes detected in sync_cache during wait interval, exiting without updating cache.');
+
                 return true;
             } else {
                 $this->_syncCache->lastsyncendnormal = time();
