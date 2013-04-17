@@ -63,8 +63,6 @@ class IMP_Imap_Acl
                 case $e::NOPERM:
                     throw new IMP_Exception(_("You do not have permission to view the ACLs on this mailbox."));
                 }
-
-                throw new IMP_Exception(_("Could not retrieve ACL."));
             }
         }
 
