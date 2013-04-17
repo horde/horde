@@ -39,7 +39,7 @@ class Horde_ActiveSync_CacheTest extends Horde_Test_Case
     {
         $cache = new Horde_ActiveSync_SyncCache($this->_state, 'devid', 'userone');
         $cache->save();
-        foreach (array('hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys', 'lastuntil',
+        foreach (array('hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys',
             'lasthbsyncstarted', 'lastsyncendnormal', 'folders', 'pingheartbeat',
             'synckeycounter') as $p) {
 

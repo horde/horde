@@ -139,7 +139,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         case 'hbinterval':
         case 'wait':
         case 'confirmed_synckeys':
-        case 'lastuntil':
         case 'lasthbsyncstarted':
         case 'lastsyncendnormal':
             return $this->_cache->$property;
@@ -163,7 +162,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             $p = '_' . $property;
             $this->$p = $value;
             return;
-        case 'lastuntil':
         case 'lasthbsyncstarted':
         case 'lastsyncendnormal':
         case 'hbinterval':
@@ -306,10 +304,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     break;
                 }
             }
-            if (!$found) {
-                $this->_cache->lastuntil = time();
-                $this->_cache->save();
-            }
             return $found;
         } elseif (empty($this->_collections)) {
             return false;
@@ -376,7 +370,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function initFullSync()
     {
         $this->_cache->confirmed_synckeys = array();
-        $this->_cache->lastuntil = time();
         $this->_cache->clearCollectionKeys();
     }
 
@@ -464,7 +457,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         return $this->_synckeyCount > 0 &&
             $this->_confirmedCount == 0 &&
             $this->_unchangedCount == $this->_synckeyCount &&
-            time() <= $this->_cache->lastuntil &&
             ($this->_cache->wait == false && $this->_cache->hbinterval == false);
     }
 

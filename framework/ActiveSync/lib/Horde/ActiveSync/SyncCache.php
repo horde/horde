@@ -128,7 +128,7 @@ class Horde_ActiveSync_SyncCache
     protected function _isValidProperty($property)
     {
         return in_array($property, array(
-            'hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys', 'lastuntil',
+            'hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys',
             'lasthbsyncstarted', 'lastsyncendnormal', 'folders', 'pingheartbeat',
             'synckeycounter'));
     }
@@ -153,7 +153,8 @@ class Horde_ActiveSync_SyncCache
 
     /**
      * Perform some sanity checking on the various timestamps to ensure we
-     * are in a valid state.
+     * are in a valid state. Basically checks that we are not currently running
+     * a looping sync and that the last looping sync ending normally.
      *
      * @return boolean
      */
@@ -162,12 +163,6 @@ class Horde_ActiveSync_SyncCache
         if ((!empty($this->_data['lasthbsyncstarted']) && empty($this->_data['lastsyncendnormal'])) ||
             (!empty($this->_data['lasthbsyncstarted']) && !empty($this->_data['lastsyncendnormal']) &&
             ($this->_data['lasthbsyncstarted'] > $this->_data['lastsyncendnormal']))) {
-
-            return false;
-        }
-
-        if ($this->_data['lastuntil'] &&
-            time() < $this->_data['lastuntil']) {
 
             return false;
         }

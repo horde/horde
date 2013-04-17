@@ -1167,7 +1167,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 'confirmed_synckeys' => array(),
                 'lasthbsyncstarted' => false,
                 'lastsyncendnormal' => false,
-                'lastuntil' => false,
                 'timestamp' => false,
                 'wait' => false,
                 'hbinterval' => false,

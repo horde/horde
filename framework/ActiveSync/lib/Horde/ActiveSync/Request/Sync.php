@@ -345,7 +345,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 'Waiting for changes for %s seconds',
                 $until - time())
             );
-            $this->_collections->lastuntil = $until;
             $this->_collections->lasthbsyncstarted = time();
             $this->_collections->save();
 
@@ -435,8 +434,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         '[%s] Found changes!',
                         $this->_procid)
                     );
-                    $this->_collections->lastuntil = time();
-                    $this->_collections->save();
+                    //$this->_collections->save();
                     break;
                 }
 
