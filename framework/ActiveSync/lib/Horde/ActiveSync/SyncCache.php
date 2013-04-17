@@ -138,12 +138,14 @@ class Horde_ActiveSync_SyncCache
      * timestamp in the state backend. If the timestamps are different, some
      * other request has modified the cache, so it should be invalidated.
      *
+     * @param boolean $hb_only  If true, only validate the hb timestamps. @since 2.4.0
+     *
      * @return boolean
      */
-    public function validateCache()
+    public function validateCache($hb_only = false)
     {
         $cache = $this->_state->getSyncCache($this->_devid, $this->_user);
-        if (($cache['timestamp'] > $this->_data['timestamp']) ||
+        if ((!$hb_only && $cache['timestamp'] > $this->_data['timestamp']) ||
             ($cache['lasthbsyncstarted'] > $this->_data['lasthbsyncstarted'])) {
             return false;
         }

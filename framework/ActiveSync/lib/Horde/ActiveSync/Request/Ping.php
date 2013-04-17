@@ -235,7 +235,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     }
                 }
 
-                if (!$syncCache->validateCache()) {
+                if (!$syncCache->validateCache(true)) {
                     $this->_logger->debug(sprintf('[%s] Detected another PING process started. Exit and let the newest process handle the PING.', $this->_procid));
                     return true;
                 }
