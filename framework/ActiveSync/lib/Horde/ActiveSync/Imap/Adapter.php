@@ -51,34 +51,27 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Set this instance's logger.
+     * Append a message to the specified mailbox. Used for saving sent email.
      *
-     * @param Horde_Log_Logger $logger  The logger.
-     */
-    public function setLogger(Horde_Log_Logger $logger)
-    {
-        $this->_logger = $logger;
-    }
-
-    /**
-     * Return an array of available mailboxes. Uses's the mail/mailboxList API
-     * method for obtaining the list.
+     * @param string $folderid     The mailbox
+     * @param string|stream $msg   The message
+     * @param array $flags         Any flags to set on the newly appended message.
      *
-     * @return array
+     * @throws new Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
-    public function getMailboxes()
+    public function appendMessage($folderid, $msg, array $flags = array())
     {
-        return $this->_imap->getMailboxes();
-    }
-
-    /**
-     * Return the list of special mailboxes.
-     *
-     * @return array
-     */
-    public function getSpecialMailboxes()
-    {
-        return $this->_imap->getSpecialMailboxes();
+        $imap = $this->_getImapOb();
+        $message = array(array('data' => $msg, 'flags' => $flags));
+        $mbox = new Horde_Imap_Client_Mailbox($folderid);
+        try {
+            $imap->append($mbox, $message);
+        } catch (Horde_Imap_Client_Exception $e) {
+            if (!$this->_mailboxExists($folderid)) {
+                throw new Horde_ActiveSync_Exception_FolderGone();
+            }
+            throw new Horde_ActiveSync_Exception($e);
+        }
     }
 
     /**
@@ -125,86 +118,119 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Rename a mailbox
+     * Permanently delete a mail message.
      *
-     * @param string $old  The old mailbox name.
-     * @param string $new  The new mailbox name.
+     * @param array $uids       The message UIDs
+     * @param string $folderid  The folder id.
      *
+     * @return array  An array of uids that were successfully deleted.
      * @throws Horde_ActiveSync_Exception
      */
-    public function renameMailbox($old, $new)
+    public function deleteMessages(array $uids, $folderid)
     {
         $imap = $this->_getImapOb();
+        $mbox = new Horde_Imap_Client_Mailbox($folderid);
+        $ids_obj = new Horde_Imap_Client_Ids($uids);
+
+        // Need to ensure the source message exists so we may properly notify
+        // the client of the error.
+        $search_q = new Horde_Imap_Client_Search_Query();
+        $search_q->ids($ids_obj);
+        $fetch_res = $imap->search($mbox, $search_q);
+        if ($fetch_res['count'] != count($uids)) {
+            $ids_obj = $fetch_res['match'];
+        }
+
         try {
-            $imap->renameMailbox(
-                new Horde_Imap_Client_Mailbox($old),
-                new Horde_Imap_Client_Mailbox($new)
+            $imap->store($mbox, array(
+                'ids' => $ids_obj,
+                'add' => array('\deleted'))
             );
+            $imap->expunge($mbox, array('ids' => $ids_obj));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
+
+        return $ids_obj->ids;
     }
 
     /**
-     * Ping a mailbox. This detects only if any new messages have arrived in
-     * the specified mailbox. Flag changes are not detected for performance
-     * reasons. This allows quick change detection, as well as a great
-     * reduction in PING/SYNC/PING cycles while reading mail on the device.
+     * Return the content of a specific MIME part of the specified message.
      *
-     * @param Horde_ActiveSync_Folder_Imap $folder  The folder object.
+     * @param string $mailbox  The mailbox name.
+     * @param string $uid      The message UID.
+     * @param string $part     The MIME part identifier.
      *
-     * @return boolean  True if changes were detected, otherwise false.
-     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
+     * @return Horde_Mime_Part  The attachment data
+     *
+     * @throws Horde_ActiveSync_Exception
      */
-    public function ping(Horde_ActiveSync_Folder_Imap $folder)
+    public function getAttachment($mailbox, $uid, $part)
     {
         $imap = $this->_getImapOb();
-        $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
-
-        // Check for CONDSTORE
-        if ($condstore = $imap->queryCapability('CONDSTORE')) {
-            $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
-                Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
-        } else {
-            $status_flags = Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
+        $mbox = new Horde_Imap_Client_Mailbox($mailbox);
+        $messages = $this->_getMailMessages($mbox, array($uid));
+        if (!$messages[$uid]->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
+            throw new Horde_ActiveSync_Exception('Message Gone');
         }
+        $msg = new Horde_ActiveSync_Imap_Message($imap, $mbox, $messages[$uid]);
+        $part = $msg->getMimePart($part);
 
-        // Get IMAP status.
-        try {
-            $status = $imap->status($mbox, $status_flags);
-        } catch (Horde_Imap_Client_Exception $e) {
-            // See if the folder disappeared.
-            if (!$this->_mailboxExists($mbox->utf8)) {
-                throw new Horde_ActiveSync_Exception_FolderGone();
-            }
-            throw new Horde_ActiveSync_Exception($e);
-        }
-
-        // Increase in UIDNEXT is always a positive PING.
-        if ($folder->uidnext() < $status['uidnext']) {
-            return true;
-        }
-
-        // If we have per mailbox MODSEQ then we can pick up flag changes too.
-        if ($condstore && $folder->modseq() > 0 &&
-            $folder->modseq() < $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ]) {
-            return true;
-        }
-
-        // Otherwise, no PING detectable changes present.
-        return false;
+        return $part;
     }
 
-    protected function _mailboxExists($mbox)
+    /**
+     * Return an array of available mailboxes. Uses's the mail/mailboxList API
+     * method for obtaining the list.
+     *
+     * @return array
+     */
+    public function getMailboxes()
     {
-        $mailboxes = $this->_imap->getMailboxes(true);
-        foreach ($mailboxes as $mailbox) {
-            if ($mailbox['ob']->utf8 == $mbox) {
-                return true;
+        return $this->_imap->getMailboxes();
+    }
+
+    /**
+     * Return the list of special mailboxes.
+     *
+     * @return array
+     */
+    public function getSpecialMailboxes()
+    {
+        return $this->_imap->getSpecialMailboxes();
+    }
+
+
+    /**
+     * Return a complete Horde_ActiveSync_Imap_Message object for the requested
+     * uid.
+     *
+     * @param string $mailbox     The mailbox name.
+     * @param array|integer $uid  The message uid.
+     * @param array $options      Additional options:
+     *     - headers: (boolean) Also fetch the message headers if this is true.
+     *                DEFAULT: false (Do not fetch headers).
+     *
+     * @return array  An array of Horde_ActiveSync_Imap_Message objects.
+     */
+    public function getImapMessage($mailbox, $uid, array $options = array())
+    {
+        if (!is_array($uid)) {
+            $uid = array($uid);
+        }
+        $mbox = new Horde_Imap_Client_Mailbox($mailbox);
+        // @todo H6 - expand the $options array the same as _getMailMessages()
+        // for now, always retrieve the envelope data as well.
+        $options['envelope'] = true;
+        $messages = $this->_getMailMessages($mbox, $uid, $options);
+        $res = array();
+        foreach ($messages as $id => $message) {
+            if ($message->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
+                $res[$id] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
             }
         }
 
-        return false;
+        return $res;
     }
 
     /**
@@ -356,6 +382,45 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
+     * Return AS mail messages, from the given IMAP UIDs.
+     *
+     * @param string $folderid  The mailbox folder.
+     * @param array $messages   List of IMAP message UIDs
+     * @param array $options    Additional Options:
+     *   - truncation: (integer) The truncation constant, if sent from device.
+     *                 DEFAULT: false (No truncation).
+     *   - bodyprefs:  (array)  The bodypref settings, if sent from device.
+     *                 DEFAULT: none (No body prefs sent, or enforced).
+     *   - mimesupport: (integer)  Indicates if MIME is supported or not.
+     *                  Possible values: 0 - Not supported 1 - Only S/MIME or
+     *                  2 - All MIME.
+     *                  DEFAULT: 0 (No MIME support)
+     *   - protocolversion: (float)  The EAS protocol version to support.
+     *                      DEFAULT: 2.5
+     *
+     * @return array  An array of Horde_ActiveSync_Message_Mail objects.
+     */
+    public function getMessages($folderid, array $messages, array $options = array())
+    {
+        $mbox = new Horde_Imap_Client_Mailbox($folderid);
+        $results = $this->_getMailMessages($mbox, $messages, array('headers' => true, 'envelope' => true));
+        $ret = array();
+        if (!empty($options['truncation'])) {
+            $options['truncation'] = Horde_ActiveSync::getTruncSize($options['truncation']);
+        }
+        foreach ($results as $data) {
+            if ($data->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
+                try {
+                    $ret[] = $this->_buildMailMessage($mbox, $data, $options);
+                } catch (Horde_Exception_NotFound $e) {
+                }
+            }
+        }
+
+        return $ret;
+    }
+
+    /**
      * Return an array of message UIDs from a list of Message-IDs.
      *
      * @param string $mid                           The Message-ID
@@ -436,103 +501,86 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Append a message to the specified mailbox. Used for saving sent email.
+     * Ping a mailbox. This detects only if any new messages have arrived in
+     * the specified mailbox. Flag changes are not detected for performance
+     * reasons. This allows quick change detection, as well as a great
+     * reduction in PING/SYNC/PING cycles while reading mail on the device.
      *
-     * @param string $folderid     The mailbox
-     * @param string|stream $msg   The message
-     * @param array $flags         Any flags to set on the newly appended message.
+     * @param Horde_ActiveSync_Folder_Imap $folder  The folder object.
      *
-     * @throws new Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
+     * @return boolean  True if changes were detected, otherwise false.
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
-    public function appendMessage($folderid, $msg, array $flags = array())
+    public function ping(Horde_ActiveSync_Folder_Imap $folder)
     {
         $imap = $this->_getImapOb();
-        $message = array(array('data' => $msg, 'flags' => $flags));
-        $mbox = new Horde_Imap_Client_Mailbox($folderid);
+        $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
+
+        // Check for CONDSTORE
+        if ($condstore = $imap->queryCapability('CONDSTORE')) {
+            $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
+                Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
+        } else {
+            $status_flags = Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
+        }
+
+        // Get IMAP status.
         try {
-            $imap->append($mbox, $message);
+            $status = $imap->status($mbox, $status_flags);
         } catch (Horde_Imap_Client_Exception $e) {
-            if (!$this->_mailboxExists($folderid)) {
+            // See if the folder disappeared.
+            if (!$this->_mailboxExists($mbox->utf8)) {
                 throw new Horde_ActiveSync_Exception_FolderGone();
             }
             throw new Horde_ActiveSync_Exception($e);
         }
+
+        // Increase in UIDNEXT is always a positive PING.
+        if ($folder->uidnext() < $status['uidnext']) {
+            return true;
+        }
+
+        // If we have per mailbox MODSEQ then we can pick up flag changes too.
+        if ($condstore && $folder->modseq() > 0 &&
+            $folder->modseq() < $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ]) {
+            return true;
+        }
+
+        // Otherwise, no PING detectable changes present.
+        return false;
     }
 
     /**
-     * Permanently delete a mail message.
+     * Perform a search from a search mailbox request.
      *
-     * @param array $uids       The message UIDs
-     * @param string $folderid  The folder id.
+     * @param array $query  The query array.
      *
-     * @return array  An array of uids that were successfully deleted.
+     * @return array  An array of 'uniqueid', 'searchfolderid' hashes.
+     */
+    public function queryMailbox($query)
+    {
+        return $this->_doQuery($query['query'], $query['range']);
+    }
+
+    /**
+     * Rename a mailbox
+     *
+     * @param string $old  The old mailbox name.
+     * @param string $new  The new mailbox name.
+     *
      * @throws Horde_ActiveSync_Exception
      */
-    public function deleteMessages(array $uids, $folderid)
+    public function renameMailbox($old, $new)
     {
         $imap = $this->_getImapOb();
-        $mbox = new Horde_Imap_Client_Mailbox($folderid);
-        $ids_obj = new Horde_Imap_Client_Ids($uids);
-
-        // Need to ensure the source message exists so we may properly notify
-        // the client of the error.
-        $search_q = new Horde_Imap_Client_Search_Query();
-        $search_q->ids($ids_obj);
-        $fetch_res = $imap->search($mbox, $search_q);
-        if ($fetch_res['count'] != count($uids)) {
-            $ids_obj = $fetch_res['match'];
-        }
-
         try {
-            $imap->store($mbox, array(
-                'ids' => $ids_obj,
-                'add' => array('\deleted'))
+            $imap->renameMailbox(
+                new Horde_Imap_Client_Mailbox($old),
+                new Horde_Imap_Client_Mailbox($new)
             );
-            $imap->expunge($mbox, array('ids' => $ids_obj));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
-
-        return $ids_obj->ids;
-    }
-
-    /**
-     * Return AS mail messages, from the given IMAP UIDs.
-     *
-     * @param string $folderid  The mailbox folder.
-     * @param array $messages   List of IMAP message UIDs
-     * @param array $options    Additional Options:
-     *   - truncation: (integer) The truncation constant, if sent from device.
-     *                 DEFAULT: false (No truncation).
-     *   - bodyprefs:  (array)  The bodypref settings, if sent from device.
-     *                 DEFAULT: none (No body prefs sent, or enforced).
-     *   - mimesupport: (integer)  Indicates if MIME is supported or not.
-     *                  Possible values: 0 - Not supported 1 - Only S/MIME or
-     *                  2 - All MIME.
-     *                  DEFAULT: 0 (No MIME support)
-     *   - protocolversion: (float)  The EAS protocol version to support.
-     *                      DEFAULT: 2.5
-     *
-     * @return array  An array of Horde_ActiveSync_Message_Mail objects.
-     */
-    public function getMessages($folderid, array $messages, array $options = array())
-    {
-        $mbox = new Horde_Imap_Client_Mailbox($folderid);
-        $results = $this->_getMailMessages($mbox, $messages, array('headers' => true, 'envelope' => true));
-        $ret = array();
-        if (!empty($options['truncation'])) {
-            $options['truncation'] = Horde_ActiveSync::getTruncSize($options['truncation']);
-        }
-        foreach ($results as $data) {
-            if ($data->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
-                try {
-                    $ret[] = $this->_buildMailMessage($mbox, $data, $options);
-                } catch (Horde_Exception_NotFound $e) {
-                }
-            }
-        }
-
-        return $ret;
     }
 
     /**
@@ -562,6 +610,16 @@ class Horde_ActiveSync_Imap_Adapter
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
+    }
+
+    /**
+     * Set this instance's logger.
+     *
+     * @param Horde_Log_Logger $logger  The logger.
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
     }
 
     /**
@@ -631,154 +689,6 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Return the content of a specific MIME part of the specified message.
-     *
-     * @param string $mailbox  The mailbox name.
-     * @param string $uid      The message UID.
-     * @param string $part     The MIME part identifier.
-     *
-     * @return Horde_Mime_Part  The attachment data
-     *
-     * @throws Horde_ActiveSync_Exception
-     */
-    public function getAttachment($mailbox, $uid, $part)
-    {
-        $imap = $this->_getImapOb();
-        $mbox = new Horde_Imap_Client_Mailbox($mailbox);
-        $messages = $this->_getMailMessages($mbox, array($uid));
-        if (!$messages[$uid]->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
-            throw new Horde_ActiveSync_Exception('Message Gone');
-        }
-        $msg = new Horde_ActiveSync_Imap_Message($imap, $mbox, $messages[$uid]);
-        $part = $msg->getMimePart($part);
-
-        return $part;
-    }
-
-    /**
-     * Return a complete Horde_ActiveSync_Imap_Message object for the requested
-     * uid.
-     *
-     * @param string $mailbox     The mailbox name.
-     * @param array|integer $uid  The message uid.
-     * @param array $options      Additional options:
-     *     - headers: (boolean) Also fetch the message headers if this is true.
-     *                DEFAULT: false (Do not fetch headers).
-     *
-     * @return array  An array of Horde_ActiveSync_Imap_Message objects.
-     */
-    public function getImapMessage($mailbox, $uid, array $options = array())
-    {
-        if (!is_array($uid)) {
-            $uid = array($uid);
-        }
-        $mbox = new Horde_Imap_Client_Mailbox($mailbox);
-        // @todo H6 - expand the $options array the same as _getMailMessages()
-        // for now, always retrieve the envelope data as well.
-        $options['envelope'] = true;
-        $messages = $this->_getMailMessages($mbox, $uid, $options);
-        $res = array();
-        foreach ($messages as $id => $message) {
-            if ($message->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
-                $res[$id] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * Perform a search from a search mailbox request.
-     *
-     * @param array $query  The query array.
-     *
-     * @return array  An array of 'uniqueid', 'searchfolderid' hashes.
-     */
-    public function queryMailbox($query)
-    {
-        return $this->_doQuery($query['query'], $query['range']);
-    }
-
-    /**
-     * Perform an IMAP search based on a SEARCH request.
-     *
-     * @param array $query  The search query.
-     *
-     * @return array  The results array containing an array of hashes:
-     *   'uniqueid' => [The unique identifier of the result]
-     *   'searchfolderid' => [The mailbox name that this result comes from]
-     *
-     * @throws Horde_ActiveSync_Exception
-     */
-    protected function _doQuery(array $query, $range = null)
-    {
-        $imap_query = new Horde_Imap_Client_Search_Query();
-        $mboxes = array();
-        $results = array();
-        foreach ($query as $q) {
-            switch ($q['op']) {
-            case Horde_ActiveSync_Request_Search::SEARCH_AND:
-                return $this->_doQuery(array($q['value']), $range);
-            default:
-                foreach ($q as $key => $value) {
-                    switch ($key) {
-                    case 'FolderType':
-                        if ($value != Horde_ActiveSync::CLASS_EMAIL) {
-                            throw new Horde_ActiveSync_Exception('Only Email folders are supported.');
-                        }
-                        break;
-                    case 'FolderId':
-                        $mboxes[] = new Horde_Imap_Client_Mailbox($value);
-                        break;
-                    case Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED:
-                        if ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_GREATERTHAN) {
-                            $query_range = Horde_Imap_Client_Search_Query::DATE_SINCE;
-                        } elseif ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_LESSTHAN) {
-                            $query_range = Horde_Imap_Client_Search_Query::DATE_BEFORE;
-                        } else {
-                            $query_range = Horde_Imap_Client_Search_Query::DATE_ON;
-                        }
-                        $imap_query->dateSearch($value, $query_range);
-                        break;
-                    case Horde_ActiveSync_Request_Search::SEARCH_FREETEXT:
-                        $imap_query->text($value, false);
-                        break;
-                    case 'subquery':
-                        $imap_query->andSearch(array($this->_buildSubQuery($value)));
-                    }
-                }
-            }
-        }
-        if (empty($mboxes)) {
-            foreach ($this->getMailboxes() as $mailbox) {
-                $mboxes[] = $mailbox['ob'];
-            }
-        }
-        foreach ($mboxes as $mbox) {
-            try {
-                $search_res = $this->_getImapOb()->search($mbox, $imap_query);
-            } catch (Horde_Imap_Client_Exception $e) {
-                throw new Horde_ActiveSync_Exception($e);
-            }
-            if ($search_res['count'] == 0) {
-                continue;
-            }
-
-            $ids = $search_res['match']->ids;
-            foreach ($ids as $id) {
-                $results[] = array('uniqueid' => $mbox->utf8 . ':' . $id, 'searchfolderid' => $mbox->utf8);
-            }
-            if (!empty($range)) {
-                preg_match('/(.*)\-(.*)/', $range, $matches);
-                $return_count = $matches[2] - $matches[1];
-                $results = array_slice($results, $matches[1], $return_count + 1, true);
-            }
-        }
-
-        return $results;
-    }
-
-    /**
      * Helper to build a subquery
      *
      * @param array $query  A subquery array.
@@ -809,60 +719,6 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return $imap_query;
-    }
-
-    /**
-     *
-     * @param Horde_Imap_Client_Mailbox $mbox   The mailbox
-     * @param array $uids                       An array of message uids
-     * @param array $options                    An options array
-     *   - headers: (boolean)  Fetch header text if true.
-     *              DEFAULT: false (Do not fetch header text).
-     *   - structure: (boolean) Fetch message structure.
-     *            DEFAULT: true (Fetch message structure).
-     *   - flags: (boolean) Fetch messagge flags.
-     *            DEFAULT: true (Fetch message flags).
-     *   - envelope: (boolen) Fetch the envelope data.
-     *               DEFAULT: false (Do not fetch envelope). @since 2.4.0
-     *
-     * @return Horde_Imap_Fetch_Results  The results.
-     * @throws Horde_ActiveSync_Exception
-     */
-    protected function _getMailMessages(
-        Horde_Imap_Client_Mailbox $mbox, array $uids, array $options = array())
-    {
-        $options = array_merge(
-            array(
-                'headers' => false,
-                'structure' => true,
-                'flags' => true,
-                'envelope' => false),
-            $options
-        );
-
-        $imap = $this->_getImapOb();
-        $query = new Horde_Imap_Client_Fetch_Query();
-        if ($options['structure']) {
-            $query->structure();
-        }
-        if ($options['flags']) {
-            $query->flags();
-        }
-        if ($options['envelope']) {
-            $query->envelope();
-        }
-        if (!empty($options['headers'])) {
-            $query->headerText(array('peek' => true));
-        }
-        $ids = new Horde_Imap_Client_Ids($uids);
-        try {
-            return $imap->fetch($mbox, $query, array('ids' => $ids));
-        } catch (Horde_Imap_Client_Exception $e) {
-            $this->_logger->err(sprintf(
-                'Unable to fetch message: %s',
-                $e->getMessage()));
-            throw new Horde_ActiveSync_Exception($e);
-        }
     }
 
     /**
@@ -1192,6 +1048,85 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
+     * Perform an IMAP search based on a SEARCH request.
+     *
+     * @param array $query  The search query.
+     *
+     * @return array  The results array containing an array of hashes:
+     *   'uniqueid' => [The unique identifier of the result]
+     *   'searchfolderid' => [The mailbox name that this result comes from]
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
+    protected function _doQuery(array $query, $range = null)
+    {
+        $imap_query = new Horde_Imap_Client_Search_Query();
+        $mboxes = array();
+        $results = array();
+        foreach ($query as $q) {
+            switch ($q['op']) {
+            case Horde_ActiveSync_Request_Search::SEARCH_AND:
+                return $this->_doQuery(array($q['value']), $range);
+            default:
+                foreach ($q as $key => $value) {
+                    switch ($key) {
+                    case 'FolderType':
+                        if ($value != Horde_ActiveSync::CLASS_EMAIL) {
+                            throw new Horde_ActiveSync_Exception('Only Email folders are supported.');
+                        }
+                        break;
+                    case 'FolderId':
+                        $mboxes[] = new Horde_Imap_Client_Mailbox($value);
+                        break;
+                    case Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED:
+                        if ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_GREATERTHAN) {
+                            $query_range = Horde_Imap_Client_Search_Query::DATE_SINCE;
+                        } elseif ($q['op'] == Horde_ActiveSync_Request_Search::SEARCH_LESSTHAN) {
+                            $query_range = Horde_Imap_Client_Search_Query::DATE_BEFORE;
+                        } else {
+                            $query_range = Horde_Imap_Client_Search_Query::DATE_ON;
+                        }
+                        $imap_query->dateSearch($value, $query_range);
+                        break;
+                    case Horde_ActiveSync_Request_Search::SEARCH_FREETEXT:
+                        $imap_query->text($value, false);
+                        break;
+                    case 'subquery':
+                        $imap_query->andSearch(array($this->_buildSubQuery($value)));
+                    }
+                }
+            }
+        }
+        if (empty($mboxes)) {
+            foreach ($this->getMailboxes() as $mailbox) {
+                $mboxes[] = $mailbox['ob'];
+            }
+        }
+        foreach ($mboxes as $mbox) {
+            try {
+                $search_res = $this->_getImapOb()->search($mbox, $imap_query);
+            } catch (Horde_Imap_Client_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
+            }
+            if ($search_res['count'] == 0) {
+                continue;
+            }
+
+            $ids = $search_res['match']->ids;
+            foreach ($ids as $id) {
+                $results[] = array('uniqueid' => $mbox->utf8 . ':' . $id, 'searchfolderid' => $mbox->utf8);
+            }
+            if (!empty($range)) {
+                preg_match('/(.*)\-(.*)/', $range, $matches);
+                $return_count = $matches[2] - $matches[1];
+                $results = array_slice($results, $matches[1], $return_count + 1, true);
+            }
+        }
+
+        return $results;
+    }
+
+    /**
      * Map Importance header values to EAS importance values.
      *
      * @param string $importance  The importance [high|normal|low].
@@ -1211,6 +1146,22 @@ class Horde_ActiveSync_Imap_Adapter
         case '3':
         default:
             return 1;
+        }
+    }
+
+    /**
+     * Helper to obtain a valid IMAP client. Can't inject it since the user
+     * is not yet authenticated at the time of object creation.
+     *
+     * @return Horde_Imap_Client_Base
+     * @throws Horde_ActiveSync_Exception
+     */
+    protected function _getImapOb()
+    {
+        try {
+            return $this->_imap->getImapOb();
+        } catch (Horde_ActiveSync_Exception $e) {
+            throw new Horde_Exception_AuthenticationFailure('EMERGENCY - Unable to obtain the IMAP Client');
         }
     }
 
@@ -1275,19 +1226,88 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Helper to obtain a valid IMAP client. Can't inject it since the user
-     * is not yet authenticated at the time of object creation.
      *
-     * @return Horde_Imap_Client_Base
+     * @param Horde_Imap_Client_Mailbox $mbox   The mailbox
+     * @param array $uids                       An array of message uids
+     * @param array $options                    An options array
+     *   - headers: (boolean)  Fetch header text if true.
+     *              DEFAULT: false (Do not fetch header text).
+     *   - structure: (boolean) Fetch message structure.
+     *            DEFAULT: true (Fetch message structure).
+     *   - flags: (boolean) Fetch messagge flags.
+     *            DEFAULT: true (Fetch message flags).
+     *   - envelope: (boolen) Fetch the envelope data.
+     *               DEFAULT: false (Do not fetch envelope). @since 2.4.0
+     *
+     * @return Horde_Imap_Fetch_Results  The results.
      * @throws Horde_ActiveSync_Exception
      */
-    protected function _getImapOb()
+    protected function _getMailMessages(
+        Horde_Imap_Client_Mailbox $mbox, array $uids, array $options = array())
     {
-        try {
-            return $this->_imap->getImapOb();
-        } catch (Horde_ActiveSync_Exception $e) {
-            throw new Horde_Exception_AuthenticationFailure('EMERGENCY - Unable to obtain the IMAP Client');
+        $options = array_merge(
+            array(
+                'headers' => false,
+                'structure' => true,
+                'flags' => true,
+                'envelope' => false),
+            $options
+        );
+
+        $imap = $this->_getImapOb();
+        $query = new Horde_Imap_Client_Fetch_Query();
+        if ($options['structure']) {
+            $query->structure();
         }
+        if ($options['flags']) {
+            $query->flags();
+        }
+        if ($options['envelope']) {
+            $query->envelope();
+        }
+        if (!empty($options['headers'])) {
+            $query->headerText(array('peek' => true));
+        }
+        $ids = new Horde_Imap_Client_Ids($uids);
+        try {
+            return $imap->fetch($mbox, $query, array('ids' => $ids));
+        } catch (Horde_Imap_Client_Exception $e) {
+            $this->_logger->err(sprintf(
+                'Unable to fetch message: %s',
+                $e->getMessage()));
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
+     * Check existence of a mailbox.
+     *
+     * @param string $mbox  The mailbox name.
+     *
+     * @return boolean
+     */
+    protected function _mailboxExists($mbox)
+    {
+        $mailboxes = $this->_imap->getMailboxes(true);
+        foreach ($mailboxes as $mailbox) {
+            if ($mailbox['ob']->utf8 == $mbox) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Strip out non 7Bit characters from a text string.
+     *
+     * @param string $text  The string to strip.
+     *
+     * @return string|boolean  The stripped string, or false if failed.
+     */
+    protected function _stripNon7BitChars($text)
+    {
+        return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $text);
     }
 
     /**
@@ -1342,18 +1362,6 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return $text;
-    }
-
-    /**
-     * Strip out non 7Bit characters from a text string.
-     *
-     * @param string $text  The string to strip.
-     *
-     * @return string|boolean  The stripped string, or false if failed.
-     */
-    protected function _stripNon7BitChars($text)
-    {
-        return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $text);
     }
 
 }
