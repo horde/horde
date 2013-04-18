@@ -241,19 +241,6 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Simple factory for the Sync object.
-     *
-     * @return Horde_ActiveSync_Sync
-     */
-    protected function _getSyncObject()
-    {
-        $sync = new Horde_ActiveSync_Sync($this->_driver, $this->_device);
-        $sync->setLogger($this->_logger);
-
-        return $sync;
-    }
-
-    /**
      * Simple factory method for the importer.
      *
      * @return Horde_ActiveSync_Connector_Importer

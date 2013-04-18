@@ -128,10 +128,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $this->_logger->debug(sprintf(
                         '[%s] Empty Sync request taking info from SyncCache.',
                         $this->_procid));
-                    $this->_collections = new Horde_ActiveSync_Collections(
+                    $this->_collections = $this->_activeSync->getCollectionsObject(
                         $syncCache->getCollections(),
-                        $syncCache,
-                        $this->_logger);
+                        $syncCache);
                 }
             } else {
                 $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
@@ -141,7 +140,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
         } else {
             // New collections object.
-            $this->_collections = new Horde_ActiveSync_Collections(array(), $syncCache, $this->_logger);
+            $this->_collections = $this->_activeSync->getCollectionsObject(array(), $syncCache);
 
             // Non-empty SYNC request. Either < 12.1 or a full reqeust.
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
@@ -514,7 +513,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                  (!isset($collection['getchanges']) && $collection['synckey'] != '0'))) {
 
                 $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
-                $sync = $this->_getSyncObject();
+                $sync = $this->_activeSync->getSyncObject();
                 try {
                     $sync->init($this->_stateDriver, $exporter, $collection);
                     $changecount = $sync->getChangeCount();

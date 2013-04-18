@@ -218,7 +218,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
                         Horde_ActiveSync::REQUEST_TYPE_SYNC,
                         $collection['id']
                     );
-                    $sync = $this->_getSyncObject();
+                    $sync = $this->_activeSync->getSyncObject();
                     $sync->init($this->_stateDriver, null, $collection);
                     $results[$collection['id']] = $sync->getChangeCount();
                 } catch (Horde_ActiveSync_Exception_StateGone $e) {

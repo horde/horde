@@ -241,7 +241,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 }
 
                 foreach ($collections as $collection) {
-                    $sync = $this->_getSyncObject();
+                    $sync = $this->_activeSync->getSyncObject();
                     try {
                         $this->_initState($collection);
                         try {
