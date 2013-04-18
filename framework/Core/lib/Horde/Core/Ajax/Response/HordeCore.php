@@ -74,7 +74,7 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
             $ob->tasks = $this->tasks;
         }
 
-        if (defined('SID')) {
+        if (SID) {
             $ob->sid = SID;
         }
 

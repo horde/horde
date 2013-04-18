@@ -82,7 +82,7 @@ class Horde_View_Topbar extends Horde_View
         $pageOutput->addInlineJsVars(array('HordeTopbar.conf' => array(
             'URI_AJAX' =>
                 $registry->getServiceLink('ajax', 'horde')->url,
-            'SID' => defined('SID') ? SID : '',
+            'SID' => SID,
             'TOKEN' => $GLOBALS['session']->getToken(),
             'app' => $registry->getApp(),
             'format' =>
