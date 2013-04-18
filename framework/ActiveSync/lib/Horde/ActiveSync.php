@@ -344,6 +344,12 @@ class Horde_ActiveSync
     protected $_certPath;
 
     /**
+     *
+     * @var Horde_ActiveSync_Device
+     */
+    protected $_device;
+
+    /**
      * Map of commands when query string is base64 encoded (EAS 12.1)
      *
      * @var array
@@ -552,8 +558,11 @@ class Horde_ActiveSync
         case 'provisioning':
         case 'multipart':
         case 'certPath':
+        case 'device':
             $property = '_' . $property;
             return $this->$property;
+        case 'logger':
+            return self::$_logger;
         default:
             throw new InvalidArgumentException(sprintf(
                 'The property %s does not exist',
@@ -729,7 +738,7 @@ class Horde_ActiveSync
         // Always set the version information instead of caching it, some
         // clients may allow changing the protocol version.
         $device->version = $version;
-
+        $this->_device = $device;
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             $this->_doOptionsRequest();
