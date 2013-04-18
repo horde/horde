@@ -134,7 +134,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
             'timestamp'        => array('name' => 'datetime',   'limit' => null),
             'time'             => array('name' => 'time',       'limit' => null),
             'date'             => array('name' => 'date',       'limit' => null),
-            'binary'           => array('name' => 'blob',       'limit' => null),
+            'binary'           => array('name' => 'longblob',   'limit' => null),
             'boolean'          => array('name' => 'tinyint',    'limit' => 1),
         );
     }
