@@ -20,7 +20,8 @@
 var HordeCore = {
 
     // Vars used and defaulting to null/false:
-    //   Growler, audio, conf, inAjaxCallback, is_logout, submit_frame, text
+    //   Growler, audio, conf, inAjaxCallback, is_logout, regenerate_sid,
+    //   submit_frame, text
 
     alarms: [],
     base: null,
@@ -67,6 +68,12 @@ var HordeCore = {
         opts = opts || {};
 
         var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
+
+        if (this.regenerate_sid) {
+            ajaxopts.asynchronous = false;
+            params.set('regenerate_sid', 1);
+            delete this.regenerate_sid;
+        }
 
         this.addRequestParams(params);
 
@@ -154,6 +161,8 @@ var HordeCore = {
     },
 
     // params: (Hash) URL parameters
+    // TODO: Put internal params (SID, token, regenerate_sid) into special
+    // container only accessible to base Ajax Application object.
     addRequestParams: function(params)
     {
         var sid = this.sessionId();
@@ -553,6 +562,19 @@ var HordeCore = {
         }
     },
 
+    tasksHandler: function(e)
+    {
+        var t = e.tasks || {};
+
+        if (t['horde:regenerate_sid']) {
+            this.regenerate_sid = true;
+        }
+
+        if (t['horde:sid']) {
+            this.sessionId(t['horde:sid']);
+        }
+    },
+
     onDomLoad: function()
     {
         /* Determine base window. Need a try/catch block here since, if the
@@ -593,3 +615,6 @@ document.observe('Growler:destroyed', function(e) {
 document.observe('Growler:linkClick', function(e) {
     window.location.assign(e.memo.href);
 });
+document.observe('HordeCore:runTasks', function(e) {
+    this.tasksHandler(e.memo);
+}.bindAsEventListener(HordeCore));

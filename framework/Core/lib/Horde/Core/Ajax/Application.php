@@ -87,6 +87,14 @@ abstract class Horde_Core_Ajax_Application
             $session->checkToken($token);
         }
 
+        /* Check for session regnerateion request. */
+        if ($vars->regenerate_sid) {
+            $session->regenerate();
+            if (SID) {
+                $this->addTask('sid', SID, 'horde');
+            }
+        }
+
         /* Close session if action is labeled as read-only. */
         if ($ob && $ob->readonly($action)) {
             $session->close();
@@ -171,14 +179,15 @@ abstract class Horde_Core_Ajax_Application
      *
      * @param string $name  Task name.
      * @param mixed $data   Task data.
+     * @param string $app   Overwrite default application (since 2.5.0).
      */
-    public function addTask($name, $data)
+    public function addTask($name, $data, $app = null)
     {
         if (empty($this->tasks)) {
             $this->tasks = new stdClass;
         }
 
-        $name = $this->_app . ':' . $name;
+        $name = (is_null($app) ? $this->_app : $app) . ':' . $name;
         $this->tasks->$name = $data;
     }
 
@@ -187,6 +196,10 @@ abstract class Horde_Core_Ajax_Application
      */
     public function send()
     {
+        if ($GLOBALS['session']->regenerate_due) {
+            $this->addTask('regenerate_sid', true, 'horde');
+        }
+
         if ($this->data instanceof Horde_Core_Ajax_Response) {
             $response = clone $this->data;
             if ($response instanceof Horde_Core_Ajax_Response_HordeCore) {
