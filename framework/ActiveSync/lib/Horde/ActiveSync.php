@@ -481,10 +481,9 @@ class Horde_ActiveSync
      * @return Horde_ActiveSync_Collections
      * @since 2.4.0
      */
-    public function getCollectionsObject(
-        array $collections, Horde_ActiveSync_SyncCache $syncCache)
+    public function getCollectionsObject(Horde_ActiveSync_SyncCache $syncCache)
     {
-        return new Horde_ActiveSync_Collections($collections, $syncCache, $this);
+        return new Horde_ActiveSync_Collections($syncCache, $this);
     }
 
     /**

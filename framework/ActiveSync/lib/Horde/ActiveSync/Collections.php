@@ -116,27 +116,38 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     protected $_as;
 
+    /**
+     * Cache the process id for logging.
+     *
+     * @var integer
+     */
     protected $_procid;
 
     /**
      * Const'r
      *
-     * @param array $collection                  Array of collections.
      * @param Horde_ActiveSync_SyncCache $cache  The SyncCache.
      * @param Horde_ActiveSync $as               The ActiveSync server object.
      */
     public function __construct(
-        array $collections,
         Horde_ActiveSync_SyncCache $cache,
         Horde_ActiveSync $as)
     {
-        foreach ($collections as $collection) {
-            $this->_collections[$collection['id']] = $collection;
-        }
+
         $this->_cache = $cache;
         $this->_as = $as;
         $this->_logger = $as->logger;
         $this->_procid = getmypid();
+    }
+
+    /**
+     * Load all the collections we know about from the cache.
+     */
+    public function loadCollectionsFromCache()
+    {
+        foreach ($this->_cache->getCollections() as $collection) {
+            $this->_collections[$collection['id']] = $collection;
+        }
     }
 
     /**

@@ -106,6 +106,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+                $this->_logger->debug(sprintf(
+                    '[%s] Empty Sync request taking info from SyncCache.',
+                    $this->_procid));
+                $this->_collections = $this->_activeSync->getCollectionsObject($syncCache);
                 if ($this->_collections->cachedCollectionCount() == 0) {
                     $this->_logger->err(sprintf(
                         '[%s] Empty SYNC request but no SyncCache or SyncCache with no collections.',
@@ -114,6 +118,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $this->_handleGlobalSyncError();
                     return true;
                 } else {
+                    $this->_collections->loadCollectionsFromCache();
                     $csk = $this->_collections->confirmed_synckeys;
                     if (count($csk) > 0) {
                         $this->_logger->err(sprintf(
@@ -125,12 +130,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
                     $this->_collections->shortSyncRequest = true;
                     $this->_collections->save();
-                    $this->_logger->debug(sprintf(
-                        '[%s] Empty Sync request taking info from SyncCache.',
-                        $this->_procid));
-                    $this->_collections = $this->_activeSync->getCollectionsObject(
-                        $syncCache->getCollections(),
-                        $syncCache);
                 }
             } else {
                 $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
@@ -139,8 +138,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return true;
             }
         } else {
-            // New collections object.
-            $this->_collections = $this->_activeSync->getCollectionsObject(array(), $syncCache);
+            $this->_collections = $this->_activeSync->getCollectionsObject($syncCache);
 
             // Non-empty SYNC request. Either < 12.1 or a full reqeust.
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
