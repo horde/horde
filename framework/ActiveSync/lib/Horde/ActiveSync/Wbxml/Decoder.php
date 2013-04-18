@@ -231,7 +231,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         if ($element[self::EN_TYPE] == self::EN_TYPE_CONTENT) {
             return $element[self::EN_CONTENT];
         }
-        $this->_logger->info('Possible unmatched content (peeking or empty tag?)');
         $this->_ungetElement($element);
 
         return false;

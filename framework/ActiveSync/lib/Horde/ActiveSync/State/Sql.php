@@ -272,9 +272,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $this->_folder = ($data !== false) ? $data : array();
             $this->_logger->debug(
-                sprintf('[%s] Loading FOLDERSYNC state: %s',
+                sprintf('[%s] Loading FOLDERSYNC state containing %d',
                 $this->_procid,
-                print_r($this->_folder, true)));
+                count($this->_folder)));
         } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
             // @TODO: This shouldn't default to an empty folder object,
             // if we don't have the data, it's an exception.
@@ -558,11 +558,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function loadDeviceInfo($devId, $user = null)
     {
-        $this->_logger->debug(sprintf(
-            '[%s] loadDeviceInfo: %s',
-            $this->_procid,
-            $user));
-
         // See if we already have this device, for this user loaded
         if (!empty($this->_deviceInfo) && $this->_deviceInfo->id == $devId &&
             !empty($this->_deviceInfo) &&

@@ -138,7 +138,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return true;
             }
         } else {
-
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
                 $this->_collections->setHeartbeat(array('wait' => false, 'hbinterval' => false));
             }
