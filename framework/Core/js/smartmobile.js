@@ -82,7 +82,7 @@ var HordeMobile = {
             },
             type: 'post',
             url: HordeMobile.conf.ajax_url + action
-        }, opts || {});
+        }, opts);
 
         if (opts.submit) {
             var tmp = opts.submit, tmp2;
