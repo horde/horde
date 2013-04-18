@@ -295,6 +295,22 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $this->_cache->validateCollectionsFromCache($this->_collections);
     }
 
+    public function updateCollectionsFromCache()
+    {
+        $this->_cache->refreshCollections();
+        $collections = $this->_cache->getCollections();
+        foreach (array_keys($this->_collections) as $id) {
+            if (!empty($collections[$id])) {
+                $this->_logger->debug(sprintf(
+                    '[%s] Refreshing %s from the cache.',
+                    $this->_procid, $id));
+                $this->_collections[$id] = $collections[$id];
+            } else {
+                unset($this->_collections[$id]);
+            }
+        }
+    }
+
     /**
      * Return a collection class given the collection id.
      *
