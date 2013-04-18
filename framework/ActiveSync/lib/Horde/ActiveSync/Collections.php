@@ -411,7 +411,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function checkStaleRequest()
     {
-        return !$this->_cache->validateCache();
+        return !$this->_cache->validateCache(true);
     }
 
     /**
