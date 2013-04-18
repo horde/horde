@@ -2606,7 +2606,7 @@ class Turba_Driver implements Countable
 
         /* Categories */
         if (is_array($message->categories) && count($message->categories)) {
-            $hash['category'] = implode('|', $message->categories);
+            $hash['category'] = implode(';', $message->categories);
         } elseif (!$message->isGhosted('categories')) {
             $hash['category'] = '';
         }
