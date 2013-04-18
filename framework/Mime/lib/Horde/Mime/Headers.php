@@ -653,7 +653,7 @@ class Horde_Mime_Headers implements Serializable
                 $currtext .= ' ' . ltrim($val);
             } else {
                 if (!is_null($currheader)) {
-                    $to_process[] = array($currheader, $currtext);
+                    $to_process[] = array($currheader, rtrim($currtext));
                 }
 
                 $pos = strpos($val, ':');
