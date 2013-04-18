@@ -448,6 +448,36 @@ class Horde_ActiveSync
     }
 
     /**
+     * Return a collections object.
+     *
+     * @param array $collections                     Collections to populate the
+     *                                               object with.
+     * @param Horde_ActiveSync_SyncCache $syncCache  The syncCache.
+     *
+     * @return Horde_ActiveSync_Collections
+     * @since 2.4.0
+     */
+    public function getCollectionsObject(
+        array $collections, Horde_ActiveSync_SyncCache $syncCache)
+    {
+        return new Horde_ActiveSync_Collections($collections, $syncCache, $this);
+    }
+
+    /**
+     * Return a configured sync object.
+     *
+     * @return Horde_ActiveSync_Sync
+     * @since 2.4.0
+     */
+    public function getSyncObject()
+    {
+        $sync = new Horde_ActiveSync_Sync($this->_driver, $this->_device);
+        $sync->setLogger(self::$_logger);
+
+        return $sync;
+    }
+
+    /**
      * Authenticate to the backend.
      *
      * @return boolean  True on successful authentication to the backend.
