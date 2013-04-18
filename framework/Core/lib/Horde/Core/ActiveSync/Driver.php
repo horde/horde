@@ -137,6 +137,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         );
     }
 
+    /**
+     * Set the logger.
+     *
+     * @param Horde_Log_Logger $logger  The logger.
+     */
     public function setLogger($logger)
     {
         parent::setLogger($logger);
