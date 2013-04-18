@@ -113,7 +113,7 @@ class Turba_Driver implements Countable
     protected $_contact_owner = '';
 
     /**
-     * Mapping of ActiveSync fields to Turba attributes.
+     * Mapping of Turba attributes to ActiveSync fields.
      *
      * @var array
      */
@@ -2504,8 +2504,13 @@ class Turba_Driver implements Countable
                 break;
 
             case 'category':
-                // Categories FROM horde are a simple string value, going BACK to horde are an array with 'value' and 'new' keys
+                // Categories FROM horde are a simple string value, categories going BACK to horde are an array with 'value' and 'new' keys
                 $message->categories = explode(';', $value);
+                break;
+
+            case 'children':
+                // Children FROM horde are a simple string value, children going BACK to horde are an array with 'value' and 'new' keys
+                $message->children = explode(';', $value);
                 break;
 
             case 'notes':
@@ -2616,6 +2621,13 @@ class Turba_Driver implements Countable
             $hash['category'] = implode('|', $message->categories);
         } elseif (!$message->isGhosted('categories')) {
             $hash['category'] = '';
+        }
+
+        /* Children */
+        if (is_array($message->children) && count($message->children)) {
+            $hash['children'] = implode(';', $message->children);
+        } elseif (!$message->isGhosted('children')) {
+            $hash['children'] = '';
         }
 
         /* Birthday and Anniversary */
