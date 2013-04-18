@@ -205,10 +205,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     break;
                 case Horde_ActiveSync::SYNC_WINDOWSIZE:
                     $window_size = $this->_decoder->getElementContent();
-                    $this->_logger->debug(sprintf(
-                        '[%s] Global WINDOWSIZE set to %s',
-                        $this->_procid,
-                        $window_size));
                     $this->_collections->setDefaultWindowSize($window_size);
                     if (!$this->_decoder->getElementEndTag()) {
                         $this->_logger->err('PROTOCOL ERROR');
@@ -269,9 +265,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return true;
             }
 
-            // Handle PARTIALSYNC requests
+            // Full or partial sync request?
             if ($partial === true) {
-                $this->_logger->debug('PARTIAL SYNC');
+                $this->_logger->debug(sprintf(
+                    '[%s] Executing a PARTIAL SYNC.',
+                    $this->_procid));
                 if (!$this->_collections->initPartialSync()) {
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                     $this->_handleGlobalSyncError();
@@ -281,7 +279,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 // If there are no changes within partial sync, send status 13
                 // since sending partial elements without any changes is suspect
                 if ($this->_collections->haveNoChangesInPartialSync()) {
-                    $this->_logger->debug('Partial Request with completely unchanged collections. Request a full SYNC');
+                    $this->_logger->debug(sprintf(
+                        '[%s] Partial Request with completely unchanged collections. Request a full SYNC',
+                        $this->_procid));
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                     $this->_handleGlobalSyncError();
                     return true;

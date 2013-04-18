@@ -636,8 +636,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 );
                 $this->_db->insert($query, $values);
             } else {
-                $this->_logger->debug((sprintf('
-                    [%s] Device entry exists for %s, updating userAgent and version.',
+                $this->_logger->debug((sprintf(
+                    '[%s] Device entry exists for %s, updating userAgent and version.',
                     $this->_procid,
                     $data->id)));
                 $query = 'UPDATE ' . $this->_syncDeviceTable

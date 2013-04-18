@@ -95,7 +95,6 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             $this->_handleError();
             return true;
         }
-        $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] syncKey: ' . $synckey);
 
         // Load Folder Sync State
         try {
@@ -219,7 +218,6 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Start sending server -> PIM changes
         $newsynckey = $this->_stateDriver->getNewSyncKey($synckey);
-        $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] newSyncKey: ' . $newsynckey);
 
         // The $exporter just caches all folder changes in-memory, so we can
         // count before sending the actual data.
