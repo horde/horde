@@ -252,7 +252,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
             'workPhone'         => 'phone-business1',
             'cellPhone'         => 'phone-mobile',
             'fax'               => 'phone-businessfax',
-            'instantMessenger'  => 'im-address',
+            'imaddress'         => 'im-address',
             /* Organization */
             'title'             => 'job-title',
             'role'              => 'profession',

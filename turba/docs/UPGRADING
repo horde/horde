@@ -28,6 +28,15 @@ configurations and database schemes. Log in as an administrator, go to
 Administration => Configuration and update anything that's highlighted as
 outdated.
 
+Upgrading Turba from 4.0.x to 4.1
+=================================
+
+Attribute Changes
+-----------------
+
+  - The "instantMessenger" attribute has been replaced by the "imaddress",
+    "imaddress2", and "imaddress3" attributes.
+
 
 Upgrading Turba from 3.x to 4.x
 ===============================

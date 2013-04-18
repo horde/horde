@@ -1,0 +1,36 @@
+From 4e477fb7a88baf7e99f8469c4584b835866c0f0a Mon Sep 17 00:00:00 2001
+From: Thomas Jarosch <thomas.jarosch@intra2net.com>
+Date: Thu, 18 Apr 2013 12:28:51 +0200
+Subject: [PATCH] ActiveSync: Add support to sync the country fields (bug
+ 12192)
+
+
+Signed-off-by: Thomas Jarosch <thomas.jarosch@intra2net.com>
+---
+ turba/lib/Driver.php |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/turba/lib/Driver.php b/turba/lib/Driver.php
+index 784a379..d44fa8e 100644
+--- a/turba/lib/Driver.php
++++ b/turba/lib/Driver.php
+@@ -130,14 +130,17 @@ class Turba_Driver implements Countable
+         'homeCity' => 'homecity',
+         'homeProvince' => 'homestate',
+         'homePostalCode' => 'homepostalcode',
++        'homeCountryFree' => 'homecountry',
+         'otherStreet' => 'otherstreet',
+         'otherCity' => 'othercity',
+         'otherProvince' => 'otherstate',
+         'otherPostalCode' => 'otherpostalcode',
++        'otherCountryFree' => 'othercountry',
+         'workStreet' => 'businessstreet',
+         'workCity' => 'businesscity',
+         'workProvince' => 'businessstate',
+         'workPostalCode' => 'businesspostalcode',
++        'workCountryFree' => 'businesscountry',
+         'title' => 'jobtitle',
+         'company' => 'companyname',
+         'department' => 'department',
+-- 
+1.7.4.4

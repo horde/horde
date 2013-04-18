@@ -386,19 +386,19 @@ $attributes['pager'] = array(
     'params' => array('size' => 15)
 );
 $attributes['imaddress'] = array(
-    'label' => _("IM Address"),
+    'label' => _("Instant Messenger"),
     'type' => 'text',
     'required' => false,
     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
 );
 $attributes['imaddress2'] = array(
-    'label' => _("IM Address"),
+    'label' => _("Instant Messenger"),
     'type' => 'text',
     'required' => false,
     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
 );
 $attributes['imaddress3'] = array(
-    'label' => _("IM Address"),
+    'label' => _("Instant Messenger"),
     'type' => 'text',
     'required' => false,
     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
@@ -510,12 +510,6 @@ $attributes['kolabHomeServer'] = array(
 );
 $attributes['initials'] = array(
     'label' => _("Initials"),
-    'type' => 'text',
-    'required' => false,
-    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
-);
-$attributes['instantMessenger'] = array(
-    'label' => _("Instant Messenger"),
     'type' => 'text',
     'required' => false,
     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)

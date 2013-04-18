@@ -130,14 +130,17 @@ class Turba_Driver implements Countable
         'homeCity' => 'homecity',
         'homeProvince' => 'homestate',
         'homePostalCode' => 'homepostalcode',
+        'homeCountryFree' => 'homecountry',
         'otherStreet' => 'otherstreet',
         'otherCity' => 'othercity',
         'otherProvince' => 'otherstate',
         'otherPostalCode' => 'otherpostalcode',
+        'otherCountryFree' => 'othercountry',
         'workStreet' => 'businessstreet',
         'workCity' => 'businesscity',
         'workProvince' => 'businessstate',
         'workPostalCode' => 'businesspostalcode',
+        'workCountryFree' => 'businesscountry',
         'title' => 'jobtitle',
         'company' => 'companyname',
         'department' => 'department',
@@ -1390,7 +1393,7 @@ class Turba_Driver implements Countable
                 }
                 break;
 
-            case 'instantMessenger':
+            case 'imaddress':
                 if ($fields && !isset($fields['X-WV-ID'])) {
                     break;
                 }
@@ -2347,7 +2350,7 @@ class Turba_Driver implements Countable
                 break;
 
             case 'X-WV-ID':
-                $hash['instantMessenger'] = $item['value'];
+                $hash['imaddress'] = $item['value'];
                 break;
 
             case 'X-ANNIVERSARY':
