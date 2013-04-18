@@ -12,7 +12,7 @@
  * @package   ActiveSync
  */
 /**
- * Horde_ActiveSync_Collections:: Functionality related to a group a collections
+ * Horde_ActiveSync_Collections:: Functionality related to a group of collections
  * being handled during a sync request.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
