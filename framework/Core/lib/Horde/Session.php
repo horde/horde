@@ -20,10 +20,10 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  *
- * @property integer $begin  The timestamp when this session began (0 if
- *                           session is not active).
- * @property boolean $regenerate_due  True if session ID is due for
- *                                    regeneration (since 2.5.0).
+ * @property-read integer $begin  The timestamp when this session began (0 if
+ *                                session is not active).
+ * @property-read boolean $regenerate_due  True if session ID is due for
+ *                                         regeneration (since 2.5.0).
  */
 class Horde_Session
 {
