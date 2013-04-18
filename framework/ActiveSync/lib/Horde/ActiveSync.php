@@ -23,6 +23,17 @@
  * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property Horde_ActiveSync_Wbxml_Encoder encoder The Wbxml encoder.
+ * @property Horde_ActiveSync_Wbxml_Decoder decoder The Wbxml decoder.
+ * @property Horde_ActiveSync_State_Base state      The state object.
+ * @property Horde_Controller_Reqeust_Http request  The HTTP request object.
+ * @property Horde_ActiveSync_Driver_Base driver
+ * @property boolean provisioning
+ * @property boolean multipart
+ * @property string certPath
+ * @property Horde_ActiveSync_Device device
+ * @property Horde_Log_Logger logger
  */
 class Horde_ActiveSync
 {
@@ -335,7 +346,6 @@ class Horde_ActiveSync
      */
     protected $_get = array();
 
-
     /**
      * Path to root certificate bundle
      *
@@ -348,6 +358,20 @@ class Horde_ActiveSync
      * @var Horde_ActiveSync_Device
      */
     protected $_device;
+
+    /**
+     * Wbxml encoder
+     *
+     * @var Horde_ActiveSync_Wbxml_Encoder
+     */
+    protected $_encoder;
+
+    /**
+     * Wbxml decoder
+     *
+     * @var Horde_ActiveSync_Wbxml_Decoder
+     */
+    protected $_decoder;
 
     /**
      * Map of commands when query string is base64 encoded (EAS 12.1)
