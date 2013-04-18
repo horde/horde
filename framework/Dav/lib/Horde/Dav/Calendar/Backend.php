@@ -44,17 +44,6 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
     /**
      * Returns a list of calendars for a principal.
      *
-     * Every project is an array with the following keys:
-     *  * id, a unique id that will be used by other functions to modify the
-     *    calendar. This can be the same as the uri or a database key.
-     *  * uri, which the basename of the uri with which the calendar is
-     *    accessed.
-     *  * principaluri. The owner of the calendar. Almost always the same as
-     *    principalUri passed to this method.
-     *
-     * Furthermore it can contain webdav properties in clark notation. A very
-     * common one is '{DAV:}displayname'.
-     *
      * @param string $principalUri
      * @return array
      */
@@ -105,27 +94,6 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
     /**
      * Returns all calendar objects within a calendar.
      *
-     * Every item contains an array with the following keys:
-     *   * id - unique identifier which will be used for subsequent updates
-     *   * calendardata - The iCalendar-compatible calendar data
-     *   * uri - a unique key which will be used to construct the uri. This can be any arbitrary string.
-     *   * lastmodified - a timestamp of the last modification time
-     *   * etag - An arbitrary string, surrounded by double-quotes. (e.g.:
-     *   '  "abcdef"')
-     *   * calendarid - The calendarid as it was passed to this function.
-     *   * size - The size of the calendar objects, in bytes.
-     *
-     * Note that the etag is optional, but it's highly encouraged to return for
-     * speed reasons.
-     *
-     * The calendardata is also optional. If it's not returned
-     * 'getCalendarObject' will be called later, which *is* expected to return
-     * calendardata.
-     *
-     * If neither etag or size are specified, the calendardata will be
-     * used/fetched to determine these numbers. If both are specified the
-     * amount of times this is needed is reduced by a great degree.
-     *
      * @param mixed $calendarId
      * @return array
      */
@@ -145,10 +113,6 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
     /**
      * Returns information from a single calendar object, based on it's object
      * uri.
-     *
-     * The returned array must have the same keys as getCalendarObjects. The
-     * 'calendardata' object is required here though, while it's not required
-     * for getCalendarObjects.
      *
      * @param mixed $calendarId
      * @param string $objectUri
