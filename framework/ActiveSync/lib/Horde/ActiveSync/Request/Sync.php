@@ -284,9 +284,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_collections->initFullSync();
             }
 
-            // Update the syncCache with the new collection data.
-            $this->_collections->updateCache();
-
             // End SYNC tag.
             if (!$this->_decoder->getElementEndTag()) {
                 $this->_statusCode = self::STATUS_PROTERROR;
@@ -295,10 +292,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return false;
             }
 
-            // In case some synckeys didn't get confirmed by device we issue a full sync
+            // Update the syncCache with the new collection data.
+            $this->_collections->updateCache();
+
+            // In case some synckeys didn't get confirmed by device we issue a
+            // full sync.
             $csk = $this->_collections->confirmed_synckeys;
             if ($csk) {
-                $this->_logger->debug(count($csk));
                 $this->_logger->debug(sprintf(
                     'Confirmed Synckeys contains %s',
                     print_r($csk, true))
