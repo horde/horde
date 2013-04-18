@@ -75,7 +75,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @var Horde_ActiveSync_State_Base
      */
-    protected $_stateDriver;
+    protected $_state;
 
     /**
      * Const'r
@@ -107,9 +107,9 @@ abstract class Horde_ActiveSync_Driver_Base
             $this->_logger = new Horde_Support_Stub;
         }
 
-        $this->_stateDriver = $params['state'];
-        $this->_stateDriver->setLogger($this->_logger);
-        $this->_stateDriver->setBackend($this);
+        $this->_state = $params['state'];
+        $this->_state->setLogger($this->_logger);
+        $this->_state->setBackend($this);
     }
 
     /**
@@ -117,7 +117,7 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     public function __destruct()
     {
-        unset($this->_stateDriver);
+        unset($this->_state);
         unset($this->_logger);
     }
 

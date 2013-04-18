@@ -98,7 +98,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Load Folder Sync State
         try {
-            $this->_stateDriver->loadState(array(), $synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
+            $this->_state->loadState(array(), $synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError($e);
@@ -108,7 +108,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         // Load and validate the Sync Cache if we are 12.1
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             $syncCache = new Horde_ActiveSync_SyncCache(
-                $this->_stateDriver,
+                $this->_state,
                 $this->_device->id,
                 $this->_device->user,
                 $this->_logger);
@@ -136,7 +136,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Seen Folders
         try {
-            $seenfolders = $this->_stateDriver->getKnownFolders();
+            $seenfolders = $this->_state->getKnownFolders();
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError();
@@ -168,7 +168,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
             // Configure importer with last state
             $importer = $this->_getImporter();
-            $importer->init($this->_stateDriver, false);
+            $importer->init($this->_state, false);
 
             while (1) {
                 $folder = Horde_ActiveSync::messageFactory('Folder');
@@ -217,13 +217,13 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
 
         // Start sending server -> PIM changes
-        $newsynckey = $this->_stateDriver->getNewSyncKey($synckey);
+        $newsynckey = $this->_state->getNewSyncKey($synckey);
 
         // The $exporter just caches all folder changes in-memory, so we can
         // count before sending the actual data.
         $exporter = new Horde_ActiveSync_Connector_Exporter();
         $sync = $this->_activeSync->getSyncObject();
-        $sync->init($this->_stateDriver, $exporter, array('synckey' => $synckey));
+        $sync->init($this->_state, $exporter, array('synckey' => $synckey));
 
         // Perform the actual sync operation
         while(is_array($sync->syncronize()));
@@ -321,8 +321,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         // Save the state as well as the known folder cache if we had any
         // changes.
         if ($exporter->count) {
-            $this->_stateDriver->setNewSyncKey($newsynckey);
-            $this->_stateDriver->save();
+            $this->_state->setNewSyncKey($newsynckey);
+            $this->_state->save();
         }
         $this->_cleanUpAfterPairing();
 

@@ -37,7 +37,7 @@ abstract class Horde_ActiveSync_Request_Base
      *
      * @var Horde_ActiveSync_State_Base
      */
-    protected $_stateDriver;
+    protected $_state;
 
     /**
      * Encoder
@@ -134,7 +134,7 @@ abstract class Horde_ActiveSync_Request_Base
         $this->_provisioning = $as->provisioning;
 
         // Get the state object
-        $this->_stateDriver = &$as->state;
+        $this->_state = &$as->state;
 
         // Device info
         $this->_device = $device;
@@ -169,11 +169,11 @@ abstract class Horde_ActiveSync_Request_Base
         // Don't attempt if we don't care
         if ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_NONE) {
             // Get the stored key
-            $storedKey = $this->_stateDriver->getPolicyKey($this->_device->id);
+            $storedKey = $this->_state->getPolicyKey($this->_device->id);
             $this->_logger->debug('[' . $this->_device->id . '] Stored key: ' . $storedKey);
 
             // Did we request a remote wipe?
-            if ($this->_stateDriver->getDeviceRWStatus($this->_device->id) == Horde_ActiveSync::RWSTATUS_PENDING) {
+            if ($this->_state->getDeviceRWStatus($this->_device->id) == Horde_ActiveSync::RWSTATUS_PENDING) {
                 $this->_requireProvisionWbxml($requestType, Horde_ActiveSync_Status::REMOTEWIPE_REQUESTED);
                 return false;
             }
@@ -265,7 +265,7 @@ abstract class Horde_ActiveSync_Request_Base
         // to avoid having 2 device entries for every android client.
         if ($this->_device->id == 'validate') {
             $this->_logger->debug('[' . $this->_device->id . '] Removing state for bogus VALIDATE device.');
-            $this->_stateDriver->removeState(array('devId' => 'validate'));
+            $this->_state->removeState(array('devId' => 'validate'));
         }
     }
 

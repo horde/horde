@@ -122,15 +122,15 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
         }
 
         try {
-            $this->_stateDriver->loadState(
+            $this->_state->loadState(
                 array(), $synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
-            $newsynckey = $this->_stateDriver->getNewSyncKey($synckey);
+            $newsynckey = $this->_state->getNewSyncKey($synckey);
         } catch (Horde_ActiveSync_Exception $e) {
             $status = self::STATUS_KEYMISM;
         }
 
         if ($status == self::STATUS_SUCCESS) {
-            $seenfolders = $this->_stateDriver->getKnownFolders();
+            $seenfolders = $this->_state->getKnownFolders();
             if (!$seenfolders) {
                 $seenfolders = array();
             }
@@ -142,7 +142,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
 
             // Configure importer with last state
             $importer = $this->_getImporter();
-            $importer->init($this->_stateDriver);
+            $importer->init($this->_state);
             if (!$delete) {
                 if (!$serverid = $importer->importFolderChange($serverid, $displayname, $parentid)) {
                     $status = self::STATUS_ERROR;
@@ -199,8 +199,8 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
         }
 
         $this->_encoder->endTag();
-        $this->_stateDriver->setNewSyncKey($newsynckey);
-        $this->_stateDriver->save();
+        $this->_state->setNewSyncKey($newsynckey);
+        $this->_state->save();
 
         return true;
     }

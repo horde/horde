@@ -91,7 +91,7 @@ class Horde_ActiveSync_Sync
      *
      * @var Horde_ActiveSynce_State_Base
      */
-    protected $_stateDriver;
+    protected $_state;
 
     /**
      * The change streamer
@@ -131,19 +131,19 @@ class Horde_ActiveSync_Sync
      * Initialize the sync. Causes the backend to be polled for changes, and
      * the changes to be populated in the local cache.
      *
-     * @param Horde_ActiveSync_State_Base $stateDriver       The state driver
+     * @param Horde_ActiveSync_State_Base $state             The state driver
      * @param Horde_ActiveSync_Connector_Exporter $exporter  The exporter object
      * @param array $collection                              Collection data
      * @param boolean $isPing                                This is a PING request.
      */
     public function init(
-        Horde_ActiveSync_State_Base $stateDriver,
+        Horde_ActiveSync_State_Base $state,
         Horde_ActiveSync_Connector_Exporter $exporter = null,
         array $collection = array(),
         $isPing = false)
     {
         $this->_collection = $collection;
-        $this->_stateDriver = $stateDriver;
+        $this->_state = $stateDriver;
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
         $this->_changes = $stateDriver->getChanges(array('ping' => $isPing));
@@ -189,12 +189,12 @@ class Horde_ActiveSync_Sync
                             $change['id']));
                         $stat = array('id' => $change['id'], 'mod' => $change['id'], 0);
                     }
-                    $this->_stateDriver->updateState(
+                    $this->_state->updateState(
                         Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $stat);
                     break;
                 case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                     $this->_exporter->folderDeletion($change['id']);
-                    $this->_stateDriver->updateState(
+                    $this->_state->updateState(
                         Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     break;
                 }
@@ -269,7 +269,7 @@ class Horde_ActiveSync_Sync
                     }
                 }
 
-                $this->_stateDriver->updateState($change['type'], $change);
+                $this->_state->updateState($change['type'], $change);
                 $this->_step++;
                 $progress = array();
                 $progress['steps'] = count($this->_changes);

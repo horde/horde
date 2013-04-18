@@ -80,7 +80,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         if ($lifetime !== 0 && $lifetime < $this->_pingSettings['heartbeatmin']) {
             $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
             $lifetime = $this->_pingSettings['heartbeatmin'];
-            $this->_stateDriver->setHeartbeatInterval($lifetime);
+            $this->_state->setHeartbeatInterval($lifetime);
         } elseif ($lifetime > $this->_pingSettings['heartbeatmax']) {
             $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
             $lifetime = $this->_pingSettings['heartbeatmax'];
@@ -113,7 +113,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $timeout = $this->_pingSettings['waitinterval'];
         $this->_statusCode = self::STATUS_NOCHANGES;
         $syncCache = new Horde_ActiveSync_SyncCache(
-            $this->_stateDriver,
+            $this->_state,
             $this->_device->id,
             $this->_device->user,
             $this->_logger);
@@ -225,7 +225,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             while (time() < $lastuntil) {
                 // Check the remote wipe status
                 if ($this->_provisioning === true) {
-                    $rwstatus = $this->_stateDriver->getDeviceRWStatus($this->_device->id);
+                    $rwstatus = $this->_state->getDeviceRWStatus($this->_device->id);
                     if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING ||
                         $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
 
@@ -245,13 +245,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     try {
                         $this->_initState($collection);
                         try {
-                            $sync->init($this->_stateDriver, null, $collection, true);
+                            $sync->init($this->_state, null, $collection, true);
                         } catch (Horde_ActiveSync_Exception_StaleState $e) {
                             $this->_logger->err(sprintf(
                                 '[%s] PING terminating and force-clearing device state: %s',
                                 $this->_procid,
                                 $e->getMessage()));
-                            $this->_stateDriver->loadState(array(), null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
+                            $this->_state->loadState(array(), null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
                             $changes[$collection['id']] = 1;
                             $this->_statusCode = self::STATUS_NEEDSYNC;
                             $lastuntil = time();
@@ -387,7 +387,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $collection['synckey'])
         );
 
-        $this->_stateDriver->loadState(
+        $this->_state->loadState(
             $collection,
             $collection['synckey'],
             Horde_ActiveSync::REQUEST_TYPE_SYNC,

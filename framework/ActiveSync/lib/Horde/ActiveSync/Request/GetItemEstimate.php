@@ -194,7 +194,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
 
         if (!empty($needCache)) {
             $syncCache = new Horde_ActiveSync_SyncCache(
-                $this->_stateDriver,
+                $this->_state,
                 $this->_device->id,
                 $this->_device->user,
                 $this->_logger
@@ -212,14 +212,14 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         foreach ($collections as $collection) {
             if ($status[$collection['id']] == self::STATUS_SUCCESS) {
                 try {
-                    $this->_stateDriver->loadState(
+                    $this->_state->loadState(
                         $collection,
                         $collection['synckey'],
                         Horde_ActiveSync::REQUEST_TYPE_SYNC,
                         $collection['id']
                     );
                     $sync = $this->_activeSync->getSyncObject();
-                    $sync->init($this->_stateDriver, null, $collection);
+                    $sync->init($this->_state, null, $collection);
                     $results[$collection['id']] = $sync->getChangeCount();
                 } catch (Horde_ActiveSync_Exception_StateGone $e) {
                     $this->_logger->err('State Gone. Terminating GETITEMESTIMATE');
