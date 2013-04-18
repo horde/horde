@@ -97,20 +97,40 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     protected $_shortSyncRequest = false;
 
     /**
+     * Cache of collections that have had changes detected.
+     *
+     * @var array
+     */
+    protected $_changedCollections = array();
+
+    /**
+     * The ActiveSync server object.
+     *
+     * @var Horde_ActiveSync
+     */
+    protected $_as;
+
+    protected $_procid;
+
+    /**
      * Const'r
      *
      * @param array $collection                  Array of collections.
      * @param Horde_ActiveSync_SyncCache $cache  The SyncCache.
-     * @param Horde_Log_Logger $logger           The logger.
+     * @param Horde_ActiveSync $as               The ActiveSync server object.
      */
     public function __construct(
-        array $collections, Horde_ActiveSync_SyncCache $cache, Horde_Log_Logger $logger)
+        array $collections,
+        Horde_ActiveSync_SyncCache $cache,
+        Horde_ActiveSync $as)
     {
         foreach ($collections as $collection) {
             $this->_collections[$collection['id']] = $collection;
         }
         $this->_cache = $cache;
-        $this->_logger = $logger;
+        $this->_as = $as;
+        $this->_logger = $as->logger;
+        $this->_procid = getmypid();
     }
 
     /**
@@ -248,7 +268,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-     public function getChangesFlag($collection_id)
+    public function getChangesFlag($collection_id)
     {
         if (empty($this->_collections[$collection_id])) {
             throw new Horde_ActiveSync_Exception('Missing collection data');
