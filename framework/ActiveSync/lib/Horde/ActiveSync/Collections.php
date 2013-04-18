@@ -374,6 +374,22 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
+     * Return the heartbeat interval. Always returned as the heartbeat (seconds)
+     * not wait interval (minutes).
+     *
+     * @return integer|boolean  The number of seconds in a heartbeat, or false
+     *                          if no heartbeat set.
+     */
+    public function getHeartbeat()
+    {
+        return !empty($this->_cache->hbinterval)
+            ? $this->_cache->hbinterval
+            : (!empty($this->_cache->wait)
+                ? $this->_cache->wait * 60
+                : false);
+    }
+
+    /**
      * Return whether or not we want a looping sync.
      *
      * @return boolean  True if we want a looping sync, false otherwise.
