@@ -485,9 +485,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         foreach ($this->_collections as $id => $collection) {
             $statusCode = self::STATUS_SUCCESS;
             $changecount = 0;
-
             try {
-                $this->_initState($collection);
+                $this->_collections->initCollectionState($id);
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
                 $this->_logger->err(sprintf(
                     '[%s] SYNC terminating, state not found',
@@ -932,7 +931,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         }
 
         try {
-            $this->_initState($collection);
+            $this->_collections->initCollectionState($collection['id']);
         } catch (Horde_ActiveSync_Exception_StateGone $e) {
             $this->_logger->err('State not found sending STATUS_KEYMISM');
             $this->_statusCode = self::STATUS_KEYMISM;
@@ -1166,26 +1165,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 break;
             }
         }
-    }
-
-    /**
-     * Attempt to initialize the sync state.
-     *
-     * @param array $collection  The collection array
-     */
-    protected function _initState($collection)
-    {
-        // Initialize the state
-        $this->_logger->debug(sprintf(
-            '[%s] Initializing state for collection: %s, synckey: %s',
-            getmypid(),
-            $collection['id'],
-            $collection['synckey']));
-        $this->_stateDriver->loadState(
-            $collection,
-            $collection['synckey'],
-            Horde_ActiveSync::REQUEST_TYPE_SYNC,
-            $collection['id']);
     }
 
     /**
