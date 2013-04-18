@@ -2869,10 +2869,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             switch ($ob->getPrimaryType()) {
             case 'message':
                 if ($ob->getSubType() == 'rfc822') {
-                    $data->next(); // Ignore: envelope
-                    $data->flushIterator(false);
-                    $data->next();
-                    $ob->addPart($this->_parseBodystructure($data));
+                    if ($data->next() === true) {
+                        // Ignore: envelope
+                        $data->flushIterator(false);
+                    }
+                    if ($data->next() === true) {
+                        $ob->addPart($this->_parseBodystructure($data));
+                    }
                     $data->next(); // Ignore: lines
                 }
                 break;

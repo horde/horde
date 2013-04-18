@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Correctly parse message/rfc822 BODYSTRUCTURE responses if the server does not provide any envelope information (Bug #12190).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1600,7 +1600,7 @@
    <date>2013-03-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Correctly parse message/rfc822 BODYSTRUCTURE responses if the server does not provide any envelope information (Bug #12190).
    </notes>
   </release>
  </changelog>

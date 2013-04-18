@@ -339,6 +339,25 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         $this->assertNull($parsed['2']);
     }
 
+    public function testBug12190()
+    {
+        $test = '* 1 FETCH (BODYSTRUCTURE ((("TEXT" "PLAIN" ("CHARSET" "us-ascii") NIL NIL "QUOTED-PRINTABLE" 1112 52 NIL NIL NIL)("TEXT" "HTML" ("CHARSET" "us-ascii") NIL NIL "QUOTED-PRINTABLE" 8149 194 NIL NIL NIL) "ALTERNATIVE" ("BOUNDARY" "_000_8F9CBFD3A05011448603998C351D400CD1D065P3PWEX2MB009ex2se_") NIL NIL)("MESSAGE" "RFC822" NIL NIL NIL "7BIT" 1290 NIL ("ATTACHMENT" ("CREATION-DATE" "Fri, 09 Nov 2012 18:16:04 GMT" "MODIFICATION-DATE" "Fri, 09 Nov 2012 18:16:04 GMT")) NIL) "MIXED" ("BOUNDARY" "_004_8F9CBFD3A05011448603998C351D400CD1D065P3PWEX2MB009ex2se_") NIL NIL))';
+        $parse = $this->test_ob->parseFetch($test)->first()->getStructure();
+
+        $this->assertEquals(
+            'multipart/mixed',
+            $parse->getType()
+        );
+        $this->assertEquals(
+            'multipart/alternative',
+            $parse->getPart('1')->getType()
+        );
+        $this->assertEquals(
+            'message/rfc822',
+            $parse->getPart('2')->getType()
+        );
+    }
+
     protected function _serverResponse($data)
     {
         return Horde_Imap_Client_Interaction_Server::create(
