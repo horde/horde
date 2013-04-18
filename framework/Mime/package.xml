@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-08</date>
- <time>17:08:56</time>
+ <date>2013-04-18</date>
+ <time>14:44:34</time>
  <version>
   <release>2.1.1</release>
   <api>2.1.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix parsing wrapped header lines that contain no atom data (Bug #12189).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -327,6 +327,7 @@
        <file name="attachment.bin" role="test" />
        <file name="deeply_nested.txt" role="test" />
        <file name="flowed_msg.txt" role="test" />
+       <file name="header_trailing_ws.txt" role="test" />
        <file name="multiple_to.txt" role="test" />
        <file name="related_msg.txt" role="test" />
        <file name="samplemultipart_msg.txt" role="test" />
@@ -557,6 +558,7 @@
    <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
    <install as="Horde/Mime/fixtures/deeply_nested.txt" name="test/Horde/Mime/fixtures/deeply_nested.txt" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
+   <install as="Horde/Mime/fixtures/header_trailing_ws.txt" name="test/Horde/Mime/fixtures/header_trailing_ws.txt" />
    <install as="Horde/Mime/fixtures/multiple_to.txt" name="test/Horde/Mime/fixtures/multiple_to.txt" />
    <install as="Horde/Mime/fixtures/related_msg.txt" name="test/Horde/Mime/fixtures/related_msg.txt" />
    <install as="Horde/Mime/fixtures/samplemultipart_msg.txt" name="test/Horde/Mime/fixtures/samplemultipart_msg.txt" />
@@ -1100,10 +1102,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-08</date>
+   <date>2013-04-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix parsing wrapped header lines that contain no atom data (Bug #12189).
    </notes>
   </release>
  </changelog>
