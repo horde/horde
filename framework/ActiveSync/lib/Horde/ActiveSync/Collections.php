@@ -312,6 +312,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $this->_cache->validateCollectionsFromCache($this->_collections);
     }
 
+    /**
+     * Updates data from the cache for collectons that are already loaded. Used
+     * to ensure looping SYNC and PING requests are operating on the most
+     * recent syncKey.
+     */
     public function updateCollectionsFromCache()
     {
         $this->_cache->refreshCollections();
