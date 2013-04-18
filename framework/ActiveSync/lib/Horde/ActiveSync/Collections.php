@@ -638,21 +638,21 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     /**
      * Attempt to initialize the sync state.
      *
-     * @param string $id  The collection id
+     * @param array $collection  The collection array.
      */
-    public function initCollectionState($id)
+    public function initCollectionState($collection)
     {
         // Initialize the state
         $this->_logger->debug(sprintf(
             '[%s] Initializing state for collection: %s, synckey: %s',
-            getmypid(),
-            $id,
-            $this->_collections[$id]['synckey']));
+            $this->_procid,
+            $collection['id'],
+            $collection['synckey']));
         $this->_as->state->loadState(
-            $this->_collections[$id],
-            $this->_collections[$id]['synckey'],
+            $collection,
+            $collection['synckey'],
             Horde_ActiveSync::REQUEST_TYPE_SYNC,
-            $id);
+            $collection['id']);
     }
 
     /**
@@ -713,7 +713,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 }
 
                 try {
-                    $this->initCollectionState($id);
+                    $this->initCollectionState($this->_collections[$id]);
                 } catch (Horde_ActiveSync_Exception_StateGone $e) {
                     $this->_logger->err(sprintf(
                         '[%s] State not found for %s, continuing',

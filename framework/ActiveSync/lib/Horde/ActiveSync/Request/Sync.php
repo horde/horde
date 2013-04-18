@@ -365,7 +365,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $statusCode = self::STATUS_SUCCESS;
             $changecount = 0;
             try {
-                $this->_collections->initCollectionState($id);
+                $this->_collections->initCollectionState($collection);
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
                 $this->_logger->err(sprintf(
                     '[%s] SYNC terminating, state not found',
@@ -810,7 +810,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         }
 
         try {
-            $this->_collections->initCollectionState($collection['id']);
+            $this->_collections->initCollectionState($collection);
         } catch (Horde_ActiveSync_Exception_StateGone $e) {
             $this->_logger->err('State not found sending STATUS_KEYMISM');
             $this->_statusCode = self::STATUS_KEYMISM;
