@@ -141,6 +141,7 @@ class Turba_Driver implements Countable
         'title' => 'jobtitle',
         'company' => 'companyname',
         'department' => 'department',
+        'office' => 'officelocation',
         'spouse' => 'spouse',
         'website' => 'webpage',
         'assistant' => 'assistantname',
