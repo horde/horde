@@ -160,40 +160,30 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     if ($hbinterval = $this->_decoder->getElementContent()) {
                         $this->_collections->setHeartbeat(array('hbinterval' => $hbinterval));
                         $this->_decoder->getElementEndTag();
-                    }
-                    $this->_logger->debug(sprintf(
-                        '[%s] HeartbeatInterval %s Seconds.',
-                        $this->_procid,
-                        $hbinterval)
-                    );
-                    if ($hbinterval > (self::MAX_HEARTBEAT)) {
-                        $this->_logger->err(sprintf(
-                            '[%s] HeartbeatInterval outside of allowed range.',
-                            $this->_procid)
-                        );
-                        $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
-                        $this->_handleGlobalSyncError(self::MAX_HEARTBEAT);
-                        return true;
+                        if ($hbinterval > (self::MAX_HEARTBEAT)) {
+                            $this->_logger->err(sprintf(
+                                '[%s] HeartbeatInterval outside of allowed range.',
+                                $this->_procid)
+                            );
+                            $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
+                            $this->_handleGlobalSyncError(self::MAX_HEARTBEAT);
+                            return true;
+                        }
                     }
                     break;
                 case Horde_ActiveSync::SYNC_WAIT:
                     if ($wait = $this->_decoder->getElementContent()) {
                         $this->_collections->setHeatbeat(array('wait' => $wait));
                         $this->_decoder->getElementEndTag();
-                    }
-                    $this->_logger->debug(sprintf(
-                        '[%s] Wait %s Minutes.',
-                        $this->_procid,
-                        $wait)
-                    );
-                    if ($wait > (self::MAX_HEARTBEAT / 60)) {
-                        $this->_logger->err(sprintf(
-                            '[%s] Wait value outside of allowed range.',
-                            $this->_procid)
-                        );
-                        $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
-                        $this->_handleGlobalSyncError(self::MAX_HEARBEAT / 60);
-                        return true;
+                        if ($wait > (self::MAX_HEARTBEAT / 60)) {
+                            $this->_logger->err(sprintf(
+                                '[%s] Wait value outside of allowed range.',
+                                $this->_procid)
+                            );
+                            $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
+                            $this->_handleGlobalSyncError(self::MAX_HEARBEAT / 60);
+                            return true;
+                        }
                     }
                     break;
                 case Horde_ActiveSync::SYNC_PARTIAL:
