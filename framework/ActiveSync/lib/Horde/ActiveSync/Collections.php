@@ -26,6 +26,10 @@
  */
 class Horde_ActiveSync_Collections implements IteratorAggregate
 {
+
+    const COLLECTION_ERR_FOLDERSYNC_REQUIRED = -1;
+    const COLLECTION_ERR_SERVER = -2;
+    const COLLECTION_ERR_STALE = -3;
     /**
      * The collection data
      *
@@ -394,7 +398,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      *
      * @return boolean  True if we want a looping sync, false otherwise.
      */
-    public function wantLoopingSync()
+    public function canDoLoopingSync()
     {
         // do we need the shortSynRequest?
         return ($this->_shortSyncRequest || $this->_cache->hbinterval !== false || $this->_cache->wait !== false) &&
@@ -627,6 +631,173 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function save()
     {
         $this->_cache->save();
+    }
+
+    /**
+     * Attempt to initialize the sync state.
+     *
+     * @param string $id  The collection id
+     */
+    public function initCollectionState($id)
+    {
+        // Initialize the state
+        $this->_logger->debug(sprintf(
+            '[%s] Initializing state for collection: %s, synckey: %s',
+            getmypid(),
+            $id,
+            $this->_collections[$id]['synckey']));
+        $this->_as->state->loadState(
+            $this->_collections[$id],
+            $this->_collections[$id]['synckey'],
+            Horde_ActiveSync::REQUEST_TYPE_SYNC,
+            $id);
+    }
+
+    /**
+     * Poll the backend for changes.
+     *
+     * @param integer $heartbeat  The heartbeat lifetime to wait for changes.
+     * @param integer $interval  The wait interval between poll iterations.
+     * @param array $options  An options array containing any of:
+     *   - pingable: (boolean)  Only poll collections with the pingable flag set.
+     *                DEFAULT: false
+     *
+     * @return boolean|integer True if changes were detected in any of the
+     *                         collections, false if no changes detected
+     *                         or a status code if failed.
+     */
+    public function pollForChanges($heartbeat, $interval, array $options = array())
+    {
+        $dataavailable = false;
+        $started = time();
+        $until = $started + $heartbeat;
+
+        $this->_logger->debug(sprintf(
+            'Waiting for changes for %s seconds',
+            $heartbeat)
+        );
+        $this->lasthbsyncstarted = $started;
+        $this->save();
+
+        while (($now = time()) < $until) {
+            // Try not to go over the heartbeat interval.
+            if ($until - $now < $interval) {
+                $interval = $until - $now;
+            }
+
+            // See if another process has altered the sync_cache.
+            if ($this->checkStaleRequest()) {
+                $this->_logger->err('Changes in cache determined during looping SYNC exiting here.');
+
+                return self::COLLECTION_ERR_STALE;
+            }
+
+            // Check for WIPE request. If so, force a foldersync so it is performed.
+            if ($this->_as->provisioning != Horde_ActiveSync::PROVISIONING_NONE) {
+                $rwstatus = $this->_as->state->getDeviceRWStatus($this->_as->device->id);
+                if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
+                    return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
+                }
+            }
+
+            // Check each collection we are interested in.
+            foreach ($this->_collections as $id => $collection) {
+                // Skip non-pingable collections if requested.
+                if (!empty($options['pingable']) && !$this->_cache->collectionIsPingable($id)) {
+                    $this->_logger->debug(sprintf(
+                        '[%s] Skipping %s because it is not PINGable.',
+                        $this->_procid, $id));
+                    continue;
+                }
+
+                try {
+                    $this->initCollectionState($id);
+                } catch (Horde_ActiveSync_Exception_StateGone $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] State not found for %s, continuing',
+                        $this->_procid,
+                        $id)
+                    );
+                    $dataavailable = true;
+                    $this->setGetChangesFlag($id);
+                    continue;
+                } catch (Horde_ActiveSync_Exception $e) {
+                    return self::COLLECTION_ERR_SERVER;
+                }
+
+                $sync = $this->_as->getSyncObject();
+                try {
+                    $sync->init($this->_as->state, null, $collection, true);
+                } catch (Horde_ActiveSync_Expcetion_StaleState $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] SYNC terminating and force-clearing device state: %s',
+                        $this->_procid,
+                        $e->getMessage())
+                    );
+                    $this->_as->state->loadState(
+                        array(),
+                        null,
+                        Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                        $id);
+                    $changecount = 1;
+                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] SYNC terminating: %s',
+                        $this->_procid,
+                        $e->getMessage())
+                    );
+                    return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
+
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] Sync object cannot be configured, throttling: %s',
+                        $this->_procid,
+                        $e->getMessage())
+                    );
+                    sleep(30);
+                    continue;
+                }
+                $changecount = $sync->getChangeCount();
+                if (($changecount > 0)) {
+                    $dataavailable = true;
+                    $this->setGetChangesFlag($id);
+                }
+            }
+
+            if (!empty($dataavailable)) {
+                $this->_logger->debug(sprintf(
+                    '[%s] Found changes!',
+                    $this->_procid)
+                );
+                //$this->save();
+                break;
+            }
+
+            // Wait.
+            $this->_logger->debug(sprintf(
+                '[%s] Sleeping for %s seconds.', $this->_procid, $interval));
+            sleep ($interval);
+
+            // Refresh the collections.
+            $this->updateCollectionsFromCache();
+        }
+
+        // Check that no other Sync process already started
+        // If so, we exit here and let the other process do the export.
+        if ($this->checkStaleRequest()) {
+            $this->_logger->debug('Changes in cache determined during Sync Wait/Heartbeat, exiting here.');
+
+            return self::COLLECTION_ERR_STALE;
+        }
+
+        $this->_logger->debug(sprintf(
+            '[%s] Looping Sync complete: DataAvailable: %s, DataImported: %s',
+            $this->_procid,
+            $dataavailable,
+            $this->importedChanges)
+        );
+
+        return $dataavailable;
     }
 
     /**

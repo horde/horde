@@ -312,161 +312,40 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_logger->debug('All synckeys confirmed. Continuing with SYNC');
                 $this->_collections->save();
             }
-        } // End of non-empty SYNC request.
+        }
 
         // If this is >= 12.1, see if we want a looping SYNC.
-        if ($this->_collections->wantLoopingSync() &&
+        if ($this->_collections->canDoLoopingSync() &&
             $this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
             $this->_statusCode == self::STATUS_SUCCESS) {
 
-            // Use the same settings as PING for things like sleep() timeout etc...
+            // Calculate the heartbeat
             $pingSettings = $this->_driver->getHeartbeatConfig();
-            $dataavailable = false;
-            $timeout = $pingSettings['waitinterval'];
-
-            if ($this->_collections->wait !== false) {
-                $until = time() + ($this->_collections->wait * 60);
-            } elseif ($this->_collections->hbinterval !== false) {
-                $until = time() + $this->_collections->hbinterval;
-            } else {
-                $until = time() + empty($pingSettings['heartbeatdefault']) ? 10 : $pingSettings['hearbeatdefault'];
+            if (!$heartbeat = $this->_collections->getHeartbeat()) {
+                $heartbeat = !empty($pingSettings['heartbeatdefault'])
+                    ? $pingSettings['heartbeatdefault']
+                    : 10;
             }
-            $this->_logger->debug(sprintf(
-                'Waiting for changes for %s seconds',
-                $until - time())
-            );
-            $this->_collections->lasthbsyncstarted = time();
-            $this->_collections->save();
 
-            // Start the looping SYNC
-            $hbrunavrgduration = 0;
-            $hbrunmaxduration = 0;
-            while ((time() + $hbrunavrgduration) < ($until - $hbrunmaxduration)) {
-                $hbrunstarttime = microtime(true);
-
-                // See if another process has altered the sync_cache.
-                if ($this->_collections->checkStaleRequest()) {
-                    $this->_logger->err('Changes in cache determined during looping SYNC exiting here.');
+            // Wait for changes.
+            $changes = $this->_collections->pollForChanges($heartbeat, $pingSettings['waitinterval']);
+            if ($changes !== true && $changes !== false) {
+                switch ($changes) {
+                case Horde_ActiveSync_Collections::COLLECTION_ERR_STALE:
+                    $this->_logger->err('Changes in cache detected during looping SYNC exiting here.');
+                    return true;
+                default:
+                    $this->_statusCode = $changes;
+                    $this->_handleGlobalSyncError();
                     return true;
                 }
-
-                // Check for WIPE request. If so, force a foldersync so it is performed.
-                if ($this->_provisioning != Horde_ActiveSync::PROVISIONING_NONE) {
-                    $rwstatus = $this->_stateDriver->getDeviceRWStatus($this->_device->id);
-                    if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
-                        $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                        $this->_handleGlobalSyncError();
-                        return true;
-                    }
-                }
-
-                // Check each collection we are interested in.
-                //for ($i = 0; $i < $this->_collections->collectionCount(); $i++) {
-                foreach ($this->_collections as $id => $collection) {
-                    try {
-                        $this->_initState($collection);
-                    } catch (Horde_ActiveSync_Exception_StateGone $e) {
-                        $this->_logger->err(sprintf(
-                            '[%s] State not found for %s, continuing',
-                            $this->_procid,
-                            $id)
-                        );
-                        $dataavailable = true;
-                        $this->_collections->setGetChangesFlag($id);
-                        continue;
-                    } catch (Horde_ActiveSync_Exception $e) {
-                        $this->_statusCode = self::STATUS_SERVERERROR;
-                        $this->_handleGlobalSyncError();
-                        return true;
-                    }
-                    $sync = $this->_getSyncObject();
-                    try {
-                        $sync->init($this->_stateDriver, null, $collection, true);
-                    } catch (Horde_ActiveSync_Expcetion_StaleState $e) {
-                        $this->_logger->err(sprintf(
-                            '[%s] SYNC terminating and force-clearing device state: %s',
-                            $this->_procid,
-                            $e->getMessage())
-                        );
-                        $this->_stateDriver->loadState(
-                            array(),
-                            null,
-                            Horde_ActiveSync::REQUEST_TYPE_SYNC,
-                            $id);
-                        $changecount = 1;
-                    } catch (Horde_ActiveSync_Exception_FolderGone $e) {
-                        $this->_logger->err(sprintf(
-                            '[%s] SYNC terminating: %s',
-                            $this->_procid,
-                            $e->getMessage())
-                        );
-                        $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                        $this->_handleGlobalSyncError();
-                        return true;
-                    } catch (Horde_ActiveSync_Exception $e) {
-                        $this->_logger->err(sprintf(
-                            '[%s] Sync object cannot be configured, throttling: %s',
-                            $this->_procid,
-                            $e->getMessage())
-                        );
-                        sleep(30);
-                        continue;
-                    }
-                    $changecount = $sync->getChangeCount();
-                    if (($changecount > 0)) {
-                        $dataavailable = true;
-                        $this->_collections->setGetChangesFlag($id);
-                    }
-                }
-
-                if (!empty($dataavailable)) {
-                    $this->_logger->debug(sprintf(
-                        '[%s] Found changes!',
-                        $this->_procid)
-                    );
-                    //$this->_collections->save();
-                    break;
-                }
-
-                sleep ($timeout);
-                $hbrunthisduration = (microtime(true) - $hbrunstarttime);
-                if ($hbrunavrgduration > 0) {
-                    $hbrunavrgduration = ($hbrunavrgduration + $hbrunthisduration) / 2;
-                } else {
-                    $hbrunavrgduration = $hbrunthisduration;
-                }
-                if ($hbrunthisduration > $hbrunmaxduration) {
-                    $hbrunmaxduration = $hbrunthisduration;
-                }
             }
-            $this->_logger->debug(sprintf(
-                'Max Heartbeat run duration is %s',
-                $hbrunmaxduration)
-            );
-            $this->_logger->debug(sprintf(
-                'Average Heartbeat run duration is %s',
-                $hbrunavrgduration)
-            );
-
-            // Check that no other Sync process already started
-            // If so, we exit here and let the other process do the export.
-            if ($this->_collections->checkStaleRequest()) {
-                $this->_logger->debug('Changes in cache determined during Sync Wait/Heartbeat, exiting here.');
-                return true;
-            }
-
-            $this->_logger->debug(sprintf(
-                '[%s] Looping Sync complete: DataAvailable: %s, DataImported: %s',
-                $this->_procid,
-                $dataavailable,
-                $this->_collections->importedChanges)
-            );
         }
 
         // See if we can do an empty response
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
             $this->_statusCode == self::STATUS_SUCCESS &&
-            empty($dataavailable) &&
+            empty($changes) &&
             $this->_collections->canSendEmptyResponse()) {
 
             $this->_logger->debug('Sending an empty SYNC response.');
