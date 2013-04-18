@@ -311,6 +311,14 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         return false;
     }
 
+    /**
+     * Determine if we have any syncable collections either locally or in the
+     * sync cache.
+     *
+     * @param long $version  The EAS version
+     *
+     * @return boolean
+     */
     public function haveSyncableCollections($version)
     {
         // Ensure we have syncable collections, using the cache if needed.

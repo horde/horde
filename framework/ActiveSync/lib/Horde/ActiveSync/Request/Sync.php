@@ -219,15 +219,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
+            // Must have syncable collections.
             if (!$this->_collections->haveSyncableCollections($this->_device->version)) {
-                $this->_statusCode = self::STATUS_NOTFOUND;
+                $this->_statusCode = self::STATUS_KEYMISM;
                 $this->_handleGlobalSyncError();
                 return true;
             }
 
-            // Fill in missing values from the cache.
+            // Sanity checking, preperation for EAS >= 12.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-                // Give up in case we don't have a synched hierarchy synckey
+                // We don't have a previous FOLDERSYNC.
                 if (!$this->_collections->haveHierarchy()) {
                     $this->_logger->debug('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
                     $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
@@ -235,7 +236,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     return true;
                 }
 
-                // Sanity check. These are not allowed in the same request.
+                // These are not allowed in the same request.
                 if ($this->_collections->hbinterval !== false &&
                     $this->_collections->wait !== false) {
 
@@ -289,7 +290,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 // Fill in any missing collections that were already sent.
                 $this->_collections->getMissingCollectionsFromCache();
             } else {
-                // We received a full sync so don't look for missing collections
+                // Full request.
                 $this->_collections->initFullSync();
             }
 
