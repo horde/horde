@@ -115,7 +115,7 @@ abstract class Horde_ActiveSync_Request_Base
      *
      * @return Horde_ActiveSync_Request_Base
      */
-    public function __construct(Horde_ActiveSync $as, $device)
+    public function __construct(Horde_ActiveSync $as)
     {
         // Server
         $this->_activeSync = $as;
@@ -137,7 +137,7 @@ abstract class Horde_ActiveSync_Request_Base
         $this->_state = &$as->state;
 
         // Device info
-        $this->_device = $device;
+        $this->_device = $as->device;
 
         // Procid
         $this->_procid = getmypid();

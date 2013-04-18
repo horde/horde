@@ -817,7 +817,7 @@ class Horde_ActiveSync
         $this->activeSyncHeader();
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
-            $request = new $class($this, $device);
+            $request = new $class($this);
             $request->setLogger(self::$_logger);
             $result = $request->handle();
             $this->_driver->clearAuthentication();
