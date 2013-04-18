@@ -494,7 +494,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             }
         }
 
-         if (!$this->_cache->validateTimestamps()) {
+        if (!$this->_cache->validateTimestamps()) {
             $this->_logger->debug('Request full sync, timestamp validation failed.');
             return false;
         }
