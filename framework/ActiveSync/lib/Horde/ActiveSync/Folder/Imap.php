@@ -92,15 +92,15 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                 if ($this->modseq() > 0) {
                     $this->_changed[] = $uid;
                 } else {
-                    if ($flags[$uid]['read'] != $this->_messages[$uid]['read'] ||
-                        (isset($flags[$uid]['flagged']) && $flags[$uid]['flagged'] != $this->_messages[$uid]['flagged']) ||
-                        (!isset($flags[$uid]['flagged']) && isset($this->_messages[$uid]['flagged']))) {
+                    if ((isset($flags[$uid]['read']) && $flags[$uid]['read'] != $this->_messages[$uid]['read']) ||
+                        (isset($flags[$uid]['flagged']) && $flags[$uid]['flagged'] != $this->_messages[$uid]['flagged'])) {
 
                         $this->_changed[] = $uid;
                     }
                 }
             }
         }
+
         foreach ($flags as $uid => $data) {
             if (!empty($this->_flags[$uid])) {
                 $this->_flags[$uid] += $data;
