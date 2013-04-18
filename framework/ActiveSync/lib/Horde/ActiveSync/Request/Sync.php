@@ -102,6 +102,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_handleGlobalSyncError();
             return true;
         }
+        $this->_collections = $this->_activeSync->getCollectionsObject($syncCache);
 
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
@@ -109,7 +110,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_logger->debug(sprintf(
                     '[%s] Empty Sync request taking info from SyncCache.',
                     $this->_procid));
-                $this->_collections = $this->_activeSync->getCollectionsObject($syncCache);
                 if ($this->_collections->cachedCollectionCount() == 0) {
                     $this->_logger->err(sprintf(
                         '[%s] Empty SYNC request but no SyncCache or SyncCache with no collections.',
@@ -138,9 +138,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return true;
             }
         } else {
-            $this->_collections = $this->_activeSync->getCollectionsObject($syncCache);
 
-            // Non-empty SYNC request. Either < 12.1 or a full reqeust.
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
                 $this->_collections->setHeartbeat(array('wait' => false, 'hbinterval' => false));
             }
