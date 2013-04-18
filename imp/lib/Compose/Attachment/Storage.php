@@ -61,7 +61,11 @@ abstract class IMP_Compose_Attachment_Storage
 
         case 'link_url':
             return $this->linked
-                ? Horde::url('attachment.php', true)->setRaw(true)->add(array(
+                ? Horde::url(
+                    'attachment.php',
+                    true,
+                    array('append_session' => -1)
+                  )->add(array(
                       'id' => $this->_id,
                       'u' => $this->_user
                   ))
