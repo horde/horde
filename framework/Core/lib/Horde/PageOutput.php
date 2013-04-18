@@ -644,6 +644,10 @@ class Horde_PageOutput
             ? ($registry->hasView($registry->getView()) ? $registry->getView() : Horde_Registry::VIEW_BASIC)
             : $opts['view'];
 
+        if ($session->regenerate_due) {
+            $session->regenerate();
+        }
+
         switch ($this->_view) {
         case $registry::VIEW_BASIC:
             $this->_addBasicScripts();

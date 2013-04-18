@@ -22,6 +22,8 @@
  *
  * @property integer $begin  The timestamp when this session began (0 if
  *                           session is not active).
+ * @property boolean $regenerate_due  True if session ID is due for
+ *                                    regeneration (since 2.5.0).
  */
 class Horde_Session
 {
@@ -110,6 +112,10 @@ class Horde_Session
             return ($this->_active || $this->_relogin)
                 ? $this->_data[self::BEGIN]
                 : 0;
+
+        case 'regenerate_due':
+            return (isset($this->_data[self::REGENERATE]) &&
+                    (time() >= $this->_data[self::REGENERATE]));
         }
     }
 
@@ -203,13 +209,6 @@ class Horde_Session
             $this->_data[self::BEGIN] = $curr_time;
             $this->_data[self::REGENERATE] = $curr_time + $this->_regenerateInterval();
         }
-
-        /* Determine if we need to regenerate the session ID. */
-        if ($curr_time >= $this->_data[self::REGENERATE]) {
-            session_regenerate_id(true);
-            $this->_data[self::REGENERATE] += $this->_regenerateInterval();
-            $this->sessionHandler->changed = true;
-        }
     }
 
     /**
@@ -222,6 +221,18 @@ class Horde_Session
         return ($max_lt = ini_get('session.gc_maxlifetime'))
             ? intval($max_lt / 2)
             : 86400;
+    }
+
+    /**
+     * Regenerate the session ID.
+     *
+     * @since 2.5.0
+     */
+    public function regenerate()
+    {
+        session_regenerate_id(true);
+        $this->_data[self::REGENERATE] = time() + $this->_regenerateInterval();
+        $this->sessionHandler->changed = true;
     }
 
     /**

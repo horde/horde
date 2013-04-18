@@ -92,10 +92,6 @@ var HordeMobile = {
 
         HordeMobile.inAjaxCallback = true;
 
-        if (d.sid) {
-            HordeMobile.conf.sid = d.sid;
-        }
-
         if (d.reload) {
             if (d.reload === true) {
                 window.location.reload();
