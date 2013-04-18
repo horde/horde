@@ -28,8 +28,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
 {
 
     const COLLECTION_ERR_FOLDERSYNC_REQUIRED = -1;
-    const COLLECTION_ERR_SERVER = -2;
-    const COLLECTION_ERR_STALE = -3;
+    const COLLECTION_ERR_SERVER              = -2;
+    const COLLECTION_ERR_STALE               = -3;
+    const COLLECTION_ERR_SYNC_REQUIRED       = -4;
+
     /**
      * The collection data
      *
@@ -689,9 +691,15 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
 
             // See if another process has altered the sync_cache.
             if ($this->checkStaleRequest()) {
-                $this->_logger->err('Changes in cache determined during looping SYNC exiting here.');
-
                 return self::COLLECTION_ERR_STALE;
+            }
+
+            // Make sure the collections are still there (there might have been
+            // an error in refreshing them from the cache).
+            if (!count($this->_collections)) {
+                $this->_logger->err('NO COLLECTIONS??');
+
+                return self::COLLECTION_ERR_SYNC_REQUIRED;
             }
 
             // Check for WIPE request. If so, force a foldersync so it is performed.

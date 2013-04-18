@@ -332,10 +332,20 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             if ($changes !== true && $changes !== false) {
                 switch ($changes) {
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_STALE:
-                    $this->_logger->err('Changes in cache detected during looping SYNC exiting here.');
+                    $this->_logger->err(sprintf(
+                        '[%s] Changes in cache detected during looping SYNC exiting here.',
+                        $this->_procid));
+                    return true;
+                case Horde_ActiveSync_Collections::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
+                    $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                    $this->_handleGlobalSyncError();
+                    return true;
+                case Horde_ActiveSync_Collections::COLLECTION_ERR_SYNC_REQUIRED;
+                    $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
+                    $this->_handleGlobalSyncError();
                     return true;
                 default:
-                    $this->_statusCode = $changes;
+                    $this->_statusCode = self::STATUS_SERVERERROR;
                     $this->_handleGlobalSyncError();
                     return true;
                 }
