@@ -584,9 +584,11 @@ class Horde_Test
         $output .= $this->_outputLine(array("<strong>PEAR Search Path (PHP's include_path)</strong>", '&nbsp;<tt>' . ini_get('include_path') . '</tt>'));
 
         /* Check for PEAR in general. */
-        $entry = array();
-        $entry[] = 'PEAR';
-        $entry[] = $this->_status(!isset($php_errormsg));
+        @include_once 'PEAR.php';
+        $entry = array(
+            'PEAR',
+            $this->_status(!isset($php_errormsg)),
+        );
         if (isset($php_errormsg)) {
             $entry[] = 'Check your PHP include_path setting to make sure it has the PEAR library directory.';
             $output .= $this->_outputLine($entry);
