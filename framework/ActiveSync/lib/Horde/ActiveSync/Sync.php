@@ -143,10 +143,10 @@ class Horde_ActiveSync_Sync
         $isPing = false)
     {
         $this->_collection = $collection;
-        $this->_state = $stateDriver;
+        $this->_state = $state;
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
-        $this->_changes = $stateDriver->getChanges(array('ping' => $isPing));
+        $this->_changes = $state->getChanges(array('ping' => $isPing));
         $this->_step = 0;
     }
 
