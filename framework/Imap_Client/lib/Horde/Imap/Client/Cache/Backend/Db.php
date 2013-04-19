@@ -228,11 +228,10 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
                 try {
                     $this->_db->update(
                         sprintf(
-                            'UPDATE %s SET %s = ? WHERE uid = ?',
-                            self::MD_TABLE,
-                            $key
+                            'UPDATE %s SET data = ? WHERE field = ? AND uid = ?',
+                            self::MD_TABLE
                         ),
-                        array($val, $uid)
+                        array($val, $key, $uid)
                     );
                 } catch (Horde_Db_Exception $e) {}
             } else {
