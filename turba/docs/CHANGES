@@ -2,6 +2,7 @@
 v4.0.4-git
 ----------
 
+[jan] Fix importing certain phone fields from vCard (Bug #12178).
 [mms] SECURITY: Fix XSS vulnerability on smartmobile contacts details page
       (João Machado <geral@jpaulo.eu>).
 [mjr] Fix issues with importing contacts via ActiveSync when no default_dir
