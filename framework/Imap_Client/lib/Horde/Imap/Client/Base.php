@@ -142,8 +142,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *            Horde_Imap_Client_Cache for default values):
      *     <ul>
      *      <li>
-     *       cacheob: [REQUIRED] (Horde_Cache) The cache object to
-     *                use.
+     *       backend: [REQUIRED (or cacheob)] (Horde_Imap_Client_Cache_Backend)
+     *                Backend cache driver (as of 2.9.0).
+     *      </li>
+     *      <li>
+     *       cacheob: [REQUIRED (or backend)] (Horde_Cache) The cache object to
+     *                use (DEPRECATED).
      *      </li>
      *      <li>
      *       fetch_ignore: (array) A list of mailboxes to ignore when storing
@@ -173,12 +177,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *        <li>Horde_Imap_Client::FETCH_SIZE</li>
      *        <li>Horde_Imap_Client::FETCH_STRUCTURE</li>
      *       </ul>
-     *      </li>
-     *      <li>
-     *       lifetime: (integer) Lifetime of the cache data (in seconds).
-     *      </li>
-     *      <li>
-     *       slicesize: (integer) The slicesize to use.
      *      </li>
      *     </ul>
      *    </li>
@@ -426,14 +424,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (is_null($this->_cache)) {
-            try {
-                $this->_cache = new Horde_Imap_Client_Cache(array_merge($this->getParam('cache'), array(
-                    'baseob' => $this,
-                    'debug' => $this->_debug
-                )));
-            } catch (InvalidArgumentException $e) {
+            $c = $this->getParam('cache');
+
+            if (isset($c_params['backend'])) {
+                $backend = $c['backend'];
+            } elseif (isset($c['cacheob'])) {
+                /* Deprecated */
+                $backend = new Horde_Imap_Client_Cache_Backend_Cache($c);
+            } else {
                 return false;
             }
+
+            $this->_cache = new Horde_Imap_Client_Cache(array(
+                'backend' => $backend,
+                'baseob' => $this,
+                'debug' => $this->_debug
+            ));
         }
 
         return $current
