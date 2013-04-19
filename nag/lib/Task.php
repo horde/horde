@@ -1266,7 +1266,7 @@ class Nag_Task
 
         /* Reminders */
             if ($this->due && $this->alarm) {
-            $message->setReminder(new Horde_Date($this->due - $this->alarm));
+            $message->setReminder(new Horde_Date($this->due - $this->alarm * 60));
         }
 
         /* Recurrence */
@@ -1443,7 +1443,7 @@ class Nag_Task
 
         if (($alarm = $message->getReminder()) && $this->due) {
             $alarm->setTimezone($tz);
-            $this->alarm = $this->due - $alarm->timestamp();
+            $this->alarm = ($this->due - $alarm->timestamp()) / 60;
         }
 
         if ($rrule = $message->getRecurrence()) {
