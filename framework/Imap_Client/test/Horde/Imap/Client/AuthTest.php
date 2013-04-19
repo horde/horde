@@ -5,19 +5,24 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category   Horde
+ * @copyright  2011-2013 Horde LLC
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Imap_Client
+ * @subpackage UnitTests
  */
 
 /**
  * Tests for the Imap Client ACL Auth features.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2011-2013 Horde LLC
  * @ignore
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Imap_Client
+ * @subpackage UnitTests
+
  */
 class Horde_Imap_Client_AuthTest extends PHPUnit_Framework_TestCase
 {

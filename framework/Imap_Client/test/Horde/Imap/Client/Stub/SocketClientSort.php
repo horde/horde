@@ -5,20 +5,24 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category   Horde
+ * @copyright  2012-2013 Horde LLC
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Imap_Client
+ * @subpackage UnitTests
  */
 
 /**
  * Stub for testing the IMAP Socket ClientSort library.
  * Needed because we need to access protected methods.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2012-2013 Horde LLC
  * @ignore
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Imap_Client
+ * @subpackage UnitTests
  */
 class Horde_Imap_Client_Stub_SocketClientSort extends Horde_Imap_Client_Socket_ClientSort
 {
