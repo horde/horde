@@ -80,6 +80,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected $_pid;
 
     /**
+     * Local cache of last verb searches.
+     *
+     * @var array
+     */
+    protected $_verbs = array();
+
+    /**
      * Const'r
      *
      * @param array $params  Configuration parameters:
@@ -2674,15 +2681,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     protected function _getLastVerb($mid)
     {
-        $log = $this->_connector->mail_getMaillog($mid);
-        $last = array();
-        foreach ($log as $entry) {
-            if (empty($last) || $last['ts'] < $entry['ts']) {
-                $last = $entry;
+        if (!array_key_exists($mid, $this->_verbs)) {
+            $this->_logger->debug('FETCHING VERB');
+            $log = $this->_connector->mail_getMaillog($mid);
+            $last = array();
+            foreach ($log as $entry) {
+                if (empty($last) || $last['ts'] < $entry['ts']) {
+                    $last = $entry;
+                }
             }
+            $this->_verbs[$mid] = $last;
         }
+        $this->_logger->debug('RETURNING VERB');
 
-        return $last;
+        return $this->_verbs[$mid];
     }
 
 }
