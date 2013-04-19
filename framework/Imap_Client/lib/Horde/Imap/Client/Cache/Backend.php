@@ -117,4 +117,12 @@ abstract class Horde_Imap_Client_Cache_Backend
      */
     abstract public function deleteMailbox($mailbox);
 
+    /**
+     * Clear the cache.
+     *
+     * @param integer $lifetime  Only delete entries older than this (in
+     *                           seconds). If null, deletes all entries.
+     */
+    abstract public function clear($lifetime);
+
 }

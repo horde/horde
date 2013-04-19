@@ -19,6 +19,10 @@ Upgrading to 2.9.0
     constructor option have been deprecated. Use the 'backend' parameter
     instead.
 
+  - Horde_Imap_Client_Cache
+
+    Added the clear() method.
+
 
 Upgrading to 2.8.0
 ==================

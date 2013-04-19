@@ -69,4 +69,10 @@ class Horde_Imap_Client_Cache_Backend_Null extends Horde_Imap_Client_Cache_Backe
     {
     }
 
+    /**
+     */
+    public function clear($lifetime)
+    {
+    }
+
 }

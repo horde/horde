@@ -235,4 +235,17 @@ class Horde_Imap_Client_Cache
         }
     }
 
+    /**
+     * Clear the cache.
+     *
+     * @since 2.9.0
+     *
+     * @param integer $lifetime  Only delete entries older than this (in
+     *                           seconds). If null, deletes all entries.
+     */
+    public function clear($lifetime = null)
+    {
+        $this->_backend->clear($lifetime);
+    }
+
 }

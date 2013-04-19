@@ -308,6 +308,14 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
     }
 
     /**
+     */
+    public function clear($lifetime)
+    {
+        $this->_cache->clear();
+        $this->_data = $this->_loaded = $this->_slicemap = $this->_update = array();
+    }
+
+    /**
      * Create the unique ID used to store the data in the cache.
      *
      * @param string $mailbox  The mailbox to cache.

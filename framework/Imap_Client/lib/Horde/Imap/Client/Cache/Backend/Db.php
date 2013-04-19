@@ -291,6 +291,39 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
     }
 
     /**
+     */
+    public function clear($lifetime)
+    {
+        if (is_null($lifetime)) {
+            try {
+                $this->_db->delete(sprintf('DELETE FROM %s', self::BASE_TABLE));
+                $this->_db->delete(sprintf('DELETE FROM %s', self::MD_TABLE));
+                $this->_db->delete(sprintf('DELETE FROM %s', self::MSG_TABLE));
+            } catch (Horde_Db_Exception $e) {}
+            return;
+        }
+
+        $purge = time() - $lifetime;
+        $sql = 'DELETE FROM %s WHERE uid IN (SELECT uid FROM %s WHERE modified < ?';
+
+        foreach (array(self::MD_TABLE, self::MSG_TABLE) as $val) {
+            try {
+                $this->_db->delete(
+                    sprintf($sql, $val, self::BASE_TABLE),
+                    array($purge)
+                );
+            } catch (Horde_Db_Exception $e) {}
+        }
+
+        try {
+            $this->_db->delete(
+                sprintf('DELETE FROM %s WHERE modified < ?', self::BASE_TABLE),
+                array($purge)
+            );
+        } catch (Horde_Db_Exception $e) {}
+    }
+
+    /**
      * Prepare the base SQL query.
      *
      * @param string $mailbox  The mailbox.

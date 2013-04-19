@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Imap_Client_Cache#clear().
 * [mms] Add a Horde_Db based backend for storing cached IMAP/POP data.
 * [mms] Abstract the backend storage into a separate driver for the Horde_Imap_Client_Cache class.
  </notes>
@@ -1653,6 +1654,7 @@
    <date>2013-04-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Imap_Client_Cache#clear().
 * [mms] Add a Horde_Db based backend for storing cached IMAP/POP data.
 * [mms] Abstract the backend storage into a separate driver for the Horde_Imap_Client_Cache class.
    </notes>
