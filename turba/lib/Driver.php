@@ -2502,12 +2502,8 @@ class Turba_Driver implements Countable
                 break;
 
             case 'children':
-                // Children FROM horde are a simple string value. Even though EAS
-                // uses an array stucture to pass them, we pass as a single
-                // string since we can't assure what delimter the user will
-                // use and (at least in some languages) a comma can be used
-                // within a full name.
-                $message->children = $value;
+                // Children FROM horde are a simple string value, children going BACK to horde are an array with 'value' and 'new' keys
+                $message->children = explode(';', $value);
                 break;
 
             case 'notes':
@@ -2624,9 +2620,7 @@ class Turba_Driver implements Countable
 
         /* Children */
         if (is_array($message->children) && count($message->children)) {
-            // We use a comma as incoming delimiter as it's the most
-            // common even though it might be used withing a name string.
-            $hash['children'] = implode(', ', $message->children);
+            $hash['children'] = implode(';', $message->children);
         } elseif (!$message->isGhosted('children')) {
             $hash['children'] = '';
         }
