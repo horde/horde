@@ -188,7 +188,9 @@ class Horde_Imap_Client_Cache
         unset($data['uidvalid']);
 
         if (!empty($data)) {
-            $data['uidvalid'] = $uidvalid;
+            if (!empty($uidvalid)) {
+                $data['uidvalid'] = $uidvalid;
+            }
             $mailbox = strval($mailbox);
 
             $this->_backend->setMetaData($mailbox, $data);
