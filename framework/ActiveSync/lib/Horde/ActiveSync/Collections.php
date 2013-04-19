@@ -874,6 +874,37 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
+     * Check if we have any pingable collections.
+     *
+     * @return boolean  True if we have collections marked as pingable.
+     */
+    public function havePingableCollections()
+    {
+        foreach (array_keys($this->_collections) as $id) {
+            if ($this->_cache->collectionIsPingable($id)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Marks all loaded collections with a synckey as pingable.
+     */
+    public function updatePingableFlag()
+    {
+        $collections = $this->_cache->getCollections(false);
+        foreach ($collections as $id => $collection) {
+            if (!empty($this->_collections[$id]['synckey'])) {
+                $this->_cache->setPingableCollection($id);
+            } else {
+                $this->_cache->removePingableCollection($id);
+            }
+        }
+    }
+
+    /**
      * Iterator
      */
     public function getIterator()
