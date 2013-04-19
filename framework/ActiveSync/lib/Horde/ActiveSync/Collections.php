@@ -850,7 +850,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     '[%s] Found changes!',
                     $this->_procid)
                 );
-                //$this->save();
                 break;
             }
 
