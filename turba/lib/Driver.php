@@ -2599,7 +2599,9 @@ class Turba_Driver implements Countable
 
         try {
             if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
-                $hash['notes'] = $message->airsyncbasebody->data;
+                if (!empty($message->airsyncbasebody)) {
+                    $hash['notes'] = $message->airsyncbasebody->data;
+                }
             } else {
                 $hash['notes'] = $message->body;
             }
