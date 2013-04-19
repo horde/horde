@@ -502,9 +502,7 @@ class Horde_ActiveSync_Imap_Adapter
 
     /**
      * Ping a mailbox. This detects only if any new messages have arrived in
-     * the specified mailbox. Flag changes are not detected for performance
-     * reasons. This allows quick change detection, as well as a great
-     * reduction in PING/SYNC/PING cycles while reading mail on the device.
+     * the specified mailbox.
      *
      * @param Horde_ActiveSync_Folder_Imap $folder  The folder object.
      *
