@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix returning message property values when the value is defined, but empty (Bug #12197).
+* [mjr] Fix saving IMAP folder state when CONDSTORE is available but no per-mailbox MODSEQ.
 * [mjr] Fix mail synch failure due to messages being deleted on server during initial synch.
  </notes>
  <contents>
@@ -1297,6 +1299,8 @@
    <date>2013-04-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix returning message property values when the value is defined, but empty (Bug #12197).
+* [mjr] Fix saving IMAP folder state when CONDSTORE is available but no per-mailbox MODSEQ.
 * [mjr] Fix mail synch failure due to messages being deleted on server during initial synch.
    </notes>
   </release>
