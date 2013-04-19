@@ -27,8 +27,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     const VERSION = 2;
 
     /* Cache names for miscellaneous data. */
-    const CACHE_MODSEQ = 'HICmodseq';
-    const CACHE_SEARCH = 'HICsearch';
+    const CACHE_MODSEQ = '_m';
+    const CACHE_SEARCH = '_s';
+    /* @since 2.9.0 */
+    const CACHE_SEARCHID = '_i';
 
     /**
      * The list of fetch fields that can be cached, and their cache names.
@@ -3807,11 +3809,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $cacheid = $this->getCacheId($this->_selected);
         $ret = array();
 
-        $md = $this->_cache->getMetaData($this->_selected, $status['uidvalidity'], array(self::CACHE_SEARCH));
+        $md = $this->_cache->getMetaData(
+            $this->_selected,
+            $status['uidvalidity'],
+            array(self::CACHE_SEARCH, self::CACHE_SEARCHID)
+        );
 
-        if (isset($md[self::CACHE_SEARCH]['cacheid']) &&
-            ($md[self::CACHE_SEARCH]['cacheid'] != $cacheid)) {
+        if (!isset($md[self::CACHE_SEARCHID]) ||
+            ($md[self::CACHE_SEARCHID] != $cacheid)) {
             $md[self::CACHE_SEARCH] = array();
+            $md[self::CACHE_SEARCHID] = $cacheid;
             if ($this->_debug->debug &&
                 !isset($this->_temp['searchcacheexpire'][strval($this->_selected)])) {
                 $this->_debug->info(sprintf("SEARCH: Expired from cache (mailbox: %s)", $this->_selected));
@@ -3819,10 +3826,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         } elseif (isset($md[self::CACHE_SEARCH][$cache])) {
             $this->_debug->info(sprintf("SEARCH: Retrieved %s from cache (mailbox: %s; id: %s)", $type, $this->_selected, $cache));
-            $ret['data'] = unserialize($md[self::CACHE_SEARCH][$cache]);
+            $ret['data'] = $md[self::CACHE_SEARCH][$cache];
+            unset($md[self::CACHE_SEARCHID]);
         }
-
-        $md[self::CACHE_SEARCH]['cacheid'] = $cacheid;
 
         return array_merge($ret, array(
             'id' => $cache,
@@ -3839,33 +3845,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _setSearchCache($data, $sdata)
     {
-        $sdata['metadata'][self::CACHE_SEARCH][$sdata['id']] = serialize($data);
+        $sdata['metadata'][self::CACHE_SEARCH][$sdata['id']] = $data;
 
-        $this->_updateMetaData($this->_selected, $sdata['metadata']);
+        $this->_cache->setMetaData($this->_selected, null, $sdata['metadata']);
 
         if ($this->_debug->debug) {
             $this->_debug->info(sprintf("SEARCH: Saved %s to cache (mailbox: %s; id: %s)", $sdata['type'], $this->_selected, $sdata['id']));
             unset($this->_temp['searchcacheexpire'][strval($this->_selected)]);
         }
-    }
-
-    /**
-     * Updates metadata for a mailbox.
-     *
-     * @param Horde_Imap_Client_Mailbox $mailbox  Mailbox to update.
-     * @param array $data                         The data to update.
-     * @param integer $uidvalid                   UIDVALIDITY of the mailbox.
-     *                                            If not set, do a status()
-     *                                            call to grab.
-     */
-    protected function _updateMetaData(Horde_Imap_Client_Mailbox $mailbox,
-                                       $data, $uidvalid = null)
-    {
-        if (is_null($uidvalid)) {
-            $status = $this->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-            $uidvalid = $status['uidvalidity'];
-        }
-        $this->_cache->setMetaData($mailbox, $uidvalid, $data);
     }
 
     /**
@@ -3901,9 +3888,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if ($set) {
-            $this->_updateMetaData($this->_selected, array(
+            $this->_cache->setMetaData($this->_selected, $uidvalid, array(
                 self::CACHE_MODSEQ => $modseq
-            ), $uidvalid);
+            ));
         }
 
         return $sync;
