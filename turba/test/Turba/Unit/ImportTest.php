@@ -106,6 +106,7 @@ Dänemark',
                 'timezone' => 'Europe/Berlin',
                 'latitude' => 52.516276,
                 'longitude' => 13.377778,
+                'phone' => '+49 521 999999',
             ),
             $this->toHash($vcard)
         );

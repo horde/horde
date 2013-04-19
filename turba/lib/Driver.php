@@ -2207,23 +2207,17 @@ class Turba_Driver implements Countable
                     } elseif (isset($item['params']['HOME']) &&
                               !isset($hash['homeVideoCall'])) {
                         $hash['homeVideoCall'] = $item['value'];
-                    } elseif (!isset($hash['homeVideoCall'])) {
+                    } elseif (!isset($hash['videoCall'])) {
                         $hash['videoCall'] = $item['value'];
                     }
-                } elseif (count($item['params']) <= 1 ||
-                          isset($item['params']['VOICE'])) {
-                    // There might be e.g. SAT;WORK which must not overwrite
-                    // WORK.
+                } else {
                     if (isset($item['params']['WORK']) &&
                         !isset($hash['workPhone'])) {
                         $hash['workPhone'] = $item['value'];
                     } elseif (isset($item['params']['HOME']) &&
                               !isset($hash['homePhone'])) {
                         $hash['homePhone'] = $item['value'];
-                    } elseif ((count($item['params']) == 0 ||
-                               (count($item['params']) == 1 &&
-                                isset($item['params']['VOICE']))) &&
-                              !isset($hash['phone'])) {
+                    } else {
                         $hash['phone'] = $item['value'];
                     }
                 }
