@@ -41,7 +41,7 @@ class Horde_Imap_Client_Cache
      *
      * @var Horde_Imap_Client_Base_Debug
      */
-    protected $_debug;
+    protected $_debug = false;
 
     /**
      * The configuration params.
@@ -88,9 +88,11 @@ class Horde_Imap_Client_Cache
             'username' => $this->_baseob->getParam('username')
         ));
 
-        $this->_debug = (isset($params['debug']) && ($params['debug'] instanceof Horde_Imap_Client_Base_Debug))
-            ? $params['debug']
-            : false;
+        if (isset($params['debug']) &&
+            ($params['debug'] instanceof Horde_Imap_Client_Base_Debug)) {
+            $this->_debug = $params['debug'];
+            $this->_debug->info(sprintf("CACHE: Using the %s storage driver.", get_class($this->_backend)));
+        }
     }
 
     /**
