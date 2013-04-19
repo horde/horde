@@ -2,6 +2,10 @@
 v4.0.3-git
 ----------
 
+[mjr] Fix setting alarm time when syncing (Bug #12201,
+      <thomas.jarosch@intra2net.com>).
+[mjr] Fix issue causing due dates to be offset when syncing (Bug #12200,
+      <thomas.jarosch@intra2net.com>)
 [jan] Fix listing alarms of recurring tasks.
 [jan] Fix default task list in portal block (Bug #12133).
 [jan] Fix displaying of due dates of recurring events in some views.
