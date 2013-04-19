@@ -192,9 +192,8 @@ class Horde_ActiveSync_SyncCache
     public function getCollections($requireKey = true)
     {
         $collections = array();
-        foreach ($this->_data['collections'] as $key => $value) {
-            $collection = $value;
-            if (!$requireKey || ($requireKey && !empty($collection['synckey']))) {
+        foreach ($this->_data['collections'] as $key => $collection) {
+            if (!$requireKey || ($requireKey && !empty($collection['lastsynckey']))) {
                 $collection['id'] = $key;
                 $collections[$key] = $collection;
             }
