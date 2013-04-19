@@ -122,7 +122,7 @@
    seconds) a session can be active after user authentication before it will
    be destroyed. (Sessions may otherwise never timeout if a user never closes
    their browser.) 0 means there is no maximum session time (NOT
-   RECOMMENDED).">72000</configinteger>
+   RECOMMENDED).">604800</configinteger>
   </configsection>
   <configsection name="cookie">
    <configphp name="domain" desc="What domain should we set cookies from? If
@@ -1169,7 +1169,7 @@
       </case>
      </configswitch>
      <configinteger name="lifetime" desc="Lifetime of the cached files, in
-     seconds.">86400</configinteger>
+     seconds.">604800</configinteger>
     </configsection>
    </case>
   </configswitch>
