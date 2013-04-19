@@ -193,13 +193,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         }
 
         if (!empty($needCache)) {
-            $syncCache = new Horde_ActiveSync_SyncCache(
-                $this->_state,
-                $this->_device->id,
-                $this->_device->user,
-                $this->_logger
-            );
-            $syncCache->validateCollectionsFromCache($collections);
+            $this->_activeSync->getSyncCache()->validateCollectionsFromCache($collections);
         }
 
         // End Folders

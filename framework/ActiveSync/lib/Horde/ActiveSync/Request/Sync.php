@@ -92,17 +92,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         $partial = false;
 
         try {
-            $syncCache = new Horde_ActiveSync_SyncCache(
-                $this->_state,
-                $this->_device->id,
-                $this->_device->user,
-                $this->_logger);
+            $this->_collections = $this->_activeSync->getCollectionsObject();
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_SERVERERROR;
             $this->_handleGlobalSyncError();
             return true;
         }
-        $this->_collections = $this->_activeSync->getCollectionsObject($syncCache);
 
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {

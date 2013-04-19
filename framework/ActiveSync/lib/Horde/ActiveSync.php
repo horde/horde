@@ -474,16 +474,12 @@ class Horde_ActiveSync
     /**
      * Return a collections object.
      *
-     * @param array $collections                     Collections to populate the
-     *                                               object with.
-     * @param Horde_ActiveSync_SyncCache $syncCache  The syncCache.
-     *
      * @return Horde_ActiveSync_Collections
      * @since 2.4.0
      */
-    public function getCollectionsObject(Horde_ActiveSync_SyncCache $syncCache)
+    public function getCollectionsObject()
     {
-        return new Horde_ActiveSync_Collections($syncCache, $this);
+        return new Horde_ActiveSync_Collections($this->getSyncCache(), $this);
     }
 
     /**
@@ -498,6 +494,22 @@ class Horde_ActiveSync
         $sync->setLogger(self::$_logger);
 
         return $sync;
+    }
+
+    /**
+     * Return a new, fully configured SyncCache.
+     *
+     * @return Horde_ActiveSync_SyncCache
+     * @since 2.4.0
+     */
+    public function getSyncCache()
+    {
+        return new Horde_ActiveSync_SyncCache(
+            $this->_state,
+            $this->_device->id,
+            $this->_device->user,
+            self::$_logger
+        );
     }
 
     /**

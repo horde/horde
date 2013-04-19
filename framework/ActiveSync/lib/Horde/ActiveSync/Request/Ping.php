@@ -110,18 +110,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         // Initialize the collections handler.
         try {
-            $syncCache = new Horde_ActiveSync_SyncCache(
-                $this->_state,
-                $this->_device->id,
-                $this->_device->user,
-                $this->_logger);
+            $collections = $this->_activeSync->getCollectionsObject();
+            $collections->loadCollectionsFromCache();
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_status = self::STATUS_SERVERERROR;
             $this->_handleGlobalError();
             return true;
         }
-        $collections = $this->_activeSync->getCollectionsObject($syncCache);
-        $collections->loadCollectionsFromCache();
 
         // Get the current ping settings.
         $this->_pingSettings = $this->_driver->getHeartbeatConfig();

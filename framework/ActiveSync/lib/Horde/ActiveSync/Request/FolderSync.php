@@ -107,12 +107,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Load and validate the Sync Cache if we are 12.1
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-            $syncCache = new Horde_ActiveSync_SyncCache(
-                $this->_state,
-                $this->_device->id,
-                $this->_device->user,
-                $this->_logger);
-
+            $syncCache = $this->_activeSync->getSyncCache():
             if (count($syncCache->getFolders())) {
                 if (empty($synckey)) {
                     $syncCache->clearFolders();
