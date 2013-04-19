@@ -194,7 +194,7 @@ class Horde_Imap_Client_Cache
             $this->_backend->setMetaData($mailbox, $data);
 
             if ($this->_debug) {
-                $this->_debug->info('CACHE: Stored metadata (mailbox: ' . $mailbox . '; Keys: ' . implode(',', array_keys($data)) . ")");
+                $this->_debug->info('CACHE: Stored metadata (mailbox: ' . $mailbox . '; keys: ' . implode(',', array_keys($data)) . ")");
             }
         }
     }
