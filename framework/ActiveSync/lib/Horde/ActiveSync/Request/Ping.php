@@ -211,7 +211,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     return true;
                 default:
                     $this->_statusCode = self::STATUS_SERVERERROR;
-                    $this->_handleGlobalSyncError();
+                    $this->_handleGlobalError();
                     return true;
                 }
             } elseif ($changes) {
