@@ -683,9 +683,19 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * Attempt to initialize the sync state.
      *
      * @param array $collection  The collection array.
+     * @param boolean $requireSyncKey  Require collection to have a synckey and
+     *                                 throw exception if it's not present.
+     *
+     * @throws Horde_ActiveSync_Exception_InvalidRequest
      */
-    public function initCollectionState($collection)
+    public function initCollectionState(array $collection, $requireSyncKey = false)
     {
+        if ($requireSyncKey && empty($collection['synckey'])) {
+            throw new Horde_ActiveSync_Exception_InvalidRequest(sprintf(
+                '[%s] Empty synckey for %s.',
+                $this->_procid, $collection['id']));
+        }
+
         // Initialize the state
         $this->_logger->debug(sprintf(
             '[%s] Initializing state for collection: %s, synckey: %s',
