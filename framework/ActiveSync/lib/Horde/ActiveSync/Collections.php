@@ -757,14 +757,15 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             }
 
             // Make sure the collections are still there (there might have been
-            // an error in refreshing them from the cache).
+            // an error in refreshing them from the cache). Ideally this should
+            // NEVER happen.
             if (!count($this->_collections)) {
-                $this->_logger->err('NO COLLECTIONS??');
-
+                $this->_logger->err('NO COLLECTIONS! This should not happen!');
                 return self::COLLECTION_ERR_SYNC_REQUIRED;
             }
 
-            // Check for WIPE request. If so, force a foldersync so it is performed.
+            // Check for WIPE request. If so, force a foldersync so it is
+            // performed.
             if ($this->_as->provisioning != Horde_ActiveSync::PROVISIONING_NONE) {
                 $rwstatus = $this->_as->state->getDeviceRWStatus($this->_as->device->id);
                 if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
