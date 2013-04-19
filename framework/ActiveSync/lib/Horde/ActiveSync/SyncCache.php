@@ -239,14 +239,14 @@ class Horde_ActiveSync_SyncCache
     /**
      * Set a specific collection to be PINGable.
      *
-     * @param string  $collectionid  The collection id.
+     * @param string  $id  The collection id.
      */
-    public function setPingableCollection($collectionid)
+    public function setPingableCollection($id)
     {
-        if (empty($this->_data['collections'][$collectionid])) {
+        if (empty($this->_data['collections'][$id])) {
             throw new InvalidArgumentException('Collection does not exist');
         }
-        $this->_data['collections'][$collectionid]['pingable'] = true;
+        $this->_data['collections'][$id]['pingable'] = true;
     }
 
     /**
@@ -265,14 +265,14 @@ class Horde_ActiveSync_SyncCache
     /**
      * Check if a specified collection is PINGable.
      *
-     * @param string  The collection id.
+     * @param string $id  The collection id.
      *
      * @return boolean
      */
-    public function collectionIsPingable($collectionid)
+    public function collectionIsPingable($id)
     {
-        return !empty($this->_data['collections'][$collectionid]) &&
-               !empty($this->_data['collections'][$collectionid]['pingable']);
+        return !empty($this->_data['collections'][$id]) &&
+               !empty($this->_data['collections'][$id]['pingable']);
     }
 
     /**
