@@ -426,7 +426,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (is_null($this->_cache)) {
             $c = $this->getParam('cache');
 
-            if (isset($c_params['backend'])) {
+            if (isset($c['backend']) &&
+                ($c['backend'] instanceof Horde_Imap_Client_Cache_Backend)) {
                 $backend = $c['backend'];
             } elseif (isset($c['cacheob'])) {
                 /* Deprecated */
