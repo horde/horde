@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Add IMAP cache specific purge action to the imap cache query script.
 [mms] Add support for using Horde_Db as the storage backend for IMAP/POP
       caching.
 [mms] Add thumbnail generation for video attachments.

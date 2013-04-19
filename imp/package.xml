@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add IMAP cache specific purge action to the imap cache query script.
 * [mms] Add support for using Horde_Db as the storage backend for IMAP/POP caching.
 * [mms] Add thumbnail generation for video attachments.
 * [mms] Convert Data URLs in a reply message into attachments so that compose attachment limits can be enforced (Bug #12167).
@@ -3143,6 +3144,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add IMAP cache specific purge action to the imap cache query script.
 * [mms] Add support for using Horde_Db as the storage backend for IMAP/POP caching.
 * [mms] Add thumbnail generation for video attachments.
 * [mms] Convert Data URLs in a reply message into attachments so that compose attachment limits can be enforced (Bug #12167).

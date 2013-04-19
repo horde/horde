@@ -1,17 +1,18 @@
 #!/usr/bin/env php
 <?php
 /**
- * Query the contents of a user's cached IMAP data.
+ * Query/manage the contents of a user's cached IMAP data.
  *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 
 $baseFile = __DIR__ . '/../lib/Application.php';
@@ -63,6 +64,25 @@ if (is_null($server)) {
     $cli->message('Server: ' . $server);
 }
 
+/* Purge cache? */
+$action = null;
+$opts = array(
+    1 => 'Purge Cache',
+    2 => 'Query Cache'
+);
+while (is_null($action)) {
+    $action = $cli->prompt('Action:', $opts);
+}
+
+if ($action == 1) {
+    $config = $imp_imap->loadServerConfig($server)->cache_params;
+    if (isset($config['backend'])) {
+        $config['backend']->clear();
+        $cli->message('Cache cleared.');
+    }
+    exit;
+}
+
 $user = $values->user;
 if (is_null($user)) {
     while (is_null($user)) {
@@ -82,8 +102,6 @@ while (is_null($pass)) {
         $pass = null;
     }
 }
-
-$cli->writeln();
 
 $ob = $imp_imap->createImapObject($user, $pass, $server);
 if (!$ob) {
