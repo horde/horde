@@ -70,7 +70,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
         $uid_query = array();
         foreach ($uids as $val) {
             $uid_query[] = 't.msguid = ?';
-            $query[1][] = $val;
+            $query[1][] = strval($val);
         }
         $query[0] .= ' AND (' . implode(' OR ', $uid_query) . ')';
 
@@ -129,7 +129,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
                         array(
                             new Horde_Db_Value_Binary($compress->compress(serialize(array_merge($res[$key], $val)))),
                             $uid,
-                            $key
+                            strval($key)
                         )
                     );
                 } catch (Horde_Db_Exception $e) {}
@@ -140,7 +140,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
                         sprintf('INSERT INTO %s (data, msguid, uid) VALUES (?, ?, ?)', self::MSG_TABLE),
                         array(
                             new Horde_Db_Value_Binary($compress->compress(serialize($val))),
-                            $key,
+                            strval($key),
                             $uid
                         )
                     );
@@ -263,7 +263,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
         $uid_query = array();
         foreach ($uids as $val) {
             $uid_query[] = 'msguid = ?';
-            $query[1][] = $val;
+            $query[1][] = strval($val);
         }
         $query[0] .= ' AND (' . implode(' OR ', $uid_query) . ')';
 
