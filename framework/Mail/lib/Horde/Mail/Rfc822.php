@@ -546,7 +546,7 @@ class Horde_Mail_Rfc822
                 $this->_rfc822SkipLwsp();
                 return;
 
-            case "\n";
+            case "\n":
                 /* Folding whitespace, remove the (CR)LF. */
                 if ($str[strlen($str) - 1] == "\r") {
                     $str = substr($str, 0, -1);

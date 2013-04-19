@@ -111,10 +111,10 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
         $database = $this->normalize($databaseURI);
 
         switch($database) {
-        case 'tasks';
-        case 'calendar';
-        case 'notes';
-        case 'contacts';
+        case 'tasks':
+        case 'calendar':
+        case 'notes':
+        case 'contacts':
         case 'events':
         case 'memo':
             return true;

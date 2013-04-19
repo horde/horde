@@ -1428,13 +1428,13 @@ class Nag_Task
 
         /* Priority */
         switch ($message->getImportance()) {
-        case Horde_ActiveSync_Message_Task::IMPORTANCE_LOW;
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_LOW:
             $this->priority = 5;
             break;
-        case Horde_ActiveSync_Message_Task::IMPORTANCE_NORMAL;
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_NORMAL:
             $this->priority = 3;
             break;
-        case Horde_ActiveSync_Message_Task::IMPORTANCE_HIGH;
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_HIGH:
             $this->priority = 1;
             break;
         default:

@@ -129,7 +129,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     {
         switch ($type) {
         case Horde_Service_Weather::SEARCHTYPE_STANDARD:
-        case Horde_Service_Weather::SEARCHTYPE_IP;
+        case Horde_Service_Weather::SEARCHTYPE_IP:
             return $this->_parseSearchLocations($this->_searchLocations($location));
         }
     }
