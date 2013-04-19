@@ -145,7 +145,14 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function loadCollectionsFromCache()
     {
-        foreach ($this->_cache->getCollections() as $collection) {
+        foreach ($this->_cache->getCollections(false) as $collection) {
+            $this->_logger->debug(sprintf(
+                '[%s] Loading %s from the cache.',
+                $this->_procid,
+                $collection['id']));
+            if (empty($collection['synckey']) && !empty($collection['lastsynckey'])) {
+                $collection['synckey'] = $collection['lastsynckey'];
+            }
             $this->_collections[$collection['id']] = $collection;
         }
     }
