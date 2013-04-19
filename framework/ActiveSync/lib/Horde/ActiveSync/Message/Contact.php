@@ -186,7 +186,7 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
      * @var array
      */
     protected $_mapping = array(
-        self::ANNIVERSARY           => array(self::KEY_ATTRIBUTE =>  'anniversary', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+        self::ANNIVERSARY           => array(self::KEY_ATTRIBUTE => 'anniversary', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::ASSISTANTNAME         => array(self::KEY_ATTRIBUTE => 'assistantname'),
         self::ASSISTNAMEPHONENUMBER => array(self::KEY_ATTRIBUTE => 'assistnamephonenumber'),
         self::BIRTHDAY              => array(self::KEY_ATTRIBUTE => 'birthday', self::KEY_TYPE => self::TYPE_DATE_DASHES),
