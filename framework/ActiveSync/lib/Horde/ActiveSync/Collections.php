@@ -732,6 +732,16 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             'Waiting for changes for %s seconds',
             $heartbeat)
         );
+
+        // If pinging, make sure we have pingable collections. Note we can't
+        // filter on them here because the collections might change during the
+        // loop below.
+        if (!empty($options['pingable']) && !$this->havePingableCollections()) {
+            return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
+        }
+
+        // Need to update AND SAVE the timestamp for race conditions to be
+        // detected.
         $this->lasthbsyncstarted = $started;
         $this->save();
 
