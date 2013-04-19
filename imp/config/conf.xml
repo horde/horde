@@ -79,13 +79,13 @@
 
  <configtab name="pgp" desc="PGP Settings">
   <configsection name="pgp">
-   <configswitch name="keylength" desc="The keylength (in bits) to use for
-   generation of a new PGP keypair. GnuPG recommends the creation of 2048 bit
-   keys. The IMP default is, however, 1024 bits since key generation requires
-   sufficient entropy in the local random source pool - a decision which can
-   only be made by the local administrator. (A pool with insufficient random
-   output can cause key generation to timeout before successful generation can
-   be completed).">1024
+   <configswitch name="keylength" quote="false" desc="The keylength (in bits)
+   to use for generation of a new PGP keypair. GnuPG recommends the creation
+   of 2048 bit keys. The IMP default is, however, 1024 bits since key
+   generation requires sufficient entropy in the local random source pool - a
+   decision which can only be made by the local administrator. (A pool with
+   insufficient random output can cause key generation to timeout before
+   successful generation can be completed).">1024
     <case name="0" desc="Disable generation" />
     <case name="1024" desc="1024" />
     <case name="2048" desc="2048" />
