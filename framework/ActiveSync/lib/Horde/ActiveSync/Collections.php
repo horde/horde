@@ -246,7 +246,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * @param boolean $requireSyncKey  Attempt to read missing synckey from
      *                                 cache if true. If not found, set to 0.
      */
-    public function addCollection($collection, $requireSyncKey = false)
+    public function addCollection(array $collection, $requireSyncKey = false)
     {
         $this->_logger->debug(sprintf(
             '[%s] Collection added to collection handler: collection: %s, synckey: %s.',
@@ -288,6 +288,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * Set the getchanges flag on the specified collection.
      *
      * @param string $collection_id  The collection id.
+     *
      * @throws Horde_ActiveSync_Exception
      */
     public function setGetChangesFlag($collection_id)
@@ -406,7 +407,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      *
      * @param array $hb  An array containing one or both of: hbinterval, wait.
      */
-    public function setHeartbeat($hb)
+    public function setHeartbeat(array $hb)
     {
         if (isset($hb['wait'])) {
             $this->_cache->wait = $hb['wait'];
@@ -592,7 +593,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * @return boolean  True if counters validate, false if we have reached the
      *                  MAXIMUM_SYNCKEY_COUNTER value and cleared the state.
      */
-    public function checkLoopCounters($state)
+    public function checkLoopCounters(Horde_ActiveSync_State_Base $state)
     {
         $counters = $this->_cache->synckeycounter;
         foreach ($this->_collections as $id => $collection) {
@@ -618,6 +619,12 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         return true;
     }
 
+    /**
+     * Increment the loop detection counter.
+     *
+     * @param string $id   The collection id.
+     * @param string $key  The synckey.
+     */
     public function incrementLoopCounter($id, $key)
     {
         $counters = $this->_cache->synckeycounter;
