@@ -2468,15 +2468,27 @@ class Turba_Driver implements Countable
                 break;
 
             case 'homeCountry':
-                $message->homecountry = !empty($hash['homeCountry']) ? Horde_Nls::getCountryISO($hash['homeCountry']) : null;
+                $message->homecountry = !empty($hash['homeCountryFree'])
+                    ? $hash['homeCountryFree']
+                    : !empty($hash['homeCountry'])
+                        ? Horde_Nls::getCountryISO($hash['homeCountry'])
+                        : null;
                 break;
 
             case 'otherCountry':
-                $message->othercountry = !empty($hash['otherCountry']) ? Horde_Nls::getCountryISO($hash['otherCountry']) : null;
+                $message->othercountry = !empty($hash['otherCountryFree'])
+                    ? $hash['otherCountryFree']
+                    : !empty($hash['otherCountry'])
+                        ? Horde_Nls::getCountryISO($hash['otherCountry'])
+                        : null;
                 break;
 
             case 'workCountry':
-                $message->businesscountry = !empty($hash['workCountry']) ? Horde_Nls::getCountryISO($hash['workCountry']) : null;
+                $message->businesscountry = !empty($hash['workCountryFree'])
+                    ? $hash['workCountryFree']
+                    : !empty($hash['workCountry'])
+                        ? Horde_Nls::getCountryISO($hash['workCountry'])
+                        : null;
                 break;
 
             case 'email':
@@ -2660,31 +2672,43 @@ class Turba_Driver implements Countable
         /* Countries */
         include 'Horde/Nls/Countries.php';
         if (!empty($message->homecountry)) {
-            $country = array_search($message->homecountry, $countries);
-            if ($country === false) {
-                $country = $message->homecountry;
+            if (!empty($this->map['homeCountryFree'])) {
+                $hash['homeCountryFree'] = $message->homecountry;
+            } else {
+                $country = array_search($message->homecountry, $countries);
+                if ($country === false) {
+                    $country = $message->homecountry;
+                }
+                $hash['homeCountry'] = $country;
             }
-            $hash['homeCountry'] = $country;
         } elseif (!$message->isGhosted('homecountry')) {
             $hash['homeCountry'] = null;
         }
 
         if (!empty($message->businesscountry)) {
-            $country = array_search($message->businesscountry, $countries);
-            if ($country === false) {
-                $country = $message->businesscountry;
+            if (!empty($this->map['workCountryFree'])) {
+                $hash['workCountryFree'] = $message->businesscountry;
+            } else {
+                $country = array_search($message->businesscountry, $countries);
+                if ($country === false) {
+                    $country = $message->businesscountry;
+                }
+                $hash['workCountry'] = $country;
             }
-            $hash['workCountry'] = $country;
         } elseif (!$message->isGhosted('businesscountry')) {
             $hash['workCountry'] = null;
         }
 
         if (!empty($message->othercountry)) {
-            $country = array_search($message->othercountry, $countries);
-            if ($country === false) {
-                $country = $message->othercountry;
+            if (!empty($this->map['otherCountryFree'])) {
+                $hash['otherCountryFree'] = $message->othercountry;
+            } else {
+                $country = array_search($message->othercountry, $countries);
+                if ($country === false) {
+                    $country = $message->othercountry;
+                }
+                $hash['otherCountry'] = $country;
             }
-            $hash['otherCountry'] = $country;
         } elseif (!$message->isGhosted('othercountry')) {
             $hash['otherCountry'] = null;
         }
