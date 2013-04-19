@@ -775,16 +775,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
 
             // Check each collection we are interested in.
             foreach ($this->_collections as $id => $collection) {
-                // Skip non-pingable collections if requested.
-                if (!empty($options['pingable']) && !$this->_cache->collectionIsPingable($id)) {
-                    $this->_logger->debug(sprintf(
-                        '[%s] Skipping %s because it is not PINGable.',
-                        $this->_procid, $id));
-                    continue;
-                }
 
+                // Initialize the collection's state data in the state handler.
                 try {
-                    $this->initCollectionState($this->_collections[$id]);
+                    $this->initCollectionState($collection, true);
                 } catch (Horde_ActiveSync_Exception_StateGone $e) {
                     $this->_logger->err(sprintf(
                         '[%s] State not found for %s, continuing',
@@ -794,8 +788,22 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     $dataavailable = true;
                     $this->setGetChangesFlag($id);
                     continue;
+                } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] Heartbeat terminating: %s',
+                        $this->_procid,
+                        $e->getMessage()));
+
+                    return self::COLLECTION_ERR_SYNC_REQUIRED;
                 } catch (Horde_ActiveSync_Exception $e) {
                     return self::COLLECTION_ERR_SERVER;
+                }
+
+                if (!empty($options['pingable']) && !$this->_cache->collectionIsPingable($id)) {
+                    $this->_logger->debug(sprintf(
+                        '[%s] Skipping %s because it is not PINGable.',
+                        $this->_procid, $id));
+                    continue;
                 }
 
                 $sync = $this->_as->getSyncObject();
