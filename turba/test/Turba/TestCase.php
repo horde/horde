@@ -98,7 +98,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         );
         $setup->setup(
             array(
-                'Horde_Share_Base' => 'Share',
+                'Turba_Shares' => 'Share',
             )
         );
         $GLOBALS['cfgSources']['test']['type'] = 'Sql';
@@ -116,7 +116,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
                         'imapuser' => 'test',
                     )
                 ),
-                'Horde_Share_Base' => array(
+                'Turba_Shares' => array(
                     'factory' => 'Share',
                     'method' => 'Kolab',
                 ),
@@ -125,7 +125,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         $setup->getInjector()->setInstance(
             'Horde_Core_Factory_Share',
             new Horde_Test_Stub_Factory(
-                $setup->getInjector()->getInstance('Horde_Share_Base')
+                $setup->getInjector()->getInstance('Turba_Shares')
             )
         );
         $GLOBALS['cfgSources']['test']['type'] = 'Kolab';
