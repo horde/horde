@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-16</date>
- <time>23:14:53</time>
+ <date>2013-04-19</date>
+ <time>18:50:48</time>
  <version>
   <release>2.3.6</release>
   <api>2.3.0</api>
@@ -1296,7 +1296,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-16</date>
+   <date>2013-04-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix returning message property values when the value is defined, but empty (Bug #12197).
