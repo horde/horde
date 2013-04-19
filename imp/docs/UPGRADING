@@ -129,6 +129,9 @@ MIME Viewer Options (mime_drivers.php)
 
 Thumbnails can now be disabled for images and PDF attachments.
 
+Thumbnails are now automatically generated for video attachments if the ffmpeg
+binary is present on your system.  This is enabled by default.
+
 
 Permissions
 -----------
