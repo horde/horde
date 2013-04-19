@@ -185,7 +185,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
 
     static private function _createShare($name, $owner)
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $share = $turba_shares->newShare(
             $owner, strval(new Horde_Support_Randomid()), $name
         );
