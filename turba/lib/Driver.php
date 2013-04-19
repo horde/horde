@@ -2507,7 +2507,7 @@ class Turba_Driver implements Countable
                 // string since we can't assure what delimter the user will
                 // use and (at least in some languages) a comma can be used
                 // within a full name.
-                $message->children = array($value);
+                $message->children = $value;
                 break;
 
             case 'notes':
