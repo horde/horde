@@ -2626,6 +2626,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     protected function _getMaillogChanges(Horde_ActiveSync_Folder_Imap $folder, $ts)
     {
+        if ($ts == 0) {
+            // For initial sync we don't need to poll for these changes since
+            // when we send the new message, we poll the maillog for last verb
+            // anyway.
+            return $folder;
+        }
+
         $changes = $this->_connector->mail_getMaillogChanges($ts);
         $flags = array();
         $s_changes = array();
