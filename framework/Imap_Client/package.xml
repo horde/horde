@@ -333,9 +333,6 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
-    <name>imap</name>
-   </extension>
-   <extension>
     <name>json</name>
    </extension>
    <extension>
