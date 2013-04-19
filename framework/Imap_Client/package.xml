@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-28</date>
- <time>17:27:04</time>
+ <date>2013-04-18</date>
+ <time>20:57:59</time>
  <version>
   <release>2.8.2</release>
   <api>2.8.0</api>
@@ -1597,7 +1597,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-28</date>
+   <date>2013-04-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Correctly parse message/rfc822 BODYSTRUCTURE responses if the server does not provide any envelope information (Bug #12190).
