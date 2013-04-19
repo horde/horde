@@ -20,6 +20,7 @@ class Horde_Icalendar_ExportTest extends Horde_Test_Case
         $event->setAttribute('DTSTART', array('year' => 2008, 'month' => 1, 'mday' => 1), array('VALUE' => 'DATE'));
         $event->setAttribute('DTSTAMP', array('year' => 2008, 'month' => 1, 'mday' => 1), array('VALUE' => 'DATE'));
         $event->setAttribute('DESCRIPTION', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam sollicitudin faucibus mauris amet.');
+        $event->setAttribute('BINARY', base64_encode('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam sollicitudin faucibus mauris amet.'), array('ENCODING' => 'b'));
         $ical->addComponent($event);
         $this->assertStringEqualsFile(
             __DIR__ . '/fixtures/line-folding-1.ics',
