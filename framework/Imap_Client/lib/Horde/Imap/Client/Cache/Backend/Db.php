@@ -185,9 +185,17 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
             if ($res = $this->_db->selectAssoc($query[0], $query[1])) {
                 $columns = $this->_db->columns(self::MD_TABLE);
                 foreach ($res as $key => $val) {
-                    $res[$key] = @unserialize(
-                        $columns['data']->binaryToString($val)
-                    );
+                    switch ($key) {
+                    case 'uidvalid':
+                        $res[$key] = $columns['data']->binaryToString($val);
+                        break;
+
+                    default:
+                        $res[$key] = @unserialize(
+                            $columns['data']->binaryToString($val)
+                        );
+                        break;
+                    }
                 }
 
                 if (is_null($uidvalid) ||
@@ -221,7 +229,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
         }
 
         foreach ($data as $key => $val) {
-            $val = new Horde_Db_Value_Binary(serialize($val));
+            $val = new Horde_Db_Value_Binary(($key == 'uidvalid') ? $val : serialize($val));
 
             if (in_array($key, $fields)) {
                 /* Update */
