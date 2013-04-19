@@ -18,12 +18,14 @@ class Turba_Unit_DriverTest extends Turba_TestCase
     {
         self::createBasicTurbaSetup(new Horde_Test_Setup());
         parent::setUpBeforeClass();
+        setlocale(LC_MESSAGES, 'C');
     }
 
     public static function tearDownAfterClass()
     {
         self::tearDownBasicTurbaSetup();
         parent::tearDownAfterClass();
+        setlocale(LC_MESSAGES, null);
     }
 
     public function setUp()
@@ -94,7 +96,7 @@ N;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:Schneider=C3=B6;Jan;K.;Mr.;
 ORG;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:Horde Project;=C3=A4=C3=B6=C3=BC
 ADR;HOME;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:;;Sch=C3=B6nestr. 15=0D=0A=
  33604 Bielefeld;;;;
-ADR;WORK;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:;;H=C3=BCbschestr. 19;K=C3=B6ln;Allg=C3=A4u;;D=C3=A4nemark
+ADR;WORK;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:;;H=C3=BCbschestr. 19;K=C3=B6ln;Allg=C3=A4u;;Denmark
 END:VCARD
 ',
             $vcard->exportvCalendar());
@@ -129,7 +131,7 @@ PHOTO;ENCODING=b;TYPE=image/png:iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6
 N:Schneiderö;Jan;K.;Mr.;
 ORG:Horde Project;äöü
 ADR;TYPE=HOME:;;Schönestr. 15\n33604 Bielefeld;;;;
-ADR;TYPE=WORK:;;Hübschestr. 19;Köln;Allgäu;;Dänemark
+ADR;TYPE=WORK:;;Hübschestr. 19;Köln;Allgäu;;Denmark
 END:VCARD
 ',
             $vcard->exportvCalendar());
@@ -173,7 +175,7 @@ N:Schneiderö;Jan;K.;Mr.;
 FN:Mr. Jan K. Schneiderö
 ORG:Horde Project;äöü
 ADR;TYPE=HOME:;;Schönestr. 15\n33604 Bielefeld;;;;
-ADR;TYPE=WORK:;;Hübschestr. 19;Köln;Allgäu;;Dänemark
+ADR;TYPE=WORK:;;Hübschestr. 19;Köln;Allgäu;;Denmark
 END:VCARD
 ',
             $vcard->exportvCalendar());
