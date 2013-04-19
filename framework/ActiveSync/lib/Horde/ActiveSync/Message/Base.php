@@ -494,7 +494,8 @@ class Horde_ActiveSync_Message_Base
      */
     protected function _getAttribute($name, $default = null)
     {
-        if (!empty($this->_properties[$name])) {
+        if ((!is_array($this->_properties[$name]) && $this->_properties[$name] !== false) ||
+            (is_array($this->_properties[$name]) && !empty($this->_properties[$name]))) {
             return $this->_properties[$name];
         } else {
             return $default;
