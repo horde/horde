@@ -334,8 +334,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     '[%s] Refreshing %s from the cache.',
                     $this->_procid, $id));
                 $this->_collections[$id] = $collections[$id];
-            } else {
-                unset($this->_collections[$id]);
             }
         }
     }
