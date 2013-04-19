@@ -182,12 +182,20 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
         }
 
         try {
-            $res = $this->_db->selectAssoc($query[0], $query[1]);
-            if (count($res)) {
-                if (!isset($res['uidvalid']) ||
+            if ($res = $this->_db->selectAssoc($query[0], $query[1])) {
+                $columns = $this->_db->columns(self::MD_TABLE);
+                foreach ($res as $key => $val) {
+                    $res[$key] = @unserialize(
+                        $columns['data']->binaryToString($val)
+                    );
+                }
+
+                if (is_null($uidvalid) ||
+                    !isset($res['uidvalid']) ||
                     ($res['uidvalid'] == $uidvalid)) {
                     return $res;
                 }
+
                 $this->deleteMailbox($mailbox);
             }
         } catch (Horde_Db_Exception $e) {}
@@ -213,6 +221,8 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
         }
 
         foreach ($data as $key => $val) {
+            $val = new Horde_Db_Value_Binary(serialize($val));
+
             if (in_array($key, $fields)) {
                 /* Update */
                 try {
