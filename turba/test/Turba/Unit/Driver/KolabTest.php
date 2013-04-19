@@ -45,6 +45,6 @@ class Turba_Unit_Driver_KolabTest extends Turba_Unit_Driver_Base
 
     public function setUp()
     {
-        $this->markTestSkipped("No query of type 'Share' registered!");
+        $this->markTestIncomplete("No query of type 'Share' registered!");
     }
 }
