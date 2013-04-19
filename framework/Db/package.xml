@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Use LONGBLOB columns in MySQL when creating binary fields (l.kiraly@madalbal.hu, Bug #12195).
 * [jan] Fix updating existing rows with default values when adding columns in PostgreSQL (Bug #12101).
  </notes>
  <contents>
@@ -674,6 +675,7 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Use LONGBLOB columns in MySQL when creating binary fields (l.kiraly@madalbal.hu, Bug #12195).
 * [jan] Fix updating existing rows with default values when adding columns in PostgreSQL (Bug #12101).
    </notes>
   </release>
