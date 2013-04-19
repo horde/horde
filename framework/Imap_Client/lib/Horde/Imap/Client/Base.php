@@ -3852,11 +3852,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Updates metadata for a mailbox.
      *
-     * @param Horde_Imap_Client_Mailbox $mailbox    Mailbox to update.
-     * @param string $data                          The data to update.
-     * @param integer $uidvalid                     UIDVALIDITY of the
-     *                                              mailbox. If not set, do a
-     *                                              status() call to grab.
+     * @param Horde_Imap_Client_Mailbox $mailbox  Mailbox to update.
+     * @param array $data                         The data to update.
+     * @param integer $uidvalid                   UIDVALIDITY of the mailbox.
+     *                                            If not set, do a status()
+     *                                            call to grab.
      */
     protected function _updateMetaData(Horde_Imap_Client_Mailbox $mailbox,
                                        $data, $uidvalid = null)
