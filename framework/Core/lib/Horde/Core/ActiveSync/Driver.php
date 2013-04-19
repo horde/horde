@@ -609,9 +609,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             if ($ping) {
                 try {
-                    $ping_res = $this->_imap->ping(
-                        $folder,
-                        array('sincedate' => (int)$cutoffdate));
+                    $ping_res = $this->_imap->ping($folder);
                     if ($ping_res) {
                         $changes['add'] = array(1);
                     }
