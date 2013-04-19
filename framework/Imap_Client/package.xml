@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-04-18</date>
- <time>21:06:40</time>
+ <time>22:25:07</time>
  <version>
   <release>2.9.0</release>
   <api>2.9.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add a Horde_Db based backend for storing cached IMAP/POP data.
 * [mms] Abstract the backend storage into a separate driver for the Horde_Imap_Client_Cache class.
  </notes>
  <contents>
@@ -200,6 +201,10 @@
     <dir name="Horde">
      <dir name="Imap">
       <dir name="Client">
+       <dir name="Cache">
+        <file name="CacheTest.php" role="test" />
+        <file name="DbTest.php" role="test" />
+       </dir> <!-- /test/Horde/Imap/Client/Cache -->
        <dir name="fixtures">
         <file name="bug_10503.txt" role="test" />
         <file name="remote1.txt" role="test" />
@@ -216,7 +221,6 @@
        <file name="AllTests.php" role="test" />
        <file name="AuthTest.php" role="test" />
        <file name="bootstrap.php" role="test" />
-       <file name="CacheDbTest.php" role="test" />
        <file name="conf.php.dist" role="test" />
        <file name="DataFormatTest.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
@@ -427,7 +431,6 @@
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
    <install as="Horde/Imap/Client/bootstrap.php" name="test/Horde/Imap/Client/bootstrap.php" />
-   <install as="Horde/Imap/Client/CacheDbTest.php" name="test/Horde/Imap/Client/CacheDbTest.php" />
    <install as="Horde/Imap/Client/conf.php.dist" name="test/Horde/Imap/Client/conf.php.dist" />
    <install as="Horde/Imap/Client/DataFormatTest.php" name="test/Horde/Imap/Client/DataFormatTest.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
@@ -443,6 +446,8 @@
    <install as="Horde/Imap/Client/TokenizeTest.php" name="test/Horde/Imap/Client/TokenizeTest.php" />
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
+   <install as="Horde/Imap/Client/Cache/CacheTest.php" name="test/Horde/Imap/Client/Cache/CacheTest.php" />
+   <install as="Horde/Imap/Client/Cache/DbTest.php" name="test/Horde/Imap/Client/Cache/DbTest.php" />
    <install as="Horde/Imap/Client/fixtures/bug_10503.txt" name="test/Horde/Imap/Client/fixtures/bug_10503.txt" />
    <install as="Horde/Imap/Client/fixtures/remote1.txt" name="test/Horde/Imap/Client/fixtures/remote1.txt" />
    <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />
@@ -1651,6 +1656,7 @@
    <date>2013-04-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add a Horde_Db based backend for storing cached IMAP/POP data.
 * [mms] Abstract the backend storage into a separate driver for the Horde_Imap_Client_Cache class.
    </notes>
   </release>
