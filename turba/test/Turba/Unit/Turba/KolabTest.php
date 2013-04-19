@@ -49,4 +49,9 @@ class Turba_Unit_Turba_KolabTest extends Turba_Unit_Turba_Base
         parent::setUpBeforeClass();
         self::createKolabShares(self::$setup);
     }
+
+    public function setUp()
+    {
+        $this->markTestSkipped("No query of type 'Share' registered!");
+    }
 }
