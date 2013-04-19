@@ -28,8 +28,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-04-08</date>
- <time>16:40:20</time>
+ <date>2013-04-19</date>
+ <time>18:55:18</time>
  <version>
   <release>4.1.0beta1</release>
   <api>4.0.0</api>
@@ -448,6 +448,7 @@
     <file name="5_turba_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="6_turba_upgrade_updateschema.php" role="horde" />
     <file name="7_turba_upgrade_activesyncschema.php" role="horde" />
+    <file name="8_turba_fix_blob_length.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="ldap">
@@ -548,7 +549,7 @@
        <file name="Base.php" role="test" />
        <file name="KolabTest.php" role="test" />
       </dir> <!-- /test/Turba/Unit/Turba -->
-      <file name="DriverTest.php" role="test" />
+      <file name="ExportTest.php" role="test" />
      </dir> <!-- /test/Turba/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -1004,6 +1005,7 @@
    <install as="turba/migration/5_turba_upgrade_sqlnghierarchical.php" name="migration/5_turba_upgrade_sqlnghierarchical.php" />
    <install as="turba/migration/6_turba_upgrade_updateschema.php" name="migration/6_turba_upgrade_updateschema.php" />
    <install as="turba/migration/7_turba_upgrade_activesyncschema.php" name="migration/7_turba_upgrade_activesyncschema.php" />
+   <install as="turba/migration/8_turba_fix_blob_length.php" name="migration/8_turba_fix_blob_length.php" />
    <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
@@ -1057,7 +1059,7 @@
    <install as="Turba/ToDo/tohash.phpt" name="test/Turba/ToDo/tohash.phpt" />
    <install as="Turba/ToDo/ViewBrowseTest.php" name="test/Turba/ToDo/ViewBrowseTest.php" />
    <install as="Turba/ToDo/ViewListTest.php" name="test/Turba/ToDo/ViewListTest.php" />
-   <install as="Turba/Unit/DriverTest.php" name="test/Turba/Unit/DriverTest.php" />
+   <install as="Turba/Unit/ExportTest.php" name="test/Turba/Unit/ExportTest.php" />
    <install as="Turba/Unit/Driver/Base.php" name="test/Turba/Unit/Driver/Base.php" />
    <install as="Turba/Unit/Driver/KolabTest.php" name="test/Turba/Unit/Driver/KolabTest.php" />
    <install as="Turba/Unit/Driver/Sql/Base.php" name="test/Turba/Unit/Driver/Sql/Base.php" />
@@ -1589,7 +1591,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-04-08</date>
+   <date>2013-04-19</date>
    <time>00:20:30</time>
    <version>
     <release>4.1.0beta1</release>
