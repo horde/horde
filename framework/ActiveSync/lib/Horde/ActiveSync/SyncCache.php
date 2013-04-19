@@ -543,6 +543,10 @@ class Horde_ActiveSync_SyncCache
 
                 unset($this->_data['collections'][$values['id']]['synckey']);
             }
+
+            if (!isset($values['pingable']) && isset($this->_data['collections'][$values['id']]['pingable'])) {
+                $collections[$key]['pingable'] = $this->_data['collections'][$values['id']]['pingable'];
+            }
         }
     }
 
