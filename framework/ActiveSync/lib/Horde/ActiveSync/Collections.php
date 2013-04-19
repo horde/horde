@@ -242,11 +242,25 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     /**
      * Add a new populated collection array to this collection.
      *
-     * @param array $collection  The collection array.
+     * @param array $collection        The collection array.
+     * @param boolean $requireSyncKey  Attempt to read missing synckey from
+     *                                 cache if true. If not found, set to 0.
      */
-    public function addCollection($collection)
+    public function addCollection($collection, $requireSyncKey = false)
     {
-        // @TODO: Some sanity checking on synckey or id?
+        $this->_logger->debug(sprintf(
+            '[%s] Collection added to collection handler: collection: %s, synckey: %s.',
+            $this->_procid,
+            $collection['id'],
+            !empty($collection['synckey']) ? $collection['synckey'] : 'NONE'));
+
+        if ($requireSyncKey && empty($collection['synckey'])) {
+            $cached_collections = $this->_cache->getCollections(false);
+            $collection['synckey'] = !empty($cached_collections[$collection['id']])
+                ? $cached_collections[$collection['id']]['lastsynckey']
+                : 0;
+        }
+
         $this->_collections[$collection['id']] = $collection;
     }
 
