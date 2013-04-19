@@ -267,6 +267,66 @@ END:VCARD
             ),
             $this->toHash($vcard)
         );
+
+        $vcard =
+'BEGIN:VCARD
+VERSION:2.1
+N:Mustermann;Maximilian
+FN;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:Maximilian Mustermann
+NICKNAME:
+TEL;HOME;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:+49 123 28799666
+TEL;WORK;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:+49 123 28799626
+TEL;CELL;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:+49 123 28799666
+TEL;PAGER;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:+49 123 28799666
+TEL;FAX;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:+49 123 1234564
+EMAIL;INTERNET:
+EMAIL;INTERNET;HOME:
+EMAIL;INTERNET;HOME;X-FUNAMBOL-INSTANTMESSENGER:
+ADR;HOME;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:;;Carl-Bantzer-Str. 99;Foobar;Sachsen;01234;
+URL;HOME:
+ADR;WORK:;;;;;;
+ADR:;
+ORG:;
+TITLE:
+URL;WORK:
+BDAY:
+NOTE:
+END:VCARD
+';
+
+        $this->assertEquals(
+            array(
+                'lastname' => 'Mustermann',
+                'firstname' => 'Maximilian',
+                'name' => 'Maximilian Mustermann',
+                'homePhone' => '+49 123 28799666',
+                'workPhone' => '+49 123 28799626',
+                'cellPhone' => '+49 123 28799666',
+                'pager' => '+49 123 28799666',
+                'fax' => '+49 123 1234564',
+                'nickname' => '',
+                'alias' => '',
+                'email' => null,
+                'emails' => null,
+                'homeEmail' => null,
+                'homeAddress' => 'Carl-Bantzer-Str. 99
+Foobar, Sachsen 01234',
+                'homeStreet' => 'Carl-Bantzer-Str. 99',
+                'homeCity' => 'Foobar',
+                'homeProvince' => 'Sachsen',
+                'homePostalCode' => '01234',
+                'homeWebsite' => '',
+                'workAddress' => '',
+                'commonAddress' => '',
+                'company' => '',
+                'department' => '',
+                'title' => '',
+                'workWebsite' => '',
+                'birthday' => '',
+                'notes' => '',
+            ),
+            $this->toHash($vcard)
+        );
     }
 
     public function testImportAddress()
