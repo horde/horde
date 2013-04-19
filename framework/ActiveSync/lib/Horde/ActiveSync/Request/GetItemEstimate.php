@@ -180,7 +180,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             // Build the collection array
             $collection = array();
             $collection['synckey'] = $synckey;
-            $collection['filtertype'] = $filtertype;
+            $collection['filtertype'] = !empty($filtertype) ? $filtertype : false;
             $collection['id'] = $collectionid;
             $collection['conversationmode'] = isset($conversationmode) ? $conversationmode : false;
             $status[$collection['id']] = $cStatus;
