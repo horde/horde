@@ -297,7 +297,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
         }
 
         return array(
-            $sql . ' WHERE d.hostspec = ? AND d.port = ? AND d.user = ? AND d.mailbox = ?',
+            $sql . ' WHERE d.hostspec = ? AND d.port = ? AND d.username = ? AND d.mailbox = ?',
             array(
                 $this->_params['hostspec'],
                 $this->_params['port'],
@@ -333,7 +333,7 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
     {
         return $this->_db->insert(
             sprintf(
-                'INSERT INTO %s (hostspec, mailbox, port, user) ' .
+                'INSERT INTO %s (hostspec, mailbox, port, username) ' .
                     'VALUES (?, ?, ?, ?)',
                 self::BASE_TABLE
             ),

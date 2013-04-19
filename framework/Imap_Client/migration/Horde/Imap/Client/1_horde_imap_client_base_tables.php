@@ -44,7 +44,7 @@ class HordeImapClientBaseTables extends Horde_Db_Migration_Base
         $t->column('port', 'integer', array(
             'null' => false
         ));
-        $t->column('user', 'string', array(
+        $t->column('username', 'string', array(
             'limit' => 255,
             'null' => false
         ));
@@ -52,7 +52,7 @@ class HordeImapClientBaseTables extends Horde_Db_Migration_Base
 
         $this->addIndex(
             'horde_imap_client_data',
-            array('hostspec', 'mailbox', 'port', 'user')
+            array('hostspec', 'mailbox', 'port', 'username')
         );
 
         $t = $this->createTable('horde_imap_client_message', array(
