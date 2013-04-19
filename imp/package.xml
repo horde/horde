@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add support for using Horde_Db as the storage backend for IMAP/POP caching.
 * [mms] Add thumbnail generation for video attachments.
 * [mms] Convert Data URLs in a reply message into attachments so that compose attachment limits can be enforced (Bug #12167).
 * [mms] Allow attachments to be dragged/dropped from local filesystem on the dynamic compose page.
@@ -1253,7 +1254,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>2.8.0</min>
+    <min>2.9.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3142,6 +3143,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add support for using Horde_Db as the storage backend for IMAP/POP caching.
 * [mms] Add thumbnail generation for video attachments.
 * [mms] Convert Data URLs in a reply message into attachments so that compose attachment limits can be enforced (Bug #12167).
 * [mms] Allow attachments to be dragged/dropped from local filesystem on the dynamic compose page.

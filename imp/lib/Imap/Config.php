@@ -192,24 +192,30 @@ class IMP_Imap_Config implements Serializable
             break;
 
         case 'cache_params':
-            $ob = ($c = $this->cache)
-                ? $injector->getInstance('Horde_Cache')
-                : null;
-
-            if (!$ob) {
-                $ob = new Horde_Cache(new Horde_Cache_Storage_Mock(), array(
-                    'compress' => true
+            if ($c = $this->cache) {
+                if ($c instanceof Horde_Imap_Client_Cache_Backend) {
+                    $ob = $c;
+                } elseif (strcasecmp($c, 'db') === 0) {
+                    $ob = new Horde_Imap_Client_Cache_Backend_Db(array(
+                        'db' => $injector->getInstance('Horde_Db_Adapter')
+                    ));
+                } else {
+                    /* TODO: For IMP 6.x BC, treat everything else as the
+                     * 'cache' option. */
+                    $ob = new Horde_Imap_Client_Cache_Backend_Cache(array(
+                        'cacheob' => $injector->getInstance('Horde_Cache')
+                    ));
+                }
+            } else {
+                $ob = new Horde_Imap_Client_Cache_Backend_Cache(array(
+                    'cacheob' => new Horde_Cache(new Horde_Cache_Storage_Mock(), array(
+                        'compress' => true
+                    ))
                 ));
             }
 
-            if (!is_array($c)) {
-                $c = array();
-            }
-
             $out = array(
-                'cacheob' => $ob,
-                'lifetime' => empty($c['lifetime']) ? false : $c['lifetime'],
-                'slicesize' => empty($c['slicesize']) ? false : $c['slicesize']
+                'backend' => $ob,
             );
             break;
 

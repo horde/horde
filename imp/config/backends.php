@@ -83,22 +83,23 @@
  *
  *   set 'maildomain' to 'example.com'.
  *
- * cache: (mixed) Enables caching for the server. This requires configuration
- *   of a Horde_Cache driver in Horde. Will be disabled on any empty value and
- *   enabled on any non-false value.
+ * cache: (mixed) Enables IMAP caching for the server.
  *
- *   Caching is HIGHLY RECOMMENDED. There is no reason not to cache if the
- *   IMAP server supports the CONDSTORE and/or QRESYNC IMAP extensions. If the
- *   server does not support these extensions, and caching is enabled, any
- *   flags changed by another mail agent while the IMP session is active will
- *   not be updated. If IMP will be the exclusive method of accessing the IMAP
- *   server, or you do not care about this behavior, caching should also be
- *   enabled on these servers.
+ *   Caching is HIGHLY RECOMMENDED. (Do note that if your IMAP server does not
+ *   support the CONDSTORE and/or QRESYNC IMAP extensions, flags changed by
+ *   another mail agent while the IMP session is active will not be updated.)
  *
- *   The following optional parameters are available:
- *     - lifetime: (integer) The lifetime, in seconds, of the cached data.
- *     - slicesize: (integer) The number of messages stored in each cache
- *                    slice (the default should be fine for most users).
+ *   The following values are recognized:
+ *     - false: Caching is disabled (DEFAULT)
+ *     - true: Caching is enabled using the Horde cache (configured in
+ *           horde/config/conf.xml). (This option is DEPRECATED; use one of
+ *           the below options instead.)
+ *     - 'cache': Caching is enabled using the Horde cache (configured in
+ *           horde/config/conf.xml).
+ *     - 'db': Caching is enabled using the Horde database (configured in
+ *           horde/config/conf.xml).
+ *     - Horde_Imap_Client_Cache_Backend object: Directly configure the
+ *           caching backend to use. For advanced users only.
  *
  * quota: (array) Use this if you want to display a user's quota status. Set
  *   to an empty value to disable quota status (DEFAULT).

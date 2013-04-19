@@ -42,6 +42,9 @@ behavior (NOT RECOMMENDED), see the 'sort_force' option in
 
 The 'debug' option has been added to the SMTP configuration.
 
+IMAP/POP caching can now be done using a database backend (see documentation
+for the 'cache' parameter).
+
 
 Configuration Options (conf.php)
 --------------------------------
