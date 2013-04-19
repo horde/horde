@@ -927,7 +927,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends Horde_Test_Case
         $this->_conn->changeColumn('text_to_binary', 'data', 'binary');
 
         $afterChange = $this->_getColumn('text_to_binary', 'data');
-        $this->assertEquals('blob', $afterChange->getSqlType());
+        $this->assertEquals('longblob', $afterChange->getSqlType());
         $this->assertEquals(
             "foo\0bar",
             $this->_conn->selectValue('SELECT data FROM text_to_binary'));
@@ -1181,7 +1181,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends Horde_Test_Case
     public function testTypeToSqlTypeBinary()
     {
         $result = $this->_conn->typeToSql('binary');
-        $this->assertEquals('blob', $result);
+        $this->assertEquals('longblob', $result);
     }
 
     public function testTypeToSqlTypeFloat()
