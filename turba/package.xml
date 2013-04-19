@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2013-04-19</date>
- <time>18:55:18</time>
+ <time>21:26:19</time>
  <version>
   <release>4.1.0beta1</release>
   <api>4.0.0</api>
@@ -524,7 +524,6 @@
       <file name="ListTest.php" role="test" />
       <file name="ListViewTest.php" role="test" />
       <file name="TestBase.php" role="test" />
-      <file name="tohash.phpt" role="test" />
       <file name="ViewBrowseTest.php" role="test" />
       <file name="ViewListTest.php" role="test" />
      </dir> <!-- /test/Turba/ToDo -->
@@ -550,6 +549,7 @@
        <file name="KolabTest.php" role="test" />
       </dir> <!-- /test/Turba/Unit/Turba -->
       <file name="ExportTest.php" role="test" />
+      <file name="ImportTest.php" role="test" />
      </dir> <!-- /test/Turba/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -1056,10 +1056,10 @@
    <install as="Turba/ToDo/ListTest.php" name="test/Turba/ToDo/ListTest.php" />
    <install as="Turba/ToDo/ListViewTest.php" name="test/Turba/ToDo/ListViewTest.php" />
    <install as="Turba/ToDo/TestBase.php" name="test/Turba/ToDo/TestBase.php" />
-   <install as="Turba/ToDo/tohash.phpt" name="test/Turba/ToDo/tohash.phpt" />
    <install as="Turba/ToDo/ViewBrowseTest.php" name="test/Turba/ToDo/ViewBrowseTest.php" />
    <install as="Turba/ToDo/ViewListTest.php" name="test/Turba/ToDo/ViewListTest.php" />
    <install as="Turba/Unit/ExportTest.php" name="test/Turba/Unit/ExportTest.php" />
+   <install as="Turba/Unit/ImportTest.php" name="test/Turba/Unit/ImportTest.php" />
    <install as="Turba/Unit/Driver/Base.php" name="test/Turba/Unit/Driver/Base.php" />
    <install as="Turba/Unit/Driver/KolabTest.php" name="test/Turba/Unit/Driver/KolabTest.php" />
    <install as="Turba/Unit/Driver/Sql/Base.php" name="test/Turba/Unit/Driver/Sql/Base.php" />
