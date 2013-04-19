@@ -50,7 +50,8 @@ class Horde_ActiveSync_CacheTest extends Horde_Test_Case
     public function testReturnCollections()
     {
         $cache = new Horde_ActiveSync_SyncCache($this->_state, 'devid', 'userone');
-        $collections = $cache->getCollections();
+        // @TODO: Need a new collection cache fixture with lastsynckey.
+        $collections = $cache->getCollections(false);
         $this->assertEquals('Calendar', $collections['@Calendar@']['class']);
     }
 
