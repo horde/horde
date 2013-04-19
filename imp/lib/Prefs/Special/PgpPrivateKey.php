@@ -149,7 +149,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                         $email[0]->bare_address,
                         $ui->vars->generate_passphrase1,
                         $ui->vars->generate_comment,
-                        $conf['pgp']['keylength'],
+                        intval($conf['pgp']['keylength']),
                         $expire_date
                     );
                     $notification->push(_("Personal PGP keypair generated successfully."), 'horde.success');
