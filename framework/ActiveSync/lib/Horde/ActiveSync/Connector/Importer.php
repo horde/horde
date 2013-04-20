@@ -156,11 +156,14 @@ class Horde_ActiveSync_Connector_Importer
             );
             return false;
         }
+
         $stat['parent'] = $this->_folderId;
 
         // Record the state of the message
         $this->_state->updateState(
-            Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+            ($message instanceof Horde_ActiveSync_Message_Mail
+                ? Horde_ActiveSync::CHANGE_TYPE_FLAGS
+                : Horde_ActiveSync::CHANGE_TYPE_CHANGE),
             $stat,
             Horde_ActiveSync::CHANGE_ORIGIN_PIM,
             $this->_backend->getUser(),

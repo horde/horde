@@ -789,7 +789,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_procid));
         }
 
-        // Sanity checking, synccahe etc..
+        // Sanity checking, syncCache etc..
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
             !isset($collection['class']) && isset($collection['id'])) {
 
@@ -898,15 +898,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
                 case Horde_ActiveSync::SYNC_MODIFY:
                     if (isset($appdata)) {
-                        // Currently, 'read' is only sent by the PDA when it
-                        // is ONLY setting the read flag.
-                        if ($appdata->propertyExists('read') && $appdata->read !== false) {
-                            $importer->importMessageReadFlag(
-                                $serverid, $appdata->read, $this->_device->id);
-                        } else {
-                            $importer->importMessageChange(
-                                $serverid, $appdata, $this->_device, false);
-                        }
+                        $importer->importMessageChange(
+                            $serverid, $appdata, $this->_device, false);
                         $collection['importedchanges'] = true;
                     }
                     break;

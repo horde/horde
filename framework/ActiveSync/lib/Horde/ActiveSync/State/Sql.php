@@ -416,6 +416,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $user = null, $clientid = '')
     {
         $this->_logger->debug(sprintf('[%s] Updating state during %s', $this->_procid, $type));
+
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
             if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
                 foreach ($this->_folder as $fi => $state) {
@@ -449,7 +450,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                             . ' sync_folderid, sync_user, sync_read)'
                             . ' VALUES (?, ?, ?, ?, ?, ?)';
                         $flag_value = !empty($change['flags']['read']);
-                    } elseif (isset($change['flags']['flagged'])) {
+                    } else {
                         $sql = 'INSERT INTO ' . $this->_syncMailMapTable
                             . ' (message_uid, sync_key, sync_devid,'
                             . ' sync_folderid, sync_user, sync_flagged)'

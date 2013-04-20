@@ -504,6 +504,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param string $folderid  The folder id containing the message.
      * @param integer $uid      The message IMAP UID.
      * @param integer $flag     The value to set the flag to.
+     * @deprecated Will be removed in 3.0, use changeMessage() instead.
      */
     abstract public function setReadFlag($folderid, $uid, $flag);
 

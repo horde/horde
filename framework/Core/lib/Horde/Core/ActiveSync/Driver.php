@@ -1209,10 +1209,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
 
         default:
-            // Email?
             if ($message instanceof Horde_ActiveSync_Message_Mail) {
-                $this->_imap->setMessageFlag($folderid, $id, $message->flag);
-                $stat = array('id' => $id, 'flags' => array('flagged' => $message->flag->flagstatus), 'mod' => 0);
+                $stat = array(
+                    'id' => $id,
+                    'mod' => 0,
+                    'parent' => $folderid,
+                    'flags' => array()
+                );
+                if ($message->read !== false) {
+                    $this->setReadFlag($folderid, $id, $message->read);
+                    $stat['flags'] = array_merge($stat['flags'], array('read' => $message->read));
+                } elseif ($message->propertyExists('flag')) {
+                    if (!$message->flag) {
+                        $message->flag = Horde_ActiveSync::messageFactory('Flag');
+                    }
+                    $this->_imap->setMessageFlag($folderid, $id, $message->flag);
+                    $stat['flags'] = array_merge($stat['flags'], array('flagged' => $message->flag->flagstatus));
+                }
             } else {
                 $this->_endBuffer();
                 return false;
@@ -1585,6 +1598,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param string $folderId  The folder id containing the message.
      * @param string $id        The message uid.
      * @param integer $flags    The value to set the flag to.
+     *
+     * @deprecated Will be removed in Horde 6. Here for BC with
+     *             Horde_ActiveSync 2.4
      */
     public function setReadFlag($folderId, $id, $flags)
     {
