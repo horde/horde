@@ -253,7 +253,7 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
      */
     public function setMetaData($mailbox, $data)
     {
-        $this->_loadSliceMap($mailbox, $data['uidvalid']);
+        $this->_loadSliceMap($mailbox, isset($data['uidvalid']) ? $data['uidvalid'] : null);
         $this->_slicemap[$mailbox]['d'] = array_merge($this->_slicemap[$mailbox]['d'], $data);
         $this->_toUpdate($mailbox, 'slicemap', true);
     }

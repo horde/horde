@@ -98,7 +98,8 @@ abstract class Horde_Imap_Client_Cache_Backend
      * @param string $mailbox    An IMAP mailbox string.
      * @param array $data        The list of data to save. The keys are the
      *                           metadata IDs, the values are the associated
-     *                           data.
+     *                           data. (If present, uidvalidity appears as
+     *                           the 'uidvalid' key in $data.)
      */
     abstract public function setMetaData($mailbox, $data);
 
