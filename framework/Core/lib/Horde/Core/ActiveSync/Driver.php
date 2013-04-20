@@ -673,7 +673,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
         }
 
-        // Server changes
         // For CLASS_EMAIL, all changes are a change in flags.
         if ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL) {
             $flags = $folder->flags();
@@ -1079,13 +1078,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Add/Edit a message
      *
-     * @param string $folderid  The server id for the folder the message belongs
-     *                          to.
+     * @param string $folderid  The server id of the message's folder.
      * @param string $id        The server's uid for the message if this is a
-     *                          change to an existing message, null if new.
-     * @param Horde_ActiveSync_Message_Base $message
-     *                          The activesync message
-     * @param stdClass $device  The device information
+     *                          change to an existing message, false if new.
+     * @param Horde_ActiveSync_Message_Base $message The activesync message.
+     * @param Horde_ActiveSync_Device $device        The device information
+     *        @since 2.5.0
      *
      * @return array|boolean    A stat array if successful, otherwise false.
      */

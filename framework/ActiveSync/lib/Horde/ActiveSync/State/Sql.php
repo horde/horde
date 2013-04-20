@@ -437,9 +437,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             // don't mirror it back to device.
             switch ($this->_collection['class']) {
             case Horde_ActiveSync::CLASS_EMAIL:
-                // the 'flagged' flag is imported as a CHANGE, not as a FLAG
                 if ($type == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
-                    isset($change['flags']['flagged'])) {
+                    isset($change['flags']) && is_array($change['flags']) &&
+                    !empty($change['flags'])) {
                     $type = Horde_ActiveSync::CHANGE_TYPE_FLAGS;
                 }
                 if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {

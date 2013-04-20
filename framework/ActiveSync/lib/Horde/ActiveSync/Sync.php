@@ -49,12 +49,12 @@ class Horde_ActiveSync_Sync
      *
      * @var array
      */
-    protected $_changes;
+    protected $_changes = array();
 
     /**
      * Tracks the number of changes that have been sent.
      *
-     * @var int
+     * @var integer
      */
     protected $_step;
 
@@ -80,21 +80,21 @@ class Horde_ActiveSync_Sync
     protected $_backend;
 
     /**
-     * Any flags
-     * ???
-     * @var <type>
+     * Message action flags.
+     *
+     * @var integer
      */
     protected $_flags;
 
     /**
-     * The stateDriver
+     * The state handler.
      *
      * @var Horde_ActiveSynce_State_Base
      */
     protected $_state;
 
     /**
-     * The change streamer
+     * The exporter.
      *
      * @var Horde_ActiveSync_Connector_Exporter
      */
@@ -119,7 +119,7 @@ class Horde_ActiveSync_Sync
      *
      * @param Horde_ActiveSync_Driver_Base $backend  The backend driver.
      * @param Horde_ActiveSync_Device $device        The device object.
-     *                 @since 2.4.0
+     *        @since 2.4.0
      */
     public function __construct(Horde_ActiveSync_Driver_Base $backend, $device)
     {
@@ -170,13 +170,12 @@ class Horde_ActiveSync_Sync
     public function syncronize($flags = 0)
     {
         $progress = array();
-
         if ($this->_folderId == false) {
             if ($this->_step < count($this->_changes)) {
                 $change = $this->_changes[$this->_step];
                 switch($change['type']) {
                 case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
-                    // Get the new folder information
+                    // Folder add/change.
                     if ($folder = $this->_backend->getFolder($change['id'])) {
                         $stat = $this->_backend->statFolder(
                             $change['id'],
@@ -185,23 +184,28 @@ class Horde_ActiveSync_Sync
                         $this->_exporter->folderChange($folder);
                     } else {
                         $this->_logger->err(sprintf(
-                            'Error stating %s : ignoring.',
-                            $change['id']));
+                            '[%s] Error stating %s: ignoring.',
+                            getmypid(), $change['id']));
                         $stat = array('id' => $change['id'], 'mod' => $change['id'], 0);
                     }
+                    // Update the state.
                     $this->_state->updateState(
                         Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $stat);
                     break;
+
                 case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                     $this->_exporter->folderDeletion($change['id']);
                     $this->_state->updateState(
                         Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     break;
                 }
+
+                // Prepare progress struct and return.
                 $this->_step++;
                 $progress = array();
                 $progress['steps'] = count($this->_changes);
                 $progress['progress'] = $this->_step;
+
                 return $progress;
             } else {
                 return false;
@@ -233,15 +237,18 @@ class Horde_ActiveSync_Sync
                             $this->_logger->err('Unknown backend error skipping message: ' . $e->getMessage());
                         }
                         break;
+
                     case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                         $this->_exporter->messageDeletion($change['id']);
                         break;
+
                     case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                        // Handle flag changes separately so we don't have to
-                        // poll the backend for the entire message for no reason.
+                        // Read flag.
                         $message = Horde_ActiveSync::messageFactory('Mail');
                         $message->flags = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
                         $message->read = isset($change['flags']['read']) ? $change['flags']['read'] : false;
+
+                        // "Flagged" flag.
                         if (isset($change['flags']['flagged']) && $this->_device->version >= Horde_ActiveSync::VERSION_TWELVE) {
                             $flag = Horde_ActiveSync::messageFactory('Flag');
                             $flag->flagstatus = $change['flags']['flagged'] == 1
@@ -249,6 +256,8 @@ class Horde_ActiveSync_Sync
                                 : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
                             $message->flag = $flag;
                         }
+
+                        // Verbs
                         if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEEN) {
                             if (isset($change['flags'][Horde_ActiveSync::CHANGE_REPLY_STATE])) {
                                 $message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
@@ -261,19 +270,26 @@ class Horde_ActiveSync_Sync
                                 $message->lastverbexecutiontime = new Horde_Date($change['flags'][Horde_ActiveSync::CHANGE_FORWARD_STATE]);
                             }
                         }
+
+                        // Export it.
                         $this->_exporter->messageChange($change['id'], $message);
                         break;
+
                     case Horde_ActiveSync::CHANGE_TYPE_MOVE:
                         $this->_exporter->messageMove($change['id'], $change['parent']);
                         break;
                     }
                 }
 
+                // Update the state.
                 $this->_state->updateState($change['type'], $change);
+
+                // Prepare the progress struct and return.
                 $this->_step++;
                 $progress = array();
                 $progress['steps'] = count($this->_changes);
                 $progress['progress'] = $this->_step;
+
                 return $progress;
             } else {
                 return false;
