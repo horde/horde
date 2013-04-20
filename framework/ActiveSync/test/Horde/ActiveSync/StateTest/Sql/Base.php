@@ -28,7 +28,7 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
         }
 
         // Add the device, then retreive it.
-        $deviceInfo = new StdClass();
+        $deviceInfo = new Horde_ActiveSync_Device();
         $deviceInfo->rwstatus = 0;
         $deviceInfo->deviceType = 'Test Device';
         $deviceInfo->userAgent = 'Horde Tests';
