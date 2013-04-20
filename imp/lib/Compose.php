@@ -41,9 +41,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     const EDITASNEW = 12;
     const TEMPLATE = 13;
 
-    /* Related part attribute names. */
+    /* Related part attribute name. */
     const RELATED_ATTR = 'imp_related_attr';
-    const RELATED_ATTR_ID = 'imp_related_attr_id';
 
     /* The blockquote tag to use to indicate quoted text in HTML data. */
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
@@ -2300,9 +2299,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                                          DOMElement $node, $attribute)
     {
         $atc_ob->related = true;
-
-        $node->setAttribute(self::RELATED_ATTR, $attribute);
-        $node->setAttribute(self::RELATED_ATTR_ID, $atc_ob->id);
+        $node->setAttribute(self::RELATED_ATTR, $attribute . ';' . $atc_ob->id);
     }
 
     /**
@@ -2515,7 +2512,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         foreach ($html as $node) {
             if (($node instanceof DOMElement) &&
                 $node->hasAttribute(self::RELATED_ATTR)) {
-                $r_atc = $this[$node->getAttribute(self::RELATED_ATTR_ID)];
+                list($attr_name, $atc_id) = explode(';', $node->getAttribute(self::RELATED_ATTR));
+                $r_atc = $this[$atc_id];
 
                 if ($r_atc->linked) {
                     $attr = strval($r_atc->link_url);
@@ -2525,10 +2523,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     $related->addPart($related_part);
                 }
 
-                $node->setAttribute($node->getAttribute(self::RELATED_ATTR), $attr);
-
+                $node->setAttribute($attr_name, $attr);
                 $node->removeAttribute(self::RELATED_ATTR);
-                $node->removeAttribute(self::RELATED_ATTR_ID);
             }
         }
 
