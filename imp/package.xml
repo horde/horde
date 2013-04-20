@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-08</date>
+ <date>2013-04-19</date>
  <version>
   <release>6.1.0beta1</release>
   <api>6.0.0</api>
@@ -1124,15 +1124,6 @@
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="webcenter">
-     <dir name="basic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/webcenter/basic -->
-     <dir name="dynamic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/webcenter/dynamic -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/webcenter -->
     </dir> <!-- /themes -->
    <file name="attachment.php" role="horde" />
    <file name="basic.php" role="horde" />
@@ -2134,10 +2125,7 @@
    <install as="imp/rss.php" name="rss.php" />
    <install as="imp/smartmobile.php" name="smartmobile.php" />
    <install as="imp/view.php" name="view.php" />
-   <install as="imp/themes/webcenter/screen.css" name="themes/webcenter/screen.css" />
-   <install as="imp/themes/webcenter/basic/screen.css" name="themes/webcenter/basic/screen.css" />
-   <install as="imp/themes/webcenter/dynamic/screen.css" name="themes/webcenter/dynamic/screen.css" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -3133,7 +3121,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-04-08</date>
+   <date>2013-04-19</date>
    <version>
     <release>6.1.0beta1</release>
     <api>6.0.0</api>
