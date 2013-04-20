@@ -10,20 +10,17 @@
  * Example configuration file that sets a different server name than localhost
  * for the IMAP server:
  *
- * <code>
  * <?php
  * $servers['imap']['hostspec'] = 'imap.example.com';
- * </code>
  *
  * Example configuration file that enables the advanced IMAP server in favor of
  * the simple server and enables 'hordeauth':
  *
- * <code>
  * <?php
  * $servers['imap']['disabled'] = true;
  * $servers['advanced']['disabled'] = false;
  * $servers['advanced']['hordeauth'] = true;
- * </code>
+ *
  *
  * Properties that can be set for each server:
  * ===========================================
