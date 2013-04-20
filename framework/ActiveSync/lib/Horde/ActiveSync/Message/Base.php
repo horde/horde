@@ -147,7 +147,8 @@ class Horde_ActiveSync_Message_Base
      *
      * @param string $property  Property to get.
      *
-     * @return mixed  The value of the requested property, false if not set.
+     * @return mixed  The value of the requested property.
+     * @todo: Return boolean false if not set. Not BC to change it.
      */
     public function &__get($property)
     {
@@ -155,7 +156,7 @@ class Horde_ActiveSync_Message_Base
             $this->_logger->err('Unknown property: ' . $property);
             throw new InvalidArgumentException('Unknown property: ' . $property);
         }
-        $value = $this->_getAttribute($property, false);
+        $value = $this->_getAttribute($property, '');
 
         return $value;
     }
