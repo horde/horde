@@ -736,7 +736,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         // filter on them here because the collections might change during the
         // loop below.
         if (!empty($options['pingable']) && !$this->havePingableCollections()) {
-            return self::COLLECTION_ERR_SYNC_REQUIRED;
+            return self::COLLECTION_ERR_SERVER;
         }
 
         // Need to update AND SAVE the timestamp for race conditions to be
@@ -760,7 +760,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             // NEVER happen.
             if (!count($this->_collections)) {
                 $this->_logger->err('NO COLLECTIONS! This should not happen!');
-                return self::COLLECTION_ERR_SYNC_REQUIRED;
+                return self::COLLECTION_ERR_SERVER;
             }
 
             // Check for WIPE request. If so, force a foldersync so it is
