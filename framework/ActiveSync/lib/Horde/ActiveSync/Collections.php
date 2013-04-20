@@ -312,7 +312,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         if (empty($this->_collections[$collection_id])) {
             throw new Horde_ActiveSync_Exception('Missing collection data');
         }
-        return !(empty($this->_collections[$collection_id]['getchanges']));
+        return !empty($this->_collections[$collection_id]['getchanges']);
     }
 
     /**
