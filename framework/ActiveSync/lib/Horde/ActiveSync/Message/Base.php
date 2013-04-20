@@ -147,7 +147,7 @@ class Horde_ActiveSync_Message_Base
      *
      * @param string $property  Property to get.
      *
-     * @return mixed  The value of the requested property.
+     * @return mixed  The value of the requested property, false if not set.
      */
     public function &__get($property)
     {
@@ -155,13 +155,9 @@ class Horde_ActiveSync_Message_Base
             $this->_logger->err('Unknown property: ' . $property);
             throw new InvalidArgumentException('Unknown property: ' . $property);
         }
+        $value = $this->_getAttribute($property, false);
 
-        if ($this->_properties[$property] !== false) {
-            return $this->_properties[$property];
-        } else {
-            $string = '';
-            return $string;
-        }
+        return $value;
     }
 
     /**
@@ -493,7 +489,7 @@ class Horde_ActiveSync_Message_Base
     protected function _getAttribute($name, $default = null)
     {
         if ((!is_array($this->_properties[$name]) && $this->_properties[$name] !== false) ||
-            (is_array($this->_properties[$name]) && !empty($this->_properties[$name]))) {
+            is_array($this->_properties[$name])) {
             return $this->_properties[$name];
         } else {
             return $default;
