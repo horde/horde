@@ -808,8 +808,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 $sync = $this->_as->getSyncObject();
                 try {
                     $sync->init($this->_as->state, null, $collection, true);
-                    $changecount = $sync->getChangeCount();
-                    if (($changecount > 0)) {
+                    if ($sync->getChangeCount()) {
                         $dataavailable = true;
                         $this->setGetChangesFlag($id);
                     }
