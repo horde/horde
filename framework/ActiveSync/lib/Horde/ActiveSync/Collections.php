@@ -792,7 +792,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         '[%s] Heartbeat terminating: %s',
                         $this->_procid,
                         $e->getMessage()));
-
+                    $this->setGetChangesFlag($id);
                     return self::COLLECTION_ERR_SYNC_REQUIRED;
                 } catch (Horde_ActiveSync_Exception $e) {
                     return self::COLLECTION_ERR_SERVER;
@@ -808,6 +808,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 $sync = $this->_as->getSyncObject();
                 try {
                     $sync->init($this->_as->state, null, $collection, true);
+                    $changecount = $sync->getChangeCount();
+                    if (($changecount > 0)) {
+                        $dataavailable = true;
+                        $this->setGetChangesFlag($id);
+                    }
                 } catch (Horde_ActiveSync_Expcetion_StaleState $e) {
                     $this->_logger->err(sprintf(
                         '[%s] SYNC terminating and force-clearing device state: %s',
@@ -819,7 +824,8 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         null,
                         Horde_ActiveSync::REQUEST_TYPE_SYNC,
                         $id);
-                    $changecount = 1;
+                    $this->setGetChangesFlag($id);
+                    $dataavailable = true;
                 } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                     $this->_logger->err(sprintf(
                         '[%s] SYNC terminating: %s',
@@ -836,11 +842,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     );
                     sleep(30);
                     continue;
-                }
-                $changecount = $sync->getChangeCount();
-                if (($changecount > 0)) {
-                    $dataavailable = true;
-                    $this->setGetChangesFlag($id);
                 }
             }
 
