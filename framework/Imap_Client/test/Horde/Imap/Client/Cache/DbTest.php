@@ -23,9 +23,9 @@
  * @package    Imap_Client
  * @subpackage UnitTests
  */
-class Horde_Imap_Client_Cache_DbTest extends Horde_Imap_Client_Cache_CacheTest
+class Horde_Imap_Client_Cache_DbTest extends Horde_Imap_Client_Cache_TestBase
 {
-    private function _getBackend()
+    protected function _getBackend()
     {
         $factory_db = new Horde_Test_Factory_Db();
 
