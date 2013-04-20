@@ -152,13 +152,12 @@ class Horde_ActiveSync_Message_Base
      */
     public function &__get($property)
     {
-        if (!array_key_exists($property, $this->_properties)) {
-            $this->_logger->err('Unknown property: ' . $property);
-            throw new InvalidArgumentException('Unknown property: ' . $property);
+        if ($this->_properties[$property] !== false) {
+            return $this->_properties[$property];
+        } else {
+            $string = '';
+            return $string;
         }
-        $value = $this->_getAttribute($property, '');
-
-        return $value;
     }
 
     /**
