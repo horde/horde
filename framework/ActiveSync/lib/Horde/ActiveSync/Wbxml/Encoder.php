@@ -55,7 +55,20 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     public $multipart;
 
+    /**
+     * Flag to indicate last node output was an empty tag.
+     * Needed for logging to format correctly.
+     *
+     * @var boolean
+     */
     protected $_lastWasEmpty = false;
+
+    /**
+     * Collection of parts to send in MULTIPART responses.
+     *
+     * @var array
+     */
+    protected $_parts = array();
 
     /**
      * Const'r
