@@ -941,7 +941,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function itemOperationsGetAttachmentData($filereference)
     {
         $att = $this->getAttachment($filereference);
-        $airatt = new Horde_ActiveSync_Message_AirSyncBaseFileAttachment(array('logger' => $this->_logger));
+        $airatt = Horde_ActiveSync::messageFactory('AirSyncBaseFileAttachment');
         $airatt->data = $att['data'];
         $airatt->contenttype = $att['content-type'];
 
