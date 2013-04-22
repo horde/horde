@@ -23,7 +23,7 @@
  * @package    Imap_Client
  * @subpackage UnitTests
  */
-class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
+class Horde_Imap_Client_RemoteImapServerTest extends Horde_Test_Case
 {
     private $imap;
 
@@ -33,25 +33,18 @@ class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!file_exists(__DIR__ . '/conf.php')) {
+        $config = self::getConfig('IMAPCLIENT');
+        if (is_null($config) ||
+            !isset($config['client_config']['username']) ||
+            !isset($config['client_config']['password'])) {
             $this->markTestSkipped('Remote server authentication not configured.');
         }
 
-        require __DIR__ . '/conf.php';
-
-        if (!isset($imap_config['username'])) {
-            $this->fail('Missing username.');
-        }
-
-        if (!isset($imap_config['password'])) {
-            $this->fail('Missing password.');
-        }
-
-        $this->test_mbox = $test_mbox;
-        $this->test_mbox_utf8 = $test_mbox_utf8;
+        $this->test_mbox = $config['test_mbox'];
+        $this->test_mbox_utf8 = $config['test_mbox_utf8'];
 
         try {
-            $imap_config['cache'] = array(
+            $config['client_config']['cache'] = array(
                 'cacheob' => new Horde_Cache(
                     new Horde_Cache_Storage_Mock(),
                     array('compress' => true)
@@ -59,7 +52,7 @@ class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
             );
         } catch (Exception $e) {}
 
-        $this->imap = new Horde_Imap_Client_Socket($imap_config);
+        $this->imap = new Horde_Imap_Client_Socket($config['client_config']);
         $this->imap->login();
     }
 
