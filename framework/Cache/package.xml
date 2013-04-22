@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-08</date>
- <time>17:03:11</time>
+ <date>2013-04-21</date>
+ <time>19:59:42</time>
  <version>
   <release>2.0.5</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add MongoDB cache driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -52,6 +52,7 @@
        <file name="File.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="Mock.php" role="php" />
+       <file name="Mongo.php" role="php" />
        <file name="Null.php" role="php" />
        <file name="Session.php" role="php" />
        <file name="Sql.php" role="php" />
@@ -67,6 +68,7 @@
     <dir name="Horde">
      <dir name="Cache">
       <file name="1_horde_cache_base_tables.php" role="data" />
+      <file name="2_horde_cache_fix_blob_length.php" role="data" />
      </dir> <!-- /migration/Horde/Cache -->
     </dir> <!-- /migration/Horde -->
     </dir> <!-- /migration -->
@@ -133,6 +135,11 @@
     <min>3.1.1</min>
     <providesextension>apc</providesextension>
    </package>
+   <package>
+    <name>mongo</name>
+    <channel>pecl.php.net</channel>
+    <providesextension>mongo</providesextension>
+   </package>
    <extension>
     <name>eaccelerator</name>
     <min>0.9.5</min>
@@ -151,12 +158,14 @@
    <install as="Horde/Cache/Storage/File.php" name="lib/Horde/Cache/Storage/File.php" />
    <install as="Horde/Cache/Storage/Memcache.php" name="lib/Horde/Cache/Storage/Memcache.php" />
    <install as="Horde/Cache/Storage/Mock.php" name="lib/Horde/Cache/Storage/Mock.php" />
+   <install as="Horde/Cache/Storage/Mongo.php" name="lib/Horde/Cache/Storage/Mongo.php" />
    <install as="Horde/Cache/Storage/Null.php" name="lib/Horde/Cache/Storage/Null.php" />
    <install as="Horde/Cache/Storage/Session.php" name="lib/Horde/Cache/Storage/Session.php" />
    <install as="Horde/Cache/Storage/Sql.php" name="lib/Horde/Cache/Storage/Sql.php" />
    <install as="Horde/Cache/Storage/Stack.php" name="lib/Horde/Cache/Storage/Stack.php" />
    <install as="Horde/Cache/Storage/Xcache.php" name="lib/Horde/Cache/Storage/Xcache.php" />
    <install as="migration/1_horde_cache_base_tables.php" name="migration/Horde/Cache/1_horde_cache_base_tables.php" />
+   <install as="migration/2_horde_cache_fix_blob_length.php" name="migration/Horde/Cache/2_horde_cache_fix_blob_length.php" />
    </filelist>
  </phprelease>
  <changelog>
@@ -450,10 +459,10 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-08</date>
+   <date>2013-04-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add MongoDB cache driver.
    </notes>
   </release>
  </changelog>
