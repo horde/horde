@@ -62,7 +62,7 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
             break;
 
         case 'mongo':
-            $params['mongo_db'] = new Horde_Core_MongoClient($params['server']);
+            $params['mongo_db'] = new Horde_Mongo_Client($params['server']);
             break;
 
         case 'sql':

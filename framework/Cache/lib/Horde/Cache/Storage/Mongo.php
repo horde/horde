@@ -45,7 +45,7 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Parameters:
-     *   - mongo_db: [REQUIRED] (MongoClient) A MongoClient object.
+     *   - mongo_db: [REQUIRED] (Horde_Mongo_Client) A MongoDB client object.
      */
     public function __construct(array $params = array())
     {

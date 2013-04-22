@@ -13,6 +13,7 @@
 
 /**
  * A MongoDB database implementation for caching IMAP/POP data.
+ * Requires the Horde_Mongo class.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -36,7 +37,7 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
      *   REQUIRED parameters:
      *   <ul>
      *    <li>
-     *     mongo_db: (MongoClient) A MongoClient object.
+     *     mongo_db: (Horde_Mongo_Client) A MongoDB client object.
      *    </li>
      *   </ul>
      *  </li>

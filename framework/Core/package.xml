@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-04-21</date>
- <time>20:08:32</time>
+ <date>2013-04-22</date>
+ <time>14:05:49</time>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -600,7 +600,6 @@
       <file name="Bundle.php" role="php" />
       <file name="Cli.php" role="php" />
       <file name="LoginTasks.php" role="php" />
-      <file name="MongoClient.php" role="php" />
       <file name="Perms.php" role="php" />
       <file name="TagBrowser.php" role="php" />
       <file name="Tagger.php" role="php" />
@@ -1311,6 +1310,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1634,7 +1640,6 @@
    <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
    <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
-   <install as="Horde/Core/MongoClient.php" name="lib/Horde/Core/MongoClient.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
    <install as="Horde/Core/TagBrowser.php" name="lib/Horde/Core/TagBrowser.php" />
    <install as="Horde/Core/Tagger.php" name="lib/Horde/Core/Tagger.php" />
@@ -2881,7 +2886,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-21</date>
+   <date>2013-04-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Allow MongoDB to be used as a cache backend.
