@@ -180,7 +180,7 @@ class Horde_Timezone
             stream_copy_to_stream($response->getStream(), fopen($this->_tmpfile, 'w'));
             return;
         }
-        try { 
+        try {
             if ($url['scheme'] == 'ftp') {
                 $vfs = new Horde_Vfs_Ftp(array('hostspec' => $url['host'],
                                                'username' => 'anonymous',
