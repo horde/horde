@@ -714,7 +714,7 @@
   </configsection>
  </configtab>
 
- <configtab name="signup" desc="Sign Up">
+ <configtab name="signup" desc="Signing Up">
   <configsection name="signup">
    <configheader>Sign Up Settings</configheader>
    <configswitch name="allow" desc="Allow non-registered users to register and
@@ -821,9 +821,9 @@
    INFO.">false</configboolean>
  </configtab>
 
- <configtab name="prefs" desc="Preference System">
+ <configtab name="prefs" desc="Preferences">
   <configsection name="prefs">
-   <configheader>Preference System Settings</configheader>
+   <configheader>Preferences Settings</configheader>
    <configinteger name="maxsize" required="false" desc="The size of the
    preferences field in your backend in bytes. Horde will reject any write to
    the preferences backend if its length exceeds this value. Leave empty to
@@ -861,9 +861,9 @@
   </configsection>
  </configtab>
 
- <configtab name="alarms" desc="Alarm System">
+ <configtab name="alarms" desc="Alarms">
   <configsection name="alarms">
-   <configheader>Alarm System Settings</configheader>
+   <configheader>Alarms Settings</configheader>
    <configswitch name="driver" desc="What alarm storage driver should we
    use?">Sql
      <case name="false" desc="None"/>
@@ -998,9 +998,9 @@
   </configsection>
  </configtab>
 
- <configtab name="cache" desc="Cache System">
+ <configtab name="cache" desc="Caching">
   <configsection name="cache">
-   <configheader>Cache System Settings</configheader>
+   <configheader>Caching Settings</configheader>
    <configinteger name="default_lifetime" desc="How long, in seconds, should
    data be cached by default?">86400</configinteger>
    <configswitch name="driver" desc="If you want to enable the Horde Cache,
@@ -1208,9 +1208,9 @@
   </configswitch>
  </configtab>
 
- <configtab name="lock" desc="Lock System">
+ <configtab name="lock" desc="Locking">
   <configsection name="lock">
-   <configheader>Lock System Settings</configheader>
+   <configheader>Locking Settings</configheader>
    <configswitch name="driver" desc="If you want to enable resource locking
    you must choose a driver here.">Sql
     <case name="Null" desc="Disable Horde Locks"/>
@@ -1226,9 +1226,9 @@
   </configsection>
  </configtab>
 
- <configtab name="token" desc="Token System">
+ <configtab name="token" desc="Tokens">
   <configsection name="token">
-   <configheader>Token System Settings</configheader>
+   <configheader>Tokens Settings</configheader>
    <configinteger name="timeout" required="false" desc="The period (in
    seconds) after which an id is purged"/>
    <configswitch name="driver" desc="If you want to enable Form Tokens, select
@@ -1321,9 +1321,9 @@
   </configsection>
  </configtab>
 
- <configtab name="session" desc="Custom Session Handler">
+ <configtab name="session" desc="Session Handler">
   <configsection name="sessionhandler">
-   <configheader>Custom Session Handler Settings</configheader>
+   <configheader>Session Handler Settings</configheader>
    <configswitch name="type" desc="What sessionhandler driver should we
    use?">Builtin
     <case name="Builtin" desc="Use the default PHP session handler (file-based
@@ -1575,7 +1575,7 @@
     </configenum>
     <configenum name="prefs" desc="Should we display preferences links in the
     menu? You still need to configure a preference backend in the
-    &quot;Preference System&quot; section.">authenticated
+    &quot;Preferences&quot; section.">authenticated
      <values>
       <value desc="All users">all</value>
       <value desc="Authenticated users">authenticated</value>
