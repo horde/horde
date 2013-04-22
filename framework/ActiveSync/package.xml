@@ -1310,6 +1310,34 @@
   </release>
   <release>
    <version>
+    <release>2.3.6</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix returning message property values when the value is defined, but empty (Bug #12197).
+* [mjr] Fix saving IMAP folder state when CONDSTORE is available but no per-mailbox MODSEQ.
+* [mjr] Fix mail synch failure due to messages being deleted on server during initial synch.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.7</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix issue that could cause some attachments to become corrupt on the client.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>2.4.0</release>
     <api>2.4.0</api></version>
    <stability>
