@@ -35,7 +35,7 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
     const TIMESTAMP = 'ts';
 
     /**
-     * The MongoDB Collection objection for the cache data.
+     * The MongoDB Collection object for the cache data.
      *
      * @var MongoCollection
      */
