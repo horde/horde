@@ -265,19 +265,20 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      */
     private function _logToken($el)
     {
-        $spaces = str_repeat(' ', count($this->_logStack));
         switch ($el[self::EN_TYPE]) {
         case self::EN_TYPE_STARTTAG:
             if ($el[self::EN_FLAGS] & self::EN_FLAGS_CONTENT) {
+                $spaces = str_repeat(' ', count($this->_logStack));
+                $this->_logStack[] = $el[self::EN_TAG];
                 $this->_logger->debug(sprintf(
-                    '[%s] I %s<%s>',
+                    '[%s] I %s <%s>',
                     $this->_procid,
                     $spaces,
                     $el[self::EN_TAG]));
-                $this->_logStack[] = $el[self::EN_TAG];
             } else {
+                $spaces = str_repeat(' ', count($this->_logStack));
                 $this->_logger->debug(sprintf(
-                    '[%s] I %s<%s />',
+                    '[%s] I %s <%s />',
                     $this->_procid,
                     $spaces,
                     $el[self::EN_TAG]));
@@ -285,13 +286,15 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
             break;
         case self::EN_TYPE_ENDTAG:
             $tag = array_pop($this->_logStack);
+            $spaces = str_repeat(' ', count($this->_logStack));
             $this->_logger->debug(sprintf(
-                '[%s] I %s</%s>',
+                '[%s] I %s </%s>',
                 $this->_procid,
                 $spaces,
                 $tag));
             break;
         case self::EN_TYPE_CONTENT:
+            $spaces = str_repeat(' ', count($this->_logStack) + 1);
             $this->_logger->debug(sprintf(
                 '[%s] I %s %s',
                 $this->_procid,
