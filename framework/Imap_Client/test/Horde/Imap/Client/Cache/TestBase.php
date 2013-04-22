@@ -23,7 +23,7 @@
  * @package    Imap_Client
  * @subpackage UnitTests
  */
-abstract class Horde_Imap_Client_Cache_TestBase extends PHPUnit_Framework_TestCase
+abstract class Horde_Imap_Client_Cache_TestBase extends Horde_Test_Case
 {
     const HOSTSPEC = 'foo.example.com';
     const PORT = 143;

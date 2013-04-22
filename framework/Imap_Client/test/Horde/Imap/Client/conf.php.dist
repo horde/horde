@@ -10,5 +10,8 @@ $conf = array(
         'debug' => null // e.g. 'php://output'
     ),
     'test_mbox' => 'TestMailboxTest',
-    'test_mbox_utf8' => 'TestMailboxTest1è'
+    'test_mbox_utf8' => 'TestMailboxTest1è',
+
+    // Configuration for the Mongo cache driver test.
+    'mongo' => null,
 );

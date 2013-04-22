@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-21</date>
- <time>23:56:57</time>
+ <date>2013-04-22</date>
+ <time>14:51:48</time>
  <version>
   <release>2.9.0</release>
   <api>2.9.0</api>
@@ -207,6 +207,7 @@
        <dir name="Cache">
         <file name="CacheTest.php" role="test" />
         <file name="DbTest.php" role="test" />
+        <file name="MongoTest.php" role="test" />
         <file name="TestBase.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Cache -->
        <dir name="fixtures">
@@ -457,6 +458,7 @@
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
    <install as="Horde/Imap/Client/Cache/CacheTest.php" name="test/Horde/Imap/Client/Cache/CacheTest.php" />
    <install as="Horde/Imap/Client/Cache/DbTest.php" name="test/Horde/Imap/Client/Cache/DbTest.php" />
+   <install as="Horde/Imap/Client/Cache/MongoTest.php" name="test/Horde/Imap/Client/Cache/MongoTest.php" />
    <install as="Horde/Imap/Client/Cache/TestBase.php" name="test/Horde/Imap/Client/Cache/TestBase.php" />
    <install as="Horde/Imap/Client/fixtures/bug_10503.txt" name="test/Horde/Imap/Client/fixtures/bug_10503.txt" />
    <install as="Horde/Imap/Client/fixtures/remote1.txt" name="test/Horde/Imap/Client/fixtures/remote1.txt" />
@@ -1663,7 +1665,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-21</date>
+   <date>2013-04-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add a MongoDB based backend for storing cached IMAP/POP data.
