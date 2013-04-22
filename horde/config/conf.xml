@@ -1046,6 +1046,14 @@
       cache entries."/>
      </configsection>
     </case>
+    <case name="Mongo" desc="Use MongoDB server(s)">
+     <configsection name="params">
+      <configstring name="server" required="false" desc="The server connection
+      string to use to connect to the MongoDB backend. See
+      http://www.php.net/manual/en/mongoclient.construct.php for doucmentation
+      on the format of this string." />
+     </configsection>
+    </case>
     <case name="Sql" desc="SQL-based cache storage">
      <configsection name="params">
       <configsql switchname="driverconfig">

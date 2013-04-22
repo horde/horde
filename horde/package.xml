@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] Allow MongoDB to be used as a cache backend.
 * [jan] Check all installed PEAR packages when checking for updates.
 * [mms] Add &apos;ajaxaction_data&apos; hook.
  </notes>
@@ -3648,6 +3649,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mms] Allow MongoDB to be used as a cache backend.
 * [jan] Check all installed PEAR packages when checking for updates.
 * [mms] Add &apos;ajaxaction_data&apos; hook.
    </notes>
