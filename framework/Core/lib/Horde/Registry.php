@@ -369,6 +369,7 @@ class Horde_Registry
             'Horde_Log_Logger' => 'Horde_Core_Factory_Logger',
             'Horde_Mail' => 'Horde_Core_Factory_Mail',
             'Horde_Memcache' => 'Horde_Core_Factory_Memcache',
+            'Horde_Nosql_Adapter' => 'Horde_Core_Factory_NosqlBase',
             'Horde_Notification' => 'Horde_Core_Factory_Notification',
             'Horde_Perms' => 'Horde_Core_Factory_Perms',
             'Horde_Queue_Storage' => 'Horde_Core_Factory_QueueStorage',
