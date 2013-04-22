@@ -204,18 +204,10 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
             if ('x' . $content == 'x') {
                 return;
             }
-        } else {
-            stream_filter_register('horde_null', 'Horde_Stream_Filter_Null');
-            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-            $filter_null = stream_filter_prepend($content, 'horde_null', STREAM_FILTER_READ);
-            $filter_eol = stream_filter_prepend($content, 'horde_eol', STREAM_FILTER_READ);
         }
         $this->_outputStack();
         $this->_content($content);
-        if (isset($filter_null)) {
-            stream_filter_remove($filter_eol);
-            stream_filter_remove($filter_null);
-        }
+
         if (is_resource($content)) {
             fclose($content);
         }

@@ -463,6 +463,12 @@ class Horde_ActiveSync_Message_Base
      */
     protected function _checkEncoding($data, $tag)
     {
+        if (is_resource($data)) {
+            stream_filter_register('horde_null', 'Horde_Stream_Filter_Null');
+            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+            $filter_null = stream_filter_prepend($data, 'horde_null', STREAM_FILTER_READ);
+            $filter_eol = stream_filter_prepend($data, 'horde_eol', STREAM_FILTER_READ);
+        }
         return $data;
     }
 
