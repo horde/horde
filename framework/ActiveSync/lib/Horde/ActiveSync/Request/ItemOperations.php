@@ -181,7 +181,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                             $this->_statusCode = self::STATUS_ATTINVALID;
                         }
                         if (!$this->_encoder->multipart) {
-                            $msg->total = $msg->range = $this->_getDataSize($msg->data);
+                            $msg->total = $this->_getDataSize($msg->data);
                         }
                         $this->_outputStatus();
                         $this->_encoder->startTag(Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE);
