@@ -143,14 +143,25 @@
   </configsection>
  </configtab>
 
- <configtab name="sql" desc="Database">
-  <configsection name="sql">
-   <configheader>Database Settings</configheader>
+ <configtab name="db" desc="Database">
    <configdescription>&lt;strong&gt;NOTE:&lt;/strong&gt; These are only the
    &lt;em&gt;default&lt;/em&gt; values for any database driven backends. You
    still need to configure the different systems like "Preferences" to actually
    &lt;em&gt;use&lt;/em&gt; a database backend.</configdescription>
+  <configsection name="sql">
+   <configheader>SQL Database Settings</configheader>
+   <configdescription>These are the database settings for the traditional
+   relational databases backends (e.g. databases that use SQL to manage its
+   data).</configdescription>
    <configsql switchname="phptype" baseconfig="true" />
+  </configsection>
+  <configsection name="nosql">
+   <configheader>NoSQL Database Settings</configheader>
+   <configdescription>These are the database settings for the NoSQL database
+   backends. These are databases generally optimized for
+   scalability/availability, but do not use a standardized query language to
+   interact with the data.</configdescription>
+   <confignosql switchname="phptype" baseconfig="true" />
   </configsection>
  </configtab>
 
@@ -1046,12 +1057,9 @@
       cache entries."/>
      </configsection>
     </case>
-    <case name="Mongo" desc="Use MongoDB server(s)">
+    <case name="Nosql" desc="NoSQL-based cache storage">
      <configsection name="params">
-      <configstring name="server" required="false" desc="The server connection
-      string to use to connect to the MongoDB backend. See
-      http://www.php.net/manual/en/mongoclient.construct.php for doucmentation
-      on the format of this string." />
+      <confignosql switchname="driverconfig" />
      </configsection>
     </case>
     <case name="Sql" desc="SQL-based cache storage">
