@@ -30,7 +30,8 @@ class Horde_Imap_Client_Cache_MongoTest extends Horde_Imap_Client_Cache_TestBase
 
     protected function _getBackend()
     {
-        if (class_exists('Horde_Mongo_Client')) {
+        if (extension_loaded('mongo') &&
+            class_exists('Horde_Mongo_Client')) {
             $config = self::getConfig('IMAPCLIENT', __DIR__ . '/..');
             if (!is_null($config) && !empty($config['mongo'])) {
                 try {
