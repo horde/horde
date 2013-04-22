@@ -1457,24 +1457,24 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends Horde_Test_Case
     {
         // remove any current cache.
         $this->_cache->set('tables/indexes/cache_table', '');
-        $this->assertEquals('', $this->_cache->get('tables/indexes/cache_table'));
+        $this->assertEquals('', $this->_cache->get('tables/indexes/cache_table', 0));
 
         $this->_createTestTable('cache_table');
         $idxs = $this->_conn->indexes('cache_table');
 
-        $this->assertNotEquals('', $this->_cache->get('tables/indexes/cache_table'));
+        $this->assertNotEquals('', $this->_cache->get('tables/indexes/cache_table', 0));
     }
 
     public function testCachedTableColumns()
     {
         // remove any current cache.
         $this->_cache->set('tables/columns/cache_table', '');
-        $this->assertEquals('', $this->_cache->get('tables/columns/cache_table'));
+        $this->assertEquals('', $this->_cache->get('tables/columns/cache_table', 0));
 
         $this->_createTestTable('cache_table');
         $cols = $this->_conn->columns('cache_table');
 
-        $this->assertNotEquals('', $this->_cache->get('tables/columns/cache_table'));
+        $this->assertNotEquals('', $this->_cache->get('tables/columns/cache_table', 0));
     }
 
 

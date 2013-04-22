@@ -158,7 +158,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     public function primaryKey($tableName, $name = null)
     {
         // Share the columns cache with the columns() method
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->selectAll('PRAGMA table_info(' . $this->quoteTableName($tableName) . ')', $name);
@@ -186,7 +186,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function indexes($tableName, $name = null)
     {
-        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName"));
+        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName", 0));
 
         if (!$indexes) {
             $indexes = array();
@@ -220,7 +220,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function columns($tableName, $name = null)
     {
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->selectAll('PRAGMA table_info(' . $this->quoteTableName($tableName) . ')', $name);
