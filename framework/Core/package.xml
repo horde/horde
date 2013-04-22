@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-04-01</date>
- <time>16:15:15</time>
+ <date>2013-04-21</date>
+ <time>20:08:32</time>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Allow MongoDB to be used as a cache backend.
 * [mms] Regenerate session IDs during an active session to protect against session fixation attacks.
 * [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.
@@ -599,6 +600,7 @@
       <file name="Bundle.php" role="php" />
       <file name="Cli.php" role="php" />
       <file name="LoginTasks.php" role="php" />
+      <file name="MongoClient.php" role="php" />
       <file name="Perms.php" role="php" />
       <file name="TagBrowser.php" role="php" />
       <file name="Tagger.php" role="php" />
@@ -1632,6 +1634,7 @@
    <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
    <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
+   <install as="Horde/Core/MongoClient.php" name="lib/Horde/Core/MongoClient.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
    <install as="Horde/Core/TagBrowser.php" name="lib/Horde/Core/TagBrowser.php" />
    <install as="Horde/Core/Tagger.php" name="lib/Horde/Core/Tagger.php" />
@@ -2878,9 +2881,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-01</date>
+   <date>2013-04-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Allow MongoDB to be used as a cache backend.
 * [mms] Regenerate session IDs during an active session to protect against session fixation attacks.
 * [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.

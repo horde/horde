@@ -61,6 +61,10 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
             break;
 
+        case 'mongo':
+            $params['mongo_db'] = new Horde_Core_MongoClient($params['server']);
+            break;
+
         case 'sql':
             $params['db'] = $injector->getInstance('Horde_Db_Adapter');
             break;
