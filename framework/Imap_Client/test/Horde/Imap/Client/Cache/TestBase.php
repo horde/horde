@@ -45,7 +45,7 @@ abstract class Horde_Imap_Client_Cache_TestBase extends PHPUnit_Framework_TestCa
 
         /* Setup DB with dummy data. Yes... I realize this sort of relies
          * on set() and setMetaData() to be working, but otherwise we have to
-         * track INTERNAL changes to the DB driver from this EXTERNAL
+         * track INTERNAL changes to the driver from this EXTERNAL
          * perspective. */
         $this->_cache->set('foo1', array(
             '100' => array(
