@@ -58,6 +58,24 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
 
         $this->setParams($params);
         $this->_initOb();
+
+        /* 0.1% of the time, check to make sure indexes are created. */
+        if (!rand(0, 999)) {
+            $this->_db->selectCollection(self::BASE)->ensureIndex(array(
+                'hostspec' => 1,
+                'mailbox' => 1,
+                'port' => 1,
+                'username' => 1,
+            ), array(
+                'w' => 0
+            ));
+            $this->_db->selectCollection(self::MSG)->ensureIndex(array(
+                'uid' => 1,
+                'msguid' => 1
+            ), array(
+                'w' => 0
+            ));
+        }
     }
 
     /**

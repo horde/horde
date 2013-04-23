@@ -156,7 +156,7 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
                 '$set' => $data
             ), array(
                 'upsert' => true,
-                'w' => 1
+                'w' => 0
             ));
         } catch (MongoException $e) {
             $this->_logger->log($e->getMessage(), 'DEBUG');
