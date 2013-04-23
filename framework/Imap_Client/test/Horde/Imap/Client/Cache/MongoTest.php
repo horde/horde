@@ -36,7 +36,8 @@ class Horde_Imap_Client_Cache_MongoTest extends Horde_Imap_Client_Cache_TestBase
             if (!is_null($config) && !empty($config['mongo'])) {
                 try {
                     $this->_mongo = new Horde_Mongo_Client($config['mongo']);
-                    $this->_mongo->selectDB($this->_dbname)->drop();
+                    $this->_mongo->dbname = $this->_dbname;
+                    $this->_mongo->selectDB(null)->drop();
                 } catch (Exception $e) {}
             }
         }
@@ -46,7 +47,6 @@ class Horde_Imap_Client_Cache_MongoTest extends Horde_Imap_Client_Cache_TestBase
         }
 
         return new Horde_Imap_Client_Cache_Backend_Mongo(array(
-            'dbname' => $this->_dbname,
             'hostspec' => self::HOSTSPEC,
             'mongo_db' => $this->_mongo,
             'port' => self::PORT,
@@ -57,7 +57,7 @@ class Horde_Imap_Client_Cache_MongoTest extends Horde_Imap_Client_Cache_TestBase
     public function tearDown()
     {
         if (isset($this->_mongo)) {
-            $this->_mongo->selectDB($this->_dbname)->drop();
+            $this->_mongo->selectDB(null)->drop();
         }
 
         parent::tearDown();

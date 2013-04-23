@@ -22,11 +22,8 @@
  */
 class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
 {
-    /* DB name. */
-    const DB_NAME = 'horde_cache';
-
     /* Collection name. */
-    const COLLECTION_NAME = 'data';
+    const COLLECTION_NAME = 'horde_cache';
 
     /* Field names. */
     const CID = 'cid';
@@ -80,9 +77,7 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
      */
     protected function _initOb()
     {
-        $this->_db = $this->_params['mongo_db']
-            ->selectDB(self::DB_NAME)
-            ->selectCollection(self::COLLECTION_NAME);
+        $this->_db = $this->_params['mongo_db']->selectCollection(null, self::COLLECTION_NAME);
     }
 
     /**

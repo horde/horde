@@ -1034,6 +1034,15 @@ class Horde_Config
                                 $ctx . '|hostspec',
                                 $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: '') : ''
                             )
+                        ),
+                        'dbname' => array(
+                            '_type' => 'text',
+                            'required' => false,
+                            'desc' => 'Database name to use',
+                            'default' => $this->_default(
+                                $ctx . '|database',
+                                $node ? ($xpath->evaluate('string(configstring[@name="database"])', $node) ?: '') : ''
+                            )
                         )
                     )
                 )
