@@ -530,6 +530,24 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             }
         }
 
+        $csk = $this->_cache->confirmed_synckeys;
+        if ($csk) {
+            $this->_logger->debug(sprintf(
+                'Confirmed Synckeys contains %s',
+                print_r($csk, true))
+            );
+            $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
+            $this->save();
+            return false;
+        }
+
+        if ($this->_haveNoChangesInPartialSync()) {
+                $this->_logger->debug(sprintf(
+                    '[%s] Partial Request with completely unchanged collections. Request a full SYNC',
+                    $this->_procid));
+                    return false;
+        }
+
         if (!$this->_cache->validateTimestamps()) {
             $this->_logger->debug('Request full sync, timestamp validation failed.');
             return false;
@@ -554,7 +572,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      *
      * @return boolean
      */
-    public function haveNoChangesInPartialSync()
+    protected function _haveNoChangesInPartialSync()
     {
         return $this->_synckeyCount > 0 &&
             $this->_confirmedCount == 0 &&

@@ -199,13 +199,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
-            // Must have syncable collections.
-            if (!$this->_collections->haveSyncableCollections($this->_device->version)) {
-                $this->_statusCode = self::STATUS_KEYMISM;
-                $this->_handleGlobalSyncError();
-                return true;
-            }
-
             // Sanity checking, preperation for EAS >= 12.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
                 // We don't have a previous FOLDERSYNC.
@@ -256,19 +249,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     return true;
                 }
 
-                // If there are no changes within partial sync, send status 13
-                // since sending partial elements without any changes is suspect
-                if ($this->_collections->haveNoChangesInPartialSync()) {
-                    $this->_logger->debug(sprintf(
-                        '[%s] Partial Request with completely unchanged collections. Request a full SYNC',
-                        $this->_procid));
-                    $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handleGlobalSyncError();
-                    return true;
-                }
-
                 // Fill in any missing collections that were already sent.
                 $this->_collections->getMissingCollectionsFromCache();
+
             } else {
                 // Full request.
                 $this->_collections->initFullSync();
@@ -282,26 +265,21 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return false;
             }
 
-            // Update the syncCache with the new collection data.
-            $this->_collections->updateCache();
-
-            // In case some synckeys didn't get confirmed by device we issue a
-            // full sync.
-            $csk = $this->_collections->confirmed_synckeys;
-            if ($csk) {
-                $this->_logger->debug(sprintf(
-                    'Confirmed Synckeys contains %s',
-                    print_r($csk, true))
-                );
-                $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
-                $this->_collections->save();
-                $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
+            // We MUST have syncable collections by now.
+            if (!$this->_collections->haveSyncableCollections($this->_device->version)) {
+                $this->_statusCode = self::STATUS_KEYMISM;
                 $this->_handleGlobalSyncError();
                 return true;
-            } else {
-                $this->_logger->debug('All synckeys confirmed. Continuing with SYNC');
-                $this->_collections->save();
             }
+
+            // Update the syncCache with the new collection data.
+            $this->_collections->updateCache();
+            // Refresh collections that might have changed in another process.
+            // $this->_collections->updateCollectionsFromCache();
+            // Save.
+            $this->_collections->save();
+
+            $this->_logger->debug('All synckeys confirmed. Continuing with SYNC');
         }
 
         // If this is >= 12.1, see if we want a looping SYNC.
