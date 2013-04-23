@@ -26,6 +26,8 @@
  *                                         regeneration (since 2.5.0).
  * @property-read integer $regenerate_interval  The regeneration interval
  *                                              (since 2.5.0).
+ * @property-write array $session_data  Manually set session data (since
+ *                                      2.5.0).
  */
 class Horde_Session
 {
@@ -122,6 +124,17 @@ class Horde_Session
         case 'regenerate_interval':
             // DEFAULT: 6 hours
             return 21600;
+        }
+    }
+
+    /**
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+        case 'session_data':
+            $this->_data = &$value;
+            break;
         }
     }
 
