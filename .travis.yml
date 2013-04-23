@@ -7,8 +7,8 @@ before_install:
   - sudo locale-gen cs_CZ.UTF-8 de_DE.UTF-8 tr_TR
   - sudo apt-get -qq install libwbxml2-utils aspell rcs cvs cvsps libimage-exiftool-perl
 before_script:
-  - sudo pecl install mongo
   - echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - pear install channel://pear.horde.org/Horde_Role
   - pear install channel://pear.phpunit.de/PHPUnit_Story
   - ./framework/bin/pear_batch_install
