@@ -1256,6 +1256,11 @@
       to keep token files"/>
      </configsection>
     </case>
+    <case name="Nosql" desc="NoSQL-based token storage">
+     <configsection name="params">
+       <confignosql switchname="driverconfig" />
+     </configsection>
+    </case>
     <case name="Sql" desc="SQL-based token storage">
      <configsection name="params">
       <configsql switchname="driverconfig">
