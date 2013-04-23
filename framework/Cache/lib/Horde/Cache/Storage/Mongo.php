@@ -150,11 +150,14 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
 
         // Remove any old cache data and prevent duplicate keys
         try {
-            $this->_db->remove(array(
+            $this->_db->update(array(
                 self::CID => $key
+            ), array(
+                '$set' => $data
+            ), array(
+                'upsert' => true,
+                'w' => 1
             ));
-
-            $this->_db->insert($data);
         } catch (MongoException $e) {
             $this->_logger->log($e->getMessage(), 'DEBUG');
             return false;
