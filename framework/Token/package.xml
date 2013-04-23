@@ -16,8 +16,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>14:09:37</time>
+ <date>2013-04-23</date>
+ <time>00:12:20</time>
  <version>
   <release>2.0.4</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add MongoDB token backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -50,6 +50,7 @@
       <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="File.php" role="php" />
+      <file name="Mongo.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Sql.php" role="php" />
       <file name="Translation.php" role="php">
@@ -332,12 +333,14 @@
      <dir name="Token">
       <dir name="Unit">
        <file name="FileTest.php" role="test" />
+       <file name="MongoTest.php" role="test" />
        <file name="SqlTest.php" role="test" />
       </dir> <!-- /test/Horde/Token/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="BackendTestCase.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Token -->
     </dir> <!-- /test/Horde -->
@@ -393,6 +396,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
@@ -408,6 +418,7 @@
    <install as="Horde/Token/Base.php" name="lib/Horde/Token/Base.php" />
    <install as="Horde/Token/Exception.php" name="lib/Horde/Token/Exception.php" />
    <install as="Horde/Token/File.php" name="lib/Horde/Token/File.php" />
+   <install as="Horde/Token/Mongo.php" name="lib/Horde/Token/Mongo.php" />
    <install as="Horde/Token/Null.php" name="lib/Horde/Token/Null.php" />
    <install as="Horde/Token/Sql.php" name="lib/Horde/Token/Sql.php" />
    <install as="Horde/Token/Translation.php" name="lib/Horde/Token/Translation.php" />
@@ -506,8 +517,10 @@
    <install as="Horde/Token/Autoload.php" name="test/Horde/Token/Autoload.php" />
    <install as="Horde/Token/BackendTestCase.php" name="test/Horde/Token/BackendTestCase.php" />
    <install as="Horde/Token/bootstrap.php" name="test/Horde/Token/bootstrap.php" />
+   <install as="Horde/Token/conf.php.dist" name="test/Horde/Token/conf.php.dist" />
    <install as="Horde/Token/phpunit.xml" name="test/Horde/Token/phpunit.xml" />
    <install as="Horde/Token/Unit/FileTest.php" name="test/Horde/Token/Unit/FileTest.php" />
+   <install as="Horde/Token/Unit/MongoTest.php" name="test/Horde/Token/Unit/MongoTest.php" />
    <install as="Horde/Token/Unit/SqlTest.php" name="test/Horde/Token/Unit/SqlTest.php" />
   </filelist>
  </phprelease>
@@ -874,10 +887,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-04-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add MongoDB token backend.
    </notes>
   </release>
  </changelog>

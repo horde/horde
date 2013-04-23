@@ -25,7 +25,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Token
  */
-abstract class Horde_Token_BackendTestCase extends PHPUnit_Framework_TestCase
+abstract class Horde_Token_BackendTestCase extends Horde_Test_Case
 {
     public function testToken()
     {
