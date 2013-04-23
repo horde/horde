@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix setting configuration for timezone lookups.
 * [mms] Add a NoSQL factory.
 * [mms] Allow MongoDB to be used as a cache backend.
 * [mms] Regenerate session IDs during an active session to protect against session fixation attacks.
@@ -2894,6 +2895,7 @@
    <date>2013-04-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix setting configuration for timezone lookups.
 * [mms] Add a NoSQL factory.
 * [mms] Allow MongoDB to be used as a cache backend.
 * [mms] Regenerate session IDs during an active session to protect against session fixation attacks.

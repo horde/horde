@@ -381,6 +381,7 @@ class Horde_Registry
             'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',
             'Horde_SessionHandler' => 'Horde_Core_Factory_SessionHandler',
             'Horde_Template' => 'Horde_Core_Factory_Template',
+            'Horde_Timezone' => 'Horde_Core_Factory_Timezone',
             'Horde_Token' => 'Horde_Core_Factory_Token',
             'Horde_Variables' => 'Horde_Core_Factory_Variables',
             'Horde_View' => 'Horde_Core_Factory_View',
