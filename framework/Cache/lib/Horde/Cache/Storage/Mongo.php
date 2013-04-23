@@ -22,9 +22,6 @@
  */
 class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
 {
-    /* Collection name. */
-    const COLLECTION_NAME = 'horde_cache';
-
     /* Field names. */
     const CID = 'cid';
     const DATA = 'data';
@@ -42,6 +39,7 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Parameters:
+     *   - collection: (string) The collection name.
      *   - mongo_db: [REQUIRED] (Horde_Mongo_Client) A MongoDB client object.
      */
     public function __construct(array $params = array())
@@ -50,7 +48,9 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
             throw new InvalidArgumentException('Missing mongo_db parameter.');
         }
 
-        parent::__construct($params);
+        parent::__construct(array_merge(array(
+            'collection' => 'horde_cache'
+        ), $params));
     }
 
     /**
@@ -77,7 +77,7 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
      */
     protected function _initOb()
     {
-        $this->_db = $this->_params['mongo_db']->selectCollection(null, self::COLLECTION_NAME);
+        $this->_db = $this->_params['mongo_db']->selectCollection(null, $this->_params['collection']);
     }
 
     /**
