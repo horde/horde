@@ -491,9 +491,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         foreach ($this->_collections as $key => $value) {
             $v1 = $this->_collections[$key];
             unset($v1['id'], $v1['clientids'], $v1['fetchids'],
-                  $v1['getchanges'], $v1['changeids']);
+                  $v1['getchanges'], $v1['changeids'], $v1['pingable'], $v1['class']);
             $c = $this->_tempSyncCache->getCollections();
             $v2 = $c[$value['id']];
+            unset($v2['pingable'], $v2['class'], $v2['id']);
             ksort($v1);
             if (isset($v1['bodyprefs'])) {
                 ksort($v1['bodyprefs']);
@@ -503,6 +504,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     }
                 }
             }
+
             ksort($v2);
             if (isset($v2['bodyprefs'])) {
                 ksort($v2['bodyprefs']);
