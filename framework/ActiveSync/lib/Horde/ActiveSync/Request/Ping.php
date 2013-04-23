@@ -151,7 +151,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $this->_statusCode = self::STATUS_MISSING;
             }
         } else {
-            $collections->initFullSync();
             if ($this->_decoder->getElementStartTag(self::HEARTBEATINTERVAL)) {
                 if (!$heartbeat = $this->_checkHeartbeat($this->_decoder->getElementContent())) {
                     $heartbeat = $this->_pingSettings['heartbeatdefault'];
