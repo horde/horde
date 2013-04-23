@@ -325,7 +325,6 @@ class Horde_ActiveSync_SyncCache
     {
         $syncCache = $this->_state->getSyncCache(
             $this->_devid, $this->_user);
-        $this->_data['collections'] = array();
         $cache_collections = $syncCache['collections'];
         foreach ($cache_collections as $id => $cache_collection) {
             if (!isset($cache_collection['lastsynckey'])) {
