@@ -273,6 +273,20 @@ class IMP_Imap implements Serializable
     }
 
     /**
+     * Perform post-login tasks.
+     */
+    public function doPostLoginTasks()
+    {
+        $this->updateFetchIgnore();
+
+        /* Secret key may have changed - recreate password values. */
+        if ($this->config->passwd_opts) {
+            $this->_config = $this->loadServerConfig($this->_ob->getParam('imp:backend'));
+            $this->_changed = true;
+        }
+    }
+
+    /**
      * Update the list of mailboxes to ignore when caching FETCH data in the
      * IMAP client object.
      */
