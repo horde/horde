@@ -483,6 +483,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function initPartialSync()
     {
+        if (empty($this->_collections)) {
+            $this->_logger->err('No collections in collection handler, no PARTIAL allowed.');
+            return false;
+        }
         $this->_tempSyncCache = clone $this->_cache;
         foreach ($this->_collections as $key => $value) {
             $v1 = $this->_collections[$key];
