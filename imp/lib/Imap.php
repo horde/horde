@@ -240,7 +240,7 @@ class IMP_Imap implements Serializable
             throw $error;
         }
 
-        $this->config = $config;
+        $this->_config = $config;
         $this->_ob = $ob;
 
         switch ($config->protocol) {
@@ -673,7 +673,7 @@ class IMP_Imap implements Serializable
     {
         return serialize(array(
             $this->_ob,
-            $this->config
+            $this->_config
         ));
     }
 
@@ -683,7 +683,7 @@ class IMP_Imap implements Serializable
     {
         list(
             $this->_ob,
-            $this->config
+            $this->_config
         ) = unserialize($data);
     }
 
