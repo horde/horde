@@ -440,7 +440,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function canDoLoopingSync()
     {
-        // do we need the shortSynRequest?
         return ($this->_shortSyncRequest || $this->_cache->hbinterval !== false || $this->_cache->wait !== false);
     }
 
