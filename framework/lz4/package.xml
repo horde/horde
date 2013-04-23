@@ -21,20 +21,23 @@
  </stability>
  <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
  <notes>
-* 
+* [mms] Convert unit tests to PHPUnit.
  </notes>
  <contents>
   <dir name="/">
-   <dir name="tests">
-    <file name="001.phpt" role="test" />
-    <file name="002.phpt" role="test" />
-    <file name="003.phpt" role="test" />
-    <file name="004.phpt" role="test" />
-    <file name="005.phpt" role="test" />
-    <file name="006.phpt" role="test" />
-    <file name="007.phpt" role="test" />
-    <file name="data.inc" role="test" />
-   </dir> <!-- /tests -->
+   <dir name="test">
+    <dir name="horde">
+     <dir name="lz4">
+      <dir name="fixtures">
+       <file name="data.txt" role="test" />
+      </dir> <!-- /test/horde/lz4/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="UnitTest.php" role="test" />
+     </dir> <!-- /test/horde/lz4 -->
+    </dir> <!-- /test/horde -->
+   </dir> <!-- /test -->
    <file name="config.m4" role="src" />
    <file name="CREDITS" role="doc" />
    <file name="horde_lz4.c" role="src" />
@@ -89,7 +92,7 @@
    <notes>
 * [mms] More robust header checking: eliminates the need to explicitly pass decompression size to horde_lz4_uncompress().
 * [mms] Remove maxsize option to horde_lz4_uncompress().
-* [mms] Remove 'prefix' option to horde_lz4_compress().
+* [mms] Remove &apos;prefix&apos; option to horde_lz4_compress().
 * [mms] Be silent when encountering decompression errors.
    </notes>
   </release>
@@ -103,7 +106,7 @@
    <date>2013-03-04</date>
    <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
    <notes>
-* 
+* [mms] Convert unit tests to PHPUnit.
    </notes>
   </release>
  </changelog>

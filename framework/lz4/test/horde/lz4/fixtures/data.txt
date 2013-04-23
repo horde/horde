@@ -1,5 +1,3 @@
-<?php
-$data = <<<QUOTE
 To be or not to be, that is the question;
 Whether 'tis nobler in the mind to suffer
 The Slings and Arrows of outrageous Fortune
@@ -82,6 +80,3 @@ I go, and it is done; the bell invites me.
 Hear it not, Duncan; for it is a knell
 That summons thee to heaven or to hell.
 
-QUOTE;
-
-?>
