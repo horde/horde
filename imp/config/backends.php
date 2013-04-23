@@ -93,8 +93,10 @@
  *           the below options instead.)
  *     - 'cache': Caching is enabled using the Horde cache (configured in
  *           horde/config/conf.xml).
- *     - 'db': Caching is enabled using the Horde database (configured in
- *           horde/config/conf.xml).
+ *     - 'nosql': Caching is enabled using the Horde NoSQL database
+ *                (configured in horde/config/conf.xml).
+ *     - 'sql': Caching is enabled using the Horde SQL database (configured in
+ *              horde/config/conf.xml).
  *     - Horde_Imap_Client_Cache_Backend object: Directly configure the
  *           caching backend to use. For advanced users only.
  *

@@ -192,10 +192,20 @@ class IMP_Imap_Config implements Serializable
             break;
 
         case 'cache_params':
+            $ob = null;
             if ($c = $this->cache) {
                 if ($c instanceof Horde_Imap_Client_Cache_Backend) {
                     $ob = $c;
-                } elseif (strcasecmp($c, 'db') === 0) {
+                } elseif (strcasecmp($c, 'nosql') === 0) {
+                    $db = $injector->getInstance('Horde_Nosql_Adapter');
+                    if ($db instanceof Horde_Mongo_Client) {
+                        $ob = new Horde_Imap_Client_Cache_Backend_Mongo(array(
+                            'mongo_db' => $db
+                        ));
+                    } else {
+                        Horde::log(sprintf('IMAP client package does not support %s as a cache driver.', get_class($db)), 'ERR');
+                    }
+                } elseif (strcasecmp($c, 'sql') === 0) {
                     $ob = new Horde_Imap_Client_Cache_Backend_Db(array(
                         'db' => $injector->getInstance('Horde_Db_Adapter')
                     ));
@@ -206,7 +216,9 @@ class IMP_Imap_Config implements Serializable
                         'cacheob' => $injector->getInstance('Horde_Cache')
                     ));
                 }
-            } else {
+            }
+
+            if (is_null($ob)) {
                 $ob = new Horde_Imap_Client_Cache_Backend_Cache(array(
                     'cacheob' => new Horde_Cache(new Horde_Cache_Storage_Mock(), array(
                         'compress' => true
