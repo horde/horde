@@ -12,11 +12,14 @@ v5.1.0-git
 v5.0.5
 ------
 
+[jan] Fix form to reset passwords.
+[mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado
+      <geral@jpaulo.eu>).
+[mjr] Fix displaying activesync devices when a username hook is being used
+      (Bug #12186).
 [jan] Hide navigation elements from print layout (Bug #12163).
 [cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is
       installed
-[mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado
-      <geral@jpaulo.eu>).
 [mms] Login screen now hides the mode input if javascript is not available, as
       minimal view is the only supported mode (Request #12093).
 [jan] Fix searching from topbar if search URL contains parameters.
