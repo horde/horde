@@ -250,6 +250,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
 
                 // Fill in any missing collections that were already sent.
+                // @TODO: Can we move this to initPartialSync()?
                 $this->_collections->getMissingCollectionsFromCache();
 
             } else {
