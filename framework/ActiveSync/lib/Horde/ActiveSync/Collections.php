@@ -757,6 +757,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         // filter on them here because the collections might change during the
         // loop below.
         if (!empty($options['pingable']) && !$this->havePingableCollections()) {
+            $this->_logger->err('No pingable collections.');
             return self::COLLECTION_ERR_SERVER;
         }
 
@@ -816,6 +817,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     $this->setGetChangesFlag($id);
                     return self::COLLECTION_ERR_SYNC_REQUIRED;
                 } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err('Error loading state: ' . $e->getMessage());
                     return self::COLLECTION_ERR_SERVER;
                 }
 
@@ -924,6 +926,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $collections = $this->_cache->getCollections(false);
         foreach ($collections as $id => $collection) {
             if (!empty($this->_collections[$id]['synckey'])) {
+                $this->_logger->debug('Setting collection ' . $id . ' PINGABLE');
                 $this->_cache->setPingableCollection($id);
             } else {
                 $this->_cache->removePingableCollection($id);
