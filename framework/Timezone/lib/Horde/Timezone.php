@@ -201,8 +201,11 @@ class Horde_Timezone
     protected function _extractAndParse()
     {
         if (isset($this->_params['cache'])) {
-            $result = $this->_params['cache']->get('horde_timezone',
-                                                   $this->_params['cachettl']);
+            $result = @unserialize(
+                $this->_params['cache']->get(
+                    'horde_timezone',
+                    $this->_params['cachettl'])
+            );
             if ($result) {
                 $this->_zones = $result['zones'];
                 $this->_rules = $result['rules'];
@@ -223,11 +226,14 @@ class Horde_Timezone
         }
 
         if (isset($this->_params['cache'])) {
-            $this->_params['cache']->set('horde_timezone',
-                                         array('zones' => $this->_zones,
-                                               'rules' => $this->_rules,
-                                               'links' => $this->_links),
-                                         $this->_params['cachettl']);
+            $this->_params['cache']->set(
+                'horde_timezone',
+                serialize(array(
+                    'zones' => $this->_zones,
+                    'rules' => $this->_rules,
+                    'links' => $this->_links
+                )),
+                $this->_params['cachettl']);
         }
     }
 
