@@ -279,17 +279,17 @@ class Horde_ActiveSync_SyncCache
      * Set the ping change flag on a collection. Indicatates that the last
      * PING was terminated with a change in this collection.
      *
-     * @param string $collectionid  The collection id.
+     * @param string $id  The collection id.
      * @throws InvalidArgumentException
      * @since 2.3.0
      */
-    public function setPingChangeFlag($collectionid)
+    public function setPingChangeFlag($id)
     {
-        if (empty($this->_data['collections'][$collectionid])) {
+        if (empty($this->_data['collections'][$id])) {
             throw new InvalidArgumentException('Collection does not exist.');
         }
 
-        $this->_data['collections'][$collectionid]['pingchange'] = true;
+        $this->_data['collections'][$id]['pingchange'] = true;
     }
 
     /**
@@ -309,12 +309,12 @@ class Horde_ActiveSync_SyncCache
     /**
      * Reset the specified collection's ping change flag.
      *
-     * @param string  $collectionid  The collectionid to reset.
+     * @param string  $id  The collectionid to reset.
      * @since 2.3.0
      */
-    public function resetPingChangeFlag($collectionid)
+    public function resetPingChangeFlag($id)
     {
-        $this->_data['collections'][$collectionid]['pingchange'] = false;
+        $this->_data['collections'][$id]['pingchange'] = false;
     }
 
     /**
@@ -386,12 +386,12 @@ class Horde_ActiveSync_SyncCache
     /**
      * Update the windowsize for the specified collection.
      *
-     * @param string $collection  The collection id.
-     * @param integer $size       The updated windowsize.
+     * @param string $id     The collection id.
+     * @param integer $size  The updated windowsize.
      */
-    public function updateWindowSize($collection, $windowsize)
+    public function updateWindowSize($id, $windowsize)
     {
-        $this->_data['collections'][$collection]['windowsize'] = $windowsize;
+        $this->_data['collections'][$id]['windowsize'] = $windowsize;
     }
 
     /**
