@@ -103,7 +103,13 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
         );
 
         try {
-            $cursor = $this->_db->selectCollection(self::MSG)->find($query, array('data', 'msguid'));
+            $cursor = $this->_db->selectCollection(self::MSG)->find(
+                $query,
+                array(
+                    'data' => true,
+                    'msguid' => true
+                )
+            );
             foreach ($cursor as $val) {
                 $out[$val['msguid']] = $this->_value($val['data']);
             }
@@ -128,7 +134,12 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
         );
 
         try {
-            $cursor = $this->_db->selectCollection(self::MSG)->find($query, array('msguid'));
+            $cursor = $this->_db->selectCollection(self::MSG)->find(
+                $query,
+                array(
+                    'msguid' => true
+                )
+            );
             foreach ($cursor as $val) {
                 $out[] = $val['msguid'];
             }
@@ -204,7 +215,13 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
         }
 
         try {
-            $cursor = $this->_db->selectCollection(self::MD)->find($query, array('data', 'field'));
+            $cursor = $this->_db->selectCollection(self::MD)->find(
+                $query,
+                array(
+                    'data' => true,
+                    'field' => true
+                )
+            );
             foreach ($cursor as $val) {
                 $out[$val['field']] = $this->_value($val['data']);
             }
@@ -297,7 +314,7 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
         $uids = array();
 
         try {
-            $cursor = $this->_db->selectCollection(self::BASE)->find($query, array());
+            $cursor = $this->_db->selectCollection(self::BASE)->find($query);
             foreach ($cursor as $val) {
                 $uids[] = strval($result['_id']);
             }
@@ -333,7 +350,7 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
         );
 
         try {
-            if ($result = $this->_db->selectCollection(self::BASE)->findOne($query, array())) {
+            if ($result = $this->_db->selectCollection(self::BASE)->findOne($query)) {
                 return strval($result['_id']);
             }
         } catch (MongoException $e) {}
