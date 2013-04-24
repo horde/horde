@@ -364,8 +364,7 @@ table.searchesmanagement td.searchdescription {
 
 /* Large addresslist display. */
 .largeaddrlist, .largeaddrlistlimit {
-    background: #bbb;
-    color: blue;
+    color: #36525d;
     cursor: pointer;
     font-weight: bold;
     margin-right: 5px;
