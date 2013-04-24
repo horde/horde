@@ -22,10 +22,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>18:04:18</time>
+ <date>2013-04-24</date>
+ <time>00:34:43</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.1.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add MongoDB driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -53,6 +53,7 @@
        <file name="External.php" role="php" />
        <file name="File.php" role="php" />
        <file name="Memcache.php" role="php" />
+       <file name="Mongo.php" role="php" />
        <file name="Sql.php" role="php" />
        <file name="Stack.php" role="php" />
       </dir> <!-- /lib/Horde/SessionHandler/Storage -->
@@ -66,6 +67,7 @@
     <dir name="Horde">
      <dir name="SessionHandler">
       <file name="1_horde_sessionhandler_base_tables.php" role="data" />
+      <file name="2_horde_sessionhandler_fix_blob_length.php" role="data" />
      </dir> <!-- /migration/Horde/SessionHandler -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -163,9 +165,11 @@
    <install as="Horde/SessionHandler/Storage/External.php" name="lib/Horde/SessionHandler/Storage/External.php" />
    <install as="Horde/SessionHandler/Storage/File.php" name="lib/Horde/SessionHandler/Storage/File.php" />
    <install as="Horde/SessionHandler/Storage/Memcache.php" name="lib/Horde/SessionHandler/Storage/Memcache.php" />
+   <install as="Horde/SessionHandler/Storage/Mongo.php" name="lib/Horde/SessionHandler/Storage/Mongo.php" />
    <install as="Horde/SessionHandler/Storage/Sql.php" name="lib/Horde/SessionHandler/Storage/Sql.php" />
    <install as="Horde/SessionHandler/Storage/Stack.php" name="lib/Horde/SessionHandler/Storage/Stack.php" />
    <install as="migration/1_horde_sessionhandler_base_tables.php" name="migration/Horde/SessionHandler/1_horde_sessionhandler_base_tables.php" />
+   <install as="migration/2_horde_sessionhandler_fix_blob_length.php" name="migration/Horde/SessionHandler/2_horde_sessionhandler_fix_blob_length.php" />
    <install as="Horde/SessionHandler/AllTests.php" name="test/Horde/SessionHandler/AllTests.php" />
    <install as="Horde/SessionHandler/bootstrap.php" name="test/Horde/SessionHandler/bootstrap.php" />
    <install as="Horde/SessionHandler/conf.php.dist" name="test/Horde/SessionHandler/conf.php.dist" />
@@ -472,15 +476,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.0.3</release>
+    <release>2.1.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-04-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add MongoDB driver.
    </notes>
   </release>
  </changelog>
