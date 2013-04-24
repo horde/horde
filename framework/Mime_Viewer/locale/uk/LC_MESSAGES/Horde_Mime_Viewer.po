@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Mime_Viewer\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 22:57+0200\n"
-"PO-Revision-Date: 2010-10-13 22:57+0200\n"
+"PO-Revision-Date: 2013-04-13 22:57+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -20,25 +20,25 @@ msgstr ""
 #: lib/Horde/Mime/Viewer/Rar.php:90 lib/Horde/Mime/Viewer/Tgz.php:108
 #: lib/Horde/Mime/Viewer/Zip.php:99
 msgid "Archive File Size"
-msgstr ""
+msgstr "Обсяг архіву"
 
 #: lib/Horde/Mime/Viewer/Rar.php:85 lib/Horde/Mime/Viewer/Tgz.php:103
 #: lib/Horde/Mime/Viewer/Zip.php:98
 msgid "Archive Name"
-msgstr ""
+msgstr "Назва архіву"
 
 #: lib/Horde/Mime/Viewer/Rar.php:103 lib/Horde/Mime/Viewer/Tgz.php:121
 #: lib/Horde/Mime/Viewer/Zip.php:104
 msgid "Attributes"
-msgstr ""
+msgstr "Атрибути"
 
 #: lib/Horde/Mime/Viewer/Rfc822.php:70
 msgid "Bcc"
-msgstr ""
+msgstr "Bcc"
 
 #: lib/Horde/Mime/Viewer/Rfc822.php:69
 msgid "Cc"
-msgstr ""
+msgstr "Cc"
 
 #: lib/Horde/Mime/Viewer/Rfc822.php:66
 msgid "Date"
@@ -49,64 +49,61 @@ msgstr "Дата"
 #, php-format
 msgid "File Count: %d file"
 msgid_plural "File Count: %d files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Кількість файлів: %d файл"
+msgstr[1] "Кількість файлів: %d файли"
+msgstr[2] "Кількість файлів: %d файлів"
 
 #: lib/Horde/Mime/Viewer/Rar.php:102 lib/Horde/Mime/Viewer/Tgz.php:120
-#, fuzzy
 msgid "File Name"
-msgstr "Повне ім'я"
+msgstr "Назва файлу"
 
 #: lib/Horde/Mime/Viewer/Rfc822.php:67
-#, fuzzy
 msgid "From"
-msgstr "Від "
+msgstr "Від"
 
 #: lib/Horde/Mime/Viewer/Rar.php:106 lib/Horde/Mime/Viewer/Zip.php:107
 msgid "Method"
-msgstr ""
+msgstr "Метод"
 
 #: lib/Horde/Mime/Viewer/Rar.php:105 lib/Horde/Mime/Viewer/Tgz.php:123
 #: lib/Horde/Mime/Viewer/Zip.php:106
 msgid "Modified Date"
-msgstr ""
+msgstr "Дата зміни"
 
 #: lib/Horde/Mime/Viewer/Rar.php:107 lib/Horde/Mime/Viewer/Zip.php:108
 msgid "Ratio"
 msgstr ""
 
 #: lib/Horde/Mime/Viewer/Rfc822.php:71
-#, fuzzy
 msgid "Reply-To"
-msgstr "Непал"
+msgstr "Reply-To"
 
 #: lib/Horde/Mime/Viewer/Rar.php:104 lib/Horde/Mime/Viewer/Tgz.php:122
 #: lib/Horde/Mime/Viewer/Zip.php:105
 msgid "Size"
-msgstr ""
+msgstr "Обсяг"
 
 #: lib/Horde/Mime/Viewer/Rfc822.php:72
 msgid "Subject"
-msgstr ""
+msgstr "Тема"
 
 #: lib/Horde/Mime/Viewer/Rfc822.php:68
 msgid "To"
-msgstr ""
+msgstr "To"
 
 #: lib/Horde/Mime/Viewer/Rtf.php:75
 msgid "Unable to translate this RTF document"
-msgstr ""
+msgstr "Не можу перекласти цей RTF-документ"
 
 #: lib/Horde/Mime/Viewer/Msword.php:76
 msgid "Unable to translate this Word document"
-msgstr ""
+msgstr "Не можу перекласти цей Word-документ"
 
 #: lib/Horde/Mime/Viewer/Wordperfect.php:75
 msgid "Unable to translate this WordPerfect document"
-msgstr ""
+msgstr "Не можу перекласти цей WordPerfect-документ"
 
 #: lib/Horde/Mime/Viewer/Rar.php:78 lib/Horde/Mime/Viewer/Tgz.php:96
 #: lib/Horde/Mime/Viewer/Zip.php:90
 msgid "unnamed"
-msgstr ""
+msgstr "безіменний"

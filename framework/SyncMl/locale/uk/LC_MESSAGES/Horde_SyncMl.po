@@ -18,6 +18,5 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: SyncML/Device/Sync4j.php:614
-#, fuzzy
 msgid "Error converting notes."
-msgstr "Помилка запису \"%s\"."
+msgstr "Помилка конвертації записів."
