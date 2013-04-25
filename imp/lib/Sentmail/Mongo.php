@@ -94,7 +94,7 @@ class IMP_Sentmail_Mongo extends IMP_Sentmail
                 /* Group by recipient. */
                 array(
                     '$group' => array(
-                        '_id' => '$' . self::RECIP,
+                        '_id' => '$' . self::RECIPIENT,
                         'count' => array(
                             '$sum' => 1
                         )
