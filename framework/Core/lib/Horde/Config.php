@@ -536,7 +536,8 @@ class Horde_Config
                     'desc' => $desc,
                     'switch' => $values,
                     'default' => $default,
-                    'is_default' => $isDefault
+                    'is_default' => $isDefault,
+                    'quote' => $quote
                 );
                 break;
 
