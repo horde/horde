@@ -100,19 +100,12 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
         // update it if it's there, or create a new one if it's not.
         foreach ($scope_ob->getDirty() as $name) {
             $value = $scope_ob->get($name);
-            $values = array($this->_params['user'], $name, $scope_ob->scope);
 
             if (is_null($value)) {
-                $query = 'DELETE FROM ' . $this->_params['table'] .
-                    ' WHERE pref_uid = ? AND pref_name = ?' .
-                    ' AND pref_scope = ?';
-
-                try {
-                    $this->_db->delete($query, $values);
-                } catch (Horde_Db_Exception $e) {
-                    throw new Horde_Prefs_Exception($e);
-                }
+                $this->remove($scope_ob->scope, $name);
             } else {
+                $values = array($this->_params['user'], $name, $scope_ob->scope);
+
                 // Does a row already exist for this preference?
                 $query = 'SELECT 1 FROM ' . $this->_params['table'] .
                     ' WHERE pref_uid = ? AND pref_name = ?' .
