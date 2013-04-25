@@ -49,14 +49,25 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
      */
     public function create($scope = 'horde', array $opts = array())
     {
+        global $conf, $injector, $registry;
+
         if (array_key_exists('driver', $opts)) {
             $driver = $opts['driver'];
             $params = array();
-        } elseif (empty($GLOBALS['conf']['prefs']['driver'])) {
+        } elseif (empty($conf['prefs']['driver'])) {
             $driver = null;
             $params = array();
         } else {
-            $driver = 'Horde_Prefs_Storage_' . ucfirst($GLOBALS['conf']['prefs']['driver']);
+            $driver = $conf['prefs']['driver'];
+            switch (Horde_String::lower($driver)) {
+            case 'nosql':
+                $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'prefs');
+                if ($nosql instanceof Horde_Mongo_Client) {
+                    $driver = 'mongo';
+                }
+                break;
+            }
+            $driver = $this->_getDriverName($driver, 'Horde_Prefs_Storage');
             $params = Horde::getDriverConfig('prefs', $driver);
         }
 
@@ -68,7 +79,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             'cache' => true,
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'password' => '',
-            'sizecallback' => ((isset($GLOBALS['conf']['prefs']['maxsize'])) ? array($this, 'sizeCallback') : null),
+            'sizecallback' => ((isset($conf['prefs']['maxsize'])) ? array($this, 'sizeCallback') : null),
             'user' => ''
         ), $opts);
 
@@ -101,6 +112,10 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                     ->create('horde', 'ldap');
                 break;
 
+            case 'Horde_Prefs_Storage_Mongo':
+                $params['mongo_db'] = $nosql;
+                break;
+
             case 'Horde_Prefs_Storage_Session':
                 $driver = 'Horde_Prefs_Storage_Null';
                 break;
@@ -111,7 +126,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                 break;
 
             case 'Horde_Prefs_Storage_KolabImap':
-                if ($GLOBALS['registry']->isAdmin()) {
+                if ($registry->isAdmin()) {
                     throw new Horde_Exception('The IMAP based Kolab preferences backend is unavailable for system administrators.');
                 }
                 $params['kolab'] = $this->_injector
@@ -120,9 +135,9 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                 break;
 
             case 'Horde_Prefs_Storage_Imsp':
-                $imspParams = $GLOBALS['conf']['imsp'];
-                $imspParams['username'] = $GLOBALS['registry']->getAuth('bare');
-                $imspParams['password'] = $GLOBALS['registry']->getAuthCredential('password');
+                $imspParams = $conf['imsp'];
+                $imspParams['username'] = $registry->getAuth('bare');
+                $imspParams['password'] = $registry->getAuthCredential('password');
                 $params['imsp'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Imsp')->create('Options', $imspParams);
             }

@@ -843,6 +843,11 @@
    KB (65535 bytes). These installations would want to turn checking on."/>
    <configswitch name="driver" desc="What preferences driver should we
    use?">Sql
+     <case name="Nosql" desc="NoSQL Database">
+      <configsection name="params">
+       <confignosql switchname="driverconfig" />
+      </configsection>
+     </case>
      <case name="Sql" desc="SQL Database">
       <configsection name="params">
        <configsql switchname="driverconfig">
