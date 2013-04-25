@@ -1,17 +1,25 @@
 <?php
 /**
- * The abstract class that all sentmail implementations inherit from.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * The abstract class that all sentmail implementations inherit from.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 abstract class IMP_Sentmail
 {
