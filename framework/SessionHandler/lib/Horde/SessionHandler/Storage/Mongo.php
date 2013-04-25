@@ -212,8 +212,7 @@ class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage
             $this->_db->remove(array(
                 self::MODIFIED => array(
                     '$lt' => (time() - $maxlifetime)
-                ),
-                self::SID => $id
+                )
             ));
             return true;
         } catch (MongoException $e) {}
