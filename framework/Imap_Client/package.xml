@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Correctly use limit parameter to Horde_Imap_Client_Ids#split() (Bug #12216).
 * [mms] Add a MongoDB based backend for storing cached IMAP/POP data.
 * [mms] Add Horde_Imap_Client_Cache#clear().
 * [mms] Add a Horde_Db based backend for storing cached IMAP/POP data.
@@ -1668,6 +1669,7 @@
    <date>2013-04-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Correctly use limit parameter to Horde_Imap_Client_Ids#split() (Bug #12216).
 * [mms] Add a MongoDB based backend for storing cached IMAP/POP data.
 * [mms] Add Horde_Imap_Client_Cache#clear().
 * [mms] Add a Horde_Db based backend for storing cached IMAP/POP data.
