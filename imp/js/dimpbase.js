@@ -220,12 +220,15 @@ var DimpBase = {
                 if ($('dimpmain_iframe').visible()) {
                     tmp = $('dimpmain_iframe').hide().down();
                     tmp.blur();
-                    tmp.remove();
                 }
                 $('dimpmain_folder').show();
             }
 
             this.loadMailbox(data);
+
+            if (tmp) {
+                tmp.remove();
+            }
             return;
         }
 
