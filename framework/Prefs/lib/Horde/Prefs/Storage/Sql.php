@@ -65,7 +65,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
     public function get($scope_ob)
     {
         $charset = $this->_db->getOption('charset');
-        $query = 'SELECT pref_scope, pref_name, pref_value FROM ' .
+        $query = 'SELECT pref_name, pref_value FROM ' .
             $this->_params['table'] . ' ' .
             'WHERE pref_uid = ? AND pref_scope = ?';
         $values = array($this->_params['user'], $scope_ob->scope);
