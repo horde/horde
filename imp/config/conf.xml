@@ -114,7 +114,7 @@
    your country.</configdescription>
    <configswitch name="driver" desc="The sentmail log storage driver to
    use?">Null
-    <case name="NoSQL" desc="NoSQL">
+    <case name="Nosql" desc="NoSQL">
      <configsection name="params">
       <configinteger name="threshold" desc="How many days should old log
       entries be kept?">60</configinteger>
