@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>17:22:47</time>
+ <date>2013-04-24</date>
+ <time>23:41:34</time>
  <version>
   <release>2.3.3</release>
   <api>2.2.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add MongoDB storage driver.
 * [mms] Fix removing preference from backend (Bug #12207).
 * [mms] More compact internal/serialized representation of data in Horde_Prefs_Scope.
  </notes>
@@ -65,6 +66,7 @@
        <file name="Imsp.php" role="php" />
        <file name="KolabImap.php" role="php" />
        <file name="Ldap.php" role="php" />
+       <file name="Mongo.php" role="php" />
        <file name="Null.php" role="php" />
        <file name="Sql.php" role="php" />
       </dir> <!-- /lib/Horde/Prefs/Storage -->
@@ -345,6 +347,7 @@
      <dir name="Prefs">
       <file name="1_horde_prefs_base_tables.php" role="data" />
       <file name="2_horde_prefs_upgrade_binary_value.php" role="data" />
+      <file name="3_horde_prefs_fix_blob_length.php" role="data" />
      </dir> <!-- /migration/Horde/Prefs -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -475,6 +478,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
@@ -501,6 +511,7 @@
    <install as="Horde/Prefs/Storage/Imsp.php" name="lib/Horde/Prefs/Storage/Imsp.php" />
    <install as="Horde/Prefs/Storage/KolabImap.php" name="lib/Horde/Prefs/Storage/KolabImap.php" />
    <install as="Horde/Prefs/Storage/Ldap.php" name="lib/Horde/Prefs/Storage/Ldap.php" />
+   <install as="Horde/Prefs/Storage/Mongo.php" name="lib/Horde/Prefs/Storage/Mongo.php" />
    <install as="Horde/Prefs/Storage/Null.php" name="lib/Horde/Prefs/Storage/Null.php" />
    <install as="Horde/Prefs/Storage/Sql.php" name="lib/Horde/Prefs/Storage/Sql.php" />
    <install as="locale/Horde_Prefs.pot" name="locale/Horde_Prefs.pot" />
@@ -592,6 +603,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" name="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" />
    <install as="migration/1_horde_prefs_base_tables.php" name="migration/Horde/Prefs/1_horde_prefs_base_tables.php" />
    <install as="migration/2_horde_prefs_upgrade_binary_value.php" name="migration/Horde/Prefs/2_horde_prefs_upgrade_binary_value.php" />
+   <install as="migration/3_horde_prefs_fix_blob_length.php" name="migration/Horde/Prefs/3_horde_prefs_fix_blob_length.php" />
    <install as="Horde/Prefs/AllTests.php" name="test/Horde/Prefs/AllTests.php" />
    <install as="Horde/Prefs/Autoload.php" name="test/Horde/Prefs/Autoload.php" />
    <install as="Horde/Prefs/bootstrap.php" name="test/Horde/Prefs/bootstrap.php" />
@@ -1014,9 +1026,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-04-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add MongoDB storage driver.
 * [mms] Fix removing preference from backend (Bug #12207).
 * [mms] More compact internal/serialized representation of data in Horde_Prefs_Scope.
    </notes>
