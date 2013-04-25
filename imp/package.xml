@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-19</date>
+ <date>2013-04-24</date>
  <version>
   <release>6.1.0beta1</release>
   <api>6.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add MongoDB driver for sentmail log storage.
 * [mms] Add IMAP cache specific purge action to the imap cache query script.
 * [mms] Add support for using SQL and NoSQL backends for IMAP/POP caching.
 * [mms] Add thumbnail generation for video attachments.
@@ -472,6 +473,7 @@
      <file name="Vfolder.php" role="horde" />
     </dir> <!-- /lib/Search -->
     <dir name="Sentmail">
+     <file name="Mongo.php" role="horde" />
      <file name="Null.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Sentmail -->
@@ -1757,6 +1759,7 @@
    <install as="imp/lib/Search/Vfolder/Builtin.php" name="lib/Search/Vfolder/Builtin.php" />
    <install as="imp/lib/Search/Vfolder/Vinbox.php" name="lib/Search/Vfolder/Vinbox.php" />
    <install as="imp/lib/Search/Vfolder/Vtrash.php" name="lib/Search/Vfolder/Vtrash.php" />
+   <install as="imp/lib/Sentmail/Mongo.php" name="lib/Sentmail/Mongo.php" />
    <install as="imp/lib/Sentmail/Null.php" name="lib/Sentmail/Null.php" />
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
@@ -3121,7 +3124,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-04-19</date>
+   <date>2013-04-24</date>
    <version>
     <release>6.1.0beta1</release>
     <api>6.0.0</api>
@@ -3132,6 +3135,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add MongoDB driver for sentmail log storage.
 * [mms] Add IMAP cache specific purge action to the imap cache query script.
 * [mms] Add support for using SQL and NoSQL backends for IMAP/POP caching.
 * [mms] Add thumbnail generation for video attachments.

@@ -31,14 +31,25 @@ class IMP_Factory_Sentmail extends Horde_Core_Factory_Injector
     public function create(Horde_Injector $injector)
     {
         $driver = empty($GLOBALS['conf']['sentmail']['driver'])
-            ? 'Null'
-            : ucfirst($GLOBALS['conf']['sentmail']['driver']);
+            ? 'null'
+            : $GLOBALS['conf']['sentmail']['driver'];
         $params = Horde::getDriverConfig('sentmail', $driver);
 
-        if (strcasecmp($driver, 'Sql') === 0) {
+        switch (Horde_String::lower($driver)) {
+        case 'nosql':
+            $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')->create('imp', 'sentmail');
+            if ($nosql instanceof Horde_Mongo_Client) {
+                $params['mongo_db'] = $nosql;
+                $driver = 'Mongo';
+            }
+            break;
+
+        case 'sql':
             $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('imp', 'sentmail');
-        } elseif (strcasecmp($driver, 'None') === 0) {
-            $driver = 'Null';
+
+        default:
+            $driver = 'null';
+            break;
         }
 
         $class = $this->_getDriverName($driver, 'IMP_Sentmail');

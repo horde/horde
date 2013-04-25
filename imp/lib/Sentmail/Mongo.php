@@ -1,0 +1,161 @@
+<?php
+/**
+ * Copyright 2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Sentmail driver implementation for MongoDB databases.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+class IMP_Sentmail_Mongo extends IMP_Sentmail
+{
+    /* Field names. */
+    const ACTION = 'action';
+    const MESSAGEID = 'msgid';
+    const RECIPIENT = 'recip';
+    const SUCCESS = 'success';
+    const TS = 'ts';
+    const WHO = 'who';
+
+    /**
+     * Handle for the current database connection.
+     *
+     * @var MongoCollection
+     */
+    protected $_db;
+
+    /**
+     * @param array $params  Parameters:
+     *   - collection: (string) The name of the sentmail collection.
+     *   - mongo_db: (Horde_Mongo_Client) [REQUIRED] The DB instance.
+     */
+    public function __construct(array $params = array())
+    {
+        if (!isset($params['mongo_db'])) {
+            throw new InvalidArgumentException('Missing mongo_db parameter.');
+        }
+
+        parent::__construct(array_merge(array(
+            'collection' => 'imp_sentmail'
+        ), $params));
+
+        $this->_db = $this->_params['mongo_db']->selectCollection(null, $this->_params['collection']);
+    }
+
+    /**
+     */
+    protected function _log($action, $message_id, $recipient, $success)
+    {
+        try {
+            $this->_db->insert(array(
+                self::ACTION => $action,
+                self::MESSAGEID => $message_id,
+                self::RECIPIENT => $recipient,
+                self::SUCCESS => intval($success),
+                self::TS => time(),
+                self::WHO => $GLOBALS['registry']->getAuth()
+            ));
+        } catch (MongoException $e) {}
+    }
+
+    /**
+     */
+    public function favouriteRecipients($limit, $filter = null)
+    {
+        $query = array(
+            self::SUCCESS => 1,
+            self::WHO => $GLOBALS['registry']->getAuth()
+        );
+
+        if (!empty($filter)) {
+            $query[self::ACTION] = array('$in' => $filter);
+        }
+
+        try {
+            $out = array();
+
+            $res = $this->_db->aggregate(array(
+                /* Match the query. */
+                array('$match' => $query),
+
+                /* Group by recipient. */
+                array(
+                    '$group' => array(
+                        '_id' => '$' . self::RECIP,
+                        'count' => array(
+                            '$sum' => 1
+                        )
+                    )
+                ),
+
+                /* Sort by recipient. */
+                array(
+                    '$sort' => array('count' => -1)
+                ),
+
+                /* Limit the return. */
+                array(
+                    '$limit' => $limit
+                )
+            ));
+
+            if (isset($res['result'])) {
+                foreach ($res['result'] as $val) {
+                    $out[] = $val['_id'];
+                }
+            }
+
+            return $out;
+        } catch (MongoException $e) {
+            throw new IMP_Exception($e);
+        }
+    }
+
+    /**
+     */
+    public function numberOfRecipients($hours, $user = false)
+    {
+        $query = array(
+            self::TS => array(
+                '$gt' => (time() - ($hours * 3600))
+            )
+        );
+
+        if ($user) {
+            $query[self::WHO] = $GLOBALS['registry']->getAuth();
+        }
+
+        try {
+            return $this->_db->count($query);
+        } catch (MongoException $e) {
+            throw new IMP_Exception($e);
+        }
+    }
+
+    /**
+     */
+    protected function _deleteOldEntries($before)
+    {
+        try {
+            $this->_db->remove(array(
+                self::TS => array(
+                    '$lt' => $before
+                )
+            ));
+        } catch (MongoException $e) {}
+    }
+
+}

@@ -113,7 +113,17 @@
    Enable this feature only if it doesn't violate privacy rules or laws in
    your country.</configdescription>
    <configswitch name="driver" desc="The sentmail log storage driver to
-   use?">Sql
+   use?">Null
+    <case name="NoSQL" desc="NoSQL">
+     <configsection name="params">
+      <configinteger name="threshold" desc="How many days should old log
+      entries be kept?">60</configinteger>
+      <configinteger name="limit_period" desc="If limiting users to a certain
+      number of recipients per time period, how many hours should this time
+      period last?">24</configinteger>
+      <confignosql switchname="driverconfig" />
+     </configsection>
+    </case>
     <case name="Null" desc="None"/>
     <case name="Sql" desc="SQL">
      <configsection name="params">
