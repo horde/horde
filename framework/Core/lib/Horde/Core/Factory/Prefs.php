@@ -121,8 +121,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                 break;
 
             case 'Horde_Prefs_Storage_Sql':
-                $params['db'] = $this->_injector
-                    ->getInstance('Horde_Db_Adapter');
+                $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'prefs');
                 break;
 
             case 'Horde_Prefs_Storage_KolabImap':

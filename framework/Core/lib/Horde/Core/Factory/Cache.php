@@ -70,7 +70,7 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
             break;
 
         case 'sql':
-            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+            $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'cache');
             break;
         }
 

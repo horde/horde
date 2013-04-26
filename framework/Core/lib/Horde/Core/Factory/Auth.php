@@ -134,15 +134,9 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
                 throw new Horde_Auth_Exception($e);
             }
 
-            if (!empty($params['driverconfig']) &&
-                $params['driverconfig'] == 'horde') {
-                $params['db'] = $this->_injector
-                    ->getInstance('Horde_Db_Adapter');
-            } else {
-                $params['db'] = $this->_injector
-                    ->getInstance('Horde_Core_Factory_Db')
-                    ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
-            }
+            $params['db'] = $this->_injector
+                ->getInstance('Horde_Core_Factory_Db')
+                ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
             break;
 
         case 'http_remote':
@@ -173,15 +167,9 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
 
         case 'customsql':
         case 'sql':
-            if (!empty($params['driverconfig']) &&
-                $params['driverconfig'] == 'horde') {
-                $params['db'] = $this->_injector
-                    ->getInstance('Horde_Db_Adapter');
-            } else {
-                $params['db'] = $this->_injector
-                    ->getInstance('Horde_Core_Factory_Db')
-                    ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
-            }
+            $params['db'] = $this->_injector
+                ->getInstance('Horde_Core_Factory_Db')
+                ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
             break;
         }
 
