@@ -561,30 +561,31 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         try {
             $response = $this->_getClient($url)->request('GET');
+            if ($response['statusCode'] != 200) {
+                throw new Horde_Dav_Exception('Request Failed', $response['statusCode']);
+            }
         } catch (Horde_Dav_Exception $e) {
-            Horde::logMessage($e, 'INFO');
-            if ($cache) {
-                $cacheOb->set($signature, serialize($e->getMessage()));
-            }
-            throw new Kronolith_Exception($e);
-        }
-        if ($response['statusCode'] != 200) {
-            Horde::logMessage(sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
-                                      $url, $response['statusCode']), 'INFO');
-            $error = sprintf(_("Could not open %s."), $url);
-            if ($response['body']) {
-                $error .= ' ' . _("This is what the server said:")
-                    . ' ' . Horde_String::truncate(strip_tags($response['body']));
-            }
+            Horde::logMessage(
+                sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
+                        $url, $response['statusCode']),
+                'INFO'
+            );
+            $error = sprintf(
+                _("Could not open %s: %s"),
+                $url, $e->getMessage()
+            );
             if ($cache) {
                 $cacheOb->set($signature, serialize($error));
             }
-            throw new Kronolith_Exception($error, $response['statusCode']);
+            throw new Kronolith_Exception($error, $e->getCode());
         }
 
         /* Log fetch at DEBUG level. */
-        Horde::logMessage(sprintf('Retrieved remote calendar for %s: url = "%s"',
-                                  $GLOBALS['registry']->getAuth(), $url), 'DEBUG');
+        Horde::logMessage(
+            sprintf('Retrieved remote calendar for %s: url = "%s"',
+                    $GLOBALS['registry']->getAuth(), $url),
+            'DEBUG'
+        );
 
         $ical = new Horde_Icalendar();
         try {
