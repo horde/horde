@@ -46,6 +46,7 @@ class IMP_Factory_Sentmail extends Horde_Core_Factory_Injector
 
         case 'sql':
             $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('imp', 'sentmail');
+            break;
 
         default:
             $driver = 'null';
