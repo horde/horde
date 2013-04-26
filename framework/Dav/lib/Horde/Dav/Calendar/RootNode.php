@@ -46,14 +46,4 @@ class Horde_Dav_Calendar_RootNode extends CalDAV\CalendarRootNode
         parent::__construct($principalBackend, $caldavBackend);
         $this->_registry = $registry;
     }
-
-    /**
-     * Returns the nodename.
-     *
-     * @return string
-     */
-    public function XgetName()
-    {
-        return $this->_registry->hasInterface('calendar');
-    }
 }
