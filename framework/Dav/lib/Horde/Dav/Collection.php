@@ -47,13 +47,6 @@ class Horde_Dav_Collection extends DAV\Collection
     protected $_registry;
 
     /**
-     * A principals collection.
-     *
-     * @var Sabre\DAVACL\PrincipalCollection
-     */
-    protected $_principals;
-
-    /**
      * The path to a MIME magic database.
      *
      * @var string
@@ -67,23 +60,17 @@ class Horde_Dav_Collection extends DAV\Collection
      *                                                      collection.
      * @param array $item                                   Collection details.
      * @param Horde_Registry $registry                      A registry object.
-     * @param Sabre\DAVACL\PrincipalCollection $principals  A principals
-     *                                                      collection.
      * @param string $mimedb                                Location of a MIME
      *                                                      magic database.
      */
     public function __construct($path = null,
                                 array $item = array(),
                                 Horde_Registry $registry,
-                                DAVACL\PrincipalCollection $principals,
-                                CalDAV\BackendInterface $caldav,
                                 $mimedb)
     {
         $this->_path = $path;
         $this->_item = $item;
         $this->_registry = $registry;
-        $this->_principals = $principals;
-        $this->_caldav = $caldav;
         $this->_mimedb = $mimedb;
     }
 
@@ -96,9 +83,6 @@ class Horde_Dav_Collection extends DAV\Collection
      */
     public function getName()
     {
-        if (!$this->_path) {
-            return 'root';
-        }
         list($dir, $base) = DAV\URLUtil::splitPath($this->_path);
         return $base;
     }
@@ -126,23 +110,6 @@ class Horde_Dav_Collection extends DAV\Collection
      */
     public function getChildren()
     {
-        if (!$this->_path) {
-            $apps = array($this->_principals, $this->_caldav);
-            foreach ($this->_registry->listApps() as $app) {
-                if ($this->_registry->hasMethod('browse', $app)) {
-                    $apps[] = new Horde_Dav_Collection(
-                        $app,
-                        array(),
-                        $this->_registry,
-                        $this->_principals,
-                        $this->_caldav,
-                        $this->_mimedb
-                    );
-                }
-            }
-            return $apps;
-        }
-
         list($app) = explode('/', $this->_path);
         try {
             $items = $this->_registry->callByPackage(
@@ -177,8 +144,6 @@ class Horde_Dav_Collection extends DAV\Collection
                     $path,
                     $item,
                     $this->_registry,
-                    $this->_principals,
-                    $this->_caldav,
                     $this->_mimedb
                 );
             } else {

@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-04-26</date>
- <time>12:26:16</time>
+ <time>12:48:57</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -51,6 +51,7 @@
       <file name="File.php" role="php" />
       <file name="Locks.php" role="php" />
       <file name="Principals.php" role="php" />
+      <file name="RootCollection.php" role="php" />
      </dir> <!-- /lib/Horde/Dav -->
      </dir> <!-- /lib/Horde -->
     <!-- //lib/Sabre -->
@@ -398,6 +399,7 @@
    <install as="Horde/Dav/File.php" name="lib/Horde/Dav/File.php" />
    <install as="Horde/Dav/Locks.php" name="lib/Horde/Dav/Locks.php" />
    <install as="Horde/Dav/Principals.php" name="lib/Horde/Dav/Principals.php" />
+   <install as="Horde/Dav/RootCollection.php" name="lib/Horde/Dav/RootCollection.php" />
    <install as="Horde/Dav/Calendar/Backend.php" name="lib/Horde/Dav/Calendar/Backend.php" />
    <install as="Horde/Dav/Calendar/RootNode.php" name="lib/Horde/Dav/Calendar/RootNode.php" />
    <install as="Horde/Dav/Storage/Base.php" name="lib/Horde/Dav/Storage/Base.php" />

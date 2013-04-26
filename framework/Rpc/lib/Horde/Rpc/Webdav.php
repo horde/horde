@@ -61,12 +61,9 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         $caldav = new Horde_Dav_Calendar_RootNode($principalBackend, $calendarBackend, $registry);
 
         $this->_server = new DAV\Server(
-            new Horde_Dav_Collection(
-                null,
-                array(),
+            new Horde_Dav_RootCollection(
                 $registry,
-                $principals,
-                $caldav,
+                array($principals, $caldav),
                 isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null
             )
         );
