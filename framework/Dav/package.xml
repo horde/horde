@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-22</date>
- <time>19:18:59</time>
+ <date>2013-04-26</date>
+ <time>12:26:16</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -36,11 +36,6 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Dav">
-      <dir name="Auth">
-       <dir name="Backend">
-        <file name="Horde.php" role="php" />
-       </dir> <!-- /lib/Horde/Dav/Auth/Backend -->
-      </dir> <!-- /lib/Horde/Dav/Auth -->
       <dir name="Calendar">
        <file name="Backend.php" role="php" />
        <file name="RootNode.php" role="php" />
@@ -403,7 +398,6 @@
    <install as="Horde/Dav/File.php" name="lib/Horde/Dav/File.php" />
    <install as="Horde/Dav/Locks.php" name="lib/Horde/Dav/Locks.php" />
    <install as="Horde/Dav/Principals.php" name="lib/Horde/Dav/Principals.php" />
-   <install as="Horde/Dav/Auth/Backend/Horde.php" name="lib/Horde/Dav/Auth/Backend/Horde.php" />
    <install as="Horde/Dav/Calendar/Backend.php" name="lib/Horde/Dav/Calendar/Backend.php" />
    <install as="Horde/Dav/Calendar/RootNode.php" name="lib/Horde/Dav/Calendar/RootNode.php" />
    <install as="Horde/Dav/Storage/Base.php" name="lib/Horde/Dav/Storage/Base.php" />
