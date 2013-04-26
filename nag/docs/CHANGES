@@ -2,6 +2,8 @@
 v4.0.3-git
 ----------
 
+[jan] Fix recurring tasks in Kolab driver (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #12222).
 [mjr] Fix setting alarm time when syncing (Bug #12201,
       <thomas.jarosch@intra2net.com>).
 [mjr] Fix issue causing due dates to be offset when syncing (Bug #12200,
