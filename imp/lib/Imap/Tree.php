@@ -1855,8 +1855,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *         DEFAULT: 'base'
      *   - co: (boolean) [container] Is this mailbox a container element?
      *         DEFAULT: no
-     *   - f: (boolean) [fixed] True if this is a fixed element.
-     *        DEFAULT: no
      *   - i: (string) [icon] A user defined icon to use.
      *        DEFAULT: none
      *   - l: (string) [label] The mailbox display label.
@@ -1912,10 +1910,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
         if ($elt->vfolder) {
             $ob->v = $elt->editvfolder ? 2 : 1;
-        }
-
-        if (!$elt->access_deletembox) {
-            $ob->f = 1;
         }
 
         if ($this->isContainer($elt)) {
