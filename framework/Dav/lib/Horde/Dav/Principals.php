@@ -18,6 +18,8 @@ use Sabre\DAVACL;
  * Backend implementation for listing and managing principals (users and
  * groups).
  *
+ * @todo Horde_Group support
+ *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/bsd BSD
