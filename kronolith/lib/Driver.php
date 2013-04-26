@@ -460,7 +460,7 @@ class Kronolith_Driver
             }
         }
 
-        /* Remove the event from any resources that are attached to it */
+        /* Remove the event from any resources that are attached to it. */
         $resources = $event->getResources();
         if (count($resources)) {
             $rd = Kronolith::getDriver('Resource');
@@ -480,10 +480,19 @@ class Kronolith_Driver
         $tagger = Kronolith::getTagger();
         $tagger->replaceTags($event->uid, array(), $event->creator, 'event');
 
-        /* Remove any geolocation data */
+        /* Remove any geolocation data. */
         try {
             $GLOBALS['injector']->getInstance('Kronolith_Geo')->deleteLocation($event->id);
         } catch (Kronolith_Exception $e) {
+        }
+
+        /* Remove any CalDAV mappings. */
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Horde_Dav_Storage')
+                ->deleteInternalId($event->id, $event->calendar);
+        } catch (Horde_Exception $e) {
+            Horde::log($e);
         }
 
         /* See if this event represents an exception - if so, touch the base

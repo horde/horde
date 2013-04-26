@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-04-01</date>
- <time>16:15:15</time>
+ <date>2013-04-22</date>
+ <time>19:04:28</time>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -41,7 +41,7 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] SECURITY: Fix token validation of AJAX actions.
-* [mms] Re-enable support for $conf['session']['timeout'] to allow for non-session based cookie lifetimes.
+* [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.
 * [jan] Add menu entry to show the notification log.
 * [mms] Dynamic javascript framework now has support for audio notification events.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
@@ -420,6 +420,7 @@
        <file name="Cache.php" role="php" />
        <file name="Crypt.php" role="php" />
        <file name="Data.php" role="php" />
+       <file name="DavStorage.php" role="php" />
        <file name="Db.php" role="php" />
        <file name="DbBase.php" role="php" />
        <file name="DbPear.php" role="php" />
@@ -1217,6 +1218,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Dav</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1708,6 +1716,7 @@
    <install as="Horde/Core/Factory/Cache.php" name="lib/Horde/Core/Factory/Cache.php" />
    <install as="Horde/Core/Factory/Crypt.php" name="lib/Horde/Core/Factory/Crypt.php" />
    <install as="Horde/Core/Factory/Data.php" name="lib/Horde/Core/Factory/Data.php" />
+   <install as="Horde/Core/Factory/DavStorage.php" name="lib/Horde/Core/Factory/DavStorage.php" />
    <install as="Horde/Core/Factory/Db.php" name="lib/Horde/Core/Factory/Db.php" />
    <install as="Horde/Core/Factory/DbBase.php" name="lib/Horde/Core/Factory/DbBase.php" />
    <install as="Horde/Core/Factory/DbPear.php" name="lib/Horde/Core/Factory/DbPear.php" />
@@ -2877,11 +2886,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-01</date>
+   <date>2013-04-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] SECURITY: Fix token validation of AJAX actions.
-* [mms] Re-enable support for $conf['session']['timeout'] to allow for non-session based cookie lifetimes.
+* [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.
 * [jan] Add menu entry to show the notification log.
 * [mms] Dynamic javascript framework now has support for audio notification events.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).

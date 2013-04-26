@@ -667,8 +667,14 @@ class Kronolith_Application extends Horde_Registry_Application
                 array('perm' => Horde_Perms::SHOW,
                       'attributes' => $user)
             );
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
         $calendars = array();
         foreach ($shares as $id => $share) {
+            try {
+                $id = $dav->getExternalId($id, '') ?: $id;
+            } catch (Horde_Dav_Exception $e) {
+            }
             $calendars[] = array(
                 'id' => $id,
                 'uri' => $id,
@@ -692,6 +698,9 @@ class Kronolith_Application extends Horde_Registry_Application
             throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
         }
 
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+
         $kronolith_driver = Kronolith::getDriver(null, $collection);
         $allEvents = $kronolith_driver->listEvents(
             null,
@@ -701,17 +710,23 @@ class Kronolith_Application extends Horde_Registry_Application
         $events = array();
         foreach ($allEvents as $dayevents) {
             foreach ($dayevents as $event) {
+                $id = $event->id;
                 $event->loadHistory();
                 $modified = $event->modified ?: ($event->created ?: time());
+                try {
+                    $id = $dav->getExternalId($id, $collection) ?: $id . '.ics';
+                } catch (Horde_Dav_Exception $e) {
+                }
                 $events[] = array(
-                    'id' => $event->id,
-                    'uri' => $event->id,
+                    'id' => $id,
+                    'uri' => $id,
                     'lastmodified' => $modified,
                     'etag' => '"' . md5($event->id . '|' . $modified) . '"',
                     'calendarid' => $collection,
                 );
             }
         }
+
         return $events;
     }
 
@@ -723,8 +738,20 @@ class Kronolith_Application extends Horde_Registry_Application
             throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
         }
 
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+
         $kronolith_driver = Kronolith::getDriver(null, $collection);
+        try {
+            $object = $dav->getInternalId($object, $collection) ?: preg_replace('/\.ics$/', '', $object);
+        } catch (Horde_Dav_Exception $e) {
+        }
         $event = $kronolith_driver->getEvent($object);
+        $id = $event->id;
+        try {
+            $id = $dav->getExternalId($id, $collection) ?: $id . '.ics';
+        } catch (Horde_Dav_Exception $e) {
+        }
 
         $event->loadHistory();
         $modified = $event->modified ?: ($event->created ?: time());
@@ -738,9 +765,9 @@ class Kronolith_Application extends Horde_Registry_Application
         $data = $ical->exportvCalendar();
 
         return array(
-            'id' => $event->id,
+            'id' => $id,
             'calendardata' => $data,
-            'uri' => $event->id,
+            'uri' => $id,
             'lastmodified' => $modified,
             'etag' => '"' . md5($event->id . '|' . $modified) . '"',
             'calendarid' => $collection,
@@ -756,12 +783,12 @@ class Kronolith_Application extends Horde_Registry_Application
             throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
         }
 
-        $kronolith_driver = Kronolith::getDriver(null, $collection);
-
         $ical = new Horde_Icalendar();
         if (!$ical->parsevCalendar($data)) {
             throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
         }
+
+        $kronolith_driver = Kronolith::getDriver(null, $collection);
 
         foreach ($ical->getComponents() as $content) {
             if (!($content instanceof Horde_Icalendar_Vevent)) {
@@ -791,10 +818,17 @@ class Kronolith_Application extends Horde_Registry_Application
                 // Don't change creator/owner.
                 $event->creator = $existing_event->creator;
             } catch (Horde_Exception_NotFound $e) {
+                $existing_event = null;
             }
 
             // Save entry.
-            $event->save();
+            $id = $event->save();
+
+            if (!$existing_event) {
+                $GLOBALS['injector']
+                    ->getInstance('Horde_Dav_Storage')
+                    ->addMap($id, $object, $collection);
+            }
         }
     }
 
@@ -806,6 +840,17 @@ class Kronolith_Application extends Horde_Registry_Application
             throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
         }
 
+        $dav = $GLOBALS['injector']->getInstance('Horde_Dav_Storage');
+        try {
+            $object = $dav->getInternalId($object, $collection)
+                ?: preg_replace('/\.ics$/', '', $object);
+        } catch (Horde_Dav_Exception $e) {
+        }
         Kronolith::getDriver(null, $collection)->deleteEvent($object);
+
+        try {
+            $dav->deleteExternalId($object, $collection);
+        } catch (Horde_Dav_Exception $e) {
+        }
     }
 }

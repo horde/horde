@@ -357,6 +357,7 @@ class Horde_Registry
             ),
             'Horde_Core_Auth_Signup' => 'Horde_Core_Factory_AuthSignup',
             'Horde_Core_Perms' => 'Horde_Core_Factory_PermsCore',
+            'Horde_Dav_Storage' => 'Horde_Core_Factory_DavStorage',
             'Horde_Db_Adapter' => 'Horde_Core_Factory_DbBase',
             'Horde_Editor' => 'Horde_Core_Factory_Editor',
             'Horde_ElasticSearch_Client' => 'Horde_Core_Factory_ElasticSearch',
