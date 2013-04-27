@@ -42,8 +42,16 @@ behavior (NOT RECOMMENDED), see the 'sort_force' option in
 
 The 'debug' option has been added to the SMTP configuration.
 
-IMAP/POP caching can now be done using a database backend (see documentation
+IMAP/POP caching can now be done using database backends (see documentation
 for the 'cache' parameter).
+
+The following quota drivers have been removed::
+
+   Command
+   Maildir
+   Mdaemon
+   Mercury32
+   Sql
 
 
 Configuration Options (conf.php)
