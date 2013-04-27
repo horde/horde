@@ -32,6 +32,14 @@ class Horde_Core_Factory_Lock extends Horde_Core_Factory_Injector
             $driver = 'null';
             break;
 
+        case 'nosql':
+            $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'cache');
+            if ($nosql instanceof Horde_Mongo_Client) {
+                $params['mongo_db'] = $nosql;
+                $driver = 'mongo';
+            }
+            break;
+
         case 'sql':
             $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'lock');
             break;
