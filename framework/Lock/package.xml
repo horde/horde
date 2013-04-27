@@ -10,8 +10,8 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>12:50:18</time>
+ <date>2013-04-27</date>
+ <time>06:39:52</time>
  <version>
   <release>2.0.3</release>
   <api>1.1.0</api>
@@ -37,6 +37,7 @@
     <dir name="Horde">
      <dir name="Lock">
       <file name="Exception.php" role="php" />
+      <file name="Mongo.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/Lock -->
@@ -109,6 +110,7 @@
    <install as="COPYING" name="doc/Horde/Lock/COPYING" />
    <install as="Horde/Lock.php" name="lib/Horde/Lock.php" />
    <install as="Horde/Lock/Exception.php" name="lib/Horde/Lock/Exception.php" />
+   <install as="Horde/Lock/Mongo.php" name="lib/Horde/Lock/Mongo.php" />
    <install as="Horde/Lock/Null.php" name="lib/Horde/Lock/Null.php" />
    <install as="Horde/Lock/Sql.php" name="lib/Horde/Lock/Sql.php" />
    <install as="migration/1_horde_lock_base_tables.php" name="migration/Horde/Lock/1_horde_lock_base_tables.php" />
@@ -287,7 +289,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-04-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
