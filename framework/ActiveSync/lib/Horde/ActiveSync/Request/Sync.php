@@ -617,7 +617,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 switch ($folder_tag) {
                 case Horde_ActiveSync::SYNC_FOLDERTYPE:
-                    // Not sent in 12.1 requests??
+                    // Not sent in 12.1 requests.
                     $collection['class'] = $this->_decoder->getElementContent();
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
