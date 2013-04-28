@@ -153,6 +153,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             if (empty($collection['synckey']) && !empty($collection['lastsynckey'])) {
                 $collection['synckey'] = $collection['lastsynckey'];
             }
+
+            // Load the class if needed for EAS >= 12.1
+            if (empty($collection['class'])) {
+                $collection['class'] = $this->getCollectionClass($collection['id']);
+            }
             $this->_collections[$collection['id']] = $collection;
         }
     }
