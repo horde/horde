@@ -30,19 +30,16 @@ class Horde_Imap_Client_Cache_MongoTest extends Horde_Imap_Client_Cache_TestBase
 
     protected function _getBackend()
     {
-        if (extension_loaded('mongo') &&
-            class_exists('Horde_Mongo_Client')) {
-            $config = self::getConfig('IMAPCLIENT', __DIR__ . '/..');
-            if (!is_null($config) && !empty($config['mongo'])) {
-                try {
-                    $this->_mongo = new Horde_Mongo_Client($config['mongo']);
-                    $this->_mongo->dbname = $this->_dbname;
-                    $this->_mongo->selectDB(null)->drop();
-                } catch (Exception $e) {}
-            }
+        if (($config = self::getConfig('IMAPCLIENT', __DIR__ . '/..')) &&
+            isset($config['mongo'])) {
+            $factory = new Horde_Test_Factory_Mongo();
+            $this->_mongo = $factory->create(array(
+                'config' => $config['mongo'],
+                'dbname' => $this->_dbname
+            ));
         }
 
-        if (!isset($this->_mongo)) {
+        if (empty($this->_mongo)) {
             $this->markTestSkipped('MongoDB not available.');
         }
 
@@ -56,7 +53,7 @@ class Horde_Imap_Client_Cache_MongoTest extends Horde_Imap_Client_Cache_TestBase
 
     public function tearDown()
     {
-        if (isset($this->_mongo)) {
+        if (!empty($this->_mongo)) {
             $this->_mongo->selectDB(null)->drop();
         }
 
