@@ -614,6 +614,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 'Using SyncCache State for %s',
                 $value['id']
             ));
+            if (empty($value['synckey'])) {
+                $value['synckey'] = $value['lastsynckey'];
+            }
             $this->_collections[$value['id']] = $value;
         }
     }
