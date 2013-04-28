@@ -271,8 +271,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $this->_folder = ($data !== false) ? $data : array();
-            $this->_logger->debug(
-                sprintf('[%s] Loading FOLDERSYNC state containing %d',
+            $this->_logger->info(
+                sprintf('[%s] Loading FOLDERSYNC state containing %d folders.',
                 $this->_procid,
                 count($this->_folder)));
         } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
@@ -920,9 +920,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_procid));
         } else {
             $this->_logger->debug(sprintf(
-                '[%s] Found folder changes: %s',
+                '[%s] Found folder %d changes.',
                 $this->_procid,
-                print_r($this->_changes, true)));
+                count($this->_changes)));
         }
     }
 
