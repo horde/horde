@@ -652,7 +652,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         if (empty($collection['class'])) {
                             $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
                             $this->_handleGlobalSyncError();
-                            exit;
+                            return false;
                         }
                     }
                     break;
@@ -662,7 +662,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     if (!$this->_decoder->getElementEndTag()) {
                         $this->_statusCode = self::STATUS_PROTERROR;
                         $this->_handleError($collection);
-                        exit;
+                        return false;
                     }
                     if ($collection['windowsize'] < 1 || $collection['windowsize'] > self::MAX_WINDOW_SIZE) {
                         $this->_logger->err(sprintf(
@@ -689,7 +689,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     if ($collection['synckey'] != '0') {
                         $this->_statusCode = self::STATUS_PROTERROR;
                         $this->_handleError($collection);
-                        exit;
+                        return false;
                     }
                     while (1) {
                         $el = $this->_decoder->getElement();
@@ -744,7 +744,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             if (!$this->_decoder->getElementEndTag()) {
                 $this->_statusCode = self::STATUS_PROTERROR;
                 $this->_handleError($collection);
-                exit;
+                return false;
             }
 
             $this->_collections->addCollection($collection);
