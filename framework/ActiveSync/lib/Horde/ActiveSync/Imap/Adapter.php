@@ -280,10 +280,10 @@ class Horde_ActiveSync_Imap_Adapter
         } else {
             $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ] = 0;
         }
-        $this->_logger->debug('IMAP status: ' . print_r($status, true));
+        $this->_logger->info('IMAP status: ' . print_r($status, true));
         $flags = array();
         if ($condstore && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
-            $this->_logger->debug('CONDSTORE and CHANGES');
+            $this->_logger->info('CONDSTORE and CHANGES');
             $folder->checkValidity($status);
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->modseq();
@@ -324,7 +324,7 @@ class Horde_ActiveSync_Imap_Adapter
             }
             $folder->setRemoved($deleted->ids);
         } elseif ($folder->uidnext() == 0) {
-            $this->_logger->debug('INITIAL SYNC');
+            $this->_logger->info('INITIAL SYNC');
             $query = new Horde_Imap_Client_Search_Query();
             if (!empty($options['sincedate'])) {
                 $query->dateSearch(
@@ -354,7 +354,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $folder->setChanges($search_ret['match']->ids, $flags);
             }
         } elseif (!$condstore || ($condstore && $modseq == 0)) {
-            $this->_logger->debug('NO CONDSTORE or per mailbox MODSEQ: minuid=' . $folder->minuid());
+            $this->_logger->info('NO CONDSTORE or per mailbox MODSEQ: minuid=' . $folder->minuid());
             $query = new Horde_Imap_Client_Search_Query();
             $search_ret = $imap->search(
                 $mbox,
@@ -816,7 +816,7 @@ class Horde_ActiveSync_Imap_Adapter
                  ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_SMIME &&
                   $imap_message->isSigned()))) {
 
-                $this->_logger->debug('Sending MIME Message.');
+                $this->_logger->info('Sending MIME Message.');
                 // ActiveSync *REQUIRES* all data sent to be in UTF-8, so we
                 // must convert the body parts to UTF-8. Unfortunately if the
                 // email is signed (or encrypted for that matter) we can't
@@ -895,7 +895,7 @@ class Horde_ActiveSync_Imap_Adapter
                       isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF])) {
 
                 // Sending non MIME encoded HTML message text.
-                $this->_logger->debug('Sending HTML Message.');
+                $this->_logger->info('Sending HTML Message.');
                 if (empty($message_body_data['html'])) {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                     $message_body_data['html'] = array(
@@ -918,7 +918,7 @@ class Horde_ActiveSync_Imap_Adapter
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN])) {
 
                 // Non MIME encoded plaintext
-                $this->_logger->debug('Sending PLAINTEXT Message.');
+                $this->_logger->info('Sending PLAINTEXT Message.');
                 $message_body_data['plain']['body'] = $this->_validateUtf8(
                     $message_body_data['plain']['body'],
                     $message_body_data['plain']['charset']
@@ -1323,10 +1323,10 @@ class Horde_ActiveSync_Imap_Adapter
      */
     protected function _validateUtf8($data, $from_charset)
     {
-        $this->_logger->debug('Validating UTF-8 data coming from ' . $from_charset);
+        $this->_logger->info('Validating UTF-8 data coming from ' . $from_charset);
         $text = Horde_String::convertCharset($data, $from_charset, 'UTF-8');
         if (!Horde_String::validUtf8($text)) {
-            $this->_logger->debug('Found invalid UTF-8 data, try different encodings.');
+            $this->_logger->info('Found invalid UTF-8 data, try different encodings.');
             $test_charsets = array(
                 'windows-1252',
                 'UTF-8'
@@ -1335,7 +1335,7 @@ class Horde_ActiveSync_Imap_Adapter
                 if ($charset != $from_charset) {
                     $text = Horde_String::convertCharset($data, $charset, 'UTF-8');
                     if (Horde_String::validUtf8($text)) {
-                        $this->_logger->debug('Found valid UTF-8 data when using ' . $charset);
+                        $this->_logger->info('Found valid UTF-8 data when using ' . $charset);
                         return $text;
                     }
                 }
@@ -1345,7 +1345,7 @@ class Horde_ActiveSync_Imap_Adapter
             // that fails, force a conersion to UTF-8 as a last resort. Need
             // to break string into smaller chunks to avoid hitting
             // https://bugs.php.net/bug.php?id=37793
-            $this->_logger->debug('Could not encode UTF-8 data. Removing non 7-bit characters.');
+            $this->_logger->info('Could not encode UTF-8 data. Removing non 7-bit characters.');
             $chunk_size = 4000;
             $text = '';
             while ($data !== false && strlen($data)) {

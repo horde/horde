@@ -216,7 +216,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
                     $sync->init($this->_state, null, $collection);
                     $results[$collection['id']] = $sync->getChangeCount();
                 } catch (Horde_ActiveSync_Exception_StateGone $e) {
-                    $this->_logger->err('State Gone. Terminating GETITEMESTIMATE');
+                    $this->_logger->warn('State Gone. Terminating GETITEMESTIMATE');
                     $status[$collection['id']] = $gStatus = self::STATUS_NOTPRIMED;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err('Unknown error in GETITEMESTIMATE');

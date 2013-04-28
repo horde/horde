@@ -108,23 +108,9 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         // Load and validate the Sync Cache if we are 12.1
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             $syncCache = $this->_activeSync->getSyncCache();
-            if (count($syncCache->getFolders())) {
-                if (empty($synckey)) {
-                    $syncCache->clearFolders();
-                } else {
-                    // @TODO: Don't think we need this. I don't think the
-                    // cache can be written without the class value to begin with
-                    foreach ($syncCache->getFolders() as $key => $value) {
-                        if (empty($value['class'])) {
-                            $syncCache->delete();
-                            $this->_statusCode = self::STATUS_KEYMISM;
-                            $this->_handleError();
-                            return true;
-                        }
-                    }
-                }
+            if (count($syncCache->getFolders()) && empty($synckey)) {
+                $syncCache->clearFolders();
             }
-            $this->_logger->debug(sprintf('[%s] Using syncCache', $this->_procid));
         } else {
             $syncCache = false;
         }
@@ -250,7 +236,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     $syncFolder['displayname'] == $folder->displayname &&
                     $syncFolder['type'] == $folder->type) {
 
-                    $this->_logger->debug(sprintf(
+                    $this->_logger->info(sprintf(
                         '[%s] Ignoring %s from changes because it contains no changes from device.',
                         $this->_procid,
                         $folder->serverid)
@@ -265,7 +251,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         if ($syncCache !== false && count($exporter->deleted) > 0) {
             foreach ($exporter->deleted as $key => $folder) {
                 if (($sid = array_search($folder, $seenfolders)) === false) {
-                    $this->_logger->debug(sprintf(
+                    $this->_logger->info(sprintf(
                         '[%s] Ignoring %s from deleted list because the device does not know it',
                         $this->_procid,
                         $folder)

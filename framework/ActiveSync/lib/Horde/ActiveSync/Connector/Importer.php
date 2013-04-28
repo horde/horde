@@ -132,7 +132,7 @@ class Horde_ActiveSync_Connector_Importer
                 $this->_folderId,
                 $id);
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
-                $this->_logger->debug(sprintf(
+                $this->_logger->notice(sprintf(
                     '[%s] Conflict when updating %s.',
                     getmypid(), $id)
                 );
@@ -141,7 +141,7 @@ class Horde_ActiveSync_Connector_Importer
         } else {
             if ($uid = $this->_state->isDuplicatePIMAddition($clientid)) {
                 // Already saw this addition, but PIM never received UID
-                $this->_logger->debug(sprintf(
+                $this->_logger->notice(sprintf(
                     '[%s] Duplicate addition for %s',
                     getmypid(), $uid)
                 );

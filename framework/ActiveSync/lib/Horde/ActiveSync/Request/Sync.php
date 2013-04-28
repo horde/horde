@@ -99,10 +99,21 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             return true;
         }
 
+        // Sanity check
+        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+            // We don't have a previous FOLDERSYNC.
+            if (!$this->_collections->haveHierarchy()) {
+                $this->_logger->debug('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
+                $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                $this->_handleGlobalSyncError();
+                return true;
+            }
+        }
+
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-                $this->_logger->debug(sprintf(
+                $this->_logger->info(sprintf(
                     '[%s] Empty Sync request taking info from SyncCache.',
                     $this->_procid));
                 if ($this->_collections->cachedCollectionCount() == 0) {
@@ -199,22 +210,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
-            // Must have syncable collections.
-            if (!$this->_collections->haveSyncableCollections($this->_device->version)) {
-                $this->_statusCode = self::STATUS_KEYMISM;
-                $this->_handleGlobalSyncError();
-                return true;
-            }
-
-            // Sanity checking, preperation for EAS >= 12.1
+            // Preparation for EAS >= 12.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-                // We don't have a previous FOLDERSYNC.
-                if (!$this->_collections->haveHierarchy()) {
-                    $this->_logger->debug('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
-                    $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                    $this->_handleGlobalSyncError();
-                    return true;
-                }
 
                 // These are not allowed in the same request.
                 if ($this->_collections->hbinterval !== false &&
@@ -247,7 +244,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             // Full or partial sync request?
             if ($partial === true) {
-                $this->_logger->debug(sprintf(
+                $this->_logger->info(sprintf(
                     '[%s] Executing a PARTIAL SYNC.',
                     $this->_procid));
                 if (!$this->_collections->initPartialSync()) {
@@ -256,19 +253,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     return true;
                 }
 
-                // If there are no changes within partial sync, send status 13
-                // since sending partial elements without any changes is suspect
-                if ($this->_collections->haveNoChangesInPartialSync()) {
-                    $this->_logger->debug(sprintf(
-                        '[%s] Partial Request with completely unchanged collections. Request a full SYNC',
-                        $this->_procid));
-                    $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handleGlobalSyncError();
-                    return true;
-                }
-
                 // Fill in any missing collections that were already sent.
+                // @TODO: Can we move this to initPartialSync()?
                 $this->_collections->getMissingCollectionsFromCache();
+
             } else {
                 // Full request.
                 $this->_collections->initFullSync();
@@ -282,26 +270,21 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return false;
             }
 
-            // Update the syncCache with the new collection data.
-            $this->_collections->updateCache();
-
-            // In case some synckeys didn't get confirmed by device we issue a
-            // full sync.
-            $csk = $this->_collections->confirmed_synckeys;
-            if ($csk) {
-                $this->_logger->debug(sprintf(
-                    'Confirmed Synckeys contains %s',
-                    print_r($csk, true))
-                );
-                $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
-                $this->_collections->save();
-                $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
+            // We MUST have syncable collections by now.
+            if (!$this->_collections->haveSyncableCollections($this->_device->version)) {
+                $this->_statusCode = self::STATUS_KEYMISM;
                 $this->_handleGlobalSyncError();
                 return true;
-            } else {
-                $this->_logger->debug('All synckeys confirmed. Continuing with SYNC');
-                $this->_collections->save();
             }
+
+            // Update the syncCache with the new collection data.
+            $this->_collections->updateCache();
+            // Refresh collections that might have changed in another process.
+            // $this->_collections->updateCollectionsFromCache();
+            // Save.
+            $this->_collections->save();
+
+            $this->_logger->info('All synckeys confirmed. Continuing with SYNC');
         }
 
         // If this is >= 12.1, see if we want a looping SYNC.
@@ -348,7 +331,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             empty($changes) &&
             $this->_collections->canSendEmptyResponse()) {
 
-            $this->_logger->debug('Sending an empty SYNC response.');
+            $this->_logger->info('Sending an empty SYNC response.');
             $this->_collections->lastsyncendnormal = time();
             $this->_collections->save();
             return true;
@@ -372,6 +355,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $this->_procid)
                 );
                 $statusCode = self::STATUS_KEYMISM;
+            } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                // This isn't strictly correct, but at least some versions of
+                // iOS need this in order to catch missing state.
+                $this->_logger->err($e->getMessage());
+                $statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 return false;
@@ -429,7 +417,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 try {
                     $collection['newsynckey'] = $this->_state->getNewSyncKey($collection['synckey']);
-                    $this->_logger->debug(sprintf(
+                    $this->_logger->info(sprintf(
                         'Old SYNCKEY: %s, New SYNCKEY: %s',
                         $collection['synckey'],
                         $collection['newsynckey'])
@@ -605,7 +593,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             if ($this->_collections->checkStaleRequest()) {
-                $this->_logger->debug('Changes detected in sync_cache during wait interval, exiting without updating cache.');
+                $this->_logger->info('Changes detected in sync_cache during wait interval, exiting without updating cache.');
                 return true;
             } else {
                 $this->_collections->lastsyncendnormal = time();
@@ -640,7 +628,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 switch ($folder_tag) {
                 case Horde_ActiveSync::SYNC_FOLDERTYPE:
-                    // Not sent in 12.1 requests??
+                    // Not sent in 12.1 requests.
                     $collection['class'] = $this->_decoder->getElementContent();
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
@@ -659,6 +647,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
                     }
+                    if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+                        $collection['class'] = $this->_collections->getCollectionClass($collection['id']);
+                        // Ensure we can grab a collection class if needed,
+                        // require a FOLDERSYNC if not.
+                        if (empty($collection['class'])) {
+                            $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                            $this->_handleGlobalSyncError();
+                            return false;
+                        }
+                    }
                     break;
 
                 case Horde_ActiveSync::SYNC_WINDOWSIZE:
@@ -666,7 +664,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     if (!$this->_decoder->getElementEndTag()) {
                         $this->_statusCode = self::STATUS_PROTERROR;
                         $this->_handleError($collection);
-                        exit;
+                        return false;
                     }
                     if ($collection['windowsize'] < 1 || $collection['windowsize'] > self::MAX_WINDOW_SIZE) {
                         $this->_logger->err(sprintf(
@@ -693,7 +691,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     if ($collection['synckey'] != '0') {
                         $this->_statusCode = self::STATUS_PROTERROR;
                         $this->_handleError($collection);
-                        exit;
+                        return false;
                     }
                     while (1) {
                         $el = $this->_decoder->getElement();
@@ -748,7 +746,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             if (!$this->_decoder->getElementEndTag()) {
                 $this->_statusCode = self::STATUS_PROTERROR;
                 $this->_handleError($collection);
-                exit;
+                return false;
             }
 
             $this->_collections->addCollection($collection);
@@ -787,26 +785,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_logger->err(sprintf(
                 '[%s] Attempting a SYNC_COMMANDS, but device failed to send synckey. Ignoring.',
                 $this->_procid));
-        }
-
-        // Sanity checking, syncCache etc..
-        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
-            !isset($collection['class']) && isset($collection['id'])) {
-
-            if ($class = $this->_collections->getCollectionClass($collection['id'])) {
-                $collection['class'] = $class;
-                $this->_logger->debug(sprintf(
-                    'Obtaining folder %s class from sync_cache: %s',
-                    $collection['id'],
-                    $collection['class']));
-            } else {
-                $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                $this->_handleGlobalSyncError();
-                $this->_logger->debug(sprintf(
-                    'No collection class found for %s sending STATUS_FOLDERSYNC_REQUIRED',
-                    $collection['id']));
-                return false;
-            }
         }
 
         try {
@@ -953,7 +931,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $collection['importedchanges'] = true;
         }
 
-        $this->_logger->debug(sprintf(
+        $this->_logger->info(sprintf(
             '[%s] Processed %d incoming changes',
             $this->_procid,
             $nchanges));
