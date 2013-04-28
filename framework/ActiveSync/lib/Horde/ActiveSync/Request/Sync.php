@@ -636,6 +636,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
                     }
+                    if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+                        $collection['class'] = $this->_collections->getCollectionClass($collection['id']);
+                        if (empty($collection['class'])) {
+                            $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                            $this->_handleGlobalSyncError();
+                            exit;
+                        }
+                    }
                     break;
 
                 case Horde_ActiveSync::SYNC_WINDOWSIZE:
@@ -764,26 +772,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_logger->err(sprintf(
                 '[%s] Attempting a SYNC_COMMANDS, but device failed to send synckey. Ignoring.',
                 $this->_procid));
-        }
-
-        // Sanity checking, syncCache etc..
-        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
-            !isset($collection['class']) && isset($collection['id'])) {
-
-            if ($class = $this->_collections->getCollectionClass($collection['id'])) {
-                $collection['class'] = $class;
-                $this->_logger->debug(sprintf(
-                    'Obtaining folder %s class from sync_cache: %s',
-                    $collection['id'],
-                    $collection['class']));
-            } else {
-                $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                $this->_handleGlobalSyncError();
-                $this->_logger->debug(sprintf(
-                    'No collection class found for %s sending STATUS_FOLDERSYNC_REQUIRED',
-                    $collection['id']));
-                return false;
-            }
         }
 
         try {
