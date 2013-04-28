@@ -10,8 +10,8 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2013-04-27</date>
- <time>06:39:52</time>
+ <date>2013-04-28</date>
+ <time>14:09:15</time>
  <version>
   <release>2.0.3</release>
   <api>1.1.0</api>
@@ -56,9 +56,12 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Lock">
+      <dir name="Storage">
+       <file name="SqlTest.php" role="test" />
+       <file name="TestBase.php" role="test" />
+      </dir> <!-- /test/Horde/Lock/Storage -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
-      <file name="LockTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Lock -->
     </dir> <!-- /test/Horde -->
@@ -118,8 +121,9 @@
    <install as="migration/3_horde_lock_fix_owner_width.php" name="migration/Horde/Lock/3_horde_lock_fix_owner_width.php" />
    <install as="Horde/Lock/AllTests.php" name="test/Horde/Lock/AllTests.php" />
    <install as="Horde/Lock/bootstrap.php" name="test/Horde/Lock/bootstrap.php" />
-   <install as="Horde/Lock/LockTest.php" name="test/Horde/Lock/LockTest.php" />
    <install as="Horde/Lock/phpunit.xml" name="test/Horde/Lock/phpunit.xml" />
+   <install as="Horde/Lock/Storage/SqlTest.php" name="test/Horde/Lock/Storage/SqlTest.php" />
+   <install as="Horde/Lock/Storage/TestBase.php" name="test/Horde/Lock/Storage/TestBase.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -289,7 +293,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-27</date>
+   <date>2013-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

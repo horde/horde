@@ -1,52 +1,29 @@
 <?php
 /**
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.horde.org/licenses/lgpl21 LGPL
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @ignore
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL
  * @package    Lock
  * @subpackage UnitTests
  */
-class Horde_Lock_LockTest extends Horde_Test_Case
+abstract class Horde_Lock_Storage_TestBase extends Horde_Test_Case
 {
-    /**
-     * @var Horde_Lock_Sql
-     */
     protected $_lock;
 
-    protected static $_migrationDir;
-
-    public static function setUpBeforeClass()
-    {
-        self::$_migrationDir = __DIR__ . '/../../../migration/Horde/Lock';
-        if (!is_dir(self::$_migrationDir)) {
-            error_reporting(E_ALL & ~E_DEPRECATED);
-            self::$_migrationDir = PEAR_Config::singleton()
-                ->get('data_dir', null, 'pear.horde.org')
-                . '/Horde_Group/migration';
-            error_reporting(E_ALL | E_STRICT);
-        }
-    }
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp()
     {
-        $db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
-        $migrator = new Horde_Db_Migration_Migrator(
-            $db,
-            null,
-            array('migrationsPath' => self::$_migrationDir,
-                  'schemaTableName' => 'horde_lock_test_schema'));
-        $migrator->up();
-        //$db->setLogger(new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT)));
-        $this->_lock = new Horde_Lock_Sql(array('db' => $db));
+        $this->_lock = $this->_getBackend();
     }
 
-    /**
-     * @covers Horde_Lock_Sql::getLockInfo
-     */
+    abstract protected function _getBackend();
+
+    public function tearDown()
+    {
+        unset($this->_lock);
+    }
+
     public function testGetLockInfo()
     {
         $lock1 = $this->_lock->setLock(
@@ -84,9 +61,6 @@ class Horde_Lock_LockTest extends Horde_Test_Case
                             $info2);
     }
 
-    /**
-     * @covers Horde_Lock_Sql::getLocks
-     */
     public function testGetLocks()
     {
         $lock1 = $this->_lock->setLock(
@@ -113,9 +87,6 @@ class Horde_Lock_LockTest extends Horde_Test_Case
             array_keys($this->_lock->getLocks('myapp', 'myprincipal', Horde_Lock::TYPE_EXCLUSIVE)));
     }
 
-    /**
-     * @covers Horde_Lock_Sql::resetLock
-     */
     public function testResetLock()
     {
         $lock1 = $this->_lock->setLock(
@@ -156,9 +127,6 @@ class Horde_Lock_LockTest extends Horde_Test_Case
                             $info6['lock_expiry_timestamp']);
     }
 
-    /**
-     * @covers Horde_Lock_Sql::setLock
-     */
     public function testSetLock()
     {
         $lock1 = $this->_lock->setLock(
@@ -200,9 +168,6 @@ class Horde_Lock_LockTest extends Horde_Test_Case
         $this->assertNotEquals($lock7, $lock9);
     }
 
-    /**
-     * @covers Horde_Lock_Sql::clearLock
-     */
     public function testClearLock()
     {
         $lock1 = $this->_lock->setLock('myuser', 'myapp', 'myprincipal',
@@ -213,6 +178,6 @@ class Horde_Lock_LockTest extends Horde_Test_Case
         $this->assertEquals(
             array($lock2),
             array_keys($this->_lock->getLocks()));
-        $this->assertFalse($this->_lock->getLockInfo($lock1));
+        $this->assertEmpty($this->_lock->getLockInfo($lock1));
     }
 }
