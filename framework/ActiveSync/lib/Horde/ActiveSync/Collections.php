@@ -840,7 +840,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err('Error loading state: ' . $e->getMessage());
-                    $collections->setGetChangesFlag($id);
+                    $this->setGetChangesFlag($id);
                     $dataavailable = true;
                     continue;
                 }
