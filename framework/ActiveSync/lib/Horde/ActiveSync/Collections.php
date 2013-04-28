@@ -825,10 +825,12 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         $this->_procid,
                         $e->getMessage()));
                     $this->setGetChangesFlag($id);
-                    return self::COLLECTION_ERR_SYNC_REQUIRED;
+                    $dataavailable = true;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err('Error loading state: ' . $e->getMessage());
-                    return self::COLLECTION_ERR_SERVER;
+                    $collections->setGetChangesFlag($id);
+                    $dataavailable = true;
+                    continue;
                 }
 
                 if (!empty($options['pingable']) && !$this->_cache->collectionIsPingable($id)) {
