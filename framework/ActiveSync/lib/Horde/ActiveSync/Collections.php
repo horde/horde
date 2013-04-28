@@ -470,10 +470,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      *
      * @return boolean
      */
-    // public function haveHierarchy()
-    // {
-    //     return isset($this->_cache->hierarchy);
-    // }
+    public function haveHierarchy()
+    {
+        return isset($this->_cache->hierarchy);
+    }
 
     /**
      * Prepares the syncCache for a full sync request.
