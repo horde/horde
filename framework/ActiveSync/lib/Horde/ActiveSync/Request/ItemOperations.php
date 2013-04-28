@@ -230,7 +230,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                 case 'documentlibrary' :
                     // Not supported
                 default :
-                    $this->_logger->debug(sprintf(
+                    $this->_logger->warn(sprintf(
                         '[%s] %s not supported by HANDLEITEMOPERATIONS.',
                         $this->_device->id,
                         $value['type'])
@@ -239,7 +239,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                 }
                 break;
             default :
-                $this->_logger->debug(sprintf(
+                $this->_logger->err(sprintf(
                     '[%s] %s not supported by HANDLEITEMOPERATIONS.',
                     $this->_device->id,
                     $value['type'])

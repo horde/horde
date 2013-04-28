@@ -285,7 +285,7 @@ class Horde_ActiveSync_Message_Base
 
                 // Found start tag
                 if (!isset($this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]])) {
-                    $this->_logger->debug('Tag ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ' unexpected in type XML type ' . get_class($this));
+                    $this->_logger->err('Tag ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ' unexpected in type XML type ' . get_class($this));
                     throw new Horde_ActiveSync_Exception('Unexpected tag');
                 } else {
                     $map = $this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]];
@@ -423,7 +423,7 @@ class Horde_ActiveSync_Message_Base
                                 Horde_ActiveSync::AIRSYNCBASE_DATA,
                                 Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA)
                               )) {
-                        $this->_logger->debug('HANDLING MULTIPART OUTPUT');
+                        $this->_logger->info('HANDLING MULTIPART OUTPUT');
                         $encoder->addPart($this->$map[self::KEY_ATTRIBUTE]);
                         $encoder->startTag(Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_PART);
                         $encoder->content((string)(count($encoder->getParts()) - 1));

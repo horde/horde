@@ -102,7 +102,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-                $this->_logger->debug(sprintf(
+                $this->_logger->info(sprintf(
                     '[%s] Empty Sync request taking info from SyncCache.',
                     $this->_procid));
                 if ($this->_collections->cachedCollectionCount() == 0) {
@@ -233,7 +233,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             // Full or partial sync request?
             if ($partial === true) {
-                $this->_logger->debug(sprintf(
+                $this->_logger->info(sprintf(
                     '[%s] Executing a PARTIAL SYNC.',
                     $this->_procid));
                 if (!$this->_collections->initPartialSync()) {
@@ -273,7 +273,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             // Save.
             $this->_collections->save();
 
-            $this->_logger->debug('All synckeys confirmed. Continuing with SYNC');
+            $this->_logger->info('All synckeys confirmed. Continuing with SYNC');
         }
 
         // If this is >= 12.1, see if we want a looping SYNC.
@@ -320,7 +320,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             empty($changes) &&
             $this->_collections->canSendEmptyResponse()) {
 
-            $this->_logger->debug('Sending an empty SYNC response.');
+            $this->_logger->info('Sending an empty SYNC response.');
             $this->_collections->lastsyncendnormal = time();
             $this->_collections->save();
             return true;
@@ -406,7 +406,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 try {
                     $collection['newsynckey'] = $this->_state->getNewSyncKey($collection['synckey']);
-                    $this->_logger->debug(sprintf(
+                    $this->_logger->info(sprintf(
                         'Old SYNCKEY: %s, New SYNCKEY: %s',
                         $collection['synckey'],
                         $collection['newsynckey'])
@@ -582,7 +582,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             if ($this->_collections->checkStaleRequest()) {
-                $this->_logger->debug('Changes detected in sync_cache during wait interval, exiting without updating cache.');
+                $this->_logger->info('Changes detected in sync_cache during wait interval, exiting without updating cache.');
                 return true;
             } else {
                 $this->_collections->lastsyncendnormal = time();
@@ -918,7 +918,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $collection['importedchanges'] = true;
         }
 
-        $this->_logger->debug(sprintf(
+        $this->_logger->info(sprintf(
             '[%s] Processed %d incoming changes',
             $this->_procid,
             $nchanges));

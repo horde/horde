@@ -134,7 +134,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             if (!$seenfolders) {
                 $seenfolders = array();
             }
-            $this->_logger->debug(sprintf(
+            $this->_logger->info(sprintf(
                 '[%s] KNOWNFOLDERS: %s',
                 $this->_device->device_id,
                 print_r($seenfolders, true))

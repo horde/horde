@@ -334,7 +334,7 @@ class Horde_ActiveSync_SyncCache
             $cache_collection['synckey'] = $cache_collection['lastsynckey'];
             $this->_data['collections'][$id] = $cache_collection;
         }
-        $this->_logger->debug(sprintf(
+        $this->_logger->info(sprintf(
             '[%s] SyncCache collections refreshed.', getmypid()));
     }
 
@@ -491,7 +491,7 @@ class Horde_ActiveSync_SyncCache
             }
 
         } else {
-            $this->_logger->debug(sprintf(
+            $this->_logger->info(sprintf(
                 'Collection without id found: %s',
                 print_r($collection, true))
             );

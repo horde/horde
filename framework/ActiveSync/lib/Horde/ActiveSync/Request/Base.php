@@ -154,7 +154,7 @@ abstract class Horde_ActiveSync_Request_Base
      */
     public function checkPolicyKey($sentKey, $requestType = null)
     {
-        $this->_logger->debug(sprintf(
+        $this->_logger->info(sprintf(
             '[%s] Checking policykey for device: %s user: %s',
             $this->_device->id,
             $sentKey,
@@ -170,7 +170,7 @@ abstract class Horde_ActiveSync_Request_Base
         if ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_NONE) {
             // Get the stored key
             $storedKey = $this->_state->getPolicyKey($this->_device->id);
-            $this->_logger->debug('[' . $this->_device->id . '] Stored key: ' . $storedKey);
+            $this->_logger->info('[' . $this->_device->id . '] Stored key: ' . $storedKey);
 
             // Did we request a remote wipe?
             if ($this->_state->getDeviceRWStatus($this->_device->id) == Horde_ActiveSync::RWSTATUS_PENDING) {
@@ -205,7 +205,7 @@ abstract class Horde_ActiveSync_Request_Base
         }
 
         // Either successfully validated, or we didn't care enough to check.
-        $this->_logger->debug('Policykey: ' . $sentKey . ' verified.');
+        $this->_logger->info('Policykey: ' . $sentKey . ' verified.');
         return true;
     }
 
@@ -264,7 +264,7 @@ abstract class Horde_ActiveSync_Request_Base
         // FOLDERSYNC response is ignored by the client. Remove the entry,
         // to avoid having 2 device entries for every android client.
         if ($this->_device->id == 'validate') {
-            $this->_logger->debug('[' . $this->_device->id . '] Removing state for bogus VALIDATE device.');
+            $this->_logger->info('[' . $this->_device->id . '] Removing state for bogus VALIDATE device.');
             $this->_state->removeState(array('devId' => 'validate'));
         }
     }

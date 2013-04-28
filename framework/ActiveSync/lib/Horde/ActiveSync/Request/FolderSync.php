@@ -236,7 +236,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     $syncFolder['displayname'] == $folder->displayname &&
                     $syncFolder['type'] == $folder->type) {
 
-                    $this->_logger->debug(sprintf(
+                    $this->_logger->info(sprintf(
                         '[%s] Ignoring %s from changes because it contains no changes from device.',
                         $this->_procid,
                         $folder->serverid)
@@ -251,7 +251,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         if ($syncCache !== false && count($exporter->deleted) > 0) {
             foreach ($exporter->deleted as $key => $folder) {
                 if (($sid = array_search($folder, $seenfolders)) === false) {
-                    $this->_logger->debug(sprintf(
+                    $this->_logger->info(sprintf(
                         '[%s] Ignoring %s from deleted list because the device does not know it',
                         $this->_procid,
                         $folder)
