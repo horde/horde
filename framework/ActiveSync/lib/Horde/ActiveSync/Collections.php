@@ -259,6 +259,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             $collection['synckey'] = !empty($cached_collections[$collection['id']])
                 ? $cached_collections[$collection['id']]['lastsynckey']
                 : 0;
+
+            $this->_logger->debug(sprintf(
+                '[%s] Obtained synckey for collection %s from cache: %s',
+                $this->_procid, $collection['id'], $collection['synckey']));
         }
 
         $this->_collections[$collection['id']] = $collection;
@@ -808,7 +812,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     $this->initCollectionState($collection, true);
                 } catch (Horde_ActiveSync_Exception_StateGone $e) {
                     $this->_logger->err(sprintf(
-                        '[%s] State not found for %s, continuing',
+                        '[%s] State not found for %s. Continuing.',
                         $this->_procid,
                         $id)
                     );
