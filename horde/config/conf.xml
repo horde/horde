@@ -843,6 +843,11 @@
    KB (65535 bytes). These installations would want to turn checking on."/>
    <configswitch name="driver" desc="What preferences driver should we
    use?">Sql
+     <case name="Nosql" desc="NoSQL Database">
+      <configsection name="params">
+       <confignosql switchname="driverconfig" />
+      </configsection>
+     </case>
      <case name="Sql" desc="SQL Database">
       <configsection name="params">
        <configsql switchname="driverconfig">
@@ -936,13 +941,6 @@
      <configsql switchname="driverconfig" />
     </case>
    </configswitch>
-   <configheader>Group Caching</configheader>
-   <configdescription>GROUP CACHING HAS NOT BEEN IMPLEMENTED FOR HORDE 4 YET. Enabling group caching improves performance because the
-   group backend will only be queried once per session. But it also increases
-   the users' session sizes, and group changes won't take effect before the
-   users log in the next time.</configdescription>
-   <!--<configboolean name="cache" required="false" desc="Enable group
-   caching?">false</configboolean>-->
   </configsection>
  </configtab>
 
@@ -1384,6 +1382,11 @@
         'session.gc_maxlifetime'."></configinteger>
        </case>
       </configswitch>
+     </configsection>
+    </case>
+    <case name="Nsoql" desc="NoSQL Database">
+     <configsection name="params">
+       <configsql switchname="driverconfig" />
      </configsection>
     </case>
     <case name="Sql" desc="SQL Database">

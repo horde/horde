@@ -49,17 +49,21 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
      */
     public function create()
     {
+        global $conf;
+
         if (isset($this->_alarm)) {
             return $this->_alarm;
         }
 
-        $driver = empty($GLOBALS['conf']['alarms']['driver'])
-            ? 'Null'
-            : $GLOBALS['conf']['alarms']['driver'];
+        $driver = empty($conf['alarms']['driver'])
+            ? 'null'
+            : $conf['alarms']['driver'];
         $params = Horde::getDriverConfig('alarms', $driver);
 
-        if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+        switch (Horde_String::lower($driver)) {
+        case 'sql':
+            $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'alarms');
+            break;
         }
 
         $params['logger'] = $this->_injector->getInstance('Horde_Log_Logger');

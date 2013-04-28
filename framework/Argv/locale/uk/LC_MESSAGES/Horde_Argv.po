@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Argv\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2013-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,12 @@ msgstr ""
 #: lib/Horde/Argv/Parser.php:507
 #, php-format
 msgid "%s option does not take a value"
-msgstr ""
+msgstr "опція %s не приймає значень"
 
 #: lib/Horde/Argv/Parser.php:497 lib/Horde/Argv/Parser.php:549
-#, fuzzy, php-format
+#, php-format
 msgid "%s option requires %d arguments"
-msgstr "опція %s потребує аргумента"
+msgstr "опція %s потребує %d аргументів"
 
 #: lib/Horde/Argv/Parser.php:495 lib/Horde/Argv/Parser.php:547
 #, php-format
@@ -37,14 +37,12 @@ msgid "Options"
 msgstr "Опції"
 
 #: lib/Horde/Argv/TitledHelpFormatter.php:29
-#, fuzzy
 msgid "Usage"
-msgstr "Використання ключа"
+msgstr "Використання"
 
 #: lib/Horde/Argv/IndentedHelpFormatter.php:29
-#, fuzzy
 msgid "Usage:"
-msgstr "Використання ключа"
+msgstr "Використання:"
 
 #: lib/Horde/Argv/Parser.php:199
 msgid "[options]"
@@ -72,7 +70,7 @@ msgstr ""
 
 #: lib/Horde/Argv/Parser.php:171
 msgid "show program's version number and exit"
-msgstr ""
+msgstr "показати номер версії програми і вийти"
 
 #: lib/Horde/Argv/Parser.php:165
 msgid "show this help message and exit"

@@ -42,6 +42,14 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
             break;
 
+        case 'nosql':
+            $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'sessionhandler');
+            if ($nosql instanceof Horde_Mongo_Client) {
+                $params['mongo_db'] = $nosql;
+                $driver = 'Horde_SessionHandler_Storage_Mongo';
+            }
+            break;
+
         case 'sql':
             $factory = $injector->getInstance('Horde_Core_Factory_Db');
             $config = $factory->getConfig('sessionhandler');
@@ -101,6 +109,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
 
         if (session_id()) {
             $new_sess = false;
+            session_decode($session_data);
         } else {
             $stub = new Horde_Support_Stub();
 
@@ -118,9 +127,9 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             ob_end_clean();
 
             $new_sess = true;
+            session_decode($session_data);
+            $GLOBALS['session']->session_data = $_SESSION;
         }
-
-        session_decode($session_data);
 
         $data = $GLOBALS['session']->get('horde', 'auth/');
         $apps = $GLOBALS['session']->get('horde', 'auth_app/');

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Mime\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2013-04-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -32,35 +32,31 @@ msgstr "Недозволений символ в адресі е-пошти: %s.
 
 #: lib/Horde/Mime/Headers.php:519
 msgid "List-Archive"
-msgstr ""
+msgstr "List-Archive"
 
 #: lib/Horde/Mime/Headers.php:514
-#, fuzzy
 msgid "List-Help"
-msgstr "Довідка"
+msgstr "List-Help"
 
 #: lib/Horde/Mime/Headers.php:521
-#, fuzzy
 msgid "List-Id"
-msgstr "Список"
+msgstr "List-Id"
 
 #: lib/Horde/Mime/Headers.php:517
-#, fuzzy
 msgid "List-Owner"
-msgstr "Власник"
+msgstr "List-Owner"
 
 #: lib/Horde/Mime/Headers.php:518
-#, fuzzy
 msgid "List-Post"
-msgstr "Список"
+msgstr "List-Post"
 
 #: lib/Horde/Mime/Headers.php:516
 msgid "List-Subscribe"
-msgstr ""
+msgstr "List-Subscribe"
 
 #: lib/Horde/Mime/Headers.php:515
 msgid "List-Unsubscribe"
-msgstr ""
+msgstr "List-Unsubscribe"
 
 #: lib/Horde/Mime/Mail.php:458
 msgid "Plaintext Version of Message"

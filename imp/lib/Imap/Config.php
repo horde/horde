@@ -38,6 +38,8 @@
  * @property string $maildomain  The maildomain to use for outgoing mail.
  * @property string $name  Label for the backend.
  * @property array $namespace  Namespace overrides.
+ * @propery-read array $passwd_opts  List of config options that contain
+ *                                   password data.
  * @property string $port  Port number of the backend.
  * @property-write mixed $preferred  The preferred server(s).
  * @property-read array $preferred  The preferred servers list.
@@ -75,6 +77,13 @@ class IMP_Imap_Config implements Serializable
     );
 
     /**
+     * Config data.
+     *
+     * @var array
+     */
+    private $_config = array();
+
+    /**
      * Mixed options.
      *
      * @var array
@@ -84,11 +93,13 @@ class IMP_Imap_Config implements Serializable
     );
 
     /**
-     * Config data.
+     * Password storage options (must be an array option).
      *
      * @var array
      */
-    private $_config = array();
+    private $_poptions = array(
+        'admin', 'quota'
+    );
 
     /**
      * String options.
@@ -118,16 +129,17 @@ class IMP_Imap_Config implements Serializable
     {
         global $injector;
 
+        if (in_array($name, $this->_poptions) && isset($value['password'])) {
+            $secret = $injector->getInstance('Horde_Secret');
+            // base64 encode since we store in session JSON encoded, which
+            // requires UTF-8.
+            $value['password'] = base64_encode(
+                $secret->write($secret->getKey(), $value['password'])
+            );
+        }
+
         /* Normalize values. */
         switch ($name) {
-        case 'admin':
-        case 'quota':
-            if (isset($value['password'])) {
-                $secret = $injector->getInstance('Horde_Secret');
-                $value['password'] = $secret->write($secret->getKey(), $value['password']);
-            }
-            break;
-
         case 'preferred':
             if (!is_array($value)) {
                 $value = array($value);
@@ -165,6 +177,13 @@ class IMP_Imap_Config implements Serializable
             $out = isset($this->_config[$name])
                 ? $this->_config[$name]
                 : array();
+
+            if (in_array($name, $this->_poptions) && isset($out['password'])) {
+                $secret = $injector->getInstance('Horde_Secret');
+                $out['password'] = $secret->read(
+                    $secret->getKey(), base64_decode($out['password'])
+                );
+            }
         } elseif (in_array($name, $this->_boptions)) {
             /* Boolean options. */
             $out = !empty($this->_config[$name]);
@@ -179,14 +198,6 @@ class IMP_Imap_Config implements Serializable
         }
 
         switch ($name) {
-        case 'admin':
-        case 'quota':
-            if (isset($out['password'])) {
-                $secret = $injector->getInstance('Horde_Secret');
-                $out['password'] = $secret->read($secret->getKey(), $out['password']);
-            }
-            break;
-
         case 'autocreate_special':
             $out = ($out && $injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS));
             break;
@@ -241,6 +252,15 @@ class IMP_Imap_Config implements Serializable
         case 'maildomain':
             if ($md = $prefs->getValue('mail_domain')) {
                 $out = $md;
+            }
+            break;
+
+        case 'passwd_opts':
+            $out = array();
+            foreach ($this->_poptions as $val) {
+                if (isset($this->_config[$val]['password'])) {
+                    $out[] = $val;
+                }
             }
             break;
 

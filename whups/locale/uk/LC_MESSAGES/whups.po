@@ -1,13 +1,13 @@
 # Ukrainian translations for Whups package.
-# Copyright 2008-2013 Horde LLC (http://www.horde.org/)
+# Copyright 2013-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Whups package.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Whups H4 (2.0-git)\n"
+"Project-Id-Version: Whups (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-31 10:23+0300\n"
-"PO-Revision-Date: 2011-06-15 12:00+0200\n"
+"POT-Creation-Date: 2013-01-29 11:44+0100\n"
+"PO-Revision-Date: 2013-04-20 15:00+0200\n"
 "Last-Translator: Andriy Kopystyansky <webmaster@polynet.lviv.ua>\n"
 "Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
 "Language: uk\n"
@@ -17,14 +17,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin/index.php:744
+#: admin/index.php:708
 #, php-format
 msgid "\"%s\" is no longer among those responsible for \"%s\""
 msgstr "\"%s\" більше не є серед відповідальних за \"%s\""
-
-#: templates/menu.inc:5
-msgid "#Id"
-msgstr ""
 
 #: templates/ticket/watchers.inc:3
 #, php-format
@@ -34,34 +30,44 @@ msgstr "%d осіб спостерігають, %d особа відповіда
 #: queue/rss.php:92
 #, php-format
 msgid "%s %s tickets in %s"
-msgstr "%s %s тарнанів в %s"
+msgstr "%s %s тарганів в %s"
 
 #: queue/rss.php:96
 #, php-format
 msgid "%s %s tickets in all queues"
 msgstr "%s %s тарганів у всіх чергах"
 
-#: lib/Renderer/Comment.php:123
+#: lib/Form/Renderer/Comment.php:130
 #, php-format
 msgid "%s &rArr; %s"
-msgstr ""
+msgstr "%s &rArr; %s"
 
-#: lib/Driver.php:520
+#: lib/Driver.php:644
+#, php-format
+msgid "%s (%s) uploaded: %s"
+msgstr "%s (%s) закачав: %s"
+
+#: lib/Driver.php:626
 #, php-format
 msgid "%s (%s) wrote:"
 msgstr "%s (%s) написав:"
 
-#: admin/index.php:699
+#: admin/index.php:665
 #, php-format
 msgid "%s added to those responsible for \"%s\""
 msgstr "%s доданий до відповідальних за \"%s\""
 
-#: templates/reports/stats.inc:15
+#: templates/reports/stats.inc:13
 #, php-format
 msgid "%s days"
 msgstr "%s днів"
 
-#: lib/Mail.php:183 lib/Mail.php:186
+#: config/delete_email.plain.php:19
+#, php-format
+msgid "%s deleted this ticket."
+msgstr "%s витер цього таргана."
+
+#: lib/Mail.php:175 lib/Mail.php:178
 #, php-format
 msgid "%s part"
 msgstr "%s частина"
@@ -76,31 +82,27 @@ msgstr "%s тарганів в %s"
 msgid "%s tickets in all queues"
 msgstr "%s тарганів у всіх чергах"
 
-#: ticket/watch.php:57
+#: ticket/watch.php:36
 #, php-format
 msgid "%s will be notified when this ticket is updated."
 msgstr "%s буде повідомлений при оновленні цього запиту."
 
-#: ticket/watch.php:69
+#: ticket/watch.php:49
 #, php-format
 msgid "%s will no longer receive updates for this ticket."
 msgstr "%s більше не отримуватиме оновлень щодо цього запиту."
 
-#: lib/Driver.php:188
+#: lib/Driver.php:238
 msgid "(inactive)"
 msgstr "(неактивний)"
 
-#: admin/index.php:106
+#: admin/index.php:102
 msgid "- Stage 1"
 msgstr "- Стадія 1"
 
-#: admin/index.php:111
+#: admin/index.php:107
 msgid "- Stage 2"
 msgstr "- Стадія 2"
-
-#: scripts/mail-filter.php:149
-msgid "--queue-name or --queue-id must specify a valid and public queue."
-msgstr ""
 
 #: templates/prevnext.inc:15
 msgid "<<First"
@@ -110,85 +112,85 @@ msgstr "<<Перший"
 msgid "<Prev"
 msgstr "<Попередній"
 
-#: view.php:49
+#: lib/Application.php:195 view.php:45
 #, php-format
 msgid "Access denied to %s"
 msgstr "Доступ до %s заборонено"
 
-#: lib/Forms/Admin/Attribute.php:20
+#: lib/Form/Admin/AddAttribute.php:18
 msgid "Add Attribute"
 msgstr "Додати атрибут"
 
-#: lib/Forms/Query.php:270
+#: lib/Form/Query/AttributeCriterion.php:20
 msgid "Add Attribute Criterion"
 msgstr "Додати критерій атрибута"
 
-#: mybugs.php:44
+#: mybugs.php:46
 msgid "Add Content"
 msgstr "Додати контент"
 
-#: query/index.php:235
+#: query/index.php:228
 msgid "Add Criterion"
 msgstr "Додати критерій"
 
-#: lib/Forms/Query.php:324
+#: lib/Form/Query/DateCriterion.php:11
 msgid "Add Date Criterion"
 msgstr "Додати критерій дати"
 
-#: lib/Forms/Admin/Reply.php:20
+#: lib/Form/Admin/AddReply.php:18
 msgid "Add Form Reply"
-msgstr ""
+msgstr "Додати форму відповіді"
 
-#: lib/Forms/Query.php:88
+#: lib/Form/Query/GroupCriterion.php:11
 msgid "Add Group Criterion"
-msgstr ""
+msgstr "Додати критерій групи"
 
-#: lib/Forms/Admin/Priority.php:18
+#: lib/Form/Admin/AddPriority.php:18
 msgid "Add Priority"
 msgstr "Додати пріоритет"
 
-#: lib/Forms/Query.php:172
+#: lib/Form/Query/PropertyCriterion.php:13
 msgid "Add Property Criterion"
 msgstr ""
 
-#: lib/Forms/Admin/Queue.php:18 lib/Forms/Admin/Queue.php:19
+#: lib/Form/Admin/AddQueue.php:18 lib/Form/Admin/AddQueue.php:19
 msgid "Add Queue"
 msgstr "Додати чергу"
 
-#: lib/Forms/Admin/State.php:18
+#: lib/Form/Admin/AddState.php:18
 msgid "Add State"
 msgstr "Додати стан"
 
-#: lib/Forms/Query.php:129
+#: lib/Form/Query/TextCriterion.php:11
 msgid "Add Text Criterion"
 msgstr ""
 
-#: lib/Forms/Admin/Type.php:18 lib/Forms/Admin/Type.php:19
+#: lib/Form/Admin/AddType.php:18 lib/Form/Admin/AddType.php:19
 msgid "Add Type"
 msgstr "Додати тип"
 
-#: admin/index.php:106 admin/index.php:111
+#: admin/index.php:102 admin/index.php:107
 #, php-format
 msgid "Add Type %s"
 msgstr "Додати тип %s"
 
-#: lib/Forms/Query.php:39
+#: lib/Form/Query/UserCriterion.php:25
 msgid "Add User Criterion"
 msgstr ""
 
-#: lib/Forms/Admin/User.php:19
+#: lib/Form/Admin/AddUser.php:20
 msgid "Add Users"
 msgstr "Додати користувачів"
 
-#: lib/Forms/Admin/Version.php:18
+#: lib/Form/Admin/AddVersion.php:18
 msgid "Add Version"
 msgstr "Додати версію"
 
-#: ticket/watch.php:45
+#: ticket/watch.php:24
 msgid "Add Watcher"
 msgstr "Додати спостерігача"
 
-#: ticket/create.php:52
+#: ticket/create.php:53
 #, php-format
 msgid "Adding your ticket failed: %s."
 msgstr "Внесення таргана невдале: %s."
@@ -197,138 +199,140 @@ msgstr "Внесення таргана невдале: %s."
 msgid "Address Books"
 msgstr "Адресники"
 
-#: admin/index.php:51 lib/Application.php:61
+#: admin/index.php:51 lib/Application.php:62
 msgid "Administration"
 msgstr "Адміністрування"
 
-#: lib/Forms/Query.php:22 lib/Renderer/Query.php:75
+#: lib/Form/InsertBranch.php:22 lib/Form/Renderer/Query.php:81
 msgid "And"
 msgstr "і"
 
-#: lib/Forms/Query.php:179 lib/Forms/Query.php:186 lib/Forms/Query.php:191
-#: lib/Forms/Query.php:198 lib/Forms/Query.php:203 lib/Forms/Search.php:30
+#: lib/Form/Query/PropertyCriterion.php:22
+#: lib/Form/Query/PropertyCriterion.php:31
+#: lib/Form/Query/PropertyCriterion.php:36
+#: lib/Form/Query/PropertyCriterion.php:44
+#: lib/Form/Query/PropertyCriterion.php:50 lib/Form/Search.php:31
 msgid "Any"
 msgstr "будь-який"
 
-#: ticket/queue.php:43 ticket/type.php:38
+#: lib/Form/Queue/StepOne.php:39 lib/Form/SetTypeStepOne.php:35
 msgid "Any Group"
 msgstr "Будь-яка група"
 
-#: config/prefs.php:65
+#: config/prefs.php:68
 msgid "Ascending"
 msgstr "По зростанню"
 
-#: lib/Application.php:82
+#: lib/Application.php:83
 msgid "Assign"
 msgstr "Призначити"
 
-#: config/prefs.php:54 lib/Api.php:712 lib/Driver.php:213
-#: lib/Renderer/Query.php:154 lib/Ticket.php:989 lib/Whups.php:688
+#: config/prefs.php:57 lib/Api.php:660 lib/Driver.php:270
+#: lib/Form/Renderer/Query.php:164 lib/Form/TicketDetails.php:127
+#: lib/Whups.php:861
 msgid "Assigned"
 msgstr "Призначено"
 
-#: lib/Forms/Query.php:337 lib/Forms/Search.php:64
+#: lib/Form/Query/DateCriterion.php:38 lib/Form/Search.php:83
 msgid "Assigned from"
 msgstr "Призначений від"
 
-#: lib/Forms/Query.php:338
+#: lib/Form/Query/DateCriterion.php:41
 msgid "Assigned to"
 msgstr "Призначено для"
 
-#: lib/Renderer/Comment.php:71
+#: lib/Form/Renderer/Comment.php:81
 #, php-format
 msgid "Assigned to %s"
 msgstr "Призначено для %s"
 
-#: admin/index.php:1203
+#: admin/index.php:1169
 msgid "Associations updated successfully."
 msgstr "Асоціації оновлено успішно."
 
-#: lib/Forms/AddComment.php:22 lib/Forms/CreateTicket.php:164
-#: lib/Forms/EditTicket.php:139
+#: lib/Form/AddComment.php:31 lib/Form/Ticket/CreateStepThree.php:75
+#: lib/Form/Ticket/Edit.php:140
 msgid "Attachment"
 msgstr "Додаток"
 
-#: ticket/delete_attachment.php:28
+#: ticket/delete_attachment.php:26
 #, php-format
 msgid "Attachment %s deleted."
 msgstr "Додаток %s витерто."
 
-#: lib/Driver/sql.php:1232 lib/Ticket.php:492
+#: lib/Driver/Sql.php:1328 lib/Ticket.php:535
 #, php-format
 msgid "Attachment %s not found."
 msgstr "Додаток %s не знайдено."
 
-#: lib/Ticket.php:999
+#: lib/Form/TicketDetails.php:139
 msgid "Attachments"
 msgstr "Додатки"
 
-#: query/index.php:158
+#: query/index.php:149
 msgid "Attri_bute Criteria"
 msgstr ""
 
-#: lib/Driver.php:119
+#: lib/Driver.php:181
 #, php-format
 msgid "Attribute %d"
 msgstr "Атрибут %d"
 
-#: lib/Forms/Admin/Attribute.php:24 lib/Forms/Admin/Attribute.php:94
-#: lib/Forms/Admin/Attribute.php:140
+#: lib/Form/Admin/AddAttribute.php:23 lib/Form/Admin/DeleteAttribute.php:29
+#: lib/Form/Admin/EditAttributeStepTwo.php:30
 msgid "Attribute Description"
 msgstr "Опис атрибута"
 
-#: lib/Forms/Admin/Attribute.php:23 lib/Forms/Admin/Attribute.php:72
-#: lib/Forms/Admin/Attribute.php:91 lib/Forms/Admin/Attribute.php:137
+#: lib/Form/Admin/AddAttribute.php:21 lib/Form/Admin/DeleteAttribute.php:26
+#: lib/Form/Admin/EditAttributeStepOne.php:36
+#: lib/Form/Admin/EditAttributeStepTwo.php:27
 msgid "Attribute Name"
 msgstr "Назва атрибута"
 
-#: lib/Forms/Admin/Attribute.php:29 lib/Forms/Admin/Attribute.php:101
+#: lib/Form/Admin/AddAttribute.php:28
+#: lib/Form/Admin/EditAttributeStepTwo.php:37
 msgid "Attribute Type"
 msgstr "Тип атрибута"
 
-#: lib/Forms/Search.php:18
+#: lib/Form/Search.php:18
 msgid "Attributes"
 msgstr "Атрибути"
 
-#: lib/Forms/Admin/Type.php:112
+#: lib/Form/Admin/EditTypeStepTwo.php:74
 msgid "Attributes for this Type"
 msgstr "Атрибути для цього типу"
 
-#: config/prefs.php:132
+#: config/prefs.php:135
 msgid "Autolink to other tickets in comments?"
 msgstr "Автоматично лінкувати з іншими тарганами в коментарах?"
 
-#: scripts/mail-filter.php:151
-msgid "Available queues:"
-msgstr "Доступні черги:"
-
-#: reports.php:21
-msgid "Average days to close by Owner"
-msgstr ""
-
 #: reports.php:23
+msgid "Average days to close by Owner"
+msgstr "Середня кількість днів до закриття Власником"
+
+#: reports.php:25
 msgid "Average days to close by Queue"
-msgstr ""
+msgstr "Середня кількість днів до закриття Чергою"
 
-#: reports.php:22
+#: reports.php:24
 msgid "Average days to close by Requester"
-msgstr ""
+msgstr "Середня кількість днів до закриття Автором"
 
-#: reports.php:26
+#: reports.php:28
 msgid "Average time a ticket is unresolved"
-msgstr ""
+msgstr "Середня тривалість часу життя таргана"
 
-#: lib/Forms/Query.php:27
+#: lib/Form/InsertBranch.php:28
 msgid "Branch Type"
 msgstr ""
 
-#: scripts/mail-filter.php:172
-msgid "Cannot authenticate at mail server:"
-msgstr "Не можу аутентифікуватись на поштовому сервері: "
-
-#: lib/Query.php:159
+#: lib/Query.php:161
 msgid "Case Insensitive Substring"
 msgstr ""
+
+#: lib/Query.php:162
+msgid "Case Sensitive Substring"
+msgstr "Враховуючи регістр"
 
 #: templates/renderer/querysetcurrenttype.inc:6
 msgid "Change"
@@ -342,54 +346,59 @@ msgstr "Змінити опції відображення, такі як сор
 msgid "Change preferences for email notifications of ticket activity."
 msgstr "Змінити опції для увідомлення поштою про активність таргана."
 
-#: query/index.php:161
+#: query/index.php:152
 msgid "Choose Action:"
 msgstr "Оберіть дію:"
 
-#: lib/Query.php:683
+#: lib/Query.php:702
 msgid "Choose New Query instead of deleting the root node."
 msgstr ""
 
-#: lib/Forms/CreateTicket.php:50 lib/Forms/CreateTicket.php:80
+#: lib/Form/Ticket/CreateStepOne.php:49 lib/Form/Ticket/CreateStepTwo.php:39
 msgid "Choose:"
 msgstr "Оберіть:"
 
-#: config/prefs.php:140
+#: config/prefs.php:143
 msgid "Chronological (oldest first)"
 msgstr "Хронологічно (спершу старші)"
 
-#: lib/Forms/Admin/Type.php:193
+#: lib/Form/Admin/CloneType.php:25
 msgid "Clone"
 msgstr ""
 
-#: lib/Forms/Admin/Type.php:200
+#: lib/Form/Admin/CloneType.php:33
 msgid "Clone Description"
 msgstr ""
 
-#: admin/index.php:148 lib/Forms/Admin/Type.php:34
+#: admin/index.php:136 lib/Form/Admin/EditTypeStepOne.php:23
 msgid "Clone Type"
 msgstr ""
+
+#: lib/Block/Tickets.php:25
+msgid "Columns"
+msgstr "Колонки"
 
 #: config/templates.php:46
 msgid "Comma Separated Values (CSV file)"
 msgstr "Розділені комою значення (файл CSV)"
 
-#: lib/Forms/AddComment.php:21 lib/Forms/EditTicket.php:144
-#: lib/Renderer/Query.php:86 ticket/queue.php:31 ticket/type.php:28
+#: lib/Form/AddComment.php:30 lib/Form/Queue/StepOne.php:27
+#: lib/Form/Renderer/Query.php:92 lib/Form/SetTypeStepOne.php:25
+#: lib/Form/Ticket/Edit.php:145
 msgid "Comment"
 msgstr "Коментар"
 
-#: lib/Renderer/Comment.php:161
+#: lib/Form/Renderer/Comment.php:175
 #, php-format
 msgid "Comment #%d"
 msgstr "Коментар #%d"
 
-#: lib/Renderer/Comment.php:159
+#: lib/Form/Renderer/Comment.php:173
 #, php-format
 msgid "Comment #%d (Private)"
 msgstr "Коментар #%d (Приватний)"
 
-#: ticket/comment.php:79
+#: ticket/comment.php:78
 msgid "Comment added"
 msgstr "Коментар додано"
 
@@ -398,70 +407,70 @@ msgstr "Коментар додано"
 msgid "Comment on %s"
 msgstr "Коментар до %s"
 
-#: lib/Renderer/Query.php:85
+#: lib/Form/Renderer/Query.php:91
 msgid "Commentor"
-msgstr ""
+msgstr "Коментатор"
 
-#: lib/Forms/Admin/Type.php:198
+#: lib/Form/Admin/CloneType.php:30
 #, php-format
 msgid "Copy of %s"
-msgstr ""
+msgstr "Копія %s"
 
-#: lib/Forms/Query.php:101
+#: lib/Form/Query/GroupCriterion.php:25
 msgid "Could not find any groups."
 msgstr "Не знаходжу жодної групи."
 
-#: lib/Mail.php:140
+#: lib/Mail.php:202
 #, php-format
 msgid "Could not find ticket \"%s\"."
 msgstr "Не можу знайти таргана \"%s\"."
 
-#: lib/Forms/Admin/Type.php:100
+#: lib/Form/Admin/EditTypeStepTwo.php:62
 msgid "Create Default Priorities"
 msgstr "Створити типові пріоритети"
 
-#: lib/Forms/Admin/Type.php:83
+#: lib/Form/Admin/EditTypeStepTwo.php:45
 msgid "Create Default States"
 msgstr "Створити типові стани"
 
-#: config/prefs.php:78
+#: config/prefs.php:81
 msgid "Create Ticket"
 msgstr "Внести таргана"
 
-#: lib/Forms/CreateTicket.php:26
+#: lib/Form/Ticket/CreateStepOne.php:26
 msgid "Create Ticket - Step 1"
 msgstr "Внесення таргана - Крок 1"
 
-#: lib/Forms/CreateTicket.php:68
+#: lib/Form/Ticket/CreateStepTwo.php:26
 msgid "Create Ticket - Step 2"
 msgstr "Внесення таргана - Крок 2"
 
-#: lib/Forms/CreateTicket.php:115
+#: lib/Form/Ticket/CreateStepThree.php:24
 msgid "Create Ticket - Step 3"
 msgstr "Внесення таргана - Крок 3"
 
-#: lib/Forms/CreateTicket.php:208
+#: lib/Form/Ticket/CreateStepFour.php:24
 msgid "Create Ticket - Step 4"
 msgstr "Внесення таргана - Крок 4"
 
-#: config/prefs.php:53 lib/Api.php:717 lib/Renderer/Query.php:139
-#: lib/Ticket.php:974 lib/Whups.php:686
+#: config/prefs.php:56 lib/Api.php:665 lib/Form/Renderer/Query.php:149
+#: lib/Form/TicketDetails.php:109 lib/Whups.php:859
 msgid "Created"
 msgstr "Створено"
 
-#: lib/Ticket.php:624 lib/Ticket.php:650
+#: lib/Ticket.php:683 lib/Ticket.php:709
 msgid "Created By"
 msgstr "Створено"
 
-#: lib/Forms/Query.php:328 lib/Forms/Search.php:58
+#: lib/Form/Query/DateCriterion.php:17 lib/Form/Search.php:65
 msgid "Created from"
 msgstr "Створений від"
 
-#: lib/Forms/Query.php:329
+#: lib/Form/Query/DateCriterion.php:20
 msgid "Created to"
 msgstr "Створений до"
 
-#: query/index.php:225 query/index.php:242
+#: query/index.php:218 query/index.php:235
 msgid "Current Query"
 msgstr "Поточний запит"
 
@@ -469,130 +478,135 @@ msgstr "Поточний запит"
 msgid "Current Ticket Type"
 msgstr "Поточний тип таргана"
 
-#: config/prefs.php:106
+#: config/prefs.php:109
 msgid "DD/MM/YY"
 msgstr ""
 
-#: config/prefs.php:107
+#: config/prefs.php:110
 msgid "DD/MM/YY HH:MM:SS"
 msgstr ""
 
-#: lib/Ticket.php:735
+#: config/create_email.plain.php:29 config/notify_email.plain.php:29
+#: lib/Ticket.php:800
 msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
 msgstr "Не відповідайте на цього листа. Це службова адреса е-пошти."
 
-#: config/prefs.php:111
+#: config/prefs.php:114
 msgid "Date/Time format for search results"
 msgstr "Формат дати і часу для результатів пошуку"
 
-#: lib/Forms/Search.php:57
+#: lib/Form/Search.php:63
 msgid "Dates"
 msgstr "Дати"
 
-#: lib/Forms/Admin/Queue.php:104
+#: lib/Form/Admin/EditQueueStepTwo.php:57
 msgid "Default Ticket Type"
 msgstr "Тип таргана за замовчуванням"
 
-#: config/prefs.php:57
+#: config/prefs.php:60
 msgid "Default sorting criteria:"
 msgstr "Типовий критерій сортування:"
 
-#: config/prefs.php:68
+#: config/prefs.php:71
 msgid "Default sorting direction:"
 msgstr "Типовий напрям сортування:"
 
-#: query/index.php:162
+#: query/index.php:153
 msgid "Delete"
 msgstr "Витерти"
 
-#: lib/Whups.php:851 lib/Whups.php:852
+#: lib/Whups.php:1044 lib/Whups.php:1045
 #, php-format
 msgid "Delete %s"
 msgstr "Витерти %s"
 
-#: ticket/delete.php:58
+#: ticket/delete.php:31
 #, php-format
 msgid "Delete %s?"
 msgstr "Витерти %s?"
 
-#: admin/index.php:948 lib/Forms/Admin/Attribute.php:55
+#: admin/index.php:914 lib/Form/Admin/EditAttributeStepOne.php:19
 msgid "Delete Attribute"
 msgstr "Витерти атрибут"
 
-#: lib/Forms/Admin/Attribute.php:130
+#: lib/Form/Admin/DeleteAttribute.php:18
 msgid "Delete Attribute Confirmation"
-msgstr ""
+msgstr "Підтвердження витирання атрибута"
 
-#: admin/index.php:1083 lib/Forms/Admin/Reply.php:34
+#: admin/index.php:1051 lib/Form/Admin/EditReplyStepOne.php:19
 msgid "Delete Form Reply"
-msgstr ""
+msgstr "Витерти форму відповіді"
 
-#: lib/Forms/Admin/Reply.php:92
+#: lib/Form/Admin/DeleteReply.php:18
 msgid "Delete Form Reply Confirmation"
 msgstr ""
 
-#: admin/index.php:588 lib/Forms/Admin/Priority.php:34
+#: admin/index.php:555 lib/Form/Admin/EditPriorityStepOne.php:21
 msgid "Delete Priority"
 msgstr "Витерти пріоритет"
 
-#: lib/Forms/Admin/Priority.php:105
+#: lib/Form/Admin/DeletePriority.php:19
 msgid "Delete Priority Confirmation"
 msgstr ""
 
-#: lib/Forms/Query.php:451
+#: lib/Form/Query/Delete.php:9
 msgid "Delete Query?"
 msgstr "Витерти запит?"
 
-#: admin/index.php:328 lib/Forms/Admin/Queue.php:42
+#: admin/index.php:311 lib/Form/Admin/EditQueueStepOne.php:22
 msgid "Delete Queue"
 msgstr "Витерти чергу"
 
-#: lib/Forms/Admin/Queue.php:157
+#: lib/Form/Admin/DeleteQueue.php:20
 msgid "Delete Queue Confirmation"
 msgstr "Підтвердження витирання черги"
 
-#: admin/index.php:453 lib/Forms/Admin/State.php:33
+#: admin/index.php:423 lib/Form/Admin/EditStateStepOne.php:19
 msgid "Delete State"
 msgstr "Витерти стан"
 
-#: lib/Forms/Admin/State.php:105
+#: lib/Form/Admin/DeleteState.php:18
 msgid "Delete State Confirmation"
 msgstr "Підтвердження витирання стану"
 
-#: admin/index.php:142 lib/Forms/Admin/Type.php:35
+#: admin/index.php:130 lib/Form/Admin/EditTypeStepOne.php:24
 msgid "Delete Type"
 msgstr "Витерти тип"
 
-#: lib/Forms/Admin/Type.php:147
+#: lib/Form/Admin/DeleteType.php:20
 msgid "Delete Type Confirmation"
 msgstr "Підтвердження витирання типу"
 
-#: admin/index.php:816 lib/Forms/Admin/Version.php:36
+#: admin/index.php:780 lib/Form/Admin/EditVersionStepOne.php:22
 msgid "Delete Version"
 msgstr "Витерти версію"
 
-#: lib/Forms/Admin/Version.php:84
+#: lib/Form/Admin/DeleteVersion.php:20
 msgid "Delete Version Confirmation"
 msgstr "Підтвердження витирання версії"
 
-#: lib/Renderer/Comment.php:177 lib/Renderer/Comment.php:178
+#: lib/Form/Renderer/Comment.php:191 lib/Form/Renderer/Comment.php:192
 msgid "Delete entry"
 msgstr "Витерти запиc"
 
-#: lib/Ticket.php:629 lib/Ticket.php:727
+#: lib/Ticket.php:688 lib/Ticket.php:792
 msgid "Deleted Attachment"
 msgstr "Витертий додаток"
 
-#: lib/Renderer/Comment.php:66
+#: lib/Form/Renderer/Comment.php:75
 #, php-format
 msgid "Deleted Attachment: %s"
 msgstr "Витертий додаток: %s"
 
-#: config/prefs.php:66
+#: lib/Ticket.php:448
+msgid "Deleted:"
+msgstr "Витертий:"
+
+#: config/prefs.php:69
 msgid "Descending"
 msgstr "По спаданню"
 
-#: lib/Forms/CreateTicket.php:165
+#: lib/Form/Ticket/CreateStepThree.php:76
 msgid "Description"
 msgstr "Опис"
 
@@ -600,128 +614,130 @@ msgstr "Опис"
 msgid "Display Preferences"
 msgstr "Опції відображення"
 
-#: lib/Whups.php:842
+#: lib/Whups.php:1036
 msgid "Download"
 msgstr "Скачати"
 
-#: templates/view/results.inc:91
+#: templates/view/results.inc:86
 msgid "Download these results as: "
 msgstr "Скачати ці результати як: "
 
-#: lib/Api.php:721 lib/Renderer/Query.php:159 lib/Ticket.php:621
-#: lib/Ticket.php:815 lib/Ticket.php:979
+#: lib/Api.php:669 lib/Form/Renderer/Query.php:169
+#: lib/Form/TicketDetails.php:115 lib/Ticket.php:680 lib/Ticket.php:879
+#: lib/Whups.php:862
 msgid "Due"
 msgstr "У період"
 
-#: lib/Renderer/Comment.php:131
+#: lib/Form/Renderer/Comment.php:138
 #, php-format
 msgid "Due &rArr; %s"
 msgstr "Протягом &rArr; %s"
 
-#: lib/Forms/CreateTicket.php:162 lib/Forms/EditTicket.php:90
+#: lib/Form/Ticket/CreateStepThree.php:73 lib/Form/Ticket/Edit.php:92
 msgid "Due Date"
 msgstr "Термін"
 
-#: lib/Forms/Query.php:340 lib/Forms/Search.php:66
+#: lib/Form/Query/DateCriterion.php:45 lib/Form/Search.php:89
 msgid "Due from"
 msgstr "У період від"
 
-#: lib/Forms/Query.php:341
+#: lib/Form/Query/DateCriterion.php:48
 msgid "Due to"
 msgstr "У період до"
 
-#: lib/Query.php:235
+#: lib/Query.php:244
 msgid "E_xecute Query"
-msgstr ""
+msgstr "Виконати запит"
 
-#: query/index.php:163
+#: query/index.php:154
 msgid "Edit"
 msgstr "Редагувати"
 
-#: lib/Forms/Admin/Queue.php:80 lib/Forms/Admin/Type.php:61
+#: lib/Form/Admin/EditQueueStepTwo.php:32
+#: lib/Form/Admin/EditTypeStepTwo.php:23
 #, php-format
 msgid "Edit %s"
 msgstr "Редагувати %s"
 
-#: admin/index.php:943 lib/Forms/Admin/Attribute.php:55
-#: lib/Forms/Admin/Attribute.php:84
+#: admin/index.php:909 lib/Form/Admin/EditAttributeStepOne.php:19
+#: lib/Form/Admin/EditAttributeStepTwo.php:18
 msgid "Edit Attribute"
 msgstr "Редагувати атрибут"
 
-#: lib/Forms/Query.php:270
+#: lib/Form/Query/AttributeCriterion.php:19
 msgid "Edit Attribute Criterion"
 msgstr ""
 
-#: lib/Forms/Admin/Type.php:117
+#: lib/Form/Admin/EditTypeStepTwo.php:79
 msgid "Edit Attributes"
 msgstr "Редагувати атрибути"
 
-#: lib/Forms/Query.php:324
+#: lib/Form/Query/DateCriterion.php:11
 msgid "Edit Date Criterion"
 msgstr ""
 
-#: lib/Forms/Admin/Type.php:133
+#: lib/Form/Admin/EditTypeStepTwo.php:95
 msgid "Edit Form Replies"
 msgstr ""
 
-#: admin/index.php:1078 lib/Forms/Admin/Reply.php:34
-#: lib/Forms/Admin/Reply.php:62
+#: admin/index.php:1046 lib/Form/Admin/EditReplyStepOne.php:19
+#: lib/Form/Admin/EditReplyStepTwo.php:18
 msgid "Edit Form Reply"
 msgstr ""
 
-#: lib/Forms/Query.php:88
+#: lib/Form/Query/GroupCriterion.php:11
 msgid "Edit Group Criterion"
 msgstr ""
 
-#: lib/Forms/Admin/Type.php:96
+#: lib/Form/Admin/EditTypeStepTwo.php:58
 msgid "Edit Priorities"
 msgstr "Редагувати пріоритети"
 
-#: admin/index.php:583 lib/Forms/Admin/Priority.php:34
-#: lib/Forms/Admin/Priority.php:57
+#: admin/index.php:550 lib/Form/Admin/EditPriorityStepOne.php:21
+#: lib/Form/Admin/EditPriorityStepTwo.php:20
 msgid "Edit Priority"
 msgstr "Редагувати пріоритет"
 
-#: lib/Forms/Query.php:172
+#: lib/Form/Query/PropertyCriterion.php:13
 msgid "Edit Property Criterion"
 msgstr ""
 
-#: admin/index.php:322 lib/Forms/Admin/Queue.php:42
-#: lib/Forms/Admin/Queue.php:45
+#: admin/index.php:305 lib/Form/Admin/EditQueueStepOne.php:22
+#: lib/Form/Admin/EditQueueStepOne.php:25
 msgid "Edit Queue"
 msgstr "Редагувати чергу"
 
-#: lib/Forms/Admin/Queue.php:44
+#: lib/Form/Admin/EditQueueStepOne.php:24
 msgid "Edit Queues"
 msgstr "Редагувати черги"
 
-#: admin/index.php:448 lib/Forms/Admin/State.php:33
-#: lib/Forms/Admin/State.php:54
+#: admin/index.php:418 lib/Form/Admin/EditStateStepOne.php:19
+#: lib/Form/Admin/EditStateStepTwo.php:18
 msgid "Edit State"
 msgstr "Редагувати стан"
 
-#: lib/Forms/Admin/Type.php:79
+#: lib/Form/Admin/EditTypeStepTwo.php:41
 msgid "Edit States"
 msgstr "Редагувати стани"
 
-#: lib/Forms/Query.php:129
+#: lib/Form/Query/TextCriterion.php:11
 msgid "Edit Text Criterion"
 msgstr ""
 
-#: admin/index.php:136 lib/Forms/Admin/Type.php:33
+#: admin/index.php:124 lib/Form/Admin/EditTypeStepOne.php:22
 msgid "Edit Type"
 msgstr "Редагувати тип"
 
-#: lib/Forms/Query.php:39
+#: lib/Form/Query/UserCriterion.php:25
 msgid "Edit User Criterion"
 msgstr ""
 
-#: admin/index.php:811 lib/Forms/Admin/Version.php:36
-#: lib/Forms/Admin/Version.php:59
+#: admin/index.php:775 lib/Form/Admin/EditVersionStepOne.php:22
+#: lib/Form/Admin/EditVersionStepTwo.php:20
 msgid "Edit Version"
 msgstr "Редагувати версію"
 
-#: lib/Query.php:231
+#: lib/Query.php:237
 msgid "Edit _Permissions"
 msgstr "Редагувати права"
 
@@ -729,76 +745,72 @@ msgstr "Редагувати права"
 msgid "Edit _Types"
 msgstr "Редагувати Типи"
 
-#: lib/Forms/Admin/Attribute.php:54
+#: lib/Form/Admin/EditAttributeStepOne.php:18
 msgid "Edit or Delete Attributes"
 msgstr "Редагувати або витерти атрибути"
 
-#: lib/Forms/Admin/Reply.php:33
+#: lib/Form/Admin/EditReplyStepOne.php:18
 msgid "Edit or Delete Form Replies"
 msgstr ""
 
-#: lib/Forms/Admin/Priority.php:33
+#: lib/Form/Admin/EditPriorityStepOne.php:20
 msgid "Edit or Delete Priorities"
 msgstr "Редагувати або витерти пріоритети"
 
-#: lib/Forms/Admin/Queue.php:41
+#: lib/Form/Admin/EditQueueStepOne.php:21
 msgid "Edit or Delete Queues"
 msgstr "Редагувати або витерти черги"
 
-#: lib/Forms/Admin/State.php:32
+#: lib/Form/Admin/EditStateStepOne.php:18
 msgid "Edit or Delete States"
 msgstr "Редагувати або витерти стани"
 
-#: lib/Forms/Admin/Type.php:32
+#: lib/Form/Admin/EditTypeStepOne.php:19
 msgid "Edit or Delete Types"
 msgstr "Редагувати або витерти типи"
 
-#: lib/Forms/Admin/Version.php:35
+#: lib/Form/Admin/EditVersionStepOne.php:21
 msgid "Edit or Delete Versions"
 msgstr "Редагувати або витерти версії"
 
-#: lib/Forms/Admin/Reply.php:79
+#: lib/Form/Admin/EditReplyStepTwo.php:35
 msgid "Edit the permissions on this form reply"
 msgstr ""
 
-#: lib/Forms/Admin/Queue.php:142
+#: lib/Form/Admin/EditQueueStepTwo.php:92
 msgid "Edit the permissions on this queue"
 msgstr "Редагувати права на цю чергу"
 
-#: lib/Forms/Admin/Queue.php:134
+#: lib/Form/Admin/EditQueueStepTwo.php:84
 msgid "Edit the users responsible for this queue"
 msgstr "Редагувати відповідальних за цю чергу"
 
-#: lib/Forms/Admin/Queue.php:116
+#: lib/Form/Admin/EditQueueStepTwo.php:67
 msgid "Edit the versions for this queue"
 msgstr "Редагувати версії цієї черги"
 
-#: ticket/watch.php:20
+#: lib/Form/AddListener.php:17
 msgid "Email address to notify"
 msgstr "Адреса е-пошти для оповіщення"
 
-#: ticket/watch.php:32
+#: lib/Form/DeleteListener.php:16
 msgid "Email address to remove"
 msgstr "Адреса е-пошти для видалення"
 
-#: lib/Api.php:349
+#: lib/Api.php:314
 msgid "Empty attachment"
 msgstr "Пустий додаток"
 
-#: ticket/delete_history.php:26
+#: ticket/delete_history.php:24
 msgid "Entry deleted."
 msgstr "Запис витерто."
 
-#: scripts/mail-filter.php:161 scripts/mail-filter.php:181
-msgid "Error processing message:"
-msgstr "Помилка обробки листа:"
-
-#: query/index.php:193
+#: query/index.php:186
 #, php-format
 msgid "Error: Unknown query form \"%s\", defaulting to properties"
 msgstr ""
 
-#: lib/Query.php:158
+#: lib/Query.php:160
 msgid "Exact Match"
 msgstr ""
 
@@ -806,33 +818,34 @@ msgstr ""
 msgid "Execute Query"
 msgstr "Виконати запит"
 
-#: lib/Forms/Admin.php:33
+#: lib/Form/SendReminder.php:36
 msgid "For tickets from these queues"
 msgstr "Для тарганів з цих черг"
 
-#: lib/Forms/Admin.php:37
+#: lib/Form/SendReminder.php:47
 msgid "For tickets which are"
 msgstr "Для тарганів, які"
 
-#: lib/Application.php:70
+#: lib/Application.php:71
 msgid "Form Replies"
 msgstr ""
 
-#: lib/Forms/Admin/Type.php:128
+#: lib/Form/Admin/EditTypeStepTwo.php:90
 msgid "Form Replies for this Type"
 msgstr ""
 
-#: lib/Forms/Admin/Reply.php:23 lib/Forms/Admin/Reply.php:50
-#: lib/Forms/Admin/Reply.php:69 lib/Forms/Admin/Reply.php:99
+#: lib/Form/Admin/AddReply.php:21 lib/Form/Admin/DeleteReply.php:26
+#: lib/Form/Admin/EditReplyStepOne.php:36
+#: lib/Form/Admin/EditReplyStepTwo.php:26
 msgid "Form Reply Name"
 msgstr ""
 
-#: lib/Forms/Admin/Reply.php:24 lib/Forms/Admin/Reply.php:72
-#: lib/Forms/Admin/Reply.php:102
+#: lib/Form/Admin/AddReply.php:22 lib/Form/Admin/DeleteReply.php:29
+#: lib/Form/Admin/EditReplyStepTwo.php:29
 msgid "Form Reply Text"
 msgstr ""
 
-#: lib/Forms/EditTicket.php:156
+#: lib/Form/Ticket/Edit.php:160
 msgid "Form Reply:"
 msgstr ""
 
@@ -840,70 +853,73 @@ msgstr ""
 msgid "General Preferences"
 msgstr "Загальні опції"
 
-#: templates/menu.inc:5
-msgid "Go"
-msgstr "Далі"
-
-#: lib/Forms/CreateTicket.php:243 lib/Forms/EditTicket.php:128
+#: lib/Form/Ticket/CreateStepFour.php:58 lib/Form/Ticket/Edit.php:128
 msgid "Group Owners"
 msgstr ""
 
-#: lib/Forms/Query.php:102 lib/Forms/Query.php:104 lib/Renderer/Query.php:83
+#: lib/Form/Query/GroupCriterion.php:27 lib/Form/Query/GroupCriterion.php:30
+#: lib/Form/Renderer/Query.php:89
 msgid "Groups"
 msgstr "Групи"
 
-#: lib/Application.php:64
+#: config/reminder_email.plain.php:16
+msgid "Here is a summary of your open tickets:"
+msgstr "Ось резюме Ваших відкритих тарганів:"
+
+#: lib/Application.php:65
 msgid "Hidden Comments"
 msgstr "Приховані коментарі"
 
-#: ticket/index.php:41
+#: ticket/index.php:46
 msgid "History"
 msgstr "Історія"
 
-#: query/index.php:164
+#: query/index.php:155
 msgid "Hoist Children"
 msgstr ""
 
-#: config/prefs.php:46 lib/Forms/Query.php:175 lib/Renderer/Query.php:81
-#: lib/Whups.php:671 lib/Whups.php:678
+#: config/prefs.php:49 lib/Block/Tickets.php:53
+#: lib/Form/Query/PropertyCriterion.php:17 lib/Form/Renderer/Query.php:87
+#: lib/Whups.php:851 lib/Whups.php:874
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
-#: lib/Forms/Admin.php:40
+#: lib/Form/SendReminder.php:56
 msgid ""
 "If you select any tickets that do not have an owner, who should we send "
 "email to?"
 msgstr ""
 
-#: query/index.php:165
+#: query/index.php:156
 msgid "Insert And"
 msgstr "Вставити І"
 
-#: lib/Forms/Query.php:19
+#: lib/Form/InsertBranch.php:19
 msgid "Insert Branch"
 msgstr ""
 
-#: query/index.php:167
+#: query/index.php:158
 msgid "Insert Not"
 msgstr "Вставити Не"
 
-#: query/index.php:166
+#: query/index.php:157
 msgid "Insert Or"
 msgstr "Вставити Або"
 
-#: lib/Forms/Admin/Queue.php:75 lib/Forms/Admin/Queue.php:76
+#: lib/Form/Admin/EditQueueStepTwo.php:27
+#: lib/Form/Admin/EditQueueStepTwo.php:28
 msgid "Invalid Queue"
 msgstr "Неправильна черга"
 
-#: lib/Api.php:340 lib/Whups.php:267
+#: lib/Api.php:309 lib/Whups.php:387
 msgid "Invalid Ticket Id"
 msgstr "Некоректний Id таргана"
 
-#: lib/Api.php:392
+#: lib/Api.php:346
 msgid "Invalid argument: Missing attribute name or value."
 msgstr ""
 
-#: lib/Api.php:377
+#: lib/Api.php:336
 msgid "Invalid arguments: Must supply a ticket number and new attributes."
 msgstr ""
 
@@ -911,16 +927,16 @@ msgstr ""
 msgid "Invalid queue"
 msgstr "Неправильна черга"
 
-#: search/rss.php:28
+#: search/rss.php:23
 msgid "Invalid search"
 msgstr "Некоректний пошук"
 
-#: lib/Api.php:248
+#: lib/Api.php:229
 #, php-format
 msgid "Invalid ticket data supplied: %s"
 msgstr "Вказана некоректна дата таргана: %s"
 
-#: lib/Forms/Admin/Queue.php:111
+#: lib/Form/Admin/EditQueueStepTwo.php:62
 msgid "Keep a set of versions for this queue?"
 msgstr "Тримати набір версій для цієї черги?"
 
@@ -928,136 +944,143 @@ msgstr "Тримати набір версій для цієї черги?"
 msgid "Last>>"
 msgstr "Останній>>"
 
-#: lib/Forms/Query.php:415
-msgid "Load Query"
-msgstr ""
+#: config/reminder_email.plain.php:27
+msgid "Link:"
+msgstr "Лінк:"
 
-#: lib/Forms/VarRenderer.php:38
+#: lib/Form/Query/ChooseNameForLoad.php:10
+msgid "Load Query"
+msgstr "Завантажити запит"
+
+#: lib/Ui/VarRenderer/Whups.php:38
 msgid "Loading..."
 msgstr "Завантажую..."
 
-#: config/prefs.php:104
+#: config/prefs.php:107
 msgid "MM/DD/YY"
 msgstr ""
 
-#: config/prefs.php:105
+#: config/prefs.php:108
 msgid "MM/DD/YY HH:MM:SS"
 msgstr ""
 
-#: lib/Forms/Admin/Type.php:191
+#: lib/Form/Admin/CloneType.php:23
 #, php-format
 msgid "Make a clone of %s"
-msgstr ""
+msgstr "Клонувати %s"
 
-#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:180
+#: lib/Form/AddComment.php:45 lib/Form/Ticket/CreateStepThree.php:94
+#: lib/Form/Ticket/Edit.php:184
 msgid "Make this comment visible only to members of a group?"
 msgstr "Зробити цей коментар видимим тільки для членів  групи?"
 
-#: lib/Forms/Query.php:278
+#: lib/Form/Query/AttributeCriterion.php:28
 msgid "Match"
 msgstr ""
 
-#: lib/Forms/Query.php:43 lib/Forms/Query.php:133 lib/Forms/Query.php:279
+#: lib/Form/Query/AttributeCriterion.php:30
+#: lib/Form/Query/TextCriterion.php:17 lib/Form/Query/UserCriterion.php:31
 msgid "Match Operator"
 msgstr ""
 
-#: lib/Query.php:162
+#: lib/Query.php:164
 msgid "Match Pattern"
 msgstr ""
 
-#: lib/Query.php:161
+#: lib/Query.php:163
 msgid "Match Word"
 msgstr ""
 
-#: reports.php:27
+#: reports.php:29
 msgid "Maximum time a ticket is unresolved"
 msgstr "Максимальний час, за який тарган не був вирішений"
 
-#: reports.php:28
+#: reports.php:30
 msgid "Minimum time a ticket is unresolved"
 msgstr "Мінімальний час, за який тарган не був вирішений"
 
-#: config/prefs.php:141
+#: config/prefs.php:144
 msgid "Most recent first"
 msgstr "Спочатку свіжіші"
 
-#: ticket/queue.php:184
+#: ticket/queue.php:93
 #, php-format
 msgid "Moved ticket %d to \"%s\""
 msgstr "Перенесено таргана %d до \"%s\""
 
-#: mybugs.php:43
+#: mybugs.php:48
 #, php-format
 msgid "My %s"
 msgstr "Мої %s"
 
-#: mybugs_edit.php:29
+#: mybugs_edit.php:35
 #, php-format
 msgid "My %s :: Add Content"
 msgstr "Мої %s :: Додати контент"
 
-#: search.php:177
+#: search.php:174
 msgid "My Queries"
 msgstr "Мої запити"
 
-#: lib/Block/Myrequests.php:13
+#: lib/Block/Myrequests.php:19
 msgid "My Requests"
-msgstr ""
+msgstr "Мої заявки"
 
-#: config/prefs.php:76 lib/Block/Mytickets.php:13
+#: config/prefs.php:79 lib/Block/Mytickets.php:19
 msgid "My Tickets"
 msgstr "Мої таргани"
 
-#: lib/Api.php:685
+#: lib/Api.php:632
 msgid "My tickets by assignment date"
 msgstr "Мої таргани по даті призначення"
 
-#: lib/Api.php:684
+#: lib/Api.php:631
 msgid "My tickets by creation date"
 msgstr "Мої таргани по даті створення"
 
-#: lib/Api.php:686
+#: lib/Api.php:633
 msgid "My tickets by due date"
 msgstr "Мої таргани за періодом дії"
 
-#: lib/Api.php:687
+#: lib/Api.php:634
 msgid "My tickets by resolution date"
 msgstr "Мої таргани по даті вирішення"
 
-#: lib/Forms/Query.php:426
+#: lib/Form/Query/ChooseNameForLoad.php:21
 msgid "Name"
 msgstr "Ім'я"
 
-#: lib/Forms/Admin/Type.php:196
+#: lib/Form/Admin/CloneType.php:29
 msgid "Name of the cloned copy"
 msgstr ""
 
-#: lib/Query.php:221
+#: lib/Query.php:226
 msgid "Ne_w Query"
 msgstr "Новий запит"
 
-#: lib/Driver.php:212
+#: lib/Driver.php:269
 msgid "New"
 msgstr "Новий"
 
-#: lib/Ticket.php:628 lib/Ticket.php:721
+#: lib/Ticket.php:687 lib/Ticket.php:780 lib/Ticket.php:785
 msgid "New Attachment"
 msgstr "Новий додаток"
 
-#: lib/Renderer/Comment.php:56 lib/Renderer/Comment.php:60
+#: lib/Form/Renderer/Comment.php:59 lib/Form/Renderer/Comment.php:63
+#: lib/Form/Renderer/Comment.php:68
 #, php-format
 msgid "New Attachment: %s"
 msgstr "Новий додаток: %s"
 
-#: ticket/queue.php:28
+#: lib/Form/Queue/StepOne.php:24
 msgid "New Queue"
 msgstr "Нова черга"
 
-#: lib/Application.php:180 ticket/create.php:63
+#: lib/Application.php:140 ticket/create.php:64
 msgid "New Ticket"
 msgstr "Новий тарган"
 
-#: ticket/type.php:27
+#: lib/Form/SetTypeStepOne.php:24
 msgid "New Type"
 msgstr "Новий тип"
 
@@ -1065,49 +1088,45 @@ msgstr "Новий тип"
 msgid "Next>"
 msgstr "Наступний>"
 
-#: lib/Forms/Admin/Attribute.php:147 lib/Forms/Admin/Priority.php:119
-#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Reply.php:108
-#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Type.php:174
-#: lib/Forms/Admin/Version.php:98 lib/Forms/Query.php:453 ticket/delete.php:29
+#: lib/Form/Admin/DeleteAttribute.php:35 lib/Form/Admin/DeletePriority.php:33
+#: lib/Form/Admin/DeleteQueue.php:35 lib/Form/Admin/DeleteReply.php:33
+#: lib/Form/Admin/DeleteState.php:32 lib/Form/Admin/DeleteType.php:46
+#: lib/Form/Admin/DeleteVersion.php:34 lib/Form/Query/Delete.php:11
+#: lib/Form/Ticket/Delete.php:23
 msgid "No"
 msgstr "Ні"
 
-#: lib/Ticket.php:98
+#: lib/Ticket.php:94
 #, php-format
 msgid ""
 "No priority for this ticket and no default priority for ticket type \"%s\" "
 "specified."
 msgstr ""
 
-#: lib/Block/Myqueries.php:36
+#: lib/Block/Myqueries.php:31
 msgid "No queries have been saved."
-msgstr ""
+msgstr "Не збережено жодного запиту."
 
-#: lib/Block/Query.php:61 lib/Driver/sql.php:541
+#: lib/Block/Query.php:64 lib/Driver/Sql.php:587
 msgid "No query to run"
-msgstr ""
+msgstr "Нема запитів для виконання"
 
-#: lib/Block/Queuecontents.php:26
+#: lib/Block/Queuecontents.php:33
 msgid "No queues available."
 msgstr "Нема доступних черг."
 
-#: lib/Ticket.php:90
+#: lib/Ticket.php:85
 #, php-format
 msgid ""
 "No state for this ticket and no default state for ticket type \"%s\" "
 "specified."
 msgstr ""
 
-#: reports.php:32
+#: reports.php:34
 msgid "No stats available."
 msgstr "Нема статистичних даних."
 
-#: lib/View.php:31
-#, php-format
-msgid "No such view \"%s\" found"
-msgstr ""
-
-#: lib/Block/Mytickets.php:32
+#: lib/Block/Mytickets.php:36
 msgid "No tickets are assigned to you."
 msgstr "Жодного таргана Вам не призначено."
 
@@ -1115,24 +1134,24 @@ msgstr "Жодного таргана Вам не призначено."
 msgid "No tickets are unassigned!"
 msgstr "Жодного призначеного таргана!"
 
-#: lib/Block/Queuecontents.php:60 lib/Block/Queuecontents.php:71
+#: lib/Block/Queuecontents.php:66 lib/Block/Queuecontents.php:73
 msgid "No tickets in queue."
 msgstr "Жодного таргана в черзі."
 
-#: lib/Whups.php:720
+#: lib/Whups.php:919
 msgid "No tickets matched your search criteria."
 msgstr "Жоден тарган не відповідає критерію пошуку."
 
-#: lib/Ticket.php:82
+#: lib/Ticket.php:76
 #, php-format
 msgid "No type for this ticket and no default type for queue \"%s\" specified."
 msgstr ""
 
-#: lib/Reports.php:66
+#: lib/Reports.php:90
 msgid "None"
 msgstr "Жоден"
 
-#: lib/Forms/Query.php:24 lib/Renderer/Query.php:77
+#: lib/Form/InsertBranch.php:24 lib/Form/Renderer/Query.php:83
 msgid "Not"
 msgstr "Не"
 
@@ -1140,192 +1159,205 @@ msgstr "Не"
 msgid "Notification Preferences"
 msgstr "Опції оповіщення"
 
-#: lib/Driver.php:193
+#: lib/Driver.php:248
 msgid "Older? Please update first!"
 msgstr ""
 
-#: config/prefs.php:118
+#: config/prefs.php:121
 msgid "Only notify me of ticket changes from other users?"
 msgstr "Сповіщати мене тільки коли тарган змінений іншими особами?"
 
-#: config/prefs.php:125
+#: config/prefs.php:128
 msgid "Only notify me of ticket changes with comments?"
 msgstr "Сповіщати мене тільки коли тарган змінений з коментарем?"
 
 #: queue/rss.php:40
 msgid "Open"
-msgstr ""
+msgstr "Відкрити"
+
+#: reports.php:22
+msgid "Open Tickets by Owner"
+msgstr "Відкриті таргани за Власником"
 
 #: reports.php:20
-msgid "Open Tickets by Owner"
-msgstr ""
-
-#: reports.php:18
 msgid "Open Tickets by Priority"
-msgstr ""
-
-#: reports.php:15
-msgid "Open Tickets by Queue"
-msgstr ""
-
-#: reports.php:19
-msgid "Open Tickets by Requester"
-msgstr ""
-
-#: reports.php:16
-msgid "Open Tickets by State"
-msgstr ""
+msgstr "Відкриті таргани за Пріоритетом"
 
 #: reports.php:17
-msgid "Open Tickets by Type"
-msgstr ""
+msgid "Open Tickets by Queue"
+msgstr "Відкриті таргани за Чергою"
 
-#: lib/Block/Queuecontents.php:47
+#: reports.php:21
+msgid "Open Tickets by Requester"
+msgstr "Відкриті таргани за Автором"
+
+#: reports.php:18
+msgid "Open Tickets by State"
+msgstr "Відкриті таргани за Станом"
+
+#: reports.php:19
+msgid "Open Tickets by Type"
+msgstr "Відкриті таргани за Типом"
+
+#: lib/Block/Queuecontents.php:55
 #, php-format
 msgid "Open Tickets in %s"
-msgstr ""
+msgstr "Відкриті таргани в %s"
 
-#: queue/index.php:40 queue/index.php:54 queue/rss.php:115
+#: queue/index.php:45 queue/index.php:57 queue/rss.php:111
 #, php-format
 msgid "Open tickets in %s"
 msgstr "Відкриті таргани в %s"
 
-#: queue/rss.php:117
+#: queue/rss.php:113
 msgid "Open tickets in all queues."
-msgstr ""
+msgstr "Відкриті таргани у всіх чергах."
 
-#: lib/Forms/Query.php:23 lib/Renderer/Query.php:76
+#: config/reminder_email.plain.php:23
+msgid "Opened:"
+msgstr "Відкритий:"
+
+#: lib/Form/InsertBranch.php:23 lib/Form/Renderer/Query.php:82
 msgid "Or"
 msgstr "Або"
 
-#: lib/Forms/CreateTicket.php:236 lib/Forms/CreateTicket.php:254
-#: lib/Forms/EditTicket.php:118 lib/Renderer/Query.php:82 lib/Ticket.php:627
-#: lib/Ticket.php:711 lib/Ticket.php:712 lib/Ticket.php:715 lib/Ticket.php:819
-#: lib/Ticket.php:840 lib/Ticket.php:961 lib/Whups.php:685
+#: lib/Mail.php:148
+msgid "Original Message"
+msgstr "Оригінал листа"
+
+#: lib/Form/Renderer/Query.php:88 lib/Form/Ticket/CreateStepFour.php:52
+#: lib/Form/Ticket/CreateStepFour.php:67 lib/Form/Ticket/Edit.php:118
+#: lib/Form/TicketDetails.php:96 lib/Ticket.php:686 lib/Ticket.php:770
+#: lib/Ticket.php:771 lib/Ticket.php:774 lib/Ticket.php:883 lib/Ticket.php:904
+#: lib/Whups.php:858
 msgid "Owners"
 msgstr "Власники"
 
-#: lib/Whups.php:851
+#: lib/Whups.php:1044
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "Назавжди витерти %s?"
 
-#: lib/Renderer/Comment.php:177
+#: lib/Form/Renderer/Comment.php:191
 msgid "Permanently delete entry?"
 msgstr "Назавжди витерти запис?"
 
-#: ticket/delete.php:48 ticket/delete_attachment.php:17
-#: ticket/delete_history.php:16 ticket/queue.php:135 ticket/type.php:71
-#: ticket/update.php:19
+#: ticket/delete.php:19 ticket/delete_attachment.php:17
+#: ticket/delete_history.php:16 ticket/queue.php:45 ticket/type.php:19
+#: ticket/update.php:17
 msgid "Permission Denied"
 msgstr "Доступ заборонений"
 
-#: lib/Forms/EditTicket.php:210 ticket/delete.php:36
+#: lib/Form/Ticket/Delete.php:30 lib/Form/Ticket/Edit.php:213
 msgid "Permission Denied."
 msgstr "Доступ заборонений."
 
-#: lib/Forms/Query.php:463 query/index.php:29 query/run.php:43
+#: lib/Form/Query/Delete.php:24 query/index.php:27 query/run.php:41
 #, php-format
 msgid "Permission denied."
 msgstr "Доступ заборонений."
 
-#: lib/Forms/Admin/Type.php:91 lib/Forms/Admin/Type.php:169
+#: lib/Form/Admin/DeleteType.php:42 lib/Form/Admin/EditTypeStepTwo.php:53
 msgid "Priorities for this Type"
 msgstr "Пріоритети для цього типу"
 
-#: config/prefs.php:50 lib/Forms/CreateTicket.php:158
-#: lib/Forms/EditTicket.php:84 lib/Forms/Query.php:202
-#: lib/Renderer/Query.php:123 lib/Ticket.php:620 lib/Ticket.php:814
-#: lib/Ticket.php:956 lib/Whups.php:673 lib/Whups.php:682 ticket/queue.php:113
-#: ticket/type.php:62
+#: config/prefs.php:53 lib/Form/Query/PropertyCriterion.php:49
+#: lib/Form/Queue/StepThree.php:35 lib/Form/Renderer/Query.php:129
+#: lib/Form/SetTypeStepTwo.php:28 lib/Form/Ticket/CreateStepThree.php:69
+#: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:91
+#: lib/Ticket.php:679 lib/Ticket.php:878 lib/Whups.php:855
 msgid "Priority"
 msgstr "Пріоритет"
 
-#: lib/Renderer/Comment.php:118
+#: lib/Form/Renderer/Comment.php:125
 #, php-format
 msgid "Priority &rArr; %s"
 msgstr "Пріоритет &rArr; %s"
 
-#: lib/Forms/Admin/Priority.php:22 lib/Forms/Admin/Priority.php:68
-#: lib/Forms/Admin/Priority.php:116
+#: lib/Form/Admin/AddPriority.php:22 lib/Form/Admin/DeletePriority.php:30
+#: lib/Form/Admin/EditPriorityStepTwo.php:31
 msgid "Priority Description"
 msgstr "Опис пріоритету"
 
-#: lib/Forms/Admin/Priority.php:21 lib/Forms/Admin/Priority.php:46
-#: lib/Forms/Admin/Priority.php:65 lib/Forms/Admin/Priority.php:92
-#: lib/Forms/Admin/Priority.php:113
+#: lib/Form/Admin/AddPriority.php:21 lib/Form/Admin/DefaultPriority.php:32
+#: lib/Form/Admin/DeletePriority.php:27
+#: lib/Form/Admin/EditPriorityStepOne.php:33
+#: lib/Form/Admin/EditPriorityStepTwo.php:28
 msgid "Priority Name"
 msgstr "Назва пріоритету"
 
-#: search.php:177
+#: search.php:174
 msgid "Public Queries"
 msgstr "Публічні запити"
 
-#: query/index.php:174
+#: query/index.php:167
 msgid "Query Builder"
-msgstr ""
+msgstr "Конструктор запиту"
 
-#: lib/Forms/Query.php:391
+#: lib/Form/Query/ChooseNameForSave.php:12
 msgid "Query Name"
 msgstr "Назва запиту"
 
-#: lib/Forms/QueryParameterForm.php:18
+#: lib/Form/Query/Parameter.php:18
 msgid "Query Parameters"
 msgstr "Параметри запиту"
 
-#: lib/Block/Query.php:13 query/rss.php:60 query/run.php:81
+#: lib/Block/Query.php:19 query/rss.php:57 query/run.php:82
 msgid "Query Results"
 msgstr "Результати запиту"
 
-#: lib/Forms/Query.php:393
+#: lib/Form/Query/ChooseNameForSave.php:14
 msgid "Query Slug"
-msgstr ""
+msgstr "Жетон черги"
 
-#: lib/Block/Query.php:35
+#: lib/Block/Query.php:39
 msgid "Query to run"
-msgstr ""
+msgstr "Запит до виконання"
 
-#: config/prefs.php:51 lib/Block/Queuecontents.php:35
-#: lib/Block/Queuesummary.php:43 lib/Forms/Query.php:185
-#: lib/Forms/Search.php:38 lib/Renderer/Query.php:92 lib/Ticket.php:616
-#: lib/Ticket.php:810 lib/Ticket.php:921 lib/Ticket.php:926 lib/Whups.php:683
+#: config/prefs.php:54 lib/Block/Queuecontents.php:42
+#: lib/Block/Queuesummary.php:39 lib/Form/Query/PropertyCriterion.php:30
+#: lib/Form/Renderer/Query.php:98 lib/Form/Search.php:40
+#: lib/Form/TicketDetails.php:53 lib/Form/TicketDetails.php:60
+#: lib/Ticket.php:675 lib/Ticket.php:874 lib/Whups.php:856
 msgid "Queue"
 msgstr "Черга"
 
-#: lib/Renderer/Comment.php:98
+#: lib/Form/Renderer/Comment.php:105
 #, php-format
 msgid "Queue &rArr; %s"
 msgstr "Черга &rArr; %s"
 
-#: lib/Block/Queuecontents.php:13
+#: lib/Block/Queuecontents.php:19
 msgid "Queue Contents"
-msgstr "Контент черги"
+msgstr "Вміст черги"
 
-#: lib/Forms/Admin/Queue.php:22 lib/Forms/Admin/Queue.php:87
-#: lib/Forms/Admin/Queue.php:168
+#: lib/Form/Admin/AddQueue.php:22 lib/Form/Admin/DeleteQueue.php:32
+#: lib/Form/Admin/EditQueueStepTwo.php:40
 msgid "Queue Description"
 msgstr "Опис черги"
 
-#: lib/Forms/Admin/Queue.php:28 lib/Forms/Admin/Queue.php:95
+#: lib/Form/Admin/AddQueue.php:29 lib/Form/Admin/EditQueueStepTwo.php:48
 msgid "Queue Email"
 msgstr "Е-пошта черги"
 
-#: lib/Forms/Admin/Queue.php:21 lib/Forms/Admin/Queue.php:58
-#: lib/Forms/Admin/Queue.php:83 lib/Forms/Admin/Queue.php:164
-#: lib/Forms/CreateTicket.php:32 lib/Forms/CreateTicket.php:48
+#: lib/Form/Admin/AddQueue.php:21 lib/Form/Admin/DeleteQueue.php:28
+#: lib/Form/Admin/EditQueueStepOne.php:39
+#: lib/Form/Admin/EditQueueStepTwo.php:36 lib/Form/Ticket/CreateStepOne.php:32
+#: lib/Form/Ticket/CreateStepOne.php:48
 msgid "Queue Name"
 msgstr "Назва черги"
 
-#: lib/Forms/Admin/Queue.php:24 lib/Forms/Admin/Queue.php:91
+#: lib/Form/Admin/AddQueue.php:24 lib/Form/Admin/EditQueueStepTwo.php:44
 msgid "Queue Slug"
-msgstr ""
+msgstr "Жетон черги"
 
 #: lib/Block/Queuesummary.php:13
 msgid "Queue Summary"
 msgstr "Анотація черги"
 
-#: lib/Forms/CreateTicket.php:96 lib/Forms/EditTicket.php:74
-#: lib/Ticket.php:935 lib/Ticket.php:941 ticket/queue.php:82
+#: lib/Form/Queue/StepTwo.php:39 lib/Form/Ticket/CreateStepTwo.php:56
+#: lib/Form/Ticket/Edit.php:75 lib/Form/TicketDetails.php:68
+#: lib/Form/TicketDetails.php:76
 msgid "Queue Version"
 msgstr "Версія черги"
 
@@ -1337,7 +1369,7 @@ msgstr "Матриця Черга/Тип"
 msgid "Queue/Type Matrix"
 msgstr "Матриця Черга/Тип"
 
-#: lib/Api.php:31 lib/Application.php:67
+#: lib/Api.php:31 lib/Application.php:68
 msgid "Queues"
 msgstr "Черги"
 
@@ -1345,155 +1377,162 @@ msgstr "Черги"
 msgid "Re_turn to Search Results"
 msgstr "Повернутися до результатів пошуку"
 
-#: lib/Forms/Admin/Attribute.php:145
+#: lib/Form/Admin/DeleteAttribute.php:33
 msgid "Really delete this attribute? This may cause data problems!"
 msgstr "Справді витерти цей атрибут? Це може спричинити проблему з даними!"
 
-#: lib/Forms/Admin/Reply.php:106
+#: lib/Form/Admin/DeleteReply.php:32
 msgid "Really delete this form reply?"
 msgstr ""
 
-#: lib/Forms/Admin/Priority.php:120
+#: lib/Form/Admin/DeletePriority.php:34
 msgid "Really delete this priority? This may cause data problems!"
 msgstr "Справді витерти цей пріоритет? Це може спричинити проблему з даними!"
 
-#: lib/Forms/Query.php:454
+#: lib/Form/Query/Delete.php:13
 msgid "Really delete this query? This operation is not undoable."
 msgstr ""
 
-#: lib/Forms/Admin/Queue.php:174
+#: lib/Form/Admin/DeleteQueue.php:37
 msgid ""
 "Really delete this queue? This will also delete all associated tickets and "
 "their comments. This can not be undone!"
 msgstr ""
 
-#: lib/Forms/Admin/State.php:120
+#: lib/Form/Admin/DeleteState.php:33
 msgid "Really delete this state? This may cause data problems!"
 msgstr "Справді витерти цей стан? Це може спричинити проблему з даними!"
 
-#: ticket/delete.php:30
+#: lib/Form/Ticket/Delete.php:24
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
 msgstr ""
 "Справді витерти цього таргана? Він не буда архівований і буде втрачений "
 "назавжди."
 
-#: lib/Forms/Admin/Type.php:176
+#: lib/Form/Admin/DeleteType.php:48
 msgid "Really delete this type? This may cause data problems!"
 msgstr "Справді витерти цей тип? Це може спричинити проблему з даними!"
 
-#: lib/Forms/Admin/Version.php:99
+#: lib/Form/Admin/DeleteVersion.php:35
 msgid "Really delete this version? This may cause data problems!"
 msgstr "Справді витерти цю версію? Це може спричинити проблему з даними!"
 
-#: lib/Mail.php:64
+#: lib/Mail.php:69
 msgid "Received message:"
 msgstr "Отримані листи:"
 
-#: search.php:161
+#: search.php:159
 msgid "Refine Search"
 msgstr "Уточнити пошук"
 
-#: admin/index.php:1171
+#: lib/Whups.php:954
+msgid "Reminder: Your open tickets"
+msgstr "Нагадування: Ваші відкриті таргани"
+
+#: admin/index.php:1134
 msgid "Reminders were sent."
 msgstr "Нагадування розіслано."
 
-#: lib/Forms/Admin/User.php:57
+#: lib/Form/Admin/EditUser.php:21
 msgid "Remove User"
 msgstr "Видалити користувача"
 
-#: ticket/watch.php:46
+#: ticket/watch.php:25
 msgid "Remove Watcher"
 msgstr "Видалити спостерігача"
 
-#: lib/Renderer/Comment.php:93
+#: lib/Form/Renderer/Comment.php:99
 msgid "Reply to this comment"
 msgstr "Відповісти на цей коментар"
 
-#: reports.php:37
+#: reports.php:40
 msgid "Reports"
 msgstr "Звіти"
 
-#: lib/Renderer/Query.php:84 lib/Ticket.php:968 lib/Whups.php:684
+#: lib/Form/Renderer/Query.php:90 lib/Form/TicketDetails.php:103
+#: lib/Whups.php:857
 msgid "Requester"
 msgstr "Замовник"
 
-#: lib/Forms/Admin/Attribute.php:26 lib/Forms/Admin/Attribute.php:97
+#: lib/Form/Admin/AddAttribute.php:25
+#: lib/Form/Admin/EditAttributeStepTwo.php:33
 msgid "Required Attribute?"
 msgstr "Необхідний атрибут?"
 
-#: config/prefs.php:55 lib/Api.php:726 lib/Driver.php:214
-#: lib/Renderer/Query.php:149 lib/Ticket.php:994 lib/Whups.php:689
+#: config/prefs.php:58 lib/Api.php:674 lib/Driver.php:271
+#: lib/Form/Renderer/Query.php:159 lib/Form/TicketDetails.php:133
+#: lib/Whups.php:863
 msgid "Resolved"
 msgstr "Виконаний"
 
-#: lib/Forms/Query.php:334 lib/Forms/Search.php:62
+#: lib/Form/Query/DateCriterion.php:31 lib/Form/Search.php:77
 msgid "Resolved from"
-msgstr ""
+msgstr "Виконано від"
 
-#: lib/Forms/Query.php:335
+#: lib/Form/Query/DateCriterion.php:34
 msgid "Resolved to"
-msgstr ""
+msgstr "Виконано до"
 
-#: lib/Forms/Admin/User.php:59
+#: lib/Form/Admin/EditUser.php:23
 msgid "Responsible Users"
 msgstr "Відповідальні користувачі"
 
-#: lib/Whups.php:309
+#: lib/Whups.php:437
 msgid "S_et Queue"
 msgstr "Встановити чергу"
 
-#: lib/Query.php:239
+#: lib/Query.php:248
 msgid "Sa_ve Query"
 msgstr "Зберегти запит"
 
-#: lib/Forms/Query.php:389 templates/view/results.inc:97
+#: lib/Form/Query/ChooseNameForSave.php:10 templates/view/results.inc:92
 msgid "Save"
 msgstr "Зберегти"
 
-#: query/index.php:235
+#: query/index.php:228
 msgid "Save Criterion"
 msgstr "Зберегти критерій"
 
-#: lib/Forms/Query.php:388
+#: lib/Form/Query/ChooseNameForSave.php:9
 msgid "Save Query"
 msgstr "Зберегти запит"
 
-#: lib/Forms/Search.php:17 search.php:67
+#: lib/Form/Search.php:17 search.php:66
 msgid "Save as Query"
 msgstr "Зберегти як Запит"
 
 #: lib/Block/Myqueries.php:13
-#, fuzzy
 msgid "Saved Queries"
-msgstr "Зберегти запит"
+msgstr "Збережені запити"
 
-#: lib/Application.php:192 search.php:154
+#: lib/Application.php:151 search.php:152
 msgid "Search"
 msgstr "Пошук"
 
-#: lib/Forms/Query.php:282
+#: lib/Form/Query/AttributeCriterion.php:35
 #, php-format
 msgid "Search %s Attribute"
 msgstr "Знайти %s атрибут"
 
-#: lib/Forms/Query.php:276 lib/Forms/Query.php:285
+#: lib/Form/Query/AttributeCriterion.php:40
+#: lib/Form/Query/AttributeCriterion.php:45
 msgid "Search Attribute"
 msgstr ""
 
-#: lib/Forms/Query.php:46 lib/Forms/Query.php:135
+#: lib/Form/Query/TextCriterion.php:20 lib/Form/Query/UserCriterion.php:35
 msgid "Search Comments"
 msgstr ""
 
-#: lib/Forms/Query.php:44
+#: lib/Form/Query/UserCriterion.php:33
 msgid "Search Owners"
 msgstr ""
 
-#: lib/Forms/Query.php:45
+#: lib/Form/Query/UserCriterion.php:34
 msgid "Search Requester"
 msgstr ""
 
-#: search.php:146 search/rss.php:52 search/rss.php:56
+#: search.php:140 search/rss.php:47 search/rss.php:51
 msgid "Search Results"
 msgstr "Результати пошуку"
 
@@ -1502,11 +1541,11 @@ msgstr "Результати пошуку"
 msgid "Search Results: %s of %s"
 msgstr "Результати пошуку: %s з %s"
 
-#: lib/Forms/Query.php:134
+#: lib/Form/Query/TextCriterion.php:19
 msgid "Search Summary"
 msgstr ""
 
-#: config/prefs.php:77
+#: config/prefs.php:80
 msgid "Search Tickets"
 msgstr "Пошук тарганів"
 
@@ -1514,7 +1553,7 @@ msgstr "Пошук тарганів"
 msgid "Select address book sources for adding and searching for addresses."
 msgstr "Вкажіть адресники для пошуку і додавання адрес."
 
-#: config/prefs.php:80
+#: config/prefs.php:83
 msgid "Select the view to display after login:"
 msgstr "Виберіть вид, який показати після входу:"
 
@@ -1522,122 +1561,130 @@ msgstr "Виберіть вид, який показати після входу
 msgid "Sen_d Reminders"
 msgstr ""
 
-#: lib/Forms/Admin.php:21
+#: lib/Form/SendReminder.php:21
 msgid "Send Reminders"
 msgstr ""
 
-#: lib/Forms/Admin.php:32
+#: lib/Form/SendReminder.php:34
 msgid "Send only for this list of ticket ids"
 msgstr ""
 
-#: lib/Forms/Admin/Priority.php:78 lib/Forms/Admin/Priority.php:80
+#: lib/Form/Admin/DefaultPriority.php:18 lib/Form/Admin/DefaultPriority.php:20
 msgid "Set Default Priority"
 msgstr "Встановити типовий пріоритет"
 
-#: lib/Forms/Admin/State.php:78 lib/Forms/Admin/State.php:80
+#: lib/Form/Admin/DefaultState.php:18 lib/Form/Admin/DefaultState.php:20
 msgid "Set Default State"
 msgstr "Встановити типовий стан"
 
-#: ticket/queue.php:204 ticket/queue.php:213 ticket/queue.php:225
+#: ticket/queue.php:117 ticket/queue.php:126 ticket/queue.php:138
 msgid "Set Queue - Step 1"
 msgstr "Встановити чергу - Крок 1"
 
-#: ticket/queue.php:205 ticket/queue.php:214
+#: ticket/queue.php:118 ticket/queue.php:127
 msgid "Set Queue - Step 2"
 msgstr "Встановити чергу - Крок 2"
 
-#: ticket/queue.php:215
+#: ticket/queue.php:128
 msgid "Set Queue - Step 3"
 msgstr "Встановити чергу - Крок 3"
 
-#: ticket/queue.php:192
+#: ticket/queue.php:105
 #, php-format
 msgid "Set Queue for %s"
 msgstr "Встановити чергу для %s"
 
-#: lib/Application.php:83
+#: lib/Application.php:84
 msgid "Set Requester"
 msgstr "Встановити автора"
 
-#: ticket/type.php:136 ticket/type.php:145
+#: ticket/type.php:87 ticket/type.php:96
 msgid "Set Type - Step 1"
 msgstr "Встановити тип - Крок 1"
 
-#: ticket/type.php:137
+#: ticket/type.php:88
 msgid "Set Type - Step 2"
 msgstr "Встановіть тип - Крок 2"
 
-#: ticket/type.php:124
+#: ticket/type.php:75
 #, php-format
 msgid "Set Type for %s"
 msgstr "Встановити тип для %s"
 
-#: lib/Whups.php:314
+#: lib/Whups.php:442
 msgid "Set _Type"
 msgstr "Встановити тип"
 
-#: config/prefs.php:143
+#: config/prefs.php:146
 msgid "Show comments in chronological order, or most recent first?"
 msgstr "Показувати коментарі в хронологічному порядку, чи спершу свіжіші?"
 
-#: config/prefs.php:94
+#: config/prefs.php:97
 msgid "Show ticket IDs in the summary view?"
-msgstr ""
+msgstr "Показувати ID таргана у звіті?"
 
-#: config/prefs.php:87
+#: config/prefs.php:90
 msgid "Show tickets you have requested in the summary view?"
-msgstr ""
+msgstr "Показати таргани, які Ви замовили у звіті?"
 
 #: config/templates.php:19
 msgid "Simple HTML Report"
 msgstr "Простий HTML звіт"
 
-#: lib/Forms/Admin/Queue.php:25
+#: lib/Form/Admin/AddQueue.php:25
 #, php-format
 msgid ""
 "Slugs allows direct access to this queue's open tickets by visiting: %s. "
 "<br /> Slug names may contain only letters, numbers or the _ (underscore) "
 "character."
 msgstr ""
+"Жетони дозволяють прямий доступ до відритих тарганів цієї черги: %s. <br /> "
+"Назва жетону може містити літери, цифри і _ (підкреслення)."
 
-#: templates/view/results.inc:37 templates/view/results.inc:41
+#: templates/view/results.inc:46 templates/view/results.inc:50
 #, php-format
 msgid "Sort by %s"
 msgstr "Сортувати по %s"
 
-#: lib/Forms/AddComment.php:18 lib/Forms/AddComment.php:49
-#: lib/Forms/CreateTicket.php:139 lib/Forms/CreateTicket.php:186
+#: lib/Form/AddComment.php:20 lib/Form/AddComment.php:58
+#: lib/Form/Ticket/CreateStepThree.php:49
+#: lib/Form/Ticket/CreateStepThree.php:109
 msgid "Spam protection"
 msgstr "Захист від спаму"
 
-#: config/prefs.php:48 lib/Forms/EditTicket.php:78 lib/Forms/Query.php:197
-#: lib/Renderer/Query.php:115 lib/Ticket.php:619 lib/Ticket.php:813
-#: lib/Ticket.php:952 lib/Whups.php:674 lib/Whups.php:680 ticket/queue.php:112
-#: ticket/type.php:61
+#: config/prefs.php:51 lib/Form/Query/PropertyCriterion.php:43
+#: lib/Form/Queue/StepThree.php:34 lib/Form/Renderer/Query.php:121
+#: lib/Form/SetTypeStepTwo.php:27 lib/Form/Ticket/Edit.php:80
+#: lib/Form/TicketDetails.php:86 lib/Ticket.php:678 lib/Ticket.php:877
+#: lib/Whups.php:853
 msgid "State"
 msgstr "Стан"
 
-#: lib/Renderer/Comment.php:113
+#: lib/Form/Renderer/Comment.php:120
 #, php-format
 msgid "State &rArr; %s"
 msgstr "Стан &rArr; %s"
 
-#: lib/Forms/Admin/State.php:23 lib/Forms/Admin/State.php:68
+#: lib/Form/Admin/AddState.php:23 lib/Form/Admin/EditStateStepTwo.php:32
 msgid "State Category"
 msgstr "Категорія стану"
 
-#: lib/Forms/Admin/State.php:22 lib/Forms/Admin/State.php:65
-#: lib/Forms/Admin/State.php:116
+#: lib/Form/Admin/AddState.php:22 lib/Form/Admin/DeleteState.php:29
+#: lib/Form/Admin/EditStateStepTwo.php:29
 msgid "State Description"
 msgstr "Опис стану"
 
-#: lib/Forms/Admin/State.php:21 lib/Forms/Admin/State.php:45
-#: lib/Forms/Admin/State.php:62 lib/Forms/Admin/State.php:94
-#: lib/Forms/Admin/State.php:113
+#: lib/Form/Admin/AddState.php:21 lib/Form/Admin/DefaultState.php:35
+#: lib/Form/Admin/DeleteState.php:26 lib/Form/Admin/EditStateStepOne.php:31
+#: lib/Form/Admin/EditStateStepTwo.php:26
 msgid "State Name"
 msgstr "Назва стану"
 
-#: lib/Forms/Admin/Type.php:74 lib/Forms/Admin/Type.php:163
+#: config/reminder_email.plain.php:25
+msgid "State:"
+msgstr "Стан:"
+
+#: lib/Form/Admin/DeleteType.php:37 lib/Form/Admin/EditTypeStepTwo.php:37
 msgid "States for this Type"
 msgstr "Стани для цього типу"
 
@@ -1645,249 +1692,254 @@ msgstr "Стани для цього типу"
 msgid "Status"
 msgstr "Статус"
 
-#: ticket/create.php:141
+#: ticket/create.php:142
 msgid "Submit"
 msgstr "Відіслати"
 
-#: query/run.php:95 query/run.php:96
+#: query/run.php:96 query/run.php:97
 msgid "Subscribe to this query"
-msgstr ""
+msgstr "Замовити цей запит"
 
-#: admin/index.php:195
+#: admin/index.php:183
 #, php-format
 msgid "Successfully Cloned %s to %s."
-msgstr ""
+msgstr "Успішно клоновано %s в %s."
 
-#: ticket/type.php:115
+#: ticket/type.php:63
 msgid "Successfully changed ticket type."
 msgstr "Успішно змінено тип таргана."
 
-#: config/prefs.php:47 lib/Forms/CreateTicket.php:163
-#: lib/Forms/EditTicket.php:62 lib/Renderer/Query.php:87 lib/Ticket.php:626
-#: lib/Ticket.php:653 lib/Ticket.php:656 lib/Ticket.php:660 lib/Ticket.php:819
-#: lib/Ticket.php:828 lib/Ticket.php:915 lib/Whups.php:672 lib/Whups.php:679
-#: ticket/delete.php:26
+#: config/prefs.php:50 lib/Form/Renderer/Query.php:93
+#: lib/Form/Ticket/CreateStepThree.php:74 lib/Form/Ticket/Delete.php:20
+#: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:47
+#: lib/Ticket.php:685 lib/Ticket.php:712 lib/Ticket.php:715 lib/Ticket.php:719
+#: lib/Ticket.php:883 lib/Ticket.php:892 lib/Whups.php:852
 msgid "Summary"
 msgstr "Резюме"
 
-#: lib/Renderer/Comment.php:49
+#: lib/Form/Renderer/Comment.php:51
 #, php-format
 msgid "Summary &rArr; %s"
 msgstr "Резюме &rArr; %s"
 
-#: lib/Forms/Search.php:41
+#: lib/Form/Search.php:43
 msgid "Summary like"
 msgstr ""
 
-#: lib/Renderer/Comment.php:77
+#: lib/Form/Renderer/Comment.php:87
 #, php-format
 msgid "Taken from %s"
 msgstr "Забрано від %s"
 
-#: lib/Forms/Query.php:132
+#: lib/Form/Query/TextCriterion.php:15
 msgid "Text"
 msgstr "Текст"
 
-#: lib/Driver/sql.php:78 lib/Driver/sql.php:1404
+#: lib/Driver/Sql.php:98 lib/Driver/Sql.php:1530
 msgid "That queue slug is already taken. Please select another."
-msgstr ""
+msgstr "Такий жетон черги вже зайнятий. Виберіть інший."
 
-#: lib/Forms/CreateTicket.php:132
+#: lib/Form/Ticket/CreateStepThree.php:42
 msgid "The Requester's Email Address"
 msgstr "Адреса е-пошти замовника"
 
-#: lib/Ticket.php:431 lib/Ticket.php:481 view.php:43
+#: lib/Application.php:186 lib/Ticket.php:467 lib/Ticket.php:520 view.php:39
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr ""
 "VFS буфер мусить бути сконфігурований, щоб дозволити закачування додатків."
 
-#: admin/index.php:907
+#: admin/index.php:874
 #, php-format
 msgid "The attribute \"%s\" has been added to %s."
 msgstr "Атрибут \"%s\" додано до %s."
 
-#: admin/index.php:1007
+#: admin/index.php:975
 msgid "The attribute has been deleted."
 msgstr "Атрибут витерто."
 
-#: admin/index.php:975
+#: admin/index.php:942
 msgid "The attribute has been modified."
 msgstr "Атрибут модифіковано."
 
-#: admin/index.php:1016
+#: admin/index.php:985
 msgid "The attribute was not deleted."
 msgstr "Атрибут не витерто."
 
-#: admin/index.php:641
+#: admin/index.php:604
 msgid "The default priority has been set."
 msgstr "Встановлено типовий пріоритет."
 
-#: admin/index.php:505
+#: admin/index.php:471
 msgid "The default state has been set."
 msgstr "Встановлено типовий стан."
 
-#: admin/index.php:1044
+#: admin/index.php:1013
 #, php-format
 msgid "The form reply \"%s\" has been added to %s."
 msgstr ""
 
-#: admin/index.php:1136
+#: admin/index.php:1104
 msgid "The form reply has been deleted."
 msgstr ""
 
-#: admin/index.php:1109
+#: admin/index.php:1073
 msgid "The form reply has been modified."
 msgstr ""
 
-#: admin/index.php:1145
+#: admin/index.php:1113
 msgid "The form reply was not deleted."
 msgstr ""
 
-#: admin/index.php:555
+#: admin/index.php:525
 #, php-format
 msgid "The priority \"%s\" has been added to %s."
 msgstr "Пріоритет \"%s\" додано до %s."
 
-#: admin/index.php:660
+#: admin/index.php:626
 msgid "The priority has been deleted."
 msgstr "Пріоритет витерто."
 
-#: admin/index.php:608
+#: admin/index.php:577
 msgid "The priority has been modified."
 msgstr "Пріоритет модифіковано."
 
-#: admin/index.php:669
+#: admin/index.php:636
 msgid "The priority was not deleted."
 msgstr "Пріоритет не витертий."
 
-#: lib/Forms/Query.php:467
+#: lib/Form/Query/Delete.php:38
 #, php-format
 msgid "The query \"%s\" couldn't be deleted: %s"
-msgstr ""
+msgstr "Запит \"%s\" не може бути витертий: %s"
 
-#: lib/Forms/Query.php:469
+#: lib/Form/Query/Delete.php:31
 #, php-format
 msgid "The query \"%s\" has been deleted."
-msgstr ""
+msgstr "Запит \"%s\" витерто."
 
-#: lib/Forms/Query.php:434
+#: lib/Form/Query/ChooseNameForLoad.php:32
 #, php-format
 msgid "The query couldn't be loaded:"
-msgstr ""
+msgstr "Запит не може бути завантажений:"
 
-#: admin/index.php:296
+#: admin/index.php:280
 #, php-format
 msgid "The queue \"%s\" has been created."
 msgstr "Чергу \"%s\" створено."
 
-#: admin/index.php:391
+#: admin/index.php:361
 msgid "The queue has been deleted."
 msgstr "Чергу витерто."
 
-#: admin/index.php:356
+#: admin/index.php:340
 msgid "The queue has been modified."
 msgstr "Чергу модифіковано."
 
-#: admin/index.php:399
+#: admin/index.php:370
 msgid "The queue was not deleted."
 msgstr "Чергу не витерто."
 
-#: data.php:21
+#: lib/Application.php:203
 msgid "The requested template does not exist."
 msgstr "Вказаного шаблону не існує."
 
-#: admin/index.php:421
+#: admin/index.php:393
 #, php-format
 msgid "The state \"%s\" has been added to %s."
 msgstr "Стан \"%s\" додано до %s."
 
-#: admin/index.php:524
+#: admin/index.php:493
 msgid "The state has been deleted."
 msgstr "Стан витерто."
 
-#: admin/index.php:474
+#: admin/index.php:446
 msgid "The state has been modified."
 msgstr "Стан модифіковано."
 
-#: admin/index.php:532
+#: admin/index.php:501
 msgid "The state was not deleted."
 msgstr "Стан не витерто."
 
-#: ticket/delete.php:74
+#: lib/Ticket.php:443
+msgid "The ticket was deleted."
+msgstr "Таргана витерто."
+
+#: ticket/delete.php:49
 msgid "The ticket was not deleted."
 msgstr "Таргана не витерто."
 
-#: admin/index.php:219
+#: admin/index.php:200
 #, php-format
 msgid "The type \"%s\" has been modified."
 msgstr "Тип \"%s\" модифіковано."
 
-#: admin/index.php:268
+#: admin/index.php:252
 msgid "The type has been deleted."
 msgstr "Тип витерто."
 
-#: admin/index.php:276
+#: admin/index.php:259
 msgid "The type was not deleted."
 msgstr "Тип не витерто."
 
-#: admin/index.php:776
+#: admin/index.php:741
 #, php-format
 msgid "The version \"%s\" has been added to %s."
 msgstr "Версію \"%s\" додано до %s."
 
-#: admin/index.php:866
+#: admin/index.php:832
 msgid "The version has been deleted."
 msgstr "Версію витерто."
 
-#: admin/index.php:836
+#: admin/index.php:802
 msgid "The version has been modified."
 msgstr "Версію модифіковано."
 
-#: admin/index.php:874
+#: admin/index.php:840
 msgid "The version was not deleted."
 msgstr "Версію не витерто."
 
-#: lib/Forms/Admin/Attribute.php:68
+#: lib/Form/Admin/EditAttributeStepOne.php:31
 msgid "There are no attribute types to edit"
 msgstr "Нема жодного типу атрибута для редагування"
 
-#: lib/Forms/Query.php:285
+#: lib/Form/Query/AttributeCriterion.php:41
 msgid "There are no attributes defined."
 msgstr "Не визначено жодного атрибута."
 
-#: lib/Forms/Admin/Reply.php:46
+#: lib/Form/Admin/EditReplyStepOne.php:31
 msgid "There are no form replies to edit"
 msgstr ""
 
-#: lib/Block/Queuesummary.php:29
+#: lib/Block/Queuesummary.php:25
 msgid "There are no open tickets."
-msgstr ""
+msgstr "Нема відкритих тарганів."
 
-#: lib/Forms/Admin/Priority.php:42 lib/Forms/Admin/Priority.php:88
+#: lib/Form/Admin/DefaultPriority.php:28
+#: lib/Form/Admin/EditPriorityStepOne.php:29
 msgid "There are no priorities to edit"
-msgstr ""
+msgstr "Нема жодного пріоритету для редагування"
 
-#: lib/Forms/Admin.php:29
+#: lib/Form/SendReminder.php:30
 msgid "There are no queues available."
 msgstr "Нема жодної доступної черги."
 
-#: lib/Forms/Admin/Queue.php:55
+#: lib/Form/Admin/EditQueueStepOne.php:35
 msgid "There are no queues to edit"
 msgstr "Нема жодної черги для редагування"
 
-#: lib/Forms/CreateTicket.php:33
+#: lib/Form/Ticket/CreateStepOne.php:33
 msgid "There are no queues which you can create tickets in."
 msgstr "Нема жодної черги, в яку Ви можете подати таргана."
 
-#: lib/Forms/Search.php:36
+#: lib/Form/Search.php:37
 msgid "There are no queues which you can search."
 msgstr "Нема жодної черги, доступної Вам для пошуку."
 
-#: lib/Forms/Admin/State.php:41 lib/Forms/Admin/State.php:90
+#: lib/Form/Admin/DefaultState.php:30 lib/Form/Admin/EditStateStepOne.php:27
 msgid "There are no states to edit"
 msgstr "Нема станів для редагування"
 
-#: lib/Forms/CreateTicket.php:75
+#: lib/Form/Ticket/CreateStepTwo.php:34
 msgid ""
 "There are no ticket types associated with this queue; until there are, you "
 "cannot create any tickets in this queue."
@@ -1895,196 +1947,213 @@ msgstr ""
 "Не визначено жодного типу таргана, асоційованого з цією чергою; поки не буде "
 "визначено, ви не зможете подавати тарганів у цю чергу."
 
-#: lib/Forms/Admin/Type.php:43
+#: lib/Form/Admin/EditTypeStepOne.php:32
 msgid "There are no types to edit"
 msgstr "Нема типів для редагування"
 
-#: lib/Forms/Admin/User.php:73
+#: lib/Form/Admin/EditUser.php:37
 msgid "There are no users responsible for this queue."
 msgstr "Нема  жодного відповідального за цю чергу."
 
-#: lib/Forms/CreateTicket.php:253
+#: lib/Form/Ticket/CreateStepFour.php:66
 msgid "There are no users to which this ticket can be assigned."
 msgstr "Нема жодного користувача, кому можна призначити цього таргана."
 
-#: lib/Forms/Admin/Version.php:44
+#: lib/Form/Admin/EditVersionStepOne.php:30
 msgid "There are no versions to edit"
 msgstr "Нема версій для редагування"
 
-#: lib/Reports.php:142
+#: lib/Reports.php:176
 msgid "There is no data for this report."
 msgstr "Нема даних для цього звіту."
 
-#: admin/index.php:704
+#: admin/index.php:670
 #, php-format
 msgid "There was an error adding \"%s\" to the responsible list for \"%s\":"
 msgstr ""
 "Трапилась помилка при додаванні \"%s\" до списку відповідальних за \"%s\":"
 
-#: admin/index.php:912
+#: admin/index.php:880
 msgid "There was an error creating the attribute:"
 msgstr "Трапилась помилка створення атрибута:"
 
-#: admin/index.php:1052
+#: admin/index.php:1022
 msgid "There was an error creating the form reply:"
 msgstr ""
 
-#: admin/index.php:560
+#: admin/index.php:530
 msgid "There was an error creating the priority:"
 msgstr "Трапилась помилка при створенні пріоритету:"
 
-#: admin/index.php:305
+#: admin/index.php:290
 msgid "There was an error creating the queue:"
 msgstr "Трапилась помилка при створенні черги:"
 
-#: admin/index.php:425
+#: admin/index.php:398
 msgid "There was an error creating the state:"
 msgstr "Трапилась помилка при створенні стану:"
 
-#: admin/index.php:780
+#: admin/index.php:746
 msgid "There was an error creating the version:"
 msgstr "Трапилась помилка при створенні версії:"
 
-#: admin/index.php:1011
+#: admin/index.php:979
 msgid "There was an error deleting the attribute:"
 msgstr "Трапилась помилка при витиранні атрибута:"
 
-#: admin/index.php:1140
+#: admin/index.php:1108
 msgid "There was an error deleting the form reply:"
 msgstr ""
 
-#: admin/index.php:664
+#: admin/index.php:630
 msgid "There was an error deleting the priority:"
 msgstr "Трапилась помилка при витиранні пріоритету:"
 
-#: admin/index.php:394
+#: admin/index.php:365
 msgid "There was an error deleting the queue:"
 msgstr "Трапилась помилка при витиранні черги:"
 
-#: admin/index.php:527
+#: admin/index.php:497
 msgid "There was an error deleting the state:"
 msgstr "Трапилась помилка при витиранні стану:"
 
-#: ticket/delete.php:72
+#: ticket/delete.php:44
 msgid "There was an error deleting the ticket:"
 msgstr "Трапилась помилка при витиранні таргана:"
 
-#: admin/index.php:271
+#: admin/index.php:255
 msgid "There was an error deleting the type:"
 msgstr "Трапилась помилка при витиранні типу:"
 
-#: admin/index.php:869
+#: admin/index.php:836
 msgid "There was an error deleting the version:"
 msgstr "Трапилась помилка при витиранні версії:"
 
-#: admin/index.php:983
+#: admin/index.php:951
 msgid "There was an error editing the attribute:"
 msgstr "Трапилась помилка редагування атрибута:"
 
-#: admin/index.php:1105
+#: admin/index.php:1081
 msgid "There was an error editing the form reply:"
 msgstr ""
 
-#: admin/index.php:614
+#: admin/index.php:584
 msgid "There was an error editing the priority:"
 msgstr "Трапилась помилка редагування пріоритету:"
 
-#: admin/index.php:374
+#: admin/index.php:345
 msgid "There was an error editing the queue:"
 msgstr "Трапилась помилка редагування черги:"
 
-#: admin/index.php:479
+#: admin/index.php:452
 msgid "There was an error editing the state:"
 msgstr "Трапилась помилка редагування стану:"
 
-#: admin/index.php:842
+#: admin/index.php:809
 msgid "There was an error editing the version:"
 msgstr "Трапилась помилка редагування версії:"
 
-#: lib/Forms/Admin/User.php:33
+#: lib/Form/Admin/AddUser.php:44
 #, php-format
 msgid "There was an error listing users: %s; %s"
 msgstr "Трапилась помилка перегляду користувачів: %s; %s"
 
-#: queue/index.php:49
+#: queue/index.php:65
 #, php-format
-msgid "There was an error locating tickets in this queue: "
-msgstr "Трапилась помилка знаходжння тарганів у цій черзі: "
+msgid "There was an error locating tickets in this queue: %s"
+msgstr "Трапилась помилка знаходження тарганів у цій черзі: %s"
 
-#: admin/index.php:215
+#: admin/index.php:206
 msgid "There was an error modifying the type:"
 msgstr "Трапилась помилка при зміні типу:"
 
-#: search.php:139
+#: search.php:146
 #, php-format
 msgid "There was an error performing your search: %s"
 msgstr "Трапилась помилка при виконанні вашого пошуку: %s"
 
-#: admin/index.php:749
+#: admin/index.php:713
 #, php-format
 msgid ""
 "There was an error removing \"%s\" from the responsible list for \"%s\":"
 msgstr ""
 "Трапилась помилка при видаленні \"%s\" зі списку відповідальних за \"%s\":"
 
-#: admin/index.php:637
+#: admin/index.php:608
 msgid "There was an error setting the default priority:"
 msgstr "Трапилась помилка встановлення типового пріоритету:"
 
-#: admin/index.php:501
+#: admin/index.php:475
 msgid "There was an error setting the default state:"
 msgstr "Трапилась помилка встановлення типового стану:"
 
-#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:179
+#: lib/Form/AddComment.php:44 lib/Form/Ticket/CreateStepThree.php:92
+#: lib/Form/Ticket/Edit.php:182
 msgid "This comment is visible to everyone"
 msgstr "Цей коментар видимий для всіх"
 
-#: lib/Forms/Admin/Queue.php:29
+#: lib/Form/Admin/AddQueue.php:30
 msgid ""
 "This email address will be used when sending notifications for any queue "
 "tickets."
 msgstr ""
+"Ця адреса е-пошти буде використана для розсилання оповіщень для будь-якого "
+"таргана з черги."
 
-#: data.php:24
+#: lib/Application.php:206
 msgid "This is not a search results template."
 msgstr ""
 
-#: lib/Query.php:440 lib/Query.php:673
+#: lib/Query.php:453 lib/Query.php:692
 msgid "This query element cannot be edited."
 msgstr "Цей елемент запиту не можна редагувати."
 
-#: lib/Forms/CreateTicket.php:91 lib/Forms/EditTicket.php:69
-#: ticket/queue.php:77
+#: lib/Form/Queue/StepTwo.php:34 lib/Form/Ticket/CreateStepTwo.php:50
+#: lib/Form/Ticket/Edit.php:70
 msgid ""
 "This queue requires that you specify a version, but there are no versions "
 "associated with it. Until versions are created for this queue, you will not "
 "be able to create tickets."
 msgstr ""
 
-#: lib/Ticket.php:648 lib/Ticket.php:827
+#: lib/Ticket.php:707 lib/Ticket.php:891
 msgid "Ticket"
 msgstr "Тарган"
 
-#: ticket/delete.php:68
+#: config/reminder_email.plain.php:21
+msgid "Ticket #"
+msgstr "Тарган #"
+
+#: lib/Whups.php:412
+msgid "Ticket #Id"
+msgstr "Тарган #Id"
+
+#: ticket/delete.php:40
 #, php-format
 msgid "Ticket %d has been deleted."
 msgstr "Таргана %d витерто."
 
-#: lib/Api.php:651
+#: ticket/delete.php:46
+#, php-format
+msgid "Ticket %d not found."
+msgstr "Таргана %d не знайдено."
+
+#: lib/Api.php:600
 #, php-format
 msgid "Ticket %s - %s"
 msgstr "Тарган %s - %s"
 
-#: lib/Driver/sql.php:1068
+#: lib/Driver/Sql.php:1145
 #, php-format
 msgid "Ticket %s was not found."
 msgstr "Таргана %s не знайдено."
 
-#: search.php:169
+#: search.php:167
 msgid "Ticket Search"
 msgstr "Пошук таргана"
 
-#: lib/Forms/CreateTicket.php:148 lib/Forms/CreateTicket.php:151
+#: lib/Form/Ticket/CreateStepThree.php:60
+#: lib/Form/Ticket/CreateStepThree.php:63
 msgid "Ticket State"
 msgstr "Стан таргана"
 
@@ -2092,84 +2161,85 @@ msgstr "Стан таргана"
 msgid "Ticket Stats"
 msgstr ""
 
-#: lib/Forms/CreateTicket.php:83
+#: lib/Form/Ticket/CreateStepTwo.php:43
 msgid "Ticket Type"
 msgstr "Тип таргана"
 
-#: lib/Forms/Admin/Queue.php:101
+#: lib/Form/Admin/EditQueueStepTwo.php:53
 msgid "Ticket Types associated with this Queue"
 msgstr "Типи тарганів, асоційовані з цією чергою"
 
-#: lib/Ticket.php:643
+#: lib/Ticket.php:702
 #, php-format
 msgid "Ticket URL: %s"
 msgstr "URL таргана: %s"
 
-#: ticket/update.php:106
+#: ticket/update.php:104
 msgid "Ticket Updated"
 msgstr "Таргана оновлено"
 
-#: lib/Api.php:672
+#: lib/Api.php:619
 msgid "Tickets"
 msgstr "Таргани"
 
-#: query/rss.php:67
+#: query/rss.php:64
 #, php-format
 msgid "Tickets matching the query \"%s\"."
 msgstr ""
 
-#: config/prefs.php:49 lib/Forms/Query.php:178 lib/Renderer/Query.php:106
-#: lib/Ticket.php:618 lib/Ticket.php:812 lib/Ticket.php:948 lib/Whups.php:681
-#: ticket/queue.php:85
+#: config/prefs.php:52 lib/Form/Query/PropertyCriterion.php:21
+#: lib/Form/Queue/StepTwo.php:42 lib/Form/Renderer/Query.php:112
+#: lib/Form/TicketDetails.php:82 lib/Ticket.php:677 lib/Ticket.php:876
+#: lib/Whups.php:854
 msgid "Type"
 msgstr "Тип"
 
-#: lib/Renderer/Comment.php:108
+#: lib/Form/Renderer/Comment.php:115
 #, php-format
 msgid "Type &rArr; %s"
 msgstr "Тип &rArr; %s"
 
-#: lib/Forms/Admin/Type.php:21 lib/Forms/Admin/Type.php:68
-#: lib/Forms/Admin/Type.php:158
+#: lib/Form/Admin/AddType.php:21 lib/Form/Admin/DeleteType.php:32
+#: lib/Form/Admin/EditTypeStepTwo.php:31
 msgid "Type Description"
 msgstr "Опис типу"
 
-#: lib/Forms/Admin/Type.php:20 lib/Forms/Admin/Type.php:46
-#: lib/Forms/Admin/Type.php:65 lib/Forms/Admin/Type.php:154
+#: lib/Form/Admin/AddType.php:20 lib/Form/Admin/DeleteType.php:28
+#: lib/Form/Admin/EditTypeStepOne.php:36 lib/Form/Admin/EditTypeStepTwo.php:27
 msgid "Type Name"
 msgstr "Назва типу"
 
-#: search/rss.php:37
+#: search/rss.php:32
 #, php-format
 msgid "Type: %s; State: %s"
 msgstr "Тип: %s; Стан: %s"
 
-#: lib/Ticket.php:964
+#: lib/Form/TicketDetails.php:98
 msgid "Unassigned"
-msgstr "Неризначений"
+msgstr "Непризначений"
 
-#: lib/Block/Unassigned.php:13
+#: lib/Block/Unassigned.php:19
 msgid "Unassigned Tickets"
 msgstr "Непризначені таргани"
 
-#: lib/Forms/Admin.php:40
+#: lib/Form/SendReminder.php:51
 msgid "Unassigned tickets"
 msgstr "Непризначені таргани"
 
-#: lib/Driver.php:211
+#: lib/Driver.php:268
 msgid "Unconfirmed"
 msgstr "Не підтверджений"
 
-#: lib/Renderer/Query.php:165 lib/Renderer/Query.php:205
+#: lib/Form/Renderer/Query.php:175 lib/Form/Renderer/Query.php:215
 #, php-format
 msgid "Unknown node type %s"
-msgstr ""
+msgstr "Невідомий тип вузла %s"
 
-#: lib/Application.php:84
+#: lib/Application.php:85
 msgid "Update"
 msgstr "Оновити"
 
-#: ticket/update.php:120
+#: ticket/update.php:66
 #, php-format
 msgid "Update %s"
 msgstr "Оновити %s"
@@ -2178,127 +2248,129 @@ msgstr "Оновити %s"
 msgid "Update Associations"
 msgstr "Оновити асоціації"
 
-#: lib/Renderer/Query.php:144 lib/Ticket.php:984 lib/Whups.php:687
+#: lib/Form/Renderer/Query.php:154 lib/Form/TicketDetails.php:121
+#: lib/Whups.php:860
 msgid "Updated"
 msgstr "Оновлено"
 
-#: lib/Ticket.php:625 lib/Ticket.php:650
+#: lib/Ticket.php:684 lib/Ticket.php:709
 msgid "Updated By"
 msgstr "Оновлено"
 
-#: lib/Forms/Query.php:331 lib/Forms/Search.php:60
+#: lib/Form/Query/DateCriterion.php:24 lib/Form/Search.php:71
 msgid "Updated from"
-msgstr ""
+msgstr "Оновлено від"
 
-#: lib/Forms/Query.php:332
+#: lib/Form/Query/DateCriterion.php:27
 msgid "Updated to"
-msgstr ""
+msgstr "Оновлено до"
 
-#: lib/Forms/Admin/User.php:32 lib/Forms/Admin/User.php:42
-#: lib/Forms/Admin/User.php:45
+#: lib/Form/Admin/AddUser.php:40 lib/Form/Admin/AddUser.php:43
+#: lib/Form/Admin/AddUser.php:47
 msgid "User"
 msgstr "Користувач"
 
-#: lib/Forms/Query.php:42
+#: lib/Form/Query/UserCriterion.php:29
 msgid "User ID"
 msgstr "ID користувача"
 
-#: lib/Forms/Admin/Queue.php:129
+#: lib/Form/Admin/EditQueueStepTwo.php:79
 msgid "Users responsible for this Queue"
 msgstr "Користувачі, відповідальні за цю чергу"
 
-#: lib/Forms/Admin/User.php:77
+#: lib/Form/Admin/EditUser.php:41
 msgid "Users responsible for this queue"
 msgstr "Користувачі, відповідальні за цю чергу"
 
-#: config/prefs.php:52 lib/Forms/Query.php:189 lib/Renderer/Query.php:100
-#: lib/Ticket.php:617 lib/Ticket.php:811
+#: config/prefs.php:55 lib/Form/Query/PropertyCriterion.php:35
+#: lib/Form/Renderer/Query.php:106 lib/Ticket.php:676 lib/Ticket.php:875
 msgid "Version"
 msgstr "Версія"
 
-#: lib/Renderer/Comment.php:103
-#, fuzzy, php-format
+#: lib/Form/Renderer/Comment.php:110
+#, php-format
 msgid "Version &rArr; %s"
-msgstr "Пріоритет &rArr; %s"
+msgstr "Версія &rArr; %s"
 
-#: lib/Forms/Admin/Version.php:23 lib/Forms/Admin/Version.php:72
-#, fuzzy
+#: lib/Form/Admin/AddVersion.php:23 lib/Form/Admin/EditVersionStepTwo.php:33
 msgid "Version Active?"
-msgstr "Назва версії"
+msgstr "Версія активна?"
 
-#: lib/Forms/Admin/Version.php:22 lib/Forms/Admin/Version.php:70
-#: lib/Forms/Admin/Version.php:95
+#: lib/Form/Admin/AddVersion.php:22 lib/Form/Admin/DeleteVersion.php:31
+#: lib/Form/Admin/EditVersionStepTwo.php:31
 msgid "Version Description"
 msgstr "Опис версії"
 
-#: lib/Forms/Admin/Version.php:21 lib/Forms/Admin/Version.php:48
-#: lib/Forms/Admin/Version.php:67 lib/Forms/Admin/Version.php:92
+#: lib/Form/Admin/AddVersion.php:21 lib/Form/Admin/DeleteVersion.php:28
+#: lib/Form/Admin/EditVersionStepOne.php:34
+#: lib/Form/Admin/EditVersionStepTwo.php:28
 msgid "Version Name"
 msgstr "Назва версії"
 
-#: ticket/queue.php:45 ticket/type.php:39
+#: lib/Form/Queue/StepOne.php:41 lib/Form/SetTypeStepOne.php:36
 msgid "Viewable only by members of"
-msgstr ""
+msgstr "Доступна для перегляду лише членам"
 
-#: lib/Forms/AddComment.php:23
+#: lib/Form/AddComment.php:32
 msgid "Watch this ticket"
 msgstr "Спостерігати за цим тарганом"
 
-#: ticket/watch.php:75
+#: ticket/watch.php:59
 #, php-format
 msgid "Watchers for %s"
 msgstr "Спостерігачі за %s"
 
-#: config/prefs.php:102
+#: config/prefs.php:105
 msgid "Weekday Day Month"
-msgstr ""
+msgstr "День Число Місяць"
 
-#: config/prefs.php:103
+#: config/prefs.php:106
 msgid "Weekday Day Month HH:MM:SS TZ"
-msgstr ""
+msgstr "День Число Місяць ГГ:ХХ:СС TZ"
 
-#: config/prefs.php:108
+#: config/prefs.php:111
 msgid "YY/MM/DD"
 msgstr ""
 
-#: config/prefs.php:109
+#: config/prefs.php:112
 msgid "YY/MM/DD HH:MM:SS"
 msgstr ""
 
-#: lib/Forms/Admin/Attribute.php:147 lib/Forms/Admin/Priority.php:119
-#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Reply.php:108
-#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Type.php:174
-#: lib/Forms/Admin/Version.php:98 lib/Forms/Query.php:453 ticket/delete.php:29
+#: lib/Form/Admin/DeleteAttribute.php:35 lib/Form/Admin/DeletePriority.php:33
+#: lib/Form/Admin/DeleteQueue.php:35 lib/Form/Admin/DeleteReply.php:33
+#: lib/Form/Admin/DeleteState.php:32 lib/Form/Admin/DeleteType.php:46
+#: lib/Form/Admin/DeleteVersion.php:34 lib/Form/Query/Delete.php:11
+#: lib/Form/Ticket/Delete.php:23
 msgid "Yes"
 msgstr "Так"
 
-#: view.php:37
+#: lib/Application.php:180 view.php:33
 #, php-format
 msgid "You are not allowed to view ticket %d."
 msgstr "Вам не дозволено оглядати таргана %d."
 
-#: lib/Driver/sql.php:1077
+#: lib/Driver/Sql.php:1155
 #, php-format
 msgid "You do not have permission to access this ticket (%s)."
 msgstr "У Вас нема права доступу до цього таргана (%s)."
 
-#: lib/Api.php:226
+#: lib/Api.php:207
 msgid "You do not have permission to update this ticket."
 msgstr "У Вас нема права оновлювати цього таргана."
 
-#: lib/Block/Myrequests.php:33
+#: lib/Block/Myrequests.php:38
 msgid "You have no open requests."
-msgstr ""
+msgstr "У Вас нема відкритих заявок."
 
-#: lib/Block/Query.php:28 lib/Forms/Query.php:423
+#: lib/Block/Query.php:32 lib/Form/Query/ChooseNameForLoad.php:18
 msgid "You have no saved queries."
-msgstr ""
+msgstr "У Вас нема збережених запитів."
 
-#: lib/Whups.php:714
+#: lib/Whups.php:913
 msgid "You must select at least one queue to send reminders for."
-msgstr ""
+msgstr "Слід вказати хоча б одну чергу, для якої слати оповіщення."
 
-#: lib/Forms/AddComment.php:16 lib/Forms/CreateTicket.php:135
+#: lib/Form/AddComment.php:17 lib/Form/Ticket/CreateStepThree.php:46
 msgid "Your Email Address"
 msgstr "Ваша адреса е-пошти"
 
@@ -2309,137 +2381,132 @@ msgid ""
 "request."
 msgstr "Номер Вашого таргана - %s. Відповідна особа сповіщена про Ваш запит."
 
-#: lib/Mail.php:94 lib/Mail.php:98
+#: lib/Mail.php:101 lib/Mail.php:105
 msgid "[ Could not render body of message. ]"
 msgstr "[ Не можу відобразити тіло листа. ]"
 
-#: lib/Whups.php:487
-#, fuzzy
+#: lib/Whups.php:616
 msgid "[Hidden]"
-msgstr "Сховані"
+msgstr "[Сховані]"
 
-#: lib/Whups.php:773
+#: lib/Mail.php:65
+msgid "[No Subject]"
+msgstr "[Без теми]"
+
+#: lib/Application.php:126
 msgid "_Admin"
 msgstr "Адмін"
 
-#: lib/Whups.php:301
+#: lib/Whups.php:429
 msgid "_Comment"
 msgstr "Коментар"
 
-#: query/index.php:156
+#: query/index.php:147
 msgid "_Date Criteria"
 msgstr "Критерій дати"
 
-#: lib/Whups.php:319
+#: lib/Whups.php:447
 msgid "_Delete"
 msgstr "Витерти"
 
-#: lib/Query.php:242
+#: lib/Query.php:251
 msgid "_Delete Query"
 msgstr "Витерти запит"
 
-#: lib/Query.php:223
+#: lib/Query.php:228
 msgid "_Edit Query"
-msgstr ""
+msgstr "Редагувати запит"
 
 #: admin/index.php:30
 msgid "_Edit Queues"
 msgstr "Редагувати черги"
 
-#: templates/menu.inc:5
-msgid "_Go"
-msgstr ""
-
-#: query/index.php:155
+#: query/index.php:146
 msgid "_Group Criteria"
 msgstr ""
 
-#: lib/Whups.php:295
+#: lib/Whups.php:423
 msgid "_History"
 msgstr "Історія"
 
-#: lib/Query.php:236
+#: lib/Query.php:245
 msgid "_Load Query"
 msgstr ""
 
-#: lib/Whups.php:765
+#: lib/Application.php:119
 #, php-format
 msgid "_My %s"
 msgstr "_Mої %s"
 
-#: lib/Whups.php:767
+#: lib/Application.php:111
 msgid "_New Ticket"
 msgstr "Новий тарган"
 
-#: query/index.php:153
+#: query/index.php:144
 msgid "_Property Criteria"
 msgstr ""
 
-#: lib/Whups.php:768
+#: lib/Application.php:121
 msgid "_Query Builder"
-msgstr ""
+msgstr "Конструктор запиту"
 
-#: lib/Whups.php:769
+#: lib/Application.php:122
 msgid "_Reports"
 msgstr "Звіти"
 
-#: lib/Whups.php:766
+#: lib/Application.php:120
 msgid "_Search"
 msgstr "Пошук"
 
-#: query/index.php:157
+#: query/index.php:148
 msgid "_Text Criteria"
 msgstr ""
 
-#: lib/Whups.php:297
+#: lib/Whups.php:425
 msgid "_Update"
 msgstr "Оновити"
 
-#: query/index.php:154
+#: query/index.php:145
 msgid "_User Criteria"
 msgstr ""
 
-#: lib/Whups.php:305
+#: lib/Whups.php:433
 msgid "_Watch"
 msgstr "Нагляд"
 
-#: lib/Renderer/Query.php:185
+#: lib/Form/Renderer/Query.php:195
 msgid "contains (case insensitive) substring"
-msgstr ""
+msgstr "містить рядок (не враховуючи регістр)"
 
-#: lib/Renderer/Query.php:189
+#: lib/Form/Renderer/Query.php:199
 msgid "contains (case sensitive) substring"
-msgstr ""
+msgstr "містить рядок (враховуючи регістр) "
 
-#: lib/Renderer/Query.php:193
+#: lib/Form/Renderer/Query.php:203
 msgid "contains the word"
 msgstr "містить слово"
 
-#: lib/Mail.php:134 lib/Mail.php:158 lib/Mail.php:195
-msgid "current user:"
-msgstr "Поточний користувач:"
-
-#: lib/Api.php:660
+#: lib/Api.php:606
 msgid "estimated time"
 msgstr "прогнозований час"
 
-#: lib/Renderer/Query.php:181
+#: lib/Form/Renderer/Query.php:191
 msgid "is"
 msgstr "є"
 
-#: lib/Renderer/Query.php:173
+#: lib/Form/Renderer/Query.php:183
 msgid "is greater than"
 msgstr "більше, ніж"
 
-#: lib/Renderer/Query.php:177
+#: lib/Form/Renderer/Query.php:187
 msgid "is less than"
 msgstr "менше, ніж"
 
-#: lib/Renderer/Query.php:197
+#: lib/Form/Renderer/Query.php:207
 msgid "matches the pattern"
-msgstr ""
+msgstr "відповідає шаблону"
 
-#: lib/Forms/Search.php:59 lib/Forms/Search.php:61 lib/Forms/Search.php:63
-#: lib/Forms/Search.php:65 lib/Forms/Search.php:67
+#: lib/Form/Search.php:68 lib/Form/Search.php:74 lib/Form/Search.php:80
+#: lib/Form/Search.php:86 lib/Form/Search.php:92
 msgid "to"
 msgstr "до"

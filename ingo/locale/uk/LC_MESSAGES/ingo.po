@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Ingo H4 (2.0.2-git)\n"
+"Project-Id-Version: Ingo (3.1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-06-15 16:00+0200\n"
+"POT-Creation-Date: 2013-04-19 11:50+0300\n"
+"PO-Revision-Date: 2013-04-19 16:00+0200\n"
 "Last-Translator: Andriy Kopystyansky <anri@polynet.lviv.ua>\n"
 "Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
 "Language: uk\n"
@@ -17,72 +17,81 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: filters.php:228
+#: lib/Ingo.php:449
 msgid " and"
 msgstr " і"
 
-#: filters.php:228
+#: lib/Ingo.php:450
 msgid " or"
 msgstr " або"
 
-#: templates/blacklist/blacklist.inc:16
+#: lib/Transport/Ispconfig.php:142
+msgid "%i users with login %s found, one expected."
+msgstr ""
+
+#: lib/Ingo.php:194
+#, php-format
+msgid "%s The driver said: %s"
+msgstr "%s Драйвер повідомив: %s"
+
+#: templates/basic/blacklist/blacklist.html.php:15
 msgid "Action for blacklisted addresses:"
 msgstr "Дія для адрес Чорного списку:"
 
-#: templates/script/activate.inc:10
+#: templates/basic/script/script.html.php:12
 msgid "Activate Script"
 msgstr "Активувати Скрипт"
 
-#: lib/Transport/Ldap.php:222
+#: lib/Transport/Ldap.php:235
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
 msgstr "Активація скрипта для \"%s\" невдала: (%d) %s"
 
-#: templates/filters/settings.inc:8
+#: templates/basic/filters/filters.html.php:93
 msgid "Additional Settings"
 msgstr "Додаткові налаштування"
 
-#: forward.php:38
+#: lib/Form/Forward.php:30
 msgid "Address(es) to forward to:"
 msgstr "Адреса(и) для пересилання:"
 
-#: vacation.php:48
+#: lib/Form/Vacation.php:68
 msgid "Addresses to not send responses to:"
 msgstr "Адреси, на які не слати відповіді:"
 
-#: vacation.php:45
+#: lib/Form/Vacation.php:62
 msgid "Advanced Settings"
 msgstr "Розширені налаштування"
 
-#: templates/rule/header.inc:31
+#: templates/basic/rule/rule.html.php:39
 msgid "All of the following"
 msgstr "Все з наступного"
 
-#: lib/Application.php:96
+#: lib/Application.php:162
 msgid "Allow Rules"
 msgstr "Дозволити правила"
 
-#: templates/rule/footer.inc:34
+#: templates/basic/rule/rule.html.php:166
 msgid "Answered"
 msgstr "З відповіддю"
 
-#: templates/rule/header.inc:32
+#: templates/basic/rule/rule.html.php:41
 msgid "Any of the following"
 msgstr "Будь-що з наступного"
 
-#: templates/filters/footer.inc:8
+#: templates/basic/filters/filters.html.php:82
 msgid "Apply Filters"
 msgstr "Застосувати фільтри"
 
-#: filters.php:256
+#: lib/Basic/Filters.php:248
 msgid "Are you sure you want to delete this rule?"
 msgstr "Впевнені, що хочете витерти це правило?"
 
-#: config/prefs.php:27
+#: config/prefs.php:29
 msgid "Automatically activate the script after each change?"
 msgstr "Автоматично активувати скрипт після кожної зміни?"
 
-#: vacation.php:36
+#: lib/Form/Vacation.php:42
 msgid "Basic Settings"
 msgstr "Основні налаштування"
 
@@ -90,30 +99,30 @@ msgstr "Основні налаштування"
 msgid "Bcc"
 msgstr "Bcc"
 
-#: lib/Storage.php:310
+#: lib/Storage.php:263
 msgid "Begins with"
 msgstr "Починається з"
 
-#: lib/Transport/Ldap.php:110
+#: lib/Transport/Ldap.php:123
 #, php-format
 msgid "Bind failed: (%s) %s"
 msgstr "Під'єднання невдале: (%s) %s"
 
-#: filters.php:179 lib/Block/Overview.php:84 lib/Block/Overview.php:87
-#: templates/blacklist/blacklist.inc:6
+#: lib/Basic/Filters.php:195 lib/Block/Overview.php:101 lib/Smartmobile.php:85
+#: templates/basic/blacklist/blacklist.html.php:5
 msgid "Blacklist"
 msgstr "Чорний список"
 
-#: blacklist.php:91
+#: lib/Basic/Blacklist.php:123
 msgid "Blacklist Edit"
 msgstr "Редагувати Чорний список"
 
-#: blacklist.php:19
+#: lib/Basic/Blacklist.php:34
 msgid "Blacklist is not supported in the current filtering driver."
 msgstr ""
 
-#: lib/Script/Maildrop.php:198 lib/Script/Procmail.php:219
-#: lib/Script/Sieve.php:281
+#: lib/Script/Maildrop.php:176 lib/Script/Procmail.php:231
+#: lib/Script/Sieve.php:245
 msgid "Blacklisted Addresses"
 msgstr "Адреси Чорного списку"
 
@@ -121,7 +130,7 @@ msgstr "Адреси Чорного списку"
 msgid "Body"
 msgstr "Тіло"
 
-#: filters.php:225 rule.php:331
+#: lib/Ingo.php:444 templates/basic/rule/rule.html.php:110
 msgid "Case Sensitive"
 msgstr "Враховуючи регістр"
 
@@ -129,298 +138,304 @@ msgstr "Враховуючи регістр"
 msgid "Cc"
 msgstr "Cc"
 
-#: blacklist.php:63 forward.php:49 rule.php:151 spam.php:88 vacation.php:71
-#: whitelist.php:32
+#: lib/Basic/Blacklist.php:68 lib/Basic/Forward.php:58 lib/Basic/Rule.php:189
+#: lib/Basic/Spam.php:71 lib/Basic/Vacation.php:72 lib/Basic/Whitelist.php:47
 msgid "Changes saved."
 msgstr "Зміни збережено."
 
-#: lib/Transport/Ldap.php:74
+#: lib/Transport/Ldap.php:87
 msgid "Connection failure"
 msgstr "Помилка з'єднання"
 
-#: lib/Storage.php:306
+#: lib/Storage.php:259
 msgid "Contains"
 msgstr "Містить"
 
-#: filters.php:266 filters.php:267
+#: lib/Basic/Filters.php:258 lib/Basic/Filters.php:259
 #, php-format
 msgid "Copy %s"
 msgstr "Копіювати %s"
 
-#: lib/Storage/Filters.php:194 lib/Storage/Filters/Sql.php:222
+#: lib/Storage/Filters.php:244 lib/Storage/Filters/Sql.php:240
 #, php-format
 msgid "Copy of %s"
 msgstr "Копія %s"
 
-#: lib/Ingo.php:165
+#: lib/Ingo.php:137
 msgid "Could not validate IMAP mailbox."
-msgstr ""
+msgstr "Не можна перевірити поштову скриньку IMAP"
 
-#: lib/Ingo.php:118
+#: lib/Ingo.php:90
 msgid "Create new folder"
 msgstr "Створити нову папку"
 
-#: lib/Script/Maildrop/Comment.php:35 lib/Script/Procmail/Comment.php:35
+#: lib/Script/Maildrop/Comment.php:43 lib/Script/Procmail/Comment.php:43
 msgid "DISABLED: "
-msgstr ""
+msgstr "Не активні: "
 
-#: templates/script/activate.inc:17
+#: templates/basic/script/script.html.php:18
 msgid "Deactivate Script"
-msgstr ""
+msgstr "Не активні скріпти"
 
-#: filters.php:256 filters.php:257
+#: lib/Basic/Filters.php:248 lib/Basic/Filters.php:249
 #, php-format
 msgid "Delete %s"
 msgstr "Витерти %s"
 
-#: templates/rule/filter.inc:33
+#: templates/basic/rule/rule.html.php:116
 msgid "Delete Condition"
 msgstr "Витерти умову"
 
-#: lib/Storage.php:254
+#: lib/Storage.php:209
 msgid "Delete message completely"
 msgstr "Витерти лист повністю"
 
-#: templates/rule/footer.inc:36
+#: templates/basic/rule/rule.html.php:170
 msgid "Deleted"
 msgstr "Витерті"
 
-#: lib/Storage.php:242
+#: lib/Storage.php:197
 msgid "Deliver into my Inbox"
 msgstr "Доручити в мій Inbox"
 
-#: lib/Storage.php:268
+#: lib/Storage.php:223
 msgid "Deliver into my Inbox and copy to..."
 msgstr "Доручити в мій Inbox і копію до..."
 
-#: lib/Storage.php:263
+#: lib/Storage.php:218
 msgid "Deliver into my Inbox and redirect to..."
 msgstr "Доручити в мій Inbox і перенаправити до..."
 
-#: lib/Storage.php:248
+#: lib/Storage.php:203
 msgid "Deliver to folder..."
 msgstr "Доручити в папку..."
+
+#: templates/smartmobile/rule.html.php:8
+msgid "Description"
+msgstr "Опис"
 
 #: config/fields.php:88
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr "Призначення (To,Cc,Bcc,тощо)"
 
-#: filters.php:284 filters.php:285
+#: lib/Basic/Filters.php:276 lib/Basic/Filters.php:277
 #, php-format
 msgid "Disable %s"
 msgstr "Заборонити %s"
 
-#: forward.php:88 spam.php:132 templates/blacklist/blacklist.inc:9
-#: templates/rule/header.inc:13 templates/whitelist/whitelist.inc:8
-#: vacation.php:137
+#: lib/Basic/Forward.php:90 lib/Basic/Spam.php:108 lib/Basic/Vacation.php:131
+#: templates/basic/blacklist/blacklist.html.php:8
+#: templates/basic/rule/rule.html.php:14
+#: templates/basic/whitelist/whitelist.html.php:8
 msgid "Disabled"
 msgstr "Заборонено"
 
-#: templates/filters/settings.inc:15
+#: templates/basic/filters/filters.html.php:99
 msgid "Display detailed notification when each filter is applied?"
 msgstr ""
 
-#: vacation.php:50
+#: lib/Form/Vacation.php:72
 msgid "Do not send responses to bulk or list messages?"
 msgstr ""
 
-#: templates/rule/footer.inc:10
+#: templates/basic/rule/rule.html.php:132
 msgid "Do this:"
 msgstr "Робити це:"
 
-#: lib/Storage.php:311
+#: lib/Storage.php:264
 msgid "Doesn't begin with"
 msgstr "не починається з"
 
-#: lib/Storage.php:307
+#: lib/Storage.php:260
 msgid "Doesn't contain"
 msgstr "не містить"
 
-#: lib/Storage.php:313
+#: lib/Storage.php:266
 msgid "Doesn't end with"
 msgstr "не закінчується на"
 
-#: lib/Storage.php:315
+#: lib/Storage.php:268
 msgid "Doesn't exist"
 msgstr "не існує"
 
-#: lib/Storage.php:318
+#: lib/Storage.php:271
 msgid "Doesn't match (with placeholders)"
 msgstr ""
 
-#: lib/Block/Overview.php:52 lib/Block/Overview.php:61
-#: lib/Block/Overview.php:76 lib/Block/Overview.php:86
-#: lib/Block/Overview.php:96 templates/filters/header.inc:11
+#: lib/Block/Overview.php:63 lib/Block/Overview.php:74
+#: lib/Block/Overview.php:89 lib/Block/Overview.php:100
+#: lib/Block/Overview.php:111 templates/basic/filters/filters.html.php:12
 msgid "Edit"
 msgstr "Редагувати"
 
-#: filters.php:246 filters.php:248 filters.php:252
+#: lib/Basic/Filters.php:238 lib/Basic/Filters.php:240
+#: lib/Basic/Filters.php:244
 #, php-format
 msgid "Edit %s"
 msgstr "Редагувати %s"
 
-#: filters.php:294 filters.php:295
+#: lib/Basic/Filters.php:285 lib/Basic/Filters.php:286
 #, php-format
 msgid "Enable %s"
 msgstr "Дозволити %s"
 
-#: templates/filters/header.inc:13
+#: templates/basic/filters/filters.html.php:14
 msgid "Enabled"
 msgstr "Дозволено"
 
-#: vacation.php:40
+#: lib/Form/Vacation.php:47
 msgid "End of vacation:"
 msgstr "Кінець вакацій:"
 
-#: lib/Storage.php:312
+#: lib/Storage.php:265
 msgid "Ends with"
 msgstr "закінчується на"
 
-#: lib/Storage.php:323
+#: lib/Storage.php:276
 msgid "Equal to"
 msgstr ""
 
-#: lib/Transport/Ldap.php:133 lib/Transport/Ldap.php:145
-#: lib/Transport/Ldap.php:154 lib/Transport/Ldap.php:164
+#: lib/Transport/Ldap.php:146 lib/Transport/Ldap.php:158
+#: lib/Transport/Ldap.php:167 lib/Transport/Ldap.php:177
 #, php-format
 msgid "Error retrieving current script: (%d) %s"
 msgstr "Помилка отримання поточного скрипта: (%d) %s"
 
-#: templates/filters/header.inc:5
+#: templates/basic/filters/filters.html.php:5
 msgid "Existing Rules"
 msgstr "Існуючі правила"
 
-#: lib/Storage.php:314
+#: lib/Storage.php:267
 msgid "Exists"
 msgstr "існує"
 
-#: lib/Transport/Ldap.php:139
+#: lib/Transport/Ldap.php:152
 #, php-format
 msgid "Expected 1 object, got %d."
 msgstr "Очікувався 1 об'єкт, отримано %d."
 
-#: lib/Transport/Sivtest.php:146
+#: lib/Transport/Sivtest.php:155
 msgid "Failed to read from socket: "
 msgstr ""
 
-#: lib/Transport/Sivtest.php:141
+#: lib/Transport/Sivtest.php:150
 msgid "Failed to write to socket: "
 msgstr ""
 
-#: lib/Transport/Sivtest.php:136
+#: lib/Transport/Sivtest.php:145
 msgid "Failed to write to socket: (connection lost!)"
 msgstr ""
 
-#: templates/rule/filter.inc:10
+#: templates/basic/rule/rule.html.php:61
 msgid "Field"
 msgstr "Поле"
 
-#: templates/filters/settings.inc:22
+#: templates/basic/filters/filters.html.php:105
 msgid "Filter All Messages"
 msgstr "Фільтрувати всі листи"
 
-#: templates/filters/settings.inc:24
+#: templates/basic/filters/filters.html.php:107
 msgid "Filter Only Seen Messages"
 msgstr "Фільтрувати тільки читані листи"
 
-#: templates/filters/settings.inc:23
+#: templates/basic/filters/filters.html.php:106
 msgid "Filter Only Unseen Messages"
 msgstr "Фільтрувати тільки нечитані листи"
 
-#: templates/filters/settings.inc:20
+#: templates/basic/filters/filters.html.php:103
 msgid "Filter Options"
 msgstr "Опції фільтрування"
 
-#: templates/rule/header.inc:12
+#: templates/basic/rule/rule.html.php:12
 msgid "Filter Rule"
 msgstr "Правило фільтрування"
 
-#: filters.php:137
+#: lib/Basic/Filters.php:310
 msgid "Filter Rules"
 msgstr "Правила фільтрування"
 
-#: script.php:52
+#: lib/Basic/Script.php:102
 msgid "Filter Script Display"
 msgstr ""
 
-#: lib/Application.php:111
+#: lib/Application.php:178
 msgid "Filter _Rules"
 msgstr "Правила фільтрування"
 
-#: lib/Script/Imap.php:337
+#: lib/Script/Imap.php:318
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr "Фільтрування: %s лист(ів) скопійовано до папки \"%s\"."
 
-#: lib/Script/Imap.php:315
+#: lib/Script/Imap.php:296
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr "Фільтрування: %s лист(ів) витерто."
 
-#: lib/Script/Imap.php:290
+#: lib/Script/Imap.php:271
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "Фільтрування: %s лист(ів) перенесено до папки \"%s\"."
 
-#: lib/Script/Imap.php:191
+#: lib/Script/Imap.php:171
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr "Фільтрування: %s лист(ів) витерто за критерієм Чорного списку."
 
-#: lib/Script/Imap.php:330
+#: lib/Script/Imap.php:311
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
 msgstr "Фільтрування: Лист \"%s\" від \"%s\" скопійовано до папки \"%s\"."
 
-#: lib/Script/Imap.php:309
+#: lib/Script/Imap.php:290
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr "Фільтрування: Лист \"%s\" від \"%s\" витерто."
 
-#: lib/Script/Imap.php:283
+#: lib/Script/Imap.php:264
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr "Фільтрування: Лист \"%s\" від \"%s\" перенесено в папку \"%s\"."
 
-#: rule.php:199
+#: lib/Basic/Rule.php:228
 msgid "Filter not found."
 msgstr "Фільтр не знайдено."
 
-#: templates/rule/footer.inc:32
-msgid "Flagged For Followup"
-msgstr ""
+#: templates/basic/rule/rule.html.php:162
+msgid "Flagged"
+msgstr "відмічені"
 
-#: spam.php:67
+#: lib/Form/Spam.php:38
 msgid "Folder to receive spam:"
 msgstr "Папка для отримання спаму:"
 
-#: templates/rule/header.inc:29
+#: templates/basic/rule/rule.html.php:32
 msgid "For an incoming message that matches:"
 msgstr "Для вхідних листів, що відповідають:"
 
-#: filters.php:197 forward.php:86 lib/Block/Overview.php:60
-#: lib/Block/Overview.php:62
+#: lib/Basic/Filters.php:213 lib/Basic/Forward.php:88
+#: lib/Block/Overview.php:75 lib/Smartmobile.php:100
 msgid "Forward"
 msgstr "Переслати"
 
-#: lib/Script/Sieve.php:234
+#: lib/Script/Sieve.php:197
 msgid "Forward Keep Action"
 msgstr ""
 
-#: forward.php:18
+#: lib/Basic/Forward.php:34
 msgid "Forward is not supported in the current filtering driver."
 msgstr "Пересилання не підтримується поточним драйвером фільтрів."
 
-#: lib/Script/Maildrop.php:247 lib/Script/Procmail.php:298
-#: lib/Script/Sieve.php:244
+#: lib/Script/Maildrop.php:227 lib/Script/Procmail.php:313
+#: lib/Script/Sieve.php:207
 msgid "Forwards"
 msgstr ""
 
-#: forward.php:93
+#: lib/Basic/Forward.php:95
 msgid "Forwards Edit"
 msgstr ""
 
@@ -428,53 +443,57 @@ msgstr ""
 msgid "From"
 msgstr "Від"
 
-#: lib/Script/Sieve/Action/Notify.php:39
+#: lib/Script/Sieve/Action/Notify.php:52
 msgid "From:"
 msgstr "Від:"
 
-#: lib/Script/Sieve.php:131
-msgid "Generated by Ingo (http://www.horde.org/ingo/)"
-msgstr "Generated by Ingo (http://www.horde.org/ingo/)"
+#: lib/Script/Sieve.php:482
+msgid "Generated by Ingo"
+msgstr "Створений Ingo"
 
-#: lib/Storage.php:321
+#: lib/Storage.php:274
 msgid "Greater than"
 msgstr "більше ніж"
 
-#: lib/Storage.php:322
+#: lib/Storage.php:275
 msgid "Greater than or equal to"
 msgstr "більше або рівне"
 
-#: rule.php:34
+#: lib/Ajax/Application/Smartmobile.php:44 lib/Basic/Rule.php:49
 msgid "Individual rules are not supported in the current filtering driver."
 msgstr "Індивідуальні правила не підтримуються поточним драйвером фільтрів."
 
-#: lib/Script/Sieve/Action/Fileinto.php:48
+#: lib/Script/Sieve/Action/Fileinto.php:61
 msgid "Inexistant mailbox specified for message delivery."
 msgstr "Вказана неіснуюча скринька для доручення листа."
 
-#: lib/Storage.php:308
+#: lib/Storage.php:261
 msgid "Is"
 msgstr "є"
 
-#: lib/Storage.php:309
+#: lib/Storage.php:262
 msgid "Isn't"
 msgstr "не є"
 
-#: forward.php:36
+#: lib/Form/Forward.php:28
 msgid "Keep a copy of messages in this account?"
 msgstr "Тримати копію листів у цьому аккаунті?"
 
-#: lib/Transport/Ldap.php:22
+#: lib/Transport/Ldap.php:35
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
 "Необхідна підтримка LDAP, але модуль LDAP відсутній або не завантажний."
 
-#: lib/Storage.php:319
+#: templates/smartmobile/rule.html.php:6
+msgid "Label"
+msgstr "Ярлик"
+
+#: lib/Storage.php:272
 msgid "Less than"
 msgstr "менше ніж"
 
-#: lib/Storage.php:320
+#: lib/Storage.php:273
 msgid "Less than or equal to"
 msgstr "менше або рівне"
 
@@ -482,127 +501,139 @@ msgstr "менше або рівне"
 msgid "List-ID"
 msgstr ""
 
-#: templates/blacklist/blacklist.inc:19
+#: templates/basic/blacklist/blacklist.html.php:25
 msgid "Mar_k message as deleted"
 msgstr "Помітити лист як витертий"
 
-#: templates/rule/footer.inc:25
+#: templates/basic/rule/rule.html.php:152
 msgid "Mark message as:"
 msgstr "Помітити лист як:"
 
-#: templates/rule/filter.inc:23
+#: templates/basic/rule/rule.html.php:92
 msgid "Match type"
 msgstr ""
 
-#: lib/Storage.php:317
+#: lib/Storage.php:270
 msgid "Matches (with placeholders)"
 msgstr ""
 
-#: lib/Application.php:100
+#: lib/Application.php:166
 msgid "Maximum Number of Rules"
 msgstr "Максимальна кількість правил"
 
-#: lib/Storage/Blacklist.php:33
+#: lib/Storage/Blacklist.php:45
 #, php-format
 msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
 
-#: lib/Storage/Whitelist.php:37
+#: lib/Storage/Whitelist.php:49
 #, php-format
 msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
 
-#: spam.php:64
+#: lib/Form/Spam.php:35
 msgid ""
 "Messages with a likely spam score greater than or equal to this number will "
 "be treated as spam."
 msgstr ""
 
-#: lib/Script/Sieve/Action/Notify.php:53
+#: lib/Script/Sieve/Action/Notify.php:66
 msgid "Missing address to notify"
 msgstr "Не вказана адреса для оповіщення"
 
-#: lib/Script/Sieve/Action/Redirect.php:42
+#: lib/Script/Sieve/Action/Redirect.php:55
 msgid "Missing address to redirect message to"
 msgstr ""
 
-#: lib/Script/Sieve/Action/Reject.php:44
+#: lib/Script/Sieve/Action/Reject.php:57
 msgid "Missing reason for reject"
 msgstr ""
 
-#: lib/Script/Sieve/Action/Vacation.php:137
+#: lib/Script/Sieve/Action/Vacation.php:150
 msgid "Missing reason in vacation."
 msgstr ""
 
-#: templates/filters/header.inc:15
+#: smartmobile.php:22
+msgid "Mobile"
+msgstr "Мобільний"
+
+#: templates/basic/filters/filters.html.php:16
 msgid "Move"
 msgstr "Перенести"
 
-#: filters.php:161 filters.php:279
+#: lib/Basic/Filters.php:271 templates/basic/filters/filters.html.php:64
 msgid "Move Rule Down"
 msgstr "Посунути правило вниз"
 
-#: filters.php:162 filters.php:276
+#: lib/Basic/Filters.php:268 templates/basic/filters/filters.html.php:59
 msgid "Move Rule Up"
 msgstr "Посунути правило вгору"
 
-#: vacation.php:46
+#: lib/Form/Vacation.php:64
 msgid "My email addresses:"
 msgstr "Мої адреси е-пошти:"
 
-#: lib/Storage/Filters.php:90 templates/filters/filter-none.inc:3
-#: templates/filters/footer.inc:6
+#: lib/Application.php:238 lib/Storage/Filters.php:140
+#: templates/basic/filters/filters.html.php:24
 msgid "New Rule"
 msgstr "Нове правило"
 
-#: lib/Ingo.php:316
+#: lib/Ingo.php:273
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr "Не вказаний елемент \"%s\"  в конфігурації підсистеми."
 
-#: lib/Ingo.php:308
+#: lib/Smartmobile.php:135
+msgid "No Description"
+msgstr "Нема опису"
+
+#: lib/Ingo.php:266
 msgid "No backend configured for this host"
 msgstr ""
 
-#: lib/Ingo.php:281
+#: lib/Ingo.php:238 lib/Ingo.php:311
 msgid "No backends configured in backends.php"
 msgstr ""
 
-#: templates/filters/filter-none.inc:3
+#: templates/basic/filters/filters.html.php:24
 #, php-format
 msgid "No filters. Click \"%s\" to create a new filter."
 msgstr "Нема фільтрів. Клацніть \"%s\" щоб створити новий фільтр."
 
-#: lib/Script/Sieve/Test/Exists.php:36 lib/Script/Sieve/Test/Header.php:71
-#: lib/Script/Sieve/Test/Relational.php:93
+#: lib/Script/Sieve/Test/Exists.php:49 lib/Script/Sieve/Test/Header.php:84
+#: lib/Script/Sieve/Test/Relational.php:106
 msgid "No headers specified"
 msgstr "Жодного заголовка не вказано."
 
-#: script.php:69
+#: templates/smartmobile/rules.html.php:7
+msgid "No rules"
+msgstr "Нема правил"
+
+#: templates/basic/script/script.html.php:43
 msgid "No script generated."
 msgstr ""
 
-#: lib/Script/Sieve/Test/Body.php:67 lib/Script/Sieve/Test/Header.php:87
+#: lib/Script/Sieve/Test/Body.php:80 lib/Script/Sieve/Test/Header.php:100
 msgid "No strings specified"
 msgstr ""
 
-#: lib/Storage.php:324
+#: lib/Storage.php:277
 msgid "Not equal to"
 msgstr "не рівне"
 
-#: lib/Storage.php:284
+#: lib/Storage.php:239
 msgid "Notify email address..."
 msgstr ""
 
-#: vacation.php:52
+#: lib/Form/Vacation.php:76
 msgid "Number of days between vacation replies:"
 msgstr ""
 
-#: lib/Storage.php:278
+#: lib/Storage.php:233
 msgid "Only flag the message"
 msgstr "Тільки помітити лист"
 
@@ -610,7 +641,7 @@ msgstr "Тільки помітити лист"
 msgid "Other Preferences"
 msgstr "Інші опції"
 
-#: lib/Block/Overview.php:18
+#: lib/Block/Overview.php:30
 msgid "Overview"
 msgstr "Загальний огляд"
 
@@ -618,11 +649,11 @@ msgstr "Загальний огляд"
 msgid "Participant (From, To, etc.)"
 msgstr ""
 
-#: lib/Storage/Sql.php:307
+#: lib/Storage/Sql.php:291
 msgid "Permission Denied"
 msgstr "Доступ заборонений"
 
-#: lib/Ingo.php:133
+#: lib/Ingo.php:105
 msgid "Please enter the name of the new folder:"
 msgstr "Введіть назву нової папки:"
 
@@ -630,7 +661,7 @@ msgstr "Введіть назву нової папки:"
 msgid "Preferences about script updating."
 msgstr "Налаштування оновлення скриптів."
 
-#: vacation.php:43
+#: lib/Form/Vacation.php:54
 msgid "Reason:"
 msgstr "Причина:"
 
@@ -638,19 +669,19 @@ msgstr "Причина:"
 msgid "Received"
 msgstr "Отримано"
 
-#: lib/Storage.php:259
+#: lib/Storage.php:214
 msgid "Redirect to..."
 msgstr "Перенаправити до..."
 
-#: lib/Storage.php:316
+#: lib/Storage.php:269
 msgid "Regular expression"
 msgstr ""
 
-#: lib/Storage.php:274
+#: lib/Storage.php:229
 msgid "Reject with reason..."
 msgstr ""
 
-#: lib/Storage.php:366
+#: lib/Storage.php:319
 msgid ""
 "Removing user data is not supported with the current filter storage backend."
 msgstr ""
@@ -664,86 +695,115 @@ msgstr ""
 msgid "Resent-To"
 msgstr ""
 
-#: templates/rule/footer.inc:61
+#: templates/basic/rule/rule.html.php:196
 msgid "Return to Filters List"
 msgstr "Назад до списку фільтрів"
 
-#: forward.php:30 forward.php:77 spam.php:56 spam.php:119
-#: templates/blacklist/blacklist.inc:41 templates/whitelist/whitelist.inc:24
-#: vacation.php:30 vacation.php:102
+#: lib/Basic/Forward.php:38 lib/Basic/Spam.php:45 lib/Basic/Vacation.php:46
+#: lib/Form/Base.php:56 templates/basic/blacklist/blacklist.html.php:53
+#: templates/basic/whitelist/whitelist.html.php:29
 msgid "Return to Rules List"
 msgstr "Назад до списку правил"
 
-#: templates/filters/header.inc:12
+#: templates/basic/filters/filters.html.php:13
 msgid "Rule"
 msgstr "Правило"
 
-#: filters.php:79
+#: lib/Basic/Filters.php:91
 #, php-format
 msgid "Rule \"%s\" copied."
 msgstr "Правило \"%s\" скопійовано."
 
-#: filters.php:56
+#: lib/Basic/Filters.php:68
 #, php-format
 msgid "Rule \"%s\" deleted."
 msgstr "Правило \"%s\" було витерто."
 
-#: filters.php:95
+#: lib/Basic/Filters.php:107
 #, php-format
 msgid "Rule \"%s\" disabled."
 msgstr "Правило \"%s\" заборонено."
 
-#: filters.php:101
+#: lib/Basic/Filters.php:113
 #, php-format
 msgid "Rule \"%s\" enabled."
 msgstr "Правило \"%s\" дозволено."
 
-#: forward.php:58 spam.php:97 vacation.php:80
+#: lib/Basic/Forward.php:67 lib/Basic/Spam.php:80 lib/Basic/Vacation.php:81
 msgid "Rule Disabled"
 msgstr "Правило заборонено"
 
-#: forward.php:53 spam.php:92 vacation.php:75
+#: lib/Basic/Forward.php:62 lib/Basic/Spam.php:75 lib/Basic/Vacation.php:76
 msgid "Rule Enabled"
 msgstr "Правило дозволено"
 
-#: templates/rule/header.inc:20
+#: templates/basic/rule/rule.html.php:22
 msgid "Rule Name:"
 msgstr "Назва правила:"
 
-#: lib/Script/Sieve/Action/Notify.php:41
+#: lib/Ajax/Application/Smartmobile.php:53
+msgid "Rule not found."
+msgstr "Правила не знайдено."
+
+#: lib/Script/Sieve/Action/Notify.php:54
 msgid "Rule:"
 msgstr "Правило:"
 
-#: lib/Transport/Ldap.php:87
+#: templates/smartmobile/rule.html.php:2
+#: templates/smartmobile/rules.html.php:2
+msgid "Rules"
+msgstr "Правила"
+
+#: lib/Application.php:249
+msgid "Ruleset"
+msgstr "Набір правил"
+
+#: lib/Transport/Ispconfig.php:111 lib/Transport/Ispconfig.php:138
+#, php-format
+msgid "SOAP fault: %s"
+msgstr ""
+
+#: lib/Transport/Ispconfig.php:201
+#, php-format
+msgid "SOAP fault: %s."
+msgstr ""
+
+#: lib/Transport/Ispconfig.php:197
+#, php-format
+msgid "SOAP login to %s failed."
+msgstr "%s ввійти не вдалося."
+
+#: lib/Transport/Ldap.php:100
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
 msgstr "Невдача STARTTLS: (%s) %s"
 
-#: lib/Application.php:129
+#: lib/Application.php:200
 msgid "S_pam"
 msgstr "Спам"
 
-#: forward.php:40 spam.php:71 templates/blacklist/blacklist.inc:40
-#: templates/rule/footer.inc:60 templates/whitelist/whitelist.inc:23
-#: vacation.php:54
+#: lib/Form/Base.php:50 lib/Form/Forward.php:32 lib/Form/Spam.php:42
+#: lib/Form/Vacation.php:79 templates/basic/blacklist/blacklist.html.php:52
+#: templates/basic/rule/rule.html.php:195
+#: templates/basic/whitelist/whitelist.html.php:28
 msgid "Save"
 msgstr "Зберегти"
 
-#: templates/filters/settings.inc:31
+#: templates/basic/filters/filters.html.php:113
 msgid "Save Settings"
 msgstr "Зберегти налаштування"
 
-#: forward.php:55 forward.php:73 spam.php:94 spam.php:115 vacation.php:77
-#: vacation.php:98
+#: lib/Basic/Forward.php:64 lib/Basic/Spam.php:77 lib/Basic/Vacation.php:78
+#: lib/Form/Base.php:54
 msgid "Save and Disable"
 msgstr "Зберегти і Заборонити"
 
-#: forward.php:50 forward.php:75 spam.php:89 spam.php:117 vacation.php:72
-#: vacation.php:100
+#: lib/Basic/Forward.php:59 lib/Basic/Spam.php:72 lib/Basic/Vacation.php:73
+#: lib/Form/Base.php:52
 msgid "Save and Enable"
 msgstr "Зберегти і Дозволити"
 
-#: templates/script/header.inc:2
+#: templates/basic/script/script.html.php:1
 msgid "Script"
 msgstr "Скрипт"
 
@@ -751,39 +811,44 @@ msgstr "Скрипт"
 msgid "Script Updating"
 msgstr "Оновлення скрипта"
 
-#: lib/Ingo.php:261
-msgid "Script not updated."
-msgstr "Скрипт не оновлено."
+#: templates/basic/script/_script.html.php:1
+msgid "Script name:"
+msgstr "Ім'я скрипта:"
 
-#: lib/Ingo.php:231
+#: lib/Ingo.php:217
+#, php-format
+msgid "Script not updated: %s"
+msgstr "Скрипт не оновлено: %s."
+
+#: lib/Ingo.php:200
 msgid "Script successfully activated."
 msgstr "Скрипт успішно активовано."
 
-#: lib/Ingo.php:230
+#: lib/Ingo.php:199
 msgid "Script successfully deactivated."
 msgstr "Скрипт успішно деактивовано."
 
-#: templates/rule/footer.inc:30
+#: templates/basic/rule/rule.html.php:158
 msgid "Seen"
 msgstr "Читані"
 
-#: rule.php:228
+#: templates/basic/rule/rule.html.php:64
 msgid "Select a field"
 msgstr "Виберіть поле"
 
-#: templates/menu/menu.html:6 templates/menu/menu.html:8
-msgid "Select ruleset to display:"
-msgstr "Виберіть набір правил для показу:"
+#: templates/basic/menu/menu.html.php:4 templates/basic/menu/menu.html.php:6
+msgid "Select ruleset to display"
+msgstr "Виберіть набір правил для відображення"
 
-#: rule.php:356 templates/blacklist/blacklist.inc:22
+#: lib/Basic/Rule.php:339 templates/basic/blacklist/blacklist.html.php:30
 msgid "Select target folder"
 msgstr "Виберіть папку призначення"
 
-#: lib/Ingo.php:114
+#: lib/Ingo.php:86
 msgid "Select target folder:"
 msgstr "Виберіть папку призначення:"
 
-#: rule.php:265
+#: templates/basic/rule/rule.html.php:80
 msgid "Self-Defined Header"
 msgstr ""
 
@@ -791,19 +856,19 @@ msgstr ""
 msgid "Sender"
 msgstr "Відправник"
 
-#: filters.php:119
+#: lib/Basic/Filters.php:135
 msgid "Settings successfully updated."
 msgstr "Налаштування успішно оновлено."
 
-#: templates/script/activate.inc:24
+#: templates/basic/script/script.html.php:24
 msgid "Show Active Script"
 msgstr ""
 
-#: templates/script/activate.inc:31
+#: templates/basic/script/script.html.php:30
 msgid "Show Current Script"
 msgstr "Показати Поточний скрипт"
 
-#: spam.php:45
+#: lib/Basic/Spam.php:34
 msgid "Simple spam filtering is not supported in the current filtering driver."
 msgstr ""
 "Просте фільтрування спаму не підтримується поточним драйвером фільтрування."
@@ -816,24 +881,25 @@ msgstr "Об'єм"
 msgid "Source (From, Reply-to, etc.)"
 msgstr ""
 
-#: filters.php:203 lib/Block/Overview.php:94 lib/Block/Overview.php:97
-#: lib/Script/Maildrop.php:304 lib/Script/Sieve.php:442
+#: lib/Basic/Filters.php:219 lib/Block/Overview.php:112
+#: lib/Script/Maildrop.php:294 lib/Script/Sieve.php:409
+#: lib/Smartmobile.php:105
 msgid "Spam Filter"
 msgstr "Фільтр спаму"
 
-#: spam.php:130 spam.php:137
+#: lib/Basic/Spam.php:106 lib/Basic/Spam.php:113
 msgid "Spam Filtering"
 msgstr "Фільтрування спаму"
 
-#: spam.php:64
+#: lib/Form/Spam.php:35
 msgid "Spam Level:"
 msgstr "Рівень спаму:"
 
-#: vacation.php:38
+#: lib/Form/Vacation.php:45
 msgid "Start of vacation:"
 msgstr "Початок вакацій:"
 
-#: templates/rule/footer.inc:50
+#: templates/basic/rule/rule.html.php:185
 msgid "Stop checking if this rule matches?"
 msgstr ""
 
@@ -841,33 +907,35 @@ msgstr ""
 msgid "Subject"
 msgstr "Тема"
 
-#: vacation.php:41
+#: lib/Form/Vacation.php:50
 msgid "Subject of vacation message:"
 msgstr "Тема листа про вакації:"
 
-#: lib/Script/Sieve/Action/Notify.php:40
+#: lib/Script/Sieve/Action/Notify.php:53
 msgid "Subject:"
 msgstr "Тема:"
 
-#: lib/Api.php:41
+#: lib/Transport/Ispconfig.php:172
+msgid ""
+"The Ingo Ispconfig transport is not properly configured, edit your ingo/"
+"config/backends.local.php."
+msgstr ""
+
+#: lib/Api.php:79
 #, php-format
 msgid "The address \"%s\" has been added to your blacklist."
 msgstr "Адресу \"%s\" внесено до Вашого Чорного списку."
 
-#: lib/Api.php:62
+#: lib/Api.php:101
 #, php-format
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "Адресу \"%s\" внесено до Вашого Білого списку."
 
-#: lib/Ingo.php:225
-msgid "The driver said: "
-msgstr "Драйвер повідомив: "
-
-#: lib/Ingo.php:224
+#: lib/Ingo.php:193
 msgid "There was an error activating the script."
 msgstr "Трапилась помилка активації скрипта."
 
-#: lib/Ingo.php:223
+#: lib/Ingo.php:192
 msgid "There was an error deactivating the script."
 msgstr "Трапилась помилка деактивації скрипта."
 
@@ -875,56 +943,78 @@ msgstr "Трапилась помилка деактивації скрипта.
 msgid "To"
 msgstr "До"
 
-#: templates/filters/filter.html:29
+#: templates/basic/filters/filters.html.php:69
 msgid "To:"
 msgstr "To:"
 
-#: lib/Script.php:144
+#: lib/Factory/Script.php:102
 #, php-format
-msgid "Unable to load the definition of %s."
-msgstr "Не можу завантажити визначення для %s."
+msgid "Unable to load the script driver \"%s\"."
+msgstr "Не можу завантажити драйвер для скрипта \"%s\"."
 
-#: templates/rule/filter.inc:15
+#: lib/Factory/Storage.php:70
+#, php-format
+msgid "Unable to load the storage driver \"%s\"."
+msgstr "Не можу завантажити драйвер для запису \"%s\"."
+
+#: lib/Factory/Transport.php:66
+#, php-format
+msgid "Unable to load the transport driver \"%s\"."
+msgstr "Не можу завантажити драйвер для передачі \"%s\"."
+
+#: templates/basic/rule/rule.html.php:84
 msgid "User header"
 msgstr ""
 
-#: filters.php:191 lib/Block/Overview.php:50 lib/Block/Overview.php:53
-#: lib/Script/Maildrop.php:278 lib/Script/Procmail.php:278
-#: lib/Script/Sieve.php:416 vacation.php:135
+#: lib/Basic/Filters.php:207 lib/Basic/Vacation.php:129
+#: lib/Block/Overview.php:64 lib/Script/Maildrop.php:259
+#: lib/Script/Procmail.php:292 lib/Script/Sieve.php:382 lib/Smartmobile.php:95
 msgid "Vacation"
 msgstr "Вакація"
 
-#: vacation.php:142
+#: lib/Basic/Vacation.php:136
 msgid "Vacation Edit"
 msgstr "Редагування Вакацій"
 
-#: vacation.php:18
+#: lib/Form/Vacation.php:98
+msgid "Vacation end date is prior to start."
+msgstr ""
+
+#: lib/Form/Vacation.php:102
+msgid "Vacation end date is prior to today."
+msgstr ""
+
+#: lib/Basic/Vacation.php:34
 msgid "Vacation is not supported in the current filtering driver."
 msgstr "Підтримка вакацій не підтримується поточним драйвером фільтрування."
 
-#: rule.php:362
+#: lib/Basic/Rule.php:345
 msgid "Value"
 msgstr "Значення"
 
-#: templates/whitelist/whitelist.inc:14
+#: templates/smartmobile/rule.html.php:2
+msgid "View Rule"
+msgstr "Перегляд правил"
+
+#: templates/basic/whitelist/whitelist.html.php:15
 msgid "Wh_itelist addresses:"
 msgstr "Адреси Білого списку:"
 
-#: filters.php:185 lib/Block/Overview.php:74 lib/Block/Overview.php:77
-#: templates/whitelist/whitelist.inc:5
+#: lib/Basic/Filters.php:201 lib/Block/Overview.php:90 lib/Smartmobile.php:90
+#: templates/basic/whitelist/whitelist.html.php:5
 msgid "Whitelist"
 msgstr "Білий список"
 
-#: whitelist.php:50
+#: lib/Basic/Whitelist.php:80
 msgid "Whitelist Edit"
 msgstr "Редагування Білого списку"
 
-#: whitelist.php:20
+#: lib/Basic/Whitelist.php:35
 msgid "Whitelist is not supported in the current filtering driver."
 msgstr "Білий список не підтримується поточним драйвером фільтрування."
 
-#: lib/Script/Maildrop.php:225 lib/Script/Procmail.php:246
-#: lib/Script/Sieve.php:341
+#: lib/Script/Maildrop.php:204 lib/Script/Procmail.php:259
+#: lib/Script/Sieve.php:306
 msgid "Whitelisted Addresses"
 msgstr "Адреси Білого списку"
 
@@ -944,100 +1034,111 @@ msgstr ""
 msgid "X-Spam-Status"
 msgstr ""
 
-#: filters.php:73 rule.php:186
+#: lib/Basic/Filters.php:85 lib/Basic/Rule.php:177 lib/Basic/Rule.php:218
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Не дозволено створювати більше, ніж %d правил."
 
-#: filters.php:65 rule.php:23
+#: lib/Basic/Filters.php:77 lib/Basic/Rule.php:38
 msgid "You are not allowed to create or edit custom rules."
 msgstr "Вам не дозволено створювати або редагувати власні правила."
 
-#: rule.php:90
+#: lib/Form/Vacation.php:54
+msgid ""
+"You can use placeholders like %NAME% in the vacation message. See the online "
+"help for details."
+msgstr ""
+
+#: lib/Basic/Rule.php:101
 #, php-format
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr ""
 
-#: filters.php:50 rule.php:163
+#: lib/Basic/Filters.php:62
 msgid "You do not have permission to delete filter rules."
 msgstr "Ви не маєте прав для стирання правил фільтрування."
 
-#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:176
+#: lib/Basic/Filters.php:55 lib/Basic/Filters.php:130
+#: lib/Basic/Filters.php:140 lib/Basic/Rule.php:162
 msgid "You do not have permission to edit filter rules."
 msgstr "Ви не маєте прав для редагування правил фільтрування."
 
-#: lib/Script/Sieve/Action/Notify.php:38
+#: lib/Script/Sieve/Action/Notify.php:51
 msgid "You have received a new message"
 msgstr "Ви отримали нового листа"
 
-#: lib/Script/Imap.php:285 lib/Script/Imap.php:311 lib/Script/Imap.php:332
+#: lib/Basic/Rule.php:167
+msgid "You need to select at least one field to match."
+msgstr "Вкажіть хоча б одне поле для пошуку."
+
+#: lib/Script/Imap.php:266 lib/Script/Imap.php:292 lib/Script/Imap.php:313
 msgid "[No Sender]"
 msgstr ""
 
-#: lib/Script/Imap.php:284 lib/Script/Imap.php:310 lib/Script/Imap.php:331
+#: lib/Script/Imap.php:265 lib/Script/Imap.php:291 lib/Script/Imap.php:312
 msgid "[No Subject]"
 msgstr "[Без теми]"
 
-#: lib/Application.php:113
+#: lib/Application.php:185
 msgid "_Blacklist"
 msgstr "Чорний список"
 
-#: templates/blacklist/blacklist.inc:17
+#: templates/basic/blacklist/blacklist.html.php:21
 msgid "_Delete message completely"
 msgstr "Витерти лист повністю"
 
-#: templates/blacklist/blacklist.inc:31
+#: templates/basic/blacklist/blacklist.html.php:39
 msgid "_Enter each address on a new line:"
 msgstr "Вводьте кожну адресу з нового рядка:"
 
-#: lib/Application.php:125
+#: lib/Application.php:196
 msgid "_Forward"
 msgstr "Переслати"
 
-#: templates/blacklist/blacklist.inc:21
+#: templates/basic/blacklist/blacklist.html.php:29
 msgid "_Move message to folder:"
 msgstr "Перенести лист в папку:"
 
-#: lib/Application.php:139
+#: lib/Application.php:211
 msgid "_Permissions"
 msgstr "Права"
 
-#: lib/Application.php:135
+#: lib/Application.php:206
 msgid "_Script"
 msgstr "Скрипт"
 
-#: lib/Application.php:121
+#: lib/Application.php:192
 msgid "_Vacation"
 msgstr "Вакація"
 
-#: lib/Application.php:112
+#: lib/Application.php:182
 msgid "_Whitelist"
 msgstr "Білий список"
 
-#: lib/Block/Overview.php:41
+#: lib/Block/Overview.php:52
 msgid "active"
 msgstr "активне"
 
-#: templates/rule/filter.inc:4
+#: templates/basic/rule/rule.html.php:55
 msgid "and"
 msgstr "і"
 
-#: templates/filters/filter.html:16
+#: templates/basic/filters/filters.html.php:49
 msgid "disabled - click to enable"
 msgstr "заборонено - клацніть, щоб дозволити"
 
-#: lib/Block/Overview.php:39
+#: lib/Block/Overview.php:50
 msgid "inactive"
 msgstr "неактивне"
 
-#: lib/Script/Maildrop.php:133
+#: lib/Script/Maildrop.php:112
 msgid "maildrop script generated by Ingo"
 msgstr ""
 
-#: templates/rule/filter.inc:4
+#: templates/basic/rule/rule.html.php:55
 msgid "or"
 msgstr "або"
 
-#: lib/Script/Procmail.php:138
+#: lib/Script/Procmail.php:136
 msgid "procmail script generated by Ingo"
 msgstr ""

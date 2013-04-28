@@ -1119,7 +1119,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         if (!$imp_imap->accessCompose(IMP_Imap::ACCESS_COMPOSE_TIMELIMIT, $email_count)) {
             Horde::permissionDeniedError('imp', 'max_timelimit');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $imp_imap->max_compose_timelimit, $conf['sentmail']['params']['limit_period']));
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $imp_imap->max_compose_timelimit, $injector->getInstance('IMP_Sentmail')->limit_period));
         }
 
         /* Count recipients if necessary. We need to split email groups

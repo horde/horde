@@ -18,19 +18,23 @@ class Horde_Core_Factory_Lock extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        $driver = empty($GLOBALS['conf']['lock']['driver'])
-            ? 'Null'
-            : $GLOBALS['conf']['lock']['driver'];
+        global $conf;
 
-        if (strcasecmp($driver, 'None') === 0) {
-            $driver = 'Null';
-        }
+        $driver = empty($conf['lock']['driver'])
+            ? 'null'
+            : $conf['lock']['driver'];
 
         $params = Horde::getDriverConfig('lock', $driver);
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
-        if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+        switch (Horde_String::lower($driver)) {
+        case 'none':
+            $driver = 'null';
+            break;
+
+        case 'sql':
+            $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'lock');
+            break;
         }
 
         $class = $this->_getDriverName($driver, 'Horde_Lock');

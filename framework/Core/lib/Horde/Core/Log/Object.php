@@ -163,8 +163,12 @@ class Horde_Core_Log_Object
                 ? min($trace_count, $options['trace'])
                 : 0;
             while ($frame < $trace_count) {
-                if (!isset($trace[$frame]['class']) ||
-                    !in_array($trace[$frame]['class'], array('Horde_Log_Logger', 'Horde_Core_Log_Logger'))) {
+                if (isset($trace[$frame]['class'])) {
+                    if (!in_array($trace[$frame]['class'], array('Horde_Log_Logger', 'Horde_Core_Log_Logger'))) {
+                        break;
+                    }
+                } elseif (isset($trace[$frame]['function']) &&
+                          !in_array($trace[$frame]['function'], array('call_user_func', 'call_user_func_array'))) {
                     break;
                 }
                 ++$frame;

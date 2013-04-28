@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Rpc\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2013-04-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -18,20 +18,19 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: lib/Horde/Rpc/Webdav.php:347
-#, fuzzy, php-format
+#, php-format
 msgid "Error deleting from path %s; must be [app]/[path]"
-msgstr "Не можу створити директорію %s; повинна бути [app]/[path]"
+msgstr "Помилка витирання за шляхом %s; повинна бути [app]/[path]"
 
 #: lib/Horde/Rpc/Phpgw.php:80 lib/Horde/Rpc/Phpgw.php:81
 #: lib/Horde/Rpc/Soap.php:206 lib/Horde/Rpc/Soap.php:214
 #, php-format
 msgid "Method \"%s\" is not defined"
-msgstr "Метод \"%s\" не визначений."
+msgstr "Метод \"%s\" не визначений"
 
 #: lib/Horde/Rpc/Phpgw.php:160
-#, fuzzy
 msgid "No valid XML data returned:"
-msgstr "Дійсних даних XML не повернено"
+msgstr "Коректних даних XML не повернено:"
 
 #: lib/Horde/Rpc/Phpgw.php:158
 msgid "Request couldn't be answered. Returned errorcode: "
@@ -43,10 +42,11 @@ msgid "Unable to create directory %s; must be [app]/[path]"
 msgstr "Не можу створити директорію %s; повинна бути [app]/[path]"
 
 #: lib/Horde/Rpc/Webdav.php:443
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Unable to rename %s; must be [app]/[path] and within the same application."
-msgstr "Не можу створити директорію %s; повинна бути [app]/[path]"
+msgstr ""
+"Не можу перейменувати %s; повинна бути [app]/[path] і в межах того ж модуля."
 
 #: lib/Horde/Rpc/Phpgw.php:99
 msgid "You did not authenticate."

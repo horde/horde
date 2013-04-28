@@ -221,12 +221,15 @@ var DimpBase = {
                 if ($('dimpmain_iframe').visible()) {
                     tmp = $('dimpmain_iframe').hide().down();
                     tmp.blur();
-                    tmp.remove();
                 }
                 $('dimpmain_folder').show();
             }
 
             this.loadMailbox(data);
+
+            if (tmp) {
+                tmp.remove();
+            }
             return;
         }
 
@@ -1203,6 +1206,19 @@ var DimpBase = {
                     [ $('ctx_mbox_sub') ].invoke(tmp ? 'show' : 'hide');
                     [ $('ctx_mbox_unsub') ].invoke(tmp ? 'hide' : 'show');
                 }
+
+                if (Object.isUndefined(baseelt.retrieve('fixed'))) {
+                    DimpCore.doAction('isFixedMbox', {
+                        mbox: baseelt.retrieve('mbox')
+                     }, {
+                        ajaxopts: {
+                            asynchronous: false,
+                        },
+                        callback: function(r) {
+                            baseelt.store('fixed', r.fixed);
+                        }
+                     });
+                 }
 
                 if (baseelt.retrieve('fixed')) {
                     elts.shift();
@@ -3167,7 +3183,6 @@ var DimpBase = {
 
         li = new Element('DIV', { className: 'horde-subnavi', title: title })
             .addClassName(cname)
-            .store('fixed', ob.f)
             .store('l', label)
             .store('mbox', ob.m)
             .insert(div)
