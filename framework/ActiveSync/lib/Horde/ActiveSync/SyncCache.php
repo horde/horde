@@ -575,30 +575,26 @@ class Horde_ActiveSync_SyncCache
      */
     public function updateFolder(Horde_ActiveSync_Message_Folder $folder)
     {
-        $this->_data['folders'][$folder->serverid]['parentid'] = $folder->parentid;
-        $this->_data['folders'][$folder->serverid]['displayname'] = $folder->displayname;
         switch ($folder->type) {
         case 7:
         case 15:
-            $this->_data['folders'][$folder->serverid]['class'] = 'Tasks';
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Tasks');
             break;
         case 8:
         case 13:
-            $this->_data['folders'][$folder->serverid]['class'] = 'Calendar';
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Calendar');
             break;
         case 9:
         case 14:
-            $this->_data['folders'][$folder->serverid]['class'] = 'Contacts';
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Contacts');
             break;
         case 17:
         case 10:
-            $this->_data['folders'][$folder->serverid]['class'] = 'Notes';
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Notes');
             break;
         default:
-            $this->_data['folders'][$folder->serverid]['class'] = 'Email';
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Email');
         }
-        $this->_data['folders'][$folder->serverid]['type'] = $folder->type;
-        $this->_data['folders'][$folder->serverid]['filtertype'] = '0';
     }
 
     /**
