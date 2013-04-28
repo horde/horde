@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-04-28</date>
- <time>14:09:15</time>
+ <time>14:31:48</time>
  <version>
   <release>2.0.3</release>
   <api>1.1.0</api>
@@ -57,11 +57,13 @@
     <dir name="Horde">
      <dir name="Lock">
       <dir name="Storage">
+       <file name="MongoTest.php" role="test" />
        <file name="SqlTest.php" role="test" />
        <file name="TestBase.php" role="test" />
       </dir> <!-- /test/Horde/Lock/Storage -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Lock -->
     </dir> <!-- /test/Horde -->
@@ -121,7 +123,9 @@
    <install as="migration/3_horde_lock_fix_owner_width.php" name="migration/Horde/Lock/3_horde_lock_fix_owner_width.php" />
    <install as="Horde/Lock/AllTests.php" name="test/Horde/Lock/AllTests.php" />
    <install as="Horde/Lock/bootstrap.php" name="test/Horde/Lock/bootstrap.php" />
+   <install as="Horde/Lock/conf.php.dist" name="test/Horde/Lock/conf.php.dist" />
    <install as="Horde/Lock/phpunit.xml" name="test/Horde/Lock/phpunit.xml" />
+   <install as="Horde/Lock/Storage/MongoTest.php" name="test/Horde/Lock/Storage/MongoTest.php" />
    <install as="Horde/Lock/Storage/SqlTest.php" name="test/Horde/Lock/Storage/SqlTest.php" />
    <install as="Horde/Lock/Storage/TestBase.php" name="test/Horde/Lock/Storage/TestBase.php" />
   </filelist>
