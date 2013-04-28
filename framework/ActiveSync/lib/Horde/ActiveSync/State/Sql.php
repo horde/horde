@@ -1194,6 +1194,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         foreach ($cache['collections'] as &$collection) {
             if (!empty($collection['synckey'])) {
                 $collection['lastsynckey'] = $collection['synckey'];
+                unset($collection['synckey']);
             }
         }
         $cache['timestamp'] = strval($cache['timestamp']);
