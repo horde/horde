@@ -213,12 +213,22 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     return true;
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_SYNC_REQUIRED;
                     $this->_statusCode = self::STATUS_NEEDSYNC;
-                    $this->_handleGlobalError();
-                    return true;
+                    break;
                 default:
-                    $this->_statusCode = self::STATUS_SERVERERROR;
-                    $this->_handleGlobalError();
-                    return true;
+                    if ($this->_device->version < Horde_ActiveSync::VERSION_FOURTEEN) {
+                        $this->_logger->err(sprintf(
+                            '[%s] Version is < 14.0, returning false since we have no PINGABLE collections.',
+                            $this->_procid));
+                        return false;
+                    } else {
+                        $this->_logger->err(sprintf(
+                            '[%s] Version is >= 14.0 returning status code 132 since we have no PINGABLE collections.',
+                            $this->_procid));
+                        //$collections->
+                        $this->_statusCode = Horde_ActiveSync_Status::STATEFILE_NOT_FOUND;
+                        $this->_handleGlobalError();
+                        return true;
+                    }
                 }
             } elseif ($changes) {
                 $this->_statusCode = self::STATUS_NEEDSYNC;
