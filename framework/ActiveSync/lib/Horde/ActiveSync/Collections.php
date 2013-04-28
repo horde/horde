@@ -953,6 +953,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 $this->_logger->debug('Setting collection ' . $id . ' PINGABLE');
                 $this->_cache->setPingableCollection($id);
             } else {
+                $this->_logger->debug('UNSETTING collection ' . $id . ' PINGABLE flag.');
                 $this->_cache->removePingableCollection($id);
             }
         }
