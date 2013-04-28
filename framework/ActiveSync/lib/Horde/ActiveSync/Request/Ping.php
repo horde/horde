@@ -111,7 +111,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         // Initialize the collections handler.
         try {
             $collections = $this->_activeSync->getCollectionsObject();
-            $collections->loadCollectionsFromCache();
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_status = self::STATUS_SERVERERROR;
             $this->_handleGlobalError();
@@ -137,18 +136,15 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $this->_logger->debug(sprintf(
                 '[%s] Empty PING request.',
                 $this->_procid));
-
-            if ($collections->cachedCollectionCount() == 0) {
+            $collections->loadCollectionsFromCache();
+            if ($collections->collectionCount() == 0 ||
+                !$collections->havePingableCollections()) {
                 $this->_logger->debug(sprintf(
                     '[%s] Empty PING request with no cached collections. Request full PING.',
                     $this->_procid));
                 $this->_statusCode = self::STATUS_MISSING;
                 $this->_handleGlobalError();
                 return true;
-            }
-
-            if ($collections->collectionCount() == 0) {
-                $this->_statusCode = self::STATUS_MISSING;
             }
         } else {
             if ($this->_decoder->getElementStartTag(self::HEARTBEATINTERVAL)) {
