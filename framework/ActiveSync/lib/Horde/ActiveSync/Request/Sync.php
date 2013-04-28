@@ -99,6 +99,17 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             return true;
         }
 
+        // Sanity check
+        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+            // We don't have a previous FOLDERSYNC.
+            if (!$this->_collections->haveHierarchy()) {
+                $this->_logger->debug('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
+                $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                $this->_handleGlobalSyncError();
+                return true;
+            }
+        }
+
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
@@ -199,15 +210,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
-            // Sanity checking, preperation for EAS >= 12.1
+            // Preparation for EAS >= 12.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-                // We don't have a previous FOLDERSYNC.
-                if (!$this->_collections->haveHierarchy()) {
-                    $this->_logger->debug('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
-                    $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                    $this->_handleGlobalSyncError();
-                    return true;
-                }
 
                 // These are not allowed in the same request.
                 if ($this->_collections->hbinterval !== false &&
