@@ -725,6 +725,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function initCollectionState(array $collection, $requireSyncKey = false)
     {
+        if (empty($collection['class'])) {
+            throw new Horde_ActiveSync_Exception_FolderGone('Could not load collection class for ' . $collection['id']);
+        }
+
         if ($requireSyncKey && empty($collection['synckey'])) {
             throw new Horde_ActiveSync_Exception_InvalidRequest(sprintf(
                 '[%s] Empty synckey for %s.',
@@ -831,6 +835,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         $e->getMessage()));
                     $this->setGetChangesFlag($id);
                     $dataavailable = true;
+                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                    $this->_logger->err('Folder gone for collection ' . $collection['id']);
+                    return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err('Error loading state: ' . $e->getMessage());
                     $collections->setGetChangesFlag($id);
