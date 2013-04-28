@@ -180,6 +180,17 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 if (!$this->_decoder->getElementEndTag()) {
                     throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
+            } else {
+                // No FOLDERS supplied, use the cache.
+                $collections->loadCollectionsFromCache();
+                if ($collections->collectionCount() == 0) {
+                    $this->_logger->debug(sprintf(
+                        '[%s] Empty PING request with no cached collections. Request full PING.',
+                        $this->_procid));
+                    $this->_statusCode = self::STATUS_MISSING;
+                    $this->_handleGlobalError();
+                    return true;
+                }
             }
             if (!$this->_decoder->getElementEndTag()) {
                 throw new Horde_ActiveSync_Exception('Protocol Error');
