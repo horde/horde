@@ -37,6 +37,9 @@ Attribute Changes
   - The "instantMessenger" attribute has been replaced by the "imaddress",
     "imaddress2", and "imaddress3" attributes.
 
+  - The default SQL schema has been updated, as well as the out of the box
+    field definitions for the 'localsql' source. You must execute the database
+    migrations for Turba to ensure you have the latest schema.
 
 Upgrading Turba from 3.x to 4.x
 ===============================
