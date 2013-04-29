@@ -1298,7 +1298,7 @@ class Horde_Date_Recurrence
                 break;
 
             case 'yearday':
-                if (!isset($hash['month'])) {
+                if (!isset($hash['daynumber'])) {
                     $this->setRecurType(self::RECUR_NONE);
                     return false;
                 }
