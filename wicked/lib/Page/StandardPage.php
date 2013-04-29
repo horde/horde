@@ -62,8 +62,8 @@ class Wicked_Page_StandardPage extends Wicked_Page {
             if ($pagefile &&
                 Horde_String::common($pagefile, $pagepath) == $pagepath &&
                 substr($pagename, 0, 1) != '.' &&
-                file_exists($pagefile)) {
-                $text = file_get_contents($pagefile);
+                file_exists($pagefile) &&
+                ($text = file_get_contents($pagefile))) {
                 try {
                     $GLOBALS['wicked']->newPage($pagename, $text);
                     try {
