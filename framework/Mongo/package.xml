@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Horde_Mongo_Collection_Index interface.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -35,6 +35,9 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mongo">
+      <dir name="Collection">
+       <file name="Index.php" role="php" />
+      </dir> <!-- /lib/Horde/Mongo/Collection -->
       <file name="Client.php" role="php" />
      </dir> <!-- /lib/Horde/Mongo -->
     </dir> <!-- /lib/Horde -->
@@ -61,6 +64,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Mongo/COPYING" />
    <install as="Horde/Mongo/Client.php" name="lib/Horde/Mongo/Client.php" />
+   <install as="Horde/Mongo/Collection/Index.php" name="lib/Horde/Mongo/Collection/Index.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -89,7 +93,7 @@
    <date>2013-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Horde_Mongo_Collection_Index interface.
    </notes>
   </release>
  </changelog>
