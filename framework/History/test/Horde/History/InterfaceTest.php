@@ -78,7 +78,14 @@ CREATE TABLE horde_histories (
 )
 EOL;
 
-            $db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
+            $factory_db = new Horde_Test_Factory_Db();
+
+            try {
+                $db = $factory_db->create();
+            } catch (Horde_Test_Exception $e) {
+                $this->markTestSkipped('Sqlite not available.');
+            }
+
             $db->execute($table);
             $db->execute('CREATE INDEX history_action_idx ON horde_histories (history_action)');
             $db->execute('CREATE INDEX history_ts_idx ON horde_histories (history_ts)');
@@ -388,7 +395,13 @@ EOL;
 
     public function testHordehistorysqlConvertsDbExceptionsToHordeHistoryExceptions()
     {
-        $db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
+        $factory_db = new Horde_Test_Factory_Db();
+
+        try {
+            $db = $factory_db->create();
+        } catch (Horde_Test_Exception $e) {
+            $this->markTestSkipped('Sqlite not available.');
+        }
         $history = new Horde_History_Sql('test', $db);
 
         try {
