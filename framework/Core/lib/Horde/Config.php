@@ -1399,6 +1399,7 @@ class Horde_Config
      */
     protected function _configVFS($ctx, $node)
     {
+        $nosql = $this->configNoSQL($ctx . '|params');
         $sql = $this->configSQL($ctx . '|params');
         $default = $node->getAttribute('default');
         $default = empty($default) ? 'horde' : $default;
@@ -1422,6 +1423,14 @@ class Horde_Config
                                     $xpath->evaluate('string(configsection/configstring[@name="vfsroot"])', $node) ?: '/tmp'
                                 )
                             )
+                        )
+                    )
+                ),
+                'Nosql' => array(
+                    'desc' => 'NoSQL database',
+                    'fields' => array(
+                        'params' => array(
+                            'driverconfig' => $nosql
                         )
                     )
                 ),
