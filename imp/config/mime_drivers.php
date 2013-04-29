@@ -133,6 +133,7 @@ $mime_drivers = array(
 
     /* vCard display. */
     'vcard' => array(
+        'inline' => true,
         'handles' => array(
             'text/directory',
             'text/vcard',
