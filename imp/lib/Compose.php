@@ -1428,13 +1428,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $parts[] = $injector->getInstance('IMP_Crypt_Pgp')->publicKeyMIMEPart();
             }
 
-            if (!empty($options['attach_vcard'])) {
+            if (!empty($options['vcard_attach'])) {
                 try {
                     $vpart = new Horde_Mime_Part();
                     $vpart->setType('text/x-vcard');
                     $vpart->setCharset('UTF-8');
                     $vpart->setContents($registry->call('contacts/ownVCard'));
-                    $vpart->setName($options['attach_vcard']);
+                    $vpart->setName($options['vcard_attach']);
 
                     $parts[] = $vpart;
                 } catch (Horde_Exception $e) {}
