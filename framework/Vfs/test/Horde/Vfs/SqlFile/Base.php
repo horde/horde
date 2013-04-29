@@ -14,8 +14,6 @@ class Horde_Vfs_Test_SqlFile_Base extends Horde_Vfs_TestBase
 
     protected static $migrator;
 
-    protected static $reason;
-
     public function testListEmpty()
     {
         $this->_listEmpty();
@@ -203,8 +201,6 @@ class Horde_Vfs_Test_SqlFile_Base extends Horde_Vfs_TestBase
     public function setUp()
     {
         $this->markTestIncomplete('The SqlFile VFS driver needs to be refactored to a real composite driver.');
-        if (!self::$db) {
-            $this->markTestSkipped(self::$reason);
-        }
+        parent::setUp();
     }
 }

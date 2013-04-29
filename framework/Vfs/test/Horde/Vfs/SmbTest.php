@@ -15,8 +15,6 @@
  */
 class Horde_Vfs_SmbTest extends Horde_Vfs_TestBase
 {
-    static protected $reason;
-
     static public function setUpBeforeClass()
     {
         $config = self::getConfig('VFS_FTP_TEST_CONFIG', __DIR__);
@@ -45,9 +43,8 @@ class Horde_Vfs_SmbTest extends Horde_Vfs_TestBase
 
     public function setUp()
     {
-        if (!self::$vfs) {
-            $this->markTestSkipped(self::$reason);
-        }
+        parent::setUp();
+
         $this->_oldTimezone = date_default_timezone_get();
         date_default_timezone_set('Europe/Berlin');
     }

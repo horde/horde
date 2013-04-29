@@ -14,8 +14,6 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_TestBase
 
     protected static $migrator;
 
-    protected static $reason;
-
     public function testListEmpty()
     {
         $this->_listEmpty();
@@ -196,10 +194,4 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_TestBase
         parent::tearDownAfterClass();
     }
 
-    public function setUp()
-    {
-        if (!self::$db) {
-            $this->markTestSkipped(self::$reason);
-        }
-    }
 }
