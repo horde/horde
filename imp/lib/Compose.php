@@ -1437,7 +1437,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     $vpart->setName($options['vcard_attach']);
 
                     $parts[] = $vpart;
-                } catch (Horde_Exception $e) {}
+                } catch (Horde_Exception $e) {
+                    throw new IMP_Compose_Exception(sprintf(_("Can't attach contact information: %s"), $e->getMessage()));
+                }
             }
 
             if (!empty($parts)) {
