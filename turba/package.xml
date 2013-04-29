@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Update the default SQL source schema (Request #11993).
 * [mms] Add links to group members on smartmobile entry page.
 * [mms] Add group icon to group contacts in smartmobile browse view.
 * [jan] Allow to search all search fields at once in basic searching.
@@ -1604,6 +1605,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Update the default SQL source schema (Request #11993).
 * [mms] Add links to group members on smartmobile entry page.
 * [mms] Add group icon to group contacts in smartmobile browse view.
 * [jan] Allow to search all search fields at once in basic searching.
