@@ -429,6 +429,9 @@ div.mimeStatusMessage, div.mimePartInfo {
     display: table-cell;
     display: inline-block;
 }
+.mimePartInfo div > img {
+    vertical-align: top;
+}
 .mimePartInfoAtc div {
     border: 1px dashed;
     background-image: url("graphics/attachment.png");
