@@ -265,8 +265,10 @@ class Ingo_Script_Imap extends Ingo_Script
                             continue;
                         }
 
+                        $mbox = new Horde_Imap_Client_Mailbox($rule['action-value']);
+
                         /* Move the messages to the requested mailbox. */
-                        $this->_api->moveMessages($indices, $rule['action-value']);
+                        $this->_api->moveMessages($indices, strval($mbox));
 
                         /* Display notification message(s). */
                         if ($params['show_filter_msg']) {
@@ -276,13 +278,13 @@ class Ingo_Script_Imap extends Ingo_Script
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been moved to the folder \"%s\"."),
                                             !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject) : _("[No Subject]"),
                                             !empty($envelope->from) ? strval($envelope->from) : _("[No Sender]"),
-                                            Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', 'UTF-8')),
+                                            $mbox),
                                     'horde.message');
                             }
                         } else {
                             $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been moved to the folder \"%s\"."),
                                                         count($indices),
-                                                        Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', 'UTF-8')), 'horde.message');
+                                                        $mbox), 'horde.message');
                         }
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_DISCARD) {
                         /* We need to grab the envelope first. */
@@ -308,9 +310,10 @@ class Ingo_Script_Imap extends Ingo_Script
                             $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been deleted."), count($indices)), 'horde.message');
                         }
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_MOVEKEEP) {
+                        $mbox = new Horde_Imap_Client_Mailbox($rule['action-value']);
+
                         /* Copy the messages to the requested mailbox. */
-                        $this->_api->copyMessages($indices,
-                                                  $rule['action-value']);
+                        $this->_api->copyMessages($indices, strval($mbox));
 
                         /* Display notification message(s). */
                         if ($params['show_filter_msg']) {
@@ -323,11 +326,11 @@ class Ingo_Script_Imap extends Ingo_Script
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been copied to the folder \"%s\"."),
                                             !empty($envelope->subject) ? Horde_Mime::decode($envelope->subject) : _("[No Subject]"),
                                             !empty($envelope->from) ? strval($envelope->from) : _("[No Sender]"),
-                                            Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', 'UTF-8')),
+                                            $mbox),
                                     'horde.message');
                             }
                         } else {
-                            $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been copied to the folder \"%s\"."), count($indices), Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', 'UTF-8')), 'horde.message');
+                            $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been copied to the folder \"%s\"."), count($indices), $mbox), 'horde.message');
                         }
                     }
                 }

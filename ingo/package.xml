@@ -35,6 +35,7 @@
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile rule page (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Fix copy/move actions when destination mailbox contains non ASCII characters (Bug #12217).
 * [mms] Translate rule descriptions to the local language in UI.
 * [jan] Allow multiple addresses for Sieve redirects (it@wenn.com, Request #11457).
  </notes>
@@ -1209,6 +1210,7 @@
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile rule page (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Fix copy/move actions when destination mailbox contains non ASCII characters (Bug #12217).
 * [mms] Translate rule descriptions to the local language in UI.
 * [jan] Allow multiple addresses for Sieve redirects (it@wenn.com, Request #11457).
    </notes>
