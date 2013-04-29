@@ -64,14 +64,18 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
      */
     protected function _render()
     {
+        global $page_output;
+
         $ret = $this->_renderInline();
 
         if (!empty($ret)) {
+            $page_output->sidebar = $page_output->topbar = false;
+
             reset($ret);
             Horde::startBuffer();
-            $GLOBALS['page_output']->header();
+            $page_output->header();
             echo $ret[key($ret)]['data'];
-            $GLOBALS['page_output']->footer();
+            $page_output->footer();
             $ret[key($ret)]['data'] = Horde::endBuffer();
         }
 
