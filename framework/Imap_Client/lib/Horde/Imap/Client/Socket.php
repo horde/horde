@@ -1823,6 +1823,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Always use UID EXPUNGE if available. */
         if ($uidplus) {
+            /* Don't attempt to expunge if we have no UIDs. */
+            if (!count($ids)) {
+                return $expunged_ob;
+            }
+
             $cmd = $this->_clientCommand(array(
                 'UID',
                 'EXPUNGE',
@@ -3164,8 +3169,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw $e;
         }
 
-        // If moving, delete the old messages now.
-        if (!$move_cmd && !empty($options['move'])) {
+        // If moving, delete the old messages now. Short-circuit if nothing
+        // was moved.
+        if (!$move_cmd &&
+            !empty($options['move']) &&
+            (($this->_temp['copyuid'] !== true) ||
+             !$this->_queryCapability('UIDPLUS'))) {
             $opts = array('ids' => $options['ids']);
             $this->store($this->_selected, array_merge(array(
                 'add' => array(Horde_Imap_Client::FLAG_DELETED)
