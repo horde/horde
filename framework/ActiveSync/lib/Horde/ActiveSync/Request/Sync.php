@@ -980,8 +980,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
-            $this->_mimeSupport($collection);
-
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
+                $this->_mimeSupport($collection);
+            }
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMETRUNCATION)) {
                 $collection['mimetruncation'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
@@ -1001,12 +1002,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             // BODYPREFERENCE
-            $this->_bodyPrefs($collection);
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
+                $this->_bodyPrefs($collection);
+            }
 
             // EAS 14.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
-                $this->_rightsManagement($collection);
-                $this->_bodyPartPrefs($collection);
+                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT)) {
+                    $this->_rightsManagement($collection);
+                }
+                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE)) {
+                    $this->_bodyPartPrefs($collection);
+                }
             }
 
             $e = $this->_decoder->peek();

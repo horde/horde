@@ -196,15 +196,24 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
                     }
                 }
 
-                $this->_bodyPrefs($searchbodypreference);
-                $searchbodypreference = empty($searchbodypreference['bodyprefs']) ? array() : $searchbodypreference['bodyprefs'];
-                $this->_mimeSupport($searchbodypreference);
+                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
+                    $this->_bodyPrefs($searchbodypreference);
+                    $searchbodypreference = empty($searchbodypreference['bodyprefs']) ? array() : $searchbodypreference['bodyprefs'];
+                }
+
+                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
+                    $this->_mimeSupport($searchbodypreference);
+                }
 
                 // EAS 14.1
                 if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
                     $rm = array();
-                    $this->_rightsManagement($rm);
-                    $this->_bodyPartPrefs($search_query);
+                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT)) {
+                        $this->_rightsManagement($rm);
+                    }
+                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE)) {
+                        $this->_bodyPartPrefs($search_query);
+                    }
                 }
 
                 $e = $this->_decoder->peek();
