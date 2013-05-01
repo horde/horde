@@ -246,4 +246,16 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSplitOnAll()
+    {
+        $ids = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL);
+
+        $this->assertEquals(
+            array(
+                '1:*'
+            ),
+            $ids->split(2000)
+        );
+    }
+
 }
