@@ -23,8 +23,8 @@ $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 
 try {
     $contact = $driver->getObject(Horde_Util::getPost('key'));
-} catch (Turba_Exception $e) {
-    $notification->push($e, 'horde.error');
+} catch (Horde_Exception $e) {
+    $notification->push($e);
     Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 

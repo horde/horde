@@ -37,7 +37,8 @@ class Turba_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applica
         if (isset($cfgSources[$source])) {
             try {
                 $contact = $injector->getInstance('Turba_Factory_Driver')->create($source)->getObject($this->vars->get('key'));
-            } catch (Turba_Exception $e) {}
+            } catch (Horde_Exception $e) {
+            }
         }
 
         if (is_null($contact)) {

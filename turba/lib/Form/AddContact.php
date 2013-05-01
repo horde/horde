@@ -90,7 +90,8 @@ class Turba_Form_AddContact extends Turba_Form_ContactBase
                         ? $ob->url('Contact', true)
                         : new Horde_Url($info['url']);
                     $url->redirect();
-                } catch (Turba_Exception $e) {}
+                } catch (Horde_Exception_NotFound $e) {
+                }
                 sleep(1);
             }
         }

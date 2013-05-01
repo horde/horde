@@ -31,7 +31,7 @@ try {
     $driver->delete($key);
 
     $notification->push(_("Successfully merged two contacts."), 'horde.success');
-} catch (Turba_Exception $e) {
+} catch (Horde_Exception $e) {
     $notification->push($e);
 }
 

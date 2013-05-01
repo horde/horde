@@ -52,8 +52,8 @@ $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 /* Set the contact from the requested key. */
 try {
     $contact = $driver->getObject($key);
-} catch (Turba_Exception $e) {
-    $notification->push($e, 'horde.error');
+} catch (Horde_Exception $e) {
+    $notification->push($e);
     $url->redirect();
 }
 

@@ -40,7 +40,8 @@ class Turba_List implements Countable
             try {
                 $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
                 $this->insert($driver->getObject($key));
-            } catch (Turba_Exception $e) {}
+            } catch (Horde_Exception $e) {
+            }
         }
     }
 

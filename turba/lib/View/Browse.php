@@ -177,11 +177,11 @@ class Turba_View_Browse
 
                     try {
                         $object = $sourceDriver->getObject($objectKey);
-                    } catch (Turba_Exception $e) {
+                    } catch (Horde_Exception_NotFound $e) {
                         $notification->push(
-                            sprintf(_("Failed to find object to be added: %s"),
-                                $e->getMessage()),
-                            'horde.error');
+                            _("Failed to find object to be added"),
+                            'horde.error'
+                        );
                         continue;
                     }
 
@@ -289,8 +289,8 @@ class Turba_View_Browse
 
                     try {
                         $target = $targetDriver->getObject($targetKey);
-                    } catch (Turba_Exception $e) {
-                        $notification->push($e, 'horde.error');
+                    } catch (Horde_Exception $e) {
+                        $notification->push($e);
                         break;
                     }
                 } else {
@@ -431,7 +431,7 @@ class Turba_View_Browse
                 // We are displaying a list.
                 try {
                     $list = $driver->getObject($vars->get('key'));
-                } catch (Turba_Exception $e) {
+                } catch (Horde_Exception $e) {
                     $notification->push(_("There was an error displaying the list"), 'horde.error');
                     $list = null;
                 }

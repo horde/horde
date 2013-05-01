@@ -796,6 +796,7 @@ class Turba_Driver implements Countable
      *
      * @return array  The array of retrieved objects (Turba_Objects).
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getObjects(array $objectIds)
     {
@@ -804,7 +805,7 @@ class Turba_Driver implements Countable
                                 array_values($this->fields),
                                 $this->toDriverKeys($this->getBlobs()));
         if (!is_array($objects)) {
-            throw new Turba_Exception(_("Requested object not found."));
+            throw new Horde_Exception_NotFound();
         }
 
         $results = array();
@@ -834,13 +835,14 @@ class Turba_Driver implements Countable
      *
      * @return Turba_Object  The retrieved object.
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getObject($objectId)
     {
         $result = $this->getObjects(array($objectId));
 
         if (empty($result[0])) {
-            throw new Turba_Exception('No results');
+            throw new Horde_Exception_NotFound();
         }
 
         $result = $result[0];
@@ -918,6 +920,7 @@ class Turba_Driver implements Countable
      * @param string $object_id  The ID of the object to delete.
      *
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function delete($object_id)
     {

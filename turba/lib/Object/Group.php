@@ -52,6 +52,7 @@ class Turba_Object_Group extends Turba_Object
      * @param string $sourceId   The source $contactId is from.
      *
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function addMember($contactId, $sourceId = null)
     {
@@ -152,7 +153,7 @@ class Turba_Object_Group extends Turba_Object
             if (strpos($member, ':') === false) {
                 try {
                     $contact = $this->driver->getObject($member);
-                } catch (Turba_Exception $e) {
+                } catch (Horde_Exception_NotFound $e) {
                     // Remove the contact if it no longer exists
                     $this->removeMember($member);
                     $modified = true;
@@ -173,7 +174,7 @@ class Turba_Object_Group extends Turba_Object
 
                 try {
                     $contact = $driver->getObject($contactId);
-                } catch (Turba_Exception $e) {
+                } catch (Horde_Exception_NotFound $e) {
                     // Remove the contact if it no longer exists
                     $this->removeMember($member);
                     $modified = true;

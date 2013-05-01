@@ -53,7 +53,8 @@ class Turba_Api extends Horde_Registry_Api
         if (isset($GLOBALS['cfgSources'][$source]) && $key) {
             try {
                 return $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source)->getObject($key)->getValue('name');
-            } catch (Turba_Exception $e) {}
+            } catch (Horde_Exception $e) {
+            }
         }
 
         return false;
@@ -184,6 +185,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return array  Content of the specified path.
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function browse($path = '',
                           $properties = array('name', 'icon', 'browseable'))
@@ -862,7 +864,7 @@ class Turba_Api extends Horde_Registry_Api
 
         try {
             $contact = $driver->getObject($id);
-        } catch (Turba_Exception $e) {
+        } catch (Horde_Exception_NotFound $e) {
             throw new Turba_Exception(_("Your own contact cannot be found in the address book."));
         }
 
@@ -1253,6 +1255,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return array  The retrieved contact.
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getContact($source = null, $objectId = '')
     {
@@ -1282,6 +1285,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return array  The retrieved contact.
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getContacts($source = '', array $objectIds = array())
     {

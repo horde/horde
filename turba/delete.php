@@ -22,8 +22,8 @@ $driver = $injector->getInstance('Turba_Factory_Driver')->create($vars->source);
 try {
     $object = $driver->getObject($vars->key);
     $object->deleteFiles();
-} catch (Turba_Exception $e) {
-    $notification->push($e, 'horde.error');
+} catch (Horde_Exception $e) {
+    $notification->push($e);
     Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 

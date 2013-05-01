@@ -427,6 +427,7 @@ class Turba_Application extends Horde_Registry_Application
     /**
      * @throws Horde_Vfs_Exception
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function download(Horde_Variables $vars)
     {

@@ -24,8 +24,8 @@ $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 /* Set the contact from the key requested. */
 try {
     $object = $driver->getObject(Horde_Util::getFormData('key'));
-} catch (Turba_Exception $e) {
-    $notification->push($e, 'horde.error');
+} catch (Horde_Exception $e) {
+    $notification->push($e);
     Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 

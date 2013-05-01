@@ -42,8 +42,8 @@ if (!empty($uid)) {
 if (!$contact) {
     try {
         $contact = $driver->getObject($vars->get('key'));
-    } catch (Turba_Exception $e) {
-        $notification->push($e, 'horde.error');
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
         Horde::url($prefs->getValue('initial_page'), true)->redirect();
     }
 }
