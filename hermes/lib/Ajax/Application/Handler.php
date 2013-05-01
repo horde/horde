@@ -366,13 +366,13 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         $slice->readForm();
         try {
             $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($slice));
-            if ($slice->employee == $GLOBALS['registry']->getAuth()) {
+            if ($slice['employee'] == $GLOBALS['registry']->getAuth()) {
                 $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id']));
                 $GLOBALS['notification']->push(_("Your time was successfully updated."), 'horde.success');
 
                 return current($new)->toJson();
             } else {
-                $GLOBALS['notification']->push(sprintf(_("The time was successfully updated and saved to the time sheet of %s."), $slice->employee), 'horde.success');
+                $GLOBALS['notification']->push(sprintf(_("The time was successfully updated and saved to the time sheet of %s."), $slice['employee']), 'horde.success');
                 return true;
             }
         } catch (Hermes_Exception $e) {
