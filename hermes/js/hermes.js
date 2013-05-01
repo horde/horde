@@ -786,6 +786,7 @@ HermesCore = {
             this.fromSearch = false;
             this.replaceSliceInCache(sid, r, 'search');
             this.replaceSliceInUI(sid, r, 'search');
+            this.updateSearchTotal();
             this.go('search');
         }
     },
