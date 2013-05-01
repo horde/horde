@@ -1,7 +1,7 @@
 <?php
 if (Beatnik::needCommit($_SESSION['beatnik']['curdomain']['zonename'])) {
     $commit = Horde::url('commit.php')->add(array('domain' => 'current'));
-    echo Horde::link($commit, _('Commit Changes'), 'button') . _('Commit Changes') . '</a><br /><br />';
+    echo Horde::link($commit, _("Commit Changes"), 'button') . _("Commit Changes") . '</a><br /><br />';
 }
 ?>
 

@@ -63,10 +63,10 @@ class Beatnik_Application extends Horde_Registry_Application
             $_SESSION['beatnik']['expertmode'] = false;
         } elseif (Horde_Util::getFormData('expertmode') == 'toggle') {
             if ($_SESSION['beatnik']['expertmode']) {
-                $notification->push(_('Expert Mode off'), 'horde.message');
+                $notification->push(_("Expert Mode off"), 'horde.message');
                 $_SESSION['beatnik']['expertmode'] = false;
             } else {
-                $notification->push(_('Expert Mode ON'), 'horde.warning');
+                $notification->push(_("Expert Mode ON"), 'horde.warning');
                 $_SESSION['beatnik']['expertmode'] = true;
             }
         }
