@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-05-01</date>
- <time>14:43:14</time>
+ <time>16:27:36</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -38,11 +38,9 @@
      <dir name="Dav">
       <dir name="Calendar">
        <file name="Backend.php" role="php" />
-       <file name="RootNode.php" role="php" />
       </dir> <!-- /lib/Horde/Dav/Calendar -->
       <dir name="Contacts">
        <file name="Backend.php" role="php" />
-       <file name="RootNode.php" role="php" />
       </dir> <!-- /lib/Horde/Dav/Contacts -->
       <dir name="Storage">
        <file name="Base.php" role="php" />
@@ -405,9 +403,7 @@
    <install as="Horde/Dav/Principals.php" name="lib/Horde/Dav/Principals.php" />
    <install as="Horde/Dav/RootCollection.php" name="lib/Horde/Dav/RootCollection.php" />
    <install as="Horde/Dav/Calendar/Backend.php" name="lib/Horde/Dav/Calendar/Backend.php" />
-   <install as="Horde/Dav/Calendar/RootNode.php" name="lib/Horde/Dav/Calendar/RootNode.php" />
    <install as="Horde/Dav/Contacts/Backend.php" name="lib/Horde/Dav/Contacts/Backend.php" />
-   <install as="Horde/Dav/Contacts/RootNode.php" name="lib/Horde/Dav/Contacts/RootNode.php" />
    <install as="Horde/Dav/Storage/Base.php" name="lib/Horde/Dav/Storage/Base.php" />
    <install as="Horde/Dav/Storage/Sql.php" name="lib/Horde/Dav/Storage/Sql.php" />
    <install as="migration/1_horde_dav_base_tables.php" name="migration/Horde/Dav/1_horde_dav_base_tables.php" />
