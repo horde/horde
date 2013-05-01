@@ -85,6 +85,7 @@ HermesCore = {
             this.closeView(loc);
             locCap = loc.capitalize();
             $('hermesNav' + locCap).up().addClassName('horde-active');
+            $('hermesReturnToSearch').hide();
             switch (loc) {
             case 'time':
                 this.updateView(loc);
@@ -176,6 +177,7 @@ HermesCore = {
                 return;
 
             case 'hermesNavSearch':
+                this.updateView('search');
                 this.go('search');
                 e.stop();
                 return;
@@ -290,6 +292,11 @@ HermesCore = {
             // Search Form
             case 'hermesSearch':
                 this.search();
+                e.stop();
+                return;
+
+            case 'hermesReturnToSearch':
+                this.go('search');
                 e.stop();
                 return;
             }
@@ -442,6 +449,7 @@ HermesCore = {
         this.fromSearch = (this.view == 'search');
         if (this.view != 'time') {
             this.go('time');
+            $('hermesReturnToSearch').show();
         }
     },
 

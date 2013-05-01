@@ -65,6 +65,7 @@
       <input id="hermesTimeSave" class="horde-default" type="submit" value="<?php echo _("Save") ?>" />
       <input id="hermesTimeSaveAsNew" class="horde-create" type="submit" value="<?php echo _("Save As New") ?>" style="display:none;" />
       <input id="hermesTimeReset" type="reset" value ="<?php echo _("Reset") ?>" />
+      <input id="hermesReturnToSearch" class="horde-cancel" type="button" value="<?php echo _("Return to search results")?>" />
     </div>
   </form>
   <!-- End Time Entry Form -->
