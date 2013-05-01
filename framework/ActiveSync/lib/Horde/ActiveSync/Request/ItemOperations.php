@@ -108,7 +108,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE :
                               ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_USERNAME) ? self::ITEMOPERATIONS_USERNAME :
                               ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_PASSWORD) ? self::ITEMOPERATIONS_PASSWORD :
-                              ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Search::SEARCH_LONGID) ? Horde_ActiveSync_Request_Search::SYNC_SEARCH_LONGID :
+                              ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Search::SEARCH_LONGID) ? Horde_ActiveSync_Request_Search::SEARCH_LONGID :
                               -1)))))))))) != -1) {
 
                     if ($reqtag == self::ITEMOPERATIONS_OPTIONS) {
