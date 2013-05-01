@@ -64,6 +64,10 @@ class Beatnik_Driver {
             return array();
         }
 
+        if (empty($domains)) {
+            return array();
+        }
+
         if (!$GLOBALS['registry']->isAdmin() &&
             !$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains', $GLOBALS['registry']->getAuth(), $perms)) {
             foreach ($domains as $id => $domain) {
