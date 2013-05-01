@@ -22,7 +22,6 @@ define('BEATNIK_BASE', HORDE_BASE . '/beatnik');
 
 // Do CLI checks and environment setup first.
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/CLI.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_CLI::runningFromCLI()) {

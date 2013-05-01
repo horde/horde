@@ -84,7 +84,6 @@ class Beatnik_Driver {
 
         // Sort the resulting list by domain name
         // TODO: Allow sorting by other columns
-        require_once 'Horde/Array.php';
         Horde_Array::arraySort($domains, 'zonename');
 
         return $domains;
@@ -308,7 +307,6 @@ class Beatnik_Driver {
             }
         }
 
-        require_once __DIR__ . '/Driver/' . $driver . '.php';
         $class = 'Beatnik_Driver_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
