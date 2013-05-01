@@ -545,6 +545,18 @@ HermesCore = {
                     throw $break;
                 }
             }.bind(this));
+        } else if (view == 'time') {
+            t = $('hermesTimeListInternal');
+            t.select('.hermesTimeListRow').each(function(r) {
+                if (r.retrieve('sid') == sid) {
+                    if (slice) {
+                        r.insert({ before: this.buildTimeRow(slice).show() });
+                    }
+                    r.remove();
+                    this.updateTimeSummary();
+                    throw $break;
+                }
+            }.bind(this));
         }
     },
 
@@ -767,16 +779,14 @@ HermesCore = {
     {
         $('hermesLoadingTime').hide();
 
-        if (Hermes.conf.user != r.employee && this.getSliceFromCache(sid)) {
+        if (Hermes.conf.user != r.e && this.getSliceFromCache(sid)) {
             this.removeSliceFromCache(sid);
+            this.replaceSliceInUI(sid, null, this.view);
             this.reverseSort = false;
-            this.updateView(this.view);
-            this.buildTimeTable();
         } else if (this.getSliceFromCache(sid)) {
             this.replaceSliceInCache(sid, r);
             this.reverseSort = false;
-            this.updateView(this.view);
-            this.buildTimeTable();
+            this.replaceSliceInUI(sid, r, this.view);
         }
         $('hermesTimeForm').reset();
         $('hermesTimeFormId').value = null;
