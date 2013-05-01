@@ -1770,9 +1770,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $use_cache = $this->_initCache(true);
 
         if ($ids->all) {
-            $ids = ($list_msgs || $use_cache)
-                ? $this->resolveIds($this->_selected, $ids, 2)
-                : $ids;
+            if (!$uidplus && ($list_msgs || $use_cache)) {
+                $ids = $this->resolveIds($this->_selected, $ids, 2);
+            }
         } elseif ($uidplus) {
             /* If QRESYNC is not available, and we are returning the list of
              * expunged messages (or we are caching), we have to make sure we
