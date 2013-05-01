@@ -767,7 +767,7 @@ HermesCore = {
     {
         $('hermesLoadingTime').hide();
 
-        if (r === true && this.getSliceFromCache(sid)) {
+        if (Hermes.conf.user != r.employee && this.getSliceFromCache(sid)) {
             this.removeSliceFromCache(sid);
             this.reverseSort = false;
             this.updateView(this.view);

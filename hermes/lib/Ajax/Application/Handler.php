@@ -358,10 +358,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      * Update a slice. @see Hermes_Slice::readForm() for the data expeted in
      * the posted form.
      *
-     * @return boolean|array  The new slice data, or true if the update was
-     *                        successful, but the slice should not be added
-     *                        to the current user's current slices (the slice
-     *                        was for another employee).
+     * @return array  The new slice data.
      */
     public function updateSlice()
     {
@@ -370,14 +367,13 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         try {
             $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($slice));
             if ($slice['employee'] == $GLOBALS['registry']->getAuth()) {
-                $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id']));
                 $GLOBALS['notification']->push(_("Your time was successfully updated."), 'horde.success');
-
-                return current($new)->toJson();
             } else {
                 $GLOBALS['notification']->push(sprintf(_("The time was successfully updated and saved to the time sheet of %s."), $slice['employee']), 'horde.success');
-                return true;
             }
+
+            $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id']));
+            return current($new)->toJson();
         } catch (Hermes_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }
