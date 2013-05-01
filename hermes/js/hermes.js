@@ -30,6 +30,7 @@ HermesCore = {
     today: null,
     redBoxLoading: false,
     fromSearch: false,
+    wrongFormat: $H(),
 
     onException: function(parentfunc, r, e)
     {
@@ -705,8 +706,9 @@ HermesCore = {
     saveTime: function()
     {
         if (!$F('hermesTimeFormDesc') ||
-            !$F('hermesTimeFormHours'),
-            !$F('hermesTimeFormJobtype')) {
+            !$F('hermesTimeFormHours') ||
+            !$F('hermesTimeFormJobtype') ||
+            this.wrongFormat.size()) {
 
             HordeCore.notify(Hermes.text.fix_form_values, 'horde.warning');
             return;
@@ -1463,6 +1465,20 @@ HermesCore = {
         }
     },
 
+    checkDate: function(e) {
+        var elm = e.element();
+        if ($F(elm)) {
+            var date = Date.parseExact($F(elm), Hermes.conf.date_format) || Date.parse($F(elm));
+            if (date) {
+                elm.setValue(date.toString(Hermes.conf.date_format));
+                this.wrongFormat.unset(elm.id);
+            } else {
+                HordeCore.notify(Hermes.text.wrong_date_format.interpolate({ wrong: $F(elm), right: new Date().toString(Hermes.conf.date_format) }), 'horde.warning');
+                this.wrongFormat.set(elm.id, true);
+            }
+        }
+    },
+
     /* Onload function. */
     onDomLoad: function()
     {
@@ -1477,6 +1493,9 @@ HermesCore = {
         if ($('hermesJobTypeSelect')) {
             $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
         }
+
+        // Validate the date format.
+        $('hermesTimeFormStartDate').observe('blur', this.checkDate.bind(this));
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
