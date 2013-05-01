@@ -1823,17 +1823,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Always use UID EXPUNGE if available. */
         if ($uidplus) {
-            /* Don't attempt to expunge if we have no UIDs. */
-            if (!count($ids)) {
-                return $expunged_ob;
+            foreach ($ids->split(2000) as $val) {
+                $this->_sendLine($this->_clientCommand(array(
+                    'UID',
+                    'EXPUNGE',
+                    $val
+                )));
             }
-
-            $cmd = $this->_clientCommand(array(
-                'UID',
-                'EXPUNGE',
-                strval($ids)
-            ));
-            $this->_sendLine($cmd);
         } elseif ($use_cache || $list_msgs) {
             $this->_sendLine($this->_clientCommand('EXPUNGE'));
         } else {

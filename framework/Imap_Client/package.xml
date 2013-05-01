@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Support UID EXPUNGE command for large UID lists (Bug #12228).
 * [mms] Don&apos;t attempt to expunge messages if the list of UIDs to expunge is empty (Bug #12226).
 * [mms] Correctly use limit parameter to Horde_Imap_Client_Ids#split() (Bug #12216).
 * [mms] Add a MongoDB based backend for storing cached IMAP/POP data.
@@ -1670,6 +1671,7 @@
    <date>2013-04-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Support UID EXPUNGE command for large UID lists (Bug #12228).
 * [mms] Don&apos;t attempt to expunge messages if the list of UIDs to expunge is empty (Bug #12226).
 * [mms] Correctly use limit parameter to Horde_Imap_Client_Ids#split() (Bug #12216).
 * [mms] Add a MongoDB based backend for storing cached IMAP/POP data.
