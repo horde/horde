@@ -532,6 +532,22 @@ HermesCore = {
         }
     },
 
+    replaceSliceInUI: function(sid, slice, view)
+    {
+        var t;
+
+        if (view == 'search') {
+            t = $('hermesSearchListInternal');
+            t.select('.hermesTimeListRow').each(function(r) {
+                if (r.retrieve('sid') == sid) {
+                    r.insert({ before: this.buildSearchRow(slice).show() });
+                    r.remove();
+                    throw $break;
+                }
+            }.bind(this));
+        }
+    },
+
     /**
      * Removes sid's slice from cache
      *
@@ -769,8 +785,7 @@ HermesCore = {
         if (this.fromSearch) {
             this.fromSearch = false;
             this.replaceSliceInCache(sid, r, 'search');
-            this.updateView('search');
-            this.buildSearchResultsTable();
+            this.replaceSliceInUI(sid, r, 'search');
             this.go('search');
         }
     },
