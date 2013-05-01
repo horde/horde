@@ -26,15 +26,25 @@ class HordeDavBaseTables extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $t = $this->createTable('horde_dav_ids', array('autoincrementKey' => false));
+        $t = $this->createTable('horde_dav_objects', array('autoincrementKey' => false));
         $t->column('id_collection', 'string', array('null' => false));
         $t->column('id_internal', 'string', array('limit' => 255, 'null' => false));
         $t->column('id_external', 'string', array('limit' => 255, 'null' => false));
         $t->end();
 
-        $this->addIndex('horde_dav_ids', 'id_collection');
-        $this->addIndex('horde_dav_ids', 'id_internal', array('unique' => true));
-        $this->addIndex('horde_dav_ids', 'id_external', array('unique' => true));
+        $this->addIndex('horde_dav_objects', 'id_collection');
+        $this->addIndex('horde_dav_objects', 'id_internal', array('unique' => true));
+        $this->addIndex('horde_dav_objects', 'id_external', array('unique' => true));
+
+        $t = $this->createTable('horde_dav_collections', array('autoincrementKey' => false));
+        $t->column('id_interface', 'string', array('limit' => 255, 'null' => false));
+        $t->column('id_internal', 'string', array('limit' => 255, 'null' => false));
+        $t->column('id_external', 'string', array('limit' => 255, 'null' => false));
+        $t->end();
+
+        $this->addIndex('horde_dav_collections', 'id_interface');
+        $this->addIndex('horde_dav_collections', 'id_internal');
+        $this->addIndex('horde_dav_collections', 'id_external', array('unique' => true));
     }
 
     /**
@@ -42,6 +52,7 @@ class HordeDavBaseTables extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        $this->dropTable('horde_dav_ids');
+        $this->dropTable('horde_dav_objects');
+        $this->dropTable('horde_dav_collections');
     }
 }

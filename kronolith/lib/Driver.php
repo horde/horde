@@ -490,7 +490,7 @@ class Kronolith_Driver
         try {
             $GLOBALS['injector']
                 ->getInstance('Horde_Dav_Storage')
-                ->deleteInternalId($event->id, $event->calendar);
+                ->deleteInternalObjectId($event->id, $event->calendar);
         } catch (Horde_Exception $e) {
             Horde::log($e);
         }

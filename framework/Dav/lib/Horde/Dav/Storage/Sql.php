@@ -42,7 +42,7 @@ class Horde_Dav_Storage_Sql extends Horde_Dav_Storage_Base
     }
 
     /**
-     * Adds an ID map to the backend storage.
+     * Adds an object ID map to the backend storage.
      *
      * @param string $internal    An internal object ID.
      * @param string $external    An external object ID.
@@ -50,11 +50,11 @@ class Horde_Dav_Storage_Sql extends Horde_Dav_Storage_Base
      *
      * @throws Horde_Dav_Exception
      */
-    public function addMap($internal, $external, $collection)
+    public function addObjectMap($internal, $external, $collection)
     {
         try {
             $this->_db->insert(
-                'INSERT INTO horde_dav_ids (id_internal, id_external, id_collection) '
+                'INSERT INTO horde_dav_objects (id_internal, id_external, id_collection) '
                 . 'VALUES (?, ?, ?)',
                 array($internal, $external, $collection)
             );
@@ -64,7 +64,29 @@ class Horde_Dav_Storage_Sql extends Horde_Dav_Storage_Base
     }
 
     /**
-     * Returns an internal ID from a stored ID map.
+     * Adds a collection ID map to the backend storage.
+     *
+     * @param string $internal   An internal collection ID.
+     * @param string $external   An external collection ID.
+     * @param string $interface  The collection's application.
+     *
+     * @throws Horde_Dav_Exception
+     */
+    public function addCollectionMap($internal, $external, $interface)
+    {
+        try {
+            $this->_db->insert(
+                'INSERT INTO horde_dav_collections (id_internal, id_external, id_interface) '
+                . 'VALUES (?, ?, ?)',
+                array($internal, $external, $interface)
+            );
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Dav_Exception($e);
+        }
+    }
+
+    /**
+     * Returns an internal ID from a stored object ID map.
      *
      * @param string $external    An external object ID.
      * @param string $collection  The collection of an object.
@@ -73,11 +95,11 @@ class Horde_Dav_Storage_Sql extends Horde_Dav_Storage_Base
      *
      * @throws Horde_Dav_Exception
      */
-    public function getInternalId($external, $collection)
+    public function getInternalObjectId($external, $collection)
     {
         try {
             return $this->_db->selectValue(
-                'SELECT id_internal FROM horde_dav_ids '
+                'SELECT id_internal FROM horde_dav_objects '
                 . 'WHERE id_external = ? AND id_collection = ?',
                 array($external, $collection)
             );
@@ -87,22 +109,95 @@ class Horde_Dav_Storage_Sql extends Horde_Dav_Storage_Base
     }
 
     /**
-     * Returns an external ID from a stored ID map.
+     * Returns an external ID from a stored object ID map.
      *
      * @param string $internal    An internal object ID.
      * @param string $collection  The collection of an object.
      *
-     * @return string  The object's internal ID or null.
+     * @return string  The object's external ID or null.
      *
      * @throws Horde_Dav_Exception
      */
-    public function getExternalId($internal, $collection)
+    public function getExternalObjectId($internal, $collection)
     {
         try {
             return $this->_db->selectValue(
-                'SELECT id_external FROM horde_dav_ids '
+                'SELECT id_external FROM horde_dav_objects '
                 . 'WHERE id_internal = ? AND id_collection = ?',
                 array($internal, $collection)
+            );
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Dav_Exception($e);
+        }
+    }
+
+    /**
+     * Returns an internal ID from a stored collection ID map.
+     *
+     * @param string $external   An external collection ID.
+     * @param string $interface  The collection's application.
+     *
+     * @return string  The collection's internal ID or null.
+     *
+     * @throws Horde_Dav_Exception
+     */
+    public function getInternalCollectionId($external, $interface)
+    {
+        try {
+            return $this->_db->selectValue(
+                'SELECT id_internal FROM horde_dav_collections '
+                . 'WHERE id_external = ? AND id_interface = ?',
+                array($external, $interface)
+            );
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Dav_Exception($e);
+        }
+    }
+
+    /**
+     * Returns an external ID from a stored collection ID map.
+     *
+     * @param string $internal   An internal collection ID.
+     * @param string $interface  The collection's application.
+     *
+     * @return string  The collection's external ID.
+     *
+     * @throws Horde_Dav_Exception
+     */
+    public function getExternalCollectionId($internal, $interface)
+    {
+        try {
+            $external = $this->_db->selectValue(
+                'SELECT id_external FROM horde_dav_collections '
+                . 'WHERE id_internal = ? AND id_interface = ?',
+                array($internal, $interface)
+            );
+            if (!$external) {
+                $external = $interface . ':' . $internal;
+                $this->addCollectionMap($internal, $external, $interface);
+            }
+            return $external;
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Dav_Exception($e);
+        }
+    }
+
+    /**
+     * Returns an interface name from a stored collection ID map.
+     *
+     * @param string $external   An external collection ID.
+     *
+     * @return string  The collection's application.
+     *
+     * @throws Horde_Dav_Exception
+     */
+    public function getCollectionInterface($external)
+    {
+        try {
+            return $this->_db->selectValue(
+                'SELECT id_interface FROM horde_dav_collections '
+                . 'WHERE id_external = ?',
+                array($external)
             );
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Dav_Exception($e);
@@ -117,11 +212,11 @@ class Horde_Dav_Storage_Sql extends Horde_Dav_Storage_Base
      *
      * @throws Horde_Dav_Exception
      */
-    public function deleteInternalId($internal, $collection)
+    public function deleteInternalObjectId($internal, $collection)
     {
         try {
             $this->_db->delete(
-                'DELETE FROM horde_dav_ids '
+                'DELETE FROM horde_dav_objects '
                 . 'WHERE id_internal = ? AND id_collection = ?',
                 array($internal, $collection)
             );
@@ -138,13 +233,55 @@ class Horde_Dav_Storage_Sql extends Horde_Dav_Storage_Base
      *
      * @throws Horde_Dav_Exception
      */
-    public function deleteExternalId($external, $collection)
+    public function deleteExternalObjectId($external, $collection)
     {
         try {
             $this->_db->delete(
-                'DELETE FROM horde_dav_ids '
+                'DELETE FROM horde_dav_objects '
                 . 'WHERE id_external = ? AND id_collection = ?',
                 array($external, $collection)
+            );
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Dav_Exception($e);
+        }
+    }
+
+    /**
+     * Deletes an ID map from the backend storage.
+     *
+     * @param string $internal    An internal collection ID.
+     * @param string $interface  The collection's application.
+     *
+     * @throws Horde_Dav_Exception
+     */
+    public function deleteInternalCollectionId($internal, $interface)
+    {
+        try {
+            $this->_db->delete(
+                'DELETE FROM horde_dav_collections '
+                . 'WHERE id_internal = ? AND id_interface = ?',
+                array($internal, $interface)
+            );
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Dav_Exception($e);
+        }
+    }
+
+    /**
+     * Deletes an ID map from the backend storage.
+     *
+     * @param string $external    An external collection ID.
+     * @param string $interface  The collection's application.
+     *
+     * @throws Horde_Dav_Exception
+     */
+    public function deleteExternalCollectionId($external, $interface)
+    {
+        try {
+            $this->_db->delete(
+                'DELETE FROM horde_dav_collections '
+                . 'WHERE id_external = ? AND id_interface = ?',
+                array($external, $interface)
             );
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Dav_Exception($e);

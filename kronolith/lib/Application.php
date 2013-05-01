@@ -672,7 +672,7 @@ class Kronolith_Application extends Horde_Registry_Application
         $calendars = array();
         foreach ($shares as $id => $share) {
             try {
-                $id = $dav->getExternalId($id, '') ?: $id;
+                $id = $dav->getExternalCollectionId($id, 'calendar');
             } catch (Horde_Dav_Exception $e) {
             }
             $calendars[] = array(
@@ -694,14 +694,15 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function davGetObjects($collection)
     {
-        if (!Kronolith::hasPermission($collection, Horde_Perms::READ)) {
-            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
-        }
-
         $dav = $GLOBALS['injector']
             ->getInstance('Horde_Dav_Storage');
 
-        $kronolith_driver = Kronolith::getDriver(null, $collection);
+        $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
+        if (!Kronolith::hasPermission($internal, Horde_Perms::READ)) {
+            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+        }
+
+        $kronolith_driver = Kronolith::getDriver(null, $internal);
         $allEvents = $kronolith_driver->listEvents(
             null,
             null,
@@ -714,7 +715,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 $event->loadHistory();
                 $modified = $event->modified ?: $event->created;
                 try {
-                    $id = $dav->getExternalId($id, $collection) ?: $id . '.ics';
+                    $id = $dav->getExternalObjectId($id, $internal) ?: $id . '.ics';
                 } catch (Horde_Dav_Exception $e) {
                 }
                 $events[] = array(
@@ -734,22 +735,23 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function davGetObject($collection, $object)
     {
-        if (!Kronolith::hasPermission($collection, Horde_Perms::READ)) {
-            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
-        }
-
         $dav = $GLOBALS['injector']
             ->getInstance('Horde_Dav_Storage');
 
-        $kronolith_driver = Kronolith::getDriver(null, $collection);
+        $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
+        if (!Kronolith::hasPermission($internal, Horde_Perms::READ)) {
+            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+        }
+
+        $kronolith_driver = Kronolith::getDriver(null, $internal);
         try {
-            $object = $dav->getInternalId($object, $collection) ?: preg_replace('/\.ics$/', '', $object);
+            $object = $dav->getInternalObjectId($object, $internal) ?: preg_replace('/\.ics$/', '', $object);
         } catch (Horde_Dav_Exception $e) {
         }
         $event = $kronolith_driver->getEvent($object);
         $id = $event->id;
         try {
-            $id = $dav->getExternalId($id, $collection) ?: $id . '.ics';
+            $id = $dav->getExternalObjectId($id, $internal) ?: $id . '.ics';
         } catch (Horde_Dav_Exception $e) {
         }
 
@@ -779,7 +781,11 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function davPutObject($collection, $object, $data)
     {
-        if (!Kronolith::hasPermission($collection, Horde_Perms::EDIT)) {
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+
+        $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
+        if (!Kronolith::hasPermission($internal, Horde_Perms::EDIT)) {
             throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
         }
 
@@ -788,7 +794,7 @@ class Kronolith_Application extends Horde_Registry_Application
             throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
         }
 
-        $kronolith_driver = Kronolith::getDriver(null, $collection);
+        $kronolith_driver = Kronolith::getDriver(null, $internal);
 
         foreach ($ical->getComponents() as $content) {
             if (!($content instanceof Horde_Icalendar_Vevent)) {
@@ -799,7 +805,13 @@ class Kronolith_Application extends Horde_Registry_Application
             $event->fromiCalendar($content);
 
             try {
-                $existing_event = $kronolith_driver->getEvent($object);
+                try {
+                    $existing_id = $dav->getInternalObjectId($object, $internal)
+                        ?: preg_replace('/\.ics$/', '', $object);
+                } catch (Horde_Dav_Exception $e) {
+                    $existing_id = $object;
+                }
+                $existing_event = $kronolith_driver->getEvent($existing_id);
                 /* Check if our event is newer then the existing - get the
                  * event's history. */
                 $existing_event->loadHistory();
@@ -825,9 +837,7 @@ class Kronolith_Application extends Horde_Registry_Application
             $id = $event->save();
 
             if (!$existing_event) {
-                $GLOBALS['injector']
-                    ->getInstance('Horde_Dav_Storage')
-                    ->addMap($id, $object, $collection);
+                $dav->addObjectMap($id, $object, $internal);
             }
         }
     }
@@ -836,20 +846,22 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function davDeleteObject($collection, $object)
     {
-        if (!Kronolith::hasPermission($collection, Horde_Perms::EDIT)) {
-            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
+        $dav = $GLOBALS['injector']->getInstance('Horde_Dav_Storage');
+
+        $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
+        if (!Kronolith::hasPermission($internal, Horde_Perms::DELETE)) {
+            throw new Kronolith_Exception("Calendar does not exist or no permission to delete");
         }
 
-        $dav = $GLOBALS['injector']->getInstance('Horde_Dav_Storage');
         try {
-            $object = $dav->getInternalId($object, $collection)
+            $object = $dav->getInternalObjectId($object, $internal)
                 ?: preg_replace('/\.ics$/', '', $object);
         } catch (Horde_Dav_Exception $e) {
         }
-        Kronolith::getDriver(null, $collection)->deleteEvent($object);
+        Kronolith::getDriver(null, $internal)->deleteEvent($object);
 
         try {
-            $dav->deleteExternalId($object, $collection);
+            $dav->deleteExternalObjectId($object, $internal);
         } catch (Horde_Dav_Exception $e) {
         }
     }
