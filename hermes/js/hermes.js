@@ -707,7 +707,7 @@ HermesCore = {
         if ($F('hermesTimeFormId') > 0) {
             HordeCore.doAction('updateSlice',
                 params,
-                { 'callback': this.editTimeCallback.curry($F('hermesTimeFormId')).bind(this) }
+                { 'callback': this.editSliceCallback.curry($F('hermesTimeFormId')).bind(this) }
             );
         } else {
             HordeCore.doAction('enterTime',
@@ -763,7 +763,7 @@ HermesCore = {
      * @param sid  The slice id
      * @param r    The results from the Ajax call.
      */
-    editTimeCallback: function(sid, r)
+    editSliceCallback: function(sid, r)
     {
         $('hermesLoadingTime').hide();
 
