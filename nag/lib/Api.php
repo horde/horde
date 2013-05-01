@@ -380,10 +380,10 @@ class Nag_Api extends Horde_Registry_Api
                     $results[$key]['contentlength'] = 1;
                 }
                 if (in_array('modified', $properties)) {
-                    $results[$key]['modified'] = $this->modified($task->uid, $path);
+                    $results[$key]['modified'] = $this->modified($task->uid, $parts[1]);
                 }
                 if (in_array('created', $properties)) {
-                    $results[$key]['created'] = $this->getActionTimestamp($task->uid, 'add', $path);
+                    $results[$key]['created'] = $this->getActionTimestamp($task->uid, 'add', $parts[1]);
                 }
             }
             return $results;
