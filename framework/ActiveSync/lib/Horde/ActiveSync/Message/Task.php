@@ -101,6 +101,21 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     const REMINDER_SET_TRUE       = 1;
 
     /**
+     * DOW mapping for DATE to MASK
+     *
+     * @var array
+     */
+    protected $_dayOfWeekMap = array(
+        Horde_Date::DATE_SUNDAY    => Horde_Date::MASK_SUNDAY,
+        Horde_Date::DATE_MONDAY    => Horde_Date::MASK_MONDAY,
+        Horde_Date::DATE_TUESDAY   => Horde_Date::MASK_TUESDAY,
+        Horde_Date::DATE_WEDNESDAY => Horde_Date::MASK_WEDNESDAY,
+        Horde_Date::DATE_THURSDAY  => Horde_Date::MASK_THURSDAY,
+        Horde_Date::DATE_FRIDAY    => Horde_Date::MASK_FRIDAY,
+        Horde_Date::DATE_SATURDAY  => Horde_Date::MASK_SATURDAY,
+    );
+
+    /**
      * Property mapping
      *
      * @var array
