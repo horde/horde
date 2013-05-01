@@ -51,7 +51,7 @@ class Beatnik_Application extends Horde_Registry_Application
             try {
                 $domain = $this->driver->getDomain(Horde_Util::getFormData('curdomain'));
             } catch (Exception $e) {
-                $notification->push($e->getMessage(), 'horde.error');
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
                 $domain = $domains[0];
             }
 
@@ -63,7 +63,7 @@ class Beatnik_Application extends Horde_Registry_Application
             $_SESSION['beatnik']['expertmode'] = false;
         } elseif (Horde_Util::getFormData('expertmode') == 'toggle') {
             if ($_SESSION['beatnik']['expertmode']) {
-                $notification->push(_("Expert Mode off"), 'horde.message');
+                $GLOBALS['notification']->push(_("Expert Mode off"), 'horde.message');
                 $_SESSION['beatnik']['expertmode'] = false;
             } else {
                 $GLOBALS['notification']->push(_("Expert Mode ON"), 'horde.warning');
