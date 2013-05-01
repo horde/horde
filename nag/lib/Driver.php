@@ -463,7 +463,7 @@ abstract class Nag_Driver
      */
     protected function _updateTags(array $task)
     {
-        Nag::getTagger()->replaceTags(
+        $GLOBALS['injector']->getInstance('Nag_Tagger')->replaceTags(
             $task['uid'],
             $task['tags'],
             $task['owner'],
@@ -478,7 +478,7 @@ abstract class Nag_Driver
      */
     protected function _addTags(array $task)
     {
-        Nag::getTagger()->tag(
+        $GLOBALS['injector']->getInstance('Nag_Tagger')->tag(
             $task['uid'],
             $task['tags'],
             $task['owner'],

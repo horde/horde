@@ -284,7 +284,7 @@ class Nag_View_List
             array(
                 'completed' => $search_completed,
                 'due' => $date,
-                'tags' => empty($this->_vars->search_tags) ? array() : Nag::getTagger()->split($this->_vars->search_tags))
+                'tags' => empty($this->_vars->search_tags) ? array() : $GLOBALS['injector']->getInstance('Nag_Tagger')->split($this->_vars->search_tags))
         );
         try {
             $tasks = $search->getSlice();

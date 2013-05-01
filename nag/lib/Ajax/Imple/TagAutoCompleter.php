@@ -31,7 +31,7 @@ class Nag_Ajax_Imple_TagAutoCompleter extends Horde_Core_Ajax_Imple_AutoComplete
      */
     protected function _handleAutoCompleter($input)
     {
-        return array_values(Nag::getTagger()->listTags($input));
+        return array_values($GLOBALS['injector']->getInstance('Nag_Tagger')->listTags($input));
     }
 
 }

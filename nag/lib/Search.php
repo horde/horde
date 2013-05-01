@@ -136,7 +136,7 @@ class Nag_Search implements Serializable
      */
     protected function _search($page, $perpage)
     {
-        global $prefs;
+        global $injector, $prefs;
 
         if (!empty($this->_due)) {
             $parser = Horde_Date_Parser::factory(array('locale' => $GLOBALS['prefs']->getValue('language')));
@@ -157,7 +157,7 @@ class Nag_Search implements Serializable
         }
         $search_results = new Nag_Task();
         if (!empty($this->_tags)) {
-            $tagged_tasks = Nag::getTagger()->search(
+            $tagged_tasks = $injector->getInstance('Nag_Tagger')->search(
                 $this->_tags,
                 array('user' => $GLOBALS['registry']->getAuth())
             );

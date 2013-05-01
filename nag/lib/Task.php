@@ -297,10 +297,9 @@ class Nag_Task
     public function __get($name)
     {
         switch ($name) {
-
         case 'tags':
             if (!isset($this->_tags)) {
-                $this->synchronizeTags(Nag::getTagger()->getTags($this->uid, 'task'));
+                $this->synchronizeTags($GLOBALS['injector']->getInstance('Nag_Tagger')->getTags($this->uid, 'task'));
             }
             return $this->_tags;
         }
@@ -813,7 +812,7 @@ class Nag_Task
             return;
         }
 
-        $results = Nag::getTagger()->getTags($ids);
+        $results = $GLOBALS['injector']->getInstance('Nag_Tagger')->getTags($ids);
 
         if (isset($results[$this->uid])) {
             $this->synchronizeTags($results[$this->uid]);
@@ -837,7 +836,7 @@ class Nag_Task
         if (isset($this->internaltags)) {
             usort($tags, 'strcoll');
             if (array_diff($this->internaltags, $tags)) {
-                Nag::getTagger()->replaceTags(
+                $GLOBALS['injector']->getInstance('Nag_Tagger')->replaceTags(
                     $this->uid,
                     $this->internaltags,
                     $this->owner,

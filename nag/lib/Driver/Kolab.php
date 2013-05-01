@@ -335,7 +335,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             );
         }
         if ($task['tags'] && !is_array($task['tags'])) {
-            $object['categories'] = Nag::getTagger()->split($task['tags']);
+            $object['categories'] = $GLOBALS['injector']->getInstance('Nag_Tagger')->split($task['tags']);
             usort($object['categories'], 'strcoll');
         }
         return $object;
