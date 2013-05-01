@@ -10,8 +10,8 @@
   <email>bklang@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:36:14</time>
+ <date>2013-05-01</date>
+ <time>13:28:54</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -22,11 +22,13 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL</license>
  <notes>
+* [mjr] Add initial database migration.
 * Initial release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
+    <file name="autogenerate.php" role="horde" />
     <file name="autogenerate.php.dist" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="prefs.php" role="horde" />
@@ -38,9 +40,6 @@
     <file name="TODO" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
-    <dir name="src">
-     <file name="beatnik.js" role="horde" />
-    </dir> <!-- /js/src -->
     <file name="beatnik.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
@@ -85,6 +84,9 @@
     <file name=".htaccess" role="horde" />
     <file name="beatnik.pot" role="horde" />
    </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_beatnik_base_tables.php" role="horde" />
+   </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="sql">
      <file name="beatnik.mysql.sql" role="horde" />
@@ -153,6 +155,7 @@
    <install as="beatnik/index.php" name="index.php" />
    <install as="beatnik/listzones.php" name="listzones.php" />
    <install as="beatnik/viewzone.php" name="viewzone.php" />
+   <install as="beatnik/config/autogenerate.php" name="config/autogenerate.php" />
    <install as="beatnik/config/autogenerate.php.dist" name="config/autogenerate.php.dist" />
    <install as="beatnik/config/conf.xml" name="config/conf.xml" />
    <install as="beatnik/config/prefs.php" name="config/prefs.php" />
@@ -161,7 +164,6 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="beatnik/js/beatnik.js" name="js/beatnik.js" />
-   <install as="beatnik/js/src/beatnik.js" name="js/src/beatnik.js" />
    <install as="beatnik/lib/Application.php" name="lib/Application.php" />
    <install as="beatnik/lib/Beatnik.php" name="lib/Beatnik.php" />
    <install as="beatnik/lib/Driver.php" name="lib/Driver.php" />
@@ -182,6 +184,7 @@
    <install as="beatnik/locale/lv/LC_MESSAGES/beatnik.po" name="locale/lv/LC_MESSAGES/beatnik.po" />
    <install as="beatnik/locale/sl/LC_MESSAGES/beatnik.mo" name="locale/sl/LC_MESSAGES/beatnik.mo" />
    <install as="beatnik/locale/sl/LC_MESSAGES/beatnik.po" name="locale/sl/LC_MESSAGES/beatnik.po" />
+   <install as="beatnik/migration/1_beatnik_base_tables.php" name="migration/1_beatnik_base_tables.php" />
    <install as="beatnik/scripts/export_config.php" name="scripts/export_config.php" />
    <install as="beatnik/scripts/sql/beatnik.mysql.sql" name="scripts/sql/beatnik.mysql.sql" />
    <install as="beatnik/templates/menu.inc" name="templates/menu.inc" />
@@ -206,9 +209,10 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-07-19</date>
+   <date>2013-05-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL</license>
    <notes>
+* [mjr] Add initial database migration.
 * Initial release.
    </notes>
   </release>
