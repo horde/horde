@@ -10,40 +10,8 @@
  * @author Ben Klang <ben@alkaloid.net>
  * @package Beatnik
  */
-class Beatnik {
-
-    /**
-     * Build Beatnik's list of menu items.
-     */
-    function getMenu($returnType = 'object')
-    {
-        // We are editing rather than adding if an ID was passed
-        $editing = Horde_Util::getFormData('id');
-        $editing = !empty($editing);
-
-        $menu = new Horde_Menu();
-
-        $menu->add(Horde::url('listzones.php'), _("List Domains"), 'website.png');
-        if (!empty($_SESSION['beatnik']['curdomain'])) {
-            $menu->add(Horde::url('editrec.php')->add('curdomain', $_SESSION['beatnik']['curdomain']['zonename']), ($editing) ? _("Edit Record") : _("Add Record"), 'edit.png');
-        } else {
-            $menu->add(Horde::url('editrec.php?rectype=soa'), _("Add Zone"), 'edit.png');
-        }
-
-        $url = Horde::selfUrl(true)->add(array('expertmode' => 'toggle'));
-        $menu->add($url, _("Expert Mode"), 'hide_panel.png', null, '', null, ($_SESSION['beatnik']['expertmode']) ? 'current' : '');
-
-        if (count(Beatnik::needCommit())) {
-            $url = Horde::url('commit.php')->add(array('domain' => 'all'));
-            $menu->add($url, _("Commit All"), 'commit-all.png');
-        }
-
-        if ($returnType == 'object') {
-           return $menu;
-        } else {
-            return $menu->render();
-        }
-    }
+class Beatnik
+{
 
     /**
      * Get possible records
