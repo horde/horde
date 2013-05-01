@@ -358,7 +358,10 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      * Update a slice. @see Hermes_Slice::readForm() for the data expeted in
      * the posted form.
      *
-     * @return array  The new slice data.
+     * @return boolean|array  The new slice data, or true if the update was
+     *                        successful, but the slice should not be added
+     *                        to the current user's current slices (the slice
+     *                        was for another employee).
      */
     public function updateSlice()
     {
