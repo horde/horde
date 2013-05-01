@@ -1116,7 +1116,7 @@ class Nag_Task
             $vTodo->setAttribute('PRIORITY', $this->priority);
         }
 
-        if (!empty($this->parent_id)) {
+        if (!empty($this->parent_id) && !empty($this->parent)) {
             $vTodo->setAttribute('RELATED-TO', $this->parent->uid);
         }
 
