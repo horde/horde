@@ -18,10 +18,12 @@
               <?php foreach ($userType[1] as $username => $user_label): ?>
               <?php $selected = ($username == $GLOBALS['registry']->getAuth()) ? 'selected="selected"' : ''; ?>
                 <option <?php echo $selected ?>value="<?php echo $username ?>"><?php echo htmlspecialchars($user_label) ?></option>
-              <?php endforeach ?>
+              <?php endforeach; ?>
             </select>
           <?php endif; ?>
-        </label>
+          </label>
+        <?php else: ?>
+          <input type="hidden" id="hermesTimeFormEmployee" name="employee" />
         <?php endif; ?>
         <label for="hermesTimeFormClient">
           <?php echo _("Client")?>
