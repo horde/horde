@@ -19,7 +19,7 @@ class Beatnik
      * The keys of this array are the IDs of the record type.  The values
      * are a human friendly description of the record type.
      */
-    function getRecTypes()
+    static public function getRecTypes()
     {
         $beatnik = $GLOBALS['registry']->getApiInstance('beatnik', 'application');
 
@@ -40,7 +40,7 @@ class Beatnik
 
     /**
      */
-    function getRecFields($recordtype)
+    static public function getRecFields($recordtype)
     {
         // Record Format:
         // $recset is an array of fields.  The field IDs are the keys.
@@ -390,7 +390,7 @@ class Beatnik
      *                Mixed if both $domain and $needcommit are passed.  True
      *                on success, PEAR::Error on error.
      */
-    function needCommit($domain = null, $needcommit = null)
+    static public function needCommit($domain = null, $needcommit = null)
     {
         // Make sure we have a valid array with which to work
         if (!isset($_SESSION['beatnik']['needcommit'])) {
@@ -421,7 +421,7 @@ class Beatnik
         }
     }
 
-    function notifyCommits()
+    static public function notifyCommits()
     {
         // This check has to come after the page has finished all work in case
         // the status has changed due to a now-completed edit.
@@ -446,7 +446,7 @@ class Beatnik
      *
      * @return boolean True if the user has permission, False if not
      */
-    function hasPermission($permname, $permmask = null, $numparents = 0)
+    static public function hasPermission($permname, $permmask = null, $numparents = 0)
     {
         if ($GLOBALS['registry']->isAdmin()) {
             return true;
@@ -485,7 +485,7 @@ class Beatnik
      *
      * @return mixed  true on success, PEAR::Error on failure
      */
-    function autogenerate(&$vars)
+    static public function autogenerate(&$vars)
     {
         $beatnik = $GLOBALS['registry']->getApiInstance('beatnik', 'application');
 
@@ -559,7 +559,7 @@ class Beatnik
      *
      * @return int  Incremented serial number
      */
-    function incrementSerial($serial)
+    static public function incrementSerial($serial)
     {
         // Create a serial number of the ad-hoc standard YYYYMMDDNN
         // where YYYYMMDD is the year/month/day of the last update to this
@@ -581,7 +581,7 @@ class Beatnik
      *
      * @return int -1, 0, 1 based on relative sort order
      */
-    function fieldSort($a, $b)
+    static public function fieldSort($a, $b)
     {
         if ($a['index'] < $b['index']) {
             return -1;
