@@ -83,6 +83,14 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function createMailbox($name)
     {
+        $def_ns = $this->_defaultNamespace();
+        if (!is_null($def_ns)) {
+            $empty_ns = $this->_getNamespace('');
+            if (is_null($empty_ns) || $def_ns['name'] != $empty_ns['name']) {
+                $name = $def_ns['name'] . $name;
+            }
+
+        }
         $mbox = new Horde_Imap_Client_Mailbox($name);
         $imap = $this->_getImapOb();
         try {
@@ -1043,6 +1051,54 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return $eas_message;
+    }
+
+    /**
+     * Return the default namespace.
+     *
+     * @return array  The namespace data.
+     */
+    protected function _defaultNamespace()
+    {
+        if (is_null($this->_defaultNamespace)) {
+            foreach ($this->_getNamespacelist() as $ns) {
+                if ($ns['type'] == Horde_Imap_Client::NS_PERSONAL) {
+                    $this->_defaultNamespace = $ns;
+                    break;
+                }
+            }
+        }
+
+        return $this->_defaultNamespace;
+    }
+
+    /**
+     * Return the list of configured namespaces on the IMAP server.
+     *
+     * @return array
+     */
+    protected function _getNamespacelist()
+    {
+        try {
+            return $this->_getImapOb()->getNamespaces();
+        } catch (Horde_Imap_Client_Exception $e) {
+            return array();
+        }
+    }
+
+    protected function _getNamespace($path)
+    {
+        $ns = $this->_getNamespacelist();
+        foreach ($ns as $key => $val) {
+            $mbox = $path . $val['delimiter'];
+            if (strlen($key) && (strpos($mbox, $key) === 0)) {
+                return $val;
+            }
+        }
+
+        return (isset($ns['']) && ($val['type'] == Horde_Imap_Client::NS_PERSONAL))
+            ? $ns['']
+            : null;
     }
 
     /**
