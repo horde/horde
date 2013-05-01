@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-22</date>
- <time>14:51:48</time>
+ <date>2013-05-01</date>
+ <time>00:09:26</time>
  <version>
   <release>2.9.0</release>
   <api>2.9.0</api>
@@ -1668,7 +1668,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-22</date>
+   <date>2013-05-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Support UID EXPUNGE command for large UID lists (Bug #12228).
