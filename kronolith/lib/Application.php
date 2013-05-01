@@ -712,7 +712,7 @@ class Kronolith_Application extends Horde_Registry_Application
             foreach ($dayevents as $event) {
                 $id = $event->id;
                 $event->loadHistory();
-                $modified = $event->modified ?: ($event->created ?: time());
+                $modified = $event->modified ?: $event->created;
                 try {
                     $id = $dav->getExternalId($id, $collection) ?: $id . '.ics';
                 } catch (Horde_Dav_Exception $e) {
@@ -754,7 +754,7 @@ class Kronolith_Application extends Horde_Registry_Application
         }
 
         $event->loadHistory();
-        $modified = $event->modified ?: ($event->created ?: time());
+        $modified = $event->modified ?: $event->created;
 
         $share = $GLOBALS['injector']
             ->getInstance('Kronolith_Shares')
