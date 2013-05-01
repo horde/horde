@@ -14,6 +14,7 @@
 use Sabre\DAV;
 use Sabre\DAVACL;
 use Sabre\CalDAV;
+use Sabre\CardDAV;
 
 /**
  * @author   Ben Klang <bklang@horde.org>
@@ -59,11 +60,13 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
         $calendarBackend = new Horde_Dav_Calendar_Backend($registry, $injector->getInstance('Horde_Dav_Storage'));
         $caldav = new Horde_Dav_Calendar_RootNode($principalBackend, $calendarBackend, $registry);
+        $contactsBackend = new Horde_Dav_Contacts_Backend($registry);
+        $carddav = new Horde_Dav_Contacts_RootNode($principalBackend, $contactsBackend, $registry);
 
         $this->_server = new DAV\Server(
             new Horde_Dav_RootCollection(
                 $registry,
-                array($principals, $caldav),
+                array($principals, $caldav, $carddav),
                 isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null
             )
         );
@@ -81,6 +84,9 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         );
         $this->_server->addPlugin(
             new CalDAV\Plugin()
+        );
+        $this->_server->addPlugin(
+            new CardDAV\Plugin()
         );
         $this->_server->addPlugin(
             new DAV\Locks\Plugin(

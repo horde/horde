@@ -951,7 +951,14 @@ class Turba_Driver implements Countable
             }
         }
 
-        return true;
+        /* Remove any CalDAV mappings. */
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Horde_Dav_Storage')
+                ->deleteInternalObjectId($object_id, $this->_name);
+        } catch (Horde_Exception $e) {
+            Horde::log($e);
+        }
     }
 
     /**

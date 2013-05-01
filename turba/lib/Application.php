@@ -624,4 +624,231 @@ class Turba_Application extends Horde_Registry_Application
         );
     }
 
+    /* DAV methods. */
+
+    /**
+     */
+    public function davGetCollections($user)
+    {
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+        $books = array();
+        foreach (Turba::getAddressBooks(Horde_Perms::SHOW) as $id => $book) {
+            try {
+                $id = $dav->getExternalCollectionId($id, 'contacts') ?: $id;
+            } catch (Horde_Dav_Exception $e) {
+            }
+            $books[] = array(
+                'id' => $id,
+                'uri' => $id,
+                'principaluri' => 'principals/' . $user,
+                '{DAV:}displayname' => $book['title'],
+                '{urn:ietf:params:xml:ns:carddav}supported-address-data'
+                    => new Sabre\CardDAV\Property\SupportedAddressData(
+                        array(
+                            array(
+                                'contentType' => 'text/directory',
+                                'version' => '3.0'
+                            ),
+                            array(
+                                'contentType' => 'text/vcard',
+                                'version' => '3.0'
+                            ),
+                            array(
+                                'contentType' => 'text/x-vcard',
+                                'version' => '2.1'
+                            ),
+                        )
+                    ),
+            );
+        }
+        return $books;
+    }
+
+    /**
+     */
+    public function davGetObjects($collection)
+    {
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+
+        $internal = $dav->getInternalCollectionId($collection, 'contacts') ?: $collection;
+        $driver = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($internal);
+        if (!$driver->hasPermission(Horde_Perms::READ)) {
+            throw new Turba_Exception("Address Book does not exist or no permission to edit");
+        }
+
+        $list = $driver->search();
+        $list->reset();
+        $contacts = array();
+        while ($contact = $list->next()) {
+            $id = $contact->getValue('__key');
+            $modified = $contact->lastModification();
+            try {
+                $id = $dav->getExternalObjectId($id, $internal) ?: $id . '.vcf';
+            } catch (Horde_Dav_Exception $e) {
+            }
+            $contacts[] = array(
+                'id' => $id,
+                'uri' => $id,
+                'lastmodified' => $modified,
+                'etag' => '"' . md5($contact->getValue('__key') . '|' . $modified) . '"',
+            );
+        }
+
+        return $contacts;
+    }
+
+    /**
+     */
+    public function davGetObject($collection, $object)
+    {
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+
+        $internal = $dav->getInternalCollectionId($collection, 'contacts') ?: $collection;
+        $driver = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($internal);
+        if (!$driver->hasPermission(Horde_Perms::READ)) {
+            throw new Turba_Exception("Address Book does not exist or no permission to edit");
+        }
+
+        try {
+            $object = $dav->getInternalObjectId($object, $internal) ?: preg_replace('/\.vcf$/', '', $object);
+        } catch (Horde_Dav_Exception $e) {
+        }
+        $contact = $driver->getObject($object);
+        $id = $contact->getValue('__key');
+        $modified = $contact->lastModification();
+        try {
+            $id = $dav->getExternalObjectId($id, $internal) ?: $id . '.vcf';
+        } catch (Horde_Dav_Exception $e) {
+        }
+
+        $data = $driver->tovCard($contact, '3.0')->exportvCalendar();
+
+        return array(
+            'id' => $id,
+            'carddata' => $data,
+            'uri' => $id,
+            'lastmodified' => $modified,
+            'etag' => '"' . md5($contact->getValue('__key') . '|' . $modified) . '"',
+            'size' => strlen($data),
+        );
+    }
+
+    /**
+     */
+    public function davPutObject($collection, $object, $data)
+    {
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+
+        $internal = $dav->getInternalCollectionId($collection, 'contacts') ?: $collection;
+        $driver = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($internal);
+        if (!$driver->hasPermission(Horde_Perms::EDIT)) {
+            throw new Turba_Exception("Address Book does not exist or no permission to edit");
+        }
+
+        $ical = new Horde_Icalendar();
+        if (!$ical->parsevCalendar($data)) {
+            throw new Turba_Exception(_("There was an error importing the vCard data."));
+        }
+
+        foreach ($ical->getComponents() as $content) {
+            if (!($content instanceof Horde_Icalendar_Vcard)) {
+                continue;
+            }
+
+            $contact = $driver->toHash($content);
+
+            try {
+                try {
+                    $existing_id = $dav->getInternalObjectId($object, $internal)
+                        ?: preg_replace('/\.vcf$/', '', $object);
+                } catch (Horde_Dav_Exception $e) {
+                    $existing_id = $object;
+                }
+                $existing_contact = $driver->getObject($existing_id);
+                /* Check if our contact is newer then the existing - get the
+                 * contact's history. */
+                $modified = $existing_contact->lastModification();
+                try {
+                    if (!empty($modified) &&
+                        $content->getAttribute('LAST-MODIFIED')->before($modified)) {
+                        /* LAST-MODIFIED timestamp of existing entry is newer:
+                         * don't replace it. */
+                        continue;
+                    }
+                } catch (Horde_Icalendar_Exception $e) {
+                }
+                foreach ($contact as $attribute => $value) {
+                    if ($attribute != '__key') {
+                        $existing_contact->setValue($attribute, $value);
+                    }
+                }
+                $existing_contact->store();
+            } catch (Horde_Exception_NotFound $e) {
+                $id = $driver->add($contact);
+                $dav->addObjectMap($id, $object, $internal);
+            }
+        }
+    }
+
+    /**
+     */
+    public function davDeleteObject($collection, $object)
+    {
+        $dav = $GLOBALS['injector']->getInstance('Horde_Dav_Storage');
+
+        $internal = $dav->getInternalCollectionId($collection, 'contacts') ?: $collection;
+        $driver = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($internal);
+        if (!$driver->hasPermission(Horde_Perms::DELETE)) {
+            throw new Turba_Exception("Address Book does not exist or no permission to edit");
+        }
+
+        try {
+            $object = $dav->getInternalObjectId($object, $internal)
+                ?: preg_replace('/\.vcf$/', '', $object);
+        } catch (Horde_Dav_Exception $e) {
+        }
+        $driver->delete($object);
+
+        try {
+            $dav->deleteExternalObjectId($object, $internal);
+        } catch (Horde_Dav_Exception $e) {
+        }
+    }
+
+    /**
+     * Returns the last modification (or creation) date of a contact.
+     *
+     * @param string $collection  A address book ID.
+     * @param string $object      A contact UID.
+     *
+     * @return integer  Timestamp of the last modification.
+     */
+    protected function _modified($collection, $uid)
+    {
+        $history = $GLOBALS['injector']
+            ->getInstance('Horde_History');
+        $modified = $history->getActionTimestamp(
+            'turba:' . $collection . ':' . $uid,
+            'modify'
+        );
+        if (!$modified) {
+            $modified = $history->getActionTimestamp(
+                'turba:' . $collection . ':' . $uid,
+                'add'
+            );
+        }
+        return $modified;
+    }
 }
