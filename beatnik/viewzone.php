@@ -18,6 +18,7 @@ try {
     Horde::url('listzones.php')->redirect();
 }
 
+$page_output->addScriptFile('beatnik.js');
 $page_output->addScriptFile('stripe.js', 'horde');
 Beatnik::notifyCommits();
 $page_output->header(array(

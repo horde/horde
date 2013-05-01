@@ -49,6 +49,7 @@ if ($form->validate($vars)) {
 
 Beatnik::notifyCommits();
 
+$page_output->addScriptFile('beatnik.js');
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
