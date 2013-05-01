@@ -11,7 +11,6 @@
 $accesskey = $prefs->getValue('widget_accesskey') ? Horde::getAccessKey(_("Select _Domain")) : '';
 $menu_view = $prefs->getValue('menu_view');
 ?>
-<?php echo Beatnik::getMenu('string') ?>
 <span style="float:right">
 <?php
     $link = Horde::link('#', _("Select Domain"), '', '', 'domainSubmit(true); return false;');
