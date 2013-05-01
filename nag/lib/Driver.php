@@ -373,6 +373,15 @@ abstract class Nag_Driver
         if (!empty($task->alarm)) {
             $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($task->uid);
         }
+
+        /* Remove any CalDAV mappings. */
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Horde_Dav_Storage')
+                ->deleteInternalObjectId($task->id, $task->tasklist);
+        } catch (Horde_Exception $e) {
+            Horde::log($e);
+        }
     }
 
     /**

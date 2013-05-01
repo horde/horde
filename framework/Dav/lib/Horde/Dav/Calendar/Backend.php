@@ -15,7 +15,7 @@ use Sabre\DAV;
 use Sabre\CalDAV\Backend;
 
 /**
- * The calendar backend wrapper.
+ * The calendar and task list backend wrapper.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
@@ -32,13 +32,38 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
     protected $_registry;
 
     /**
+     * A storage object.
+     *
+     * @var Horde_Dav_Storage_Base
+     */
+    protected $_storage;
+
+    /**
+     * List of available interfaces and the providing applications.
+     *
+     * @var array
+     */
+    protected $_interfaces = array();
+
+    /**
      * Constructor.
      *
-     * @param Horde_Registry $registry  A registry object.
+     * @param Horde_Registry $registry         A registry object.
+     * @param Horde_Dav_Storage_Base $storage  A storage object.
      */
-    public function __construct(Horde_Registry $registry)
+    public function __construct(Horde_Registry $registry, Horde_Dav_Storage_Base $storage)
     {
         $this->_registry = $registry;
+        $this->_storage = $storage;
+        foreach (array('calendar', 'tasks') as $interface) {
+            try {
+                $application = $this->_registry->hasInterface($interface);
+                if ($application) {
+                    $this->_interfaces[$interface] = $application;
+                }
+            } catch (Horde_Exception $e) {
+            }
+        }
     }
 
     /**
@@ -54,15 +79,22 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
             throw new DAV\Exception\NotFound('Invalid principal prefix path ' . $prefix);
         }
 
-        try {
-            return $this->_registry->callAppMethod(
-                $this->_calendar(),
-                'davGetCollections',
-                array('args' => array($user))
-            );
-        } catch (Horde_Exception $e) {
-            throw new DAV\Exception($e->getMessage(), $e->getCode(), $e);
+        $collections = array();
+        foreach ($this->_interfaces as $interface) {
+            try {
+                $collections = array_merge(
+                    $collections,
+                    $this->_registry->callAppMethod(
+                        $interface,
+                        'davGetCollections',
+                        array('args' => array($user))
+                    )
+                );
+            } catch (Horde_Exception $e) {
+                throw new DAV\Exception($e->getMessage(), $e->getCode(), $e);
+            }
         }
+        return $collections;
     }
 
     /**
@@ -101,7 +133,7 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
     {
         try {
             return $this->_registry->callAppMethod(
-                $this->_calendar(),
+                $this->_interface($calendarId),
                 'davGetObjects',
                 array('args' => array($calendarId))
             );
@@ -122,7 +154,7 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
     {
         try {
             return $this->_registry->callAppMethod(
-                $this->_calendar(),
+                $this->_interface($calendarId),
                 'davGetObject',
                 array('args' => array($calendarId, $objectUri))
             );
@@ -158,7 +190,7 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
     {
         try {
             return $this->_registry->callAppMethod(
-                $this->_calendar(),
+                $this->_interface($calendarId),
                 'davPutObject',
                 array('args' => array($calendarId, $objectUri, $calendarData))
             );
@@ -178,7 +210,7 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
     {
         try {
             return $this->_registry->callAppMethod(
-                $this->_calendar(),
+                $this->_interface($calendarId),
                 'davDeleteObject',
                 array('args' => array($calendarId, $objectUri))
             );
@@ -188,17 +220,19 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
     }
 
     /**
-     * Returns the name of the application providing the 'calendar' interface.
+     * Returns the application that owns a certain calendar or task list.
      *
-     * @return string  An application name.
-     * @throws Sabre\DAV\Exception if no calendar application is installed.
+     * @param string $calendarId  An external calendar or task list id.
+     *
+     * @return string  The application that owns the calendar or task list.
+     * @throws Sabre\DAV\Exception if the application cannot be found.
      */
-    protected function _calendar()
+    protected function _interface($calendarId)
     {
-        $calendar = $this->_registry->hasInterface('calendar');
-        if (!$calendar) {
-            throw new DAV\Exception('No calendar application installed');
+        $interface = $this->_storage->getCollectionInterface($calendarId);
+        if (!$interface || !isset($this->_interfaces[$interface])) {
+            throw new DAV\Exception(sprintf('No interface found for calendar %s', $calendarId));
         }
-        return $calendar;
+        return $this->_interfaces[$interface];
     }
 }

@@ -414,4 +414,229 @@ class Nag_Application extends Horde_Registry_Application
         return Horde_Data::IMPORT_FILE;
     }
 
+    /* DAV methods. */
+
+    /**
+     */
+    public function davGetCollections($user)
+    {
+        $shares = $GLOBALS['nag_shares']
+            ->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => Horde_Perms::SHOW,
+                      'attributes' => $user)
+            );
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+        $tasklists = array();
+        foreach ($shares as $id => $share) {
+            try {
+                $id = $dav->getExternalCollectionId($id, 'tasks') ?: $id;
+            } catch (Horde_Dav_Exception $e) {
+            }
+            $tasklists[] = array(
+                'id' => $id,
+                'uri' => $id,
+                'principaluri' => 'principals/' . $user,
+                '{DAV:}displayname' => Nag::getLabel($share),
+                '{urn:ietf:params:xml:ns:caldav}calendar-description' =>
+                    $share->get('desc'),
+                '{http://apple.com/ns/ical/}calendar-color' =>
+                    $share->get('color'),
+                '{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set' => new Sabre\CalDAV\Property\SupportedCalendarComponentSet(array('VTODO')),
+            );
+        }
+        return $tasklists;
+    }
+
+    /**
+     */
+    public function davGetObjects($collection)
+    {
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+
+        $internal = $dav->getInternalCollectionId($collection, 'tasks') ?: $collection;
+        if (!Nag::hasPermission($internal, Horde_Perms::READ)) {
+            throw new Nag_Exception("Task List does not exist or no permission to edit");
+        }
+
+        $storage = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create($internal);
+
+        $storage->retrieve();
+        $storage->tasks->reset();
+
+        $tasks = array();
+        while ($task = $storage->tasks->each()) {
+            $id = $task->id;
+            $modified = $this->_modified($internal, $task->uid);
+            try {
+                $id = $dav->getExternalObjectId($id, $internal) ?: $id . '.ics';
+            } catch (Horde_Dav_Exception $e) {
+            }
+            $tasks[] = array(
+                'id' => $id,
+                'uri' => $id,
+                'lastmodified' => $modified,
+                'etag' => '"' . md5($task->id . '|' . $modified) . '"',
+                'calendarid' => $collection,
+            );
+        }
+
+        return $tasks;
+    }
+
+    /**
+     */
+    public function davGetObject($collection, $object)
+    {
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+
+        $internal = $dav->getInternalCollectionId($collection, 'tasks') ?: $collection;
+        if (!Nag::hasPermission($internal, Horde_Perms::READ)) {
+            throw new Nag_Exception("Task List does not exist or no permission to edit");
+        }
+
+        try {
+            $object = $dav->getInternalObjectId($object, $internal) ?: preg_replace('/\.ics$/', '', $object);
+        } catch (Horde_Dav_Exception $e) {
+        }
+        $task = Nag::getTask($internal, $object);
+        $id = $task->id;
+        $modified = $this->_modified($internal, $task->uid);
+        try {
+            $id = $dav->getExternalObjectId($id, $internal) ?: $id . '.ics';
+        } catch (Horde_Dav_Exception $e) {
+        }
+
+        $share = $GLOBALS['nag_shares']->getShare($internal);
+        $ical = new Horde_Icalendar('2.0');
+        $ical->setAttribute('X-WR-CALNAME', $share->get('name'));
+        $ical->addComponent($task->toiCalendar($ical));
+        $data = $ical->exportvCalendar();
+
+        return array(
+            'id' => $id,
+            'calendardata' => $data,
+            'uri' => $id,
+            'lastmodified' => $modified,
+            'etag' => '"' . md5($task->id . '|' . $modified) . '"',
+            'calendarid' => $collection,
+            'size' => strlen($data),
+        );
+    }
+
+    /**
+     */
+    public function davPutObject($collection, $object, $data)
+    {
+        $dav = $GLOBALS['injector']
+            ->getInstance('Horde_Dav_Storage');
+
+        $internal = $dav->getInternalCollectionId($collection, 'tasks') ?: $collection;
+        if (!Nag::hasPermission($internal, Horde_Perms::EDIT)) {
+            throw new Nag_Exception("Task List does not exist or no permission to edit");
+        }
+
+        $ical = new Horde_Icalendar();
+        if (!$ical->parsevCalendar($data)) {
+            throw new Nag_Exception(_("There was an error importing the iCalendar data."));
+        }
+
+        $storage = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create($internal);
+
+        foreach ($ical->getComponents() as $content) {
+            if (!($content instanceof Horde_Icalendar_Vtodo)) {
+                continue;
+            }
+
+            $task = new Nag_Task();
+            $task->fromiCalendar($content);
+
+            try {
+                try {
+                    $existing_id = $dav->getInternalObjectId($object, $internal)
+                        ?: preg_replace('/\.ics$/', '', $object);
+                } catch (Horde_Dav_Exception $e) {
+                    $existing_id = $object;
+                }
+                $existing_task = Nag::getTask($internal, $existing_id);
+                /* Check if our task is newer then the existing - get the
+                 * task's history. */
+                $modified = $this->_modified($internal, $existing_task->uid);
+                try {
+                    if (!empty($modified) &&
+                        $content->getAttribute('LAST-MODIFIED')->before($modified)) {
+                        /* LAST-MODIFIED timestamp of existing entry is newer:
+                         * don't replace it. */
+                        continue;
+                    }
+                } catch (Horde_Icalendar_Exception $e) {
+                }
+                $task->owner = $existing_task->owner;
+                $storage->modify($existing_task->id, $task->toHash());
+            } catch (Horde_Exception_NotFound $e) {
+                $hash = $task->toHash();
+                $newTask = $storage->add($hash);
+                $dav->addObjectMap($newTask[0], $object, $internal);
+            }
+        }
+    }
+
+    /**
+     */
+    public function davDeleteObject($collection, $object)
+    {
+        $dav = $GLOBALS['injector']->getInstance('Horde_Dav_Storage');
+
+        $internal = $dav->getInternalCollectionId($collection, 'tasks') ?: $collection;
+        if (!Nag::hasPermission($internal, Horde_Perms::DELETE)) {
+            throw new Nag_Exception("Task List does not exist or no permission to delete");
+        }
+
+        try {
+            $object = $dav->getInternalObjectId($object, $internal)
+                ?: preg_replace('/\.ics$/', '', $object);
+        } catch (Horde_Dav_Exception $e) {
+        }
+        $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create($internal)
+            ->delete($object);
+
+        try {
+            $dav->deleteExternalObjectId($object, $internal);
+        } catch (Horde_Dav_Exception $e) {
+        }
+    }
+
+    /**
+     * Returns the last modification (or creation) date of a task.
+     *
+     * @param string $collection  A task list ID.
+     * @param string $object      A task UID.
+     *
+     * @return integer  Timestamp of the last modification.
+     */
+    protected function _modified($collection, $uid)
+    {
+        $history = $GLOBALS['injector']
+            ->getInstance('Horde_History');
+        $modified = $history->getActionTimestamp(
+            'nag:' . $collection . ':' . $uid,
+            'modify'
+        );
+        if (!$modified) {
+            $modified = $history->getActionTimestamp(
+                'nag:' . $collection . ':' . $uid,
+                'add'
+            );
+        }
+        return $modified;
+    }
 }

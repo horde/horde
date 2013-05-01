@@ -57,7 +57,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         $principals = new DAVACL\PrincipalCollection($principalBackend);
         $principals->disableListing = $conf['auth']['list_users'] == 'input';
 
-        $calendarBackend = new Horde_Dav_Calendar_Backend($registry);
+        $calendarBackend = new Horde_Dav_Calendar_Backend($registry, $injector->getInstance('Horde_Dav_Storage'));
         $caldav = new Horde_Dav_Calendar_RootNode($principalBackend, $calendarBackend, $registry);
 
         $this->_server = new DAV\Server(
