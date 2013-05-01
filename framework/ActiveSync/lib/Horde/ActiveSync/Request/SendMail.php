@@ -43,12 +43,11 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
      */
     protected function _handle()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Handling SENDMAIL command.',
-            $this->_device->id));
-
         // Check for wbxml vs RFC822
         if (!$this->_decoder->isWbxml()) {
+            $this->_logger->info(sprintf(
+                '[%s] Handling SENDMAIL command with no Wbxml.',
+                $this->_device->id));
             $stream = $this->_decoder->getFullInputStream();
             try {
                 $result = $this->_driver->sendMail($stream, false, false, false, true);
@@ -63,6 +62,9 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
                 return true;
             }
         } else {
+            $this->_logger->info(sprintf(
+                '[%s] Handling SENDMAIL command with Wbxml.',
+                $this->_device->id));
             return $this->_handleWbxmlRequest();
         }
     }

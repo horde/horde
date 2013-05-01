@@ -201,7 +201,9 @@ foreach ($a as $app) {
         }
     }
 
-    if (file_exists($path . '/conf.xml')) {
+    if (!file_exists($path . '/conf.xml')) {
+        $apps[$i]['conf'] = $apps[$i]['status'] = '';
+    } else {
         if (!file_exists($path . '/conf.php')) {
             /* No conf.php exists. */
             $apps[$i]['conf'] = $conf_link . $error . '</a>';
@@ -238,7 +240,9 @@ foreach ($a as $app) {
         }
     }
 
-    if (in_array($app, $migration->apps)) {
+    if (!in_array($app, $migration->apps)) {
+        $apps[$i]['dbstatus'] = $apps[$i]['db'] = '';
+    } else {
         /* If a DB backend hasn't been configured (yet), an exception will be
          * thrown. This is fine if this is the intial configuration, or if no
          * DB will be used. */
@@ -275,7 +279,8 @@ foreach ($migration->apps as $key => $app) {
 
     $apps[$i]['sort'] = 'ZZZ' . $app;
     $apps[$i]['name'] = $app;
-    $apps[$i]['version'] = '';
+    $apps[$i]['version'] = $apps[$i]['status'] = $apps[$i]['icon'] =
+        $apps[$i]['conf'] = '';
 
     /* If a DB backend hasn't been configured (yet), an exception will be
      * thrown. This is fine if this is the intial configuration, or if no DB
@@ -326,6 +331,8 @@ if (!empty($versions)) {
         $apps[$i]['sort'] = 'ZZZ' . $app;
         $apps[$i]['name'] = $app;
         $apps[$i]['version'] = $version;
+        $apps[$i]['dbstatus'] = $apps[$i]['db'] = $apps[$i]['status'] =
+            $apps[$i]['icon'] = $apps[$i]['conf'] = '';
 
         if (!isset($versions[$app])) {
             $apps[$i]['load'] = $warning;

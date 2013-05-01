@@ -10,8 +10,8 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>12:50:18</time>
+ <date>2013-04-28</date>
+ <time>14:31:48</time>
  <version>
   <release>2.0.3</release>
   <api>1.1.0</api>
@@ -37,6 +37,7 @@
     <dir name="Horde">
      <dir name="Lock">
       <file name="Exception.php" role="php" />
+      <file name="Mongo.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/Lock -->
@@ -55,9 +56,14 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Lock">
+      <dir name="Storage">
+       <file name="MongoTest.php" role="test" />
+       <file name="SqlTest.php" role="test" />
+       <file name="TestBase.php" role="test" />
+      </dir> <!-- /test/Horde/Lock/Storage -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
-      <file name="LockTest.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Lock -->
     </dir> <!-- /test/Horde -->
@@ -109,6 +115,7 @@
    <install as="COPYING" name="doc/Horde/Lock/COPYING" />
    <install as="Horde/Lock.php" name="lib/Horde/Lock.php" />
    <install as="Horde/Lock/Exception.php" name="lib/Horde/Lock/Exception.php" />
+   <install as="Horde/Lock/Mongo.php" name="lib/Horde/Lock/Mongo.php" />
    <install as="Horde/Lock/Null.php" name="lib/Horde/Lock/Null.php" />
    <install as="Horde/Lock/Sql.php" name="lib/Horde/Lock/Sql.php" />
    <install as="migration/1_horde_lock_base_tables.php" name="migration/Horde/Lock/1_horde_lock_base_tables.php" />
@@ -116,8 +123,11 @@
    <install as="migration/3_horde_lock_fix_owner_width.php" name="migration/Horde/Lock/3_horde_lock_fix_owner_width.php" />
    <install as="Horde/Lock/AllTests.php" name="test/Horde/Lock/AllTests.php" />
    <install as="Horde/Lock/bootstrap.php" name="test/Horde/Lock/bootstrap.php" />
-   <install as="Horde/Lock/LockTest.php" name="test/Horde/Lock/LockTest.php" />
+   <install as="Horde/Lock/conf.php.dist" name="test/Horde/Lock/conf.php.dist" />
    <install as="Horde/Lock/phpunit.xml" name="test/Horde/Lock/phpunit.xml" />
+   <install as="Horde/Lock/Storage/MongoTest.php" name="test/Horde/Lock/Storage/MongoTest.php" />
+   <install as="Horde/Lock/Storage/SqlTest.php" name="test/Horde/Lock/Storage/SqlTest.php" />
+   <install as="Horde/Lock/Storage/TestBase.php" name="test/Horde/Lock/Storage/TestBase.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -287,7 +297,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

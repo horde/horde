@@ -634,7 +634,6 @@ div.dimpActionsMsg #windowclose {
 }
 
 #compose_upload_add {
-    color: blue;
     display: inline-block;
     font-weight: bold;
     margin-top: 4px;
@@ -704,7 +703,7 @@ div.dimpActionsMsg #windowclose {
     padding-right: 3px;
 }
 #attach_list span.attachName {
-    color: blue;
+    color: #36525d;
     cursor: pointer;
     text-decoration: underline;
 }
@@ -752,11 +751,8 @@ span.attachmentImg {
     font-weight: bold;
 }
 .msgHeaders div.addrgroup-div {
-    background-color: #aaa;
     display: -moz-inline-stack;
     display: inline-block;
-    margin: 1px;
-    padding: 4px 2px 3px;
 }
 
 /* Drag and drop styles. */

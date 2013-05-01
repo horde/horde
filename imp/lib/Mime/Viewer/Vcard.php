@@ -24,6 +24,17 @@
 class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
 {
     /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => false,
+        'embedded' => false,
+        'forceinline' => true
+    );
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
@@ -33,13 +44,13 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
      * @return array  See parent::render().
      * @throws Horde_Exception
      */
-    protected function _render()
+    protected function _renderInline()
     {
         $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
 
         if (!isset($vars->p)) {
             $this->_imageUrl = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'download_render');
-            return parent::_render();
+            return parent::_renderInline();
         }
 
         /* Send the requested photo. */

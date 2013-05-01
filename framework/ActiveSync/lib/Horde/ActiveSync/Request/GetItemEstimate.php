@@ -180,7 +180,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             // Build the collection array
             $collection = array();
             $collection['synckey'] = $synckey;
-            $collection['filtertype'] = $filtertype;
+            $collection['filtertype'] = !empty($filtertype) ? $filtertype : false;
             $collection['id'] = $collectionid;
             $collection['conversationmode'] = isset($conversationmode) ? $conversationmode : false;
             $status[$collection['id']] = $cStatus;
@@ -193,13 +193,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         }
 
         if (!empty($needCache)) {
-            $syncCache = new Horde_ActiveSync_SyncCache(
-                $this->_stateDriver,
-                $this->_device->id,
-                $this->_device->user,
-                $this->_logger
-            );
-            $syncCache->validateCollectionsFromCache($collections);
+            $this->_activeSync->getSyncCache()->validateCollectionsFromCache($collections);
         }
 
         // End Folders
@@ -212,21 +206,21 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         foreach ($collections as $collection) {
             if ($status[$collection['id']] == self::STATUS_SUCCESS) {
                 try {
-                    $this->_stateDriver->loadState(
+                    $this->_state->loadState(
                         $collection,
                         $collection['synckey'],
                         Horde_ActiveSync::REQUEST_TYPE_SYNC,
                         $collection['id']
                     );
-                    $sync = $this->_getSyncObject();
-                    $sync->init($this->_stateDriver, null, $collection);
+                    $sync = $this->_activeSync->getSyncObject();
+                    $sync->init($this->_state, null, $collection);
                     $results[$collection['id']] = $sync->getChangeCount();
                 } catch (Horde_ActiveSync_Exception_StateGone $e) {
-                    $this->_logger->err('State Gone. Terminating GETITEMESTIMATE');
-                    $status[$collection['id']] = $gStatus = self::STATUS_KEYMISM;
+                    $this->_logger->warn('State Gone. Terminating GETITEMESTIMATE');
+                    $status[$collection['id']] = $gStatus = self::STATUS_NOTPRIMED;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err('Unknown error in GETITEMESTIMATE');
-                    $status[$collection['id']] = $gStatus = self::STATUS_KEYMISM;
+                    $status[$collection['id']] = $gStatus = self::STATUS_NOTPRIMED;
                 }
             }
         }

@@ -1,14 +1,13 @@
 # Ukrainian translations for Horde_Prefs module.
 # Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Prefs module.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2013-04-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -39,12 +38,12 @@ msgstr "Незаповнений"
 
 #: lib/Horde/Prefs/Identity.php:352
 msgid "Unnamed"
-msgstr "Неназваний"
+msgstr "Безіменна"
 
 #: lib/Horde/Prefs/CategoryManager.php:51
-#, fuzzy, php-format
+#, php-format
 msgid "Use Current: %s"
-msgstr "Існуючі дзвоники"
+msgstr "Використати поточну: %s"
 
 #: lib/Horde/Prefs/CategoryManager.php:89
 msgid "You must type a new category name."

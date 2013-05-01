@@ -15,7 +15,7 @@
  * This object allows easy access to parsing mbox data (RFC 4155).
  *
  * See:
- * http://homepage.ntlworld.com./jonathan.deboynepollard/FGA/mail-mbox-formats
+ * http://homepage.ntlworld.com/jonathan.deboynepollard/FGA/mail-mbox-formats
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde

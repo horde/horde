@@ -39,7 +39,7 @@ class Horde_ActiveSync_CacheTest extends Horde_Test_Case
     {
         $cache = new Horde_ActiveSync_SyncCache($this->_state, 'devid', 'userone');
         $cache->save();
-        foreach (array('hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys', 'lastuntil',
+        foreach (array('hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys',
             'lasthbsyncstarted', 'lastsyncendnormal', 'folders', 'pingheartbeat',
             'synckeycounter') as $p) {
 
@@ -50,7 +50,8 @@ class Horde_ActiveSync_CacheTest extends Horde_Test_Case
     public function testReturnCollections()
     {
         $cache = new Horde_ActiveSync_SyncCache($this->_state, 'devid', 'userone');
-        $collections = $cache->getCollections();
+        // @TODO: Need a new collection cache fixture with lastsynckey.
+        $collections = $cache->getCollections(false);
         $this->assertEquals('Calendar', $collections['@Calendar@']['class']);
     }
 

@@ -655,7 +655,7 @@ $cfgSources['kolab'] = array(
         'workPhone'         => 'phone-business1',
         'cellPhone'         => 'phone-mobile',
         'fax'               => 'phone-businessfax',
-        'instantMessenger'  => 'im-address',
+        'imaddress'         => 'im-address',
         /* Organization */
         'title'             => 'job-title',
         'role'              => 'profession',
@@ -685,7 +685,7 @@ $cfgSources['kolab'] = array(
                                'homeStreet', 'homeCity', 'homeProvince',
                                'homePostalCode', 'homeCountryFree'),
         _("Communications") => array('emails', 'homePhone', 'workPhone',
-                                     'cellPhone', 'fax', 'instantMessenger'),
+                                     'cellPhone', 'fax', 'imaddress'),
         _("Organization") => array('title', 'role', 'company', 'department',
                                    'office', 'manager', 'assistant'),
         _("Other") => array('category', 'notes', 'website', 'freebusyUrl',

@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix caching of parsed timezone information.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -183,7 +183,7 @@
    <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix caching of parsed timezone information.
    </notes>
   </release>
  </changelog>

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-08</date>
+ <date>2013-04-24</date>
  <version>
   <release>6.1.0beta1</release>
   <api>6.0.0</api>
@@ -33,6 +33,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add MongoDB driver for sentmail log storage.
+* [mms] Add IMAP cache specific purge action to the imap cache query script.
+* [mms] Add support for using SQL and NoSQL backends for IMAP/POP caching.
 * [mms] Add thumbnail generation for video attachments.
 * [mms] Convert Data URLs in a reply message into attachments so that compose attachment limits can be enforced (Bug #12167).
 * [mms] Allow attachments to be dragged/dropped from local filesystem on the dynamic compose page.
@@ -470,6 +473,7 @@
      <file name="Vfolder.php" role="horde" />
     </dir> <!-- /lib/Search -->
     <dir name="Sentmail">
+     <file name="Mongo.php" role="horde" />
      <file name="Null.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Sentmail -->
@@ -1122,15 +1126,6 @@
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="webcenter">
-     <dir name="basic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/webcenter/basic -->
-     <dir name="dynamic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/webcenter/dynamic -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/webcenter -->
     </dir> <!-- /themes -->
    <file name="attachment.php" role="horde" />
    <file name="basic.php" role="horde" />
@@ -1253,7 +1248,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>2.8.0</min>
+    <min>2.9.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1764,6 +1759,7 @@
    <install as="imp/lib/Search/Vfolder/Builtin.php" name="lib/Search/Vfolder/Builtin.php" />
    <install as="imp/lib/Search/Vfolder/Vinbox.php" name="lib/Search/Vfolder/Vinbox.php" />
    <install as="imp/lib/Search/Vfolder/Vtrash.php" name="lib/Search/Vfolder/Vtrash.php" />
+   <install as="imp/lib/Sentmail/Mongo.php" name="lib/Sentmail/Mongo.php" />
    <install as="imp/lib/Sentmail/Null.php" name="lib/Sentmail/Null.php" />
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
@@ -2132,10 +2128,7 @@
    <install as="imp/rss.php" name="rss.php" />
    <install as="imp/smartmobile.php" name="smartmobile.php" />
    <install as="imp/view.php" name="view.php" />
-   <install as="imp/themes/webcenter/screen.css" name="themes/webcenter/screen.css" />
-   <install as="imp/themes/webcenter/basic/screen.css" name="themes/webcenter/basic/screen.css" />
-   <install as="imp/themes/webcenter/dynamic/screen.css" name="themes/webcenter/dynamic/screen.css" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -3131,7 +3124,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-04-08</date>
+   <date>2013-04-24</date>
    <version>
     <release>6.1.0beta1</release>
     <api>6.0.0</api>
@@ -3142,6 +3135,9 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add MongoDB driver for sentmail log storage.
+* [mms] Add IMAP cache specific purge action to the imap cache query script.
+* [mms] Add support for using SQL and NoSQL backends for IMAP/POP caching.
 * [mms] Add thumbnail generation for video attachments.
 * [mms] Convert Data URLs in a reply message into attachments so that compose attachment limits can be enforced (Bug #12167).
 * [mms] Allow attachments to be dragged/dropped from local filesystem on the dynamic compose page.

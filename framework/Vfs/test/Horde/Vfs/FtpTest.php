@@ -15,8 +15,6 @@
  */
 class Horde_Vfs_FtpTest extends Horde_Vfs_TestBase
 {
-    protected static $reason;
-
     public function testListEmpty()
     {
         $this->_listEmpty();
@@ -188,10 +186,4 @@ class Horde_Vfs_FtpTest extends Horde_Vfs_TestBase
         parent::tearDownAfterClass();
     }
 
-    public function setUp()
-    {
-        if (!self::$vfs) {
-            $this->markTestSkipped(self::$reason);
-        }
-    }
 }

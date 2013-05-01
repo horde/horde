@@ -47,11 +47,11 @@ class IMP_Compose_Attachment_Storage_VfsLinked extends IMP_Compose_Attachment_St
 
     /**
      */
-    public function _get($name)
+    public function __get($name)
     {
         switch ($name) {
         case 'linked':
-            return ($this->_vfspath != self::VFS_ATTACH_PATH);
+            return ($this->_vfspath == self::VFS_LINK_ATTACH_PATH);
         }
     }
 

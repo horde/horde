@@ -119,11 +119,10 @@
    than 'nocache' will almost certainly result in severely broken script
    behavior.">nocache</configstring>
    <configinteger name="max_time" desc="The maximum length of time (in
-   seconds) a session can be active before it will be forcibly destroyed by
-   Horde. Allows an admin to forcibly expire sessions (e.g. to ensure that
-   logintasks are periodically run for every user) as opposed to relying on
-   PHP's session garbage collection to remove stale sessions. 0 means there is
-   no maximum session time.">0</configinteger>
+   seconds) a session can be active after user authentication before it will
+   be destroyed. (Sessions may otherwise never timeout if a user never closes
+   their browser.) 0 means there is no maximum session time (NOT
+   RECOMMENDED).">604800</configinteger>
   </configsection>
   <configsection name="cookie">
    <configphp name="domain" desc="What domain should we set cookies from? If
@@ -144,14 +143,25 @@
   </configsection>
  </configtab>
 
- <configtab name="sql" desc="Database">
-  <configsection name="sql">
-   <configheader>Database Settings</configheader>
+ <configtab name="db" desc="Database">
    <configdescription>&lt;strong&gt;NOTE:&lt;/strong&gt; These are only the
    &lt;em&gt;default&lt;/em&gt; values for any database driven backends. You
    still need to configure the different systems like "Preferences" to actually
    &lt;em&gt;use&lt;/em&gt; a database backend.</configdescription>
+  <configsection name="sql">
+   <configheader>SQL Database Settings</configheader>
+   <configdescription>These are the database settings for the traditional
+   relational databases backends (e.g. databases that use SQL to manage its
+   data).</configdescription>
    <configsql switchname="phptype" baseconfig="true" />
+  </configsection>
+  <configsection name="nosql">
+   <configheader>NoSQL Database Settings</configheader>
+   <configdescription>These are the database settings for the NoSQL database
+   backends. These are databases generally optimized for
+   scalability/availability, but do not use a standardized query language to
+   interact with the data.</configdescription>
+   <confignosql switchname="phptype" baseconfig="true" />
   </configsection>
  </configtab>
 
@@ -833,6 +843,11 @@
    KB (65535 bytes). These installations would want to turn checking on."/>
    <configswitch name="driver" desc="What preferences driver should we
    use?">Sql
+     <case name="Nosql" desc="NoSQL Database">
+      <configsection name="params">
+       <confignosql switchname="driverconfig" />
+      </configsection>
+     </case>
      <case name="Sql" desc="SQL Database">
       <configsection name="params">
        <configsql switchname="driverconfig">
@@ -926,13 +941,6 @@
      <configsql switchname="driverconfig" />
     </case>
    </configswitch>
-   <configheader>Group Caching</configheader>
-   <configdescription>GROUP CACHING HAS NOT BEEN IMPLEMENTED FOR HORDE 4 YET. Enabling group caching improves performance because the
-   group backend will only be queried once per session. But it also increases
-   the users' session sizes, and group changes won't take effect before the
-   users log in the next time.</configdescription>
-   <!--<configboolean name="cache" required="false" desc="Enable group
-   caching?">false</configboolean>-->
   </configsection>
  </configtab>
 
@@ -1045,6 +1053,11 @@
      <configsection name="params">
       <configstring name="prefix" required="false" desc="The prefix to use for
       cache entries."/>
+     </configsection>
+    </case>
+    <case name="Nosql" desc="NoSQL-based cache storage">
+     <configsection name="params">
+      <confignosql switchname="driverconfig" />
      </configsection>
     </case>
     <case name="Sql" desc="SQL-based cache storage">
@@ -1170,7 +1183,7 @@
       </case>
      </configswitch>
      <configinteger name="lifetime" desc="Lifetime of the cached files, in
-     seconds.">86400</configinteger>
+     seconds.">604800</configinteger>
     </configsection>
    </case>
   </configswitch>
@@ -1214,6 +1227,11 @@
    <configswitch name="driver" desc="If you want to enable resource locking
    you must choose a driver here.">Sql
     <case name="Null" desc="Disable Horde Locks"/>
+    <case name="Nosql" desc="NoSQL-based locking">
+     <configsection name="params">
+      <confignosql switchname="driverconfig" />
+     </configsection>
+    </case>
     <case name="Sql" desc="SQL-based locking">
      <configsection name="params">
       <configsql switchname="driverconfig">
@@ -1239,6 +1257,11 @@
      <configsection name="params">
       <configstring name="token_dir" required="false" desc="The directory where
       to keep token files"/>
+     </configsection>
+    </case>
+    <case name="Nosql" desc="NoSQL-based token storage">
+     <configsection name="params">
+       <confignosql switchname="driverconfig" />
      </configsection>
     </case>
     <case name="Sql" desc="SQL-based token storage">
@@ -1379,6 +1402,11 @@
         'session.gc_maxlifetime'."></configinteger>
        </case>
       </configswitch>
+     </configsection>
+    </case>
+    <case name="Nsoql" desc="NoSQL Database">
+     <configsection name="params">
+       <configsql switchname="driverconfig" />
      </configsection>
     </case>
     <case name="Sql" desc="SQL Database">

@@ -37,20 +37,17 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
             throw new IMP_Exception('Quota config missing driver parameter.');
         }
         $driver = $qparams['driver'];
+
         $params = isset($qparams['params'])
             ? $qparams['params']
             : array();
+        $params['username'] = $imap_ob->getParam('username');
 
         switch (Horde_String::lower($driver)) {
         case 'imap':
             $params['imap_ob'] = $imap_ob;
             break;
-
-        case 'sql':
-            $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('imp', $params);
         }
-
-        $params['username'] = $imap_ob->getParam('username');
 
         $class = $this->_getDriverName($driver, 'IMP_Quota');
         return new $class($params);

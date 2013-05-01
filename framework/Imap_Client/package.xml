@@ -10,11 +10,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-28</date>
- <time>17:27:04</time>
+ <date>2013-05-01</date>
+ <time>00:13:55</time>
  <version>
-  <release>2.8.2</release>
-  <api>2.8.0</api>
+  <release>2.9.1</release>
+  <api>2.9.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -48,6 +48,15 @@
         <file name="Deprecated.php" role="php" />
         <file name="Mailbox.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Base -->
+       <dir name="Cache">
+        <dir name="Backend">
+         <file name="Cache.php" role="php" />
+         <file name="Db.php" role="php" />
+         <file name="Mongo.php" role="php" />
+         <file name="Null.php" role="php" />
+        </dir> <!-- /lib/Horde/Imap/Client/Cache/Backend -->
+        <file name="Backend.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Cache -->
        <dir name="Data">
         <dir name="Fetch">
          <file name="Pop3.php" role="php" />
@@ -179,10 +188,25 @@
     </dir> <!-- /locale/nl -->
     <file name="Horde_Imap_Client.pot" role="data" />
    </dir> <!-- /locale -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="Imap">
+      <dir name="Client">
+       <file name="1_horde_imap_client_base_tables.php" role="data" />
+      </dir> <!-- /migration/Horde/Imap/Client -->
+     </dir> <!-- /migration/Horde/Imap -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Imap">
       <dir name="Client">
+       <dir name="Cache">
+        <file name="CacheTest.php" role="test" />
+        <file name="DbTest.php" role="test" />
+        <file name="MongoTest.php" role="test" />
+        <file name="TestBase.php" role="test" />
+       </dir> <!-- /test/Horde/Imap/Client/Cache -->
        <dir name="fixtures">
         <file name="bug_10503.txt" role="test" />
         <file name="remote1.txt" role="test" />
@@ -276,6 +300,27 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Compress_Fast</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Secret</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -296,9 +341,6 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-   <extension>
-    <name>imap</name>
-   </extension>
    <extension>
     <name>json</name>
    </extension>
@@ -327,6 +369,11 @@
    <install as="Horde/Imap/Client/Base/Debug.php" name="lib/Horde/Imap/Client/Base/Debug.php" />
    <install as="Horde/Imap/Client/Base/Deprecated.php" name="lib/Horde/Imap/Client/Base/Deprecated.php" />
    <install as="Horde/Imap/Client/Base/Mailbox.php" name="lib/Horde/Imap/Client/Base/Mailbox.php" />
+   <install as="Horde/Imap/Client/Cache/Backend.php" name="lib/Horde/Imap/Client/Cache/Backend.php" />
+   <install as="Horde/Imap/Client/Cache/Backend/Cache.php" name="lib/Horde/Imap/Client/Cache/Backend/Cache.php" />
+   <install as="Horde/Imap/Client/Cache/Backend/Db.php" name="lib/Horde/Imap/Client/Cache/Backend/Db.php" />
+   <install as="Horde/Imap/Client/Cache/Backend/Mongo.php" name="lib/Horde/Imap/Client/Cache/Backend/Mongo.php" />
+   <install as="Horde/Imap/Client/Cache/Backend/Null.php" name="lib/Horde/Imap/Client/Cache/Backend/Null.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
    <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
    <install as="Horde/Imap/Client/Data/AclNegative.php" name="lib/Horde/Imap/Client/Data/AclNegative.php" />
@@ -386,6 +433,7 @@
    <install as="locale/ja/LC_MESSAGES/Horde_Imap_Client.po" name="locale/ja/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/nl/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/nl/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/nl/LC_MESSAGES/Horde_Imap_Client.po" name="locale/nl/LC_MESSAGES/Horde_Imap_Client.po" />
+   <install as="migration/1_horde_imap_client_base_tables.php" name="migration/Horde/Imap/Client/1_horde_imap_client_base_tables.php" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
@@ -405,6 +453,10 @@
    <install as="Horde/Imap/Client/TokenizeTest.php" name="test/Horde/Imap/Client/TokenizeTest.php" />
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
+   <install as="Horde/Imap/Client/Cache/CacheTest.php" name="test/Horde/Imap/Client/Cache/CacheTest.php" />
+   <install as="Horde/Imap/Client/Cache/DbTest.php" name="test/Horde/Imap/Client/Cache/DbTest.php" />
+   <install as="Horde/Imap/Client/Cache/MongoTest.php" name="test/Horde/Imap/Client/Cache/MongoTest.php" />
+   <install as="Horde/Imap/Client/Cache/TestBase.php" name="test/Horde/Imap/Client/Cache/TestBase.php" />
    <install as="Horde/Imap/Client/fixtures/bug_10503.txt" name="test/Horde/Imap/Client/fixtures/bug_10503.txt" />
    <install as="Horde/Imap/Client/fixtures/remote1.txt" name="test/Horde/Imap/Client/fixtures/remote1.txt" />
    <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />
@@ -1597,7 +1649,39 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-28</date>
+   <date>2013-04-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Correctly parse message/rfc822 BODYSTRUCTURE responses if the server does not provide any envelope information (Bug #12190).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.0</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Support UID EXPUNGE command for large UID lists (Bug #12228).
+* [mms] Don&apos;t attempt to expunge messages if the list of UIDs to expunge is empty (Bug #12226).
+* [mms] Correctly use limit parameter to Horde_Imap_Client_Ids#split() (Bug #12216).
+* [mms] Add a MongoDB based backend for storing cached IMAP/POP data.
+* [mms] Add Horde_Imap_Client_Cache#clear().
+* [mms] Add a Horde_Db based backend for storing cached IMAP/POP data.
+* [mms] Abstract the backend storage into a separate driver for the Horde_Imap_Client_Cache class.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.1</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

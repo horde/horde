@@ -1237,13 +1237,13 @@ class Nag_Task
         /* Due Date */
         if (!empty($this->due)) {
             $message->utcduedate = new Horde_Date($this->due);
-            $message->duedate = clone $message->utcduedate;
+            $message->duedate = new Horde_Date($this->due, 'UTC');
         }
 
         /* Start Date */
         if (!empty($this->start)) {
             $message->utcstartdate = new Horde_Date($this->start);
-            $message->startdate = clone $message->utcstartdate;
+            $message->startdate = new Horde_Date($this->start, 'UTC');
         }
 
         /* Priority */
@@ -1266,7 +1266,7 @@ class Nag_Task
 
         /* Reminders */
             if ($this->due && $this->alarm) {
-            $message->setReminder(new Horde_Date($this->due - $this->alarm));
+            $message->setReminder(new Horde_Date($this->due - $this->alarm * 60));
         }
 
         /* Recurrence */
@@ -1428,13 +1428,13 @@ class Nag_Task
 
         /* Priority */
         switch ($message->getImportance()) {
-        case Horde_ActiveSync_Message_Task::IMPORTANCE_LOW;
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_LOW:
             $this->priority = 5;
             break;
-        case Horde_ActiveSync_Message_Task::IMPORTANCE_NORMAL;
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_NORMAL:
             $this->priority = 3;
             break;
-        case Horde_ActiveSync_Message_Task::IMPORTANCE_HIGH;
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_HIGH:
             $this->priority = 1;
             break;
         default:
@@ -1443,7 +1443,7 @@ class Nag_Task
 
         if (($alarm = $message->getReminder()) && $this->due) {
             $alarm->setTimezone($tz);
-            $this->alarm = $this->due - $alarm->timestamp();
+            $this->alarm = ($this->due - $alarm->timestamp()) / 60;
         }
 
         if ($rrule = $message->getRecurrence()) {

@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>13:46:45</time>
+ <date>2013-04-28</date>
+ <time>14:18:16</time>
  <version>
   <release>2.2.2</release>
   <api>2.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add test factory for MongoDB.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -56,6 +56,7 @@
        <file name="Group.php" role="php" />
        <file name="History.php" role="php" />
        <file name="KolabStorage.php" role="php" />
+       <file name="Mongo.php" role="php" />
        <file name="Perms.php" role="php" />
        <file name="Prefs.php" role="php" />
        <file name="Registry.php" role="php" />
@@ -152,6 +153,7 @@
    <install as="Horde/Test/Factory/Group.php" name="lib/Horde/Test/Factory/Group.php" />
    <install as="Horde/Test/Factory/History.php" name="lib/Horde/Test/Factory/History.php" />
    <install as="Horde/Test/Factory/KolabStorage.php" name="lib/Horde/Test/Factory/KolabStorage.php" />
+   <install as="Horde/Test/Factory/Mongo.php" name="lib/Horde/Test/Factory/Mongo.php" />
    <install as="Horde/Test/Factory/Perms.php" name="lib/Horde/Test/Factory/Perms.php" />
    <install as="Horde/Test/Factory/Prefs.php" name="lib/Horde/Test/Factory/Prefs.php" />
    <install as="Horde/Test/Factory/Registry.php" name="lib/Horde/Test/Factory/Registry.php" />
@@ -407,10 +409,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add test factory for MongoDB.
    </notes>
   </release>
  </changelog>

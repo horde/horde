@@ -123,6 +123,9 @@ var DimpCore = {
 
         base.appendChild(df);
 
+        if (limit && alist.limit) {
+            base.down('.addrgroup-div').insert('...');
+        }
         return elt;
     },
 

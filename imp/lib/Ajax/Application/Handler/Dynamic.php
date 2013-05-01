@@ -969,4 +969,22 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         return $result;
     }
 
+    /**
+     * AJAX action: Is the given mailbox fixed? Called dynamically to delay
+     * retrieveal of ACLs of all visible mailboxes at initialization.
+     *
+     * Varaiables used:
+     *   - mbox: (integer) The mailbox name.
+     *
+     * @return object  An object with the following entires:
+     *   - fixed: (boolean) True if the mailbox is fixed.
+     */
+    public function isFixedMbox()
+    {
+        $result = new stdClass;
+        $result->fixed = !(IMP_Mailbox::formFrom($this->vars->mbox)->access_deletembox);
+        return $result;
+
+    }
+
 }

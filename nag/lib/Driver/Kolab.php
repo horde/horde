@@ -134,8 +134,8 @@ class Nag_Driver_Kolab extends Nag_Driver
             $result['modified'] = new Horde_Date($task['last-modification-date']);
         }
 
-        if (isset($task['recurrence']) && isset($task['due'])) {
-            $recurrence = new Horde_Date_Recurrence($task['due']);
+        if (isset($task['recurrence']) && isset($task['due-date'])) {
+            $recurrence = new Horde_Date_Recurrence($task['due-date']);
             $recurrence->fromKolab($task['recurrence']);
             $result['recurrence'] = $recurrence;
         }

@@ -28,45 +28,26 @@
 class Horde_Token_Unit_SqlTest extends Horde_Token_BackendTestCase
 {
     private static $_db;
-    private static $_migration;
 
     public static function setUpBeforeClass()
     {
-        if (!extension_loaded('pdo') ||
-            !in_array('sqlite', PDO::getAvailableDrivers())) {
+        $factory_db = new Horde_Test_Factory_Db();
+
+        try {
+            self::$_db = $factory_db->create(array(
+                'migrations' => array(
+                    'migrationsPath' => __DIR__ . '/../../../../migration/Horde/Token'
+                )
+            ));
+        } catch (Horde_Test_Exception $e) {
             return;
-        }
-        self::$_db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:', 'charset' => 'utf-8'));
-
-        $dir = __DIR__ . '/../../../../migration/Horde/Token';
-        if (!is_dir($dir)) {
-            error_reporting(E_ALL & ~E_DEPRECATED);
-            $dir = PEAR_Config::singleton()
-                ->get('data_dir', null, 'pear.horde.org')
-                . '/Horde_Token/migration';
-            error_reporting(E_ALL | E_STRICT);
-        }
-        require_once $dir . '/1_horde_token_base_tables.php';
-        self::$_migration = new HordeTokenBaseTables(self::$_db);
-        self::$_migration->up();
-    }
-
-    public static function tearDownAfterClass()
-    {
-        if (self::$_db) {
-            if (self::$_migration) {
-                self::$_migration->down();
-                self::$_migration = null;
-            }
-            self::$_db = null;
         }
     }
 
     public function setUp()
     {
-        if (!extension_loaded('pdo') ||
-            !in_array('sqlite', PDO::getAvailableDrivers())) {
-            $this->markTestSkipped('No sqlite extension or no sqlite PDO driver.');
+        if (!isset(self::$_db)) {
+            $this->markTestSkipped('Sqlite not available.');
         }
     }
 

@@ -102,7 +102,10 @@ class Horde_Perms_Sql extends Horde_Perms_Base
         }
 
         $perm = $this->_cache->get('perm_sql_' . $this->_cacheVersion . $name, $GLOBALS['conf']['cache']['default_lifetime']);
-        if (empty($perm)) {
+        if (!empty($perm)) {
+            $this->_permsCache[$name] = unserialize($perm);
+        }
+        if (empty($this->_permsCache[$name])) {
             $query = 'SELECT perm_id, perm_data FROM ' .
                 $this->_params['table'] . ' WHERE perm_name = ?';
 
@@ -123,8 +126,6 @@ class Horde_Perms_Sql extends Horde_Perms_Base
             $this->_cache->set('perm_sql_' . $this->_cacheVersion . $name, serialize($object));
 
             $this->_permsCache[$name] = $object;
-        } else {
-            $this->_permsCache[$name] = unserialize($perm);
         }
 
         $this->_permsCache[$name]->setObs($this->_cache, $this->_db);

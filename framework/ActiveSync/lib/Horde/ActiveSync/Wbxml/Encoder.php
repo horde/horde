@@ -55,7 +55,20 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     public $multipart;
 
+    /**
+     * Flag to indicate last node output was an empty tag.
+     * Needed for logging to format correctly.
+     *
+     * @var boolean
+     */
     protected $_lastWasEmpty = false;
+
+    /**
+     * Collection of parts to send in MULTIPART responses.
+     *
+     * @var array
+     */
+    protected $_parts = array();
 
     /**
      * Const'r
@@ -191,18 +204,10 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
             if ('x' . $content == 'x') {
                 return;
             }
-        } else {
-            stream_filter_register('horde_null', 'Horde_Stream_Filter_Null');
-            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-            $filter_null = stream_filter_prepend($content, 'horde_null', STREAM_FILTER_READ);
-            $filter_eol = stream_filter_prepend($content, 'horde_eol', STREAM_FILTER_READ);
         }
         $this->_outputStack();
         $this->_content($content);
-        if (isset($filter_null)) {
-            stream_filter_remove($filter_eol);
-            stream_filter_remove($filter_null);
-        }
+
         if (is_resource($content)) {
             fclose($content);
         }
@@ -483,7 +488,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _logContent($content)
     {
-        $spaces = str_repeat(' ', count($this->_logStack) + 1);
+        $spaces = str_repeat(' ', count($this->_logStack));
         $this->_logger->debug(sprintf(
             '[%s] O %s %s',
             $this->_procid,

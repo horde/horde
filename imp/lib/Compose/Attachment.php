@@ -66,7 +66,7 @@ class IMP_Compose_Attachment implements Serializable
      *
      * @var boolean
      */
-    protected $_linked = false;
+    protected $_linked = null;
 
     /**
      * MIME part object.
@@ -106,13 +106,13 @@ class IMP_Compose_Attachment implements Serializable
 
         switch ($name) {
         case 'linked':
-            return $this->_linked;
+            return ($this->_linked === true);
 
         case 'link_url':
             return $this->storage->link_url;
 
         case 'storage':
-            return $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, $this->_uuid);
+            return $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, $this->_uuid, $this->_linked);
         }
     }
 

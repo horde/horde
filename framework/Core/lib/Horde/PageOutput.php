@@ -644,6 +644,10 @@ class Horde_PageOutput
             ? ($registry->hasView($registry->getView()) ? $registry->getView() : Horde_Registry::VIEW_BASIC)
             : $opts['view'];
 
+        if ($session->regenerate_due) {
+            $session->regenerate();
+        }
+
         switch ($this->_view) {
         case $registry::VIEW_BASIC:
             $this->_addBasicScripts();
@@ -686,7 +690,7 @@ class Horde_PageOutput
                 'HordeMobile.conf' => array(
                     'ajax_url' => $registry->getServiceLink('ajax', $registry->getApp())->url,
                     'logout_url' => strval($registry->getServiceLink('logout')),
-                    'sid' => defined('SID') ? SID : '',
+                    'sid' => SID,
                     'token' => $session->getToken()
                 )
             ));
@@ -725,7 +729,7 @@ class Horde_PageOutput
                 'URI_SNOOZE' => strval(Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1)),
 
                 /* Other constants */
-                'SID' => defined('SID') ? SID : '',
+                'SID' => SID,
                 'TOKEN' => $session->getToken(),
 
                 /* Other config. */

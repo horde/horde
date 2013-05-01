@@ -10,20 +10,17 @@
  * Example configuration file that sets a different server name than localhost
  * for the IMAP server:
  *
- * <code>
  * <?php
  * $servers['imap']['hostspec'] = 'imap.example.com';
- * </code>
  *
  * Example configuration file that enables the advanced IMAP server in favor of
  * the simple server and enables 'hordeauth':
  *
- * <code>
  * <?php
  * $servers['imap']['disabled'] = true;
  * $servers['advanced']['disabled'] = false;
  * $servers['advanced']['hordeauth'] = true;
- * </code>
+ *
  *
  * Properties that can be set for each server:
  * ===========================================
@@ -83,22 +80,25 @@
  *
  *   set 'maildomain' to 'example.com'.
  *
- * cache: (mixed) Enables caching for the server. This requires configuration
- *   of a Horde_Cache driver in Horde. Will be disabled on any empty value and
- *   enabled on any non-false value.
+ * cache: (mixed) Enables IMAP caching for the server.
  *
- *   Caching is HIGHLY RECOMMENDED. There is no reason not to cache if the
- *   IMAP server supports the CONDSTORE and/or QRESYNC IMAP extensions. If the
- *   server does not support these extensions, and caching is enabled, any
- *   flags changed by another mail agent while the IMP session is active will
- *   not be updated. If IMP will be the exclusive method of accessing the IMAP
- *   server, or you do not care about this behavior, caching should also be
- *   enabled on these servers.
+ *   Caching is HIGHLY RECOMMENDED. (Do note that if your IMAP server does not
+ *   support the CONDSTORE and/or QRESYNC IMAP extensions, flags changed by
+ *   another mail agent while the IMP session is active will not be updated.)
  *
- *   The following optional parameters are available:
- *     - lifetime: (integer) The lifetime, in seconds, of the cached data.
- *     - slicesize: (integer) The number of messages stored in each cache
- *                    slice (the default should be fine for most users).
+ *   The following values are recognized:
+ *     - false: Caching is disabled (DEFAULT)
+ *     - true: Caching is enabled using the Horde cache (configured in
+ *           horde/config/conf.xml). (This option is DEPRECATED; use one of
+ *           the below options instead.)
+ *     - 'cache': Caching is enabled using the Horde cache (configured in
+ *           horde/config/conf.xml).
+ *     - 'nosql': Caching is enabled using the Horde NoSQL database
+ *                (configured in horde/config/conf.xml).
+ *     - 'sql': Caching is enabled using the Horde SQL database (configured in
+ *              horde/config/conf.xml).
+ *     - Horde_Imap_Client_Cache_Backend object: Directly configure the
+ *           caching backend to use. For advanced users only.
  *
  * quota: (array) Use this if you want to display a user's quota status. Set
  *   to an empty value to disable quota status (DEFAULT).
@@ -134,61 +134,12 @@
  *               - KB
  *
  *   These are the available drivers, along with their optional parameters:
- *     - command:  Use the UNIX quota command to handle quotas. Parameters:
- *       - quota_path: (string) [REQUIRED] Path to the quota binary. Command
- *                     line parameters can be specified in this value.
- *       - grep_path: (string) [REQUIRED] Path to the grep binary.
- *       - partition: (string) If all user mailboxes are on a single
- *                    partition, the partition label. By default, will
- *                    determine quota information using the user's home
- *                    directory value.
  *     - hook: Use the quota hook to handle quotas (see imp/config/hooks.php).
  *             All parameters defined for this driver will be passed to the
  *             quota hook function.
  *     - imap: Use the IMAP QUOTA extension to handle quotas. The IMAP server
  *             server must support the QUOTAROOT command to use this driver.
  *             This is the RECOMMENDED way of handling quotas.
- *     - maildir: Use Maildir++ quota files to handle quotas. Parameters:
- *         - msg_count: (boolean) Display information on the message limit
- *                      rather than the storage limit? The storage limit
- *                      information is displayed by default.
- *         - path: (string) The path to the user's Maildir directory. You may
- *                 use the two-character sequence "~U" to represent the user's
- *                 account name, and the actual username will be substituted
- *                 in that location. Example:
- *                   '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'.
- *     - mdaemon: Use Mdaemon server to handle quotas. Parameters:
- *         - app_location: (string) Location of the application.
- *     - mercury32: Use Mercury/32 server to handle quotas. Parameters:
- *         - mail_user_folder: (string) The path to folder mail mercury.
- *     - sql: Use arbitrary SQL queries to handle quotas. This driver accepts
- *            these SQL connection parameters:
- *              - database
- *              - hostspec
- *              - password
- *              - phptype
- *              - username
- *            See horde/config/conf.php for further information on these
- *            parameters. If using the Horde DB, these parameters can be found
- *            in Horde's $GLOBALS['conf']['sql'] variable and may be merged
- *            into the parameter configuration like this:
- *              'params' => array_merge(
- *                  $GLOBALS['conf']['sql'],
- *                  array(
- *                      'query_quota' => [...],
- *                      'query_used' => [...],
- *                  )
- *              )
- *
- *            Additional SQL parameters:
- *              - query_quota: (string) SQL query which returns single
- *                             row/column with user quota (in bytes). %u is
- *                             replaced with current user name, %U with the
- *                             user name without the domain part, and %d
- *                             with the domain.
- *              - query_used: (string) SQL query which returns single
- *                            row/column with user used space (in bytes).
- *                            Placeholders are the same as in 'query_quota'.
  *
  * smtp: (array) If Horde is configured to use SMTP as the mailer, entries in
  *   this array will overwrite the default Horde SMTP parameters. The

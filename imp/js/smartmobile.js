@@ -775,7 +775,7 @@ var ImpMobile = {
                 $('<li class="imp-message-atc"></li>').append(
                     $('<a></a>').attr({
                         href: v.download_url,
-                        target: 'download'
+                        rel: 'external'
                     }).append(
                         $(v.icon).addClass('ui-li-icon')
                     ).append(

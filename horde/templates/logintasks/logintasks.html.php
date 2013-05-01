@@ -12,7 +12,7 @@
     <input type="checkbox" class="checkbox" name="<?php echo $t['name'] ?>" id="<?php echo $t['name'] ?>"<?php if ($t['checked']) echo ' checked="checked"' ?> />
     <label for="<?php echo $t['name'] ?>">
 <?php endif ?>
-    <?php $t['descrip'] ?>
+    <?php echo $t['descrip'] ?>
 <?php if ($this->confirm): ?>
     </label>
 <?php endif; ?>
@@ -21,7 +21,7 @@
 
    <div>
 <?php if ($this->confirm): ?>
-    <input name="ok" type="submit" class="horde-default submit-button" value="<?php echo -("Perform Login Tasks") ?>" />
+    <input name="ok" type="submit" class="horde-default submit-button" value="<?php echo _("Perform Login Tasks") ?>" />
     <input id="logintasks_skip" style="display:none" type="button" class="submit-button" value="<?php echo _("Skip Login Tasks") ?>" />
 <?php endif; ?>
 <?php if ($this->agree): ?>

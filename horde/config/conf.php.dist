@@ -67,6 +67,7 @@ $conf['compress_pages'] = true;
 $conf['max_exec_time'] = 0;
 $conf['session']['name'] = 'Horde';
 $conf['session']['cache_limiter'] = 'nocache';
+$conf['session']['max_time'] = 72000;
 $conf['session']['timeout'] = 0;
 $conf['auth']['admins'] = array('Administrator');
 $conf['auth']['driver'] = 'auto';

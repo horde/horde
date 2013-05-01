@@ -47,7 +47,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_
                 $this->_instance = $session->retrieve('imp_imaptree');
             } else {
                 try {
-                    $this->_instance = @unserialize($cache->get($session->get('imp', 'treeob'), 86400));
+                    $this->_instance = @unserialize($cache->get($session->get('imp', 'treeob'), 0));
                 } catch (Exception $e) {
                     Horde::log('Could not unserialize stored IMP_Imap_Tree object.', 'DEBUG');
                 }

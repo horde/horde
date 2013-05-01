@@ -500,6 +500,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 $headelt = $doc->createElement('head');
                 $doc->appendChild($headelt);
             }
+        } else {
+            $headelt = $doc->createElement('head');
+            $doc->appendChild($headelt);
         }
 
         if ($css_text) {

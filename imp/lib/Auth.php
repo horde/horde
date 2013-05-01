@@ -295,9 +295,8 @@ class IMP_Auth
 
         $imp_imap = $injector->getInstance('IMP_Imap');
 
-        /* Can't call this until now, since we need prefs to be properly
-         * loaded to grab the special mailboxes information. */
-        $imp_imap->updateFetchIgnore();
+        /* Perform post-login tasks for IMAP object. */
+        $imp_imap->doPostLoginTasks();
 
         /* Does the server allow file uploads? If yes, store the
          * value, in bytes, of the maximum file size. */

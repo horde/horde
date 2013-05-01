@@ -12,17 +12,16 @@ require_once __DIR__ . '/../Locks.php';
 
 class Horde_Auth_Unit_Sql_Pdo_SqliteLockTest extends Horde_Auth_Unit_Sql_Locks
 {
-
     public static function setUpBeforeClass()
     {
-        if (!extension_loaded('pdo') ||
-            !in_array('sqlite', PDO::getAvailableDrivers())) {
-            self::$reason = 'No sqlite extension or no sqlite PDO driver';
-            return;
-        }
-        self::$db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:', 'charset' => 'utf-8'));
-        parent::setUpBeforeClass();
-    }
+        $factory_db = new Horde_Test_Factory_Db();
 
+        try {
+            self::$db = $factory_db->create();
+            parent::setUpBeforeClass();
+        } catch (Horde_Test_Exception $e) {
+            self::$reason = 'Sqlite not available.';
+        }
+    }
 
 }

@@ -13,3 +13,6 @@
  */
 
 Horde_Test_Autoload::addPrefix('Turba', __DIR__ . '/../../lib');
+
+/** Load the basic test definition */
+require_once __DIR__ . '/TestCase.php';

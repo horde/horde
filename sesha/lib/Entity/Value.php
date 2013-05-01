@@ -37,7 +37,7 @@ class Sesha_Entity_Value extends Horde_Rdo_Base
             }
             return $dt;
 
-        case 'image';
+        case 'image':
             return array('hash' => $this->txt_datavalue);
 
         default:

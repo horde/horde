@@ -1,16 +1,15 @@
 # Ukrainian translations for Horde_Form module.
 # Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Form module.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"PO-Revision-Date: 2013-04-13 01:27+0200\n"
+"Last-Translator: Andriy Kopystyansky <webmaster@polynet.lviv.ua>\n"
+"Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -62,9 +61,8 @@ msgid "Address"
 msgstr "Адреса"
 
 #: Form/Type.php:795
-#, fuzzy
 msgid "Address Link"
-msgstr "Адресник"
+msgstr ""
 
 #: Form/Type.php:1620
 msgid "Allow multiple addresses?"
@@ -109,9 +107,8 @@ msgstr ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 
 #: Form/Type.php:3641
-#, fuzzy
 msgid "Database lookup"
-msgstr "База даних"
+msgstr "Пошук в базі даних"
 
 #: Form/Type.php:2549
 msgid "Date"
@@ -190,18 +187,16 @@ msgid "Headers"
 msgstr "Заголовки"
 
 #: Form/Type.php:617
-#, fuzzy
 msgid "Helpers"
-msgstr "Довідка"
+msgstr "Помічники"
 
 #: Form/Type.php:528
 msgid "IP address"
 msgstr "IP адреса"
 
 #: Form/Type.php:558
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IP адреса"
+msgstr "IPv6 адреса"
 
 #: Form/Type.php:3349
 msgid "Id"
@@ -234,7 +229,7 @@ msgstr "Лівий заголовок"
 
 #: Form/Type.php:3475
 msgid "Left values"
-msgstr "Ліва величина"
+msgstr "Значення зліва"
 
 #: Form/Type.php:1352
 msgid "Link"
@@ -245,9 +240,8 @@ msgid "Link URL"
 msgstr ""
 
 #: Form/Type.php:1370
-#, fuzzy
 msgid "Link access key"
-msgstr " (Гаряча клавіша %s)"
+msgstr "Гаряча клавіша посилання"
 
 #: Form/Type.php:3353
 msgid "Link style"
@@ -258,13 +252,12 @@ msgid "Link target"
 msgstr ""
 
 #: Form/Type.php:1358 Form/Type.php:3351
-#, fuzzy
 msgid "Link text"
-msgstr "Довгий текст"
+msgstr "Текст посилання"
 
 #: Form/Type.php:1626
 msgid "Link the email address to the compose page when displaying?"
-msgstr ""
+msgstr "Підв'язувати адресу е-пошти до вікна створення при відображенні?"
 
 #: Form/Type.php:1367
 msgid "Link title attribute"
@@ -377,18 +370,16 @@ msgid "Please enter a valid time."
 msgstr "Введіть дійсний час."
 
 #: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
-#, fuzzy
 msgid "Prompt text"
-msgstr "Текст дзвоника"
+msgstr "Текст підказки"
 
 #: Form/Type.php:1623
 msgid "Protect address from spammers?"
 msgstr "Захистити адресу від спамерів?"
 
 #: Form/Type.php:2401
-#, fuzzy
 msgid "Radio selection"
-msgstr "Вибір дати"
+msgstr ""
 
 #: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
 msgid "Regex"
@@ -396,7 +387,7 @@ msgstr "Regex"
 
 #: Form/Type.php:3605
 msgid "Relationship browser"
-msgstr ""
+msgstr "Оглядач зв'язків"
 
 #: Form/Renderer.php:344
 msgid "Required Field"
@@ -416,7 +407,7 @@ msgstr "Правий заголовок"
 
 #: Form/Type.php:3477
 msgid "Right values"
-msgstr "Права величина"
+msgstr "Значення справа"
 
 #: Form/Type.php:884
 msgid "S/MIME Key"
@@ -447,9 +438,8 @@ msgid "Show option to keep original?"
 msgstr "Показати опцію для збереження оригіналу?"
 
 #: Form/Type.php:2964 Form/Type.php:3127
-#, fuzzy
 msgid "Show picker?"
-msgstr "Показати іконку?"
+msgstr "Показати піпетку?"
 
 #: Form/Type.php:2688 Form/Type.php:3133
 msgid "Show seconds?"
@@ -474,21 +464,19 @@ msgstr "Вибір звуку"
 
 #: Form/Type.php:98
 msgid "Spacer"
-msgstr ""
+msgstr "Розділювач"
 
 #: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
 msgid "Start year"
-msgstr ""
+msgstr "Рік початку"
 
 #: Form/Type.php:2966 Form/Type.php:3129
-#, fuzzy
 msgid "Storage format"
-msgstr "Формат часу"
+msgstr "Формат сховища"
 
 #: Form/Type.php:414
-#, fuzzy
 msgid "String list"
-msgstr "Список цілих"
+msgstr ""
 
 #: Form/Type.php:440
 msgid "String list returning an array"
@@ -590,7 +578,7 @@ msgstr "Вибір часу"
 
 #: Form/Type.php:1321
 msgid "True or false"
-msgstr "Правда чи брехня"
+msgstr "Істинно чи хибно"
 
 #: Form/Type.php:360
 #, php-format

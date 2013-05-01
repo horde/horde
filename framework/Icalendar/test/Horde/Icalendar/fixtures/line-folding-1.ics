@@ -7,5 +7,8 @@ DTSTART;VALUE=DATE:20080101
 DTSTAMP;VALUE=DATE:20080101
 DESCRIPTION:Lorem ipsum dolor sit amet\, consectetuer adipiscing elit.
   Aliquam sollicitudin faucibus mauris amet.
+BINARY;ENCODING=b:TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVlciBhZ
+ GlwaXNjaW5nIGVsaXQuIEFsaXF1YW0gc29sbGljaXR1ZGluIGZhdWNpYnVzIG1hdXJpcyBhbWV0
+ Lg==
 END:VEVENT
 END:VCALENDAR

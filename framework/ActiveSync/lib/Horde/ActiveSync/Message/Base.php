@@ -148,14 +148,10 @@ class Horde_ActiveSync_Message_Base
      * @param string $property  Property to get.
      *
      * @return mixed  The value of the requested property.
+     * @todo: Return boolean false if not set. Not BC to change it.
      */
     public function &__get($property)
     {
-        if (!array_key_exists($property, $this->_properties)) {
-            $this->_logger->err('Unknown property: ' . $property);
-            throw new InvalidArgumentException('Unknown property: ' . $property);
-        }
-
         if ($this->_properties[$property] !== false) {
             return $this->_properties[$property];
         } else {
@@ -289,7 +285,7 @@ class Horde_ActiveSync_Message_Base
 
                 // Found start tag
                 if (!isset($this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]])) {
-                    $this->_logger->debug('Tag ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ' unexpected in type XML type ' . get_class($this));
+                    $this->_logger->err('Tag ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ' unexpected in type XML type ' . get_class($this));
                     throw new Horde_ActiveSync_Exception('Unexpected tag');
                 } else {
                     $map = $this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]];
@@ -427,7 +423,7 @@ class Horde_ActiveSync_Message_Base
                                 Horde_ActiveSync::AIRSYNCBASE_DATA,
                                 Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA)
                               )) {
-                        $this->_logger->debug('HANDLING MULTIPART OUTPUT');
+                        $this->_logger->info('HANDLING MULTIPART OUTPUT');
                         $encoder->addPart($this->$map[self::KEY_ATTRIBUTE]);
                         $encoder->startTag(Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_PART);
                         $encoder->content((string)(count($encoder->getParts()) - 1));
@@ -467,6 +463,12 @@ class Horde_ActiveSync_Message_Base
      */
     protected function _checkEncoding($data, $tag)
     {
+        if (is_resource($data)) {
+            stream_filter_register('horde_null', 'Horde_Stream_Filter_Null');
+            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+            $filter_null = stream_filter_prepend($data, 'horde_null', STREAM_FILTER_READ);
+            $filter_eol = stream_filter_prepend($data, 'horde_eol', STREAM_FILTER_READ);
+        }
         return $data;
     }
 
@@ -492,7 +494,8 @@ class Horde_ActiveSync_Message_Base
      */
     protected function _getAttribute($name, $default = null)
     {
-        if (!empty($this->_properties[$name])) {
+        if ((!is_array($this->_properties[$name]) && $this->_properties[$name] !== false) ||
+            is_array($this->_properties[$name])) {
             return $this->_properties[$name];
         } else {
             return $default;

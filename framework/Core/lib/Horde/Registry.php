@@ -370,6 +370,7 @@ class Horde_Registry
             'Horde_Log_Logger' => 'Horde_Core_Factory_Logger',
             'Horde_Mail' => 'Horde_Core_Factory_Mail',
             'Horde_Memcache' => 'Horde_Core_Factory_Memcache',
+            'Horde_Nosql_Adapter' => 'Horde_Core_Factory_NosqlBase',
             'Horde_Notification' => 'Horde_Core_Factory_Notification',
             'Horde_Perms' => 'Horde_Core_Factory_Perms',
             'Horde_Queue_Storage' => 'Horde_Core_Factory_QueueStorage',
@@ -381,6 +382,7 @@ class Horde_Registry
             'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',
             'Horde_SessionHandler' => 'Horde_Core_Factory_SessionHandler',
             'Horde_Template' => 'Horde_Core_Factory_Template',
+            'Horde_Timezone' => 'Horde_Core_Factory_Timezone',
             'Horde_Token' => 'Horde_Core_Factory_Token',
             'Horde_Variables' => 'Horde_Core_Factory_Variables',
             'Horde_View' => 'Horde_Core_Factory_View',
@@ -1207,9 +1209,11 @@ class Horde_Registry
      */
     public function linkByPackage($app, $call, $args = array(), $extra = '')
     {
-        $links = ($api_ob = $this->_loadApi($app))
-            ? $api_ob->links()
-            : array();
+        try {
+            $links = $this->callByPackage($app, 'links');
+        } catch (Horde_Exception $e) {
+            $links = array();
+        }
 
         /* Make sure the link is defined. */
         if (!isset($links[$call])) {

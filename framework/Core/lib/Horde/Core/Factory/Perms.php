@@ -17,19 +17,25 @@ class Horde_Core_Factory_Perms extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        $driver = $GLOBALS['conf']['perms']['driver'];
-        $params = isset($GLOBALS['conf']['perms'])
+        global $conf;
+
+        $driver = empty($conf['perms']['driver'])
+            ? 'null'
+            : $conf['perms']['driver'];
+        $params = isset($conf['perms'])
             ? Horde::getDriverConfig('perms', $driver)
             : array();
 
-        if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+        switch (Horde_String::lower($driver)) {
+        case 'sql':
+            $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'perms');
+            break;
         }
 
         $params['cache'] = $injector->getInstance('Horde_Cache');
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
-        $class = $this->_getDriverName(is_null($driver) ? 'Null' : $driver, 'Horde_Perms');
+        $class = $this->_getDriverName($driver, 'Horde_Perms');
         return new $class($params);
     }
 

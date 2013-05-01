@@ -16,7 +16,8 @@
 var HordeMobile = {
 
     notify_handler: function(m) { return HordeMobile.showNotifications(m); },
-    //page_init: false,
+    // page_init: false,
+    // regenerate_sid: false,
     serverError: 0,
 
     loading: 0,
@@ -56,11 +57,18 @@ var HordeMobile = {
      */
     doAction: function(action, params, callback, opts)
     {
+        opts = opts || {};
         params = params || {};
 
         params.token = HordeMobile.conf.token;
         if (HordeMobile.conf.sid) {
             $.extend(params, HordeMobile.conf.sid.toQueryParams());
+        }
+
+        if (HordeMobile.regenerate_sid) {
+            params.regenerate_sid = 1;
+            opts.async = false;
+            delete HordeMobile.regenerate_sid;
         }
 
         HordeMobile.loading++;
@@ -74,7 +82,7 @@ var HordeMobile = {
             },
             type: 'post',
             url: HordeMobile.conf.ajax_url + action
-        }, opts || {});
+        }, opts);
 
         if (opts.submit) {
             var tmp = opts.submit, tmp2;
@@ -169,6 +177,22 @@ var HordeMobile = {
                 break;
             }
         });
+    },
+
+    /**
+     * Run tasks.
+     */
+    runTasks: function(e, d)
+    {
+        var v;
+
+        if (d['horde:regenerate_sid']) {
+            HordeMobile.regenerate.sid = true;
+        }
+
+        if ((v = d['horde:sid'])) {
+            HordeMobile.conf.sid = v;
+        }
     },
 
     /**
@@ -304,3 +328,4 @@ var HordeMobile = {
 
 $(HordeMobile.onDocumentReady);
 $(document).bind('pagebeforechange', HordeMobile.onPageBeforeChange);
+$(document).bind('HordeMobile:runTasks', HordeMobile.runTasks);

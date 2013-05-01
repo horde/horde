@@ -28,8 +28,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-04-08</date>
- <time>16:40:20</time>
+ <date>2013-04-19</date>
+ <time>21:26:19</time>
  <version>
   <release>4.1.0beta1</release>
   <api>4.0.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Update the default SQL source schema (Request #11993).
 * [mms] Add links to group members on smartmobile entry page.
 * [mms] Add group icon to group contacts in smartmobile browse view.
 * [jan] Allow to search all search fields at once in basic searching.
@@ -448,6 +449,7 @@
     <file name="5_turba_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="6_turba_upgrade_updateschema.php" role="horde" />
     <file name="7_turba_upgrade_activesyncschema.php" role="horde" />
+    <file name="8_turba_fix_blob_length.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="ldap">
@@ -523,7 +525,6 @@
       <file name="ListTest.php" role="test" />
       <file name="ListViewTest.php" role="test" />
       <file name="TestBase.php" role="test" />
-      <file name="tohash.phpt" role="test" />
       <file name="ViewBrowseTest.php" role="test" />
       <file name="ViewListTest.php" role="test" />
      </dir> <!-- /test/Turba/ToDo -->
@@ -548,7 +549,8 @@
        <file name="Base.php" role="test" />
        <file name="KolabTest.php" role="test" />
       </dir> <!-- /test/Turba/Unit/Turba -->
-      <file name="DriverTest.php" role="test" />
+      <file name="ExportTest.php" role="test" />
+      <file name="ImportTest.php" role="test" />
      </dir> <!-- /test/Turba/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -783,7 +785,7 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.3</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1004,6 +1006,7 @@
    <install as="turba/migration/5_turba_upgrade_sqlnghierarchical.php" name="migration/5_turba_upgrade_sqlnghierarchical.php" />
    <install as="turba/migration/6_turba_upgrade_updateschema.php" name="migration/6_turba_upgrade_updateschema.php" />
    <install as="turba/migration/7_turba_upgrade_activesyncschema.php" name="migration/7_turba_upgrade_activesyncschema.php" />
+   <install as="turba/migration/8_turba_fix_blob_length.php" name="migration/8_turba_fix_blob_length.php" />
    <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
@@ -1054,10 +1057,10 @@
    <install as="Turba/ToDo/ListTest.php" name="test/Turba/ToDo/ListTest.php" />
    <install as="Turba/ToDo/ListViewTest.php" name="test/Turba/ToDo/ListViewTest.php" />
    <install as="Turba/ToDo/TestBase.php" name="test/Turba/ToDo/TestBase.php" />
-   <install as="Turba/ToDo/tohash.phpt" name="test/Turba/ToDo/tohash.phpt" />
    <install as="Turba/ToDo/ViewBrowseTest.php" name="test/Turba/ToDo/ViewBrowseTest.php" />
    <install as="Turba/ToDo/ViewListTest.php" name="test/Turba/ToDo/ViewListTest.php" />
-   <install as="Turba/Unit/DriverTest.php" name="test/Turba/Unit/DriverTest.php" />
+   <install as="Turba/Unit/ExportTest.php" name="test/Turba/Unit/ExportTest.php" />
+   <install as="Turba/Unit/ImportTest.php" name="test/Turba/Unit/ImportTest.php" />
    <install as="Turba/Unit/Driver/Base.php" name="test/Turba/Unit/Driver/Base.php" />
    <install as="Turba/Unit/Driver/KolabTest.php" name="test/Turba/Unit/Driver/KolabTest.php" />
    <install as="Turba/Unit/Driver/Sql/Base.php" name="test/Turba/Unit/Driver/Sql/Base.php" />
@@ -1584,12 +1587,13 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Fix importing certain phone fields from vCard (Bug #12178).
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile contacts details page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Fix ActiveSync global address book searches when using LDAP as backend (Bug #12089).
    </notes>
   </release>
   <release>
-   <date>2013-04-08</date>
+   <date>2013-04-19</date>
    <time>00:20:30</time>
    <version>
     <release>4.1.0beta1</release>
@@ -1601,6 +1605,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Update the default SQL source schema (Request #11993).
 * [mms] Add links to group members on smartmobile entry page.
 * [mms] Add group icon to group contacts in smartmobile browse view.
 * [jan] Allow to search all search fields at once in basic searching.

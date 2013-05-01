@@ -113,7 +113,7 @@ class Turba_Driver implements Countable
     protected $_contact_owner = '';
 
     /**
-     * Mapping of ActiveSync fields to Turba attributes.
+     * Mapping of Turba attributes to ActiveSync fields.
      *
      * @var array
      */
@@ -130,17 +130,21 @@ class Turba_Driver implements Countable
         'homeCity' => 'homecity',
         'homeProvince' => 'homestate',
         'homePostalCode' => 'homepostalcode',
+        'homeCountryFree' => 'homecountry',
         'otherStreet' => 'otherstreet',
         'otherCity' => 'othercity',
         'otherProvince' => 'otherstate',
         'otherPostalCode' => 'otherpostalcode',
+        'otherCountryFree' => 'othercountry',
         'workStreet' => 'businessstreet',
         'workCity' => 'businesscity',
         'workProvince' => 'businessstate',
         'workPostalCode' => 'businesspostalcode',
+        'workCountryFree' => 'businesscountry',
         'title' => 'jobtitle',
         'company' => 'companyname',
         'department' => 'department',
+        'office' => 'officelocation',
         'spouse' => 'spouse',
         'website' => 'webpage',
         'assistant' => 'assistantname',
@@ -1389,7 +1393,7 @@ class Turba_Driver implements Countable
                 }
                 break;
 
-            case 'instantMessenger':
+            case 'imaddress':
                 if ($fields && !isset($fields['X-WV-ID'])) {
                     break;
                 }
@@ -2203,23 +2207,17 @@ class Turba_Driver implements Countable
                     } elseif (isset($item['params']['HOME']) &&
                               !isset($hash['homeVideoCall'])) {
                         $hash['homeVideoCall'] = $item['value'];
-                    } elseif (!isset($hash['homeVideoCall'])) {
+                    } elseif (!isset($hash['videoCall'])) {
                         $hash['videoCall'] = $item['value'];
                     }
-                } elseif (count($item['params']) <= 1 ||
-                          isset($item['params']['VOICE'])) {
-                    // There might be e.g. SAT;WORK which must not overwrite
-                    // WORK.
+                } else {
                     if (isset($item['params']['WORK']) &&
                         !isset($hash['workPhone'])) {
                         $hash['workPhone'] = $item['value'];
                     } elseif (isset($item['params']['HOME']) &&
                               !isset($hash['homePhone'])) {
                         $hash['homePhone'] = $item['value'];
-                    } elseif ((count($item['params']) == 0 ||
-                               (count($item['params']) == 1 &&
-                                isset($item['params']['VOICE']))) &&
-                              !isset($hash['phone'])) {
+                    } else {
                         $hash['phone'] = $item['value'];
                     }
                 }
@@ -2346,7 +2344,7 @@ class Turba_Driver implements Countable
                 break;
 
             case 'X-WV-ID':
-                $hash['instantMessenger'] = $item['value'];
+                $hash['imaddress'] = $item['value'];
                 break;
 
             case 'X-ANNIVERSARY':
@@ -2464,15 +2462,27 @@ class Turba_Driver implements Countable
                 break;
 
             case 'homeCountry':
-                $message->homecountry = !empty($hash['homeCountry']) ? Horde_Nls::getCountryISO($hash['homeCountry']) : null;
+                $message->homecountry = !empty($hash['homeCountryFree'])
+                    ? $hash['homeCountryFree']
+                    : !empty($hash['homeCountry'])
+                        ? Horde_Nls::getCountryISO($hash['homeCountry'])
+                        : null;
                 break;
 
             case 'otherCountry':
-                $message->othercountry = !empty($hash['otherCountry']) ? Horde_Nls::getCountryISO($hash['otherCountry']) : null;
+                $message->othercountry = !empty($hash['otherCountryFree'])
+                    ? $hash['otherCountryFree']
+                    : !empty($hash['otherCountry'])
+                        ? Horde_Nls::getCountryISO($hash['otherCountry'])
+                        : null;
                 break;
 
             case 'workCountry':
-                $message->businesscountry = !empty($hash['workCountry']) ? Horde_Nls::getCountryISO($hash['workCountry']) : null;
+                $message->businesscountry = !empty($hash['workCountryFree'])
+                    ? $hash['workCountryFree']
+                    : !empty($hash['workCountry'])
+                        ? Horde_Nls::getCountryISO($hash['workCountry'])
+                        : null;
                 break;
 
             case 'email':
@@ -2503,8 +2513,17 @@ class Turba_Driver implements Countable
                 break;
 
             case 'category':
-                // Categories FROM horde are a simple string value, going BACK to horde are an array with 'value' and 'new' keys
+                // Categories FROM horde are a simple string value, categories going BACK to horde are an array with 'value' and 'new' keys
                 $message->categories = explode(';', $value);
+                break;
+
+            case 'children':
+                // Children FROM horde are a simple string value. Even though EAS
+                // uses an array stucture to pass them, we pass as a single
+                // string since we can't assure what delimter the user will
+                // use and (at least in some languages) a comma can be used
+                // within a full name.
+                $message->children = array($value);
                 break;
 
             case 'notes':
@@ -2586,7 +2605,9 @@ class Turba_Driver implements Countable
 
         try {
             if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
-                $hash['notes'] = $message->airsyncbasebody->data;
+                if (!empty($message->airsyncbasebody)) {
+                    $hash['notes'] = $message->airsyncbasebody->data;
+                }
             } else {
                 $hash['notes'] = $message->body;
             }
@@ -2611,10 +2632,19 @@ class Turba_Driver implements Countable
         $hash['emails'] = implode(',', $hash['emails']);
 
         /* Categories */
-        if (count($message->categories)) {
-            $hash['category'] = implode('|', $message->categories);
+        if (is_array($message->categories) && count($message->categories)) {
+            $hash['category'] = implode(';', $message->categories);
         } elseif (!$message->isGhosted('categories')) {
             $hash['category'] = '';
+        }
+
+        /* Children */
+        if (is_array($message->children) && count($message->children)) {
+            // We use a comma as incoming delimiter as it's the most
+            // common even though it might be used withing a name string.
+            $hash['children'] = implode(', ', $message->children);
+        } elseif (!$message->isGhosted('children')) {
+            $hash['children'] = '';
         }
 
         /* Birthday and Anniversary */
@@ -2636,31 +2666,43 @@ class Turba_Driver implements Countable
         /* Countries */
         include 'Horde/Nls/Countries.php';
         if (!empty($message->homecountry)) {
-            $country = array_search($message->homecountry, $countries);
-            if ($country === false) {
-                $country = $message->homecountry;
+            if (!empty($this->map['homeCountryFree'])) {
+                $hash['homeCountryFree'] = $message->homecountry;
+            } else {
+                $country = array_search($message->homecountry, $countries);
+                if ($country === false) {
+                    $country = $message->homecountry;
+                }
+                $hash['homeCountry'] = $country;
             }
-            $hash['homeCountry'] = $country;
         } elseif (!$message->isGhosted('homecountry')) {
             $hash['homeCountry'] = null;
         }
 
         if (!empty($message->businesscountry)) {
-            $country = array_search($message->businesscountry, $countries);
-            if ($country === false) {
-                $country = $message->businesscountry;
+            if (!empty($this->map['workCountryFree'])) {
+                $hash['workCountryFree'] = $message->businesscountry;
+            } else {
+                $country = array_search($message->businesscountry, $countries);
+                if ($country === false) {
+                    $country = $message->businesscountry;
+                }
+                $hash['workCountry'] = $country;
             }
-            $hash['workCountry'] = $country;
         } elseif (!$message->isGhosted('businesscountry')) {
             $hash['workCountry'] = null;
         }
 
         if (!empty($message->othercountry)) {
-            $country = array_search($message->othercountry, $countries);
-            if ($country === false) {
-                $country = $message->othercountry;
+            if (!empty($this->map['otherCountryFree'])) {
+                $hash['otherCountryFree'] = $message->othercountry;
+            } else {
+                $country = array_search($message->othercountry, $countries);
+                if ($country === false) {
+                    $country = $message->othercountry;
+                }
+                $hash['otherCountry'] = $country;
             }
-            $hash['otherCountry'] = $country;
         } elseif (!$message->isGhosted('othercountry')) {
             $hash['otherCountry'] = null;
         }

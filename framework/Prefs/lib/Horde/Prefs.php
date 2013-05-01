@@ -164,7 +164,7 @@ class Horde_Prefs implements ArrayAccess
 
                 foreach ($this->_storage as $storage) {
                     try {
-                        $storage->remove($prefname);
+                        $storage->remove($scope->scope, $prefname);
                     } catch (Exception $e) {}
                 }
             }

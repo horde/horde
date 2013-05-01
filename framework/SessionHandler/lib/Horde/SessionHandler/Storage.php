@@ -46,6 +46,14 @@ abstract class Horde_SessionHandler_Storage
     }
 
     /**
+     * Storage objects do not support serialization.
+     */
+    public function __sleep()
+    {
+        throw new LogicException('SessionHandler storage objects do not support serialization.');
+    }
+
+    /**
      * Set the logger object.
      *
      * @param Horde_Log_Logger $log  The logger instance.

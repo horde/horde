@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
  * Implementation of IMP_Quota API for a generic hook function.  This
  * requires the quota hook to be set in config/hooks.php.
  *
@@ -7,15 +19,11 @@
  * supports the following parameters:
  *   - params: (array) Parameters to pass to the quota function.
  *
- * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
- * @author   Michael Redinger <Michael.Redinger@uibk.ac.at>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @author    Michael Redinger <Michael.Redinger@uibk.ac.at>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Quota_Hook extends IMP_Quota
 {

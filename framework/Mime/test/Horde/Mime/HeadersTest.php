@@ -175,4 +175,12 @@ To: recipient2@example.com"
         $this->assertNotEmpty($hdrs->getValue('To'));
     }
 
+    public function testBug12189()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/header_trailing_ws.txt');
+        $hdrs = Horde_Mime_Headers::parseHeaders($msg);
+
+        $this->assertNotNull($hdrs->getValue('From'));
+    }
+
 }

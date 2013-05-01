@@ -10,6 +10,20 @@
 
 This lists the API changes between releases of the package.
 
+Upgrading to 2.9.0
+==================
+
+  - Horde_Imap_Client_Base
+
+    The 'cacheob', 'lifetime', and 'slicesize' parameters to the 'cache'
+    constructor option have been deprecated. Use the 'backend' parameter
+    instead.
+
+  - Horde_Imap_Client_Cache
+
+    Added the clear() method.
+
+
 Upgrading to 2.8.0
 ==================
 

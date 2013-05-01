@@ -103,7 +103,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         $id = $this->_mimepart->getMimeId();
 
         switch ($this->_mimepart->getType()) {
-        case 'multipart/signed';
+        case 'multipart/signed':
             if (!in_array($this->_mimepart->getContentTypeParameter('protocol'), array('application/pkcs7-signature', 'application/x-pkcs7-signature'))) {
                 return array();
             }

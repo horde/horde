@@ -198,7 +198,7 @@ class Hermes
             $users = $auth->listUsers();
         } catch (Exception $e) {
             return array('invalid',
-                         array(sprintf(_("An error occurred listing users: %s"), $e->getMessage())));
+                         sprintf(_("An error occurred listing users: %s"), $e->getMessage()));
         }
 
         $employees = array();

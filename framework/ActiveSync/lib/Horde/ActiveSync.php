@@ -23,6 +23,17 @@
  * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property Horde_ActiveSync_Wbxml_Encoder encoder The Wbxml encoder.
+ * @property Horde_ActiveSync_Wbxml_Decoder decoder The Wbxml decoder.
+ * @property Horde_ActiveSync_State_Base state      The state object.
+ * @property Horde_Controller_Reqeust_Http request  The HTTP request object.
+ * @property Horde_ActiveSync_Driver_Base driver
+ * @property boolean provisioning
+ * @property boolean multipart
+ * @property string certPath
+ * @property Horde_ActiveSync_Device device
+ * @property Horde_Log_Logger logger
  */
 class Horde_ActiveSync
 {
@@ -335,13 +346,32 @@ class Horde_ActiveSync
      */
     protected $_get = array();
 
-
     /**
      * Path to root certificate bundle
      *
      * @var string
      */
     protected $_certPath;
+
+    /**
+     *
+     * @var Horde_ActiveSync_Device
+     */
+    protected $_device;
+
+    /**
+     * Wbxml encoder
+     *
+     * @var Horde_ActiveSync_Wbxml_Encoder
+     */
+    protected $_encoder;
+
+    /**
+     * Wbxml decoder
+     *
+     * @var Horde_ActiveSync_Wbxml_Decoder
+     */
+    protected $_decoder;
 
     /**
      * Map of commands when query string is base64 encoded (EAS 12.1)
@@ -439,6 +469,47 @@ class Horde_ActiveSync
         // Wbxml handlers
         $this->_encoder = $encoder;
         $this->_decoder = $decoder;
+    }
+
+    /**
+     * Return a collections object.
+     *
+     * @return Horde_ActiveSync_Collections
+     * @since 2.4.0
+     */
+    public function getCollectionsObject()
+    {
+        return new Horde_ActiveSync_Collections($this->getSyncCache(), $this);
+    }
+
+    /**
+     * Return a configured sync object.
+     *
+     * @return Horde_ActiveSync_Sync
+     * @since 2.4.0
+     */
+    public function getSyncObject()
+    {
+        $sync = new Horde_ActiveSync_Sync($this->_driver, $this->_device);
+        $sync->setLogger(self::$_logger);
+
+        return $sync;
+    }
+
+    /**
+     * Return a new, fully configured SyncCache.
+     *
+     * @return Horde_ActiveSync_SyncCache
+     * @since 2.4.0
+     */
+    public function getSyncCache()
+    {
+        return new Horde_ActiveSync_SyncCache(
+            $this->_state,
+            $this->_device->id,
+            $this->_device->user,
+            self::$_logger
+        );
     }
 
     /**
@@ -552,8 +623,11 @@ class Horde_ActiveSync
         case 'provisioning':
         case 'multipart':
         case 'certPath':
+        case 'device':
             $property = '_' . $property;
             return $this->$property;
+        case 'logger':
+            return self::$_logger;
         default:
             throw new InvalidArgumentException(sprintf(
                 'The property %s does not exist',
@@ -729,7 +803,7 @@ class Horde_ActiveSync
         // Always set the version information instead of caching it, some
         // clients may allow changing the protocol version.
         $device->version = $version;
-
+        $this->_device = $device;
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             $this->_doOptionsRequest();
@@ -754,7 +828,7 @@ class Horde_ActiveSync
         $this->activeSyncHeader();
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
-            $request = new $class($this, $device);
+            $request = new $class($this);
             $request->setLogger(self::$_logger);
             $result = $request->handle();
             $this->_driver->clearAuthentication();

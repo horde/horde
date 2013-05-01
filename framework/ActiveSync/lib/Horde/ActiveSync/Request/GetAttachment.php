@@ -53,8 +53,8 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
         }
         $attname = $get['AttachmentName'];
 
-        $this->_logger->debug(sprintf(
-            '[%s] Fetching attachement: %s',
+        $this->_logger->info(sprintf(
+            '[%s] Fetching attachment: %s',
             $this->_device->id,
             $attname));
 
@@ -62,11 +62,11 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
 
         // Output the attachment data to the stream.
         if (is_resource($att['data'])) {
-            $this->_logger->debug('Copying attachment data directly from stream to stream.');
+            $this->_logger->info('Copying attachment data directly from stream to stream.');
             rewind($att['data']);
             stream_copy_to_stream($att['data'], $this->_encoder->getStream());
         } else {
-            $this->_logger->debug('Writing attachment data from string to stream.');
+            $this->_logger->info('Writing attachment data from string to stream.');
             fwrite($this->_encoder->getStream(), $att['data']);
         }
 

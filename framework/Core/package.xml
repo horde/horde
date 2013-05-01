@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2013-04-22</date>
- <time>19:04:28</time>
+ <time>18:00:17</time>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -40,6 +40,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix setting configuration for timezone lookups.
+* [mms] Add a NoSQL factory.
+* [mms] Allow MongoDB to be used as a cache backend.
+* [mms] Regenerate session IDs during an active session to protect against session fixation attacks.
 * [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.
 * [jan] Add menu entry to show the notification log.
@@ -450,6 +454,8 @@
        <file name="Matcher.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="MimeViewer.php" role="php" />
+       <file name="Nosql.php" role="php" />
+       <file name="NosqlBase.php" role="php" />
        <file name="Notification.php" role="php" />
        <file name="Perms.php" role="php" />
        <file name="PermsCore.php" role="php" />
@@ -1316,6 +1322,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1746,6 +1759,8 @@
    <install as="Horde/Core/Factory/Matcher.php" name="lib/Horde/Core/Factory/Matcher.php" />
    <install as="Horde/Core/Factory/Memcache.php" name="lib/Horde/Core/Factory/Memcache.php" />
    <install as="Horde/Core/Factory/MimeViewer.php" name="lib/Horde/Core/Factory/MimeViewer.php" />
+   <install as="Horde/Core/Factory/Nosql.php" name="lib/Horde/Core/Factory/Nosql.php" />
+   <install as="Horde/Core/Factory/NosqlBase.php" name="lib/Horde/Core/Factory/NosqlBase.php" />
    <install as="Horde/Core/Factory/Notification.php" name="lib/Horde/Core/Factory/Notification.php" />
    <install as="Horde/Core/Factory/Perms.php" name="lib/Horde/Core/Factory/Perms.php" />
    <install as="Horde/Core/Factory/PermsCore.php" name="lib/Horde/Core/Factory/PermsCore.php" />
@@ -2889,6 +2904,10 @@
    <date>2013-04-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix setting configuration for timezone lookups.
+* [mms] Add a NoSQL factory.
+* [mms] Allow MongoDB to be used as a cache backend.
+* [mms] Regenerate session IDs during an active session to protect against session fixation attacks.
 * [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.
 * [jan] Add menu entry to show the notification log.

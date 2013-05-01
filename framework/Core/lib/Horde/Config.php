@@ -116,7 +116,7 @@ class Horde_Config
     {
         $response = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_HttpClient')
-            ->create()
+            ->create(array('request.timeout' => 10))
             ->get($this->_versionUrl);
         if ($response->code != 200) {
             throw new Horde_Exception('Unexpected response from server.');
@@ -536,7 +536,8 @@ class Horde_Config
                     'desc' => $desc,
                     'switch' => $values,
                     'default' => $default,
-                    'is_default' => $isDefault
+                    'is_default' => $isDefault,
+                    'quote' => $quote
                 );
                 break;
 
@@ -687,6 +688,10 @@ class Horde_Config
 
             case 'configsql':
                 $conf[$node->getAttribute('switchname')] = $this->configSQL($ctx, $node);
+                break;
+
+            case 'confignosql':
+                $conf[$node->getAttribute('switchname')] = $this->configNoSQL($ctx, $node);
                 break;
 
             case 'configvfs':
@@ -972,6 +977,98 @@ class Horde_Config
                 'custom' => array(
                     'desc' => 'Custom parameters',
                     'fields' => $fields + $standardFields,
+                )
+            )
+        );
+
+        if (isset($node) && $node->hasChildNodes()) {
+            $cur = array();
+            $this->_parseLevel($cur, $node->childNodes, $ctx);
+            $config['switch']['horde']['fields'] = array_merge($config['switch']['horde']['fields'], $cur);
+            $config['switch']['custom']['fields'] = array_merge($config['switch']['custom']['fields'], $cur);
+        }
+
+        return $config;
+    }
+
+    /**
+     * Returns the configuration tree for a NoSQL backend configuration to
+     * replace a <confignosql> tag.
+     * Subnodes will be parsed and added to both the Horde defaults and the
+     * custom configuration parts.
+     *
+     * @param string $ctx         The context of the <confignosql> tag.
+     * @param DomNode $node       The DomNode representation of the
+     *                            <confignosql> tag.
+     * @param string $switchname  If DomNode is not set, the value of the
+     *                            tag's switchname attribute.
+     *
+     * @return array  An associative array with the SQL configuration tree.
+     */
+    public function configNoSQL($ctx, $node = null,
+                                $switchname = 'driverconfig')
+    {
+        if ($node) {
+            $xpath = new DOMXPath($node->ownerDocument);
+        }
+
+        $custom_fields = array(
+            'required' => true,
+            'desc' => 'What database backend should we use?',
+            'default' => $this->_default(
+                $ctx . '|phptype',
+                $node ? $node->getAttribute('default') : ''
+            ),
+            'switch' => array(
+                'false' => array(
+                    'desc' => '[None]',
+                    'fields' => array()
+                ),
+                'mongo' => array(
+                    'desc' => 'MongoDB',
+                    'fields' => array(
+                        'hostspec' => array(
+                            '_type' => 'text',
+                            'required' => false,
+                            'desc' => 'Server specification (format: "mongodb://[username:password@]host1[:port1][,host2[:port2:],...]/db"; see http://www.php.net/manual/en/mongoclient.construct.php for further details)',
+                            'default' => $this->_default(
+                                $ctx . '|hostspec',
+                                $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: '') : ''
+                            )
+                        ),
+                        'dbname' => array(
+                            '_type' => 'text',
+                            'required' => false,
+                            'desc' => 'Database name to use',
+                            'default' => $this->_default(
+                                $ctx . '|database',
+                                $node ? ($xpath->evaluate('string(configstring[@name="database"])', $node) ?: '') : ''
+                            )
+                        )
+                    )
+                )
+            )
+        );
+
+        if (isset($node) && $node->getAttribute('baseconfig') == 'true') {
+            return $custom_fields;
+        }
+
+        list($default, $isDefault) = $this->__default($ctx . '|' . (isset($node) ? $node->getAttribute('switchname') : $switchname), 'horde');
+        $config = array(
+            'desc' => 'NoSQL driver configuration',
+            'default' => $default,
+            'is_default' => $isDefault,
+            'switch' => array(
+                'horde' => array(
+                    'desc' => 'Horde defaults',
+                    'fields' => array()
+                ),
+                'custom' => array(
+                    'desc' => 'Custom parameters',
+                    'fields' => array(
+                        'phptype' => $custom_fields
+                    )
                 )
             )
         );
@@ -1302,6 +1399,7 @@ class Horde_Config
      */
     protected function _configVFS($ctx, $node)
     {
+        $nosql = $this->configNoSQL($ctx . '|params');
         $sql = $this->configSQL($ctx . '|params');
         $default = $node->getAttribute('default');
         $default = empty($default) ? 'horde' : $default;
@@ -1325,6 +1423,14 @@ class Horde_Config
                                     $xpath->evaluate('string(configsection/configstring[@name="vfsroot"])', $node) ?: '/tmp'
                                 )
                             )
+                        )
+                    )
+                ),
+                'Nosql' => array(
+                    'desc' => 'NoSQL database',
+                    'fields' => array(
+                        'params' => array(
+                            'driverconfig' => $nosql
                         )
                     )
                 ),

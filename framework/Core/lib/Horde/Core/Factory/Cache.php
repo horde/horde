@@ -61,8 +61,16 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
             break;
 
+        case 'nosql':
+            $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'cache');
+            if ($nosql instanceof Horde_Mongo_Client) {
+                $params['mongo_db'] = $nosql;
+                $driver = 'Horde_Cache_Storage_Mongo';
+            }
+            break;
+
         case 'sql':
-            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+            $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'cache');
             break;
         }
 

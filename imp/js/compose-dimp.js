@@ -825,10 +825,10 @@ var DimpCompose = {
         });
         HordeCore.addRequestParams(params);
 
-        data.each(function(n) {
+        $A($R(0, data.length - 1)).each(function(i) {
             var fd = new FormData();
 
-            params.merge({ file_upload: n }).each(function(p) {
+            params.merge({ file_upload: data[i] }).each(function(p) {
                 fd.append(p.key, p.value);
             });
 

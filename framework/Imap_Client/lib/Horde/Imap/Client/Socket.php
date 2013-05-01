@@ -1770,9 +1770,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $use_cache = $this->_initCache(true);
 
         if ($ids->all) {
-            $ids = ($list_msgs || $use_cache)
-                ? $this->resolveIds($this->_selected, $ids, 2)
-                : $ids;
+            if (!$uidplus && ($list_msgs || $use_cache)) {
+                $ids = $this->resolveIds($this->_selected, $ids, 2);
+            }
         } elseif ($uidplus) {
             /* If QRESYNC is not available, and we are returning the list of
              * expunged messages (or we are caching), we have to make sure we
@@ -1823,12 +1823,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Always use UID EXPUNGE if available. */
         if ($uidplus) {
-            $cmd = $this->_clientCommand(array(
-                'UID',
-                'EXPUNGE',
-                strval($ids)
-            ));
-            $this->_sendLine($cmd);
+            foreach ($ids->split(2000) as $val) {
+                $this->_sendLine($this->_clientCommand(array(
+                    'UID',
+                    'EXPUNGE',
+                    $val
+                )));
+            }
         } elseif ($use_cache || $list_msgs) {
             $this->_sendLine($this->_clientCommand('EXPUNGE'));
         } else {
@@ -2869,10 +2870,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             switch ($ob->getPrimaryType()) {
             case 'message':
                 if ($ob->getSubType() == 'rfc822') {
-                    $data->next(); // Ignore: envelope
-                    $data->flushIterator(false);
-                    $data->next();
-                    $ob->addPart($this->_parseBodystructure($data));
+                    if ($data->next() === true) {
+                        // Ignore: envelope
+                        $data->flushIterator(false);
+                    }
+                    if ($data->next() === true) {
+                        $ob->addPart($this->_parseBodystructure($data));
+                    }
                     $data->next(); // Ignore: lines
                 }
                 break;
@@ -3161,8 +3165,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw $e;
         }
 
-        // If moving, delete the old messages now.
-        if (!$move_cmd && !empty($options['move'])) {
+        // If moving, delete the old messages now. Short-circuit if nothing
+        // was moved.
+        if (!$move_cmd &&
+            !empty($options['move']) &&
+            (($this->_temp['copyuid'] !== true) ||
+             !$this->_queryCapability('UIDPLUS'))) {
             $opts = array('ids' => $options['ids']);
             $this->store($this->_selected, array_merge(array(
                 'add' => array(Horde_Imap_Client::FLAG_DELETED)

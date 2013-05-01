@@ -36,10 +36,15 @@ Upgrading Horde from 5.0.x to 5.1.x
 Configuration Options (conf.php)
 --------------------------------
 
+It is now possible to configure Horde-wide settings for a NoSQL database
+backend. Addtionally, several Horde packages now allow a NoSQL backend driver
+to be used.
+
 The following options were removed::
 
    $conf['cache']['compress']
    $conf['cachecssparams']['compress']
+
 
 Hooks (hooks.php)
 -----------------

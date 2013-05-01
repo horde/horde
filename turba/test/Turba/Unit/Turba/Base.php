@@ -71,7 +71,7 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function tearDown()
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         foreach ($turba_shares->listShares('test@example.com') as $share) {
             $turba_shares->removeShare($share);
         }
@@ -81,7 +81,7 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function testCreateDefaultShare()
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $GLOBALS['conf']['share']['auto_create'] = true;
         Turba::getConfigFromShares(array('test' => array('use_shares' => true)));
         $this->assertEquals(
@@ -91,7 +91,7 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function testDefaultShareName()
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $GLOBALS['conf']['share']['auto_create'] = true;
         Turba::getConfigFromShares(array('test' => array('use_shares' => true)));
         $shares = $turba_shares->listShares('test@example.com');
@@ -105,7 +105,7 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function testNoAutoCreate()
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $GLOBALS['conf']['share']['auto_create'] = false;
         Turba::getConfigFromShares(array('test' => array('use_shares' => true)));
         $this->assertEquals(
@@ -115,7 +115,7 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function testDefaultShareDeletePermission()
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $GLOBALS['conf']['share']['auto_create'] = true;
         Turba::getConfigFromShares(array('test' => array('use_shares' => true)));
         $shares = $turba_shares->listShares('test@example.com');

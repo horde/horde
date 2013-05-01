@@ -60,3 +60,4 @@ $conf['vfs']['smb']['username'] = '';
 $conf['vfs']['smb']['password'] = '';
 $conf['vfs']['smb']['vfsroot'] = '/tmp/vfssmbtest';
 $conf['vfs']['smb']['smbclient'] = '/usr/bin/smbclient';
+$conf['vfs']['mongo']['hostspec'] = '';

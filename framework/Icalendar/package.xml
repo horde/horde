@@ -36,7 +36,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix exporting of base64-encoded attribute values.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1083,7 +1083,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix exporting of base64-encoded attribute values.
    </notes>
   </release>
  </changelog>

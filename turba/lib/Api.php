@@ -601,9 +601,18 @@ class Turba_Api extends Horde_Registry_Api
         /* Get default address book from user preferences. */
         if (empty($source) &&
             !($source = $prefs->getValue('default_dir'))) {
-            /* On new installations default_dir is not set; use first source
-             * instead. */
-            $source = key(Turba::getAddressBooks(Horde_Perms::EDIT));
+            // On new installations default_dir is not set. Try default
+            // addressbook if it's editable. Otherwise use first editable
+            // addressbook.
+            $edit_sources = Turba::getAddressBooks(Horde_Perms::EDIT);
+            $default_source = Turba::getDefaultAddressbook();
+            if (isset($edit_sources[$default_source])) {
+                // use default addressbook
+                $source = $default_source;
+            } else {
+                // Use first writable source
+                $source = reset($edit_sources);
+            }
         }
 
         // Check existence of and permissions on the specified source.
@@ -751,7 +760,7 @@ class Turba_Api extends Horde_Registry_Api
             if (count($result) == 0) {
                 continue;
             } elseif (count($result) > 1) {
-                throw new Turba_Exception("Internal Horde Error: multiple Turba objects with same objectId.");
+                throw new Turba_Exception(sprintf("Internal Horde Error: multiple Turba objects with same objectId %s.", $uid));
             }
 
             $version = '3.0';
@@ -794,7 +803,7 @@ class Turba_Api extends Horde_Registry_Api
             }
         }
 
-        throw new Turba_Exception(_("Object not found."));
+        throw new Turba_Exception(sprintf(_("Object %s not found."), $uid));
     }
 
     /**
@@ -950,7 +959,7 @@ class Turba_Api extends Horde_Registry_Api
             if (!count($result)) {
                 continue;
             } elseif (count($result) > 1) {
-                throw new Turba_Exception(_("Multiple contacts found with same unique ID."));
+                throw new Turba_Exception(sprintf(_("Multiple contacts found with same unique ID %s."), $uid));
             }
 
             $object = $result->objects[0];
@@ -1002,7 +1011,7 @@ class Turba_Api extends Horde_Registry_Api
             return $object->store();
         }
 
-        throw new Turba_Exception(_("Object not found."));
+        throw new Turba_Exception(sprintf(_("Object %s not found."), $uid));
     }
 
     /**

@@ -77,18 +77,22 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             : $conf[$name];
 
         switch (Horde_String::lower($vfs['type'])) {
+        case 'nosql':
+            $nosql = $this->_injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'vfs');
+            if ($nosql instanceof Horde_Mongo_Client) {
+                $vfs['params']['mongo_db'] = $nosql;
+                $vfs['type'] = 'mongo';
+            }
+            break;
+
         case 'sql':
         case 'sqlfile':
         case 'musql':
-            if ($name == 'horde' || $conf[$name]['type'] == 'horde') {
-                $vfs['params']['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
-            } else {
-                $config = Horde::getDriverConfig('vfs', 'sql');
-                unset($config['umask'], $config['vfsroot']);
-                $vfs['params']['db'] = $this->_injector
-                    ->getInstance('Horde_Core_Factory_Db')
-                    ->create('horde', $config);
-            }
+            $config = Horde::getDriverConfig('vfs', 'sql');
+            unset($config['umask'], $config['vfsroot']);
+            $vfs['params']['db'] = $this->_injector
+                ->getInstance('Horde_Core_Factory_Db')
+                ->create('horde', $config);
             break;
         }
 

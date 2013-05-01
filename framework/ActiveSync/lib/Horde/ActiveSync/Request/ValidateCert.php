@@ -79,7 +79,7 @@ class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Bas
             if ($field == self::VALIDATECERT_CERTIFICATES) {
                 while ($this->_decoder->getElementStartTag(self::VALIDATECERT_CERTIFICATE)) {
                     $certificates[] = $this->_decoder->getElementContent();
-                    $this->_logger->debug('VALIDATE CERT: ' . $certificates[count($certificates) - 1]);
+                    $this->_logger->info('VALIDATE CERT: ' . $certificates[count($certificates) - 1]);
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol Error');
                     }
@@ -90,7 +90,7 @@ class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Bas
             } elseif ($field == self::VALIDATECERT_CERTIFICATECHAIN) {
                 while ($this->_decoder->getElementStartTag(self::VALIDATECERT_CERTIFICATE)) {
                     $chain_certificates[] = $this->_decoder->getElementContent();
-                    $this->_logger->debug('CHAIN CERT: ' . $chain_certificates[count($chain_certificates) - 1]);
+                    $this->_logger->info('CHAIN CERT: ' . $chain_certificates[count($chain_certificates) - 1]);
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol Error');
                     }
@@ -100,7 +100,7 @@ class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Bas
                 }
             } elseif ($field == self::VALIDATECERT_CHECKCRL) {
                 if ($checkcrl = $this->_decoder->getElementContent()) {
-                    $this->_logger->debug('CRL: ' . $checkcrl);
+                    $this->_logger->info('CRL: ' . $checkcrl);
                 }
                 if (!$this->_decoder->getElementEndTag()) {
                     throw new Horde_ActiveSync_Exception('Protocol Error');

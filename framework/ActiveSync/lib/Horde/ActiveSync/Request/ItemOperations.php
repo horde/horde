@@ -181,7 +181,8 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                             $this->_statusCode = self::STATUS_ATTINVALID;
                         }
                         if (!$this->_encoder->multipart) {
-                            $msg->total = $msg->range = $this->_getDataSize($msg->data);
+                            $msg->total = $this->_getDataSize($msg->data);
+                            $msg->range = '0-' . $msg->total;
                         }
                         $this->_outputStatus();
                         $this->_encoder->startTag(Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE);
@@ -229,7 +230,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                 case 'documentlibrary' :
                     // Not supported
                 default :
-                    $this->_logger->debug(sprintf(
+                    $this->_logger->warn(sprintf(
                         '[%s] %s not supported by HANDLEITEMOPERATIONS.',
                         $this->_device->id,
                         $value['type'])
@@ -238,7 +239,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                 }
                 break;
             default :
-                $this->_logger->debug(sprintf(
+                $this->_logger->err(sprintf(
                     '[%s] %s not supported by HANDLEITEMOPERATIONS.',
                     $this->_device->id,
                     $value['type'])

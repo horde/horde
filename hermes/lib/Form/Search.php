@@ -144,7 +144,7 @@ class Hermes_Form_Search extends Horde_Form
     }
 
 
-    public function getSearchCriteria(&$vars)
+    public function getSearchCriteria($vars)
     {
         if (!$this->isValid() || !$this->isSubmitted()) {
             return null;

@@ -289,7 +289,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function indexes($tableName, $name = null)
     {
-        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName"));
+        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName", 0));
 
         if (!$indexes) {
             $schemas = array();
@@ -344,7 +344,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function columns($tableName, $name = null)
     {
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->_columnDefinitions($tableName, $name);

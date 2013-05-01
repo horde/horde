@@ -1,0 +1,52 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script performs garbage collection on session data.
+ *
+ * Copyright 2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyrigth 2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
+ */
+
+$baseFile = __DIR__ . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+}
+
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
+
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-l', '--lifetime', array(
+    'dest' => 'lifetime',
+    'help' => 'Maximum lifetime of session (in seconds)',
+    'type' => 'int'
+));
+list($values,) = $parser->parseArgs();
+
+try {
+    $sh = $injector->createInstance('Horde_SessionHandler');
+} catch (Exception $e) {
+    $cli->fatal($e);
+}
+
+$lifetime = is_null($values->lifetime)
+    ? ini_get('session.gc_maxlifetime')
+    : $values->lifetime;
+
+$sh->gc($lifetime);
+
+$cli->message('Session garbage collection performed.', 'cli.success');

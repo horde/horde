@@ -128,7 +128,7 @@ class Horde_ActiveSync_SyncCache
     protected function _isValidProperty($property)
     {
         return in_array($property, array(
-            'hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys', 'lastuntil',
+            'hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys',
             'lasthbsyncstarted', 'lastsyncendnormal', 'folders', 'pingheartbeat',
             'synckeycounter'));
     }
@@ -138,12 +138,14 @@ class Horde_ActiveSync_SyncCache
      * timestamp in the state backend. If the timestamps are different, some
      * other request has modified the cache, so it should be invalidated.
      *
+     * @param boolean $hb_only  If true, only validate the hb timestamps. @since 2.4.0
+     *
      * @return boolean
      */
-    public function validateCache()
+    public function validateCache($hb_only = false)
     {
         $cache = $this->_state->getSyncCache($this->_devid, $this->_user);
-        if (($cache['timestamp'] > $this->_data['timestamp']) ||
+        if ((!$hb_only && $cache['timestamp'] > $this->_data['timestamp']) ||
             ($cache['lasthbsyncstarted'] > $this->_data['lasthbsyncstarted'])) {
             return false;
         }
@@ -153,7 +155,8 @@ class Horde_ActiveSync_SyncCache
 
     /**
      * Perform some sanity checking on the various timestamps to ensure we
-     * are in a valid state.
+     * are in a valid state. Basically checks that we are not currently running
+     * a looping sync and that the last looping sync ending normally.
      *
      * @return boolean
      */
@@ -162,12 +165,6 @@ class Horde_ActiveSync_SyncCache
         if ((!empty($this->_data['lasthbsyncstarted']) && empty($this->_data['lastsyncendnormal'])) ||
             (!empty($this->_data['lasthbsyncstarted']) && !empty($this->_data['lastsyncendnormal']) &&
             ($this->_data['lasthbsyncstarted'] > $this->_data['lastsyncendnormal']))) {
-
-            return false;
-        }
-
-        if ($this->_data['lastuntil'] &&
-            time() < $this->_data['lastuntil']) {
 
             return false;
         }
@@ -195,9 +192,8 @@ class Horde_ActiveSync_SyncCache
     public function getCollections($requireKey = true)
     {
         $collections = array();
-        foreach ($this->_data['collections'] as $key => $value) {
-            $collection = $value;
-            if (!$requireKey || ($requireKey && !empty($collection['synckey']))) {
+        foreach ($this->_data['collections'] as $key => $collection) {
+            if (!$requireKey || ($requireKey && !empty($collection['lastsynckey']))) {
                 $collection['id'] = $key;
                 $collections[$key] = $collection;
             }
@@ -243,14 +239,14 @@ class Horde_ActiveSync_SyncCache
     /**
      * Set a specific collection to be PINGable.
      *
-     * @param string  $collectionid  The collection id.
+     * @param string  $id  The collection id.
      */
-    public function setPingableCollection($collectionid)
+    public function setPingableCollection($id)
     {
-        if (empty($this->_data['collections'][$collectionid])) {
+        if (empty($this->_data['collections'][$id])) {
             throw new InvalidArgumentException('Collection does not exist');
         }
-        $this->_data['collections'][$collectionid]['pingable'] = true;
+        $this->_data['collections'][$id]['pingable'] = true;
     }
 
     /**
@@ -269,31 +265,31 @@ class Horde_ActiveSync_SyncCache
     /**
      * Check if a specified collection is PINGable.
      *
-     * @param string  The collection id.
+     * @param string $id  The collection id.
      *
      * @return boolean
      */
-    public function collectionIsPingable($collectionid)
+    public function collectionIsPingable($id)
     {
-        return !empty($this->_data['collections'][$collectionid]) &&
-               !empty($this->_data['collections'][$collectionid]['pingable']);
+        return !empty($this->_data['collections'][$id]) &&
+               !empty($this->_data['collections'][$id]['pingable']);
     }
 
     /**
      * Set the ping change flag on a collection. Indicatates that the last
      * PING was terminated with a change in this collection.
      *
-     * @param string $collectionid  The collection id.
+     * @param string $id  The collection id.
      * @throws InvalidArgumentException
      * @since 2.3.0
      */
-    public function setPingChangeFlag($collectionid)
+    public function setPingChangeFlag($id)
     {
-        if (empty($this->_data['collections'][$collectionid])) {
+        if (empty($this->_data['collections'][$id])) {
             throw new InvalidArgumentException('Collection does not exist.');
         }
 
-        $this->_data['collections'][$collectionid]['pingchange'] = true;
+        $this->_data['collections'][$id]['pingchange'] = true;
     }
 
     /**
@@ -313,12 +309,12 @@ class Horde_ActiveSync_SyncCache
     /**
      * Reset the specified collection's ping change flag.
      *
-     * @param string  $collectionid  The collectionid to reset.
+     * @param string  $id  The collectionid to reset.
      * @since 2.3.0
      */
-    public function resetPingChangeFlag($collectionid)
+    public function resetPingChangeFlag($id)
     {
-        $this->_data['collections'][$collectionid]['pingchange'] = false;
+        $this->_data['collections'][$id]['pingchange'] = false;
     }
 
     /**
@@ -329,7 +325,6 @@ class Horde_ActiveSync_SyncCache
     {
         $syncCache = $this->_state->getSyncCache(
             $this->_devid, $this->_user);
-        $this->_data['collections'] = array();
         $cache_collections = $syncCache['collections'];
         foreach ($cache_collections as $id => $cache_collection) {
             if (!isset($cache_collection['lastsynckey'])) {
@@ -339,7 +334,7 @@ class Horde_ActiveSync_SyncCache
             $cache_collection['synckey'] = $cache_collection['lastsynckey'];
             $this->_data['collections'][$id] = $cache_collection;
         }
-        $this->_logger->debug(sprintf(
+        $this->_logger->info(sprintf(
             '[%s] SyncCache collections refreshed.', getmypid()));
     }
 
@@ -391,12 +386,12 @@ class Horde_ActiveSync_SyncCache
     /**
      * Update the windowsize for the specified collection.
      *
-     * @param string $collection  The collection id.
-     * @param integer $size       The updated windowsize.
+     * @param string $id     The collection id.
+     * @param integer $size  The updated windowsize.
      */
-    public function updateWindowSize($collection, $windowsize)
+    public function updateWindowSize($id, $windowsize)
     {
-        $this->_data['collections'][$collection]['windowsize'] = $windowsize;
+        $this->_data['collections'][$id]['windowsize'] = $windowsize;
     }
 
     /**
@@ -496,7 +491,7 @@ class Horde_ActiveSync_SyncCache
             }
 
         } else {
-            $this->_logger->debug(sprintf(
+            $this->_logger->info(sprintf(
                 'Collection without id found: %s',
                 print_r($collection, true))
             );
@@ -547,6 +542,10 @@ class Horde_ActiveSync_SyncCache
 
                 unset($this->_data['collections'][$values['id']]['synckey']);
             }
+
+            if (!isset($values['pingable']) && isset($this->_data['collections'][$values['id']]['pingable'])) {
+                $collections[$key]['pingable'] = $this->_data['collections'][$values['id']]['pingable'];
+            }
         }
     }
 
@@ -576,30 +575,26 @@ class Horde_ActiveSync_SyncCache
      */
     public function updateFolder(Horde_ActiveSync_Message_Folder $folder)
     {
-        $this->_data['folders'][$folder->serverid]['parentid'] = $folder->parentid;
-        $this->_data['folders'][$folder->serverid]['displayname'] = $folder->displayname;
         switch ($folder->type) {
         case 7:
         case 15:
-            $this->_data['folders'][$folder->serverid]['class'] = 'Tasks';
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Tasks');
             break;
         case 8:
         case 13:
-            $this->_data['folders'][$folder->serverid]['class'] = 'Calendar';
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Calendar');
             break;
         case 9:
         case 14:
-            $this->_data['folders'][$folder->serverid]['class'] = 'Contacts';
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Contacts');
             break;
         case 17:
         case 10:
-            $this->_data['folders'][$folder->serverid]['class'] = 'Notes';
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Notes');
             break;
         default:
-            $this->_data['folders'][$folder->serverid]['class'] = 'Email';
+            $this->_data['folders'][$folder->serverid] = array('class' => 'Email');
         }
-        $this->_data['folders'][$folder->serverid]['type'] = $folder->type;
-        $this->_data['folders'][$folder->serverid]['filtertype'] = '0';
     }
 
     /**

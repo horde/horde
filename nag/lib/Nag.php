@@ -249,7 +249,7 @@ class Nag
                              foreach ($newtasks as $task) {
                                 $task['tasklist_id'] = '**EXTERNAL**';
                                 $task['tasklist_name'] = $registry->get('name', $app);
-                                $tasks->add(new Nag_Task($task));
+                                $tasks->add(new Nag_Task(null, $task));
                             }
                         } catch (Horde_Exception $e) {
                             Horde::logMessage($newtasks, 'ERR');

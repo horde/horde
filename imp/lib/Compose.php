@@ -41,9 +41,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     const EDITASNEW = 12;
     const TEMPLATE = 13;
 
-    /* Related part attribute names. */
+    /* Related part attribute name. */
     const RELATED_ATTR = 'imp_related_attr';
-    const RELATED_ATTR_ID = 'imp_related_attr_id';
 
     /* The blockquote tag to use to indicate quoted text in HTML data. */
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
@@ -1120,7 +1119,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         if (!$imp_imap->accessCompose(IMP_Imap::ACCESS_COMPOSE_TIMELIMIT, $email_count)) {
             Horde::permissionDeniedError('imp', 'max_timelimit');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $imp_imap->max_compose_timelimit, $conf['sentmail']['params']['limit_period']));
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $imp_imap->max_compose_timelimit, $injector->getInstance('IMP_Sentmail')->limit_period));
         }
 
         /* Count recipients if necessary. We need to split email groups
@@ -1429,16 +1428,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $parts[] = $injector->getInstance('IMP_Crypt_Pgp')->publicKeyMIMEPart();
             }
 
-            if (!empty($options['attach_vcard'])) {
+            if (!empty($options['vcard_attach'])) {
                 try {
                     $vpart = new Horde_Mime_Part();
                     $vpart->setType('text/x-vcard');
                     $vpart->setCharset('UTF-8');
                     $vpart->setContents($registry->call('contacts/ownVCard'));
-                    $vpart->setName($options['attach_vcard']);
+                    $vpart->setName($options['vcard_attach']);
 
                     $parts[] = $vpart;
-                } catch (Horde_Exception $e) {}
+                } catch (Horde_Exception $e) {
+                    throw new IMP_Compose_Exception(sprintf(_("Can't attach contact information: %s"), $e->getMessage()));
+                }
             }
 
             if (!empty($parts)) {
@@ -2300,9 +2301,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                                          DOMElement $node, $attribute)
     {
         $atc_ob->related = true;
-
-        $node->setAttribute(self::RELATED_ATTR, $attribute);
-        $node->setAttribute(self::RELATED_ATTR_ID, $atc_ob->id);
+        $node->setAttribute(self::RELATED_ATTR, $attribute . ';' . $atc_ob->id);
     }
 
     /**
@@ -2515,7 +2514,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         foreach ($html as $node) {
             if (($node instanceof DOMElement) &&
                 $node->hasAttribute(self::RELATED_ATTR)) {
-                $r_atc = $this[$node->getAttribute(self::RELATED_ATTR_ID)];
+                list($attr_name, $atc_id) = explode(';', $node->getAttribute(self::RELATED_ATTR));
+                $r_atc = $this[$atc_id];
 
                 if ($r_atc->linked) {
                     $attr = strval($r_atc->link_url);
@@ -2525,10 +2525,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     $related->addPart($related_part);
                 }
 
-                $node->setAttribute($node->getAttribute(self::RELATED_ATTR), $attr);
-
+                $node->setAttribute($attr_name, $attr);
                 $node->removeAttribute(self::RELATED_ATTR);
-                $node->removeAttribute(self::RELATED_ATTR_ID);
             }
         }
 

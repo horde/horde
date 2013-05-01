@@ -100,7 +100,7 @@ $import_mapping = array(
     'Work Fax' => 'workFax',
     'Work Phone 1' => 'workPhone',
     'Home Phone 1' => 'homePhone',
-    'Instant Messaging 1' => 'instantMessenger',
+    'Instant Messaging 1' => 'imaddress',
 
     // Thunderbird
     'Primary Email' => 'email',

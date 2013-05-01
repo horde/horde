@@ -7,7 +7,7 @@ $style = Ansel::getStyleDefinition('ansel_mobile');
 
 /* Variables used in core javascript files. */
 $code['conf'] = array(
-    'SESSION_ID' => defined('SID') ? SID : '',
+    'SESSION_ID' => SID,
     'thumbWidth' => ($style->width) ? $style->width : 75,
     'thumbHeight' => ($style->height) ? $style->height : 75,
     'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
