@@ -567,7 +567,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         } catch (Horde_Dav_Exception $e) {
             Horde::logMessage(
                 sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
-                        $url, $response['statusCode']),
+                        $url, $e->getCode()),
                 'INFO'
             );
             $error = sprintf(
