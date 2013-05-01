@@ -468,6 +468,10 @@ HermesCore = {
         $('hermesLoadingTime').hide();
         this.removeSliceFromUI(elt);
         this.updateTimeSummary();
+        if (this.view == 'search') {
+            this.removeSliceFromCache(elt.retrieve('sid'), 'search');
+            this.updateSearchTotal();
+        }
     },
 
     /**
@@ -1170,6 +1174,15 @@ HermesCore = {
         this.updateTimeSummary();
         $('hermesSearchSum').update(total);
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
+    },
+
+    updateSearchTotal: function()
+    {
+        var total = 0;
+        this.searchSlices.each(function(slice) {
+            total = total + parseFloat(slice.h);
+        });
+        $('hermesSearchSum').update(total);
     },
 
     /**
