@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-01</date>
- <time>00:09:26</time>
+ <time>00:13:55</time>
  <version>
-  <release>2.9.0</release>
+  <release>2.9.1</release>
   <api>2.9.0</api>
  </version>
  <stability>
@@ -22,13 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Support UID EXPUNGE command for large UID lists (Bug #12228).
-* [mms] Don&apos;t attempt to expunge messages if the list of UIDs to expunge is empty (Bug #12226).
-* [mms] Correctly use limit parameter to Horde_Imap_Client_Ids#split() (Bug #12216).
-* [mms] Add a MongoDB based backend for storing cached IMAP/POP data.
-* [mms] Add Horde_Imap_Client_Cache#clear().
-* [mms] Add a Horde_Db based backend for storing cached IMAP/POP data.
-* [mms] Abstract the backend storage into a separate driver for the Horde_Imap_Client_Cache class.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1678,6 +1672,19 @@
 * [mms] Add Horde_Imap_Client_Cache#clear().
 * [mms] Add a Horde_Db based backend for storing cached IMAP/POP data.
 * [mms] Abstract the backend storage into a separate driver for the Horde_Imap_Client_Cache class.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.1</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
