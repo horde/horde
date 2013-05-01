@@ -143,12 +143,13 @@ $tree->addNode(array(
 /* Build the device entry */
 foreach ($devices as $key => $device) {
     $node_params = array();
-    if (array_search($device['device_user'], $users) === false) {
-        $users[] = $device['device_user'];
+    $c_user = $registry->convertUsername($device['device_user'], true);
+    if (array_search($c_user, $users) === false) {
+        $users[] = $c_user;
         $tree->addNode(array(
             'id' => $device['device_user'],
             'parent' => 'root',
-            'label' => $device['device_user'],
+            'label' => $c_user,
             'expanded' => false,
             'params' => $user_node
         ));
