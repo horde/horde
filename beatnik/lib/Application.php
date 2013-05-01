@@ -66,7 +66,7 @@ class Beatnik_Application extends Horde_Registry_Application
                 $notification->push(_("Expert Mode off"), 'horde.message');
                 $_SESSION['beatnik']['expertmode'] = false;
             } else {
-                $notification->push(_("Expert Mode ON"), 'horde.warning');
+                $GLOBALS['notification']->push(_("Expert Mode ON"), 'horde.warning');
                 $_SESSION['beatnik']['expertmode'] = true;
             }
         }
