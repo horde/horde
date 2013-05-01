@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Add CardDAV server support.
 * [mjr] Update the default SQL source schema (Request #11993).
 * [mms] Add links to group members on smartmobile entry page.
 * [mms] Add group icon to group contacts in smartmobile browse view.
@@ -1605,6 +1606,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Add CardDAV server support.
 * [mjr] Update the default SQL source schema (Request #11993).
 * [mms] Add links to group members on smartmobile entry page.
 * [mms] Add group icon to group contacts in smartmobile browse view.

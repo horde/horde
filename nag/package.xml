@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add CalDAV server support (Request #4267).
 * [jan] Update design to closer match the Horde 5 UI.
  </notes>
  <contents>
@@ -1331,6 +1332,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add CalDAV server support (Request #4267).
 * [jan] Update design to closer match the Horde 5 UI.
    </notes>
   </release>
