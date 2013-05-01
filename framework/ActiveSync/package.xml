@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix synchronizing certain recurring tasks (Bug #12223,  Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;)
 * [mjr] Fix issue that could cause some attachments to become corrupt on the client.
  </notes>
  <contents>
@@ -1312,6 +1313,7 @@
    <date>2013-04-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix synchronizing certain recurring tasks (Bug #12223,  Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;)
 * [mjr] Fix issue that could cause some attachments to become corrupt on the client.
    </notes>
   </release>
