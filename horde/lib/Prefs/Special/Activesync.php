@@ -29,10 +29,8 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         if (empty($conf['activesync']['enabled'])) {
             return _("ActiveSync not activated.");
         }
-
-        $auth = $registry->convertUsername($registry->getAuth(), false);
         $stateMachine = $injector->getInstance('Horde_ActiveSyncState');
-        $devices = $stateMachine->listDevices($auth);
+        $devices = $stateMachine->listDevices($registry->getAuth());
 
         $view = new Horde_View(array(
             'templatePath' => HORDE_TEMPLATES . '/prefs'
@@ -65,7 +63,7 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
     {
         global $injector, $notification, $registry;
 
-        $auth = $registry->convertUsername($registry->getAuth(), false);
+        $auth = $registry->getAuth();
         $stateMachine = $injector->getInstance('Horde_ActiveSyncState');
         $stateMachine->setLogger($injector->getInstance('Horde_Log_Logger'));
 

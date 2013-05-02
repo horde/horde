@@ -177,12 +177,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             "[%s] Horde_Core_ActiveSync_Driver::authenticate() attempt for %s",
             $this->_pid,
             $username));
-        parent::authenticate($username, $password, $domain);
 
         if (!$this->_auth->authenticate($username, array('password' => $password))) {
             return false;
         }
 
+        // Get the username from the registry so we capture it after any
+        // hooks were run on it.
+        $username = $GLOBALS['registry']->getAuth();
         $perms = $injector->getInstance('Horde_Perms');
         if ($perms->exists('horde:activesync')) {
             // Check permissions to ActiveSync
@@ -194,6 +196,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return Horde_ActiveSync::AUTH_REASON_USER_DENIED;
             }
         }
+
+        parent::authenticate($username, $password, $domain);
 
         return true;
     }
