@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-21</date>
- <time>19:59:42</time>
+ <date>2013-05-02</date>
+ <time>16:43:14</time>
  <version>
   <release>2.1.0</release>
   <api>1.1.0</api>
@@ -132,7 +132,7 @@
    <package>
     <name>Horde_Mongo</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -461,7 +461,7 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-21</date>
+   <date>2013-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add MongoDB cache driver.
