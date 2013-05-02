@@ -161,7 +161,7 @@
    backends. These are databases generally optimized for
    scalability/availability, but do not use a standardized query language to
    interact with the data.</configdescription>
-   <confignosql switchname="phptype" baseconfig="true" />
+   <confignosql switchname="phptype" baseconfig="true" default="false"/>
   </configsection>
  </configtab>
 
