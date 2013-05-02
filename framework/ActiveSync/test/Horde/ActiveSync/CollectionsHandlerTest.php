@@ -16,7 +16,7 @@ class Horde_ActiveSync_CollectionsHandlerTest extends Horde_Test_Case
     public function setup()
     {
         // Cache with zero collections.
-        $this->_cache = $this->_getMockSyncCache();
+        $this->_cache = $this->_getMockSyncCache($this->_getCollectionsFixture());
 
         // AS server object.
         $this->_as = $this->_getMockActiveSyncObject();
