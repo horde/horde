@@ -10,14 +10,14 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-18</date>
- <time>23:57:14</time>
+ <date>2013-05-02</date>
+ <time>16:26:12</time>
  <version>
-  <release>2.4.0</release>
+  <release>2.4.0beta1</release>
   <api>2.4.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
@@ -189,6 +189,7 @@
       <file name="13_horde_activesync_booleanfields.php" role="data" />
       <file name="14_horde_activesync_binarystatefield.php" role="data" />
       <file name="15_horde_activesync_integerimapuidfield.php" role="data" />
+      <file name="16_horde_activesync_fix_blob_length.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -219,6 +220,7 @@
       <file name="AppointmentTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="CacheTest.php" role="test" />
+      <file name="CollectionsHandlerTest.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="ContactTest.php" role="test" />
       <file name="InviteTest.php" role="test" />
@@ -427,10 +429,12 @@
    <install as="migration/13_horde_activesync_booleanfields.php" name="migration/Horde/ActiveSync/13_horde_activesync_booleanfields.php" />
    <install as="migration/14_horde_activesync_binarystatefield.php" name="migration/Horde/ActiveSync/14_horde_activesync_binarystatefield.php" />
    <install as="migration/15_horde_activesync_integerimapuidfield.php" name="migration/Horde/ActiveSync/15_horde_activesync_integerimapuidfield.php" />
+   <install as="migration/16_horde_activesync_fix_blob_length.php" name="migration/Horde/ActiveSync/16_horde_activesync_fix_blob_length.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
+   <install as="Horde/ActiveSync/CollectionsHandlerTest.php" name="test/Horde/ActiveSync/CollectionsHandlerTest.php" />
    <install as="Horde/ActiveSync/conf.php.dist" name="test/Horde/ActiveSync/conf.php.dist" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
@@ -1338,12 +1342,12 @@
   </release>
   <release>
    <version>
-    <release>2.4.0</release>
+    <release>2.4.0beta1</release>
     <api>2.4.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-04-04</date>
+   <date>2013-05-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Flag changes will now trigger a positive PING/SYNC if the IMAP server supports per-mailbox MODSEQ and CONDSTORE.
