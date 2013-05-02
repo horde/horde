@@ -1366,7 +1366,7 @@ $_prefs['refresh_time'] = array(
         900 => _("Every 15 minutes"),
         1800 => _("Every half hour")
     ),
-    'desc' => _("Poll for new mail:"),
+    'desc' => _("New mail poll interval on mailbox page:"),
 );
 
 $_prefs['newmail_notify'] = array(
