@@ -194,6 +194,64 @@
  *             values are the URI location.
  *
  *
+ * ActiveSync Hooks
+ * ================
+ *
+ * activesync_autodiscover_parameters
+ * ----------------------------------
+ * This hook allows for modifying the various Autodiscover values before
+ * the XML string is build by the ActiveSync server code. Use, e.g., if you
+ * need to alter the value of the host before sending it to the client.
+ *
+ * Parameters in:
+ *   $params (array):  The array of Autodiscover parameters.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [array] - The possibly modified array of Autodiscover parameters.
+ *
+ * activesync_autodiscover_xml
+ * ---------------------------
+ * This hook allows for overriding the autodiscovery XML output. USING THIS HOOK
+ * MEANS YOU ARE RESPONSIBLE FOR SENDING CORRECT XML TO THE CLIENT. ACTIVESYNC
+ * WILL SEND THIS STRING AS-IS. ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING!
+ *
+ * Parameters in:
+ *   $params (array):  The array of Autodiscover parameters.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception]- Fatal error.
+ *   [string] The XML string to send directly to the client.
+ *
+ * activesync_get_autodiscover_username
+ * ------------------------------------
+ * This hook allows for custom rules to determine the authentication username
+ * from the email address provided by the client in an autodiscovery request.
+ *
+ * Parameters in:
+ *   $email (string):  The email address provided by the client.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [string]  The username to use for authentication to Horde.
+ *
+ * activesync_create_device
+ * ----------------------
+ * This hook allows additional checks to be performed during the first
+ * ActiveSync request for a new user/device combination.
+ *
+ * Parameters in:
+ *   $device (Horde_ActiveSync_Device):  The device object to be created.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [boolean] A true value should be returned if the device passed all checks
+ *             and should be allowed to be paired with the server.
+ *   [integer] A Horde_ActiveSync_Status:: constant identifying the reason for
+ *             disallowing the pairing.
+ *
+ *
+ *
  * TODO: groupldap, share_add, share_modify, share_remove
  *
  * $Id$
@@ -845,5 +903,19 @@ class Horde_Hooks
 //    {
 //        return $params;
 //    }
+
+    /**
+     * Activesync hook for providing additional checks before allowing a device
+     * to be paired with the server for the first time.
+     *
+     * @param Horde_ActiveSync_Device $device  The device object.
+     *
+     * @return boolean|integer  True on success (device passed checks) or a
+     *                          Horde_ActiveSync_Status:: constant on failure.
+     */
+    // public function activesync_create_device(Horde_ActiveSync_Device $device)
+    // {
+    //     return true;
+    // }
 
 }

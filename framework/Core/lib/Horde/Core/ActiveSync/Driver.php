@@ -171,6 +171,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function authenticate($username, $password, $domain = null)
     {
+        global $injector;
+
         $this->_logger->info(sprintf(
             "[%s] Horde_Core_ActiveSync_Driver::authenticate() attempt for %s",
             $this->_pid,
@@ -181,13 +183,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return false;
         }
 
-        if ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('horde:activesync')) {
+        $perms = $injector->getInstance('Horde_Perms');
+        if ($perms->exists('horde:activesync')) {
             // Check permissions to ActiveSync
-            $perms = $GLOBALS['injector']
-                ->getInstance('Horde_Perms')
-                ->getPermissions('horde:activesync', $username);
-
-            if (!$this->_getPolicyValue('activesync', $perms)) {
+            if (!$this->_getPolicyValue('activesync', $perms->getPermissions('horde:activesync', $username))) {
                 $this->_logger->info(sprintf(
                     "Access denied for user %s per policy settings.",
                     $username)
@@ -2124,6 +2123,33 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Callback method called before new device is created for a user. Allows
+     * final check of permissions.
+     *
+     * @return boolean|integer  True on success (device allowed to be created)
+     *                          or error code on failure.
+     */
+    public function createDeviceCallback(Horde_ActiveSync_Device $device)
+    {
+        global $registry;
+
+        // Check max_device
+        if ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('horde:activesync:max_devices')) {
+            $max_devices = $this->_getPolicyValue('max_devices', $perms->getPermissions('horde:activesync:max_devices', $username));
+            $state = $injector->getInstance('Horde_ActiveSyncState');
+            $devices = $state->listDevices($registry->convertUsername($registry->getAuth(), false));
+            if (count($devices) >= $max_devices) {
+                return Horde_ActiveSync_Status::MAXIMUM_DEVICES_REACHED;
+            }
+        }
+        try {
+            return Horde::callHook('activesync_create_device', array($device));
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        return true;
+    }
+
+    /**
      * Request freebusy information from the server
      */
     public function getFreebusy($user, array $options = array())
@@ -2582,6 +2608,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if (is_array($allowed)) {
             switch ($policy) {
             case 'activesync':
+            case 'max_devices':
             case Horde_ActiveSync_Policies::POLICY_ATC:
             case Horde_ActiveSync_Policies::POLICY_PIN:
             case Horde_ActiveSync_Policies::POLICY_COMPLEXITY:

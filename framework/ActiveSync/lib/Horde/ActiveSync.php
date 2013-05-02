@@ -776,16 +776,16 @@ class Horde_ActiveSync
             $device->properties['version'] = $version;
             // @TODO: Remove is_callable check (and extra else clause) for H6.
             if (is_callable(array($this->_driver, 'createDeviceCallback'))) {
-                if (!$this->_driver->createDeviceCallback($device)) {
-                    // Do not allow pairing.
+                $callback_ret = $this->_driver->createDeviceCallback($device);
+                if ($callback_ret !== true) {
+                    $msg = sprintf(
+                        'The device %s was disallowed for user %s per policy settings.',
+                        $device->id,
+                        $device->user);
+                    $this->_logger->err($msg);
                     if ($version > self::VERSION_TWELVEONE) {
-                        $this->_globalError = Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER;
+                        $this->_globalError = $callback_ret;
                     } else {
-                        $msg = sprintf(
-                            'The device %s was disallowed for user %s per policy settings.',
-                            $device->id,
-                            $device->user);
-                        $this->_logger->err($msg);
                         throw new Horde_ActiveSync_Exception($msg);
                     }
                 } else {
