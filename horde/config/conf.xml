@@ -1404,9 +1404,9 @@
       </configswitch>
      </configsection>
     </case>
-    <case name="Nsoql" desc="NoSQL Database">
+    <case name="Nosql" desc="NoSQL Database">
      <configsection name="params">
-       <configsql switchname="driverconfig" />
+       <confignosql switchname="driverconfig" />
      </configsection>
     </case>
     <case name="Sql" desc="SQL Database">
