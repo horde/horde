@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Implement 'refresh_time' preference in smartmobile view.
 [mms] Add taphold message action menu to smartmobile mailbox page.
 [mms] Add MongoDB driver for sentmail log storage.
 [mms] Add IMAP cache specific purge action to the imap cache query script.

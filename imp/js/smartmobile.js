@@ -1384,6 +1384,16 @@ var ImpMobile = {
                 $.fn[$(this[this.selectedIndex]).hasClass('flistCreate') ? 'show' : 'hide'].call($('#imp-copymove-newdiv'));
             });
         }
+
+        if (IMP.conf.refresh_time) {
+            window.setInterval(function() {
+                if (HordeMobile.currentPage() == 'mailbox') {
+                    $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                        mbox: ImpMobile.mailbox
+                    }));
+                }
+            }, IMP.conf.refresh_time * 1000);
+        }
     }
 
 };

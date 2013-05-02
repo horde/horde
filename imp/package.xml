@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Implement &apos;refresh_time&apos; preference in smartmobile view.
 * [mms] Add taphold message action menu to smartmobile mailbox page.
 * [mms] Add MongoDB driver for sentmail log storage.
 * [mms] Add IMAP cache specific purge action to the imap cache query script.
@@ -3133,6 +3134,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Implement &apos;refresh_time&apos; preference in smartmobile view.
 * [mms] Add taphold message action menu to smartmobile mailbox page.
 * [mms] Add MongoDB driver for sentmail log storage.
 * [mms] Add IMAP cache specific purge action to the imap cache query script.
