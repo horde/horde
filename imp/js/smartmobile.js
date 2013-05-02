@@ -37,6 +37,9 @@ var ImpMobile = {
     // /* The current message data. */
     // message,
     //
+    // /* Current handle for the refresh interval action. */
+    // refresh,
+    //
     // /* Current row UID of the displayed message. */
     // rowid,
     //
@@ -313,6 +316,17 @@ var ImpMobile = {
             // Need to do here since Exit Search does not trigger beforeShow.
             $.fn[ImpMobile.search ? 'hide' : 'show'].call($('#imp-mailbox-search'));
             $.fn[ImpMobile.search ? 'show' : 'hide'].call($('#imp-mailbox-searchedit'));
+
+            if (IMP.conf.refresh_time) {
+                window.clearInterval(ImpMobile.refresh);
+                ImpMobile.refresh = window.setInterval(function() {
+                    if (HordeMobile.currentPage() == 'mailbox') {
+                        $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                            mbox: ImpMobile.mailbox
+                        }));
+                    }
+                }, IMP.conf.refresh_time * 1000);
+            }
             break;
 
         case 'message':
@@ -1383,16 +1397,6 @@ var ImpMobile = {
             $('#imp-copymove-list').change(function(e) {
                 $.fn[$(this[this.selectedIndex]).hasClass('flistCreate') ? 'show' : 'hide'].call($('#imp-copymove-newdiv'));
             });
-        }
-
-        if (IMP.conf.refresh_time) {
-            window.setInterval(function() {
-                if (HordeMobile.currentPage() == 'mailbox') {
-                    $.mobile.changePage(HordeMobile.createUrl('mailbox', {
-                        mbox: ImpMobile.mailbox
-                    }));
-                }
-            }, IMP.conf.refresh_time * 1000);
         }
     }
 
