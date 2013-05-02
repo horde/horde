@@ -2137,12 +2137,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         global $registry;
 
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         // Check max_device
-        if ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('horde:activesync:max_devices')) {
-            $max_devices = $this->_getPolicyValue('max_devices', $perms->getPermissions('horde:activesync:max_devices', $username));
-            $state = $injector->getInstance('Horde_ActiveSyncState');
-            $devices = $state->listDevices($registry->convertUsername($registry->getAuth(), false));
+        if ($perms->exists('horde:activesync:max_devices')) {
+            $max_devices = $this->_getPolicyValue('max_devices', $perms->getPermissions('horde:activesync:max_devices', $registry->getAuth()));
+            $state = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+            $devices = $state->listDevices($registry->getAuth(), false);
             if (count($devices) >= $max_devices) {
+                $this->_logger->info(sprintf(
+                    'Maximum number of devices of %d reached for %s.',
+                    $max_devices,
+                    $registry->getAuth()));
                 return Horde_ActiveSync_Status::MAXIMUM_DEVICES_REACHED;
             }
         }
