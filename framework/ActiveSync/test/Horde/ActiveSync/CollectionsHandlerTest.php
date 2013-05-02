@@ -234,72 +234,17 @@ class Horde_ActiveSync_CollectionsHandlerTest extends Horde_Test_Case
             'wait' => null,
             'hbinterval' => 650,
             'folders' => array(
-                'Trash' => array(
-                        'parentid' => 0,
-                        'displayname' => 'Trash',
-                        'class' => 'Email',
-                        'type' => 4,
-                        'filtertype' => 0),
-                'Sent' => array(
-                        'parentid' => 0,
-                        'displayname' => 'Sent',
-                        'class' => 'Email',
-                        'type' => 5,
-                        'filtertype' => 0),
-                'INBOX' => array(
-                        'parentid' => 0,
-                        'displayname' => 'Inbox',
-                        'class' => 'Email',
-                        'type' => 2,
-                        'filtertype' => 0),
-                'Horde Lists/Dev' => array(
-                        'parentid' => 'Horde Lists',
-                        'displayname' => 'Dev',
-                        'class' => 'Email',
-                        'type' => 12,
-                        'filtertype' => 0),
-                'Horde Lists/Core' => array(
-                        'parentid' => 'Horde Lists',
-                        'displayname' => 'Core',
-                        'class' => 'Email',
-                        'type' => 12,
-                        'filtertype' => 0),
-                'Horde Lists/Bugs' => array(
-                        'parentid' => 'Horde Lists',
-                        'displayname' => 'Bugs',
-                        'class' => 'Email',
-                        'type' => 12,
-                        'filtertype' => 0),
-                'Horde Lists' => array(
-                        'parentid' => 0,
-                        'displayname' => 'Horde Lists',
-                        'class' => 'Email',
-                        'type' => 12,
-                        'filtertype' => 0),
-                '@Tasks@' => array(
-                        'parentid' => 0,
-                        'displayname' => 'Tasks',
-                        'class' => 'Tasks',
-                        'type' => 7,
-                        'filtertype' => 0),
-                '@Notes@' => array(
-                        'parentid' => 0,
-                        'displayname' => 'Notes',
-                        'class' => 'Notes',
-                        'type' => 10,
-                        'filtertype' => 0),
-                '@Contacts@' => array(
-                        'parentid' => 0,
-                        'displayname' => 'Contacts',
-                        'class' => 'Contacts',
-                        'type' => 9,
-                        'filtertype' => 0),
-                '@Calendar@' => array(
-                        'parentid' => 0,
-                        'displayname' => 'Calendar',
-                        'class' => 'Calendar',
-                        'type' => 8,
-                        'filtertype' => 0)
+                'Trash' => array('class' => 'Email'),
+                'Sent' => array('class' => 'Email'),
+                'INBOX' => array('class' => 'Email'),
+                'Horde Lists/Dev' => array('class' => 'Email'),
+                'Horde Lists/Core' => array('class' => 'Email'),
+                'Horde Lists/Bugs' => array('class' => 'Email'),
+                'Horde Lists' => array('class' => 'Email'),
+                '@Tasks@' => array('class' => 'Tasks'),
+                '@Notes@' => array('class' => 'Notes'),
+                '@Contacts@' => array('class' => 'Contacts'),
+                '@Calendar@' => array('class' => 'Calendar')
             ),
             'hierarchy' => '{517541ca-1344-4b29-b691-fa49c0a8015f}3',
             'collections' => array(
