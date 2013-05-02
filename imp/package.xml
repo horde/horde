@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-24</date>
+ <date>2013-05-02</date>
  <version>
   <release>6.1.0beta1</release>
   <api>6.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add taphold message action menu to smartmobile mailbox page.
 * [mms] Add MongoDB driver for sentmail log storage.
 * [mms] Add IMAP cache specific purge action to the imap cache query script.
 * [mms] Add support for using SQL and NoSQL backends for IMAP/POP caching.
@@ -130,6 +131,11 @@
      <file name="pasteattachment.js" role="horde" />
      <file name="pasteignore.js" role="horde" />
     </dir> <!-- /js/ckeditor -->
+    <dir name="jquery.mobile">
+     <dir name="plugins">
+      <file name="mailboxtaphold.js" role="horde" />
+     </dir> <!-- /js/jquery.mobile/plugins -->
+    </dir> <!-- /js/jquery.mobile -->
     <file name="acl.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
@@ -418,14 +424,9 @@
      <file name="Sort.php" role="horde" />
     </dir> <!-- /lib/Prefs -->
     <dir name="Quota">
-     <file name="Command.php" role="horde" />
      <file name="Hook.php" role="horde" />
      <file name="Imap.php" role="horde" />
-     <file name="Maildir.php" role="horde" />
-     <file name="Mdaemon.php" role="horde" />
-     <file name="Mercury32.php" role="horde" />
      <file name="Null.php" role="horde" />
-     <file name="Sql.php" role="horde" />
      <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Quota -->
     <dir name="Script">
@@ -1512,6 +1513,7 @@
    <install as="imp/js/ckeditor/imageupload.js" name="js/ckeditor/imageupload.js" />
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
+   <install as="imp/js/jquery.mobile/plugins/mailboxtaphold.js" name="js/jquery.mobile/plugins/mailboxtaphold.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
@@ -1718,14 +1720,9 @@
    <install as="imp/lib/Prefs/Special/Spam.php" name="lib/Prefs/Special/Spam.php" />
    <install as="imp/lib/Prefs/Special/SpecialMboxes.php" name="lib/Prefs/Special/SpecialMboxes.php" />
    <install as="imp/lib/Prefs/Special/Trash.php" name="lib/Prefs/Special/Trash.php" />
-   <install as="imp/lib/Quota/Command.php" name="lib/Quota/Command.php" />
    <install as="imp/lib/Quota/Hook.php" name="lib/Quota/Hook.php" />
    <install as="imp/lib/Quota/Imap.php" name="lib/Quota/Imap.php" />
-   <install as="imp/lib/Quota/Maildir.php" name="lib/Quota/Maildir.php" />
-   <install as="imp/lib/Quota/Mdaemon.php" name="lib/Quota/Mdaemon.php" />
-   <install as="imp/lib/Quota/Mercury32.php" name="lib/Quota/Mercury32.php" />
    <install as="imp/lib/Quota/Null.php" name="lib/Quota/Null.php" />
-   <install as="imp/lib/Quota/Sql.php" name="lib/Quota/Sql.php" />
    <install as="imp/lib/Quota/Ui.php" name="lib/Quota/Ui.php" />
    <install as="imp/lib/Script/Package/ComposeBase.php" name="lib/Script/Package/ComposeBase.php" />
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
@@ -3125,7 +3122,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-04-24</date>
+   <date>2013-05-02</date>
    <version>
     <release>6.1.0beta1</release>
     <api>6.0.0</api>
@@ -3136,6 +3133,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add taphold message action menu to smartmobile mailbox page.
 * [mms] Add MongoDB driver for sentmail log storage.
 * [mms] Add IMAP cache specific purge action to the imap cache query script.
 * [mms] Add support for using SQL and NoSQL backends for IMAP/POP caching.

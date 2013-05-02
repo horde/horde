@@ -42,6 +42,9 @@ var ImpMobile = {
     //
     // /* Search parameters for the viewPort Ajax request. */
     // search,
+    //
+    // /* Taphold element. */
+    // taphold,
 
     // Mailbox data cache.
     cache: {},
@@ -147,8 +150,9 @@ var ImpMobile = {
 
         case 'mailbox-delete':
             ImpMobile.deleteMessage(
-                data.options.data.jqmData('buid')
+                (data.options.data || ImpMobile.taphold).jqmData('buid')
             );
+            delete ImpMobile.taphold;
             e.preventDefault();
             break;
 
@@ -156,8 +160,9 @@ var ImpMobile = {
         case 'mailbox-spam':
             ImpMobile.reportSpam(
                 view.match(/spam$/) ? 'spam' : 'innocent',
-                data.options.data.jqmData('buid')
+                (data.options.data || ImpMobile.taphold).jqmData('buid')
             );
+            delete ImpMobile.taphold;
             e.preventDefault();
             break;
 
@@ -1279,30 +1284,41 @@ var ImpMobile = {
      */
     swipeButtons: function(e, ob)
     {
-        var cache = ImpMobile.cache[ImpMobile.mailbox];
-
         $.each($('#imp-mailbox-buttons').children(), function(k, v) {
-            var add = true;
-            v = $(v);
-
-            switch (v.jqmData('swipe')) {
-            case 'delete':
-                add = !cache.readonly;
-                break;
-
-            case 'innocent':
-                add = cache.innocent;
-                break;
-
-            case 'spam':
-                add = cache.spam;
-                break;
-            }
-
-            if (add) {
-                ob.buttons.push(v.clone(true));
+            if (ImpMobile.mailboxAction(v)) {
+                ob.buttons.push($(v).clone(true));
             }
         });
+    },
+
+    /**
+     */
+    mailboxAction: function(v)
+    {
+        switch ($(v).find('a').attr('href')) {
+        case '#mailbox-delete':
+            return !ImpMobile.cache[ImpMobile.mailbox].readonly;
+
+        case '#mailbox-innocent':
+            return ImpMobile.cache[ImpMobile.mailbox].innocent;
+
+        case '#mailbox-spam':
+            return ImpMobile.cache[ImpMobile.mailbox].spam;
+
+        default:
+            return true;
+        }
+    },
+
+    /**
+     */
+    mailboxTaphold: function(e)
+    {
+        $.each($('#imp-mailbox-taphold li'), function(k, v) {
+            $.fn[ImpMobile.mailboxAction(v) ? 'show' : 'hide'].call($(v));
+        });
+        $('#imp-mailbox-taphold ul').listview('refresh');
+        ImpMobile.taphold = $(e.currentTarget);
     },
 
     /**
@@ -1316,8 +1332,11 @@ var ImpMobile = {
         $(document).bind('pagechange', ImpMobile.pageShow);
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
 
-        $('#imp-mailbox-list').swipebutton()
-            .on('swipebutton', 'li.imp-message', ImpMobile.swipeButtons);
+        $('#imp-mailbox-list')
+            .swipebutton()
+                .on('swipebutton', 'li.imp-message', ImpMobile.swipeButtons)
+            .mailboxtaphold({ popupElt: $('#imp-mailbox-taphold') })
+                .on('mailboxtaphold', 'li.imp-message', ImpMobile.mailboxTaphold);
 
         $('#message').on('swipeleft', function() {
             $.mobile.changePage('#message-next');

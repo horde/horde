@@ -17,8 +17,22 @@
  </div>
 
  <div id="imp-mailbox-buttons" style="display:none">
-  <a data-swipe="delete" data-role="button" data-inline="true" data-theme="a" href="#mailbox-delete"><?php echo _("Delete") ?></a>
-  <a data-swipe="spam" data-role="button" data-inline="true" data-theme="a" href="#mailbox-spam"><?php echo _("Spam") ?></a>
-  <a data-swipe="innocent" data-role="button" data-inline="true" data-theme="a" href="#mailbox-innocent"><?php echo _("Innocent") ?></a>
+  <a data-role="button" data-inline="true" data-theme="a" href="#mailbox-delete"><?php echo _("Delete") ?></a>
+  <a data-role="button" data-inline="true" data-theme="a" href="#mailbox-spam"><?php echo _("Spam") ?></a>
+  <a data-role="button" data-inline="true" data-theme="a" href="#mailbox-innocent"><?php echo _("Innocent") ?></a>
+ </div>
+
+ <div data-role="popup" data-history="false" data-theme="a" id="imp-mailbox-taphold">
+  <ul data-role="listview" data-inset="true">
+   <li data-icon="delete">
+    <a href="#mailbox-delete"><?php echo _("Delete") ?></a>
+   </li>
+   <li data-icon="alert">
+    <a href="#mailbox-spam"><?php echo _("Spam") ?></a>
+   </li>
+   <li data-icon="check">
+    <a href="#mailbox-innocent"><?php echo _("Innocent") ?></a>
+   </li>
+  </ul>
  </div>
 </div>

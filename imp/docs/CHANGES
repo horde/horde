@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Add taphold message action menu to smartmobile mailbox page.
 [mms] Add MongoDB driver for sentmail log storage.
 [mms] Add IMAP cache specific purge action to the imap cache query script.
 [mms] Add support for using SQL and NoSQL backends for IMAP/POP caching.
