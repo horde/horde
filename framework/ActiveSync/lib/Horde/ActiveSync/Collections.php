@@ -580,16 +580,17 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
-     * Return if we have no changes, but have requested a partial sync.
+     * Return if we have no changes, but have requested a partial sync. A
+     * partial sync must have either a wait, hbinterval, or some subset of
+     * collections to be valid.
      *
      * @return boolean
      */
     protected function _haveNoChangesInPartialSync()
     {
         return $this->_synckeyCount > 0 &&
-            $this->_confirmedCount == 0 &&
             $this->_unchangedCount == $this->_synckeyCount &&
-            ($this->_cache->wait == false && $this->_cache->hbinterval == false);
+            $this->_cache->wait == false && $this->_cache->hbinterval == false;
     }
 
     /**
