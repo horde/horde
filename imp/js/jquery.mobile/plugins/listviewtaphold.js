@@ -1,12 +1,12 @@
 /**
- * Mailbox taphold widget for jQuery Mobile.
+ * jQuery Mobile taphold widget for listview rows that will display a popup.
  *
  * Copyright 2013 Horde LLC (http://www.horde.org/)
  */
 
 (function($, undefined) {
 
-$.widget('mobile.mailboxtaphold', $.mobile.widget, {
+$.widget('mobile.listviewtaphold', $.mobile.widget, {
 
     options: {
         popupElt: $()
@@ -20,7 +20,7 @@ $.widget('mobile.mailboxtaphold', $.mobile.widget, {
         this.element.on('taphold', 'li', function(e) {
             $li = $(e.currentTarget);
 
-            $li.trigger('mailboxtaphold');
+            $li.trigger('listviewtaphold');
 
             opts.popupElt.popup('open', {
                 x: xy[0],

@@ -42,9 +42,6 @@ var ImpMobile = {
     //
     // /* Search parameters for the viewPort Ajax request. */
     // search,
-    //
-    // /* Taphold element. */
-    // taphold,
 
     // Mailbox data cache.
     cache: {},
@@ -150,9 +147,8 @@ var ImpMobile = {
 
         case 'mailbox-delete':
             ImpMobile.deleteMessage(
-                (data.options.data || ImpMobile.taphold).jqmData('buid')
+                (data.options.data || data.options.link).jqmData('buid')
             );
-            delete ImpMobile.taphold;
             e.preventDefault();
             break;
 
@@ -160,9 +156,8 @@ var ImpMobile = {
         case 'mailbox-spam':
             ImpMobile.reportSpam(
                 view.match(/spam$/) ? 'spam' : 'innocent',
-                (data.options.data || ImpMobile.taphold).jqmData('buid')
+                (data.options.data || data.options.link).jqmData('buid')
             );
-            delete ImpMobile.taphold;
             e.preventDefault();
             break;
 
@@ -1315,10 +1310,13 @@ var ImpMobile = {
     mailboxTaphold: function(e)
     {
         $.each($('#imp-mailbox-taphold li'), function(k, v) {
-            $.fn[ImpMobile.mailboxAction(v) ? 'show' : 'hide'].call($(v));
+            if (ImpMobile.mailboxAction(v)) {
+                $(v).show().find('a').jqmData('buid', $(e.currentTarget).jqmData('buid'));
+            } else {
+                $(v).hide();
+            }
         });
         $('#imp-mailbox-taphold ul').listview('refresh');
-        ImpMobile.taphold = $(e.currentTarget);
     },
 
     /**
@@ -1335,8 +1333,8 @@ var ImpMobile = {
         $('#imp-mailbox-list')
             .swipebutton()
                 .on('swipebutton', 'li.imp-message', ImpMobile.swipeButtons)
-            .mailboxtaphold({ popupElt: $('#imp-mailbox-taphold') })
-                .on('mailboxtaphold', 'li.imp-message', ImpMobile.mailboxTaphold);
+            .listviewtaphold({ popupElt: $('#imp-mailbox-taphold') })
+                .on('listviewtaphold', 'li.imp-message', ImpMobile.mailboxTaphold);
 
         $('#message').on('swipeleft', function() {
             $.mobile.changePage('#message-next');
