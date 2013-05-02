@@ -61,10 +61,11 @@ class Horde_ActiveSync_CollectionsHandlerTest extends Horde_Test_Case
     /**
      * Tests the setup for a PARTIAL sync request.
      */
-    public function testParitalSyncWithUnchangedCollections()
+    public function testPartialSyncWithUnchangedCollections()
     {
-        $this->markTestIncomplete('Need to work out the confirmed_synckeys stuff');
-        $collections = new Horde_ActiveSync_Collections($this->_cache, $this->_as);
+        // Pretend the heartbeat was not sent by the client.
+        $cache = $this->_getMockSyncCache($this->_getCollectionsFixtureWithNoHb());
+        $collections = new Horde_ActiveSync_Collections($cache, $this->_as);
 
         // Should return false because we haven't loaded (from incoming xml) any
         // collections yet, so no collections in handler are syncable.
@@ -92,6 +93,21 @@ class Horde_ActiveSync_CollectionsHandlerTest extends Horde_Test_Case
         );
         $collections->addCollection($col);
         $this->assertEquals(false, $collections->initPartialSync());
+
+        // Change the filtertype to simulate a new filtertype request from client.
+        // This should now return true.
+        $col['filtertype'] = 6;
+        $collections->addCollection($col);
+        $this->assertEquals(true, $collections->initPartialSync());
+    }
+
+    public function testPartialSyncWithOnlyChangedHbInterval()
+    {
+        // Only a changed hbinterval should also allow a partial.
+        $cache = $this->_getMockSyncCache($this->_getCollectionsFixtureWithChangedHb());
+        $collections = new Horde_ActiveSync_Collections($cache, $this->_as);
+        $collections->loadCollectionsFromCache();
+        $this->assertEquals(true, $collections->initPartialSync());
     }
 
     /**
@@ -99,8 +115,8 @@ class Horde_ActiveSync_CollectionsHandlerTest extends Horde_Test_Case
      */
     public function testParitalSyncWithChangedCollections()
     {
-        $this->markTestIncomplete('Need to work out the confirmed_synckeys stuff');
         $collections = new Horde_ActiveSync_Collections($this->_cache, $this->_as);
+        $collections->loadCollectionsFromCache();
 
         // Now import a collection that IS different (which is the only reason
         // to have imported colletions with PARTIAL).
@@ -115,7 +131,7 @@ class Horde_ActiveSync_CollectionsHandlerTest extends Horde_Test_Case
                 'wanted' => 2,
                 2 => array(
                     'type' => 2,
-                    'truncationsize' => 200000)
+                    'truncationsize' => 100000)
             ),
             'synckey' => '{517541cc-b188-478d-9e1a-fa49c0a8015f}96',
             'deletesasmoves' => 1,
@@ -205,12 +221,12 @@ class Horde_ActiveSync_CollectionsHandlerTest extends Horde_Test_Case
         return self::$_logger;
     }
 
-    protected function _getMockSyncCache()
+    protected function _getMockSyncCache($collection)
     {
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Sql');
         $state->expects($this->any())
             ->method('getSyncCache')
-            ->will($this->returnValue($this->_getCollectionsFixture()));
+            ->will($this->returnValue($collection));
         $cache = new Horde_ActiveSync_SyncCache($state, '12345', 'mike', $this->_getLogger());
 
         return $cache;
@@ -313,6 +329,21 @@ class Horde_ActiveSync_CollectionsHandlerTest extends Horde_Test_Case
         );
 
         return $fixture;
+    }
+
+    protected function _getCollectionsFixtureWithNoHb()
+    {
+        $collections = $this->_getCollectionsFixture();
+        unset($collections['hbinterval']);
+
+        return $collections;
+    }
+
+    protected function _getCollectionsFixtureWithChangedHb()
+    {
+        $collections = $this->_getCollectionsFixture();
+        $collections['hbinterval'] = 800;
+        return $collections;
     }
 
 }
