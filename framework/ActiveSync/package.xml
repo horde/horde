@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-02</date>
- <time>16:26:12</time>
+ <time>16:29:57</time>
  <version>
-  <release>2.4.0beta1</release>
+  <release>2.4.0beta2</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Flag changes will now trigger a positive PING/SYNC if the IMAP server supports per-mailbox MODSEQ and CONDSTORE.
-* [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1352,6 +1351,19 @@
    <notes>
 * [mjr] Flag changes will now trigger a positive PING/SYNC if the IMAP server supports per-mailbox MODSEQ and CONDSTORE.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.0beta2</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
