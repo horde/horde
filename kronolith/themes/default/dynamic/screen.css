@@ -7,9 +7,9 @@ html, body {
 }
 
 .kronolithSeparator {
-    padding-left: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
     color: #808080;
-    text-indent: -10000px;
 }
 
 .kronolithDatePicker {
