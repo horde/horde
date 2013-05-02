@@ -497,13 +497,14 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             return false;
         }
         $this->_tempSyncCache = clone $this->_cache;
+        $c = $this->_tempSyncCache->getCollections();
         foreach ($this->_collections as $key => $value) {
-            $v1 = $this->_collections[$key];
+            $v1 = $value;
             unset($v1['id'], $v1['clientids'], $v1['fetchids'],
-                  $v1['getchanges'], $v1['changeids'], $v1['pingable'], $v1['class']);
-            $c = $this->_tempSyncCache->getCollections();
-            $v2 = $c[$value['id']];
-            unset($v2['pingable'], $v2['class'], $v2['id']);
+                  $v1['getchanges'], $v1['changeids'], $v1['pingable'],
+                  $v1['class'], $v1['synckey'], $v1['lastsynckey']);
+            $v2 = $c[$key];
+            unset($v2['id'], $v2['pingable'], $v2['class'], $v2['synckey'], $v2['lastsynckey']);
             ksort($v1);
             if (isset($v1['bodyprefs'])) {
                 ksort($v1['bodyprefs']);
@@ -523,13 +524,14 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     }
                 }
             }
+
             if (md5(serialize($v1)) == md5(serialize($v2))) {
                 $this->_unchangedCount++;
             }
             // Unset in tempSyncCache, since we have it from device.
             // Afterwards, anything left in tempSyncCache needs to be
             // added to _collections.
-            $this->_tempSyncCache->removeCollection($value['id']);
+            $this->_tempSyncCache->removeCollection($key);
 
             // Remove keys from confirmed synckeys array and count them
             if (isset($value['synckey'])) {
