@@ -827,7 +827,7 @@ var ViewPort = Class.create({
             llist = buffer.getMetaData('llist') || $H();
 
         if (r.data_reset) {
-            this.deselect(this.getSelected());
+            this.deselect(this.getSelected(r.view));
         } else if (r.disappear && r.disappear.size()) {
             this._remove(this.createSelection('uid', r.disappear, r.view));
         }
@@ -1322,9 +1322,9 @@ var ViewPort = Class.create({
         }
     },
 
-    getSelected: function()
+    getSelected: function(view)
     {
-        return Object.clone(this._getBuffer().getSelected());
+        return Object.clone(this._getBuffer(view).getSelected());
     }
 
 }),
