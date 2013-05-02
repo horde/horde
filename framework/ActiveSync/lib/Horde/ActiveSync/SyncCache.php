@@ -159,6 +159,7 @@ class Horde_ActiveSync_SyncCache
      * a looping sync and that the last looping sync ending normally.
      *
      * @return boolean
+     * @deprecated  Not needed any longer. Remove in H6.
      */
     public function validateTimestamps()
     {
