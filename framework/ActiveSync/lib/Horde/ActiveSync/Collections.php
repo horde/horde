@@ -624,12 +624,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * reset the collection state for any collection that has reached the
      * MAXIMUM_SYNCKEY_COUNTER value.
      *
-     * @param Horde_ActiveSync_State_Base  The state object.
-     *
      * @return boolean  True if counters validate, false if we have reached the
      *                  MAXIMUM_SYNCKEY_COUNTER value and cleared the state.
      */
-    public function checkLoopCounters(Horde_ActiveSync_State_Base $state)
+    public function checkLoopCounters()
     {
         $counters = $this->_cache->synckeycounter;
         foreach ($this->_collections as $id => $collection) {
@@ -637,7 +635,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 $counters[$id][$collection['synckey']] > Horde_ActiveSync::MAXIMUM_SYNCKEY_COUNT) {
 
                 $this->_logger->err('Reached MAXIMUM_SYNCKEY_COUNT possible sync loop. Clearing state.');
-                $state->loadState(
+                $this->_as->state->loadState(
                     array(),
                     null,
                     Horde_ActiveSync::REQUEST_TYPE_SYNC,

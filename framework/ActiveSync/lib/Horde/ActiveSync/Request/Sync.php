@@ -228,7 +228,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             // Check for inifinite sync loops.
-            if (!$this->_collections->checkLoopCounters($this->_state)) {
+            if (!$this->_collections->checkLoopCounters()) {
                 $this->_statusCode = Horde_ActiveSync_Status::SERVER_ERROR;
                 $this->_handleGlobalSyncError();
             }
