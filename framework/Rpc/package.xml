@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-29</date>
- <time>12:59:58</time>
+ <date>2013-05-02</date>
+ <time>09:20:14</time>
  <version>
   <release>2.0.4</release>
   <api>1.0.0</api>
@@ -67,7 +67,6 @@
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
       <file name="Webdav.php" role="php" />
-      <file name="Webdav2.php" role="php" />
       <file name="Xmlrpc.php" role="php" />
      </dir> <!-- /lib/Horde/Rpc -->
      <file name="Rpc.php" role="php" />
@@ -464,7 +463,6 @@
    <install as="Horde/Rpc/Syncml.php" name="lib/Horde/Rpc/Syncml.php" />
    <install as="Horde/Rpc/Translation.php" name="lib/Horde/Rpc/Translation.php" />
    <install as="Horde/Rpc/Webdav.php" name="lib/Horde/Rpc/Webdav.php" />
-   <install as="Horde/Rpc/Webdav2.php" name="lib/Horde/Rpc/Webdav2.php" />
    <install as="Horde/Rpc/Xmlrpc.php" name="lib/Horde/Rpc/Xmlrpc.php" />
    <install as="Horde/Rpc/Syncml/Wbxml.php" name="lib/Horde/Rpc/Syncml/Wbxml.php" />
    <install as="locale/Horde_Rpc.pot" name="locale/Horde_Rpc.pot" />
@@ -788,7 +786,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Use Horde_Dav for DAV RPC backends.
