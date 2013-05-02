@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Add activesync device hooks.
 * [mms] Add a global default NoSQL driver configuration.
 * [mms] Allow MongoDB to be used as a cache backend.
 * [jan] Check all installed PEAR packages when checking for updates.
@@ -3652,6 +3653,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Add activesync device hooks.
 * [mms] Add a global default NoSQL driver configuration.
 * [mms] Allow MongoDB to be used as a cache backend.
 * [jan] Check all installed PEAR packages when checking for updates.

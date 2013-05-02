@@ -2,6 +2,7 @@
 v5.1.0-git
 ----------
 
+[mjr] Add activesync device hooks.
 [mms] Add a global default NoSQL driver configuration.
 [mms] Allow MongoDB to be used as a cache backend.
 [jan] Check all installed PEAR packages when checking for updates.
