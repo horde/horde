@@ -37,6 +37,9 @@
  *     // the cursor.
  *     offset: { x:0, y:0 },
  *
+ *     // Allow right click to trigger drag behavior.
+ *     rightclick: false,
+ *
  *     // Scroll this element when above/below (only for vertical elements).
  *     scroll: element,
  *
@@ -277,6 +280,7 @@ Drag = Class.create({
             constraint: null,
             ghosting: false,
             nodrop: false,
+            rightclick: false,
             scroll: null,
             snap: null,
             snapToParent: false,
@@ -304,6 +308,10 @@ Drag = Class.create({
 
     mouseDown: function(e)
     {
+        if (!this.options.rightclick && e.isRightClick()) {
+            return;
+        }
+
         DragDrop.Drags.activate(this);
         this.move = 0;
         this.wasDragged = false;
