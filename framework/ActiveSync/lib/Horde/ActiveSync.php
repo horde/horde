@@ -798,6 +798,21 @@ class Horde_ActiveSync
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
             $device->properties['version'] = $version;
             $device->save();
+            if (is_callable(array($this->_driver->deviceCallback))) {
+                $callback_ret = $this->_driver->deviceCallback($device);
+                if ($callback_ret !== true) {
+                    $msg = sprintf(
+                        'The device %s was disallowed for user %s per policy settings.',
+                        $device->id,
+                        $device->user);
+                    $this->_logger->err($msg);
+                    if ($version > self::VERSION_TWELVEONE) {
+                        $this->_globalError = $callback_ret;
+                    } else {
+                        throw new Horde_ActiveSync_Exception($msg);
+                    }
+                }
+            }
         }
 
         // Always set the version information instead of caching it, some

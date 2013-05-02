@@ -250,7 +250,21 @@
  *   [integer] A Horde_ActiveSync_Status:: constant identifying the reason for
  *             disallowing the pairing.
  *
+ * activesync_device_check
+ * -----------------------
+ * This hooks allows the enforcement of arbitrary device policies like E.g.,
+ * not allowing certain user agents to connect, or only allowing certain user
+ * agents for certain users etc...
  *
+ * Parameters in:
+ *   $device (Horde_ActiveSync_Device):  The device object.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [boolean] A true value should be returned if the device passed all checks
+ *             and should be allowed to be paired with the server.
+ *   [integer] A Horde_ActiveSync_Status:: constant identifying the reason for
+ *             disallowing the device.
  *
  * TODO: groupldap, share_add, share_modify, share_remove
  *
@@ -914,6 +928,21 @@ class Horde_Hooks
      *                          Horde_ActiveSync_Status:: constant on failure.
      */
     // public function activesync_create_device(Horde_ActiveSync_Device $device)
+    // {
+    //     return true;
+    // }
+
+    /**
+     * ActiveSync hook for providing additional policy checks on a device
+     * after it has already been paired. Useful for enforcing things like
+     * only allowing certain user agents to connect etc...
+     *
+     * @param Horde_ActiveSync_Device $device  The device object.
+     *
+     * @return boolean|integer  True on success (device passed checks) or a
+     *                          Horde_ActiveSync_Status:: constant on failure.
+     */
+    // public function activesync_device_check(Horde_ActiveSync_Device $device)
     // {
     //     return true;
     // }

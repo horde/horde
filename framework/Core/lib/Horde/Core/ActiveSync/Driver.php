@@ -2150,6 +2150,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Callback that allows custom policy checking on the device before allowing
+     * it to connect. Useful for things like limiting the types of devices
+     * that can connect e.g., not allowing iOS devices etc..
+     *
+     * @param Horde_ActiveSync_Device $device  The device object.
+     *
+     * @return boolean|integer  True on success (device allowed to be created)
+     *                          or error code on failure.
+     */
+    public function deviceCallback(Horde_ActiveSync_Device $device)
+    {
+        try {
+            return Horde::callHook('activesync_device_check', array($device));
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        return true;
+    }
+
+    /**
      * Request freebusy information from the server
      */
     public function getFreebusy($user, array $options = array())
