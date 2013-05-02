@@ -851,10 +851,8 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     continue;
                 }
 
-                $sync = $this->_as->getSyncObject();
                 try {
-                    $sync->init($this->_as->state, null, $collection, true);
-                    if ($sync->getChangeCount()) {
+                    if ($cnt = $this->getCollectionChangeCount(true)) {
                         $dataavailable = true;
                         $this->setGetChangesFlag($id);
                     }
@@ -956,6 +954,29 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 $this->_cache->removePingableCollection($id);
             }
         }
+    }
+
+    /**
+     * Return the any changes for the current collection, and cache them if
+     * we are not PINGing.
+     *
+     * @param boolean $ping  True if this is a PING request, false otherwise.
+     *
+     * @return array  The changes array.
+     */
+    public function getCollectionChanges($ping = false)
+    {
+        $changes = $this->_as->state->getChanges(array('ping' => $ping));
+        if (!$ping) {
+            $this->_changes[$this->_currentCollection] = $changes;
+        }
+
+        return $changes;
+    }
+
+    public function getCollectionChangeCount($ping = false)
+    {
+        return count($this->getCollectionChanges($ping));
     }
 
     /**

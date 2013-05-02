@@ -344,6 +344,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         $this->_encoder->content(self::STATUS_SUCCESS);
         $this->_encoder->endTag();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
+
+        $exporter = new Horde_ActiveSync_Connector_Exporter(
+            $this->_activeSync,
+            $this->_encoder);
+
         foreach ($this->_collections as $id => $collection) {
             $statusCode = self::STATUS_SUCCESS;
             $changecount = 0;
@@ -369,11 +374,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 (!empty($collection['getchanges']) ||
                  (!isset($collection['getchanges']) && $collection['synckey'] != '0'))) {
 
-                $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
-                $sync = $this->_activeSync->getSyncObject();
                 try {
-                    $sync->init($this->_state, $exporter, $collection);
-                    $changecount = $sync->getChangeCount();
+                    $changecount = $this->_collections->getCollectionChangeCount();
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
                     $this->_logger->err(sprintf(
                         '[%s] Force restting of state for %s: %s',
@@ -539,32 +541,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
 
                     if (!empty($changecount)) {
+                        $exporter->setChanges($this->_collections->getCollectionChanges(), $collection);
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
-                        $n = 0;
-                        while (1) {
-                            $progress = $sync->syncronize();
-                            if (!is_array($progress)) {
-                                break;
-                            }
-                            $n++;
-                            if (!empty($collection['windowsize']) &&
-                                $n >= $collection['windowsize']) {
-
-                                $this->_logger->info(sprintf(
-                                    '[%s] Exported maxItems of messages (%s) - more available.',
-                                    $this->_procid,
-                                    $collection['windowsize'])
-                                );
-                                break;
-                            }
-                        }
+                        while ($progress = $exporter->sendNextChange()) { }
                         $this->_encoder->endTag();
                     }
                 }
 
                 // Save the sync state for the next time
                 if (!empty($collection['newsynckey'])) {
-                    if (!empty($sync) || !empty($importer) || !empty($exporter) || $collection['synckey'] == 0)  {
+                    if (!empty($sync) || !empty($importer) || $collection['synckey'] == 0)  {
                         $this->_state->setNewSyncKey($collection['newsynckey']);
                         $this->_state->save();
                     } else {
