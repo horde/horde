@@ -359,10 +359,10 @@ class Turba_Api extends Horde_Registry_Api
                     $results[$key]['contentlength'] = strlen($data);
                 }
                 if (in_array('modified', $properties)) {
-                    $results[$key]['modified'] = $this->_modified($contact->getValue('__uid'));
+                    $results[$key]['modified'] = $this->_modified($contact->getValue('__uid'), $parts[1]);
                 }
                 if (in_array('created', $properties)) {
-                    $results[$key]['created'] = $this->getActionTimestamp($contact->getValue('__uid'), 'add');
+                    $results[$key]['created'] = $this->getActionTimestamp($contact->getValue('__uid'), 'add', $parts[1]);
                 }
             }
 
@@ -386,7 +386,7 @@ class Turba_Api extends Horde_Registry_Api
                 'data' => $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource()),
                 'mimetype' => 'text/x-vcard'
             );
-            $modified = $this->_modified($contact->getValue('__uid'));
+            $modified = $this->_modified($contact->getValue('__uid'), $parts[1]);
             if (!empty($modified)) {
                 $result['mtime'] = $modified;
             }
@@ -2050,11 +2050,11 @@ class Turba_Api extends Horde_Registry_Api
 
     /**
      */
-    private function _modified($uid)
+    private function _modified($uid, $sources)
     {
-        $modified = $this->getActionTimestamp($uid, 'modify');
+        $modified = $this->getActionTimestamp($uid, 'modify', $sources);
         if (empty($modified)) {
-            $modified = $this->getActionTimestamp($uid, 'add');
+            $modified = $this->getActionTimestamp($uid, 'add', $sources);
         }
         return $modified;
     }

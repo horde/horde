@@ -56,6 +56,60 @@ class Turba_Form_EditAddressBook extends Horde_Form
 
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
 
+        /* Subscription URLs. */
+        $url = $GLOBALS['registry']->get('webroot', 'horde');
+        if (isset($GLOBALS['conf']['urls']['pretty']) &&
+            $GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
+            $webdavUrl = $url . '/rpc/turba/';
+            $carddavUrl = $url . '/rpc/addressbooks/';
+            $accountUrl = $url . '/rpc/';
+        } else {
+            $webdavUrl = $url . '/rpc.php/turba/';
+            $carddavUrl = $url . '/rpc.php/addressbooks/';
+            $accountUrl = $url . '/rpc.php/';
+        }
+        $accountUrl = Horde::url($accountUrl, true, -1)
+            . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
+        if ($addressbook->get('owner')) {
+            $carddavUrl = Horde::url($carddavUrl, true, -1)
+                . $addressbook->get('owner')
+                . '/'
+                . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($addressbook->getName(), 'contacts')
+                . '/';
+            $this->addVariable(
+                 _("CardDAV Subscription URL"), '', 'link', false, false, null,
+                 array(array(
+                     'url' => $carddavUrl,
+                     'text' => $carddavUrl,
+                 'title' => _("Copy this URL to a CardDAV client to subscribe to this address book"),
+                     'target' => '_blank')
+                 )
+            );
+        }
+        $this->addVariable(
+             _("CardDAV Account URL"), '', 'link', false, false, null,
+             array(array(
+                 'url' => $accountUrl,
+                 'text' => $accountUrl,
+             'title' => _("Copy this URL to a CarddAV client to subscribe to all your address books"),
+                 'target' => '_blank')
+             )
+        );
+        $webdavUrl = Horde::url($webdavUrl, true, -1)
+            . ($addressbook->get('owner')
+               ? $addressbook->get('owner')
+               : '-system-')
+            . '/' . $addressbook->getName() . '/';
+        $this->addVariable(
+             _("WebDAV URL"), '', 'link', false, false, null,
+             array(array(
+                 'url' => $webdavUrl,
+                 'text' => $webdavUrl,
+                 'title' => _("Copy this URL to a WebDAV client to browse this address book"),
+                 'target' => '_blank')
+             )
+        );
+
         /* Permissions link. */
         if (empty($GLOBALS['conf']['share']['no_sharing']) && $owner) {
             $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde')

@@ -3009,7 +3009,13 @@ KronolithCore = {
                     ? Kronolith.conf.URI_CALENDAR_EXPORT.interpolate({ calendar: calendar })
                     : Kronolith.conf.tasks.URI_TASKLIST_EXPORT.interpolate({ tasklist: calendar.substring(6) });
                 $('kronolithCalendar' + type + 'LinkUrls').up().show();
-                $('kronolithCalendar' + type + 'UrlSub').setValue(info.sub);
+                if (info.caldav) {
+                    $('kronolithCalendar' + type + 'UrlCaldav').setValue(info.caldav);
+                    $('kronolithCalendarCaldav').show();
+                } else {
+                    $('kronolithCalendarCaldav').hide();
+                }
+                $('kronolithCalendar' + type + 'UrlWebdav').setValue(info.sub);
                 break;
             case 'remote':
                 $('kronolithCalendarremoteUrl').setValue(calendar);
@@ -3075,7 +3081,9 @@ KronolithCore = {
             form.down('.kronolithCalendarDelete').hide();
             form.down('.kronolithCalendarSave').hide();
             if (type == 'internal' || type == 'tasklists') {
-                $('kronolithCalendar' + type + 'UrlSub').enable();
+                $('kronolithCalendar' + type + 'UrlCaldav').enable();
+                $('kronolithCalendar' + type + 'UrlAccount').enable();
+                $('kronolithCalendar' + type + 'UrlWebdav').enable();
                 if (type == 'internal') {
                     $('kronolithCalendar' + type + 'UrlFeed').enable();
                     $('kronolithCalendar' + type + 'EmbedUrl').enable();
@@ -4010,9 +4018,13 @@ KronolithCore = {
             }
             break;
 
-        case 'kronolithCalendarinternalUrlSub':
+        case 'kronolithCalendarinternalUrlCaldav':
+        case 'kronolithCalendarinternalUrlWebdav':
+        case 'kronolithCalendarinternalUrlAccount':
         case 'kronolithCalendarinternalUrlFeed':
-        case 'kronolithCalendartasklistsUrlSub':
+        case 'kronolithCalendartasklistsUrlCaldav':
+        case 'kronolithCalendartasklistsUrlWebdav':
+        case 'kronolithCalendartasklistsUrlAccount':
             if (String.fromCharCode(kc) != 'C' ||
                 (this.macos && !e.metaKey) ||
                 (!this.macos && !e.ctrlKey)) {

@@ -1,4 +1,5 @@
 <?php
+
 $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
 $groups = array();
@@ -22,6 +23,17 @@ if (!empty($GLOBALS['conf']['resource']['driver'])) {
         $resource_enum[$resource->getId()] = htmlspecialchars($resource->get('name'));
     }
 }
+
+$accountUrl = $GLOBALS['registry']->get('webroot', 'horde');
+if (isset($GLOBALS['conf']['urls']['pretty']) &&
+    $GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
+    $accountUrl .= '/rpc/';
+} else {
+    $accountUrl .= '/rpc.php/';
+}
+$accountUrl = Horde::url($accountUrl, true, -1)
+    . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
+
 ?>
 <div id="kronolithCalendarDialog" class="kronolithDialog">
 
@@ -90,10 +102,20 @@ if (!empty($GLOBALS['conf']['resource']['driver'])) {
 
 <div id="kronolithCalendarinternalTabUrls" class="kronolithTabsOption" style="display:none">
   <div id="kronolithCalendarinternalUrls">
+    <div id="kronolithCalendarCaldav">
+      <label for="kronolithCalendarinternalUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this calendar from another calendar program") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlCaldav" class="kronolithLongField" onfocus="this.select()" />
+    </div>
     <div>
-      <label for="kronolithCalendarinternalUrlSub"><?php echo _("Subscription URL") ?></label>
-      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another calendar program") ?></span><br />
-      <input type="text" id="kronolithCalendarinternalUrlSub" class="kronolithLongField" onfocus="this.select()" /><br />
+      <label for="kronolithCalendarinternalUrlAccount"><?php echo _("CalDAV Account URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to all your calendars from another calendar program") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlAccount" class="kronolithLongField" onfocus="this.select()" value="<?php echo $accountUrl ?>" />
+    </div>
+    <div>
+      <label for="kronolithCalendarinternalUrlWebdav"><?php echo _("WebDAV/ICS Subscription URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this calendar from another calendar program") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlWebdav" class="kronolithLongField" onfocus="this.select()" />
     </div>
     <div>
       <label for="kronolithCalendarinternalUrlFeed"><?php echo _("Feed URL") ?></label>
@@ -191,10 +213,20 @@ if (!empty($GLOBALS['conf']['resource']['driver'])) {
 </div>
 
 <div id="kronolithCalendartasklistsTabUrls" class="kronolithTabsOption" style="display:none">
+  <div id="kronolithTasklistCaldav">
+    <label for="kronolithCalendartasklistsUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this task list from another calendar program") ?></span><br />
+    <input type="text" id="kronolithCalendartasklistsUrlCaldav" class="kronolithLongField" onfocus="this.select()" />
+  </div>
   <div>
-    <label for="kronolithCalendartasklistsUrlSub"><?php echo _("Subscription URL") ?></label>
-    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another calendar program") ?></span><br />
-    <input type="text" id="kronolithCalendartasklistsUrlSub" class="kronolithLongField" onfocus="this.select()" /><br />
+    <label for="kronolithCalendartasklistsUrlAccount"><?php echo _("CalDAV Account URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to all your calendars from another calendar program") ?></span><br />
+    <input type="text" id="kronolithCalendartasklistsUrlAccount" class="kronolithLongField" onfocus="this.select()" value="<?php echo $accountUrl ?>" />
+  </div>
+  <div>
+    <label for="kronolithCalendartasklistsUrlWebdav"><?php echo _("WebDAV/ICS Subscription URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this task list from another calendar program") ?></span><br />
+    <input type="text" id="kronolithCalendartasklistsUrlWebdav" class="kronolithLongField" onfocus="this.select()" />
   </div>
 </div>
 
