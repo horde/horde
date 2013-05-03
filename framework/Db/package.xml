@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-03</date>
- <time>13:37:59</time>
+ <time>13:41:18</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Fix storing schema information in Horde_Cache.
-* [jan] Use LONGBLOB columns in MySQL when creating binary fields (l.kiraly@madalbal.hu, Bug #12195).
-* [jan] Fix updating existing rows with default values when adding columns in PostgreSQL (Bug #12101).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -679,6 +677,19 @@
 * [mms] Fix storing schema information in Horde_Cache.
 * [jan] Use LONGBLOB columns in MySQL when creating binary fields (l.kiraly@madalbal.hu, Bug #12195).
 * [jan] Fix updating existing rows with default values when adding columns in PostgreSQL (Bug #12101).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-03</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
