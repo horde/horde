@@ -46,7 +46,7 @@ class IMP_Spam_Program implements IMP_Spam_Base
 
     /**
      */
-    public function report(IMP_Contents $contents)
+    public function report(IMP_Contents $contents, $action)
     {
         /* Use a pipe to write the message contents. This should be
          * secure. */
