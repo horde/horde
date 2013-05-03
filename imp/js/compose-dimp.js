@@ -1193,12 +1193,13 @@ var DimpCompose = {
         });
 
         if ($H(DimpCore.context.ctx_atc).size()) {
-            $('atctd').observe('drop', function(e) {
-                if (e.dataTransfer) {
-                    this.uploadAttachmentAjax(e.dataTransfer.files);
+            $('atcdrop').observe('DragHandler:drop', function(e) {
+                if (e.memo.dataTransfer) {
+                    this.uploadAttachmentAjax(e.memo.dataTransfer.files);
                 }
-                e.stop();
-            }.bindAsEventListener(this)).observe('dragover', Event.stop);
+            }.bindAsEventListener(this));
+            DragHandler.dropelt = $('atcdrop');
+            DragHandler.droptarget = $('atctd');
             DimpCore.addPopdown($('upload'), 'atc', {
                 no_offset: true
             });

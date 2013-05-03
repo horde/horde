@@ -144,6 +144,7 @@
     <file name="contacts.js" role="horde" />
     <file name="dimpbase.js" role="horde" />
     <file name="dimpcore.js" role="horde" />
+    <file name="draghandler.js" role="horde" />
     <file name="flagprefs.js" role="horde" />
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
@@ -1499,6 +1500,7 @@
    <install as="imp/js/contacts.js" name="js/contacts.js" />
    <install as="imp/js/dimpbase.js" name="js/dimpbase.js" />
    <install as="imp/js/dimpcore.js" name="js/dimpcore.js" />
+   <install as="imp/js/draghandler.js" name="js/draghandler.js" />
    <install as="imp/js/flagprefs.js" name="js/flagprefs.js" />
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />

@@ -192,3 +192,7 @@
   </div>
  </div>
 </form>
+
+<div id="atcdrop" style="display:none">
+ <?php echo _("Drop file here to attach.") ?>
+</div>
