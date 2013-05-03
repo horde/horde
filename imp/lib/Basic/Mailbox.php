@@ -85,11 +85,11 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             break;
 
         case 'spam_report':
-            $injector->getInstance('IMP_Spam')->report($this->indices, IMP_Spam::SPAM);
+            $injector->getInstance('IMP_Factory_Spam')->create(IMP_Spam::SPAM)->report($this->indices);
             break;
 
         case 'innocent_report':
-            $injector->getInstance('IMP_Spam')->report($this->indices, IMP_Spam::INNOCENT);
+            $injector->getInstance('IMP_Factory_Spam')->create(IMP_Spam::INNOCENT)->report($this->indices);
             break;
 
         case 'message_missing':

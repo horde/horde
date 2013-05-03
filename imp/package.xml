@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-02</date>
+ <date>2013-05-03</date>
  <version>
   <release>6.1.0beta1</release>
   <api>6.0.0</api>
@@ -267,6 +267,7 @@
      <file name="Search.php" role="horde" />
      <file name="Sentmail.php" role="horde" />
      <file name="Smime.php" role="horde" />
+     <file name="Spam.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Flag">
      <dir name="Imap">
@@ -479,6 +480,11 @@
      <file name="Null.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Sentmail -->
+    <dir name="Spam">
+     <file name="Base.php" role="horde" />
+     <file name="Email.php" role="horde" />
+     <file name="Program.php" role="horde" />
+    </dir> <!-- /lib/Spam -->
     <dir name="Tree">
      <file name="Flist.php" role="horde" />
      <file name="Jquerymobile.php" role="horde" />
@@ -1612,6 +1618,7 @@
    <install as="imp/lib/Factory/Search.php" name="lib/Factory/Search.php" />
    <install as="imp/lib/Factory/Sentmail.php" name="lib/Factory/Sentmail.php" />
    <install as="imp/lib/Factory/Smime.php" name="lib/Factory/Smime.php" />
+   <install as="imp/lib/Factory/Spam.php" name="lib/Factory/Spam.php" />
    <install as="imp/lib/Flag/Base.php" name="lib/Flag/Base.php" />
    <install as="imp/lib/Flag/Imap.php" name="lib/Flag/Imap.php" />
    <install as="imp/lib/Flag/User.php" name="lib/Flag/User.php" />
@@ -1759,6 +1766,9 @@
    <install as="imp/lib/Sentmail/Mongo.php" name="lib/Sentmail/Mongo.php" />
    <install as="imp/lib/Sentmail/Null.php" name="lib/Sentmail/Null.php" />
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
+   <install as="imp/lib/Spam/Base.php" name="lib/Spam/Base.php" />
+   <install as="imp/lib/Spam/Email.php" name="lib/Spam/Email.php" />
+   <install as="imp/lib/Spam/Program.php" name="lib/Spam/Program.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
    <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
@@ -3121,7 +3131,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-05-02</date>
+   <date>2013-05-03</date>
    <version>
     <release>6.1.0beta1</release>
     <api>6.0.0</api>

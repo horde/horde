@@ -247,7 +247,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         $change = $this->_base->changed(true);
 
-        if ($injector->getInstance('IMP_Spam')->report($this->_base->indices, $this->vars->spam ? IMP_Spam::SPAM : IMP_Spam::INNOCENT)) {
+        if ($injector->getInstance('IMP_Factory_Spam')->create($this->vars->spam ? IMP_Spam::SPAM : IMP_Spam::INNOCENT)->report($this->_base->indices)) {
             $this->_base->deleteMsgs($this->_base->indices, $change);
             return true;
         }

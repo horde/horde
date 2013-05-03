@@ -134,9 +134,10 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         case 'innocent_report':
         case 'spam_report':
-            $res = $injector->getInstance('IMP_Spam')->report(
+            $res = $injector->getInstance('IMP_Factory_Spam')->create(
+                ($this->vars->actionID == 'spam_report') ? IMP_Spam::SPAM : IMP_Spam::INNOCENT
+            )->report(
                 $this->indices,
-                ($this->vars->actionID == 'spam_report') ? IMP_Spam::SPAM : IMP_Spam::INNOCENT,
                 array('mailbox' => $imp_mailbox)
             );
             switch ($res) {

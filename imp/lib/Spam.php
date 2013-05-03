@@ -27,15 +27,40 @@
  */
 class IMP_Spam
 {
-    /* Constants. */
+    /* Action constants. */
     const INNOCENT = 1;
     const SPAM = 2;
+
+    /**
+     * Action.
+     *
+     * @var integer
+     */
+    protected $_action;
+
+    /**
+     * Driver list.
+     *
+     * @var array
+     */
+    protected $_drivers;
+
+    /**
+     * Constructor.
+     *
+     * @param integer $action  Either IMP_Spam::SPAM or IMP_Spam::INNOCENT.
+     * @param array $drivers   List of reporting drivers.
+     */
+    public function __construct($action, array $drivers = array())
+    {
+        $this->_action = $action;
+        $this->_drivers = $drivers;
+    }
 
     /**
      * Reports a list of messages as innocent/spam.
      *
      * @param IMP_Indices $indices  An indices object.
-     * @param integer $action       Either self::SPAM or self::INNOCENT.
      * @param array $opts           Additional options:
      *   - mailboxob: (IMP_Mailbox_List) Update this mailbox list object.
      *                DEFAULT: No update.
@@ -43,34 +68,18 @@ class IMP_Spam
      * @return integer  1 if messages have been deleted, 2 if messages have
      *                  been moved.
      */
-    public function report(IMP_Indices $indices, $action,
-                           array $opts = array())
+    public function report(IMP_Indices $indices, array $opts = array())
     {
-        global $injector, $notification, $prefs, $registry;
-
-        switch ($action) {
-        case self::INNOCENT:
-            $config = $injector->getInstance('IMP_Imap')->config->innocent_params;
-            break;
-
-        case self::SPAM:
-            $config = $injector->getInstance('IMP_Imap')->config->spam_params;
-            break;
-
-        default:
-            $config = array();
-            break;
-        }
+        global $injector, $notification, $prefs;
 
         /* Abort immediately if spam reporting has not been enabled, or if
          * there are no messages. */
-        if (empty($config) || !count($indices)) {
+        if (empty($this->_drivers) || !count($indices)) {
             return 0;
         }
 
-        $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create();
         $imp_contents = $injector->getInstance('IMP_Factory_Contents');
-        $report_count = $result = 0;
+        $report_count = 0;
 
         foreach ($indices as $ob) {
             try {
@@ -86,107 +95,11 @@ class IMP_Spam
                     continue;
                 }
 
-                $raw_msg = null;
                 $report_flag = false;
 
-                /* Report to program. */
-                if (!empty($config['program'])) {
-                    $raw_msg = $contents->fullMessageText(array(
-                        'stream' => true
-                    ));
-
-                    /* Use a pipe to write the message contents. This should
-                     * be secure. */
-                    $proc = proc_open(
-                        $this->_expand($config['program'], true),
-                        array(
-                            0 => array('pipe', 'r'),
-                            1 => array('pipe', 'w'),
-                            2 => array('pipe', 'w')
-                        ),
-                        $pipes
-                    );
-                    if (!is_resource($proc)) {
-                        Horde::log(sprintf('Cannot open spam reporting program: %s', $proc), 'ERR');
-                        return 0;
-                    }
-
-                    stream_copy_to_stream($raw_msg, $pipes[0]);
-                    fclose($pipes[0]);
-
-                    $stderr = '';
-                    while (!feof($pipes[2])) {
-                        $stderr .= fgets($pipes[2]);
-                    }
-                    fclose($pipes[2]);
-                    if (!empty($stderr)) {
-                        Horde::log(sprintf('Error reporting spam: %s', $stderr), 'ERR');
-                    }
-
-                    proc_close($proc);
-                    $report_flag = true;
-                }
-
-                /* Report to e-mail address. */
-                if (!empty($config['email'])) {
-                    $format = empty($config['email_format'])
-                        ? 'digest'
-                        : $config['email_format'];
-                    $to = $this->_expand($config['email']);
-
-                    switch ($format) {
-                    case 'redirect':
-                        /* Send the message. */
-                        try {
-                            $imp_compose->redirectMessage(new IMP_Indices($ob->mbox, $idx));
-                            $imp_compose->sendRedirectMessage($to, false);
-                            $report_flag = true;
-                        } catch (IMP_Compose_Exception $e) {
-                            $e->log();
-                        }
-                        break;
-
-                    case 'digest':
-                    default:
-                        try {
-                            $from_line = $injector->getInstance('IMP_Identity')->getFromLine();
-                        } catch (Horde_Exception $e) {
-                            $from_line = null;
-                        }
-
-                        if (!isset($raw_msg)) {
-                            $raw_msg = $contents->fullMessageText(array(
-                                'stream' => true
-                            ));
-                        }
-
-                        /* Build the MIME structure. */
-                        $mime = new Horde_Mime_Part();
-                        $mime->setType('multipart/digest');
-
-                        $rfc822 = new Horde_Mime_Part();
-                        $rfc822->setType('message/rfc822');
-                        $rfc822->setContents($raw_msg);
-                        $mime->addPart($rfc822);
-
-                        $spam_headers = new Horde_Mime_Headers();
-                        $spam_headers->addMessageIdHeader();
-                        $spam_headers->addHeader('Date', date('r'));
-                        $spam_headers->addHeader('To', $to);
-                        if (!is_null($from_line)) {
-                            $spam_headers->addHeader('From', $from_line);
-                        }
-                        $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action == self::SPAM ? 'spam' : 'innocent', $registry->getAuth()));
-
-                        /* Send the message. */
-                        try {
-                            $recip_list = $imp_compose->recipientList(array('to' => $to));
-                            $imp_compose->sendMessage($recip_list['list'], $spam_headers, $mime, 'UTF-8');
-                            $report_flag = true;
-                        } catch (IMP_Compose_Exception $e) {
-                            $e->log();
-                        }
-                        break;
+                foreach ($this->_drivers as $val) {
+                    if ($val->report($contents, $this->_action)) {
+                        $report_flag = true;
                     }
                 }
 
@@ -211,7 +124,7 @@ class IMP_Spam
                 $subject = '[' . _("No Subject") . ']';
             }
 
-            switch ($action) {
+            switch ($this->_action) {
             case self::INNOCENT:
                 $msg = $subject
                     ? sprintf(_("The message \"%s\" has been reported as innocent."), $subject)
@@ -224,10 +137,16 @@ class IMP_Spam
                     : sprintf(_("The message from \"%s\" has been reported as spam."), $from);
                 break;
             }
-        } elseif ($action == self::INNOCENT) {
-            $msg = sprintf(_("%d messages have been reported as innocent."), $report_count);
         } else {
-            $msg = sprintf(_("%d messages have been reported as spam."), $report_count);
+            switch ($this->_action) {
+            case self::INNOCENT:
+                $msg = sprintf(_("%d messages have been reported as innocent."), $report_count);
+                break;
+
+            case self::SPAM:
+                $msg = sprintf(_("%d messages have been reported as spam."), $report_count);
+                break;
+            }
         }
         $notification->push($msg, 'horde.message');
 
@@ -238,11 +157,11 @@ class IMP_Spam
 
         /* Run post-reporting hook. */
         try {
-            Horde::callHook('post_spam', array($action == self::SPAM ? 'spam' : 'innocent', $indices), 'imp');
+            Horde::callHook('post_spam', array($this->_action == self::SPAM ? 'spam' : 'innocent', $indices), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Delete/move message after report. */
-        switch ($action) {
+        switch ($this->_action) {
         case self::INNOCENT:
             /* Always flag messages as NotJunk. */
             $imp_message = $injector->getInstance('IMP_Message');
@@ -290,31 +209,6 @@ class IMP_Spam
         }
 
         return $result;
-    }
-
-    /**
-     * Expand placeholders in 'email' and 'program' options.
-     *
-     * @param string $str      The option.
-     * @param boolean $escape  Shell escape the replacements?
-     *
-     * @return string  The expanded option.
-     */
-    private function _expand($str, $escape = false)
-    {
-        global $registry;
-
-        $replace = array(
-            '%u' => $registry->getAuth(),
-            '%l' => $registry->getAuth('bare'),
-            '%d' => $registry->getAuth('domain')
-        );
-
-        return str_replace(
-            array_keys($replace),
-            $escape ? array_map('escapeshellarg', array_values($replace)) : array_values($replace),
-            $str
-        );
     }
 
 }
