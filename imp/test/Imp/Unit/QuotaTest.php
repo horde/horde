@@ -27,20 +27,16 @@ class Imp_Unit_QuotaTest extends PHPUnit_Framework_TestCase
 {
     public function testMaildir()
     {
-        $quota = new IMP_Quota_Maildir(array(
-            'path' => __DIR__ . '/../fixtures',
-            'username' => 'foo'
-        ));
-
+        $quota = new IMP_Quota_Null();
         $data = $quota->getQuota();
 
         $this->assertEquals(
-            1000000000,
+            0,
             $data['limit']
         );
 
         $this->assertEquals(
-            550839239,
+            0,
             $data['usage']
         );
     }

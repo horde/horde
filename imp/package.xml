@@ -134,7 +134,7 @@
     </dir> <!-- /js/ckeditor -->
     <dir name="jquery.mobile">
      <dir name="plugins">
-      <file name="mailboxtaphold.js" role="horde" />
+      <file name="listviewtaphold.js" role="horde" />
      </dir> <!-- /js/jquery.mobile/plugins -->
     </dir> <!-- /js/jquery.mobile -->
     <file name="acl.js" role="horde" />
@@ -946,7 +946,6 @@
    <dir name="test">
     <dir name="Imp">
      <dir name="fixtures">
-      <file name="maildirsize" role="test" />
       <file name="test.eml" role="test" />
       <file name="test.mbox" role="test" />
      </dir> <!-- /test/Imp/fixtures -->
@@ -1514,7 +1513,7 @@
    <install as="imp/js/ckeditor/imageupload.js" name="js/ckeditor/imageupload.js" />
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
-   <install as="imp/js/jquery.mobile/plugins/mailboxtaphold.js" name="js/jquery.mobile/plugins/mailboxtaphold.js" />
+   <install as="imp/js/jquery.mobile/plugins/listviewtaphold.js" name="js/jquery.mobile/plugins/listviewtaphold.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
@@ -1972,7 +1971,6 @@
    <install as="Imp/Autoload.php" name="test/Imp/Autoload.php" />
    <install as="Imp/bootstrap.php" name="test/Imp/bootstrap.php" />
    <install as="Imp/phpunit.xml" name="test/Imp/phpunit.xml" />
-   <install as="Imp/fixtures/maildirsize" name="test/Imp/fixtures/maildirsize" />
    <install as="Imp/fixtures/test.eml" name="test/Imp/fixtures/test.eml" />
    <install as="Imp/fixtures/test.mbox" name="test/Imp/fixtures/test.mbox" />
    <install as="Imp/Stub/HtmlViewer.php" name="test/Imp/Stub/HtmlViewer.php" />
