@@ -2929,7 +2929,7 @@ KronolithCore = {
         $('kronolithCalendarDialog').select('.kronolithCalendarDiv').invoke('hide');
         $('kronolithCalendar' + type + '1').show();
         form.select('.kronolithCalendarContinue').invoke('enable');
-        $('kronolithC' + type + 'PUNew', 'kronolithC' + type + 'PGNew').each(function(elm) {
+        $('kronolithC' + type + 'PUNew', 'kronolithC' + type + 'PGNew').compact().each(function(elm) {
             if (elm.tagName == 'SELECT') {
                 $A(elm.options).each(function(option) {
                     option.writeAttribute('disabled', false);
