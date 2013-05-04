@@ -227,7 +227,7 @@ var DimpBase = {
 
             this.loadMailbox(data);
 
-            if (tmp) {
+            if (Object.isElement(tmp)) {
                 tmp.remove();
             }
             return;
