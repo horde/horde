@@ -46,6 +46,13 @@ class IMP_Ajax_Queue
     protected $_flag = array();
 
     /**
+     * Add flag configuration to response.
+     *
+     * @var boolean
+     */
+    protected $_flagconfig = false;
+
+    /**
      * Mailbox options.
      *
      * @var array
@@ -103,6 +110,18 @@ class IMP_Ajax_Queue
      *   - uids: (string) Indices of the messages that have changed (IMAP
      *           sequence string; mboxes are base64url encoded).
      *
+     * For flag configuration data (key: 'flag-config'), an array containgin
+     * flag data:
+     *   - a: (boolean) Indicates a flag that can be *a*ltered.
+     *   - b: (string) Background color.
+     *   - c: (string) CSS class.
+     *   - f: (string) Foreground color.
+     *   - i: (string) CSS icon.
+     *   - id: (string) Flag ID (IMAP flag id).
+     *   - l: (string) Flag label.
+     *   - s: (boolean) Indicates a flag that can be *s*earched for.
+     *   - u: (boolean) Indicates a *u*ser flag.
+     *
      * For mailbox data (key: 'mailbox'), an array with these keys:
      *   - a: (array) Mailboxes that were added (base64url encoded).
      *   - all: (integer) TODO
@@ -135,6 +154,8 @@ class IMP_Ajax_Queue
      */
     public function add(IMP_Ajax_Application $ajax)
     {
+        global $injector;
+
         /* Add compose attachment information. */
         if (!empty($this->_atc)) {
             $ajax->addTask('compose-atc', $this->_atc);
@@ -159,8 +180,29 @@ class IMP_Ajax_Queue
             $this->_flag = array();
         }
 
+        /* Add flag configuration. */
+        if ($this->_flagconfig) {
+            $flags = array();
+
+            foreach ($injector->getInstance('IMP_Flags')->getList() as $val) {
+                $flags[] = array_filter(array(
+                    'a' => $val->canset,
+                    'b' => $val->bgdefault ? null : $val->bgcolor,
+                    'c' => $val->css,
+                    'f' => $val->fgcolor,
+                    'i' => $val->css ? null : $val->cssicon,
+                    'id' => $val->id,
+                    'l' => $val->label,
+                    's' => intval($val instanceof IMP_Flag_Imap),
+                    'u' => intval($val instanceof IMP_Flag_User)
+                ));
+            }
+
+            $ajax->addTask('flag-config', $flags);
+        }
+
         /* Add folder tree information. */
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $imptree = $injector->getInstance('IMP_Imap_Tree');
         $imptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOSPECIALMBOXES);
         $out = $imptree->getAjaxResponse();
         if (!empty($out)) {
@@ -169,7 +211,7 @@ class IMP_Ajax_Queue
 
         /* Add mail log information. */
         if (!empty($this->_maillog)) {
-            $imp_maillog = $GLOBALS['injector']->getInstance('IMP_Maillog');
+            $imp_maillog = $injector->getInstance('IMP_Maillog');
             $maillog = array();
 
             foreach ($this->_maillog as $val) {
@@ -199,7 +241,7 @@ class IMP_Ajax_Queue
             $poll_list[strval($val)] = 1;
         }
 
-        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imap_ob = $injector->getInstance('IMP_Imap');
         if ($imap_ob->init) {
             foreach ($imap_ob->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
                 $poll[IMP_Mailbox::formTo($key)] = intval($val['unseen']);
@@ -213,7 +255,7 @@ class IMP_Ajax_Queue
 
         /* Add quota information. */
         if (($this->_quota !== false) &&
-            ($quotadata = $GLOBALS['injector']->getInstance('IMP_Quota_Ui')->quota($this->_quota))) {
+            ($quotadata = $injector->getInstance('IMP_Quota_Ui')->quota($this->_quota))) {
             $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
                 'p' => round($quotadata['percent']),
@@ -296,6 +338,14 @@ class IMP_Ajax_Queue
 
         $result->buids = $indices->toArray();
         $this->_flag[] = $result;
+    }
+
+    /**
+     * Add flag configuration information to response queue.
+     */
+    public function flagConfig()
+    {
+        $this->_flagconfig = true;
     }
 
     /**

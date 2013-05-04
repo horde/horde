@@ -39,9 +39,14 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptPackage('Dialog');
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
-        $this->_addMailboxVars();
-
         $imp_imap = $injector->getInstance('IMP_Imap');
+
+        if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
+            $page_output->addScriptFile('colorpicker.js', 'horde');
+            $this->view->picker_img = Horde::img('colorpicker.png', _("Color Picker"));
+        }
+
+        $this->_addMailboxVars();
 
         $this->view->show_innocent = !empty($imp_imap->config->innocent_params);
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
@@ -119,24 +124,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
     {
         global $conf, $injector, $prefs, $registry;
 
-        /* Generate flag array. */
-        $flags = array();
-        foreach ($injector->getInstance('IMP_Flags')->getList() as $val) {
-            $flags[$val->id] = array_filter(array(
-                // Indicate a flag that can be *a*ltered
-                'a' => $val->canset,
-                'b' => $val->bgdefault ? null : $val->bgcolor,
-                'c' => $val->css,
-                'f' => $val->fgcolor,
-                'i' => $val->css ? null : $val->cssicon,
-                'l' => $val->label,
-                // Indicate a flag that can be *s*earched for
-                's' => intval($val instanceof IMP_Flag_Imap),
-                // Indicate a *u*ser flag
-                'u' => intval($val instanceof IMP_Flag_User)
-            ));
-        }
-
         /* Does server support ACLs? */
         $imp_imap = $injector->getInstance('IMP_Imap');
         $acl = $imp_imap->access(IMP_Imap::ACCESS_ACL);
@@ -167,9 +154,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'mboxzip' => _("Download into a MBOX file (ZIP compressed)")
             ),
             'filter_any' => intval($prefs->getValue('filter_any_mailbox')),
-            'flags' => $flags,
-            /* Needed to maintain flag ordering. */
-            'flags_o' => array_keys($flags),
             'fsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH),
             'initial_page' => IMP_Auth::getInitialPage()->mbox->form_to,
             'mbox_expand' => intval($prefs->getValue('nav_expanded') == 2),
@@ -241,6 +225,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 '*msgdate' => _("Message Date")
             ),
             'ctx_flag' => array(),
+            'ctx_flagunset' => array(),
             'ctx_flag_search' => array(),
             'ctx_mbox_flag' => array(
                 'seen' => _("Seen"),
@@ -477,6 +462,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'message_1' => _("1 message"),
             'message_2' => _("%d messages"),
             'moveto' => _("Move %s to %s"),
+            'newflag' => _("Create New Flag..."),
+            'newflag_name' => _("Flag Name:"),
+            'newflag_wait' => _("Creating New Flag..."),
             'onlogout' => _("Logging Out..."),
             'portal' => _("Portal"),
             'prefs' => _("User Options"),

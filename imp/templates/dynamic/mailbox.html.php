@@ -209,3 +209,13 @@
   </div>
  </div>
 </div>
+
+<?php if ($this->picker_img): ?>
+<div id="flagnewContainer" style="display:none">
+ <div>
+  <input name="flagname" />
+  <input name="flagcolor" size="5" />
+  <a class="flagcolorpicker" href="#"><?php echo $this->picker_img ?></a>
+ </div>
+</div>
+<?php endif; ?>

@@ -376,6 +376,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $this->vars->mboxes = Horde_Serialize::serialize(array($this->vars->mbox), Horde_Serialize::JSON);
         $this->listMailboxes();
 
+        $this->_base->queue->flagConfig();
+
         return true;
     }
 
@@ -973,7 +975,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * AJAX action: Is the given mailbox fixed? Called dynamically to delay
      * retrieveal of ACLs of all visible mailboxes at initialization.
      *
-     * Varaiables used:
+     * Variables used:
      *   - mbox: (integer) The mailbox name.
      *
      * @return object  An object with the following entires:
@@ -985,6 +987,39 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $result->fixed = !(IMP_Mailbox::formFrom($this->vars->mbox)->access_deletembox);
         return $result;
 
+    }
+
+    /**
+     * AJAX action: Create an IMAP flag.
+     *
+     * Variables used:
+     *   - flagcolor: (string) Background color for flag label.
+     *   - flagname: (string) Flag name.
+     *
+     * @return boolean  True.
+     */
+    public function createFlag()
+    {
+        global $injector;
+
+        $imp_flags = $injector->getInstance('IMP_Flags');
+
+        $imp_flags->addFlag($this->vars->flagname);
+        if (!empty($this->vars->flagcolor)) {
+            $imp_flags->updateFlag($this->vars->flagname, 'bgcolor', $this->vars->flagcolor);
+        }
+
+        $this->vars->add = true;
+        $this->vars->flags = Horde_Serialize::serialize(array($this->vars->flagname), Horde_Serialize::JSON);
+        $this->flagMessages();
+
+        $this->_base->queue->flagConfig();
+
+        if ($this->_base->tasks->viewport) {
+            IMP_Ajax_Application_ListMessages::addFlagMetadata($this->_base->tasks->viewport, IMP_Mailbox::formFrom($this->_vars->mailbox));
+        }
+
+        return true;
     }
 
 }
