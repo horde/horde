@@ -386,7 +386,7 @@ var ContextSensitive = Class.create({
                 voffsets = document.viewport.getScrollOffsets();
                 x = offsets[0] + voffsets.left + elt.getWidth();
                 y = offsets[1] + voffsets.top;
-                if (this._displayMenu(sub, x, y, id)) {
+                if (this._displayMenu(sub, x, y)) {
                     this.triggers.push(id);
                     elt.addClassName('contextHover');
                 }
