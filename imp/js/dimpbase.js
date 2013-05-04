@@ -1795,8 +1795,7 @@ var DimpBase = {
     updateAddressHeader: function(e)
     {
         DimpCore.doAction('addressHeader', {
-            header: $w(e.element().className).first(),
-            view: this.view
+            header: $w(e.element().className).first()
         }, {
             callback: this._updateAddressHeaderCallback.bind(this),
             loading: 'msg',
@@ -2243,8 +2242,7 @@ var DimpBase = {
                     DimpCore.doAction('copyMessages', this.addViewportParams({
                         mboxto: mboxname
                     }), {
-                        uids: uids,
-                        view: this.view
+                        uids: uids
                     });
                 } else if (this.view != mboxname) {
                     // Don't allow drag/drop to the current mailbox.
@@ -2252,8 +2250,7 @@ var DimpBase = {
                     DimpCore.doAction('moveMessages', this.addViewportParams({
                         mboxto: mboxname
                     }), {
-                        uids: uids,
-                        view: this.view
+                        uids: uids
                     });
                 }
             }
@@ -2767,10 +2764,11 @@ var DimpBase = {
             break;
 
         case 'send_mdn_link':
-            DimpCore.doAction('sendMDN', {}, {
-                callback: this._sendMdnCallback.bind(this),
-                uids: [ this.pp.VP_id ],
+            DimpCore.doAction('sendMDN', {
                 view: this.pp.VP_view
+            }, {
+                callback: this._sendMdnCallback.bind(this),
+                uids: [ this.pp.VP_id ]
             });
             e.memo.stop();
             break;
@@ -2802,8 +2800,7 @@ var DimpBase = {
                             }
                         }.bind(this),
                         loading: 'msg',
-                        uids: [ this.pp.VP_id ],
-                        view: this.pp.VP_view
+                        uids: [ this.pp.VP_id ]
                     });
                 }
                 e.memo.stop();
@@ -3429,8 +3426,7 @@ var DimpBase = {
             DimpCore.doAction(type, this.addViewportParams(args), {
                 ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) },
                 loading: opts,
-                uids: vs,
-                view: opts.mailbox
+                uids: vs
             });
             return vs;
         }
@@ -3491,8 +3487,7 @@ var DimpBase = {
                 add: Number(add),
                 flags: Object.toJSON([ flag ])
             })), {
-                uids: vs,
-                view: opts.mailbox
+                uids: vs
             });
         }
     },
