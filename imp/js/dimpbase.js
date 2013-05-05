@@ -1484,7 +1484,7 @@ var DimpBase = {
             a.insert(new Element('DIV', { className: 'iconImg' }));
         }
 
-        if (f.u) {
+        if (f.b && f.u) {
             style.backgroundColor = f.b.escapeHTML();
         }
 
@@ -3926,7 +3926,7 @@ document.observe('HordeDialog:onClick', function(e) {
         }), {
             callback: function() {
                 delete this.colorpicker;
-                HordeDialog.close.bind(HordeDialog);
+                HordeDialog.close();
             }.bind(this),
             uids: this.viewport.getSelected()
         });
