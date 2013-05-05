@@ -197,8 +197,6 @@ class IMP_Imap implements Serializable
      */
     public function createImapObject($username, $password, $key)
     {
-        global $prefs;
-
         if (!is_null($this->_ob)) {
             return $this->_ob;
         }
@@ -243,10 +241,20 @@ class IMP_Imap implements Serializable
         $this->_config = $config;
         $this->_ob = $ob;
 
-        switch ($config->protocol) {
+        return $ob;
+    }
+
+    /**
+     * Perform post-login tasks.
+     */
+    public function doPostLoginTasks()
+    {
+        global $prefs;
+
+        switch ($this->_config->protocol) {
         case 'imap':
             /* Overwrite default special mailbox names. */
-            foreach ($config->special_mboxes as $key => $val) {
+            foreach ($this->_config->special_mboxes as $key => $val) {
                 if ($key != IMP_Mailbox::MBOX_USERSPECIAL) {
                     $prefs->setValue($key, $val, array(
                         'nosave' => true
@@ -257,10 +265,12 @@ class IMP_Imap implements Serializable
 
         case 'pop':
             /* Turn some options off if we are working with POP3. */
-            $prefs->setValue('save_sent_mail', false, array(
-                'nosave' => true
-            ));
-            $prefs->setLocked('save_sent_mail', true);
+            foreach (array('newmail_notify', 'save_sent_mail') as $val) {
+                $prefs->setValue($val, false, array(
+                    'nosave' => true
+                ));
+                $prefs->setLocked($val, true);
+            }
             $prefs->setLocked(IMP_Mailbox::MBOX_DRAFTS, true);
             $prefs->setLocked(IMP_Mailbox::MBOX_SENT, true);
             $prefs->setLocked(IMP_Mailbox::MBOX_SPAM, true);
@@ -268,15 +278,6 @@ class IMP_Imap implements Serializable
             $prefs->setLocked(IMP_Mailbox::MBOX_TRASH, true);
             break;
         }
-
-        return $ob;
-    }
-
-    /**
-     * Perform post-login tasks.
-     */
-    public function doPostLoginTasks()
-    {
         $this->updateFetchIgnore();
 
         /* Secret key may have changed - recreate password values. */
