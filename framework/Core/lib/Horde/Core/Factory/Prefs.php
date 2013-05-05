@@ -28,6 +28,15 @@
 class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
 {
     /**
+     * Storage driver.
+     *
+     * @since 2.5.0
+     *
+     * @var Horde_Prefs_Storage
+     */
+    public $storage;
+
+    /**
      * Instances.
      *
      * @var array
@@ -140,11 +149,11 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                 $params['imsp'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Imsp')->create('Options', $imspParams);
             }
-            $driverOb = new $driver($opts['user'], $params);
+            $this->storage = new $driver($opts['user'], $params);
         } catch (Horde_Exception $e) {
             $this->_notifyError($e);
             $driver = 'Horde_Prefs_Storage_Null';
-            $driverOb = new $driver($opts['user'], $params);
+            $this->storage = new $driver($opts['user'], $params);
             $opts['cache'] = false;
         }
 
@@ -152,7 +161,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
         $hooks_driver = new Horde_Core_Prefs_Storage_Hooks($opts['user'], array('conf_ob' => $config_driver));
 
         $drivers = $driver
-            ? array($config_driver, $driverOb, $hooks_driver)
+            ? array($config_driver, $this->storage, $hooks_driver)
             : array($config_driver, $hooks_driver);
 
         if ($driver && $opts['cache']) {

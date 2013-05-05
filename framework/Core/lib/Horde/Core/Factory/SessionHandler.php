@@ -10,6 +10,15 @@
 class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
 {
     /**
+     * Storage driver.
+     *
+     * @since 2.5.0
+     *
+     * @var Horde_SessionHandler_Storage
+     */
+    public $storage;
+
+    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @return Horde_SessionHandler_Driver  The newly created concrete
@@ -59,7 +68,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
         }
 
         $class = $this->_getDriverName($driver, 'Horde_SessionHandler_Storage');
-        $storage = new $class($params);
+        $storage = $this->storage = new $class($params);
 
         if (!empty($conf['sessionhandler']['memcache']) &&
             !in_array($driver, array('builtin', 'memcache'))) {
@@ -68,7 +77,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
                     new Horde_SessionHandler_Storage_Memcache(array(
                         'memcache' => $injector->getInstance('Horde_Memcache')
                     )),
-                    $storage
+                    $this->storage
                 )
             ));
         }
