@@ -64,6 +64,7 @@ function _uploadFTP($params)
 
 $hconfig = new Horde_Config();
 $migration = new Horde_Core_Db_Migration(__DIR__ . '/../../..');
+$nosql = new Horde_Core_Nosql();
 $vars = $injector->getInstance('Horde_Variables');
 $a = $registry->listAllApps();
 
@@ -130,6 +131,11 @@ if ($vars->action == 'schema') {
     }
 }
 
+/* Create NoSQL indices if requested. */
+if ($vars->action == 'nosql_indices') {
+    $nosql->buildIndices($vars->app);
+}
+
 /* Set up some icons. */
 $success = Horde::img('alerts/success.png');
 $warning = Horde::img('alerts/warning.png');
@@ -141,11 +147,12 @@ $apps = $libraries = array();
 $i = -1;
 $config_outdated = $schema_outdated = false;
 if (class_exists('Horde_Bundle')) {
-    $apps[0] = array('sort' => '00',
-                     'name' => '<strong>' . Horde_Bundle::FULLNAME . '</strong>',
-                     'icon' => Horde::img($registry->get('icon', 'horde'),
-                                          Horde_Bundle::FULLNAME, '', ''),
-                     'version' => '<strong>' . Horde_Bundle::VERSION . '</strong>');
+    $apps[0] = array(
+        'icon' => Horde::img($registry->get('icon', 'horde'), Horde_Bundle::FULLNAME, '', ''),
+        'name' => '<strong>' . Horde_Bundle::FULLNAME . '</strong>',
+        'sort' => '00',
+        'version' => '<strong>' . Horde_Bundle::VERSION . '</strong>'
+    );
     if (!empty($versions)) {
         if (!isset($versions[Horde_Bundle::NAME])) {
             $apps[0]['load'] = $warning;
@@ -240,28 +247,41 @@ foreach ($a as $app) {
         }
     }
 
-    if (!in_array($app, $migration->apps)) {
-        $apps[$i]['dbstatus'] = $apps[$i]['db'] = '';
-    } else {
+    $apps[$i]['dbstatus'] = $apps[$i]['db'] = array();
+
+    if (in_array($app, $migration->apps)) {
         /* If a DB backend hasn't been configured (yet), an exception will be
          * thrown. This is fine if this is the intial configuration, or if no
          * DB will be used. */
         try {
             $migrator = $migration->getMigrator($app);
         } catch (Horde_Exception $e) {
-            $apps[$i]['db'] = $warning;
-            $apps[$i]['dbstatus'] = _("DB access is not configured.");
+            $apps[$i]['db'][] = $warning;
+            $apps[$i]['dbstatus'][] = _("DB access is not configured.");
             continue;
         }
         if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
             /* Schema is out of date. */
-            $apps[$i]['db'] = $db_link . $error . '</a>';
-            $apps[$i]['dbstatus'] = $db_link . _("DB schema is out of date.") . '</a>';
+            $apps[$i]['db'][] = $db_link . $error . '</a>';
+            $apps[$i]['dbstatus'][] = $db_link . _("SQL DB schema is out of date.") . '</a>';
             $schema_outdated = true;
         } else {
             /* Schema is ok. */
-            $apps[$i]['db'] = $success;
-            $apps[$i]['dbstatus'] = _("DB schema is ready.");
+            $apps[$i]['db'][] = $success;
+            $apps[$i]['dbstatus'][] = _("SQL DB schema is ready.");
+        }
+    }
+
+    if ($nosql->getDrivers($app, Horde_Core_Nosql::HAS_INDICES)) {
+        if ($nosql->getDrivers($app, Horde_Core_Nosql::NEEDS_INDICES)) {
+            $nosql_link = $self_url
+                ->add(array('app' => $app, 'action' => 'nosql_indices'))
+                ->link(array('title' => sprintf(_("NoSQL indices for %s"), $app)));
+            $apps[$i]['db'][] = $nosql_link . $error . '</a>';
+            $apps[$i]['dbstatus'][] = $nosql_link . _("NoSQL indices out of date.") . '</a>';
+        } else {
+            $apps[$i]['db'][] = $success;
+            $apps[$i]['dbstatus'][] = _("NoSQL indices are ready.") . '</a>';
         }
     }
 }
@@ -288,20 +308,20 @@ foreach ($migration->apps as $key => $app) {
     try {
         $migrator = $migration->getMigrator($app);
     } catch (Horde_Exception $e) {
-        $apps[$i]['db'] = $warning;
-        $apps[$i]['dbstatus'] = _("DB access is not configured.");
+        $apps[$i]['db'][] = $warning;
+        $apps[$i]['dbstatus'][] = _("DB access is not configured.");
         continue;
     }
 
     if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
         /* Schema is out of date. */
-        $apps[$i]['db'] = $db_link . $error . '</a>';
-        $apps[$i]['dbstatus'] = $db_link . _("DB schema is out of date.") . '</a>';
+        $apps[$i]['db'][] = $db_link . $error . '</a>';
+        $apps[$i]['dbstatus'][] = $db_link . _("SQL DB schema is out of date.") . '</a>';
         $schema_outdated = true;
     } else {
         /* Schema is ok. */
-        $apps[$i]['db'] = $success;
-        $apps[$i]['dbstatus'] = _("DB schema is ready.");
+        $apps[$i]['db'][] = $success;
+        $apps[$i]['dbstatus'][] = _("SQL DB schema is ready.");
     }
 
     if (!empty($versions)) {
@@ -331,8 +351,8 @@ if (!empty($versions)) {
         $apps[$i]['sort'] = 'ZZZ' . $app;
         $apps[$i]['name'] = $app;
         $apps[$i]['version'] = $version;
-        $apps[$i]['dbstatus'] = $apps[$i]['db'] = $apps[$i]['status'] =
-            $apps[$i]['icon'] = $apps[$i]['conf'] = '';
+        $apps[$i]['dbstatus'] = $apps[$i]['db'] = array();
+        $apps[$i]['status'] = $apps[$i]['icon'] = $apps[$i]['conf'] = '';
 
         if (!isset($versions[$app])) {
             $apps[$i]['load'] = $warning;

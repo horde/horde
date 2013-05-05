@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] Add ability to update/create NoSQL indices from the admin config page.
 * [mjr] Add activesync device hooks.
 * [mms] Add a global default NoSQL driver configuration.
 * [mms] Allow MongoDB to be used as a cache backend.
@@ -3653,6 +3654,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mms] Add ability to update/create NoSQL indices from the admin config page.
 * [mjr] Add activesync device hooks.
 * [mms] Add a global default NoSQL driver configuration.
 * [mms] Allow MongoDB to be used as a cache backend.
