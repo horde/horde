@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Prefs
  */
-class Horde_Prefs_Storage_Mongo extends Horde_Prefs_Storage_Base
+class Horde_Prefs_Storage_Mongo extends Horde_Prefs_Storage_Base implements Horde_Mongo_Collection_Index
 {
     /* Field names. */
     const UID = 'uid';
@@ -34,6 +34,20 @@ class Horde_Prefs_Storage_Mongo extends Horde_Prefs_Storage_Base
      * @var MongoCollection
      */
     protected $_db;
+
+    /**
+     * Indices list.
+     *
+     * @var array
+     */
+    protected $_indices = array(
+        'index_scope' => array(
+            self::SCOPE => 1
+        ),
+        'index_uid' => array(
+            self::UID => 1
+        )
+    );
 
     /**
      * Constructor.
@@ -56,8 +70,6 @@ class Horde_Prefs_Storage_Mongo extends Horde_Prefs_Storage_Base
         ), $params));
 
         $this->_db = $this->_params['mongo_db']->selectCollection(null, $this->_params['collection']);
-
-        // TODO: Indices (pref_uid, pref_scope)
     }
 
     /**
@@ -147,6 +159,22 @@ class Horde_Prefs_Storage_Mongo extends Horde_Prefs_Storage_Base
         } catch (MongoException $e) {
             throw new Horde_Prefs_Exception($e);
         }
+    }
+
+    /* Horde_Mongo_Collection_Index methods. */
+
+    /**
+     */
+    public function checkMongoIndices()
+    {
+        return $this->_params['mongo_db']->checkIndices($this->_db, $this->_indices);
+    }
+
+    /**
+     */
+    public function createMongoIndices()
+    {
+        $this->_params['mongo_db']->createIndices($this->_db, $this->_indices);
     }
 
 }
