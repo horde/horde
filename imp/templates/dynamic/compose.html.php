@@ -32,9 +32,11 @@
    <li class="horde-icon">
     <?php echo $this->actionButton(array('icon' => 'Spellcheck', 'id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
    </li>
+<?php if ($this->drafts): ?>
    <li class="horde-icon">
     <?php echo $this->actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))) ?>
    </li>
+<?php endif; ?>
 <?php endif; ?>
 <?php if ($this->resume): ?>
    <li class="horde-icon">
