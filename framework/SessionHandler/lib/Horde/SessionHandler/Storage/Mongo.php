@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   SessionHandler
  */
-class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage
+class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage implements Horde_Mongo_Collection_Index
 {
     /* Field names. */
     const DATA = 'data';
@@ -41,6 +41,17 @@ class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage
      * @var boolean
      */
     protected $_locked = false;
+
+    /**
+     * Indices list.
+     *
+     * @var array
+     */
+    protected $_indices = array(
+        'index_ts' => array(
+            self::MODIFIED => 1
+        )
+    );
 
     /**
      * Constructor.
@@ -239,6 +250,22 @@ class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage
         } catch (MongoException $e) {}
 
         return $ids;
+    }
+
+    /* Horde_Mongo_Collection_Index methods. */
+
+    /**
+     */
+    public function checkMongoIndices()
+    {
+        return $this->_params['mongo_db']->checkIndices($this->_db, $this->_indices);
+    }
+
+    /**
+     */
+    public function createMongoIndices()
+    {
+        $this->_params['mongo_db']->createIndices($this->_db, $this->_indices);
     }
 
 }
