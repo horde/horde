@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Mongo_Client#checkIndices() and Horde_Mongo_Client#createIndices().
 * [mms] Add Horde_Mongo_Collection_Index interface.
  </notes>
  <contents>
@@ -93,6 +94,7 @@
    <date>2013-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Mongo_Client#checkIndices() and Horde_Mongo_Client#createIndices().
 * [mms] Add Horde_Mongo_Collection_Index interface.
    </notes>
   </release>
