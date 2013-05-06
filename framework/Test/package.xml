@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-06</date>
- <time>19:13:38</time>
+ <time>19:16:27</time>
  <version>
-  <release>2.2.2</release>
+  <release>2.2.3</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add test factory for MongoDB.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -413,6 +413,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add test factory for MongoDB.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
