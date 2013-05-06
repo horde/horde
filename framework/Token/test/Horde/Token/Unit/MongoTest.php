@@ -29,8 +29,8 @@ class Horde_Token_Unit_MongoTest extends Horde_Token_BackendTestCase
 
     protected function _getBackend(array $params = array())
     {
-        if (($config = self::getConfig('IMAPCLIENT', __DIR__ . '/..')) &&
-            isset($config['mongo'])) {
+        if (($config = self::getConfig('TOKEN_MONGO_TEST_CONFIG', __DIR__ . '/..')) &&
+            isset($config['token']['mongo'])) {
             $factory = new Horde_Test_Factory_Mongo();
             $this->_mongo = $factory->create(array(
                 'config' => $config['mongo'],

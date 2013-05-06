@@ -1,5 +1,2 @@
 <?php
-$conf = array(
-    // Configuration for the Mongo driver test.
-    'mongo' => null,
-);
+$conf['token']['mongo'] = null;
