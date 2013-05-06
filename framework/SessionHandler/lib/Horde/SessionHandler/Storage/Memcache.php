@@ -1,16 +1,26 @@
 <?php
 /**
- * Horde_SessionHandler implementation for memcache.
- *
  * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Rong-En Fan <rafan@infor.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @package  SessionHandler
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   SessionHandler
+ */
+
+/**
+ * Memcache sessionhandler driver.
+ *
+ * @author     Rong-En Fan <rafan@infor.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2005-2013 Horde LLC
+ * @deprecated Use HashTable driver instead
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    SessionHandler
  */
 class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
 {
