@@ -83,30 +83,36 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
     }
 
     /**
-     * Delete a key.
+     * Delete a key(s).
      *
-     * @param string $key  The key.
+     * @param mixed $keys  The key or an array of keys to delete.
      *
      * @return boolean  True on success.
      */
-    public function delete($key)
+    public function delete($keys)
     {
-        if (!isset($this->_noexist[$key]) && $this->_delete($key)) {
-            $this->_noexist[$key] = true;
-            return true;
+        if (!is_array($keys)) {
+            $keys = array($keys);
         }
 
-        return false;
+        if ($todo = array_diff($keys, array_keys($this->_noexist)) &&
+            !$this->_delete($todo)) {
+            return false;
+        }
+
+        $this->_noexist = array_merge($this->_noexist, array_fill_keys($todo, true));
+
+        return true;
     }
 
     /**
-     * Delete a key.
+     * Delete keys.
      *
-     * @param string $key  The key.
+     * @param array $key  An array of keys to delete.
      *
      * @return boolean  True on success.
      */
-    abstract protected function _delete($key);
+    abstract protected function _delete($keys);
 
     /**
      * Get data associated with a key(s).

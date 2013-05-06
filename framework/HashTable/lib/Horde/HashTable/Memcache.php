@@ -53,9 +53,17 @@ class Horde_HashTable_Memcache extends Horde_HashTable implements Horde_HashTabl
 
     /**
      */
-    protected function _delete($key)
+    protected function _delete($keys)
     {
-        return $this->_memcache->delete($this->_key($key));
+        $ret = true;
+
+        foreach ($keys as $val) {
+            if (!$this->_memcache->delete($val)) {
+                $ret = false;
+            }
+        }
+
+        return $ret;
     }
 
     /**
