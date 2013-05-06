@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>12:23:42</time>
+ <date>2013-05-06</date>
+ <time>18:00:30</time>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -891,7 +891,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix Horde_Crypt_Pgp#encryptedSymmetrically() from entering an infinite loop when using GnuPg v2.
