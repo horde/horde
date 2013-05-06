@@ -637,10 +637,15 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         /* Check if this URL is a collection. */
-        $properties = $client->propfind(
-            '',
-            array('{DAV:}resourcetype', '{DAV:}current-user-privilege-set')
-        );
+        try {
+            $properties = $client->propfind(
+                '',
+                array('{DAV:}resourcetype', '{DAV:}current-user-privilege-set')
+            );
+        } catch (\Sabre\DAV\Exception $e) {
+            Horde::logMessage($e, 'INFO');
+            return false;
+        }
 
         if (!$properties['{DAV:}resourcetype']->is('{DAV:}collection')) {
             throw new Kronolith_Exception(_("The remote server URL does not point to a CalDAV directory."));
