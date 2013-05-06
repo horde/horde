@@ -92,6 +92,10 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                 if ($this->modseq() > 0) {
                     $this->_changed[] = $uid;
                 } else {
+                    if (empty($this->_messages[$uid])) {
+                        // Do not know about this message
+                        throw new Horde_ActiveSync_Exception('Unknown message.');
+                    }
                     if ((isset($flags[$uid]['read']) && $flags[$uid]['read'] != $this->_messages[$uid]['read']) ||
                         (isset($flags[$uid]['flagged']) && $flags[$uid]['flagged'] != $this->_messages[$uid]['flagged'])) {
 
@@ -119,6 +123,9 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function checkValidity(array $params = array())
     {
+        if (!$this->uidvalidity()) {
+            throw new Horde_ActiveSync_Exception('State not initialized.');
+        }
         if (!empty($params[self::UIDVALIDITY]) && $this->uidvalidity() != $params[self::UIDVALIDITY]) {
             throw new Horde_ActiveSync_Exception_StaleState('UIDVALIDTY no longer valid');
         }
