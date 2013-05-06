@@ -53,26 +53,24 @@ list($values,) = $parser->parseArgs();
 
 $imp_imap = $injector->getInstance('IMP_Imap');
 
-$server = $values->server;
-if (is_null($server)) {
-    /* Set first entry to 1, not 0. */
-    $sconfig = $slookup = array('');
-    $i = 1;
+/* Set first entry to 1, not 0. */
+$sconfig = $slookup = array('');
+$i = 1;
 
-    foreach ($imp_imap->loadServerConfig() as $key => $val) {
-        $sconfig[$i] = $val->name . ' [' . $key . ']';
-        $slookup[$i++] = $key;
-    }
-
-    unset($sconfig[0]);
-
-    while (is_null($server)) {
-        $server = $cli->prompt('Server:', $sconfig);
-    }
-    $server = $slookup[$server];
-} else {
-    $cli->message('Server: ' . $server);
+foreach ($imp_imap->loadServerConfig() as $key => $val) {
+    $sconfig[$i] = $val->name . ' [' . $key . ']';
+    $slookup[$i++] = $key;
 }
+unset($sconfig[0]);
+
+$server = $values->server;
+while (is_null($server) || !in_array($server, $slookup)) {
+    $tmp = $cli->prompt('Server:', $sconfig);
+    if (isset($slookup[$tmp])) {
+        $server = $slookup[$tmp];
+    }
+}
+$cli->message('Server: ' . $server);
 
 /* Purge cache? */
 $action = $values->purge;
