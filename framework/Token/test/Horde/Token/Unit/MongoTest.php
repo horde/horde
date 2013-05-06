@@ -33,7 +33,7 @@ class Horde_Token_Unit_MongoTest extends Horde_Token_BackendTestCase
             isset($config['token']['mongo'])) {
             $factory = new Horde_Test_Factory_Mongo();
             $this->_mongo = $factory->create(array(
-                'config' => $config['mongo'],
+                'config' => $config['token']['mongo'],
                 'dbname' => $this->_dbname
             ));
         }

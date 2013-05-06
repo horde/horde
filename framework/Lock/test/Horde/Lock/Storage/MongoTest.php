@@ -14,11 +14,11 @@ class Horde_Lock_Storage_MongoTest extends Horde_Lock_Storage_TestBase
 
     protected function _getBackend()
     {
-        if (($config = self::getConfig('IMAPCLIENT', __DIR__ . '/..')) &&
-            isset($config['mongo'])) {
+        if (($config = self::getConfig('LOCK_MONGO_TEST_CONFIG', __DIR__ . '/..')) &&
+            isset($config['lock']['mongo'])) {
             $factory = new Horde_Test_Factory_Mongo();
             $this->_mongo = $factory->create(array(
-                'config' => $config['mongo'],
+                'config' => $config['lock']['mongo'],
                 'dbname' => $this->_dbname
             ));
         }
