@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Add configuration option to set User-Agent.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -47,7 +47,9 @@
     <dir name="Horde">
      <dir name="Http">
       <dir name="Request">
-       <file name="Base.php" role="php" />
+       <file name="Base.php" role="php">
+         <tasks:replace from="@version@" to="version" type="package-info" />
+       </file>
        <file name="Curl.php" role="php" />
        <file name="Factory.php" role="php" />
        <file name="Fopen.php" role="php" />
@@ -397,7 +399,7 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Add configuration option to set User-Agent.
    </notes>
   </release>
  </changelog>

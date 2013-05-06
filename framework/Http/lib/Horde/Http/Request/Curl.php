@@ -61,7 +61,7 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->verifyPeer);
 
         // User-Agent
-        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+        curl_setopt($curl, CURLOPT_USERAGENT, $this->userAgent);
 
         // Redirects
         if ($this->redirects) {

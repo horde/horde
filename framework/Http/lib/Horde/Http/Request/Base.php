@@ -57,6 +57,7 @@ abstract class Horde_Http_Request_Base
             'proxyAuthenticationScheme' => Horde_Http::AUTH_BASIC,
             'redirects' => 5,
             'timeout' => 5,
+            'userAgent' => str_replace(' @' . 'version@', '', 'Horde_Http @version@'),
             'verifyPeer' => true,
         );
     }

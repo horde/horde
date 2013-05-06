@@ -70,8 +70,9 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
         // Set options
         $httpOptions = array('headers' => $this->headers,
                              'redirect' => (int)$this->redirects,
+                             'ssl' => array('verifypeer' => $this->verifyPeer),
                              'timeout' => $this->timeout,
-                             'ssl' => array('verifypeer' => $this->verifyPeer));
+                             'useragent' => $this->userAgent);
 
         // Proxy settings
         if ($this->proxyServer) {
