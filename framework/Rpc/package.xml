@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-05-02</date>
- <time>09:20:14</time>
+ <date>2013-05-06</date>
+ <time>19:06:11</time>
  <version>
   <release>2.0.4</release>
   <api>1.0.0</api>
@@ -356,7 +356,7 @@
    <package>
     <name>Horde_Dav</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -786,7 +786,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-02</date>
+   <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Use Horde_Dav for DAV RPC backends.
