@@ -96,31 +96,13 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             return true;
         }
 
-        // Load Folder Sync State
+        // Prepare the collections handler.
+        $collections = $this->_activeSync->getCollectionsObject();
         try {
-            $this->_state->loadState(array(), $synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
+            $seenfolders = $collections->initHierarchySync($synckey);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError($e);
-            return true;
-        }
-
-        // Load and validate the Sync Cache if we are 12.1
-        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-            $syncCache = $this->_activeSync->getSyncCache();
-            if (count($syncCache->getFolders()) && empty($synckey)) {
-                $syncCache->clearFolders();
-            }
-        } else {
-            $syncCache = false;
-        }
-
-        // Seen Folders
-        try {
-            $seenfolders = $this->_state->getKnownFolders();
-        } catch (Horde_ActiveSync_Exception $e) {
-            $this->_statusCode = self::STATUS_KEYMISM;
-            $this->_handleError();
             return true;
         }
 
@@ -129,6 +111,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Deal with folder hierarchy changes
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_CHANGES)) {
+
             // Ignore <Count> if present
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_COUNT)) {
                 $this->_decoder->getElementContent();
@@ -148,6 +131,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             }
 
             // Configure importer with last state
+            // @todo - integrate this with the collection manager.
             $importer = $this->_getImporter();
             $importer->init($this->_state, false);
 
@@ -165,9 +149,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     if (!in_array($serverid, $seenfolders)) {
                         $seenfolders[] = $serverid;
                     }
-                    if ($syncCache !== false) {
-                        $syncCache->updateFolder($folder);
-                    }
+                    $collections->updateFolderInHierarchy($folder);
                     $changes = true;
                     break;
                 case SYNC_REMOVE:
@@ -176,9 +158,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                         unset($seenfolders[$sid]);
                         $seenfolders = array_values($seenfolders);
                     }
-                    if ($syncCache !== false) {
-                        $syncCache->deleteFolder($folder->serverid);
-                    }
+                    $collections->deleteFolderFromHierarchy($folder->serverid);
                     $changes = true;
                     break;
                 }
@@ -199,15 +179,11 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Start sending server -> PIM changes
         $newsynckey = $this->_state->getNewSyncKey($synckey);
-
-        // The $exporter just caches all folder changes in-memory, so we can
-        // count before sending the actual data.
-        $exporter = new Horde_ActiveSync_Connector_Exporter();
-        $sync = $this->_activeSync->getSyncObject();
-        $sync->init($this->_state, $exporter, array('synckey' => $synckey));
+        $exporter = new Horde_ActiveSync_Connector_Exporter($this->_activeSync);
+        $exporter->setChanges($collections->getHierarchyChanges(), false);
 
         // Perform the actual sync operation
-        while(is_array($sync->syncronize()));
+        while($exporter->sendNextChange());
 
         // Output our WBXML reply now
         $this->_encoder->StartWBXML();
@@ -221,46 +197,12 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY);
         $this->_encoder->content((($changes || $exporter->count > 0) ? $newsynckey : $synckey));
         $this->_encoder->endTag();
-        if ($syncCache !== false) {
-            $syncCache->hierarchy = (($changes || $exporter->count > 0) ? $newsynckey : $synckey);
-        }
+
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_CHANGES);
 
-        // Remove unnecessary updates.
-        if ($syncCache !== false && count($exporter->changed) > 0) {
-            foreach ($exporter->changed as $key => $folder) {
-                if (isset($folder->serverid) &&
-                    $syncFolder = $syncCache->getFolder($folder->serverid) &&
-                    in_array($folder->serverid, $seenfolders) &&
-                    $syncFolder['parentid'] == $folder->parentid &&
-                    $syncFolder['displayname'] == $folder->displayname &&
-                    $syncFolder['type'] == $folder->type) {
-
-                    $this->_logger->info(sprintf(
-                        '[%s] Ignoring %s from changes because it contains no changes from device.',
-                        $this->_procid,
-                        $folder->serverid)
-                    );
-                    unset($exporter->changed[$key]);
-                    $exporter->count--;
-                }
-            }
-        }
-
-        // Remove unnecessary deletes.
-        if ($syncCache !== false && count($exporter->deleted) > 0) {
-            foreach ($exporter->deleted as $key => $folder) {
-                if (($sid = array_search($folder, $seenfolders)) === false) {
-                    $this->_logger->info(sprintf(
-                        '[%s] Ignoring %s from deleted list because the device does not know it',
-                        $this->_procid,
-                        $folder)
-                    );
-                    unset($exporter->deleted[$key]);
-                    $exporter->count--;
-                }
-            }
-        }
+        // Validate/clean up the hierarchy changes.
+        $collections->validateHierarchyChanges($exporter, $seenfolders);
+        $collections->updateHierarchyKey($changes || $exporter->count > 0 ? $newsynckey : $synckey);
 
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_COUNT);
         $this->_encoder->content($exporter->count);
@@ -273,9 +215,6 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 } else {
                     $seenfolders[] = $folder->serverid;
                     $this->_encoder->startTag(self::ADD);
-                }
-                if ($syncCache !== false) {
-                    $syncCache->updateFolder($folder);
                 }
                 $folder->encodeStream($this->_encoder);
                 $this->_encoder->endTag();
@@ -290,26 +229,18 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 $this->_encoder->content($folder);
                 $this->_encoder->endTag();
                 $this->_encoder->endTag();
-                if ($syncCache !== false) {
-                    $syncCache->deleteFolder($folder);
-                }
             }
         }
 
         $this->_encoder->endTag();
         $this->_encoder->endTag();
 
-        // Save the state as well as the known folder cache if we had any
-        // changes.
+        // Save state, clean
         if ($exporter->count) {
             $this->_state->setNewSyncKey($newsynckey);
             $this->_state->save();
         }
         $this->_cleanUpAfterPairing();
-
-        if ($syncCache !== false) {
-            $syncCache->save();
-        }
 
         return true;
     }

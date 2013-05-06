@@ -476,6 +476,93 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
+     * Prepare for a hierarchy sync.
+     *
+     * @param string $synckey  The current synckey from the client.
+     *
+     * @return array  An array of known folders.
+     */
+    public function initHierarchySync($synckey)
+    {
+        $this->_as->state->loadState(
+            array(),
+            $synckey,
+            Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
+
+        // If we are using the cache to store the hierarchy, clear it if the
+        // synckey was reset.
+        if ($this->_as->device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
+            count($this->_cache->getFolders()) && empty($synckey)) {
+
+            $this->_cache->clearFolders();
+        }
+
+        return $this->_as->state->getKnownFolders();
+    }
+
+    public function updateFolderinHierarchy($folder)
+    {
+        if ($this->_as->device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+            $this->_cache->updateFolder($folder);
+        }
+    }
+
+    public function deleteFolderFromHierarchy($id)
+    {
+        if ($this->_as->device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+            $this->_cache->deleteFolder($id);
+        }
+    }
+
+    public function getHierarchyChanges()
+    {
+        return $this->_as->state->getChanges();
+    }
+
+    public function validateHierarchyChanges($exporter, $seenFolders)
+    {
+        if ($this->_as->device->version < Horde_ActiveSync::VERSION_TWELVEONE ||
+            count($exporter->changed)) {
+            return;
+        }
+
+        foreach ($exporter->changed as $key => $folder) {
+            if (isset($folder->serverid) &&
+                $syncFolder = $this->_cache->getFolder($folder->serverid) &&
+                in_array($folder->serverid, $seenfolders) &&
+                $syncFolder['parentid'] == $folder->parentid &&
+                $syncFolder['displayname'] == $folder->displayname &&
+                $syncFolder['type'] == $folder->type) {
+
+                $this->_logger->info(sprintf(
+                    '[%s] Ignoring %s from changes because it contains no changes from device.',
+                    $this->_procid,
+                    $folder->serverid)
+                );
+                unset($exporter->changed[$key]);
+                $exporter->count--;
+            }
+        }
+        foreach ($exporter->deleted as $key => $folder) {
+            if (($sid = array_search($folder, $seenfolders)) === false) {
+                $this->_logger->info(sprintf(
+                    '[%s] Ignoring %s from deleted list because the device does not know it',
+                    $this->_procid,
+                    $folder)
+                );
+                unset($exporter->deleted[$key]);
+                $exporter->count--;
+            }
+        }
+    }
+
+    public function updateHierarchyKey($key)
+    {
+        $this->_cache->hierarchy = $key;
+        $this->_cache->save();
+    }
+
+    /**
      * Prepares the syncCache for a full sync request.
      */
     public function initFullSync()
