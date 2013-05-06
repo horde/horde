@@ -180,10 +180,14 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     /**
      * Return the folder's UID validity.
      *
-     * @return string The folder UID validity marker.
+     * @return string|boolean The folder UID validity marker, or false if not set.
      */
     public function uidvalidity()
     {
+        if (!array_key_exists(self::UIDVALIDITY, $this->_status)) {
+            return false;
+        }
+
         return $this->_status[self::UIDVALIDITY];
     }
 
@@ -224,7 +228,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     }
 
     /**
-     * Return the internal message flags changes cahce.
+     * Return the internal message flags changes cache.
      *
      * @return array  The array of message flag changes.
      */
