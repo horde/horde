@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-02</date>
- <time>16:55:15</time>
+ <date>2013-05-06</date>
+ <time>19:02:53</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0beta1</api>
@@ -626,7 +626,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2013-05-02</date>
+   <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First beta release.
