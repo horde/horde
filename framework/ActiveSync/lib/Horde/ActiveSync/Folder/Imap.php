@@ -92,6 +92,10 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                 if ($this->modseq() > 0) {
                     $this->_changed[] = $uid;
                 } else {
+                    if (empty($this->_messages[$uid])) {
+                        // Do not know about this message
+                        throw new Horde_ActiveSync_Exception('Unknown message.');
+                    }
                     if ((isset($flags[$uid]['read']) && $flags[$uid]['read'] != $this->_messages[$uid]['read']) ||
                         (isset($flags[$uid]['flagged']) && $flags[$uid]['flagged'] != $this->_messages[$uid]['flagged'])) {
 
@@ -119,6 +123,9 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function checkValidity(array $params = array())
     {
+        if (!$this->uidvalidity()) {
+            throw new Horde_ActiveSync_Exception('State not initialized.');
+        }
         if (!empty($params[self::UIDVALIDITY]) && $this->uidvalidity() != $params[self::UIDVALIDITY]) {
             throw new Horde_ActiveSync_Exception_StaleState('UIDVALIDTY no longer valid');
         }
@@ -150,10 +157,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function updateState()
     {
-        // Not all servers will have MODSEQ, and even though they WILL all have
-        // UIDNEXT, we won't have it until AFTER the first syncKey is generated
-        // so it still might be empty here.
-        if (empty($this->_status[self::HIGHESTMODSEQ]) && !empty($this->_status[self::UIDNEXT])) {
+        if (empty($this->_status[self::HIGHESTMODSEQ])) {
             $this->_messages = array_diff(array_keys($this->_messages), $this->_removed);
             foreach ($this->_added as $add) {
                 $this->_messages[] = $add;
@@ -176,10 +180,14 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     /**
      * Return the folder's UID validity.
      *
-     * @return string The folder UID validity marker.
+     * @return string|boolean The folder UID validity marker, or false if not set.
      */
     public function uidvalidity()
     {
+        if (!array_key_exists(self::UIDVALIDITY, $this->_status)) {
+            return false;
+        }
+
         return $this->_status[self::UIDVALIDITY];
     }
 
@@ -220,7 +228,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     }
 
     /**
-     * Return the internal message flags changes cahce.
+     * Return the internal message flags changes cache.
      *
      * @return array  The array of message flag changes.
      */

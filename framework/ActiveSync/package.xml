@@ -22,6 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix building initial message state in certain cases for email collections when IMAP server does not support per mailbox MODSEQ values.
+* [mjr] Fix fatal error when using the deviceCallback functionality (Bug #12236).
+* [mjr] Fix creating/deleting mailboxes with non-empty default namespaces (Bug #12224).
 * [mjr] Fix non-BC change in abstract method signature.
  </notes>
  <contents>
@@ -1363,6 +1366,9 @@
    <date>2013-05-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix building initial message state in certain cases for email collections when IMAP server does not support per mailbox MODSEQ values.
+* [mjr] Fix fatal error when using the deviceCallback functionality (Bug #12236).
+* [mjr] Fix creating/deleting mailboxes with non-empty default namespaces (Bug #12224).
 * [mjr] Fix non-BC change in abstract method signature.
    </notes>
   </release>
