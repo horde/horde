@@ -599,7 +599,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *                               set to false otherwise. @since 3.0
      * @return array  An array of provisionable properties and values.
      */
-    abstract public function getCurrentPolicy($device = false);
+    abstract public function getCurrentPolicy();
 
     /**
      * Return settings from the backend for a SETTINGS request.
