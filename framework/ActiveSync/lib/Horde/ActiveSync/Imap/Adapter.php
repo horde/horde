@@ -83,15 +83,7 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function createMailbox($name)
     {
-        $def_ns = $this->_defaultNamespace();
-        if (!is_null($def_ns)) {
-            $empty_ns = $this->_getNamespace('');
-            if (is_null($empty_ns) || $def_ns['name'] != $empty_ns['name']) {
-                $name = $def_ns['name'] . $name;
-            }
-
-        }
-        $mbox = new Horde_Imap_Client_Mailbox($name);
+        $mbox = new Horde_Imap_Client_Mailbox($this->_prependNamespace($name));
         $imap = $this->_getImapOb();
         try {
             $imap->createMailbox($mbox);
@@ -113,7 +105,7 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function deleteMailbox($name)
     {
-        $mbox = new Horde_Imap_Client_Mailbox($name);
+        $mbox = new Horde_Imap_Client_Mailbox($this->_prependNamespace($name));
         $imap = $this->_getImapOb();
         try {
             $imap->deleteMailbox($mbox);
@@ -1051,6 +1043,28 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return $eas_message;
+    }
+
+    /**
+     * Prefix the default namespace to mailbox name if needed.
+     *
+     * @param string $name  The mailbox name.
+     *
+     * @return string  The mailbox name with the default namespace added, if
+     *                 needed.
+     */
+    protected function _prependNamespace($name)
+    {
+        $def_ns = $this->_defaultNamespace();
+        if (!is_null($def_ns)) {
+            $empty_ns = $this->_getNamespace('');
+            if (is_null($empty_ns) || $def_ns['name'] != $empty_ns['name']) {
+                $name = $def_ns['name'] . $name;
+            }
+
+        }
+
+        return $name;
     }
 
     /**
