@@ -11,6 +11,11 @@
  * @package  Core
  */
 
+use Sabre\DAV;
+use Sabre\DAVACL;
+use Sabre\CalDAV;
+use Sabre\CardDAV;
+
 /**
  * Factory for the DAV server.
  *
@@ -19,7 +24,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Core
  */
-class Horde_Core_Factory_DavStorage extends Horde_Core_Factory_Injector
+class Horde_Core_Factory_DavServer extends Horde_Core_Factory_Injector
 {
     public function create(Horde_Injector $injector)
     {

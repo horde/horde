@@ -11,11 +11,6 @@
  * @package  Rpc
  */
 
-use Sabre\DAV;
-use Sabre\DAVACL;
-use Sabre\CalDAV;
-use Sabre\CardDAV;
-
 /**
  * @author   Ben Klang <bklang@horde.org>
  * @author   Jan Schneider <jan@horde.org>
