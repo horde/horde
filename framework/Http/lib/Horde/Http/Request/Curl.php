@@ -108,9 +108,14 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
 
         // Concatenate the headers
         $hdr = array();
-        foreach ($this->headers as $header => $value) {
+        $headers = $this->headers;
+        if (empty($headers['Expect'])) {
+            $headers['Expect'] = '';
+        }
+        foreach ($headers as $header => $value) {
             $hdr[] = $header . ': ' . $value;
         }
+
         curl_setopt($curl, CURLOPT_HTTPHEADER, $hdr);
 
         $result = curl_exec($curl);
