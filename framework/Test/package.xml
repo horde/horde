@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-28</date>
- <time>14:18:16</time>
+ <date>2013-05-06</date>
+ <time>19:13:38</time>
  <version>
   <release>2.2.2</release>
   <api>2.0.0</api>
@@ -409,7 +409,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-28</date>
+   <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add test factory for MongoDB.
