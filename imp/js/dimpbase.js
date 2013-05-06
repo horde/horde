@@ -3917,15 +3917,11 @@ document.observe('HordeDialog:onClick', function(e) {
         break;
 
     case 'flag_new':
-        if (this.colorpicker) {
-            this.colorpicker.hide();
-        }
         DimpCore.doAction('createFlag', this.addViewportParams({
             flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
             flagname: $F(elt.down('INPUT[name="flagname"]'))
         }), {
             callback: function() {
-                delete this.colorpicker;
                 HordeDialog.close();
             }.bind(this),
             uids: this.viewport.getSelected()
@@ -3945,6 +3941,12 @@ document.observe('HordeDialog:onClick', function(e) {
         elt.update(DimpCore.text.import_mbox_loading);
         break;
     }
+}.bindAsEventListener(DimpBase));
+document.observe('HordeDialog:close', function(e) {
+    if (this.colorpicker) {
+        this.colorpicker.hide();
+    }
+    delete this.colorpicker;
 }.bindAsEventListener(DimpBase));
 
 /* AJAX related events. */
