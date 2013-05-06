@@ -97,20 +97,9 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
                 $this->_memcache->unlock($id);
             }
 
-            if ($result === false) {
-                if ($this->_logger) {
-                    $this->_logger->log('Error retrieving session data (id = ' . $id . ')', 'DEBUG');
-                }
-                return '';
-            }
-        }
-
-        if (!$this->readonly) {
+            $result = '';
+        } elseif (!$this->readonly) {
             $this->_id = $id;
-        }
-
-        if ($this->_logger) {
-            $this->_logger->log('Read session data (id = ' . $id . ')', 'DEBUG');
         }
 
         return $result;
@@ -132,9 +121,6 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
 
         if (!$res &&
             !$this->_memcache->set($id, $session_data)) {
-            if ($this->_logger) {
-                $this->_logger->log('Error writing session data (id = ' . $id . ')', 'ERR');
-            }
             return false;
         }
 
@@ -150,10 +136,6 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
             $this->_memcache->unlock($this->_trackID);
         }
 
-        if ($this->_logger) {
-            $this->_logger->log('Wrote session data (id = ' . $id . ')', 'DEBUG');
-        }
-
         return true;
     }
 
@@ -165,9 +147,6 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
         $this->_memcache->unlock($id);
 
         if ($result === false) {
-            if ($this->_logger) {
-                $this->_logger->log('Failed to delete session (id = ' . $id . ')', 'DEBUG');
-            }
             return false;
         }
 
@@ -179,10 +158,6 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
                 $this->_memcache->set($this->_trackID, $ids);
             }
             $this->_memcache->unlock($this->_trackID);
-        }
-
-        if ($this->_logger) {
-            $this->_logger->log('Deleted session data (id = ' . $id . ')', 'DEBUG');
         }
 
         return true;

@@ -51,13 +51,7 @@ class Horde_SessionHandler_Storage_Builtin extends Horde_SessionHandler_Storage
      */
     public function read($id)
     {
-        $file = $this->_path . '/sess_' . $id;
-        $session_data = @file_get_contents($file);
-        if (($session_data === false) && $this->_logger) {
-            $this->_logger->log('Unable to read file: ' . $file, 'ERR');
-        }
-
-        return strval($session_data);
+        return strval(@file_get_contents($this->_path . '/sess_' . $id));
     }
 
     /**

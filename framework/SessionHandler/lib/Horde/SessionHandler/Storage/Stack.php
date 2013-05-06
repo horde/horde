@@ -49,20 +49,6 @@ class Horde_SessionHandler_Storage_Stack extends Horde_SessionHandler_Storage
     }
 
     /**
-     * Set the logger object.
-     *
-     * @param Horde_Log_Logger $log  The logger instance.
-     */
-    public function setLogger(Horde_Log_Logger $log)
-    {
-        parent::setLogger($log);
-
-        foreach ($this->_stack as $ob) {
-            $ob->setLogger($log);
-        }
-    }
-
-    /**
      */
     public function open($save_path = null, $session_name = null)
     {

@@ -31,13 +31,6 @@ abstract class Horde_SessionHandler_Storage
     public $readonly = false;
 
     /**
-     * A logger instance.
-     *
-     * @var Horde_Log_Logger
-     */
-    protected $_logger;
-
-    /**
      * Hash containing connection parameters.
      *
      * @var array
@@ -65,11 +58,10 @@ abstract class Horde_SessionHandler_Storage
     /**
      * Set the logger object.
      *
-     * @param Horde_Log_Logger $log  The logger instance.
+     * @deprecated
      */
     public function setLogger(Horde_Log_Logger $log)
     {
-        $this->_logger = $log;
     }
 
     /**
