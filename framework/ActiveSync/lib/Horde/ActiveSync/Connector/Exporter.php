@@ -94,6 +94,13 @@ class Horde_ActiveSync_Connector_Exporter
      */
     protected $_currentCollection;
 
+    /**
+     * The ActiveSync server object.
+     *
+     * @var Horde_ActiveSync
+     */
+    protected $_as;
+
 
     /**
      * Const'r
