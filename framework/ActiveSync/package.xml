@@ -1331,19 +1331,6 @@
   </release>
   <release>
    <version>
-    <release>2.3.7</release>
-    <api>2.3.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-04-19</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
-   <notes>
-* [mjr] Fix issue that could cause some attachments to become corrupt on the client.
-   </notes>
-  </release>
-  <release>
-   <version>
     <release>2.4.0beta1</release>
     <api>2.4.0</api></version>
    <stability>
@@ -1354,6 +1341,8 @@
    <notes>
 * [mjr] Flag changes will now trigger a positive PING/SYNC if the IMAP server supports per-mailbox MODSEQ and CONDSTORE.
 * [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
+* [mjr] Fix synchronizing certain recurring tasks (Bug #12223,  Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;)
+* [mjr] Fix issue that could cause some attachments to become corrupt on the client.
    </notes>
   </release>
   <release>
