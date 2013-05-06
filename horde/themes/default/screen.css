@@ -1038,7 +1038,7 @@ ul.sound-list {
     border: 1px solid #111;
     width: 148px;
     height: 155px;
-    z-index: 100;
+    z-index: 200;
 }
 #color-picker .north {
     background: #111;
