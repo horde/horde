@@ -22,10 +22,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-24</date>
- <time>23:41:34</time>
+ <date>2013-05-06</date>
+ <time>18:58:17</time>
  <version>
-  <release>2.3.3</release>
+  <release>2.4.0</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -480,7 +480,7 @@
    <package>
     <name>Horde_Mongo</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -1021,12 +1021,12 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.3.3</release>
+    <release>2.4.0</release>
     <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-24</date>
+   <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add MongoDB storage driver.
