@@ -967,9 +967,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function getCollectionChanges($ping = false)
     {
         $changes = $this->_as->state->getChanges(array('ping' => $ping));
-        if (!$ping) {
-            $this->_changes[$this->_currentCollection] = $changes;
-        }
 
         return $changes;
     }
