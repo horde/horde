@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>12:29:13</time>
+ <date>2013-05-06</date>
+ <time>18:05:21</time>
  <version>
   <release>2.0.5</release>
   <api>2.0.0</api>
@@ -907,7 +907,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix parsing yearly recurrences on the same day from Kolab data (Bug #12227).
