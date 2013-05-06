@@ -24,8 +24,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-03-05</date>
- <time>16:29:17</time>
+ <date>2013-05-06</date>
+ <time>18:16:16</time>
  <version>
   <release>2.0.5</release>
   <api>1.1.0</api>
@@ -1080,7 +1080,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix exporting of base64-encoded attribute values.
