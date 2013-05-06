@@ -2838,7 +2838,7 @@ var DimpBase = {
             } else if (elt.hasClassName('flagcolorpicker')) {
                 tmp = elt.previous('INPUT');
                 this.colorpicker = new ColorPicker({
-                    color: $F(tmp),
+                    color: $F(tmp) || '#fff',
                     draggable: true,
                     offsetParent: elt,
                     resizable: true,
