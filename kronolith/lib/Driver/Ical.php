@@ -652,7 +652,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         /* Read ACLs. */
-        if ($properties['{DAV:}current-user-privilege-set']) {
+        if (!empty($properties['{DAV:}current-user-privilege-set'])) {
             $privileges = $properties['{DAV:}current-user-privilege-set'];
             if ($privileges->has('{DAV:}read')) {
                 /* GET access. */
