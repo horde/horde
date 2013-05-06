@@ -102,7 +102,7 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
 
         $out = array();
         $query = array(
-            'msguid' => array('$in' => $uids),
+            'msguid' => array('$in' => array_map('strval', $uids)),
             'uid' => $uid
         );
 
@@ -169,17 +169,17 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
             try {
                 if (isset($res[$key])) {
                     $coll->update(array(
-                        'msguid' => $key,
+                        'msguid' => strval($key),
                         'uid' => $uid
                     ), array(
                         'data' => $this->_value(array_merge($res[$key], $val)),
-                        'msguid' => $key,
+                        'msguid' => strval($key),
                         'uid' => $uid
                     ));
                 } else {
                     $coll->insert(array(
                         'data' => $this->_value($val),
-                        'msguid' => $key,
+                        'msguid' => strval($key),
                         'uid' => $uid
                     ));
                 }
@@ -277,7 +277,7 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
         if ($uid = $this->_getUid($mailbox)) {
             try {
                 $this->_db->selectCollection(self::MSG)->remove(array(
-                    'msguid' => array('$in' => $uids),
+                    'msguid' => array('$in' => array_map('strval', $uids)),
                     'uid' => $uid
                 ));
             } catch (MongoException $e) {}
