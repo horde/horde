@@ -161,7 +161,7 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
      * Set the value of a key.
      *
      * @param string $key  The key.
-     * @param mixed $val   The data to store.
+     * @param string $val  The string to store.
      * @param array $opts  Additional options:
      * <pre>
      *   - replace: (boolean) Replace the value of key. If key doesn't exist,
@@ -191,7 +191,7 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
      * Set the value of a key.
      *
      * @param string $key  The key.
-     * @param mixed $val   The data to store.
+     * @param string $val  The string to store.
      * @param array $opts  Additional options (see set()).
      *
      * @return boolean  True on success.
