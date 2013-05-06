@@ -116,7 +116,10 @@ class Horde_Config
     {
         $response = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_HttpClient')
-            ->create(array('request.timeout' => 10))
+            ->create(array(
+                'request.timeout' => 10,
+                'request.userAgent' => 'Horde ' . $GLOBALS['registry']->getVersion('horde', true)
+            ))
             ->get($this->_versionUrl);
         if ($response->code != 200) {
             throw new Horde_Exception('Unexpected response from server.');
