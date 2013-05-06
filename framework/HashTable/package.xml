@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_HashTable</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Hash Table Interface</summary>
+ <description>Provides an abstract API to access various hash table implementations.</description>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2013-05-06</date>
+ <version>
+  <release>1.0.0beta1</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+ <notes>
+* 
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="HashTable">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/HashTable -->
+     </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="HashTable">
+      <file name="Exception.php" role="php" />
+      <file name="Lock.php" role="php" />
+      <file name="Memcache.php" role="php" />
+     </dir> <!-- /lib/Horde/HashTable -->
+     <file name="HashTable.php" role="php" />
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>Horde_Memcache</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="COPYING" name="doc/Horde/HashTable/COPYING" />
+   <install as="Horde/HashTable.php" name="lib/Horde/HashTable.php" />
+   <install as="Horde/HashTable/Exception.php" name="lib/Horde/HashTable/Exception.php" />
+   <install as="Horde/HashTable/Lock.php" name="lib/Horde/HashTable/Lock.php" />
+   <install as="Horde/HashTable/Memcache.php" name="lib/Horde/HashTable/Memcache.php" />
+   </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
+   </notes>
+  </release>
+ </changelog>
+</package>
