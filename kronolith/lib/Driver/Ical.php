@@ -632,9 +632,6 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             return false;
         }
 
-        if (!in_array('3', $this->_davSupport)) {
-            Horde::logMessage(sprintf('The remote server at %s doesn\'t support an WebDAV protocol version 3.', $url), 'WARN');
-        }
         if (!in_array('calendar-access', $this->_davSupport)) {
             return false;
         }
