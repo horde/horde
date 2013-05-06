@@ -1210,11 +1210,9 @@ class Horde_Registry
      */
     public function linkByPackage($app, $call, $args = array(), $extra = '')
     {
-        try {
-            $links = $this->callByPackage($app, 'links');
-        } catch (Horde_Exception $e) {
-            $links = array();
-        }
+        $links = ($api_ob = $this->_loadApi($app))
+            ? $api_ob->links()
+            : array();
 
         /* Make sure the link is defined. */
         if (!isset($links[$call])) {
