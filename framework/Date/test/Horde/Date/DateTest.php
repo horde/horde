@@ -290,4 +290,14 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(5, $date->mday);
     }
 
+    public function testToiCalendar()
+    {
+        $test = new Horde_Date('20100101130000');
+        $this->assertEquals('20100101T130000', $test->toiCalendar(true));
+        $this->assertEquals('20100101T120000Z', $test->toiCalendar(false));
+
+        $test = new Horde_Date('20100101130000', 'America/Argentina/Buenos_Aires');
+        $this->assertEquals('20100101T130000', $test->toiCalendar(true));
+        $this->assertEquals('20100101T160000Z', $test->toiCalendar(false));
+    }
 }
