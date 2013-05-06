@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-04</date>
+ <date>2013-05-06</date>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
  <notes>
+* First stable release.
 * [mms] Convert unit tests to PHPUnit.
  </notes>
  <contents>
@@ -103,9 +104,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-04</date>
+   <date>2013-05-06</date>
    <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
    <notes>
+* First stable release.
 * [mms] Convert unit tests to PHPUnit.
    </notes>
   </release>
