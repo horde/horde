@@ -798,7 +798,7 @@ class Horde_ActiveSync
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
             $device->properties['version'] = $version;
             $device->save();
-            if (is_callable(array($this->_driver->deviceCallback))) {
+            if (is_callable(array($this->_driver, 'deviceCallback'))) {
                 $callback_ret = $this->_driver->deviceCallback($device);
                 if ($callback_ret !== true) {
                     $msg = sprintf(
