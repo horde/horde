@@ -13,7 +13,7 @@
  <date>2013-03-05</date>
  <time>17:50:03</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Fix initial authentication for recently changed Twitter API requirements (Bug #12165).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -340,6 +340,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix initial authentication for recently changed Twitter API requirements (Bug #12165).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
