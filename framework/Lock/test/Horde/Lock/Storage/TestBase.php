@@ -90,7 +90,7 @@ abstract class Horde_Lock_Storage_TestBase extends Horde_Test_Case
     public function testResetLock()
     {
         $lock1 = $this->_lock->setLock(
-            'myuser', 'myapp', 'myprincipal', 10, Horde_Lock::TYPE_EXCLUSIVE);
+            'myuser', 'myapp', 'myprincipal', 100, Horde_Lock::TYPE_EXCLUSIVE);
         $info1 = $this->_lock->getLockInfo($lock1);
         $expiry = $info1['lock_expiry_timestamp'];
 
@@ -101,14 +101,14 @@ abstract class Horde_Lock_Storage_TestBase extends Horde_Test_Case
 
         sleep(1);
 
-        $this->_lock->resetLock($lock1, 10);
+        $this->_lock->resetLock($lock1, 100);
         $info2 = $this->_lock->getLockInfo($lock1);
         $this->assertLessThan($info2['lock_update_timestamp'],
                               $info2['lock_origin_timestamp']);
         $this->assertLessThan($info2['lock_expiry_timestamp'],
                               $info2['lock_origin_timestamp']);
         $this->assertEquals($info2['lock_expiry_timestamp'],
-                            $info2['lock_update_timestamp'] + 10);
+                            $info2['lock_update_timestamp'] + 100);
 
         $this->assertEquals(Horde_Lock::PERMANENT,
                             $info3['lock_expiry_timestamp']);
