@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-02</date>
- <time>16:29:57</time>
+ <date>2013-05-06</date>
+ <time>14:02:23</time>
  <version>
   <release>2.4.0beta2</release>
   <api>2.4.0</api>
@@ -225,6 +225,7 @@
       <file name="CollectionsHandlerTest.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="ContactTest.php" role="test" />
+      <file name="ImapFolderTest.php" role="test" />
       <file name="InviteTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="PolicyTest.php" role="test" />
@@ -439,6 +440,7 @@
    <install as="Horde/ActiveSync/CollectionsHandlerTest.php" name="test/Horde/ActiveSync/CollectionsHandlerTest.php" />
    <install as="Horde/ActiveSync/conf.php.dist" name="test/Horde/ActiveSync/conf.php.dist" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
+   <install as="Horde/ActiveSync/ImapFolderTest.php" name="test/Horde/ActiveSync/ImapFolderTest.php" />
    <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
    <install as="Horde/ActiveSync/phpunit.xml" name="test/Horde/ActiveSync/phpunit.xml" />
    <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
@@ -1352,7 +1354,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-02</date>
+   <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix building initial message state in certain cases for email collections when IMAP server does not support per mailbox MODSEQ values.
