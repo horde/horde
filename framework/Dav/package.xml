@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-06</date>
- <time>19:02:53</time>
+ <time>19:05:54</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0beta2</release>
   <api>1.0.0beta1</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* First beta release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -630,6 +630,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First beta release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta2</release>
+    <api>1.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
