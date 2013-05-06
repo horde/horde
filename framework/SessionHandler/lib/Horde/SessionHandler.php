@@ -62,20 +62,20 @@ class Horde_SessionHandler
      * @param Horde_SessionHandler_Storage $storage  The storage object.
      * @param array $params                          Configuration parameters:
      * <pre>
-     * logger - (Horde_Log_Logger) A logger instance.
-     *          DEFAULT: No logging
-     * no_md5 - (boolean) If true, does not do MD5 signatures of the session
-     *          to determine if the session has changed. If true, calling code
-     *          is responsible for marking $changed as true when the session
-     *          data has changed.
-     *          DEFAULT: false
-     * noset - (boolean) If true, don't set the save handler.
-     *         DEFAULT: false
-     * parse - (callback) A callback function that parses session
-     *         information into an array. Is passed the raw session data
-     *         as the only argument; expects either false or an array of
-     *         session data as a return.
-     *         DEFAULT: No
+     *   - logger: (Horde_Log_Logger) A logger instance.
+     *             DEFAULT: No logging
+     *   - no_md5: (boolean) If true, does not do MD5 signatures of the
+     *             session to determine if the session has changed (calling
+     *             code is responsible for marking $changed as true when the
+     *             session data has changed).
+     *             DEFAULT: false
+     *   - noset: (boolean) If true, don't set the save handler.
+     *            DEFAULT: false
+     *   - parse: (callback) A callback function that parses session
+     *            information into an array. Is passed the raw session data
+     *            as the only argument; expects either false or an array of
+     *            session data as a return.
+     *            DEFAULT: No
      * </pre>
      */
     public function __construct(Horde_SessionHandler_Storage $storage,
