@@ -12,7 +12,7 @@
  </lead>
  <date>2013-05-06</date>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
  <notes>
-* First stable release.
-* [mms] Convert unit tests to PHPUnit.
+* 
  </notes>
  <contents>
   <dir name="/">
@@ -109,6 +108,19 @@
    <notes>
 * First stable release.
 * [mms] Convert unit tests to PHPUnit.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
