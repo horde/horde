@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-06</date>
- <time>18:05:21</time>
+ <time>18:08:16</time>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.6</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix parsing yearly recurrences on the same day from Kolab data (Bug #12227).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -911,6 +911,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix parsing yearly recurrences on the same day from Kolab data (Bug #12227).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
