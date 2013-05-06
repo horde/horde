@@ -379,6 +379,12 @@ $servers['advanced'] = array(
         //     'email' => null,
         //     'email_format' => 'digest',
         //     'program' => null
+        // ),
+        // // It is possible to directly define additional spam drivers.
+        // // The 'drivers' array should contain a list of driver objects
+        // // (these classes must implement the IMP_Spam_Base class).
+        // 'drivers' => array(
+        //     new IMP_Example_Spam_Driver()
         // )
     ),
     'admin' => array(

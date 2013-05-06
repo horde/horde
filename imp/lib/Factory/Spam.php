@@ -50,7 +50,9 @@ class IMP_Factory_Spam extends Horde_Core_Factory_Base
                 break;
             }
 
-            $drivers = array();
+            $drivers = (!empty($config['drivers']) && is_array($config['drivers']))
+                ? $config['drivers']
+                : array();
 
             if (!empty($config['program'])) {
                 $drivers[] = new IMP_Spam_Program(
