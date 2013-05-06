@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-06</date>
- <time>18:58:17</time>
+ <time>19:01:24</time>
  <version>
-  <release>2.4.0</release>
+  <release>2.4.1</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add MongoDB storage driver.
-* [mms] Fix removing preference from backend (Bug #12207).
-* [mms] More compact internal/serialized representation of data in Horde_Prefs_Scope.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1032,6 +1030,19 @@ Initial release as a PEAR package
 * [mms] Add MongoDB storage driver.
 * [mms] Fix removing preference from backend (Bug #12207).
 * [mms] More compact internal/serialized representation of data in Horde_Prefs_Scope.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
