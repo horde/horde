@@ -26,9 +26,6 @@
    <th class="header leftAlign">
     <?php echo _("Application") ?>
    </th>
-   <th class="header">
-    &nbsp;
-   </th>
    <th class="header leftAlign">
     <?php echo _("Database") ?>
    </th>
@@ -56,11 +53,21 @@
     <?php echo $v['name'] ?>
     <?php echo $v['version'] ?>
    </td>
-   <td align="center">
-    <?php echo $v['db'] ?>
-   </td>
    <td>
-    <?php echo $v['dbstatus'] ?>
+<?php if (count($v['db'])): ?>
+    <table>
+<?php for ($i = 0; $i < count($v['db']); ++$i): ?>
+     <tr>
+      <td align="center">
+       <?php echo $v['db'][$i] ?>
+      </td>
+      <td>
+       <?php echo $v['dbstatus'][$i] ?>
+      </td>
+     </tr>
+<?php endfor; ?>
+    </table>
+<?php endif; ?>
    </td>
    <td align="center">
     <?php echo $v['conf'] ?>

@@ -218,16 +218,7 @@ class IMP_Ajax_Application_ListMessages
                 $md->innocent_show = $md->search = $md->spam_show = 1;
             }
 
-            /* Generate flag array. */
-            $flaglist = $injector->getInstance('IMP_Flags')->getList(array(
-                'imap' => true,
-                'mailbox' => $is_search ? null : $mbox
-            ));
-
-            $md->flags = array();
-            foreach ($flaglist as $val) {
-                $md->flags[] = $val->imapflag;
-            }
+            self::addFlagMetadata($result, $mbox);
         }
 
         /* The search query may have changed. */
@@ -507,6 +498,27 @@ class IMP_Ajax_Application_ListMessages
         $ob->view = $mbox->form_to;
 
         return $ob;
+    }
+
+    /**
+     * Add flag metadata to output.
+     *
+     * @param object $ob         Output object.
+     * @param IMP_Mailbox $mbox  Current mailbox.
+     */
+    static public function addFlagMetadata($ob, IMP_Mailbox $mbox)
+    {
+        global $injector;
+
+        $flaglist = $injector->getInstance('IMP_Flags')->getList(array(
+            'imap' => true,
+            'mailbox' => $mbox->search ? null : $mbox
+        ));
+
+        $ob->metadata->flags = array();
+        foreach ($flaglist as $val) {
+            $md->flags[] = $val->imapflag;
+        }
     }
 
 }

@@ -336,4 +336,47 @@ class Horde_Application extends Horde_Registry_Application
         }
     }
 
+    /* NoSQL methods. */
+
+    /**
+     */
+    public function nosqlDrivers()
+    {
+        global $injector;
+
+        $out = array();
+
+        $ob = $injector->getInstance('Horde_Core_Factory_Cache')->storage;
+        if ($ob instanceof Horde_Cache_Storage_Mongo) {
+            $out[] = $ob;
+        }
+
+        $ob = $injector->getInstance('Horde_Lock');
+        if ($ob instanceof Horde_Lock_Mongo) {
+            $out[] = $ob;
+        }
+
+        $ob = $injector->getInstance('Horde_Core_Factory_Prefs')->storage;
+        if ($ob instanceof Horde_Prefs_Storage_Mongo) {
+            $out[] = $ob;
+        }
+
+        $ob = $injector->getInstance('Horde_Core_Factory_SessionHandler')->storage;
+        if ($ob instanceof Horde_SessionHandler_Storage_Mongo) {
+            $out[] = $ob;
+        }
+
+        $ob = $injector->getInstance('Horde_Token');
+        if ($ob instanceof Horde_Token_Mongo) {
+            $out[] = $ob;
+        }
+
+        $ob = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
+        if ($ob instanceof Horde_Vfs_Mongo) {
+            $out[] = $ob;
+        }
+
+        return $out;
+    }
+
 }

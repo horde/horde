@@ -40,6 +40,7 @@ class IMP_Dynamic_Compose_Common
 
         $page_output->addScriptPackage('Imp_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
+        $page_output->addScriptFile('draghandler.js');
         $page_output->addScriptFile('murmurhash3.js');
         $page_output->addScriptFile('textarearesize.js', 'horde');
 
@@ -89,7 +90,8 @@ class IMP_Dynamic_Compose_Common
         }
 
         /* Create list for sent-mail selection. */
-        if ($injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS) &&
+        $imp_imap = $injector->getInstance('IMP_Imap');
+        if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
             !$prefs->isLocked('save_sent_mail')) {
             $view->save_sent_mail = true;
 
@@ -124,6 +126,10 @@ class IMP_Dynamic_Compose_Common
                 $base->js_conf['flist'] = $flist;
             }
         }
+
+        $view->drafts = ($imp_imap->access(IMP_Imap::ACCESS_DRAFTS) &&
+            ($draft = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)) &&
+            !$draft->readonly);
 
         $view->compose_link = $registry->getServiceLink('ajax', 'imp')->url . 'addAttachment';
         $view->resume = !empty($args['resume']);
@@ -177,7 +183,7 @@ class IMP_Dynamic_Compose_Common
      */
     protected function _addComposeVars($base)
     {
-        global $browser, $prefs, $registry;
+        global $browser, $injector, $prefs, $registry;
 
         /* Context menu definitions. */
         $base->js_context['ctx_other'] = new stdClass;
@@ -210,20 +216,26 @@ class IMP_Dynamic_Compose_Common
 
         /* Variables used in compose page. */
         $compose_cursor = $prefs->getValue('compose_cursor');
-        $drafts_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS);
         $templates_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TEMPLATES);
 
         $base->js_conf += array_filter(array(
             'URI_MAILBOX' => strval(IMP_Dynamic_Mailbox::url()),
 
-            'auto_save_interval_val' => intval($prefs->getValue('auto_save_drafts')),
-            'close_draft' => intval($prefs->getValue('close_draft')),
             'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
-            'drafts_mbox' => $drafts_mbox ? $drafts_mbox->form_to : null,
             'rte_avail' => intval($browser->hasFeature('rte')),
             'spellcheck' => intval($prefs->getValue('compose_spellcheck')),
             'templates_mbox' => $templates_mbox ? $templates_mbox->form_to : null
         ));
+
+        if ($injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_DRAFTS) &&
+            ($drafts_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)) &&
+            !$drafts_mbox->readonly) {
+            $base->js_conf += array_filter(array(
+                'auto_save_interval_val' => intval($prefs->getValue('auto_save_drafts')),
+                'close_draft' => intval($prefs->getValue('close_draft')),
+                'drafts_mbox' => $drafts_mbox->form_to
+            ));
+        }
 
         if ($registry->hasMethod('contacts/search')) {
             $base->js_conf['URI_ABOOK'] = strval(IMP_Basic_Contacts::url());

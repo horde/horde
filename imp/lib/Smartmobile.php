@@ -124,7 +124,7 @@ class IMP_Smartmobile
             $this->view->user = $registry->getAuth();
 
             $this->view->draft =
-                ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
+                ($imp_imap->access(IMP_Imap::ACCESS_DRAFTS) &&
                  ($draft = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)) &&
                  !$draft->readonly);
 

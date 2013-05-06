@@ -646,6 +646,13 @@ div.dimpActionsMsg #windowclose {
     padding-left: 0;
 }
 
+#atcdrop {
+    border: 1px dashed #ccc;
+    font-size: 110%;
+    font-weight: bold;
+    position: absolute;
+}
+
 .msgwrite .sendtextarea {
     position: relative;
     overflow: hidden;

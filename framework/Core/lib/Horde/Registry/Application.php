@@ -471,4 +471,19 @@ class Horde_Registry_Application
     {
     }
 
+
+    // NoSQL methods.
+
+    /**
+     * Return a list of NoSQL drivers used in the application.
+     *
+     * @since 2.5.0
+     *
+     * @return array  Array of NoSQL drivers.
+     */
+    public function nosqlDrivers()
+    {
+        return array();
+    }
+
 }

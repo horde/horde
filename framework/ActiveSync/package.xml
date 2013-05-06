@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix non-BC change in abstract method signature.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1363,7 +1363,7 @@
    <date>2013-05-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix non-BC change in abstract method signature.
    </notes>
   </release>
  </changelog>

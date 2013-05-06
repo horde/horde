@@ -81,6 +81,52 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
         return parent::selectDB($this->dbname);
     }
 
+    /* Horde_Mongo_Client specific methods. */
+
+    /**
+     * TODO
+     *
+     * @param string $collection
+     * @param array $indices
+     *
+     * @return boolean
+     */
+    public function checkIndices($collection, array $indices)
+    {
+        $info = $this->selectCollection(null, $collection)->getIndexInfo();
+
+        foreach ($indices as $key => $val) {
+            foreach ($info as $val2) {
+                if (($val2['name'] == $key) && ($val2['key'] == $val)) {
+                    continue 2;
+                }
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * TODO
+     *
+     * @param string $collection
+     * @param array $indices
+     */
+    public function createIndices($collection, array $indices)
+    {
+        $coll = $this->selectCollection(null, $collection);
+        $coll->deleteIndexes();
+
+        foreach ($indices as $key => $val) {
+            $coll->ensureIndex($val, array(
+                'background' => true,
+                'name' => $key,
+                'w' => 0
+            ));
+        }
+    }
+
     /* Serializable methods. */
 
     /**

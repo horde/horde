@@ -28,6 +28,15 @@
 class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
 {
     /**
+     * Contains the storage driver used by the Cache object.
+     *
+     * @since 2.5.0
+     *
+     * @var Horde_Cache_Storage
+     */
+    public $storage;
+
+    /**
      * Return the Horde_Cache:: instance.
      *
      * @return Horde_Cache
@@ -74,7 +83,7 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
             break;
         }
 
-        $storage = $this->_getStorage($driver, $params);
+        $storage = $this->storage = $this->_getStorage($driver, $params);
 
         if (!empty($GLOBALS['conf']['cache']['use_memorycache']) &&
             in_array($lc_driver, array('file', 'sql'))) {
@@ -85,7 +94,7 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
             $storage = new Horde_Cache_Storage_Stack(array(
                 'stack' => array(
                     $this->_getStorage($GLOBALS['conf']['cache']['use_memorycache'], $params),
-                    $storage
+                    $this->storage
                 )
             ));
         }

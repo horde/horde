@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Sentmail_Mongo extends IMP_Sentmail
+class IMP_Sentmail_Mongo extends IMP_Sentmail implements Horde_Mongo_Collection_Index
 {
     /* Field names. */
     const ACTION = 'action';
@@ -36,6 +36,23 @@ class IMP_Sentmail_Mongo extends IMP_Sentmail
      * @var MongoCollection
      */
     protected $_db;
+
+    /**
+     * Indices list.
+     *
+     * @var array
+     */
+    protected $_indices = array(
+        'index_ts' => array(
+            self::TS => 1
+        ),
+        'index_who' => array(
+            self::WHO => 1
+        ),
+        'index_success' => array(
+            self::SUCCESS => 1
+        )
+    );
 
     /**
      * @param array $params  Parameters:
@@ -156,6 +173,22 @@ class IMP_Sentmail_Mongo extends IMP_Sentmail
                 )
             ));
         } catch (MongoException $e) {}
+    }
+
+    /* Horde_Mongo_Collection_Index methods. */
+
+    /**
+     */
+    public function checkMongoIndices()
+    {
+        return $this->_params['mongo_db']->checkIndices($this->_db, $this->_indices);
+    }
+
+    /**
+     */
+    public function createMongoIndices()
+    {
+        $this->_params['mongo_db']->createIndices($this->_db, $this->_indices);
     }
 
 }

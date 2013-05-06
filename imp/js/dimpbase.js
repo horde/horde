@@ -10,10 +10,12 @@
 var DimpBase = {
 
     // Vars used and defaulting to null/false:
-    //   expandmbox, init, pollPE, pp, resize, rownum, search,
+    //   colorpicker, expandmbox, init, pollPE, pp, resize, rownum, search,
     //   searchbar_time, searchbar_time_mins, splitbar, sort_init, switchmbox,
     //   template, uid, view, viewaction, viewport, viewswitch
 
+    flags: {},
+    flags_o: [],
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
     mboxes: {},
     ppcache: {},
@@ -227,7 +229,7 @@ var DimpBase = {
 
             this.loadMailbox(data);
 
-            if (tmp) {
+            if (Object.isElement(tmp)) {
                 tmp.remove();
             }
             return;
@@ -461,7 +463,7 @@ var DimpBase = {
                 /* Generate the status flags. */
                 if (r.flag) {
                     r.flag.each(function(a) {
-                        var ptr = DimpCore.conf.flags[a];
+                        var ptr = this.flags[a];
                         if (ptr.u) {
                             if (!ptr.elt) {
                                 /* Until text-overflow is supported on all
@@ -484,7 +486,7 @@ var DimpBase = {
                                 bg = ptr.b;
                             }
                         }
-                    });
+                    }, this);
                 }
 
                 // Set bg
@@ -1159,6 +1161,14 @@ var DimpBase = {
             }
             break;
 
+       case 'ctx_flag_new':
+            HordeDialog.display({
+                form: $('flagnewContainer').down().clone(true),
+                form_id: 'flag_new',
+                text: DimpCore.text.newflag_name
+            });
+            break;
+
         default:
             if (menu == 'ctx_filteropts_filter') {
                 this.search = {
@@ -1375,13 +1385,15 @@ var DimpBase = {
             break;
 
         case 'ctx_flag':
+        case 'ctx_flagunset':
             flags = this.viewport.getMetaData('flags');
+            tmp = $(ctx_id).select('.ctxFlagRow');
             if (flags.size()) {
-                $(ctx_id).childElements().each(function(c) {
+                tmp.each(function(c) {
                     [ c ].invoke(flags.include(c.retrieve('flag')) ? 'show' : 'hide');
                 });
             } else {
-                $(ctx_id).childElements().invoke('show');
+                tmp.invoke('show');
             }
 
             sel = this.viewport.getSelected();
@@ -1389,7 +1401,7 @@ var DimpBase = {
                 ? sel.get('dataob').first().flag
                 : null;
 
-            $(ctx_id).childElements().each(function(elt) {
+            tmp.each(function(elt) {
                 DimpCore.toggleCheck(elt.down('DIV'), (flags === null) ? null : flags.include(elt.retrieve('flag')));
             });
             break;
@@ -1430,11 +1442,29 @@ var DimpBase = {
     {
         switch (e.memo) {
         case 'ctx_flag':
+        case 'ctx_flagunset':
+            this.flags_o.each(function(f) {
+                if (this.flags[f].a) {
+                    this.contextAddFlag(f, this.flags[f], e.memo);
+                }
+            }, this);
+
+            if (e.memo == 'ctx_flag') {
+                $(e.memo).insert(new Element('DIV', { className: 'sep' }))
+                    .insert(
+                        new Element('A', { id: 'ctx_flag_new' }).insert(
+                            new Element('DIV', { className: 'iconImg' })
+                        ) .insert(
+                            DimpCore.text.newflag
+                        )
+                    );
+            }
+            break;
+
         case 'ctx_flag_search':
-            DimpCore.conf.flags_o.each(function(f) {
-                if ((DimpCore.conf.flags[f].a && (e.memo == 'ctx_flag')) ||
-                    (DimpCore.conf.flags[f].s && (e.memo == 'ctx_flag_search'))) {
-                    this.contextAddFlag(f, DimpCore.conf.flags[f], e.memo);
+            this.flags_o.each(function(f) {
+                if (this.flags[f].s) {
+                    this.contextAddFlag(f, this.flags[f], e.memo);
                 }
             }, this);
             break;
@@ -1447,14 +1477,14 @@ var DimpBase = {
 
     contextAddFlag: function(flag, f, id)
     {
-        var a = new Element('A'),
+        var a = new Element('A', { className: 'ctxFlagRow' }),
             style = {};
 
         if (id == 'ctx_flag') {
             a.insert(new Element('DIV', { className: 'iconImg' }));
         }
 
-        if (f.u) {
+        if (f.b && f.u) {
             style.backgroundColor = f.b.escapeHTML();
         }
 
@@ -1795,8 +1825,7 @@ var DimpBase = {
     updateAddressHeader: function(e)
     {
         DimpCore.doAction('addressHeader', {
-            header: $w(e.element().className).first(),
-            view: this.view
+            header: $w(e.element().className).first()
         }, {
             callback: this._updateAddressHeaderCallback.bind(this),
             loading: 'msg',
@@ -2243,8 +2272,7 @@ var DimpBase = {
                     DimpCore.doAction('copyMessages', this.addViewportParams({
                         mboxto: mboxname
                     }), {
-                        uids: uids,
-                        view: this.view
+                        uids: uids
                     });
                 } else if (this.view != mboxname) {
                     // Don't allow drag/drop to the current mailbox.
@@ -2252,8 +2280,7 @@ var DimpBase = {
                     DimpCore.doAction('moveMessages', this.addViewportParams({
                         mboxto: mboxname
                     }), {
-                        uids: uids,
-                        view: this.view
+                        uids: uids
                     });
                 }
             }
@@ -2580,13 +2607,14 @@ var DimpBase = {
 
     clickHandler: function(e)
     {
-        var tmp;
+        var tmp,
+            elt = e.element();
 
         if (DimpCore.DMenu.operaCheck(e.memo)) {
             return;
         }
 
-        switch (e.element().readAttribute('id')) {
+        switch (elt.readAttribute('id')) {
         case 'imp-normalmboxes':
         case 'imp-specialmboxes':
             this._handleMboxMouseClick(e.memo);
@@ -2630,7 +2658,7 @@ var DimpBase = {
             break;
 
         case 'applogout':
-            e.element().down('A').update('[' + DimpCore.text.onlogout + ']');
+            elt.down('A').update('[' + DimpCore.text.onlogout + ']');
             HordeCore.logout();
             e.memo.stop();
             break;
@@ -2690,12 +2718,12 @@ var DimpBase = {
 
         case 'th_expand':
         case 'th_collapse':
-            this._toggleHeaders(e.element(), true);
+            this._toggleHeaders(elt, true);
             break;
 
         case 'msgloglist_toggle':
         case 'partlist_toggle':
-            tmp = (e.element().readAttribute('id') == 'partlist_toggle') ? 'partlist' : 'msgloglist';
+            tmp = (elt.readAttribute('id') == 'partlist_toggle') ? 'partlist' : 'msgloglist';
             $(tmp + '_col', tmp + '_exp').invoke('toggle');
             Effect.toggle(tmp, 'blind', {
                 duration: 0.2,
@@ -2767,30 +2795,31 @@ var DimpBase = {
             break;
 
         case 'send_mdn_link':
-            DimpCore.doAction('sendMDN', {}, {
-                callback: this._sendMdnCallback.bind(this),
-                uids: [ this.pp.VP_id ],
+            DimpCore.doAction('sendMDN', {
                 view: this.pp.VP_view
+            }, {
+                callback: this._sendMdnCallback.bind(this),
+                uids: [ this.pp.VP_id ]
             });
             e.memo.stop();
             break;
 
         default:
-            if (e.element().hasClassName('printAtc')) {
+            if (elt.hasClassName('printAtc')) {
                 HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                     actionID: 'print_attach',
                     buid: this.pp.VP_id,
-                    id: e.element().readAttribute('mimeid'),
+                    id: elt.readAttribute('mimeid'),
                     mailbox: this.pp.VP_view
                 }, {
                     name: this.pp.VP_id + '|' + this.pp.VP_view + '|print',
                     onload: IMP_JS.printWindow
                 });
                 e.memo.stop();
-            } else if (e.element().hasClassName('stripAtc')) {
+            } else if (elt.hasClassName('stripAtc')) {
                 if (window.confirm(DimpCore.text.strip_warn)) {
                     DimpCore.doAction('stripAttachment', this.addViewportParams({
-                        id: e.element().readAttribute('mimeid')
+                        id: elt.readAttribute('mimeid')
                     }), {
                         callback: function(r) {
                             if (!this.pp) {
@@ -2802,10 +2831,22 @@ var DimpBase = {
                             }
                         }.bind(this),
                         loading: 'msg',
-                        uids: [ this.pp.VP_id ],
-                        view: this.pp.VP_view
+                        uids: [ this.pp.VP_id ]
                     });
                 }
+                e.memo.stop();
+            } else if (elt.hasClassName('flagcolorpicker')) {
+                tmp = elt.previous('INPUT');
+                this.colorpicker = new ColorPicker({
+                    color: $F(tmp),
+                    draggable: true,
+                    offsetParent: elt,
+                    resizable: true,
+                    update: [
+                        [ tmp, 'value' ],
+                        [ tmp, 'background' ]
+                    ]
+                });
                 e.memo.stop();
             }
         }
@@ -2977,6 +3018,18 @@ var DimpBase = {
         }
     },
 
+    flagConfigCallback: function(r)
+    {
+        $('ctx_flag', 'ctx_flagunset', 'ctx_flag_search').compact().invoke('remove');
+        this.flags = {};
+        this.flags_o = [];
+
+        r.each(function(f) {
+            this.flags[f.id] = f;
+            this.flags_o.push(f.id);
+        }, this);
+    },
+
     flagCallback: function(r)
     {
         r.each(function(entry) {
@@ -3068,7 +3121,7 @@ var DimpBase = {
 
             if (need.size()) {
                 if (mode == 'tog') {
-                    //base.down('A').update(DimpCore.text.loading);
+                    base.down('A').update(DimpCore.text.loading);
                 }
                 this._listMboxes({
                     all: Number(mode == 'expall'),
@@ -3429,8 +3482,7 @@ var DimpBase = {
             DimpCore.doAction(type, this.addViewportParams(args), {
                 ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) },
                 loading: opts,
-                uids: vs,
-                view: opts.mailbox
+                uids: vs
             });
             return vs;
         }
@@ -3491,8 +3543,7 @@ var DimpBase = {
                 add: Number(add),
                 flags: Object.toJSON([ flag ])
             })), {
-                uids: vs,
-                view: opts.mailbox
+                uids: vs
             });
         }
     },
@@ -3592,6 +3643,10 @@ var DimpBase = {
     tasksHandler: function(e)
     {
         var t = e.tasks || {};
+
+        if (t['imp:flag-config']) {
+            this.flagConfigCallback(t['imp:flag-config']);
+        }
 
         if (t['imp:message']) {
             this.messageCallback(t['imp:message']);
@@ -3717,9 +3772,9 @@ var DimpBase = {
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_forward', 'ctx_forward');
         DM.addSubMenu('ctx_message_setflag', 'ctx_flag');
-        DM.addSubMenu('ctx_message_unsetflag', 'ctx_flag');
+        DM.addSubMenu('ctx_message_unsetflag', 'ctx_flagunset');
         DM.addSubMenu('ctx_oa_setflag', 'ctx_flag');
-        DM.addSubMenu('ctx_oa_unsetflag', 'ctx_flag');
+        DM.addSubMenu('ctx_oa_unsetflag', 'ctx_flagunset');
         DM.addSubMenu('ctx_mbox_setflag', 'ctx_mbox_flag');
 
         DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgSubject').identify(), 'subjectsort', {
@@ -3787,6 +3842,7 @@ var DimpBase = {
 /* Need to add after DimpBase is defined. */
 DimpBase._msgDragConfig = {
     classname: 'msgdrag',
+    rightclick: true,
     scroll: 'imp-normalmboxes',
     threshold: 5,
     caption: function() {
@@ -3852,14 +3908,33 @@ document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener
 
 /* HordeDialog listener. */
 document.observe('HordeDialog:onClick', function(e) {
-    switch (e.element().identify()) {
+    var elt = e.element();
+
+    switch (elt.identify()) {
     case 'dimpbase_confirm':
         this.viewaction(e);
         HordeDialog.close();
         break;
 
+    case 'flag_new':
+        if (this.colorpicker) {
+            this.colorpicker.hide();
+        }
+        DimpCore.doAction('createFlag', this.addViewportParams({
+            flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
+            flagname: $F(elt.down('INPUT[name="flagname"]'))
+        }), {
+            callback: function() {
+                delete this.colorpicker;
+                HordeDialog.close();
+            }.bind(this),
+            uids: this.viewport.getSelected()
+        });
+        elt.update(DimpCore.text.newflag_wait);
+        break;
+
     case 'mbox_import':
-        HordeCore.submit(e.element(), {
+        HordeCore.submit(elt, {
             callback: function(r) {
                 HordeDialog.close();
                 if (r.action == 'importMailbox') {
@@ -3867,7 +3942,7 @@ document.observe('HordeDialog:onClick', function(e) {
                 }
             }.bind(this)
         });
-        e.element().update(DimpCore.text.import_mbox_loading);
+        elt.update(DimpCore.text.import_mbox_loading);
         break;
     }
 }.bindAsEventListener(DimpBase));

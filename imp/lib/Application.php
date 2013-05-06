@@ -460,6 +460,29 @@ class IMP_Application extends Horde_Registry_Application
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 
+    /* NoSQL methods. */
+
+    /**
+     */
+    public function nosqlDrivers()
+    {
+        global $injector;
+
+        $out = array();
+
+        $ob = $injector->getInstance('IMP_Imap')->config->cache_params;
+        if ($ob['backend'] instanceof Horde_Imap_Client_Cache_Backend_Mongo) {
+            $out[] = $ob['backend'];
+        }
+
+        $ob = $injector->getInstance('IMP_Sentmail');
+        if ($ob instanceof IMP_Sentmail_Mongo) {
+            $out[] = $ob;
+        }
+
+        return $out;
+    }
+
     /* Download data. */
 
     /**

@@ -785,7 +785,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
             if (!$this->vars->template_mode) {
                 $view->send_msg = true;
-                $view->save_draft = ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts);
+                $view->save_draft = ($imp_imap->access(IMP_Imap::ACCESS_DRAFTS) && !$readonly_drafts);
             }
 
             $view->resume = $resume;

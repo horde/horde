@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-04-22</date>
- <time>18:00:17</time>
+ <date>2013-05-04</date>
+ <time>18:24:43</time>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -40,6 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add the Horde_Registry_Application#nosqlDrivers() method.
+* [mms] Add the Horde_Core_Nosql library.
 * [jan] Fix setting configuration for timezone lookups.
 * [mms] Add a NoSQL factory.
 * [mms] Allow MongoDB to be used as a cache backend.
@@ -424,6 +426,7 @@
        <file name="Cache.php" role="php" />
        <file name="Crypt.php" role="php" />
        <file name="Data.php" role="php" />
+       <file name="DavServer.php" role="php" />
        <file name="DavStorage.php" role="php" />
        <file name="Db.php" role="php" />
        <file name="DbBase.php" role="php" />
@@ -605,6 +608,7 @@
       <file name="Bundle.php" role="php" />
       <file name="Cli.php" role="php" />
       <file name="LoginTasks.php" role="php" />
+      <file name="Nosql.php" role="php" />
       <file name="Perms.php" role="php" />
       <file name="TagBrowser.php" role="php" />
       <file name="Tagger.php" role="php" />
@@ -1652,6 +1656,7 @@
    <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
    <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
+   <install as="Horde/Core/Nosql.php" name="lib/Horde/Core/Nosql.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
    <install as="Horde/Core/TagBrowser.php" name="lib/Horde/Core/TagBrowser.php" />
    <install as="Horde/Core/Tagger.php" name="lib/Horde/Core/Tagger.php" />
@@ -1729,6 +1734,7 @@
    <install as="Horde/Core/Factory/Cache.php" name="lib/Horde/Core/Factory/Cache.php" />
    <install as="Horde/Core/Factory/Crypt.php" name="lib/Horde/Core/Factory/Crypt.php" />
    <install as="Horde/Core/Factory/Data.php" name="lib/Horde/Core/Factory/Data.php" />
+   <install as="Horde/Core/Factory/DavServer.php" name="lib/Horde/Core/Factory/DavServer.php" />
    <install as="Horde/Core/Factory/DavStorage.php" name="lib/Horde/Core/Factory/DavStorage.php" />
    <install as="Horde/Core/Factory/Db.php" name="lib/Horde/Core/Factory/Db.php" />
    <install as="Horde/Core/Factory/DbBase.php" name="lib/Horde/Core/Factory/DbBase.php" />
@@ -2901,9 +2907,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-22</date>
+   <date>2013-05-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add the Horde_Registry_Application#nosqlDrivers() method.
+* [mms] Add the Horde_Core_Nosql library.
 * [jan] Fix setting configuration for timezone lookups.
 * [mms] Add a NoSQL factory.
 * [mms] Allow MongoDB to be used as a cache backend.

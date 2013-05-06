@@ -632,25 +632,27 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             return false;
         }
 
-        if (!in_array('3', $this->_davSupport)) {
-            Horde::logMessage(sprintf('The remote server at %s doesn\'t support an WebDAV protocol version 3.', $url), 'WARN');
-        }
         if (!in_array('calendar-access', $this->_davSupport)) {
             return false;
         }
 
         /* Check if this URL is a collection. */
-        $properties = $client->propfind(
-            '',
-            array('{DAV:}resourcetype', '{DAV:}current-user-privilege-set')
-        );
+        try {
+            $properties = $client->propfind(
+                '',
+                array('{DAV:}resourcetype', '{DAV:}current-user-privilege-set')
+            );
+        } catch (\Sabre\DAV\Exception $e) {
+            Horde::logMessage($e, 'INFO');
+            return false;
+        }
 
         if (!$properties['{DAV:}resourcetype']->is('{DAV:}collection')) {
             throw new Kronolith_Exception(_("The remote server URL does not point to a CalDAV directory."));
         }
 
         /* Read ACLs. */
-        if ($properties['{DAV:}current-user-privilege-set']) {
+        if (!empty($properties['{DAV:}current-user-privilege-set'])) {
             $privileges = $properties['{DAV:}current-user-privilege-set'];
             if ($privileges->has('{DAV:}read')) {
                 /* GET access. */
