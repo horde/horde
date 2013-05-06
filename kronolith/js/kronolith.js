@@ -6528,17 +6528,6 @@ KronolithCore = {
         }, this);
 
         this.updateMinical(this.date);
-
-        document.observe('Growler:toggled', function(e) {
-            var button = $('kronolithNotifications');
-            if (e.memo.visible) {
-                button.title = Kronolith.text.hidelog;
-                button.addClassName('kronolithClose');
-            } else {
-                button.title = Kronolith.text.alerts;
-                button.removeClassName('kronolithClose');
-            }
-        }.bindAsEventListener(this));
     },
 
     initialize: function(location, r)
