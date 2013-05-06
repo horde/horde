@@ -1216,7 +1216,7 @@ class Horde_Registry
 
         /* Make sure the link is defined. */
         if (!isset($links[$call])) {
-            throw new Horde_Exception('The link ' . $call . ' is not defined in ' . $app . '\'s API.');
+            throw new Horde_Exception('The link "' . $call . '" is not defined in ' . $app . '\'s API.');
         }
 
         /* Initial link value. */
