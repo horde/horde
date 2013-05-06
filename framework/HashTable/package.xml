@@ -38,6 +38,7 @@
       <file name="Exception.php" role="php" />
       <file name="Lock.php" role="php" />
       <file name="Memcache.php" role="php" />
+      <file name="Redis.php" role="php" />
      </dir> <!-- /lib/Horde/HashTable -->
      <file name="HashTable.php" role="php" />
     </dir> <!-- //lib/Horde -->
@@ -68,6 +69,11 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Predis</name>
+    <channel>pear.nrk.io</channel>
+    <min>0.8.3</min>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
@@ -77,6 +83,7 @@
    <install as="Horde/HashTable/Exception.php" name="lib/Horde/HashTable/Exception.php" />
    <install as="Horde/HashTable/Lock.php" name="lib/Horde/HashTable/Lock.php" />
    <install as="Horde/HashTable/Memcache.php" name="lib/Horde/HashTable/Memcache.php" />
+   <install as="Horde/HashTable/Redis.php" name="lib/Horde/HashTable/Redis.php" />
    </filelist>
  </phprelease>
  <changelog>
