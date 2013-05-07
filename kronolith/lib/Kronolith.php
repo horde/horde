@@ -883,7 +883,7 @@ class Kronolith
                     if (!isset($tasklists[$name])) {
                         continue;
                     }
-                    $GLOBALS['all_external_calendars']['tasks/' . $name] = new Kronolith_Calendar_External_Tasks(array('api' => 'tasks', 'name' => $description['title'], 'share' => $tasklists[$name], 'type' => 'share'));
+                    $GLOBALS['all_external_calendars']['tasks/' . $name] = new Kronolith_Calendar_External_Tasks(array('api' => 'tasks', 'name' => $description['title'], 'share' => $tasklists[$name], 'type' => 'share', 'background_color' => $description['background_color']));
                 }
             } catch (Horde_Exception $e) {
                 Horde::logMessage($e, 'DEBUG');
@@ -896,7 +896,7 @@ class Kronolith
                     $calendar['a'] == 'tasks') {
                     continue;
                 }
-                $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d'], 'id' => $calendar['n'], 'type' => $calendar['t']));
+                $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d'], 'id' => $calendar['n'], 'type' => $calendar['t'], 'background_color' => $calendar['b']));
             }
         } else {
             $apis = array_unique($GLOBALS['registry']->listAPIs());
@@ -916,12 +916,13 @@ class Kronolith
                 }
 
                 foreach ($categories as $name => $description) {
-                    $GLOBALS['all_external_calendars'][$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description['title'], 'id' => $name, 'type' => $description['type']));
+                    $GLOBALS['all_external_calendars'][$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description['title'], 'id' => $name, 'type' => $description['type'], 'background_color' => $description['background_color']));
                     $ext_cals[] = array(
                         'a' => $api,
                         'n' => $name,
                         'd' => $description['title'],
-                        't' => $description['type']
+                        't' => $description['type'],
+                        'b' => $description['background_color']
                     );
                 }
             }

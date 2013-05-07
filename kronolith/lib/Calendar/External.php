@@ -42,6 +42,13 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     protected $_type = 'share';
 
     /**
+     * The background color.
+     *
+     * @var string
+     */
+    protected $_background_color;
+
+    /**
      * Constructor.
      *
      * @param array $params  A hash with any parameters that this calendar
@@ -98,13 +105,23 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     }
 
     /**
+     * Returns the background color of this calendar.
+     *
+     * @return string  This calendar's timeobject background.
+     */
+    public function background_color()
+    {
+        return $this->_background_color;
+    }
+
+    /**
      * Returns a hash representing this calendar.
      *
      * @return array  A simple hash.
      */
-    public function toHash()
+    public function toHash($background_color = null)
     {
-        $hash = parent::toHash();
+        $hash = parent::toHash($background_color);
         $hash['api']  = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($this->api()));
         $hash['show'] = in_array($this->_api . '/' . $this->_id, $GLOBALS['display_external_calendars']);
         return $hash;

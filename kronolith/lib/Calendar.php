@@ -124,14 +124,14 @@ abstract class Kronolith_Calendar
      *
      * @return array  A simple hash.
      */
-    public function toHash()
+    public function toHash($background_color = null)
     {
         return array(
             'name'  => $this->name(),
             'desc'  => $this->description(),
             'owner' => true,
             'fg'    => $this->foreground(),
-            'bg'    => $this->background(),
+            'bg'    => $background_color ? $background_color : $this->background(),
         );
     }
 }
