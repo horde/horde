@@ -218,7 +218,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 }
                 $folder->encodeStream($this->_encoder);
                 $this->_encoder->endTag();
-
+                $collections->updateFolderInHierarchy($folder);
             }
         }
 
@@ -229,6 +229,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 $this->_encoder->content($folder);
                 $this->_encoder->endTag();
                 $this->_encoder->endTag();
+                $collections->deleteFolderFromHierarchy($folder->serverid);
             }
         }
 
