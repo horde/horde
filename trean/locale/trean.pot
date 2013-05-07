@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trean H5 (1.0.0-git)\n"
+"Project-Id-Version: Trean H5 (1.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:44+0100\n"
+"POT-Creation-Date: 2013-05-07 14:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Bookmarks Feed"
 msgstr ""
 
-#: browse.php:25
+#: browse.php:31
 msgid "Browse"
 msgstr ""
 
@@ -128,7 +128,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: edit.php:31
+#: edit.php:37
 msgid "Edit Bookmark"
 msgstr ""
 
@@ -160,7 +160,7 @@ msgstr ""
 msgid "New Bookmark"
 msgstr ""
 
-#: search.php:37
+#: search.php:43
 msgid "No bookmarks found"
 msgstr ""
 
@@ -172,7 +172,7 @@ msgstr ""
 msgid "No bookmarks yet."
 msgstr ""
 
-#: search.php:44
+#: search.php:50
 msgid "No search"
 msgstr ""
 
@@ -211,11 +211,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: search.php:30
+#: search.php:36
 msgid "Search"
 msgstr ""
 
-#: search.php:41
+#: search.php:47
 #, php-format
 msgid "Search results (%s)"
 msgstr ""
@@ -301,7 +301,7 @@ msgstr ""
 msgid "clicks"
 msgstr ""
 
-#: app/controllers/BrowseByTag.php:17
+#: app/controllers/BrowseByTag.php:23
 #, php-format
 msgid "tagged %s"
 msgstr ""

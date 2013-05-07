@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ansel H5 (3.0-git)\n"
+"Project-Id-Version: Ansel H5 (3.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-03-05 10:52+0100\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -316,7 +316,7 @@ msgstr ""
 msgid "Applications"
 msgstr ""
 
-#: lib/View/GalleryRenderer/Base.php:194
+#: lib/View/GalleryRenderer/Base.php:195
 msgid "Are you sure you want to delete the selected photos?"
 msgstr ""
 
@@ -1327,7 +1327,7 @@ msgstr ""
 msgid "People in galleries owned by %s (%d of %d)"
 msgstr ""
 
-#: lib/Widget/ImageFaces.php:45
+#: lib/Widget/ImageFaces.php:47
 msgid "People in this Photo"
 msgstr ""
 
@@ -2280,7 +2280,7 @@ msgid ""
 "check your Twitter settings in your %s."
 msgstr ""
 
-#: lib/View/GalleryRenderer/Base.php:195
+#: lib/View/GalleryRenderer/Base.php:196
 msgid "You must choose a gallery to move photos to."
 msgstr ""
 
@@ -2292,7 +2292,7 @@ msgstr ""
 msgid "You must enter your e-mail address."
 msgstr ""
 
-#: lib/View/GalleryRenderer/Base.php:196
+#: lib/View/GalleryRenderer/Base.php:197
 msgid "You must first choose photos."
 msgstr ""
 

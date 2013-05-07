@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Rpc \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: lib/Horde/Rpc/Webdav.php:352
-#, php-format
-msgid "Error deleting from path %s; must be [app]/[path]"
-msgstr ""
 
 #: lib/Horde/Rpc/Phpgw.php:80 lib/Horde/Rpc/Phpgw.php:81
 #: lib/Horde/Rpc/Soap.php:185 lib/Horde/Rpc/Soap.php:193
@@ -36,19 +31,8 @@ msgstr ""
 msgid "Request couldn't be answered. Returned errorcode: "
 msgstr ""
 
-#: lib/Horde/Rpc/ActiveSync.php:106
+#: lib/Horde/Rpc/ActiveSync.php:102
 msgid "Trying to access the ActiveSync endpoint from a browser. Not Supported."
-msgstr ""
-
-#: lib/Horde/Rpc/Webdav.php:417
-#, php-format
-msgid "Unable to create directory %s; must be [app]/[path]"
-msgstr ""
-
-#: lib/Horde/Rpc/Webdav.php:452
-#, php-format
-msgid ""
-"Unable to rename %s; must be [app]/[path] and within the same application."
 msgstr ""
 
 #: lib/Horde/Rpc/Phpgw.php:99

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H5 (4.0.3-git)\n"
+"Project-Id-Version: Mnemo H5 (4.1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,7 +93,7 @@ msgstr ""
 msgid "Create Notepad"
 msgstr ""
 
-#: lib/Application.php:109
+#: lib/Application.php:115
 msgid "Create a new Notepad"
 msgstr ""
 
@@ -218,7 +218,7 @@ msgstr ""
 msgid "Last Modified"
 msgstr ""
 
-#: lib/Application.php:56
+#: lib/Application.php:62
 msgid "Maximum Number of Notes"
 msgstr ""
 
@@ -234,11 +234,11 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:367
+#: lib/Api.php:378
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 
-#: lib/Application.php:102
+#: lib/Application.php:108
 msgid "My Notepads"
 msgstr ""
 
@@ -250,7 +250,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: lib/Application.php:162 memo.php:103 memo.php:151
+#: lib/Application.php:168 memo.php:103 memo.php:151
 msgid "New Note"
 msgstr ""
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: lib/Api.php:208 lib/Api.php:360
+#: lib/Api.php:209 lib/Api.php:371
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -355,7 +355,7 @@ msgstr ""
 msgid "Save as PDF"
 msgstr ""
 
-#: lib/Application.php:186 search.php:19 templates/list/header.inc:3
+#: lib/Application.php:192 search.php:19 templates/list/header.inc:3
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr ""
@@ -376,7 +376,7 @@ msgstr ""
 msgid "Select the format of the source file:"
 msgstr ""
 
-#: lib/Application.php:115
+#: lib/Application.php:121
 msgid "Shared Notepads"
 msgstr ""
 
@@ -447,11 +447,11 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:202 lib/Api.php:354
+#: lib/Api.php:203 lib/Api.php:365
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Application.php:233
+#: lib/Application.php:239
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
@@ -489,7 +489,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 
-#: lib/Api.php:269 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
+#: lib/Api.php:276 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
 msgid "This note has been encrypted."
 msgstr ""
 
@@ -498,7 +498,7 @@ msgstr ""
 msgid "Unfiled"
 msgstr ""
 
-#: lib/Api.php:236 lib/Api.php:294 lib/Api.php:377
+#: lib/Api.php:242 lib/Api.php:304 lib/Api.php:394
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""
@@ -564,15 +564,15 @@ msgstr ""
 msgid "_For: "
 msgstr ""
 
-#: lib/Application.php:75
+#: lib/Application.php:81
 msgid "_Import/Export"
 msgstr ""
 
-#: lib/Application.php:68
+#: lib/Application.php:74
 msgid "_List Notes"
 msgstr ""
 
-#: lib/Application.php:91
+#: lib/Application.php:97
 msgid "_New Note"
 msgstr ""
 
@@ -588,7 +588,7 @@ msgstr ""
 msgid "_Repeat:"
 msgstr ""
 
-#: lib/Application.php:71
+#: lib/Application.php:77
 msgid "_Search"
 msgstr ""
 
@@ -605,12 +605,12 @@ msgstr ""
 msgid "by me"
 msgstr ""
 
-#: lib/Application.php:174
+#: lib/Application.php:180
 #, php-format
 msgid "in %s"
 msgstr ""
 
-#: lib/Application.php:270 templates/data/export.inc:3
+#: lib/Application.php:276 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr ""
 
