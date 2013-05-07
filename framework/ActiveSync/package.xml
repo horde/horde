@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix sending updated heartbeat interval when requested heartbeat is out of bounds.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1368,7 +1368,7 @@
    <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix sending updated heartbeat interval when requested heartbeat is out of bounds.
    </notes>
   </release>
  </changelog>

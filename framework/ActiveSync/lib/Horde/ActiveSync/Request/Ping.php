@@ -243,7 +243,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
         if ($this->_statusCode == self::STATUS_HBOUTOFBOUNDS) {
             $this->_encoder->startTag(self::HEARTBEATINTERVAL);
-            $this->_encoder->content($lifetime);
+            $this->_encoder->content($heartbeat);
             $this->_encoder->endTag();
         } elseif ($collections->collectionCount() && $this->_statusCode != self::STATUS_NOCHANGES) {
             $this->_encoder->startTag(self::FOLDERS);
