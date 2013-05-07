@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-07</date>
- <time>17:22:55</time>
+ <time>17:27:36</time>
  <version>
-  <release>5.0.0beta1</release>
+  <release>5.0.0beta2</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -28,12 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Add option to destroy Horde session after changing password (Bug #11766).
-* [mms] Http driver now uses Horde_Http_Client.
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
-* [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
-* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
-* [jan] Fix preparing multiple backends (Bug #11023).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -654,6 +649,19 @@
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
 * [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
 * [jan] Fix preparing multiple backends (Bug #11023).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta2</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
