@@ -24,7 +24,7 @@ class Horde_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '5.1.0-git';
+    public $version = '5.1.0beta1';
 
     /**
      */

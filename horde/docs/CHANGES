@@ -1,6 +1,6 @@
-----------
-v5.1.0-git
-----------
+-----------
+v5.1.0beta1
+-----------
 
 [mms] Add ability to update/create NoSQL indices from the admin config page.
 [mjr] Add activesync device hooks.

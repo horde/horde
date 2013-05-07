@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-08</date>
+ <date>2013-05-07</date>
  <version>
   <release>5.1.0beta1</release>
   <api>5.0.0</api>
@@ -130,6 +130,7 @@
     <file name="horde-run-task" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
+    <file name="horde-sessions-gc" role="script" />
     <file name="horde-set-perms" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -1567,21 +1568,6 @@
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="webcenter">
-     <dir name="graphics">
-      <file name="logo.png" role="horde" />
-      <file name="logout.png" role="horde" />
-      <file name="navi-arrow-active.png" role="horde" />
-      <file name="navi-arrow-normal.png" role="horde" />
-      <file name="navi-subnavi-active.png" role="horde" />
-      <file name="navi-subnavi.png" role="horde" />
-      <file name="search-topbar.png" role="horde" />
-      <file name="settings-active.png" role="horde" />
-      <file name="settings.png" role="horde" />
-     </dir> <!-- /themes/webcenter/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/webcenter -->
     </dir> <!-- /themes -->
    <dir name="util">
     <file name="barcode.php" role="horde" />
@@ -1949,6 +1935,7 @@
    <install as="horde-import-squirrelmail-prefs" name="bin/horde-import-squirrelmail-prefs" />
    <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
    <install as="horde-run-task" name="bin/horde-run-task" />
+   <install as="horde-sessions-gc" name="bin/horde-sessions-gc" />
    <install as="horde-set-perms" name="bin/horde-set-perms" />
    <install as="horde-themes" name="bin/horde-themes" />
    <install as="horde-translation" name="bin/horde-translation" />
@@ -3050,17 +3037,6 @@
    <install as="themes/default/sounds/jetsndb.wav" name="themes/default/sounds/jetsndb.wav" />
    <install as="themes/default/sounds/reminder.wav" name="themes/default/sounds/reminder.wav" />
    <install as="themes/default/sounds/theetone.wav" name="themes/default/sounds/theetone.wav" />
-   <install as="themes/webcenter/info.php" name="themes/webcenter/info.php" />
-   <install as="themes/webcenter/screen.css" name="themes/webcenter/screen.css" />
-   <install as="themes/webcenter/graphics/logo.png" name="themes/webcenter/graphics/logo.png" />
-   <install as="themes/webcenter/graphics/logout.png" name="themes/webcenter/graphics/logout.png" />
-   <install as="themes/webcenter/graphics/navi-arrow-active.png" name="themes/webcenter/graphics/navi-arrow-active.png" />
-   <install as="themes/webcenter/graphics/navi-arrow-normal.png" name="themes/webcenter/graphics/navi-arrow-normal.png" />
-   <install as="themes/webcenter/graphics/navi-subnavi-active.png" name="themes/webcenter/graphics/navi-subnavi-active.png" />
-   <install as="themes/webcenter/graphics/navi-subnavi.png" name="themes/webcenter/graphics/navi-subnavi.png" />
-   <install as="themes/webcenter/graphics/search-topbar.png" name="themes/webcenter/graphics/search-topbar.png" />
-   <install as="themes/webcenter/graphics/settings-active.png" name="themes/webcenter/graphics/settings-active.png" />
-   <install as="themes/webcenter/graphics/settings.png" name="themes/webcenter/graphics/settings.png" />
    <install as="util/barcode.php" name="util/barcode.php" />
    <install as="util/icon_browser.php" name="util/icon_browser.php" />
    <install as=".htaccess" name=".htaccess" />
@@ -3643,7 +3619,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-04-08</date>
+   <date>2013-05-07</date>
    <version>
     <release>5.1.0beta1</release>
     <api>5.0.0</api>
