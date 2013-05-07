@@ -30,7 +30,7 @@ The major changes compared to the IMP H5 (6.0) versions are:
     * Added message thread view to dynamic mailbox preview.
     * Support drag & drop of attachments, linking attachments, attaching PGP
       public keys, and attaching vCards in dynamic view.
-    * Allow uploading, and pasting of images into the HTML editor.
+    * Allow drag & drop, uploading, and pasting of images into the HTML editor.
     * Display Virtual Folders in smartphone view.
     * Added attachment uploading and saving compose drafts to smartphone view.
     * Added taphold message action menu to smartmobile mailbox page.
