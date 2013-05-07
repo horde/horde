@@ -1,6 +1,6 @@
-======================
- Installing Mnemo 4.0
-======================
+=====================
+ Installing Mnemo H5
+=====================
 
 This document contains instructions for installing the Mnemo web-based notes
 application on your system.
@@ -20,7 +20,7 @@ To function properly, Mnemo **requires** the following:
    for web applications written in PHP.  You must install Horde before
    installing Mnemo.
 
-   .. Important:: Mnemo 4.0 requires version 5.0+ of the Horde Framework -
+   .. Important:: Mnemo H5 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the

@@ -1,6 +1,6 @@
-======================
- Installing Turba 4.0
-======================
+=====================
+ Installing Turba H5
+=====================
 
 :Contact: turba@lists.horde.org
 
@@ -25,7 +25,7 @@ To function properly, Turba **requires** the following:
    for web applications written in PHP.  You must install Horde before
    installing Turba.
 
-   .. Important:: Turba 4.0 requires version 5.0+ of the Horde Framework -
+   .. Important:: Turba H5 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the

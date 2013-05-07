@@ -1,6 +1,6 @@
-==================
- Installing IMP 6
-==================
+===================
+ Installing IMP H5
+===================
 
 :Contact: imp@lists.horde.org
 
@@ -24,7 +24,7 @@ To function properly, IMP **requires** the following:
    for web applications written in PHP. You must install Horde before
    installing IMP.
 
-   .. Important:: IMP 6 requires version 5.0+ of the Horde Framework -
+   .. Important:: IMP H5 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will not work.
 
    .. Important:: Be sure to have completed all of the steps in the
@@ -103,8 +103,6 @@ The following items are not required, but are strongly **RECOMMENDED**:
    Turba provides the local address book and an LDAP directory search function
    to IMP.
 
-   You must use the 3.x branch of Turba with IMP 6.
-
 2. Ingo, the Horde mail filters manager.
 
    Ingo is the Horde mail filters management application, designed to be
@@ -116,8 +114,6 @@ The following items are not required, but are strongly **RECOMMENDED**:
       http://www.horde.org/apps/ingo
 
    Ingo provides the mail filtering interfaces to IMP.
-
-   You must use the 2.x branch of Ingo with IMP 6.
 
 3. A configured VFS backend.
 
