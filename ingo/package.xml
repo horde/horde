@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-07</date>
- <time>14:39:48</time>
+ <time>14:43:05</time>
  <version>
-  <release>3.1.0beta1</release>
+  <release>3.1.0beta2</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,12 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Add composite script backends.
-* [jan] Add vacation driver for ISPConfig (Michael Bunk &lt;mb@computer-leipzig.com&gt;).
-* [jan] Hide unsupported form fields of vacation form (Michael Bunk &lt;mb@computer-leipzig.com&gt;).
-* [jan] Add composite transport backends.
-* [jan] Move shared ruleset selection to sidebar.
-* [mms] All Ingo templates now use Horde_View.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1254,6 +1249,19 @@
 * [jan] Add composite transport backends.
 * [jan] Move shared ruleset selection to sidebar.
 * [mms] All Ingo templates now use Horde_View.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.0beta2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-07</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
