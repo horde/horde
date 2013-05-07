@@ -22,8 +22,21 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Memcache
  */
-class Horde_HashTable_Predis extends Horde_HashTable
+class Horde_HashTable_Predis extends Horde_HashTable implements Horde_HashTable_Lock
 {
+    /* Suffix added to key to create the lock entry. */
+    const LOCK_SUFFIX = '_l';
+
+    /* Lock timeout (in seconds). */
+    const LOCK_TIMEOUT = 30;
+
+    /**
+     * Locked keys.
+     *
+     * @var array
+     */
+    protected $_locks = array();
+
     /**
      * Predis client object.
      *
@@ -44,6 +57,8 @@ class Horde_HashTable_Predis extends Horde_HashTable
         }
 
         parent::__construct($params);
+
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
@@ -51,6 +66,16 @@ class Horde_HashTable_Predis extends Horde_HashTable
     protected function _init()
     {
         $this->_predis = $this->_params['predis'];
+    }
+
+    /**
+     * Shutdown function.
+     */
+    public function shutdown()
+    {
+        foreach (array_keys($this->_locks) as $key) {
+            $this->unlock($key);
+        }
     }
 
     /**
@@ -117,6 +142,29 @@ class Horde_HashTable_Predis extends Horde_HashTable
         /* Key is MD5 encoded. But don't MD5 encode the prefix part, or else
          * clear() won't work properly. */
         return $this->_prefix . hash('md5', $key);
+    }
+
+    /**
+     */
+    public function lock($key)
+    {
+        $hkey = $this->hkey($key) . self::LOCK_SUFFIX;
+
+        while (!$this->_predis->setnx($hkey, 1)) {
+            /* Wait 0.1 secs before attempting again. */
+            usleep(100000);
+        }
+
+        $this->_predis->expire($hkey, self::LOCK_TIMEOUT);
+        $this->_locks[$key] = true;
+    }
+
+    /**
+     */
+    public function unlock($key)
+    {
+        $this->_predis->del($this->hkey($key) . self::LOCK_SUFFIX);
+        $this->_locks[$key] = false;
     }
 
 }
