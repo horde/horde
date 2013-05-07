@@ -80,7 +80,7 @@ class Horde_HashTable_Predis extends Horde_HashTable
      */
     protected function _set($key, $val, $opts)
     {
-        if (!empty($opts['replace']) && !$this->_redis->exists($key)) {
+        if (!empty($opts['replace']) && !$this->_predis->exists($key)) {
             return false;
         }
 
@@ -100,14 +100,14 @@ class Horde_HashTable_Predis extends Horde_HashTable
      */
     public function clear()
     {
-        $res = $this->_redis->keys(addcslashes(strval($this->_params['prefix']), '?*') . '*');
+        $res = $this->_predis->keys(addcslashes(strval($this->_params['prefix']), '?*') . '*');
 
         /* Before 2.0, KEYS returns a space-delimited string. */
         if (is_string($res)) {
             $res = explode(' ', $res);
         }
 
-        $this->_redis->del($res);
+        $this->_predis->del($res);
     }
 
     /**
