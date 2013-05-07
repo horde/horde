@@ -10,22 +10,25 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_INITIAL);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Trean Bookmarks
-Manager version H5 (1.0.0).
+Manager version H5 (1.0.1).
 
 Trean is a web-based bookmarks application that provides management of browser
 bookmarks, including support for tagging, link checking, and searching
 bookmarks. For more information on Trean, visit
 http://www.horde.org/apps/trean.
+
+Major changes compared to the Trean H5 (1.0.0) version are:
+    * Fixed dependency.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Initial stable release.
+Fixed dependency.
 FM;
 
 $this->notes['name'] = 'Trean';
