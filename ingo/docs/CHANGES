@@ -1,6 +1,6 @@
-----------
-v3.1.0-git
-----------
+-----------
+v3.1.0beta1
+-----------
 
 [jan] Add composite script backends.
 [jan] Add vacation driver for ISPConfig (Michael Bunk
