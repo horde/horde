@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-07</date>
- <time>12:59:45</time>
+ <time>13:02:36</time>
  <version>
-  <release>2.4.0beta2</release>
+  <release>2.4.0beta3</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix building initial message state in certain cases for email collections when IMAP server does not support per mailbox MODSEQ values.
-* [mjr] Fix fatal error when using the deviceCallback functionality (Bug #12236).
-* [mjr] Fix creating/deleting mailboxes with non-empty default namespaces (Bug #12224).
-* [mjr] Fix non-BC change in abstract method signature.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1361,6 +1358,19 @@
 * [mjr] Fix fatal error when using the deviceCallback functionality (Bug #12236).
 * [mjr] Fix creating/deleting mailboxes with non-empty default namespaces (Bug #12224).
 * [mjr] Fix non-BC change in abstract method signature.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.0beta3</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
