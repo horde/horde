@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-05-07</date>
- <time>12:55:26</time>
+ <time>12:59:15</time>
  <version>
-  <release>2.5.0beta1</release>
+  <release>2.5.0beta2</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -40,28 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] SECURITY: Fix token validation of AJAX actions.
-* [mms] Add the Horde_Registry_Application#nosqlDrivers() method.
-* [mms] Add the Horde_Core_Nosql library.
-* [jan] Fix setting configuration for timezone lookups.
-* [mms] Add a NoSQL factory.
-* [mms] Allow MongoDB to be used as a cache backend.
-* [mms] Regenerate session IDs during an active session to protect against session fixation attacks.
-* [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.
-* [jan] Add menu entry to show the notification log.
-* [mms] Dynamic javascript framework now has support for audio notification events.
-* [mjr] Add support for EAS 14.0 and 14.1 (see http://wiki.horde.org/ActiveSync/FeatureGrid for complete feature list).
-* [mms] Add ability to submit form data to AJAX action in smartmobile view.
-* [mms] Upgrade jQuery Mobile to v1.2.1/jQuery Core to v1.8.3.
-* [mms] Smartmobile view now honors the current CSS caching configuration.
-* [mms] Add Horde_Core_Ajax_Application#callAction().
-* [mjr] Close growler notification when alarms are dismissed (Bug #12122).
-* [mms] CSS parsing now uses the CSS3 compatible Horde_Css_Parser package instead of Horde_Text_Filter_Csstidy.
-* [mms] Fire before/after events in core AJAX javascript code when processing data returned from the server.
-* [mjr] Fix sending encrypted emails while locating recipient&apos;s public key via the GAL.
-* [jan] Use PEAR package information to retrieve packages names in Horde_Core_Db_Migration.
-* [jan] Get version list from pear.horde.org when checking for updates.
-* [mms] Add support for &apos;ajaxaction_data&apos; hook (won&apos;t be documented in Horde until 5.1+).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2932,6 +2911,19 @@
 * [jan] Use PEAR package information to retrieve packages names in Horde_Core_Db_Migration.
 * [jan] Get version list from pear.horde.org when checking for updates.
 * [mms] Add support for &apos;ajaxaction_data&apos; hook (won&apos;t be documented in Horde until 5.1+).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.0beta2</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-05-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
