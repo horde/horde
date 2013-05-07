@@ -139,7 +139,7 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
         }
         if (count($users) != 1) {
             throw new Ingo_Exception(
-                sprintf(_("%i users with login %s found, one expected."),
+                sprintf(_("%d users with login %s found, one expected."),
                         count($users),
                         $this->_params['username']));
         }
