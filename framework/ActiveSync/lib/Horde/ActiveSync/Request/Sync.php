@@ -174,7 +174,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     break;
                 case Horde_ActiveSync::SYNC_WAIT:
                     if ($wait = $this->_decoder->getElementContent()) {
-                        $this->_collections->setHeatbeat(array('wait' => $wait));
+                        $this->_collections->setHeartbeat(array('wait' => $wait));
                         $this->_decoder->getElementEndTag();
                         if ($wait > (self::MAX_HEARTBEAT / 60)) {
                             $this->_logger->err(sprintf(
