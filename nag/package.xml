@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-07</date>
- <time>15:08:41</time>
+ <time>15:12:55</time>
  <version>
-  <release>4.1.0beta1</release>
+  <release>4.1.0beta2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add CalDAV server support (Request #4267).
-* [jan] Update design to closer match the Horde 5 UI.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1334,6 +1333,19 @@
    <notes>
 * [jan] Add CalDAV server support (Request #4267).
 * [jan] Update design to closer match the Horde 5 UI.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.0beta2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
