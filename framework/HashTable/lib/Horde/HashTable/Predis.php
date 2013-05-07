@@ -87,6 +87,18 @@ class Horde_HashTable_Predis extends Horde_HashTable implements Horde_HashTable_
 
     /**
      */
+    protected function _exists($keys)
+    {
+        $pipeline = $this->_predis->pipeline();
+        foreach ($keys as $val) {
+            $pipeline->exists($val);
+        }
+
+        return array_combine($keys, $pipeline->execute());
+    }
+
+    /**
+     */
     protected function _get($keys)
     {
         $keys = array_values($keys);

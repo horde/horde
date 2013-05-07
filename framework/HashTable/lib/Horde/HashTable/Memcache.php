@@ -68,6 +68,19 @@ class Horde_HashTable_Memcache extends Horde_HashTable implements Horde_HashTabl
 
     /**
      */
+    protected function _exists($keys)
+    {
+        $out = array();
+
+        foreach ($this->_get($keys) as $key => $val) {
+            $out[$key] = ($val !== false);
+        }
+
+        return $out;
+    }
+
+    /**
+     */
     protected function _get($keys)
     {
         return (($res = $this->_memcache->get($keys)) === false)

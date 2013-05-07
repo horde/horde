@@ -118,6 +118,28 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
     abstract protected function _delete($keys);
 
     /**
+     * Do the keys exists?
+     *
+     * @param mixed $keys  The key or an array of keys.
+     *
+     * @return mixed  The string/array if it exists (return type is the type
+     *                of $keys); false value(s) if not exists.
+     */
+    public function exists($keys)
+    {
+        $this->_getExists($keys, array($this, '_exists'));
+    }
+
+    /**
+     * Get data associated with keys.
+     *
+     * @param array $keys  An array of keys.
+     *
+     * @return array  Existence check. Values are boolean true/false.
+     */
+    abstract protected function _exists($keys);
+
+    /**
      * Get data associated with a key(s).
      *
      * @param mixed $keys  The key or an array of keys.
@@ -126,6 +148,29 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
      *                $keys); false value(s) on failure.
      */
     public function get($keys)
+    {
+        $this->_getExists($keys, array($this, '_get'));
+    }
+
+    /**
+     * Get data associated with keys.
+     *
+     * @param array $keys  An array of keys.
+     *
+     * @return array  The retrieved keys. Non-existent keys should return
+     *                false as the value.
+     */
+    abstract protected function _get($keys);
+
+    /**
+     * Does a get/exists action on a set of keys.
+     *
+     * @param mixed $keys         The key or an array of keys.
+     * @param callable $callback  The internal callback action.
+     *
+     * @return mixed  The results.
+     */
+    protected function _getExists($keys, $callback)
     {
         $out = $todo = array();
 
@@ -142,7 +187,7 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
         }
 
         if (!empty($todo)) {
-            foreach ($this->_get($todo) as $key => $val) {
+            foreach (call_user_func($callback, $todo) as $key => $val) {
                 if ($val === false) {
                     $this->_noexist[$key] = true;
                 }
@@ -154,17 +199,6 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
             ? $out
             : reset($out);
     }
-
-    /**
-     * Get data associated with keys.
-     *
-     * @param array $keys  An array of keys.
-     *
-     * @return array  The retrieved keys. Non-existent keys should return
-     *                false as the value.
-     */
-    abstract protected function _get($keys);
-
     /**
      * Set the value of a key.
      *
@@ -229,7 +263,7 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
      */
     public function offsetExists($offset)
     {
-        return ($this->get($offset) !== false);
+        return $this->exists($offset);
     }
 
     /**
