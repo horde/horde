@@ -22,7 +22,9 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Memcache
  */
-class Horde_HashTable_Predis extends Horde_HashTable implements Horde_HashTable_Lock
+class Horde_HashTable_Predis
+extends Horde_HashTable_Base
+implements Horde_HashTable_Lock
 {
     /* Suffix added to key to create the lock entry. */
     const LOCK_SUFFIX = '_l';

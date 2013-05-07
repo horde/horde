@@ -20,7 +20,9 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Memcache
  */
-class Horde_HashTable_Memcache extends Horde_HashTable implements Horde_HashTable_Lock
+class Horde_HashTable_Memcache
+extends Horde_HashTable_Base
+implements Horde_HashTable_Lock
 {
     /**
      * Memcache object.

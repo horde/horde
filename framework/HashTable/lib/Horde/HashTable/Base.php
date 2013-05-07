@@ -24,7 +24,7 @@
  * @property-read boolean $persistent  Does hash table provide persistent
  *                                     storage?
  */
-abstract class Horde_HashTable implements ArrayAccess, Serializable
+abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
 {
     /**
      * A list of items known not to exist.
