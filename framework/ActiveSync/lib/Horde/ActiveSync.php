@@ -483,20 +483,6 @@ class Horde_ActiveSync
     }
 
     /**
-     * Return a configured sync object.
-     *
-     * @return Horde_ActiveSync_Sync
-     * @since 2.4.0
-     */
-    public function getSyncObject()
-    {
-        $sync = new Horde_ActiveSync_Sync($this->_driver, $this->_device);
-        $sync->setLogger(self::$_logger);
-
-        return $sync;
-    }
-
-    /**
      * Return a new, fully configured SyncCache.
      *
      * @return Horde_ActiveSync_SyncCache
