@@ -38,7 +38,9 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = array(
+        'prefix' => 'hht_'
+    );
 
     /**
      * Persistent storage provided by driver?
@@ -53,6 +55,7 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
      * @param array $params  Configuration parameters:
      * <pre>
      *   - logger: (Horde_Log_Logger) Logger object.
+     *   - prefix: (string) Prefix to use for key storage.
      * </pre>
      *
      * @throws Horde_HashTable_Exception
@@ -96,7 +99,7 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
         }
 
         if ($todo = array_diff($keys, array_keys($this->_noexist)) &&
-            !$this->_delete($todo)) {
+            !$this->_delete(array_map(array($this, 'hkey'), $todo))) {
             return false;
         }
 
@@ -134,7 +137,7 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
             if (isset($this->_noexist[$key])) {
                 $out[$val] = false;
             } else {
-                $todo[] = $val;
+                $todo[] = $this->hkey($val);
             }
         }
 
@@ -179,7 +182,7 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
             return false;
         }
 
-        if ($this->_set($key, $val, $opts)) {
+        if ($this->_set($this->hkey($key), $val, $opts)) {
             unset($this->_noexist[$key]);
             return true;
         }
@@ -200,13 +203,19 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
 
     /**
      * Clear all hash table entries.
-     *
-     * @param string $prefix  The key prefix (if empty, this command may
-     *                        delete entries from other systems using the
-     *                        hash table).
      */
-    public function clear($prefix = null)
+    abstract public function clear();
+
+    /**
+     * Add local prefix to beginning of key.
+     *
+     * @param string $key  Key name.
+     *
+     * @return string  Hash table key identifier.
+     */
+    public function hkey($key)
     {
+        return $this->_params['prefix'] . $key;
     }
 
     /* ArrayAccess methods. */

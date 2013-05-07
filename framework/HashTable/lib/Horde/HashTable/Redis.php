@@ -96,9 +96,9 @@ class Horde_HashTable_Redis extends Horde_HashTable
 
     /**
      */
-    public function clear($prefix = null)
+    public function clear()
     {
-        $res = $this->_redis->keys(addcslashes(strval($prefix), '?*') . '*');
+        $res = $this->_redis->keys(addcslashes(strval($this->_params['prefix']), '?*') . '*');
 
         /* Before 2.0, KEYS returns a space-delimited string. */
         if (is_string($res)) {
@@ -106,6 +106,15 @@ class Horde_HashTable_Redis extends Horde_HashTable
         }
 
         $this->_redis->del($res);
+    }
+
+    /**
+     */
+    public function hkey($key)
+    {
+        /* Key is MD5 encoded. But don't MD5 encode the prefix part, or else
+         * clear() won't work properly. */
+        return $this->_prefix . hash('md5', $key);
     }
 
 }

@@ -100,8 +100,9 @@ class Horde_HashTable_Memcache extends Horde_HashTable implements Horde_HashTabl
 
     /**
      */
-    public function clear($prefix = null)
+    public function clear()
     {
+        // No way to delete keys via memcache - have to drop entire DB.
         $this->_memcache->flush();
     }
 
