@@ -559,7 +559,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function updateHierarchyKey($key)
     {
         $this->_cache->hierarchy = $key;
-        $this->_cache->save();
     }
 
     /**

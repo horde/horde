@@ -242,6 +242,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
         $this->_cleanUpAfterPairing();
 
+        $collections->save();
+
         return true;
     }
 
