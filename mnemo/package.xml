@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-08</date>
- <time>16:41:44</time>
+ <date>2013-05-07</date>
+ <time>15:16:53</time>
  <version>
   <release>4.1.0beta1</release>
   <api>4.0.0</api>
@@ -271,6 +271,12 @@
      </dir> <!-- /locale/tr/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
     <dir name="zh_CN">
      <dir name="LC_MESSAGES">
       <file name="mnemo.mo" role="horde" />
@@ -661,6 +667,8 @@
    <install as="mnemo/locale/tr/help.xml" name="locale/tr/help.xml" />
    <install as="mnemo/locale/tr/LC_MESSAGES/mnemo.mo" name="locale/tr/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/tr/LC_MESSAGES/mnemo.po" name="locale/tr/LC_MESSAGES/mnemo.po" />
+   <install as="mnemo/locale/uk/LC_MESSAGES/mnemo.mo" name="locale/uk/LC_MESSAGES/mnemo.mo" />
+   <install as="mnemo/locale/uk/LC_MESSAGES/mnemo.po" name="locale/uk/LC_MESSAGES/mnemo.po" />
    <install as="mnemo/locale/zh_CN/LC_MESSAGES/mnemo.mo" name="locale/zh_CN/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/zh_CN/LC_MESSAGES/mnemo.po" name="locale/zh_CN/LC_MESSAGES/mnemo.po" />
    <install as="mnemo/locale/zh_TW/LC_MESSAGES/mnemo.mo" name="locale/zh_TW/LC_MESSAGES/mnemo.mo" />
@@ -995,7 +1003,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-04-08</date>
+   <date>2013-05-07</date>
    <time>16:12:35</time>
    <version>
     <release>4.1.0beta1</release>

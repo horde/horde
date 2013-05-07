@@ -1,6 +1,6 @@
-----------
-v4.1.0-git
-----------
+-----------
+v4.1.0beta1
+-----------
 
 [jan] Add Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
 [mjr] Add support for ActiveSync synchronization of notes.
