@@ -12,7 +12,9 @@
  */
 
 /**
- * Implementation of HashTable for a Redis server.
+ * Implementation of HashTable for a Redis server (using the Predis library).
+ *
+ * See: https://github.com/nrk/predis
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,7 +22,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Memcache
  */
-class Horde_HashTable_Redis extends Horde_HashTable
+class Horde_HashTable_Predis extends Horde_HashTable
 {
     /**
      * Predis client object.
