@@ -1,6 +1,6 @@
-----------
-v4.1.0-git
-----------
+-----------
+v4.1.0beta1
+-----------
 
 [jan] Add CardDAV server support.
 [mjr] Update the default SQL source schema (Request #11993).
