@@ -811,7 +811,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function initCollectionState(array $collection, $requireSyncKey = false)
     {
         if (empty($collection['class'])) {
-            throw new Horde_ActiveSync_Exception_FolderGone('Could not load collection class for ' . $collection['id']);
+            if (!empty($this->_collections[$collection['id']])) {
+                $collection['class'] = $this->_collections[$collection['id']];
+            } else {
+                throw new Horde_ActiveSync_Exception_FolderGone('Could not load collection class for ' . $collection['id']);
+            }
         }
 
         if ($requireSyncKey && empty($collection['synckey'])) {
