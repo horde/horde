@@ -3761,12 +3761,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param Horde_Imap_Client_Mailbox $mailbox  The mailbox.
      * @param Horde_Imap_Client_Ids $ids          The list of IDs to delete in
      *                                            $mailbox.
+     * @param array $opts                         Additional options (not used
+     *                                            in base class).
      *
      * @return Horde_Imap_Client_Ids  UIDs that were deleted.
      * @throws Horde_Imap_Client_Exception
      */
     protected function _deleteMsgs(Horde_Imap_Client_Mailbox $mailbox,
-                                   Horde_Imap_Client_Ids $ids)
+                                   Horde_Imap_Client_Ids $ids,
+                                   array $opts = array())
     {
         if (!$this->_initCache()) {
             return $ids;

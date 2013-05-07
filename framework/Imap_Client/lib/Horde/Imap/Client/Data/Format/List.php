@@ -43,6 +43,10 @@ class Horde_Imap_Client_Data_Format_List extends Horde_Imap_Client_Data_Format i
      *                        an array (or iterable object) of objects to add.
      * @param boolean $merge  Merge the contents of any container objects,
      *                        instead of adding the objects themselves?
+     *
+     * @return Horde_Imap_Client_Data_Format_List  This object to allow for
+     *                                             chainable calls (since
+     *                                             2.10.0).
      */
     public function add($data, $merge = false)
     {
@@ -55,6 +59,8 @@ class Horde_Imap_Client_Data_Format_List extends Horde_Imap_Client_Data_Format i
         } else if (!is_null($data)) {
             $this->_data[] = new Horde_Imap_Client_Data_Format_Atom($data);
         }
+
+        return $this;
     }
 
     /**

@@ -10,11 +10,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-01</date>
- <time>00:13:55</time>
+ <date>2013-05-08</date>
+ <time>18:23:04</time>
  <version>
-  <release>2.9.1</release>
-  <api>2.9.0</api>
+  <release>2.10.0</release>
+  <api>2.10.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add internal support for IMAP command pipelining.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -106,12 +106,17 @@
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Ids -->
        <dir name="Interaction">
+        <dir name="Command">
+         <file name="Continuation.php" role="php" />
+        </dir> <!-- /lib/Horde/Imap/Client/Interaction/Command -->
         <dir name="Server">
          <file name="Continuation.php" role="php" />
          <file name="Tagged.php" role="php" />
          <file name="Untagged.php" role="php" />
         </dir> <!-- /lib/Horde/Imap/Client/Interaction/Server -->
         <file name="Client.php" role="php" />
+        <file name="Command.php" role="php" />
+        <file name="Pipeline.php" role="php" />
         <file name="Server.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Interaction -->
        <dir name="Mailbox">
@@ -409,7 +414,10 @@
    <install as="Horde/Imap/Client/Ids/Map.php" name="lib/Horde/Imap/Client/Ids/Map.php" />
    <install as="Horde/Imap/Client/Ids/Pop3.php" name="lib/Horde/Imap/Client/Ids/Pop3.php" />
    <install as="Horde/Imap/Client/Interaction/Client.php" name="lib/Horde/Imap/Client/Interaction/Client.php" />
+   <install as="Horde/Imap/Client/Interaction/Command.php" name="lib/Horde/Imap/Client/Interaction/Command.php" />
+   <install as="Horde/Imap/Client/Interaction/Pipeline.php" name="lib/Horde/Imap/Client/Interaction/Pipeline.php" />
    <install as="Horde/Imap/Client/Interaction/Server.php" name="lib/Horde/Imap/Client/Interaction/Server.php" />
+   <install as="Horde/Imap/Client/Interaction/Command/Continuation.php" name="lib/Horde/Imap/Client/Interaction/Command/Continuation.php" />
    <install as="Horde/Imap/Client/Interaction/Server/Continuation.php" name="lib/Horde/Imap/Client/Interaction/Server/Continuation.php" />
    <install as="Horde/Imap/Client/Interaction/Server/Tagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Tagged.php" />
    <install as="Horde/Imap/Client/Interaction/Server/Untagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Untagged.php" />
@@ -1676,15 +1684,15 @@
   </release>
   <release>
    <version>
-    <release>2.9.1</release>
-    <api>2.9.0</api></version>
+    <release>2.10.0</release>
+    <api>2.10.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-01</date>
+   <date>2013-05-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add internal support for IMAP command pipelining.
    </notes>
   </release>
  </changelog>
