@@ -23,6 +23,9 @@ applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP
 address books. For more information on Turba, visit
 http://www.horde.org/apps/turba.
 
+Testing is requested and comments are encouraged.
+Updated translations would also be great.
+
 The major changes compared to the Turba H5 (4.0) versions are:
     * Added CardDAV server support.
     * Allow to search all search fields at once.

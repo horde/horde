@@ -22,6 +22,9 @@ provides a simple, clean interface for managing online task lists (i.e., todo
 lists). It also includes strong integration with the other Horde applications
 and allows users to share task lists or enable light-weight project management.
 
+Testing is requested and comments are encouraged.
+Updated translations would also be great.
+
 The major changes compared to the Nag H5 (4.0) versions are:
     * Added CalDAV server support.
     * Small improvements.

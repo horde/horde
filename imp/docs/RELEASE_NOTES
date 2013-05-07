@@ -23,6 +23,9 @@ access to IMAP and POP3 mail servers and provides Ajax, mobile and basic
 interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
+Testing is requested and comments are encouraged.
+Updated translations would also be great.
+
 The major changes compared to the IMP H5 (6.0) versions are:
     * Added message thread view to dynamic mailbox preview.
     * Support linking attachments, attaching PGP public keys, and attaching

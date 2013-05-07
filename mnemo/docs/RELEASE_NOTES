@@ -23,6 +23,9 @@ via shared notepads. It requires the Horde Application Framework and an SQL
 database or Kolab server for backend storage. For more information on Mnemo,
 visit http://www.horde.org/apps/mnemo.
 
+Testing is requested and comments are encouraged.
+Updated translations would also be great.
+
 The major changes compared to the Mnemo H5 (4.0) versions are:
     * Added ActiveSync synchronization of notes.
     * Small improvements.
