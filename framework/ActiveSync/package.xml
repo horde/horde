@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-06</date>
- <time>14:02:23</time>
+ <date>2013-05-07</date>
+ <time>12:59:45</time>
  <version>
   <release>2.4.0beta2</release>
   <api>2.4.0</api>
@@ -1354,7 +1354,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-06</date>
+   <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix building initial message state in certain cases for email collections when IMAP server does not support per mailbox MODSEQ values.
