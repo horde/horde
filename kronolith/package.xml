@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-08</date>
- <time>16:40:58</time>
+ <date>2013-05-07</date>
+ <time>14:57:04</time>
  <version>
   <release>4.1.0beta1</release>
   <api>4.1.0</api>
@@ -758,12 +758,6 @@
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="webcenter">
-     <dir name="dynamic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/webcenter/dynamic -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/webcenter -->
     </dir> <!-- /themes -->
    <file name="add.php" role="horde" />
    <file name="attend.php" role="horde" />
@@ -1514,9 +1508,7 @@
    <install as="kronolith/week.php" name="week.php" />
    <install as="kronolith/workweek.php" name="workweek.php" />
    <install as="kronolith/year.php" name="year.php" />
-   <install as="kronolith/themes/webcenter/screen.css" name="themes/webcenter/screen.css" />
-   <install as="kronolith/themes/webcenter/dynamic/screen.css" name="themes/webcenter/dynamic/screen.css" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -2111,7 +2103,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-04-08</date>
+   <date>2013-05-07</date>
    <time>16:40:30</time>
    <version>
     <release>4.1.0beta1</release>

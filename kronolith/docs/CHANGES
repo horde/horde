@@ -1,6 +1,6 @@
-----------
-v4.1.0-git
-----------
+-----------
+v4.1.0beta1
+-----------
 
 [jan] Add CalDAV server support (Request #4267).
 [jan] Use Horde_Dav for accessing remote calendars.
