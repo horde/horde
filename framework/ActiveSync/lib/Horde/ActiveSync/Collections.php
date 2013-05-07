@@ -500,13 +500,23 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         return $this->_as->state->getKnownFolders();
     }
 
-    public function updateFolderinHierarchy($folder)
+    /**
+     * Update/Add a folder in the hierarchy cache.
+     *
+     * @param Horde_ActiveSync_Folder_Base $folder  The folder object.
+     */
+    public function updateFolderinHierarchy(Horde_ActiveSync_Folder_Base $folder)
     {
         if ($this->_as->device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             $this->_cache->updateFolder($folder);
         }
     }
 
+    /**
+     * Delete a folder from the hierarchy cache.
+     *
+     * @param string $id  The folder's serverid.
+     */
     public function deleteFolderFromHierarchy($id)
     {
         if ($this->_as->device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
@@ -514,18 +524,31 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         }
     }
 
+    /**
+     * Return all know hierarchy changes.
+     *
+     * @return array  An array of changes.
+     */
     public function getHierarchyChanges()
     {
         return $this->_as->state->getChanges();
     }
 
-    public function validateHierarchyChanges($exporter, $seenFolders)
+    /**
+     * Validate and perform some sanity checks on the hierarchy changes before
+     * being sent to the client.
+     *
+     * @param Horde_ActiveSync_Connector_Exporter $exporter  The exporter.
+     * @param array $seenFolders                             An array of folders.
+     */
+    public function validateHierarchyChanges(Horde_ActiveSync_Connector_Exporter $exporter, array $seenFolders)
     {
         if ($this->_as->device->version < Horde_ActiveSync::VERSION_TWELVEONE ||
             count($exporter->changed)) {
             return;
         }
 
+        // Remove unnecessary changes.
         foreach ($exporter->changed as $key => $folder) {
             if (isset($folder->serverid) &&
                 $syncFolder = $this->_cache->getFolder($folder->serverid) &&
@@ -543,6 +566,8 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 $exporter->count--;
             }
         }
+
+        // Remove unnecessary deletions.
         foreach ($exporter->deleted as $key => $folder) {
             if (($sid = array_search($folder, $seenfolders)) === false) {
                 $this->_logger->info(sprintf(
@@ -556,6 +581,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         }
     }
 
+    /**
+     * Update the hierarchy synckey in the cache.
+     *
+     * @param string $key  The new/existing synckey.
+     */
     public function updateHierarchyKey($key)
     {
         $this->_cache->hierarchy = $key;
