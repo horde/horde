@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-05-07</date>
- <time>13:02:36</time>
+ <time>09:47:23</time>
  <version>
   <release>2.4.0beta3</release>
   <api>2.4.0</api>
@@ -125,7 +125,6 @@
       <file name="Policies.php" role="php" />
       <file name="Rfc822.php" role="php" />
       <file name="Status.php" role="php" />
-      <file name="Sync.php" role="php" />
       <file name="SyncCache.php" role="php" />
       <file name="Timezone.php" role="php" />
       <file name="Translation.php" role="php">
@@ -336,7 +335,6 @@
    <install as="Horde/ActiveSync/Policies.php" name="lib/Horde/ActiveSync/Policies.php" />
    <install as="Horde/ActiveSync/Rfc822.php" name="lib/Horde/ActiveSync/Rfc822.php" />
    <install as="Horde/ActiveSync/Status.php" name="lib/Horde/ActiveSync/Status.php" />
-   <install as="Horde/ActiveSync/Sync.php" name="lib/Horde/ActiveSync/Sync.php" />
    <install as="Horde/ActiveSync/SyncCache.php" name="lib/Horde/ActiveSync/SyncCache.php" />
    <install as="Horde/ActiveSync/Timezone.php" name="lib/Horde/ActiveSync/Timezone.php" />
    <install as="Horde/ActiveSync/Translation.php" name="lib/Horde/ActiveSync/Translation.php" />
