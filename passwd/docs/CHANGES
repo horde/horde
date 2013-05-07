@@ -1,6 +1,6 @@
-----------
-v5.0.0-git
-----------
+-----------
+v5.0.0beta1
+-----------
 
 [mms] Add option to destroy Horde session after changing password (Bug #11766).
 [mms] Http driver now uses Horde_Http_Client.
