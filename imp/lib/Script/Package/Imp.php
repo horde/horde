@@ -25,6 +25,8 @@ class IMP_Script_Package_Imp extends Horde_Script_Package
             'IMP_JS.unblock_image_text' => _("Click to always show images from this sender.")
         );
         $this->_files[] = $ob;
+
+        $GLOBALS['page_output']->ajax = true;
     }
 
 }
