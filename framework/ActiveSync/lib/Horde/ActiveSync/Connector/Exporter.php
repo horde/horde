@@ -101,7 +101,6 @@ class Horde_ActiveSync_Connector_Exporter
      */
     protected $_as;
 
-
     /**
      * Const'r
      *

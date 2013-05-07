@@ -12,8 +12,8 @@
  * @package   ActiveSync
  */
 /**
- * Horde_ActiveSync_Collections:: Functionality related to a group of collections
- * being handled during a sync request.
+ * Horde_ActiveSync_Collections:: Responsible for all functionality related to
+ * collections and managing the sync cache.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
@@ -26,7 +26,6 @@
  */
 class Horde_ActiveSync_Collections implements IteratorAggregate
 {
-
     const COLLECTION_ERR_FOLDERSYNC_REQUIRED = -1;
     const COLLECTION_ERR_SERVER              = -2;
     const COLLECTION_ERR_STALE               = -3;
