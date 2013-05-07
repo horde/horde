@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-05-07</date>
- <time>14:48:23</time>
+ <time>14:52:18</time>
  <version>
-  <release>4.1.0beta1</release>
+  <release>4.1.0beta2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Add CardDAV server support.
-* [mjr] Update the default SQL source schema (Request #11993).
-* [mms] Add links to group members on smartmobile entry page.
-* [mms] Add group icon to group contacts in smartmobile browse view.
-* [jan] Allow to search all search fields at once in basic searching.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1611,6 +1607,19 @@
 * [mms] Add links to group members on smartmobile entry page.
 * [mms] Add group icon to group contacts in smartmobile browse view.
 * [jan] Allow to search all search fields at once in basic searching.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.0beta2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-07</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
