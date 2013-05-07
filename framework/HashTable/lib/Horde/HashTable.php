@@ -123,7 +123,7 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
      * @param mixed $keys  The key or an array of keys.
      *
      * @return mixed  The string/array on success (return type is the type of
-     *                $keys); false on failure.
+     *                $keys); false value(s) on failure.
      */
     public function get($keys)
     {
@@ -142,7 +142,12 @@ abstract class Horde_HashTable implements ArrayAccess, Serializable
         }
 
         if (!empty($todo)) {
-            $out = array_merge($out, $this->_get($todo));
+            foreach ($this->_get($todo) as $key => $val) {
+                if ($val === false) {
+                    $this->_noexist[$key] = true;
+                }
+                $out[$key] = $val;
+            }
         }
 
         return $ret_array
