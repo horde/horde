@@ -1,6 +1,6 @@
-----------
-v6.1.0-git
-----------
+-----------
+v6.1.0beta1
+-----------
 
 [mms] Add ability to create new flag directly from dynamic mailbox screen.
 [mms] Implement 'refresh_time' preference in smartmobile view.

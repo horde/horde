@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-03</date>
+ <date>2013-05-07</date>
  <version>
   <release>6.1.0beta1</release>
   <api>6.0.0</api>
@@ -3134,7 +3134,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-05-03</date>
+   <date>2013-05-07</date>
    <version>
     <release>6.1.0beta1</release>
     <api>6.0.0</api>
