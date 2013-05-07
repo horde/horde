@@ -30,7 +30,7 @@
  </lead>
  <date>2013-05-07</date>
  <version>
-  <release>5.1.0beta1</release>
+  <release>5.1.0beta2</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -39,12 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mms] Add ability to update/create NoSQL indices from the admin config page.
-* [mjr] Add activesync device hooks.
-* [mms] Add a global default NoSQL driver configuration.
-* [mms] Allow MongoDB to be used as a cache backend.
-* [jan] Check all installed PEAR packages when checking for updates.
-* [mms] Add &apos;ajaxaction_data&apos; hook.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3636,6 +3631,19 @@
 * [mms] Allow MongoDB to be used as a cache backend.
 * [jan] Check all installed PEAR packages when checking for updates.
 * [mms] Add &apos;ajaxaction_data&apos; hook.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.1.0beta2</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
