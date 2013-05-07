@@ -3379,7 +3379,7 @@ var DimpBase = {
 
         this.deleteMboxElt(ob.m, !ob.ch);
         if (ob.co && this.view == ob.m) {
-            this.go();
+            this.go('mbox', this.INBOX);
         }
         this.createMbox(ob);
         if (ob.ch && tmp && tmp.hasClassName('col')) {
