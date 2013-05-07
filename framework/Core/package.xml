@@ -28,25 +28,25 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-05-04</date>
- <time>18:24:43</time>
+ <date>2013-05-07</date>
+ <time>12:53:06</time>
  <version>
-  <release>2.5.0</release>
+  <release>2.5.0beta1</release>
   <api>2.5.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Add the Horde_Registry_Application#nosqlDrivers() method.
 * [mms] Add the Horde_Core_Nosql library.
 * [jan] Fix setting configuration for timezone lookups.
 * [mms] Add a NoSQL factory.
 * [mms] Allow MongoDB to be used as a cache backend.
 * [mms] Regenerate session IDs during an active session to protect against session fixation attacks.
-* [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.
 * [jan] Add menu entry to show the notification log.
 * [mms] Dynamic javascript framework now has support for audio notification events.
@@ -2902,21 +2902,21 @@
   </release>
   <release>
    <version>
-    <release>2.5.0</release>
+    <release>2.5.0beta1</release>
     <api>2.5.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-05-04</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Add the Horde_Registry_Application#nosqlDrivers() method.
 * [mms] Add the Horde_Core_Nosql library.
 * [jan] Fix setting configuration for timezone lookups.
 * [mms] Add a NoSQL factory.
 * [mms] Allow MongoDB to be used as a cache backend.
 * [mms] Regenerate session IDs during an active session to protect against session fixation attacks.
-* [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Re-enable support for $conf[&apos;session&apos;][&apos;timeout&apos;] to allow for non-session based cookie lifetimes.
 * [jan] Add menu entry to show the notification log.
 * [mms] Dynamic javascript framework now has support for audio notification events.
