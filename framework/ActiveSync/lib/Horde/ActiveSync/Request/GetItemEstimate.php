@@ -193,7 +193,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         }
 
         if (!empty($needCache)) {
-            $collections->loadCollectionsFromCache();
+            $collections->validateFromCache();
         }
 
         // End Folders
