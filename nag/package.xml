@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-08</date>
- <time>16:35:26</time>
+ <date>2013-05-07</date>
+ <time>15:08:41</time>
  <version>
   <release>4.1.0beta1</release>
   <api>4.0.0</api>
@@ -1320,7 +1320,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-04-08</date>
+   <date>2013-05-07</date>
    <time>11:35:08</time>
    <version>
     <release>4.1.0beta1</release>
