@@ -1,18 +1,12 @@
---------
-v5.0-git
---------
+----------
+v5.0.0-git
+----------
 
 [mms] Add option to destroy Horde session after changing password (Bug #11766).
 [mms] Http driver now uses Horde_Http_Client.
 [jan] Update French translation (Paul De Vlieger
       <paul.de_vlieger@moniut.univ-bpclermont.fr>).
 [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
-
-
-----------
-v4.0.1-git
-----------
-
 [jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
 [jan] Fix preparing multiple backends (Bug #11023).
 

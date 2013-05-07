@@ -16,15 +16,15 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-12</date>
- <time>21:03:47</time>
+ <date>2013-05-07</date>
+ <time>17:20:29</time>
  <version>
-  <release>5.0.0</release>
+  <release>5.0.0beta1</release>
   <api>5.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -32,6 +32,8 @@
 * [mms] Http driver now uses Horde_Http_Client.
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
+* [jan] Fix preparing multiple backends (Bug #11023).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -638,14 +640,18 @@
   </release>
   <release>
    <version>
-    <release>4.0.2</release>
-    <api>4.0.0</api></version>
+    <release>5.0.0beta1</release>
+    <api>5.0.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-02-28</date>
+   <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add option to destroy Horde session after changing password (Bug #11766).
+* [mms] Http driver now uses Horde_Http_Client.
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
 * [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
 * [jan] Fix preparing multiple backends (Bug #11023).
    </notes>
