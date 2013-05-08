@@ -1410,6 +1410,7 @@ $(ImpMobile.onDocumentReady);
 $(document).on('mobileinit', function() {
     $.mobile.buttonMarkup.hoverDelay = 80;
     $.mobile.defaultPageTransition = 'none';
+    $.event.special.tap.tapholdThreshold = 600;
 });
 
 var ImpMobileMbox = {
