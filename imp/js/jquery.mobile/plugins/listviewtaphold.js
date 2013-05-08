@@ -27,14 +27,17 @@ $.widget('mobile.listviewtaphold', $.mobile.widget, {
                 y: xy[1]
             });
 
+            e.preventDefault();
             return false;
         });
 
         this.element.on('vmousedown', 'li', function(e) {
             xy = [ e.pageX, e.pageY ];
+            e.preventDefault();
         });
 
-        this.element.on('contextmenu', function() {
+        this.element.on('contextmenu', function(e) {
+            e.preventDefault();
             return false;
         });
     }
