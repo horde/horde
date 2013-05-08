@@ -334,6 +334,7 @@ class Horde_Auth
      *   - minAlphaNum: Minimum number of alphanumeric characters
      *   - minAlpha:    Minimum number of alphabetic characters
      *   - minSymbol:   Minimum number of punctuation / symbol characters
+     *   - minNonAlpha: Minimum number of non-alphabetic characters
      *
      *     Alternatively (or in addition to), the minimum number of
      *     character classes can be configured by setting the
@@ -363,7 +364,7 @@ class Horde_Auth
 
         // Dissect the password in a localized way.
         $classes = array();
-        $alpha = $alnum = $num = $upper = $lower = $space = $symbol = 0;
+        $alpha = $nonalpha = $alnum = $num = $upper = $lower = $space = $symbol = 0;
         for ($i = 0; $i < strlen($password); $i++) {
             $char = substr($password, $i, 1);
             if (ctype_lower($char)) {
@@ -371,9 +372,9 @@ class Horde_Auth
             } elseif (ctype_upper($char)) {
                 $upper++; $alpha++; $alnum++; $classes['upper'] = 1;
             } elseif (ctype_digit($char)) {
-                $num++; $alnum++; $classes['number'] = 1;
+                $num++; $nonalpha++; $alnum++; $classes['number'] = 1;
             } elseif (ctype_punct($char)) {
-                $symbol++; $classes['symbol'] = 1;
+                $symbol++; $nonalpha++; $classes['symbol'] = 1;
             } elseif (ctype_space($char)) {
                 $space++; $classes['symbol'] = 1;
             }
@@ -394,6 +395,9 @@ class Horde_Auth
         }
         if (isset($policy['minAlphaNum']) && $policy['minAlphaNum'] > $alnum) {
             throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::ngettext("The password must contain at least %d alphanumeric character.", "The password must contain at least %d alphanumeric characters.", $policy['minAlphaNum']), $policy['minAlphaNum']));
+        }
+        if (isset($policy['minNonAlpha']) && $policy['minNonAlpha'] > $nonalpha) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::ngettext("The password must contain at least %d numeric or special character.", "The password must contain at least %d numeric or special characters.", $policy['minNonAlpha']), $policy['minNonAlpha']));
         }
         if (isset($policy['minClasses']) && $policy['minClasses'] > array_sum($classes)) {
             throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::t("The password must contain at least %d different types of characters. The types are: lower, upper, numeric, and symbols."), $policy['minClasses']));
