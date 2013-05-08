@@ -2,7 +2,7 @@
 /**
  * @package Wicked
  */
-class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render
+class Text_Wiki_Render_Xhtml_Toc2 extends Text_Wiki_Render
 {
     public $conf = array(
         'css_list' => null,

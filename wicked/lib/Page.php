@@ -419,6 +419,9 @@ class Wicked_Page
         $skip[] = 'heading2';
         $this->_proc->setParseConf('Paragraph', 'skip', $skip);
 
+        $this->_proc->insertRule('Toc2', 'Toc');
+        $this->_proc->deleteRule('Toc');
+
         switch ($output_format) {
         case 'Xhtml':
             if ($GLOBALS['conf']['wicked']['format'] != 'Creole') {
