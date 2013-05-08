@@ -299,7 +299,7 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function valid()
     {
-        return !is_null($key($this->_prefs));
+        return !is_null(key($this->_prefs));
     }
 
     /* Serializable methods. */
