@@ -156,7 +156,7 @@ $backends['sudo_expect'] = array(
         'minNumeric' => 1,
     ),
     'params' => array(
-        'program' => '/usr/bin/expect ' . PASSWD_BASE . '/scripts/passwd_expect -sudo'
+        'program' => '/usr/bin/expect ' . PASSWD_BASE . '/scripts/passwd-expect -sudo'
     ),
 );
 
