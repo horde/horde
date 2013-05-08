@@ -44,8 +44,8 @@ ML;
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Added message thread view to dynamic mailbox preview.
-Support linking attachments, attaching PGP public keys, and attaching vCards in dynamic view.
-Allow uploading, drag & drop, and pasting of images into the HTML editor.
+Support drag & drop of attachments, linking attachments, attaching PGP public keys, and attaching vCards in dynamic view.
+Allow drag & drop, uploading, and pasting of images into the HTML editor.
 Display Virtual Folders in smartphone view.
 Added attachment uploading and saving compose drafts to smartphone view.
 Added taphold message action menu to smartmobile mailbox page.
