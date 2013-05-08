@@ -26,7 +26,7 @@
  * @link     http://www.horde.org/apps/wicked
  * @license  http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
-class Text_Wiki_Render_Rst_Toc extends Text_Wiki_Render
+class Text_Wiki_Render_Rst_Toc2 extends Text_Wiki_Render
 {
     /**
      * Renders a token into text matching the requested format.
@@ -39,7 +39,7 @@ class Text_Wiki_Render_Rst_Toc extends Text_Wiki_Render
     public function token($options)
     {
         if($options['type'] == 'list_start') {
-            return ".. contents:: Contents\n.. section-numbering::\n\n";
+            return ".. contents:: Contents\n.. section-numbering::";
         }
         if($options['type'] == 'item_start') {
             $this->wiki->registerRenderCallback(array($this, 'purge'));

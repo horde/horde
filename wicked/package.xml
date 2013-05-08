@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-04</date>
- <time>13:18:29</time>
+ <date>2013-05-08</date>
+ <time>11:05:25</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -175,6 +175,7 @@
        <file name="Heading2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
+       <file name="Toc2.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
        <file name="Wikilink2.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Parse/Default -->
@@ -199,9 +200,11 @@
      <dir name="Render">
       <dir name="Latex">
        <file name="Heading2.php" role="horde" />
+       <file name="Toc2.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Render/Latex -->
       <dir name="Plain">
        <file name="Heading2.php" role="horde" />
+       <file name="Toc2.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Render/Plain -->
       <dir name="Rst">
        <file name="Blockquote.php" role="horde" />
@@ -216,7 +219,7 @@
        <file name="Newline.php" role="horde" />
        <file name="Paragraph.php" role="horde" />
        <file name="Raw.php" role="horde" />
-       <file name="Toc.php" role="horde" />
+       <file name="Toc2.php" role="horde" />
        <file name="Tt.php" role="horde" />
        <file name="Url.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Render/Rst -->
@@ -228,7 +231,7 @@
        <file name="Image2.php" role="horde" />
        <file name="Interwiki.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
-       <file name="Toc.php" role="horde" />
+       <file name="Toc2.php" role="horde" />
        <file name="Url.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
        <file name="Wikilink2.php" role="horde" />
@@ -735,6 +738,7 @@
    <install as="wicked/lib/Text_Wiki/Parse/Default/Heading2.php" name="lib/Text_Wiki/Parse/Default/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Image2.php" name="lib/Text_Wiki/Parse/Default/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Registrylink.php" name="lib/Text_Wiki/Parse/Default/Registrylink.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Default/Toc2.php" name="lib/Text_Wiki/Parse/Default/Toc2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Wickedblock.php" name="lib/Text_Wiki/Parse/Default/Wickedblock.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Wikilink2.php" name="lib/Text_Wiki/Parse/Default/Wikilink2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Attribute.php" name="lib/Text_Wiki/Parse/Mediawiki/Attribute.php" />
@@ -752,7 +756,9 @@
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Wikilink2.php" name="lib/Text_Wiki/Parse/Tiki/Wikilink2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst.php" name="lib/Text_Wiki/Render/Rst.php" />
    <install as="wicked/lib/Text_Wiki/Render/Latex/Heading2.php" name="lib/Text_Wiki/Render/Latex/Heading2.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Latex/Toc2.php" name="lib/Text_Wiki/Render/Latex/Toc2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Plain/Heading2.php" name="lib/Text_Wiki/Render/Plain/Heading2.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Plain/Toc2.php" name="lib/Text_Wiki/Render/Plain/Toc2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Blockquote.php" name="lib/Text_Wiki/Render/Rst/Blockquote.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Bold.php" name="lib/Text_Wiki/Render/Rst/Bold.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Code.php" name="lib/Text_Wiki/Render/Rst/Code.php" />
@@ -765,7 +771,7 @@
    <install as="wicked/lib/Text_Wiki/Render/Rst/Newline.php" name="lib/Text_Wiki/Render/Rst/Newline.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Paragraph.php" name="lib/Text_Wiki/Render/Rst/Paragraph.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Raw.php" name="lib/Text_Wiki/Render/Rst/Raw.php" />
-   <install as="wicked/lib/Text_Wiki/Render/Rst/Toc.php" name="lib/Text_Wiki/Render/Rst/Toc.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Toc2.php" name="lib/Text_Wiki/Render/Rst/Toc2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Tt.php" name="lib/Text_Wiki/Render/Rst/Tt.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Url.php" name="lib/Text_Wiki/Render/Rst/Url.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Attribute.php" name="lib/Text_Wiki/Render/Xhtml/Attribute.php" />
@@ -775,7 +781,7 @@
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Image2.php" name="lib/Text_Wiki/Render/Xhtml/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Interwiki.php" name="lib/Text_Wiki/Render/Xhtml/Interwiki.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Registrylink.php" name="lib/Text_Wiki/Render/Xhtml/Registrylink.php" />
-   <install as="wicked/lib/Text_Wiki/Render/Xhtml/Toc.php" name="lib/Text_Wiki/Render/Xhtml/Toc.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Xhtml/Toc2.php" name="lib/Text_Wiki/Render/Xhtml/Toc2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Url.php" name="lib/Text_Wiki/Render/Xhtml/Url.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Wickedblock.php" name="lib/Text_Wiki/Render/Xhtml/Wickedblock.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Wikilink2.php" name="lib/Text_Wiki/Render/Xhtml/Wikilink2.php" />
