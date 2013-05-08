@@ -1293,9 +1293,10 @@ var ImpMobile = {
      */
     swipeButtons: function(e, ob)
     {
-        $.each($('#imp-mailbox-buttons').children(), function(k, v) {
+        $.each($($('#imp-mailbox-buttons').children()), function(k, v) {
+            v = $(v);
             if (ImpMobile.mailboxAction(v)) {
-                ob.buttons.push($(v).clone(true));
+                ob.buttons.push(v.clone(true));
             }
         });
     },
@@ -1304,7 +1305,7 @@ var ImpMobile = {
      */
     mailboxAction: function(v)
     {
-        switch ($(v).find('a').attr('href')) {
+        switch (v.attr('href')) {
         case '#mailbox-delete':
             return !ImpMobile.cache[ImpMobile.mailbox].readonly;
 
@@ -1324,10 +1325,11 @@ var ImpMobile = {
     mailboxTaphold: function(e)
     {
         $.each($('#imp-mailbox-taphold li'), function(k, v) {
-            if (ImpMobile.mailboxAction(v)) {
-                $(v).show().find('a').jqmData('buid', $(e.currentTarget).jqmData('buid'));
+            v = $(v);
+            if (ImpMobile.mailboxAction(v.find('a'))) {
+                v.show().find('a').jqmData('buid', $(e.currentTarget).jqmData('buid'));
             } else {
-                $(v).hide();
+                v.hide();
             }
         });
         $('#imp-mailbox-taphold ul').listview('refresh');
