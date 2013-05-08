@@ -41,6 +41,7 @@
  *     - minAlphaNum: (integer) Minimum number of alphanumeric characters.
  *     - minLength: (integer) Minimum length of the password.
  *     - minLower: (integer) Minimum number of lowercase characters.
+ *     - minNonAlpha: (integer) Minimum number of non-alphabetic characters
  *     - minNumeric: (integer) Minimum number of numeric characters (0-9).
  *     - minSymbol: (integer) Minimum number of punctuation / symbol characters.
  *     - minUpper: (integer) Minimum number of uppercase characters.
