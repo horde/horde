@@ -333,7 +333,7 @@ class Horde_Auth
      *   - minNumeric:  Minimum number of numeric characters (0-9)
      *   - minAlphaNum: Minimum number of alphanumeric characters
      *   - minAlpha:    Minimum number of alphabetic characters
-     *   - minSymbol:   Minimum number of alphabetic characters
+     *   - minSymbol:   Minimum number of punctuation / symbol characters
      *
      *     Alternatively (or in addition to), the minimum number of
      *     character classes can be configured by setting the
