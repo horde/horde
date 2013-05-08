@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Add parameter for sudo program name to expect script (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -661,7 +661,7 @@
    <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Add parameter for sudo program name to expect script (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
    </notes>
   </release>
  </changelog>
