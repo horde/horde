@@ -117,6 +117,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     const CACHE_FLAGS = 'HICflags';
 
     /**
+     * Queued commands to send to the server.
+     *
+     * @var array
+     */
+    protected $_cmdQueue = array();
+
+    /**
      * Mapping of status fields to IMAP names.
      *
      * @var array
@@ -744,6 +751,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         if (!is_null($this->_stream)) {
             if (empty($this->_temp['logout'])) {
+                if (!empty($this->_cmdQueue)) {
+                    /* If using imapproxy, force sending these commands, since
+                     * they may not be sent again if they are (likely)
+                     * initialization commands. */
+                    if (!empty($this->_init['imapproxy'])) {
+                        $pipeline = $this->_pipeline();
+                        foreach ($this->_cmdQueue as $val) {
+                            $pipeline->add($val);
+                        }
+                        $this->_sendCmd($pipeline);
+                    }
+
+                    $this->_cmdQueue = array();
+                }
+
                 $this->_temp['logout'] = true;
                 try {
                     $this->_sendCmd($this->_command('LOGOUT'));
@@ -885,10 +907,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _enable($exts)
     {
         if ($this->queryCapability('ENABLE')) {
-            // Only enable non-enabled extensions
+            // Only enable non-enabled extensions.
             $exts = array_diff($exts, array_keys($this->_init['enabled']));
             if (!empty($exts)) {
-                $this->_sendCmd($this->_command('ENABLE')->add($exts));
+                $this->_cmdQueue[] = $this->_command('ENABLE')->add($exts);
+
+                /* 'enabled' = 1 indicates we have sent the ENABLE request
+                 * to the server. Need to set here immediately because other
+                 * code may query enabled config before command is actually
+                 * sent. */
+                $this->_setInit('enabled', array_merge(
+                    $this->_init['enabled'],
+                    array_fill_keys($exts, 1)
+                ));
             }
         }
     }
@@ -900,9 +931,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseEnabled(Horde_Imap_Client_Tokenize $data)
     {
+        /* Set 'enabled' = 2 for all extensions verified as enabled on the
+         * server. */
         $this->_setInit('enabled', array_merge(
-            $this->_init['enabled'],
-            array_flip($data->flushIterator())
+            array_diff(array(2), $this->_init['enabled']),
+            array_fill_keys($data->flushIterator(), 2)
         ));
     }
 
@@ -3681,6 +3714,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $pipeline = ($cmd instanceof Horde_Imap_Client_Interaction_Command)
             ? $this->_pipeline($cmd)
             : $cmd;
+
+        if (count($this->_cmdQueue)) {
+            /* Add commands in reverse order. */
+            foreach (array_reverse($this->_cmdQueue) as $val) {
+                $pipeline->add($val, true);
+            }
+
+            $this->_cmdQueue = array();
+        }
 
         foreach ($pipeline as $val) {
             try {
