@@ -719,7 +719,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (!$firstlogin && !empty($this->_temp['proxyreuse'])) {
             // If we have not yet set the language, set it now.
             if (!isset($this->_init['lang'])) {
+                $this->_temp['lang_queue'] = true;
                 $this->setLanguage();
+                unset($this->_temp['lang_queue']);
             }
             return false;
         }
@@ -731,7 +733,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if ($firstlogin && empty($this->_temp['logincapset'])) {
             $this->_setInit('capability');
         }
+
+        $this->_temp['lang_queue'] = true;
         $this->setLanguage();
+        unset($this->_temp['lang_queue']);
 
         /* Only active QRESYNC/CONDSTORE if caching is enabled. */
         if ($this->_initCache()) {
@@ -846,6 +851,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $cmd = $this->_command('LANGUAGE');
         foreach ($langs as $lang) {
             $cmd->add(new Horde_Imap_Client_Data_Format_Astring($lang));
+        }
+
+        if (!empty($this->_temp['lang_queue'])) {
+            $this->_cmdQueue[] = $cmd;
+            return array();
         }
 
         try {
