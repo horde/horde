@@ -39,9 +39,8 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 
     public function getClientSort($data, $sort)
     {
-        $this->_fetch->clear();
-
         $ids = array();
+        $pipeline = $this->_pipeline();
 
         foreach (array_filter($data) as $val) {
             $token = new Horde_Imap_Client_Tokenize($val);
@@ -49,40 +48,35 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
             $token->next();
             $ids[] = $token->next();
 
-            $this->doServerResponse($val);
+            $this->doServerResponse($pipeline, $val);
         }
 
-        return $this->sort_ob->clientSortProcess($ids, $this->_fetch, $sort);
+        return $this->sort_ob->clientSortProcess($ids, $pipeline->fetch, $sort);
     }
 
     public function getThreadSort($data)
     {
-        $this->doServerResponse($data);
-        return new Horde_Imap_Client_Data_Thread($this->_temp['threadparse'], 'uid');
+        return new Horde_Imap_Client_Data_Thread($this->doServerResponse($this->_pipeline(), $data)->data['threadparse'], 'uid');
     }
 
     public function parseNamespace($data)
     {
-        $this->doServerResponse($data);
-        return $this->_temp['namespace'];
+        return $this->doServerResponse($this->_pipeline(), $data)->data['namespace'];
     }
 
     public function parseACL($data)
     {
-        $this->doServerResponse($data);
-        return $this->_temp['getacl'];
+        return $this->doServerResponse($this->_pipeline(), $data)->data['getacl'];
     }
 
     public function parseMyACLRights($data)
     {
-        $this->doServerResponse($data);
-        return $this->_temp['myrights'];
+        return $this->doServerResponse($this->_pipeline(), $data)->data['myrights'];
     }
 
     public function parseListRights($data)
     {
-        $this->doServerResponse($data);
-        return $this->_temp['listaclrights'];
+        return $this->doServerResponse($this->_pipeline(), $data)->data['listaclrights'];
     }
 
     /**
@@ -91,29 +85,22 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
      */
     public function parseFetch($data, array $opts = array())
     {
+        $pipeline = $this->_pipeline();
         if (isset($opts['results'])) {
-            $this->_fetch = $opts['results'];
-        } else {
-            $this->_fetch->clear();
+            $pipeline->fetch = $opts['results'];
         }
-        $this->_temp['modseqs_nouid'] = array();
+        $pipeline->data['modseqs_nouid'] = array();
 
-        $this->doServerResponse($data);
-
-        return $this->_fetch;
+        return $this->doServerResponse($pipeline, $data);
     }
 
-    public function getModseqsNouid()
-    {
-        return $this->_temp['modseqs_nouid'];
-    }
-
-    public function doServerResponse($data)
+    public function doServerResponse($pipeline, $data)
     {
         $server = Horde_Imap_Client_Interaction_Server::create(
             new Horde_Imap_Client_Tokenize($data)
         );
-        $this->_serverResponse($server);
+        $this->_serverResponse($pipeline, $server);
+        return $pipeline;
     }
 
     public function doResponseCode($data)
@@ -121,7 +108,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         $server = Horde_Imap_Client_Interaction_Server::create(
             new Horde_Imap_Client_Tokenize($data)
         );
-        $this->_responseCode($server);
+        $this->_responseCode($this->_pipeline(), $server);
     }
 
 }
