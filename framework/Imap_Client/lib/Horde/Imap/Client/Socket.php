@@ -1405,103 +1405,116 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
     /**
      */
-    protected function _status(Horde_Imap_Client_Mailbox $mailbox, $flags)
+    protected function _status($mboxes, $flags)
     {
-        $data = $query = array();
+        $out = $to_process = array();
+        $pipeline = $this->_pipeline();
         $unseen_flags = array(
             Horde_Imap_Client::STATUS_FIRSTUNSEEN,
             Horde_Imap_Client::STATUS_UNSEEN
         );
 
-        /* If FLAGS/PERMFLAGS/UIDNOTSTICKY/FIRSTUNSEEN are needed, we must do
-         * a SELECT/EXAMINE to get this information (data will be caught in
-         * the code below). */
-        if (($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
-            ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
-            ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
-            ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY)) {
-            $this->openMailbox($mailbox);
-        }
-
-        $mbox_ob = $this->_mailboxOb($mailbox);
-
-        foreach ($this->_statusFields as $key => $val) {
-            if (!($val & $flags)) {
-                continue;
+        foreach ($mboxes as $mailbox) {
+            /* If FLAGS/PERMFLAGS/UIDNOTSTICKY/FIRSTUNSEEN are needed, we must
+             * do a SELECT/EXAMINE to get this information (data will be
+             * caught in the code below). */
+            if (($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
+                ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
+                ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
+                ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY)) {
+                $this->openMailbox($mailbox);
             }
 
-            if ($val == Horde_Imap_Client::STATUS_HIGHESTMODSEQ) {
-                /* Don't include modseq returns if server does not support
-                 * it. */
-                if (!$this->queryCapability('CONDSTORE')) {
+            $mbox_ob = $this->_mailboxOb($mailbox);
+            $data = $query = array();
+
+            foreach ($this->_statusFields as $key => $val) {
+                if (!($val & $flags)) {
                     continue;
                 }
 
-                /* Even though CONDSTORE is available, it may not yet have
-                 * been enabled. */
-                if (!isset($this->_init['enabled']['CONDSTORE'])) {
-                    $this->_setInit('enabled', array_merge(
-                        $this->_init['enabled'],
-                        array('CONDSTORE' => true)
-                    ));
-                }
-            }
-
-            if ($mailbox->equals($this->_selected)) {
-                if (!is_null($tmp = $mbox_ob->getStatus($val))) {
-                    $data[$key] = $tmp;
-                } elseif (($val == Horde_Imap_Client::STATUS_UIDNEXT) &&
-                          ($flags & Horde_Imap_Client::STATUS_UIDNEXT_FORCE)) {
-                    /* UIDNEXT is not mandatory. */
-                    if ($mbox_ob->getStatus(Horde_Imap_Client::STATUS_MESSAGES) == 0) {
-                        $data[$key] = 0;
-                    } else {
-                        $fquery = new Horde_Imap_Client_Fetch_Query();
-                        $fquery->uid();
-                        $fetch_res = $this->fetch($this->_selected, $fquery, array(
-                            'ids' => $this->getIdsOb(Horde_Imap_Client_Ids::LARGEST)
-                        ));
-                        $data[$key] = $fetch_res->first()->getUid() + 1;
+                if ($val == Horde_Imap_Client::STATUS_HIGHESTMODSEQ) {
+                    /* Don't include modseq returns if server does not support
+                     * it. */
+                    if (!$this->queryCapability('CONDSTORE')) {
+                        continue;
                     }
-                } elseif (in_array($val, $unseen_flags)) {
-                    /* RFC 3501 [6.3.1] - FIRSTUNSEEN information is not
-                     * mandatory. If missing in EXAMINE/SELECT results, we
-                     * need to do a search. An UNSEEN count also requires a
-                     * search. */
-                    $squery = new Horde_Imap_Client_Search_Query();
-                    $squery->flag(Horde_Imap_Client::FLAG_SEEN, false);
-                    $search = $this->search($mailbox, $squery, array(
-                        'results' => array(
-                            Horde_Imap_Client::SEARCH_RESULTS_MIN,
-                            Horde_Imap_Client::SEARCH_RESULTS_COUNT
-                        ),
-                        'sequence' => true
-                    ));
 
-                    $mbox_ob->setStatus(Horde_Imap_Client::STATUS_FIRSTUNSEEN, $search['min']);
-                    $mbox_ob->setStatus(Horde_Imap_Client::STATUS_UNSEEN, $search['count']);
-
-                    $data[$key] = $mbox_ob->getStatus($val);
+                    /* Even though CONDSTORE is available, it may not yet have
+                     * been enabled. */
+                    if (!isset($this->_init['enabled']['CONDSTORE'])) {
+                        $this->_setInit('enabled', array_merge(
+                            $this->_init['enabled'],
+                            array('CONDSTORE' => true)
+                        ));
+                    }
                 }
-            } else {
-                $query[] = $key;
+
+                if ($mailbox->equals($this->_selected)) {
+                    if (!is_null($tmp = $mbox_ob->getStatus($val))) {
+                        $data[$key] = $tmp;
+                    } elseif (($val == Horde_Imap_Client::STATUS_UIDNEXT) &&
+                              ($flags & Horde_Imap_Client::STATUS_UIDNEXT_FORCE)) {
+                        /* UIDNEXT is not mandatory. */
+                        if ($mbox_ob->getStatus(Horde_Imap_Client::STATUS_MESSAGES) == 0) {
+                            $data[$key] = 0;
+                        } else {
+                            $fquery = new Horde_Imap_Client_Fetch_Query();
+                            $fquery->uid();
+                            $fetch_res = $this->fetch($this->_selected, $fquery, array(
+                                'ids' => $this->getIdsOb(Horde_Imap_Client_Ids::LARGEST)
+                            ));
+                            $data[$key] = $fetch_res->first()->getUid() + 1;
+                        }
+                    } elseif (in_array($val, $unseen_flags)) {
+                        /* RFC 3501 [6.3.1] - FIRSTUNSEEN information is not
+                         * mandatory. If missing in EXAMINE/SELECT results, we
+                         * need to do a search. An UNSEEN count also requires
+                         * a search. */
+                        $squery = new Horde_Imap_Client_Search_Query();
+                        $squery->flag(Horde_Imap_Client::FLAG_SEEN, false);
+                        $search = $this->search($mailbox, $squery, array(
+                            'results' => array(
+                                Horde_Imap_Client::SEARCH_RESULTS_MIN,
+                                Horde_Imap_Client::SEARCH_RESULTS_COUNT
+                            ),
+                            'sequence' => true
+                        ));
+
+                        $mbox_ob->setStatus(Horde_Imap_Client::STATUS_FIRSTUNSEEN, $search['min']);
+                        $mbox_ob->setStatus(Horde_Imap_Client::STATUS_UNSEEN, $search['count']);
+
+                        $data[$key] = $mbox_ob->getStatus($val);
+                    }
+                } else {
+                    $query[] = $key;
+                }
+            }
+
+            $out[strval($mailbox)] = $data;
+
+            if (count($query)) {
+                $pipeline->add(
+                    $this->_command('STATUS')->add(array(
+                        new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
+                        new Horde_Imap_Client_Data_Format_List(
+                            array_map('strtoupper', $query)
+                        )
+                    ))
+                );
+                $to_process[] = array($query, $mailbox);
             }
         }
 
-        if (!count($query)) {
-            return $data;
+        if (count($pipeline)) {
+            $this->_sendCmd($pipeline);
+
+            foreach ($to_process as $val) {
+                $out[strval($val[1])] += $this->_prepareStatusResponse($val[0], $val[1]);
+            }
         }
 
-        $this->_sendCmd(
-            $this->_command('STATUS')->add(array(
-                new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
-                new Horde_Imap_Client_Data_Format_List(
-                    array_map('strtoupper', $query)
-                )
-            ))
-        );
-
-        return $this->_prepareStatusResponse($query, $mailbox);
+        return $out;
     }
 
     /**

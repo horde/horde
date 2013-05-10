@@ -24,7 +24,7 @@
  *
  * @property-read boolean $finished  True if all commands have finished.
  */
-class Horde_Imap_Client_Interaction_Pipeline implements IteratorAggregate
+class Horde_Imap_Client_Interaction_Pipeline implements Countable, IteratorAggregate
 {
     /**
      * Data storage from server responses.
@@ -122,6 +122,15 @@ class Horde_Imap_Client_Interaction_Pipeline implements IteratorAggregate
         return isset($this->_commands[$tag])
             ? $this->_commands[$tag]
             : null;
+    }
+
+    /* Countable methods. */
+
+    /**
+     */
+    public function count()
+    {
+        return count($this->_commands);
     }
 
     /* IteratorAggregate methods. */

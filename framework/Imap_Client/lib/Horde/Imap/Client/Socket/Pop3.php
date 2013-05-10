@@ -505,9 +505,14 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      *                         under Horde_Imap_Client::STATUS_ALL.
      * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
-    protected function _status(Horde_Imap_Client_Mailbox $mailbox, $flags)
+    protected function _status($mboxes, $flags)
     {
-        $this->openMailbox($mailbox);
+        if ((count($mboxes) > 1) ||
+            (strcasecmp(reset($mboxes), 'INBOX') !== 0)) {
+            throw new Horde_Imap_Client_Exception_NoSupportPop3('Mailboxes other than INBOX');
+        }
+
+        $this->openMailbox('INBOX');
 
         $ret = array();
 
@@ -538,7 +543,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $ret['unseen'] = 0;
         }
 
-        return $ret;
+        return array('INBOX' => $ret);
     }
 
     /**

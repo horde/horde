@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Pipeline multiple STATUS commands if LIST-STATUS is not available.
+* [mms] Fold statusMultiple() functionality into base status() command.
 * [mms] Pipeline multiple IMAP FETCH calls.
 * [mms] Delay sending LANGUAGE command until we send another command to save a round-trip.
 * [mms] Delay sending ENABLE command until we send another command to save a round-trip.
@@ -1695,6 +1697,8 @@
    <date>2013-05-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Pipeline multiple STATUS commands if LIST-STATUS is not available.
+* [mms] Fold statusMultiple() functionality into base status() command.
 * [mms] Pipeline multiple IMAP FETCH calls.
 * [mms] Delay sending LANGUAGE command until we send another command to save a round-trip.
 * [mms] Delay sending ENABLE command until we send another command to save a round-trip.
