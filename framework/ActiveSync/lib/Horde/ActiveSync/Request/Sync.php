@@ -778,6 +778,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_handleError($collection);
             return false;
         } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
             $this->_statusCode = self::STATUS_SERVERERROR;
             $this->_handleGlobalSyncError();
             return false;
