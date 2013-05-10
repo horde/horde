@@ -2483,12 +2483,52 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      */
     protected function _fetch(Horde_Imap_Client_Fetch_Results $results,
-                              Horde_Imap_Client_Fetch_Query $query,
-                              $options)
+                              $queries)
     {
-        $t = &$this->_temp;
-        $t['fetchcmd'] = array();
+        $pipeline = $this->_pipeline();
+
+        foreach ($queries as $options) {
+            $this->_fetchCmd($pipeline, $options);
+            $sequence = $options['ids']->sequence;
+        }
+
+        try {
+            $resp = $this->_sendCmd($pipeline);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            // A NO response, when coupled with a sequence FETCH, most
+            // likely means that messages were expunged. RFC 2180 [4.1]
+            if ($sequence &&
+                ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
+                $this->_temp['expungeissued'] = true;
+            }
+        }
+
+        /* Check for EXPUNGEISSUED (RFC 2180 [4.1]/RFC 5530 [3]). */
+        if (!empty($this->_temp['expungeissued'])) {
+            unset($this->_temp['expungeissued']);
+            $this->noop();
+        }
+
+        foreach ($resp->fetch as $k => $v) {
+            $results->get($sequence ? $k : $v->getUid())->merge($v);
+        }
+    }
+
+    /**
+     * Add a FETCH command to the given pipeline.
+     *
+     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  Pipeline
+     *                                                          object.
+     * @param array $options                                    Fetch query
+     *                                                          options
+     */
+    protected function _fetchCmd(
+        Horde_Imap_Client_Interaction_Pipeline $pipeline,
+        $options
+    )
+    {
         $fetch = new Horde_Imap_Client_Data_Format_List();
+        $lookup = array();
         $sequence = $options['ids']->sequence;
 
         /* Build an IMAP4rev1 compliant FETCH query. We handle the following
@@ -2519,7 +2559,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          *   RFC822.TEXT => BODY[TEXT]
          */
 
-        foreach ($query as $type => $c_val) {
+        foreach ($options['_query'] as $type => $c_val) {
             switch ($type) {
             case Horde_Imap_Client::FETCH_STRUCTURE:
                 $fetch->add('BODYSTRUCTURE');
@@ -2580,7 +2620,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                         // Maintain a command -> label lookup so we can put
                         // the results in the proper location.
-                        $t['fetchcmd'][$cmd] = $key;
+                        $lookup[$cmd] = $key;
                     }
 
                     if (empty($val['peek'])) {
@@ -2624,15 +2664,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* A UID FETCH will always return UID information (RFC 3501
                  * [6.4.8]). Don't add to query as it just creates a longer
                  * FETCH command. */
-                if ($sequence || (count($query) == 1)) {
+                if ($sequence || (count($options['_query']) == 1)) {
                     $fetch->add('UID');
                 }
                 break;
 
             case Horde_Imap_Client::FETCH_SEQ:
-                // Nothing we need to add to fetch request unless sequence
-                // is the only criteria.
-                if (count($query) == 1) {
+                // Nothing we need to add to fetch request unless sequence is
+                // the only criteria.
+                if (count($options['_query']) == 1) {
                     $fetch->add('UID');
                 }
                 break;
@@ -2674,37 +2714,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * approach this limit. For simplification, assume that the UID list
          * is the limiting factor and split this list at a sequence comma
          * delimiter if it exceeds 2000 characters. */
-        $pipeline = $this->_pipeline();
         foreach ($options['ids']->split(2000) as $val) {
-            $pipeline->add(
-                $this->_command(
-                    $sequence ? 'FETCH' : 'UID FETCH'
-                )->add(array(
-                    $val,
-                    $fetch_cmd
-                ))
-            );
-        }
-
-        try {
-            $resp = $this->_sendCmd($pipeline);
-        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
-            // A NO response, when coupled with a sequence FETCH, most
-            // likely means that messages were expunged. RFC 2180 [4.1]
-            if ($sequence &&
-                ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
-                $this->_temp['expungeissued'] = true;
-            }
-        }
-
-        /* Check for EXPUNGEISSUED (RFC 2180 [4.1]/RFC 5530 [3]). */
-        if (!empty($this->_temp['expungeissued'])) {
-            unset($this->_temp['expungeissued']);
-            $this->noop();
-        }
-
-        foreach ($resp->fetch as $k => $v) {
-            $results->get($sequence ? $k : $v->getUid())->merge($v);
+            $cmd = $this->_command(
+                $sequence ? 'FETCH' : 'UID FETCH'
+            )->add(array(
+                $val,
+                $fetch_cmd
+            ));
+            $cmd->data['fetch_lookup'] = $lookup;
+            $pipeline->add($cmd);
         }
     }
 
@@ -2808,7 +2826,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $tag = substr($tag, 5);
 
                     // BODY[HEADER.FIELDS] request
-                    if (!empty($this->_temp['fetchcmd']) &&
+                    if (!empty($pipeline->data['fetch_lookup']) &&
                         (strpos($tag, 'HEADER.FIELDS') !== false)) {
                         $data->next();
                         $sig = $tag . ' (' . implode(' ', array_map('strtoupper', $data->flushIterator())) . ')';
@@ -2816,7 +2834,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         // Ignore the trailing bracket
                         $data->next();
 
-                        $ob->setHeaders($this->_temp['fetchcmd'][$sig], $data->next());
+                        $ob->setHeaders($pipeline->data['fetch_lookup'][$sig], $data->next());
                     } else {
                         // Remove trailing bracket and octet start info
                         $tag = substr($tag, 0, strrpos($tag, ']'));

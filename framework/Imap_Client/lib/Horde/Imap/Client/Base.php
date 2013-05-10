@@ -2593,7 +2593,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* If nothing is cacheable, we can do a straight search. */
         if (empty($cache_array)) {
-            $this->_fetch($ret, $query, $options);
+            $options['_query'] = $query;
+            $this->_fetch($ret, array($options));
             return $ret;
         }
 
@@ -2702,14 +2703,18 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
+        $to_fetch = array();
         foreach ($new_query as $val) {
             $ids_ob = $this->getIdsOb(null, $sequence);
             $ids_ob->duplicates = true;
             $ids_ob->add($val['i']);
-            $this->_fetch(is_null($cs_ret) ? $ret : $cs_ret, $val['c'], array_merge($options, array(
+            $to_fetch[] = array(
+                '_query' => $val['c'],
                 'ids' => $ids_ob
-            )));
+            );
         }
+
+        $this->_fetch(is_null($cs_ret) ? $ret : $cs_ret, $to_fetch);
 
         if (is_null($cs_ret)) {
             return $ret;
@@ -2747,15 +2752,18 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Fetch message data.
      *
+     * Fetch queries should be grouped in the $queries argument. Each value
+     * is an array of fetch options, with the fetch query stored in the
+     * '_query' parameter. IMPORTANT: All queries must have the same ID
+     * type (either sequence or UID).
+     *
      * @param Horde_Imap_Client_Fetch_Results $results  Fetch results.
-     * @param Horde_Imap_Client_Fetch_Query $query      Fetch query object.
-     * @param array $options                            Additional options.
+     * @param array $queries                            The list of queries.
      *
      * @throws Horde_Imap_Client_Exception
      */
     abstract protected function _fetch(Horde_Imap_Client_Fetch_Results $results,
-                                       Horde_Imap_Client_Fetch_Query $query,
-                                       $options);
+                                       $queries);
 
     /**
      * Get the list of vanished messages (UIDs that have been expunged since a
@@ -3925,9 +3933,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $fquery->flags();
 
             /* Update flags in cache. Cache will be updated in _fetch(). */
-            $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $fquery, array(
-                'changedsince' => $modseq,
-                'ids' => $uids_ob
+            $this->_fetch(new Horde_Imap_Client_Fetch_Results(), array(
+                array(
+                    '_query' => $fquery,
+                    'changedsince' => $modseq,
+                    'ids' => $uids_ob
+                )
             ));
         }
 
