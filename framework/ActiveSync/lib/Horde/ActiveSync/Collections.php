@@ -269,6 +269,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 $this->_procid, $collection['id'], $collection['synckey']));
         }
 
+        // Load the class if needed for EAS >= 12.1
+        if (empty($collection['class'])) {
+            $collection['class'] = $this->getCollectionClass($collection['id']);
+        }
+
         $this->_collections[$collection['id']] = $collection;
     }
 

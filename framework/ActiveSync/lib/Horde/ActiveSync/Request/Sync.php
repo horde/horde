@@ -636,16 +636,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
                     }
-                    if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-                        $collection['class'] = $this->_collections->getCollectionClass($collection['id']);
-                        // Ensure we can grab a collection class if needed,
-                        // require a FOLDERSYNC if not.
-                        if (empty($collection['class'])) {
-                            $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                            $this->_handleGlobalSyncError();
-                            return false;
-                        }
-                    }
                     break;
 
                 case Horde_ActiveSync::SYNC_WINDOWSIZE:
