@@ -614,7 +614,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 switch ($folder_tag) {
                 case Horde_ActiveSync::SYNC_FOLDERTYPE:
-                    // Not sent in 12.1 requests.
+                    // According to docs, in 12.1 this is sent here, in > 12.1
+                    // it is NOT sent here, it is sent in the ADD command ONLY.
+                    // BUT, I haven't seen any 12.1 client actually send this.
+                    // Only < 12.1 - leave version sniffing out in this case.
                     $collection['class'] = $this->_decoder->getElementContent();
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
@@ -794,7 +797,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         }
         $nchanges = 0;
         while (1) {
-            // MODIFY or REMOVE or ADD or FETCH
+            // SYNC_MODIFY, SYNC_REMOVE, SYNC_ADD or SYNC_FETCH
             $element = $this->_decoder->getElement();
             if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
                 $this->_decoder->_ungetElement($element);
@@ -802,32 +805,57 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
             $nchanges++;
 
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SERVERENTRYID)) {
+            // Only sent during SYNC_MODIFY/SYNC_REMOVE/SYNC_FETCH
+            if (($element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_MODIFY ||
+                 $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_REMOVE ||
+                 $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_FETCH) &&
+                $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SERVERENTRYID)) {
+
                 $serverid = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) { // end serverid
+                if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleGlobalSyncError();
-                    $this->_logger->err('Parsing Error');
+                    $this->_logger->err('Parsing Error - expecting </SYNC_SERVERENTRYID>');
                     return false;
                 }
             } else {
                 $serverid = false;
             }
 
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CLIENTENTRYID)) {
-                $clientid = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) { // end clientid
+            // This tag is only sent here during > 12.1 and SYNC_ADD requests...
+            // and it's not event sent by all clients. Parse it if it's there,
+            // ignore it if not.
+            if ($this->_activeSync->device->version > Horde_ActiveSync::VERSION_TWELVEONE &&
+                $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_ADD &&
+                $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE)) {
+                $collection['class'] = $this->_decoder->getElementContent();
+                if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleGlobalSyncError();
-                    $this->_logger->err('PARSING ERROR');
+                    $this->_logger->err('Parsing Error - expecting </SYNC_FOLDERTYPE>');
+                    return false;
+                }
+            }
+
+            // Only sent during SYNC_ADD
+            if ($element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_ADD &&
+                $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CLIENTENTRYID)) {
+                $clientid = $this->_decoder->getElementContent();
+                if (!$this->_decoder->getElementEndTag()) {
+                    $this->_statusCode = self::STATUS_PROTERROR;
+                    $this->_handleGlobalSyncError();
+                    $this->_logger->err('Parsing Error - expecting </SYNC_CLIENTENTRYID>');
                     return false;
                 }
             } else {
                 $clientid = false;
             }
 
-            // Create Message object from messages passed from PIM
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
+            // Create Message object from messages passed from PIM.
+            // Only passed during SYNC_ADD or SYNC_MODIFY
+            if (($element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_ADD ||
+                $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_MODIFY) &&
+                $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
                 switch ($collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
                     $appdata = Horde_ActiveSync::messageFactory('Mail');
@@ -890,10 +918,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             if (!$this->_decoder->getElementEndTag()) {
-                // end change/delete/move
                 $this->_statusCode = self::STATUS_PROTERROR;
                 $this->_handleGlobalSyncError();
-                $this->_logger->err('PARSING ERROR');
+                $this->_logger->err('Parsing error');
                 return false;
             }
         }
