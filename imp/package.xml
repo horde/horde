@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix incorrect dependencies.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1127,14 +1127,14 @@
    <package>
     <name>Horde_Compress</name>
     <channel>pear.horde.org</channel>
-    <min>2.3.0</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.5.0</min>
+    <min>2.5.0beta1</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1151,13 +1151,6 @@
     <min>1.0.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Date</name>
-    <channel>pear.horde.org</channel>
-    <min>2.1.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
@@ -3158,7 +3151,7 @@
    <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix incorrect dependencies.
    </notes>
   </release>
  </changelog>
