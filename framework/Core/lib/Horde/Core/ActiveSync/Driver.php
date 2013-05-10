@@ -1109,10 +1109,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                // There is no history entry for new messages, so use the
-                // current time for purposes of remembering this is from the PIM
-                $stat = $this->_smartStatMessage($folderid, $id, false);
-                $stat['mod'] = time();
+                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1, 'parent' => $folderid);
             } else {
                 // ActiveSync messages do NOT contain the serverUID value, put
                 // it in ourselves so we can have it during import/change.
@@ -1140,8 +1137,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = $this->_smartStatMessage($folderid, $id, false);
-                $stat['mod'] = time();
+                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1, 'parent' => $folderid);
             } else {
                 if (!empty($device->supported[self::CONTACTS_FOLDER_UID])) {
                     $message->setSupported($device->supported[self::CONTACTS_FOLDER_UID]);
@@ -1166,8 +1162,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = $this->_smartStatMessage($folderid, $id, false);
-                $stat['mod'] = time();
+                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1, 'parent' => $folderid);
             } else {
                 if (!empty($device->supported[self::TASKS_FOLDER_UID])) {
                     $message->setSupported($device->supported[self::TASKS_FOLDER_UID]);
@@ -1192,8 +1187,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = $this->_smartStatMessage($folderid, $id, false);
-                $stat['mod'] = time();
+                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1, 'parent' => $folderid);
             } else {
                 if (!empty($device->supported[self::NOTES_FOLDER_UID])) {
                     $message->setSupported($device->supported[self::NOTES_FOLDER_UID]);
