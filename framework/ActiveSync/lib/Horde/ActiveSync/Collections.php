@@ -376,7 +376,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function getCollectionClass($id)
     {
         if (isset($this->_cache->folders[$id]['class'])) {
-            return $this->_cache->folders[$id]['class'];
+            $class = $this->_cache->folders[$id]['class'];
+            $this->_logger->info(sprintf(
+                '[%s] Obtaining collection class of %s for collection id %s',
+                $this->_procid, $class, $id));
+            return $class;
         }
 
         return false;
