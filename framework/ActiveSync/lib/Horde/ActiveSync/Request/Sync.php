@@ -766,6 +766,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_procid));
         }
 
+        if (empty($collection['class'])) {
+            $collection['class'] = $this->_collections->getCollectionClass($collection['id']);
+        }
+
         try {
             $this->_collections->initCollectionState($collection);
         } catch (Horde_ActiveSync_Exception_StateGone $e) {
