@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix creating new objects from Outlook clients.
+* [mjr] Fix setting incoming heartbeat value.
 * [mjr] Fix sending updated heartbeat interval when requested heartbeat is out of bounds.
  </notes>
  <contents>
@@ -1368,6 +1370,8 @@
    <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix creating new objects from Outlook clients.
+* [mjr] Fix setting incoming heartbeat value.
 * [mjr] Fix sending updated heartbeat interval when requested heartbeat is out of bounds.
    </notes>
   </release>
