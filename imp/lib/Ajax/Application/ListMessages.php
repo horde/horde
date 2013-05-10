@@ -127,6 +127,11 @@ class IMP_Ajax_Application_ListMessages
             $mbox->filterOnDisplay();
         }
 
+        /* Optimization: saves at least a STATUS and an EXAMINE call since
+         * we will eventually open mailbox READ-WRITE. */
+        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
+
         /* Generate the sorted mailbox list now. */
         $mailbox_list = $mbox->list_ob;
         $msgcount = count($mailbox_list);
@@ -135,8 +140,6 @@ class IMP_Ajax_Application_ListMessages
         $result = $this->getBaseOb($mbox);
         $result->cacheid = $mbox->cacheid_date;
         $result->totalrows = $msgcount;
-
-        $imp_imap = $injector->getInstance('IMP_Imap');
 
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
