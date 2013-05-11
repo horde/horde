@@ -14,10 +14,11 @@ $.widget('mobile.listviewtaphold', $.mobile.widget, {
 
     _create: function()
     {
-        var opts = this.options,
-            xy;
+        var $elt = this.element,
+            opts = this.options,
+            $li, xy;
 
-        this.element.on('taphold', 'li', function(e) {
+        $elt.on('taphold', 'li', function(e) {
             $li = $(e.currentTarget);
 
             $li.trigger('listviewtaphold');
@@ -27,18 +28,20 @@ $.widget('mobile.listviewtaphold', $.mobile.widget, {
                 y: xy[1]
             });
 
-            e.preventDefault();
             return false;
         });
 
-        this.element.on('vmousedown', 'li', function(e) {
+        $elt.on('vmousedown', 'li', function(e) {
+            $li = null;
             xy = [ e.pageX, e.pageY ];
-            e.preventDefault();
         });
 
-        this.element.on('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
+        $(document).on('contextmenu', function(e) {
+            if ($li) {
+                $li = null;
+                return false;
+            }
+            return !$elt.find(e.target).size();
         });
     }
 
