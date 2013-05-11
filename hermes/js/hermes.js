@@ -284,6 +284,8 @@ HermesCore = {
                 return;
 
             case 'hermesReturnToSearch':
+                // Refresh the search in case anything changed.
+                this.search();
                 this.go('search');
                 e.stop();
                 return;
