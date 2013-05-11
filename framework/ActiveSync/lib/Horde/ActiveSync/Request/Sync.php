@@ -725,14 +725,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     } elseif ($collection['getchanges'] === false) {
                         $collection['getchanges'] = true;
                     }
-
-                    // GETCHANGES MUST not be set when SYNCKEY is 0 (initial sync).
-                    if (!empty($collection['getchanges']) && $collection['synckey'] == 0) {
-                        $this->_statusCode = self::STATUS_PROTERROR;
-                        $this->_handleGlobalSyncError();
-                        return false;
-                    }
-
                     break;
 
                 case Horde_ActiveSync::SYNC_OPTIONS:
