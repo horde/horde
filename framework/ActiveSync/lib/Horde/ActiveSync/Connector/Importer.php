@@ -148,6 +148,7 @@ class Horde_ActiveSync_Connector_Importer
                 return $uid;
             }
         }
+
         // Tell the backend about the change
         if (!$stat = $this->_backend->changeMessage($this->_folderId, $id, $message, $device)) {
             $this->_logger->err(sprintf(
