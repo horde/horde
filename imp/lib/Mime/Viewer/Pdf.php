@@ -52,7 +52,7 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
         $img = $this->_getHordeImageOb(true);
 
         if ($img) {
-            $img->resize(96, 96, true);
+            $img->resize(150, 150, true);
             $type = $img->getContentType();
             $data = $img->raw(true);
         }

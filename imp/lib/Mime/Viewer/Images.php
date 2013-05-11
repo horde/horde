@@ -214,8 +214,8 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         if ($img) {
             if ($thumb) {
                 $dim = $img->getDimensions();
-                if (($dim['height'] > 96) || ($dim['width'] > 96)) {
-                    $img->resize(96, 96, true);
+                if (($dim['height'] > 150) || ($dim['width'] > 150)) {
+                    $img->resize(150, 150, true);
                 }
             }
             $type = $img->getContentType();
