@@ -279,8 +279,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             // Update the syncCache with the new collection data.
             $this->_collections->updateCache();
-            // Refresh collections that might have changed in another process.
-            // $this->_collections->updateCollectionsFromCache();
+
             // Save.
             $this->_collections->save();
 
