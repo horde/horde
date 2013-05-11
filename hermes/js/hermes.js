@@ -744,10 +744,22 @@ HermesCore = {
 
         if (r === true) {
             // Successfully entered, but not for current user. Don't add to UI.
+            if (this.fromSearch) {
+                this.fromSearch = false;
+                this.search();
+                this.go('search');
+            }
             return;
         }
+
         this.slices.push(r);
         this.reverseSort = false;
+        if (this.fromSearch) {
+            this.fromSearch = false;
+            this.search();
+            this.go('search');
+            return;
+        }
         this.updateView(this.view);
         this.buildTimeTable();
     },
