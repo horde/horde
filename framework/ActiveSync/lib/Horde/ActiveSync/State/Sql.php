@@ -1349,7 +1349,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Determines if a specific change originated from the client. Used to
+     * Determines if a specific email change originated from the client. Used to
      * avoid mirroring back client initiated changes.
      *
      * @param string $id     The object id.
