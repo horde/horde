@@ -276,6 +276,20 @@ abstract class Horde_ActiveSync_State_Base
         return false;
     }
 
+    /**
+     * Return the UID portion of a synckey.
+     *
+     * @param string $syncKey  The synckey
+     *
+     * @return string  The UID.
+     */
+    static public function getSyncKeyUid($syncKey)
+    {
+       if (preg_match('/^s{0,1}(\{[a-fA-F0-9-]+\})([0-9]+)$/', $syncKey, $matches)) {
+            return $matches[1];
+        }
+    }
+
    /**
     * Returns the timestamp of the earliest modification time to consider
     *
