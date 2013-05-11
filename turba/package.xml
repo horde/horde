@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Updated default localsql schema.
 * [jan] Fix incorrect dependencies.
  </notes>
  <contents>
@@ -1619,6 +1620,7 @@
    <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Updated default localsql schema.
 * [jan] Fix incorrect dependencies.
    </notes>
   </release>
