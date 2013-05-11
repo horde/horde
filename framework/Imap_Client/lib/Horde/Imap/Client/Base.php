@@ -2729,10 +2729,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $ids_ob = $this->getIdsOb(null, $sequence);
             $ids_ob->duplicates = true;
             $ids_ob->add($val['i']);
-            $to_fetch[] = array(
+            $to_fetch[] = array_merge($options, array(
                 '_query' => $val['c'],
                 'ids' => $ids_ob
-            );
+            ));
         }
 
         if (!empty($to_fetch)) {
