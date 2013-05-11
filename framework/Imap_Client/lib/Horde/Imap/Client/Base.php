@@ -2735,7 +2735,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             );
         }
 
-        $this->_fetch(is_null($cs_ret) ? $ret : $cs_ret, $to_fetch);
+        if (!empty($to_fetch)) {
+            $this->_fetch(is_null($cs_ret) ? $ret : $cs_ret, $to_fetch);
+        }
 
         if (is_null($cs_ret)) {
             return $ret;
