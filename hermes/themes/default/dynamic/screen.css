@@ -401,10 +401,6 @@ div.hermesTimeSliceOptions {
     font-style: italic;
 }
 
-#hermesTimeFormCollapse {
-    float: right;
-    padding-right:15px;
-}
 .hermesTimeFormShown {
    background: url("../graphics/minus.png") no-repeat scroll left  transparent;
 }

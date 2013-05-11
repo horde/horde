@@ -249,19 +249,6 @@ HermesCore = {
                 }
                 return;
 
-            case 'hermesTimeFormCollapse':
-                if ($('hermesTimeForm').visible()) {
-                    $('hermesTimeForm').slideUp({ duration: this.effectDur });
-                    $('hermesTimeFormCollapse').removeClassName('hermesTimeFormShown');
-                    $('hermesTimeFormCollapse').addClassName('hermesTimeFormHidden');
-                } else {
-                    $('hermesTimeForm').slideDown({ duration: this.effectDur });
-                    $('hermesTimeFormCollapse').addClassName('hermesTimeFormShown');
-                    $('hermesTimeFormCollapse').removeClassName('hermesTimeFormHidden');
-                }
-                e.stop();
-                return;
-
             // Timer form
             case 'hermesAddTimer':
                 RedBox.showHtml($('hermesTimerDialog').show());
@@ -728,7 +715,6 @@ HermesCore = {
         var params = $H($('hermesTimeForm').serialize({ hash: true }));
 
         $('hermesLoadingTime').show();
-        // New or Edit?
         if ($F('hermesTimeFormId') > 0) {
             HordeCore.doAction('updateSlice',
                 params,
