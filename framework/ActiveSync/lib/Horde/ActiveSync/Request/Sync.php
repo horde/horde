@@ -369,6 +369,22 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return false;
             }
 
+            // HACK!!
+            // Outlook explicitly tells the server to NOT check for server
+            // changes when importing client changes, unlike EVERY OTHER client
+            // out there. This completely screws up many things like conflict
+            // detection since we can't update the sync_ts until we actually
+            // check for changes. So, we need to FORCE a change detection cycle
+            // to be sure we don't screw up state. Any detected changes will be
+            // ignored until the next cycle, utilizing the existing mechanism
+            // for sending MOREITEMS when we will return the previously
+            // selected changes.
+            if (!empty($collection['importedchanges']) && empty($collection['getchanges'])) {
+                $forceChanges = true;
+                $collection['getchanges'] = true;
+                $this->_logger->notice('Force a GETCHANGES due to incoming changes.');
+            }
+
             if ($statusCode == self::STATUS_SUCCESS &&
                 (!empty($collection['getchanges']) ||
                  (!isset($collection['getchanges']) && $collection['synckey'] != '0'))) {
@@ -532,6 +548,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 // Send server changes to PIM
                 if ($statusCode == self::STATUS_SUCCESS &&
+                    empty($forceChanges) &&
                     (!empty($collection['getchanges']) ||
                      (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
 
