@@ -172,6 +172,7 @@ HermesCore = {
             switch (id) {
             // Main navigation links
             case 'hermesNavTime':
+                $('hermesSlices').show();
                 this.go('time');
                 e.stop();
                 return;
@@ -444,10 +445,12 @@ HermesCore = {
         if ($('hermesTimeFormEmployee')) {
             $('hermesTimeFormEmployee').setValue(slice.e);
         }
+        $('hordeTimeFormCollapse').update(Hermes.text.edittime);
 
         // We might be on the search form when we click edit.
         this.fromSearch = (this.view == 'search');
         if (this.view != 'time') {
+            $('hermesSlices').hide();
             this.go('time');
             $('hermesReturnToSearch').show();
         }
@@ -738,6 +741,7 @@ HermesCore = {
             );
         }
         $('hermesTimeSaveAsNew').hide();
+        $('hordeTimeFormCollapse').update(Hermes.text.timeentry);
     },
 
     /**

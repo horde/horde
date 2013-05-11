@@ -87,6 +87,8 @@ class Hermes_Ajax
             'prefs' => _("Preferences"),
             'fix_form_values' => _("Please enter correct values in the form first."),
             'wrong_date_format' => sprintf(_("You used an unknown date format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),
+            'timeentry' => _("Time Entry"),
+            'edittime' => _("Editing Time Entry"),
         );
 
         return $js_vars;

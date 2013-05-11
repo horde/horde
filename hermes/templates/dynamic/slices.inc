@@ -71,38 +71,40 @@
   <!-- End Time Entry Form -->
 
   <!-- Time Slice Grid -->
-  <div class="header"><?php echo _("My Unsubmitted Time")?>
-    <span class="QuickFinderWrapper"><input type="text" name="quicksearchT" id="quicksearchT" title="<?php echo _("Quick Filter")?>" for="hermesTimeListInternal" empty="hermesTimeListEmpty" /></span>
-  </div>
-
-  <div id="hermesTimeListHeader">
-    <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
-    <div class="hermesTimeListDate hermesBorderLeft"><a class="widget" id="sortDate"><?php echo _("Date")?></a></div>
-    <div class="hermesTimeListClient hermesBorderLeft"><a class="widget" id="sortClient"><?php echo _("Client")?></a></div>
-    <div class="hermesTimeListCostObject hermesBorderLeft"><a class="widget" id="sortCostObject"><?php echo _("Cost Object")?></a></div>
-    <div class="hermesTimeListType hermesBorderLeft"><a class="widget" id="sortType"><?php echo _("Job Type")?></a></div>
-    <div class="hermesTimeListDesc hermesBorderLeft"><a class="widget" id="sortDesc"><?php echo _("Description")?></a></div>
-    <div class="hermesTimeListBill hermesBorderLeft"><a class="widget" id="sortBill"><?php echo _("Bill") ?></a></div>
-    <div class="hermesTimeListHours hermesBorderLeft"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
-    <div class="hermesTimeSliceOptions">&nbsp;</div>
-  </div>
-  <div id="hermesTimeListBody">
-    <div id="hermesTimeListTemplate" style="display:none;">
-      <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
-      <div class="hermesTimeListDate hermesBorderLeft"></div>
-      <div class="hermesTimeListClient hermesBorderLeft"></div>
-      <div class="hermesTimeListCostObject hermesBorderLeft"></div>
-      <div class="hermesTimeListType hermesBorderLeft"></div>
-      <div class="hermesTimeListDesc hermesBorderLeft"></div>
-      <div class="hermesTimeListBill hermesBorderLeft"></div>
-      <div class="hermesTimeListHours hermesBorderLeft"></div>
-      <div class="hermesTimeSliceOptions"><span class="sliceEdit sliceControl">&nbsp;</span><span class="sliceDelete sliceControl">&nbsp;</span></div>
+  <div id="hermesSlices">
+    <div class="header"><?php echo _("My Unsubmitted Time")?>
+      <span class="QuickFinderWrapper"><input type="text" name="quicksearchT" id="quicksearchT" title="<?php echo _("Quick Filter")?>" for="hermesTimeListInternal" empty="hermesTimeListEmpty" /></span>
     </div>
-    <div id="hermesTimeListInternal"></div>
-    <div id="hermesTimeListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
-  </div>
-  <div id="hermesTimeListControls" class="horde-form-buttons">
-    <input id="hermesTimeListSubmit" disabled="disabled" class="horde-button" type="button" value="<?php echo _("Submit Time")?>" />
+
+    <div id="hermesTimeListHeader">
+      <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
+      <div class="hermesTimeListDate hermesBorderLeft"><a class="widget" id="sortDate"><?php echo _("Date")?></a></div>
+      <div class="hermesTimeListClient hermesBorderLeft"><a class="widget" id="sortClient"><?php echo _("Client")?></a></div>
+      <div class="hermesTimeListCostObject hermesBorderLeft"><a class="widget" id="sortCostObject"><?php echo _("Cost Object")?></a></div>
+      <div class="hermesTimeListType hermesBorderLeft"><a class="widget" id="sortType"><?php echo _("Job Type")?></a></div>
+      <div class="hermesTimeListDesc hermesBorderLeft"><a class="widget" id="sortDesc"><?php echo _("Description")?></a></div>
+      <div class="hermesTimeListBill hermesBorderLeft"><a class="widget" id="sortBill"><?php echo _("Bill") ?></a></div>
+      <div class="hermesTimeListHours hermesBorderLeft"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
+      <div class="hermesTimeSliceOptions">&nbsp;</div>
+    </div>
+    <div id="hermesTimeListBody">
+      <div id="hermesTimeListTemplate" style="display:none;">
+        <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
+        <div class="hermesTimeListDate hermesBorderLeft"></div>
+        <div class="hermesTimeListClient hermesBorderLeft"></div>
+        <div class="hermesTimeListCostObject hermesBorderLeft"></div>
+        <div class="hermesTimeListType hermesBorderLeft"></div>
+        <div class="hermesTimeListDesc hermesBorderLeft"></div>
+        <div class="hermesTimeListBill hermesBorderLeft"></div>
+        <div class="hermesTimeListHours hermesBorderLeft"></div>
+        <div class="hermesTimeSliceOptions"><span class="sliceEdit sliceControl">&nbsp;</span><span class="sliceDelete sliceControl">&nbsp;</span></div>
+      </div>
+      <div id="hermesTimeListInternal"></div>
+      <div id="hermesTimeListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
+    </div>
+    <div id="hermesTimeListControls" class="horde-form-buttons">
+      <input id="hermesTimeListSubmit" disabled="disabled" class="horde-button" type="button" value="<?php echo _("Submit Time")?>" />
+    </div>
   </div>
   <!-- End of Time Slice Grid -->
 
