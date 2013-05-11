@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Directly output image thumbnails via data URIs when possible.
 * [jan] Fix incorrect dependencies.
  </notes>
  <contents>
@@ -3151,6 +3152,7 @@
    <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Directly output image thumbnails via data URIs when possible.
 * [jan] Fix incorrect dependencies.
    </notes>
   </release>

@@ -273,7 +273,25 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _outputImgTag($type, $alt)
     {
-        return '<img src="' . $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type))) . '" alt="' . htmlspecialchars($alt, ENT_COMPAT, $this->getConfigParam('charset')) . '" />';
+        global $browser;
+
+        switch ($type) {
+        case 'view_thumbnail':
+            if ($browser->getFeature('dataurl')) {
+                $thumb = $this->_viewConvert(true);
+                $thumb = reset($thumb);
+                $src = Horde_Url_Data::create($thumb['type'], $thumb['data']);
+                break;
+            }
+
+            // Fall-through
+
+        default:
+            $src = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type)));
+            break;
+        }
+
+        return '<img src="' . $src . '" alt="' . htmlspecialchars($alt, ENT_COMPAT, $this->getConfigParam('charset')) . '" />';
     }
 
 }
