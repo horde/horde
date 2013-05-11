@@ -59,7 +59,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
     public function readForm()
     {
         // Required
-        $this->_properties['date'] = new Horde_Date(Horde_Util::getPost('start_date'));
+        $this->_properties['date'] = Hermes::parseDate(Horde_Util::getPost('start_date'));
         $this->_properties['hours'] = Horde_Util::getPost('hours');
         $this->_properties['description'] = Horde_Util::getPost('description');
         $this->_properties['id'] = Horde_Util::getPost('id', 0);
