@@ -1290,11 +1290,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             . ' GROUP BY message_uid';
 
         // Get the allowed synckeys to include.
-        $uid = self::getSyncKeyUid($this->_syncKey);
+        $uuid = self::getSyncKeyUid($this->_syncKey);
         $cnt = self::getSyncKeyCounter($this->_syncKey);
         try {
             return $this->_db->selectValue(
-                $sql, array($uid, $this->_deviceInfo->id, $this->_deviceInfo->user, $uid . $cnt, $uid . ($cnt - 1)));
+                $sql, array($uid, $this->_deviceInfo->id, $this->_deviceInfo->user, $uuid . $cnt, $uuid . ($cnt - 1)));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
