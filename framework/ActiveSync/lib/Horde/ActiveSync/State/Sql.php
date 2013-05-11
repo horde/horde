@@ -835,7 +835,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_collection['id']));
 
             $this->_changes = array();
-            if (count($changes) && $this->_havePIMChanges($this->_collection['class'])) {
+            if (count($changes) && $this->_havePIMChanges()) {
                 $this->_logger->info(sprintf(
                     '[%s] Checking for PIM initiated changes.',
                     $this->_procid));
@@ -1308,21 +1308,22 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * having to stat every message change we send to the PIM if there are no
      * PIM generated changes for this sync period.
      *
-     * @param string $class  The collection class to check for.
-     *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    protected function _havePIMChanges($class = null)
+    protected function _havePIMChanges()
     {
+        $class = $this->_collection['class'];
+
         $table = $class == Horde_ActiveSync::CLASS_EMAIL ?
             $this->_syncMailMapTable :
             $this->_syncMapTable;
         $sql = 'SELECT COUNT(*) FROM ' . $table
-            . ' WHERE sync_devid = ? AND sync_user = ?';
+            . ' WHERE sync_devid = ? AND sync_user = ? AND sync_folderid = ?';
+
         try {
             return (bool)$this->_db->selectValue(
-                $sql, array($this->_deviceInfo->id, $this->_deviceInfo->user));
+                $sql, array($this->_deviceInfo->id, $this->_deviceInfo->user, $this->_collection['id']));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }

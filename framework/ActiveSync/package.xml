@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix mirroring back changes when an object created on the client is edited on the same client within 1 sync cycle.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1384,7 +1384,7 @@
    <date>2013-05-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix mirroring back changes when an object created on the client is edited on the same client within 1 sync cycle.
    </notes>
   </release>
  </changelog>
