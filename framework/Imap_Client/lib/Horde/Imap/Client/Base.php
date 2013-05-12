@@ -1965,8 +1965,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                        Horde_Imap_Client_Mailbox object or a string
      *                        (UTF-8).
      * @param array $options  Additional options:
-     *   - ids: (Horde_Imap_Client_Ids) A list of messages to expunge, but
-     *          only if they are also flagged as deleted.
+     *   - delete: (boolean) If true, will flag all messages in 'ids' as
+     *             deleted (since 2.10.0).
+     *             DEFAULT: false
+     *   - ids: (Horde_Imap_Client_Ids) A list of messages to expunge. These
+     *          messages must already be flagged as deleted (unless 'delete'
+     *          is true).
      *          DEFAULT: All messages marked as deleted will be expunged.
      *   - list: (boolean) If true, returns the list of expunged messages
      *           (UIDs only).

@@ -1890,20 +1890,42 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Always use UID EXPUNGE if available. */
         if ($uidplus) {
-            $pipeline = $this->_pipeline();
+            /* We can only pipeline STORE w/ EXPUNGE if using UIDs and UIDPLUS
+             * is available. */
+            if (empty($options['delete'])) {
+                $pipeline = $this->_pipeline();
+            } else {
+                $pipeline = $this->_storeCmd(array(
+                    'add' => array(
+                        Horde_Imap_Client::FLAG_DELETED
+                    ),
+                    'ids' => $ids
+                ));
+            }
+
             foreach ($ids->split(2000) as $val) {
                 $pipeline->add(
                     $this->_command('UID EXPUNGE')->add($val)
                 );
             }
+
             $resp = $this->_sendCmd($pipeline);
-        } elseif ($use_cache || $list_msgs) {
-            $resp = $this->_sendCmd($this->_command('EXPUNGE'));
         } else {
-            /* This is faster than an EXPUNGE because the server will not
-             * return untagged EXPUNGE responses. We can only do this if
-             * we are not updating cache information. */
-            $this->close(array('expunge' => true));
+            if (!empty($options['delete'])) {
+                $this->store($this->_selected, array(
+                    'add' => array(Horde_Imap_Client::FLAG_DELETED),
+                    'ids' => $ids
+                ));
+            }
+
+            if ($use_cache || $list_msgs) {
+                $this->_sendCmd($this->_command('EXPUNGE'));
+            } else {
+                /* This is faster than an EXPUNGE because the server will not
+                 * return untagged EXPUNGE responses. We can only do this if
+                 * we are not updating cache information. */
+                $this->close(array('expunge' => true));
+            }
         }
 
         unset($this->_temp['expunged']);
@@ -3182,6 +3204,40 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _store($options)
     {
+        $pipeline = $this->_storeCmd($options);
+        $pipeline->data['modified'] = $this->getIdsOb();
+
+        try {
+            $resp = $this->_sendCmd($pipeline);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            /* A NO response, when coupled with a sequence STORE and
+             * non-SILENT behavior, most likely means that messages were
+             * expunged. RFC 2180 [4.2] */
+            if (empty($pipeline->data['store_silent']) &&
+                !empty($options['sequence']) &&
+                ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
+                $this->_temp['expungeissued'] = true;
+            }
+        }
+
+        /* Check for EXPUNGEISSUED (RFC 2180 [4.2]/RFC 5530 [3]). */
+        if (!empty($this->_temp['expungeissued'])) {
+            unset($this->_temp['expungeissued']);
+            $this->noop();
+        }
+
+        return $resp->data['modified'];
+    }
+
+    /**
+     * Create a store command.
+     *
+     * @param array $options  See Horde_Imap_Client_Base#_store().
+     *
+     * @return Horde_Imap_Client_Interaction_Pipeline  Pipeline object.
+     */
+    protected function _storeCmd($options)
+    {
         $cmds = array();
         $silent = empty($options['unchangedsince'])
              ? !($this->_debug->debug || $this->_initCache(true))
@@ -3204,6 +3260,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $pipeline = $this->_pipeline();
+        $pipeline->data['store_silent'] = $silent;
+
         foreach ($cmds as $val) {
             $cmd = $this->_command(
                 empty($options['sequence']) ? 'UID STORE' : 'STORE'
@@ -3219,28 +3277,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $pipeline->add($cmd);
         }
 
-        $pipeline->data['modified'] = $this->getIdsOb();
-
-        try {
-            $resp = $this->_sendCmd($pipeline);
-        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
-            /* A NO response, when coupled with a sequence STORE and
-             * non-SILENT behavior, most likely means that messages were
-             * expunged. RFC 2180 [4.2] */
-            if (!$silent &&
-                !empty($options['sequence']) &&
-                ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
-                $this->_temp['expungeissued'] = true;
-            }
-        }
-
-        /* Check for EXPUNGEISSUED (RFC 2180 [4.2]/RFC 5530 [3]). */
-        if (!empty($this->_temp['expungeissued'])) {
-            unset($this->_temp['expungeissued']);
-            $this->noop();
-        }
-
-        return $resp->data['modified'];
+        return $pipeline;
     }
 
     /**
@@ -3282,11 +3319,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             !empty($options['move']) &&
             (isset($resp->data['copyuid']) ||
              !$this->_queryCapability('UIDPLUS'))) {
-            $opts = array('ids' => $options['ids']);
-            $this->store($this->_selected, array_merge(array(
-                'add' => array(Horde_Imap_Client::FLAG_DELETED)
-            ), $opts));
-            $this->expunge($this->_selected, $opts);
+            $this->expunge($this->_selected, array(
+                'delete' => true,
+                'ids' => $options['ids']
+            ));
         }
 
         return isset($resp->data['copyuid'])

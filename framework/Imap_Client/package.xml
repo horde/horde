@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Support pipelining of STORE + EXPUNGE if UIDPLUS is available.
 * [mms] Pipeline multiple STATUS commands if LIST-STATUS is not available.
 * [mms] Fold statusMultiple() functionality into base status() command.
 * [mms] Pipeline multiple IMAP FETCH calls.
@@ -1697,6 +1698,7 @@
    <date>2013-05-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Support pipelining of STORE + EXPUNGE if UIDPLUS is available.
 * [mms] Pipeline multiple STATUS commands if LIST-STATUS is not available.
 * [mms] Fold statusMultiple() functionality into base status() command.
 * [mms] Pipeline multiple IMAP FETCH calls.

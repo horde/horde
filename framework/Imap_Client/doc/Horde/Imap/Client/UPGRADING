@@ -16,6 +16,10 @@ Upgrading to 2.10.0
 
   - Horde_Imap_Client_Base
 
+    - expunge()
+
+      The 'delete' option was added.
+
     - status()
 
       The $mailbox argument now supports array input (and will return an
