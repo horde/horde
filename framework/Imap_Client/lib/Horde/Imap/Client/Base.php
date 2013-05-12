@@ -540,12 +540,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function queryCapability($capability)
     {
-        if (!isset($this->_init['capability'])) {
-            try {
-                $this->capability();
-            } catch (Horde_Imap_Client_Exception $e) {
-                return false;
-            }
+        try {
+            $this->capability();
+        } catch (Horde_Imap_Client_Exception $e) {
+            return false;
         }
 
         $capability = strtoupper($capability);
@@ -576,16 +574,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function capability()
     {
         if (!isset($this->_init['capability'])) {
-            $this->_setInit('capability', $this->_capability());
+            $this->_capability();
         }
 
         return $this->_init['capability'];
     }
 
     /**
-     * Get CAPABILITY information from the IMAP server.
-     *
-     * @return array  The capability array.
+     * Retrieve CAPABILITY information from the IMAP server.
      *
      * @throws Horde_Imap_Client_Exception
      */

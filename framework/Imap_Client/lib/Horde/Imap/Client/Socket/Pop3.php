@@ -159,8 +159,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         $this->_setInit('capability', $capability);
-
-        return $this->_init['capability'];
     }
 
     /**
