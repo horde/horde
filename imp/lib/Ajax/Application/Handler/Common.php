@@ -642,10 +642,13 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 throw new IMP_Exception(_("Could not open mailbox."));
             }
 
-            /* Explicitly load the message here; non-existent messages are
-             * ignored when the Ajax queue is processed. */
-            $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($this->_base->indices);
             $this->_base->queue->message($this->_base->indices, $this->vars->preview, $this->vars->peek);
+
+            /* Explicitly load the message here; non-existent messages are
+             * ignored when the Ajax queue is processed. Place the check AFTER
+             * the message() command, as the previous command will open the
+             * mailbox R/W, an optimization. */
+            $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($this->_base->indices);
         } catch (Exception $e) {
             $result->error = $e->getMessage();
             $result->errortype = 'horde.error';
