@@ -445,6 +445,27 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
+     * Attempt to find a Message-ID in a list of mail folders.
+     *
+     * @return array  An array with the 0 element being the mbox
+     */
+    public function getUidFromMidInFolders($id, array $folders)
+    {
+        $search_q = new Horde_Imap_Client_Search_Query();
+        $search_q->headerText('Message-ID', $id);
+        foreach ($folders as $folder) {
+            $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
+            $results = $this->_getImapOb()->search($mbox, $search_q);
+            $uid = $results['match']->ids;
+            if (!empty($uid)) {
+                return array($mbox, current($uid));
+            }
+        }
+
+        throw new Horde_Exception_NotFound('Message not found.');
+    }
+
+    /**
      * Move a mail message
      *
      * @param string $folderid     The existing folderid.
