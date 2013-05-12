@@ -241,16 +241,18 @@ class IMP_Ajax_Queue
             $poll_list[strval($val)] = 1;
         }
 
-        $imap_ob = $injector->getInstance('IMP_Imap');
-        if ($imap_ob->init) {
-            foreach ($imap_ob->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
-                $poll[IMP_Mailbox::formTo($key)] = intval($val['unseen']);
+        if (count($poll_list)) {
+            $imap_ob = $injector->getInstance('IMP_Imap');
+            if ($imap_ob->init) {
+                foreach ($imap_ob->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
+                    $poll[IMP_Mailbox::formTo($key)] = intval($val['unseen']);
+                }
             }
-        }
 
-        if (!empty($poll)) {
-            $ajax->addTask('poll', $poll);
-            $this->_poll = array();
+            if (!empty($poll)) {
+                $ajax->addTask('poll', $poll);
+                $this->_poll = array();
+            }
         }
 
         /* Add quota information. */
