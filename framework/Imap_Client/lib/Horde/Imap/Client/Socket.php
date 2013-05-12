@@ -170,13 +170,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     public function __construct(array $params = array())
     {
-        $params = array_merge(array(
+        parent::__construct(array_merge(array(
             'debug_literal' => false,
             'envelope_addrs' => 1000,
             'envelope_string' => 2048
-        ), $params);
-
-        parent::__construct($params);
+        ), $params));
     }
 
     /**
