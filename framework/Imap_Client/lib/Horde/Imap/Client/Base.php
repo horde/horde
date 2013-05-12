@@ -2577,8 +2577,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         /* Determine if caching is available and if anything in $query is
-         * cacheable.
-         * TODO: Re-add base headertext caching. */
+         * cacheable. */
         foreach ($cf as $k => $v) {
             if (isset($query[$k])) {
                 switch ($k) {
@@ -2673,7 +2672,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     break;
 
                 case Horde_Imap_Client::FETCH_HEADERS:
-                    /* HEADERS caching. */
                     foreach ($header_cache as $hkey => $hval) {
                         if (isset($data[$uid][$cid][$hval])) {
                             /* We have found a cached entry with the same
