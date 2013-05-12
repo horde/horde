@@ -2499,6 +2499,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                               $queries)
     {
         $pipeline = $this->_pipeline();
+        $pipeline->data['fetch_lookup'] = array();
 
         foreach ($queries as $options) {
             $this->_fetchCmd($pipeline, $options);
@@ -2541,7 +2542,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     )
     {
         $fetch = new Horde_Imap_Client_Data_Format_List();
-        $lookup = array();
         $sequence = $options['ids']->sequence;
 
         /* Build an IMAP4rev1 compliant FETCH query. We handle the following
@@ -2633,7 +2633,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                         // Maintain a command -> label lookup so we can put
                         // the results in the proper location.
-                        $lookup[$cmd] = $key;
+                        $pipeline->data['fetch_lookup'][$cmd] = $key;
                     }
 
                     if (empty($val['peek'])) {
@@ -2734,7 +2734,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $val,
                 $fetch_cmd
             ));
-            $cmd->data['fetch_lookup'] = $lookup;
             $pipeline->add($cmd);
         }
     }
