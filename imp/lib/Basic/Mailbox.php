@@ -64,9 +64,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
          * so select it on the IMAP server (saves some STATUS calls). Open
          * R/W to clear the RECENT flag. This call will catch invalid
          * mailboxes. */
-        if (!($search_mbox = $mailbox->search)) {
-            $imp_imap->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
-        }
+        $imp_imap->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
 
         /* Determine if mailbox is readonly. */
         $readonly = $mailbox->readonly;
@@ -215,6 +213,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
         /* Token to use in requests. */
         $mailbox_token = $horde_token->get('imp.mailbox');
+        $search_mbox = $mailbox->search;
 
         /* Deal with filter options. */
         if (!$readonly &&

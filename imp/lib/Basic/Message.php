@@ -36,9 +36,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         /* We know we are going to be exclusively dealing with this mailbox,
          * so select it on the IMAP server (saves some STATUS calls). Open R/W
          * to clear the RECENT flag. */
-        if (!$mailbox->search) {
-            $imp_imap->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
-        }
+        $imp_imap->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
 
         /* Make sure we have a valid index. */
         $imp_mailbox = $mailbox->list_ob;

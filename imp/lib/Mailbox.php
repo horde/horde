@@ -592,7 +592,7 @@ class IMP_Mailbox implements Serializable
                 try {
                     /* Make sure we are in R/W mailbox mode (SELECT). No flags
                      * are allowed in EXAMINE mode. */
-                    $imp_imap->openMailbox($this->_mbox, Horde_Imap_Client::OPEN_READWRITE);
+                    $imp_imap->openMailbox($this, Horde_Imap_Client::OPEN_READWRITE);
                     $status = $imp_imap->status($this->_mbox, Horde_Imap_Client::STATUS_FLAGS | Horde_Imap_Client::STATUS_PERMFLAGS);
                     return new IMP_Imap_PermanentFlags($status['permflags'], $status['flags']);
                 } catch (Exception $e) {}

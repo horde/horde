@@ -530,7 +530,6 @@ class IMP_Imap implements Serializable
         case 'getQuota':
         case 'getQuotaRoot':
         case 'getSyncToken':
-        case 'openMailbox':
         case 'setMetadata':
         case 'setQuota':
         case 'status':
@@ -550,6 +549,15 @@ class IMP_Imap implements Serializable
             // their first two parameters.
             $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
             $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
+            break;
+
+        case 'openMailbox':
+            $mbox = IMP_Mailbox::get($params[0]);
+            if ($mbox->search) {
+                /* Can't open a search mailbox. */
+                return;
+            }
+            $params[0] = $mbox->imap_mbox_ob;
             break;
 
         case 'search':
