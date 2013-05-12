@@ -1449,23 +1449,42 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         }
 
-        if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE &&
-            (!empty($forward) || !empty($reply))) {
+        // Attempt to write forward/reply state.
+        if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
+            if (empty($forward) && empty($reply) && !empty($message)) {
+                if ($parentid = $raw_message->getHeaders()->getValue('In-Reply-To')) {
+                    $this->_logger->info(sprintf(
+                        'Logging LASTVERBEXECUTED to Maillog: reply, %s, %s',
+                        $parentid,
+                        $headers->getValue('To')));
+                    $this->_connector->mail_logMaillog(
+                        'reply',
+                        $parentid,
+                        $headers->getValue('To'));
 
-            // Sync reply/forward state.
-            $this->_logger->info(sprintf(
-                'Logging LASTVERBEXECUTED to Maillog: %s, %s, %s',
-                !empty($reply) ? 'reply' : 'forward',
-                $imap_message->getHeaders()->getValue('Message-ID'),
-                $headers->getValue('To')));
-            $this->_connector->mail_logMaillog(
-                !empty($reply) ? 'reply' : 'forward',
-                $imap_message->getHeaders()->getValue('Message-ID'),
-                $headers->getValue('To'));
-            $this->_imap->setImapFlag(
-                $parent,
-                !empty($reply) ? $reply : $forward,
-                !empty($reply) ? Horde_ActiveSync::IMAP_FLAG_REPLY : Horde_ActiveSync::IMAP_FLAG_FORWARD);
+                    $this->_logger->info('Attempting to set reply flag by searching for parent message.');
+                    try {
+                        $parent = $this->_imap->getUidFromMidInFolders($parentid, $this->_getMailFolders());
+                        $this->_imap->setImapFlag($parent[0], $parent[1], Horde_ActiveSync::IMAP_FLAG_REPLY);
+                    } catch (Horde_Exception_NotFound $e) {
+                        $this->_logger->info($e->getMessage());
+                    }
+                }
+            } elseif (!empty($forward) || !empty($reply)) {
+                $this->_logger->info(sprintf(
+                    'Logging LASTVERBEXECUTED to Maillog: %s, %s, %s',
+                    !empty($reply) ? 'reply' : 'forward',
+                    $imap_message->getHeaders()->getValue('Message-ID'),
+                    $headers->getValue('To')));
+                $this->_connector->mail_logMaillog(
+                    !empty($reply) ? 'reply' : 'forward',
+                    $imap_message->getHeaders()->getValue('Message-ID'),
+                    $headers->getValue('To'));
+                $this->_imap->setImapFlag(
+                    $parent,
+                    !empty($reply) ? $reply : $forward,
+                    !empty($reply) ? Horde_ActiveSync::IMAP_FLAG_REPLY : Horde_ActiveSync::IMAP_FLAG_FORWARD);
+            }
         }
 
         return true;
