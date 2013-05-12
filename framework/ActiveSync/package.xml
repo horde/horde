@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-10</date>
- <time>15:01:05</time>
+ <date>2013-05-11</date>
+ <time>22:15:28</time>
  <version>
   <release>2.4.0beta4</release>
   <api>2.4.0</api>
@@ -1384,7 +1384,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-10</date>
+   <date>2013-05-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Improvements to synchronizing reply/forward state and maillog entries when using Outlook.
