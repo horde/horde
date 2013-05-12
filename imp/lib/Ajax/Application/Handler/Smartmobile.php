@@ -66,6 +66,9 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
     {
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
 
+        /* Poll all mailboxes on initial display. */
+        $this->_base->queue->poll($imptree->getPollList());
+
         $mask = $imptree::FLIST_VFOLDER;
         if (!$this->vars->all) {
             $mask |= $imptree::FLIST_POLLED;
@@ -73,7 +76,6 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         $imptree->setIteratorFilter($mask);
 
         return $imptree->createTree($this->vars->all ? 'smobile_folders_all' : 'smobile_folders', array(
-            'poll_info' => true,
             'render_type' => 'IMP_Tree_Jquerymobile'
         ))->getTree(true);
     }

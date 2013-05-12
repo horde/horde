@@ -1169,6 +1169,13 @@ var ImpMobile = {
      */
     updateFolders: function(r)
     {
+        /* If directly loading the folders page, the poll task will be
+         * executed before this task. */
+        if ((HordeMobile.currentPage() == 'folders') &&
+            !$('#imp-folders-list').children().size()) {
+            window.setTimeout(function() { ImpMobile.updateFolders(r); }, 100);
+        }
+
         $.each(r, function(key, value) {
             var elt = $('#imp-mailbox-' + key);
             if (value) {
