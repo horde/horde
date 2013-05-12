@@ -72,6 +72,9 @@ class IMP_Ajax_Application_ShowMessage
             $query->envelope();
 
             $imp_imap = $injector->getInstance('IMP_Imap');
+            if (!$peek) {
+                $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
+            }
             $ret = $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($uid)
             ));
