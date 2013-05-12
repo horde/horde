@@ -3756,7 +3756,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ? $this->_pipeline($cmd)
             : $cmd;
 
-        if (count($this->_cmdQueue)) {
+        if (!empty($this->_cmdQueue)) {
             /* Add commands in reverse order. */
             foreach (array_reverse($this->_cmdQueue) as $val) {
                 $pipeline->add($val, true);
