@@ -39,7 +39,7 @@
     <input class="horde-delete" type="button" value="<?php echo _("Remove") ?>" id="remove_<?php echo $d->id ?>" />
   </td>
   <td><?php echo $d->deviceType ?></td>
-  <td><?php echo strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $d->getLastSyncTimestamp()) ?></td>
+  <td><?php echo $d->getLastSyncTimestamp() ? strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $d->getLastSyncTimestamp()) : _("None") ?></td>
   <td><?php echo $status ?></td>
   <td>
     <?php foreach ($d->getFormattedDeviceProperties() as $key => $value): ?>
