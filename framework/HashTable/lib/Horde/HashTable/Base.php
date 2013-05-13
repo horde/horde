@@ -134,8 +134,8 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
      *
      * @param mixed $keys  The key or an array of keys.
      *
-     * @return mixed  The string/array if it exists (return type is the type
-     *                of $keys); false value(s) if not exists.
+     * @return mixed  A boolean/array of booleans indicating existence (return
+     *                type is the type of $keys).
      */
     public function exists($keys)
     {
