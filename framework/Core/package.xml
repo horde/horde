@@ -43,6 +43,7 @@
 * [mms] Make sure we are not using a SQL Cache driver in the DB object itself.
 * [mms] Horde_Memcache usage is deprecated in favor of Horde_HashTable.
 * [mms] Add factory for Horde_HashTable drivers.
+* [jan] Fix dependencies.
 * [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
  </notes>
  <contents>
@@ -2931,6 +2932,7 @@
 * [mms] Make sure we are not using a SQL Cache driver in the DB object itself.
 * [mms] Horde_Memcache usage is deprecated in favor of Horde_HashTable.
 * [mms] Add factory for Horde_HashTable drivers.
+* [jan] Fix dependencies.
 * [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
    </notes>
   </release>
