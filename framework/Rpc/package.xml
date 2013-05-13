@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2013-05-13</date>
- <time>15:11:28</time>
+ <time>15:15:30</time>
  <version>
-  <release>2.1.0beta1</release>
+  <release>2.1.0beta2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Use Horde_Dav for DAV RPC backends.
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -816,6 +816,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Use Horde_Dav for DAV RPC backends.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0beta2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>
