@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t require an unstable package from a stable version.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -352,13 +352,6 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Dav</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0alpha1</max>
-    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
@@ -802,7 +795,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t require an unstable package from a stable version.
    </notes>
   </release>
  </changelog>
