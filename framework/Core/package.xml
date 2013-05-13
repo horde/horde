@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-05-13</date>
- <time>15:18:50</time>
+ <time>15:22:42</time>
  <version>
-  <release>2.5.0beta2</release>
+  <release>2.5.0beta3</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -43,8 +43,6 @@
 * [mms] Make sure we are not using a SQL Cache driver in the DB object itself.
 * [mms] Horde_Memcache usage is deprecated in favor of Horde_HashTable.
 * [mms] Add factory for Horde_HashTable drivers.
-* [jan] Fix dependencies.
-* [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2929,11 +2927,23 @@
    <date>2013-05-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix dependencies.
+* [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.0beta3</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-05-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
 * [mms] Make sure we are not using a SQL Cache driver in the DB object itself.
 * [mms] Horde_Memcache usage is deprecated in favor of Horde_HashTable.
 * [mms] Add factory for Horde_HashTable drivers.
-* [jan] Fix dependencies.
-* [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
    </notes>
   </release>
  </changelog>
