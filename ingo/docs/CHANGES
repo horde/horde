@@ -2,6 +2,8 @@
 v3.1.0-git
 ----------
 
+[mms] Fix regression in accessing Ingo links from the external API (Bug
+      #12249).
 
 
 -----------

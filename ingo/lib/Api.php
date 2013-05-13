@@ -53,12 +53,22 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function links()
     {
-        return array(
+        global $registry;
+
+        $pushed = $registry->pushApp('ingo');
+
+        $links = array(
             'showBlacklist' => strval(Ingo_Basic_Blacklist::url()),
             'showWhitelist' => strval(Ingo_Basic_Whitelist::url()),
             'showFilters' => strval(Ingo_Basic_Filters::url()),
             'showVacation' => strval(Ingo_Basic_Vacation::url())
         );
+
+        if ($pushed) {
+            $registry->popApp();
+        }
+
+        return $links;
     }
 
     /**
