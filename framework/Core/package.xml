@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix dependencies.
 * [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
  </notes>
  <contents>
@@ -2923,6 +2924,7 @@
    <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix dependencies.
 * [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
    </notes>
   </release>
