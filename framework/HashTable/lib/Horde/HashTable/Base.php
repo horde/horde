@@ -23,6 +23,7 @@
  *
  * @property-read boolean $persistent  Does hash table provide persistent
  *                                     storage?
+ * @property-write string $prefix  Set the hash key prefix.
  */
 abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
 {
@@ -73,6 +74,17 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
      */
     protected function _init()
     {
+    }
+
+    /**
+     */
+    public function __set($name, $val)
+    {
+        switch ($name) {
+        case 'prefix':
+            $this->_params['prefix'] = $val;
+            break;
+        }
     }
 
     /**
