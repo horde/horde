@@ -1564,9 +1564,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // Check for CATENATE extension (RFC 4469)
         $catenate = $this->queryCapability('CATENATE');
 
-        $t = &$this->_temp;
-        $t['appendsize'] = 0;
-        unset($t['trycreate']);
+        $asize = 0;
+        unset($this->_temp['trycreate']);
 
         $cmd = $this->_command('APPEND')->add(
             new Horde_Imap_Client_Data_Format_Mailbox($mailbox)
@@ -1603,7 +1602,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         if ($catenate) {
                             $tmp->add(array(
                                 'TEXT',
-                                $this->_appendData($v['v'])
+                                $this->_appendData($v['v'], $asize)
                             ));
                         } else {
                             if (is_resource($v['v'])) {
@@ -1629,10 +1628,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if ($catenate) {
                     $cmd->add($tmp);
                 } else {
-                    $cmd->add($this->_appendData($data_stream->stream));
+                    $cmd->add($this->_appendData($data_stream->stream, $asize));
                 }
             } else {
-                $cmd->add($this->_appendData($data[$key]['data']));
+                $cmd->add($this->_appendData($data[$key]['data'], $asize));
             }
         }
 
@@ -1643,7 +1642,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * Additionally, if using BINARY, since so many IMAP servers have
          * issues with APPEND + BINARY, don't use LITERAL+ since servers may
          * send BAD after initial command. */
-        $cmd->literalplus = (($this->_temp['appendsize'] < 524288) && !$this->queryCapability('BINARY'));
+        $cmd->literalplus = (($asize < 524288) && !$this->queryCapability('BINARY'));
 
         // If the mailbox is currently selected read-only, we need to close
         // because some IMAP implementations won't allow an append. And some
@@ -1709,11 +1708,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Prepares append message data for insertion into the IMAP command
      * string.
      *
-     * @param mixed $data  Either a resource or a string.
+     * @param mixed $data      Either a resource or a string.
+     * @param integer &$asize  Total append size.
      *
      * @return Horde_Imap_Client_Data_Format_String  The data object.
      */
-    protected function _appendData($data)
+    protected function _appendData($data, &$asize)
     {
         if (is_resource($data)) {
             rewind($data);
@@ -1728,7 +1728,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // support, so just deal with it at send-time.
         $ob->forceBinary();
 
-        $this->_temp['appendsize'] += $ob->length();
+        $asize += $ob->length();
 
         return $ob;
     }
