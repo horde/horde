@@ -3741,7 +3741,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /* Overriden methods. */
 
     /**
-     * @param boolean $decrement  If true, decrement the message count.
+     * @param array $opts  Options:
+     *   - decrement: (boolean) If true, decrement the message count.
+     *   - pipeline: (Horde_Imap_Client_Interaction_Pipeline) Pipeline object.
      */
     protected function _deleteMsgs(Horde_Imap_Client_Mailbox $mailbox,
                                    Horde_Imap_Client_Ids $ids,
@@ -3750,7 +3752,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* If there are pending FETCH cache writes, we need to write them
          * before the UID -> sequence number mapping changes. */
         if (isset($opts['pipeline'])) {
-            $this->_updateCache($pipeline->fetch);
+            $this->_updateCache($opts['pipeline']->fetch);
         }
 
         $res = parent::_deleteMsgs($mailbox, $ids);
