@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-14</date>
- <time>15:33:36</time>
+ <time>15:39:37</time>
  <version>
-  <release>4.1.0beta2</release>
+  <release>4.1.0beta3</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Fix incorrect dependencies.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1029,6 +1029,19 @@
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix incorrect dependencies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.0beta3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-14</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
