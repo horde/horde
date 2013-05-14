@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-07</date>
+ <date>2013-05-14</date>
  <version>
   <release>6.1.0beta2</release>
   <api>6.0.0</api>
@@ -3149,7 +3149,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-07</date>
+   <date>2013-05-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Directly output image thumbnails via data URIs when possible.

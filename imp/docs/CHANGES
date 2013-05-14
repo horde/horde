@@ -1,6 +1,6 @@
-----------
-v6.1.0-git
-----------
+-----------
+v6.1.0beta2
+-----------
 
 [mms] Directly output image thumbnails via data URIs when possible.
 [jan] Fix incorrect dependencies.
