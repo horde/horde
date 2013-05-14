@@ -40,7 +40,7 @@ implements Horde_HashTable_Lock
     public function __construct(array $params = array())
     {
         if (!isset($params['memcache'])) {
-            throw InvalidArgumentException('Missing memcache parameter.');
+            throw new InvalidArgumentException('Missing memcache parameter.');
         }
 
         parent::__construct($params);
