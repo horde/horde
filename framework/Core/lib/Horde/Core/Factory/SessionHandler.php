@@ -51,7 +51,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
         // DEPRECATED
         case 'memcache':
             $params['hashtable'] = $injector->getInstance('Horde_HashTable');
-            $dirver = 'hashtable';
+            $driver = 'hashtable';
             break;
 
         case 'nosql':
