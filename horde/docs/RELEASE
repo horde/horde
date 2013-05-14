@@ -57,21 +57,19 @@ The steps to use when cutting a new release
    then bump version number in the showstopper query on bugs.horde.org.
 
 
-Guidelines for release candidates (RCs)
-=======================================
+Guidelines for release cycles
+=============================
 
-* The last time we introduced a bug with code from a new minor release so we
-  had to release another version right after. This might always happen if
-  there is more than one change since the last release or if the changes were
-  done recently.
+* When switching between stable and unstable releases, make sure the release
+  state and release version in package.xml are correct.
 
-* If we have a security leak that needs to be plugged immediately, it is the
-  common way to release a new minor version that *only* contains the fix for
-  that leak.
+* During unstable releases the release version must be checked for every
+  release, because the components scripts does automatically bump versions, but
+  doesn't switch versions when changing from alpha to beta to RC.
 
-* RCs are necessary for every release (except 3) because many translators only
-  update their translations when there is a new (minor) release cycle starting
-  because they don't translate on Git versions.
+* During unstable releases check carefully the dependency versions. It may be
+  necessary to set an alpha/beta/RC version as the minimum version of a
+  dependency.
 
 
 Example format for announcement messages
