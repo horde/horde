@@ -3788,14 +3788,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         foreach ($pipeline as $val) {
             try {
                 $this->_debug->client('', false);
+                if (!is_null($val->debug)) {
+                    $this->_debug->raw($val->tag . ' ' . $val->debug . "\n");
+                }
                 $this->_processCmd($pipeline, $val, array(
                     'debug' => is_null($val->debug),
                     'noliteralplus' => !$val->literalplus
                 ));
-                if (!is_null($val->debug)) {
-                    $this->_debug->raw($val->debug);
-                }
-                $this->_writeStream('', array('eol' => true));
+                $this->_writeStream('', array(
+                    'eol' => true,
+                    'nodebug' => !is_null($val->debug)
+                ));
             } catch (Horde_Imap_Client_Exception $e) {
                 switch ($e->getCode()) {
                 case Horde_Imap_Client_Exception::SERVER_WRITEERROR:
