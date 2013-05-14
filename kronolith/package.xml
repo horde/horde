@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-07</date>
- <time>15:01:59</time>
+ <date>2013-05-14</date>
+ <time>15:17:09</time>
  <version>
   <release>4.1.0beta2</release>
   <api>4.1.0</api>
@@ -2125,7 +2125,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-07</date>
+   <date>2013-05-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix incorrect dependencies.
