@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -316,7 +316,7 @@
    <package>
     <name>Horde_Mongo</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -1684,7 +1684,7 @@
    <date>2013-05-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix dependency.
    </notes>
   </release>
  </changelog>
