@@ -47,7 +47,9 @@ implements Horde_Notification_Storage_Interface
     {
         if ($GLOBALS['session']->isActive()) {
             $this->_processCached();
-            $GLOBALS['session']->set('horde', 'notify/' . $key, $value);
+            if (!empty($value) || $this->exists($key)) {
+                $GLOBALS['session']->set('horde', 'notify/' . $key, $value);
+            }
         } else {
             $this->_cached[] = array($key, $value);
         }
