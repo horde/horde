@@ -212,7 +212,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $c = array();
         } else {
             $c = $this->_init['capability'];
-            $this->_temp['logincapset'] = true;
+            $pipeline->data['logincapset'] = true;
         }
 
         foreach ($data as $val) {
@@ -344,7 +344,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_connect();
 
         $first_login = empty($this->_init['authmethod']);
-        $t = &$this->_temp;
 
         // Switch to secure channel if using TLS.
         if (!$this->_isSecure &&
@@ -423,59 +422,55 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $imap_auth_mech = array($this->_init['authmethod']);
         }
 
-        /* Default to AUTHENTICATIONFAILED error (see RFC 5530[3]). */
-        $t['loginerr'] = new Horde_Imap_Client_Exception(
-            Horde_Imap_Client_Translation::t("Mail server denied authentication."),
-            Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
-        );
+        $login_err = null;
 
         foreach ($imap_auth_mech as $method) {
-            $t['referral'] = null;
-
             try {
-                $this->_tryLogin($method);
-                $success = true;
+                $resp = $this->_tryLogin($method);
+                $data = $resp->data;
                 $this->_setInit('authmethod', $method);
-                unset($t['referralcount']);
+                unset($this->_temp['referralcount']);
             } catch (Horde_Imap_Client_Exception $e) {
-                $success = false;
+                $data = $e->resp_data;
+                if (isset($data['loginerr'])) {
+                    $login_err = $data['loginerr'];
+                }
+                $resp = false;
             }
 
             // Check for login referral (RFC 2221) response - can happen for
             // an OK, NO, or BYE response.
-            if (!is_null($t['referral'])) {
+            if (isset($data['referral'])) {
                 foreach (array('hostspec', 'port', 'username') as $val) {
-                    if (!is_null($t['referral']->$val)) {
-                        $this->_params[$val] = $t['referral']->$val;
+                    if (!is_null($data['referral']->$val)) {
+                        $this->_params[$val] = $data['referral']->$val;
                     }
                 }
 
-                if (!is_null($t['referral']->auth)) {
-                    $this->_setInit('authmethod', $t['referral']->auth);
+                if (!is_null($data['referral']->auth)) {
+                    $this->_setInit('authmethod', $data['referral']->auth);
                 }
 
-                if (!isset($t['referralcount'])) {
-                    $t['referralcount'] = 0;
+                if (!isset($this->_temp['referralcount'])) {
+                    $this->_temp['referralcount'] = 0;
                 }
 
                 // RFC 2221 [3] - Don't follow more than 10 levels of referral
                 // without consulting the user.
-                if (++$t['referralcount'] < 10) {
+                if (++$this->_temp['referralcount'] < 10) {
                     $this->logout();
                     $this->_setInit('capability');
                     $this->_setInit('namespace', array());
                     return $this->login();
                 }
 
-                unset($t['referralcount']);
+                unset($this->_temp['referralcount']);
             }
 
-            if ($success) {
-                return $this->_loginTasks($first_login);
+            if ($resp) {
+                return $this->_loginTasks($first_login, $resp->data);
             }
         }
-
-        $ex = $t['loginerr'];
 
         /* Try again from scratch if authentication failed in an established,
          * previously-authenticated object. */
@@ -486,7 +481,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
-        throw $ex;
+        /* Default to AUTHENTICATIONFAILED error (see RFC 5530[3]). */
+        if (is_null($login_err)) {
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Mail server denied authentication."),
+                Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+            );
+        }
+
+        throw $login_err;
     }
 
     /**
@@ -581,6 +584,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Authenticate to the IMAP server.
      *
      * @param string $method  IMAP login method.
+     *
+     * @return Horde_Imap_Client_Interaction_Pipeline  Pipeline object.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -696,21 +701,25 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * needed in the event this object is eventually serialized). */
         $pipeline->data['in_login'] = true;
 
-        $this->_sendCmd($pipeline);
+        return $this->_sendCmd($pipeline);
     }
 
     /**
      * Perform login tasks.
      *
      * @param boolean $firstlogin  Is this the first login?
+     * @param array $resp          The data response from the login command.
+     *                             May include:
+     *   - logincapset: (boolean) True if CAPABILITY sent after login.
+     *   - proxyreuse: (boolean) True if re-used connection via imapproxy.
      *
      * @return boolean  True if global login tasks should be performed.
      */
-    protected function _loginTasks($firstlogin = true)
+    protected function _loginTasks($firstlogin = true, array $resp = array())
     {
         /* If reusing an imapproxy connection, no need to do any of these
          * login tasks again. */
-        if (!$firstlogin && !empty($this->_temp['proxyreuse'])) {
+        if (!$firstlogin && !empty($resp['proxyreuse'])) {
             // If we have not yet set the language, set it now.
             if (!isset($this->_init['lang'])) {
                 $this->_temp['lang_queue'] = true;
@@ -724,7 +733,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* If we logged in for first time, and server did not return
          * capability information, we need to grab it now. */
-        if ($firstlogin && empty($this->_temp['logincapset'])) {
+        if ($firstlogin && empty($resp['logincapset'])) {
             $this->_setInit('capability');
         }
 
@@ -2273,8 +2282,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         unset($this->_temp['search_retry']);
 
         /* Check for EXPUNGEISSUED (RFC 2180 [4.3]/RFC 5530 [3]). */
-        if (!empty($this->_temp['expungeissued'])) {
-            unset($this->_temp['expungeissued']);
+        if (!empty($resp->data['expungeissued'])) {
             $this->noop();
         }
 
@@ -2514,19 +2522,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         try {
             $resp = $this->_sendCmd($pipeline);
+
+            /* Check for EXPUNGEISSUED (RFC 2180 [4.1]/RFC 5530 [3]). */
+            if (!empty($resp->data['expungeissued'])) {
+                $this->noop();
+            }
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             // A NO response, when coupled with a sequence FETCH, most
             // likely means that messages were expunged. RFC 2180 [4.1]
             if ($sequence &&
                 ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
-                $this->_temp['expungeissued'] = true;
+                $this->noop();
             }
-        }
-
-        /* Check for EXPUNGEISSUED (RFC 2180 [4.1]/RFC 5530 [3]). */
-        if (!empty($this->_temp['expungeissued'])) {
-            unset($this->_temp['expungeissued']);
-            $this->noop();
         }
 
         foreach ($resp->fetch as $k => $v) {
@@ -3193,6 +3200,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         try {
             $resp = $this->_sendCmd($pipeline);
+
+            /* Check for EXPUNGEISSUED (RFC 2180 [4.2]/RFC 5530 [3]). */
+            if (!empty($resp->data['expungeissued'])) {
+                $this->noop();
+            }
+
+            return $resp->data['modified'];
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             /* A NO response, when coupled with a sequence STORE and
              * non-SILENT behavior, most likely means that messages were
@@ -3200,17 +3214,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (empty($pipeline->data['store_silent']) &&
                 !empty($options['sequence']) &&
                 ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
-                $this->_temp['expungeissued'] = true;
+                $this->noop();
             }
-        }
 
-        /* Check for EXPUNGEISSUED (RFC 2180 [4.2]/RFC 5530 [3]). */
-        if (!empty($this->_temp['expungeissued'])) {
-            unset($this->_temp['expungeissued']);
-            $this->noop();
+            return $pipeline->data['modified'];
         }
-
-        return $resp->data['modified'];
     }
 
     /**
@@ -4477,7 +4485,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'REFERRAL':
             // Defined by RFC 2221
-            $this->_temp['referral'] = new Horde_Imap_Client_Url($rc->data[0]);
+            $pipeline->data['referral'] = new Horde_Imap_Client_Url($rc->data[0]);
             break;
 
         case 'UNKNOWN-CTE':
@@ -4617,7 +4625,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'UNAVAILABLE':
             // Defined by RFC 5530 [3]
-            $this->_temp['loginerr'] = new Horde_Imap_Client_Exception(
+            $pipeline->data['loginerr'] = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Remote server is temporarily unavailable."),
                 Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE
             );
@@ -4625,7 +4633,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'AUTHENTICATIONFAILED':
             // Defined by RFC 5530 [3]
-            $this->_temp['loginerr'] = new Horde_Imap_Client_Exception(
+            $pipeline->data['loginerr'] = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Authentication failed."),
                 Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
             );
@@ -4633,7 +4641,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'AUTHORIZATIONFAILED':
             // Defined by RFC 5530 [3]
-            $this->_temp['loginerr'] = new Horde_Imap_Client_Exception(
+            $pipeline->data['loginerr'] = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Authentication was successful, but authorization failed."),
                 Horde_Imap_Client_Exception::LOGIN_AUTHORIZATIONFAILED
             );
@@ -4641,7 +4649,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'EXPIRED':
             // Defined by RFC 5530 [3]
-            $this->_temp['loginerr'] = new Horde_Imap_Client_Exception(
+            $pipeline->data['loginerr'] = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Authentication credentials have expired."),
                 Horde_Imap_Client_Exception::LOGIN_EXPIRED
             );
@@ -4649,7 +4657,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'PRIVACYREQUIRED':
             // Defined by RFC 5530 [3]
-            $this->_temp['loginerr'] = new Horde_Imap_Client_Exception(
+            $pipeline->data['loginerr'] = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Operation failed due to a lack of a secure connection."),
                 Horde_Imap_Client_Exception::LOGIN_PRIVACYREQUIRED
             );
@@ -4675,9 +4683,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'EXPUNGEISSUED':
             // Defined by RFC 5530 [3]
-            /* Needs to be globally available, as this may be set manually by
-             * the code (rather than just as a server response). */
-            $this->_temp['expungeissued'] = true;
+            $pipeline->data['expungeissued'] = true;
             break;
 
         case 'CORRUPTION':
@@ -4743,7 +4749,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'XPROXYREUSE':
             // The proxy connection was reused, so no need to do login tasks.
-            $this->_temp['proxyreuse'] = true;
+            $pipeline->data['proxyreuse'] = true;
             break;
 
         default:
