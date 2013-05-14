@@ -10,18 +10,18 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-07</date>
+ <date>2013-05-14</date>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add ability to explicitly set hash table key prefix after instantiation.
+* First beta release
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -92,12 +92,12 @@
     <release>1.0.0beta1</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-05-07</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-05-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Add ability to explicitly set hash table key prefix after instantiation.
+* First beta release
    </notes>
   </release>
  </changelog>
