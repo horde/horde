@@ -204,16 +204,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $data
     )
     {
-        if (!empty($pipeline->data['no_cap'])) {
+        if (!empty($this->_temp['no_cap'])) {
             return;
         }
 
-        if (empty($pipeline->data['in_login'])) {
-            $c = array();
-        } else {
-            $c = $this->_init['capability'];
-            $pipeline->data['logincapset'] = true;
-        }
+        /* Assume capabilities are additive. */
+        $c = empty($this->_init['capability'])
+            ? array()
+            : $this->_init['capability'];
+
+        $pipeline->data['capabilties_set'] = true;
 
         foreach ($data as $val) {
             $cap_list = explode('=', $val);
@@ -538,15 +538,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // If we already have capability information, don't re-set with
         // (possibly) limited information sent in the inital banner.
-        $pipeline = $this->_pipeline();
         if (isset($this->_init['capability'])) {
-            $pipeline->data['no_cap'] = true;
+            $this->_temp['no_cap'] = true;
         }
 
         /* Get greeting information.  This is untagged so we need to specially
          * deal with it here. */
         try {
-            $this->_getLine($pipeline);
+            $this->_getLine($this->_pipeline());
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             if ($e->status == Horde_Imap_Client_Interaction_Server::BYE) {
                 /* Server is explicitly rejecting our connection (RFC 3501
@@ -732,8 +731,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_setInit('enabled', array());
 
         /* If we logged in for first time, and server did not return
-         * capability information, we need to grab it now. */
-        if ($firstlogin && empty($resp['logincapset'])) {
+         * capability information, we need to mark for retrieval. */
+        if ($firstlogin && empty($resp['capabilities_set'])) {
             $this->_setInit('capability');
         }
 
