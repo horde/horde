@@ -748,36 +748,37 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _logout()
     {
-        if (!is_null($this->_stream)) {
-            if (empty($this->_temp['logout'])) {
-                if (!empty($this->_cmdQueue)) {
-                    /* If using imapproxy, force sending these commands, since
-                     * they may not be sent again if they are (likely)
-                     * initialization commands. */
-                    if (!empty($this->_init['imapproxy'])) {
-                        $pipeline = $this->_pipeline();
-                        foreach ($this->_cmdQueue as $val) {
-                            $pipeline->add($val);
-                        }
-                        $this->_sendCmd($pipeline);
-                    }
-
-                    $this->_cmdQueue = array();
-                }
-
-                $this->_temp['logout'] = true;
-                try {
-                    $this->_sendCmd($this->_command('LOGOUT'));
-                } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
-                    // Ignore server errors
-                }
-            }
-            unset($this->_temp['logout']);
-            @fclose($this->_stream);
-            $this->_stream = null;
+        if (is_null($this->_stream)) {
+            return;
         }
 
-        unset($this->_temp['proxyreuse']);
+        if (empty($this->_temp['logout'])) {
+            if (!empty($this->_cmdQueue)) {
+                /* If using imapproxy, force sending these commands, since
+                 * they may not be sent again if they are (likely)
+                 * initialization commands. */
+                if (!empty($this->_init['imapproxy'])) {
+                    $pipeline = $this->_pipeline();
+                    foreach ($this->_cmdQueue as $val) {
+                        $pipeline->add($val);
+                    }
+                    $this->_sendCmd($pipeline);
+                }
+
+                $this->_cmdQueue = array();
+            }
+
+            $this->_temp['logout'] = true;
+            try {
+                $this->_sendCmd($this->_command('LOGOUT'));
+            } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+                // Ignore server errors
+            }
+            unset($this->_temp['logout']);
+        }
+
+        @fclose($this->_stream);
+        $this->_stream = null;
     }
 
     /**
@@ -1071,30 +1072,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->close();
         }
 
+        $cmd = $this->_command('DELETE')->add(
+            new Horde_Imap_Client_Data_Format_Mailbox($mailbox)
+        );
+
         try {
             // DELETE returns no untagged information (RFC 3501 [6.3.4])
-            $this->_sendCmd(
-                $this->_command('DELETE')->add(
-                    new Horde_Imap_Client_Data_Format_Mailbox($mailbox)
-                )
-            );
+            $this->_sendCmd($cmd);
         } catch (Horde_Imap_Client_Exception $e) {
             // Some IMAP servers won't allow a mailbox delete unless all
             // messages in that mailbox are deleted.
-            if (!empty($this->_temp['deleteretry'])) {
-                unset($this->_temp['deleteretry']);
-                throw $e;
-            }
-
             $this->expunge($mailbox, array(
                 'delete' => true
             ));
-
-            $this->_temp['deleteretry'] = true;
-            $this->deleteMailbox($mailbox);
+            $this->_sendCmd($cmd);
         }
-
-        unset($this->_temp['deleteretry']);
     }
 
     /**
@@ -1300,7 +1292,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $pipeline->add($cmd);
 
         try {
-            $resp = $this->_sendCmd($pipeline);
+            $lr = $this->_sendCmd($pipeline)->data['listresponse'];
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             /* Archiveopteryx 3.1.3 can't process empty list-select-opts list.
              * Retry using base IMAP4rev1 functionality. */
@@ -1314,20 +1306,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if (!empty($options['flat'])) {
-            return array_values($resp->data['listresponse']);
+            return array_values($lr);
         }
 
         /* Add in STATUS return, if needed. */
         if (!empty($options['status'])) {
             foreach ($pattern as $val) {
                 $val_utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($val);
-                if (isset($resp->data['listresponse'][$val_utf8])) {
-                    $resp->data['listresponse'][$val_utf8]['status'] = $this->_prepareStatusResponse($status_opts, $val_utf8);
+                if (isset($lr[$val_utf8])) {
+                    $lr[$val_utf8]['status'] = $this->_prepareStatusResponse($status_opts, $val_utf8);
                 }
             }
         }
 
-        return $resp->data['listresponse'];
+        return $lr;
     }
 
     /**
@@ -1345,14 +1337,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         Horde_Imap_Client_Tokenize $data
     )
     {
-        $ml = $pipeline->data['mailboxlist'];
-        $mlo = $ml['options'];
-        $lr = &$pipeline->data['listresponse'];
-
         $data->next();
         $attr = $data->flushIterator();
         $delimiter = $data->next();
         $mbox = Horde_Imap_Client_Mailbox::get($data->next(), true);
+        $ml = $pipeline->data['mailboxlist'];
 
         if ($ml['check'] &&
             $ml['subexist'] &&
@@ -1360,7 +1349,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             !isset($ml['subscribed'][strval($mbox)])) {
             return;
         } elseif ((!$ml['check'] && $ml['subexist']) ||
-                  (empty($mlo['flat']) && !empty($mlo['attributes']))) {
+                   (empty($ml['options']['flat']) &&
+                    !empty($ml['options']['attributes']))) {
             $attr = array_flip(array_map('strtolower', $attr));
             if ($ml['subexist'] &&
                 !$ml['check'] &&
@@ -1369,12 +1359,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        if (empty($mlo['flat'])) {
+        if (empty($ml['options']['flat'])) {
             $tmp = array(
                 'mailbox' => $mbox
             );
 
-            if (!empty($mlo['attributes'])) {
+            if (!empty($ml['options']['attributes'])) {
                 /* RFC 5258 [3.4]: inferred attributes. */
                 if ($ml['ext']) {
                     if (isset($attr['\\noinferiors'])) {
@@ -1386,15 +1376,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
                 $tmp['attributes'] = array_keys($attr);
             }
-            if (!empty($mlo['delimiter'])) {
+            if (!empty($ml['options']['delimiter'])) {
                 $tmp['delimiter'] = $delimiter;
             }
             if ($data->next() !== false) {
                 $tmp['extended'] = $data->flushIterator();
             }
-            $lr[strval($mbox)] = $tmp;
+            $pipeline->data['listresponse'][strval($mbox)] = $tmp;
         } else {
-            $lr[] = $mbox;
+            $pipeline->data['listresponse'][] = $mbox;
         }
     }
 
