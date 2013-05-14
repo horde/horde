@@ -1049,7 +1049,7 @@
       use for the cache files."/>
      </configsection>
     </case>
-    <case name="Memcache" desc="Use a Memcache server">
+    <case name="Hashtable" desc="Use a Distributed Hash Table server">
      <configsection name="params">
       <configstring name="prefix" required="false" desc="The prefix to use for
       cache entries."/>
@@ -1082,7 +1082,7 @@
     <case name="" desc="None"/>
     <case name="Apc" desc="APC"/>
     <case name="Eaccelerator" desc="eAccelerator"/>
-    <case name="Memcache" desc="Memcache"/>
+    <case name="Hashtable" desc="Hashtable"/>
     <case name="Xcache" desc="xCache"/>
    </configswitch>
   </configsection>
@@ -1367,8 +1367,8 @@
     <case name="Builtin" desc="Use the default PHP session handler (file-based
     by default)">
      <configdescription>
-      If you have configured a custom session extension in php.ini, such as
-      native memcache sessions, then you should use this option. Horde doesn't
+      If you have configured a custom session extension in php.ini (such as
+      native memcache sessions) then you should use this option. Horde doesn't
       force PHP to use the file-based session handler, so your php.ini
       settings settings will be deferred to.
      </configdescription>
@@ -1389,18 +1389,12 @@
       in.">/tmp/</configstring>
      </configsection>
     </case>
-    <case name="Memcache" desc="Memcache only">
+    <case name="HashTable" desc="Distributed Hash Table">
      <configsection name="params">
       <configswitch name="track" required="false" desc="Keep track of active
-      session information? Tracking requires a small amount of extra load.">
-      false
+      session information? Tracking requires extra load to maintain.">false
        <case name="false" desc="No" />
-       <case name="true" desc="Yes" >
-        <configinteger name="track_lifetime" required="false" desc="The number
-        of seconds after which tracked sessions will be treated as
-        expired. If empty, defaults to value in php.ini's
-        'session.gc_maxlifetime'."></configinteger>
-       </case>
+       <case name="true" desc="Yes" />
       </configswitch>
      </configsection>
     </case>
@@ -1418,8 +1412,8 @@
      </configsection>
     </case>
    </configswitch>
-   <configboolean name="memcache" desc="Use memcache to cache session
-   information?">false</configboolean>
+   <configboolean name="hashtable" desc="Use a distributed hash table to cache
+   session information?">false</configboolean>
   </configsection>
  </configtab>
 
@@ -1978,13 +1972,17 @@
   </configsection>
  </configtab>
 
- <configtab name="memcache" desc="Memcache Server">
-  <configsection name="memcache">
-   <configheader>Memcache Server Settings</configheader>
-   <configswitch name="enabled" quote="false" desc="Use a memcache
-   server?">false
-    <case name="false" desc="Disabled"/>
-    <case name="true" desc="Enabled">
+ <configtab name="hashtable" desc="Distributed Hash Table">
+  <configdescription>A distributed hash table is a way of sharing data across
+  multiple servers by associating a piece of data with a static key. It is
+  useful for cache-like operations, since it is usually much faster to set and
+  retrieve the data from the hash table than the underlying data storage
+  driver.</configdescription>
+  <configswitch name="driver" desc="What backend should we use for the
+  distributed hash table?">none
+   <case name="none" desc="None" />
+   <case name="Memcache" desc="Memcache Server">
+    <configsection name="memcache">
      <configlist name="hostspec" required="false" desc="What hostname(s) is
      the memcache server(s) running on, or what is the name of the system
      DSN(s)? Specify multiple servers by separating with
@@ -2011,10 +2009,22 @@
      supports data of limited length only (default: 1 MB). If this option is
      true, Horde will transparently work around this
      limitation.">true</configphp>
-    </case>
-   </configswitch>
+    </configswitch>
+   </case>
+   <case name="Predis" desc="Redis Server">
+    <confisection name="predis">
+     <configlist name="hostspec" required="false" desc="What hostname(s) is
+     the redis server(s) running on, or what is the name of the system
+     DSN(s)? Specify multiple servers by separating with
+     commas.">localhost</configlist>
+     <configlist name="port" required="false" desc="Port(s) the redis
+     server(s) are running on. If more than one host is used, specify ports
+     for respective servers, separated by commas.">11211</configlist>
+    </configsection>
+   </case>
   </configsection>
  </configtab>
+
  <configtab name="activesync" desc="ActiveSync">
   <configsection name="activesync">
    <configdescription>The use of ActiveSync in the United States is PROHIBITED

@@ -2,6 +2,7 @@
 v5.1.0-git
 ----------
 
+[mms] Add configuration of the Horde_HashTable package.
 [jan] Fix incorrect dependencies.
 
 
