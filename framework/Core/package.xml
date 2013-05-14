@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-05-14</date>
- <time>14:22:44</time>
+ <time>14:26:45</time>
  <version>
-  <release>2.5.0beta3</release>
+  <release>2.5.0beta4</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Make sure we are not using a SQL Cache driver in the DB object itself.
-* [mms] Horde_Memcache usage is deprecated in favor of Horde_HashTable.
-* [mms] Add factory for Horde_HashTable drivers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2944,6 +2942,19 @@
 * [mms] Make sure we are not using a SQL Cache driver in the DB object itself.
 * [mms] Horde_Memcache usage is deprecated in favor of Horde_HashTable.
 * [mms] Add factory for Horde_HashTable drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.0beta4</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-05-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
