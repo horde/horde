@@ -30,7 +30,7 @@
  </lead>
  <date>2013-05-14</date>
  <version>
-  <release>5.1.0beta3</release>
+  <release>5.1.0beta4</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [jan] Fix broken configuration definition.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3658,6 +3658,19 @@
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix broken configuration definition.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.1.0beta4</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
