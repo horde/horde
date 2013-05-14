@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Horde_Memcache usage is deprecated in favor of Horde_HashTable.
 * [mms] Add factory for Horde_HashTable drivers.
 * [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
  </notes>
@@ -2926,6 +2927,7 @@
    <date>2013-05-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Horde_Memcache usage is deprecated in favor of Horde_HashTable.
 * [mms] Add factory for Horde_HashTable drivers.
 * [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
    </notes>
