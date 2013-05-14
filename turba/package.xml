@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [mjr] Updated default localsql schema.
+* [mjr] Update the default SQL schema.
 * [jan] Fix incorrect dependencies.
  </notes>
  <contents>

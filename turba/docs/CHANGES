@@ -2,7 +2,7 @@
 v4.1.0-git
 ----------
 
-[mjr] Updated default localsql schema.
+[mjr] Update the default SQL schema.
 [jan] Fix incorrect dependencies.
 
 
