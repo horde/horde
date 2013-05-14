@@ -105,10 +105,9 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function deleteMailbox($name)
     {
-        $mbox = new Horde_Imap_Client_Mailbox($this->_prependNamespace($name));
-        $imap = $this->_getImapOb();
+        $mbox = new Horde_Imap_Client_Mailbox($name);
         try {
-            $imap->deleteMailbox($mbox);
+            $this->_getImapOb()->deleteMailbox($mbox);
         } catch (Horde_Imap_Client_Exception $e) {
             if ($e->getCode() == Horde_Imap_Client_Exception::NONEXISTENT) {
                 throw new Horde_ActiveSync_Exception_FolderGone();
