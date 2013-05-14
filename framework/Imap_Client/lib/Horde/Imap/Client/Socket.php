@@ -3867,6 +3867,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $s_opts = array('nodebug' => empty($opts['debug']));
 
         foreach ($data as $key => $val) {
+            if ($val instanceof Horde_Imap_Client_Interaction_Command_Continuation) {
+                $this->_writeStream('', array_merge($s_opts, array(
+                    'eol' => true
+                )));
+                $this->_processCmd(
+                    $pipeline,
+                    $val->getCommands($this->_processCmdContinuation($pipeline)),
+                    $opts
+                );
+                continue;
+            }
+
             if ($key) {
                 $this->_writeStream(' ', $s_opts);
             }
@@ -3910,12 +3922,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 } else {
                     $this->_writeStream($val->escapeStream(), $s_opts);
                 }
-            } elseif ($val instanceof Horde_Imap_Client_Interaction_Command_Continuation) {
-                $this->_processCmd(
-                    $pipeline,
-                    $val->getCommands($this->_processCmdContinuation($pipeline)),
-                    $opts
-                );
             } else {
                 $this->_writeStream($val->escape(), $s_opts);
             }
