@@ -363,6 +363,7 @@ class Horde_Registry
             'Horde_Editor' => 'Horde_Core_Factory_Editor',
             'Horde_ElasticSearch_Client' => 'Horde_Core_Factory_ElasticSearch',
             'Horde_Group' => 'Horde_Core_Factory_Group',
+            'Horde_HashTable' => 'Horde_Core_Factory_HashTable',
             'Horde_History' => 'Horde_Core_Factory_History',
             'Horde_Kolab_Server_Composite' => 'Horde_Core_Factory_KolabServer',
             'Horde_Kolab_Session' => 'Horde_Core_Factory_KolabSession',

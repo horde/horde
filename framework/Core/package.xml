@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-05-07</date>
- <time>12:59:15</time>
+ <date>2013-05-13</date>
+ <time>21:42:40</time>
  <version>
   <release>2.5.0beta2</release>
   <api>2.5.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add factory for Horde_HashTable drivers.
 * [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
  </notes>
  <contents>
@@ -415,6 +416,7 @@
        <file name="ElasticSearch.php" role="php" />
        <file name="Facebook.php" role="php" />
        <file name="Group.php" role="php" />
+       <file name="HashTable.php" role="php" />
        <file name="History.php" role="php" />
        <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
@@ -1723,6 +1725,7 @@
    <install as="Horde/Core/Factory/ElasticSearch.php" name="lib/Horde/Core/Factory/ElasticSearch.php" />
    <install as="Horde/Core/Factory/Facebook.php" name="lib/Horde/Core/Factory/Facebook.php" />
    <install as="Horde/Core/Factory/Group.php" name="lib/Horde/Core/Factory/Group.php" />
+   <install as="Horde/Core/Factory/HashTable.php" name="lib/Horde/Core/Factory/HashTable.php" />
    <install as="Horde/Core/Factory/History.php" name="lib/Horde/Core/Factory/History.php" />
    <install as="Horde/Core/Factory/HttpClient.php" name="lib/Horde/Core/Factory/HttpClient.php" />
    <install as="Horde/Core/Factory/Identity.php" name="lib/Horde/Core/Factory/Identity.php" />
@@ -2920,9 +2923,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-05-07</date>
+   <date>2013-05-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add factory for Horde_HashTable drivers.
 * [mjr] Workaround some limitations with maillog and answered flag syncing in Outlook 2013
    </notes>
   </release>

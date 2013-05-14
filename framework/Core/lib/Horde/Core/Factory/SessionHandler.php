@@ -47,8 +47,11 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             $noset = true;
             break;
 
+        case 'hashtable':
+        // DEPRECATED
         case 'memcache':
-            $params['memcache'] = $injector->getInstance('Horde_Memcache');
+            $params['hashtable'] = $injector->getInstance('Horde_HashTable');
+            $dirver = 'hashtable';
             break;
 
         case 'nosql':
@@ -70,12 +73,13 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
         $class = $this->_getDriverName($driver, 'Horde_SessionHandler_Storage');
         $storage = $this->storage = new $class($params);
 
-        if (!empty($conf['sessionhandler']['memcache']) &&
-            !in_array($driver, array('builtin', 'memcache'))) {
+        if ((!empty($conf['sessionhandler']['hashtable']) ||
+             !empty($conf['sessionhandler']['memcache'])) &&
+            !in_array($driver, array('builtin', 'hashtable'))) {
             $storage = new Horde_SessionHandler_Storage_Stack(array(
                 'stack' => array(
-                    new Horde_SessionHandler_Storage_Memcache(array(
-                        'memcache' => $injector->getInstance('Horde_Memcache')
+                    new Horde_SessionHandler_Storage_HashTable(array(
+                        'hashtable' => $injector->getInstance('Horde_HashTable')
                     )),
                     $this->storage
                 )

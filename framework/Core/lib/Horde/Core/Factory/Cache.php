@@ -66,8 +66,12 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
         $params['logger'] = $injector->getInstance('Horde_Core_Log_Wrapper');
 
         switch ($lc_driver) {
+        case 'hashtable':
+        // DEPRECATED
         case 'memcache':
-            $params['memcache'] = $injector->getInstance('Horde_Memcache');
+            $params['hashtable'] = $injector->getInstance('Horde_HashTable');
+            $driver = 'Hashtable';
+            $lc_driver = 'hashtable';
             break;
 
         case 'nosql':
@@ -87,8 +91,9 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
 
         if (!empty($GLOBALS['conf']['cache']['use_memorycache']) &&
             in_array($lc_driver, array('file', 'sql'))) {
-            if (strcasecmp($GLOBALS['conf']['cache']['use_memorycache'], 'Memcache') === 0) {
-                $params['memcache'] = $injector->getInstance('Horde_Memcache');
+            if ((strcasecmp($GLOBALS['conf']['cache']['use_memorycache'], 'Hashtable') === 0) ||
+                (strcasecmp($GLOBALS['conf']['cache']['use_memorycache'], 'Memcache') === 0)) {
+                $params['hashtable'] = $injector->getInstance('Horde_HashTable');
             }
 
             $storage = new Horde_Cache_Storage_Stack(array(

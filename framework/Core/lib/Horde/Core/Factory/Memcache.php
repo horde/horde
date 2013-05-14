@@ -1,7 +1,8 @@
 <?php
 /**
- * @category Horde
- * @package  Core
+ * @category   Horde
+ * @deprecated Use HashTable instead.
+ * @package    Core
  */
 class Horde_Core_Factory_Memcache extends Horde_Core_Factory_Injector
 {
