@@ -30,7 +30,7 @@
  </lead>
  <date>2013-05-14</date>
  <version>
-  <release>5.1.0beta2</release>
+  <release>5.1.0beta3</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mms] Add configuration of the Horde_HashTable package.
-* [jan] Fix incorrect dependencies.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3646,6 +3645,19 @@
    <notes>
 * [mms] Add configuration of the Horde_HashTable package.
 * [jan] Fix incorrect dependencies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.1.0beta3</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
