@@ -1565,7 +1565,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $catenate = $this->queryCapability('CATENATE');
 
         $asize = 0;
-        unset($this->_temp['trycreate']);
 
         $cmd = $this->_command('APPEND')->add(
             new Horde_Imap_Client_Data_Format_Mailbox($mailbox)
@@ -1674,7 +1673,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             if (!empty($options['create']) &&
-                !empty($this->_temp['trycreate'])) {
+                !empty($e->resp_data['trycreate'])) {
                 $this->createMailbox($mailbox);
                 unset($options['create']);
                 return $this->_append($mailbox, $data, $options);
@@ -3283,14 +3282,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         );
         $cmd->data['copydest'] = $dest;
 
-        unset($this->_temp['trycreate']);
-
         // COPY returns no untagged information (RFC 3501 [6.4.7])
         try {
             $resp = $this->_sendCmd($cmd);
         } catch (Horde_Imap_Client_Exception $e) {
             if (!empty($options['create']) &&
-                !empty($this->_temp['trycreate'])) {
+                !empty($e->resp_data['trycreate'])) {
                 $this->createMailbox($dest);
                 unset($options['create']);
                 return $this->_copy($dest, $options);
@@ -4457,7 +4454,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'TRYCREATE':
             // RFC 3501 [7.1]
-            $this->_temp['trycreate'] = true;
+            $pipeline->data['trycreate'] = true;
             break;
 
         case 'PERMANENTFLAGS':

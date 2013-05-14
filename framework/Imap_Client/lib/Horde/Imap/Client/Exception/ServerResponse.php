@@ -22,6 +22,7 @@
  *
  * @property-read string $command  The command that caused the BAD/NO error
  *                                 status.
+ * @property-read array $resp_data  The response data array.
  * @property-read integer $status  Server error status.
  */
 class Horde_Imap_Client_Exception_ServerResponse extends Horde_Imap_Client_Exception
@@ -72,6 +73,9 @@ class Horde_Imap_Client_Exception_ServerResponse extends Horde_Imap_Client_Excep
             return ($this->_server instanceof Horde_Imap_Client_Interaction_Server_Tagged)
                 ? $this->_pipeline->getCmd($this->_server->tag)->getCommand()
                 : null;
+
+        case 'resp_data':
+            return $this->_pipeline->data;
 
         case 'status':
             return $this->_server->status;
