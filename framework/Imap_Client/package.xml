@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix login methods that require server continutation responses.
 * [mms] Correctly handle enabled cached status when not using imapproxy.
 * [mms] Fix caching of CAPABILITY information when not using imapproxy.
 * [mms] Support pipelining of STORE + EXPUNGE if UIDPLUS is available.
@@ -1713,6 +1714,7 @@
    <date>2013-05-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix login methods that require server continutation responses.
 * [mms] Correctly handle enabled cached status when not using imapproxy.
 * [mms] Fix caching of CAPABILITY information when not using imapproxy.
 * [mms] Support pipelining of STORE + EXPUNGE if UIDPLUS is available.
