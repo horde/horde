@@ -44,19 +44,7 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        $driver = empty($GLOBALS['conf']['cache']['driver'])
-            ? 'Null'
-            : $GLOBALS['conf']['cache']['driver'];
-        if (strcasecmp($driver, 'None') === 0) {
-            $driver = 'Null';
-        }
-
-        $lc_driver = Horde_String::lower($driver);
-
-        if (Horde_Cli::runningFromCLI() && $lc_driver == 'xcache') {
-            $driver = 'Null';
-            $lc_driver = 'null';
-        }
+        $driver = $this->getDriverName();
 
         $params = Horde::getDriverConfig('cache', $driver);
         if (isset($GLOBALS['conf']['cache']['default_lifetime'])) {
@@ -65,13 +53,12 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
         $params['compress'] = true;
         $params['logger'] = $injector->getInstance('Horde_Core_Log_Wrapper');
 
-        switch ($lc_driver) {
+        switch ($driver) {
         case 'hashtable':
         // DEPRECATED
         case 'memcache':
             $params['hashtable'] = $injector->getInstance('Horde_HashTable');
-            $driver = 'Hashtable';
-            $lc_driver = 'hashtable';
+            $driver = 'hashtable';
             break;
 
         case 'nosql':
@@ -90,7 +77,7 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
         $storage = $this->storage = $this->_getStorage($driver, $params);
 
         if (!empty($GLOBALS['conf']['cache']['use_memorycache']) &&
-            in_array($lc_driver, array('file', 'sql'))) {
+            in_array($driver, array('file', 'sql'))) {
             if ((strcasecmp($GLOBALS['conf']['cache']['use_memorycache'], 'Hashtable') === 0) ||
                 (strcasecmp($GLOBALS['conf']['cache']['use_memorycache'], 'Memcache') === 0)) {
                 $params['hashtable'] = $injector->getInstance('Horde_HashTable');
@@ -105,6 +92,29 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
         }
 
         return new Horde_Cache($storage, $params);
+    }
+
+    /**
+     * Return the driver name.
+     *
+     * @since 2.5.0
+     *
+     * @return string  Lowercase driver name.
+     */
+    public function getDriverName()
+    {
+        $driver = empty($GLOBALS['conf']['cache']['driver'])
+            ? 'Null'
+            : $GLOBALS['conf']['cache']['driver'];
+
+        if (strcasecmp($driver, 'None') === 0) {
+            $driver = 'Null';
+        } elseif (Horde_Cli::runningFromCLI() &&
+                  (strcasecmp($driver, 'Xcache') === 0)) {
+            $driver = 'Null';
+        }
+
+        return Horde_String::lower($driver);
     }
 
     /**
