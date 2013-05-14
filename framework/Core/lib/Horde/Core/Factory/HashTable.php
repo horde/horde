@@ -32,14 +32,14 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
 
         // Horde::getDriverConfig($backend, 'nosql')
         // DEPRECATED: BC config
-        if (empty($conf['memcache']['enabled'])) {
+        if (!empty($conf['memcache']['enabled'])) {
             return new Horde_HashTable_Memcache(array(
                 'memcache' => $injector->getInstance('Horde_Memcache')
             ));
         }
 
         $driver = empty($conf['hashtable']['driver'])
-            ? 'None'
+            ? 'none'
             : $conf['hashtable']['driver'];
         $lc_driver = Horde_String::lower($driver);
 
