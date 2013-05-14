@@ -2722,6 +2722,8 @@ class Horde_Registry
      *
      * @param string $lang  The language abbreviation.
      *
+     * @return string  The current language (since 2.5.0).
+     *
      * @throws Horde_Exception
      */
     public function setLanguage($lang = null)
@@ -2730,16 +2732,16 @@ class Horde_Registry
             $lang = $this->preferredLang();
         }
 
-        $GLOBALS['session']->set('horde', 'language', $lang);
-
         $changed = false;
         if (isset($GLOBALS['language'])) {
             if ($GLOBALS['language'] == $lang) {
-                return;
+                return $lang;
             }
             $changed = true;
         }
+
         $GLOBALS['language'] = $lang;
+        $GLOBALS['session']->set('horde', 'language', $lang);
 
         $lang_charset = $lang . '.UTF-8';
         if (setlocale(LC_ALL, $lang_charset)) {
@@ -2753,6 +2755,8 @@ class Horde_Registry
         if ($changed) {
             $this->rebuild();
         }
+
+        return $lang;
     }
 
     /**
@@ -2772,7 +2776,10 @@ class Horde_Registry
             $app = $this->getApp();
         }
 
-        $this->setLanguage($lang);
+        if ($this->setLanguage($lang) == $GLOBALS['language']) {
+            return;
+        }
+
         $this->setTextdomain(
             $app,
             $this->get('fileroot', $app) . '/locale'
