@@ -59,7 +59,8 @@ class Horde_Imap_Client_Interaction_Command_Continuation
         Horde_Imap_Client_Interaction_Server_Continuation $ob
     )
     {
-        return $this->_closure($ob);
+        $closure = $this->_closure;
+        return $closure($ob);
     }
 
 }
