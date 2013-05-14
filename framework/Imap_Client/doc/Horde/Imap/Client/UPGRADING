@@ -10,6 +10,31 @@
 
 This lists the API changes between releases of the package.
 
+
+Upgrading to 2.10.0
+===================
+
+  - Horde_Imap_Client_Base
+
+    - expunge()
+
+      The 'delete' option was added.
+
+    - status()
+
+      The $mailbox argument now supports array input (and will return an
+      array of multiple mailboxes).  Additionally, the third $options
+      parameter has been added.
+
+    - statusMultiple()
+
+      This method has been deprecated. Use status() instead.
+
+  - Horde_Imap_Client_Interaction_Client
+
+    This class is deprecated (and no longer used internally).
+
+
 Upgrading to 2.9.0
 ==================
 

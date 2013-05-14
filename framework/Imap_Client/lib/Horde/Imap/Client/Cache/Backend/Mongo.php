@@ -21,7 +21,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Backend implements Serializable
+class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Backend implements Horde_Mongo_Collection_Index, Serializable
 {
     /* Collection names. */
     const BASE = 'horde_imap_client_cache_data';
@@ -34,6 +34,28 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
      * @var MongoDB
      */
     protected $_db;
+
+    /**
+     * The list of indices.
+     *
+     * @var array
+     */
+    protected $_indices = array(
+        self::BASE => array(
+            'base_index_1' => array(
+                'hostspec' => 1,
+                'mailbox' => 1,
+                'port' => 1,
+                'username' => 1,
+            )
+        ),
+        self::MSG => array(
+            'msg_index_1' => array(
+                'uid' => 1,
+                'msguid' => 1
+            )
+        )
+    );
 
     /**
      * Constructor.
@@ -58,24 +80,6 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
 
         $this->setParams($params);
         $this->_initOb();
-
-        /* 0.1% of the time, check to make sure indexes are created. */
-        if (!rand(0, 999)) {
-            $this->_db->selectCollection(self::BASE)->ensureIndex(array(
-                'hostspec' => 1,
-                'mailbox' => 1,
-                'port' => 1,
-                'username' => 1,
-            ), array(
-                'w' => 0
-            ));
-            $this->_db->selectCollection(self::MSG)->ensureIndex(array(
-                'uid' => 1,
-                'msguid' => 1
-            ), array(
-                'w' => 0
-            ));
-        }
     }
 
     /**
@@ -98,7 +102,7 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
 
         $out = array();
         $query = array(
-            'msguid' => array('$in' => $uids),
+            'msguid' => array('$in' => array_map('strval', $uids)),
             'uid' => $uid
         );
 
@@ -165,17 +169,17 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
             try {
                 if (isset($res[$key])) {
                     $coll->update(array(
-                        'msguid' => $key,
+                        'msguid' => strval($key),
                         'uid' => $uid
                     ), array(
                         'data' => $this->_value(array_merge($res[$key], $val)),
-                        'msguid' => $key,
+                        'msguid' => strval($key),
                         'uid' => $uid
                     ));
                 } else {
                     $coll->insert(array(
                         'data' => $this->_value($val),
-                        'msguid' => $key,
+                        'msguid' => strval($key),
                         'uid' => $uid
                     ));
                 }
@@ -273,7 +277,7 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
         if ($uid = $this->_getUid($mailbox)) {
             try {
                 $this->_db->selectCollection(self::MSG)->remove(array(
-                    'msguid' => array('$in' => $uids),
+                    'msguid' => array('$in' => array_map('strval', $uids)),
                     'uid' => $uid
                 ));
             } catch (MongoException $e) {}
@@ -395,6 +399,30 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
         return ($data instanceof MongoBinData)
             ? @unserialize($compress->decompress($data->bin))
             : new MongoBinData($compress->compress(serialize($data)), MongoBinData::BYTE_ARRAY);
+    }
+
+    /* Horde_Mongo_Collection_Index methods. */
+
+    /**
+     */
+    public function checkMongoIndices()
+    {
+        foreach ($this->_indices as $key => $val) {
+            if (!$this->_params['mongo_db']->checkIndices($key, $val)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     */
+    public function createMongoIndices()
+    {
+        foreach ($this->_indices as $key => $val) {
+            $this->_params['mongo_db']->createIndices($key, $val);
+        }
     }
 
     /* Serializable methods. */

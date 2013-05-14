@@ -30,11 +30,11 @@ class Horde_Imap_Client_Cache_MongoTest extends Horde_Imap_Client_Cache_TestBase
 
     protected function _getBackend()
     {
-        if (($config = self::getConfig('IMAPCLIENT', __DIR__ . '/..')) &&
-            isset($config['mongo'])) {
+        if (($config = self::getConfig('IMAPCLIENT_TEST_CONFIG', __DIR__ . '/..')) &&
+            isset($config['imapclient']['mongo'])) {
             $factory = new Horde_Test_Factory_Mongo();
             $this->_mongo = $factory->create(array(
-                'config' => $config['mongo'],
+                'config' => $config['imapclient']['mongo'],
                 'dbname' => $this->_dbname
             ));
         }
