@@ -1,5 +1,5 @@
 <?php
-$conf['imapclient'] = array(
+$conf = array(
     // Configuration for the remote IMAP server test.
     'client_config' => array(
         'username' => '',

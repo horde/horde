@@ -159,6 +159,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         $this->_setInit('capability', $capability);
+
+        return $this->_init['capability'];
     }
 
     /**
@@ -503,14 +505,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      *                         under Horde_Imap_Client::STATUS_ALL.
      * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
-    protected function _status($mboxes, $flags)
+    protected function _status(Horde_Imap_Client_Mailbox $mailbox, $flags)
     {
-        if ((count($mboxes) > 1) ||
-            (strcasecmp(reset($mboxes), 'INBOX') !== 0)) {
-            throw new Horde_Imap_Client_Exception_NoSupportPop3('Mailboxes other than INBOX');
-        }
-
-        $this->openMailbox('INBOX');
+        $this->openMailbox($mailbox);
 
         $ret = array();
 
@@ -541,7 +538,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $ret['unseen'] = 0;
         }
 
-        return array('INBOX' => $ret);
+        return $ret;
     }
 
     /**
@@ -660,27 +657,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _fetch(Horde_Imap_Client_Fetch_Results $results,
-                              $queries)
-    {
-        foreach ($queries as $options) {
-            $this->_fetchCmd($results, $options);
-        }
-
-        $this->_updateCache($results);
-    }
-
-     /**
-     * Fetch data for a given fetch query.
-     *
-     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  Pipeline
-     *                                                          object.
-     * @param array $options                                    Fetch query
-     *                                                          options
-     */
-    protected function _fetchCmd(Horde_Imap_Client_Fetch_Results $results,
-                                 $options)
+                              Horde_Imap_Client_Fetch_Query $query,
+                              $options)
     {
         // Grab sequence IDs - IDs will always be the message number for
         // POP3 fetch commands.
@@ -693,7 +674,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             ? array_combine($seq_ids, $seq_ids)
             : $this->_pop3Cache('uidl');
 
-        foreach ($options['_query'] as $type => $c_val) {
+        foreach ($query as $type => $c_val) {
             switch ($type) {
             case Horde_Imap_Client::FETCH_FULLMSG:
                 foreach ($seq_ids as $id) {
@@ -841,6 +822,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 break;
             }
         }
+
+        $this->_updateCache($results);
     }
 
     /**
