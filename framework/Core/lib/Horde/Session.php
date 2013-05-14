@@ -395,8 +395,8 @@ class Horde_Session
     /**
      * Remove session key(s).
      *
-     * @param string $app    Application name.
-     * @param string $name   Session variable name.
+     * @param string $app   Application name.
+     * @param string $name  Session variable name.
      */
     public function remove($app, $name = null)
     {
