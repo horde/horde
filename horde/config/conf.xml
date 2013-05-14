@@ -1060,7 +1060,7 @@
       <confignosql switchname="driverconfig" />
      </configsection>
     </case>
-    <case name="Sql" desc="SQL-based cache storage">
+    <case name="Sql" desc="SQL-based cache storage (NOT RECOMMENDED)">
      <configsection name="params">
       <configsql switchname="driverconfig">
        <configstring name="table" required="false" desc="The name of the
