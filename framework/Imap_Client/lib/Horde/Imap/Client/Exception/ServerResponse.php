@@ -19,46 +19,66 @@
  * @copyright 2012-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
+ *
+ * @property-read string $command  The command that caused the BAD/NO error
+ *                                 status.
+ * @property-read integer $status  Server error status.
  */
 class Horde_Imap_Client_Exception_ServerResponse extends Horde_Imap_Client_Exception
 {
     /**
-     * The command that caused the BAD/NO error status.
+     * Pipeline object.
      *
-     * @var string
+     * @var Horde_Imap_Client_Interaction_Pipeline
      */
-    public $command = null;
+    protected $_pipeline;
 
     /**
-     * The server error status.
+     * Server response object.
      *
-     * @var integer
+     * @var Horde_Imap_Client_Interaction_Server
      */
-    public $status;
+    protected $_server;
 
     /**
      * Constructor.
      *
-     * @param string $msg      Error message.
-     * @param integer $code    Error code.
-     * @param integer $status  Server error status.
-     * @param string $errtext  Server error text.
-     * @param string $errcmd   The command that caused the error.
+     * @param string $msg                                       Error message.
+     * @param integer $code                                     Error code.
+     * @param Horde_Imap_Client_Interaction_Server $server      Server ob.
+     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  Pipeline ob.
      */
-    public function __construct($msg = null, $code = 0, $status = 0,
-                                $errtext = null, $errcmd = null)
+    public function __construct(
+        $msg = null,
+        $code = 0,
+        Horde_Imap_Client_Interaction_Server $server,
+        Horde_Imap_Client_Interaction_Pipeline $pipeline
+    )
     {
-        $this->status = $status;
+        $this->details = strval($server->token);
 
-        if (!is_null($errtext)) {
-            $this->details = $errtext;
-        }
-
-        if (!is_null($errcmd)) {
-            $this->command = $errcmd;
-        }
+        $this->_pipeline = $pipeline;
+        $this->_server = $server;
 
         parent::__construct($msg, $code);
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'command':
+            return ($this->_server instanceof Horde_Imap_Client_Interaction_Server_Tagged)
+                ? $this->_pipeline->getCmd($this->_server->tag)->getCommand()
+                : null;
+
+        case 'status':
+            return $this->_server->status;
+
+        default:
+            return parent::__get($name);
+        }
     }
 
 }
