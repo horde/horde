@@ -382,14 +382,20 @@ class Horde_Session
          * does not need to be rebuilt every time the session is reloaded. */
         if (is_object($value) || ($mask & self::TYPE_OBJECT) ||
             is_array($value) || ($mask & self::TYPE_ARRAY)) {
-            $this->_data[$app][self::IS_SERIALIZED . $name] = $injector->getInstance('Horde_Compress_Fast')->compress(serialize($value));
-            unset($this->_data[$app][self::NOT_SERIALIZED . $name]);
+            $value = $injector->getInstance('Horde_Compress_Fast')->compress(serialize($value));
+            $to_save = self::IS_SERIALIZED;
+            $to_unset = self::NOT_SERIALIZED;
         } else {
-            $this->_data[$app][self::NOT_SERIALIZED . $name] = $value;
-            unset($this->_data[$app][self::IS_SERIALIZED . $name]);
+            $to_save = self::NOT_SERIALIZED;
+            $to_unset = self::IS_SERIALIZED;
         }
 
-        $this->sessionHandler->changed = true;
+        if (!isset($this->_data[$app][$to_save . $name]) ||
+            ($this->_data[$app][$to_save . $name] != $value)) {
+            $this->_data[$app][$to_save . $name] = $value;
+            unset($this->_data[$app][$to_unset . $name]);
+            $this->sessionHandler->changed = true;
+        }
     }
 
     /**
@@ -400,11 +406,7 @@ class Horde_Session
      */
     public function remove($app, $name = null)
     {
-        if ($this->_readonly) {
-            return;
-        }
-
-        if (!isset($this->_data[$app])) {
+        if ($this->_readonly || !isset($this->_data[$app])) {
             return;
         }
 
