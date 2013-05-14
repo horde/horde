@@ -50,7 +50,7 @@ $__autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/
 
 /* Sanity checking - if we can't even load the Horde_ErrorHandler file, then
  * the installation is all sorts of busted. */
-if (class_exists('Horde_ErrorHandler')) {
+if (!class_exists('Horde_ErrorHandler')) {
     exit('Cannot find base Horde directories. Please reinstall Horde and/or correctly configure the install paths.');
 }
 
