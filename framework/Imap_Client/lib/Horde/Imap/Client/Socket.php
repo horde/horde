@@ -719,6 +719,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* If reusing an imapproxy connection, no need to do any of these
          * login tasks again. */
         if (!$firstlogin && !empty($resp['proxyreuse'])) {
+            if (isset($this->_init['enabled'])) {
+                $this->_temp['enabled'] = $this->_init['enabled'];
+            }
+
             // If we have not yet set the language, set it now.
             if (!isset($this->_init['lang'])) {
                 $this->_temp['lang_queue'] = true;
@@ -727,8 +731,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             return false;
         }
-
-        $this->_setInit('enabled', array());
 
         /* If we logged in for first time, and server did not return
          * capability information, we need to mark for retrieval. */
@@ -921,18 +923,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         if ($this->queryCapability('ENABLE')) {
             // Only enable non-enabled extensions.
-            $exts = array_diff($exts, array_keys($this->_init['enabled']));
+            $exts = array_diff($exts, array_keys($this->_temp['enabled']));
             if (!empty($exts)) {
                 $this->_cmdQueue[] = $this->_command('ENABLE')->add($exts);
-
-                /* 'enabled' = 1 indicates we have sent the ENABLE request
-                 * to the server. Need to set here immediately because other
-                 * code may query enabled config before command is actually
-                 * sent. */
-                $this->_setInit('enabled', array_merge(
-                    $this->_init['enabled'],
-                    array_fill_keys($exts, 1)
-                ));
+                $this->_enabled($exts, 1);
             }
         }
     }
@@ -944,19 +938,25 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseEnabled(Horde_Imap_Client_Tokenize $data)
     {
-        /* Set 'enabled' = 2 for all extensions verified as enabled on the
-         * server. */
-        $this->_setInit('enabled', array_merge(
-            array_diff(array(2), $this->_init['enabled']),
-            array_fill_keys($data->flushIterator(), 2)
-        ));
+        $this->_enabled($data->flushIterator(), 2);
+    }
+
+    /**
+     */
+    protected function _enabled($exts, $status)
+    {
+        parent::_enabled($exts, $status);
+
+        if (($status == 2) && !empty($this->_init['imapproxy'])) {
+            $this->_setInit('enabled', $this->_temp['enabled']);
+        }
     }
 
     /**
      */
     protected function _openMailbox(Horde_Imap_Client_Mailbox $mailbox, $mode)
     {
-        $qresync = isset($this->_init['enabled']['QRESYNC']);
+        $qresync = isset($this->_temp['enabled']['QRESYNC']);
 
         $cmd = $this->_command(
             ($mode == Horde_Imap_Client::OPEN_READONLY) ? 'EXAMINE' : 'SELECT'
@@ -1013,15 +1013,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_changeSelected($mailbox, $mode);
             }
         } else {
-            if (!isset($this->_init['enabled']['CONDSTORE']) &&
+            if (!isset($this->_temp['enabled']['CONDSTORE']) &&
                 $this->_initCache() &&
                 $this->queryCapability('CONDSTORE')) {
                 /* Activate CONDSTORE now if ENABLE is not available. */
                 $cmd->add(new Horde_Imap_Client_Data_Format_List('CONDSTORE'));
-                $this->_setInit('enabled', array_merge(
-                    $this->_init['enabled'],
-                    array('CONDSTORE' => true)
-                ));
+                $this->_enabled(array('CONDSTORE'), 2);
             }
 
             $this->_changeSelected($mailbox, $mode);
@@ -1435,11 +1432,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     /* Even though CONDSTORE is available, it may not yet have
                      * been enabled. */
-                    if (!isset($this->_init['enabled']['CONDSTORE'])) {
-                        $this->_setInit('enabled', array_merge(
-                            $this->_init['enabled'],
-                            array('CONDSTORE' => true)
-                        ));
+                    if (!isset($this->_temp['enabled']['CONDSTORE'])) {
+                        $this->_enabled(array('CONDSTORE'), 2);
                     }
                 }
 
@@ -1841,7 +1835,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * even if the server returns EXPUNGEs instead, we can use
              * vanished() to grab the list. */
             unset($this->_temp['search_save']);
-            if (isset($this->_init['enabled']['QRESYNC'])) {
+            if (isset($this->_temp['enabled']['QRESYNC'])) {
                 $ids = $this->resolveIds($this->_selected, $ids, 1);
                 if ($list_msgs) {
                     $modseq = $this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
