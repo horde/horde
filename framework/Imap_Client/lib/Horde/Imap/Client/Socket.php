@@ -1086,8 +1086,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 throw $e;
             }
 
-            $this->store($mailbox, array('add' => array(Horde_Imap_Client::FLAG_DELETED)));
-            $this->expunge($mailbox);
+            $this->expunge($mailbox, array(
+                'delete' => true
+            ));
 
             $this->_temp['deleteretry'] = true;
             $this->deleteMailbox($mailbox);
