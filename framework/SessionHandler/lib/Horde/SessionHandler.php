@@ -200,8 +200,6 @@ class Horde_SessionHandler
                 return false;
             }
             $this->_logger->log('Wrote session data (id = ' . $id . ')', 'DEBUG');
-        } elseif ($this->_logger) {
-            $this->_logger->log('Session data unchanged (id = ' . $id . ')', 'DEBUG');
         }
 
         return true;
