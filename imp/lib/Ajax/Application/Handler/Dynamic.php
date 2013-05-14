@@ -525,7 +525,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             } catch (Horde_Imap_Client_Exception_Sync $e) {}
         }
 
-        $res = $injector->getInstance('IMP_Message')->flag($flags, $this->_base->indices, $this->vars->add, array(
+        $res = $injector->getInstance('IMP_Message')->flag(array(
+            ($this->vars->add ? 'add' : 'remove') => $flags
+        ), $this->_base->indices, array(
             'unchangedsince' => $unchangedsince
         ));
 

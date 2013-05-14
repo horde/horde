@@ -204,11 +204,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagMessages($mailbox, $indices, $flags, $set)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Message')->flag(
-            $flags,
-            new IMP_Indices($mailbox, $indices),
-            $set
-        );
+        return $GLOBALS['injector']->getInstance('IMP_Message')->flag(array(
+            ($set ? 'add' : 'remove') => $flags
+        ), new IMP_Indices($mailbox, $indices));
     }
 
     /**

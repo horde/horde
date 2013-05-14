@@ -318,7 +318,9 @@ class IMP_Message
      */
     public function undelete(IMP_Indices $indices)
     {
-        return $this->flag(array(Horde_Imap_Client::FLAG_DELETED), $indices, false);
+        return $this->flag(array(
+            'remove' => array(Horde_Imap_Client::FLAG_DELETED)
+        ), $indices);
     }
 
     /**
@@ -621,10 +623,9 @@ class IMP_Message
      * Handles search mailboxes.
      * This function works with IMAP only, not POP3.
      *
-     * @param array $flags          The IMAP flag(s) to set or clear.
+     * @param array $action         A list of IMAP flag(s). Keys are 'add'
+     *                              and/or 'remove'.
      * @param IMP_Indices $indices  An indices object.
-     * @param boolean $action       If true, set the flag(s), otherwise clear
-     *                              the flag(s).
      * @param array $opts           Additional options:
      *   - unchangedsince: (array) The unchangedsince value to pass to the
      *                     IMAP store command. Keys are mailbox names, values
@@ -633,7 +634,7 @@ class IMP_Message
      *
      * @return boolean  True if successful, false if not.
      */
-    public function flag($flags, IMP_Indices $indices, $action = true,
+    public function flag(array $action, IMP_Indices $indices,
                          array $opts = array())
     {
         global $injector, $notification;
@@ -646,9 +647,6 @@ class IMP_Message
             'unchangedsince' => array()
         ), $opts);
 
-        $action_array = $action
-            ? array('add' => $flags)
-            : array('remove' => $flags);
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
         $imp_imap = $injector->getInstance('IMP_Imap');
         $ret = true;
@@ -666,7 +664,7 @@ class IMP_Message
                     : null;
 
                 /* Flag/unflag the messages now. */
-                $res = $imp_imap->store($ob->mbox, array_merge($action_array, array_filter(array(
+                $res = $imp_imap->store($ob->mbox, array_merge($action, array_filter(array(
                     'ids' => $imp_imap->getIdsOb($ob->uids),
                     'unchangedsince' => $unchangedsince
                 ))));
@@ -680,7 +678,9 @@ class IMP_Message
                     $notification->push(sprintf(_("Flags were not changed for at least one message in the mailbox \"%s\" because the flags were altered by another connection to the mailbox prior to this request. You may redo the flag action if desired; this warning is precautionary to ensure you don't overwrite flag changes."), $ob->mbox->display), 'horde.warning');
                 }
 
-                $ajax_queue->flag(reset($action_array), $action, $flag_change);
+                foreach ($action as $key => $val) {
+                    $ajax_queue->flag($val, ($key == 'add'), $flag_change);
+                }
             } catch (Exception $e) {
                 $notification->push(sprintf(_("There was an error flagging messages in the mailbox \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
                 $ret = false;

@@ -148,7 +148,9 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         case 'flag_messages':
             if (!$readonly && $this->vars->flag && count($this->indices)) {
                 $flag = $imp_flags->parseFormId($this->vars->flag);
-                $injector->getInstance('IMP_Message')->flag(array($flag['flag']), $this->indices, $flag['set']);
+                $injector->getInstance('IMP_Message')->flag(array(
+                    ($flag['set'] ? 'add' : 'remove') => array($flag['flag'])
+                ), $this->indices);
             }
             break;
 

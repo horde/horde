@@ -134,7 +134,9 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         }
 
         /* Flag messages as seen. */
-        $injector->getInstance('IMP_Message')->flag(array(Horde_Imap_Client::FLAG_SEEN), $imp_indices);
+        $injector->getInstance('IMP_Message')->flag(array(
+            'add' => array(Horde_Imap_Client::FLAG_SEEN)
+        ), $imp_indices);
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/thread'

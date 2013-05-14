@@ -157,7 +157,9 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 count($this->indices)) {
                 $peek = true;
                 $flag = $imp_flags->parseFormId($this->vars->flag);
-                $imp_message->flag(array($flag['flag']), $this->indices, $flag['set']);
+                $imp_message->flag(array(
+                    ($flag['set'] ? 'add' : 'remove') => array($flag['flag'])
+                ), $this->indices);
                 if ($prefs->getValue('mailbox_return')) {
                     $this->_returnToMailbox($imp_mailbox->getIndex());
                     return;

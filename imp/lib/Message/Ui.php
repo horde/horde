@@ -153,7 +153,9 @@ class IMP_Message_Ui
             $success = true;
 
             if ($mdn_flag) {
-                $injector->getInstance('IMP_Message')->flag(array(Horde_Imap_Client::FLAG_MDNSENT), $mailbox->getIndicesOb($uid), true);
+                $injector->getInstance('IMP_Message')->flag(array(
+                    'add' => array(Horde_Imap_Client::FLAG_MDNSENT)
+                ), $mailbox->getIndicesOb($uid));
             }
         } catch (Exception $e) {
             $success = false;

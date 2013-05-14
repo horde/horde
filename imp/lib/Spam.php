@@ -165,8 +165,10 @@ class IMP_Spam
         case self::INNOCENT:
             /* Always flag messages as NotJunk. */
             $imp_message = $injector->getInstance('IMP_Message');
-            $imp_message->flag(array('$notjunk'), $indices, true);
-            $imp_message->flag(array('$junk'), $indices, false);
+            $imp_message->flag(array(
+                'add' => array(Horde_Imap_Client::FLAG_NOTJUNK),
+                'remove' => array(Horde_Imap_Client::FLAG_JUNK)
+            ), $indices);
 
             if (($result = $prefs->getValue('move_innocent_after_report')) &&
                 !$imp_message->copy('INBOX', 'move', $indices, $mbox_args)) {
@@ -177,8 +179,10 @@ class IMP_Spam
         case self::SPAM:
             /* Always flag messages as Junk. */
             $imp_message = $injector->getInstance('IMP_Message');
-            $imp_message->flag(array('$junk'), $indices, true);
-            $imp_message->flag(array('$notjunk'), $indices, false);
+            $imp_message->flag(array(
+                'add' => array(Horde_Imap_Client::FLAG_JUNK),
+                'remove' => array(Horde_Imap_Client::FLAG_NOTJUNK)
+            ), $indices);
 
             switch ($result = $prefs->getValue('delete_spam_after_report')) {
             case 1:
