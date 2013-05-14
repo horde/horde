@@ -410,12 +410,14 @@ class Horde_Session
 
         if (is_null($name)) {
             unset($this->_data[$app]);
+            $this->sessionHandler->changed = true;
         } elseif ($this->exists($app, $name)) {
             unset(
                 $this->_data[$app][self::NOT_SERIALIZED . $name],
                 $this->_data[$app][self::IS_SERIALIZED . $name],
                 $this->_data[self::PRUNE][$this->_getKey($app, $name)]
             );
+            $this->sessionHandler->changed = true;
         } else {
             foreach ($this->_subkeys($app, $name) as $val) {
                 $this->remove($app, $val);
