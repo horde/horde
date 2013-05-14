@@ -1973,55 +1973,57 @@
  </configtab>
 
  <configtab name="hashtable" desc="Distributed Hash Table">
-  <configdescription>A distributed hash table is a way of sharing data across
-  multiple servers by associating a piece of data with a static key. It is
-  useful for cache-like operations, since it is usually much faster to set and
-  retrieve the data from the hash table than the underlying data storage
-  driver.</configdescription>
-  <configswitch name="driver" desc="What backend should we use for the
-  distributed hash table?">none
-   <case name="none" desc="None" />
-   <case name="Memcache" desc="Memcache Server">
-    <configsection name="memcache">
-     <configlist name="hostspec" required="false" desc="What hostname(s) is
-     the memcache server(s) running on, or what is the name of the system
-     DSN(s)? Specify multiple servers by separating with
-     commas.">localhost</configlist>
-     <configlist name="port" required="false" desc="Port(s) the memcache
-     server(s) are running on. If more than one host is used, specify ports
-     for respective servers, separated by commas.">11211</configlist>
-     <configlist name="weight" required="false" desc="The weight to give each
-     memcache server. If more than one host is used, specify weights
-     for respective servers, separated by commas."></configlist>
-     <configboolean name="persistent" required="false" desc="Enable
-     persistent connections to server(s).">false</configboolean>
-     <configswitch name="compression" quote="false" desc="Enable compression
-     when storing entries on server.">false
-      <case name="false" desc="No" />
-      <case name="true" desc="Yes">
-       <configinteger name="c_threshold" required="false" desc="The threshold
-       length before compressing data.">0</configinteger>
-      </case>
-     </configswitch>
-     <configphp name="prefix" required="false" desc="Prefix to use for the
-     memcache keys. PHP expressions are allowed."></configphp>
-     <configphp name="large_items" required="false" desc="Memcache natively
-     supports data of limited length only (default: 1 MB). If this option is
-     true, Horde will transparently work around this
-     limitation.">true</configphp>
-    </configswitch>
-   </case>
-   <case name="Predis" desc="Redis Server">
-    <confisection name="predis">
-     <configlist name="hostspec" required="false" desc="What hostname(s) is
-     the redis server(s) running on, or what is the name of the system
-     DSN(s)? Specify multiple servers by separating with
-     commas.">localhost</configlist>
-     <configlist name="port" required="false" desc="Port(s) the redis
-     server(s) are running on. If more than one host is used, specify ports
-     for respective servers, separated by commas.">11211</configlist>
-    </configsection>
-   </case>
+  <configsection name="hashtable">
+   <configdescription>A distributed hash table is a way of sharing data across
+   multiple servers by associating a piece of data with a static key. It is
+   useful for cache-like operations, since it is usually much faster to set and
+   retrieve the data from the hash table than the underlying data storage
+   driver.</configdescription>
+   <configswitch name="driver" desc="What backend should we use for the
+   distributed hash table?">none
+    <case name="none" desc="None" />
+    <case name="Memcache" desc="Memcache Server">
+     <configsection name="params">
+      <configlist name="hostspec" required="false" desc="What hostname(s) is
+      the memcache server(s) running on, or what is the name of the system
+      DSN(s)? Specify multiple servers by separating with
+      commas.">localhost</configlist>
+      <configlist name="port" required="false" desc="Port(s) the memcache
+      server(s) are running on. If more than one host is used, specify ports
+      for respective servers, separated by commas.">11211</configlist>
+      <configlist name="weight" required="false" desc="The weight to give each
+      memcache server. If more than one host is used, specify weights
+      for respective servers, separated by commas."></configlist>
+      <configboolean name="persistent" required="false" desc="Enable
+      persistent connections to server(s).">false</configboolean>
+      <configswitch name="compression" quote="false" desc="Enable compression
+      when storing entries on server.">false
+       <case name="false" desc="No" />
+       <case name="true" desc="Yes">
+        <configinteger name="c_threshold" required="false" desc="The threshold
+        length before compressing data.">0</configinteger>
+       </case>
+      </configswitch>
+      <configphp name="prefix" required="false" desc="Prefix to use for the
+      memcache keys. PHP expressions are allowed."></configphp>
+      <configphp name="large_items" required="false" desc="Memcache natively
+      supports data of limited length only (default: 1 MB). If this option is
+      true, Horde will transparently work around this
+      limitation.">true</configphp>
+     </configsection>
+    </case>
+    <case name="Predis" desc="Redis Server">
+     <configsection name="params">
+      <configlist name="hostspec" required="false" desc="What hostname(s) is
+      the redis server(s) running on, or what is the name of the system
+      DSN(s)? Specify multiple servers by separating with
+      commas.">localhost</configlist>
+      <configlist name="port" required="false" desc="Port(s) the redis
+      server(s) are running on. If more than one host is used, specify ports
+      for respective servers, separated by commas.">11211</configlist>
+     </configsection>
+    </case>
+   </configswitch>
   </configsection>
  </configtab>
 
