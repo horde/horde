@@ -590,6 +590,10 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function renameMailbox($old, $new)
     {
+        if ($old == $new) {
+            return;
+        }
+
         $imap = $this->_getImapOb();
         try {
             $imap->renameMailbox(
