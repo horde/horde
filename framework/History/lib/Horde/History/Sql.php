@@ -231,6 +231,9 @@ class Horde_History_Sql extends Horde_History
         $ids = array();
         foreach ($names as $name) {
             $ids[] = $this->_db->quote($name);
+            if ($this->_memcache) {
+                $this->_memcache->delete('horde:history:' . $name);
+            }
         }
 
         $this->_db->delete('DELETE FROM horde_histories WHERE object_uid IN (' . implode(',', $ids) . ')');

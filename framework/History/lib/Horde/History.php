@@ -67,6 +67,18 @@ abstract class Horde_History
     }
 
     /**
+     * Set memcache
+     *
+     * @param Horde_Memcache $memcache  The memcache instance
+     *
+     * @return NULL
+     */
+    public function setMemcache(Horde_Memcache $memcache)
+    {
+        $this->_memcache = $memcache;
+    }
+
+    /**
      * Logs an event to an item's history log.
      *
      * The item must be uniquely identified by $guid. Any other details about
@@ -91,6 +103,10 @@ abstract class Horde_History
     {
         if (!is_string($guid)) {
             throw new InvalidArgumentException('The guid needs to be a string!');
+        }
+
+        if ($this->_memcache) {
+            $this->_memcache->delete('horde:history:' . $guid);
         }
 
         $history = $this->getHistory($guid);
@@ -138,7 +154,19 @@ abstract class Horde_History
         if (!is_string($guid)) {
             throw new Horde_History_Exception('The guid needs to be a string!');
         }
-        return $this->_getHistory($guid);
+        if ($this->_memcache) {
+            $history = $this->_memcache->get('horde:history:' . $guid);
+            if ($history) {
+                return $history;
+            }
+        }
+
+        $history = $this->_getHistory($guid);
+        if ($this->_memcache) {
+            $this->_memcache->set('horde:history:' . $guid, $history);
+        }
+
+        return $history;
     }
 
     /**
