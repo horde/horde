@@ -96,7 +96,7 @@ class Horde_Cache
     {
         $res = $this->_storage->get($key, $lifetime);
 
-        if (empty($this->_params['compress']) || ($res === false)) {
+        if (empty($this->_params['compress']) || !is_string($res)) {
             return $res;
         }
 
