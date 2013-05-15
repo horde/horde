@@ -110,12 +110,14 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
             $keys = array($keys);
         }
 
-        if ($todo = array_diff($keys, array_keys($this->_noexist)) &&
-            !$this->_delete(array_map(array($this, 'hkey'), $todo))) {
+        $todo = array_diff($keys, array_keys($this->_noexist));
+        if ($todo && !$this->_delete(array_map(array($this, 'hkey'), $todo))) {
             return false;
         }
 
-        $this->_noexist = array_merge($this->_noexist, array_fill_keys($todo, true));
+        if (is_array($todo)) {
+            $this->_noexist = array_merge($this->_noexist, array_fill_keys($todo, true));
+        }
 
         return true;
     }
