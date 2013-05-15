@@ -35,7 +35,7 @@
           $count++;
        }?>
        </tr>
-       <tr><td colspan="<?php echo $tilesperrow ?>"><?php echo $this->pager->render() ?></td></tr>
+       <tr><td colspan="<?php echo $this->tilesperrow ?>"><?php echo $this->pager->render() ?></td></tr>
       </table>
      <?php endif; ?>
    </td>
