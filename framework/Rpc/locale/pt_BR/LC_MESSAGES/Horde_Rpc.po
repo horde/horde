@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Rpc\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-03-08 19:47-0300\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
 "PO-Revision-Date: 2013-03-16 11:07-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -16,11 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: lib/Horde/Rpc/Webdav.php:352
-#, php-format
-msgid "Error deleting from path %s; must be [app]/[path]"
-msgstr "Erro excluindo do caminho %s; deve ser [app]/[caminho]"
 
 #: lib/Horde/Rpc/Phpgw.php:80 lib/Horde/Rpc/Phpgw.php:81
 #: lib/Horde/Rpc/Soap.php:185 lib/Horde/Rpc/Soap.php:193
@@ -39,19 +34,6 @@ msgstr "Solicitação não pôde ser respondida. Código de erro retornado: "
 #: lib/Horde/Rpc/ActiveSync.php:102
 msgid "Trying to access the ActiveSync endpoint from a browser. Not Supported."
 msgstr "Tentando acessar o ponto ActiveSync de um navegador. Não suportado."
-
-#: lib/Horde/Rpc/Webdav.php:417
-#, php-format
-msgid "Unable to create directory %s; must be [app]/[path]"
-msgstr "Impossível criar diretório %s; deve ser [app]/[diretório]"
-
-#: lib/Horde/Rpc/Webdav.php:452
-#, php-format
-msgid ""
-"Unable to rename %s; must be [app]/[path] and within the same application."
-msgstr ""
-"Impossível renomear %s; deve ser [app]/[diretório] e dentro da mesma "
-"aplicação."
 
 #: lib/Horde/Rpc/Phpgw.php:99
 msgid "You did not authenticate."

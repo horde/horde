@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-05-14 20:17-0300\n"
 "PO-Revision-Date: 2011-10-30 20:35-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -779,7 +779,7 @@ msgstr "Informação de sincronia de login foi armazenada"
 msgid "Synchronization is disabled"
 msgstr "Sincronização está desabilitada"
 
-#: lib/Page.php:461
+#: lib/Page.php:472
 msgid "Table of Contents"
 msgstr "Índice"
 
@@ -824,9 +824,9 @@ msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr "Impossível criar Wiki/Home. O wiki não está configurado."
 
 #: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:368
-#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:501
-#: lib/Page.php:512 lib/Page.php:517 lib/Page.php:522 lib/Page.php:527
-#: lib/Page.php:567
+#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:524
+#: lib/Page.php:535 lib/Page.php:540 lib/Page.php:545 lib/Page.php:550
+#: lib/Page.php:590
 msgid "Unsupported"
 msgstr "Não suportado"
 
