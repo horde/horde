@@ -193,7 +193,7 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
         }
 
         foreach ($keys as $val) {
-            if (isset($this->_noexist[$key])) {
+            if (isset($this->_noexist[$val])) {
                 $out[$val] = false;
             } else {
                 $todo[] = $this->hkey($val);
