@@ -83,6 +83,17 @@ class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
         'templateid'  => false,
     );
 
+    public function __get($property)
+    {
+        // The saveinsent is an empty tag, and is considered true if it is
+        // present.
+        if ($property == 'saveinsent') {
+            return $this->_properties['saveinsent'] !== false;
+        }
+
+        return parent::__get($property);
+    }
+
     /**
      * Return this object's folder class
      *
