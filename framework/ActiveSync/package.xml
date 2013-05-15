@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix saving sent mail in EAS &gt;= 14 SENDMAIL requests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1400,7 +1400,7 @@
    <date>2013-05-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix saving sent mail in EAS &gt;= 14 SENDMAIL requests.
    </notes>
   </release>
  </changelog>
