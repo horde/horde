@@ -50,7 +50,11 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base
     public function __construct(array $params = array())
     {
         if (!isset($params['memcache'])) {
-            throw new InvalidArgumentException('Missing memcache object');
+            if (isset($params['hashtable'])) {
+                $params['memcache'] = $params['hashtable'];
+            } else {
+                throw new InvalidArgumentException('Missing memcache object');
+            }
         }
 
         parent::__construct(array_merge(array(
