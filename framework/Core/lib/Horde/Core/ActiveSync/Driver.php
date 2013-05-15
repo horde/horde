@@ -421,11 +421,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_imap->createMailbox($displayname);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                throw new Horde_ActiveSync_Exception($e);
+                throw $e;
             }
         } else {
-            $this->_logger->err('Renaming IMAP folders not supported.');
-            throw new Horde_ActiveSync_Exception('Renaming not supported.');
+            try {
+                $this->_imap->renameMailbox($id, $displayname);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw $e;
+            }
         }
 
         return $displayname;
@@ -439,7 +443,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-        $this->_imap->deleteMailbox($id);
+        try {
+            $this->_imap->deleteMailbox($id);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw $e;
+        }
     }
 
     /**
