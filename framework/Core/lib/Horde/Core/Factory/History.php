@@ -17,8 +17,9 @@ class Horde_Core_Factory_History extends Horde_Core_Factory_Injector
             $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'history')
         );
 
-        if (is_callable(array($history, 'setMemcache'))) {
-            $history->setMemcache($injector->getInstance('Horde_Memcache'));
+        if (is_callable(array($history, 'setMemcache')) &&
+            ($memcache = $injector->getInstance('Horde_Memcache'))) {
+            $history->setMemcache($memcache);
         }
 
         return $history;
