@@ -38,6 +38,13 @@ abstract class Horde_History
     protected $_auth;
 
     /**
+     * Memcache object.
+     *
+     * @var Horde_Memcache
+     */
+    protected $_memcache;
+
+    /**
      * Our log handler.
      *
      * @var Horde_Log_Logger
