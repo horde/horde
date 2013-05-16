@@ -2258,7 +2258,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Return the parent/key for the current element.
      *
-     * @param boolean $inc  Increment key?
+     * @param string $parent  Parent element.
+     * @param boolean $inc    Increment key?
      *
      * @return mixed  An array with two values: parent name and the key.
      *                Returns null if no parent.
