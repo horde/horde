@@ -71,4 +71,6 @@ try {
     $response->sendAndExit();
 } catch (Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
+    $response = new Horde_Core_Ajax_Response_HordeCore();
+    $response->sendAndExit();
 }
