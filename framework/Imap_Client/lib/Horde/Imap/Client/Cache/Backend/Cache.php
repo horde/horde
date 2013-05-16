@@ -392,7 +392,7 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
             return;
         }
 
-        if ((($data = $this->_cache->get($cache_id, $this->_params['lifetime'])) !== false) &&
+        if ((($data = $this->_cache->get($cache_id, 0)) !== false) &&
             ($data = @unserialize($data)) &&
             is_array($data)) {
             $this->_data[$mailbox] += $data;
@@ -422,7 +422,7 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
     protected function _loadSliceMap($mailbox, $uidvalid = null)
     {
         if (!isset($this->_slicemap[$mailbox]) &&
-            (($data = $this->_cache->get($this->_getCid($mailbox, 'slicemap'), $this->_params['lifetime'])) !== false) &&
+            ($data = $this->_cache->get($this->_getCid($mailbox, 'slicemap'), 0) !== false) &&
             ($slice = @unserialize($data)) &&
             is_array($slice)) {
             $this->_slicemap[$mailbox] = $slice;
