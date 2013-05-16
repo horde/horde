@@ -166,10 +166,19 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
         /* For level MICRO or NOHTML, start with htmlspecialchars(). */
         $text2 = @htmlspecialchars($text, ENT_COMPAT, $this->_params['charset']);
 
-        /* Bad charset input in may result in an empty string. If so, try
-         * using the default charset encoding instead. */
-        if (!$text2) {
-            $text2 = @htmlspecialchars($text, ENT_COMPAT);
+        /* Bad charset input in may result in an empty string. Or the charset
+         * may not be supported. Convert to UTF-8 for htmlspecialchars() and
+         * then convert back. */
+        if (!strlen($text2)) {
+            $text2 = Horde_String::convertCharset(
+                @htmlspecialchars(
+                    Horde_String::convertCharset($text, $this->_params['charset'], 'UTF-8'),
+                    ENT_COMPAT,
+                    'UTF-8'
+                ),
+                'UTF-8',
+                $this->_params['charset']
+            );
         }
         $text = $text2;
 
