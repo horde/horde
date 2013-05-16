@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix removing prefs from storage backends (Bug #12208).
 * [mms] Fix fatal error in Horde_Prefs_Scope#valid().
  </notes>
  <contents>
@@ -1042,6 +1043,7 @@ Initial release as a PEAR package
    <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix removing prefs from storage backends (Bug #12208).
 * [mms] Fix fatal error in Horde_Prefs_Scope#valid().
    </notes>
   </release>
