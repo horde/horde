@@ -52,10 +52,18 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
      */
     public function __construct(array $params = array())
     {
-        $this->_db = $params['db'];
-        unset($params['db']);
+        if (!isset($params['db'])) {
+            throw new InvalidArgumentException('Missing db parameter.');
+        }
 
-        $this->setParams($params);
+        parent::__construct($params);
+    }
+
+    /**
+     */
+    protected function _initOb()
+    {
+        $this->_db = $this->_params['db'];
     }
 
     /**

@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-abstract class Horde_Imap_Client_Cache_Backend
+abstract class Horde_Imap_Client_Cache_Backend implements Serializable
 {
     /**
      * Configuration paramters.
@@ -29,6 +29,24 @@ abstract class Horde_Imap_Client_Cache_Backend
      * @var array
      */
     protected $_params = array();
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  Configuration parameters.
+     */
+    public function __construct(array $params = array())
+    {
+        $this->setParams($params);
+        $this->_initOb();
+    }
+
+    /**
+     * Initialization tasks.
+     */
+    protected function _initOb()
+    {
+    }
 
     /**
      * Add configuration parameters.
@@ -125,5 +143,23 @@ abstract class Horde_Imap_Client_Cache_Backend
      *                           seconds). If null, deletes all entries.
      */
     abstract public function clear($lifetime);
+
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        return serialize($this->_params);
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        $this->_params = unserialize($data);
+        $this->_initOb();
+    }
 
 }

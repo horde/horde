@@ -74,7 +74,7 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
      *   REQUIRED Parameters:
      *   <ul>
      *    <li>
-     *     cacheob: (Horde_Cache) The cache object to use.
+     *     cacheob: (Horde_Cache) [REQUIRED] The cache object to use.
      *    </li>
      *   </ul>
      *  </li>
@@ -101,22 +101,30 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
             'slicesize' => 50
         ), array_filter($params));
 
-        $this->_cache = $params['cacheob'];
-        unset($params['cacheob']);
+        if (!isset($params['cacheob'])) {
+            throw new InvalidArgumentException('Missing cacheob parameter.');
+        }
 
         foreach (array('lifetime', 'slicesize') as $val) {
             $params[$val] = intval($params[$val]);
         }
 
-        $this->setParams($params);
-
-        register_shutdown_function(array($this, 'shutdown'));
+        parent::__construct($params);
     }
 
     /**
-     * Updates the cache on shutdown.
+     * Initialization tasks.
      */
-    public function shutdown()
+    protected function _initOb()
+    {
+        $this->_cache = $this->_params['cacheob'];
+        register_shutdown_function(array($this, 'save'));
+    }
+
+    /**
+     * Updates the cache.
+     */
+    public function save()
     {
         $lifetime = $this->_params['lifetime'];
 
@@ -151,6 +159,7 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
                             ? serialize($d[$uid])
                             : $d[$uid];
                     }
+Horde::debug($data, null, false);
                     $this->_cache->set($this->_getCid($mbox, $slice), serialize($data), $lifetime);
                 }
             }
@@ -159,6 +168,8 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
                 $this->_cache->set($this->_getCid($mbox, 'slicemap'), serialize($s), $lifetime);
             }
         }
+
+        $this->_update = array();
     }
 
     /**
@@ -422,7 +433,7 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
     protected function _loadSliceMap($mailbox, $uidvalid = null)
     {
         if (!isset($this->_slicemap[$mailbox]) &&
-            ($data = $this->_cache->get($this->_getCid($mailbox, 'slicemap'), 0) !== false) &&
+            (($data = $this->_cache->get($this->_getCid($mailbox, 'slicemap'), 0)) !== false) &&
             ($slice = @unserialize($data)) &&
             is_array($slice)) {
             $this->_slicemap[$mailbox] = $slice;
@@ -473,6 +484,16 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
         $this->_update[$mailbox][$type] = ($type == 'slicemap')
             ? $data
             : array_merge($this->_update[$mailbox][$type], $data);
+    }
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        $this->save();
+        return parent::serialize();
     }
 
 }

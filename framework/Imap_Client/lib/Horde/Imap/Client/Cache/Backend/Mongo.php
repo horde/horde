@@ -21,7 +21,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Backend implements Horde_Mongo_Collection_Index, Serializable
+class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Backend implements Horde_Mongo_Collection_Index
 {
     /* Collection names. */
     const BASE = 'horde_imap_client_cache_data';
@@ -75,15 +75,12 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
     {
         if (!isset($params['mongo_db'])) {
             throw new InvalidArgumentException('Missing mongo_db parameter.');
-
         }
 
-        $this->setParams($params);
-        $this->_initOb();
+        parent::__construct($params);
     }
 
     /**
-     * Initialization tasks.
      */
     protected function _initOb()
     {
@@ -423,23 +420,6 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
         foreach ($this->_indices as $key => $val) {
             $this->_params['mongo_db']->createIndices($key, $val);
         }
-    }
-
-    /* Serializable methods. */
-
-    /**
-     */
-    public function serialize()
-    {
-        return serialize($this->_params);
-    }
-
-    /**
-     */
-    public function unserialize($data)
-    {
-        $this->_params = unserialize($data);
-        $this->_initOb();
     }
 
 }
