@@ -49,7 +49,9 @@ $vars = $injector->getInstance('Horde_Variables');
 try {
     $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $vars, $action, $vars->token);
 } catch (Horde_Exception $e) {
-    exit;
+    /* Treat a token error as a session timeout. */
+    $response = new Horde_Core_Ajax_Response_HordeCore_SessionTimeout($app);
+    $response->sendAndExit();
 }
 
 try {
