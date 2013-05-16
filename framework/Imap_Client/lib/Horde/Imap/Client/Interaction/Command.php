@@ -20,6 +20,9 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  * @since     2.10.0
+ *
+ * @property-read boolean $continuation  True if the command requires a server
+ *                                       continuation response.
  */
 class Horde_Imap_Client_Interaction_Command extends Horde_Imap_Client_Data_Format_List
 {
@@ -67,6 +70,24 @@ class Horde_Imap_Client_Interaction_Command extends Horde_Imap_Client_Data_Forma
         parent::__construct($this->tag);
 
         $this->add($cmd);
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'continuation':
+            foreach ($this as $val) {
+                if (($val instanceof Horde_Imap_Client_Interaction_Command_Continuation) ||
+                    (($val instanceof Horde_Imap_Client_Data_Format_String) &&
+                     $val->literal())) {
+
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     /**

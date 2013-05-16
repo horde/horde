@@ -3778,7 +3778,60 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_cmdQueue = array();
         }
 
+        $cmd_list = array();
+
         foreach ($pipeline as $val) {
+            if ($val->continuation) {
+                $this->_sendCmdChunk($pipeline, $cmd_list);
+                $this->_sendCmdChunk($pipeline, array($val));
+                $cmd_list = array();
+            } else {
+                $cmd_list[] = $val;
+            }
+        }
+
+        $this->_sendCmdChunk($pipeline, $cmd_list);
+
+        /* If any FLAGS responses contain MODSEQs but not UIDs, don't
+         * cache any data and immediately close the mailbox. */
+        foreach ($pipeline->data['modseqs_nouid'] as $val) {
+            if (!$pipeline->fetch[$val]->getUid()) {
+                $this->_debug->info('Server provided FLAGS MODSEQ without providing UID.');
+                $this->close();
+                return $pipeline;
+            }
+        }
+
+        /* Update HIGHESTMODSEQ value. */
+        if (!empty($pipeline->data['modseqs'])) {
+            $modseq = max($pipeline->data['modseqs']);
+            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ, $modseq);
+            $this->_updateModSeq($modseq);
+        }
+
+        /* Update cache items. */
+        $this->_updateCache($pipeline->fetch);
+
+        return $pipeline;
+    }
+
+    /**
+     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline The pipeline
+     *                                                         object.
+     * @param array $chunk
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _sendCmdChunk($pipeline, $chunk)
+    {
+        if (empty($chunk)) {
+            return;
+        }
+
+        $cmd_count = count($chunk);
+        $exception = null;
+
+        foreach ($chunk as $val) {
             try {
                 $this->_debug->client('', false);
                 if (!is_null($val->debug)) {
@@ -3804,16 +3857,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        $exception = null;
-
-        while (!$pipeline->finished) {
+        while ($cmd_count) {
             try {
-                $this->_getLine($pipeline);
+                if ($this->_getLine($pipeline) instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
+                    --$cmd_count;
+                }
             } catch (Horde_Imap_Client_Exception $e) {
                 // Catch and store exception; don't throw until all input
                 // is read. (For now, only store first exception.)
                 if (is_null($exception)) {
                     $exception = $e;
+                }
+
+                if (($e instanceof Horde_Imap_Client_Exception_ServerResponse) &&
+                    $e->command) {
+                    --$cmd_count;
                 }
             }
         }
@@ -3821,28 +3879,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (!is_null($exception)) {
             throw $exception;
         }
-
-        /* If any FLAGS responses contain MODSEQs but not UIDs, don't
-         * cache any data and immediately close the mailbox. */
-        foreach ($pipeline->data['modseqs_nouid'] as $val) {
-            if (!$pipeline->fetch[$val]->getUid()) {
-                $this->_debug->info('Server provided FLAGS MODSEQ without providing UID.');
-                $this->close();
-                return $pipeline;
-            }
-        }
-
-        /* Update HIGHESTMODSEQ value. */
-        if (!empty($pipeline->data['modseqs'])) {
-            $modseq = max($pipeline->data['modseqs']);
-            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ, $modseq);
-            $this->_updateModSeq($modseq);
-        }
-
-        /* Update cache items. */
-        $this->_updateCache($pipeline->fetch);
-
-        return $pipeline;
     }
 
     /**
