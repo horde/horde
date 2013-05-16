@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Fix regression in renaming mailboxes (Bug #12260).
 
 
 -----------

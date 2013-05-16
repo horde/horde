@@ -161,7 +161,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $old_name = IMP_Mailbox::formFrom($this->vars->old_name);
 
             $new_name = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createMailboxName(
-                isset($this->vars->new_parent) ? IMP_Mailbox::formFrom($this->vars->new_parent) : $old_name->parent,
+                isset($this->vars->new_parent) ? IMP_Mailbox::formFrom($this->vars->new_parent) : $old_name->parent_imap,
                 $this->vars->new_name
             );
 

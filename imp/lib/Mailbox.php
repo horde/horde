@@ -87,7 +87,9 @@
  * @property-read array $namespace_info  See IMP_Imap::getNamespace().
  * @property-read boolean $nonimap  Is this a non-IMAP element?
  * @property-read IMP_Mailbox $parent  The parent element. Returns null if no
- *                                     parent.
+ *                                     parent. (Base of tree is returned as
+ *                                     a special element).
+ * @property-read string $parent_imap  The IMAP parent name.
  * @property-read IMP_Imap_PermanentFlags $permflags  Return the list of
  *                                                    permanent flags
  *                                                    available to set in the
@@ -581,10 +583,14 @@ class IMP_Mailbox implements Serializable
                     $injector->getInstance('IMP_Imap_Tree')->isNonImapElt($this->_mbox));
 
         case 'parent':
-            $elt = $injector->getInstance('IMP_Imap_Tree')->getElement($this->_mbox);
-            return $elt
+            return ($elt = $injector->getInstance('IMP_Imap_Tree')->getElement($this->_mbox))
                 ? self::get($elt['p'])
                 : null;
+
+        case 'parent_imap':
+            return (is_null($p = $this->parent) || ($p == IMP_Imap_Tree::BASE_ELT))
+                ? null
+                : $p;
 
         case 'permflags':
             if ($this->access_flags) {
