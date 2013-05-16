@@ -763,19 +763,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if (empty($this->_temp['logout'])) {
-            if (!empty($this->_cmdQueue)) {
-                /* If using imapproxy, force sending these commands, since
-                 * they may not be sent again if they are (likely)
-                 * initialization commands. */
-                if (!empty($this->_init['imapproxy'])) {
-                    $pipeline = $this->_pipeline();
-                    foreach ($this->_cmdQueue as $val) {
-                        $pipeline->add($val);
-                    }
-                    $this->_sendCmd($pipeline);
-                }
-
-                $this->_cmdQueue = array();
+            /* If using imapproxy, force sending these commands, since they
+             * may not be sent again if they are (likely) initialization
+             * commands. */
+            if (!empty($this->_cmdQueue) &&
+                !empty($this->_init['imapproxy'])) {
+                $this->_sendCmd($this->_pipeline());
             }
 
             $this->_temp['logout'] = true;
