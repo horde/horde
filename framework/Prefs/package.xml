@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-16</date>
- <time>11:03:14</time>
+ <time>11:12:15</time>
  <version>
-  <release>2.4.1</release>
+  <release>2.4.2</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix removing prefs from storage backends (Bug #12208).
-* [mms] Fix fatal error in Horde_Prefs_Scope#valid().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1045,6 +1044,19 @@ Initial release as a PEAR package
    <notes>
 * [mms] Fix removing prefs from storage backends (Bug #12208).
 * [mms] Fix fatal error in Horde_Prefs_Scope#valid().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
