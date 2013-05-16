@@ -758,8 +758,11 @@ span.attachmentImg {
     font-weight: bold;
 }
 .msgHeaders div.addrgroup-div {
+    background-color: #aaa;
     display: -moz-inline-stack;
     display: inline-block;
+    margin: 1px;
+    padding: 4px 2px 3px;
 }
 
 /* Drag and drop styles. */
