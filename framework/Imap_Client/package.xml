@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-08</date>
- <time>18:23:04</time>
+ <date>2013-05-17</date>
+ <time>12:44:40</time>
  <version>
   <release>2.10.0</release>
   <api>2.10.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Pipeline multiple IMAP LIST/LSUB calls.
 * [mms] Fix login methods that require server continutation responses.
 * [mms] Correctly handle enabled cached status when not using imapproxy.
 * [mms] Fix caching of CAPABILITY information when not using imapproxy.
@@ -1711,9 +1712,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-14</date>
+   <date>2013-05-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Pipeline multiple IMAP LIST/LSUB calls.
 * [mms] Fix login methods that require server continutation responses.
 * [mms] Correctly handle enabled cached status when not using imapproxy.
 * [mms] Fix caching of CAPABILITY information when not using imapproxy.

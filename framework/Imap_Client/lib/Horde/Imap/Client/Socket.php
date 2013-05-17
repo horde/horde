@@ -1195,6 +1195,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'subscribed' => ($check ? array_flip(array_map('strval', $subscribed)) : null)
         );
         $pipeline->data['listresponse'] = array();
+
+        $cmds = array();
         $return_opts = new Horde_Imap_Client_Data_Format_List();
 
         if ($this->queryCapability('LIST-EXTENDED') &&
@@ -1236,19 +1238,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($options['special_use'])) {
                 $return_opts->add('SPECIAL-USE');
             }
-        } elseif (count($pattern) > 1) {
-            $return_array = array();
-            foreach ($pattern as $val) {
-                $return_array = array_merge($return_array, $this->_getMailboxList(array($val), $mode, $options, $subscribed));
-            }
-            return $return_array;
+
+            $cmds[] = $cmd;
         } else {
-            $cmd = $this->_command(
-                ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ? 'LSUB' : 'LIST'
-            )->add(array(
-                '',
-                new Horde_Imap_Client_Data_Format_ListMailbox(reset($pattern))
-            ));
+            foreach ($pattern as $val) {
+                $cmds[] = $this->_command(
+                    ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ? 'LSUB' : 'LIST'
+                )->add(array(
+                    '',
+                    new Horde_Imap_Client_Data_Format_ListMailbox($val)
+                ));
+            }
         }
 
         /* LIST-STATUS does NOT depend on LIST-EXTENDED. */
@@ -1280,14 +1280,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        if (count($return_opts)) {
-            $cmd->add(array(
-                'RETURN',
-                $return_opts
-            ));
-        }
+        foreach ($cmds as $val) {
+            if (count($return_opts)) {
+                $val->add(array(
+                    'RETURN',
+                    $return_opts
+                ));
+            }
 
-        $pipeline->add($cmd);
+            $pipeline->add($val);
+        }
 
         try {
             $lr = $this->_sendCmd($pipeline)->data['listresponse'];
