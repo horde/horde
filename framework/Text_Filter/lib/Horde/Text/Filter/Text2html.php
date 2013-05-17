@@ -168,7 +168,9 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
 
         /* Bad charset input in may result in an empty string. Or the charset
          * may not be supported. Convert to UTF-8 for htmlspecialchars() and
-         * then convert back. */
+         * then convert back. If we STILL don't have any output, the input
+         * charset is probably incorrect. Try the popular Western charsets as
+         * a last resort. */
         if (!strlen($text2)) {
             $text2 = Horde_String::convertCharset(
                 @htmlspecialchars(
@@ -179,7 +181,22 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
                 'UTF-8',
                 $this->_params['charset']
             );
+
+            if (!strlen($text2)) {
+                foreach (array('windows-1252', 'utf-8') as $val) {
+                    $text2 = Horde_String::convertCharset(
+                        @htmlspecialchars($text, ENT_COMPAT, $val),
+                        $val,
+                        $this->_params['charset']
+                    );
+
+                    if (strlen($text2)) {
+                        break;
+                    }
+                }
+            }
         }
+
         $text = $text2;
 
         /* Do in-lining of http://xxx.xxx to link, xxx@xxx.xxx to email. */
