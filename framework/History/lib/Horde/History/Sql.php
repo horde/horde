@@ -231,8 +231,8 @@ class Horde_History_Sql extends Horde_History
         $ids = array();
         foreach ($names as $name) {
             $ids[] = $this->_db->quote($name);
-            if ($this->_memcache) {
-                $this->_memcache->delete('horde:history:' . $name);
+            if ($this->_hashtable) {
+                $this->_hashtable->delete('horde:history:' . $name);
             }
         }
 

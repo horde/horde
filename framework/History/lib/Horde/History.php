@@ -38,11 +38,11 @@ abstract class Horde_History
     protected $_auth;
 
     /**
-     * Memcache object.
+     * HashTable object.
      *
-     * @var Horde_Memcache
+     * @var Horde_HashTable
      */
-    protected $_memcache;
+    protected $_hashtable;
 
     /**
      * Our log handler.
@@ -74,15 +74,15 @@ abstract class Horde_History
     }
 
     /**
-     * Set memcache
+     * Set HashTable object.
      *
-     * @param Horde_Memcache $memcache  The memcache instance
+     * @since 2.1.0
      *
-     * @return NULL
+     * @param Horde_HashTable $hashtable  The hashtable instance.
      */
-    public function setMemcache(Horde_Memcache $memcache)
+    public function setHashTable(Horde_HashTable $hashtable)
     {
-        $this->_memcache = $memcache;
+        $this->_hashtable = $hashtable;
     }
 
     /**
@@ -112,8 +112,8 @@ abstract class Horde_History
             throw new InvalidArgumentException('The guid needs to be a string!');
         }
 
-        if ($this->_memcache) {
-            $this->_memcache->delete('horde:history:' . $guid);
+        if ($this->_hashtable) {
+            $this->_hashtable->delete('horde:history:' . $guid);
         }
 
         $history = $this->getHistory($guid);
@@ -161,16 +161,15 @@ abstract class Horde_History
         if (!is_string($guid)) {
             throw new Horde_History_Exception('The guid needs to be a string!');
         }
-        if ($this->_memcache) {
-            $history = $this->_memcache->get('horde:history:' . $guid);
-            if ($history) {
-                return $history;
-            }
+
+        if ($this->_hashtable &&
+            (($history = $this->_hashtable->get('horde:history:' . $guid)) !== false)) {
+            return $history;
         }
 
         $history = $this->_getHistory($guid);
-        if ($this->_memcache) {
-            $this->_memcache->set('horde:history:' . $guid, $history);
+        if ($this->_hashtable) {
+            $this->_hashtable->set('horde:history:' . $guid, $history);
         }
 
         return $history;
