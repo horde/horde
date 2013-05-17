@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-17</date>
- <time>12:44:59</time>
+ <time>12:48:35</time>
  <version>
-  <release>2.10.0</release>
+  <release>2.10.1</release>
   <api>2.10.0</api>
  </version>
  <stability>
@@ -22,17 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Pipeline multiple IMAP LIST/LSUB calls.
-* [mms] Fix login methods that require server continutation responses.
-* [mms] Correctly handle enabled cached status when not using imapproxy.
-* [mms] Fix caching of CAPABILITY information when not using imapproxy.
-* [mms] Support pipelining of STORE + EXPUNGE if UIDPLUS is available.
-* [mms] Pipeline multiple STATUS commands if LIST-STATUS is not available.
-* [mms] Fold statusMultiple() functionality into base status() command.
-* [mms] Pipeline multiple IMAP FETCH calls.
-* [mms] Delay sending LANGUAGE command until we send another command to save a round-trip.
-* [mms] Delay sending ENABLE command until we send another command to save a round-trip.
-* [mms] Add internal support for IMAP command pipelining.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1726,6 +1716,19 @@
 * [mms] Delay sending LANGUAGE command until we send another command to save a round-trip.
 * [mms] Delay sending ENABLE command until we send another command to save a round-trip.
 * [mms] Add internal support for IMAP command pipelining.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.1</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
