@@ -121,4 +121,16 @@ implements Horde_HashTable_Lock
         $this->_memcache->flush();
     }
 
+    /* Unique driver methods. */
+
+    /**
+     * Get the statistics output from the current memcache pool.
+     *
+     * @see Horde_Memcache#stats()
+     */
+    public function stats()
+    {
+        return $this->_memcache->stats();
+    }
+
 }
