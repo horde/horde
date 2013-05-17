@@ -67,6 +67,10 @@ class IMP_Factory_Spam extends Horde_Core_Factory_Base
                 );
             }
 
+            if (!empty($config['null'])) {
+                $drivers[] = new IMP_Spam_Null($config['null']);
+            }
+
             $this->_instances[$action] = new IMP_Spam($action, $drivers);
         }
 

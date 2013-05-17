@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-14</date>
+ <date>2013-05-17</date>
  <version>
   <release>6.1.0beta3</release>
   <api>6.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add null spam reporting driver.
 * [mms] Display information to user if incorrect character set data is preventing a text part from being displayed.
 * [mms] Fix regression in renaming mailboxes (Bug #12260).
  </notes>
@@ -426,6 +427,7 @@
     <dir name="Spam">
      <file name="Base.php" role="horde" />
      <file name="Email.php" role="horde" />
+     <file name="Null.php" role="horde" />
      <file name="Program.php" role="horde" />
     </dir> <!-- /lib/Spam -->
     <dir name="Tree">
@@ -1705,6 +1707,7 @@
    <install as="imp/lib/Sentmail/Sql.php" name="lib/Sentmail/Sql.php" />
    <install as="imp/lib/Spam/Base.php" name="lib/Spam/Base.php" />
    <install as="imp/lib/Spam/Email.php" name="lib/Spam/Email.php" />
+   <install as="imp/lib/Spam/Null.php" name="lib/Spam/Null.php" />
    <install as="imp/lib/Spam/Program.php" name="lib/Spam/Program.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
@@ -3163,9 +3166,10 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-14</date>
+   <date>2013-05-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add null spam reporting driver.
 * [mms] Display information to user if incorrect character set data is preventing a text part from being displayed.
 * [mms] Fix regression in renaming mailboxes (Bug #12260).
    </notes>
