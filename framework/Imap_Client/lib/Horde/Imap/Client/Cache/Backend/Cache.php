@@ -159,7 +159,6 @@ class Horde_Imap_Client_Cache_Backend_Cache extends Horde_Imap_Client_Cache_Back
                             ? serialize($d[$uid])
                             : $d[$uid];
                     }
-Horde::debug($data, null, false);
                     $this->_cache->set($this->_getCid($mbox, $slice), serialize($data), $lifetime);
                 }
             }
