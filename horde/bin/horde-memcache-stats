@@ -27,6 +27,11 @@ Horde_Registry::appInit('horde', array(
     'cli' => true
 ));
 
+$hashtable = $injector->getInstance('Horde_HashTable');
+if (!($hashtable instanceof Horde_HashTable_Memcache)) {
+    $cli->fatal('Memcache HashTable driver not enabled.');
+}
+
 $parser = new Horde_Argv_Parser();
 $parser->addOption('-a', '--all', array(
     'action' => 'store_true',
@@ -54,23 +59,21 @@ $parser->addOptions('-s', '--summary', array(
 ));
 list($values,) = $parser->parseArgs();
 
-$memcache = $injector->getInstance('Horde_Memcache');
-
 if ($values->flush) {
     if ($cli->prompt($cli->red('Are you sure you want to flush all data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
-        $memcache->flush();
+        $hashtable->clear();
         $cli->writeln($cli->green('Done.'));
     }
     exit;
 }
 
 if ($values->lookup) {
-    $data = $memcache->get($values->lookup);
+    $data = $hashtable->get($values->lookup);
     $cli->writeln(empty($data) ? '[Key not found.]' : print_r($data, true));
     exit;
 }
 
-$stats = $memcache->stats();
+$stats = $hashtable->stats();
 
 if ($values->raw) {
     $cli->writeln(print_r($stats, true));
