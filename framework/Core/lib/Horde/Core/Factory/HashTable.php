@@ -30,7 +30,6 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
     {
         global $conf;
 
-        // Horde::getDriverConfig($backend, 'nosql')
         // DEPRECATED: BC config
         if (!empty($conf['memcache']['enabled'])) {
             return new Horde_HashTable_Memcache(array(
