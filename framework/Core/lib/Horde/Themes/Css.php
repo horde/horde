@@ -308,7 +308,7 @@ class Horde_Themes_Css
 
             foreach ($css_parser->doc->getContents() as $val) {
                 if ($val instanceof Sabberworm\CSS\Property\Import) {
-                    $ob = Horde_Themes_Element::fromUri($path . $val->getLocation());
+                    $ob = Horde_Themes_Element::fromUri($path . $val->getLocation()->getURL()->getString());
                     $out .= $this->loadCssFiles(array(array(
                         'app' => null,
                         'fs' => $ob->fs,
