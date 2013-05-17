@@ -181,15 +181,25 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Run filters.
         $text = $this->_textFilter($text, array_keys($filters), array_values($filters));
 
-        // Wordwrap.
-        $text = str_replace(array('  ', "\n "), array(' &nbsp;', "\n&nbsp;"), $text);
-        if (!strncmp($text, ' ', 1)) {
-            $text = '&nbsp;' . substr($text, 1);
+        if (strlen($text)) {
+            // Wordwrap.
+            $text = str_replace(array('  ', "\n "), array(' &nbsp;', "\n&nbsp;"), $text);
+            if (!strncmp($text, ' ', 1)) {
+                $text = '&nbsp;' . substr($text, 1);
+            }
+        } else {
+            $error = new IMP_Mime_Status(array(
+                _("Cannot display message text."),
+                _("The message part may contain incorrect character set information preventing correct display.")
+            ));
+            $error->action(IMP_Mime_Status::ERROR);
+            $status[] = $error;
         }
 
         return array(
             $mime_id => array(
                 'data' => "<div class=\"fixed leftAlign\">\n" . $text . '</div>',
+                'status' => $status,
                 'type' => $type
             )
         );

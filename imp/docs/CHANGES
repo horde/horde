@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Display information to user if incorrect character set data is preventing
+      a text part from being displayed.
 [mms] Fix regression in renaming mailboxes (Bug #12260).
 
 
