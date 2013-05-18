@@ -287,9 +287,9 @@ class Horde_Themes_Css
      */
     public function loadCssFiles($files)
     {
-        global $browser;
+        global $browser, $conf;
 
-        $dataurl = $browser->hasFeature('dataurl');
+        $dataurl = (empty($conf['nobase64_img']) && $browser->hasFeature('dataurl'));
         $out = '';
 
         foreach ($files as $file) {
