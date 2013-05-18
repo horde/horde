@@ -46,6 +46,10 @@ servers). Although the previous memcache configuration will continue to work
 in Horde 5.x, it is recommended to upgrade to the new 'hashtable'
 configuration setup.
 
+The following options were added::
+
+   $conf['auth']['resetpassword_from']
+
 The following options were removed::
 
    $conf['cache']['compress']

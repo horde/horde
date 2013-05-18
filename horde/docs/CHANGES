@@ -2,6 +2,8 @@
 v5.1.0-git
 ----------
 
+[mms] Add configuration option to configure the e-mail address reset password
+      confirmation messages should be sent from.
 [mms] Treat an AJAX session token failure as a session timeout.
 
 

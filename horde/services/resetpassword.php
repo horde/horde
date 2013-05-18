@@ -78,13 +78,17 @@ if ($can_validate && $form->validate($vars)) {
             $success = false;
         }
 
-        $mail = new Horde_Mime_Mail(array('subject' => _("Your password has been reset"),
-                                          'body' => sprintf(_("Your new password for %s is: %s"),
-                                                            $registry->get('name', 'horde'),
-                                                            $password),
-                                          'to' => $email,
-                                          'from' => $email,
-                                          'charset' => 'UTF-8'));
+        $mail = new Horde_Mime_Mail(array(
+            'body' => sprintf(_("Your new password for %s is: %s"),
+                        $registry->get('name', 'horde'),
+                        $password
+                      ),
+            'charset' => 'UTF-8',
+            'From' => empty($conf['auth']['resetpassword_from']) ? $email : $conf['auth']['resetpassword_from'],
+            'To' => $email,
+            'Subject' => _("Your password has been reset")
+        ));
+
         try {
             $mail->send($injector->getInstance('Horde_Mail'));
             $notification->push(_("Your password has been reset, check your email and log in with your new password."), 'horde.success');
