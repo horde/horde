@@ -2020,7 +2020,7 @@
       commas.">localhost</configlist>
       <configlist name="port" required="false" desc="Port(s) the redis
       server(s) are running on. If more than one host is used, specify ports
-      for respective servers, separated by commas.">11211</configlist>
+      for respective servers, separated by commas.">6379</configlist>
      </configsection>
     </case>
    </configswitch>
