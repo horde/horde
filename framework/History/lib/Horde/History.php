@@ -38,9 +38,9 @@ abstract class Horde_History
     protected $_auth;
 
     /**
-     * HashTable object.
+     * HashTable driver object.
      *
-     * @var Horde_HashTable
+     * @var Horde_HashTable_Base
      */
     protected $_hashtable;
 
@@ -78,9 +78,9 @@ abstract class Horde_History
      *
      * @since 2.1.0
      *
-     * @param Horde_HashTable $hashtable  The hashtable instance.
+     * @param Horde_HashTable_Base $hashtable  The hashtable instance.
      */
-    public function setHashTable(Horde_HashTable $hashtable)
+    public function setHashTable(Horde_HashTable_Base $hashtable)
     {
         $this->_hashtable = $hashtable;
     }
