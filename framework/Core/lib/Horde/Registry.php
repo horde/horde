@@ -370,7 +370,7 @@ class Horde_Registry
             'Horde_Kolab_Storage' => 'Horde_Core_Factory_KolabStorage',
             'Horde_Lock' => 'Horde_Core_Factory_Lock',
             'Horde_Log_Logger' => 'Horde_Core_Factory_Logger',
-            'Horde_Mail' => 'Horde_Core_Factory_Mail',
+            'Horde_Mail' => 'Horde_Core_Factory_MailBase',
             'Horde_Memcache' => 'Horde_Core_Factory_Memcache',
             'Horde_Nosql_Adapter' => 'Horde_Core_Factory_NosqlBase',
             'Horde_Notification' => 'Horde_Core_Factory_Notification',
