@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix sending group addresses from smartmobile view.
 * [mms] Added &apos;imp_auth&apos; option to SMTP configuration in backends.php.
 * [mms] Add null spam reporting driver.
 * [mms] Display information to user if incorrect character set data is preventing a text part from being displayed.
@@ -3170,6 +3171,7 @@
    <date>2013-05-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix sending group addresses from smartmobile view.
 * [mms] Added &apos;imp_auth&apos; option to SMTP configuration in backends.php.
 * [mms] Add null spam reporting driver.
 * [mms] Display information to user if incorrect character set data is preventing a text part from being displayed.

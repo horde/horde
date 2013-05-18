@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Fix sending group addresses from smartmobile view.
 [mms] Added 'imp_auth' option to SMTP configuration in backends.php.
 [mms] Add null spam reporting driver.
 [mms] Display information to user if incorrect character set data is preventing

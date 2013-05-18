@@ -1391,7 +1391,7 @@ var ImpMobile = {
             $.each([ 'to', 'cc' ], function(undefined, v) {
                 $('#imp-compose-' + v).autocomplete({
                     callback: function(e) {
-                        ImpMobile.addAddress(v, $(e.currentTarget).text());
+                        ImpMobile.addAddress(v, $.trim($(e.currentTarget).text()));
                         $('#imp-compose-' + v).val('');
                     },
                     link: '#',
