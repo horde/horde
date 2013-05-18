@@ -179,6 +179,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         }
 
         // Run filters.
+        $status = array();
         $text = $this->_textFilter($text, array_keys($filters), array_values($filters));
 
         if (strlen($text)) {
