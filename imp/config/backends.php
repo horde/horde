@@ -152,10 +152,10 @@
  *     - host: (string) SMTP server host.
  *     - localhost: (string) The local hostname.
  *     - password: (string) Password to use for SMTP server authentication (if
- *                 empty, uses IMP authentication password).
+ *                 not set, uses Horde authentication password).
  *     - port: (integer) SMTP server port.
  *     - username: (string) Username to use for SMTP server authentication (if
- *                 empty, uses IMP authentication username).
+ *                 not set, uses Horde authentication username).
  *
  * spam: (array) Spam reporting configuration. This array can contain two
  *   keys - 'innocent' and 'spam' - that defines the behavior when a user

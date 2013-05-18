@@ -1320,7 +1320,7 @@
       to [25]"/>
       <configstring name="localhost" required="false" desc="The local hostname
       / domain [localhost]"/>
-      <configenum name="auth" desc="SMTP authentication">0
+      <configenum name="auth" desc="SMTP authentication">false
        <values>
         <value desc="No authentication">false</value>
         <value desc="Best available authentication">true</value>
@@ -1331,9 +1331,9 @@
        </values>
       </configenum>
       <configstring name="username" required="false" desc="The username to use
-      for SMTP auth"/>
+      for SMTP auth. If empty, uses the Horde authentication username."/>
       <configstring name="password" required="false" desc="The password to use
-      for SMTP auth"/>
+      for SMTP auth. If empty, uses the Horde authentication password."/>
      </configsection>
     </case>
    </configswitch>
