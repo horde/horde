@@ -29,7 +29,7 @@ class Horde_Core_Factory_Mail extends Horde_Core_Factory_Injector
             $ob->sep = $params['sendmail_eol'];
         }
 
-        return new $class($params);
+        return $ob;
     }
 
 }
