@@ -55,14 +55,14 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
         case 'predis':
             $redis_params = array();
             if (isset($params['hostspec'])) {
-                foreach (explode(',', $params['hostspec']) as $val) {
+                foreach ($params['hostspec'] as $val) {
                     $redis_params[] = array_filter(array(
                         'host' => trim($val)
                     ));
                 }
 
                 if (isset($params['port'])) {
-                    foreach (array_map('trim', explode(',', $params['port'])) as $key => $val) {
+                    foreach (array_map('trim', $params['port']) as $key => $val) {
                         if ($val) {
                             $redis_params[$key]['port'] = $val;
                         }
