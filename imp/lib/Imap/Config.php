@@ -265,11 +265,11 @@ class IMP_Imap_Config implements Serializable
             break;
 
         case 'smtp':
-            if (!empty($out['auth'])) {
-                if (empty($out['username'])) {
+            if (!empty($out['imp_auth'])) {
+                if (!isset($out['username'])) {
                     $out['username'] = $injector->getInstance('IMP_Imap')->getParam('username');
                 }
-                if (empty($out['password'])) {
+                if (!isset($out['password'])) {
                     $out['password'] = $injector->getInstance('IMP_Imap')->getParam('password');
                 }
             }

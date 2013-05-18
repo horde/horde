@@ -12,7 +12,8 @@
  */
 
 /**
- * A Horde_Injector based factory for IMP's configuration of Horde_Mail.
+ * A Horde_Injector based factory for IMP's configuration of
+ * Horde_Mail_Transport.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -30,36 +31,37 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
     private $_debug;
 
     /**
-     * Return the Horde_Mail instance.
+     * Return the Horde_Mail_Transport instance.
      *
-     * @return Horde_Mail  The singleton instance.
+     * @return Horde_Mail_Transport  The singleton instance.
      * @throws Horde_Exception
      */
     public function create(Horde_Injector $injector)
     {
-        global $conf;
+        $factory = $injector->getInstance('Horde_Core_Factory_Mail');
+        list($transport, $params) = $factory->getConfig();
 
-        $params = $conf['mailer']['params'];
-
-        if ($conf['mailer']['type'] == 'smtp') {
+        if ($transport == 'smtp') {
             $params = array_merge(
                 $params,
                 $injector->getInstance('IMP_Imap')->config->smtp
             );
+
+            if (!empty($params['debug'])) {
+                $this->_debug = fopen($params['debug'], 'a');
+                stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+                stream_filter_append($this->_debug, 'horde_eol', STREAM_FILTER_WRITE, array(
+                    'eol' => "\n"
+                ));
+
+                unset($params['debug']);
+            }
         }
 
-        if (!empty($params['debug'])) {
-            $this->_debug = fopen($params['debug'], 'a');
-            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-            stream_filter_append($this->_debug, 'horde_eol', STREAM_FILTER_WRITE, array(
-                'eol' => "\n"
-            ));
-
-            unset($params['debug']);
-        }
-
-        $class = $this->_getDriverName($conf['mailer']['type'], 'Horde_Mail_Transport');
-        $ob = new $class($params);
+        $ob = $factory->create(array(
+            'params' => $params,
+            'transport' => $transport
+        ));
 
         if (isset($this->_debug)) {
             $ob->getSMTPObject()->setDebug(true, array($this, 'smtpDebug'));
