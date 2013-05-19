@@ -2,6 +2,7 @@
 v4.1.0-git
 ----------
 
+[mms] Fix resetting smartmobile entry page when viewing more than 1 contact.
 
 
 -----------

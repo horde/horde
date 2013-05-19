@@ -67,7 +67,7 @@ var TurbaMobile = {
         }
 
         var tmp,
-            ted = $('#turba-entry-data');
+            ted = $('#turba-entry-data').empty();
 
         $.each(r.entry, function(k, v) {
             var tmp2 = $('<div></div>');

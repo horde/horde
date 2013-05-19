@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [mms] Fix resetting smartmobile entry page when viewing more than 1 contact.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1635,7 +1635,7 @@
    <date>2013-05-14</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [mms] Fix resetting smartmobile entry page when viewing more than 1 contact.
    </notes>
   </release>
  </changelog>
