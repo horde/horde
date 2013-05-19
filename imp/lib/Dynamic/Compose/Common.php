@@ -207,11 +207,11 @@ class IMP_Dynamic_Compose_Common
 
         if ($prefs->getValue('use_pgp') &&
             $prefs->getValue('pgp_public_key')) {
-            $base->js_context['ctx_atc']->pgppubkey = _("Attach Personal PGP Public Key?");
+            $base->js_context['ctx_atc']->pgppubkey = _("Attach Personal PGP Public Key");
         }
 
         if ($registry->hasMethod('contacts/ownVCard')) {
-            $base->js_context['ctx_atc']->vcard = _("Attach your contact information?");
+            $base->js_context['ctx_atc']->vcard = _("Attach contact information");
         }
 
         /* Variables used in compose page. */
