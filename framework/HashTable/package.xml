@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-14</date>
+ <date>2013-05-19</date>
  <version>
   <release>1.0.0beta3</release>
   <api>1.0.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add memory driver.
 * [mms] Actually have HashTable return results for get() and exists().
 * [mms] Add stats() method to the Memcache driver (Bug #12263).
  </notes>
@@ -40,6 +41,7 @@
       <file name="Exception.php" role="php" />
       <file name="Lock.php" role="php" />
       <file name="Memcache.php" role="php" />
+      <file name="Memory.php" role="php" />
       <file name="Predis.php" role="php" />
      </dir> <!-- /lib/Horde/HashTable -->
     </dir> <!-- //lib/Horde -->
@@ -84,6 +86,7 @@
    <install as="Horde/HashTable/Exception.php" name="lib/Horde/HashTable/Exception.php" />
    <install as="Horde/HashTable/Lock.php" name="lib/Horde/HashTable/Lock.php" />
    <install as="Horde/HashTable/Memcache.php" name="lib/Horde/HashTable/Memcache.php" />
+   <install as="Horde/HashTable/Memory.php" name="lib/Horde/HashTable/Memory.php" />
    <install as="Horde/HashTable/Predis.php" name="lib/Horde/HashTable/Predis.php" />
    </filelist>
  </phprelease>
@@ -121,9 +124,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-05-14</date>
+   <date>2013-05-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add memory driver.
 * [mms] Actually have HashTable return results for get() and exists().
 * [mms] Add stats() method to the Memcache driver (Bug #12263).
    </notes>
