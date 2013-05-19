@@ -163,13 +163,13 @@ abstract class Horde_History
         }
 
         if ($this->_hashtable &&
-            (($history = $this->_hashtable->get('horde:history:' . $guid)) !== false)) {
+            (($history = @unserialize($this->_hashtable->get('horde:history:' . $guid))))) {
             return $history;
         }
 
         $history = $this->_getHistory($guid);
         if ($this->_hashtable) {
-            $this->_hashtable->set('horde:history:' . $guid, $history);
+            $this->_hashtable->set('horde:history:' . $guid, serialize($history));
         }
 
         return $history;
