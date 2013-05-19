@@ -978,6 +978,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             foreach ($this->_getSeqIds($options['ids']) as $id) {
                 try {
                     $this->_sendLine('DELE ' . $id);
+                    $this->_deleted[] = $id;
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
         }
