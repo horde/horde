@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Handle all additional namespace queries in a single call.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1728,7 +1728,7 @@
    <date>2013-05-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Handle all additional namespace queries in a single call.
    </notes>
   </release>
  </changelog>

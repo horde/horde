@@ -684,17 +684,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $ns = $this->_getNamespaces();
 
-        foreach ($additional as $val) {
-            /* Skip namespaces if we have already auto-detected them. Also,
-             * hidden namespaces cannot be empty. */
-            if (!strlen($val) || isset($ns[$val])) {
-                continue;
-            }
-
-            $mbox = $this->listMailboxes($val, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true));
-            $first = reset($mbox);
-
-            if ($first && ($first['mailbox'] == $val)) {
+        /* Skip namespaces if we have already auto-detected them. Also, hidden
+         * namespaces cannot be empty. */
+        $to_process = array_diff(array_filter($additional, 'strlen'), array_keys($ns));;
+        if (!empty($to_process)) {
+            foreach ($this->listMailboxes($to_process, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true)) as $val) {
                 $ns[$val] = array(
                     'delimiter' => $first['delimiter'],
                     'hidden' => true,
