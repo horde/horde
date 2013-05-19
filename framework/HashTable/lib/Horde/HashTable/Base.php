@@ -110,13 +110,13 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
             $keys = array($keys);
         }
 
-        $todo = array_diff($keys, array_keys($this->_noexist));
-        if ($todo && !$this->_delete(array_map(array($this, 'hkey'), $todo))) {
-            return false;
-        }
+        if ($todo = array_diff($keys, array_keys($this->_noexist))) {
+            $to_delete = array_fill_keys(array_map(array($this, 'hkey'), $todo), $todo);
+            if (!$this->_delete(array_keys($to_delete))) {
+                return false;
+            }
 
-        if (is_array($todo)) {
-            $this->_noexist = array_merge($this->_noexist, array_fill_keys($todo, true));
+            $this->_noexist = array_merge($this->_noexist, array_fill_keys(array_values($todo), true));
         }
 
         return true;
@@ -141,7 +141,7 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
      */
     public function exists($keys)
     {
-        $this->_getExists($keys, array($this, '_exists'));
+        return $this->_getExists($keys, array($this, '_exists'));
     }
 
     /**
@@ -163,7 +163,7 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
      */
     public function get($keys)
     {
-        $this->_getExists($keys, array($this, '_get'));
+        return $this->_getExists($keys, array($this, '_get'));
     }
 
     /**
@@ -196,16 +196,16 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
             if (isset($this->_noexist[$val])) {
                 $out[$val] = false;
             } else {
-                $todo[] = $this->hkey($val);
+                $todo[$this->hkey($val)] = $val;
             }
         }
 
         if (!empty($todo)) {
-            foreach (call_user_func($callback, $todo) as $key => $val) {
+            foreach (call_user_func($callback, array_keys($todo)) as $key => $val) {
                 if ($val === false) {
-                    $this->_noexist[$key] = true;
+                    $this->_noexist[$todo[$key]] = true;
                 }
-                $out[$key] = $val;
+                $out[$todo[$key]] = $val;
             }
         }
 

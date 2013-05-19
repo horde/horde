@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Actually have HashTable return results for get() and exists().
 * [mms] Add stats() method to the Memcache driver (Bug #12263).
  </notes>
  <contents>
@@ -123,6 +124,7 @@
    <date>2013-05-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Actually have HashTable return results for get() and exists().
 * [mms] Add stats() method to the Memcache driver (Bug #12263).
    </notes>
   </release>
