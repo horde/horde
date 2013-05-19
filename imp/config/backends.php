@@ -150,11 +150,13 @@
  *     - debug: (string) If set, enables SMTP debugging. See the 'debug'
  *              parameter below (under the 'Debugging Properties' header)
  *              for acceptable values.
+ *     - horde_auth: (boolean) If true, populates the 'password' and
+ *                   'username' parameters with Horde's authentication
+ *                   credentials if those fields are not defined. Otherwise,
+ *                   IMP's authentication credentials are used instead (this
+ *                   option only makes a difference if IMP's authentication
+ *                   credenitals differ from Horde's).
  *     - host: (string) SMTP server host.
- *     - imp_auth: (boolean) If true, automatically populates the 'password'
- *                 and 'username' parameters with IMP's authentication
- *                 credentials. (Not needed if IMP's authentication
- *                 credentials are identical to Horde's.)
  *     - localhost: (string) The local hostname.
  *     - password: (string) Password to use for SMTP server authentication.
  *     - port: (integer) SMTP server port.

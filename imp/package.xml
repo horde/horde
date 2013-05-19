@@ -34,7 +34,7 @@
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * [mms] Fix sending group addresses from smartmobile view.
-* [mms] Added &apos;imp_auth&apos; option to SMTP configuration in backends.php.
+* [mms] Added &apos;horde_auth&apos; option to SMTP configuration in backends.php.
 * [mms] Add null spam reporting driver.
 * [mms] Display information to user if incorrect character set data is preventing a text part from being displayed.
 * [mms] Fix regression in renaming mailboxes (Bug #12260).
@@ -3172,7 +3172,7 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix sending group addresses from smartmobile view.
-* [mms] Added &apos;imp_auth&apos; option to SMTP configuration in backends.php.
+* [mms] Added &apos;horde_auth&apos; option to SMTP configuration in backends.php.
 * [mms] Add null spam reporting driver.
 * [mms] Display information to user if incorrect character set data is preventing a text part from being displayed.
 * [mms] Fix regression in renaming mailboxes (Bug #12260).
