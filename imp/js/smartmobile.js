@@ -856,8 +856,8 @@ var ImpMobile = {
         $('#compose .smartmobile-title').html(IMP.text.new_message);
 
         if (purl.params.to || purl.params.cc) {
-            IMP.addAddress('to', purl.params.to);
-            IMP.addAddress('cc', purl.params.cc);
+            ImpMobile.addAddress('to', purl.params.to);
+            ImpMobile.addAddress('cc', purl.params.cc);
             HordeMobile.changePage('compose', data);
             return;
         }
