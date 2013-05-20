@@ -38,7 +38,7 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
         }
 
         $driver = empty($conf['hashtable']['driver'])
-            ? 'none'
+            ? 'memory'
             : $conf['hashtable']['driver'];
         $lc_driver = Horde_String::lower($driver);
 
@@ -74,9 +74,9 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
                 'predis' => new Predis\Client($redis_params)
             ));
 
-        case 'none':
+        case 'memory':
         default:
-            throw new Horde_Exception(Horde_Core_Translation::t("Attempting to use a distributed hash table without configuring a backend."));
+            return new Horde_HashTable_Memory();
         }
     }
 
