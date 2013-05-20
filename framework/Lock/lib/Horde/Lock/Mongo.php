@@ -14,7 +14,7 @@
 /**
  * Lock storage in a MongoDB database.
  *
- * @author    Michael Slusarz <slusarz@curecanti.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
