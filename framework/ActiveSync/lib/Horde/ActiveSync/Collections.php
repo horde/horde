@@ -533,9 +533,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     /**
      * Update/Add a folder in the hierarchy cache.
      *
-     * @param Horde_ActiveSync_Folder_Base $folder  The folder object.
+     * @param Horde_ActiveSync_Message_Folder $folder  The folder object.
      */
-    public function updateFolderinHierarchy(Horde_ActiveSync_Folder_Base $folder)
+    public function updateFolderinHierarchy(Horde_ActiveSync_Message_Folder $folder)
     {
         $this->_cache->updateFolder($folder);
     }
