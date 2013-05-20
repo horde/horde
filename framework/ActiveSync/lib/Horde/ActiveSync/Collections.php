@@ -145,19 +145,21 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function loadCollectionsFromCache()
     {
         foreach ($this->_cache->getCollections(false) as $collection) {
-            $this->_logger->info(sprintf(
-                '[%s] Loading %s from the cache.',
-                $this->_procid,
-                $collection['id']));
             if (empty($collection['synckey']) && !empty($collection['lastsynckey'])) {
                 $collection['synckey'] = $collection['lastsynckey'];
             }
-
             // Load the class if needed for EAS >= 12.1
             if (empty($collection['class'])) {
                 $collection['class'] = $this->getCollectionClass($collection['id']);
             }
+            if (empty($collection['serverid'])) {
+                $collection['serverid'] = $this->getBackendIdForFolderUid($collection['id']);
+            }
             $this->_collections[$collection['id']] = $collection;
+            $this->_logger->info(sprintf(
+                '[%s] Loaded %s from the cache.',
+                $this->_procid,
+                $collection['serverid']));
         }
     }
 
@@ -252,11 +254,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function addCollection(array $collection, $requireSyncKey = false)
     {
-        $this->_logger->info(sprintf(
-            '[%s] Collection added to collection handler: collection: %s, synckey: %s.',
-            $this->_procid,
-            $collection['id'],
-            !empty($collection['synckey']) ? $collection['synckey'] : 'NONE'));
 
         if ($requireSyncKey && empty($collection['synckey'])) {
             $cached_collections = $this->_cache->getCollections(false);
@@ -269,12 +266,44 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 $this->_procid, $collection['id'], $collection['synckey']));
         }
 
-        // Load the class if needed for EAS >= 12.1
+        // Load the class if needed for EAS >= 12.1 and ensure we have the
+        // backend folder id.
         if (empty($collection['class'])) {
             $collection['class'] = $this->getCollectionClass($collection['id']);
         }
+        $collection['serverid'] = $this->getBackendIdForFolderUid($collection['id']);
 
         $this->_collections[$collection['id']] = $collection;
+        $this->_logger->info(sprintf(
+            '[%s] Collection added to collection handler: collection: %s, synckey: %s.',
+            $this->_procid,
+            $collection['serverid'],
+            !empty($collection['synckey']) ? $collection['synckey'] : 'NONE'));
+    }
+
+    /**
+     * Translate a backend id E.g., INBOX into an EAS folder uid.
+     *
+     * @param string $folderid  The backend id.
+     *
+     * @return string The EAS uid.
+     */
+    public function getBackendIdForFolderUid($folderid)
+    {
+        $folder = $this->_cache->getFolder($folderid);
+        return $folder['serverid'];
+    }
+
+    /**
+     * Translate an EAS folder uid into a backend serverid.
+     *
+     * @param $id  The uid.
+     *
+     * @return string  The backend server id.
+     */
+    public function getFolderUidForBackendId($id)
+    {
+        return $this->_as->state->getFolderUidForBackendId($id);
     }
 
     /**
@@ -404,7 +433,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 if (isset($value['synckey'])) {
                     $this->_logger->info(sprintf(
                         '[%s] Found a syncable collection: %s : %s. Adding it to the collections object.',
-                        $this->_procid, $value['id'], $value['synckey']));
+                        $this->_procid, $value['serverid'], $value['synckey']));
                     $this->_collections[$value['id']] = $value;
                     $found = true;
                 }
@@ -492,18 +521,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function initHierarchySync($synckey)
     {
+
         $this->_as->state->loadState(
             array(),
             $synckey,
             Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
-
-        // If we are using the cache to store the hierarchy, clear it if the
-        // synckey was reset.
-        if ($this->_as->device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
-            count($this->_cache->getFolders()) && empty($synckey)) {
-
-            $this->_cache->clearFolders();
-        }
 
         return $this->_as->state->getKnownFolders();
     }
@@ -515,9 +537,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function updateFolderinHierarchy(Horde_ActiveSync_Folder_Base $folder)
     {
-        if ($this->_as->device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-            $this->_cache->updateFolder($folder);
-        }
+        $this->_cache->updateFolder($folder);
     }
 
     /**
@@ -623,51 +643,64 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $this->_tempSyncCache = clone $this->_cache;
         $c = $this->_tempSyncCache->getCollections();
         foreach ($this->_collections as $key => $value) {
-            $v1 = $value;
-            unset($v1['id'], $v1['clientids'], $v1['fetchids'],
-                  $v1['getchanges'], $v1['changeids'], $v1['pingable'],
-                  $v1['class'], $v1['synckey'], $v1['lastsynckey']);
-            $v2 = $c[$key];
-            unset($v2['id'], $v2['pingable'], $v2['class'], $v2['synckey'], $v2['lastsynckey']);
-            ksort($v1);
-            if (isset($v1['bodyprefs'])) {
-                ksort($v1['bodyprefs']);
-                foreach (array_keys($v1['bodyprefs']) as $k) {
-                    if (is_array($v1['bodyprefs'][$k])) {
-                        ksort($v1['bodyprefs'][$k]);
+            // Collections from cache might not all have synckeys.
+            if (!empty($c[$key])) {
+                $v1 = $value;
+                foreach ($v1 as $k => $o) {
+                    if (is_null($o)) {
+                        unset($v1[$k]);
                     }
                 }
-            }
-
-            ksort($v2);
-            if (isset($v2['bodyprefs'])) {
-                ksort($v2['bodyprefs']);
-                foreach (array_keys($v2['bodyprefs']) as $k) {
-                    if (is_array($v2['bodyprefs'][$k])) {
-                        ksort($v2['bodyprefs'][$k]);
+                unset($v1['id'], $v1['serverid'], $v1['clientids'], $v1['fetchids'],
+                      $v1['getchanges'], $v1['changeids'], $v1['pingable'],
+                      $v1['class'], $v1['synckey'], $v1['lastsynckey']);
+                $v2 = $c[$key];
+                foreach ($v2 as $k => $o) {
+                    if (is_null($o)) {
+                        unset($v2[$k]);
                     }
                 }
-            }
-
-            if (md5(serialize($v1)) == md5(serialize($v2))) {
-                $this->_unchangedCount++;
-            }
-            // Unset in tempSyncCache, since we have it from device.
-            // Afterwards, anything left in tempSyncCache needs to be
-            // added to _collections.
-            $this->_tempSyncCache->removeCollection($key);
-
-            // Remove keys from confirmed synckeys array and count them
-            if (isset($value['synckey'])) {
-                if (isset($this->_cache->confirmed_synckeys[$value['synckey']])) {
-                    $this->_logger->info(sprintf(
-                        'Removed %s from confirmed_synckeys',
-                        $value['synckey'])
-                    );
-                    $this->_cache->removeConfirmedKey($value['synckey']);
-                    $this->_confirmedCount++;
+                unset($v2['id'], $v2['serverid'], $v2['pingable'], $v2['class'], $v2['synckey'], $v2['lastsynckey']);
+                ksort($v1);
+                if (isset($v1['bodyprefs'])) {
+                    ksort($v1['bodyprefs']);
+                    foreach (array_keys($v1['bodyprefs']) as $k) {
+                        if (is_array($v1['bodyprefs'][$k])) {
+                            ksort($v1['bodyprefs'][$k]);
+                        }
+                    }
                 }
-                $this->_synckeyCount++;
+
+                ksort($v2);
+                if (isset($v2['bodyprefs'])) {
+                    ksort($v2['bodyprefs']);
+                    foreach (array_keys($v2['bodyprefs']) as $k) {
+                        if (is_array($v2['bodyprefs'][$k])) {
+                            ksort($v2['bodyprefs'][$k]);
+                        }
+                    }
+                }
+
+                if (md5(serialize($v1)) == md5(serialize($v2))) {
+                    $this->_unchangedCount++;
+                }
+                // Unset in tempSyncCache, since we have it from device.
+                // Afterwards, anything left in tempSyncCache needs to be
+                // added to _collections.
+                $this->_tempSyncCache->removeCollection($key);
+
+                // Remove keys from confirmed synckeys array and count them
+                if (isset($value['synckey'])) {
+                    if (isset($this->_cache->confirmed_synckeys[$value['synckey']])) {
+                        $this->_logger->info(sprintf(
+                            'Removed %s from confirmed_synckeys',
+                            $value['synckey'])
+                        );
+                        $this->_cache->removeConfirmedKey($value['synckey']);
+                        $this->_confirmedCount++;
+                    }
+                    $this->_synckeyCount++;
+                }
             }
         }
 
@@ -734,7 +767,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             }
             $this->_logger->info(sprintf(
                 'Using SyncCache State for %s',
-                $value['id']
+                $value['serverid']
             ));
             if (empty($value['synckey'])) {
                 $value['synckey'] = $value['lastsynckey'];
@@ -850,10 +883,16 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     {
         if (empty($collection['class'])) {
             if (!empty($this->_collections[$collection['id']])) {
-                $collection['class'] = $this->_collections[$collection['id']];
+                $collection['class'] = $this->_collections[$collection['id']]['class'];
             } else {
                 throw new Horde_ActiveSync_Exception_FolderGone('Could not load collection class for ' . $collection['id']);
             }
+        }
+
+        // Get the backend serverid.
+        if (empty($collection['serverid'])) {
+            $f = $this->_cache->getFolder($collection['id']);
+            $collection['serverid'] = $f['serverid'];
         }
 
         if ($requireSyncKey && empty($collection['synckey'])) {
@@ -866,7 +905,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $this->_logger->info(sprintf(
             '[%s] Initializing state for collection: %s, synckey: %s',
             $this->_procid,
-            $collection['id'],
+            $collection['serverid'],
             $collection['synckey']));
         $this->_as->state->loadState(
             $collection,
@@ -1075,10 +1114,16 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $collections = $this->_cache->getCollections(false);
         foreach ($collections as $id => $collection) {
             if (!empty($this->_collections[$id]['synckey'])) {
-                $this->_logger->info('Setting collection ' . $id . ' PINGABLE');
+                $this->_logger->info(sprintf(
+                    'Setting collection %s (%s) PINGABLE.',
+                    $collection['serverid'],
+                    $id));
                 $this->_cache->setPingableCollection($id);
             } else {
-                $this->_logger->info('UNSETTING collection ' . $id . ' PINGABLE flag.');
+                $this->_logger->info(sprintf(
+                    'UNSETTING collection %s (%s) PINGABLE flag.',
+                    $collection['serverid'],
+                    $id));
                 $this->_cache->removePingableCollection($id);
             }
         }

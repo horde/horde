@@ -35,6 +35,7 @@
  * @package   ActiveSync
  *
  * @property string  parentid      Identifier of parent folder, if applicable.
+ * @property string  _serverid     The private backend server id.
  * @property string  serverid      Identifier of folder on the backend.
  * @property string  displayname   Display name for folder.
  * @property integer type          Foldertype (Horde_Activesync:: constant).
@@ -67,6 +68,8 @@ class Horde_ActiveSync_Message_Folder extends Horde_ActiveSync_Message_Base
      */
     protected $_properties = array(
         'serverid'    => false,
+        '_serverid'   => false,
+        '_parentid'   => false,
         'displayname' => false,
         'type'        => false,
     );

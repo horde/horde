@@ -350,7 +350,6 @@ abstract class Horde_ActiveSync_State_Base
         // Sort both arrays in the same way by ID
         usort($old, array(__CLASS__, 'RowCmp'));
         usort($new, array(__CLASS__, 'RowCmp'));
-
         $inew = 0;
         $iold = 0;
 
@@ -367,7 +366,6 @@ abstract class Horde_ActiveSync_State_Base
                 // Both folders are still available compare mod
                 if ($old[$iold]['mod'] != $new[$inew]['mod']) {
                     $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
-                    //$change['mod'] = $new[$inew]['mod'];
                     $change['id'] = $new[$inew]['id'];
                     $changes[] = $change;
                 }
@@ -634,5 +632,16 @@ abstract class Horde_ActiveSync_State_Base
      * @throws Horde_ActiveSync_Exception
      */
      abstract public function isDuplicatePIMAddition($id);
+
+    /**
+     * Get a EAS Folder Uid for the given backend server id.
+     *
+     * @param string $serverid  The backend server id. E.g., 'INBOX'.
+     *
+     * @return string|boolean  The EAS UID for the requested serverid, or false
+     *                         if it is not found.
+     * @since 2.4.0
+     */
+    abstract public function getFolderUidForBackendId($serverid);
 
 }

@@ -1167,7 +1167,7 @@ class Horde_ActiveSync_Imap_Adapter
                             throw new Horde_ActiveSync_Exception('Only Email folders are supported.');
                         }
                         break;
-                    case 'FolderId':
+                    case 'serverid':
                         $mboxes[] = new Horde_Imap_Client_Mailbox($value);
                         break;
                     case Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED:

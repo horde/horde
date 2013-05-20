@@ -51,7 +51,7 @@ class Horde_ActiveSync_Connector_Exporter
     protected $_seenObjects = array();
 
     /**
-     * Array of object ids that have changed.
+     * Array of folder objects that have changed.
      * Used when exporting folder structure changes since they are not streamed
      * from this object.
      *
@@ -146,10 +146,16 @@ class Horde_ActiveSync_Connector_Exporter
                 case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
                     // Folder add/change.
                     if ($folder = $this->_as->driver->getFolder($change['id'])) {
+                        // @TODO BC HACK. Need to ensure we have a _serverid here.
+                        // REMOVE IN H6.
+                        if (empty($folder->_serverid)) {
+                            $folder->_serverid = $folder->serverid;
+                        }
                         $stat = $this->_as->driver->statFolder(
                             $change['id'],
                             $folder->parentid,
-                            $folder->displayname);
+                            $folder->displayname,
+                            $folder->_serverid);
                         $this->folderChange($folder);
                     } else {
                         $this->_logger->err(sprintf(
@@ -168,8 +174,6 @@ class Horde_ActiveSync_Connector_Exporter
                         Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     break;
                 }
-
-                // Prepare progress struct and return.
                 $this->_step++;
                 return true;
             } else {
@@ -189,7 +193,7 @@ class Horde_ActiveSync_Connector_Exporter
                     case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
                         try {
                             $message = $this->_as->driver->getMessage(
-                                $this->_currentCollection['id'],
+                                $this->_currentCollection['serverid'],
                                 $change['id'],
                                 $this->_currentCollection);
                             $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
@@ -246,8 +250,6 @@ class Horde_ActiveSync_Connector_Exporter
 
                 // Update the state.
                 $this->_as->state->updateState($change['type'], $change);
-
-                // Prepare the progress struct and return.
                 $this->_step++;
 
                 // Check windowsize

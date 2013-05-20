@@ -513,7 +513,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         // Output any FETCH requests
                         foreach ($collection['fetchids'] as $fetch_id) {
                             try {
-                                $data = $this->_driver->fetch($collection['id'], $fetch_id, $collection);
+                                $data = $this->_driver->fetch($collection['serverid'], $fetch_id, $collection);
                                 $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
                                 $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
                                 $this->_encoder->content($fetch_id);
@@ -785,6 +785,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         if (empty($collection['class'])) {
             $collection['class'] = $this->_collections->getCollectionClass($collection['id']);
         }
+        if (empty($collection['serverid'])) {
+            $collection['serverid'] = $this->_collections->getBackendIdForFolderUid($collection['id']);
+        }
 
         try {
             $this->_collections->initCollectionState($collection);
@@ -803,7 +806,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         // Configure importer with last state
         if (!empty($collection['synckey'])) {
             $importer = $this->_getImporter();
-            $importer->init($this->_state, $collection['id'], $collection['conflict']);
+            $importer->init($this->_state, $collection['serverid'], $collection['conflict']);
         }
         $nchanges = 0;
         while (1) {

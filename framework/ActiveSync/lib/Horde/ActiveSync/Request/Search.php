@@ -88,6 +88,11 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
     const STORE_STATUS_COMPLEX       = 8;
 
     /**
+     * @var Horde_ActiveSync_Collections
+     */
+    protected $_collections;
+
+    /**
      * Handle request
      *
      * @return boolean
@@ -101,6 +106,8 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
         $search_range = '0';
         $search_status = self::SEARCH_STATUS_SUCCESS;
         $store_status = self::STORE_STATUS_SUCCESS;
+
+        $this->_collections = $this->_activeSync->getCollectionsObject();
 
         if (!$this->_decoder->getElementStartTag(self::SEARCH_SEARCH) ||
             !$this->_decoder->getElementStartTag(self::SEARCH_STORE) ||
@@ -336,7 +343,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
                     $this->_encoder->content($u['uniqueid']);
                     $this->_encoder->endTag();
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERID);
-                    $this->_encoder->content($u['searchfolderid']);
+                    $this->_encoder->content($this->_collections->getFolderUidForBackendId($u['searchfolderid']));
                     $this->_encoder->endTag();
                     $this->_encoder->startTag(self::SEARCH_PROPERTIES);
                     $msg = $this->_driver->ItemOperationsFetchMailbox($u['uniqueid'], $searchbodypreference, $mime);
@@ -409,6 +416,9 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
                 break;
             default:
                 if (($query[$type] = $this->_decoder->getElementContent())) {
+                    if ($type == Horde_ActiveSync::SYNC_FOLDERID) {
+                        $query['serverid'] = $this->_collections->getBackendIdForFolderUid($query[$type]);
+                    }
                     $this->_decoder->getElementEndTag();
                 } else {
                     $this->_decoder->getElementStartTag(self::SEARCH_VALUE);

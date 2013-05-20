@@ -34,7 +34,7 @@ abstract class Horde_ActiveSync_Folder_Base
     protected $_status = array();
 
     /**
-     * The server id for this folder.
+     * The backend server id for this folder.
      *
      * @var string
      */
@@ -50,7 +50,7 @@ abstract class Horde_ActiveSync_Folder_Base
     /**
      * Const'r
      *
-     * @param string $serverid  The serverid of this folder.
+     * @param string $serverid  The backend serverid of this folder.
      * @param string $class     The collection class.
      * @param array $status     Internal folder state.
      */

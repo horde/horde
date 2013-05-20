@@ -178,7 +178,7 @@ class Horde_ActiveSync_SyncCache
      */
     public function updateTimestamp()
     {
-        $this->_data['timestamp'] = time();
+        $this->_data['timestamp'] = microtime();
     }
 
     /**
@@ -223,6 +223,7 @@ class Horde_ActiveSync_SyncCache
     public function clearCollections()
     {
         $this->_data['collections'] = array();
+        $this->_data['synckeycounter'] = array();
     }
 
     /**
@@ -344,13 +345,19 @@ class Horde_ActiveSync_SyncCache
      */
     public function save()
     {
-        $this->_data['timestamp'] = time();
+        // Iterate over the collections and persist the last known synckey.
+        foreach ($this->_data['collections'] as &$collection) {
+            if (!empty($collection['synckey'])) {
+                $collection['lastsynckey'] = $collection['synckey'];
+                unset($collection['synckey']);
+            }
+        }
+        $this->_data['timestamp'] = microtime();
         $this->_state->saveSyncCache(
             $this->_data,
             $this->_devid,
             $this->_user);
     }
-
 
     /**
      * Add a new collection to the cache
@@ -369,7 +376,8 @@ class Horde_ActiveSync_SyncCache
             'mimesupport' => isset($collection['mimesupport']) ? $collection['mimesupport'] : null,
             'mimetruncation' => isset($collection['mimetruncation']) ? $collection['mimetruncation'] : null,
             'conflict' => isset($collection['conflict']) ? $collection['conflict'] : null,
-            'bodyprefs' => isset($collection['bodyprefs']) ? $collection['bodyprefs'] : null
+            'bodyprefs' => isset($collection['bodyprefs']) ? $collection['bodyprefs'] : null,
+            'serverid' => isset($collection['serverid']) ? $collection['serverid'] : $collection['id']
         );
     }
 
@@ -484,6 +492,9 @@ class Horde_ActiveSync_SyncCache
             if (isset($collection['pingable'])) {
                 $this->_data['collections'][$collection['id']]['pingable'] = $collection['pingable'];
             }
+            if (isset($collection['serverid'])) {
+                $this->_data['collections'][$collection['id']]['serverid'] = $collection['serverid'];
+            }
             if ($options['unsetChanges']) {
                 unset($this->_data['collections'][$collection['id']]['getchanges']);
             }
@@ -519,6 +530,15 @@ class Horde_ActiveSync_SyncCache
             }
             if (empty($values['bodyprefs']) && isset($this->_data['collections'][$values['id']]['bodyprefs'])) {
                 $collections[$key]['bodyprefs'] = $this->_data['collections'][$values['id']]['bodyprefs'];
+            }
+            if (empty($values['truncation']) && isset($this->_data['collections'][$values['id']]['truncation'])) {
+                $collections[$key]['truncation'] = $this->_data['collections'][$values['id']]['truncation'];
+            }
+            if (empty($values['mimetruncation']) && isset($this->_data['collections'][$values['id']]['mimetruncation'])) {
+                $collections[$key]['mimetruncation'] = $this->_data['collections'][$values['id']]['mimetruncation'];
+            }
+            if (empty($values['serverid']) && isset($this->_data['collections'][$values['id']]['serverid'])) {
+                $collections[$key]['serverid'] = $this->_data['collections'][$values['id']]['serverid'];
             }
 
             if (!isset($values['windowsize'])) {
@@ -596,6 +616,7 @@ class Horde_ActiveSync_SyncCache
         default:
             $this->_data['folders'][$folder->serverid] = array('class' => 'Email');
         }
+        $this->_data['folders'][$folder->serverid]['serverid'] = $folder->_serverid;
     }
 
     /**

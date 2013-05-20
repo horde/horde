@@ -196,9 +196,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
                 $this->_folder = array();
             } else {
+                // Create a new folder object.
                 $this->_folder = ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL) ?
-                    new Horde_ActiveSync_Folder_Imap($this->_collection['id'], Horde_ActiveSync::CLASS_EMAIL) :
-                    new Horde_ActiveSync_Folder_Collection($this->_collection['id'], $this->_collection['class']);
+                    new Horde_ActiveSync_Folder_Imap($this->_collection['serverid'], Horde_ActiveSync::CLASS_EMAIL) :
+                    new Horde_ActiveSync_Folder_Collection($this->_collection['serverid'], $this->_collection['class']);
             }
             $this->_resetDeviceState($id);
             return;
@@ -281,9 +282,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_folder = ($data !== false
                 ? $data
                 : ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL
-                    ? new Horde_ActiveSync_Folder_Imap($this->_collection['id'], Horde_ActiveSync::CLASS_EMAIL)
-                    : new Horde_ActiveSync_Folder_Collection($this->_collection['id'], $this->_collection['class']))
+                    ? new Horde_ActiveSync_Folder_Imap($this->_collection['serverid'], Horde_ActiveSync::CLASS_EMAIL)
+                    : new Horde_ActiveSync_Folder_Collection($this->_collection['serverid'], $this->_collection['class']))
             );
+            // Ensure we have the right
             $this->_changes = ($pending !== false) ? $pending : null;
             if ($this->_changes) {
                 $this->_logger->info(
@@ -467,7 +469,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $change['id'],
                     (empty($this->_syncKey) ? 0 : $this->_syncKey),
                     $this->_deviceInfo->id,
-                    $change['parent'],
+                    $this->_collection['id'],
                     $user,
                     ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) ? $flag_value : true
                 );
@@ -512,11 +514,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         // change in a folder.
                         if ($type != Horde_ActiveSync::CHANGE_TYPE_DELETE) {
                             $folder = $this->_backend->getFolder($value['id']);
-                            $stat = array(
-                               'id' => $value['id'],
-                               'mod' => $folder->displayname,
-                               'parent' => (empty($value['parent']) ? 0 : $value['parent'])
-                            );
+                            $stat = $this->_backend->statFolder(
+                                $value['id'],
+                                (empty($value['parent']) ? '0' : $value['parent']),
+                                $folder->displayname,
+                                $folder->_serverid);
                             $this->_folder[] = $stat;
                             $this->_folder = array_values($this->_folder);
                         }
@@ -803,9 +805,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 : 0);
 
             $this->_logger->info(sprintf(
-                '[%s] Initializing message diff engine for %s',
+                '[%s] Initializing message diff engine for %s (%s)',
                 $this->_procid,
-                $this->_collection['id']));
+                $this->_collection['id'],
+                $this->_folder->serverid()
+                ));
 
             if ($this->_collection['id'] != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
                 if (!empty($this->_changes)) {
@@ -899,7 +903,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Get folder changes
+     * Get folder changes. Populates $this->_changes with an array of change
+     * entries each containing 'type', 'id' and possibly 'flags'.
      */
     protected function _getFolderChanges()
     {
@@ -920,7 +925,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_procid));
         } else {
             $this->_logger->info(sprintf(
-                '[%s] Found folder %d changes.',
+                '[%s] Found %d folder changes.',
                 $this->_procid,
                 count($this->_changes)));
         }
@@ -1187,16 +1192,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function saveSyncCache(array $cache, $devid, $user)
     {
-        // Iterate over the collections and persist the last known synckey.
-        // This is needed since some devices erroneously send a full SYNC
-        // request with only a single collection when the user hits refresh.
-        // Failure to do this will remove the synckey from all other collections.
-        foreach ($cache['collections'] as &$collection) {
-            if (!empty($collection['synckey'])) {
-                $collection['lastsynckey'] = $collection['synckey'];
-                unset($collection['synckey']);
-            }
-        }
         $cache['timestamp'] = strval($cache['timestamp']);
         $sql = 'SELECT count(*) FROM ' . $this->_syncCacheTable
             . ' WHERE cache_devid = ? AND cache_user = ?';
@@ -1270,6 +1265,33 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
+    }
+
+    /**
+     * Get a EAS Folder Uid for the given backend server id.
+     *
+     * @param string $serverid  The backend server id. E.g., 'INBOX'.
+     *
+     * @return string|boolean  The EAS UID for the requested serverid, or false
+     *                         if it is not found.
+     * @since 2.4.0
+     */
+    public function getFolderUidForBackendId($serverid)
+    {
+        $cache = $this->getSyncCache($this->_deviceInfo->id, $this->_deviceInfo->user);
+        $folders = $cache['folders'];
+        foreach ($folders as $id => $folder) {
+            if ($folder['serverid'] == $serverid) {
+                $this->_logger->info(sprintf(
+                    'Found serverid for %s: %s',
+                    $serverid,
+                    $id));
+                return $id;
+            }
+        }
+
+        $this->_logger->info(sprintf('No folderid found for %s', $serverid));
+        return false;
     }
 
     /**
@@ -1537,7 +1559,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         // Remove the collection data from the synccache as well.
         $cache = new Horde_ActiveSync_SyncCache($this, $this->_deviceInfo->id, $this->_deviceInfo->user, $this->_logger);
-        $cache->removeCollection($id);
+        if ($id != Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
+            $cache->removeCollection($id);
+        } else {
+            $cache->clearFolders();
+            $cache->clearCollections();
+        }
         $cache->save();
     }
 

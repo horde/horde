@@ -168,6 +168,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
         $this->_encoder->endTag();
 
         $this->_encoder->startTag(self::ITEMOPERATIONS_RESPONSE);
+        $collections = $this->_activeSync->getCollectionsObject();
         foreach($itemoperations as $value) {
             switch($value['type']) {
             case 'fetch' :
@@ -175,6 +176,8 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                 case 'mailbox' :
                     $this->_encoder->startTag(self::ITEMOPERATIONS_FETCH);
                     if (isset($value['airsyncbasefilereference'])) {
+                        // filereference is already in the backend serverid format
+                        // since it is taken from the AIRSYNCBASE_FILEREFERENCE
                         try {
                             $msg = $this->_driver->itemOperationsGetAttachmentData($value['airsyncbasefilereference']);
                         } catch (Horde_ActiveSync_Exception $e) {
@@ -196,7 +199,12 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
                         $this->_encoder->content('Email');
                         $this->_encoder->endTag();
-                        $msg = $this->_driver->itemOperationsFetchMailbox($value['searchlongid'], $value['bodyprefs'], $mimesupport);
+                        // @todo BC HACK to pass the backend folderid.
+                        list($mailbox, $uid) = explode(':', $value['searchlongid']);
+                        $mailbox = $collections->getBackendIdForFolderUid($mailbox);
+                        $longid = implode(':', array($mailbox, $uid));
+
+                        $msg = $this->_driver->itemOperationsFetchMailbox($longid, $value['bodyprefs'], $mimesupport);
                     } else {
                         $this->_outputStatus();
                         if (isset($value['folderid'])) {
