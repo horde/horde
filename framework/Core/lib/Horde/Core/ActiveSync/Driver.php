@@ -261,7 +261,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Return an array of stats for the server's folder list.
      *
-     * @return array  An array of folder stats
+     * @return array  An array of folder stats @see self::statFolder()
      */
     public function getFolderList()
     {
@@ -271,7 +271,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folderlist = $this->getFolders();
         $folders = array();
         foreach ($folderlist as $f) {
-            $folders[] = $this->statFolder($f->serverid, $f->parentid, $f->displayname);
+            $folders[] = $this->statFolder($f->serverid, $f->parentid, $f->displayname, $f->_serverid);
         }
 
         return $folders;
@@ -455,19 +455,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Stat folder. Note that since the only thing that can ever change for a
      * folder is the name, we use that as the 'mod' value.
      *
-     * @param string $id     The folder id
-     * @param mixed $parent  The parent folder (or 0 if none).
-     * @param mixed $mod     Modification indicator. For folders, this is the
-     *                       name of the folder, since that's the only thing
-     *                       that can change.
-     * @return a stat hash
+     * @param string $id        The folder's EAS uid
+     * @param mixed $parent     The parent folder (or 0 if none).
+     * @param mixed $mod        Modification indicator. For folders, this is the
+     *                          display name of the folder, since that's the
+     *                          only thing that can change.
+     * @param string $serverid  The backend serverid for this folder.
+     * @return a stat hash:
+     *   - id: The activesync folder identifier.
+     *   - mod: The modification value.
+     *   - parent: The folder's parent id.
+     *   - serverid:  The backend server's folder name for this folder.
      */
-    public function statFolder($id, $parent = 0, $mod = null)
+    public function statFolder($id, $parent = '0', $mod = null, $serverid = null)
     {
         $folder = array();
         $folder['id'] = $id;
         $folder['mod'] = empty($mod) ? $id : $mod;
         $folder['parent'] = $parent;
+        $folder['serverid'] = !empty($serverid) ? $serverid : $id;
 
         return $folder;
     }
@@ -895,7 +901,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @param string $name  The attachment identifier. For this driver, this
      *                      consists of 'mailbox:uid:mimepart'
-     *
      * @param array $options  Any options requested. Currently supported:
      *  - stream: (boolean) Return a stream resource for the mime contents.
      *            DEFAULT: true (Return a stream resource for the 'data' value).
@@ -2323,21 +2328,29 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     );
                     throw $e;
                 }
-                foreach ($imap_folders as $id => $folder) {
-                    // EAS maximum server id length is 64 per specs.
-                    if (strlen($id) > 64) {
-                        continue;
+
+                // Build the folder tree, making sure the lower levels are
+                // added first.
+                $level = 0;
+                $cnt = 0;
+                while ($cnt < count($imap_folders)) {
+                    foreach ($imap_folders as $id => $folder) {
+                        if ($folder['level'] == $level) {
+                            try {
+                                $folders[] = $this->_getMailFolder($id, $imap_folders, $folder);
+                                ++$cnt;
+                            } catch (Horde_ActiveSync_Exception $e) {
+                                $this->_logger->err(sprintf(
+                                    "[%s] Problem retrieving %s mail folder",
+                                    $this->_pid,
+                                    $id)
+                                );
+                            }
+                        }
                     }
-                    try {
-                        $folders[] = $this->_getMailFolder($id, $imap_folders, $folder);
-                    } catch (Horde_ActiveSync_Exception $e) {
-                        $this->_logger->err(sprintf(
-                            "[%s] Problem retrieving %s mail folder",
-                            $this->_pid,
-                            $id)
-                        );
-                    }
+                    ++$level;
                 }
+
                 $this->_mailFolders = $folders;
             }
         }
@@ -2383,17 +2396,24 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected function _getMailFolder($sid, array $fl, array $f)
     {
         $folder = new Horde_ActiveSync_Message_Folder();
-        $folder->serverid = $sid;
+
+        // The backend server's foldername.
+        $folder->_serverid = $sid;
+        // The masked UUID
+        $folder->serverid = $this->_getFolderUidForBackendId($sid);
         $folder->parentid = '0';
         $folder->displayname = $f['label'];
 
         // Check for nested folders. $fl will NEVER contain containers so we
-        // can assume that any entry in $fl is an actual mailbox.
+        // can assume that any entry in $fl is an actual mailbox. EAS does
+        // not support containers so we only do this if the parent is an
+        // actual mailbox.
         if ($f['level'] != 0) {
             $parts = explode($f['d'], $sid);
             $displayname = array_pop($parts);
             if (!empty($fl[implode($f['d'], $parts)])) {
-                $folder->parentid = implode($f['d'], $parts);
+                $folder->parentid = $this->_getFolderUidForBackendId(implode($f['d'], $parts));
+                $folder->_parentid = implode($f['d'], $parts);
                 $folder->displayname = $displayname;
             }
         }
@@ -2447,6 +2467,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // Not a known folder, set it to user mail.
         $folder->type = Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
+
         return $folder;
     }
 
