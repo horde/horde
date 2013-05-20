@@ -17,12 +17,10 @@ class Horde_Core_Factory_History extends Horde_Core_Factory_Injector
             $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'history')
         );
 
-        try {
-            if (is_callable(array($history, 'setHashTable')) &&
-                ($hashtable = $injector->getInstance('Horde_HashTable'))) {
-                $history->setHashTable($hashtable);
-            }
-        } catch (Horde_Exception $e) {}
+        if (is_callable(array($history, 'setHashTable')) &&
+            ($hashtable = $injector->getInstance('Horde_HashTable'))) {
+            $history->setHashTable($hashtable);
+        }
 
         return $history;
     }
