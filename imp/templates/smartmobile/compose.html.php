@@ -20,14 +20,18 @@
     </select>
 
     <label for="imp-compose-to"><?php echo _("To:") ?></label>
-    <input type="text" id="imp-compose-to" name="to[]" />
-    <ul id="imp-compose-to-suggestions" data-role="listview" data-inset="true"></ul>
-    <div id="imp-compose-to-addr"></div>
+    <div class="imp-compose-addr-div">
+     <div id="imp-compose-to-addr"></div>
+     <input type="text" id="imp-compose-to" name="to[]" />
+     <ul id="imp-compose-to-suggestions" data-role="listview" data-inset="true"></ul>
+    </div>
 
     <label for="imp-compose-cc"><?php echo _("Cc:") ?></label>
-    <input type="text" id="imp-compose-cc" name="cc[]" />
-    <ul id="imp-compose-cc-suggestions" data-role="listview" data-inset="true"></ul>
-    <div id="imp-compose-cc-addr"></div>
+    <div class="imp-compose-addr-div">
+     <div id="imp-compose-cc-addr"></div>
+     <input type="text" id="imp-compose-cc" name="cc[]" />
+     <ul id="imp-compose-cc-suggestions" data-role="listview" data-inset="true"></ul>
+    </div>
 
     <label for="imp-compose-subject"><?php echo _("Subject:") ?></label>
     <input type="text" id="imp-compose-subject" name="subject" />

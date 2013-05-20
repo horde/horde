@@ -70,11 +70,12 @@
 #imp-compose-message {
     height: auto;
 }
-#imp-compose-to-suggestions,
-#imp-compose-to-addr,
-#imp-compose-cc-suggestions,
-#imp-compose-cc-addr {
-    margin-left: 22%;
+.imp-compose-addr-div {
+    display: inline-block;
+    width: 78%;
+}
+#imp-compose-to, #imp-compose-cc {
+    width: 100%;
 }
 
 #imp-compose-upload-container {
