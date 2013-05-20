@@ -8,8 +8,6 @@
  */
 class Horde_ActiveSync_UtilsTest extends Horde_Test_Case
 {
-
-
     public function testBase64Uri()
     {
         /* Provision Request for version 12.1 */

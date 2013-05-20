@@ -1,5 +1,4 @@
 <?php
-require_once dirname(__FILE__) . '/../Base.php';
 /**
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @license http://www.horde.org/licenses/gpl GPLv2

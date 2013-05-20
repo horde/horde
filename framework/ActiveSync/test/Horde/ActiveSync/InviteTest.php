@@ -8,7 +8,6 @@
  */
 class Horde_ActiveSync_InviteTest extends Horde_Test_Case
 {
-
     protected $_oldtz;
 
     public function setUp()
