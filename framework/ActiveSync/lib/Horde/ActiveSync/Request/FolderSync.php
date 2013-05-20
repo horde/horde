@@ -223,13 +223,13 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
 
         if (count($exporter->deleted) > 0) {
-            foreach ($exporter->deleted as $folder) {
+            foreach ($exporter->deleted as $folder_uid) {
                 $this->_encoder->startTag(self::REMOVE);
                 $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID);
                 $this->_encoder->content($folder);
                 $this->_encoder->endTag();
                 $this->_encoder->endTag();
-                $collections->deleteFolderFromHierarchy($folder->serverid);
+                $collections->deleteFolderFromHierarchy($folder_uid);
             }
         }
 
