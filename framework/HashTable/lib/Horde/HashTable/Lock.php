@@ -12,13 +12,14 @@
  */
 
 /**
- * Extension to base HashTable class by adding lock methods.
+ * Extension to base HashTable class by adding lock methods to prevent access
+ * from other PHP processes.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Memcache
+ * @package   HashTable
  */
 interface Horde_HashTable_Lock
 {

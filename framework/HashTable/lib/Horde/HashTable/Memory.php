@@ -18,7 +18,7 @@
  * @category  Horde
  * @copyright 2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Memcache
+ * @package   HashTable
  */
 class Horde_HashTable_Memory
 extends Horde_HashTable_Base
