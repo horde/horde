@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Correctly notify dynamic mailbox view if sent-mail mailboxes are created
+      in compose page.
 [mms] Fix sending group addresses from smartmobile view.
 [mms] Added 'horde_auth' option to SMTP configuration in backends.php.
 [mms] Add null spam reporting driver.

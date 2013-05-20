@@ -246,13 +246,13 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             $onload->subject = $subject;
         }
 
+        $this->title = $compose_opts['title'];
+        $this->view->compose = $injector->getInstance('IMP_Dynamic_Compose_Common')->compose($this, $compose_opts);
+
         $page_output->addInlineJsVars(array(
             'DimpCompose.onload_show' => $onload,
             'DimpCompose.tasks' => $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks()
         ));
-
-        $this->title = $compose_opts['title'];
-        $this->view->compose = $injector->getInstance('IMP_Dynamic_Compose_Common')->compose($this, $compose_opts);
 
         Horde::startBuffer();
         $notification->notify(array(

@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Correctly notify dynamic mailbox view if sent-mail mailboxes are created in compose page.
 * [mms] Fix sending group addresses from smartmobile view.
 * [mms] Added &apos;horde_auth&apos; option to SMTP configuration in backends.php.
 * [mms] Add null spam reporting driver.
@@ -3171,6 +3172,7 @@
    <date>2013-05-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Correctly notify dynamic mailbox view if sent-mail mailboxes are created in compose page.
 * [mms] Fix sending group addresses from smartmobile view.
 * [mms] Added &apos;horde_auth&apos; option to SMTP configuration in backends.php.
 * [mms] Add null spam reporting driver.
