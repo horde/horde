@@ -141,7 +141,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             );
 
             // Configure importer with last state
-            $importer = $this->_getImporter();
+            $importer = $this->_activeSync->getImporter();
             $importer->init($this->_state);
             if (!$delete) {
                 if (!$serverid = $importer->importFolderChange($serverid, $displayname, $parentid)) {

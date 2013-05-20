@@ -132,7 +132,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
             // Configure importer with last state
             // @todo - integrate this with the collection manager.
-            $importer = $this->_getImporter();
+            $importer = $this->_activeSync->getImporter();
             $importer->init($this->_state, false);
 
             while (1) {

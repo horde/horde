@@ -805,7 +805,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
         // Configure importer with last state
         if (!empty($collection['synckey'])) {
-            $importer = $this->_getImporter();
+            $importer = $this->_activeSync->getImporter();
             $importer->init($this->_state, $collection['serverid'], $collection['conflict']);
         }
         $nchanges = 0;

@@ -499,6 +499,20 @@ class Horde_ActiveSync
     }
 
     /**
+     * Return an Importer object.
+     *
+     * @return Horde_ActiveSync_Connector_Importer
+     * @since 2.4.0
+     */
+    public function getImporter()
+    {
+        $importer = new Horde_ActiveSync_Connector_Importer($this);
+        $importer->setLogger(self::$_logger);
+
+        return $importer;
+    }
+
+    /**
      * Authenticate to the backend.
      *
      * @return boolean  True on successful authentication to the backend.

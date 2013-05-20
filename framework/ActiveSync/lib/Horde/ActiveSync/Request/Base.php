@@ -241,18 +241,6 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Simple factory method for the importer.
-     *
-     * @return Horde_ActiveSync_Connector_Importer
-     */
-    protected function _getImporter()
-    {
-        $importer = new Horde_ActiveSync_Connector_Importer($this->_driver);
-        $importer->setLogger($this->_logger);
-        return $importer;
-    }
-
-    /**
      * Clean up after initial pairing. Initial pairing can happen either as a
      * result of either a FOLDERSYNC or PROVISION command, depending on the
      * device capabilities.

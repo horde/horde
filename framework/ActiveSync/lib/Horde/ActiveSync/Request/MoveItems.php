@@ -122,7 +122,7 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
             if ($move[self::SRCFLDKEY] == $move[self::DSTFLDKEY]) {
                 $status = self::STATUS_SAME_FOLDERS;
             } else {
-                $importer = $this->_getImporter();
+                $importer = $this->_activeSync->getImporter();
                 $importer->init($this->_state, $move[self::SRCFLDKEY]);
                 try {
                     $move_res = $importer->importMessageMove(

@@ -46,9 +46,9 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * The backend driver for communicating with the server we are syncing with.
      *
-     * @var Horde_ActiveSync_Driver_Base
+     * @var Horde_ActiveSync
      */
-    protected $_backend;
+    protected $_as;
 
     /**
      * Conflict resolution flags
@@ -74,11 +74,11 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Const'r
      *
-     * @param Horde_ActiveSync_Driver_Base $backend
+     * @param Horde_ActiveSync $as  The server object.
      */
-    public function __construct(Horde_ActiveSync_Driver_Base $backend)
+    public function __construct(Horde_ActiveSync $as)
     {
-        $this->_backend = $backend;
+        $this->_as = $as;
     }
 
     /**
@@ -151,7 +151,7 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         // Tell the backend about the change
-        if (!$stat = $this->_backend->changeMessage($this->_folderId, $id, $message, $device)) {
+        if (!$stat = $this->_as->driver->changeMessage($this->_folderId, $id, $message, $device)) {
             $this->_logger->err(sprintf(
                 '[%s] Change message failed when updating %s',
                 getmypid(), $id)
@@ -168,7 +168,7 @@ class Horde_ActiveSync_Connector_Importer
                 : Horde_ActiveSync::CHANGE_TYPE_CHANGE),
             $stat,
             Horde_ActiveSync::CHANGE_ORIGIN_PIM,
-            $this->_backend->getUser(),
+            $this->_as->driver->getUser(),
             $clientid);
 
         return $stat['id'];
@@ -211,7 +211,7 @@ class Horde_ActiveSync_Connector_Importer
                 Horde_ActiveSync::CHANGE_TYPE_DELETE,
                 $change,
                 Horde_ActiveSync::CHANGE_ORIGIN_PIM,
-                $this->_backend->getUser());
+                $this->_as->driver->getUser());
 
             // If server wins the conflict, don't import change - it will be
             // detected on next sync and sent back to PIM (since we updated the
@@ -222,7 +222,7 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         // Tell backend about the deletion
-        return $this->_backend->deleteMessage($this->_folderId, $ids);
+        return $this->_as->driver->deleteMessage($this->_folderId, $ids);
     }
 
     /**
@@ -245,9 +245,9 @@ class Horde_ActiveSync_Connector_Importer
             Horde_ActiveSync::CHANGE_TYPE_FLAGS,
             $change,
             Horde_ActiveSync::CHANGE_ORIGIN_PIM,
-            $this->_backend->getUser());
+            $this->_as->driver->getUser());
 
-        $this->_backend->setReadFlag($this->_folderId, $id, $flag);
+        $this->_as->driver->setReadFlag($this->_folderId, $id, $flag);
     }
 
     /**
@@ -263,7 +263,7 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importMessageMove(array $uids, $dst)
     {
-        $results = $this->_backend->moveMessage($this->_folderId, $uids, $dst);
+        $results = $this->_as->driver->moveMessage($this->_folderId, $uids, $dst);
 
         // Check for any missing (not found) source messages.
         if (count($results) != count($uids)) {
@@ -283,7 +283,7 @@ class Horde_ActiveSync_Connector_Importer
                 Horde_ActiveSync::CHANGE_TYPE_DELETE,
                 $change,
                 Horde_ActiveSync::CHANGE_ORIGIN_PIM,
-                $this->_backend->getUser());
+                $this->_as->driver->getUser());
         }
 
         return array('results' => $results, 'missing' => $missing);
@@ -362,7 +362,7 @@ class Horde_ActiveSync_Connector_Importer
      */
     protected function _isConflict($type, $folderid, $id)
     {
-        $stat = $this->_backend->statMessage($folderid, $id);
+        $stat = $this->_as->driver->statMessage($folderid, $id);
         if (!$stat) {
             /* Message is gone, if type is change, this is a conflict */
             if ($type == Horde_ActiveSync::CHANGE_TYPE_CHANGE) {
