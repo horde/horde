@@ -1457,7 +1457,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     $ed['o'][$id]
                 );
 
-                /* Check for virutal folder change. */
+                /* Check for virtual folder change. */
                 if ($this->isVfolder($elt)) {
                     $ed['c'][$id] = 1;
                 }
