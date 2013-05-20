@@ -20,7 +20,9 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Memcache
  */
-class Horde_HashTable_Memory extends Horde_HashTable_Base
+class Horde_HashTable_Memory
+extends Horde_HashTable_Base
+implements Horde_HashTable_Lock
 {
     /**
      * Data.
@@ -28,13 +30,6 @@ class Horde_HashTable_Memory extends Horde_HashTable_Base
      * @var array
      */
     protected $_data = array();
-
-    /**
-     * Locked keys.
-     *
-     * @var array
-     */
-    protected $_locks = array();
 
     /**
      */
@@ -108,6 +103,18 @@ class Horde_HashTable_Memory extends Horde_HashTable_Base
     public function clear()
     {
         $this->_data = array();
+    }
+
+    /**
+     */
+    public function lock($key)
+    {
+    }
+
+    /**
+     */
+    public function unlock($key)
+    {
     }
 
 }
