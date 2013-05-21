@@ -14,10 +14,11 @@
 /**
  * Skeleton_Driver factory.
  *
- * @author   Your Name <you@example.com>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Skeleton
+ * @author    Your Name <you@example.com>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Skeleton
  */
 class Skeleton_Factory_Driver extends Horde_Core_Factory_Injector
 {

@@ -17,10 +17,11 @@
  * This file defines Skeleton's external API interface. Other applications can
  * interact with Skeleton through this API.
  *
- * @author   Your Name <you@example.com>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Skeleton
+ * @author    Your Name <you@example.com>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Skeleton
  */
 class Skeleton_Api extends Horde_Registry_Api
 {

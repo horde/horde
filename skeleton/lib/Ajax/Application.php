@@ -18,10 +18,11 @@
  * AJAX endpoint is represented by horde/services/ajax.php but that handler
  * will call the module specific actions defined in this class.
  *
- * @author   Your Name <you@example.com>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Skeleton
+ * @author    Your Name <you@example.com>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Skeleton
  */
 class Skeleton_Ajax_Application extends Horde_Core_Ajax_Application
 {

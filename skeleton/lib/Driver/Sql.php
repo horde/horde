@@ -14,10 +14,11 @@
 /**
  * Skeleton storage implementation for the Horde_Db database abstraction layer.
  *
- * @author   Your Name <you@example.com>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Skeleton
+ * @author    Your Name <you@example.com>
+ * @category  Horde
+ * @copyright 2007-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Skeleton
  */
 class Skeleton_Driver_Sql extends Skeleton_Driver
 {
