@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-17</date>
- <time>12:48:35</time>
+ <date>2013-05-21</date>
+ <time>01:37:42</time>
  <version>
   <release>2.10.1</release>
   <api>2.10.0</api>
@@ -1733,7 +1733,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-17</date>
+   <date>2013-05-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix returning the list of deleted messages in the POP3 driver.
