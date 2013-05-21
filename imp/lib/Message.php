@@ -247,6 +247,12 @@ class IMP_Message
                  * using mail logging. */
                 $fetch = null;
                 if ($maillog_update) {
+                    /* Optimization: make sure we open mailbox read-write,
+                     * since we are guaranteed to at least attempt to store
+                     * flags below and this query will likely open mailbox in
+                     * read-only mode. */
+                    $imp_imap->openMailbox($ob->mbox, Horde_Imap_Client::OPEN_READWRITE);
+
                     $query = new Horde_Imap_Client_Fetch_Query();
                     $query->envelope();
 
