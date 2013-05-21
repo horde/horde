@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-21</date>
- <time>01:37:42</time>
+ <time>01:42:48</time>
  <version>
-  <release>2.10.1</release>
+  <release>2.10.2</release>
   <api>2.10.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix returning the list of deleted messages in the POP3 driver.
-* [mms] Handle all additional namespace queries in a single call.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1738,6 +1737,19 @@
    <notes>
 * [mms] Fix returning the list of deleted messages in the POP3 driver.
 * [mms] Handle all additional namespace queries in a single call.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.2</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
