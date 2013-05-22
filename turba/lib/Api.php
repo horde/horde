@@ -288,7 +288,7 @@ class Turba_Api extends Horde_Registry_Api
             foreach ($addressbooks as $addressbook => $info) {
                 if (in_array('name', $properties)) {
                     $results[$curpath . $addressbook]['name'] = ($info instanceof Horde_Share_Object)
-                        ? $info->get('title')
+                        ? $info->get('name')
                         : $info['title'];
                 }
                 if (in_array('icon', $properties)) {
