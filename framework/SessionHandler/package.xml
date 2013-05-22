@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-13</date>
- <time>12:45:18</time>
+ <date>2013-05-22</date>
+ <time>09:51:23</time>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix hashtable driver name.
 * [mms] Horde_Memcache driver is now deprecated in favor of the Horde_HashTable driver.
 * [mms] Added Horde_HashTable driver.
 * [mms] Implement logging for all storage drivers.
@@ -54,7 +55,7 @@
        <file name="Builtin.php" role="php" />
        <file name="External.php" role="php" />
        <file name="File.php" role="php" />
-       <file name="HashTable.php" role="php" />
+       <file name="Hashtable.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="Mongo.php" role="php" />
        <file name="Sql.php" role="php" />
@@ -174,7 +175,7 @@
    <install as="Horde/SessionHandler/Storage/Builtin.php" name="lib/Horde/SessionHandler/Storage/Builtin.php" />
    <install as="Horde/SessionHandler/Storage/External.php" name="lib/Horde/SessionHandler/Storage/External.php" />
    <install as="Horde/SessionHandler/Storage/File.php" name="lib/Horde/SessionHandler/Storage/File.php" />
-   <install as="Horde/SessionHandler/Storage/HashTable.php" name="lib/Horde/SessionHandler/Storage/HashTable.php" />
+   <install as="Horde/SessionHandler/Storage/Hashtable.php" name="lib/Horde/SessionHandler/Storage/Hashtable.php" />
    <install as="Horde/SessionHandler/Storage/Memcache.php" name="lib/Horde/SessionHandler/Storage/Memcache.php" />
    <install as="Horde/SessionHandler/Storage/Mongo.php" name="lib/Horde/SessionHandler/Storage/Mongo.php" />
    <install as="Horde/SessionHandler/Storage/Sql.php" name="lib/Horde/SessionHandler/Storage/Sql.php" />
@@ -505,9 +506,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-13</date>
+   <date>2013-05-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix hashtable driver name.
 * [mms] Horde_Memcache driver is now deprecated in favor of the Horde_HashTable driver.
 * [mms] Added Horde_HashTable driver.
 * [mms] Implement logging for all storage drivers.

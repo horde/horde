@@ -21,7 +21,7 @@
  * @package   SessionHandler
  * @since     2.2.0
  */
-class Horde_SessionHandler_Storage_HashTable extends Horde_SessionHandler_Storage
+class Horde_SessionHandler_Storage_Hashtable extends Horde_SessionHandler_Storage
 {
     /**
      * HashTable object.
