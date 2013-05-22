@@ -310,7 +310,7 @@ $this->applications = array(
 
     'gollem' => array(
         'name' => _("File Manager"),
-        'menu_parent' => 'myaccount',
+        'menu_parent' => 'others',
         'provides' => 'files',
     ),
 
