@@ -63,11 +63,11 @@ class IMP_Compose_Attachment_Storage_VfsLinked extends IMP_Compose_Attachment_St
 
         if (filesize($filename) < intval($conf['compose']['link_attach_threshold'])) {
             $this->_vfspath = self::VFS_ATTACH_PATH;
-            parent::write($filename);
+            parent::write($filename, $part);
             return;
         }
 
-        parent::write($filename);
+        parent::write($filename, $part);
 
         // Prevent 'jar:' attacks on Firefox.  See Ticket #5892.
         $type = $part->getType();
