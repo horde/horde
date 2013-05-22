@@ -171,7 +171,7 @@ if ($logout_reason) {
         Horde::logMessage($entry, 'NOTICE');
 
         if (!$is_auth && $nojs) {
-            $notification->push(_("Javscript is either disabled or not available on your browser. You are restricted to the minimal view."));
+            $notification->push(_("JavaScript is either disabled or not available on your browser. You are restricted to the minimal view."));
         }
 
         if (!empty($url_in)) {
