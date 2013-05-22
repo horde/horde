@@ -548,7 +548,7 @@ $_prefs['delete_attachments_monthly_keep'] = array(
     'advanced' => true,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Delete linked attachments after this many months (0 to never delete)?"),
+    'desc' => _("Delete linked attachments after this many months (0 to never delete):"),
     'help' => 'prefs-delete_attachments_monthly_keep',
     'suppress' => function() {
         return empty($GLOBALS['conf']['compose']['link_attachments']);
@@ -834,7 +834,7 @@ $_prefs['delete_sentmail_monthly_keep'] = array(
     'value' => 0,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Delete old sent mail mailboxes after this many months (0 to never delete)?"),
+    'desc' => _("Delete old sent mail mailboxes after this many months (0 to never delete):"),
     'help' => 'prefs-delete_sentmail_monthly_keep',
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
