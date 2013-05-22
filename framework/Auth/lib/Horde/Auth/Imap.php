@@ -104,6 +104,9 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
+        if (!$this->hasCapability('add')) {
+            throw new Horde_Auth_Exception('Adding of users is not supported.');
+        }
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $ob->createMailbox($this->_params['userhierarchy']);
@@ -122,6 +125,9 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      */
     public function removeUser($userId)
     {
+        if (!$this->hasCapability('remove')) {
+            throw new Horde_Auth_Exception('Removing of users is not supported.');
+        }
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $ob->setACL($this->_params['userhierarchy'], $this->_params['admin_user'], array('rights' => 'lrswipcda'));
@@ -141,6 +147,9 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      */
     public function listUsers($sort = false)
     {
+        if (!$this->hasCapability('list')) {
+            throw new Horde_Auth_Exception('Listing of users is not supported.');
+        }
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $list = $ob->listMailboxes($this->_params['userhierarchy'] . '%', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
