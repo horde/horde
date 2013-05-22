@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-03-05 10:52+0100\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
 "PO-Revision-Date: 2013-03-05 11:38+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -324,7 +324,7 @@ msgstr "Jeder"
 msgid "Applications"
 msgstr "Anwendungen"
 
-#: lib/View/GalleryRenderer/Base.php:194
+#: lib/View/GalleryRenderer/Base.php:195
 msgid "Are you sure you want to delete the selected photos?"
 msgstr "Sind Sie sicher, dass Sie die ausgewählten Fotos löschen möchten?"
 
@@ -1360,7 +1360,7 @@ msgstr "Diashow Pause"
 msgid "People in galleries owned by %s (%d of %d)"
 msgstr "Personen in Galerien von %s (%d von %d)"
 
-#: lib/Widget/ImageFaces.php:45
+#: lib/Widget/ImageFaces.php:47
 msgid "People in this Photo"
 msgstr "Personen in diesem Foto"
 
@@ -2353,7 +2353,7 @@ msgstr ""
 "Sie haben Ihr Twitter-Konto nicht richtig mit Horde verbunden. Sie sollten "
 "Ihre Twitter-Einstellungen in Ihren %s überprüfen."
 
-#: lib/View/GalleryRenderer/Base.php:195
+#: lib/View/GalleryRenderer/Base.php:196
 msgid "You must choose a gallery to move photos to."
 msgstr ""
 "Sie müssen eine Galerie auswählen, zu der die Fotos verschoben werden sollen."
@@ -2368,7 +2368,7 @@ msgstr ""
 msgid "You must enter your e-mail address."
 msgstr "Sie müssen Ihre Emailadresse angeben."
 
-#: lib/View/GalleryRenderer/Base.php:196
+#: lib/View/GalleryRenderer/Base.php:197
 msgid "You must first choose photos."
 msgstr "Sie müssen erst Fotos auswählen."
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Rpc\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
 "PO-Revision-Date: 2012-07-19 18:58+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -16,13 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: lib/Horde/Rpc/Webdav.php:352
-#, php-format
-msgid "Error deleting from path %s; must be [app]/[path]"
-msgstr ""
-"Im Verzeichnis %s konnte nicht gelöscht werden; richtiges Format: "
-"[anwendung]/[pfad]"
 
 #: lib/Horde/Rpc/Phpgw.php:80 lib/Horde/Rpc/Phpgw.php:81
 #: lib/Horde/Rpc/Soap.php:185 lib/Horde/Rpc/Soap.php:193
@@ -38,25 +31,10 @@ msgstr "Keine gültigen XML-Daten zurückgegeben:"
 msgid "Request couldn't be answered. Returned errorcode: "
 msgstr "Anfrage konnte nicht beantwortet werden. Zurückgegebener Fehlercode: "
 
-#: lib/Horde/Rpc/ActiveSync.php:106
+#: lib/Horde/Rpc/ActiveSync.php:102
 msgid "Trying to access the ActiveSync endpoint from a browser. Not Supported."
 msgstr ""
 "Der Zugriff auf die ActiveSync-URL mit einem Browser wird nicht unterstützt."
-
-#: lib/Horde/Rpc/Webdav.php:417
-#, php-format
-msgid "Unable to create directory %s; must be [app]/[path]"
-msgstr ""
-"Das Verzeichnis %s konnte nicht angelegt werden; richtiges Format: "
-"[anwendung]/[pfad]"
-
-#: lib/Horde/Rpc/Webdav.php:452
-#, php-format
-msgid ""
-"Unable to rename %s; must be [app]/[path] and within the same application."
-msgstr ""
-"%s konnte nicht umbenannt werden; Das richtige Format ist [anwendung]/"
-"[pfad], und Quelle und Ziel müssen in der gleichen Anwendung sein."
 
 #: lib/Horde/Rpc/Phpgw.php:99
 msgid "You did not authenticate."

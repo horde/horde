@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:44+0100\n"
+"POT-Creation-Date: 2013-05-07 14:15+0200\n"
 "PO-Revision-Date: 2013-01-29 11:58+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -79,7 +79,7 @@ msgstr "Lesezeichen"
 msgid "Bookmarks Feed"
 msgstr "Lesezeichen-Feed"
 
-#: browse.php:25
+#: browse.php:31
 msgid "Browse"
 msgstr "Liste"
 
@@ -132,7 +132,7 @@ msgstr ""
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: edit.php:31
+#: edit.php:37
 msgid "Edit Bookmark"
 msgstr "Lesezeichen bearbeiten"
 
@@ -164,7 +164,7 @@ msgstr "Meistgeklickte Lesezeichen"
 msgid "New Bookmark"
 msgstr "Neues Lesezeichen"
 
-#: search.php:37
+#: search.php:43
 msgid "No bookmarks found"
 msgstr "Keine Lesezeichen gefunden"
 
@@ -176,7 +176,7 @@ msgstr "Keine Lesezeichen"
 msgid "No bookmarks yet."
 msgstr "Keine Lesezeichen"
 
-#: search.php:44
+#: search.php:50
 msgid "No search"
 msgstr "Keine Suche"
 
@@ -217,11 +217,11 @@ msgstr "Aus der Suche entfernen"
 msgid "Save"
 msgstr "Speichern"
 
-#: search.php:30
+#: search.php:36
 msgid "Search"
 msgstr "Suche"
 
-#: search.php:41
+#: search.php:47
 #, php-format
 msgid "Search results (%s)"
 msgstr "Suchergebnisse (%s)"
@@ -311,7 +311,7 @@ msgstr "Klick"
 msgid "clicks"
 msgstr "Klicks"
 
-#: app/controllers/BrowseByTag.php:17
+#: app/controllers/BrowseByTag.php:23
 #, php-format
 msgid "tagged %s"
 msgstr "Mit \"%s\" getaggt."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-05-22 11:43+0200\n"
 "PO-Revision-Date: 2011-11-01 12:59+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -782,7 +782,7 @@ msgstr "Die Anmeldedaten für die Synchronisation wurden gespeichert"
 msgid "Synchronization is disabled"
 msgstr "Synchronisation ist deaktiviert"
 
-#: lib/Page.php:461
+#: lib/Page.php:472
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
 
@@ -828,9 +828,9 @@ msgstr ""
 "Wiki/Home kann nicht erstellt werden. Das Wiki wurde nicht konfiguriert."
 
 #: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:368
-#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:501
-#: lib/Page.php:512 lib/Page.php:517 lib/Page.php:522 lib/Page.php:527
-#: lib/Page.php:567
+#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:524
+#: lib/Page.php:535 lib/Page.php:540 lib/Page.php:545 lib/Page.php:550
+#: lib/Page.php:590
 msgid "Unsupported"
 msgstr "Nicht unterstützt"
 
