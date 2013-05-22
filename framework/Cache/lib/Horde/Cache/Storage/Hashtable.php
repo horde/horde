@@ -21,7 +21,7 @@
  * @package   Cache
  * @since     2.2.0
  */
-class Horde_Cache_Storage_HashTable extends Horde_Cache_Storage_Base
+class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
 {
     /**
      * HashTable object.
