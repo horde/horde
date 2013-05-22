@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Skeleton H5 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-03-05 10:52+0100\n"
+"POT-Creation-Date: 2013-05-22 11:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: lib/Block/Example.php:26 lib/Block/Example.php:36
+#: lib/Block/Example.php:41 lib/Block/Example.php:51
 msgid "Color"
 msgstr ""
 
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: lib/Block/Example.php:16
+#: lib/Block/Example.php:31
 msgid "Example Block"
 msgstr ""
 
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Foo"
 msgstr ""
 
-#: list.php:20
+#: list.php:24
 msgid "Header"
 msgstr ""
 
@@ -61,7 +61,7 @@ msgstr ""
 msgid "Import/Export"
 msgstr ""
 
-#: lib/Application.php:71 list.php:33
+#: lib/Application.php:71 list.php:37
 msgid "List"
 msgstr ""
 
@@ -81,7 +81,7 @@ msgstr ""
 msgid "Set your sample preference."
 msgstr ""
 
-#: list.php:21
+#: list.php:25
 msgid "Some Content"
 msgstr ""
 

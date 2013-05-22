@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba H5 (4.1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"POT-Creation-Date: 2013-05-22 11:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -341,7 +341,7 @@ msgstr ""
 msgid "Common Video Call"
 msgstr ""
 
-#: config/backends.php:359 config/backends.php:687
+#: config/backends.php:365 config/backends.php:694
 msgid "Communications"
 msgstr ""
 
@@ -596,7 +596,7 @@ msgstr ""
 msgid "Export the following address book completely."
 msgstr ""
 
-#: config/backends.php:790
+#: config/backends.php:797
 msgid "Facebook Friends"
 msgstr ""
 
@@ -627,7 +627,7 @@ msgstr ""
 msgid "Failed to search the directory: %s"
 msgstr ""
 
-#: config/backends.php:760
+#: config/backends.php:767
 msgid "Favourite Recipients"
 msgstr ""
 
@@ -737,7 +737,7 @@ msgstr ""
 msgid "Home Website URL"
 msgstr ""
 
-#: config/backends.php:915
+#: config/backends.php:922
 msgid "IMSP"
 msgstr ""
 
@@ -833,7 +833,7 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: config/backends.php:351 config/backends.php:683
+#: config/backends.php:357 config/backends.php:690
 msgid "Location"
 msgstr ""
 
@@ -921,7 +921,7 @@ msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
 msgstr ""
 
-#: config/backends.php:517
+#: config/backends.php:524
 msgid "My Address Book"
 msgstr ""
 
@@ -1056,11 +1056,11 @@ msgstr ""
 msgid "Only one vcard supported."
 msgstr ""
 
-#: config/backends.php:365 config/backends.php:689
+#: config/backends.php:372 config/backends.php:696
 msgid "Organization"
 msgstr ""
 
-#: config/backends.php:366 config/backends.php:691
+#: config/backends.php:373 config/backends.php:698
 msgid "Other"
 msgstr ""
 
@@ -1121,7 +1121,7 @@ msgstr ""
 msgid "Permission denied"
 msgstr ""
 
-#: config/backends.php:348 config/backends.php:679
+#: config/backends.php:353 config/backends.php:686
 msgid "Personal"
 msgstr ""
 
@@ -1154,7 +1154,7 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: config/backends.php:721
+#: config/backends.php:728
 msgid "Private Address Book"
 msgstr ""
 
@@ -1312,11 +1312,11 @@ msgstr ""
 msgid "Selected address book \"%s\"."
 msgstr ""
 
-#: config/backends.php:234 config/backends.php:601 lib/Application.php:198
+#: config/backends.php:234 config/backends.php:608 lib/Application.php:198
 msgid "Shared Address Books"
 msgstr ""
 
-#: config/backends.php:399
+#: config/backends.php:406
 msgid "Shared Directory"
 msgstr ""
 

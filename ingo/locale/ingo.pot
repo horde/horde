@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:16+0200\n"
+"POT-Creation-Date: 2013-05-22 14:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid " or"
 msgstr ""
 
-#: lib/Transport/Ispconfig.php:142
+#: lib/Transport/Ispconfig.php:141
 #, php-format
 msgid "%d users with login %s found, one expected."
 msgstr ""
@@ -501,6 +501,11 @@ msgstr ""
 msgid "List-ID"
 msgstr ""
 
+#: lib/Transport/Ispconfig.php:196
+#, php-format
+msgid "Login to %s failed."
+msgstr ""
+
 #: templates/basic/blacklist/blacklist.html.php:25
 msgid "Mar_k message as deleted"
 msgstr ""
@@ -757,21 +762,6 @@ msgstr ""
 msgid "Ruleset"
 msgstr ""
 
-#: lib/Transport/Ispconfig.php:111 lib/Transport/Ispconfig.php:138
-#, php-format
-msgid "SOAP fault: %s"
-msgstr ""
-
-#: lib/Transport/Ispconfig.php:201
-#, php-format
-msgid "SOAP fault: %s."
-msgstr ""
-
-#: lib/Transport/Ispconfig.php:197
-#, php-format
-msgid "SOAP login to %s failed."
-msgstr ""
-
 #: lib/Transport/Ldap.php:100
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
@@ -913,18 +903,12 @@ msgstr ""
 msgid "Subject:"
 msgstr ""
 
-#: lib/Transport/Ispconfig.php:172
-msgid ""
-"The Ingo Ispconfig transport is not properly configured, edit your ingo/"
-"config/backends.local.php."
-msgstr ""
-
-#: lib/Api.php:79
+#: lib/Api.php:89
 #, php-format
 msgid "The address \"%s\" has been added to your blacklist."
 msgstr ""
 
-#: lib/Api.php:101
+#: lib/Api.php:111
 #, php-format
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"POT-Creation-Date: 2013-05-22 14:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -755,7 +755,7 @@ msgid ""
 "Could not find authorization for %s to interact with your Twitter account"
 msgstr ""
 
-#: services/resetpassword.php:100
+#: services/resetpassword.php:104
 msgid ""
 "Could not reset the password for the requested user. Some or all of the "
 "details are not correct. Try again or contact your administrator if you need "
@@ -1519,7 +1519,7 @@ msgstr ""
 
 #: login.php:174
 msgid ""
-"Javscript is either disabled or not available on your browser. You are "
+"JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
 msgstr ""
 
@@ -1684,7 +1684,7 @@ msgstr ""
 
 #: templates/prefs/twitter.html.php:18
 #, php-format
-msgid "Login to Twitter and authorize the %s application"
+msgid "Login to Twitter and authorize %s"
 msgstr ""
 
 #: templates/prefs/facebook.html.php:10
@@ -1985,6 +1985,7 @@ msgstr ""
 msgid "NoSQL indices out of date."
 msgstr ""
 
+#: templates/prefs/activesync.html.php:42
 #: templates/prefs/activesync.html.php:54 templates/prefs/syncml.html.php:34
 #: templates/prefs/identityselect.html:20
 msgid "None"
@@ -3526,17 +3527,17 @@ msgstr ""
 msgid "Your new password for %s is: %s"
 msgstr ""
 
-#: services/resetpassword.php:81
+#: services/resetpassword.php:89
 msgid "Your password has been reset"
 msgstr ""
 
-#: services/resetpassword.php:95
+#: services/resetpassword.php:99
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
 msgstr ""
 
-#: services/resetpassword.php:90
+#: services/resetpassword.php:94
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."

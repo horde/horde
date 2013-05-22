@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"POT-Creation-Date: 2013-05-22 11:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid " (Accesskey %s)"
 msgstr ""
 
-#: lib/Horde/Registry.php:1279 lib/Horde/Registry.php:1970
+#: lib/Horde/Registry.php:1280 lib/Horde/Registry.php:1971
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr ""
@@ -361,7 +361,7 @@ msgstr ""
 msgid "Emoticons"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1499
+#: lib/Horde/Core/ActiveSync/Driver.php:1512
 msgid "End forwarded message"
 msgstr ""
 
@@ -401,11 +401,11 @@ msgstr ""
 msgid "Flip"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1497
+#: lib/Horde/Core/ActiveSync/Driver.php:1510
 msgid "Forwarded message"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1497
+#: lib/Horde/Core/ActiveSync/Driver.php:1510
 #, php-format
 msgid "Forwarded message from %s"
 msgstr ""
@@ -455,7 +455,7 @@ msgstr ""
 msgid "Home Phone"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2344
+#: lib/Horde/Core/ActiveSync/Driver.php:2357
 msgid "Inbox"
 msgstr ""
 
@@ -609,7 +609,7 @@ msgstr ""
 msgid "No configuration information specified for %s."
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1527
+#: lib/Horde/Core/ActiveSync/Driver.php:1540
 msgid "No message body text"
 msgstr ""
 
@@ -720,11 +720,11 @@ msgstr ""
 msgid "Problem"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1520
+#: lib/Horde/Core/ActiveSync/Driver.php:1533
 msgid "Quoted"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1520
+#: lib/Horde/Core/ActiveSync/Driver.php:1533
 #, php-format
 msgid "Quoting %s"
 msgstr ""
@@ -814,7 +814,7 @@ msgstr ""
 msgid "Send SMS"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2339
+#: lib/Horde/Core/ActiveSync/Driver.php:2352
 msgid "Sent"
 msgstr ""
 
@@ -899,7 +899,7 @@ msgstr ""
 msgid "The file %s should contain some %s settings."
 msgstr ""
 
-#: lib/Horde/Registry.php:2615
+#: lib/Horde/Registry.php:2616
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
@@ -963,7 +963,7 @@ msgstr ""
 msgid "This is the notification log."
 msgstr ""
 
-#: lib/Horde/Registry.php:497
+#: lib/Horde/Registry.php:498
 msgid "This system is currently deactivated."
 msgstr ""
 
@@ -993,7 +993,7 @@ msgstr ""
 msgid "Toggle Alerts Log"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2334
+#: lib/Horde/Core/ActiveSync/Driver.php:2347
 msgid "Trash"
 msgstr ""
 
@@ -1085,7 +1085,7 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Registry.php:2582
+#: lib/Horde/Registry.php:2583
 msgid "You are not allowed to remove user data."
 msgstr ""
 

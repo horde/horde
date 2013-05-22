@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H5 (2.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"POT-Creation-Date: 2013-05-22 11:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -768,7 +768,7 @@ msgstr ""
 msgid "Synchronization is disabled"
 msgstr ""
 
-#: lib/Page.php:469
+#: lib/Page.php:472
 msgid "Table of Contents"
 msgstr ""
 
@@ -813,9 +813,9 @@ msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr ""
 
 #: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:368
-#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:521
-#: lib/Page.php:532 lib/Page.php:537 lib/Page.php:542 lib/Page.php:547
-#: lib/Page.php:587
+#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:524
+#: lib/Page.php:535 lib/Page.php:540 lib/Page.php:545 lib/Page.php:550
+#: lib/Page.php:590
 msgid "Unsupported"
 msgstr ""
 
