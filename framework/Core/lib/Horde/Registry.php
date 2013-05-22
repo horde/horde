@@ -2776,14 +2776,16 @@ class Horde_Registry
             $app = $this->getApp();
         }
 
-        if ($this->setLanguage($lang) == $GLOBALS['language']) {
-            return;
-        }
+        $old_lang = $this->setLanguage($lang);
 
         $this->setTextdomain(
             $app,
             $this->get('fileroot', $app) . '/locale'
         );
+
+        if ($old_lang == $GLOBALS['language']) {
+            return;
+        }
 
         $GLOBALS['session']->remove('horde', 'nls/');
     }
