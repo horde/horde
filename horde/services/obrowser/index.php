@@ -50,12 +50,13 @@ foreach ($list as $path => $values) {
     }
 
     // Set the name/link.
+    $name = $values['name'] ?: basename($path);
     if (!empty($values['browseable'])) {
         $url = Horde::url('services/obrowser', false, array('app' => 'horde'))->add('path', $path);
-        $row['name'] = $url->link() . htmlspecialchars($values['name']) . '</a>';
+        $row['name'] = $url->link() . htmlspecialchars($name) . '</a>';
     } else {
         $js = "return chooseObject('" . addslashes($path) . "');";
-        $row['name'] = Horde::link('#', sprintf(_("Choose %s"), $values['name']), '', '', $js) . htmlspecialchars($values['name']) . '</a>';
+        $row['name'] = Horde::link('#', sprintf(_("Choose %s"), $name), '', '', $js) . htmlspecialchars($name) . '</a>';
     }
 
     $rows[] = $row;
