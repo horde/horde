@@ -15,6 +15,6 @@
  <?php printf(_("Could not find authorization for %s to interact with your Twitter account"), $this->appname) ?>
 </div>
 <div>
- <?php printf(_("Login to Twitter and authorize the %s application"), $this->appname) ?>: <?php echo $this->link->link(array('class' => 'horde-default', 'onclick' => Horde::popupJs($this->link, array('urlencode' => true)) . 'return false')) ?><?php echo _("Authorize") ?></a>
+ <?php printf(_("Login to Twitter and authorize %s"), $this->appname) ?>: <?php echo $this->link->link(array('class' => 'horde-default', 'onclick' => Horde::popupJs($this->link, array('urlencode' => true)) . 'return false')) ?><?php echo _("Authorize") ?></a>
 </div>
 <?php endif; ?>
