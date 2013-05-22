@@ -108,8 +108,7 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
                 $this->_soap_session, $this->_details['client_id'],
                 $this->_details['mailuser_id'], $user);
         } catch (SoapFault $e) {
-            throw new Ingo_Exception(sprintf(_("SOAP fault: %s"),
-                $e->getMessage()));
+            throw new Ingo_Exception($e);
         }
     }
 
@@ -135,7 +134,7 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
                 $this->_soap_session,
                 array('login' => $this->_params['username']));
         } catch (SoapFault $e) {
-            throw new Ingo_Exception(sprintf(_("SOAP fault: %s"), $e->getMessage()));
+            throw new Ingo_Exception($e);
         }
         if (count($users) != 1) {
             throw new Ingo_Exception(
@@ -169,7 +168,7 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
     {
         if (empty($this->_params['soap_uri']) ||
             empty($this->_params['soap_user']) ) {
-            throw new Ingo_Exception(_("The Ingo Ispconfig transport is not properly configured, edit your ingo/config/backends.local.php."));
+            throw new Ingo_Exception('The Ingo Ispconfig transport is not properly configured, edit your ingo/config/backends.local.php.');
         }
     }
 
@@ -194,11 +193,10 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
                 $this->_params['soap_user'],
                 $this->_params['soap_pass'])) {
                 throw new Ingo_Exception(
-                    sprintf(_("SOAP login to %s failed."), $soap_uri));
+                    sprintf(_("Login to %s failed."), $soap_uri));
             }
         } catch (SoapFault $e) {
-            throw new Ingo_Exception(
-                sprintf(_("SOAP fault: %s."), $e->getMessage()));
+            throw new Ingo_Exception($e);
         }
 
         $this->_soap = &$client;
