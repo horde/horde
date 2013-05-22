@@ -33,7 +33,7 @@ if (empty($path)) {
 }
 
 if (!count($list)) {
-    throw new Horde_Exception(_("Nothing to browse, go back."));
+    $notification->push(_("Nothing to browse, go back."), 'horde.warning');
 }
 
 $rows = array();
@@ -73,5 +73,6 @@ $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->topbar = $page_output->sidebar = false;
 
 $page_output->header();
+$notification->notify(array('listeners' => 'status'));
 echo $view->render('obrowser');
 $page_output->footer();
