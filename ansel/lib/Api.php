@@ -77,7 +77,7 @@ class Ansel_Api extends Horde_Registry_Api
                     array('attributes' => $parts[0],
                           'all_levels' => false));
                 $images = array();
-            } elseif ($this->galleryExists(null, end($parts))) {
+            } elseif ($this->galleryExists(end($parts))) {
                 // This request if for a certain gallery, list all sub-galleries
                 // and images.
                 $gallery_id = end($parts);
@@ -91,7 +91,7 @@ class Ansel_Api extends Horde_Registry_Api
                           'view' => 'mini'));
 
             } elseif (count($parts) > 2 &&
-                      $this->galleryExists(null, $parts[count($parts) - 2]) &&
+                      $this->galleryExists($parts[count($parts) - 2]) &&
                       ($image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage(end($parts)))) {
 
                 return array(
@@ -144,7 +144,7 @@ class Ansel_Api extends Horde_Registry_Api
                     $results[$retpath]['displayname'] = rawurlencode($image['name']);
                 }
                 if (in_array('icon', $properties)) {
-                    $results[$retpath]['icon'] = Horde::url($image['url'], true);
+                    $results[$retpath]['icon'] = $image['url'];
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$retpath]['browseable'] = false;
