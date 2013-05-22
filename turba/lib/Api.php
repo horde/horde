@@ -287,9 +287,13 @@ class Turba_Api extends Horde_Registry_Api
 
             foreach ($addressbooks as $addressbook => $info) {
                 if (in_array('name', $properties)) {
-                    $results[$curpath . $addressbook]['name'] = ($info instanceof Horde_Share_Object)
-                        ? $info->get('name')
-                        : $info['title'];
+                    $results[$curpath . $addressbook]['name'] =
+                        sprintf(
+                            _("Contacts from %s"),
+                            ($info instanceof Horde_Share_Object)
+                                ? $info->get('name')
+                                : $info['title']
+                        );
                 }
                 if (in_array('icon', $properties)) {
                     $results[$curpath . $addressbook]['icon'] = Horde_Themes::img('turba.png');

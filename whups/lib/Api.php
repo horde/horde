@@ -45,7 +45,7 @@ class Whups_Api extends Horde_Registry_Api
                 if (count($path) == 1) {
                     foreach ($queues as $queue => $name) {
                         $results['whups/queue/' . $queue] = array(
-                            'name' => $name,
+                            'name' => sprintf(_("Tickets from %s"), $name),
                             'browseable' => true);
                     }
                 } else {

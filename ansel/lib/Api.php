@@ -106,7 +106,10 @@ class Ansel_Api extends Horde_Registry_Api
             foreach ($galleries as $gallery) {
                 $retpath = 'ansel/' . implode('/', $parts) . '/' . $gallery->id;
                 if (in_array('name', $properties)) {
-                    $results[$retpath]['name'] = $gallery->get('name');
+                    $results[$retpath]['name'] = sprintf(
+                        _("Photos from %s"),
+                        $gallery->get('name')
+                    );
                 }
                 if (in_array('displayname', $properties)) {
                     $results[$retpath]['displayname'] = rawurlencode($gallery->get('name'));
