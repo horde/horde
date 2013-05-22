@@ -70,6 +70,7 @@ $view->rows = $rows;
 
 $page_output->addScriptFile('obrowser.js', 'horde');
 $page_output->addScriptFile('stripe.js', 'horde');
+$page_output->topbar = $page_output->sidebar = false;
 
 $page_output->header();
 echo $view->render('obrowser');
