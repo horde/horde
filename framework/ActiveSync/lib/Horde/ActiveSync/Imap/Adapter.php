@@ -86,7 +86,7 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderExists
      */
-    public function createMailbox($name)
+    public function createMailbox($name, $parent = null)
     {
         $mbox = new Horde_Imap_Client_Mailbox($this->_prependNamespace($name));
         $imap = $this->_getImapOb();
@@ -588,18 +588,24 @@ class Horde_ActiveSync_Imap_Adapter
     /**
      * Rename a mailbox
      *
-     * @param string $old  The old mailbox name.
-     * @param string $new  The new mailbox name.
+     * @param string $old     The old mailbox name.
+     * @param string $new     The new mailbox name.
+     * @param string $parent  The parent mailbox, if any.
      *
      * @throws Horde_ActiveSync_Exception
      */
-    public function renameMailbox($old, $new)
+    public function renameMailbox($old, $new, $parent = null)
     {
         if ($old == $new) {
             return;
         }
 
         $imap = $this->_getImapOb();
+
+        if (isset($parent)) {
+            $ns = $this->_defaultNamespace();
+            $new = $parent . $ns['delimiter'] . $new;
+        }
         try {
             $imap->renameMailbox(
                 new Horde_Imap_Client_Mailbox($old),

@@ -44,7 +44,7 @@ class Horde_ActiveSync_Connector_Importer
     protected $_state;
 
     /**
-     * The backend driver for communicating with the server we are syncing with.
+     * The server object.
      *
      * @var Horde_ActiveSync
      */
@@ -87,6 +87,7 @@ class Horde_ActiveSync_Connector_Importer
      * @param Horde_ActiveSync_State_Base $state  The state machine.
      * @param string $folderId                    The collection's backend
      *                                            serverid (not the EAS id).
+     *                                            @todo H6
      * @param integer $flags                      Conflict resolution flags.
      */
     public function init(Horde_ActiveSync_State_Base $state, $folderId = null, $flags = 0)
@@ -292,25 +293,43 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Import a folder change from the wbxml stream
      *
-     * @param string $id           The folder id
+     * @param string $uid          The folder uid
      * @param string $displayname  The folder display name
      * @param string $parent       The parent folder id.
      *
      * @return string|boolean  The new serverid if successful, otherwise false.
+     *
+     * @todo Horde 6 - This should take and return a Horde_ActiveSync_Message_Folder object.
      */
-    public function importFolderChange($id, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT)
+    public function importFolderChange($uid, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
         // do nothing if it is a dummy folder
         if ($parent === Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
+
+        // TODO: BC HACK. For now, we need to convert the uid -> folderid.
+        $collections = $this->_as->getCollectionsObject();
+        if (!empty($parent)) {
+            $parent_sid = $collections->getBackendIdForFolderUid($parent);
+        } else {
+            $parent_sid = $parent;
+        }
+        if (!empty($uid)) {
+            $folderid = $collections->getBackendIdForFolderUid($uid);
+        } else {
+            $folderid = null;
+        }
+
         try {
-            $change_res = $this->_backend->changeFolder($id, $displayname, $parent);
+            $new_uid = $this->_as->driver->changeFolder($folderid, $displayname, $parent_sid, $uid);
         } catch (Horde_ActiveSync_Exception $e) {
             return false;
         }
+
         $change = array();
-        $change['id'] = $displayname;
+        $change['id'] = $new_uid;
+        $change['folderid'] = $folderid;
         $change['mod'] = $displayname;
         $change['parent'] = $parent;
         $this->_state->updateState(
@@ -318,25 +337,26 @@ class Horde_ActiveSync_Connector_Importer
             $change,
             Horde_ActiveSync::CHANGE_ORIGIN_PIM);
 
-
-        return $change_res;
+        return $new_uid;
     }
 
     /**
      * Imports a folder deletion from the PIM
      *
-     * @param string $id      The folder id
+     * @param string $uid     The folder uid
      * @param string $parent  The folder id of the parent folder.
      */
-    public function importFolderDeletion($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
+    public function importFolderDeletion($uid, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
         /* Do nothing if it is a dummy folder */
         if ($parent === Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return;
         }
+        $collections = $this->_as->getCollectionsObject();
+        $folderid = $collections->getBackendIdForFolderUid($uid);
         $change = array();
-        $change['id'] = $id;
-        $this->_backend->deleteFolder($id, $parent);
+        $change['id'] = $uid;
+        $this->_as->driver->deleteFolder($folderid, $parent);
         $this->_state->updateState(
             Horde_ActiveSync::CHANGE_TYPE_DELETE,
             $change,
