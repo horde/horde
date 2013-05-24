@@ -98,7 +98,7 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
     }
 
     /**
-     * @depends testCacheCollections
+     * @depends testCollectionsFromCache
      */
     public function testCollectionHandler()
     {
