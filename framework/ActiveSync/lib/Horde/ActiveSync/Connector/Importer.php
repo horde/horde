@@ -353,10 +353,15 @@ class Horde_ActiveSync_Connector_Importer
             return;
         }
         $collections = $this->_as->getCollectionsObject();
+        if (!empty($parent)) {
+            $parent_sid = $collections->getBackendIdForFolderUid($parent);
+        } else {
+            $parent_sid = $parent;
+        }
         $folderid = $collections->getBackendIdForFolderUid($uid);
         $change = array();
         $change['id'] = $uid;
-        $this->_as->driver->deleteFolder($folderid, $parent);
+        $this->_as->driver->deleteFolder($folderid, $parent_sid);
         $this->_state->updateState(
             Horde_ActiveSync::CHANGE_TYPE_DELETE,
             $change,

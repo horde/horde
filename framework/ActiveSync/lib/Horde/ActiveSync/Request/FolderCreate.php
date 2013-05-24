@@ -139,7 +139,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
                 }
             } else {
                try {
-                   $importer->importFolderDeletion($serverid);
+                   $importer->importFolderDeletion($serverid, $parentid);
                } catch (Horde_ActiveSync_Exception $e) {
                     $status = self::STATUS_ERROR;
                 }

@@ -425,7 +425,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function changeFolder($id, $displayname, $parent, $uid = null)
     {
-        $this->_logger->notice($id . ' ' . $displayname . ' ' . $parent);
         if (!$id) {
             try {
                 $this->_imap->createMailbox($displayname, $parent);
