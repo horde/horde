@@ -32,32 +32,29 @@ $form->addVariable(_("Old password"), 'old_password', 'password', true);
 $form->addVariable(_("New password"), 'password_1', 'password', true);
 $form->addVariable(_("Retype new password"), 'password_2', 'password', true);
 
-if ($vars->exists('formname')) {
-    $form->validate($vars);
-    if ($form->isValid()) {
-        $form->getInfo($vars, $info);
+if ($form->validate($vars)) {
+    $form->getInfo($vars, $info);
 
-        if ($registry->getAuthCredential('password') != $info['old_password']) {
-            $notification->push(_("Old password is not correct."), 'horde.error');
-        } elseif ($info['password_1'] != $info['password_2']) {
-            $notification->push(_("New passwords don't match."), 'horde.error');
-        } elseif ($info['old_password'] == $info['password_1']) {
-            $notification->push(_("Old and new passwords must be different."), 'horde.error');
-        } else {
-            try {
-                $auth->updateUser($registry->getAuth(), $registry->getAuth(), array('password' => $info['password_1']));
+    if ($registry->getAuthCredential('password') != $info['old_password']) {
+        $notification->push(_("Old password is not correct."), 'horde.error');
+    } elseif ($info['password_1'] != $info['password_2']) {
+        $notification->push(_("New passwords don't match."), 'horde.error');
+    } elseif ($info['old_password'] == $info['password_1']) {
+        $notification->push(_("Old and new passwords must be different."), 'horde.error');
+    } else {
+        try {
+            $auth->updateUser($registry->getAuth(), $registry->getAuth(), array('password' => $info['password_1']));
 
-                $notification->push(_("Password changed successfully."), 'horde.success');
+            $notification->push(_("Password changed successfully."), 'horde.success');
 
-                $index_url = Horde::url('index.php', true);
-                if (!empty($info['return_to'])) {
-                    $index_url->add('url', $info['return_to']);
-                }
-
-                $index_url->redirect();
-            } catch (Horde_Auth_Exception $e) {
-                $notification->push(sprintf(_("Error updating password: %s"), $e->getMessage()), 'horde.error');
+            $index_url = Horde::url('index.php', true);
+            if (!empty($info['return_to'])) {
+                $index_url->add('url', $info['return_to']);
             }
+
+            $index_url->redirect();
+        } catch (Horde_Auth_Exception $e) {
+            $notification->push(sprintf(_("Error updating password: %s"), $e->getMessage()), 'horde.error');
         }
     }
 }
