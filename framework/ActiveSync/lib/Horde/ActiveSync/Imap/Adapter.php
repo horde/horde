@@ -602,7 +602,7 @@ class Horde_ActiveSync_Imap_Adapter
 
         $imap = $this->_getImapOb();
 
-        if (isset($parent)) {
+        if (!empty($parent)) {
             $ns = $this->_defaultNamespace();
             $new = $parent . $ns['delimiter'] . $new;
         }
