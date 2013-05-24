@@ -175,9 +175,13 @@ var ImpMobile = {
             break;
 
         case 'mailbox-refresh':
-            $.mobile.changePage(HordeMobile.createUrl('mailbox', {
-                mbox: ImpMobile.mailbox
-            }));
+            HordeMobile.doAction(
+                'viewPort',
+                ImpMobile.addViewportParams({
+                    checkcache: 1,
+                    view: ImpMobile.mailbox
+                })
+            );
             e.preventDefault();
             $('#mailbox :jqmData(role=footer) a[href$="refresh"]').removeClass($.mobile.activeBtnClass).blur();
             break;
