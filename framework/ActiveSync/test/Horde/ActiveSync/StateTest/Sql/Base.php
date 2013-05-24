@@ -60,6 +60,14 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
     /**
      * @depends testCacheCollections
      */
+    public function testLoadCollectionsFromCache()
+    {
+        return $this->_testLoadCollectionsFromCache();
+    }
+
+    /**
+     * @depends testCacheCollections
+     */
     public function testGettingImapId()
     {
         $this->_testGettingImapId();

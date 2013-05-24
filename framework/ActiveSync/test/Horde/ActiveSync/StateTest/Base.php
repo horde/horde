@@ -186,6 +186,13 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         $this->assertEquals(2, count($cache->getCollections(false)));
     }
 
+    protected function _testLoadCollectionsFromCache()
+    {
+        $collections = $this->getCollectionHandler();
+        $collections->loadCollectionsFromCache();
+        $this->assertEquals(2, $collections->collectionCount());
+    }
+
     protected function _testCollectionsFromCache()
     {
         $cache = new Horde_ActiveSync_SyncCache(self::$state, 'dev123', 'mike', self::$logger->getLogger());
