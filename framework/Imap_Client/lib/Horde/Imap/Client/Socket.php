@@ -100,8 +100,8 @@
  *  <li>RFC 5267: CONTEXT=SEARCH; CONTEXT=SORT</li>
  *  <li>RFC 5465: NOTIFY</li>
  *  <li>RFC 5466: FILTERS</li>
- *  <li>RFC 5738: UTF8 (Experimental; Very limited support currently)</li>
  *  <li>RFC 6237: MULTISEARCH (Experimental)</li>
+ *  <li>RFC 6855: UTF8
  * </ul>
  *
  * @author    Michael Slusarz <slusarz@horde.org>
