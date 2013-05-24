@@ -560,7 +560,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         // folder id, since that is the only thing that can
                         // change in a folder.
                         if ($type != Horde_ActiveSync::CHANGE_TYPE_DELETE) {
-                            $folder = $this->_backend->getFolder($value['id']);
+                            $folder = $this->_backend->getFolder($value['serverid']);
                             $stat = $this->_backend->statFolder(
                                 $value['id'],
                                 (empty($value['parent']) ? '0' : $value['parent']),
