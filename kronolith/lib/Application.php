@@ -819,7 +819,7 @@ class Kronolith_Application extends Horde_Registry_Application
                     ?: $existing_event->created;
                 try {
                     if (!empty($modified) &&
-                        $content->getAttribute('LAST-MODIFIED')->before($modified)) {
+                        $content->getAttribute('LAST-MODIFIED') < $modified->timestamp()) {
                         /* LAST-MODIFIED timestamp of existing entry is newer:
                          * don't replace it. */
                         continue;
