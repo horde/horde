@@ -318,7 +318,7 @@ class Horde_ActiveSync_Connector_Importer
         if (!empty($uid)) {
             $folderid = $collections->getBackendIdForFolderUid($uid);
         } else {
-            $folderid = null;
+            $folderid = false;
         }
 
         try {
