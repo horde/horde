@@ -152,19 +152,6 @@
  * These are hooks that are available in any application that has an AJAX
  * interface configured.
  *
- * ajaxaction
- * ----------
- * This hook is used to add user-defined AJAX action handlers to an
- * application.
- *
- * Parameters in:
- *   $action (string): The AJAX action.
- *   $vars (Horde_Variables): The URL parameters.
- *
- * The return value from this hook is as follows:
- *   [throw Horde_Exception] - Fatal error.
- *   [mixed] - The data to send to the browser (will be JSON encoded).
- *
  * ajaxaction_data
  * ---------------
  * This hook is used to alter the data returned from an AJAX action handler.
@@ -175,6 +162,21 @@
  *
  * The return value from this hook is as follows:
  *   [mixed] - The (altered) data to use as the AJAX action return data.
+ *
+ * ajaxaction_handle
+ * -----------------
+ * This hook is used to add user-defined AJAX action handlers to an
+ * application. It is called if no handler for the given action can be found
+ * in an application.
+ *
+ * Parameters in:
+ *   $ajax (Horde_Core_Ajax_Application): The AJAX interface object for the
+ *                                        application.
+ *   $action (string): The AJAX action.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [mixed] - The data to send to the browser (will be JSON encoded).
  *
  *
  * CSS Hooks

@@ -163,9 +163,14 @@ abstract class Horde_Core_Ajax_Application
         } else {
             /* Look for action in application hook. */
             try {
-                $this->data = Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
+                $this->data = Horde::callHook('ajaxaction_handle', array($this, $this->_action), $this->_app);
             } catch (Horde_Exception $e) {
-                throw new Horde_Exception('Handler for action "' . $this->_action . '" does not exist.');
+                /* DEPRECATED hook. */
+                try {
+                    $this->data = Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
+                } catch (Horde_Exception $e) {
+                    throw new Horde_Exception('Handler for action "' . $this->_action . '" does not exist.');
+                }
             }
         }
 

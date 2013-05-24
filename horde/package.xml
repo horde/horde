@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] Add &apos;ajaxaction_handle&apos; hook and deprecate &apos;ajaxaction&apos; hook.
 * [mms] Add configuration option to configure the e-mail address reset password confirmation messages should be sent from.
 * [mms] Treat an AJAX session token failure as a session timeout.
  </notes>
@@ -3671,6 +3672,7 @@
    <date>2013-05-14</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mms] Add &apos;ajaxaction_handle&apos; hook and deprecate &apos;ajaxaction&apos; hook.
 * [mms] Add configuration option to configure the e-mail address reset password confirmation messages should be sent from.
 * [mms] Treat an AJAX session token failure as a session timeout.
    </notes>

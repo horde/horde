@@ -59,6 +59,10 @@ The following options were removed::
 Hooks (hooks.php)
 -----------------
 
+The 'ajaxaction' hook has been deprecated and replaced with the
+'ajaxaction_handle' hook (new hook needed in order to allow, e.g., adding
+tasks to the outgoing response).
+
 The following hooks were added::
 
    ajaxaction_data
