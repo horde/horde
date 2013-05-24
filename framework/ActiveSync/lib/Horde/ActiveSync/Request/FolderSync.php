@@ -148,8 +148,10 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                         $folder->serverid, $folder->displayname);
                     if (!in_array($serverid, $seenfolders)) {
                         $seenfolders[] = $serverid;
+                        $collections->updateFolderInHierarchy($folder);
+                    } else {
+                        $collections->updateFolderInHierarchy($folder, true);
                     }
-                    $collections->updateFolderInHierarchy($folder);
                     $changes = true;
                     break;
                 case SYNC_REMOVE:
@@ -226,7 +228,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             foreach ($exporter->deleted as $folder_uid) {
                 $this->_encoder->startTag(self::REMOVE);
                 $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID);
-                $this->_encoder->content($folder);
+                $this->_encoder->content($folder_uid);
                 $this->_encoder->endTag();
                 $this->_encoder->endTag();
                 $collections->deleteFolderFromHierarchy($folder_uid);
