@@ -170,7 +170,9 @@ abstract class Horde_ActiveSync_Request_Base
         if ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_NONE) {
             // Get the stored key
             $storedKey = $this->_state->getPolicyKey($this->_device->id);
-            $this->_logger->info('[' . $this->_device->id . '] Stored key: ' . $storedKey);
+            $this->_logger->info(sprintf(
+                '[%s] Stored key: %s',
+                $this->_procid, $storedKey));
 
             // Did we request a remote wipe?
             if ($this->_state->getDeviceRWStatus($this->_device->id) == Horde_ActiveSync::RWSTATUS_PENDING) {
@@ -205,7 +207,9 @@ abstract class Horde_ActiveSync_Request_Base
         }
 
         // Either successfully validated, or we didn't care enough to check.
-        $this->_logger->info('Policykey: ' . $sentKey . ' verified.');
+        $this->_logger->info(sprintf(
+            '[%s] Policykey: %s verified.',
+            $this->_procid, $sentKey));
         return true;
     }
 
@@ -227,7 +231,8 @@ abstract class Horde_ActiveSync_Request_Base
     public function handle()
     {
         $this->_logger->info(sprintf(
-            'Request being handled for device: %s Supporting protocol version: %s',
+            '[%s] Request being handled for device: %s Supporting protocol version: %s',
+            $this->_procid,
             $this->_device->id,
             $this->_device->version)
         );
@@ -252,7 +257,9 @@ abstract class Horde_ActiveSync_Request_Base
         // FOLDERSYNC response is ignored by the client. Remove the entry,
         // to avoid having 2 device entries for every android client.
         if ($this->_device->id == 'validate') {
-            $this->_logger->info('[' . $this->_device->id . '] Removing state for bogus VALIDATE device.');
+            $this->_logger->info(sprintf(
+                '[%s] Removing state for bogus VALIDATE device.',
+                $this->_procid));
             $this->_state->removeState(array('devId' => 'validate'));
         }
     }
