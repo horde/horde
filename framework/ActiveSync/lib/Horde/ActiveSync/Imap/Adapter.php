@@ -37,6 +37,11 @@ class Horde_ActiveSync_Imap_Adapter
     protected $_logger;
 
     /**
+     * @var string
+     */
+    protected $_defaultNamespace;
+
+    /**
      * Cont'r
      *
      * @param array $params  Parameters:
