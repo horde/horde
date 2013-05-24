@@ -108,6 +108,8 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
         $this->_encoder->StartWBXML();
         $this->_encoder->startTag(self::MOVES);
 
+        $collections = $this->_activeSync->getCollectionsObject();
+
         // Can't do these all at once since the device may send any combination
         // of src and dest mailboxes in the same request, though oddly enough
         // the server response only needs to include the message uids, not
@@ -123,11 +125,12 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
                 $status = self::STATUS_SAME_FOLDERS;
             } else {
                 $importer = $this->_activeSync->getImporter();
-                $importer->init($this->_state, $move[self::SRCFLDKEY]);
+                // @TODO H6 - Let the importer/backend make the uid conversions.
+                $importer->init($this->_state, $collections->getBackendIdForFolderUid($move[self::SRCFLDKEY]));
                 try {
                     $move_res = $importer->importMessageMove(
                         array($move[self::SRCMSGKEY]),
-                        $move[self::DSTFLDKEY]);
+                        $collections->getBackendIdForFolderUid($move[self::DSTFLDKEY]));
                     if (empty($move_res['results'][$move[self::SRCMSGKEY]])) {
                         $status = self::STATUS_SERVER_ERR;
                     } else {
