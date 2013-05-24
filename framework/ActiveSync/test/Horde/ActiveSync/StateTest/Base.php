@@ -466,12 +466,14 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
             array(
                 'type' => 'change',
                 'flags' => 'NewMessage',
-                'id' => '@Contacts@'
+                'id' => '@Contacts@',
+                'serverid' => '@Contacts@'
             ),
             array(
                 'type' => 'change',
                 'flags' => 'NewMessage',
-                'id' => '519422f1-4c5c-4547-946a-1701c0a8015f'
+                'id' => '519422f1-4c5c-4547-946a-1701c0a8015f',
+                'serverid' => 'INBOX'
             )
         );
         $changes = $collections->getHierarchyChanges();
