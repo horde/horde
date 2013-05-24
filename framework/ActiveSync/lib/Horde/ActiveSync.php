@@ -760,7 +760,7 @@ class Horde_ActiveSync
         $version = $this->getProtocolVersion();
 
         // Does device exist AND does the user have an account on the device?
-        if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
+        if (!$this->_state->deviceExists($devId, $this->_driver->getUser())) {
             // Device might exist, but with a new (additional) user account
             if ($this->_state->deviceExists($devId)) {
                 $device = $this->_state->loadDeviceInfo($devId);
