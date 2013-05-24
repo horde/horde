@@ -534,22 +534,30 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * Update/Add a folder in the hierarchy cache.
      *
      * @param Horde_ActiveSync_Message_Folder $folder  The folder object.
+     * @param boolean $update  Update the state objects? @since 2.4.0
      */
-    public function updateFolderinHierarchy(Horde_ActiveSync_Message_Folder $folder)
+    public function updateFolderinHierarchy(
+        Horde_ActiveSync_Message_Folder $folder, $update = false)
     {
         $this->_cache->updateFolder($folder);
+
+        if ($update) {
+            $this->_as->state->updateServerIdInState($folder->serverid, $folder->_serverid);
+        }
     }
 
     /**
      * Delete a folder from the hierarchy cache.
      *
-     * @param string $id  The folder's serverid.
+     * @param string $id  The folder's uid.
      */
-    public function deleteFolderFromHierarchy($id)
+    public function deleteFolderFromHierarchy($uid)
     {
-        if ($this->_as->device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-            $this->_cache->deleteFolder($id);
-        }
+        $this->_cache->deleteFolder($uid);
+        $this->_as->state->removeState(array(
+            'id' => $uid,
+            'devId' => $this->_as->device->id,
+            'user' => $this->_as->device->user));
     }
 
     /**
