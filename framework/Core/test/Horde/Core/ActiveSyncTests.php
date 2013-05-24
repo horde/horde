@@ -50,6 +50,24 @@ class Horde_Core_ActiveSyncTests extends Horde_Test_Case
                 'd' => '/',
                 'label' => 'Spam',
                 'level' => 0,
+                'ob' => $this->getMockSkipConstructor('Horde_Imap_Client_Mailbox')),
+            'One' => array(
+                'a' => 12,
+                'd' => '/',
+                'label' => 'One',
+                'level' => 0,
+                'ob' => $this->getMockSkipConstructor('Horde_Imap_Client_Mailbox')),
+            'One/Two' => array(
+                'a' => 12,
+                'd' => '/',
+                'label' => 'One/Two',
+                'level' => 1,
+                'ob' => $this->getMockSkipConstructor('Horde_Imap_Client_Mailbox')),
+            'One/Two/Three' => array(
+                'a' => 8,
+                'd' => '/',
+                'label' => 'One/Two/Three',
+                'level' => 2,
                 'ob' => $this->getMockSkipConstructor('Horde_Imap_Client_Mailbox'))
         );
 
@@ -81,8 +99,19 @@ class Horde_Core_ActiveSyncTests extends Horde_Test_Case
             'INBOX' => false,
             'sent-mail' => false,
             'spam_folder' => false);
+
+        // Test the EAS Type of each special folder
         foreach ($folders as $f) {
-            $have[$f->serverid] = true;
+            // Save the nested folder uids for testing later.
+            if ($f->_serverid == 'One') {
+                $one = $f;
+            } elseif ($f->_serverid == 'One/Two') {
+                $two = $f;
+            } elseif ($f->_serverid == 'One/Two/Three') {
+                $three = $f;
+            }
+
+            $have[$f->_serverid] = true;
             switch ($f->serverid) {
             case 'Draft':
                 $this->assertEquals(3, $f->type);
@@ -98,11 +127,18 @@ class Horde_Core_ActiveSyncTests extends Horde_Test_Case
                 break;
             }
         }
-        foreach (array('Draft', 'INBOX', 'sent-mail', 'spam_folder') as $test) {
+
+        // Make sure we have them all.
+        foreach (array('Draft', 'INBOX', 'sent-mail', 'spam_folder', 'One', 'One/Two', 'One/Two/Three') as $test) {
             if (!$have[$test]) {
                 $this->fail('Missing ' . $test);
             }
         }
+
+        // Make sure the hierarchy looks right.
+        $this->assertEquals($two->serverid, $three->parentid);
+        $this->assertEquals($one->serverid, $two->parentid);
+        $this->assertEquals(0, $one->parentid);
     }
 }
 
