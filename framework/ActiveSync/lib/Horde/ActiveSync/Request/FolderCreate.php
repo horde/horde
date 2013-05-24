@@ -146,7 +146,6 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             }
         }
 
-        $collections = $this->_activeSync->getCollectionsObject();
         $this->_encoder->startWBXML();
         if ($create) {
             // @TODO: Horde 6 - pass a H_AS_Message_Folder object to the importFolderChange()
