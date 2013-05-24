@@ -130,16 +130,6 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
         }
 
         if ($status == self::STATUS_SUCCESS) {
-            $seenfolders = $this->_state->getKnownFolders();
-            if (!$seenfolders) {
-                $seenfolders = array();
-            }
-            $this->_logger->info(sprintf(
-                '[%s] KNOWNFOLDERS: %s',
-                $this->_device->device_id,
-                print_r($seenfolders, true))
-            );
-
             // Configure importer with last state
             $importer = $this->_activeSync->getImporter();
             $importer->init($this->_state);
@@ -156,9 +146,20 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             }
         }
 
+        $collections = $this->_activeSync->getCollectionsObject();
         $this->_encoder->startWBXML();
         if ($create) {
-            $seenfolders[] = $serverid;
+            // @TODO: Horde 6 - pass a H_AS_Message_Folder object to the importFolderChange()
+            //        method so we can delegate the _serverid creation to the backend like
+            //        it should be.
+            $folder = $this->_activeSync->messageFactory('Folder');
+            $folder->serverid = $serverid;
+            $folder->displayname = $displayname;
+            $folder->type = $type;
+            $folder->_serverid = $displayname;
+            $collections->updateFolderInHierarchy($folder);
+            $collections->save();
+
             $this->_encoder->startTag(self::FOLDERCREATE);
 
             $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_STATUS);
@@ -175,6 +176,15 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
 
             $this->_encoder->endTag();
         } elseif ($update) {
+            // @TODO: See note above about H6.
+            $folder = $this->_activeSync->messageFactory('Folder');
+            $folder->serverid = $serverid;
+            $folder->displayname = $displayname;
+            $folder->type = $type;
+            $folder->_serverid = $displayname;
+            $collections->updateFolderInHierarchy($folder, true);
+            $collections->save();
+
             $this->_encoder->startTag(self::FOLDERUPDATE);
 
             $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_STATUS);
@@ -187,6 +197,8 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
 
             $this->_encoder->endTag();
         } elseif ($delete) {
+            // @TODO: See note about H6
+            $collections->deleteFolderFromHierarchy($serverid);
             $this->_encoder->startTag(self::FOLDERDELETE);
 
             $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_STATUS);
