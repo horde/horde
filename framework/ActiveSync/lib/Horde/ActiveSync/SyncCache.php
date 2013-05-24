@@ -178,7 +178,7 @@ class Horde_ActiveSync_SyncCache
      */
     public function updateTimestamp()
     {
-        $this->_data['timestamp'] = microtime();
+        $this->_data['timestamp'] = time();
     }
 
     /**
@@ -352,7 +352,7 @@ class Horde_ActiveSync_SyncCache
                 unset($collection['synckey']);
             }
         }
-        $this->_data['timestamp'] = microtime();
+        $this->_data['timestamp'] = time();
         $this->_state->saveSyncCache(
             $this->_data,
             $this->_devid,
