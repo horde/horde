@@ -251,10 +251,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if ($class != Horde_ActiveSync::CLASS_EMAIL) {
             return false;
         }
-        $specialFolders = $this->_imap->getSpecialMailboxes();
-        if (!empty($specialFolders[self::SPECIAL_TRASH])) {
-            return $specialFolders[self::SPECIAL_TRASH];
+        $folders = $this->_getMailFolders();
+        foreach ($folders as $folder) {
+            if ($folder->type = self::SPECIAL_TRASH) {
+                return $folder->serverid;
+            }
         }
+
         return false;
     }
 
