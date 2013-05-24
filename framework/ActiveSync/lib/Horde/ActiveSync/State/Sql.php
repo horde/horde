@@ -703,7 +703,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         try {
             $query = 'SELECT COUNT(*) FROM ' . $this->_syncUsersTable . ' WHERE device_id = ? AND device_user = ?';
             $cnt = $this->_db->selectValue($query, array($data->id, $data->user));
-            if (!$cnt) {
+            if ($cnt == 0) {
                 $this->_logger->info(sprintf('[%s] Device entry does not exist for device %s and user %s - creating it.', $this->_procid, $data->id, $data->user));
                 $query = 'INSERT INTO ' . $this->_syncUsersTable
                     . ' (device_id, device_user, device_policykey)'
