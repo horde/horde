@@ -2404,10 +2404,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected function _getMailFolder($sid, array $fl, array $f)
     {
         $folder = new Horde_ActiveSync_Message_Folder();
-
-        // The backend server's foldername.
         $folder->_serverid = $sid;
-        // The masked UUID
         $folder->serverid = $this->_getFolderUidForBackendId($sid);
         $folder->parentid = '0';
         $folder->displayname = $f['label'];
