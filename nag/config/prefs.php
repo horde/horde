@@ -17,8 +17,8 @@ $prefGroups['display'] = array(
 
 $prefGroups['deletion'] = array(
     'column' => _("General Preferences"),
-    'label' => _("Delete Confirmation"),
-    'desc' => _("Delete button behaviour"),
+    'label' => _("Deleting Tasks"),
+    'desc' => _("Delete behaviour"),
     'members' => array('delete_opt', 'purge_completed_interval', 'purge_completed_keep'),
 );
 
