@@ -162,7 +162,7 @@ class Horde_ActiveSync_Imap_Message
         // First see if we already have it.
         if (!$full = $this->_data->getFullMsg()) {
             $query = new Horde_Imap_Client_Fetch_Query();
-            $query->fullText();
+            $query->fullText(array('peek' => true));
             try {
                 $fetch_ret = $this->_imap->fetch(
                     $this->_mbox,
