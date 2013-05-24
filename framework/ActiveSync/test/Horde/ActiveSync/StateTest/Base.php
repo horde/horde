@@ -223,6 +223,7 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         $newcache->updateCollection(
             array('id' => '519422f1-4c5c-4547-946a-1701c0a8015f', 'newsynckey' => '{51941e99-0b9c-41f8-b678-1532c0a8015f}3'),
             array('newsynckey' => true));
+        sleep(1);
         $newcache->save();
 
         $cache->refreshCollections();
