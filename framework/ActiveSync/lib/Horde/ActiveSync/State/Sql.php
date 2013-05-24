@@ -1093,18 +1093,26 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $user_query = 'DELETE FROM ' . $this->_syncUsersTable
                 . ' WHERE device_id = ? AND device_user = ?';
             $state_values = $values = array($options['devId'], $options['user']);
+
             if (!empty($options['id'])) {
                 $state_query .= ' AND sync_folderid = ?';
                 $map_query .= ' AND sync_folderid = ?';
                 $state_values[] = $options['id'];
+
+                $this->_logger->info(sprintf(
+                    '[%s] Removing device state for user %s and collection %s.',
+                    $options['devId'],
+                    $options['user'],
+                    $options['id'])
+                );
+            } else {
+                $this->_logger->info(sprintf(
+                    '[%s] Removing device state for user %s.',
+                    $options['devId'],
+                    $options['user'])
+                );
+                $this->deleteSyncCache($options['devId'], $options['user']);
             }
-            $this->_logger->info(sprintf(
-                '[%s] Removing device state for user %s.',
-                $options['devId'],
-                $options['user'])
-            );
-            // Also need to remove the synccache
-            $this->deleteSyncCache($options['devId'], $options['user']);
         } elseif (!empty($options['devId'])) {
             $state_query .= ' sync_devid = ?';
             $map_query .= ' sync_devid = ?';
