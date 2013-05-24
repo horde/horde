@@ -521,11 +521,14 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function initHierarchySync($synckey)
     {
-
         $this->_as->state->loadState(
             array(),
             $synckey,
             Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
+
+        // Refresh the cache since it might have changed like e.g., if synckey
+        // was empty.
+        $this->_cache->loadCacheFromStorage();
 
         return $this->_as->state->getKnownFolders();
     }

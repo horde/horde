@@ -96,8 +96,8 @@ class Horde_ActiveSync_SyncCache
         $this->_state = $state;
         $this->_devid = $devid;
         $this->_user = $user;
-        $this->_data = $state->getSyncCache($devid, $user);
         $this->_logger = $logger;
+        $this->loadCacheFromStorage();
     }
 
     public function __get($property)
@@ -151,6 +151,14 @@ class Horde_ActiveSync_SyncCache
         }
 
         return true;
+    }
+
+    /**
+     * Repopulate the cache data from storage.
+     */
+    public function loadCacheFromStorage()
+    {
+        $this->_data = $this->_state->getSyncCache($this->_devid, $this->_user);
     }
 
     /**
