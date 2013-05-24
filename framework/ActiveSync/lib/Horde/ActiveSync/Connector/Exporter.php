@@ -145,7 +145,7 @@ class Horde_ActiveSync_Connector_Exporter
                 switch($change['type']) {
                 case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
                     // Folder add/change.
-                    if ($folder = $this->_as->driver->getFolder($change['id'])) {
+                    if ($folder = $this->_as->driver->getFolder($change['serverid'])) {
                         // @TODO BC HACK. Need to ensure we have a _serverid here.
                         // REMOVE IN H6.
                         if (empty($folder->_serverid)) {
