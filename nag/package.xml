@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Don&apos;t include external tasks in listTasks() API results.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1358,7 +1358,7 @@
    <date>2013-05-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Don&apos;t include external tasks in listTasks() API results.
    </notes>
   </release>
  </changelog>

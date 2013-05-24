@@ -594,8 +594,9 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     'tasklists' => $this->vars->list,
                     'completed' => $this->vars->type == 'incomplete' ? 'future_incomplete' : $this->vars->type,
                     'include_tags' => true,
-                    'json' => true)
-            );
+                    'external' => false,
+                    'json' => true
+                ));
             if (count($tasks)) {
                 $result->tasks = $tasks;
             }

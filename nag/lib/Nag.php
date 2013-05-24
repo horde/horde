@@ -204,14 +204,18 @@ class Nag
             unset($options['tasklists']);
         }
 
-        $options = array_merge(array(
-            'sortby' => $prefs->getValue('sortby'),
-            'sortdir' => $prefs->getValue('sortdir'),
-            'altsortby' => $prefs->getValue('altsortby'),
-            'tasklists' => $GLOBALS['display_tasklists'],
-            'completed' => $prefs->getValue('show_completed'),
-            'include_tags' => false),
-            $options);
+        $options = array_merge(
+            array(
+                'sortby' => $prefs->getValue('sortby'),
+                'sortdir' => $prefs->getValue('sortdir'),
+                'altsortby' => $prefs->getValue('altsortby'),
+                'tasklists' => $GLOBALS['display_tasklists'],
+                'completed' => $prefs->getValue('show_completed'),
+                'include_tags' => false,
+                'external' => true,
+            ),
+            $options
+        );
 
         if (!is_array($options['tasklists'])) {
             $options['tasklists'] = array($options['tasklists']);
@@ -230,27 +234,29 @@ class Nag
         // Process all tasks.
         $tasks->process();
 
-        // We look for registered apis that support listAs(taskHash).
-        $apps = @unserialize($prefs->getValue('show_external'));
-        if (is_array($apps)) {
-            foreach ($apps as $app) {
-                if ($app != 'nag' &&
-                    $registry->hasMethod('getListTypes', $app)) {
-                    try {
-                        $types = $registry->callByPackage($app, 'getListTypes');
-                    } catch (Horde_Exception $e) {
-                        continue;
-                    }
-                    if (!empty($types['taskHash'])) {
+        if ($options['external']) {
+            // We look for registered apis that support listAs(taskHash).
+            $apps = @unserialize($prefs->getValue('show_external'));
+            if (is_array($apps)) {
+                foreach ($apps as $app) {
+                    if ($app != 'nag' &&
+                        $registry->hasMethod('getListTypes', $app)) {
                         try {
-                            $newtasks = $registry->callByPackage($app, 'listAs', array('taskHash'));
-                             foreach ($newtasks as $task) {
-                                $task['tasklist_id'] = '**EXTERNAL**';
-                                $task['tasklist_name'] = $registry->get('name', $app);
-                                $tasks->add(new Nag_Task(null, $task));
-                            }
+                            $types = $registry->callByPackage($app, 'getListTypes');
                         } catch (Horde_Exception $e) {
-                            Horde::logMessage($newtasks, 'ERR');
+                            continue;
+                        }
+                        if (!empty($types['taskHash'])) {
+                            try {
+                                $newtasks = $registry->callByPackage($app, 'listAs', array('taskHash'));
+                                 foreach ($newtasks as $task) {
+                                    $task['tasklist_id'] = '**EXTERNAL**';
+                                    $task['tasklist_name'] = $registry->get('name', $app);
+                                    $tasks->add(new Nag_Task(null, $task));
+                                }
+                            } catch (Horde_Exception $e) {
+                                Horde::logMessage($newtasks, 'ERR');
+                            }
                         }
                     }
                 }

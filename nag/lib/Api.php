@@ -80,14 +80,18 @@ class Nag_Api extends Horde_Registry_Api
         } else {
             $options['completed'] = $completedArray[$options['completed']];
         }
-        $options = array_merge(array(
-            'sortby' => $prefs->getValue('sortby'),
-            'sortdir' => $prefs->getValue('sortdir'),
-            'altsortby' => $prefs->getValue('altsortby'),
-            'tasklists' => $GLOBALS['display_tasklists'],
-            'include_tags' => false,
-            'json' => false),
-            $options);
+        $options = array_merge(
+            array(
+                'sortby' => $prefs->getValue('sortby'),
+                'sortdir' => $prefs->getValue('sortdir'),
+                'altsortby' => $prefs->getValue('altsortby'),
+                'tasklists' => $GLOBALS['display_tasklists'],
+                'include_tags' => false,
+                'external' => false,
+                'json' => false
+            ),
+            $options
+        );
 
         $tasks = Nag::listTasks($options);
         $tasks->reset();
