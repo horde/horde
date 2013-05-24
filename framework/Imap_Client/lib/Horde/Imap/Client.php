@@ -106,6 +106,8 @@ class Horde_Imap_Client
     const FETCH_UID = 13;
     const FETCH_SEQ = 14;
     const FETCH_MODSEQ = 15;
+    /* @since 2.11.0 */
+    const FETCH_DOWNGRADED = 16;
 
     /* Namespace constants. */
     const NS_PERSONAL = 1;

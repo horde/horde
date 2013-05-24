@@ -38,6 +38,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @var array
      */
     public $cacheFields = array(
+        Horde_Imap_Client::FETCH_DOWNGRADED => 'HICdg',
         Horde_Imap_Client::FETCH_ENVELOPE => 'HICenv',
         Horde_Imap_Client::FETCH_FLAGS => 'HICflags',
         Horde_Imap_Client::FETCH_HEADERS => 'HIChdrs',
@@ -2608,6 +2609,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         foreach ($cf as $k => $v) {
             if (isset($query[$k])) {
                 switch ($k) {
+                case Horde_Imap_Client::FETCH_DOWNGRADED:
                 case Horde_Imap_Client::FETCH_ENVELOPE:
                 case Horde_Imap_Client::FETCH_FLAGS:
                 case Horde_Imap_Client::FETCH_IMAPDATE:
@@ -3719,6 +3721,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             foreach ($cf as $key => $val) {
                 if ($v->exists($key)) {
                     switch ($key) {
+                    case Horde_Imap_Client::FETCH_DOWNGRADED:
+                        if ($v->isDowngraded()) {
+                            $tmp[$val] = true;
+                        }
+                        break;
+
                     case Horde_Imap_Client::FETCH_ENVELOPE:
                         $tmp[$val] = $v->getEnvelope();
                         break;
@@ -4013,6 +4021,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (!isset($this->_temp['enabled']['CONDSTORE'])) {
             unset($out[Horde_Imap_Client::FETCH_FLAGS]);
         }
+
+        /* This is always cached, if available. */
+        $out[Horde_Imap_Client::FETCH_DOWNGRADED] = 'HICdg';
 
         return $out;
     }

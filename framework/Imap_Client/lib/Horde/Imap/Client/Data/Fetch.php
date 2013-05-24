@@ -415,6 +415,37 @@ class Horde_Imap_Client_Data_Fetch
     }
 
     /**
+     * Set the internationalized downgraded status for the message.
+     *
+     * @since 2.11.0
+     *
+     * @param boolean $downgraded  True if at least one message component has
+     *                             been downgraded.
+     */
+    public function setDowngraded($downgraded)
+    {
+        if ($downgraded) {
+            $this->_data[Horde_Imap_Client::FETCH_DOWNGRADED] = true;
+        } else {
+            unset($this->_data[Horde_Imap_Client::FETCH_DOWNGRADED]);
+        }
+    }
+
+    /**
+     * Does the message contain internationalized downgraded data (i.e. it
+     * is a "surrogate" message)?
+     *
+     * @since 2.11.0
+     *
+     * @return boolean  True if at least one message components has been
+     *                  downgraded.
+     */
+    public function isDowngraded()
+    {
+        return !empty($this->_data[Horde_Imap_Client::FETCH_DOWNGRADED]);
+    }
+
+    /**
      * Return the internal representation of the data.
      *
      * @return array  The data array.

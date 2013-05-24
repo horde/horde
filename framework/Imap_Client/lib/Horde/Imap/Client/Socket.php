@@ -61,6 +61,7 @@
  *   - RFC 6154: SPECIAL-USE/CREATE-SPECIAL-USE
  *   - RFC 6203: SEARCH=FUZZY
  *   - RFC 6851: MOVE
+ *   - RFC 6858: DOWNGRADED response code
  *
  * Implements the following non-RFC extensions:
  * <ul>
@@ -4779,6 +4780,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $ob,
                 $pipeline
             );
+
+        case 'DOWNGRADED':
+            // Defined by RFC 6858 [3]
+            $downgraded = $this->getIdsOb($rc->data[0]);
+            foreach ($pipeline->fetch as $val) {
+                if (in_array($val->getUid(), $downgraded)) {
+                    $val->setDowngraded(true);
+                }
+            }
+            break;
 
         case 'XPROXYREUSE':
             // The proxy connection was reused, so no need to do login tasks.

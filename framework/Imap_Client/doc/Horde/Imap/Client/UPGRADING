@@ -14,6 +14,14 @@ This lists the API changes between releases of the package.
 Upgrading to 2.10.0
 ===================
 
+  - Horde_Imap_Client_Data_Fetch
+
+    Added the setDowngraded() and isDowngraded() methods.
+
+
+Upgrading to 2.10.0
+===================
+
   - Horde_Imap_Client_Base
 
     - expunge()
