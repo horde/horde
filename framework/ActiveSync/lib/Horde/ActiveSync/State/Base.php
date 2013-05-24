@@ -367,6 +367,7 @@ abstract class Horde_ActiveSync_State_Base
                 if ($old[$iold]['mod'] != $new[$inew]['mod']) {
                     $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
                     $change['id'] = $new[$inew]['id'];
+                    $change['serverid'] = $new[$inew]['serverid'];
                     $changes[] = $change;
                 }
                 $inew++;
@@ -376,12 +377,14 @@ abstract class Horde_ActiveSync_State_Base
                     // Messesge in device state has disappeared
                     $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
                     $change['id'] = $old[$iold]['id'];
+                    $change['serverid'] = $old[$iold]['serverid'];
                     $changes[] = $change;
                     $iold++;
                 } else {
                     // Message in $new is new
                     $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
                     $change['id'] = $new[$inew]['id'];
+                    $change['serverid'] = $new[$inew]['serverid'];
                     $changes[] = $change;
                     $inew++;
                 }
@@ -391,6 +394,7 @@ abstract class Horde_ActiveSync_State_Base
             // All data left in _syncstate have been deleted
             $change['type'] = Horde_ActiveSync::CHANGE_TYPE_DELETE;
             $change['id'] = $old[$iold]['id'];
+            $change['serverid'] = $old[$iold]['serverid'];
             $changes[] = $change;
             $iold++;
         }
@@ -401,6 +405,7 @@ abstract class Horde_ActiveSync_State_Base
             $change['type'] = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
             $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
             $change['id'] = $new[$inew]['id'];
+            $change['serverid'] = $new[$inew]['serverid'];
             $changes[] = $change;
             $inew++;
         }
