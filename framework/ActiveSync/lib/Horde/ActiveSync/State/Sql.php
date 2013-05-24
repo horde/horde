@@ -246,6 +246,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     new Horde_ActiveSync_Folder_Imap($this->_collection['serverid'], Horde_ActiveSync::CLASS_EMAIL) :
                     new Horde_ActiveSync_Folder_Collection($this->_collection['serverid'], $this->_collection['class']);
             }
+            $this->_syncKey = '0';
             $this->_resetDeviceState($id);
             return;
         }
