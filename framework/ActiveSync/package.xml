@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-11</date>
- <time>22:20:06</time>
+ <date>2013-05-24</date>
+ <time>13:20:01</time>
  <version>
   <release>2.4.0beta5</release>
   <api>2.4.0</api>
@@ -44,6 +44,7 @@
       </dir> <!-- /lib/Horde/ActiveSync/Connector -->
       <dir name="Driver">
        <file name="Base.php" role="php" />
+       <file name="Mock.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Driver -->
       <dir name="Exception">
        <file name="FolderExists.php" role="php" />
@@ -211,6 +212,8 @@
          <file name="MysqlTest.php" role="test" />
         </dir> <!-- /test/Horde/ActiveSync/StateTest/Sql/Pdo -->
         <file name="Base.php" role="test" />
+        <file name="MysqliTest.php" role="test" />
+        <file name="MysqlTest.php" role="test" />
        </dir> <!-- /test/Horde/ActiveSync/StateTest/Sql -->
        <file name="Base.php" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/StateTest -->
@@ -218,7 +221,6 @@
       <file name="AppointmentTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="CacheTest.php" role="test" />
-      <file name="CollectionsHandlerTest.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="ContactTest.php" role="test" />
       <file name="ImapFolderTest.php" role="test" />
@@ -343,6 +345,7 @@
    <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
+   <install as="Horde/ActiveSync/Driver/Mock.php" name="lib/Horde/ActiveSync/Driver/Mock.php" />
    <install as="Horde/ActiveSync/Exception/FolderExists.php" name="lib/Horde/ActiveSync/Exception/FolderExists.php" />
    <install as="Horde/ActiveSync/Exception/FolderGone.php" name="lib/Horde/ActiveSync/Exception/FolderGone.php" />
    <install as="Horde/ActiveSync/Exception/InvalidRequest.php" name="lib/Horde/ActiveSync/Exception/InvalidRequest.php" />
@@ -432,7 +435,6 @@
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
-   <install as="Horde/ActiveSync/CollectionsHandlerTest.php" name="test/Horde/ActiveSync/CollectionsHandlerTest.php" />
    <install as="Horde/ActiveSync/conf.php.dist" name="test/Horde/ActiveSync/conf.php.dist" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/ImapFolderTest.php" name="test/Horde/ActiveSync/ImapFolderTest.php" />
@@ -454,6 +456,8 @@
    <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
    <install as="Horde/ActiveSync/StateTest/Base.php" name="test/Horde/ActiveSync/StateTest/Base.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/Base.php" name="test/Horde/ActiveSync/StateTest/Sql/Base.php" />
+   <install as="Horde/ActiveSync/StateTest/Sql/MysqliTest.php" name="test/Horde/ActiveSync/StateTest/Sql/MysqliTest.php" />
+   <install as="Horde/ActiveSync/StateTest/Sql/MysqlTest.php" name="test/Horde/ActiveSync/StateTest/Sql/MysqlTest.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" name="test/Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" />
   </filelist>
  </phprelease>
@@ -1397,7 +1401,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-11</date>
+   <date>2013-05-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix saving sent mail in EAS &gt;= 14 SENDMAIL requests.
