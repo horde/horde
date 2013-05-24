@@ -413,26 +413,34 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param string $id           The server's folder id
      * @param string $displayname  The new display name.
      * @param string $parent       The folder's parent, if needed.
+     * @param string $uid          The existing folder uid, if this is an edit.
+     *                             @since 2.5.0 (@todo Look at this for H6. It's
+     *                             here now to save an extra DB lookup for data
+     *                             we already have.)
+     *
+     * @return string  The new folder uid.
      */
-    public function changeFolder($id, $displayname, $parent)
+    public function changeFolder($id, $displayname, $parent, $uid = null)
     {
+        $this->_logger->notice($id . ' ' . $displayname . ' ' . $parent);
         if (!$id) {
             try {
-                $this->_imap->createMailbox($displayname);
+                $this->_imap->createMailbox($displayname, $parent);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw $e;
             }
+            $uid = $this->_getFolderUidForBackendId($displayname);
         } else {
             try {
-                $this->_imap->renameMailbox($id, $displayname);
+                $this->_imap->renameMailbox($id, $displayname, $parent);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw $e;
             }
         }
 
-        return $displayname;
+        return $uid;
     }
 
     /**
