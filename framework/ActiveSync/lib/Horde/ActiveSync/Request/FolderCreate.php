@@ -121,9 +121,9 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             throw new Horde_ActiveSync_Exception('Protocol Error');
         }
 
+        $collections = $this->_activeSync->getCollectionsObject();
         try {
-            $this->_state->loadState(
-                array(), $synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
+            $collections->initHierarchySync($synckey);
             $newsynckey = $this->_state->getNewSyncKey($synckey);
         } catch (Horde_ActiveSync_Exception $e) {
             $status = self::STATUS_KEYMISM;

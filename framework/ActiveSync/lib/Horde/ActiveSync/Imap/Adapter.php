@@ -82,12 +82,17 @@ class Horde_ActiveSync_Imap_Adapter
     /**
      * Create a new mailbox on the server, and subscribe to it.
      *
-     * @param string $name  The new mailbox name.
+     * @param string $name    The new mailbox name.
+     * @param string $parent  The parent mailbox, if any.
      *
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderExists
      */
     public function createMailbox($name, $parent = null)
     {
+        if (!empty($parent)) {
+            $ns = $this->_defaultNamespace();
+            $name = $parent . $ns['delimiter'] . $name;
+        }
         $mbox = new Horde_Imap_Client_Mailbox($this->_prependNamespace($name));
         $imap = $this->_getImapOb();
         try {
