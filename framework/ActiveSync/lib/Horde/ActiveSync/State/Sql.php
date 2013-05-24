@@ -165,6 +165,48 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Update the serverid for a given folder uid in the folder's state object.
+     * Needed when a folder is renamed on a client, but the UID must remain the
+     * same.
+     *
+     * @param string $uid       The folder UID.
+     * @param string $serverid  The new serverid for this uid.
+     * @since 2.4.0
+     */
+    public function updateServerIdInState($uid, $serverid)
+    {
+        $this->_logger->info(sprintf(
+            '[%s] Updating serverid in folder state. Setting %s for %s.',
+            $this->_procid,
+            $serverid,
+            $uid));
+        $sql = 'SELECT sync_data FROM ' . $this->_syncStateTable . ' WHERE '
+            . 'sync_devid = ? AND sync_user = ? AND sync_folderid = ?';
+
+        try {
+            $results = $this->_db->selectValues($sql,
+                array($this->_deviceInfo->id, $this->_devInfo->user, $uid));
+        } catch (Horde_Db_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        $update = 'UPDATE ' . $this->_syncStateTable . ' SET sync_data = ? WHERE '
+            . 'sync_devid = ? AND sync_user = ? AND sync_folderid = ?';
+        foreach ($results as $folder) {
+            $folder = unserialize($folder);
+            $folder->setServerId($serverid);
+            $folder = serialize($folder);
+            try {
+                $this->_db->update($update,
+                    array($folder, $this->_deviceInfo->id, $this->_devInfo->user, $uid));
+            } catch (Horde_Db_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw new Horde_ActiveSync_Exception($e);
+            }
+        }
+    }
+
+    /**
      * Load and initialize the sync state
      *
      * @param array $collection  The collection array for the collection, if
