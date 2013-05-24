@@ -473,15 +473,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         break;
                     }
                 }
-                $stat = array(
-                   'id' => $change['id'],
-                   'mod' => $change['mod'],
-                   'parent' => $change['parent']
-                );
-                $this->_folder[] = $stat;
+                if ($type != Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                    $this->_folder[] = $change;
+                }
                 $this->_folder = array_values($this->_folder);
                 return;
             }
+
             // This is an incoming change from the PIM, store it so we
             // don't mirror it back to device.
             switch ($this->_collection['class']) {
