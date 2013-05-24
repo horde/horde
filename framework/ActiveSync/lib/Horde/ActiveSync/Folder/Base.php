@@ -73,6 +73,18 @@ abstract class Horde_ActiveSync_Folder_Base
     }
 
     /**
+     * Set a new value for the serverid.
+     *
+     * @param string $id  The new id.
+     * @since 2.4.0
+     * @todo  For H6 make these all __get/__set calls.
+     */
+    public function setServerId($id)
+    {
+        $this->_serverid = $id;
+    }
+
+    /**
      * Return the collection class for this collection.
      *
      * @return string  The collection class.
