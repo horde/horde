@@ -100,7 +100,7 @@ class Horde_ActiveSync_Imap_Adapter
             $imap->subscribeMailbox($mbox, true);
         } catch (Horde_Imap_Client_Exception $e) {
             if ($e->getCode() == Horde_Imap_Client_Exception::ALREADYEXISTS) {
-                throw new Horde_ActiveSync_Exception_FolderExists();
+                throw new Horde_ActiveSync_Exception_FolderExists('Folder Exists!');
             }
             throw new Horde_ActiveSync_Exception($e);
         }
