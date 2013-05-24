@@ -235,6 +235,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         // synckey == 0 is an initial sync or reset.
         if (empty($syncKey)) {
+            $this->_logger->notice(sprintf(
+                '[%s] Horde_ActiveSync_State_Sql::loadState: clearing folder state.',
+                $this->_procid));
             if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
                 $this->_folder = array();
             } else {
@@ -443,6 +446,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @param array $change     A stat/change hash describing the change.
      *  Contains:
      *    - id: (mixed)       The message uid the change applies to.
+     *    - serverid: (string)  The backend server id for the folder.
      *    - parent: (string)  The parent of the message, normally the folder id.
      *    - flags: (array)    If this is a flag change, the state of the flags.
      *    - mod: (integer)    The modtime of this change.
@@ -476,6 +480,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 );
                 $this->_folder[] = $stat;
                 $this->_folder = array_values($this->_folder);
+                return;
             }
             // This is an incoming change from the PIM, store it so we
             // don't mirror it back to device.
@@ -577,7 +582,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * FOLDERSYNC request. AS uses a seperate synckey for FOLDERSYNC requests
      * also, so need to treat it as any other collection.
      *
-     * @return array
+     * @return array  An array of folder uids.
      */
     public function getKnownFolders()
     {
@@ -1053,12 +1058,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @param array $options  An options array containing at least one of:
      *   - synckey: (string)  Remove only the state associated with this synckey.
      *              DEFAULT: All synckeys are removed for the specified device.
-     *   - devId: (string)  Remove all information for this device.
-     *            DEFAULT: None. If no device, a synckey is required.
-     *   - user: (string) Restrict to removing data for this user only.
-     *           DEFAULT: None - all users for the specified device are removed.
-     *   - id: (string)  When removing device state, restrict ro removing data
-     *                   only for this collection.
+     *   - devId:   (string)  Remove all information for this device.
+     *              DEFAULT: None. If no device, a synckey is required.
+     *   - user:    (string) Restrict to removing data for this user only.
+     *              DEFAULT: None - all users for the specified device are removed.
+     *   - id:      (string)  When removing device state, restrict ro removing data
+     *                        only for this collection.
      *
      * @throws Horde_ActiveSyncException
      */
@@ -1325,14 +1330,19 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         foreach ($folders as $id => $folder) {
             if ($folder['serverid'] == $serverid) {
                 $this->_logger->info(sprintf(
-                    'Found serverid for %s: %s',
+                    '[%s] Found serverid for %s: %s',
+                    $this->_procid,
                     $serverid,
                     $id));
                 return $id;
             }
         }
 
-        $this->_logger->info(sprintf('No folderid found for %s', $serverid));
+        $this->_logger->info(sprintf(
+            '[%s] No folderid found for %s',
+            $this->_procid,
+            $serverid));
+
         return false;
     }
 
@@ -1604,8 +1614,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if ($id != Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $cache->removeCollection($id);
         } else {
+            $this->_logger->notice(sprintf(
+                '[%s] Clearing foldersync state from synccache.',
+                $this->_procid));
             $cache->clearFolders();
             $cache->clearCollections();
+            $cache->hierarchy = '0';
         }
         $cache->save();
     }
