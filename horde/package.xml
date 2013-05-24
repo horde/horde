@@ -3606,6 +3606,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Fix changing expired passwords.
 * [jan] Fix form to reset passwords.
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Fix displaying activesync devices when a username hook is being used (Bug #12186).
