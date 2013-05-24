@@ -371,7 +371,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             // Must be a mail folder
             $folders = $this->_getMailFolders();
             foreach ($folders as $folder) {
-                if ($folder->serverid == $id) {
+                if ($folder->_serverid == $id) {
                     return $folder;
                 }
             }
