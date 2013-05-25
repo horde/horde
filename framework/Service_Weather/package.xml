@@ -3,15 +3,15 @@
  <name>Horde_Service_Weather</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Weather Provider.</summary>
- <description>Set of classes that provide an abstraction to various online weather service providers. Includes drivers for WeatherUnderground, WorldWeatherOnline, and Google Weather.</description>
+ <description>Set of classes that provide an abstraction to various online weather service providers. Includes drivers for WeatherUnderground, and WorldWeatherOnline.</description>
  <lead>
   <name>Michael J Rubinsky</name>
   <user>mrubinsk</user>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>17:55:52</time>
+ <date>2013-05-25</date>
+ <time>13:49:51</time>
  <version>
   <release>2.0.5</release>
   <api>1.1.0</api>
@@ -708,7 +708,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-05-25</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Update WWO API endpoints.
