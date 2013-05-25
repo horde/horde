@@ -264,6 +264,8 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importMessageMove(array $uids, $dst)
     {
+        $collections = $this->_as->getCollectionsObject();
+        $dst = $collections->getBackendIdForFolderUid($dst);
         $results = $this->_as->driver->moveMessage($this->_folderId, $uids, $dst);
 
         // Check for any missing (not found) source messages.
