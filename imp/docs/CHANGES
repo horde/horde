@@ -106,6 +106,41 @@ v6.1.0beta1
 
 
 ------
+v6.0.5
+------
+
+[mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado
+      <geral@jpaulo.eu>).
+[mms] Fix navigating to search page in dynamic view from top menu (Bug #12273).
+[mms] Correctly update viewport selected status if mailbox is switched during a
+      delete action (Bug #12230).
+[jan] Fix empty label for spellcheck button.
+[mms] Fix signature verification for PGP combined signed & encrypted messages
+      (Bug #12142).
+[mms] Don't display empty mailbox action for mailboxes when Virtual Trash is
+      active (Bug #12162).
+[mms] Fix renaming mailboxes in dynamic view.
+[mms] Switching from HTML to text in dynamic compose view must be a synchronous
+      operation, or else HTML tags may appear in compose window.
+[mms] Fix ability to switch to non-default date sorting algorithm in dynamic
+      view (Bug #12139).
+[mms] Fix printing quoted text when viewing a list message.
+[mms] Use Horde_Css_Parser package, which is compatible with CSS3 declarations,
+      instead of the unmaintained Horde_Text_Filter_Csstidy code.
+[mms] Fix verifying signed & encrypted PGP messages (Bug #12100).
+[mms] Update virtual folder name in folder tree when editing the label (Bug
+      #12079).
+[mms] Fix links to virtual folders on search preferences page.
+[mms] Fix edit links for virtual folders in dynamic view (Bug #12072).
+[mms] Fix regression in displaying user-defined virtual folders in folder
+      listings.
+[mms] Correctly generate self URLs if a URL parameter is altered by the current
+      message action (Bug #12058).
+[mms] Fix possible issue creating folder tree if multiple special mailboxes
+      appeared in the same branch (Bug #12050).
+
+
+------
 v6.0.4
 ------
 
