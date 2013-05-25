@@ -85,15 +85,16 @@ class Horde_ActiveSync_Connector_Importer
      * Initialize the exporter for this collection
      *
      * @param Horde_ActiveSync_State_Base $state  The state machine.
-     * @param string $folderId                    The collection's backend
-     *                                            serverid (not the EAS id).
-     *                                            @todo H6
+     * @param string $folderId                    The collection's uid.
      * @param integer $flags                      Conflict resolution flags.
      */
     public function init(Horde_ActiveSync_State_Base $state, $folderId = null, $flags = 0)
     {
         $this->_state = $state;
         $this->_flags = $flags;
+        if (!empty($folderId)) {
+            $folderId = $this->_as->getCollectionsObject()->getBackendIdForFolderUid($folderId);
+        }
         $this->_folderId = $folderId;
     }
 
