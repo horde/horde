@@ -374,6 +374,13 @@ class Horde_ActiveSync
     protected $_decoder;
 
     /**
+     * The singleton collections handler.
+     *
+     * @var Horde_ActiveSync_Collections
+     */
+    protected $_collectionsObj;
+
+    /**
      * Map of commands when query string is base64 encoded (EAS 12.1)
      *
      * @var array
@@ -472,14 +479,18 @@ class Horde_ActiveSync
     }
 
     /**
-     * Return a collections object.
+     * Return a collections singleton.
      *
      * @return Horde_ActiveSync_Collections
      * @since 2.4.0
      */
     public function getCollectionsObject()
     {
-        return new Horde_ActiveSync_Collections($this->getSyncCache(), $this);
+        if (empty($this->_collectionsObj)) {
+            $this->_collectionsObj = new Horde_ActiveSync_Collections($this->getSyncCache(), $this);
+        }
+
+        return $this->_collectionsObj;
     }
 
     /**
