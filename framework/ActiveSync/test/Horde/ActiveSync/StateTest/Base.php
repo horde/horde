@@ -446,7 +446,7 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
             'filtertype' => 4,
         );
         $collections->addCollection($col);
-        $this->assertEquals(false, $collections->checkFilterType());
+        $this->assertEquals(false, $collections->checkFilterType($col['id'], $col['filtertype']));
     }
 
     protected function _testGettingImapId()
