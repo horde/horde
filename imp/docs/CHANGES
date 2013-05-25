@@ -2,7 +2,6 @@
 v6.0.5-git
 ----------
 
-[mms] Fix navigating to search page in dynamic view from top menu (Bug #12273).
 [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado
       <geral@jpaulo.eu>).
 [mms] Fix navigating to search page in dynamic view from top menu (Bug #12273).
