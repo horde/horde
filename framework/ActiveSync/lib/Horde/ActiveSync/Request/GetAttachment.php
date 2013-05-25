@@ -59,11 +59,11 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
             $attname));
 
         // @todo BC HACK. Need to pass the *serverid*, not the eas id.
-        list($mailbox, $uid, $part) = explode(':', $name);
+        list($mailbox, $uid, $part) = explode(':', $attname);
         $collections = $this->_activeSync->getCollectionsObject();
         $serverid = $collections->getBackendIdForFolderUid($mailbox);
         $name = implode(':', array($serverid, $uid, $part));
-        $att = $this->_driver->getAttachment($attname);
+        $att = $this->_driver->getAttachment($name);
 
         // Output the attachment data to the stream.
         if (is_resource($att['data'])) {
