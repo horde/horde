@@ -130,7 +130,7 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
                 try {
                     $move_res = $importer->importMessageMove(
                         array($move[self::SRCMSGKEY]),
-                        $collections->getBackendIdForFolderUid($move[self::DSTFLDKEY]));
+                        $move[self::DSTFLDKEY]);
                     if (empty($move_res['results'][$move[self::SRCMSGKEY]])) {
                         $status = self::STATUS_SERVER_ERR;
                     } else {
