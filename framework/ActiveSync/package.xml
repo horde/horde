@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix bug that caused S/MIME messages to always be marked read when synchronized.
 * [mjr] Rewrite hierarchy handling to allow for client renaming of folders.
 * [mjr] Fix saving sent mail in EAS &gt;= 14 SENDMAIL requests.
  </notes>
@@ -1405,6 +1406,7 @@
    <date>2013-05-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix bug that caused S/MIME messages to always be marked read when synchronized.
 * [mjr] Rewrite hierarchy handling to allow for client renaming of folders.
 * [mjr] Fix saving sent mail in EAS &gt;= 14 SENDMAIL requests.
    </notes>
