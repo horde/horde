@@ -2,10 +2,12 @@
 v6.0.5-git
 ----------
 
-[mms] Correctly update viewport selected status if mailbox is switched during a
-      delete action (Bug #12230).
+[mms] Fix navigating to search page in dynamic view from top menu (Bug #12273).
 [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado
       <geral@jpaulo.eu>).
+[mms] Fix navigating to search page in dynamic view from top menu (Bug #12273).
+[mms] Correctly update viewport selected status if mailbox is switched during a
+      delete action (Bug #12230).
 [jan] Fix empty label for spellcheck button.
 [mms] Fix signature verification for PGP combined signed & encrypted messages
       (Bug #12142).

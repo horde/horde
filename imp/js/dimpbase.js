@@ -208,7 +208,7 @@ var DimpBase = {
             // Fall through to the 'mbox' check below.
         }
 
-        if (type == 'mbox') {
+        if (type == 'mbox' || Object.isUndefined(this.view)) {
             if (Object.isUndefined(data) || data.empty()) {
                 data = Object.isUndefined(this.view)
                     ? this.INBOX
@@ -229,7 +229,10 @@ var DimpBase = {
             if (Object.isElement(tmp)) {
                 tmp.remove();
             }
-            return;
+
+            if (type == 'mbox') {
+                return;
+            }
         }
 
         $('dimpmain_folder').hide();
@@ -3712,7 +3715,11 @@ var DimpBase = {
 
         if (!tmp.empty()) {
             tmp2 = tmp.indexOf(':');
-            this.go(tmp.substring(0, tmp2), tmp.substring(tmp2 + 1));
+            if (tmp2 == -1) {
+                this.go(tmp);
+            } else {
+                this.go(tmp.substring(0, tmp2), tmp.substring(tmp2 + 1));
+            }
         } else if (DimpCore.conf.initial_page) {
             this.go('mbox', DimpCore.conf.initial_page);
         } else {
