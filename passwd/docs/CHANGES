@@ -2,6 +2,8 @@
 v5.0.0-git
 ----------
 
+[jan] Add policy for minimum number of non-alphanumeric characters (Friedrich
+      Haubensak <hsk@fli-leibniz.de>, Request #12243).
 [jan] Add parameter for sudo program name to expect script (Friedrich Haubensak
       <hsk@fli-leibniz.de>, Request #12243).
 
