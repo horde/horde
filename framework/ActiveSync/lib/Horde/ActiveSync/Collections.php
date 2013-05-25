@@ -282,11 +282,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
-     * Translate a backend id E.g., INBOX into an EAS folder uid.
+     * Translate an EAS folder uid into a backend serverid.
      *
-     * @param string $folderid  The backend id.
+     * @param $id  The uid.
      *
-     * @return string The EAS uid.
+     * @return string  The backend server id.
      */
     public function getBackendIdForFolderUid($folderid)
     {
@@ -295,12 +295,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
-     * Translate an EAS folder uid into a backend serverid.
+     * Translate a backend id E.g., INBOX into an EAS folder uid.
      *
-     * @param $id  The uid.
+     * @param string $folderid  The backend id.
      *
-     * @return string  The backend server id.
+     * @return string The EAS uid.
      */
+
     public function getFolderUidForBackendId($id)
     {
         return $this->_as->state->getFolderUidForBackendId($id);
