@@ -9,7 +9,7 @@ class HordeActiveSyncClearAllstate extends Horde_Db_Migration_Base
         $this->delete('DELETE FROM horde_activesync_state');
         $this->delete('DELETE FROM horde_activesync_map');
         $this->delete('DELETE FROM horde_activesync_mailmap');
-        $this->delete('DELETE FROM horde_actitvesync_cache');
+        $this->delete('DELETE FROM horde_activesync_cache');
     }
 
     public function down()
@@ -17,7 +17,7 @@ class HordeActiveSyncClearAllstate extends Horde_Db_Migration_Base
         $this->delete('DELETE FROM horde_activesync_state');
         $this->delete('DELETE FROM horde_activesync_map');
         $this->delete('DELETE FROM horde_activesync_mailmap');
-        $this->delete('DELETE FROM horde_actitvesync_cache');
+        $this->delete('DELETE FROM horde_activesync_cache');
     }
 
 }
