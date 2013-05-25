@@ -249,7 +249,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
         $folders = $this->_getMailFolders();
         foreach ($folders as $folder) {
-            if ($folder->type == self::SPECIAL_TRASH) {
+            if ($folder->type == Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET) {
                 return $folder->serverid;
             }
         }
