@@ -213,10 +213,10 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             }
         }
 
-        if (is_array($location)) {
+        if (is_array($location) && count($location)) {
             $location = $location[0];
+            $this->_location = $location->code;
         }
-        $this->_location = $location->code;
     }
 
     /**
