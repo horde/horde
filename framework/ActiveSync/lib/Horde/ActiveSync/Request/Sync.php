@@ -233,15 +233,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_handleGlobalSyncError();
             }
 
-            // Ensure the FILTERTYPE hasn't changed. If so, we need to invalidate
-            // the client's synckey to force a sync reset. This is the only
-            // reliable way of fetching an older set of data from the backend.
-            if (!$this->_collections->checkFilterType()) {
-                $this->_statusCode = self::STATUS_KEYMISM;
-                $this->_handleError($collection);
-                return true;
-            }
-
             // Full or partial sync request?
             if ($partial === true) {
                 $this->_logger->info(sprintf(
@@ -761,6 +752,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             return false;
         }
 
+        if (!$this->_collections->checkFilterType($collection['id'], $collection['filtertype'])) {
+            $this->_statusCode = self::STATUS_KEYMISM;
+            $this->_handleError($collection);
+            return true;
+        }
         return true;
     }
 
@@ -1047,6 +1043,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_decoder->getElementEndTag();
                 break;
             }
+        }
+
+        // Default to no filter as per the specs.
+        if (!isset($collection['filtertype'])) {
+            $collection['filtertype'] = '0';
         }
     }
 

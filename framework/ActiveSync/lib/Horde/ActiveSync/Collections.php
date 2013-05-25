@@ -842,22 +842,23 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     /**
      * Check for an update FILTERTYPE
      *
+     * @param string $id      The collection id to check
+     * @param string $filter  The new filter value.
+     *
      * @return boolean  True if filtertype passed, false if it has changed.
      */
-    public function checkFilterType()
+    public function checkFilterType($id, $filter)
     {
-        foreach ($this->_collections as $id => $collection) {
-            $cc = $this->_cache->getCollections();
-            if (!empty($cc[$id]['filtertype']) &&
-                !empty($collection['filtertype']) &&
-                $cc[$id]['filtertype'] != $collection['filtertype']) {
+        $cc = $this->_cache->getCollections();
+        if (!empty($cc[$id]['filtertype']) &&
+            !is_null($filter) &&
+            $cc[$id]['filtertype'] != $filter) {
 
-                $this->_cache->removeCollection($id);
-                $this->_cache->save();
-                $this->_logger->info('Invalidating SYNCKEY - found updated filtertype');
+            $this->_cache->removeCollection($id);
+            $this->_cache->save();
+            $this->_logger->info('Invalidating SYNCKEY - found updated filtertype');
 
-                return false;
-            }
+            return false;
         }
 
         return true;
