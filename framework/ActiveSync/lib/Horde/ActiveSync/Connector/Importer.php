@@ -255,7 +255,7 @@ class Horde_ActiveSync_Connector_Importer
      * Perform a message move initiated on the PIM
      *
      * @param array $uids  The source message ids.
-     * @param string $dst  The destination folder id.
+     * @param string $dst  The destination folder uid.
      *
      * @return array  An array containing the following keys:
      *   - results: An array with old uids as keys and new uids as values.
