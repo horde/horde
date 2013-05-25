@@ -80,14 +80,6 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Close the IMAP connection
-     */
-    public function close()
-    {
-        $this->_getImapOb()->logout();
-    }
-
-    /**
      * Create a new mailbox on the server, and subscribe to it.
      *
      * @param string $name    The new mailbox name.
