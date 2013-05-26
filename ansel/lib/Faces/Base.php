@@ -326,16 +326,19 @@ class Ansel_Faces_Base
                 ->getInstance('Ansel_Storage')
                 ->getImage($image_id);
 
-            // Actually create the image.
-            $this->createView(
-                $face_id,
-                $image,
-                $data['face_x1'],
-                $data['face_y1'],
-                $data['face_x2'],
-                $data['face_y2']);
-
-            $this->saveSignature($image_id, $face_id);
+            try {
+                // Actually create the image.
+                $this->createView(
+                    $face_id,
+                    $image,
+                    $data['face_x1'],
+                    $data['face_y1'],
+                    $data['face_x2'],
+                    $data['face_y2']);
+                $this->saveSignature($image_id, $face_id);
+            } catch (Ansel_Exception $e) {
+                return false;
+            }
         }
 
         return true;
