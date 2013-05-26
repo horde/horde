@@ -14,7 +14,7 @@ $prefGroups['display'] = array(
     'members' => array(
         'grouptitle', 'defaultview', 'tilesperrow', 'tilesperpage',
         'facesperpage', 'groupby', 'groupsperpage',
-        'default_gallerystyle_select', 'default_category_select',
+        'default_gallerystyle_select',
         'force_old_uploader'
     )
 );
@@ -70,7 +70,6 @@ $_prefs['groupby'] = array(
     'type' => 'enum',
     'enum' => array(
         'owner' => _("Owner"),
-        'category' => _("Category"),
         'none' => _("None")
     ),
     'desc' => _("Group galleries by")
@@ -124,16 +123,6 @@ $_prefs['default_gallerystyle'] = array(
 $_prefs['default_gallerystyle_select'] = array(
     'type' => 'special',
     'handler' => 'Ansel_Prefs_Special_GalleryStyle'
-);
-
-// Default category
-$_prefs['default_category'] = array(
-    'value' => ''
-);
-
-// Default category
-$_prefs['default_category_select'] = array(
-    'type' => 'special'
 );
 
 $_prefs['show_actions'] = array(
