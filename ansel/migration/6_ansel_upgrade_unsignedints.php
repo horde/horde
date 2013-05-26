@@ -26,7 +26,7 @@ class AnselUpgradeUnsignedints extends Horde_Db_Migration_Base
         $this->changeColumn('ansel_images', 'image_sort', 'integer', array('null' => false, 'unsigned' => true));
         $this->changeColumn('ansel_images', 'image_faces', 'integer', array('null' => false, 'default' => 0, 'unsigned' => true));
         $this->changeColumn('ansel_images', 'image_geotag_date', 'integer', array('unsigned' => true));
-        
+
         $this->changeColumn('ansel_image_attributes', 'image_id', 'integer', array('null' => false, 'unsigned' => true));
 
         $this->changeColumn('ansel_faces', 'face_id', 'integer', array('null' => false, 'autoincrement' => true, 'unsigned' => true));
@@ -41,11 +41,11 @@ class AnselUpgradeUnsignedints extends Horde_Db_Migration_Base
         $this->changeColumn('ansel_shares', 'attribute_date_created', 'integer', array('unsigned' => true));
         $this->changeColumn('ansel_shares', 'attribute_images', 'integer', array('null' => false, 'default' => 0, 'unsigned' => true));
         $this->changeColumn('ansel_shares', 'attribute_faces', 'integer', array('null' => false, 'default' => 0, 'unsigned' => true));
-       
+
         $this->changeColumn('ansel_shares_groups', 'group_uid', 'integer', array('null' => false, 'unsigned' => true));
-       
+
         $this->changeColumn('ansel_shares_users', 'user_uid', 'integer', array('null' => false, 'unsigned' => true));
-       
+
         $this->changeColumn('ansel_images_geolocation', 'image_id', 'integer', array('null' => false, 'unsigned' => true));
     }
 
