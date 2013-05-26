@@ -291,7 +291,7 @@ class Ansel_View_List extends Ansel_View_Ansel
             return $this->_view->render('list');
         }
 
-        return '';
+        return '&nbsp;';
     }
 
     public function viewType()
