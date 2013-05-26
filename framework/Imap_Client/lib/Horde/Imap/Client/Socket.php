@@ -3868,6 +3868,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             } catch (Horde_Imap_Client_Exception $e) {
                 switch ($e->getCode()) {
                 case $e::DISCONNECT:
+                case $e::SERVER_READERROR:
+                    $this->_temp['logout'] = true;
+                    $this->logout();
                     throw $e;
                 }
 
@@ -4144,8 +4147,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * be treated like a regular command: a client MUST process the
              * entire command until logging out (RFC 3501 [3.4; 7.1.5]). */
             if (empty($this->_temp['logout'])) {
-                $this->_temp['logout'] = true;
-                $this->logout();
                 $e = new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("IMAP Server closed the connection."),
                     Horde_Imap_Client_Exception::DISCONNECT
@@ -4194,8 +4195,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         do {
             if (feof($this->_stream)) {
-                $this->_temp['logout'] = true;
-                $this->logout();
                 $this->_debug->info("ERROR: Server closed the connection.");
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Mail server closed the connection unexpectedly."),
@@ -4265,7 +4264,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (!$got_data) {
             $this->_debug->info("ERROR: IMAP read/timeout error.");
-            $this->logout();
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
                 Horde_Imap_Client_Exception::SERVER_READERROR
