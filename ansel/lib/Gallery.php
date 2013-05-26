@@ -113,7 +113,7 @@ class Ansel_Gallery implements Serializable
         }
     }
 
-    public function setPermission(Horde_Perms_Permision$permission, $update = true)
+    public function setPermission(Horde_Perms_Permission $permission, $update = true)
     {
         $this->_share->setPermission($permission, $update);
     }
