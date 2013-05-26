@@ -710,7 +710,9 @@ class Horde_ActiveSync
             $cmd = $get['Cmd'];
         }
         if (empty($devId)) {
-            $devId = !empty($get['DeviceId']) ? $get['DeviceId'] : null;
+            $devId = !empty($get['DeviceId']) ? strtoupper($get['DeviceId']) : null;
+        } else {
+            $devId = strtoupper($devId);
         }
         $this->_setLogger($get);
 
@@ -763,9 +765,6 @@ class Horde_ActiveSync
             $this->_driver->clearAuthentication();
             throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
-
-        // Normalize Device Id.
-        $devId = strtoupper($devId);
 
         // EAS Version
         $version = $this->getProtocolVersion();
