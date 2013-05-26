@@ -3866,6 +3866,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     --$cmd_count;
                 }
             } catch (Horde_Imap_Client_Exception $e) {
+                switch ($e->getCode()) {
+                case $e::DISCONNECT:
+                    throw $e;
+                }
+
                 // Catch and store exception; don't throw until all input
                 // is read. (For now, only store first exception.)
                 if (is_null($exception)) {
