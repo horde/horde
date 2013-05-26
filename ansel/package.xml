@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-12</date>
- <time>13:55:57</time>
+ <date>2013-05-25</date>
+ <time>20:34:45</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -366,6 +366,8 @@
     <file name="8_ansel_upgrade_sqlhierarchical.php" role="horde" />
     <file name="9_ansel_upgrade_sqlng.php" role="horde" />
     <file name="10_ansel_upgrade_computestylehashes.php" role="horde" />
+    <file name="11_ansel_fix_blob_length.php" role="horde" />
+    <file name="12_ansel_upgrade_fixautoincrement.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="browse">
@@ -1011,6 +1013,8 @@
    <install as="ansel/migration/8_ansel_upgrade_sqlhierarchical.php" name="migration/8_ansel_upgrade_sqlhierarchical.php" />
    <install as="ansel/migration/9_ansel_upgrade_sqlng.php" name="migration/9_ansel_upgrade_sqlng.php" />
    <install as="ansel/migration/10_ansel_upgrade_computestylehashes.php" name="migration/10_ansel_upgrade_computestylehashes.php" />
+   <install as="ansel/migration/11_ansel_fix_blob_length.php" name="migration/11_ansel_fix_blob_length.php" />
+   <install as="ansel/migration/12_ansel_upgrade_fixautoincrement.php" name="migration/12_ansel_upgrade_fixautoincrement.php" />
    <install as="ansel/templates/map_edit.html.php" name="templates/map_edit.html.php" />
    <install as="ansel/templates/browse/new.inc" name="templates/browse/new.inc" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
