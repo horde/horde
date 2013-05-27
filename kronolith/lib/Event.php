@@ -1071,8 +1071,13 @@ abstract class Kronolith_Event
             // We don't support different timezones for different attributes,
             // so use the DTSTART timezone for the complete event.
             if (isset($startParams[0]['TZID'])) {
-                $tzid = $startParams[0]['TZID'];
-                $this->timezone = $tzid;
+                try {
+                    // Check if the timezone name is supported by PHP natively.
+                    new DateTimeZone($startParams[0]['TZID']);
+                    $tzid = $startParams[0]['TZID'];
+                    $this->timezone = $tzid;
+                } catch (Exception $e) {
+                }
             }
             if (!is_array($start)) {
                 // Date-Time field

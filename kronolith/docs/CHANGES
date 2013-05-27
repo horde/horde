@@ -2,6 +2,8 @@
 v4.0.5-git
 ----------
 
+[jan] Don't throw error on importing events with unknown timezones (Bug
+      #11688).
 [jan] Don't send notifications for all recurrence exceptions when deleting
       events.
 [jan] Only send update notifications for local calendars.
