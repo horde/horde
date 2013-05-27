@@ -2092,6 +2092,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t throw error on importing events with unknown timezones (Bug #11688).
 * [jan] Don&apos;t send notifications for all recurrence exceptions when deleting events.
 * [jan] Only send update notifications for local calendars.
 * [jan] Re-enable users in drop-down list after revoking permissions (Bug #12000).
