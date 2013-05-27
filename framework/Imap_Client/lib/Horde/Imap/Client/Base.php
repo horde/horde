@@ -32,13 +32,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /* @since 2.9.0 */
     const CACHE_SEARCHID = '_i';
 
+    /* Cache names used exclusively within this class. @since 2.11.0 */
+    const CACHE_DOWNGRADED = 'HICdg';
+
     /**
      * The list of fetch fields that can be cached, and their cache names.
      *
      * @var array
      */
     public $cacheFields = array(
-        Horde_Imap_Client::FETCH_DOWNGRADED => 'HICdg',
         Horde_Imap_Client::FETCH_ENVELOPE => 'HICenv',
         Horde_Imap_Client::FETCH_FLAGS => 'HICflags',
         Horde_Imap_Client::FETCH_HEADERS => 'HIChdrs',
@@ -2609,7 +2611,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         foreach ($cf as $k => $v) {
             if (isset($query[$k])) {
                 switch ($k) {
-                case Horde_Imap_Client::FETCH_DOWNGRADED:
                 case Horde_Imap_Client::FETCH_ENVELOPE:
                 case Horde_Imap_Client::FETCH_FLAGS:
                 case Horde_Imap_Client::FETCH_IMAPDATE:
@@ -2654,6 +2655,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Convert special searches to UID lists and create mapping. */
         $ids = $this->resolveIds($this->_selected, $options['ids'], empty($options['exists']) ? 1 : 2);
 
+        /* Add non-user settable cache fields. */
+        $cache_array[Horde_Imap_Client::FETCH_DOWNGRADED] = self::CACHE_DOWNGRADED;
+
         /* Get the cached values. */
         $data = $this->_cache->get($this->_selected, $ids->ids, array_values($cache_array), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
 
@@ -2684,6 +2688,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
             foreach ($cache_array as $key => $cid) {
                 switch ($key) {
+                case Horde_Imap_Client::FETCH_DOWNGRADED:
+                    if (!empty($data[$uid][$cid])) {
+                        $entry->setDowngraded(true);
+                    }
+                    break;
+
                 case Horde_Imap_Client::FETCH_ENVELOPE:
                     if (isset($data[$uid][$cid]) &&
                         ($data[$uid][$cid] instanceof Horde_Imap_Client_Data_Envelope)) {
@@ -3718,15 +3728,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
             $tmp = array();
 
+            if ($v->isDowngraded()) {
+                $tmp[self::CACHE_DOWNGRADED] = true;
+            }
+
             foreach ($cf as $key => $val) {
                 if ($v->exists($key)) {
                     switch ($key) {
-                    case Horde_Imap_Client::FETCH_DOWNGRADED:
-                        if ($v->isDowngraded()) {
-                            $tmp[$val] = true;
-                        }
-                        break;
-
                     case Horde_Imap_Client::FETCH_ENVELOPE:
                         $tmp[$val] = $v->getEnvelope();
                         break;
@@ -4021,9 +4029,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (!isset($this->_temp['enabled']['CONDSTORE'])) {
             unset($out[Horde_Imap_Client::FETCH_FLAGS]);
         }
-
-        /* This is always cached, if available. */
-        $out[Horde_Imap_Client::FETCH_DOWNGRADED] = 'HICdg';
 
         return $out;
     }
