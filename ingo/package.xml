@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Correctly identify share support in transport backends (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Fix regression in accessing Ingo links from the external API (Bug #12249).
  </notes>
  <contents>
@@ -1261,6 +1262,7 @@
    <date>2013-05-07</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Correctly identify share support in transport backends (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Fix regression in accessing Ingo links from the external API (Bug #12249).
    </notes>
   </release>
