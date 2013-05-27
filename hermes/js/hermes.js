@@ -551,7 +551,7 @@ HermesCore = {
             t.select('.hermesTimeListRow').each(function(r) {
                 if (r.retrieve('sid') == sid) {
                     if (slice) {
-                        r.insert({ before: this.buildTimeRow(slice).show() });
+                        r.insert({ before: this.buildSliceRow(slice).show() });
                     }
                     r.remove();
                     this.updateTimeSummary();
@@ -761,7 +761,7 @@ HermesCore = {
             return;
         }
         this.updateView(this.view);
-        this.buildTimeTable();
+        this.buildSliceTable();
     },
 
     search: function()
@@ -1076,7 +1076,7 @@ HermesCore = {
     {
         $('hermesLoadingTime').hide();
         this.slices = r;
-        this.buildTimeTable();
+        this.buildSliceTable();
         if (id) {
             this.populateSliceForm(id);
         }
@@ -1108,7 +1108,7 @@ HermesCore = {
     /**
      * Builds the slice list.
      */
-    buildTimeTable: function()
+    buildSliceTable: function()
     {
         var t = $('hermesTimeListInternal'),
             slices;
@@ -1151,7 +1151,7 @@ HermesCore = {
         this.slices = slices;
         t.hide();
         slices.each(function(slice) {
-            t.insert(this.buildTimeRow(slice).toggle());
+            t.insert(this.buildSliceRow(slice).toggle());
         }.bind(this));
         $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
         t.appear({ duration: this.effectDur, queue: 'end' });
@@ -1233,7 +1233,7 @@ HermesCore = {
      * @return A DOM element representing the slice suitable for inserting into
      *         the slice list.
      */
-    buildTimeRow: function(slice)
+    buildSliceRow: function(slice)
     {
         var row, cell, d;
 
@@ -1316,7 +1316,7 @@ HermesCore = {
         }
         this.sortbyfield = e.identify();
         this.updateView(this.view);
-        this.buildTimeTable();
+        this.buildSliceTable();
     },
 
     handleSearchSort: function(e)
