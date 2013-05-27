@@ -84,13 +84,10 @@ class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
             try {
                 $collections = array_merge(
                     $collections,
-                    $this->_registry->callAppMethod(
+                    (array)$this->_registry->callAppMethod(
                         $interface,
                         'davGetCollections',
-                        array(
-                            'args' => array($user),
-                            'check_missing' => true
-                        )
+                        array('args' => array($user))
                     )
                 );
             } catch (Horde_Exception $e) {
