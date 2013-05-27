@@ -3868,8 +3868,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             } catch (Horde_Imap_Client_Exception $e) {
                 switch ($e->getCode()) {
                 case $e::DISCONNECT:
-                case $e::SERVER_READERROR:
                     $this->_temp['logout'] = true;
+                    // Fall-through
+
+                case $e::SERVER_READERROR:
                     $this->logout();
                     throw $e;
                 }
