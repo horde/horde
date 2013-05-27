@@ -187,7 +187,7 @@ var HordeMobile = {
         var v;
 
         if (d['horde:regenerate_sid']) {
-            HordeMobile.regenerate.sid = true;
+            HordeMobile.regenerate_sid = true;
         }
 
         if ((v = d['horde:sid'])) {
