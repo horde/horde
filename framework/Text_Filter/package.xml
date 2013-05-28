@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2013-05-28</date>
- <time>16:24:02</time>
+ <time>16:27:52</time>
  <version>
-  <release>2.1.3</release>
+  <release>2.1.4</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Yet more sanity checking in the Text2html filter to workaround incorrect charset information.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -956,6 +956,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Yet more sanity checking in the Text2html filter to workaround incorrect charset information.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.4</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
