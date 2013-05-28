@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-29</date>
- <time>12:28:50</time>
+ <date>2013-05-28</date>
+ <time>13:08:32</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -926,10 +927,11 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
    </notes>
   </release>
  </changelog>
