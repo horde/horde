@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-19</date>
+ <date>2013-05-28</date>
  <version>
-  <release>1.0.0beta3</release>
+  <release>1.0.0RC1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -43,10 +43,24 @@
       <file name="Lock.php" role="php" />
       <file name="Memcache.php" role="php" />
       <file name="Memory.php" role="php" />
+      <file name="Null.php" role="php" />
       <file name="Predis.php" role="php" />
      </dir> <!-- /lib/Horde/HashTable -->
     </dir> <!-- //lib/Horde -->
    </dir> <!-- //lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="HashTable">
+      <dir name="Driver">
+       <file name="MemoryTest.php" role="test" />
+       <file name="TestBase.php" role="test" />
+      </dir> <!-- /test/Horde/HashTable/Driver -->
+      <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/HashTable -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -88,7 +102,13 @@
    <install as="Horde/HashTable/Lock.php" name="lib/Horde/HashTable/Lock.php" />
    <install as="Horde/HashTable/Memcache.php" name="lib/Horde/HashTable/Memcache.php" />
    <install as="Horde/HashTable/Memory.php" name="lib/Horde/HashTable/Memory.php" />
+   <install as="Horde/HashTable/Null.php" name="lib/Horde/HashTable/Null.php" />
    <install as="Horde/HashTable/Predis.php" name="lib/Horde/HashTable/Predis.php" />
+   <install as="Horde/HashTable/AllTests.php" name="test/Horde/HashTable/AllTests.php" />
+   <install as="Horde/HashTable/bootstrap.php" name="test/Horde/HashTable/bootstrap.php" />
+   <install as="Horde/HashTable/phpunit.xml" name="test/Horde/HashTable/phpunit.xml" />
+   <install as="Horde/HashTable/Driver/MemoryTest.php" name="test/Horde/HashTable/Driver/MemoryTest.php" />
+   <install as="Horde/HashTable/Driver/TestBase.php" name="test/Horde/HashTable/Driver/TestBase.php" />
    </filelist>
  </phprelease>
  <changelog>
@@ -120,12 +140,12 @@
   </release>
   <release>
    <version>
-    <release>1.0.0beta3</release>
+    <release>1.0.0RC1</release>
     <api>1.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-05-19</date>
+   <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add initial unit tests.
