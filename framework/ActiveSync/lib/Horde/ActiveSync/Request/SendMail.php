@@ -112,13 +112,13 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
         try {
             // @TODO fix this ugly method call in H6 when we can break BC.
             return $this->_driver->sendMail(null, $smartforward, $smartreply, null, null, $mail);
-        } catch (Horde_Exception_NotFound $e) {
-            $this->_logger->err($e->getMessage());
+        } catch (Horde_Exception_NotFound $ex) {
+            $this->_logger->err($ex->getMessage());
             $this->_handleError(
                 Horde_ActiveSync_Status::ITEM_NOT_FOUND,
                 $e[Horde_ActiveSync_Wbxml::EN_TAG]);
-        } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err($e->getMessage());
+        } catch (Horde_ActiveSync_Exception $ex) {
+            $this->_logger->err($ex->getMessage());
             $this->_handleError(
                 Horde_ActiveSync_Status::MAIL_SUBMISSION_FAILED,
                 $e[Horde_ActiveSync_Wbxml::EN_TAG]);
