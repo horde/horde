@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-28</date>
- <time>16:51:14</time>
+ <time>16:54:38</time>
  <version>
-  <release>2.11.1</release>
+  <release>2.11.2</release>
   <api>2.11.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix caching MIME structure data in POP3 driver.
-* [mms] Enhanced parsing of POP3 data from the remote server.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1766,6 +1765,19 @@
    <notes>
 * [mms] Fix caching MIME structure data in POP3 driver.
 * [mms] Enhanced parsing of POP3 data from the remote server.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.11.2</release>
+    <api>2.11.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
