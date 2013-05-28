@@ -46,7 +46,7 @@ class IMP_Images
         if ($registry->hasMethod('contacts/search')) {
             $sparams = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
             $res = $registry->call('contacts/search', array($from->bare_addresses, array(
-                'fields' => array('email'),
+                'fields' => array_fill_keys($sparams['sources'], array('email')),
                 'returnFields' => array('email'),
                 'rfc822Return' => true,
                 'sources' => $sparams['sources']
