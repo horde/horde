@@ -58,38 +58,26 @@ class Ingo_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        global $injector, $registry, $session;
+
         // Create the session.
         $this->_createSession();
 
-        // Create shares if necessary.
-        $supportShares = false;
-        $factory = $GLOBALS['injector']->getInstance('Ingo_Factory_Transport');
-        foreach ($GLOBALS['session']->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY) as $transport) {
-            $supportShares |= $factory->create($transport)->supportShares();
-        }
-        if ($supportShares) {
-            $GLOBALS['ingo_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
+        if ($sig = $session->get('ingo', 'personal_share')) {
+            $GLOBALS['ingo_shares'] = $injector->getInstance('Horde_Core_Factory_Share')->create();
             $GLOBALS['all_rulesets'] = Ingo::listRulesets();
 
-            /* If personal share doesn't exist then create it. */
-            $signature = $GLOBALS['session']->get('ingo', 'backend/id') . ':' . $GLOBALS['registry']->getAuth();
-            if (!$GLOBALS['ingo_shares']->exists($signature)) {
-                $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-                $name = $identity->getValue('fullname');
-                if (trim($name) == '') {
-                    $name = $GLOBALS['registry']->getAuth('original');
-                }
-                $share = $GLOBALS['ingo_shares']->newShare($GLOBALS['registry']->getAuth(), $signature, $name);
-                $GLOBALS['ingo_shares']->addShare($share);
-                $GLOBALS['all_rulesets'][$signature] = $share;
-            }
+            $curr_share = $session->get('ingo', 'current_share');
+            $ruleset = Horde_Util::getFormData('ruleset');
 
             /* Select current share. */
-            $GLOBALS['session']->set('ingo', 'current_share', Horde_Util::getFormData('ruleset', $GLOBALS['session']->get('ingo', 'current_share')));
-            if (!$GLOBALS['session']->get('ingo', 'current_share') ||
-                empty($GLOBALS['all_rulesets'][$GLOBALS['session']->get('ingo', 'current_share')]) ||
-                !$GLOBALS['all_rulesets'][$GLOBALS['session']->get('ingo', 'current_share')]->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-                $GLOBALS['session']->set('ingo', 'current_share', $signature);
+            if (is_null($curr_share) || ($ruleset != $curr_share)) {
+                $session->set('ingo', 'current_share', $ruleset);
+                if (is_null($curr_share) ||
+                    empty($GLOBALS['all_rulesets'][$ruleset]) ||
+                    !$GLOBALS['all_rulesets'][$ruleset]->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
+                    $session->set('ingo', 'current_share', $sig);
+                }
             }
         } else {
             $GLOBALS['ingo_shares'] = null;
@@ -103,6 +91,7 @@ class Ingo_Application extends Horde_Registry_Application
      *   - backend: (array) The backend configuration to use.
      *   - change: (integer) The timestamp of the last time the rules were
      *                       altered.
+     *   - personal_share: (string) Personal share signature.
      *   - storage: (array) Used by Ingo_Storage:: for caching data.
      *   - script_categories: (array) The list of available categories for the
      *                                Ingo_Script driver in use.
@@ -111,7 +100,7 @@ class Ingo_Application extends Horde_Registry_Application
      */
     protected function _createSession()
     {
-        global $injector, $prefs, $session;
+        global $injector, $prefs, $registry, $session;
 
         if ($session->exists('ingo', 'script_categories')) {
             return;
@@ -119,10 +108,8 @@ class Ingo_Application extends Horde_Registry_Application
 
         /* getBackend() and loadIngoScript() will both throw Exceptions, so
          * do these first as errors are fatal. */
-        foreach (Ingo::getBackend() as $key => $val) {
-            if ($val) {
-                $session->set('ingo', 'backend/' . $key, $val);
-            }
+        foreach (array_filter(Ingo::getBackend()) as $key => $val) {
+            $session->set('ingo', 'backend/' . $key, $val);
         }
 
         /* Disable categories as specified in preferences */
@@ -151,6 +138,29 @@ class Ingo_Application extends Horde_Registry_Application
         }
         $session->set('ingo', 'script_categories',
                       array_diff($categories, $locked));
+
+        /* Create shares if necessary. */
+        $factory = $injector->getInstance('Ingo_Factory_Transport');
+        foreach ($session->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY) as $transport) {
+            if ($factory->create($transport)->supportShares()) {
+                $shares = $injector->getInstance('Horde_Core_Factory_Share')->create();
+
+                /* If personal share doesn't exist then create it. */
+                $sig = $session->get('ingo', 'backend/id') . ':' . $registry->getAuth();
+                if (!$shares->exists($sig)) {
+                    $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
+                    $name = $identity->getValue('fullname');
+                    if (trim($name) == '') {
+                        $name = $registry->getAuth('original');
+                    }
+                    $share = $shares->newShare($registry->getAuth(), $sig, $name);
+                    $shares->addShare($share);
+                }
+
+                $session->set('ingo', 'personal_share', $sig);
+                break;
+            }
+        }
     }
 
     /**
