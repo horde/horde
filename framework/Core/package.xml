@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-05-28</date>
- <time>12:36:44</time>
+ <time>12:41:17</time>
  <version>
-  <release>2.5.0RC1</release>
+  <release>2.5.0RC2</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Added Horde_Core_Factory_Mail factory to allow for alternative mailer configurations.
-* [mms] Fix honoring the sendmail_eol configuration option.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2959,6 +2958,19 @@
    <notes>
 * [mms] Added Horde_Core_Factory_Mail factory to allow for alternative mailer configurations.
 * [mms] Fix honoring the sendmail_eol configuration option.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.0RC2</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
