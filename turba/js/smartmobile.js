@@ -42,6 +42,7 @@ var TurbaMobile = {
             HordeMobile.updateHash(purl);
 
             if (tmp.attr('data-rel')) {
+                tmp.removeClass($.mobile.activeBtnClass).blur();
                 tmp.removeAttr('data-rel')
                     .find('.ui-btn-text').text(Turba.text.browse);
             } else {
