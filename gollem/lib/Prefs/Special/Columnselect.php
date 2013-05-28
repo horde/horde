@@ -60,7 +60,16 @@ class Gollem_Prefs_Special_Columnselect implements Horde_Core_Prefs_Ui_Special
             return false;
         }
 
-        $GLOBALS['prefs']->setValue('columns', $ui->vars->sources);
+        $backends = Gollem_Auth::getBackend();
+        if (count($backends) == 1) {
+            $sources = json_decode($ui->vars->sources);
+            array_unshift($sources, key($backends));
+            $sources = json_encode(array($sources));
+        } else {
+            $sources = $ui->vars->sources;
+        }
+        $GLOBALS['prefs']->setValue('columns', $sources);
+
         return true;
     }
 

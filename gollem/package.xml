@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix saving columns preference if only one backend exists (Bug #12003).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -791,7 +791,7 @@
    <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix saving columns preference if only one backend exists (Bug #12003).
    </notes>
   </release>
  </changelog>
