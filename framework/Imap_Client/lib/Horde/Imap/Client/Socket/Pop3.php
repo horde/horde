@@ -131,11 +131,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $capability = array();
 
         try {
-            $this->_sendLine('CAPA');
+            $res = $this->_sendLine('CAPA', array(
+                'multiline' => 'array'
+            ));
 
-            foreach ($this->_getMultiline(true) as $val) {
+            foreach ($res['data'] as $val) {
                 $prefix = explode(' ', $val);
-
                 $capability[strtoupper($prefix[0])] = (count($prefix) > 1)
                     ? array_slice($prefix, 1)
                     : true;
@@ -146,14 +147,16 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $capability = array('USER', 'SASL');
 
             try {
-                $this->_sendLine('UIDL');
-                fclose($this->_getMultiline());
+                $this->_sendLine('UIDL', array(
+                    'multiline' => 'none'
+                ));
                 $capability[] = 'UIDL';
             } catch (Horde_Imap_Client_Exception $e) {}
 
             try {
-                $this->_sendLine('TOP 1 0');
-                fclose($this->_getMultiline());
+                $this->_sendLine('TOP 1 0', array(
+                    'multiline' => 'none'
+                ));
                 $capability[] = 'TOP';
             } catch (Horde_Imap_Client_Exception $e) {}
         }
@@ -295,10 +298,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         stream_set_timeout($this->_stream, $this->_params['timeout']);
 
-        $line = $this->_getLine();
+        $line = $this->_getResponse();
 
         // Check for string matching APOP timestamp
-        if (preg_match('/<.+@.+>/U', $line['line'], $matches)) {
+        if (preg_match('/<.+@.+>/U', $line['resp'], $matches)) {
             $this->_temp['pop3timestamp'] = $matches[0];
         }
     }
@@ -319,7 +322,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             // RFC 5034: CRAM-MD5
             // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
             $challenge = $this->_sendLine('AUTH ' . $method);
-            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(substr($challenge['line'], 2)), $this->getParam('password'), true));
+            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(substr($challenge['resp'], 2)), $this->getParam('password'), true));
             $this->_sendLine($response, array(
                 'debug' => '[' . $method . ' Response]'
             ));
@@ -331,14 +334,14 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $response = base64_encode(new Horde_Imap_Client_Auth_DigestMD5(
                 $this->_params['username'],
                 $this->getParam('password'),
-                base64_decode(substr($challenge['line'], 2)),
+                base64_decode(substr($challenge['resp'], 2)),
                 $this->_params['hostspec'],
                 'pop3'
             ));
             $sresponse = $this->_sendLine($response, array(
                 'debug' => '[DIGEST-MD5 Response]'
             ));
-            if (stripos(base64_decode(substr($sresponse['line'], 2)), 'rspauth=') === false) {
+            if (stripos(base64_decode(substr($sresponse['resp'], 2)), 'rspauth=') === false) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Unexpected response from server when authenticating."),
                     Horde_Imap_Client_Exception::SERVER_CONNECT
@@ -870,11 +873,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $data = null;
             if ($this->queryCapability('TOP')) {
                 try {
-                    $resp = $this->_sendLine('TOP ' . $index . ' 0');
-                    $ptr = $this->_getMultiline();
-                    rewind($ptr);
-                    $data = stream_get_contents($ptr);
-                    fclose($ptr);
+                    $res = $this->_sendLine('TOP ' . $index . ' 0', array(
+                        'multiline' => 'stream'
+                    ));
+                    rewind($res['data']);
+                    $data = stream_get_contents($res['data']);
+                    fclose($res['data']);
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
 
@@ -888,8 +892,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             break;
 
         case 'msg':
-            $resp = $this->_sendLine('RETR ' . $index);
-            $data = $this->_getMultiline();
+            $res = $this->_sendLine('RETR ' . $index, array(
+                'multiline' => 'stream'
+            ));
+            $data = $res['data'];
             rewind($data);
             break;
 
@@ -897,8 +903,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         case 'uidl':
             $data = array();
             try {
-                $this->_sendLine(($type == 'size') ? 'LIST' : 'UIDL');
-                foreach ($this->_getMultiline(true) as $val) {
+                $res = $this->_sendLine(($type == 'size') ? 'LIST' : 'UIDL', array(
+                    'multiline' => 'array'
+                ));
+                foreach ($res['data'] as $val) {
                     $resp_data = explode(' ', $val, 2);
                     $data[$resp_data[0]] = $resp_data[1];
                 }
@@ -907,7 +915,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         case 'stat':
             $resp = $this->_sendLine('STAT');
-            $resp_data = explode(' ', $resp['line'], 2);
+            $resp_data = explode(' ', $resp['resp'], 2);
             $data = array('msgs' => $resp_data[0], 'size' => $resp_data[1]);
             break;
         }
@@ -1091,35 +1099,47 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * Perform a command on the server. A connection to the server must have
      * already been made.
      *
-     * @param string $query   The command to execute.
+     * @param string $cmd     The command to execute.
      * @param array $options  Additional options:
+     * <pre>
      *   - debug: (string) When debugging, send this string instead of the
      *            actual command/data sent.
      *            DEFAULT: Raw data output to debug stream.
+     *   - multiline: (mixed) 'array', 'none', or 'stream'.
+     * </pre>
+     *
+     * @return array  See _getResponse().
      */
-    protected function _sendLine($query, $options = array())
+    protected function _sendLine($cmd, $options = array())
     {
-        $this->_debug->client(empty($options['debug']) ? $query : $options['debug']);
+        $this->_debug->client(
+            empty($options['debug']) ? $cmd : $options['debug']
+        );
 
-        fwrite($this->_stream, $query . "\r\n");
+        fwrite($this->_stream, $cmd . "\r\n");
 
-        return $this->_getLine();
+        return $this->_getResponse(
+            empty($options['multiline']) ? false : $options['multiline']
+        );
     }
 
     /**
      * Gets a line from the stream and parses it.
      *
+     * @param mixed $multiline  'array', 'none', 'stream', or null.
+     *
      * @return array  An array with the following keys:
-     *   - line: (string) The server response text.
-     *   - response: (string) Either 'OK', 'END', '+', or ''.
+     *   - data: (mixed) Stream, array, or null.
+     *   - resp: (string) The server response text.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _getLine()
+    protected function _getResponse($multiline = false)
     {
-        $ob = array('line' => '', 'response' => '');
+        $ob = array('resp' => '');
 
         if (feof($this->_stream)) {
+            $this->_debug->info("ERROR: Server closed the connection.");
             $this->logout();
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("POP3 Server closed the connection unexpectedly."),
@@ -1127,64 +1147,74 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             );
         }
 
-        $read = rtrim(fgets($this->_stream));
-        if (empty($read)) {
-            return;
+        $error = false;
+        $read = rtrim(fgets($this->_stream), "\r\n");
+        $respcode = null;
+
+        if (strlen($read)) {
+            $this->_debug->server($read);
+
+            $read = explode(' ', $read, 2);
+            $error = !in_array($read[0], array('+OK', '-ERR'));
+        } else {
+            $error = true;
         }
 
-        $this->_debug->server($read);
+        if ($error) {
+            $this->_debug->info("ERROR: IMAP read/timeout error.");
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
+                Horde_Imap_Client_Exception::SERVER_READERROR
+            );
+        }
 
-        $orig_read = $read;
-        $read = explode(' ', $read, 2);
+        if (isset($read[1]) &&
+            isset($this->_init['capability']) &&
+            $this->queryCapability('RESP-CODES')) {
+            $respcode = $this->_parseResponseCode($read[1]);
+        }
 
         switch ($read[0]) {
         case '+OK':
-            $ob['response'] = 'OK';
-            if (isset($read[1])) {
-                if ($this->queryCapability('RESP-CODES')) {
-                    $response = $this->_parseResponseCode($read[1]);
-                    $ob['line'] = $response->text;
-                } else {
-                    $ob['line'] = $read[1];
-                }
+            if ($respcode) {
+                $ob['resp'] = $respcode->text;
+            } elseif (isset($read[1])) {
+                $ob['resp'] = $read[1];
             }
             break;
 
         case '-ERR':
             $errcode = 0;
-            if (isset($read[1])) {
-                if ($this->queryCapability('RESP-CODES')) {
-                    $response = $this->_parseResponseCode($read[1]);
-                    $errtext = $response->text;
+            if ($respcode) {
+                $errtext = $respcode->text;
 
-                    if (isset($response->code)) {
-                        switch ($response->code) {
-                        // RFC 2449 [8.1.1]
-                        case 'IN-USE':
-                        // RFC 2449 [8.1.2]
-                        case 'LOGIN-DELAY':
-                            $errcode = Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE;
-                            break;
+                if (isset($respcode->code)) {
+                    switch ($response->code) {
+                    // RFC 2449 [8.1.1]
+                    case 'IN-USE':
+                    // RFC 2449 [8.1.2]
+                    case 'LOGIN-DELAY':
+                        $errcode = Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE;
+                        break;
 
-                        // RFC 3206 [4]
-                        case 'SYS/TEMP':
-                            $errcode = Horde_Imap_Client_Exception::POP3_TEMP_ERROR;
-                            break;
+                    // RFC 3206 [4]
+                    case 'SYS/TEMP':
+                        $errcode = Horde_Imap_Client_Exception::POP3_TEMP_ERROR;
+                        break;
 
-                        // RFC 3206 [4]
-                        case 'SYS/PERM':
-                            $errcode = Horde_Imap_Client_Exception::POP3_PERM_ERROR;
-                            break;
+                    // RFC 3206 [4]
+                    case 'SYS/PERM':
+                        $errcode = Horde_Imap_Client_Exception::POP3_PERM_ERROR;
+                        break;
 
-                        // RFC 3206 [5]
-                        case 'AUTH':
-                            $errcode = Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED;
-                            break;
-                        }
+                    // RFC 3206 [5]
+                    case 'AUTH':
+                        $errcode = Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED;
+                        break;
                     }
-                } else {
-                    $errtext = $read[1];
                 }
+            } elseif (isset($read[1])) {
+                $errtext = $read[1];
             } else {
                 $errtext = '[No error message provided by server]';
             }
@@ -1195,55 +1225,43 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 '-ERR',
                 $errtext
             );
+        }
 
-        case '.':
-            $ob['response'] = 'END';
+        switch ($multiline) {
+        case 'array':
+            $ob['data'] = array();
             break;
 
-        case '+':
-            $ob['response'] = '+';
+        case 'none':
+            $ob['data'] = null;
+            break;
+
+        case 'stream':
+            $ob['data'] = fopen('php://temp', 'r+');
             break;
 
         default:
-            $ob['line'] = $orig_read;
-            break;
+            return $ob;
+        }
+
+        while (($orig_read = fgets($this->_stream)) !== false) {
+            $read = rtrim($orig_read, "\r\n");
+            $this->_debug->server($read);
+
+            if ($read == '.') {
+                break;
+            } elseif (substr($read, 0, 2) == '..') {
+                $read = substr($read, 1);
+            }
+
+            if (is_array($ob['data'])) {
+                $ob['data'][] = $read;
+            } elseif (!is_null($ob['data'])) {
+                fwrite($ob['data'], $orig_read);
+            }
         }
 
         return $ob;
-    }
-
-    /**
-     * Obtain multiline input.
-     *
-     * @param boolean $retarray  Return an array?
-     *
-     * @return mixed  An array if $retarray is true, a stream resource
-     *                otherwise.
-     *
-     * @throws Horde_Imap_Client_Exception
-     */
-    protected function _getMultiline($retarray = false)
-    {
-        $data = $retarray
-            ? array()
-            : fopen('php://temp', 'r+');
-
-        do {
-            $line = $this->_getLine();
-            if (empty($line['response'])) {
-                if (substr($line['line'], 0, 2) == '..') {
-                    $line['line'] = substr($line['line'], 1);
-                }
-
-                if ($retarray) {
-                    $data[] = $line['line'];
-                } else {
-                    fwrite($data, $line['line'] . "\r\n");
-                }
-            }
-        } while ($line['response'] != 'END');
-
-        return $data;
     }
 
     /**
