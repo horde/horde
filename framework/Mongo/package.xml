@@ -12,7 +12,7 @@
  </lead>
  <date>2013-05-28</date>
  <version>
-  <release>1.0.0RC1</release>
+  <release>1.0.0RC2</release>
   <api>1.0.0beta1</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add Horde_Mongo_Client#checkIndices() and Horde_Mongo_Client#createIndices().
-* [mms] Add Horde_Mongo_Collection_Index interface.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -96,6 +95,19 @@
    <notes>
 * [mms] Add Horde_Mongo_Client#checkIndices() and Horde_Mongo_Client#createIndices().
 * [mms] Add Horde_Mongo_Collection_Index interface.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
