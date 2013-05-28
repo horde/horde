@@ -42,9 +42,11 @@ var TurbaMobile = {
             HordeMobile.updateHash(purl);
 
             if (tmp.attr('data-rel')) {
-                tmp.removeAttr('data-rel').find('.ui-btn-text').text('Browse');
+                tmp.removeAttr('data-rel')
+                    .find('.ui-btn-text').text(Turba.text.browse);
             } else {
-                tmp.attr('data-rel', 'back').find('.ui-btn-text').text('Group');
+                tmp.attr('data-rel', 'back')
+                    .find('.ui-btn-text').text(Turba.text.group);
             }
         }
 

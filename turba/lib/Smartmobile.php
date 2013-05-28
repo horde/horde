@@ -48,6 +48,7 @@ class Turba_Smartmobile
         $this->view->addHelper('Text');
 
         $this->_initPages();
+        $this->_addBaseVars();
 
         $page_output->addScriptFile('smartmobile.js');
 
@@ -102,6 +103,26 @@ class Turba_Smartmobile
                 }
             }
         }
+    }
+
+    /**
+     * Add base javascript variables to the page.
+     */
+    protected function _addBaseVars()
+    {
+        global $page_output;
+
+        $code = array(
+            /* Gettext strings. */
+            'text' => array(
+                'browse' => _("Browse"),
+                'group' => _("Group")
+            )
+        );
+
+        $page_output->addInlineJsVars(array(
+            'var Turba' => $code
+        ), array('top' => true));
     }
 
 }
