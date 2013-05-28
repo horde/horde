@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] When checking for personal addresses when deciding whether to display
+      images, only check against e-mail field.
 [mms] Correctly notify dynamic mailbox view if sent-mail mailboxes are created
       in compose page.
 [mms] Fix sending group addresses from smartmobile view.
