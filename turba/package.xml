@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mms] Back button in smartmobile view for group member returns to group entry, not browse list.
 * [mms] Fix resetting smartmobile entry page when viewing more than 1 contact.
  </notes>
  <contents>
@@ -1635,6 +1636,7 @@
    <date>2013-05-14</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mms] Back button in smartmobile view for group member returns to group entry, not browse list.
 * [mms] Fix resetting smartmobile entry page when viewing more than 1 contact.
    </notes>
   </release>

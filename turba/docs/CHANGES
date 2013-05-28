@@ -2,6 +2,8 @@
 v4.1.0-git
 ----------
 
+[mms] Back button in smartmobile view for group member returns to group entry,
+      not browse list.
 [mms] Fix resetting smartmobile entry page when viewing more than 1 contact.
 
 

@@ -34,11 +34,18 @@ var TurbaMobile = {
      */
     entry: function(data)
     {
-        var purl = data.options.parsedUrl;
+        var purl = data.options.parsedUrl,
+            tmp = $('#entry .smartmobile-back');
 
         /* We may have reached here from a group contact link. */
         if (HordeMobile.currentPage() == 'entry') {
             HordeMobile.updateHash(purl);
+
+            if (tmp.attr('data-rel')) {
+                tmp.removeAttr('data-rel').find('.ui-btn-text').text('Browse');
+            } else {
+                tmp.attr('data-rel', 'back').find('.ui-btn-text').text('Group');
+            }
         }
 
         HordeMobile.changePage('entry', data);
