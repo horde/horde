@@ -185,12 +185,7 @@ if ($logout_reason) {
             $notification->push(_("Your password has expired."), 'horde.message');
 
             if ($auth->hasCapability('update')) {
-                $change_url = Horde::url('services/changepassword.php');
-                if (isset($horde_login_url)) {
-                    $change_url->add('return_to', $horde_login_url);
-                }
-
-                $change_url->redirect();
+                Horde::url('services/changepassword.php')->redirect();
             }
         }
 

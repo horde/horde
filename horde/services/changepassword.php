@@ -27,7 +27,6 @@ $title = _("Change Your Password");
 $form = new Horde_Form($vars, $title);
 $form->setButtons(_("Continue"));
 
-$form->addHidden('', 'return_to', 'text', false);
 $form->addVariable(_("Old password"), 'old_password', 'password', true);
 $form->addVariable(_("New password"), 'password_1', 'password', true);
 $form->addVariable(_("Retype new password"), 'password_2', 'password', true);
@@ -47,12 +46,10 @@ if ($form->validate($vars)) {
 
             $notification->push(_("Password changed successfully."), 'horde.success');
 
-            $index_url = Horde::url('index.php', true);
-            if (!empty($info['return_to'])) {
-                $index_url->add('url', $info['return_to']);
-            }
-
-            $index_url->redirect();
+            $registry->getLogoutUrl(array(
+                'msg' => _("Your password has been succesfully changed. You need to re-login to the system with your new password."),
+                'reason' => Horde_Auth::REASON_MESSAGE
+            ))->redirect();
         } catch (Horde_Auth_Exception $e) {
             $notification->push(sprintf(_("Error updating password: %s"), $e->getMessage()), 'horde.error');
         }
