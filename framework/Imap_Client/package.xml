@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-27</date>
- <time>20:25:41</time>
+ <time>20:32:38</time>
  <version>
-  <release>2.11.0</release>
+  <release>2.11.1</release>
   <api>2.11.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Workaround broken IMAP servers and prevent infinite loops (Bug #12265).
-* [mms] Add support for the DOWNGRADED IMAP response code (RFC 6858).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1752,6 +1751,19 @@
    <notes>
 * [mms] Workaround broken IMAP servers and prevent infinite loops (Bug #12265).
 * [mms] Add support for the DOWNGRADED IMAP response code (RFC 6858).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.11.1</release>
+    <api>2.11.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
