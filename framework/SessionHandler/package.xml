@@ -34,7 +34,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix hashtable driver name.
 * [mms] Horde_Memcache driver is now deprecated in favor of the Horde_HashTable driver.
 * [mms] Added Horde_HashTable driver.
 * [mms] Implement logging for all storage drivers.
