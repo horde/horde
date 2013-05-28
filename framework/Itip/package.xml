@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-28</date>
- <time>13:44:22</time>
+ <time>13:45:49</time>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -766,6 +765,19 @@
    <notes>
 * [jan] Update Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
