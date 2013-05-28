@@ -1955,6 +1955,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *                DEFAULT: false
      *   - level: (integer) Current nesting level of the MIME data.
      *            DEFAULT: 0
+     *   - no_body: (boolean) If true, don't set body contents of parts (since
+     *              2.2.0).
+     *              DEFAULT: false
      *
      * @return Horde_Mime_Part  A MIME Part object.
      * @throws Horde_Mime_Exception
@@ -1964,7 +1967,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         /* Find the header. */
         list($hdr_pos, $eol) = self::_findHeader($text);
 
-        $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol), null, !empty($opts['forcemime']), empty($opts['level']) ? 0 : $opts['level']);
+        unset($opts['ctype']);
+        $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol), $opts);
         $ob->buildMimeIds();
         return $ob;
     }
@@ -1972,30 +1976,40 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Creates a MIME object from the text of one part of a MIME message.
      *
-     * @param string $header      The header text.
-     * @param string $body        The body text.
-     * @param string $ctype       The default content-type.
-     * @param boolean $forcemime  If true, the message data is assumed to be
-     *                            MIME data. If not, a MIME-Version header
-     *                            must exist to be parsed as a MIME message.
-     * @param integer $level      Current nesting level.
+     * @param string $header  The header text.
+     * @param string $body    The body text.
+     * @param array $opts     Additional options:
+     * <pre>
+     *   - ctype: (string) The default content-type.
+     *   - forcemime: (boolean) If true, the message data is assumed to be
+     *                MIME data. If not, a MIME-Version header must exist to
+     *                be parsed as a MIME message.
+     *   - level: (integer) Current nesting level.
+     *   - no_body: (boolean) If true, don't set body contents of parts.
+     * </pre>
      *
      * @return Horde_Mime_Part  The MIME part object.
      */
     static protected function _getStructure($header, $body,
-                                            $ctype = 'application/octet-stream',
-                                            $forcemime = false, $level = 0)
+                                            array $opts = array())
     {
+        $opts = array_merge(array(
+            'ctype' => 'application/octet-stream',
+            'forcemime' => false,
+            'level' => 0,
+            'no_body' => false
+        ), $opts);
+
         /* Parse headers text into a Horde_Mime_Headers object. */
         $hdrs = Horde_Mime_Headers::parseHeaders($header);
 
         $ob = new Horde_Mime_Part();
 
         /* This is not a MIME message. */
-        if (!$forcemime && !$hdrs->getValue('mime-version')) {
+        if (!$opts['forcemime'] && !$hdrs->getValue('mime-version')) {
             $ob->setType('text/plain');
 
-            if (!empty($body)) {
+            if (!$opts['no_body'] && !empty($body)) {
                 $ob->setContents($body);
             }
 
@@ -2011,7 +2025,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 $ob->setContentTypeParameter($key, $val);
             }
         } else {
-            $ob->setType($ctype);
+            $ob->setType($opts['ctype']);
         }
 
         /* Content transfer encoding. */
@@ -2042,11 +2056,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $ob->setContentId($tmp);
         }
 
-        if (!empty($body) && $ob->getPrimaryType() != 'multipart') {
+        if (!$opts['no_body'] &&
+            !empty($body) &&
+            ($ob->getPrimaryType() != 'multipart')) {
             $ob->setContents($body);
         }
 
-        if (++$level >= self::NESTING_LIMIT) {
+        if (++$opts['level'] >= self::NESTING_LIMIT) {
             return $ob;
         }
 
@@ -2064,7 +2080,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 foreach (self::_findBoundary($body, 0, $boundary) as $val) {
                     $subpart = substr($body, $val['start'], $val['length']);
                     list($hdr_pos, $eol) = self::_findHeader($subpart);
-                    $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain', true, $level));
+                    $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), array(
+                        'ctype' => ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain',
+                        'forcemime' => true,
+                        'level' => $opts['level'],
+                        'no_body' => $opts['no_body']
+                    )));
                 }
             }
             break;

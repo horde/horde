@@ -20,8 +20,8 @@
  <date>2013-04-18</date>
  <time>21:11:02</time>
  <version>
-  <release>2.1.2</release>
-  <api>2.1.0</api>
+  <release>2.2.0</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add &apos;no_body&apos; parameter to Horde_Mime_Part#parseMessage().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1110,15 +1110,15 @@
   </release>
   <release>
    <version>
-    <release>2.1.2</release>
-    <api>2.1.0</api></version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-04-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add &apos;no_body&apos; parameter to Horde_Mime_Part#parseMessage().
    </notes>
   </release>
  </changelog>
