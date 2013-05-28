@@ -12,7 +12,7 @@
  </lead>
  <date>2013-05-28</date>
  <version>
-  <release>1.0.0RC1</release>
+  <release>1.0.0RC2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add initial unit tests.
-* [mms] Add memory driver.
-* [mms] Actually have HashTable return results for get() and exists().
-* [mms] Add stats() method to the Memcache driver (Bug #12263).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -152,6 +149,19 @@
 * [mms] Add memory driver.
 * [mms] Actually have HashTable return results for get() and exists().
 * [mms] Add stats() method to the Memcache driver (Bug #12263).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
