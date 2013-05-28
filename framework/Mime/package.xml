@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-04-18</date>
- <time>21:11:02</time>
+ <date>2013-05-28</date>
+ <time>16:42:11</time>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -1115,7 +1115,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-04-18</date>
+   <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add &apos;no_body&apos; parameter to Horde_Mime_Part#parseMessage().
