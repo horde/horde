@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-06</date>
- <time>18:08:16</time>
+ <date>2013-05-28</date>
+ <time>13:17:40</time>
  <version>
   <release>2.0.6</release>
   <api>2.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t use /e modifier with preg_replace() calls (Remi Collet &lt;fedora@famillecollet.com&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -920,10 +920,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-06</date>
+   <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t use /e modifier with preg_replace() calls (Remi Collet &lt;fedora@famillecollet.com&gt;).
    </notes>
   </release>
  </changelog>
