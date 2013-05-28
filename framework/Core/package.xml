@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t break existing unchanged sources in the preferences.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2970,7 +2970,7 @@
    <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t break existing unchanged sources in the preferences.
    </notes>
   </release>
  </changelog>

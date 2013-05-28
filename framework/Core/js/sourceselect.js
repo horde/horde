@@ -14,19 +14,23 @@ var HordeSourceSelectPrefs = {
 
     setSourcesHidden: function()
     {
-        var out = [], ss;
+        var out = [], ss, selected;
 
         if (this.source_list) {
             ss = $F('source_select');
             if (ss) {
                 this.source_list.each(function(s) {
+                    selected = [];
                     if (s.source == ss) {
-                        s.selected = [];
                         $A($('selected_sources').options).slice(1).each(function(o) {
-                            s.selected.push(o.value);
+                            selected.push(o.value);
+                        });
+                    } else {
+                        s.selected.each(function(o) {
+                            selected.push(o.v);
                         });
                     }
-                    out.push([ s.source ].concat(s.selected));
+                    out.push([ s.source ].concat(selected));
                 });
             }
         } else {
