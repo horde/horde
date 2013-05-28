@@ -105,6 +105,9 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
 
         $mail = Horde_ActiveSync::messageFactory('SendMail');
         $mail->decodeStream($this->_decoder);
+        if ($smartreply || $smartforward) {
+            $mail->source->folderid = $this->_activeSync->getCollectionsObject()->getBackendIdForFolderUid($mail->source->folderid);
+        }
 
         try {
             // @TODO fix this ugly method call in H6 when we can break BC.
