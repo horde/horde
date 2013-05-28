@@ -62,7 +62,7 @@ class Ingo_Application extends Horde_Registry_Application
         $this->_createSession();
 
         // Create shares if necessary.
-        $supportShares = false;
+        $supportShares = true;
         $factory = $GLOBALS['injector']->getInstance('Ingo_Factory_Transport');
         foreach ($GLOBALS['session']->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY) as $transport) {
             $supportShares &= $factory->create($transport)->supportShares();
