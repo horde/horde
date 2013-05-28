@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-05-18</date>
- <time>14:57:23</time>
+ <date>2013-05-28</date>
+ <time>12:36:44</time>
  <version>
-  <release>2.5.0beta4</release>
+  <release>2.5.0RC1</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -2949,12 +2949,12 @@
   </release>
   <release>
    <version>
-    <release>2.5.0beta4</release>
+    <release>2.5.0RC1</release>
     <api>2.5.0</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-05-18</date>
+   <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Added Horde_Core_Factory_Mail factory to allow for alternative mailer configurations.
