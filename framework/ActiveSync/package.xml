@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-24</date>
- <time>20:42:24</time>
+ <date>2013-05-29</date>
+ <time>12:35:17</time>
  <version>
   <release>2.4.0beta5</release>
   <api>2.4.0</api>
@@ -1405,7 +1405,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-24</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix bug that caused S/MIME messages to always be marked read when synchronized.
