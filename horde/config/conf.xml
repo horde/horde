@@ -1124,7 +1124,10 @@
       <case name="horde_cache" desc="Horde Cache">
        <configdescription>
         &lt;strong&gt;Requires a configured Horde caching
-        backend.&lt;/strong&gt;
+        backend.&lt;/strong&gt; This method is STRONGLY DISCOURAGED. Browsers
+        will likely cache this data and ignore updates, even though we append
+        a "cache-busting" unique version parameter to the URL. You almost
+        certainly want to use 'filesystem' instead.
        </configdescription>
       </case>
      </configswitch>
@@ -1165,7 +1168,10 @@
       <case name="horde_cache" desc="Horde Cache">
        <configdescription>
         &lt;strong&gt;Requires a configured Horde caching
-        backend.&lt;/strong&gt;
+        backend.&lt;/strong&gt; This method is STRONGLY DISCOURAGED. Browsers
+        will likely cache this data and ignore updates, even though we append
+        a "cache-busting" unique version parameter to the URL. You almost
+        certainly want to use 'filesystem' instead.
        </configdescription>
       </case>
      </configswitch>
