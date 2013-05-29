@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-07</date>
- <time>14:43:05</time>
+ <date>2013-05-29</date>
+ <time>13:53:43</time>
  <version>
-  <release>3.1.0beta2</release>
+  <release>3.1.0RC1</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -1253,12 +1253,12 @@
   </release>
   <release>
    <version>
-    <release>3.1.0beta2</release>
+    <release>3.1.0RC1</release>
     <api>3.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-07</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Fix regression in accessing Ingo links from the external API (Bug #12249).
