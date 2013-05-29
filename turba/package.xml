@@ -28,10 +28,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-05-14</date>
- <time>15:16:32</time>
+ <date>2013-05-29</date>
+ <time>14:00:57</time>
  <version>
-  <release>4.1.0beta3</release>
+  <release>4.1.0RC1</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -1628,12 +1628,12 @@
   </release>
   <release>
    <version>
-    <release>4.1.0beta3</release>
+    <release>4.1.0RC1</release>
     <api>4.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-14</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [mms] Back button in smartmobile view for group member returns to group entry, not browse list.
