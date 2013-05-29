@@ -1,6 +1,6 @@
-----------
-v4.0.3-git
-----------
+------
+v4.0.3
+------
 
 [jan] Fix recurring tasks in Kolab driver (Thomas Jarosch
       <thomas.jarosch@intra2net.com>, Bug #12222).

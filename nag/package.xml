@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-11</date>
- <time>15:48:19</time>
+ <date>2013-05-29</date>
+ <time>16:31:20</time>
  <version>
   <release>4.0.3</release>
   <api>4.0.0</api>
@@ -1306,7 +1306,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-11</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix recurring tasks in Kolab driver (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12222).
