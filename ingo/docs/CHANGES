@@ -1,6 +1,6 @@
-----------
-v3.0.4-git
-----------
+------
+v3.0.4
+------
 
 [mms] SECURITY: Fix XSS vulnerability on smartmobile rule page (João Machado
       <geral@jpaulo.eu>).

@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-18</date>
- <time>18:11:23</time>
+ <date>2013-05-29</date>
+ <time>16:05:51</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -1206,7 +1206,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-18</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile rule page (João Machado &lt;geral@jpaulo.eu&gt;).
