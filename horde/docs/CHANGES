@@ -1,6 +1,6 @@
-----------
-v5.0.5-git
-----------
+------
+v5.0.5
+------
 
 [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado
       <geral@jpaulo.eu>).

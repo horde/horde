@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-20</date>
- <time>00:20:19</time>
+ <date>2013-05-29</date>
+ <time>15:49:47</time>
  <version>
   <release>5.0.5</release>
   <api>5.0.0</api>
@@ -3608,7 +3608,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-20</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix changing expired passwords.
