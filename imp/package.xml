@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-20</date>
- <time>00:20:23</time>
+ <date>2013-05-29</date>
+ <time>15:58:09</time>
  <version>
   <release>6.0.5</release>
   <api>6.0.0</api>
@@ -34,9 +34,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Fix navigating to search page in dynamic view from top menu (Bug #12273).
 * [mms] Correctly update viewport selected status if mailbox is switched during a delete action (Bug #12230).
-* [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [jan] Fix empty label for spellcheck button.
 * [mms] Fix signature verification for PGP combined signed &amp; encrypted messages (Bug #12142).
 * [mms] Don&apos;t display empty mailbox action for mailboxes when Virtual Trash is active (Bug #12162).
@@ -727,6 +727,7 @@
    <dir name="migration">
     <file name="1_imp_base_tables.php" role="horde" />
     <file name="2_imp_autoincrement_sentmail.php" role="horde" />
+    <file name="3_imp_maillog_update.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="basic">
@@ -1726,6 +1727,7 @@
    <install as="imp/locale/zh_TW/LC_MESSAGES/imp.po" name="locale/zh_TW/LC_MESSAGES/imp.po" />
    <install as="imp/migration/1_imp_base_tables.php" name="migration/1_imp_base_tables.php" />
    <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
+   <install as="imp/migration/3_imp_maillog_update.php" name="migration/3_imp_maillog_update.php" />
    <install as="imp/templates/.htaccess" name="templates/.htaccess" />
    <install as="imp/templates/basic/subinfo.html.php" name="templates/basic/subinfo.html.php" />
    <install as="imp/templates/basic/compose/compose.html.php" name="templates/basic/compose/compose.html.php" />
@@ -2950,7 +2952,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-20</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado &lt;geral@jpaulo.eu&gt;).
