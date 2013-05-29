@@ -3604,9 +3604,9 @@
    <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [jan] Fix changing expired passwords.
 * [jan] Fix form to reset passwords.
-* [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Fix displaying activesync devices when a username hook is being used (Bug #12186).
 * [jan] Hide navigation elements from print layout (Bug #12163).
 * [cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is installed.
