@@ -1971,13 +1971,19 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return false;
         }
 
-        // Calculate total time span.
-        $end_ts = $end->timestamp();
+        // Convert all to UTC
+        $start->setTimezone('UTC');
+        $end->setTimezone('UTC');
+
+        // Calculate total time span (end timestamp in non-inclusive).
+        $end_ts = $end->timestamp() - 1;
         $start_ts = $start->timestamp();
         $sec = $end_ts - $start_ts;
 
         $fb_start = new Horde_Date($fb->s);
         $fb_end = new Horde_Date($fb->e);
+        $fb_start->setTimezone('UTC');
+        $fb_end->setTimezone('UTC');
 
         // Number of 30 minute periods.
         $period_cnt = ceil($sec / 1800);
@@ -2003,16 +2009,26 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $eas_fb .= '0';
             $start_ts += 1800;
         }
+
         // The remainder is also unavailable
         while ($start_ts <= $end_ts) {
             $eas_fb .= '4';
             $start_ts += 1800;
         }
 
-        // Now put in the busy blocks.
+        // Now put in the busy blocks. Need to convert to UTC here too since
+        // all fb data is returned as local tz.
         while (list($b_start, $b_end) = each($fb->b)) {
-            $offset = $b_start - $start->timestamp();
-            $duration = ceil(($b_end - $b_start) / 1800);
+            $b_start = new Horde_Date($b_start);
+            $b_start->setTimezone('UTC');
+            $b_end = new Horde_Date($b_end);
+            $b_end->setTimezone('UTC');
+            if ($b_start->timestamp() > $end->timestamp()) {
+                continue;
+            }
+
+            $offset = $b_start->timestamp() - $start->timestamp();
+            $duration = ceil(($b_end->timestamp() - $b_start->timestamp()) / 1800);
             if ($offset > 0) {
                 $eas_fb = substr_replace($eas_fb, str_repeat('2', $duration), floor($offset / 1800), $duration);
             }
