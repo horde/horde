@@ -42,13 +42,6 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     protected $_type = 'share';
 
     /**
-     * The background color.
-     *
-     * @var string
-     */
-    protected $_background_color;
-
-    /**
      * Constructor.
      *
      * @param array $params  A hash with any parameters that this calendar
