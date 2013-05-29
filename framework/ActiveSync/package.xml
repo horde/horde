@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-29</date>
- <time>12:35:17</time>
+ <time>12:39:03</time>
  <version>
-  <release>2.4.0beta5</release>
+  <release>2.4.0beta6</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix bug that caused S/MIME messages to always be marked read when synchronized.
-* [mjr] Rewrite hierarchy handling to allow for client renaming of folders.
-* [mjr] Fix saving sent mail in EAS &gt;= 14 SENDMAIL requests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1411,6 +1409,19 @@
 * [mjr] Fix bug that caused S/MIME messages to always be marked read when synchronized.
 * [mjr] Rewrite hierarchy handling to allow for client renaming of folders.
 * [mjr] Fix saving sent mail in EAS &gt;= 14 SENDMAIL requests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.0beta6</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
