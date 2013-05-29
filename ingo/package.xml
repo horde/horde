@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-29</date>
- <time>13:53:43</time>
+ <time>13:58:01</time>
  <version>
-  <release>3.1.0RC1</release>
+  <release>3.1.0RC2</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mms] Fix regression in accessing Ingo links from the external API (Bug #12249).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1262,6 +1262,19 @@
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Fix regression in accessing Ingo links from the external API (Bug #12249).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.0RC2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-29</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
