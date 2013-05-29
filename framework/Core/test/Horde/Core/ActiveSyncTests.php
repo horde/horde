@@ -145,6 +145,31 @@ class Horde_Core_ActiveSyncTests extends Horde_Test_Case
         $this->assertEquals($one->serverid, $two->parentid);
         $this->assertEquals(0, $one->parentid);
     }
+
+    public function testFbGeneration()
+    {
+        $connector = new MockConnector();
+        $driver = new Horde_Core_ActiveSync_Driver(array(
+            'state' => $this->_state,
+            'connector' => $connector,
+            'auth' => $this->_auth,
+            'imap' => null));
+
+        $fixture = new stdClass();
+        $fixture->s = '20130529';
+        $fixture->e = '20130628';
+        $fixture->b = array(
+            '1369850400' => 1369854000,  // 5/29 2:00PM - 3:00PM EDT
+            '1370721600' => 1370728800
+        );
+
+        // Times requested by the client in a RESOLVERECIPIENTS request.
+        $start = new Horde_Date('2013-05-29T03:00:00.000Z'); // 5/28 11:00PM EDT
+        $end = new Horde_Date('2013-05-30T03:00:00.000Z'); // 5/29 11:00 PM EDT
+        $fb = $driver->buildFbString($fixture, $start, $end);
+        $expected = '440000000000000000000000000000220000000000000000';
+        $this->assertEquals($expected, $fb);
+    }
 }
 
 /**
