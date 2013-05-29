@@ -80,7 +80,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         if ($lifetime !== 0 && $lifetime < $this->_pingSettings['heartbeatmin']) {
             $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
             $lifetime = $this->_pingSettings['heartbeatmin'];
-            $this->_state->setHeartbeatInterval($lifetime);
         } elseif ($lifetime > $this->_pingSettings['heartbeatmax']) {
             $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
             $lifetime = $this->_pingSettings['heartbeatmax'];
