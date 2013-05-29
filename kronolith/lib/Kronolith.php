@@ -883,7 +883,7 @@ class Kronolith
                     if (!isset($tasklists[$name])) {
                         continue;
                     }
-                    $GLOBALS['all_external_calendars']['tasks/' . $name] = new Kronolith_Calendar_External_Tasks(array('api' => 'tasks', 'name' => $description['title'], 'share' => $tasklists[$name], 'type' => 'share', 'background_color' => $description['background_color']));
+                    $GLOBALS['all_external_calendars']['tasks/' . $name] = new Kronolith_Calendar_External_Tasks(array('api' => 'tasks', 'name' => $description['title'], 'share' => $tasklists[$name], 'type' => 'share'));
                 }
             } catch (Horde_Exception $e) {
                 Horde::logMessage($e, 'DEBUG');
@@ -916,7 +916,7 @@ class Kronolith
                 }
 
                 foreach ($categories as $name => $description) {
-                    $GLOBALS['all_external_calendars'][$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description['title'], 'id' => $name, 'type' => $description['type'], 'background_color' => $description['background_color']));
+                    $GLOBALS['all_external_calendars'][$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description['title'], 'id' => $name, 'type' => $description['type']));
                     $ext_cals[] = array(
                         'a' => $api,
                         'n' => $name,

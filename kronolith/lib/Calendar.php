@@ -59,7 +59,7 @@ abstract class Kronolith_Calendar
      */
     public function background()
     {
-        return '#dddddd';
+        return ($this->_background_color) ? $this->_background_color : '#dddddd';
     }
 
     /**
@@ -124,14 +124,14 @@ abstract class Kronolith_Calendar
      *
      * @return array  A simple hash.
      */
-    public function toHash($background_color = null)
+    public function toHash()
     {
         return array(
             'name'  => $this->name(),
             'desc'  => $this->description(),
             'owner' => true,
             'fg'    => $this->foreground(),
-            'bg'    => $background_color ? $background_color : $this->background(),
+            'bg'    => $this->background(),
         );
     }
 }

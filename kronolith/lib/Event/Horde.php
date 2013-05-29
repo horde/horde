@@ -53,13 +53,6 @@ class Kronolith_Event_Horde extends Kronolith_Event
     protected $_ajaxLink;
 
     /**
-     * The background color
-     *
-     * @var string
-     */
-    protected $_backgroundColor;
-
-    /**
      * Any parameters to identify the object in the other Horde application.
      *
      * @var array
@@ -143,7 +136,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $this->_editLink = !empty($event['edit_link']) ? $event['edit_link'] : null;
         $this->_deleteLink = !empty($event['delete_link']) ? $event['delete_link'] : null;
         $this->_ajaxLink = !empty($event['ajax_link']) ? $event['ajax_link'] : null;
-        $this->_backgroundColor = $event['background_color'] ? $event['background_color'] : Kronolith::backgroundColor($event);
+        $this->_backgroundColor = Kronolith::backgroundColor($event);
         $this->_foregroundColor = Kronolith::foregroundColor($event);
 
         if (isset($event['recurrence'])) {
@@ -209,7 +202,6 @@ class Kronolith_Event_Horde extends Kronolith_Event
             'params' => $this->_params,
             'link' => $this->_link,
             'ajax_link' => $this->_ajaxLink,
-            'background_color' => $this->_backgroundColor,
             'permissions' => $this->_permissions,
             'variable_length' => $this->_variableLength);
 

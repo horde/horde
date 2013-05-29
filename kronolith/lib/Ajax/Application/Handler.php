@@ -80,7 +80,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         // Timeobjects
         foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
             if ($calendar->api() != 'tasks' && $calendar->display()) {
-                $result->calendars['external'][$id] = $calendar->toHash($calendar->background_color());
+                $result->calendars['external'][$id] = $calendar->toHash();
             }
         }
 
