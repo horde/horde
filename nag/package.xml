@@ -22,11 +22,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-14</date>
- <time>15:32:58</time>
+ <date>2013-05-29</date>
+ <time>14:21:57</time>
  <version>
-  <release>4.1.0beta3</release>
-  <api>4.0.0</api>
+  <release>4.1.0RC1</release>
+  <api>4.1.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -1350,12 +1350,12 @@
   </release>
   <release>
    <version>
-    <release>4.1.0beta3</release>
-    <api>4.0.0</api></version>
+    <release>4.1.0RC1</release>
+    <api>4.1.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-14</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t include external tasks in listTasks() API results.
