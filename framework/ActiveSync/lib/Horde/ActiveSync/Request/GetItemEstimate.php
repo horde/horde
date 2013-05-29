@@ -204,9 +204,6 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
 
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(self::GETITEMESTIMATE);
-        $this->_encoder->startTag(self::STATUS);
-        $this->_encoder->content(self::STATUS_SUCCESS);
-        $this->_encoder->endTag();
         foreach ($collections as $collection) {
             $status = self::STATUS_SUCCESS;
             try {
