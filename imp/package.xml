@@ -24,7 +24,7 @@
  </lead>
  <date>2013-05-29</date>
  <version>
-  <release>6.1.0RC1</release>
+  <release>6.1.0RC2</release>
   <api>6.0.0</api>
  </version>
  <stability>
@@ -33,14 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Add ability to [un]subscribe to all subfolders in dynamic view.
-* [mms] When checking for personal addresses when deciding whether to display images, only check against e-mail field.
-* [mms] Correctly notify dynamic mailbox view if sent-mail mailboxes are created in compose page.
-* [mms] Fix sending group addresses from smartmobile view.
-* [mms] Added &apos;horde_auth&apos; option to SMTP configuration in backends.php.
-* [mms] Add null spam reporting driver.
-* [mms] Display information to user if incorrect character set data is preventing a text part from being displayed.
-* [mms] Fix regression in renaming mailboxes (Bug #12260).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3183,6 +3176,19 @@
 * [mms] Add null spam reporting driver.
 * [mms] Display information to user if incorrect character set data is preventing a text part from being displayed.
 * [mms] Fix regression in renaming mailboxes (Bug #12260).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.0RC2</release>
+    <api>6.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
