@@ -426,14 +426,15 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *   - mbox: (string) The full mailbox name to [un]subscribe to (base64url
      *           encoded).
      *   - sub: (integer) 1 to subscribe, empty to unsubscribe.
+     *   - subfolders: (boolean) [Un]subscribe to all subfolders?
      *
      * @return boolean  True on success, false on failure.
      */
     public function subscribe()
     {
-        return $GLOBALS['prefs']->getValue('subscribe')
-            ? IMP_Mailbox::formFrom($this->vars->mbox)->subscribe($this->vars->sub)
-            : false;
+        return IMP_Mailbox::formFrom($this->vars->mbox)->subscribe($this->vars->sub, array(
+            'subfolders' => !empty($this->vars->subfolders)
+        ));
     }
 
     /**

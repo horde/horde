@@ -946,15 +946,21 @@ class IMP_Mailbox implements Serializable
      * Subscribe/unsubscribe to an IMAP mailbox.
      *
      * @param boolean $sub  True to subscribe, false to unsubscribe.
-
+     * @param array $opts   Additional options:
+     * <pre>
+     *   - subfolders: (boolean) If true, applies actions to all subfolders.
+     * </pre>
+     *
      * @return boolean  True on success.
      */
-    public function subscribe($sub)
+    public function subscribe($sub, array $opts = array())
     {
-        global $injector, $notification;
+        global $injector, $notification, $prefs;
 
         /* Skip non-IMAP/container mailboxes. */
-        if ($this->nonimap || $this->container) {
+        if (!$prefs->getValue('subscribe') ||
+            $this->nonimap ||
+            $this->container) {
             return false;
         }
 
@@ -963,8 +969,10 @@ class IMP_Mailbox implements Serializable
             return false;
         }
 
+        $imp_imap = $injector->getInstance('IMP_Imap');
+
         try {
-            $injector->getInstance('IMP_Imap')->subscribeMailbox($this->_mbox, $sub);
+            $imp_imap->subscribeMailbox($this->_mbox, $sub);
         } catch (IMP_Imap_Exception $e) {
             if ($sub) {
                 $e->notify(sprintf(_("You were not subscribed to \"%s\". Here is what the server said"), $this->display) . ': ' . $e->getMessage());
@@ -974,13 +982,43 @@ class IMP_Mailbox implements Serializable
             return false;
         }
 
+        $imap_tree = $injector->getInstance('IMP_Imap_Tree');
         if ($sub) {
-            $notification->push(sprintf(_("You were successfully subscribed to \"%s\"."), $this->display), 'horde.success');
-            $injector->getInstance('IMP_Imap_Tree')->subscribe($this->_mbox);
+            $imap_tree->subscribe($this->_mbox);
         } else {
-            $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\"."), $this->display), 'horde.success');
-            $injector->getInstance('IMP_Imap_Tree')->unsubscribe($this->_mbox);
+            $imap_tree->unsubscribe($this->_mbox);
         }
+
+        if (empty($opts['subfolders'])) {
+            $notify = $sub
+                ? sprintf(_("You were successfully subscribed to \"%s\"."), $this->display)
+                : sprintf(_("You were successfully unsubscribed from \"%s\"."), $this->display);
+        } else {
+            $action = false;
+
+            foreach ($this->subfolders_only as $val) {
+                try {
+                    $imp_imap->subscribeMailbox($val, $sub);
+                    if ($sub) {
+                        $imap_tree->subscribe($val);
+                    } else {
+                        $imap_tree->unsubscribe($val);
+                    }
+
+                    $action = true;
+                } catch (IMP_Imap_Exception $e) {
+                    // Ignore errors for sub-mailboxes.
+                }
+            }
+
+            if ($action) {
+                $notify = $sub
+                    ? sprintf(_("You were successfully subscribed to \"%s\" and all subfolders."), $this->display)
+                    : sprintf(_("You were successfully unsubscribed from \"%s\" and all subfolders."), $this->display);
+            }
+        }
+
+        $notification->push($notify, 'horde.success');
 
         return true;
     }

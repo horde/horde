@@ -953,8 +953,11 @@ var DimpBase = {
             break;
 
         case 'ctx_mbox_sub':
+            this._mailboxPromptCallback('subscribe', this.contextMbox(e));
+            break;
+
         case 'ctx_mbox_unsub':
-            this.subscribeMbox(this.contextMbox(e).retrieve('mbox'), id == 'ctx_mbox_sub');
+            this._mailboxPromptCallback('unsubscribe', this.contextMbox(e));
             break;
 
         case 'ctx_mbox_acl':
@@ -2914,6 +2917,67 @@ var DimpBase = {
         case 'rename':
             this._createMboxForm(elt, 'rename', DimpCore.text.rename_prompt.sub('%s', this.fullMboxDisplay(elt)), elt.retrieve('l').unescapeHTML());
             break;
+
+        case 'subscribe':
+            this.viewaction = function(e) {
+                var mbox = elt.retrieve('mbox');
+
+                DimpCore.doAction('subscribe', {
+                    mbox: mbox,
+                    sub: 1,
+                    subfolders: e.element().down('[name=subscribe_subfolders]').getValue()
+                });
+
+                if (this.showunsub) {
+                    this.getMboxElt(mbox).removeClassName('imp-sidebar-unsubmbox');
+                }
+            }.bind(this);
+
+            HordeDialog.display({
+                form: new Element('DIV').insert(
+                    new Element('INPUT', { name: 'subscribe_subfolders', type: 'checkbox' })
+                ).insert(
+                    DimpCore.text.subscribe_mbox_subfolders.sub('%s', this.fullMboxDisplay(elt))
+                ),
+                form_id: 'dimpbase_confirm',
+                text: elt.hasClassName('imp-sidebar-container') ? null : DimpCore.text.subscribe_mbox.sub('%s', this.fullMboxDisplay(elt))
+            });
+            break;
+
+        case 'unsubscribe':
+            this.viewaction = function(e) {
+                var m = elt.retrieve('mbox'),
+                    m_elt = this.getMboxElt(m),
+                    tmp;
+
+                DimpCore.doAction('subscribe', {
+                    mbox: m,
+                    sub: 0,
+                    subfolders: e.element().down('[name=unsubscribe_subfolders]').getValue()
+                });
+
+                if (this.showunsub) {
+                    m_elt.addClassName('imp-sidebar-unsubmbox');
+                } else {
+                    if (!this.showunsub &&
+                        !m_elt.siblings().size() &&
+                        (tmp = m_elt.up('DIV.horde-subnavi-sub'))) {
+                        tmp.previous().down('DIV.horde-subnavi-icon').removeClassName('exp').removeClassName('col').addClassName('folderImg');
+                    }
+                    this.deleteMboxElt(m);
+                }
+            }.bind(this);
+
+            HordeDialog.display({
+                form: new Element('DIV').insert(
+                    new Element('INPUT', { name: 'unsubscribe_subfolders', type: 'checkbox' })
+                ).insert(
+                    DimpCore.text.unsubscribe_mbox_subfolders.sub('%s', this.fullMboxDisplay(elt))
+                ),
+                form_id: 'dimpbase_confirm',
+                text: elt.hasClassName('imp-sidebar-container') ? null : DimpCore.text.unsubscribe_mbox.sub('%s', this.fullMboxDisplay(elt))
+            });
+            break;
         }
     },
 
@@ -3437,23 +3501,6 @@ var DimpBase = {
         }, this);
 
         this._listMboxes({ reload: 1, mboxes: this.view });
-    },
-
-    subscribeMbox: function(m, sub)
-    {
-        var m_elt = this.getMboxElt(m), tmp;
-        DimpCore.doAction('subscribe', { mbox: m, sub: Number(sub) });
-
-        if (this.showunsub) {
-            [ m_elt ].invoke(sub ? 'removeClassName' : 'addClassName', 'imp-sidebar-unsubmbox');
-        } else if (!sub) {
-            if (!this.showunsub &&
-                !m_elt.siblings().size() &&
-                (tmp = m_elt.up('DIV.horde-subnavi-sub'))) {
-                tmp.previous().down('DIV.horde-subnavi-icon').removeClassName('exp').removeClassName('col').addClassName('folderImg');
-            }
-            this.deleteMboxElt(m);
-        }
     },
 
     _getSelection: function(opts)
