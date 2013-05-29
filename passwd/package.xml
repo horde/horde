@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-29</date>
- <time>14:29:01</time>
+ <time>14:33:21</time>
  <version>
-  <release>5.0.0RC1</release>
+  <release>5.0.0RC2</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add policy for minimum number of non-alphanumeric characters (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
-* [jan] Add parameter for sudo program name to expect script (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -664,6 +663,19 @@
    <notes>
 * [jan] Add policy for minimum number of non-alphanumeric characters (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
 * [jan] Add parameter for sudo program name to expect script (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0RC2</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
