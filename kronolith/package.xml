@@ -22,10 +22,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-14</date>
- <time>15:24:22</time>
+ <date>2013-05-29</date>
+ <time>14:11:49</time>
  <version>
-  <release>4.1.0beta3</release>
+  <release>4.1.0RC1</release>
   <api>4.1.0</api>
  </version>
  <stability>
@@ -2134,12 +2134,12 @@
   </release>
   <release>
    <version>
-    <release>4.1.0beta3</release>
+    <release>4.1.0RC1</release>
     <api>4.1.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-14</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix editing of events per CalDAV if client sends LAST-MODIFIED attribute (Bug #12244).
