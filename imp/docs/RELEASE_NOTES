@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the second beta release of the Internet
-Mail Program (IMP) version H5 (6.1.0).
+The Horde Team is pleased to announce the first release candidate of the
+Internet Mail Program (IMP) version H5 (6.1.0).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -29,17 +29,16 @@ http://www.horde.org/apps/imp/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/imp/docs/INSTALL
 
+Barring any problems, this code will be released as IMP H5 (6.1.0).
 Testing is requested and comments are encouraged.
 Updated translations would also be great.
 
-The major changes compared to the IMP version H5 (6.1.0beta1) are:
-    * Fixed install dependencies.
+The major changes compared to the IMP version H5 (6.1.0beta2) are:
     * Small bug fixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed install dependencies.
 Small bug fixes and improvements.
 FM;
 

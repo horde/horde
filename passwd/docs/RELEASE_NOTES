@@ -10,27 +10,33 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Passwd
+The Horde Team is pleased to announce the first release candidate of the Passwd
 Horde password changing application version H5 (5.0.0).
 
 Passwd provides support for changing passwords via the Horde authentication
 system or various password backends.
 
-The major changes compared to Passwd version H4 are:
-    * Compatible with Horde 5.
-    * Updated translations.
-    * Small bugfixes and improvements.
+For upgrading instructions, please see
+http://www.horde.org/apps/nag/docs/UPGRADING
+
+For detailed installation and configuration instructions, please see
+http://www.horde.org/apps/nag/docs/INSTALL
+
+Barring any problems, this code will be released as Passwd H5 (5.0.0).
+Testing is requested and comments are encouraged.
+Updated translations would also be great.
+
+The major changes compared to Passwd version H5 (5.0.0beta1) are:
+    * Small improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Compatible with Horde 5.
-Updated translations.
-Small bugfixes and improvements.
+Small improvements.
 FM;
 
 
