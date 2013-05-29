@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-29</date>
- <time>14:11:49</time>
+ <time>14:16:25</time>
  <version>
-  <release>4.1.0RC1</release>
+  <release>4.1.0RC2</release>
   <api>4.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix editing of events per CalDAV if client sends LAST-MODIFIED attribute (Bug #12244).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2143,6 +2143,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix editing of events per CalDAV if client sends LAST-MODIFIED attribute (Bug #12244).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.0RC2</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
