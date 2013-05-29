@@ -2212,6 +2212,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
     /**
      * Request freebusy information from the server
+     *
+     * @deprecated Will be removed in H6 - this is provided via
+     *             self::resolveRecipients().
      */
     public function getFreebusy($user, array $options = array())
     {

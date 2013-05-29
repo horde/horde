@@ -731,6 +731,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return mixed boolean|array  The FB information, if available. Otherwise
      *                              false.
+     * @deprecated Will be removed in 3.0 - this is provided by resolveRecipients
      */
     abstract public function getFreebusy($user, array $options = array());
 
