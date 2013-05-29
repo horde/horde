@@ -26,6 +26,10 @@ class Horde_Core_ActiveSyncTests extends Horde_Test_Case
     {
         $this->_auth = $this->getMockSkipConstructor('Horde_Auth_Auto');
         $this->_state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Sql');
+    }
+
+    public function _setUpMailTest()
+    {
         $this->_mailboxes = array(
             'INBOX' => array(
                 'a' => 40,
@@ -83,6 +87,7 @@ class Horde_Core_ActiveSyncTests extends Horde_Test_Case
 
     public function testGetFolders()
     {
+        $this->_setUpMailTest();
         $connector = new MockConnector();
 
         $adapter = $this->getMockSkipConstructor('Horde_ActiveSync_Imap_Adapter');
