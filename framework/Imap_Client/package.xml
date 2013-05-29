@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix regression in Socket driver when moving messages without UIDPLUS.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1777,7 +1777,7 @@
    <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix regression in Socket driver when moving messages without UIDPLUS.
    </notes>
   </release>
  </changelog>

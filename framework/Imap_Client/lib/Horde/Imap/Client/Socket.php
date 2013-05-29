@@ -3297,7 +3297,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (!$move_cmd &&
             !empty($options['move']) &&
             (isset($resp->data['copyuid']) ||
-             !$this->_queryCapability('UIDPLUS'))) {
+             !$this->queryCapability('UIDPLUS'))) {
             $this->expunge($this->_selected, array(
                 'delete' => true,
                 'ids' => $options['ids']
