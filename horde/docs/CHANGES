@@ -2,10 +2,10 @@
 v5.0.5-git
 ----------
 
-[jan] Fix changing expired passwords.
-[jan] Fix form to reset passwords.
 [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado
       <geral@jpaulo.eu>).
+[jan] Fix changing expired passwords.
+[jan] Fix form to reset passwords.
 [mjr] Fix displaying activesync devices when a username hook is being used
       (Bug #12186).
 [jan] Hide navigation elements from print layout (Bug #12163).

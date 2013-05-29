@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Kronolith
-Calendar Application version H5 (4.0.4).
+Calendar Application version H5 (4.0.5).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -25,17 +25,15 @@ events, and a sophisticated day/week view which handles arbitrary numbers of
 overlapping events. For more information on Kronolith, visit
 http://www.horde.org/apps/kronolith.
 
-The major changes compared to the Kronolith version H5 (4.0.3) are:
-    * Fixed adding holiday calendars if not using English locale.
-    * Import and export improvements.
-    * Further bugfixes and improvements.
+The major changes compared to the Kronolith version H5 (4.0.4) are:
+    * Fixed importing of events with unknown timezone identifiers.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed adding holiday calendars if not using English locale.
-Import and export improvements.
-Further bugfixes and improvements.
+Fixed importing of events with unknown timezone identifiers.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Kronolith';

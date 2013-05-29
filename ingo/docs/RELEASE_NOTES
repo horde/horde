@@ -10,27 +10,27 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORSECURITY);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Ingo Email
-Filter Rules Manager version H5 (3.0.3).
+Filter Rules Manager version H5 (3.0.4).
 
 Ingo is an email-filter management application. It is fully internationalized,
 integrated with Horde and the IMP Webmail client, and supports both server-side
 (Sieve, Procmail, Maildrop) and client-side (IMAP) message filtering. For more
 information on Ingo, visit http://www.horde.org/apps/ingo.
 
-The major changes compared to the Ingo version H5 (3.0.2) are:
+The major changes compared to the Ingo version H5 (3.0.3) are:
+    * Fixed XSS vulnerability on smartphone rule page.
     * Small bugfixes and improvements.
-    * Updated French translation.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
+Fixed XSS vulnerability on smartphone rule page.
 Small bugfixes and improvements.
-Updated French translation.
 FM;
 
 $this->notes['name'] = 'Ingo';

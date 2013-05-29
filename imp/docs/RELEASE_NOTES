@@ -24,18 +24,18 @@ interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
 The major changes compared to the IMP version H5 (6.0.4) are:
-    * Fix XSS vulnerability on smartmobile message page.
-    * Fix renaming mailboxes in dynamic view.
-    * Fix verifying signed & encrypted PGP messages.
+    * Fixed XSS vulnerability on smartphone message page.
+    * Fixed renaming mailboxes in dynamic view.
+    * Fixed verifying signed & encrypted PGP messages.
     * Several fixes to display of virtual folders in tree view.
     * Many other bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fix XSS vulnerability on smartmobile message page.
-Fix renaming mailboxes in dynamic view.
-Fix verifying signed & encrypted PGP messages.
+Fixed XSS vulnerability on smartphon message page.
+Fixed renaming mailboxes in dynamic view.
+Fixed verifying signed & encrypted PGP messages.
 Several fixes to display of virtual folders in tree view.
 Many other bugfixes and improvements.
 FM;
