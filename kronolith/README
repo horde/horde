@@ -9,10 +9,10 @@
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
-mobile interfaces, shared calendars, remote calendars, invitation management
-(iCalendar/iTip), free/busy management, resource management, alarms, recurring
-events, and a sophisticated day/week view which handles arbitrary numbers of
-overlapping events.
+mobile interfaces, CalDAV support, shared calendars, remote calendars,
+invitation management (iCalendar/iTip), free/busy management, resource
+management, alarms, recurring events, and a sophisticated day/week view which
+handles arbitrary numbers of overlapping events.
 
 This software is OSI Certified Open Source Software. OSI Certified is a
 certification mark of the `Open Source Initiative`_.
