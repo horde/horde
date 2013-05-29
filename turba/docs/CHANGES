@@ -1,6 +1,6 @@
-----------
-v4.0.4-git
-----------
+------
+v4.0.4
+------
 
 [mms] SECURITY: Fix XSS vulnerability on smartmobile contacts details page
       (João Machado <geral@jpaulo.eu>).
