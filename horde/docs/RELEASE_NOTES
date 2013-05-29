@@ -31,7 +31,7 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
 The major changes compared to the Horde version 5.0.4 are:
-    * Fixed XSS vunlerability in smartphone portal.
+    * Fixed XSS vulnerability in smartphone portal.
     * Improved print layout.
     * Fixed resetting and changing passwords.
     * Small bug fixes and improvements.
@@ -39,7 +39,7 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS vunlerability in smartphone portal.
+Fixed XSS vulnerability in smartphone portal.
 Improved print layout.
 Fixed resetting and changing passwords.
 Small bug fixes and improvements.
