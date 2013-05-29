@@ -1,6 +1,6 @@
-----------
-v4.0.5-git
-----------
+------
+v4.0.5
+------
 
 [jan] Don't throw error on importing events with unknown timezones (Bug
       #11688).
