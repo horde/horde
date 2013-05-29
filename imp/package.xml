@@ -22,9 +22,9 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-17</date>
+ <date>2013-05-29</date>
  <version>
-  <release>6.1.0beta3</release>
+  <release>6.1.0RC1</release>
   <api>6.0.0</api>
  </version>
  <stability>
@@ -3167,12 +3167,12 @@
   </release>
   <release>
    <version>
-    <release>6.1.0beta3</release>
+    <release>6.1.0RC1</release>
     <api>6.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-17</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Add ability to [un]subscribe to all subfolders in dynamic view.
