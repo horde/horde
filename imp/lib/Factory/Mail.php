@@ -65,6 +65,7 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
 
         if (isset($this->_debug)) {
             $ob->getSMTPObject()->setDebug(true, array($this, 'smtpDebug'));
+            register_shutdown_function(array($this, 'smtpDebugShutdown'));
         }
 
         return $ob;
@@ -75,10 +76,21 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
      */
     public function smtpDebug($smtp, $message)
     {
-        fwrite($this->_debug, $message);
-        if (substr($message, -1) !== "\n") {
-            fwrite($this->_debug, "\n");
+        if ($this->_debug) {
+            fwrite($this->_debug, $message);
+            if (substr($message, -1) !== "\n") {
+                fwrite($this->_debug, "\n");
+            }
         }
+    }
+
+    /**
+     * SMTP debug shutdown handler.
+     */
+    public function smtpDebugShutdown()
+    {
+        @fclose($this->_debug);
+        $this->_debug = null;
     }
 
 }
