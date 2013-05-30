@@ -24,7 +24,7 @@
 class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
 {
 
-    public function __construct($view)
+    public function __construct(Ansel_View_Gallery $view)
     {
         parent::__construct($view);
         $this->title = _("Standard Gallery");

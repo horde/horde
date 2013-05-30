@@ -122,7 +122,7 @@ abstract class Ansel_View_GalleryRenderer_Base
      *
      * @param Ansel_View_Gallery  The view object for this renderer.
      */
-    public function __construct($view)
+    public function __construct(Ansel_View_Gallery $view)
     {
         $this->view = $view;
     }
