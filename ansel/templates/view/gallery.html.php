@@ -60,7 +60,7 @@
     <?php if (!$this->numTiles): ?>
       <div class="text"><em><?php echo _("There are no photos in this gallery.") ?></em></div>
     <?php else: ?>
-      <table width="100%" style="background-color:<?php echo $this->view->style->background ?>;">
+      <table width="100%" style="background-color:<?php echo $this->style->background ?>;">
         <tbody><tr>
           <td colspan="<?php echo $this->tilesperrow ?>"><?php echo $this->pager->render() ?></td>
         </tr>
@@ -69,7 +69,7 @@
        $count = 0;
        foreach ($this->children as $child) {
            echo '<td width="' . $this->cellwidth . '%" class="ansel-tile">'
-               . $child->getTile($this->gallery, $this->view->style, false, $this->view->getParams()) . '</td>';
+               . $child->getTile($this->gallery, $this->style, false, $this->view->getParams()) . '</td>';
            if (!(++$count % $this->tilesperrow)) {
                 echo '</tr><tr>';
            }

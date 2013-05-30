@@ -245,6 +245,7 @@ abstract class Ansel_View_GalleryRenderer_Base
                 array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         $view->children = $this->children;
         $view->view = $this->view;
+        $view->style = $this->style;
 
         // Don't bother if we are being called from the api
         if (empty($this->view->api)) {
