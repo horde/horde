@@ -1000,33 +1000,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     exit;
                 }
             }
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_TRUNCATION)) {
-                $collection['truncation'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
-                    exit;
-                }
-            }
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_RTFTRUNCATION)) {
-                $collection['rtftruncation'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
-                    exit;
-                }
-            }
 
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
-                $this->_mimeSupport($collection);
-            }
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMETRUNCATION)) {
-                $collection['mimetruncation'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
-                    exit;
-                }
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
+                $this->_bodyPrefs($collection);
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CONFLICT)) {
@@ -1038,10 +1014,38 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
-            // BODYPREFERENCE
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
-                $this->_bodyPrefs($collection);
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
+                $this->_mimeSupport($collection);
             }
+
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMETRUNCATION)) {
+                $collection['mimetruncation'] = $this->_decoder->getElementContent();
+                if (!$this->_decoder->getElementEndTag()) {
+                    $this->_statusCode = self::STATUS_PROTERROR;
+                    $this->_handleError($collection);
+                    exit;
+                }
+            }
+
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_TRUNCATION)) {
+                $collection['truncation'] = $this->_decoder->getElementContent();
+                if (!$this->_decoder->getElementEndTag()) {
+                    $this->_statusCode = self::STATUS_PROTERROR;
+                    $this->_handleError($collection);
+                    exit;
+                }
+            }
+
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_RTFTRUNCATION)) {
+                $collection['rtftruncation'] = $this->_decoder->getElementContent();
+                if (!$this->_decoder->getElementEndTag()) {
+                    $this->_statusCode = self::STATUS_PROTERROR;
+                    $this->_handleError($collection);
+                    exit;
+                }
+            }
+
+            // @TODO Don't forget to add MAXITEMS when implementing RECIPIENTINFORMATION_CACHE.
 
             // EAS 14.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
