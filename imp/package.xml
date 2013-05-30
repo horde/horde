@@ -3046,7 +3046,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-20</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado &lt;geral@jpaulo.eu&gt;).

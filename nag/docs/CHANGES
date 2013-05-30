@@ -27,6 +27,29 @@ v4.1.0beta1
 
 
 ------
+v4.0.3
+------
+
+[jan] Fix recurring tasks in Kolab driver (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #12222).
+[mjr] Fix setting alarm time when syncing (Bug #12201,
+      <thomas.jarosch@intra2net.com>).
+[mjr] Fix issue causing due dates to be offset when syncing (Bug #12200,
+      <thomas.jarosch@intra2net.com>)
+[jan] Fix listing alarms of recurring tasks.
+[jan] Fix default task list in portal block (Bug #12133).
+[jan] Fix displaying of due dates of recurring events in some views.
+[jan] Update broken rows due to migration bug in PostgreSQL (Bug #12101).
+[mjr] Fix uncompleting tasks from task view in smartmobile view
+      (ctimoteo@sapo.pt, Bug #12098).
+[jan] Include parent tasks in cost object labels.
+[jan] Only return completed tasks up to a week old as cost objects.
+[mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
 v4.0.2
 ------
 

@@ -1224,7 +1224,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-18</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile rule page (João Machado &lt;geral@jpaulo.eu&gt;).

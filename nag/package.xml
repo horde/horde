@@ -1301,7 +1301,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-11</date>
+   <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix recurring tasks in Kolab driver (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12222).
