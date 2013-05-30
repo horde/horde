@@ -22,10 +22,10 @@ class Ansel_Widget_Links extends Ansel_Widget_Base
         $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
 
         $view->owner = $this->_view->gallery->get('owner');
-        $view->userfeedurl = Ansel::getUrlFor('rss_user', array('owner' => $owner));
+        $view->userfeedurl = Ansel::getUrlFor('rss_user', array('owner' => $view->owner));
         $view->slug = $this->_view->gallery->get('slug');
         $view->galleryname = $this->_view->gallery->get('name');
-        $view->galleryfeedurl = Ansel::getUrlFor('rss_gallery', array('gallery' => $this->_view->gallery->id, 'slug' => $slug));
+        $view->galleryfeedurl = Ansel::getUrlFor('rss_gallery', array('gallery' => $this->_view->gallery->id, 'slug' => $view->slug));
         $view->title = _("Links");
 
         /* Embed html */

@@ -79,7 +79,7 @@
           $count++;
        }?>
        </tr>
-       <tr><td colspan="<?php echo $tilesperrow ?>"><?php echo $this->pager->render() ?></td></tr>
+       <tr><td colspan="<?php echo $this->tilesperrow ?>"><?php echo $this->pager->render() ?></td></tr>
       </tbody></table>
      <?php endif; ?>
      <?php if (!empty($this->option_select) && $this->numTiles): ?>
