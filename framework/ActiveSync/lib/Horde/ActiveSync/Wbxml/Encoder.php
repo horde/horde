@@ -473,7 +473,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         $spaces = str_repeat(' ', count($this->_logStack) - 1);
         $tag = array_pop($this->_logStack);
         $this->_logger->debug(sprintf(
-            '[%s] O %s <%s/>',
+            '[%s] O %s </%s>',
             $this->_procid,
             $spaces,
             $tag));
