@@ -980,9 +980,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
      */
     public function _parseSyncOptions(&$collection)
     {
+        $options = array();
         while(1) {
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE)) {
-                $collection['filtertype'] = $this->_decoder->getElementContent();
+                $options['filtertype'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
@@ -993,7 +994,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             // EAS > 12.1 the Collection Class can be part of OPTIONS.
             if ($this->_device->version > Horde_ActiveSync::VERSION_TWELVEONE &&
                 $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE)) {
-                $collection['class'] = $this->_decoder->getElementContent();
+                $options['class'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
@@ -1002,11 +1003,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
-                $this->_bodyPrefs($collection);
+                $this->_bodyPrefs($options);
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CONFLICT)) {
-                $collection['conflict'] = $this->_decoder->getElementContent();
+                $options['conflict'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError;
@@ -1015,11 +1016,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
-                $this->_mimeSupport($collection);
+                $this->_mimeSupport($options);
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMETRUNCATION)) {
-                $collection['mimetruncation'] = $this->_decoder->getElementContent();
+                $options['mimetruncation'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
@@ -1028,7 +1029,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_TRUNCATION)) {
-                $collection['truncation'] = $this->_decoder->getElementContent();
+                $options['truncation'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
@@ -1037,7 +1038,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_RTFTRUNCATION)) {
-                $collection['rtftruncation'] = $this->_decoder->getElementContent();
+                $options['rtftruncation'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
@@ -1050,10 +1051,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             // EAS 14.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
                 if ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT)) {
-                    $this->_rightsManagement($collection);
+                    $this->_rightsManagement($options);
                 }
                 if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE)) {
-                    $this->_bodyPartPrefs($collection);
+                    $this->_bodyPartPrefs($options);
                 }
             }
 
@@ -1065,9 +1066,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         }
 
         // Default to no filter as per the specs.
-        if (!isset($collection['filtertype'])) {
-            $collection['filtertype'] = '0';
+        if (!isset($options['filtertype'])) {
+            $options['filtertype'] = '0';
         }
+
+        if (!empty($options['class']) && $options['class'] == 'SMS') {
+            return;
+        }
+
+        $collection = array_merge($collection, $options);
     }
 
     /**
