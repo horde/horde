@@ -551,7 +551,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $compose_params = array(
             'buid' => $buid,
             'identity' => $identity,
-            'mailbox' => $mailbox
+            'mailbox' => IMP_Mailbox::formTo($mailbox),
         );
         if (!$prefs->getValue('compose_popup')) {
             $compose_params['start'] = $msgindex;
