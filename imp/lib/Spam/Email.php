@@ -103,9 +103,11 @@ class IMP_Spam_Email implements IMP_Spam_Base
                     'to' => $this->_email
                 ));
                 $imp_compose->sendMessage($recip_list['list'], $spam_headers, $mime, 'UTF-8');
+                $rfc822->clearContents();
                 return true;
             } catch (IMP_Compose_Exception $e) {
                 $e->log();
+                $rfc822->clearContents();
             }
             break;
         }
