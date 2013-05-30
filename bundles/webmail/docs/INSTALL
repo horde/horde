@@ -524,6 +524,13 @@ Configuring Horde Groupware Webmail Edition
 
                    php -l mime_drivers.local.php
 
+   The default configuration stores files uploaded through the file manager in
+   the SQL database. This is the most compatible configuration but doesn't
+   scale well, may hit some database server limits, and may only work for very
+   small installations. You should configure a different backend as soon as
+   possible. See ``gollem/config/backends.php`` and
+   ``gollem/config/backends.d/10-webmail.php`` for details.
+
 3. Setting up alarm emails
 
    If you want your users to be able to receive emails from the Horde_Alarm
