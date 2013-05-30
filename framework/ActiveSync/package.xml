@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-29</date>
- <time>12:39:03</time>
+ <date>2013-05-30</date>
+ <time>14:54:35</time>
  <version>
-  <release>2.4.0beta6</release>
+  <release>2.4.0RC1</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -1416,12 +1416,12 @@
   </release>
   <release>
    <version>
-    <release>2.4.0beta6</release>
+    <release>2.4.0RC1</release>
     <api>2.4.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-29</date>
+   <date>2013-05-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue that could cause some emails to be ignored when sending changes if the email has the same UID as another email from another collection synced in the same request.
