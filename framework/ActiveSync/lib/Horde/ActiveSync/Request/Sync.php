@@ -692,7 +692,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                             $this->_device->supported = array();
                         }
                         $this->_device->supported[$collection['class']] = $collection['supported'];
-                        $this->_state->setDeviceInfo($this->_device);
+                        $this->_device->save();
                     }
                     break;
 
