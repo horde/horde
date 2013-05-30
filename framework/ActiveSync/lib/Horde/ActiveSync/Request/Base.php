@@ -156,8 +156,8 @@ abstract class Horde_ActiveSync_Request_Base
     {
         $this->_logger->info(sprintf(
             '[%s] Checking policykey for device: %s user: %s',
+            $this->_procid,
             $this->_device->id,
-            $sentKey,
             $this->_driver->getUser()));
 
         // Use looseprovisioning?
