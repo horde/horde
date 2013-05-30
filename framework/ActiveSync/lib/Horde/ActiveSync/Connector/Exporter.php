@@ -128,6 +128,7 @@ class Horde_ActiveSync_Connector_Exporter
     public function setChanges($changes, $collection)
     {
         $this->_changes = $changes;
+        $this->_seenObjects = array();
         $this->_step = 0;
         $this->_currentCollection = $collection;
     }
