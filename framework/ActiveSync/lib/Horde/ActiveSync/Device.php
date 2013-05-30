@@ -95,6 +95,30 @@ class Horde_ActiveSync_Device
     }
 
     /**
+     * Returns if the current device is an expected non-provisionable device.
+     * I.e., the client does not support provisioning at all, but should still
+     * be allowed to connect to a server that has provisioning set to Force.
+     * Currently, this only applies to Windows Communication Apps (Outlook 2013).
+     *
+     * @return boolean  True if the device should be allowed to connect to a
+     *                  Forced provision server. False if not.
+     */
+    public function isNonProvisionable()
+    {
+        // Outlook? The specs say that "Windows Communication Apps" should
+        // provide the 'OS' parameter of the ITEMSETTINGS data equal to 'Windows',
+        // but Outlook 2013 doesn't even sent the ITEMSETTINGS command, so we
+        // need to check the userAgent header. Early versions used Microsoft.Outlook,
+        // but after some update it was changed to 'Outlook/15.0'
+        if (strpos($this->deviceType, 'MicrosoftOutlook') !== false ||
+            strpos($this->userAgent, 'Outlook') !== false) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Check if we should enforce provisioning on this device.
      *
      * @return @boolean
@@ -108,13 +132,7 @@ class Horde_ActiveSync_Device
             return false;
         }
 
-        // Outlook?
-        if (strpos($this->userAgent, 'Microsoft.Outlook') !== false) {
-            return false;
-        }
-
-        // Enforce provisioning if needed.
-        return true;
+        return !$this->isNonProvisionable();
     }
 
     /**
