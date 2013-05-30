@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-05-30</date>
- <time>18:49:54</time>
+ <time>18:55:19</time>
  <version>
-  <release>5.1.0RC1</release>
+  <release>5.1.0RC2</release>
   <api>5.1.0</api>
  </version>
  <stability>
@@ -426,6 +426,19 @@
   <release>
    <version>
     <release>5.1.0RC1</release>
+    <api>5.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-05-30</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.1.0RC2</release>
     <api>5.1.0</api></version>
    <stability>
     <release>beta</release>
