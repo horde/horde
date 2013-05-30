@@ -10,8 +10,8 @@ Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages and
 manage and share calendars, contacts, tasks and notes with the standards
 compliant components from the `Horde Project`_. Horde Groupware Webmail Edition
-bundles the separately available applications IMP, Ingo, Kronolith, Turba, Nag
-and Mnemo.
+bundles the separately available applications IMP_, Ingo_, Turba_, Kronolith_,
+Nag_, Mnemo_, Gollem_, and Trean_.
 
 It can be extended with any of the released `Horde applications`_ or the
 `Horde modules`_ that are still in development, like a file manager, a
@@ -21,6 +21,14 @@ This software is OSI Certified Open Source Software.  OSI Certified is a
 certification mark of the `Open Source Initiative`_.
 
 .. _`Horde Project`: http://www.horde.org/
+.. _IMP: http://www.horde.org/apps/imp
+.. _Ingo: http://www.horde.org/apps/ingo
+.. _Turba: http://www.horde.org/apps/turba
+.. _Kronolith: http://www.horde.org/apps/Kronolith
+.. _Nag: http://www.horde.org/apps/nag
+.. _Mnemo: http://www.horde.org/apps/mnemo
+.. _Gollem: http://www.horde.org/apps/gollem
+.. _Trean: http://www.horde.org/apps/trean
 .. _`Horde applications`: http://www.horde.org/apps
 .. _`Horde modules`: http://www.horde.org/development/modules
 .. _`Open Source Initiative`: http://www.opensource.org/
