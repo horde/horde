@@ -162,7 +162,7 @@ abstract class Horde_ActiveSync_Request_Base
 
         // Use looseprovisioning?
         if (empty($sentKey) && !$this->_device->enforceProvisioning() &&
-            $this->_provisioning == Horde_ActiveSync::PROVISIONING_LOOSE) {
+            $this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE) {
             $sentKey = null;
         } elseif (empty($sentKey) && $this->_device->isNonProvisionable()) {
             // Check for non-provisionable, but allowable, devices.
