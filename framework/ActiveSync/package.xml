@@ -22,7 +22,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue that could cause some emails to be ignored when sending changes if the email has the same UID as another email from another collection synced in the same request.
+* [mjr] Fix issue that caused synching to fail due to COLLECTION_TYPE being sent in OPTIONS node in EAS 14+.
+* [mjr] Fix enforcing forced provisioning.
+* [mjr] Allow Outlook 2013 to connect even when provisioning is forced.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1421,7 +1424,10 @@
    <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue that could cause some emails to be ignored when sending changes if the email has the same UID as another email from another collection synced in the same request.
+* [mjr] Fix issue that caused synching to fail due to COLLECTION_TYPE being sent in OPTIONS node in EAS 14+.
+* [mjr] Fix enforcing forced provisioning.
+* [mjr] Allow Outlook 2013 to connect even when provisioning is forced.
    </notes>
   </release>
  </changelog>
