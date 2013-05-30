@@ -164,6 +164,10 @@ abstract class Horde_ActiveSync_Request_Base
         if (empty($sentKey) && !$this->_device->enforceProvisioning() &&
             $this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE) {
             $sentKey = null;
+            $this->_logger->info(sprintf(
+                '[%s] Allowing %s to connect since PROVISIONING_LOOSE is true and is either non-provisionable or has broken provisioning.',
+                $this->_procid,
+                $this->_device->id));
         } elseif (empty($sentKey) && $this->_device->isNonProvisionable()) {
             // Check for non-provisionable, but allowable, devices.
             $this->_logger->info(sprintf(
