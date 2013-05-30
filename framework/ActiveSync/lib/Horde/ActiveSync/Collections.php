@@ -123,6 +123,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     protected $_procid;
 
     /**
+     * Cache of changes.
+     *
+     * @var array
+     */
+    protected $_changes;
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_SyncCache $cache  The SyncCache.
@@ -894,6 +901,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function initCollectionState(array $collection, $requireSyncKey = false)
     {
+        // Clear the changes cache.
+        $this->_changes = null;
+
         if (empty($collection['class'])) {
             if (!empty($this->_collections[$collection['id']])) {
                 $collection['class'] = $this->_collections[$collection['id']]['class'];
@@ -1152,14 +1162,20 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function getCollectionChanges($ping = false)
     {
-        $changes = $this->_as->state->getChanges(array('ping' => $ping));
+        if (empty($this->_changes)) {
+            $this->_changes = $this->_as->state->getChanges(array('ping' => $ping));
+        }
 
-        return $changes;
+        return $this->_changes;
     }
 
     public function getCollectionChangeCount($ping = false)
     {
-        return count($this->getCollectionChanges($ping));
+        if (empty($this->_changes)) {
+            $this->getCollectionChanges($ping);
+        }
+
+        return count($this->_changes);
     }
 
     /**
