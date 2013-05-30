@@ -194,8 +194,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $partial = true;
                     break;
                 case Horde_ActiveSync::SYNC_WINDOWSIZE:
-                    $window_size = $this->_decoder->getElementContent();
-                    $this->_collections->setDefaultWindowSize($window_size);
+                    $this->_collections->setDefaultWindowSize($this->_decoder->getElementContent());
                     if (!$this->_decoder->getElementEndTag()) {
                         $this->_logger->err('PROTOCOL ERROR');
                         return false;
