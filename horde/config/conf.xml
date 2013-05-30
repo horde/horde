@@ -2157,7 +2157,7 @@
       to wait longer between checks for changes during the heartbeat,
       essentially reducing the number of checks done during each heartbeat.
       Lowering this value will increase the number of checks that are down
-      during each heartbeat.">5</configinteger>
+      during each heartbeat.">15</configinteger>
      </configsection>
     </case>
    </configswitch>
