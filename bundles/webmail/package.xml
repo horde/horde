@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-12</date>
- <time>18:06:28</time>
+ <date>2013-05-30</date>
+ <time>12:55:37</time>
  <version>
   <release>5.0.5</release>
   <api>5.0.0</api>
@@ -408,7 +408,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-12</date>
+   <date>2013-05-30</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * [jan] Update Horde, IMP, Ingo, Turba, Kronolith, and Nag.
