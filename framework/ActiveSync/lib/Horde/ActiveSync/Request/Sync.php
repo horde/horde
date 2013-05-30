@@ -651,6 +651,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $this->_handleError($collection);
                         return false;
                     }
+                    $this->_logger->info(sprintf(
+                        '[%s] Requesting WINDOWSIZE of %s',
+                        $this->_procid,
+                        $collection['windowsize']));
                     if ($collection['windowsize'] < 1 || $collection['windowsize'] > self::MAX_WINDOW_SIZE) {
                         $this->_logger->err(sprintf(
                             '[%s] Bad windowsize sent, defaulting to 100',
