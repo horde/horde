@@ -148,7 +148,7 @@ class Horde_String
             $out = @iconv($from, $to . '//TRANSLIT', $input);
             $errmsg = isset($php_errormsg);
             ini_restore('track_errors');
-            if (!$errmsg) {
+            if (!$errmsg && $out !== false) {
                 return $out;
             }
         }
