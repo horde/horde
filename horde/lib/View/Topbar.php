@@ -9,6 +9,8 @@
  * - searchMenu: (boolean) whether to show a drop down icon inside the search
  *               field.
  * - searchLabel: (string) Ghost label of the search field.
+ * - searchParameters: (array) Key-value-hash with additional hidden form
+ *                     fields.
  *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
