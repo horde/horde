@@ -9,18 +9,6 @@ Tips on performance tuning systems for IMP.  See `horde/docs/PERFORMANCE`_
 for general performance tips for Horde.
 
 
-* Consider an IMAP proxy to allow persistent connections.
-
-  imapproxy_ is HIGHLY RECOMMENDED - especially versions 1.2.7rc1 and
-  greater which contains features used internally by Horde to speed up
-  access to the remote server.
-
-  NOTE: if your installation connects to multiple imapproxy instances, you
-  MUST configure your IMP installation to persistently connect to a single
-  backend over the course of a session. If this is not possible, you must
-  remove support for imapproxy's advanced features by adding 'XIMAPPROXY'
-  to the 'capability_ignore' parameter in your local configuration.
-
 * Use an IMAP server that supports CONDSTORE (RFC 4551) and/or QRESYNC (RFC
   5162).
 
@@ -64,6 +52,18 @@ for general performance tips for Horde.
   ``Administration/Configuration`` screen and have the relevant settings
   enabled in IMP's configuration screen
   (``Administration/Configuration/Mail/Mailbox``).
+
+* Consider an IMAP proxy to allow persistent connections.
+
+  imapproxy_ has been verified to work with IMP. Versions 1.2.7rc1 and greater
+  contains features used internally by Horde to speed up access to the remote
+  server.
+
+  NOTE: if your installation connects to multiple imapproxy instances, you
+  MUST configure your IMP installation to persistently connect to a single
+  backend over the course of a session. If this is not possible, you must
+  remove support for imapproxy's advanced features by adding 'XIMAPPROXY'
+  to the 'capability_ignore' parameter in your local configuration.
 
 * Configure Horde to use a VFS filesystem-based backend. Presently, the SQL
   VFS backend uses ~5 times the amount of memory as a filesystem-based
