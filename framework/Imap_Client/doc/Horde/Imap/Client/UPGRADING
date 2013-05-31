@@ -11,7 +11,7 @@
 This lists the API changes between releases of the package.
 
 
-Upgrading to 2.10.0
+Upgrading to 2.11.0
 ===================
 
   - Horde_Imap_Client_Data_Fetch
@@ -113,7 +113,7 @@ Upgrading to 2.4.0
 Upgrading to 2.3.0
 ==================
 
-  - Horde_Imap_Client_String
+  - Horde_Imap_Client_Data_Format_String
 
     The following methods have been added:
 
