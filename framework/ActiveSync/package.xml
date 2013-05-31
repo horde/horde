@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fixes for broken clients like the S3 that request SMS sync even when told there is no SMS collection.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1437,7 +1437,7 @@
    <date>2013-05-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fixes for broken clients like the S3 that request SMS sync even when told there is no SMS collection.
    </notes>
   </release>
  </changelog>
