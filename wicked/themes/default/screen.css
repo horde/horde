@@ -1,3 +1,17 @@
+/* Sidebar images. */
+.wicked-WikiHome {
+    background-image: url("graphics/WikiHome.png");
+}
+.wicked-WikiUsage {
+    background-image: url("graphics/WikiUsage.png");
+}
+.wicked-RecentChanges {
+    background-image: url("graphics/RecentChanges.png");
+}
+.wicked-AllPages {
+    background-image: url("graphics/AllPages.png");
+}
+
 .pagelink {
     color: #6060ff;
     text-decoration: underline;

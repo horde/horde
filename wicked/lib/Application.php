@@ -79,7 +79,7 @@ class Wicked_Application extends Horde_Registry_Application
                 }
 
                 $url = Wicked::url($pagename)->add('referrer', $referrer);
-                $menu->add($url, $pages[$pagename], str_replace('/', '', $pagename) . '.png', null, null, null, $cellclass);
+                $menu->add($url, $pages[$pagename], 'wicked-' . str_replace('/', '', $pagename), null, null, null, $cellclass);
             }
         }
     }
