@@ -21,7 +21,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Mail extends Horde_Core_Factory_Injector
+class IMP_Factory_Mail extends Horde_Core_Factory_Injector implements Horde_Shutdown_Task
 {
     /**
      * Debug stream.
@@ -65,7 +65,7 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
 
         if (isset($this->_debug)) {
             $ob->getSMTPObject()->setDebug(true, array($this, 'smtpDebug'));
-            register_shutdown_function(array($this, 'smtpDebugShutdown'));
+            Horde_Shutdown::add($this);
         }
 
         return $ob;
@@ -87,10 +87,12 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
     /**
      * SMTP debug shutdown handler.
      */
-    public function smtpDebugShutdown()
+    public function shutdown()
     {
-        @fclose($this->_debug);
-        $this->_debug = null;
+        if ($this->_debug) {
+            @fclose($this->_debug);
+            $this->_debug = null;
+        }
     }
 
 }
