@@ -185,6 +185,17 @@ class Wicked
         return $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : $GLOBALS['browser']->getIPAddress();
     }
 
+    /**
+     * Sets the topbar up.
+     */
+    public static function setTopbar()
+    {
+        $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
+        $topbar->search = true;
+        $topbar->searchAction = Horde::url('display.php');
+        $topbar->searchParameters = array('page' => 'Search');
+    }
+
     public static function addFeedLink()
     {
         $GLOBALS['page_output']->addLinkTag(array(

@@ -126,7 +126,10 @@ if (!$page->allows(Wicked::MODE_DISPLAY)) {
     $page = Wicked_Page::getPage('');
 }
 
-$params = Horde_Util::getFormData('params');
+$params = Horde_Util::getFormData(
+    'params',
+    Horde_Util::getFormData('searchfield')
+);
 $page->preDisplay(Wicked::MODE_DISPLAY, $params);
 
 if ($page->isLocked()) {
@@ -140,10 +143,12 @@ $page->render(Wicked::MODE_DISPLAY, $params);
 $content = Horde::endBuffer();
 
 Wicked::addFeedLink();
+Wicked::setTopbar();
+
 $page_output->header(array(
     'title' => $page->pageTitle()
 ));
-require WICKED_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 echo $content;
 $page_output->footer();
 

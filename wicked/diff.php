@@ -50,9 +50,10 @@ if (!$page->allows(Wicked::MODE_DIFF)) {
         ->redirect();
 }
 
+Wicked::setTopbar();
 $page_output->header(array(
     'title' => sprintf(_("Diff for %s between %s and %s"), $page->pageName(), $v1, $page->version())
 ));
-require WICKED_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 $page->render(Wicked::MODE_DIFF, $v1);
 $page_output->footer();

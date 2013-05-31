@@ -23,9 +23,10 @@ if (!$page->allows(Wicked::MODE_HISTORY)) {
     Wicked::url($page->pageName(), true)->add('actionID', 'history')->redirect();
 }
 
+Wicked::setTopbar();
 $page_output->header(array(
     'title' => sprintf(_("History: %s"), $page->pageName())
 ));
-require WICKED_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 $page->render(Wicked::MODE_HISTORY);
 $page_output->footer();

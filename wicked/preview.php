@@ -19,9 +19,10 @@ $page = new Wicked_Page();
 $wiki = &$page->getProcessor();
 $text = $wiki->transform($text);
 
+Wicked::setTopbar();
 $page_output->header(array(
     'title' => sprintf(_("Edit %s"), Horde_Util::getFormData('age'))
 ));
-require WICKED_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require WICKED_TEMPLATES . '/edit/preview.inc';
 $page_output->footer();
