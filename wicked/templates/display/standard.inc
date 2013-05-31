@@ -1,118 +1,102 @@
 <form name="display" action="#">
-<div class="control">
-<?php
-if (!function_exists('separator')) {
-    function separator($reset = false)
-    {
-        static $liststarted = false;
-        if ($reset) {
-            $liststarted = false;
-        } elseif (!$liststarted) {
-            $liststarted = true;
-        } else {
-            echo ' | ';
-        }
-    }
-}
+<div class="horde-buttonbar">
+  <ul>
 
-separator(true);
-
-if ($this->allows(Wicked::MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
-    separator();
-    echo Horde::widget(array(
+<?php if ($this->allows(Wicked::MODE_EDIT) && !$this->isLocked(Wicked::lockUser())): ?>
+    <li class="horde-icon"><?php echo Horde::widget(array(
         'url' => Wicked::url('EditPage')->add('referrer', $this->pageName()),
-        'title' => _("_Edit")
-    ));
-}
+        'title' => _("_Edit"),
+        'class' => 'wicked-edit',
+     )); ?></li>
+<?php endif ?>
 
-if ($this->isLocked()) {
-    if ($this->allows(Wicked::MODE_UNLOCKING)) {
-        separator();
-        echo Horde::widget(array(
-            'url' => $this->pageUrl(null, 'unlock')->remove('version'),
-            'title' => _("Un_lock")
-        ));
-    }
-} else {
-    if ($this->allows(Wicked::MODE_LOCKING)) {
-        separator();
-        echo Horde::widget(array(
-            'url' => $this->pageUrl(null, 'lock')->remove('version'),
-            'title' => _("_Lock")
-        ));
-    }
-}
+<?php if ($this->isLocked()): ?>
+<?php if ($this->allows(Wicked::MODE_UNLOCKING)): ?>
+    <li class="horde-icon"><?php echo Horde::widget(array(
+        'url' => $this->pageUrl(null, 'unlock')->remove('version'),
+        'title' => _("Un_lock"),
+        'class' => 'wicked-unlock',
+    )); ?></li>
+<?php endif ?>
+<?php else: ?>
+<?php if ($this->allows(Wicked::MODE_LOCKING)): ?>
+    <li class="horde-icon"><?php echo Horde::widget(array(
+        'url' => $this->pageUrl(null, 'lock')->remove('version'),
+        'title' => _("_Lock"),
+        'class' => 'wicked-lock',
+    )); ?></li>
+<?php endif ?>
+<?php endif ?>
 
-if ($this->allows(Wicked::MODE_REMOVE)) {
-    separator();
-    $params = array('referrer' => $this->pageName());
-    if ($this->isOld()) {
-        $params['version'] = $this->version();
-    }
-    echo Horde::widget(array(
+<?php if ($this->allows(Wicked::MODE_REMOVE)):
+$params = array('referrer' => $this->pageName());
+if ($this->isOld()) {
+    $params['version'] = $this->version();
+} ?>
+    <li class="horde-icon"><?php echo Horde::widget(array(
         'url' => Wicked::url('DeletePage')->add($params),
-        'title' => _("_Delete")
-    ));
-}
+        'title' => _("_Delete"),
+        'class' => 'wicked-delete',
+    )); ?></li>
+<?php endif ?>
 
-if ($this->allows(Wicked::MODE_REMOVE) && !$this->isLocked(Wicked::lockUser())) {
-    separator();
-    echo Horde::widget(array(
+<?php if ($this->allows(Wicked::MODE_REMOVE) && !$this->isLocked(Wicked::lockUser())): ?>
+    <li><?php echo Horde::widget(array(
         'url' => Wicked::url('MergeOrRename')->add('referrer', $this->pageName()),
         'title' => _("_Merge/Rename")
-    ));
-}
+    )); ?></li>
+<?php endif ?>
 
-separator();
-echo Horde::widget(array(
+<li><?php echo Horde::widget(array(
     'url' => Wicked::url('BackLinks')->add('referrer', $this->pageName()),
     'title' => _("_Backlinks")
-));
+)); ?></li>
 
-separator();
-echo Horde::widget(array(
+<li><?php echo Horde::widget(array(
     'url' => Wicked::url('LikePages')->add('referrer', $this->pageName()),
     'title' => _("S_imilar Pages")
-));
+)); ?></li>
 
-separator();
-echo Horde::widget(array(
+<li><?php echo Horde::widget(array(
     'url' => Wicked::url('AttachedFiles')->add('referrer', $this->pageName()),
     'title' => _("Attachments")
-));
+)); ?></li>
 
-if ($this->allows(Wicked::MODE_HISTORY)) {
-    separator();
-    echo Horde::widget(array(
+<?php if ($this->allows(Wicked::MODE_HISTORY)): ?>
+    <li><?php echo Horde::widget(array(
         'url' => $this->pageUrl('history.php')->remove('version'),
         'title' => _("Hi_story")
-    ));
-}
+    )); ?></li>
+<?php endif ?>
 
-if ($GLOBALS['registry']->isAdmin()) {
-    separator();
-    $permsurl = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php')
-        ->add(array(
-            'category' => 'wicked:pages:' . $this->pageId(),
-            'autocreate' => 1,
-            'autocreate_copy' => 'wicked',
-            'autocreate_guest' => Horde_Perms::SHOW | Horde_Perms::READ,
-            'autocreate_default' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE));
-    echo Horde::widget(array(
+<?php if ($GLOBALS['registry']->isAdmin()):
+$permsurl = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php')
+    ->add(array(
+        'category' => 'wicked:pages:' . $this->pageId(),
+        'autocreate' => 1,
+        'autocreate_copy' => 'wicked',
+        'autocreate_guest' => Horde_Perms::SHOW | Horde_Perms::READ,
+        'autocreate_default' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE));
+?>
+    <li><?php echo Horde::widget(array(
         'url' => $permsurl,
         'target' => '_blank',
         'title' => _("Permissio_ns")
-    ));
-}
-?>
+    )); ?></li>
+<?php endif ?>
 <?php if (empty($isBlock) && $GLOBALS['session']->get('wicked', 'history')): ?>
-  <?php separator(); echo Horde::widget(array('url' => '#', 'onclick' => 'document.location = document.display.history[document.display.history.selectedIndex].value;', 'title' => _("Ba_ck to"))) ?>
-  <select name="history" onchange="document.location = document.display.history[document.display.history.selectedIndex].value">
+    <li>
+      <?php echo Horde::widget(array('url' => '#', 'onclick' => 'document.location = document.display.history[document.display.history.selectedIndex].value;', 'title' => _("Ba_ck to"))) ?>
+    </li>
+    <li>
+      <select name="history" onchange="document.location = document.display.history[document.display.history.selectedIndex].value">
 <?php foreach ($GLOBALS['session']->get('wicked', 'history') as $history): if (!strlen($history)) continue; ?>
-   <option value="<?php echo Wicked::url($history) ?>"><?php echo htmlspecialchars($history) ?></option>
+        <option value="<?php echo Wicked::url($history) ?>"><?php echo htmlspecialchars($history) ?></option>
 <?php endforeach; ?>
-  </select>
+      </select>
+    </li>
 <?php endif; ?>
+  </ul>
 </div>
 </form>
 
