@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-30</date>
- <time>15:07:48</time>
+ <date>2013-05-31</date>
+ <time>19:06:13</time>
  <version>
   <release>2.4.0RC2</release>
   <api>2.4.0</api>
@@ -1434,7 +1434,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-30</date>
+   <date>2013-05-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fixes for broken clients like the S3 that request SMS sync even when told there is no SMS collection.
