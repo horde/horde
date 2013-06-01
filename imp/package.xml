@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix fatal error when importing a S/MIME key (Bug #12290).
 * [mms] Fixed segfaults caused by SMTP debugging.
  </notes>
  <contents>
@@ -3188,6 +3189,7 @@
    <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix fatal error when importing a S/MIME key (Bug #12290).
 * [mms] Fixed segfaults caused by SMTP debugging.
    </notes>
   </release>

@@ -44,7 +44,7 @@ class IMP_Basic_Smime extends IMP_Basic_Base
 
         case 'process_import_public_key':
             try {
-                $publicKey = $this->getImportKey($this->vars->import_key);
+                $publicKey = $this->_getImportKey($this->vars->import_key);
 
                 /* Add the public key to the storage system. */
                 $this->_smime->addPublicKey($publicKey);
@@ -91,7 +91,7 @@ class IMP_Basic_Smime extends IMP_Basic_Base
 
         case 'process_import_personal_certs':
             try {
-                $pkcs12 = $this->_smime->getImportKey($this->vars->import_key);
+                $pkcs12 = $this->_smime->_getImportKey($this->vars->import_key);
                 $this->_smime->addFromPKCS12($pkcs12, $this->vars->upload_key_pass, $this->vars->upload_key_pk_pass);
                 $notification->push(_("S/MIME Public/Private Keypair successfully added."), 'horde.success');
                 $this->_reloadWindow();

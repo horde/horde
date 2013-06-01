@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Fix fatal error when importing a S/MIME key (Bug #12290).
 [mms] Fixed segfaults caused by SMTP debugging.
 
 
