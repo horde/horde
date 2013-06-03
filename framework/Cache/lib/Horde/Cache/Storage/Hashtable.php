@@ -65,8 +65,7 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
      */
     public function get($key, $lifetime = 0)
     {
-        $res = $this->_hash->get($key);
-        return $res[$key];
+        return $this->_hash->get($key);
     }
 
     /**

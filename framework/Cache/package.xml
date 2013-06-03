@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix return from get() when using the Hashtable driver.
 * [mms] Fix hashtable driver name.
 * [mms] Horde_Memcache cache driver is now deprecated in favor of the Horde_HashTable driver.
 * [mms] Add Horde_HashTable cache driver.
@@ -488,6 +489,7 @@ Initial packaging.
    <date>2013-05-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix return from get() when using the Hashtable driver.
 * [mms] Fix hashtable driver name.
 * [mms] Horde_Memcache cache driver is now deprecated in favor of the Horde_HashTable driver.
 * [mms] Add Horde_HashTable cache driver.
