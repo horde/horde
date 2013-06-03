@@ -3819,9 +3819,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline The pipeline
-     *                                                         object.
-     * @param array $chunk
+     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  The pipeline
+     *                                                          object.
+     * @param array $chunk  List of commands to send.
      *
      * @throws Horde_Imap_Client_Exception
      */
