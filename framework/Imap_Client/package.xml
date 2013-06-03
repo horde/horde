@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-28</date>
- <time>23:25:41</time>
+ <date>2013-06-03</date>
+ <time>16:57:40</time>
  <version>
   <release>2.11.3</release>
   <api>2.11.0</api>
@@ -1788,7 +1788,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-28</date>
+   <date>2013-06-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Improved detection of client-side command errors before sending to the remote IMAP server.
