@@ -1630,7 +1630,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // Remove the collection data from the synccache as well.
         $cache = new Horde_ActiveSync_SyncCache($this, $this->_deviceInfo->id, $this->_deviceInfo->user, $this->_logger);
         if ($id != Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
-            $cache->removeCollection($id);
+            $cache->removeCollection($id, false);
         } else {
             $this->_logger->notice(sprintf(
                 '[%s] Clearing foldersync state from synccache.',

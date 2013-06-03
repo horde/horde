@@ -392,11 +392,17 @@ class Horde_ActiveSync_SyncCache
     /**
      * Remove a collection from the cache.
      *
-     * @param string $id  The collection id.
+     * @param string $id      The collection id.
+     * @param boolean $purge  If true, completely remove the collection entry
+     *                        otherwise, just resets the synckey.
      */
-    public function removeCollection($id)
+    public function removeCollection($id, $purge = true)
     {
-        unset($this->_data['collections'][$id]);
+        if (!$purge) {
+            unset($this->_data['collections'][$id]);
+        } elseif (!empty($this->_data['collections'][$id])) {
+            $this->_data['collections'][$id]['synckey'] = '0';
+        }
         unset($this->_data['synckeycounter'][$id]);
     }
 
