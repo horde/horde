@@ -960,6 +960,18 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if ($folderlist === false) {
             return false;
         }
+        // @TODO Remove in H6. We need to ensure we have 'serverid' in the
+        // returned stat data.
+        foreach ($folderlist as &$folder)
+        {
+            // Either the backend populates this or not. So, if we have it, we
+            // can stop checking.
+            if (!empty($folder['serverid'])) {
+                break;
+            } else {
+                $folder['serverid'] = $folder['id'];
+            }
+        }
         $this->_changes = $this->_getDiff(
             (empty($this->_folder) ? array() : $this->_folder),
             $folderlist);
