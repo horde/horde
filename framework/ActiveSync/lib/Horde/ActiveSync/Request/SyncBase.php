@@ -99,7 +99,6 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
         while (1) {
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
                 $body_pref['type'] = $this->_decoder->getElementContent();
-                $collection['bodyprefs']['wanted'] = $body_pref['type'];
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
