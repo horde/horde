@@ -28,19 +28,19 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-05-29</date>
- <time>14:05:58</time>
+ <date>2013-06-03</date>
+ <time>23:55:51</time>
  <version>
-  <release>4.1.0RC2</release>
+  <release>4.1.0</release>
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* Final release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1642,15 +1642,15 @@
   </release>
   <release>
    <version>
-    <release>4.1.0RC2</release>
+    <release>4.1.0</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-29</date>
+   <date>2013-06-03</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* Final release.
    </notes>
   </release>
  </changelog>

@@ -16,14 +16,14 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-29</date>
- <time>14:33:21</time>
+ <date>2013-06-03</date>
+ <time>23:56:20</time>
  <version>
-  <release>5.0.0RC2</release>
+  <release>5.0.0</release>
   <api>5.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
@@ -667,12 +667,12 @@
   </release>
   <release>
    <version>
-    <release>5.0.0RC2</release>
+    <release>5.0.0</release>
     <api>5.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-29</date>
+   <date>2013-06-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

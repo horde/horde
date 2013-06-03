@@ -28,18 +28,18 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-29</date>
+ <date>2013-06-03</date>
  <version>
-  <release>5.1.0RC2</release>
+  <release>5.1.0</release>
   <api>5.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* Final release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3678,15 +3678,15 @@
   </release>
   <release>
    <version>
-    <release>5.1.0RC2</release>
+    <release>5.1.0</release>
     <api>5.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-29</date>
+   <date>2013-06-03</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* Final release.
    </notes>
   </release>
  </changelog>

@@ -22,13 +22,13 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-29</date>
+ <date>2013-06-03</date>
  <version>
-  <release>6.1.0RC2</release>
+  <release>6.1.0</release>
   <api>6.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
@@ -3181,12 +3181,12 @@
   </release>
   <release>
    <version>
-    <release>6.1.0RC2</release>
+    <release>6.1.0</release>
     <api>6.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-29</date>
+   <date>2013-06-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix fatal error when importing a S/MIME key (Bug #12290).
