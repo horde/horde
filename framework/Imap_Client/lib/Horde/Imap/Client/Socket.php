@@ -3840,12 +3840,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if (!is_null($val->debug)) {
                     $this->_debug->raw($val->tag . ' ' . $val->debug . "\n");
                 }
-                $this->_processCmd($pipeline, $val, array(
+                $buffer = '';
+                $this->_processCmd($pipeline, $val, $buffer, array(
                     'debug' => is_null($val->debug),
                     'noliteralplus' => !$val->literalplus
                 ));
-                $this->_writeStream('', array(
+                $this->_writeStream($buffer, array(
                     'eol' => true,
+                    'foo' => true,
                     'nodebug' => !is_null($val->debug)
                 ));
             } catch (Horde_Imap_Client_Exception $e) {
@@ -3900,6 +3902,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @param Horde_Imap_Client_Interaction_Pipeline $pipeline The pipeline
      *                                                         object.
      * @param Horde_Imap_Client_Data_Format_List $data  Commands to send.
+     * @param string &$buffer                           Current command buffer.
      * @param array $opts                               Options:
      *   - debug: (boolean) Whether debug info should be output.
      *   - noliteralplus: (boolean) If true, don't use LITERAL+ extension.
@@ -3907,68 +3910,70 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @throws Horde_Imap_Client_Exception
      * @throws Horde_Imap_Client_Exception_NoSupport
      */
-    protected function _processCmd($pipeline, $data, $opts)
+    protected function _processCmd($pipeline, $data, &$buffer, $opts)
     {
         $s_opts = array('nodebug' => empty($opts['debug']));
 
         foreach ($data as $key => $val) {
             if ($val instanceof Horde_Imap_Client_Interaction_Command_Continuation) {
-                $this->_writeStream('', array_merge($s_opts, array(
+                $this->_writeStream($buffer, array_merge($s_opts, array(
                     'eol' => true
                 )));
+
+                $buffer = '';
+
                 $this->_processCmd(
                     $pipeline,
                     $val->getCommands($this->_processCmdContinuation($pipeline)),
+                    $buffer,
                     $opts
                 );
                 continue;
             }
 
             if ($key) {
-                $this->_writeStream(' ', $s_opts);
+                $buffer .= ' ';
             }
 
             if ($val instanceof Horde_Imap_Client_Data_Format_List) {
-                $this->_writeStream('(', $s_opts);
-                $this->_processCmd($pipeline, $val, $opts);
-                $this->_writeStream(')', $s_opts);
-            } elseif ($val instanceof Horde_Imap_Client_Data_Format_String) {
-                if ($val->literal()) {
-                    /* RFC 3516/4466: Send literal8 if we have binary data. */
-                    if ($val->binary() && $this->queryCapability('BINARY')) {
-                        $binary = true;
-                        $literal = '~';
-                    } else {
-                        $binary = false;
-                        $literal = '';
-                    }
+                $buffer .= '(';
+                $this->_processCmd($pipeline, $val, $buffer, $opts);
+                $buffer .= ')';
+            } elseif (($val instanceof Horde_Imap_Client_Data_Format_String) &&
+                      $val->literal()) {
+                /* RFC 3516/4466: Send literal8 if we have binary data. */
+                if ($val->binary() && $this->queryCapability('BINARY')) {
+                    $binary = true;
+                    $buffer .= '~';
+                } else {
+                    $binary = false;
+                }
 
-                    $literal_len = $val->length();
-                    $literal .= '{' . $literal_len;
+                $literal_len = $val->length();
+                $buffer .= '{' . $literal_len;
 
-                    /* RFC 2088 - If LITERAL+ is available, saves a roundtrip
-                     * from the server. */
-                    if (empty($opts['noliteralplus']) &&
-                        $this->queryCapability('LITERAL+')) {
-                        $this->_writeStream($literal . "+}", array_merge($s_opts, array(
-                            'eol' => true
-                        )));
-                    } else {
-                        $this->_writeStream($literal . "}", array_merge($s_opts, array(
-                            'eol' => true
-                        )));
-                        $this->_processCmdContinuation($pipeline);
-                    }
-
-                    $this->_writeStream($val->getStream()->stream, array_merge($s_opts, array(
-                        'binary' => $binary,
-                        'literal' => $literal_len
+                /* RFC 2088 - If LITERAL+ is available, saves a roundtrip from
+                 * the server. */
+                if (empty($opts['noliteralplus']) &&
+                    $this->queryCapability('LITERAL+')) {
+                    $this->_writeStream($buffer . '+}', array_merge($s_opts, array(
+                        'eol' => true
                     )));
                 } else {
-                    $this->_writeStream($val->escapeStream(), $s_opts);
+                    $this->_writeStream($buffer . '}', array_merge($s_opts, array(
+                        'eol' => true
+                    )));
+                    $this->_processCmdContinuation($pipeline);
                 }
+
+                $buffer = '';
+
+                $this->_writeStream($val->getStream(), array_merge($s_opts, array(
+                    'binary' => $binary,
+                    'literal' => $literal_len
+                )));
             } else {
-                $this->_writeStream($val->escape(), $s_opts);
+                $buffer .= $val->escape();
             }
         }
     }
@@ -4044,7 +4049,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      * Writes data to the IMAP output stream and handles debug output.
      *
-     * @param mixed $data  Either a string or stream resource.
+     * @param mixed $data  Either a string, stream resource, or Horde_Stream
+     *                     object.
      * @param array $opts  Additional options:
      *   - binary: (boolean) If true, the literal data is binary.
      *   - eol: (boolean) If true, output EOL.
@@ -4056,6 +4062,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _writeStream($data, array $opts = array())
     {
         $write_error = false;
+
+        if ($data instanceof Horde_Stream) {
+            $data = $data->stream;
+        }
 
         if (is_resource($data)) {
             rewind($data);

@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Improved detection of client-side command errors before sending to the remote IMAP server.
 * [mms] Better sanity checking that we don&apos;t send binary data for mailbox entries.
  </notes>
  <contents>
@@ -1790,6 +1791,7 @@
    <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Improved detection of client-side command errors before sending to the remote IMAP server.
 * [mms] Better sanity checking that we don&apos;t send binary data for mailbox entries.
    </notes>
   </release>
