@@ -30,6 +30,7 @@ reading below at Prerequisites_.
                  --with-gd --with-png-dir=/usr --with-jpeg-dir=/usr \
                  [--with-mysql|--with-pgsql|--with-oci8]
                  [--with-tidy]
+                 [--with-ftp]
      make
      make install
 
@@ -247,13 +248,15 @@ properly.
 
       This module is automatically enabled by default.
 
-   h. intl
+   h. intl ``--enable-intl``
 
       The intl module is required to handle display of Internationalized
       Domain Names (see RFC 3490), e.g in e-mail addresses.
 
-      This module can be enabled by adding the ``--enable-intl`` option when
-      compiling PHP.
+   i. FTP support ``--with-ftp``
+
+      If using the FTP VFS driver for the file manager, the FTP PHP module is
+      **required**.
 
 4. Additional PECL Modules
 
@@ -324,6 +327,19 @@ The following non-PHP prerequisites are **RECOMMENDED**:
 
    Horde Groupware sends mail via either a local sendmail or a remote SMTP
    server.  It is **RECOMMENDED** that SMTP be used.
+
+3. FTP server.
+
+   If using a FTP backend for the file manager, you **must** have at least one
+   FTP server.
+
+4. ElasticSearch server.
+
+   An ElasticSearch_ server or cluster running on localhost can be used to
+   provide indexing of bookmarks data and quick searching of the indexed
+   content.
+
+.. _ElasticSearch: http://www.elasticsearch.org/
 
 
 Installing Horde Groupware
