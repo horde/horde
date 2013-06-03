@@ -207,26 +207,27 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                         $msg = $this->_driver->itemOperationsFetchMailbox($longid, $value['bodyprefs'], $mimesupport);
                     } else {
                         $this->_outputStatus();
-                        if (isset($value['folderid'])) {
+                        if (isset($value['folderid']) && isset($value['serverentryid'])) {
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERID);
                             $this->_encoder->content($value['folderid']);
                             $this->_encoder->endTag();
-                        }
-                        if (isset($value['serverentryid'])) {
+
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
                             $this->_encoder->content($value['serverentryid']);
                             $this->_encoder->endTag();
+
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
+                            $this->_encoder->content('Email');
+                            $this->_encoder->endTag();
+                            $mailbox = $collections->getBackendIdForFolderUid($value['folderid']);
+                            $msg = $this->_driver->fetch(
+                                $mailbox,
+                                $value['serverentryid'],
+                                array(
+                                    'bodyprefs' => $value['bodyprefs'],
+                                    'mimesupport' => $mimesupport)
+                            );
                         }
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
-                        $this->_encoder->content('Email');
-                        $this->_encoder->endTag();
-                        $msg = $this->_driver->fetch(
-                            $value['folderid'],
-                            $value['serverentryid'],
-                            array(
-                                'bodyprefs' => $value['bodyprefs'],
-                                'mimesupport' => $mimesupport)
-                        );
                     }
                     if ($this->_statusCode == self::STATUS_SUCCESS) {
                         $this->_encoder->startTag(self::ITEMOPERATIONS_PROPERTIES);
