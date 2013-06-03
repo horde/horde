@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-31</date>
- <time>19:12:06</time>
+ <date>2013-06-03</date>
+ <time>13:26:04</time>
  <version>
   <release>2.4.0RC3</release>
   <api>2.4.0</api>
@@ -22,7 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix missing email body data for certain clients (Bug #12203).
+* [mjr] Fix requesting email data via ITEMOPERATION command (Bug #12292).
+* [mjr] Fix a BC break that was causing FOLDERSYNC requests to f fail.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1447,10 +1449,12 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2013-05-31</date>
+   <date>2013-06-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix missing email body data for certain clients (Bug #12203).
+* [mjr] Fix requesting email data via ITEMOPERATION command (Bug #12292).
+* [mjr] Fix a BC break that was causing FOLDERSYNC requests to f fail.
    </notes>
   </release>
  </changelog>
