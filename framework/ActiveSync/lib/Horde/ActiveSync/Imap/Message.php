@@ -194,8 +194,6 @@ class Horde_ActiveSync_Imap_Message
      * EAS response.
      *
      * @param array $options  An options array containgin:
-     *  - truncation: (integer) Truncate message body to this length.
-     *                DEFAULT: none (No truncation).
      *  - bodyprefs: (array)  Bodypref settings
      *               DEFAULT: none (No bodyprefs used).
      *  - mimesupport: (integer)  Indicates if MIME is supported or not.
@@ -212,9 +210,6 @@ class Horde_ActiveSync_Imap_Message
     public function getMessageBodyData(array $options = array())
     {
         $version = empty($options['protocolversion']) ? 2.5 : $options['protocolversion'];
-        if (!isset($options['trunction'])) {
-            $options['truncation'] = false;
-        }
 
         // Look for the parts we need. We try to detect and fetch only the parts
         // we need, while ensuring we have something to return. So, e.g., if we
@@ -267,9 +262,7 @@ class Horde_ActiveSync_Imap_Message
             }
         } else {
             // EAS 2.5 Plaintext body
-            if ($options['truncation'] > 0 || $options['truncation'] === false) {
-                $query->bodyPart($text_id, $query_opts);
-            }
+            $query->bodyPart($text_id, $query_opts);
             $query->bodyPartSize($text_id);
         }
         try {
@@ -296,9 +289,6 @@ class Horde_ActiveSync_Imap_Message
             if (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
                 // EAS >= 12.0 truncation
                 $text = Horde_String::substr($text, 0, $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'], $charset);
-            } elseif (!empty($options['truncation'])) {
-                // EAS 2.5 truncation
-                $text = Horde_String::substr($text, 0, $options['truncation'], $charset);
             }
             $text_size = !is_null($data->getBodyPartSize($text_id))
                 ? $data->getBodyPartSize($text_id)
@@ -339,9 +329,6 @@ class Horde_ActiveSync_Imap_Message
                         0,
                         $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'],
                         $html_charset);
-                } elseif (!empty($options['truncation'])) {
-                    // EAS 2.5 truncation
-                    $html = Horde_String::substr($html, 0, $options['truncation'], $html_charset);
                 }
             }
 
