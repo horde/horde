@@ -36,6 +36,16 @@ To function properly, Trean **requires** the following:
 
    .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
+The following non-PHP prerequisites are **RECOMMENDED**:
+
+1. ElasticSearch server.
+
+   An ElasticSearch_ server or cluster running on localhost can be used to
+   provide indexing of bookmarks data and quick searching of the indexed
+   content.
+
+.. _ElasticSearch: http://www.elasticsearch.org/
+
 
 Installing Trean
 ================
