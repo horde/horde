@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-03</date>
- <time>16:57:40</time>
+ <time>16:59:12</time>
  <version>
-  <release>2.11.3</release>
+  <release>2.11.4</release>
   <api>2.11.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Improved detection of client-side command errors before sending to the remote IMAP server.
-* [mms] Better sanity checking that we don&apos;t send binary data for mailbox entries.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1793,6 +1792,19 @@
    <notes>
 * [mms] Improved detection of client-side command errors before sending to the remote IMAP server.
 * [mms] Better sanity checking that we don&apos;t send binary data for mailbox entries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.11.4</release>
+    <api>2.11.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
