@@ -52,13 +52,6 @@ To function properly, Gollem **requires** the following:
 3. If using a FTP backend, you **must** have at least one FTP server.
    If using a SQL backend, you **must** have at least one SQL server.
 
-4. If the ability to browse files using WebDAV is desired, the
-   HTTP_WebDAV_Server PEAR module is required.
-
-   To install, enter the following at the command prompt::
-
-       pear install HTTP_WebDAV_Server
-
 
 Installing Gollem
 =================
