@@ -463,7 +463,7 @@ class Horde_ActiveSync_Imap_Adapter
         $search_q = new Horde_Imap_Client_Search_Query();
         $search_q->headerText('Message-ID', $id);
         foreach ($folders as $folder) {
-            $mbox = new Horde_Imap_Client_Mailbox($folder->serverid);
+            $mbox = new Horde_Imap_Client_Mailbox($folder->_serverid);
             $results = $this->_getImapOb()->search($mbox, $search_q);
             $uid = $results['match']->ids;
             if (!empty($uid)) {
