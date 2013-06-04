@@ -2,6 +2,13 @@
 v4.1.0-git
 ----------
 
+[jan] Fix searching in LDAP address books.
+
+
+---------
+v4.1.0RC1
+---------
+
 [mms] Back button in smartmobile view for group member returns to group entry,
       not browse list.
 [mms] Fix resetting smartmobile entry page when viewing more than 1 contact.
