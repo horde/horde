@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-22 11:43+0200\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
 "PO-Revision-Date: 2013-05-22 14:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -371,7 +371,7 @@ msgstr "Zu bestätigende E-Mail-Adressen nicht gefunden."
 msgid "Emoticons"
 msgstr "Smileys"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1512
+#: lib/Horde/Core/ActiveSync/Driver.php:1532
 msgid "End forwarded message"
 msgstr "Ende der weitergeleiteten Nachricht"
 
@@ -411,11 +411,11 @@ msgstr "Verhältnis zurücksetzen"
 msgid "Flip"
 msgstr "Umdrehen"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1510
+#: lib/Horde/Core/ActiveSync/Driver.php:1530
 msgid "Forwarded message"
 msgstr "Weitergeleitete Nachricht"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1510
+#: lib/Horde/Core/ActiveSync/Driver.php:1530
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Weitergeleitete Nachricht von %s"
@@ -465,7 +465,7 @@ msgstr "Adresse privat"
 msgid "Home Phone"
 msgstr "Telefon privat"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2357
+#: lib/Horde/Core/ActiveSync/Driver.php:2385
 msgid "Inbox"
 msgstr "Posteingang"
 
@@ -620,7 +620,7 @@ msgstr ""
 msgid "No configuration information specified for %s."
 msgstr "Für %s wurden keine Konfigurationsinformationen angegeben."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1540
+#: lib/Horde/Core/ActiveSync/Driver.php:1560
 msgid "No message body text"
 msgstr "Kein Nachrichtentext"
 
@@ -731,11 +731,11 @@ msgstr "Vorschau"
 msgid "Problem"
 msgstr "Probleme"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1533
+#: lib/Horde/Core/ActiveSync/Driver.php:1553
 msgid "Quoted"
 msgstr "Zitat"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1533
+#: lib/Horde/Core/ActiveSync/Driver.php:1553
 #, php-format
 msgid "Quoting %s"
 msgstr "Zitat von %s"
@@ -825,7 +825,7 @@ msgstr "Ausgewählte Adressbücher:"
 msgid "Send SMS"
 msgstr "SMS verschicken"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2352
+#: lib/Horde/Core/ActiveSync/Driver.php:2380
 msgid "Sent"
 msgstr "Gesendet"
 
@@ -1025,7 +1025,7 @@ msgstr ""
 msgid "Toggle Alerts Log"
 msgstr "Alte Meldungen ein-/ausblenden"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2347
+#: lib/Horde/Core/ActiveSync/Driver.php:2375
 msgid "Trash"
 msgstr "Papierkorb"
 

@@ -1,15 +1,15 @@
 # German translations for Horde_Auth package.
 # Copyright 2011-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Auth package.
-# Automatically generated, 2011-2012.
+# Jan Schneider <jan@horde.org>, 2011-2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Auth \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-03-05 10:52+0100\n"
-"PO-Revision-Date: 2012-07-19 18:59+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"PO-Revision-Date: 2013-06-04 11:59+0200\n"
+"Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -17,37 +17,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Auth.php:361
+#: lib/Horde/Auth.php:362
 #, php-format
 msgid ""
 "The password is too long; passwords may not be more than %d characters long!"
 msgstr ""
 "Das Passwort ist zu lang, das Passwort darf nicht länger als %d Zeichen sein!"
 
-#: lib/Horde/Auth.php:429 lib/Horde/Auth.php:438
+#: lib/Horde/Auth.php:433 lib/Horde/Auth.php:442
 msgid "The password is too simple to guess."
 msgstr "Das Passwort ist zu leicht zu erraten."
 
-#: lib/Horde/Auth.php:357
+#: lib/Horde/Auth.php:358
 #, php-format
 msgid "The password must be at least %d characters long!"
 msgstr "Das Passwort muss mindestens %d Zeichen lang sein!"
 
-#: lib/Horde/Auth.php:393
+#: lib/Horde/Auth.php:394
 #, php-format
 msgid "The password must contain at least %d alphabetic character."
 msgid_plural "The password must contain at least %d alphabetic characters."
 msgstr[0] "Das Passwort muss mindestens %d Buchstaben enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Buchstaben enthalten."
 
-#: lib/Horde/Auth.php:396
+#: lib/Horde/Auth.php:397
 #, php-format
 msgid "The password must contain at least %d alphanumeric character."
 msgid_plural "The password must contain at least %d alphanumeric characters."
 msgstr[0] "Das Passwort muss mindestens %d Buchstaben oder Zahl enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Buchstaben oder Zahlen enthalten."
 
-#: lib/Horde/Auth.php:399
+#: lib/Horde/Auth.php:403
 #, php-format
 msgid ""
 "The password must contain at least %d different types of characters. The "
@@ -56,40 +56,48 @@ msgstr ""
 "Das Passwort muss mindestens %d verschiedenen Zeichentypen enhalten. Typen "
 "sind: Kleinbuchstaben, Großbuchstaben, Zahlen und Sonderzeichen."
 
-#: lib/Horde/Auth.php:387
+#: lib/Horde/Auth.php:388
 #, php-format
 msgid "The password must contain at least %d lowercase character."
 msgid_plural "The password must contain at least %d lowercase characters."
 msgstr[0] "Das Passwort muss mindestens %d Kleinbuchstaben enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Kleinbuchstaben enthalten."
 
-#: lib/Horde/Auth.php:390
+#: lib/Horde/Auth.php:391
 #, php-format
 msgid "The password must contain at least %d numeric character."
 msgid_plural "The password must contain at least %d numeric characters."
 msgstr[0] "Das Passwort muss mindestens %d Zahl enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Zahlen enthalten."
 
-#: lib/Horde/Auth.php:408
+#: lib/Horde/Auth.php:400
+#, php-format
+msgid "The password must contain at least %d numeric or special character."
+msgid_plural ""
+"The password must contain at least %d numeric or special characters."
+msgstr[0] "Das Passwort muss mindestens %d Zahl oder Symbol enthalten."
+msgstr[1] "Das Passwort muss mindestens %d Zahlen oder Symbole enthalten."
+
+#: lib/Horde/Auth.php:412
 #, php-format
 msgid "The password must contain at least %d symbol character."
 msgid_plural "The password must contain at least %d symbol characters."
-msgstr[0] "Das Passwort muss mindestens %d Symbolzeichen enthalten."
-msgstr[1] "Das Passwort muss mindestens %d Symbolzeichen enthalten."
+msgstr[0] "Das Passwort muss mindestens %d Symbol enthalten."
+msgstr[1] "Das Passwort muss mindestens %d Symbole enthalten."
 
-#: lib/Horde/Auth.php:384
+#: lib/Horde/Auth.php:385
 #, php-format
 msgid "The password must contain at least %d uppercase character."
 msgid_plural "The password must contain at least %d uppercase characters."
 msgstr[0] "Das Passwort muss mindestens %d Großbuchstaben enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Großbuchstaben enthalten."
 
-#: lib/Horde/Auth.php:403
+#: lib/Horde/Auth.php:407
 #, php-format
 msgid "The password must contain less than %d whitespace characters."
 msgstr "Das Passwort darf nicht mehr als %d Leerzeichen enthalten."
 
-#: lib/Horde/Auth.php:405
+#: lib/Horde/Auth.php:409
 msgid "The password must not contain whitespace characters."
 msgstr "Das Passwort darf keine Leerzeichen enthalten."
 

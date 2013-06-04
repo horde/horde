@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:44+0100\n"
-"PO-Revision-Date: 2013-01-29 11:56+0100\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"PO-Revision-Date: 2013-06-04 11:56+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -2230,6 +2230,11 @@ msgstr "Ticket aktualisiert"
 #: lib/Api.php:619
 msgid "Tickets"
 msgstr "Tickets"
+
+#: lib/Api.php:48
+#, php-format
+msgid "Tickets from %s"
+msgstr "Tickets aus %s"
 
 #: query/rss.php:64
 #, php-format

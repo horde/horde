@@ -7,13 +7,15 @@
 # attachment: Anhang
 # to compose: verfassen
 # stationery: Vorlage(n)
+# subscribe: einblenden
 # thread: Thema
+# unsubscribe: ausblenden
 msgid ""
 msgstr ""
 "Project-Id-Version: IMP H5 (6.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-22 14:42+0200\n"
-"PO-Revision-Date: 2013-05-22 14:42+0200\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"PO-Revision-Date: 2013-06-04 11:53+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -74,7 +76,7 @@ msgstr[1] "%d Anhänge"
 msgid "%d Messages"
 msgstr "%d Nachrichten"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:745
+#: lib/Ajax/Application/Handler/Dynamic.php:746
 #, php-format
 msgid "%d message was purged from \"%s\"."
 msgid_plural "%d messages were purged from \"%s\"."
@@ -210,7 +212,7 @@ msgstr "%s möchte Sie auf Änderungen an \"%s\" aufmerksam machen."
 msgid "%s was successfully added to \"%s\"."
 msgstr "%s wurde erfolgreich zu \"%s\" hinzugefügt."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:573
+#: lib/Ajax/Application/Handler/Dynamic.php:574
 #, php-format
 msgid "%s was successfully added to your address book."
 msgstr "%s wurde erfolgreich Ihrem Adressbuch hinzugefügt."
@@ -412,7 +414,7 @@ msgstr "\"%s\" als Anhang hinzugefügt."
 msgid "Added flag \"%s\"."
 msgstr "Marker \"%s\" hinzugefügt."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:567
+#: lib/Ajax/Application/Handler/Dynamic.php:568
 msgid "Adding group lists not currently supported."
 msgstr "Hinzufügen von Gruppenlisten noch nicht unterstützt."
 
@@ -723,7 +725,7 @@ msgstr "Sowohl im Nachrichtentext als auch als Anhang"
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:712
+#: lib/Ajax/Application/Handler/Dynamic.php:713
 msgid "At least one attachment could not be deleted."
 msgstr "Mindestens ein Anhang konnte nicht gelöscht werden."
 
@@ -788,7 +790,7 @@ msgstr "Anhang existiert nicht."
 msgid "Attachment stripped: Original attachment type"
 msgstr "Anhang entfernt: Ehemaliger Anhangstyp"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:826 lib/Basic/Message.php:193
+#: lib/Ajax/Application/Handler/Dynamic.php:827 lib/Basic/Message.php:193
 #: lib/Dynamic/Message.php:52
 msgid "Attachment successfully stripped."
 msgstr "Anhang erfolgreich gelöscht."
@@ -1598,7 +1600,7 @@ msgstr "Gelöscht"
 msgid "Deleted Virtual Folder \"%s\"."
 msgstr "Virtueller Ordner \"%s\" gelöscht."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:704 lib/Basic/Compose.php:178
+#: lib/Ajax/Application/Handler/Dynamic.php:705 lib/Basic/Compose.php:178
 #, php-format
 msgid "Deleted attachment \"%s\"."
 msgstr "Anhang \"%s\" gelöscht."
@@ -1764,7 +1766,7 @@ msgstr "Entwurf"
 msgid "Draft automatically saved."
 msgstr "Entwurf automatisch gespeichert."
 
-#: config/prefs.php:749 lib/Mailbox.php:1596 lib/Mailbox.php:1686
+#: config/prefs.php:749 lib/Mailbox.php:1634 lib/Mailbox.php:1724
 msgid "Drafts"
 msgstr "Entwürfe"
 
@@ -2157,7 +2159,7 @@ msgstr ""
 msgid "Fo_rward"
 msgstr "_Weiterleiten"
 
-#: lib/Mailbox.php:1664
+#: lib/Mailbox.php:1702
 msgid "Folder"
 msgstr "Ordner"
 
@@ -2488,7 +2490,7 @@ msgstr "In Bearbeitung"
 msgid "In the body text"
 msgstr "Im Nachrichtentext"
 
-#: lib/Mailbox.php:1584 lib/Mailbox.php:1674 lib/Minimal/Base.php:83
+#: lib/Mailbox.php:1622 lib/Mailbox.php:1712 lib/Minimal/Base.php:83
 msgid "Inbox"
 msgstr "Posteingang"
 
@@ -2691,7 +2693,7 @@ msgid "Mail"
 msgstr "Webmail"
 
 #: config/prefs.php:1448 config/prefs.php:1623 lib/Block/Summary.php:109
-#: lib/Mailbox.php:1711 templates/basic/folders/folders_size.html.php:8
+#: lib/Mailbox.php:1749 templates/basic/folders/folders_size.html.php:8
 #: templates/smartmobile/message.html.php:2
 msgid "Mailbox"
 msgstr "Ordner"
@@ -3198,7 +3200,7 @@ msgstr "Keine Nachrichten-ID angegeben."
 msgid "No messages"
 msgstr "Keine Nachrichten"
 
-#: lib/Dynamic/Mailbox.php:479
+#: lib/Dynamic/Mailbox.php:483
 msgid "No messages matched the search query."
 msgstr "Es wurden keine passenden Nachrichten gefunden."
 
@@ -3324,7 +3326,7 @@ msgstr ""
 msgid "Open in new window"
 msgstr "In neuem Fenster öffnen"
 
-#: lib/Mailbox.php:1660
+#: lib/Mailbox.php:1698
 msgid "Opened Folder"
 msgstr "Geöffneter Ordner"
 
@@ -3341,7 +3343,7 @@ msgstr "Sonstige"
 msgid "Other Options"
 msgstr "Weitere Funktionen"
 
-#: lib/Mailbox.php:1550
+#: lib/Mailbox.php:1588
 msgid "Other Users"
 msgstr "Andere Benutzer"
 
@@ -4383,7 +4385,7 @@ msgstr "Nachricht ohne ein Betreff verschicken?"
 msgid "Sender: %s"
 msgstr "Absender: %s"
 
-#: lib/Mailbox.php:1601 lib/Mailbox.php:1606 lib/Mailbox.php:1705
+#: lib/Mailbox.php:1639 lib/Mailbox.php:1644 lib/Mailbox.php:1743
 msgid "Sent"
 msgstr "Gesendet"
 
@@ -4430,7 +4432,7 @@ msgstr "Gemeinsame Ordner"
 msgid "Share your mailboxes with other users."
 msgstr "Teilen Sie Ihre Ordner mit anderen Benutzern."
 
-#: lib/Mailbox.php:1553
+#: lib/Mailbox.php:1591
 msgid "Shared"
 msgstr "Gemeinsam"
 
@@ -4623,7 +4625,7 @@ msgstr "Sortieren nach Thema"
 msgid "Sort by To Address"
 msgstr "Sortieren nach Empfänger"
 
-#: lib/Mailbox.php:1614 lib/Mailbox.php:1692
+#: lib/Mailbox.php:1652 lib/Mailbox.php:1730
 #: templates/dynamic/mailbox.html.php:36 templates/dynamic/message.html.php:19
 #: templates/smartmobile/mailbox.html.php:21
 #: templates/smartmobile/mailbox.html.php:31
@@ -4701,6 +4703,16 @@ msgstr "Abschicken"
 msgid "Subscribe"
 msgstr "Einblenden"
 
+#: lib/Dynamic/Mailbox.php:477
+#, php-format
+msgid "Subscribe to %s?"
+msgstr "%s einblenden?"
+
+#: lib/Dynamic/Mailbox.php:478
+#, php-format
+msgid "Subscribe to all subfolders of %s?"
+msgstr "Alle Unterordner von %s einblenden?"
+
 #: lib/Mime/Status.php:88
 msgid "Success"
 msgstr "Erfolg"
@@ -4770,7 +4782,7 @@ msgstr "Technische Fehlerdetails können %s angeschaut werden."
 msgid "Technical message details can be viewed %s."
 msgstr "Technische Nachrichtendetails können %s angeschaut werden."
 
-#: lib/Mailbox.php:1592 templates/prefs/acl.html.php:36
+#: lib/Mailbox.php:1630 templates/prefs/acl.html.php:36
 #: templates/prefs/acl.html.php:71
 msgid "Templates"
 msgstr "Vorlagen"
@@ -4804,14 +4816,14 @@ msgstr "Die Macintosh resource fork"
 msgid "The Macintosh resource fork can be downloaded %s."
 msgstr "Die Macintosh resource fork kann %s heruntergeladen werden."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:776
+#: lib/Ajax/Application/Handler/Dynamic.php:777
 msgid ""
 "The Message Disposition Notification was not sent. This is what the server "
 "said"
 msgstr ""
 "Die Empfangsbestätigung wurde nicht verschickt. Meldung des E-Mail-Servers"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:783
+#: lib/Ajax/Application/Handler/Dynamic.php:784
 msgid "The Message Disposition Notification was sent successfully."
 msgstr "Die Empfangsbestätigung wurde erfolgreich verschickt."
 
@@ -5130,7 +5142,7 @@ msgid "There are no alternative parts that can be displayed inline."
 msgstr ""
 "Es gibt keine alternativen Nachrichtenteile, die angzeigt werden können."
 
-#: lib/Dynamic/Mailbox.php:478
+#: lib/Dynamic/Mailbox.php:482
 #: templates/basic/mailbox/empty_mailbox.html.php:6
 msgid "There are no messages in this mailbox."
 msgstr "In diesem Ordner sind keine Nachrichten vorhanden"
@@ -5392,7 +5404,7 @@ msgstr "Oben"
 msgid "Total"
 msgstr "Insgesamt"
 
-#: lib/Mailbox.php:1618 lib/Mailbox.php:1698
+#: lib/Mailbox.php:1656 lib/Mailbox.php:1736
 msgid "Trash"
 msgstr "Papierkorb"
 
@@ -5472,6 +5484,16 @@ msgstr "Nicht gelesen"
 msgid "Unsubscribe"
 msgstr "Ausblenden"
 
+#: lib/Dynamic/Mailbox.php:479
+#, php-format
+msgid "Unsubscribe to %s?"
+msgstr "%s ausblenden?"
+
+#: lib/Dynamic/Mailbox.php:480
+#, php-format
+msgid "Unsubscribe to all subfolders of %s?"
+msgstr "Alle Unterordner von %s ausblenden?"
+
 #: templates/basic/compose/compose.html.php:285
 msgid "Update"
 msgstr "Aktualisierung"
@@ -5493,7 +5515,7 @@ msgid "Upload"
 msgstr "Hochladen"
 
 #: lib/Ajax/Application/Handler/ComposeAttach.php:87
-#: lib/Ajax/Application/Handler/Dynamic.php:917
+#: lib/Ajax/Application/Handler/Dynamic.php:918
 msgid "Uploading attachments has been disabled on this server."
 msgstr "Das Hochladen von Anhängen wurde auf diesem System deaktiviert."
 
@@ -5672,12 +5694,12 @@ msgstr "Virtueller Ordner \"%s\" gelöscht."
 msgid "Virtual Folder \"%s\" edited successfully."
 msgstr "Virtueller Ordner \"%s\" erfolgreich gespeichert."
 
-#: lib/Dynamic/Mailbox.php:477
+#: lib/Dynamic/Mailbox.php:481
 #, php-format
 msgid "Virtual Folder: %s"
 msgstr "Virtueller Ordner: %s"
 
-#: lib/Dynamic/Mailbox.php:257 lib/Mailbox.php:1556
+#: lib/Dynamic/Mailbox.php:257 lib/Mailbox.php:1594
 #: templates/basic/flist/flist.html.php:27
 msgid "Virtual Folders"
 msgstr "Virtuelle Ordner"
@@ -5836,7 +5858,7 @@ msgstr "Sie benennen folgenden Ordner um:"
 msgid "You are replying to a mailing list"
 msgstr "Sie antworten an eine Mailingliste"
 
-#: lib/Mailbox.php:962
+#: lib/Mailbox.php:968
 #, php-format
 msgid "You cannot unsubscribe from \"%s\"."
 msgstr "Sie können \"%s\" nicht ausblenden."
@@ -5954,25 +5976,35 @@ msgstr "Sie haben auf diese Nachricht am %s geantwortet."
 msgid "You replied to this message via the mailing list on %s."
 msgstr "Sie haben am %s über die Mailingliste auf diese Nachricht geantwortet."
 
-#: lib/Mailbox.php:970
+#: lib/Mailbox.php:978
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
 msgstr ""
 "Beim Einblenden des Ordners \"%s\" ist ein Fehler aufgetreten. Meldung des E-"
 "Mail-Servers"
 
-#: lib/Mailbox.php:972
+#: lib/Mailbox.php:980
 #, php-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
 msgstr ""
 "Der Ordner \"%s\" wurde nicht ausgeblendet. Die Meldung des E-Mail-Servers"
 
-#: lib/Mailbox.php:978
+#: lib/Mailbox.php:1016
+#, php-format
+msgid "You were successfully subscribed to \"%s\" and all subfolders."
+msgstr "\"%s\" und alle Unterordner wurden erfolgreich eingeblendet."
+
+#: lib/Mailbox.php:994
 #, php-format
 msgid "You were successfully subscribed to \"%s\"."
 msgstr "\"%s\" wurde erfolgreich eingeblendet."
 
-#: lib/Mailbox.php:981
+#: lib/Mailbox.php:1017
+#, php-format
+msgid "You were successfully unsubscribed from \"%s\" and all subfolders."
+msgstr "\"%s\" und alle Unterordner wurden erfolgreich ausgeblendet."
+
+#: lib/Mailbox.php:995
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\"."
 msgstr "\"%s\" wurde erfolgreich ausgeblendet."
@@ -6022,7 +6054,7 @@ msgstr ""
 "eintragen)</em>"
 
 #: lib/Ajax/Application/Handler/ComposeAttach.php:52
-#: lib/Ajax/Application/Handler/Dynamic.php:920
+#: lib/Ajax/Application/Handler/Dynamic.php:921
 msgid ""
 "Your attachment was not uploaded. Most likely, the file exceeded the maximum "
 "size allowed by the server configuration."
