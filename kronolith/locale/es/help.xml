@@ -1,95 +1,199 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
 
-<entry id="Overview" md5="1585927d48e4627c792fe0332c41fd39" state="uptodate">
+<entry id="Overview" md5="1585927d48e4627c792fe0332c41fd39" state="changed">
     <title>Kronolith: Introducción</title>
     <heading>¿Qué es kronolith?</heading>
     <para>
     Kronolith es una aplicación de agenda basada en web. Además de las funciones habituales de creación, modificación y eliminación de acontecimientos, soporta acontecimientos recurrentes (con excepciones y diversas opciones de eliminación), alarmas, funciones de importación y exportación (en formatos iCalendar y Palm DataBook (PDB)), invitaciones iCalendar, múltiples vistas, agendas compartidas, visualización de tareas de Nag (si las Tareas están instaladas) y la capacidad de mostrar acontecimientos en la pantalla de resumen de Horde.
     </para>
-</entry>
-
-<entry id="menu-today" md5="841ca455c83d05fc112ddc190f471c98" state="uptodate">
-    <title>Menú: Hoy</title>
-    <heading>Hoy</heading>
+<!-- English entry (2013-06-04):
+<entry id="Overview">
+    <title>Kronolith: Overview</title>
+    <heading>What is Kronolith?</heading>
     <para>
-    El elemento <i>Hoy</i> del menú mostrará la vista por omisión (mensual, semanal, diaria, etc. según se haya configurado en las Opciones) de la fecha actual.
+    Kronolith is a web-based calendar application.  In addition to the required
+    functions of creating, modifying, and deleting events, it currently
+    supports dynamic and mobile interfaces, CalDAV clients, shared calendars,
+    remote calendars, invitation management (iCalendar/iTip), free/busy
+    management, resource management, alarms, recurring events, tasks
+    integration (if the tasks application is installed), import and export
+    functions (iCalendar and CSV formats), and a number of different calender
+    views.
     </para>
-</entry>
+</entry>--></entry>
 
-<entry id="menu-Goto" md5="566191775ba90b769f2e3f7cdf24cbfa" state="uptodate">
-    <title>Menú: Ir a</title>
-    <heading>Ir a</heading>
-    <para>
-    El elemento <i>Ir a</i> del menú mostrará una pequeña ventana desplegable en la que podrá seleccionar rápidamente un año, mes, semana o día al que <i>Ir a</i>. Suele ser la forma más rápida de desplazarse dentro de la agenda.
-    </para>
-</entry>
-
-<entry id="menu-Day" md5="3cd62e10116058db52a15fecd7ddbcb0" state="uptodate">
-    <title>Menú: Día</title>
-    <heading>Vista diaria</heading>
-    <para>
-    El elemento <i>Día</i> del menú mostrará una vista diaria del día seleccionado actualmente.
-    </para>
-</entry>
-
-<entry id="menu-work-week" md5="f9a63585c81dca63887e130dbbea91de" state="uptodate">
-    <title>Menú: Semana laboral</title>
-    <heading>Vista de semana laboral</heading>
-    <para>
-    El elemento <i>S. laboral</i> del menú mostrará la vista de semana laboral (de lunes a viernes) más adecuada del día seleccionado actualmente.
-    </para>
-</entry>
-
-<entry id="menu-week" md5="3d8a3bfda629bb6e09819b2e660546e5" state="uptodate">
-    <title>Menú: Semana</title>
-    <heading>Vista semanal</heading>
-    <para>
-    El elemento <i>Semana</i> del menú mostrará una vista semanal (de 7 días) de la semana que contenga el día seleccionado actualmente.
-    </para>
-</entry>
-
-<entry id="menu-month" md5="4be2056875775ec1f5b0f920a1dab608" state="uptodate">
-    <title>Menú: Mes</title>
-    <heading>Vista mensual</heading>
-    <para>
-    El elemento <i>Mes</i> del menú mostrará la vista mensual del mes que contenga el día seleccionado actualmente.
-    </para>
-</entry>
-
-<entry id="menu-new-event" md5="37406cc2ee51040862df1eaa2f645d4e" state="uptodate">
+<entry id="menu-new-event" md5="37406cc2ee51040862df1eaa2f645d4e" state="changed">
     <title>Menú: Añadir</title>
     <heading>Añadir un acontecimiento</heading>
     <para>
     El elemento <i>Añadir</i> del menú le permitirá añadir un acontecimiento a la agenda.
     </para>
-</entry>
+<!-- English entry (2013-06-04):
+<entry id="menu-new-event">
+    <title>Menu: New Event</title>
+    <para>
+    The "New Event" menu item will allow you to create a new event to
+    be added to a calendar.
+    </para>
+</entry>--></entry>
 
-<entry id="menu-prefs" md5="8a623cc08a53407d5eee2fceba0e9de1" state="uptodate">
+<entry id="menu-Day" md5="3cd62e10116058db52a15fecd7ddbcb0" state="changed">
+    <title>Menú: Día</title>
+    <heading>Vista diaria</heading>
+    <para>
+    El elemento <i>Día</i> del menú mostrará una vista diaria del día seleccionado actualmente.
+    </para>
+<!-- English entry (2013-06-04):
+<entry id="menu-Day">
+    <title>Menu: Day</title>
+    <para>
+    The "Day" tab will display the day view of the currently selected
+    day.
+    </para>
+</entry>--></entry>
+
+<entry id="menu-work-week" md5="f9a63585c81dca63887e130dbbea91de" state="changed">
+    <title>Menú: Semana laboral</title>
+    <heading>Vista de semana laboral</heading>
+    <para>
+    El elemento <i>S. laboral</i> del menú mostrará la vista de semana laboral (de lunes a viernes) más adecuada del día seleccionado actualmente.
+    </para>
+<!-- English entry (2013-06-04):
+<entry id="menu-work-week">
+    <title>Menu: Work Week</title>
+    <para>
+    The "Work Week" tab will display the work week view (Monday
+    through Friday) closest to the currently selected day.
+    </para>
+</entry>--></entry>
+
+<entry id="menu-week" md5="3d8a3bfda629bb6e09819b2e660546e5" state="changed">
+    <title>Menú: Semana</title>
+    <heading>Vista semanal</heading>
+    <para>
+    El elemento <i>Semana</i> del menú mostrará una vista semanal (de 7 días) de la semana que contenga el día seleccionado actualmente.
+    </para>
+<!-- English entry (2013-06-04):
+<entry id="menu-week">
+    <title>Menu: Week</title>
+    <para>
+    The "Week" tab will display the week view (7 day view) for the
+    week containing the currently selected day.
+    </para>
+</entry>--></entry>
+
+<entry id="menu-month" md5="4be2056875775ec1f5b0f920a1dab608" state="changed">
+    <title>Menú: Mes</title>
+    <heading>Vista mensual</heading>
+    <para>
+    El elemento <i>Mes</i> del menú mostrará la vista mensual del mes que contenga el día seleccionado actualmente.
+    </para>
+<!-- English entry (2013-06-04):
+<entry id="menu-month">
+    <title>Menu: Month</title>
+    <para>
+    The "Month" tab will display the month view for the month
+    containing the currenly selected day.
+    </para>
+</entry>--></entry>
+
+<entry id="menu-prefs" md5="8a623cc08a53407d5eee2fceba0e9de1" state="changed">
     <title>Menú: Opciones</title>
     <heading>Opciones</heading>
     <para>
     El elemento <i>Opciones</i> del menú le permite configurar <i>Opciones</i> (o preferencias) que controlan el aspecto y comportamiento de kronolith, su interacción con Horde y con el resto de las aplicaciones, gestionar varias agendas y agendas compartidas.
     </para>
+<!-- English entry (2013-06-04):
+<entry id="menu-prefs">
+    <title>Preferences</title>
+    <para>
+    The "Preferences" menu item allows you to set preferences that
+    control the look and feel of Kronolith, Kronolith's interaction with Horde
+    and other Horde applications.
+    </para>
+</entry>--></entry>
+
+<entry id="caldav" state="new">
+    <title>CalDAV Clients</title>
+    <para>
+    CalDAV clients can directly access the internal calendars (and task lists)
+    of Kronolith. External calendars like events provided by other applications
+    or remote calendars are not provided to CalDAV clients.
+    </para>
+    <para>
+    How to configure access to the calendars and which CalDAV URLs to use
+    depends on the client. Below are a few examples on how to access CalDAV
+    resources from common calendar clients:
+    </para>
+    <heading>Thunderbird/Lightning</heading>
+    <para>
+    Lightning, the calendar add-on to Thunderbird, requires to subscribe to
+    each CalDAV calendar individually. In the "File" menu choose
+    "New", then "Calendar". In the following dialogs choose
+    "On the Network", then "CalDAV". Copy the "CalDAV
+    Subscription URL" from the "Subscription" tab of Kronolith's
+    calendar dialog into the "Location" field.
+    </para>
+    <heading>Apple iCal</heading>
+    <para>
+    CalDAV servers can be added in the "Preferences" dialog, at the
+    "Accounts" tab. Click on the "+" button and choose
+    "CalDAV" as the "Account Type" in the upcoming
+    dialog. Enter your user name and password into the correct fields. Copy the
+    "CalDAV Account URL" from the "Subscription" tab of
+    Kronolith's calendar dialog into iCal's "Server Address" field.
+    </para>
+    <heading>Evolution</heading>
+    <para>
+    Evolution requires to subscribe to each CalDAV calendar individually. In
+    the "File" menu choose "New", then
+    "Calendar". Choose "CalDAV" as the "Type" in
+    the upcoming dialog. Copy the server name of the "CalDAV Subscription
+    URL" from the "Subscription" tab of Kronolith's calendar
+    dialog into the "Server" field. Copy the path of the URL to the
+    "Path" field. E.g. if your Subscription URL is
+    "http://www.example.com/rpc/calendars/user/calendar:xyz/", then
+    copy "www.example.com" to the "Server" field and
+    "/rpc/calendars/user/calendar:xyz/" to the path field.
+    </para>
 </entry>
 
-<entry id="menu-import-export" md5="34bc9dfc4d6302fc1011696a1b8d1ca8" state="uptodate">
+<entry id="menu-import-export" md5="34bc9dfc4d6302fc1011696a1b8d1ca8" state="changed">
     <title>Menú: Importar/Exportar</title>
     <heading>Importar/Exportar</heading>
     <para>
     El elemento <i>Importar/Exportar</i> del menú le permite importar o exportar acontecimientos de la agenda. Actualmente se pueden importar archivos en formato CSV, Outlook de Microsoft, Palm DateBook y vCalendar/iCalendar. Sólo se puede exportar a formatos CSV e iCalendar.
     </para>
-</entry>
+<!-- English entry (2013-06-04):
+<entry id="menu-import-export">
+    <title>Import/Export</title>
+    <para>
+    The "Import/Export" menu item in the basic mode, or the
+    "Import" and "Export" tabs in the dynamic view allow
+    you to import or export calendar events.  Depending on the mode you can
+    currently import and export files in CSV, Microsoft Outlook, or
+    vCalendar/iCalendar formats.
+    </para>
+</entry>--></entry>
 
-<entry id="alarms" md5="4c1c6f3eb13a416031ffbee4fce99ea1" state="uptodate">
+<entry id="alarms" md5="4c1c6f3eb13a416031ffbee4fce99ea1" state="changed">
     <title>Alarmas</title>
     <heading>Alarmas</heading>
     <para>
     Kronolith puede generar alarmas para los acontecimientos de una agenda. Por omisión la primera alarma se producirá 15 minutos antes de la hora prevista de inicio del acontecimiento, pero se puede configurar (para cada acontecimiento) para que se produzca prácticamente a cualquier intervalo antes de la hora y fecha previstas.
     </para>
-</entry>
+<!-- English entry (2013-06-04):
+<entry id="alarms">
+    <title>Alarms</title>
+    <para>
+    Kronolith can generate alarms for events in a calendar. The alarm can be
+    set (per event) to occur at almost any interval before the event start
+    time.
+    </para>
+</entry>--></entry>
 
-<entry id="recurring-events" md5="8ea7be1fb6cee0b4131c9a548e25d92f" state="uptodate">
+<entry id="recurring-events" md5="8ea7be1fb6cee0b4131c9a548e25d92f" state="changed">
     <title>Acontecimientos recurrentes</title>
     <heading>Acontecimientos recurrentes</heading>
     <para>
@@ -101,25 +205,31 @@
     <para>
     Normalmente, la modificación de un acontecimiento recurrente se aplicará a todas las repeticiones del mismo. Se puede modificar una repetición individual de un acontecimiento recurrente modificando la repetición, eliminando la información de recurrencia y seleccionando la opción <i>Guardar como nuevo</i> del menú de recurrencia. El acontecimiento seleccionado se podrá modificar entonces de forma independiente a las otras repeticiones del mismo.
     </para>
-</entry>
-
-<entry id="Printing" md5="2f90d14e34b715a054fb52bb919ac5f8" state="uptodate">
-    <title>Impresión</title>
-    <heading>Impresión de agendas y acontecimientos</heading>
+<!-- English entry (2013-06-04):
+<entry id="recurring-events">
+    <title>Recurring Events</title>
     <para>
-    Determinadas vistas se han diseñado con el objetivo de poder imprimirse. Si se está en una de ellas, aparecerá el icono <i>Imprimir</i> en la barra de menú superior. Utilice dicho icono para imprimir la vista actual.
+    Events can be made to repeat in various ways. Many events repeat in certain
+    frequently used ways. For example, the "Monthly" recurrence types
+    make the selected item repeat each month and the "Weekly"
+    recurrence type makes the selected item repeat each per week. These can be
+    made to represent events that repeat in complex ways: for example, an item
+    that occurs on the third Friday of each month, or an item that occurs on
+    Monday, Wednesday, and Friday every week.
     </para>
-</entry>
-
-<entry id="shares" md5="bf3a44d08a824979ba8dd8fd0e661eee" state="uptodate">
-	<title>Permisos de la agenda</title>
-	<para>
-		Aquí debería haber algunas explicaciones de los distintos usuarios y grupos a los que se puedan asignar permisos.
-	</para>
-	<para>
-		Éste debería ser un sitio para explicar los distintos tipos de permisos y lo que significan con respencto a acontecimientos y agendas.
-	</para>
-</entry>
+    <para>
+    You can also restrict how long an event repeats by selecting the end date
+    or a recurrence count for the event's recurrence.
+    </para>
+    <para>
+    Normally, a modification to a repeating event applies to all occurrences of
+    that event. A single occurrence of a repeating event can be modified by
+    editing the occurrence, removing its recurrence information, and then
+    choosing the "Save as New" option from the Repeat menu. The
+    selected occurrence can now be modified independently of the other
+    occurences.
+    </para>
+</entry>--></entry>
 
 <entry id="embed" state="uptodate" md5="795e60a6e3f367b06e3e51181ac1c465">
   <title>Incrustado</title>
