@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* Final release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -675,7 +675,7 @@
    <date>2013-06-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* Final release.
    </notes>
   </release>
  </changelog>
