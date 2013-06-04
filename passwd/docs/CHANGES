@@ -1,6 +1,6 @@
-----------
-v5.0.0-git
-----------
+------
+v5.0.0
+------
 
 [jan] Add policy for minimum number of non-alphanumeric characters (Friedrich
       Haubensak <hsk@fli-leibniz.de>, Request #12243).
