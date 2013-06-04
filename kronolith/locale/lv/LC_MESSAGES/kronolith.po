@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 2.1.7\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-11 10:58+0200\n"
-"PO-Revision-Date: 2013-01-11 11:24+0300\n"
+"PO-Revision-Date: 2013-06-03 14:29+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -1427,7 +1427,7 @@ msgstr "Importēt/Eksportēt kalendāru"
 #: templates/chunks/calendar.php:123
 #, php-format
 msgid "Importing should %s %sreplace this calendar%s."
-msgstr "Impotēšana %s %saizvietos šo kalendāru%s."
+msgstr "%s importēšana %saizvietos šo kalendāru%s."
 
 #: templates/dynamic/tasks.inc:7
 msgid "Incomplete"
@@ -1795,7 +1795,7 @@ msgstr "Objektu redaktors"
 
 #: templates/edit/edit_timespan.inc:13 templates/edit/edit_timespan.inc:58
 msgid "On"
-msgstr "ZZ"
+msgstr " "
 
 #: lib/Event.php:1917
 #, php-format
@@ -2269,7 +2269,7 @@ msgid ""
 "Restrict day and week views to these time slots, even if there <strong>are</"
 "strong> earlier or later events?"
 msgstr ""
-"Ierobežot dienas un nedēļas skatus šajā laikspraugā, pat <strong>ja eksistē</"
+"Ierobežot dienas un nedēļas skatus šajā laikspraugā, pat <strong>ja pastāv</"
 "strong> agrāki vai vēlāki notikumi?"
 
 #: lib/Application.php:142
@@ -2522,7 +2522,7 @@ msgstr "Rādīt dinamisko skatu pēc noklusēšanas, ja pārlūks to uztur?"
 
 #: config/prefs.php:119
 msgid "Show time of day between each day in week views?"
-msgstr "Rādīt dienakts laiku starp katru dienu nedēļu skatos?"
+msgstr "Rādīt diennakts laiku starp katru dienu nedēļu skatos?"
 
 #: lib/Application.php:170
 msgid "Showing calendar:"
@@ -2583,7 +2583,7 @@ msgstr "Statuss"
 #: templates/dynamic/edit.inc:189 templates/dynamic/task.inc:126
 #, php-format
 msgid "Stop %s never%s, %s at %s or %s after %s recurrences %s"
-msgstr "Atcelt %s nekad%s, %s atttttt %s vai %s pēc %s atkārtojumiem %s"
+msgstr "Atcelt %s nekad%s, %s plkst.ZZ %s vai %s pēc %s atkārtojumiem %s"
 
 #: lib/Block/Month.php:114 lib/Block/Month.php:116 lib/View/Year.php:56
 #: lib/View/Year.php:65 templates/edit/edit.inc:311
@@ -2675,7 +2675,7 @@ msgstr "Uzdevumi"
 
 #: lib/Kronolith.php:1109 lib/Kronolith.php:1132 templates/dynamic/edit.inc:71
 msgid "Tentative"
-msgstr "Nepstiprināts"
+msgstr "Neapstiprināts"
 
 #: lib/Block/Month.php:112 lib/View/Year.php:61 templates/edit/edit.inc:308
 msgid "Th"
@@ -3643,7 +3643,7 @@ msgstr ""
 
 #: templates/contacts/contacts.inc:147
 msgid "in"
-msgstr "ZZZ"
+msgstr "adrešu grāmatā "
 
 #: templates/dynamic/edit.inc:128 templates/dynamic/task.inc:65
 msgid "minutes"

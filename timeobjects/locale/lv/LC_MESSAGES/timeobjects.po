@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Timeobjects 1.0.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
-"PO-Revision-Date: 2013-01-09 12:21+0100\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2013-06-03 13:33+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: Latvian <i18n@lists.horde.org>\n"
 "Language: lv\n"
@@ -19,120 +19,54 @@ msgstr ""
 "X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: lib/Driver/Weatherdotcom.php:222 lib/Driver/Weatherdotcom.php:237
-#, php-format
-msgid " gusting %d%s"
-msgstr " brāzmains %d%s"
-
-#: lib/Driver/Weatherdotcom.php:155
-msgid "An unknown error has occured."
-msgstr "Radusies nezināma kļūda."
-
-#: lib/Driver/Weatherdotcom.php:151
-msgid "Cache init was not completed."
-msgstr "Keša inicializācija nav pabeigta."
-
-#: lib/Driver/Weatherdotcom.php:211
+#: lib/Driver/Weather.php:116
 #, php-format
 msgid ""
 "Conditions: %s\n"
 "High temperature: %d%s\n"
-"Precipitation: %d%%\n"
+"Precipitation: %s\n"
+msgstr ""
+"Apstākļi: %s\n"
+"Augstākā temperatūra: %d%s\n"
+"Nokrišņi: %s\n"
+
+#: lib/Driver/Weather.php:104
+#, php-format
+msgid ""
+"Conditions: %s\n"
+"High temperature: %d%s\n"
+"Precipitation: %s\n"
 "Humidity: %d%%\n"
 "Winds: From the %s at %d%s"
 msgstr ""
 "Apstākļi: %s\n"
 "Augstākā temperatūra: %d%s\n"
-"Nokrišņi: %d%%\n"
+"Nokrišņi: %s\n"
 "Gaisa mitrums: %d%%\n"
-"Vēji: no %s uz %d%s"
+"Vēji: no %s ar ātrumu %d%s"
 
-#: lib/Driver/Weatherdotcom.php:226
-#, php-format
-msgid ""
-"Conditions: %s\n"
-"Low temperature: %d%s\n"
-"Precipitation: %d%%\n"
-"Humidity: %d%%\n"
-"Winds: From the %s at %d%s"
-msgstr ""
-"Apstākļi: %s\n"
-"Zemākā temperatūra: %d%s\n"
-"Nokrišņi: %d%%\n"
-"Gaisa mitrums: %d%%\n"
-"Vēji: no %s uz %d%s"
-
-#: lib/Api.php:47
+#: lib/Api.php:34
 msgid "Facebook Events"
 msgstr "Facebook notikumi"
 
-#: lib/Driver/Weatherdotcom.php:165
-msgid "Invalid license key."
-msgstr "Nederīga licences atslēga."
+#: lib/Driver/Weather.php:131
+#, php-format
+msgid "Location: %s"
+msgstr "Vieta: %s"
 
-#: lib/Driver/Weatherdotcom.php:159
-msgid "Invalid location provided."
-msgstr "Norādīta nesoša atrašanās vieta."
+#: lib/Driver/Weather.php:100
+msgid "N/A"
+msgstr "Nav"
 
-#: lib/Driver/Weatherdotcom.php:161
-msgid "Invalid partner id."
-msgstr "Nepareizs partnera ID."
-
-#: lib/Driver/Weatherdotcom.php:163
-msgid "Invalid product code."
-msgstr "Nepareizs produkta kods."
-
-#: lib/Driver/Weatherdotcom.php:241
+#: lib/Driver/Weather.php:136
 #, php-format
 msgid ""
-"Location: %s\n"
 "Sunrise: %s\n"
 "Sunset: %s\n"
-"\n"
-"Day\n"
-"%s\n"
-"\n"
-"Evening\n"
-"%s"
 msgstr ""
-"Vieta: %s\n"
 "Saullēkts: %s\n"
 "Saulriets: %s\n"
-"\n"
-"Diena\n"
-"%s\n"
-"\n"
-"Vakars\n"
-"%s"
 
-#: lib/Driver/Weatherdotcom.php:153
-msgid "MetarDB is not connected."
-msgstr "MetarDb nav pievienota."
-
-#: lib/Driver/Weatherdotcom.php:121
-msgid "No location is set."
-msgstr "Atrašanās vieta nav iestatīta."
-
-#: lib/Driver/Weatherdotcom.php:157
-msgid "No location provided."
-msgstr "Atrašanās vieta nav norādīta."
-
-#: lib/Driver/Weatherdotcom.php:130
-msgid "No temporary directory available for cache."
-msgstr "Nav pieejamas pagaidu katalogs kešatmiņai."
-
-#: lib/Driver/Weatherdotcom.php:145
-msgid "Requested service could not be found."
-msgstr "Pieprasītais pakalpojums nav atrasts."
-
-#: lib/Driver/Weatherdotcom.php:149
-msgid "Server data wrong or not available."
-msgstr "Servera dati ir nepareizi vai arī nepieejami."
-
-#: lib/Driver/Weatherdotcom.php:147
-msgid "Unknown location provided."
-msgstr "Norādīta nezināma atrašanās vieta."
-
-#: lib/Api.php:39
+#: lib/Api.php:33
 msgid "Weather"
 msgstr "Laika apstākļi"

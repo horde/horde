@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Turba 2.1.7\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-11 10:58+0200\n"
-"PO-Revision-Date: 2013-01-02 16:26+0300\n"
+"PO-Revision-Date: 2013-06-03 14:13+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: Latvian <i18n@lists.horde.org>\n"
 "Language: lv\n"
@@ -1093,7 +1093,7 @@ msgstr "Cits pasta indekss"
 
 #: config/attributes.php:256
 msgid "Other State/Province"
-msgstr "Cits rajons/privince"
+msgstr "Cits rajons/province"
 
 #: config/attributes.php:244
 msgid "Other Street Address"

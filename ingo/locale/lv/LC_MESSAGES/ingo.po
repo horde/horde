@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Ingo H3 (1.1.5)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-11 10:58+0200\n"
-"PO-Revision-Date: 2013-01-11 11:31+0300\n"
+"PO-Revision-Date: 2013-06-03 14:05+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -46,7 +46,7 @@ msgstr "Aktivēt skriptu"
 #: lib/Transport/Ldap.php:226
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
-msgstr "Akativēt skriptu \"%s\" neizdevās: (%d) %s"
+msgstr "Aktivēt skriptu \"%s\" neizdevās: (%d) %s"
 
 #: templates/filters/settings.inc:8
 msgid "Additional Settings"
@@ -176,7 +176,7 @@ msgstr "IZSLĒGTS: "
 
 #: templates/script/activate.inc:17
 msgid "Deactivate Script"
-msgstr "Deaktivēt skriptu"
+msgstr "Izslēgt skriptu"
 
 #: filters.php:239 filters.php:240
 #, php-format
@@ -544,7 +544,7 @@ msgid ""
 "Messages with a likely spam score greater than or equal to this number will "
 "be treated as spam."
 msgstr ""
-"Vēstules ar mēstulisma indeksu virs norādātās vērtības tiks apstrādātas kā "
+"Vēstules ar mēstulisma indeksu virs norādītās vērtības tiks apstrādātas kā "
 "mēstules."
 
 #: lib/Script/Sieve/Action/Notify.php:57
@@ -931,7 +931,7 @@ msgstr "Nav iespējams ielādēt skripta dzini \"%s\"."
 #: lib/Factory/Storage.php:74
 #, php-format
 msgid "Unable to load the storage driver \"%s\"."
-msgstr "Nav iespējams ielādēt datu galbātuves dzini \"%s\"."
+msgstr "Nav iespējams ielādēt datu glabātuves dzini \"%s\"."
 
 #: lib/Factory/Transport.php:76
 #, php-format
@@ -962,7 +962,7 @@ msgstr "Brīvdienu beigu datums ir pirms šodienas."
 
 #: vacation.php:21
 msgid "Vacation is not supported in the current filtering driver."
-msgstr "Pašreizējais filtrēšanas dzinis neatbalsta brīvdienu paziņōjumus."
+msgstr "Pašreizējais filtrēšanas dzinis neatbalsta brīvdienu paziņojumus."
 
 #: rule.php:378
 msgid "Value"
@@ -1024,8 +1024,8 @@ msgid ""
 "You can use placeholders like %NAME% in the vacation message. See the online "
 "help for details."
 msgstr ""
-"Brīvdienu paziņojumā ir iespējams izmantot vietturus, kā piem.  %NAME%. Pēc  "
-"plašāka izklāsta skat. tiešsaistes palīdzībā."
+"Brīvdienu paziņojumā ir iespējams izmantot vietturus, kā, piemēram,  %NAME%. "
+"Plašākam izklāstam skat. tiešsaistes palīdzībā."
 
 #: rule.php:90
 #, php-format
@@ -1102,7 +1102,7 @@ msgstr "un"
 
 #: templates/filters/filter.html:16
 msgid "disabled - click to enable"
-msgstr "izslēgts  uzklikšķiniet lai ieslēgtu"
+msgstr "izslēgts - uzklikšķiniet lai ieslēgtu"
 
 #: lib/Block/Overview.php:43
 msgid "inactive"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: IMP 3.1\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-11 10:58+0200\n"
-"PO-Revision-Date: 2013-01-11 13:18+0300\n"
+"PO-Revision-Date: 2013-06-03 13:59+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: Latvian <i18n@lists.horde.org>\n"
 "Language: lv\n"
@@ -251,7 +251,7 @@ msgstr "%u Pārsūtītās vēstules"
 #: rss.php:83
 #, php-format
 msgid "%u of %u messages in %s unread."
-msgstr "%u no %u vētulēm mapē %s nav lasītas."
+msgstr "%u no %u vēstulēm mapē %s nav lasītas."
 
 #: message.php:904
 #, php-format
@@ -326,7 +326,7 @@ msgstr "Apstiprināt pieprasījumu"
 
 #: lib/Mime/Viewer/Itip.php:546
 msgid "Accepted"
-msgstr "Akceptēts"
+msgstr "Apstiprināts"
 
 #: templates/dynamic/compose.html.php:14
 msgid "Accesskey Ctrl-Enter"
@@ -609,7 +609,7 @@ msgstr "Vai esat pārliecināti, ka vēlaties NEATGRIEZENISKI dzēst šīs vēst
 
 #: thread.php:166
 msgid "Are you sure you want to delete all messages in this thread?"
-msgstr "Vai tiešām vēlaties dzēst visas vēstules šajā pavedeinā?"
+msgstr "Vai tiešām vēlaties dzēst visas vēstules šajā pavedienā?"
 
 #: mailbox.php:354
 msgid "Are you sure you want to delete this Virtual Folder Definition?"
@@ -707,7 +707,7 @@ msgstr "kā pielikumu"
 
 #: config/prefs.php:783
 msgid "As both body text and an attachment"
-msgstr "Kā vēstules tekstu un pielilkumu"
+msgstr "Kā vēstules tekstu un pielikumu"
 
 #: config/prefs.php:1609
 msgid "Ascending"
@@ -1092,7 +1092,7 @@ msgstr "Klikšķis uz adreses atvērs vēstuli lasīšanai"
 
 #: lib/Ui/Compose.php:155
 msgid "Close this window"
-msgstr "Aizvēr logu"
+msgstr "Aizvērt šo logu"
 
 #: folders.php:408 lib/Dynamic/Mailbox.php:237 lib/Dynamic/Mailbox.php:292
 #: lib/Dynamic/Mailbox.php:372
@@ -1191,7 +1191,7 @@ msgstr "Konfigurēt ziņošanu par mēstulēm."
 
 #: templates/smartmobile/confirm.html.php:3
 msgid "Confirmation"
-msgstr "Aptiprinājums"
+msgstr "Apstiprinājums"
 
 #: search.php:110
 msgid "Contains Attachment(s)"
@@ -1315,7 +1315,7 @@ msgstr "Izveidot jaunu sagatavi"
 
 #: lib/Imap/Acl.php:191
 msgid "Create Subfolders/Rename Mailbox"
-msgstr "Izveidot apakšmapes.pārdēvēt mapi"
+msgstr "Izveidot apakšmapes/pārdēvēt mapi"
 
 #: lib/Prefs/Special/Sentmail.php:39
 msgid "Create a new sent-mail mailbox"
@@ -1361,7 +1361,7 @@ msgstr "Pielikumi"
 #: lib/Prefs/Special/Acl.php:58
 #, php-format
 msgid "Current access to %s"
-msgstr "Šābrīža pieeja %s"
+msgstr "Šī brīža pieeja %s"
 
 #: search.php:69
 msgid "Custom Header"
@@ -1449,7 +1449,7 @@ msgstr "Dzēst"
 #: lib/Prefs/Special/SmimePublicKey.php:58
 #, php-format
 msgid "Delete %s Public Key"
-msgstr "Džest %s publisko atslēgu"
+msgstr "Dzēst %s publisko atslēgu"
 
 #: templates/prefs/pgpprivatekey.html.php:46
 msgid "Delete Current Keys"
@@ -1482,7 +1482,7 @@ msgstr "Dzēst un pārdēvēt mapi"
 
 #: lib/Mime/Viewer/Itip.php:346
 msgid "Delete from my calendar"
-msgstr "Dzēst no mana kalndāra"
+msgstr "Dzēst no mana kalendāra"
 
 #: config/prefs.php:1378
 msgid "Delete message"
@@ -1627,7 +1627,7 @@ msgstr "Nerādīt daļas"
 
 #: compose.php:717
 msgid "Doing so will discard this message permanently."
-msgstr "To darot, šī vēstule tiks neatgriezenski dzēsta."
+msgstr "To darot, šī vēstule tiks neatgriezeniski dzēsta."
 
 #: lib/Dynamic/Mailbox.php:445
 msgid "Don't Show"
@@ -3258,7 +3258,7 @@ msgid ""
 "PGP encryption cannot be used by default as public keys cannot be found for "
 "all recipients."
 msgstr ""
-"PGP šifrēšanau nevar izmantot pēc noklusēšanas, jo visiem saņēmējiem nav "
+"PGP šifrēšanu nevar izmantot pēc noklusēšanas, jo visiem saņēmējiem nav "
 "atrodamas publiskās atslēgas."
 
 #: lib/Ajax/Application/Handler/Passphrase.php:55
@@ -3390,7 +3390,7 @@ msgstr "Personīgie S/MIME sertifikāti izdzēsti."
 
 #: config/prefs.php:523
 msgid "Plain Text"
-msgstr "Vienkaršs teksts"
+msgstr "Vienkāršs teksts"
 
 #: lib/Compose.php:1337
 msgid "Plaintext Message"
@@ -3618,7 +3618,7 @@ msgstr "Tikai lasīšanai"
 
 #: lib/Dynamic/Mailbox.php:294
 msgid "Rebuild Folder List"
-msgstr "atsvaidzināt mapju sarakstu"
+msgstr "Atsvaidzināt mapju sarakstu"
 
 #: templates/basic/folders/actions.html.php:49
 msgid "Rebuild Folder Tree"
@@ -3637,16 +3637,16 @@ msgstr "Saņēmēja adrese neatbilst pašreiz izvēlētajai identitātei."
 #: templates/basic/search/search-basic.html.php:18
 #: templates/smartmobile/search.html.php:13
 msgid "Recipients (To/Cc/Bcc)"
-msgstr "Saņemēji (To/Cc/Bcc)"
+msgstr "Saņēmēji (To/Cc/Bcc)"
 
 #: lib/Search/Element/Recipient.php:61
 #, php-format
 msgid "Recipients (To/Cc/Bcc) for '%s'"
-msgstr "'%s' saņemēji (To/Cc/Bcc)"
+msgstr "'%s' saņēmēji (To/Cc/Bcc)"
 
 #: message.php:635 message.php:716
 msgid "Redirec_t"
-msgstr "Pāradresēt"
+msgstr "Pāradresē_t"
 
 #: compose.php:384 lib/Dynamic/Base.php:169 lib/Dynamic/Compose.php:167
 #: lib/Minimal/Compose.php:223 lib/Minimal/Compose.php:226
@@ -3660,7 +3660,7 @@ msgstr "Pāradresēt"
 
 #: compose.php:384
 msgid "Redirect Messages"
-msgstr "Pāradresēt vēstuli"
+msgstr "Pāradresēt vēstules"
 
 #: lib/Minimal/Folders.php:58 lib/Minimal/Mailbox.php:178
 #: templates/basic/mailbox/header.html.php:9
@@ -3668,7 +3668,7 @@ msgstr "Pāradresēt vēstuli"
 #: templates/smartmobile/folders.html.php:9
 #: templates/smartmobile/mailbox.html.php:14
 msgid "Refresh"
-msgstr "Atsvaidzināt skatu"
+msgstr "Atsvaidzināt"
 
 #: templates/dynamic/mailbox.html.php:61
 msgid "Refresh Search Results"
@@ -3703,7 +3703,7 @@ msgstr "Pārdēvēt nosūtīto vēstuļu (sent-mail) mapi mēneša sākumā?"
 #: lib/Mailbox.php:910
 #, php-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
-msgstr "Neizdevās pārsaukt \"%s\" par \"%s\". Servera atbilde"
+msgstr "Neizdevās pārdēvēt \"%s\" par \"%s\". Servera atbilde"
 
 #: config/prefs.php:703
 msgid "Replies"
@@ -3754,7 +3754,7 @@ msgstr "Atbildēt vēstkopai:"
 
 #: lib/Mime/Viewer/Itip.php:214 lib/Mime/Viewer/Itip.php:223
 msgid "Reply with Not Supported Message"
-msgstr "Atbildēt ar Nav atbalstīts paziņojumu"
+msgstr "Atbildēt ar 'Nav atbalstīts' paziņojumu"
 
 #: lib/Mime/Viewer/Itip.php:221
 msgid "Reply with free/busy for next 2 months."
@@ -3796,7 +3796,7 @@ msgstr "Pieprasīt atskaiti par izlasīšanu"
 
 #: config/prefs.php:609
 msgid "Request read receipts?"
-msgstr "Pieprasīt atskaiti par izlasīšanu?"
+msgstr "Pieprasīt atskaites par izlasīšanu?"
 
 #: lib/Ajax/Application/Handler/Common.php:652
 #: lib/Ajax/Application/Handler/Dynamic.php:677
@@ -3980,7 +3980,7 @@ msgstr "Saglabāt melnrakstu"
 
 #: saveimage.php:67
 msgid "Save Image"
-msgstr "Saglabāt atēlu"
+msgstr "Saglabāt attēlu"
 
 #: lib/Contents.php:818
 msgid "Save Image in Gallery"
@@ -4149,7 +4149,7 @@ msgstr "Meklēšana nav iespējama."
 
 #: lib/Dynamic/Mailbox.php:246 lib/Flag/Imap/Seen.php:42
 msgid "Seen"
-msgstr "Lasīts"
+msgstr "Lasīta"
 
 #: templates/itip/action.html.php:98
 msgid "Select"
@@ -4476,7 +4476,7 @@ msgstr "Mēstuļkaste:"
 
 #: lib/Ui/Compose.php:51
 msgid "Spell Check Failed"
-msgstr "Pareizrakstības pārbaudītājsa kļūda"
+msgstr "Pareizrakstības pārbaudītāja kļūda"
 
 #: templates/itip/action.html.php:6
 msgid "Start"
@@ -5277,7 +5277,7 @@ msgstr "Atrakstīties"
 
 #: templates/basic/compose/compose.html.php:291
 msgid "Update"
-msgstr "Apstiprināt"
+msgstr "Atsvaidzināt"
 
 #: lib/Mime/Viewer/Itip.php:293 lib/Mime/Viewer/Itip.php:341
 msgid "Update in my calendar"
@@ -5285,11 +5285,11 @@ msgstr "Atsvaidzināt manā kalendārā"
 
 #: lib/Mime/Viewer/Itip.php:332
 msgid "Update respondent status"
-msgstr "Koriģēt respondenta statusu"
+msgstr "Atsvaidzināt respondenta statusu"
 
 #: lib/Mime/Viewer/Itip.php:308
 msgid "Update this event on my calendar"
-msgstr "Koriģēt šo notikumu manā kalendārā"
+msgstr "Atsvaidzināt šo notikumu manā kalendārā"
 
 #: templates/pgp/import_key.html.php:59 templates/smime/import_key.html.php:47
 msgid "Upload"

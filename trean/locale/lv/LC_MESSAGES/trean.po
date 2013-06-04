@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Trean H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-10-16 15:43+0300\n"
+"PO-Revision-Date: 2013-06-03 14:10+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -682,7 +682,7 @@ msgstr "Veidne"
 
 #: lib/Trean.php:175
 msgid "Temporary Redirect"
-msgstr "Īslaicīga pāradesācija"
+msgstr "Īslaicīga pāradresācija"
 
 #: templates/browse.php:178
 msgid "There are no bookmarks in this folder"

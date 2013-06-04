@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde 4.0.7-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-11 10:58+0200\n"
-"PO-Revision-Date: 2013-01-11 12:24+0300\n"
+"PO-Revision-Date: 2013-06-03 14:39+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -184,7 +184,7 @@ msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
 msgstr ""
-"Pieprasīta datu iztīrīšana noiekārtas. Tas tiks izdraīts nākošās "
+"Pieprasīta datu iztīrīšana no iekārtas. Tas tiks izdarīts nākošās "
 "sinhronizēšanas laikā."
 
 #: admin/config/index.php:144 admin/config/index.php:185
@@ -409,7 +409,7 @@ msgstr "Apstiprināt"
 
 #: config/nls.php:168
 msgid "Arabic (Windows-1256)"
-msgstr "Arabic (Windows-1256)"
+msgstr "Arābu (Windows-1256)"
 
 #: admin/alarms.php:130
 #, php-format
@@ -428,7 +428,7 @@ msgstr "Vai tiešām vēlaties izdzēst \"%s\"?"
 
 #: config/nls.php:169
 msgid "Armenian (ARMSCII-8)"
-msgstr "Armenian (ARMSCII-8)"
+msgstr "Armēņu (ARMSCII-8)"
 
 #: lib/Block/Fortune.php:35
 msgid "Art"
@@ -440,7 +440,7 @@ msgstr "Ascii Art"
 
 #: lib/LoginTasks/Task/AdminCheck.php:65
 msgid "At least one database schema is outdated."
-msgstr "Visamz vienas datubāzes shēma ir novecojusi."
+msgstr "Vismaz vienas datubāzes shēma ir novecojusi."
 
 #: templates/problem/problem.inc:22
 msgid "Attachment"
@@ -567,11 +567,11 @@ msgstr "Kategorijas un iezīmes"
 
 #: config/nls.php:171
 msgid "Celtic (ISO-8859-14)"
-msgstr "Celtic (ISO-8859-14)"
+msgstr "Ķeltu (ISO-8859-14)"
 
 #: config/nls.php:172
 msgid "Central European (ISO-8859-2)"
-msgstr "Central European (ISO-8859-2)"
+msgstr "Centrāleiropas (ISO-8859-2)"
 
 #: templates/prefs/rpc.html:33
 msgid "Change"
@@ -607,15 +607,15 @@ msgstr "Pārbaudīt jauninājumus"
 
 #: lib/Block/Vatid.php:44
 msgid "Checking"
-msgstr "Pārbaudām"
+msgstr "Pārbauda"
 
 #: config/nls.php:173
 msgid "Chinese Simplified (GB2312)"
-msgstr "Chinese Simplified (GB2312)"
+msgstr "Ķīniešu vienkāršotā (GB2312)"
 
 #: config/nls.php:174
 msgid "Chinese Traditional (Big5)"
-msgstr "Chinese Traditional (Big5)"
+msgstr "Ķīniešu tradicionālā (Big5)"
 
 #: services/obrowser/index.php:94
 #, php-format
@@ -662,7 +662,7 @@ msgstr ""
 #: templates/logintasks/logintasks.html:30
 #: templates/logintasks/smartmobile.html:34
 msgid "Click to Continue"
-msgstr "Uzklikšķiniet lai turpinātu"
+msgstr "Uzklikšķiniet, lai turpinātu"
 
 #: templates/prefs/syncml.html:13
 msgid "Client Anchor"
@@ -674,7 +674,7 @@ msgstr "Aizvērt logu"
 
 #: lib/Block/Metar.php:218
 msgid "Clouds"
-msgstr "Mākōni"
+msgstr "Mākoņi"
 
 #: lib/Application.php:222
 msgid "Codeword frequency"
@@ -818,7 +818,7 @@ msgid ""
 "Could not save the configuration file %s. You can either use one of the "
 "options to save the code back on %s or copy manually the code below to %s."
 msgstr ""
-"Nav iespējams saglabāt konfigurācijais failu %s. Vai nu izmontojiet vienu no "
+"Nav iespējams saglabāt konfigurācijas failu %s. Vai nu izmantojiet vienu no "
 "piedāvātajām opcijām lai saglabātu kodu %s vai arī iekopējiet to %s ar roku."
 
 #: admin/config/index.php:56
@@ -1525,7 +1525,7 @@ msgstr "Individuālie lietotāji"
 
 #: config/registry.php:240
 msgid "Information"
-msgstr "Iinformācija"
+msgstr "Informācija"
 
 #: templates/admin/groups/edit.inc:42
 msgid "Inherited Members"
@@ -2431,7 +2431,8 @@ msgid ""
 "Reset all device state. This will cause your devices to resyncronize all "
 "items."
 msgstr ""
-"Atjaunot iekārtas stāvokli. Tas liks Jūsu iekārtās resinhronizēt visus datus."
+"Atjaunot iekārtas stāvokli. Tas liks Jūsu iekārtās atkārtoti sinhronizēt "
+"visus datus."
 
 #: services/resetpassword.php:27
 msgid "Reset your password"
@@ -2953,7 +2954,7 @@ msgstr "Pakalpojums šobrīd nav pieejams. Mēģiniet vēlāk."
 
 #: lib/Block/Vatid.php:117
 msgid "The service is currently too busy. Try again later."
-msgstr "Serviss šobrīd ir pārāk noslogots. Mēginiet vēlāk."
+msgstr "Serviss šobrīd ir pārāk noslogots. Mēģiniet vēlāk."
 
 #: admin/user.php:224
 #, php-format
