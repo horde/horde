@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-22</date>
- <time>09:50:29</time>
+ <date>2013-06-04</date>
+ <time>17:31:48</time>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -486,7 +486,7 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-22</date>
+   <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix return from get() when using the Hashtable driver.
