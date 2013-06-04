@@ -1,6 +1,6 @@
-----------
-v5.1.0-git
-----------
+------
+v5.1.0
+------
 
 [mms] Add 'ajaxaction_handle' hook and deprecate 'ajaxaction' hook.
 [mms] Add configuration option to configure the e-mail address reset password
