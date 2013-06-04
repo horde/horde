@@ -123,6 +123,14 @@ v6.1.0beta1
 
 
 ------
+v6.0.6
+------
+
+[mms] Catch and ignore errors from contacts backend when determining whether to
+      show images in a message (Bug #12294).
+
+
+------
 v6.0.5
 ------
 
