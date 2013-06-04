@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2013-06-04</date>
- <time>11:36:34</time>
+ <time>23:58:50</time>
  <version>
   <release>4.1.0</release>
   <api>4.0.0</api>
@@ -1650,7 +1650,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* [jan] Fix searching in LDAP address books.
+* [jan] Fix searching in LDAP address books (Bug #12297).
    </notes>
   </release>
  </changelog>
