@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-03</date>
- <time>23:56:09</time>
+ <date>2013-06-04</date>
+ <time>23:46:12</time>
  <version>
   <release>3.1.0</release>
   <api>3.0.0</api>
@@ -1271,7 +1271,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-03</date>
+   <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix fatal error when updating filters.
