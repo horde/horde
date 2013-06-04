@@ -3847,7 +3847,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ));
                 $this->_writeStream($buffer, array(
                     'eol' => true,
-                    'foo' => true,
                     'nodebug' => !is_null($val->debug)
                 ));
             } catch (Horde_Imap_Client_Exception $e) {
