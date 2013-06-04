@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-04</date>
- <time>18:07:18</time>
+ <time>18:11:23</time>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Horde_Memcache driver is now deprecated in favor of the Horde_HashTable driver.
-* [mms] Added Horde_HashTable driver.
-* [mms] Implement logging for all storage drivers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -511,6 +509,19 @@ Initial release as a PEAR package
 * [mms] Horde_Memcache driver is now deprecated in favor of the Horde_HashTable driver.
 * [mms] Added Horde_HashTable driver.
 * [mms] Implement logging for all storage drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
