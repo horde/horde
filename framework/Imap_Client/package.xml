@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-03</date>
- <time>16:59:12</time>
+ <date>2013-06-04</date>
+ <time>15:12:33</time>
  <version>
   <release>2.11.4</release>
   <api>2.11.0</api>
@@ -1802,7 +1802,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-03</date>
+   <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Be more lenient about mailboxes containing null characters in Horde_Imap_Client 2.x for BC reasons.
