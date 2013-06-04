@@ -10,19 +10,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-30</date>
- <time>18:49:04</time>
+ <date>2013-06-04</date>
+ <time>23:34:38</time>
  <version>
-  <release>5.1.0RC2</release>
+  <release>5.1.0</release>
   <api>5.1.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* Final release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -91,28 +91,28 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.1.0RC1</min>
+    <min>5.1.0</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>4.1.0RC1</min>
+    <min>4.1.0</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>4.1.0beta1</min>
+    <min>4.1.0</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>4.1.0RC1</min>
+    <min>4.1.0</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -133,7 +133,7 @@
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>4.1.0RC1</min>
+    <min>4.1.0</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -379,20 +379,21 @@
    <date>2013-05-30</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Add Gollem and Trean.
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, and Mnemo.
    </notes>
   </release>
   <release>
    <version>
-    <release>5.1.0RC2</release>
+    <release>5.1.0</release>
     <api>5.1.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2013-05-30</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* Final release.
    </notes>
   </release>
  </changelog>

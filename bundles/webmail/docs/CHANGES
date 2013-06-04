@@ -2,6 +2,59 @@
 v5.1.0-git
 ----------
 
+Mail Changes
+------------
+[mms] Fix fatal error when importing a S/MIME key (Bug #12290).
+[mms] Fixed segfaults caused by SMTP debugging.
+
+Filters Changes
+---------------
+[mjr] Fix fatal error when updating filters.
+
+Address Book Changes
+--------------------
+[jan] Fix searching in LDAP address books (Bug #12297).
+
+Calendar Changes
+----------------
+[jan] Add help text for CalDAV usage.
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Fix some issues caused by broken non-mime part truncation.
+[mjr] Fix handling MIMETRUNCATION for emails with attachments (Bug #12289).
+[mjr] Fix missing email body data for certain clients (Bug #12203).
+[mjr] Fix requesting email data via ITEMOPERATION command (Bug #12292).
+[mjr] Fix a BC break that was causing FOLDERSYNC requests to f fail.
+[mjr] Fixes for broken clients like the S3 that request SMS sync even when told
+      there is no SMS collection.
+
+Cache
+[mms] Fix return from get() when using the Hashtable driver.
+[mms] Fix hashtable driver name.
+[mms] Horde_Memcache cache driver is now deprecated in favor of the
+      Horde_HashTable driver.
+[mms] Add Horde_HashTable cache driver.
+
+Core
+[jan] Don't break existing unchanged sources in the preferences.
+
+Imap_Client
+[mms] Be more lenient about mailboxes containing null characters in
+      Horde_Imap_Client 2.x for BC reasons.
+[mms] Fix flushing debug buffer when unexpected data is returned from the
+      remote server.
+[mms] Improved detection of client-side command errors before sending to the
+      remote IMAP server.
+[mms] Better sanity checking that we don't send binary data for mailbox
+      entries.
+
+SessionHandler
+[mms] Horde_Memcache driver is now deprecated in favor of the Horde_HashTable
+      driver.
+[mms] Added Horde_HashTable driver.
+[mms] Implement logging for all storage drivers.
 
 
 ---------
