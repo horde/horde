@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-04</date>
- <time>15:12:33</time>
+ <time>15:18:16</time>
  <version>
-  <release>2.11.4</release>
+  <release>2.11.5</release>
   <api>2.11.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Be more lenient about mailboxes containing null characters in Horde_Imap_Client 2.x for BC reasons.
-* [mms] Fix flushing debug buffer when unexpected data is returned from the remote server.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1807,6 +1806,19 @@
    <notes>
 * [mms] Be more lenient about mailboxes containing null characters in Horde_Imap_Client 2.x for BC reasons.
 * [mms] Fix flushing debug buffer when unexpected data is returned from the remote server.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.11.5</release>
+    <api>2.11.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
