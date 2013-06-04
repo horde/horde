@@ -32,14 +32,14 @@ class IMP_Basic_Smime extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $injector;
+        global $injector, $notification;
 
         $this->_smime = $injector->getInstance('IMP_Crypt_Smime');
 
         /* Run through the action handlers */
         switch ($this->vars->actionID) {
         case 'import_public_key':
-            $this->_smime->importKeyDialog('process_import_public_key');
+            $this->_importKeyDialog('process_import_public_key');
             break;
 
         case 'process_import_public_key':
@@ -91,7 +91,7 @@ class IMP_Basic_Smime extends IMP_Basic_Base
 
         case 'process_import_personal_certs':
             try {
-                $pkcs12 = $this->_smime->_getImportKey($this->vars->import_key);
+                $pkcs12 = $this->_getImportKey($this->vars->import_key);
                 $this->_smime->addFromPKCS12($pkcs12, $this->vars->upload_key_pass, $this->vars->upload_key_pk_pass);
                 $notification->push(_("S/MIME Public/Private Keypair successfully added."), 'horde.success');
                 $this->_reloadWindow();
