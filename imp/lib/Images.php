@@ -48,6 +48,7 @@ class IMP_Images
 
             try {
                 $res = $registry->call('contacts/search', array($from->bare_addresses, array(
+                    'customStrict' => array('email'),
                     'fields' => array_fill_keys($sparams['sources'], array('email')),
                     'returnFields' => array('email'),
                     'rfc822Return' => true,
