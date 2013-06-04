@@ -10,14 +10,14 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-03</date>
- <time>13:26:04</time>
+ <date>2013-06-04</date>
+ <time>17:08:50</time>
  <version>
-  <release>2.4.0RC3</release>
+  <release>2.4.0</release>
   <api>2.4.0</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
@@ -1446,12 +1446,12 @@
   </release>
   <release>
    <version>
-    <release>2.4.0RC3</release>
+    <release>2.4.0</release>
     <api>2.4.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-03</date>
+   <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix some issues caused by broken non-mime part truncation.

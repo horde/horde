@@ -28,15 +28,15 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-05-28</date>
- <time>12:41:17</time>
+ <date>2013-06-04</date>
+ <time>17:08:41</time>
  <version>
-  <release>2.5.0RC2</release>
+  <release>2.5.0</release>
   <api>2.5.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -2962,12 +2962,12 @@
   </release>
   <release>
    <version>
-    <release>2.5.0RC2</release>
+    <release>2.5.0</release>
     <api>2.5.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2013-05-28</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t break existing unchanged sources in the preferences.
