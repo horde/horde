@@ -40,7 +40,7 @@ class Nag_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.1.0-git)';
+    public $version = 'H5 (4.1.0)';
 
     /**
      * Global variables defined:

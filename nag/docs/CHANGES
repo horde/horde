@@ -1,6 +1,6 @@
-----------
-v4.1.0-git
-----------
+------
+v4.1.0
+------
 
 [jan] Don't include external tasks in listTasks() API results.
 
