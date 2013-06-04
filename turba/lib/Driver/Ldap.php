@@ -493,7 +493,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         $clause = '';
 
         foreach ($criteria as $key => $vals) {
-            if (!empty($vals['OR']) || $key == 'OR') {
+            if (!empty($vals['OR']) || $key === 'OR') {
                 $clause .= '(|' . $this->_buildSearchQuery($vals) . ')';
             } elseif (!empty($vals['AND'])) {
                 $clause .= '(&' . $this->_buildSearchQuery($vals) . ')';
