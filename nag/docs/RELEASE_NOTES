@@ -29,15 +29,6 @@ http://www.horde.org/apps/nag/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
-The major changes compared to the Nag version H5 (4.1.0beta2) are:
-    * Small bug fixes.
-ML;
-
-/* Freshmeat release notes, not more than 600 characters. */
-$this->notes['fm']['changes'] = <<<FM
-Small bug fixes.
-FM;
-
 The major changes compared to the Nag H5 (4.0) versions are:
     * Added CalDAV server support.
     * Small improvements.
