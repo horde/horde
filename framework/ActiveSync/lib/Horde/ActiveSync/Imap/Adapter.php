@@ -903,6 +903,7 @@ class Horde_ActiveSync_Imap_Adapter
                         foreach ($atc as $atc_part) {
                             $base->addPart($atc_part);
                         }
+                        $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
                     } else {
                         $base = $mime;
                     }
@@ -919,6 +920,10 @@ class Horde_ActiveSync_Imap_Adapter
                     $airsync_body->estimateddatasize = $raw->getBytes();
                     $airsync_body->data = $raw->getString();
                     $eas_message->messageclass = 'IPM.Note.SMIME.MultipartSigned';
+
+                    // Might not know if we have attachments, but take a best
+                    // guess.
+                    $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
                 }
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
 
