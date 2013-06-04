@@ -64,6 +64,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected $_cache = null;
 
     /**
+     * Connection to the IMAP server.
+     *
+     * @var Horde_Imap_Client_Base_Connection
+     */
+    protected $_connection = null;
+
+    /**
      * The debug object.
      *
      * @var Horde_Imap_Client_Base_Debug
@@ -90,13 +97,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @var boolean
      */
     protected $_isAuthenticated = false;
-
-    /**
-     * Is there a secure connection to the IMAP Server?
-     *
-     * @var boolean
-     */
-    protected $_isSecure = false;
 
     /**
      * The current mailbox selection mode.
@@ -739,8 +739,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function isSecureConnection()
     {
-        return $this->_isSecure;
+        return ($this->_connection && $this->_connection->secure);
     }
+
+    /**
+     * Connect to the remote server.
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    abstract protected function _connect();
 
     /**
      * Return a list of alerts that MUST be presented to the user (RFC 3501
@@ -757,11 +764,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function login()
     {
-        if ($this->_isAuthenticated) {
-            return;
-        }
-
-        if ($this->_login()) {
+        if (!$this->_isAuthenticated && $this->_login()) {
             if (!empty($this->_params['id'])) {
                 try {
                     $this->sendID();
@@ -796,11 +799,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function logout()
     {
-        if ($this->_isAuthenticated) {
+        if ($this->_isAuthenticated && $this->_connection->connected) {
             $this->_logout();
-            $this->_isAuthenticated = false;
+            $this->_connection->close();
         }
-        $this->_selected = null;
+
+        $this->_connection = $this->_selected = null;
+        $this->_isAuthenticated = false;
         $this->_mode = 0;
     }
 

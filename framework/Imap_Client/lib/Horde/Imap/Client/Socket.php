@@ -143,13 +143,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     );
 
     /**
-     * The socket connection to the IMAP server.
-     *
-     * @var resource
-     */
-    protected $_stream = null;
-
-    /**
      * The unique tag to use when making an IMAP query.
      *
      * @var integer
@@ -347,8 +340,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $first_login = empty($this->_init['authmethod']);
 
         // Switch to secure channel if using TLS.
-        if (!$this->_isSecure &&
-            ($this->_params['secure'] == 'tls')) {
+        if (!$this->isSecureConnection() &&
+            ($this->getParam('secure') == 'tls')) {
             if ($first_login && !$this->queryCapability('STARTTLS')) {
                 // We should never hit this - STARTTLS is required pursuant
                 // to RFC 3501 [6.2.1].
@@ -362,7 +355,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // STARTTLS returns no untagged response.
             $this->_sendCmd($this->_Command('STARTTLS'));
 
-            if (@stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) !== true) {
+            if (!$this->_connection->startTls()) {
                 $this->logout();
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Could not open secure TLS connection to the IMAP server."),
@@ -382,8 +375,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($this->_init['imapproxy'])) {
                 $this->setLanguage();
             }
-
-            $this->_isSecure = true;
         }
 
         if ($first_login) {
@@ -416,7 +407,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             /* Use MD5 authentication first, if available. But no need to use
              * special authentication if we are already using an encrypted
              * connection. */
-            if ($this->_isSecure) {
+            if ($this->isSecureConnection()) {
                 $imap_auth_mech = array_reverse($imap_auth_mech);
             }
         } else {
@@ -500,45 +491,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _connect()
     {
-        if (!is_null($this->_stream)) {
+        if (!is_null($this->_connection)) {
             return;
         }
 
-        if (!empty($this->_params['secure']) && !extension_loaded('openssl')) {
-            throw new InvalidArgumentException('Secure connections require the PHP openssl extension.');
-        }
-
-        switch ($this->_params['secure']) {
-        case 'ssl':
-        case 'sslv2':
-        case 'sslv3':
-            $conn = $this->_params['secure'] . '://';
-            $this->_isSecure = true;
-            break;
-
-        case 'tls':
-        default:
-            $conn = 'tcp://';
-            break;
-        }
-
-        $this->_stream = @stream_socket_client($conn . $this->_params['hostspec'] . ':' . $this->_params['port'], $error_number, $error_string, $this->_params['timeout']);
-
-        if ($this->_stream === false) {
-            $this->_stream = null;
-            $this->_isSecure = false;
-            $e = new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Error connecting to mail server."),
-                Horde_Imap_Client_Exception::SERVER_CONNECT
-            );
-            $e->details = sprintf("[%u] %s", $error_number, $error_string);
-            throw $e;
-        }
-
-        stream_set_timeout($this->_stream, $this->_params['timeout']);
+        $this->_connection = new Horde_Imap_Client_Socket_Connection($this, $this->_debug);
 
         // If we already have capability information, don't re-set with
-        // (possibly) limited information sent in the inital banner.
+        // (possibly) limited information sent in the initial banner.
         if (isset($this->_init['capability'])) {
             $this->_temp['no_cap'] = true;
         }
@@ -759,10 +719,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _logout()
     {
-        if (is_null($this->_stream)) {
-            return;
-        }
-
         if (empty($this->_temp['logout'])) {
             /* If using imapproxy, force sending these commands, since they
              * may not be sent again if they are (likely) initialization
@@ -780,9 +736,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             unset($this->_temp['logout']);
         }
-
-        @fclose($this->_stream);
-        $this->_stream = null;
     }
 
     /**
@@ -3836,20 +3789,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         foreach ($chunk as $val) {
             try {
-                $this->_debug->client('', false);
+                $old_debug = $this->_debug->debug;
                 if (!is_null($val->debug)) {
                     $this->_debug->raw($val->tag . ' ' . $val->debug . "\n");
+                    $this->_debug->debug = false;
                 }
-                $buffer = '';
-                $this->_processCmd($pipeline, $val, $buffer, array(
-                    'debug' => is_null($val->debug),
+                $this->_processCmd($pipeline, $val, array(
                     'noliteralplus' => !$val->literalplus
                 ));
-                $this->_writeStream($buffer, array(
-                    'eol' => true,
-                    'nodebug' => !is_null($val->debug)
-                ));
+                $this->_connection->write('', true);
+                $this->_debug->debug = $old_debug;
             } catch (Horde_Imap_Client_Exception $e) {
+                $this->_debug->debug = $old_debug;
+
                 switch ($e->getCode()) {
                 case Horde_Imap_Client_Exception::SERVER_WRITEERROR:
                     $this->_temp['logout'] = true;
@@ -3901,78 +3853,60 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @param Horde_Imap_Client_Interaction_Pipeline $pipeline The pipeline
      *                                                         object.
      * @param Horde_Imap_Client_Data_Format_List $data  Commands to send.
-     * @param string &$buffer                           Current command buffer.
      * @param array $opts                               Options:
-     *   - debug: (boolean) Whether debug info should be output.
      *   - noliteralplus: (boolean) If true, don't use LITERAL+ extension.
      *
      * @throws Horde_Imap_Client_Exception
      * @throws Horde_Imap_Client_Exception_NoSupport
      */
-    protected function _processCmd($pipeline, $data, &$buffer, $opts)
+    protected function _processCmd($pipeline, $data, $opts)
     {
-        $s_opts = array('nodebug' => empty($opts['debug']));
-
         foreach ($data as $key => $val) {
             if ($val instanceof Horde_Imap_Client_Interaction_Command_Continuation) {
-                $this->_writeStream($buffer, array_merge($s_opts, array(
-                    'eol' => true
-                )));
-
-                $buffer = '';
+                $this->_connection->write('', true);
 
                 $this->_processCmd(
                     $pipeline,
                     $val->getCommands($this->_processCmdContinuation($pipeline)),
-                    $buffer,
                     $opts
                 );
                 continue;
             }
 
             if ($key) {
-                $buffer .= ' ';
+                $this->_connection->write(' ');
             }
 
             if ($val instanceof Horde_Imap_Client_Data_Format_List) {
-                $buffer .= '(';
-                $this->_processCmd($pipeline, $val, $buffer, $opts);
-                $buffer .= ')';
+                $this->_connection->write('(');
+                $this->_processCmd($pipeline, $val, $opts);
+                $this->_connection->write(')');
             } elseif (($val instanceof Horde_Imap_Client_Data_Format_String) &&
                       $val->literal()) {
                 /* RFC 3516/4466: Send literal8 if we have binary data. */
                 if ($val->binary() && $this->queryCapability('BINARY')) {
                     $binary = true;
-                    $buffer .= '~';
+                    $this->_connection->write('~');
                 } else {
                     $binary = false;
                 }
 
                 $literal_len = $val->length();
-                $buffer .= '{' . $literal_len;
+                $this->_connection->write('{' . $literal_len);
 
                 /* RFC 2088 - If LITERAL+ is available, saves a roundtrip from
                  * the server. */
                 if (empty($opts['noliteralplus']) &&
                     $this->queryCapability('LITERAL+')) {
-                    $this->_writeStream($buffer . '+}', array_merge($s_opts, array(
-                        'eol' => true
-                    )));
+                    $this->_connection->write('+}', true);
                 } else {
-                    $this->_writeStream($buffer . '}', array_merge($s_opts, array(
-                        'eol' => true
-                    )));
+                    $this->_connection->write('}', true);
                     $this->_processCmdContinuation($pipeline);
                 }
 
-                $buffer = '';
-
-                $this->_writeStream($val->getStream(), array_merge($s_opts, array(
-                    'binary' => $binary,
-                    'literal' => $literal_len
-                )));
+                $this->_connection->writeLiteral($val->getStream(), $literal_len, $binary);
             } else {
-                $buffer .= $val->escape();
+                $this->_connection->write($val->escape());
             }
         }
     }
@@ -4046,67 +3980,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * Writes data to the IMAP output stream and handles debug output.
-     *
-     * @param mixed $data  Either a string, stream resource, or Horde_Stream
-     *                     object.
-     * @param array $opts  Additional options:
-     *   - binary: (boolean) If true, the literal data is binary.
-     *   - eol: (boolean) If true, output EOL.
-     *   - literal: (integer) If set, the length of the literal data.
-     *   - nodebug: (boolean) If true, don't output debug data.
-     *
-     * @throws Horde_Imap_Client_Exception
-     */
-    protected function _writeStream($data, array $opts = array())
-    {
-        $write_error = false;
-
-        if ($data instanceof Horde_Stream) {
-            $data = $data->stream;
-        }
-
-        if (is_resource($data)) {
-            rewind($data);
-            while (!feof($data)) {
-                if (fwrite($this->_stream, fread($data, 8192)) === false) {
-                    $write_error = true;
-                    break;
-                }
-            }
-        } elseif (fwrite($this->_stream, $data . (empty($opts['eol']) ? '' : "\r\n")) === false) {
-            $write_error = true;
-        }
-
-        if ($write_error) {
-            throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Server write error."),
-                Horde_Imap_Client_Exception::SERVER_WRITEERROR
-            );
-        }
-
-        if (!empty($opts['nodebug']) || !$this->_debug->debug) {
-            return;
-        }
-
-        if (isset($opts['literal']) &&
-            empty($this->_params['debug_literal'])) {
-            $this->_debug->client('[' . (empty($opts['binary']) ? 'LITERAL' : 'BINARY') . ' DATA: ' . $opts['literal'] . ' bytes]');
-        } elseif (is_resource($data)) {
-            rewind($data);
-            while (!feof($data)) {
-                $this->_debug->raw(fread($data, 8192));
-            }
-        } else {
-            $this->_debug->raw($data . (empty($opts['eol']) ? '' : "\n"));
-        }
-
-        if (isset($opts['literal'])) {
-            $this->_debug->client('', false);
-        }
-    }
-
-    /**
      * Gets data from the IMAP server stream and parses it.
      *
      * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  Pipeline
@@ -4120,7 +3993,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         Horde_Imap_Client_Interaction_Pipeline $pipeline
     )
     {
-        $server = Horde_Imap_Client_Interaction_Server::create($this->_readStream());
+        $server = Horde_Imap_Client_Interaction_Server::create(
+            $this->_connection->read()
+        );
 
         switch (get_class($server)) {
         case 'Horde_Imap_Client_Interaction_Server_Continuation':
@@ -4189,99 +4064,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         return $server;
-    }
-
-    /**
-     * Read data from incoming IMAP stream.
-     *
-     * @return Horde_Imap_Client_Tokenize  The tokenized data.
-     *
-     * @throws Horde_Imap_Client_Exception
-     */
-    protected function _readStream()
-    {
-        $got_data = false;
-        $literal_len = null;
-        $token = new Horde_Imap_Client_Tokenize();
-
-        do {
-            if (feof($this->_stream)) {
-                $this->_debug->info("ERROR: Server closed the connection.");
-                throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("Mail server closed the connection unexpectedly."),
-                    Horde_Imap_Client_Exception::DISCONNECT
-                );
-            }
-
-            if (is_null($literal_len)) {
-                $this->_debug->server('', false);
-
-                while (($in = fgets($this->_stream)) !== false) {
-                    $got_data = true;
-
-                    if (substr($in, -1) == "\n") {
-                        $in = rtrim($in);
-                        $this->_debug->raw($in . "\n");
-                        $token->add($in);
-                        break;
-                    }
-
-                    $this->_debug->raw($in);
-                    $token->add($in);
-                }
-
-                /* Check for literal data. */
-                if (!is_null($len = $token->getLiteralLength())) {
-                    if ($len['length']) {
-                        $binary = $len['binary'];
-                        $literal_len = $len['length'];
-                    } else {
-                        // Skip 0-length literal data.
-                        $literal_len = null;
-                    }
-                    continue;
-                }
-                break;
-            }
-
-            $debug_literal = ($this->_debug->debug &&
-                              !empty($this->_params['debug_literal']));
-            $old_len = $literal_len;
-
-            $this->_debug->server('', false);
-
-            while ($literal_len && !feof($this->_stream)) {
-                $in = fread($this->_stream, min($literal_len, 8192));
-                $token->add($in);
-                if ($debug_literal) {
-                    $this->_debug->raw($in);
-                }
-
-                $got_data = true;
-
-                $in_len = strlen($in);
-                if ($in_len > $literal_len) {
-                    break;
-                }
-                $literal_len -= $in_len;
-            }
-
-            $literal_len = null;
-
-            if (!$debug_literal) {
-                $this->_debug->raw('[' . ($binary ? 'BINARY' : 'LITERAL') . ' DATA: ' . $old_len . ' bytes]' . "\n");
-            }
-        } while (true);
-
-        if (!$got_data) {
-            $this->_debug->info("ERROR: IMAP read/timeout error.");
-            throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
-                Horde_Imap_Client_Exception::SERVER_READERROR
-            );
-        }
-
-        return $token;
     }
 
     /**

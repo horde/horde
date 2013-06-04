@@ -29,7 +29,7 @@
 class Horde_Imap_Client_Base_Debug
 {
     /* Time, in seconds, to be labeled a slow IMAP command. */
-    const SLOW_CMD = 3;
+    const SLOW_CMD = 5;
 
     /**
      * Is debugging active?
@@ -37,13 +37,6 @@ class Horde_Imap_Client_Base_Debug
      * @var boolean
      */
     public $debug = true;
-
-    /**
-     * Buffered output text.
-     *
-     * @var string
-     */
-    protected $_buffer = null;
 
     /**
      * The debug stream.
@@ -78,9 +71,6 @@ class Horde_Imap_Client_Base_Debug
     public function shutdown()
     {
         if (is_resource($this->_stream)) {
-            if (!is_null($this->_buffer)) {
-                $this->_write("\n");
-            }
             fflush($this->_stream);
             fclose($this->_stream);
             $this->_stream = null;
@@ -90,23 +80,21 @@ class Horde_Imap_Client_Base_Debug
     /**
      * Write client output to debug log.
      *
-     * @param string $msg   Debug message.
-     * @param boolean $eol  Add EOL to end of message?
+     * @param string $msg  Debug message.
      */
-    public function client($msg, $eol = true)
+    public function client($msg)
     {
-        $this->_write($msg . ($eol ? "\n" : ''), 'C: ');
+        $this->_write($msg . "\n", 'C: ');
     }
 
     /**
      * Write informational message to debug log.
      *
-     * @param string $msg   Debug message.
-     * @param boolean $eol  Add EOL to end of message?
+     * @param string $msg  Debug message.
      */
-    public function info($msg, $eol = true)
+    public function info($msg)
     {
-        $this->_write($msg . ($eol ? "\n" : ''), '>> ');
+        $this->_write($msg . "\n", '>> ');
     }
 
     /**
@@ -122,33 +110,25 @@ class Horde_Imap_Client_Base_Debug
     /**
      * Write server output to debug log.
      *
-     * @param string $msg   Debug message.
-     * @param boolean $eol  Add EOL to end of message?
+     * @param string $msg  Debug message.
      */
-    public function server($msg, $eol = true)
+    public function server($msg)
     {
-        $this->_write($msg . ($eol ? "\n" : ''), 'S: ');
+        $this->_write($msg . "\n", 'S: ');
     }
 
     /**
      * Write debug information to the output stream.
      *
      * @param string $msg  Debug data.
-     * @param string $pre  Data prefix.
      */
     protected function _write($msg, $pre = null)
     {
-        if (!$this->_stream) {
+        if (!$this->debug || !$this->_stream) {
             return;
         }
 
-        if (is_null($pre)) {
-            $pre = strval($this->_buffer);
-        } else {
-            if (!is_null($this->_buffer)) {
-                $this->_write("\n");
-            }
-
+        if (!is_null($pre)) {
             $new_time = microtime(true);
 
             if (is_null($this->_time)) {
@@ -166,12 +146,7 @@ class Horde_Imap_Client_Base_Debug
             $this->_time = $new_time;
         }
 
-        if (substr($msg, -1) == "\n") {
-            fwrite($this->_stream, $pre . $msg);
-            $this->_buffer = null;
-        } else {
-            $this->_buffer = $pre . $msg;
-        }
+        fwrite($this->_stream, $pre . $msg);
     }
 
 }
