@@ -2,6 +2,7 @@
 v4.1.0-git
 ----------
 
+[jan] Add help test for CalDAV usage.
 [jan] Fix editing of events per CalDAV if client sends LAST-MODIFIED attribute
       (Bug #12244).
 

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add help test for CalDAV usage.
 * Final release.
  </notes>
  <contents>
@@ -2155,6 +2156,7 @@
    <date>2013-06-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add help test for CalDAV usage.
 * Final release.
    </notes>
   </release>
