@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-04</date>
- <time>23:52:19</time>
+ <time>23:57:39</time>
  <version>
-  <release>4.1.0</release>
+  <release>4.1.1</release>
   <api>4.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add help text for CalDAV usage.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2156,6 +2156,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add help text for CalDAV usage.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.1</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
