@@ -233,7 +233,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         /* Create a placeholder element to the base of the tree list so we can
          * keep track of whether the base level needs to be sorted. */
         $this->_tree[self::BASE_ELT] = array(
-            'a' => self::ELT_NEED_SORT,
+            'a' => self::ELT_NEED_SORT | self::ELT_NONIMAP,
             'v' => self::BASE_ELT
         );
 
