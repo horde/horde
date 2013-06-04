@@ -54,8 +54,8 @@ Added attachment uploading and saving compose drafts to smartphone view.
 Added taphold message action menu to smartmobile mailbox page.
 Allow HTML trailers for messages.
 Allow to set special mailboxes, spam reporting, and permissions per backend.
-Added support for NoSQL caching and logging backends.
-Many further improvements.
+Added support for NoSQL backends.
+More improvements.
 FM;
 
 $this->notes['name'] = 'IMP';
