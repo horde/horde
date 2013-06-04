@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-22 14:41+0200\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr ""
 msgid "All of the following"
 msgstr ""
 
-#: lib/Application.php:162
+#: lib/Application.php:172
 msgid "Allow Rules"
 msgstr ""
 
@@ -359,7 +359,7 @@ msgstr ""
 msgid "Filter Script Display"
 msgstr ""
 
-#: lib/Application.php:178
+#: lib/Application.php:188
 msgid "Filter _Rules"
 msgstr ""
 
@@ -522,7 +522,7 @@ msgstr ""
 msgid "Matches (with placeholders)"
 msgstr ""
 
-#: lib/Application.php:166
+#: lib/Application.php:176
 msgid "Maximum Number of Rules"
 msgstr ""
 
@@ -582,7 +582,7 @@ msgstr ""
 msgid "My email addresses:"
 msgstr ""
 
-#: lib/Application.php:238 lib/Storage/Filters.php:140
+#: lib/Application.php:248 lib/Storage/Filters.php:140
 #: templates/basic/filters/filters.html.php:24
 msgid "New Rule"
 msgstr ""
@@ -758,7 +758,7 @@ msgstr ""
 msgid "Rules"
 msgstr ""
 
-#: lib/Application.php:249
+#: lib/Application.php:259
 msgid "Ruleset"
 msgstr ""
 
@@ -767,7 +767,7 @@ msgstr ""
 msgid "STARTTLS failed: (%s) %s"
 msgstr ""
 
-#: lib/Application.php:200
+#: lib/Application.php:210
 msgid "S_pam"
 msgstr ""
 
@@ -1061,7 +1061,7 @@ msgstr ""
 msgid "[No Subject]"
 msgstr ""
 
-#: lib/Application.php:185
+#: lib/Application.php:195
 msgid "_Blacklist"
 msgstr ""
 
@@ -1073,7 +1073,7 @@ msgstr ""
 msgid "_Enter each address on a new line:"
 msgstr ""
 
-#: lib/Application.php:196
+#: lib/Application.php:206
 msgid "_Forward"
 msgstr ""
 
@@ -1081,19 +1081,19 @@ msgstr ""
 msgid "_Move message to folder:"
 msgstr ""
 
-#: lib/Application.php:211
+#: lib/Application.php:221
 msgid "_Permissions"
 msgstr ""
 
-#: lib/Application.php:206
+#: lib/Application.php:216
 msgid "_Script"
 msgstr ""
 
-#: lib/Application.php:192
+#: lib/Application.php:202
 msgid "_Vacation"
 msgstr ""
 
-#: lib/Application.php:182
+#: lib/Application.php:192
 msgid "_Whitelist"
 msgstr ""
 

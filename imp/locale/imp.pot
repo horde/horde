@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IMP H5 (6.1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-22 14:42+0200\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,7 +70,7 @@ msgstr[1] ""
 msgid "%d Messages"
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:745
+#: lib/Ajax/Application/Handler/Dynamic.php:746
 #, php-format
 msgid "%d message was purged from \"%s\"."
 msgid_plural "%d messages were purged from \"%s\"."
@@ -206,7 +206,7 @@ msgstr ""
 msgid "%s was successfully added to \"%s\"."
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:573
+#: lib/Ajax/Application/Handler/Dynamic.php:574
 #, php-format
 msgid "%s was successfully added to your address book."
 msgstr ""
@@ -401,7 +401,7 @@ msgstr ""
 msgid "Added flag \"%s\"."
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:567
+#: lib/Ajax/Application/Handler/Dynamic.php:568
 msgid "Adding group lists not currently supported."
 msgstr ""
 
@@ -681,7 +681,7 @@ msgstr ""
 msgid "Ascending"
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:712
+#: lib/Ajax/Application/Handler/Dynamic.php:713
 msgid "At least one attachment could not be deleted."
 msgstr ""
 
@@ -740,7 +740,7 @@ msgstr ""
 msgid "Attachment stripped: Original attachment type"
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:826 lib/Basic/Message.php:193
+#: lib/Ajax/Application/Handler/Dynamic.php:827 lib/Basic/Message.php:193
 #: lib/Dynamic/Message.php:52
 msgid "Attachment successfully stripped."
 msgstr ""
@@ -1510,7 +1510,7 @@ msgstr ""
 msgid "Deleted Virtual Folder \"%s\"."
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:704 lib/Basic/Compose.php:178
+#: lib/Ajax/Application/Handler/Dynamic.php:705 lib/Basic/Compose.php:178
 #, php-format
 msgid "Deleted attachment \"%s\"."
 msgstr ""
@@ -1673,7 +1673,7 @@ msgstr ""
 msgid "Draft automatically saved."
 msgstr ""
 
-#: config/prefs.php:749 lib/Mailbox.php:1596 lib/Mailbox.php:1686
+#: config/prefs.php:749 lib/Mailbox.php:1634 lib/Mailbox.php:1724
 msgid "Drafts"
 msgstr ""
 
@@ -2056,7 +2056,7 @@ msgstr ""
 msgid "Fo_rward"
 msgstr ""
 
-#: lib/Mailbox.php:1664
+#: lib/Mailbox.php:1702
 msgid "Folder"
 msgstr ""
 
@@ -2372,7 +2372,7 @@ msgstr ""
 msgid "In the body text"
 msgstr ""
 
-#: lib/Mailbox.php:1584 lib/Mailbox.php:1674 lib/Minimal/Base.php:83
+#: lib/Mailbox.php:1622 lib/Mailbox.php:1712 lib/Minimal/Base.php:83
 msgid "Inbox"
 msgstr ""
 
@@ -2566,7 +2566,7 @@ msgid "Mail"
 msgstr ""
 
 #: config/prefs.php:1448 config/prefs.php:1623 lib/Block/Summary.php:109
-#: lib/Mailbox.php:1711 templates/basic/folders/folders_size.html.php:8
+#: lib/Mailbox.php:1749 templates/basic/folders/folders_size.html.php:8
 #: templates/smartmobile/message.html.php:2
 msgid "Mailbox"
 msgstr ""
@@ -3065,7 +3065,7 @@ msgstr ""
 msgid "No messages"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:479
+#: lib/Dynamic/Mailbox.php:483
 msgid "No messages matched the search query."
 msgstr ""
 
@@ -3186,7 +3186,7 @@ msgstr ""
 msgid "Open in new window"
 msgstr ""
 
-#: lib/Mailbox.php:1660
+#: lib/Mailbox.php:1698
 msgid "Opened Folder"
 msgstr ""
 
@@ -3203,7 +3203,7 @@ msgstr ""
 msgid "Other Options"
 msgstr ""
 
-#: lib/Mailbox.php:1550
+#: lib/Mailbox.php:1588
 msgid "Other Users"
 msgstr ""
 
@@ -4191,7 +4191,7 @@ msgstr ""
 msgid "Sender: %s"
 msgstr ""
 
-#: lib/Mailbox.php:1601 lib/Mailbox.php:1606 lib/Mailbox.php:1705
+#: lib/Mailbox.php:1639 lib/Mailbox.php:1644 lib/Mailbox.php:1743
 msgid "Sent"
 msgstr ""
 
@@ -4236,7 +4236,7 @@ msgstr ""
 msgid "Share your mailboxes with other users."
 msgstr ""
 
-#: lib/Mailbox.php:1553
+#: lib/Mailbox.php:1591
 msgid "Shared"
 msgstr ""
 
@@ -4417,7 +4417,7 @@ msgstr ""
 msgid "Sort by To Address"
 msgstr ""
 
-#: lib/Mailbox.php:1614 lib/Mailbox.php:1692
+#: lib/Mailbox.php:1652 lib/Mailbox.php:1730
 #: templates/dynamic/mailbox.html.php:36 templates/dynamic/message.html.php:19
 #: templates/smartmobile/mailbox.html.php:21
 #: templates/smartmobile/mailbox.html.php:31
@@ -4495,6 +4495,16 @@ msgstr ""
 msgid "Subscribe"
 msgstr ""
 
+#: lib/Dynamic/Mailbox.php:477
+#, php-format
+msgid "Subscribe to %s?"
+msgstr ""
+
+#: lib/Dynamic/Mailbox.php:478
+#, php-format
+msgid "Subscribe to all subfolders of %s?"
+msgstr ""
+
 #: lib/Mime/Status.php:88
 msgid "Success"
 msgstr ""
@@ -4564,7 +4574,7 @@ msgstr ""
 msgid "Technical message details can be viewed %s."
 msgstr ""
 
-#: lib/Mailbox.php:1592 templates/prefs/acl.html.php:36
+#: lib/Mailbox.php:1630 templates/prefs/acl.html.php:36
 #: templates/prefs/acl.html.php:71
 msgid "Templates"
 msgstr ""
@@ -4598,13 +4608,13 @@ msgstr ""
 msgid "The Macintosh resource fork can be downloaded %s."
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:776
+#: lib/Ajax/Application/Handler/Dynamic.php:777
 msgid ""
 "The Message Disposition Notification was not sent. This is what the server "
 "said"
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Dynamic.php:783
+#: lib/Ajax/Application/Handler/Dynamic.php:784
 msgid "The Message Disposition Notification was sent successfully."
 msgstr ""
 
@@ -4900,7 +4910,7 @@ msgstr ""
 msgid "There are no alternative parts that can be displayed inline."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:478
+#: lib/Dynamic/Mailbox.php:482
 #: templates/basic/mailbox/empty_mailbox.html.php:6
 msgid "There are no messages in this mailbox."
 msgstr ""
@@ -5140,7 +5150,7 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: lib/Mailbox.php:1618 lib/Mailbox.php:1698
+#: lib/Mailbox.php:1656 lib/Mailbox.php:1736
 msgid "Trash"
 msgstr ""
 
@@ -5220,6 +5230,16 @@ msgstr ""
 msgid "Unsubscribe"
 msgstr ""
 
+#: lib/Dynamic/Mailbox.php:479
+#, php-format
+msgid "Unsubscribe to %s?"
+msgstr ""
+
+#: lib/Dynamic/Mailbox.php:480
+#, php-format
+msgid "Unsubscribe to all subfolders of %s?"
+msgstr ""
+
 #: templates/basic/compose/compose.html.php:285
 msgid "Update"
 msgstr ""
@@ -5241,7 +5261,7 @@ msgid "Upload"
 msgstr ""
 
 #: lib/Ajax/Application/Handler/ComposeAttach.php:87
-#: lib/Ajax/Application/Handler/Dynamic.php:917
+#: lib/Ajax/Application/Handler/Dynamic.php:918
 msgid "Uploading attachments has been disabled on this server."
 msgstr ""
 
@@ -5420,12 +5440,12 @@ msgstr ""
 msgid "Virtual Folder \"%s\" edited successfully."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:477
+#: lib/Dynamic/Mailbox.php:481
 #, php-format
 msgid "Virtual Folder: %s"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:257 lib/Mailbox.php:1556
+#: lib/Dynamic/Mailbox.php:257 lib/Mailbox.php:1594
 #: templates/basic/flist/flist.html.php:27
 msgid "Virtual Folders"
 msgstr ""
@@ -5568,7 +5588,7 @@ msgstr ""
 msgid "You are replying to a mailing list"
 msgstr ""
 
-#: lib/Mailbox.php:962
+#: lib/Mailbox.php:968
 #, php-format
 msgid "You cannot unsubscribe from \"%s\"."
 msgstr ""
@@ -5673,22 +5693,32 @@ msgstr ""
 msgid "You replied to this message via the mailing list on %s."
 msgstr ""
 
-#: lib/Mailbox.php:970
+#: lib/Mailbox.php:978
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
 msgstr ""
 
-#: lib/Mailbox.php:972
+#: lib/Mailbox.php:980
 #, php-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
 msgstr ""
 
-#: lib/Mailbox.php:978
+#: lib/Mailbox.php:1016
+#, php-format
+msgid "You were successfully subscribed to \"%s\" and all subfolders."
+msgstr ""
+
+#: lib/Mailbox.php:994
 #, php-format
 msgid "You were successfully subscribed to \"%s\"."
 msgstr ""
 
-#: lib/Mailbox.php:981
+#: lib/Mailbox.php:1017
+#, php-format
+msgid "You were successfully unsubscribed from \"%s\" and all subfolders."
+msgstr ""
+
+#: lib/Mailbox.php:995
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\"."
 msgstr ""
@@ -5735,7 +5765,7 @@ msgid ""
 msgstr ""
 
 #: lib/Ajax/Application/Handler/ComposeAttach.php:52
-#: lib/Ajax/Application/Handler/Dynamic.php:920
+#: lib/Ajax/Application/Handler/Dynamic.php:921
 msgid ""
 "Your attachment was not uploaded. Most likely, the file exceeded the maximum "
 "size allowed by the server configuration."

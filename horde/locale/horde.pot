@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-22 14:59+0200\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -592,7 +592,7 @@ msgstr ""
 msgid "Chinese Traditional (Big5)"
 msgstr ""
 
-#: services/obrowser/index.php:58
+#: services/obrowser/index.php:59
 #, php-format
 msgid "Choose %s"
 msgstr ""
@@ -1125,7 +1125,7 @@ msgstr ""
 msgid "Error deleting synchronization sessions:"
 msgstr ""
 
-#: services/changepassword.php:59
+#: services/changepassword.php:54
 #, php-format
 msgid "Error updating password: %s"
 msgstr ""
@@ -1547,7 +1547,7 @@ msgstr ""
 msgid "Korean (EUC-KR)"
 msgstr ""
 
-#: login.php:369 templates/login/login.inc:52
+#: login.php:364 templates/login/login.inc:52
 msgid "Language"
 msgstr ""
 
@@ -1657,7 +1657,7 @@ msgstr ""
 msgid "Locks"
 msgstr ""
 
-#: login.php:296 templates/login/login.inc:61
+#: login.php:291 templates/login/login.inc:61
 msgid "Log in"
 msgstr ""
 
@@ -1669,11 +1669,11 @@ msgstr ""
 msgid "Logged in to Facebook"
 msgstr ""
 
-#: login.php:325
+#: login.php:320
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 
-#: login.php:321
+#: login.php:316
 msgid "Login failed."
 msgstr ""
 
@@ -1894,11 +1894,11 @@ msgstr ""
 msgid "New Username (optional)"
 msgstr ""
 
-#: services/changepassword.php:32
+#: services/changepassword.php:31
 msgid "New password"
 msgstr ""
 
-#: services/changepassword.php:43
+#: services/changepassword.php:40
 msgid "New passwords don't match."
 msgstr ""
 
@@ -2035,15 +2035,15 @@ msgstr ""
 msgid "Office"
 msgstr ""
 
-#: services/changepassword.php:45
+#: services/changepassword.php:42
 msgid "Old and new passwords must be different."
 msgstr ""
 
-#: services/changepassword.php:31
+#: services/changepassword.php:30
 msgid "Old password"
 msgstr ""
 
-#: services/changepassword.php:41
+#: services/changepassword.php:38
 msgid "Old password is not correct."
 msgstr ""
 
@@ -2110,7 +2110,7 @@ msgstr ""
 msgid "P_HP Shell"
 msgstr ""
 
-#: login.php:216 admin/config/index.php:397 admin/user.php:39
+#: login.php:211 admin/config/index.php:397 admin/user.php:39
 #: admin/user.php:53 config/registry.php:324
 #: templates/admin/user/update.inc:20
 msgid "Password"
@@ -2120,7 +2120,7 @@ msgstr ""
 msgid "Password Complexity"
 msgstr ""
 
-#: services/changepassword.php:50
+#: services/changepassword.php:47
 msgid "Password changed successfully."
 msgstr ""
 
@@ -2174,11 +2174,11 @@ msgstr ""
 msgid "Platitudes"
 msgstr ""
 
-#: login.php:222
+#: login.php:217
 msgid "Please enter a password."
 msgstr ""
 
-#: login.php:221
+#: login.php:216
 msgid "Please enter a username."
 msgstr ""
 
@@ -2415,7 +2415,7 @@ msgstr ""
 msgid "Retweeted by %s"
 msgstr ""
 
-#: services/changepassword.php:33
+#: services/changepassword.php:32
 msgid "Retype new password"
 msgstr ""
 
@@ -2499,7 +2499,7 @@ msgstr ""
 msgid "Sea_rch"
 msgstr ""
 
-#: lib/View/Topbar.php:58 services/help/index.php:156
+#: lib/View/Topbar.php:60 services/help/index.php:156
 #: templates/admin/user/list.inc:14
 msgid "Search"
 msgstr ""
@@ -3185,7 +3185,7 @@ msgstr ""
 msgid "User to add:"
 msgstr ""
 
-#: login.php:211 admin/config/index.php:396 admin/user.php:36
+#: login.php:206 admin/config/index.php:396 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
 #: templates/admin/user/approve.inc:23
 msgid "Username"
@@ -3428,7 +3428,7 @@ msgid ""
 "to login."
 msgstr ""
 
-#: login.php:317
+#: login.php:312
 msgid "You have been logged out."
 msgstr ""
 
@@ -3477,7 +3477,7 @@ msgstr ""
 msgid "Your Information"
 msgstr ""
 
-#: login.php:305
+#: login.php:300
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3500,7 +3500,7 @@ msgid ""
 "has been disabled for some other reason."
 msgstr ""
 
-#: login.php:309
+#: login.php:304
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3518,7 +3518,7 @@ msgstr ""
 msgid "Your full name:"
 msgstr ""
 
-#: login.php:329
+#: login.php:324
 msgid "Your login has expired."
 msgstr ""
 
@@ -3543,6 +3543,12 @@ msgid ""
 "password."
 msgstr ""
 
+#: services/changepassword.php:50
+msgid ""
+"Your password has been succesfully changed. You need to re-login to the "
+"system with your new password."
+msgstr ""
+
 #: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
 msgstr ""
@@ -3551,11 +3557,11 @@ msgstr ""
 msgid "Your password has expired."
 msgstr ""
 
-#: login.php:301
+#: login.php:296
 msgid "Your session has expired. Please login again."
 msgstr ""
 
-#: login.php:313
+#: login.php:308
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."

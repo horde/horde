@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H5 (2.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-22 11:43+0200\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Attachment Name"
 msgstr ""
 
-#: templates/display/standard.inc:81 templates/display/standard.inc:122
+#: templates/display/standard.inc:62 templates/display/standard.inc:106
 msgid "Attachments"
 msgstr ""
 
@@ -113,7 +113,7 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: templates/display/standard.inc:109
+#: templates/display/standard.inc:89
 msgid "Ba_ck to"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Diff To"
 msgstr ""
 
-#: diff.php:54 templates/diff/diff.inc:2 templates/sync/diff.inc:101
+#: diff.php:55 templates/diff/diff.inc:2 templates/sync/diff.inc:101
 #, php-format
 msgid "Diff for %s between %s and %s"
 msgstr ""
@@ -267,7 +267,7 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: templates/display/standard.inc:141
+#: templates/display/standard.inc:125
 msgid "Download this page as:"
 msgstr ""
 
@@ -287,7 +287,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: preview.php:23
+#: preview.php:24
 #, php-format
 msgid "Edit %s"
 msgstr ""
@@ -348,11 +348,11 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: templates/display/standard.inc:143
+#: templates/display/standard.inc:127
 msgid "HTML"
 msgstr ""
 
-#: templates/display/standard.inc:88
+#: templates/display/standard.inc:68
 msgid "Hi_story"
 msgstr ""
 
@@ -360,7 +360,7 @@ msgstr ""
 msgid "History page not found"
 msgstr ""
 
-#: history.php:27 templates/history/header.inc:7
+#: history.php:28 templates/history/header.inc:7
 #, php-format
 msgid "History: %s"
 msgstr ""
@@ -386,7 +386,7 @@ msgstr ""
 msgid "Last Author"
 msgstr ""
 
-#: templates/display/title.inc:6 templates/edit/standard.inc:20
+#: lib/Page.php:339 templates/edit/standard.inc:20
 #, php-format
 msgid "Last Modified %s by %s"
 msgstr ""
@@ -395,7 +395,7 @@ msgstr ""
 msgid "Last Update"
 msgstr ""
 
-#: templates/display/standard.inc:144
+#: templates/display/standard.inc:128
 msgid "Latex"
 msgstr ""
 
@@ -413,7 +413,7 @@ msgid "Location"
 msgstr ""
 
 #: lib/Page/DeletePage.php:88 lib/Page/RevertPage.php:75
-#: templates/display/title.inc:33 templates/edit/standard.inc:21
+#: templates/display/title.inc:11 templates/edit/standard.inc:21
 msgid "Locked"
 msgstr ""
 
@@ -570,7 +570,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: templates/display/standard.inc:104
+#: templates/display/standard.inc:84
 msgid "Permissio_ns"
 msgstr ""
 
@@ -578,7 +578,7 @@ msgstr ""
 msgid "Permission denied."
 msgstr ""
 
-#: templates/display/standard.inc:142
+#: templates/display/standard.inc:126
 msgid "Plain Text"
 msgstr ""
 
@@ -612,7 +612,7 @@ msgstr ""
 msgid "Reload History"
 msgstr ""
 
-#: templates/display/title.inc:31 templates/display/title.inc:32
+#: templates/display/title.inc:9
 msgid "Reload Page"
 msgstr ""
 
@@ -670,7 +670,7 @@ msgstr ""
 msgid "Robots are not allowed to create pages"
 msgstr ""
 
-#: templates/display/standard.inc:75
+#: templates/display/standard.inc:57
 msgid "S_imilar Pages"
 msgstr ""
 
@@ -682,7 +682,7 @@ msgstr ""
 msgid "Save login info"
 msgstr ""
 
-#: lib/Page/Search.php:195 templates/menu.inc:16
+#: lib/Page/Search.php:195
 msgid "Search"
 msgstr ""
 
@@ -703,7 +703,7 @@ msgstr ""
 msgid "Show changes"
 msgstr ""
 
-#: lib/Page/RecentChanges.php:53 templates/display/title.inc:14
+#: lib/Page.php:349 lib/Page/RecentChanges.php:53
 #, php-format
 msgid "Show changes for %s"
 msgstr ""
@@ -768,7 +768,7 @@ msgstr ""
 msgid "Synchronization is disabled"
 msgstr ""
 
-#: lib/Page.php:472
+#: lib/Page.php:494
 msgid "Table of Contents"
 msgstr ""
 
@@ -789,7 +789,7 @@ msgstr ""
 msgid "This page does not have a history"
 msgstr ""
 
-#: display.php:133
+#: display.php:136
 #, php-format
 msgid "This page is locked by %s for %d Minutes."
 msgstr ""
@@ -799,7 +799,7 @@ msgstr ""
 msgid "This page is referenced from %d other page(s)."
 msgstr ""
 
-#: templates/display/standard.inc:33
+#: templates/display/standard.inc:17
 msgid "Un_lock"
 msgstr ""
 
@@ -812,10 +812,10 @@ msgstr ""
 msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr ""
 
-#: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:368
-#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:524
-#: lib/Page.php:535 lib/Page.php:540 lib/Page.php:545 lib/Page.php:550
-#: lib/Page.php:590
+#: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:390
+#: lib/Page.php:398 lib/Page.php:406 lib/Page.php:414 lib/Page.php:546
+#: lib/Page.php:557 lib/Page.php:562 lib/Page.php:567 lib/Page.php:572
+#: lib/Page.php:612
 msgid "Unsupported"
 msgstr ""
 
@@ -925,15 +925,15 @@ msgstr ""
 msgid "_All Pages"
 msgstr ""
 
-#: templates/display/standard.inc:69
+#: templates/display/standard.inc:52
 msgid "_Backlinks"
 msgstr ""
 
-#: templates/display/standard.inc:54
+#: templates/display/standard.inc:38
 msgid "_Delete"
 msgstr ""
 
-#: templates/display/standard.inc:24
+#: templates/display/standard.inc:8
 msgid "_Edit"
 msgstr ""
 
@@ -941,11 +941,11 @@ msgstr ""
 msgid "_Home"
 msgstr ""
 
-#: templates/display/standard.inc:41
+#: templates/display/standard.inc:25
 msgid "_Lock"
 msgstr ""
 
-#: templates/display/standard.inc:62
+#: templates/display/standard.inc:46
 msgid "_Merge/Rename"
 msgstr ""
 
@@ -965,6 +965,6 @@ msgstr ""
 msgid "attachment"
 msgstr ""
 
-#: templates/display/standard.inc:145
+#: templates/display/standard.inc:129
 msgid "reStructuredText"
 msgstr ""
