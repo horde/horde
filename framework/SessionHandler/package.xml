@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-22</date>
- <time>09:51:23</time>
+ <date>2013-06-04</date>
+ <time>18:07:18</time>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -505,10 +505,9 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-22</date>
+   <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Fix hashtable driver name.
 * [mms] Horde_Memcache driver is now deprecated in favor of the Horde_HashTable driver.
 * [mms] Added Horde_HashTable driver.
 * [mms] Implement logging for all storage drivers.
