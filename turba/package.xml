@@ -28,10 +28,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-06-04</date>
- <time>23:58:50</time>
+ <date>2013-06-05</date>
+ <time>00:03:41</time>
  <version>
-  <release>4.1.0</release>
+  <release>4.1.1</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Fix searching in LDAP address books (Bug #12297).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1651,6 +1651,19 @@
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Fix searching in LDAP address books (Bug #12297).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-05</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
