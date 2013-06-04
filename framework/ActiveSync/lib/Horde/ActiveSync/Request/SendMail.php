@@ -47,7 +47,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
         if (!$this->_decoder->isWbxml()) {
             $this->_logger->info(sprintf(
                 '[%s] Handling SENDMAIL command with no Wbxml.',
-                $this->_device->id));
+                $this->_procid));
             $stream = $this->_decoder->getFullInputStream();
             try {
                 $result = $this->_driver->sendMail($stream, false, false, false, true);
@@ -64,7 +64,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
         } else {
             $this->_logger->info(sprintf(
                 '[%s] Handling SENDMAIL command with Wbxml.',
-                $this->_device->id));
+                $this->_procid));
             return $this->_handleWbxmlRequest();
         }
     }
