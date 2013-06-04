@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix handling MIMETRUNCATION for emails with attachments (Bug #12289).
 * [mjr] Fix missing email body data for certain clients (Bug #12203).
 * [mjr] Fix requesting email data via ITEMOPERATION command (Bug #12292).
 * [mjr] Fix a BC break that was causing FOLDERSYNC requests to f fail.
@@ -1452,6 +1453,7 @@
    <date>2013-06-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix handling MIMETRUNCATION for emails with attachments (Bug #12289).
 * [mjr] Fix missing email body data for certain clients (Bug #12203).
 * [mjr] Fix requesting email data via ITEMOPERATION command (Bug #12292).
 * [mjr] Fix a BC break that was causing FOLDERSYNC requests to f fail.
