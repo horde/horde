@@ -404,6 +404,17 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($ob->binary());
         $this->assertFalse($ob->literal());
         $this->assertFalse($ob->quoted());
+
+        /* @todo: Change in Horde_Imap_Client 3.0 to detect Exception, instead
+         * of blank mailbox name. */
+        $ob = new Horde_Imap_Client_Data_Format_Mailbox("foo\0");
+
+        $this->assertFalse($ob->binary());
+
+        $this->assertEquals(
+            '',
+            strval($ob)
+        );
     }
 
     public function testNil()
