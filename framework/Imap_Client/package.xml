@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix flushing debug buffer when unexpected data is returned from the remote server.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1804,7 +1804,7 @@
    <date>2013-06-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix flushing debug buffer when unexpected data is returned from the remote server.
    </notes>
   </release>
  </changelog>

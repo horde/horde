@@ -143,10 +143,12 @@ class Horde_Imap_Client_Base_Debug
         }
 
         if (is_null($pre)) {
-            $pre = is_null($this->_buffer)
-                ? ''
-                : $this->_buffer;
+            $pre = strval($this->_buffer);
         } else {
+            if (!is_null($this->_buffer)) {
+                $this->_write("\n");
+            }
+
             $new_time = microtime(true);
 
             if (is_null($this->_time)) {
