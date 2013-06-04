@@ -925,12 +925,16 @@ class Horde_ActiveSync_Imap_Adapter
                     // guess.
                     $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
                 }
-                $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
 
                 // MIME Truncation
-                if (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize']) &&
-                    $airsync_body->estimateddatasize > $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize']) {
-                    ftruncate($airsync_body->data, $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize']);
+                $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
+                $this->_logger->info(sprintf(
+                    'Checking MIMETRUNCATION: %s, ServerData: %s',
+                    $options['truncation'],
+                    $airsync_body->estimateddatasize));
+                if (!empty($options['truncation']) &&
+                    $airsync_body->estimateddatasize > $options['truncation']) {
+                    ftruncate($airsync_body->data, $options['truncation']);
                     $airsync_body->truncated = '1';
                 } else {
                     $airsync_body->truncated = '0';
