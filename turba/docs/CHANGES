@@ -2,7 +2,7 @@
 v4.1.0-git
 ----------
 
-[jan] Fix searching in LDAP address books.
+[jan] Fix searching in LDAP address books (Bug #12297).
 
 
 ---------
