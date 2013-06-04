@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-05</date>
- <time>00:21:05</time>
+ <time>00:25:52</time>
  <version>
-  <release>5.0.0</release>
+  <release>5.0.1</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* Final release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -676,6 +676,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * Final release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.1</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
