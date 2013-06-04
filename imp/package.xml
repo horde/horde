@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Catch and ignore errors from contacts backend when determining whether to show images in a message (Bug #12294).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2968,7 +2968,7 @@
    <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Catch and ignore errors from contacts backend when determining whether to show images in a message (Bug #12294).
    </notes>
   </release>
  </changelog>

@@ -38,22 +38,28 @@ class IMP_Ui_Imageview
 
         if ($registry->hasMethod('contacts/search')) {
             $sparams = $injector->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
-            $res = $registry->call('contacts/search', array($from->bare_addresses, array(
-                'fields' => $sparams['fields'],
-                'returnFields' => array('email'),
-                'rfc822Return' => true,
-                'sources' => $sparams['sources']
-            )));
+            try {
+                $res = $registry->call('contacts/search', array($from->bare_addresses, array(
+                    'fields' => $sparams['fields'],
+                    'returnFields' => array('email'),
+                    'rfc822Return' => true,
+                    'sources' => $sparams['sources']
+                )));
 
-            // Don't allow personal addresses by default - this is the only
-            // e-mail address a Spam sender for sure knows you will recognize
-            // so it is too much of a loophole.
-            $res->setIteratorFilter(0, $injector->getInstance('IMP_Identity')->getAllFromAddresses());
+                // Don't allow personal addresses by default - this is the
+                // only e-mail address a Spam sender for sure knows you will
+                // recognize so it is too much of a loophole.
+                $res->setIteratorFilter(0, $injector->getInstance('IMP_Identity')->getAllFromAddresses());
 
-            foreach ($from as $val) {
-                if ($res->contains($val)) {
-                    return true;
+                foreach ($from as $val) {
+                    if ($res->contains($val)) {
+                        return true;
+                    }
                 }
+            } catch (Horde_Exception $e) {
+                // Ignore errors from the search - default to not showing
+                // images.
+                Horde::log($e, 'INFO');
             }
         }
 
