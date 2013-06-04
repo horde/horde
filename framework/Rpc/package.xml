@@ -22,19 +22,19 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-05-13</date>
- <time>15:15:30</time>
+ <date>2013-06-04</date>
+ <time>18:01:18</time>
  <version>
-  <release>2.1.0beta2</release>
+  <release>2.1.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* Final release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -820,15 +820,15 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>2.1.0beta2</release>
+    <release>2.1.0</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-13</date>
+   <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* Final release.
    </notes>
   </release>
  </changelog>
