@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-03</date>
- <time>23:55:46</time>
+ <date>2013-06-04</date>
+ <time>17:44:56</time>
  <version>
   <release>4.1.0</release>
   <api>4.1.0</api>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add help test for CalDAV usage.
-* Final release.
+* [jan] Add help text for CalDAV usage.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2153,11 +2152,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-03</date>
+   <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Add help test for CalDAV usage.
-* Final release.
+* [jan] Add help text for CalDAV usage.
    </notes>
   </release>
  </changelog>
