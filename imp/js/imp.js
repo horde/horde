@@ -24,7 +24,7 @@ var IMP_JS = {
         a = new Element('A')
             .insert(IMP_JS.unblock_image_text)
             .observe('click', function(e) {
-                var box = e.element().up('.mimeStatusMessageTable').up();
+                var box = elt.up('.mimeStatusMessageTable').up();
 
                 HordeCore.doAction('imageUnblockAdd', {
                     muid: elt.readAttribute('muid')
@@ -36,7 +36,7 @@ var IMP_JS = {
                 });
             });
 
-        e.element().up('TBODY').update(
+        elt.up('TBODY').update(
             new Element('TR').insert(
                 new Element('TD').insert(a)
             )
