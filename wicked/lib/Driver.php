@@ -65,7 +65,6 @@ abstract class Wicked_Driver
     /**
      * Retrieves a historic version of a page.
      *
-     * @abstract
      * @param string $pagename  The name of the page to retrieve.
      * @param string $version   The version to retrieve.
      *
@@ -81,8 +80,6 @@ abstract class Wicked_Driver
 
     /**
      * Creates a new page.
-     *
-     * @abstract
      *
      * @param string $pagename  The new page's name.
      * @param string $text      The new page's text.
@@ -170,8 +167,6 @@ abstract class Wicked_Driver
     /**
      * Returns the least popular pages.
      *
-     * @abstract
-     *
      * @param integer $limit  The number of least popular pages to return.
      *
      * @return array  Pages.
@@ -180,8 +175,6 @@ abstract class Wicked_Driver
 
     /**
      * Finds pages with matches in text or title.
-     *
-     * @abstract
      *
      * @param string $searchtext  The search expression (Google-like).
      *
@@ -195,8 +188,6 @@ abstract class Wicked_Driver
 
     /**
      * Retrieves data on files attached to a page.
-     *
-     * @abstract
      *
      * @param string $pageId        This is the Id of the page for which we'd
      *                              like to find attached files.
@@ -307,10 +298,6 @@ abstract class Wicked_Driver
      *
      * Wicked_Driver::attachFile() calls down to this method for the driver-
      * specific portion, and then uses VFS to store the attachment.
-     *
-     * @abstract
-     *
-     * @access protected
      *
      * @param array $file  See Wicked_Driver::attachFile().
      *
