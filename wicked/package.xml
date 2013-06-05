@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-31</date>
- <time>10:05:52</time>
+ <date>2013-06-05</date>
+ <time>19:06:14</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -394,15 +394,16 @@
      <dir name="graphics">
       <file name="AllPages.png" role="horde" />
       <file name="az.png" role="horde" />
+      <file name="delete.png" role="horde" />
       <file name="diff.png" role="horde" />
+      <file name="edit.png" role="horde" />
       <file name="external.png" role="horde" />
       <file name="favicon.ico" role="horde" />
-      <file name="info.png" role="horde" />
       <file name="locked.png" role="horde" />
-      <file name="question.png" role="horde" />
       <file name="RecentChanges.png" role="horde" />
       <file name="restore.png" role="horde" />
       <file name="SyncPages.png" role="horde" />
+      <file name="unlocked.png" role="horde" />
       <file name="wicked.png" role="horde" />
       <file name="WikiHome.png" role="horde" />
       <file name="WikiUsage.png" role="horde" />
@@ -826,15 +827,16 @@
    <install as="wicked/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="wicked/themes/default/graphics/AllPages.png" name="themes/default/graphics/AllPages.png" />
    <install as="wicked/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
+   <install as="wicked/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="wicked/themes/default/graphics/diff.png" name="themes/default/graphics/diff.png" />
+   <install as="wicked/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="wicked/themes/default/graphics/external.png" name="themes/default/graphics/external.png" />
    <install as="wicked/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
-   <install as="wicked/themes/default/graphics/info.png" name="themes/default/graphics/info.png" />
    <install as="wicked/themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
-   <install as="wicked/themes/default/graphics/question.png" name="themes/default/graphics/question.png" />
    <install as="wicked/themes/default/graphics/RecentChanges.png" name="themes/default/graphics/RecentChanges.png" />
    <install as="wicked/themes/default/graphics/restore.png" name="themes/default/graphics/restore.png" />
    <install as="wicked/themes/default/graphics/SyncPages.png" name="themes/default/graphics/SyncPages.png" />
+   <install as="wicked/themes/default/graphics/unlocked.png" name="themes/default/graphics/unlocked.png" />
    <install as="wicked/themes/default/graphics/wicked.png" name="themes/default/graphics/wicked.png" />
    <install as="wicked/themes/default/graphics/WikiHome.png" name="themes/default/graphics/WikiHome.png" />
    <install as="wicked/themes/default/graphics/WikiUsage.png" name="themes/default/graphics/WikiUsage.png" />
