@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix displaying some HTML messages that contain blocked CSS rules (Bug #12294).
 * [mms] Catch and ignore errors from contacts backend when determining whether to show images in a message (Bug #12294).
  </notes>
  <contents>
@@ -2968,6 +2969,7 @@
    <date>2013-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix displaying some HTML messages that contain blocked CSS rules (Bug #12294).
 * [mms] Catch and ignore errors from contacts backend when determining whether to show images in a message (Bug #12294).
    </notes>
   </release>
