@@ -34,7 +34,7 @@ class IMP_Ajax_Application_ListMessages
      *
      * @var array $args  TODO
      *   - applyfilter: (boolean) If true, apply filters to mailbox.
-     *   - change: (boolean)
+     *   - change: (boolean) True if the cache value has changed.
      *   - initial: (boolean) Is this the initial load of the view?
      *   - mbox: (string) The mailbox of the view.
      *   - qsearch: (string) The quicksearch search string.
@@ -132,14 +132,9 @@ class IMP_Ajax_Application_ListMessages
         $imp_imap = $injector->getInstance('IMP_Imap');
         $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
 
-        /* Generate the sorted mailbox list now. */
-        $mailbox_list = $mbox->list_ob;
-        $msgcount = count($mailbox_list);
-
         /* Create the base object. */
         $result = $this->getBaseOb($mbox);
         $result->cacheid = $mbox->cacheid_date;
-        $result->totalrows = $msgcount;
 
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
@@ -251,6 +246,15 @@ class IMP_Ajax_Application_ListMessages
                 $md->noexpunge = 1;
             }
         }
+
+        /* Generate the sorted mailbox list now. */
+        $mailbox_list = $mbox->list_ob;
+        if ($is_search && (!empty($args['change']) || $args['initial'])) {
+            $mailbox_list->rebuild(true);
+        }
+
+        $msgcount = count($mailbox_list);
+        $result->totalrows = $msgcount;
 
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
