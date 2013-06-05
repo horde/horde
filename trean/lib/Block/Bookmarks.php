@@ -16,7 +16,6 @@ class Trean_Block_Bookmarks extends Horde_Core_Block
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-
         $this->_name = _("Bookmarks");
     }
 
@@ -69,8 +68,6 @@ class Trean_Block_Bookmarks extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once __DIR__ . '/../base.php';
-
         $template = TREAN_TEMPLATES . '/block/' . $this->_params['template'] . '.inc';
 
         $sortby = 'title';
