@@ -95,4 +95,14 @@ class IMP_Prefs_Special_ImageReplacement implements Horde_Core_Prefs_Ui_Special
         return $GLOBALS['prefs']->setValue('image_replacement_addrs', Horde_Serialize::serialize($alist->bare_addresses, Horde_Serialize::JSON));
     }
 
+    /**
+     * Can addresses be added to the safe list?
+     *
+     * @return boolean  True if addresses can be added.
+     */
+    public function canAddToSafeAddrList()
+    {
+        return !$GLOBALS['prefs']->isLocked('image_replacement_addrs');
+    }
+
 }

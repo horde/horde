@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Don&apos;t show option to add senders to safe images list if the current address cannot be added to the safe list.
 * [mms] Don&apos;t log authentication exception messages from the IMAP library; authentication failures are already logged by the authentication code.
  </notes>
  <contents>
@@ -3202,6 +3203,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Don&apos;t show option to add senders to safe images list if the current address cannot be added to the safe list.
 * [mms] Don&apos;t log authentication exception messages from the IMAP library; authentication failures are already logged by the authentication code.
    </notes>
   </release>

@@ -16,31 +16,37 @@ var IMP_JS = {
     {
         var a, callback, doc,
             elt = e.element(),
+            box = elt.up('.mimeStatusMessageTable').up(),
             iframe = elt.up('.mimePartBase').down('.mimePartData IFRAME.htmlMsgData'),
             imgload = false;
 
         e.stop();
 
-        a = new Element('A')
-            .insert(IMP_JS.unblock_image_text)
-            .observe('click', function(e) {
-                var box = elt.up('.mimeStatusMessageTable').up();
-
-                HordeCore.doAction('imageUnblockAdd', {
-                    muid: elt.readAttribute('muid')
-                });
-
-                box.slideUp({
-                    afterFinish: function() { box.remove(); },
-                    duration: 0.6
-                });
+        if (elt.hasClassName('noUnblockImageAdd')) {
+            box.slideUp({
+                afterFinish: function() { box.remove(); },
+                duration: 0.6
             });
+        } else {
+            a = new Element('A')
+                .insert(IMP_JS.unblock_image_text)
+                .observe('click', function(e) {
+                    HordeCore.doAction('imageUnblockAdd', {
+                        muid: elt.readAttribute('muid')
+                    });
 
-        elt.up('TBODY').update(
-            new Element('TR').insert(
-                new Element('TD').insert(a)
-            )
-        );
+                    box.slideUp({
+                        afterFinish: function() { box.remove(); },
+                        duration: 0.6
+                    });
+                });
+
+            elt.up('TBODY').update(
+                new Element('TR').insert(
+                    new Element('TD').insert(a)
+                )
+            );
+        }
 
         callback = this.iframeResize.bind(this, iframe);
         doc = iframe.contentDocument || iframe.contentWindow.document;
