@@ -435,7 +435,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (isset($data['referral'])) {
                 foreach (array('hostspec', 'port', 'username') as $val) {
                     if (!is_null($data['referral']->$val)) {
-                        $this->_params[$val] = $data['referral']->$val;
+                        $this->setParam($val, $data['referral']->$val);
                     }
                 }
 
@@ -551,6 +551,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _tryLogin($method)
     {
+        $username = $this->getParam('username');
+        $password = $this->getParam('password');
+
         switch ($method) {
         case 'CRAM-MD5':
         case 'CRAM-SHA1':
@@ -561,9 +564,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // Need $args because PHP 5.3 doesn't allow access to $this in
             // anonymous functions.
             $args = array(
-                $this->getParam('username'),
+                $username,
                 strtolower(substr($method, 5)),
-                $this->getParam('password')
+                $password
             );
 
             $cmd = $this->_command('AUTHENTICATE')->add(array(
@@ -574,7 +577,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     );
                 })
             ));
-            $cmd->debug = sprintf('[AUTHENTICATE %s Command - username: %s]', $method, $this->_params['username']);
+            $cmd->debug = sprintf('[AUTHENTICATE %s Command - username: %s]', $method, $username);
             break;
 
         case 'DIGEST-MD5':
@@ -583,8 +586,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // Need $args because PHP 5.3 doesn't allow access to $this in
             // anonymous functions.
             $args = array(
-                $this->getParam('username'),
-                $this->getParam('password'),
+                $username,
+                $password,
                 $this->getParam('hostspec')
             );
 
@@ -612,35 +615,35 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     return new Horde_Imap_Client_Data_Format_List();
                 })
             ));
-            $cmd->debug = sprintf('[AUTHENTICATE DIGEST-MD5 Command - username: %s]', $this->_params['username']);
+            $cmd->debug = sprintf('[AUTHENTICATE DIGEST-MD5 Command - username: %s]', $username);
             break;
 
         case 'LOGIN':
             $cmd = $this->_command('LOGIN')->add(array(
-                new Horde_Imap_Client_Data_Format_Astring($this->_params['username']),
-                new Horde_Imap_Client_Data_Format_Astring($this->getParam('password'))
+                new Horde_Imap_Client_Data_Format_Astring($username),
+                new Horde_Imap_Client_Data_Format_Astring($password)
             ));
-            $cmd->debug = sprintf('[LOGIN Command - username: %s]', $this->_params['username']);
+            $cmd->debug = sprintf('[LOGIN Command - username: %s]', $username);
             break;
 
         case 'PLAIN':
             // RFC 2595/4616 - PLAIN SASL mechanism
             $auth = base64_encode(implode("\0", array(
-                $this->_params['username'],
-                $this->_params['username'],
-                $this->getParam('password')
+                $username,
+                $username,
+                $password
             )));
             $cmd = $this->_command('AUTHENTICATE')->add('PLAIN');
 
             if ($this->queryCapability('SASL-IR')) {
                 // IMAP Extension for SASL Initial Client Response (RFC 4959)
                 $cmd->add($auth);
-                $cmd->debug = sprintf('[SASL-IR AUTHENTICATE Command - username: %s]', $this->_params['username']);
+                $cmd->debug = sprintf('[SASL-IR AUTHENTICATE Command - username: %s]', $username);
             } else {
                 $cmd->add(new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($auth) {
                     return new Horde_Imap_Client_Data_Format_List($auth);
                 }));
-                $cmd->debug = sprintf('[AUTHENTICATE Command - username: %s]', $this->_params['username']);
+                $cmd->debug = sprintf('[AUTHENTICATE Command - username: %s]', $username);
             }
             break;
 
@@ -3049,8 +3052,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         );
 
         $addr_ob = new Horde_Mail_Rfc822_Address();
-        $env_addrs = $this->_params['envelope_addrs'];
-        $env_str = $this->_params['envelope_string'];
+        $env_addrs = $this->getParam('envelope_addrs');
+        $env_str = $this->getParam('envelope_string');
         $key = 0;
         $ret = new Horde_Imap_Client_Data_Envelope();
 

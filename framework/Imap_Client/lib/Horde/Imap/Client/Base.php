@@ -289,7 +289,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $this->_params = $params;
-        $this->setParam('password', $this->_params['password']);
+        $this->setParam('password', $params['password']);
 
         $this->changed = true;
         $this->_initOb();
@@ -302,8 +302,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _getEncryptKey()
     {
-        if (is_callable($this->_params['encryptKey'])) {
-            return call_user_func($this->_params['encryptKey']);
+        if (is_callable($ekey = $this->getParam('encryptKey'))) {
+            return call_user_func($ekey);
         }
 
         throw new InvalidArgumentException('encryptKey parameter is not a valid callback.');
@@ -315,9 +315,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected function _initOb()
     {
         register_shutdown_function(array($this, 'shutdown'));
-        $this->_debug = empty($this->_params['debug'])
-            ? new Horde_Support_Stub()
-            : new Horde_Imap_Client_Base_Debug($this->_params['debug']);
+        $this->_debug = ($debug = $this->getParam('debug'))
+            ? new Horde_Imap_Client_Base_Debug($debug)
+            : new Horde_Support_Stub();
     }
 
     /**
@@ -382,13 +382,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
         } else {
             switch ($key) {
             case 'capability':
-                if (!empty($this->_params['capability_ignore'])) {
+                if ($ci = $this->getParam('capability_ignore')) {
                     if ($this->_debug->debug &&
-                        ($ignored = array_intersect_key($val, array_flip($this->_params['capability_ignore'])))) {
+                        ($ignored = array_intersect_key($val, array_flip($ci)))) {
                         $this->_debug->info(sprintf("CONFIG: IGNORING these IMAP capabilities: %s", implode(', ', array_keys($ignored))));
                     }
 
-                    $val = array_diff_key($val, array_flip($this->_params['capability_ignore']));
+                    $val = array_diff_key($val, array_flip($ci));
                 }
 
                 /* RFC 5162 [1] - QRESYNC implies CONDSTORE and ENABLE, even
@@ -457,13 +457,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _initCache($current = false)
     {
-        if (empty($this->_params['cache']['fields'])) {
+        $c = $this->getParam('cache');
+
+        if (empty($c['fields'])) {
             return false;
         }
 
         if (is_null($this->_cache)) {
-            $c = $this->getParam('cache');
-
             if (isset($c['backend']) &&
                 ($c['backend'] instanceof Horde_Imap_Client_Cache_Backend)) {
                 $backend = $c['backend'];
@@ -765,7 +765,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function login()
     {
         if (!$this->_isAuthenticated && $this->_login()) {
-            if (!empty($this->_params['id'])) {
+            if ($this->getParam('id')) {
                 try {
                     $this->sendID();
                 } catch (Horde_Imap_Client_Exception_NoSupportExtension $e) {
@@ -773,7 +773,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 }
             }
 
-            if (!empty($this->_params['comparator'])) {
+            if ($this->getParam('comparator')) {
                 try {
                     $this->setComparator();
                 } catch (Horde_Imap_Client_Exception_NoSupportExtension $e) {
@@ -829,7 +829,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             throw new Horde_Imap_Client_Exception_NoSupportExtension('ID');
         }
 
-        $this->_sendID(is_null($info) ? (empty($this->_params['id']) ? array() : $this->_params['id']) : $info);
+        $this->_sendID(is_null($info) ? ($this->getParam('id') ?: array()) : $info);
     }
 
     /**
@@ -888,7 +888,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if ($this->queryCapability('LANGUAGE')) {
             $lang = is_null($langs)
-                ? (empty($this->_params['lang']) ? null : $this->_params['lang'])
+                ? $this->getParam('lang')
                 : $langs;
         }
 
@@ -2364,7 +2364,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function setComparator($comparator = null)
     {
         $comp = is_null($comparator)
-            ? (empty($this->_params['comparator']) ? null : $this->_params['comparator'])
+            ? $this->getParam('comparator')
             : $comparator;
         if (is_null($comp)) {
             return;
@@ -3708,7 +3708,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return;
         }
 
-        if (in_array(strval($this->_selected), $this->_params['cache']['fetch_ignore'])) {
+        $c = $this->getParam('cache');
+        if (in_array(strval($this->_selected), $c['fetch_ignore'])) {
             $this->_debug->info(sprintf("CACHE: Ignoring FETCH data (mailbox: %s)", $this->_selected));
             return;
         }
@@ -3813,7 +3814,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return;
         }
 
-        if (in_array(strval($to), $this->_params['cache']['fetch_ignore'])) {
+        $c = $this->getParam('cache');
+        if (in_array(strval($to), $c['fetch_ignore'])) {
             $this->_debug->info(sprintf("CACHE: Ignoring moving FETCH data (%s => %s)", $this->_selected, $to));
             return;
         }
@@ -4029,7 +4031,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _cacheFields()
     {
-        $out = $this->_params['cache']['fields'];
+        $c = $this->getParam('cache');
+        $out = $c['fields'];
 
         if (!isset($this->_temp['enabled']['CONDSTORE'])) {
             unset($out[Horde_Imap_Client::FETCH_FLAGS]);
