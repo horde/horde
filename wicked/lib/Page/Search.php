@@ -18,7 +18,8 @@ class Wicked_Page_Search extends Wicked_Page {
      */
     public $supportedModes = array(
         Wicked::MODE_CONTENT => true,
-        Wicked::MODE_DISPLAY => true);
+        Wicked::MODE_DISPLAY => true
+    );
 
     /**
      * Cached search results.
@@ -41,7 +42,8 @@ class Wicked_Page_Search extends Wicked_Page {
         }
         return array(
             'titles' => $GLOBALS['wicked']->searchTitles($searchtext),
-            'pages' => $GLOBALS['wicked']->searchText($searchtext, false));
+            'pages' => $GLOBALS['wicked']->searchText($searchtext, false)
+        );
     }
 
     /**
@@ -84,21 +86,29 @@ class Wicked_Page_Search extends Wicked_Page {
         $exact = array();
         $page = new Wicked_Page_StandardPage($searchtext);
         if ($GLOBALS['wicked']->pageExists($searchtext)) {
-            $exact[] = array('author' => htmlspecialchars($page->author()),
-                             'created' => $page->formatVersionCreated(),
-                             'name' => htmlspecialchars($page->pageName()),
-                             'context' => false,
-                             'url' => $page->pageUrl(),
-                             'version' => $page->version(),
-                             'class' => '');
+            $exact[] = array(
+                'author' => htmlspecialchars($page->author()),
+                'timestamp' => $page->versionCreated(),
+                'created' => $page->formatVersionCreated(),
+                'name' => htmlspecialchars($page->pageName()),
+                'context' => false,
+                'url' => $page->pageUrl(),
+                'version' => $page->version(),
+                'class' => ''
+            );
         } else {
-            $exact[] = array('author' => '',
-                             'created' => '',
-                             'name' => htmlspecialchars($searchtext),
-                             'context' => sprintf(_("%s does not exist. You can create it now."), '<strong>' . htmlspecialchars($searchtext) . '</strong>'),
-                             'url' => Wicked::url($searchtext, false),
-                             'version' => '',
-                             'class' => 'newpage');
+            $exact[] = array(
+                'author' => '',
+                'created' => '',
+                'name' => htmlspecialchars($searchtext),
+                'context' => sprintf(
+                    _("%s does not exist. You can create it now."),
+                    '<strong>' . htmlspecialchars($searchtext) . '</strong>'
+                ),
+                'url' => Wicked::url($searchtext, false),
+                'version' => '',
+                'class' => 'newpage'
+            );
         }
 
         /* Prepare page title matches */
@@ -110,13 +120,16 @@ class Wicked_Page_Search extends Wicked_Page {
                 $page = new Wicked_Page_StandardPage($page);
             }
 
-            $titles[] = array('author' => $page->author(),
-                              'created' => $page->formatVersionCreated(),
-                              'name' => $page->pageName(),
-                              'context' => false,
-                              'url' => $page->pageUrl(),
-                              'version' => $page->version(),
-                              'class' => '');
+            $titles[] = array(
+                'author' => $page->author(),
+                'timestamp' => $page->versionCreated(),
+                'created' => $page->formatVersionCreated(),
+                'name' => $page->pageName(),
+                'context' => false,
+                'url' => $page->pageUrl(),
+                'version' => $page->version(),
+                'class' => ''
+            );
         }
 
         /* Prepare page text matches */
@@ -128,13 +141,16 @@ class Wicked_Page_Search extends Wicked_Page {
                 $page = new Wicked_Page_StandardPage($page);
             }
 
-            $pages[] = array('author' => $page->author(),
-                             'created' => $page->formatVersionCreated(),
-                             'name' => $page->pageName(),
-                             'context' => $this->getContext($page, $searchtext),
-                             'url' => $page->pageUrl(),
-                             'version' => $page->version(),
-                             'class' => '');
+            $pages[] = array(
+                'author' => $page->author(),
+                'timestamp' => $page->versionCreated(),
+                'created' => $page->formatVersionCreated(),
+                'name' => $page->pageName(),
+                'context' => $this->getContext($page, $searchtext),
+                'url' => $page->pageUrl(),
+                'version' => $page->version(),
+                'class' => ''
+            );
         }
 
         $template->set('hits', false, true);

@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [jan] Fix sorting page lists by date.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
