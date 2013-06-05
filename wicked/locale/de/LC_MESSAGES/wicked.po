@@ -1,14 +1,14 @@
 # German translations for Wicked.
 # Copyright 2003-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Wicked package.
-# Jan Schneider <jan@horde.org>, 2003-2010.
+# Jan Schneider <jan@horde.org>, 2003-2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-04 11:48+0200\n"
-"PO-Revision-Date: 2011-11-01 12:59+0100\n"
+"POT-Creation-Date: 2013-05-22 11:43+0200\n"
+"PO-Revision-Date: 2013-06-05 22:59+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
@@ -840,7 +840,7 @@ msgstr "Datei aktualisieren"
 
 #: templates/display/AttachedFiles.html:104
 msgid "Update an Attachment"
-msgstr "Anhang aktualsieren"
+msgstr "Anhang aktualisieren"
 
 #: lib/Page/AttachedFiles.php:283
 #, php-format
