@@ -371,17 +371,19 @@ class Wicked_Driver_Sql extends Wicked_Driver
         foreach (array_keys($data) as $key) {
             $data[$key]['attachment_name'] = $this->_convertFromDriver($data[$key]['attachment_name']);
         }
-        usort($data, array($this, '_getAttachedFiles_usort'));
+
+        usort(
+            $data,
+            function($a, $b)
+            {
+                if ($res = strcmp($a['attachment_name'], $b['attachment_name'])) {
+                    return $res;
+                }
+                return ($a['attachment_version'] - $b['attachment_version']);
+            }
+        );
 
         return $data;
-    }
-
-    protected function _getAttachedFiles_usort($a, $b)
-    {
-        if ($res = strcmp($a['attachment_name'], $b['attachment_name'])) {
-            return $res;
-        }
-        return ($a['attachment_version'] - $b['attachment_version']);
     }
 
     /**
