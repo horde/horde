@@ -3,6 +3,8 @@ notifications:
   email:
   irc:
     channels: "chat.freenode.net#horde"
+    on_success: change
+    on_failure: change
 php:
 #  - 5.3
   - 5.4
