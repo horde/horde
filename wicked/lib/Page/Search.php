@@ -183,7 +183,6 @@ class Wicked_Page_Search extends Wicked_Page {
         echo $template->fetch(WICKED_TEMPLATES . '/pagelist/results_header.html');
         echo $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
         require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
-        echo '</div>';
 
         return true;
     }
