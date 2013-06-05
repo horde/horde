@@ -87,7 +87,7 @@ function table_getSortValue(el)
         }
     });
 
-    return str;
+    return str.trim();
 }
 
 function table_resortTable(th)
