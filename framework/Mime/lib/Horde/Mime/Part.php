@@ -2141,6 +2141,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         $base_pos = strpos($id, '.');
+        $orig_id = $id;
+
         if ($base_pos !== false) {
             $base_pos = substr($id, 0, $base_pos);
             $id = substr($id, $base_pos);
@@ -2151,6 +2153,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         $params = $hdr_ob->getValue('Content-Type', Horde_Mime_Headers::VALUE_PARAMS);
         if (!isset($params['boundary'])) {
+            if ($orig_id == '1') {
+                return substr($rawtext, $curr_pos + 1);
+            }
+
             throw new Horde_Mime_Exception('Could not find MIME part.');
         }
 
