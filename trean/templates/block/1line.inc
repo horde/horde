@@ -11,9 +11,9 @@ if ($bookmark->http_status == 'error') {
 ?>
 <table width="100%" cellspacing="0">
  <tr>
-  <td valign="top" width="36">
-   <?php echo Horde::img(Trean::getFavicon($bookmark), '', 'class="trean-favicon"', '') ?>
+  <td valign="top" width="43">
    <?php if ($status) echo Horde::img('http/' . $status) ?>
+   <?php echo Horde::img(Trean::getFavicon($bookmark), '', 'class="trean-favicon"', '') ?>
   </td>
 
   <td valign="top">
