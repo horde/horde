@@ -68,15 +68,19 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
                               'diff_img' => $diff_img,
                               'created' => $page->formatVersionCreated(),
                               'change_log' => $page->changeLog());
-            $bydate[$createDate][$page->versionCreated()] = $pageInfo;
+            $bydate[$createDate][$page->versionCreated()][$page->version()] = $pageInfo;
         }
         krsort($bydate);
 
-        foreach ($bydate as $pageList) {
-            krsort($pageList);
-            $pageList = array_values($pageList);
-            $changes[] = array('date' => $pageList[0]['created'],
-                               'pages' => $pageList);
+        foreach ($bydate as $bysecond) {
+            $day = array();
+            krsort($bysecond);
+            foreach ($bysecond as $pageList) {
+                krsort($pageList);
+                $day = array_merge($day, array_values($pageList));
+            }
+            $changes[] = array('date' => $day[0]['created'],
+                               'pages' => $day);
         }
 
         return $changes;
