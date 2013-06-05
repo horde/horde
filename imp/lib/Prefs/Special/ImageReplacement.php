@@ -83,13 +83,16 @@ class IMP_Prefs_Special_ImageReplacement implements Horde_Core_Prefs_Ui_Special
 
     /**
      * @param mixed $address  Address to add to the safe address list.
+     *
+     * @return boolean  True if successfully added.
      */
     public function addSafeAddrList($address)
     {
         $alist = $this->safeAddrList();
         $alist->add($address);
         $alist->unique();
-        $GLOBALS['prefs']->setValue('image_replacement_addrs', Horde_Serialize::serialize($alist->bare_addresses, Horde_Serialize::JSON));
+
+        return $GLOBALS['prefs']->setValue('image_replacement_addrs', Horde_Serialize::serialize($alist->bare_addresses, Horde_Serialize::JSON));
     }
 
 }

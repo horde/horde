@@ -27,7 +27,7 @@ class IMP_Ajax_Application_Handler_ImageUnblock extends Horde_Core_Ajax_Applicat
      *
      * Requires mailbox/indices form input.
      *
-     * @return boolean  True on success.
+     * @return boolean  True.
      */
     public function imageUnblockAdd()
     {
@@ -35,9 +35,9 @@ class IMP_Ajax_Application_Handler_ImageUnblock extends Horde_Core_Ajax_Applicat
 
         $address = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Mailbox($this->vars))->getHeader()->getOb('from')->bare_addresses[0];
 
-        $injector->getInstance('IMP_Prefs_Special_ImageReplacement')->addSafeAddrList($address);
-
-        $notification->push(sprintf(_("Always showing images in messages sent by %s."), $address), 'horde.success');
+        if ($injector->getInstance('IMP_Prefs_Special_ImageReplacement')->addSafeAddrList($address)) {
+            $notification->push(sprintf(_("Always showing images in messages sent by %s."), $address), 'horde.success');
+        }
 
         return true;
     }
