@@ -154,9 +154,16 @@ abstract class Wicked_Driver
     abstract function getRecentChanges($days = 3);
 
     /**
-     * Returns the most popular pages.
+     * Returns the most recently changed pages.
      *
-     * @abstract
+     * @param integer $limit  The number of most recent pages to return.
+     *
+     * @return array  Pages.
+     */
+    abstract function mostRecent($limit = 10);
+
+    /**
+     * Returns the most popular pages.
      *
      * @param integer $limit  The number of most popular pages to return.
      *

@@ -34,6 +34,10 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
         $days = (int)Horde_Util::getGet('days', 3);
         $summaries = $wicked->getRecentChanges($days);
 
+        if (count($summaries) < 10) {
+            $summaries = $wicked->mostRecent(10);
+        }
+
         $bydate = array();
         $changes = array();
         foreach ($summaries as $page) {

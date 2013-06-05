@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Show at least 10 revisions on the RecentChanges page.
 * [jan] Fix sorting page lists by date.
  </notes>
  <contents>

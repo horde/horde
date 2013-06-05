@@ -131,6 +131,35 @@ class Wicked_Driver_Sql extends Wicked_Driver
     }
 
     /**
+     * Returns the most recently changed pages.
+     *
+     * @param integer $limit  The number of most recent pages to return.
+     *
+     * @return array  Pages.
+     * @throws Wicked_Exception
+     */
+    public function mostRecent($limit = 10)
+    {
+        $result = $this->_retrieve($this->_params['table'],
+                                   '',
+                                   'version_created DESC',
+                                   $limit);
+        $result2 = $this->_retrieve($this->_params['historytable'],
+                                    '',
+                                    'version_created DESC',
+                                    $limit);
+        $result = array_merge($result, $result2);
+        usort(
+            $result,
+            function($a, $b)
+            {
+                return $a['version_created'] - $b['version_created'];
+            }
+        );
+        return array_slice($result, 0, $limit);
+    }
+
+    /**
      * Returns the most popular pages.
      *
      * @param integer $limit  The number of most popular pages to return.
