@@ -511,7 +511,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $doc->appendChild($headelt);
         }
 
-        if ($css_text) {
+        if (strlen($css_text)) {
             $style_elt = $doc->createElement('style', $css_text);
             $style_elt->setAttribute('type', 'text/css');
             $headelt->appendChild($style_elt);
@@ -520,7 +520,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* Store all the blocked CSS in a bogus style element in the HTML
          * output - then we simply need to change the type attribute to
          * text/css, and the browser should load the definitions on-demand. */
-        if (!empty($blocked)) {
+        if (strlen($blocked_text)) {
             $block_elt = $doc->createElement('style', $blocked_text);
             $block_elt->setAttribute('type', 'text/x-imp-cssblocked');
             $headelt->appendChild($block_elt);
