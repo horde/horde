@@ -1523,6 +1523,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $cmd = $this->_command('APPEND')->add(
             new Horde_Imap_Client_Data_Format_Mailbox($mailbox)
         );
+        $cmd->literal8 = true;
 
         foreach (array_keys($data) as $key) {
             if (!empty($data[$key]['flags'])) {
@@ -3797,7 +3798,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $this->_debug->raw($val->tag . ' ' . $val->debug . "\n");
                     $this->_debug->debug = false;
                 }
-                $this->_processCmd($pipeline, $val, array(
+                $this->_processCmd($pipeline, $val, $val, array(
                     'noliteralplus' => !$val->literalplus
                 ));
                 $this->_connection->write('', true);
@@ -3855,6 +3856,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param Horde_Imap_Client_Interaction_Pipeline $pipeline The pipeline
      *                                                         object.
+     * @param Horde_Imap_Client_Interaction_Command $cmd  The master command.
      * @param Horde_Imap_Client_Data_Format_List $data  Commands to send.
      * @param array $opts                               Options:
      *   - noliteralplus: (boolean) If true, don't use LITERAL+ extension.
@@ -3862,7 +3864,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @throws Horde_Imap_Client_Exception
      * @throws Horde_Imap_Client_Exception_NoSupport
      */
-    protected function _processCmd($pipeline, $data, $opts)
+    protected function _processCmd($pipeline, $cmd, $data, $opts)
     {
         foreach ($data as $key => $val) {
             if ($val instanceof Horde_Imap_Client_Interaction_Command_Continuation) {
@@ -3870,6 +3872,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                 $this->_processCmd(
                     $pipeline,
+                    $cmd,
                     $val->getCommands($this->_processCmdContinuation($pipeline)),
                     $opts
                 );
@@ -3882,12 +3885,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             if ($val instanceof Horde_Imap_Client_Data_Format_List) {
                 $this->_connection->write('(');
-                $this->_processCmd($pipeline, $val, $opts);
+                $this->_processCmd($pipeline, $cmd, $val, $opts);
                 $this->_connection->write(')');
             } elseif (($val instanceof Horde_Imap_Client_Data_Format_String) &&
                       $val->literal()) {
                 /* RFC 3516/4466: Send literal8 if we have binary data. */
-                if ($val->binary() && $this->queryCapability('BINARY')) {
+                if ($cmd->literal8 &&
+                    $val->binary() &&
+                    $this->queryCapability('BINARY')) {
                     $binary = true;
                     $this->_connection->write('~');
                 } else {

@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Ensure we only use literal8&apos;s in APPEND commands.
 * [mms] Abstract connection code into separate library, to better handle output buffering and error handling.
 * [mms] Fix regression in throwing exceptions when parsing POP3 server responses.
  </notes>
@@ -1827,6 +1828,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Ensure we only use literal8&apos;s in APPEND commands.
 * [mms] Abstract connection code into separate library, to better handle output buffering and error handling.
 * [mms] Fix regression in throwing exceptions when parsing POP3 server responses.
    </notes>
