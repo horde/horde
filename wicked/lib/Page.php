@@ -335,9 +335,6 @@ class Wicked_Page
 
         $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
         try {
-            $v = $this->versionCreated();
-            $topbar->subinfo = sprintf(_("Last Modified %s by %s"), $this->formatVersionCreated(), $this->author());
-
             $v = $this->version();
             $diff_url = Horde::url('diff.php')
                 ->add(array(
@@ -347,9 +344,10 @@ class Wicked_Page
                 ));
 
             $diff_alt = sprintf(_("Show changes for %s"), $v);
-            $topbar->subinfo .= '&nbsp;'
-                . $diff_url->link(array('title' => $diff_alt))
-                . Horde::img('diff.png', $diff_alt)
+            $topbar->subinfo = $diff_url->link(array('title' => $diff_alt))
+                . sprintf(_("Last Modified %s by %s"),
+                          $this->formatVersionCreated(),
+                          $this->author())
                 . '</a>';
         } catch (Wicked_Exception $e) {
         }
