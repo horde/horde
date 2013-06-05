@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Don&apos;t log authentication exception messages from the IMAP library; authentication failures are already logged by the authentication code.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3202,7 +3202,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Don&apos;t log authentication exception messages from the IMAP library; authentication failures are already logged by the authentication code.
    </notes>
   </release>
  </changelog>

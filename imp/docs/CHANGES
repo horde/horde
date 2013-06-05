@@ -2,6 +2,8 @@
 v6.1.1-git
 ----------
 
+[mms] Don't log authentication exception messages from the IMAP library;
+      authentication failures are already logged by the authentication code.
 
 
 ------
