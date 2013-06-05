@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix regression in throwing exceptions when parsing POP3 server responses.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1818,7 +1818,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix regression in throwing exceptions when parsing POP3 server responses.
    </notes>
   </release>
  </changelog>

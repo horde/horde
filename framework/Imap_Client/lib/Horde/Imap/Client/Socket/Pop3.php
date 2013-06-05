@@ -1219,12 +1219,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 $errtext = '[No error message provided by server]';
             }
 
-            throw new Horde_Imap_Client_Exception_ServerResponse(
+            $e = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("POP3 error reported by server."),
-                $errcode,
-                '-ERR',
-                $errtext
+                $errcode
             );
+            $e->details = $errtext;
+            throw $e;
         }
 
         switch ($multiline) {
