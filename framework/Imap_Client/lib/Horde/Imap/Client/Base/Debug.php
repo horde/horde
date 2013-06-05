@@ -28,7 +28,7 @@
  */
 class Horde_Imap_Client_Base_Debug
 {
-    /* Time, in seconds, to be labeled a slow IMAP command. */
+    /* Time, in seconds, to be labeled a slow command. */
     const SLOW_CMD = 5;
 
     /**
@@ -139,7 +139,7 @@ class Horde_Imap_Client_Base_Debug
             } elseif (($diff = ($new_time - $this->_time)) > self::SLOW_CMD) {
                 fwrite(
                     $this->_stream,
-                    '>> Slow IMAP Command: ' . round($diff, 3) . " seconds\n"
+                    '>> Slow Command: ' . round($diff, 3) . " seconds\n"
                 );
             }
 
