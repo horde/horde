@@ -25,8 +25,7 @@ class Horde_Core_Ajax_Application_Handler_Email extends Horde_Core_Ajax_Applicat
      * Parses a valid email address out of a complete address string.
      *
      * Variables used:
-     *   - mbox: (string) The name of the new mailbox.
-     *   - parent: (string) The parent mailbox.
+     *   - email: (string) An email address.
      *
      * @return object  Object with the following properties:
      *   - email: (string) The parsed email address.
@@ -41,7 +40,7 @@ class Horde_Core_Ajax_Application_Handler_Email extends Horde_Core_Ajax_Applicat
             throw new Horde_Exception(Horde_Core_Translation::t("No valid email address found"));
         }
 
-        if (!is_null($this->defaultDomain)) {
+        if (is_null($ob->host) && !is_null($this->defaultDomain)) {
             $ob->host = $this->defaultDomain;
         }
 

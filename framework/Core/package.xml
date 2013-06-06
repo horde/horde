@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t overwrite host part of parsed email addresses (Bug #12302).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2983,7 +2983,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t overwrite host part of parsed email addresses (Bug #12302).
    </notes>
   </release>
  </changelog>
