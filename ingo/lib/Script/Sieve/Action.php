@@ -33,13 +33,6 @@ abstract class Ingo_Script_Sieve_Action implements Ingo_Script_Item
     protected $_vars = array();
 
     /**
-     * Returns a script snippet representing this rule and any sub-rules.
-     *
-     * @return string  A Sieve script snippet.
-     */
-    abstract public function generate();
-
-    /**
      * Checks if the rule parameters are valid.
      *
      * @return boolean|string  True if this rule is valid, an error message

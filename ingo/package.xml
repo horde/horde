@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Restore compatibility with PHP 5.3 (Bug #12306).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1287,7 +1287,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Restore compatibility with PHP 5.3 (Bug #12306).
    </notes>
   </release>
  </changelog>
