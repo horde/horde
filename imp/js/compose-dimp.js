@@ -1120,7 +1120,7 @@ var DimpCompose = {
             break;
         }
 
-        ImpComposeBase.updateAddressField($(e.memo.field), e.memo.value);
+        ImpComposeBase.updateAddressField(e);
     },
 
     tasksHandler: function(e)

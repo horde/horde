@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix adding addresses from the contacts popup in certain situations (Bug #12312).
 * [jan] Fix fatal error when importing a PGP key (Bug #12318).
 * [mms] Fix regressions in navigation arrow links on basic message page.
 * [mms] Fix regression preventing Virtual Inbox from refreshing once opened in dynamic view (Bug #12304).
@@ -3206,6 +3207,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix adding addresses from the contacts popup in certain situations (Bug #12312).
 * [jan] Fix fatal error when importing a PGP key (Bug #12318).
 * [mms] Fix regressions in navigation arrow links on basic message page.
 * [mms] Fix regression preventing Virtual Inbox from refreshing once opened in dynamic view (Bug #12304).
