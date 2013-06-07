@@ -293,10 +293,6 @@ small, .small {
 .horde-form td {
     padding-bottom: 5px;
 }
-.horde-form-header {
-    margin-bottom: 1em;
-    border-bottom: thin dashed #ccc;
-}
 .horde-form-buttons {
     padding: 10px;
     margin: 10px 0;
@@ -588,6 +584,10 @@ div.modal-form {
     -moz-box-shadow: 0 0 2em #ccc;
     -webkit-box-shadow: 0 0 2em #ccc;
     box-shadow: 0 0 2em #ccc;
+}
+.horde-form-header {
+    margin-bottom: 1em;
+    border-bottom: thin dashed #ccc;
 }
 div.modal-form .notices {
     padding-top: 1em;
