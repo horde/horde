@@ -94,9 +94,9 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
      */
     public function displayContents($isBlock)
     {
-        $template = $GLOBALS['injector']->createInstance('Horde_Template');
-        $template->set('changes', $this->content());
-        return $template->fetch(WICKED_TEMPLATES . '/display/RecentChanges.html');
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->changes = $this->content();
+        return $view->render('display/RecentChanges');
     }
 
     public function pageName()

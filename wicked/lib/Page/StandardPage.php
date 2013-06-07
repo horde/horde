@@ -360,7 +360,14 @@ class Wicked_Page_StandardPage extends Wicked_Page {
 
     public function diff($version)
     {
-        require WICKED_TEMPLATES . '/diff/diff.inc';
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->link = $this->pageUrl()->link()
+            . htmlspecialchars($this->pageName())
+            . '</a>';
+        $view->version1 = $version;
+        $view->version2 = $this->version();
+        $view->diff = $this->getDiff($version, 'inline');
+        echo $view->render('diff/diff');
     }
 
     /**

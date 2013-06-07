@@ -37,28 +37,28 @@ class Wicked_Page_AllPages extends Wicked_Page {
      */
     public function displayContents($isBlock)
     {
-        $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $pages = array();
         foreach ($this->content() as $page) {
             $page = new Wicked_Page_StandardPage($page);
-            $pages[] = array('author' => $page->author(),
-                             'timestamp' => $page->versionCreated(),
-                             'created' => $page->formatVersionCreated(),
-                             'name' => $page->pageName(),
-                             'context' => false,
-                             'url' => $page->pageUrl(),
-                             'version' => $page->version(),
-                             'class' => '');
+            $pages[] = array(
+                'author' => $page->author(),
+                'created' => $page->formatVersionCreated(),
+                'name' => $page->pageUrl()->link()
+                    . htmlspecialchars($page->pageName()) . '</a>',
+                'timestamp' => $page->versionCreated(),
+                'version' => $page->pageUrl()->link() . $page->version() . '</a>',
+            );
         }
-        $template->set('pages', $pages, true);
-        $template->set('hits', false, true);
+
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->pages = $pages;
 
         $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
 
         // Show search form and page header.
         ob_start();
         require WICKED_TEMPLATES . '/pagelist/header.inc';
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
+        echo $view->render('pagelist/pagelist');
         require WICKED_TEMPLATES . '/pagelist/footer.inc';
         $contents = ob_get_contents();
         ob_end_clean();

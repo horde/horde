@@ -10,8 +10,8 @@
  * @author  Jason M. Felice <eraserhd@speakeasy.net>
  * @package Wicked
  */
-class Wicked_Page_MergeOrRename extends Wicked_Page {
-
+class Wicked_Page_MergeOrRename extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *
@@ -84,28 +84,16 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
     {
         global $wicked, $registry, $notification;
 
-        $template = $GLOBALS['injector']->createInstance('Horde_Template');
-        $template->setOption('gettext', true);
-
         $referrer = $this->referrer();
-        $template->set('pageName', 'MergeOrRename');
-        $template->set('formAction', Wicked::url('MergeOrRename'));
-        $template->set('referrer', $referrer);
-
-        $template->set('referrerLink', Wicked::url($referrer));
-
-        $requiredMarker = Horde::img('required.png', '*');
-        $template->set('requiredMarker', $requiredMarker);
-
-        $references = $wicked->getBackLinks($referrer);
 
         $callback = function($string) {
             return '=' . str_pad(dechex(ord($string[1])), 2, '0', STR_PAD_LEFT);
         };
 
+        $references = $wicked->getBackLinks($referrer);
         foreach ($references as $key => $page) {
-            $references[$key]['page_url'] = htmlspecialchars(Wicked::url($page['page_name']));
-            $references[$key]['page_name'] = htmlspecialchars($page['page_name']);
+            $references[$key]['page_url'] = Wicked::url($page['page_name']);
+            $references[$key]['page_name'] = $page['page_name'];
 
             // Since the page name can have [ and ] and other special
             // characters in it, and we don't want the browser or PHP decoding
@@ -117,23 +105,26 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
             );
         }
 
-        $template->set('references', $references);
-        $template->set('referenceCount', sprintf(_("This page is referenced from %d other page(s)."), count($references)));
-        $template->set('formInput', Horde_Util::formInput());
-
         // Propogate any validation errors.
         foreach (array('new_name', 'collision') as $elt) {
             if (!isset($this->_errors[$elt])) {
                 $this->_errors[$elt] = '';
             }
         }
-        $template->set('errors', $this->_errors);
 
-        $template->set('new_name', Horde_Util::getFormData('new_name'));
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->pageName = 'MergeOrRename';
+        $view->formAction = Wicked::url('MergeOrRename');
+        $view->referrer = $referrer;
+        $view->referrerLink = Wicked::url($referrer);
+        $view->requiredMarker = Horde::img('required.png', '*');
+        $view->references = $references;
+        $view->referenceCount = sprintf(_("This page is referenced from %d other page(s)."), count($references));
+        $view->formInput = Horde_Util::formInput();
+        $view->errors = $this->_errors;
+        $view->new_name = Horde_Util::getFormData('new_name');
 
-        $GLOBALS['page_output']->addScriptFile('stripe.js', 'horde');
-        echo $template->fetch(WICKED_TEMPLATES . '/display/MergeOrRename.html');
-        return true;
+        echo $view->render('display/MergeOrRename');
     }
 
     public function pageName()

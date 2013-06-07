@@ -18,7 +18,8 @@ class Wicked_Page_AddPage extends Wicked_Page {
      * @var array
      */
     public $supportedModes = array(
-        Wicked::MODE_DISPLAY => true);
+        Wicked::MODE_DISPLAY => true
+    );
 
     /**
      * The page to confirm creation of.
@@ -68,7 +69,6 @@ class Wicked_Page_AddPage extends Wicked_Page {
 
         $search_results = null;
         if ($this->_results) {
-            $template = $GLOBALS['injector']->createInstance('Horde_Template');
             $pages = array();
             foreach ($this->_results as $page) {
                 if (!empty($page['page_history'])) {
@@ -77,16 +77,20 @@ class Wicked_Page_AddPage extends Wicked_Page {
                     $page = new Wicked_Page_StandardPage($page);
                 }
 
-                $pages[] = array('author' => $page->author(),
-                                 'created' => $page->formatVersionCreated(),
-                                 'name' => $page->pageName(),
-                                 'context' => false,
-                                 'url' => $page->pageUrl(),
-                                 'version' => $page->version());
+                $pages[] = array(
+                    'author' => $page->author(),
+                    'created' => $page->formatVersionCreated(),
+                    'name' => $page->pageUrl()->link()
+                        . htmlspecialchars($page->pageName()) . '</a>',
+                    'timestamp' => $page->versionCreated(),
+                    'version' => $page->pageUrl()->link() . $page->version() . '</a>',
+                );
             }
-            $template->set('pages', $pages, true);
-            $template->set('hits', false, true);
-            $search_results = $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
+
+            $view = $GLOBALS['injector']->createInstance('Horde_View');
+            $view->pages = $pages;
+            $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
+            $search_results = $view->render('pagelist/pagelist');
         }
 
         require WICKED_TEMPLATES . '/edit/create.inc';

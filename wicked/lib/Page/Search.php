@@ -78,23 +78,17 @@ class Wicked_Page_Search extends Wicked_Page {
             return true;
         }
 
-        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
-
-        $template = $GLOBALS['injector']->createInstance('Horde_Template');
-
         /* Prepare exact match section */
         $exact = array();
         $page = new Wicked_Page_StandardPage($searchtext);
         if ($GLOBALS['wicked']->pageExists($searchtext)) {
             $exact[] = array(
-                'author' => htmlspecialchars($page->author()),
-                'timestamp' => $page->versionCreated(),
+                'author' => $page->author(),
                 'created' => $page->formatVersionCreated(),
-                'name' => htmlspecialchars($page->pageName()),
-                'context' => false,
-                'url' => $page->pageUrl(),
-                'version' => $page->version(),
-                'class' => ''
+                'name' => $page->pageUrl()->link()
+                    . htmlspecialchars($page->pageName()) . '</a>',
+                'timestamp' => $page->versionCreated(),
+                'version' => $page->pageUrl()->link() . $page->version() . '</a>',
             );
         } else {
             $exact[] = array(
@@ -105,9 +99,6 @@ class Wicked_Page_Search extends Wicked_Page {
                     _("%s does not exist. You can create it now."),
                     '<strong>' . htmlspecialchars($searchtext) . '</strong>'
                 ),
-                'url' => Wicked::url($searchtext, false),
-                'version' => '',
-                'class' => 'newpage'
             );
         }
 
@@ -122,13 +113,11 @@ class Wicked_Page_Search extends Wicked_Page {
 
             $titles[] = array(
                 'author' => $page->author(),
-                'timestamp' => $page->versionCreated(),
                 'created' => $page->formatVersionCreated(),
-                'name' => $page->pageName(),
-                'context' => false,
-                'url' => $page->pageUrl(),
-                'version' => $page->version(),
-                'class' => ''
+                'name' => $page->pageUrl()->link()
+                    . htmlspecialchars($page->pageName()) . '</a>',
+                'timestamp' => $page->versionCreated(),
+                'version' => $page->pageUrl()->link() . $page->version() . '</a>',
             );
         }
 
@@ -143,48 +132,48 @@ class Wicked_Page_Search extends Wicked_Page {
 
             $pages[] = array(
                 'author' => $page->author(),
-                'timestamp' => $page->versionCreated(),
-                'created' => $page->formatVersionCreated(),
-                'name' => $page->pageName(),
                 'context' => $this->getContext($page, $searchtext),
-                'url' => $page->pageUrl(),
-                'version' => $page->version(),
-                'class' => ''
+                'created' => $page->formatVersionCreated(),
+                'name' => $page->pageUrl()->link()
+                    . htmlspecialchars($page->pageName()) . '</a>',
+                'timestamp' => $page->versionCreated(),
+                'version' => $page->pageUrl()->link() . $page->version() . '</a>',
             );
         }
 
-        $template->set('hits', false, true);
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
 
-        $template->set('th_page', _("Page"), true);
-        $template->set('th_version', _("Current Version"), true);
-        $template->set('th_author', _("Last Author"), true);
-        $template->set('th_updated', _("Last Update"), true);
+        $header = $GLOBALS['injector']->createInstance('Horde_View');
+        $header->th_page = _("Page");
+        $header->th_version = _("Current Version");
+        $header->th_author = _("Last Author");
+        $header->th_updated = _("Last Update");
+
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
 
         // Show search form and page header.
         require WICKED_TEMPLATES . '/pagelist/search.inc';
 
         // Show exact match.
-        $template->set('title', _("Exact Match"), true);
-        $template->set('pages', $exact, true);
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/results_header.html');
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
+        $header->title = _("Exact Match");
+        $view->pages = $exact;
+        echo $header->render('pagelist/results_header');
+        echo $view->render('pagelist/pagelist');
         require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
 
         // Show page title matches.
-        $template->set('title', _("Page Title Matches"), true);
-        $template->set('pages', $titles, true);
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/results_header.html');
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
+        $header->title = _("Page Title Matches");
+        $view->pages = $titles;
+        echo $header->render('pagelist/results_header');
+        echo $view->render('pagelist/pagelist');
         require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
 
         // Show page text matches.
-        $template->set('title', _("Page Text Matches"), true);
-        $template->set('pages', $pages, true);
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/results_header.html');
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
+        $header->title = _("Page Text Matches");
+        $view->pages = $pages;
+        echo $header->render('pagelist/results_header');
+        echo $view->render('pagelist/pagelist');
         require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
-
-        return true;
     }
 
     public function getContext($page, $searchtext)
@@ -195,7 +184,7 @@ class Wicked_Page_Search extends Wicked_Page {
             $text = $page->getText();
         }
         if (preg_match('/.{0,100}' . preg_quote($searchtext, '/') . '.{0,100}/i', $text, $context)) {
-            return preg_replace('/' . preg_quote($searchtext, '/') . '/i', '<span class="match">' . htmlspecialchars($searchtext) . '</span>', htmlspecialchars($context[0]));
+            return trim(preg_replace('/' . preg_quote($searchtext, '/') . '/i', '<span class="match">' . htmlspecialchars($searchtext) . '</span>', htmlspecialchars($context[0])));
         }
         return '';
     }
