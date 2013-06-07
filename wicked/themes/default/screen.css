@@ -11,6 +11,12 @@
 .wicked-AllPages {
     background-image: url("graphics/AllPages.png");
 }
+.wicked-MostPopular {
+    background-image: url("graphics/MostPopular.png");
+}
+.wicked-LeastPopular {
+    background-image: url("graphics/LeastPopular.png");
+}
 
 /* Toolbar images. */
 .wicked-edit {

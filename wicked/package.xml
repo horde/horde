@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-05</date>
- <time>19:06:14</time>
+ <date>2013-06-07</date>
+ <time>19:05:36</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add Most Popular and Least Popular pages to sidebar selection.
 * [jan] Show at least 10 revisions on the RecentChanges page.
 * [jan] Fix sorting page lists by date.
  </notes>
@@ -334,12 +335,12 @@
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="diff">
-     <file name="diff.inc" role="horde" />
+     <file name="diff.html.php" role="horde" />
     </dir> <!-- /templates/diff -->
     <dir name="display">
-     <file name="AttachedFiles.html" role="horde" />
-     <file name="MergeOrRename.html" role="horde" />
-     <file name="RecentChanges.html" role="horde" />
+     <file name="AttachedFiles.html.php" role="horde" />
+     <file name="MergeOrRename.html.php" role="horde" />
+     <file name="RecentChanges.html.php" role="horde" />
      <file name="standard.inc" role="horde" />
      <file name="title.inc" role="horde" />
     </dir> <!-- /templates/display -->
@@ -357,9 +358,9 @@
     <dir name="pagelist">
      <file name="footer.inc" role="horde" />
      <file name="header.inc" role="horde" />
-     <file name="pagelist.html" role="horde" />
+     <file name="pagelist.html.php" role="horde" />
      <file name="results_footer.inc" role="horde" />
-     <file name="results_header.html" role="horde" />
+     <file name="results_header.html.php" role="horde" />
      <file name="search.inc" role="horde" />
      <file name="summary.inc" role="horde" />
     </dir> <!-- /templates/pagelist -->
@@ -400,7 +401,9 @@
       <file name="edit.png" role="horde" />
       <file name="external.png" role="horde" />
       <file name="favicon.ico" role="horde" />
+      <file name="LeastPopular.png" role="horde" />
       <file name="locked.png" role="horde" />
+      <file name="MostPopular.png" role="horde" />
       <file name="RecentChanges.png" role="horde" />
       <file name="restore.png" role="horde" />
       <file name="SyncPages.png" role="horde" />
@@ -791,10 +794,10 @@
    <install as="wicked/migration/3_wicked_unsigned_ints.php" name="migration/3_wicked_unsigned_ints.php" />
    <install as="wicked/migration/4_wicked_single_revisions.php" name="migration/4_wicked_single_revisions.php" />
    <install as="wicked/migration/5_wicked_rename_pages.php" name="migration/5_wicked_rename_pages.php" />
-   <install as="wicked/templates/diff/diff.inc" name="templates/diff/diff.inc" />
-   <install as="wicked/templates/display/AttachedFiles.html" name="templates/display/AttachedFiles.html" />
-   <install as="wicked/templates/display/MergeOrRename.html" name="templates/display/MergeOrRename.html" />
-   <install as="wicked/templates/display/RecentChanges.html" name="templates/display/RecentChanges.html" />
+   <install as="wicked/templates/diff/diff.html.php" name="templates/diff/diff.html.php" />
+   <install as="wicked/templates/display/AttachedFiles.html.php" name="templates/display/AttachedFiles.html.php" />
+   <install as="wicked/templates/display/MergeOrRename.html.php" name="templates/display/MergeOrRename.html.php" />
+   <install as="wicked/templates/display/RecentChanges.html.php" name="templates/display/RecentChanges.html.php" />
    <install as="wicked/templates/display/standard.inc" name="templates/display/standard.inc" />
    <install as="wicked/templates/display/title.inc" name="templates/display/title.inc" />
    <install as="wicked/templates/edit/create.inc" name="templates/edit/create.inc" />
@@ -806,9 +809,9 @@
    <install as="wicked/templates/history/summary.inc" name="templates/history/summary.inc" />
    <install as="wicked/templates/pagelist/footer.inc" name="templates/pagelist/footer.inc" />
    <install as="wicked/templates/pagelist/header.inc" name="templates/pagelist/header.inc" />
-   <install as="wicked/templates/pagelist/pagelist.html" name="templates/pagelist/pagelist.html" />
+   <install as="wicked/templates/pagelist/pagelist.html.php" name="templates/pagelist/pagelist.html.php" />
    <install as="wicked/templates/pagelist/results_footer.inc" name="templates/pagelist/results_footer.inc" />
-   <install as="wicked/templates/pagelist/results_header.html" name="templates/pagelist/results_header.html" />
+   <install as="wicked/templates/pagelist/results_header.html.php" name="templates/pagelist/results_header.html.php" />
    <install as="wicked/templates/pagelist/search.inc" name="templates/pagelist/search.inc" />
    <install as="wicked/templates/pagelist/summary.inc" name="templates/pagelist/summary.inc" />
    <install as="wicked/templates/sync/diff.inc" name="templates/sync/diff.inc" />
@@ -833,7 +836,9 @@
    <install as="wicked/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="wicked/themes/default/graphics/external.png" name="themes/default/graphics/external.png" />
    <install as="wicked/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="wicked/themes/default/graphics/LeastPopular.png" name="themes/default/graphics/LeastPopular.png" />
    <install as="wicked/themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
+   <install as="wicked/themes/default/graphics/MostPopular.png" name="themes/default/graphics/MostPopular.png" />
    <install as="wicked/themes/default/graphics/RecentChanges.png" name="themes/default/graphics/RecentChanges.png" />
    <install as="wicked/themes/default/graphics/restore.png" name="themes/default/graphics/restore.png" />
    <install as="wicked/themes/default/graphics/SyncPages.png" name="themes/default/graphics/SyncPages.png" />

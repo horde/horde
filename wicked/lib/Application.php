@@ -59,10 +59,14 @@ class Wicked_Application extends Horde_Registry_Application
         global $conf, $page;
 
         if (@count($conf['menu']['pages'])) {
-            $pages = array('Wiki/Home' => _("_Home"),
-                           'Wiki/Usage' => _("_Usage"),
-                           'RecentChanges' => _("_Recent Changes"),
-                           'AllPages' => _("_All Pages"));
+            $pages = array(
+                'Wiki/Home' => _("_Home"),
+                'Wiki/Usage' => _("_Usage"),
+                'RecentChanges' => _("_Recent Changes"),
+                'AllPages' => _("_All Pages"),
+                'MostPopular' => _("Most Popular"),
+                'LeastPopular' => _("Least Popular"),
+            );
             foreach ($conf['menu']['pages'] as $pagename) {
                 /* Determine who we should say referred us. */
                 $curpage = isset($page) ? $page->pageName() : null;
