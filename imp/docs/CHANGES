@@ -2,6 +2,7 @@
 v6.1.1-git
 ----------
 
+[jan] Fix fatal error when importing a PGP key (Bug #12318).
 [mms] Fix regressions in navigation arrow links on basic message page.
 [mms] Fix regression preventing Virtual Inbox from refreshing once opened in
       dynamic view (Bug #12304).
