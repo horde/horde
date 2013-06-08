@@ -243,10 +243,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 break;
 
             default:
+                $class = 'unblockImageLink';
+                if (!$injector->getInstance('IMP_Prefs_Special_ImageReplacement')->canAddToSafeAddrList() ||
+                    $injector->getInstance('IMP_Identity')->hasAddress($contents->getHeader()->getOb('from'))) {
+                    $class .= ' noUnblockImageAdd';
+                }
+
                 if ($this->_imptmp['imgblock']) {
                     $tmp = new IMP_Mime_Status(array(
                         _("Images have been blocked in this message part."),
-                        Horde::link('#', '', 'unblockImageLink', '', '', '', '', array(
+                        Horde::link('#', '', $class, '', '', '', '', array(
                             'muid' => strval($contents->getIndicesOb())
                         )) . _("Show Images?") . '</a>'
                     ));
@@ -257,7 +263,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                      * within image blocking if possible. */
                     $tmp = new IMP_Mime_Status(array(
                         _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
-                        Horde::link('#', '', 'unblockImageLink') . _("Load Styling?") . '</a>'
+                        Horde::link('#', '', $class) . _("Load Styling?") . '</a>'
                     ));
                     $tmp->icon('mime/image.png');
                     $status[] = $tmp;
@@ -505,7 +511,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $doc->appendChild($headelt);
         }
 
-        if ($css_text) {
+        if (strlen($css_text)) {
             $style_elt = $doc->createElement('style', $css_text);
             $style_elt->setAttribute('type', 'text/css');
             $headelt->appendChild($style_elt);
@@ -514,7 +520,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* Store all the blocked CSS in a bogus style element in the HTML
          * output - then we simply need to change the type attribute to
          * text/css, and the browser should load the definitions on-demand. */
-        if (!empty($blocked)) {
+        if (strlen($blocked_text)) {
             $block_elt = $doc->createElement('style', $blocked_text);
             $block_elt->setAttribute('type', 'text/x-imp-cssblocked');
             $headelt->appendChild($block_elt);

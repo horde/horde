@@ -80,6 +80,14 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         // Test the length of the resulting MIME string to ensure
         // the incoming multipart data was not output twice.
         $this->assertEquals(1777, strlen($part->toString()));
+
+        // Message with a single part.
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg3.txt');
+
+        $this->assertEquals(
+            "\r\nTest.\r\n",
+            Horde_Mime_Part::getRawPartText($msg, 'body', '1')
+        );
     }
 
     public function testParsingMultipartAlternativeDoesNotProduceAttachment()

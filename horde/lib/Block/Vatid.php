@@ -48,7 +48,7 @@ class Horde_Block_Vatid extends Horde_Core_Block
 
     /**
      */
-    protected function _ajaxUpdate($vars)
+    protected function _ajaxUpdate(Horde_Variables $vars)
     {
         $html = '';
         $vatid = str_replace(' ', '', $vars->vatid);

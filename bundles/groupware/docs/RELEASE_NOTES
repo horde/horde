@@ -14,8 +14,8 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE, Horde_Rel
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Horde
-Groupware version 5.1.0.
+The Horde Team is pleased to announce the final release of the Horde Groupware
+version 5.1.0.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
@@ -31,7 +31,7 @@ The major changes compared to the Horde Groupware 5.0 versions are:
 
 General changes:
     * Added file manager.
-    * Added bookmarks manager.
+    * Added bookmark manager.
     * Support for NoSQL backends.
     * Checking all installed packages for updates.
     * Many further improvements.
@@ -50,7 +50,7 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added file and bookmarks manager.
+Added file and bookmark manager.
 Added CalDAV/CardDAV server support.
 Support for NoSQL backends.
 Checking all installed packages for updates.

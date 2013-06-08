@@ -1821,13 +1821,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         if (!empty($changes['c'])) {
             $result['c'] = array();
-            foreach (array_keys($changes['c']) as $val) {
-                // Skip the base element, since any change there won't ever be
-                // updated on-screen.
-                if ($val != self::BASE_ELT) {
-                    $result['c'][] = $this->_ajaxElt($val);
-                    $poll[] = $val;
-                }
+            // Skip the base element, since any change there won't ever be
+            // updated on-screen.
+            foreach (array_diff(array_keys($changes['c']), array(self::BASE_ELT)) as $val) {
+                $result['c'][] = $this->_ajaxElt($val);
+                $poll[] = $val;
             }
         }
 

@@ -392,7 +392,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $prev_msg = $imp_mailbox[$imp_mailbox->getIndex() - 1];
         if ($prev_msg) {
             $prev_url = self::url(array(
-                'buid' => $imp_mailbox->getBuid($prev_msg['u']),
+                'buid' => $imp_mailbox->getBuid($mailbox, $prev_msg['u']),
                 'mailbox' => $mailbox
             ))->setRaw(true);
             $page_output->addLinkTag(array(
@@ -401,11 +401,14 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 'rel' => 'Previous',
                 'type' => null
             ));
+        } else {
+            $prev_url = null;
         }
+
         $next_msg = $imp_mailbox[$imp_mailbox->getIndex() + 1];
         if ($next_msg) {
             $next_url = self::url(array(
-                'buid' => $imp_mailbox->getBuid($next_msg['u']),
+                'buid' => $imp_mailbox->getBuid($mailbox, $next_msg['u']),
                 'mailbox' => $mailbox
             ))->setRaw(true);
             $page_output->addLinkTag(array(
@@ -414,6 +417,8 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 'rel' => 'Next',
                 'type' => null
             ));
+        } else {
+            $next_url = null;
         }
 
         /* Generate the mailbox link. */
@@ -532,14 +537,14 @@ class IMP_Basic_Message extends IMP_Basic_Base
             'nocheck' => true
         ));
 
-        if (Horde_Util::nonInputVar('prev_url')) {
+        if ($prev_url) {
             $n_view->prev = Horde::link($prev_url, _("Previous Message"));
             $n_view->prev_img = 'navleftImg';
         } else {
             $n_view->prev_img = 'navleftgreyImg';
         }
 
-        if (Horde_Util::nonInputVar('next_url')) {
+        if ($next_url) {
             $n_view->next = Horde::link($next_url, _("Next Message"));
             $n_view->next_img = 'navrightImg';
         } else {
@@ -952,7 +957,10 @@ class IMP_Basic_Message extends IMP_Basic_Base
      */
     static public function url(array $opts = array())
     {
-        return IMP_Mailbox::get($opts['mailbox'])->url('basic', $opts['buid'])->add('page', 'message');
+        return IMP_Mailbox::get($opts['mailbox'])->url('basic')->add(array(
+            'buid' => $opts['buid'],
+            'page' => 'message'
+        ));
     }
 
     /**

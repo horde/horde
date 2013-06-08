@@ -61,7 +61,8 @@
  * logout: (boolean) If true, this backend changes the password associated
  *         with at least one Horde application. On a successful password
  *         change the current session will be destroyed and the page will
- *         redirect to the login screen.
+ *         redirect to the login screen. You CANNOT continue to use Horde
+ *         since the old password may be cached, which will cause errors.
  *
  * params: (array) Additional information that a driver needs. See examples
  *        below for further details.

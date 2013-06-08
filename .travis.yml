@@ -1,8 +1,6 @@
 language: php
 notifications:
   email:
-    on_success: change
-    on_failure: change
   irc:
     channels: "chat.freenode.net#horde"
     on_success: change

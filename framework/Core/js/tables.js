@@ -87,7 +87,7 @@ function table_getSortValue(el)
         }
     });
 
-    return str;
+    return str.trim();
 }
 
 function table_resortTable(th)
@@ -126,7 +126,7 @@ function table_resortTable(th)
     if (itm.match(/^\d\d[\/\-]\d\d[\/\-]\d\d\d\d$/) ||
         itm.match(/^\d\d[\/\-]\d\d[\/\-]\d\d$/)) {
         sortfn = table_sort_date;
-    } else if (itm.match(/^[�$]/)) {
+    } else if (itm.match(/^[£$€¥]/)) {
         sortfn = table_sort_currency;
     } else if (itm.match(/^[\d\.]+$/)) {
         sortfn = table_sort_numeric;

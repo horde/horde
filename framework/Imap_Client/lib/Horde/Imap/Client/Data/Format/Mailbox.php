@@ -60,9 +60,13 @@ class Horde_Imap_Client_Data_Format_Mailbox extends Horde_Imap_Client_Data_Forma
     {
         if (parent::binary()) {
             // Mailbox data can NEVER be sent as binary.
-            throw new Horde_Imap_Client_Exception(
-                'Client error: can not send mailbox to IMAP server as binary data.'
-            );
+            /* @todo: Disable until Horde_Imap_Client 3.0 */
+            // throw new Horde_Imap_Client_Exception(
+            //     'Client error: can not send mailbox to IMAP server as binary data.'
+            // );
+
+            // Temporary fix: send a blank mailbox string.
+            $this->_mailbox = Horde_Imap_Client_Mailbox::get('');
         }
 
         return false;

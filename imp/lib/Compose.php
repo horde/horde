@@ -2232,6 +2232,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 // Throws IMP_Compose_Exception.
                 $this->addAttachmentFromPart($part);
+
+                $part->clearContents();
             }
         }
 

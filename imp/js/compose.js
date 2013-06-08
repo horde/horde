@@ -393,11 +393,6 @@ var ImpCompose = {
         if (this.display_unload_warning) {
             return this.text.discard;
         }
-    },
-
-    onContactsUpdate: function(e)
-    {
-        ImpComposeBase.updateAddressField($(e.memo.field), e.memo.value);
     }
 
 };
@@ -410,7 +405,7 @@ Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose)
 
 /* Attach event handlers. */
 document.observe('HordeCore:click', ImpCompose.clickHandler.bindAsEventListener(ImpCompose));
-document.observe('ImpContacts:update', ImpCompose.onContactsUpdate.bindAsEventListener(ImpCompose));
+document.observe('ImpContacts:update', ImpComposeBase.onContactsUpdate.bindAsEventListener(ImpComposeBase));
 
 /* Catch dialog actions. */
 document.observe('ImpPassphraseDialog:success', ImpCompose.uniqSubmit.bind(ImpCompose, 'send_message'));

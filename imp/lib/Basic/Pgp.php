@@ -31,7 +31,7 @@ class IMP_Basic_Pgp extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $browser, $injector;
+        global $browser, $injector, $notification;
 
         $this->_pgp = $injector->getInstance('IMP_Crypt_Pgp');
 

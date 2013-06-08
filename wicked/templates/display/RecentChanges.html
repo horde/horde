@@ -1,17 +1,20 @@
-<div class="pagebody">
-<table class="table RecentChanges" cellspacing="0">
+<br />
+<table class="horde-table" width="100%">
  <loop:changes>
- <tr>
-  <th colspan="4" class="table-cell control"><tag:changes.date /></th>
- </tr>
- <loop:changes.pages>
- <tr>
-  <td class="table-cell nowrap" style="width:20%" valign="top"><a href="<tag:changes.pages.url />"><tag:changes.pages.name /></a></td>
-  <td class="table-cell nowrap" style="width:5%" valign="top"><a href="<tag:changes.pages.version_url />" title="<tag:changes.pages.version_alt />"><tag:changes.pages.version /></a> <a href="<tag:changes.pages.diff_url />" title="<tag:changes.pages.diff_alt />"><tag:changes.pages.diff_img /></a></td>
-  <td class="table-cell nowrap" style="width:15%" valign="top"><tag:changes.pages.author /></td>
-  <td class="table-cell" style="width:58%" valign="top"><tag:changes.pages.change_log /></td>
- </tr>
- </loop:changes.pages>
+ <thead>
+  <tr>
+   <th colspan="4"><tag:changes.date /></th>
+  </tr>
+ </thead>
+ <tbody>
+  <loop:changes.pages>
+  <tr>
+   <td class="nowrap" width="20%"><a href="<tag:changes.pages.url />"><tag:changes.pages.name /></a></td>
+   <td class="nowrap" width="5%"><a href="<tag:changes.pages.version_url />" title="<tag:changes.pages.version_alt />"><tag:changes.pages.version /></a> <a href="<tag:changes.pages.diff_url />" title="<tag:changes.pages.diff_alt />"><tag:changes.pages.diff_img /></a></td>
+   <td class="nowrap" width="15%"><tag:changes.pages.author /></td>
+   <td width="58%"><tag:changes.pages.change_log /></td>
+  </tr>
+  </loop:changes.pages>
+ </tbody>
  </loop:changes>
 </table>
-</div>

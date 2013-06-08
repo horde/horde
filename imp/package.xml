@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-03</date>
+ <date>2013-06-04</date>
  <version>
-  <release>6.1.0</release>
-  <api>6.0.0</api>
+  <release>6.1.1</release>
+  <api>6.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -33,8 +33,12 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Fix fatal error when importing a S/MIME key (Bug #12290).
-* [mms] Fixed segfaults caused by SMTP debugging.
+* [mms] Fix adding addresses from the contacts popup in certain situations (Bug #12312).
+* [jan] Fix fatal error when importing a PGP key (Bug #12318).
+* [mms] Fix regressions in navigation arrow links on basic message page.
+* [mms] Fix regression preventing Virtual Inbox from refreshing once opened in dynamic view (Bug #12304).
+* [mms] Don&apos;t show option to add senders to safe images list if the current address cannot be added to the safe list.
+* [mms] Don&apos;t log authentication exception messages from the IMAP library; authentication failures are already logged by the authentication code.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3182,15 +3186,33 @@
   <release>
    <version>
     <release>6.1.0</release>
-    <api>6.0.0</api></version>
+    <api>6.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-03</date>
+   <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix fatal error when importing a S/MIME key (Bug #12290).
 * [mms] Fixed segfaults caused by SMTP debugging.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.1</release>
+    <api>6.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Fix adding addresses from the contacts popup in certain situations (Bug #12312).
+* [jan] Fix fatal error when importing a PGP key (Bug #12318).
+* [mms] Fix regressions in navigation arrow links on basic message page.
+* [mms] Fix regression preventing Virtual Inbox from refreshing once opened in dynamic view (Bug #12304).
+* [mms] Don&apos;t show option to add senders to safe images list if the current address cannot be added to the safe list.
+* [mms] Don&apos;t log authentication exception messages from the IMAP library; authentication failures are already logged by the authentication code.
    </notes>
   </release>
  </changelog>

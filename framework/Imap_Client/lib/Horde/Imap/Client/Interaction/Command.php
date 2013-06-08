@@ -41,6 +41,13 @@ class Horde_Imap_Client_Interaction_Command extends Horde_Imap_Client_Data_Forma
     public $literalplus = true;
 
     /**
+     * Are literal8's available?
+     *
+     * @var boolean
+     */
+    public $literal8 = false;
+
+    /**
      * Server response.
      *
      * @var Horde_Imap_Client_Interaction_Server

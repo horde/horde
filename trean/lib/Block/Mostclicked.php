@@ -16,7 +16,6 @@ class Trean_Block_Mostclicked extends Horde_Core_Block
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-
         $this->_name = _("Most-clicked Bookmarks");
     }
 
@@ -59,12 +58,10 @@ class Trean_Block_Mostclicked extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once __DIR__ . '/../base.php';
-
         $template = TREAN_TEMPLATES . '/block/' . $this->_params['template'] . '.inc';
 
         $html = '';
-        $bookmarks = $GLOBALS['trean_gateway']->sortBookmarks('clicks', 1, 0, $this->_params['rows']);
+        $bookmarks = $GLOBALS['trean_gateway']->listBookmarks('clicks', 1, 0, $this->_params['rows']);
         foreach ($bookmarks as $bookmark) {
             ob_start();
             require $template;

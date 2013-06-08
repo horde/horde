@@ -42,6 +42,7 @@ class Wicked_Page_AllPages extends Wicked_Page {
         foreach ($this->content() as $page) {
             $page = new Wicked_Page_StandardPage($page);
             $pages[] = array('author' => $page->author(),
+                             'timestamp' => $page->versionCreated(),
                              'created' => $page->formatVersionCreated(),
                              'name' => $page->pageName(),
                              'context' => false,

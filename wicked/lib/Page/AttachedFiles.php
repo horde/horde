@@ -66,8 +66,11 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
         $attachments = $wicked->getAttachedFiles($referrer_id, true);
 
         foreach ($attachments as $idx => $attach) {
-            $attachments[$idx]['date'] = date('M j, Y g:ia',
-                                              $attach['attachment_created']);
+            $attachments[$idx]['timestamp'] = $attach['attachment_created'];
+            $attachments[$idx]['date'] = strftime(
+                $GLOBALS['prefs']->getValue('date_format'),
+                $attach['attachment_created']
+            );
 
             $attachments[$idx]['url'] = $registry->downloadUrl(
                 $attach['attachment_name'],
@@ -102,6 +105,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
             throw $e;
         }
 
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
 
         $template->setOption('gettext', true);

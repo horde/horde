@@ -1,6 +1,22 @@
 ----------
-v6.1.0-git
+v6.1.1-git
 ----------
+
+[mms] Fix adding addresses from the contacts popup in certain situations (Bug
+      #12312).
+[jan] Fix fatal error when importing a PGP key (Bug #12318).
+[mms] Fix regressions in navigation arrow links on basic message page.
+[mms] Fix regression preventing Virtual Inbox from refreshing once opened in
+      dynamic view (Bug #12304).
+[mms] Don't show option to add senders to safe images list if the current
+      address cannot be added to the safe list.
+[mms] Don't log authentication exception messages from the IMAP library;
+      authentication failures are already logged by the authentication code.
+
+
+------
+v6.1.0
+------
 
 [mms] Fix fatal error when importing a S/MIME key (Bug #12290).
 [mms] Fixed segfaults caused by SMTP debugging.
@@ -114,6 +130,16 @@ v6.1.0beta1
 [mms] Collapse multiple mailbox export options in dynamic mailbox view to
       single action.
 [mms] Importing a PGP personal key now only requires the private key.
+
+
+------
+v6.0.6
+------
+
+[mms] Fix displaying some HTML messages that contain blocked CSS rules (Bug
+      #12294).
+[mms] Catch and ignore errors from contacts backend when determining whether to
+      show images in a message (Bug #12294).
 
 
 ------

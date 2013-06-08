@@ -40,7 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Horde_HashTable to dependency list (Bug #12314).
+* [jan] Don&apos;t overwrite host part of parsed email addresses (Bug #12302).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1242,6 +1243,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_HashTable</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
@@ -2983,7 +2991,8 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Horde_HashTable to dependency list (Bug #12314).
+* [jan] Don&apos;t overwrite host part of parsed email addresses (Bug #12302).
    </notes>
   </release>
  </changelog>

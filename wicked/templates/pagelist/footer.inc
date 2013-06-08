@@ -1,3 +1,2 @@
 </tbody>
 </table>
-</div>

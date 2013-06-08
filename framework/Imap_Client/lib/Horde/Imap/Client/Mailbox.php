@@ -24,7 +24,7 @@
  * @property-read string $list_escape  Escapes mailbox for use in LIST
  *                                     command (UTF-8).
  * @property-read string $utf7imap  Mailbox in UTF7-IMAP.
- * @property-read string $utf8      Mailbox in UTF-8.
+ * @property-read string $utf8  Mailbox in UTF-8.
  */
 class Horde_Imap_Client_Mailbox implements Serializable
 {
@@ -120,7 +120,7 @@ class Horde_Imap_Client_Mailbox implements Serializable
      */
     public function equals($mbox)
     {
-        return $this->utf8 == $mbox;
+        return ($this->utf8 == $mbox);
     }
 
     /* Serializable methods. */

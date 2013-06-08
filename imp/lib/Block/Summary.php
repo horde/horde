@@ -64,11 +64,9 @@ class IMP_Block_Summary extends Horde_Core_Block
         /* Filter on INBOX display.  INBOX is always polled. */
         IMP_Mailbox::get('INBOX')->filterOnDisplay();
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
-
         /* Get list of mailboxes to poll. */
         $poll = $injector->getInstance('IMP_Imap_Tree')->getPollList(true);
-        $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
+        $status = $injector->getInstance('IMP_Imap')->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
 
         $anyUnseen = false;
         $out = '';
