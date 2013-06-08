@@ -244,6 +244,45 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
+     * Return history objects with changes during a modseq interval, and
+     * optionally filtered on other fields as well.
+     *
+     * @param integer $start   The start of the modseq range.
+     * @param integer $end     The end of the modseq range.
+     * @param array   $filters An array of additional (ANDed) criteria.
+     *                         Each array value should be an array with 3
+     *                         entries:
+     *                         - field: the history field being compared (i.e.
+     *                           'action').
+     *                         - op: the operator to compare this field with.
+     *                         - value: the value to check for (i.e. 'add').
+     * @param string  $parent  The parent history to start searching at. If
+     *                         non-empty, will be searched for with a LIKE
+     *                         '$parent:%' clause.
+     *
+     * @return array  An array of history object ids, or an empty array if
+     *                none matched the criteria.
+     */
+    protected function _getByModSeq($start, $end, $filters = array(), $parent = null)
+    {
+        // Build the modseq test.
+        $where = array("history_modseq > $start AND history_modseq <= $end");
+
+        // Add additional filters, if there are any.
+        if ($filters) {
+            foreach ($filters as $filter) {
+                $where[] = 'history_' . $filter['field'] . ' ' . $filter['op'] . ' ' . $this->_db->quote($filter['value']);
+            }
+        }
+
+        if ($parent) {
+            $where[] = 'object_uid LIKE ' . $this->_db->quote($parent . ':%');
+        }
+
+        return $this->_db->selectAssoc('SELECT DISTINCT object_uid, history_id FROM horde_histories WHERE ' . implode(' AND ', $where));
+    }
+
+    /**
      * Removes one or more history entries by name.
      *
      * @param array $names  The history entries to remove.

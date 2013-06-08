@@ -221,6 +221,35 @@ abstract class Horde_History
     }
 
     /**
+     * Return history objects with changes during a modseq interval, and
+     * optionally filtered on other fields as well.
+     *
+     * @param integer $start   The start of the modseq range.
+     * @param integer $end     The end of the modseq range.
+     * @param array   $filters An array of additional (ANDed) criteria.
+     *                         Each array value should be an array with 3
+     *                         entries:
+     *                         - field: the history field being compared (i.e.
+     *                           'action').
+     *                         - op: the operator to compare this field with.
+     *                         - value: the value to check for (i.e. 'add').
+     * @param string  $parent  The parent history to start searching at. If
+     *                         non-empty, will be searched for with a LIKE
+     *                         '$parent:%' clause.
+     *
+     * @return array  An array of history object ids, or an empty array if
+     *                none matched the criteria.
+     */
+    public function getByModSeq($start, $end, $filters = array(), $parent = null)
+    {
+        if (!is_integer($start) || !is_integer($end)) {
+            throw new Horde_History_Exception('The modseq values must be integers!');
+        }
+
+        return $this->_getByModSeq($start, $end, $filters, $parent);
+    }
+
+    /**
      * Finds history objects by timestamp, and optionally filter on other
      * fields as well.
      *
