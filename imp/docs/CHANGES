@@ -2,6 +2,7 @@
 v6.1.1-git
 ----------
 
+[mms] Fix handling unsuccessful mailbox import in dynamic view.
 [mms] Mailbox imports are now limited to 500 messages by default.
 [mms] Fix adding addresses from the contacts popup in certain situations (Bug
       #12312).

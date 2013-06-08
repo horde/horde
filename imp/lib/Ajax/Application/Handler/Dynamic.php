@@ -444,9 +444,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *   - import_mbox: (string) The mailbox to import into (base64url
      *                  encoded).
      *
-     * @return object  Returns response object to display JSON HTML-encoded.
-     *                 Embedded data: false on failure, or an object with the
-     *                 following properties:
+     * @return object  Returns response object to display JSON HTML-encoded:
      *   - action: (string) The action name (importMailbox).
      *   - mbox: (string) The mailbox the messages were imported to (base64url
      *           encoded).
@@ -459,16 +457,14 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         try {
             $notification->push($injector->getInstance('IMP_Mbox_Import')->import($mbox, 'import_file'), 'horde.success');
+            $this->_base->queue->poll($mbox);
         } catch (Horde_Exception $e) {
             $notification->push($e);
-            return false;
         }
 
         $result = new stdClass;
         $result->action = 'importMailbox';
         $result->mbox = $this->vars->import_mbox;
-
-        $this->_base->queue->poll($mbox);
 
         return new Horde_Core_Ajax_Response_HordeCore_JsonHtml($result);
     }

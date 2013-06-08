@@ -3987,7 +3987,8 @@ document.observe('HordeDialog:onClick', function(e) {
         HordeCore.submit(elt, {
             callback: function(r) {
                 HordeDialog.close();
-                if (r.action == 'importMailbox') {
+                if (r.action == 'importMailbox' &&
+                    r.mbox == this.view) {
                     this.viewport.reload();
                 }
             }.bind(this)
