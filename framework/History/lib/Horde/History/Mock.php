@@ -43,6 +43,13 @@ class Horde_History_Mock extends Horde_History
     private $_id = 1;
 
     /**
+     * The next modseq
+     *
+     * @var int
+     */
+    private $_modseq = 0;
+
+    /**
      * Logs an event to an item's history log. Any other details about the
      * event are passed in $attributes.
      *
@@ -64,8 +71,9 @@ class Horde_History_Mock extends Horde_History
             'history_uid'    => $history->uid,
             'history_ts'     => $attributes['ts'],
             'history_who'    => $attributes['who'],
-            'history_desc'   => isset($attributes['desc']) ? $attributes['desc'] : null,
-            'history_action' => isset($attributes['action']) ? $attributes['action'] : null
+            'history_desc'   => isset($attributes['desc']) ? $attributes['desc'] : '',
+            'history_action' => isset($attributes['action']) ? $attributes['action'] : '',
+            'history_modseq' => ++$this->_modseq
         );
 
         unset($attributes['ts'], $attributes['who'], $attributes['desc'], $attributes['action']);
@@ -211,6 +219,77 @@ class Horde_History_Mock extends Horde_History
             $result[$element['history_uid']] = $id;
         }
         return $result;
+    }
+
+    /**
+     * Return history objects with changes during a modseq interval, and
+     * optionally filtered on other fields as well.
+     *
+     * @param integer $start   The start of the modseq range.
+     * @param integer $end     The end of the modseq range.
+     * @param array   $filters An array of additional (ANDed) criteria.
+     *                         Each array value should be an array with 3
+     *                         entries:
+     *                         - field: the history field being compared (i.e.
+     *                           'action').
+     *                         - op: the operator to compare this field with.
+     *                         - value: the value to check for (i.e. 'add').
+     * @param string  $parent  The parent history to start searching at. If
+     *                         non-empty, will be searched for with a LIKE
+     *                         '$parent:%' clause.
+     *
+     * @return array  An array of history object ids, or an empty array if
+     *                none matched the criteria.
+     */
+    protected function _getByModSeq($start, $end, $filters = array(), $parent = null)
+    {
+        $result = array();
+
+        foreach ($this->_data as $id => $element) {
+
+            if (!($element['history_modseq'] > $start && $element['history_modseq'] <= $end)) {
+                continue;
+            }
+
+            /* Add additional filters, if there are any. */
+            if ($filters) {
+                foreach ($filters as $filter) {
+                    if ($filter['op'] != '=') {
+                        throw new Horde_History_Exception(sprintf("Comparison %s not implemented!", $filter['op']));
+                    }
+                    if ($element['history_' . $filter['field']] != $filter['value']) {
+                        continue;
+                    }
+                }
+            }
+
+            if ($parent) {
+                if (substr($element['history_uid'], 0, strlen($parent) + 1) != $parent . ':') {
+                    continue;
+                }
+            }
+
+            $result[$element['history_uid']] = $id;
+        }
+        return $result;
+    }
+
+    /**
+     *  Return the current value of the modseq. We take the MAX of the
+     *  horde_histories table instead of the value of the horde_histories_modseq
+     *  table to ensure we never miss an entry if we query the history system
+     *  between the time we call nextModSeq() and the time the new entry is
+     *  written.
+     *
+     * @return integer|boolean  The highest used modseq value, false if no history.
+     */
+    public function getHighestModSeq()
+    {
+        if (empty($this->_data)) {
+            return false;
+        }
+
+        return $this->_modseq;
     }
 
     /**

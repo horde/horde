@@ -215,6 +215,7 @@ class Horde_History_TestBase extends Horde_Test_Case
             'who'    => 'you',
             'id'     => 3,
             'ts'     => 2000,
+            'modseq' => 4
         );
         $this->assertEquals($expect, $data[0]);
         self::$history->removeByNames(array('yours_uid'));
