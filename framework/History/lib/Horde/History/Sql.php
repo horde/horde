@@ -303,7 +303,7 @@ class Horde_History_Sql extends Horde_History
                 throw new Horde_History_Exception($e);
             }
             if (!empty($modseq)) {
-                return $modseq + 1;
+                return $modseq;
             } else {
                 return false;
             }
