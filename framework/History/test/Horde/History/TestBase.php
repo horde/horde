@@ -280,4 +280,16 @@ class Horde_History_TestBase extends Horde_Test_Case
         $this->assertTrue(empty($data[1]));
     }
 
+    public function testMethodGetActionModSeqHasResultMatchingRequestedEntry()
+    {
+        self::$history->log('test_uid', array('who' => 'me', 'ts' => 1, 'action' => 'test_action'));
+        self::$history->log('test_uid', array('who' => 'me', 'ts' => 2, 'action' => 'test_action'));
+        self::$history->log('test_uid', array('who' => 'me', 'ts' => 3, 'action' => 'test_otheraction'));
+        $this->assertEquals(self::$history->getActionModSeq('test_uid', 'test_action'), 2);
+        self::$history->log('test_otheruid', array('who' => 'me', 'ts' => 3, 'action' => 'test_action'));
+        $this->assertEquals(self::$history->getActionModSeq('test_uid', 'test_action'), 2);
+        self::$history->log('test_uid', array('who' => 'you', 'ts' => 5, 'action' => 'test_action'), true);
+        $this->assertEquals(self::$history->getActionModSeq('test_uid', 'test_action'), 5);
+    }
+
 }
