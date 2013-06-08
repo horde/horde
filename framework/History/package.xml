@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Add support for modification sequences.
 * [mms] Abstract history query caching to use Horde_HashTable.
 * [cjh] Add ability to cache history queries.
  </notes>
@@ -334,6 +335,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2013-06-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Add support for modification sequences.
 * [mms] Abstract history query caching to use Horde_HashTable.
 * [cjh] Add ability to cache history queries.
    </notes>
