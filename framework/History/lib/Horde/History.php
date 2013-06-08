@@ -362,7 +362,24 @@ abstract class Horde_History
      */
     public function getActionModSeq($guid, $action)
     {
-        return false;
+        if (!is_string($guid) || !is_string($action)) {
+            throw new Horde_History_Exception('$guid and $action need to be strings!');
+        }
+
+        try {
+            $history = $this->getHistory($guid);
+        } catch (Horde_History_Exception $e) {
+            return 0;
+        }
+
+        $last = 0;
+        foreach ($history as $entry) {
+            if (($entry['action'] == $action) && ($entry['modseq'] > $last)) {
+                $last = $entry['modseq'];
+            }
+        }
+
+        return (int)$last;
     }
 
 }
