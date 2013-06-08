@@ -440,12 +440,14 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                     $stream = $imp_contents->isEmbedded($signed_id)
                         ? $this->_mimepart->getMetadata(self::PGP_SIGN_ENC)
                         : $imp_contents->getBodyPart($signed_id, array('mimeheaders' => true, 'stream' => true));
+
+                    rewind($stream);
                     stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
                     stream_filter_append($stream, 'horde_eol', STREAM_FILTER_READ, array(
                         'eol' => Horde_Mime_Part::RFC_EOL
                     ));
 
-                    $sig_result = $imp_pgp->verifySignature(stream_get_contents($stream, -1, 0), $this->_getSender()->bare_address, $sig_part->getContents());
+                    $sig_result = $imp_pgp->verifySignature(stream_get_contents($stream), $this->_getSender()->bare_address, $sig_part->getContents());
                 }
 
                 $status2->action(IMP_Mime_Status::SUCCESS);
