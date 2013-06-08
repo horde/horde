@@ -73,6 +73,32 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
+     * Gets the modseq of the most recent change to $guid
+     *
+     * @param string $guid   The name of the history entry to retrieve.
+     * @param string $action An action: 'add', 'modify', 'delete', etc.
+     *
+     * @return integer  The modseq, or 0 if no matching entry is found.
+     *
+     * @throws Horde_History_Exception If the input parameters are not of type string.
+     */
+    public function getActionModSeq($guid, $action)
+    {
+        if (!is_string($guid) || !is_string($action)) {
+            throw new Horde_History_Exception('$guid and $action need to be strings!');
+        }
+
+        try {
+            $result = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories WHERE history_action = ? AND object_uid = ?', array($action, $guid));
+        } catch (Horde_Db_Exception $e) {
+            return 0;
+        }
+
+        return (int)$result;
+    }
+
+
+    /**
      * Logs an event to an item's history log. Any other details about the
      * event are passed in $attributes.
      *
