@@ -43,7 +43,8 @@ class Horde_History_Log implements IteratorAggregate, ArrayAccess, Countable
                 'desc' => $row['history_desc'],
                 'who' => $row['history_who'],
                 'id' => $row['history_id'],
-                'ts' => $row['history_ts']
+                'ts' => $row['history_ts'],
+                'modseq' => $row['history_modseq']
             );
 
             if ($row['history_extra']) {

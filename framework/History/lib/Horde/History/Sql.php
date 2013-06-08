@@ -109,14 +109,15 @@ class Horde_History_Sql extends Horde_History
                     $values[] = $attributes
                         ? serialize($attributes)
                         : null;
+                    $values[] = $this->nextModSeq();
                     $values[] = $entry['id'];
-
                     try {
                         $this->_db->update(
                             'UPDATE horde_histories SET history_ts = ?,' .
                             ' history_who = ?,' .
                             ' history_desc = ?,' .
-                            ' history_extra = ? WHERE history_id = ?', $values
+                            ' history_extra = ?,' .
+                            ' history_modseq = ? WHERE history_id = ?', $values
                         );
                     } catch (Horde_Db_Exception $e) {
                         throw new Horde_History_Exception($e);
@@ -136,7 +137,8 @@ class Horde_History_Sql extends Horde_History
                 $attributes['ts'],
                 $attributes['who'],
                 isset($attributes['desc']) ? $attributes['desc'] : null,
-                isset($attributes['action']) ? $attributes['action'] : null
+                isset($attributes['action']) ? $attributes['action'] : null,
+                $this->nextModSeq()
             );
 
             unset($attributes['ts'], $attributes['who'], $attributes['desc'], $attributes['action']);
@@ -147,8 +149,8 @@ class Horde_History_Sql extends Horde_History
 
             try {
                 $this->_db->insert(
-                    'INSERT INTO horde_histories (object_uid, history_ts, history_who, history_desc, history_action, history_extra)' .
-                    ' VALUES (?, ?, ?, ?, ?, ?)', $values
+                    'INSERT INTO horde_histories (object_uid, history_ts, history_who, history_desc, history_action, history_modseq, history_extra)' .
+                    ' VALUES (?, ?, ?, ?, ?, ?, ?)', $values
                 );
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_History_Exception($e);
@@ -238,4 +240,35 @@ class Horde_History_Sql extends Horde_History
 
         $this->_db->delete('DELETE FROM horde_histories WHERE object_uid IN (' . implode(',', $ids) . ')');
     }
+
+    /**
+     *  Return the current value of the modseq. We take the MAX of the
+     *  horde_histories table instead of the value of the horde_histories_modseq
+     *  table to ensure we never miss an entry if we query the history system
+     *  between the time we call nextModSeq() and the time the new entry is
+     *  written.
+     *
+     * @return integer  The highest used modseq value.
+     */
+    public function getHighestModSeq()
+    {
+        $modseq = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories;');
+        if (is_null($modseq)) {
+            return $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories_modseq');
+        }
+    }
+
+    /**
+     * Increment, and return, the modseq value.
+     *
+     * @return integer  The new modseq value.
+     */
+    public function nextModSeq()
+    {
+        $result = $this->_db->insert('INSERT INTO horde_histories_modseq (history_modseqempty) VALUES(0)');
+        $this->_db->delete('DELETE FROM horde_histories_modseq WHERE history_modseq <> ?', array($result));
+
+        return $result;
+    }
+
 }
