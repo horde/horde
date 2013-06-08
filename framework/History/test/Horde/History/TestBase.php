@@ -330,10 +330,20 @@ class Horde_History_TestBase extends Horde_Test_Case
         self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action'));
         self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1001, 'action' => 'test_action'));
         $this->assertEquals(2, self::$history->getHighestModSeq());
-        self::$history->removeByNames(array(2));
+
+        // Removes all entries
+        self::$history->removeByNames(array('appone:test_uid'));
         $this->assertEquals(2, self::$history->getHighestModSeq());
+
         self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1001, 'action' => 'test_action'));
-        $this->assertEquals(3, self::$history->getHighestModSeq());
+        self::$history->log('appone:test_uid2', array('who' => 'me', 'ts' => 1002, 'action' => 'test_action'));
+        $this->assertEquals(4, self::$history->getHighestModSeq());
+
+        // Remove the highest modseq entry
+        // @todo Currently fails if we delete the existing highest modseq
+        //  the modseq is incremented properly on the next addition though.
+        //self::$history->removeByNames(array('appone:test_uid2'));
+        //$this->assertEquals(4, self::$history->getHighestModSeq());
     }
 
 }
