@@ -256,6 +256,8 @@ class Horde_History_Sql extends Horde_History
         if (is_null($modseq)) {
             return $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories_modseq');
         }
+
+        return $modseq;
     }
 
     /**
