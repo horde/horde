@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>16:23:17</time>
+ <date>2013-06-07</date>
+ <time>20:00:23</time>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -56,10 +56,22 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="History">
+      <dir name="Mock">
+       <file name="MockTest.php" role="test" />
+      </dir> <!-- /test/Horde/History/Mock -->
+      <dir name="Sql">
+       <dir name="Pdo">
+        <file name="MysqlTest.php" role="test" />
+        <file name="PgsqlTest.php" role="test" />
+       </dir> <!-- /test/Horde/History/Sql/Pdo -->
+       <file name="MysqliTest.php" role="test" />
+       <file name="MysqlTest.php" role="test" />
+      </dir> <!-- /test/Horde/History/Sql -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
-      <file name="InterfaceTest.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
+      <file name="TestBase.php" role="test" />
      </dir> <!-- /test/Horde/History -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -117,8 +129,14 @@
    <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde/History/2_horde_history_upgrade_autoincrement.php" />
    <install as="Horde/History/AllTests.php" name="test/Horde/History/AllTests.php" />
    <install as="Horde/History/bootstrap.php" name="test/Horde/History/bootstrap.php" />
-   <install as="Horde/History/InterfaceTest.php" name="test/Horde/History/InterfaceTest.php" />
+   <install as="Horde/History/conf.php.dist" name="test/Horde/History/conf.php.dist" />
    <install as="Horde/History/phpunit.xml" name="test/Horde/History/phpunit.xml" />
+   <install as="Horde/History/TestBase.php" name="test/Horde/History/TestBase.php" />
+   <install as="Horde/History/Mock/MockTest.php" name="test/Horde/History/Mock/MockTest.php" />
+   <install as="Horde/History/Sql/MysqliTest.php" name="test/Horde/History/Sql/MysqliTest.php" />
+   <install as="Horde/History/Sql/MysqlTest.php" name="test/Horde/History/Sql/MysqlTest.php" />
+   <install as="Horde/History/Sql/Pdo/MysqlTest.php" name="test/Horde/History/Sql/Pdo/MysqlTest.php" />
+   <install as="Horde/History/Sql/Pdo/PgsqlTest.php" name="test/Horde/History/Sql/Pdo/PgsqlTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -313,7 +331,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-06-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Abstract history query caching to use Horde_HashTable.
