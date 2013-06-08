@@ -109,7 +109,7 @@ class Horde_History_Sql extends Horde_History
                     $values[] = $attributes
                         ? serialize($attributes)
                         : null;
-                    $values[] = $this->nextModSeq();
+                    $values[] = $this->_nextModSeq();
                     $values[] = $entry['id'];
                     try {
                         $this->_db->update(
@@ -138,7 +138,7 @@ class Horde_History_Sql extends Horde_History
                 $attributes['who'],
                 isset($attributes['desc']) ? $attributes['desc'] : null,
                 isset($attributes['action']) ? $attributes['action'] : null,
-                $this->nextModSeq()
+                $this->_nextModSeq()
             );
 
             unset($attributes['ts'], $attributes['who'], $attributes['desc'], $attributes['action']);
@@ -263,7 +263,7 @@ class Horde_History_Sql extends Horde_History
      *
      * @return integer  The new modseq value.
      */
-    public function nextModSeq()
+    protected function _nextModSeq()
     {
         $result = $this->_db->insert('INSERT INTO horde_histories_modseq (history_modseqempty) VALUES(0)');
         $this->_db->delete('DELETE FROM horde_histories_modseq WHERE history_modseq <> ?', array($result));
