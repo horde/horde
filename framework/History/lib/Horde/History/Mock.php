@@ -285,7 +285,7 @@ class Horde_History_Mock extends Horde_History
      */
     public function getHighestModSeq()
     {
-        if (empty($this->_data)) {
+        if (empty($this->_modseq) && empty($this->_data)) {
             return false;
         }
 
