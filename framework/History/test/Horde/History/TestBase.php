@@ -292,4 +292,36 @@ class Horde_History_TestBase extends Horde_Test_Case
         $this->assertEquals(self::$history->getActionModSeq('test_uid', 'test_action'), 5);
     }
 
+    public function testMethodGetbymodseqHasResultArrayContainingTheMatchingEventIds()
+    {
+        self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action')); // 1
+        self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1001, 'action' => 'test_action')); // 2
+        self::$history->log('apptwo:test_uid', array('who' => 'you', 'ts' => 1002, 'action' => 'test_special_action')); // 3
+        self::$history->log('apptwo:test_uid', array('who' => 'me', 'ts' => 1003, 'action' => 'test_action')); // 4
+        self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1004, 'action' => 'test_action')); // 5
+        self::$history->log('appone:test_uid', array('who' => 'you', 'ts' => 2000, 'action' => 'yours_action', 'extra' => array('a' => 'a'))); // 6
+        self::$history->log('appone:test_uid', array('who' => 'you', 'ts' => 2000, 'action' => 'yours_action', 'extra' => array('a' => 'a'))); // 7
+        self::$history->log('appone:test_uid', array('who' => 'you', 'ts' => 2000, 'action' => 'yours_action', 'extra' => array('a' => 'a'))); // 8
+
+        // Only have two unique UIDS.
+        $result = self::$history->getByModSeq(0, 5);
+        $this->assertEquals(array('appone:test_uid' => 5, 'apptwo:test_uid' => 4), $result);
+
+        $result = self::$history->getByModSeq(4, 8);
+        $this->assertEquals(array('appone:test_uid' => 8), $result);
+
+        // Test using action filter.
+        $filter = array(array('op' => '=', 'field' => 'action', 'value' => 'test_special_action'));
+        $result = self::$history->getByModSeq(0, 5, $filter);
+        $this->assertEquals(array('apptwo:test_uid' => 3), $result);
+
+        // Test using parent
+        $result = self::$history->getByModSeq(0, 5, array(), 'apptwo');
+        $this->assertEquals(array('apptwo:test_uid' => 4), $result);
+
+        // Test parent AND filter
+        $result = self::$history->getByModSeq(0, 5, $filter, 'apptwo');
+        $this->assertEquals(array('apptwo:test_uid' => 3), $result);
+    }
+
 }
