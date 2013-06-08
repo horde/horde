@@ -245,12 +245,11 @@ class Horde_History_TestBase extends Horde_Test_Case
         self::$history->removeByNames(array());
     }
 
-    public function testModSeqMethodsHavePostConditionThatModSeqIncrements()
+    public function testModSeqMethodsHavePostConditionThatMaxModSeqIncrements()
     {
         $this->assertEquals(self::$history->getHighestModSeq(), 0);
-        $this->assertEquals(self::$history->nextModSeq(), 1);
-        $this->assertEquals(self::$history->nextModSeq(), 2);
-        $this->assertEquals(self::$history->getHighestModSeq(), 2);
+        self::$history->log('test_uid', array('who' => 'me', 'action' => 'test_action'));
+        $this->assertEquals(self::$history->getHighestModSeq(), 1);
     }
 
     public function testMethodLogHasPostConditionThatModSeqIsRecorded()
