@@ -293,6 +293,13 @@
  *   the associated values. Your IMAP server must support the ID extension.
  *   See RFC 2971 [3.3] for a list of defined field values.
  *
+ * import_limit: [IMAP only] (integer) The maximum number of messages a user
+ *   can import. Importing large mailboxes via the IMAP APPEND command is
+ *   a resource-intensive operation. For large mailboxes (with 1000's of
+ *   messages), this action will likely timeout before it is successfully
+ *   completed. By default, limit importing to 500 messages. Set this to 0
+ *   to enforce no message limit.
+ *
  * lang: [IMAP only] (array) A list of languages (in priority order) to be
  *   used to display human readable messages returned by the IMAP server. Your
  *   IMAP server must support the LANGUAGE extension. By default, IMAP

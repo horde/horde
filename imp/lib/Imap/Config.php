@@ -32,6 +32,8 @@
  * @property mixed $hordeauth  Type of horde authentication to use.
  * @property string $hostspec  Hostspec of the backend.
  * @property array $id  List of ID information to send via the ID command.
+ * @property-read integer $import_limit  The maximum number of messages
+ *                                       allowed to be imported.
  * @property-read array $innocent_params  Innocent reporting parameters.
  * @property array $lang  The list of langauges used to display messages on
  *                        the IMAP server.
@@ -107,8 +109,8 @@ class IMP_Imap_Config implements Serializable
      * @var array
      */
     private $_soptions = array(
-        'comparator', 'debug', 'hostspec', 'maildomain', 'name', 'port',
-        'protocol', 'thread', 'timeout'
+        'comparator', 'debug', 'hostspec', 'import_limit', 'maildomain',
+        'name', 'port', 'protocol', 'thread', 'timeout'
     );
 
     /**
@@ -240,6 +242,12 @@ class IMP_Imap_Config implements Serializable
             $out = array(
                 'backend' => $ob,
             );
+            break;
+
+        case 'import_limit':
+            $out = is_null($out)
+                ? 500
+                : intval($out);
             break;
 
         case 'innocent_params':

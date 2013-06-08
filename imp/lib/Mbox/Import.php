@@ -145,11 +145,10 @@ class IMP_Mbox_Import
             throw new IMP_Exception(_("The uploaded file cannot be opened."));
         }
 
-        try {
-            $parsed = new IMP_Mbox_Parse($fd);
-        } catch (IMP_Exception $e) {
-            throw new IMP_Exception(_("The uploaded file cannot be opened."));
-        }
+        $parsed = new IMP_Mbox_Parse(
+            $fd,
+            $GLOBALS['injector']->getInstance('IMP_Imap')->config->import_limit
+        );
 
         $this->_import = array(
             'data' => array(),
