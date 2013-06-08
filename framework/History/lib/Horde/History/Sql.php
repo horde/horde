@@ -248,13 +248,26 @@ class Horde_History_Sql extends Horde_History
      *  between the time we call nextModSeq() and the time the new entry is
      *  written.
      *
-     * @return integer  The highest used modseq value.
+     * @return integer|boolean  The highest used modseq value, false if no history.
      */
     public function getHighestModSeq()
     {
-        $modseq = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories;');
+        try {
+            $modseq = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories;');
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_History_Exception($e);
+        }
         if (is_null($modseq)) {
-            return $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories_modseq');
+            try {
+                $modseq = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories_modseq');
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_History_Exception($e);
+            }
+            if (!empty($modseq)) {
+                return $modseq + 1;
+            } else {
+                return false;
+            }
         }
 
         return $modseq;
@@ -267,8 +280,12 @@ class Horde_History_Sql extends Horde_History
      */
     protected function _nextModSeq()
     {
-        $result = $this->_db->insert('INSERT INTO horde_histories_modseq (history_modseqempty) VALUES(0)');
-        $this->_db->delete('DELETE FROM horde_histories_modseq WHERE history_modseq <> ?', array($result));
+        try {
+            $result = $this->_db->insert('INSERT INTO horde_histories_modseq (history_modseqempty) VALUES(0)');
+            $this->_db->delete('DELETE FROM horde_histories_modseq WHERE history_modseq <> ?', array($result));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_History_Exception($e);
+        }
 
         return $result;
     }
