@@ -325,4 +325,15 @@ class Horde_History_TestBase extends Horde_Test_Case
         $this->assertEquals(array('apptwo:test_uid' => 3), $result);
     }
 
+    public function testConditionThatHigestModSeqPersistsAfterLogDeletion()
+    {
+        self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action'));
+        self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1001, 'action' => 'test_action'));
+        $this->assertEquals(2, self::$history->getHighestModSeq());
+        self::$history->removeByNames(array(2));
+        $this->assertEquals(2, self::$history->getHighestModSeq());
+        self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1001, 'action' => 'test_action'));
+        $this->assertEquals(3, self::$history->getHighestModSeq());
+    }
+
 }
