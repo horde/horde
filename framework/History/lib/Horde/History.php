@@ -305,4 +305,35 @@ abstract class Horde_History
      * @throws Horde_History_Exception
      */
     abstract public function removeByNames(array $names);
+
+    /**
+     * Return the maximum modification sequence. To be overridden in concrete
+     * class.
+     *
+     * @return integer  The modseq
+     * @since 2.2.0
+     * @todo Make abstract in H6. Need to make this non-abstract for BC.
+     */
+    public function getHighestModSeq()
+    {
+        return false;
+    }
+
+    /**
+     * Gets the modseq of the most recent change to $guid
+     *
+     * @param string $guid   The name of the history entry to retrieve.
+     * @param string $action An action: 'add', 'modify', 'delete', etc.
+     *
+     * @return integer  The modseq, or 0 if no matching entry is found.
+     *
+     * @throws Horde_History_Exception If the input parameters are not of type string.
+     * @since 2.2.0
+     * @todo  Make abstract in H6.
+     */
+    public function getActionModSeq($guid, $action)
+    {
+        return false;
+    }
+
 }
