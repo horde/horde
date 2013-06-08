@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix incorrect offsets when generating free/busy data for ActiveSync clients.
 * [mms] Add Horde_HashTable to dependency list (Bug #12314).
 * [jan] Don&apos;t overwrite host part of parsed email addresses (Bug #12302).
  </notes>
@@ -2991,6 +2992,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix incorrect offsets when generating free/busy data for ActiveSync clients.
 * [mms] Add Horde_HashTable to dependency list (Bug #12314).
 * [jan] Don&apos;t overwrite host part of parsed email addresses (Bug #12302).
    </notes>
