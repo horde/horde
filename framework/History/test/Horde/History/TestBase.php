@@ -245,4 +245,34 @@ class Horde_History_TestBase extends Horde_Test_Case
         self::$history->removeByNames(array());
     }
 
+    public function testModSeqMethodsHavePostConditionThatModSeqIncrements()
+    {
+        $this->assertEquals(self::$history->getHighestModSeq(), 0);
+        $this->assertEquals(self::$history->nextModSeq(), 1);
+        $this->assertEquals(self::$history->nextModSeq(), 2);
+        $this->assertEquals(self::$history->getHighestModSeq(), 2);
+    }
+
+    public function testMethodLogHasPostConditionThatModSeqIsRecorded()
+    {
+        self::$history->log('test_uid', array('who' => 'me', 'action' => 'test_action'));
+        $data = self::$history->getHistory('test_uid');
+        $this->assertEquals($data[0]['modseq'], 1);
+        self::$history->log('test_uid', array('who' => 'you', 'action' => 'your_action'));
+        $data = self::$history->getHistory('test_uid');
+        $this->assertEquals($data[0]['modseq'], 1);
+        $this->assertEquals($data[1]['modseq'], 2);
+    }
+
+    public function testMethodLogHasPostConditionThatModSeqIsRecordedWhenLogIsOverwritten()
+    {
+        self::$history->log('test_uid', array('who' => 'me', 'action' => 'test_action'));
+        $data = self::$history->getHistory('test_uid');
+        $this->assertEquals($data[0]['modseq'], 1);
+        self::$history->log('test_uid', array('who' => 'me', 'action' => 'test_action'), true);
+        $data = self::$history->getHistory('test_uid');
+        $this->assertEquals($data[0]['modseq'], 2);
+        $this->assertTrue(empty($data[1]));
+    }
+
 }
