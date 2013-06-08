@@ -244,25 +244,25 @@ class Horde_History_Mock extends Horde_History
     protected function _getByModSeq($start, $end, $filters = array(), $parent = null)
     {
         $result = array();
-
         foreach ($this->_data as $id => $element) {
-
+            $ignore = false;
             if (!($element['history_modseq'] > $start && $element['history_modseq'] <= $end)) {
                 continue;
             }
-
-            /* Add additional filters, if there are any. */
-            if ($filters) {
+            // Add additional filters, if there are any.
+            if (!empty($filters)) {
                 foreach ($filters as $filter) {
                     if ($filter['op'] != '=') {
                         throw new Horde_History_Exception(sprintf("Comparison %s not implemented!", $filter['op']));
                     }
                     if ($element['history_' . $filter['field']] != $filter['value']) {
-                        continue;
+                        $ignore = true;
                     }
                 }
             }
-
+            if ($ignore) {
+                continue;
+            }
             if ($parent) {
                 if (substr($element['history_uid'], 0, strlen($parent) + 1) != $parent . ':') {
                     continue;
