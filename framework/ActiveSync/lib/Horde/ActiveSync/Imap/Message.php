@@ -332,6 +332,11 @@ class Horde_ActiveSync_Imap_Message
                     0,
                     $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'],
                     $html_charset);
+
+                $html_size = !is_null($data->getBodyPartSize($html_id))
+                    ? $data->getBodyPartSize($html_id)
+                    : Horde_String::length($html);
+
             } elseif ($want_html_as_plain) {
                 $html = Horde_Text_Filter::filter(
                     $html, 'Html2text', array('charset' => $html_charset));
