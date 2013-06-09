@@ -665,8 +665,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         $folder,
                         array(
                             'sincedate' => (int)$cutoffdate,
-                            'protocolversion' => $this->_version,
-                            'timestamp' => $from_ts));
+                            'protocolversion' => $this->_version));
                     // Poll the maillog for reply/forward state changes.
                     $folder = $this->_getMaillogChanges($folder, $from_ts);
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {

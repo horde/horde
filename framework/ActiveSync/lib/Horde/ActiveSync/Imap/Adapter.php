@@ -255,10 +255,6 @@ class Horde_ActiveSync_Imap_Adapter
      *  - protocolversion: (float)  EAS protocol version to support.
      *                     DEFAULT: none REQUIRED
      *
-     *  - timestamp: (integer) Include changes to reply/forward state since this
-     *                         timestamp. If empty, reply/forward state will not
-     *                         be checked.
-     *
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
      *
