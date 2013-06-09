@@ -472,12 +472,15 @@ class Turba_Api extends Horde_Registry_Api
      * @param string|array $sources  The source(s) for which to retrieve the
      *                               history.
      * @param integer $end           The optional ending timestamp.
+     * @param boolean $isModSeq      If true, $timestamp and $end are
+     *                               modification sequences and not timestamps.
+     *                               @since 4.1.1
      *
      * @return array  An array of UIDs matching the action and time criteria.
      *
      * @throws Turba_Exception
      */
-    public function listBy($action, $timestamp, $sources = null, $end = null)
+    public function listBy($action, $timestamp, $sources = null, $end = null, $isModSeq = false)
     {
         $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver');
         $history = $GLOBALS['injector']->getInstance('Horde_History');
@@ -490,7 +493,7 @@ class Turba_Api extends Horde_Registry_Api
         );
         $uids = array();
 
-        if (!empty($end)) {
+        if (!empty($end) && !$isModSeq) {
             $filter[] = array(
                 'field' => 'ts',
                 'op' => '<',
@@ -501,10 +504,15 @@ class Turba_Api extends Horde_Registry_Api
         foreach ($this->_getSources($sources) as $source) {
             $sdriver = $driver->create($source);
 
-            $histories = $history->getByTimestamp(
-                '>', $timestamp, $filter,
-                'turba:' . $sdriver->getName()
-            );
+            if (!$isModSeq) {
+                $histories = $history->getByTimestamp(
+                    '>', $timestamp, $filter,
+                    'turba:' . $sdriver->getName()
+                );
+            } else {
+                $histories = $history->getByModSeq(
+                    $timestamp, $end, $filter, 'turba:' . $driver->getName());
+            }
 
             // Filter out groups
             $nguids = str_replace(
@@ -539,18 +547,35 @@ class Turba_Api extends Horde_Registry_Api
      * Essentially a wrapper around listBy(), but returns an array containing
      * all adds, edits, and deletions.
      *
-     * @param integer $start  The starting timestamp
-     * @param integer $end    The ending timestamp.
+     * @param integer $start     The starting timestamp
+     * @param integer $end       The ending timestamp.
+     * @param boolean $isModSeq  If true, $start and $end are modification
+     *                           sequences and not timestamps. @since 4.1.1
      *
      * @return array  A hash with 'add', 'modify' and 'delete' arrays.
      */
-    public function getChanges($start, $end)
+    public function getChanges($start, $end, $isModSeq = false)
     {
         return array(
-            'add' => $this->listBy('add', $start, null, $end),
-            'modify' => $this->listBy('modify', $start, null, $end),
-            'delete' => $this->listBy('delete', $start, null, $end)
+            'add' => $this->listBy('add', $start, null, $end, $isModSeq),
+            'modify' => $this->listBy('modify', $start, null, $end, $isModSeq),
+            'delete' => $this->listBy('delete', $start, null, $end, $isModSeq)
         );
+    }
+
+    /**
+     * Return all changes occuring between the specified modification
+     * sequences.
+     *
+     * @param integer $start  The starting modseq.
+     * @param integer $end    The ending modseq.
+     *
+     * @return array  The changes @see getChanges()
+     * @since 4.1.1
+     */
+    public function getChangesByModSeq($start, $end)
+    {
+        return $this->getChanges($start, $end, true);
     }
 
     /**
@@ -561,28 +586,46 @@ class Turba_Api extends Horde_Registry_Api
      *                               delete.
      * @param string|array $sources  The source(s) for which to retrieve the
      *                               history.
+     * @param boolean $modSeq        Request a modification sequence instead of
+     *                               timestamp. @since 4.1.1
      *
      * @return integer  The timestamp for this action.
      *
      * @throws Turba_Exception
      */
-    public function getActionTimestamp($uid, $action, $sources = null)
+    public function getActionTimestamp($uid, $action, $sources = null, $modSeq = false)
     {
         $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver');
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         $last = 0;
 
         foreach ($this->_getSources($sources) as $source) {
-            $ts = $history->getActionTimestamp(
-                'turba:' . $driver->create($source)->getName() . ':' . $uid,
-                $action
-            );
+            if (!$modSeq) {
+                $ts = $history->getActionTimestamp(
+                    'turba:' . $driver->create($source)->getName() . ':' . $uid,
+                    $action);
+            } else {
+                $ts = $history->getActionModSeq(
+                    'turba:' . $driver->create($source)->getName() . ':' . $uid,
+                    $action);
+            }
             if (!empty($ts) && $ts > $last) {
                 $last = $ts;
             }
         }
 
         return $last;
+    }
+
+    /**
+     * Return the largest modification sequence from the history backend.
+     *
+     * @return integer  The modseq.
+     * @since 4.1.1
+     */
+    public function getHighestModSeq()
+    {
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('turba');
     }
 
     /**

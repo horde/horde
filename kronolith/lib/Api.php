@@ -497,6 +497,8 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param integer $timestamp  The time to start the search.
      * @param string  $calendar   The calendar to search in.
      * @param integer $end        The optional ending timestamp
+     * @param boolean $isModSeq   If true, $timestamp and $end are modification
+     *                            sequences and not timestamps. @since 4.1.1
      *
      * @return array  An array of UIDs matching the action and time criteria.
      *
@@ -504,7 +506,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * @throws Horde_History_Exception
      * @throws InvalidArgumentException
      */
-    public function listBy($action, $timestamp, $calendar = null, $end = null)
+    public function listBy($action, $timestamp, $calendar = null, $end = null, $isModSeq = false)
     {
         if (empty($calendar)) {
             $cs = Kronolith::getSyncCalendars($action == 'delete');
@@ -516,12 +518,19 @@ class Kronolith_Api extends Horde_Registry_Api
             return $results;
         }
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
-        if (!empty($end)) {
+        if (!empty($end) && !$isModSeq) {
             $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
         }
-        $histories = $GLOBALS['injector']
-            ->getInstance('Horde_History')
-            ->getByTimestamp('>', $timestamp, $filter, 'kronolith:' . $calendar);
+
+        if (!$isModSeq) {
+            $histories = $GLOBALS['injector']
+                ->getInstance('Horde_History')
+                ->getByTimestamp('>', $timestamp, $filter, 'kronolith:' . $calendar);
+        } else {
+            $histories = $GLOBALS['injector']
+                ->getInstance('Horde_History')
+                ->getByModSeq($timestamp, $end, $filter, 'kronolith:' . $calendar);
+        }
 
         // Strip leading kronolith:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -536,12 +545,15 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param integer $start             The starting timestamp
      * @param integer $end               The ending timestamp.
      * @param boolean $ignoreExceptions  Do not include exceptions in results.
+     * @param boolean $isModSeq          If true, $timestamp and $end are
+     *                                   modification sequences and not
+     *                                   timestamps. @since 4.1.1
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      * @throws Horde_Exception_PermissionDenied
      * @throws Kronolith_Exception
      */
-    public function getChanges($start, $end, $ignoreExceptions = true)
+    public function getChanges($start, $end, $ignoreExceptions = true, $isModSeq = false)
     {
         // Only get the calendar once
         $cs = Kronolith::getSyncCalendars();
@@ -552,7 +564,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         foreach ($cs as $c) {
              // New events
-            $uids = $this->listBy('add', $start, $c, $end);
+            $uids = $this->listBy('add', $start, $c, $end, $isModSeq);
             if ($ignoreExceptions) {
                 foreach ($uids as $uid) {
                     try {
@@ -569,7 +581,7 @@ class Kronolith_Api extends Horde_Registry_Api
             }
 
             // Edits
-            $uids = $this->listBy('modify', $start, $c, $end);
+            $uids = $this->listBy('modify', $start, $c, $end, $isModSeq);
             if ($ignoreExceptions) {
                 foreach ($uids as $uid) {
                     try {
@@ -586,12 +598,26 @@ class Kronolith_Api extends Horde_Registry_Api
             }
             // No way to figure out if this was an exception, so we must include all
             $changes['delete'] = array_keys(
-                array_flip(array_merge($changes['delete'], $this->listBy('delete', $start, $c, $end))));
+                array_flip(array_merge($changes['delete'], $this->listBy('delete', $start, $c, $end, $isModSeq))));
         }
 
         return $changes;
     }
 
+    /**
+     * Return all changes occuring between the specified modification
+     * sequences.
+     *
+     * @param integer $start  The starting modseq.
+     * @param integer $end    The ending modseq.
+     *
+     * @return array  The changes @see getChanges()
+     * @since 4.1.1
+     */
+    public function getChangesByModSeq($start, $end)
+    {
+        return $this->getChanges($start, $end, true, true);
+    }
 
     /**
      * Returns the timestamp of an operation for a given uid an action
@@ -599,13 +625,15 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $uid      The uid to look for.
      * @param string $action   The action to check for - add, modify, or delete.
      * @param string $calendar The calendar to search in.
+     * @param boolean $modSeq  Request a modification sequence instead of a
+     *                         timestamp. @since 4.1.1
      *
-     * @return integer  The timestamp for this action.
+     * @return integer  The timestamp or modseq for this action.
      *
      * @throws Kronolith_Exception
      * @throws InvalidArgumentException
      */
-    public function getActionTimestamp($uid, $action, $calendar = null)
+    public function getActionTimestamp($uid, $action, $calendar = null, $modSeq = false)
     {
         if (empty($calendar)) {
             $calendar = Kronolith::getDefaultCalendar();
@@ -613,7 +641,22 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        return $GLOBALS['injector']->getInstance('Horde_History')->getActionTimestamp('kronolith:' . $calendar . ':' . $uid, $action);
+        if (!$modSeq) {
+            return $GLOBALS['injector']->getInstance('Horde_History')->getActionTimestamp('kronolith:' . $calendar . ':' . $uid, $action);
+        }
+
+        return $GLOBALS['injector']->getInstance('Horde_History')->getActionModSeq('kronolith:' . $calendar . ':' . $uid, $action);
+    }
+
+    /**
+     * Return the largest modification sequence from the history backend.
+     *
+     * @return integer  The modseq.
+     * @since 4.1.1
+     */
+    public function getHighestModSeq()
+    {
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('kronolith');
     }
 
     /**

@@ -37,7 +37,8 @@ class Mnemo_Application extends Horde_Registry_Application
     /**
      */
     public $features = array(
-        'activesync' => true
+        'activesync' => true,
+        'modseq' => true,
     );
 
     /**

@@ -697,13 +697,15 @@ class Nag_Api extends Horde_Registry_Api
      * @param mixed   $tasklists  The tasklists to be used. If 'null', the
      *                            user's default tasklist will be used.
      * @param integer $end        The optional ending timestamp.
+     * @param boolean $isModSeq   If true, $timestamp and $end are modification
+     *                            sequences and not timestamps. @since 4.1.1
      *
      * @return array  An array of UIDs matching the action and time criteria.
      *
      * @throws Horde_History_Exception
      * @throws InvalidArgumentException
      */
-    public function listBy($action, $timestamp, $tasklist = null, $end = null)
+    public function listBy($action, $timestamp, $tasklist = null, $end = null, $isModSeq = false)
     {
         if (empty($tasklist)) {
             $tasklist = Nag::getSyncLists();
@@ -715,12 +717,18 @@ class Nag_Api extends Horde_Registry_Api
         }
 
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
-        if (!empty($end)) {
+        if (!empty($end) && !$isModSeq) {
             $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
         }
-        $histories = $GLOBALS['injector']
-            ->getInstance('Horde_History')
-            ->getByTimestamp('>', $timestamp, $filter, 'nag:' . $tasklist);
+        if (!$isModSeq) {
+            $histories = $GLOBALS['injector']
+                ->getInstance('Horde_History')
+                ->getByTimestamp('>', $timestamp, $filter, 'nag:' . $tasklist);
+        } else {
+            $histories = $GLOBALS['injector']
+                ->getInstance('Horde_History')
+                ->getByModSeq($timestamp, $end, $filter, 'nag:' . $tasklist);
+        }
 
         // Strip leading nag:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -733,15 +741,33 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @param integer $start             The starting timestamp
      * @param integer $end               The ending timestamp.
+     * @param boolean $isModSeq          If true, $timestamp and $end are
+     *                                   modification sequences and not
+     *                                   timestamps. @since 4.1.1
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      */
-    public function getChanges($start, $end)
+    public function getChanges($start, $end, $isModSeq = false)
     {
         return array(
-            'add' => $this->listBy('add', $start, null, $end),
-            'modify' => $this->listBy('modify', $start, null, $end),
-            'delete' => $this->listBy('delete', $start, null, $end));
+            'add' => $this->listBy('add', $start, null, $end, $isModSeq),
+            'modify' => $this->listBy('modify', $start, null, $end, $isModSeq),
+            'delete' => $this->listBy('delete', $start, null, $end, $isModSeq));
+    }
+
+    /**
+     * Return all changes occuring between the specified modification
+     * sequences.
+     *
+     * @param integer $start  The starting modseq.
+     * @param integer $end    The ending modseq.
+     *
+     * @return array  The changes @see getChanges()
+     * @since 4.1.1
+     */
+    public function getChangesByModSeq($start, $end)
+    {
+        return $this->getChanges($start, $end, true, true);
     }
 
     /**
@@ -751,6 +777,8 @@ class Nag_Api extends Horde_Registry_Api
      * @param string $action   The action to check for - add, modify, or delete.
      * @param string $tasklist The tasklist to be used. If 'null', the
      *                         user's default tasklist will be used.
+     * @param boolean $modSeq  Request a modification sequence instead of a
+     *                         timestamp. @since 4.1.1
      *
      * @return integer  The timestamp for this action.
      *
@@ -758,7 +786,7 @@ class Nag_Api extends Horde_Registry_Api
      * @throws Horde_Exception_PermissionDenied
      * @thorws Horde_History_Exception
      */
-    public function getActionTimestamp($uid, $action, $tasklist = null)
+    public function getActionTimestamp($uid, $action, $tasklist = null, $modSeq = false)
     {
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
@@ -766,9 +794,26 @@ class Nag_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        return $GLOBALS['injector']
-            ->getInstance('Horde_History')
-            ->getActionTimestamp('nag:' . $tasklist . ':' . $uid, $action);
+        if (!$modSeq) {
+            return $GLOBALS['injector']
+                ->getInstance('Horde_History')
+                ->getActionTimestamp('nag:' . $tasklist . ':' . $uid, $action);
+        } else {
+            return $GLOBALS['injector']
+                ->getInstance('Horde_History')
+                ->getActionModSeq('nag:' . $tasklist . ':' . $uid, $action);
+        }
+    }
+
+    /**
+     * Return the largest modification sequence from the history backend.
+     *
+     * @return integer  The modseq.
+     * @since 4.1.1
+     */
+    public function getHighestModSeq()
+    {
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('nag');
     }
 
     /**

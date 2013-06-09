@@ -91,15 +91,33 @@ class Mnemo_Api extends Horde_Registry_Api
      *
      * @param integer $start             The starting timestamp
      * @param integer $end               The ending timestamp.
+     * @param boolean $isModSeq          If true, $timestamp and $end are
+     *                                   modification sequences and not
+     *                                   timestamps. @since 4.1.1
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      * @since 3.0.5
      */
-    public function getChanges($start, $end)
+    public function getChanges($start, $end, $isModSeq = false)
     {
-        return array('add' => $this->listBy('add', $start, null, $end),
-                     'modify' => $this->listBy('modify', $start, null, $end),
-                     'delete' => $this->listBy('delete', $start, null, $end));
+        return array('add' => $this->listBy('add', $start, null, $end, $isModSeq),
+                     'modify' => $this->listBy('modify', $start, null, $end, $isModSeq),
+                     'delete' => $this->listBy('delete', $start, null, $end, $isModSeq));
+    }
+
+    /**
+     * Return all changes occuring between the specified modification
+     * sequences.
+     *
+     * @param integer $start  The starting modseq.
+     * @param integer $end    The ending modseq.
+     *
+     * @return array  The changes @see getChanges()
+     * @since 4.1.1
+     */
+    public function getChangesByModSeq($start, $end)
+    {
+        return $this->getChanges($start, $end, true);
     }
 
     /**
@@ -110,10 +128,12 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param integer $timestamp  The time to start the search.
      * @param string  $notepad    The notepad to search in.
      * @param integer $end        The optional ending timestamp.
+     * @param boolean $isModSeq   If true, $timestamp and $end are modification
+     *                            sequences and not timestamps. @since 4.1.1
      *
      * @return array  An array of UIDs matching the action and time criteria.
      */
-    public function listBy($action, $timestamp, $notepad = null, $end = null)
+    public function listBy($action, $timestamp, $notepad = null, $end = null, $isModSeq = false)
     {
         /* Make sure we have a valid notepad. */
         if (empty($notepad)) {
@@ -125,11 +145,15 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
-        if (!empty($end)) {
+        if (!empty($end) && !$isModSeq) {
             $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
         }
         $history = $GLOBALS['injector']->getInstance('Horde_History');
-        $histories = $history->getByTimestamp('>', $timestamp, $filter, 'mnemo:' . $notepad);
+        if (!$isModSeq) {
+            $histories = $history->getByTimestamp('>', $timestamp, $filter, 'mnemo:' . $notepad);
+        } else {
+            $histories = $history->getByModSeq($timestamp, $end, $filter, 'mnemo:' . $notepad);
+        }
 
         // Strip leading mnemo:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -138,14 +162,16 @@ class Mnemo_Api extends Horde_Registry_Api
     /**
      * Returns the timestamp of an operation for a given uid an action.
      *
-     * @param string $uid     The uid to look for.
-     * @param string $action  The action to check for - add, modify, or delete.
-     * @param string $notepad The notepad to search in.
+     * @param string $uid      The uid to look for.
+     * @param string $action   The action to check for - add, modify, or delete.
+     * @param string $notepad  The notepad to search in.
+     * @param boolean $modSeq  Request a modification sequence instead of a
+     *                         timestamp. @since 4.1.1
      *
-     * @return integer  The timestamp for this action.
+     * @return integer  The timestamp or modseq for this action.
      * @throws Horde_Exception_PermissionDenied
      */
-    public function getActionTimestamp($uid, $action, $notepad = null)
+    public function getActionTimestamp($uid, $action, $notepad = null, $modSeq = false)
     {
         /* Make sure we have a valid notepad. */
         if (empty($notepad)) {
@@ -157,7 +183,22 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         $history = $GLOBALS['injector']->getInstance('Horde_History');
-        return $history->getActionTimestamp('mnemo:' . $notepad . ':' . $uid, $action);
+        if (!$modSeq) {
+            return $history->getActionTimestamp('mnemo:' . $notepad . ':' . $uid, $action);
+        } else {
+            return $history->getActionModSeq('mnemo:' . $notepad . ':' . $uid, $action);
+        }
+    }
+
+    /**
+     * Return the largest modification sequence from the history backend.
+     *
+     * @return integer  The modseq.
+     * @since 4.1.1
+     */
+    public function getHighestModSeq()
+    {
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('mnemo');
     }
 
     /**
