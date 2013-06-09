@@ -2237,6 +2237,30 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Return the SyncStamp - the value used to determine the end of the current
+     * sync range. If the collection backend supports modification sequences,
+     * we will use that, otherwise return the current timestamp.
+     *
+     * @param $collection string  The collection id we are currently requesting.
+     *
+     * @return integer  The SyncStamp
+     */
+    public function getSyncStamp($collection)
+    {
+        if ($this->_connector->hasFeature('modseq', $collection)) {
+            $modseq = $this->_connector->getHighestModSeq($collection);
+            $this->_logger->info(sprintf('[%s] Using MODSEQ %s for %s.',
+                getmypid(),
+                $modseq,
+                $collection));
+
+            return $modseq;
+        }
+
+        return time();
+    }
+
+    /**
      * Helper to build a folder object for non-email folders.
      *
      * @param string $id      The folder's server id.

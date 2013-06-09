@@ -40,6 +40,13 @@ class Horde_Core_ActiveSync_Connector
     protected $_gal;
 
     /**
+     * Cache results of capability queries
+     *
+     * @var array
+     */
+    protected $_capabilities = array();
+
+    /**
      * Const'r
      *
      * @param array $params  Configuration parameters. Requires:
@@ -202,7 +209,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function calendar_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->calendar->getActionTimestamp($uid, $action);
+        return $this->_registry->calendar->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'calendar'));
     }
 
     /**
@@ -280,21 +287,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->contacts->getActionTimestamp($uid, $action);
-    }
-
-    /**
-     * Get a list of contact uids that have had $action happen since $from_ts.
-     *
-     * @param string $action    The action to check for (add, modify, delete)
-     * @param integer $from_ts  The timestamp to start checking from
-     * @param integer $to_ts    The ending timestamp
-     *
-     * @return array  An array of event uids
-     */
-    public function contacts_listBy($action, $from_ts, $to_ts)
-    {
-        return $this->_registry->contacts->listBy($action, $from_ts, null, $to_ts);
+        return $this->_registry->contacts->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'calendar'));
     }
 
     /**
@@ -451,7 +444,7 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
-     * Return the timestamp for the last time $action was performed.
+     * Return the timestamp or modseq for the last time $action was performed.
      *
      * @param string $uid     The UID of the task we are interested in.
      * @param string $action  The action we are interested in (add, modify...)
@@ -460,21 +453,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function tasks_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->tasks->getActionTimestamp($uid, $action);
-    }
-
-    /**
-     * Get a list of task uids that have had $action happen since $from_ts.
-     *
-     * @param string $action    The action to check for (add, modify, delete)
-     * @param integer $from_ts  The timestamp to start checking from
-     * @param integer $to_ts    The ending timestamp
-     *
-     * @return array  An array of event uids
-     */
-    public function tasks_listBy($action, $from_ts, $to_ts)
-    {
-        return $this->_registry->tasks->listBy($action, $from_ts, null, $to_ts);
+        return $this->_registry->tasks->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'calendar'));
     }
 
     /**
@@ -560,22 +539,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function notes_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->notes->getActionTimestamp($uid, $action);
-    }
-
-    /**
-     * Get a list of note uids that have had $action happen since $from_ts.
-     *
-     * @param string $action    The action to check for (add, modify, delete)
-     * @param integer $from_ts  The timestamp to start checking from
-     * @param integer $to_ts    The ending timestamp
-     *
-     * @return array  An array of note uids
-     * @since 5.1
-     */
-    public function notes_listBy($action, $from_ts, $to_ts)
-    {
-        return $this->_registry->notes->listBy($action, $from_ts, null, $to_ts);
+        return $this->_registry->notes->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'calendar'));
     }
 
     /**
@@ -591,12 +555,67 @@ class Horde_Core_ActiveSync_Connector
         // @TODO: H6, add this check to all apps. BC break to check it now,
         // since we didn't have this feature earlier.
         if ($key = array_search('notes', $apps)) {
-            if (!$this->_registry->hasFeature('activesync', $this->_registry->hasInterface('notes'))) {
+            if (!$this->hasFeature('activesync', '@Notes@')) {
                 unset($apps[$key]);
             }
         }
 
         return $apps;
+    }
+
+    /**
+     * Return if the backend collection has the requested feature.
+     *
+     * @param string $feature     The requested feature.
+     * @param string $collection  The requested collection id.
+     *
+     * @return boolean
+     * @since 2.6.0
+     */
+    public function hasFeature($feature, $collection)
+    {
+        if (empty($this->_capabilities[$collection]) || !array_key_exists($feature, $this->_capabilities[$collection])) {
+            $this->_capabilities[$collection][$feature] =
+                $this->_registry->hasFeature($feature, $this->_getAppFromCollectionId($collection));
+        }
+
+        return $this->_capabilities[$collection][$feature];
+    }
+
+    /**
+     * Return the highest modification sequence value for the specified
+     * collection
+     *
+     * @return integer  The modseq value.
+     * @since 2.6.0
+     */
+    public function getHighestModSeq($collection)
+    {
+        return $this->_registry->{$this->_getInterfaceFromCollectionId($collection)}->getHighestModSeq();
+    }
+
+    /**
+     * Convert a collection id to a horde app name.
+     *
+     * @param string $collection  The collection id e.g., @Notes@.
+     *
+     * @return string  The horde application name e.g., nag.
+     */
+    protected function _getAppFromCollectionId($collection)
+    {
+        return $this->_registry->hasInterface($this->_getInterfaceFromCollectionId($collection));
+    }
+
+    /**
+     * Normalize the collection ids to interface names.
+     *
+     * @param string $collection The collection id e.g., @Notes@
+     *
+     * @return string  The Horde interface name e.g., notes
+     */
+    protected function _getInterfaceFromCollectionId($collection)
+    {
+        return strtolower(str_replace('@', '', $collection));
     }
 
     /**
@@ -708,9 +727,10 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Get all server changes for the specified collection
      *
-     * @param string $collection  The collection type (calendar, contacts, tasks)
-     * @param integer $from_ts    Starting timestamp
-     * @param integer $to_ts      Ending timestamp
+     * @param string $collection  The collection type (a Horde interface name -
+     *                            calendar, contacts, tasks)
+     * @param integer $from_ts    Starting timestamp or modification sequence.
+     * @param integer $to_ts      Ending timestamp or modification sequence.
      *
      * @return array  A hash of add, modify, and delete uids
      * @throws InvalidArgumentException
@@ -720,6 +740,27 @@ class Horde_Core_ActiveSync_Connector
         if (!in_array($collection, array('calendar', 'contacts', 'tasks', 'notes'))) {
             throw new InvalidArgumentException('collection must be one of calendar, contacts, or tasks');
         }
+
+        // We can use modification sequences.
+        if ($this->hasFeature('modseq', $collection)) {
+            $this->_logger->info(sprintf(
+                '[%s] Fetching changes for %s using MODSEQ.',
+                getmypid(),
+                $collection));
+            try {
+                return $this->_registry->{$collection}->getChangesByModSeq($from_ts, $to_ts);
+            } catch (Exception $e) {
+                return array('add' => array(),
+                             'modify' => array(),
+                             'delete' => array());
+            }
+        }
+
+        // Older API, use timestamps.
+        $this->_logger->info(sprintf(
+            '[%s] Fetching changes for %s using TIMESTAMPS.',
+            getmypid(),
+            $collection));
         try {
             return $this->_registry->{$collection}->getChanges($from_ts, $to_ts);
         } catch (Exception $e) {
