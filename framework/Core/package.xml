@@ -31,8 +31,8 @@
  <date>2013-06-04</date>
  <time>17:43:35</time>
  <version>
-  <release>2.5.1</release>
-  <api>2.5.0</api>
+  <release>2.6.0</release>
+  <api>2.6.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Add support for history modification sequences in ActiveSync driver.
 * [mjr] Fix incorrect offsets when generating free/busy data for ActiveSync clients.
 * [mms] Add Horde_HashTable to dependency list (Bug #12314).
 * [jan] Don&apos;t overwrite host part of parsed email addresses (Bug #12302).
@@ -2860,7 +2861,7 @@
    <date>2013-03-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
   <release>

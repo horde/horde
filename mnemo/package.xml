@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-*
+* [mjr] Add API methods for using history modification sequences.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1054,7 +1054,7 @@
    <date>2013-06-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-*
+* [mjr] Add API methods for using history modification sequences.
    </notes>
   </release>
  </changelog>
