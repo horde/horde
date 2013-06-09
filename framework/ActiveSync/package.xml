@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Add support for SyncStamps - either timestamps or backend controlled modification sequences.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1467,7 +1467,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Add support for SyncStamps - either timestamps or backend controlled modification sequences.
    </notes>
   </release>
  </changelog>
