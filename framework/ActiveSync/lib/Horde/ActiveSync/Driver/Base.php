@@ -366,6 +366,21 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Return the SyncStamp - the value used to determine the end of the current
+     * sync range. Default implementation uses timestamps. Concrete drivers
+     * can override this to provide another method to do this, such as
+     * using modification sequences.
+     *
+     * @param $collection string  The collection id we are currently requesting.
+     *
+     * @return integer  The SyncStamp
+     */
+    public function getSyncStamp($collection)
+    {
+        return time();
+    }
+
+    /**
      * Delete a folder on the server.
      *
      * @param string $id  The server's folder id.

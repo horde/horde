@@ -840,9 +840,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function getChanges(array $options = array())
     {
-        // Get the timestamp for THIS request
-        $this->_thisSyncTS = time();
-
+        $this->_thisSyncTS = $this->_backend->getSyncStamp($this->_collection['id']);
         if (!empty($this->_collection['id'])) {
             // How far back to sync (for those collections that use this)
             $cutoffdate = self::_getCutOffDate(!empty($this->_collection['filtertype'])
