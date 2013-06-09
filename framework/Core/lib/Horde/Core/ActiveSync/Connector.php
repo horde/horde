@@ -555,7 +555,7 @@ class Horde_Core_ActiveSync_Connector
         // @TODO: H6, add this check to all apps. BC break to check it now,
         // since we didn't have this feature earlier.
         if ($key = array_search('notes', $apps)) {
-            if (!$this->hasFeature('activesync', '@Notes@')) {
+            if (!$this->hasFeature('activesync', 'notes')) {
                 unset($apps[$key]);
             }
         }
