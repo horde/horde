@@ -1291,7 +1291,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                                  forwarding/replying.
      * @param boolean $save             Save in sent messages.
      * @param Horde_ActiveSync_Message_SendMail $message  The entire message
-     *                          object for EAS 14+ requests. @since 5.1.0
+     *                          object for EAS 14+ requests. @since 2.5.0
      * @todo H6 - Either make this take an options array or break it into two
      *            separate methods - one for EAS < 14 and one for EAS > 14.
      *
@@ -2695,7 +2695,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * to send to the device in the provision response.
      *
      * @param boolean $deviceinfo  EAS 14.1 DEVICESETTINGS sent with PROVISION.
-     *                             @since 5.1
+     *
      * @return array
      */
     protected function _getPolicyFromPerms($deviceinfo = false)
