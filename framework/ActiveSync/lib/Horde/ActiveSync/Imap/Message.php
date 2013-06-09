@@ -308,7 +308,7 @@ class Horde_ActiveSync_Imap_Message
 
             $truncated = $text_size > Horde_String::length($text);
             if ($version >= Horde_ActiveSync::VERSION_TWELVE &&
-                $truncated && $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['allornone']) {
+                $truncated && !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['allornone'])) {
                 $text = '';
             }
             $return ['plain'] = array(
