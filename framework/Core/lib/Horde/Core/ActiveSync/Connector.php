@@ -287,7 +287,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->contacts->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'calendar'));
+        return $this->_registry->contacts->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'contacts'));
     }
 
     /**
@@ -453,7 +453,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function tasks_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->tasks->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'calendar'));
+        return $this->_registry->tasks->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'tasks'));
     }
 
     /**
@@ -539,7 +539,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function notes_getActionTimestamp($uid, $action)
     {
-        return $this->_registry->notes->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'calendar'));
+        return $this->_registry->notes->getActionTimestamp($uid, $action, null, $this->hasFeature('modseq', 'notes'));
     }
 
     /**
