@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-07</date>
- <time>20:00:23</time>
+ <date>2013-06-09</date>
+ <time>14:23:29</time>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -51,6 +51,7 @@
      <dir name="History">
       <file name="1_horde_history_base_tables.php" role="data" />
       <file name="2_horde_history_upgrade_autoincrement.php" role="data" />
+      <file name="3_horde_history_add_modseq.php" role="data" />
      </dir> <!-- /migration/Horde/History -->
     </dir> <!-- /migration/Horde -->
     </dir> <!-- /migration -->
@@ -128,6 +129,7 @@
    <install as="Horde/History/Sql.php" name="lib/Horde/History/Sql.php" />
    <install as="migration/1_horde_history_base_tables.php" name="migration/Horde/History/1_horde_history_base_tables.php" />
    <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde/History/2_horde_history_upgrade_autoincrement.php" />
+   <install as="migration/3_horde_history_add_modseq.php" name="migration/Horde/History/3_horde_history_add_modseq.php" />
    <install as="Horde/History/AllTests.php" name="test/Horde/History/AllTests.php" />
    <install as="Horde/History/bootstrap.php" name="test/Horde/History/bootstrap.php" />
    <install as="Horde/History/conf.php.dist" name="test/Horde/History/conf.php.dist" />
@@ -332,7 +334,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-07</date>
+   <date>2013-06-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Add support for modification sequences.
