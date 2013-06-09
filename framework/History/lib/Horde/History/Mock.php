@@ -100,7 +100,6 @@ class Horde_History_Mock extends Horde_History
         /* If we're not replacing by action, or if we didn't find an entry to
          * replace, insert a new row. */
         if (!$done) {
-
             $this->_data[$this->_id] = $values;
             $this->_id++;
         }
@@ -281,12 +280,24 @@ class Horde_History_Mock extends Horde_History
      *  between the time we call nextModSeq() and the time the new entry is
      *  written.
      *
+     * @param string $parent  Restrict to entries a specific parent.
+     *
      * @return integer|boolean  The highest used modseq value, false if no history.
      */
-    public function getHighestModSeq()
+    public function getHighestModSeq($parent = null)
     {
         if (empty($this->_modseq) && empty($this->_data)) {
             return false;
+        }
+        $last = 0;
+        if (!empty($this->_data) && !empty($parent)) {
+            foreach ($this->_data as $id => $element) {
+                if (strpos($element['history_uid'], $parent . ':') === 0 && $element['history_modseq'] > $last) {
+                    $last = $element['history_modseq'];
+                }
+            }
+
+            return $last;
         }
 
         return $this->_modseq;

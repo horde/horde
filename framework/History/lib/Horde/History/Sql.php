@@ -287,12 +287,19 @@ class Horde_History_Sql extends Horde_History
      *  between the time we call nextModSeq() and the time the new entry is
      *  written.
      *
+     * @param string $parent  Restrict to entries a specific parent.
+     *
      * @return integer|boolean  The highest used modseq value, false if no history.
      */
-    public function getHighestModSeq()
+    public function getHighestModSeq($parent = null)
     {
+        $sql = 'SELECT MAX(history_modseq) FROM horde_histories';
+        if (!empty($parent)) {
+            $sql .= ' WHERE object_uid LIKE ' . $this->_db->quote($parent . ':%');
+        }
+
         try {
-            $modseq = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories;');
+            $modseq = $this->_db->selectValue($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_History_Exception($e);
         }

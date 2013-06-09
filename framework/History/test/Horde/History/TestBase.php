@@ -346,4 +346,14 @@ class Horde_History_TestBase extends Horde_Test_Case
         //$this->assertEquals(4, self::$history->getHighestModSeq());
     }
 
+    public function testMethodGetHighestModSeqWithParentFilterReturnsFilteredResults()
+    {
+        self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action'));
+        self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1001, 'action' => 'test_action'));
+        self::$history->log('apptwo:test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action'));
+        $this->assertEquals(2, self::$history->getHighestModSeq('appone'));
+        $this->assertEquals(3, self::$history->getHighestModSeq('apptwo'));
+        $this->assertEquals(3, self::$history->getHighestModSeq());
+    }
+
 }

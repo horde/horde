@@ -339,11 +339,13 @@ abstract class Horde_History
      * Return the maximum modification sequence. To be overridden in concrete
      * class.
      *
+     * @param string $parent  Restrict to entries a specific parent.
+     *
      * @return integer  The modseq
      * @since 2.2.0
      * @todo Make abstract in H6. Need to make this non-abstract for BC.
      */
-    public function getHighestModSeq()
+    public function getHighestModSeq($parent = null)
     {
         return false;
     }
