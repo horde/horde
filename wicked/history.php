@@ -28,5 +28,5 @@ $page_output->header(array(
     'title' => sprintf(_("History: %s"), $page->pageName())
 ));
 $notification->notify(array('listeners' => 'status'));
-$page->render(Wicked::MODE_HISTORY);
+echo $page->render(Wicked::MODE_HISTORY);
 $page_output->footer();

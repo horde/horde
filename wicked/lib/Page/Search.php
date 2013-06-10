@@ -66,16 +66,18 @@ class Wicked_Page_Search extends Wicked_Page {
      *
      * @param string $searchtext  The title to search for.
      *
+     * @return string  The content.
      * @throws Wicked_Exception
      */
     public function display($searchtext)
     {
-        global $notification;
+        global $injector, $notification;
+
+        $view = $injector->createInstance('Horde_View');
 
         if (!$searchtext) {
-            require WICKED_TEMPLATES . '/pagelist/search.inc';
-            require WICKED_TEMPLATES . '/pagelist/footer.inc';
-            return true;
+            return $view->render('pagelist/search')
+                . $view->render('pagelist/footer');
         }
 
         /* Prepare exact match section */

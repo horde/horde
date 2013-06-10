@@ -59,17 +59,15 @@ class Wicked_Page_AddPage extends Wicked_Page {
      */
     public function display()
     {
-        try {
-            $templates = $GLOBALS['wicked']->getMatchingPages('Template', Wicked_Page::MATCH_ENDS);
-        } catch (Wicked_Exception $e) {
-            $GLOBALS['notification']->push(sprintf(_("Error retrieving templates: %s"),
-                                                   $e->getMessage()), 'horde.error');
-            throw $e;
-        }
-
-        $search_results = null;
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->action = Wicked::url('NewPage');
+        $view->formInput = Horde_Util::formInput();
+        $view->referrer = $this->referrer();
+        $view->name = $this->pageName();
         if ($this->_results) {
-            $pages = array();
+            $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
+            $pagelist = $GLOBALS['injector']->createInstance('Horde_View');
+            $pagelist->pages = array();
             foreach ($this->_results as $page) {
                 if (!empty($page['page_history'])) {
                     $page = new Wicked_Page_StandardHistoryPage($page);
@@ -77,7 +75,7 @@ class Wicked_Page_AddPage extends Wicked_Page {
                     $page = new Wicked_Page_StandardPage($page);
                 }
 
-                $pages[] = array(
+                $pagelist->pages[] = array(
                     'author' => $page->author(),
                     'created' => $page->formatVersionCreated(),
                     'name' => $page->pageUrl()->link()
@@ -86,14 +84,13 @@ class Wicked_Page_AddPage extends Wicked_Page {
                     'version' => $page->pageUrl()->link() . $page->version() . '</a>',
                 );
             }
-
-            $view = $GLOBALS['injector']->createInstance('Horde_View');
-            $view->pages = $pages;
-            $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
-            $search_results = $view->render('pagelist/pagelist');
+            $view->searchResults = $pagelist->render('pagelist/pagelist');
         }
+        $view->templates = $GLOBALS['wicked']
+            ->getMatchingPages('Template', Wicked_Page::MATCH_ENDS);
+        $view->help = Horde_Help::link('wicked', 'Templates');
 
-        require WICKED_TEMPLATES . '/edit/create.inc';
+        return $view->render('edit/create');
     }
 
     public function pageName()

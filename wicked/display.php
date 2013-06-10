@@ -139,7 +139,7 @@ if ($page->isLocked()) {
 $history = $session->get('wicked', 'history', Horde_Session::TYPE_ARRAY);
 
 Horde::startBuffer();
-$page->render(Wicked::MODE_DISPLAY, $params);
+echo $page->render(Wicked::MODE_DISPLAY, $params);
 $content = Horde::endBuffer();
 
 Wicked::addFeedLink();

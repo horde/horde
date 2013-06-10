@@ -41,6 +41,8 @@ class Wicked_Page_MostPopular extends Wicked_Page {
      */
     public function displayContents($isBlock)
     {
+        global $injector, $page_output;
+
         $pages = array();
         foreach ($this->content(10) as $page) {
             $page = new Wicked_Page_StandardPage($page);
@@ -55,19 +57,15 @@ class Wicked_Page_MostPopular extends Wicked_Page {
             );
         }
 
-        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $page_output->addScriptFile('tables.js', 'horde');
+
+        $view = $injector->createInstance('Horde_View');
         $view->pages = $pages;
-        $hits = true;
+        $view->hits = true;
 
-        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
-
-        ob_start();
-        require WICKED_TEMPLATES . '/pagelist/header.inc';
-        echo $view->render('pagelist/pagelist');
-        require WICKED_TEMPLATES . '/pagelist/footer.inc';
-        $contents = ob_get_contents();
-        ob_end_clean();
-        return $contents;
+        return $view->render('pagelist/header')
+            . $view->render('pagelist/pagelist')
+            . $view->render('pagelist/footer');
     }
 
     public function pageName()

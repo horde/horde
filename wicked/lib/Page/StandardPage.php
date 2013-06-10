@@ -170,65 +170,238 @@ class Wicked_Page_StandardPage extends Wicked_Page {
      */
     public function displayContents($isBlock)
     {
-        $wiki = $this->getProcessor();
-        $text = $wiki->transform($this->getText());
-        $attachments = array();
-
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        if ($this->allows(Wicked::MODE_EDIT) &&
+            !$this->isLocked(Wicked::lockUser())) {
+            $view->edit = Horde::widget(array(
+                'url' => Wicked::url('EditPage')
+                    ->add('referrer', $this->pageName()),
+                'title' => _("_Edit"),
+                'class' => 'wicked-edit',
+            ));
+        }
+        if ($this->isLocked()) {
+            if ($this->allows(Wicked::MODE_UNLOCKING)) {
+                $view->unlock = Horde::widget(array(
+                    'url' => $this->pageUrl(null, 'unlock')->remove('version'),
+                    'title' => _("Un_lock"),
+                    'class' => 'wicked-unlock',
+                ));
+            }
+        } else {
+            if ($this->allows(Wicked::MODE_LOCKING)) {
+                $view->lock = Horde::widget(array(
+                    'url' => $this->pageUrl(null, 'lock')->remove('version'),
+                    'title' => _("_Lock"),
+                    'class' => 'wicked-lock',
+                ));
+            }
+        }
+        if ($this->allows(Wicked::MODE_REMOVE)) {
+            $params = array('referrer' => $this->pageName());
+            if ($this->isOld()) {
+                $params['version'] = $this->version();
+            }
+            $view->remove = Horde::widget(array(
+                'url' => Wicked::url('DeletePage')->add($params),
+                'title' => _("_Delete"),
+                'class' => 'wicked-delete',
+            ));
+        }
+        if ($this->allows(Wicked::MODE_REMOVE) &&
+            !$this->isLocked(Wicked::lockUser())) {
+            $view->rename = Horde::widget(array(
+                'url' => Wicked::url('MergeOrRename')
+                    ->add('referrer', $this->pageName()),
+                'title' => _("_Merge/Rename")
+            ));
+        }
+        $view->backLinks = Horde::widget(array(
+            'url' => Wicked::url('BackLinks')
+                ->add('referrer', $this->pageName()),
+            'title' => _("_Backlinks")
+        ));
+        $view->likePages = Horde::widget(array(
+            'url' => Wicked::url('LikePages')
+                ->add('referrer', $this->pageName()),
+            'title' => _("S_imilar Pages")
+        ));
+        $view->attachedFiles = Horde::widget(array(
+            'url' => Wicked::url('AttachedFiles')
+                ->add('referrer', $this->pageName()),
+            'title' => _("Attachments")
+        ));
+        if ($this->allows(Wicked::MODE_HISTORY)) {
+            $view->changes = Horde::widget(array(
+                'url' => $this->pageUrl('history.php')->remove('version'),
+                'title' => _("Hi_story")
+            ));
+        }
+        if ($GLOBALS['registry']->isAdmin()) {
+            $permsurl = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php')
+                ->add(array(
+                    'category' => 'wicked:pages:' . $this->pageId(),
+                    'autocreate' => 1,
+                    'autocreate_copy' => 'wicked',
+                    'autocreate_guest' => Horde_Perms::SHOW | Horde_Perms::READ,
+                    'autocreate_default' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE
+                ));
+            $view->perms = Horde::widget(array(
+                'url' => $permsurl,
+                'target' => '_blank',
+                'title' => _("Permissio_ns")
+            ));
+        }
+        if (empty($isBlock) &&
+            ($histories = $GLOBALS['session']->get('wicked', 'history'))) {
+            $view->history = Horde::widget(array(
+                'url' => '#',
+                'onclick' => 'document.location = document.display.history[document.display.history.selectedIndex].value;',
+                'title' => _("Ba_ck to")
+            ));
+            $view->histories = array();
+            foreach ($histories as $history) {
+                if (!strlen($history)) {
+                    continue;
+                }
+                $view->histories[(string)Wicked::url($history)] = $history;
+            }
+        }
         if (!$isBlock) {
             $pageId = $GLOBALS['wicked']->getPageId($this->pageName());
             $attachments = $GLOBALS['wicked']->getAttachedFiles($pageId);
             if (count($attachments)) {
-                global $mime_drivers, $mime_drivers_map;
-                $result = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'horde');
-                extract($result);
+                $view->attachments = array();
+                foreach ($attachments as $attachment) {
+                    $url = $GLOBALS['registry']
+                        ->downloadUrl(
+                            $attachment['attachment_name'],
+                            array(
+                                'page' => $this->pageName(),
+                                'file' => $attachment['attachment_name'],
+                                'version' => $attachment['attachment_version']
+                            )
+                        );
+                    $icon = $GLOBALS['injector']
+                        ->getInstance('Horde_Core_Factory_MimeViewer')
+                        ->getIcon(
+                            Horde_Mime_Magic::filenameToMime(
+                                $attachment['attachment_name']
+                            )
+                        );
+                    $view->attachments[] = Horde::link($url)
+                        . '<img src="' . $icon . '" width="16" height="16" alt="" />&nbsp;'
+                        . htmlspecialchars($attachment['attachment_name'])
+                        . '</a>';
+                }
             }
         }
+        $view->text = $this->getProcessor()->transform($this->getText());
+        $view->downloadPlain = Wicked::url($this->pageName())
+            ->add(array('actionID' => 'export', 'format' => 'plain'))
+            ->link()
+            . _("Plain Text") . '</a>';
+        $view->downloadHtml = Wicked::url($this->pageName())
+            ->add(array('actionID' => 'export', 'format' => 'html'))
+            ->link()
+            . _("HTML") . '</a>';
+        $view->downloadLatex = Wicked::url($this->pageName())
+            ->add(array('actionID' => 'export', 'format' => 'tex'))
+            ->link()
+            . _("Latex") . '</a>';
+        $view->downloadRest = Wicked::url($this->pageName())
+            ->add(array('actionID' => 'export', 'format' => 'rst'))
+            ->link()
+            . _("reStructuredText") . '</a>';
 
-        ob_start();
-        require WICKED_TEMPLATES . '/display/standard.inc';
-        $result = ob_get_contents();
-        ob_end_clean();
-        return $result;
+        return $view->render('display/standard');
     }
 
     /**
      * Renders this page in History mode.
      *
+     * @return string  The content.
      * @throws Wicked_Exception
      */
     public function history()
     {
-        try {
-            $summaries = $GLOBALS['wicked']->getHistory($this->pageName());
-        } catch (Wicked_Exception $e) {
-            $GLOBALS['notification']->push('Error retrieving histories : ' . $e->getMessage(), 'horde.error');
-            throw $e;
-        }
+        global $injector, $page_output;
+
+        $page_output->addScriptFile('history.js');
+
+        $view = $injector->createInstance('Horde_View');
 
         // Header.
-        $show_restore = !$this->isLocked();
-        $allow_diff = true;
-        $show_edit = true;
-        require WICKED_TEMPLATES . '/history/header.inc';
-        $style = 'text';
+        $view->formInput = Horde_Util::formInput();
+        $view->name = $this->pageName();
+        $view->pageLink = $this->pageUrl()->link()
+            . htmlspecialchars($this->pageName()) . '</a>';
+        $view->refreshLink = $this->pageUrl('history.php')->link()
+            . Horde::img('reload.png', _("Reload History")) . '</a>';
+        if ($this->allows(Wicked::MODE_REMOVE)) {
+            $view->remove = Horde::img('delete.png', _("Delete Version"));
+        }
+        if ($this->allows(Wicked::MODE_EDIT) &&
+            !$this->isLocked(Wicked::lockUser())) {
+            $view->edit = Horde::img('edit.png', _("Edit Version"));
+            $view->restore = Horde::img('restore.png', _("Restore Version"));
+        }
+        $content = $view->render('history/header');
 
         // First item is this page.
-        $show_restore = false;
-        $page = $this;
-        $i = 0;
-        require WICKED_TEMPLATES . '/history/summary.inc';
+        $view->showRestore = false;
+        $this->_setViewProperties($view, $this);
+        $content .= $view->render('history/summary');
 
         // Now the rest of the histories.
-        $show_restore = !$this->isLocked();
-        $show_edit = false;
-        foreach ($summaries as $page) {
-            $i++;
+        $view->showRestore = true;
+        foreach ($GLOBALS['wicked']->getHistory($this->pageName()) as $page) {
             $page = new Wicked_Page_StandardHistoryPage($page);
-            require WICKED_TEMPLATES . '/history/summary.inc';
+            $this->_setViewProperties($view, $page);
+            $view->pversion = $page->version();
+            $content .= $view->render('history/summary');
         }
 
         // Footer.
-        require WICKED_TEMPLATES . '/history/footer.inc';
+        return $content . $view->render('history/footer');
+    }
+
+    protected function _setViewProperties($view, $page)
+    {
+        $view->displayLink = $page->pageUrl()
+            ->link(array(
+                'title' => sprintf(_("Display Version %s"), $page->version())
+            ))
+            . htmlspecialchars($page->version()) . '</a>';
+
+        $text = sprintf(_("Delete Version %s"), $page->version());
+        $view->deleteLink = Wicked::url('DeletePage')
+            ->add(array(
+                'referrer' => $page->pageName(),
+                'version' => $page->version()
+            ))
+            ->link(array('title' => $text))
+            . Horde::img('delete.png', $text) . '</a>';
+
+        $text = sprintf(_("Edit Version %s"), $page->version());
+        $view->editLink = Wicked::url('EditPage')
+            ->add(array('referrer' => $page->pageName()))
+            ->link(array('title' => $text))
+            . Horde::img('edit.png', $text) . '</a>';
+
+        $text = sprintf(_("Revert to version %s"), $page->version());
+        $view->restoreLink = Wicked::url('RevertPage')
+            ->add(array(
+                'referrer' => $page->pageName(),
+                'version' => $page->version()
+            ))
+            ->link(array('title' => $text))
+            . Horde::img('restore.png', $text) . '</a>';
+
+        $view->author = $page->author();
+        $view->date = $page->formatVersionCreated();
+        $view->version = $page->version();
+        $view->changelog = $page->changeLog();
     }
 
     public function isLocked($owner = null)

@@ -40,20 +40,37 @@ class Wicked_Page_BackLinks extends Wicked_Page {
      */
     public function displayContents($isBlock)
     {
-        $summaries = $GLOBALS['wicked']->getBackLinks($this->_referrer);
-        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
-        ob_start();
-        require WICKED_TEMPLATES . '/pagelist/header.inc';
+        global $injector, $page_output, $wicked;
+
+        $page_output->addScriptFile('tables.js', 'horde');
+
+        $view = $injector->createInstance('Horde_View');
+        $content = $view->render('pagelist/header');
+
+        $summaries = $wicked->getBackLinks($this->_referrer);
         foreach ($summaries as $page) {
             if (!empty($page['page_history'])) {
                 $page = new Wicked_Page_StandardHistoryPage($page);
             } else {
                 $page = new Wicked_Page_StandardPage($page);
             }
-            require WICKED_TEMPLATES . '/pagelist/summary.inc';
+            $view->displayLink = $page->pageUrl()
+              ->link(array(
+                  'title' => sprintf(_("Display %s"), $page->pageName())
+              ))
+              . $page->pageName() . '</a>';
+            $view->versionLink = $page->pageUrl()
+                ->link(array(
+                    'title' => sprintf(_("Display Version %s"), $page->version())
+                ))
+                . $page->version() . '</a>';
+            $view->author = $page->author();
+            $view->timestamp = $page->versionCreated();
+            $view->date = $page->formatVersionCreated();
+            $content .= $view->render('pagelist/summary');
         }
-        require WICKED_TEMPLATES . '/pagelist/footer.inc';
-        return ob_get_clean();
+
+        return $content . $view->render('pagelist/footer');
     }
 
     public function pageName()

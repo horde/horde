@@ -37,6 +37,8 @@ class Wicked_Page_AllPages extends Wicked_Page {
      */
     public function displayContents($isBlock)
     {
+        global $injector, $page_output;
+
         $pages = array();
         foreach ($this->content() as $page) {
             $page = new Wicked_Page_StandardPage($page);
@@ -50,19 +52,15 @@ class Wicked_Page_AllPages extends Wicked_Page {
             );
         }
 
-        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $page_output->addScriptFile('tables.js', 'horde');
+
+        $view = $injector->createInstance('Horde_View');
         $view->pages = $pages;
 
-        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
-
         // Show search form and page header.
-        ob_start();
-        require WICKED_TEMPLATES . '/pagelist/header.inc';
-        echo $view->render('pagelist/pagelist');
-        require WICKED_TEMPLATES . '/pagelist/footer.inc';
-        $contents = ob_get_contents();
-        ob_end_clean();
-        return $contents;
+        return $view->render('pagelist/header')
+            . $view->render('pagelist/pagelist')
+            . $view->render('pagelist/footer');
     }
 
     public function pageName()

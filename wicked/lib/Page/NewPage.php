@@ -78,20 +78,17 @@ class Wicked_Page_NewPage extends Wicked_Page {
      */
     public function display()
     {
-        // Load the page template.
+        $GLOBALS['page_output']->addScriptFile('edit.js');
+
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->action = Wicked::url('NewPage');
+        $view->formInput = Horde_Util::formInput();
+        $view->referrer = $this->referrer();
         if ($this->_template) {
-            $page = Wicked_Page::getPage($this->_template);
-            $page_text = $page->getText();
-        } else {
-            $page_text = '';
+            $view->text = Wicked_Page::getPage($this->_template)->getText();
         }
 
-        $GLOBALS['page_output']->addInlineScript(array(
-            'if (document.editform && document.editform.page_text) document.editform.changelog.page_text()'
-        ), true);
-
-        require WICKED_TEMPLATES . '/edit/new.inc';
-        return true;
+        return $view->render('edit/new');
     }
 
     public function pageName()

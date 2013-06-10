@@ -1,15 +1,15 @@
-<form name="newpage" method="post" action="<?php echo Wicked::url('NewPage') ?>">
-<?php Horde_Util::pformInput() ?>
+<form name="newpage" method="post" action="<?php echo $this->action ?>">
+<?php echo $this->formInput ?>
 <input type="hidden" name="page" value="NewPage" />
-<input type="hidden" name="referrer" value="<?php echo htmlspecialchars($this->referrer()) ?>" />
+<input type="hidden" name="referrer" value="<?php echo $this->h($this->referrer) ?>" />
 
 <h1 class="header">
- <?php echo htmlspecialchars($this->pageName()) ?>
+ <?php echo $this->h($this->name) ?>
 </h1>
 
-<?php if ($search_results): ?>
+<?php if ($this->searchResults): ?>
 <p class="horde-content">
- <?php printf(_("%s does not exist, but maybe you were looking for one of the following pages?"), htmlspecialchars($this->referrer())) ?>
+ <?php printf(_("\"%s\" does not exist, but maybe you were looking for one of the following pages?"), $this->h($this->referrer)) ?>
 </p>
 <table class="horde-table sortable" style="width:100%">
  <thead>
@@ -21,7 +21,7 @@
   </tr>
  </thead>
  <tbody>
- <?php echo $search_results ?>
+ <?php echo $this->searchResults ?>
  </tbody>
 </table>
 <br />
@@ -30,7 +30,7 @@
 </p>
 <?php else: ?>
 <p class="horde-content">
- <?php printf(_("%s does not exist. Click on \"Create\" below if you want to create this page now and start editing."), htmlspecialchars($this->referrer())) ?>
+ <?php printf(_("%s does not exist. Click on \"Create\" below if you want to create this page now and start editing."), $this->h($this->referrer)) ?>
 </p>
 <?php endif; ?>
 
@@ -38,17 +38,14 @@
  <?php echo _("Page Template:") ?>
  <select name="template">
   <option value=""><?php echo _("(None)") ?></option>
-  <?php
-  foreach ($templates as $page) {
-      echo '<option value="', htmlspecialchars($page['page_name']), '">',
-          htmlspecialchars($page['page_name']), "</option>\n";
-  }
-  ?>
+<?php foreach ($this->templates as $page): ?>
+  <option value="<?php echo $this->h($page['page_name']) ?>"><?php echo $this->h($page['page_name']) ?></option>
+<?php endforeach ?>
  </select>
 
  <input class="horde-create" type="submit" value="<?php echo _("Create") ?>" />
  <a class="horde-cancel" href="#" onclick="window.history.back();"><?php echo _("Cancel") ?></a>
- <?php echo Horde_Help::link('wicked', 'Templates') ?>
+ <?php echo $this->help ?>
 </p>
 
 </form>

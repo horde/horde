@@ -330,20 +330,22 @@ class Wicked_Page
      */
     public function display()
     {
+        global $injector;
+
         // Get content first, it might throw an exception.
         $inner = $this->displayContents(false);
 
-        $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
+        $topbar = $injector->getInstance('Horde_View_Topbar');
         try {
-            $v = $this->version();
+            $version = $this->version();
             $diff_url = Horde::url('diff.php')
                 ->add(array(
                     'page' => $this->pageName(),
                     'v1' => '?',
-                    'v2' => $v
+                    'v2' => $version
                 ));
 
-            $diff_alt = sprintf(_("Show changes for %s"), $v);
+            $diff_alt = sprintf(_("Show changes for %s"), $version);
             $topbar->subinfo = $diff_url->link(array('title' => $diff_alt))
                 . sprintf(_("Last Modified %s by %s"),
                           $this->formatVersionCreated(),
@@ -352,8 +354,22 @@ class Wicked_Page
         } catch (Wicked_Exception $e) {
         }
 
-        require WICKED_TEMPLATES . '/display/title.inc';
-        echo $inner;
+        $view = $injector->createInstance('Horde_View');
+        $view->name = $this->pageName();
+        if ($this->referrer()) {
+            $view->referrer = Wicked::url($this->referrer())->link()
+                . htmlspecialchars($this->referrer()) . '</a>';
+        }
+        $view->isOld = $this->isOld();
+        $view->version = $version;
+        $view->refresh = $this->pageUrl()
+            ->link(array('title' => _("Reload Page")))
+            . Horde::img('reload.png', _("Reload Page")) . '</a>';
+        if ($this->isLocked()) {
+            $this->locked = Horde::img('locked.png', _("Locked"));
+        }
+
+        return $view->render('display/title') . $inner;
     }
 
     /**

@@ -99,12 +99,49 @@ class Wicked_Page_EditPage extends Wicked_Page {
      */
     public function display()
     {
+        $GLOBALS['page_output']->addScriptFile('edit.js');
+        $GLOBALS['injector']->getInstance('Horde_View_Topbar')->subinfo =
+            sprintf(
+                _("Last Modified %s by %s"),
+                $this->formatVersionCreated(),
+                $this->author()
+            );
+
         $page = Wicked_Page::getPage($this->referrer());
-        $page_text = Horde_Util::getFormData('page_text');
-        if (is_null($page_text)) {
-            $page_text = $page->getText();
+
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->action = Wicked::url('EditPage');
+        $view->formInput = Horde_Util::formInput();
+        $view->name = $page->pageName();
+        $view->header = $page->pageUrl()->link()
+            . htmlspecialchars($page->pageName()) . '</a> ';
+        if ($page->isLocked()) {
+            $view->header .= ' ' . Horde::img('locked.png', _("Locked"));
         }
-        require WICKED_TEMPLATES . '/edit/standard.inc';
+        $view->cancel = $page->pageUrl()
+            ->add('actionID', 'unlock')
+            ->link(array('class' => 'horde-cancel'))
+            . _("Cancel") . '</a>';
+        if (!empty($GLOBALS['conf']['wicked']['require_change_log'])) {
+            $view->changelogRequired = Horde::img(
+                'required.png',
+                _("Changelog is required")
+            );
+        }
+        if (!empty($GLOBALS['conf']['wicked']['captcha']) &&
+            !$GLOBALS['registry']->getAuth()) {
+            $figlet = new Text_Figlet();
+            Horde_Exception_Pear::catchError($figlet->loadFont(
+                $GLOBALS['conf']['wicked']['figlet_font']
+            ));
+            $view->captcha = $figlet->lineEcho(Wicked::getCAPTCHA(true));
+        }
+        $view->text = Horde_Util::getFormData('page_text');
+        if (is_null($view->text)) {
+            $view->text = $page->getText();
+        }
+
+        return $view->render('edit/standard');
     }
 
     public function pageName()

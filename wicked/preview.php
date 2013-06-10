@@ -15,14 +15,14 @@ if (!($text = Horde_Util::getFormData('page_text'))) {
     exit;
 }
 
+$view = $injector->createInstance('Horde_View');
 $page = new Wicked_Page();
-$wiki = &$page->getProcessor();
-$text = $wiki->transform($text);
+$view->text = $page->getProcessor()->transform($text);
 
 Wicked::setTopbar();
 $page_output->header(array(
     'title' => sprintf(_("Edit %s"), Horde_Util::getFormData('age'))
 ));
 $notification->notify(array('listeners' => 'status'));
-require WICKED_TEMPLATES . '/edit/preview.inc';
+echo $view->render('edit/preview');
 $page_output->footer();

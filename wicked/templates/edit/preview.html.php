@@ -1,3 +1,3 @@
 <div class="pagebody">
- <?php echo $text ?>
+ <?php echo $this->text ?>
 </div>
