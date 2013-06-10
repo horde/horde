@@ -2250,6 +2250,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                            sanity check the state.
      *
      * @return integer|boolean  The SyncStamp or false if an error is encountered.
+     * @since 2.6.0
      */
     public function getSyncStamp($collection, $last = null)
     {
