@@ -17,14 +17,14 @@
   <active>yes</active>
  </lead>
  <date>2013-06-10</date>
- <time>22:43:59</time>
+ <time>23:04:30</time>
  <version>
-  <release>2.0.0</release>
+  <release>2.0.0beta1</release>
   <api>2.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -914,6 +914,26 @@
    <notes>
 * [jan] Work around broken Text_Wiki header parser.
 * [jan] Add reST renderers for blockquote and emphasis.
+   </notes>
+  </release>
+  <release>
+   <date>2013-06-10</date>
+   <time>22:43:59</time>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Remove synchronization code.
+* [jan] Convert all templates to Horde_View.
+* [jan] Add Most Popular and Least Popular pages to sidebar selection.
+* [jan] Show at least 10 revisions on the RecentChanges page.
+* [jan] Fix sorting page lists by date.
    </notes>
   </release>
  </changelog>
