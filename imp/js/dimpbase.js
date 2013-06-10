@@ -3145,7 +3145,7 @@ var DimpBase = {
             case 'vfolder':
                 e.stop();
                 tmp = li.retrieve('mbox');
-                if (tmp != this.view) {
+                if (tmp != this.view || !$('dimpmain_folder').visible()) {
                     this.go('mbox', li.retrieve('mbox'));
                 }
                 break;
