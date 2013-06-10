@@ -68,14 +68,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @var timestamp
      */
-    protected $_lastSyncTS = 0;
+    protected $_lastSyncStamp = 0;
 
     /**
      * The current sync timestamp
      *
      * @var timestamp
      */
-    protected $_thisSyncTS = 0;
+    protected $_thisSyncStamp = 0;
 
     /**
      * DB handle
@@ -298,13 +298,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected function _loadStateFromResults($results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
     {
         // Load the last known sync time for this collection
-        $this->_lastSyncTS = !empty($results['sync_time'])
+        $this->_lastSyncStamp = !empty($results['sync_time'])
             ? $results['sync_time']
             : 0;
 
         // Pre-Populate the current sync timestamp in case this is only a
         // Client -> Server sync.
-        $this->_thisSyncTS = $this->_lastSyncTS;
+        $this->_thisSyncStamp = $this->_lastSyncStamp;
 
         // Restore any state or pending changes
         try {
@@ -356,7 +356,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function isConflict($stat, $type)
     {
         // $stat == server's message information
-        if ($stat['mod'] > $this->_lastSyncTS &&
+        if ($stat['mod'] > $this->_lastSyncStamp &&
             ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE ||
              $type == Horde_ActiveSync::CHANGE_TYPE_CHANGE)) {
 
@@ -398,7 +398,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_syncKey,
             new Horde_Db_Value_Binary($data),
             $this->_deviceInfo->id,
-            (self::getSyncKeyCounter($this->_syncKey) == 1 ? 0 : $this->_thisSyncTS),
+            (self::getSyncKeyCounter($this->_syncKey) == 1 ? 0 : $this->_thisSyncStamp),
             (!empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC),
             $this->_deviceInfo->user,
             $pending);
@@ -841,8 +841,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function getChanges(array $options = array())
     {
-        $this->_thisSyncTS = $this->_backend->getSyncStamp($this->_collection['id'], $this->_lastSyncTS);
-        if (!$this->_thisSyncTS) {
+        $this->_thisSyncStamp = $this->_backend->getSyncStamp($this->_collection['id'], $this->_lastSyncStamp);
+        if (!$this->_thisSyncStamp) {
             throw new Horde_ActiveSync_Exception_StaleState('Detecting a change in timestamp or modification sequence. Reseting state.');
         }
 
@@ -870,8 +870,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 // No existing changes, poll the backend
                 $changes = $this->_backend->getServerChanges(
                     $this->_folder,
-                    (int)$this->_lastSyncTS,
-                    (int)$this->_thisSyncTS,
+                    (int)$this->_lastSyncStamp,
+                    (int)$this->_thisSyncStamp,
                     $cutoffdate,
                     !empty($options['ping']),
                     $this->_folder->haveInitialSync
@@ -1436,13 +1436,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             . ' WHERE sync_folderid = ? AND sync_devid = ?';
 
         try {
-            $this->_lastSyncTS = $this->_db->selectValue(
+            $this->_lastSyncStamp = $this->_db->selectValue(
                 $sql, array($this->_collection['id'], $this->_deviceInfo->id));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        return !empty($this->_lastSyncTS) ? $this->_lastSyncTS : 0;
+        return !empty($this->_lastSyncStamp) ? $this->_lastSyncStamp : 0;
     }
 
     /**
