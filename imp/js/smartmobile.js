@@ -1352,10 +1352,10 @@ var ImpMobile = {
      */
     onDocumentReady: function()
     {
-        $(document).bind('pagebeforechange', ImpMobile.toPage);
-        $(document).bind('pagebeforeshow', ImpMobile.beforeShow);
-        $(document).bind('pagechange', ImpMobile.pageShow);
-        $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
+        $(document).on('pagebeforechange', ImpMobile.toPage)
+            .on('pagebeforeshow', ImpMobile.beforeShow)
+            .on('pagechange', ImpMobile.pageShow)
+            .on('HordeMobile:runTasks', ImpMobile.runTasks);
 
         $('#imp-mailbox-list')
             .swipebutton()
