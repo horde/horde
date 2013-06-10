@@ -119,7 +119,7 @@ class Wicked_Sync_Wicked extends Wicked_Sync
     {
         try {
             return Horde_Rpc::request(
-                'xmlrpc',
+                'jsonrpc',
                 $this->_params['url'],
                 $this->_params['prefix'] . '.' . $method,
                 $this->_client,
