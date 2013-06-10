@@ -135,25 +135,36 @@ class Wicked_Page_Search extends Wicked_Page {
         $view = $injector->createInstance('Horde_View');
 
         // Show search form and page header.
-        require WICKED_TEMPLATES . '/pagelist/search.inc';
+        $content = $view->render('pagelist/search');
 
         // Show exact match.
         $header->title = _("Exact Match");
-        echo $header->render('pagelist/results_header');
-        echo $view->renderPartial('pagelist/page', array('collection' => $exact));
-        require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
+        $content .= $header->render('pagelist/results_header')
+            . $view->renderPartial(
+                'pagelist/page',
+                array('collection' => $exact)
+            )
+            . $view->render('pagelist/results_footer');
 
         // Show page title matches.
         $header->title = _("Page Title Matches");
-        echo $header->render('pagelist/results_header');
-        echo $view->renderPartial('pagelist/page', array('collection' => $titles));
-        require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
+        $content .= $header->render('pagelist/results_header')
+            . $view->renderPartial(
+                'pagelist/page',
+                array('collection' => $titles)
+            )
+            . $view->render('pagelist/results_footer');
 
         // Show page text matches.
         $header->title = _("Page Text Matches");
-        echo $header->render('pagelist/results_header');
-        echo $view->renderPartial('pagelist/page', array('collection' => $pages));
-        require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
+        $content .= $header->render('pagelist/results_header')
+            . $view->renderPartial(
+                'pagelist/page',
+                array('collection' => $pages)
+            )
+            . $view->render('pagelist/results_footer');
+
+        return $content;
     }
 
     public function getContext($page, $searchtext)

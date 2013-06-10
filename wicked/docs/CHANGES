@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[jan] Remove synchronization code.
 [jan] Convert all templates to Horde_View.
 [jan] Add Most Popular and Least Popular pages to sidebar selection.
 [jan] Show at least 10 revisions on the RecentChanges page.

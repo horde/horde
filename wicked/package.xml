@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2013-06-10</date>
- <time>19:55:46</time>
+ <time>22:43:59</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Remove synchronization code.
 * [jan] Convert all templates to Horde_View.
 * [jan] Add Most Popular and Least Popular pages to sidebar selection.
 * [jan] Show at least 10 revisions on the RecentChanges page.
@@ -44,7 +45,6 @@
     <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="menu.php.dist" role="horde" />
-    <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="data">
     <dir name="BBCode">
@@ -141,12 +141,7 @@
      <file name="Search.php" role="horde" />
      <file name="StandardHistoryPage.php" role="horde" />
      <file name="StandardPage.php" role="horde" />
-     <file name="SyncDiff.php" role="horde" />
-     <file name="SyncPages.php" role="horde" />
     </dir> <!-- /lib/Page -->
-    <dir name="Sync">
-     <file name="Wicked.php" role="horde" />
-    </dir> <!-- /lib/Sync -->
     <dir name="Text_Wiki">
      <dir name="Parse">
       <dir name="BBCode">
@@ -248,7 +243,6 @@
     <file name="Driver.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Page.php" role="horde" />
-    <file name="Sync.php" role="horde" />
     <file name="Test.php" role="horde" />
     <file name="Wicked.php" role="horde" />
    </dir> <!-- /lib -->
@@ -361,19 +355,12 @@
     <dir name="pagelist">
      <file name="footer.html.php" role="horde" />
      <file name="header.html.php" role="horde" />
-     <file name="results_footer.inc" role="horde" />
+     <file name="results_footer.html.php" role="horde" />
      <file name="results_header.html.php" role="horde" />
-     <file name="search.inc" role="horde" />
+     <file name="search.html.php" role="horde" />
      <file name="_page.html.php" role="horde" />
     </dir> <!-- /templates/pagelist -->
-    <dir name="sync">
-     <file name="diff.inc" role="horde" />
-     <file name="footer.inc" role="horde" />
-     <file name="form.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="list.inc" role="horde" />
-    </dir> <!-- /templates/sync -->
-   </dir> <!-- /templates -->
+    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Wicked">
      <dir name="fixtures">
@@ -625,7 +612,6 @@
    <install as="wicked/config/.htaccess" name="config/.htaccess" />
    <install as="wicked/config/conf.xml" name="config/conf.xml" />
    <install as="wicked/config/menu.php.dist" name="config/menu.php.dist" />
-   <install as="wicked/config/prefs.php" name="config/prefs.php" />
    <install as="wicked/data/.htaccess" name="data/.htaccess" />
    <install as="wicked/data/BBCode/Wiki/TextFormat" name="data/BBCode/Wiki/TextFormat" />
    <install as="wicked/data/Cowiki/Wiki/TextFormat" name="data/Cowiki/Wiki/TextFormat" />
@@ -669,7 +655,6 @@
    <install as="wicked/lib/Driver.php" name="lib/Driver.php" />
    <install as="wicked/lib/Exception.php" name="lib/Exception.php" />
    <install as="wicked/lib/Page.php" name="lib/Page.php" />
-   <install as="wicked/lib/Sync.php" name="lib/Sync.php" />
    <install as="wicked/lib/Test.php" name="lib/Test.php" />
    <install as="wicked/lib/Wicked.php" name="lib/Wicked.php" />
    <install as="wicked/lib/Block/Page.php" name="lib/Block/Page.php" />
@@ -691,9 +676,6 @@
    <install as="wicked/lib/Page/Search.php" name="lib/Page/Search.php" />
    <install as="wicked/lib/Page/StandardHistoryPage.php" name="lib/Page/StandardHistoryPage.php" />
    <install as="wicked/lib/Page/StandardPage.php" name="lib/Page/StandardPage.php" />
-   <install as="wicked/lib/Page/SyncDiff.php" name="lib/Page/SyncDiff.php" />
-   <install as="wicked/lib/Page/SyncPages.php" name="lib/Page/SyncPages.php" />
-   <install as="wicked/lib/Sync/Wicked.php" name="lib/Sync/Wicked.php" />
    <install as="wicked/lib/Text_Wiki/Parse/BBCode/Attribute.php" name="lib/Text_Wiki/Parse/BBCode/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Parse/BBCode/Code2.php" name="lib/Text_Wiki/Parse/BBCode/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/BBCode/Image2.php" name="lib/Text_Wiki/Parse/BBCode/Image2.php" />
@@ -813,15 +795,10 @@
    <install as="wicked/templates/history/summary.html.php" name="templates/history/summary.html.php" />
    <install as="wicked/templates/pagelist/footer.html.php" name="templates/pagelist/footer.html.php" />
    <install as="wicked/templates/pagelist/header.html.php" name="templates/pagelist/header.html.php" />
-   <install as="wicked/templates/pagelist/results_footer.inc" name="templates/pagelist/results_footer.inc" />
+   <install as="wicked/templates/pagelist/results_footer.html.php" name="templates/pagelist/results_footer.html.php" />
    <install as="wicked/templates/pagelist/results_header.html.php" name="templates/pagelist/results_header.html.php" />
-   <install as="wicked/templates/pagelist/search.inc" name="templates/pagelist/search.inc" />
+   <install as="wicked/templates/pagelist/search.html.php" name="templates/pagelist/search.html.php" />
    <install as="wicked/templates/pagelist/_page.html.php" name="templates/pagelist/_page.html.php" />
-   <install as="wicked/templates/sync/diff.inc" name="templates/sync/diff.inc" />
-   <install as="wicked/templates/sync/footer.inc" name="templates/sync/footer.inc" />
-   <install as="wicked/templates/sync/form.inc" name="templates/sync/form.inc" />
-   <install as="wicked/templates/sync/header.inc" name="templates/sync/header.inc" />
-   <install as="wicked/templates/sync/list.inc" name="templates/sync/list.inc" />
    <install as="Wicked/AllTests.php" name="test/Wicked/AllTests.php" />
    <install as="Wicked/Autoload.php" name="test/Wicked/Autoload.php" />
    <install as="Wicked/bootstrap.php" name="test/Wicked/bootstrap.php" />
