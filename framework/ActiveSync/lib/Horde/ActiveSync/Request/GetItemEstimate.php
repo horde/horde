@@ -208,6 +208,10 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $status = self::STATUS_SUCCESS;
             try {
                 $collections->initCollectionState($collection);
+                $count = $collections->getCollectionChangeCount();
+            } catch (Horde_ActiveSync_Exception_StaleState $e) {
+                $this->_logger->debug('Stale state detected.');
+                $status = self::STATUS_KEYMISM;
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
                 $this->_logger->warn('State Gone. Terminating GETITEMESTIMATE');
                 $status = self::STATUS_NOTPRIMED;
@@ -230,7 +234,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->endTag();
             if ($status == self::STATUS_SUCCESS) {
                 $this->_encoder->startTag(self::ESTIMATE);
-                $this->_encoder->content($collections->getCollectionChangeCount());
+                $this->_encoder->content($count);
                 $this->_encoder->endTag();
             }
             $this->_encoder->endTag();
