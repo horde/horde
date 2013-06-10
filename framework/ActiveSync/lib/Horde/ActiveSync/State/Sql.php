@@ -841,7 +841,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function getChanges(array $options = array())
     {
-        $this->_thisSyncStamp = $this->_backend->getSyncStamp($this->_collection['id'], $this->_lastSyncStamp);
+        $this->_thisSyncStamp = $this->_backend->getSyncStamp(empty($this->_collection['id']) ? null : $this->_collection['id'], $this->_lastSyncStamp);
         if (!$this->_thisSyncStamp) {
             throw new Horde_ActiveSync_Exception_StaleState('Detecting a change in timestamp or modification sequence. Reseting state.');
         }
