@@ -49,6 +49,9 @@ var ImpMobile = {
     // Mailbox data cache.
     cache: {},
 
+    // The scroll location of the current mailbox.
+    mailboxTop: 0,
+
     // Rows per mailbox slice.
     mbox_slice: 30,
 
@@ -66,6 +69,20 @@ var ImpMobile = {
     toPage: function(e, data)
     {
         var view = data.options.parsedUrl.view;
+
+        if ($.type(data.toPage) !== "string") {
+            switch (HordeMobile.currentPage()) {
+            case 'folders':
+                ImpMobile.mailboxTop = 0;
+                break;
+
+            case 'mailbox':
+                ImpMobile.mailboxTop = $('html').scrollTop();
+                break;
+            }
+
+            return;
+        }
 
         switch (view) {
         case 'compose':
@@ -317,6 +334,8 @@ var ImpMobile = {
     {
         switch (HordeMobile.currentPage()) {
         case 'mailbox':
+            $.mobile.silentScroll(ImpMobile.mailboxTop);
+
             // Need to do here since Exit Search does not trigger beforeShow.
             $.fn[ImpMobile.search ? 'hide' : 'show'].call($('#imp-mailbox-search'));
             $.fn[ImpMobile.search ? 'show' : 'hide'].call($('#imp-mailbox-searchedit'));
