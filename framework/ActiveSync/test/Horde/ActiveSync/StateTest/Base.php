@@ -498,6 +498,8 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         );
         $driver = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Base');
         $driver->expects($this->any())->method('getFolderList')->will($this->returnValue($fixture));
+        $driver->expects($this->any())->method('getSyncStamp')->will($this->returnValue(100));
+
         return $driver;
     }
 
