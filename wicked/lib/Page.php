@@ -464,7 +464,11 @@ class Wicked_Page
         $skip[] = 'heading2';
         $this->_proc->setParseConf('Paragraph', 'skip', $skip);
 
-        $this->_proc->insertRule('Toc2', 'Toc');
+        if ($GLOBALS['conf']['wicked']['format'] == 'Default' ||
+            $GLOBALS['conf']['wicked']['format'] == 'Cowiki' ||
+            $GLOBALS['conf']['wicked']['format'] == 'Tiki') {
+            $this->_proc->insertRule('Toc2', 'Toc');
+        }
         $this->_proc->deleteRule('Toc');
 
         switch ($output_format) {
