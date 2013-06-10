@@ -2245,14 +2245,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * sync range. If the collection backend supports modification sequences,
      * we will use that, otherwise return the current timestamp.
      *
-     * @param $collection string  The collection id we are currently requesting.
+     * @param string $collection  The collection id we are currently requesting.
+     * @param integer $last       The last syncstamp, if known. Used to help
+     *                            sanity check the state.
      *
-     * @return integer  The SyncStamp
+     * @return integer|boolean  The SyncStamp or false if an error is encountered.
      */
-    public function getSyncStamp($collection)
+    public function getSyncStamp($collection, $last = null)
     {
         if ($this->_connector->hasFeature('modseq', $collection)) {
             $modseq = $this->_connector->getHighestModSeq($collection);
+            // Sanity check - if the last syncstamp is higher then the
+            // current modification sequence, something is wrong. Could be
+            // the history backend just happend to have deleted the most recent
+            // entry or (more likely) we are transitioning from using
+            // timestamps to using sequences. In this case the difference would
+            // be VERY large, so try to detect that.
+            if (!empty($last) && $last > $modseq && (($last - $modseq) > 1000000000)) {
+                return false;
+            }
             $this->_logger->info(sprintf('[%s] Using MODSEQ %s for %s.',
                 getmypid(),
                 $modseq,

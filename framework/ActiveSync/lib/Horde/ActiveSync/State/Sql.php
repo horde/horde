@@ -832,15 +832,20 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * Get all items that have changed since the last sync time
      *
      * @param array $options  An options array:
-     *      - ping:  (boolean)  Only detect if there is a change, do not build
+     *      - ping: (boolean)  Only detect if there is a change, do not build
      *                          any messages.
      *               DEFAULT: false (Build full change array).
      *
      * @return array
+     * @throws Horde_ActiveSync_Exception_StaleState
      */
     public function getChanges(array $options = array())
     {
-        $this->_thisSyncTS = $this->_backend->getSyncStamp($this->_collection['id']);
+        $this->_thisSyncTS = $this->_backend->getSyncStamp($this->_collection['id'], $this->_lastSyncTS);
+        if (!$this->_thisSyncTS) {
+            throw new Horde_ActiveSync_Exception_StaleState('Detecting a change in timestamp or modification sequence. Reseting state.');
+        }
+
         if (!empty($this->_collection['id'])) {
             // How far back to sync (for those collections that use this)
             $cutoffdate = self::_getCutOffDate(!empty($this->_collection['filtertype'])
