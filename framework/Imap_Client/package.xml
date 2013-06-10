@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] So many IMAP servers have issues with BINARY, that we should not send literal8 data unless we absolutely have to.
 * [mms] Remove read/write buffering from stream connection to remote server.
 * [mms] Ensure we only use literal8&apos;s in APPEND commands.
 * [mms] Abstract connection code into separate library, to better handle output buffering and error handling.
@@ -1829,6 +1830,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] So many IMAP servers have issues with BINARY, that we should not send literal8 data unless we absolutely have to.
 * [mms] Remove read/write buffering from stream connection to remote server.
 * [mms] Ensure we only use literal8&apos;s in APPEND commands.
 * [mms] Abstract connection code into separate library, to better handle output buffering and error handling.

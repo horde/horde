@@ -1678,9 +1678,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'skipscan' => true
         ));
 
-        // Force output to binary. Not much we can do if server doesn't
-        // support, so just deal with it at send-time.
-        $ob->forceBinary();
+        // APPEND data MUST be sent in a literal (RFC 3501 6.3.11).
+        $ob->forceLiteral();
 
         $asize += $ob->length();
 
