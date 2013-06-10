@@ -150,7 +150,7 @@
       <span id="upload_limit" style="display:none"><?php echo _("The attachment limit has been reached.") ?></span>
       <span id="upload_wait" style="display:none"></span>
       <span>
-       <a id="compose_upload_add"><?php echo _("Add Attachment") ?></a>
+       <label id="compose_upload_add" for="upload"><?php echo _("Add Attachment") ?></label>
        <?php echo $this->fileFieldTag('file_upload', array('id' => 'upload')) ?>
       </span>
 <?php else: ?>

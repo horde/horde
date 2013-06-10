@@ -2,6 +2,8 @@
 v6.1.1-git
 ----------
 
+[mms] Workaround IE javascript limitations preventing attachments from being
+      uploaded in dynamic view.
 [mms] Remember mailbox list position when viewing messages in smartmobile view.
 [mms] Fix handling unsuccessful mailbox import in dynamic view.
 [mms] Mailbox imports are now limited to 500 messages by default.

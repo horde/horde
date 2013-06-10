@@ -973,7 +973,9 @@ var DimpCompose = {
             break;
 
         case 'compose_upload_add':
-            $('upload').click();
+            if (Prototype.Browser.Gecko) {
+                $('upload').click();
+            }
             break;
 
         case 'fwdattachnotice':

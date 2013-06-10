@@ -634,6 +634,8 @@ div.dimpActionsMsg #windowclose {
 }
 
 #compose_upload_add {
+    color: #36525d;
+    cursor: pointer;
     display: inline-block;
     font-weight: bold;
     margin-top: 4px;
