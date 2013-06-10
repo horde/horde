@@ -1,17 +1,28 @@
 <?php
 /**
- * Wicked BackLinks class.
- *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
  */
-class Wicked_Page_BackLinks extends Wicked_Page {
 
+/**
+ * Display page backlinks
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
+ */
+class Wicked_Page_BackLinks extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *

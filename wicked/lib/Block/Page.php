@@ -1,13 +1,21 @@
 <?php
 /**
- * A block to display a Wiki page.
- *
  * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author Jason Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author  Jason Felice <jason.m.felice@gmail.com>
+ */
+
+/**
+ * A block to display a Wiki page.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author  Jason Felice <jason.m.felice@gmail.com>
  */
 class Wicked_Block_Page extends Horde_Core_Block
 {

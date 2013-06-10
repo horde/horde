@@ -1,8 +1,5 @@
 <?php
 /**
- * Renders Wiki pages to restructured text
- * (http://docutils.sourceforge.net/rst.html).
- *
  * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If

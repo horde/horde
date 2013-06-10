@@ -1,12 +1,21 @@
 <?php
 /**
- * Wicked_Driver defines an API for implementing storage backends for Wicked.
- *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author  Tyler Colbert <tyler@colberts.us>
+ * @package Wicked
+ */
+
+/**
+ * Wicked_Driver defines an API for implementing storage backends for Wicked.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */

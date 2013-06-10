@@ -1,15 +1,12 @@
 <?php
 /**
- * Wicked application API.
- *
- * This file defines Horde's core API interface. Other core Horde libraries
- * can interact with Wicked through this API.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package Wicked
  */
 
@@ -32,6 +29,16 @@ if (!defined('HORDE_BASE')) {
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
+/**
+ * Wicked application API.
+ *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Wicked through this API.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package Wicked
+ */
 class Wicked_Application extends Horde_Registry_Application
 {
     /**

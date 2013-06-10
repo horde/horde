@@ -1,15 +1,27 @@
 <?php
 /**
- * @package Wicked
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @package  Wicked
  */
 
 /**
  * Wicked storage implementation for the Horde_Db database abstraction layer.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @package  Wicked
  */
 class Wicked_Driver_Sql extends Wicked_Driver
 {

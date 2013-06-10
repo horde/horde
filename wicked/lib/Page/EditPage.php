@@ -5,16 +5,24 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @package  Wicked
+ */
 
 /**
- * Wicked EditPage class.
+ * Displays and handles the form to edit pages.
  *
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @package  Wicked
  */
-class Wicked_Page_EditPage extends Wicked_Page {
-
+class Wicked_Page_EditPage extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *

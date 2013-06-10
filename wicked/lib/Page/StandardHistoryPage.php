@@ -1,12 +1,28 @@
 <?php
 /**
- * Wicked Page class for old versions of pages.
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @package Wicked
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
  */
-class Wicked_Page_StandardHistoryPage extends Wicked_Page_StandardPage {
 
+/**
+ * Page class for old versions of pages.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
+ */
+class Wicked_Page_StandardHistoryPage extends Wicked_Page_StandardPage
+{
     /**
      * Display modes supported by this page.
      *

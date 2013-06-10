@@ -5,17 +5,24 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @package  Wicked
  */
 
 /**
- * Wicked DeletePage class (for confirming deletion).
+ * Displays a confirmation form for deleting pages.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @package  Wicked
  */
-class Wicked_Page_DeletePage extends Wicked_Page {
-
+class Wicked_Page_DeletePage extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *

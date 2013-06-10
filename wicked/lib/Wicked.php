@@ -1,14 +1,23 @@
 <?php
 /**
- * Wicked Base Class.
- *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
+ */
+
+/**
+ * Wicked Base Class.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
  */
 class Wicked
 {
