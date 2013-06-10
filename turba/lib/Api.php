@@ -503,7 +503,6 @@ class Turba_Api extends Horde_Registry_Api
 
         foreach ($this->_getSources($sources) as $source) {
             $sdriver = $driver->create($source);
-
             if (!$isModSeq) {
                 $histories = $history->getByTimestamp(
                     '>', $timestamp, $filter,
@@ -511,7 +510,7 @@ class Turba_Api extends Horde_Registry_Api
                 );
             } else {
                 $histories = $history->getByModSeq(
-                    $timestamp, $end, $filter, 'turba:' . $driver->getName());
+                    $timestamp, $end, $filter, 'turba:' . $sdriver->getName());
             }
 
             // Filter out groups
