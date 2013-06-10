@@ -77,7 +77,7 @@ var ImpMobile = {
                 break;
 
             case 'mailbox':
-                ImpMobile.mailboxTop = $('html').scrollTop();
+                ImpMobile.mailboxTop = $(window).scrollTop();
                 break;
             }
 
