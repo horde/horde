@@ -81,6 +81,11 @@ extends Horde_Imap_Client_Base_Connection
 
         stream_set_timeout($this->_stream, $timeout);
 
+        if (function_exists('stream_set_read_buffer')) {
+            stream_set_read_buffer($this->_stream, 0);
+        }
+        stream_set_write_buffer($this->_stream, 0);
+
         $this->_connected = true;
     }
 
