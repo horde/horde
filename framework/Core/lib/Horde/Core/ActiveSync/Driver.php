@@ -2254,8 +2254,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSyncStamp($collection, $last = null)
     {
-        // For Email collections, we don't care.
-        if (!in_array($collection, array(self::APPOINTMENTS_FOLDER_UID, self::NOTES_FOLDER_UID, self::CONTACTS_FOLDER_UID, self::TASKS_FOLDER_UID))) {
+        // For FolderSync (empty $collection) or Email collections, we don't care.
+        if (empty($collection) ||
+            !in_array($collection, array(self::APPOINTMENTS_FOLDER_UID, self::NOTES_FOLDER_UID, self::CONTACTS_FOLDER_UID, self::TASKS_FOLDER_UID))) {
             return time();
         }
 
