@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2013-06-10</date>
- <time>23:04:30</time>
+ <time>23:53:21</time>
  <version>
   <release>2.0.0beta1</release>
   <api>2.0.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix parsing of headings in other than the default rule (Bug #12211).
 * [jan] Remove synchronization code.
 * [jan] Convert all templates to Horde_View.
 * [jan] Add Most Popular and Least Popular pages to sidebar selection.
@@ -155,6 +156,7 @@
        <file name="Attribute.php" role="horde" />
        <file name="Code2.php" role="horde" />
        <file name="Freelink2.php" role="horde" />
+       <file name="Heading2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
@@ -162,6 +164,7 @@
       </dir> <!-- /lib/Text_Wiki/Parse/Cowiki -->
       <dir name="Creole">
        <file name="Attribute.php" role="horde" />
+       <file name="Heading2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
@@ -181,6 +184,7 @@
       <dir name="Mediawiki">
        <file name="Attribute.php" role="horde" />
        <file name="Code2.php" role="horde" />
+       <file name="Heading2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
@@ -190,6 +194,7 @@
        <file name="Attribute.php" role="horde" />
        <file name="Code2.php" role="horde" />
        <file name="Freelink2.php" role="horde" />
+       <file name="Heading2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
@@ -684,11 +689,13 @@
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Attribute.php" name="lib/Text_Wiki/Parse/Cowiki/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Code2.php" name="lib/Text_Wiki/Parse/Cowiki/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Freelink2.php" name="lib/Text_Wiki/Parse/Cowiki/Freelink2.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Heading2.php" name="lib/Text_Wiki/Parse/Cowiki/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Image2.php" name="lib/Text_Wiki/Parse/Cowiki/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Registrylink.php" name="lib/Text_Wiki/Parse/Cowiki/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Wickedblock.php" name="lib/Text_Wiki/Parse/Cowiki/Wickedblock.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Wikilink2.php" name="lib/Text_Wiki/Parse/Cowiki/Wikilink2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Creole/Attribute.php" name="lib/Text_Wiki/Parse/Creole/Attribute.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Creole/Heading2.php" name="lib/Text_Wiki/Parse/Creole/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Creole/Image2.php" name="lib/Text_Wiki/Parse/Creole/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Creole/Registrylink.php" name="lib/Text_Wiki/Parse/Creole/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Creole/Wickedblock.php" name="lib/Text_Wiki/Parse/Creole/Wickedblock.php" />
@@ -704,6 +711,7 @@
    <install as="wicked/lib/Text_Wiki/Parse/Default/Wikilink2.php" name="lib/Text_Wiki/Parse/Default/Wikilink2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Attribute.php" name="lib/Text_Wiki/Parse/Mediawiki/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Code2.php" name="lib/Text_Wiki/Parse/Mediawiki/Code2.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Heading2.php" name="lib/Text_Wiki/Parse/Mediawiki/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Image2.php" name="lib/Text_Wiki/Parse/Mediawiki/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Registrylink.php" name="lib/Text_Wiki/Parse/Mediawiki/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Wickedblock.php" name="lib/Text_Wiki/Parse/Mediawiki/Wickedblock.php" />
@@ -711,6 +719,7 @@
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Attribute.php" name="lib/Text_Wiki/Parse/Tiki/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Code2.php" name="lib/Text_Wiki/Parse/Tiki/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Freelink2.php" name="lib/Text_Wiki/Parse/Tiki/Freelink2.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Tiki/Heading2.php" name="lib/Text_Wiki/Parse/Tiki/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Image2.php" name="lib/Text_Wiki/Parse/Tiki/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Registrylink.php" name="lib/Text_Wiki/Parse/Tiki/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Wickedblock.php" name="lib/Text_Wiki/Parse/Tiki/Wickedblock.php" />
@@ -929,6 +938,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix parsing of headings in other than the default rule (Bug #12211).
 * [jan] Remove synchronization code.
 * [jan] Convert all templates to Horde_View.
 * [jan] Add Most Popular and Least Popular pages to sidebar selection.
