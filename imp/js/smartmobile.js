@@ -192,13 +192,7 @@ var ImpMobile = {
             break;
 
         case 'mailbox-refresh':
-            HordeMobile.doAction(
-                'viewPort',
-                ImpMobile.addViewportParams({
-                    checkcache: 1,
-                    view: ImpMobile.mailbox
-                })
-            );
+            ImpMobile.refreshMailbox();
             e.preventDefault();
             $('#mailbox :jqmData(role=footer) a[href$="refresh"]').removeClass($.mobile.activeBtnClass).blur();
             break;
@@ -344,9 +338,7 @@ var ImpMobile = {
                 window.clearInterval(ImpMobile.refresh);
                 ImpMobile.refresh = window.setInterval(function() {
                     if (HordeMobile.currentPage() == 'mailbox') {
-                        $.mobile.changePage(HordeMobile.createUrl('mailbox', {
-                            mbox: ImpMobile.mailbox
-                        }));
+                        ImpMobile.refreshMailbox();
                     }
                 }, IMP.conf.refresh_time * 1000);
             }
@@ -418,6 +410,19 @@ var ImpMobile = {
             ImpMobile.addViewportParams($.extend(params, {
                 view: mailbox
             }))
+        );
+    },
+
+    /**
+     */
+    refreshMailbox: function()
+    {
+        HordeMobile.doAction(
+            'viewPort',
+            ImpMobile.addViewportParams({
+                checkcache: 1,
+                view: ImpMobile.mailbox
+            })
         );
     },
 
