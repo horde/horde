@@ -1046,7 +1046,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         $dataavailable = true;
                         $this->setGetChangesFlag($id);
                     }
-                } catch (Horde_ActiveSync_Expcetion_StaleState $e) {
+                } catch (Horde_ActiveSync_Exception_StaleState $e) {
                     $this->_logger->notice(sprintf(
                         '[%s] SYNC terminating and force-clearing device state: %s',
                         $this->_procid,
