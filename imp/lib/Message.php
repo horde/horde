@@ -838,7 +838,7 @@ class IMP_Message
             }
 
             /* Make sure there is at least 1 message before attempting to
-               delete. */
+             * delete. */
             try {
                 $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_MESSAGES);
                 if (empty($status['messages'])) {
@@ -847,7 +847,9 @@ class IMP_Message
                 }
 
                 if (!$trash || ($trash == $mbox)) {
-                    $this->flagAllInMailbox(array(Horde_Imap_Client::FLAG_DELETED), array($mbox), true);
+                    $imp_imap->store($mbox, array(
+                        'add' => array(Horde_Imap_Client::FLAG_DELETED)
+                    ));
                     $this->expungeMailbox(array(strval($mbox) => 1));
                 } else {
                     $ret = $imp_imap->search($mbox);
