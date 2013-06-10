@@ -29,17 +29,6 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
-Upgrading IMP From 6.1.0 To 6.1.1
-=================================
-
-Server Options (backends.php)
------------------------------
-
-Importing mailbox files is now limited by default to 500 messages. This value
-can be changed via the advanced 'import_limit' option.
-
-
-
 Upgrading IMP From 6.0.x To 6.1
 ===============================
 
