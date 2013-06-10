@@ -499,11 +499,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                             indicate *some* change has taken place. The
      *                             value should not be used to determine *what*
      *                             change has taken place.
+     * @param boolean $ignoreFirstSync  If true, will not trigger an initial sync
+     *                                  if $from_ts is 0. Needed to avoid race
+     *                                  conditions when we don't have any history
+     *                                  data. @since 2.6.0
      *
      * @return array A list of messge uids that have changed in the specified
      *               time period.
      */
-    public function getServerChanges($folder, $from_ts, $to_ts, $cutoffdate, $ping)
+    public function getServerChanges($folder, $from_ts, $to_ts, $cutoffdate, $ping, $ignoreFirstSync = false)
     {
         $this->_logger->info(sprintf(
             "[%s] Horde_Core_ActiveSync_Driver::getServerChanges(%s, %u, %u, %u, %d)",
@@ -524,7 +528,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         ob_start();
         switch ($folder->collectionClass()) {
         case Horde_ActiveSync::CLASS_CALENDAR:
-            if ($from_ts == 0) {
+            if ($from_ts == 0 && !$ignoreFirstSync) {
                 // Can't use History if it's a first sync
                 $startstamp = (int)$cutoffdate;
                 $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
@@ -554,7 +558,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         case Horde_ActiveSync::CLASS_CONTACTS:
             // Can't use History for first sync
-            if ($from_ts == 0) {
+            if ($from_ts == 0 && !$ignoreFirstSync) {
                 try {
                     $changes['add'] = $this->_connector->contacts_listUids();
                 } catch (Horde_Exception_AuthenticationFailure $e) {
@@ -581,7 +585,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         case Horde_ActiveSync::CLASS_TASKS:
             // Can't use History for first sync
-            if ($from_ts == 0) {
+            if ($from_ts == 0 && !$ignoreFirstSync) {
                 try {
                     $changes['add'] = $this->_connector->tasks_listUids();
                 } catch (Horde_Exception_AuthenticationFailure $e) {
@@ -608,7 +612,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         case Horde_ActiveSync::CLASS_NOTES:
             // Can't use History for first sync
-            if ($from_ts == 0) {
+            if ($from_ts == 0 && !$ignoreFirstSync) {
                 try {
                     $changes['add'] = $this->_connector->notes_listUids();
                 } catch (Horde_Exception_AuthenticationFailure $e) {

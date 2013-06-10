@@ -48,6 +48,13 @@ abstract class Horde_ActiveSync_Folder_Base
     protected $_class;
 
     /**
+     * Flag for indicating we have an initial sync for this collection.
+     *
+     * @var boolean
+     */
+    public $haveInitialSync = true;
+
+    /**
      * Const'r
      *
      * @param string $serverid  The backend serverid of this folder.

@@ -26,6 +26,12 @@
  */
 class Horde_ActiveSync_Folder_Collection extends Horde_ActiveSync_Folder_Base
 {
+    /**
+     * Flag for indicating we have an initial sync for this collection.
+     *
+     * @var boolean
+     */
+    public $haveInitialSync = false;
 
     /**
      * Updates the internal UID cache, and clears the internal
@@ -33,6 +39,7 @@ class Horde_ActiveSync_Folder_Collection extends Horde_ActiveSync_Folder_Base
      */
     public function updateState()
     {
+        $this->haveInitialSync = true;
     }
 
     /**
