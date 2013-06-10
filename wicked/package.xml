@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-07</date>
- <time>19:05:36</time>
+ <date>2013-06-10</date>
+ <time>19:55:46</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -110,6 +110,8 @@
     <file name="TODO" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
+    <file name="edit.js" role="horde" />
+    <file name="history.js" role="horde" />
     <file name="toc.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
@@ -342,28 +344,27 @@
      <file name="AttachedFiles.html.php" role="horde" />
      <file name="MergeOrRename.html.php" role="horde" />
      <file name="RecentChanges.html.php" role="horde" />
-     <file name="standard.inc" role="horde" />
-     <file name="title.inc" role="horde" />
+     <file name="standard.html.php" role="horde" />
+     <file name="title.html.php" role="horde" />
     </dir> <!-- /templates/display -->
     <dir name="edit">
-     <file name="create.inc" role="horde" />
-     <file name="new.inc" role="horde" />
-     <file name="preview.inc" role="horde" />
-     <file name="standard.inc" role="horde" />
+     <file name="create.html.php" role="horde" />
+     <file name="new.html.php" role="horde" />
+     <file name="preview.html.php" role="horde" />
+     <file name="standard.html.php" role="horde" />
     </dir> <!-- /templates/edit -->
     <dir name="history">
-     <file name="footer.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="summary.inc" role="horde" />
+     <file name="footer.html.php" role="horde" />
+     <file name="header.html.php" role="horde" />
+     <file name="summary.html.php" role="horde" />
     </dir> <!-- /templates/history -->
     <dir name="pagelist">
-     <file name="footer.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="pagelist.html.php" role="horde" />
+     <file name="footer.html.php" role="horde" />
+     <file name="header.html.php" role="horde" />
      <file name="results_footer.inc" role="horde" />
      <file name="results_header.html.php" role="horde" />
      <file name="search.inc" role="horde" />
-     <file name="summary.inc" role="horde" />
+     <file name="_page.html.php" role="horde" />
     </dir> <!-- /templates/pagelist -->
     <dir name="sync">
      <file name="diff.inc" role="horde" />
@@ -660,6 +661,8 @@
    <install as="lighttpd-wicked.conf" name="docs/lighttpd-wicked.conf" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
+   <install as="wicked/js/edit.js" name="js/edit.js" />
+   <install as="wicked/js/history.js" name="js/history.js" />
    <install as="wicked/js/toc.js" name="js/toc.js" />
    <install as="wicked/lib/Api.php" name="lib/Api.php" />
    <install as="wicked/lib/Application.php" name="lib/Application.php" />
@@ -799,22 +802,21 @@
    <install as="wicked/templates/display/AttachedFiles.html.php" name="templates/display/AttachedFiles.html.php" />
    <install as="wicked/templates/display/MergeOrRename.html.php" name="templates/display/MergeOrRename.html.php" />
    <install as="wicked/templates/display/RecentChanges.html.php" name="templates/display/RecentChanges.html.php" />
-   <install as="wicked/templates/display/standard.inc" name="templates/display/standard.inc" />
-   <install as="wicked/templates/display/title.inc" name="templates/display/title.inc" />
-   <install as="wicked/templates/edit/create.inc" name="templates/edit/create.inc" />
-   <install as="wicked/templates/edit/new.inc" name="templates/edit/new.inc" />
-   <install as="wicked/templates/edit/preview.inc" name="templates/edit/preview.inc" />
-   <install as="wicked/templates/edit/standard.inc" name="templates/edit/standard.inc" />
-   <install as="wicked/templates/history/footer.inc" name="templates/history/footer.inc" />
-   <install as="wicked/templates/history/header.inc" name="templates/history/header.inc" />
-   <install as="wicked/templates/history/summary.inc" name="templates/history/summary.inc" />
-   <install as="wicked/templates/pagelist/footer.inc" name="templates/pagelist/footer.inc" />
-   <install as="wicked/templates/pagelist/header.inc" name="templates/pagelist/header.inc" />
-   <install as="wicked/templates/pagelist/pagelist.html.php" name="templates/pagelist/pagelist.html.php" />
+   <install as="wicked/templates/display/standard.html.php" name="templates/display/standard.html.php" />
+   <install as="wicked/templates/display/title.html.php" name="templates/display/title.html.php" />
+   <install as="wicked/templates/edit/create.html.php" name="templates/edit/create.html.php" />
+   <install as="wicked/templates/edit/new.html.php" name="templates/edit/new.html.php" />
+   <install as="wicked/templates/edit/preview.html.php" name="templates/edit/preview.html.php" />
+   <install as="wicked/templates/edit/standard.html.php" name="templates/edit/standard.html.php" />
+   <install as="wicked/templates/history/footer.html.php" name="templates/history/footer.html.php" />
+   <install as="wicked/templates/history/header.html.php" name="templates/history/header.html.php" />
+   <install as="wicked/templates/history/summary.html.php" name="templates/history/summary.html.php" />
+   <install as="wicked/templates/pagelist/footer.html.php" name="templates/pagelist/footer.html.php" />
+   <install as="wicked/templates/pagelist/header.html.php" name="templates/pagelist/header.html.php" />
    <install as="wicked/templates/pagelist/results_footer.inc" name="templates/pagelist/results_footer.inc" />
    <install as="wicked/templates/pagelist/results_header.html.php" name="templates/pagelist/results_header.html.php" />
    <install as="wicked/templates/pagelist/search.inc" name="templates/pagelist/search.inc" />
-   <install as="wicked/templates/pagelist/summary.inc" name="templates/pagelist/summary.inc" />
+   <install as="wicked/templates/pagelist/_page.html.php" name="templates/pagelist/_page.html.php" />
    <install as="wicked/templates/sync/diff.inc" name="templates/sync/diff.inc" />
    <install as="wicked/templates/sync/footer.inc" name="templates/sync/footer.inc" />
    <install as="wicked/templates/sync/form.inc" name="templates/sync/form.inc" />

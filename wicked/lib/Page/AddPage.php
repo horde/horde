@@ -59,35 +59,26 @@ class Wicked_Page_AddPage extends Wicked_Page {
      */
     public function display()
     {
-        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        global $injector, $page_output, $wicked;
+
+        $view = $injector->createInstance('Horde_View');
         $view->action = Wicked::url('NewPage');
         $view->formInput = Horde_Util::formInput();
         $view->referrer = $this->referrer();
         $view->name = $this->pageName();
         if ($this->_results) {
-            $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
-            $pagelist = $GLOBALS['injector']->createInstance('Horde_View');
-            $pagelist->pages = array();
+            $page_output->addScriptFile('tables.js', 'horde');
+            $view->pages = array();
             foreach ($this->_results as $page) {
                 if (!empty($page['page_history'])) {
                     $page = new Wicked_Page_StandardHistoryPage($page);
                 } else {
                     $page = new Wicked_Page_StandardPage($page);
                 }
-
-                $pagelist->pages[] = array(
-                    'author' => $page->author(),
-                    'created' => $page->formatVersionCreated(),
-                    'name' => $page->pageUrl()->link()
-                        . htmlspecialchars($page->pageName()) . '</a>',
-                    'timestamp' => $page->versionCreated(),
-                    'version' => $page->pageUrl()->link() . $page->version() . '</a>',
-                );
+                $view->pages[] = $page->toView();
             }
-            $view->searchResults = $pagelist->render('pagelist/pagelist');
         }
-        $view->templates = $GLOBALS['wicked']
-            ->getMatchingPages('Template', Wicked_Page::MATCH_ENDS);
+        $view->templates = $wicked->getMatchingPages('Template', Wicked_Page::MATCH_ENDS);
         $view->help = Horde_Help::link('wicked', 'Templates');
 
         return $view->render('edit/create');

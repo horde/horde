@@ -54,20 +54,10 @@ class Wicked_Page_LikePages extends Wicked_Page {
             } else {
                 $page = new Wicked_Page_StandardPage($page);
             }
-            $view->displayLink = $page->pageUrl()
-              ->link(array(
-                  'title' => sprintf(_("Display %s"), $page->pageName())
-              ))
-              . $page->pageName() . '</a>';
-            $view->versionLink = $page->pageUrl()
-                ->link(array(
-                    'title' => sprintf(_("Display Version %s"), $page->version())
-                ))
-                . $page->version() . '</a>';
-            $view->author = $page->author();
-            $view->timestamp = $page->versionCreated();
-            $view->date = $page->formatVersionCreated();
-            $content .= $view->render('pagelist/summary');
+            $content .= $view->renderPartial(
+                'pagelist/page',
+                array('object' => $page->toView())
+            );
         }
 
         return $content . $view->render('pagelist/footer');

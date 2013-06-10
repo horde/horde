@@ -428,7 +428,7 @@ class Wicked_Page
         throw new Wicked_Exception(_("Unsupported"));
     }
 
-    public function &getProcessor($output_format = 'Xhtml')
+    public function getProcessor($output_format = 'Xhtml')
     {
         if (isset($this->_proc)) {
             return $this->_proc;
@@ -559,6 +559,34 @@ class Wicked_Page
         default:
             throw new Wicked_Exception(_("Unsupported"));
         }
+    }
+
+    /**
+     * Returns an object with Horde_View properties.
+     *
+     * The returned object is supposed to be used with the _page.html.php
+     * partial.
+     *
+     * @return object  A simple object.
+     * @throws Wicked_Exception
+     */
+    public function toView()
+    {
+        return (object)array(
+            'author' => $this->author(),
+            'date' => $this->formatVersionCreated(),
+            'name' => $this->pageUrl()
+                ->link(array(
+                    'title' => sprintf(_("Display %s"), $this->pageName())
+                ))
+                . htmlspecialchars($this->pageName()) . '</a>',
+            'timestamp' => $this->versionCreated(),
+            'version' => $this->pageUrl()
+                ->link(array(
+                    'title' => sprintf(_("Display Version %s"), $this->version())
+                ))
+                . $this->version() . '</a>',
+        );
     }
 
     public function isLocked()

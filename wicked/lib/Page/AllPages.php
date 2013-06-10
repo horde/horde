@@ -42,24 +42,16 @@ class Wicked_Page_AllPages extends Wicked_Page {
         $pages = array();
         foreach ($this->content() as $page) {
             $page = new Wicked_Page_StandardPage($page);
-            $pages[] = array(
-                'author' => $page->author(),
-                'created' => $page->formatVersionCreated(),
-                'name' => $page->pageUrl()->link()
-                    . htmlspecialchars($page->pageName()) . '</a>',
-                'timestamp' => $page->versionCreated(),
-                'version' => $page->pageUrl()->link() . $page->version() . '</a>',
-            );
+            $pages[] = $page->toView();
         }
 
         $page_output->addScriptFile('tables.js', 'horde');
 
         $view = $injector->createInstance('Horde_View');
-        $view->pages = $pages;
 
         // Show search form and page header.
         return $view->render('pagelist/header')
-            . $view->render('pagelist/pagelist')
+            . $view->renderPartial('pagelist/page', array('collection' => $pages))
             . $view->render('pagelist/footer');
     }
 

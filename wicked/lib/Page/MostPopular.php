@@ -46,25 +46,18 @@ class Wicked_Page_MostPopular extends Wicked_Page {
         $pages = array();
         foreach ($this->content(10) as $page) {
             $page = new Wicked_Page_StandardPage($page);
-            $pages[] = array(
-                'author' => $page->author(),
-                'created' => $page->formatVersionCreated(),
-                'hits' => $page->hits(),
-                'name' => $page->pageUrl()->link()
-                    . htmlspecialchars($page->pageName()) . '</a>',
-                'timestamp' => $page->versionCreated(),
-                'version' => $page->pageUrl()->link() . $page->version() . '</a>',
-            );
+            $object = $page->toView();
+            $object->hits = $page->hits();
+            $pages[] = $object;
         }
 
         $page_output->addScriptFile('tables.js', 'horde');
 
         $view = $injector->createInstance('Horde_View');
-        $view->pages = $pages;
         $view->hits = true;
 
         return $view->render('pagelist/header')
-            . $view->render('pagelist/pagelist')
+            . $view->renderPartial('pagelist/page', array('collection' => $pages))
             . $view->render('pagelist/footer');
     }
 

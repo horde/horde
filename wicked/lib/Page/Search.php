@@ -71,7 +71,7 @@ class Wicked_Page_Search extends Wicked_Page {
      */
     public function display($searchtext)
     {
-        global $injector, $notification;
+        global $injector, $notification, $page_output, $wicked;
 
         $view = $injector->createInstance('Horde_View');
 
@@ -83,24 +83,19 @@ class Wicked_Page_Search extends Wicked_Page {
         /* Prepare exact match section */
         $exact = array();
         $page = new Wicked_Page_StandardPage($searchtext);
-        if ($GLOBALS['wicked']->pageExists($searchtext)) {
-            $exact[] = array(
-                'author' => $page->author(),
-                'created' => $page->formatVersionCreated(),
-                'name' => $page->pageUrl()->link()
-                    . htmlspecialchars($page->pageName()) . '</a>',
-                'timestamp' => $page->versionCreated(),
-                'version' => $page->pageUrl()->link() . $page->version() . '</a>',
-            );
+        if ($wicked->pageExists($searchtext)) {
+            $exact[] = $page->toView();
         } else {
-            $exact[] = array(
+            $exact[] = (object)array(
                 'author' => '',
-                'created' => '',
-                'name' => htmlspecialchars($searchtext),
                 'context' => sprintf(
                     _("%s does not exist. You can create it now."),
                     '<strong>' . htmlspecialchars($searchtext) . '</strong>'
                 ),
+                'date' => '',
+                'name' => htmlspecialchars($searchtext),
+                'timestamp' => 0,
+                'version' => '',
             );
         }
 
@@ -113,14 +108,7 @@ class Wicked_Page_Search extends Wicked_Page {
                 $page = new Wicked_Page_StandardPage($page);
             }
 
-            $titles[] = array(
-                'author' => $page->author(),
-                'created' => $page->formatVersionCreated(),
-                'name' => $page->pageUrl()->link()
-                    . htmlspecialchars($page->pageName()) . '</a>',
-                'timestamp' => $page->versionCreated(),
-                'version' => $page->pageUrl()->link() . $page->version() . '</a>',
-            );
+            $titles[] = $page->toView();
         }
 
         /* Prepare page text matches */
@@ -131,50 +119,40 @@ class Wicked_Page_Search extends Wicked_Page {
             } else {
                 $page = new Wicked_Page_StandardPage($page);
             }
-
-            $pages[] = array(
-                'author' => $page->author(),
-                'context' => $this->getContext($page, $searchtext),
-                'created' => $page->formatVersionCreated(),
-                'name' => $page->pageUrl()->link()
-                    . htmlspecialchars($page->pageName()) . '</a>',
-                'timestamp' => $page->versionCreated(),
-                'version' => $page->pageUrl()->link() . $page->version() . '</a>',
-            );
+            $object = $page->toView();
+            $object->context = $this->getContext($page, $searchtext);
+            $pages[] = $object;
         }
 
-        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
+        $page_output->addScriptFile('tables.js', 'horde');
 
-        $header = $GLOBALS['injector']->createInstance('Horde_View');
+        $header = $injector->createInstance('Horde_View');
         $header->th_page = _("Page");
         $header->th_version = _("Current Version");
         $header->th_author = _("Last Author");
         $header->th_updated = _("Last Update");
 
-        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view = $injector->createInstance('Horde_View');
 
         // Show search form and page header.
         require WICKED_TEMPLATES . '/pagelist/search.inc';
 
         // Show exact match.
         $header->title = _("Exact Match");
-        $view->pages = $exact;
         echo $header->render('pagelist/results_header');
-        echo $view->render('pagelist/pagelist');
+        echo $view->renderPartial('pagelist/page', array('collection' => $exact));
         require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
 
         // Show page title matches.
         $header->title = _("Page Title Matches");
-        $view->pages = $titles;
         echo $header->render('pagelist/results_header');
-        echo $view->render('pagelist/pagelist');
+        echo $view->renderPartial('pagelist/page', array('collection' => $titles));
         require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
 
         // Show page text matches.
         $header->title = _("Page Text Matches");
-        $view->pages = $pages;
         echo $header->render('pagelist/results_header');
-        echo $view->render('pagelist/pagelist');
+        echo $view->renderPartial('pagelist/page', array('collection' => $pages));
         require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
     }
 

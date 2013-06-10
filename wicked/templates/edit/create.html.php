@@ -7,7 +7,7 @@
  <?php echo $this->h($this->name) ?>
 </h1>
 
-<?php if ($this->searchResults): ?>
+<?php if ($this->pages): ?>
 <p class="horde-content">
  <?php printf(_("\"%s\" does not exist, but maybe you were looking for one of the following pages?"), $this->h($this->referrer)) ?>
 </p>
@@ -21,7 +21,7 @@
   </tr>
  </thead>
  <tbody>
- <?php echo $this->searchResults ?>
+<?php echo $this->renderPartial('pagelist/page', array('collection' => $this->pages))  ?>
  </tbody>
 </table>
 <br />
