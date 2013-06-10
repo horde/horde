@@ -475,25 +475,25 @@ class Wicked_Page
         case 'Xhtml':
             if ($GLOBALS['conf']['wicked']['format'] != 'Creole') {
                 $this->_proc->insertRule('Code2', 'Code');
-                $this->_proc->deleteRule('Code');
             }
+            $this->_proc->deleteRule('Code');
 
             if ($GLOBALS['conf']['wicked']['format'] == 'BBCode') {
                 $this->_proc->insertRule('Wickedblock', 'Code2');
             } else {
                 $this->_proc->insertRule('Wikilink2', 'Wikilink');
                 $this->_proc->setParseConf('Wikilink2', 'utf-8', true);
-                $this->_proc->deleteRule('Wikilink');
 
                 $this->_proc->insertRule('Wickedblock', 'Raw');
             }
+            $this->_proc->deleteRule('Wikilink');
 
             if ($GLOBALS['conf']['wicked']['format'] == 'Default' ||
                 $GLOBALS['conf']['wicked']['format'] == 'Cowiki' ||
                 $GLOBALS['conf']['wicked']['format'] == 'Tiki') {
                 $this->_proc->insertRule('Freelink2', 'Freelink');
-                $this->_proc->deleteRule('Freelink');
             }
+            $this->_proc->deleteRule('Freelink');
 
             $this->_proc->insertRule('Image2', 'Image');
             $this->_proc->deleteRule('Image');
