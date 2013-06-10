@@ -295,10 +295,9 @@
  *
  * import_limit: [IMAP only] (integer) The maximum number of messages a user
  *   can import. Importing large mailboxes via the IMAP APPEND command is
- *   a resource-intensive operation. For large mailboxes (with 1000's of
- *   messages), this action will likely timeout before it is successfully
- *   completed. By default, limit importing to 500 messages. Set this to 0
- *   to enforce no message limit.
+ *   potentially a resource-intensive operation, and some IMAP servers (e.g.
+ *   Dovecot 2.2) can be extremely slow in importing. By default, limit
+ *   importing to 2500 messages. Set this to 0 to enforce no message limit.
  *
  * lang: [IMAP only] (array) A list of languages (in priority order) to be
  *   used to display human readable messages returned by the IMAP server. Your

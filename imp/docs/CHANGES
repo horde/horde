@@ -6,7 +6,7 @@ v6.1.1-git
       uploaded in dynamic view.
 [mms] Remember mailbox list position when viewing messages in smartmobile view.
 [mms] Fix handling unsuccessful mailbox import in dynamic view.
-[mms] Mailbox imports are now limited to 500 messages by default.
+[mms] Mailbox imports are now limited to 2500 messages by default.
 [mms] Fix adding addresses from the contacts popup in certain situations (Bug
       #12312).
 [jan] Fix fatal error when importing a PGP key (Bug #12318).

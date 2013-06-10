@@ -246,7 +246,7 @@ class IMP_Imap_Config implements Serializable
 
         case 'import_limit':
             $out = is_null($out)
-                ? 500
+                ? 2500
                 : intval($out);
             break;
 
