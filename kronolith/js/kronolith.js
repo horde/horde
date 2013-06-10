@@ -2994,20 +2994,24 @@ KronolithCore = {
             case 'internal':
                 HordeImple.AutoCompleter.kronolithCalendarinternalTags.reset(Kronolith.conf.calendars.internal[calendar].tg);
                 $('kronolithCalendar' + type + 'ImportCal').setValue('internal_' + calendar);
-                if (info.edit) {
-                    $('kronolithCalendar' + type + 'LinkImport').up('li').show();
-                } else {
-                    $('kronolithCalendar' + type + 'LinkImport').up('li').hide();
+                if ($('kronolithCalendar' + type + 'LinkImport')) {
+                    if (info.edit) {
+                        $('kronolithCalendar' + type + 'LinkImport').up('li').show();
+                    } else {
+                        $('kronolithCalendar' + type + 'LinkImport').up('li').hide();
+                    }
                 }
                 $('kronolithCalendar' + type + 'UrlFeed').setValue(info.feed);
                 $('kronolithCalendar' + type + 'EmbedUrl').setValue(info.embed);
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
-                $('kronolithCalendar' + type + 'LinkExport').up('span').show();
-                $('kronolithCalendar' + type + 'Export').href = type == 'internal'
-                    ? Kronolith.conf.URI_CALENDAR_EXPORT.interpolate({ calendar: calendar })
-                    : Kronolith.conf.tasks.URI_TASKLIST_EXPORT.interpolate({ tasklist: calendar.substring(6) });
+                if ($('kronolithCalendar' + type + 'LinkExport')) {
+                    $('kronolithCalendar' + type + 'LinkExport').up('span').show();
+                    $('kronolithCalendar' + type + 'Export').href = type == 'internal'
+                        ? Kronolith.conf.URI_CALENDAR_EXPORT.interpolate({ calendar: calendar })
+                        : Kronolith.conf.tasks.URI_TASKLIST_EXPORT.interpolate({ tasklist: calendar.substring(6) });
+                }
                 $('kronolithCalendar' + type + 'LinkUrls').up().show();
                 if (info.caldav) {
                     $('kronolithCalendar' + type + 'UrlCaldav').setValue(info.caldav);

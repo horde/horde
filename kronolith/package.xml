@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix propagating calendar URLs if import/export is turned off.
 * [mjr] Add API methods for using history modification sequences.
  </notes>
  <contents>
@@ -2168,6 +2169,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix propagating calendar URLs if import/export is turned off.
 * [mjr] Add API methods for using history modification sequences.
    </notes>
   </release>
