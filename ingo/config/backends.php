@@ -17,6 +17,17 @@
  * $backends['sieve']['disabled'] = false;
  * </code>
  *
+ * Example configuration to use a Dovecot Managesieve backend on a different
+ * host:
+ *
+ * <code>
+ * <?php
+ * $backends['imap']['disabled'] = true;
+ * $backends['sieve']['disabled'] = false;
+ * $backends['sieve']['transport'][Ingo::RULE_ALL]['params']['hostspec'] = 'sieve.example.com';
+ * $backends['sieve']['script'][Ingo::RULE_ALL]['params']['utf8'] = true;
+ * </code>
+ *
  * disabled: (boolean) If true, the config entry is disabled.
  *
  * preferred: (string) This is the field that is used to choose which server
