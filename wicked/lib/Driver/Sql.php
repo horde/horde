@@ -714,7 +714,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
         }
 
         if ($special) {
-            $this->_pageNames += $this->getSpecialPages();
+            return $this->_pageNames + $this->getSpecialPages();
         }
 
         return $this->_pageNames;
