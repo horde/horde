@@ -1,20 +1,5 @@
 <?php
 /**
- * A mock history driver.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  History
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=History
- */
-
-/**
- * The Horde_History_Mock:: class provides a method of tracking changes in
- * Horde objects, stored in memory.
- *
  * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -26,8 +11,28 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=History
  */
+
+/**
+ * The Horde_History_Mock class provides a method of tracking changes in Horde
+ * objects, stored in memory.
+ *
+ * @category Horde
+ * @package  History
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://pear.horde.org/index.php?package=History
+ */
 class Horde_History_Mock extends Horde_History
 {
+    /**
+     * Counts how often _getHistory() is called.
+     *
+     * Used for testing caching.
+     *
+     * @var integer
+     */
+    public $getCount = 0;
+
     /**
      * Our storage location.
      *
@@ -115,7 +120,8 @@ class Horde_History_Mock extends Horde_History
      */
     public function _getHistory($guid)
     {
-        $result= array();
+        $this->getCount++;
+        $result = array();
         foreach ($this->_data as $id => $element) {
             if ($element['history_uid'] == $guid) {
                 $element['history_id'] = $id;

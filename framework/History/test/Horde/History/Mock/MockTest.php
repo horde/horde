@@ -20,4 +20,21 @@ class Horde_History_Mock_MockTest extends Horde_History_TestBase
         self::$history = null;
     }
 
+    public function testCaching()
+    {
+        if (!class_exists('Horde_HashTable_Memory')) {
+            $this->markTestSkipped('Horde_HashTable is not installed');
+        }
+
+        self::$history->setHashTable(new Horde_HashTable_Memory());
+        self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action'));
+        self::$history->getHistory('appone:test_uid');
+        $count = self::$history->getCount;
+        $this->assertGreaterThan(0, $count);
+        self::$history->getHistory('appone:test_uid');
+        $this->assertEquals($count, self::$history->getCount);
+        self::$history->removeByNames(array('appone:test_uid'));
+        $this->assertEquals(0, count(self::$history->getHistory('appone:test_uid')));
+        $this->assertGreaterThan($count, self::$history->getCount);
+    }
 }
