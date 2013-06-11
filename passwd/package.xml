@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-05</date>
- <time>00:25:52</time>
+ <date>2013-06-11</date>
+ <time>16:07:10</time>
  <version>
   <release>5.0.1</release>
   <api>5.0.0</api>
@@ -28,15 +28,12 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Don&apos;t install expect scripts as executables.
 * [jan] Fix fatal error in Samba/LDAP driver (Bug #12319).
 * [jan] Fix user name parameter in LDAP driver (Bug #12331).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="bin">
-    <file name="passwd-expect" role="script" />
-    <file name="passwd-expect-kerberos" role="script" />
-   </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
     <file name="backends.php" role="horde" />
@@ -295,6 +292,11 @@
     <file name=".htaccess" role="horde" />
     <file name="passwd.pot" role="horde" />
    </dir> <!-- /locale -->
+   <dir name="scripts">
+    <file name=".htaccess" role="horde" />
+    <file name="passwd-expect" role="horde" />
+    <file name="passwd-expect-kerberos" role="horde" />
+   </dir> <!-- /scripts -->
    <dir name="templates">
     <file name=".htaccess" role="horde" />
     <file name="index.html.php" role="horde" />
@@ -444,8 +446,6 @@
    <install as="COPYING" name="COPYING" />
    <install as="passwd/index.php" name="index.php" />
    <install as="README" name="README" />
-   <install as="passwd-expect" name="bin/passwd-expect" />
-   <install as="passwd-expect-kerberos" name="bin/passwd-expect-kerberos" />
    <install as="passwd/config/.htaccess" name="config/.htaccess" />
    <install as="passwd/config/backends.php" name="config/backends.php" />
    <install as="passwd/config/conf.xml" name="config/conf.xml" />
@@ -560,6 +560,9 @@
    <install as="passwd/locale/zh_CN/LC_MESSAGES/passwd.po" name="locale/zh_CN/LC_MESSAGES/passwd.po" />
    <install as="passwd/locale/zh_TW/LC_MESSAGES/passwd.mo" name="locale/zh_TW/LC_MESSAGES/passwd.mo" />
    <install as="passwd/locale/zh_TW/LC_MESSAGES/passwd.po" name="locale/zh_TW/LC_MESSAGES/passwd.po" />
+   <install as="passwd/scripts/.htaccess" name="scripts/.htaccess" />
+   <install as="passwd/scripts/passwd-expect" name="scripts/passwd-expect" />
+   <install as="passwd/scripts/passwd-expect-kerberos" name="scripts/passwd-expect-kerberos" />
    <install as="passwd/templates/.htaccess" name="templates/.htaccess" />
    <install as="passwd/templates/index.html.php" name="templates/index.html.php" />
    <install as="Passwd/AllTests.php" name="test/Passwd/AllTests.php" />
@@ -686,9 +689,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-05</date>
+   <date>2013-06-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t install expect scripts as executables.
 * [jan] Fix fatal error in Samba/LDAP driver (Bug #12319).
 * [jan] Fix user name parameter in LDAP driver (Bug #12331).
    </notes>
