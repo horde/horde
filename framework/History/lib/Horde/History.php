@@ -38,11 +38,11 @@ abstract class Horde_History
     protected $_auth;
 
     /**
-     * HashTable driver object.
+     * Cache driver object.
      *
-     * @var Horde_HashTable_Base
+     * @var Horde_Cache
      */
-    protected $_hashtable;
+    protected $_cache;
 
     /**
      * Our log handler.
@@ -74,15 +74,15 @@ abstract class Horde_History
     }
 
     /**
-     * Set HashTable object.
+     * Set Cache object.
      *
      * @since 2.1.0
      *
-     * @param Horde_HashTable_Base $hashtable  The hashtable instance.
+     * @param Horde_Cache $cache  The cache instance.
      */
-    public function setHashTable(Horde_HashTable_Base $hashtable)
+    public function setCache(Horde_Cache $cache)
     {
-        $this->_hashtable = $hashtable;
+        $this->_cache = $cache;
     }
 
     /**
@@ -112,8 +112,8 @@ abstract class Horde_History
             throw new InvalidArgumentException('The guid needs to be a string!');
         }
 
-        if ($this->_hashtable) {
-            $this->_hashtable->delete('horde:history:' . $guid);
+        if ($this->_cache) {
+            $this->_cache->expire('horde:history:' . $guid);
         }
 
         $history = $this->getHistory($guid);
@@ -162,14 +162,14 @@ abstract class Horde_History
             throw new Horde_History_Exception('The guid needs to be a string!');
         }
 
-        if ($this->_hashtable &&
-            (($history = @unserialize($this->_hashtable->get('horde:history:' . $guid))))) {
+        if ($this->_cache &&
+            ($history = @unserialize($this->_cache->get('horde:history:' . $guid, 0)))) {
             return $history;
         }
 
         $history = $this->_getHistory($guid);
-        if ($this->_hashtable) {
-            $this->_hashtable->set('horde:history:' . $guid, serialize($history));
+        if ($this->_cache) {
+            $this->_cache->set('horde:history:' . $guid, serialize($history), 0);
         }
 
         return $history;

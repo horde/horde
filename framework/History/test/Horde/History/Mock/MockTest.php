@@ -22,11 +22,11 @@ class Horde_History_Mock_MockTest extends Horde_History_TestBase
 
     public function testCaching()
     {
-        if (!class_exists('Horde_HashTable_Memory')) {
-            $this->markTestSkipped('Horde_HashTable is not installed');
+        if (!class_exists('Horde_Cache_Storage_Mock')) {
+            $this->markTestSkipped('Horde_Cache is not installed');
         }
 
-        self::$history->setHashTable(new Horde_HashTable_Memory());
+        self::$history->setCache(new Horde_Cache(new Horde_Cache_Storage_Mock()));
         self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action'));
         self::$history->getHistory('appone:test_uid');
         $count = self::$history->getCount;
