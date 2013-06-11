@@ -55,6 +55,8 @@ class Passwd_Driver_Smbldap extends Passwd_Driver_Ldap
             return;
         }
 
+        // Crypt_CHAP is not PSR-0 compatible.
+        require_once 'Crypt/CHAP.php';
         $hash = new Crypt_CHAP_MSv2();
         $hash->password = $newpass;
         $lmpasswd = Horde_String::upper(bin2hex($hash->lmPasswordHash()));
