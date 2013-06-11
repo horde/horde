@@ -46,7 +46,7 @@
  <configsection name="menu">
   <configheader>Menu Settings</configheader>
   <configmultienum name="pages" desc="What standard pages would you like to
-  show up as links in Wicked's menu?">Wiki/Home
+  show up as links in Wicked's menu?">Wiki/Home,Wiki/Usage,RecentChanges
    <values>
     <value desc="Home">Wiki/Home</value>
     <value desc="Usage">Wiki/Usage</value>
