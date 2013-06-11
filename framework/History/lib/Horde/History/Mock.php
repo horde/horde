@@ -330,6 +330,9 @@ class Horde_History_Mock extends Horde_History
         }
 
         foreach ($ids as $id) {
+            if ($this->_hashtable) {
+                $this->_hashtable->delete('horde:history:' . $this->_data[$id]['history_uid']);
+            }
             unset($this->_data[$id]);
         }
     }
