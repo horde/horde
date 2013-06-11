@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-04</date>
- <time>23:28:45</time>
+ <date>2013-06-11</date>
+ <time>12:39:56</time>
  <version>
   <release>2.11.5</release>
   <api>2.11.0</api>
@@ -1827,7 +1827,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-04</date>
+   <date>2013-06-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] So many IMAP servers have issues with BINARY, that we should not send literal8 data unless we absolutely have to.
