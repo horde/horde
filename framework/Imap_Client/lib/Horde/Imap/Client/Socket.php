@@ -422,11 +422,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $data = $resp->data;
                 $this->_setInit('authmethod', $method);
                 unset($this->_temp['referralcount']);
-            } catch (Horde_Imap_Client_Exception $e) {
+            } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
                 $data = $e->resp_data;
                 if (isset($data['loginerr'])) {
                     $login_err = $data['loginerr'];
                 }
+                $resp = false;
+            } catch (Horde_Imap_Client_Exception $e) {
                 $resp = false;
             }
 
