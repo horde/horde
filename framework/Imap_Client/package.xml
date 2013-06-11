@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-11</date>
- <time>12:39:56</time>
+ <time>12:44:51</time>
  <version>
-  <release>2.11.5</release>
+  <release>2.11.6</release>
   <api>2.11.0</api>
  </version>
  <stability>
@@ -22,11 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] So many IMAP servers have issues with BINARY, that we should not send literal8 data unless we absolutely have to.
-* [mms] Remove read/write buffering from stream connection to remote server.
-* [mms] Ensure we only use literal8&apos;s in APPEND commands.
-* [mms] Abstract connection code into separate library, to better handle output buffering and error handling.
-* [mms] Fix regression in throwing exceptions when parsing POP3 server responses.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1835,6 +1831,19 @@
 * [mms] Ensure we only use literal8&apos;s in APPEND commands.
 * [mms] Abstract connection code into separate library, to better handle output buffering and error handling.
 * [mms] Fix regression in throwing exceptions when parsing POP3 server responses.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.11.6</release>
+    <api>2.11.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
