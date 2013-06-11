@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix fatal error in Samba/LDAP driver (Bug #12319).
 * [jan] Fix user name parameter in LDAP driver (Bug #12331).
  </notes>
  <contents>
@@ -688,6 +689,7 @@
    <date>2013-06-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix fatal error in Samba/LDAP driver (Bug #12319).
 * [jan] Fix user name parameter in LDAP driver (Bug #12331).
    </notes>
   </release>

@@ -48,7 +48,7 @@ class Passwd_Driver_Smbldap extends Passwd_Driver_Ldap
         parent::_changePassword($user, $oldpass, $newpass);
 
         // Get existing user information.
-        $entry = $this->_getUserEntry();
+        $entry = $this->_ldap->getEntry($this->_userdn);
 
         // Return if the user is not a Samba user.
         if (!in_array($this->_params['smb_objectclass'], $entry->getValue('objectClass', 'all'))) {
