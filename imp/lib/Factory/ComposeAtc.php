@@ -48,17 +48,17 @@ class IMP_Factory_ComposeAtc extends Horde_Core_Factory_Base
      *
      * @param string $user  User.
      * @param string $id    Attachment identifier.
-     * @param string $type  Either 'atc' or 'linked'. If null will
+     * @param string $type  Either 'atc' or 'linked'. If false will
      *                      auto-determine.
      *
      * @return IMP_Compose_Attachment_Storage  Storage object.
      * @throws IMP_Exception
      */
-    public function create($user = null, $id = null, $class = null)
+    public function create($user = null, $id = null, $class = false)
     {
         global $conf;
 
-        $classname = (($class == 'linked') || (is_null($class) && !empty($conf['compose']['link_attachments'])))
+        $classname = (($class == 'linked') || (!$class && !empty($conf['compose']['link_attachments'])))
             ? $this->classLinked
             : $this->classAtc;
 

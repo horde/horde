@@ -2,6 +2,7 @@
 v6.1.1-git
 ----------
 
+[mms] Fixes for regressions in linked attachment behavior.
 [mms] Catch invalid characters in user-defined flag names (Bug #12335).
 [mms] Workaround IE javascript limitations preventing attachments from being
       uploaded in dynamic view.

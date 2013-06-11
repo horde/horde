@@ -42,7 +42,7 @@ class IMP_Compose_Attachment_Storage_VfsLinked extends IMP_Compose_Attachment_St
     {
         parent::__construct($user, $id);
 
-        $this->_vfspath = self::VFS_LINK_ATTACH_PATH . '/' . $this->_user;
+        $this->_vfspath = $this->_linkAttachPath();
     }
 
     /**
@@ -51,8 +51,20 @@ class IMP_Compose_Attachment_Storage_VfsLinked extends IMP_Compose_Attachment_St
     {
         switch ($name) {
         case 'linked':
-            return ($this->_vfspath == self::VFS_LINK_ATTACH_PATH);
+            return ($this->_vfspath == $this->_linkAttachPath());
         }
+
+        return parent::__get($name);
+    }
+
+    /**
+     * Return the VFS link attachment path.
+     *
+     * @return string  VFS path.
+     */
+    protected function _linkAttachPath()
+    {
+        return self::VFS_LINK_ATTACH_PATH . '/' . $this->_user;
     }
 
     /**
