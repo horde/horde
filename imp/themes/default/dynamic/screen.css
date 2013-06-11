@@ -640,6 +640,9 @@ div.dimpActionsMsg #windowclose {
     font-weight: bold;
     margin-top: 4px;
 }
+#compose_upload_add:hover {
+    text-decoration: underline;
+}
 #upload {
     position: absolute;
     top: -5000px;
