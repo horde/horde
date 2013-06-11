@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix language selection at login (Bug #12338).
 * [mjr] Add support for history modification sequences in ActiveSync driver.
 * [mjr] Fix incorrect offsets when generating free/busy data for ActiveSync clients.
 * [mms] Add Horde_HashTable to dependency list (Bug #12314).

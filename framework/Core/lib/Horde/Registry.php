@@ -2732,6 +2732,8 @@ class Horde_Registry
             $lang = $this->preferredLang();
         }
 
+        $GLOBALS['session']->set('horde', 'language', $lang);
+
         $changed = false;
         if (isset($GLOBALS['language'])) {
             if ($GLOBALS['language'] == $lang) {
@@ -2741,7 +2743,6 @@ class Horde_Registry
         }
 
         $GLOBALS['language'] = $lang;
-        $GLOBALS['session']->set('horde', 'language', $lang);
 
         $lang_charset = $lang . '.UTF-8';
         if (setlocale(LC_ALL, $lang_charset)) {
