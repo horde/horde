@@ -94,7 +94,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver
 
     /**
      */
-    protected function _changePassword($user, $oldpass, $newpass)
+    protected function _changePassword($username, $oldpass, $newpass)
     {
         // Append realm as username@realm if 'realm' parameter is set.
         if (!empty($this->_params['realm'])) {
@@ -103,7 +103,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver
 
         // Try to get the user's dn from config.
         if (isset($this->_params['userdn'])) {
-            $this->_userdn = str_replace('%u', $user, $this->_params['userdn']);
+            $this->_userdn = str_replace('%u', $username, $this->_params['userdn']);
         } else {
             // @todo Fix finding the user DN.
             // $this->_userdn = $this->_ldap->findUserDN($username);
