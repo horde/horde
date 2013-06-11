@@ -56,6 +56,7 @@ class IMP_Flag_User extends IMP_Flag_Imap
     }
 
     /**
+     * @throws IMP_Exception
      */
     public function __set($name, $value)
     {
@@ -63,6 +64,10 @@ class IMP_Flag_User extends IMP_Flag_Imap
         case 'imapflag':
             /* IMAP keywords must conform to RFC 3501 [9] (flag-keyword).
              * Convert whitespace to underscore. */
+            if (Horde_Mime::is8bit($value)) {
+                throw new IMP_Exception(_("Invalid characters in flag name."));
+            }
+
             $atom = new Horde_Imap_Client_Data_Format_Atom(strtr($value, ' ', '_'));
             $this->_imapflag = $atom->stripNonAtomCharacters();
             break;

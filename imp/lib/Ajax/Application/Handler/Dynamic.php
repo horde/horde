@@ -999,11 +999,17 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      */
     public function createFlag()
     {
-        global $injector;
+        global $injector, $notification;
 
         $imp_flags = $injector->getInstance('IMP_Flags');
 
-        $imp_flags->addFlag($this->vars->flagname);
+        try {
+            $imp_flags->addFlag($this->vars->flagname);
+        } catch (IMP_Exception $e) {
+            $notification->push($e, 'horde.error');
+            return true;
+        }
+
         if (!empty($this->vars->flagcolor)) {
             $imp_flags->updateFlag($this->vars->flagname, 'bgcolor', $this->vars->flagcolor);
         }
