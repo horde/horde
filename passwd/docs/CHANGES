@@ -2,6 +2,7 @@
 v5.0.1-git
 ----------
 
+[jan] Don't overwrite parameters for composite sub-drivers (Bug #12284).
 [jan] Don't install expect scripts as executables.
 [jan] Fix fatal error in Samba/LDAP driver (Bug #12319).
 [jan] Fix user name parameter in LDAP driver (Bug #12331).

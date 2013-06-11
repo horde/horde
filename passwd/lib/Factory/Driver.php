@@ -84,7 +84,7 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
             if (empty($backend['policy'])) {
                 $backend['policy'] = array();
             }
-            if (!empty($params)) {
+            if (empty($params['is_subdriver']) && !empty($params)) {
                 $backend['params'] = array_merge($backend['params'], $params);
             }
 
