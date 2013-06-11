@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-11</date>
- <time>17:15:19</time>
+ <time>17:22:40</time>
  <version>
-  <release>2.0.0beta1</release>
+  <release>2.0.0beta2</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,12 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix parsing of headings in other than the default rule (Bug #12211).
-* [jan] Remove synchronization code.
-* [jan] Convert all templates to Horde_View.
-* [jan] Add Most Popular and Least Popular pages to sidebar selection.
-* [jan] Show at least 10 revisions on the RecentChanges page.
-* [jan] Fix sorting page lists by date.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -944,6 +939,19 @@
 * [jan] Add Most Popular and Least Popular pages to sidebar selection.
 * [jan] Show at least 10 revisions on the RecentChanges page.
 * [jan] Fix sorting page lists by date.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-06-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
