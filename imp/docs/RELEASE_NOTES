@@ -31,6 +31,7 @@ http://www.horde.org/apps/imp/docs/INSTALL
 
 The major changes compared to IMP version H5 (6.1.0) are:
     * Fixed updating of Virtual Inbox.
+    * Fixed sending linked attachments.
     * Fixed importing of PGP keys.
     * Further bugfixes and improvements.
 ML;
@@ -38,6 +39,7 @@ ML;
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Fixed updating of Virtual Inbox.
+Fixed sending linked attachments.
 Fixed importing of PGP keys.
 Further bugfixes and improvements.
 FM;
