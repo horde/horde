@@ -19,7 +19,7 @@ class Whups_Form_Admin_EditVersionStepOne extends Horde_Form
         global $whups_driver;
 
         parent::__construct($vars, _("Edit or Delete Versions"));
-        $this->setButtons(array(_("Edit Version"), _("Delete Version")));
+        $this->setButtons(array(_("Edit Version"), array('class' => 'horde-delete', 'value' => _("Delete Version"))));
 
         $versions = $whups_driver->getVersions($vars->get('queue'), true);
         if ($versions) {

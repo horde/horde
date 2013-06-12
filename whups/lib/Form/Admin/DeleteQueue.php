@@ -24,11 +24,11 @@ class Whups_Form_Admin_DeleteQueue extends Horde_Form
 
         $this->addHidden('', 'queue', 'int', true, true);
 
-        $mname = &$this->addVariable(
+        $mname = $this->addVariable(
             _("Queue Name"), 'name', 'text', false, true);
         $mname->setDefault($info['name']);
 
-        $mdesc = &$this->addVariable(
+        $mdesc = $this->addVariable(
             _("Queue Description"), 'description', 'text', false, true);
         $mdesc->setDefault($info['description']);
 
@@ -36,6 +36,8 @@ class Whups_Form_Admin_DeleteQueue extends Horde_Form
         $this->addVariable(
             _("Really delete this queue? This will also delete all associated tickets and their comments. This can not be undone!"),
             'yesno', 'enum', true, false, null, $yesno);
+
+        $this->setButtons(array(array('class' => 'horde-delete', 'value' => _("Delete Queue"))));
     }
 
 }

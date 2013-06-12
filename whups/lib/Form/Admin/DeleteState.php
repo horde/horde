@@ -23,14 +23,16 @@ class Whups_Form_Admin_DeleteState extends Horde_Form
         $this->addHidden('', 'type', 'int', true, true);
         $this->addHidden('', 'state', 'int', true, true);
 
-        $sname = &$this->addVariable(_("State Name"), 'name', 'text', false, true);
+        $sname = $this->addVariable(_("State Name"), 'name', 'text', false, true);
         $sname->setDefault($info['name']);
 
-        $sdesc = &$this->addVariable(_("State Description"), 'description', 'text', false, true);
+        $sdesc = $this->addVariable(_("State Description"), 'description', 'text', false, true);
         $sdesc->setDefault($info['description']);
 
         $yesno = array(array(0 => _("No"), 1 => _("Yes")));
         $this->addVariable(_("Really delete this state? This may cause data problems!"), 'yesno', 'enum', true, false, null, $yesno);
+
+        $this->setButtons(array(array('class' => 'horde-delete', 'value' => _("Delete State"))));
     }
 
 }

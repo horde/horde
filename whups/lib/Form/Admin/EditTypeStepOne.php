@@ -21,7 +21,7 @@ class Whups_Form_Admin_EditTypeStepOne extends Horde_Form
             array(
                 _("Edit Type"),
                 _("Clone Type"),
-                _("Delete Type")));
+                array('class' => 'horde-delete', 'value' => _("Delete Type"))));
 
         $types = $whups_driver->getAllTypes();
         if ($types) {

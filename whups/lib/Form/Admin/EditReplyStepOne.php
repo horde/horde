@@ -16,7 +16,7 @@ class Whups_Form_Admin_EditReplyStepOne extends Horde_Form
     public function __construct(&$vars)
     {
         parent::__construct($vars, _("Edit or Delete Form Replies"));
-        $this->setButtons(array(_("Edit Form Reply"), _("Delete Form Reply")));
+        $this->setButtons(array(_("Edit Form Reply"), array('class' => 'horde-delete', 'value' => _("Delete Form Reply"))));
 
         $replies = $GLOBALS['whups_driver']->getReplies($vars->get('type'));
         if ($replies) {

@@ -18,7 +18,7 @@ class Whups_Form_Admin_EditPriorityStepOne extends Horde_Form
         global $whups_driver;
 
         parent::__construct($vars, _("Edit or Delete Priorities"));
-        $this->setButtons(array(_("Edit Priority"), _("Delete Priority")));
+        $this->setButtons(array(_("Edit Priority"), array('class' => 'horde-delete', 'value' => _("Delete Priority"))));
 
         $priorities = $whups_driver->getPriorities($vars->get('type'));
         if ($priorities) {

@@ -24,14 +24,16 @@ class Whups_Form_Admin_DeletePriority extends Horde_Form
         $this->addHidden('', 'type', 'int', true, true);
         $this->addHidden('', 'priority', 'int', true, true);
 
-        $pname = &$this->addVariable(_("Priority Name"), 'name', 'text', false, true);
+        $pname = $this->addVariable(_("Priority Name"), 'name', 'text', false, true);
         $pname->setDefault($info['name']);
 
-        $pdesc = &$this->addVariable(_("Priority Description"), 'description', 'text', false, true);
+        $pdesc = $this->addVariable(_("Priority Description"), 'description', 'text', false, true);
         $pdesc->setDefault($info['description']);
 
         $yesno = array(array(0 => _("No"), 1 => _("Yes")));
         $this->addVariable(_("Really delete this priority? This may cause data problems!"), 'yesno', 'enum', true, false, null, $yesno);
+
+        $this->setButtons(array(array('class' => 'horde-delete', 'value' => _("Delete Priority"))));
     }
 
 }

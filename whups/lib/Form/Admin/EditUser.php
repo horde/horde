@@ -18,7 +18,7 @@ class Whups_Form_Admin_EditUser extends Horde_Form
     {
         global $whups_driver;
 
-        $this->appendButtons(_("Remove User"));
+        $this->appendButtons(array(array('class' => 'horde-delete', 'value' => _("Remove User"))));
 
         parent::__construct($vars, _("Responsible Users"));
 

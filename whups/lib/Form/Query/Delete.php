@@ -12,6 +12,7 @@ class Whups_Form_Query_Delete extends Horde_Form
         $this->addVariable(
             _("Really delete this query? This operation is not undoable."),
             'yesno', 'enum', true, false, null, $yesno);
+        $this->setButtons(array(array('class' => 'horde-delete', 'value' => _("Delete Query"))));
     }
 
     public function execute(&$vars)
