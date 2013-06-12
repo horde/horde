@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix obtaining IMSP objects from Horde_Core_Factory_Imsp_Auth.
 * [mjr] Fix ActiveSync folder generation when email support is disabled (Bug #12337).
 * [mms] Fix language selection at login (Bug #12338).
 * [mjr] Add support for history modification sequences in ActiveSync driver.
@@ -2995,6 +2996,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix obtaining IMSP objects from Horde_Core_Factory_Imsp_Auth.
 * [mjr] Fix ActiveSync folder generation when email support is disabled (Bug #12337).
 * [mms] Fix language selection at login (Bug #12338).
 * [mjr] Add support for history modification sequences in ActiveSync driver.
