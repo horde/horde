@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2013 Horde LLC (http://www.horde.org/)
+# Copyright 2004-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Auth\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2012-11-08 10:02+0900\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"PO-Revision-Date: 2013-06-05 10:33+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -18,34 +18,34 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde/Auth.php:353
+#: lib/Horde/Auth.php:362
 #, php-format
 msgid ""
 "The password is too long; passwords may not be more than %d characters long!"
 msgstr "パスワードが長すぎます。%d 文字より長くしないで下さい！"
 
-#: lib/Horde/Auth.php:421 lib/Horde/Auth.php:430
+#: lib/Horde/Auth.php:433 lib/Horde/Auth.php:442
 msgid "The password is too simple to guess."
 msgstr "パスワードが簡単すぎます。"
 
-#: lib/Horde/Auth.php:349
+#: lib/Horde/Auth.php:358
 #, php-format
 msgid "The password must be at least %d characters long!"
 msgstr "パスワードは少なくとも %d 文字以上にして下さい！"
 
-#: lib/Horde/Auth.php:385
+#: lib/Horde/Auth.php:394
 #, php-format
 msgid "The password must contain at least %d alphabetic character."
 msgid_plural "The password must contain at least %d alphabetic characters."
 msgstr[0] "パスワードには少なくとも %d 個以上の英字を含めて下さい。"
 
-#: lib/Horde/Auth.php:388
+#: lib/Horde/Auth.php:397
 #, php-format
 msgid "The password must contain at least %d alphanumeric character."
 msgid_plural "The password must contain at least %d alphanumeric characters."
 msgstr[0] "パスワードには少なくとも %d 個以上の英数字を含めて下さい。"
 
-#: lib/Horde/Auth.php:391
+#: lib/Horde/Auth.php:403
 #, php-format
 msgid ""
 "The password must contain at least %d different types of characters. The "
@@ -54,13 +54,13 @@ msgstr ""
 "パスワードには少なくとも %d 個の異なる文字を含めて下さい。つまり、小文字、大"
 "文字、数字と記号です。"
 
-#: lib/Horde/Auth.php:379
+#: lib/Horde/Auth.php:388
 #, php-format
 msgid "The password must contain at least %d lowercase character."
 msgid_plural "The password must contain at least %d lowercase characters."
 msgstr[0] "パスワードには少なくとも %d 個以上の小文字を含めて下さい。"
 
-#: lib/Horde/Auth.php:382
+#: lib/Horde/Auth.php:391
 #, php-format
 msgid "The password must contain at least %d numeric character."
 msgid_plural "The password must contain at least %d numeric characters."
@@ -68,30 +68,37 @@ msgstr[0] "パスワードには少なくとも %d 個以上の数字を含め�
 
 #: lib/Horde/Auth.php:400
 #, php-format
+msgid "The password must contain at least %d numeric or special character."
+msgid_plural ""
+"The password must contain at least %d numeric or special characters."
+msgstr[0] "パスワードには少なくとも %d 個以上の数字か記号を含めて下さい。"
+
+#: lib/Horde/Auth.php:412
+#, php-format
 msgid "The password must contain at least %d symbol character."
 msgid_plural "The password must contain at least %d symbol characters."
 msgstr[0] "パスワードには少なくとも %d 個以上の記号を含めて下さい。"
 
-#: lib/Horde/Auth.php:376
+#: lib/Horde/Auth.php:385
 #, php-format
 msgid "The password must contain at least %d uppercase character."
 msgid_plural "The password must contain at least %d uppercase characters."
 msgstr[0] "パスワードには少なくとも %d 個以上の大文字を含めて下さい。"
 
-#: lib/Horde/Auth.php:395
+#: lib/Horde/Auth.php:407
 #, php-format
 msgid "The password must contain less than %d whitespace characters."
 msgstr "パスワード中の空白は %d 個以下にして下さい。"
 
-#: lib/Horde/Auth.php:397
+#: lib/Horde/Auth.php:409
 msgid "The password must not contain whitespace characters."
 msgstr "パスワードに空白を入れないで下さい。"
 
-#: lib/Horde/Auth/Base.php:148
+#: lib/Horde/Auth/Base.php:156
 #, php-format
 msgid "Your account has been locked for %d minutes"
 msgstr "あなたのアカウントは %d 分間ロックされています"
 
-#: lib/Horde/Auth/Base.php:146
+#: lib/Horde/Auth/Base.php:154
 msgid "Your account has been permanently locked"
 msgstr "あなたのアカウントは完全にロックされています"

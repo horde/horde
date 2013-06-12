@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2012-11-08 09:51+0900\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"PO-Revision-Date: 2013-05-23 20:43+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -94,7 +94,7 @@ msgstr "作成"
 msgid "Create Notepad"
 msgstr "メモ帳の作成"
 
-#: lib/Application.php:109
+#: lib/Application.php:115
 msgid "Create a new Notepad"
 msgstr "新しいメモ帳の作成"
 
@@ -106,7 +106,7 @@ msgstr "作成日時"
 msgid "Date"
 msgstr "日付"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:52
+#: templates/memo/memo.inc:21 templates/view/memo.inc:62
 msgid "Decrypt"
 msgstr "復号"
 
@@ -152,7 +152,7 @@ msgstr "説明"
 msgid "Display Preferences"
 msgstr "表示設定"
 
-#: config/prefs.php:99
+#: config/prefs.php:104
 msgid "Do you want to confirm deleting entries?"
 msgstr "削除する際に確認しますか？"
 
@@ -215,11 +215,11 @@ msgstr "メモのインポート／エクスポート"
 msgid "In: "
 msgstr "In: "
 
-#: templates/view/memo.inc:37
+#: templates/view/memo.inc:42
 msgid "Last Modified"
 msgstr "最終変更日"
 
-#: lib/Application.php:56
+#: lib/Application.php:62
 msgid "Maximum Number of Notes"
 msgstr "メモの最大数"
 
@@ -235,12 +235,12 @@ msgstr "更新日時"
 msgid "More Options..."
 msgstr "他のオプション"
 
-#: lib/Api.php:367
+#: lib/Api.php:378
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "複数の iCalendar 要素があります；ただ１つの vNete だけをサポートします。"
 
-#: lib/Application.php:102
+#: lib/Application.php:108
 msgid "My Notepads"
 msgstr "私のメモ帳"
 
@@ -252,7 +252,7 @@ msgstr "私のメモ帳"
 msgid "Name"
 msgstr "名前"
 
-#: lib/Application.php:162 memo.php:103 memo.php:151
+#: lib/Application.php:168 memo.php:103 memo.php:151
 msgid "New Note"
 msgstr "新規メモ"
 
@@ -260,7 +260,7 @@ msgstr "新規メモ"
 msgid "Next"
 msgstr "次"
 
-#: lib/Api.php:208 lib/Api.php:360
+#: lib/Api.php:209 lib/Api.php:371
 msgid "No iCalendar data was found."
 msgstr "iCalendar のデータが見付かりません。"
 
@@ -292,7 +292,7 @@ msgstr "見付かりません"
 msgid "Note Category"
 msgstr "メモの分類"
 
-#: view.php:118
+#: view.php:89
 msgid "Note Details"
 msgstr "メモの詳細"
 
@@ -316,12 +316,12 @@ msgstr "_Pメモ帳："
 msgid "Notepad"
 msgstr "メモ帳"
 
-#: lib/Notepads/Default.php:65
+#: lib/Notepads/Default.php:64
 #, php-format
 msgid "Notepad of %s"
 msgstr "%s のメモ帳"
 
-#: lib/Notepads/Kolab.php:38
+#: lib/Notepads/Kolab.php:58
 msgid "Notes"
 msgstr "メモ"
 
@@ -359,7 +359,7 @@ msgstr "保存"
 msgid "Save as PDF"
 msgstr "PDF として保存"
 
-#: lib/Application.php:186 search.php:19 templates/list/header.inc:3
+#: lib/Application.php:192 search.php:19 templates/list/header.inc:3
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "検索"
@@ -380,7 +380,7 @@ msgstr "インポートするファイルを選択："
 msgid "Select the format of the source file:"
 msgstr "ソースファイルの形式を選択："
 
-#: lib/Application.php:115
+#: lib/Application.php:121
 msgid "Shared Notepads"
 msgstr "共有メモ帳"
 
@@ -451,11 +451,11 @@ msgstr "パスワードが一致しません。"
 msgid "There was an error importing the data: %s"
 msgstr "データのインポート中にエラーが発生しました：%s"
 
-#: lib/Api.php:202 lib/Api.php:354
+#: lib/Api.php:203 lib/Api.php:365
 msgid "There was an error importing the iCalendar data."
 msgstr "iCalendar のインポート中にエラーが発生しました。"
 
-#: lib/Application.php:233
+#: lib/Application.php:239
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr "メモ %s の削除中にエラーが発生しました。詳細は記録されました。"
@@ -479,30 +479,30 @@ msgstr "メモの表示中にエラーが発生しました：%s"
 msgid "This file format is not supported."
 msgstr "この形式はサポートされていません。"
 
-#: memo.php:38 view.php:103
+#: memo.php:38 view.php:74
 msgid "This note cannot be decrypted:"
 msgstr "メモは複合できませんでした："
 
-#: memo.php:31 memo.php:41 view.php:98 view.php:106
+#: memo.php:31 memo.php:41 view.php:69 view.php:77
 msgid ""
 "This note has been encrypted, and cannot be decrypted without a secure web "
 "connection"
 msgstr "メモは暗号化されています。復号するには安全なweb接続が必要です"
 
-#: memo.php:28 view.php:95
+#: memo.php:28 view.php:66
 msgid "This note has been encrypted, please provide the password below"
 msgstr "メモは暗号化されています。パスワードを入力して下さい"
 
-#: lib/Api.php:269 lib/Driver/Kolab.php:291 lib/Driver/Sql.php:327
+#: lib/Api.php:276 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
 msgid "This note has been encrypted."
 msgstr "メモは暗号化されました。"
 
-#: lib/Block/Summary.php:109 lib/Mnemo.php:329 lib/Mnemo.php:330
+#: lib/Block/Summary.php:109 lib/Mnemo.php:335 lib/Mnemo.php:336
 #: templates/list/memo_summaries.inc:20 templates/view/memo.inc:25
 msgid "Unfiled"
 msgstr "未整理"
 
-#: lib/Api.php:236 lib/Api.php:294 lib/Api.php:377
+#: lib/Api.php:242 lib/Api.php:304 lib/Api.php:394
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "サポートされていない Content-Type です：%s"
@@ -568,19 +568,19 @@ msgstr "_暗号？"
 msgid "_For: "
 msgstr "_For: "
 
-#: lib/Application.php:75
+#: lib/Application.php:81
 msgid "_Import/Export"
 msgstr "_Iイン/アウト"
 
-#: lib/Application.php:68
+#: lib/Application.php:74
 msgid "_List Notes"
 msgstr "_Lメモ一覧"
 
-#: lib/Application.php:91
+#: lib/Application.php:97
 msgid "_New Note"
 msgstr "_N新規メモ"
 
-#: templates/memo/memo.inc:19 templates/view/memo.inc:50
+#: templates/memo/memo.inc:19 templates/view/memo.inc:60
 msgid "_Password"
 msgstr "_Pパスワード"
 
@@ -592,7 +592,7 @@ msgstr "_Pパスワード："
 msgid "_Repeat:"
 msgstr "_R繰り返し："
 
-#: lib/Application.php:71
+#: lib/Application.php:77
 msgid "_Search"
 msgstr "_S検索"
 
@@ -600,21 +600,21 @@ msgstr "_S検索"
 msgid "_Title"
 msgstr "_T題名"
 
-#: view.php:68 view.php:77
+#: lib/Driver/Sql.php:361 lib/Driver/Sql.php:370
 #, php-format
 msgid "by %s"
 msgstr "%s 作"
 
-#: view.php:70 view.php:79
+#: lib/Driver/Sql.php:363 lib/Driver/Sql.php:372
 msgid "by me"
 msgstr "自作"
 
-#: lib/Application.php:174
+#: lib/Application.php:180
 #, php-format
 msgid "in %s"
 msgstr "in %s"
 
-#: lib/Application.php:267 templates/data/export.inc:3
+#: lib/Application.php:276 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notes.csv"
 

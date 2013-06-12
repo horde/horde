@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2012-11-08 09:53+0900\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"PO-Revision-Date: 2013-05-23 20:27+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde/Crypt/Pgp.php:1262
+#: lib/Horde/Crypt/Pgp.php:1275
 msgid "A passphrase is required to decrypt a message."
 msgstr "メッセージを復号するためにパスフレーズが必要です。"
 
-#: lib/Horde/Crypt/Pgp.php:1333
+#: lib/Horde/Crypt/Pgp.php:1346
 msgid "A public PGP key is required to verify a signed message."
 msgstr "PGP公開鍵が署名されたメッセージの検証に必要です。"
 
-#: lib/Horde/Crypt/Pgp.php:1193
+#: lib/Horde/Crypt/Pgp.php:1206
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
@@ -67,7 +67,7 @@ msgstr "証明書の所有者"
 msgid "Certificate Policies"
 msgstr "証明書ポリシー"
 
-#: lib/Horde/Crypt/Pgp.php:436
+#: lib/Horde/Crypt/Pgp.php:448
 msgid "Comment"
 msgstr "コメント"
 
@@ -75,20 +75,20 @@ msgstr "コメント"
 msgid "Common Name"
 msgstr "一般名"
 
-#: lib/Horde/Crypt/Pgp.php:968
+#: lib/Horde/Crypt/Pgp.php:980
 msgid "Connection refused to the public keyserver."
 msgstr "公開鍵サーバへの接続が拒否されました。"
 
-#: lib/Horde/Crypt/Pgp.php:979
+#: lib/Horde/Crypt/Pgp.php:991
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
 msgstr "公開鍵サーバへの接続が拒否されました。理由：%s (%s)"
 
-#: lib/Horde/Crypt/Pgp.php:1161
+#: lib/Horde/Crypt/Pgp.php:1174
 msgid "Could not PGP encrypt message: "
 msgstr "メッセージの PGP 暗号化ができませんでした："
 
-#: lib/Horde/Crypt/Pgp.php:1230
+#: lib/Horde/Crypt/Pgp.php:1243
 msgid "Could not PGP sign message: "
 msgstr "メッセージの PGP 署名ができませんでした："
 
@@ -100,7 +100,7 @@ msgstr "メッセージの S/MIME 暗号化ができませんでした。"
 msgid "Could not S/MIME sign message."
 msgstr "メッセージの S/MIME 署名ができませんでした。"
 
-#: lib/Horde/Crypt/Pgp.php:1301
+#: lib/Horde/Crypt/Pgp.php:1314
 msgid "Could not decrypt PGP data: "
 msgstr "PGP データの復号化ができませんでした:"
 
@@ -108,11 +108,11 @@ msgstr "PGP データの復号化ができませんでした:"
 msgid "Could not decrypt S/MIME data."
 msgstr "S/MIME データの復号化ができませんでした。"
 
-#: lib/Horde/Crypt/Pgp.php:661
+#: lib/Horde/Crypt/Pgp.php:673
 msgid "Could not determine the recipient's e-mail address."
 msgstr "受信者の電子メールアドレスが確定できませんでした。"
 
-#: lib/Horde/Crypt/Pgp.php:762 lib/Horde/Crypt/Pgp.php:876
+#: lib/Horde/Crypt/Pgp.php:774 lib/Horde/Crypt/Pgp.php:888
 msgid "Could not obtain public key from the keyserver."
 msgstr "公開鍵を鍵サーバから取得できませんでした。"
 
@@ -124,7 +124,7 @@ msgstr "国"
 msgid "Description"
 msgstr "説明"
 
-#: lib/Horde/Crypt/Pgp.php:437
+#: lib/Horde/Crypt/Pgp.php:449
 msgid "E-Mail"
 msgstr "電子メール"
 
@@ -137,7 +137,7 @@ msgstr "電子メールアドレス"
 msgid "Error parsing S/MIME certficate: %s"
 msgstr "S/MIME 証明書の解析エラー：%s"
 
-#: lib/Horde/Crypt/Pgp.php:1610 lib/Horde/Crypt/Pgp.php:1618
+#: lib/Horde/Crypt/Pgp.php:1623 lib/Horde/Crypt/Pgp.php:1631
 msgid "Error while talking to pgp binary."
 msgstr "PGP プログラムとの通信中にエラーが起きました。"
 
@@ -146,7 +146,7 @@ msgstr "PGP プログラムとの通信中にエラーが起きました。"
 msgid "Error while talking to smime binary."
 msgstr "SMIME プログラムとの通信中にエラーが起きました。"
 
-#: lib/Horde/Crypt/Pgp.php:434
+#: lib/Horde/Crypt/Pgp.php:446
 msgid "Expiration Date"
 msgstr "有効期限"
 
@@ -154,7 +154,7 @@ msgstr "有効期限"
 msgid "Given Name"
 msgstr "姓"
 
-#: lib/Horde/Crypt/Pgp.php:438
+#: lib/Horde/Crypt/Pgp.php:450
 msgid "Hash-Algorithm"
 msgstr "ハッシュアルゴリズム"
 
@@ -162,23 +162,23 @@ msgstr "ハッシュアルゴリズム"
 msgid "Issuer"
 msgstr "発行者"
 
-#: lib/Horde/Crypt/Pgp.php:433
+#: lib/Horde/Crypt/Pgp.php:445
 msgid "Key Creation"
 msgstr "鍵作成日"
 
-#: lib/Horde/Crypt/Pgp.php:440
+#: lib/Horde/Crypt/Pgp.php:452
 msgid "Key Fingerprint"
 msgstr "鍵指紋"
 
-#: lib/Horde/Crypt/Pgp.php:439
+#: lib/Horde/Crypt/Pgp.php:451
 msgid "Key ID"
 msgstr "鍵 ID"
 
-#: lib/Horde/Crypt/Pgp.php:435
+#: lib/Horde/Crypt/Pgp.php:447
 msgid "Key Length"
 msgstr "鍵長"
 
-#: lib/Horde/Crypt/Pgp.php:432
+#: lib/Horde/Crypt/Pgp.php:444
 msgid "Key Type"
 msgstr "鍵種"
 
@@ -186,7 +186,7 @@ msgstr "鍵種"
 msgid "Key Usage"
 msgstr "鍵の使用"
 
-#: lib/Horde/Crypt/Pgp.php:785
+#: lib/Horde/Crypt/Pgp.php:797
 msgid "Key already exists on the public keyserver."
 msgstr "電子鍵がすでに公衆鍵サーバに存在します。"
 
@@ -204,11 +204,11 @@ msgstr "メッセージは検証できましたが、署名者の証明書は検
 msgid "Message verified successfully."
 msgstr "メッセージは正常に検証されました。"
 
-#: lib/Horde/Crypt/Pgp.php:431
+#: lib/Horde/Crypt/Pgp.php:443
 msgid "Name"
 msgstr "名前"
 
-#: lib/Horde/Crypt/Pgp.php:463
+#: lib/Horde/Crypt/Pgp.php:475
 msgid "Never"
 msgstr "なし"
 
@@ -220,7 +220,7 @@ msgstr ""
 "OpenSSL プログラムのパスが指定されていません。OpenSSL は PKCS 12 のデータを扱"
 "うのに必要です。"
 
-#: lib/Horde/Crypt/Pgp.php:465 lib/Horde/Crypt/Pgp.php:466
+#: lib/Horde/Crypt/Pgp.php:477 lib/Horde/Crypt/Pgp.php:478
 msgid "None"
 msgstr "なし"
 
@@ -245,19 +245,19 @@ msgstr "組織"
 msgid "Organisational Unit"
 msgstr "部署"
 
-#: lib/Horde/Crypt/Pgp.php:1432
+#: lib/Horde/Crypt/Pgp.php:1445
 msgid "PGP Digital Signature"
 msgstr "PGP 電子署名"
 
-#: lib/Horde/Crypt/Pgp.php:1476
+#: lib/Horde/Crypt/Pgp.php:1489
 msgid "PGP Encrypted Data"
 msgstr "PGP 暗号文"
 
-#: lib/Horde/Crypt/Pgp.php:1537
+#: lib/Horde/Crypt/Pgp.php:1550
 msgid "PGP Public Key"
 msgstr "PGP 公開鍵"
 
-#: lib/Horde/Crypt/Pgp.php:1519
+#: lib/Horde/Crypt/Pgp.php:1532
 msgid "PGP Signed/Encrypted Data"
 msgstr "PGP 署名済/暗号化データ"
 
@@ -265,23 +265,23 @@ msgstr "PGP 署名済/暗号化データ"
 msgid "Password incorrect"
 msgstr "パスワードが正しくありません"
 
-#: lib/Horde/Crypt/Pgp.php:461
+#: lib/Horde/Crypt/Pgp.php:473
 msgid "Private Key"
 msgstr "秘密鍵"
 
-#: lib/Horde/Crypt/Pgp.php:461
+#: lib/Horde/Crypt/Pgp.php:473
 msgid "Public Key"
 msgstr "公開鍵"
 
-#: lib/Horde/Crypt/Pgp.php:231
+#: lib/Horde/Crypt/Pgp.php:243
 msgid "Public/Private keypair not generated successfully."
 msgstr "公衆鍵/秘密鍵が生成できませんでした。"
 
-#: lib/Horde/Crypt/Pgp.php:233
+#: lib/Horde/Crypt/Pgp.php:245
 msgid "Returned error message:"
 msgstr "返ってきたエラーメッセージ："
 
-#: lib/Horde/Crypt/Pgp.php:1670
+#: lib/Horde/Crypt/Pgp.php:1685
 msgid "Revocation key not generated successfully."
 msgstr "失効鍵は生成できませんでした。"
 
@@ -313,7 +313,7 @@ msgstr "姓"
 msgid "Telephone Number"
 msgstr "電話番号"
 
-#: lib/Horde/Crypt/Pgp.php:1337
+#: lib/Horde/Crypt/Pgp.php:1350
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr "電子署名されたメッセージを検証するには、PGP 署名が必要です。"
@@ -322,8 +322,8 @@ msgstr "電子署名されたメッセージを検証するには、PGP 署名�
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
 msgstr "Horde_Crypt_smime::クラスには openssl モジュールが必要です。"
 
-#: lib/Horde/Crypt/Pgp.php:467 lib/Horde/Crypt/Pgp.php:468
-#: lib/Horde/Crypt/Pgp.php:469
+#: lib/Horde/Crypt/Pgp.php:479 lib/Horde/Crypt/Pgp.php:480
+#: lib/Horde/Crypt/Pgp.php:481
 msgid "Unknown"
 msgstr "不明"
 

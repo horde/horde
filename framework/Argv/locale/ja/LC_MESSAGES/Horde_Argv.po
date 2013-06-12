@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Argv\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-10-14 09:09+0900\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
+"PO-Revision-Date: 2013-03-10 11:02+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -18,22 +18,22 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde/Argv/Parser.php:495
+#: lib/Horde/Argv/Parser.php:478
 #, php-format
 msgid "%s option does not take a value"
 msgstr "オプション %s に値は不要です"
 
-#: lib/Horde/Argv/Parser.php:485 lib/Horde/Argv/Parser.php:537
+#: lib/Horde/Argv/Parser.php:468 lib/Horde/Argv/Parser.php:520
 #, php-format
 msgid "%s option requires %d arguments"
 msgstr "オプション %s には %d つの引数が必要です"
 
-#: lib/Horde/Argv/Parser.php:483 lib/Horde/Argv/Parser.php:535
+#: lib/Horde/Argv/Parser.php:466 lib/Horde/Argv/Parser.php:518
 #, php-format
 msgid "%s option requires an argument"
 msgstr "オプション %s には１つの引数が必要です"
 
-#: lib/Horde/Argv/Parser.php:660
+#: lib/Horde/Argv/Parser.php:643
 msgid "Options"
 msgstr "オプション"
 
@@ -45,7 +45,7 @@ msgstr "使い方"
 msgid "Usage:"
 msgstr "使い方："
 
-#: lib/Horde/Argv/Parser.php:186
+#: lib/Horde/Argv/Parser.php:169
 msgid "[options]"
 msgstr "[オプション]"
 
@@ -69,10 +69,10 @@ msgstr "オプション %s：無効な整数値です： '%s'"
 msgid "option %s: invalid long integer value: '%s'"
 msgstr "オプション %s：無効な整数値(long)です： '%s'"
 
-#: lib/Horde/Argv/Parser.php:158
+#: lib/Horde/Argv/Parser.php:141
 msgid "show program's version number and exit"
 msgstr "プログラムのバージョンを表示して終了する"
 
-#: lib/Horde/Argv/Parser.php:152
+#: lib/Horde/Argv/Parser.php:135
 msgid "show this help message and exit"
 msgstr "このヘルプ文を表示して終了する"

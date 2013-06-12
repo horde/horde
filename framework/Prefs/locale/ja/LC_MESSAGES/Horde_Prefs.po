@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
-"PO-Revision-Date: 2012-10-14 11:31+0900\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
+"PO-Revision-Date: 2013-03-10 11:04+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde/Prefs/Identity.php:335
+#: lib/Horde/Prefs/Identity.php:342
 #, php-format
 msgid "\"%s\" is not a valid email address."
 msgstr "\"%s\" は有効な電子メールアドレスではありません。"
 
-#: lib/Horde/Prefs/Identity.php:110
+#: lib/Horde/Prefs/Identity.php:117
 msgid "Default Identity"
 msgstr "デフォルト ID"
 
@@ -43,7 +43,7 @@ msgstr "個人設定"
 msgid "Unfiled"
 msgstr "未整理"
 
-#: lib/Horde/Prefs/Identity.php:324
+#: lib/Horde/Prefs/Identity.php:331
 msgid "Unnamed"
 msgstr "無名"
 

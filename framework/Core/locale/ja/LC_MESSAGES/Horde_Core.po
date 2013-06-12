@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2012-11-08 09:54+0900\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"PO-Revision-Date: 2013-06-05 10:34+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde.php:1239
+#: lib/Horde.php:1073
 #, php-format
 msgid " (Accesskey %s)"
 msgstr "(アクセスキイ %s)"
 
-#: lib/Horde/Registry.php:1263 lib/Horde/Registry.php:1953
+#: lib/Horde/Registry.php:1280 lib/Horde/Registry.php:1971
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" は Horde レジストリに設定されていません。"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:121
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:122
 #, php-format
 msgid "%d contact was successfully added to your address book."
 msgid_plural "%d contacts were successfully added to your address book."
@@ -46,27 +46,27 @@ msgid "-- select --"
 msgstr "-- 選択 --"
 
 #: lib/Horde/Core/Notification/Event/Status.php:73
-#: lib/Horde/PageOutput.php:746
+#: lib/Horde/PageOutput.php:753
 msgid "1 day"
 msgstr "１日"
 
 #: lib/Horde/Core/Notification/Event/Status.php:71
-#: lib/Horde/PageOutput.php:744
+#: lib/Horde/PageOutput.php:751
 msgid "1 hour"
 msgstr "１時間"
 
 #: lib/Horde/Core/Notification/Event/Status.php:70
-#: lib/Horde/PageOutput.php:743
+#: lib/Horde/PageOutput.php:750
 msgid "15 minutes"
 msgstr "15 分"
 
 #: lib/Horde/Core/Notification/Event/Status.php:69
-#: lib/Horde/PageOutput.php:742
+#: lib/Horde/PageOutput.php:749
 msgid "5 minutes"
 msgstr "5 分"
 
 #: lib/Horde/Core/Notification/Event/Status.php:72
-#: lib/Horde/PageOutput.php:745
+#: lib/Horde/PageOutput.php:752
 msgid "6 hours"
 msgstr "6 時間"
 
@@ -128,28 +128,28 @@ msgstr "アクセス権を追加"
 msgid "Add a child permission to \"%s\""
 msgstr "サブアクセス権を \"%s\" に追加"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:92
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:96
 msgid "Add source"
 msgstr "ソースを追加"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:404
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:405
 msgid "Add to address book:"
 msgstr "アドレス帳に追加："
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:419
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:420
 msgid "Add to my address book"
 msgstr "マイアドレス帳に追加"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:227
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:291
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:228
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:292
 msgid "Address"
 msgstr "住所"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:406
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:407
 msgid "Address Book"
 msgstr "アドレス帳"
 
-#: lib/Horde/Registry.php:293
+#: lib/Horde/Registry.php:301
 msgid ""
 "Admin authentication requested, but no admin users defined in configuration."
 msgstr "管理者としての認証が必要ですが、管理者が定義されていません。"
@@ -162,7 +162,7 @@ msgstr "管理"
 msgid "Alarm"
 msgstr "アラーム"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:151
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:152
 msgid "Alias"
 msgstr "別名"
 
@@ -198,15 +198,15 @@ msgstr "４月"
 msgid "August"
 msgstr "８月"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:198
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:202
 msgid "Available address books:"
 msgstr "使用可能なアドレス帳："
 
-#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:677
+#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:684
 msgid "Back"
 msgstr "戻る"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:158
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:159
 msgid "Birthday"
 msgstr "誕生日"
 
@@ -215,17 +215,17 @@ msgstr "誕生日"
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr "アプリケーション \"%s\" のブロック \"%s\" が見つかりません。"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:124
+#: lib/Horde/Core/ActiveSync/Driver.php:140
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:531
 msgid "Calendar"
 msgstr "予定表"
 
-#: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:57
+#: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:56
 #: lib/Horde/Core/Script/Package/Dialog.php:25
 msgid "Cancel"
 msgstr "取り消し"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:317
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:318
 msgid "Cell Phone"
 msgstr "携帯電話"
 
@@ -239,15 +239,15 @@ msgstr "パスワードを選択"
 msgid "Choose a username"
 msgstr "ユーザ名を選択"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:192
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:196
 msgid "Choose the order of address books to search when expanding addresses."
 msgstr "アドレスを展開する際に検索するアドレス帳の順序を指定してください。"
 
-#: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:58
+#: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:57
 msgid "Click to add caption..."
 msgstr "クリックして説明を追加..."
 
-#: lib/Horde/PageOutput.php:678
+#: lib/Horde/PageOutput.php:685
 msgid "Close"
 msgstr "閉じる"
 
@@ -256,7 +256,7 @@ msgstr "閉じる"
 msgid "Color Picker"
 msgstr "色選択"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:368
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:369
 msgid "Company"
 msgstr "会社"
 
@@ -264,11 +264,11 @@ msgstr "会社"
 msgid "Confirm new email address"
 msgstr "新しいメールアドレスの確認"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:125
+#: lib/Horde/Core/ActiveSync/Driver.php:141
 msgid "Contacts"
 msgstr "連絡先"
 
-#: lib/Horde/Config.php:291
+#: lib/Horde/Config.php:296
 #, php-format
 msgid "Could not save the backup configuration file %s."
 msgstr "設定のバックアップを保存できませんでした：%s"
@@ -309,7 +309,7 @@ msgstr "\"%s\" のアクセス権とそのサブアクセス権を全て削除�
 msgid "Deny the account:"
 msgstr "アカウント拒否："
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:370
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:371
 msgid "Department"
 msgstr "部署"
 
@@ -334,8 +334,8 @@ msgstr "止める"
 msgid "Do not delete"
 msgstr "削除しない"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:206
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:270
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:207
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:271
 msgid "Domestic Address"
 msgstr "国内郵便用住所"
 
@@ -352,7 +352,7 @@ msgstr "アクセス権の編集"
 msgid "Edit permissions for \"%s\""
 msgstr "\"%s\" のアクセス権の編集"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:353
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:354
 msgid "Email"
 msgstr "電子メール"
 
@@ -364,7 +364,7 @@ msgstr "確認用メールアドレスが見つかりません。"
 msgid "Emoticons"
 msgstr "顔文字"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1208
+#: lib/Horde/Core/ActiveSync/Driver.php:1532
 msgid "End forwarded message"
 msgstr "転送するメッセージは以上です"
 
@@ -378,15 +378,15 @@ msgstr "以下の文字を入力："
 msgid "Error"
 msgstr "エラー"
 
-#: lib/Horde/PageOutput.php:736
+#: lib/Horde/PageOutput.php:743
 msgid "Error when communicating with the server."
 msgstr "サーバとの通信エラーです。"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:532
+#: lib/Horde/Core/Block/Layout/Manager.php:531
 msgid "Expand"
 msgstr "拡大"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:308
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:309
 msgid "Fax"
 msgstr "FAX"
 
@@ -404,11 +404,11 @@ msgstr "固定比率"
 msgid "Flip"
 msgstr "上下反転"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1206
+#: lib/Horde/Core/ActiveSync/Driver.php:1530
 msgid "Forwarded message"
 msgstr "転送されたメッセージ"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1206
+#: lib/Horde/Core/ActiveSync/Driver.php:1530
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "%s から転送されたメッセージ"
@@ -421,7 +421,7 @@ msgstr "金"
 msgid "Friday"
 msgstr "金曜"
 
-#: lib/Horde/Core/Prefs/Ui.php:659 lib/Horde/Core/Topbar.php:135
+#: lib/Horde/Core/Prefs/Ui.php:667 lib/Horde/Core/Topbar.php:135
 msgid "Global Preferences"
 msgstr "共通の個人設定"
 
@@ -441,7 +441,7 @@ msgstr "グループ"
 msgid "Guest Permissions"
 msgstr "ゲストアクセス権"
 
-#: lib/Horde/Core/Topbar.php:172 lib/Horde/Help.php:253 lib/Horde/Help.php:254
+#: lib/Horde/Core/Topbar.php:181 lib/Horde/Help.php:253 lib/Horde/Help.php:254
 msgid "Help"
 msgstr "ヘルプ"
 
@@ -449,16 +449,16 @@ msgstr "ヘルプ"
 msgid "Help file not found."
 msgstr "ヘルプファイルが見付かりません。"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:198
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:262
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:199
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:263
 msgid "Home Address"
 msgstr "自宅の住所"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:311
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:312
 msgid "Home Phone"
 msgstr "自宅の電話番号"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1804
+#: lib/Horde/Core/ActiveSync/Driver.php:2385
 msgid "Inbox"
 msgstr "INBOX"
 
@@ -470,8 +470,8 @@ msgstr "個別ユーザ"
 msgid "Inline"
 msgstr "インライン"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:210
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:274
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:211
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:275
 msgid "International Address"
 msgstr "国際郵便用住所"
 
@@ -502,7 +502,7 @@ msgstr "６月"
 msgid "Keep original?"
 msgstr "オリジナルを保存？"
 
-#: lib/Horde/Core/Smartmobile/View/Helper.php:66
+#: lib/Horde/Core/Smartmobile/View/Helper.php:67
 msgid "Log out"
 msgstr "ログアウト"
 
@@ -544,28 +544,28 @@ msgstr "月"
 msgid "Monday"
 msgstr "月曜"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:566
+#: lib/Horde/Core/Block/Layout/Manager.php:565
 msgid "Move Down"
 msgstr "下へ"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:570
+#: lib/Horde/Core/Block/Layout/Manager.php:569
 msgid "Move Left"
 msgstr "左に移動"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:574
+#: lib/Horde/Core/Block/Layout/Manager.php:573
 msgid "Move Right"
 msgstr "右に移動"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:562
+#: lib/Horde/Core/Block/Layout/Manager.php:561
 msgid "Move Up"
 msgstr "上へ"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:97
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:101
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:605
 msgid "Move down"
 msgstr "下へ"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:96
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:100
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:604
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:605
 msgid "Move up"
@@ -575,7 +575,7 @@ msgstr "上へ"
 msgid "Multimap UK map"
 msgstr "Multimap UK map"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:147
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:148
 msgid "Name"
 msgstr "名前"
 
@@ -587,7 +587,7 @@ msgstr "次のページ>"
 msgid "No"
 msgstr "いいえ"
 
-#: lib/Horde/PageOutput.php:752
+#: lib/Horde/PageOutput.php:759
 msgid "No Alerts"
 msgstr "警告なし"
 
@@ -599,7 +599,7 @@ msgstr "Twitter API 用の OAuth キイかシークレットがありません"
 msgid "No Sound"
 msgstr "音なし"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:230
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:234
 msgid "No address book selected."
 msgstr "アドレス帳が選択されていません。"
 
@@ -607,12 +607,12 @@ msgstr "アドレス帳が選択されていません。"
 msgid "No children can be added to this permission."
 msgstr "このアクセス権にはサブアクセス権は追加できません。"
 
-#: lib/Horde.php:565
+#: lib/Horde.php:489
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "%s の設定情報が指定されていません。"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1236
+#: lib/Horde/Core/ActiveSync/Driver.php:1560
 msgid "No message body text"
 msgstr "本文なし"
 
@@ -628,11 +628,12 @@ msgstr "有効な電子メールアドレスがありません"
 msgid "No values"
 msgstr "値なし"
 
-#: lib/Horde/Registry.php:252
+#: lib/Horde/Registry.php:260
 msgid "Not an admin"
 msgstr "管理者以外"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:376
+#: lib/Horde/Core/ActiveSync/Driver.php:143
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:377
 msgid "Notes"
 msgstr "メモ"
 
@@ -656,16 +657,16 @@ msgstr "オブジェクト"
 msgid "October"
 msgstr "10月"
 
-#: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:59
+#: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:58
 msgid "Ok"
 msgstr "OK"
 
-#: lib/Horde/Core/ActiveSync/Connector.php:500
+#: lib/Horde/Core/ActiveSync/Connector.php:651
 msgid "Out Of Office"
 msgstr "外出中"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:218
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:282
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:219
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:283
 msgid "Parcel Address"
 msgstr "小包配達用住所"
 
@@ -673,7 +674,7 @@ msgstr "小包配達用住所"
 msgid "Permission"
 msgstr "アクセス権"
 
-#: lib/Horde/Registry.php:304
+#: lib/Horde/Registry.php:312
 msgid "Permission denied."
 msgstr "アクセスは拒否されました。"
 
@@ -681,13 +682,13 @@ msgstr "アクセスは拒否されました。"
 msgid "Permissions"
 msgstr "アクセス権"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:320
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:321
 msgid "Phone"
 msgstr "電話"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:166
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:174
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:178
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:167
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:175
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:179
 msgid "Photo"
 msgstr "写真"
 
@@ -695,8 +696,8 @@ msgstr "写真"
 msgid "Play a sound?"
 msgstr "音を鳴らしますか？"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:214
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:278
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:215
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:279
 msgid "Postal Address"
 msgstr "郵便物配達用住所"
 
@@ -704,13 +705,13 @@ msgstr "郵便物配達用住所"
 msgid "Preferences"
 msgstr "個人設定"
 
-#: lib/Horde/Core/Prefs/Ui.php:659
+#: lib/Horde/Core/Prefs/Ui.php:670
 #, php-format
 msgid "Preferences for %s"
 msgstr "%s の個人設定"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:222
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:286
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:223
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:287
 msgid "Preferred Address"
 msgstr "優先アドレス"
 
@@ -718,15 +719,15 @@ msgstr "優先アドレス"
 msgid "Preview"
 msgstr "プレビュー"
 
-#: lib/Horde/Core/Topbar.php:160
+#: lib/Horde/Core/Topbar.php:169
 msgid "Problem"
 msgstr "障害"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1229
+#: lib/Horde/Core/ActiveSync/Driver.php:1553
 msgid "Quoted"
 msgstr "引用文"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1229
+#: lib/Horde/Core/ActiveSync/Driver.php:1553
 #, php-format
 msgid "Quoting %s"
 msgstr "引用 %s"
@@ -741,11 +742,11 @@ msgstr "このブロックを本当に削除しますか？"
 msgid "Remove"
 msgstr "削除"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:93
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:97
 msgid "Remove source"
 msgstr "ソースを削除"
 
-#: lib/Horde.php:574
+#: lib/Horde.php:498
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "要求された \"%s\" は %s の設定に指定されていません。"
@@ -754,7 +755,7 @@ msgstr "要求された \"%s\" は %s の設定に指定されていません。
 msgid "Reset"
 msgstr "リセット"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:363
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:364
 msgid "Role"
 msgstr "役割"
 
@@ -778,7 +779,7 @@ msgstr "土"
 msgid "Saturday"
 msgstr "土曜"
 
-#: lib/Horde/Registry.php:204
+#: lib/Horde/Registry.php:212
 msgid "Script must be run from the command line"
 msgstr "スクリプトはコマンド行から実行して下さい"
 
@@ -800,15 +801,15 @@ msgstr "オブジェクトを選択"
 msgid "Select none"
 msgstr "どれも選択しない"
 
-#: lib/Horde/Core/Prefs/Ui.php:823
+#: lib/Horde/Core/Prefs/Ui.php:840
 msgid "Select the identity you want to change:"
 msgstr "変更したいIDを選択:"
 
-#: lib/Horde/PageOutput.php:741
+#: lib/Horde/PageOutput.php:748
 msgid "Select..."
 msgstr "-- 選択 --"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:193
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:197
 msgid "Selected address books:"
 msgstr "選択されたアドレス帳："
 
@@ -816,7 +817,7 @@ msgstr "選択されたアドレス帳："
 msgid "Send SMS"
 msgstr "SMS 送信"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1799
+#: lib/Horde/Core/ActiveSync/Driver.php:2380
 msgid "Sent"
 msgstr "送信控え"
 
@@ -826,7 +827,7 @@ msgstr "送信控え"
 msgid "September"
 msgstr "９月"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:537
+#: lib/Horde/Core/Block/Layout/Manager.php:536
 msgid "Shrink"
 msgstr "縮小"
 
@@ -850,12 +851,12 @@ msgstr "日"
 msgid "Success"
 msgstr "成功"
 
-#: lib/Horde/Config.php:289
+#: lib/Horde/Config.php:294
 #, php-format
 msgid "Successfully saved the backup configuration file %s."
 msgstr "設定ファイルのバックアップ %s は正常に保存されました。"
 
-#: lib/Horde/Config.php:299
+#: lib/Horde/Config.php:304
 #, php-format
 msgid "Successfully wrote %s"
 msgstr "%s は正常に書き込まれました"
@@ -864,7 +865,7 @@ msgstr "%s は正常に書き込まれました"
 msgid "Sunday"
 msgstr "日曜"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:126
+#: lib/Horde/Core/ActiveSync/Driver.php:142
 msgid "Tasks"
 msgstr "タスク"
 
@@ -876,7 +877,7 @@ msgstr "木"
 msgid "The History system is disabled."
 msgstr "履歴システムは無効になっています。"
 
-#: lib/Horde/PageOutput.php:737
+#: lib/Horde/PageOutput.php:744
 msgid "The connection to the server has been restored."
 msgstr "サーバへの接続が回復しました。"
 
@@ -889,21 +890,21 @@ msgstr ""
 "メールアドレス %s があなたの ID に追加されました。このウインドーは閉じても構"
 "いません。"
 
-#: lib/Horde.php:348
+#: lib/Horde.php:272
 msgid "The encryption features require a secure web connection."
 msgstr "暗号化には安全なウェブ接続が必要です。"
 
-#: lib/Horde.php:575
+#: lib/Horde.php:499
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "ファイル %s には %s の設定が必須です。"
 
-#: lib/Horde.php:566
+#: lib/Horde.php:490
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "ファイル %s には %s のいくつかの設定が必須です。"
 
-#: lib/Horde/Registry.php:2598
+#: lib/Horde/Registry.php:2616
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
@@ -917,16 +918,16 @@ msgstr ""
 "エラーメッセージの全文は Horde ログファイルに記録され、管理者だけが閲覧できま"
 "す。管理者でないユーザは詳細を見ることはできません。"
 
-#: lib/Horde/Core/Prefs/Ui.php:910
+#: lib/Horde/Core/Prefs/Ui.php:927
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "ID \"%s\" は削除されました。"
 
-#: lib/Horde/Core/Prefs/Ui.php:958
+#: lib/Horde/Core/Prefs/Ui.php:975
 msgid "The new from address can't be verified, try again later: "
 msgstr "新しい from アドレスは確認できませんでした。後で再度試して下さい。"
 
-#: lib/Horde/Core/Factory/Prefs.php:200
+#: lib/Horde/Core/Factory/Prefs.php:225
 #, php-format
 msgid ""
 "The preference \"%s\" could not be saved because its data exceeds the "
@@ -934,7 +935,7 @@ msgid ""
 msgstr ""
 "個人設定 \"%s\" はデータの大きさが制限を越えていたため保存できませんでした."
 
-#: lib/Horde/Core/Factory/Prefs.php:172
+#: lib/Horde/Core/Factory/Prefs.php:197
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default preferences."
@@ -946,11 +947,11 @@ msgstr ""
 msgid "There are no email addresses to confirm."
 msgstr "確認すべきメールアドレスがありません。"
 
-#: lib/Horde/Core/Prefs/Ui.php:455
+#: lib/Horde/Core/Prefs/Ui.php:458
 msgid "There are no preferences available for this application."
 msgstr "このアプリケーションに指定できる個人設定はありません。"
 
-#: lib/Horde/PageOutput.php:738
+#: lib/Horde/PageOutput.php:745
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
@@ -960,23 +961,23 @@ msgstr ""
 "ネットワークの問題であなたのセッションが中断すると思われます。接続が回復する"
 "まで新しい情報を見ることはできません。"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:116
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:117
 msgid "There was an error importing the contact data:"
 msgstr "連絡先データのインポート中にエラーが発生しました。"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:102
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:103
 msgid "There was an error reading the contact data."
 msgstr "連絡先データの読み込み中にエラーが発生しました。"
 
-#: lib/Horde/Core/Prefs/Ui.php:371
+#: lib/Horde/Core/Prefs/Ui.php:372
 msgid "There were errors encountered while updating your preferences."
 msgstr "あなたの設定を更新中にエラーが発生しました。"
 
-#: lib/Horde/PageOutput.php:751
+#: lib/Horde/PageOutput.php:758
 msgid "This is the notification log."
 msgstr "これが通知ログです"
 
-#: lib/Horde/Registry.php:482
+#: lib/Horde/Registry.php:498
 msgid "This system is currently deactivated."
 msgstr "このシステムは一時的に無効になっています。"
 
@@ -992,7 +993,7 @@ msgstr "この値はゼロ以外でなければなりません。"
 msgid "Thursday"
 msgstr "木曜日"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:358
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:359
 msgid "Title"
 msgstr "タイトル"
 
@@ -1004,7 +1005,11 @@ msgstr ""
 "複数の項目を選択するには、PCではControlキイ、MacならCommandキイを押しながらク"
 "リックします。"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1794
+#: lib/Horde/Core/Topbar.php:158
+msgid "Toggle Alerts Log"
+msgstr "警告ログを切り替える"
+
+#: lib/Horde/Core/ActiveSync/Driver.php:2375
 msgid "Trash"
 msgstr "ゴミ箱"
 
@@ -1021,7 +1026,7 @@ msgstr "火曜日"
 msgid "Type your password twice to confirm"
 msgstr "確認のためパスワード2度入力して下さい"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:382
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:383
 msgid "URL"
 msgstr "URL"
 
@@ -1038,7 +1043,7 @@ msgstr "アップロード"
 msgid "User \"%s\" does not exist."
 msgstr "ユーザ \"%s\" は存在しません。"
 
-#: lib/Horde/Core/Prefs/Ui.php:635
+#: lib/Horde/Core/Prefs/Ui.php:642
 msgid "User Preferences"
 msgstr "個人設定"
 
@@ -1067,12 +1072,12 @@ msgstr "水曜日"
 msgid "Whereis Australia map"
 msgstr "Whereis Australia map"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:202
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:266
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:203
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:267
 msgid "Work Address"
 msgstr "勤務先の住所"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:314
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:315
 msgid "Work Phone"
 msgstr "勤務先の電話番号"
 
@@ -1089,25 +1094,27 @@ msgstr "Yahoo! マップ"
 msgid "Yes"
 msgstr "はい"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:221
+#: lib/Horde/Core/Block/Layout/Manager.php:220
 #, php-format
 msgid "You are not allowed to create more than %d block."
 msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "あなたは %d 以上のブロックを作成できません。"
 
-#: lib/Horde/Registry.php:2565
+#: lib/Horde/Registry.php:2583
 msgid "You are not allowed to remove user data."
 msgstr "あなたがユーザーデータを削除することは許されていません。"
 
 #: lib/Horde/Core/Auth/Application.php:728
 msgid ""
-"You are using an old, unsupported version of Internet Explorer. You must use "
-"the minimal view until you upgrade your browser."
+"You are using an old, unsupported version of Internet Explorer. You need at "
+"least Internet Explorer 8. If you already run IE8 or higher, disable the "
+"Compatibility View. Minimal view will be used until you upgrade your browser."
 msgstr ""
-"お使いの Internet Explorer は古く、サポートされていないバージョンです。文字だ"
-"け表示を使用するか、ブラウザを更新して下さい。"
+"お使いの Internet Explorer は古く、サポートされていないバージョンです。IE8以"
+"上が必要です。もしもIE8以上をお使いなら、互換表示をオフにして下さい。ブラウザ"
+"を更新するまでは最低限の文字版は使用できます。"
 
-#: lib/Horde/PageOutput.php:739
+#: lib/Horde/PageOutput.php:746
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
 msgstr "%s スヌーズにするか、あるいは %s 解除 %s できます"
@@ -1135,7 +1142,7 @@ msgstr ""
 msgid "You must configure a VFS backend."
 msgstr "VFS バックエンドを設定する必要があります。"
 
-#: lib/Horde/Core/Prefs/Ui/Widgets.php:396
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:400
 #, php-format
 msgid "You must provide a setting for \"%s\"."
 msgstr "\"%s\" の設定をして下さい。"
@@ -1160,19 +1167,19 @@ msgstr ""
 "お使いのブラウザは動的表示をサポートしていませんので、文字だけの表示を使用し"
 "ます。"
 
-#: lib/Horde/Core/Prefs/Ui.php:926
+#: lib/Horde/Core/Prefs/Ui.php:943
 msgid "Your default identity has been changed."
 msgstr "あなたのデフォルトIDは変更されました。"
 
-#: lib/Horde/Core/Prefs/Ui.php:822
+#: lib/Horde/Core/Prefs/Ui.php:839
 msgid "Your default identity:"
 msgstr "あなたのデフォルトID:"
 
-#: lib/Horde/Core/Prefs/Ui.php:381
+#: lib/Horde/Core/Prefs/Ui.php:382
 msgid "Your preferences have been updated for the duration of this session."
 msgstr "あなたの個人設定は現在のセッション中に変更されました。"
 
-#: lib/Horde/Core/Prefs/Ui.php:383
+#: lib/Horde/Core/Prefs/Ui.php:384
 msgid "Your preferences have been updated."
 msgstr "あなたの個人設定は更新されました。"
 
@@ -1180,7 +1187,7 @@ msgstr "あなたの個人設定は更新されました。"
 msgid "[Hide Quoted Text]"
 msgstr "[引用文を隠す]"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:141
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:142
 msgid "[No Label]"
 msgstr "[ラベルなし]"
 
@@ -1197,7 +1204,7 @@ msgstr "h:"
 msgid "hh"
 msgstr "hh"
 
-#: lib/Horde/PageOutput.php:679
+#: lib/Horde/PageOutput.php:686
 msgid "loading"
 msgstr "ロード中"
 
@@ -1209,7 +1216,7 @@ msgstr "mm"
 msgid "ss"
 msgstr "ss"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:98
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:99
 msgid "vCard"
 msgstr "vCard"
 

@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+# Japanese translation for Horde.
+# Copyright (C) 2012-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Service_Weather package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2012-11-08 09:57+0900\n"
+"PO-Revision-Date: 2013-01-18 08:47+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -78,7 +78,7 @@ msgstr "快晴"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:140
 #: lib/Horde/Service/Weather/Wwo_Strings.php:53
 msgid "Cloudy"
-msgstr "曇り"
+msgstr "曇"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:9
 msgid "Drizzle"
@@ -581,7 +581,7 @@ msgstr "中程度の雪"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:144
 #: test/Horde/Service/Weather/WundergroundTest.php:28
 msgid "Mostly Cloudy"
-msgstr "概ね曇り"
+msgstr "概ね曇"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:145
 msgid "Mostly Sunny"
@@ -617,7 +617,7 @@ msgstr "北"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:156
 #: lib/Horde/Service/Weather/Wwo_Strings.php:52
 msgid "Overcast"
-msgstr "本曇り"
+msgstr "本曇"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:128
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:146
@@ -625,7 +625,7 @@ msgstr "本曇り"
 #: test/Horde/Service/Weather/WundergroundTest.php:77
 #: test/Horde/Service/Weather/WwoTest.php:32
 msgid "Partly Cloudy"
-msgstr "所により曇り"
+msgstr "所により曇"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:147
 msgid "Partly Sunny"
@@ -715,7 +715,7 @@ msgstr "砂嵐"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:130
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:157
 msgid "Scattered Clouds"
-msgstr "一部曇り"
+msgstr "一部曇"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:150
 msgid "Sleet"

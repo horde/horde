@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Rpc\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
-"PO-Revision-Date: 2012-10-14 11:32+0900\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"PO-Revision-Date: 2013-06-01 16:59+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -17,11 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.4\n"
-
-#: lib/Horde/Rpc/Webdav.php:352
-#, php-format
-msgid "Error deleting from path %s; must be [app]/[path]"
-msgstr "パス %s からの削除エラーです。[app]/[path] 形式でなければなりません"
 
 #: lib/Horde/Rpc/Phpgw.php:80 lib/Horde/Rpc/Phpgw.php:81
 #: lib/Horde/Rpc/Soap.php:185 lib/Horde/Rpc/Soap.php:193
@@ -37,23 +32,9 @@ msgstr "正しいXMLデータが返されませんでした："
 msgid "Request couldn't be answered. Returned errorcode: "
 msgstr "要求に返答できません。応答エラーコード："
 
-#: lib/Horde/Rpc/ActiveSync.php:112
+#: lib/Horde/Rpc/ActiveSync.php:102
 msgid "Trying to access the ActiveSync endpoint from a browser. Not Supported."
 msgstr "ブラウザから ActiveSync 端末へのアクセスはサポートしていません。"
-
-#: lib/Horde/Rpc/Webdav.php:417
-#, php-format
-msgid "Unable to create directory %s; must be [app]/[path]"
-msgstr ""
-"ディレクトリ %s を作成できません。[app]/[path] 形式でなければなりません"
-
-#: lib/Horde/Rpc/Webdav.php:452
-#, php-format
-msgid ""
-"Unable to rename %s; must be [app]/[path] and within the same application."
-msgstr ""
-"%s の名前を変更できません。[app]/[path] 形式でかつ同一のアプリケーションでな"
-"ければなりません。"
 
 #: lib/Horde/Rpc/Phpgw.php:99
 msgid "You did not authenticate."

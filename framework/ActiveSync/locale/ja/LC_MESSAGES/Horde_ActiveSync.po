@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
+# Japanese translation for Horde.
+# Copyright (C) 2012-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_ActiveSync package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_ActiveSync\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
-"PO-Revision-Date: 2012-10-14 11:14+0900\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"PO-Revision-Date: 2013-06-05 10:33+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -18,55 +18,95 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:476
+#: lib/Horde/ActiveSync/Imap/Message.php:520
 #, php-format
 msgid "%s part"
 msgstr "%s パート"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:455
+#: lib/Horde/ActiveSync/Imap/Message.php:499
 msgid "Audio part"
 msgstr "音パート"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:135
+#: lib/Horde/ActiveSync/Imap/Message.php:139
 msgid "Cc"
 msgstr "Cc"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:115
+#: lib/Horde/ActiveSync/Device.php:171
+msgid "Common Name"
+msgstr "一般名"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:119
 msgid "Date"
 msgstr "日付"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:119
+#: lib/Horde/ActiveSync/Device.php:183
+msgid "EAS Version"
+msgstr "EASバージョン"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:123
 msgid "From"
 msgstr "From"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:458
+#: lib/Horde/ActiveSync/Device.php:168
+msgid "IMEI"
+msgstr "IMEI"
+
+#: lib/Horde/ActiveSync/Device.php:159
+msgid "Id"
+msgstr "Id"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:502
 msgid "Image part"
 msgstr "画像パート"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:462
+#: lib/Horde/ActiveSync/Imap/Message.php:506
 msgid "Message part"
 msgstr "メッセージパート"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:465
+#: lib/Horde/ActiveSync/Device.php:165
+msgid "Model"
+msgstr "型番"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:509
 msgid "Multipart part"
 msgstr "マルチパート・パート"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:123
+#: lib/Horde/ActiveSync/Device.php:174
+msgid "OS"
+msgstr "OS"
+
+#: lib/Horde/ActiveSync/Device.php:177
+msgid "OS Language"
+msgstr "OS言語"
+
+#: lib/Horde/ActiveSync/Device.php:180
+msgid "Phone Number"
+msgstr "電話番号"
+
+#: lib/Horde/ActiveSync/Device.php:160
+msgid "Policy Key"
+msgstr "ポリシー鍵"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:127
 msgid "Reply-To"
 msgstr "Reply-To"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:127
+#: lib/Horde/ActiveSync/Imap/Message.php:131
 msgid "Subject"
 msgstr "件名"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:468
+#: lib/Horde/ActiveSync/Imap/Message.php:512
 msgid "Text part"
 msgstr "テキストパート"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:131
+#: lib/Horde/ActiveSync/Imap/Message.php:135
 msgid "To"
 msgstr "To"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:471
+#: lib/Horde/ActiveSync/Device.php:161
+msgid "User Agent"
+msgstr "ユーザエージェント"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:515
 msgid "Video part"
 msgstr "ビデオパート"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_VFS\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
-"PO-Revision-Date: 2012-10-14 11:34+0900\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"PO-Revision-Date: 2013-06-01 17:01+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde/Vfs/Smb.php:564
+#: lib/Horde/Vfs/Smb.php:586
 msgid "No such file"
-msgstr "該当ファイルなし"
+msgstr "そのようなファイルはありません"
 
-#: lib/Horde/Vfs/Smb.php:567
+#: lib/Horde/Vfs/Smb.php:589
 msgid "Permission Denied"
 msgstr "アクセスは拒否されました"
 
-#: lib/Horde/Vfs/SqlFile.php:265
+#: lib/Horde/Vfs/SqlFile.php:262
 msgid "Unable to rename VFS file."
 msgstr "VFS ファイルの名前を変更できません。"
