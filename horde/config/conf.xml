@@ -1893,7 +1893,7 @@
      <configstring name="server" desc="Server Address:">localhost</configstring>
      <configstring name="port" desc="Server port:">406</configstring>
      <configswitch name="auth_method" desc="The authentication method to
-     use">plaintext
+     use">Plaintext
       <case name="Plaintext" desc="Plaintext" />
       <case name="CramMd5" desc="CRAM-MD5" />
       <case name="Imtest" desc="Cyrus imtest">
