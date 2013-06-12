@@ -33,14 +33,14 @@ class Horde_Imsp_Auth_Plaintext extends Horde_Imsp_Auth_Base
         $this->_imsp->send('LOGIN ', true, false);
 
         /* Username as a {}? */
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $userId)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $userId)) {
             $biUser = sprintf('{%d}', strlen($userId));
             $result = $this->_imsp->send($biUser, false, true, true);
         }
         $this->_imsp->send($userId . ' ', false, false);
 
         /* Pass as {}? */
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $credentials)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $credentials)) {
             $biPass = sprintf('{%d}', strlen($credentials));
             $this->_imsp->send($biPass, false, true, true);
         }

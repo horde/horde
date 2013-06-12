@@ -125,7 +125,7 @@ abstract class Horde_Imsp_Client_Base
     static public function quoteSpacedString($string)
     {
         if (strpos($string, ' ') !== false ||
-            preg_match(Horde_Imsp::MUST_QUOTE, $string)) {
+            preg_match(self::MUST_QUOTE, $string)) {
             return '"' . $string . '"';
         } else {
             return $string;
