@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-12</date>
- <time>13:13:50</time>
+ <time>13:19:03</time>
  <version>
-  <release>3.1.1</release>
+  <release>3.1.2</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Fix option to filter by user-defined headers (Bug #12345).
-* [jan] Fix highlighting of menu entries.
-* [jan] Restore compatibility with PHP 5.3 (Bug #12306).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1292,6 +1290,19 @@
 * [jan] Fix option to filter by user-defined headers (Bug #12345).
 * [jan] Fix highlighting of menu entries.
 * [jan] Restore compatibility with PHP 5.3 (Bug #12306).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
