@@ -85,17 +85,54 @@ class Horde_Core_ActiveSyncTests extends Horde_Test_Case
         );
     }
 
+    public function testGetFoldersWhenEmailSupportDisabled()
+    {
+        $driver = new Horde_Core_ActiveSync_Driver(array(
+            'state' => $this->_state,
+            'connector' => new MockConnector(),
+            'auth' => $this->_auth,
+            'imap' => false));
+
+        $folders = $driver->getFolders();
+        $have = array(
+            'Trash' => false,
+            'Sent' => false,
+            'INBOX' => false
+        );
+        foreach ($folders as $f) {
+            $have[$f->_serverid] = true;
+            switch ($f->_serverid) {
+            case 'INBOX':
+                $this->assertEquals(2, $f->type);
+                break;
+            case 'Sent':
+                $this->assertEquals(5, $f->type);
+                break;
+            case 'Trash':
+                $this->assertEquals(4, $f->type);
+                break;
+            }
+        }
+
+        // Make sure we have them all.
+        foreach (array('INBOX', 'Trash', 'Sent') as $test) {
+            if (!$have[$test]) {
+                $this->fail('Missing ' . $test);
+            }
+        }
+
+
+    }
+
     public function testGetFolders()
     {
         $this->_setUpMailTest();
-        $connector = new MockConnector();
-
         $adapter = $this->getMockSkipConstructor('Horde_ActiveSync_Imap_Adapter');
         $adapter->expects($this->once())->method('getMailboxes')->will($this->returnValue($this->_mailboxes));
         $adapter->expects($this->any())->method('getSpecialMailboxes')->will($this->returnValue($this->_special));
         $driver = new Horde_Core_ActiveSync_Driver(array(
             'state' => $this->_state,
-            'connector' => $connector,
+            'connector' => new MockConnector(),
             'auth' => $this->_auth,
             'imap' => $adapter));
         $folders = $driver->getFolders();
@@ -117,7 +154,7 @@ class Horde_Core_ActiveSyncTests extends Horde_Test_Case
             }
 
             $have[$f->_serverid] = true;
-            switch ($f->serverid) {
+            switch ($f->_serverid) {
             case 'Draft':
                 $this->assertEquals(3, $f->type);
                 break;
