@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fixed regression preventing ACLs from being added (Bug #12346).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3226,7 +3226,7 @@
    <date>2013-06-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fixed regression preventing ACLs from being added (Bug #12346).
    </notes>
   </release>
  </changelog>

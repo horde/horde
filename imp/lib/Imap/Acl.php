@@ -87,7 +87,7 @@ class IMP_Imap_Acl
     {
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
 
-        if (strlen($rights) || !$imp_imap->access(IMP_Imap::ACCESS_ACL)) {
+        if (!strlen($rights) || !$imp_imap->access(IMP_Imap::ACCESS_ACL)) {
             return;
         }
 
