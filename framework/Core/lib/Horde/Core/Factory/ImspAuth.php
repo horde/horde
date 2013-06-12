@@ -92,7 +92,8 @@ class Horde_Core_Factory_ImspAuth
      */
     static protected function _factory($driver, array $params = array())
     {
-        $class = $this->_getDriverName($driver, 'Horde_Imsp_Auth');
+        $driver = basename($driver);
+        $class = 'Horde_Imsp_Auth_' . $driver;
 
         // Verify user/pass
         if (empty($params['username'])) {
