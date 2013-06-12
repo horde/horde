@@ -637,6 +637,7 @@ var ViewPort = Class.create({
             }
 
             if (opts.purge) {
+                this.opts.container.fire('ViewPort:remove', this.createSelectionBuffer(view));
                 b.resetRowlist();
             }
 

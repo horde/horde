@@ -2,6 +2,8 @@
 v6.1.2-git
 ----------
 
+[mms] Clear cached previews in dynamic view when changing quicksearch
+      parameters.
 [mms] Fix adding an HTML trailer to a compose message.
 [mms] Fixed regression preventing ACLs from being added (Bug #12346).
 
