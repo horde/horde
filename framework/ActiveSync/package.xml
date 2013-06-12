@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [mjr] Add support for SyncStamps - either timestamps or backend controlled modification sequences.
  </notes>
  <contents>
@@ -1467,6 +1468,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [mjr] Add support for SyncStamps - either timestamps or backend controlled modification sequences.
    </notes>
   </release>
