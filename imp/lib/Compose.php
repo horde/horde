@@ -1346,7 +1346,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 if (strlen($html_trailer)) {
                     $t_dom = new Horde_Domhtml($html_trailer, 'UTF-8');
                     foreach ($t_dom->getBody()->childNodes as $child) {
-                        $body_html_body->appendChild($t_dom->dom->importNode($child, true));
+                        $body_html_body->appendChild($body_html->dom->importNode($child, true));
                     }
                 }
             }
