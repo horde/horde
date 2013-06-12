@@ -27,7 +27,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $page_output, $prefs, $session;
+        global $conf, $injector, $notification, $page_output, $prefs, $session;
 
         /* Check rule permissions. */
         $perms = $injector->getInstance('Horde_Core_Perms');

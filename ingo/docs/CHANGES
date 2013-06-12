@@ -2,6 +2,7 @@
 v3.1.1-git
 ----------
 
+[jan] Fix option to filter by user-defined headers (Bug #12345).
 [jan] Fix highlighting of menu entries.
 [jan] Restore compatibility with PHP 5.3 (Bug #12306).
 
