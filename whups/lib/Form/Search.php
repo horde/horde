@@ -14,7 +14,7 @@ class Whups_Form_Search extends Horde_Form
         parent::__construct($vars);
 
         $this->setButtons(true);
-        $this->appendButtons(_("Save as Query"));
+        $this->appendButtons(array(array('class' => 'horde-create', 'value' => _("Save as Query"))));
         $this->setSection('attributes', _("Attributes"));
 
         $queues = Whups::permissionsFilter(
