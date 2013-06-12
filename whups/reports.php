@@ -30,9 +30,6 @@ $stats = array('avg|open' => _("Average time a ticket is unresolved"),
                'min|open' => _("Minimum time a ticket is unresolved"));
 
 $queues = Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ);
-if (!count($queues)) {
-    $notification->push(_("No stats available."));
-}
 
 $reporter = new Whups_Reports($whups_driver);
 
@@ -40,7 +37,5 @@ $page_output->header(array(
     'title' => _("Reports")
 ));
 require WHUPS_TEMPLATES . '/menu.inc';
-if (count($queues)) {
-    require WHUPS_TEMPLATES . '/reports/stats.inc';
-}
+require WHUPS_TEMPLATES . '/reports/stats.inc';
 $page_output->footer();

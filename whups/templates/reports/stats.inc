@@ -1,4 +1,5 @@
 <h1 class="header"><?php echo _("Ticket Stats") ?></h1>
+<?php if ($queues): ?>
 <table class="item" width="100%" cellspacing="1">
  <tr class="item">
 <?php foreach ($stats as $label): ?>
@@ -19,3 +20,6 @@ foreach ($stats as $stat => $label):
 <?php endforeach; ?>
  </tr>
 </table>
+<?php else: ?>
+<p class="horde-content"><em><?php echo _("No stats available.") ?></em></p>
+<?php endif ?>
