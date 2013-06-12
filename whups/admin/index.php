@@ -912,7 +912,7 @@ case 'whups_form_admin_editattributestepone':
                 break;
 
             case _("Delete Attribute"):
-                $form2 = new DeleteAttributeDescForm($vars);
+                $form2 = new Whups_Form_Admin_DeleteAttribute($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
             }
