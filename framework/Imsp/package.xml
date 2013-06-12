@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-12</date>
- <time>13:54:22</time>
+ <time>14:00:36</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix some undefined constant errors.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -794,6 +794,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix some undefined constant errors.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
