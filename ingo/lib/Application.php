@@ -49,7 +49,7 @@ class Ingo_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (3.1.1-git)';
+    public $version = 'H5 (3.1.1)';
 
     /**
      * Global variables defined:
