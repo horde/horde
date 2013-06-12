@@ -30,11 +30,13 @@ http://www.horde.org/apps/ingo/docs/INSTALL
 
 The major changes compared to Ingo version H5 (3.1.0) are:
     * Restored compatibility with PHP 5.3.
+    * Fixed filtering on user-defined headers.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
 Restored compatibility with PHP 5.3.
+Fixed filtering on user-defined headers.
 FM;
 
 $this->notes['name'] = 'Ingo';
