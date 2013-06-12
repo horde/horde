@@ -2435,17 +2435,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         switch ($id) {
         case self::SPECIAL_TRASH:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
-            $folder->serverid = 'Trash';
+            $folder->serverid = $folder->_serverid = 'Trash';
             $folder->displayname = Horde_Core_Translation::t("Trash");
             break;
         case self::SPECIAL_SENT:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
-            $folder->serverid = 'Sent';
+            $folder->serverid = $folder->_serverid = 'Sent';
             $folder->displayname = Horde_Core_Translation::t("Sent");
             break;
         case self::SPECIAL_INBOX:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
-            $folder->serverid = 'INBOX';
+            $folder->serverid = $folder->_serverid = 'INBOX';
             $folder->displayname = Horde_Core_Translation::t("Inbox");
             break;
         }
