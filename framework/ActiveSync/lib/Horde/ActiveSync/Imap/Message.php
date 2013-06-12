@@ -325,9 +325,6 @@ class Horde_ActiveSync_Imap_Message
                 $html = $html_body_part->getContents();
             }
 
-            // Truncation
-            $truncated = false;
-
             // Size of the original HTML part.
             $html_size = !is_null($data->getBodyPartSize($html_id))
                 ? $data->getBodyPartSize($html_id)
