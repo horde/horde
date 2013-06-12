@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-04</date>
+ <date>2013-06-12</date>
  <version>
   <release>6.1.1</release>
   <api>6.1.0</api>
@@ -3210,7 +3210,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-04</date>
+   <date>2013-06-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fixes for regressions in linked attachment behavior.

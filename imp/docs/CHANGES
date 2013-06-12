@@ -1,6 +1,6 @@
-----------
-v6.1.1-git
-----------
+------
+v6.1.1
+------
 
 [mms] Fixes for regressions in linked attachment behavior.
 [mms] Catch invalid characters in user-defined flag names (Bug #12335).
