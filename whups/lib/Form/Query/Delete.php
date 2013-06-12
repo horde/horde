@@ -1,10 +1,32 @@
 <?php
 /**
- * @package Whups
+ * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
+ * @package  Whups
+ */
+
+/**
+ * Form to confirm query deletion.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category  Horde
+ * @copyright 2001-2002 Robert E. Coyle
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Whups
  */
 class Whups_Form_Query_Delete extends Horde_Form
 {
-    public function __construct(&$vars)
+    public function __construct($vars)
     {
         parent::__construct($vars, _("Delete Query?"), 'Whups_Form_Query_Delete');
 
@@ -15,7 +37,7 @@ class Whups_Form_Query_Delete extends Horde_Form
         $this->setButtons(array(array('class' => 'horde-delete', 'value' => _("Delete Query"))));
     }
 
-    public function execute(&$vars)
+    public function execute($vars)
     {
         global $notification;
 
@@ -43,5 +65,4 @@ class Whups_Form_Query_Delete extends Horde_Form
 
         $this->unsetVars($vars);
     }
-
 }

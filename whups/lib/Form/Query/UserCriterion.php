@@ -1,24 +1,32 @@
 <?php
 /**
- * Forms for editing queries.
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
- * @author  Robert E. Coyle <robertecoyle@hotmail.com>
- * @author  Jan Schneider <jan@horde.org>
- * @package Whups
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
+ * @package  Whups
  */
 
 /**
- * @package Whups
+ * Form to add or edit user criteria.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category  Horde
+ * @copyright 2001-2002 Robert E. Coyle
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Whups
  */
 class Whups_Form_Query_UserCriterion extends Horde_Form
 {
-    public function __construct(&$vars)
+    public function __construct($vars)
     {
         parent::__construct(
             $vars,
@@ -35,7 +43,7 @@ class Whups_Form_Query_UserCriterion extends Horde_Form
         $this->addVariable(_("Search Comments"), 'comments', 'boolean', false);
     }
 
-    public function execute(&$vars)
+    public function execute($vars)
     {
         $path = $vars->get('path');
         $user = $vars->get('user');
@@ -67,5 +75,4 @@ class Whups_Form_Query_UserCriterion extends Horde_Form
 
         $this->unsetVars($vars);
     }
-
 }

@@ -1,6 +1,28 @@
 <?php
 /**
- * @package Whups
+ * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
+ * @package  Whups
+ */
+
+/**
+ * Form to load queries.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category  Horde
+ * @copyright 2001-2002 Robert E. Coyle
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Whups
  */
 class Whups_Form_Query_ChooseNameForLoad extends Horde_Form
 {
