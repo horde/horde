@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix ActiveSync folder generation when email support is disabled (Bug #12337).
 * [mms] Fix language selection at login (Bug #12338).
 * [mjr] Add support for history modification sequences in ActiveSync driver.
 * [mjr] Fix incorrect offsets when generating free/busy data for ActiveSync clients.
@@ -2986,14 +2987,17 @@
   </release>
   <release>
    <version>
-    <release>2.5.1</release>
-    <api>2.5.0</api></version>
+    <release>2.6.0</release>
+    <api>2.6.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix ActiveSync folder generation when email support is disabled (Bug #12337).
+* [mms] Fix language selection at login (Bug #12338).
+* [mjr] Add support for history modification sequences in ActiveSync driver.
 * [mjr] Fix incorrect offsets when generating free/busy data for ActiveSync clients.
 * [mms] Add Horde_HashTable to dependency list (Bug #12314).
 * [jan] Don&apos;t overwrite host part of parsed email addresses (Bug #12302).
