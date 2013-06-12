@@ -1,7 +1,5 @@
 <?php
 /**
- * Horde_ActiveSync_Message_MeetingRequest
- *
  * Portions of this class were ported from the Z-Push project:
  *   File      :   wbxml.php
  *   Project   :   Z-Push
@@ -9,7 +7,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -22,6 +20,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
+
 /**
  * Horde_ActiveSync_Message_MeetingRequest
  *
@@ -175,13 +174,13 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
             $this->globalobjid = Horde_ActiveSync_Utils::createGoid($vevent->getAttribute('UID'));
             $this->starttime = new Horde_Date($vevent->getAttribute('DTSTART'));
             $this->endtime = new Horde_Date($vevent->getAttribute('DTEND'));
-        } catch (Horde_Icalendar_Exception $e) {
+        } catch (Horde_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
 
         try {
             $this->dtstamp = new Horde_Date($vevent->getAttribute('DTSTAMP'));
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Exception $e) {}
 
         try {
             $this->location = Horde_String::truncate($vevent->getAttribute('LOCATION'), 255);
