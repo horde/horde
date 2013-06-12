@@ -72,6 +72,7 @@ class Horde_Core_Factory_DavServer extends Horde_Core_Factory_Injector
                 new Horde_Dav_Locks($registry, $injector->getInstance('Horde_Lock'))
             )
         );
+        $server->addPlugin(new DAVACL\Plugin());
         $server->addPlugin(new DAV\Browser\Plugin());
 
         return $server;

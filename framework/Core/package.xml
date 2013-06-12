@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix CalDAV/CardDAV access from iOS devices.
 * [mjr] Fix obtaining IMSP objects from Horde_Core_Factory_Imsp_Auth.
 * [mjr] Fix ActiveSync folder generation when email support is disabled (Bug #12337).
 * [mms] Fix language selection at login (Bug #12338).
