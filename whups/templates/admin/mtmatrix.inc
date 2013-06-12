@@ -6,19 +6,18 @@
  <?php echo _("Queue/Type Matrix") ?>
 </h1>
 
-<table width="100%" cellspacing="0" class="linedRow">
-<!-- Header row of types -->
- <tr>
-  <th class="control">&nbsp;</th>
+<br />
+<table class="horde-table">
+ <thead><tr>
+  <th class="rightAlign">&nbsp;</th>
 <?php foreach ($types as $tid => $type): ?>
-  <th class="control" style="text-align:center" valign="bottom"><strong><?php echo Horde::link(Horde::url($tlink)->add('type', $tid), $type) . htmlspecialchars($type) ?></a></strong></th>
+  <th style="text-align:center"><strong><?php echo Horde::link(Horde::url($tlink)->add('type', $tid), $type) . htmlspecialchars($type) ?></a></strong></th>
 <?php endforeach; ?>
- </tr>
+ </tr></thead>
 
-<!-- List each queue once for each type -->
 <?php foreach ($queues as $mid => $queue): $selected = $whups_driver->getTypes($mid); ?>
  <tr>
-  <td class="rightAlign"><strong><?php echo Horde::link(Horde::url($mlink)->add('queue', $mid), $queue) . htmlspecialchars($queue) ?></a></strong>&nbsp;&nbsp;</td>
+  <td class="rightAlign"><strong><?php echo Horde::link(Horde::url($mlink)->add('queue', $mid), $queue) . htmlspecialchars($queue) ?></a></strong></td>
 <?php foreach ($types as $tid => $type): ?>
   <td style="text-align:center"><input type="checkbox" class="checkbox" name="matrix[<?php echo (int)$mid ?>][<?php echo (int)$tid ?>]"<?php if (!empty($selected[$tid])) echo ' checked="checked"' ?> /></td>
 <?php endforeach; ?>
@@ -26,6 +25,6 @@
 <?php endforeach; ?>
 </table>
 
-<div><input type="submit" class="button" value="<?php echo _("Update Associations") ?>" /></div>
+<div class="horde-form-buttons"><input type="submit" class="horde-default" value="<?php echo _("Update Associations") ?>" /></div>
 
 </form>
