@@ -211,7 +211,7 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
         try {
             $alarm = $vevent->getAttribute('AALARM');
             if (!is_array($alarm) && intval($alarm)) {
-                $this->reminder = intval($this->start->timestamp() - $alarm);
+                $this->reminder = intval($this->starttime->timestamp() - $alarm);
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
@@ -230,9 +230,9 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
                 $triggerParams['VALUE'] == 'DATE-TIME') {
                 if (isset($triggerParams['RELATED']) &&
                     $triggerParams['RELATED'] == 'END') {
-                    $this->reminder = intval($this->end->timestamp() - $trigger);
+                    $this->reminder = intval($this->endtime->timestamp() - $trigger);
                 } else {
-                    $this->reminder = intval($this->start->timestamp() - $trigger);
+                    $this->reminder = intval($this->starttime->timestamp() - $trigger);
                 }
             } else {
                 $this->reminder = -intval($trigger);
