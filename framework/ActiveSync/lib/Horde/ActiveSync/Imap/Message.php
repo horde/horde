@@ -326,26 +326,25 @@ class Horde_ActiveSync_Imap_Message
             }
 
             // Truncation
+            $truncated = false;
+
+            // Size of the original HTML part.
+            $html_size = !is_null($data->getBodyPartSize($html_id))
+                ? $data->getBodyPartSize($html_id)
+                : Horde_String::length($html);
+
             if (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
                 $html = Horde_String::substr(
                     $html,
                     0,
                     $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'],
                     $html_charset);
-
-                $html_size = !is_null($data->getBodyPartSize($html_id))
-                    ? $data->getBodyPartSize($html_id)
-                    : Horde_String::length($html);
-
             } elseif ($want_html_as_plain) {
                 $html = Horde_Text_Filter::filter(
                     $html, 'Html2text', array('charset' => $html_charset));
 
-                // Get the size of the HTML part.
-                $html_size = !is_null($data->getBodyPartSize($html_id))
-                    ? $data->getBodyPartSize($html_id)
-                    : Horde_String::length($html);
-
+                // Get the new size, since it probably changed.
+                $html_size = Horde_String::length($html);
                 if (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
                     // EAS >= 12.0 truncation
                     $html = Horde_String::substr(
@@ -355,6 +354,8 @@ class Horde_ActiveSync_Imap_Message
                         $html_charset);
                 }
             }
+
+            // Was the part truncated?
             $truncated = $html_size > Horde_String::length($html);
 
             if ($want_html_as_plain) {
