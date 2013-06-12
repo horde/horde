@@ -11,8 +11,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>12:41:21</time>
+ <date>2013-06-12</date>
+ <time>13:54:22</time>
  <version>
   <release>2.0.4</release>
   <api>1.0.0</api>
@@ -790,7 +790,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-06-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix some undefined constant errors.
