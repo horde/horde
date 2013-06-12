@@ -183,42 +183,65 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        $s_categories = $GLOBALS['session']->get('ingo', 'script_categories');
+        global $conf, $ingo_shares, $injector, $prefs, $registry, $session;
 
-        $menu->add(Ingo_Basic_Filters::url(), _("Filter _Rules"), 'ingo-rules', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $s_categories = $session->get('ingo', 'script_categories');
+        $vars = $injector->getInstance('Horde_Variables');
+
+        $menu->add(Ingo_Basic_Filters::url(), _("Filter _Rules"), 'ingo-rules', null, null, null, $vars->page == 'filters' ? 'current' : '__noselection');
 
         try {
             if (in_array(Ingo_Storage::ACTION_WHITELIST, $s_categories)) {
-                $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'ingo-whitelist');
+                $menu->add(Horde::url($injector->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'ingo-whitelist', null, null, null, $vars->page == 'whitelist' ? 'current' : '__noselection');
             }
             if (in_array(Ingo_Storage::ACTION_BLACKLIST, $s_categories)) {
-                $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'ingo-blacklist');
+                $menu->add(Horde::url($injector->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'ingo-blacklist', null, null, null, $vars->page == 'blacklist' ? 'current' : '__noselection');
             }
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
 
         if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
-            $menu->add(Ingo_Basic_Vacation::url(), _("_Vacation"), 'ingo-vacation');
+            $menu->add(Ingo_Basic_Vacation::url(), _("_Vacation"), 'ingo-vacation', null, null, null, $vars->page == 'vacation' ? 'current' : '__noselection');
         }
 
         if (in_array(Ingo_Storage::ACTION_FORWARD, $s_categories)) {
-            $menu->add(Ingo_Basic_Forward::url(), _("_Forward"), 'ingo-forward');
+            $menu->add(Ingo_Basic_Forward::url(), _("_Forward"), 'ingo-forward', null, null, null, $vars->page == 'forward' ? 'current' : '__noselection');
         }
 
         if (in_array(Ingo_Storage::ACTION_SPAM, $s_categories)) {
-            $menu->add(Ingo_Basic_Spam::url(), _("S_pam"), 'ingo-spam');
+            $menu->add(Ingo_Basic_Spam::url(), _("S_pam"), 'ingo-spam', null, null, null, $vars->page == 'spam' ? 'current' : '__noselection');
         }
 
-        if ((!$GLOBALS['prefs']->isLocked('auto_update') ||
-             !$GLOBALS['prefs']->getValue('auto_update')) &&
-            $GLOBALS['injector']->getInstance('Ingo_Factory_Script')->hasFeature('script_file')) {
-            $menu->add(Ingo_Basic_Script::url(), _("_Script"), 'ingo-script');
+        if ((!$prefs->isLocked('auto_update') ||
+             !$prefs->getValue('auto_update')) &&
+            $injector->getInstance('Ingo_Factory_Script')->hasFeature('script_file')) {
+            $menu->add(Ingo_Basic_Script::url(), _("_Script"), 'ingo-script', null, null, null, $vars->page == 'script' ? 'current' : '__noselection');
         }
 
-        if (!empty($GLOBALS['ingo_shares']) &&
-            empty($GLOBALS['conf']['share']['no_sharing'])) {
-            $menu->add('#', _("_Permissions"), 'horde-perms', null, '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $GLOBALS['session']->get('ingo', 'backend/id') . ':' . $GLOBALS['registry']->getAuth()), 'urlencode' => true)) . 'return false;');
+        if (!empty($ingo_shares) && empty($conf['share']['no_sharing'])) {
+            $menu->add(
+                '#',
+                _("_Permissions"),
+                'horde-perms',
+                null,
+                '',
+                Horde::popupJs(
+                    Horde::url(
+                        $registry->get('webroot', 'horde')
+                            . '/services/shares/edit.php',
+                        true
+                    ),
+                    array(
+                        'params' => array(
+                            'app' => 'ingo',
+                            'share' => $session->get('ingo', 'backend/id')
+                                . ':' . $registry->getAuth()
+                        ),
+                        'urlencode' => true
+                    )
+                ) . 'return false;'
+            );
         }
     }
 
