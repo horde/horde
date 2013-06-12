@@ -199,9 +199,6 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
                         $this->_encoder->content('Email');
                         $this->_encoder->endTag();
-                        // @todo BC HACK to pass the backend folderid.
-                        list($mailbox, $uid) = explode(':', $value['searchlongid']);
-                        $mailbox = $collections->getBackendIdForFolderUid($mailbox);
                         $longid = implode(':', array($mailbox, $uid));
 
                         $msg = $this->_driver->itemOperationsFetchMailbox($longid, $value['bodyprefs'], $mimesupport);
