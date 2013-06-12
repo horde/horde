@@ -61,7 +61,7 @@ class Whups_Block_Query extends Whups_Block_Tickets
     protected function _content()
     {
         if (!($query = $this->_getQuery())) {
-            return '<p><em>' . _("No query to run") . '</em></p>';
+            return '<p class="horde-content"><em>' . _("No query to run") . '</em></p>';
         }
 
         $vars = Horde_Variables::getDefaultVariables();

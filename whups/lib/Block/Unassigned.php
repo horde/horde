@@ -29,7 +29,7 @@ class Whups_Block_Unassigned extends Whups_Block_Tickets
                       'queue' => $queue_ids);
         $unassigned = $GLOBALS['whups_driver']->getTicketsByProperties($info);
         if (!$unassigned) {
-            return '<p><em>' . _("No tickets are unassigned!") . '</em></p>';
+            return '<p class="horde-content"><em>' . _("No tickets are unassigned!") . '</em></p>';
         }
 
         return $this->_table($unassigned);

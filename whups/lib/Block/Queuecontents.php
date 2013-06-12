@@ -63,14 +63,14 @@ class Whups_Block_Queuecontents extends Whups_Block_Tickets
     protected function _content()
     {
         if (!($queue = $this->_getQueue())) {
-            return '<p><em>' . _("No tickets in queue.") . '</em></p>';
+            return '<p class="horde-content"><em>' . _("No tickets in queue.") . '</em></p>';
         }
 
         $info = array('queue' => $this->_params['queue'],
                       'nores' => true);
         $tickets = $GLOBALS['whups_driver']->getTicketsByProperties($info);
         if (!$tickets) {
-            return '<p><em>' . _("No tickets in queue.") . '</em></p>';
+            return '<p class="horde-content"><em>' . _("No tickets in queue.") . '</em></p>';
         }
 
         return $this->_table($tickets, 'whups_block_queue_' . $this->_params['queue']);

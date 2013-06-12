@@ -22,7 +22,7 @@ class Whups_Block_Queuesummary extends Horde_Core_Block
         $queues = Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ);
         $qsummary = $whups_driver->getQueueSummary(array_keys($queues));
         if (!$qsummary) {
-            return '<p><em>' . _("There are no open tickets.") . '</em></p>';
+            return '<p class="horde-content"><em>' . _("There are no open tickets.") . '</em></p>';
         }
 
         $summary = $types = array();
