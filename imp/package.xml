@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix adding an HTML trailer to a compose message.
 * [mms] Fixed regression preventing ACLs from being added (Bug #12346).
  </notes>
  <contents>
@@ -3226,6 +3227,7 @@
    <date>2013-06-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix adding an HTML trailer to a compose message.
 * [mms] Fixed regression preventing ACLs from being added (Bug #12346).
    </notes>
   </release>
