@@ -94,7 +94,7 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
             }
         }
         $view->scripturl = self::url();
-        $view->showactivate = ($actionID != 'show_active');
+        $view->showactivate = ($this->vars->actionID != 'show_active');
         if ($view->scriptexists) {
             $view->scripts = $scripts;
         }
