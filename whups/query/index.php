@@ -166,7 +166,7 @@ Whups::addFeedLink();
 $page_output->header(array(
     'title' => _("Query Builder")
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 
 echo $queryTabs->render(Horde_Util::getFormData('action', 'edit'));
 

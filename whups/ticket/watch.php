@@ -58,7 +58,7 @@ if ($vars->get('formname') == 'whups_form_addlistener') {
 $page_output->header(array(
     'title' => sprintf(_("Watchers for %s"), '[#' . $id . '] ' . $ticket->get('summary'))
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
 $tabs = Whups::getTicketTabs($vars, $id);

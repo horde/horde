@@ -36,6 +36,6 @@ $reporter = new Whups_Reports($whups_driver);
 $page_output->header(array(
     'title' => _("Reports")
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/reports/stats.inc';
 $page_output->footer();

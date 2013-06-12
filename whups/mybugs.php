@@ -47,6 +47,6 @@ $menuBottom = '<div id="menuBottom"><a href="' . Horde::url('mybugs_edit.php') .
 $page_output->header(array(
     'title' => sprintf(_("My %s"), $registry->get('name'))
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 echo $layout_html;
 $page_output->footer();

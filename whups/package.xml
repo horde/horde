@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2013-06-12</date>
- <time>17:01:15</time>
+ <time>17:09:17</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -407,7 +407,6 @@
      <file name="savedqueries.inc" role="horde" />
     </dir> <!-- /templates/view -->
     <file name=".htaccess" role="horde" />
-    <file name="menu.inc" role="horde" />
     <file name="prevnext.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
@@ -415,11 +414,9 @@
      <dir name="graphics">
       <file name="admin.png" role="horde" />
       <file name="az.png" role="horde" />
-      <file name="create.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="query.png" role="horde" />
       <file name="reports.png" role="horde" />
-      <file name="search.png" role="horde" />
       <file name="whups.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
@@ -834,7 +831,6 @@
    <install as="whups/queue/rss.php" name="queue/rss.php" />
    <install as="whups/search/rss.php" name="search/rss.php" />
    <install as="whups/templates/.htaccess" name="templates/.htaccess" />
-   <install as="whups/templates/menu.inc" name="templates/menu.inc" />
    <install as="whups/templates/prevnext.inc" name="templates/prevnext.inc" />
    <install as="whups/templates/admin/mtmatrix.inc" name="templates/admin/mtmatrix.inc" />
    <install as="whups/templates/renderer/querysetcurrenttype.inc" name="templates/renderer/querysetcurrenttype.inc" />
@@ -848,11 +844,9 @@
    <install as="whups/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="whups/themes/default/graphics/admin.png" name="themes/default/graphics/admin.png" />
    <install as="whups/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
-   <install as="whups/themes/default/graphics/create.png" name="themes/default/graphics/create.png" />
    <install as="whups/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="whups/themes/default/graphics/query.png" name="themes/default/graphics/query.png" />
    <install as="whups/themes/default/graphics/reports.png" name="themes/default/graphics/reports.png" />
-   <install as="whups/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="whups/themes/default/graphics/whups.png" name="themes/default/graphics/whups.png" />
    <install as="whups/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
    <install as="whups/ticket/.htaccess" name="ticket/.htaccess" />

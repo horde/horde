@@ -26,7 +26,7 @@ Whups::addFeedLink();
 $page_output->header(array(
     'title' => '[#' . $ticket->getId() . '] ' . $ticket->get('summary')
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
 $tabs = Whups::getTicketTabs($vars, $ticket->getId());

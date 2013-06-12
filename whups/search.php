@@ -151,7 +151,7 @@ Whups::addFeedLink();
 $page_output->header(array(
     'title' => _("Search")
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 
 if ($results) {
     $results->html();

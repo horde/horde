@@ -81,7 +81,7 @@ Whups::addFeedLink();
 $page_output->header(array(
     'title' => $whups_query->name ? $whups_query->name : _("Query Results")
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 
 echo $tabs->render($vars->get('action') ? $vars->get('action') : 'run');
 

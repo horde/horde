@@ -74,7 +74,7 @@ if ($form == 'whups_form_settypesteptwo') {
 $page_output->header(array(
     'title' => sprintf(_("Set Type for %s"), '[#' . $id . '] ' . $ticket->get('summary'))
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
 $tabs = Whups::getTicketTabs($vars, $id);

@@ -63,7 +63,7 @@ if ($valid1 && $valid2 && $valid3 &&
 $page_output->header(array(
     'title' => _("New Ticket")
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 
 if ($valid3 && $valid2 && $valid1) {
     $form4->open($r, $vars, 'create.php', 'post');

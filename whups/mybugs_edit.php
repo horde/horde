@@ -34,6 +34,6 @@ Whups::addTopbarSearch();
 $page_output->header(array(
     'title' => sprintf(_("My %s :: Add Content"), $registry->get('name'))
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/portal/edit.inc';
 $page_output->footer();

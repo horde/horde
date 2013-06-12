@@ -37,7 +37,7 @@ $renderer = new Horde_Form_Renderer();
 // start the page
 function _open($isopened = false)
 {
-    global $vars;
+    global $notification, $vars;
     static $opened;
 
     if ($isopened) {
@@ -52,7 +52,7 @@ function _open($isopened = false)
         $GLOBALS['page_output']->header(array(
             'title' => $title
         ));
-        require WHUPS_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
         echo $tabs->render($vars->get('action'));
     }
 }

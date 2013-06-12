@@ -44,7 +44,7 @@ Whups::addFeedLink();
 $page_output->header(array(
     'title' => sprintf(_("Open tickets in %s"), $queue['name'])
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 
 $criteria = array('queue' => $id,
                   'category' => array('unconfirmed', 'new', 'assigned'));

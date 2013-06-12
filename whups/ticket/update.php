@@ -112,7 +112,7 @@ if ($vars->get('formname') == 'whups_form_ticket_edit') {
 $page_output->header(array(
     'title' => $title
 ));
-require WHUPS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
 $tabs = Whups::getTicketTabs($vars, $id);
