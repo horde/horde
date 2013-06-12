@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Push package.
-# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Push package.
-# Automatically generated, 2012.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Push \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -20,19 +20,19 @@ msgstr ""
 
 #: lib/Horde/Push/Cli.php:79
 msgid "A comma delimited list of links."
-msgstr "Una lista de vínculos separados por comas."
+msgstr "Lista de vínculos separados por comas."
 
 #: lib/Horde/Push/Cli.php:63
 msgid "A comma delimited list of recipients."
-msgstr "Una lista de destinatarios separados por comas."
+msgstr "Lista de destinatarios separados por comas."
 
 #: lib/Horde/Push/Cli.php:71
 msgid "A comma delimited list of tags."
-msgstr "Una lista de etiquetas separadas por comas."
+msgstr "Lista de etiquetas separadas por comas."
 
 #: lib/Horde/Push/Cli.php:55
 msgid "A summary replacing the value provided by the source."
-msgstr "Un resumen sustitutivo del valor proporcionado por el origen."
+msgstr "Resumen sustitutivo del valor proporcionado por el origen."
 
 #: lib/Horde/Push/Cli.php:87
 msgid "Do not push the content but display what would be done."

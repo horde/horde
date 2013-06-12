@@ -1,30 +1,30 @@
-# Spanish translations for wicked package
-# Traducciones al español para el paquete wicked.
-# Copyright 2008-2013 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the wicked package.
-# Automatically generated, 2008.
+# Spanish translations for Wicked H5 package.
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Wicked package.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Wicked 1.0-cvs\n"
+"Project-Id-Version: Wicked H5 (2.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-06-11 16:43+0200\n"
-"PO-Revision-Date: 2012-04-20 20:30+0200\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/edit/create.html.php:12
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "\"%s\" does not exist, but maybe you were looking for one of the following "
 "pages?"
-msgstr "%s no existe, pero ¿quizá buscaba alguna de las páginas siguientes?"
+msgstr ""
+"\"%s\" no existe, pero ¿quizá buscaba alguna de las páginas siguientes?"
 
 #: lib/Page/StandardPage.php:471
 #, php-format
@@ -53,7 +53,7 @@ msgstr "(Ninguno)"
 
 #: templates/display/AttachedFiles.html.php:129
 msgid "-- select --"
-msgstr ""
+msgstr "-- seleccionar --"
 
 #: lib/Page/AddPage.php:105
 #, php-format
@@ -200,9 +200,8 @@ msgid "Creation Date"
 msgstr "Fecha de creación"
 
 #: lib/Page/Search.php:142
-#, fuzzy
 msgid "Current Version"
-msgstr "Eliminar versión"
+msgstr "Versión actual"
 
 #: templates/display/AttachedFiles.html.php:13
 msgid "Date"
@@ -295,14 +294,12 @@ msgstr "Coincidencia exacta"
 
 #: templates/display/AttachedFiles.html.php:61
 #: templates/display/AttachedFiles.html.php:116
-#, fuzzy
 msgid "File to attach"
-msgstr "Seleccione el archivo a adjuntar:"
+msgstr "Archivo a adjuntar"
 
 #: templates/display/AttachedFiles.html.php:125
-#, fuzzy
 msgid "File to update"
-msgstr "Seleccione el archivo a actualizar"
+msgstr "Archivo a cargar"
 
 #: lib/Page.php:267
 msgid "Guest"
@@ -317,9 +314,8 @@ msgid "Hi_story"
 msgstr "_Historial"
 
 #: templates/history/header.html.php:7
-#, fuzzy
 msgid "History"
-msgstr "_Historial"
+msgstr "Historia"
 
 #: lib/Page/StandardHistoryPage.php:61
 msgid "History page not found"
@@ -331,16 +327,12 @@ msgid "History: %s"
 msgstr "Historial de %s"
 
 #: templates/display/MergeOrRename.html.php:27
-#, fuzzy
 msgid "If a page with the new name already exists"
-msgstr "Si ya existe una página con ese nombre, "
+msgstr "Si ya existe una página con ese nombre"
 
 #: templates/display/AttachedFiles.html.php:74
-#, fuzzy
 msgid "If blank, will use the file's current name"
-msgstr ""
-"Introduzca un nombre para el archivo (si se deja en blanco, se utilizará el "
-"nombre actual del archivo)"
+msgstr "Si se deja en blanco, se utilizará el nombre actual del archivo"
 
 #: display.php:18 history.php:17
 msgid "Internal error viewing requested page"
@@ -353,12 +345,11 @@ msgstr "Error interno al ver la página solicitada: %s"
 
 #: lib/Api.php:258
 msgid "Invalid page requested."
-msgstr "Se ha solicitado uná página no válida."
+msgstr "Se ha solicitado una página no válida."
 
 #: lib/Page/Search.php:143
-#, fuzzy
 msgid "Last Author"
-msgstr "Autor"
+msgstr "Último autor"
 
 #: lib/Page.php:359 lib/Page/EditPage.php:113
 #, php-format
@@ -367,11 +358,11 @@ msgstr "Última modificación el %s por %s"
 
 #: lib/Page/Search.php:144
 msgid "Last Update"
-msgstr ""
+msgstr "Última actualización"
 
 #: lib/Page/StandardPage.php:322
 msgid "Latex"
-msgstr "Latex"
+msgstr "Látex"
 
 #: lib/Application.php:75 lib/Page/LeastPopular.php:82
 msgid "Least Popular"
@@ -408,7 +399,7 @@ msgstr "Más populares"
 
 #: templates/display/AttachedFiles.html.php:70
 msgid "Name for this file"
-msgstr ""
+msgstr "Nombre del archivo"
 
 #: lib/Block/Page.php:54
 msgid "Name of wiki page to display"
@@ -619,9 +610,8 @@ msgid "Similar Pages: %s"
 msgstr "Páginas similares: %s"
 
 #: templates/edit/standard.html.php:22
-#, fuzzy
 msgid "Spam Protection - Enter the following letters below:"
-msgstr "Protección anti spam - Introduzca la letras siguientes:"
+msgstr "Protección anti spam - Introduzca la letras de siguientes:"
 
 #: templates/display/MergeOrRename.html.php:34
 msgid "Stop and don't do anything"
@@ -682,7 +672,6 @@ msgid "Unable to create %s"
 msgstr "No se puede crear %s"
 
 #: lib/Page/StandardPage.php:93
-#, fuzzy
 msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr "No se puede crear el Inicio del wiki. El wiki no está configurado."
 
@@ -816,219 +805,4 @@ msgstr "adjunto"
 
 #: lib/Page/StandardPage.php:326
 msgid "reStructuredText"
-msgstr ""
-
-#~ msgid ""
-#~ "-d, --debug                  Run in debug mode (displays extra "
-#~ "information)"
-#~ msgstr ""
-#~ "-d, --debug                  Ejecutar en modo de depuración (muestra "
-#~ "información adicional)"
-
-#~ msgid ""
-#~ "-g, --get[=pagetitle]        Return all pages (unless pagetitle specified)"
-#~ msgstr ""
-#~ "-g, --get[=título de la página] Devuelve todas las páginas (si no se "
-#~ "indica un título congreto)"
-
-#~ msgid "-h, --help                   Show this help"
-#~ msgstr "-h, --help                   Muestra esta ayuda"
-
-#~ msgid "-l, --list-pages             List pages"
-#~ msgstr "-l, --list-pages             Lista las páginas"
-
-#~ msgid "-o, --out[=type]             Output type for results (default:xml)"
-#~ msgstr ""
-#~ "-o, --out[=formato]          Formato de salida de los resultados (por "
-#~ "omisión:xml)"
-
-#~ msgid "-p, --password[=password]    Horde login password"
-#~ msgstr "-p, --password[=contraseña]  Contraseña de inicio de Horde"
-
-#~ msgid "-u, --username[=username]    Horde login username"
-#~ msgstr "-u, --username[=usuario]     Usuario de inicio de Horde"
-
-#~ msgid "Actions"
-#~ msgstr "Acciones"
-
-#~ msgid "Back to"
-#~ msgstr "Regresar a"
-
-#~ msgid "Backlinks"
-#~ msgstr "Vínculos de retorno"
-
-#~ msgid "By default, your login data will be used"
-#~ msgstr "Se utilizará su información de entrada por defecto"
-
-#~ msgid "Checksum"
-#~ msgstr "Cnformación de comprobación"
-
-#~ msgid "Couldn't read command-line options."
-#~ msgstr "No se pudieron leer las opciones de línea de comandos."
-
-#~ msgid "Custom"
-#~ msgstr "Personalizado"
-
-#~ msgid "Delete %s"
-#~ msgstr "Eliminar %s"
-
-#~ msgid "Display"
-#~ msgstr "Mostrar"
-
-#~ msgid "Download"
-#~ msgstr "Descargar"
-
-#~ msgid "Downloaded from remote server"
-#~ msgstr "Descargada de un servidor remoto"
-
-#~ msgid "Driver"
-#~ msgstr "Manejador"
-
-#~ msgid "Edit"
-#~ msgstr "Modificar"
-
-#~ msgid "Edit local"
-#~ msgstr "Modificar local"
-
-#~ msgid "Edit remote"
-#~ msgstr "Modificar remoto"
-
-#~ msgid "Error retrieving templates: %s"
-#~ msgstr "Error al recuperar las plantillas: %s"
-
-#~ msgid "Fetch page list"
-#~ msgstr "Obtener la lista de páginas"
-
-#~ msgid "Found same content in history"
-#~ msgstr "Se encontro el mismo contenido en el histórico"
-
-#~ msgid "History of %s"
-#~ msgstr "Historial de %s"
-
-#~ msgid "Is this a minor update?"
-#~ msgstr "¿Se trata de una actualización mínima?"
-
-#~ msgid "Local"
-#~ msgstr "Local"
-
-#~ msgid "Location"
-#~ msgstr "Ubicación"
-
-#~ msgid "Lock %s"
-#~ msgstr "Bloquear %s"
-
-#~ msgid "Logged in successfully as \"%s\"."
-#~ msgstr "Se inició sesión correctamente como \"%s\"."
-
-#~ msgid "Login is incorrect."
-#~ msgstr "Inicio de sesión incorrecto."
-
-#~ msgid ""
-#~ "Mandatory arguments to long options are mandatory for short options too."
-#~ msgstr ""
-#~ "Los argumentos requeridos por las opciones completas también son "
-#~ "requeridos en las opciones abreviadas."
-
-#~ msgid "Merge/Rename"
-#~ msgstr "Combinar/Renombrar"
-
-#~ msgid "Minor Change"
-#~ msgstr "Cambio mínimo"
-
-#~ msgid "New pages on local server"
-#~ msgstr "Páginas nuevas en el servidor local"
-
-#~ msgid "New pages on remote server"
-#~ msgstr "Paginas nuevas en un servidor remoto"
-
-#~ msgid "No pages found"
-#~ msgstr "No se han encontrado páginas"
-
-#~ msgid "No pages to sync"
-#~ msgstr "No hay páginas para sincronizar"
-
-#~ msgid "Page \"%s\" was sucessfully uploaded from local to remote wiki."
-#~ msgstr "Se ha subido correctamente la página \"%s\" local a un wiki remoto."
-
-#~ msgid "Page \"%s\" was sucessfuly downloaded from remote to local wiki."
-#~ msgstr ""
-#~ "La página \"%s\" se ha descargador correctamente desde un servidor remoto "
-#~ "al wiki local."
-
-#~ msgid "Pages to sync"
-#~ msgstr "Paginas para sincronizar"
-
-#~ msgid "Password"
-#~ msgstr "Contraseña"
-
-#~ msgid "Prefix"
-#~ msgstr "Prefijo"
-
-#~ msgid "Remote"
-#~ msgstr "Remota"
-
-#~ msgid "Remove login info"
-#~ msgstr "Éliminar información de entrada"
-
-#~ msgid "Reset"
-#~ msgstr "Limpiar"
-
-#~ msgid "Save login info"
-#~ msgstr "Guardar información de entrada"
-
-#~ msgid "Set permissions for %s"
-#~ msgstr "Definir privilegios para %s"
-
-#~ msgid "Show changes"
-#~ msgstr "Mostrar cambios"
-
-#~ msgid "Similar Pages"
-#~ msgstr "Páginas similares"
-
-#~ msgid "Stored"
-#~ msgstr "Almacenadas"
-
-#~ msgid "Sync Diff"
-#~ msgstr "Sinconizar diferencias"
-
-#~ msgid "Sync Pages"
-#~ msgstr "Sinconizar páginas"
-
-#~ msgid "Sync data"
-#~ msgstr "Sinconizar datos"
-
-#~ msgid "Sync login info was removed."
-#~ msgstr "Se ha eliminado la Información de entrada de sincronización."
-
-#~ msgid "Sync login info was stored"
-#~ msgstr "Se ha guardardo la Información de entrada de sincronización."
-
-#~ msgid "Synchronization is disabled"
-#~ msgstr "Sincronización deshabilitada"
-
-#~ msgid "Unlock %s"
-#~ msgstr "Desbloquear %s"
-
-#~ msgid "Upload"
-#~ msgstr "Cargar"
-
-#~ msgid "Uploaded from remote server"
-#~ msgstr "Subido desde un servidor remoto"
-
-#~ msgid "Url"
-#~ msgstr "Url"
-
-#~ msgid "Usage: %s [OPTIONS]..."
-#~ msgstr "Uso: %s [OPCIONES]..."
-
-#~ msgid "User"
-#~ msgstr "Usuario"
-
-#~ msgid "View local"
-#~ msgstr "Ver local"
-
-#~ msgid "View remote"
-#~ msgstr "Ver remoto"
-
-#~ msgid "page \"%s\" doesn't exist."
-#~ msgstr "la página \"%s\" no existe."
+msgstr "reStructuredText"

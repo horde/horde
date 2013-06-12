@@ -1,14 +1,14 @@
-# Spanish translations for Mnemo H4 package.
-# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+# Spanish translations for Mnemo H5 package.
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Mnemo package.
-# Automatically generated, 2012.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H4 (3.0.5-git)\n"
+"Project-Id-Version: Mnemo H5 (4.1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-12-09 16:56+0100\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -30,7 +30,7 @@ msgstr "El archivo %s se ha importado satisfactoriamente"
 
 #: memo.php:95
 msgid "Access denied addings notes to this notepad."
-msgstr "Se ha denegado el acceso para añadir notas a este bloc."
+msgstr "Se ha denegado el acceso para añadir notas a esta libreta."
 
 #: memo.php:260
 msgid "Access denied deleting note."
@@ -42,7 +42,7 @@ msgstr "Se ha denegado el acceso para trasladar la nota."
 
 #: memo.php:147
 msgid "Access denied saving note to this notepad."
-msgstr "Se ha denegado el acceso para guardar la nota en este bloc."
+msgstr "Se ha denegado el acceso para guardar la nota en esta libreta."
 
 #: lib/Block/Note.php:91
 #, php-format
@@ -94,7 +94,7 @@ msgstr "Crear"
 msgid "Create Notepad"
 msgstr "Crear libreta"
 
-#: lib/Application.php:109
+#: lib/Application.php:115
 msgid "Create a new Notepad"
 msgstr "Crear una libreta"
 
@@ -152,7 +152,7 @@ msgstr "Descripción"
 msgid "Display Preferences"
 msgstr "Mostrar opciones"
 
-#: config/prefs.php:99
+#: config/prefs.php:104
 msgid "Do you want to confirm deleting entries?"
 msgstr "¿Quiere confirmar la eliminación de entradas?"
 
@@ -220,7 +220,7 @@ msgstr "Entrada: "
 msgid "Last Modified"
 msgstr "Última modificación"
 
-#: lib/Application.php:56
+#: lib/Application.php:62
 msgid "Maximum Number of Notes"
 msgstr "Número máximo de notas"
 
@@ -236,14 +236,14 @@ msgstr "Fecha de modificación"
 msgid "More Options..."
 msgstr "Más opciones..."
 
-#: lib/Api.php:367
+#: lib/Api.php:378
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
-"Se encontraron multiples componentes iCalendar; sólo se soporta una vNote."
+"Se encontraron múltiples componentes iCalendar; sólo se soporta una vNote."
 
-#: lib/Application.php:102
+#: lib/Application.php:108
 msgid "My Notepads"
-msgstr "Mi Bloc"
+msgstr "Mi libreta"
 
 #: list.php:29
 msgid "My Notes"
@@ -253,7 +253,7 @@ msgstr "Mis notas"
 msgid "Name"
 msgstr "Nombre"
 
-#: lib/Application.php:162 memo.php:103 memo.php:151
+#: lib/Application.php:168 memo.php:103 memo.php:151
 msgid "New Note"
 msgstr "Añadir"
 
@@ -261,13 +261,13 @@ msgstr "Añadir"
 msgid "Next"
 msgstr "Siguiente"
 
-#: lib/Api.php:208 lib/Api.php:360
+#: lib/Api.php:209 lib/Api.php:371
 msgid "No iCalendar data was found."
 msgstr "No se encontraron datos iCalendar."
 
 #: lib/Block/Note.php:82
 msgid "No note loaded"
-msgstr "No se han cargadoi notas"
+msgstr "No hay notas cargadas"
 
 #: templates/list/memo_footers.inc:4
 msgid "No notes match"
@@ -317,12 +317,12 @@ msgstr "_Libreta"
 msgid "Notepad"
 msgstr "Libreta"
 
-#: lib/Notepads/Default.php:65
+#: lib/Notepads/Default.php:64
 #, php-format
 msgid "Notepad of %s"
 msgstr "Libreta de %s"
 
-#: lib/Notepads/Kolab.php:38
+#: lib/Notepads/Kolab.php:58
 msgid "Notes"
 msgstr "Notas"
 
@@ -360,7 +360,7 @@ msgstr "Guardar"
 msgid "Save as PDF"
 msgstr "Guardar como PDF"
 
-#: lib/Application.php:186 search.php:19 templates/list/header.inc:3
+#: lib/Application.php:192 search.php:19 templates/list/header.inc:3
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Buscar"
@@ -381,9 +381,9 @@ msgstr "Seleccione el archivo a importar:"
 msgid "Select the format of the source file:"
 msgstr "Seleccione el formato del archivo origen:"
 
-#: lib/Application.php:115
+#: lib/Application.php:121
 msgid "Shared Notepads"
-msgstr "Blocs compartidos"
+msgstr "Libretas compartidas"
 
 #: config/prefs.php:37
 msgid "Should the Notepad be shown in its own column in the List view?"
@@ -452,11 +452,11 @@ msgstr "Las contraseñas no coinciden."
 msgid "There was an error importing the data: %s"
 msgstr "Se produjo un error al importar los datos: %s"
 
-#: lib/Api.php:202 lib/Api.php:354
+#: lib/Api.php:203 lib/Api.php:365
 msgid "There was an error importing the iCalendar data."
 msgstr "Se produjo un error al importar los datos iCalendar."
 
-#: lib/Application.php:233
+#: lib/Application.php:239
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
@@ -497,16 +497,16 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Esta nota se ha cifrado, introduzca la contrasela a continuación"
 
-#: lib/Api.php:269 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
+#: lib/Api.php:276 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
 msgid "This note has been encrypted."
 msgstr "Esta nota se ha cifrado."
 
-#: lib/Block/Summary.php:109 lib/Mnemo.php:329 lib/Mnemo.php:330
+#: lib/Block/Summary.php:109 lib/Mnemo.php:335 lib/Mnemo.php:336
 #: templates/list/memo_summaries.inc:20 templates/view/memo.inc:25
 msgid "Unfiled"
 msgstr "Sin categoría"
 
-#: lib/Api.php:236 lib/Api.php:294 lib/Api.php:377
+#: lib/Api.php:242 lib/Api.php:304 lib/Api.php:394
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Tipo de contenido no soportado: %s"
@@ -522,15 +522,15 @@ msgstr "¿A qué libreta hay que añadir las notas?"
 #: data.php:34 data.php:91 memo.php:75
 #, php-format
 msgid "You are not allowed to create more than %d notes."
-msgstr "Carece de permiso para crear más de %d notas."
+msgstr "Carece de permisos para crear más de %d notas."
 
 #: notepads/delete.php:30
 msgid "You are not allowed to delete this notepad."
-msgstr "Carece de permiso para eliminar esta libreta."
+msgstr "Carece de permisos para eliminar esta libreta."
 
 #: notepads/edit.php:32
 msgid "You are not allowed to see this notepad."
-msgstr "Carece de permiso para ver este bloc."
+msgstr "Carece de permisos para ver esta libreta."
 
 #: lib/Ajax/Imple/EditNote.php:27
 msgid "You do not have permission to edit this note."
@@ -538,7 +538,7 @@ msgstr "Carece de permisos para modificar esta nota."
 
 #: note/pdf.php:46 view.php:46
 msgid "You do not have permission to view this notepad."
-msgstr "No dispone de permisos para ver este bloc."
+msgstr "Carece de permisos para ver esta libreta."
 
 #: config/prefs.php:80
 msgid "Your default notepad:"
@@ -572,31 +572,31 @@ msgstr "¿Ci_frar?"
 msgid "_For: "
 msgstr "Te_xto: "
 
-#: lib/Application.php:75
+#: lib/Application.php:81
 msgid "_Import/Export"
 msgstr "_Importar/Exportar"
 
-#: lib/Application.php:68
+#: lib/Application.php:74
 msgid "_List Notes"
 msgstr "_Listar"
 
-#: lib/Application.php:91
+#: lib/Application.php:97
 msgid "_New Note"
 msgstr "_Añadir"
 
 #: templates/memo/memo.inc:19 templates/view/memo.inc:60
 msgid "_Password"
-msgstr "Contrase_ña"
+msgstr "Contra_seña"
 
 #: templates/memo/memo.inc:90
 msgid "_Password:"
-msgstr "Contrase_ña"
+msgstr "Contra_seña:"
 
 #: templates/memo/memo.inc:94
 msgid "_Repeat:"
 msgstr "_Repetir:"
 
-#: lib/Application.php:71
+#: lib/Application.php:77
 msgid "_Search"
 msgstr "_Buscar"
 
@@ -604,21 +604,21 @@ msgstr "_Buscar"
 msgid "_Title"
 msgstr "_Título"
 
-#: lib/Driver/Sql.php:360 lib/Driver/Sql.php:369
+#: lib/Driver/Sql.php:361 lib/Driver/Sql.php:370
 #, php-format
 msgid "by %s"
 msgstr "por %s"
 
-#: lib/Driver/Sql.php:362 lib/Driver/Sql.php:371
+#: lib/Driver/Sql.php:363 lib/Driver/Sql.php:372
 msgid "by me"
 msgstr "por mi"
 
-#: lib/Application.php:174
+#: lib/Application.php:180
 #, php-format
 msgid "in %s"
 msgstr "a %s"
 
-#: lib/Application.php:267 templates/data/export.inc:3
+#: lib/Application.php:276 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notas.csv"
 

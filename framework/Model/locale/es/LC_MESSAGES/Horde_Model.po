@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Model package.
-# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Model package.
-# Automatically generated, 2012.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Model \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-07-19 18:34+0200\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -137,7 +137,7 @@ msgstr "2º Correo"
 #: lib/Horde/Form/VarRenderer/Xhtml.php:182
 #: lib/Horde/Form/VarRenderer/Xhtml.php:183
 msgid "Emoticons"
-msgstr "Emoticones"
+msgstr "Emoticonos"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:918
 #: lib/Horde/Core/Form/daterendererchanges.php:929
@@ -170,15 +170,15 @@ msgstr "Escala de grises"
 
 #: www/test.php:26
 msgid "If other, please describe"
-msgstr "En otro caso, por favor, descríbalo"
+msgstr "En otro caso, descríbalo"
 
 #: www/test.php:46
 msgid "Insert some text"
-msgstr "Insertar cualquier texto"
+msgstr "Insertar algún texto"
 
 #: www/test.php:46
 msgid "Insert some text in this box"
-msgstr "Insertar cualquier texto en esta caja"
+msgstr "Insertar algún texto en este recuadro"
 
 #: www/test.php:40
 msgid "Integer"
@@ -232,7 +232,7 @@ msgstr "Mapa Map24"
 #: lib/Horde/Form/VarRenderer/Xhtml.php:975
 #: lib/Horde/Form/VarRenderer/Xhtml.php:1059
 msgid "MapQuest map"
-msgstr "Mapa mapquest"
+msgstr "Mapa MapQuest"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:435
 #: lib/Horde/Form/VarRenderer/Xhtml.php:282
@@ -461,7 +461,7 @@ msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
 msgstr ""
-"Este campo tiene que contener un códifo de color en formato RGB Hexadecimal, "
+"Este campo tiene que contener un código de color en formato RGB Hexadecimal, "
 "por ejemplo '#1234af'."
 
 #: lib/Horde/Core/Form.php:380
@@ -517,7 +517,7 @@ msgstr "No introdujo una dirección de correo válida."
 
 #: www/test.php:59
 msgid "You have to fill in some long text here"
-msgstr "Debe rellenar un texto largo aquí"
+msgstr "Aquí debe rellenar un texto cierta longitud"
 
 #: lib/Horde/Core/Form/Type/Phone.php:19
 msgid ""

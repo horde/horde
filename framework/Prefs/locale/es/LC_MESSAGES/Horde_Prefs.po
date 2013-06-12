@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Prefs package.
-# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Prefs package.
-# Automatically generated, 2012.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -18,22 +18,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Prefs/Identity.php:335
+#: lib/Horde/Prefs/Identity.php:342
 #, php-format
 msgid "\"%s\" is not a valid email address."
 msgstr "\"%s\" no es una dirección de correo válida."
 
-#: lib/Horde/Prefs/Identity.php:110
+#: lib/Horde/Prefs/Identity.php:117
 msgid "Default Identity"
 msgstr "Identidad por omisión"
 
 #: lib/Horde/Prefs/CategoryManager.php:54
 msgid "New Category"
-msgstr "Nueva categoría"
+msgstr "Añadir categoría"
 
 #: lib/Horde/Prefs/CategoryManager.php:82
 msgid "Please type the new category name:"
-msgstr "Introduzca el nuevo nombre de categoría:"
+msgstr "Introduzca el nombre de la nueva categoría:"
 
 #: lib/Horde/Prefs/Storage/KolabImap.php:66
 msgid "Preferences"
@@ -43,7 +43,7 @@ msgstr "Opciones"
 msgid "Unfiled"
 msgstr "Sin categoría"
 
-#: lib/Horde/Prefs/Identity.php:324
+#: lib/Horde/Prefs/Identity.php:331
 msgid "Unnamed"
 msgstr "Sin nombre"
 
@@ -54,4 +54,4 @@ msgstr "Usar actual: %s"
 
 #: lib/Horde/Prefs/CategoryManager.php:83
 msgid "You must type a new category name."
-msgstr "Tiene que introducir un nuevo nombre de categoría."
+msgstr "Tiene que introducir un nombre de categoría nuevo."

@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Image package.
-# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Image package.
-# Automatically generated, 2012.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-04-20 20:30+0200\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -41,7 +41,7 @@ msgstr "%d por unidad"
 #: lib/Horde/Image/Exif.php:286
 #, php-format
 msgid "%d pixels"
-msgstr "%d pixels"
+msgstr "%d píxeles"
 
 #: lib/Horde/Image/Exif.php:175
 #, php-format
@@ -51,7 +51,7 @@ msgstr "%d seg"
 #: lib/Horde/Image/Exif.php:182
 #, php-format
 msgid "%s / %s sec"
-msgstr "%s / %s sec"
+msgstr "%s / %s seg"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:113
 msgid "/10s"
@@ -316,7 +316,7 @@ msgstr "Flash obligatorio"
 
 #: lib/Horde/Image/Exif.php:434
 msgid "Compulsory Flash, Return light detected"
-msgstr "Compulsory Flash, se ha detectado luz de retorno"
+msgstr "Flash obligatorio, se ha detectado luz de retorno"
 
 #: lib/Horde/Image/Exif.php:433
 msgid "Compulsory Flash, Return light not detected"
@@ -366,7 +366,7 @@ msgstr "No se pudo encontrar IFD1"
 
 #: lib/Horde/Image/Exif/Bundled.php:331
 msgid "Couldnt Find InteroperabilityIFD"
-msgstr "No se pudo encontrar interoperabilidadIFB"
+msgstr "No se pudo encontrar Interoperatibilidad IFB"
 
 #: lib/Horde/Image/Exif/Bundled.php:248
 msgid "Couldnt Find SubIFD"
@@ -374,7 +374,7 @@ msgstr "No se pudo encontrar SubIFD"
 
 #: lib/Horde/Image/Exif.php:261
 msgid "Creative"
-msgstr "Creative"
+msgstr "Creativa"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:370
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:131
@@ -461,11 +461,11 @@ msgstr "Flash externo"
 
 #: lib/Horde/Image/Exif.php:106
 msgid "F-Number"
-msgstr "F-Number"
+msgstr "Número-F"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:318
 msgid "FP sync used"
-msgstr "Se utilizó syncronización FP"
+msgstr "Se utilizó sincronización FP"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:175
 msgid "Fast Shutter"
@@ -507,7 +507,7 @@ msgstr "El flash no se disparó"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:305
 msgid "Flash Fired"
-msgstr "Se ha disparado el Flash"
+msgstr "Se ha disparado el flash"
 
 #: lib/Horde/Image/Exif.php:112
 msgid "Flash Setting"
@@ -535,7 +535,7 @@ msgstr "Flash, no se ha detectado luz de retorno estroboscópica"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:200
 msgid "Flourescence"
-msgstr "Fluoresncencia"
+msgstr "Fluorescencia"
 
 #: lib/Horde/Image/Exif.php:393 lib/Horde/Image/Exif/Parser/Canon.php:368
 msgid "Fluorescent"
@@ -598,15 +598,15 @@ msgstr "Incandescente de estudio ISO"
 
 #: lib/Horde/Image/Exif/Bundled.php:304
 msgid "Illegal size for IFD1"
-msgstr "El tamaño para IFD1 es ilegal"
+msgstr "El tamaño de IFD1 es ilegal"
 
 #: lib/Horde/Image/Exif/Bundled.php:350
 msgid "Illegal size for InteroperabilityIFD"
-msgstr "El tamaño para InteroperabilityIFD es ilegal"
+msgstr "El tamaño de Interoperatibilidad IFD es ilegal"
 
 #: lib/Horde/Image/Exif/Bundled.php:267
 msgid "Illegal size for SubIFD"
-msgstr "El tamaño para SubIFD es ilegal"
+msgstr "El tamaño de SubIFD es ilegal"
 
 #: lib/Horde/Image/Exif.php:79
 msgid "Image Creator"
@@ -635,7 +635,7 @@ msgstr "Pulgada"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:375
 msgid "Infinite"
-msgstr "Inifinito"
+msgstr "Infinito"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:315
 msgid "Internal Flash"
@@ -746,7 +746,7 @@ msgstr "Modo 2"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:165
 msgid "Monochrome"
-msgstr "Monócromo"
+msgstr "Monocromático"
 
 #: lib/Horde/Image/Exif.php:383
 msgid "Multi-Segment"
@@ -902,7 +902,7 @@ msgstr "Tipo de fotografía"
 
 #: lib/Horde/Image/Exif.php:278
 msgid "Pixels"
-msgstr "Pixels"
+msgstr "Píxeles"
 
 #: lib/Horde/Image/Exif.php:263 lib/Horde/Image/Exif.php:483
 #: lib/Horde/Image/Exif/Parser/Canon.php:180
@@ -926,7 +926,7 @@ msgstr "Programa AE"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:149
 msgid "RAW"
-msgstr "Crudo"
+msgstr "En bruto"
 
 #: lib/Horde/Image/Exif.php:441
 msgid "Red Eye"
@@ -1056,7 +1056,7 @@ msgstr "Obturación lenta"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:130
 msgid "Slow Synchro"
-msgstr "Syncronización lenta"
+msgstr "Sincronización lenta"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:166
 msgid "Small"
@@ -1294,7 +1294,7 @@ msgstr "Fluorescente blanco"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:129
 msgid "White-fluorescence"
-msgstr "Fluoresncente-blanco"
+msgstr "Fluorescente-blanco"
 
 #: lib/Horde/Image/Exif.php:96
 msgid "Width"

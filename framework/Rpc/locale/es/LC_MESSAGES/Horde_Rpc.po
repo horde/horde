@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Rpc package.
-# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Rpc package.
-# Automatically generated, 2012.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Rpc \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-12-09 17:23+0100\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,11 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: lib/Horde/Rpc/Webdav.php:352
-#, php-format
-msgid "Error deleting from path %s; must be [app]/[path]"
-msgstr "Error al borrar en la ruta %s; tiene que ser [aplicación]/[ruta]"
 
 #: lib/Horde/Rpc/Phpgw.php:80 lib/Horde/Rpc/Phpgw.php:81
 #: lib/Horde/Rpc/Soap.php:185 lib/Horde/Rpc/Soap.php:193
@@ -37,24 +32,11 @@ msgstr "No se han devuelto datos XML válidos:"
 msgid "Request couldn't be answered. Returned errorcode: "
 msgstr "No se ha podido responder a la solicitud. Código de error devuelto: "
 
-#: lib/Horde/Rpc/ActiveSync.php:115
+#: lib/Horde/Rpc/ActiveSync.php:102
 msgid "Trying to access the ActiveSync endpoint from a browser. Not Supported."
 msgstr ""
-"Se está intentnado acceder a un punto final de ActiveSync desde un "
+"Se está intentando acceder a un punto final de ActiveSync desde un "
 "navegador. Esto no está soportado."
-
-#: lib/Horde/Rpc/Webdav.php:417
-#, php-format
-msgid "Unable to create directory %s; must be [app]/[path]"
-msgstr "Incapaz de crear el directorio %s; tiene que ser [aplicación]/[ruta]"
-
-#: lib/Horde/Rpc/Webdav.php:452
-#, php-format
-msgid ""
-"Unable to rename %s; must be [app]/[path] and within the same application."
-msgstr ""
-"No se puede renombrar %s; debe ser [aplicación]/[iruta] y dentro de la misma "
-"aplicación."
 
 #: lib/Horde/Rpc/Phpgw.php:99
 msgid "You did not authenticate."

@@ -1,14 +1,14 @@
-# Spanish translations for Nag H4 package.
-# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+# Spanish translations for Nag H5 package.
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Nag package.
-# Automatically generated, 2012.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Nag H4 (3.0.8-git)\n"
+"Project-Id-Version: Nag H5 (4.1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-12-09 16:56+0100\n"
-"PO-Revision-Date: 2012-04-20 20:30+0200\n"
+"POT-Creation-Date: 2013-06-03 23:40+0200\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -18,47 +18,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/view/task.inc:35
+#: templates/view/task.inc:52
 #, php-format
 msgid " (%s including sub-tasks)"
 msgstr " (%s incluyendo subtareas)"
 
-#: lib/Nag.php:113
+#: lib/Nag.php:111
 #, php-format
 msgid "%d hour"
 msgstr "%d hora"
 
-#: lib/Nag.php:115
+#: lib/Nag.php:113
 #, php-format
 msgid "%d hour, %d minute"
 msgstr "%d hora, %d minuto"
 
-#: lib/Nag.php:117
+#: lib/Nag.php:115
 #, php-format
 msgid "%d hour, %d minutes"
 msgstr "%d hora, %d minutos"
 
-#: lib/Nag.php:105
+#: lib/Nag.php:103
 #, php-format
 msgid "%d hours"
 msgstr "%d hora"
 
-#: lib/Nag.php:107
+#: lib/Nag.php:105
 #, php-format
 msgid "%d hours, %d minute"
 msgstr "%d horas, %d minuto"
 
-#: lib/Nag.php:109
+#: lib/Nag.php:107
 #, php-format
 msgid "%d hours, %d minutes"
 msgstr "%d horas, %d minutos"
 
-#: lib/Nag.php:123
+#: lib/Nag.php:121
 #, php-format
 msgid "%d minute"
 msgstr "%d minuto"
 
-#: lib/Nag.php:125
+#: lib/Nag.php:123
 #, php-format
 msgid "%d minutes"
 msgstr "%d minutos"
@@ -68,24 +68,29 @@ msgstr "%d minutos"
 msgid "%s %s days of %s"
 msgstr "%s al %s de %s"
 
-#: lib/Nag.php:727
+#: lib/Nag.php:735
 #, php-format
 msgid "%s at %s"
 msgstr "%s a las %s"
 
-#: lib/Block/Summary.php:122 lib/Nag.php:902
+#: lib/Block/Summary.php:122 lib/Nag.php:910
 #, php-format
 msgid "%s is due in %s"
 msgstr "%s vencerá el %s"
 
-#: lib/Block/Summary.php:119 lib/Nag.php:900
+#: lib/Block/Summary.php:119 lib/Nag.php:908
 #, php-format
 msgid "%s is due now."
 msgstr "%s acaba de vencer."
 
-#: lib/CompleteTask.php:26
+#: lib/CompleteTask.php:30
 #, php-format
 msgid "%s is now incomplete."
+msgstr "%s está incompleta por el momento."
+
+#: lib/CompleteTask.php:27
+#, php-format
+msgid "%s is still incomplete."
 msgstr "%s está incompleta por el momento."
 
 #: data.php:163
@@ -93,11 +98,11 @@ msgstr "%s está incompleta por el momento."
 msgid "%s successfully imported"
 msgstr "%s se ha importado correctamente"
 
-#: lib/Form/Task.php:42 lib/Nag.php:678
+#: lib/Form/Task.php:42 lib/Nag.php:686
 msgid "(highest)"
 msgstr "(elevada)"
 
-#: lib/Form/Task.php:46 lib/Nag.php:678
+#: lib/Form/Task.php:46 lib/Nag.php:686
 msgid "(lowest)"
 msgstr "(reducida)"
 
@@ -109,11 +114,15 @@ msgstr "Para activar las alarmas hay que definir una fecha de vencimiento."
 msgid "Access denied completing this task."
 msgstr "Se ha denegado el acceso para terminar esta tarea."
 
+#: app/controllers/SaveTask.php:30
+msgid "Access denied deleting task"
+msgstr "Se ha denegado el acceso para eliminar la tarea"
+
 #: task.php:23
 msgid "Access denied deleting task."
 msgstr "Se ha denegado el acceso para eliminar la tarea."
 
-#: app/controllers/SaveTask.php:26 app/controllers/SaveTask.php:30
+#: app/controllers/SaveTask.php:26
 #, php-format
 msgid "Access denied deleting task: %s"
 msgstr "Se ha denegado el acceso para borrar la tarea: %s"
@@ -127,11 +136,11 @@ msgstr "Se ha denegado el acceso para modificar la tarea."
 msgid "Access denied editing task: %s"
 msgstr "Se ha denegado el acceso para modificar la tarea: %s"
 
-#: lib/Driver.php:263
+#: lib/Driver.php:264
 msgid "Access denied moving the task to this task list."
 msgstr "Se ha denegado el acceso para mover la tarea a esta lista de tareas."
 
-#: lib/Driver.php:251
+#: lib/Driver.php:252
 msgid "Access denied removing task from this task list."
 msgstr ""
 "Se ha denegado el acceso para eliminar la tarea de esta lista de tareas."
@@ -153,7 +162,7 @@ msgid_plural "Added %d tasks"
 msgstr[0] "Añadida %d tarea"
 msgstr[1] "Añadidas %d tareas"
 
-#: data.php:51 lib/Form/Task.php:120 templates/view/task.inc:26
+#: data.php:51 lib/Form/Task.php:120 templates/view/task.inc:43
 msgid "Alarm"
 msgstr "Alarma"
 
@@ -170,7 +179,7 @@ msgstr "Todas las tareas"
 msgid "All completed tasks older than %d days will be permanently deleted."
 msgstr "Todas las tareas anteriores a %d días eliminarán definitivamente."
 
-#: config/prefs.php:313
+#: config/prefs.php:316
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -200,7 +209,7 @@ msgstr "Ascendente"
 
 #: config/prefs.php:67 config/prefs.php:86 config/prefs.php:103 data.php:49
 #: lib/Form/Task.php:111 templates/list/task_headers.html.php:37
-#: templates/smartmobile/taskform.html.php:19 templates/view/task.inc:8
+#: templates/smartmobile/taskform.html.php:19 templates/view/task.inc:25
 msgid "Assignee"
 msgstr "Asignada"
 
@@ -212,13 +221,21 @@ msgstr "Título del bloque"
 msgid "CSV"
 msgstr "CSV"
 
+#: lib/Form/EditTaskList.php:115
+msgid "CalDAV Account URL"
+msgstr "URL de cuenta CalDAV"
+
+#: lib/Form/EditTaskList.php:105
+msgid "CalDAV Subscription URL"
+msgstr "URL de suscripción CalDAV"
+
 #: lib/Ui/VarRenderer/Nag.php:84 lib/Ui/VarRenderer/Nag.php:134
 msgid "Calendar"
 msgstr "Agenda"
 
 #: lib/Form/DeleteTaskList.php:43 lib/Form/DeleteTaskList.php:49
-#: lib/Form/EditTaskList.php:129 lib/Form/EditTaskList.php:148
-#: templates/quick.inc:8 templates/smartmobile/taskform.html.php:62
+#: lib/Form/EditTaskList.php:161 lib/Form/EditTaskList.php:180
+#: templates/quick.inc:9 templates/smartmobile/taskform.html.php:62
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -226,7 +243,7 @@ msgstr "Cancelar"
 msgid "Cannot add tasks to smart lists."
 msgstr "No se pueden añadir tareas a listas inteligentes."
 
-#: lib/Form/EditTaskList.php:115
+#: lib/Form/EditTaskList.php:147
 msgid "Change Permissions"
 msgstr "Cambiar permisos"
 
@@ -234,61 +251,61 @@ msgstr "Cambiar permisos"
 msgid "Change your task sorting and display preferences."
 msgstr "Cambia las opciones de ordenación y visualización de tareas."
 
-#: lib/Nag.php:1094
+#: lib/Nag.php:1102
 #, php-format
 msgid "Changed alarm from %s to %s"
 msgstr "Se cambió la alarma de %s a %s"
 
-#: lib/Nag.php:1073
+#: lib/Nag.php:1081
 #, php-format
 msgid "Changed assignee from \"%s\" to \"%s\""
 msgstr "Se cambió la asignación de \"%s\" a \"%s\""
 
-#: lib/Nag.php:1109
+#: lib/Nag.php:1117
 #, php-format
 msgid "Changed completion from %s to %s"
 msgstr "Se cambió la terminación de %s a %s"
 
-#: lib/Nag.php:1114
+#: lib/Nag.php:1122
 msgid "Changed description"
 msgstr "Se cambió la descripción"
 
-#: lib/Nag.php:1082
+#: lib/Nag.php:1090
 #, php-format
 msgid "Changed due date from %s to %s"
 msgstr "Se cambió la fecha de vencimiento de %s a %s"
 
-#: lib/Nag.php:1104
+#: lib/Nag.php:1112
 #, php-format
 msgid "Changed estimate from %s to %s"
 msgstr "Se cambió la estimación de %s a %s"
 
-#: lib/Nag.php:1041
+#: lib/Nag.php:1049
 #, php-format
 msgid "Changed name from \"%s\" to \"%s\""
 msgstr "Se cambió el nombre de \"%s\" a \"%s\""
 
-#: lib/Nag.php:1055
+#: lib/Nag.php:1063
 #, php-format
 msgid "Changed parent task from \"%s\" to \"%s\""
 msgstr "Se cambió la tarea padre de \"%s\" a \"%s\""
 
-#: lib/Nag.php:1099
+#: lib/Nag.php:1107
 #, php-format
 msgid "Changed priority from %s to %s"
 msgstr "Se cambió la prioridad de %s a %s"
 
-#: lib/Nag.php:1088
+#: lib/Nag.php:1096
 #, php-format
 msgid "Changed start date from %s to %s"
 msgstr "Se cambió la fecha de inicio de %s a %s"
 
-#: lib/Nag.php:1047
+#: lib/Nag.php:1055
 #, php-format
 msgid "Changed task list from \"%s\" to \"%s\""
 msgstr "Se ha cambiado la lista de tareas de \"%s\" a \"%s\"."
 
-#: lib/Nag.php:1038
+#: lib/Nag.php:1046
 msgid "Changes made for this task:"
 msgstr "Cambios realizados en la tarea:"
 
@@ -319,7 +336,7 @@ msgstr ""
 msgid "Choose your default task list."
 msgstr "Elija su lista de tareas por omisión."
 
-#: lib/Form/EditTaskList.php:79 lib/Form/EditTaskList.php:101
+#: lib/Form/EditTaskList.php:79
 msgid "Click or copy this URL to display this task list"
 msgstr "Pulse esta URL o cópiela para mostrar este listado de tareas"
 
@@ -335,25 +352,21 @@ msgstr "Cerrar búsqueda"
 msgid "Color"
 msgstr "Color"
 
-#: lib/Block/Summary.php:188 templates/list/_task.html.php:10
+#: lib/Block/Summary.php:189 templates/list/_task.html.php:10
 #, php-format
 msgid "Complete \"%s\""
 msgstr "Terminar \"%s\""
-
-#: templates/view/task.inc:42
-msgid "Complete Task"
-msgstr "Terminar tarea"
 
 #: config/prefs.php:226
 msgid "Complete tasks"
 msgstr "Terminar tareas"
 
-#: lib/Block/Summary.php:186 lib/Form/Search.php:54 lib/Nag.php:742
+#: lib/Block/Summary.php:187 lib/Form/Search.php:54 lib/Nag.php:750
 #: templates/smartmobile/taskform.html.php:55
 msgid "Completed"
 msgstr "Terminado"
 
-#: lib/CompleteTask.php:23
+#: lib/CompleteTask.php:24
 #, php-format
 msgid "Completed %s."
 msgstr "Se ha terminado %s."
@@ -367,7 +380,7 @@ msgid "Completed tasks"
 msgstr "Tareas terminadas"
 
 #: config/prefs.php:84 config/prefs.php:101 lib/Form/Task.php:130
-#: templates/list/task_headers.html.php:4 templates/view/task.inc:38
+#: templates/list/task_headers.html.php:4 templates/view/task.inc:55
 msgid "Completed?"
 msgstr "¿Terminada?"
 
@@ -379,12 +392,29 @@ msgstr "Fecha de terminación"
 msgid "Completion Status"
 msgstr "Estado de terminación"
 
-#: lib/Api.php:621
+#: lib/Api.php:626
 #, php-format
 msgid "Connection failed: %s"
 msgstr "Ha fallado la conexión: %s"
 
-#: lib/Form/CreateTaskList.php:33 templates/quick.inc:7
+#: lib/Form/EditTaskList.php:119
+msgid "Copy this URL to a CalDAV client to subscribe to all your task lists"
+msgstr ""
+"Copie esta URL en un cliente CalDAV para suscribirse a todas sus listas de "
+"tareas"
+
+#: lib/Form/EditTaskList.php:109
+msgid "Copy this URL to a CalDAV client to subscribe to this task list"
+msgstr ""
+"Copie esta URL en un cliente CalDAV para suscribirse a esta lista de tareas"
+
+#: lib/Form/EditTaskList.php:133
+msgid "Copy this URL to a WebDAV or ICS client to subscribe to this task list"
+msgstr ""
+"Copie esta URL en un cliente WebDAV o ICS para suscribirse a esta lista de "
+"tareas"
+
+#: lib/Form/CreateTaskList.php:33 templates/quick.inc:8
 msgid "Create"
 msgstr "Crear"
 
@@ -396,7 +426,7 @@ msgstr "Crear lista de tareas"
 msgid "Create a new Task List"
 msgstr "Crear una Lista de tareas"
 
-#: templates/view/task.inc:57
+#: templates/view/task.inc:66
 msgid "Created"
 msgstr "Creado"
 
@@ -412,7 +442,7 @@ msgstr "Fecha y hora:"
 msgid "Date:"
 msgstr "Fecha:"
 
-#: lib/Nag.php:774 lib/Ui/VarRenderer/Nag.php:164
+#: lib/Nag.php:782 lib/Ui/VarRenderer/Nag.php:164
 msgid "Day(s)"
 msgstr "Día(s)"
 
@@ -428,8 +458,8 @@ msgstr "Opciones por omisión para nuevas tareas"
 msgid "Delay Start Until"
 msgstr "Retrasar inicio hasta"
 
-#: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:128
-#: lib/Form/EditTaskList.php:143 lib/Form/Task.php:142
+#: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:160
+#: lib/Form/EditTaskList.php:175 lib/Form/Task.php:142
 #: templates/smartmobile/taskform.html.php:63
 msgid "Delete"
 msgstr "Eliminar"
@@ -439,24 +469,24 @@ msgstr "Eliminar"
 msgid "Delete %s"
 msgstr "Eliminar %s"
 
-#: config/prefs.php:20
-msgid "Delete Confirmation"
-msgstr "Confirmación de eliminación"
-
 #: lib/Form/Search.php:66
 msgid "Delete Smart List"
 msgstr "Eliminar lista inteligente"
 
 #: config/prefs.php:21
-msgid "Delete button behaviour"
-msgstr "Comportamiento del botón eliminar"
+msgid "Delete behaviour"
+msgstr "Eliminar comportamiento"
 
 #: task.php:34
 #, php-format
 msgid "Deleted %s."
 msgstr "Se ha eliminado %s."
 
-#: lib/Api.php:600
+#: config/prefs.php:20
+msgid "Deleting Tasks"
+msgstr "Eliminando tareas"
+
+#: lib/Api.php:605
 msgid "Deleting entire tasklists is not supported."
 msgstr "La eliminación de listas de tareas completas no está soportada."
 
@@ -491,7 +521,7 @@ msgid ""
 "Don't send me a notification if I've added, changed or deleted the task?"
 msgstr "¿No notificarme si añado, cambio o elimino tareas?"
 
-#: data.php:50 lib/Form/Task.php:116 templates/view/task.inc:22
+#: data.php:50 lib/Form/Task.php:116 templates/view/task.inc:39
 msgid "Due By"
 msgstr "Vence el"
 
@@ -512,7 +542,7 @@ msgstr "Fecha de vencimiento"
 msgid "E.g., Is due within 2 days of today"
 msgstr "P.ej., Vence en 2 días a partir de hoy"
 
-#: lib/Block/Summary.php:179 templates/list/_task.html.php:37
+#: lib/Block/Summary.php:180 templates/list/_task.html.php:37
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Modificar \"%s\""
@@ -540,7 +570,7 @@ msgstr "Modificar: %s"
 msgid "Editing Smart List \"%s\""
 msgstr "Modificar lista inteligente \"%s\""
 
-#: templates/quick.inc:4
+#: templates/quick.inc:5
 msgid ""
 "Enter one task per line. Create child tasks by indenting them below their "
 "parent task. Include due dates like \"laundry tomorrow\" or \"get dry "
@@ -550,7 +580,7 @@ msgstr ""
 "Introduzca una tarea por línea. Cree tareas anidadas indentándolas bajo sus "
 "tareas padre. Incluya datos de vencimiento como \"lavandería mañana\" o "
 "\"limpieza en seco el próximo jueves\". Se pueden añadir etiquetas "
-"precediendolas del caracter \"#\"."
+"precediéndolas del carácter \"#\"."
 
 #: app/controllers/SaveTask.php:39 task.php:39
 #, php-format
@@ -563,7 +593,7 @@ msgstr "Estimada"
 
 #: config/prefs.php:70 config/prefs.php:85 config/prefs.php:102 data.php:55
 #: lib/Form/Task.php:129 templates/list/task_headers.html.php:33
-#: templates/view/task.inc:34
+#: templates/view/task.inc:51
 msgid "Estimated Time"
 msgstr "Duración estimada"
 
@@ -591,7 +621,7 @@ msgstr "Pref. generales"
 msgid "Highest"
 msgstr "Elevada"
 
-#: lib/Nag.php:777 lib/Ui/VarRenderer/Nag.php:163
+#: lib/Nag.php:785 lib/Ui/VarRenderer/Nag.php:163
 msgid "Hour(s)"
 msgstr "Hora(s)"
 
@@ -620,15 +650,15 @@ msgstr "Subtareas pendientes, complételas primero"
 msgid "Incomplete tasks"
 msgstr "Tareas pendientes"
 
-#: lib/Api.php:331
+#: lib/Api.php:336
 msgid "Invalid tasklist file requested."
 msgstr "Se ha solicitado una lista de tareas inválida."
 
-#: lib/Api.php:465
+#: lib/Api.php:470
 msgid "Invalid tasklist name supplied."
 msgstr "Se ha indicado un nombre de lista de tareas inválido."
 
-#: lib/Api.php:347
+#: lib/Api.php:352
 msgid "Invalid tasklist requested."
 msgstr "Se ha solicitado una lista de tareas inválida."
 
@@ -636,7 +666,7 @@ msgstr "Se ha solicitado una lista de tareas inválida."
 msgid "Is due within"
 msgstr "Es pagaderon dentro de"
 
-#: templates/view/task.inc:69
+#: templates/view/task.inc:73
 msgid "Last Modified"
 msgstr "Última modificación"
 
@@ -658,27 +688,23 @@ msgstr "Reducida"
 msgid "Mark \"%s\" as incomplete"
 msgstr "Marcar \"%s\" como pendiente"
 
-#: templates/view/task.inc:44
-msgid "Mark as incomplete"
-msgstr "Marcar como pendiente"
-
 #: lib/Application.php:73
 msgid "Maximum Number of Tasks"
 msgstr "Número máximo de tareas"
 
-#: lib/Nag.php:780 lib/Ui/VarRenderer/Nag.php:163
+#: lib/Nag.php:788 lib/Ui/VarRenderer/Nag.php:163
 msgid "Minute(s)"
 msgstr "Minuto(s)"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:82
 msgid "Missing required task id"
-msgstr "Falta la inecesaria identificación de tarea."
+msgstr "Falta una identificación de tarea necesaria."
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:86
 msgid "Missing required tasklist"
 msgstr "Falta la lista de tareas necesaria."
 
-#: lib/Nag.php:596
+#: lib/Nag.php:604
 msgid "Missing valid search criteria"
 msgstr "Falta un criterio de búsqueda válido"
 
@@ -686,7 +712,7 @@ msgstr "Falta un criterio de búsqueda válido"
 msgid "More Options..."
 msgstr "Más opciones..."
 
-#: lib/Api.php:1134
+#: lib/Api.php:1139
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 "Se han encontrado varios componentes iCalendar; sólo se soporta un vTodo "
@@ -720,7 +746,8 @@ msgid "New"
 msgstr "Nueva"
 
 #: app/controllers/SaveTask.php:12 lib/Application.php:301
-#: lib/Smartmobile.php:122 task.php:81
+#: lib/Smartmobile.php:122 task.php:81 test/Nag/Unit/Form/Task/Base.php:72
+#: test/Nag/Unit/Form/Task/Base.php:86
 msgid "New Task"
 msgstr "Añadir"
 
@@ -740,7 +767,7 @@ msgstr "Sin retraso"
 msgid "No due date."
 msgstr "Sin fecha de vencimiento."
 
-#: lib/Api.php:811 lib/Api.php:834 lib/Api.php:1141
+#: lib/Api.php:816 lib/Api.php:839 lib/Api.php:1146
 msgid "No iCalendar data was found."
 msgstr "No se encontraron datos iCalendar."
 
@@ -748,7 +775,7 @@ msgstr "No se encontraron datos iCalendar."
 msgid "No parent task"
 msgstr "Sin tarea padre"
 
-#: lib/Nag.php:920
+#: lib/Nag.php:928
 msgid "No task lists are available to guests."
 msgstr "No se dispone de listas de tareas para los invitados."
 
@@ -756,7 +783,7 @@ msgstr "No se dispone de listas de tareas para los invitados."
 msgid "No tasks have been added."
 msgstr "No se han añadido tareas."
 
-#: templates/list.html.php:74
+#: templates/list.html.php:76
 msgid "No tasks match"
 msgstr "No hay tareas coincidentes"
 
@@ -764,19 +791,19 @@ msgstr "No hay tareas coincidentes"
 msgid "No tasks to display"
 msgstr "Sin tareas visibles"
 
-#: lib/Form/Task.php:112 lib/Nag.php:784 lib/Ui/VarRenderer/Nag.php:179
+#: lib/Form/Task.php:112 lib/Nag.php:792 lib/Ui/VarRenderer/Nag.php:179
 msgid "None"
 msgstr "Ninguna"
 
-#: lib/Nag.php:743
+#: lib/Nag.php:751
 msgid "Not Completed"
 msgstr "No está terminado"
 
-#: templates/view/task.inc:14
+#: templates/view/task.inc:31
 msgid "Not Private"
 msgstr "Pública"
 
-#: lib/Api.php:659
+#: lib/Api.php:664
 msgid "Not configured"
 msgstr "Sin configurar"
 
@@ -814,19 +841,19 @@ msgstr "Tarea padre"
 
 #: config/prefs.php:66 config/prefs.php:80 config/prefs.php:97 data.php:53
 #: lib/Form/Task.php:126 templates/smartmobile/taskform.html.php:39
-#: templates/view/task.inc:30
+#: templates/view/task.inc:47
 msgid "Priority"
 msgstr "Prioridad"
 
-#: templates/smartmobile/taskform.html.php:24 templates/view/task.inc:14
+#: templates/smartmobile/taskform.html.php:24 templates/view/task.inc:31
 msgid "Private"
 msgstr "Privada"
 
-#: data.php:54 lib/Task.php:720
+#: data.php:54 lib/Task.php:756
 msgid "Private Task"
 msgstr "Tarea privada"
 
-#: lib/Form/Task.php:115 templates/view/task.inc:12
+#: lib/Form/Task.php:115 templates/view/task.inc:29
 msgid "Private?"
 msgstr "¿Privado?"
 
@@ -837,7 +864,7 @@ msgstr "Frecuencia de purgado de tareas finalizadas:"
 #: config/prefs.php:138
 msgid "Purge completed tasks older than this amount of days."
 msgstr ""
-"Purga tareas finalizadas con una antigüedad superior a estde número de días."
+"Purga tareas finalizadas con una antigüedad superior a este número de días."
 
 #: lib/LoginTasks/Task/PurgeCompleted.php:65
 #, php-format
@@ -859,7 +886,7 @@ msgstr ""
 "¿Eliminar realmente la lista de tareas \"%s\"? Ésto no se puede deshacer y "
 "todos los datos de esta lista de tareas se eliminarán definitivamente."
 
-#: view.php:73
+#: templates/view/task.inc:12
 msgid "Really delete this task?"
 msgstr "¿Eliminar realmente esta tarea?"
 
@@ -871,7 +898,7 @@ msgstr "Eliminar de la búsqueda"
 msgid "Reset"
 msgstr "Limpiar"
 
-#: lib/Form/EditTaskList.php:127 lib/Form/EditTaskList.php:136
+#: lib/Form/EditTaskList.php:159 lib/Form/EditTaskList.php:168
 #: lib/Form/Search.php:65 lib/Form/Task.php:140
 msgid "Save"
 msgstr "Guardar"
@@ -944,13 +971,13 @@ msgstr "Seleccione la(s) lista(s) de tareas desde la que exportar:"
 msgid "Select the task states to export:"
 msgstr "Seleccione los estados de tareas a exportar:"
 
-#: config/prefs.php:273
+#: config/prefs.php:276
 msgid ""
 "Select the tasklists that, in addition to the default, should be used for "
 "synchronization with external devices:"
 msgstr ""
 "Seleccione las listas de tareas que, junto con la lista por omisión, se "
-"usarán parasincronización con dispositivos externos:"
+"usarán para sincronización con dispositivos externos:"
 
 #: lib/Application.php:151
 msgid "Shared Task Lists"
@@ -1020,17 +1047,13 @@ msgid "Start"
 msgstr "Inicio"
 
 #: config/prefs.php:69 config/prefs.php:83 config/prefs.php:100
-#: templates/smartmobile/taskform.html.php:29 templates/view/task.inc:18
+#: templates/smartmobile/taskform.html.php:29 templates/view/task.inc:35
 msgid "Start Date"
 msgstr "Fecha de inicio"
 
 #: lib/Ui/VarRenderer/Nag.php:74
 msgid "Start date specified."
 msgstr "Se ha indicado una fecha de inicio"
-
-#: lib/Form/EditTaskList.php:97
-msgid "Subscription URL"
-msgstr "URL de suscripción"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:116
 msgid "Successfully deleted"
@@ -1098,24 +1121,24 @@ msgstr "Comentario de la tarea"
 msgid "Task Note?"
 msgstr "¿Comentario?"
 
-#: lib/Nag.php:1020
+#: lib/Nag.php:1028
 msgid "Task added:"
 msgstr "Tarea añadida:"
 
-#: lib/Nag.php:1119
+#: lib/Nag.php:1127
 msgid "Task deleted:"
 msgstr "Tarea eliminada:"
 
-#: lib/Nag.php:1136
+#: lib/Nag.php:1144
 msgid "Task description:"
 msgstr "Descripción de la tarea:"
 
-#: lib/Tasklists/Default.php:46
+#: lib/Tasklists/Default.php:45
 #, php-format
 msgid "Task list of %s"
 msgstr "Lista de tareas de %s"
 
-#: lib/Nag.php:1031
+#: lib/Nag.php:1039
 msgid "Task modified:"
 msgstr "Tarea modificada:"
 
@@ -1127,15 +1150,15 @@ msgstr "No se encontró la tarea."
 msgid "Task successfully deleted"
 msgstr "Se ha eliminado correctamente la tarea."
 
-#: lib/Api.php:613
+#: lib/Api.php:618
 msgid "Tasklist does not exist or no permission to delete"
 msgstr "La lista de tareas no existe o carece de permisos para eliminar"
 
-#: lib/Api.php:471
+#: lib/Api.php:476
 msgid "Tasklist does not exist or no permission to edit"
 msgstr "La lista de tareas no existe o carece de permisos para modificar"
 
-#: lib/Api.php:1209 lib/Tasklists/Kolab.php:21
+#: lib/Api.php:1224 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr "Tareas"
 
@@ -1143,7 +1166,7 @@ msgstr "Tareas"
 msgid "Tasks Summary"
 msgstr "Resumen de tareas"
 
-#: lib/Api.php:293
+#: lib/Api.php:298
 #, php-format
 msgid "Tasks from %s"
 msgstr "Tareas de %s"
@@ -1166,7 +1189,7 @@ msgstr "El motor de tareas no está disponible en este momento: %s"
 msgid "The current hour"
 msgstr "La hora actual"
 
-#: lib/Nag.php:1024
+#: lib/Nag.php:1032
 #, php-format
 msgid ""
 "The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
@@ -1174,17 +1197,17 @@ msgstr ""
 "Se ha añadido la tarea \"%s\" a la lista de tareas \"%s\", con una fecha de "
 "vencimiento de: %s."
 
-#: lib/Nag.php:1025
+#: lib/Nag.php:1033
 #, php-format
 msgid "The task \"%s\" has been added to task list \"%s\"."
 msgstr "Se ha añadido la tarea \"%s\" a la lista de tareas \"%s\"."
 
-#: lib/Nag.php:1123
+#: lib/Nag.php:1131
 #, php-format
 msgid "The task \"%s\" has been deleted from task list \"%s\"."
 msgstr "Se ha eliminado la tarea \"%s\" de la lista de tareas \"%s\"."
 
-#: lib/Nag.php:1034
+#: lib/Nag.php:1042
 #, php-format
 msgid "The task \"%s\" has been edited on task list \"%s\"."
 msgstr "Se ha modificado la tarea \"%s\" de la lista de tareas \"%s\"."
@@ -1217,7 +1240,7 @@ msgstr "Además por:"
 msgid "There are no tasks matching the current criteria."
 msgstr "No hay tareas coincidentes con los criterios actuales."
 
-#: lib/CompleteTask.php:31
+#: lib/CompleteTask.php:35
 #, php-format
 msgid "There was a problem completing %s: %s"
 msgstr "Se produjo un problema al completar %s: %s"
@@ -1232,7 +1255,7 @@ msgstr "Se produjo un problema al eliminar %s: %s"
 msgid "There was a problem saving the task: %s."
 msgstr "Se produjo un problema al guardar la tarea: %s."
 
-#: config/prefs.php:315
+#: config/prefs.php:318
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "Se produjo un error de comunicación con el servidor ActiveSync: %s"
@@ -1242,7 +1265,7 @@ msgstr "Se produjo un error de comunicación con el servidor ActiveSync: %s"
 msgid "There was an error importing the data: %s"
 msgstr "Se produjo un error al importar los datos: %s"
 
-#: lib/Api.php:487 lib/Api.php:803 lib/Api.php:1126
+#: lib/Api.php:492 lib/Api.php:808 lib/Api.php:1131 lib/Application.php:546
 msgid "There was an error importing the iCalendar data."
 msgstr "Se produjo un error al importar los datos iCalendar."
 
@@ -1269,15 +1292,15 @@ msgstr "Hora:"
 msgid "Title"
 msgstr "Título"
 
-#: lib/Nag.php:1078
+#: lib/Nag.php:1086
 msgid "Turned privacy off"
 msgstr "Se desactivó la privacidad"
 
-#: lib/Nag.php:1078
+#: lib/Nag.php:1086
 msgid "Turned privacy on"
 msgstr "Se activó la privacidad"
 
-#: lib/Api.php:631
+#: lib/Api.php:636
 #, php-format
 msgid "Unable to delete tasklist \"%s\": %s"
 msgstr "Incapaz de eliminar la lista de tareas \"%s\": %s"
@@ -1287,7 +1310,7 @@ msgstr "Incapaz de eliminar la lista de tareas \"%s\": %s"
 msgid "Unable to load the definition of %s."
 msgstr "Incapaz de cargar la definición de %s."
 
-#: lib/Nag.php:603
+#: lib/Nag.php:611
 #, php-format
 msgid "Unable to save task list \"%s\": %s"
 msgstr "Incapaz de guardar la lista de tareas \"%s\": %s"
@@ -1296,8 +1319,8 @@ msgstr "Incapaz de guardar la lista de tareas \"%s\": %s"
 msgid "Unique ID"
 msgstr "ID único"
 
-#: lib/Api.php:567 lib/Api.php:851 lib/Api.php:975 lib/Api.php:1040
-#: lib/Api.php:1158
+#: lib/Api.php:572 lib/Api.php:856 lib/Api.php:980 lib/Api.php:1045
+#: lib/Api.php:1163
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Tipo de contenido no soportado: %s"
@@ -1314,7 +1337,11 @@ msgstr "Usar método de notificación por omisión"
 msgid "We would like to remind you of this due task."
 msgstr "Querríamos recordarle esta tarea  vencida."
 
-#: lib/Nag.php:771 lib/Ui/VarRenderer/Nag.php:164
+#: lib/Form/EditTaskList.php:129
+msgid "WebDAV/ICS Subscription URL"
+msgstr "URL de suscripción WebDAV/ICS"
+
+#: lib/Nag.php:779 lib/Ui/VarRenderer/Nag.php:164
 msgid "Week(s)"
 msgstr "Semana(s)"
 
@@ -1340,34 +1367,34 @@ msgstr ""
 msgid "Which tasklist should the tasks be added to?"
 msgstr "¿A qué lista de tareas hay que añadir las tareas?"
 
-#: lib/Nag.php:587
+#: lib/Nag.php:595
 msgid "You are not allowed to change this task list."
-msgstr "Carece de permiso para cambiar esta lista de tareas."
+msgstr "Carece de permisos para cambiar esta lista de tareas."
 
 #: data.php:38 data.php:114 task.php:73
 #, php-format
 msgid "You are not allowed to create more than %d tasks."
-msgstr "Carece de permiso para crear más de %d tareas."
+msgstr "Carece de permisos para crear más de %d tareas."
 
-#: lib/Nag.php:620 tasklists/delete.php:27
+#: lib/Nag.php:628 tasklists/delete.php:27
 msgid "You are not allowed to delete this task list."
-msgstr "Carece de permiso para eliminar esta lista de tareas."
+msgstr "Carece de permisos para eliminar esta lista de tareas."
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:107
 msgid "You are not allowed to delete this task."
-msgstr "Carece de permiso para eliminar esta tarea."
+msgstr "Carece de permisos para eliminar esta tarea."
 
-#: lib/Api.php:132
+#: lib/Api.php:137
 msgid "You are not allowed to retrieve this task list."
-msgstr "Carece de permiso para recuperar esta lista de tareas."
+msgstr "Carece de permisos para recuperar esta lista de tareas."
 
 #: tasklists/edit.php:28
 msgid "You are not allowed to see this task list."
-msgstr "Carece de permiso para ver esta lista de tareas."
+msgstr "Carece de permisos para ver esta lista de tareas."
 
 #: view.php:48
 msgid "You do not have permission to view this tasklist."
-msgstr "Carece de permiso para ver esta lista de tareas."
+msgstr "Carece de permisos para ver esta lista de tareas."
 
 #: templates/alarm/mail.html.php:35
 #, php-format
@@ -1378,19 +1405,19 @@ msgid ""
 msgstr ""
 "Ha recibido este mensaje porque su lista de tareas se ha configurado para "
 "enviarle recordatorios de las tareas vencidas con alarmas. Puede cambiarlo "
-"si %sinicia sesión en la lista de tareas%s y cambia sus opciones."
+"si %s inicia sesión en la lista de tareas %s y cambia sus opciones."
 
-#: lib/Nag.php:1021
+#: lib/Nag.php:1029
 msgid "You requested to be notified when tasks are added to your task lists."
 msgstr "Solicitó la notificación de adición de tareas a sus listas de tareas."
 
-#: lib/Nag.php:1121
+#: lib/Nag.php:1129
 msgid ""
 "You requested to be notified when tasks are deleted from your task lists."
 msgstr ""
 "Solicitó la notificación de eliminación de tareas de sus listas de tareas."
 
-#: lib/Nag.php:1032
+#: lib/Nag.php:1040
 msgid "You requested to be notified when tasks are edited on your task lists."
 msgstr ""
 "Solicitó la notificación de modificación de tareas de sus listas de tareas."
@@ -1399,7 +1426,7 @@ msgstr ""
 msgid "Your default task list:"
 msgstr "Su lista de tareas por omisión:"
 
-#: lib/Block/Summary.php:116 lib/Block/Summary.php:215
+#: lib/Block/Summary.php:116 lib/Block/Summary.php:216
 #: templates/list/_task.html.php:47
 msgid "[none]"
 msgstr "[ninguno]"
@@ -1408,7 +1435,7 @@ msgstr "[ninguno]"
 msgid "_All tasks"
 msgstr "_Todas"
 
-#: view.php:66
+#: templates/view/task.inc:5
 msgid "_Complete"
 msgstr "_Terminada"
 
@@ -1416,7 +1443,7 @@ msgstr "_Terminada"
 msgid "_Completed tasks"
 msgstr "Tareas te_rminadas"
 
-#: view.php:73
+#: templates/view/task.inc:12
 msgid "_Delete"
 msgstr "_Eliminar"
 
@@ -1424,7 +1451,7 @@ msgstr "_Eliminar"
 msgid "_Due Date"
 msgstr "Fecha de _vencimiento"
 
-#: view.php:69
+#: templates/view/task.inc:8
 msgid "_Edit"
 msgstr "Mo_dificar"
 
@@ -1477,23 +1504,23 @@ msgstr "y etiquetada como %s"
 msgid "at"
 msgstr "el"
 
-#: lib/Driver/Sql.php:600 lib/Driver/Sql.php:609
+#: lib/Driver/Sql.php:604 lib/Driver/Sql.php:613
 #, php-format
 msgid "by %s"
 msgstr "por %s"
 
-#: lib/Driver/Sql.php:602 lib/Driver/Sql.php:611
+#: lib/Driver/Sql.php:606 lib/Driver/Sql.php:615
 msgid "by me"
 msgstr "por mi"
 
-#: lib/Nag.php:1110 lib/Nag.php:1111
+#: lib/Nag.php:1118 lib/Nag.php:1119
 msgid "completed"
 msgstr "terminada"
 
 #: lib/View/List.php:332
 #, php-format
 msgid "due date within %d days of %s"
-msgstr "fecha de vencimiento en %d días de %s"
+msgstr "vencimiento en %d días de %s"
 
 #: data.php:23
 msgid "iCalendar (vTodo)"
@@ -1504,23 +1531,23 @@ msgstr "iCalendario (vTodo)"
 msgid "in %s"
 msgstr "a %s"
 
-#: lib/Nag.php:1083 lib/Nag.php:1084
+#: lib/Nag.php:1091 lib/Nag.php:1092
 msgid "no due date"
-msgstr "sin fecha de vencimiento"
+msgstr "sin vencimiento"
 
-#: lib/Nag.php:1056 lib/Nag.php:1057
+#: lib/Nag.php:1064 lib/Nag.php:1065
 msgid "no parent"
 msgstr "sin padre"
 
-#: lib/Nag.php:1089 lib/Nag.php:1090
+#: lib/Nag.php:1097 lib/Nag.php:1098
 msgid "no start date"
 msgstr "sin fecha de inicio"
 
-#: lib/Nag.php:121
+#: lib/Nag.php:119
 msgid "no time"
 msgstr "sin límite"
 
-#: lib/Nag.php:1110 lib/Nag.php:1111
+#: lib/Nag.php:1118 lib/Nag.php:1119
 msgid "not completed"
 msgstr "sin terminar"
 

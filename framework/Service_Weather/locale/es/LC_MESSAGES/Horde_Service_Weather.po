@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Service_Weather package.
-# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Service_Weather package.
-# Automatically generated, 2012.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-12-09 17:23+0100\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -447,7 +447,7 @@ msgstr "Chubascos de nieve suaves"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:62
 msgid "Light Spray"
-msgstr "Rocio escaso"
+msgstr "Rocío escaso"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:77
 msgid "Light Thunderstorm"
@@ -475,7 +475,7 @@ msgstr "Tormentas suaves de granizo ligero"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:58
 msgid "Light Volcanic Ash"
-msgstr "Cenizas volcánizas suaves"
+msgstr "Cenizas volcánicas suaves"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:59
 msgid "Light Widespread Dust"

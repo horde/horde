@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Argv package.
-# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Argv package.
-# Automatically generated, 2012.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Argv \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -18,22 +18,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Argv/Parser.php:495
+#: lib/Horde/Argv/Parser.php:478
 #, php-format
 msgid "%s option does not take a value"
-msgstr "La opción %s no coge ningún valor"
+msgstr "La opción %s no toma ningún valor"
 
-#: lib/Horde/Argv/Parser.php:485 lib/Horde/Argv/Parser.php:537
+#: lib/Horde/Argv/Parser.php:468 lib/Horde/Argv/Parser.php:520
 #, php-format
 msgid "%s option requires %d arguments"
 msgstr "La opción %s necesita %d parámetros"
 
-#: lib/Horde/Argv/Parser.php:483 lib/Horde/Argv/Parser.php:535
+#: lib/Horde/Argv/Parser.php:466 lib/Horde/Argv/Parser.php:518
 #, php-format
 msgid "%s option requires an argument"
 msgstr "La opción %s necesita un parámetro"
 
-#: lib/Horde/Argv/Parser.php:660
+#: lib/Horde/Argv/Parser.php:643
 msgid "Options"
 msgstr "Opciones"
 
@@ -45,7 +45,7 @@ msgstr "Uso"
 msgid "Usage:"
 msgstr "Uso:"
 
-#: lib/Horde/Argv/Parser.php:186
+#: lib/Horde/Argv/Parser.php:169
 msgid "[options]"
 msgstr "[opciones]"
 
@@ -69,10 +69,10 @@ msgstr "Opción %s: número entero no válido: '%s'"
 msgid "option %s: invalid long integer value: '%s'"
 msgstr "Opción %s: número entero largo no válido: '%s'"
 
-#: lib/Horde/Argv/Parser.php:158
+#: lib/Horde/Argv/Parser.php:141
 msgid "show program's version number and exit"
 msgstr "mostrar él número de versión del programa y salir"
 
-#: lib/Horde/Argv/Parser.php:152
+#: lib/Horde/Argv/Parser.php:135
 msgid "show this help message and exit"
 msgstr "mostrar esta ayuda y salir"

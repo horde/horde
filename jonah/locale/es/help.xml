@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Horde: jonah/locale/es_ES/help.xml,v 1.1 2008/03/21 00:28:28 jan Exp $ -->
+<!-- $Horde: jonah/locale/en_US/help.xml,v 1.3 2006/01/07 19:41:26 chuck Exp $ -->
 <help>
 
 <entry id="Overview" md5="54ee98f8dbd02ccb30a2591bf2547def" state="uptodate">
     <title>Introducción</title>
     <heading>Introducción</heading>
-    <para>Ésta es una aplicación para mostrar noticias y otros datos desde varios orígenes. Puede suscribirse a la información en la que esté interesado de forma que sólo vea lo que quiera ver.</para>
-</entry>
+    <para>
+    Ésta es una aplicación para mostrar noticias y otros datos desde varios orígenes. Puede suscribirse a la información en la que esté interesado de forma que sólo vea lo que quiera ver.
+    </para>
+  </entry>
 
-<entry id="feed-type" md5="34a529ffaf205720a7c874300a3f9a14" state="uptodate">
+<entry id="feed-type" md5="8f1f35e6500782469d98b310380100f5" state="uptodate">
     <title>Tipos de suscripciones</title>
     <heading>Suscripciones internas</heading>
-    <para>Suscripciones gestionadas y proporcionadas por este sistema.</para>
-
-    <heading>Suscripciones externas</heading>
-    <para>Suscripciones gestionadas y proporcionadas por sistemas externos, por ejemplo, otras sedes web.</para>
-
-    <heading>Suscripciones asociadas</heading>
-    <para>Suscripciones que obtienen su contenido de varias suscripciones externas. Las suscripciones internas también se pueden integrar con la distribución RSS.</para>
-
+    <para>
+    Suscripciones gestionadas y proporcionadas por este sistema.
+    </para>
     <heading>Suscripciones compuestas</heading>
-    <para>Suscripciones que obtienen su contenido de varias suscripciones internas.</para>
-</entry>
+    <para>
+    Suscripciones que obtienen su contenido de varias suscripciones internas.
+    </para>
+  </entry>
 </help>

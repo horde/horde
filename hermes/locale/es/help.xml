@@ -1,22 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="hermes-job-types" state="uptodate" md5="00cf1ad269ebd34007ee18aef29a9c56">
-        <title>Tipos de trabajos de Hermes</title>
-        <para>En Hermes un tipo de trabajo caracteriza qué trabajo se ha realizado en un periodo de tiempo. El administrador ha definido un conjunto de tipos de trabajos de los que elegir.</para>
+    <title>Tipos de trabajos de Hermes</title>
+    <para>
+    En Hermes un tipo de trabajo caracteriza qué trabajo se ha realizado en un periodo de tiempo. El administrador ha definido un conjunto de tipos de trabajos de los que elegir.
+    </para>
   </entry>
   <entry id="hermes-cost-objects" state="uptodate" md5="a47f9ed45e7657ab7577a75f8c553e65">
-        <title>Objetos de gastos de Hermes</title>
-        <para>Hermes presenta posibles objetos de gastos desde múltiples orígenes, por ejemplo prestaciones definidas en Hermes por el administrador, tareas de un gestor de tareas o incidencias de un sistema de seguimiento de incidencias.</para>
+    <title>Objetos de gastos de Hermes</title>
+    <para>
+    Hermes presenta posibles objetos de gastos desde múltiples orígenes, por ejemplo prestaciones definidas en Hermes por el administrador, tareas de un gestor de tareas o incidencias de un sistema de seguimiento de incidencias.
+    </para>
   </entry>
   <entry id="hermes-time-format" state="uptodate" md5="a5ebafdb0a0c3adadb00184a460d9517">
     <title>Formato de duración de Hermes</title>
-    <para>Hermes no da a sus duraciones un formato de horas y minutos, en su lugar los periodos de tiempo tienen el formato de fracciones decimales de una hora.</para>
+    <para>
+    Hermes no da a sus duraciones un formato de horas y minutos, en su lugar los periodos de tiempo tienen el formato de fracciones decimales de una hora.
+    </para>
   </entry>
   <entry id="hermes-submit-slices" state="uptodate" md5="93d4ebd6671b084e492fddbbbedc5f0c">
-        <title>Envío de tiempo</title>
-        <para>Enviar tiempos los "marca" como terminados. También es una indicación para el administrador o el departamento de contabilidad de que están listos para procesarlos. En tanto no envíe sus periodos, se consideran sujetos a cambio, pero una vez los envíe, ya no se podrán modificar.</para>
-        <heading>Envío de tiempos determinados</heading>
-        <para>Aunque no se puede realizar fácilmente desde la vista por omisión de periodos, que muestra todos los periodos de todos los clientes, y las pestañas simplemente los agrupan de formas distintas, se puede llevar a cabo mediante el uso de la búsqueda. Se selecciona el campo Enviado s como "No" y se selecciona cualquier otro criterio en los distintos campos, luego se pulsa "Buscar".</para>
-        <para>Al enviar el formulario de búsqueda de este modo, se le presenta una vista como la de periodos inicial, pero que sólo contiene los periodos ajustados al criterio seleccionado con todas sus casillas ya marcadas de forma que sólo hay que pulsar "Enviar tiempo seleccionado" para hacerlo.</para>
+    <title>Envío de tiempo</title>
+    <para>
+    Enviar tiempos los "marca" como terminados. También es una indicación para el administrador o el departamento de contabilidad de que están listos para procesarlos. En tanto no envíe sus periodos, se consideran sujetos a cambio, pero una vez los envíe, ya no se podrán modificar.
+    </para>
+    <heading>Envío de tiempos determinados</heading>
+    <para>
+    Aunque no se puede realizar fácilmente desde la vista por omisión de periodos, que muestra todos los periodos de todos los clientes, y las pestañas simplemente los agrupan de formas distintas, se puede llevar a cabo mediante el uso de la búsqueda. Se selecciona el campo Enviado s como "No" y se selecciona cualquier otro criterio en los distintos campos, luego se pulsa "Buscar".
+    </para>
+    <para>
+    Al enviar el formulario de búsqueda de este modo, se le presenta una vista como la de periodos inicial, pero que sólo contiene los periodos ajustados al criterio seleccionado con todas sus casillas ya marcadas de forma que sólo hay que pulsar "Enviar tiempo seleccionado" para hacerlo.
+    </para>
   </entry>
 </help>

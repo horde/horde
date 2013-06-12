@@ -1,10 +1,12 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
 
 <entry id="Overview" md5="a4e1e69e71504d7b225bd7a495520c8d" state="uptodate">
-    <title>Introducci&#xF3;n</title>
-    <heading>Introducci&#xF3;n</heading>
-    <para>&#xC9;sta es una aplicaci&#xF3;n para ver tiras c&#xF3;micas. Le permite ver c&#xF3;mics por fechas o por nombre de tira.</para>
-</entry>
+    <title>Introducción</title>
+    <heading>Introducción</heading>
+    <para>
+    Ésta es una aplicación para ver tiras cómicas. Le permite ver cómics por fechas o por nombre de tira.
+    </para>
+  </entry>
 
 </help>

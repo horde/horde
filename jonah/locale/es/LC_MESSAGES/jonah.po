@@ -1,18 +1,18 @@
-# Spanish translations for jonah package
-# Traducciones al español para el paquete jonah.
-# Copyright 2008-2013 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the jonah package.
-# Automatically generated, 2008.
+# Spanish translations for Jonah H5 package.
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Jonah package.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Jonah 1.0-cvs\n"
+"Project-Id-Version: Jonah H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2008-03-18 12:03+0100\n"
-"Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -67,7 +67,7 @@ msgstr "Añadir historia"
 msgid "Add story"
 msgstr "Añadir historia"
 
-#: lib/Application.php:54
+#: lib/Application.php:61
 msgid "Administrator"
 msgstr "Administrador"
 
@@ -83,7 +83,7 @@ msgstr "No se ha encontrado el canal \"%s\"."
 
 #: lib/Form/Feed.php:44
 msgid "Channel Slug"
-msgstr "Canal babosa"
+msgstr "Id de Canal"
 
 #: lib/Form/Feed.php:51
 msgid ""
@@ -114,7 +114,7 @@ msgstr "No se ha encontrado el canal con id \"%s\"."
 msgid "Channel refreshed."
 msgstr "Se ha actualizado el canal."
 
-#: lib/Application.php:60
+#: lib/Application.php:67
 msgid "Channels"
 msgstr "Canales"
 
@@ -202,7 +202,7 @@ msgstr "Modificar historia"
 #: lib/Form/Story.php:77
 msgid "Enter keywords to tag this story, separated by commas"
 msgstr ""
-"Introudzca, separadas por comas, las palabras clave para etiquetar esta "
+"Introduzca, separadas por comas, las palabras clave para etiquetar esta "
 "historia"
 
 #: lib/Block/Latest.php:85 lib/Block/Story.php:87 lib/View/Base.php:35
@@ -220,7 +220,7 @@ msgstr "Información adicional para este tipo de suscripción"
 msgid "Feed"
 msgstr "Suscripción"
 
-#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:64
+#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:69
 msgid "Feeds"
 msgstr "Suscripciones"
 
@@ -320,11 +320,11 @@ msgstr "Historias más populares"
 msgid "Name"
 msgstr "Nombre"
 
-#: lib/Application.php:93 lib/Form/Feed.php:24
+#: lib/Application.php:100 lib/Form/Feed.php:24
 msgid "New Feed"
 msgstr "Añadir suscripción"
 
-#: lib/Application.php:57
+#: lib/Application.php:64
 msgid "News"
 msgstr "Noticias"
 
@@ -332,7 +332,7 @@ msgstr "Noticias"
 msgid "News Source"
 msgstr "Origen de noticias"
 
-#: channels/index.php:24
+#: channels/index.php:21
 msgid "News is not enabled."
 msgstr "No están activadas las noticias."
 
@@ -366,7 +366,7 @@ msgstr "No coincide ninguna suscripción"
 
 #: lib/Driver.php:309
 msgid "No stories are currently available."
-msgstr "Actualment no se dispone de historias."
+msgstr "Actualmente no se dispone de historias."
 
 #: lib/Block/Story.php:81
 msgid "No story is selected."
@@ -431,8 +431,8 @@ msgid ""
 "Really delete this News Channel? All stories created in this channel will be "
 "lost!"
 msgstr ""
-"¿Realmente desea elimianr este canal de noticias? ¡Se perderán todas las "
-"historias que se hayan creado en el!"
+"¿Realmente desea eliminar este canal de noticias? ¡Se perderán todas las "
+"historias que se hayan creado en él!"
 
 #: lib/View/StoryDelete.php:62
 msgid "Really delete this News Story?"
@@ -454,7 +454,7 @@ msgstr "Guardar"
 msgid "Search"
 msgstr "Buscar"
 
-#: templates/delivery/html.html:10
+#: templates/delivery/html.html:9
 msgid "Select a format:"
 msgstr "Seleccione un formato:"
 
@@ -502,7 +502,7 @@ msgstr "Historias etiquetadas como %s en %s"
 msgid "Story"
 msgstr "Historia"
 
-#: stories/share.php:113
+#: stories/share.php:112
 msgid "Story Link"
 msgstr "Vínculo de la historia"
 
@@ -576,7 +576,7 @@ msgstr "Se ha eliminado el canal."
 
 #: stories/share.php:90
 msgid "The complete text of the story"
-msgstr "El texto completo de la historia"
+msgstr "Texto completo de la historia"
 
 #: lib/View/ChannelEdit.php:52
 #, php-format
@@ -592,7 +592,7 @@ msgstr "Se ha guardado la historia \"%s\"."
 msgid "The story has been deleted."
 msgstr "Se ha eliminado la historia."
 
-#: stories/share.php:124
+#: stories/share.php:123
 msgid "The story was sent successfully."
 msgstr "Se envío correctamente la historia."
 
@@ -628,7 +628,7 @@ msgstr "Tipo"
 msgid "Ultracompact"
 msgstr "Ultracompacto"
 
-#: stories/share.php:122
+#: stories/share.php:121
 #, php-format
 msgid "Unable to send story: %s"
 msgstr "Incapaz de enviar historia: %s"
@@ -637,18 +637,17 @@ msgstr "Incapaz de enviar historia: %s"
 msgid "View"
 msgstr "Ver"
 
-#: channels/index.php:18 lib/Api.php:111 lib/View/ChannelDelete.php:47
-#: lib/View/ChannelEdit.php:41 lib/View/StoryDelete.php:39
-#: lib/View/StoryEdit.php:46 lib/View/StoryList.php:32
-#: lib/View/TagSearchList.php:34
+#: lib/Api.php:111 lib/View/ChannelDelete.php:47 lib/View/ChannelEdit.php:41
+#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:46
+#: lib/View/StoryList.php:32 lib/View/TagSearchList.php:34
 msgid "You are not authorised for this action."
 msgstr "Carece de autorización para realizar esta acción."
 
-#: lib/Application.php:85
+#: lib/Application.php:92
 msgid "_Feeds"
 msgstr "_Suscripciones"
 
-#: lib/Application.php:106
+#: lib/Application.php:113
 msgid "_New Story"
 msgstr "_Nueva historia"
 

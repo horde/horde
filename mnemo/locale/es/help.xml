@@ -11,7 +11,7 @@
     <para>
     A diferencia de las notas adhesivas reales, las del ordenador pueden compartirse con otros usuarios en distintas ubicaciones físicas. Las notas pueden organizarse en distintas libretas y se les puede asignar categorías.
     </para>
-</entry>
+  </entry>
 
 <entry id="list-actions" md5="6d592f153bfb5c296de5dfebb428e1ba" state="uptodate">
     <title>Vista de notas: Acciones</title>
@@ -25,7 +25,7 @@
     <para>
     <i>Regresar a la libreta</i> le devuelve desde la vista de notas a la vista de la libreta que contenga la nota actual.
     </para>
-</entry>
+  </entry>
 
 <entry id="menu-actions" md5="715a853d93cd3330e4d730b9112c8a82" state="uptodate">
     <title>Elementos del menú</title>
@@ -45,7 +45,7 @@
     <para>
     <i>Imprimir</i> le permite imprimir una nota. El icono <i>Imprimir</i> sólo será visible en la barra del menú cuando se esté visualizando una nota.
     </para>
-</entry>
+  </entry>
 
 
 <entry id="sorting" md5="cca3b1d1c9ed0ec5ab385f82469ddc8f" state="uptodate">
@@ -54,5 +54,5 @@
     <para>
     Al visualizar un listado de entradas, puede ordenarlas por cualquiera de las columnas pulsando en el título de la cabecera de la columna apropiada. Para conmutar el sentido de la clasificación de una columna entre ascendente y descendente, pulse el icono de flecha de la cabecera de la columna.
     </para>
-</entry>
+  </entry>
 </help>
