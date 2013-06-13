@@ -128,13 +128,14 @@ class IMP_Contents_View
     {
         $this->_contents->fetchCloseSession = true;
 
-        return reset($this->_contents->renderMIMEPart(
+        $render = $this->_contents->renderMIMEPart(
             $id,
             $mode,
             array(
                 'type' => $ctype
             )
-        ));
+        );
+        return reset($render);
     }
 
     /**
