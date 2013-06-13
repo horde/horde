@@ -28,6 +28,14 @@
 class Horde_Test_Stub_Registry
 {
     /**
+     * A flag that is set once the basic horde application has been
+     * minimally configured.
+     *
+     * @var boolean
+     */
+    public $hordeInit = false;
+
+    /**
      * The currrent user.
      *
      * @var string
