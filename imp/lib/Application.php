@@ -92,6 +92,8 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _bootstrap()
     {
+        global $injector;
+
         /* Add IMP-specific factories. */
         $factories = array(
             'IMP_AuthImap' => 'IMP_Factory_AuthImap',
@@ -110,7 +112,13 @@ class IMP_Application extends Horde_Registry_Application
         );
 
         foreach ($factories as $key => $val) {
-            $GLOBALS['injector']->bindFactory($key, $val, 'create');
+            $injector->bindFactory($key, $val, 'create');
+        }
+
+        /* Methods only available if admin config is set for this
+         * server/login. */
+        if (empty($injector->getInstance('IMP_Imap')->config->admin)) {
+            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
         }
     }
 
@@ -125,13 +133,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        global $injector, $prefs, $registry;
-
-        /* Methods only available if admin config is set for this
-         * server/login. */
-        if (empty($injector->getInstance('IMP_Imap')->config->admin)) {
-            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
-        }
+        global $prefs, $registry;
 
         // Set default message character set.
         if ($registry->getAuth()) {
