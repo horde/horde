@@ -1298,7 +1298,7 @@ class Kronolith
         if (isset($calendars[$default_share])) {
             $calendar = $calendars[$default_share];
             unset($calendars[$default_share]);
-            if ($owneronly && $calendar->get('owner') == $GLOBALS['registry']->getAuth()) {
+            if (!$owneronly || ($owneronly && $calendar->get('owner') == $GLOBALS['registry']->getAuth())) {
                 $calendars = array($default_share => $calendar) + $calendars;
             }
         }
