@@ -489,38 +489,6 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         $this->assertEquals($expected, $changes);
     }
 
-    public function testMethodPollForChangesForPingRequests()
-    {
-        // $inbox = array(
-        //     'class' => 'Email',
-        //     'windowsize' => 5,
-        //     'truncation' => 0,
-        //     'mimesupport' => 0,
-        //     'mimetruncation' => 8,
-        //     'conflict' => 1,
-        //     'bodyprefs' => array(
-        //         'wanted' => 2,
-        //         2 => array(
-        //             'type' => 2,
-        //             'truncationsize' => 200000)
-        //     ),
-        //     'deletesasmoves' => 1,
-        //     'filtertype' => 5,
-        //     'id' => '519422f1',
-        //     'serverid' => 'INBOX',
-        //     'synckey' => '{517541cc-b188-478d-9e1a-fa49c0a8015f}3');
-        // $collections = $this->getCollectionHandler(true);
-        // $driver = $this->getMockDriver();
-        // self::$state->setBackend($driver);
-        // $collections->setHeartbeat(array('hbinterval' => 20));
-        // $collections->addCollection($inbox, true);
-        // $collections->updatePingableFlag();
-
-
-
-
-    }
-
     public function getMockDriver()
     {
         $connector = new Horde_ActiveSync_Driver_MockConnector();
