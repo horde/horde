@@ -261,6 +261,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Return an array of stats for the server's folder list.
      *
      * @return array  An array of folder stats @see self::statFolder()
+     * @todo Horde 6 move to base class
      */
     public function getFolderList()
     {
@@ -472,6 +473,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - mod: The modification value.
      *   - parent: The folder's parent id.
      *   - serverid:  The backend server's folder name for this folder.
+     *
+     * @todo Horde 6, move to the base class.
      */
     public function statFolder($id, $parent = '0', $mod = null, $serverid = null)
     {
