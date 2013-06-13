@@ -84,16 +84,20 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
     /* Horde_Mongo_Client specific methods. */
 
     /**
-     * TODO
+     * Checks that indices are up-to-date.
      *
-     * @param string $collection
-     * @param array $indices
+     * @param mixed $collection  The collection name or a MongoCollection
+     *                           object.
+     * @param array $indices     The index definition (see ensureIndex()).
      *
-     * @return boolean
+     * @return boolean  True if the indices are up-to-date.
      */
     public function checkIndices($collection, array $indices)
     {
-        $info = $this->selectCollection(null, $collection)->getIndexInfo();
+        $coll = ($collection instanceof MongoCollection)
+            ? $collection
+            : $this->selectCollection(null, $collection);
+        $info = $coll->getIndexInfo();
 
         foreach ($indices as $key => $val) {
             foreach ($info as $val2) {
@@ -108,14 +112,17 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
     }
 
     /**
-     * TODO
+     * Create indices for the collection.
      *
-     * @param string $collection
-     * @param array $indices
+     * @param mixed $collection  The collection name or a MongoCollection
+     *                           object.
+     * @param array $indices     The index definition (see ensureIndex()).
      */
     public function createIndices($collection, array $indices)
     {
-        $coll = $this->selectCollection(null, $collection);
+        $coll = ($collection instanceof MongoCollection)
+            ? $collection
+            : $this->selectCollection(null, $collection);
         $coll->deleteIndexes();
 
         foreach ($indices as $key => $val) {
