@@ -12,7 +12,7 @@
  </lead>
  <date>2013-06-13</date>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix checking/creating indices when a MongoCollection object is passed to checkIndices()/createIndices() (Bug #12353).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -121,6 +121,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix checking/creating indices when a MongoCollection object is passed to checkIndices()/createIndices() (Bug #12353).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
