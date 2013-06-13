@@ -596,7 +596,7 @@ class Horde_Icalendar
         if (preg_match_all('/^((?:[^":]+|(?:"[^"]*")+)*):([^\r\n]*)\r?$/m', $vCal, $matches)) {
             foreach ($matches[0] as $attribute) {
                 preg_match('/([^;^:]*)((;(?:[^":]+|(?:"[^"]*")+)*)?):([^\r\n]*)[\r\n]*/', $attribute, $parts);
-                $tag = trim(Horde_String::upper($parts[1]));
+                $tag = trim(preg_replace('/^.*\./', '', Horde_String::upper($parts[1])));
                 $value = $parts[4];
                 $params = array();
 
