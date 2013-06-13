@@ -1,5 +1,7 @@
 --TEST--
 Export Simple LDIF file
+--SKIPIF--
+<?php die('Skip Convert to PHPUnit/Horde_Test.'); ?>
 --FILE--
 <?php
 

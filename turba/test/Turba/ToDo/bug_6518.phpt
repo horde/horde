@@ -1,5 +1,7 @@
 --TEST--
 Data_ldif: Bug #6518
+--SKIPIF--
+<?php die('Skip Convert to PHPUnit/Horde_Test.'); ?>
 --FILE--
 <?php
 

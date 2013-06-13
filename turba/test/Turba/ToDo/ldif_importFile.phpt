@@ -1,5 +1,7 @@
 --TEST--
 Import Simple LDIF file, LF terminated
+--SKIPIF--
+<?php die('Skip Convert to PHPUnit/Horde_Test.'); ?>
 --FILE--
 <?php
 
