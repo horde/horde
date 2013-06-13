@@ -1680,7 +1680,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'skipscan' => true
         ));
 
-        // APPEND data MUST be sent in a literal (RFC 3501 6.3.11).
+        // APPEND data MUST be sent in a literal (RFC 3501 [6.3.11]).
         $ob->forceLiteral();
 
         $asize += $ob->length();
