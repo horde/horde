@@ -49,7 +49,7 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
         $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
 
         if (!isset($vars->p)) {
-            $this->_imageUrl = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'download_render');
+            $this->_imageUrl = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'download_render', array('params' => array('mode' => IMP_Contents::RENDER_INLINE)));
             return parent::_renderInline();
         }
 
@@ -78,11 +78,12 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
             // TODO: Error reporting
             return array();
         }
+        $type = 'image/' . Horde_String::lower($photos[$vars->p]['params']['TYPE']);
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => base64_decode($photos[$vars->p]['value']),
-                'name' => $name . '.' . Horde_Mime_Magic::mimeToExt($photos[$vars->p]['params']['TYPE']),
-                'type' => $photos[$vars->p]['params']['TYPE'],
+                'name' => $name . '.' . Horde_Mime_Magic::mimeToExt($type),
+                'type' => $type,
             )
         );
     }

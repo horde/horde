@@ -177,7 +177,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                                              false);
                     } elseif ($this->_imageUrl) {
                         $html .= $this->_row(Horde_Core_Translation::t("Photo"),
-                                             '<img src="' . htmlspecialchars($this->_imageUrl->add(array('c' => $i, 'p' => $p))) . '" />',
+                                             '<img src="' . $this->_imageUrl->add(array('c' => $i, 'p' => $p)) . '" />',
                                              false);
                     }
                 }
