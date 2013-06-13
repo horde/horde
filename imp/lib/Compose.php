@@ -894,7 +894,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
              ($prefs->isLocked('save_sent_mail') &&
               $prefs->getValue('save_sent_mail')))) {
             /* Keep Bcc: headers on saved messages. */
-            if (!empty($header['bcc'])) {
+            if (count($header['bcc'])) {
                 $headers->addHeader('Bcc', $header['bcc']);
             }
 
@@ -1503,7 +1503,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 case IMP_Crypt_Pgp::ENCRYPT:
                 case IMP_Crypt_Pgp::SYM_ENCRYPT:
                     $to_list = clone $to;
-                    if (!empty($options['from'])) {
+                    if (count($options['from'])) {
                         $to_list->add($options['from']);
                     }
                     $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null);
@@ -1512,7 +1512,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 case IMP_Crypt_Pgp::SIGNENC:
                 case IMP_Crypt_Pgp::SYM_SIGNENC:
                     $to_list = clone $to;
-                    if (!empty($options['from'])) {
+                    if (count($options['from'])) {
                         $to_list->add($options['from']);
                     }
                     $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null);
