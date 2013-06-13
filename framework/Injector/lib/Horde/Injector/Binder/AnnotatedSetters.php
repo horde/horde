@@ -68,7 +68,11 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
     {
         $instance = $this->_binder->create($injector);
 
-        $reflectionClass = new ReflectionClass(get_class($instance));
+        try {
+            $reflectionClass = new ReflectionClass(get_class($instance));
+        } catch (ReflectionException $e) {
+            throw new Horde_Injector_Exception($e);
+        }
         $setters = $this->_findAnnotatedSetters($reflectionClass);
         $this->_callSetters($setters, $injector, $instance);
 
