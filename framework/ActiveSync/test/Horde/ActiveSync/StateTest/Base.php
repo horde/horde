@@ -362,14 +362,11 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
     protected function _testPartialSyncWithOnlyChangedHbInterval()
     {
         $this->markTestSkipped('No idea why the cache does not load the collections here.');
-        // Only a changed hbinterval should also allow a partial.
-        $cache = new Horde_ActiveSync_SyncCache(self::$state, 'dev123', 'mike', self::$logger->getLogger());
-        $cache->hbinterval = 1;
-        $cache->save();
-
         $collections = $this->getCollectionHandler();
         $collections->loadCollectionsFromCache();
-        $this->assertEquals(true, $collections->initPartialSync());
+        $collections->setHeartbeat(array('hbinterval' => 1));
+        $result = $collections->initPartialSync();
+        $this->assertEquals(true, $result);
     }
 
     protected function _testEmptyResponse()
@@ -466,39 +463,72 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
             array(
                 'type' => 'change',
                 'flags' => 'NewMessage',
+                'id' => '@Tasks@',
+                'serverid' => '@Tasks@'
+            ),
+            array(
+                'type' => 'change',
+                'flags' => 'NewMessage',
+                'id' => '@Notes@',
+                'serverid' => '@Notes@'
+            ),
+            array(
+                'type' => 'change',
+                'flags' => 'NewMessage',
                 'id' => '@Contacts@',
                 'serverid' => '@Contacts@'
             ),
             array(
                 'type' => 'change',
                 'flags' => 'NewMessage',
-                'id' => '519422f1-4c5c-4547-946a-1701c0a8015f',
-                'serverid' => 'INBOX'
+                'id' => '@Calendar@',
+                'serverid' => '@Calendar@'
             )
         );
         $changes = $collections->getHierarchyChanges();
         $this->assertEquals($expected, $changes);
     }
 
+    public function testMethodPollForChangesForPingRequests()
+    {
+        // $inbox = array(
+        //     'class' => 'Email',
+        //     'windowsize' => 5,
+        //     'truncation' => 0,
+        //     'mimesupport' => 0,
+        //     'mimetruncation' => 8,
+        //     'conflict' => 1,
+        //     'bodyprefs' => array(
+        //         'wanted' => 2,
+        //         2 => array(
+        //             'type' => 2,
+        //             'truncationsize' => 200000)
+        //     ),
+        //     'deletesasmoves' => 1,
+        //     'filtertype' => 5,
+        //     'id' => '519422f1',
+        //     'serverid' => 'INBOX',
+        //     'synckey' => '{517541cc-b188-478d-9e1a-fa49c0a8015f}3');
+        // $collections = $this->getCollectionHandler(true);
+        // $driver = $this->getMockDriver();
+        // self::$state->setBackend($driver);
+        // $collections->setHeartbeat(array('hbinterval' => 20));
+        // $collections->addCollection($inbox, true);
+        // $collections->updatePingableFlag();
+
+
+
+
+    }
+
     public function getMockDriver()
     {
-        $fixture = array(
-            array(
-                'id' => '519422f1-4c5c-4547-946a-1701c0a8015f',
-                'mod' => 'Inbox',
-                'parent' => 0,
-                'serverid' => 'INBOX'
-            ),
-            array(
-                'id' => '@Contacts@',
-                'mod' => '@Contacts@',
-                'parent' => 0,
-                'serverid' => '@Contacts@'
-            )
-        );
-        $driver = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Base');
-        $driver->expects($this->any())->method('getFolderList')->will($this->returnValue($fixture));
-        $driver->expects($this->any())->method('getSyncStamp')->will($this->returnValue(100));
+        $connector = new Horde_ActiveSync_Driver_MockConnector();
+        $driver = new Horde_ActiveSync_Driver_Mock(array(
+            'connector' => $connector,
+            'auth' => false,
+            'imap' => false,
+            'state' => self::$state));
 
         return $driver;
     }

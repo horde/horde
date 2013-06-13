@@ -154,7 +154,7 @@ class Horde_ActiveSync_StateTest_Sql_Base extends Horde_ActiveSync_StateTest_Bas
     }
 
     /**
-     * @depends testPartialSyncWithUnchangedCollections
+     * @depends testCollectionHandler
      */
     public function testPartialSyncWithOnlyChangedHbInterval()
     {
