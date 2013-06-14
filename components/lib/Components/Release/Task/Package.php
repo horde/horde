@@ -55,7 +55,9 @@ extends Components_Release_Task_Base
         $archive = new Archive_Tar($testpkg, 'gz');
         $archive->addString('a', 'a');
         $archive->addString('b', 'b');
-        if (strpos(exec('tar tzvf ' . $testpkg . ' 2>&1'), 'lone zero block')) {
+        $results = exec('tar tzvf ' . $testpkg . ' 2>&1');
+        // MacOS tar doesn't error out, but only returns the first string (ending in 'a');
+        if (strpos($results, 'lone zero block') !== false || substr($results, -1, 1) == 'a') {
             $errors[] = 'Broken Archive_Tar, upgrade first.';
         }
         $remote = new Horde_Pear_Remote();
