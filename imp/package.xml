@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix saving S/MIME certificate to addressbook when message is both signed &amp; encrypted (Bug #12354).
 * [jan] Fixed displaying photos in rendered vCard files.
 * [jan] Fix detecting capability to list users if called via RPC (Bug #12305).
 * [mms] Clear cached previews in dynamic view when changing quicksearch parameters.
@@ -3230,6 +3231,7 @@
    <date>2013-06-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix saving S/MIME certificate to addressbook when message is both signed &amp; encrypted (Bug #12354).
 * [jan] Fixed displaying photos in rendered vCard files.
 * [jan] Fix detecting capability to list users if called via RPC (Bug #12305).
 * [mms] Clear cached previews in dynamic view when changing quicksearch parameters.
