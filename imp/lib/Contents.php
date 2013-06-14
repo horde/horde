@@ -481,8 +481,15 @@ class IMP_Contents
             empty($options['nocontents']) &&
             $this->_indices &&
             !$part->getContents(array('stream' => true))) {
-            $body = $this->getBodyPart($id, array('decode' => true, 'length' => empty($options['length']) ? null : $options['length'], 'stream' => true));
-            $part->setContents($body, array('encoding' => $this->lastBodyPartDecode, 'usestream' => true));
+            $body = $this->getBodyPart($id, array(
+                'decode' => true,
+                'length' => empty($options['length']) ? null : $options['length'],
+                'stream' => true
+            ));
+            $part->setContents($body, array(
+                'encoding' => $this->lastBodyPartDecode,
+                'usestream' => true
+            ));
         }
 
         return $part;
