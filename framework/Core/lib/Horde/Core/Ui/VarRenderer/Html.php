@@ -1024,11 +1024,15 @@ function obrowserCallback(name, oid)
                 'limit' => 1
             ));
 
-            $display_email = $var->type->getProperty('strip_domain')
-                ? $addr->mailbox . ' (at) ' . str_replace('.', ' (dot) ', $addr->host)
-                : $addr->bare_address;
+            $display = array();
+            foreach ($addrs as $addr) {
+                $display_email = $var->type->getProperty('strip_domain')
+                    ? $addr->mailbox . ' (at) ' . str_replace('.', ' (dot) ', $addr->host)
+                    : $addr->bare_address;
+                $display[] = htmlspecialchars($display_email);
+            }
 
-            return nl2br(htmlspecialchars($display_email));
+            return implode(', ', $display);
         }
     }
 
