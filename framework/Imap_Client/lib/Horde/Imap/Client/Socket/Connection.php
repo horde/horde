@@ -231,22 +231,22 @@ extends Horde_Imap_Client_Base_Connection
                 }
 
                 /* Check for literal data. */
-                if (!is_null($len = $token->getLiteralLength())) {
-                    if ($len['length']) {
-                        $binary = $len['binary'];
-                        $literal_len = $len['length'];
-                    } else {
-                        // Skip 0-length literal data.
-                        $literal_len = null;
-                    }
-                    continue;
+                if (is_null($len = $token->getLiteralLength())) {
+                    break;
                 }
-                break;
+
+                // Skip 0-length literal data.
+                if ($len['length']) {
+                    $binary = $len['binary'];
+                    $literal_len = $len['length'];
+                }
+
+                continue;
             }
 
             $old_len = $literal_len;
 
-            while ($literal_len && !feof($this->_stream)) {
+            while (($literal_len > 0) && !feof($this->_stream)) {
                 $in = fread($this->_stream, min($literal_len, 8192));
                 $token->add($in);
                 if ($this->_debugliteral) {
@@ -254,12 +254,7 @@ extends Horde_Imap_Client_Base_Connection
                 }
 
                 $got_data = true;
-
-                $in_len = strlen($in);
-                if ($in_len > $literal_len) {
-                    break;
-                }
-                $literal_len -= $in_len;
+                $literal_len -= strlen($in);
             }
 
             $literal_len = null;
