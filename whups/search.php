@@ -150,7 +150,6 @@ if ($results) {
     if (is_object($form)) {
         $form->setTitle(_("Refine Search"));
         $form->renderActive($renderer, $vars, Horde::url('search.php'), 'get');
-        echo '<br />';
     }
 }
 
@@ -158,7 +157,6 @@ if (!$beendone) {
     // Front search page.
     $form->setTitle(_("Ticket Search"));
     $form->renderActive($renderer, $vars, Horde::url('search.php'), 'get');
-    echo '<br class="spacer" />';
 }
 
 $qManager = new Whups_Query_Manager();

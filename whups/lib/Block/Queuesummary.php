@@ -51,7 +51,7 @@ class Whups_Block_Queuesummary extends Horde_Core_Block
 
         $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
 
-        return '<table id="whups_block_queuesummary" cellspacing="0" class="tickets striped sortable">' . $html . '</tbody></table>';
+        return '<table id="whups_block_queuesummary" class="horde-table sortable" style="width:100%">' . $html . '</tbody></table>';
     }
 
 }

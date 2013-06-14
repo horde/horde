@@ -69,35 +69,6 @@ div#comments div {
     border-right: 8px solid #ccc;
     border-bottom: 2px solid #ccc;
 }
-
-/* Search result tables */
-table.tickets {
-    width: 100%;
-    /* width: 99%;
-       margin: 0 0 8px 5px; */
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-}
-table.tickets th {
-    padding: 3px;
-    background: #e9e9e9;
-    border-right: 1px solid #ccc;
-    text-align: left;
-}
-table.tickets td {
-    padding: 3px;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-}
-table.tickets th.sortup {
-    background: #bbcbff url("graphics/za.png") center left no-repeat;
-    padding-left: 10px;
-}
-table.tickets th.sortdown {
-    background: #bbcbff url("graphics/az.png") center left no-repeat;
-    padding-left: 10px;
-}
-
 /* Autocomplete styles. */
 .autocomplete {
     background: #f4f4f4;

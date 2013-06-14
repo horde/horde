@@ -10,10 +10,12 @@ function table_sortCallback(tableId, column, sortDown)
   <span class="nowrap rightAlign rightFloat subscribe"><?php echo isset($this->_params['extra']) ? $this->_params['extra'] : '&nbsp;' ?></span>
   <?php echo $this->_params['title'] . ' (' . count($this->_params['results']) . ')' ?>
 </div>
+
 <?php if (count($this->_params['results'])): ?>
-<table class="tickets striped sortable" id="sresults_<?php echo $this->_id ?>" width="100%" cellspacing="0">
+<br class="spacer" />
+<table class="horde-table tickets sortable" id="sresults_<?php echo $this->_id ?>" width="100%">
 <?php
-     echo '<thead><tr class="item nowrap leftAlign">';
+     echo '<thead><tr class="nowrap">';
      foreach ($this->_params['values'] as $name => $value) {
          if ($value == 'user_id_requester') {
              $value = 'requester_formatted';
@@ -54,23 +56,18 @@ function table_sortCallback(tableId, column, sortDown)
 </tbody>
 </table>
 <?php if ($GLOBALS['registry']->getAuth()): ?>
-<table width="100%" cellspacing="0">
- <tr>
-  <td class="smallheader nowrap">
-    <form action="<?php echo $registry->downloadUrl('report.html') ?>" method="post" name="datagen">
-      <?php Horde_Util::pformInput() ?>
-      <input type="hidden" name="ids" value="<?php echo implode(',', $ids) ?>" />
-      <input type="hidden" name="actionID" value="report" />
-      <?php echo _("Download these results as: ") ?>
-      <select name="template">
-        <?php foreach (Whups::listTemplates('searchresults') as $name => $label): ?>
-          <option value="<?php echo $name ?>"><?php echo htmlspecialchars($label) ?></option>
-        <?php endforeach; ?>
-      </select>
-      <input type="submit" class="button" value="<?php echo _("Save") ?>" />
-    </form>
-  </td>
- </tr>
-</table>
+<div class="horde-form-buttons">
+  <form action="<?php echo $registry->downloadUrl('report.html') ?>" method="post" name="datagen">
+    <?php Horde_Util::pformInput() ?>
+    <input type="hidden" name="ids" value="<?php echo implode(',', $ids) ?>" />
+    <input type="hidden" name="actionID" value="report" />
+    <?php echo _("Download these results as: ") ?>
+    <select name="template">
+      <?php foreach (Whups::listTemplates('searchresults') as $name => $label): ?>
+        <option value="<?php echo $name ?>"><?php echo htmlspecialchars($label) ?></option>
+      <?php endforeach; ?>
+    </select>
+    <input type="submit" class="horde-default" value="<?php echo _("Save") ?>" />
+  </form>
+</div>
 <?php endif; endif; ?>
-<br class="spacer" />
