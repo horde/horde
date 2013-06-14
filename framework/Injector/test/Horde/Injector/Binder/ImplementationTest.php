@@ -75,7 +75,7 @@ class Horde_Injector_Binder_ImplementationTest extends Horde_Test_Case
     }
 
     /**
-     * @expectedException ReflectionException
+     * @expectedException Horde_Injector_Exception
      */
     public function testShouldThrowExceptionIfRequestedClassIsNotDefined()
     {
