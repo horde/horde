@@ -18,13 +18,13 @@ if ($vars->searchfield) {
 }
 $ticket = Whups::getCurrentTicket();
 $ticket->setDetails($vars);
-$page_output->addLinkTag($ticket->feedLink());
+$title = '[#' . $ticket->getId() . '] ' . $ticket->get('summary');
 
 Whups::addTopbarSearch();
-
 Whups::addFeedLink();
+$page_output->addLinkTag($ticket->feedLink());
 $page_output->header(array(
-    'title' => '[#' . $ticket->getId() . '] ' . $ticket->get('summary')
+    'title' => $title
 ));
 $notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
