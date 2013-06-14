@@ -1,29 +1,8 @@
 <script type="text/javascript">
-var PREFS_UPDATE_TIMEOUT;
-
 function table_sortCallback(tableId, column, sortDown)
 {
-    if (typeof PREFS_UPDATE_TIMEOUT != "undefined") {
-        window.clearTimeout(PREFS_UPDATE_TIMEOUT);
-    }
-
-    PREFS_UPDATE_TIMEOUT = window.setTimeout('doResort("' + column + '", "' + sortDown + '")', 500);
-}
-
-function doResort(column, sortDown)
-{
-    baseurl = '<?php echo addslashes(html_entity_decode($GLOBALS['session']->get('whups', 'last_search'))) ?>';
-    try {
-        new Ajax.Request(
-            baseurl,
-            {
-                parameters: {
-                    'sortby': encodeURIComponent(column),
-                    'sortdir': encodeURIComponent(sortDown),
-                    'isajax': true
-                }
-            });
-    } catch (e) {}
+    HordeCore.doAction('setPrefValue', { pref: 'sortby', value: 'column' }); 
+    HordeCore.doAction('setPrefValue', { pref: 'sortdir', value: 'sortDown' }); 
 }
 </script>
 
@@ -32,7 +11,6 @@ function doResort(column, sortDown)
   <?php echo $this->_params['title'] . ' (' . count($this->_params['results']) . ')' ?>
 </div>
 <?php if (count($this->_params['results'])): ?>
-<!-- Results Begin -->
 <table class="tickets striped sortable" id="sresults_<?php echo $this->_id ?>" width="100%" cellspacing="0">
 <?php
      echo '<thead><tr class="item nowrap leftAlign">';
@@ -95,5 +73,4 @@ function doResort(column, sortDown)
  </tr>
 </table>
 <?php endif; endif; ?>
-<!-- Results End -->
 <br class="spacer" />

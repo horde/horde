@@ -47,14 +47,6 @@ $renderer = new Horde_Form_Renderer();
 $beendone = false;
 $vars = Horde_Variables::getDefaultVariables();
 
-// Update sorting preferences.
-if (Horde_Util::getFormData('sortby') !== null) {
-    $prefs->setValue('sortby', Horde_Util::getFormData('sortby'));
-}
-if (Horde_Util::getFormData('sortdir') !== null) {
-    $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
-}
-
 Whups::addTopbarSearch();
 
 $form = new Whups_Form_Search($vars);

@@ -49,14 +49,6 @@ $tabs = $whups_query->getTabs($vars);
 
 $renderer = new Horde_Form_Renderer();
 
-// Update sorting preferences.
-if (Horde_Util::getFormData('sortby') !== null) {
-    $prefs->setValue('sortby', Horde_Util::getFormData('sortby'));
-}
-if (Horde_Util::getFormData('sortdir') !== null) {
-    $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
-}
-
 $tickets = null;
 $isvalid = false;
 if (!$whups_query->parameters) {

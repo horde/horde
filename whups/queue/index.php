@@ -29,17 +29,6 @@ if (!$id) {
         ->redirect();
 }
 
-// Update sorting preferences.
-if (Horde_Util::getFormData('sortby') !== null) {
-    $prefs->setValue('sortby', Horde_Util::getFormData('sortby'));
-}
-if (Horde_Util::getFormData('sortdir') !== null) {
-    $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
-}
-if (Horde_Util::getFormData('isajax') !== null) {
-    exit;
-}
-
 Whups::addFeedLink();
 $page_output->header(array(
     'title' => sprintf(_("Open tickets in %s"), $queue['name'])
