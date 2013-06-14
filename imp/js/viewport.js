@@ -835,6 +835,7 @@ var ViewPort = Class.create({
 
         if (r.data_reset) {
             this.deselect(this.getSelected(r.view));
+            this.opts.container.fire('ViewPort:remove', this.createSelectionBuffer(r.view));
         } else if (r.disappear && r.disappear.size()) {
             this._remove(this.createSelection('uid', r.disappear, r.view));
         }

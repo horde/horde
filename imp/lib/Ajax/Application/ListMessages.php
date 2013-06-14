@@ -139,26 +139,31 @@ class IMP_Ajax_Application_ListMessages
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
          * purge the cached items on the browser. */
-        if ($args['cacheid'] && $args['cache']) {
-            $uid_expire = false;
-            $parsed = $imp_imap->parseCacheId($args['cacheid']);
-
-            if ($parsed['date'] != date('z')) {
-                $uid_expire = true;
-            } elseif (!$is_search) {
-                try {
-                    $imp_imap->sync($mbox, $parsed['token'], array(
-                        'criteria' => Horde_Imap_Client::SYNC_UIDVALIDITY
-                    ));
-                } catch (Horde_Imap_Client_Exception_Sync $e) {
-                    $uid_expire = true;
-                }
-            }
-
-            if ($uid_expire) {
+        if (!$args['initial'] && ($args['cacheid'] && $args['cache'])) {
+            if ($is_search) {
+                /* This is a refresh of an existing search mailbox. Need to
+                 * invalidate all data and repopulate, since buids may have
+                 * changed (metadata information should be OK). */
                 $args['cache'] = array();
-                $args['initial'] = true;
-                $result->data_reset = $result->metadata_reset = 1;
+                $result->data_reset = $result->rowlist_reset = true;
+            } else {
+                $parsed = $imp_imap->parseCacheId($args['cacheid']);
+                $uid_expire = true;
+
+                if (!$parsed['date'] != date('z')) {
+                    try {
+                        $imp_imap->sync($mbox, $parsed['token'], array(
+                            'criteria' => Horde_Imap_Client::SYNC_UIDVALIDITY
+                        ));
+                        $uid_expire = false;
+                    } catch (Horde_Imap_Client_Exception_Sync $e) {}
+                }
+
+                if ($uid_expire) {
+                    $args['cache'] = array();
+                    $args['initial'] = true;
+                    $result->data_reset = $result->metadata_reset = 1;
+                }
             }
         } else {
             $parsed = null;
