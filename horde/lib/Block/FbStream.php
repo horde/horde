@@ -152,7 +152,7 @@ EOT;
 
        // Build the stream feed.
         $html .= '<br /><div id="' . $instance . '_fbcontent" style="height:' . (empty($this->_params['height']) ? 300 : $this->_params['height']) . 'px;overflow-y:auto;overflow-x:hidden;"></div><br />';
-        $html .= '<div class="hordeSmGetmore"><input type="button" id="' . $instance . '_getmore" class="horde-button"  value="' . _("Get More") . '"></div>';
+        $html .= '<div class="hordeSmGetmore"><input type="button" id="' . $instance . '_getmore" class="horde-default"  value="' . _("Get More") . '"></div>';
 
         $html .= '</div>';
 

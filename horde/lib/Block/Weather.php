@@ -116,7 +116,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                     )
                 );
 
-            $html = '<div class="horde-content"><input id="location' . $instance . '" name="location' . $instance . '"> <input type="button" id="button' . $instance . '" class="button" value="'
+            $html = '<div class="horde-content"><input id="location' . $instance . '" name="location' . $instance . '"> <input type="button" id="button' . $instance . '" class="horde-default" value="'
                 . _("Change Location") . '" /><span style="display:none;" id="location' . $instance . '_loading_img">'
                 . Horde::img('loading.gif') . '</span></div>';
             $location = $this->_params['location'];
