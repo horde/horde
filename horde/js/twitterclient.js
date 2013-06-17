@@ -131,6 +131,33 @@ var Horde_Twitter = Class.create({
     },
 
     /**
+     * Favorite a tweet
+     */
+    favorite: function(id)
+    {
+        $(this.opts.spinner).toggle();
+        var params = {
+            actionID: 'favorite',
+            tweetId: id
+        };
+        new Ajax.Request(this.opts.endpoint, {
+            method: 'post',
+            parameters: params,
+            onSuccess: function(response) {
+                this.favoriteCallback(response.responseJSON);
+            }.bind(this),
+            onFailure: function() {
+                $(this.opts.spinner).toggle();
+            }.bind(this)
+        });
+    },
+
+    favoriteCallback: function(r)
+    {
+        $(this.opts.spinner).toggle();
+    },
+
+    /**
      * Update the timeline stream.
      *
      * @param integer page  The page number to retrieve.

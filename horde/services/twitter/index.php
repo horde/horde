@@ -70,7 +70,15 @@ case 'updateStatus':
         header('HTTP/1.1: 500');
     }
     exit;
-
+case 'favorite':
+    try {
+        $result = $twitter->favorites->create(Horde_Util::getPost('tweetId'));
+        header('Content-Type: application/json');
+        echo $result;
+    } catch (Horde_Service_Twitter_Exception $e) {
+        header('HTTP/1.1: 500');
+    }
+    exit;
 case 'retweet':
     try {
         $result = $twitter->statuses->retweet(Horde_Util::getPost('tweetId'));
@@ -196,7 +204,9 @@ $page_output->topbar = $page_output->sidebar = false;
 if (!empty($auth_token)) {
     try {
         $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
-    } catch (Horde_Service_Twitter_Exception $e) {}
+    } catch (Horde_Service_Twitter_Exception $e) {
+        _outputError($e);
+    }
 } elseif ($r_secret = $session->retrieve('twitter_request_secret')) {
     /* No existing auth token, maybe we are in the process of getting it? */
     try {

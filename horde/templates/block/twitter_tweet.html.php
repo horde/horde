@@ -33,6 +33,7 @@
     <div class="hordeSmStreaminfo">
       <?php echo Horde::selfUrl()->link(array('onclick' => 'Horde[\'twitter' . $this->instanceid . '\'].buildReply(\'' . (string)$this->tweet->id_str . '\', \'' . $this->tweet->user->screen_name . '\', \'' . $this->tweet->user->name . '\'); return false;')) .  _("Reply") ?></a>
       &nbsp;|&nbsp; <?php echo Horde::selfUrl()->link(array('onclick' => 'Horde[\'twitter' . $this->instanceid . '\'].retweet(\'' . (string)$this->tweet->id_str . '\'); return false;')) . _("Retweet") ?></a>
+      &nbsp;|&nbsp; <?php echo Horde::selfUrl()->link(array('onclick' => 'Horde[\'twitter' . $this->instanceid . '\'].favorite(\'' . (string)$this->tweet->id_str . '\'); return false;')) . _("Favorite") ?></a>
     </div>
     <div class="clear">&nbsp;</div>
   </div>
