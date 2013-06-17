@@ -824,6 +824,11 @@ class Horde_Registry
         $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
         $autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $this->get('fileroot', $app) . '/lib'));
 
+        $app_mappers = array(
+            'Controller' =>  'controllers',
+            'Helper' => 'helpers',
+            'SettingsExporter' => 'settings'
+        );
         $applicationMapper = new Horde_Autoloader_ClassPathMapper_Application($this->get('fileroot', $app) . '/app');
         foreach ($app_mappers as $key => $val) {
             $applicationMapper->addMapping($key, $val);
