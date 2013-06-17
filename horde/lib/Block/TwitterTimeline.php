@@ -99,6 +99,9 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
               }
             } catch (Horde_Service_Twitter_Exception $e) {
                 $msg = Horde_Serialize::unserialize($e->getMessage(), Horde_Serialize::JSON);
+                if (is_object($msg)) {
+                    $msg = $msg->errors[0]->message;
+                }
                 return sprintf(_("There was an error contacting Twitter: %s"), $msg);
             }
         }
