@@ -16,7 +16,7 @@ class Horde_Service_Twitter_Account
      *
      * @var string
      */
-    protected $_endpoint = 'https://api.twitter.com/1/account/';
+    protected $_endpoint = 'https://api.twitter.com/1.1/account/';
 
     /**
      * The request/response format to use, xml or json.
