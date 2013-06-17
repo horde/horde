@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>17:50:03</time>
+ <date>2013-06-17</date>
+ <time>16:49:09</time>
  <version>
-  <release>2.0.4</release>
-  <api>1.1.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Use API version 1.1
+* [mjr] Add support for favorites.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -52,6 +53,7 @@
        <file name="Account.php" role="php" />
        <file name="Auth.php" role="php" />
        <file name="Exception.php" role="php" />
+       <file name="Favorites.php" role="php" />
        <file name="Request.php" role="php" />
        <file name="Statuses.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Twitter -->
@@ -115,6 +117,7 @@
    <install as="Horde/Service/Twitter/Account.php" name="lib/Horde/Service/Twitter/Account.php" />
    <install as="Horde/Service/Twitter/Auth.php" name="lib/Horde/Service/Twitter/Auth.php" />
    <install as="Horde/Service/Twitter/Exception.php" name="lib/Horde/Service/Twitter/Exception.php" />
+   <install as="Horde/Service/Twitter/Favorites.php" name="lib/Horde/Service/Twitter/Favorites.php" />
    <install as="Horde/Service/Twitter/Request.php" name="lib/Horde/Service/Twitter/Request.php" />
    <install as="Horde/Service/Twitter/Statuses.php" name="lib/Horde/Service/Twitter/Statuses.php" />
    <install as="Horde/Service/Twitter/Auth/Oauth.php" name="lib/Horde/Service/Twitter/Auth/Oauth.php" />
@@ -344,15 +347,16 @@
   </release>
   <release>
    <version>
-    <release>2.0.4</release>
-    <api>1.1.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-06-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Use API version 1.1
+* [mjr] Add support for favorites.
    </notes>
   </release>
  </changelog>
