@@ -170,7 +170,7 @@ case 'getPage':
         /* These are all referencing the *original* tweet */
         $view->profileLink = Horde::externalUrl('http://twitter.com/' . htmlspecialchars($tweetObj->user->screen_name), true);
         $view->profileImg = $tweetObj->user->profile_image_url;
-        $view->authorName = htmlspecialchars($tweetObj->user->screen_name);
+        $view->authorName = '@' . htmlspecialchars($tweetObj->user->screen_name);
         $view->authorFullname = htmlspecialchars($tweetObj->user->name);
         $view->createdAt = $tweetObj->created_at;
         $view->clientText = $filter->filter($tweet->source, 'xss');

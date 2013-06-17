@@ -16,10 +16,10 @@
  */
 ?>
 <div class="hordeSmStreamstory">
-  <div class="solidbox hordeSmAvatar">
+  <div class="hordeSmAvatar">
     <?php echo $this->profileLink ?><img width="48" height="48" src="<?php echo $this->profileImg?>" alt="<?php echo $this->authorName?>" title="<?php echo $this->authorFullname?>" /></a>
-    <div style="overflow:hidden;"><?php echo $this->profileLink . $this->authorName ?></a></div>
   </div>
+  <div><?php echo $this->profileLink?> <strong><?php echo $this->authorFullname ?></strong> <em><?php echo $this->authorName?></em></a></div>
   <div class="hordeSmStreambody">
     <?php echo $this->body ?>
     <div class="hordeSmStreaminfo">
@@ -27,7 +27,7 @@
     </div>
     <?php if (!empty($this->tweet->retweeted_status)):?>
     <div class="hordeSmStreaminfo">
-      <?php echo sprintf(_("Retweeted by %s"), Horde::externalUrl('http://twitter.com/' . $this->escape($this->tweet->user->screen_name), true)) . $this->escape($this->tweet->user->screen_name) ?></a>
+      <?php echo sprintf(_("Retweeted by %s"), Horde::externalUrl('http://twitter.com/' . $this->escape($this->tweet->user->screen_name), true)) . '@' . $this->escape($this->tweet->user->screen_name) ?></a>
     </div>
     <?php endif; ?>
     <div class="hordeSmStreaminfo">
