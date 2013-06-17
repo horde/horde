@@ -81,6 +81,15 @@ case 'favorite':
         header('HTTP/1.1: 500');
     }
     exit;
+case 'unfavorite':
+    try {
+        $result = $twitter->favorites->destroy(Horde_Util::getPost('tweetId'));
+        header('Content-Type: application/json');
+        echo $result;
+    } catch (Horde_Service_Twitter_Exception $e) {
+        header('HTTP/1.1: 500');
+    }
+    exit;
 case 'retweet':
     try {
         $result = $twitter->statuses->retweet(Horde_Util::getPost('tweetId'));

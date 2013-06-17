@@ -152,9 +152,39 @@ var Horde_Twitter = Class.create({
         });
     },
 
+    unfavorite: function(id)
+    {
+        $(this.opts.spinner).toggle();
+        var params = {
+            actionID: 'unfavorite',
+            tweetId: id
+        };
+        new Ajax.Request(this.opts.endpoint, {
+            method: 'post',
+            parameters: params,
+            onSuccess: function(response) {
+                this.unfavoriteCallback(response.responseJSON);
+            }.bind(this),
+            onFailure: function() {
+                $(this.opts.spinner).toggle();
+            }.bind(this)
+        });
+    },
+
     favoriteCallback: function(r)
     {
         $(this.opts.spinner).toggle();
+        $('favorite' + this.instanceid + r.id_str).update(this.opts.strings.unfavorite);
+        $('favorite' + this.instanceid + r.id_str).writeAttribute('onClick', '');
+        $('favorite' + this.instanceid + r.id_str).observe('click', function(e) { this.unfavorite(r.id_str); e.stop(); }.bind(this));
+    },
+
+    unfavoriteCallback: function(r)
+    {
+        $(this.opts.spinner).toggle();
+        $('favorite' + this.instanceid + r.id_str).update(this.opts.strings.favorite);
+        $('favorite' + this.instanceid + r.id_str).writeAttribute('onClick', '');
+        $('favorite' + this.instanceid + r.id_str).observe('click', function(e) { this.favorite(r.id_str); e.stop(); }.bind(this));
     },
 
     /**

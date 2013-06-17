@@ -117,6 +117,9 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
         /* Add the client javascript / initialize it */
         $page_output->addScriptFile('twitterclient.js', 'horde');
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+        $favorite = _("Favorite");
+        $unfavorite = _("Unfavorite");
+
         $script = <<<EOT
             Horde = window.Horde = window.Horde || {};
             Horde['twitter{$instance}'] = new Horde_Twitter({
@@ -132,7 +135,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
                inreplyto: '{$inReplyToNode}',
                refreshrate: {$refresh},
                counter: '{$instance}_counter',
-               strings: { inreplyto: '{$inReplyToText}', defaultText: '{$defaultText}', justnow: '{$justNowText}' }
+               strings: { inreplyto: '{$inReplyToText}', defaultText: '{$defaultText}', justnow: '{$justNowText}', favorite: '{$favorite}', unfavorite: '{$unfavorite}' }
             });
 EOT;
         $page_output->addInlineScript($script, true);
