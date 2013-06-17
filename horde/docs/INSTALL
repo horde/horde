@@ -468,7 +468,7 @@ latest not yet released fixes, you can install Horde from Git.
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
 
-Before beginning, make sure your PEAR package is up-to-date:
+Before beginning, make sure your PEAR package is up-to-date::
 
    pear upgrade PEAR
 
@@ -850,6 +850,8 @@ The Horde Team
 .. _README: README
 .. _docs/SECURITY: SECURITY
 .. _docs/TRANSLATIONS: TRANSLATIONS
+.. _curl: http://php.net/curl
+.. _http: http://php.net/http
 .. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads
 .. _`Firebug`: http://www.getfirebug.com/
 .. _`session.gc_probability`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability
