@@ -362,6 +362,12 @@ class Horde_ActiveSync_Imap_Adapter
             $this->_logger->info('NO CONDSTORE or per mailbox MODSEQ: minuid=' . $folder->minuid());
             $folder->checkValidity($status);
             $query = new Horde_Imap_Client_Search_Query();
+            if (!empty($options['sincedate'])) {
+                $query->dateSearch(
+                    new Horde_Date($options['sincedate']),
+                    Horde_Imap_Client_Search_Query::DATE_SINCE);
+            }
+            $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
             $search_ret = $imap->search(
                 $mbox,
                 $query,
