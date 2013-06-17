@@ -10,6 +10,7 @@ v6.1.2-git
       search mailbox (Bug #12349).
 [mms] Fix adding an HTML trailer to a compose message.
 [mms] Fixed regression preventing ACLs from being added (Bug #12346).
+[mms] More fixes for regressions in linked attachment behavior.
 
 
 ------
