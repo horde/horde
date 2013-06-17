@@ -1492,12 +1492,6 @@ class Horde_Registry
             throw new Horde_Exception_PushApp($app . ' is not activated.', self::NOT_ACTIVE, $app);
         }
 
-        $app_mappers = array(
-            'Controller' =>  'controllers',
-            'Helper' => 'helpers',
-            'SettingsExporter' => 'settings'
-        );
-
         $checkPerms = ((!isset($options['check_perms']) ||
                        !empty($options['check_perms'])) &&
                        ($this->_args['authentication'] != 'none'));
