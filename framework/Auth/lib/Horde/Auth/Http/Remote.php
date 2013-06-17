@@ -55,7 +55,7 @@ class Horde_Auth_Http_Remote extends Horde_Auth_Base
         $this->_params['client']->request->username = $userId;
         $this->_params['client']->request->password = $credentials;
         $this->_params['client']->request->authenticationScheme = Horde_Http::AUTH_BASIC;
-        $response = $this->__params['client']->get($this->_params['url']);
+        $response = $this->_params['client']->get($this->_params['url']);
         if ($response->code != 200) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
