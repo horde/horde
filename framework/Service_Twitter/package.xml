@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-17</date>
- <time>19:10:12</time>
+ <time>19:14:55</time>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Use API version 1.1
-* [mjr] Add support for favorites.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -357,6 +356,19 @@
    <notes>
 * [mjr] Use API version 1.1
 * [mjr] Add support for favorites.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-17</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
