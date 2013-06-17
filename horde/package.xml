@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [mjr] Update Twitter block layout to honor Twitter&apos;s API version 1.1 display requirements, and add support for updating favorites.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3699,7 +3699,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [mjr] Update Twitter block layout to honor Twitter&apos;s API version 1.1 display requirements, and add support for updating favorites.
    </notes>
   </release>
  </changelog>
