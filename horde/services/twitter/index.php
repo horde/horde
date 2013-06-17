@@ -141,7 +141,7 @@ case 'getPage':
         $map = $previews = array();
 
         foreach ($tweet->entities->urls as $link) {
-            $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . htmlspecialchars($link->display_url) . '</a>';
+            $replace = '<a target="_blank" href="' . $link->url . '" title="' . $link->expanded_url . '">' . htmlspecialchars($link->display_url) . '</a>';
             $map[$link->indices[0]] = array($link->indices[1], $replace);
         }
         if (!empty($tweet->entities->media)) {
@@ -153,13 +153,13 @@ case 'getPage':
         }
         if (!empty($tweet->entities->user_mentions)) {
             foreach ($tweet->entities->user_mentions as $user) {
-                $replace = ' <a title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name) . '</a>';
+                $replace = ' <a target="_blank" title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name) . '</a>';
                 $map[$user->indices[0]] = array($user->indices[1], $replace);
             }
         }
         if (!empty($tweet->entities->hastags)) {
             foreach ($tweet->entities->hashtags as $hashtag) {
-                $replace = ' <a href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text) . '</a>';
+                $replace = ' <a target="_blank" href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text) . '</a>';
                 $map[$hashtag->indices[0]] = array($hashtag->indices[1], $replace);
             }
         }
