@@ -818,6 +818,18 @@ class Horde_Registry
             return $this->_obCache[$app][$type];
         }
 
+        /* Set up autoload paths for the current application. This needs to
+         * be done here because it is possible to try to load app-specific
+         * libraries from other applications. */
+        $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
+        $autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $this->get('fileroot', $app) . '/lib'));
+
+        $applicationMapper = new Horde_Autoloader_ClassPathMapper_Application($this->get('fileroot', $app) . '/app');
+        foreach ($app_mappers as $key => $val) {
+            $applicationMapper->addMapping($key, $val);
+        }
+        $autoloader->addClassPathMapper($applicationMapper);
+
         $cname = Horde_String::ucfirst($type);
 
         /* Can't autoload here, since the application may not have been
@@ -1480,18 +1492,6 @@ class Horde_Registry
             'Helper' => 'helpers',
             'SettingsExporter' => 'settings'
         );
-
-        /* Set up autoload paths for the current application. This needs to
-         * be done here because it is possible to try to load app-specific
-         * libraries from other applications. */
-        $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
-        $autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $this->get('fileroot', $app) . '/lib'));
-
-        $applicationMapper = new Horde_Autoloader_ClassPathMapper_Application($this->get('fileroot', $app) . '/app');
-        foreach ($app_mappers as $key => $val) {
-            $applicationMapper->addMapping($key, $val);
-        }
-        $autoloader->addClassPathMapper($applicationMapper);
 
         $checkPerms = ((!isset($options['check_perms']) ||
                        !empty($options['check_perms'])) &&
