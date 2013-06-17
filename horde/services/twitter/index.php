@@ -67,6 +67,7 @@ case 'updateStatus':
         header('Content-Type: application/json');
         echo $result;
     } catch (Horde_Service_Twitter_Exception $e) {
+        Horde::log($e->getMessage(), 'ERR');
         header('HTTP/1.1: 500');
     }
     exit;
@@ -76,6 +77,7 @@ case 'favorite':
         header('Content-Type: application/json');
         echo $result;
     } catch (Horde_Service_Twitter_Exception $e) {
+        Horde::log($e->getMessage(), 'ERR');
         header('HTTP/1.1: 500');
     }
     exit;
@@ -85,6 +87,7 @@ case 'retweet':
         header('Content-Type: application/json');
         echo $result;
     } catch (Horde_Service_Twitter_Exception $e) {
+        Horde::log($e->getMessage(), 'ERR');
         header('HTTP/1.1: 500');
     }
     exit;
