@@ -104,7 +104,11 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
         try {
             $httpResponse = $httpRequest->send();
         } catch (HttpException $e) {
-            throw new Horde_Http_Exception($e);
+            if (isset($e->innerException)){
+                throw new Horde_Http_Exception($e->innerException);
+            } else {
+                throw new Horde_Http_Exception($e);
+            }
         }
 
         return new Horde_Http_Response_Peclhttp($this->uri, $httpResponse);
