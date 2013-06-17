@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Filter out email that falls outside of FILTERTYPE on CONDSTORE servers as well (Bug #12360).
+* [mjr] Fix detecting changes for servers without CONDSTORE and a non-zero FILTERTYPE (Bug #12316).
 * [mjr] Fix fetching email messages from search results using ITEMOPERATIONS command (Bug #12212).
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [mjr] Add support for SyncStamps - either timestamps or backend controlled modification sequences.
@@ -1469,6 +1471,8 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Filter out email that falls outside of FILTERTYPE on CONDSTORE servers as well (Bug #12360).
+* [mjr] Fix detecting changes for servers without CONDSTORE and a non-zero FILTERTYPE (Bug #12316).
 * [mjr] Fix fetching email messages from search results using ITEMOPERATIONS command (Bug #12212).
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [mjr] Add support for SyncStamps - either timestamps or backend controlled modification sequences.
