@@ -293,6 +293,7 @@ class Horde_ActiveSync_Imap_Adapter
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->modseq();
             $query->flags();
+            $query->headerText(array('peek' => true));
             try {
                 $fetch_ret = $imap->fetch($mbox, $query, array(
                     'changedsince' => $folder->modseq()
@@ -307,6 +308,20 @@ class Horde_ActiveSync_Imap_Adapter
             // SYNC).
             $changes = array();
             foreach ($fetch_ret as $uid => $data) {
+                if ($options['sincedate']) {
+                    $since = new Horde_Date($options['sincedate']);
+                    $headers = Horde_Mime_Headers::parseHeaders($data->getHeaderText());
+                    $date = new Horde_Date($headers->getValue('Date'));
+                    if ($date->compareDate($since) <= -1) {
+                        // Ignore, it's out of the FILTERTYPE range.
+                        $this->_logger->info(sprintf(
+                            '[%s] Ignoring UID %s since it is outside of the FILTERTYPE (%s)',
+                            getmypid(),
+                            $uid,
+                            $headers->getValue('Date')));
+                        continue;
+                    }
+                }
                 if ($data->getModSeq() <= $modseq) {
                     $changes[] = $uid;
                     $flags[$uid] = array(
