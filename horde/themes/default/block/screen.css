@@ -40,6 +40,9 @@ table.horde-block-weather td {
     font-size: 90%;
     margin-left: 78px;
 }
+.hordeSmStreaminfo p {
+    display: inline;
+}
 .hordeSmGetmore {
     text-align: center;
 }
