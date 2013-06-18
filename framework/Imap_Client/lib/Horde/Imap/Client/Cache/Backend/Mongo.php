@@ -317,7 +317,7 @@ class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Back
         try {
             $cursor = $this->_db->selectCollection(self::BASE)->find($query);
             foreach ($cursor as $val) {
-                $uids[] = strval($result['_id']);
+                $uids[] = strval($val['_id']);
             }
         } catch (MongoException $e) {}
 
