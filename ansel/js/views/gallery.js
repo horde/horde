@@ -104,11 +104,14 @@ var AnselGalleryView = {
         if ($('anselgallery_download')) {
             $('anselgallery_download').observe('click', AnselGalleryView.downloadSelected);
         }
-        if (Ansel.has_edit) {
+
+        if ($('anselgallery_editdates')) {
             $('anselgallery_editdates').observe('click', AnselGalleryView.editDates);
+        }
+        if ($('anselgallery_copy')) {
             $('anselgallery_copy').observe('click', AnselGalleryView.copySelected);
         }
-        if (Ansel.has_delete) {
+        if ($('anselgallery_move')) {
             $('anselgallery_move').observe('click', AnselGalleryView.moveSelected);
             $('anselgallery_delete').observe('click', AnselGalleryView.deleteSelected);
         }
