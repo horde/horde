@@ -30,7 +30,7 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde versions 5.1.0 are:
+The major changes compared to the Horde version 5.1.0 are:
     * Updated for new Twitter API.
     * Updated Dutch, Japanese, and Spanish translations.
 ML;

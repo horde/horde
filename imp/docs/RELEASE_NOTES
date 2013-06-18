@@ -33,6 +33,7 @@ The major changes compared to IMP version H5 (6.1.1) are:
     * Fixed user listing via RPC (CalDAV).
     * Fixed adding ACLs.
     * Fixed linked attachments.
+    * Updated Dutch translation.
     * Further bugfixes.
 ML;
 
@@ -41,6 +42,7 @@ $this->notes['fm']['changes'] = <<<FM
 Fixed user listing via RPC (CalDAV).
 Fixed adding ACLs.
 Fixed linked attachments.
+Updated Dutch translation.
 Further bugfixes.
 FM;
 
