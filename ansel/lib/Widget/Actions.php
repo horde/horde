@@ -150,8 +150,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
                     $view->captions_url = Horde::url('gallery/captions.php')->add($params)->link(array('class' => 'widget'));
                 }
                 if ($this->_view->gallery->hasFeature('sort_images')) {
-                    $sorturl = Horde::url('gallery/sort.php')->add(array_merge(array('gallery' => $id), $date));
-                    $view->sort_url = $sorturl->copy()->add('actionId' , 'getOrder')->link(array('class' => 'widget'));
+                    $view->sort_url = Horde::url('gallery/sort.php')->add(array_merge(array('gallery' => $id, 'actionId' => 'getOrder'), $date))->link(array('class' => 'widget'));
                 }
                 $view->regenerate_url = $galleryurl->copy()->add(array('actionID' => 'generateThumbs'))->link(array('class' => 'widget'));
                 $view->regenerate_all = $galleryurl->copy()->add(array('actionID' => 'deleteCache'))->link(array('class' => 'widget'));
