@@ -415,19 +415,6 @@ var ImpMobile = {
 
     /**
      */
-    refreshMailbox: function()
-    {
-        HordeMobile.doAction(
-            'viewPort',
-            ImpMobile.addViewportParams({
-                checkcache: 1,
-                view: ImpMobile.mailbox
-            })
-        );
-    },
-
-    /**
-     */
     addViewportParams: function(params)
     {
         params = params || {};
@@ -495,9 +482,22 @@ var ImpMobile = {
     },
 
     /**
+     * @param object ob  If ob is not present, triggers an AJAX refresh.
+     *                   Otherwise, rebuilds mailbox using ob.
      */
     refreshMailbox: function(ob)
     {
+        if (!ob) {
+            HordeMobile.doAction(
+                'viewPort',
+                ImpMobile.addViewportParams({
+                    checkcache: 1,
+                    view: ImpMobile.mailbox
+                })
+            );
+            return;
+        }
+
         var list, tmp,
             cid = ImpMobile.mailbox + '|' + ob.cacheid + '|' + ob.slice;
 
