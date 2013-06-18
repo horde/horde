@@ -1,6 +1,6 @@
---------
-v3.0-git
---------
+-----------
+v3.0.0beta1
+-----------
 
 [mjr] Various fixes for SQLite to work with Ansel.
 
