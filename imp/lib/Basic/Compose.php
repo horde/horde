@@ -35,7 +35,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         global $browser, $conf, $injector, $notification, $page_output, $prefs, $registry, $session;
 
         /* Mailto link handler: redirect based on current view. */
-        // TODO: preserve state
         if ($this->vars->actionID == 'mailto_link') {
             switch ($registry->getView()) {
             case Horde_Registry::VIEW_DYNAMIC:
