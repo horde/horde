@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix regression in handling response codes in POP3 driver.
 * [mms] Fix clearing data from the MongoDB cache.
  </notes>
  <contents>
@@ -1843,6 +1844,7 @@
    <date>2013-06-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix regression in handling response codes in POP3 driver.
 * [mms] Fix clearing data from the MongoDB cache.
    </notes>
   </release>

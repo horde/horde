@@ -1135,7 +1135,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 $errtext = $respcode->text;
 
                 if (isset($respcode->code)) {
-                    switch ($response->code) {
+                    switch ($respcode->code) {
                     // RFC 2449 [8.1.1]
                     case 'IN-USE':
                     // RFC 2449 [8.1.2]
