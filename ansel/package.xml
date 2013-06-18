@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-18</date>
- <time>23:48:10</time>
+ <time>23:54:38</time>
  <version>
-  <release>3.0.0beta1</release>
+  <release>3.0.0beta2</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* First beta release for Horde 5.
-* [mjr] Various fixes for SQLite to work with Ansel.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1268,6 +1267,19 @@
    <notes>
 * First beta release for Horde 5.
 * [mjr] Various fixes for SQLite to work with Ansel.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-06-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
