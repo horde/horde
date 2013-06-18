@@ -291,6 +291,20 @@
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Secret</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Stream_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -306,6 +320,9 @@
    </package>
    <extension>
     <name>hash</name>
+   </extension>
+   <extension>
+    <name>json</name>
    </extension>
   </required>
   <optional>
@@ -338,29 +355,12 @@
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Secret</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Stream_Filter</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-   <extension>
-    <name>json</name>
-   </extension>
    <extension>
     <name>mbstring</name>
    </extension>
