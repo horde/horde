@@ -17,8 +17,8 @@ use Sabre\VObject;
  * If you use the 'value' or properties directly, this object does not keep
  * reference and results might appear incorrectly.
  *
- * @copyright Copyright (C) 2007-2013 Rooftop Solutions. All rights reserved.
- * @author Evert Pot (http://www.rooftopsolutions.nl/)
+ * @copyright Copyright (C) 2007-2013 fruux GmbH (https://fruux.com/).
+ * @author Evert Pot (http://evertpot.com/)
  * @license http://code.google.com/p/sabredav/wiki/License Modified BSD License
  */
 class DateTime extends VObject\Property {
@@ -141,6 +141,18 @@ class DateTime extends VObject\Property {
             $this->dateTime,
         ) = self::parseData($this->value, $this);
         return $this->dateType;
+
+    }
+
+    /**
+     * This method will return true, if the property had a date and a time, as
+     * opposed to only a date.
+     *
+     * @return bool
+     */
+    public function hasTime() {
+
+        return $this->getDateType()!==self::DATE;
 
     }
 

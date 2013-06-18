@@ -6,10 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Sabre\\VObject' => $vendorDir . '/sabre/vobject/lib',
-    'Sabre\\HTTP' => $vendorDir . '/sabre/dav/lib',
-    'Sabre\\DAVACL' => $vendorDir . '/sabre/dav/lib',
-    'Sabre\\DAV' => $vendorDir . '/sabre/dav/lib',
-    'Sabre\\CardDAV' => $vendorDir . '/sabre/dav/lib',
-    'Sabre\\CalDAV' => $vendorDir . '/sabre/dav/lib',
+    'Sabre\\VObject' => array($vendorDir . '/sabre/vobject/lib'),
+    'Sabre\\HTTP' => array($vendorDir . '/sabre/dav/lib'),
+    'Sabre\\DAVACL' => array($vendorDir . '/sabre/dav/lib'),
+    'Sabre\\DAV' => array($vendorDir . '/sabre/dav/lib'),
+    'Sabre\\CardDAV' => array($vendorDir . '/sabre/dav/lib'),
+    'Sabre\\CalDAV' => array($vendorDir . '/sabre/dav/lib'),
 );

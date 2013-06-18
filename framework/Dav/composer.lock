@@ -7,16 +7,16 @@
     "packages": [
         {
             "name": "sabre/dav",
-            "version": "1.8.4",
+            "version": "1.8.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/evert/SabreDAV.git",
-                "reference": "1.8.4"
+                "url": "https://github.com/fruux/sabre-dav.git",
+                "reference": "1.8.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/evert/SabreDAV/zipball/1.8.4",
-                "reference": "1.8.4",
+                "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/1.8.6",
+                "reference": "1.8.6",
                 "shasum": ""
             },
             "require": {
@@ -30,7 +30,7 @@
                 "ext-simplexml": "*",
                 "ext-spl": "*",
                 "php": ">=5.3.1",
-                "sabre/vobject": "2.0.*"
+                "sabre/vobject": ">=2.1,<2.2"
             },
             "provide": {
                 "evert/sabredav": "1.7.*"
@@ -66,7 +66,7 @@
                 {
                     "name": "Evert Pot",
                     "email": "evert@rooftopsolutions.nl",
-                    "homepage": "http://www.rooftopsolutions.nl/",
+                    "homepage": "http://evertpot.com/",
                     "role": "Developer"
                 }
             ],
@@ -79,23 +79,24 @@
                 "framework",
                 "iCalendar"
             ],
-            "time": "2013-04-08 22:48:48"
+            "time": "2013-06-17 23:12:05"
         },
         {
             "name": "sabre/vobject",
-            "version": "2.0.7",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/evert/sabre-vobject.git",
-                "reference": "2.0.7"
+                "url": "https://github.com/fruux/sabre-vobject.git",
+                "reference": "2.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/evert/sabre-vobject/zipball/2.0.7",
-                "reference": "2.0.7",
+                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/2.1.0",
+                "reference": "2.1.0",
                 "shasum": ""
             },
             "require": {
+                "ext-mbstring": "*",
                 "php": ">=5.3.1"
             },
             "bin": [
@@ -115,18 +116,18 @@
                 {
                     "name": "Evert Pot",
                     "email": "evert@rooftopsolutions.nl",
-                    "homepage": "http://www.rooftopsolutions.nl/",
+                    "homepage": "http://evertpot.com/",
                     "role": "Developer"
                 }
             ],
             "description": "The VObject library for PHP allows you to easily parse and manipulate iCalendar and vCard objects",
-            "homepage": "https://github.com/evert/sabre-vobject",
+            "homepage": "https://github.com/fruux/sabre-vobject",
             "keywords": [
                 "VObject",
                 "iCalendar",
                 "vCard"
             ],
-            "time": "2013-03-05 12:16:55"
+            "time": "2013-06-17 22:25:42"
         }
     ],
     "packages-dev": [

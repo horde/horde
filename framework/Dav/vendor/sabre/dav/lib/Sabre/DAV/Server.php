@@ -6,8 +6,8 @@ use Sabre\HTTP;
 /**
  * Main DAV server class
  *
- * @copyright Copyright (C) 2007-2013 Rooftop Solutions. All rights reserved.
- * @author Evert Pot (http://www.rooftopsolutions.nl/)
+ * @copyright Copyright (C) 2007-2013 fruux GmbH (https://fruux.com/).
+ * @author Evert Pot (http://evertpot.com/)
  * @license http://code.google.com/p/sabredav/wiki/License Modified BSD License
  */
 class Server {
@@ -1457,6 +1457,13 @@ class Server {
         if ($depth!=0) $depth = 1;
 
         $path = rtrim($path,'/');
+
+        // This event allows people to intercept these requests early on in the
+        // process.
+        //
+        // We're not doing anything with the result, but this can be helpful to
+        // pre-fetch certain expensive live properties.
+        $this->broadCastEvent('beforeGetPropertiesForPath', array($path, $propertyNames, $depth));
 
         $returnPropertyList = array();
 
