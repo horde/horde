@@ -503,17 +503,17 @@
    <date>2011-03-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* Add PHPUnit test framework.
-* Added constants for RFC-defined flags.
-* Supported finalized SPECIAL-USE capability (RFC 6154).
-* Add Horde_Imap_Client_Data_AclNegative object.
-* Add Horde_Imap_Client_Base#allAclRights().
-* Add Horde_Imap_Client_Data_Acl and Horde_Imap_Client_Data_AclRights objects.
-* Horde_Imap_Client_Base#getNamespaces() now returns integer constants for the &apos;type&apos; parameter.
-* Add Horde_Imap_Client_Data_Fetch data object.
-* Add Horde_Imap_Client_Ids data object.
-* Add Horde_Imap_Client_Fetch_Query data object.
-* Add Horde_Imap_Client_Data_Envelope data object.
+* [mms] Add PHPUnit test framework.
+* [mms] Added constants for RFC-defined flags.
+* [mms] Supported finalized SPECIAL-USE capability (RFC 6154).
+* [mms] Add Horde_Imap_Client_Data_AclNegative object.
+* [mms] Add Horde_Imap_Client_Base#allAclRights().
+* [mms] Add Horde_Imap_Client_Data_Acl and Horde_Imap_Client_Data_AclRights objects.
+* [mms] Horde_Imap_Client_Base#getNamespaces() now returns integer constants for the &apos;type&apos; parameter.
+* [mms] Add Horde_Imap_Client_Data_Fetch data object.
+* [mms] Add Horde_Imap_Client_Ids data object.
+* [mms] Add Horde_Imap_Client_Fetch_Query data object.
+* [mms] Add Horde_Imap_Client_Data_Envelope data object.
    </notes>
   </release>
   <release>
@@ -528,9 +528,9 @@
    <date>2011-03-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* Fix client-side sorting using envelope data.
-* Workaround PHP &lt; 5.2.6 (broken stream handling) (Bug #9644).
-* Add basic UTF7-IMAP conversion unit test.
+* [mms] Fix client-side sorting using envelope data.
+* [mms] Workaround PHP &lt; 5.2.6 (broken stream handling) (Bug #9644).
+* [mms] Add basic UTF7-IMAP conversion unit test.
    </notes>
   </release>
   <release>
@@ -563,7 +563,7 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
-* Provide way to indicate mailboxes that should not have FETCH data cached.
+* [mms] Provide way to indicate mailboxes that should not have FETCH data cached.
    </notes>
   </release>
   <release>
@@ -615,10 +615,7 @@
    <date>2011-04-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* Return cloned objects from Data results, to prevent issues when caching (Bug #9931).
-* Optimize listing subscribed mailboxes for certain queries.
-* Add support for PARTIAL search/sort results return (RFC 5267 [4.4]).
-* Add support for SEARCH=FUZZY (RFC 6203).
+* [mms] Correct fix for Bug #9915 (Bug #9943).
    </notes>
   </release>
   <release>
@@ -631,10 +628,10 @@
    <date>2011-04-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* Return cloned objects from Data results, to prevent issues when caching (Bug #9931).
-* Optimize listing subscribed mailboxes for certain queries.
-* Add support for PARTIAL search/sort results return (RFC 5267 [4.4]).
-* Add support for SEARCH=FUZZY (RFC 6203).
+* [mms] Return cloned objects from Data results, to prevent issues when caching (Bug #9931).
+* [mms] Optimize listing subscribed mailboxes for certain queries.
+* [mms] Add support for PARTIAL search/sort results return (RFC 5267 [4.4]).
+* [mms] Add support for SEARCH=FUZZY (RFC 6203).
    </notes>
   </release>
   <release>
