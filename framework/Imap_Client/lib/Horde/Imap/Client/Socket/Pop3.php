@@ -634,10 +634,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      /**
      * Fetch data for a given fetch query.
      *
-     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  Pipeline
-     *                                                          object.
-     * @param array $options                                    Fetch query
-     *                                                          options
+     * @param Horde_Imap_Client_Fetch_Results $results  Fetch results.
+     * @param array $options                            Fetch query options.
      */
     protected function _fetchCmd(Horde_Imap_Client_Fetch_Results $results,
                                  $options)
