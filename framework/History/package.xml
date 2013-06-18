@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-18</date>
- <time>14:23:02</time>
+ <time>14:28:25</time>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Use Horde_Cache instead of Horde_HashTable for caching.
-* [mjr] Add support for modification sequences.
-* [mms] Abstract history query caching to use Horde_HashTable.
-* [cjh] Add ability to cache history queries.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -342,6 +339,19 @@ Converted to package.xml 2.0 for pear.horde.org
 * [mjr] Add support for modification sequences.
 * [mms] Abstract history query caching to use Horde_HashTable.
 * [cjh] Add ability to cache history queries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
