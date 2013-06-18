@@ -22,20 +22,20 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-25</date>
- <time>20:34:45</time>
+ <date>2013-06-18</date>
+ <time>23:38:27</time>
  <version>
-  <release>3.0.0</release>
+  <release>3.0.0beta1</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Various fixes for Sqlite to work with Ansel.
-
+* First beta release for Horde 5.
+* [mjr] Various fixes for SQLite to work with Ansel.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1251,6 +1251,23 @@
 * [mjr] Fix returning to gallery view after uploading images when viewing Ansel in an iFrame (Bug #11209).
 * [mjr] Fix moving a subgallery to a top level gallery (Bug #11134).
 * [jan] Fix redirection after setting gallery password (thpo+horde@dotrc.de, Bug #11195).
+   </notes>
+  </release>
+  <release>
+   <date>2013-06-18</date>
+   <time>20:34:45</time>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* First beta release for Horde 5.
+* [mjr] Various fixes for SQLite to work with Ansel.
    </notes>
   </release>
  </changelog>

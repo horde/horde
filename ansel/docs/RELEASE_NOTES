@@ -10,28 +10,37 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release of the Ansel Photo
-Management and Web Gallery application version H4 (2.0.1).
+The Horde Team is pleased to announce the first beta release of the Ansel Photo
+Management and Web Gallery application version H5 (3.0.0).
 
-Ansel is a full featured photo management application. With it, you can organize
-your photos in any number of galleries and subgalleries, share galleries among
-other Horde users or make them public. Ansel supports a wide range of
-features. See http://www.horde.org/ansel for more information.
+Ansel is a full featured photo management application. With it, you can
+organize your photos in any number of galleries and subgalleries, share
+galleries among other Horde users or make them public. Ansel supports a wide
+range of features. For more information on Ansel, visit
+http://www.horde.org/apps/ansel.
 
-Major changes compared to the Ansel version H4 (2.0) are:
-    * Small bugfixes.
+For detailed installation and configuration instructions, please see
+http://www.horde.org/apps/ansel/docs/INSTALL
+
+Testing is requested and comments are encouraged.
+Updated translations would also be great.
+
+Major changes compared to the Ansel H4 versions are:
+    * Compatible with Horde 5.
+    * Improved support for SQLite.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Small bugfixes.
+Compatible with Horde 5.
+Improved support for SQLite.
 FM;
 
 $this->notes['name'] = 'Ansel';
 $this->notes['list'] = 'ansel';
 $this->notes['fm']['project'] = 'horde-ansel';
-$this->notes['fm']['branch'] = 'Horde 4';
+$this->notes['fm']['branch'] = 'Horde 5';
