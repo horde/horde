@@ -8,7 +8,6 @@
  *     - compose_attach_preview
  *     - print_attach
  *     - view_attach
- *     - view_face
  *     - view_source
  *   - autodetect: (integer) If set, tries to autodetect MIME type when
  *                 viewing based on data ('view_attach' only).
@@ -53,11 +52,6 @@ case 'print_attach':
 case 'view_attach':
     $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
     $res = $view_ob->viewAttach($vars->id, $vars->mode, $vars->autodetect, $vars->ctype);
-    break;
-
-case 'view_face':
-    $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
-    $res = $view_ob->viewFace();
     break;
 
 case 'view_source':

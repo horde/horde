@@ -293,12 +293,11 @@ class IMP_Basic_Message extends IMP_Basic_Base
             $display_headers['from'] .= '&nbsp;' . $from_img;
         }
 
-        /* Look for Face: information. */
-        if ($mime_headers->getValue('face')) {
-            $view_url = $mailbox->url('view.php', $buid);
-            // TODO: Use Data URL
-            $view_url->add('actionID', 'view_face');
-            $display_headers['from'] .= '&nbsp;<img src="' . $view_url . '">';
+        /* Look for Face information. */
+        if ($face = $mime_headers->getValue('face')) {
+            $display_headers['from'] .= '&nbsp;<img src="' .
+                Horde_Url_Data::create('image/png', base64_decode($face))
+                . '">';
         }
 
         /* Build To/Cc/Bcc links. */

@@ -201,19 +201,6 @@ class IMP_Contents_View
 
     /**
      */
-    public function viewFace()
-    {
-        $mime_headers = $this->_contents->getHeader();
-        return ($face = $mime_headers->getValue('face'))
-            ? array(
-                  'data' => base64_decode($face),
-                  'type' => 'image/png'
-              )
-            : array();
-    }
-
-    /**
-     */
     public function printAttach($id)
     {
         global $injector, $page_output, $prefs, $registry;
