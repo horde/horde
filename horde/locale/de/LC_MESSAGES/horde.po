@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-04 11:48+0200\n"
-"PO-Revision-Date: 2013-05-22 15:00+0200\n"
+"POT-Creation-Date: 2013-06-18 14:03+0200\n"
+"PO-Revision-Date: 2013-06-18 14:05+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -1242,6 +1242,10 @@ msgstr "Facebook-Integration"
 msgid "Failed unlock attempts before device is wiped"
 msgstr "Fehlgeschlagene Entsperrungsversuche bis Gerätelöschung"
 
+#: lib/Block/TwitterTimeline.php:120 templates/block/twitter_tweet.html.php:37
+msgid "Favorite"
+msgstr "Favorisieren"
+
 #: lib/Block/Feed.php:56
 msgid "Feed"
 msgstr "Feed"
@@ -1498,7 +1502,7 @@ msgstr "Importiertes Feld: %s"
 msgid "Imported fields:"
 msgstr "Importierte Felder:"
 
-#: lib/Block/TwitterTimeline.php:110
+#: lib/Block/TwitterTimeline.php:113
 msgid "In reply to:"
 msgstr "Als Antwort auf:"
 
@@ -1582,7 +1586,7 @@ msgstr ""
 "JavaScript ist in Ihrem Browser entweder deaktiviert oder nicht verfügbar. "
 "Sie sind auf den minimalen Modus beschränkt. "
 
-#: lib/Block/TwitterTimeline.php:111
+#: lib/Block/TwitterTimeline.php:114
 msgid "Just now..."
 msgstr "Gerade..."
 
@@ -3069,7 +3073,7 @@ msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
 "In der Kommunikation mit dem ActiveSync-Server ist ein Fehler aufgetreten: %s"
 
-#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:102
+#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:105
 #, php-format
 msgid "There was an error contacting Twitter: %s"
 msgstr "Beim Verbinden mit Twitter ist ein Fehler aufgetreten: %s"
@@ -3215,6 +3219,10 @@ msgstr ""
 #: templates/prefs/end.html:5
 msgid "Undo Changes"
 msgstr "Änderungen rückgängig machen"
+
+#: lib/Block/TwitterTimeline.php:121 templates/block/twitter_tweet.html.php:39
+msgid "Unfavorite"
+msgstr "Favorisierung zurücknehmen"
 
 #: templates/prefs/category.html.php:19
 msgid "Unfiled"
@@ -3410,7 +3418,7 @@ msgstr "Westeuropäisch (ISO-8859-15)"
 msgid "What application should %s display after login?"
 msgstr "Welche Anwendung soll %s nach dem Anmelden angezeigen?"
 
-#: lib/Block/TwitterTimeline.php:107
+#: lib/Block/TwitterTimeline.php:110
 msgid "What are you working on now?"
 msgstr "Was machen Sie gerade?"
 
@@ -3577,7 +3585,7 @@ msgstr "Sie wurden abgemeldet."
 msgid "You have denied the requested permissions."
 msgstr "Sie haben die benötigten Rechte verweigert."
 
-#: lib/Block/TwitterTimeline.php:160
+#: lib/Block/TwitterTimeline.php:166
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3787,7 +3795,7 @@ msgid "inline"
 msgstr "Inline"
 
 #: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
-#: lib/Block/TwitterTimeline.php:160 services/facebook/index.php:175
+#: lib/Block/TwitterTimeline.php:166 services/facebook/index.php:175
 #: services/facebook/index.php:192
 msgid "preferences"
 msgstr "Benutzereinstellungen"

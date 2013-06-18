@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-04 11:48+0200\n"
-"PO-Revision-Date: 2013-06-04 11:55+0200\n"
+"POT-Creation-Date: 2013-06-18 14:03+0200\n"
+"PO-Revision-Date: 2013-06-18 14:15+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -86,7 +86,7 @@ msgstr "%d bis %d von %d Gruppen"
 msgid "%d to %d of %d Items"
 msgstr "%d bis %d von %d Elementen"
 
-#: gallery/sort.php:64
+#: gallery/sort.php:86
 #, php-format
 msgid "%s :: Sort"
 msgstr "%s :: Sortieren"
@@ -200,7 +200,7 @@ msgstr "Bearbeiten dieser Galerie verweigert."
 msgid "Access denied moving photos to this gallery."
 msgstr "Zugriff verweigert beim Verschieben von Fotos in diese Galerie."
 
-#: lib/GalleryMode/Date.php:459 lib/GalleryMode/Normal.php:163
+#: lib/GalleryMode/Date.php:459 lib/GalleryMode/Normal.php:164
 msgid "Access denied removing photos from this gallery."
 msgstr "Zugriff verweigert beim Entfernen der Fotos aus dieser Galerie."
 
@@ -593,11 +593,11 @@ msgstr "Standardstil für Galerien"
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/widgets/actions.html.php:48
+#: templates/widgets/actions.html.php:49
 msgid "Delete All Photos"
 msgstr "Alle Fotos löschen"
 
-#: templates/widgets/actions.html.php:49
+#: templates/widgets/actions.html.php:50
 msgid "Delete Entire Gallery"
 msgstr "Gesamte Galerie löschen"
 
@@ -654,7 +654,7 @@ msgstr "Möchten Sie wirklich dieses Foto melden?"
 msgid "Do you want to permanently delete ''%s''?"
 msgstr "Möchten Sie ''%s'' endgültig löschen?"
 
-#: gallery/sort.php:82
+#: gallery/sort.php:104
 msgid "Done"
 msgstr "Fertig"
 
@@ -677,7 +677,7 @@ msgstr ""
 "Das Herunterladen von ZIP-Dateien ist nicht möglich. Bitte wenden Sie sich "
 "an Ihren Administrator."
 
-#: gallery/sort.php:81
+#: gallery/sort.php:103
 msgid "Drag photos to the desired sort position."
 msgstr "Ziehen Sie die Fotos an die gewünschte Position."
 
@@ -826,7 +826,7 @@ msgstr "Dateiname"
 msgid "Find"
 msgstr "Suchen"
 
-#: lib/Widget/GalleryFaces.php:69 templates/widgets/actions.html.php:35
+#: lib/Widget/GalleryFaces.php:69 templates/widgets/actions.html.php:36
 #: templates/widgets/imagefaces.html.php:4
 msgid "Find faces"
 msgstr "Gesichter finden"
@@ -940,6 +940,10 @@ msgstr "Galerie existiert nicht."
 msgid "Gallery not found."
 msgstr "Galerie nicht gefunden."
 
+#: gallery/sort.php:66
+msgid "Gallery sort reset."
+msgstr "Galeriesortierung zurückgesetzt."
+
 #: gallery/sort.php:46
 msgid "Gallery sorted."
 msgstr "Galerie umsortiert."
@@ -1002,7 +1006,7 @@ msgstr "Bild"
 msgid "Image already has existing attributes."
 msgstr "Das Bild hat bereits Attribute."
 
-#: lib/GalleryMode/Date.php:538 lib/GalleryMode/Normal.php:205
+#: lib/GalleryMode/Date.php:538 lib/GalleryMode/Normal.php:206
 msgid "Image not found in gallery."
 msgstr "Bild in der Galerie nicht gefunden."
 
@@ -1628,7 +1632,7 @@ msgstr "Neueste Fotos auf %s"
 msgid "Refresh List"
 msgstr "Liste aktualisieren"
 
-#: templates/widgets/actions.html.php:33
+#: templates/widgets/actions.html.php:34
 msgid "Regenerate all photo views"
 msgstr "Fotoansichten neu erstellen"
 
@@ -1659,7 +1663,7 @@ msgstr "Foto durch diese Datei ersetzen"
 
 #: report.php:43 report.php:62 templates/faces/face.inc:11
 #: templates/faces/search.inc:15 templates/tile/face.inc:31
-#: templates/view/image.html.php:24 templates/widgets/actions.html.php:45
+#: templates/view/image.html.php:24 templates/widgets/actions.html.php:46
 msgid "Report"
 msgstr "Melden"
 
@@ -1693,13 +1697,17 @@ msgstr "Meldetyp"
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: templates/widgets/actions.html.php:32
+#: templates/widgets/actions.html.php:33
 msgid "Reset all thumbnails"
 msgstr "Vorschauen zurücksetzen"
 
-#: templates/widgets/actions.html.php:38
+#: templates/widgets/actions.html.php:39
 msgid "Reset default photo"
 msgstr "Standardfoto zurücksetzen"
+
+#: templates/widgets/actions.html.php:31
+msgid "Reset sort order"
+msgstr "Sortierung zurücksetzen."
 
 #: templates/image/crop_image.inc:112 templates/image/edit_image.inc:31
 #: templates/image/resize_image.inc:31
@@ -1773,7 +1781,7 @@ msgstr "Gesichtername speichern"
 msgid "Search"
 msgstr "Suche"
 
-#: gallery/sort.php:66
+#: gallery/sort.php:88
 msgid "Search Forums"
 msgstr "Foren durchsuchen"
 
@@ -1844,7 +1852,7 @@ msgstr "Trennen Sie mehrere Tags durch Kommas."
 msgid "Set captions"
 msgstr "Fotounterschriften setzen"
 
-#: templates/widgets/actions.html.php:42
+#: templates/widgets/actions.html.php:43
 msgid "Set permissions"
 msgstr "Rechte festlegen"
 

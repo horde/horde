@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:15+0200\n"
+"POT-Creation-Date: 2013-06-18 14:03+0200\n"
 "PO-Revision-Date: 2013-01-29 11:58+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,27 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Block/Bookmarks.php:54 lib/Block/Mostclicked.php:45
+#: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
 msgid "1 Line"
 msgstr "1 Zeile"
 
-#: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
+#: lib/Block/Bookmarks.php:41 lib/Block/Mostclicked.php:32
 msgid "10 rows"
 msgstr "10 Zeilen"
 
-#: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
+#: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
 msgid "15 rows"
 msgstr "15 Zeilen"
 
-#: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
+#: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
 msgid "2 Line"
 msgstr "2 Zeilen"
 
-#: lib/Block/Bookmarks.php:44 lib/Block/Mostclicked.php:35
+#: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
 msgid "25 rows"
 msgstr "25 Zeilen"
 
-#: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
+#: lib/Block/Bookmarks.php:51 lib/Block/Mostclicked.php:42
 msgid "3 Line"
 msgstr "3 Zeilen"
 
@@ -70,7 +70,7 @@ msgstr "Lesezeichen nicht gefunden: %s."
 msgid "Bookmarked on"
 msgstr "Datum"
 
-#: lib/Block/Bookmarks.php:20 lib/Block/Bookmarks.php:65
+#: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
 #: lib/View/BookmarkList.php:120
 msgid "Bookmarks"
 msgstr "Lesezeichen"
@@ -111,7 +111,7 @@ msgstr "Beschreibung"
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: lib/Block/Bookmarks.php:38
+#: lib/Block/Bookmarks.php:37
 msgid "Display Rows"
 msgstr "Angezeigte Zeilen"
 
@@ -152,11 +152,11 @@ msgstr "Lade..."
 msgid "Maximum Number of Bookmarks"
 msgstr "Maximale Anzahl an Lesezeichen"
 
-#: config/prefs.php:25 lib/Block/Bookmarks.php:34
+#: config/prefs.php:25 lib/Block/Bookmarks.php:33
 msgid "Most Clicked"
 msgstr "Am häufigsten geklickt"
 
-#: lib/Block/Mostclicked.php:20
+#: lib/Block/Mostclicked.php:19
 msgid "Most-clicked Bookmarks"
 msgstr "Meistgeklickte Lesezeichen"
 
@@ -168,7 +168,7 @@ msgstr "Neues Lesezeichen"
 msgid "No bookmarks found"
 msgstr "Keine Lesezeichen gefunden"
 
-#: lib/Block/Bookmarks.php:94 lib/Block/Mostclicked.php:75
+#: lib/Block/Bookmarks.php:91 lib/Block/Mostclicked.php:72
 msgid "No bookmarks to display"
 msgstr "Keine Lesezeichen"
 
@@ -184,7 +184,7 @@ msgstr "Keine Suche"
 msgid "Note:"
 msgstr "Anmerkung:"
 
-#: lib/Block/Mostclicked.php:29
+#: lib/Block/Mostclicked.php:28
 msgid "Number of bookmarks to show"
 msgstr "Anzahl der angezeigten Lesezeichen"
 
@@ -236,7 +236,7 @@ msgstr ""
 msgid "Sort bookmarks by:"
 msgstr "Lesezeichen sortieren nach:"
 
-#: lib/Block/Bookmarks.php:29
+#: lib/Block/Bookmarks.php:28
 msgid "Sort by"
 msgstr "Sortieren nach"
 
@@ -248,7 +248,7 @@ msgstr "Sortierrichtung:"
 msgid "Tags"
 msgstr "Tags"
 
-#: lib/Block/Bookmarks.php:48 lib/Block/Mostclicked.php:39
+#: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
 msgid "Template"
 msgstr "Vorlage"
 
@@ -267,7 +267,7 @@ msgstr "Beim Hinzufügen des Lesezeichens ist ein Fehler aufgetreten: %s"
 msgid "There was an error saving the bookmark: %s"
 msgstr "Beim Speichern des Lesezeichens ist ein Fehler aufgetreten: %s"
 
-#: config/prefs.php:24 lib/Block/Bookmarks.php:33 templates/add.html.php:20
+#: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
 #: templates/edit.html.php:29 templates/list.html.php:12
 msgid "Title"
 msgstr "Titel"
