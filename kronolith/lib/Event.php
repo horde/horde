@@ -933,9 +933,12 @@ abstract class Kronolith_Event
                         throw new Kronolith_Exception(_("Unable to parse event."));
                     }
                     $vEventException = array_pop($vEventException);
-                    // If $v1, need to add to EXDATE and
+                    // If $v1, need to add to EXDATE
+                    if (!$this->isAllDay()) {
+                        $exceptionEvent->setTimezone(true);
+                    }
                     if (!$v1) {
-                        $vEventException->setAttribute('RECURRENCE-ID', $exceptionEvent->exceptionoriginaldate->timestamp());
+                        $vEventException->setAttribute('RECURRENCE-ID', $exceptionEvent->exceptionoriginaldate);
                     } else {
                         $vEvent->setAttribute('EXDATE', array($exceptionEvent->exceptionoriginaldate), array('VALUE' => 'DATE'));
                     }
