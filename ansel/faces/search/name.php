@@ -39,9 +39,10 @@ $pager = new Horde_Core_Ui_Pager(
     array('num' => $count,
             'url' => 'faces/search/name.php',
             'perpage' => $perpage));
+$title = _("Search by name");
 
 $page_output->header(array(
-    'title' => _("Search by name")
+    'title' => $title
 ));
 $notification->notify(array('listeners' => 'status'));
 include ANSEL_TEMPLATES . '/faces/faces.inc';
