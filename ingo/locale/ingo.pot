@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ingo H5 (3.1.0-git)\n"
+"Project-Id-Version: Ingo H5 (3.1.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"POT-Creation-Date: 2013-06-18 14:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -359,7 +359,7 @@ msgstr ""
 msgid "Filter Script Display"
 msgstr ""
 
-#: lib/Application.php:188
+#: lib/Application.php:191
 msgid "Filter _Rules"
 msgstr ""
 
@@ -582,7 +582,7 @@ msgstr ""
 msgid "My email addresses:"
 msgstr ""
 
-#: lib/Application.php:248 lib/Storage/Filters.php:140
+#: lib/Application.php:271 lib/Storage/Filters.php:140
 #: templates/basic/filters/filters.html.php:24
 msgid "New Rule"
 msgstr ""
@@ -758,7 +758,7 @@ msgstr ""
 msgid "Rules"
 msgstr ""
 
-#: lib/Application.php:259
+#: lib/Application.php:282
 msgid "Ruleset"
 msgstr ""
 
@@ -767,7 +767,7 @@ msgstr ""
 msgid "STARTTLS failed: (%s) %s"
 msgstr ""
 
-#: lib/Application.php:210
+#: lib/Application.php:213
 msgid "S_pam"
 msgstr ""
 
@@ -1061,7 +1061,7 @@ msgstr ""
 msgid "[No Subject]"
 msgstr ""
 
-#: lib/Application.php:195
+#: lib/Application.php:198
 msgid "_Blacklist"
 msgstr ""
 
@@ -1073,7 +1073,7 @@ msgstr ""
 msgid "_Enter each address on a new line:"
 msgstr ""
 
-#: lib/Application.php:206
+#: lib/Application.php:209
 msgid "_Forward"
 msgstr ""
 
@@ -1081,19 +1081,19 @@ msgstr ""
 msgid "_Move message to folder:"
 msgstr ""
 
-#: lib/Application.php:221
+#: lib/Application.php:225
 msgid "_Permissions"
 msgstr ""
 
-#: lib/Application.php:216
+#: lib/Application.php:219
 msgid "_Script"
 msgstr ""
 
-#: lib/Application.php:202
+#: lib/Application.php:205
 msgid "_Vacation"
 msgstr ""
 
-#: lib/Application.php:192
+#: lib/Application.php:195
 msgid "_Whitelist"
 msgstr ""
 

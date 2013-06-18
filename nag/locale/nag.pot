@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Nag H5 (4.1.0-git)\n"
+"Project-Id-Version: Nag H5 (4.1.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-03 23:40+0200\n"
+"POT-Creation-Date: 2013-06-18 14:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -407,7 +407,7 @@ msgstr ""
 msgid "Create Task List"
 msgstr ""
 
-#: lib/Application.php:145
+#: lib/Application.php:146
 msgid "Create a new Task List"
 msgstr ""
 
@@ -669,7 +669,7 @@ msgstr ""
 msgid "Mark \"%s\" as incomplete"
 msgstr ""
 
-#: lib/Application.php:73
+#: lib/Application.php:74
 msgid "Maximum Number of Tasks"
 msgstr ""
 
@@ -693,11 +693,11 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:1139
+#: lib/Api.php:1184
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 
-#: lib/Application.php:138
+#: lib/Application.php:139
 msgid "My Task Lists"
 msgstr ""
 
@@ -724,7 +724,7 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: app/controllers/SaveTask.php:12 lib/Application.php:301
+#: app/controllers/SaveTask.php:12 lib/Application.php:302
 #: lib/Smartmobile.php:122 task.php:81 test/Nag/Unit/Form/Task/Base.php:72
 #: test/Nag/Unit/Form/Task/Base.php:86
 msgid "New Task"
@@ -746,7 +746,7 @@ msgstr ""
 msgid "No due date."
 msgstr ""
 
-#: lib/Api.php:816 lib/Api.php:839 lib/Api.php:1146
+#: lib/Api.php:861 lib/Api.php:884 lib/Api.php:1191
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -901,7 +901,7 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
-#: lib/Application.php:325 lib/Form/Search.php:72 search.php:17 search.php:30
+#: lib/Application.php:326 lib/Form/Search.php:72 search.php:17 search.php:30
 #: templates/list/header.html.php:6
 msgid "Search"
 msgstr ""
@@ -953,7 +953,7 @@ msgid ""
 "synchronization with external devices:"
 msgstr ""
 
-#: lib/Application.php:151
+#: lib/Application.php:152
 msgid "Shared Task Lists"
 msgstr ""
 
@@ -1127,7 +1127,7 @@ msgstr ""
 msgid "Tasklist does not exist or no permission to edit"
 msgstr ""
 
-#: lib/Api.php:1224 lib/Tasklists/Kolab.php:41
+#: lib/Api.php:1269 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr ""
 
@@ -1232,11 +1232,11 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:492 lib/Api.php:808 lib/Api.php:1131 lib/Application.php:546
+#: lib/Api.php:492 lib/Api.php:853 lib/Api.php:1176 lib/Application.php:547
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Application.php:232
+#: lib/Application.php:233
 #, php-format
 msgid "There was an error removing tasks for %s. Details have been logged."
 msgstr ""
@@ -1284,8 +1284,8 @@ msgstr ""
 msgid "Unique ID"
 msgstr ""
 
-#: lib/Api.php:572 lib/Api.php:856 lib/Api.php:980 lib/Api.php:1045
-#: lib/Api.php:1163
+#: lib/Api.php:572 lib/Api.php:901 lib/Api.php:1025 lib/Api.php:1090
+#: lib/Api.php:1208
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""
@@ -1415,23 +1415,23 @@ msgstr ""
 msgid "_Future tasks"
 msgstr ""
 
-#: lib/Application.php:95
+#: lib/Application.php:96
 msgid "_Import/Export"
 msgstr ""
 
-#: lib/Application.php:88
+#: lib/Application.php:89
 msgid "_List Tasks"
 msgstr ""
 
-#: lib/Application.php:114
+#: lib/Application.php:115
 msgid "_New Task"
 msgstr ""
 
-#: lib/Application.php:124
+#: lib/Application.php:125
 msgid "_Quick Add"
 msgstr ""
 
-#: lib/Application.php:91
+#: lib/Application.php:92
 msgid "_Search"
 msgstr ""
 
@@ -1482,7 +1482,7 @@ msgstr ""
 msgid "iCalendar (vTodo)"
 msgstr ""
 
-#: lib/Application.php:313
+#: lib/Application.php:314
 #, php-format
 msgid "in %s"
 msgstr ""
@@ -1515,11 +1515,11 @@ msgstr ""
 msgid "tasks"
 msgstr ""
 
-#: lib/Application.php:388 templates/data/export.inc:1
+#: lib/Application.php:389 templates/data/export.inc:1
 msgid "tasks.csv"
 msgstr ""
 
-#: lib/Application.php:402
+#: lib/Application.php:403
 msgid "tasks.ics"
 msgstr ""
 

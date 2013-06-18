@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trean H5 (1.0.1-git)\n"
+"Project-Id-Version: Trean H5 (1.0.3-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:15+0200\n"
+"POT-Creation-Date: 2013-06-18 14:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Block/Bookmarks.php:54 lib/Block/Mostclicked.php:45
+#: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
 msgid "1 Line"
 msgstr ""
 
-#: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
+#: lib/Block/Bookmarks.php:41 lib/Block/Mostclicked.php:32
 msgid "10 rows"
 msgstr ""
 
-#: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
+#: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
 msgid "15 rows"
 msgstr ""
 
-#: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
+#: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
 msgid "2 Line"
 msgstr ""
 
-#: lib/Block/Bookmarks.php:44 lib/Block/Mostclicked.php:35
+#: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
 msgid "25 rows"
 msgstr ""
 
-#: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
+#: lib/Block/Bookmarks.php:51 lib/Block/Mostclicked.php:42
 msgid "3 Line"
 msgstr ""
 
@@ -70,7 +70,7 @@ msgstr ""
 msgid "Bookmarked on"
 msgstr ""
 
-#: lib/Block/Bookmarks.php:20 lib/Block/Bookmarks.php:65
+#: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
 #: lib/View/BookmarkList.php:120
 msgid "Bookmarks"
 msgstr ""
@@ -111,7 +111,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: lib/Block/Bookmarks.php:38
+#: lib/Block/Bookmarks.php:37
 msgid "Display Rows"
 msgstr ""
 
@@ -148,11 +148,11 @@ msgstr ""
 msgid "Maximum Number of Bookmarks"
 msgstr ""
 
-#: config/prefs.php:25 lib/Block/Bookmarks.php:34
+#: config/prefs.php:25 lib/Block/Bookmarks.php:33
 msgid "Most Clicked"
 msgstr ""
 
-#: lib/Block/Mostclicked.php:20
+#: lib/Block/Mostclicked.php:19
 msgid "Most-clicked Bookmarks"
 msgstr ""
 
@@ -164,7 +164,7 @@ msgstr ""
 msgid "No bookmarks found"
 msgstr ""
 
-#: lib/Block/Bookmarks.php:94 lib/Block/Mostclicked.php:75
+#: lib/Block/Bookmarks.php:91 lib/Block/Mostclicked.php:72
 msgid "No bookmarks to display"
 msgstr ""
 
@@ -180,7 +180,7 @@ msgstr ""
 msgid "Note:"
 msgstr ""
 
-#: lib/Block/Mostclicked.php:29
+#: lib/Block/Mostclicked.php:28
 msgid "Number of bookmarks to show"
 msgstr ""
 
@@ -228,7 +228,7 @@ msgstr ""
 msgid "Sort bookmarks by:"
 msgstr ""
 
-#: lib/Block/Bookmarks.php:29
+#: lib/Block/Bookmarks.php:28
 msgid "Sort by"
 msgstr ""
 
@@ -240,7 +240,7 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: lib/Block/Bookmarks.php:48 lib/Block/Mostclicked.php:39
+#: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
 msgid "Template"
 msgstr ""
 
@@ -259,7 +259,7 @@ msgstr ""
 msgid "There was an error saving the bookmark: %s"
 msgstr ""
 
-#: config/prefs.php:24 lib/Block/Bookmarks.php:33 templates/add.html.php:20
+#: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
 #: templates/edit.html.php:29 templates/list.html.php:12
 msgid "Title"
 msgstr ""

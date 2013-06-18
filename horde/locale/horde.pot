@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 5.1.0-git\n"
+"Project-Id-Version: Horde 5.1.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"POT-Creation-Date: 2013-06-18 14:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1196,6 +1196,10 @@ msgstr ""
 msgid "Failed unlock attempts before device is wiped"
 msgstr ""
 
+#: lib/Block/TwitterTimeline.php:120 templates/block/twitter_tweet.html.php:37
+msgid "Favorite"
+msgstr ""
+
 #: lib/Block/Feed.php:56
 msgid "Feed"
 msgstr ""
@@ -1450,7 +1454,7 @@ msgstr ""
 msgid "Imported fields:"
 msgstr ""
 
-#: lib/Block/TwitterTimeline.php:110
+#: lib/Block/TwitterTimeline.php:113
 msgid "In reply to:"
 msgstr ""
 
@@ -1523,7 +1527,7 @@ msgid ""
 "restricted to the minimal view."
 msgstr ""
 
-#: lib/Block/TwitterTimeline.php:111
+#: lib/Block/TwitterTimeline.php:114
 msgid "Just now..."
 msgstr ""
 
@@ -2950,7 +2954,7 @@ msgstr ""
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
 
-#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:102
+#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:105
 #, php-format
 msgid "There was an error contacting Twitter: %s"
 msgstr ""
@@ -3082,6 +3086,10 @@ msgstr ""
 
 #: templates/prefs/end.html:5
 msgid "Undo Changes"
+msgstr ""
+
+#: lib/Block/TwitterTimeline.php:121 templates/block/twitter_tweet.html.php:39
+msgid "Unfavorite"
 msgstr ""
 
 #: templates/prefs/category.html.php:19
@@ -3273,7 +3281,7 @@ msgstr ""
 msgid "What application should %s display after login?"
 msgstr ""
 
-#: lib/Block/TwitterTimeline.php:107
+#: lib/Block/TwitterTimeline.php:110
 msgid "What are you working on now?"
 msgstr ""
 
@@ -3436,7 +3444,7 @@ msgstr ""
 msgid "You have denied the requested permissions."
 msgstr ""
 
-#: lib/Block/TwitterTimeline.php:160
+#: lib/Block/TwitterTimeline.php:166
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3626,7 +3634,7 @@ msgid "inline"
 msgstr ""
 
 #: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
-#: lib/Block/TwitterTimeline.php:160 services/facebook/index.php:175
+#: lib/Block/TwitterTimeline.php:166 services/facebook/index.php:175
 #: services/facebook/index.php:192
 msgid "preferences"
 msgstr ""

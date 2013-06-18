@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Imap_Client \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"POT-Creation-Date: 2013-06-18 14:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,11 +22,11 @@ msgstr ""
 msgid "%s not supported on POP3 servers."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4702
+#: lib/Horde/Imap/Client/Socket.php:4486
 msgid "Authentication credentials have expired."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4686
+#: lib/Horde/Imap/Client/Socket.php:4470
 msgid "Authentication failed."
 msgstr ""
 
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Authentication failure."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4694
+#: lib/Horde/Imap/Client/Socket.php:4478
 msgid "Authentication was successful, but authorization failed."
 msgstr ""
 
@@ -46,41 +46,38 @@ msgstr ""
 msgid "Cannot convert search query text to new charset"
 msgstr ""
 
-#: lib/Horde/Imap/Client/Base.php:1955 lib/Horde/Imap/Client/Base.php:2018
+#: lib/Horde/Imap/Client/Base.php:1960 lib/Horde/Imap/Client/Base.php:2023
 msgid "Cannot expunge read-only mailbox."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4480
+#: lib/Horde/Imap/Client/Socket.php:4264
 msgid "Charset used in search query is not supported on the mail server."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:1031
+#: lib/Horde/Imap/Client/Socket.php:989
 #, php-format
 msgid "Could not open mailbox \"%s\"."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:368
+#: lib/Horde/Imap/Client/Socket.php:361
 msgid "Could not open secure TLS connection to the IMAP server."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket/Pop3.php:201
-#: lib/Horde/Imap/Client/Socket/Pop3.php:213
+#: lib/Horde/Imap/Client/Socket/Pop3.php:192
+#: lib/Horde/Imap/Client/Socket/Pop3.php:202
 msgid "Could not open secure connection to the POP3 server."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4586
+#: lib/Horde/Imap/Client/Socket.php:4370
 msgid "Could not save message data because it is too large."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4577
+#: lib/Horde/Imap/Client/Socket.php:4361
 msgid "Could not save message on server."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket/Pop3.php:292
-msgid "Error connecting to POP3 server."
-msgstr ""
-
-#: lib/Horde/Imap/Client/Socket.php:531
+#: lib/Horde/Imap/Client/Socket/Connection.php:82
+#: lib/Horde/Imap/Client/Socket/Pop3/Connection.php:75
 msgid "Error connecting to mail server."
 msgstr ""
 
@@ -95,133 +92,137 @@ msgstr ""
 msgid "Error converting UTF7-IMAP string."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4001 lib/Horde/Imap/Client/Socket.php:4280
-#: lib/Horde/Imap/Client/Socket/Pop3.php:1166
+#: lib/Horde/Imap/Client/Socket.php:3937
+#: lib/Horde/Imap/Client/Socket/Connection.php:270
+#: lib/Horde/Imap/Client/Socket/Pop3.php:1111
+#: lib/Horde/Imap/Client/Socket/Pop3/Connection.php:161
 msgid "Error when communicating with the mail server."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4163
+#: lib/Horde/Imap/Client/Socket.php:4040
 msgid "IMAP Server closed the connection."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4151 lib/Horde/Imap/Client/Socket.php:4179
+#: lib/Horde/Imap/Client/Socket.php:4028 lib/Horde/Imap/Client/Socket.php:4056
 msgid "IMAP error reported by server."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:3616
+#: lib/Horde/Imap/Client/Socket.php:3574
 #, php-format
 msgid "Invalid METADATA entry: \"%s\"."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:3704
+#: lib/Horde/Imap/Client/Socket.php:3662
 #, php-format
 msgid "Invalid METADATA value type \"%s\"."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4212
+#: lib/Horde/Imap/Client/Socket/Connection.php:211
 msgid "Mail server closed the connection unexpectedly."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:488
+#: lib/Horde/Imap/Client/Socket.php:481
 msgid "Mail server denied authentication."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Base.php:2286 lib/Horde/Imap/Client/Base.php:2604
-#: lib/Horde/Imap/Client/Base.php:2869 lib/Horde/Imap/Client/Base.php:2954
+#: lib/Horde/Imap/Client/Base.php:2291 lib/Horde/Imap/Client/Base.php:2609
+#: lib/Horde/Imap/Client/Base.php:2874 lib/Horde/Imap/Client/Base.php:2959
 msgid "Mailbox does not support mod-sequences."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:411
+#: lib/Horde/Imap/Client/Socket.php:402
 msgid "No supported IMAP authentication method could be found."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4710
+#: lib/Horde/Imap/Client/Socket.php:4494
 msgid "Operation failed due to a lack of a secure connection."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket/Pop3.php:1145
+#: lib/Horde/Imap/Client/Socket/Pop3/Connection.php:153
 msgid "POP3 Server closed the connection unexpectedly."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket/Pop3.php:1223
+#: lib/Horde/Imap/Client/Socket/Pop3.php:1169
 msgid "POP3 error reported by server."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket/Pop3.php:252
+#: lib/Horde/Imap/Client/Socket/Pop3.php:239
 msgid "POP3 server denied authentication."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4678
+#: lib/Horde/Imap/Client/Socket.php:4462
 msgid "Remote server is temporarily unavailable."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:356
+#: lib/Horde/Imap/Client/Socket.php:349
 msgid "Server does not support TLS connections."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket/Pop3.php:201
+#: lib/Horde/Imap/Client/Socket/Pop3.php:192
 msgid "Server does not support secure connections."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:554
+#: lib/Horde/Imap/Client/Socket.php:516
 msgid "Server rejected connection."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4084
+#: lib/Horde/Imap/Client/Socket/Connection.php:144
+#: lib/Horde/Imap/Client/Socket/Connection.php:177
+#: lib/Horde/Imap/Client/Socket/Pop3/Connection.php:132
 msgid "Server write error."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4631
+#: lib/Horde/Imap/Client/Socket.php:4415
 msgid "The comparison algorithm was not recognized by the server."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:563
+#: lib/Horde/Imap/Client/Socket.php:525
 msgid "The mail server does not support IMAP4rev1 (RFC 3501)."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4757
+#: lib/Horde/Imap/Client/Socket.php:4541
 msgid "The mail server has denied the request."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4741
+#: lib/Horde/Imap/Client/Socket.php:4525
 msgid "The mail server is reporting corrupt data in your mailbox."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4543
+#: lib/Horde/Imap/Client/Socket.php:4327
 msgid "The mail server was unable to parse the contents of the mail message."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4496
+#: lib/Horde/Imap/Client/Socket.php:4280
 #, php-format
 msgid ""
 "The mail server was unable to parse the contents of the mail message: %s"
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4649
+#: lib/Horde/Imap/Client/Socket.php:4433
 msgid "The metadata item could not be saved because it is too large."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4667
+#: lib/Horde/Imap/Client/Socket.php:4451
 msgid ""
 "The metadata item could not be saved because the maximum number of "
 "annotations has been exceeded."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4658
+#: lib/Horde/Imap/Client/Socket.php:4442
 msgid ""
 "The metadata item could not be saved because the server does not support "
 "private annotations."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4775
+#: lib/Horde/Imap/Client/Socket.php:4559
 msgid "The object could not be created because it already exists."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4784
+#: lib/Horde/Imap/Client/Socket.php:4568
 msgid "The object could not be deleted because it does not exist."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4766
+#: lib/Horde/Imap/Client/Socket.php:4550
 msgid ""
 "The operation failed because the quota has been exceeded on the mail server."
 msgstr ""
@@ -231,27 +232,27 @@ msgstr ""
 msgid "The server does not support the %s extension."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4793
+#: lib/Horde/Imap/Client/Socket.php:4577
 msgid "The special-use attribute requested for the mailbox is not supported."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4727
+#: lib/Horde/Imap/Client/Socket.php:4511
 msgid ""
 "There was a temporary issue when attempting this operation. Please try again "
 "later."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:647
-#: lib/Horde/Imap/Client/Socket/Pop3.php:346
+#: lib/Horde/Imap/Client/Socket.php:612
+#: lib/Horde/Imap/Client/Socket/Pop3.php:305
 msgid "Unexpected response from server when authenticating."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:689
-#: lib/Horde/Imap/Client/Socket/Pop3.php:386
+#: lib/Horde/Imap/Client/Socket.php:654
+#: lib/Horde/Imap/Client/Socket/Pop3.php:347
 #, php-format
 msgid "Unknown authentication method: %s"
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket.php:4718
+#: lib/Horde/Imap/Client/Socket.php:4502
 msgid "You do not have adequate permissions to carry out this operation."
 msgstr ""
