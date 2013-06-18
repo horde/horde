@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-11</date>
- <time>12:44:51</time>
+ <date>2013-06-18</date>
+ <time>00:54:26</time>
  <version>
   <release>2.11.6</release>
   <api>2.11.0</api>
@@ -1841,7 +1841,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-11</date>
+   <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression in handling response codes in POP3 driver.
