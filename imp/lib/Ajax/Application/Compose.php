@@ -48,18 +48,24 @@ class IMP_Ajax_Application_Compose
     );
 
     /**
+     * Compose object.
+     *
      * @var IMP_Compose
      */
     protected $_compose;
 
     /**
+     * Compose type.
+     *
      * @var string
      */
     protected $_type;
 
     /**
-     * @param IMP_Compose $ob
-     * @param string $type
+     * Constuctor.
+     *
+     * @param IMP_Compose $ob  Compose object.
+     * @param string $type     Compose type.
      */
     public function __construct(IMP_Compose $ob, $type = null)
     {

@@ -2298,10 +2298,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Add an attachment referred to in a related part.
      *
-     * @param Horde_Mime_Part $part  Attachment data.
-     * @param DOMElement $node       Node element containg the reference.
-     * @param string $attribute      Element attribute containing the
-     *                               reference.
+     * @param IMP_Compose_Attachment $act_ob  Attachment data.
+     * @param DOMElement $node                Node element containg the
+     *                                        related reference.
+     * @param string $attribute               Element attribute containing the
+     *                                        related reference.
      */
     public function addRelatedAttachment(IMP_Compose_Attachment $atc_ob,
                                          DOMElement $node, $attribute)

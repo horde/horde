@@ -54,11 +54,11 @@ class IMP_Factory_ComposeAtc extends Horde_Core_Factory_Base
      * @return IMP_Compose_Attachment_Storage  Storage object.
      * @throws IMP_Exception
      */
-    public function create($user = null, $id = null, $class = null)
+    public function create($user = null, $id = null, $type = null)
     {
         global $conf;
 
-        $classname = (($class == 'linked') || (is_null($class) && !empty($conf['compose']['link_attachments'])))
+        $classname = (($type == 'linked') || (is_null($type) && !empty($conf['compose']['link_attachments'])))
             ? $this->classLinked
             : $this->classAtc;
 
