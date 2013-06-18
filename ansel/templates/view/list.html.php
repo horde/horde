@@ -9,16 +9,16 @@
   </span>
 
   <?php if (!empty($this->breadcrumbs)): ?>
-    <?php echo $this->breadcrumbs ?><?php echo $this->contentTag('a', Horde::img('reload.png', _("Refresh List")), array('href' => $this->refresh_link, 'title' =>  _("Refresh List"))) ?>
+    <?php echo $this->breadcrumbs ?> <?php echo $this->contentTag('a', Horde::img('reload.png', _("Refresh List")), array('href' => $this->refresh_link, 'title' =>  _("Refresh List"))) ?>
   <?php endif; ?>
 </div>
 
 <!-- Actions -->
 <?php if (empty($this->params['api'])): ?>
-<div class="anselActions">
+<div class="horde-content anselActions">
   <?php if ($this->groupby == 'none'): ?>
     <div class="rightFloat">
-      <?php echo _("Group By:") ?> <?php echo $this->contentTag('a', _("Owner"), array('href' => $this->groupbyUrl)); ?> |
+      <?php echo _("Group By:") ?> <?php echo $this->contentTag('a', _("Owner"), array('href' => $this->groupbyUrl)); ?>
     </div>
   <?php endif; ?>
   <?php echo _("Sort by:") ?> <?php echo $this->contentTag('a', _("Name"), array('href' => $this->refresh_link->copy()->add('sort', 'name'))) ?> |

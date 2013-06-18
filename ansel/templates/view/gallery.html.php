@@ -8,9 +8,10 @@
   <?php endif; ?>
   <?php echo Ansel::getBreadCrumbs($this->gallery) ?>
 </div>
-<div class="gallery-desc" id="galleryDescription"><?php echo $this->gallery_desc ?></div>
+<div class="horde-content gallery-desc" id="galleryDescription"><?php echo $this->gallery_desc ?></div>
 
 <!-- Start Gallery Grid -->
+<div class="horde-content">
 <table width="100%" cellspacing="0">
  <tr>
   <td style="vertical-align:top;width:<?php echo ($this->view->countWidgets() ? "75%" : "100%") ?>;">
@@ -91,3 +92,4 @@
    </td>
  </tr>
 </table>
+</div>

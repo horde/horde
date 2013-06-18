@@ -7,7 +7,7 @@ if (isset($form)) {
 
 echo '<h1 class="header">' . sprintf(_("%s: faces %s"), $title, number_format($count)) . '</h1>';
 if (empty($results)) {
-    echo _("No faces found");
+    echo '<p class="horde-content">' . _("No faces found") . '</p>';
 } else {
     echo $pager->render();
     echo '<div style="float:left;width:100%;">';
