@@ -1,6 +1,6 @@
-----------
-v6.1.2-git
-----------
+------
+v6.1.2
+------
 
 [mms] Fix saving S/MIME certificate to addressbook when message is both signed
       & encrypted (Bug #12354).

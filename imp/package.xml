@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-12</date>
+ <date>2013-06-18</date>
  <version>
   <release>6.1.2</release>
   <api>6.1.0</api>
@@ -3228,15 +3228,15 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-12</date>
+   <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix saving S/MIME certificate to addressbook when message is both signed &amp; encrypted (Bug #12354).
-* [jan] Fixed displaying photos in rendered vCard files.
+* [jan] Fix displaying photos in rendered vCard files.
 * [jan] Fix detecting capability to list users if called via RPC (Bug #12305).
 * [mms] Clear cached previews in dynamic view when changing or refreshing a search mailbox (Bug #12349).
 * [mms] Fix adding an HTML trailer to a compose message.
-* [mms] Fixed regression preventing ACLs from being added (Bug #12346).
+* [mms] Fix regression preventing ACLs from being added (Bug #12346).
    </notes>
   </release>
  </changelog>
