@@ -50,7 +50,8 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
                         array('parent' => $this->_gallery->id,
                               'all_levels' => false,
                               'from' => $from,
-                              'count' => $to));
+                              'count' => $to,
+                              'sort_by' => 'name'));
             }
         }
 
