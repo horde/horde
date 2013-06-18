@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-05</date>
- <time>01:51:33</time>
+ <date>2013-06-18</date>
+ <time>14:41:56</time>
  <version>
   <release>2.2.2</release>
   <api>2.2.0</api>
@@ -1143,7 +1143,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-05</date>
+   <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Update MIME extension mapping.
