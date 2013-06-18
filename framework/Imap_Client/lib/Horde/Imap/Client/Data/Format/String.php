@@ -168,7 +168,7 @@ class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
      */
     public function binary()
     {
-        return (isset($this->_filter) && $this->_filter->binary);
+        return (isset($this->_filter) && !empty($this->_filter->binary));
     }
 
     /**
