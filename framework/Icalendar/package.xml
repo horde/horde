@@ -25,9 +25,9 @@
   <active>yes</active>
  </developer>
  <date>2013-06-18</date>
- <time>14:28:43</time>
+ <time>14:33:23</time>
  <version>
-  <release>2.0.6</release>
+  <release>2.0.7</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -36,7 +36,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Remove group identifiers from attribute types (Bug #12329).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1097,6 +1097,19 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Remove group identifiers from attribute types (Bug #12329).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
