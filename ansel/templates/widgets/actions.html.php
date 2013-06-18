@@ -28,6 +28,7 @@
         <?php endif; ?>
         <?php if (!empty($this->sort_url)): ?>
           <li><?php echo $this->sort_url . Horde::img('arrow_switch.png') . ' ' . _("Sort photos") ?></a></li>
+          <li><?php echo $this->resetsort_url . Horde::img('arrow_switch.png') . ' ' . _("Reset sort order") ?></a></li>
         <?php endif; ?>
         <li><?php echo $this->regenerate_url . Horde::img('reload.png') . ' ' . _("Reset all thumbnails")?></a></li>
         <li><?php echo $this->regenerate_all . Horde::img('reload.png') . ' ' . _("Regenerate all photo views")?></a></li>
