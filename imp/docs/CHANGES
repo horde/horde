@@ -4,12 +4,12 @@ v6.1.2-git
 
 [mms] Fix saving S/MIME certificate to addressbook when message is both signed
       & encrypted (Bug #12354).
-[jan] Fixed displaying photos in rendered vCard files.
+[jan] Fix displaying photos in rendered vCard files.
 [jan] Fix detecting capability to list users if called via RPC (Bug #12305).
 [mms] Clear cached previews in dynamic view when changing or refreshing a
       search mailbox (Bug #12349).
 [mms] Fix adding an HTML trailer to a compose message.
-[mms] Fixed regression preventing ACLs from being added (Bug #12346).
+[mms] Fix regression preventing ACLs from being added (Bug #12346).
 [mms] More fixes for regressions in linked attachment behavior.
 
 
