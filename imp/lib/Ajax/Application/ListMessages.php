@@ -139,14 +139,15 @@ class IMP_Ajax_Application_ListMessages
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
          * purge the cached items on the browser. */
-        if (!$args['initial'] && ($args['cacheid'] && $args['cache'])) {
+        if (!$args['initial']) {
             if ($is_search) {
                 /* This is a refresh of an existing search mailbox. Need to
                  * invalidate all data and repopulate, since buids may have
                  * changed (metadata information should be OK). */
                 $args['cache'] = array();
+                $args['change'] = true;
                 $result->data_reset = $result->rowlist_reset = true;
-            } else {
+            } elseif ($args['cacheid'] && $args['cache']) {
                 $parsed = $imp_imap->parseCacheId($args['cacheid']);
                 $uid_expire = true;
 

@@ -2,6 +2,8 @@
 v6.1.3-git
 ----------
 
+[mms] Fix updating when changing sort direction in search mailboxes (Bug
+      #12369).
 
 
 ------
