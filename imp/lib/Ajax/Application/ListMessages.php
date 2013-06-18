@@ -527,10 +527,12 @@ class IMP_Ajax_Application_ListMessages
             'mailbox' => $mbox->search ? null : $mbox
         ));
 
-        $ob->metadata->flags = array();
+        $flags = array();
         foreach ($flaglist as $val) {
-            $md->flags[] = $val->imapflag;
+            $flags[] = $val->imapflag;
         }
+
+        $ob->metadata->flags = $flags;
     }
 
 }

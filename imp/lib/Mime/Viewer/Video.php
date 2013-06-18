@@ -116,7 +116,7 @@ class IMP_Mime_Viewer_Video extends Horde_Mime_Viewer_Default
      *
      * @return array  See parent::render().
      */
-    protected function _thumbnail($output = false)
+    protected function _thumbnail()
     {
         if (!($ffmpeg = $this->_thumbnailBinary())) {
             return array();

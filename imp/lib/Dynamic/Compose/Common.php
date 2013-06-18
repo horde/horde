@@ -59,7 +59,7 @@ class IMP_Dynamic_Compose_Common
         $view->compose_enable = IMP_Compose::canCompose();
 
         if (!empty($args['redirect'])) {
-            $this->_redirect($base, $view, $args);
+            $base->js_conf['redirect'] = 1;
             return $view->render('redirect');
         }
 
@@ -169,13 +169,6 @@ class IMP_Dynamic_Compose_Common
             );
         }
         $view->select_list = $select_list;
-    }
-
-    /**
-     */
-    protected function _redirect($base, $view, $args)
-    {
-        $base->js_conf['redirect'] = 1;
     }
 
     /**

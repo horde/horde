@@ -26,7 +26,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $injector, $page_output, $registry, $session;
+        global $injector, $page_output, $registry;
 
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('passphrase.js');
@@ -58,7 +58,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $impSubinfo->addHelper('Text');
         $impSubinfo->quota = (bool)$imp_imap->config->quota;
 
-        $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
+        $topbar = $injector->getInstance('Horde_View_Topbar');
         $topbar->search = $this->view->show_search;
         $topbar->searchMenu = true;
         $topbar->subinfo = $impSubinfo->render('mailbox_subinfo');
@@ -98,7 +98,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             );
         }
 
-        $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
+        $sidebar = $injector->getInstance('Horde_View_Sidebar');
         $sidebar->newLink = $blank->link(array('id' => 'composelink',
                                                'class' => 'icon'));
         $sidebar->newText = _("New Message");

@@ -41,7 +41,7 @@ class IMP_Compose_Ui
      */
     public function attachSpellChecker()
     {
-        global $injector, $prefs, $registry;
+        global $injector, $registry;
 
         if ($registry->getView() == Horde_Registry::VIEW_BASIC) {
             $spell_img = '<span class="iconImg spellcheckImg"></span>';

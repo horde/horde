@@ -1116,7 +1116,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                                               Horde_Mime_Headers $headers = null,
                                               Horde_Mime_Part $message = null)
     {
-        global $conf, $injector;
+        global $injector;
 
         $email_count = count($email);
         $imp_imap = $injector->getInstance('IMP_Imap');
@@ -2478,8 +2478,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                         $atc = $this->addAttachmentFromPart($part);
                         $this->addRelatedAttachment($atc, $node, 'src');
-
-                        $downloaded = true;
                     }
                 } catch (Horde_Http_Exception $e) {}
             }
