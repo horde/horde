@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix setting RECURRENCE-ID field when exporting ics file (Bug #12368).
 * [jan] Fix propagating calendar URLs if import/export is turned off.
 * [mjr] Add API methods for using history modification sequences.
  </notes>
@@ -2169,6 +2170,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix setting RECURRENCE-ID field when exporting ics file (Bug #12368).
 * [jan] Fix propagating calendar URLs if import/export is turned off.
 * [mjr] Add API methods for using history modification sequences.
    </notes>
