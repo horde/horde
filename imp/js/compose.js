@@ -405,7 +405,7 @@ Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose)
 
 /* Attach event handlers. */
 document.observe('HordeCore:click', ImpCompose.clickHandler.bindAsEventListener(ImpCompose));
-document.observe('ImpContacts:update', ImpComposeBase.onContactsUpdate.bindAsEventListener(ImpComposeBase));
+document.observe('ImpContacts:update', ImpComposeBase.updateAddressField.bindAsEventListener(ImpComposeBase));
 
 /* Catch dialog actions. */
 document.observe('ImpPassphraseDialog:success', ImpCompose.uniqSubmit.bind(ImpCompose, 'send_message'));
