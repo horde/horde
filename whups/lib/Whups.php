@@ -558,7 +558,8 @@ class Whups
                 return $in;
             }
             foreach ($in as $queueID => $name) {
-                if ($perms->hasPermission('whups:queues:' . $queueID, $user,
+                if (!$perms->exists('whups:queues:' . $queueID) ||
+                    $perms->hasPermission('whups:queues:' . $queueID, $user,
                                           $permission, $creator)) {
                     $out[$queueID] = $name;
                 }
@@ -570,7 +571,8 @@ class Whups
                 return $in;
             }
             foreach ($in as $queueID) {
-                if ($perms->hasPermission('whups:queues:' . $queueID, $user,
+                if (!$perms->exists('whups:queues:' . $queueID) ||
+                    $perms->hasPermission('whups:queues:' . $queueID, $user,
                                           $permission, $creator)) {
                     $out[] = $queueID;
                 }
