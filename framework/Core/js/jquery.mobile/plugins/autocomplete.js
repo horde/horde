@@ -68,13 +68,13 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
             }
             self.clear();
             return false;
-        });
+        }).hide();
 
         buildItems = function(data)
         {
             $target.children().remove();
 
-            if (data) {
+            if (data && data.length) {
                 $.each(data, function(i, v) {
                     var li = $('<li></li>').jqmData('icon', opts.icon),
                         a = $('<a></a>').jqmData('transition', opts.transition).appendTo(li);
@@ -91,9 +91,9 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
 
                     $target.append(li);
                 });
-            }
 
-            $target.listview("refresh");
+                $target.show().listview("refresh");
+            }
         };
 
         keyupHandler = function()
@@ -156,6 +156,7 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
         $(this.options.target)
             .html('')
             .listview('refresh')
+            .hide()
             .closest("fieldset")
             .removeClass("ui-search-active");
     },
