@@ -1030,8 +1030,12 @@ var ImpMobile = {
     addAddress: function(f, addr)
     {
         if (addr) {
-            var elt = $('#imp-compose-' + f + '-addr');
-            elt.append(
+            $('#imp-compose-' + f + '-addr').prepend(
+                $('<input></input>')
+                    .attr('name', f + '[]')
+                    .attr('type', 'hidden')
+                    .val(addr)
+            ).prepend(
                 $('<a></a>')
                     .attr('href', '#compose-delete-addr')
                     .attr('data-role', 'button')
@@ -1040,12 +1044,6 @@ var ImpMobile = {
                     .attr('data-theme', 'b')
                     .text(addr)
                     .button()
-            );
-            elt.append(
-                $('<input></input>')
-                    .attr('name', f + '[]')
-                    .attr('type', 'hidden')
-                    .val(addr)
             );
         }
     },
