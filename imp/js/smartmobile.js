@@ -1399,23 +1399,23 @@ var ImpMobile = {
             ImpMobile.composeMorePopup();
         });
 
-        $('#imp-compose-upload-container a').on('click', function(e) {
-            $('#imp-compose-upload-container input').trigger('click');
-            e.preventDefault();
-        });
-        $('#imp-compose-upload-container input').on('change', function() {
-            HordeMobile.doAction('addAttachment', {
-                composeCache: $('#imp-compose-cache').val(),
-                json_return: true
-            }, ImpMobile.composeAttachRefresh, {
-                submit: $(this).closest('FORM')
-            });
-        });
-
         $('#imp-message-headers').on('expand', ImpMobile.fullHeaders);
         $('#imp-message-atc').on('expand', ImpMobile.showAttachments);
 
         if (!IMP.conf.disable_compose) {
+            $('#imp-compose-upload-container a').on('click', function(e) {
+                $('#imp-compose-upload-container input').trigger('click');
+                e.preventDefault();
+            });
+            $('#imp-compose-upload-container input').on('change', function() {
+                HordeMobile.doAction('addAttachment', {
+                    composeCache: $('#imp-compose-cache').val(),
+                    json_return: true
+                }, ImpMobile.composeAttachRefresh, {
+                    submit: $(this).closest('FORM')
+                });
+            });
+
             $.each([ 'to', 'cc' ], function(undefined, v) {
                 $('#imp-compose-' + v).autocomplete({
                     callback: function(e) {
