@@ -78,6 +78,7 @@ if ($category !== null) {
                 $permission->save();
             } catch (Exception $e) {
                 $notification->push($e);
+                Horde::url('admin/perms/index.php', true)->redirect();
             }
         } else {
             $redirect = true;
