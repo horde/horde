@@ -201,7 +201,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $mime_message = Horde_Mime_Part::parseMessage($message, array('forcemime' => true));
 
         $smime_sign = $mime_message->getPart('2');
-        $smime_sign->setDescription(Horde_Crypt_Translation::t("S/MIME Cryptographic Signature"));
+        $smime_sign->setDescription(Horde_Crypt_Translation::t("S/MIME Signature"));
         $smime_sign->setTransferEncoding('base64', array('send' => true));
 
         $smime_part = new Horde_Mime_Part();
