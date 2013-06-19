@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-19</date>
- <time>11:30:55</time>
+ <time>11:37:25</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Fix timeobjects not showing up in the administration (Bug #12365).
-* [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -491,6 +490,19 @@
    <notes>
 * [jan] Fix timeobjects not showing up in the administration (Bug #12365).
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
