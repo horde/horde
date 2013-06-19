@@ -39,15 +39,35 @@ if ($category !== null) {
                 $copyFrom = null;
             }
 
+            /* Create parents if necessary. Remove root from the name. */
+            $root = Horde_Perms::ROOT . ':';
+            if (substr($category, 0, strlen($root)) == ($root)) {
+                $category = substr($category, strlen($root));
+            }
+            $pos = -1;
+            while (($pos = strpos($category, ':', $pos + 1)) !== false) {
+                $parent = substr($category, 0, $pos);
+                if (!$perms->exists($parent)) {
+                    try {
+                        $permission = $corePerms->newPermission($parent);
+                        $perms->addPermission($permission);
+                        $permission->addDefaultPermission(Horde_Perms::ALL);
+                    } catch (Exception $e) {
+                        $notification->push($e);
+                        Horde::url('admin/perms/index.php', true)->redirect();
+                    }
+                }
+            }
+
             try {
                 $permission = $corePerms->newPermission($category);
-                $result = $perms->addPermission($permission);
+                $perms->addPermission($permission);
                 $form = 'edit.inc';
                 $perm_id = $perms->getPermissionId($permission);
 
                 if ($copyFrom) {
-                    /* We have autocreated the permission and we have been told to
-                     * copy an existing permission for the defaults. */
+                    /* We have autocreated the permission and we have been told
+                     * to copy an existing permission for the defaults. */
                     $copyFromObj = $perms->getPermission($copyFrom);
                     $permission->addGuestPermission($copyFromObj->getGuestPermissions(), false);
                     $permission->addDefaultPermission($copyFromObj->getDefaultPermissions(), false);
