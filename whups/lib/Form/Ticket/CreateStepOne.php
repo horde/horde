@@ -19,7 +19,7 @@ class Whups_Form_Ticket_CreateStepOne extends Horde_Form
 {
     protected $_useFormToken = false;
 
-    public function __construct(&$vars)
+    public function __construct($vars)
     {
         global $whups_driver;
 
@@ -44,7 +44,7 @@ class Whups_Form_Ticket_CreateStepOne extends Horde_Form
                 $vars->set('queue', array_pop(array_keys($queues)));
             }
 
-            $queues = &$this->addVariable(
+            $queues = $this->addVariable(
                 _("Queue Name"), 'queue', 'enum', true, false, null,
                 array($queues, _("Choose:")));
             $queues->setAction(Horde_Form_Action::factory('submit'));
