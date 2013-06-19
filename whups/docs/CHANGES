@@ -1,6 +1,6 @@
---------
-v3.0-git
---------
+-----------
+v3.0.0beta1
+-----------
 
 [jan] Fix deleting attributes.
 [jan] Add configuration option to include raw processed message.
