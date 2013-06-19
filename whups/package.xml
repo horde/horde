@@ -16,15 +16,15 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-12</date>
- <time>17:09:17</time>
+ <date>2013-06-19</date>
+ <time>13:45:41</time>
  <version>
-  <release>3.0.0</release>
+  <release>3.0.0beta1</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
@@ -982,15 +982,15 @@
    </notes>
   </release>
   <release>
-   <date>2013-06-12</date>
+   <date>2013-06-19</date>
    <time>22:26:49</time>
    <version>
-    <release>3.0.0</release>
+    <release>3.0.0beta1</release>
     <api>3.0.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
