@@ -2,6 +2,7 @@
 v2.0.4-git
 ----------
 
+[jan] Fix timeobjects not showing up in the administration (Bug #12365).
 [jan] Add Spanish translation (Manuel P. Ayala <mayala@unex.es>).
 
 
