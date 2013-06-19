@@ -90,6 +90,7 @@ class IMP_Smartmobile
         $page_output->addScriptFile('jquery.mobile/plugins/swipebutton.js', 'horde');
         if (IMP_Compose::canCompose()) {
             $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
+            $page_output->addScriptFile('jquery.mobile/plugins/textchange.js');
             if (IMP_Compose::canUploadAttachment()) {
                 $page_output->addScriptFile('jquery.mobile/plugins/form.js', 'horde');
             }
