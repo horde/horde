@@ -274,9 +274,9 @@ ul.horde-tags li:hover {
 /* Mini calendar */
 .kronolith-minical {
     position: relative;
-    padding: 10px;
+    margin: 10px;
     background-color: #d5dcde;
-    overflow: scroll;
+    overflow: auto;
 }
 .kronolith-minical table tbody td, #kronolithMinicalDate {
     cursor: pointer;
