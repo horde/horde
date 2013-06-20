@@ -136,35 +136,33 @@ class IMP_Ajax_Application_ListMessages
         $result = $this->getBaseOb($mbox);
         $result->cacheid = $mbox->cacheid_date;
 
-        /* Check for UIDVALIDITY expiration. It is the first element in the
-         * cacheid returned from the browser. If it has changed, we need to
-         * purge the cached items on the browser. */
-        if (!$args['initial']) {
-            if ($is_search) {
-                /* This is a refresh of an existing search mailbox. Need to
-                 * invalidate all data and repopulate, since buids may have
-                 * changed (metadata information should be OK). */
+        if ($is_search) {
+            /* For search mailboxes, we need to invalidate all browser data
+             * and repopulate, since BUIDs may have changed.
+             * invalidate all data and repopulate, since buids may have
+             * changed (metadata information should be OK). */
+             $args['cache'] = array();
+             $args['change'] = true;
+             $result->data_reset = $result->rowlist_reset = true;
+        } elseif (!$args['initial'] && $args['cacheid'] && $args['cache']) {
+            /* Check for UIDVALIDITY expiration. If it has changed, we need to
+             * purge the cached items on the browser. */
+            $parsed = $imp_imap->parseCacheId($args['cacheid']);
+            $uid_expire = true;
+
+            if (!$parsed['date'] != date('z')) {
+                try {
+                    $imp_imap->sync($mbox, $parsed['token'], array(
+                        'criteria' => Horde_Imap_Client::SYNC_UIDVALIDITY
+                    ));
+                    $uid_expire = false;
+                } catch (Horde_Imap_Client_Exception_Sync $e) {}
+            }
+
+            if ($uid_expire) {
                 $args['cache'] = array();
-                $args['change'] = true;
-                $result->data_reset = $result->rowlist_reset = true;
-            } elseif ($args['cacheid'] && $args['cache']) {
-                $parsed = $imp_imap->parseCacheId($args['cacheid']);
-                $uid_expire = true;
-
-                if (!$parsed['date'] != date('z')) {
-                    try {
-                        $imp_imap->sync($mbox, $parsed['token'], array(
-                            'criteria' => Horde_Imap_Client::SYNC_UIDVALIDITY
-                        ));
-                        $uid_expire = false;
-                    } catch (Horde_Imap_Client_Exception_Sync $e) {}
-                }
-
-                if ($uid_expire) {
-                    $args['cache'] = array();
-                    $args['initial'] = true;
-                    $result->data_reset = $result->metadata_reset = 1;
-                }
+                $args['initial'] = true;
+                $result->data_reset = $result->metadata_reset = 1;
             }
         } else {
             $parsed = null;
