@@ -89,7 +89,7 @@ class Horde_Cache_Storage_Hashtable extends Horde_Cache_Storage_Base
      */
     public function expire($key)
     {
-        $this->_hash->delete($$key);
+        $this->_hash->delete($key);
     }
 
     /**
