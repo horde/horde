@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-18</date>
- <time>00:59:23</time>
+ <date>2013-06-19</date>
+ <time>23:59:30</time>
  <version>
   <release>2.11.7</release>
   <api>2.11.0</api>
@@ -127,9 +127,10 @@
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
        <dir name="Socket">
-        <dir name="Pop3">
-         <file name="Connection.php" role="php" />
-        </dir> <!-- /lib/Horde/Imap/Client/Socket/Pop3 -->
+        <dir name="Connection">
+         <file name="Pop3.php" role="php" />
+         <file name="Socket.php" role="php" />
+        </dir> <!-- /lib/Horde/Imap/Client/Socket/Connection -->
         <file name="Catenate.php" role="php" />
         <file name="ClientSort.php" role="php" />
         <file name="Connection.php" role="php" />
@@ -440,7 +441,8 @@
    <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
    <install as="Horde/Imap/Client/Socket/Connection.php" name="lib/Horde/Imap/Client/Socket/Connection.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
-   <install as="Horde/Imap/Client/Socket/Pop3/Connection.php" name="lib/Horde/Imap/Client/Socket/Pop3/Connection.php" />
+   <install as="Horde/Imap/Client/Socket/Connection/Pop3.php" name="lib/Horde/Imap/Client/Socket/Connection/Pop3.php" />
+   <install as="Horde/Imap/Client/Socket/Connection/Socket.php" name="lib/Horde/Imap/Client/Socket/Connection/Socket.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.po" name="locale/de/LC_MESSAGES/Horde_Imap_Client.po" />
@@ -1851,7 +1853,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-18</date>
+   <date>2013-06-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -497,7 +497,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->_connection = new Horde_Imap_Client_Socket_Connection($this, $this->_debug);
+        $this->_connection = new Horde_Imap_Client_Socket_Connection_Socket($this, $this->_debug);
 
         // If we already have capability information, don't re-set with
         // (possibly) limited information sent in the initial banner.

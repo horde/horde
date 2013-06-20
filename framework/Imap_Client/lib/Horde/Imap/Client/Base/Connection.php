@@ -45,13 +45,6 @@ abstract class Horde_Imap_Client_Base_Connection
     protected $_debug;
 
     /**
-     * Output full data for literals?
-     *
-     * @var boolean
-     */
-    protected $_debugliteral;
-
-    /**
      * Is the connection secure?
      *
      * @var boolean
@@ -73,7 +66,6 @@ abstract class Horde_Imap_Client_Base_Connection
         }
 
         $this->_debug = $debug;
-        $this->_debugliteral = $base->getParam('debug_literal');
     }
 
     /**

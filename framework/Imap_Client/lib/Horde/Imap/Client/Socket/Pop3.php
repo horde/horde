@@ -252,7 +252,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->_connection = new Horde_Imap_Client_Socket_Pop3_Connection($this, $this->_debug);
+        $this->_connection = new Horde_Imap_Client_Socket_Connection_Pop3($this, $this->_debug);
 
         $line = $this->_getResponse();
 
