@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-17</date>
- <time>15:28:08</time>
+ <date>2013-06-20</date>
+ <time>17:23:21</time>
  <version>
   <release>2.5.1</release>
   <api>2.5.0</api>
@@ -229,7 +229,6 @@
       <file name="AppointmentTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="CacheTest.php" role="test" />
-      <file name="CollectionTest.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="ContactTest.php" role="test" />
       <file name="ImapFolderTest.php" role="test" />
@@ -448,7 +447,6 @@
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
-   <install as="Horde/ActiveSync/CollectionTest.php" name="test/Horde/ActiveSync/CollectionTest.php" />
    <install as="Horde/ActiveSync/conf.php.dist" name="test/Horde/ActiveSync/conf.php.dist" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/ImapFolderTest.php" name="test/Horde/ActiveSync/ImapFolderTest.php" />
@@ -1493,7 +1491,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-17</date>
+   <date>2013-06-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

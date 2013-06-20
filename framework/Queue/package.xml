@@ -74,9 +74,7 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde-queue-run-tasks.php" name="bin/horde-queue-run-tasks.php" />
    <install as="COPYING" name="doc/Horde/Queue/COPYING" />
-   <install as="examples/shutdown_runner.php" name="doc/Horde/Queue/examples/shutdown_runner.php" />
    <install as="Horde/Queue/Runner.php" name="lib/Horde/Queue/Runner.php" />
    <install as="Horde/Queue/Storage.php" name="lib/Horde/Queue/Storage.php" />
    <install as="Horde/Queue/Task.php" name="lib/Horde/Queue/Task.php" />
