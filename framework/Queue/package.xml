@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [rla] add Db backend and cli for Queues
+* [rla] Add Db backend for Queues.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -135,7 +135,6 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Add Db backend for Queues.
-* [rla] Add cli for running tasks.
    </notes>
   </release>
  </changelog>
