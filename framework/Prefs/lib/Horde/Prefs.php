@@ -179,8 +179,12 @@ class Horde_Prefs implements ArrayAccess
      * @param string $val   The preference value (UTF-8).
      * @param array $opts   Additional options:
      * <pre>
-     * nosave - (boolean) If true, the preference will not be saved to the
-     *          storage backend(s).
+     *   - force: (boolean) If true, will set the value disregarding the
+     *            current locked status of the pref. (@since 2.5.0)
+     *            DEFAULT: false
+     *   - nosave: (boolean) If true, the preference will not be saved to the
+     *             storage backend(s).
+     *             DEFAULT: false
      * </pre>
      *
      * @return boolean  True if the value was successfully set, false on a
@@ -191,7 +195,8 @@ class Horde_Prefs implements ArrayAccess
     {
         /* Exit early if preference doesn't exist or is locked. */
         if (!($scope = $this->_getScope($pref)) ||
-            $this->_scopes[$scope]->isLocked($pref)) {
+            (empty($opts['force']) &&
+             $this->_scopes[$scope]->isLocked($pref))) {
             return false;
         }
 
