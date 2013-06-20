@@ -356,6 +356,8 @@ var ViewPort = Class.create({
             return false;
         }
 
+        this.opts.container.fire('ViewPort:remove', this.createSelectionBuffer(view));
+
         delete this.views[view];
         return true;
     },

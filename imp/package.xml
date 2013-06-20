@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix purgining search previews from browser cache when switching mailboxes (Bug #12384).
 * [mms] Fix parsing signed &amp; encrypted S/MIME messages sent from Outlook 2007/2010 (Bug #12374).
 * [mms] Fix updating mailbox list when changing sort direction in search mailboxes (Bug #12369).
  </notes>
@@ -3238,6 +3239,7 @@
    <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix purgining search previews from browser cache when switching mailboxes (Bug #12384).
 * [mms] Fix parsing signed &amp; encrypted S/MIME messages sent from Outlook 2007/2010 (Bug #12374).
 * [mms] Fix updating mailbox list when changing sort direction in search mailboxes (Bug #12369).
    </notes>
