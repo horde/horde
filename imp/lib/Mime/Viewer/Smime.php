@@ -216,7 +216,22 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         ));
         $new_part->setContents($decrypted_data);
 
-        if ($new_part->getType() == 'multipart/signed') {
+        switch ($new_part->getType()) {
+        case 'application/pkcs7-mime':
+        case 'application/x-pkcs7-mime':
+            $signed_data = (bool)$new_part->getContentTypeParameter('smime-type');
+            break;
+
+        case 'multipart/signed':
+            $signed_data = true;
+            break;
+
+        default:
+            $signed_data = false;
+            break;
+        }
+
+        if ($signed_data) {
             $hdrs = $this->getConfigParam('imp_contents')->getHeader();
 
             $data = new Horde_Stream_Temp();

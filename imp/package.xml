@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix parsing signed &amp; encrypted S/MIME messages sent from Outlook 2007/2010 (Bug #12374).
 * [mms] Fix updating when changing sort direction in search mailboxes (Bug #12369).
  </notes>
  <contents>
@@ -3237,6 +3238,7 @@
    <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix parsing signed &amp; encrypted S/MIME messages sent from Outlook 2007/2010 (Bug #12374).
 * [mms] Fix updating when changing sort direction in search mailboxes (Bug #12369).
    </notes>
   </release>
