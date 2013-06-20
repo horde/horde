@@ -720,8 +720,8 @@ class Whups
             } else {
                 $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
 
-                self::$_users[$user]['name'] = $identity->getValue('fullname');
-                self::$_users[$user]['email'] = $identity->getValue('from_addr');
+                self::$_users[$user]['name'] = $identity->getName();
+                self::$_users[$user]['email'] = $identity->getDefaultFromAddress();
             }
             break;
 
