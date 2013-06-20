@@ -125,8 +125,15 @@ class Horde_Core_Factory_LanguageDetect extends Horde_Core_Factory_Base
      */
     public function getLanguageCode($text)
     {
-        $lang = $this->create()->detectSimple($text);
+        $ob = $this->create();
 
+        /* As of 0.3.0, use built-in ISO 639 language mapping. */
+        if (method_exists($ob, 'setNameMode')) {
+            $ob->setNameMode(2);
+            return $ob->detectSimple($text);
+        }
+
+        $lang = $ob->detectSimple($text);
         return (!is_null($lang) && isset($this->_langmap[$lang]))
             ? $this->_langmap[$lang]
             : null;
