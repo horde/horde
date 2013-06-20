@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-06-20</date>
- <time>09:42:11</time>
+ <time>12:57:46</time>
  <version>
    <release>1.0.1</release>
    <api>1.0.0</api>
@@ -26,16 +26,10 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="bin">
-    <file name="horde-queue-run-tasks" role="script">
-         <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
-    </file>
-   </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Queue">
       <dir name="examples">
-       <file name="horde-queue-db-addtasks.php" role="doc" />
        <file name="shutdown_runner.php" role="doc" />
       </dir> <!-- /doc/Horde/Queue/examples -->
       <file name="COPYING" role="doc" />
@@ -82,7 +76,6 @@
   <filelist>
    <install as="horde-queue-run-tasks.php" name="bin/horde-queue-run-tasks.php" />
    <install as="COPYING" name="doc/Horde/Queue/COPYING" />
-   <install as="examples/horde-queue-db-addtasks.php" name="doc/Horde/Queue/examples/horde-queue-db-addtasks.php" />
    <install as="examples/shutdown_runner.php" name="doc/Horde/Queue/examples/shutdown_runner.php" />
    <install as="Horde/Queue/Runner.php" name="lib/Horde/Queue/Runner.php" />
    <install as="Horde/Queue/Storage.php" name="lib/Horde/Queue/Storage.php" />
