@@ -103,6 +103,7 @@ function checkDeleteDomain()
     echo "ok\n";
 }
 
+?>
 --EXPECT--
 Load... ok
 Checking construction... ok

@@ -8,7 +8,7 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang.es-ES = {
+OpenLayers.Lang["es-ES"] = {
 
     'unhandledRequest': "Respuesta a petición no gestionada ${statusText}",
 

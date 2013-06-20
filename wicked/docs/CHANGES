@@ -2,6 +2,7 @@
 v2.0.0-git
 ----------
 
+[jan] Fix syntax error in wicked CLI script (Bug #12378).
 
 
 -----------

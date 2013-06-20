@@ -8,7 +8,7 @@
         <?php
             $url = Horde::url("admin/accounts.php");
             $editurl = $url->copy()->add('action', 'edit');
-            $deleteurl = $url->copy()->('action', 'delete');
+            $deleteurl = $url->copy()->add('action', 'delete');
             foreach ($accounts as $acctinfo) {
                 $code = $acctinfo['code'];
                 ?>
