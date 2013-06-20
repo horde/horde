@@ -122,7 +122,11 @@ class Horde_Compress_Dbx extends Horde_Compress_Base
                     if (strlen($s) == 0) {
                         break;
                     }
-                    $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/a512Content', $s);
+                    if (version_compare(PHP_VERSION, '5.5.0-dev', '>=')) {
+                        $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/Z512Content', $s);
+                    } else {
+                        $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/a512Content', $s);
+                    }
                     if ($msg_item['FilePos'] != $position) {
                         throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid file format"));
                     }
