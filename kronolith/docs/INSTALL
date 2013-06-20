@@ -62,14 +62,7 @@ To function properly, Kronolith **requires** the following:
 
       Kronolith uses the Date package for various date calculations.
 
-   b. XML_Serializer [OPTIONAL]
-
-      The XML_Serializer package is needed by the Date_Holidays package for
-      the translation of holiday names::
-
-         pear install XML_Serializer
-
-   c. Date_Holidays 0.21.0 [OPTIONAL]
+   b. Date_Holidays 0.21.0 [OPTIONAL]
 
       Kronolith can use the Date_Holidays package to show several sets of
       national and religious holidays and memorial days. Since Date_Holidays

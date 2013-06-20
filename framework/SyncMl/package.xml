@@ -648,10 +648,6 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-   <package>
-    <name>MDB2</name>
-    <channel>pear.php.net</channel>
-   </package>
   </optional>
  </dependencies>
  <phprelease>

@@ -40,11 +40,7 @@ class Gollem_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_pearList = array(
-        'HTTP_WebDAV_Server' => array(
-            'error' => 'You do not have the HTTP_WebDAV_Server package installed on your system. This module is required to use browse the VFS using WebDAV.  See the INSTALL file for instructions on how to install the package.'
-        )
-    );
+    protected $_pearList = array();
 
     /**
      * Required configuration files.

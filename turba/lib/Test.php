@@ -31,11 +31,7 @@ class Turba_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_pearList = array(
-        'Net_LDAP' => array(
-            'error' => 'Net_LDAP is required when doing schema checks with LDAP address books.',
-        )
-    );
+    protected $_pearList = array();
 
     /**
      * Required configuration files.

@@ -81,13 +81,9 @@
  *                            objectclass(es). Required attributes will be
  *                            provided automatically if the
  *                            'checkrequired_string' parameter is present.
- *                            *NOTE:* You must have the Net_LDAP PEAR library
- *                            installed for this to work.
  *           - checksyntax: (boolean) If present, inspect the LDAP schema for
  *                          particular attributes by the type defined in the
  *                          corresponding schema.
- *                          *NOTE:* You must have the Net_LDAP PEAR library
- *                          installed for this to work.
  *           - deref: (integer) One of:
  *                      - LDAP_DEREF_NEVER
  *                      - LDAP_DEREF_SEARCHING

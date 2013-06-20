@@ -277,17 +277,8 @@ class Horde_Test
      * @var array
      */
     protected $_pearList = array(
-        'Cache' => array(
-            'error' => 'Cache is used by the Services_Weather package on the weather applet/block on the portal page.'
-        ),
         'File_Fstab' => array(
             'error' => 'Horde requires the File_Fstab package if using the localhost driver for the Accounts block.'
-        ),
-        'HTTP_WebDAV_Server' => array(
-            'error' => 'This package is required if you want to use the WebDAV interface of Horde (e.g. to access calendars or tasklists with external clients).'
-        ),
-        'MDB2' => array(
-            'error' => 'You will need MDB2 if you are using the SyncMl SQL driver.',
         ),
         'Net_DNS2' => array(
             'error' => 'Net_DNS2 can speed up hostname lookups against broken DNS servers.'
@@ -298,9 +289,6 @@ class Horde_Test
         'Services_Weather' => array(
             'error' => 'Services_Weather is used by the METAR weather applet/block on the portal page.'
         ),
-        'XML_Serializer' => array(
-            'error' => 'XML_Serializer is used by the Services_Weather package on the weather applet/block on the portal page.'
-        )
     );
 
     /**
