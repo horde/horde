@@ -1430,7 +1430,7 @@ class IMP_Mailbox implements Serializable
                 self::SPECIAL_SENT => $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmail(),
                 self::SPECIAL_SPAM => self::getPref(self::MBOX_SPAM),
                 self::SPECIAL_TRASH => $GLOBALS['prefs']->getValue('use_trash') ? self::getPref(self::MBOX_TRASH) : null,
-                self::SPECIAL_USER=> array()
+                self::SPECIAL_USER => array()
             );
 
             foreach ($GLOBALS['injector']->getInstance('IMP_Imap')->config->user_special_mboxes as $key => $val) {
