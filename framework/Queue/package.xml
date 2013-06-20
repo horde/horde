@@ -27,7 +27,9 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="horde-queue-run-tasks.php" role="script" />
+    <file name="horde-queue-run-tasks" role="script">
+         <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
@@ -132,7 +134,8 @@
    <date>2013-06-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [rla] Add Db backend and cli for Queues
+* [rla] Add Db backend for Queues.
+* [rla] Add cli for running tasks.
    </notes>
   </release>
  </changelog>
