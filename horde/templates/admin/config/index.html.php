@@ -54,7 +54,7 @@
     <?php echo $v['version'] ?>
    </td>
    <td>
-<?php if (count($v['db'])): ?>
+<?php if (!empty($v['db'])): ?>
     <table>
 <?php for ($i = 0; $i < count($v['db']); ++$i): ?>
      <tr>
