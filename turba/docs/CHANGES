@@ -2,6 +2,7 @@
 v4.1.1-git
 ----------
 
+[jan] Set generic 'phone' attribute when importing from vCard (Bug #12329).
 [mjr] Add API methods for using history modification sequences.
 
 

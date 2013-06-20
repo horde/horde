@@ -2199,6 +2199,8 @@ class Turba_Driver implements Countable
                     } elseif (in_array('HOME', $item['params']['TYPE']) &&
                               !isset($hash['homePhone'])) {
                         $hash['homePhone'] = $item['value'];
+                    } elseif (!isset($hash['phone'])) {
+                        $hash['phone'] = $item['value'];
                     }
                 } elseif (isset($item['params']['CELL'])) {
                     if (isset($item['params']['WORK']) &&

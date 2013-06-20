@@ -181,6 +181,67 @@ Dänemark',
             ),
             $this->toHash($vcard)
         );
+
+        $vcard =
+'BEGIN:VCARD
+VERSION:3.0
+ITEM2.ADR;TYPE=HOME;TYPE=pref:;;Straße;Ort;;12345;Deutsch
+ land
+TEL;TYPE=HOME;TYPE=VOICE:07071-996715
+ITEM3.ADR;TYPE=WORK:;;Work-Straße;Work-Ort;;72070;Deutschland
+BDAY;VALUE=date:1980-04-19
+UID:b33393c4-98a1-4e1a-8f5c-d29459406093
+REV:2013-01-14T15:35:00+00:00
+TEL;TYPE=HOME;TYPE=FAX:0800-12345
+TEL;TYPE=WORK;TYPE=VOICE:0900-12345
+N:Naß;Anna Christina;;;
+PRODID:-//Apple Inc.//iOS 6.0.1//EN
+FN:Anna Christina Naß
+ORG:Organization;
+ITEM1.X-ABLABEL:_$!<Other>!$_
+ITEM1.EMAIL;TYPE=INTERNET;TYPE=pref:email@domain.tld
+TEL;TYPE=CELL;TYPE=VOICE;TYPE=pref:0123-123456
+END:VCARD
+';
+
+        $this->assertEquals(
+            array(
+                'homeAddress' => 'Straße
+Ort 12345
+Deutschland',
+                'homeStreet' => 'Straße',
+                'homeCity' => 'Ort',
+                'homePostalCode' => '12345',
+                'homeCountry' => 'Deutschland',
+                'commonAddress' => 'Straße
+Ort 12345
+Deutschland',
+                'commonStreet' => 'Straße',
+                'commonCity' => 'Ort',
+                'commonPostalCode' => '12345',
+                'commonCountry' => 'Deutschland',
+                'homePhone' => '07071-996715',
+                'workAddress' => 'Work-Straße
+Work-Ort 72070
+Deutschland',
+                'workStreet' => 'Work-Straße',
+                'workCity' => 'Work-Ort',
+                'workPostalCode' => '72070',
+                'workCountry' => 'Deutschland',
+                'birthday' => '1980-04-19',
+                'homeFax' => '0800-12345',
+                'workPhone' => '0900-12345',
+                'lastname' => 'Naß',
+                'firstname' => 'Anna Christina',
+                'name' => 'Anna Christina Naß',
+                'company' => 'Organization',
+                'department' => '',
+                'email' => 'email@domain.tld',
+                'emails' => 'email@domain.tld',
+                'cellPhone' => '0123-123456',
+            ),
+            $this->toHash($vcard)
+        );
     }
 
     public function testImportFullName()
