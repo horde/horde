@@ -757,7 +757,7 @@ span.attachmentImg {
 /* Email Addresses. */
 .msgHeaders .horde-button {
     padding: 1px 3px;
-    margin: -2px 1px 0 0;
+    margin: -1px 1px 2px 0;
 }
 .msgHeaders a.addrgroup-name {
     font-weight: bold;
