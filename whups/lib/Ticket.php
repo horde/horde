@@ -625,7 +625,7 @@ class Whups_Ticket
      *
      * @param Horde_Variables $vars  The form variables object to set info in.
      */
-    public function setDetails(Horde_Variables &$vars)
+    public function setDetails(Horde_Variables $vars)
     {
         $vars->set('id', $this->getId());
         foreach ($this->getDetails() as $varname => $value) {
