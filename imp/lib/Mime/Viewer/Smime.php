@@ -301,7 +301,8 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
                 if (!empty($sig_result->cert)) {
                     $cert = $this->_impsmime->parseCert($sig_result->cert);
-                    if (isset($cert['certificate']['subject']['CommonName'])) {
+                    if (isset($cert['certificate']['subject']['CommonName']) &&
+                        (strcasecmp($email, $cert['certificate']['subject']['CommonName']) !== 0)) {
                         $email = $cert['certificate']['subject']['CommonName'] . ' (' . trim($email) . ')';
                     }
                 }
