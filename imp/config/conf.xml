@@ -94,7 +94,7 @@
   </configsection>
  </configtab>
 
- <configtab name="history" desc="Mail History">
+ <configtab name="history" desc="Mail Response History">
   <configsection name="maillog">
    <configboolean name="use_maillog" desc="If true, who a message was sent to
    and the date it was sent when forwarding/replying/redirecting a message is
@@ -104,7 +104,7 @@
   </configsection>
  </configtab>
 
- <configtab name="maillog" desc="Mail Log">
+ <configtab name="maillog" desc="Compose Log">
   <configsection name="sentmail">
    <configdescription>All attempts to send messages can be logged, including
    who has sent a message, when the message was sent, and to which recipients.
