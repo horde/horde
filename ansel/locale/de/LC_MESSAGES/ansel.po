@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-06-04 11:48+0200\n"
-"PO-Revision-Date: 2013-06-18 23:28+0200\n"
+"PO-Revision-Date: 2013-06-20 10:52+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -2419,7 +2419,7 @@ msgstr "_Alle Galerien"
 
 #: lib/Application.php:105
 msgid "_Browse"
-msgstr "_Übersicht"
+msgstr "Ü_bersicht"
 
 #: lib/Application.php:139
 msgid "_Faces"
