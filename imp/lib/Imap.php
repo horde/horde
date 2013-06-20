@@ -258,6 +258,7 @@ class IMP_Imap implements Serializable
             foreach ($this->_config->special_mboxes as $key => $val) {
                 if ($key != IMP_Mailbox::MBOX_USERSPECIAL) {
                     $prefs->setValue($key, $val, array(
+                        'force' => true,
                         'nosave' => true
                     ));
                 }
@@ -268,6 +269,7 @@ class IMP_Imap implements Serializable
             /* Turn some options off if we are working with POP3. */
             foreach (array('newmail_notify', 'save_sent_mail') as $val) {
                 $prefs->setValue($val, false, array(
+                    'force' => true,
                     'nosave' => true
                 ));
                 $prefs->setLocked($val, true);
