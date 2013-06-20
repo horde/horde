@@ -623,7 +623,15 @@ class Horde_Icalendar
                                 }
                             }
                         }
-                        $params[$paramName] = $paramValue;
+                        if (isset($params[$paramName])) {
+                            if (is_array($params[$paramName])) {
+                                $params[$paramName][] = $paramValue;
+                            } else {
+                                $params[$paramName] = array($params[$paramName], $paramValue);
+                            }
+                        } else {
+                            $params[$paramName] = $paramValue;
+                        }
                     }
                 }
 
