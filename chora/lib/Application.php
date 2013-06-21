@@ -205,10 +205,23 @@ class Chora_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
      */
-    public function menu($menu)
+    public function sidebar($sidebar)
     {
-        $menu->add(Chora::url('browsedir'), _("_Browse"), 'chora.png');
+        $url = Chora::url('browsedir');
+
+        foreach (Chora::sourceroots() as $key => $val) {
+            $row = array(
+                'selected' => $GLOBALS['sourceroot'] == $key,
+                'url' => $url->add('rt', $key),
+                'label' => $val['name'],
+                'type' => 'radiobox',
+            );
+            $sidebar->addRow($row, 'backends');
+        }
     }
 
     /* Topbar method. */

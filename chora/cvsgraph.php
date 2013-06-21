@@ -56,7 +56,7 @@ $extraLink = Chora::getFileViews($where, 'cvsgraph');
 $page_output->header(array(
     'title' => $title
 ));
-require CHORA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require CHORA_TEMPLATES . '/headerbar.inc';
 
 $imgUrl = Chora::url('cvsgraph', $where, array('show_image' => 1));

@@ -92,7 +92,8 @@ class Chora
         $notification->push($message, 'horde.error');
 
         $page_output->header();
-        require CHORA_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
+        echo '&nbsp;';
         $page_output->footer();
         exit;
     }
@@ -206,34 +207,6 @@ class Chora
         }
 
         return $arr;
-    }
-
-    /**
-     * Generate a list of repositories available from this installation of
-     * Chora.
-     *
-     * @return string  XHTML code representing links to the repositories.
-     */
-    static public function repositories()
-    {
-        $sourceroots = self::sourceroots();
-        $num_repositories = count($sourceroots);
-
-        if ($num_repositories == 1) {
-            return '';
-        }
-
-        $arr = array();
-        foreach ($sourceroots as $key => $val) {
-            if ($GLOBALS['sourceroot'] != $key) {
-                $arr[] = '<option value="' . self::url('browsedir', '', array('rt' => $key)) . '">' . $val['name'] . '</option>';
-            }
-        }
-
-        return '<form action="#" id="repository-picker">' .
-            '<select onchange="location.href=this[this.selectedIndex].value">' .
-            '<option value="">' . _("Change repositories:") . '</option>' .
-            implode('', $arr) . '</select></form>';
     }
 
     /**

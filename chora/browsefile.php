@@ -52,7 +52,7 @@ $page_output->addScriptFile('revlog.js');
 $page_output->header(array(
     'title' => $title
 ));
-require CHORA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/log/header.inc';
 
