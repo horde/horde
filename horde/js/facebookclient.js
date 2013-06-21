@@ -51,8 +51,11 @@ var Horde_Facebook = Class.create({
      */
     updateStatus: function()
     {
+        if (!$F(this.opts.input)) {
+            return;
+        }
         $(this.opts.spinner).toggle();
-        params = {
+        var params = {
             actionID: 'updateStatus',
             statusText: $F(this.opts.input)
         };
