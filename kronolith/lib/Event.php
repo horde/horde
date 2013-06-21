@@ -954,11 +954,26 @@ abstract class Kronolith_Event
             /* The remaining exceptions represent deleted recurrences */
             foreach ($exceptions as $exception) {
                 if (!empty($exception)) {
-                    /* Use multiple EXDATE attributes instead of EXDATE
-                     * attributes with multiple values to make Apple iCal
-                     * happy. */
+                    // Use multiple EXDATE attributes instead of EXDATE
+                    // attributes with multiple values to make Apple iCal
+                    // happy.
                     list($year, $month, $mday) = sscanf($exception, '%04d%02d%02d');
-                    $vEvent->setAttribute('EXDATE', array(new Horde_Date($year, $month, $mday)), array('VALUE' => 'DATE'));
+                    if ($this->isAllDay()) {
+                        $vEvent->setAttribute('EXDATE', array(new Horde_Date($year, $month, $mday)), array('VALUE' => 'DATE'));
+                    } else {
+                        // Another Apple iCal/Calendar fix. EXDATE is only
+                        // recognized if the full datetime is present and matches
+                        // the time part given in DTSTART.
+                        $params = array();
+                        if ($this->timezone) {
+                            $params['TZID'] = $this->timezone;
+                        }
+                        $exdate = clone $this->start;
+                        $exdate->year = $year;
+                        $exdate->month = $month;
+                        $exdate->mday = $mday;
+                        $vEvent->setAttribute('EXDATE', array($exdate), $params);
+                    }
                 }
             }
         }
