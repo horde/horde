@@ -333,7 +333,9 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $new_part = Horde_Mime_Part::parseMessage($decrypted_data->message, array(
             'forcemime' => true
         ));
-        $new_part->setContents($decrypted_data->message);
+        $new_part->setContents($decrypted_data->message, array(
+            'encoding' => 'binary'
+        ));
 
         if ($new_part->getType() == 'multipart/signed') {
             $data = new Horde_Stream_Temp();
