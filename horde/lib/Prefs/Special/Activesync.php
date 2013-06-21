@@ -48,6 +48,15 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
             );
             $devs[] = $dev;
         }
+
+        // Identities
+        if (!$prefs->isLocked('activesync_identity')) {
+            $ident = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Identity')
+                ->create($registry->getAuth());
+            $view->identities = $ident->getAll('id');
+            $view->default = $prefs->getValue('activesync_identity');
+        }
         $page_output->addScriptFile('activesyncprefs.js', 'horde');
         $page_output->addInlineJsVars(array(
             'HordeActiveSyncPrefs.devices' => $js
@@ -96,6 +105,7 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
             $notification->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
         }
 
+        $GLOBALS['prefs']->setValue('activesync_identity', Horde_Util::getPost('activesync_identity'));
         return false;
     }
 

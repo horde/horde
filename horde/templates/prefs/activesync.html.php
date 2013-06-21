@@ -1,8 +1,17 @@
+<?php if (!empty($this->identities)): ?>
+<?php echo _("Identity to use when sending email via ActiveSync."); ?>
+<div>
+ <select id="activesync_identity" name="activesync_identity">
+  <?php foreach($this->identities as $id => $desc): ?>
+    <option value="<?php echo $id ?>" <?php echo $id == $this->default ? 'selected="selected"' : '' ?>><?php echo $desc ?></option>
+  <?php endforeach ?>
+ </select>
+</div>
+<?php endif ?>
+<p>
 <div class="smallheader">
  <?php echo _("State Management") ?>
 </div>
-
-<p>
  <?php echo _("Reset all device state. This will cause your devices to resyncronize all items.") ?>
  <input class="horde-delete" type="submit" value="Reset" name="reset" />
 </p>
