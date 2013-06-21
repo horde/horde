@@ -239,7 +239,7 @@ class Horde_Application extends Horde_Registry_Application
         );
 
         $permissions[$prefix . Horde_ActiveSync_Policies::POLICY_AEFVALUE] = array(
-            'title' => _("Minutes of inactivity before device should lock"),
+            'title' => _("Seconds of inactivity before device should lock"),
             'type' => 'int'
         );
 
