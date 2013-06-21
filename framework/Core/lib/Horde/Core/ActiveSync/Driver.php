@@ -1336,8 +1336,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         $headers = $raw_message->getHeaders();
 
-        // Add From, but only if needed.
-        if (!$headers->getValue('From')) {
+        // Always add From: since we allow selecting the identity.
+        if (!$headers->getValue('From') || !is_null($GLOBALS['prefs']->getValue('activesync_identity'))) {
+            $headers->removeHeader('From');
             $headers->addHeader('From', $this->_getIdentityFromAddress());
         }
 
@@ -2798,8 +2799,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             ->getInstance('Horde_Core_Factory_Identity')
             ->create($this->_user);
 
-        $name = $ident->getValue('fullname');
-        $from_addr = $ident->getValue('from_addr');
+        $name = $ident->getValue('fullname', $GLOBALS['prefs']->getValue('activesync_identity'));
+        $from_addr = $ident->getValue('from_addr', $GLOBALS['prefs']->getValue('activesync_identity'));
 
         return $name . ' <' . $from_addr . '>';
     }
