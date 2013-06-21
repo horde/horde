@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-21</date>
- <time>23:37:12</time>
+ <date>2013-06-22</date>
+ <time>00:11:45</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -220,6 +220,7 @@
     </dir> <!-- /templates/diff -->
     <dir name="directory">
      <file name="back.inc" role="horde" />
+     <file name="deleted.inc" role="horde" />
      <file name="dir.inc" role="horde" />
      <file name="file.inc" role="horde" />
      <file name="header.inc" role="horde" />
@@ -387,6 +388,7 @@
    <install as="chora/templates/cvsgraph/cvsgraph.inc" name="templates/cvsgraph/cvsgraph.inc" />
    <install as="chora/templates/diff/header.inc" name="templates/diff/header.inc" />
    <install as="chora/templates/directory/back.inc" name="templates/directory/back.inc" />
+   <install as="chora/templates/directory/deleted.inc" name="templates/directory/deleted.inc" />
    <install as="chora/templates/directory/dir.inc" name="templates/directory/dir.inc" />
    <install as="chora/templates/directory/file.inc" name="templates/directory/file.inc" />
    <install as="chora/templates/directory/header.inc" name="templates/directory/header.inc" />
@@ -422,7 +424,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2013-06-21</date>
+   <date>2013-06-22</date>
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.

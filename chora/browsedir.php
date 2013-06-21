@@ -39,10 +39,6 @@ $title = ($where == '')
     ? $chora_conf['introTitle']
     : "/$where";
 
-$extraLink = $VC->hasFeature('deleted')
-    ? Horde::widget(array('url' => Chora::url('browsedir', $where . '/', $branchArgs + array('sa' => ($acts['sa'] ? 0 : 1))), 'title' => $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files")))
-    : '';
-
 $umap = array(
     'age' => Horde_Vcs::SORT_AGE,
     'rev' => Horde_Vcs::SORT_REV,
@@ -74,6 +70,9 @@ $page_output->header(array(
 ));
 $notification->notify(array('listeners' => 'status'));
 require CHORA_TEMPLATES . '/headerbar.inc';
+if ($VC->hasFeature('deleted')) {
+    require CHORA_TEMPLATES . '/directory/deleted.inc';
+}
 if (!$where && is_file($chora_conf['introText'])) {
     require CHORA_TEMPLATES . '/directory/intro.inc';
 }
