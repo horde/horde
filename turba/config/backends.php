@@ -13,7 +13,6 @@
  * Example backends.local.php configuration file that enables the LDAP address
  * book and adds a composite field to the SQL address book:
  *
- * <code>
  * <?php
  * $cfgSources['localldap']['disabled'] = false;
  * $cfgSources['localldap']['params']['server'] = 'localhost';
@@ -29,7 +28,6 @@
  *     ),
  *     'format' => "%s\n%s %s\n%s"
  * );
- * </code>
  *
  * Properties that can be set for each server:
  *
