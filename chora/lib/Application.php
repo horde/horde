@@ -44,7 +44,7 @@ class Chora_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot;
+        global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot, $page_output;
 
         // TODO: If chora isn't fully/properly setup, init() will throw fatal
         // errors. Don't want that if this class is being loaded simply to
@@ -62,6 +62,9 @@ class Chora_Application extends Horde_Registry_Application
         }
 
         $sourceroots = Chora::sourceroots();
+        if (count($sourceroots) < 2) {
+            $page_output->sidebar = false;
+        }
 
         /**
          * Variables we wish to propagate across web pages
