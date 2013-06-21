@@ -14,8 +14,6 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
-$extraLink = Chora::getFileViews($where, 'stats');
-
 /* Spawn the file object. */
 try {
     $fl = $VC->getFile($where);
@@ -30,12 +28,13 @@ foreach ($fl->getLog() as $lg) {
 }
 arsort($stats);
 
-$title = sprintf(_("Statistics for %s"), $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
+$title = _("Statistics for:");
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->header(array(
     'title' => $title
 ));
 $notification->notify(array('listeners' => 'status'));
 require CHORA_TEMPLATES . '/headerbar.inc';
+echo Chora::getHistoryViews($where)->render('stats');
 require CHORA_TEMPLATES . '/stats/stats.inc';
 $page_output->footer();

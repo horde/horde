@@ -42,10 +42,7 @@ try {
     Chora::fatal($e);
 }
 
-$title = sprintf(_("Source Annotation of %s (revision %s)"), $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)), $rev);
-$extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',
-                     Chora::url('co', $where, array('r' => $rev)), _("View"),
-                     Chora::url('co', $where, array('r' => $rev, 'p' => 1)), _("Download"));
+$title = sprintf(_("Source Annotation (revision %s) for:"), $rev);
 
 $page_output->addScriptFile('annotate.js');
 $page_output->addInlineJsVars(array(
@@ -60,6 +57,7 @@ $page_output->header(array(
 ));
 $notification->notify(array('listeners' => 'status'));
 require CHORA_TEMPLATES . '/headerbar.inc';
+echo Chora::getFileViews($where, $rev)->render('annotate');
 require CHORA_TEMPLATES . '/annotate/header.inc';
 
 $author = '';

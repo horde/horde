@@ -30,9 +30,8 @@ try {
     Chora::fatal($e);
 }
 
-$title = $where;
+$title = _("Logs for:");
 
-$extraLink = Chora::getFileViews($where, 'browsefile');
 $logs = $fl->getLog();
 $first = end($logs);
 $diffValueLeft = $first->getRevision();
@@ -54,6 +53,7 @@ $page_output->header(array(
 ));
 $notification->notify(array('listeners' => 'status'));
 require CHORA_TEMPLATES . '/headerbar.inc';
+echo Chora::getHistoryViews($where)->render('browsefile');
 require CHORA_TEMPLATES . '/log/header.inc';
 
 $view = $injector->createInstance('Horde_View');

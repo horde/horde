@@ -74,6 +74,9 @@ $page_output->header(array(
 ));
 $notification->notify(array('listeners' => 'status'));
 require CHORA_TEMPLATES . '/headerbar.inc';
+if (!$where && is_file($chora_conf['introText'])) {
+    require CHORA_TEMPLATES . '/directory/intro.inc';
+}
 require CHORA_TEMPLATES . '/directory/header.inc';
 
 /* Unless we're at the top, display the 'back' bar. */

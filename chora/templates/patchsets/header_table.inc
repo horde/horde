@@ -1,13 +1,11 @@
-<div class="options">
- <span>
-  <?php echo _("Search Commits:") ?>
-  <input type="text" for="patchsets_body" size="20" />
- </span>
-</div>
+<p class="horde-content">
+ <?php echo _("Search Commits:") ?>
+ <input type="text" for="patchsets_body" size="20" />
+</p>
 
-<table class="revlog striped sortable" id="patchsets" cellspacing="0">
+<table class="horde-table revlog sortable" id="patchsets" cellspacing="0">
 <thead>
- <tr class="item leftAlign">
+ <tr>
   <th><?php echo _("Commit") ?></th>
   <th class="sortup"><?php echo _("Date") ?></th>
   <th><?php echo _("Author") ?></th>

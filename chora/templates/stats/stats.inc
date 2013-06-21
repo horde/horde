@@ -1,4 +1,4 @@
-<table class="stats striped" cellspacing="0">
+<table class="horde-table stats" cellspacing="0">
 <thead>
  <tr>
   <th class="rightAlign"><?php echo _("Author") ?></th>

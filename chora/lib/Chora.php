@@ -60,7 +60,7 @@ class Chora
                 if (!empty($onb)) {
                     $url = $url->add('onb', $onb);
                 }
-                $bar .= '/ <a href="' . $url . '">' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($dir, 'space2html', array('encode' => true, 'encode_all' => true)) . '</a> ';
+                $bar .= '/<a href="' . $url . '">' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($dir, 'space2html', array('encode' => true, 'encode_all' => true)) . '</a>';
             }
         }
 
@@ -279,44 +279,103 @@ class Chora
     }
 
     /**
-     * Generate the link used for various file-based views.
+     * Generate the link used for various history views.
      *
      * @param string $where    The current file path.
-     * @param string $current  The current view ('browsefile', 'patchsets',
-     *                         'history', 'cvsgraph', or 'stats').
      *
      * @return array  An array of file view links.
      */
-    static public function getFileViews($where, $current)
+    static public function getHistoryViews($where)
     {
-        $views = ($current == 'browsefile')
-            ? array('<em class="widget">' . _("Logs") . '</em>')
-            : array(Horde::widget(array('url' => self::url('browsefile', $where), 'title' => _("_Logs"))));
+        global $injector;
+
+        $tabs = new Horde_Core_Ui_Tabs(
+            null,
+            $injector->getInstance('Horde_Variables')
+        );
+        $tabs->addTab(
+            _("_Logs"),
+            self::url('browsefile', $where),
+            'browsefile'
+        );
 
         if ($GLOBALS['VC']->hasFeature('patchsets')) {
-            $views[] = ($current == 'patchsets')
-                ? '<em class="widget">' . _("Patchsets") . '</em>'
-                : Horde::widget(array('url' => self::url('patchsets', $where), 'title' => _("_Patchsets")));
+            $tabs->addTab(
+                _("_Patchsets"),
+                self::url('patchsets', $where),
+                'patchsets'
+            );
         }
 
         if ($GLOBALS['VC']->hasFeature('branches')) {
             if (empty($GLOBALS['conf']['paths']['cvsgraph']) ||
                 !($GLOBALS['VC'] instanceof Horde_Vcs_Cvs)) {
-                $views[] = ($current == 'history')
-                    ? '<em class="widget">' . _("Branches") . '</em>'
-                    : Horde::widget(array('url' => self::url('history', $where), 'title' => _("_Branches")));
+                $tabs->addTab(
+                    _("_Branch Graph"),
+                    self::url('history', $where),
+                    'history'
+                );
             } else {
-                $views[] = ($current == 'cvsgraph')
-                    ? '<em class="widget">' . _("Branches") . '</em>'
-                    : Horde::widget(array('url' => self::url('cvsgraph', $where), 'title' => _("_Branches")));
+                $tabs->addTab(
+                    _("_Branch Graph"),
+                    self::url('cvsgraph', $where),
+                    'cvsgraph'
+                );
             }
         }
 
-        $views[] = ($current == 'stats')
-            ? '<em class="widget">' . _("Statistics") . '</em>'
-            : Horde::widget(array('url' => self::url('stats', $where), 'title' => _("_Statistics")));
+        $tabs->addTab(
+            _("_Statistics"),
+            self::url('stats', $where),
+            'stats'
+        );
 
-        return _("View:") . ' ' . implode(' | ', $views);
+        return $tabs;
+    }
+
+    /**
+     * Generate the link used for various file views.
+     *
+     * @param string $where    The current file path.
+     * @param string $rev      The current revision.
+     *
+     * @return array  An array of file view links.
+     */
+    static public function getFileViews($where, $rev)
+    {
+        global $injector, $VC;
+
+        $tabs = new Horde_Core_Ui_Tabs(
+            null,
+            $injector->getInstance('Horde_Variables')
+        );
+        $tabs->addTab(
+            _("_View"),
+            Chora::url('co', $where, array('r' => $rev)),
+            'co'
+        );
+        $tabs->addTab(
+            _("_Annotate"),
+            Chora::url('annotate', $where, array('rev' => $rev)),
+            'annotate'
+        );
+        if ($VC->hasFeature('snapshots')) {
+            $snapdir = dirname($VC->getFile($where)->getPath());
+            $tabs->addTab(
+                _("_Snapshot"),
+                Chora::url(
+                    'browsedir',
+                    $snapdir == '.' ? '' : $snapdir . '/',
+                    array('onb' => $rev)
+                )
+            );
+        }
+        $tabs->addTab(
+            _("_Download"),
+            Chora::url('co', $where, array('r' => $rev, 'p' => 1))
+        );
+
+        return $tabs;
     }
 
     /**
