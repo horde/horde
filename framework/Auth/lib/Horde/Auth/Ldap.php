@@ -424,7 +424,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
 
         /* Update user entry. */
         try {
-            $this->_ldap->modify($dn, $entry);
+            $this->_ldap->modify($dn, array('replace' => $entry));
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }

@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix resetting passwords with LDAP driver (Bug #12317).
 * [mms] Fix authentication with the Http auth driver.
  </notes>
  <contents>
@@ -849,6 +850,7 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix resetting passwords with LDAP driver (Bug #12317).
 * [mms] Fix authentication with the Http auth driver.
    </notes>
   </release>
