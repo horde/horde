@@ -893,7 +893,7 @@ class Horde_Date
     }
 
     /**
-     * Callback used to remplace a strtime pattern
+     * Callback used to replace a strtime pattern
      *
      * @param array $matches  preg_replace_callback() matches.
      *
