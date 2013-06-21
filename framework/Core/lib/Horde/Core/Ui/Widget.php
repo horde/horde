@@ -59,12 +59,12 @@ abstract class Horde_Core_Ui_Widget
     /**
      * Construct a new UI Widget interface.
      *
-     * @param string $name            The name of the variable which will
-     *                                track this UI widget's state.
-     * @param Horde_Variables &$vars  A Horde_Variables:: object.
-     * @param array $config           The widget's configuration.
+     * @param string $name           The name of the variable which will
+     *                               track this UI widget's state.
+     * @param Horde_Variables $vars  A Horde_Variables:: object.
+     * @param array $config          The widget's configuration.
      */
-    public function __construct($name, &$vars, $config = array())
+    public function __construct($name, $vars, $config = array())
     {
         $this->_name = $name;
         $this->_vars = &$vars;
