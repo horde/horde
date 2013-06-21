@@ -214,12 +214,10 @@ class Chora_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
-        $url = Chora::url('browsedir');
-
         foreach (Chora::sourceroots() as $key => $val) {
             $row = array(
                 'selected' => $GLOBALS['sourceroot'] == $key,
-                'url' => $url->add('rt', $key),
+                'url' => Chora::url('browsedir', '', array('rt' => $key)),
                 'label' => $val['name'],
                 'type' => 'radiobox',
             );
