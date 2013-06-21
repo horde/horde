@@ -200,7 +200,7 @@ class Chora
         $arr = array();
 
         foreach ($GLOBALS['sourceroots'] as $key => $val) {
-            if (self::checkPerms($key)) {
+            if (empty($val['disabled']) && self::checkPerms($key)) {
                 $arr[$key] = $val;
             }
         }
