@@ -149,6 +149,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
 
         if ($new_sess) {
             session_destroy();
+            $GLOBALS['session']->session_data = $_SESSION;
         }
 
         $_SESSION = $old_sess;
