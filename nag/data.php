@@ -120,7 +120,7 @@ if (is_array($next_step)) {
             if (!is_a($row, 'Horde_Icalendar_Vtodo')) {
                 continue;
             }
-            $task = new Nag_Task();
+            $task = new Nag_Task($nag_storage);
             $task->fromiCalendar($row);
             $row = $task->toHash();
             foreach (array_keys($app_fields) as $field) {
