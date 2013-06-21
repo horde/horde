@@ -85,7 +85,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
      */
     public function getSpecialMailboxes()
     {
-        global $injector, $registry;
+        global $injector, $registry, $prefs;
 
         if (empty($this->_specialMailboxlist)) {
             try {
@@ -102,7 +102,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
                 $this->_specialMailboxlist['sent'] = $injector
                     ->getInstance('Horde_Core_Factory_Identity')
                     ->create($registry->getAuth(), $registry->hasInterface('mail'))
-                    ->getValue('sent_mail_folder');
+                    ->getValue('sent_mail_folder', $prefs->getValue('activesync_identity'));
             } else {
                 $this->_specialMailboxlist['sent'] = current($this->_specialMailboxlist['sent']);
             }
