@@ -200,6 +200,7 @@ $horde_nls_config = array(
         'en_US' => '-d american',
         'es_ES' => '-d espanol',
         'fr_FR' => '-d francais',
+        'hu_HU' => '-d hungarian',
         'it_IT' => '-T latin1 -d italian',
         'nl_NL' => '-d nederlands',
         'pl_PL' => '-d polish',
