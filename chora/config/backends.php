@@ -54,15 +54,15 @@ $sourceroots['subversion'] = array(
     'disabled' => true,
     'name' => 'Subversion',
     'location' => 'http://svn.example.com/repos/svn',
-    'title' => 'A Compelling Replacement for CVS',
+    'title' => 'Subversion Repository',
     'type' => 'svn'
 );
 
 $sourceroots['localsvn'] = array(
     'disabled' => true,
-    'name' => 'MySVNProj',
+    'name' => 'Subversion',
     'location' => '/path/to/svn/repo',
-    'title' => 'Main Subversion Repos',
+    'title' => 'Subversion Repository',
     'type' => 'svn',
 );
 
@@ -70,6 +70,6 @@ $sourceroots['git'] = array(
     'disabled' => true,
     'name' => 'Git',
     'location' => '/path/to/git/repo',
-    'title' => 'Git repository',
+    'title' => 'Git Repository',
     'type' => 'git',
 );
