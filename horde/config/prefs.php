@@ -758,11 +758,6 @@ $_prefs['activesync_replyposition'] = array(
         return empty($GLOBALS['conf']['activesync']['emailsync']);
     }
 );
-$_prefs['activesync_usesignature'] = array(
-    'type' => 'checkbox',
-    'desc' => _("Use signature from the choosen identity?"),
-    'value' => false
-);
 // Handled by the special.
 $_prefs['activesync_identity'] = array(
     'value' => null
