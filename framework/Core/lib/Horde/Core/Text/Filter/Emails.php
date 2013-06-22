@@ -75,7 +75,7 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
 
         if (substr($url, 0, 11) == 'javascript:') {
             $href = '#';
-            $onclick = ' onclick="' . substr($url, 11) . ';return false;"';
+            $onclick = ' onclick="' . htmlspecialchars(substr($url, 11)) . ';return false;"';
         } else {
             $href = htmlspecialchars($url);
             $onclick = '';
@@ -85,9 +85,9 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
             ? ''
             : ' class="' . $this->_params['class'] . '"';
 
-        return '<a' . $class .' href="' . $href . '"' . $onclick . '>' .
-            htmlspecialchars($email) . htmlspecialchars($args_long) .
-            '</a>';
+        return '<a' . $class .' href="' . $href . '"' . $onclick . '>'
+            . htmlspecialchars($email) . htmlspecialchars($args_long)
+            . '</a>';
     }
 
 }
