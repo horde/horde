@@ -469,9 +469,14 @@ class Chora
         try {
             $users = $GLOBALS['VC']->getUsers($GLOBALS['chora_conf']['cvsusers']);
             if (isset($users[$name])) {
-                return '<a href="mailto:' . htmlspecialchars($users[$name]['mail']) . '">' .
-                    htmlspecialchars($fullname ? $users[$name]['name'] : $name) .
-                    '</a>' . ($fullname ? ' <em>' . htmlspecialchars($name) . '</em>' : '');
+                return '<a href="'
+                    . ($GLOBALS['registry']->hasMethod('mail/compose')
+                       ? $GLOBALS['registry']->call('mail/compose', array(array('to' => $users[$name]['mail'])))
+                       : 'mailto:' . htmlspecialchars($users[$name]['mail']))
+                    . '">'
+                    . htmlspecialchars($fullname ? $users[$name]['name'] : $name)
+                    . '</a>'
+                    . ($fullname ? ' <em>' . htmlspecialchars($name) . '</em>' : '');
             }
         } catch (Horde_Vcs_Exception $e) {}
 
