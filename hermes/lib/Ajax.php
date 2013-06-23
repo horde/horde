@@ -72,10 +72,6 @@ class Hermes_Ajax
             'date_format' => str_replace(
                 array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                 array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
-                Horde_Nls::getLangInfo(D_FMT)),
-            'date_display_format' => str_replace(
-                array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
-                array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                 $format_date),
             'client_name_field' => $conf['client']['field'],
             'has_review_edit' => $injector->getInstance('Horde_Perms')->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
