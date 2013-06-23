@@ -322,7 +322,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
     {
         $view = $GLOBALS['injector']->createInstance('Horde_View');
         $view->addTemplatePath(ANSEL_TEMPLATES . '/view');
-        $view->filename = $this->_resource->filename;
+        $view->filename = $this->resource->filename;
         $view->caption = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_TextFilter')
             ->filter($this->resource->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
