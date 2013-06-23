@@ -441,11 +441,13 @@ class Ansel_ActionHandler
                         'window.opener.location.href = window.opener.location.href;',
                         'window.close();'
                     ));
+                    $page_output->outputInlineScript();
                 } else {
                     $page_output->addInlineScript(array(
                         'window.opener.location.href = "' . $imageurl . '";',
                         'window.close();'
                     ));
+                    $page_output->outputInlineScript();
                 }
                 exit;
             }
