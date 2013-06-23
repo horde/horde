@@ -52,6 +52,7 @@ class Hermes_Ajax
             }
         }
         $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
+        $format_date = str_replace(array('%x', '%X'), array(Horde_Nls::getLangInfo(D_FMT, Horde_Nls::getLangInfo(D_T_FMT))), $prefs->getValue('date_format_mini'));
 
         /* Variables used in core javascript files. */
         $js_vars['conf'] = array(
@@ -72,6 +73,10 @@ class Hermes_Ajax
                 array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                 array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                 Horde_Nls::getLangInfo(D_FMT)),
+            'date_display_format' => str_replace(
+                array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
+                array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
+                $format_date),
             'client_name_field' => $conf['client']['field'],
             'has_review_edit' => $injector->getInstance('Horde_Perms')->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
             'has_review' => $registry->isAdmin(array('permission' => 'hermes:review')),

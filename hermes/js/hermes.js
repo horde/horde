@@ -1247,7 +1247,7 @@ HermesCore = {
         row.store('sid', slice.i);
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
-        cell = cell.next().update(d.toString(Hermes.conf.date_format));
+        cell = cell.next().update(d.toString(Hermes.conf.date_display_format));
         if (!slice.cn) {
             cell = cell.next().update(' ');
         } else {
