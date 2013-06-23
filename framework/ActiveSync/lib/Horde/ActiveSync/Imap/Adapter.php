@@ -311,16 +311,18 @@ class Horde_ActiveSync_Imap_Adapter
                 if ($options['sincedate']) {
                     $since = new Horde_Date($options['sincedate']);
                     $headers = Horde_Mime_Headers::parseHeaders($data->getHeaderText());
-                    $date = new Horde_Date($headers->getValue('Date'));
-                    if ($date->compareDate($since) <= -1) {
-                        // Ignore, it's out of the FILTERTYPE range.
-                        $this->_logger->info(sprintf(
-                            '[%s] Ignoring UID %s since it is outside of the FILTERTYPE (%s)',
-                            getmypid(),
-                            $uid,
-                            $headers->getValue('Date')));
-                        continue;
-                    }
+                    try {
+                        $date = new Horde_Date($headers->getValue('Date'));
+                        if ($date->compareDate($since) <= -1) {
+                            // Ignore, it's out of the FILTERTYPE range.
+                            $this->_logger->info(sprintf(
+                                '[%s] Ignoring UID %s since it is outside of the FILTERTYPE (%s)',
+                                getmypid(),
+                                $uid,
+                                $headers->getValue('Date')));
+                            continue;
+                        }
+                    } catch (Horde_Date_Exception $e) {}
                 }
                 if ($data->getModSeq() <= $modseq) {
                     $changes[] = $uid;
