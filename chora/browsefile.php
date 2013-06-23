@@ -22,6 +22,10 @@ if ($atdir) {
     exit;
 }
 
+if (count(Chora::sourceroots()) < 2) {
+    $page_output->sidebar = false;
+}
+
 $onb = Horde_Util::getFormData('onb');
 try {
     $fl = $VC->getFile($where, array('branch' => $onb));

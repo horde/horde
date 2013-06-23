@@ -62,9 +62,6 @@ class Chora_Application extends Horde_Registry_Application
         }
 
         $sourceroots = Chora::sourceroots();
-        if (count($sourceroots) < 2) {
-            $page_output->sidebar = false;
-        }
 
         /**
          * Variables we wish to propagate across web pages

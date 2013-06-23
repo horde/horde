@@ -18,6 +18,10 @@ if (!$atdir) {
     exit;
 }
 
+if (count(Chora::sourceroots()) < 2) {
+    $page_output->sidebar = false;
+}
+
 $onb = $VC->hasFeature('snapshots')
     ? Horde_Util::getFormData('onb')
     : null;

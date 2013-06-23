@@ -25,6 +25,10 @@ if (!$rev || !$VC->isValidRevision($rev)) {
     Chora::fatal(sprintf(_("Revision %s not found"), $rev), '404 Not Found');
 }
 
+if (count(Chora::sourceroots()) < 2) {
+    $page_output->sidebar = false;
+}
+
 switch (Horde_Util::getFormData('actionID')) {
 case 'log':
     $log = $fl->getLog($rev);

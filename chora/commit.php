@@ -40,6 +40,11 @@ try {
 if (empty($patchsets)) {
     Chora::fatal(_("Commit Not Found"), '404 Not Found');
 }
+
+if (count(Chora::sourceroots()) < 2) {
+    $page_output->sidebar = false;
+}
+
 reset($patchsets);
 $patchset = current($patchsets);
 
