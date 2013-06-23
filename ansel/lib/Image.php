@@ -725,7 +725,9 @@ class Ansel_Image Implements Iterator
         }
 
         // Attempt to autorotate based on Orientation field
-        $this->_autoRotate($exif_fields['Orientation']);
+        if (!empty($exif_fields['Orientation'])) {
+            $this->_autoRotate($exif_fields['Orientation']);
+        }
 
         // Save attributes.
         if ($replacing) {
