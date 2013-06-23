@@ -903,8 +903,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
                     $atc_ob->related = true;
 
                     $data = array(
-                        IMP_Compose::RELATED_ATTR => 'src',
-                        IMP_Compose::RELATED_ATTR_ID => $atc_ob->id
+                        IMP_Compose::RELATED_ATTR => 'src;' . $atc_ob->id
                     );
                     $url = strval($atc_ob->viewUrl());
                 } catch (IMP_Compose_Exception $e) {
