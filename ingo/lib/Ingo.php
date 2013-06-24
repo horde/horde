@@ -274,11 +274,6 @@ class Ingo
             }
         }
 
-        /* Make sure the 'params' entry exists. */
-        if (!isset($backend['params'])) {
-            $backend['params'] = array();
-        }
-
         return $backend;
     }
 
