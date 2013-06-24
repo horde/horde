@@ -75,11 +75,7 @@ foreach ($VC->getRevisionRange($fl, $vars->r1, $vars->r2) as $val) {
 }
 
 $page_output->addScriptFile('stripe.js', 'horde');
-$page_output->header(array(
-    'title' => $title
-));
-$notification->notify(array('listeners' => 'status'));
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
 require CHORA_TEMPLATES . '/diff/header.inc';
 
 $mime_type = Horde_Mime_Magic::filenameToMIME($fullname);

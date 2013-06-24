@@ -52,11 +52,7 @@ if (Horde_Util::getFormData('show_image')) {
 // Display the wrapper page for the image.
 $title = _("Graph for:");
 
-$page_output->header(array(
-    'title' => $title
-));
-$notification->notify(array('listeners' => 'status'));
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
 echo Chora::getHistoryViews($where)->render('cvsgraph');
 
 $imgUrl = Chora::url('cvsgraph', $where, array('show_image' => 1));

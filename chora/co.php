@@ -84,11 +84,7 @@ if (!$plain) {
                      Chora::readableTime($log->getDate(), true));
 
     $page_output->addScriptFile('stripe.js', 'horde');
-    $page_output->header(array(
-        'title' => $title
-    ));
-    $notification->notify(array('listeners' => 'status'));
-    require CHORA_TEMPLATES . '/headerbar.inc';
+    Chora::header($title);
     echo Chora::getFileViews($where, $r)->render('co');
     require CHORA_TEMPLATES . '/checkout/checkout.inc';
     $page_output->footer();

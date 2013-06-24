@@ -128,11 +128,7 @@ foreach ($grid as $cols) {
 
 $title = _("Source Branching View for:");
 
-$page_output->header(array(
-    'title' => $title
-));
-$notification->notify(array('listeners' => 'status'));
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
 echo Chora::getHistoryViews($where)->render('history');
 require CHORA_TEMPLATES . '/history/header.inc';
 

@@ -35,6 +35,25 @@ class Chora
     static public $fdcache;
 
     /**
+     * Generates and prints the page header.
+     *
+     * @param string $title  The page title.
+     */
+    static public function header($title)
+    {
+        global $notification, $page_output;
+
+        if (count(Chora::sourceroots()) < 2) {
+            $page_output->sidebar = false;
+        }
+        $page_output->header(array(
+            'title' => $title
+        ));
+        $notification->notify(array('listeners' => 'status'));
+        require CHORA_TEMPLATES . '/headerbar.inc';
+    }
+
+    /**
      * Create the breadcrumb directory listing.
      *
      * @param string $where  The current filepath.

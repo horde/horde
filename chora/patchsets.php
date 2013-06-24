@@ -42,11 +42,7 @@ if (empty($patchsets)) {
 
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('quickfinder.js', 'horde');
-$page_output->header(array(
-    'title' => $title
-));
-$notification->notify(array('listeners' => 'status'));
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
 echo Chora::getHistoryViews($where)->render('patchsets');
 require CHORA_TEMPLATES . '/patchsets/header_table.inc';
 

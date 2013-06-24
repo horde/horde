@@ -22,10 +22,6 @@ if ($atdir) {
     exit;
 }
 
-if (count(Chora::sourceroots()) < 2) {
-    $page_output->sidebar = false;
-}
-
 $onb = Horde_Util::getFormData('onb');
 try {
     $fl = $VC->getFile($where, array('branch' => $onb));
@@ -52,11 +48,7 @@ if ($VC->hasFeature('branches')) {
 }
 
 $page_output->addScriptFile('revlog.js');
-$page_output->header(array(
-    'title' => $title
-));
-$notification->notify(array('listeners' => 'status'));
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
 echo Chora::getHistoryViews($where)->render('browsefile');
 require CHORA_TEMPLATES . '/log/header.inc';
 

@@ -18,10 +18,6 @@ if (!$atdir) {
     exit;
 }
 
-if (count(Chora::sourceroots()) < 2) {
-    $page_output->sidebar = false;
-}
-
 $onb = $VC->hasFeature('snapshots')
     ? Horde_Util::getFormData('onb')
     : null;
@@ -69,11 +65,7 @@ $sortdirclass = $acts['sbt'] ? 'sortdown' : 'sortup';
 
 $page_output->addScriptFile('tables.js', 'horde');
 
-$page_output->header(array(
-    'title' => $title
-));
-$notification->notify(array('listeners' => 'status'));
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
 if ($VC->hasFeature('deleted')) {
     require CHORA_TEMPLATES . '/directory/deleted.inc';
 }

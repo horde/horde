@@ -25,10 +25,6 @@ if (!$rev || !$VC->isValidRevision($rev)) {
     Chora::fatal(sprintf(_("Revision %s not found"), $rev), '404 Not Found');
 }
 
-if (count(Chora::sourceroots()) < 2) {
-    $page_output->sidebar = false;
-}
-
 switch (Horde_Util::getFormData('actionID')) {
 case 'log':
     $log = $fl->getLog($rev);
@@ -56,11 +52,7 @@ $page_output->addInlineJsVars(array(
     )
 ));
 
-$page_output->header(array(
-    'title' => $title
-));
-$notification->notify(array('listeners' => 'status'));
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
 echo Chora::getFileViews($where, $rev)->render('annotate');
 require CHORA_TEMPLATES . '/annotate/header.inc';
 
