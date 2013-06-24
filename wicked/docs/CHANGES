@@ -2,6 +2,7 @@
 v2.0.0-git
 ----------
 
+[mjr] Fix creating a new page from search results (Bug #12381).
 [jan] Fix syntax error in wicked CLI script (Bug #12378).
 
 

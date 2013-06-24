@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix creating a new page from search results (Bug #12381).
 * [jan] Fix syntax error in wicked CLI script (Bug #12378).
  </notes>
  <contents>
@@ -951,6 +952,7 @@
    <date>2013-06-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix creating a new page from search results (Bug #12381).
 * [jan] Fix syntax error in wicked CLI script (Bug #12378).
    </notes>
   </release>
