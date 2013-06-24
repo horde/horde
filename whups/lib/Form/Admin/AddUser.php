@@ -15,7 +15,7 @@
 class Whups_Form_Admin_AddUser extends Horde_Form
 {
 
-    public function __construct(&$vars)
+    public function __construct($vars)
     {
         parent::__construct($vars, _("Add Users"));
 
@@ -33,7 +33,7 @@ class Whups_Form_Admin_AddUser extends Horde_Form
                 sort($list);
                 $users = array();
                 foreach ($list as $user) {
-                    if (!isset($current[$user])) {
+                    if (!in_array($user, $current)) {
                         $users[$user] = $GLOBALS['registry']->convertUsername($user, false);
                     }
                 }
