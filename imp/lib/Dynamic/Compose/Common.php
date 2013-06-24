@@ -38,7 +38,7 @@ class IMP_Dynamic_Compose_Common
     {
         global $page_output, $prefs;
 
-        $page_output->addScriptPackage('Imp_Script_Package_ComposeBase');
+        $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
         $page_output->addScriptFile('draghandler.js');
         $page_output->addScriptFile('murmurhash3.js');
@@ -86,7 +86,7 @@ class IMP_Dynamic_Compose_Common
             $view->compose_html = !empty($args['show_editor']);
             $view->rte = true;
 
-            $injector->getInstance('IMP_Editor')->init(!$view->compose_html);
+            $injector->getInstance('IMP_Editor')->init();
         }
 
         /* Create list for sent-mail selection. */

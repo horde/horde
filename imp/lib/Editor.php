@@ -26,16 +26,15 @@ class IMP_Editor
     /**
      * Initialize the Rich Text Editor (RTE).
      *
-     * @param boolean $basic  Load the basic ckeditor stub?
-     * @param string $id      The DOM ID to load. If null, won't start editor
-     *                        on page load.
+     * @param string $id  The DOM ID to load. If null, won't start editor on
+     *                    page load.
      */
-    public function init($basic = false, $id = null)
+    public function init($id = null)
     {
         global $injector, $page_output, $language, $prefs;
 
         $injector->getInstance('Horde_Editor')->initialize(array(
-            'basic' => $basic,
+            'basic' => true,
             'config' => 'IMP.ckeditor_config',
             'id' => $id
         ));
