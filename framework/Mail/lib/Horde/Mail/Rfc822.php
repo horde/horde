@@ -246,7 +246,7 @@ class Horde_Mail_Rfc822
         $limit = $this->_params['limit'];
 
         while (($this->_curr() !== false) &&
-               (is_null($limit) || ($limit-- > 0))) {
+               (is_null($limit) || ($limit > 0))) {
             try {
                 $this->_parseAddress();
             } catch (Horde_Mail_Exception $e) {
@@ -254,7 +254,7 @@ class Horde_Mail_Rfc822
                    throw $e;
                }
                ++$this->_ptr;
-           }
+            }
 
             switch ($this->_curr()) {
             case ',':
@@ -271,6 +271,7 @@ class Horde_Mail_Rfc822
                }
                break;
             }
+            $limit--;
         }
     }
 
