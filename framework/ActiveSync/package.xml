@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-20</date>
- <time>17:23:21</time>
+ <date>2013-06-24</date>
+ <time>00:53:25</time>
  <version>
-  <release>2.5.1</release>
+  <release>2.5.3</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue the could cause sync to fail if an incorrectly formatted email date header is encountered.
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1495,6 +1495,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue the could cause sync to fail if an incorrectly formatted email date header is encountered.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.2</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>
