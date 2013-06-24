@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-06-24</date>
- <time>00:53:25</time>
+ <time>01:08:42</time>
  <version>
   <release>2.5.3</release>
   <api>2.5.0</api>
@@ -1508,6 +1508,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 *
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.3</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-24</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
