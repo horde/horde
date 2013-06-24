@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix inactive email fields with multiple addresses if disabling linking (Bug #12051).
 * [mms] Use built-in ISO 639 mapping in LanguageDetect factory if the underlying library supports it.
 * [jan] Fix rendering of email addresses in inactive forms.
  </notes>
@@ -3012,6 +3013,7 @@
    <date>2013-06-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix inactive email fields with multiple addresses if disabling linking (Bug #12051).
 * [mms] Use built-in ISO 639 mapping in LanguageDetect factory if the underlying library supports it.
 * [jan] Fix rendering of email addresses in inactive forms.
    </notes>
