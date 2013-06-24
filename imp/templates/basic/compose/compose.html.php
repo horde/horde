@@ -49,7 +49,7 @@
 <?php if ($this->count_select_list): ?>
     <select id="identity" name="identity" tabindex="<?php echo ++$this->tabindex ?>">
 <?php foreach ($this->select_list as $v): ?>
-     <?php echo $this->optionTag($v['value'], $v['label'], $v['selected']) ?>
+     <?php echo $this->optionTag($v['value'], $this->escape($v['label']), $v['selected']) ?>
 <?php endforeach; ?>
    </select>
 <?php else: ?>
