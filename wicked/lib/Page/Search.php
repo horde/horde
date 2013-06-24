@@ -99,14 +99,17 @@ class Wicked_Page_Search extends Wicked_Page
         } else {
             $exact[] = (object)array(
                 'author' => '',
-                'context' => sprintf(
-                    _("%s does not exist. You can create it now."),
-                    '<strong>' . htmlspecialchars($searchtext) . '</strong>'
-                ),
+                'context' => Wicked::url($searchtext, false)
+                    ->link(array(
+                        'title' => sprintf(_("Create %s"), $searchtext)
+                    ))
+                    . sprintf(_("%s does not exist. You can create it now."), '<strong>' . htmlspecialchars($searchtext) . '</strong>')
+                    . '</a>',
                 'date' => '',
                 'name' => htmlspecialchars($searchtext),
                 'timestamp' => 0,
                 'version' => '',
+                'url' => Wicked::url($searchtext, false)
             );
         }
 
