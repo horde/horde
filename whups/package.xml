@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Fix displaying of multiple owners (Bug #12051).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1007,7 +1007,7 @@
    <date>2013-06-19</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Fix displaying of multiple owners (Bug #12051).
    </notes>
   </release>
  </changelog>
