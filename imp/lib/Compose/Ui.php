@@ -142,4 +142,51 @@ class IMP_Compose_Ui
         }
     }
 
+    /**
+     * Return a list of valid encrypt HTML option tags.
+     *
+     * @param string $default      The default encrypt option.
+     * @param boolean $returnList  Whether to return a hash with options
+     *                             instead of the options tag.
+     *
+     * @return mixed  The list of option tags. This is empty if no encryption
+     *                is available.
+     */
+    public function encryptList($default = null, $returnList = false)
+    {
+        global $conf, $injector, $prefs;
+
+        if (is_null($default)) {
+            $default = $prefs->getValue('default_encrypt');
+        }
+
+        $enc_opts = array();
+        $output = '';
+
+        if (!empty($conf['gnupg']['path']) && $prefs->getValue('use_pgp')) {
+            $enc_opts += $injector->getInstance('IMP_Crypt_Pgp')->encryptList();
+        }
+
+        if ($prefs->getValue('use_smime')) {
+            $enc_opts += $injector->getInstance('IMP_Crypt_Smime')->encryptList();
+        }
+
+        if (!empty($enc_opts)) {
+            $enc_opts = array_merge(
+                array(IMP::ENCRYPT_NONE => _("None")),
+                $enc_opts
+            );
+        }
+
+        if ($returnList) {
+            return $enc_opts;
+        }
+
+        foreach ($enc_opts as $key => $val) {
+             $output .= '<option value="' . $key . '"' . (($default == $key) ? ' selected="selected"' : '') . '>' . $val . "</option>\n";
+        }
+
+        return $output;
+    }
+
 }

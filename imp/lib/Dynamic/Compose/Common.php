@@ -254,7 +254,7 @@ class IMP_Dynamic_Compose_Common
 
         if (!$prefs->isLocked('default_encrypt')) {
             $encrypt = array();
-            foreach (IMP::encryptList(null, true) as $key => $val) {
+            foreach ($injector->getInstance('IMP_Compose_Ui')->encryptList(null, true) as $key => $val) {
                 $encrypt[] = array(
                     'l' => htmlspecialchars($val),
                     'v' => $key

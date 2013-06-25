@@ -955,7 +955,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $view->use_encrypt = false;
                 } else {
                     $view->use_encrypt = true;
-                    $view->encrypt_options = IMP::encryptList($encrypt_options);
+                    $view->encrypt_options = $imp_ui->encryptList($encrypt_options);
                 }
 
                 if ($prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')) {
