@@ -138,9 +138,7 @@ class IMP_Ajax_Application_ListMessages
 
         if ($is_search) {
             /* For search mailboxes, we need to invalidate all browser data
-             * and repopulate, since BUIDs may have changed.
-             * invalidate all data and repopulate, since buids may have
-             * changed (metadata information should be OK). */
+             * and repopulate, since BUIDs may have changed. */
              $args['cache'] = array();
              $args['change'] = true;
              $result->data_reset = $result->rowlist_reset = true;
