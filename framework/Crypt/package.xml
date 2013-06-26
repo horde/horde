@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-06</date>
- <time>18:04:50</time>
+ <date>2013-06-26</date>
+ <time>10:50:00</time>
  <version>
   <release>2.2.1</release>
   <api>2.2.0</api>
@@ -904,7 +904,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-06</date>
+   <date>2013-06-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability in Horde_Crypt_Smime#certToHTML() (João Machado &lt;geral@jpaulo.eu&gt;).
