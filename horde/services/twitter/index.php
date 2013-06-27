@@ -157,7 +157,7 @@ case 'getPage':
                 $map[$user->indices[0]] = array($user->indices[1], $replace);
             }
         }
-        if (!empty($tweet->entities->hastags)) {
+        if (!empty($tweet->entities->hashtags)) {
             foreach ($tweet->entities->hashtags as $hashtag) {
                 $replace = ' <a target="_blank" href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text) . '</a>';
                 $map[$hashtag->indices[0]] = array($hashtag->indices[1], $replace);
