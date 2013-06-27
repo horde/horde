@@ -62,28 +62,28 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
             'tokens' => array(),
 
             'filterCallback' => 'function(c) {
-                    if (c) {
-                        window.weatherupdate["' . $this->_params['instance'] . '"].choices = c;
-                        var r = [];
-                        c.each(function(i) {
-                            r.push(i.name);
-                        });
-                        return r;
-                    } else {
-                        return [];
-                    }
-                }',
-                'onSelect' => 'function(c) {
-                    window.weatherupdate["' . $this->_params['instance'] . '"].choices.each(function(i) {
-                        if (i.name == c) {
-                            window.weatherupdate["' . $this->_params['instance'] . '"].value = i.code.replace("/q/", "");
-                            throw $break;
-                        } else {
-                            window.weatherupdate["' . $this->_params['instance'] . '"].value = false;
-                        }
+                if (c) {
+                    window.weatherupdate["' . $this->_params['instance'] . '"].choices = c;
+                    var r = [];
+                    c.each(function(i) {
+                        r.push(i.name);
                     });
-                    return c;
-                }'
+                    return r;
+                } else {
+                    return [];
+                }
+            }',
+            'onSelect' => 'function(c) {
+                window.weatherupdate["' . $this->_params['instance'] . '"].choices.each(function(i) {
+                    if (i.name == c) {
+                        window.weatherupdate["' . $this->_params['instance'] . '"].value = i.code.replace("/q/", "");
+                        throw $break;
+                    } else {
+                        window.weatherupdate["' . $this->_params['instance'] . '"].value = false;
+                    }
+                });
+                return c;
+            }'
         ));
     }
 
