@@ -146,32 +146,32 @@ case 'getPage':
         }
         if (!empty($tweet->entities->media)) {
             foreach ($tweet->entities->media as $picture) {
-                $replace = '<a href="' . $picture->url . '" title="' . $picture->expanded_url . '">' . htmlentities($picture->display_url) . '</a>';
+                $replace = '<a href="' . $picture->url . '" title="' . $picture->expanded_url . '">' . htmlentities($picture->display_url,  ENT_COMPAT | ENT_HTML401, 'UTF-8') . '</a>';
                 $map[$picture->indices[0]] = array($picture->indices[1], $replace);
                 $previews[] = ' <a href="#" onclick="return Horde[\'twitter' . $instance . '\'].showPreview(\'' . $picture->media_url . ':small\');"><img src="' . Horde_Themes::img('mime/image.png') . '" /></a>';
             }
         }
         if (!empty($tweet->entities->user_mentions)) {
             foreach ($tweet->entities->user_mentions as $user) {
-                $replace = ' <a target="_blank" title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name) . '</a>';
+                $replace = ' <a target="_blank" title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name,  ENT_COMPAT | ENT_HTML401, 'UTF-8') . '</a>';
                 $map[$user->indices[0]] = array($user->indices[1], $replace);
             }
         }
         if (!empty($tweet->entities->hashtags)) {
             foreach ($tweet->entities->hashtags as $hashtag) {
-                $replace = ' <a target="_blank" href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text) . '</a>';
+                $replace = ' <a target="_blank" href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text, ENT_COMPAT | ENT_HTML401, 'UTF-8') . '</a>';
                 $map[$hashtag->indices[0]] = array($hashtag->indices[1], $replace);
             }
         }
         $body = '';
         $pos = 0;
-        while ($pos <= strlen($tweet->text) -1) {
+        while ($pos <= Horde_String::length($tweet->text) - 1) {
             if (!empty($map[$pos])) {
                 $entity = $map[$pos];
                 $body .= $entity[1];
                 $pos = $entity[0];
             } else {
-                $body .= substr($tweet->text, $pos, 1);
+                $body .= Horde_String::substr($tweet->text, $pos, 1);
                 ++$pos;
             }
         }
