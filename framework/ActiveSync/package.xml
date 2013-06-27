@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix regression that caused MEETINGRESPONSE requests to fail (Bug #12403).
 * [mjr] Fix ITEMOPERATIONS requests under 14.1.
  </notes>
  <contents>
@@ -1520,6 +1521,7 @@
    <date>2013-06-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix regression that caused MEETINGRESPONSE requests to fail (Bug #12403).
 * [mjr] Fix ITEMOPERATIONS requests under 14.1.
    </notes>
   </release>
