@@ -169,7 +169,7 @@ abstract class Horde_Core_TagBrowser
      */
     public function getRelatedTags()
     {
-        $tags = $this->_tagger->browseTags($this->getTags(), $this->_owner);
+        $tags = $this->_tagger->browseTags($this->getTags(), null);
         $class = get_class($this);
         $search = new $class($this->_tagger, null, $this->_owner);
         $results = array();
