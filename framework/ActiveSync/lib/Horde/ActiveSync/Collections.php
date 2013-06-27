@@ -810,12 +810,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             if (!empty($counters[$id][$collection['synckey']]) &&
                 $counters[$id][$collection['synckey']] > Horde_ActiveSync::MAXIMUM_SYNCKEY_COUNT) {
 
-                $this->_logger->err('Reached MAXIMUM_SYNCKEY_COUNT possible sync loop. Clearing state.');
-                $this->_as->state->loadState(
-                    array(),
-                    null,
-                    Horde_ActiveSync::REQUEST_TYPE_SYNC,
-                    $collection['id']);
+                $this->_logger->err(sprintf(
+                    '[%s] Reached MAXIMUM_SYNCKEY_COUNT for synckey %s, collection %s, possible sync loop, so sending SERVER_ERROR.',
+                    $this->_procid,
+                    $collection['synckey'],
+                    $id));
                 return false;
             } elseif (empty($counters[$collection['id']][$collection['synckey']])) {
                 // First time for this synckey. Remove others.
