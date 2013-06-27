@@ -61,7 +61,9 @@ class Horde_Variables implements ArrayAccess, Countable, IteratorAggregate
      * Constructor.
      *
      * @param array $vars       The list of form variables (if null, defaults
-     *                          to PHP's $_REQUEST value).
+     *                          to PHP's $_REQUEST value). If '_formvars'
+     *                          exists, it must be a JSON encoded array that
+     *                          contains the list of allowed form variables.
      * @param string $sanitize  Sanitize the input variables?
      */
     public function __construct($vars = array(), $sanitize = false)
@@ -72,7 +74,7 @@ class Horde_Variables implements ArrayAccess, Countable, IteratorAggregate
         }
 
         if (isset($vars['_formvars'])) {
-            $this->_expected = @unserialize($vars['_formvars']);
+            $this->_expected = @json_decode($vars['_formvars'], true);
             unset($vars['_formvars']);
         }
 
