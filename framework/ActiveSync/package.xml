@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Fix ITEMOPERATIONS requests under 14.1.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1520,7 +1520,7 @@
    <date>2013-06-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix ITEMOPERATIONS requests under 14.1.
    </notes>
   </release>
  </changelog>
