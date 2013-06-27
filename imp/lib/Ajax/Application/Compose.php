@@ -118,7 +118,7 @@ class IMP_Ajax_Application_Compose
 
     /**
      */
-    public function getBaseResponse($result)
+    public function getBaseResponse($result = array())
     {
         $ob = new stdClass;
         $ob->body = '';
