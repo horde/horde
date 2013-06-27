@@ -77,7 +77,9 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
             }
 
             if ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_FOLDERID)) {
-                $req['folderid'] = $this->_decoder->getElementContent();
+                $req['folderid'] = $this->_activeSync->getCollectionsObject()
+                    ->getBackendIdForFolderUid(
+                        $this->_decoder->getElementContent());
                 if (!$this->_decoder->getElementEndTag()) {
                     throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
