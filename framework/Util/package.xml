@@ -24,9 +24,9 @@
   <active>yes</active>
  </developer>
  <date>2013-06-27</date>
- <time>09:26:05</time>
+ <time>09:32:26</time>
  <version>
-  <release>2.3.0</release>
+  <release>2.3.1</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] SECURITY: &apos;_formvars&apos; form input must now be JSON encoded, not PHP serialized.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -631,6 +631,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] SECURITY: &apos;_formvars&apos; form input must now be JSON encoded, not PHP serialized.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
