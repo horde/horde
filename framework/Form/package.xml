@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-05-28</date>
- <time>13:38:25</time>
+ <date>2013-06-27</date>
+ <time>09:59:55</time>
  <version>
   <release>2.0.5</release>
   <api>1.1.0</api>
@@ -846,7 +846,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-28</date>
+   <date>2013-06-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Use changed behavior of &apos;_formvars&apos; in Horde_Variables.
