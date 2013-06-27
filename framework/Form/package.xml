@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-06-27</date>
- <time>09:59:55</time>
+ <time>10:05:42</time>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.6</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Use changed behavior of &apos;_formvars&apos; in Horde_Variables.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -850,6 +850,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Use changed behavior of &apos;_formvars&apos; in Horde_Variables.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
