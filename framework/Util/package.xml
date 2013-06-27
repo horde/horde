@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-05-06</date>
- <time>19:34:35</time>
+ <date>2013-06-27</date>
+ <time>09:26:05</time>
  <version>
   <release>2.3.0</release>
   <api>2.3.0</api>
@@ -627,7 +627,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-05-06</date>
+   <date>2013-06-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] SECURITY: &apos;_formvars&apos; form input must now be JSON encoded, not PHP serialized.
