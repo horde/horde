@@ -2,6 +2,7 @@
 v4.1.1-git
 ----------
 
+[mjr] Fix tag browsing of shared tasklists (Bug #12405).
 [mjr] Fix importing vTODO containing RELATED-TO fields (Bug #12355).
 [mjr] Add API methods for using history modification sequences.
 

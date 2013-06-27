@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix bug in TagBrowser causing shared resources to be ignored (Bug #12405).
 * [jan] Fix returning the default from address from a different user without identities.
 * [jan] Fix inactive email fields with multiple addresses if disabling linking (Bug #12051).
 * [mms] Use built-in ISO 639 mapping in LanguageDetect factory if the underlying library supports it.
@@ -3014,6 +3015,7 @@
    <date>2013-06-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix bug in TagBrowser causing shared resources to be ignored (Bug #12405).
 * [jan] Fix returning the default from address from a different user without identities.
 * [jan] Fix inactive email fields with multiple addresses if disabling linking (Bug #12051).
 * [mms] Use built-in ISO 639 mapping in LanguageDetect factory if the underlying library supports it.
