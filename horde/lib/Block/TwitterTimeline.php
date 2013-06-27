@@ -140,9 +140,6 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
 EOT;
         $page_output->addInlineScript($script, true);
 
-        /* Get the user's most recent tweet */
-
-
         /* Build the UI */
         $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
         $view->addHelper('Tag');
