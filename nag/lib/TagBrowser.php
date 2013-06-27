@@ -82,7 +82,7 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
     }
 
     /**
-     * Override the default tag search in orde to filter by the 'completed'
+     * Override the default tag search in order to filter by the 'completed'
      * filter.
      *
      * @return array  An array of task UIDs.
