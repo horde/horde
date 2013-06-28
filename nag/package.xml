@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Persist the tasklist and parent when creating a new task and using "Save and New" (Bug: 12400).
 * [mjr] Fix tag browsing of shared tasklists (Bug #12405).
 * [mjr] Fix importing vTODO containing RELATED-TO fields (Bug #12355).
 * [mjr] Add API methods for using history modification sequences.
@@ -1386,6 +1387,7 @@
    <date>2013-06-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Persist the tasklist and parent when creating a new task and using "Save and New" (Bug: 12400).
 * [mjr] Fix tag browsing of shared tasklists (Bug #12405).
 * [mjr] Fix importing vTODO containing RELATED-TO fields (Bug #12355).
 * [mjr] Add API methods for using history modification sequences.
