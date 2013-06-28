@@ -51,7 +51,9 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
             $tags .= ' -' . $field;
         }
         $command = '-j' . $tags . ' ' . $image;
+        $this->_logDebug('Command executed by Exiftool: ' . $command);
         $results = json_decode($this->_execute($command));
+        $this->_logDebug('Results of Exiftool command: ' . $results);
         if (is_array($results)) {
             return $this->_processData((array)array_pop($results));
         }
