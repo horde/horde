@@ -87,12 +87,14 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             }
         }
 
-        /* Check our results. */
         $notification->push(sprintf(_("Saved %s."), $info['name']), 'horde.success');
 
         /* Return to the last page or to the task list. */
         if ($vars->savenewbutton) {
-            $url = Horde::url('task.php', true)->add('actionID', 'add_task');
+            $url = Horde::url('task.php', true)->add(array(
+                'actionID' => 'add_task',
+                'tasklist_id' => $info['tasklist_id'],
+                'parent' => $info['parent']));
         } else {
             $url = Horde_Util::getFormData('url', Horde::url('list.php', true));
         }
