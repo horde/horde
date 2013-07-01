@@ -17,9 +17,9 @@ class Horde_Core_Factory_History extends Horde_Core_Factory_Injector
             $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'history')
         );
 
-        if (is_callable(array($history, 'setHashTable')) &&
-            ($hashtable = $injector->getInstance('Horde_HashTable'))) {
-            $history->setHashTable($hashtable);
+        if (is_callable(array($history, 'setCache')) &&
+            ($cache = $injector->getInstance('Horde_Cache'))) {
+            $history->setCache($cache);
         }
 
         return $history;
