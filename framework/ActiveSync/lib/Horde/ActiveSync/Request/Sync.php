@@ -825,7 +825,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SERVERENTRYID)) {
 
                 $serverid = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
+                // Work around broken clients (Blackberry) that can send empty
+                // $serverid values as a single empty <SYNC_SERVERENTYID /> tag.
+                if ($serverid !== false && !$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleGlobalSyncError();
                     $this->_logger->err('Parsing Error - expecting </SYNC_SERVERENTRYID>');
@@ -921,7 +923,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     break;
 
                 case Horde_ActiveSync::SYNC_REMOVE:
-                    $collection['removes'][] = $serverid;
+                    // Work around broken clients that send empty $serverid.
+                    if ($serverid) {
+                        $collection['removes'][] = $serverid;
+                    }
                     break;
 
                 case Horde_ActiveSync::SYNC_FETCH:
