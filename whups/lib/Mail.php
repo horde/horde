@@ -50,12 +50,18 @@ class Whups_Mail
             return true;
         }
 
-        // Try to avoid bounces.
+        // Try to avoid bounces, auto-replies, and mailing list responses.
         $from = $headers->getValue('from');
         if (strpos($headers->getValue('Content-Type'), 'multipart/report') !== false ||
             stripos($from, 'mailer-daemon@') !== false ||
             stripos($from, 'postmaster@') !== false ||
-            !is_null($headers->getValue('X-Failed-Recipients'))) {
+            !is_null($headers->getValue('X-Failed-Recipients')) ||
+            !is_null($headers->getValue('X-Autoreply-Domain')) ||
+            $headers->getValue('Auto-Submitted') == 'auto-replied' ||
+            $headers->getValue('Precedence') == 'auto_reply' ||
+            $headers->getValue('X-Precedence') == 'auto_reply' ||
+            $headers->getValue('X-Auto-Response-Suppress') == 'All' ||
+            $headers->getValue('X-List-Administrivia') == 'Yes') {
             return true;
         }
 
