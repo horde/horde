@@ -59,7 +59,8 @@ class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_Sen
         if (empty($get['CollectionId'])) {
             $parent = false;
         } else {
-            $parent = $get['CollectionId'];
+            $parent = $this->_activeSync->getCollectionsObject()
+                ->getBackendIdForFolderUid($get['CollectionId']);
         }
 
         try {
