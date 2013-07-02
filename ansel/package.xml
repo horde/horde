@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix performing image actions in Lightbox galleries.
+* [mjr] Fix display of missing widgets.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1279,7 +1280,8 @@
    <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix performing image actions in Lightbox galleries.
+* [mjr] Fix display of missing widgets.
    </notes>
   </release>
  </changelog>
