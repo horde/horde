@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-24</date>
- <time>01:08:42</time>
+ <date>2013-07-01</date>
+ <time>20:22:02</time>
  <version>
   <release>2.5.3</release>
   <api>2.5.0</api>
@@ -22,6 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix SmartReply/SmartForward commands when the client does not send Wbxml.
+* [mjr] Fix some fringe cases where client initiated message deletion may fail.
+* [mjr] Work around some broken behavior in Blackberry clients (Bug #12370).
 * [mjr] Fix regression that caused MEETINGRESPONSE requests to fail (Bug #12403).
 * [mjr] Fix ITEMOPERATIONS requests under 14.1.
  </notes>
@@ -1518,9 +1521,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-24</date>
+   <date>2013-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix SmartReply/SmartForward commands when the client does not send Wbxml.
+* [mjr] Fix some fringe cases where client initiated message deletion may fail.
+* [mjr] Work around some broken behavior in Blackberry clients (Bug #12370).
 * [mjr] Fix regression that caused MEETINGRESPONSE requests to fail (Bug #12403).
 * [mjr] Fix ITEMOPERATIONS requests under 14.1.
    </notes>
