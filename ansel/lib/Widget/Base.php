@@ -53,6 +53,14 @@ abstract class Ansel_Widget_Base
     protected $_autoRender = true;
 
     /**
+     * List of views this widget supports. Assume we support both. Concrete
+     * classes should override this if this is not the case.
+     *
+     * @var array
+     */
+    protected $_supported_views = array('Image', 'Gallery');
+
+    /**
      * Constructor
      *   render
      *   style
@@ -77,6 +85,10 @@ abstract class Ansel_Widget_Base
      */
     public function attach(Ansel_View_Base $view)
     {
+        if (!in_array($view->viewType(), $this->_supported_views)) {
+            return false;
+        }
+
         $this->_view = $view;
         if (!empty($this->_params['style'])) {
             $this->_style = $this->_params['style'];

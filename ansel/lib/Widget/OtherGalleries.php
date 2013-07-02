@@ -25,13 +25,18 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
      */
     public function attach(Ansel_View_Base $view)
     {
-        parent::attach($view);
-        $owner = $this->_view->gallery->getIdentity();
-        $name = $owner->getValue('fullname');
-        if (!$name) {
-            $name = $this->_view->gallery->get('owner');
+        if (parent::attach($view)) {
+            $owner = $this->_view->gallery->getIdentity();
+            $name = $owner->getValue('fullname');
+            if (!$name) {
+                $name = $this->_view->gallery->get('owner');
+            }
+            $this->_title = sprintf(_("%s's Galleries"), $name);
+        } else {
+            return false;
         }
-        $this->_title = sprintf(_("%s's Galleries"), $name);
+
+        return true;
     }
 
     /**
