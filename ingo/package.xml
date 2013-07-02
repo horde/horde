@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix setting excluded addresses and mailing list flag in Sieve vacation rule.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1302,7 +1302,7 @@
    <date>2013-06-12</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix setting excluded addresses and mailing list flag in Sieve vacation rule.
    </notes>
   </release>
  </changelog>
