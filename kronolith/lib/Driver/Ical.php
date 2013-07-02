@@ -623,7 +623,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         try {
             $this->_davSupport = $client->options();
         } catch (Horde_Dav_Exception $e) {
-            Horde::logMessage($e, 'INFO');
+            if ($e->getCode() != 405) {
+                Horde::logMessage($e, 'INFO');
+            }
             return false;
         }
 
