@@ -2,6 +2,7 @@
 v4.1.1-git
 ----------
 
+[jan] Fix task description tooltip (Bug #12421).
 [mjr] Persist the tasklist and parent when creating a new task and using "Save
       and New" (Bug: 12400).
 [mjr] Fix tag browsing of shared tasklists (Bug #12405).
