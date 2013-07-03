@@ -73,7 +73,7 @@ class Nag_View_List
     }
 
     /**
-     * Reners the view.
+     * Renders the view.
      *
      * @param Horde_PageOutput $output  The output object.
      *
@@ -98,6 +98,7 @@ class Nag_View_List
             $tabs->addTab(_("_Future tasks"), $listurl->add('show_completed', Nag::VIEW_FUTURE), 'future');
             $tabs->addTab(_("_Completed tasks"), $listurl->add('show_completed', Nag::VIEW_COMPLETE), 'complete');
         }
+
         foreach (Nag::listTasklists() as $list) {
             if ($list->get('issmart')) {
                 $tabs->addTab(
@@ -113,7 +114,7 @@ class Nag_View_List
         $view->tasks = $this->_tasks;
         $view->tasks->reset();
         $view->tabs = $tabs->render($this->_vars->get('tab_name'));
-        $view->browser = empty($this->_smartShare) && $this->_showTagBrowser ? $this->_getRelatedTags() . $this->_getTagTrail() : '';
+        $view->browser = empty($this->_smartShare) && $this->_showTagBrowser ? /*$this->_getRelatedTags() . */$this->_getTagTrail() : '';
         $view->title = $this->_title;
         $view->sortby = $prefs->getValue('sortby');
         $view->sortdir = $prefs->getValue('sortdir');
@@ -246,7 +247,6 @@ class Nag_View_List
      */
     protected function _doSearch()
     {
-
         // Clear the tag browser in case we have an active browse set.
         $this->_browser->clearSearch();
 
