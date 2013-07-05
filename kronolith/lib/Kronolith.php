@@ -896,7 +896,7 @@ class Kronolith
                     $calendar['a'] == 'tasks') {
                     continue;
                 }
-                $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d'], 'id' => $calendar['n'], 'type' => $calendar['t'], 'background_color' => $calendar['b']));
+                $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d'], 'id' => $calendar['n'], 'type' => $calendar['t'], 'background' => $calendar['b']));
             }
         } else {
             $apis = array_unique($GLOBALS['registry']->listAPIs());
@@ -922,7 +922,7 @@ class Kronolith
                         'n' => $name,
                         'd' => $description['title'],
                         't' => $description['type'],
-                        'b' => $description['background_color']
+                        'b' => empty($description['background']) ? '#dddddd' : $description['background']
                     );
                 }
             }
