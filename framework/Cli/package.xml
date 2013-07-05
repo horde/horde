@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Print additional error details in fatal errors if available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -727,7 +727,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Print additional error details in fatal errors if available.
    </notes>
   </release>
  </changelog>
