@@ -63,15 +63,15 @@ class Horde_ErrorHandler
             die($e);
         }
 
-        if (!headers_sent()) {
-            header('Content-type: text/html; charset=UTF-8');
-            if (!$cli) {
-                echo <<< HTML
+        if (!$cli) {
+            if (!headers_sent()) {
+                header('Content-type: text/html; charset=UTF-8');
+            }
+            echo <<< HTML
 <html>
 <head><title>Horde :: Fatal Error</title></head>
 <body style="background:#fff; color:#000">
 HTML;
-            }
         }
 
         ob_start();
