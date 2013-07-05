@@ -24,9 +24,9 @@ owns or has access to.</description>
   <active>yes</active>
  </lead>
  <date>2013-07-05</date>
- <time>15:12:29</time>
+ <time>15:20:10</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix setting permissions while saving shares when using the sqlng driver (Bug #12413).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -965,6 +965,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix setting permissions while saving shares when using the sqlng driver (Bug #12413).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
