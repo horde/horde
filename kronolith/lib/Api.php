@@ -120,10 +120,11 @@ class Kronolith_Api extends Horde_Registry_Api
 
         } elseif (count($parts) == 1) {
             // This request is for all calendars owned by the requested user
+            $owner = $parts[0] == '-system-' ? '' : $parts[0];
             $calendars = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(
                 $GLOBALS['registry']->getAuth(),
                 array('perm' => Horde_Perms::SHOW,
-                      'attributes' => $parts[0]));
+                      'attributes' => $owner));
             $results = array();
             foreach ($calendars as $calendarId => $calendar) {
                 $retpath = 'kronolith/' . $parts[0] . '/' . $calendarId;

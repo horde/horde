@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [rla] Properly display system-owned calendars when browsing DAV (Bug #12325).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2183,7 +2183,7 @@
    <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [rla] Properly display system-owned calendars when browsing DAV (Bug #12325).
    </notes>
   </release>
  </changelog>
