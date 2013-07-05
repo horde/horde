@@ -237,7 +237,7 @@ class Horde_Memcache implements Serializable
                 default:
                     $os[$key] = $this->_getOSKeyArray($key, $part_count);
                     foreach ($os[$key] as $val2) {
-                        $missing_parts[] = $key_map[$val2] = $this->_key[$val2];
+                        $missing_parts[] = $key_map[$val2] = $this->_key($val2);
                     }
                     break;
                 }
