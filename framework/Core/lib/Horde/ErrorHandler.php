@@ -63,16 +63,19 @@ class Horde_ErrorHandler
             die($e);
         }
 
-        if (!$cli) {
-            if (!headers_sent()) {
-                header('Content-type: text/html; charset=UTF-8');
-            }
-            echo <<< HTML
+        if ($cli) {
+            $cli = new Horde_Cli();
+            $cli->fatal($error);
+        }
+
+        if (!headers_sent()) {
+            header('Content-type: text/html; charset=UTF-8');
+        }
+        echo <<< HTML
 <html>
 <head><title>Horde :: Fatal Error</title></head>
 <body style="background:#fff; color:#000">
 HTML;
-        }
 
         ob_start();
         try {
@@ -86,7 +89,7 @@ HTML;
                 echo '<h3>' . htmlspecialchars($error) . '</h3>';
             }
 
-            if ($admin || $cli) {
+            if ($admin) {
                 $trace = ($error instanceof Exception)
                     ? $error
                     : debug_backtrace();
@@ -96,10 +99,8 @@ HTML;
                 if (is_object($error)) {
                     echo '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
                     echo '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
-                    if (!$cli) {
-                        ob_flush();
-                        flush();
-                    }
+                    ob_flush();
+                    flush();
                     echo '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
                 }
             } else {
@@ -109,12 +110,8 @@ HTML;
             die($e);
         }
 
-        if ($cli) {
-            echo html_entity_decode(strip_tags(str_replace(array('<br />', '<p>', '</p>', '<h1>', '</h1>', '<h3>', '</h3>'), "\n", ob_get_flush())));
-        } else {
-            ob_end_flush();
-            echo '</body></html>';
-        }
+        ob_end_flush();
+        echo '</body></html>';
         exit(1);
     }
 
