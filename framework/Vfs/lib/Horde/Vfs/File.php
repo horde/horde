@@ -78,7 +78,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     public function size($path, $name)
     {
         if (($size = @filesize($this->_getNativePath($path, $name))) === false) {
-            throw new Horde_Vfs_Exception(sprintf('Unable to check file size of "%s/%s".', $path, $name));
+            $e = new Horde_Vfs_Exception(sprintf('Unable to check file size of "%s/%s".', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
 
         return $size;
@@ -96,7 +100,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     public function read($path, $name)
     {
         if (($data = @file_get_contents($this->_getNativePath($path, $name))) === false) {
-            throw new Horde_Vfs_Exception('Unable to open VFS file.');
+            $e = new Horde_Vfs_Exception(sprintf('Unable to open VFS file %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
 
         return $data;
@@ -132,7 +140,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     {
         $stream = @fopen($this->_getNativePath($path, $name), 'rb');
         if (!is_resource($stream)) {
-            throw new Horde_Vfs_Exception('Unable to open VFS file.');
+            $e = new Horde_Vfs_Exception(sprintf('Unable to open VFS file %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
         return $stream;
     }
@@ -160,7 +172,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     public function readByteRange($path, $name, &$offset, $length, &$remaining)
     {
         if ($offset < 0) {
-            throw new Horde_Vfs_Exception(sprintf('Wrong offset %d while reading a VFS file.', $offset));
+            throw new Horde_Vfs_Exception(sprintf('Wrong offset %d while reading VFS file %s/%s.', $offset, $path, $name));
         }
 
         // Calculate how many bytes MUST be read, so the remainging
@@ -176,7 +188,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
 
         $fp = @fopen($file, 'rb');
         if (!$fp) {
-            throw new Horde_Vfs_Exception('Unable to open VFS file.');
+            $e = new Horde_Vfs_Exception(sprintf('Unable to open VFS file %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
         fseek($fp, $offset);
         $data = fread($fp, $length);
@@ -206,7 +222,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
             if ($autocreate) {
                 $this->autocreatePath($path);
             } else {
-                throw new Horde_Vfs_Exception('VFS directory does not exist.');
+                throw new Horde_Vfs_Exception(sprintf('VFS directory %s does not exist.', $path));
             }
         }
 
@@ -217,7 +233,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
         // location. We leave it to the caller to clean up the
         // temporary file, so we don't use rename().
         if (!@copy($tmpFile, $this->_getNativePath($path, $name))) {
-            throw new Horde_Vfs_Exception('Unable to write VFS file (copy() failed).');
+            throw new Horde_Vfs_Exception(sprintf('Unable to write VFS file %s/%s (copy() failed).', $path, $name));
         }
     }
 
@@ -235,7 +251,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     {
         $orig = $this->_getNativePath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new Horde_Vfs_Exception('Cannot move file(s) - destination is within source.');
+            throw new Horde_Vfs_Exception(sprintf('Unable to move VFS file %s/%s - destination is within source.', $path, $name));
         }
 
         if ($autocreate) {
@@ -244,12 +260,16 @@ class Horde_Vfs_File extends Horde_Vfs_Base
 
         foreach ($this->listFolder($dest, false) as $file) {
             if ($file['name'] == $name) {
-                throw new Horde_Vfs_Exception('Unable to move VFS file.');
+                throw new Horde_Vfs_Exception(sprintf('Unable to move VFS file %s/%s - destination exists already.', $path, $name));
             }
         }
 
         if (!@rename($orig, $this->_getNativePath($dest, $name))) {
-            throw new Horde_Vfs_Exception('Unable to move VFS file.');
+            $e = new Horde_Vfs_Exception(sprintf('Unable to move VFS file %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
     }
 
@@ -281,7 +301,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
         $this->_checkQuotaWrite('file', $orig);
 
         if (!@copy($orig, $this->_getNativePath($dest, $name))) {
-            throw new Horde_Vfs_Exception('Unable to copy VFS file.');
+            $e = new Horde_Vfs_Exception(sprintf('Unable to copy VFS file %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
     }
 
@@ -311,14 +335,22 @@ class Horde_Vfs_File extends Horde_Vfs_Base
             if (@touch($this->_getNativePath($path, $name))) {
                 return;
             }
-            throw new Horde_Vfs_Exception('Unable to create empty VFS file.');
+            $e = new Horde_Vfs_Exception(sprintf('Unable to create empty VFS file %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
 
         $this->_checkQuotaWrite('string', $data);
 
         // Otherwise we go ahead and try to write out the file.
         if (!@file_put_contents($this->_getNativePath($path, $name), $data)) {
-            throw new Horde_Vfs_Exception('Unable to write VFS file data.');
+            $e = new Horde_Vfs_Exception(sprintf('Unable to write data to VFS file %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
     }
 
@@ -335,7 +367,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
         $this->_checkQuotaDelete($path, $name);
 
         if (!@unlink($this->_getNativePath($path, $name))) {
-            throw new Horde_Vfs_Exception('Unable to delete VFS file.');
+            $e = new Horde_Vfs_Exception(sprintf('Unable to delete VFS file %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
     }
 
@@ -355,12 +391,16 @@ class Horde_Vfs_File extends Horde_Vfs_Base
         } else {
             $list = $this->listFolder($path . '/' . $name);
             if (count($list)) {
-                throw new Horde_Vfs_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
+                throw new Horde_Vfs_Exception(sprintf('Unable to delete %s/%s, the directory is not empty', $path, $name));
             }
         }
 
         if (!@rmdir($this->_getNativePath($path, $name))) {
-            throw new Horde_Vfs_Exception('Unable to delete VFS directory.');
+            $e = new Horde_Vfs_Exception(sprintf('Unable to delete VFS directory %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
     }
 
@@ -375,7 +415,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     public function createFolder($path, $name)
     {
         if (!@mkdir($this->_getNativePath($path, $name))) {
-            throw new Horde_Vfs_Exception('Unable to create VFS directory.');
+            $e = new Horde_Vfs_Exception(sprintf('Unable to create VFS directory %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
     }
 
@@ -404,7 +448,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     public function changePermissions($path, $name, $permission)
     {
         if (!@chmod($this->_getNativePath($path, $name), base_convert($permission, 8, 10))) {
-            throw new Horde_Vfs_Exception(sprintf('Unable to change permission for VFS file %s/%s.', $path, $name));
+            $e = new Horde_Vfs_Exception(sprintf('Unable to change permission for VFS file %s/%s.', $path, $name));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
     }
 
@@ -424,17 +472,21 @@ class Horde_Vfs_File extends Horde_Vfs_Base
                                    $dironly = false)
     {
         $files = array();
-        $path = $this->_getNativePath(isset($path) ? $path : '');
+        $dir = $this->_getNativePath(strlen($path) ? $path : '');
 
-        if (!@is_dir($path)) {
-            throw new Horde_Vfs_Exception('Not a directory');
+        if (!@is_dir($dir)) {
+            throw new Horde_Vfs_Exception(sprintf('%s is not a VFS directory', $path));
         }
 
-        if (!@chdir($path)) {
-            throw new Horde_Vfs_Exception('Unable to access VFS directory.');
+        if (!@chdir($dir)) {
+            $e = new Horde_Vfs_Exception(sprintf('Unable to access VFS directory %s.', $path));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
 
-        $d = dir($path);
+        $d = dir($dir);
         while (($entry = $d->read()) !== false) {
             // Filter out '.' and '..' entries.
             if ($entry == '.' || $entry == '..') {
@@ -593,7 +645,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
 
         if (!@rename($this->_getNativePath($oldpath, $oldname),
                      $this->_getNativePath($newpath, $newname))) {
-            throw new Horde_Vfs_Exception(sprintf('Unable to rename VFS file %s/%s.', $oldpath, $oldname));
+            $e = new Horde_Vfs_Exception(sprintf('Unable to rename VFS file %s/%s.', $oldpath, $oldname));
+            if (isset($php_errormsg)) {
+                $e->details = $php_errormsg;
+            }
+            throw $e;
         }
     }
 
