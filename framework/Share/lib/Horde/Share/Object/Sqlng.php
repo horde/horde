@@ -185,8 +185,11 @@ class Horde_Share_Object_Sqlng extends Horde_Share_Object_Sql
      */
     public function setPermission($perm, $update = true)
     {
-        parent::setPermission($perm, $update);
+        parent::setPermission($perm, false);
         $this->_setAvailablePermissions();
+        if ($update) {
+            $this->save();
+        }
     }
 
     /**
