@@ -80,8 +80,7 @@ HTML;
 
             echo '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
 
-            if (($error instanceof PEAR_Error) ||
-                (is_object($error) && method_exists($error, 'getMessage'))) {
+            if (is_object($error) && method_exists($error, 'getMessage')) {
                 echo '<h3>' . htmlspecialchars($error->getMessage()) . '</h3>';
             } elseif (is_string($error)) {
                 echo '<h3>' . htmlspecialchars($error) . '</h3>';
