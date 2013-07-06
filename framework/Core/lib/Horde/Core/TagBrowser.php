@@ -170,15 +170,15 @@ abstract class Horde_Core_TagBrowser
      * @todo H6 - standardize the cloud array keys (total vs count etc..)
      * @return array An array  tag_id => {tag_name, total}
      */
-    public function getRelatedTags()
+    public function getRelatedTags($default_results = null)
     {
         // If we have search results already, we can use the more efficient
         // cloud methods to obtain the result counts. Otherwise, we have to
         // search for each tag to get the result count.
-        if (empty($this->_results)) {
+        if (empty($this->_results) && !isset($default_results)) {
             $results = $this->_getRelatedTagsWithNoResults();
         } else {
-            $results = $this->_getRelatedTagsWithResults();
+            $results = $this->_getRelatedTagsWithResults($default_results);
         }
 
         // Get the results sorted by available totals for this user
@@ -191,11 +191,17 @@ abstract class Horde_Core_TagBrowser
      *
      * @return array An array of tag_id => [tag_name, total].
      */
-    protected function _getRelatedTagsWithResults()
+    protected function _getRelatedTagsWithResults($default_results = null)
     {
+        // No results, and an empty default_results set is provided. We have
+        // no objects to browse, don't attempt to look for their tags.
+        if (empty($this->_results) && isset($default_results) && empty($default_results)) {
+            return array();
+        }
+
         $results = array();
         $tags = $this->_tagger->browseTags($this->getTags(), null);
-        $counts = $this->_tagger->getTagCountsByObjects($this->_results);
+        $counts = $this->_tagger->getTagCountsByObjects(isset($default_results) ? $default_results : $this->_results);
         foreach ($counts as $id => $result) {
             $tag_ids = array_keys($tags);
             // Remove the tags we already included.
@@ -209,7 +215,9 @@ abstract class Horde_Core_TagBrowser
 
     /**
      * Default implementation for getting related tags when we don't have
-     * any current search in effect.
+     * any current search in effect. This is very inefficent and should only
+     * be used as a very last resort. Better to have concrete classes provide
+     * the full result set. See _getRelatedTagsWithResults().
      *
      * @return array An array of tag_id => [tag_name, total]
      */
