@@ -170,6 +170,10 @@ abstract class Horde_Core_TagBrowser
      * can override the _getRelatedTagsWith* methods if they can perform
      * them more efficiently.
      *
+     * @param array $default_results  A default list of object ids to use to
+     *                                fetch tags from. Used when the current
+     *                                search results are empty.
+     *
      * @todo H6 - standardize the cloud array keys (total vs count etc..)
      * @return array An array  tag_id => {tag_name, total}
      */
@@ -191,6 +195,10 @@ abstract class Horde_Core_TagBrowser
 
     /**
      * Default implementation for getRelatedTags
+     *
+     * @param array $default_results  A default list of object ids to use to
+     *                                fetch tags from. Used when the current
+     *                                search results are empty.
      *
      * @return array An array of tag_id => [tag_name, total].
      */
@@ -281,7 +289,9 @@ abstract class Horde_Core_TagBrowser
     /**
      * Default implementation for runSearch.
      *
-     * @return array
+     * @return array  An array of search results. Either a one dimensional
+     *                array containing local object uids, or a multi dimensional
+     *                array of object_type => array_of_uids, ....
      */
     protected function _runSearch()
     {
