@@ -28,8 +28,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-06-05</date>
- <time>00:03:41</time>
+ <date>2013-07-06</date>
+ <time>13:29:18</time>
  <version>
   <release>4.1.1</release>
   <api>4.0.0</api>
@@ -492,6 +492,7 @@
      <file name="advanced.html.php" role="horde" />
      <file name="basic.html.php" role="horde" />
      <file name="duplicate.html.php" role="horde" />
+     <file name="footer.html.php" role="horde" />
      <file name="header.html.php" role="horde" />
      <file name="vbook.html.php" role="horde" />
     </dir> <!-- /templates/search -->
@@ -1027,6 +1028,7 @@
    <install as="turba/templates/search/advanced.html.php" name="templates/search/advanced.html.php" />
    <install as="turba/templates/search/basic.html.php" name="templates/search/basic.html.php" />
    <install as="turba/templates/search/duplicate.html.php" name="templates/search/duplicate.html.php" />
+   <install as="turba/templates/search/footer.html.php" name="templates/search/footer.html.php" />
    <install as="turba/templates/search/header.html.php" name="templates/search/header.html.php" />
    <install as="turba/templates/search/vbook.html.php" name="templates/search/vbook.html.php" />
    <install as="turba/templates/search/duplicate/contact_footer.html.php" name="templates/search/duplicate/contact_footer.html.php" />
@@ -1662,7 +1664,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-05</date>
+   <date>2013-07-06</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [mjr] Honor the &apos;browse&apos; setting when attempting empty searches.
