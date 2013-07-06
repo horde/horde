@@ -8,5 +8,4 @@
 </div>
 <?php endif; ?>
 </form>
-</div>
 <br />

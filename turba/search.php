@@ -267,6 +267,7 @@ echo $searchView->render($search_mode);
 if (!empty($vbookView)) {
     echo $vbookView->render('vbook');
 }
+echo $searchView->render('footer');
 if (isset($view) && is_object($view)) {
     require TURBA_TEMPLATES . '/browse/header.inc';
     $view->display();

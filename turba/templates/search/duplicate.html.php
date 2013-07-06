@@ -15,4 +15,3 @@
 <?php endif; ?>
 
 </form>
-</div>
