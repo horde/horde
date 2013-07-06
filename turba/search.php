@@ -61,7 +61,6 @@ foreach ($addressBooks as $key => $entry) {
 
 $criteria = $vars->criteria;
 $val = $vars->val;
-
 try {
     $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 } catch (Turba_Exception $e) {

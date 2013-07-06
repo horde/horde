@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Honor the &apos;browse&apos; setting when attempting empty searches.
 * [jan] Set generic &apos;phone&apos; attribute when importing from vCard (Bug #12329).
 * [mjr] Add API methods for using history modification sequences.
  </notes>
@@ -1664,6 +1665,7 @@
    <date>2013-06-05</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Honor the &apos;browse&apos; setting when attempting empty searches.
 * [jan] Set generic &apos;phone&apos; attribute when importing from vCard (Bug #12329).
 * [mjr] Add API methods for using history modification sequences.
    </notes>
