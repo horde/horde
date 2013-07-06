@@ -368,7 +368,12 @@ class Nag_View_List
      */
     protected function _getRelatedTags()
     {
-        $rtags = $this->_browser->getRelatedTags();
+        $this->_tasks->reset();
+        $ids = array();
+        while ($t = $this->_tasks->each()) {
+            $ids[] = $t->uid;
+        }
+        $rtags = $this->_browser->getRelatedTags($ids);
         if (count($rtags)) {
             $html = '<div class="nag-tags-related">'
                 . Horde::img('tags.png')
