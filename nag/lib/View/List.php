@@ -112,7 +112,6 @@ class Nag_View_List
         $view = $GLOBALS['injector']->createInstance('Horde_View');
         $view->addHelper(new Nag_View_Helper_List($view));
         $view->tasks = $this->_tasks;
-        $view->tasks->reset();
         $view->tabs = $tabs->render($this->_vars->get('tab_name'));
         $view->browser = empty($this->_smartShare) && $this->_showTagBrowser ? $this->_getRelatedTags() . $this->_getTagTrail() : '';
         $view->title = $this->_title;
@@ -137,6 +136,7 @@ class Nag_View_List
             );
         }
 
+        $view->tasks->reset();
         Horde::startBuffer();
         Nag::status();
         echo $view->render('list');
