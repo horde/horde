@@ -114,7 +114,7 @@ class Nag_View_List
         $view->tasks = $this->_tasks;
         $view->tasks->reset();
         $view->tabs = $tabs->render($this->_vars->get('tab_name'));
-        $view->browser = empty($this->_smartShare) && $this->_showTagBrowser ? /*$this->_getRelatedTags() . */$this->_getTagTrail() : '';
+        $view->browser = empty($this->_smartShare) && $this->_showTagBrowser ? $this->_getRelatedTags() . $this->_getTagTrail() : '';
         $view->title = $this->_title;
         $view->sortby = $prefs->getValue('sortby');
         $view->sortdir = $prefs->getValue('sortdir');
