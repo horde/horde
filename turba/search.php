@@ -73,7 +73,7 @@ try {
 if ($driver) {
     $map = $driver->getCriteria();
     $do_search = false;
-
+    $browsable = !empty($cfgSources[$source]['browse']);
     switch ($search_mode) {
     case 'advanced':
         $criteria = array();
@@ -85,13 +85,17 @@ if ($driver) {
                 }
             }
         }
-        if (count($criteria)) {
+        if (count($criteria) || $browsable) {
             $do_search = true;
         }
         break;
 
     case 'basic':
-        if (empty($val)) {
+        $t_val = trim($val);
+        if (empty($t_val)) {
+            if ($browsable) {
+                $do_search = true;
+            }
             $criteria = array();
             break;
         }
