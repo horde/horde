@@ -301,10 +301,14 @@ abstract class Horde_Core_Tagger
      * @param array $ids  An array of local object ids.
      * @param integer $type  The type identifier of of the objects.
      *
-     * @return
+     * @return array  An array of tag_ids => counts.
      */
     public function getTagCountsByObjects($ids, $type = null)
     {
+        if (empty($ids)) {
+            return array();
+        }
+
         if (!isset($type)) {
             $type = (int)$this->_type_ids[$this->_types[0]];
         }
