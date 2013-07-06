@@ -72,7 +72,8 @@ try {
 if ($driver) {
     $map = $driver->getCriteria();
     $do_search = false;
-    $browsable = !empty($cfgSources[$source]['browse']);
+    $submitted = Horde_Util::getPost('search');
+    $browsable = !empty($cfgSources[$source]['browse']) && !empty($submitted);
     switch ($search_mode) {
     case 'advanced':
         $criteria = array();
