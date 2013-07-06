@@ -201,15 +201,23 @@ abstract class Horde_Core_TagBrowser
 
         $results = array();
         $tags = $this->_tagger->browseTags($this->getTags(), null);
-        $counts = $this->_tagger->getTagCountsByObjects(isset($default_results) ? $default_results : $this->_results);
-        foreach ($counts as $id => $result) {
-            $tag_ids = array_keys($tags);
+        $result_data = empty($this->_results) ? (!empty($default_results) ? $default_results : array()) : $this->_results;
+        if (!empty($result_data) && empty($result_data[0])) {
+            // Multiple types.
+            $counts = array();
+            foreach ($result_data as $type => $data) {
+                $counts = array_merge($counts, $this->_tagger->getTagCountsByObjects($data));
+            }
+        } else {
+            $counts = $this->_tagger->getTagCountsByObjects(isset($default_results) ? $default_results : $this->_results);
+        }
+        $tag_ids = array_keys($tags);
+        foreach ($counts as $result) {
             // Remove the tags we already included.
-            if (in_array($id, $tag_ids)) {
-                $results[$id] = array('tag_name' => $result['tag_name'], 'total' => $result['count']);
+            if (in_array($result['tag_id'], $tag_ids)) {
+                $results[$result['tag_id']] = array('tag_name' => $result['tag_name'], 'total' => $result['count']);
             }
         }
-
         return $results;
     }
 
