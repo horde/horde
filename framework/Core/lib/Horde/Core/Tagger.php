@@ -371,7 +371,7 @@ abstract class Horde_Core_Tagger
         try {
             return $this->_tagger->getTagIds($tags);
         } catch (Content_Exception $e) {
-            throw new Trean_Exception($e);
+            throw new Horde_Exception($e);
         }
     }
 
