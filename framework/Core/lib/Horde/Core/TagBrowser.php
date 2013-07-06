@@ -163,16 +163,62 @@ abstract class Horde_Core_TagBrowser
     }
 
     /**
-     * Get a list of tags related to this search
+     * Get a list of tags related to this search. Concrete tagger classes
+     * can override the _getRelatedTagsWith* methods if they can perform
+     * them more efficiently.
      *
+     * @todo H6 - standardize the cloud array keys (total vs count etc..)
      * @return array An array  tag_id => {tag_name, total}
      */
     public function getRelatedTags()
     {
+        // If we have search results already, we can use the more efficient
+        // cloud methods to obtain the result counts. Otherwise, we have to
+        // search for each tag to get the result count.
+        if (empty($this->_results)) {
+            $results = $this->_getRelatedTagsWithNoResults();
+        } else {
+            $results = $this->_getRelatedTagsWithResults();
+        }
+
+        // Get the results sorted by available totals for this user
+        uasort($results, array($this, '_sortTagInfo'));
+        return $results;
+    }
+
+    /**
+     * Default implementation for getRelatedTags
+     *
+     * @return array An array of tag_id => [tag_name, total].
+     */
+    protected function _getRelatedTagsWithResults()
+    {
+        $results = array();
+        $tags = $this->_tagger->browseTags($this->getTags(), null);
+        $counts = $this->_tagger->getTagCountsByObjects($this->_results);
+        foreach ($counts as $id => $result) {
+            $tag_ids = array_keys($tags);
+            // Remove the tags we already included.
+            if (in_array($id, $tag_ids)) {
+                $results[$id] = array('tag_name' => $result['tag_name'], 'total' => $result['count']);
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * Default implementation for getting related tags when we don't have
+     * any current search in effect.
+     *
+     * @return array An array of tag_id => [tag_name, total]
+     */
+    protected function _getRelatedTagsWithNoResults()
+    {
+        $results = array();
         $tags = $this->_tagger->browseTags($this->getTags(), null);
         $class = get_class($this);
         $search = new $class($this->_tagger, null, $this->_owner);
-        $results = array();
         foreach ($tags as $id => $tag) {
             $search->addTag($tag);
             $search->runSearch();
@@ -183,8 +229,6 @@ abstract class Horde_Core_TagBrowser
             $search->removeTag($tag);
         }
 
-        // Get the results sorted by available totals for this user
-        uasort($results, array($this, '_sortTagInfo'));
         return $results;
     }
 
