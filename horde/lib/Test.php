@@ -289,9 +289,6 @@ class Horde_Test
         'Services_Weather' => array(
             'error' => 'Services_Weather is used by the METAR weather applet/block on the portal page.'
         ),
-        'Predis' => array(
-            'error' => 'The Predis library is necessary if using a Redis server. See: https://github.com/nrk/predis.'
-        )
     );
 
     /**
