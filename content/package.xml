@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Fix obtaining tag cloud information when filtering by objectIds.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -471,7 +471,7 @@
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Fix obtaining tag cloud information when filtering by objectIds.
    </notes>
   </release>
  </changelog>
