@@ -29,3 +29,4 @@
 <?php endif; ?>
 <?php endforeach; ?>
 </table>
+</div>
