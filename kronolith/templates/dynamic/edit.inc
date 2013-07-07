@@ -299,5 +299,12 @@
   <input id="kronolithEventSendUpdateNo" type="button" value="<?php echo _("No") ?>" />
 </div>
 </div>
+<div id="kronolithCancellationDiv" style="display:none">
+<p><?php echo _("Send cancellation notice to attendees?") ?></p>
+<div class="kronolithFormActions">
+  <input id="kronolithEventSendCancellationYes" type="button" value="<?php echo _("Yes") ?>" class="horde-default" />
+  <input id="kronolithEventSendCancellationNo" type="button" value="<?php echo _("No") ?>" />
+</div>
+</div>
 </form>
 </div>

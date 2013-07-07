@@ -4307,13 +4307,19 @@ KronolithCore = {
             case 'kronolithEventDelete':
                 $('kronolithEventDiv').hide();
                 $('kronolithDeleteDiv').show();
+                e.stop();
                 break;
 
             case 'kronolithEventDeleteCancel':
                 $('kronolithDeleteDiv').hide();
                 $('kronolithEventDiv').show();
+                e.stop();
                 return;
 
+            case 'kronolithEventSendCancellationYes':
+                $('kronolithEventSendUpdates').setValue(1);
+            case 'kronolithEventSendCancellationNo':
+                $('kronolithCancellationDiv').hide();
             case 'kronolithRecurDeleteAll':
             case 'kronolithRecurDeleteCurrent':
             case 'kronolithRecurDeleteFuture':
@@ -4323,6 +4329,18 @@ KronolithCore = {
                     break;
                 }
                 elt.disable();
+
+                if (id != 'kronolithEventSendCancellationNo'
+                    && id != 'kronolithEventSendCancellationYes'
+                    && $F('kronolithEventAttendees')) {
+
+                    $('kronolithEventSendUpdates').setValue(0);
+                    $('kronolithDeleteDiv').hide();
+                    $('kronolithCancellationDiv').show();
+                    e.stop();
+                    break;
+                }
+
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId');
                 var params = {
@@ -4330,7 +4348,8 @@ KronolithCore = {
                     id: eventid,
                     rstart: $F('kronolithEventRecurOStart'),
                     cstart: this.cacheStart.toISOString(),
-                    cend: this.cacheEnd.toISOString()
+                    cend: this.cacheEnd.toISOString(),
+                    sendupdates: $F('kronolithEventSendUpdates')
                 };
                 switch (id) {
                 case 'kronolithRecurDeleteAll':
