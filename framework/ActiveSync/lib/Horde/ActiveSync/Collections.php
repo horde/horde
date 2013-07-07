@@ -85,7 +85,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      *
      * @var integer
      */
-    protected $_globalWindowSize = null;
+    protected $_globalWindowSize = 100;
 
     /**
      * Imported changes flag.
