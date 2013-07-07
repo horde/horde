@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix automatically adding organizer as attendee in dynamic view.
 * [mjr] Prompt for sending cancellation iTip when deleting an event (Bug #12415).
 * [rla] Properly display system-owned calendars when browsing DAV (Bug #12325).
  </notes>
@@ -2184,6 +2185,7 @@
    <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix automatically adding organizer as attendee in dynamic view.
 * [mjr] Prompt for sending cancellation iTip when deleting an event (Bug #12415).
 * [rla] Properly display system-owned calendars when browsing DAV (Bug #12325).
    </notes>
