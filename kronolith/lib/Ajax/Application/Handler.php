@@ -439,14 +439,15 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
      *
      * Uses the following request variables:
      *<pre>
-     *   -cal:     The calendar id.
-     *   -id:      The event id.
-     *   -r:       If this is an event series, what type of deletion to perform
-     *             [future | current | all]
-     *   -rstart:  The start time of the event instance being removed, if
-     *             this is a series instance.
-     *   -cstart:  The start date of the client event cache.
-     *   -cend:    The end date of the client event cache.
+     *   - cal:          The calendar id.
+     *   - id:           The event id.
+     *   - r:            If this is an event series, what type of deletion to
+     *                   perform [future | current | all].
+     *   - rstart:       The start time of the event instance being removed, if
+     *                   this is a series instance.
+     *   - cstart:       The start date of the client event cache.
+     *   - cend:         The end date of the client event cache.
+     *   - sendupdates:  Send cancellation notice to attendees?
      * </pre>
      */
     public function deleteEvent()
