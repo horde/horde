@@ -338,10 +338,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_activeSync,
             $this->_encoder);
 
+        $cnt_global = 0;
         foreach ($this->_collections as $id => $collection) {
             $statusCode = self::STATUS_SUCCESS;
             $changecount = 0;
-            $cnt_global = 0;
+            $cnt_collection = 0;
             try {
                 $this->_collections->initCollectionState($collection);
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
@@ -546,7 +547,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
 
                         $this->_logger->info(sprintf(
-                            '[%s] Sending MOREAVAILABLE. $cnt_collection = %s, $cnt_global = %s',
+                            '[%s] Sending MOREAVAILABLE. $cnt_collection = %d, $cnt_global = %d',
                             $this->_procid, $cnt_collection, $cnt_global));
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                     }
