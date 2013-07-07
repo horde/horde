@@ -341,6 +341,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         foreach ($this->_collections as $id => $collection) {
             $statusCode = self::STATUS_SUCCESS;
             $changecount = 0;
+            $cnt_global = 0;
             try {
                 $this->_collections->initCollectionState($collection);
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
@@ -359,7 +360,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return false;
             }
 
-            // HACK!!
             // Outlook explicitly tells the server to NOT check for server
             // changes when importing client changes, unlike EVERY OTHER client
             // out there. This completely screws up many things like conflict
@@ -542,14 +542,27 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     (!empty($collection['getchanges']) ||
                      (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
 
-                    if (!empty($collection['windowsize']) && !empty($changecount) && $changecount > $collection['windowsize']) {
+                    if ((!empty($changecount) && $changecount > $collection['windowsize']) ||
+                        ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
+
+                        $this->_logger->info(sprintf(
+                            '[%s] Sending MOREAVAILABLE. $cnt_collection = %s, $cnt_global = %s',
+                            $this->_procid, $cnt_collection, $cnt_global));
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                     }
 
                     if (!empty($changecount)) {
                         $exporter->setChanges($this->_collections->getCollectionChanges(), $collection);
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
-                        while ($progress = $exporter->sendNextChange()) { }
+                        $cnt_collection = 0;
+                        while ($cnt_collection <= $collection['windowsize'] &&
+                               $cnt_global <= $this->_collections->getDefaultWindowSize() &&
+                               $progress = $exporter->sendNextChange()) {
+
+                            ++$cnt_collection;
+                            ++$cnt_global;
+                        }
+
                         $this->_encoder->endTag();
                     }
                 }
