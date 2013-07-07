@@ -270,7 +270,7 @@ class Horde_Service_Twitter_Statuses
      */
     public function mentions($params = array())
     {
-        $url = $this->_endpoint . 'mentions.' . $this->_format;
+        $url = $this->_endpoint . 'mentions_timeline.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
     }
 
