@@ -220,7 +220,7 @@ abstract class Horde_Core_TagBrowser
                 $counts = array_merge($counts, $this->_tagger->getTagCountsByObjects($data));
             }
         } else {
-            $counts = $this->_tagger->getTagCountsByObjects(isset($default_results) ? $default_results : $this->_results);
+            $counts = $this->_tagger->getTagCountsByObjects($result_data);
         }
         $tag_ids = array_keys($tags);
         foreach ($counts as $result) {
