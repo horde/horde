@@ -790,9 +790,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         // Update _collections with all data that was not sent, but we
         // have a synckey for in the sync_cache.
         foreach ($this->_tempSyncCache->getCollections() as $value) {
-            if (isset($this->_windowSize)) {
-                $value['windowsize'] = $this->_windowSize;
-            }
             $this->_logger->info(sprintf(
                 'Using SyncCache State for %s',
                 $value['serverid']
