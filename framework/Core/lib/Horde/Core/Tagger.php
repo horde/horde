@@ -303,7 +303,7 @@ abstract class Horde_Core_Tagger
      *
      * @return array  An array of tag_ids => counts.
      */
-    public function getTagCountsByObjects($ids, $type = null)
+    public function getTagCountsByObjects(array $ids, $type = null)
     {
         if (empty($ids)) {
             return array();
