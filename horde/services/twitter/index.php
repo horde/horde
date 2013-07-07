@@ -103,7 +103,7 @@ case 'retweet':
 
 case 'getPage':
     try {
-        $params = array();
+        $params = array('include_entities' => 1);
         if ($max = Horde_Util::getPost('max_id')) {
             $params['max_id'] = $max;
         } elseif ($since = Horde_Util::getPost('since_id')) {
@@ -113,7 +113,6 @@ case 'getPage':
         if (Horde_Util::getPost('mentions', null)) {
             $stream = Horde_Serialize::unserialize($twitter->statuses->mentions($params), Horde_Serialize::JSON);
         } else {
-            $params['include_entities'] = 1;
             $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
         }
     } catch (Horde_Service_Twitter_Exception $e) {
