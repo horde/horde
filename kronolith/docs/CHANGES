@@ -2,6 +2,7 @@
 v4.1.2-git
 ----------
 
+[mjr] Prompt for sending cancellation iTip when deleting an event (Bug #12415).
 [rla] Properly display system-owned calendars when browsing DAV (Bug #12325).
 
 
