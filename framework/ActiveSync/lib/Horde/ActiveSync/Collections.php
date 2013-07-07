@@ -85,7 +85,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      *
      * @var integer
      */
-    protected $_windowSize = null;
+    protected $_globalWindowSize = null;
 
     /**
      * Imported changes flag.
@@ -366,13 +366,22 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
-     * Sets the default WINDOWSIZE
+     * Sets the default WINDOWSIZE.
+     *
+     * Note that this is really a ceiling on the number of TOTAL responses
+     * that can be sent (including all collections). This method should be
+     * renamed for 3.0
      *
      * @param integer $window  The windowsize
      */
     public function setDefaultWindowSize($window)
     {
-        $this->_windowSize = $window;
+        $this->_globalWindowSize = $window;
+    }
+
+    public function getDefaultWindowSize()
+    {
+        return $this->_globalWindowSize;
     }
 
     /**
