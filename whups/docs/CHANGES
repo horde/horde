@@ -2,6 +2,7 @@
 v3.0.0-git
 ----------
 
+[jan] Fix downloading of attachments.
 [jan] Add more tests to filter out bounces and auto-replies in the mail parser.
 [jan] Hide topbar and sidebar when displaying attachments.
 [jan] Fix displaying of multiple owners (Bug #12051).

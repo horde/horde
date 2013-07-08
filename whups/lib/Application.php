@@ -167,15 +167,15 @@ class Whups_Application extends Horde_Registry_Application
         switch ($vars->actionID) {
         case 'download_file':
             // Get the ticket details first.
-            if (empty($vars->id)) {
+            if (empty($vars->ticket)) {
                 exit;
             }
 
-            $details = $whups_driver->getTicketDetails($vars->id);
+            $details = $whups_driver->getTicketDetails($vars->ticket);
 
             // Check permissions on this ticket.
-            if (!count(Whups::permissionsFilter($whups_driver->getHistory($vars->id), 'comment', Horde_Perms::READ))) {
-                throw new Whups_Exception(sprintf(_("You are not allowed to view ticket %d."), $vars->id));
+            if (!count(Whups::permissionsFilter($whups_driver->getHistory($vars->ticket), 'comment', Horde_Perms::READ))) {
+                throw new Whups_Exception(sprintf(_("You are not allowed to view ticket %d."), $vars->ticket));
             }
 
             try {
@@ -186,7 +186,7 @@ class Whups_Application extends Horde_Registry_Application
 
             try {
                 return array(
-                    'data' => $vfs->read(Whups::VFS_ATTACH_PATH . '/' . $vars->id, $vars->file),
+                    'data' => $vfs->read(Whups::VFS_ATTACH_PATH . '/' . $vars->ticket, $vars->file),
                     'name' => $vars->file
                 );
             } catch (Horde_Vfs_Exception $e) {
