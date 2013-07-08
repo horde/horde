@@ -41,7 +41,9 @@ class Trean_Bookmarks
     public function newBookmark(array $properties)
     {
         $properties['user_id'] = $this->_userId;
-        $properties['bookmark_dt'] = new Horde_Date(time());
+        if (empty($properties['bookmark_dt'])) {
+            $properties['bookmark_dt'] = new Horde_Date(time());
+        }
         $bookmark = new Trean_Bookmark($properties);
         $bookmark->save();
         return $bookmark;
