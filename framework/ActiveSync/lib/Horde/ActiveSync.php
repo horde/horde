@@ -1087,9 +1087,13 @@ class Horde_ActiveSync
     }
 
     /**
+     * Return the number of bytes corresponding to the requested trunction
+     * constant.
      *
-     * @param $truncation
-     * @return unknown_type
+     * @param integer $truncation  The constant.
+     *
+     * @return integer|boolean  Either the size, in bytes, to truncate or
+     *                          falso if no truncation.
      */
     static public function getTruncSize($truncation)
     {
@@ -1112,7 +1116,7 @@ class Horde_ActiveSync
             return 102400;
         case Horde_ActiveSync::TRUNCATION_8:
         case Horde_ActiveSync::TRUNCATION_NONE:
-            return 1048576; // We'll limit to 1MB anyway
+            return false;
         default:
             return 1024; // Default to 1Kb
         }
