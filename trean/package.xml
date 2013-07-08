@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-12</date>
- <time>13:32:58</time>
+ <date>2013-07-07</date>
+ <time>20:38:44</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -64,10 +64,14 @@
     <file name="lighttpd-trean.conf" role="doc" />
     <file name="RELEASE_NOTES" role="doc" />
    </dir> <!-- /docs -->
+   <dir name="js">
+    <file name="toptags.js" role="horde" />
+   </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Imple">
       <file name="TagAutoCompleter.php" role="horde" />
+      <file name="TopTags.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -430,6 +434,7 @@
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="lighttpd-trean.conf" name="docs/lighttpd-trean.conf" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="trean/js/toptags.js" name="js/toptags.js" />
    <install as="trean/lib/Api.php" name="lib/Api.php" />
    <install as="trean/lib/Application.php" name="lib/Application.php" />
    <install as="trean/lib/Bookmark.php" name="lib/Bookmark.php" />
@@ -441,6 +446,7 @@
    <install as="trean/lib/Url.php" name="lib/Url.php" />
    <install as="trean/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="trean/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
+   <install as="trean/lib/Ajax/Imple/TopTags.php" name="lib/Ajax/Imple/TopTags.php" />
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
    <install as="trean/lib/Queue/Task/Crawl.php" name="lib/Queue/Task/Crawl.php" />
@@ -601,10 +607,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-12</date>
+   <date>2013-07-07</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
