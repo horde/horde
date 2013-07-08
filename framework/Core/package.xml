@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Prevent endless loop when checkExistingAuth() test fails when initializing an application.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3030,7 +3030,7 @@
    <date>2013-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Prevent endless loop when checkExistingAuth() test fails when initializing an application.
    </notes>
   </release>
  </changelog>
