@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-07-08</date>
- <time>11:26:00</time>
+ <time>11:38:18</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -80,6 +80,9 @@
      <file name="Bookmarks.php" role="horde" />
      <file name="Mostclicked.php" role="horde" />
     </dir> <!-- /lib/Block -->
+    <dir name="Data">
+     <file name="Json.php" role="horde" />
+    </dir> <!-- /lib/Data -->
     <dir name="Queue">
      <dir name="Task">
       <file name="Crawl.php" role="horde" />
@@ -201,6 +204,9 @@
      <file name="2line.inc" role="horde" />
      <file name="standard.inc" role="horde" />
     </dir> <!-- /templates/block -->
+    <dir name="data">
+     <file name="import.inc" role="horde" />
+    </dir> <!-- /templates/data -->
     <file name="add.html.php" role="horde" />
     <file name="bookmarklet.html.php" role="horde" />
     <file name="edit.html.php" role="horde" />
@@ -232,7 +238,6 @@
     </dir> <!-- /themes -->
    <file name="add.php" role="horde" />
    <file name="browse.php" role="horde" />
-   <file name="data.php" role="horde" />
    <file name="edit.php" role="horde" />
    <file name="favicon.php" role="horde" />
    <file name="index.php" role="horde" />
@@ -412,7 +417,6 @@
   <filelist>
    <install as="trean/add.php" name="add.php" />
    <install as="trean/browse.php" name="browse.php" />
-   <install as="trean/data.php" name="data.php" />
    <install as="trean/edit.php" name="edit.php" />
    <install as="trean/favicon.php" name="favicon.php" />
    <install as="trean/index.php" name="index.php" />
@@ -452,6 +456,7 @@
    <install as="trean/lib/Ajax/Imple/TopTags.php" name="lib/Ajax/Imple/TopTags.php" />
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
+   <install as="trean/lib/Data/Json.php" name="lib/Data/Json.php" />
    <install as="trean/lib/Queue/Task/Crawl.php" name="lib/Queue/Task/Crawl.php" />
    <install as="trean/lib/Queue/Task/Favicon.php" name="lib/Queue/Task/Favicon.php" />
    <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
@@ -500,6 +505,7 @@
    <install as="trean/templates/block/1line.inc" name="templates/block/1line.inc" />
    <install as="trean/templates/block/2line.inc" name="templates/block/2line.inc" />
    <install as="trean/templates/block/standard.inc" name="templates/block/standard.inc" />
+   <install as="trean/templates/data/import.inc" name="templates/data/import.inc" />
    <install as="trean/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="trean/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="trean/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
