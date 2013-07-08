@@ -19,9 +19,9 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
+ <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* 
+* [mms] Change license from PHP -&gt; MIT.
  </notes>
  <contents>
   <dir name="/">
@@ -118,9 +118,9 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-05-06</date>
-   <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
+   <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
-* 
+* [mms] Change license from PHP -&gt; MIT.
    </notes>
   </release>
  </changelog>
