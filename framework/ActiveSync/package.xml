@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-08</date>
- <time>15:49:10</time>
+ <time>15:58:59</time>
  <version>
-  <release>2.5.4</release>
+  <release>2.5.5</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix bug that causes incorrect MIME truncation when the client requests no MIME truncation (Bug #12437).
-* [mjr] Fix returning proper values for the Horde_ActiveSync_Message_SendMail::replacemime property. The could cause replying to email with some EAS 14+ clients to fail.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1540,6 +1539,19 @@
    <notes>
 * [mjr] Fix bug that causes incorrect MIME truncation when the client requests no MIME truncation (Bug #12437).
 * [mjr] Fix returning proper values for the Horde_ActiveSync_Message_SendMail::replacemime property. The could cause replying to email with some EAS 14+ clients to fail.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.5</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
