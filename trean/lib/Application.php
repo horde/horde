@@ -82,7 +82,6 @@ class Trean_Application extends Horde_Registry_Application
     public function menu($menu)
     {
         $menu->add(Horde::url('browse.php'), _("_Browse"), 'trean-browse', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::url('data.php'), _("_Import"), 'horde-data');
     }
 
     /**
