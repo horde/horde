@@ -20,6 +20,6 @@
 </div>
 
 <div class="horde-form-buttons">
-  <input type="submit" value="<?php echo _("Next") ?>" class="horde-default" />
+  <input type="submit" value="<?php echo _("Import") ?>" class="horde-default" />
 </div>
 </form>
