@@ -12,6 +12,7 @@
  */
 abstract class Kronolith_Calendar
 {
+
     /**
      * Constructor.
      *
@@ -59,7 +60,7 @@ abstract class Kronolith_Calendar
      */
     public function background()
     {
-        return '#dddddd';
+        return $this->_background;
     }
 
     /**
