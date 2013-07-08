@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-*
+* [mjr] Add support for importing bookmarks from Mozilla&apos;s JSON format.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -620,7 +620,7 @@
    <date>2013-07-08</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-*
+* [mjr] Add support for importing bookmarks from Mozilla&apos;s JSON format.
    </notes>
   </release>
  </changelog>

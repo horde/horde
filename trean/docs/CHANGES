@@ -2,6 +2,7 @@
 v1.0.3-git
 ----------
 
+[mjr] Add support for importing bookmarks from Mozilla's JSON format.
 
 
 ------
