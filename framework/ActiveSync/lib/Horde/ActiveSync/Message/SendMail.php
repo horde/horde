@@ -87,8 +87,11 @@ class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
     {
         // The saveinsent is an empty tag, and is considered true if it is
         // present.
-        if ($property == 'saveinsent') {
-            return $this->_properties['saveinsent'] !== false;
+        // Deal with the empty tags that are considered true if they are present
+        switch ($property) {
+        case 'saveinsent':
+        case 'replacemime':
+            return $this->_properties[$property] !== false;
         }
 
         return parent::__get($property);

@@ -1327,7 +1327,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $save = $message->saveinsent;
 
             // Do we want to just replace the mime part?
-            $replacemime = $message->replacemime !== false;
+            $replacemime = $message->replacemime;
         } else {
             $raw_message = new Horde_ActiveSync_Rfc822($rfc822);
             $replacemime = false;
