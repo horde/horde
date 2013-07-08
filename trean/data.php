@@ -73,7 +73,7 @@ if (is_array($next_step)) {
 
     foreach ($next_step as $row) {
         try {
-            $trean_gateway->newBookmark($row);
+            $trean_gateway->newBookmark($row, false);
         } catch (Exception $e) {
             $msg = _("Can't create a new bookmark.")
                 . ' ' . sprintf(_("This is what the server said: %s"), $e->getMessage());
