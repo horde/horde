@@ -23,7 +23,11 @@
   <active>yes</active>
  </lead>
  <date>2013-07-08</date>
+<<<<<<< HEAD
  <time>11:38:18</time>
+=======
+ <time>00:17:36</time>
+>>>>>>> 2837a09... First stab at importing bookmarks.
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -238,6 +242,7 @@
     </dir> <!-- /themes -->
    <file name="add.php" role="horde" />
    <file name="browse.php" role="horde" />
+   <file name="data.php" role="horde" />
    <file name="edit.php" role="horde" />
    <file name="favicon.php" role="horde" />
    <file name="index.php" role="horde" />
@@ -417,6 +422,7 @@
   <filelist>
    <install as="trean/add.php" name="add.php" />
    <install as="trean/browse.php" name="browse.php" />
+   <install as="trean/data.php" name="data.php" />
    <install as="trean/edit.php" name="edit.php" />
    <install as="trean/favicon.php" name="favicon.php" />
    <install as="trean/index.php" name="index.php" />
