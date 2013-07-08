@@ -571,6 +571,14 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
+    public function cleanupData()
+    {
+        $GLOBALS['import_step'] = 1;
+        return Horde_Data::IMPORT_FILE;
+    }
+
+    /**
+     */
     public function getOutlookMapping()
     {
         return array(
