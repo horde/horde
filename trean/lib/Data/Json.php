@@ -39,8 +39,13 @@ class Trean_Data_Json extends Horde_Data_Base
                 $desc = '';
                 if (!empty($child->annos)) {
                     foreach ($child->annos as $property) {
-                        if ($property->name == 'bookmarkProperties/description') {
+                        switch ($property->name) {
+                        case 'Places/SmartBookmark':
+                            // Ignore "SmartBookmarks"
+                            continue 3;
+                        case 'bookmarkProperties/description':
                             $desc = $property->value;
+                            break 2;
                         }
                     }
                 }
