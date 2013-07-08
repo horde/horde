@@ -67,6 +67,11 @@ $injector->getInstance('Horde_Core_Factory_Imple')
         'id' => 'treanBookmarkTags',
         'pretty' => true,
         'boxClass' => 'treanACBox'));
+
+$injector->getInstance('Horde_Core_Factory_Imple')
+    ->create('Trean_Ajax_Imple_TopTags', array(
+        'id' => 'loadTags'));
+
 $page_output->addInlineScript('HordeImple.AutoCompleter.treanBookmarkTags.init()', true);
 
 $page_output->header(array(

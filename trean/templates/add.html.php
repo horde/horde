@@ -33,15 +33,18 @@
   </td>
 </tr>
 
-<tr>
+ <tr>
   <td class="rightAlign">
   <span id="treanBookmarkTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   </td>
   <td>
-  <label for="treanBookmarkTopTags"><?php echo _("Previously used tags") ?>:</label><br />
-  <div class="treanTopTags" id="treanBookmarkTopTags"></div>
+  <a id="loadTags"><?php echo _("See previously used tags")?></a>
+  <div id="treanTopTagsWrapper" style="display:none;">
+    <label for="treanBookmarkTopTags"><strong><?php echo _("Previously used tags") ?></strong>:</label><br />
+    <div class="treanTopTags" id="treanBookmarkTopTags"></div>
+  </div>
   </td>
-</tr>
+ </tr>
 </table>
 </div>
 
