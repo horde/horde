@@ -23,7 +23,8 @@ $templates = array(
 /* Initial values. */
 $actionID      = Horde_Util::getFormData('actionID');
 $next_step     = Horde_Data::IMPORT_FILE;
-$param = array();
+$import_step   = Horde_Data::IMPORT_FILE;
+$param = array('file_types' => $file_types);
 
 $import_format = Horde_Util::getFormData('import_format', '');
 $storage = $injector->getInstance('Horde_Core_Data_Storage');
@@ -36,8 +37,7 @@ if ($import_format) {
             $injector->getInstance('Horde_Core_Data_Storage'),
             array(
                 'browser' => $injector->getInstance('Horde_Browser'),
-                'cleanup' => array($app_ob, 'cleanupData'),
-                'vars' => $vars
+                'cleanup' => array($app_ob, 'cleanupData')
             )
         );
 

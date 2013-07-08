@@ -61,7 +61,7 @@ class Trean_Data_Json extends Horde_Data_Base
                     'bookmark_title' => $child->title,
                     'bookmark_description' => $desc,
                     'bookmark_tags' => $tags,
-                    'bookmark_dt' => new Horde_Date(substr($child->dateAdded, 0, 10))
+                    'bookmark_dt' => !empty($child->dateAdded) ? new Horde_Date(substr($child->dateAdded, 0, 10)) : false
                 );
             }
         }
