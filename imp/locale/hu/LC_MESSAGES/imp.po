@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: IMP H4 (5.0.18-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-30 14:56+0200\n"
+"PO-Revision-Date: 2013-07-08 12:18+0200\n"
 "Last-Translator: Zoltán Németh <nemeth.zoltan@etit.hu>\n"
 "Language-Team: ETITEAM Kft. <info@etit.hu>\n"
 "MIME-Version: 1.0\n"
@@ -3861,7 +3861,7 @@ msgstr "Áthelyezés"
 #: templates/dimp/index.inc:273 templates/dimp/index.inc:316
 #: templates/imp/folders/actions.html:18
 msgid "Rename"
-msgstr "Ütnevezés"
+msgstr "Átnevezés"
 
 #: templates/dimp/javascript_defs.php:182
 #, php-format
