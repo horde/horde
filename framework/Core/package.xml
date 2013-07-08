@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-06-17</date>
- <time>15:35:10</time>
+ <date>2013-07-08</date>
+ <time>16:01:02</time>
  <version>
   <release>2.6.1</release>
   <api>2.6.0</api>
@@ -3014,7 +3014,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-17</date>
+   <date>2013-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix issue with replying to emails using EAS 14+ that was causing duplicated original message bodies for some clients.
