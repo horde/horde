@@ -1369,6 +1369,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if (empty($imap_message)) {
                     throw new Horde_Exception_NotFound('The forwarded/replied message was not found.');
                 }
+                $this->_logger->info(sprintf(
+                    '[%s] Client sent a SMART request along with REPLACEMIME tag.',
+                    $this->_pid));
             }
         } else {
             // Handle smartReplies and smartForward requests.
