@@ -266,13 +266,16 @@ class IMP_Ajax_Application_ShowMessage
         list($mbox, $uid) = $this->_indices->getSingle();
 
         /* Do MDN processing now. */
-        if ($imp_ui->MDNCheck($mbox, $uid, $mime_headers)) {
-            $status = new IMP_Mime_Status(array(
-                _("The sender of this message is requesting notification from you when you have read this message."),
-                sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')
-            ));
-            $status->domid('sendMdnMessage');
-            $result['msgtext'] .= strval($status);
+        switch ($registry->getView()) {
+        case $registry::VIEW_DYNAMIC:
+            if ($imp_ui->MDNCheck($mbox, $uid, $mime_headers)) {
+                $status = new IMP_Mime_Status(array(
+                    _("The sender of this message is requesting notification from you when you have read this message."),
+                    sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')
+                ));
+                $status->domid('sendMdnMessage');
+                $result['msgtext'] .= strval($status);
+            }
         }
 
         /* Build body text. This needs to be done before we build the
