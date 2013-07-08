@@ -4,7 +4,7 @@
 <input type="hidden" name="import_step" value="<?php echo (int)$import_step ?>" />
 
 <h1 class="header">
-  <?php _("Import Bookmarks") ?>
+  <?php echo _("Import Bookmarks") ?>
 </h1>
 
 <div class="horde-content">
