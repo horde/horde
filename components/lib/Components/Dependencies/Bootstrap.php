@@ -210,6 +210,16 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the composer handler for a package.
+     *
+     * @return Components_Runner_Composer The composer handler.
+     */
+    public function getRunnerComposer()
+    {
+        return $this->getInstance('Components_Runner_Composer');
+    }
+
+    /**
      * Returns the release handler for a package.
      *
      * @return Components_Runner_Release The release handler.

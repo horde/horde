@@ -115,7 +115,7 @@ class Horde_Dav_File extends Sabre\DAV\File
                 'put',
                 array(
                     $this->_path,
-                    strval(new Horde_Stream_Existing(array('stream' => $data))),
+                    stream_get_contents($data),
                     $this->getContentType() ?: 'application/octet-stream'
                 )
             );

@@ -6,6 +6,8 @@
   </div>
 <?php if ($this->logoutUrl): ?>
   <div id="horde-logout"><a class="icon" href="<?php echo $this->logoutUrl ?>"></a></div>
+<?php elseif ($this->loginUrl): ?>
+  <div id="horde-login"><a class="icon" href="<?php echo $this->loginUrl ?>"></a></div>
 <?php endif ?>
 <?php if ($this->search): ?>
   <div id="horde-search">

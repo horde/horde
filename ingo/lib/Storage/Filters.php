@@ -189,7 +189,7 @@ class Ingo_Storage_Filters
      * @param boolean $default  If true merge the rule hash with default rule
      *                          values.
      */
-    public function addRule($rule, $default = true)
+    public function addRule(array $rule, $default = true)
     {
         if ($default) {
             $this->_filters[] = array_merge($this->getDefaultRule(), $rule);

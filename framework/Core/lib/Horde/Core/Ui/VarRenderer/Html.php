@@ -1021,7 +1021,7 @@ function obrowserCallback(name, oid)
             return $link;
         } else {
             $addrs = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822')->parseAddressList($email_val, array(
-                'limit' => 1
+                'limit' => $var->type->getProperty('allow_multi') ? 0 : 1
             ));
 
             $display = array();

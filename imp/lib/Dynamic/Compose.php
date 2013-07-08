@@ -204,7 +204,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         default:
             $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
 
-            $onload = $compose_ajax->getBaseResponse(array());
+            $onload = $compose_ajax->getBaseResponse();
             $onload->body = isset($clink->args['body'])
                 ? strval($clink->args['body'])
                 : '';

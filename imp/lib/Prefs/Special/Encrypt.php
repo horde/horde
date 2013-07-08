@@ -37,7 +37,7 @@ class IMP_Prefs_Special_Encrypt implements Horde_Core_Prefs_Ui_Special
         ));
         $view->addHelper('Horde_Core_View_Helper_Label');
 
-        $view->elist = IMP::encryptList();
+        $view->elist = $GLOBALS['injector']->getInstance('IMP_Compose_Ui')->encryptList();
 
         return $view->render('encrypt');
     }

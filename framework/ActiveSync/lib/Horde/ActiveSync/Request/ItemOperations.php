@@ -115,7 +115,8 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                         while (($thisoption = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT) ? Horde_ActiveSync::SYNC_MIMESUPPORT :
                                ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE :
                                ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE :
-                               -1)))) != -1) {
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT) ? Horde_ActiveSync::RM_SUPPORT :
+                               -1))))) != -1) {
 
                             switch ($thisoption) {
                             case Horde_ActiveSync::SYNC_MIMESUPPORT:

@@ -295,6 +295,31 @@ abstract class Horde_Core_Tagger
     }
 
     /**
+     * Get the number of times tags are used within a specific set of objects
+     * basically a tag cloud, restricted to objects of a specific type.
+     *
+     * @param array $ids  An array of local object ids.
+     * @param integer $type  The type identifier of of the objects.
+     *
+     * @return array  An array of tag_ids => counts.
+     */
+    public function getTagCountsByObjects(array $ids, $type = null)
+    {
+        if (empty($ids)) {
+            return array();
+        }
+
+        if (!isset($type)) {
+            $type = (int)$this->_type_ids[$this->_types[0]];
+        }
+
+        return $this->_tagger->getTagCloud(array(
+            'objectId' => $ids,
+            'typeId' => $type
+        ));
+    }
+
+    /**
      * Retrieve a set of tags that are related to the specifed set. A tag is
      * related if resources tagged with the specified set are also tagged with
      * the tag being considered. Used to "browse" tagged resources.
@@ -346,7 +371,7 @@ abstract class Horde_Core_Tagger
         try {
             return $this->_tagger->getTagIds($tags);
         } catch (Content_Exception $e) {
-            throw new Trean_Exception($e);
+            throw new Horde_Exception($e);
         }
     }
 

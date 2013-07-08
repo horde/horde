@@ -46,7 +46,7 @@
         ? htmlspecialchars($task->name)
         : _("[none]");
     if ($have_read) {
-        echo Horde::link($task->view_link, '', '', '', '', $task->desc)
+        echo Horde::linkTooltip($task->view_link, '', '', '', '', $task->desc)
             . $task_name . '</a>';
     } else {
         echo $task_name;

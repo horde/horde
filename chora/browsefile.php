@@ -30,9 +30,8 @@ try {
     Chora::fatal($e);
 }
 
-$title = $where;
+$title = _("Logs for:");
 
-$extraLink = Chora::getFileViews($where, 'browsefile');
 $logs = $fl->getLog();
 $first = end($logs);
 $diffValueLeft = $first->getRevision();
@@ -49,11 +48,8 @@ if ($VC->hasFeature('branches')) {
 }
 
 $page_output->addScriptFile('revlog.js');
-$page_output->header(array(
-    'title' => $title
-));
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
+echo Chora::getHistoryViews($where)->render('browsefile');
 require CHORA_TEMPLATES . '/log/header.inc';
 
 $view = $injector->createInstance('Horde_View');

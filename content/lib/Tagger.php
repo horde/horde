@@ -297,20 +297,29 @@ class Content_Tagger
      * would all be one. In addition, this method returns counts for each tag.
      *
      * @param array  $args  Search criteria:
-     *   limit      Maximum number of tags to return.
-     *   offset     Offset the results. Only useful for paginating, and not recommended.
-     *   userId     Only return tags that have been applied by a specific user.
-     *   typeId     Only return tags that have been applied by specific object types.
-     *   objectId   Only return tags that have been applied to a specific object.
-     *   tagIds     Only return information on specific tag (an array of tag ids)
+     *   - limit: (integer)  Maximum number of tags to return.
+     *   - offset: (integet) Offset the results. Only useful for paginating, and
+     *                       not recommended.
+     *   - userId: (string)  Only return tags that have been applied by a
+     *                       specific user.
+     *   - typeId: (array)   Only return tags that have been applied by specific
+     *                       object types.
+     *   - objectId: (array) Only return tags that have been applied to specific
+     *                       objects all objects must be of the same type and
+     *                       specified by typeId.
+     *   - tagIds: (array)   Only return information on specific tag
+     *                       (an array of tag ids).
      *
      * @return array  An array of hashes, each containing tag_id, tag_name, and count.
      */
     public function getTagCloud($args = array())
     {
         if (isset($args['objectId'])) {
-            $args['objectId'] = $this->_ensureObject($args['objectId']);
-            $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id WHERE tagged.object_id = ' . (int)$args['objectId'] . ' GROUP BY t.tag_id, t.tag_name';
+            if (empty($args['typeId'])) {
+                throw new Content_Exception('Specified objectId, but failed to specify typeId for getTagCloud call.');
+            }
+            $args['objectId'] = $this->_objectManager->ensureObjects($args['objectId'], $args['typeId']);
+            $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id WHERE tagged.object_id IN (' . implode(',', $args['objectId']) . ') GROUP BY t.tag_id, t.tag_name';
         } elseif (isset($args['userId']) && isset($args['typeId'])) {
             $args['userId'] = current($this->_userManager->ensureUsers($args['userId']));
             $args['typeId'] = $this->_typeManager->ensureTypes($args['typeId']);

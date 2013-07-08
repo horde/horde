@@ -106,6 +106,9 @@ abstract class Horde_Core_TagBrowser
     public function addTag($tag)
     {
         $tag_id = (int)current($this->_tagger->getTagIds($tag));
+        if (empty($tag_id)) {
+            return;
+        }
         if (array_search($tag_id, $this->_tags) === false) {
             $this->_tags[$tag] = $tag_id;
             $this->_dirty = true;
@@ -163,16 +166,86 @@ abstract class Horde_Core_TagBrowser
     }
 
     /**
-     * Get a list of tags related to this search
+     * Get a list of tags related to this search. Concrete tagger classes
+     * can override the _getRelatedTagsWith* methods if they can perform
+     * them more efficiently.
      *
+     * @param array $default_results  A default list of object ids to use to
+     *                                fetch tags from. Used when the current
+     *                                search results are empty.
+     *
+     * @todo H6 - standardize the cloud array keys (total vs count etc..)
      * @return array An array  tag_id => {tag_name, total}
      */
-    public function getRelatedTags()
+    public function getRelatedTags($default_results = null)
     {
-        $tags = $this->_tagger->browseTags($this->getTags(), $this->_owner);
+        // If we have search results already, we can use the more efficient
+        // cloud methods to obtain the result counts. Otherwise, we have to
+        // search for each tag to get the result count.
+        if (empty($this->_results) && !isset($default_results)) {
+            $results = $this->_getRelatedTagsWithNoResults();
+        } else {
+            $results = $this->_getRelatedTagsWithResults($default_results);
+        }
+
+        // Get the results sorted by available totals for this user
+        uasort($results, array($this, '_sortTagInfo'));
+        return $results;
+    }
+
+    /**
+     * Default implementation for getRelatedTags
+     *
+     * @param array $default_results  A default list of object ids to use to
+     *                                fetch tags from. Used when the current
+     *                                search results are empty.
+     *
+     * @return array An array of tag_id => [tag_name, total].
+     */
+    protected function _getRelatedTagsWithResults($default_results = null)
+    {
+        // No results, and an empty default_results set is provided. We have
+        // no objects to browse, don't attempt to look for their tags.
+        if (empty($this->_results) && isset($default_results) && empty($default_results)) {
+            return array();
+        }
+
+        $results = array();
+        $tags = $this->_tagger->browseTags($this->getTags(), null);
+        $result_data = empty($this->_results) ? (!empty($default_results) ? $default_results : array()) : $this->_results;
+        if (!empty($result_data) && empty($result_data[0])) {
+            // Multiple types.
+            $counts = array();
+            foreach ($result_data as $type => $data) {
+                $counts = array_merge($counts, $this->_tagger->getTagCountsByObjects($data));
+            }
+        } else {
+            $counts = $this->_tagger->getTagCountsByObjects($result_data);
+        }
+        $tag_ids = array_keys($tags);
+        foreach ($counts as $result) {
+            // Remove the tags we already included.
+            if (in_array($result['tag_id'], $tag_ids)) {
+                $results[$result['tag_id']] = array('tag_name' => $result['tag_name'], 'total' => $result['count']);
+            }
+        }
+        return $results;
+    }
+
+    /**
+     * Default implementation for getting related tags when we don't have
+     * any current search in effect. This is very inefficent and should only
+     * be used as a very last resort. Better to have concrete classes provide
+     * the full result set. See _getRelatedTagsWithResults().
+     *
+     * @return array An array of tag_id => [tag_name, total]
+     */
+    protected function _getRelatedTagsWithNoResults()
+    {
+        $results = array();
+        $tags = $this->_tagger->browseTags($this->getTags(), null);
         $class = get_class($this);
         $search = new $class($this->_tagger, null, $this->_owner);
-        $results = array();
         foreach ($tags as $id => $tag) {
             $search->addTag($tag);
             $search->runSearch();
@@ -183,8 +256,6 @@ abstract class Horde_Core_TagBrowser
             $search->removeTag($tag);
         }
 
-        // Get the results sorted by available totals for this user
-        uasort($results, array($this, '_sortTagInfo'));
         return $results;
     }
 
@@ -218,7 +289,9 @@ abstract class Horde_Core_TagBrowser
     /**
      * Default implementation for runSearch.
      *
-     * @return array
+     * @return array  An array of search results. Either a one dimensional
+     *                array containing local object uids, or a multi dimensional
+     *                array of object_type => array_of_uids, ....
      */
     protected function _runSearch()
     {

@@ -76,10 +76,15 @@ class Nag_Form_Search extends Horde_Form
 
     public function renderActive()
     {
+        $url = Horde::url('list.php');
+        if ($this->_vars->get('smart_id')) {
+            // Editing an existing smartlist.
+            $url->add(array('actionID' => 'smart', 'list' => $this->_vars->get('smart_id'), 'tab_name' => $this->_vars->get('smart_id')));
+        }
         return parent::renderActive(
             $this->getRenderer(array('varrenderer_driver' => array('nag', 'nag'))),
             $this->_vars,
-            Horde::url('list.php'),
+            $url->setRaw(true),
             'post');
     }
 

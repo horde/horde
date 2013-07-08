@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-11</date>
- <time>17:22:40</time>
+ <date>2013-07-03</date>
+ <time>11:17:36</time>
  <version>
   <release>2.0.0beta2</release>
   <api>2.0.0</api>
@@ -28,6 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix DB column width for page contents (Bug #12407).
+* [mjr] Fix creating a new page from search results (Bug #12381).
 * [jan] Fix syntax error in wicked CLI script (Bug #12378).
  </notes>
  <contents>
@@ -329,6 +331,7 @@
     <file name="3_wicked_unsigned_ints.php" role="horde" />
     <file name="4_wicked_single_revisions.php" role="horde" />
     <file name="5_wicked_rename_pages.php" role="horde" />
+    <file name="6_wicked_fix_text_length.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="diff">
@@ -784,6 +787,7 @@
    <install as="wicked/migration/3_wicked_unsigned_ints.php" name="migration/3_wicked_unsigned_ints.php" />
    <install as="wicked/migration/4_wicked_single_revisions.php" name="migration/4_wicked_single_revisions.php" />
    <install as="wicked/migration/5_wicked_rename_pages.php" name="migration/5_wicked_rename_pages.php" />
+   <install as="wicked/migration/6_wicked_fix_text_length.php" name="migration/6_wicked_fix_text_length.php" />
    <install as="wicked/templates/diff/diff.html.php" name="templates/diff/diff.html.php" />
    <install as="wicked/templates/display/AttachedFiles.html.php" name="templates/display/AttachedFiles.html.php" />
    <install as="wicked/templates/display/MergeOrRename.html.php" name="templates/display/MergeOrRename.html.php" />
@@ -948,9 +952,11 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-06-11</date>
+   <date>2013-07-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix DB column width for page contents (Bug #12407).
+* [mjr] Fix creating a new page from search results (Bug #12381).
 * [jan] Fix syntax error in wicked CLI script (Bug #12378).
    </notes>
   </release>

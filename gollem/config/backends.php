@@ -11,12 +11,10 @@
  * Example configuration file that enables the Samba backend in favor of the
  * FTP backend and sets a server name for the Samba server:
  *
- * <code>
  * <?php
  * $backends['ftp']['disabled'] = true;
  * $backends['smb']['disabled'] = false;
  * $backends['smb']['params']['hostspec'] = 'FILESERVER HOST';
- * </code>
  *
  * Properties that can be set for each server:
  *   - attributes: (array) The list of attributes that the driver supports.
@@ -91,8 +89,6 @@
  *                preferred list, then that entry will be selected by default
  *                on the login screen. Otherwise the first entry in the list
  *                is selected.
- *
- * $Id: ab0ea802731049d75e59e3e05c02e6acd838f04f $
  */
 
 // FTP Example.

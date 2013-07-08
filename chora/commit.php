@@ -40,6 +40,7 @@ try {
 if (empty($patchsets)) {
     Chora::fatal(_("Commit Not Found"), '404 Not Found');
 }
+
 reset($patchsets);
 $patchset = current($patchsets);
 
@@ -48,13 +49,8 @@ $patchset = current($patchsets);
 header('Cache-Control: max-age=604800');
 
 $page_output->addScriptFile('tables.js', 'horde');
-$page_output->header(array(
-    'title' => $title
-));
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
-
 $commit_page = 1;
-require CHORA_TEMPLATES . '/patchsets/ps_single.inc';
 
+Chora::header($title);
+require CHORA_TEMPLATES . '/patchsets/ps_single.inc';
 $page_output->footer();

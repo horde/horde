@@ -34,6 +34,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix task description tooltip (Bug #12421).
+* [mjr] Persist the tasklist and parent when creating a new task and using "Save and New" (Bug: 12400).
+* [mjr] Fix tag browsing of shared tasklists (Bug #12405).
 * [mjr] Fix importing vTODO containing RELATED-TO fields (Bug #12355).
 * [mjr] Add API methods for using history modification sequences.
  </notes>
@@ -544,7 +547,7 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.3</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -565,7 +568,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.5.0</min>
+    <min>2.6.1</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1385,6 +1388,9 @@
    <date>2013-06-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix task description tooltip (Bug #12421).
+* [mjr] Persist the tasklist and parent when creating a new task and using "Save and New" (Bug: 12400).
+* [mjr] Fix tag browsing of shared tasklists (Bug #12405).
 * [mjr] Fix importing vTODO containing RELATED-TO fields (Bug #12355).
 * [mjr] Add API methods for using history modification sequences.
    </notes>

@@ -62,17 +62,22 @@ class Horde_View_Topbar extends Horde_View
         /* Login/Logout. */
         if ($registry->getAuth()) {
             if ($registry->showService('logout')) {
-                $this->logoutUrl = $registry->getServiceLink(
-                    'logout',
-                    $registry->getApp())
+                $this->logoutUrl =
+                    $registry->getServiceLink(
+                        'logout',
+                        $registry->getApp()
+                    )
                     ->setRaw(false);
             }
         } else {
             if ($registry->showService('login')) {
-                $this->logoutUrl = $registry->getServiceLink(
-                    'login',
-                    $registry->getApp())
-                    ->setRaw(false);
+                $this->loginUrl =
+                    $registry->getServiceLink(
+                        'login',
+                        $registry->getApp()
+                    )
+                    ->setRaw(false)
+                    ->add('url', Horde::selfUrl(true, true, true));
             }
         }
 

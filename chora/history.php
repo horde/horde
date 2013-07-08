@@ -126,14 +126,10 @@ foreach ($grid as $cols) {
     $maxCol = max($val, $maxCol);
 }
 
-$title = sprintf(_("Source Branching View for %s"), $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
-$extraLink = Chora::getFileViews($where, 'history');
+$title = _("Source Branching View for:");
 
-$page_output->header(array(
-    'title' => $title
-));
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
+echo Chora::getHistoryViews($where)->render('history');
 require CHORA_TEMPLATES . '/history/header.inc';
 
 foreach ($grid as $row) {

@@ -211,7 +211,7 @@ class Horde_Form_Renderer {
                 }
             }
         }
-        echo '<input type="hidden" name="_formvars" value="' . htmlspecialchars(serialize($vars)) . '" />';
+        echo '<input type="hidden" name="_formvars" value="' . htmlspecialchars(json_encode($vars)) . '" />';
     }
 
     function renderFormActive(&$form, &$vars)

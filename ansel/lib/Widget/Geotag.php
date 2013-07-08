@@ -23,13 +23,6 @@
 class Ansel_Widget_Geotag extends Ansel_Widget_Base
 {
     /**
-     * List of views this widget supports
-     *
-     * @var array
-     */
-    protected $_supported_views = array('Image', 'Gallery');
-
-    /**
      * Default params
      *
      * @var array
@@ -48,7 +41,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         if (empty($GLOBALS['conf']['maps']['driver'])) {
             return false;
         }
-        parent::attach($view);
+        return parent::attach($view);
     }
 
     /**

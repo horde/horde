@@ -131,7 +131,7 @@ if (document.getElementById(%1$s)){
             }
         }
         echo '<input type="hidden" name="_formvars" value="'
-            . htmlspecialchars(serialize($vars))
+            . htmlspecialchars(json_encode($vars))
             . '" />';
     }
 

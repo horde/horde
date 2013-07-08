@@ -85,7 +85,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      *
      * @var integer
      */
-    protected $_windowSize = null;
+    protected $_globalWindowSize = 100;
 
     /**
      * Imported changes flag.
@@ -366,13 +366,22 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
-     * Sets the default WINDOWSIZE
+     * Sets the default WINDOWSIZE.
+     *
+     * Note that this is really a ceiling on the number of TOTAL responses
+     * that can be sent (including all collections). This method should be
+     * renamed for 3.0
      *
      * @param integer $window  The windowsize
      */
     public function setDefaultWindowSize($window)
     {
-        $this->_windowSize = $window;
+        $this->_globalWindowSize = $window;
+    }
+
+    public function getDefaultWindowSize()
+    {
+        return $this->_globalWindowSize;
     }
 
     /**
@@ -781,9 +790,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         // Update _collections with all data that was not sent, but we
         // have a synckey for in the sync_cache.
         foreach ($this->_tempSyncCache->getCollections() as $value) {
-            if (isset($this->_windowSize)) {
-                $value['windowsize'] = $this->_windowSize;
-            }
             $this->_logger->info(sprintf(
                 'Using SyncCache State for %s',
                 $value['serverid']
@@ -810,12 +816,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             if (!empty($counters[$id][$collection['synckey']]) &&
                 $counters[$id][$collection['synckey']] > Horde_ActiveSync::MAXIMUM_SYNCKEY_COUNT) {
 
-                $this->_logger->err('Reached MAXIMUM_SYNCKEY_COUNT possible sync loop. Clearing state.');
-                $this->_as->state->loadState(
-                    array(),
-                    null,
-                    Horde_ActiveSync::REQUEST_TYPE_SYNC,
-                    $collection['id']);
+                $this->_logger->err(sprintf(
+                    '[%s] Reached MAXIMUM_SYNCKEY_COUNT for synckey %s, collection %s, possible sync loop, so sending SERVER_ERROR.',
+                    $this->_procid,
+                    $collection['synckey'],
+                    $id));
                 return false;
             } elseif (empty($counters[$collection['id']][$collection['synckey']])) {
                 // First time for this synckey. Remove others.

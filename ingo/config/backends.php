@@ -11,22 +11,20 @@
  * Example configuration file that enables the Sieve backend in favor of the
  * IMAP backend:
  *
- * <code>
  * <?php
  * $backends['imap']['disabled'] = true;
  * $backends['sieve']['disabled'] = false;
- * </code>
  *
  * Example configuration to use a Dovecot Managesieve backend on a different
  * host:
  *
- * <code>
  * <?php
  * $backends['imap']['disabled'] = true;
  * $backends['sieve']['disabled'] = false;
  * $backends['sieve']['transport'][Ingo::RULE_ALL]['params']['hostspec'] = 'sieve.example.com';
  * $backends['sieve']['script'][Ingo::RULE_ALL]['params']['utf8'] = true;
- * </code>
+ *
+ * Properties that can be set for each server:
  *
  * disabled: (boolean) If true, the config entry is disabled.
  *

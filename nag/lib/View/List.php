@@ -73,7 +73,7 @@ class Nag_View_List
     }
 
     /**
-     * Reners the view.
+     * Renders the view.
      *
      * @param Horde_PageOutput $output  The output object.
      *
@@ -90,20 +90,21 @@ class Nag_View_List
             'title' => $this->_title
         ));
 
-        $tabs = new Horde_Core_Ui_Tabs('show_completed', $this->_vars);
+        $tabs = new Horde_Core_Ui_Tabs('tab_name', $this->_vars);
         if (!$GLOBALS['prefs']->isLocked('show_completed')) {
             $listurl = Horde::url('list.php');
-            $tabs->addTab(_("_All tasks"), $listurl, Nag::VIEW_ALL);
-            $tabs->addTab(_("Incom_plete tasks"), $listurl, Nag::VIEW_INCOMPLETE);
-            $tabs->addTab(_("_Future tasks"), $listurl, Nag::VIEW_FUTURE);
-            $tabs->addTab(_("_Completed tasks"), $listurl, Nag::VIEW_COMPLETE);
+            $tabs->addTab(_("_All tasks"), $listurl->add('show_completed', Nag::VIEW_ALL), 'all');
+            $tabs->addTab(_("Incom_plete tasks"), $listurl->add('show_completed', Nag::VIEW_INCOMPLETE), 'incomplete');
+            $tabs->addTab(_("_Future tasks"), $listurl->add('show_completed', Nag::VIEW_FUTURE), 'future');
+            $tabs->addTab(_("_Completed tasks"), $listurl->add('show_completed', Nag::VIEW_COMPLETE), 'complete');
         }
+
         foreach (Nag::listTasklists() as $list) {
             if ($list->get('issmart')) {
                 $tabs->addTab(
                     $list->get('name'),
                     $listurl->add(array('actionID' => 'smart', 'list' => $list->getName())),
-                    array('img' => 'search.png'));
+                    array('img' => 'search.png', 'tabname' => $list->getName()));
             }
         }
 
@@ -111,8 +112,7 @@ class Nag_View_List
         $view = $GLOBALS['injector']->createInstance('Horde_View');
         $view->addHelper(new Nag_View_Helper_List($view));
         $view->tasks = $this->_tasks;
-        $view->tasks->reset();
-        $view->tabs = $tabs->render($this->_vars->get('show_completed'));
+        $view->tabs = $tabs->render($this->_vars->get('tab_name'));
         $view->browser = empty($this->_smartShare) && $this->_showTagBrowser ? $this->_getRelatedTags() . $this->_getTagTrail() : '';
         $view->title = $this->_title;
         $view->sortby = $prefs->getValue('sortby');
@@ -136,6 +136,7 @@ class Nag_View_List
             );
         }
 
+        $view->tasks->reset();
         Horde::startBuffer();
         Nag::status();
         echo $view->render('list');
@@ -246,7 +247,6 @@ class Nag_View_List
      */
     protected function _doSearch()
     {
-
         // Clear the tag browser in case we have an active browse set.
         $this->_browser->clearSearch();
 
@@ -368,7 +368,12 @@ class Nag_View_List
      */
     protected function _getRelatedTags()
     {
-        $rtags = $this->_browser->getRelatedTags();
+        $this->_tasks->reset();
+        $ids = array();
+        while ($t = $this->_tasks->each()) {
+            $ids[] = $t->uid;
+        }
+        $rtags = $this->_browser->getRelatedTags($ids);
         if (count($rtags)) {
             $html = '<div class="nag-tags-related">'
                 . Horde::img('tags.png')

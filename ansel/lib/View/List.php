@@ -282,7 +282,7 @@ class Ansel_View_List extends Ansel_View_Ansel
                 $this->_view->groupbyUrl = strval(Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'owner')));
             }
             $this->_view->pager = $this->_pager->render();
-            $this->_view->style = $this->style;
+            $this->_view->style = $style;
             $this->_view->tilesperrow = $prefs->getValue('tilesperrow');
             $this->_view->cellwidth = round(100 / $this->_view->tilesperrow);
             $this->_view->params = $this->_params;

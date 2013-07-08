@@ -252,16 +252,6 @@ class Horde_ActiveSync_Connector_Exporter
                 // Update the state.
                 $this->_as->state->updateState($change['type'], $change);
                 $this->_step++;
-
-                // Check windowsize
-                if (!empty($this->_currentCollection['windowsize']) && $this->_step >= $this->_currentCollection['windowsize']) {
-                    $this->_logger->info(sprintf(
-                        '[%s] Exported maxItems of messages (%s) - more available.',
-                        getmypid(),
-                        $this->_currentCollection['windowsize'])
-                    );
-                    return false;
-                }
                 return true;
             } else {
                 return false;

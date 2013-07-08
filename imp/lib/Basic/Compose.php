@@ -955,7 +955,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $view->use_encrypt = false;
                 } else {
                     $view->use_encrypt = true;
-                    $view->encrypt_options = IMP::encryptList($encrypt_options);
+                    $view->encrypt_options = $imp_ui->encryptList($encrypt_options);
                 }
 
                 if ($prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')) {
@@ -1023,10 +1023,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             $this->output = $view->render('compose');
         }
 
-        if ($rtemode && !$redirect) {
-            $injector->getInstance('IMP_Editor')->init(false, 'composeMessage');
-        }
-
         if (!$showmenu) {
             $page_output->topbar = $page_output->sidebar = false;
         }
@@ -1036,6 +1032,10 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         $page_output->addInlineJsVars($js_vars);
         if (!$redirect) {
             $imp_ui->addIdentityJs();
+        }
+
+        if ($rtemode && !$redirect) {
+            $injector->getInstance('IMP_Editor')->init('composeMessage');
         }
     }
 

@@ -33,7 +33,7 @@ class Ingo_Hooks
 //        case 'foo':
 //            // Example #1: Use full Horde username for password.
 //            return array(
-//                'username' => $GLOBALS['registry']->getAuth(null);
+//                'username' => $GLOBALS['registry']->getAuth(null)
 //            );
 //
 //            // Example #2: Use IMP password/username.

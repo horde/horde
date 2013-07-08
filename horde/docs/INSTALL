@@ -150,6 +150,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
       See also note below on configuring Translations_.
 
+      All Horde translations are stored in UTF-8, so your underlying system
+      MUST support UTF-8 for all locales that you wish to provide translation
+      support for.
+
    b. XML and DOM support.
 
       XML and DOM support are enabled in PHP 5 by default. You only have to
@@ -215,10 +219,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       will be configurable via Horde's web interface - the default values
       stored in each applications ``config/prefs.php`` file will be used.
 
-   c. UTF-8 support (mbstring and iconv extensions) ``--enable-mbstring``
+   c. Multibyte character support (mbstring and iconv extensions) ``--enable-mbstring``
 
       If these extensions are enabled, Horde can better support multibyte
-      character sets like UTF-8.
+      character sets.
 
       For iconv support you should use the GNU libiconv library, which is more
       stable and supports more charsets, compared to other iconv

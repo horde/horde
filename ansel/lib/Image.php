@@ -686,11 +686,13 @@ class Ansel_Image Implements Iterator
         } catch (Horde_Vfs_Exception $e) {
             throw new Ansel_Exception($e);
         }
+        $params = !empty($GLOBALS['conf']['exif']['params']) ?
+                $GLOBALS['conf']['exif']['params'] :
+                array();
+        $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
         $exif = Horde_Image_Exif::factory(
             $GLOBALS['conf']['exif']['driver'],
-            !empty($GLOBALS['conf']['exif']['params']) ?
-                $GLOBALS['conf']['exif']['params'] :
-                array());
+            $params);
 
         try {
             $exif_fields = $exif->getData($imageFile);
@@ -725,7 +727,9 @@ class Ansel_Image Implements Iterator
         }
 
         // Attempt to autorotate based on Orientation field
-        $this->_autoRotate($exif_fields['Orientation']);
+        if (!empty($exif_fields['Orientation'])) {
+            $this->_autoRotate($exif_fields['Orientation']);
+        }
 
         // Save attributes.
         if ($replacing) {
@@ -1319,11 +1323,15 @@ class Ansel_Image Implements Iterator
         $attributes = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
             ->getImageAttributes($this->id);
+
+        $params = !empty($GLOBALS['conf']['exif']['params']) ?
+                $GLOBALS['conf']['exif']['params'] :
+                array();
+        $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
+
         $exif = Horde_Image_Exif::factory(
             $GLOBALS['conf']['exif']['driver'],
-            !empty($GLOBALS['conf']['exif']['params'])
-                ? $GLOBALS['conf']['exif']['params']
-                : array()
+            $params
         );
         $fields = Horde_Image_Exif::getFields($exif);
 

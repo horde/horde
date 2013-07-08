@@ -7,8 +7,6 @@
  */
 class Ansel_Widget_Links extends Ansel_Widget_Base
 {
-    protected $_supported_views = array('Gallery', 'Image');
-
     public function __construct($params)
     {
         parent::__construct($params);

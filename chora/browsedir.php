@@ -39,10 +39,6 @@ $title = ($where == '')
     ? $chora_conf['introTitle']
     : "/$where";
 
-$extraLink = $VC->hasFeature('deleted')
-    ? Horde::widget(array('url' => Chora::url('browsedir', $where . '/', $branchArgs + array('sa' => ($acts['sa'] ? 0 : 1))), 'title' => $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files")))
-    : '';
-
 $umap = array(
     'age' => Horde_Vcs::SORT_AGE,
     'rev' => Horde_Vcs::SORT_REV,
@@ -69,11 +65,13 @@ $sortdirclass = $acts['sbt'] ? 'sortdown' : 'sortup';
 
 $page_output->addScriptFile('tables.js', 'horde');
 
-$page_output->header(array(
-    'title' => $title
-));
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
+if ($VC->hasFeature('deleted')) {
+    require CHORA_TEMPLATES . '/directory/deleted.inc';
+}
+if (!$where && is_file($chora_conf['introText'])) {
+    require CHORA_TEMPLATES . '/directory/intro.inc';
+}
 require CHORA_TEMPLATES . '/directory/header.inc';
 
 /* Unless we're at the top, display the 'back' bar. */

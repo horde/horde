@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: IMP H5 (6.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-06-18 14:03+0200\n"
-"PO-Revision-Date: 2013-06-18 14:09+0200\n"
+"PO-Revision-Date: 2013-06-24 15:45+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -1377,7 +1377,7 @@ msgstr "Schlüssel erstellen"
 
 #: lib/Dynamic/Mailbox.php:272 templates/basic/flist/flist.html.php:11
 msgid "Create Mailbox"
-msgstr "Ordner anlegen"
+msgstr "Neuer Ordner"
 
 #: lib/Dynamic/Mailbox.php:465
 msgid "Create New Flag..."

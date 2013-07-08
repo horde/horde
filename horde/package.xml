@@ -39,6 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Return to originally URL after logging in.
+* [jan] Fix login icon.
 * [jan] Enable Turkish translation on PHP 5.5.
 * [rla] Add a cli script for running queue tasks.
 * [jan] Create parent permissions too if automatically creating permissions (Bug #11689).
@@ -3717,6 +3719,8 @@
    <date>2013-06-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Return to originally URL after logging in.
+* [jan] Fix login icon.
 * [jan] Enable Turkish translation on PHP 5.5.
 * [rla] Add a cli script for running queue tasks.
 * [jan] Create parent permissions too if automatically creating permissions (Bug #11689).

@@ -4,3 +4,4 @@
 <?php if ($this->uniqueSource): ?>
 <input type="hidden" id="turbaSearchSource" name="source" value="<?php echo $this->uniqueSource ?>" />
 <?php endif; ?>
+

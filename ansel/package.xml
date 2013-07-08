@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix performing image actions in Lightbox galleries.
+* [mjr] Fix display of missing widgets.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -579,7 +580,7 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.3</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -607,7 +608,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.6.1</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1279,7 +1280,8 @@
    <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix performing image actions in Lightbox galleries.
+* [mjr] Fix display of missing widgets.
    </notes>
   </release>
  </changelog>

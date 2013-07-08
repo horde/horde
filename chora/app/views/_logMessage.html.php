@@ -12,9 +12,6 @@
     </div>
    </li>
   </ul>
-  <ul>
-   <li></li>
-  </ul>
 
   <?php if ($logMessage['branch']): ?>
   <h4><?php echo _("Branches") ?></h4>
@@ -40,9 +37,9 @@
 
  <div class="commit-author">
   <div class="commit-author-avatar">
-   <img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim(Chora::getAuthorEmail($logMessage['author'])))) ?>?d=mm&s=40">
+   <img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim(Chora::getAuthorEmail($logMessage['author'])))) ?>?d=mm&amp;s=40" />
   </div>
-  <?php echo Chora::showAuthorName($logMessage['author'], true) ?><br>
+  <?php echo Chora::showAuthorName($logMessage['author'], true) ?><br />
   <?php echo Chora::formatDate($logMessage['date']) ?>
  </div>
 

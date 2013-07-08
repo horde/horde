@@ -59,9 +59,13 @@ class Trean_Queue_Task_Crawl implements Horde_Queue_Task
         $client = $injector->getInstance('Horde_Http_Client');
 
         // Fetch full text of $url
-        $page = $client->get($this->_url);
-        $body = $page->getBody();
-
+        try {
+            $page = $client->get($this->_url);
+            $body = $page->getBody();
+        } catch (Horde_Http_Exception $e) {
+            Horde::log($e, 'ERR');
+            return;
+        }
         $gateway = $injector->getInstance('Trean_Bookmarks');
         $bookmark = $gateway->getBookmark($this->_bookmarkId);
         $changed = false;

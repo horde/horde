@@ -2,6 +2,7 @@
 v2.0.3-git
 ----------
 
+[mjr] Fix obtaining tag cloud information when filtering by objectIds.
 
 
 ------

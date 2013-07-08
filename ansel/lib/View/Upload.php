@@ -460,8 +460,8 @@ EOT;
         $len = strlen($filename);
         if ($filename[$len - 1] == '/' ||
             $filename == 'Thumbs.db' ||
-            strrpos($filename, '.DS_Store') == ($len - 9) ||
-            strrpos($filename, '.localized') == ($len - 10) ||
+            strrpos($filename, '.DS_Store') === ($len - 9) ||
+            strrpos($filename, '.localized') === ($len - 10) ||
             strpos($filename, '__MACOSX/') !== false) {
 
             return true;

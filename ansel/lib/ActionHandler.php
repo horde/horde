@@ -277,6 +277,7 @@ class Ansel_ActionHandler
         $gallery_id = Horde_Util::getFormData('gallery');
         $image_id = Horde_Util::getFormData('image');
         $date = Ansel::getDateParameter();
+        $page = Horde_Util::getFormData('page', 0);
         $watermark_font = Horde_Util::getFormData('font');
         $watermark_halign = Horde_Util::getFormData('whalign');
         $watermark_valign = Horde_Util::getFormData('wvalign');
@@ -440,11 +441,13 @@ class Ansel_ActionHandler
                         'window.opener.location.href = window.opener.location.href;',
                         'window.close();'
                     ));
+                    $page_output->outputInlineScript();
                 } else {
                     $page_output->addInlineScript(array(
                         'window.opener.location.href = "' . $imageurl . '";',
                         'window.close();'
                     ));
+                    $page_output->outputInlineScript();
                 }
                 exit;
             }

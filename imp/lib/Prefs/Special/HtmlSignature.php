@@ -35,7 +35,7 @@ class IMP_Prefs_Special_HtmlSignature implements Horde_Core_Prefs_Ui_Special
         global $injector, $page_output, $prefs;
 
         $page_output->addScriptFile('signaturehtml.js');
-        $injector->getInstance('IMP_Editor')->init(false, 'signature_html');
+        $injector->getInstance('IMP_Editor')->init('signature_html');
 
         $identity = $injector->getInstance('IMP_Identity');
 

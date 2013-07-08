@@ -125,6 +125,7 @@ abstract class Ansel_View_GalleryRenderer_Base
     public function __construct(Ansel_View_Gallery $view)
     {
         $this->view = $view;
+        Ansel_ActionHandler::imageActions(Horde_Util::getFormData('actionID'));
     }
 
     /**

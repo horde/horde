@@ -44,7 +44,7 @@ class Chora_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot;
+        global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot, $page_output;
 
         // TODO: If chora isn't fully/properly setup, init() will throw fatal
         // errors. Don't want that if this class is being loaded simply to
@@ -205,10 +205,21 @@ class Chora_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
      */
-    public function menu($menu)
+    public function sidebar($sidebar)
     {
-        $menu->add(Chora::url('browsedir'), _("_Browse"), 'chora.png');
+        foreach (Chora::sourceroots() as $key => $val) {
+            $row = array(
+                'selected' => $GLOBALS['sourceroot'] == $key,
+                'url' => Chora::url('browsedir', '', array('rt' => $key)),
+                'label' => $val['name'],
+                'type' => 'radiobox',
+            );
+            $sidebar->addRow($row, 'backends');
+        }
     }
 
     /* Topbar method. */
@@ -229,7 +240,7 @@ class Chora_Application extends Horde_Registry_Application
                     'expanded' => false,
                     'params' => array(
                         'icon' => Horde_Themes::img('tree/folder.png'),
-                        'url' => Chora::url('browsedir', '', array('rt' => $key))->setRaw(true)
+                        'url' => Chora::url('browsedir', '', array('rt' => $key))
                     )
                 ));
             }

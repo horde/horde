@@ -124,10 +124,10 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
     public function getFromAddress($ident = null)
     {
         $from = $this->getValue('from_addr', $ident);
-        if (!strlen($from)) {
-            $from = $GLOBALS['registry']->getAuth();
+        if (strlen($from)) {
+            return $from;
         }
-        return $from;
+        return $this->_user;
     }
 
     /**

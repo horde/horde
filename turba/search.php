@@ -61,7 +61,6 @@ foreach ($addressBooks as $key => $entry) {
 
 $criteria = $vars->criteria;
 $val = $vars->val;
-
 try {
     $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 } catch (Turba_Exception $e) {
@@ -73,7 +72,8 @@ try {
 if ($driver) {
     $map = $driver->getCriteria();
     $do_search = false;
-
+    $submitted = Horde_Util::getPost('search');
+    $browsable = !empty($cfgSources[$source]['browse']) && !empty($submitted);
     switch ($search_mode) {
     case 'advanced':
         $criteria = array();
@@ -85,13 +85,17 @@ if ($driver) {
                 }
             }
         }
-        if (count($criteria)) {
+        if (count($criteria) || $browsable) {
             $do_search = true;
         }
         break;
 
     case 'basic':
-        if (empty($val)) {
+        $t_val = trim($val);
+        if (empty($t_val)) {
+            if ($browsable) {
+                $do_search = true;
+            }
             $criteria = array();
             break;
         }
@@ -263,6 +267,7 @@ echo $searchView->render($search_mode);
 if (!empty($vbookView)) {
     echo $vbookView->render('vbook');
 }
+echo $searchView->render('footer');
 if (isset($view) && is_object($view)) {
     require TURBA_TEMPLATES . '/browse/header.inc';
     $view->display();

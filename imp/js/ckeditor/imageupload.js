@@ -9,7 +9,7 @@
 
 document.observe('dom:loaded', function() {
     CKEDITOR.on('dialogDefinition', function(ev) {
-        var rf, upload,
+        var params, rf, upload,
             definition = ev.data.definition;
 
         if (ev.data.name == 'image') {
@@ -27,6 +27,9 @@ document.observe('dom:loaded', function() {
                 type: 'text'
             });
 
+            params = $H({ composeCache: $F(DimpCompose.getCacheElt()) });
+            HordeCore.addRequestParams(params);
+
             upload.get('uploadButton').filebrowser = {
                 action: 'QuickUpload',
                 onSelect: function(fileUrl, data) {
@@ -35,9 +38,7 @@ document.observe('dom:loaded', function() {
                     }
                     return true;
                 },
-                params: {
-                    composeCache: $F(DimpCompose.getCacheElt())
-                },
+                params: params.toObject(),
                 target: 'info:txtUrl'
             };
 

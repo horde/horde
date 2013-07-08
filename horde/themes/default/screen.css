@@ -1801,13 +1801,16 @@ left.horde-point-right {
     float: left;
     margin: 7px 0 0 7px;
 }
-#horde-logout {
+#horde-logout, #horde-login {
     float: right;
     width: 20px;
     height: 29px;
     margin: 6px 10px 0 0;
     background-image: url("graphics/logout.png");
     background-repeat: no-repeat;
+}
+#horde-login {
+    background-image: url("graphics/login.png");
 }
 
 .horde-icon-settings {

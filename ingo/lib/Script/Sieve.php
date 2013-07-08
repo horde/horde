@@ -72,21 +72,6 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
     );
 
     /**
-     * Which form fields are supported in each category by this driver?
-     *
-     * This is an associative array with the keys taken from $_actions, each
-     * value is a list of strings with the supported feature names.  An absent
-     * key is interpreted as "all features supported".
-     *
-     * @var array
-     */
-    protected $_categoryFeatures = array(
-        Ingo_Storage::ACTION_VACATION => array(
-            'period', 'subject', 'reason', 'addresses', 'days'
-        )
-    );
-
-    /**
      * The list of tests allowed (implemented) for this driver.
      *
      * @var array

@@ -180,7 +180,11 @@ class Trean_View_BookmarkList
      */
     protected function _getRelatedTags()
     {
-        $rtags = $this->_browser->getRelatedTags();
+        $uids = array();
+        foreach ($this->_bookmarks as $bookmark) {
+            $uids[] = (string)$bookmark->id;
+        }
+        $rtags = $this->_browser->getRelatedTags($uids);
         if (count($rtags)) {
             $html = '<div class="trean-tags-related">'
                 . Horde::img('tags.png') . ' <ul class="horde-tags">';

@@ -79,27 +79,13 @@ if (!$plain) {
     /* Get this revision's attributes in printable form. */
     $log = $file->getLog($r);
 
-    $title = sprintf(_("%s Revision %s (%s ago)"),
-                     basename($fullname),
+    $title = sprintf(_("Revision %s (%s ago) for:"),
                      $r,
                      Chora::readableTime($log->getDate(), true));
 
-    $views = array(
-        Horde::widget(array('url' => Chora::url('annotate', $where, array('rev' => $r)), 'title' => _("_Annotate"))),
-        Horde::widget(array('url' => Chora::url('co', $where, array('r' => $r, 'p' => 1)), 'title' => _("_Download")))
-    );
-    if ($VC->hasFeature('snapshots')) {
-        $snapdir = dirname($file->getPath());
-        $views[] = Horde::widget(array('url' => Chora::url('browsedir', $snapdir == '.' ? '' : $snapdir . '/', array('onb' => $r)), 'title' => _("_Snapshot")));
-    }
-    $extraLink = _("View:") . ' ' . implode(' | ', $views);
-
     $page_output->addScriptFile('stripe.js', 'horde');
-    $page_output->header(array(
-        'title' => $title
-    ));
-    require CHORA_TEMPLATES . '/menu.inc';
-    require CHORA_TEMPLATES . '/headerbar.inc';
+    Chora::header($title);
+    echo Chora::getFileViews($where, $r)->render('co');
     require CHORA_TEMPLATES . '/checkout/checkout.inc';
     $page_output->footer();
     exit;

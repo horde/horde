@@ -338,9 +338,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_activeSync,
             $this->_encoder);
 
+        $cnt_global = 0;
         foreach ($this->_collections as $id => $collection) {
             $statusCode = self::STATUS_SUCCESS;
             $changecount = 0;
+            $cnt_collection = 0;
             try {
                 $this->_collections->initCollectionState($collection);
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
@@ -359,7 +361,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return false;
             }
 
-            // HACK!!
             // Outlook explicitly tells the server to NOT check for server
             // changes when importing client changes, unlike EVERY OTHER client
             // out there. This completely screws up many things like conflict
@@ -542,14 +543,27 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     (!empty($collection['getchanges']) ||
                      (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
 
-                    if (!empty($collection['windowsize']) && !empty($changecount) && $changecount > $collection['windowsize']) {
+                    if ((!empty($changecount) && $changecount > $collection['windowsize']) ||
+                        ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
+
+                        $this->_logger->info(sprintf(
+                            '[%s] Sending MOREAVAILABLE. $cnt_collection = %d, $cnt_global = %d',
+                            $this->_procid, $cnt_collection, $cnt_global));
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                     }
 
                     if (!empty($changecount)) {
                         $exporter->setChanges($this->_collections->getCollectionChanges(), $collection);
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
-                        while ($progress = $exporter->sendNextChange()) { }
+                        $cnt_collection = 0;
+                        while ($cnt_collection <= $collection['windowsize'] &&
+                               $cnt_global <= $this->_collections->getDefaultWindowSize() &&
+                               $progress = $exporter->sendNextChange()) {
+
+                            ++$cnt_collection;
+                            ++$cnt_global;
+                        }
+
                         $this->_encoder->endTag();
                     }
                 }
@@ -651,15 +665,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $this->_handleError($collection);
                         return false;
                     }
-                    $this->_logger->info(sprintf(
-                        '[%s] Requesting WINDOWSIZE of %s',
-                        $this->_procid,
-                        $collection['windowsize']));
                     if ($collection['windowsize'] < 1 || $collection['windowsize'] > self::MAX_WINDOW_SIZE) {
                         $this->_logger->err(sprintf(
-                            '[%s] Bad windowsize sent, defaulting to 100',
+                            '[%s] Bad windowsize sent, defaulting to 512',
                             $this->_procid));
-                        $collection['windowsize'] = 100;
+                        $collection['windowsize'] = self::MAX_WINDOW_SIZE;
                     }
                     break;
 
@@ -825,7 +835,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SERVERENTRYID)) {
 
                 $serverid = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
+                // Work around broken clients (Blackberry) that can send empty
+                // $serverid values as a single empty <SYNC_SERVERENTYID /> tag.
+                if ($serverid !== false && !$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleGlobalSyncError();
                     $this->_logger->err('Parsing Error - expecting </SYNC_SERVERENTRYID>');
@@ -921,7 +933,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     break;
 
                 case Horde_ActiveSync::SYNC_REMOVE:
-                    $collection['removes'][] = $serverid;
+                    // Work around broken clients that send empty $serverid.
+                    if ($serverid) {
+                        $collection['removes'][] = $serverid;
+                    }
                     break;
 
                 case Horde_ActiveSync::SYNC_FETCH:
@@ -945,7 +960,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $results = $importer->importMessageMove($collection['removes'], $folderid);
             } else {
                 $results = $importer->importMessageDeletion($collection['removes'], $collection['class']);
-                if (is_array($results['results'])) {
+                if (is_array($results)) {
                     $results['results'] = $results;
                     $results['missing'] = array_diff($collection['removes'], $results['results']);
                 }

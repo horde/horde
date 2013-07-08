@@ -31,8 +31,8 @@
  <date>2013-06-17</date>
  <time>15:35:10</time>
  <version>
-  <release>2.6.1</release>
-  <api>2.6.0</api>
+  <release>2.7.0</release>
+  <api>2.7.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -41,8 +41,6 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [rla] Add support for external links in topbar (Feature #11977).
-* [mms] Use built-in ISO 639 mapping in LanguageDetect factory if the underlying library supports it.
-* [jan] Fix rendering of email addresses in inactive forms.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3013,7 +3011,10 @@
    <date>2013-06-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [rla] Add support for external links in topbar (Feature #11977).
+* [mjr] Performance improvements to Horde_Core_TagBrowser when fetching related tags.
+* [mjr] Fix bug in TagBrowser causing shared resources to be ignored (Bug #12405).
+* [jan] Fix returning the default from address from a different user without identities.
+* [jan] Fix inactive email fields with multiple addresses if disabling linking (Bug #12051).
 * [mms] Use built-in ISO 639 mapping in LanguageDetect factory if the underlying library supports it.
 * [jan] Fix rendering of email addresses in inactive forms.
    </notes>

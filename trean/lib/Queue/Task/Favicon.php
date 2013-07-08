@@ -81,9 +81,9 @@ class Trean_Queue_Task_Favicon implements Horde_Queue_Task
     }
 
     /**
-     * @param Horde_Http_Response $response HTTP response; body of this is the favicon
+     * @param Horde_Http_Response_Base $response HTTP response; body of this is the favicon
      */
-    protected function _storeFavicon(Horde_Http_Response $response)
+    protected function _storeFavicon(Horde_Http_Response_Base $response)
     {
         global $injector;
 

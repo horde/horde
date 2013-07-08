@@ -35,6 +35,25 @@ class Chora
     static public $fdcache;
 
     /**
+     * Generates and prints the page header.
+     *
+     * @param string $title  The page title.
+     */
+    static public function header($title)
+    {
+        global $notification, $page_output;
+
+        if (count(Chora::sourceroots()) < 2) {
+            $page_output->sidebar = false;
+        }
+        $page_output->header(array(
+            'title' => $title
+        ));
+        $notification->notify(array('listeners' => 'status'));
+        require CHORA_TEMPLATES . '/headerbar.inc';
+    }
+
+    /**
      * Create the breadcrumb directory listing.
      *
      * @param string $where  The current filepath.
@@ -60,7 +79,7 @@ class Chora
                 if (!empty($onb)) {
                     $url = $url->add('onb', $onb);
                 }
-                $bar .= '/ <a href="' . $url . '">' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($dir, 'space2html', array('encode' => true, 'encode_all' => true)) . '</a> ';
+                $bar .= '/<a href="' . $url . '">' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($dir, 'space2html', array('encode' => true, 'encode_all' => true)) . '</a>';
             }
         }
 
@@ -92,7 +111,8 @@ class Chora
         $notification->push($message, 'horde.error');
 
         $page_output->header();
-        require CHORA_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
+        echo '&nbsp;';
         $page_output->footer();
         exit;
     }
@@ -200,40 +220,12 @@ class Chora
         $arr = array();
 
         foreach ($GLOBALS['sourceroots'] as $key => $val) {
-            if (self::checkPerms($key)) {
+            if (empty($val['disabled']) && self::checkPerms($key)) {
                 $arr[$key] = $val;
             }
         }
 
         return $arr;
-    }
-
-    /**
-     * Generate a list of repositories available from this installation of
-     * Chora.
-     *
-     * @return string  XHTML code representing links to the repositories.
-     */
-    static public function repositories()
-    {
-        $sourceroots = self::sourceroots();
-        $num_repositories = count($sourceroots);
-
-        if ($num_repositories == 1) {
-            return '';
-        }
-
-        $arr = array();
-        foreach ($sourceroots as $key => $val) {
-            if ($GLOBALS['sourceroot'] != $key) {
-                $arr[] = '<option value="' . self::url('browsedir', '', array('rt' => $key)) . '">' . $val['name'] . '</option>';
-            }
-        }
-
-        return '<form action="#" id="repository-picker">' .
-            '<select onchange="location.href=this[this.selectedIndex].value">' .
-            '<option value="">' . _("Change repositories:") . '</option>' .
-            implode('', $arr) . '</select></form>';
     }
 
     /**
@@ -306,44 +298,103 @@ class Chora
     }
 
     /**
-     * Generate the link used for various file-based views.
+     * Generate the link used for various history views.
      *
      * @param string $where    The current file path.
-     * @param string $current  The current view ('browsefile', 'patchsets',
-     *                         'history', 'cvsgraph', or 'stats').
      *
      * @return array  An array of file view links.
      */
-    static public function getFileViews($where, $current)
+    static public function getHistoryViews($where)
     {
-        $views = ($current == 'browsefile')
-            ? array('<em class="widget">' . _("Logs") . '</em>')
-            : array(Horde::widget(array('url' => self::url('browsefile', $where), 'title' => _("_Logs"))));
+        global $injector;
+
+        $tabs = new Horde_Core_Ui_Tabs(
+            null,
+            $injector->getInstance('Horde_Variables')
+        );
+        $tabs->addTab(
+            _("_Logs"),
+            self::url('browsefile', $where),
+            'browsefile'
+        );
 
         if ($GLOBALS['VC']->hasFeature('patchsets')) {
-            $views[] = ($current == 'patchsets')
-                ? '<em class="widget">' . _("Patchsets") . '</em>'
-                : Horde::widget(array('url' => self::url('patchsets', $where), 'title' => _("_Patchsets")));
+            $tabs->addTab(
+                _("_Patchsets"),
+                self::url('patchsets', $where),
+                'patchsets'
+            );
         }
 
         if ($GLOBALS['VC']->hasFeature('branches')) {
             if (empty($GLOBALS['conf']['paths']['cvsgraph']) ||
                 !($GLOBALS['VC'] instanceof Horde_Vcs_Cvs)) {
-                $views[] = ($current == 'history')
-                    ? '<em class="widget">' . _("Branches") . '</em>'
-                    : Horde::widget(array('url' => self::url('history', $where), 'title' => _("_Branches")));
+                $tabs->addTab(
+                    _("_Branch Graph"),
+                    self::url('history', $where),
+                    'history'
+                );
             } else {
-                $views[] = ($current == 'cvsgraph')
-                    ? '<em class="widget">' . _("Branches") . '</em>'
-                    : Horde::widget(array('url' => self::url('cvsgraph', $where), 'title' => _("_Branches")));
+                $tabs->addTab(
+                    _("_Branch Graph"),
+                    self::url('cvsgraph', $where),
+                    'cvsgraph'
+                );
             }
         }
 
-        $views[] = ($current == 'stats')
-            ? '<em class="widget">' . _("Statistics") . '</em>'
-            : Horde::widget(array('url' => self::url('stats', $where), 'title' => _("_Statistics")));
+        $tabs->addTab(
+            _("_Statistics"),
+            self::url('stats', $where),
+            'stats'
+        );
 
-        return _("View:") . ' ' . implode(' | ', $views);
+        return $tabs;
+    }
+
+    /**
+     * Generate the link used for various file views.
+     *
+     * @param string $where    The current file path.
+     * @param string $rev      The current revision.
+     *
+     * @return array  An array of file view links.
+     */
+    static public function getFileViews($where, $rev)
+    {
+        global $injector, $VC;
+
+        $tabs = new Horde_Core_Ui_Tabs(
+            null,
+            $injector->getInstance('Horde_Variables')
+        );
+        $tabs->addTab(
+            _("_View"),
+            Chora::url('co', $where, array('r' => $rev)),
+            'co'
+        );
+        $tabs->addTab(
+            _("_Annotate"),
+            Chora::url('annotate', $where, array('rev' => $rev)),
+            'annotate'
+        );
+        if ($VC->hasFeature('snapshots')) {
+            $snapdir = dirname($VC->getFile($where)->getPath());
+            $tabs->addTab(
+                _("_Snapshot"),
+                Chora::url(
+                    'browsedir',
+                    $snapdir == '.' ? '' : $snapdir . '/',
+                    array('onb' => $rev)
+                )
+            );
+        }
+        $tabs->addTab(
+            _("_Download"),
+            Chora::url('co', $where, array('r' => $rev, 'p' => 1))
+        );
+
+        return $tabs;
     }
 
     /**
@@ -437,9 +488,14 @@ class Chora
         try {
             $users = $GLOBALS['VC']->getUsers($GLOBALS['chora_conf']['cvsusers']);
             if (isset($users[$name])) {
-                return '<a href="mailto:' . htmlspecialchars($users[$name]['mail']) . '">' .
-                    htmlspecialchars($fullname ? $users[$name]['name'] : $name) .
-                    '</a>' . ($fullname ? ' <em>' . htmlspecialchars($name) . '</em>' : '');
+                return '<a href="'
+                    . ($GLOBALS['registry']->hasMethod('mail/compose')
+                       ? $GLOBALS['registry']->call('mail/compose', array(array('to' => $users[$name]['mail'])))
+                       : 'mailto:' . htmlspecialchars($users[$name]['mail']))
+                    . '">'
+                    . htmlspecialchars($fullname ? $users[$name]['name'] : $name)
+                    . '</a>'
+                    . ($fullname ? ' <em>' . htmlspecialchars($name) . '</em>' : '');
             }
         } catch (Horde_Vcs_Exception $e) {}
 

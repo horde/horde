@@ -474,10 +474,10 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Owner") . ":</strong>\n";
 
         foreach ($details['subject'] as $key => $value) {
-            $value = $this->_implodeValues($value);
+            $value = htmlspecialchars($this->_implodeValues($value));
             $text .= isset($fieldnames[$key])
-                ? sprintf("&nbsp;&nbsp;%s: %s\n", $fieldnames[$key], $value)
-                : sprintf("&nbsp;&nbsp;*%s: %s\n", $key, $value);
+                ? sprintf("&nbsp;&nbsp;%s: %s\n", htmlspecialchars($fieldnames[$key]), $value)
+                : sprintf("&nbsp;&nbsp;*%s: %s\n", htmlspecialchars($key), $value);
         }
         $text .= "\n";
 
@@ -485,10 +485,10 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $text .= "<strong>" . Horde_Crypt_Translation::t("Issuer") . ":</strong>\n";
 
         foreach ($details['issuer'] as $key => $value) {
-            $value = $this->_implodeValues($value);
+            $value = htmlspecialchars($this->_implodeValues($value));
             $text .= isset($fieldnames[$key])
-                ? sprintf("&nbsp;&nbsp;%s: %s\n", $fieldnames[$key], $value)
-                : sprintf("&nbsp;&nbsp;*%s: %s\n", $key, $value);
+                ? sprintf("&nbsp;&nbsp;%s: %s\n", htmlspecialchars($fieldnames[$key]), $value)
+                : sprintf("&nbsp;&nbsp;*%s: %s\n", htmlspecialchars($key), $value);
         }
         $text .= "\n";
 
@@ -503,10 +503,10 @@ class Horde_Crypt_Smime extends Horde_Crypt
             $text .= "<strong>" . Horde_Crypt_Translation::t("X509v3 extensions") . ":</strong>\n";
 
             foreach ($details['extensions'] as $key => $value) {
-                $value = $this->_implodeValues($value, 6);
+                $value = htmlspecialchars(trim($this->_implodeValues($value, 6)));
                 $text .= isset($fieldnames[$key])
-                    ? sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $fieldnames[$key], trim($value))
-                    : sprintf("&nbsp;&nbsp;*%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $key, trim($value));
+                    ? sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", htmlspecialchars($fieldnames[$key]), $value)
+                    : sprintf("&nbsp;&nbsp;*%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", htmlspecialchars($key), $value);
             }
 
             $text .= "\n";

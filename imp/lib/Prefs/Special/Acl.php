@@ -101,21 +101,21 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
             $view->curr_acl = $cval;
         }
 
-        if ((bool)$injector->getInstance('IMP_Imap')->config->admin) {
+        try {
             $current_users = array_keys($curr_acl);
             $new_user = array();
 
-            try {
-                foreach (array('anyone') + $registry->callAppMethod('imp', 'authUserList') as $user) {
-                    if (!in_array($user, $current_users)) {
-                        $new_user[] = htmlspecialchars($user);
-                    }
+            foreach (array('anyone') + $registry->callAppMethod('imp', 'authUserList') as $user) {
+                if (!in_array($user, $current_users)) {
+                    $new_user[] = htmlspecialchars($user);
                 }
-            } catch (Horde_Exception $e) {
-                $notification->push($e);
-                return;
             }
+
             $view->new_user = $new_user;
+        } catch (Horde_Exception $e) {
+            if (!($e->getPrevious() instanceof IMP_Exception)) {
+                $notification->push($e);
+            }
         }
 
         $rights = array();

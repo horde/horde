@@ -39,9 +39,14 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function encryptList()
     {
-        $ret = array(
-            self::ENCRYPT => _("S/MIME Encrypt Message")
-        );
+        $ret = array();
+
+        if ($GLOBALS['registry']->hasMethod('contacts/getField') ||
+            Horde::hookExists('smime_key', 'imp')) {
+            $ret += array(
+                self::ENCRYPT => _("S/MIME Encrypt Message")
+            );
+        }
 
         if ($this->getPersonalPrivateKey()) {
             $ret += array(

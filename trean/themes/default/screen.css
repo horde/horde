@@ -42,6 +42,11 @@
     padding-left: 5px;
 }
 
+.treanBookmarkTag:hover {
+    background: #bbcbff;
+    cursor: pointer;
+}
+
 /* Sidebar images. */
 .trean-browse {
     background-image: url("graphics/trean.png");

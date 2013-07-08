@@ -25,7 +25,7 @@ $ps_opts = array('timezone' => $prefs->getValue('timezone'));
 if ($where) {
     $ps_opts['file'] = $where;
     if (!isset($title)) {
-        $title = sprintf(_("Commits to %s"), $where);
+        $title = _("Commits to:");
     }
 }
 
@@ -40,15 +40,10 @@ if (empty($patchsets)) {
     Chora::fatal(_("Commit Not Found"), '404 Not Found');
 }
 
-$extraLink = Chora::getFileViews($where, 'patchsets');
-
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('quickfinder.js', 'horde');
-$page_output->header(array(
-    'title' => $title
-));
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
+echo Chora::getHistoryViews($where)->render('patchsets');
 require CHORA_TEMPLATES . '/patchsets/header_table.inc';
 
 $diff_img = Horde::img('diff.png', _("Diff"));
