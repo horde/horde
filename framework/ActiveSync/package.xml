@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix returning proper values for the Horde_ActiveSync_Message_SendMail::replacemime property. The could cause replying to email with some EAS 14+ clients to fail.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1537,7 +1537,7 @@
    <date>2013-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix returning proper values for the Horde_ActiveSync_Message_SendMail::replacemime property. The could cause replying to email with some EAS 14+ clients to fail.
    </notes>
   </release>
  </changelog>

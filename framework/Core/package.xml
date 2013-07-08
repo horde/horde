@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix issue with replying to emails using EAS 14+ that was causing duplicated original message bodies for some clients.
 * [mjr] Performance improvements to Horde_Core_TagBrowser when fetching related tags.
 * [mjr] Fix bug in TagBrowser causing shared resources to be ignored (Bug #12405).
 * [jan] Fix returning the default from address from a different user without identities.
@@ -3016,6 +3017,7 @@
    <date>2013-06-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix issue with replying to emails using EAS 14+ that was causing duplicated original message bodies for some clients.
 * [mjr] Performance improvements to Horde_Core_TagBrowser when fetching related tags.
 * [mjr] Fix bug in TagBrowser causing shared resources to be ignored (Bug #12405).
 * [jan] Fix returning the default from address from a different user without identities.
