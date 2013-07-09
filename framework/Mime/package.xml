@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix setting a different body if reusing a Horde_Mime_Mail object.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1159,7 +1159,7 @@
    <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix setting a different body if reusing a Horde_Mime_Mail object.
    </notes>
   </release>
  </changelog>
