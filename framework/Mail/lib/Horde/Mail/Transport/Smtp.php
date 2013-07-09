@@ -243,6 +243,11 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
             $this->_params['localhost']
         );
 
+        /* Set pipelining. */
+        if ($this->_params['pipelining']) {
+            $this->_smtp->pipelining = true;
+        }
+
         /* If we still don't have an SMTP object at this point, fail. */
         if (!($this->_smtp instanceof Net_SMTP)) {
             throw new Horde_Mail_Exception('Failed to create a Net_SMTP object', self::ERROR_CREATE);
