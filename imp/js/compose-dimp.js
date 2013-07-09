@@ -973,7 +973,8 @@ var DimpCompose = {
             break;
 
         case 'compose_upload_add':
-            if (Prototype.Browser.Gecko) {
+            // This is no longer needed as of Firefox 22.
+            if (Prototype.Browser.Gecko && Object.isUndefined(Object.is)) {
                 $('upload').click();
             }
             break;
