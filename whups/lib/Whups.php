@@ -666,7 +666,8 @@ class Whups
     {
         if (is_null($user)) {
             $user = $GLOBALS['registry']->getAuth();
-        } elseif (empty($user)) {
+        }
+        if (empty($user)) {
             return array('user' => '',
                          'name' => '',
                          'email' => '');
