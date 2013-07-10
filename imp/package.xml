@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix some cases where the seesion was not destroyed upon authentication errors.
 * [mms] Fix uploading attachments on Firefox 22+ in dynamic view.
 * [mms] Fix image upload dialog in the HTML compose editor.
 * [mms] Fix purging search previews from browser cache when switching mailboxes (Bug #12384).
@@ -3241,6 +3242,7 @@
    <date>2013-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix some cases where the seesion was not destroyed upon authentication errors.
 * [mms] Fix uploading attachments on Firefox 22+ in dynamic view.
 * [mms] Fix image upload dialog in the HTML compose editor.
 * [mms] Fix purging search previews from browser cache when switching mailboxes (Bug #12384).
