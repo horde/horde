@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Correctly logout when a Horde_Exception_AuthenticationFailure is handled by the default Horde error handler.
 * [mms] Don&apos;t convert image data URLs already contained within a CSS file when compressing (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Prevent endless loop when checkExistingAuth() test fails when initializing an application.
  </notes>
@@ -3031,6 +3032,7 @@
    <date>2013-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Correctly logout when a Horde_Exception_AuthenticationFailure is handled by the default Horde error handler.
 * [mms] Don&apos;t convert image data URLs already contained within a CSS file when compressing (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Prevent endless loop when checkExistingAuth() test fails when initializing an application.
    </notes>

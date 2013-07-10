@@ -42,7 +42,6 @@ class Horde_ErrorHandler
                 }
 
                 $params = array(
-                    'app' => $error->application,
                     'reason' => $error->getCode()
                 );
 
