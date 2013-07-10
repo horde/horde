@@ -485,10 +485,13 @@ abstract class Whups_Driver
         }
 
         foreach ($opts['recipients'] as $user => $role) {
-            if ($user == $opts['from'] &&
-                $user == $GLOBALS['registry']->getAuth() &&
-                $prefs->getValue('email_others_only')) {
-                continue;
+            if ($user == $opts['from']) {
+                $user_prefs = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Prefs')
+                    ->create('whups', array('user' => $user < 0 ? null : $user));
+                if ($user_prefs->getValue('email_others_only')) {
+                    continue;
+                }
             }
 
             /* Make sure to check permissions as a guest for the 'always_copy'

@@ -2,6 +2,7 @@
 v3.0.0-git
 ----------
 
+[jan] Don't send reply messages to guests if disabled in preferences.
 [jan] Fix downloading of attachments.
 [jan] Add more tests to filter out bounces and auto-replies in the mail parser.
 [jan] Hide topbar and sidebar when displaying attachments.

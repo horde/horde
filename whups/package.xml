@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Don&apos;t send reply messages to guests if disabled in preferences.
 * [jan] Fix downloading of attachments.
 * [jan] Add more tests to filter out bounces and auto-replies in the mail parser.
 * [jan] Hide topbar and sidebar when displaying attachments.
@@ -1010,6 +1011,7 @@
    <date>2013-06-19</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Don&apos;t send reply messages to guests if disabled in preferences.
 * [jan] Fix downloading of attachments.
 * [jan] Add more tests to filter out bounces and auto-replies in the mail parser.
 * [jan] Hide topbar and sidebar when displaying attachments.
