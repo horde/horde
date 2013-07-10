@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Set Basic Authentication HTTP headers if running PHP as CGI.
 * [jan] Return to originally URL after logging in.
 * [jan] Fix login icon.
 * [jan] Enable Turkish translation on PHP 5.5.
@@ -3719,6 +3720,7 @@
    <date>2013-06-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Set Basic Authentication HTTP headers if running PHP as CGI.
 * [jan] Return to originally URL after logging in.
 * [jan] Fix login icon.
 * [jan] Enable Turkish translation on PHP 5.5.
