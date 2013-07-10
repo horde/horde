@@ -513,7 +513,7 @@ abstract class Whups_Driver
                 $user_prefs = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_Prefs')
                     ->create('whups', array('user' => $details['user']));
-                if ($details['user'] == $opts['from'] &&
+                if ($user == $opts['from'] &&
                     $user_prefs->getValue('email_others_only')) {
                     continue;
                 }
