@@ -37,15 +37,15 @@ class IMP_Prefs_Special_Mailto implements Horde_Core_Prefs_Ui_Special
         $name = $registry->get('name');
 
         $page_output->addInlineScript(array(
-            'if (!Object.isUndefined(navigator.registerProtocolHandler))' .
-            '$("mailto_handler").show().down("A").observe("click", function() {' .
-                'navigator.registerProtocolHandler("mailto","' .
-                IMP_Basic_Compose::url()->setRaw(true)->add(array(
-                    'actionID' => 'mailto_link',
-                    'to' => ''
-                )) .
-                '=%s","' . $name . '");' .
-            '})'
+            'if (!Object.isUndefined(navigator.registerProtocolHandler))'
+            . '$("mailto_handler").show().down("A").observe("click", function() {'
+            . 'navigator.registerProtocolHandler("mailto","'
+            . Horde::url('basic.php', true)->add(array(
+                  'page' => 'compose',
+                  'actionID' => 'mailto_link',
+                  'to' => ''
+              ))
+            . '=%s","' . $name . '");})'
         ), true);
 
         $view = new Horde_View(array(
