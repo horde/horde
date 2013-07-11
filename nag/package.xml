@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix system tasklist listing via WebDAV.
 * [rla] Add system tasklist support for Nag CalDAV access (Request #12342).
 * [jan] Fix task description tooltip (Bug #12421).
 * [mjr] Persist the tasklist and parent when creating a new task and using "Save and New" (Bug: 12400).
@@ -1389,6 +1390,7 @@
    <date>2013-06-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix system tasklist listing via WebDAV.
 * [rla] Add system tasklist support for Nag CalDAV access (Request #12342).
 * [jan] Fix task description tooltip (Bug #12421).
 * [mjr] Persist the tasklist and parent when creating a new task and using "Save and New" (Bug: 12400).
