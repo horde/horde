@@ -106,7 +106,7 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
         if ($user == '-system-') {
             return array(
                 'uri' => 'principals/-system-',
-                '{DAV:}displayname' => Horde_Principals_Translation::t("System"),
+                '{DAV:}displayname' => Horde_Dav_Translation::t("System"),
             );
         }
 
