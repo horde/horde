@@ -64,7 +64,7 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
         if ($prefixPath != 'principals') {
             throw new DAV\Exception\NotFound('Invalid principal prefix path ' . $prefixPath);
         }
-        $users = array();
+        $users = array($this->_getUserInfo('-system-'));
         if (!$this->_auth->hasCapability('list')) {
             return $users;
         }
@@ -87,7 +87,8 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
             throw new DAV\Exception\NotFound('Invalid principal prefix path ' . $prefix);
         }
         if ($this->_auth->hasCapability('list') &&
-            !$this->_auth->exists($user)) {
+            !$this->_auth->exists($user) &&
+            $user != '-system-') {
             throw new DAV\Exception\NotFound('User ' . $user . ' does not exist');
         }
         return $this->_getUserInfo($user);
@@ -102,6 +103,16 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
      */
     protected function _getUserInfo($user)
     {
+        if ($user == '-system-') {
+            return array(
+                'uri' => 'principals/-system-',
+                '{DAV:}displayname' => '-systems-',
+                '{http://sabredav.org/ns}email-address' => ''
+                /* Should we leave this empty, set something static
+                   or pull something from config ? */
+            );
+        }
+
         $identity = $this->_identities->create($user);
         return array(
             'uri' => 'principals/' . $user,
@@ -154,7 +165,9 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
      */
     public function getGroupMembership($principal)
     {
-        return array();
+         // All users should have access to the -system- share
+         // Which should return only calendars the user sees in Horde.
+        return array('principals/-system-');
     }
 
     /**

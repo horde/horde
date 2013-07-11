@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [rla] Add system share support for CalDAV (Request #12342).
 * [jan] Fix PUTing content from the input stream to the backend.
 * [jan] Update to SabreDAV 1.8.6.
  </notes>
@@ -669,6 +670,7 @@
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [rla] Add system share support for CalDAV (Request #12342).
 * [jan] Fix PUTing content from the input stream to the backend.
 * [jan] Update to SabreDAV 1.8.6.
    </notes>

@@ -2,6 +2,7 @@
 v4.1.2-git
 ----------
 
+[rla] Add system calendar support for Kronolith CalDAV access (Request #12342).
 [mjr] Fix automatically adding organizer as attendee in dynamic view.
 [mjr] Prompt for sending cancellation iTip when deleting an event (Bug #12415).
 [rla] Properly display system-owned calendars when browsing DAV (Bug #12325).

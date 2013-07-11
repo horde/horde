@@ -421,16 +421,20 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function davGetCollections($user)
     {
+        $queryUser = $user == '-system-' ? '' : $user;
         $shares = $GLOBALS['nag_shares']
             ->listShares(
                 $GLOBALS['registry']->getAuth(),
                 array('perm' => Horde_Perms::SHOW,
-                      'attributes' => $user)
+                      'attributes' => $queryUser)
             );
         $dav = $GLOBALS['injector']
             ->getInstance('Horde_Dav_Storage');
         $tasklists = array();
         foreach ($shares as $id => $share) {
+            if (empty($queryUser) && $share->get('owner')) {
+                continue;
+            }
             try {
                 $id = $dav->getExternalCollectionId($id, 'tasks') ?: $id;
             } catch (Horde_Dav_Exception $e) {
