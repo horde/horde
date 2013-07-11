@@ -10,7 +10,14 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('chora');
+
+/* If a revision is specified, it's safe to cache for a long time. */
+if (empty($_GET['r'])) {
+    Horde_Registry::appInit('chora');
+} else {
+    session_cache_expire(10080);
+    Horde_Registry::appInit('chora', array('session_cache_limiter' => 'public'));
+}
 
 /* If we know we're at a directory, just go to browsedir.php. */
 if ($atdir) {
@@ -31,13 +38,9 @@ try {
 /* Get the revision number. */
 $r = Horde_Util::getFormData('r');
 
-/* If no revision is specified, default to HEAD.  If a revision is
- * specified, it's safe to cache for a long time. */
+/* If no revision is specified, default to HEAD. */
 if (is_null($r)) {
     $r = $file->getRevision();
-    header('Cache-Control: max-age=60, must-revalidate');
-} else {
-    header('Cache-Control: max-age=2419200');
 }
 
 /* Is this a valid revision being requested? */
