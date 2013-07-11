@@ -127,6 +127,9 @@ class Kronolith_Api extends Horde_Registry_Api
                       'attributes' => $owner));
             $results = array();
             foreach ($calendars as $calendarId => $calendar) {
+                if ($parts[0] == '-system-' && $calendar->get('owner')) {
+                    continue;
+                }
                 $retpath = 'kronolith/' . $parts[0] . '/' . $calendarId;
                 if (in_array('name', $properties)) {
                     $results[$retpath]['name'] = sprintf(_("Events from %s"), Kronolith::getLabel($calendar));
