@@ -669,7 +669,7 @@ msgstr "általam"
 #: lib/Application.php:141
 #, php-format
 msgid "in %s"
-msgstr "%s jegyzettömbben"
+msgstr "%s feljegyzésekben"
 
 #: data.php:85 templates/data/export.inc:4
 msgid "notes.csv"
