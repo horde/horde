@@ -1174,6 +1174,8 @@ var DimpCompose = {
             $('dimpLoading').hide();
             $('composeContainer', 'redirect').invoke('show');
 
+            this.tasksHandler({ tasks: this.tasks });
+
             if (this.onload_show) {
                 this.fillForm(this.onload_show);
                 delete this.onload_show;

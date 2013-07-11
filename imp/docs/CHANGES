@@ -2,6 +2,8 @@
 v6.1.3-git
 ----------
 
+[mms] Fix regression of redirect message not working in dynamic view (Bug
+      #12417).
 [jan] Fix link to setup browser for mailto: protocol.
 [mms] Fix some cases where the seesion was not destroyed upon authentication
       errors.
