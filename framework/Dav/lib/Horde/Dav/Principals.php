@@ -106,10 +106,7 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
         if ($user == '-system-') {
             return array(
                 'uri' => 'principals/-system-',
-                '{DAV:}displayname' => '-systems-',
-                '{http://sabredav.org/ns}email-address' => ''
-                /* Should we leave this empty, set something static
-                   or pull something from config ? */
+                '{DAV:}displayname' => Horde_Principals_Translation::t("System"),
             );
         }
 

@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-04</date>
- <time>17:50:38</time>
+ <date>2013-07-11</date>
+ <time>16:00:28</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -56,10 +56,14 @@
       <file name="Locks.php" role="php" />
       <file name="Principals.php" role="php" />
       <file name="RootCollection.php" role="php" />
+      <file name="Translation.php" role="php" />
      </dir> <!-- /lib/Horde/Dav -->
      </dir> <!-- /lib/Horde -->
     <!-- //lib/Sabre -->
    </dir> <!-- //lib -->
+   <dir name="locale">
+    <file name="Horde_Dav.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="migration">
     <dir name="Horde">
      <dir name="Dav">
@@ -341,6 +345,7 @@
          </dir> <!-- /vendor/sabre/vobject/lib/Sabre/VObject/Splitter -->
          <file name="Component.php" role="php" />
          <file name="DateTimeParser.php" role="php" />
+         <file name="Document.php" role="php" />
          <file name="ElementList.php" role="php" />
          <file name="FreeBusyGenerator.php" role="php" />
          <file name="includes.php" role="php" />
@@ -404,10 +409,12 @@
    <install as="Horde/Dav/Locks.php" name="lib/Horde/Dav/Locks.php" />
    <install as="Horde/Dav/Principals.php" name="lib/Horde/Dav/Principals.php" />
    <install as="Horde/Dav/RootCollection.php" name="lib/Horde/Dav/RootCollection.php" />
+   <install as="Horde/Dav/Translation.php" name="lib/Horde/Dav/Translation.php" />
    <install as="Horde/Dav/Calendar/Backend.php" name="lib/Horde/Dav/Calendar/Backend.php" />
    <install as="Horde/Dav/Contacts/Backend.php" name="lib/Horde/Dav/Contacts/Backend.php" />
    <install as="Horde/Dav/Storage/Base.php" name="lib/Horde/Dav/Storage/Base.php" />
    <install as="Horde/Dav/Storage/Sql.php" name="lib/Horde/Dav/Storage/Sql.php" />
+   <install as="locale/Horde_Dav.pot" name="locale/Horde_Dav.pot" />
    <install as="migration/1_horde_dav_base_tables.php" name="migration/Horde/Dav/1_horde_dav_base_tables.php" />
    <install as="LICENSE.dav" name="vendor/sabre/dav/LICENSE" />
    <install as="Sabre/CalDAV/Calendar.php" name="vendor/sabre/dav/lib/Sabre/CalDAV/Calendar.php" />
@@ -591,6 +598,7 @@
    <install as="LICENSE.vobject" name="vendor/sabre/vobject/LICENSE" />
    <install as="Sabre/VObject/Component.php" name="vendor/sabre/vobject/lib/Sabre/VObject/Component.php" />
    <install as="Sabre/VObject/DateTimeParser.php" name="vendor/sabre/vobject/lib/Sabre/VObject/DateTimeParser.php" />
+   <install as="sabre/vobject/lib/Sabre/VObject/Document.php" name="vendor/sabre/vobject/lib/Sabre/VObject/Document.php" />
    <install as="Sabre/VObject/ElementList.php" name="vendor/sabre/vobject/lib/Sabre/VObject/ElementList.php" />
    <install as="Sabre/VObject/FreeBusyGenerator.php" name="vendor/sabre/vobject/lib/Sabre/VObject/FreeBusyGenerator.php" />
    <install as="Sabre/VObject/includes.php" name="vendor/sabre/vobject/lib/Sabre/VObject/includes.php" />
@@ -667,7 +675,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-04</date>
+   <date>2013-07-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [rla] Add system share support for CalDAV (Request #12342).
