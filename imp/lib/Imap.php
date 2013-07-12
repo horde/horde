@@ -513,12 +513,7 @@ class IMP_Imap implements Serializable
                 return $ob;
             }
 
-            $e = new Horde_Exception_AuthenticationFailure(
-                'IMP is marked as authenticated, but no credentials can be found in the session.',
-                Horde_Auth::REASON_SESSION
-            );
-            $e->application = 'imp';
-            throw $e;
+            throw new Horde_Exception_AuthenticationFailure('IMP is marked as authenticated, but no credentials can be found in the session.', Horde_Auth::REASON_SESSION);
         }
 
         if (!method_exists($this->_ob, $method)) {
@@ -577,13 +572,7 @@ class IMP_Imap implements Serializable
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
             if ($auth_e = $error->authException(false)) {
-                $e2 = new Horde_Exception_AuthenticationFailure(
-                    $e->getMessage(),
-                    $auth_e->getCode(),
-                    $e
-                );
-                $e2->application = 'imp';
-                throw $e2;
+                throw $auth_e;
             }
 
             Horde::log($error);

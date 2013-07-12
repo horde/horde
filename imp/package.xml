@@ -35,7 +35,6 @@
  <notes>
 * [mms] Fix regression of redirect message not working in dynamic view (Bug #12417).
 * [jan] Fix link to setup browser for mailto: protocol.
-* [mms] Fix some cases where the seesion was not destroyed upon authentication errors.
 * [mms] Fix uploading attachments on Firefox 22+ in dynamic view.
 * [mms] Fix image upload dialog in the HTML compose editor.
 * [mms] Fix purging search previews from browser cache when switching mailboxes (Bug #12384).
@@ -3246,7 +3245,6 @@
    <notes>
 * [mms] Fix regression of redirect message not working in dynamic view (Bug #12417).
 * [jan] Fix link to setup browser for mailto: protocol.
-* [mms] Fix some cases where the seesion was not destroyed upon authentication errors.
 * [mms] Fix uploading attachments on Firefox 22+ in dynamic view.
 * [mms] Fix image upload dialog in the HTML compose editor.
 * [mms] Fix purging search previews from browser cache when switching mailboxes (Bug #12384).
