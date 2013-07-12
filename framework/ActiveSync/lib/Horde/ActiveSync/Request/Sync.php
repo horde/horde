@@ -547,8 +547,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
 
                         $this->_logger->info(sprintf(
-                            '[%s] Sending MOREAVAILABLE. $cnt_collection = %d, $cnt_global = %d',
-                            $this->_procid, $cnt_collection, $cnt_global));
+                            '[%s] Sending MOREAVAILABLE. $changecount = %d, $cnt_global = %d',
+                            $this->_procid, $changecount, $cnt_global));
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                     }
 
@@ -556,8 +556,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $exporter->setChanges($this->_collections->getCollectionChanges(), $collection);
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
                         $cnt_collection = 0;
-                        while ($cnt_collection <= $collection['windowsize'] &&
-                               $cnt_global <= $this->_collections->getDefaultWindowSize() &&
+                        while ($cnt_collection < $collection['windowsize'] &&
+                               $cnt_global < $this->_collections->getDefaultWindowSize() &&
                                $progress = $exporter->sendNextChange()) {
 
                             ++$cnt_collection;
