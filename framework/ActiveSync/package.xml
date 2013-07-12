@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix off by one error when checking WINDOWSIZE, which breaks syncing with clients that have broken WINDOWSIZE implementations (Bug #12443).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1551,7 +1551,7 @@
    <date>2013-07-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix off by one error when checking WINDOWSIZE, which breaks syncing with clients that have broken WINDOWSIZE implementations (Bug #12443).
    </notes>
   </release>
  </changelog>
