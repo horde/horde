@@ -681,7 +681,7 @@ class Turba_Application extends Horde_Registry_Application
             throw new Turba_Exception("Address Book does not exist or no permission to edit");
         }
 
-        $list = $driver->search();
+        $list = $driver->search(array());
         $list->reset();
         $contacts = array();
         while ($contact = $list->next()) {
