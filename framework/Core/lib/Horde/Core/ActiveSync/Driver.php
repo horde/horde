@@ -1341,22 +1341,31 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Use the raw base part parsed from the rfc822 message if we don't
-        // need a smart reply or smart forward. The device will NOT send a
-        // smart reply/forward request if it is a s/mime signed.
+        // need a smart reply or smart forward. We MUST use the raw message body
+        // as sent from the client since it may be s/mime signed.The device will
+        // NOT send a smart reply/forward request if it is s/mime signed.
+        // Note that we also cannot use Horde_Mime_Part::send or Horde_Mime_Mail
+        // since these all rebuild the mime parts.
         if (!$parent || ($parent && $replacemime)) {
             $h_array = $headers->toArray(array('charset' => 'UTF-8'));
             if (is_array($h_array['From'])) {
                 $h_array['From'] = current($h_array['From']);
             }
-            $mail = new Horde_Mime_Mail($h_array);
-            $mail->setBasePart($raw_message->getMimeObject());
+            $recipients = $h_array['To'];
+            if (!empty($h_array['Cc'])) {
+                $recipients .= ',' . $h_array['Cc'];
+            }
+            if (!empty($h_array['Bcc'])) {
+                $recipients .= ',' . $h_array['Bcc'];
+            }
+            $GLOBALS['injector']->getInstance('Horde_Mail')->send($recipients, $h_array, $raw_message->getMessage()->stream);
 
             try {
                 // Need the message if we are saving to sent.
                 if ($save) {
                     $copy = $raw_message->getMimeObject();
                 }
-                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
+               // $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
