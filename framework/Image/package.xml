@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-13</date>
- <time>12:55:18</time>
+ <time>13:06:08</time>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix generating center image crops on Solaris systems that still use older Bourne shell.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -975,6 +975,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix generating center image crops on Solaris systems that still use older Bourne shell.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
