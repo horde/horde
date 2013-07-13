@@ -704,6 +704,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         if (empty($this->_device->supported)) {
                             $this->_device->supported = array();
                         }
+                        // Not all clients send the $collection['class'] in more
+                        // recent EAS versions. Grab it from the collection
+                        // handler if needed.
+                        if (empty($collection['class'])) {
+                            $collection['class'] = $this->_collections->getCollectionClass($collection['id']);
+                        }
                         $this->_device->supported[$collection['class']] = $collection['supported'];
                         $this->_device->save();
                     }
