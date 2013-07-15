@@ -1,6 +1,6 @@
 <h2 class="header"><?php echo $this->h($this->desc) ?></h2>
 
-<table class="itipSummary">
+<table class="horde-table imp-itip">
 <?php if (strlen($this->start)): ?>
  <tr>
   <td><strong><?php echo _("Start") ?>:</strong></td>
@@ -53,8 +53,8 @@
 <?php if (isset($this->attendees)): ?>
 <h2 class="smallheader"><?php echo _("Attendees") ?>:</h2>
 
-<table class="itipAttendees">
- <thead class="leftAlign">
+<table class="horde-table imp-itip">
+ <thead>
   <tr>
    <th><?php echo _("Name") ?></th>
    <th><?php echo _("Role") ?></th>
@@ -76,9 +76,9 @@
 <?php if (isset($this->conflicts)): ?>
 <h2 class="smallheader"><?php echo _("Possible Conflicts") ?>:</h2>
 
-<table class="itipconflicts">
+<table class="horde-table imp-itip">
 <?php foreach ($this->conflicts as $v): ?>
- <tr class="<?php echo (empty($v['collision']) ? 'itipcollision' : 'itipnearcollision') ?>">
+ <tr class="imp-itip<?php echo (empty($v['collision']) ? 'collision' : 'nearcollision') ?>">
   <td><?php echo $v['title'] ?></td>
   <td><?php echo $v['range'] ?></td>
  </tr>
