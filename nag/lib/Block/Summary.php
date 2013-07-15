@@ -145,7 +145,7 @@ class Nag_Block_Summary extends Horde_Core_Block
                 'completed' => empty($this->_params['show_completed'])
                     ? Nag::VIEW_INCOMPLETE
                     : Nag::VIEW_ALL,
-                'include_tags' => true)
+                'include_history' => false)
             );
         } catch (Nag_Exception $e) {
             return '<em>' . htmlspecialchars($e->getMessage()) . '</em>';
