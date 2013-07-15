@@ -198,9 +198,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         }
 
-        parent::authenticate($username, $password, $domain);
-
-        return true;
+        return parent::authenticate($username, $password, $domain);
     }
 
     /**
