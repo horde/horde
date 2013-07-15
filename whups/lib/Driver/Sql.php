@@ -247,8 +247,9 @@ class Whups_Driver_Sql extends Whups_Driver
      */
     public function addTicket(array &$info, $requester)
     {
+        $timestamp  = time();
         $type       = (int)$info['type'];
-        $state      = (int)$info['state'];
+        $state      = $this->getState((int)$info['state']);
         $priority   = (int)$info['priority'];
         $queue      = (int)$info['queue'];
         $summary    = $info['summary'];
@@ -262,16 +263,19 @@ class Whups_Driver_Sql extends Whups_Driver
             $ticket_id = $this->_db->insert(
                 'INSERT INTO whups_tickets (ticket_summary, '
                     . 'user_id_requester, type_id, state_id, priority_id, '
-                    . 'queue_id, ticket_timestamp, ticket_due, version_id)'
-                    . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    . 'queue_id, ticket_timestamp, ticket_due, date_updated, '
+                    . 'date_assigned, version_id)'
+                    . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 array($this->_toBackend($summary),
                       $requester,
                       $type,
-                      $state,
+                      $state['id'],
                       $priority,
                       $queue,
-                      time(),
+                      $timestamp,
                       $due,
+                      $timestamp,
+                      $state['category'] == 'assigned' ? $timestamp : null,
                       $version));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
@@ -313,7 +317,7 @@ class Whups_Driver_Sql extends Whups_Driver
 
         $transaction = $this->updateLog($ticket_id,
                                         $requester,
-                                        array('state' => $state,
+                                        array('state' => $state['id'],
                                               'priority' => $priority,
                                               'type' => $type,
                                               'summary' => $summary,
@@ -334,6 +338,12 @@ class Whups_Driver_Sql extends Whups_Driver
             $this->updateLog($ticket_id, $requester,
                              array('assign' => $owner),
                              $transaction);
+        }
+
+        // Set timestamps, if necessary.
+        if ($state['category'] == 'assigned') {
+            $this->updateLog($ticket_id, $requester,
+                             array('date_assigned' => $timestamp));
         }
 
         // Add any supplied attributes for this ticket.
