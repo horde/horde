@@ -354,7 +354,8 @@ class Nag_Application extends Horde_Registry_Application
             $tasks = Nag::listTasks(array(
                 'tasklists' => $tasklists,
                 'completed' => $vars->exportTasks,
-                'include_tags' => true)
+                'include_tags' => true,
+                'include_history' => false)
             );
 
             $tasks->reset();
