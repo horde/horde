@@ -609,12 +609,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             $imp_ui->attachAutoCompleter(array('to'));
         } else {
             $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
-
-            if (!empty($conf['spell']['driver'])) {
-                $spellcheck = true;
-                $imp_ui->attachSpellChecker();
-            }
-
+            $spellcheck = $imp_ui->attachSpellChecker();
             $page_output->addScriptFile('ieescguard.js', 'horde');
         }
 
