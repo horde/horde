@@ -40,7 +40,7 @@
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
 * [jan] Set Basic Authentication HTTP headers if running PHP as CGI.
-* [jan] Return to originally URL after logging in.
+* [jan] Return to original URL after logging in.
 * [jan] Fix login icon.
 * [jan] Enable Turkish translation on PHP 5.5.
 * [rla] Add a cli script for running queue tasks.

@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Kronolith
-Calendar Application version H5 (4.1.1).
+Calendar Application version H5 (4.1.2).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -32,15 +32,15 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/kronolith/docs/INSTALL
 
 The major changes compared to the Kronolith version H5 (4.1.0) are:
-    * Improved history API.
-    * Updated Dutch, Japanese, and Spanish translations.
+    * Fixed system calendar support via WebDAV/CalDAV.
+    * Prompt for sending cancellations when deleting an event.
     * Small bugfixes.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Improved history API.
-Updated Dutch, Japanese, and Spanish translations.
+Fixed system calendar support via WebDAV/CalDAV.
+Prompt for sending cancellations when deleting an event.
 Small bugfixes.
 FM;
 
