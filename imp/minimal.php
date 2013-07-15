@@ -28,17 +28,21 @@ if (!class_exists($class)) {
     throw new IMP_Exception('Page not found: ' . $vars->page);
 }
 
-$ob = new $class($injector->getInstance('Horde_Variables'));
-
-$page_output->header(array(
-    'title' => $ob->title,
-    'view' => $registry::VIEW_MINIMAL
-));
+try {
+    $ob = new $class($vars);
+    $page_output->header(array(
+        'title' => $ob->title,
+        'view' => $registry::VIEW_MINIMAL
+    ));
+} catch (Exception $e) {
+    $notification->push($e);
+    $page_output->header();
+    $ob = new IMP_Minimal_Error($vars);
+}
 
 $notification->notify(array(
     'listeners' => array('status')
 ));
 
 $ob->render();
-
 $page_output->footer();
