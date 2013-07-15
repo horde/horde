@@ -266,18 +266,20 @@ class IMP_Application extends Horde_Registry_Application
 
         /* Folders. */
         if ($GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $tree = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Tree')
-                ->create('imp_menu',
-                         'Horde_Tree_Renderer_Sidebar',
-                         array('nosession' => true));
-            $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-            $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
-            $tree = $imaptree->createTree($tree, array(
-                'open' => false,
-                'poll_info' => true
-            ));
-            $sidebar->containers['imp-menu'] = array('content' => $tree->getTree());
+            try {
+                $tree = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Tree')
+                    ->create('imp_menu', 'Horde_Tree_Renderer_Sidebar', array('nosession' => true));
+                $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+                $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
+                $tree = $imaptree->createTree($tree, array(
+                    'open' => false,
+                    'poll_info' => true
+                ));
+                $sidebar->containers['imp-menu'] = array(
+                    'content' => $tree->getTree()
+                );
+            } catch (Exception $e) {}
         }
     }
 

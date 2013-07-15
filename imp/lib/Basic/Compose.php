@@ -51,8 +51,13 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         $header = array();
         $msg = '';
 
-        $redirect = $resume = $showmenu = $spellcheck = false;
+        $redirect = $resume = $spellcheck = false;
         $oldrtemode = $rtemode = null;
+
+        /* Is this a popup window? */
+        if ($isPopup = ($prefs->getValue('compose_popup') || $this->vars->popup)) {
+            $page_output->topbar = $page_output->sidebar = false;
+        }
 
         /* Set the current identity. */
         $identity = $injector->getInstance('IMP_Identity');
@@ -135,9 +140,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         /* Init objects. */
         $imp_imap = $injector->getInstance('IMP_Imap');
         $imp_ui = new IMP_Compose_Ui();
-
-        /* Is this a popup window? */
-        $isPopup = ($prefs->getValue('compose_popup') || $this->vars->popup);
 
         /* Determine the composition type - text or HTML.
            $rtemode is null if browser does not support it. */
@@ -637,7 +639,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             } else {
                 $cancel_url = $this->_mailboxReturnUrl(false)->setRaw(false);
             }
-            $showmenu = true;
         }
 
         /* Grab any data that we were supplied with. */
@@ -1018,9 +1019,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             $this->output = $view->render('compose');
         }
 
-        if (!$showmenu) {
-            $page_output->topbar = $page_output->sidebar = false;
-        }
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose.js');
         $page_output->addScriptFile('murmurhash3.js');

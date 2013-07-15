@@ -30,7 +30,12 @@ if (!class_exists($class)) {
     throw new IMP_Exception('Page not found: ' . $vars->page);
 }
 
-$ob = new $class($vars);
+try {
+    $ob = new $class($vars);
+} catch (Exception $e) {
+    $notification->push($e);
+    $ob = new IMP_Basic_Error($vars);
+}
 
 $status = $ob->status();
 

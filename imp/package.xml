@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-18</date>
+ <date>2013-07-15</date>
  <version>
   <release>6.1.3</release>
   <api>6.1.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Better handle transient mail server connection issues in basic and minimal views.
 * [mms] Fix regression of redirect message not working in dynamic view (Bug #12417).
 * [jan] Fix link to setup browser for mailto: protocol.
 * [mms] Fix uploading attachments on Firefox 22+ in dynamic view.
@@ -141,6 +142,7 @@
      <file name="Base.php" role="horde" />
      <file name="Compose.php" role="horde" />
      <file name="Contacts.php" role="horde" />
+     <file name="Error.php" role="horde" />
      <file name="Folders.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
@@ -322,6 +324,7 @@
     <dir name="Minimal">
      <file name="Base.php" role="horde" />
      <file name="Compose.php" role="horde" />
+     <file name="Error.php" role="horde" />
      <file name="Folders.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
@@ -1502,6 +1505,7 @@
    <install as="imp/lib/Basic/Base.php" name="lib/Basic/Base.php" />
    <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
    <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
+   <install as="imp/lib/Basic/Error.php" name="lib/Basic/Error.php" />
    <install as="imp/lib/Basic/Folders.php" name="lib/Basic/Folders.php" />
    <install as="imp/lib/Basic/Mailbox.php" name="lib/Basic/Mailbox.php" />
    <install as="imp/lib/Basic/Message.php" name="lib/Basic/Message.php" />
@@ -1629,6 +1633,7 @@
    <install as="imp/lib/Mime/Viewer/Zip.php" name="lib/Mime/Viewer/Zip.php" />
    <install as="imp/lib/Minimal/Base.php" name="lib/Minimal/Base.php" />
    <install as="imp/lib/Minimal/Compose.php" name="lib/Minimal/Compose.php" />
+   <install as="imp/lib/Minimal/Error.php" name="lib/Minimal/Error.php" />
    <install as="imp/lib/Minimal/Folders.php" name="lib/Minimal/Folders.php" />
    <install as="imp/lib/Minimal/Mailbox.php" name="lib/Minimal/Mailbox.php" />
    <install as="imp/lib/Minimal/Message.php" name="lib/Minimal/Message.php" />
@@ -3240,9 +3245,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-18</date>
+   <date>2013-07-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Better handle transient mail server connection issues in basic and minimal views.
 * [mms] Fix regression of redirect message not working in dynamic view (Bug #12417).
 * [jan] Fix link to setup browser for mailto: protocol.
 * [mms] Fix uploading attachments on Firefox 22+ in dynamic view.
