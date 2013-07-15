@@ -679,8 +679,11 @@ class Nag_Api extends Horde_Registry_Api
             }
         }
 
-        $tasks = Nag::listTasks(
-            array('tasklists' => $tasklists, 'completed' => Nag::VIEW_ALL));
+        $tasks = Nag::listTasks(array(
+            'tasklists' => $tasklists,
+            'completed' => Nag::VIEW_ALL,
+            'include_history' => false)
+        );
         $uids = array();
         $tasks->reset();
         while ($task = $tasks->each()) {
