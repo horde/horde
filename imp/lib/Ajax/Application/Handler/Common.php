@@ -346,8 +346,9 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 $result->format = $fwd_msg['format'];
             } else {
                 $result = $compose->ajax->getResponse($fwd_msg);
-                $this->_base->queue->attachment($compose->compose, $fwd_msg['type']);
             }
+
+            $this->_base->queue->attachment($compose->compose, $fwd_msg['type']);
         } catch (Horde_Exception $e) {
             $notification->push($e);
             $this->_base->checkUidvalidity();
