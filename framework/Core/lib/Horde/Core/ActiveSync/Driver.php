@@ -179,6 +179,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $username));
 
         if (!$this->_auth->authenticate($username, array('password' => $password))) {
+            $injector->getInstance('Horde_Log_Logger')->err(sprintf(Horde_Core_Translation::t("Login failed from ActiveSync client for user %s."), $username));
             return false;
         }
 
