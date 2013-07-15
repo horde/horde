@@ -927,9 +927,9 @@ class Whups
         $remind = array();
         foreach ($tickets as $info) {
             $info['link'] = self::urlFor('ticket', $info['id'], true, -1);
-            $owners = current($whups_driver->getOwners($info['id']));
+            $owners = $whups_driver->getOwners($info['id']);
             if (!empty($owners)) {
-                foreach ($owners as $owner) {
+                foreach (reset($owners) as $owner) {
                     $remind[$owner][] = $info;
                 }
             } elseif (!empty($unassigned)) {
@@ -1074,9 +1074,8 @@ class Whups
         }
 
         $results = array();
-        $owners = reset($owners);
-        if ($owners !== false) {
-            foreach ($owners as $owner) {
+        if ($owners) {
+            foreach (reset($owners) as $owner) {
                 $results[] = self::formatUser($owner, $showemail, $showname);
             }
         }
