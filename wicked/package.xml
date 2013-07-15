@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add table layout (Bug #12402).
 * [jan] Fix DB column width for page contents (Bug #12407).
 * [mjr] Fix creating a new page from search results (Bug #12381).
 * [jan] Fix syntax error in wicked CLI script (Bug #12378).
@@ -955,6 +956,7 @@
    <date>2013-07-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add table layout (Bug #12402).
 * [jan] Fix DB column width for page contents (Bug #12407).
 * [mjr] Fix creating a new page from search results (Bug #12381).
 * [jan] Fix syntax error in wicked CLI script (Bug #12378).

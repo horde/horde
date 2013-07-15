@@ -198,11 +198,11 @@ table.horde-table td {
     margin-left: 5px;
     padding: 0 5px;
 }
-.horde-table-header, table.horde-table thead tr {
+.horde-table-header, table.horde-table th {
     background-image: url("graphics/tablehead-bg.png");
     background-repeat: repeat-x;
 }
-.horde-table-header a, table.horde-table thead a {
+.horde-table-header a, table.horde-table th a {
     color: #000;
 }
 .horde-table-header .horde-split-left,
