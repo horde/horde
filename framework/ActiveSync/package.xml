@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-08</date>
- <time>15:58:59</time>
+ <date>2013-07-15</date>
+ <time>19:13:03</time>
  <version>
   <release>2.5.5</release>
   <api>2.5.0</api>
@@ -1548,7 +1548,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-08</date>
+   <date>2013-07-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix off by one error when checking WINDOWSIZE, which breaks syncing with clients that have broken WINDOWSIZE implementations (Bug #12443).
