@@ -58,10 +58,9 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
      */
     public function listTasks()
     {
+        $options = array('include_history' => false);
         if ($this->vars->tasklist) {
-            $options = array('tasklists' => array($this->vars->tasklist));
-        } else {
-            $options = array();
+            $options['tasklists'] => array($this->vars->tasklist);
         }
 
         $tasks = Nag::listTasks($options);
