@@ -313,12 +313,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         if (empty($imp_imap->config->innocent_params)) {
             unset($context['ctx_message']['innocent']);
         }
-        if (!$registry->hasMethod('mail/blacklistFrom')) {
-            unset($context['ctx_message']['blacklist']);
-        }
-        if (!$registry->hasMethod('mail/whitelistFrom')) {
-            unset($context['ctx_message']['whitelist']);
-        }
         if ($prefs->getValue('use_trash')) {
             unset($context['ctx_message']['undelete']);
         }
@@ -391,6 +385,20 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
         if ($prefs->isLocked('delhide')) {
             unset($context['ctx_oa']['hide_deleted']);
+        }
+
+        /* Shared between message and other actions menus. */
+        if (!$registry->hasMethod('mail/blacklistFrom')) {
+            unset(
+                $context['ctx_message']['blacklist'],
+                $context['ctx_oa']['blacklist']
+            );
+        }
+        if (!$registry->hasMethod('mail/whitelistFrom')) {
+            unset(
+                $context['ctx_message']['whitelist'],
+                $context['ctx_oa']['whitelist']
+            );
         }
 
         /* Preview context menu. */
