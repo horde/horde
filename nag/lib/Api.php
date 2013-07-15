@@ -1246,7 +1246,10 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listCostObjects($criteria)
     {
-        $tasks = Nag::listTasks(array('completed' => Nag::VIEW_ALL));
+        $tasks = Nag::listTasks(array(
+            'completed' => Nag::VIEW_ALL,
+            'include_history' => false)
+        );
         $result = array();
         $tasks->reset();
         $last_week = time() - 7 * 86400;
@@ -1312,7 +1315,8 @@ class Nag_Api extends Horde_Registry_Api
         // List incomplete tasks.
         $tasks = Nag::listTasks(array(
             'tasklists' => $categories,
-            'completed' => Nag::VIEW_INCOMPLETE)
+            'completed' => Nag::VIEW_INCOMPLETE,
+            'include_history' => false)
         );
 
         $tasks->reset();
