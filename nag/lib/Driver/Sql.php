@@ -396,9 +396,12 @@ class Nag_Driver_Sql extends Nag_Driver
      *                            0 = incomplete tasks, 2 = complete tasks,
      *                            3 = future tasks, 4 = future and incomplete
      *                            tasks).
+     * @param boolean $include_history  Include created/changed data from
+     *                                  Horde_History.
+     *
      * @throws Nag_Exception
      */
-    public function retrieve($completed = Nag::VIEW_ALL)
+    public function retrieve($completed = Nag::VIEW_ALL, $include_history = true)
     {
         /* Build the SQL query. */
         $query = sprintf('SELECT * FROM %s WHERE task_owner = ?',
@@ -435,7 +438,7 @@ class Nag_Driver_Sql extends Nag_Driver
         $dict = array();
 
         foreach ($result as $row) {
-            $task = new Nag_Task($this, $this->_buildTask($row));
+            $task = new Nag_Task($this, $this->_buildTask($row, $include_history));
 
             /* Add task directly if it is a root task, otherwise store it in
              * the dictionary. */
@@ -527,8 +530,14 @@ class Nag_Driver_Sql extends Nag_Driver
     }
 
     /**
+     * Return an array describing this task from the provided backend data.
+     *
+     * @param array $row                The backend data
+     * @param boolean $include_history  Include history data.
+     *
+     * @return array  The task data.
      */
-    protected function _buildTask($row)
+    protected function _buildTask($row, $include_history = true)
     {
         // Make sure tasks always have a UID.
         if (empty($row['task_uid'])) {
@@ -592,32 +601,34 @@ class Nag_Driver_Sql extends Nag_Driver
             'recurrence' => $recurrence
         );
 
-        try {
-            $userId = $GLOBALS['registry']->getAuth();
-            $log = $GLOBALS['injector']->getInstance('Horde_History')
-                ->getHistory('nag:' . $row['task_owner'] . ':' . $row['task_uid']);
-            foreach ($log as $entry) {
-                switch ($entry['action']) {
-                case 'add':
-                    $task['created'] = new Horde_Date($entry['ts']);
-                    if ($userId != $entry['who']) {
-                        $task['createdby'] = sprintf(_("by %s"), Nag::getUserName($entry['who']));
-                    } else {
-                        $task['createdby'] = _("by me");
-                    }
-                    break;
+        if ($include_history) {
+            try {
+                $userId = $GLOBALS['registry']->getAuth();
+                $log = $GLOBALS['injector']->getInstance('Horde_History')
+                    ->getHistory('nag:' . $row['task_owner'] . ':' . $row['task_uid']);
+                foreach ($log as $entry) {
+                    switch ($entry['action']) {
+                    case 'add':
+                        $task['created'] = new Horde_Date($entry['ts']);
+                        if ($userId != $entry['who']) {
+                            $task['createdby'] = sprintf(_("by %s"), Nag::getUserName($entry['who']));
+                        } else {
+                            $task['createdby'] = _("by me");
+                        }
+                        break;
 
-                case 'modify':
-                    $task['modified'] = new Horde_Date($entry['ts']);
-                    if ($userId != $entry['who']) {
-                        $task['modifiedby'] = sprintf(_("by %s"), Nag::getUserName($entry['who']));
-                    } else {
-                        $task['modifiedby'] = _("by me");
+                    case 'modify':
+                        $task['modified'] = new Horde_Date($entry['ts']);
+                        if ($userId != $entry['who']) {
+                            $task['modifiedby'] = sprintf(_("by %s"), Nag::getUserName($entry['who']));
+                        } else {
+                            $task['modifiedby'] = _("by me");
+                        }
+                        break;
                     }
-                    break;
                 }
+            } catch (Horde_Exception $e) {
             }
-        } catch (Horde_Exception $e) {
         }
 
         return $task;

@@ -150,7 +150,8 @@ class Nag_Search implements Serializable
         // Get the full, sorted task list.
         $tasks = Nag::listTasks(array(
             'tasklists' => $this->_tasklists,
-            'completed' => $this->_completed)
+            'completed' => $this->_completed,
+            'include_history' => false)
         );
         if (!empty($this->_search)) {
             $pattern = '/' . preg_quote($this->_search, '/') . '/i';
