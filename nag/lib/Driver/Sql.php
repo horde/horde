@@ -465,12 +465,14 @@ class Nag_Driver_Sql extends Nag_Driver
     /**
      * Retrieves sub-tasks from the database.
      *
-     * @param string $parentId  The parent id for the sub-tasks to retrieve.
+     * @param string $parentId          The parent id for the sub-tasks to
+     *                                  retrieve.
+     * @param boolean $include_history  Include created/modified info?
      *
      * @return array  List of sub-tasks.
      * @throws Nag_Exception
      */
-    public function getChildren($parentId)
+    public function getChildren($parentId, $include_history = true)
     {
         // Build the SQL query.
         $query = sprintf('SELECT * FROM %s WHERE task_owner = ? AND task_parent = ?',
@@ -486,7 +488,7 @@ class Nag_Driver_Sql extends Nag_Driver
         // Store the retrieved values in a fresh task list.
         $tasks = array();
         foreach ($result as $row) {
-            $task = new Nag_Task($this, $this->_buildTask($row));
+            $task = new Nag_Task($this, $this->_buildTask($row, $include_history));
             $children = $this->getChildren($task->id);
             $task->mergeChildren($children);
             $tasks[] = $task;

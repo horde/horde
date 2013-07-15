@@ -421,11 +421,12 @@ abstract class Nag_Driver
      * Retrieves sub-tasks from the database.
      *
      * @param string $parentId  The parent id for the sub-tasks to retrieve.
+     * @param boolean $include_history  Include created/modified info?
      *
      * @return array  List of sub-tasks.
      * @throws Nag_Exception
      */
-    public function getChildren($parentId)
+    public function getChildren($parentId, $include_history = true)
     {
         throw new Nag_Exception($this->_errormsg);
     }

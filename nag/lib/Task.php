@@ -394,11 +394,13 @@ class Nag_Task
 
     /**
      * Loads all sub-tasks.
+     *
+     * @param
      */
-    public function loadChildren()
+    public function loadChildren($include_history = true)
     {
         try {
-            $this->children = $this->_storage->getChildren($this->id);
+            $this->children = $this->_storage->getChildren($this->id, $include_history);
         } catch (Nag_Exception $e) {}
     }
 

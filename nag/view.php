@@ -40,7 +40,7 @@ if (!isset($task) || !isset($task->id)) {
 }
 
 /* Load child tasks */
-$task->loadChildren();
+$task->loadChildren(false);
 
 /* Check permissions on $tasklist_id. */
 $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
