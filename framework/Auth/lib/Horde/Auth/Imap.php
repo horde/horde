@@ -37,7 +37,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
-     *   - admin_password: (string) The password of the adminstrator.
+     *   - admin_password: (string) The password of the administrator.
      *                     DEFAULT: null
      *   - admin_user: (string) The name of a user with admin privileges.
      *                 DEFAULT: null

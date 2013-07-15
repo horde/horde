@@ -47,7 +47,7 @@ class Horde_Bundle extends Horde_Core_Bundle
                 $this->_cli->writeln($this->_cli->red('An administration user is required'));
                 continue;
             }
-            $admin_pass = $this->_cli->passwordPrompt('Specify a password for the adminstrator account:');
+            $admin_pass = $this->_cli->passwordPrompt('Specify a password for the administrator account:');
             if (empty($admin_pass)) {
                 $this->_cli->writeln($this->_cli->red('An administrator password is required'));
                 continue;
@@ -74,7 +74,7 @@ class Horde_Bundle extends Horde_Core_Bundle
                     $auth->addUser($admin_user, array('password' => $admin_pass));
                 }
             } catch (Horde_Exception $e) {
-                $this->_cli->message('An error occured while adding or updating the adminstrator. Error messages:', 'cli.error');
+                $this->_cli->message('An error occured while adding or updating the administrator. Error messages:', 'cli.error');
                 $this->_cli->writeln($e->getMessage());
                 return;
             }

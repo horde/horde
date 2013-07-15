@@ -223,7 +223,7 @@ class Folks_Friends {
             return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $user));
         }
 
-        // Do not allow to blacklist adminstrators
+        // Do not allow to blacklist administrators
         if (in_array($user, $this->_getAdmins())) {
             return PEAR::raiseError(sprintf(_("You cannot add \"%s\" to your blacklist."), $user));
         }
