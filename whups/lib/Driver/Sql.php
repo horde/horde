@@ -1103,8 +1103,7 @@ class Whups_Driver_Sql extends Whups_Driver
             $tickets[$ticket['id']] = $ticket;
         }
 
-        $owners = $this->getOwners(array_keys($tickets));
-        foreach ($owners as $id => $owners) {
+        foreach ($this->getOwners(array_keys($tickets)) as $id => $owners) {
             $tickets[$id]['owners'] = $owners;
             foreach($owners as $owner) {
                 $tickets[$id]['owners_formatted'][] = Whups::formatUser($owner, false, true, true);
