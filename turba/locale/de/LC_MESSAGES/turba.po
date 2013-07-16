@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba H5 (4.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-18 14:03+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: 2013-06-04 11:56+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -109,7 +109,7 @@ msgstr[1] ""
 "%d Kontakte hinzugefügt oder aktualisiert, aber mindestens ein Kontakt ist "
 "fehlgeschlagen:"
 
-#: lib/Driver.php:2902
+#: lib/Driver.php:2912
 msgid "Adding contacts is not available."
 msgstr "Hinzufügen von Kontakten nicht unterstützt."
 
@@ -143,7 +143,7 @@ msgstr "Adressbuch wurde erfolgreich geleert."
 msgid "Addressbook entry could not be loaded."
 msgstr "Der Adressbucheintrag konnte nicht geladen werden."
 
-#: search.php:193 search.php:237
+#: search.php:197 search.php:241
 msgid "Advanced Search"
 msgstr "Erweiterte Suche"
 
@@ -193,7 +193,7 @@ msgstr "Assistent"
 msgid "Assistant Phone"
 msgstr "Telefon Assistent"
 
-#: search.php:192 search.php:226
+#: search.php:196 search.php:230
 msgid "Basic Search"
 msgstr "Einfache Suche"
 
@@ -353,7 +353,7 @@ msgstr "Straße allgemein"
 msgid "Common Video Call"
 msgstr "Bildtelefon allgemein"
 
-#: config/backends.php:365 config/backends.php:694
+#: config/backends.php:359 config/backends.php:688
 msgid "Communications"
 msgstr "Kommunikation"
 
@@ -481,7 +481,7 @@ msgstr "Löschen fehlgeschlagen: (%s) %s"
 msgid "Deleted contact: %s"
 msgstr "Kontakt gelöscht: %s"
 
-#: lib/Driver.php:2915
+#: lib/Driver.php:2925
 msgid "Deleting contacts is not available."
 msgstr "Löschen von Kontakten nicht unterstützt."
 
@@ -513,7 +513,7 @@ msgstr "Herunterladen"
 msgid "Download vCard"
 msgstr "vCard herunterladen"
 
-#: search.php:195 search.php:245
+#: search.php:199 search.php:249
 msgid "Duplicate Search"
 msgstr "Duplikatsuche"
 
@@ -619,7 +619,7 @@ msgstr "Nur die ausgewählten Kontakte exportieren."
 msgid "Export the following address book completely."
 msgstr "Das folgende Adressbuch komplett exportieren."
 
-#: config/backends.php:797
+#: config/backends.php:791
 msgid "Facebook Friends"
 msgstr "Facebook-Freunde"
 
@@ -643,7 +643,7 @@ msgstr ""
 msgid "Failed to find object to be added"
 msgstr "Hinzugefügtes Objekt nicht gefunden"
 
-#: search.php:180
+#: search.php:184
 msgid "Failed to search the address book"
 msgstr "Das Adressbuch konnte nicht durchsucht werden"
 
@@ -652,7 +652,7 @@ msgstr "Das Adressbuch konnte nicht durchsucht werden"
 msgid "Failed to search the directory: %s"
 msgstr "Das Verzeichnis %s konnte nicht durchsucht werden."
 
-#: config/backends.php:767
+#: config/backends.php:761
 msgid "Favourite Recipients"
 msgstr "Häufigste Empfänger"
 
@@ -762,7 +762,7 @@ msgstr "Bildtelefon privat"
 msgid "Home Website URL"
 msgstr "Website-URL privat"
 
-#: config/backends.php:922
+#: config/backends.php:916
 msgid "IMSP"
 msgstr "IMSP"
 
@@ -860,7 +860,7 @@ msgstr "Breitengrad"
 msgid "List"
 msgstr "Liste"
 
-#: config/backends.php:357 config/backends.php:690
+#: config/backends.php:351 config/backends.php:684
 msgid "Location"
 msgstr "Ort"
 
@@ -950,7 +950,7 @@ msgstr ""
 "Mehrere Personen mit der Adresse [%s], aber keine mit dem Namen [%s] im "
 "Adressbuch"
 
-#: config/backends.php:524
+#: config/backends.php:518
 msgid "My Address Book"
 msgstr "Mein Adressbuch"
 
@@ -1089,11 +1089,11 @@ msgstr "Büro"
 msgid "Only one vcard supported."
 msgstr "Nur einzelne vCards werden unterstützt."
 
-#: config/backends.php:372 config/backends.php:696
+#: config/backends.php:366 config/backends.php:690
 msgid "Organization"
 msgstr "Firma"
 
-#: config/backends.php:373 config/backends.php:698
+#: config/backends.php:367 config/backends.php:692
 msgid "Other"
 msgstr "Sonstige"
 
@@ -1154,7 +1154,7 @@ msgstr "Diesen Kontakt unwiederbringlich löschen?"
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
 
-#: config/backends.php:353 config/backends.php:686
+#: config/backends.php:347 config/backends.php:680
 msgid "Personal"
 msgstr "Persönlich"
 
@@ -1187,7 +1187,7 @@ msgstr "Bitte einen Namen für die neue Kontakliste angeben:"
 msgid "Previous"
 msgstr "Zurück"
 
-#: config/backends.php:728
+#: config/backends.php:722
 msgid "Private Address Book"
 msgstr "Privates Adressbuch"
 
@@ -1205,7 +1205,7 @@ msgstr "Telefon Funk"
 msgid "Read failed: (%s) %s"
 msgstr "Lesen fehlgeschlagen: (%s) %s"
 
-#: lib/Driver.php:2889
+#: lib/Driver.php:2899
 msgid "Reading contacts is not available."
 msgstr "Anzeigen von Kontakten nicht unterstützt."
 
@@ -1219,7 +1219,7 @@ msgstr ""
 "gemacht werden, und alle Kontakte in diesem Adressbuch werden endgültig "
 "gelöscht."
 
-#: lib/Driver.php:2940
+#: lib/Driver.php:2950
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1261,7 +1261,7 @@ msgstr "Speichern"
 msgid "Save search as a virtual address book?"
 msgstr "Suche als Virtuelles Adressbuch speichern?"
 
-#: lib/Driver.php:2928
+#: lib/Driver.php:2938
 msgid "Saving contacts is not available."
 msgstr "Speichern von Kontakten nicht unterstützt."
 
@@ -1289,7 +1289,7 @@ msgstr "Suche fehlgeschlagen: %s"
 msgid "Search for: "
 msgstr "Suchen nach: "
 
-#: lib/Driver.php:2871
+#: lib/Driver.php:2881
 msgid "Searching is not available."
 msgstr "Suchen von Kontakten nicht unterstützt."
 
@@ -1355,11 +1355,11 @@ msgstr "Wählen Sie das Format, in dem die Namen angezeigt werden sollen."
 msgid "Selected address book \"%s\"."
 msgstr "Adressbuch \"%s\" ausgewählt."
 
-#: config/backends.php:234 config/backends.php:608 lib/Application.php:199
+#: config/backends.php:228 config/backends.php:602 lib/Application.php:199
 msgid "Shared Address Books"
 msgstr "Gemeinsame Adressbücher"
 
-#: config/backends.php:406
+#: config/backends.php:400
 msgid "Shared Directory"
 msgstr "Gemeinsames Verzeichnis"
 
@@ -1417,7 +1417,7 @@ msgstr "%s wurde erfolgreich zu %s hinzugefügt"
 msgid "Successfully created the contact list \"%s\"."
 msgstr "Die Kontaktliste \"%s\" wurde erfolgreich erstellt."
 
-#: search.php:148
+#: search.php:152
 #, php-format
 msgid "Successfully created virtual address book \"%s\""
 msgstr "Virtuelles Adressbuch \"%s\" erfolgreich erstellt."
@@ -1549,7 +1549,7 @@ msgstr[0] ""
 msgstr[1] ""
 "In dieser Liste befinden sich %d Kontakte, die Sie nicht einsehen dürfen"
 
-#: search.php:144
+#: search.php:148
 #, php-format
 msgid "There was a problem creating the virtual address book: %s"
 msgstr ""
@@ -1803,7 +1803,7 @@ msgstr ""
 "Sie haben nicht genügend Rechte, um das Adressbuch zu lesen, das Ihre "
 "Visitenkarte enthält."
 
-#: search.php:126
+#: search.php:130
 msgid "You must provide a name for virtual address books."
 msgstr "Sie müssen einen Namen für das Virtuelle Adressbuch angeben."
 

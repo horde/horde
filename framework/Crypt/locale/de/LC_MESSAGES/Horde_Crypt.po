@@ -1,14 +1,14 @@
 # German translations for Horde_Crypt module.
 # Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Crypt module.
-# Jan Schneider <jan@horde.org>, 2010-2012.
+# Jan Schneider <jan@horde.org>, 2010-2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
-"PO-Revision-Date: 2012-10-30 21:44+0100\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"PO-Revision-Date: 2013-07-16 21:34+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -295,13 +295,13 @@ msgstr "Zurückgelieferte Fehlermeldung:"
 msgid "Revocation key not generated successfully."
 msgstr "Der Rückrufschlüssel konnte nicht erstellt werden."
 
-#: lib/Horde/Crypt/Smime.php:204
-msgid "S/MIME Cryptographic Signature"
-msgstr "S/MIME Signatur"
-
 #: lib/Horde/Crypt/Smime.php:238
 msgid "S/MIME Encrypted Message"
 msgstr "Mit S/MIME verschlüsselte Nachricht"
+
+#: lib/Horde/Crypt/Smime.php:204
+msgid "S/MIME Signature"
+msgstr "S/MIME-Signatur"
 
 #: lib/Horde/Crypt/Smime.php:518
 msgid "Serial Number"
