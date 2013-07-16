@@ -16,10 +16,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-03</date>
- <time>11:17:36</time>
+ <date>2013-07-17</date>
+ <time>00:15:27</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>2.0.0RC1</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -948,12 +948,12 @@
   </release>
   <release>
    <version>
-    <release>2.0.0beta2</release>
+    <release>2.0.0RC1</release>
     <api>2.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-07-03</date>
+   <date>2013-07-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add table layout (Bug #12402).
