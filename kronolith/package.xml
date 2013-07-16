@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-16</date>
- <time>23:14:59</time>
+ <time>23:23:35</time>
  <version>
-  <release>4.1.2</release>
+  <release>4.1.3</release>
   <api>4.1.0</api>
  </version>
  <stability>
@@ -34,12 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Display CalDAV URL of system calendars and tasklists (Bug #12342).
-* [jan] Fix system calendar listing via WebDAV.
-* [rla] Add system calendar support for Kronolith CalDAV access (Request #12342).
-* [mjr] Fix automatically adding organizer as attendee in dynamic view.
-* [mjr] Prompt for sending cancellation iTip when deleting an event (Bug #12415).
-* [rla] Properly display system-owned calendars when browsing DAV (Bug #12325).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2194,6 +2189,19 @@
 * [mjr] Fix automatically adding organizer as attendee in dynamic view.
 * [mjr] Prompt for sending cancellation iTip when deleting an event (Bug #12415).
 * [rla] Properly display system-owned calendars when browsing DAV (Bug #12325).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.3</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
