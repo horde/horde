@@ -155,4 +155,59 @@ EOT;
             $ical->exportVCalendar()
         );
     }
+
+    public function testTimezone()
+    {
+        $date = new Horde_Date(
+            array(
+                'year' => 2010,
+                'month' => 1,
+                'mday' => 1,
+                'hour' => 1,
+                'min' => 0,
+                'sec' => 0,
+            ),
+            'UTC'
+        );
+        $ical = new Horde_Icalendar();
+        $event = Horde_Icalendar::newComponent('vevent', $ical);
+        $event->setAttribute('UID', 'uid');
+        $event->setAttribute('DTSTAMP', $date);
+        $event->setAttribute('DTSTART', $date);
+        $ical->addComponent($event);
+        $this->assertEquals(
+            'BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
+BEGIN:VEVENT
+UID:uid
+DTSTAMP:20100101T010000Z
+DTSTART:20100101T010000Z
+END:VEVENT
+END:VCALENDAR
+',
+            $ical->exportVCalendar()
+        );
+
+        $ical = new Horde_Icalendar();
+        $event = Horde_Icalendar::newComponent('vevent', $ical);
+        $event->setAttribute('UID', 'uid');
+        $event->setAttribute('DTSTAMP', $date);
+        $date->setTimezone('Europe/Berlin');
+        $event->setAttribute('DTSTART', $date, array('TZID' => 'Europe/Berlin'));
+        $ical->addComponent($event);
+        $this->assertEquals(
+            'BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
+BEGIN:VEVENT
+UID:uid
+DTSTAMP:20100101T010000Z
+DTSTART;TZID=Europe/Berlin:20100101T020000
+END:VEVENT
+END:VCALENDAR
+',
+            $ical->exportVCalendar()
+        );
+    }
 }
