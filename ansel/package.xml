@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-17</date>
- <time>00:24:23</time>
+ <time>00:28:53</time>
  <version>
-  <release>3.0.0RC1</release>
+  <release>3.0.0RC2</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix performing image actions in Lightbox galleries.
-* [mjr] Fix display of missing widgets.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1282,6 +1281,19 @@
    <notes>
 * [mjr] Fix performing image actions in Lightbox galleries.
 * [mjr] Fix display of missing widgets.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-07-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
