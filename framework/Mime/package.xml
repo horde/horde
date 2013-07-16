@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-18</date>
- <time>14:46:58</time>
+ <date>2013-07-16</date>
+ <time>19:29:49</time>
  <version>
   <release>2.2.3</release>
   <api>2.2.0</api>
@@ -1156,7 +1156,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-18</date>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix setting a different body if reusing a Horde_Mime_Mail object.
