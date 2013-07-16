@@ -24,7 +24,7 @@
  </lead>
  <date>2013-07-16</date>
  <version>
-  <release>6.1.3</release>
+  <release>6.1.4</release>
   <api>6.1.0</api>
  </version>
  <stability>
@@ -33,15 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Workaround Chrome bug preventing drag/drop of attachments in dynamic compose (Bug #12418).
-* [mms] Better handle transient mail server connection issues in basic and minimal views.
-* [mms] Fix regression of redirect message not working in dynamic view (Bug #12417).
-* [jan] Fix link to setup browser for mailto: protocol.
-* [mms] Fix uploading attachments on Firefox 22+ in dynamic view.
-* [mms] Fix image upload dialog in the HTML compose editor.
-* [mms] Fix purging search previews from browser cache when switching mailboxes (Bug #12384).
-* [mms] Fix parsing signed &amp; encrypted S/MIME messages sent from Outlook 2007/2010 (Bug #12374).
-* [mms] Fix updating mailbox list when changing sort direction in search mailboxes (Bug #12369).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3258,6 +3250,19 @@
 * [mms] Fix purging search previews from browser cache when switching mailboxes (Bug #12384).
 * [mms] Fix parsing signed &amp; encrypted S/MIME messages sent from Outlook 2007/2010 (Bug #12374).
 * [mms] Fix updating mailbox list when changing sort direction in search mailboxes (Bug #12369).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.4</release>
+    <api>6.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
