@@ -34,5 +34,5 @@ class Content_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '2.0.3';
+    public $version = '2.0.4-git';
 }
