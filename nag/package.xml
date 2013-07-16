@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Display CalDAV URL of system tasklists (Bug #12342).
 * [mjr] Only query Horde_History when it&apos;s required.
 * [jan] Fix system tasklist listing via WebDAV.
 * [rla] Add system tasklist support for Nag CalDAV access (Request #12342).
@@ -1391,6 +1392,7 @@
    <date>2013-06-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Display CalDAV URL of system tasklists (Bug #12342).
 * [mjr] Only query Horde_History when it&apos;s required.
 * [jan] Fix system tasklist listing via WebDAV.
 * [rla] Add system tasklist support for Nag CalDAV access (Request #12342).

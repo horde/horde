@@ -2,6 +2,7 @@
 v4.1.1-git
 ----------
 
+[jan] Display CalDAV URL of system tasklists (Bug #12342).
 [mjr] Only query Horde_History when it's required.
 [jan] Fix system tasklist listing via WebDAV.
 [rla] Add system tasklist support for Nag CalDAV access (Request #12342).

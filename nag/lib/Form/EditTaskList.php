@@ -95,22 +95,22 @@ class Nag_Form_EditTaskList extends Horde_Form
         }
         $accountUrl = Horde::url($accountUrl, true, -1)
             . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
-        if ($tasklist->get('owner')) {
-            $caldavUrl = Horde::url($caldavUrl, true, -1)
-                . $tasklist->get('owner')
+        $caldavUrl = Horde::url($caldavUrl, true, -1)
+            . ($tasklist->get('owner')
+               ? $tasklist->get('owner')
+               : '-system-')
                 . '/'
-                . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($tasklist->getName(), 'tasks')
-                . '/';
-            $this->addVariable(
-                 _("CalDAV Subscription URL"), '', 'link', false, false, null,
-                 array(array(
-                     'url' => $caldavUrl,
-                     'text' => $caldavUrl,
-                 'title' => _("Copy this URL to a CalDAV client to subscribe to this task list"),
-                     'target' => '_blank')
-                 )
-            );
-        }
+            . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($tasklist->getName(), 'tasks')
+            . '/';
+        $this->addVariable(
+             _("CalDAV Subscription URL"), '', 'link', false, false, null,
+             array(array(
+                 'url' => $caldavUrl,
+                 'text' => $caldavUrl,
+             'title' => _("Copy this URL to a CalDAV client to subscribe to this task list"),
+                 'target' => '_blank')
+             )
+        );
         $this->addVariable(
              _("CalDAV Account URL"), '', 'link', false, false, null,
              array(array(
