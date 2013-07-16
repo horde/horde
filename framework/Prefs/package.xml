@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-16</date>
- <time>19:30:32</time>
+ <time>19:30:40</time>
  <version>
-  <release>2.5.0</release>
+  <release>2.5.1</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add ability to override locked pref status when setting value via Horde_Prefs#setValue().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1057,6 +1057,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add ability to override locked pref status when setting value via Horde_Prefs#setValue().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.1</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
