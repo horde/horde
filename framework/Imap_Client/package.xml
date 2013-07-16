@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] More graceful handling of servers that return broken FETCH information (Request #12441).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1856,7 +1856,7 @@
    <date>2013-06-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] More graceful handling of servers that return broken FETCH information (Request #12441).
    </notes>
   </release>
  </changelog>
