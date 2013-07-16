@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-07-08</date>
- <time>16:07:14</time>
+ <date>2013-07-16</date>
+ <time>19:24:21</time>
  <version>
   <release>2.6.2</release>
   <api>2.6.0</api>
@@ -3030,7 +3030,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-08</date>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix sending s/mime signed email from EAS clients (Bug #12445).
