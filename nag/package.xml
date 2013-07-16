@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-16</date>
- <time>23:24:47</time>
+ <time>23:33:10</time>
  <version>
-  <release>4.1.1</release>
+  <release>4.1.2</release>
   <api>4.1.0</api>
  </version>
  <stability>
@@ -34,15 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Display CalDAV URL of system tasklists (Bug #12342).
-* [mjr] Only query Horde_History when it&apos;s required.
-* [jan] Fix system tasklist listing via WebDAV.
-* [rla] Add system tasklist support for Nag CalDAV access (Request #12342).
-* [jan] Fix task description tooltip (Bug #12421).
-* [mjr] Persist the tasklist and parent when creating a new task and using "Save and New" (Bug #12400).
-* [mjr] Fix tag browsing of shared tasklists (Bug #12405).
-* [mjr] Fix importing VTODOs containing RELATED-TO fields (Bug #12355).
-* [mjr] Add API methods for using history modification sequences.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1401,6 +1393,19 @@
 * [mjr] Fix tag browsing of shared tasklists (Bug #12405).
 * [mjr] Fix importing VTODOs containing RELATED-TO fields (Bug #12355).
 * [mjr] Add API methods for using history modification sequences.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.2</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
