@@ -31,7 +31,7 @@ http://www.horde.org/apps/kronolith/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/kronolith/docs/INSTALL
 
-The major changes compared to the Kronolith version H5 (4.1.0) are:
+The major changes compared to the Kronolith version H5 (4.1.1) are:
     * Fixed system calendar support via WebDAV/CalDAV.
     * Prompt for sending cancellations when deleting an event.
     * Small bugfixes.
