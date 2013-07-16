@@ -1094,6 +1094,10 @@ class Turba_Driver implements Countable
                 } catch (Turba_Exception $e) {}
             }
             switch ($key) {
+            case '__uid':
+                $vcard->setAttribute('UID', $val);
+                break;
+
             case 'name':
                 if ($fields && !isset($fields['FN'])) {
                     break;
@@ -1994,6 +1998,10 @@ class Turba_Driver implements Countable
         $attr = $vcard->getAllAttributes();
         foreach ($attr as $item) {
             switch ($item['name']) {
+            case 'UID':
+                $hash['__uid'] = $item['value'];
+                break;
+
             case 'FN':
                 $hash['name'] = $item['value'];
                 break;
