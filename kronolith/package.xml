@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-18</date>
- <time>18:38:59</time>
+ <date>2013-07-16</date>
+ <time>23:14:59</time>
  <version>
   <release>4.1.2</release>
   <api>4.1.0</api>
@@ -2185,10 +2185,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-18</date>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Display CalDAV URL of system calendars (Bug #12342).
+* [jan] Display CalDAV URL of system calendars and tasklists (Bug #12342).
 * [jan] Fix system calendar listing via WebDAV.
 * [rla] Add system calendar support for Kronolith CalDAV access (Request #12342).
 * [mjr] Fix automatically adding organizer as attendee in dynamic view.

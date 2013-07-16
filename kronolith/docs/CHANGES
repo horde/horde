@@ -1,6 +1,6 @@
-----------
-v4.1.2-git
-----------
+------
+v4.1.2
+------
 
 [jan] Display CalDAV URL of system calendars and tasklists (Bug #12342).
 [jan] Fix system calendar listing via WebDAV.
