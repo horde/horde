@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-07-16</date>
- <time>19:24:21</time>
+ <time>19:24:59</time>
  <version>
-  <release>2.6.2</release>
+  <release>2.6.3</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix sending s/mime signed email from EAS clients (Bug #12445).
-* [mms] Correctly logout when a Horde_Exception_AuthenticationFailure is handled by the default Horde error handler.
-* [mms] Don&apos;t convert image data URLs already contained within a CSS file when compressing (João Machado &lt;geral@jpaulo.eu&gt;).
-* [mms] Prevent endless loop when checkExistingAuth() test fails when initializing an application.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3037,6 +3034,19 @@
 * [mms] Correctly logout when a Horde_Exception_AuthenticationFailure is handled by the default Horde error handler.
 * [mms] Don&apos;t convert image data URLs already contained within a CSS file when compressing (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Prevent endless loop when checkExistingAuth() test fails when initializing an application.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.3</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
