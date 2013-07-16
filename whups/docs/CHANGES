@@ -1,6 +1,6 @@
-----------
-v3.0.0-git
-----------
+---------
+v3.0.0RC1
+---------
 
 [jan] Set assign and update dates when creating new tickets (Bug #12414).
 [jan] Fix counting of responsible users (Bug #12406).
