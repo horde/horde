@@ -198,7 +198,7 @@ table.horde-table td {
     margin-left: 5px;
     padding: 0 5px;
 }
-.horde-table-header, table.horde-table th {
+.horde-table-header, table.horde-table thead tr, table.horde-table th {
     background-image: url("graphics/tablehead-bg.png");
     background-repeat: repeat-x;
 }
