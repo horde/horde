@@ -1,6 +1,6 @@
-----------
-v1.0.3-git
-----------
+------
+v1.0.3
+------
 
 [mjr] Fix some minor issues with crawling bookmarks.
 [mjr] Show recently used tags on-demand (Bug #11712).
