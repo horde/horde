@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-16</date>
- <time>19:06:48</time>
+ <time>19:17:33</time>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.6</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add password policy for minimum number of non-alphabetic characters (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
-* [jan] Fix resetting passwords with LDAP driver (Bug #12317).
-* [mms] Fix authentication with the Http auth driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -854,6 +852,19 @@
 * [jan] Add password policy for minimum number of non-alphabetic characters (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
 * [jan] Fix resetting passwords with LDAP driver (Bug #12317).
 * [mms] Fix authentication with the Http auth driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
