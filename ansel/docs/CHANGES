@@ -1,6 +1,6 @@
-----------
-v3.0.0-git
-----------
+---------
+v3.0.0RC1
+---------
 
 [mjr] Fix performing image actions in Lightbox galleries.
 [mjr] Fix display of missing widgets.
