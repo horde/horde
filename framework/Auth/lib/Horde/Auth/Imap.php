@@ -109,8 +109,12 @@ class Horde_Auth_Imap extends Horde_Auth_Base
         }
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
-            $ob->createMailbox($this->_params['userhierarchy']);
-            $ob->setACL($this->_params['userhierarchy'], $this->_params['admin_user'], array('rights' => 'lrswipcda'));
+
+            $name = $this->_params['userhierarchy'] . $userId;
+            $ob->createMailbox($name);
+            $ob->setACL($name, $this->_params['admin_user'], array(
+                'rights' => 'lrswipcda'
+            ));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
@@ -130,8 +134,12 @@ class Horde_Auth_Imap extends Horde_Auth_Base
         }
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
-            $ob->setACL($this->_params['userhierarchy'], $this->_params['admin_user'], array('rights' => 'lrswipcda'));
-            $ob->deleteMailbox($this->_params['userhierarchy']);
+
+            $name = $this->_params['userhierarchy'] . $userId;
+            $ob->setACL($name, $this->_params['admin_user'], array(
+                'rights' => 'lrswipcda'
+            ));
+            $ob->deleteMailbox($name);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
