@@ -3116,10 +3116,10 @@ class Whups_Driver_Sql extends Whups_Driver
         }
 
         $attributes = $this->_fromBackend($attributes);
-        foreach ($attributes as &$attribute) {
+        foreach (array_keys($attributes) as $key) {
             try {
-                $attribute = Horde_Serialize::unserialize(
-                    $attribute,
+                $attributes[$key] = Horde_Serialize::unserialize(
+                    $attributes[$key],
                     Horde_Serialize::JSON);
             } catch (Horde_Serialize_Exception $e) {
             }
