@@ -3015,9 +3015,9 @@ KronolithCore = {
                 $('kronolithCalendar' + type + 'LinkUrls').up().show();
                 if (info.caldav) {
                     $('kronolithCalendar' + type + 'UrlCaldav').setValue(info.caldav);
-                    $('kronolithCalendarCaldav').show();
+                    $('kronolithCalendar' + type + 'Caldav').show();
                 } else {
-                    $('kronolithCalendarCaldav').hide();
+                    $('kronolithCalendar' + type + 'Caldav').hide();
                 }
                 $('kronolithCalendar' + type + 'UrlWebdav').setValue(info.sub);
                 break;

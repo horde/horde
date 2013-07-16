@@ -53,12 +53,10 @@ class Kronolith_Calendar_External_Tasks extends Kronolith_Calendar_External
         $hash['bg']    = Kronolith::backgroundColor($this->_share);
         $hash['show']  = in_array('tasks/' . $this->_share->getName(), $GLOBALS['display_external_calendars']);
         $hash['edit']  = $this->_share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
-        if ($this->_share->get('owner')) {
-            $hash['caldav']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/calendars/' : '/rpc.php/calendars/'), true, -1)
-                . $this->_share->get('owner') . '/'
-                . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($this->_share->getName(), 'tasks')
-                . '/';
-        }
+        $hash['caldav']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/calendars/' : '/rpc.php/calendars/'), true, -1)
+            . ($this->_share->get('owner') ? $this->_share->get('owner') : '-system-') . '/'
+            . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($this->_share->getName(), 'tasks')
+            . '/';
         $hash['sub']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/nag/' : '/rpc.php/nag/'), true, -1)
             . ($this->_share->get('owner') ? $this->_share->get('owner') : '-system-') . '/'
             . $this->_share->getName() . '.ics';
