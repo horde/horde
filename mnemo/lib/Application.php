@@ -43,7 +43,7 @@ class Mnemo_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.1.1)';
+    public $version = 'H5 (4.1.2-git)';
 
     /**
      * Global variables defined:
