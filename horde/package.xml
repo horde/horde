@@ -1933,6 +1933,7 @@
    <install as="horde-import-squirrelmail-prefs" name="bin/horde-import-squirrelmail-prefs" />
    <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
    <install as="horde-run-task" name="bin/horde-run-task" />
+   <install as="horde-queue-run-tasks" name="bin/horde-queue-run-tasks" />
    <install as="horde-sessions-gc" name="bin/horde-sessions-gc" />
    <install as="horde-set-perms" name="bin/horde-set-perms" />
    <install as="horde-themes" name="bin/horde-themes" />
