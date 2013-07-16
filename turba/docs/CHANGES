@@ -1,6 +1,6 @@
-----------
-v4.1.1-git
-----------
+------
+v4.1.1
+------
 
 [jan] Import and export UID vCard attributes (Bug #12427).
 [mjr] Honor the 'browse' setting when attempting empty searches.
