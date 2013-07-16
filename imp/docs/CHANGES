@@ -2,6 +2,8 @@
 v6.1.3-git
 ----------
 
+[mms] Workaround Chrome bug preventing drag/drop of attachments in dynamic
+      compose (Bug #12418).
 [mms] Better handle transient mail server connection issues in basic and
       minimal views.
 [mms] Fix regression of redirect message not working in dynamic view (Bug

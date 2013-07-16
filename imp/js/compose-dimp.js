@@ -834,7 +834,6 @@ var DimpCompose = {
 
             HordeCore.doAction('addAttachment', {}, {
                 ajaxopts: {
-                    contentType: 'multipart/form-data',
                     postBody: fd,
                     requestHeaders: { "content-type": '' }
                 },
@@ -1302,3 +1301,16 @@ document.observe('ImpPassphraseDialog:success', DimpCompose.retrySubmit.bind(Dim
 document.observe('HordeCore:runTasks', function(e) {
     this.tasksHandler(e.memo);
 }.bindAsEventListener(DimpCompose));
+
+
+/* Fix Ajax.Request#setRequestHeaders() behavior (Bug #12418). */
+Ajax.Request.prototype.setRequestHeaders = Ajax.Request.prototype.setRequestHeaders.wrap(function(orig) {
+    this.transport.setRequestHeader = this.transport.setRequestHeader.wrap(function(orig2, name, val) {
+        // Don't add headers if value is empty. Due to Bug #44438 in Chrome,
+        // we can't prevent default headers from being sent.
+        if (!val.empty()) {
+            orig2(name, val);
+        }
+    });
+    orig();
+});

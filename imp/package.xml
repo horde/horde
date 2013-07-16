@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Workaround Chrome bug preventing drag/drop of attachments in dynamic compose (Bug #12418).
 * [mms] Better handle transient mail server connection issues in basic and minimal views.
 * [mms] Fix regression of redirect message not working in dynamic view (Bug #12417).
 * [jan] Fix link to setup browser for mailto: protocol.
@@ -3248,6 +3249,7 @@
    <date>2013-07-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Workaround Chrome bug preventing drag/drop of attachments in dynamic compose (Bug #12418).
 * [mms] Better handle transient mail server connection issues in basic and minimal views.
 * [mms] Fix regression of redirect message not working in dynamic view (Bug #12417).
 * [jan] Fix link to setup browser for mailto: protocol.
