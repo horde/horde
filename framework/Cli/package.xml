@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>12:22:27</time>
+ <date>2013-07-16</date>
+ <time>19:20:13</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -724,7 +724,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Print additional error details in fatal errors if available.
