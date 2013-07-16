@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-16</date>
- <time>19:28:44</time>
+ <time>19:28:51</time>
  <version>
-  <release>2.0.6</release>
+  <release>2.0.7</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Honor &apos;pipelining&apos; configuration option in SMTP transport driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -455,6 +455,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Honor &apos;pipelining&apos; configuration option in SMTP transport driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
