@@ -25,9 +25,9 @@
   <active>yes</active>
  </developer>
  <date>2013-07-16</date>
- <time>19:27:27</time>
+ <time>19:27:35</time>
  <version>
-  <release>2.0.7</release>
+  <release>2.0.8</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -36,8 +36,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix generating DATE-TIME attributes with timezone information (Bug #12428).
-* [jan] Fix returning multiple attribute properties of the same name (Bug #12329).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1112,6 +1111,19 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <notes>
 * [jan] Fix generating DATE-TIME attributes with timezone information (Bug #12428).
 * [jan] Fix returning multiple attribute properties of the same name (Bug #12329).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.8</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
