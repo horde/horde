@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-16</date>
- <time>19:29:49</time>
+ <time>19:29:58</time>
  <version>
-  <release>2.2.3</release>
+  <release>2.2.4</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix setting a different body if reusing a Horde_Mime_Mail object.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1160,6 +1160,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix setting a different body if reusing a Horde_Mime_Mail object.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.4</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
