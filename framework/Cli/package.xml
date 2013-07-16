@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-16</date>
- <time>19:20:13</time>
+ <time>19:20:20</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Print additional error details in fatal errors if available.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -728,6 +728,19 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Print additional error details in fatal errors if available.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
