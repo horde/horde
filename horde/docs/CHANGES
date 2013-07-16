@@ -1,6 +1,6 @@
-----------
-v5.1.2-git
-----------
+------
+v5.1.2
+------
 
 [jan] Set Basic Authentication HTTP headers if running PHP as CGI.
 [jan] Return to original URL after logging in.

@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-20</date>
+ <date>2013-07-16</date>
  <version>
   <release>5.1.2</release>
   <api>5.0.0</api>
@@ -3717,11 +3717,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-20</date>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Set Basic Authentication HTTP headers if running PHP as CGI.
-* [jan] Return to originally URL after logging in.
+* [jan] Return to original URL after logging in.
 * [jan] Fix login icon.
 * [jan] Enable Turkish translation on PHP 5.5.
 * [rla] Add a cli script for running queue tasks.
