@@ -521,32 +521,33 @@ abstract class Whups_Driver
                 }
             }
 
-            /* Add attachments. */
-            if ($opts['ticket'] &&
-                empty($GLOBALS['conf']['mail']['link_attach'])) {
+            if ($opts['ticket']) {
+                /* Add attachments. */
                 $attachmentAdded = false;
-                /* We need to remove all attachments because the attachment
-                 * list is potentially limited by permissions. */
-                $mail->clearParts();
-                foreach ($mycomments as $comment) {
-                    foreach ($comment['changes'] as $change) {
-                        if ($change['type'] != 'attachment') {
-                            continue;
-                        }
-                        foreach ($attachments as $attachment) {
-                            if ($attachment['name'] != $change['value']) {
+                if (empty($GLOBALS['conf']['mail']['link_attach'])) {
+                    /* We need to remove all attachments because the attachment
+                     * list is potentially limited by permissions. */
+                    $mail->clearParts();
+                    foreach ($mycomments as $comment) {
+                        foreach ($comment['changes'] as $change) {
+                            if ($change['type'] != 'attachment') {
                                 continue;
                             }
-                            if (!isset($attachment['part'])) {
-                                $attachment['part'] = new Horde_Mime_Part();
-                                $attachment['part']->setType(Horde_Mime_Magic::filenameToMime($change['value'], false));
-                                $attachment['part']->setDisposition('attachment');
-                                $attachment['part']->setContents($vfs->read(Whups::VFS_ATTACH_PATH . '/' . $opts['ticket']->getId(), $change['value']));
-                                $attachment['part']->setName($change['value']);
+                            foreach ($attachments as $attachment) {
+                                if ($attachment['name'] != $change['value']) {
+                                    continue;
+                                }
+                                if (!isset($attachment['part'])) {
+                                    $attachment['part'] = new Horde_Mime_Part();
+                                    $attachment['part']->setType(Horde_Mime_Magic::filenameToMime($change['value'], false));
+                                    $attachment['part']->setDisposition('attachment');
+                                    $attachment['part']->setContents($vfs->read(Whups::VFS_ATTACH_PATH . '/' . $opts['ticket']->getId(), $change['value']));
+                                    $attachment['part']->setName($change['value']);
+                                }
+                                $mail->addMimePart($attachment['part']);
+                                $attachmentAdded = true;
+                                break;
                             }
-                            $mail->addMimePart($attachment['part']);
-                            $attachmentAdded = true;
-                            break;
                         }
                     }
                 }
