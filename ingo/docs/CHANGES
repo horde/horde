@@ -1,6 +1,6 @@
-----------
-v3.1.2-git
-----------
+------
+v3.1.2
+------
 
 [mms] Disable links if the underlying preferences are locked.
 [jan] Fix setting excluded addresses and mailing list flag in Sieve vacation

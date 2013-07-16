@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-12</date>
- <time>13:19:03</time>
+ <date>2013-07-16</date>
+ <time>22:53:19</time>
  <version>
   <release>3.1.2</release>
   <api>3.0.0</api>
@@ -1300,7 +1300,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-12</date>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Disable links if the underlying preferences are locked.
