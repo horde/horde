@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba H5 (4.1.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-18 14:03+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,7 +104,7 @@ msgid_plural "Added or updated %d contacts, but at least one contact failed:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Driver.php:2902
+#: lib/Driver.php:2912
 msgid "Adding contacts is not available."
 msgstr ""
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Addressbook entry could not be loaded."
 msgstr ""
 
-#: search.php:193 search.php:237
+#: search.php:197 search.php:241
 msgid "Advanced Search"
 msgstr ""
 
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Assistant Phone"
 msgstr ""
 
-#: search.php:192 search.php:226
+#: search.php:196 search.php:230
 msgid "Basic Search"
 msgstr ""
 
@@ -341,7 +341,7 @@ msgstr ""
 msgid "Common Video Call"
 msgstr ""
 
-#: config/backends.php:365 config/backends.php:694
+#: config/backends.php:359 config/backends.php:688
 msgid "Communications"
 msgstr ""
 
@@ -463,7 +463,7 @@ msgstr ""
 msgid "Deleted contact: %s"
 msgstr ""
 
-#: lib/Driver.php:2915
+#: lib/Driver.php:2925
 msgid "Deleting contacts is not available."
 msgstr ""
 
@@ -495,7 +495,7 @@ msgstr ""
 msgid "Download vCard"
 msgstr ""
 
-#: search.php:195 search.php:245
+#: search.php:199 search.php:249
 msgid "Duplicate Search"
 msgstr ""
 
@@ -601,7 +601,7 @@ msgstr ""
 msgid "Export the following address book completely."
 msgstr ""
 
-#: config/backends.php:797
+#: config/backends.php:791
 msgid "Facebook Friends"
 msgstr ""
 
@@ -623,7 +623,7 @@ msgstr ""
 msgid "Failed to find object to be added"
 msgstr ""
 
-#: search.php:180
+#: search.php:184
 msgid "Failed to search the address book"
 msgstr ""
 
@@ -632,7 +632,7 @@ msgstr ""
 msgid "Failed to search the directory: %s"
 msgstr ""
 
-#: config/backends.php:767
+#: config/backends.php:761
 msgid "Favourite Recipients"
 msgstr ""
 
@@ -742,7 +742,7 @@ msgstr ""
 msgid "Home Website URL"
 msgstr ""
 
-#: config/backends.php:922
+#: config/backends.php:916
 msgid "IMSP"
 msgstr ""
 
@@ -838,7 +838,7 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: config/backends.php:357 config/backends.php:690
+#: config/backends.php:351 config/backends.php:684
 msgid "Location"
 msgstr ""
 
@@ -926,7 +926,7 @@ msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
 msgstr ""
 
-#: config/backends.php:524
+#: config/backends.php:518
 msgid "My Address Book"
 msgstr ""
 
@@ -1061,11 +1061,11 @@ msgstr ""
 msgid "Only one vcard supported."
 msgstr ""
 
-#: config/backends.php:372 config/backends.php:696
+#: config/backends.php:366 config/backends.php:690
 msgid "Organization"
 msgstr ""
 
-#: config/backends.php:373 config/backends.php:698
+#: config/backends.php:367 config/backends.php:692
 msgid "Other"
 msgstr ""
 
@@ -1126,7 +1126,7 @@ msgstr ""
 msgid "Permission denied"
 msgstr ""
 
-#: config/backends.php:353 config/backends.php:686
+#: config/backends.php:347 config/backends.php:680
 msgid "Personal"
 msgstr ""
 
@@ -1159,7 +1159,7 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: config/backends.php:728
+#: config/backends.php:722
 msgid "Private Address Book"
 msgstr ""
 
@@ -1177,7 +1177,7 @@ msgstr ""
 msgid "Read failed: (%s) %s"
 msgstr ""
 
-#: lib/Driver.php:2889
+#: lib/Driver.php:2899
 msgid "Reading contacts is not available."
 msgstr ""
 
@@ -1188,7 +1188,7 @@ msgid ""
 "contacts in this address book will be permanently removed."
 msgstr ""
 
-#: lib/Driver.php:2940
+#: lib/Driver.php:2950
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1226,7 +1226,7 @@ msgstr ""
 msgid "Save search as a virtual address book?"
 msgstr ""
 
-#: lib/Driver.php:2928
+#: lib/Driver.php:2938
 msgid "Saving contacts is not available."
 msgstr ""
 
@@ -1254,7 +1254,7 @@ msgstr ""
 msgid "Search for: "
 msgstr ""
 
-#: lib/Driver.php:2871
+#: lib/Driver.php:2881
 msgid "Searching is not available."
 msgstr ""
 
@@ -1317,11 +1317,11 @@ msgstr ""
 msgid "Selected address book \"%s\"."
 msgstr ""
 
-#: config/backends.php:234 config/backends.php:608 lib/Application.php:199
+#: config/backends.php:228 config/backends.php:602 lib/Application.php:199
 msgid "Shared Address Books"
 msgstr ""
 
-#: config/backends.php:406
+#: config/backends.php:400
 msgid "Shared Directory"
 msgstr ""
 
@@ -1379,7 +1379,7 @@ msgstr ""
 msgid "Successfully created the contact list \"%s\"."
 msgstr ""
 
-#: search.php:148
+#: search.php:152
 #, php-format
 msgid "Successfully created virtual address book \"%s\""
 msgstr ""
@@ -1503,7 +1503,7 @@ msgid_plural "There are %d contacts in this list that are not viewable to you"
 msgstr[0] ""
 msgstr[1] ""
 
-#: search.php:144
+#: search.php:148
 #, php-format
 msgid "There was a problem creating the virtual address book: %s"
 msgstr ""
@@ -1745,7 +1745,7 @@ msgid ""
 "your own contact."
 msgstr ""
 
-#: search.php:126
+#: search.php:130
 msgid "You must provide a name for virtual address books."
 msgstr ""
 

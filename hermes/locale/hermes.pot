@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (2.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-22 11:43+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 msgid "%s Deliverables"
 msgstr ""
 
-#: lib/Ajax.php:84
+#: lib/Ajax.php:85
 #, php-format
 msgid "%s notifications"
 msgstr ""
@@ -335,7 +335,7 @@ msgstr ""
 msgid "Edit job type, Step 2"
 msgstr ""
 
-#: lib/Ajax.php:91
+#: lib/Ajax.php:92
 msgid "Editing Time Entry"
 msgstr ""
 
@@ -417,7 +417,7 @@ msgstr ""
 msgid "General Preferences"
 msgstr ""
 
-#: lib/Ajax.php:85
+#: lib/Ajax.php:86
 msgid "Hide Notifications"
 msgstr ""
 
@@ -537,7 +537,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: lib/Ajax.php:83
+#: lib/Ajax.php:84
 msgid "No Notifications"
 msgstr ""
 
@@ -575,11 +575,11 @@ msgid ""
 "Only time reviewers with edit permissions can post time for other users."
 msgstr ""
 
-#: lib/Ajax.php:88
+#: lib/Ajax.php:89
 msgid "Please enter correct values in the form first."
 msgstr ""
 
-#: lib/Ajax.php:87
+#: lib/Ajax.php:88
 msgid "Preferences"
 msgstr ""
 
@@ -853,7 +853,7 @@ msgstr ""
 msgid "Time Administration"
 msgstr ""
 
-#: lib/Ajax.php:90 templates/dynamic/slices.inc:5
+#: lib/Ajax.php:91 templates/dynamic/slices.inc:5
 msgid "Time Entry"
 msgstr ""
 
@@ -906,7 +906,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: lib/Ajax.php:89
+#: lib/Ajax.php:90
 #, php-format
 msgid ""
 "You used an unknown date format \"%s\". Please try something like \"%s\"."
@@ -948,7 +948,7 @@ msgstr ""
 msgid "_Search"
 msgstr ""
 
-#: lib/Ajax.php:86
+#: lib/Ajax.php:87
 msgid "more..."
 msgstr ""
 

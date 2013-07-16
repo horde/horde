@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H5 (2.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-11 16:43+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgid ""
 "now and start editing."
 msgstr ""
 
-#: lib/Page/Search.php:103
+#: lib/Page/Search.php:106
 #, php-format
 msgid "%s does not exist. You can create it now."
 msgstr ""
@@ -179,6 +179,11 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
+#: lib/Page/Search.php:104
+#, php-format
+msgid "Create %s"
+msgstr ""
+
 #: lib/Page/NewPage.php:133
 #, php-format
 msgid "Create Failed: %s"
@@ -192,7 +197,7 @@ msgstr ""
 msgid "Creation Date"
 msgstr ""
 
-#: lib/Page/Search.php:142
+#: lib/Page/Search.php:145
 msgid "Current Version"
 msgstr ""
 
@@ -235,12 +240,12 @@ msgstr ""
 msgid "Diff for %s between %s and %s"
 msgstr ""
 
-#: lib/Page.php:593
+#: lib/Page.php:591
 #, php-format
 msgid "Display %s"
 msgstr ""
 
-#: lib/Page.php:599 lib/Page/StandardPage.php:384
+#: lib/Page.php:597 lib/Page/StandardPage.php:384
 #, php-format
 msgid "Display Version %s"
 msgstr ""
@@ -281,7 +286,7 @@ msgstr ""
 msgid "Error retrieving attachments: %s"
 msgstr ""
 
-#: lib/Page/Search.php:152
+#: lib/Page/Search.php:155
 msgid "Exact Match"
 msgstr ""
 
@@ -340,7 +345,7 @@ msgstr ""
 msgid "Invalid page requested."
 msgstr ""
 
-#: lib/Page/Search.php:143
+#: lib/Page/Search.php:146
 msgid "Last Author"
 msgstr ""
 
@@ -349,7 +354,7 @@ msgstr ""
 msgid "Last Modified %s by %s"
 msgstr ""
 
-#: lib/Page/Search.php:144
+#: lib/Page/Search.php:147
 msgid "Last Update"
 msgstr ""
 
@@ -428,7 +433,7 @@ msgstr ""
 msgid "No changes made"
 msgstr ""
 
-#: lib/Page/Search.php:141 templates/edit/create.html.php:17
+#: lib/Page/Search.php:144 templates/edit/create.html.php:17
 #: templates/pagelist/header.html.php:5
 msgid "Page"
 msgstr ""
@@ -450,11 +455,11 @@ msgstr ""
 msgid "Page Template:"
 msgstr ""
 
-#: lib/Page/Search.php:170
+#: lib/Page/Search.php:173
 msgid "Page Text Matches"
 msgstr ""
 
-#: lib/Page/Search.php:161
+#: lib/Page/Search.php:164
 msgid "Page Title Matches"
 msgstr ""
 
@@ -579,7 +584,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: lib/Page/Search.php:201
+#: lib/Page/Search.php:204
 msgid "Search"
 msgstr ""
 
@@ -669,9 +674,9 @@ msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr ""
 
 #: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:413
-#: lib/Page.php:421 lib/Page.php:429 lib/Page.php:437 lib/Page.php:573
-#: lib/Page.php:612 lib/Page.php:617 lib/Page.php:622 lib/Page.php:627
-#: lib/Page.php:667
+#: lib/Page.php:421 lib/Page.php:429 lib/Page.php:437 lib/Page.php:571
+#: lib/Page.php:610 lib/Page.php:615 lib/Page.php:620 lib/Page.php:625
+#: lib/Page.php:665
 msgid "Unsupported"
 msgstr ""
 
