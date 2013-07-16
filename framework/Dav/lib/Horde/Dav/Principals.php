@@ -162,7 +162,9 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
      */
     public function getGroupMembership($principal)
     {
-        return array();
+         // All users should have access to the -system- share
+         // Which should return only calendars the user sees in Horde.
+        return array('principals/-system-');
     }
 
     /**
