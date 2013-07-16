@@ -3101,6 +3101,16 @@ class Whups_Driver_Sql extends Whups_Driver
             } catch (Horde_Db_Exception $e) {
                 throw new Whups_Exception($e);
             }
+            $attributes = $this->_fromBackend($attributes);
+
+            foreach ($attributes as &$ticket) {
+                try {
+                    $ticket['attribute_value'] = Horde_Serialize::unserialize(
+                        $ticket['attribute_value'],
+                        Horde_Serialize::JSON);
+                } catch (Horde_Serialize_Exception $e) {
+                }
+            }
         } else {
             try {
                 $attributes = $this->_db->selectAssoc(
@@ -3113,13 +3123,10 @@ class Whups_Driver_Sql extends Whups_Driver
             } catch (Horde_Db_Exception $e) {
                 throw new Whups_Exception($e);
             }
-        }
-
-        $attributes = $this->_fromBackend($attributes);
-        foreach (array_keys($attributes) as $key) {
+            $attributes = $this->_fromBackend($attributes);
             try {
-                $attributes[$key] = Horde_Serialize::unserialize(
-                    $attributes[$key],
+                $attributes['attribute_value'] = Horde_Serialize::unserialize(
+                    $attributes['attribute_value'],
                     Horde_Serialize::JSON);
             } catch (Horde_Serialize_Exception $e) {
             }
