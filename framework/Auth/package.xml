@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>14:26:07</time>
+ <date>2013-07-16</date>
+ <time>19:06:48</time>
  <version>
   <release>2.0.5</release>
   <api>2.0.0</api>
@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add password policy for minimum number of non-alphabetic characters (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
 * [jan] Fix resetting passwords with LDAP driver (Bug #12317).
 * [mms] Fix authentication with the Http auth driver.
  </notes>
@@ -847,9 +848,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add password policy for minimum number of non-alphabetic characters (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
 * [jan] Fix resetting passwords with LDAP driver (Bug #12317).
 * [mms] Fix authentication with the Http auth driver.
    </notes>
