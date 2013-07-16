@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-07-16</date>
- <time>23:02:22</time>
+ <time>23:11:48</time>
  <version>
-  <release>4.1.1</release>
+  <release>4.1.2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Import and export UID vCard attributes (Bug #12427).
-* [mjr] Honor the &apos;browse&apos; setting when attempting empty searches.
-* [jan] Set generic &apos;phone&apos; attribute when importing from vCard (Bug #12329).
-* [mjr] Add API methods for using history modification sequences.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1672,6 +1669,19 @@
 * [mjr] Honor the &apos;browse&apos; setting when attempting empty searches.
 * [jan] Set generic &apos;phone&apos; attribute when importing from vCard (Bug #12329).
 * [mjr] Add API methods for using history modification sequences.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
