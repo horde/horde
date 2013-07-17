@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-17</date>
- <time>12:37:41</time>
+ <time>12:45:47</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Fix installation path for translations.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -695,6 +695,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix installation path for translations.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-17</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
