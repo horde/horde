@@ -155,7 +155,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             ),
             'filter_any' => intval($prefs->getValue('filter_any_mailbox')),
             'fsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH),
-            'initial_page' => is_null($initial_page = IMP_Auth::getInitialPage()->mbox) ?: $initial_page->form_to,
+            'initial_page' => is_null($initial_page = IMP_Auth::getInitialPage()->mbox) ? null : $initial_page->form_to,
             'mbox_expand' => intval($prefs->getValue('nav_expanded') == 2),
             'name' => $registry->get('name', 'imp'),
             'poll_alter' => intval(!$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all')),
