@@ -33,6 +33,7 @@ http://www.horde.org/apps/kronolith/docs/INSTALL
 
 The major changes compared to the Kronolith version H5 (4.1.1) are:
     * Fixed system calendar support via WebDAV/CalDAV.
+    * Fixed synchronization with CalDAV-Sync for Android.
     * Prompt for sending cancellations when deleting an event.
     * Small bugfixes.
 ML;

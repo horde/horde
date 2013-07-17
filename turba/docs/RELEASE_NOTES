@@ -32,6 +32,7 @@ http://www.horde.org/apps/turba/docs/INSTALL
 The major changes compared to the Turba version H5 (4.1.0) are:
     * Import generic phone attributes from vCard.
     * Added support for improved history API.
+    * Fixed CardDAV synchronization with Mac OSX addressbook.
     * Small bugfixes.
 ML;
 
