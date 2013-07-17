@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Fix installation path for translations.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -54,7 +54,9 @@
       <file name="Locks.php" role="php" />
       <file name="Principals.php" role="php" />
       <file name="RootCollection.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Dav -->
      </dir> <!-- /lib/Horde -->
     <!-- //lib/Sabre -->
@@ -692,7 +694,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Fix installation path for translations.
    </notes>
   </release>
  </changelog>
