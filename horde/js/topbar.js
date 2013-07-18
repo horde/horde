@@ -52,15 +52,11 @@ var HordeTopbar = {
             var elm, item,
                 active = nodes[root_node].active ? '-active' : '',
                 container = new Element('DIV', { className: nodes[root_node]['class'] });
-            if (nodes[root_node].url) {
-                elm = new Element('A', { className: 'horde-mainnavi' + active, href: nodes[root_node].url });
-                if (nodes[root_node].onclick) {
-                    elm.writeAttribute('onclick', nodes[root_node].onclick);
-                }
-                container.insert(elm);
-            } else {
-                elm = container;
+            elm = new Element('A', { className: 'horde-mainnavi' + active, href: nodes[root_node].url ? nodes[root_node].url : '#' });
+            if (nodes[root_node].onclick) {
+                elm.writeAttribute('onclick', nodes[root_node].onclick);
             }
+            container.insert(elm);
             item = new Element('LI').insert(container);
             if (nodes[root_node].children) {
                 if (!nodes[root_node].noarrow) {

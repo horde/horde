@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [jan] Make "Others" and cogwheel menu entry available on iOS (Bug #11937).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3734,7 +3734,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [jan] Make "Others" and cogwheel menu entry available on iOS (Bug #11937).
    </notes>
   </release>
  </changelog>

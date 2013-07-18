@@ -109,7 +109,7 @@ class Horde_Core_Topbar
 
         $menu['settings'] = array(
             'class' => 'horde-settings horde-icon-settings',
-            'name' => '',
+            'name' => Horde_Core_Translation::t("Settings"),
             'noarrow' => true,
             'status' => 'active'
         );
