@@ -53,7 +53,7 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
             }
         }
 
-        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_AllORNONE)) {
+        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_ALLORNONE)) {
             $collection['bodypartprefs']['allornone'] = $this->_decoder->getElementContent();
             // MS-ASAIRS 2.2.2.1.1 - MUST be ignored if no trunction
             // size is set. Note we still must read it if it sent
