@@ -183,6 +183,7 @@ table.horde-table {
 table.horde-table th {
     text-align: left;
     font-weight: normal;
+    white-space: nowrap;
 }
 table.horde-table th.sortdown, table.horde-table th.sortup {
     font-weight: bold;
