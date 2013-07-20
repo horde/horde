@@ -885,7 +885,7 @@ class Horde_ActiveSync
             header('MS-Server-ActiveSync: 14.0');
             break;
         case self::VERSION_FOURTEENONE:
-            header('MS-Server-ActiveSync: 14.1');
+            header('MS-Server-ActiveSync: 14.2');
         }
     }
 
