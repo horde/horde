@@ -927,12 +927,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 default:
                     foreach ($changes as $change) {
                         $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
-                        $ts = $this->_getPIMChangeTS($change['id']);
-                        if ($ts && $ts >= $stat['mod']) {
+                        $pim_ts = $this->_getPIMChangeTS($change['id']);
+                        if ($pim_ts && $pim_ts >= $stat['mod']) {
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s)',
                                 $this->_procid,
-                                $change['id'], $ts, $stat['mod']));
+                                $change['id'], $pim_ts, $stat['mod']));
                         } else {
                             $this->_changes[] = $change;
                         }
