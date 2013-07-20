@@ -290,6 +290,8 @@ class Horde_ActiveSync
     const AUTH_REASON_USER_DENIED               = 'user';
     const AUTH_REASON_DEVICE_DENIED             = 'device';
 
+    const LIBRARY_VERSION                       = '2.5.6';
+
     /**
      * Logger
      *
@@ -871,6 +873,10 @@ class Horde_ActiveSync
      */
     public function activeSyncHeader()
     {
+        header('Allow: OPTIONS,POST');
+        header('Server: Horde_ActiveSync Library v' . self::LIBRARY_VERSION);
+        header('Public: OPTIONS,POST');
+
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
             header('MS-Server-ActiveSync: 6.5.7638.1');
