@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Send empty POOMMAIL_CATEGORIES tag as Exchange does.
 * [mjr] Fix sending deletion commands to clients when an item is created on one EAS client, but deleted on another EAS client.
  </notes>
  <contents>
@@ -1566,6 +1567,7 @@
    <date>2013-07-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Send empty POOMMAIL_CATEGORIES tag as Exchange does.
 * [mjr] Fix sending deletion commands to clients when an item is created on one EAS client, but deleted on another EAS client.
    </notes>
   </release>
