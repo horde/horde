@@ -266,9 +266,9 @@ class Horde_ActiveSync
     const FOLDER_ROOT                           = 0;
 
     const VERSION_TWOFIVE                       = '2.5';
-    const VERSION_TWELVE                        = '12';
+    const VERSION_TWELVE                        = '12.0';
     const VERSION_TWELVEONE                     = '12.1';
-    const VERSION_FOURTEEN                      = '14';
+    const VERSION_FOURTEEN                      = '14.0';
     const VERSION_FOURTEENONE                   = '14.1';
 
     const MIME_SUPPORT_NONE                     = 0;
@@ -934,7 +934,7 @@ class Horde_ActiveSync
         case self::VERSION_TWELVEONE:
         case self::VERSION_FOURTEEN:
         case self::VERSION_FOURTEENONE:
-            return 'Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations';
+            return 'Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,Search,Settings,Ping,ItemOperations,Provision,ResolveRecipients,ValidateCert';
         }
     }
 
