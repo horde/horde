@@ -126,6 +126,10 @@ abstract class Horde_History
         }
 
         $this->_log($history, $attributes, $replaceAction);
+
+        if ($this->_cache) {
+            $this->_cache->expire('horde:history:' . $guid);
+        }
     }
 
     /**
