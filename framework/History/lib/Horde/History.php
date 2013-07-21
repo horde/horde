@@ -112,10 +112,6 @@ abstract class Horde_History
             throw new InvalidArgumentException('The guid needs to be a string!');
         }
 
-        if ($this->_cache) {
-            $this->_cache->expire('horde:history:' . $guid);
-        }
-
         $history = $this->getHistory($guid);
 
         if (!isset($attributes['who'])) {
