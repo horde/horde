@@ -445,11 +445,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *                          foldersync)
      * @param array $change     A stat/change hash describing the change.
      *  Contains:
-     *    - id: (mixed)       The message uid the change applies to.
+     *    - id: (mixed)         The message uid the change applies to.
      *    - serverid: (string)  The backend server id for the folder.
-     *    - parent: (string)  The parent of the message, normally the folder id.
-     *    - flags: (array)    If this is a flag change, the state of the flags.
-     *    - mod: (integer)    The modtime of this change.
+     *    - folderuid: (string) The EAS folder UID for the folder.
+     *    - parent: (string)    The parent of the current folder, if any.
+     *    - flags: (array)      If this is a flag change, the state of the flags.
+     *    - mod: (integer)      The modtime of this change.
      *
      * @param integer $origin   Flag to indicate the origin of the change:
      *    Horde_ActiveSync::CHANGE_ORIGIN_NA  - Not applicapble/not important
@@ -478,6 +479,15 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 }
                 $this->_folder = array_values($this->_folder);
                 return;
+            }
+
+            // Some requests like e.g., MOVEITEMS do not include the state
+            // information since there is no SYNCKEY. Attempt to map this from
+            // the $change array.
+            if (empty($this->_collection)) {
+                $this->_collection = array(
+                    'class' => $change['class'],
+                    'id' => $change['folderuid']);
             }
 
             // This is an incoming change from the PIM, store it so we
@@ -530,7 +540,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                    $change['mod'],
                    empty($this->_syncKey) ? 0 : $this->_syncKey,
                    $this->_deviceInfo->id,
-                   $change['parent'],
+                   $change['serverid'],
                    $user,
                    $clientid,
                    $type == Horde_ActiveSync::CHANGE_TYPE_DELETE);
