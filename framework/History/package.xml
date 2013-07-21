@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Add index for better modseq query performance in sql driver (Bug #12476).
 * [mjr] Fix expiring the log cache when logging a new entry.
  </notes>
  <contents>
@@ -353,6 +354,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2013-07-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Add index for better modseq query performance in sql driver (Bug #12476).
 * [mjr] Fix expiring the log cache when logging a new entry.
    </notes>
   </release>
