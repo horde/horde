@@ -23,7 +23,6 @@
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * [mjr] Fix filtering out changes due to incoming client email requests in certain cases.
-* [mjr] Fix filtering out changes due to incoming client requests in certain cases.
 * [mjr] Send empty POOMMAIL_CATEGORIES tag as Exchange does.
 * [mjr] Fix sending deletion commands to clients when an item is created on one EAS client, but deleted on another EAS client.
  </notes>
@@ -1570,7 +1569,6 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix filtering out changes due to incoming client email requests in certain cases.
-* [mjr] Fix filtering out changes due to incoming client requests in certain cases.
 * [mjr] Send empty POOMMAIL_CATEGORIES tag as Exchange does.
 * [mjr] Fix sending deletion commands to clients when an item is created on one EAS client, but deleted on another EAS client.
    </notes>
