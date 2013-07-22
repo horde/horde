@@ -1303,14 +1303,25 @@ document.observe('HordeCore:runTasks', function(e) {
 }.bindAsEventListener(DimpCompose));
 
 
-/* Fix Ajax.Request#setRequestHeaders() behavior (Bug #12418). */
+/* Fix Ajax.Request#setRequestHeaders() behavior (Bug #12418).
+ * (This is fixed in prototypejs as of December 2012.) */
 Ajax.Request.prototype.setRequestHeaders = Ajax.Request.prototype.setRequestHeaders.wrap(function(orig) {
-    this.transport.setRequestHeader = this.transport.setRequestHeader.wrap(function(orig2, name, val) {
-        // Don't add headers if value is empty. Due to Bug #44438 in Chrome,
-        // we can't prevent default headers from being sent.
-        if (!val.empty()) {
-            orig2(name, val);
-        }
-    });
+    if (Object.isFunction(this.transport.setRequestHeader)) {
+        this.transport.setRequestHeader = this.transport.setRequestHeader.wrap(function(orig2, name, val) {
+            // Don't add headers if value is empty. Due to Bug #44438 in Chrome,
+            // we can't prevent default headers from being sent.
+            if (!val.empty()) {
+                orig2(name, val);
+            }
+        });
+    } else {
+        // Can't use wrap() here since setRequestHeader() on IE8 doesn't
+        // inherit from Function.prototype (Bug #12474).
+        this.transport.setRequestHeader = function(orig2, name, val) {
+            if (!val.empty()) {
+                orig2(name, val);
+            }
+        }.curry(this.transport.setRequestHeader);
+    }
     orig();
 });

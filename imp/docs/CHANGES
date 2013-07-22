@@ -2,6 +2,8 @@
 v6.1.4-git
 ----------
 
+[mms] Workaround IE8's broken XMLHttpRequest when sending data in dynamic
+      compose view (Bug #12474).
 
 
 ------
