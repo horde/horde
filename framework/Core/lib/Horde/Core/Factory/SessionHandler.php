@@ -50,7 +50,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
         case 'hashtable':
         // DEPRECATED
         case 'memcache':
-            $params['hashtable'] = $injector->getInstance('Horde_HashTable');
+            $params['hashtable'] = $injector->getInstance('Horde_Core_HashTable_Wrapper');
             $driver = 'hashtable';
             break;
 
@@ -79,7 +79,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             $storage = new Horde_SessionHandler_Storage_Stack(array(
                 'stack' => array(
                     new Horde_SessionHandler_Storage_HashTable(array(
-                        'hashtable' => $injector->getInstance('Horde_HashTable')
+                        'hashtable' => $injector->getInstance('Horde_Core_HashTable_Wrapper')
                     )),
                     $this->storage
                 )

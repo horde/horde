@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-07-16</date>
- <time>19:24:59</time>
+ <date>2013-07-21</date>
+ <time>23:04:32</time>
  <version>
   <release>2.6.3</release>
   <api>2.6.0</api>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Injector a HashTable wrapper object into Cache and SessionHandler objects, so we will reuse global HashTable instance when unserializing.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -468,6 +468,9 @@
       <dir name="Group">
        <file name="Ldap.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Group -->
+      <dir name="HashTable">
+       <file name="Wrapper.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/HashTable -->
       <dir name="Imsp">
        <file name="Utils.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Imsp -->
@@ -1782,6 +1785,7 @@
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
+   <install as="Horde/Core/HashTable/Wrapper.php" name="lib/Horde/Core/HashTable/Wrapper.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
    <install as="Horde/Core/Log/Object.php" name="lib/Horde/Core/Log/Object.php" />
@@ -3043,10 +3047,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-16</date>
+   <date>2013-07-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Injector a HashTable wrapper object into Cache and SessionHandler objects, so we will reuse global HashTable instance when unserializing.
    </notes>
   </release>
  </changelog>
