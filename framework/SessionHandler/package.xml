@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] More robust way of checking for locking in a HashTable instance.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -136,7 +136,7 @@
    <package>
     <name>Horde_HashTable</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -521,7 +521,7 @@ Initial release as a PEAR package
    <date>2013-06-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] More robust way of checking for locking in a HashTable instance.
    </notes>
   </release>
  </changelog>
