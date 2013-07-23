@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-04</date>
- <time>18:11:23</time>
+ <date>2013-07-23</date>
+ <time>12:12:52</time>
  <version>
   <release>2.2.1</release>
   <api>2.2.0</api>
@@ -518,7 +518,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-04</date>
+   <date>2013-07-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] More robust way of checking for locking in a HashTable instance.
