@@ -21,6 +21,8 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   HashTable
  *
+ * @property-read boolean $locking  Does hash table provide locking? (@since
+ *                                  1.1.0)
  * @property-read boolean $persistent  Does hash table provide persistent
  *                                     storage?
  * @property-write string $prefix  Set the hash key prefix.
@@ -92,6 +94,9 @@ abstract class Horde_HashTable_Base implements ArrayAccess, Serializable
     public function __get($name)
     {
         switch ($name) {
+        case 'locking':
+            return ($this instanceof Horde_HashTable_Lock);
+
         case 'persistent':
             return $this->_persistent;
         }
