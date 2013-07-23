@@ -34,4 +34,21 @@ class Horde_Core_HashTable_Wrapper
             $arguments
         );
     }
+
+    /**
+     * Redirects get calls to the HashTable object.
+     */
+    public function __get($name)
+    {
+        return $GLOBALS['injector']->getInstance('Horde_HashTable')->$name;
+    }
+
+    /**
+     * Redirects set calls to the HashTable object.
+     */
+    public function __set($name, $value)
+    {
+        $GLOBALS['injector']->getInstance('Horde_HashTable')->$name = $value;
+    }
+
 }
