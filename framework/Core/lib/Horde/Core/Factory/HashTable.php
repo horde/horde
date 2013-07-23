@@ -48,7 +48,7 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
         case 'memcache':
             return new Horde_HashTable_Memcache(array(
                 'memcache' => new Horde_Memcache(array_merge($params, array(
-                    'logger' => $injector->getInstance('Horde_Log_Logger')
+                    'logger' => $injector->getInstance('Horde_Core_Log_Wrapper')
                 )))
             ));
 
