@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-19</date>
- <time>23:59:30</time>
+ <date>2013-07-24</date>
+ <time>00:54:39</time>
  <version>
   <release>2.12.0</release>
   <api>2.12.0</api>
@@ -1854,7 +1854,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-19</date>
+   <date>2013-07-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Added the Horde_Imap_Client::STATUS_RECENT_TOTAL return option to Horde_Imap_Client_Base#status().
