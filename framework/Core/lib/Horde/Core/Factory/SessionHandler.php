@@ -78,7 +78,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             !in_array($driver, array('builtin', 'hashtable'))) {
             $storage = new Horde_SessionHandler_Storage_Stack(array(
                 'stack' => array(
-                    new Horde_SessionHandler_Storage_HashTable(array(
+                    new Horde_SessionHandler_Storage_Hashtable(array(
                         'hashtable' => $injector->getInstance('Horde_Core_HashTable_Wrapper')
                     )),
                     $this->storage
