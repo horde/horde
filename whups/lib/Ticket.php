@@ -799,13 +799,6 @@ class Whups_Ticket
 
         $table .= "------------------------------------------------------------------------------";
 
-        /* Add the "do not reply" tag if we don't monitor incoming  mail. */
-        if (empty($conf['mail']['reply'])) {
-            $dont_reply = _("DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED.") . "\n\n";
-        } else {
-            $dont_reply = '';
-        }
-
         /* Build message template. */
         $view = new Horde_View(array('templatePath' => WHUPS_BASE . '/config'));
         $view->ticket_url = $url;
