@@ -50,6 +50,8 @@ class Horde_Imap_Client
     const STATUS_UIDNOTSTICKY = 4096;
     const STATUS_UIDNEXT_FORCE = 8192;
     const STATUS_SYNCVANISHED = 16384;
+    /* @since 2.12.0 */
+    const STATUS_RECENT_TOTAL = 32768;
 
     /* Constants for search() */
     const SORT_ARRIVAL = 1;
