@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-07-21</date>
- <time>23:04:32</time>
+ <date>2013-07-24</date>
+ <time>12:33:12</time>
  <version>
   <release>2.6.3</release>
   <api>2.6.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix fatal error caused by incorrect classname (Bug #12494).
 * [mms] Injector a HashTable wrapper object into Cache and SessionHandler objects, so we will reuse global HashTable instance when unserializing.
  </notes>
  <contents>
@@ -3047,9 +3048,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-21</date>
+   <date>2013-07-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix fatal error caused by incorrect classname (Bug #12494).
 * [mms] Injector a HashTable wrapper object into Cache and SessionHandler objects, so we will reuse global HashTable instance when unserializing.
    </notes>
   </release>
