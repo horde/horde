@@ -2,6 +2,8 @@
 v6.1.4-git
 ----------
 
+[mms] When checking for newmail in a mailbox, use the total number of recent
+      messages seen at any time during the page access (Request #12447).
 [mms] Workaround IE8's broken XMLHttpRequest when sending data in dynamic
       compose view (Bug #12474).
 

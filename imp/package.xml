@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] When checking for newmail in a mailbox, use the total number of recent messages seen at any time during the page access (Request #12447).
 * [mms] Workaround IE8&apos;s broken XMLHttpRequest when sending data in dynamic compose view (Bug #12474).
  </notes>
  <contents>
@@ -1193,7 +1194,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>2.9.0</min>
+    <min>2.12.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3262,6 +3263,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] When checking for newmail in a mailbox, use the total number of recent messages seen at any time during the page access (Request #12447).
 * [mms] Workaround IE8&apos;s broken XMLHttpRequest when sending data in dynamic compose view (Bug #12474).
    </notes>
   </release>
