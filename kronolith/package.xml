@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2201,7 +2201,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
    </notes>
   </release>
  </changelog>
