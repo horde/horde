@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-07-24</date>
- <time>00:54:39</time>
+ <time>01:03:53</time>
  <version>
-  <release>2.12.0</release>
+  <release>2.12.1</release>
   <api>2.12.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Added the Horde_Imap_Client::STATUS_RECENT_TOTAL return option to Horde_Imap_Client_Base#status().
-* [mms] More graceful handling of servers that return broken FETCH information (Request #12441).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1859,6 +1858,19 @@
    <notes>
 * [mms] Added the Horde_Imap_Client::STATUS_RECENT_TOTAL return option to Horde_Imap_Client_Base#status().
 * [mms] More graceful handling of servers that return broken FETCH information (Request #12441).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.1</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-24</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
