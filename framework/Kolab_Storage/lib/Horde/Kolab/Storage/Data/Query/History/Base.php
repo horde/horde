@@ -229,14 +229,10 @@ implements Horde_Kolab_Storage_Data_Query_History
                 $object, array('action' => 'add', 'bid' => $bid), true
             );
         } else {
-            $last = array('ts' => 0);
+            $last = array('modseq' => 0, 'action' => 'unknown');
             foreach ($log as $entry) {
                 $action = $entry['action'];
-                if ($entry['ts'] > $last['ts'] && ($action == 'add' || $action == 'modify' || $action == 'delete')) {
-                    $last = $entry;
-                } else if ($entry['ts'] == $last['ts'] && $action == 'delete') {
-                    // prefer 'delete' actions over other actions if the timestamp is the same.
-                    // see the logic below.
+                if ($entry['modseq'] > $last['modseq'] && ($action == 'add' || $action == 'modify' || $action == 'delete')) {
                     $last = $entry;
                 }
             }
