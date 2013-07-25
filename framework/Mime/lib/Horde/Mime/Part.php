@@ -535,10 +535,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @param resource $fp      A stream containing the data to encode.
      * @param string $encoding  The encoding to use.
+     * @param string $eol       EOL string.
      *
      * @return resource  A new file resource with the encoded data.
      */
-    protected function _transferEncode($fp, $encoding)
+    protected function _transferEncode($fp, $encoding, $eol)
     {
         $this->_temp['transferEncodeClose'] = true;
 
@@ -548,7 +549,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return $this->_writeStream($fp, array(
                 'filter' => array(
                     'convert.base64-encode' => array(
-                        'line-break-chars' => $this->getEOL(),
+                        'line-break-chars' => $eol,
                         'line-length' => 76
                     )
                 )
@@ -559,7 +560,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return $this->_writeStream($fp, array(
                 'filter' => array(
                     'convert.quoted-printable-encode' => array(
-                        'line-break-chars' => $this->getEOL(),
+                        'line-break-chars' => $eol,
                         'line-length' => 76
                     )
                 )
@@ -1221,7 +1222,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                         break;
                     }
 
-                    $parts[] = $this->_transferEncode($this->_contents, $encoding);
+                    $parts[] = $this->_transferEncode(
+                        $this->_contents,
+                        $encoding,
+                        (empty($options['canonical']) ? $this->getEOL() : self::RFC_EOL)
+                    );
 
                     /* If not using $this->_contents, we can close the stream
                      * when finished. */
