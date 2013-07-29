@@ -1405,7 +1405,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             /* Now, all parts referred to in the HTML data have been added
              * to the attachment list. Convert to multipart/related if
              * this is the case. */
-            $textpart->addPart(empty($options['nofinal']) ? $this->_convertToRelated($body_html, $htmlBody) : $htmlBody);
+            $textpart->addPart($this->_convertToRelated($body_html, $htmlBody));
 
             $htmlBody->setContents($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($body_html->returnHtml(array(
                 'charset' => $this->charset,
