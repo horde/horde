@@ -517,7 +517,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $results = array();
             foreach ($cs as $c) {
                 $results = array_merge(
-                    $results, $this->listBy($action, $timestamp, $c, $end));
+                    $results, $this->listBy($action, $timestamp, $c, $end, $isModSeq));
             }
             return $results;
         }
