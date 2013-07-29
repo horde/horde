@@ -716,7 +716,7 @@ class Nag_Api extends Horde_Registry_Api
             $tasklist = Nag::getSyncLists();
             $results = array();
             foreach ($tasklist as $list) {
-                $results = array_merge($results, $this->listBy($action, $timestamp, $list, $end));
+                $results = array_merge($results, $this->listBy($action, $timestamp, $list, $end, $isModSeq));
             }
             return $results;
         }
