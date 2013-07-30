@@ -117,11 +117,6 @@ class Horde_Memcache implements Serializable
     public function __construct(array $params = array())
     {
         $this->_params = array_merge($this->_params, $params);
-
-        if (isset($params['logger'])) {
-            $this->_logger = $params['logger'];
-        }
-
         $this->_init();
 
         register_shutdown_function(array($this, 'shutdown'));
@@ -155,7 +150,8 @@ class Horde_Memcache implements Serializable
         // Force consistent hashing
         ini_set('memcache.hash_strategy', 'consistent');
 
-        if ($this->_logger) {
+        if (isset($this->_params['logger'])) {
+            $this->_logger = $this->_params['logger'];
             $this->_logger->log('Connected to the following memcache servers:' . implode($servers, ', '), 'DEBUG');
         }
     }
@@ -460,8 +456,7 @@ class Horde_Memcache implements Serializable
     {
         return serialize(array(
             self::VERSION,
-            $this->_params,
-            $this->_logger
+            $this->_params
         ));
     }
 
@@ -483,7 +478,6 @@ class Horde_Memcache implements Serializable
         }
 
         $this->_params = $data[1];
-        $this->_logger = $data[2];
 
         $this->_init();
     }
