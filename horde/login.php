@@ -57,7 +57,7 @@ try {
         'authentication' => 'none',
         'nologintasks' => true
     ));
-} catch (Horde_Exception $e) {}
+} catch (Horde_Exception_AuthenticationFailure $e) {}
 
 $is_auth = $registry->isAuthenticated();
 $vars = $injector->getInstance('Horde_Variables');
