@@ -865,7 +865,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 $serverid = $this->_decoder->getElementContent();
                 // Work around broken clients (Blackberry) that can send empty
-                // $serverid values as a single empty <SYNC_SERVERENTYID /> tag.
+                // $serverid values as a single empty <SYNC_SERVERENTRYID /> tag.
                 if ($serverid !== false && !$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleGlobalSyncError();
@@ -877,7 +877,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             // This tag is only sent here during > 12.1 and SYNC_ADD requests...
-            // and it's not event sent by all clients. Parse it if it's there,
+            // and it's not even sent by all clients. Parse it if it's there,
             // ignore it if not.
             if ($this->_activeSync->device->version > Horde_ActiveSync::VERSION_TWELVEONE &&
                 $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_ADD &&
