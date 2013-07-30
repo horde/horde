@@ -125,7 +125,8 @@ class Horde_ActiveSync_Connector_Importer
      * @param integer $clientid                        Client id sent from PIM
      *                                                 on message addition.
      *
-     * @return string|boolean The server message id or false
+     * @return string|array|boolean The server message id, an array containing
+     *                              the serverid and failure code, or false
      */
     public function importMessageChange(
         $id, Horde_ActiveSync_Message_Base $message,
@@ -143,10 +144,10 @@ class Horde_ActiveSync_Connector_Importer
                 $id);
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
                 $this->_logger->notice(sprintf(
-                    '[%s] Conflict when updating %s.',
+                    '[%s] Conflict when updating %s, will overwrite client version on next sync.',
                     getmypid(), $id)
                 );
-                return $id;
+                return array($id, Horde_ActiveSync_Request_Sync::STATUS_CONFLICT);
             }
         } else {
             if ($uid = $this->_state->isDuplicatePIMAddition($clientid)) {

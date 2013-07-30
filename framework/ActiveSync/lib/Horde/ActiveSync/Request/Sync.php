@@ -42,6 +42,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
     const STATUS_KEYMISM                = 3;
     const STATUS_PROTERROR              = 4;
     const STATUS_SERVERERROR            = 5;
+    const STATUS_INVALID                = 6;
+    const STATUS_CONFLICT               = 7;
     const STATUS_NOTFOUND               = 8;
 
     // 12.1
@@ -486,15 +488,36 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     // Output server IDs for new items we received and added from PIM
                     if (!empty($collection['clientids'])) {
                         foreach ($collection['clientids'] as $clientid => $serverid) {
+                            if ($serverid) {
+                                $status = self::STATUS_SUCCESS;
+                            } else {
+                                $status = self::STATUS_INVALID;
+                            }
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
                             $this->_encoder->content($clientid);
                             $this->_encoder->endTag();
+                            if ($status == self::STATUS_SUCCSS) {
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                                $this->_encoder->content($serverid);
+                                $this->_encoder->endTag();
+                            }
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+                            $this->_encoder->content($status);
+                            $this->_encoder->endTag();
+                            $this->_encoder->endTag();
+                        }
+                    }
+
+                    // Output any SYNC_CHANGE failures
+                    if (!empty($collection['importfailures'])) {
+                        foreach ($collection['importfailures'] as $id => $reason) {
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CHANGE);
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                            $this->_encoder->content($serverid);
+                            $tihs->_encoder->content($id);
                             $this->_encoder->endTag();
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                            $this->_encoder->content(self::STATUS_SUCCESS);
+                            $this->_encoder->content($reason);
                             $this->_encoder->endTag();
                             $this->_encoder->endTag();
                         }
@@ -921,9 +944,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
                 case Horde_ActiveSync::SYNC_MODIFY:
                     if (isset($appdata)) {
-                        $importer->importMessageChange(
+                        $id = $importer->importMessageChange(
                             $serverid, $appdata, $this->_device, false);
-                        $collection['importedchanges'] = true;
+                        if ($id && !is_array($id)) {
+                            $collection['importedchanges'] = true;
+                        } elseif (is_array($id)) {
+                            $collection['importfailures'][$id[0]] = $id[1];
+                        }
                     }
                     break;
 
@@ -934,6 +961,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         if ($clientid && $id) {
                             $collection['clientids'][$clientid] = $id;
                             $collection['importedchanges'] = true;
+                        } elseif (!$id) {
+                            $collection['clientids'][$clientid] = false;
                         }
                     }
                     break;
