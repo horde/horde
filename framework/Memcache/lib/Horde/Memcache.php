@@ -54,11 +54,25 @@ class Horde_Memcache implements Serializable
     protected $_locks = array();
 
     /**
+     * Logger instance.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Memcache object.
      *
      * @var Memcache
      */
     protected $_memcache;
+
+    /**
+     * A list of items known not to exist.
+     *
+     * @var array
+     */
+    protected $_noexist = array();
 
     /**
      * Memcache defaults.
@@ -75,18 +89,11 @@ class Horde_Memcache implements Serializable
     );
 
     /**
-     * A list of items known not to exist.
+     * The list of active servers.
      *
      * @var array
      */
-    protected $_noexist = array();
-
-    /**
-     * Logger instance.
-     *
-     * @var Horde_Log_Logger
-     */
-    protected $_logger;
+    protected $_servers = array();
 
     /**
      * Constructor.
@@ -131,15 +138,25 @@ class Horde_Memcache implements Serializable
     {
         $this->_memcache = new Memcache();
 
-        $servers = array();
         for ($i = 0, $n = count($this->_params['hostspec']); $i < $n; ++$i) {
-            if ($this->_memcache->addServer($this->_params['hostspec'][$i], empty($this->_params['port'][$i]) ? 0 : $this->_params['port'][$i], !empty($this->_params['persistent']), !empty($this->_params['weight'][$i]) ? $this->_params['weight'][$i] : 1)) {
-                $servers[] = $this->_params['hostspec'][$i] . (!empty($this->_params['port'][$i]) ? ':' . $this->_params['port'][$i] : '');
+            $res = $this->_memcache->addServer(
+                $this->_params['hostspec'][$i],
+                empty($this->_params['port'][$i]) ? 0 : $this->_params['port'][$i],
+                !empty($this->_params['persistent']),
+                !empty($this->_params['weight'][$i]) ? $this->_params['weight'][$i] : 1,
+                null,
+                null,
+                null,
+                array($this, 'failover')
+            );
+
+            if ($res) {
+                $this->_servers[] = $this->_params['hostspec'][$i] . (!empty($this->_params['port'][$i]) ? ':' . $this->_params['port'][$i] : '');
             }
         }
 
         /* Check if any of the connections worked. */
-        if (empty($servers)) {
+        if (empty($this->_servers)) {
             throw new Horde_Memcache_Exception('Could not connect to any defined memcache servers.');
         }
 
@@ -152,7 +169,7 @@ class Horde_Memcache implements Serializable
 
         if (isset($this->_params['logger'])) {
             $this->_logger = $this->_params['logger'];
-            $this->_logger->log('Connected to the following memcache servers:' . implode($servers, ', '), 'DEBUG');
+            $this->_logger->log('Connected to the following memcache servers:' . implode($this->_servers, ', '), 'DEBUG');
         }
     }
 
@@ -402,6 +419,27 @@ class Horde_Memcache implements Serializable
     public function stats()
     {
         return $this->_memcache->getExtendedStats();
+    }
+
+    /**
+     * Failover method.
+     *
+     * @see Horde_Memcache#addServer
+     *
+     * @param string $host   Hostname.
+     * @param integer $port  Port.
+     *
+     * @throws Horde_Memcache_Exception
+     */
+    public function failover($host, $port)
+    {
+        $pos = array_search($host . ':' . $port, $this->_servers);
+        if ($pos !== false) {
+            unset($this->_servers[$pos]);
+            if (!count($this->_servers)) {
+                throw new Horde_Memcache_Exception('Could not connect to any defined memcache servers.');
+            }
+        }
     }
 
     /**
