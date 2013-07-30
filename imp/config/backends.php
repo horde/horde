@@ -92,7 +92,8 @@
  *           horde/config/conf.xml). (This option is DEPRECATED; use one of
  *           the below options instead.)
  *     - 'cache': Caching is enabled using the Horde cache (configured in
- *           horde/config/conf.xml).
+ *           horde/config/conf.xml). It is recommended to use either 'nosql'
+ *           or 'sql' instead, as these backends have much better performance.
  *     - 'nosql': Caching is enabled using the Horde NoSQL database
  *                (configured in horde/config/conf.xml).
  *     - 'sql': Caching is enabled using the Horde SQL database (configured in
