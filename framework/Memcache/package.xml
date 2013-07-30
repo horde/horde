@@ -62,6 +62,7 @@
     <name>memcache</name>
     <channel>pecl.php.net</channel>
     <providesextension>memcache</providesextension>
+    <min>2.0.0</min>
    </package>
    <extension>
     <name>hash</name>
