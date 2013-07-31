@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Purging the autoloader cache no longer requires knowledge of the various SERVER_NAME settings used on a given system.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -262,7 +262,7 @@
    <date>2013-03-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Purging the autoloader cache no longer requires knowledge of the various SERVER_NAME settings used on a given system.
    </notes>
   </release>
  </changelog>

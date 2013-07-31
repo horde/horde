@@ -31,6 +31,9 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     const EACCELERATOR = 3;
     const TEMPFILE = 4;
 
+    /* Key that holds list of autoloader cache keys. */
+    const KEYLIST = 'horde_autoloader_keys';
+
     /**
      * Map of all classes already looked up.
      *
@@ -60,6 +63,13 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     protected $_changed = false;
 
     /**
+     * Is this a new key?
+     *
+     * @var boolean
+     */
+    protected $_newkey = false;
+
+    /**
      * Cached value of the temporary directory.
      *
      * @var string
@@ -69,7 +79,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     /**
      * Constructor.
      *
-     * Tries all supported cache backends and tries to retrieved the cached
+     * Tries all supported cache backends and tries to retrieve the cached
      * class map.
      */
     public function __construct()
@@ -92,10 +102,10 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
         } elseif (extension_loaded('eaccelerator')) {
             $data = eaccelerator_get($this->_cachekey);
             $this->_cachetype = self::EACCELERATOR;
-        } elseif (($this->_tempdir = sys_get_temp_dir()) &&
-                  is_readable($this->_tempdir)) {
+        } elseif (($tempdir = sys_get_temp_dir()) && is_readable($tempdir)) {
+            $this->_tempdir = $tempdir;
             $this->_cachekey = hash('md5', $this->_cachekey);
-            $data = file_get_contents($this->_tempdir . '/' . $this->_cachekey);
+            $data = file_get_contents($tempdir . '/' . $this->_cachekey);
             $this->_cachetype = self::TEMPFILE;
         }
 
@@ -110,11 +120,10 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
                 $data = @json_decode($data, true);
                 if (is_array($data)) {
                     $this->_cache = $data;
-                } else {
-                    $this->_cache = array();
-                    $this->_changed = true;
                 }
             }
+        } else {
+            $this->_newkey = true;
         }
     }
 
@@ -153,6 +162,12 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             file_put_contents($this->_tempdir . '/' . $this->_cachekey, $data);
             break;
         }
+
+        if ($this->_newkey) {
+            $keylist = $this->_getKeylist();
+            $keylist[] = $this->_cachekey;
+            $this->_saveKeylist($keylist);
+        }
     }
 
     /**
@@ -179,23 +194,86 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      */
     public function prune()
     {
-        switch ($this->_cachetype) {
-        case self::APC:
-            return apc_delete($this->_cachekey);
+        foreach ($this->_getKeylist() as $val) {
+            switch ($this->_cachetype) {
+            case self::APC:
+                apc_delete($val);
+                break;
 
-        case self::XCACHE:
-            return xcache_unset($this->_cachekey);
+            case self::XCACHE:
+                xcache_unset($val);
+                break;
 
-        case self::EACCELERATOR:
-            /* Undocumented, unknown return value. */
-            eaccelerator_rm($this->_cachekey);
-            return true;
+            case self::EACCELERATOR:
+                /* Undocumented, unknown return value. */
+                eaccelerator_rm($val);
+                break;
 
-        case self::TEMPFILE:
-            return unlink($this->_tempdir . '/' . $this->_cachekey);
+            case self::TEMPFILE:
+                @unlink($this->_tempdir . '/' . $val);
+                break;
+            }
         }
 
-        return false;
+        $this->_saveKeylist(array());
+
+        return true;
+    }
+
+    /**
+     * Returns the keylist.
+     *
+     * @return array  Keylist.
+     */
+    protected function _getKeylist()
+    {
+        switch ($this->_cachetype) {
+        case self::APC:
+            $keylist = apc_fetch(self::KEYLIST);
+            break;
+
+        case self::XCACHE:
+            $keylist = xcache_get(self::KEYLIST);
+            break;
+
+        case self::EACCELERATOR:
+            $keylist = eaccelerator_get(self::KEYLIST);
+            break;
+
+        case self::TEMPFILE:
+            $keylist = @json_decode(@file_get_contents($this->_tempdir . '/' . self::KEYLIST), true);
+            break;
+        }
+
+        return empty($keylist)
+            ? array()
+            : $keylist;
+    }
+
+    /**
+     * Saves the keylist.
+     *
+     * @param array $keylist  Keylist to save.
+     */
+    protected function _saveKeylist($keylist)
+    {
+        switch ($this->_cachetype) {
+        case self::APC:
+            apc_store(self::KEYLIST, $keylist);
+            break;
+
+        case self::XCACHE:
+            xcache_set(self::KEYLIST, $keylist);
+            break;
+
+        case self::EACCELERATOR:
+            eaccelerator_put(self::KEYLIST, $keylist);
+            break;
+
+        case self::TEMPFILE:
+            file_put_contents($this->_tempdir . '/' . self::KEYLIST, json_encode($keylist));
+            break;
+        }
     }
 
 }
