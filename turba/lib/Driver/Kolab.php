@@ -202,35 +202,24 @@ class Turba_Driver_Kolab extends Turba_Driver
     {
         if ($this->_data === null) {
             if (!empty($this->_share)) {
-                $this->_data = $this->_kolab->getData(
-                    $this->_share->get('folder'),
-                    'contact'
-                );
-                $this->setContactOwner($this->_share->get('owner'));
-            } elseif (empty($this->_name)) {
-                throw new Turba_Exception(
-                    'The addressbook has been left undefined but is required!'
-                );
-            }
-            $this->_data = $this->_getDataForAddressbook($this->_name);
-        }
-        return $this->_data;
-    }
+                $share = $this->_share;
+            } else {
+                if (empty($this->_name)) {
+                    throw new Turba_Exception(
+                        'The addressbook has been left undefined but is required!'
+                    );
+                }
 
-    /**
-     * Return the Kolab data handler for the specified addressbook.
-     *
-     * @param string $addressbook The addressbook name.
-     *
-     * @return Horde_Kolab_Storage_Date The data handler.
-     */
-    protected function _getDataForAddressbook($addressbook)
-    {
-        $share = $GLOBALS['injector']
-            ->getInstance('Turba_Shares')
-            ->getShare($addressbook);
-        $this->setContactOwner($share->get('owner'));
-        return $this->_kolab->getData($share->get('folder'), 'contact');
+                $share = $GLOBALS['injector']
+                    ->getInstance('Turba_Shares')
+                    ->getShare($addressbook);
+            }
+
+            $this->_data = $this->_kolab->getData($share->get('folder'), 'contact');
+            $this->setContactOwner($share->get('owner'));
+        }
+
+        return $this->_data;
     }
 
     /**
