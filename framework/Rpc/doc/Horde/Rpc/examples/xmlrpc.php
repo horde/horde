@@ -13,8 +13,8 @@ $rpc_method = 'calendar.listCalendars';
 
 // XML-RPC options, usually username and password
 $rpc_options = array(
-    'user' => '',
-    'pass' => '',
+    'request.username' => '',
+    'request.password' => '',
 );
 
 $http_client = new Horde_Http_Client($rpc_options);
