@@ -168,11 +168,11 @@ table.nopadding .headerbox td, table.nopadding .headerbox th {
     font-weight: bold;
 }
 .sortup {
-    background: url("graphics/za.png") left center no-repeat;
+    background: url("graphics/za.png") left center no-repeat !important;
     text-indent: 15px;
 }
 .sortdown {
-    background: url("graphics/az.png") left center no-repeat;
+    background: url("graphics/az.png") left center no-repeat !important;
     text-indent: 15px;
 }
 

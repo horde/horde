@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] Improved session administration UI (Request #12515).
 * [jan] Make "Others" and cogwheel menu entry available on iOS (Bug #11937).
  </notes>
  <contents>
@@ -3734,6 +3735,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mms] Improved session administration UI (Request #12515).
 * [jan] Make "Others" and cogwheel menu entry available on iOS (Bug #11937).
    </notes>
   </release>
