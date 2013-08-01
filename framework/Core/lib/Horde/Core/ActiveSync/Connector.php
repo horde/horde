@@ -457,14 +457,14 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
-     * List note lists.
+     * List notepads.
      *
      * @return array
      * @since 5.1
      */
-    public function tasks_listNoteLists()
+    public function notes_listNotepads()
     {
-        return $this->_registry->notes->listTaskLists();
+        return $this->_registry->notes->listNotepads();
     }
 
     /**
