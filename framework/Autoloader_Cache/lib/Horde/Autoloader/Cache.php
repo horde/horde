@@ -23,7 +23,7 @@ require_once 'Horde/Autoloader/Default.php';
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Autoloader_Cache
  */
-class Horde_Autoloader_Cache extends Horde_Autoloader_Default
+class Horde_Autoloader_Cache implements Horde_Autoloader
 {
     /**
      * The autoloader that is being cached by this decorator.
@@ -59,8 +59,10 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      * Tries all supported cache backends and tries to retrieved the cached
      * class map.
      *
-     * @param Horde_Autoloader $autoloader The autoloader that is being decorated.
-     * @param array            $backends   Class names of backends that may be used.
+     * @param Horde_Autoloader $autoloader The autoloader that is being
+     *                                     decorated.
+     * @param array            $backends   Class names of backends that may be
+     *                                     used.
      */
     public function __construct($autoloader, array $backends = null)
     {
@@ -72,7 +74,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
         }
         $cachekey .= '|' . __FILE__;
 
-        if ($backends === null) {
+        if (is_null($backends)) {
             $backends = array(
                 'Horde_Autoloader_Cache_Backend_Apc',
                 'Horde_Autoloader_Cache_Backend_Xcache',
@@ -82,30 +84,11 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
         }
 
         foreach ($backends as $backend) {
-            if (class_exists($backend)
-                && method_exists($backend, 'isSupported')
-                && call_user_func(array($backend, 'isSupported'))) {
+            if (class_exists($backend) &&
+                call_user_func(array($backend, 'isSupported'))) {
                 $this->_backend = new $backend($cachekey);
                 $this->_cache = $this->_backend->fetch();
                 break;
-            }
-        }
-
-        if ($data) {
-            if (extension_loaded('horde_lz4')) {
-                $data = @horde_lz4_uncompress($data);
-            } elseif (extension_loaded('lzf')) {
-                $data = @lzf_decompress($data);
-            }
-
-            if ($data !== false) {
-                $data = @json_decode($data, true);
-                if (is_array($data)) {
-                    $this->_cache = $data;
-                } else {
-                    $this->_cache = array();
-                    $this->_changed = true;
-                }
             }
         }
     }
@@ -117,30 +100,28 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      */
     public function __destruct()
     {
-        if (!$this->_changed || !$this->_cachetype) {
-            return;
+        if ($this->_changed) {
+	        $this->store();
         }
-
-        $this->store();
     }
 
     /**
-     * Save the class map to the cache.
+     * Call a method of the decorated autoloader.
+     *
+     * @param string $name       The method name.
+     * @param array  $arguments  The method arguments.
+     *
+     * @return mixed  Method results.
      */
-    public function store()
+    public function __call($name, $arguments)
     {
-        if ($this->_backend !== null) {
-            $this->_backend->store($this->_cache);
-        }
+        return call_user_func_array(
+            array($this->_autoloader, $name),
+            $arguments
+        );
     }
 
     /**
-     * Register this instance as autoloader.
-     *
-     * @param boolean $prepend If true, the autoloader will be prepended on the
-     *                         autoload stack instead of appending it.
-     *
-     * @return NULL
      */
     public function registerAutoloader($prepend = false)
     {
@@ -153,27 +134,15 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     }
 
     /**
-     * Try to load the definition for the provided class name.
-     *
-     * @param string $className The name of the undefined class.
-     *
-     * @return NULL
      */
     public function loadClass($className)
     {
-        if ($path = $this->mapToPath($className)) {
-            return $this->loadPath($path, $className);
-        }
-        return false;
+        return ($path = $this->mapToPath($className))
+            ? $this->loadPath($path, $className)
+            : false;
     }
 
     /**
-     * Try to load a class from the provided path.
-     *
-     * @param string $path      The path to the source file.
-     * @param string $className The class to load.
-     *
-     * @return boolean True if loading the class succeeded.
      */
     public function loadPath($path, $className)
     {
@@ -181,11 +150,6 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     }
 
     /**
-     * Search registered mappers in LIFO order.
-     *
-     * @param string $className  TODO.
-     *
-     * @return string  TODO
      */
     public function mapToPath($className)
     {
@@ -198,18 +162,13 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     }
 
     /**
-     * Call a method of the decorated autoloader.
-     *
-     * @param string $name The method name.
-     * @param array  $arguments The method arguments.
-     *
-     * @return mixed
+     * Save the class map to the cache.
      */
-    public function __call($name, $arguments)
+    public function store()
     {
-        return call_user_func_array(
-            array($this->_autoloader, $name), $arguments
-        );
+        if (!is_null($this->_backend)) {
+            $this->_backend->store($this->_cache);
+        }
     }
 
     /**
@@ -220,9 +179,9 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     public function prune()
     {
         $this->_cache = array();
-        if ($this->_backend !== null) {
-            return $this->_backend->prune();
-        }
+        return is_null($this->_backend)
+            ? true
+            : $this->_backend->prune();
     }
 
 }

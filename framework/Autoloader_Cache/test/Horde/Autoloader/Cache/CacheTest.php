@@ -1,23 +1,11 @@
 <?php
 /**
- * Tests the Autoloader cache.
- *
- * PHP version 5
- *
  * @category   Horde
- * @package    Autoloader_Cache
- * @subpackage UnitTests
- * @author     Gunnar Wrobel <wrobel@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://www.horde.org/libraries/Horde_Autoloader_Cache
+ * @package    Autoloader_Cache
+ * @subpackage UnitTests
  */
-
-require_once dirname(__FILE__) . '/Stub/TestCache.php';
-require_once 'Horde/Autoloader/Cache/Backend.php';
-require_once 'Horde/Autoloader/Cache/Backend/Apc.php';
-require_once 'Horde/Autoloader/Cache/Backend/Eaccelerator.php';
-require_once 'Horde/Autoloader/Cache/Backend/Tempfile.php';
-require_once 'Horde/Autoloader/Cache/Backend/Xcache.php';
 
 /**
  * Tests the Autoloader cache.
@@ -25,20 +13,20 @@ require_once 'Horde/Autoloader/Cache/Backend/Xcache.php';
  * NOTE: If you activate APC < 3.1.7 the tests wont run
  * (https://bugs.php.net/bug.php?id=58832)
  *
- * @category   Horde
- * @package    Autoloader_Cache
- * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@horde.org>
+ * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://www.horde.org/libraries/Horde_Autoloader_Cache
+ * @package    Autoloader_Cache
+ * @subpackage UnitTests
  */
 class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
 {
+    private $autoloader;
+    private $cache;
+
     public function setUp()
     {
-        if (extension_loaded('xcache')) {
-            $this->markTestSkipped('Xcache is active and it does not support the command line.');
-        }
         $this->autoloader = $this->getMock(
             'Horde_Autoloader',
             array(
@@ -49,14 +37,20 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
                 'someOther'
             )
         );
-        $this->cache = new Horde_Autoloader_Cache_Stub_TestCache(
-            $this->autoloader
-        );
     }
 
     public function tearDown()
     {
-        $this->cache->prune();
+        if ($this->cache) {
+            $this->cache->prune();
+        }
+    }
+
+    private function _loadCache()
+    {
+        $this->cache = new Horde_Autoloader_Cache_Stub_TestCache(
+            $this->autoloader
+        );
     }
 
     public function testTypeApc()
@@ -64,6 +58,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         if (!extension_loaded('apc')) {
             $this->markTestSkipped('APC not active.');
         }
+        $this->_loadCache();
         $this->assertEquals(
             'Horde_Autoloader_Cache_Backend_Apc',
             get_class($this->cache->getBackend())
@@ -75,6 +70,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         if (!extension_loaded('eaccelerator')) {
             $this->markTestSkipped('Eaccelerator not active.');
         }
+        $this->_loadCache();
         $this->assertEquals(
             'Horde_Autoloader_Cache_Backend_Eaccelerator',
             get_class($this->cache->getBackend())
@@ -83,10 +79,10 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
 
     public function testTypeTempfile()
     {
-        if (extension_loaded('eaccelerator')
-            || extension_loaded('apc')) {
+        if (extension_loaded('eaccelerator') || extension_loaded('apc')) {
             $this->markTestSkipped('Caching engine active.');
         }
+        $this->_loadCache();
         $this->assertEquals(
             'Horde_Autoloader_Cache_Backend_Tempfile',
             get_class($this->cache->getBackend())
@@ -95,6 +91,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
 
     public function testRegistering()
     {
+        $this->_loadCache();
         $this->cache->registerAutoloader();
         $this->assertContains(
             array($this->cache, 'loadClass'), spl_autoload_functions()
@@ -104,6 +101,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
 
     public function testMapping()
     {
+        $this->_loadCache();
         $this->autoloader->expects($this->once())
             ->method('mapToPath')
             ->with('test')
@@ -113,6 +111,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
 
     public function testSecondMapping()
     {
+        $this->_loadCache();
         $this->autoloader->expects($this->once())
             ->method('mapToPath')
             ->with('test')
@@ -123,6 +122,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
 
     public function testPathLoading()
     {
+        $this->_loadCache();
         $this->autoloader->expects($this->once())
             ->method('loadPath')
             ->with('TEST', 'test')
@@ -132,6 +132,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
 
     public function testClassLoading()
     {
+        $this->_loadCache();
         $this->autoloader->expects($this->once())
             ->method('mapToPath')
             ->with('test')
@@ -145,6 +146,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
 
     public function testSecondClassLoading()
     {
+        $this->_loadCache();
         $this->autoloader->expects($this->once())
             ->method('mapToPath')
             ->with('test')
@@ -159,6 +161,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
 
     public function testSecondMappingWithSecondCache()
     {
+        $this->_loadCache();
         $this->autoloader->expects($this->once())
             ->method('mapToPath')
             ->with('test')
@@ -173,6 +176,7 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
 
     public function testSecondMappingWithPrunedCache()
     {
+        $this->_loadCache();
         $this->autoloader->expects($this->exactly(2))
             ->method('mapToPath')
             ->with('test')
@@ -186,11 +190,9 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         $this->cache->mapToPath('test');
     }
 
-    public function testApcStore()
+    public function testStore()
     {
-        if (!extension_loaded('apc')) {
-            $this->markTestSkipped('APC not active.');
-        }
+        $this->_loadCache();
         $this->autoloader->expects($this->once())
             ->method('mapToPath')
             ->with('test')
@@ -199,15 +201,13 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         $this->cache->store();
         $this->assertEquals(
             array('test' => 'TEST'),
-            apc_fetch($this->cache->getBackend()->getKey())
+            $this->cache->getBackend()->fetch()
         );
     }
 
-    public function testApcPrune()
+    public function testPrune()
     {
-        if (!extension_loaded('apc')) {
-            $this->markTestSkipped('APC not active.');
-        }
+        $this->_loadCache();
         $this->autoloader->expects($this->once())
             ->method('mapToPath')
             ->with('test')
@@ -217,48 +217,13 @@ class Horde_Autoloader_CacheTest extends PHPUnit_Framework_TestCase
         $this->cache->prune();
         $this->assertEquals(
             array(),
-            apc_fetch($this->cache->getBackend()->getKey())
-        );
-    }
-
-    public function testFileStore()
-    {
-        if (extension_loaded('eaccelerator')
-            || extension_loaded('apc')) {
-            $this->markTestSkipped('Caching engine active.');
-        }
-        $this->autoloader->expects($this->once())
-            ->method('mapToPath')
-            ->with('test')
-            ->will($this->returnValue('TEST'));
-        $this->cache->mapToPath('test');
-        $this->cache->store();
-        $this->assertEquals(
-            array('test' => 'TEST'),
-            json_decode(file_get_contents($this->cache->getBackend()->getTempfile()), true)
-        );
-    }
-
-    public function testFilePrune()
-    {
-        if (extension_loaded('eaccelerator')
-            || extension_loaded('apc')) {
-            $this->markTestSkipped('Caching engine active.');
-        }
-        $this->autoloader->expects($this->once())
-            ->method('mapToPath')
-            ->with('test')
-            ->will($this->returnValue('TEST'));
-        $this->cache->mapToPath('test');
-        $this->cache->store();
-        $this->cache->prune();
-        $this->assertFalse(
-            file_exists($this->cache->getBackend()->getTempfile())
+            $this->cache->getBackend()->fetch()
         );
     }
 
     public function testArbitraryCalls()
     {
+        $this->_loadCache();
         $this->autoloader->expects($this->once())
             ->method('someOther')
             ->with('A', 'B')
