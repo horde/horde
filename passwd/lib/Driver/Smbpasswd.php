@@ -95,7 +95,7 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver
     protected function _changePassword($user, $oldpass, $newpass)
     {
         // Clean up user name in case evil characters are in it.
-        $user = escapeshellcmd($username);
+        $user = escapeshellcmd($user);
 
         $tmpfile = Horde::getTempFile('smbpasswd');
 
