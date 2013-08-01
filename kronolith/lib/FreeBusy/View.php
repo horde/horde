@@ -2,7 +2,7 @@
 /**
  * This class represent a view of multiple free busy information sets.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information.
  *
@@ -27,9 +27,9 @@ abstract class Kronolith_FreeBusy_View
     /**
      * Adds a required attendee
      *
-     * @param Kronolith_Freebusy $vFreebusy
+     * @param Horde_Icalendar_Vfreebusy $vFreebusy
      */
-    public function addRequiredMember(Kronolith_Freebusy $vFreebusy)
+    public function addRequiredMember(Horde_Icalendar_Vfreebusy $vFreebusy)
     {
         $this->_requiredMembers[] = clone $vFreebusy;
     }
@@ -37,9 +37,9 @@ abstract class Kronolith_FreeBusy_View
     /**
      * Adds an optional attendee
      *
-     * @param Kronolith_Freebusy $vFreebusy
+     * @param Horde_Icalendar_Vfreebusy $vFreebusy
      */
-    public function addOptionalMember(Kronoolith_Freebusy $vFreebusy)
+    public function addOptionalMember(Horde_Icalendar_Vfreebusy $vFreebusy)
     {
         $this->_optionalMembers[] = clone $vFreebusy;
     }
@@ -47,9 +47,9 @@ abstract class Kronolith_FreeBusy_View
     /**
      * Adds an optional resource
      *
-     * @param Kronolith_Freebusy $vFreebusy
+     * @param Horde_Icalendar_Vfreebusy $vFreebusy
      */
-    public function addOptionalResourceMember(Kronolith_Freebusy $vFreebusy)
+    public function addOptionalResourceMember(Horde_Icalendar_Vfreebusy $vFreebusy)
     {
         $this->_optionalResourceMembers[] = clone $vFreebusy;
     }
@@ -57,9 +57,9 @@ abstract class Kronolith_FreeBusy_View
     /**
      * Adds a required resource
      *
-     * @param Kronolith_Freebusy $vFreebusy
+     * @param Horde_Icalendar_Vfreebusy $vFreebusy
      */
-    public function addRequiredResourceMember(Kronolith_Freebusy $vFreebusy)
+    public function addRequiredResourceMember(Horde_Icalendar_Vfreebusy $vFreebusy)
     {
         $this->_requiredResourceMembers[] = clone $vFreebusy;
     }
@@ -107,11 +107,6 @@ abstract class Kronolith_FreeBusy_View
         $optimal = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $optimal->merge($required, false);
         $optimal->merge($optional);
-
-        $base_url = Horde::selfUrl()
-            ->remove('date')
-            ->remove('fbview')
-            ->add('fbview', $this->view);
 
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $template->set('title', $this->_title());
@@ -263,7 +258,7 @@ abstract class Kronolith_FreeBusy_View
         $driver = basename($view);
         $class = 'Kronolith_FreeBusy_View_' . $driver;
         if (class_exists($class)) {
-            return new $class($user, $params);
+            return new $class();
         }
 
         return false;

@@ -61,16 +61,22 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $registry, $prefs;
+        global $page_output;
 
-        Horde::addScriptFile('tooltips.js', 'horde');
+        $page_output->addScriptFile('tooltips.js', 'horde');
 
         $now = new Horde_Date($_SERVER['REQUEST_TIME']);
         $today = date('j');
         $current_month = '';
 
-        $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j')));
-        $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n') + $this->_params['months'], 'mday' => date('j') - 1));
+        $startDate = new Horde_Date(array(
+            'year' => date('Y'),
+            'month' => date('n'),
+            'mday' => date('j')));
+        $endDate = new Horde_Date(array(
+            'year' => date('Y'),
+            'month' => date('n') + $this->_params['months'],
+            'mday' => date('j') - 1));
 
         try {
             if (isset($this->_params['calendar']) &&
@@ -84,17 +90,30 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                 }
                 list($type, $calendar) = explode('_', $this->_params['calendar'], 2);
                 $driver = Kronolith::getDriver($type, $calendar);
-                $all_events = $driver->listEvents($startDate, $endDate, true);
+                $all_events = $driver->listEvents(
+                    $startDate,
+                    $endDate,
+                    array('show_recurrence' => true,
+                          'has_alarm' => !empty($this->_params['alarms']),
+                          'cover_dates' => false)
+                );
             } else {
-                $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
+                $all_events = Kronolith::listEvents(
+                    $startDate,
+                    $endDate,
+                    $GLOBALS['display_calendars'], array(
+                        'has_alarm' => !empty($this->_params['alarms']),
+                        'cover_dates' => false)
+                );
             }
         } catch (Exception $e) {
             return '<em>' . $e->getMessage() . '</em>';
         }
 
         /* How many days do we need to check. */
-        $days = Date_Calc::dateDiff($startDate->mday, $startDate->month, $startDate->year,
-                                    $endDate->mday, $endDate->month, $endDate->year);
+        $days = Date_Calc::dateDiff(
+            $startDate->mday, $startDate->month, $startDate->year,
+            $endDate->mday, $endDate->month, $endDate->year);
 
         /* Loop through the days. */
         $totalevents = 0;
@@ -114,26 +133,30 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
 
             /* Output month header. */
             if ($current_month != $day->month) {
-                $current_month = $day->strftime('%m');
                 $html .= '<tr><td colspan="4" class="control"><strong>' . $day->strftime('%B') . '</strong></td></tr>';
             }
 
             $firstevent = true;
             $tomorrow = $day->getTomorrow();
             foreach ($all_events[$date_stamp] as $event) {
+                $isMultiDay = false;
                 if ($event->start->compareDate($day) < 0) {
                     $event->start = new Horde_Date($day);
                 }
-                if ($event->end->compareDate($tomorrow) >= 0) {
-                    $event->end = $tomorrow;
+                if ($event->end->compareDate($tomorrow) >= 1) {
+                    $isMultiDay = true;
                 }
                 if (($event->end->compareDate($now) < 0 && !$event->isAllDay()) ||
                     (!empty($this->_params['alarms']) && !$event->alarm)) {
                     continue;
                 }
 
-                if ($firstevent) {
-                    $html .= '<tr><td class="text" valign="top" align="right"><strong>';
+                if ($firstevent || $isMultiDay) {
+                    $html .= '<tr';
+                    if ($current_month == $day->month) {
+                        $html .= ' class="upcomingday"';
+                    }
+                    $html .= '><td class="text" valign="top" align="right"><strong>';
                     if ($day->isToday()) {
                         $html .= _("Today");
                     } elseif ($day->isTomorrow()) {
@@ -141,8 +164,17 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                     } else {
                         $html .= $day->mday;
                     }
+                    if ($isMultiDay) {
+                        $endDay = new Kronolith_Day($event->end->month, $event->end->mday);
+                        $html .= ' - ';
+                        if ($endDay->isTomorrow()) {
+                            $html .= _("Tomorrow");
+                        } else {
+                            $html .= $event->end->mday;
+                        }
+                    }
                     $html .= '</strong>&nbsp;</td>';
-                    $firstevent = false;
+                    $firstevent = $isMultiDay;
                 } else {
                     $html .= '<tr><td class="text">&nbsp;</td>';
                 }
@@ -150,9 +182,9 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                 $html .= '<td class="text" nowrap="nowrap" valign="top">';
                 if ($event->start->compareDate($now) < 0 &&
                     $event->end->compareDate($now) > 0) {
-                    $html .= '<strong>' . $event->location . '</strong>';
+                    $html .= '<strong>' . htmlspecialchars($event->getLocation()) . '</strong>';
                 } else {
-                    $html .= $event->location;
+                    $html .= htmlspecialchars($event->getLocation());
                 }
                 if ($event->start->compareDate($now) < 0 &&
                     $event->end->compareDate($now) > 0) {
@@ -167,6 +199,8 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
 
                 $totalevents++;
             }
+
+            $current_month = $day->strftime('%m');
         }
 
         if (empty($html)) {

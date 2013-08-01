@@ -1,4 +1,5 @@
 <h1 class="header"><?php echo _("Ticket Stats") ?></h1>
+<?php if ($queues): ?>
 <table class="item" width="100%" cellspacing="1">
  <tr class="item">
 <?php foreach ($stats as $label): ?>
@@ -9,11 +10,16 @@
 foreach ($stats as $stat => $label):
     try {
         $time = $reporter->getTime($stat, 'type_name');
+?>
+   <td><?php foreach ($time as $type => $type_time)  echo $type . ': ' . sprintf(_("%s days"), $type_time) . '<br />' ?></td>
+<?php
     } catch (Whups_Exception $e) {
 ?>
    <td><?php echo $e->getMessage() ?></td>
 <?php } ?>
-   <td><?php foreach ($time as $type => $type_time)  echo $type . ': ' . sprintf(_("%s days"), $type_time) . '<br />' ?></td>
 <?php endforeach; ?>
  </tr>
 </table>
+<?php else: ?>
+<p class="horde-content"><em><?php echo _("No stats available.") ?></em></p>
+<?php endif ?>

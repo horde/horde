@@ -2,7 +2,7 @@
 /**
  * Wrapper for CVSGraph.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -12,7 +12,7 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 // Exit if cvsgraph isn't active or it's not supported.
@@ -50,12 +50,10 @@ if (Horde_Util::getFormData('show_image')) {
 }
 
 // Display the wrapper page for the image.
-$title = sprintf(_("Graph for %s"), $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
-$extraLink = Chora::getFileViews($where, 'cvsgraph');
+$title = _("Graph for:");
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
+echo Chora::getHistoryViews($where)->render('cvsgraph');
 
 $imgUrl = Chora::url('cvsgraph', $where, array('show_image' => 1));
 
@@ -84,4 +82,4 @@ if (!strncasecmp(PHP_OS, 'WIN', 3)) {
 $map = shell_exec($conf['paths']['cvsgraph'] . ' ' . $argstr . ' -i ' . $file);
 
 require CHORA_TEMPLATES . '/cvsgraph/cvsgraph.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -1,11 +1,6 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Base.php';
-
-/**
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -13,13 +8,11 @@ require_once dirname(__FILE__) . '/../Base.php';
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
+class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_TestBase
 {
     protected static $db;
 
     protected static $migrator;
-
-    protected static $reason;
 
     public function testListEmpty()
     {
@@ -174,7 +167,7 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
             new Horde_Log_Handler_Stream(
                 STDOUT, null,
                 new Horde_Log_Formatter_Simple('%message%' . PHP_EOL)));
-        $dir = dirname(__FILE__) . '/../../../../migration/Horde/Vfs';
+        $dir = __DIR__ . '/../../../../migration/Horde/Vfs';
         if (!is_dir($dir)) {
             error_reporting(E_ALL & ~E_DEPRECATED);
             $dir = PEAR_Config::singleton()
@@ -201,10 +194,4 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_Test_Base
         parent::tearDownAfterClass();
     }
 
-    public function setUp()
-    {
-        if (!self::$db) {
-            $this->markTestSkipped(self::$reason);
-        }
-    }
 }

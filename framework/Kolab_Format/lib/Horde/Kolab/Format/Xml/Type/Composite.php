@@ -14,13 +14,11 @@
 /**
  * Handles composite attributes.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
  * http://www.horde.org/licenses/lgpl21.
- *
- * @since Horde_Kolab_Format 1.1.0
  *
  * @category Kolab
  * @package  Kolab_Format
@@ -53,7 +51,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
     protected $default;
 
     /**
-     * Should the velues be merged into the parent attributes?
+     * Should the values be merged into the parent attributes?
      *
      * @var boolean
      */

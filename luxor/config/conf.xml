@@ -31,13 +31,4 @@
   </configenum>
   <configboolean name="use_show_var" desc="Should we enable highlighting of variables in source listings?">true</configboolean>
  </configsection>
-
- <configsection name="menu" desc="Menu settings">
-  <configheader>Menu Settings</configheader>
-  <configmultienum name="apps" desc="Select any applications that should be linked in Luxor's menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
- </configsection>
 </configuration>

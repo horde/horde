@@ -1,32 +1,32 @@
 <?php
 /**
- * A Horde_Injector based factory for the IMP_Search object.
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @link     http://pear.horde.org/index.php?package=IMP
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 
 /**
  * A Horde_Injector based factory for the IMP_Search object.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @link     http://pear.horde.org/index.php?package=IMP
- * @package  IMP
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
-class IMP_Factory_Search extends Horde_Core_Factory_Injector
+class IMP_Factory_Search extends Horde_Core_Factory_Injector implements Horde_Shutdown_Task
 {
+    /**
+     * @var IMP_Search
+     */
+    private $_instance;
+
     /**
      * Return the IMP_Search instance.
      *
@@ -35,31 +35,28 @@ class IMP_Factory_Search extends Horde_Core_Factory_Injector
     public function create(Horde_Injector $injector)
     {
         try {
-            $instance = $GLOBALS['session']->get('imp', 'search');
+            $this->_instance = $GLOBALS['session']->get('imp', 'search');
         } catch (Exception $e) {
-            Horde::logMessage('Could not unserialize stored IMP_Search object.', 'DEBUG');
-            $instance = null;
+            Horde::log('Could not unserialize stored IMP_Search object.', 'DEBUG');
         }
 
-        if (is_null($instance)) {
-            $instance = new IMP_Search();
+        if (!$this->_instance) {
+            $this->_instance = new IMP_Search();
         }
 
-        register_shutdown_function(array($this, 'shutdown'), $instance);
+        Horde_Shutdown::add($this);
 
-        return $instance;
+        return $this->_instance;
     }
 
     /**
      * Store serialized version of object in the current session.
-     *
-     * @param IMP_Search $instance  Search object.
      */
-    public function shutdown($instance)
+    public function shutdown()
     {
         /* Only need to store the object if the object has changed. */
-        if ($instance->changed) {
-            $GLOBALS['session']->set('imp', 'search', $instance);
+        if ($this->_instance->changed) {
+            $GLOBALS['session']->set('imp', 'search', $this->_instance);
         }
     }
 

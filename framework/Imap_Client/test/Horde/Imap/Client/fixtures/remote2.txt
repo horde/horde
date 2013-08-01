@@ -1,0 +1,17 @@
+Return-Path: <test@example.com>
+Delivered-To: foo@example.com
+Received: from test1.example.com (test1.example.com [192.168.10.10])
+    by test2.example.com (Postfix) with ESMTP id E8796FBA
+    for <foo@example.com>; Sat, 26 Jul 2008 21:19:13 -0600 (MDT)
+Message-ID: <98761234@test1.example.com>
+Date: Sat, 26 Jul 2008 21:19:00 -0500 (CDT)
+From: Test <test@example.com>
+To: foo@example.com
+Subject: Re: Test e-mail 1
+Mime-Version: 1.0
+Content-Type: text/plain
+In-Reply-To: <abcd1234efgh5678@test1.example.com>
+References: <abcd1234efgh5678@test1.example.com>
+    <originalreply123123123@test1.example.com>
+
+Test reply.

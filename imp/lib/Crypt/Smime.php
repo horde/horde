@@ -1,17 +1,25 @@
 <?php
 /**
- * The IMP_Crypt_Smime:: class contains all functions related to handling
- * S/MIME messages within IMP.
- *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Mike Cochrane <mike@graftonhall.co.nz>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * The IMP_Crypt_Smime:: class contains all functions related to handling
+ * S/MIME messages within IMP.
+ *
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Crypt_Smime extends Horde_Crypt_Smime
 {
@@ -31,9 +39,14 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function encryptList()
     {
-        $ret = array(
-            self::ENCRYPT => _("S/MIME Encrypt Message")
-        );
+        $ret = array();
+
+        if ($GLOBALS['registry']->hasMethod('contacts/getField') ||
+            Horde::hookExists('smime_key', 'imp')) {
+            $ret += array(
+                self::ENCRYPT => _("S/MIME Encrypt Message")
+            );
+        }
 
         if ($this->getPersonalPrivateKey()) {
             $ret += array(
@@ -201,7 +214,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             }
         } catch (Horde_Exception_HookNotSet $e) {}
 
-        $params = IMP::getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
 
         try {
             $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
@@ -230,11 +243,11 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function listPublicKeys()
     {
-        $params = IMP::getAddressbookSearchParams();
-        if (empty($params['sources'])) {
-            return array();
-        }
-        return $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
+        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
+
+        return empty($params['sources'])
+            ? array()
+            : $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
     }
 
     /**
@@ -246,7 +259,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function deletePublicKey($email)
     {
-        $params = IMP::getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Contacts')->getAddressbookSearchParams();
         $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 
@@ -316,7 +329,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
 
         if ($session->exists('imp', 'smime_passphrase')) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            return $secret->read($secret->getKey('imp'), $session->get('imp', 'smime_passphrase'));
+            return $secret->read($secret->getKey(), $session->get('imp', 'smime_passphrase'));
         } elseif (!$session->exists('imp', 'smime_null_passphrase')) {
             $session->set(
                 'imp',
@@ -344,7 +357,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $GLOBALS['session']->set('imp', 'smime_passphrase', $secret->write($secret->getKey('imp'), $passphrase));
+        $GLOBALS['session']->set('imp', 'smime_passphrase', $secret->write($secret->getKey(), $passphrase));
 
         return true;
     }
@@ -441,110 +454,13 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @return string  The contents embedded in the signed data.
      * @throws Horde_Crypt_Exception
      */
-    public function extractSignedContents($data)
+    public function extractSignedContents($data, $sslpath = null)
     {
         $sslpath = empty($GLOBALS['conf']['openssl']['path'])
             ? null
             : $GLOBALS['conf']['openssl']['path'];
 
         return parent::extractSignedContents($data, $sslpath);
-    }
-
-    /* UI related functions. */
-
-    /**
-     * Print certificate information.
-     *
-     * @param string $cert  The S/MIME certificate.
-     */
-    public function printCertInfo($key = '')
-    {
-        $cert_info = $this->certToHTML($key);
-
-        if (empty($cert_info)) {
-            $this->textWindowOutput('S/MIME Key Information', _("Invalid key"));
-        } else {
-            $this->textWindowOutput('S/MIME Key Information', $cert_info, true);
-        }
-    }
-
-    /**
-     * Output text in a window.
-     *
-     * @param string $name  The window name.
-     * @param string $msg   The text contents.
-     * @param string $html  $msg is HTML format?
-     */
-    public function textWindowOutput($name, $msg, $html = false)
-    {
-        $GLOBALS['browser']->downloadHeaders($name, $html ? 'text/html' : 'text/plain; charset=' . 'UTF-8', true, strlen($msg));
-        echo $msg;
-    }
-
-    /**
-     * Generate import key dialog.
-     *
-     * @param string $target  Action ID for the UI screen.
-     * @param string $reload  The reload cache value.
-     */
-    public function importKeyDialog($target, $reload)
-    {
-        IMP::header(_("Import S/MIME Key"));
-
-        /* Need to use regular status notification - AJAX notifications won't
-         * show in popup windows. */
-        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC) {
-            $GLOBALS['notification']->detach('status');
-            $GLOBALS['notification']->attach('status');
-        }
-        IMP::status();
-
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-        $t->set('selfurl', Horde::url('smime.php'));
-        $t->set('reload', htmlspecialchars($reload));
-        $t->set('target', $target);
-        $t->set('forminput', Horde_Util::formInput());
-        $t->set('import_public_key', $target == 'process_import_public_key');
-        $t->set('import_personal_certs', $target == 'process_import_personal_certs');
-        echo $t->fetch(IMP_TEMPLATES . '/smime/import_key.html');
-    }
-
-    /**
-     * Attempt to import a key from form/uploaded data.
-     *
-     * @param string $key  Key string.
-     *
-     * @return string  The key contents.
-     * @throws Horde_Browser_Exception
-     */
-    public function getImportKey($key)
-    {
-        if (!empty($key)) {
-            return $key;
-        }
-
-        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
-        return file_get_contents($_FILES['upload_key']['tmp_name']);
-    }
-
-    /**
-     * Reload the window.
-     *
-     * @param string $reload  The reload cache value.
-     */
-    public function reloadWindow($reload)
-    {
-        global $session;
-
-        $href = $session->retrieve($reload);
-        $session->purge($reload);
-
-        echo Horde::wrapInlineScript(array(
-            'opener.focus();',
-            'opener.location.href="' . $href . '";',
-            'window.close();'
-        ));
     }
 
 }

@@ -1,16 +1,25 @@
 <?php
 /**
- * Passwd_Driver defines an API for implementing password change systems for
- * Passwd.
- *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package Passwd
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * The API for implementing password change systems for Passwd.
+ *
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 abstract class Passwd_Driver
 {
@@ -24,9 +33,9 @@ abstract class Passwd_Driver
     /**
      * Constructor.
      *
-     * @param $params   A hash containing connection parameters.
+     * @param $params  A hash containing connection parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
     }
@@ -52,19 +61,18 @@ abstract class Passwd_Driver
             $plaintext,
             $encrypted,
             $encryption,
-            $this->_params['show_encryption']);
+            $this->_params['show_encryption']
+        );
 
         if ($this->_params['show_encryption']) {
             /* Convert the hashing algorithm in both strings to uppercase. */
-            $encrypted = preg_replace(
-                '/^({.*?})/e', "Horde_String::upper('\\1')", $encrypted);
-            $hashed    = preg_replace(
-                '/^({.*?})/e', "Horde_String::upper('\\1')", $hashed);
+            $encrypted = preg_replace('/^({.*?})/e', "Horde_String::upper('\\1')", $encrypted);
+            $hashed = preg_replace('/^({.*?})/e', "Horde_String::upper('\\1')", $hashed);
         }
 
         if ($encrypted != $hashed) {
             throw new Passwd_Exception(_("Incorrect old password."));
-        }    
+        }
     }
 
     /**
@@ -80,17 +88,38 @@ abstract class Passwd_Driver
             $plaintext,
             '',
             $this->_params['encryption'],
-            $this->_params['show_encryption']);
+            $this->_params['show_encryption']
+        );
     }
 
     /**
      * Changes the user's password.
      *
-     * @param string $username      The user for which to change the password.
-     * @param string $oldpassword   The old (current) user password.
-     * @param string $new_password  The new user password to set.
+     * @param string $user     The user for which to change the password.
+     * @param string $oldpass  The old (current) user password.
+     * @param string $newpass  The new user password to set.
      *
      * @throws Passwd_Exception
      */
-    abstract public function changePassword($username, $oldpassword, $new_password);
+    public function changePassword($user, $oldpass, $newpass)
+    {
+        try {
+            $user = Horde::callHook('username', array($user, $this), 'passwd');
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        $this->_changePassword($user, $oldpass, $newpass);
+    }
+
+    /**
+     * Changes the user's password.
+     *
+     * @param string $user     The user for which to change the password
+     *                         (converted to backend username).
+     * @param string $oldpass  The old (current) user password.
+     * @param string $newpass  The new user password to set.
+     *
+     * @throws Passwd_Exception
+     */
+    abstract protected function _changePassword($user, $oldpass, $newpass);
+
 }

@@ -61,7 +61,7 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
 
     public function execute()
     {
-        $result = parent::execute();
+        parent::execute();
 
         $this->getInfo($this->_vars, $info);
 

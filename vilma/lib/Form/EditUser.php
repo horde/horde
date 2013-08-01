@@ -31,7 +31,7 @@ class Vilma_Form_EditUser extends Horde_Form
         if (!$editing) {
             $title = sprintf(_("New User @%s"), $vars->get('domain'));
         }
-        parent::Horde_Form($vars, $title);
+        parent::__construct($vars, $title);
 
         /* Set up the form. */
         $this->setButtons(true, true);

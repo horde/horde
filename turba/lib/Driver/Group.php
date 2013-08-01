@@ -3,7 +3,7 @@
  * Read-only Turba_Driver implementation for creating a Horde_Group based
  * address book.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -61,7 +61,7 @@ class Turba_Driver_Group extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         $results = array();
 
@@ -101,7 +101,7 @@ class Turba_Driver_Group extends Turba_Driver
             }
         }
 
-        return $results;
+        return $count_only ? count($results) : $results;
     }
 
     /**

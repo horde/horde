@@ -10,10 +10,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-11-02</date>
- <time>10:30:01</time>
+ <date>2013-03-05</date>
+ <time>14:39:05</time>
  <version>
-  <release>1.0.1</release>
+  <release>2.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
  <notes>
-* [gwr] Fixed wording of the documentation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -74,6 +74,7 @@
        </dir> <!-- /test/Horde/Cli/Modular/Unit -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="TestCase.php" role="test" />
       </dir> <!-- /test/Horde/Cli/Modular -->
@@ -85,7 +86,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -93,18 +94,18 @@
    <package>
     <name>Horde_Argv</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -120,6 +121,7 @@
    <install as="Horde/Cli/Modular/Modules.php" name="lib/Horde/Cli/Modular/Modules.php" />
    <install as="Horde/Cli/Modular/AllTests.php" name="test/Horde/Cli/Modular/AllTests.php" />
    <install as="Horde/Cli/Modular/Autoload.php" name="test/Horde/Cli/Modular/Autoload.php" />
+   <install as="Horde/Cli/Modular/bootstrap.php" name="test/Horde/Cli/Modular/bootstrap.php" />
    <install as="Horde/Cli/Modular/phpunit.xml" name="test/Horde/Cli/Modular/phpunit.xml" />
    <install as="Horde/Cli/Modular/TestCase.php" name="test/Horde/Cli/Modular/TestCase.php" />
    <install as="Horde/Cli/Modular/fixtures/Module/One.php" name="test/Horde/Cli/Modular/fixtures/Module/One.php" />
@@ -176,15 +178,81 @@
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
+    <release>2.0.0alpha1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [gwr] Fixed wording of the documentation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
    <notes>
-* [gwr] Fixed wording of the documentation.
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
+   <notes>
+* [mms] Simplify Horde_Cli_Modular_Modules iterator.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

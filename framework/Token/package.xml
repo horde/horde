@@ -16,10 +16,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:43:42</time>
+ <date>2013-05-06</date>
+ <time>19:30:58</time>
  <version>
-  <release>1.1.6</release>
+  <release>2.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -50,6 +50,7 @@
       <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="File.php" role="php" />
+      <file name="Mongo.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Sql.php" role="php" />
       <file name="Translation.php" role="php">
@@ -332,11 +333,14 @@
      <dir name="Token">
       <dir name="Unit">
        <file name="FileTest.php" role="test" />
+       <file name="MongoTest.php" role="test" />
        <file name="SqlTest.php" role="test" />
       </dir> <!-- /test/Horde/Token/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="BackendTestCase.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Token -->
     </dir> <!-- /test/Horde -->
@@ -346,7 +350,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -354,30 +358,30 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>hash</name>
@@ -387,9 +391,23 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
     <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -400,6 +418,7 @@
    <install as="Horde/Token/Base.php" name="lib/Horde/Token/Base.php" />
    <install as="Horde/Token/Exception.php" name="lib/Horde/Token/Exception.php" />
    <install as="Horde/Token/File.php" name="lib/Horde/Token/File.php" />
+   <install as="Horde/Token/Mongo.php" name="lib/Horde/Token/Mongo.php" />
    <install as="Horde/Token/Null.php" name="lib/Horde/Token/Null.php" />
    <install as="Horde/Token/Sql.php" name="lib/Horde/Token/Sql.php" />
    <install as="Horde/Token/Translation.php" name="lib/Horde/Token/Translation.php" />
@@ -497,8 +516,11 @@
    <install as="Horde/Token/AllTests.php" name="test/Horde/Token/AllTests.php" />
    <install as="Horde/Token/Autoload.php" name="test/Horde/Token/Autoload.php" />
    <install as="Horde/Token/BackendTestCase.php" name="test/Horde/Token/BackendTestCase.php" />
+   <install as="Horde/Token/bootstrap.php" name="test/Horde/Token/bootstrap.php" />
+   <install as="Horde/Token/conf.php.dist" name="test/Horde/Token/conf.php.dist" />
    <install as="Horde/Token/phpunit.xml" name="test/Horde/Token/phpunit.xml" />
    <install as="Horde/Token/Unit/FileTest.php" name="test/Horde/Token/Unit/FileTest.php" />
+   <install as="Horde/Token/Unit/MongoTest.php" name="test/Horde/Token/Unit/MongoTest.php" />
    <install as="Horde/Token/Unit/SqlTest.php" name="test/Horde/Token/Unit/SqlTest.php" />
   </filelist>
  </phprelease>
@@ -750,8 +772,8 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Updated German translation.
-* [jan] Updated Spanish translation.
+* [jan] Update German translation.
+* [jan] Update Spanish translation.
    </notes>
   </release>
   <release>
@@ -761,7 +783,124 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-03-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add MongoDB token backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

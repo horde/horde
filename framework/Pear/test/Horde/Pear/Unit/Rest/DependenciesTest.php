@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
-
-/**
  * Test the package information parser.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -100,7 +95,7 @@ extends Horde_Pear_TestCase
     {
         return new Horde_Pear_Rest_Dependencies(
             file_get_contents(
-                dirname(__FILE__) . '/../../fixture/rest/dependencies'
+                __DIR__ . '/../../fixture/rest/dependencies'
             )
         );
     }
@@ -108,7 +103,7 @@ extends Horde_Pear_TestCase
     private function _getStreamDependencies()
     {
         return new Horde_Pear_Rest_Dependencies(
-            fopen(dirname(__FILE__) . '/../../fixture/rest/dependencies', 'r')
+            fopen(__DIR__ . '/../../fixture/rest/dependencies', 'r')
         );
     }
 }

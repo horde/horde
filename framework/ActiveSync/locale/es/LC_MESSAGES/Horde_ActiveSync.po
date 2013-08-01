@@ -1,0 +1,112 @@
+# Spanish translations for Horde_ActiveSync package.
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_ActiveSync package.
+# Automatically generated, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_ActiveSync \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:520
+#, php-format
+msgid "%s part"
+msgstr "parte %s"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:499
+msgid "Audio part"
+msgstr "Sonido"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:139
+msgid "Cc"
+msgstr "Cc"
+
+#: lib/Horde/ActiveSync/Device.php:171
+msgid "Common Name"
+msgstr "Nombre común"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:119
+msgid "Date"
+msgstr "Fecha"
+
+#: lib/Horde/ActiveSync/Device.php:183
+msgid "EAS Version"
+msgstr "Versión EAS"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:123
+msgid "From"
+msgstr "De"
+
+#: lib/Horde/ActiveSync/Device.php:168
+msgid "IMEI"
+msgstr "IMEI"
+
+#: lib/Horde/ActiveSync/Device.php:159
+msgid "Id"
+msgstr "Id"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:502
+msgid "Image part"
+msgstr "Imagen"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:506
+msgid "Message part"
+msgstr "Mensaje"
+
+#: lib/Horde/ActiveSync/Device.php:165
+msgid "Model"
+msgstr "Modelo"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:509
+msgid "Multipart part"
+msgstr "Multiparte"
+
+#: lib/Horde/ActiveSync/Device.php:174
+msgid "OS"
+msgstr "SO"
+
+#: lib/Horde/ActiveSync/Device.php:177
+msgid "OS Language"
+msgstr "Idioma del SO"
+
+#: lib/Horde/ActiveSync/Device.php:180
+msgid "Phone Number"
+msgstr "Número de teléfono"
+
+#: lib/Horde/ActiveSync/Device.php:160
+msgid "Policy Key"
+msgstr "Comportamiento"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:127
+msgid "Reply-To"
+msgstr "Responder-A"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:131
+msgid "Subject"
+msgstr "Asunto"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:512
+msgid "Text part"
+msgstr "Texto"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:135
+msgid "To"
+msgstr "Para"
+
+#: lib/Horde/ActiveSync/Device.php:161
+msgid "User Agent"
+msgstr "Agente de usuario"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:515
+msgid "Video part"
+msgstr "Vídeo"

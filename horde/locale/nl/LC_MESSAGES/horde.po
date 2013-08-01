@@ -3,23 +3,23 @@
 # Updated Han Spruyt 2005
 #
 # Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2001-2007.
-# Arjen de Korte <arjen@de-korte.org>, 2011.
+# Arjen de Korte <build+horde@de-korte.org>, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-07 19:19+0100\n"
-"PO-Revision-Date: 2011-12-09 09:15+0100\n"
+"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"PO-Revision-Date: 2013-06-07 16:26+0200\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
-"Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 
-#: admin/groups.php:33
+#: admin/groups.php:32
 #, php-format
 msgid "\"%s\" was added to the groups system."
 msgstr "\"%s\" is aan het groepensysteem toegevoegd."
@@ -39,12 +39,7 @@ msgstr "\"%s\" is niet aangemaakt: %s."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB van %.2fMB gebruikt (%.2f%%)"
 
-#: lib/Block/Weather.php:194
-#, php-format
-msgid "%d %s"
-msgstr "%d %s"
-
-#: lib/Block/Weather.php:197
+#: lib/Block/Weather.php:198
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s en %s"
@@ -54,12 +49,12 @@ msgstr "%d %s en %s"
 msgid "%d days until your password expires."
 msgstr "wachtwoord verloopt na %d dagen"
 
-#: lib/Block/Metar.php:259
+#: lib/Block/Metar.php:260
 #, php-format
 msgid "%d minutes"
 msgstr "%d minuten"
 
-#: services/facebook/index.php:122
+#: services/facebook/index.php:97
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
@@ -71,38 +66,63 @@ msgstr[1] "%d personen vinden dit leuk"
 msgid "%d to %d of %d"
 msgstr "%d tot %d van %d"
 
-#: lib/Block/Weather.php:232
+#: lib/Block/Weather.php:238
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-daags vooruitzicht"
 
-#: services/logintasks.php:89
+#: services/logintasks.php:91
 #, php-format
 msgid "%s - Notice"
 msgstr "%s - Opmerking"
 
-#: admin/config/config.php:26 admin/config/index.php:355
+#: admin/config/config.php:28 admin/config/index.php:437
 #, php-format
 msgid "%s Configuration"
 msgstr "%s Configuratie"
 
-#: services/logintasks.php:69
+#: services/logintasks.php:71
 #, php-format
 msgid "%s Tasks - Confirmation"
 msgstr "%s Taken - Bevestiging"
 
-#: services/logintasks.php:79
+#: services/logintasks.php:81
 #, php-format
 msgid "%s Terms of Agreement"
 msgstr "%s gebruiksovereenkomst"
 
-#: lib/Block/Metar.php:132 lib/Block/Metar.php:138 lib/Block/Metar.php:212
-#: lib/Block/Metar.php:318 lib/Block/Metar.php:324
+#: lib/Block/Metar.php:133 lib/Block/Metar.php:139 lib/Block/Metar.php:213
+#: lib/Block/Metar.php:319 lib/Block/Metar.php:325
 #, php-format
 msgid "%s at %s %s"
 msgstr "%s op %s %s"
 
-#: services/logintasks.php:70
+#: templates/prefs/twitter.html.php:9
+#, php-format
+msgid "%s can interact with your Twitter account"
+msgstr "%s kan samenwerken met uw Twitter account"
+
+#: templates/prefs/facebook.html.php:48
+#, php-format
+msgid "%s cannot read information about your Facebook friends."
+msgstr "%s  kan geen informatie ophalen over uw Facebook vrienden."
+
+#: templates/prefs/facebook.html.php:34
+#, php-format
+msgid ""
+"%s cannot read your stream messages and various other Facebook data items."
+msgstr ""
+"%s kan geen stream berichten en diverse andere Facebook data elementen lezen."
+
+#: templates/prefs/facebook.html.php:20
+#, php-format
+msgid ""
+"%s cannot set your status messages or publish other content to Facebook."
+msgstr ""
+"%s kan uw status berichten niet instellen of andere inhoud op Facebook "
+"plaatsen."
+
+#: services/logintasks.php:72
 #, php-format
 msgid ""
 "%s is ready to perform the tasks below. Select each operation to run at this "
@@ -111,19 +131,35 @@ msgstr ""
 "%s gereed voor het uitvoeren van onderstaande taken. Selecteer de "
 "werkzaamheden, die u op dit moment wilt uitvoeren."
 
-#: lib/Block/Metar.php:161 lib/Block/Metar.php:166
+#: lib/Block/Metar.php:162 lib/Block/Metar.php:167
 #, php-format
 msgid ", gusting %s %s"
 msgstr ", windstoten %s %s"
 
-#: lib/Block/Metar.php:174
+#: lib/Block/Metar.php:175
 #, php-format
 msgid ", variable from %s to %s"
 msgstr ", variabel van %s tot %s"
 
+#: lib/Application.php:325
+msgid "1 Day"
+msgstr "1 dag"
+
+#: lib/Application.php:329
+msgid "1 Month"
+msgstr "1 maand"
+
+#: lib/Application.php:327
+msgid "1 Week"
+msgstr "1 week"
+
 #: lib/Block/Time.php:31
 msgid "12 Hour Format"
 msgstr "12 uursweergave"
+
+#: lib/Application.php:328
+msgid "2 Weeks"
+msgstr "2 weken"
 
 #: lib/Block/Time.php:30
 msgid "24 Hour Format"
@@ -133,57 +169,36 @@ msgstr "24 uursweergave"
 msgid "24 hours"
 msgstr "24 uurs"
 
-#: config/prefs.php:438 config/prefs.php:440
+#: config/prefs.php:492 config/prefs.php:494
 msgid "24-hour format"
 msgstr "24 uursweergave"
 
-#: templates/prefs/facebook.html:14
-msgid ""
-"<tag:app_name /> can interact with your Facebook account, but you must login "
-"to Facebook manually each time."
-msgstr ""
+#: lib/Application.php:326
+msgid "3 Days"
+msgstr "3 dagen"
 
-#: templates/prefs/facebook.html:49
-msgid "<tag:app_name /> cannot read information about your Facebook friends."
-msgstr ""
-
-#: templates/prefs/facebook.html:37
-msgid ""
-"<tag:app_name /> cannot read your stream messages and various other Facebook "
-"data items."
-msgstr ""
-
-#: templates/prefs/facebook.html:25
-msgid ""
-"<tag:app_name /> cannot set your status messages or publish other content to "
-"Facebook."
-msgstr ""
-
-#: templates/prefs/twitter.html:9
-msgid "<tag:appname /> can interact with your Twitter account"
-msgstr ""
-
-#: services/keyboard.php:46
-msgid "A characters"
-msgstr "A tekens"
-
-#: admin/activesync.php:36
+#: admin/activesync.php:33
 msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
 msgstr ""
+"Volledig wissen is aangevraagd. Het apparaat zal volledig worden gewist "
+"gedurende de volgende synchronisatie poging."
 
-#: admin/config/index.php:147 admin/config/index.php:185
+#: admin/config/index.php:162 admin/config/index.php:203
+#: admin/config/index.php:336 admin/config/index.php:362
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Een nieuwere versie (%s) bestaat."
 
-#: lib/Prefs/Ui.php:708
+#: lib/Prefs/Special/Activesync.php:74
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
 "during the next synchronisation."
 msgstr ""
+"Volledig wissen voor apparaat id %s is geïnitieerd. Het apparaat zal "
+"volledig worden gewist gedurende de volgende synchronisatie."
 
 #: templates/data/datetime.inc:110 templates/data/time.inc:29
 msgid "AM/PM"
@@ -193,35 +208,35 @@ msgstr "AM/PM"
 msgid "Account Information"
 msgstr "Accountinformatie"
 
-#: config/prefs.php:296
+#: config/prefs.php:334
 msgid "Account Password"
 msgstr "Accountwachtwoord"
 
-#: admin/activesync.php:128
+#: admin/activesync.php:129
 msgid "Actions"
 msgstr "Acties"
 
-#: config/prefs.php:673
+#: config/prefs.php:739 lib/Application.php:200
 msgid "ActiveSync"
 msgstr "ActiveSync"
 
-#: admin/activesync.php:73
+#: admin/activesync.php:74
 msgid "ActiveSync Device Administration"
 msgstr "ActiveSync apparaatbeheer"
 
-#: admin/activesync.php:201 lib/Api.php:85
+#: admin/activesync.php:199 lib/Api.php:93
 msgid "ActiveSync Devices"
 msgstr "ActiveSync apparaten"
 
-#: admin/activesync.php:25 lib/Prefs/Ui.php:351
+#: admin/activesync.php:22 lib/Prefs/Special/Activesync.php:30
 msgid "ActiveSync not activated."
-msgstr "ActiveSync niet geactiveerd"
+msgstr "ActiveSync niet geactiveerd."
 
-#: templates/admin/groups/add.inc:11 templates/portal/add.inc:14
+#: templates/admin/groups/add.inc:12 templates/portal/add.inc:14
 msgid "Add"
 msgstr "Toevoegen"
 
-#: services/portal/index.php:49
+#: templates/portal/new.inc:2
 msgid "Add Content"
 msgstr "Inhoud toevoegen"
 
@@ -229,7 +244,7 @@ msgstr "Inhoud toevoegen"
 msgid "Add Here:"
 msgstr "Hier toevoegen:"
 
-#: templates/admin/groups/edit.inc:56
+#: templates/admin/groups/edit.inc:55
 msgid "Add Members"
 msgstr "Leden toevoegen"
 
@@ -253,7 +268,7 @@ msgstr "Paar toevoegen"
 msgid "Add user"
 msgstr "Gebruiker toevoegen"
 
-#: admin/signup_confirm.php:80 admin/user.php:97
+#: admin/signup_confirm.php:82 admin/user.php:93
 #, php-format
 msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
@@ -262,7 +277,7 @@ msgstr ""
 "\"%s\" aan het systeem toegevoegd, maar kon geen extra "
 "inschrijvingsinformatie toevoegen: %s."
 
-#: signup.php:44
+#: signup.php:47
 #, php-format
 msgid "Added \"%s\" to the system. You can log in now."
 msgstr "\"%s\" aan het systeem toegevoegd. U kunt nu aanmelden."
@@ -271,17 +286,17 @@ msgstr "\"%s\" aan het systeem toegevoegd. U kunt nu aanmelden."
 msgid "Adding users is disabled."
 msgstr "Toevoegen van gebruikers is uitgeschakeld."
 
-#: lib/Block/Vatid.php:117
+#: lib/Block/Vatid.php:94
 msgid "Address"
 msgstr "Adres"
 
-#: config/registry.php:122
+#: config/registry.php:131
 msgid "Address Book"
 msgstr "Adresboek"
 
-#: lib/Application.php:46
+#: lib/Application.php:55
 msgid "Administration"
-msgstr "Administratie"
+msgstr "Beheer"
 
 #: admin/alarms.php:31
 msgid "Alarm end"
@@ -303,7 +318,7 @@ msgstr "Alarmtekst"
 msgid "Alarm title"
 msgstr "Alarmtitel"
 
-#: admin/alarms.php:138
+#: admin/alarms.php:141
 msgid "Alarms"
 msgstr "Alarmen"
 
@@ -311,65 +326,75 @@ msgstr "Alarmen"
 msgid "All"
 msgstr "Alle"
 
-#: templates/shares/edit.inc:58
+#: templates/shares/edit.inc:61
 msgid "All Authenticated Users"
 msgstr "Alle geauthenticeerde gebruikers"
 
 #: admin/activesync.php:51
 msgid "All policy keys successfully reset."
-msgstr ""
+msgstr "Alle beleidssleutels met succes teruggezet."
 
-#: lib/Prefs/Ui.php:718
+#: lib/Prefs/Special/Activesync.php:87
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
 msgstr ""
+"Alle toestand informatie voor uw ActiveSync apparaten verwijderd. Ze zullen "
+"de volgende keer dat ze verbinden met de server opnieuw synchroniseren."
 
-#: lib/Prefs/Ui.php:688
+#: lib/Prefs/Special/Syncml.php:76
 msgid "All synchronization sessions deleted."
-msgstr "Alle synchronisatie sessies verwijderd"
+msgstr "Alle synchronisatie sessies verwijderd."
 
-#: config/prefs.php:639
+#: lib/Application.php:216
+msgid "Allow"
+msgstr "Toestaan"
+
+#: lib/Application.php:236
+msgid "Allow alphanumeric"
+msgstr "Alfanumeriek toestaan"
+
+#: lib/Application.php:237
+msgid "Allow any"
+msgstr "Allen toestaan"
+
+#: lib/Application.php:235
+msgid "Allow only numeric"
+msgstr "Alleen numeriek toestaan"
+
+#: config/prefs.php:694
 msgid "Alternate IMSP Login"
 msgstr "Alternatieve IMSP aanmelding"
 
-#: config/prefs.php:653
+#: config/prefs.php:711
 msgid "Alternate IMSP Password"
 msgstr "Alternatief IMSP wachtwoord"
 
-#: config/prefs.php:647
+#: config/prefs.php:705
 msgid "Alternate IMSP Username"
 msgstr "Alternatieve IMSP gebruikersnaam"
 
-#: services/resetpassword.php:32
+#: services/resetpassword.php:35
 msgid "Alternate email address"
 msgstr "Alternatief e-mailadres"
 
-#: services/resetpassword.php:49
+#: services/resetpassword.php:52
 msgid "Answer"
 msgstr "Antwoord"
 
-#: templates/data/csvmap.inc:113 templates/admin/config/index.html:27
+#: templates/admin/config/index.html.php:27 templates/data/csvmap.inc:113
 msgid "Application"
 msgstr "Toepassing"
 
-#: admin/phpshell.php:49
-msgid "Application Context: "
-msgstr "Toepassingscontext: "
+#: templates/admin/phpshell.html.php:6
+msgid "Application Context"
+msgstr "Toepassingscontext"
 
-#: util/icon_browser.php:45
-msgid "Application List"
-msgstr "Toepassingenlijst"
-
-#: admin/config/index.php:225
+#: admin/config/index.php:245
 msgid "Application is ready."
 msgstr "Toepassing is gereed."
 
-#: admin/config/index.php:150 admin/config/index.php:188
-msgid "Application is up-to-date."
-msgstr "Toepassing is up-to-date."
-
-#: templates/admin/user/approve.inc:33
+#: templates/admin/user/approve.inc:34
 msgid "Approve"
 msgstr "Goedkeuren"
 
@@ -377,7 +402,7 @@ msgstr "Goedkeuren"
 msgid "Arabic (Windows-1256)"
 msgstr "Arabisch (Windows-1256)"
 
-#: admin/alarms.php:128
+#: admin/alarms.php:130
 #, php-format
 msgid "Are you sure you want to delete '%s'?"
 msgstr "Weet u zeker dat u '%s' wilt verwijderen?"
@@ -404,15 +429,19 @@ msgstr "Kunst"
 msgid "Ascii Art"
 msgstr "Ascii kunst"
 
-#: lib/LoginTasks/Task/AdminCheck.php:65
+#: lib/LoginTasks/Task/AdminCheck.php:57
 msgid "At least one database schema is outdated."
 msgstr "Minimaal één database schema is verouderd."
 
-#: templates/problem/problem.inc:43
+#: templates/problem/problem.inc:22
 msgid "Attachment"
 msgstr "Bijlage"
 
-#: admin/groups.php:58
+#: lib/Application.php:259
+msgid "Attachment Download"
+msgstr "Bijlage downloaden"
+
+#: admin/groups.php:56
 msgid "Attempt to delete a non-existent group."
 msgstr "Poging om een niet bestaande groep te verwijderen."
 
@@ -424,41 +453,39 @@ msgstr "Poging om een niet bestaand recht te verwijderen."
 msgid "Attempt to edit a non-existent permission."
 msgstr "Poging om een niet bestaand recht te bewerken."
 
-#: services/shares/edit.php:66
+#: services/shares/edit.php:68
 msgid "Attempt to edit a non-existent share."
 msgstr "Poging om een niet bestaande share te bewerken."
 
-#: admin/sessions.php:44
-msgid "Authenticated to:"
-msgstr "Aangemeld bij:"
+#: templates/admin/sessions.html.php:27
+msgid "Authenticated to"
+msgstr "Aangemeld bij"
 
-#: templates/prefs/facebook.html:50
-msgid "Authorize Access to Friends Data:"
-msgstr ""
+#: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
+#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:62
+#: templates/prefs/twitter.html.php:18
+msgid "Authorize"
+msgstr "Toestaan"
 
-#: templates/prefs/facebook.html:26
+#: templates/prefs/facebook.html.php:49
+msgid "Authorize Access to Friends Data"
+msgstr "Sta toegang tot Friends gegevens toe"
+
+#: templates/prefs/facebook.html.php:21
 msgid "Authorize Publish"
-msgstr ""
+msgstr "Publish toestaan"
 
-#: templates/prefs/facebook.html:38
-msgid "Authorize Read:"
-msgstr ""
+#: templates/prefs/facebook.html.php:35
+msgid "Authorize Read"
+msgstr "Lezen toestaan: "
 
-#: templates/prefs/facebook.html:15
-msgid "Authorize an infinite session:"
-msgstr ""
-
-#: login.php:219
+#: templates/login/login.inc:19 templates/login/smartmobile.html.php:31
 msgid "Automatic"
 msgstr "Automatisch"
 
 #: templates/data/csvmap.inc:71
 msgid "Available fields:"
 msgstr "Beschikbare velden:"
-
-#: themes/azur/info.php:6
-msgid "Azur"
-msgstr "Azur"
 
 #: lib/Block/Fortune.php:37
 msgid "BOFH Excuses"
@@ -468,14 +495,9 @@ msgstr "BOFH Excuses"
 msgid "Baltic (ISO-8859-13)"
 msgstr "Baltisch (ISO-8859-13)"
 
-#: themes/barbie/info.php:2
-msgid "Barbie"
-msgstr "Barbie"
-
-#: util/icon_browser.php:34
-#, php-format
-msgid "Base graphics directory \"%s\" not found."
-msgstr "Basismap voor afbeeldingen van \"%s\" niet gevonden."
+#: templates/login/login.inc:21 templates/login/smartmobile.html.php:33
+msgid "Basic"
+msgstr "Eenvoudig"
 
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
@@ -485,15 +507,11 @@ msgstr "Blokinstellingen"
 msgid "Block Type"
 msgstr "Bloktype"
 
-#: themes/bluemoon/info.php:2
-msgid "Blue Moon"
-msgstr "Blue Moon"
+#: lib/Application.php:292
+msgid "Bluetooth"
+msgstr "Bluetooth"
 
-#: themes/bluewhite/info.php:2
-msgid "Blue and White"
-msgstr "Blue and White"
-
-#: config/registry.php:204
+#: config/registry.php:182
 msgid "Bookmarks"
 msgstr "Bladwijzers"
 
@@ -501,46 +519,42 @@ msgstr "Bladwijzers"
 msgid "Both"
 msgstr "Beiden"
 
-#: themes/brown/info.php:2
-msgid "Brown"
-msgstr "Brown"
+#: config/prefs.php:755
+msgid "Bottom"
+msgstr "Onderkant"
 
-#: admin/sessions.php:42
-msgid "Browser:"
-msgstr "Browser:"
+#: templates/admin/sessions.html.php:19
+msgid "Browser"
+msgstr "Browser"
 
-#: themes/burntorange/info.php:7
-msgid "Burnt Orange"
-msgstr "Burnt Orange"
-
-#: config/registry.php:144
+#: config/registry.php:117
 msgid "Calendar"
 msgstr "Agenda"
 
-#: themes/camouflage/info.php:2
-msgid "Camouflage"
-msgstr "Camouflage"
+#: lib/Application.php:280
+msgid "Camera"
+msgstr "Camera"
 
-#: admin/user.php:120 admin/user.php:140 templates/admin/groups/delete.inc:11
-#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
+#: admin/user.php:115 admin/user.php:138 templates/admin/groups/delete.inc:12
+#: templates/admin/user/clear.inc:14 templates/admin/user/remove.inc:15
 msgid "Cancel"
 msgstr "Afbreken"
 
-#: templates/problem/problem.inc:58
+#: templates/problem/problem.inc:37
 msgid "Cancel Problem Report"
 msgstr "Probleemrapport afbreken"
 
-#: admin/activesync.php:185 templates/prefs/activesync.html:31
+#: admin/activesync.php:184 templates/prefs/activesync.html.php:33
 msgid "Cancel Wipe"
 msgstr "Wissen afbreken"
 
-#: services/resetpassword.php:18
+#: services/resetpassword.php:23
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
 "Kan wachtwoord niet automatisch resetten, neem contact op met uw "
 "systeembeheerder."
 
-#: config/prefs.php:463
+#: config/prefs.php:516
 msgid "Categories and Labels"
 msgstr "Categorieën en labels"
 
@@ -558,17 +572,17 @@ msgstr "Wijzigen"
 
 #: lib/Block/Weather.php:120
 msgid "Change Location"
-msgstr "Wijzig plaats"
+msgstr "Wijzig locatie"
 
-#: services/changepassword.php:23
+#: services/changepassword.php:26
 msgid "Change Your Password"
 msgstr "Wijzig uw wachtwoord"
 
-#: config/prefs.php:233
+#: config/prefs.php:273
 msgid "Change your personal information."
 msgstr "Wijzig persoonlijke gegevens."
 
-#: services/changepassword.php:17
+#: services/changepassword.php:20
 msgid ""
 "Changing your password is not supported with the current configuration.  "
 "Contact your administrator."
@@ -576,15 +590,15 @@ msgstr ""
 "Het wijzigen van uw wachtwoord wordt in de huidige configuratie "
 "nietondersteund. Neem contact op met de beheerder."
 
-#: lib/Block/Vatid.php:41
+#: lib/Block/Vatid.php:42
 msgid "Check"
 msgstr "Controleer"
 
-#: templates/admin/config/index.html:4
+#: templates/admin/config/index.html.php:4
 msgid "Check for newer versions"
 msgstr "Controleer op nieuwere versies"
 
-#: lib/Block/Vatid.php:43
+#: lib/Block/Vatid.php:44
 msgid "Checking"
 msgstr "Controleren"
 
@@ -596,37 +610,37 @@ msgstr "Chinees vereenvoudigd (GB2312)"
 msgid "Chinese Traditional (Big5)"
 msgstr "Chinees traditioneel (Big5)"
 
-#: services/obrowser/index.php:91
+#: services/obrowser/index.php:59
 #, php-format
 msgid "Choose %s"
 msgstr "Keuze %s"
 
-#: config/prefs.php:429
+#: config/prefs.php:484
 msgid "Choose how to display dates (abbreviated format):"
 msgstr "Kies datumweergave (verkorte weergave):"
 
-#: config/prefs.php:404
+#: config/prefs.php:460
 msgid "Choose how to display dates (full format):"
 msgstr "Kies datumweergave (volledige weergave):"
 
-#: config/prefs.php:443
+#: config/prefs.php:497
 msgid "Choose how to display times:"
 msgstr "Kies tijdsweergave:"
 
-#: admin/sqlshell.php:122
+#: templates/admin/sqlshell.html.php:56
 msgid "Clear Query"
 msgstr "Wis zoekopdracht"
 
-#: templates/admin/user/clear.inc:5
+#: templates/admin/user/clear.inc:7
 #, php-format
 msgid "Clear out user: %s"
 msgstr "Wis gebruiker: %s"
 
-#: templates/admin/user/clear.inc:11
+#: templates/admin/user/clear.inc:13
 msgid "Clear user"
 msgstr "Wis gebruiker"
 
-#: templates/admin/user/list.inc:37
+#: templates/admin/user/list.inc:35
 msgid "Clear user data"
 msgstr "Wis gebruikersdata"
 
@@ -638,35 +652,42 @@ msgstr ""
 "Klik op één van uw geselecteerde adresboeken en selecteer daarna alle velden "
 "welke doorzocht dienen te worden."
 
-#: templates/logintasks/logintasks.html:30 templates/logintasks/mobile.html:37
+#: templates/logintasks/logintasks.html.php:32
+#: templates/logintasks/smartmobile.html.php:52
 msgid "Click to Continue"
 msgstr "Klik om verder te gaan"
 
-#: templates/prefs/syncml.html:13
+#: templates/prefs/syncml.html.php:13
 msgid "Client Anchor"
-msgstr ""
+msgstr "ClientAnchor"
 
-#: services/keyboard.php:154 templates/shares/edit.inc:12
+#: templates/shares/edit.inc:12
 msgid "Close Window"
 msgstr "Sluit scherm"
 
-#: lib/Block/Metar.php:217
+#: lib/Block/Metar.php:218
 msgid "Clouds"
 msgstr "Wolken"
 
-#: admin/sessions.php:35
+#: lib/Application.php:252
+msgid "Codeword frequency"
+msgstr "Codewoord frequentie"
+
+#: lib/View/Sidebar.php:65 templates/admin/sessions.html.php:9
+#: templates/sidebar/_container.html.php:14
 msgid "Collapse"
 msgstr "Inklappen"
 
-#: lib/Prefs/Ui.php:213
+#: templates/prefs/category.html.php:13 templates/prefs/category.html.php:24
+#: templates/prefs/category.html.php:36
 msgid "Color Picker"
 msgstr "Kleurenkiezer"
 
-#: config/registry.php:254
+#: config/registry.php:246
 msgid "Comics"
-msgstr ""
+msgstr "Cartoons"
 
-#: admin/cmdshell.php:25 admin/cmdshell.php:47
+#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:17
 msgid "Command"
 msgstr "Opdracht"
 
@@ -674,7 +695,7 @@ msgstr "Opdracht"
 msgid "Command Shell"
 msgstr "Opdrachtshell"
 
-#: services/facebook/index.php:109
+#: services/facebook/index.php:38
 #, php-format
 msgid "Comments: %d"
 msgstr "Opmerkingen: %d"
@@ -683,36 +704,36 @@ msgstr "Opmerkingen: %d"
 msgid "Computers"
 msgstr "Computers"
 
-#: lib/Block/Weather.php:245
+#: lib/Block/Weather.php:251
 msgid "Condition"
 msgstr "Conditie"
 
-#: lib/Block/Metar.php:222
+#: lib/Block/Metar.php:223
 msgid "Conditions"
 msgstr "Condities"
 
-#: admin/config/config.php:74 templates/admin/config/config.html:9
+#: admin/config/config.php:59 templates/admin/config/config.html.php:11
 msgid "Configuration"
 msgstr "Configuratie"
 
-#: admin/config/diff.php:85
+#: admin/config/diff.php:90
 msgid "Configuration Differences"
 msgstr "Verschillen in configuratie"
 
-#: config/prefs.php:662
+#: config/prefs.php:721
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr ""
 "Configuratie voor het synchroniseren met PDA's, Smartphones en Outlook."
 
-#: admin/config/index.php:220
+#: admin/config/index.php:240
 msgid "Configuration is out of date."
 msgstr "Configuratie dient bijgewerkt te worden."
 
-#: templates/admin/config/index.html:89
+#: templates/admin/config/index.html.php:96
 msgid "Configuration upgrade scripts available"
 msgstr "Setup upgrade scripts beschikbaar"
 
-#: admin/config/index.php:165
+#: admin/config/index.php:180
 #, php-format
 msgid "Configure %s"
 msgstr "%s configureren"
@@ -721,7 +742,7 @@ msgstr "%s configureren"
 msgid "Confirm Password"
 msgstr "Bevestig wachtwoord"
 
-#: services/changepassword.php:25 services/resetpassword.php:26
+#: services/changepassword.php:28 services/resetpassword.php:29
 msgid "Continue"
 msgstr "Doorgaan"
 
@@ -729,31 +750,34 @@ msgstr "Doorgaan"
 msgid "Cookie"
 msgstr "Cookie"
 
-#: themes/cornflower/info.php:2
-msgid "Cornflower"
-msgstr "Cornflower"
-
 #: admin/config/index.php:32
 #, php-format
 msgid "Could not connect to server \"%s\" using FTP: %s"
 msgstr "Kon niet verbinden met server \"%s\" met FTP: %s"
 
-#: admin/config/index.php:76
+#: admin/config/index.php:88
 msgid "Could not contact server. Try again later."
 msgstr "Geen contact met server, probeer later opnieuw."
 
-#: admin/config/scripts.php:40
+#: admin/config/scripts.php:35
 #, php-format
 msgid "Could not delete configuration upgrade script \"%s\"."
 msgstr "Kon setup upgrade script \"%s\" niet verwijderen."
 
-#: templates/prefs/twitter.html:14
+#: templates/prefs/facebook.html.php:57
+#, php-format
 msgid ""
-"Could not find authorization for <tag:appname /> to interact with your "
-"Twitter account"
+"Could not find authorization for %s to interact with your Facebook account."
 msgstr ""
+"Kon geen toestemming voor %s om samen te werken met uw Twitter account."
 
-#: services/resetpassword.php:97
+#: templates/prefs/twitter.html.php:15
+#, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Twitter account"
+msgstr "Kon geen toestemming voor %s om samen te werken met uw Twitter account"
+
+#: services/resetpassword.php:104
 msgid ""
 "Could not reset the password for the requested user. Some or all of the "
 "details are not correct. Try again or contact your administrator if you need "
@@ -772,17 +796,12 @@ msgstr "Kon configuratie niet terugzetten."
 msgid "Could not save a backup configuation: %s"
 msgstr "Kon backupconfiguratie niet opslaan %s."
 
-#: admin/config/scripts.php:101
+#: admin/config/scripts.php:94
 #, php-format
 msgid "Could not save configuration upgrade script to: \"%s\"."
 msgstr "Kon setup upgrade script niet opslaan als: \"%s\"."
 
-#: admin/config/config.php:62
-#, php-format
-msgid "Could not save the backup configuration file %s."
-msgstr "Kon backupconfiguratie %s niet opslaan."
-
-#: admin/config/index.php:100
+#: admin/config/index.php:109
 #, php-format
 msgid ""
 "Could not save the configuration file %s. Use one of the options below to "
@@ -791,7 +810,7 @@ msgstr ""
 "Configuratie %s opslaan niet mogelijk. Kies één van onderstaande opties om "
 "de code op te slaan."
 
-#: admin/config/config.php:74
+#: admin/config/config.php:59
 #, php-format
 msgid ""
 "Could not save the configuration file %s. You can either use one of the "
@@ -805,7 +824,7 @@ msgstr ""
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Kon configuratie voor \"%s\" niet wegschrijven: %s"
 
-#: lib/Block/Vatid.php:105
+#: lib/Block/Vatid.php:82
 msgid "Country"
 msgstr "Land"
 
@@ -829,7 +848,7 @@ msgstr "Huidige alarmen"
 msgid "Current Locks"
 msgstr "Huidige blokkades"
 
-#: admin/sessions.php:27
+#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:35
 msgid "Current Sessions"
 msgstr "Huidige sessies"
 
@@ -837,11 +856,11 @@ msgstr "Huidige sessies"
 msgid "Current Time"
 msgstr "Huidige tijd"
 
-#: lib/Block/Metar.php:29
+#: lib/Block/Metar.php:30
 msgid "Current Weather"
 msgstr "Huidig weer"
 
-#: lib/Block/Weather.php:225
+#: lib/Block/Weather.php:230
 msgid "Current condition"
 msgstr "Huidige conditie"
 
@@ -857,17 +876,9 @@ msgstr "Cyrillisch (Windows-1251)"
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Cyrillisch/Ukrains (KOI8-U)"
 
-#: admin/config/index.php:238 admin/config/index.php:276
+#: admin/config/index.php:260 admin/config/index.php:312
 msgid "DB access is not configured."
 msgstr "DB toegang is niet geconfigureerd."
-
-#: admin/config/index.php:244 admin/config/index.php:283
-msgid "DB schema is out of date."
-msgstr "DB configuratie dient bijgewerkt te worden."
-
-#: admin/config/index.php:249 admin/config/index.php:288
-msgid "DB schema is ready."
-msgstr "DB toepassing is gereed."
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -880,23 +891,15 @@ msgstr "DD"
 msgid "Data"
 msgstr "Data"
 
-#: admin/datatree.php:65
-msgid "DataTree"
-msgstr "DataTree"
-
-#: admin/datatree.php:62
-msgid "DataTree Browser"
-msgstr "DataTree browser"
-
-#: templates/admin/config/index.html:33 templates/prefs/syncml.html:11
+#: templates/admin/config/index.html.php:30 templates/prefs/syncml.html.php:11
 msgid "Database"
 msgstr "Database"
 
-#: lib/Block/Vatid.php:108
+#: lib/Block/Vatid.php:85
 msgid "Date"
 msgstr "Datum"
 
-#: templates/admin/user/approve.inc:23
+#: templates/admin/user/approve.inc:24
 msgid "Date Received"
 msgstr "Datum Ontvangen"
 
@@ -905,16 +908,16 @@ msgstr "Datum Ontvangen"
 msgid "Date: %s; time: %s"
 msgstr "Datum: %s; tijd: %s"
 
-#: lib/Block/Weather.php:240
+#: lib/Block/Weather.php:246
 msgid "Day"
 msgstr "Dag"
 
-#: config/prefs.php:354 config/prefs.php:437 lib/Prefs/Ui.php:80
-#: lib/Prefs/Ui.php:94
+#: config/prefs.php:388 config/prefs.php:409 config/prefs.php:422
+#: config/prefs.php:491 themes/default/info.php:2
 msgid "Default"
 msgstr "Standaard"
 
-#: lib/Prefs/Ui.php:228 lib/Prefs/Ui.php:258
+#: templates/prefs/category.html.php:8 templates/prefs/category.html.php:31
 msgid "Default Color"
 msgstr "Standaard kleur"
 
@@ -922,79 +925,88 @@ msgstr "Standaard kleur"
 msgid "Default Shell"
 msgstr "Standaard Console"
 
-#: config/prefs.php:357
+#: config/prefs.php:412
 msgid "Default charset for sending e-mail messages:"
 msgstr "Standaard karakterset voor het verzenden van berichten:"
 
-#: config/prefs.php:269
+#: config/prefs.php:305
 msgid "Default location to use for location-aware features."
-msgstr "Standaard plaats voor plaats afhankelijke toepassingen."
+msgstr "Standaard locatie voor plaats afhankelijke toepassingen."
 
 #: lib/Block/Fortune.php:40
 msgid "Definitions"
 msgstr "Definities"
 
-#: admin/groups.php:54 templates/admin/groups/delete.inc:10
-#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
-#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
-#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
-#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
-#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
-#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
-#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: admin/groups.php:52 templates/admin/groups/delete.inc:11
+#: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
+#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
+#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
 #: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
-#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: admin/alarms.php:127 admin/groups.php:210
+#: admin/alarms.php:129 admin/groups.php:206
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Verwijder \"%s\""
 
-#: templates/prefs/syncml.html:30
+#: templates/prefs/syncml.html.php:30
 msgid "Delete All SyncML Data"
-msgstr ""
+msgstr "Verwijder alle SyncML gegevens"
 
-#: admin/groups.php:184
+#: admin/groups.php:180
 msgid "Delete Group"
 msgstr "Groep verwijderen"
 
-#: admin/config/scripts.php:38
+#: admin/config/scripts.php:33
 #, php-format
 msgid "Deleted configuration upgrade script \"%s\"."
 msgstr "Setup upgrade script \"%s\" verwijderd."
 
-#: lib/Prefs/Ui.php:680
+#: lib/Prefs/Special/Syncml.php:68
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr ""
+"Synchronisatie sessie voor apparaat \"%s\" en database \"%s\" verwijderd."
 
-#: templates/problem/problem.inc:27
+#: templates/problem/problem.inc:6
 msgid "Describe the Problem"
 msgstr "Beschrijf het probleem"
 
-#: config/registry.php:216
+#: config/registry.php:206
 msgid "Development"
 msgstr "Ontwikkeling"
 
-#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+#: templates/prefs/activesync.html.php:20 templates/prefs/syncml.html.php:10
 msgid "Device"
 msgstr "Apparaat"
 
-#: admin/activesync.php:121
+#: admin/activesync.php:122
 msgid "Device ID"
 msgstr "Apparaat ID"
 
-#: templates/prefs/activesync.html:11
+#: templates/prefs/activesync.html.php:23
+msgid "Device Information"
+msgstr "Apparaatgegevens"
+
+#: templates/prefs/activesync.html.php:11
 msgid "Device Management"
 msgstr "Apparaatbeheer"
 
-#: lib/Prefs/Ui.php:404
-msgid "Device id:"
-msgstr "Apparaat ID:"
+#: lib/Application.php:312
+msgid "Device encryption"
+msgstr "Apparaat codering"
 
-#: admin/activesync.php:169 lib/Prefs/Ui.php:392
+#: templates/prefs/activesync.html.php:35
+msgid "Device is Wiped"
+msgstr "Apparaat is gewist"
+
+#: admin/activesync.php:168
 msgid "Device is wiped"
 msgstr "Apparaat is gewist."
 
@@ -1002,33 +1014,32 @@ msgstr "Apparaat is gewist."
 msgid "Device successfully removed."
 msgstr "Apparaat met succes verwijderd."
 
-#: admin/activesync.php:41
+#: admin/activesync.php:38
 msgid "Device wipe successfully canceled."
 msgstr "Apparaat wissen succesvol geannuleerd."
 
-#: lib/Block/Metar.php:190
+#: lib/Block/Metar.php:191
 msgid "Dew Point"
 msgstr "Dauwpunt"
 
-#: lib/Block/Metar.php:267
+#: lib/Block/Metar.php:268
 msgid "Dew Point for last hour: "
 msgstr "Dauwpunt voor het afgelopen uur: "
 
-#: lib/Block/Weather.php:178
+#: lib/Block/Weather.php:181
 msgid "Dew point"
 msgstr "Dauwpunt"
 
-#: templates/prefs/facebook.html:10 templates/prefs/facebook.html:21
-#: templates/prefs/facebook.html:33 templates/prefs/facebook.html:45
-#: templates/prefs/twitter.html:10
+#: templates/prefs/facebook.html.php:18 templates/prefs/facebook.html.php:32
+#: templates/prefs/facebook.html.php:46 templates/prefs/twitter.html.php:11
 msgid "Disable"
 msgstr "Uitschakelen"
 
-#: config/prefs.php:373
+#: config/prefs.php:430
 msgid "Display 24-hour times?"
 msgstr "24-uurs tijdweergave?"
 
-#: config/prefs.php:489
+#: config/prefs.php:541
 msgid "Display Preferences"
 msgstr "Toon voorkeuren"
 
@@ -1036,7 +1047,7 @@ msgstr "Toon voorkeuren"
 msgid "Display detailed forecast"
 msgstr "Gedetailleerde voorspelling tonen"
 
-#: lib/Block/Metar.php:71
+#: lib/Block/Metar.php:72
 msgid "Display forecast (TAF)"
 msgstr "Weersvoorspelling tonen (TAF)"
 
@@ -1044,16 +1055,17 @@ msgstr "Weersvoorspelling tonen (TAF)"
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "Bevat de eerste rij de veldnamen? Zo ja, dit hokje aanvinken:"
 
-#: templates/login/login.inc:54
+#: templates/login/login.inc:72
 msgid "Don't have an account? Sign up."
 msgstr "Geen account? Meld je aan."
 
-#: admin/config/index.php:147 admin/config/index.php:185
+#: admin/config/index.php:162 admin/config/index.php:203
+#: admin/config/index.php:336 admin/config/index.php:362
 #, php-format
 msgid "Download %s"
 msgstr "%s downloaden"
 
-#: admin/config/index.php:306
+#: admin/config/index.php:384
 msgid "Download generated configuration as PHP script."
 msgstr "Download gegenereerde configuratie als PHP script."
 
@@ -1061,25 +1073,21 @@ msgstr "Download gegenereerde configuratie als PHP script."
 msgid "Drugs"
 msgstr "Drugs"
 
-#: login.php:227
+#: templates/login/login.inc:22 templates/login/smartmobile.html.php:34
 msgid "Dynamic"
 msgstr "Dynamisch"
-
-#: services/keyboard.php:64
-msgid "E characters"
-msgstr "E tekens"
 
 #: lib/Block/Vatid.php:14
 msgid "EU VAT identification"
 msgstr "EU BTW identificatie"
 
-#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
-#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
-#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
-#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
-#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
-#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: lib/View/Sidebar.php:222 templates/shares/edit.inc:65
+#: templates/shares/edit.inc:82 templates/shares/edit.inc:100
+#: templates/shares/edit.inc:117 templates/shares/edit.inc:136
+#: templates/shares/edit.inc:153 templates/shares/edit.inc:171
+#: templates/shares/edit.inc:192 templates/shares/edit.inc:227
+#: templates/shares/edit.inc:254 templates/shares/edit.inc:273
+#: templates/shares/edit.inc:295 templates/shares/edit.inc:324
 msgid "Edit"
 msgstr "Bewerken"
 
@@ -1088,15 +1096,15 @@ msgstr "Bewerken"
 msgid "Edit \"%s\""
 msgstr "\"%s\" bewerken"
 
-#: templates/prefs/app.html:7
+#: templates/prefs/app.html:6
 msgid "Edit Preferences for"
 msgstr "Voorkeuren bewerken voor"
 
-#: services/shares/edit.php:256
+#: services/shares/edit.php:247
 msgid "Edit permissions"
 msgstr "Rechten bewerken"
 
-#: services/shares/edit.php:257 templates/shares/edit.inc:14
+#: services/shares/edit.php:246 templates/shares/edit.inc:14
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "Rechten van \"%s\" bewerken"
@@ -1113,11 +1121,15 @@ msgstr "E-mailadres"
 msgid "End Time"
 msgstr "Eindtijd"
 
-#: lib/Prefs/Ui.php:201
+#: lib/Block/Weather.php:75
+msgid "English"
+msgstr "Engels"
+
+#: lib/Prefs/Special/Category.php:32
 msgid "Enter a name for the new category:"
 msgstr "Een naam voor de nieuwe categorie invoeren, a.u.b.:"
 
-#: config/prefs.php:307
+#: config/prefs.php:351
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1125,24 +1137,30 @@ msgstr ""
 "Geef een beveiligingsvraag die u gevraagd wordt, wanneer het nodig is om uw "
 "wachtwoord te resetten, b.v. 'wat is de naam van uw huisdier?':"
 
-#: lib/Prefs/Ui.php:546 services/twitter/index.php:176
-#: services/twitter/index.php:199
+#: services/twitter/index.php:27
+msgid ""
+"Error connecting to Twitter. Details have been logged for the administrator."
+msgstr ""
+"Fout bij aanmelden bij Twitter: Details zijn gelogd voor de systeembeheerder."
+
+#: lib/Prefs/Special/Twitter.php:54
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
 "administrator."
 msgstr ""
-"aanmelden bij Twitter: %s Details zijn gelogd voor de systeembeheerder."
+"Fout bij aanmelden bij Twitter: %s Details zijn gelogd voor de "
+"systeembeheerder."
 
-#: lib/Prefs/Ui.php:682
+#: lib/Prefs/Special/Syncml.php:70
 msgid "Error deleting synchronization session:"
 msgstr "Fout bij verwijderen van sync info:"
 
-#: lib/Prefs/Ui.php:690
+#: lib/Prefs/Special/Syncml.php:78
 msgid "Error deleting synchronization sessions:"
 msgstr "Fout bij verwijderen van sync info:"
 
-#: services/changepassword.php:61
+#: services/changepassword.php:54
 #, php-format
 msgid "Error updating password: %s"
 msgstr "Fout bij vernieuwen van wachtwoord: %s."
@@ -1151,27 +1169,27 @@ msgstr "Fout bij vernieuwen van wachtwoord: %s."
 msgid "Ethnic"
 msgstr "Etnisch"
 
-#: services/facebook/index.php:77
+#: services/facebook/index.php:189
 msgid "Event Invites:"
-msgstr ""
+msgstr "Gebeurtenis uitnodigingen"
 
-#: config/prefs.php:539 templates/portal/layout.inc:101
+#: config/prefs.php:599 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "Elke 15 minuten"
 
-#: config/prefs.php:575
+#: config/prefs.php:618
 msgid "Every 2 minutes"
 msgstr "Elke 2 minuten"
 
-#: config/prefs.php:536 config/prefs.php:573 templates/portal/layout.inc:98
+#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "Elke 30 seconden"
 
-#: config/prefs.php:538 config/prefs.php:576 templates/portal/layout.inc:100
+#: config/prefs.php:598 config/prefs.php:619 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "Elke 5 minuten"
 
-#: config/prefs.php:540 templates/portal/layout.inc:102
+#: config/prefs.php:600 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Elk half uur"
 
@@ -1179,19 +1197,21 @@ msgstr "Elk half uur"
 msgid "Every hour"
 msgstr "Elk uur"
 
-#: config/prefs.php:537 config/prefs.php:574 templates/portal/layout.inc:99
+#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Elke minuut"
 
-#: templates/data/datemap.inc:26
+#: templates/data/datemap.inc:27
 msgid "Example values:"
 msgstr "Voorbeeldwaarden:"
 
-#: admin/cmdshell.php:53 admin/phpshell.php:60 admin/sqlshell.php:121
+#: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
+#: templates/admin/sqlshell.html.php:55
 msgid "Execute"
 msgstr "Uitvoeren"
 
-#: admin/sessions.php:34
+#: lib/View/Sidebar.php:66 templates/admin/sessions.html.php:8
+#: templates/sidebar/_container.html.php:14
 msgid "Expand"
 msgstr "Uitklappen"
 
@@ -1199,39 +1219,39 @@ msgstr "Uitklappen"
 msgid "Extra Large"
 msgstr "Extra groot"
 
-#: templates/admin/config/index.html:102
+#: templates/admin/config/index.html.php:110
 msgid "FTP upload of configuration"
 msgstr "FTP overdracht van configuratie"
 
-#: config/prefs.php:600
+#: config/prefs.php:642
 msgid "Facebook Integration"
 msgstr "Integratie met Facebook"
 
-#: themes/fadetogreen/info.php:9
-msgid "Fade to Green"
-msgstr "Fade to Green"
+#: lib/Application.php:247
+msgid "Failed unlock attempts before device is wiped"
+msgstr "Mislukte ontgrendel pogingen voordat apparaat volledig wordt gewist"
 
 #: lib/Block/Feed.php:56
 msgid "Feed"
-msgstr ""
+msgstr "Feed"
 
 #: lib/Block/Feed.php:28
 msgid "Feed Address"
-msgstr ""
+msgstr "Feed adres"
 
-#: lib/Block/Metar.php:193
+#: lib/Block/Metar.php:194
 msgid "Feels Like"
 msgstr "Voelt als"
 
-#: templates/prefs/addressbooks.html:17
+#: templates/prefs/addressbooks.html:15
 msgid "Fields to search"
 msgstr "Zoekvelden"
 
-#: config/registry.php:310
+#: config/registry.php:312
 msgid "File Manager"
-msgstr "Bestandbeheer"
+msgstr "Bestandsbeheer"
 
-#: lib/Block/FbStream.php:54
+#: lib/Block/FbStream.php:60
 msgid "Filter"
 msgstr "Filter"
 
@@ -1251,7 +1271,11 @@ msgstr "Eerste kwartaal"
 msgid "Food"
 msgstr "Voedsel"
 
-#: lib/Block/Metar.php:307
+#: lib/Application.php:215
+msgid "Force"
+msgstr "Afdwingen"
+
+#: lib/Block/Metar.php:308
 msgid "Forecast (TAF)"
 msgstr "Weersvoorspelling (TAF)"
 
@@ -1263,11 +1287,11 @@ msgstr ""
 "Vooruitzichtdagen (merk op dat het gegeven vooruitzicht dagen en nachten "
 "geeft; een groot aantal kan resulteren in een breed blok)"
 
-#: templates/login/login.inc:61
+#: templates/login/login.inc:79
 msgid "Forgot your password?"
 msgstr "Uw wachtwoord vergeten?"
 
-#: config/registry.php:338
+#: config/registry.php:341
 msgid "Forms"
 msgstr "Formulieren"
 
@@ -1287,28 +1311,29 @@ msgstr "Fortunes"
 msgid "Fortunes 2"
 msgstr "Fortunes 2"
 
-#: config/registry.php:332
+#: config/registry.php:335
 msgid "Forums"
 msgstr "Forums"
 
-#: services/facebook/index.php:76
+#: services/facebook/index.php:188
 msgid "Friend Requests:"
-msgstr ""
+msgstr "Vriend verzoeken:"
 
-#: templates/prefs/facebook.html:44
-msgid "Friends enabled"
-msgstr "Vrienden ingeschakeld"
+#: templates/prefs/facebook.html.php:44
+msgid "Friends enabled."
+msgstr "Vrienden ingeschakeld."
 
-#: lib/Block/Weather.php:312
-msgid "From the"
-msgstr "Uit"
-
-#: lib/Block/Weather.php:206
+#: lib/Block/Weather.php:207
 #, php-format
-msgid "From the %s (%s &deg;) at %s"
-msgstr "Uit %s (%s &deg;) met %s"
+msgid "From the %s (%s &deg;) at %s %s"
+msgstr "Uit %s (%s &deg;) met %s %s"
 
-#: templates/problem/problem.inc:48
+#: lib/Block/Weather.php:318
+#, php-format
+msgid "From the %s at %s %s"
+msgstr "Uit %s met %s %s"
+
+#: templates/problem/problem.inc:27
 msgid "Full Description"
 msgstr "Volledige beschrijving"
 
@@ -1325,19 +1350,19 @@ msgstr "Volledige naam"
 msgid "Generate %s Configuration"
 msgstr "Genereer %s configuratie"
 
-#: templates/admin/config/config.html:6
+#: templates/admin/config/config.html.php:6
 msgid "Generated Code"
 msgstr "Gegenereerde code"
 
-#: lib/Block/FbStream.php:170 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:155 templates/block/twitter-layout.html.php:35
 msgid "Get More"
-msgstr ""
+msgstr "Meer ophalen"
 
-#: templates/prefs/app.html:10
+#: templates/prefs/app.html:9
 msgid "Global Preferences"
-msgstr ""
+msgstr "Globale voorkeuren"
 
-#: templates/prefs/app.html:17
+#: templates/prefs/app.html:16
 msgid "Go"
 msgstr "Ga"
 
@@ -1353,34 +1378,30 @@ msgstr "Google zoeken"
 msgid "Greek (ISO-8859-7)"
 msgstr "Grieks (ISO-8859-7)"
 
-#: themes/green/info.php:2
-msgid "Green"
-msgstr "Green"
-
-#: themes/grey/info.php:2
-msgid "Grey"
-msgstr "Grey"
-
-#: admin/groups.php:165
+#: admin/groups.php:161
 msgid "Group Administration"
 msgstr "Groepsbeheer"
 
-#: templates/admin/groups/add.inc:9
+#: templates/admin/groups/add.inc:10
 msgid "Group name"
 msgstr "Groep naam"
 
-#: admin/groups.php:36
+#: admin/groups.php:35
 #, php-format
 msgid "Group was not created: %s."
 msgstr "Groep is niet aangemaakt: %s."
 
-#: admin/groups.php:224 templates/shares/edit.inc:266
+#: admin/groups.php:219 templates/shares/edit.inc:269
 msgid "Groups"
 msgstr "Groepen"
 
-#: templates/shares/edit.inc:93
+#: templates/shares/edit.inc:96
 msgid "Guest Permissions"
 msgstr "Gast rechten"
+
+#: lib/Application.php:316
+msgid "HTML Email"
+msgstr "HTML e-mail"
 
 #: config/nls.php:179
 msgid "Hebrew (ISO-8859-8-I)"
@@ -1390,15 +1411,16 @@ msgstr "Hebreeuws (ISO-8859-8-I)"
 msgid "Height"
 msgstr "Hoogte"
 
-#: lib/Block/FbStream.php:69 lib/Block/TwitterTimeline.php:70
+#: lib/Block/FbStream.php:75 lib/Block/TwitterTimeline.php:64
 msgid "Height of stream content (width automatically adjusts to block)"
 msgstr ""
+"Hoogte van stream inhoud (breedte wordt automatisch aan blok aangepast)"
 
-#: services/help/index.php:17 templates/help/index.inc:4
+#: services/help/index.php:79 templates/help/index.inc:4
 msgid "Help"
 msgstr "Help"
 
-#: services/help/index.php:70
+#: services/help/index.php:94
 msgid "Help _Topics"
 msgstr "_Help onderdelen"
 
@@ -1410,21 +1432,13 @@ msgstr "Halfrond"
 msgid "Here is the beginning of the file:"
 msgstr "Hier is het begin van het bestand:"
 
-#: themes/hi-contrast/info.php:3
-msgid "Hi-Contrast"
-msgstr "Hi-Contrast"
-
-#: templates/prefs/app.html:24
+#: templates/prefs/app.html:23
 msgid "Hide Advanced Preferences"
 msgstr "Verberg geavanceerde voorkeuren"
 
-#: services/portal/cloud_search.php:37
+#: services/portal/cloud_search.php:40
 msgid "Hide Results"
 msgstr "Verberg resultaten"
-
-#: templates/sidebar/sidebar.inc:3
-msgid "Hide Sidebar"
-msgstr "Zijmenu verbergen"
 
 #: lib/Block/Account.php:73
 msgid "Home Directory"
@@ -1434,10 +1448,6 @@ msgstr "Home Directory"
 msgid "Horde"
 msgstr "Horde"
 
-#: themes/hordeweb/info.php:2
-msgid "Horde Website"
-msgstr "Horde Website"
-
 #: templates/data/csvinfo.inc:18
 msgid "How many fields (columns) are there?"
 msgstr "Hoeveel velden (kolommen) zijn er?"
@@ -1445,8 +1455,10 @@ msgstr "Hoeveel velden (kolommen) zijn er?"
 #: lib/Block/Feed.php:36
 msgid "How many seconds before we check for new articles?"
 msgstr ""
+"Hoeveel seconden te wachten voordat er op nieuwe artikelen wordt "
+"gecontroleerd?"
 
-#: lib/Block/Metar.php:203 lib/Block/Weather.php:214 lib/Block/Weather.php:253
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
 msgid "Humidity"
 msgstr "Relatieve vochtigheid"
 
@@ -1454,28 +1466,12 @@ msgstr "Relatieve vochtigheid"
 msgid "Humorists"
 msgstr "Humoristen"
 
-#: services/keyboard.php:78
-msgid "I characters"
-msgstr "I tekens"
-
-#: config/prefs.php:562
-msgid "Icons Only"
-msgstr "Alleen pictogrammen"
-
-#: util/icon_browser.php:53
+#: util/icon_browser.php:34
 #, php-format
 msgid "Icons for %s"
 msgstr "Pictogrammen voor %s"
 
-#: config/prefs.php:563
-msgid "Icons with text"
-msgstr "Pictogrammen met tekst"
-
-#: themes/ideas/info.php:2
-msgid "Ideas"
-msgstr "Ideeën"
-
-#: config/prefs.php:244
+#: config/prefs.php:283
 msgid "Identity's name:"
 msgstr "Identiteitsnaam:"
 
@@ -1485,7 +1481,7 @@ msgstr "Identiteitsnaam:"
 msgid "Import, Step %d"
 msgstr "Importeren, stap %d"
 
-#: templates/data/datemap.inc:17
+#: templates/data/datemap.inc:18
 #, php-format
 msgid "Imported field: %s"
 msgstr "Geimporteerd veld: %s"
@@ -1494,7 +1490,7 @@ msgstr "Geimporteerd veld: %s"
 msgid "Imported fields:"
 msgstr "Geimporteerde velden:"
 
-#: lib/Block/TwitterTimeline.php:118
+#: lib/Block/TwitterTimeline.php:110
 msgid "In reply to:"
 msgstr "In antwoord op:"
 
@@ -1510,7 +1506,7 @@ msgstr ""
 "de rechterkant. Klik daarna op \"Paar toevoegen\" om deze te markeren voor "
 "import. Wanneer u hiermee klaar bent klik op \"Volgende\"."
 
-#: services/resetpassword.php:55
+#: services/resetpassword.php:58
 msgid ""
 "Incorrect username or alternate address. Try again or contact your "
 "administrator if you need further help."
@@ -1518,15 +1514,11 @@ msgstr ""
 "Onjuiste gebruikersnaam of alternatief adres. Probeer opnieuw of neem "
 "contact op met de systeembeheerder, wanneer u verdere hulp nodig heeft."
 
-#: templates/shares/edit.inc:164
+#: templates/shares/edit.inc:167
 msgid "Individual Users"
 msgstr "Individuele gebruikers"
 
-#: templates/prefs/facebook.html:9
-msgid "Infinite sessions enabled."
-msgstr ""
-
-#: config/registry.php:249
+#: config/registry.php:240
 msgid "Information"
 msgstr "Informatie"
 
@@ -1534,28 +1526,28 @@ msgstr "Informatie"
 msgid "Inherited Members"
 msgstr "Overgeërfde leden"
 
-#: config/prefs.php:321
+#: config/prefs.php:363
 msgid "Insert an email address to which you can receive the new password:"
 msgstr "Een e-mailadres invoegen, waar u het nieuwe wachtwoord kan ontvangen:"
 
-#: config/prefs.php:314
+#: config/prefs.php:357
 msgid "Insert the required answer to the security question:"
 msgstr "Het gewenste antwoord voor de beveiligingsvraag invoegen:"
 
-#: lib/Block/Vatid.php:57
+#: lib/Block/Vatid.php:58
 msgid "Invalid VAT identification number format."
 msgstr "Ongeldig BTW identificatie nummerformaat."
 
-#: admin/signup_confirm.php:43
+#: admin/signup_confirm.php:45
 #, php-format
 msgid "Invalid action %s"
 msgstr "Ongeldige actie %s"
 
-#: admin/config/config.php:29
+#: admin/config/config.php:31
 msgid "Invalid application."
 msgstr "Ongeldige toepassing."
 
-#: admin/signup_confirm.php:33
+#: admin/signup_confirm.php:35
 msgid "Invalid hash."
 msgstr "Ongeldige hash."
 
@@ -1563,19 +1555,31 @@ msgstr "Ongeldige hash."
 msgid "Invalid parent permission."
 msgstr "Ongeldig parent recht."
 
+#: config/registry.php:293
+msgid "Inventory"
+msgstr "Inventaris"
+
 #: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japans (ISO-2022-JP)"
 
-#: lib/Block/TwitterTimeline.php:120
-msgid "Just now..."
+#: login.php:174
+msgid ""
+"JavaScript is either disabled or not available on your browser. You are "
+"restricted to the minimal view."
 msgstr ""
+"JavaScript is uitgeschakeld of niet beschikbaar in uw browser. U bent "
+"beperkt tot het gebruik van de minimalistische weergave."
+
+#: lib/Block/TwitterTimeline.php:111
+msgid "Just now..."
+msgstr "Zojuist..."
 
 #: lib/Block/Fortune.php:49
 msgid "Kernel Newbies"
 msgstr "Kernel Newbies"
 
-#: services/help/index.php:134
+#: services/help/index.php:161
 msgid "Keyword"
 msgstr "Trefwoord"
 
@@ -1583,7 +1587,7 @@ msgstr "Trefwoord"
 msgid "Kids"
 msgstr "Kinderen"
 
-#: config/registry.php:300 themes/kolab/info.php:7
+#: config/registry.php:301
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1591,7 +1595,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "Koreaans (EUC-KR)"
 
-#: login.php:363 templates/login/login.inc:34
+#: login.php:364 templates/login/login.inc:52
 msgid "Language"
 msgstr "Taal"
 
@@ -1611,11 +1615,11 @@ msgstr "Laatste wijziging wachtwoord"
 msgid "Last Quarter"
 msgstr "Laatste kwartier"
 
-#: admin/activesync.php:100 templates/prefs/activesync.html:21
+#: admin/activesync.php:101 templates/prefs/activesync.html.php:21
 msgid "Last Sync Time"
 msgstr "Laatste synchronisatie"
 
-#: lib/Block/Metar.php:124
+#: lib/Block/Metar.php:125
 msgid "Last Updated:"
 msgstr "Laatst bijgewerkt:"
 
@@ -1637,19 +1641,11 @@ msgstr "Laatste aanmelding: Nooit"
 msgid "Latest"
 msgstr "Nieuwste"
 
-#: themes/lavander/info.php:2
-msgid "Lavender"
-msgstr "Lavender"
-
 #: lib/Block/Fortune.php:51
 msgid "Law"
 msgstr "Rechten"
 
-#: themes/lightblue/info.php:2
-msgid "Light Blue"
-msgstr "Light Blue"
-
-#: services/facebook/index.php:113
+#: services/facebook/index.php:81
 msgid "Like"
 msgstr "Hou van"
 
@@ -1661,21 +1657,21 @@ msgstr "Limerick"
 msgid "Linux Cookie"
 msgstr "Linux Cookie"
 
-#: admin/sqlshell.php:126
+#: templates/admin/sqlshell.html.php:60
 msgid "List Tables"
 msgstr "Tabellijst"
 
-#: admin/alarms.php:135
+#: admin/alarms.php:137
 #, php-format
 msgid "Listing alarms failed: %s"
 msgstr "Weergeven van alarmen mislukt: %s"
 
-#: admin/locks.php:55
+#: admin/locks.php:57
 #, php-format
 msgid "Listing locks failed: %s"
 msgstr "Weergeven van vergrendelingen mislukt: %s"
 
-#: admin/sessions.php:71
+#: templates/admin/sessions.html.php:37
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "Weergeven van sessies mislukt: %s"
@@ -1688,68 +1684,66 @@ msgstr "Weergeven van gebruikerslijst is uitgeschakeld."
 msgid "Literature"
 msgstr "Literatuur"
 
-#: templates/sidebar/sidebar.inc:5
-msgid "Loading..."
-msgstr "Laden..."
-
-#: lib/Block/Weather.php:158
+#: lib/Block/Weather.php:159
 #, php-format
 msgid "Local time: %s %s"
 msgstr "Lokale tijd: %s %s"
 
-#: config/prefs.php:330
+#: config/prefs.php:372
 msgid "Locale and Time"
 msgstr "Landinstelling en tijd"
 
-#: lib/Block/Metar.php:51 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
+#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
 msgid "Location"
-msgstr "Plaats"
+msgstr "Locatie"
 
 #: templates/admin/user/update.inc:54
 msgid "Lock User"
 msgstr "Blokkeer gebruiker"
 
-#: admin/locks.php:58
+#: admin/locks.php:61
 msgid "Locks"
 msgstr "Blokkades"
 
-#: login.php:303 templates/login/login.inc:43
+#: login.php:291 templates/login/login.inc:61
 msgid "Log in"
 msgstr "Aanmelden"
 
-#: templates/portal/mobile.inc:7
+#: templates/portal/smartmobile.inc:5
 msgid "Log out"
 msgstr "Afmelden"
 
-#: login.php:328
+#: templates/prefs/facebook.html.php:8
+msgid "Logged in to Facebook"
+msgstr "Aangemeld bij Facebook"
+
+#: login.php:320
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Aanmelding mislukt omdat uw gebruikersnaam of wachtwoord onjuist is "
 "ingevoerd."
 
-#: login.php:324
+#: login.php:316
 msgid "Login failed."
 msgstr "Aanmelding mislukt."
 
-#: templates/prefs/facebook.html:57
-msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr ""
+#: templates/prefs/facebook.html.php:61
+#, php-format
+msgid "Login to Facebook and authorize %s"
+msgstr "Meldt aan bij Facebook en machtig %s"
 
-#: templates/prefs/twitter.html:21
-msgid "Login to Twitter and authorize the <tag:appname /> application"
-msgstr ""
+#: templates/prefs/twitter.html.php:18
+#, php-format
+msgid "Login to Twitter and authorize %s"
+msgstr "Meldt aan bij Twitter en machtig de %s applicatie"
+
+#: templates/prefs/facebook.html.php:10
+msgid "Logout"
+msgstr "Afmelden"
 
 #: lib/Block/Fortune.php:55
 msgid "Love"
 msgstr "Liefde"
-
-#: themes/luc/info.php:2
-msgid "Loyola"
-msgstr "Loyola"
-
-#: themes/lucblue/info.php:2
-msgid "Loyola Blue"
-msgstr "Loyola Blue"
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -1766,11 +1760,11 @@ msgstr "Magie"
 msgid "Mail"
 msgstr "E-mail"
 
-#: config/registry.php:355
+#: config/registry.php:346
 msgid "Mail Admin"
 msgstr "Mailbeheerder"
 
-#: config/prefs.php:464
+#: config/prefs.php:517
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -1778,29 +1772,41 @@ msgstr ""
 "Beheer uw lijst met categorieën en de corresponderende kleuren, waarmee "
 "onderdelen worden gelabeld"
 
-#: config/prefs.php:674
+#: config/prefs.php:740
 msgid "Manage your ActiveSync devices."
-msgstr ""
+msgstr "Beheer uw ActiveSync apparaten"
 
 #: templates/data/csvmap.inc:97
 msgid "Matching fields:"
 msgstr "Overeenkomende velden:"
 
-#: lib/Block/Metar.php:279
+#: lib/Block/Metar.php:280
 msgid "Max temp last 24 hours: "
 msgstr "Hoogste  temperatuur van de afgelopen 24 uur: "
 
-#: lib/Block/Metar.php:271
+#: lib/Block/Metar.php:272
 msgid "Max temp last 6 hours: "
 msgstr "Hoogste temperatuur van de afgelopen 6 uur: "
 
-#: lib/Application.php:42
-msgid "Maximum Number of Portal Blocks"
-msgstr "Maximum aantal Portaalblokken."
+#: lib/Application.php:320
+msgid "Maximum Email age"
+msgstr "Maximale e-mail ouderdom"
 
-#: lib/Block/FbStream.php:60
+#: lib/Application.php:51
+msgid "Maximum Number of Portal Blocks"
+msgstr "Maximaal aantal Portaalblokken."
+
+#: lib/Application.php:264
+msgid "Maximum attachment size"
+msgstr "Maximale bijlagegrootte"
+
+#: lib/Application.php:205
+msgid "Maximum number of devices"
+msgstr "Maximaal aantal apparaten"
+
+#: lib/Block/FbStream.php:66
 msgid "Maximum number of entries to display"
-msgstr "Maximum aantal weer te geven elementen."
+msgstr "Maximaal aantal weer te geven elementen."
 
 #: lib/Block/Fortune.php:57
 msgid "Medicine"
@@ -1810,7 +1816,7 @@ msgstr "Geneeskunde"
 msgid "Medium"
 msgstr "Middel"
 
-#: templates/admin/groups/edit.inc:19
+#: templates/admin/groups/edit.inc:18
 msgid "Members"
 msgstr "Leden"
 
@@ -1818,47 +1824,60 @@ msgstr "Leden"
 msgid "Mentions"
 msgstr "Noemt"
 
-#: config/prefs.php:565
-msgid "Menu mode:"
-msgstr "Menu mode:"
-
-#: lib/Block/Metar.php:22
+#: lib/Block/Metar.php:23
 msgid "Metar Weather"
 msgstr "Metar Weer"
 
-#: lib/Block/Metar.php:61 lib/Block/Weather.php:76
+#: lib/Block/Metar.php:62 lib/Block/Weather.php:76
 msgid "Metric"
 msgstr "Metrisch"
 
-#: lib/Block/Metar.php:283
+#: lib/Block/Metar.php:284
 msgid "Min temp last 24 hours: "
 msgstr "Laagste temperatuur van de afgelopen 24 uur: "
 
-#: lib/Block/Metar.php:275
+#: lib/Block/Metar.php:276
 msgid "Min temp last 6 hours: "
 msgstr "Laagste temperatuur van de afgelopen 6 uur: "
+
+#: lib/Application.php:226
+msgid "Minimum PIN length"
+msgstr "Minimale lengthe PIN"
+
+#: lib/Application.php:242
+msgid "Minutes of inactivity before device should lock"
+msgstr "Minuten inactiviteit voordat apparaat wordt vergrendeld"
 
 #: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "Allerhande"
 
-#: admin/config/index.php:197
+#: admin/config/index.php:217
 msgid "Missing configuration."
 msgstr "Ontbrekende configuratie"
 
-#: login.php:235
-msgid "Mobile"
-msgstr "Mobiel"
+#: templates/login/login.inc:24 templates/login/smartmobile.html.php:36
+msgid "Mobile (Minimal)"
+msgstr "Mobiel (minimalistisch)"
 
-#: login.php:231
-msgid "Mobile (Smartphone)"
-msgstr "Mobiel (smartphone)"
+#: templates/login/login.inc:23 templates/login/smartmobile.html.php:35
+msgid "Mobile (Smartphone/Tablet)"
+msgstr "Mobiel (smartphone/tablet)"
 
-#: login.php:215
+#: templates/portal/smartmobile.inc:12
+msgid "Mobile Optimized Apps"
+msgstr "Apps geoptimaliseerd voor mobiel"
+
+#: templates/login/login.inc:16 templates/login/smartmobile.html.php:29
 msgid "Mode"
 msgstr "Weergave"
 
-#: config/prefs.php:452
+#: admin/config/index.php:165 admin/config/index.php:206
+#: admin/config/index.php:339 admin/config/index.php:365
+msgid "Module is up-to-date."
+msgstr "Toepassing is up-to-date."
+
+#: config/prefs.php:505
 msgid "Monday"
 msgstr "Maandag"
 
@@ -1866,11 +1885,7 @@ msgstr "Maandag"
 msgid "Moon Phases"
 msgstr "Maanfasen"
 
-#: themes/mozilla/info.php:2
-msgid "Mozilla"
-msgstr "Mozilla"
-
-#: config/registry.php:305
+#: config/registry.php:306
 msgid "My Account"
 msgstr "Mijn account"
 
@@ -1878,50 +1893,51 @@ msgstr "Mijn account"
 msgid "My Account Information"
 msgstr "Mijn accountinformatie"
 
-#: lib/Block/FbStream.php:30
+#: lib/Block/FbStream.php:37
 msgid "My Facebook Stream"
-msgstr ""
+msgstr "Integratie met Facebook"
 
-#: services/portal/index.php:43
+#: services/portal/index.php:45
 msgid "My Portal"
 msgstr "Mijn portaal"
 
-#: services/portal/edit.php:32
+#: services/portal/edit.php:37
 msgid "My Portal Layout"
 msgstr "Mijn portaallayout"
 
-#: lib/Block/Weather.php:181 lib/Block/Weather.php:302
-#: lib/Block/Weather.php:306 lib/Block/Weather.php:321
+#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
+#: lib/Block/Weather.php:328
 msgid "N/A"
 msgstr "N/B"
 
-#: templates/logintasks/logintasks.html:27 templates/logintasks/mobile.html:31
+#: templates/logintasks/logintasks.html.php:29
+#: templates/logintasks/smartmobile.html.php:45
 msgid "NO, I Do NOT Agree"
 msgstr "Nee, ik accepteer de voorwaarden NIET"
 
-#: templates/prefs/activesync.html:48
+#: templates/prefs/activesync.html.php:60
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
 "REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
 msgstr ""
+"LET OP: EEN APPARAAT VOLLEDIG WISSEN KAN HET TERUG ZETTEN NAAR FABRIEKS "
+"INSTELLINGEN. VERGEWIS U ERVAN DAT DIT ECHT IS WAT U WILT VOORDAT U "
+"AANVRAAGT EEN APPARAAT VOLLEDIG TE WISSEN"
 
-#: lib/Block/Vatid.php:113
+#: lib/Block/Vatid.php:90
 msgid "Name"
 msgstr "Naam"
 
-#: themes/NeXTgrey/info.php:2
-msgid "NeXT"
-msgstr "NeXT"
-
-#: config/prefs.php:535 config/prefs.php:572 templates/portal/layout.inc:97
+#: config/prefs.php:595 config/prefs.php:615 lib/Application.php:214
+#: templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Nooit"
 
-#: templates/prefs/category.html:3
+#: templates/prefs/category.html.php:3
 msgid "New Category"
 msgstr "Nieuwe categorie"
 
-#: services/facebook/index.php:73
+#: services/facebook/index.php:185
 msgid "New Messages:"
 msgstr "Nieuwe berichten:"
 
@@ -1933,7 +1949,7 @@ msgstr "Nieuwe maan"
 msgid "New Username (optional)"
 msgstr "Nieuwe gebruikersnaam (optioneel)"
 
-#: services/changepassword.php:29
+#: services/changepassword.php:31
 msgid "New password"
 msgstr "Nieuw wachtwoord"
 
@@ -1941,12 +1957,12 @@ msgstr "Nieuw wachtwoord"
 msgid "New passwords don't match."
 msgstr "Wachtwoorden moeten overeenkomen."
 
-#: config/registry.php:259 lib/Block/Fortune.php:59
+#: config/registry.php:251 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Nieuws"
 
-#: templates/data/csvinfo.inc:21 templates/data/csvmap.inc:120
-#: templates/data/datemap.inc:43 templates/data/tsvinfo.inc:15
+#: templates/data/csvinfo.inc:23 templates/data/csvmap.inc:123
+#: templates/data/datemap.inc:46 templates/data/tsvinfo.inc:17
 msgid "Next"
 msgstr "Volgende"
 
@@ -1958,21 +1974,25 @@ msgstr "Volgende 4 schijngestalten"
 msgid "No Sound"
 msgstr "Geen geluid"
 
-#: templates/admin/config/diff.html:9
+#: templates/admin/config/diff.html.php:2
 msgid "No available configuration data to show differences for."
 msgstr "Geen beschikbare configuratiedata om verschillen te laten zien."
 
-#: admin/config/diff.php:44
+#: admin/config/diff.php:49
 msgid "No change."
 msgstr "Geen wijzigingen."
 
-#: util/icon_browser.php:83
+#: util/icon_browser.php:52
 msgid "No icons found."
 msgstr "Geen pictogrammen gevonden"
 
-#: lib/Block/Metar.php:99 lib/Block/Sunrise.php:45
+#: templates/sidebar/_container.html.php:30
+msgid "No items to display"
+msgstr "Niets om weer te geven"
+
+#: lib/Block/Metar.php:100 lib/Block/Sunrise.php:45
 msgid "No location is set."
-msgstr "Er is geen plaats ingesteld."
+msgstr "Er is geen locatie ingesteld."
 
 #: lib/Block/Fortune.php:101
 msgid "No offensive fortunes"
@@ -1982,30 +2002,49 @@ msgstr "Geen beledigende fortunes"
 msgid "No pending signups."
 msgstr "Geen hangende inschrijvingen."
 
-#: services/resetpassword.php:51
+#: lib/Application.php:333
+msgid "No push while roaming"
+msgstr "Geen push tijdens roaming"
+
+#: services/resetpassword.php:54
 msgid "No security question has been set. Please contact your administrator."
 msgstr ""
 "Veiligheidsvraag is niet ingesteld. Neem contact op met de beheerder, a.u.b."
 
-#: admin/config/index.php:144 admin/config/index.php:182
+#: admin/config/index.php:159 admin/config/index.php:200
+#: admin/config/index.php:333 admin/config/index.php:359
 msgid "No stable version exists yet."
 msgstr "Er bestaat nog geen stabiele versie."
 
-#: admin/signup_confirm.php:57
+#: admin/signup_confirm.php:59
 msgid "No username specified."
 msgstr "Geen gebruikersnaam opgegeven."
 
-#: admin/config/index.php:203
+#: admin/config/index.php:223
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 "Geen versie gevonden in originele configuratie. Hergenereer configuratie."
 
-#: admin/config/index.php:212
+#: admin/config/index.php:232
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr "Geen versie gevonden in uw configuratie. Hergenereer configuratie."
 
-#: lib/Prefs/Ui.php:383 templates/prefs/activesync.html:43
-#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+#: admin/config/index.php:284
+msgid "NoSQL indices are ready."
+msgstr "NoSQL indexen zijn gereed."
+
+#: admin/config/index.php:279
+#, php-format
+msgid "NoSQL indices for %s"
+msgstr "NoSQL indexen voor %s"
+
+#: admin/config/index.php:281
+msgid "NoSQL indices out of date."
+msgstr "NoSQL indexen zijn verlopen."
+
+#: templates/prefs/activesync.html.php:42
+#: templates/prefs/activesync.html.php:54 templates/prefs/syncml.html.php:34
+#: templates/prefs/identityselect.html:20
 msgid "None"
 msgstr "Geen"
 
@@ -2017,15 +2056,15 @@ msgstr "Noord Europees (ISO-8859-10)"
 msgid "Northern Hemisphere"
 msgstr "Noordelijk halfrond"
 
-#: admin/activesync.php:173 lib/Prefs/Ui.php:398
+#: admin/activesync.php:172 templates/prefs/activesync.html.php:37
 msgid "Not Provisioned"
-msgstr ""
+msgstr "Niet aangemeld"
 
-#: config/registry.php:192
+#: config/registry.php:166
 msgid "Notes"
 msgstr "Notities"
 
-#: services/obrowser/index.php:32
+#: services/obrowser/index.php:36
 msgid "Nothing to browse, go back."
 msgstr "Niets te bladeren, ga terug."
 
@@ -2033,35 +2072,31 @@ msgstr "Niets te bladeren, ga terug."
 msgid "Number of articles to display"
 msgstr "Aantal te tonen onderdelen"
 
-#: lib/Block/TwitterTimeline.php:75
+#: lib/Block/TwitterTimeline.php:69
 msgid "Number of seconds to wait to refresh"
 msgstr "Aantal seconden wachten voor verversen"
 
-#: services/keyboard.php:92
-msgid "O characters"
-msgstr "O tekens"
+#: templates/services/obrowser.html.php:5
+msgid "Object Browser"
+msgstr "Objectbrowser"
 
-#: templates/shares/edit.inc:129
+#: templates/shares/edit.inc:132
 msgid "Object Creator"
 msgstr "Objecteigenaar"
 
 #: lib/Block/Fortune.php:98
 msgid "Offense filter"
-msgstr "Beledigingfilter"
+msgstr "Beledigingenfilter"
 
-#: config/registry.php:271
+#: config/registry.php:263
 msgid "Office"
 msgstr "Kantoor"
-
-#: themes/hordeweb1/info.php:2
-msgid "Old Horde Website"
-msgstr "Oude Horde Website"
 
 #: services/changepassword.php:42
 msgid "Old and new passwords must be different."
 msgstr "Oud en nieuw wachtwoord moeten verschillend zijn."
 
-#: services/changepassword.php:28
+#: services/changepassword.php:30
 msgid "Old password"
 msgstr "Oud wachtwoord"
 
@@ -2073,7 +2108,7 @@ msgstr "Het oude wachtwoord is onjuist"
 msgid "Only offensive fortunes"
 msgstr "Alleen beledigende fortunes"
 
-#: services/shares/edit.php:83
+#: services/shares/edit.php:89
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2085,74 +2120,74 @@ msgstr ""
 msgid "Operating System"
 msgstr "Besturingssyteem"
 
-#: templates/shares/edit.inc:236
+#: templates/shares/edit.inc:239
 msgid "Or enter a user name:"
 msgstr "Of voer een gebruikersnaam in:"
 
-#: config/registry.php:117
-msgid "Organizing"
-msgstr "Organiseren"
-
-#: services/keyboard.php:124
-msgid "Other"
-msgstr "Andere"
-
-#: config/prefs.php:488 config/prefs.php:599 config/prefs.php:619
-#: config/prefs.php:638 config/prefs.php:660 config/prefs.php:672
+#: config/prefs.php:540 config/prefs.php:641 config/prefs.php:667
+#: config/prefs.php:693 config/prefs.php:719 config/prefs.php:738
 msgid "Other Information"
-msgstr "Andere informatie"
+msgstr "Overige informatie"
 
-#: services/keyboard.php:122
-msgid "Other characters"
-msgstr "Andere tekens"
+#: templates/login/smartmobile.html.php:18
+msgid "Other Options"
+msgstr "Overige opties"
 
-#: templates/shares/edit.inc:30
+#: config/registry.php:177
+msgid "Others"
+msgstr "Overig"
+
+#: templates/shares/edit.inc:33
 msgid "Owner"
 msgstr "Eigenaar"
 
-#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
 msgid "Owner:"
 msgstr "Eigenaar:"
 
-#: admin/phpshell.php:56
+#: templates/admin/phpshell.html.php:15
 msgid "PHP"
 msgstr "PHP"
 
-#: admin/phpshell.php:76
+#: templates/admin/phpshell.html.php:27
 msgid "PHP Code"
 msgstr "PHP code"
 
-#: admin/phpshell.php:37
+#: admin/phpshell.php:38
 msgid "PHP Shell"
 msgstr "PHP shell"
+
+#: lib/Application.php:296
+msgid "POP/IMAP Email accounts"
+msgstr "POP/IMAP e-mail accounts"
 
 #: lib/Block/Account/Localhost.php:53
 msgid "POSIX extension is missing"
 msgstr "POSIX extensie mist"
 
-#: lib/Api.php:67
+#: lib/Api.php:75
 msgid "P_HP Shell"
 msgstr "PHP _Shell"
 
-#: login.php:194 admin/config/index.php:319 admin/user.php:40
-#: admin/user.php:54 config/registry.php:322
+#: login.php:211 admin/config/index.php:397 admin/user.php:39
+#: admin/user.php:53 config/registry.php:324
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: services/changepassword.php:52
+#: lib/Application.php:231
+msgid "Password Complexity"
+msgstr "Sterkte wachtwoord"
+
+#: services/changepassword.php:47
 msgid "Password changed successfully."
 msgstr "Wachwoord is gewijzigd."
 
-#: lib/Prefs/Ui.php:302
-msgid "Password:"
-msgstr "Wachtwoord:"
-
-#: admin/user.php:173 admin/user.php:233
+#: admin/user.php:175 admin/user.php:235
 msgid "Passwords must match."
 msgstr "Wachtwoorden moeten overeenkomen."
 
-#: admin/sqlshell.php:110
+#: templates/admin/sqlshell.html.php:42
 msgid "Paste"
 msgstr "Plakken"
 
@@ -2164,7 +2199,7 @@ msgstr "Hangende inschrijvingen:"
 msgid "People"
 msgstr "Mensen"
 
-#: templates/logintasks/logintasks.html:22
+#: templates/logintasks/logintasks.html.php:24
 msgid "Perform Login Tasks"
 msgstr "Aanmeldtaken uitvoeren"
 
@@ -2173,16 +2208,16 @@ msgstr "Aanmeldtaken uitvoeren"
 msgid "Permission \"%s\" not deleted."
 msgstr "Recht \"%s\" niet verwijderd."
 
-#: admin/perms/index.php:28
+#: admin/perms/index.php:29
 msgid "Permissions"
 msgstr "Rechten"
 
-#: admin/perms/addchild.php:57 admin/perms/delete.php:52
-#: admin/perms/edit.php:116 admin/perms/index.php:22
+#: admin/perms/addchild.php:58 admin/perms/delete.php:53
+#: admin/perms/edit.php:129 admin/perms/index.php:23
 msgid "Permissions Administration"
 msgstr "Rechtenbeheer"
 
-#: config/prefs.php:232
+#: config/prefs.php:272
 msgid "Personal Information"
 msgstr "Persoonlijke informatie"
 
@@ -2190,7 +2225,7 @@ msgstr "Persoonlijke informatie"
 msgid "Pets"
 msgstr "Huisdieren"
 
-#: config/registry.php:343
+#: config/registry.php:194
 msgid "Photos"
 msgstr "Foto's"
 
@@ -2198,19 +2233,19 @@ msgstr "Foto's"
 msgid "Platitudes"
 msgstr "Platitudes"
 
-#: login.php:200
+#: login.php:217
 msgid "Please enter a password."
 msgstr "Geef een geldig wachtwoord, a.u.b."
 
-#: login.php:199
+#: login.php:216
 msgid "Please enter a username."
 msgstr "Geef een geldige gebruikersnaam, a.u.b."
 
-#: templates/problem/problem.inc:7
+#: services/problem.php:156
 msgid "Please provide a summary of the problem."
 msgstr "Geef een samenvatting van het probleem, a.u.b."
 
-#: services/logintasks.php:80
+#: services/logintasks.php:82
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
@@ -2218,23 +2253,28 @@ msgstr ""
 "Lees de volgende tekst, a.u.b. U dient de voorwaarden te accepteren om het "
 "systeem te gebruiken."
 
-#: services/facebook/index.php:75
+#: services/facebook/index.php:187
 msgid "Pokes:"
-msgstr ""
+msgstr "Pokes:"
 
-#: admin/activesync.php:107
+#: admin/activesync.php:108
 msgid "Policy Key"
 msgstr "Openbare sleutel"
-
-#: lib/Prefs/Ui.php:404
-msgid "Policy Key:"
-msgstr "Openbare sleutel:"
 
 #: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politiek"
 
-#: services/facebook/index.php:109
+#: config/prefs.php:754
+msgid ""
+"Position of reply text when replying to email on your device. Note that some "
+"devices will always send the citation string at the end of the reply text."
+msgstr ""
+"Plaats van uw antwoord bij reageren op e-mail op uw apparaat. NB sommige "
+"apparaten plaatsen de aangehaalde tekst altijd aan het einde van het "
+"antwoord."
+
+#: services/facebook/index.php:33
 #, php-format
 msgid "Posted %s"
 msgstr "Geplaatst %s"
@@ -2244,27 +2284,23 @@ msgstr "Geplaatst %s"
 msgid "Posted %s via %s"
 msgstr "Geplaatst %s via %s"
 
-#: themes/postnuke/info.php:2
-msgid "Postnuke"
-msgstr "Postnuke"
-
-#: lib/Block/Metar.php:239 lib/Block/Metar.php:244
+#: lib/Block/Metar.php:240 lib/Block/Metar.php:245
 #, php-format
 msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Neerslag van het afgelopen %d uur: "
 msgstr[1] "Neerslag van de afgelopen %d uren: "
 
-#: lib/Block/Weather.php:249
+#: lib/Block/Weather.php:255
 #, php-format
 msgid "Precipitation%schance"
 msgstr "Neerslag%skans"
 
-#: lib/Block/Metar.php:198 lib/Block/Weather.php:191
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
 msgid "Pressure"
 msgstr "Luchtdruk"
 
-#: lib/Block/Metar.php:232
+#: lib/Block/Metar.php:233
 msgid "Pressure at sea level: "
 msgstr "Luchtdruk op zeeniveau: "
 
@@ -2272,23 +2308,23 @@ msgstr "Luchtdruk op zeeniveau: "
 msgid "Principal"
 msgstr "Voornaamste"
 
-#: services/problem.php:145
+#: services/problem.php:161
 msgid "Problem Description"
 msgstr "Probleembeschrijving"
 
-#: admin/activesync.php:173 lib/Prefs/Ui.php:397
+#: admin/activesync.php:172 templates/prefs/activesync.html.php:37
 msgid "Provisioned"
-msgstr ""
+msgstr "Provisioned"
 
-#: templates/prefs/facebook.html:20
+#: lib/Application.php:210
+msgid "Provisioning"
+msgstr "Provisioning"
+
+#: templates/prefs/facebook.html.php:16
 msgid "Publish enabled."
-msgstr ""
+msgstr "Publiceren toegestaan."
 
-#: themes/purple/info.php:2
-msgid "Purple Horde"
-msgstr "Purple Horde"
-
-#: admin/sqlshell.php:59
+#: templates/admin/sqlshell.html.php:7
 msgid "Query"
 msgstr "Zoekopdracht"
 
@@ -2300,27 +2336,27 @@ msgstr "Quota"
 msgid "Random Fortune"
 msgstr "Random Fortune"
 
-#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
-#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
-#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
-#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
-#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
-#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
-#: templates/shares/edit.inc:312
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
+#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
+#: templates/shares/edit.inc:320
 msgid "Read"
 msgstr "Lezen"
 
-#: templates/prefs/facebook.html:32
-msgid "Read enabled"
-msgstr ""
+#: templates/prefs/facebook.html.php:30
+msgid "Read enabled."
+msgstr "Lezen toegestaan."
 
-#: templates/admin/user/remove.inc:8
+#: templates/admin/user/remove.inc:11
 #, php-format
 msgid "Really delete \"%s\"? This operation cannot be undone."
 msgstr ""
 "\"%s\" echt verwijderen? Deze bewerking kan niet ongedaan gemaakt worden."
 
-#: templates/admin/user/clear.inc:8
+#: templates/admin/user/clear.inc:10
 #, php-format
 msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
@@ -2328,11 +2364,11 @@ msgstr ""
 "Gebruikersdata van gebruiker \"%s\" echt verwijderen? Deze bewerking kan "
 "niet ongedaan gemaakt worden."
 
-#: config/prefs.php:578
+#: config/prefs.php:621
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Ververs dynamische menu onderdelen:"
 
-#: config/prefs.php:542
+#: config/prefs.php:602
 msgid "Refresh Portal View:"
 msgstr "Portalweergave verversen:"
 
@@ -2340,25 +2376,26 @@ msgstr "Portalweergave verversen:"
 msgid "Refresh rate:"
 msgstr "Verversingsfrequentie:"
 
-#: admin/activesync.php:136
+#: admin/activesync.php:137
 msgid "Registered User Devices"
-msgstr ""
+msgstr "Aangemelde gebruikers apparaten"
 
-#: lib/Block/Metar.php:299
+#: templates/portal/smartmobile.inc:22
+msgid "Regular Apps"
+msgstr "Reguliere Apps"
+
+#: lib/Block/Metar.php:300
 msgid "Remarks"
 msgstr "Opmerkingen"
 
-#: admin/sessions.php:43 admin/sessions.php:59
-msgid "Remote Host:"
-msgstr "Host op afstand:"
+#: templates/admin/sessions.html.php:23
+msgid "Remote Host"
+msgstr "Host op afstand"
 
-#: lib/Prefs/Ui.php:300
-msgid "Remote URL (http://www.example.com/horde):"
-msgstr "URL op afstand (http://www.example.com/horde):"
-
-#: admin/activesync.php:187 templates/admin/groups/edit.inc:26
-#: templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+#: admin/activesync.php:186 templates/admin/groups/edit.inc:25
+#: templates/admin/user/approve.inc:41
+#: templates/admin/user/removequeued.inc:13
+#: templates/prefs/activesync.html.php:39
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -2366,74 +2403,89 @@ msgstr "Verwijderen"
 msgid "Remove pair"
 msgstr "Paar verwijderen"
 
-#: admin/config/index.php:338
+#: admin/config/index.php:416
 msgid "Remove saved script from server's temporary directory."
 msgstr ""
 "Verwijder het opgeslagen script uit de tijdelijke directory op de server."
 
-#: templates/admin/user/remove.inc:11
+#: templates/admin/user/remove.inc:14
 msgid "Remove user"
 msgstr "Gebruiker verwijderen"
 
-#: templates/admin/user/remove.inc:5
+#: templates/admin/user/remove.inc:8
 #, php-format
 msgid "Remove user: %s"
 msgstr "Verwijder gebruiker: %s"
 
 #: templates/block/twitter_tweet.html.php:34
 msgid "Reply"
-msgstr "Antwoord"
+msgstr "Beantwoorden"
 
 #: admin/activesync.php:140
 msgid "Reprovision All Devices"
-msgstr ""
+msgstr "Reprovision alle apparaten"
+
+#: lib/Application.php:221
+msgid "Require PIN"
+msgstr "Vereis PIN"
+
+#: lib/Application.php:304
+msgid "Require S/MIME Encryption"
+msgstr "Vereis S/MIME versleuteling"
+
+#: lib/Application.php:308
+msgid "Require S/MIME Signature"
+msgstr "Vereis S/MIME handtekening"
 
 #: admin/user.php:27 templates/admin/user/update.inc:64
 #: templates/prefs/rpc.html:36
 msgid "Reset"
 msgstr "Herstellen"
 
-#: services/resetpassword.php:46
+#: services/resetpassword.php:49
 msgid "Reset Password"
 msgstr "Reset wachtwoord"
 
-#: templates/prefs/activesync.html:6
+#: templates/prefs/activesync.html.php:6
 msgid ""
 "Reset all device state. This will cause your devices to resyncronize all "
 "items."
 msgstr ""
+"Alle toestand informatie voor uw ActiveSync apparaten verwijderen. Ze zullen "
+"bij de volgende verbinding met de server opnieuw synchroniseren."
 
-#: services/resetpassword.php:24
+#: services/resetpassword.php:27
 msgid "Reset your password"
 msgstr "Reset uw wachtwoord"
 
-#: admin/sqlshell.php:124
+#: templates/admin/sqlshell.html.php:58
 msgid "Restore Last Query"
 msgstr "Laatste zoekopdracht herstellen"
 
-#: admin/cmdshell.php:28 admin/phpshell.php:79 admin/sqlshell.php:62
+#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
+#: templates/admin/sqlshell.html.php:11
 msgid "Results"
 msgstr "Resultaten"
 
-#: services/portal/cloud_search.php:34
+#: services/portal/cloud_search.php:37
 #, php-format
 msgid "Results for %s"
 msgstr "Resultaten voor %s"
 
-#: templates/prefs/end.html:7
+#: templates/prefs/end.html:8
 msgid "Return to Main Screen"
 msgstr "Terug naar hoofdscherm"
 
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
-msgstr ""
+msgstr "Retweet"
 
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr ""
+msgstr "Geretweet door %s"
 
-#: services/changepassword.php:30
+#: services/changepassword.php:32
 msgid "Retype new password"
 msgstr "Voer wachtwoord opnieuw in"
 
@@ -2445,36 +2497,56 @@ msgstr "Configuratie terugzetten"
 msgid "Riddles"
 msgstr "Raadsels"
 
-#: admin/sqlshell.php:111
+#: templates/admin/sqlshell.html.php:43
 msgid "Run"
 msgstr "Starten"
 
-#: templates/logintasks/mobile.html:26
+#: templates/logintasks/smartmobile.html.php:29
 msgid "Run Login Tasks"
 msgstr "Aanmeldtaken uitvoeren"
 
-#: admin/sqlshell.php:43
+#: lib/Application.php:276
+msgid "SD card"
+msgstr "SD card"
+
+#: lib/Application.php:269
+msgid "SD card encryption"
+msgstr "SD kaart versleuteling"
+
+#: lib/Application.php:284
+msgid "SMS Text messages"
+msgstr "SMS tekst berichten"
+
+#: admin/config/index.php:266 admin/config/index.php:319
+msgid "SQL DB schema is out of date."
+msgstr "SQL DB configuratie dient bijgewerkt te worden."
+
+#: admin/config/index.php:271 admin/config/index.php:324
+msgid "SQL DB schema is ready."
+msgstr "SQL DB configuratie is gereed."
+
+#: admin/sqlshell.php:23
 msgid "SQL Shell"
 msgstr "SQL shell"
 
-#: lib/Api.php:72
+#: lib/Api.php:80
 msgid "S_QL Shell"
 msgstr "S_QL shell"
 
-#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+#: templates/portal/layout.inc:115 templates/prefs/end.html:4
 msgid "Save"
 msgstr "Opslaan"
 
-#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:330
+#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:335
 #, php-format
 msgid "Save \"%s\""
 msgstr "\"%s\" opslaan"
 
-#: templates/shares/edit.inc:331
+#: templates/shares/edit.inc:336
 msgid "Save and Finish"
 msgstr "Opslaan en afsluiten"
 
-#: admin/config/index.php:310
+#: admin/config/index.php:388
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2482,7 +2554,7 @@ msgstr ""
 "Gegenereerde configuratie als PHP script opgeslagen in de tijdelijke "
 "directory van uw server."
 
-#: admin/config/scripts.php:99
+#: admin/config/scripts.php:92
 #, php-format
 msgid "Saved configuration upgrade script to: \"%s\"."
 msgstr "Setup upgrade script opgeslagen naar: \"%s\"."
@@ -2493,25 +2565,26 @@ msgstr "Wetenschap"
 
 #: templates/admin/locks/list.html.php:10
 msgid "Scope"
-msgstr ""
+msgstr "Bereik"
 
-#: services/help/index.php:71
+#: services/help/index.php:95
 msgid "Sea_rch"
 msgstr "_Zoeken"
 
-#: services/help/index.php:130 templates/admin/user/list.inc:16
+#: lib/View/Topbar.php:60 services/help/index.php:156
+#: templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "Zoeken"
 
-#: templates/admin/user/list.inc:14
+#: templates/admin/user/list.inc:12
 msgid "Search:"
 msgstr "Zoeken:"
 
-#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
 msgid "Select a group to add:"
 msgstr "Selecteer een groep om toe te voegen:"
 
-#: templates/shares/edit.inc:38
+#: templates/shares/edit.inc:41
 msgid "Select a new owner:"
 msgstr "Selecteer een nieuwe eigenaar:"
 
@@ -2519,21 +2592,13 @@ msgstr "Selecteer een nieuwe eigenaar:"
 msgid "Select a server"
 msgstr "Selecteer een server"
 
-#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
 msgid "Select a user to add:"
 msgstr "Selecteer een gebruiker om toe te voegen:"
 
 #: templates/prefs/addressbooks.html:5
 msgid "Select all fields to search when expanding addresses."
 msgstr "Selecteer alle velden om te doorzoeken t.b.v. naamsuitbreiding."
-
-#: services/keyboard.php:38
-msgid ""
-"Select the characters you need from the boxes below. You can then copy and "
-"paste them from the text area."
-msgstr ""
-"Selecteer de benodigde karakters uit de onderstaande vakjes. U kunt deze dan "
-"kopiëren en plakken in het tekstgebied."
 
 #: templates/data/datetime.inc:57
 msgid "Select the date and time format:"
@@ -2559,63 +2624,63 @@ msgstr "Selecteer het tijdscheidingsteken:"
 msgid "Select the time format:"
 msgstr "Selecteer het tijdsformaat:"
 
-#: config/prefs.php:528
+#: config/prefs.php:588
 msgid "Select your color scheme."
 msgstr "Selecteer uw kleurschema."
 
-#: config/prefs.php:345
+#: config/prefs.php:385
 msgid "Select your preferred language:"
 msgstr "Selecteer uw gewenste taal:"
 
-#: templates/problem/problem.inc:57
+#: templates/problem/problem.inc:36
 msgid "Send Problem Report"
 msgstr "Probleemrapport verzenden"
 
-#: lib/Block/Metar.php:289
+#: lib/Block/Metar.php:290
 msgid "Sensor: "
 msgstr "Sensor: "
 
-#: templates/prefs/syncml.html:12
+#: templates/prefs/syncml.html.php:12
 msgid "Server Time"
 msgstr "Systeem tijd"
 
-#: admin/sessions.php:19
-msgid "Session Admin"
+#: admin/sessions.php:69
+msgid "Session Administration"
 msgstr "Sessiebeheer"
 
-#: admin/sessions.php:41
-msgid "Session Timestamp:"
-msgstr "Sessie tijdstempel:"
+#: templates/admin/sessions.html.php:15
+msgid "Session Timestamp"
+msgstr "Sessie tijdstempel"
 
-#: lib/Api.php:62
+#: lib/Api.php:70
 msgid "Sessions"
 msgstr "Sessies"
 
-#: config/prefs.php:297
+#: config/prefs.php:335
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr ""
 "Instellen van opties om u toe te staan uw wachtwoord te resetten, wanneer u "
 "dit bent vergeten."
 
-#: config/prefs.php:601
+#: config/prefs.php:643
 msgid "Set up integration with your Facebook account."
-msgstr ""
+msgstr "Stel integratie met uw Facebook account in."
 
-#: config/prefs.php:621
+#: config/prefs.php:669
 msgid "Set up integration with your Twitter account."
-msgstr ""
+msgstr "Stel integratie met uw Twitter account in."
 
-#: config/prefs.php:331
+#: config/prefs.php:373
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "Instellen van uw gewenste taal, tijdzone en datumopties."
 
-#: config/prefs.php:490
+#: config/prefs.php:542
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
 msgstr ""
-"Instellen van uw opstarttoepassing, kleurschema, paginaverversing en andere "
+"Instellen van uw opstarttoepassing, kleurschema, paginaverversing en overige "
 "weergaveopties."
 
 #: lib/Block/Weather.php:136
@@ -2623,33 +2688,29 @@ msgstr ""
 msgid "Several locations possible with the parameter: %s"
 msgstr "Verschillende locaties mogelijk met de parameter: %s"
 
-#: templates/problem/problem.inc:38
+#: templates/problem/problem.inc:17
 msgid "Short Summary"
 msgstr "Korte samenvatting"
 
-#: config/prefs.php:585
+#: config/prefs.php:627
 msgid "Should access keys be defined for most links?"
 msgstr "Dienen sneltoetsen voor de meeste links gedefinieerd te worden?"
 
-#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
-#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
-#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
-#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
-#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
-#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
-#: templates/shares/edit.inc:308
+#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
+#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
+#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
+#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
+#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
+#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
 msgid "Show"
 msgstr "Weergeven"
 
-#: templates/prefs/app.html:22
+#: templates/prefs/app.html:21
 msgid "Show Advanced Preferences"
 msgstr "Toon geavanceerde voorkeuren"
 
-#: templates/sidebar/sidebar.inc:10
-msgid "Show Sidebar"
-msgstr "Toon menu aan de linkerkant"
-
-#: admin/config/index.php:300
+#: admin/config/index.php:378
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2661,24 +2722,16 @@ msgstr ""
 msgid "Show extra detail?"
 msgstr "Toon extra details?"
 
-#: config/prefs.php:511
+#: config/prefs.php:573
 msgid "Show last login time when logging in?"
 msgstr "Laatste aanmeldingstijd weergeven bij aanmelden?"
 
-#: lib/Block/FbStream.php:65
+#: lib/Block/FbStream.php:71
 msgid "Show notifications"
 msgstr "Toon notificaties"
 
-#: config/prefs.php:548
-#, php-format
-msgid "Show the %s Menu on the left?"
-msgstr "%s menu aan de linkerkant weergeven?"
-
-#: themes/simplex/info.php:2
-msgid "Simplex"
-msgstr "Simplex"
-
-#: templates/logintasks/logintasks.html:23 templates/logintasks/mobile.html:25
+#: templates/logintasks/logintasks.html.php:25
+#: templates/logintasks/smartmobile.html.php:33
 msgid "Skip Login Tasks"
 msgstr "Aanmeldtaken overslaan"
 
@@ -2686,11 +2739,11 @@ msgstr "Aanmeldtaken overslaan"
 msgid "Small"
 msgstr "Klein"
 
-#: lib/Block/Metar.php:251
+#: lib/Block/Metar.php:252
 msgid "Snow depth: "
 msgstr "Sneeuwhoogte: "
 
-#: lib/Block/Metar.php:255
+#: lib/Block/Metar.php:256
 msgid "Snow equivalent in water: "
 msgstr "Sneeuwequivalent in water: "
 
@@ -2710,15 +2763,11 @@ msgstr "Zuidelijk halfrond"
 msgid "Spam"
 msgstr "Spam"
 
-#: services/keyboard.php:14
-msgid "Special Character Input"
-msgstr "Speciale karakters invoer"
-
 #: lib/Block/Fortune.php:68
 msgid "Sports"
 msgstr "Sport"
 
-#: lib/Block/Metar.php:60 lib/Block/Weather.php:75
+#: lib/Block/Metar.php:61
 msgid "Standard"
 msgstr "Standaard"
 
@@ -2730,29 +2779,24 @@ msgstr "Star Trek"
 msgid "Start Time"
 msgstr "Begintijd"
 
-#: templates/prefs/activesync.html:2
+#: templates/prefs/activesync.html.php:2
 msgid "State Management"
 msgstr "Status beheer"
 
-#: admin/activesync.php:114 templates/admin/config/index.html:39
-#: templates/prefs/activesync.html:22
+#: admin/activesync.php:115 templates/admin/config/index.html.php:36
+#: templates/prefs/activesync.html.php:22
 msgid "Status"
 msgstr "Status"
 
-#: services/facebook/index.php:147
+#: services/facebook/index.php:232
 msgid "Status unable to be set."
-msgstr ""
+msgstr "Status kan niet worden ingesteld."
 
 #: templates/block/twitter-layout.html.php:24
 msgid "Stream"
-msgstr ""
+msgstr "Stream"
 
-#: util/icon_browser.php:40
-#, php-format
-msgid "Subdirectory \"%s\" not found."
-msgstr "Subdirectory \"%s\" niet gevonden"
-
-#: signup.php:52
+#: signup.php:55
 #, php-format
 msgid ""
 "Submitted request to add \"%s\" to the system. You cannot log in until your "
@@ -2761,30 +2805,30 @@ msgstr ""
 "Verzoek verstuurd om \"%s\" aan het systeem toe te voegen. U kunt niet "
 "aanmelden tot uw verzoek is goedgekeurd."
 
-#: services/facebook/index.php:35
+#: services/facebook/index.php:138
 msgid "Succesfully connected your Facebook account or updated permissions."
-msgstr ""
+msgstr "Succesvol verbonden met uw Facebook account of rechten aangepast."
 
-#: admin/sqlshell.php:97
+#: templates/admin/sqlshell.html.php:15
 msgid "Success"
 msgstr "Succes"
 
-#: admin/signup_confirm.php:85 admin/user.php:105
+#: admin/signup_confirm.php:87 admin/user.php:101
 #, php-format
 msgid "Successfully added \"%s\" to the system."
 msgstr "\"%s\" met succes aan het systeem toegevoegd."
 
-#: admin/user.php:143
+#: admin/user.php:147
 #, php-format
 msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "Data van gebruiker \"%s\" met succes uit het systeem verwijderd."
 
-#: admin/groups.php:65 admin/perms/delete.php:42
+#: admin/groups.php:63 admin/perms/delete.php:42
 #, php-format
 msgid "Successfully deleted \"%s\"."
 msgstr "\"%s\" met succes verwijderd."
 
-#: admin/user.php:123
+#: admin/user.php:124
 #, php-format
 msgid "Successfully removed \"%s\" from the system."
 msgstr "\"%s\" met succes uit het systeem verwijderd."
@@ -2797,18 +2841,12 @@ msgstr "Configuratie met succes teruggezet. Vernieuw om wijzigingen te zien."
 msgid "Successfully saved backup configuration."
 msgstr "Backupconfiguratie met success opgeslagen."
 
-#: admin/config/config.php:60
-#, php-format
-msgid "Successfully saved the backup configuration file %s."
-msgstr "Backupconfiguratie met success opgeslagen in %s."
-
-#: admin/user.php:197
+#: admin/user.php:199
 #, php-format
 msgid "Successfully updated \"%s\""
 msgstr "\"%s\" met succes bijgewerkt"
 
-#: admin/config/config.php:69 admin/config/index.php:52
-#: admin/config/index.php:98
+#: admin/config/index.php:52
 #, php-format
 msgid "Successfully wrote %s"
 msgstr "%s met succes geschreven"
@@ -2821,11 +2859,11 @@ msgstr "Zonsopgang"
 msgid "Sun Set"
 msgstr "Zonsondergang"
 
-#: config/prefs.php:451
+#: config/prefs.php:504
 msgid "Sunday"
 msgstr "Zondag"
 
-#: lib/Block/Weather.php:163 lib/Block/Weather.php:164
+#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
 msgid "Sunrise"
 msgstr "Zonsopgang"
 
@@ -2833,71 +2871,59 @@ msgstr "Zonsopgang"
 msgid "Sunrise/Sunset"
 msgstr "Zonsopgang/Zonsondergang"
 
-#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
+#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
 msgid "Sunset"
 msgstr "Zonsondergang"
 
-#: config/prefs.php:661
+#: lib/Application.php:324
+msgid "Sync all"
+msgstr "Alles synchroniseren"
+
+#: config/prefs.php:720
 msgid "SyncML"
 msgstr "SyncML"
 
 #: lib/Block/Feed.php:18
 msgid "Syndicated Feed"
-msgstr ""
+msgstr "Samengevatte feed"
 
 #: lib/Block/Cloud.php:13
 msgid "Tag Cloud"
 msgstr "Tag cloud"
 
-#: themes/tango-blue/info.php:24
-msgid "Tango Blue"
-msgstr "Tango Blue"
-
-#: config/registry.php:168
+#: config/registry.php:152
 msgid "Tasks"
 msgstr "Taken"
 
-#: themes/gennevilliers/info.php:12
-msgid "Teal"
-msgstr "Teal"
-
-#: lib/Block/Metar.php:263
+#: lib/Block/Metar.php:264
 msgid "Temp for last hour: "
 msgstr "Temperatuur van het afgelopen uur: "
 
-#: lib/Block/Metar.php:187 lib/Block/Weather.php:173
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
 msgid "Temperature"
 msgstr "Temperatuur"
 
-#: lib/Block/Weather.php:241
+#: lib/Block/Weather.php:247
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Temperatuur%s(%sHoog%s/%sLaag%s)"
 
-#: lib/Prefs/Ui.php:478 services/facebook/index.php:40
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:147
 msgid "Temporarily unable to connect with Facebook, Please try again."
-msgstr ""
+msgstr "Kan niet verbinden met Facebook. Probeer het later nog eens."
 
-#: lib/Block/TwitterTimeline.php:104
+#: lib/Block/TwitterTimeline.php:98
 msgid "Temporarily unable to contact Twitter. Please try again later."
-msgstr ""
-
-#: services/keyboard.php:148
-msgid "Text Area"
-msgstr "Tekstgebied"
-
-#: config/prefs.php:561
-msgid "Text Only"
-msgstr "Alleen tekst"
+msgstr "Kan tijdelijk niet verbinden met Twitter. Probeer het later nog eens."
 
 #: config/nls.php:184
 msgid "Thai (TIS-620)"
 msgstr "Thais (TIS-620)"
 
-#: lib/Prefs/Ui.php:712
+#: lib/Prefs/Special/Activesync.php:78
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
-msgstr ""
+msgstr "Volledig wissen voor apparaat id %s is geannuleerd."
 
 #: admin/alarms.php:86
 msgid "The alarm has been deleted."
@@ -2907,7 +2933,7 @@ msgstr "Het alarm is verwijderd."
 msgid "The alarm has been saved."
 msgstr "Het alarm is opgeslagen."
 
-#: admin/config/index.php:103
+#: admin/config/index.php:112
 #, php-format
 msgid ""
 "The configuration for %s cannot be updated automatically. Please update the "
@@ -2916,7 +2942,7 @@ msgstr ""
 "De configuratie voor %s kan niet automatisch worden bijgewerkt. Werk de "
 "configuratie handmatig bij."
 
-#: config/prefs.php:262
+#: config/prefs.php:299
 msgid "The default e-mail address to use with this identity:"
 msgstr "Standaard e-mailadres voor deze identiteit:"
 
@@ -2924,7 +2950,7 @@ msgstr "Standaard e-mailadres voor deze identiteit:"
 msgid "The lock has been removed."
 msgstr "De blokkade is verwijderd."
 
-#: lib/Block/Vatid.php:87
+#: lib/Block/Vatid.php:113
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -2932,7 +2958,7 @@ msgstr ""
 "De lidstaat service kon niet op tijd worden bereikt. Probeer later opnieuw "
 "of met een andere lidstaat."
 
-#: lib/Block/Vatid.php:83
+#: lib/Block/Vatid.php:109
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -2940,44 +2966,36 @@ msgstr ""
 "De lidstaat service is momenteel niet beschikbaar. Probeer later opnieuw of "
 "met een andere lidstaat."
 
-#: lib/Block/Vatid.php:75
+#: lib/Block/Vatid.php:101
 msgid "The provided country code is invalid."
 msgstr "De opgegeven landcode is ongeldig."
 
-#: lib/Prefs/Ui.php:645
-#, php-format
-msgid "The server \"%s\" has been deleted."
-msgstr "De server \"%s\" is verwijderd."
-
-#: lib/Prefs/Ui.php:640
-#, php-format
-msgid "The server \"%s\" has been saved."
-msgstr "De server \"%s\" is opgeslagen."
-
-#: lib/Block/Vatid.php:79
+#: lib/Block/Vatid.php:105
 msgid "The service is currently not available. Try again later."
 msgstr "De dienst is momenteel niet beschikbaar. Probeer later opnieuw."
 
-#: lib/Block/Vatid.php:91
+#: lib/Block/Vatid.php:117
 msgid "The service is currently too busy. Try again later."
 msgstr "De dienst is momenteel te druk. Probeer later opnieuw."
 
-#: admin/user.php:222
+#: admin/user.php:224
 #, php-format
 msgid "The signup request for \"%s\" has been removed."
 msgstr "Het aanmeldingsverzoek voor \"%s\" is verwijderd."
 
-#: admin/signup_confirm.php:39
+#: admin/signup_confirm.php:41
 #, php-format
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Het aanmeldingsverzoek voor \"%s\" is verwijderd."
 
-#: lib/Prefs/Ui.php:721
+#: lib/Prefs/Special/Activesync.php:93
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
 "it connects to the server."
 msgstr ""
+"De toestand voor apparaat id %s is gewist. Het zal bij de volgende "
+"verbinding met de server opnieuw synchroniseren."
 
 #: lib/LoginTasks/Task/AdminCheck.php:47
 msgid ""
@@ -2988,54 +3006,50 @@ msgstr ""
 "veiligheidsoverwegingen het test script uit als u klaar bent met testen (zie "
 "horde/docs/INSTALL)."
 
-#: admin/signup_confirm.php:60 admin/user.php:77
+#: admin/signup_confirm.php:62 admin/user.php:73
 #, php-format
 msgid "The user \"%s\" already exists."
 msgstr "De gebruiker \"%s\" bestaat al."
 
-#: services/shares/edit.php:85 services/shares/edit.php:177
+#: services/shares/edit.php:91 services/shares/edit.php:176
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "Gebruiker \"%s\" bestaat niet."
 
-#: util/icon_browser.php:28
-#, php-format
-msgid "Themes directory \"%s\" not found."
-msgstr "Themadirectory \"%s\" niet gevonden."
-
-#: signup.php:38 signup.php:59 admin/signup_confirm.php:74 admin/user.php:89
+#: signup.php:41 signup.php:62 admin/signup_confirm.php:76 admin/user.php:85
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr "Een probleem met het toevoegen van \"%s\" aan het systeem: %s"
 
-#: admin/user.php:145
+#: admin/user.php:149
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr ""
 "Een probleem met het verwijderen van data van gebruiker \"%s\" uit het "
 "systeem: "
 
-#: admin/user.php:125
+#: admin/user.php:126
 #, php-format
 msgid "There was a problem removing \"%s\" from the system: "
 msgstr "Een probleem met het verwijderen van \"%s\" uit het systeem: "
 
-#: admin/user.php:178
+#: admin/user.php:180
 #, php-format
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Een probleem met het bijwerken van \"%s\": %s"
 
-#: lib/Prefs/Ui.php:724
+#: lib/Prefs/Special/Activesync.php:96
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
+"Er is een fout opgetreden bij de communicatie met de ActiveSync server: %s"
 
-#: lib/Block/TwitterTimeline.php:92 lib/Block/TwitterTimeline.php:108
+#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:102
 #, php-format
 msgid "There was an error contacting Twitter: %s"
-msgstr ""
+msgstr "Er is een fout opgetreden bij het verbinden met Twitter: %s"
 
-#: admin/config/config.php:80
+#: admin/config/config.php:62
 msgid ""
 "There was an error in the configuration form. Perhaps you left out a "
 "required field."
@@ -3043,20 +3057,20 @@ msgstr ""
 "Een fout in het configuratieformulier. Misschien bent u een verplicht veld "
 "vergeten."
 
-#: lib/Block/FbStream.php:135 lib/Block/FbStream.php:161
-#: services/facebook/index.php:62 services/facebook/index.php:79
+#: lib/Block/FbStream.php:147 services/facebook/index.php:174
+#: services/facebook/index.php:191
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr "Er was een tijdelijk probleem met deze actie: %s"
 
-#: services/facebook/index.php:37
+#: services/facebook/index.php:142
 msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
 "Er was een tijdelijk probleem met deze Facebook sessie. Probeer later "
 "opnieuw, a.u.b."
 
-#: lib/Application.php:177
+#: lib/Application.php:191
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
@@ -3064,23 +3078,23 @@ msgstr ""
 "Er was een probleem met het verwijderen van globale data voor %s. Details "
 "zijn geregistreerd."
 
-#: services/facebook/index.php:49
+#: services/facebook/index.php:157
 msgid "There was an error with the requested permissions"
 msgstr "Een fout bij het bekijken van het bericht."
 
-#: lib/Block/Vatid.php:102
+#: lib/Block/Vatid.php:79
 msgid "This VAT identification number is invalid."
 msgstr "Dit BTW identificatienummer is ongeldig."
 
-#: lib/Block/Vatid.php:99
+#: lib/Block/Vatid.php:76
 msgid "This VAT identification number is valid."
 msgstr "Dit BTW identificatienummer is geldig."
 
-#: config/registry.php:232
+#: config/registry.php:223
 msgid "Tickets"
 msgstr "Tickets"
 
-#: config/registry.php:276
+#: config/registry.php:269
 msgid "Time Tracking"
 msgstr "Tijdplanning"
 
@@ -3092,7 +3106,7 @@ msgstr "Tijdformaat"
 msgid "Timestamp or unknown"
 msgstr "Tijdstempel of onbekend"
 
-#: templates/prefs/syncml.html:2
+#: templates/prefs/syncml.html.php:2
 msgid "Timestamps of successful synchronization sessions"
 msgstr "Tijdstempels van geslaagde synchronisatie sessies"
 
@@ -3109,7 +3123,7 @@ msgstr ""
 "overeenkomst te corrigeren selecteer een veld uit onderstaande lijsten en "
 "klik op \"Paar verwijderen\"."
 
-#: templates/prefs/addressbooks.html:10
+#: templates/prefs/addressbooks.html:8
 msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
@@ -3117,17 +3131,17 @@ msgstr ""
 "Om meerdere onderdelen te selecteren, houd de Control (PC) of Command (Mac) "
 "toets vast tijdens klikken."
 
-#: lib/Block/Weather.php:274
+#: lib/Block/Weather.php:280
 msgid "Today"
 msgstr "Vandaag"
 
-#: lib/Block/Weather.php:276
+#: lib/Block/Weather.php:282
 msgid "Tomorrow"
 msgstr "Morgen"
 
-#: login.php:223
-msgid "Traditional"
-msgstr "Traditioneel"
+#: config/prefs.php:755
+msgid "Top"
+msgstr "Bovenkant"
 
 #: lib/Block/Fortune.php:70
 msgid "Translations"
@@ -3141,46 +3155,41 @@ msgstr "Turks (ISO-8859-9)"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: config/prefs.php:620
+#: config/prefs.php:668
 msgid "Twitter Integration"
 msgstr "Integratie met Twitter"
 
-#: lib/Block/TwitterTimeline.php:41
+#: lib/Block/TwitterTimeline.php:35
 msgid "Twitter Timeline"
 msgstr "Twitter tijdslijn"
 
-#: lib/Block/TwitterTimeline.php:57
+#: lib/Block/TwitterTimeline.php:51
 #, php-format
 msgid "Twitter Timeline for %s"
 msgstr "Twitter tijdslijn voor %s"
-
-#: services/keyboard.php:108
-msgid "U characters"
-msgstr "U tekens"
 
 #: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
 
-#: services/twitter/index.php:78
-#, php-format
-msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
-msgstr ""
-
-#: admin/groups.php:68 admin/perms/delete.php:45
+#: admin/groups.php:66 admin/perms/delete.php:45
 #, php-format
 msgid "Unable to delete \"%s\": %s."
 msgstr "Kan \"%s\": %s niet verwijderen"
 
-#: services/facebook/index.php:172
+#: services/facebook/index.php:257
 msgid "Unable to set like."
-msgstr ""
+msgstr "Niet in staat "
 
-#: templates/prefs/end.html:4
+#: services/facebook/index.php:126
+msgid "Unable to validate the request token. Please try your request again."
+msgstr "Kan het verzoek token niet valideren. Probeer het verzoek nogmaals."
+
+#: templates/prefs/end.html:5
 msgid "Undo Changes"
 msgstr "Maak wijzigingen ongedaan"
 
-#: lib/Prefs/Ui.php:242
+#: templates/prefs/category.html.php:19
 msgid "Unfiled"
 msgstr "Onbenoemd"
 
@@ -3188,15 +3197,19 @@ msgstr "Onbenoemd"
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/Metar.php:57 lib/Block/Weather.php:72
+#: lib/Block/Metar.php:58 lib/Block/Weather.php:72
 msgid "Units"
 msgstr "Eenheden"
 
-#: admin/locks.php:41
+#: admin/sessions.php:36
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: admin/locks.php:43
 msgid "Unlock"
 msgstr "Unlock"
 
-#: lib/Block/FbStream.php:157 templates/admin/user/list.inc:36
+#: lib/Block/FbStream.php:142 templates/admin/user/list.inc:34
 msgid "Update"
 msgstr "Bijwerken"
 
@@ -3205,16 +3218,16 @@ msgstr "Bijwerken"
 msgid "Update %s"
 msgstr "%s bijwerken"
 
-#: admin/config/index.php:168 admin/config/index.php:263
+#: admin/config/index.php:183 admin/config/index.php:298
 #, php-format
 msgid "Update %s schema"
 msgstr "%s bijwerken"
 
-#: templates/admin/config/index.html:19
+#: templates/admin/config/index.html.php:19
 msgid "Update all DB schemas"
 msgstr "Alle DB schema's bijwerken"
 
-#: templates/admin/config/index.html:11
+#: templates/admin/config/index.html.php:11
 msgid "Update all configurations"
 msgstr "Werk koppelingen bij"
 
@@ -3222,54 +3235,50 @@ msgstr "Werk koppelingen bij"
 msgid "Update user"
 msgstr "Gebruiker bijwerken."
 
-#: admin/groups.php:108 admin/perms/edit.php:110 services/shares/edit.php:248
+#: admin/groups.php:105 admin/perms/edit.php:110 services/shares/edit.php:239
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "\"%s\" is bijgewerkt."
 
-#: admin/config/index.php:118
+#: admin/config/index.php:127
 #, php-format
 msgid "Updated schema for %s."
 msgstr "Bijwerken schema voor %s."
 
-#: admin/config/index.php:317
+#: admin/config/index.php:395
 msgid "Upload"
 msgstr "Upload"
 
-#: admin/config/index.php:325
+#: admin/config/index.php:403
 msgid "Uploaded all application configuration files to the server."
 msgstr "Alle toepassing setupbestanden naar de server geupload."
 
-#: config/prefs.php:640
+#: config/prefs.php:695
 msgid "Use if name/password is different for IMSP server."
 msgstr "Gebruiken wanneer naam/wachtwoord verschilt met IMSP server."
 
-#: templates/admin/groups/edit.inc:24 templates/admin/groups/edit.inc:67
+#: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
 #: templates/admin/locks/list.html.php:12
 msgid "User"
 msgstr "Gebruiker"
 
-#: admin/user.php:237
+#: admin/user.php:240
 msgid "User Administration"
 msgstr "Gebruikersbeheer"
-
-#: lib/Prefs/Ui.php:404
-msgid "User Agent:"
-msgstr "User agent:"
 
 #: lib/Block/Account.php:68
 msgid "User Name"
 msgstr "Gebruikersnaam"
 
-#: signup.php:67
+#: signup.php:74
 msgid "User Registration"
 msgstr "Gebruikersregistratie"
 
-#: signup.php:19 admin/signup_confirm.php:18
+#: signup.php:22 admin/signup_confirm.php:23
 msgid "User Registration has been disabled for this site."
 msgstr "Gebruikersregistratie is uitgeschakeld op deze site."
 
-#: signup.php:27 admin/signup_confirm.php:25
+#: signup.php:30 admin/signup_confirm.php:30
 msgid "User Registration is not properly configured for this site."
 msgstr "Gebruikersregistratie is niet geconfigureerd op deze site."
 
@@ -3277,21 +3286,17 @@ msgstr "Gebruikersregistratie is niet geconfigureerd op deze site."
 msgid "User account not found"
 msgstr "Gebruiker niet gevonden."
 
-#: templates/shares/edit.inc:238
+#: templates/shares/edit.inc:241
 msgid "User to add:"
 msgstr "Gebruiker om toe te voegen:"
 
-#: login.php:189 admin/config/index.php:318 admin/user.php:37
-#: admin/user.php:53 services/resetpassword.php:30
-#: templates/admin/user/approve.inc:22
+#: login.php:206 admin/config/index.php:396 admin/user.php:36
+#: admin/user.php:52 services/resetpassword.php:33
+#: templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: lib/Prefs/Ui.php:301
-msgid "Username:"
-msgstr "Gebruikersnaam:"
-
-#: templates/admin/groups/edit.inc:60
+#: templates/admin/groups/edit.inc:59
 msgid "Users"
 msgstr "Gebruikers"
 
@@ -3303,19 +3308,19 @@ msgstr "Gebruikers in het systeem:"
 msgid "VAT id number verification"
 msgstr "BTW idnummer verificatie"
 
-#: lib/Block/Vatid.php:39
+#: lib/Block/Vatid.php:40
 msgid "VAT identification number:"
 msgstr "BTW identificatienummer:"
 
-#: lib/Block/Vatid.php:107
+#: lib/Block/Vatid.php:84
 msgid "VAT number"
 msgstr "BTW nummer"
 
-#: templates/admin/config/index.html:46
+#: templates/admin/config/index.html.php:43
 msgid "Version Check"
 msgstr "Versie controle"
 
-#: config/registry.php:221
+#: config/registry.php:212
 msgid "Version Control"
 msgstr "Versiebeheer"
 
@@ -3327,7 +3332,7 @@ msgstr "Vietnamees (VISCII)"
 msgid "View an external web page"
 msgstr "Bekijk een externe webpagina"
 
-#: lib/Block/Metar.php:182 lib/Block/Weather.php:219
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
 msgid "Visibility"
 msgstr "Zicht"
 
@@ -3339,19 +3344,23 @@ msgstr "Waarschuwing"
 msgid "Weather"
 msgstr "Weer"
 
-#: lib/Block/Weather.php:333 lib/Block/Weather.php:341
+#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
 msgid "Weather data provided by"
 msgstr "Weerbericht gegevens geleverd door"
 
-#: config/registry.php:327
+#: config/registry.php:329
 msgid "Web Site"
 msgstr "Website"
 
-#: services/portal/mobile.php:29
+#: lib/Application.php:300
+msgid "Web browser"
+msgstr "Browser"
+
+#: services/portal/smartmobile.php:44
 msgid "Welcome"
 msgstr "Welkom"
 
-#: templates/portal/mobile.inc:5
+#: templates/portal/smartmobile.inc:3
 #, php-format
 msgid "Welcome, %s"
 msgstr "Welkom, %s"
@@ -3364,14 +3373,14 @@ msgstr "Westers (ISO-8859-1)"
 msgid "Western (ISO-8859-15)"
 msgstr "Westers (ISO-8859-15)"
 
-#: config/prefs.php:504
+#: config/prefs.php:554
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Welke toepassing dient %s weer te geven na aanmelding?"
 
-#: lib/Block/TwitterTimeline.php:113
+#: lib/Block/TwitterTimeline.php:107
 msgid "What are you working on now?"
-msgstr ""
+msgstr "Waar bent u nu mee bezig?"
 
 #: templates/data/csvinfo.inc:14
 msgid "What is the delimiter character?"
@@ -3381,11 +3390,7 @@ msgstr "Wat is het scheidingskarakter?"
 msgid "What is the quote character?"
 msgstr "Wat is het citaatkarakter?"
 
-#: lib/Block/FbStream.php:143
-msgid "What's on your mind?"
-msgstr ""
-
-#: config/prefs.php:454
+#: config/prefs.php:507
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Welke dag wilt u weergegeven hebben als de eerste dag van de week?"
 
@@ -3393,44 +3398,56 @@ msgstr "Welke dag wilt u weergegeven hebben als de eerste dag van de week?"
 msgid "Which phases"
 msgstr "Welke schijngestalten"
 
-#: config/prefs.php:554
+#: config/prefs.php:608
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "Breedte van %s menu aan de linkerkant:"
 
-#: config/registry.php:349
+#: lib/Application.php:288
+msgid "Wifi"
+msgstr "Wifi"
+
+#: config/registry.php:200
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:204 lib/Block/Weather.php:257
+#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
 msgid "Wind"
 msgstr "Wind"
 
-#: lib/Block/Metar.php:66
+#: lib/Block/Metar.php:67
 msgid "Wind speed in knots"
 msgstr "Windsnelheid in knopen"
 
-#: lib/Block/Metar.php:129
+#: lib/Block/Metar.php:130
 msgid "Wind:"
 msgstr "Wind:"
 
-#: admin/activesync.php:183 templates/prefs/activesync.html:28
+#: admin/activesync.php:182 templates/prefs/activesync.html.php:29
 msgid "Wipe"
 msgstr "Wissen"
 
-#: admin/activesync.php:164 lib/Prefs/Ui.php:387
+#: templates/prefs/activesync.html.php:32
+msgid "Wipe Pending"
+msgstr "Volledig wissen in behandeling genomen"
+
+#: admin/activesync.php:163
 msgid "Wipe is pending"
-msgstr ""
+msgstr "Volledig wissen in behandeling genomen"
 
 #: lib/Block/Fortune.php:71
 msgid "Wisdom"
 msgstr "Wijsheid"
 
+#: templates/block/facebook_story.html.php:48
+msgid "With "
+msgstr "Met"
+
 #: lib/Block/Fortune.php:72
 msgid "Work"
 msgstr "Werk"
 
-#: config/registry.php:244
+#: config/registry.php:235
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3441,68 +3458,78 @@ msgstr "X-Ref"
 msgid "YY"
 msgstr "JJ"
 
-#: templates/logintasks/logintasks.html:26 templates/logintasks/mobile.html:32
+#: templates/logintasks/logintasks.html.php:28
+#: templates/logintasks/smartmobile.html.php:42
 msgid "Yes, I Agree"
 msgstr "Ja, ik accepteer de voorwaarden"
 
-#: services/facebook/index.php:118 services/facebook/index.php:166
+#: services/facebook/index.php:89 services/facebook/index.php:251
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "U en %d persoon vinden dit leuk"
+msgstr[1] "U en %d personen vinden dit leuk"
 
-#: lib/Api.php:248
+#: lib/Api.php:255
 msgid "You are not allowed to add groups."
 msgstr "U mag geen groepen maken."
 
-#: lib/Api.php:365
+#: lib/Api.php:353
 msgid "You are not allowed to add shares."
 msgstr "U mag geen shares maken."
 
-#: lib/Api.php:291 lib/Api.php:314
+#: lib/Api.php:290 lib/Api.php:309
 msgid "You are not allowed to change groups."
 msgstr "U mag geen groepen wijzigen."
 
-#: lib/Api.php:446 lib/Api.php:483 lib/Api.php:517 lib/Api.php:542
+#: lib/Api.php:427 lib/Api.php:460 lib/Api.php:490 lib/Api.php:511
 msgid "You are not allowed to change shares."
 msgstr "U mag geen shares wijzigen."
 
-#: lib/Api.php:270
+#: lib/Api.php:273
 msgid "You are not allowed to delete groups."
 msgstr "U mag geen groepen verwijderen."
 
-#: lib/Api.php:390
+#: lib/Api.php:374
 msgid "You are not allowed to delete shares."
 msgstr "U mag geen shares verwijderen."
 
-#: lib/Api.php:674
+#: lib/Api.php:642
 msgid "You are not allowed to list groups of shares."
 msgstr "U mag geen groepen shares bekijken."
 
-#: lib/Api.php:568 lib/Api.php:606
+#: lib/Api.php:533 lib/Api.php:571
 msgid "You are not allowed to list share permissions."
 msgstr "U mag geen share machtigingen bekijken."
 
-#: lib/Api.php:415
+#: lib/Api.php:395
 msgid "You are not allowed to list shares."
 msgstr "U mag geen shares bekijken."
 
-#: lib/Api.php:337
+#: lib/Api.php:329
 msgid "You are not allowed to list users of groups."
 msgstr "U mag geen groepen gebruikers bekijken."
 
-#: lib/Api.php:644
+#: lib/Api.php:610
 msgid "You are not allowed to list users of shares."
 msgstr "U mag geen gebruikers van shares bekijken."
 
-#: lib/Block/FbStream.php:136 lib/Block/FbStream.php:162
-#: services/facebook/index.php:63 services/facebook/index.php:80
+#: lib/Block/FbStream.php:106
+#, php-format
+msgid ""
+"You are not connected to your Facebook account. You should check your "
+"Facebook settings in your %s."
+msgstr ""
+"U bent niet aangemeld bij uw Facebook account. Controleer uw Facebook "
+"instellingen in uw %s."
+
+#: lib/Block/FbStream.php:148 services/facebook/index.php:175
+#: services/facebook/index.php:192
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
-msgstr ""
+msgstr "U kunt ook uw Facebook instellingen in uw %s controleren."
 
-#: lib/LoginTasks/Task/TosAgreement.php:64
+#: lib/LoginTasks/Task/TosAgreement.php:66
 msgid ""
 "You did not agree to the Terms of Service agreement, so you were not allowed "
 "to login."
@@ -3510,44 +3537,35 @@ msgstr ""
 "U bent niet akkoord gegaan met de gebruiksovereenkomst, dus u kunt niet "
 "aanmelden."
 
-#: login.php:320
+#: login.php:312
 msgid "You have been logged out."
 msgstr "U bent afgemeld."
 
-#: services/facebook/index.php:47
+#: services/facebook/index.php:155
 msgid "You have denied the requested permissions."
-msgstr ""
+msgstr "U heeft de gevraagde toestemming geweigerd."
 
-#: lib/Block/FbStream.php:97
-#, php-format
-msgid ""
-"You have not properly connected your Facebook account with Horde. You should "
-"check your Facebook settings in your %s."
-msgstr ""
-
-#: lib/Block/TwitterTimeline.php:169
+#: lib/Block/TwitterTimeline.php:160
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
 "check your Twitter settings in your %s."
 msgstr ""
+"Uw Twitter account is niet gekoppeld met Horde. Controleer uw Twitter "
+"instellingen in uw %s."
 
-#: services/facebook/index.php:120 services/facebook/index.php:160
-#: services/facebook/index.php:168
+#: services/facebook/index.php:92 services/facebook/index.php:245
+#: services/facebook/index.php:253
 msgid "You like this"
-msgstr ""
+msgstr "U vind dit leuk"
 
-#: templates/problem/problem.inc:11
+#: services/problem.php:155
 msgid "You must describe the problem before you can send the problem report."
 msgstr ""
 "U dient het probleem te beschrijven, voordat u het probleemrapport kunt "
 "verzenden."
 
-#: lib/Prefs/Ui.php:643
-msgid "You must select an server to be deleted."
-msgstr "U dient een server te selecteren om te verwijderen."
-
-#: admin/user.php:139
+#: admin/user.php:142
 msgid "You must specify a username to clear out."
 msgstr "U dient een gebruikersnaam op te geven om te wissen."
 
@@ -3555,24 +3573,24 @@ msgstr "U dient een gebruikersnaam op te geven om te wissen."
 msgid "You must specify a username to remove."
 msgstr "U dient een gebruikersnaam op te geven om te verwijderen."
 
-#: admin/user.php:75
+#: admin/user.php:71
 msgid "You must specify the username to add."
 msgstr "U dient een gebruikersnaam op te geven om toe te voegen."
 
-#: admin/user.php:169
+#: admin/user.php:171
 msgid "You must specify the username to update."
 msgstr "U dient een gebruikersnaam op te geven om bij te kunnen werken."
 
-#: templates/problem/problem.inc:34
+#: templates/problem/problem.inc:13
 msgid "Your Email Address"
 msgstr "Uw e-mailadres"
 
-#: config/prefs.php:231 config/prefs.php:295 config/prefs.php:329
-#: config/prefs.php:462
+#: config/prefs.php:271 config/prefs.php:333 config/prefs.php:371
+#: config/prefs.php:515
 msgid "Your Information"
 msgstr "Uw informatie"
 
-#: login.php:312
+#: login.php:300
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3580,7 +3598,7 @@ msgstr ""
 "Uw internetadres is gewijzigd sinds het begin van uw sessie. Om uw "
 "veiligheid te beschermen, dient u zich opnieuw aan te melden."
 
-#: templates/problem/problem.inc:30
+#: templates/problem/problem.inc:9
 msgid "Your Name"
 msgstr "Uw naam:"
 
@@ -3602,7 +3620,7 @@ msgstr ""
 "Het weergeven van een gebruikerslijst wordt niet ondersteund door uw "
 "authenticatie backend, of deze optie is om andere redenen uitgeschakeld."
 
-#: login.php:316
+#: login.php:304
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3610,36 +3628,32 @@ msgstr ""
 "Uw browser lijkt te zijn gewijzigd sinds het begin van uw sessie. Om uw "
 "veiligheid te beschermen, dient u zich opnieuw aan te melden."
 
-#: lib/Block/Iframe.php:67
+#: lib/Block/Iframe.php:65
 msgid "Your browser does not support this feature."
 msgstr "Uw browser ondersteunt deze mogelijkheid niet."
 
-#: config/prefs.php:366
+#: config/prefs.php:419
 msgid "Your current time zone:"
 msgstr "Uw huidige tijdzone:"
 
-#: config/prefs.php:253
+#: config/prefs.php:291
 msgid "Your full name:"
 msgstr "Uw volledige naam:"
 
-#: login.php:336
-msgid "Your login has been locked."
-msgstr "Uw wachtwoord is geblokkeerd."
-
-#: login.php:332
+#: login.php:324
 msgid "Your login has expired."
 msgstr "Uw wachtwoord is verlopen."
 
-#: services/resetpassword.php:79
+#: services/resetpassword.php:82
 #, php-format
 msgid "Your new password for %s is: %s"
 msgstr "Uw nieuwe wachtwoord voor %s is: %s"
 
-#: services/resetpassword.php:78
+#: services/resetpassword.php:89
 msgid "Your password has been reset"
 msgstr "Uw wachtwoord is gereset"
 
-#: services/resetpassword.php:92
+#: services/resetpassword.php:99
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
@@ -3647,7 +3661,7 @@ msgstr ""
 "Uw wachtwoord is vernieuwd, maar kon niet naar u worden verzonden. Neem "
 "contact op met de beheerder."
 
-#: services/resetpassword.php:87
+#: services/resetpassword.php:94
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
@@ -3655,111 +3669,105 @@ msgstr ""
 "Uw wachtwoord is vernieuwd, controleer uw e-mail en meld aan met uw nieuwe "
 "wachtwoord."
 
+#: services/changepassword.php:50
+msgid ""
+"Your password has been succesfully changed. You need to re-login to the "
+"system with your new password."
+msgstr ""
+"Uw wachtwoord is succesvol gewijzigd. U dient opnieuw aan te melden bij het "
+"systeem met uw nieuwe wachtwoord."
+
 #: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
 msgstr "Uw wachtwoord is verlopen"
 
-#: login.php:163
+#: login.php:185
 msgid "Your password has expired."
 msgstr "Uw wachtwoord is verlopen"
 
-#: lib/Prefs/Ui.php:298
-msgid "Your remote servers:"
-msgstr "Uw servers op afstand:"
+#: login.php:296
+msgid "Your session has expired. Please login again."
+msgstr "Uw sessie is verlopen. Opnieuw aanmelden, a.u.b."
 
 #: login.php:308
-msgid "Your session has expired. Please login again."
+msgid ""
+"Your session length has exceeded the maximum amount of time allowed. Please "
+"login again."
 msgstr "Uw sessie is verlopen. Opnieuw aanmelden, a.u.b."
 
 #: lib/Block/Fortune.php:73
 msgid "Zippy"
 msgstr "Zippy"
 
-#: services/problem.php:109
+#: services/problem.php:112
 msgid "[Problem Report]"
 msgstr "[Probleemrapport]"
 
-#: admin/sessions.php:43
-msgid "[Unknown]"
-msgstr "[Onbekend]"
-
-#: lib/Api.php:52
+#: lib/Api.php:65
 msgid "_Alarms"
 msgstr "_Alarmen"
 
-#: lib/Api.php:77
+#: lib/Api.php:85
 msgid "_CLI"
 msgstr "_CLI"
 
-#: lib/Api.php:27
+#: lib/Api.php:40
 msgid "_Configuration"
 msgstr "_Configuratie"
 
-#: lib/Api.php:57
-msgid "_DataTree"
-msgstr "_DataTree"
-
-#: lib/Api.php:37
+#: lib/Api.php:50
 msgid "_Groups"
 msgstr "_Groepen"
 
-#: lib/Application.php:77
-msgid "_Home"
-msgstr "_Home"
-
-#: lib/Api.php:47
+#: lib/Api.php:60
 msgid "_Locks"
 msgstr "_Locks"
 
-#: lib/Api.php:42
+#: lib/Api.php:55
 msgid "_Permissions"
 msgstr "_Rechten"
 
-#: lib/Api.php:32
+#: lib/Api.php:45
 msgid "_Users"
 msgstr "Ge_bruikers"
 
-#: lib/Block/Weather.php:313
-msgid "at"
-msgstr "met"
-
-#: services/problem.php:56
+#: services/problem.php:59
 msgid "attachment"
 msgstr "bijlage"
 
-#: lib/Block/Metar.php:145 lib/Block/Metar.php:331
+#: lib/Block/Metar.php:146 lib/Block/Metar.php:332
 #, php-format
 msgid "calm"
 msgstr "kalm"
 
-#: lib/Block/Metar.php:147 lib/Block/Metar.php:333 lib/Block/Metar.php:359
+#: lib/Block/Metar.php:148 lib/Block/Metar.php:334 lib/Block/Metar.php:360
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "uit %s (%s) met %s %s"
 
-#: lib/Block/Weather.php:208 lib/Block/Weather.php:316
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
 msgid "gusting"
 msgstr "windstoten"
 
-#: admin/config/diff.php:56 admin/config/diff.php:68
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "inline"
 msgstr "inline"
 
-#: lib/Block/FbStream.php:97 lib/Block/FbStream.php:136
-#: lib/Block/FbStream.php:162 lib/Block/TwitterTimeline.php:169
-#: services/facebook/index.php:63 services/facebook/index.php:80
+#: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
+#: lib/Block/TwitterTimeline.php:160 services/facebook/index.php:175
+#: services/facebook/index.php:192
 msgid "preferences"
 msgstr "voorkeuren"
 
-#: admin/config/config.php:90
+#: admin/config/config.php:75
 msgid "show differences"
 msgstr "toon verschillen"
 
-#: admin/user.php:40 admin/user.php:54
+#: admin/user.php:39 admin/user.php:53
 msgid "type the password twice to confirm"
 msgstr "voer, ter bevestiging, het wachtwoord twee maal in"
 
-#: admin/config/diff.php:56 admin/config/diff.php:68
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "unified"
 msgstr "unified"
 

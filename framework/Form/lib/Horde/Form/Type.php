@@ -29,6 +29,9 @@ class Horde_Form_Type
         return $this->setProperty($property, $value);
     }
 
+    /**
+     * Initialize (kind of constructor) - Parameter list may vary on overloading
+     */
     function init()
     {
     }
@@ -215,6 +218,9 @@ class Horde_Form_Type_number extends Horde_Form_Type {
 
 }
 
+/**
+ * A Form type for an input line validating to an integer
+ */
 class Horde_Form_Type_int extends Horde_Form_Type {
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -296,6 +302,9 @@ class Horde_Form_Type_intlist extends Horde_Form_Type {
 
 }
 
+/**
+ * A Text Box form type
+ */
 class Horde_Form_Type_text extends Horde_Form_Type {
 
     var $_regex;
@@ -429,6 +438,21 @@ class Horde_Form_Type_stringarray extends Horde_Form_Type_stringlist {
 
 class Horde_Form_Type_phone extends Horde_Form_Type {
 
+    /**
+     * The size of the input field.
+     *
+     * @var integer
+     */
+    var $_size;
+
+    /**
+     * @param integer $size  The size of the input field.
+     */
+    function init($size = 15)
+    {
+        $this->_size = $size;
+    }
+
     function isValid(&$var, &$vars, $value, &$message)
     {
         if (!strlen(trim($value))) {
@@ -444,12 +468,23 @@ class Horde_Form_Type_phone extends Horde_Form_Type {
         return true;
     }
 
+    function getSize()
+    {
+        return $this->_size;
+    }
+
     /**
      * Return info about field type.
      */
     function about()
     {
-        return array('name' => Horde_Form_Translation::t("Phone number"));
+        return array(
+            'name' => Horde_Form_Translation::t("Phone number"),
+            'params' => array(
+                'size'      => array('label' => Horde_Form_Translation::t("Size"),
+                                     'type'  => 'int'),
+            ),
+        );
     }
 
 }
@@ -1005,9 +1040,15 @@ class Horde_Form_Type_image extends Horde_Form_Type {
         }
     }
 
+    /**
+     * @param Horde_Form_Variable $var  The Form field object to check
+     * @param Horde_Variables $vars     The form state to check this field for
+     * @param array $value              The field value array - should contain a key ['hash'] which holds the key for the image on temp storage
+     * @param something  $message       Not clear what this field does
+     */
+
     function isValid(&$var, &$vars, $value, &$message)
     {
-
         if ($vars->get('remove_' . $var->getVarName())) {
             return true;
         }
@@ -1097,8 +1138,11 @@ class Horde_Form_Type_image extends Horde_Form_Type {
 
     /**
      * Gets the upload and sets up the upload data array. Either
-     * fetches an upload done with this submit or retries stored
+     * fetches an upload done with this submit or retrieves stored
      * upload info.
+     * @param Horde_Variables $vars     The form state to check this field for
+     * @param Horde_Form_Variable $var  The Form field object to check
+     *
      */
     function _getUpload(&$vars, &$var)
     {
@@ -1229,6 +1273,8 @@ class Horde_Form_Type_image extends Horde_Form_Type {
     /**
      * Returns the current image information.
      *
+     * @param Horde_Variables $vars     The form state to check this field for
+     * @param Horde_Form_Variable $var  The Form field object to check
      * @return array  The current image hash.
      */
     function getImage($vars, $var)
@@ -1325,7 +1371,7 @@ class Horde_Form_Type_link extends Horde_Form_Type {
 
     /**
      * List of hashes containing link parameters. Possible keys: 'url', 'text',
-     * 'target', 'onclick', 'title', 'accesskey'.
+     * 'target', 'onclick', 'title', 'accesskey', 'class'.
      *
      * @var array
      */
@@ -1366,7 +1412,12 @@ class Horde_Form_Type_link extends Horde_Form_Type {
                     'type' => 'text'),
                 'accesskey' => array(
                     'label' => Horde_Form_Translation::t("Link access key"),
-                    'type' => 'text')));
+                    'type' => 'text'),
+                'class' => array(
+                    'label' => Horde_Form_Translation::t("Link CSS class"),
+                    'type' => 'text')
+            )
+        );
     }
 
 }
@@ -1416,6 +1467,13 @@ class Horde_Form_Type_email extends Horde_Form_Type {
     var $_delimiters = ',';
 
     /**
+     * The size of the input field.
+     *
+     * @var integer
+     */
+    var $_size;
+
+    /**
      * @param boolean $allow_multi   Allow multiple addresses?
      * @param boolean $strip_domain  Protect address from spammers?
      * @param boolean $link_compose  Link the email address to the compose page
@@ -1423,16 +1481,18 @@ class Horde_Form_Type_email extends Horde_Form_Type {
      * @param string $link_name      The name to use when linking to the
      *                               compose page.
      * @param string $delimiters     Character to split multiple addresses with.
+     * @param integer $size          The size of the input field.
      */
     function init($allow_multi = false, $strip_domain = false,
                   $link_compose = false, $link_name = null,
-                  $delimiters = ',')
+                  $delimiters = ',', $size = null)
     {
         $this->_allow_multi = $allow_multi;
         $this->_strip_domain = $strip_domain;
         $this->_link_compose = $link_compose;
         $this->_link_name = $link_name;
         $this->_delimiters = $delimiters;
+        $this->_size = $size;
     }
 
     /**
@@ -1606,6 +1666,16 @@ class Horde_Form_Type_email extends Horde_Form_Type {
         return substr($result, 0, 1) == '2';
     }
 
+    function getSize()
+    {
+        return $this->_size;
+    }
+
+    function allowMulti()
+    {
+        return $this->_allow_multi;
+    }
+
     /**
      * Return info about field type.
      */
@@ -1629,6 +1699,9 @@ class Horde_Form_Type_email extends Horde_Form_Type {
                 'delimiters' => array(
                     'label' => Horde_Form_Translation::t("Character to split multiple addresses with"),
                     'type' => 'text'),
+                'size' => array(
+                    'label' => Horde_Form_Translation::t("Size"),
+                    'type'  => 'int'),
             ),
         );
     }
@@ -1873,7 +1946,7 @@ class Horde_Form_Type_email extends Horde_Form_Type {
 
 
         #
-        # restrictuions on domain-literals from RFC2821 section 4.1.3
+        # restrictions on domain-literals from RFC2821 section 4.1.3
         #
 
         if (strlen($bits['domain-literal'])){
@@ -2172,12 +2245,19 @@ class Horde_Form_Type_passwordconfirm extends Horde_Form_Type {
     }
 
 }
-
+/**
+ * Horde_Form_Type for selecting a single value out of a list
+ * For selecting multiple values, use Horde_Form_Type_multienum
+ */
 class Horde_Form_Type_enum extends Horde_Form_Type {
 
     var $_values;
     var $_prompt;
-
+    /**
+     * Initialize (kind of constructor)
+     * @param array $values            A hash map where the key is the internal 'value' to process and the value is the caption presented to the user
+     * @param string|boolean  $prompt  A null value text to prompt user selecting a value. Use a default if boolean true, else use the supplied string. No prompt on false.
+     */
     function init($values, $prompt = null)
     {
         $this->setValues($values);
@@ -2312,10 +2392,20 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
 
 }
 
+
+/**
+ * A Horde_Form_Type_multienum for a multiselect box
+ * @see Horde_Form_Type_enum
+ */
 class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
 
     var $size = 5;
 
+    /**
+     * Initialize (kind of constructor)
+     * @param array $values  A hash map where the key is the internal 'value' to process and the value is the caption presented to the user
+     * @param integer $size  The number of rows the multienum should display before scrolling
+     */
     function init($values, $size = null)
     {
         if (!is_null($size)) {

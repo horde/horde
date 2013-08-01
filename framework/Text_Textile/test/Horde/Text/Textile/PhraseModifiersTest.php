@@ -6,7 +6,7 @@
  */
 
 /** Horde_Text_Textile_TestCase */
-require_once dirname(__FILE__) . '/TestCase.php';
+require_once __DIR__ . '/TestCase.php';
 
 /**
  * These tests correspond to "3. Quick Phrase Modifiers" from http://hobix.com/textile/.

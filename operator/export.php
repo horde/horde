@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $operator = Horde_Registry::appInit('operator');
 
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
@@ -50,12 +50,10 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     }
 }
 
-$title = _("Export Call Detail Records");
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require OPERATOR_TEMPLATES . '/menu.inc';
+$page_output->header(array(
+    'title' => _("Export Call Detail Records")
+));
+$notification->notify(array('listeners' => 'status'));
 $notification->notify();
-$form->renderActive($renderer, $vars, Horde::url('export.php'), 'post');;
-
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$form->renderActive($renderer, $vars, Horde::url('export.php'), 'post');
+$page_output->footer();

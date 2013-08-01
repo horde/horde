@@ -77,10 +77,22 @@ class Luxor_Lang
 
     function processInclude($frag, $dir)
     {
+        $callback1 = function($match) use($dir)
+        {
+            return stripslashes($match[1])
+                . Luxor::incRef($match[2], 'fixed', $match[2], $dir)
+                . stripslashes($match[3]);
+        };
+        $callback2 = function($match)
+        {
+            return stripslashes($match[1])
+                . Luxor::incRef($match[2], 'fixed', $match[2])
+                . stripslashes($match[3]);
+        };
         return preg_replace(array('/([\'"])(.*?)([\'"])/e',
                                   '/(\\0<)(.*?)(\\0>)/e'),
-                            array('stripslashes(\'$1\') . Luxor::incRef(\'$2\', "fixed", \'$2\', $dir) . stripslashes(\'$3\')',
-                                  'stripslashes(\'$1\') . Luxor::incRef(\'$2\', "fixed", \'$2\') . stripslashes(\'$3\')'),
+                            array($callback1,
+                                  $callback2),
                             $frag);
     }
 }

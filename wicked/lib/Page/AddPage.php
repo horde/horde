@@ -1,24 +1,36 @@
 <?php
 /**
- * Wicked AddPage class.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
  */
-class Wicked_Page_AddPage extends Wicked_Page {
 
+/**
+ * Displays a form to add new pages.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
+ */
+class Wicked_Page_AddPage extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *
      * @var array
      */
     public $supportedModes = array(
-        Wicked::MODE_DISPLAY => true);
+        Wicked::MODE_DISPLAY => true
+    );
 
     /**
      * The page to confirm creation of.
@@ -58,38 +70,29 @@ class Wicked_Page_AddPage extends Wicked_Page {
      */
     public function display()
     {
-        try {
-            $templates = $GLOBALS['wicked']->getMatchingPages('Template', Wicked_Page::MATCH_ENDS);
-        } catch (Wicked_Exception $e) {
-            $GLOBALS['notification']->push(sprintf(_("Error retrieving templates: %s"),
-                                                   $e->getMessage()), 'horde.error');
-            throw $e;
-        }
+        global $injector, $page_output, $wicked;
 
-        $search_results = null;
+        $view = $injector->createInstance('Horde_View');
+        $view->action = Wicked::url('NewPage');
+        $view->formInput = Horde_Util::formInput();
+        $view->referrer = $this->referrer();
+        $view->name = $this->pageName();
         if ($this->_results) {
-            $template = $GLOBALS['injector']->createInstance('Horde_Template');
-            $pages = array();
+            $page_output->addScriptFile('tables.js', 'horde');
+            $view->pages = array();
             foreach ($this->_results as $page) {
                 if (!empty($page['page_history'])) {
                     $page = new Wicked_Page_StandardHistoryPage($page);
                 } else {
                     $page = new Wicked_Page_StandardPage($page);
                 }
-
-                $pages[] = array('author' => $page->author(),
-                                 'created' => $page->formatVersionCreated(),
-                                 'name' => $page->pageName(),
-                                 'context' => false,
-                                 'url' => $page->pageUrl(),
-                                 'version' => $page->version());
+                $view->pages[] = $page->toView();
             }
-            $template->set('pages', $pages, true);
-            $template->set('hits', false, true);
-            $search_results = $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
         }
+        $view->templates = $wicked->getMatchingPages('Template', Wicked_Page::MATCH_ENDS);
+        $view->help = Horde_Help::link('wicked', 'Templates');
 
-        require WICKED_TEMPLATES . '/edit/create.inc';
+        return $view->render('edit/create');
     }
 
     public function pageName()

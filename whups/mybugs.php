@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -8,15 +8,16 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
 // Get refresh interval.
-if ($r_time = $prefs->getValue('summary_refresh_time')) {
-    if (!$browser->hasFeature('xmlhttpreq')) {
-        Horde::metaRefresh($r_time, Horde::url('mybugs.php'));
-    }
+if ($r_time = $prefs->getValue('summary_refresh_time') &&
+    !$browser->hasFeature('xmlhttpreq')) {
+    $page_output->metaRefresh($r_time, Horde::url('mybugs.php'));
 }
+
+Whups::addTopbarSearch();
 
 // Load layout from preferences for authenticated users, and a default
 // block set for guests.
@@ -33,6 +34,8 @@ if (!$registry->isAuthenticated()) {
     )));
 }
 
+Whups::addFeedLink();
+
 $layout = new Horde_Core_Block_Layout_View(
     $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('whups'), 'mybugs_layout')->getLayout(),
     Horde::url('mybugs_edit.php'),
@@ -40,9 +43,10 @@ $layout = new Horde_Core_Block_Layout_View(
 );
 $layout_html = $layout->toHtml();
 
-$title = sprintf(_("My %s"), $registry->get('name'));
 $menuBottom = '<div id="menuBottom"><a href="' . Horde::url('mybugs_edit.php') . '">' . _("Add Content") . '</a></div><div class="clear">&nbsp;</div>';
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
+$page_output->header(array(
+    'title' => sprintf(_("My %s"), $registry->get('name'))
+));
+$notification->notify(array('listeners' => 'status'));
 echo $layout_html;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

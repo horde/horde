@@ -6,10 +6,10 @@
  * local accounts on the local machine.  The exception is the quota support.
  * See that routine for additional comments.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
  * @author  Jan Schneider <jan@horde.org>
@@ -104,7 +104,7 @@ class Horde_Block_Account_Localhost extends Horde_Block_Account_Base
                            $this->getUserName(),
                            $this->_params['grep_path'],
                            $mountPoint);
-        $junk = exec($cmdline, $quota_data, $return_code);
+        exec($cmdline, $quota_data, $return_code);
         if ($return_code == 0 && !empty($quota_data[0])) {
             // In case of quota output wrapping on two lines, we concat the
             // second line of results, if any, here.

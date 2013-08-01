@@ -9,22 +9,28 @@
  */
 
 /**
- * The Nag_TaskForm class provides the form for adding and editing a task.
+ * The Nag_Form_Task class provides the form for adding and editing a task.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
  */
 class Nag_Form_Task extends Horde_Form
 {
-    public $delete;
-
+    /**
+     * Const'r
+     *
+     * @param Horde_Form_Variables $vars  The form variables.
+     * @param string $title               The form title.
+     *
+     * @return Nag_Form_Task
+     */
     public function __construct($vars, $title = '')
     {
         parent::__construct($vars, $title);
 
         $tasklist_enums = array();
         foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $tl_id => $tl) {
-            $tasklist_enums[$tl_id] = $tl->get('name');
+            $tasklist_enums[$tl_id] = Nag::getLabel($tl);
         }
         $tasklist = $vars->get('tasklist_id');
         if (empty($tasklist)) {
@@ -44,6 +50,8 @@ class Nag_Form_Task extends Horde_Form
         $this->addHidden('', 'old_tasklist', 'text', false);
         $this->addHidden('', 'url', 'text', false);
         $this->addVariable(_("Name"), 'name', 'text', true);
+        $this->addHidden('', 'uid', 'text', false);
+        $this->addHidden('', 'owner', 'text', false);
 
         if (!$GLOBALS['prefs']->isLocked('default_tasklist') &&
             count($tasklist_enums) > 1) {
@@ -56,7 +64,11 @@ class Nag_Form_Task extends Horde_Form
         }
 
         if (!$vars->get('mobile')) {
-            $tasks = Nag::listTasks(null, null, null, array($tasklist), Nag::VIEW_FUTURE_INCOMPLETE);
+            $tasks = Nag::listTasks(array(
+                'tasklists' => array($tasklist),
+                'complete' => Nag::VIEW_FUTURE_INCOMPLETE,
+                'include_history' => false)
+            );
             $task_enums = array('' => _("No parent task"));
             $tasks->reset();
             while ($task = $tasks->each()) {
@@ -71,18 +83,15 @@ class Nag_Form_Task extends Horde_Form
             $v->setOption('htmlchars', true);
         }
 
-        if (class_exists('Horde_Form_Type_category')) {
-            $this->addVariable(_("Category"), 'category', 'category', false);
-        } else {
-            $values = Horde_Array::valuesToKeys(Horde_Prefs_CategoryManager::get());
-            $this->addVariable(
-                _("Category"), 'category', 'enum', false, false, false,
-                array($values, _("Unfiled")));
-        }
+        $this->addVariable(_("Tags"), 'tags', 'Nag:NagTags', false);
+
+        // Only display the delete button if this is an existing task and the
+        // user has HORDE_PERMS::DELETE
+        $share = $GLOBALS['nag_shares']->getShare($tasklist);
+        $delete = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && $vars->get('task_id');
 
         if (!$vars->get('mobile')) {
             $users = array();
-            $share = $GLOBALS['nag_shares']->getShare($tasklist);
             $users = $share->listUsers(Horde_Perms::READ);
             $groups = $share->listGroups(Horde_Perms::READ);
             if (count($groups)) {
@@ -129,12 +138,19 @@ class Nag_Form_Task extends Horde_Form
         }
         $this->addVariable(_("Description"), 'desc', 'longtext', false, false, $description);
 
-        $buttons = array(_("Save"));
+        $buttons = array(array('value' => _("Save")));
+        if ($delete) {
+            $buttons[] = array('value' => _("Delete"), 'name' => 'deletebutton', 'class' => 'horde-delete');
+        }
+        if (!$vars->get('task_id')) {
+            $buttons[] = array('value' => _("Save and New"), 'name' => 'savenewbutton', 'class' => 'horde-create');
+        }
         $this->setButtons($buttons);
     }
 
     public function renderActive()
     {
-        return parent::renderActive($this->getRenderer(array('varrenderer_driver' => array('nag', 'nag')), $this->delete), $this->_vars, Horde::url('t/save'), 'post');
+        return parent::renderActive($this->getRenderer(array('varrenderer_driver' => array('nag', 'nag'))), $this->_vars, Horde::url('t/save'), 'post');
     }
+
 }

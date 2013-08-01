@@ -2,7 +2,7 @@
 /**
  * Factory for creating Horde_Lock objects
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @category Horde
  * @package  Core
@@ -14,32 +14,39 @@ class Horde_Core_Factory_Lock extends Horde_Core_Factory_Injector
      * Attempts to return a concrete instance based on the configured driver.
      *
      * @return Horde_Lock  The newly created concrete instance.
-     * @throws Horde_Lock_Exception
+     * @throws Horde_Exception
      */
     public function create(Horde_Injector $injector)
     {
-        $driver = empty($GLOBALS['conf']['lock']['driver'])
-            ? 'Null'
-            : $GLOBALS['conf']['lock']['driver'];
+        global $conf;
 
-        if (strcasecmp($driver, 'None') === 0) {
-            $driver = 'Null';
-        }
+        $driver = empty($conf['lock']['driver'])
+            ? 'null'
+            : $conf['lock']['driver'];
 
         $params = Horde::getDriverConfig('lock', $driver);
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
-        if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+        switch (Horde_String::lower($driver)) {
+        case 'none':
+            $driver = 'null';
+            break;
+
+        case 'nosql':
+            $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'cache');
+            if ($nosql instanceof Horde_Mongo_Client) {
+                $params['mongo_db'] = $nosql;
+                $driver = 'mongo';
+            }
+            break;
+
+        case 'sql':
+            $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'lock');
+            break;
         }
 
-        $driver = Horde_String::ucfirst(basename($driver));
-        $class = 'Horde_Lock_' . $driver;
-
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Lock_Exception('Horde_Lock driver (' . $class . ') not found');
+        $class = $this->_getDriverName($driver, 'Horde_Lock');
+        return new $class($params);
     }
+
 }

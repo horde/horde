@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -16,10 +16,5 @@
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 
-require_once 'Horde/Test/Autoload.php';
-
-/* Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
-
 /** Load stub definitions */
-require_once dirname(__FILE__) . '/Stub/Group.php';
+require_once __DIR__ . '/Stub/Group.php';

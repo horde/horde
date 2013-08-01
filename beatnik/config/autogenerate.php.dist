@@ -2,8 +2,6 @@
 /**
  * Autogenerate template
  *
- * Copyright 2006-2007 Duck <duck@obala.net>
- *
  * NOTE: Template is an multidimensional array.
  *       The first level key define record types
  *       For each type you can specify the replacement behavior and how
@@ -21,12 +19,6 @@
  *                                   'ttl' => 3600);
  *      $template['mx'][] = array('pointer' => 'server2',
  *                                'pref' => 10);
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
- * @author Duck <duck@obala.net>
- * @package Beatnik
  */
 $templates['example'] = array(
     'description' => _("Example Template"),

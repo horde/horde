@@ -1,7 +1,7 @@
 /**
  * Class for managing a HordeMap for manually geocoding images.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -71,12 +71,14 @@ AnselMapEdit = Class.create({
 
     save: function()
     {
-        var params = {
-            'values': 'img=' + this._opts.image_id + '/lat=' + this._marker.getLonLat().lat + '/lng=' + this._marker.getLonLat().lon
-        };
-        new Ajax.Request(this._opts.ajaxuri + '/action=geotag/post=values', {
+        new Ajax.Request(this._opts.ajaxuri, {
             method: 'post',
-            parameters: params,
+            parameters: {
+                action: 'geotag',
+                img: this._opts.image_id,
+                lat: this._marker.getLonLat().lat,
+                lng: this._marker.getLonLat().lon
+            },
             onComplete: function(transport) {
                 if (transport.responseJSON.response > 0) {
                     window.opener.location.href = window.opener.location.href;

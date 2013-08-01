@@ -1,17 +1,12 @@
 <?php
 /**
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/bsd
  */
-
-/**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @category   Horde
@@ -87,7 +82,7 @@ class Horde_Support_InflectorTest extends PHPUnit_Framework_TestCase
 
     public function testTitleize()
     {
-        $this->markTestSkipped();
+        $this->markTestIncomplete();
     }
 
     /**
@@ -178,12 +173,12 @@ class Horde_Support_InflectorTest extends PHPUnit_Framework_TestCase
 
     public function testForeignKey()
     {
-        $this->markTestSkipped();
+        $this->markTestIncomplete();
     }
 
     public function testOrdinalize()
     {
-        $this->markTestSkipped();
+        $this->markTestIncomplete();
     }
 
 

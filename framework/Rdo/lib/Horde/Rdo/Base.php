@@ -11,7 +11,7 @@
  * @category Horde
  * @package Rdo
  */
-abstract class Horde_Rdo_Base implements IteratorAggregate
+abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
 {
     /**
      * The Horde_Rdo_Mapper instance associated with this Rdo object. The
@@ -102,10 +102,14 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
         // Try to find the Mapper class for the object the
         // relationship is with, and fail if we can't.
         if (isset($rel['mapper'])) {
+            if ($mapper->factory) {
+                $m = $mapper->factory->create($rel['mapper']);
+            } else {
             // @TODO - should be getting this instance from somewhere
             // else external, and not passing the adapter along
             // automatically.
-            $m = new $rel['mapper']($mapper->adapter);
+                $m = new $rel['mapper']($mapper->adapter);
+            }
         } else {
             $m = $mapper->tableToMapper($field);
             if (is_null($m)) {
@@ -151,6 +155,16 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
     }
 
     /**
+     * Implements getter for ArrayAccess interface.
+     *
+     * @see __get()
+     */
+    public function offsetGet($field)
+    {
+        return $this->__get($field);
+    }
+
+    /**
      * Set a field's value.
      *
      * @param string $field The field to set
@@ -171,6 +185,16 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
     }
 
     /**
+     * Implements setter for ArrayAccess interface.
+     *
+     * @see __set()
+     */
+    public function offsetSet($field, $value)
+    {
+        $this->__set($field, $value);
+    }
+
+    /**
      * Allow using isset($rdo->foo) to check for field or
      * relationship presence.
      *
@@ -187,6 +211,16 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
     }
 
     /**
+     * Implements isset() for ArrayAccess interface.
+     *
+     * @see __isset()
+     */
+    public function offsetExists($field)
+    {
+        return $this->__isset($field);
+    }
+
+    /**
      * Allow using unset($rdo->foo) to unset a basic
      * field. Relationships cannot be unset in this way.
      *
@@ -197,6 +231,16 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
         // @TODO Should unsetting a MANY_TO_MANY relationship remove
         // the relationship?
         unset($this->_fields[$field]);
+    }
+
+    /**
+     * Implements unset() for ArrayAccess interface.
+     *
+     * @see __unset()
+     */
+    public function offsetUnset($field)
+    {
+        $this->__unset($field);
     }
 
     /**
@@ -268,6 +312,98 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
     public function setMapper($mapper)
     {
         $this->_mapper = $mapper;
+    }
+
+    /**
+     * Adds a relation to one of the relationships defined in the mapper.
+     *
+     * - For one-to-one relations, simply updates the relation field.
+     * - For one-to-many relations, updates the related object's relation field.
+     * - For many-to-many relations, adds an entry in the "through" table.
+     * - Performs a no-op if the peer is already related.
+     *
+     * This is a proxy to the mapper's addRelation() method.
+     *
+     * @param string $relationship  The relationship key in the mapper.
+     * @param Horde_Rdo_Base $peer  The object to add the relation.
+     *
+     * @throws Horde_Rdo_Exception
+     */
+    public function addRelation($relationship, Horde_Rdo_Base $peer)
+    {
+        $this->mapper->addRelation($relationship, $this, $peer);
+    }
+
+    /**
+     * Checks whether a relation to a peer is defined through one of the
+     * relationships in the mapper.
+     *
+     * @param string $relationship  The relationship key in the mapper.
+     * @param Horde_Rdo_Base $peer  The object to check for the relation.
+     *                              If this is null, check if there is any peer
+     *                              for this relation.
+     *
+     * @return boolean  True if related.
+     * @throws Horde_Rdo_Exception
+     */
+    public function hasRelation($relationship, Horde_Rdo_Base $peer = null)
+    {
+        $mapper = $this->getMapper();
+        if (isset($mapper->relationships[$relationship])) {
+            $rel = $mapper->relationships[$relationship];
+        } elseif (isset($mapper->lazyRelationships[$relationship])) {
+            $rel = $mapper->lazyRelationships[$relationship];
+        } else {
+            throw new Horde_Rdo_Exception('The requested relation is not defined in the mapper');
+        }
+
+        $result = $this->$relationship;
+
+        switch ($rel['type']) {
+        case Horde_Rdo::ONE_TO_ONE:
+        case Horde_Rdo::MANY_TO_ONE:
+            if (empty($peer) || empty($result)) {
+                return (bool) $result;
+            }
+            $key = $result->mapper->primaryKey;
+            return $result->$key == $peer->$key;
+
+        case Horde_Rdo::ONE_TO_MANY:
+        case Horde_Rdo::MANY_TO_MANY:
+            if (empty($peer)) {
+                return (bool) count($result);
+            }
+            $key = $peer->mapper->primaryKey;
+            foreach ($result as $item) {
+                if ($item->$key == $peer->$key) {
+                    return true;
+                }
+            }
+            break;
+        }
+
+        return false;
+    }
+
+    /**
+     * Removes a relation to one of the relationships defined in the mapper.
+     *
+     * - For one-to-one and one-to-many relations, simply sets the relation
+     *   field to 0.
+     * - For many-to-many, either deletes all relations to this object or just
+     *   the relation to a given peer object.
+     * - Performs a no-op if the peer is already unrelated.
+     *
+     * This is a proxy to the mapper's removeRelation method.
+     *
+     * @param string $relationship  The relationship key in the mapper
+     * @param Horde_Rdo_Base $peer  The object to remove from the relation
+     * @return integer  The number of relations affected
+     * @throws Horde_Rdo_Exception
+     */
+    public function removeRelation($relationship, Horde_Rdo_Base $peer = null)
+    {
+        return $this->mapper->removeRelation($relationship, $this, $peer);
     }
 
     /**

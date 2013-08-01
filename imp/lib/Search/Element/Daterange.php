@@ -2,7 +2,7 @@
 /**
  * This class handles date-related search queries.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -52,7 +52,7 @@ class IMP_Search_Element_Daterange extends IMP_Search_Element
      */
     public function createQuery($mbox, $queryob)
     {
-        if ($this->_date->b == $this->_date->e) {
+        if ($this->_data->b == $this->_data->e) {
             $queryob->dateSearch(
                 // Cast to timestamp - see PHP Bug #40171/Horde Bug #9513
                 new DateTime('@' . ($this->_data->b)),
@@ -61,7 +61,7 @@ class IMP_Search_Element_Daterange extends IMP_Search_Element
                 $this->_data->n
             );
         } else {
-            if (!empty($this->_date->b)) {
+            if (!empty($this->_data->b)) {
                 $queryob->dateSearch(
                     new DateTime('@' . ($this->_data->b)),
                     Horde_Imap_Client_Search_Query::DATE_SINCE,
@@ -69,7 +69,7 @@ class IMP_Search_Element_Daterange extends IMP_Search_Element
                     $this->_data->n
                 );
             }
-            if (!empty($this->_date->e)) {
+            if (!empty($this->_data->e)) {
                 $queryob->dateSearch(
                     new DateTime('@' . ($this->_data->e + 86400)),
                     Horde_Imap_Client_Search_Query::DATE_BEFORE,
@@ -86,31 +86,31 @@ class IMP_Search_Element_Daterange extends IMP_Search_Element
      */
     public function queryText()
     {
-        if (empty($this->_date->e)) {
+        if (empty($this->_data->e)) {
             return sprintf(
                 _("After '%s'"),
-                strftime('%x', $this->_data->b)
+                gmstrftime('%x', $this->_data->b)
             );
         }
 
-        if (empty($this->_date->b)) {
+        if (empty($this->_data->b)) {
             return sprintf(
                 _("Before '%s'"),
-                strftime('%x', $this->_data->e)
+                gmstrftime('%x', $this->_data->e)
             );
         }
 
-        if ($this->_date->b == $this->_date->e) {
+        if ($this->_data->b == $this->_data->e) {
             return sprintf(
                 _("On '%s'"),
-                strftime('%x', $this->_date->b)
+                gmstrftime('%x', $this->_data->b)
             );
         }
 
         return sprintf(
             _("Between '%s' and '%s'"),
-            strftime('%x', $this->_date->b),
-            strftime('%x', $this->_date->e)
+            gmstrftime('%x', $this->_data->b),
+            gmstrftime('%x', $this->_data->e)
         );
     }
 

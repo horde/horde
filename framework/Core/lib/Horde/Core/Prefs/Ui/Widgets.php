@@ -3,7 +3,7 @@
  * Collection of prefs UI widgets for use with application-specific (a/k/a
  * 'special') configuration.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -21,7 +21,7 @@ class Horde_Core_Prefs_Ui_Widgets
      */
     static public function sourceInit()
     {
-        Horde::addScriptFile('sourceselect.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('sourceselect.js', 'horde');
     }
 
     /**
@@ -35,8 +35,8 @@ class Horde_Core_Prefs_Ui_Widgets
      * 'selectlabel' - (array) Selected label.
      * 'sourcelabel' - (string) [OPTIONAL] Source selection label.
      * 'sources' - (array) List of sources - keys are source names. Each
-     *             source is an array with two entries - selected and
-     *             unselected.
+     *             source is an array with the entries: 'label', 'selected' and
+     *             'unselected'.
      * 'unselectlabel' - (array) Unselected label.
      * </pre>
      *
@@ -50,7 +50,7 @@ class Horde_Core_Prefs_Ui_Widgets
         $t->set('selectlabel', $data['selectlabel']);
         $t->set('unselectlabel', $data['unselectlabel']);
 
-        $sources = array();
+        $sources = $labels = array();
         foreach ($data['sources'] as $key => $val) {
             $selected = $unselected = array();
 
@@ -69,6 +69,7 @@ class Horde_Core_Prefs_Ui_Widgets
             }
 
             $sources[$key] = array($selected, $unselected);
+            $labels[] = array('key' => $key, 'label' => $val['label']);
         }
 
         if (count($sources) == 1) {
@@ -76,6 +77,9 @@ class Horde_Core_Prefs_Ui_Widgets
             $t->set('selected', $val[0]);
             $t->set('unselected', $val[1]);
         } else {
+            $t->set('source_select', true);
+            $t->set('sources', $labels);
+            $t->set('sourcelabel', $data['sourcelabel']);
             $js = array();
             foreach ($sources as $key => $val) {
                 $js[] = array(
@@ -84,7 +88,7 @@ class Horde_Core_Prefs_Ui_Widgets
                     'unselected' => $val[1]
                 );
             }
-            Horde::addInlineJsVars(array(
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
                 'HordeSourceSelectPrefs.source_list' => $js
             ));
         }
@@ -131,7 +135,7 @@ class Horde_Core_Prefs_Ui_Widgets
     static public function addressbooksInit()
     {
         self::sourceInit();
-        Horde::addScriptFile('addressbooksprefs.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('addressbooksprefs.js', 'horde');
     }
 
     /**
@@ -225,7 +229,7 @@ class Horde_Core_Prefs_Ui_Widgets
                 );
             }
 
-            Horde::addInlineJsVars(array(
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
                 'HordeAddressbooksPrefs.fields' => $js,
                 'HordeAddressbooksPrefs.nonetext' => Horde_Core_Translation::t("No address book selected.")
             ));
@@ -266,7 +270,7 @@ class Horde_Core_Prefs_Ui_Widgets
      */
     static public function alarmInit()
     {
-        Horde::addScriptFile('alarmprefs.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('alarmprefs.js', 'horde');
     }
 
     /**
@@ -284,7 +288,7 @@ class Horde_Core_Prefs_Ui_Widgets
     {
         $pref = $data['pref'];
 
-        Horde::addInlineJsVars(array(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
             'HordeAlarmPrefs.pref' => $pref
         ));
 

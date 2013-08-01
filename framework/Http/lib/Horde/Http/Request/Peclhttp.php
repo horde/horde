@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -67,7 +67,12 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
             }
         }
 
-        $httpOptions = array('timeout' => $this->timeout);
+        // Set options
+        $httpOptions = array('headers' => $this->headers,
+                             'redirect' => (int)$this->redirects,
+                             'ssl' => array('verifypeer' => $this->verifyPeer),
+                             'timeout' => $this->timeout,
+                             'useragent' => $this->userAgent);
 
         // Proxy settings
         if ($this->proxyServer) {
@@ -94,19 +99,16 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
             $httpOptions['httpauthtype'] = $this->_httpAuthScheme($this->authenticationScheme);
         }
 
-        // Headers
-        $httpOptions['headers'] = $this->headers;
-
-        // Redirects
-        $httpOptions['redirect'] = (int)$this->redirects;
-
-        // Set options
         $httpRequest->setOptions($httpOptions);
 
         try {
             $httpResponse = $httpRequest->send();
         } catch (HttpException $e) {
-            throw new Horde_Http_Exception($e->getMessage(), $e->getCode(), $e);
+            if (isset($e->innerException)){
+                throw new Horde_Http_Exception($e->innerException);
+            } else {
+                throw new Horde_Http_Exception($e);
+            }
         }
 
         return new Horde_Http_Response_Peclhttp($this->uri, $httpResponse);

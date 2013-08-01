@@ -7,7 +7,7 @@
  * Original design by:
  *   Thomas Boll <tb@boll.ch>, Mark Simpson <damned@world.std.com>
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -252,6 +252,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             case self::MAPI_ATTACH_MIME_TAG:
                 /* Is this ever set, and what is format? */
                 $attachment_data[0]['type'] = preg_replace('/^(.*)\/.*/', '\1', $value);
+                $attachment_data[0]['type'] = str_replace("\0", '', $attachment_data[0]['type']);
                 $attachment_data[0]['subtype'] = preg_replace('/.*\/(.*)$/', '\1', $value);
                 $attachment_data[0]['subtype'] = str_replace("\0", '', $attachment_data[0]['subtype']);
                 break;

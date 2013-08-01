@@ -1,12 +1,43 @@
 <?php
 /**
- * Horde_ActiveSync_Message_Attendee class represents a single ActiveSync
- * Attendee sub-object.
+ * Horde_ActiveSync_Message_Attendee
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *   Created   :   01.10.2007
+ *
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+/**
+ * Horde_ActiveSync_Message_Attendee
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ *
+ * @property string email    The attendee's email address.
+ * @property string name     The attendee's name.
+ * @property integer status  The attendee's status (a STATUS_* constant).
+ * @property integer type    The attendee type (a TYPE_* constant)
  */
 class Horde_ActiveSync_Message_Attendee extends Horde_ActiveSync_Message_Base
 {
@@ -22,7 +53,11 @@ class Horde_ActiveSync_Message_Attendee extends Horde_ActiveSync_Message_Base
     const STATUS_DECLINE    = 4;
     const STATUS_NORESPONSE = 5;
 
-
+    /**
+     * Property mapping.
+     *
+     * @var array
+     */
     protected $_mapping = array(
         Horde_ActiveSync_Message_Appointment::POOMCAL_EMAIL => array (self::KEY_ATTRIBUTE => 'email'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_NAME  => array (self::KEY_ATTRIBUTE => 'name'),
@@ -30,6 +65,11 @@ class Horde_ActiveSync_Message_Attendee extends Horde_ActiveSync_Message_Base
         Horde_ActiveSync_Message_Appointment::POOMCAL_ATTENDEETYPE => array(self::KEY_ATTRIBUTE => 'type')
     );
 
+    /**
+     * Property values.
+     *
+     * @var array
+     */
     protected $_properties = array(
         'email' => false,
         'name'  => false,

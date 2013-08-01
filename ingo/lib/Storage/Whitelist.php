@@ -1,13 +1,24 @@
 <?php
 /**
- * Ingo_Storage_Whitelist is the object used to hold whitelist rule
- * information.
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Ingo
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo_Storage_Whitelist is the object used to hold whitelist rule
+ * information.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Storage_Whitelist extends Ingo_Storage_Rule
 {
@@ -22,24 +33,24 @@ class Ingo_Storage_Whitelist extends Ingo_Storage_Rule
     /**
      * Sets the list of whitelisted addresses.
      *
-     * @param mixed $data    The list of addresses (array or string).
-     * @param boolean $sort  Sort the list?
+     * @param mixed $data  The list of addresses (array or string).
      *
-     * @return boolean  True on success.
      * @throws Ingo_Exception
      */
-    public function setWhitelist($data, $sort = false)
+    public function setWhitelist($data)
     {
-        $addr = array_filter($this->_addressList($data, $sort), array('Ingo', 'filterEmptyAddress'));
-        if (!empty($GLOBALS['conf']['storage']['maxwhitelist'])) {
+        global $conf;
+
+        $addr = $this->_addressList($data);
+
+        if (!empty($conf['storage']['maxwhitelist'])) {
             $addr_count = count($addr);
-            if ($addr_count > $GLOBALS['conf']['storage']['maxwhitelist']) {
-                throw new Ingo_Exception(sprintf(_("Maximum number of whitelisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to whitelist."), $addr_count, $GLOBALS['conf']['storage']['maxwhitelist']));
+            if ($addr_count > $conf['storage']['maxwhitelist']) {
+                throw new Ingo_Exception(sprintf(_("Maximum number of whitelisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to whitelist."), $addr_count, $conf['storage']['maxwhitelist']));
             }
         }
 
         $this->_addr = $addr;
-        return true;
     }
 
     /**

@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @package Mnemo
  */
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
 /* Check if a passphrase has been sent. */
@@ -43,7 +43,7 @@ try {
     Horde::url('list.php', true)->redirect();
 }
 if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-    $notification->push(sprintf(_("You do not have permission to view the notepad %s."), $share->get('name')), 'horde.error');
+    $notification->push(_("You do not have permission to view this notepad."), 'horde.error');
     Horde::url('list.php', true)->redirect();
 }
 

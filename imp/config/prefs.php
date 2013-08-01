@@ -22,51 +22,50 @@ $prefGroups['identities'] = array(
     'type' => 'identities'
 );
 
-// user preferred email address for Reply-To:, if different from From:
 $_prefs['replyto_addr'] = array(
     'value' => '',
     'type' => 'text',
     'desc' => _("Your Reply-to: address: <em>(optional)</em>")
 );
 
-// user preferred alias addresses
 $_prefs['alias_addr'] = array(
     'value' => '',
     'type' => 'textarea',
     'desc' => _("Your alias addresses: <em>(optional, enter each address on a new line)</em>")
 );
 
-// user preferred 'tie to' addresses
 $_prefs['tieto_addr'] = array(
     'value' => '',
     'type' => 'textarea',
     'desc' => _("Addresses to explicitly tie to this identity: <em>(optional, enter each address on a new line)</em>")
 );
 
-// Automatically Bcc addresses when composing
 $_prefs['bcc_addr'] = array(
     'value' => '',
     'type' => 'textarea',
     'desc' => _("Addresses to BCC all messages: <em>(optional, enter each address on a new line)</em>")
 );
 
-// user signature
 $_prefs['signature'] = array(
     'value' => '',
     'type' => 'textarea',
     'desc' => _("Your signature:")
 );
 
-// precede the text signature with dashes ('-- ')?
 $_prefs['sig_dashes'] = array(
-    'value' => 0,
+    'value' => 1,
     'type' => 'checkbox',
     'desc' => _("Precede your text signature with dashes ('-- ')?")
 );
 
 // User's HTML signature - UI widget
 $_prefs['signature_html_select'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_HtmlSignature',
+    'requires_nolock' => array('signature_html'),
+    'suppress' => function() {
+        return !$GLOBALS['session']->get('imp', 'rteavail');
+    }
 );
 
 // User's HTML signature
@@ -74,7 +73,6 @@ $_prefs['signature_html'] = array(
     'value' => ''
 );
 
-// save a copy of sent messages?
 $_prefs['save_sent_mail'] = array(
     'value' => 1,
     'type' => 'checkbox',
@@ -84,16 +82,16 @@ $_prefs['save_sent_mail'] = array(
 // sent mail mailbox
 $_prefs['sent_mail_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Sent'
-    // Exchange servers use this default value instead.
-    // 'value' => 'Sent Items'
 );
 
 // sent mail mailbox selection widget.
 $_prefs['sentmailselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Sentmail',
+    'requires_nolock' => array('sent_mail_folder')
 );
 
 
@@ -104,12 +102,16 @@ $prefGroups['acl'] = array(
     'column' => _("General"),
     'label' => _("Share Mailboxes"),
     'desc' => _("Share your mailboxes with other users."),
-    'members' => array('aclmanagement')
+    'members' => array('aclmanagement'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_ACL);
+    }
 );
 
 // ACL preference management screen
 $_prefs['aclmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Acl'
 );
 
 // mailbox sharing preferences
@@ -128,12 +130,18 @@ $prefGroups['searches'] = array(
     'desc' => _("Manage your saved searches"),
     'members' => array(
         'searchesmanagement'
-    )
+    ),
+    'suppress' => function() {
+        $imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        return (!$imap->access(IMP_Imap::ACCESS_SEARCH) ||
+                !$imap->access(IMP_Imap::ACCESS_FOLDERS));
+    }
 );
 
 // UI for saved searches management.
 $_prefs['searchesmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Searches'
 );
 
 $_prefs['vfolder'] = array(
@@ -167,48 +175,85 @@ $_prefs['filters_link'] = array(
     'type' => 'link',
     'img' => 'filters.png',
     'desc' => _("Edit your Filter Rules"),
-    'help' => 'filter-edit-rules'
+    'help' => 'filter-edit-rules',
+    'suppress' => function() {
+        try {
+            $GLOBALS['registry']->link('mail/showFilters');
+            return false;
+        } catch (Horde_Exception $e) {}
+        return true;
+    },
+    'on_init' => function($ui) {
+        $ui->prefs['filters_link']['url'] = $GLOBALS['registry']->link('mail/showFilters');
+    }
 );
 
 $_prefs['filters_blacklist_link'] = array(
     'type' => 'link',
+    'url' => '',
     'img' => 'filters.png',
     'desc' => _("Edit your Blacklist"),
-    'help' => 'filter-edit-blacklist'
+    'help' => 'filter-edit-blacklist',
+    'suppress' => function() {
+        try {
+            $GLOBALS['registry']->link('mail/showBlacklist');
+            return false;
+        } catch (Horde_Exception $e) {}
+        return true;
+    },
+    'on_init' => function($ui) {
+        $ui->prefs['filters_blacklist_link']['url'] = $GLOBALS['registry']->link('mail/showBlacklist');
+    }
 );
 
 $_prefs['filters_whitelist_link'] = array(
     'type' => 'link',
+    'url' => '',
     'img' => 'filters.png',
     'desc' => _("Edit your Whitelist"),
-    'help' => 'filter-edit-whitelist'
+    'help' => 'filter-edit-whitelist',
+    'suppress' => function() {
+        try {
+            $GLOBALS['registry']->link('mail/showWhitelist');
+            return false;
+        } catch (Horde_Exception $e) {}
+        return true;
+    },
+    'on_init' => function($ui) {
+        $ui->prefs['filters_whitelist_link']['url'] = $GLOBALS['registry']->link('mail/showWhitelist');
+    }
 );
 
-// run filters on login?
 $_prefs['filter_on_login'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Apply filter rules upon logging on?"),
-    'help' => 'filter-on-login'
+    'help' => 'filter-on-login',
+    'suppress' => function() {
+        return !IMP_Filter::canApplyFilters();
+    }
 );
 
-// run filters with INBOX display?
 $_prefs['filter_on_display'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Apply filter rules whenever Inbox is displayed?"),
-    'help' => 'filter-on-display'
+    'help' => 'filter-on-display',
+    'suppress' => function() {
+        return !IMP_Filter::canApplyFilters();
+    }
 );
 
-// Allow filters to be applied to any mailbox?
 $_prefs['filter_any_mailbox'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Allow filter rules to be applied in any mailbox?"),
-    'help' => 'filter-any-mailbox'
+    'help' => 'filter-any-mailbox',
+    'suppress' => function() {
+        return !IMP_Filter::canApplyFilters();
+    }
 );
 
-// show filter icon on the menubar?
 $_prefs['filter_menuitem'] = array(
     'value' => 0,
     'type' => 'checkbox',
@@ -227,11 +272,10 @@ $prefGroups['events'] = array(
     'members' => array('conflict_interval')
 );
 
-// Amount of minutes to consider a event as a non-conflicting one in iTip
 $_prefs['conflict_interval'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Minutes needed to consider a event as a non-conflicting one in iTip")
+    'desc' => _("Minutes needed to consider a event as non-conflicting in iTip")
 );
 
 
@@ -244,7 +288,10 @@ $prefGroups['pgp'] = array(
     'desc' => _("Configure PGP encryption support."),
     'members' => array(
         'pgpmanagement'
-    )
+    ),
+    'suppress' => function() {
+        return !isset($GLOBALS['conf']['gnupg']['path']);
+    }
 );
 
 // These preferences MUST appear on the same page.
@@ -256,7 +303,6 @@ $_prefs['pgpmanagement'] = array(
     'type' => 'container'
 );
 
-// Activate PGP support?
 $_prefs['use_pgp'] = array(
     'value' => 0,
     'type' => 'checkbox',
@@ -266,28 +312,32 @@ $_prefs['use_pgp'] = array(
 
 $_prefs['use_pgp_text'] = array(
     'value' => '<div class="prefsPgpWarning">' . _("PGP support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the PGP features will not work correctly.") . '</div>',
-    'type' => 'rawhtml'
+    'type' => 'rawhtml',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_attach_pubkey'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Should your PGP public key to be attached to your messages by default?"),
-    'help' => 'pgp-option-attach-pubkey'
+    'help' => 'pgp-option-attach-pubkey',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_scan_body'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Should the body of text/plain messages be scanned for PGP data?"),
-    'help' => 'pgp-option-scan-body'
+    'desc' => _("Should the body of plaintext messages be scanned for PGP data?"),
+    'help' => 'pgp-option-scan-body',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_verify'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should PGP signed messages automatically be verified when viewed?"),
-    'help' => 'pgp-option-verify'
+    'desc' => _("Should PGP signed messages be automatically verified when viewed?"),
+    'help' => 'pgp-option-verify',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_reply_pubkey'] = array(
@@ -295,11 +345,14 @@ $_prefs['pgp_reply_pubkey'] = array(
     'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Check for valid recipient PGP public keys while replying?"),
-    'help' => 'pgp-option-reply-pubkey'
+    'help' => 'pgp-option-reply-pubkey',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgppublickey'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_PgpPublicKey',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_public_key'] = array(
@@ -307,7 +360,9 @@ $_prefs['pgp_public_key'] = array(
 );
 
 $_prefs['pgpprivatekey'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_PgpPrivateKey',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_private_key'] = array(
@@ -324,7 +379,11 @@ $prefGroups['smime'] = array(
     'desc' => _("Configure S/MIME encryption support."),
     'members' => array(
         'smimemanagement'
-    )
+    ),
+    'suppress' => function() {
+        return (!Horde_Util::extensionExists('openssl') ||
+                !isset($GLOBALS['conf']['openssl']['path']));
+    }
 );
 
 // These preferences MUST appear on the same page.
@@ -336,7 +395,6 @@ $_prefs['smimemanagement'] = array(
     'type' => 'container'
 );
 
-// Activate S/MIME support?
 $_prefs['use_smime'] = array(
     'value' => 0,
     'type' => 'checkbox',
@@ -346,19 +404,23 @@ $_prefs['use_smime'] = array(
 
 $_prefs['use_smime_text'] = array(
     'value' => '<div class="prefsSmimeWarning">' . _("S/MIME support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the S/MIME features will not work correctly.") . '</div>',
-    'type' => 'rawhtml'
+    'type' => 'rawhtml',
+    'requires' => array('use_smime')
 );
 
 $_prefs['smime_verify'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should S/MIME signed messages automatically be verified when viewed?"),
-    'help' => 'smime-option-verify'
+    'desc' => _("Should S/MIME signed messages be automatically verified when viewed?"),
+    'help' => 'smime-option-verify',
+    'requires' => array('use_smime')
 );
 
 // S/MIME public key management widget
 $_prefs['smimepublickey'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_SmimePublicKey',
+    'requires' => array('use_smime')
 );
 
 $_prefs['smime_public_key'] = array(
@@ -367,7 +429,9 @@ $_prefs['smime_public_key'] = array(
 
 // S/MIME private key management widget
 $_prefs['smimeprivatekey'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_SmimePrivateKey',
+    'requires' => array('use_smime')
 );
 
 $_prefs['smime_private_key'] = array(
@@ -377,6 +441,9 @@ $_prefs['smime_private_key'] = array(
 $_prefs['smime_additional_cert'] = array(
     'value' => ''
 );
+
+
+
 // *** Compose Preferences ***
 
 $prefGroups['compose'] = array(
@@ -384,43 +451,26 @@ $prefGroups['compose'] = array(
     'label' => _("Composition"),
     'desc' => _("Configure how you send mail."),
     'members' => array(
-        'mailto_handler', 'compose_cc', 'compose_bcc', 'compose_spellcheck',
-        'set_priority', 'compose_html', 'compose_html_font_family',
-        'compose_html_font_size', 'mail_domain',
-        'compose_cursor', 'encryptselect', 'save_attachments',
-        'delete_attachments_monthly_keep', 'request_mdn',
-        'reply_lang', 'traditional_compose', 'compose_popup',
-        'compose_confirm'
+        'mailto_handler', 'compose_spellcheck', 'set_priority',
+        'compose_html', 'compose_html_font_family', 'compose_html_font_size',
+        'mail_domain', 'compose_cursor', 'encryptselect',
+        'delete_attachments_monthly_keep', 'request_mdn', 'reply_lang',
+        'compose_popup', 'compose_confirm'
     )
 );
 
 // Link to register a mailto: handler with the browser
 $_prefs['mailto_handler'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Mailto'
 );
 
-// Show Cc: field?
-$_prefs['compose_cc'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Show the Cc: header field when composing mail?")
-);
-
-// Show Bcc: field?
-$_prefs['compose_bcc'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Show the Bcc: header field when composing mail?")
-);
-
-// Check spelling before sending the message?
 $_prefs['compose_spellcheck'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Check spelling before sending a message?")
 );
 
-// allow the user to add a priority header when composing messages?
 $_prefs['set_priority'] = array(
     'value' => 1,
     'advanced' => true,
@@ -428,7 +478,6 @@ $_prefs['set_priority'] = array(
     'desc' => _("Set a priority header when composing messages?")
 );
 
-// Default composition method.
 $_prefs['compose_html'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -446,26 +495,32 @@ $_prefs['compose_html_font_family'] = array(
     'advanced' => true,
     'locked' => true,
     'type' => 'string',
-    'desc' => _("The default font family to use in the HTML editor.")
+    'desc' => _("The default font family to use in the HTML editor."),
+    'requires' => array('compose_html')
 );
 
-// For the HTML editor, this is the default font size.
 $_prefs['compose_html_font_size'] = array(
     'value' => 14,
     'advanced' => true,
     'locked' => true,
     'type' => 'number',
-    'desc' => _("The default font size to use in the HTML editor (in pixels).")
+    'desc' => _("The default font size to use in the HTML editor (in pixels)."),
+    'requires' => array('compose_html')
 );
 
-// default outgoing mail domain and address completion
 $_prefs['mail_domain'] = array(
     'value' => '',
     'type' => 'text',
-    'desc' => _("When sending mail or expanding addresses, what domain should we append to unqualified addresses (email addresses without \"@\")?")
+    'desc' => _("When sending mail or expanding addresses, what domain should be appended to unqualified addresses (email addresses without \"@\")?"),
+    'on_change' => function() {
+        $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $GLOBALS['prefs']->getValue('mail_domain'));
+        $GLOBALS['prefs']->setValue('mail_domain', $maildomain);
+        if (!empty($maildomain)) {
+            $GLOBALS['session']->set('imp', 'maildomain', $maildomain);
+        }
+    }
 );
 
-// Where should the cursor be located in the compose text area by default?
 $_prefs['compose_cursor'] = array(
     'value' => 'top',
     'type' => 'enum',
@@ -478,7 +533,9 @@ $_prefs['compose_cursor'] = array(
 
 // Select widget for the 'default_encrypt' preference
 $_prefs['encryptselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Encrypt',
+    'requires_nolock' => array('default_encrypt')
 );
 
 // The default encryption method to use when sending messages
@@ -486,78 +543,62 @@ $_prefs['default_encrypt'] = array(
     'value' => IMP::ENCRYPT_NONE
 );
 
-// Save attachments when saving in sent mail mailbox?
-$_prefs['save_attachments'] = array(
-    'value' => 'prompt_no',
-    'type' => 'enum',
-    'enum' => array(
-        'always' => _("Always save attachments"),
-        'prompt_yes' => _("Prompt every time an attachment is sent; default to YES"),
-        'prompt_no' => _("Prompt every time an attachment is sent; default to NO"),
-        'never' => _("Never save attachments")
-    ),
-    'desc' => _("When saving sent mail, should we save attachment data?"),
-    'help' => 'prefs-save_attachments'
-);
-
-// how many old months of linked attachments to keep?
 $_prefs['delete_attachments_monthly_keep'] = array(
     'value' => 6,
     'advanced' => true,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Delete old linked attachments after this many months (0 to never delete)?"),
-    'help' => 'prefs-delete_attachments_monthly_keep'
+    'desc' => _("Delete linked attachments after this many months (0 to never delete):"),
+    'help' => 'prefs-delete_attachments_monthly_keep',
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['compose']['link_attachments']);
+    }
 );
 
-// Disposition Notification Preferences
 $_prefs['request_mdn'] = array(
-    'value' => 'ask',
+    'value' => 'never',
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array(
-        'never' => _("Never"),
-        'ask' => _("Ask"),
-        'always' => _("Always")
+        'never' => _("No"),
+        'always' => _("Yes")
     ),
     'desc' => _("Request read receipts?"),
     'help' => 'prefs-request_mdn'
 );
 
-// The preferred languages for replies to sent messages.
 $_prefs['reply_lang'] = array(
     // 'value' => serialize(array())
     'value' => 'a:0:{}',
     'advanced' => true,
     'type' => 'multienum',
-    // Language list is automatically generated
     'enum' => array(),
-    'desc' => _("What language(s) do you prefer replies to your messages to be in? (Hold down the CTRL key when clicking to add multiple languages)")
+    'desc' => _("What language(s) do you prefer replies to your messages to be in? (Hold down the CTRL key when clicking to add multiple languages)"),
+    'on_init' => function($ui) {
+        $enum = Horde_Nls::getLanguageISO();
+        asort($enum);
+        $ui->prefs['reply_lang']['enum'] = $enum;
+    },
 );
 
-$_prefs['traditional_compose'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
-    'type' => 'rawhtml'
-);
-
-// compose in a separate window?
 $_prefs['compose_popup'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Compose messages in a separate window?")
+    'desc' => _("Compose messages in a separate window?") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
-// confirm successful sending of messages in popup window?
 $_prefs['compose_confirm'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display confirmation in popup window after sending a message?")
+    'desc' => _("Display confirmation in popup window after sending a message?") . ' (<em>' . _("Basic view only") . '</em>)',
+    'requires' => array('compose_popup')
 );
 
 // The list of buttons to show in CKeditor
 // See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar for
 // details on configuration
 $_prefs['ckeditor_buttons'] = array(
-    'value' => "[['Source','Maximize','-','Templates'],['Cut','Copy','Paste','PasteText','PasteFromWord'],['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],'/',['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],'/',['Styles','Format','Font','FontSize'],['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['TextColor','BGColor']]",
+    'value' => "[['Source','Maximize','-','Templates'],['Cut','Copy','Paste','PasteFromWord'],['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],'/',['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],'/',['Styles','Format','Font','FontSize'],['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['TextColor','BGColor']]",
     // Use the following line for a very basic set of buttons:
     // 'value' => "['Bold','Italic','-','NumberedList','BulletedList','-','Link','Unlink']",
 );
@@ -570,26 +611,41 @@ $prefGroups['composetemplates'] = array(
     'column' => _("Compose"),
     'label' => _("Compose Templates"),
     'desc' => _("Edit compose templates."),
-    'members' => array('composetemplates_management', 'composetemplates_new')
+    'members' => array('composetemplates_management', 'composetemplates_new'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->isImap();
+    }
 );
 
 // Compose templates configuration widget
 $_prefs['composetemplates_management'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_ComposeTemplates'
 );
 
 // Link to compose templates mailbox.
 $_prefs['composetemplates_new'] = array(
     'type' => 'link',
+    'xurl' => '',
     'img' => 'edit.png',
-    'desc' => _("Create new Template")
+    'desc' => _("Create new Template"),
+    'suppress' => function() {
+        return !IMP_Mailbox::getPref('composetemplates_mbox');
+    },
+    'on_init' => function($ui) {
+        $clink = new IMP_Compose_Link();
+        $ui->prefs['composetemplates_new']['xurl'] = $clink->link()->add(array(
+            'actionID' => 'template_new',
+            'type' => 'template_new'
+        ));
+    }
 );
 
 // Compose templates mailbox
 $_prefs['composetemplates_mbox'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Templates'
 );
 
@@ -602,29 +658,17 @@ $prefGroups['reply'] = array(
     'label' => _("Replies"),
     'desc' => _("Configure how you reply to mail."),
     'members' => array(
-        'reply_quote', 'reply_format', 'reply_charset', 'reply_headers',
-        'attrib_text'
+        'reply_format', 'reply_charset', 'reply_headers', 'reply_quote',
+        'attrib_text', 'reply_strip_sig'
     )
 );
 
-// Should the original message be included?
-$_prefs['reply_quote'] = array(
-    'value' => 1,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Include original message in a reply?")
-);
-
-// When replying to a message, should we use the same format as the
-// original message?
 $_prefs['reply_format'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When replying to a message, should we use the same format as the original message?")
+    'desc' => _("When replying, use the same format as the original message?")
 );
 
-// Use the charset of the original message, as opposed to the default sending
-// charset, when replying to a message?
 $_prefs['reply_charset'] = array(
     'desc' => _("Use the charset of the original message when replying?"),
     'advanced' => true,
@@ -632,20 +676,34 @@ $_prefs['reply_charset'] = array(
     'type' => 'checkbox'
 );
 
-// Reply to header summary - leave a brief summary of the header inside
-// the message.
 $_prefs['reply_headers'] = array(
-    'desc' => _("Include a brief summary of the header in a reply?"),
+    'desc' => _("Include a brief summary of the original message's header in a reply?"),
     'value' => 0,
     'type' => 'checkbox'
 );
 
-// How should we attribute quoted lines in a reply
+$_prefs['reply_quote'] = array(
+    'value' => 1,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Include original message in a reply?")
+);
+
 $_prefs['attrib_text'] = array(
     'value' => _("Quoting %f:"),
+    'advanced' => true,
     'type' => 'text',
-    'desc' => _("How to attribute quoted lines in a reply"),
-    'help' => 'prefs-attrib_text'
+    'desc' => _("How to attribute quoted lines in a reply?"),
+    'help' => 'prefs-attrib_text',
+    'requires' => array('reply_quote')
+);
+
+$_prefs['reply_strip_sig'] = array(
+    'desc' => _("Strip the sender's signature from plaintext replies?"),
+    'advanced' => true,
+    'value' => 0,
+    'type' => 'checkbox',
+    'requires' => array('reply_quote')
 );
 
 
@@ -659,28 +717,27 @@ $prefGroups['forward'] = array(
     'members' => array('forward_default', 'forward_format')
 );
 
-// Should the body text of the original message be included?
-// If this preference is locked, the user will not be able to select the
-// forward method.
 $_prefs['forward_default'] = array(
     'value' => 'attach',
     'advanced' => true,
+    // If this preference is locked, the user will not be able to select the
+    // forward method.
+    // 'locked' => true,
     'type' => 'enum',
     'enum' => array(
         'attach' => _("As attachment"),
         'body' => _("In the body text"),
-        'both' => _("As both body text and an attachment")
+        'both' => _("As both body text and an attachment"),
+        'editasnew' => _("Edit as New")
     ),
     'desc' => _("How should messages be forwarded by default?")
 );
 
-// When forwarding a message, should we use the same format as the
-// original message (for the body text)?
 $_prefs['forward_format'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("When forwarding a message in the body text, should we use the same format as the original message?")
+    'desc' => _("When forwarding a message in the body text, should the same format as the original message be used?")
 );
 
 
@@ -698,25 +755,25 @@ $prefGroups['drafts'] = array(
 
 // drafts mailbox selection widget.
 $_prefs['draftsselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Drafts',
+    'requires_nolock' => array('drafts_folder')
 );
 
 // drafts mailbox
 $_prefs['drafts_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Drafts'
 );
 
-// closing window after saving a draft?
 $_prefs['close_draft'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should the compose window be closed after saving a draft?")
+    'desc' => _("Close the compose window after saving a draft?")
 );
 
-// save drafts as seen or unseen
 $_prefs['unseen_drafts'] = array(
     'value' => 0,
     'advanced' => true,
@@ -724,8 +781,8 @@ $_prefs['unseen_drafts'] = array(
     'desc' => _("Save drafts as unseen?")
 );
 
-// auto-save drafts? value is in minutes, 0 = don't save.
 $_prefs['auto_save_drafts'] = array(
+    // Value is in minutes
     'value' => 5,
     'advanced' => true,
     'type' => 'enum',
@@ -744,45 +801,66 @@ $_prefs['auto_save_drafts'] = array(
 $prefGroups['sentmail'] = array(
     'column' => _("Compose"),
     'label' => _("Sent Mail"),
-    'desc' => _("Manage sent mail mailboxes."),
+    'desc' => _("Manage sent mail."),
     'members' => array(
-        'rename_sentmail_monthly', 'delete_sentmail_monthly_keep',
-        'purge_sentmail_interval', 'purge_sentmail_keep'
+        'save_attachments', 'rename_sentmail_monthly',
+        'delete_sentmail_monthly_keep', 'purge_sentmail_interval',
+        'purge_sentmail_keep'
     )
 );
 
-// rename sent mail mailbox every month?
+$_prefs['save_attachments'] = array(
+    'value' => 'never',
+    'type' => 'enum',
+    'enum' => array(
+        'always' => _("Save attachments"),
+        'never' => _("Do not save attachments")
+    ),
+    'desc' => _("Save attachments in the sent-mail message?"),
+    'help' => 'prefs-save_attachments'
+);
+
 $_prefs['rename_sentmail_monthly'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Rename sent mail mailbox at beginning of month?"),
-    'help' => 'prefs-rename_sentmail_monthly'
+    'help' => 'prefs-rename_sentmail_monthly',
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    }
 );
 
-// how many old sent mail mailbox to keep every month?
 $_prefs['delete_sentmail_monthly_keep'] = array(
     'value' => 0,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Delete old sent mail mailboxes after this many months (0 to never delete)?"),
-    'help' => 'prefs-delete_sentmail_monthly_keep'
+    'desc' => _("Delete old sent mail mailboxes after this many months (0 to never delete):"),
+    'help' => 'prefs-delete_sentmail_monthly_keep',
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    }
 );
 
-// how often to purge the sent mail mailbox?
 $_prefs['purge_sentmail_interval'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array_merge(array(0 => _("Never")), Horde_LoginTasks::getLabels()),
     'desc' => _("Purge sent mail how often:"),
-    'help' => 'prefs-purge_sentmail_interval'
+    'help' => 'prefs-purge_sentmail_interval',
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    }
 );
 
-// when purging sent mail malibox, purge messages older than how many days?
 $_prefs['purge_sentmail_keep'] = array(
     'value' => 30,
     'type' => 'number',
     'desc' => _("Purge messages in sent mail mailbox(es) older than this amount of days."),
-    'help' => 'prefs-purge_sentmail_keep'
+    'help' => 'prefs-purge_sentmail_keep',
+    'requires' => array('purge_sentmail_interval'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    }
 );
 
 
@@ -792,23 +870,25 @@ $_prefs['purge_sentmail_keep'] = array(
 $prefGroups['addressbooks'] = array(
     'column' => _("Compose"),
     'label' => _("Address Books"),
-    'desc' => _("Select address book sources for adding and searching for addresses."),
+    'desc' => _("Select address book sources for adding/searching."),
    'members' => array(
         'save_recipients', 'display_contact', 'sourceselect', 'add_source'
-    )
+    ),
+    'suppress' => function() {
+        $contacts_app = $GLOBALS['registry']->hasInterface('contacts');
+        return (!$contacts_app ||
+                !$GLOBALS['registry']->hasPermission($contacts_app));
+    }
 );
 
-// Should recipients of outgoing messages be added automatically to
-// the address book?
 $_prefs['save_recipients'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Save recipients automatically to the default address book?")
 );
 
-// By default, display all contacts in the address book when loading
-// the contacts screen.  If your default address book is large and
-// slow to display, you may want to disable and lock this preference.
+// If your default address book is large and slow to display, you may want to
+// disable and lock this preference.
 $_prefs['display_contact'] = array(
     'value' => 1,
     'type' => 'checkbox',
@@ -817,7 +897,12 @@ $_prefs['display_contact'] = array(
 
 // address book selection widget
 $_prefs['sourceselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Sourceselect',
+    'requires_nolock' => array('search_sources'),
+    'on_init' => function($ui) {
+        Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+    }
 );
 
 // Address book(s) to use when expanding addresses
@@ -844,7 +929,6 @@ $_prefs['search_fields'] = array(
     'value' => ''
 );
 
-// Address book to use for adding addresses.
 // If NOT using shared address books in Turba, you can put a $cfgSources array
 // element name in the value field. See the preference hook example in
 // config/hooks.php.dist if using shared address books.
@@ -853,7 +937,17 @@ $_prefs['add_source'] = array(
     'value' => '',
     'type' => 'enum',
     'enum' => array(),
-    'desc' => _("Choose the address book to use when adding addresses.")
+    'desc' => _("Choose the address book to use when adding addresses."),
+    'suppress' => function() {
+        try {
+            $GLOBALS['registry']->call('contacts/sources', array(true));
+            return false;
+        } catch (Horde_Exception $e) {}
+        return true;
+    },
+    'on_init' => function($ui) {
+        $ui->prefs['add_source']['enum'] = $GLOBALS['registry']->call('contacts/sources', array(true));
+    }
 );
 
 
@@ -866,14 +960,13 @@ $prefGroups['viewing'] = array(
     'desc' => _("Configure how messages are displayed."),
     'members' => array(
         'filtering', 'strip_attachments', 'alternative_display',
-        'image_replacement', 'highlight_text', 'highlight_simple_markup',
-        'show_quoteblocks', 'dim_signature', 'emoticons', 'parts_display',
-        'mail_hdr', 'default_msg_charset', 'send_mdn', 'mimp_message',
-        'mimp_download_confirm', 'mimp_inline_all'
+        'image_replacement', 'image_replacement_manage', 'highlight_text',
+        'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
+        'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
+        'send_mdn', 'mimp_download_confirm', 'mimp_inline_all'
     )
 );
 
-// filter message content?
 $_prefs['filtering'] = array(
     'value' => 0,
     'locked' => true,
@@ -881,13 +974,11 @@ $_prefs['filtering'] = array(
     'desc' => _("Filter message content for unwanted text (e.g. profanity)?")
 );
 
-// Should we display an icon to strip attachments?
 $_prefs['strip_attachments'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Show an icon to allow stripping of attachments from messages?"));
+    'desc' => _("Allow attachments to be stripped from messages?"));
 
-// multipart/alternative part display choice
 $_prefs['alternative_display'] = array(
     'value' => 'html',
     'advanced' => true,
@@ -896,15 +987,26 @@ $_prefs['alternative_display'] = array(
         'html' => _("HTML part"),
         'text' => _("Plaintext part")
     ),
-    'desc' => _("For messages with alternative representations of the text part, which part should we display?")
+    'desc' => _("For messages with alternative representations of a text part, which part should be displayed?"),
+    'suppress' => function() {
+        $mock_part = new Horde_Mime_Part();
+        $mock_part->setType('text/html');
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mock_part)->canRender('inline');
+    }
 );
 
-// Replace image tags in inline messages with blank images?
 $_prefs['image_replacement'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Block images in messages unless they are specifically requested?"),
+    'desc' => _("Block images in messages unless they are specifically requested to be loaded?"),
     'help' => 'prefs-image_replacement'
+);
+
+$_prefs['image_replacement_manage'] = array(
+    'type' => 'special',
+    'advanced' => true,
+    'handler' => 'IMP_Prefs_Special_ImageReplacement',
+    'requires' => array('image_replacement')
 );
 
 // List of e-mail addresses to allow images from (in addition to e-mail
@@ -912,10 +1014,10 @@ $_prefs['image_replacement'] = array(
 // You can provide default values this way:
 //   'value' => json_encode(array('foo@example.com', 'foo2@example.com'))
 $_prefs['image_replacement_addrs'] = array(
+    // Value is a JSON encoded array of email addresses.
     'value' => '[]'
 );
 
-// should we try to mark different conversations with different colors?
 $_prefs['highlight_text'] = array(
     'value' => 1,
     'advanced' => true,
@@ -923,7 +1025,6 @@ $_prefs['highlight_text'] = array(
     'desc' => _("Mark different levels of quoting with different colors?")
 );
 
-// should we try to mark simple markup with html tags?
 $_prefs['highlight_simple_markup'] = array(
     'value' => 1,
     'advanced' => true,
@@ -931,7 +1032,6 @@ $_prefs['highlight_simple_markup'] = array(
     'desc' => _("Mark simple markup?")
 );
 
-// should we show large blocks of quoted text or hide them?
 $_prefs['show_quoteblocks'] = array(
     'value' => 'thread',
     'type' => 'enum',
@@ -942,10 +1042,9 @@ $_prefs['show_quoteblocks'] = array(
         'listthread' => _("Hidden in Thread View and List Messages"),
         'hidden' => _("Hidden")
     ),
-    'desc' => _("Should large blocks of quoted text be shown or hidden by default? It can be toggled easily whichever you choose.")
+    'desc' => _("How should large blocks of quoted text be shown by default? (Toggling the block will always be available).")
 );
 
-// should we dim signatures?
 $_prefs['dim_signature'] = array(
     'value' => 0,
     'advanced' => true,
@@ -953,14 +1052,12 @@ $_prefs['dim_signature'] = array(
     'desc' => _("Dim signatures?")
 );
 
-// Convert textual emoticons into graphical ones?
 $_prefs['emoticons'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Convert textual emoticons into graphical ones?")
 );
 
-// how do we display message parts in the summary?
 $_prefs['parts_display'] = array(
     'value' => 'atc',
     'type' => 'enum',
@@ -982,22 +1079,21 @@ $_prefs['mail_hdr'] = array(
     'desc' => _("Additional headers to display when viewing: <em>(enter each header on a new line)</em>")
 );
 
-// default message character set
 $_prefs['default_msg_charset'] = array(
     'value' => $GLOBALS['registry']->getEmailCharset()
         ? $GLOBALS['registry']->getEmailCharset()
         : ($GLOBALS['registry']->getLanguageCharset()
             ? $GLOBALS['registry']->getLanguageCharset()
             : ''),
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array_merge(
         array('' => _("Default (US-ASCII)")), $GLOBALS['registry']->nlsconfig->encodings_sort
     ),
-    'desc' => _("The default charset for messages with no charset information:"),
+    'desc' => _("The default charset for messages:"),
     'help' => 'prefs-default_msg_charset'
 );
 
-// Send read receipts?
 $_prefs['send_mdn'] = array(
     'value' => 1,
     'advanced' => true,
@@ -1010,12 +1106,10 @@ $_prefs['send_mdn'] = array(
         // 2 => _("Prompt only if necessary; otherwise automatically send")
     ),
     'desc' => _("Prompt to send read receipt (a/k/a message disposition notification) when requested by the sender?"),
-    'help' => 'prefs-send_mdn'
-);
-
-$_prefs['mimp_message'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Minimal View") . '</div>',
-    'type' => 'rawhtml'
+    'help' => 'prefs-send_mdn',
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['maillog']['use_maillog']);
+    }
 );
 
 $_prefs['mimp_download_confirm'] = array(
@@ -1023,14 +1117,14 @@ $_prefs['mimp_download_confirm'] = array(
     'advanced' => true,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
+    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 $_prefs['mimp_inline_all'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.")
+    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 
@@ -1043,72 +1137,112 @@ $prefGroups['delmove'] = array(
     'desc' => _("Set preferences for what happens when you move and delete messages."),
     'members' => array(
         'mailbox_return', 'delete_mark_seen', 'use_trash', 'trashselect',
-        'empty_trash_menu', 'purge_trash_interval', 'purge_trash_keep'
+        'delhide_trash', 'empty_trash_menu', 'purge_trash_interval',
+        'purge_trash_keep'
     )
 );
 
-// should we return to the mailbox listing after deleting a message?
 $_prefs['mailbox_return'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?")
+    'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
-// should messages be marked as 'Seen' when deleted?
 $_prefs['delete_mark_seen'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Mark messages as Seen when deleting?")
+    'desc' => _("Mark messages as seen when deleting?")
 );
 
-// should we move messages to a trash mailbox instead of just marking
-// them as deleted?
 $_prefs['use_trash'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When deleting messages, move them to your Trash mailbox instead of marking them as deleted?")
+    'desc' => _("Move deleted messages to your Trash mailbox instead of marking them as deleted in the current mailbox?"),
+    'on_change' => function() {
+        if ($trash_mbox = IMP_Mailbox::getPref('trash_folder')) {
+            $trash_mbox->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+        }
+        if ($GLOBALS['prefs']->getValue('use_trash') &&
+            !$GLOBALS['prefs']->getValue('trash_folder')) {
+            $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash mailbox is defined. You will be unable to delete messages until you set a Trash mailbox in the preferences."), 'horde.warning');
+        }
+    }
 );
 
 // trash mailbox selection widget.
 $_prefs['trashselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Trash',
+    'requires' => array('use_trash'),
+    'requires_nolock' => array('use_trash', 'trash_folder'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
+    }
 );
 
 // trash mailbox
 $_prefs['trash_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
-    'value' => 'Trash'
-    // Exchange servers use this default value instead.
-    // 'value' => 'Deleted Items'
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
+    'value' => 'Trash',
+    'on_change' => function() {
+        if ($GLOBALS['prefs']->getValue('use_trash') &&
+            !$GLOBALS['prefs']->getValue('trash_folder')) {
+            $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash mailbox is defined. You will be unable to delete messages until you set a Trash mailbox in the preferences."), 'horde.warning');
+        }
+    }
 );
 
-// display the 'Empty Trash' link in the menubar?
+// This REALLY should be disabled; other clients may not be configured the
+// same as IMP so it is very dangerous to hide messages that still exist in
+// the mailbox (enabling Trash indicates that the user wants to ignore the
+// \Deleted flag in IMP).
+$_prefs['delhide_trash'] = array(
+    // Disabled and locked by default
+    'value' => 0,
+    'locked' => true,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Hide deleted messages even if using the Trash mailbox?")
+);
+
 $_prefs['empty_trash_menu'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display the \"Empty Trash\" link in the menubar?")
+    'desc' => _("Display the \"Empty Trash\" link in the menubar?"),
+    'requires' => array('use_trash'),
+    'requires_nolock' => array('use_trash'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
+    }
 );
 
-// how often to purge the Trash mailbox?
 $_prefs['purge_trash_interval'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array_merge(array(0 => _("Never")), Horde_LoginTasks::getLabels()),
     'desc' => _("Purge Trash how often:"),
-    'help' => 'prefs-purge_trash_interval'
+    'help' => 'prefs-purge_trash_interval',
+    'requires' => array('use_trash'),
+    'requires_nolock' => array('use_trash'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
+    }
 );
 
-// when purging Trash mailbox, purge messages older than how many days?
 $_prefs['purge_trash_keep'] = array(
     'value' => 30,
     'type' => 'number',
     'desc' => _("Purge messages in Trash mailbox older than this amount of days."),
-    'help' => 'prefs-purge_trash_keep'
+    'help' => 'prefs-purge_trash_keep',
+    'requires' => array('use_trash', 'purge_trash_interval'),
+    'requires_nolock' => array('use_trash'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
+    }
 );
-
 
 // hide deleted
 $_prefs['delhide'] = array(
@@ -1124,71 +1258,87 @@ $prefGroups['spamreport'] = array(
     'label' => _("Spam Reporting"),
     'desc' => _("Configure spam reporting."),
     'members' => array(
-        'spamselect', 'delete_spam_after_report', 'move_ham_after_report',
+        'spamselect', 'delete_spam_after_report', 'move_innocent_after_report',
         'empty_spam_menu', 'purge_spam_interval', 'purge_spam_keep'
     )
 );
 
 // spam mailbox selection widget.
 $_prefs['spamselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Spam',
+    'requires_nolock' => array('spam_folder')
 );
 
 // spam mailbox
 $_prefs['spam_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Spam'
 );
 
-// What should we do with spam messages after reporting them?
 $_prefs['delete_spam_after_report'] = array(
     'value' => 0,
     'type' => 'enum',
-    'enum' => array(
-        0 => _("Nothing"),
-        1 => _("Delete message"),
-        2 => _("Move to spam mailbox")
-    ),
-    'desc' => _("What should we do with messages after they have been reported as spam?"),
-    'help' => 'prefs-delete_spam_after_report'
+    'enum' => array(),
+    'desc' => _("What to do with messages after they have been reported as spam?"),
+    'help' => 'prefs-delete_spam_after_report',
+    'on_init' => function($ui) {
+        $enum = array(
+            0 => _("Nothing"),
+            1 => _("Delete message")
+        );
+        if ($GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
+            $enum[2] = _("Move to Spam mailbox");
+        }
+        $ui->prefs['delete_spam_after_report']['enum'] = $enum;
+    }
 );
 
-// What should we do with spam messages after reporting them as innocent?
-$_prefs['move_ham_after_report'] = array(
+$_prefs['move_innocent_after_report'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array(
         0 => _("Nothing"),
         1 => _("Move to Inbox")
     ),
-    'desc' => _("What should we do with messages after they have been reported as innocent?"),
-    'help' => 'prefs-move_ham_after_report'
+    'desc' => _("What to do with messages after they have been reported as innocent?"),
+    'help' => 'prefs-move_innocent_after_report',
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    }
 );
 
-// display the 'Empty Spam' link in the menubar?
 $_prefs['empty_spam_menu'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display the \"Empty Spam\" link in the menubar?")
+    'desc' => _("Display the \"Empty Spam\" link in the menubar?"),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    }
 );
 
-// how often to purge the Spam mailbox?
 $_prefs['purge_spam_interval'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array_merge(array(0 => _("Never")), Horde_LoginTasks::getLabels()),
-    'desc' => _("Purge Spam how often:"),
-    'help' => 'prefs-purge_spam_interval'
+    'desc' => _("Purge Spam mailbox how often:"),
+    'help' => 'prefs-purge_spam_interval',
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    }
 );
 
-// when purging Spam mailbox, purge messages older than how many days?
 $_prefs['purge_spam_keep'] = array(
     'value' => 30,
     'type' => 'number',
     'desc' => _("Purge messages in Spam mailbox older than this amount of days."),
-    'help' => 'prefs-purge_spam_keep'
+    'help' => 'prefs-purge_spam_keep',
+    'requires' => array('purge_spam_interval'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    }
 );
 
 
@@ -1204,8 +1354,8 @@ $prefGroups['newmail'] = array(
     )
 );
 
-// time before reloading the navigator or mailbox page
 $_prefs['refresh_time'] = array(
+    // Value in seconds
     'value' => 0,
     'type' => 'enum',
     'enum' => array(
@@ -1216,24 +1366,26 @@ $_prefs['refresh_time'] = array(
         900 => _("Every 15 minutes"),
         1800 => _("Every half hour")
     ),
-    'desc' => _("Refresh Folder Views:"),
+    'desc' => _("New mail poll interval on mailbox page:"),
 );
 
-// Display notification if there is new mail?
 $_prefs['newmail_notify'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Display notification when new mail arrives?"),
 );
 
-// play a sound on new mail? if so, which one?
+// Sound to play on new mail notification
 $_prefs['newmail_audio'] = array(
     'value' => ''
 );
 
 // sound selection widget
 $_prefs['newmail_soundselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_NewmailSound',
+    'requires' => array('newmail_notify'),
+    'requires_nolock' => array('newmail_audio')
 );
 
 
@@ -1244,12 +1396,16 @@ $prefGroups['flags'] = array(
     'column' => _("Message"),
     'label' => _("Flags"),
     'desc' => _("Configure flag highlighting."),
-    'members' => array('flagmanagement', 'show_all_flags')
+    'members' => array('flagmanagement', 'show_all_flags'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FLAGS);
+    }
 );
 
 // UI for flag management.
 $_prefs['flagmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Flag'
 );
 
 // This array contains the list of flags created by the user through the
@@ -1259,7 +1415,6 @@ $_prefs['msgflags'] = array(
     'value' => 'a:0:{}'
 );
 
-// Show all flags (including flags set by other mail programs)?
 $_prefs['show_all_flags'] = array(
     'value' => 0,
     'advanced' => true,
@@ -1278,7 +1433,6 @@ $prefGroups['printing'] = array(
     'members' => array('add_printedby')
 );
 
-// Add a 'Printed By' header to printed messages?
 $_prefs['add_printedby'] = array(
     'value' => 0,
     'advanced' => true,
@@ -1296,16 +1450,20 @@ $prefGroups['mboxdisplay'] = array(
     'desc' => _("Change display preferences for viewing the listing of messages in a mailbox."),
     'members' => array(
         'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
-        'max_msgs', 'from_link', 'atc_flag', 'traditional_mailbox',
-        'preview_enabled', 'preview_maxlen', 'preview_strip_nl',
-        'preview_show_unread', 'preview_show_tooltip', 'mimp_mailbox',
-        'mimp_preview_msg'
+        'max_msgs', 'from_link', 'atc_flag', 'preview_enabled',
+        'preview_maxlen', 'preview_strip_nl', 'preview_show_unread',
+        'preview_show_tooltip', 'mimp_preview_msg'
     )
 );
 
 // select widget for the initial_page preference
 $_prefs['initialpageselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_InitialPage',
+    'requires_nolock' => array('initial_page'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    }
 );
 
 // The initial page to display. Either:
@@ -1315,7 +1473,6 @@ $_prefs['initial_page'] = array(
     'value' => ''
 );
 
-// Where to start when opening mailbox?
 $_prefs['mailbox_start'] = array(
     'value' => IMP::MAILBOX_START_FIRSTUNSEEN,
     'type' => 'enum',
@@ -1329,11 +1486,10 @@ $_prefs['mailbox_start'] = array(
     'help' => 'prefs-mailbox_start'
 );
 
-// default sorting column
 $_prefs['sortby'] = array(
     // Sort by sequence by default. It is the fastest sort as it is the only
     // sort that can be done without parsing message headers. It sorts
-    // messages by the order they arrived within the mailbox.
+    // messages by the order they were initially processed by the mail server.
     'value' => Horde_Imap_Client::SORT_SEQUENCE,
     'type' => 'enum',
     'enum' => array(
@@ -1348,7 +1504,6 @@ $_prefs['sortby'] = array(
     'desc' => _("Default sorting criteria:")
 );
 
-// default sorting direction
 $_prefs['sortdir'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -1365,7 +1520,6 @@ $_prefs['sortpref'] = array(
     'value' => 'a:0:{}'
 );
 
-// default sorting criteria for the date column
 $_prefs['sortdate'] = array(
     // Use internal IMAP date by default - this is generally the date that a
     // message was first received on the IMAP server and is maintained even
@@ -1380,14 +1534,12 @@ $_prefs['sortdate'] = array(
     'desc' => _("Criteria to use when sorting by date:")
 );
 
-// mailbox constraints
 $_prefs['max_msgs'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Messages per page in the mailbox view.")
+    'desc' => _("Messages per page in the mailbox view.") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
-// How the from field should be displayed on the mailbox screen
 $_prefs['from_link'] = array(
     'value' => 1,
     'type' => 'enum',
@@ -1396,32 +1548,26 @@ $_prefs['from_link'] = array(
         1 => _("Clicking on the address will open the message to be read"),
         2 => _("Do not generate a link in the From: column")
     ),
-    'desc' => _("The From: column of the message should be linked:")
+    'desc' => _("The From: column of the message should be linked:") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
-// Display attachment information in mailbox list.
-// Disabled by default since display requires a bit of extra overhead to
-// obtain the MIME Content-Type of the base portion of the message.
 $_prefs['atc_flag'] = array(
+    // Disabled by default since display requires a bit of extra overhead to
+    // obtain the MIME Content-Type of the base portion of the message.
+    // Additionally, this algorithm is not 100% accurate.
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Display attachment information about a message in the mailbox listing?")
+    'desc' => _("Indicate whether attachments exist in a message in the mailbox listing?")
 );
 
-$_prefs['traditional_mailbox'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
-    'type' => 'rawhtml'
-);
-
-// Previews are disabled by default as it can be performance intensive,
-// especially without caching.
 $_prefs['preview_enabled'] = array(
-    // Disabled and locked by default
+    // Disabled and locked by default: previews can be performance intensive,
+    // especially without caching.
     'value' => 0,
     'locked' => true,
     'type' => 'checkbox',
-    'desc' => _("Enable message previews?")
+    'desc' => _("Enable message previews?") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 $_prefs['preview_maxlen'] = array(
@@ -1434,40 +1580,39 @@ $_prefs['preview_maxlen'] = array(
         500 => _("500 characters"),
         1000 => _("1000 characters")
     ),
-    'desc' => _("Characters to display in preview:")
+    'desc' => _("Characters to display in preview:"),
+    'requires' => array('preview_enabled')
 );
 
 $_prefs['preview_strip_nl'] = array(
     'value' => 1,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Strip linebreaks in preview?")
+    'desc' => _("Strip linebreaks in preview?"),
+    'requires' => array('preview_enabled')
 );
 
 $_prefs['preview_show_unread'] = array(
     'value' => 1,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Show previews for unread messages only?")
+    'desc' => _("Show previews for unread messages only?"),
+    'requires' => array('preview_enabled')
 );
 
 $_prefs['preview_show_tooltip'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Show previews in tooltips?")
+    'desc' => _("Show previews in tooltips?"),
+    'requires' => array('preview_enabled')
 );
 
-$_prefs['mimp_mailbox'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Minimal View") . '</div>',
-    'type' => 'rawhtml'
-);
-
-// display only the first 250 characters of a message on first message view?
 $_prefs['mimp_preview_msg'] = array(
     'value' => 0,
+    'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Display only the first 250 characters of a message initially?")
+    'desc' => _("Display only the first 250 characters of a message initially?") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 
@@ -1483,14 +1628,15 @@ $prefGroups['folderdisplay'] = array(
     )
 );
 
-// use IMAP subscribe?
 $_prefs['subscribe'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Use IMAP mailbox subscriptions?")
+    'desc' => _("Use IMAP mailbox subscriptions?"),
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
+    }
 );
 
-// expand folder tree by default
 $_prefs['nav_expanded'] = array(
     'value' => 2,
     'type' => 'enum',
@@ -1499,9 +1645,12 @@ $_prefs['nav_expanded'] = array(
         1 => _("Yes"),
         2 => _("Remember the last view")
     ),
-    'desc' => _("Expand the entire folder tree by default in the folders view?"));
+    'desc' => _("Expand the entire folder tree by default in the folders view?"),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    }
+);
 
-// folder tree view style
 $_prefs['tree_view'] = array(
     'value' => 0,
     'advanced' => true,
@@ -1510,14 +1659,32 @@ $_prefs['tree_view'] = array(
         0 => _("Combine all namespaces"),
         1 => _("Show non-private mailboxes in separate folders")
     ),
-    'desc' => _("How should namespaces be displayed in the folder tree view?")
+    'desc' => _("How should namespaces be displayed in the folder tree view?"),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    },
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
+    }
 );
 
-// poll all mailboxes for new mail?
 $_prefs['nav_poll_all'] = array(
+    // This is locked and disabled by default. You almost certainly DO NOT
+    // want to poll all mailboxes by default: this can cause crippling load
+    // on your server and is generally NOT what users want (polling things
+    // such as Drafts, Sent-Mail, and Trash mailboxes is confusing to the
+    // average user).
     'value' => 0,
+    'advanced' => true,
+    'locked' => true,
     'type' => 'checkbox',
-    'desc' => _("Poll all mailboxes for new mail?")
+    'desc' => _("Poll all mailboxes for new mail?"),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+    },
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
+    }
 );
 
 // list of folders to expand by default

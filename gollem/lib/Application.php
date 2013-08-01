@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Horde through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -21,7 +21,7 @@
 
 /* Determine the base directories. */
 if (!defined('GOLLEM_BASE')) {
-    define('GOLLEM_BASE', dirname(__FILE__) . '/..');
+    define('GOLLEM_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -50,7 +50,7 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (3.0-git)';
+    public $version = 'H5 (3.0.2-git)';
 
     /**
      * Server key used in logged out session.
@@ -62,6 +62,7 @@ class Gollem_Application extends Horde_Registry_Application
     protected function _bootstrap()
     {
         $GLOBALS['injector']->bindFactory('Gollem_Vfs', 'Gollem_Factory_VfsDefault', 'create');
+        $GLOBALS['injector']->bindFactory('Gollem_Shares', 'Gollem_Factory_Shares', 'create');
     }
 
     /**
@@ -115,6 +116,21 @@ class Gollem_Application extends Horde_Registry_Application
                     'name' => $val['name'],
                     'selected' => ($selected == $key)
                 );
+                if ($selected == $key) {
+                    if (!empty($val['loginparams'])) {
+                        foreach ($val['loginparams'] as $param => $label) {
+                            $params[$param] = array(
+                                'label' => $label,
+                                'type' => 'text',
+                                'value' => isset($val['params'][$param]) ? $val['params'][$param] : ''
+                            );
+                        }
+                    }
+                    if (Gollem_Auth::canAutoLogin($key)) {
+                        $params['horde_user'] = null;
+                        $params['horde_pass'] = null;
+                    }
+                }
             }
             $params['backend_key'] = array(
                 'label' => _("Backend"),
@@ -125,7 +141,9 @@ class Gollem_Application extends Horde_Registry_Application
 
         return array(
             'js_code' => array(),
-            'js_files' => array(),
+            'js_files' => array(array('login.js', 'gollem'),
+                                array('scriptaculous/effects.js', 'horde'),
+                                array('redbox.js', 'horde')),
             'params' => $params
         );
     }
@@ -143,11 +161,11 @@ class Gollem_Application extends Horde_Registry_Application
     {
         $this->init();
 
-        $this->_addSessVars(Gollem_Auth::authenticate(array(
-            'password' => $credentials['password'],
-            'backend_key' => empty($credentials['backend']) ? Gollem_Auth::getPreferredBackend() : $credentials['backend'],
-            'userId' => $userId
-        )));
+        if (empty($credentials['backend_key'])) {
+            $credentials['backend_key'] = Gollem_Auth::getPreferredBackend();
+        }
+        $credentials['userId'] = $userId;
+        $this->_addSessVars(Gollem_Auth::authenticate($credentials));
     }
 
     /**
@@ -188,103 +206,126 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsGroup($ui)
-    {
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'columnselect':
-                Horde_Core_Prefs_Ui_Widgets::sourceInit();
-                break;
-            }
-        }
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'columnselect':
-            $cols = json_decode($GLOBALS['prefs']->getValue('columns'));
-            $sources = array();
-
-            foreach (Gollem_Auth::getBackend() as $source => $info) {
-                $selected = $unselected = array();
-                $selected_list = isset($cols[$source])
-                    ? array_flip($cols[$source])
-                    : array();
-
-                foreach ($info['attributes'] as $column) {
-                    if (isset($selected_list[$column])) {
-                        $selected[$column] = $column;
-                    } else {
-                        $unselected[$column] = $column;
-                    }
-                }
-                $sources[$source] = array(
-                    'selected' => $selected,
-                    'unselected' => $unselected,
-                );
-            }
-
-            return Horde_Core_Prefs_Ui_Widgets::source(array(
-                'mainlabel' => _("Choose which columns to display, and in what order:"),
-                'selectlabel' => _("These columns will display in this order:"),
-                'sourcelabel' => _("Select a backend:"),
-                'sources' => $sources,
-                'unselectlabel' => _("Columns that will not be displayed:")
-            ));
-        }
-
-        return '';
-    }
-
-    /**
-     */
     public function menu($menu)
     {
         $backend_key = Gollem_Auth::getPreferredBackend();
 
-        $menu->add(Horde::url('manager.php')->add('dir', Gollem::$backend['home']), _("_My Home"), 'folder_home.png');
+        $menu->add(
+            Horde::url('manager.php')->add('dir', Gollem::$backend['home']),
+            _("Start Folder"),
+            'gollem-home',
+            null,
+            null,
+            null,
+            '__noselection');
 
-        if ($GLOBALS['registry']->isAdmin()) {
-            $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'perms.png');
+        if (Gollem::checkPermissions('backend', Horde_Perms::EDIT) &&
+            Gollem::checkPermissions('directory', Horde_Perms::EDIT, Gollem::$backend['dir']) &&
+            $GLOBALS['session']->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY)) {
+            $menu->add(
+                Horde::url('clipboard.php')->add('dir', Gollem::$backend['dir']),
+                _("Clipboard"),
+                'gollem-clipboard');
         }
 
-        if (isset(Gollem::$backend['quota_val']) &&
-            Gollem::$backend['quota_val'] != -1) {
+        if (!empty(Gollem::$backend['quota'])) {
             if ($GLOBALS['browser']->hasFeature('javascript')) {
-                $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
+                $quota_url = 'javascript:' . Horde::popupJs(
+                    Horde::url('quota.php'),
+                    array('params' => array('backend' => $backend_key),
+                          'height' => 300,
+                          'width' => 300,
+                          'urlencode' => true)
+                );
             } else {
-                $quota_url = Horde::url('quota.php')->add('backend', $backend_key);
+                $quota_url = Horde::url('quota.php')
+                    ->add('backend', $backend_key);
             }
-            $menu->add($quota_url, _("Check Quota"), 'info_icon.png');
+            $menu->add($quota_url, _("Check Quota"), 'gollem-quota');
+        }
+
+        if ($GLOBALS['registry']->isAdmin() &&
+            !($GLOBALS['injector']->getInstance('Horde_Perms') instanceof Horde_Perms_Null)) {
+            $menu->add(
+                Horde::url('permissions.php')->add('backend', $backend_key),
+                _("_Permissions"), 'horde-perms');
         }
     }
 
-    /* Sidebar method. */
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        $backend = Gollem_Auth::getPreferredBackend();
+        $url = $GLOBALS['registry']->getServiceLink('login', 'horde')
+            ->add(array('url' => (string)Horde::url('manager.php', true),
+                        'app' => 'gollem'));
+
+        if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {
+            foreach (Gollem_Auth::getBackend() as $key => $val) {
+                $row = array(
+                    'selected' => $backend == $key,
+                    'url' => $url->add('backend_key', $key),
+                    'label' => $val['name'],
+                    'type' => 'radiobox',
+                );
+                $sidebar->addRow($row, 'backends');
+            }
+        }
+    }
+
+    /* Topbar method. */
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         $icon = Horde_Themes::img('gollem.png');
         $url = Horde::url('manager.php');
 
         foreach (Gollem_Auth::getBackend() as $key => $val) {
-            $tree->addNode(
-                $parent . $key,
-                $parent,
-                $val['name'],
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . $key,
+                'parent' => $parent,
+                'label' => $val['name'],
+                'expanded' => false,
+                'params' => array(
                     'icon' => $icon,
                     'url' => $url->add(array('backend_key' => $key))
                 )
-            );
+            ));
         }
+    }
+
+    /* Download data. */
+
+    /**
+     * URL parameters needed:
+     *   - dir
+     *   - driver
+     *
+     * @throws Horde_Vfs_Exception
+     */
+    public function download(Horde_Variables $vars)
+    {
+        $vfs = $GLOBALS['injector']
+            ->getInstance('Gollem_Factory_Vfs')
+            ->create($vars->backend);
+        $res = array(
+            'data' => is_callable(array($vfs, 'readStream'))
+                ? $vfs->readStream($vars->dir, $vars->filename)
+                : $vfs->read($vars->dir, $vars->filename)
+        );
+
+        try {
+            $res['size'] = $vfs->size($vars->dir, $vars->filename);
+        } catch (Horde_Vfs_Exception $e) {}
+
+        return $res;
     }
 
 }

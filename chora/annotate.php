@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -9,7 +9,7 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 /* Spawn the file object. */
@@ -42,20 +42,18 @@ try {
     Chora::fatal($e);
 }
 
-$title = sprintf(_("Source Annotation of %s (revision %s)"), $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)), $rev);
-$extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',
-                     Chora::url('co', $where, array('r' => $rev)), _("View"),
-                     Chora::url('co', $where, array('r' => $rev, 'p' => 1)), _("Download"));
+$title = sprintf(_("Source Annotation (revision %s) for:"), $rev);
 
-Horde::addScriptFile('annotate.js', 'chora');
-Horde::addInlineJsVars(array('var Chora' => array(
-    'ANNOTATE_URL' => (string)Horde::url('annotate.php', true)->add(array('actionID' => 'log', 'f' => $where, 'rev' => '')),
-    'loading_text' => _("Loading...")
-)));
+$page_output->addScriptFile('annotate.js');
+$page_output->addInlineJsVars(array(
+    'var Chora' => array(
+        'ANNOTATE_URL' => (string)Horde::url('annotate.php', true)->add(array('actionID' => 'log', 'f' => $where, 'rev' => '')),
+        'loading_text' => _("Loading...")
+    )
+));
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
+echo Chora::getFileViews($where, $rev)->render('annotate');
 require CHORA_TEMPLATES . '/annotate/header.inc';
 
 $author = '';
@@ -76,4 +74,4 @@ while (list(,$line) = each($lines)) {
 }
 
 require CHORA_TEMPLATES . '/annotate/footer.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -2,7 +2,7 @@
 /**
  * Process an single image (to be called by ajax)
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -10,7 +10,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $face_id = Horde_Util::getFormData('face');
@@ -65,8 +65,10 @@ if ($form->validate()) {
     exit;
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive(null, null, null, 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

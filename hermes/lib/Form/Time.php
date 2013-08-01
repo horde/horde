@@ -2,7 +2,7 @@
 /**
  * @package Hermes
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -20,7 +20,7 @@ class Hermes_Form_Time extends Horde_Form
 {
     public function __construct(&$vars, $name = null)
     {
-        parent::Horde_Form($vars, $name);
+        parent::__construct($vars, $name);
     }
 
     public function getJobTypeType()

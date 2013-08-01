@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
-
-/**
  * Test the push factory.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -55,7 +50,7 @@ extends Horde_Push_TestCase
     {
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
-            array('yaml://' . dirname(__FILE__) . '/../../../fixtures/push.yaml'),
+            array('yaml://' . __DIR__ . '/../../../fixtures/push.yaml'),
             array(),
             array()
         );
@@ -66,7 +61,7 @@ extends Horde_Push_TestCase
     {
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
-            array('php://' . dirname(__FILE__) . '/../../../fixtures/push.php'),
+            array('php://' . __DIR__ . '/../../../fixtures/push.php'),
             array(),
             array()
         );
@@ -82,6 +77,7 @@ extends Horde_Push_TestCase
             array(
                 'kolab' => array(
                     'driver' => 'mock',
+                    'logger' => $this->getMock('Horde_Log_Logger'),
                     'queryset' => array('list' => array('queryset' => 'horde')),
                     'params' => array(
                         'username' => 'test',
@@ -94,10 +90,10 @@ extends Horde_Push_TestCase
                                 't' => 'note.default',
                                 'm' => array(
                                     1 => array(
-                                        'structure' => dirname(__FILE__) . '/../../../fixtures/note.struct',
+                                        'structure' => __DIR__ . '/../../../fixtures/note.struct',
                                         'parts' => array(
                                             '2' => array(
-                                                'file' => dirname(__FILE__) . '/../../../fixtures/note.xml.qp',
+                                                'file' => __DIR__ . '/../../../fixtures/note.xml.qp',
                                             )
                                         )
                                     )
@@ -120,8 +116,8 @@ extends Horde_Push_TestCase
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
             array(
-                'php://' . dirname(__FILE__) . '/../../../fixtures/push.php',
-                'yaml://' . dirname(__FILE__) . '/../../../fixtures/push.yaml'
+                'php://' . __DIR__ . '/../../../fixtures/push.php',
+                'yaml://' . __DIR__ . '/../../../fixtures/push.yaml'
             ),
             array(),
             array()
@@ -137,7 +133,7 @@ extends Horde_Push_TestCase
     {
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
-            array('php://' . dirname(__FILE__) . '/../../../fixtures/DOES_NOT_EXIST'),
+            array('php://' . __DIR__ . '/../../../fixtures/DOES_NOT_EXIST'),
             array(),
             array()
         );
@@ -150,7 +146,7 @@ extends Horde_Push_TestCase
     {
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
-            array('php://' . dirname(__FILE__) . '/../../../fixtures/empty.php'),
+            array('php://' . __DIR__ . '/../../../fixtures/empty.php'),
             array(),
             array()
         );
@@ -163,7 +159,7 @@ extends Horde_Push_TestCase
     {
         $factory = new Horde_Push_Factory_Push();
         $push = $factory->create(
-            array('yaml://' . dirname(__FILE__) . '/../../../fixtures/DOES_NOT_EXIST'),
+            array('yaml://' . __DIR__ . '/../../../fixtures/DOES_NOT_EXIST'),
             array(),
             array()
         );

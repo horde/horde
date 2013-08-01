@@ -1,14 +1,23 @@
 <?php
 /**
- * Wicked Base Class.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
+ */
+
+/**
+ * Wicked Base Class.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
  */
 class Wicked
 {
@@ -79,7 +88,7 @@ class Wicked
         if ($GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
             $script = str_replace('%2F', '/', urlencode($page));
         } else {
-            $script = Horde_Util::addParameter('display.php', 'page', $page);
+            $script = Horde::url('display.php')->add('page', $page);
         }
 
         $url = Horde::url($script, $full, array('append_session' => $append_session));
@@ -88,47 +97,6 @@ class Wicked
         }
 
         return $url;
-    }
-
-    /**
-     * Build Wicked's list of menu items.
-     */
-    public static function getMenu($returnType = 'object')
-    {
-        global $conf, $page;
-
-        $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-
-        if (@count($conf['menu']['pages'])) {
-            $pages = array('Wiki/Home' => _("_Home"),
-                           'Wiki/Usage' => _("_Usage"),
-                           'RecentChanges' => _("_Recent Changes"),
-                           'AllPages' => _("_All Pages"));
-            foreach ($conf['menu']['pages'] as $pagename) {
-                /* Determine who we should say referred us. */
-                $curpage = isset($page) ? $page->pageName() : null;
-                $referrer = Horde_Util::getFormData('referrer', $curpage);
-
-                /* Determine if we should depress the button. We have to do
-                 * this on our own because all the buttons go to the same .php
-                 * file, just with different args. */
-                if (!strstr($_SERVER['PHP_SELF'], 'prefs.php') &&
-                    $curpage === $pagename) {
-                    $cellclass = 'current';
-                } else {
-                    $cellclass = '__noselection';
-                }
-
-                $url = Horde_Util::addParameter(self::url($pagename), 'referrer', $referrer);
-                $menu->add($url, $pages[$pagename], str_replace('/', '', $pagename) . '.png', null, null, null, $cellclass);
-            }
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
     }
 
     /**
@@ -226,4 +194,24 @@ class Wicked
         return $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : $GLOBALS['browser']->getIPAddress();
     }
 
+    /**
+     * Sets the topbar up.
+     */
+    public static function setTopbar()
+    {
+        $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
+        $topbar->search = true;
+        $topbar->searchAction = Horde::url('display.php');
+        $topbar->searchParameters = array('page' => 'Search');
+    }
+
+    public static function addFeedLink()
+    {
+        $GLOBALS['page_output']->addLinkTag(array(
+            'href' => Horde::url('opensearch.php', true, -1),
+            'rel' => 'search',
+            'title' => $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')',
+            'type' => 'application/opensearchdescription+xml'
+        ));
+    }
 }

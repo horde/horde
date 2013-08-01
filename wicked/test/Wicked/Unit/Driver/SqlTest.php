@@ -2,7 +2,7 @@
 /**
  * Test the SQL driver.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
  * you did not receive this file, see
@@ -17,11 +17,6 @@
  * @link       http://www.horde.org/apps/wicked
  * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
-
-/**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
  * Test the restructured text renderer.
@@ -45,7 +40,7 @@ class Wicked_Unit_Driver_SqlTest extends Wicked_TestCase
     {
         $this->markTestIncomplete('This is a very old test case that certainly does not work in its current form. But it may still be useful to be rescued.');
 
-        @define('WICKED_BASE', dirname(__FILE__) . '/../..');
+        @define('WICKED_BASE', __DIR__ . '/../..');
         @define('TEST_PAGE_1', 'driver-pages.phpt Test Page One');
         @define('TEST_PAGE_2', 'Renamed driver-pages.phpt Test Page (Called "Two")');
 

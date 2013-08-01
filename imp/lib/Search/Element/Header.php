@@ -2,7 +2,7 @@
 /**
  * This class handles header-related search queries.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -29,7 +29,7 @@ class IMP_Search_Element_Header extends IMP_Search_Element
          * t = (string) The search text. */
         $this->_data = new stdClass;
         $this->_data->h = trim(Horde_String::lower($header));
-        $this->_data->n = intval($not);
+        $this->_data->n = intval(!empty($not));
         $this->_data->t = $text;
     }
 
@@ -46,7 +46,7 @@ class IMP_Search_Element_Header extends IMP_Search_Element
      */
     public function queryText()
     {
-        return sprintf(_("%s (Header) for '%s'"), _(Horde_String::ucfirst($this->_data->h)), ($this->_data->n ? _("not") . ' ' : '') . $this->_data->t);
+        return sprintf(_("%s (Header) for \"%s\""), _(Horde_String::ucfirst($this->_data->h)), ($this->_data->n ? _("not") . ' ' : '') . $this->_data->t);
     }
 
 }

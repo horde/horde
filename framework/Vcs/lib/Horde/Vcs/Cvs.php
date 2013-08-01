@@ -3,13 +3,12 @@
  * Horde_Vcs_cvs implementation.
  *
  * Constructor args:
- * <pre>
- * 'sourceroot': The source root for this repository
- * 'paths': Hash with the locations of all necessary binaries: 'rcsdiff',
- *          'rlog', 'cvsps', 'cvsps_home', and 'temp' (the temp path).
- * </pre>
+ * - 'sourceroot': The source root for this repository
+ * - 'paths': Hash with the locations of all necessary binaries: 'rcsdiff',
+ *            'rlog', 'cvsps', 'cvsps_home', and 'temp' (the temp path).
+ * - 'timezone': Timezone, necessary for cvsps.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

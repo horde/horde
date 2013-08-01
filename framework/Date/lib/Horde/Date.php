@@ -143,7 +143,7 @@ class Horde_Date
      * Default specs that are always supported.
      * @var string
      */
-    protected static $_defaultSpecs = '%CdDeHImMnRStTyY';
+    protected static $_defaultSpecs = '-%CdDeHImMnRStTyY';
 
     /**
      * Internally supported strftime() specifiers.
@@ -245,10 +245,9 @@ class Horde_Date
                 $this->_sec   = $parts['seconds'];
             }
         } else {
-            // Use date_create() so we can catch errors with PHP 5.2. Use
-            // "new DateTime() once we require 5.3.
-            $parsed = date_create($date);
-            if (!$parsed) {
+            try {
+                $parsed = new DateTime($date);
+            } catch (Exception $e) {
                 throw new Horde_Date_Exception(sprintf(Horde_Date_Translation::t("Failed to parse time string (%s)"), $date));
             }
             $parsed->setTimezone(new DateTimeZone(date_default_timezone_get()));
@@ -283,9 +282,13 @@ class Horde_Date
      */
     public function toDateTime()
     {
-        $date = new DateTime(null, new DateTimeZone($this->_timezone));
-        $date->setDate($this->_year, $this->_month, $this->_mday);
-        $date->setTime($this->_hour, $this->_min, $this->_sec);
+        try {
+            $date = new DateTime(null, new DateTimeZone($this->_timezone));
+            $date->setDate($this->_year, $this->_month, $this->_mday);
+            $date->setTime($this->_hour, $this->_min, $this->_sec);
+        } catch (Exception $e) {
+            throw new Horde_Date_Exception($e);
+        }
         return $date;
     }
 
@@ -384,8 +387,8 @@ class Horde_Date
      */
     public static function fromDays($days)
     {
-        if (function_exists('JDToGregorian')) {
-            list($month, $day, $year) = explode('/', JDToGregorian($days));
+        if (function_exists('jdtogregorian')) {
+            list($month, $day, $year) = explode('/', jdtogregorian($days));
         } else {
             $days = intval($days);
 
@@ -427,7 +430,9 @@ class Horde_Date
         if ($name == 'day') {
             $name = 'mday';
         }
-
+        if ($name[0] == '_') {
+            return null;
+        }
         return $this->{'_' . $name};
     }
 
@@ -888,56 +893,60 @@ class Horde_Date
     }
 
     /**
+     * Callback used to replace a strtime pattern
+     *
+     * @param array $matches  preg_replace_callback() matches.
+     *
+     * @return string Replacement string.
+     */
+    protected function _regexCallback($reg)
+    {
+        switch ($reg[0]) {
+            case '%b':  return $this->strftime(Horde_Nls::getLangInfo(constant('ABMON_' . (int)$this->_month)));
+            case '%B':  return $this->strftime(Horde_Nls::getLangInfo(constant('MON_' . (int)$this->_month)));
+            case '%C':  return (int)($this->_year / 100);
+            case '%-d':
+            case '%#d': return sprintf('%d',   $this->_mday);
+            case '%d':  return sprintf('%02d', $this->_mday);
+            case '%D':  return $this->strftime('%m/%d/%y');
+            case '%e':  return sprintf('%2d', $this->_mday);
+            case '%-H':
+            case '%#H': return sprintf('%d',   $this->_hour);
+            case '%H':  return sprintf('%02d', $this->_hour);
+            case '%-I':
+            case '%#I': return sprintf('%d',   $this->_hour == 0 ? 12 : ($this->_hour > 12 ? $this->_hour - 12 : $this->_hour));
+            case '%I':  return sprintf('%02d', $this->_hour == 0 ? 12 : ($this->_hour > 12 ? $this->_hour - 12 : $this->_hour));
+            case '%-m':
+            case '%#m': return sprintf('%d', $this->_month);
+            case '%m':  return sprintf('%02d', $this->_month);
+            case '%-M':
+            case '%#M': return sprintf('%d', $this->_min);
+            case '%M':  return sprintf('%02d', $this->_min);
+            case '%n':  return "\n";
+            case '%p':  return $this->strftime(Horde_Nls::getLangInfo($this->_hour < 12 ? AM_STR : PM_STR));
+            case '%R':  return $this->strftime('%H:%M');
+            case '%-S':
+            case '%#S': return sprintf('%d', $this->_sec);
+            case '%S':  return sprintf('%02d', $this->_sec);
+            case '%t':  return "\t";
+            case '%T':  return $this->strftime('%H:%M:%S');
+            case '%x':  return $this->strftime(Horde_Nls::getLangInfo(D_FMT));
+            case '%X':  return $this->strftime(Horde_Nls::getLangInfo(T_FMT));
+            case '%y':  return substr(sprintf('%04d', $this->_year), -2);
+            case '%Y':  return (int)$this->_year;
+            case '%%':  return '%';
+        }
+        return $reg[0];
+    }
+
+    /**
      * Formats date and time using a limited set of the strftime() format.
      *
      * @return string  strftime() formatted date and time.
      */
     protected function _strftime($format)
     {
-        return preg_replace(
-            array('/%b/e',
-                  '/%B/e',
-                  '/%C/e',
-                  '/%d/e',
-                  '/%D/e',
-                  '/%e/e',
-                  '/%H/e',
-                  '/%I/e',
-                  '/%m/e',
-                  '/%M/e',
-                  '/%n/',
-                  '/%p/e',
-                  '/%R/e',
-                  '/%S/e',
-                  '/%t/',
-                  '/%T/e',
-                  '/%x/e',
-                  '/%X/e',
-                  '/%y/e',
-                  '/%Y/',
-                  '/%%/'),
-            array('$this->_strftime(Horde_Nls::getLangInfo(constant(\'ABMON_\' . (int)$this->_month)))',
-                  '$this->_strftime(Horde_Nls::getLangInfo(constant(\'MON_\' . (int)$this->_month)))',
-                  '(int)($this->_year / 100)',
-                  'sprintf(\'%02d\', $this->_mday)',
-                  '$this->_strftime(\'%m/%d/%y\')',
-                  'sprintf(\'%2d\', $this->_mday)',
-                  'sprintf(\'%02d\', $this->_hour)',
-                  'sprintf(\'%02d\', $this->_hour == 0 ? 12 : ($this->_hour > 12 ? $this->_hour - 12 : $this->_hour))',
-                  'sprintf(\'%02d\', $this->_month)',
-                  'sprintf(\'%02d\', $this->_min)',
-                  "\n",
-                  '$this->_strftime(Horde_Nls::getLangInfo($this->_hour < 12 ? AM_STR : PM_STR))',
-                  '$this->_strftime(\'%H:%M\')',
-                  'sprintf(\'%02d\', $this->_sec)',
-                  "\t",
-                  '$this->_strftime(\'%H:%M:%S\')',
-                  '$this->_strftime(Horde_Nls::getLangInfo(D_FMT))',
-                  '$this->_strftime(Horde_Nls::getLangInfo(T_FMT))',
-                  'substr(sprintf(\'%04d\', $this->_year), -2)',
-                  (int)$this->_year,
-                  '%'),
-            $format);
+        return preg_replace_callback('/(%([-#]?)[%bBCdDeHImMnpRStTxXyY])/', array($this, '_regexCallback'), $format);
     }
 
     /**
@@ -988,7 +997,7 @@ class Horde_Date
         }
 
         if ($mask & self::MASK_MONTH) {
-            $this->_correctMonth($down);
+            $this->_correctMonth();
             /* When correcting the month, always correct the day too. Months
              * have different numbers of days. */
             $mask |= self::MASK_DAY;
@@ -1003,11 +1012,11 @@ class Horde_Date
                     $this->_mday -= Horde_Date_Utils::daysInMonth($this->_month, $this->_year);
                     $this->_month++;
                 }
-                $this->_correctMonth($down);
+                $this->_correctMonth();
             }
             while ($this->_mday < 1) {
                 --$this->_month;
-                $this->_correctMonth($down);
+                $this->_correctMonth();
                 $this->_mday += Horde_Date_Utils::daysInMonth($this->_month, $this->_year);
             }
         }
@@ -1018,10 +1027,8 @@ class Horde_Date
      *
      * This cannot be done in _correct() because that would also trigger a
      * correction of the day, which would result in an infinite loop.
-     *
-     * @param integer $down  Whether to correct the date up or down.
      */
-    protected function _correctMonth($down = false)
+    protected function _correctMonth()
     {
         $this->_year += (int)($this->_month / 12);
         $this->_month %= 12;

@@ -1,11 +1,6 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Base.php';
-
-/**
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -13,9 +8,11 @@ require_once dirname(__FILE__) . '/Base.php';
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Group_LdapTest extends Horde_Group_Test_Base
+class Horde_Group_LdapTest extends Horde_Group_TestBase
 {
     protected static $ldap;
+
+    protected static $reason;
 
     public function testCreate()
     {
@@ -121,6 +118,7 @@ class Horde_Group_LdapTest extends Horde_Group_Test_Base
     public static function setUpBeforeClass()
     {
         if (!extension_loaded('ldap')) {
+            self::$reason = 'No ldap extension';
             return;
         }
         $config = self::getConfig('GROUP_LDAP_TEST_CONFIG');
@@ -128,6 +126,8 @@ class Horde_Group_LdapTest extends Horde_Group_Test_Base
             self::$ldap = new Horde_Ldap($config['group']['ldap']);
             $config['group']['ldap']['ldap'] = self::$ldap;
             self::$group = new Horde_Group_Ldap($config['group']['ldap']);
+        } else {
+            self::$reason = 'No ldap configuration';
         }
     }
 
@@ -152,7 +152,7 @@ class Horde_Group_LdapTest extends Horde_Group_Test_Base
     public function setUp()
     {
         if (!self::$ldap) {
-            $this->markTestSkipped('No ldap extension or no ldap configuration');
+            $this->markTestSkipped(self::$reason);
         }
     }
 }

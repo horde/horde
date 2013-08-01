@@ -2,7 +2,7 @@
 /**
  * Commit view
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -13,8 +13,12 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('chora');
+require_once __DIR__ . '/lib/Application.php';
+
+// Cache the commit output for a week - it can be longer, since it should never
+// change.
+session_cache_expire(10080);
+Horde_Registry::appInit('chora', array('session_cache_limiter' => 'public'));
 
 // Exit if patchset feature is not available.
 if (!$GLOBALS['VC']->hasFeature('patchsets')) {
@@ -28,7 +32,10 @@ if (!($commit_id = Horde_Util::getFormData('commit'))) {
 $title = sprintf(_("Commit %s"), $commit_id);
 
 try {
-    $ps = $VC->getPatchset(array('range' => array($commit_id)));
+    $ps = $VC->getPatchset(array(
+        'range' => array($commit_id),
+        'timezone' => $prefs->getValue('timezone')
+    ));
     $patchsets = $ps->getPatchsets();
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
@@ -37,19 +44,13 @@ try {
 if (empty($patchsets)) {
     Chora::fatal(_("Commit Not Found"), '404 Not Found');
 }
+
 reset($patchsets);
 $patchset = current($patchsets);
 
-// Cache the commit output for a week - it can be longer, since it should never
-// change.
-header('Cache-Control: max-age=604800');
-
-Horde::addScriptFile('tables.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
-
+$page_output->addScriptFile('tables.js', 'horde');
 $commit_page = 1;
-require CHORA_TEMPLATES . '/patchsets/ps_single.inc';
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+Chora::header($title);
+require CHORA_TEMPLATES . '/patchsets/ps_single.inc';
+$page_output->footer();

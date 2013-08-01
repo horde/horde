@@ -385,11 +385,31 @@ class Klutz_Comic
         $string = preg_replace('/\{i\}/i',
                                $this->getInstance($date),
                                $string);
-        $string = preg_replace('/(?<![\134]\w)(\{[^\}]+\})/e',"strftime('\\1', $date)", $string);
-        $string = preg_replace('/\{lc\((.*?)\)\}/ie',"strtolower('\\1')", $string);
-        $string = preg_replace('/\{uc\((.*?)\)\}/ie',"strtoupper('\\1')", $string);
-        $string = preg_replace('/\{t\((.*?)\)\}/ie',"trim('\\1')", $string);
-        $string = preg_replace('/\{tl0\((.*?)\)\}/ie',"ltrim('\\1','0')", $string);
+        $string = preg_replace_callback('/(?<![\134]\w)(\{[^\}]+\})/',
+                                        function($time) use($date) {
+                                            return strftime($time[1], $date);
+                                        },
+                                        $string);
+        $string = preg_replace_callback('/\{lc\((.*?)\)\}/i',
+                                        function($string) {
+                                            return strtolower($string[1]);
+                                        },
+                                        $string);
+        $string = preg_replace_callback('/\{uc\((.*?)\)\}/i',
+                                        function($string) {
+                                            return strtoupper($string[1]);
+                                        },
+                                        $string);
+        $string = preg_replace_callback('/\{t\((.*?)\)\}/i',
+                                        function($string) {
+                                            return trim($string[1]);
+                                        },
+                                        $string);
+        $string = preg_replace_callback('/\{tl0\((.*?)\)\}/i',
+                                        function($string) {
+                                            return ltrim($string, '0');
+                                        },
+                                        $string);
         $string = preg_replace('/(?<![\134]\w)\{(.*?)\}/', "\\1\\2", $string);
 
         return $string;

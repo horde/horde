@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="beatnik-overview" md5="0fefa1688de625798ca5af1ac632903b" state="uptodate">
+    <title>Introducción a Beatnik</title>
+    <heading>¿Qué es Beatnik?</heading>
+    <para>
+    Beatnik gestiona registros DNS mediante una interfaz web cómoda.
+    </para>
+  </entry>
+
+<entry id="record-types" md5="e99d8402a2d684cb47d627613bf85905" state="uptodate">
+    <title>Tipos de registros</title>
+  </entry>
+
+<entry id="record-fields" md5="78baaff582a35e6bd2e421eab3cdc4de" state="uptodate">
+    <title>Campos del registro</title>
+    <heading>Marca de tiempo</heading>
+    <para>
+      Este campos sólo está disponible con el motor "ldap2dns".
+    </para>
+    <para>
+      El campo marca de tiempo permite indicar al servidor DNS que "No emita antes de" o "No emita después de" un tiempo concreto. Si el campo "ttl" difiere de cero o se omite, "timestamp" indica una hora a partir de la que el registro será válido. Si "ttl" vale 0 la marca de tiempo es una hora final tras la que el registro ya no se volverá a servir. <a href="http://cr.yp.to">tinydns</a> ajustará automáticamente el ttl para que el registro no se almacene más de unos pocos segundos más allá de su caducidad.
+    </para>
+    <para>
+      El formato del registro es el número de segundo desde la medianoche del 1 de enero de 1970 expresado en TAI64, una cadena hexadecimal de 16 caracteres. Consulte <a href="http://cr.yp.to/libtai/tai64.html#tai64">http://cr.yp.to/libtai/tai64.html#tai64</a> para más información sobre TAI64.
+    </para>
+  </entry>
+
+</help>

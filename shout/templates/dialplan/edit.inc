@@ -38,12 +38,11 @@
         <br style="clear:both;">
         <ul id="dialplanControls" class="controls">
         <?php
-        $addurl = Horde::url('dialplan.php');
-        $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+        $addurl = Horde::url('dialplan.php')->add('action', 'add');
         ?>
 
         <li>
-            <a class="button" style="display: block;" href="<?php echo $addurl; ?>">
+            <a class="horde-create" style="display: block;" href="<?php echo $addurl; ?>">
             <?php echo Horde::img('menu-add.png'); ?>&nbsp;New Menu
             </a>
         </li>
@@ -91,7 +90,7 @@
 <script type="text/javascript">
 <!--
 // TODO: Convert to object
-var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
+var ajax_url = '<?php echo $GLOBALS['registry']->getServiceLink('ajax', 'shout') ?>';
 var curmenu = null;
 var menuInfo = $H();
 var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON); ?>);

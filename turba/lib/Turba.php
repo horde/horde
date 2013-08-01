@@ -2,7 +2,7 @@
 /**
  * Turba Base Class.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -15,8 +15,17 @@
  */
 class Turba
 {
-    /* The virtual path to use for VFS data. */
+    /**
+     * The virtual path to use for VFS data.
+     */
     const VFS_PATH = '.horde/turba/documents';
+
+    /**
+     * The current source.
+     *
+     * @var string
+     */
+    static public $source;
 
     /**
      * Cached data.
@@ -55,40 +64,11 @@ class Turba
     static public function getAddressBooks($permission = Horde_Perms::READ,
                                            array $options = array())
     {
-        $addressbooks = array();
-        foreach (array_keys(self::getAddressBookOrder()) as $addressbook) {
-            $addressbooks[$addressbook] = $GLOBALS['cfgSources'][$addressbook];
-        }
-
         return self::permissionsFilter(
-            empty($addressbooks) ? $GLOBALS['cfgSources'] : $addressbooks,
+            $GLOBALS['cfgSources'],
             $permission,
             $options
         );
-    }
-
-    /**
-     * Get the order the user selected for displaying address books.
-     *
-     * @return array  An array describing the order to display the address
-     *                books.
-     */
-    static public function getAddressBookOrder()
-    {
-        $addressbooks = array();
-        $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
-
-        if (!empty($lines)) {
-            $i = 0;
-            foreach ($lines as $line) {
-                $line = trim($line);
-                if ($line && isset($GLOBALS['cfgSources'][$line])) {
-                    $addressbooks[$line] = $i++;
-                }
-            }
-        }
-
-        return $addressbooks;
     }
 
     /**
@@ -98,11 +78,6 @@ class Turba
      */
     static public function getDefaultAddressbook()
     {
-        if ($abooks = self::getAddressBookOrder()) {
-            reset($abooks);
-            return key($abooks);
-        }
-
         /* In case of shares select first user owned address book as default */
         if (!empty($_SESSION['turba']['has_share'])) {
             try {
@@ -128,6 +103,50 @@ class Turba
     }
 
     /**
+     * Saves the sort order to the preferences backend.
+     *
+     * @param Horde_Variables $vars  Variables object.
+     * @param string $source         Source.
+     */
+    static public function setPreferredSortOrder(Horde_Variables $vars,
+                                                 $source)
+    {
+        if (!strlen($sortby = $vars->get('sortby'))) {
+            return;
+        }
+
+        $sources = self::getColumns();
+        $columns = isset($sources[$source])
+            ? $sources[$source]
+            : array();
+        $column_name = self::getColumnName($sortby, $columns);
+
+        $append = true;
+        $ascending = ($vars->get('sortdir') == 0);
+
+        if ($vars->get('sortadd')) {
+            $sortorder = self::getPreferredSortOrder();
+            foreach ($sortorder as $i => $elt) {
+                if ($elt['field'] == $column_name) {
+                    $sortorder[$i]['ascending'] = $ascending;
+                    $append = false;
+                }
+            }
+        } else {
+            $sortorder = array();
+        }
+
+        if ($append) {
+            $sortorder[] = array(
+                'ascending' => $ascending,
+                'field' => $column_name
+            );
+        }
+
+        $GLOBALS['prefs']->setValue('sortorder', serialize($sortorder));
+    }
+
+    /**
      * Retrieves a column's field name.
      *
      * @param integer $i      TODO
@@ -137,7 +156,7 @@ class Turba
      */
     static public function getColumnName($i, $columns)
     {
-        return ($i == 0)
+        return (($i == 0) || !isset($columns[$i - 1]))
             ? 'name'
             : $columns[$i - 1];
     }
@@ -261,7 +280,7 @@ class Turba
         if (($name_format == 'first_last') &&
             is_int(strpos($name, ',')) &&
             (Horde_String::length($name) > Horde_String::length($lastname))) {
-            return preg_replace('/' . preg_quote($lastname, '/') . ',\s*/', '', $name) . ' ' . $lasname;
+            return preg_replace('/' . preg_quote($lastname, '/') . ',\s*/', '', $name) . ' ' . $lastname;
         }
 
         return $name;
@@ -290,7 +309,7 @@ class Turba
             $data = array($data);
         }
 
-        foreach ($data as $i => $email_vals) {
+        foreach ($data as $email_vals) {
             foreach ($rfc822->parseAddressList($email_vals) as $ob) {
                 $addr = strval($ob);
                 $tmp = null;
@@ -299,7 +318,7 @@ class Turba
                     try {
                         $tmp = $GLOBALS['registry']->call('mail/batchCompose', array(array($addr)));
                     } catch (Horde_Exception $e) {
-                        $self::$_cache['useRegistry'] = false;
+                        self::$_cache['useRegistry'] = false;
                     }
                 }
 
@@ -419,14 +438,12 @@ class Turba
      */
     static public function getConfigFromShares(array $sources)
     {
-        global $injector, $notification, $registry;
-
         try {
             $shares = self::listShares();
         } catch (Horde_Share_Exception $e) {
             // Notify the user if we failed, but still return the $cfgSource
             // array.
-            $notification->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e, 'horde.error');
             return $sources;
         }
 
@@ -440,8 +457,8 @@ class Turba
             }
         }
 
-        $auth_user = $registry->getAuth();
-        $sortedSources = $defaults = $vbooks = array();
+        $auth_user = $GLOBALS['registry']->getAuth();
+        $sortedSources = $vbooks = array();
         $personal = false;
 
         foreach ($shares as $name => &$share) {
@@ -477,6 +494,9 @@ class Turba
                 $info['params']['config']['params']['share'] = $share;
                 $info['params']['config']['params']['name'] = $params['name'];
                 $info['title'] = $share->get('name');
+                if ($share->get('owner') != $auth_user) {
+                    $info['title'] .= ' [' . $GLOBALS['registry']->convertUsername($share->get('owner'), false) . ']';
+                }
                 $info['type'] = 'share';
                 $info['use_shares'] = false;
                 $sortedSources[$params['source']][$name] = $info;
@@ -495,14 +515,16 @@ class Turba
                 $newSources = array_merge($newSources, $sortedSources[$source]);
             }
 
-            if (!empty($conf['share']['auto_create']) &&
+            if (!empty($GLOBALS['conf']['share']['auto_create']) &&
                 $auth_user &&
                 !$personal) {
                 // User's default share is missing.
                 try {
-                    $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
+                    $driver = $GLOBALS['injector']
+                        ->getInstance('Turba_Factory_Driver')
+                        ->create($source);
                 } catch (Turba_Exception $e) {
-                    $notification->push($e->getMessage(), 'horde.error');
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
                     continue;
                 }
 
@@ -523,6 +545,7 @@ class Turba
                     $source_config['params']['share'] = $share;
                     $newSources[$sourceKey] = $source_config;
                     $personal = true;
+                    $GLOBALS['prefs']->setValue('default_dir', $share->getName());
                 } catch (Horde_Share_Exception $e) {
                     Horde::logMessage($e, 'ERR');
                 }
@@ -625,7 +648,7 @@ class Turba
 
         /* Generate the new share. */
         try {
-            $turba_shares = $injector->getInstance('Turba_Shares');
+            $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
 
             $share = $turba_shares->newShare($GLOBALS['registry']->getAuth(), $share_name, $name);
 
@@ -637,22 +660,10 @@ class Turba
                 $share->set($key, $value);
             }
             $turba_shares->addShare($share);
-            $result = $share->save();
+            $share->save();
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Turba_Exception($e);
-        }
-
-        /* Update share_id as backends like Kolab change it to the IMAP folder
-         * name. */
-        $share_name = $share->getName();
-
-        /* Add the new addressbook to the user's list of visible address
-         * books. */
-        $prefs = json_decode($GLOBALS['prefs']->getValue('addressbooks'), true);
-        if (!is_array($prefs) || array_search($share_name, $prefs) === false) {
-            $prefs[] = $share_name;
-            $GLOBALS['prefs']->setValue('addressbooks', json_encode($prefs));
         }
 
         return $share;
@@ -663,8 +674,10 @@ class Turba
      */
     static public function addBrowseJs()
     {
-        Horde::addScriptFile('browse.js', 'turba');
-        Horde::addInlineJsVars(array(
+        global $page_output;
+
+        $page_output->addScriptFile('browse.js');
+        $page_output->addInlineJsVars(array(
             'TurbaBrowse.confirmdelete' => _("Are you sure that you want to delete %s?"),
             'TurbaBrowse.contact1' => _("You must select at least one contact first."),
             'TurbaBrowse.contact2' => _("You must select a target contact list."),
@@ -673,5 +686,4 @@ class Turba
             'TurbaBrowse.submit' => _("Are you sure that you want to delete the selected contacts?")
         ));
     }
-
 }

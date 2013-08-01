@@ -1,0 +1,2 @@
+<?php
+$conf['token']['mongo'] = null;

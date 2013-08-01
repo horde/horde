@@ -320,9 +320,8 @@ class Folks_Hooks
 
         require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
         $code = Folks::encodeString($userID, 'activate' . hash('md5', $extra['password']));
-        $link = Horde_Util::addParameter(Horde::url('account/approve.php', true, -1),
-                                    array('user' => $userID, 'code' => $code),
-                                    null, false);
+        $link = Horde::url('account/approve.php', true, -1)->add(array(
+        'user' => $userID, 'code' => $code))->setRaw(true);
 
         $body = sprintf(_("Your username on %s %s is: %s. \n\n Please confirm the registration by going to this link \n %s"),
                             $GLOBALS['registry']->get('name', 'horde'),

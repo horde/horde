@@ -15,7 +15,7 @@
 /**
  * Basic Mnemo test case.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -43,7 +43,7 @@ extends PHPUnit_Framework_TestCase
                     'factory' => 'Db',
                     'params' => array(
                         'migrations' => array(
-                            'migrationsPath' => dirname(__FILE__) . '/../../migration',
+                            'migrationsPath' => __DIR__ . '/../../migration',
                             'schemaTableName' => 'mnemo_test_schema'
                         )
                     )

@@ -171,8 +171,6 @@ class Horde_Rdo_Query
     /**
      * Makes the query return only distinct (different) values.
      *
-     * @since Horde_Rdo 1.1.0
-     *
      * @param boolean $distinct  Whether to enable a distinct query.
      *
      * @return Horde_Rdo_Query Returns self for fluent method chaining.
@@ -233,6 +231,24 @@ class Horde_Rdo_Query
     }
 
     /**
+     * Adds a relationship type to a query.
+
+     * @param string $relationship  The name of the relationship as defined in
+     *                              the mapper.
+     * @param array $args           The parameter array as defined in the
+     *                              mapper:
+     *                              - mapper:     The mapper object of the
+     *                                            result class.
+     *                              - table:      Optional name of the table to
+     *                                            use.
+     *                              - tableAlias: Optional alias name for the
+     *                                            base table.
+     *                              - join_type:  Optional explicitly control
+     *                                            the type of join.
+     *                              - type:       The type of relation, any of
+     *                                            the constants in Horde_Rdo.
+     *
+     * @return Horde_Rdo_Query  This object.
      */
     public function addRelationship($relationship, $args)
     {
@@ -256,6 +272,7 @@ class Horde_Rdo_Query
             switch ($args['type']) {
             case Horde_Rdo::ONE_TO_ONE:
             case Horde_Rdo::MANY_TO_ONE:
+            case Horde_Rdo::MANY_TO_MANY:
                 $args['join_type'] = 'INNER JOIN';
                 break;
 

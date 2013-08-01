@@ -12,14 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
-
-/**
  * Test the handling of active sync data.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -31,7 +26,7 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_List_Query_Activesync_BaseTest
-extends Horde_Kolab_Storage_TestCase
+extends PHPUnit_Framework_TestCase
 {
     public function testGetEmptyActiveSync()
     {
@@ -85,12 +80,8 @@ extends Horde_Kolab_Storage_TestCase
     private function _getActivesync()
     {
         $this->driver = $this->getMock('Horde_Kolab_Storage_Driver');
-        $this->list = new Horde_Kolab_Storage_List_Base(
-            $this->driver,
-            new Horde_Kolab_Storage_Factory()
-        );
         return new Horde_Kolab_Storage_List_Query_ActiveSync_Base(
-            $this->list, array()
+            $this->driver
         );
     }
 }

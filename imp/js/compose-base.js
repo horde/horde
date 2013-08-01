@@ -10,6 +10,13 @@ var ImpComposeBase = {
 
     // Vars defaulting to null: editor_on, identities
 
+    getSpellChecker: function()
+    {
+        return (HordeImple.SpellChecker && HordeImple.SpellChecker.spellcheck)
+            ? HordeImple.SpellChecker.spellcheck
+            : null;
+    },
+
     setCursorPosition: function(input, type)
     {
         var pos, range;
@@ -50,16 +57,21 @@ var ImpComposeBase = {
         }
     },
 
-    updateAddressField: function(elt, address)
+    updateAddressField: function(e)
     {
-        var v = $F(elt).strip(),
+        var elt = $(e.memo.field),
+            v = $F(elt).strip(),
             pos = v.lastIndexOf(',');
 
-        if (pos != -1) {
-            v = v.substring(0, pos) + ' ';
+        if (v.empty()) {
+            v = '';
+        } else if (pos != (v.length - 1)) {
+            v += ', ';
+        } else {
+            v += ' ';
         }
 
-        elt.setValue(v + address + ', ');
+        elt.setValue(v + e.memo.value + ', ');
     }
 
 };

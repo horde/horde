@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the date-time handler.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -63,7 +58,6 @@ extends PHPUnit_Framework_TestCase
         return array(
             array('2010-01-31T11:27:21Z', 1264937241),
             array('2005-12-19T02:55:23.437689Z', 1134960923),
-            array('2005-12-19T02:55:23.437689809890787324Z', 1134960923),
             array('2001-06-19T11:01:23Z', 992948483),
             array('2005-12-19T02:55:23.43Z', 1134960923),
             // Leap second
@@ -92,19 +86,13 @@ extends PHPUnit_Framework_TestCase
     public function provideInvalidUtcDates()
     {
         return array(
-            array('A2010-01-31T11:27:21Z'),
             array('2010A-01-31T11:27:21Z'),
             array('2010-A01-31T11:27:21Z'),
             array('2010-019-31T11:27:21Z'),
             array('2010-01-331T11:27:21Z'),
             array('2010-01-33X11:27:21Z'),
-            array('2010-01-30T11:27:21'),
-            array('2010-01-30'),
-            array('2010-01-30T'),
             array('2005-12-19T02:55:23.x437689Z'),
             array('2005-12-19T02:55:23.437689809890787324'),
-            array('2001/06/19T11:01:23Z'),
-            array('2005-12-19T02:55'),
         );
     }
 
@@ -125,7 +113,6 @@ extends PHPUnit_Framework_TestCase
         return array(
             array('2010-01-31T11:27:21Z', '2010-01-31T11:27:21Z'),
             array('2005-12-19T02:55:23.437689Z', '2005-12-19T02:55:23Z'),
-            array('2005-12-19T02:55:23.437689809890787324Z', '2005-12-19T02:55:23Z'),
             array('2001-06-19T11:01:23Z', '2001-06-19T11:01:23Z'),
             array('2005-12-19T02:55:23.43Z', '2005-12-19T02:55:23Z'),
             // Leap second
@@ -138,129 +125,6 @@ extends PHPUnit_Framework_TestCase
             array('2010-12-31T23:59:60Z', '2011-01-01T00:00:00Z'),
             array('2011-01-01T00:00:00Z', '2011-01-01T00:00:00Z'),
             array('2011-01-01T00:00:01Z', '2011-01-01T00:00:01Z'),
-        );
-    }
-
-    /**
-     * @dataProvider provideDates
-     */
-    public function testDate($string_date, $result)
-    {
-        $this->assertEquals(
-            $result,
-            Horde_Kolab_Format_Date::decodeDate($string_date)
-        );
-    }
-
-    public function provideDates()
-    {
-        return array(
-            array('2010-01-31', 1264892400),
-            // Check mktime usage
-            //array('1970-01-01', 0),
-            array(false, 0),
-            array('', 0),
-        );
-    }
-
-    /**
-     * @dataProvider provideDateTimes
-     */
-    public function testDateTime($string_date, $result)
-    {
-        $this->assertEquals(
-            $result,
-            Horde_Kolab_Format_Date::decodeDateTime($string_date)
-        );
-    }
-
-    public function provideDateTimes()
-    {
-        return array(
-            array('2010-01-31T00:01:10Z', 1264896070),
-            array('1970-01-01T00:00:00Z', 0),
-            array(false, 0),
-            array('', 0),
-        );
-    }
-
-    /**
-     * @dataProvider provideDateOrDateTimes
-     */
-    public function testDateOrDateTime($string_date, $result)
-    {
-        $this->assertEquals(
-            $result,
-            Horde_Kolab_Format_Date::decodeDateOrDateTime($string_date)
-        );
-    }
-
-    public function provideDateOrDateTimes()
-    {
-        return array(
-            array('2010-01-31', 1264892400),
-            // Check mktime usage
-            //array('1970-01-01', 0),
-            array(false, 0),
-            array('', 0),
-            array('2010-01-31T00:01:10Z', 1264896070),
-            array('1970-01-01T00:00:00Z', 0),
-            array(false, 0),
-            array('', 0),
-        );
-    }
-
-    /**
-     * @dataProvider provideEncodeDates
-     */
-    public function testEncodeDate($date, $result)
-    {
-        $this->assertEquals(
-            $result,
-            Horde_Kolab_Format_Date::encodeDate($date)
-        );
-    }
-
-    public function provideEncodeDates()
-    {
-        return array(
-            array(1264892400, '2010-01-31'),
-            array(0, '1970-01-01'),
-        );
-    }
-
-    /**
-     * @dataProvider provideEncodeDateTimes
-     */
-    public function testEncodeDateTime($date, $result)
-    {
-        $this->assertEquals(
-            $result,
-            Horde_Kolab_Format_Date::encodeDateTime($date)
-        );
-    }
-
-    public function provideEncodeDateTimes()
-    {
-        return array(
-            array(1264896070, '2010-01-31T00:01:10Z'),
-            array(0, '1970-01-01T00:00:00Z'),
-        );
-    }
-
-    public function testEncodeDateTimeFalse()
-    {
-        $this->assertEquals(
-            20,
-            strlen(Horde_Kolab_Format_Date::encodeDateTime(false))
-        );
-    }
-
-    public function testEncodeDateFalse()
-    {
-        $this->assertEquals(
-            10,
-            strlen(Horde_Kolab_Format_Date::encodeDate(false))
         );
     }
 }

@@ -2,7 +2,7 @@
 /**
  * This class provides the Gollem configuration for the test script.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -40,11 +40,7 @@ class Gollem_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_pearList = array(
-        'HTTP_WebDAV_Server' => array(
-            'error' => 'You do not have the HTTP_WebDAV_Server package installed on your system. This module is required to use browse the VFS using WebDAV.  See the INSTALL file for instructions on how to install the package.'
-        )
-    );
+    protected $_pearList = array();
 
     /**
      * Required configuration files.

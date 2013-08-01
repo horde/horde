@@ -46,16 +46,20 @@
  * return value.
  *
  *
- * Authentication/Login Hooks
- * ==========================
- * There are four special hooks called during the initial authentication
- * of every Horde application. These hooks are avilable in ALL applications.
+ * Authentication Hooks
+ * ====================
+ * There are two special hooks called during the initial authentication
+ * of any Horde application responsible for authentication.
  * These hooks are only called ONCE per session.
  *
  * preauthenticate
  * ---------------
  * This hook is used to dynamically alter the login credentials before
  * authentication occurs.
+ *
+ * It is only called in Horde applications responsible for authentication.
+ *
+ * It is only called ONCE per session.
  *
  * If there is no active session, $userId and $credentials will be the values
  * provided by the base Horde authentication driver. ($userId will often
@@ -85,6 +89,10 @@
  * This hook is used to dynamically alter the login credentials after
  * authentication occurs.
  *
+ * It is only called in Horde applications responsible for authentication.
+ *
+ * It is only called ONCE per session.
+ *
  * Parameters in:
  *   $userId (string): The Horde ID.
  *   $credentials (array): The array of credentials used for authentication.
@@ -101,6 +109,8 @@
  * This hook is used to dynamically convert between an authentication username
  * and a Horde username.
  *
+ * It is only available in the base Horde application.
+ *
  * Parameters in:
  *   $userId (string): The username.
  *   $toHorde (boolean): If true, convert from authentication ID to Horde ID.
@@ -110,10 +120,18 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
+ *
+ * Login Hooks
+ * ===========
+ *
  * appauthenticated
  * ----------------
- * This hook is called after an application is authenticated to and the
- * initial application initialization is complete.
+ * This hook is called after the initial application initialization is
+ * complete (the application will have passed authentication at this point).
+ *
+ * This hook is called for EVERY Horde application.
+ *
+ * This hook is only called ONCE per session.
  *
  * This hook takes no parameters and expects no return value. An Exception
  * thrown from this hook will cause a fatal error.
@@ -134,14 +152,27 @@
  * These are hooks that are available in any application that has an AJAX
  * interface configured.
  *
- * ajaxaction
- * ----------
- * This hook is used to add user-defined AJAX action handlers to an
- * application.
+ * ajaxaction_data
+ * ---------------
+ * This hook is used to alter the data returned from an AJAX action handler.
  *
  * Parameters in:
  *   $action (string): The AJAX action.
- *   $vars (Horde_Variables): The URL parameters.
+ *   $data (mixed): The AJAX action return data.
+ *
+ * The return value from this hook is as follows:
+ *   [mixed] - The (altered) data to use as the AJAX action return data.
+ *
+ * ajaxaction_handle
+ * -----------------
+ * This hook is used to add user-defined AJAX action handlers to an
+ * application. It is called if no handler for the given action can be found
+ * in an application.
+ *
+ * Parameters in:
+ *   $ajax (Horde_Core_Ajax_Application): The AJAX interface object for the
+ *                                        application.
+ *   $action (string): The AJAX action.
  *
  * The return value from this hook is as follows:
  *   [throw Horde_Exception] - Fatal error.
@@ -164,6 +195,78 @@
  *   [array] - An array of CSS files to add. Keys are the filesystem location,
  *             values are the URI location.
  *
+ *
+ * ActiveSync Hooks
+ * ================
+ *
+ * activesync_autodiscover_parameters
+ * ----------------------------------
+ * This hook allows for modifying the various Autodiscover values before
+ * the XML string is build by the ActiveSync server code. Use, e.g., if you
+ * need to alter the value of the host before sending it to the client.
+ *
+ * Parameters in:
+ *   $params (array):  The array of Autodiscover parameters.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [array] - The possibly modified array of Autodiscover parameters.
+ *
+ * activesync_autodiscover_xml
+ * ---------------------------
+ * This hook allows for overriding the autodiscovery XML output. USING THIS HOOK
+ * MEANS YOU ARE RESPONSIBLE FOR SENDING CORRECT XML TO THE CLIENT. ACTIVESYNC
+ * WILL SEND THIS STRING AS-IS. ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING!
+ *
+ * Parameters in:
+ *   $params (array):  The array of Autodiscover parameters.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception]- Fatal error.
+ *   [string] The XML string to send directly to the client.
+ *
+ * activesync_get_autodiscover_username
+ * ------------------------------------
+ * This hook allows for custom rules to determine the authentication username
+ * from the email address provided by the client in an autodiscovery request.
+ *
+ * Parameters in:
+ *   $email (string):  The email address provided by the client.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [string]  The username to use for authentication to Horde.
+ *
+ * activesync_create_device
+ * ----------------------
+ * This hook allows additional checks to be performed during the first
+ * ActiveSync request for a new user/device combination.
+ *
+ * Parameters in:
+ *   $device (Horde_ActiveSync_Device):  The device object to be created.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [boolean] A true value should be returned if the device passed all checks
+ *             and should be allowed to be paired with the server.
+ *   [integer] A Horde_ActiveSync_Status:: constant identifying the reason for
+ *             disallowing the pairing.
+ *
+ * activesync_device_check
+ * -----------------------
+ * This hooks allows the enforcement of arbitrary device policies like E.g.,
+ * not allowing certain user agents to connect, or only allowing certain user
+ * agents for certain users etc...
+ *
+ * Parameters in:
+ *   $device (Horde_ActiveSync_Device):  The device object.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [boolean] A true value should be returned if the device passed all checks
+ *             and should be allowed to be paired with the server.
+ *   [integer] A Horde_ActiveSync_Status:: constant identifying the reason for
+ *             disallowing the device.
  *
  * TODO: groupldap, share_add, share_modify, share_remove
  *
@@ -198,14 +301,15 @@ class Horde_Hooks
 //
 //            // You will probably need to replace cd= with uid=; this
 //            // syntax is for Netware 5.1 nldap.
-//            $cmd = '/usr/bin/ldapsearch -b ' . $base_context . ' -s ' . $scope . ' cn=' .
+//            $cmd = '/usr/bin/ldapsearch -b ' . $base_context .
+//                ' -s ' . $scope . ' cn=' .
 //                escapeshellcmd($username) .
 //                ' | /usr/bin/grep mail | /usr/bin/awk \'{print $2}\'';
 //            $mails = `$cmd`;
 //            $mail_array = explode("\n", $mails);
 //
 //            // Send back the first email found, not the whole list.
-//            $mail = $mail_array['0'];
+//            $mail = $mail_array[0];
 //
 //            // If no email address is found, then the login name will
 //            // be used.
@@ -316,7 +420,10 @@ class Horde_Hooks
 //        // Example #2: Block access to Horde if the remote host exists in
 //        // the DNSBL. It requires the PEAR Net_DNSBL package.
 //        $dnsbl = new Net_DNSBL();
-//        $dnsbl->setBlacklists(array('sbl-xbl.spamhaus.org', 'bl.spamcop.net'));
+//        $dnsbl->setBlacklists(array(
+//            'sbl-xbl.spamhaus.org',
+//            'bl.spamcop.net'
+//        ));
 //        return !$dnsbl->isListed($_SERVER['REMOTE_ADDR']);
 //
 //
@@ -430,11 +537,11 @@ class Horde_Hooks
 //
 //        if ($toHorde) {
 //            return $userId . '@' . $vdomain;
-//        } else {
-//            return (substr($userId, -strlen($vdomain)) == $vdomain)
-//              ? substr($userId, 0, -strlen($vdomain))
-//              : $userId;
 //        }
+//
+//        return (substr($userId, -strlen($vdomain)) == $vdomain)
+//            ? substr($userId, 0, -strlen($vdomain) - 1)
+//            : $userId;
 //
 //
 //        // Example #2: Convert username to all lowercase. This might be
@@ -446,8 +553,12 @@ class Horde_Hooks
 //            ? Horde_String::lower($userId)
 //            : $userId;
 //
+//
 //        // Example #3: Map the LDAP "uid" back to the LDAP "mail"
 //        // attribute in case both are allowed user IDs for login.
+//        if (!$toHorde) {
+//            return $userId;
+//        }
 //        $ldapServer = 'localhost';
 //        $ldapPort = '389';
 //        $searchBase = 'dc=example,dc=com';
@@ -460,10 +571,7 @@ class Horde_Hooks
 //        if (($information !== false) && ($information['count'] > 0)) {
 //            $userId = $information[0]['mail'][0];
 //        }
-//        return array(
-//            'userId' => $userId,
-//            'credentials' => $credentials
-//        );
+//        return $userId;
 //    }
 
 
@@ -545,8 +653,7 @@ class Horde_Hooks
 //
 //        try {
 //            $extraFields = Horde::callHook('signup_getextra');
-//        } catch (Horde_Exception $e) {
-//        } catch (Horde_Exception_HookNotSet $e) {}
+//        } catch (Horde_Exception $e) {}
 //
 //        $msg  = _("A new signup has been received and is awaiting your approval.") .
 //            "\n\n" .
@@ -583,16 +690,13 @@ class Horde_Hooks
      * Provide any extra fields which need to be filled in when a
      * non-registered user wishes to sign up.
      *
-     * @return array  An array of the following form:
-     * <pre>
-     * $somearray['somefieldname'] = array(...
-     * desc     - Any help text attached to the field
-     * label    - The text that the user will see attached to this field
-     * params   - Any allowed parameter to Horde_Form field types
-     * readonly - (boolean) Whether this editable
-     * required - (boolean) Whether this field is mandatory
-     * type     - Any allowed Horde_Form field type
-     * </pre>
+     * @return array  An array containing the following keys:
+     *   - desc: Any help text attached to the field
+     *   - label: The text that the user will see attached to this field
+     *   - params: Any allowed parameter to Horde_Form field types
+     *   - readonly: (boolean) Whether this editable
+     *   - required: (boolean) Whether this field is mandatory
+     *   - type: Any allowed Horde_Form field type
      */
 //    public function signup_getextra()
 //    {
@@ -620,26 +724,24 @@ class Horde_Hooks
 //        // configured in $conf and store the extra fields in turba_objects,
 //        // using the $userId as the key for the object and values from the
 //        // $extra array. You could create your own sql syntax or code to
-//        store this in whichever backend you require.
+//        // store this in whichever backend you require.
 //        // NOTE: You NEED Turba to be correctly installed before you can use
 //        // this example. It also assumes you are using an SQL backend.
-//        $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
+//        $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
 //
-//        $fields = $values = array();
+//        $fields = $values = $markers = array();
 //        foreach ($extra as $field => $value) {
 //            $fields[] = 'object_' . Horde_String::lower($field);
-//            $values[] = $db->quote(Horde_String::convertCharset($value, 'UTF-8', $GLOBALS['conf']['sql']['charset']));
+//            $markers[] = '?';
+//            $values[] = Horde_String::convertCharset($value, 'UTF-8', $db->getCharset());
 //        }
 //        $fields[] = 'object_id';
-//        $values[] = $db->quote($userId);
+//        $markers[] = '?';
+//        $values[] = $userId;
 //
 //        $query  = 'INSERT INTO turba_objects ( owner_id, ' . implode(', ', $fields) . ')';
-//        $query .= ' VALUES ( \'admin\', ' . implode(', ', $values) . ')';
-//        $result = $db->query($query);
-//
-//        if ($result instanceof PEAR_Error) {
-//            throw new Horde_Exception_Wrapped($result);
-//        }
+//        $query .= ' VALUES ( \'admin\', ' . implode(', ', $markers) . ')';
+//        $db->insert($query, $values);
 //    }
 
 
@@ -773,5 +875,78 @@ class Horde_Hooks
 //            }
 //        }
 //    }
+
+
+    /**
+     * ActiveSync hook for determing a Horde username from an email address.
+     *
+     * @param string $email  The email address
+     *
+     * @return string  The username to use to authenticate to Horde with.
+     */
+//    public function activesync_get_autodiscover_username($email)
+//    {
+//        return substr($email, 0, strpos($email, '@'));
+//    }
+
+
+    /**
+     * ActiveSync hook for overriding the XML output. Takes an array of
+     * autodiscover parameters and returns the raw XML string to send to the
+     * client. USING THIS HOOK MEANS YOU ARE RESPONSIBLE FOR SENDING CORRECT
+     * XML TO THE CLIENT. ACTIVESYNC WILL SEND THIS STRING AS-IS. ONLY USE THIS
+     * IF YOU KNOW WHAT YOU ARE DOING!
+     *
+     * @param array $params  The array of available Autodiscover parameters.
+     *
+     * @return string  The XML string.
+     */
+//    public function activesync_autodiscover_xml(array $params)
+//    {
+//    }
+
+
+    /**
+     * ActiveSync hook for modifying the various Autodiscover values before
+     * the XML string is build by the ActiveSync server code. Use, e.g., if you
+     * need to alter the value of the host before sending it to the client.
+     *
+     * @param array $params  The array of Autodiscover parameters.
+     *
+     * @return array  The possibly modified array of Autodiscover parameters.
+     */
+//    public function activesync_autodiscover_parameters(array $params)
+//    {
+//        return $params;
+//    }
+
+    /**
+     * Activesync hook for providing additional checks before allowing a device
+     * to be paired with the server for the first time.
+     *
+     * @param Horde_ActiveSync_Device $device  The device object.
+     *
+     * @return boolean|integer  True on success (device passed checks) or a
+     *                          Horde_ActiveSync_Status:: constant on failure.
+     */
+    // public function activesync_create_device(Horde_ActiveSync_Device $device)
+    // {
+    //     return true;
+    // }
+
+    /**
+     * ActiveSync hook for providing additional policy checks on a device
+     * after it has already been paired. Useful for enforcing things like
+     * only allowing certain user agents to connect etc...
+     *
+     * @param Horde_ActiveSync_Device $device  The device object.
+     *
+     * @return boolean|integer  True on success (device passed checks) or a
+     *                          Horde_ActiveSync_Status:: constant on failure.
+     */
+    // public function activesync_device_check(Horde_ActiveSync_Device $device)
+    // {
+    //     return true;
+    // }
 
 }

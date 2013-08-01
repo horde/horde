@@ -2,7 +2,7 @@
 /**
  * Turba edit.php.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -13,7 +13,7 @@
  * @package  Turba
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
 $listView = null;
@@ -52,8 +52,8 @@ $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 /* Set the contact from the requested key. */
 try {
     $contact = $driver->getObject($key);
-} catch (Turba_Exception $e) {
-    $notification->push($e, 'horde.error');
+} catch (Horde_Exception $e) {
+    $notification->push($e);
     $url->redirect();
 }
 
@@ -83,9 +83,14 @@ try {
 } catch (Turba_Exception $e) {}
 
 $title = sprintf($contact->isGroup() ? _("Edit Group \"%s\"") : _("Edit \"%s\""), $contact->getValue('name'));
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require TURBA_TEMPLATES . '/menu.inc';
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
 $form->setTitle($title);
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$formHtml = Horde::endBuffer();
+
+$page_output->header(array(
+    'title' => $title
+));
+echo $formHtml;
+$page_output->footer();

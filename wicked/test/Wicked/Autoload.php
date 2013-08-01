@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
  * you did not receive this file, see
@@ -18,12 +18,8 @@
  * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 
-$mappings = array('Wicked' => dirname(__FILE__) . '/../../lib/');
-$mappings = array('Text/Wiki/Render/Rst' => dirname(__FILE__) . '/../../lib/Text_Wiki/Render/Rst');
-require_once 'Horde/Test/Autoload.php';
-
-/** Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
+Horde_Test_Autoload::addPrefix('Wicked', __DIR__ . '/../../lib');
+Horde_Test_Autoload::addPrefix('Text/Wiki/Render/Rst', __DIR__ . '/../../lib/Text_Wiki/Render/Rst');
 
 /** Load the basic test definition */
-require_once dirname(__FILE__) . '/TestCase.php';
+require_once __DIR__ . '/TestCase.php';

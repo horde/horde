@@ -64,7 +64,7 @@ class csstidy_optimise
 
         if ($this->parser->get_cfg('optimise_shorthands') > 0) {
             foreach ($css as $medium => $value) {
-                foreach ($value as $selector => $value1) {
+                foreach (array_keys($value) as $selector) {
                     $ptr = &$css[$medium][$selector];
                     $ptr = $this->merge_4value_shorthands($ptr);
 

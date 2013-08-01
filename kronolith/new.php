@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
@@ -46,13 +46,15 @@ $session->set('kronolith', 'attendees', $event->attendees);
 $session->set('kronolith', 'resources', $event->getResources());
 
 $date = Horde_Util::getFormData('datetime');
-if (!$date) {
+if ($date) {
+    $event->start = new Horde_Date($date);
+} else {
     $date = Horde_Util::getFormData('date', date('Ymd')) . '000600';
+    $event->start = new Horde_Date($date);
     if ($prefs->getValue('twentyFour')) {
         $event->start->hour = 12;
     }
 }
-$event->start = new Horde_Date($date);
 $event->end = new Horde_Date($event->start);
 if (Horde_Util::getFormData('allday')) {
     $event->end->mday++;
@@ -63,7 +65,7 @@ if (Horde_Util::getFormData('allday')) {
 $month = $event->start->month;
 $year = $event->start->year;
 
-$buttons = array('<input type="submit" class="button" name="save" value="' . _("Save Event") . '" />');
+$buttons = array('<input type="submit" class="horde-default" name="save" value="' . _("Save Event") . '" />');
 $url = Horde_Util::getFormData('url');
 if (isset($url)) {
     $cancelurl = new Horde_Url($url);
@@ -77,15 +79,13 @@ Horde_Core_Ui_JsCalendar::init(array(
     'full_weekdays' => true
 ));
 
-$title = _("Add a new event");
-$menu = Horde::menu();
-Horde::addScriptFile('edit.js', 'kronolith');
-Horde::addScriptFile('popup.js', 'horde');
+$page_output->addScriptFile('edit.js');
+$page_output->addScriptFile('popup.js', 'horde');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Add a new event")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/edit/edit.inc';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

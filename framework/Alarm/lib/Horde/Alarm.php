@@ -2,7 +2,7 @@
 /**
  * @package Alarm
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -451,7 +451,7 @@ abstract class Horde_Alarm
     public function handlers()
     {
         if (!$this->_handlersLoaded) {
-            foreach (new DirectoryIterator(dirname(__FILE__) . '/Alarm/Handler') as $file) {
+            foreach (new DirectoryIterator(__DIR__ . '/Alarm/Handler') as $file) {
                 if (!$file->isFile() || substr($file->getFilename(), -4) != '.php') {
                     continue;
                 }

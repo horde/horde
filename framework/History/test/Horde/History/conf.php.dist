@@ -1,0 +1,26 @@
+<?php
+$conf['history']['sql']['mysql']['adapter'] = 'mysql';
+$conf['history']['sql']['mysql']['host'] = 'localhost';
+$conf['history']['sql']['mysql']['username'] = '';
+$conf['history']['sql']['mysql']['password'] = '';
+$conf['history']['sql']['mysql']['dbname'] = 'test';
+$conf['history']['sql']['mysql']['charset'] = 'utf-8';
+$conf['history']['sql']['mysqli']['adapter'] = 'mysqli';
+$conf['history']['sql']['mysqli']['host'] = 'localhost';
+$conf['history']['sql']['mysqli']['username'] = '';
+$conf['history']['sql']['mysqli']['password'] = '';
+$conf['history']['sql']['mysqli']['dbname'] = 'test';
+$conf['history']['sql']['mysqli']['charset'] = 'utf-8';
+$conf['history']['sql']['pdo_mysql']['adapter'] = 'pdo_mysql';
+$conf['history']['sql']['pdo_mysql']['host'] = 'localhost';
+$conf['history']['sql']['pdo_mysql']['username'] = '';
+$conf['history']['sql']['pdo_mysql']['password'] = '';
+$conf['history']['sql']['pdo_mysql']['dbname'] = 'test';
+$conf['history']['sql']['pdo_mysql']['charset'] = 'utf-8';
+$conf['history']['sql']['pdo_pgsql']['adapter'] = 'pdo_pgsql';
+$conf['history']['sql']['pdo_pgsql']['username'] = '';
+$conf['history']['sql']['pdo_pgsql']['password'] = '';
+$conf['history']['sql']['pdo_pgsql']['dbname'] = 'test';
+$conf['history']['sql']['pdo_pgsql']['charset'] = 'utf-8';
+$conf['history']['sql']['pdo_sqlite']['adapter'] = 'pdo_sqlite';
+$conf['history']['sql']['pdo_sqlite']['database'] = ':memory:';

@@ -1,14 +1,12 @@
 <?php
 /**
- * Object representation of a RFC 822 e-mail group.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
- * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2012-2013 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
@@ -18,12 +16,15 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2012-2013 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  *
- * @property string $groupname_encoded  MIME encoded groupname (UTF-8).
- * @property boolean $valid  Returns true if there is enough information in
- *                           object to create a valid address.
+ * @property string $groupname  Groupname (UTF-8).
+ * @property-read string $groupname_encoded  MIME encoded groupname (UTF-8).
+ * @property-read string $label  The shorthand label for this group.
+ * @property-read boolean $valid  Returns true if there is enough information
+ *                                in object to create a valid address.
  */
 class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements Countable
 {
@@ -85,6 +86,7 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements Counta
     {
         switch ($name) {
         case 'groupname':
+        case 'label':
             return $this->_groupname;
 
         case 'groupname_encoded':
@@ -105,11 +107,12 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements Counta
         $addr = $this->addresses->writeAddress($opts);
         $groupname = $this->groupname;
         if (!empty($opts['encode'])) {
-            $rfc822 = new Horde_Mail_Rfc822();
-            $groupname = $rfc822->encode(Horde_Mime::encode($groupname, $opts['encode']), 'personal');
+            $groupname = Horde_Mime::encode($groupname, $opts['encode']);
         }
 
-        return $groupname . ':' .
+        $rfc822 = new Horde_Mail_Rfc822();
+
+        return $rfc822->encode($groupname, 'personal') . ':' .
             (strlen($addr) ? (' ' . $addr) : '') . ';';
     }
 

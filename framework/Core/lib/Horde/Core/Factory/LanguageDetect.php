@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Text_LanguageDetect:: factory.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -99,10 +99,15 @@ class Horde_Core_Factory_LanguageDetect extends Horde_Core_Factory_Base
      * Return a Text_LanguageDetect instance.
      *
      * @return Text_LanguageDetect  Detection object.
+     *
+     * @throws Horde_Exception
      */
     public function create()
     {
         if (!isset($this->_detect)) {
+            if (!class_exists('Text_LanguageDetect')) {
+                throw new Horde_Exception('Language detection not available.');
+            }
             $this->_detect = new Text_LanguageDetect();
         }
 
@@ -120,8 +125,15 @@ class Horde_Core_Factory_LanguageDetect extends Horde_Core_Factory_Base
      */
     public function getLanguageCode($text)
     {
-        $lang = $this->create()->detectSimple($text);
+        $ob = $this->create();
 
+        /* As of 0.3.0, use built-in ISO 639 language mapping. */
+        if (method_exists($ob, 'setNameMode')) {
+            $ob->setNameMode(2);
+            return $ob->detectSimple($text);
+        }
+
+        $lang = $ob->detectSimple($text);
         return (!is_null($lang) && isset($this->_langmap[$lang]))
             ? $this->_langmap[$lang]
             : null;

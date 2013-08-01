@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -58,9 +58,10 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         curl_setopt($curl, CURLOPT_HEADER, true);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $this->method);
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->verifyPeer);
 
         // User-Agent
-        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+        curl_setopt($curl, CURLOPT_USERAGENT, $this->userAgent);
 
         // Redirects
         if ($this->redirects) {
@@ -107,9 +108,14 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
 
         // Concatenate the headers
         $hdr = array();
-        foreach ($this->headers as $header => $value) {
+        $headers = $this->headers;
+        if (empty($headers['Expect'])) {
+            $headers['Expect'] = '';
+        }
+        foreach ($headers as $header => $value) {
             $hdr[] = $header . ': ' . $value;
         }
+
         curl_setopt($curl, CURLOPT_HTTPHEADER, $hdr);
 
         $result = curl_exec($curl);

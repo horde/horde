@@ -2,21 +2,21 @@
 /**
  * Horde web configuration script.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
-$permission = 'configuration';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:configuration')
+));
 
 /**
  * Does an FTP upload to save the configuration.
@@ -63,13 +63,25 @@ function _uploadFTP($params)
 }
 
 $hconfig = new Horde_Config();
-$migration = new Horde_Core_Db_Migration(dirname(__FILE__) . '/../../..');
-$vars = Horde_Variables::getDefaultVariables();
+$migration = new Horde_Core_Db_Migration(__DIR__ . '/../../..');
+$nosql = new Horde_Core_Nosql();
+$vars = $injector->getInstance('Horde_Variables');
 $a = $registry->listAllApps();
 
 /* Check for versions if requested. */
 $versions = array();
 if ($vars->check_versions) {
+    $pearConfig = PEAR_Config::singleton();
+    $packageFile = new PEAR_PackageFile($pearConfig);
+    $packages = array();
+    foreach ($pearConfig->getRegistry()->packageInfo(null, null, 'pear.horde.org') as $package) {
+        $packages[$package['name']] = $package['version']['release'];
+    }
+    foreach (glob(__DIR__ . '/../../../framework/*/package.xml') as $packagexml) {
+        $package = $packageFile->fromPackageFile($packagexml, PEAR_VALIDATE_NORMAL);
+        $packages[$package->getName()] = $package->getVersion();
+    }
+
     try {
         $versions = $hconfig->checkVersions();
     } catch (Horde_Exception $e) {
@@ -93,11 +105,8 @@ if ($vars->action == 'config') {
         $form->setSubmitted(true);
         if ($form->validate($vars)) {
             $config = new Horde_Config($app);
-            $configFile = $config->configFile();
-            if ($config->writePHPConfig($vars)) {
-                $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
-            } else {
-                $notification->push(sprintf(_("Could not save the configuration file %s. Use one of the options below to save the code."), Horde_Util::realPath($configFile)), 'horde.warning', array('content.raw'));
+            if (!$config->writePHPConfig($vars)) {
+                $notification->push(sprintf(_("Could not save the configuration file %s. Use one of the options below to save the code."), Horde_Util::realPath($config->configFile())), 'horde.warning', array('content.raw', 'sticky'));
             }
         } else {
             $notification->push(sprintf(_("The configuration for %s cannot be updated automatically. Please update the configuration manually."), $app), 'horde.error');
@@ -122,6 +131,11 @@ if ($vars->action == 'schema') {
     }
 }
 
+/* Create NoSQL indices if requested. */
+if ($vars->action == 'nosql_indices') {
+    $nosql->buildIndices($vars->app);
+}
+
 /* Set up some icons. */
 $success = Horde::img('alerts/success.png');
 $warning = Horde::img('alerts/warning.png');
@@ -133,11 +147,12 @@ $apps = $libraries = array();
 $i = -1;
 $config_outdated = $schema_outdated = false;
 if (class_exists('Horde_Bundle')) {
-    $apps[0] = array('sort' => '00',
-                     'name' => '<strong>' . Horde_Bundle::FULLNAME . '</strong>',
-                     'icon' => Horde::img($registry->get('icon', 'horde'),
-                                          Horde_Bundle::FULLNAME, '', ''),
-                     'version' => '<strong>' . Horde_Bundle::VERSION . '</strong>');
+    $apps[0] = array(
+        'icon' => Horde::img($registry->get('icon', 'horde'), Horde_Bundle::FULLNAME, '', ''),
+        'name' => '<strong>' . Horde_Bundle::FULLNAME . '</strong>',
+        'sort' => '00',
+        'version' => '<strong>' . Horde_Bundle::VERSION . '</strong>'
+    );
     if (!empty($versions)) {
         if (!isset($versions[Horde_Bundle::NAME])) {
             $apps[0]['load'] = $warning;
@@ -147,7 +162,7 @@ if (class_exists('Horde_Bundle')) {
             $apps[0]['vstatus'] = Horde::link($versions[Horde_Bundle::NAME]['url'], sprintf(_("Download %s"), Horde_Bundle::FULLNAME), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[Horde_Bundle::NAME]['version']) . '</a> ';
         } else {
             $apps[0]['load'] = $success;
-            $apps[0]['vstatus'] = _("Application is up-to-date.");
+            $apps[0]['vstatus'] = _("Module is up-to-date.");
         }
     }
     $i++;
@@ -188,12 +203,14 @@ foreach ($a as $app) {
                 $apps[$i]['vstatus'] = Horde::link($versions[$app]['url'], sprintf(_("Download %s"), $app), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[$app]['version']) . '</a> ';
             } else {
                 $apps[$i]['load'] = $success;
-                $apps[$i]['vstatus'] = _("Application is up-to-date.");
+                $apps[$i]['vstatus'] = _("Module is up-to-date.");
             }
         }
     }
 
-    if (file_exists($path . '/conf.xml')) {
+    if (!file_exists($path . '/conf.xml')) {
+        $apps[$i]['conf'] = $apps[$i]['status'] = '';
+    } else {
         if (!file_exists($path . '/conf.php')) {
             /* No conf.php exists. */
             $apps[$i]['conf'] = $conf_link . $error . '</a>';
@@ -230,6 +247,8 @@ foreach ($a as $app) {
         }
     }
 
+    $apps[$i]['dbstatus'] = $apps[$i]['db'] = array();
+
     if (in_array($app, $migration->apps)) {
         /* If a DB backend hasn't been configured (yet), an exception will be
          * thrown. This is fine if this is the intial configuration, or if no
@@ -237,25 +256,38 @@ foreach ($a as $app) {
         try {
             $migrator = $migration->getMigrator($app);
         } catch (Horde_Exception $e) {
-            $apps[$i]['db'] = $warning;
-            $apps[$i]['dbstatus'] = _("DB access is not configured.");
+            $apps[$i]['db'][] = $warning;
+            $apps[$i]['dbstatus'][] = _("DB access is not configured.");
             continue;
         }
         if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
             /* Schema is out of date. */
-            $apps[$i]['db'] = $db_link . $error . '</a>';
-            $apps[$i]['dbstatus'] = $db_link . _("DB schema is out of date.") . '</a>';
+            $apps[$i]['db'][] = $db_link . $error . '</a>';
+            $apps[$i]['dbstatus'][] = $db_link . _("SQL DB schema is out of date.") . '</a>';
             $schema_outdated = true;
         } else {
             /* Schema is ok. */
-            $apps[$i]['db'] = $success;
-            $apps[$i]['dbstatus'] = _("DB schema is ready.");
+            $apps[$i]['db'][] = $success;
+            $apps[$i]['dbstatus'][] = _("SQL DB schema is ready.");
+        }
+    }
+
+    if ($nosql->getDrivers($app, Horde_Core_Nosql::HAS_INDICES)) {
+        if ($nosql->getDrivers($app, Horde_Core_Nosql::NEEDS_INDICES)) {
+            $nosql_link = $self_url
+                ->add(array('app' => $app, 'action' => 'nosql_indices'))
+                ->link(array('title' => sprintf(_("NoSQL indices for %s"), $app)));
+            $apps[$i]['db'][] = $nosql_link . $error . '</a>';
+            $apps[$i]['dbstatus'][] = $nosql_link . _("NoSQL indices out of date.") . '</a>';
+        } else {
+            $apps[$i]['db'][] = $success;
+            $apps[$i]['dbstatus'][] = _("NoSQL indices are ready.") . '</a>';
         }
     }
 }
 
 /* Search for outdated library schemas. */
-foreach ($migration->apps as $app) {
+foreach ($migration->apps as $key => $app) {
     if (in_array($app, $a)) {
         continue;
     }
@@ -266,8 +298,9 @@ foreach ($migration->apps as $app) {
         ->link(array('title' => sprintf(_("Update %s schema"), $app)));
 
     $apps[$i]['sort'] = 'ZZZ' . $app;
-    $apps[$i]['name'] = implode('_', array_map(array('Horde_String', 'ucfirst'), explode('_', $app)));
-    $apps[$i]['version'] = '';
+    $apps[$i]['name'] = $app;
+    $apps[$i]['version'] = $apps[$i]['status'] = $apps[$i]['icon'] =
+        $apps[$i]['conf'] = '';
 
     /* If a DB backend hasn't been configured (yet), an exception will be
      * thrown. This is fine if this is the intial configuration, or if no DB
@@ -275,20 +308,62 @@ foreach ($migration->apps as $app) {
     try {
         $migrator = $migration->getMigrator($app);
     } catch (Horde_Exception $e) {
-        $apps[$i]['db'] = $warning;
-        $apps[$i]['dbstatus'] = _("DB access is not configured.");
+        $apps[$i]['db'][] = $warning;
+        $apps[$i]['dbstatus'][] = _("DB access is not configured.");
         continue;
     }
 
     if ($migrator->getTargetVersion() > $migrator->getCurrentVersion()) {
         /* Schema is out of date. */
-        $apps[$i]['db'] = $db_link . $error . '</a>';
-        $apps[$i]['dbstatus'] = $db_link . _("DB schema is out of date.") . '</a>';
+        $apps[$i]['db'][] = $db_link . $error . '</a>';
+        $apps[$i]['dbstatus'][] = $db_link . _("SQL DB schema is out of date.") . '</a>';
         $schema_outdated = true;
     } else {
         /* Schema is ok. */
-        $apps[$i]['db'] = $success;
-        $apps[$i]['dbstatus'] = _("DB schema is ready.");
+        $apps[$i]['db'][] = $success;
+        $apps[$i]['dbstatus'][] = _("SQL DB schema is ready.");
+    }
+
+    if (!empty($versions)) {
+        if (isset($packages[$app])) {
+            $apps[$i]['version'] = $packages[$app];
+        }
+        if (!isset($versions[$app])) {
+            $apps[$i]['load'] = $warning;
+            $apps[$i]['vstatus'] = _("No stable version exists yet.");
+        } elseif (version_compare(preg_replace('/H\d \((.*)\)/', '$1', $versions[$app]['version']), $apps[$i]['version'], '>')) {
+            $apps[$i]['load'] = $error;
+            $apps[$i]['vstatus'] = Horde::link($versions[$app]['url'], sprintf(_("Download %s"), $app), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[$app]['version']) . '</a> ';
+        } else {
+            $apps[$i]['load'] = $success;
+            $apps[$i]['vstatus'] = _("Module is up-to-date.");
+        }
+    }
+}
+
+if (!empty($versions)) {
+    foreach ($packages as $app => $version) {
+        if (in_array($app, $a) || in_array($app, $migration->apps)) {
+            continue;
+        }
+        $i++;
+
+        $apps[$i]['sort'] = 'ZZZ' . $app;
+        $apps[$i]['name'] = $app;
+        $apps[$i]['version'] = $version;
+        $apps[$i]['dbstatus'] = $apps[$i]['db'] = array();
+        $apps[$i]['status'] = $apps[$i]['icon'] = $apps[$i]['conf'] = '';
+
+        if (!isset($versions[$app])) {
+            $apps[$i]['load'] = $warning;
+            $apps[$i]['vstatus'] = _("No stable version exists yet.");
+        } elseif (version_compare(preg_replace('/H\d \((.*)\)/', '$1', $versions[$app]['version']), $apps[$i]['version'], '>')) {
+            $apps[$i]['load'] = $error;
+            $apps[$i]['vstatus'] = Horde::link($versions[$app]['url'], sprintf(_("Download %s"), $app), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[$app]['version']) . '</a> ';
+        } else {
+            $apps[$i]['load'] = $success;
+            $apps[$i]['vstatus'] = _("Module is up-to-date.");
+        }
     }
 }
 
@@ -343,21 +418,24 @@ if (file_exists(Horde::getTempDir() . '/horde_configuration_upgrade.php')) {
                        'link' => Horde::link($url) . $action . '</a>');
 }
 
-/* Set up the template. */
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
-$template->set('versions', !empty($versions), true);
-$template->set('version_action', Horde::url('admin/config/index.php'));
-$template->set('version_input', Horde_Util::formInput());
-$template->set('config_outdated', $config_outdated && method_exists('Horde_Config', 'writePHPConfig'));
-$template->set('schema_outdated', $schema_outdated);
-$template->set('apps', $apps);
-$template->set('actions', $actions, true);
-$template->set('ftpform', $ftpform, true);
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/admin/config'
+));
 
-$title = sprintf(_("%s Configuration"), $registry->get('name', 'horde'));
-Horde::addScriptFile('stripe.js', 'horde');
-require HORDE_TEMPLATES . '/common-header.inc';
+$view->actions = $actions;
+$view->apps = $apps;
+$view->config_outdated = $config_outdated;
+$view->ftpform = $ftpform;
+$view->schema_outdated = $schema_outdated;
+$view->version_action = Horde::url('admin/config/index.php');
+$view->version_input = Horde_Util::formInput();
+$view->versions = !empty($versions);
+
+$page_output->addScriptFile('stripe.js', 'horde');
+
+$page_output->header(array(
+    'title' => sprintf(_("%s Configuration"), $registry->get('name', 'horde'))
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
-echo $template->fetch(HORDE_TEMPLATES . '/admin/config/index.html');
-require HORDE_TEMPLATES . '/common-footer.inc';
+echo $view->render('index');
+$page_output->footer();

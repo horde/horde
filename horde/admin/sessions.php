@@ -1,74 +1,73 @@
 <?php
 /**
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Sessions information.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-$permission = 'sessions';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:sessions')
+));
 
-$title = _("Session Admin");
-Horde::addInlineScript(array(
-    '$$("DIV.sesstoggle").invoke("observe", "click", function() { [ this.nextSiblings(), this.immediateDescendants() ].flatten().compact().invoke("toggle"); })'
-), 'dom');
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/admin'
+));
+$view->addHelper('Horde_Core_View_Helper_Image');
+$view->addHelper('Text');
 
-require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/admin/menu.inc';
-
-echo '<h1 class="header">' . _("Current Sessions");
 try {
-    $session_info = $session->sessionHandler->getSessionsInfo();
-
-    echo ' (' . count($session_info) . ')</h1>' .
-         '<ul class="headerbox linedRow">';
-
-    $plus = Horde::img('tree/plusonly.png', _("Expand"));
-    $minus = Horde::img('tree/minusonly.png', _("Collapse"), 'style="display:none"');
-
     $resolver = $injector->getInstance('Net_DNS2_Resolver');
+    $s_info = array();
 
-    foreach ($session_info as $id => $data) {
-        $entry = array(
-            _("Session Timestamp:") => date('r', $data['timestamp']),
-            _("Browser:") => $data['browser'],
-            _("Remote Host:") => _("[Unknown]"),
-            _("Authenticated to:") => implode(', ', $data['apps'])
+    foreach ($session->sessionHandler->getSessionsInfo() as $id => $data) {
+        $tmp = array(
+            'auth' => implode(', ', $data['apps']),
+            'browser' => $data['browser'],
+            'id' => $id,
+            'remotehost' => '[' . _("Unknown") . ']',
+            'timestamp' => date('r', $data['timestamp']),
+            'userid' => $data['userid']
         );
 
         if (!empty($data['remoteAddr'])) {
             $host = null;
             if ($resolver) {
                 try {
-                    if ($response = $resolver->query($data['remoteAddr'], 'PTR')) {
-                        $host = $response->answer[0]->ptrdname;
+                    if ($resp = $resolver->query($data['remoteAddr'], 'PTR')) {
+                        $host = $resp->answer[0]->ptrdname;
                     }
                 } catch (Net_DNS2_Exception $e) {}
             }
             if (is_null($host)) {
                 $host = @gethostbyaddr($data['remoteAddr']);
             }
-            $entry[_("Remote Host:")] = $host . ' [' . $data['remoteAddr'] . '] ' . Horde_Core_Ui_FlagImage::generateFlagImageByHost($host);
+            $tmp['remotehost'] = $host . ' [' . $data['remoteAddr'] . '] ';
+            $tmp['remotehostimage'] = Horde_Core_Ui_FlagImage::generateFlagImageByHost($host);
         }
 
-        echo '<li><div class="sesstoggle">' . $plus . $minus . htmlspecialchars($data['userid']) . ' [' . htmlspecialchars($id) . ']'
-            . '</div><div style="padding-left:20px;display:none">';
-        foreach ($entry as $key => $val) {
-            echo '<div><strong>' . $key . '</strong> ' . $val . '</div>';
-        }
-        echo '</div></li>';
+        $s_info[] = $tmp;
     }
-    echo '</ul>';
+
+    $view->session_info = $s_info;
 } catch (Horde_Exception $e) {
-    echo '</h1><p class="headerbox"><em>' . sprintf(_("Listing sessions failed: %s"), $e->getMessage()) . '</em></p>';
+    $view->error = $e->getMessage();
 }
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->addInlineScript(array(
+    '$$("DIV.sesstoggle").invoke("observe", "click", function() { [ this.nextSiblings(), this.immediateDescendants() ].flatten().compact().invoke("toggle"); })'
+), true);
+$page_output->header(array(
+    'title' => _("Session Administration")
+));
+require HORDE_TEMPLATES . '/admin/menu.inc';
+echo $view->render('sessions');
+$page_output->footer();

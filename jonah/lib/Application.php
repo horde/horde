@@ -6,7 +6,7 @@
  */
 
 if (!defined('JONAH_BASE')) {
-    define('JONAH_BASE', dirname(__FILE__). '/..');
+    define('JONAH_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -35,8 +35,6 @@ class Jonah_Application extends Horde_Registry_Application
     }
 
     /**
-     * Global variables defined:
-     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
@@ -46,7 +44,11 @@ class Jonah_Application extends Horde_Registry_Application
             if ($tag_id = Horde_Util::getFormData('tag_id')) {
                 $url->add('tag_id', $tag_id);
             }
-            $GLOBALS['linkTags'] = array('<link rel="alternate" type="application/rss+xml" title="RSS 0.91" href="' . $url . '" />');
+
+            $GLOBALS['page_output']->addLinkTag(array(
+                'href' => $url,
+                'title' => 'RSS 0.91'
+            ));
         }
     }
 
@@ -115,12 +117,12 @@ class Jonah_Application extends Horde_Registry_Application
         }
     }
 
-    /* Sidebar method. */
+    /* Topbar method. */
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT) ||
             !in_array('internal', $GLOBALS['conf']['news']['enable'])) {
@@ -141,17 +143,16 @@ class Jonah_Application extends Horde_Registry_Application
         $story_img = Horde_Themes::img('editstory.png');
 
         foreach ($channels as $channel) {
-            $tree->addNode(
-                $parent . $channel['channel_id'],
-                $parent,
-                $channel['channel_name'],
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . $channel['channel_id'],
+                'parent' => $parent,
+                'label' => $channel['channel_name'],
+                'expanded' => false,
+                'params' => array(
                     'icon' => $story_img,
                     'url' => $url->add('channel_id', $channel['channel_id'])
                 )
-            );
+            ));
         }
     }
 

@@ -3,7 +3,7 @@
  * The Hylax:: class providing some support functions to the Hylax
  * module.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -107,16 +107,16 @@ class Hylax {
                         'preview' => 1);
 
         /* Set the params for the popup to view the full size pages. */
-        Horde::addScriptFile('popup.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
         $popup_w = 620;
         $popup_h = 860;
 
         for ($i = 0; $i < $num_pages; $i++) {
             $params['page'] = $i;
-            $url = Horde_Util::addParameter('img.php', $params);
+            $url = Horde::url('img.php')->add($params);
             $img = Horde::img($url, sprintf(_("View page %s"), $i+1), '', $GLOBALS['registry']->get('webroot'));
 
-            $full_url = Horde::url(Horde_Util::addParameter('img.php', array('fax_id' => $fax_id, 'page' => $i)));
+            $full_url = Horde::url('img.php')->add(array('fax_id' => $fax_id, 'page' => $i));
 
             $pages[] = Horde::link('', sprintf(_("View page %s"), $i+1), '', '', "popup('$full_url', $popup_w, $popup_h); return false;") . $img . '</a>';
         }

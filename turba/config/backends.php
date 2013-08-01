@@ -13,7 +13,6 @@
  * Example backends.local.php configuration file that enables the LDAP address
  * book and adds a composite field to the SQL address book:
  *
- * <code>
  * <?php
  * $cfgSources['localldap']['disabled'] = false;
  * $cfgSources['localldap']['params']['server'] = 'localhost';
@@ -29,7 +28,6 @@
  *     ),
  *     'format' => "%s\n%s %s\n%s"
  * );
- * </code>
  *
  * Properties that can be set for each server:
  *
@@ -38,11 +36,13 @@
  * title: (string) This is the common (user-visible) name that you want
  *        displayed in the contact source drop-down box.
  *
- * type: (string) The types 'ldap', 'sql', 'imsp', 'group', 'favourites' and
- *       'prefs' are currently supported. Preferences-based address books are
- *       not intended for production installs unless you really know what
- *       you're doing - they are not searchable, and they won't scale well if
- *       a user has a large number of entries.
+ * type: (string) The types 'ldap', 'sql', 'kolab', 'imsp', 'group',
+ *       'favourites' and 'prefs' are currently supported. Kolab address books
+ *       can be used with any IMAP server that supports METADATA.
+ *       Preferences-based address books are not intended for production
+ *       installs unless you really know what you're doing - they are not
+ *       searchable, and they won't scale well if a user has a large number of
+ *       entries.
  *
  * params: (array) These are the connection parameters specific to the contact
  *         source.
@@ -79,13 +79,9 @@
  *                            objectclass(es). Required attributes will be
  *                            provided automatically if the
  *                            'checkrequired_string' parameter is present.
- *                            *NOTE:* You must have the Net_LDAP PEAR library
- *                            installed for this to work.
  *           - checksyntax: (boolean) If present, inspect the LDAP schema for
  *                          particular attributes by the type defined in the
  *                          corresponding schema.
- *                          *NOTE:* You must have the Net_LDAP PEAR library
- *                          installed for this to work.
  *           - deref: (integer) One of:
  *                      - LDAP_DEREF_NEVER
  *                      - LDAP_DEREF_SEARCHING
@@ -197,17 +193,17 @@
  *             for this source - allowing users to share their personal
  *             address books as well as to create new ones.
  *
- *             Since Turba only supports having one backend configured
- *             for creating new shares, use the 'shares' configuration option
- *             to specify which backend will be used for creating new shares.
- *             All permission checking will be done against Horde_Share, but
- *             note that any 'extended' permissions (such as max_contacts)
- *             will still be enforced. Also note that the backend driver must
- *             have support for using this. Supported: SQL, Kolab, and IMSP.
+ *             Since Turba only supports having one backend configured for
+ *             creating new shares, use the 'shares' configuration option to
+ *             specify which backend will be used for creating new shares.  All
+ *             permission checking will be done against Horde_Share, but note
+ *             that any 'extended' permissions (such as max_contacts) will
+ *             still be enforced. Also note that the backend driver must have
+ *             support for using this. Supported: SQL, IMAP/Kolab, and IMSP.
  *
  * all_shares: (boolean) If true (and 'use_shares'is true) the corresponding
  *             source will be assumed to handle all shares that are not
- *             explicitly assigned to another source. Supported: Kolab.
+ *             explicitly assigned to another source. Supported: IMAP/Kolab.
  *
  * list_name_field: (string) Taken as the field to store contact list names
  *                  in. This is required when using a composite field as the
@@ -276,6 +272,8 @@ $cfgSources['localsql'] = array(
         // 'name' => array('fields' => array('firstname', 'lastname'),
         //                 'format' => '%s %s'),
         'alias' => 'object_alias',
+        'yomifirstname' => 'object_yomifirstname',
+        'yomilastname' => 'object_yomilastname',
         'birthday' => 'object_bday',
         'anniversary' => 'object_anniversary',
         'spouse' => 'object_spouse',
@@ -301,13 +299,32 @@ $cfgSources['localsql'] = array(
                                                  'workProvince',
                                                  'workPostalCode'),
                                'format' => "%s \n %s, %s  %s"),
+         'otherStreet' => 'object_otherstreet',
+         'otherPOBox' => 'object_otherpob',
+         'otherCity' => 'object_othercity',
+         'otherProvince' => 'object_otherprovince',
+         'otherPostalCode' => 'object_otherpostalcode',
+         'otherCountry' => 'object_othercountry',
+         'otherAddress' => array('fields' => array('otherStreet', 'otherCity',
+                                                  'otherProvince',
+                                                  'otherPostalCode'),
+                                 'format' => "%s \n %s, %s  %s"),
         'department' => 'object_department',
+        'manager' => 'object_manager',
+        'assistant' => 'object_assistant',
         'timezone' => 'object_tz',
         'email' => 'object_email',
+        // 'homeEmail' => 'object_homeemail',
+        // 'workEmail' => 'object_workemail',
         'homePhone' => 'object_homephone',
+        'homePhone2' => 'object_homephone2',
         'homeFax' => 'object_homefax',
         'workPhone' => 'object_workphone',
+        'workPhone2' => 'object_workphone2',
         'cellPhone' => 'object_cellphone',
+        'carPhone' => 'object_carphone',
+        'radioPhone' => 'object_radiophone',
+        'companyPhone' => 'object_companyphone',
         'assistPhone' => 'object_assistantphone',
         'fax' => 'object_fax',
         'pager' => 'object_pager',
@@ -329,17 +346,24 @@ $cfgSources['localsql'] = array(
     'tabs' => array(
         _("Personal") => array('firstname', 'lastname', 'middlenames',
                                'namePrefix', 'nameSuffix', 'name', 'alias',
-                               'birthday', 'spouse', 'anniversary', 'photo'),
+                               'birthday', 'spouse', 'anniversary',
+                               'yomifirstname', 'yomilastname', 'photo'),
         _("Location") => array('homeStreet', 'homePOBox', 'homeCity',
                                'homeProvince', 'homePostalCode', 'homeCountry',
                                'homeAddress', 'workStreet', 'workPOBox',
                                'workCity', 'workProvince', 'workPostalCode',
-                               'workCountry', 'workAddress', 'timezone'),
-        _("Communications") => array('email', 'homePhone', 'workPhone',
+                               'workCountry', 'workAddress', 'otherStreet',
+                               'otherPOBox', 'otherCity', 'otherProvince',
+                               'otherPostalCode', 'otherCountry',
+                               'otherAddress','timezone'),
+        _("Communications") => array('email', 'homeEmail', 'workEmail',
+                                     'homePhone', 'homePhone2',
+                                     'workPhone', 'workPhone2', 'carPhone',
+                                     'radioPhone', 'companyPhone',
                                      'assistPhone', 'homeFax',
                                      'cellPhone', 'fax', 'pager', 'imaddress',
                                      'imaddress2', 'imaddress3'),
-        _("Organization") => array('title', 'role', 'company', 'department', 'logo'),
+        _("Organization") => array('title', 'role', 'company', 'department', 'logo', 'assistant', 'manager'),
         _("Other") => array('category', 'notes', 'website', 'freebusyUrl',
                             'pgpPublicKey', 'smimePublicKey'),
     ),
@@ -351,6 +375,7 @@ $cfgSources['localsql'] = array(
         'object_id',
         'owner_id',
         'object_type',
+        'object_uid'
     ),
     'export' => true,
     'browse' => true,
@@ -457,7 +482,7 @@ $cfgSources['localldap'] = array(
         'homeAddress'
     ),
     'strict' => array(
-        'dn',
+        'dn', 'uid'
     ),
     'approximate' => array(
         'cn',
@@ -557,13 +582,128 @@ $cfgSources['personal_ldap'] = array(
         'homeAddress'
     ),
     'strict' => array(
-        'dn',
+        'dn', 'uid'
     ),
     'approximate' => array(
         'cn',
     ),
     'export' => true,
     'browse' => true,
+);
+
+/**
+ * A local address book on a IMAP or Kolab server. This implements a private
+ * per-user address book. Sharing of this source with other users is
+ * accomplished by IMAP ACLs and by setting 'use_shares' => true.
+ */
+$cfgSources['kolab'] = array(
+    // DISABLED by default
+    'disabled' => true,
+    'title' => _("Shared Address Books"),
+    'type' => 'kolab',
+    'params' => array(
+    ),
+    'map' => array(
+        '__key' => '__key',
+        '__uid' => 'uid',
+        '__type' => '__type',
+        '__members' => '__members',
+        /* Personal */
+        'name' => array('fields' => array('namePrefix', 'firstname',
+                                          'middlenames', 'lastname',
+                                          'nameSuffix'),
+                        'format' => '%s %s %s %s %s',
+                        'parse' => array(
+                            array('fields' => array('firstname', 'middlenames',
+                                                    'lastname'),
+                                  'format' => '%s %s %s'),
+                            array('fields' => array('lastname', 'firstname'),
+                                  'format' => '%s, %s'),
+                            array('fields' => array('firstname', 'lastname'),
+                                  'format' => '%s %s'))),
+        'firstname' => 'given-name',
+        'lastname' => 'last-name',
+        'middlenames' => 'middle-names',
+        'namePrefix' => 'prefix',
+        'nameSuffix' => 'suffix',
+        // This is a shorter version of a "name" composite field which only
+        // consists of the first name and last name.
+        // 'name' => array('fields' => array('firstname', 'lastname'),
+        //                 'format' => '%s %s'),
+        'initials'          => 'initials',
+        'nickname'          => 'nick-name',
+        'photo'             => 'photo',
+        'phototype'         => 'phototype',
+        'gender'            => 'gender',
+        'birthday'          => 'birthday',
+        'spouse'            => 'spouse-name',
+        'anniversary'       => 'anniversary',
+        'children'          => 'children',
+        /* Location */
+        'workStreet'        => 'addr-business-street',
+        'workCity'          => 'addr-business-locality',
+        'workProvince'      => 'addr-business-region',
+        'workPostalCode'    => 'addr-business-postal-code',
+        'workCountryFree'   => 'addr-business-country',
+        'homeStreet'        => 'addr-home-street',
+        'homeCity'          => 'addr-home-locality',
+        'homeProvince'      => 'addr-home-region',
+        'homePostalCode'    => 'addr-home-postal-code',
+        'homeCountryFree'   => 'addr-home-country',
+        /* Communications */
+        'emails'            => 'emails',
+        'homePhone'         => 'phone-home1',
+        'workPhone'         => 'phone-business1',
+        'cellPhone'         => 'phone-mobile',
+        'fax'               => 'phone-businessfax',
+        'imaddress'         => 'im-address',
+        /* Organization */
+        'title'             => 'job-title',
+        'role'              => 'profession',
+        'company'           => 'organization',
+        'department'        => 'department',
+        'office'            => 'office-location',
+        'manager'           => 'manager-name',
+        'assistant'         => 'assistant',
+        /* Other */
+        'category'          => 'categories',
+        'notes'             => 'body',
+        'website'           => 'web-page',
+        'freebusyUrl'       => 'free-busy-url',
+        'language'          => 'language',
+        'latitude'          => 'latitude',
+        'longitude'         => 'longitude',
+        /* Invisible */
+        'pgpPublicKey'      => 'pgp-publickey',
+    ),
+    'tabs' => array(
+        _("Personal") => array('firstname', 'lastname', 'middlenames',
+                               'namePrefix', 'nameSuffix', 'name', 'initials',
+                               'nickname', 'gender', 'birthday', 'spouse',
+                               'anniversary', 'children', 'photo'),
+        _("Location") => array('workStreet', 'workCity', 'workProvince',
+                               'workPostalCode', 'workCountryFree',
+                               'homeStreet', 'homeCity', 'homeProvince',
+                               'homePostalCode', 'homeCountryFree'),
+        _("Communications") => array('emails', 'homePhone', 'workPhone',
+                                     'cellPhone', 'fax', 'imaddress'),
+        _("Organization") => array('title', 'role', 'company', 'department',
+                                   'office', 'manager', 'assistant'),
+        _("Other") => array('category', 'notes', 'website', 'freebusyUrl',
+                            'language', 'latitude', 'longitude'),
+    ),
+    'search' => array(
+        'name',
+        'emails'
+    ),
+    'strict' => array(
+        'uid',
+    ),
+    'export' => true,
+    'browse' => true,
+    'list_name_field' => 'lastname',
+    'use_shares' => true,
+    'all_shares' => true,
 );
 
 /**
@@ -602,6 +742,7 @@ $cfgSources['prefs'] = array(
     'strict' => array(
         'id',
         '_type',
+        'uid'
     ),
     'export' => true,
     'browse' => true,
@@ -628,7 +769,6 @@ $cfgSources['favourites'] = array(
         'email' => 'email'
     ),
     'search' => array(
-        'name',
         'email'
     ),
     'strict' => array(
@@ -820,7 +960,7 @@ if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
             'company',
             'homePhone'
             ),
-        'strict' => array(),
+        'strict' => array('__uid'),
         'export' => true,
         'browse' => true,
         'use_shares' => false,

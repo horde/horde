@@ -3,7 +3,7 @@
  * The Horde_Core_Ui_JsCalendar:: class generates the necessary javascript
  * code to allow the javascript calendar widget to be displayed on the page.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -76,8 +76,9 @@ class Horde_Core_Ui_JsCalendar
             $js['Horde_Calendar.fullweekdays'] = self::fullWeekdays();
         }
 
-        Horde::addScriptFile('calendar.js', 'horde');
-        Horde::addInlineJsVars($js);
+        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page_output->addScriptFile('calendar.js', 'horde');
+        $page_output->addInlineJsVars($js);
     }
 
     /**

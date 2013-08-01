@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -27,7 +27,7 @@ function webPrint($text, $flush = false)
 }
 
 $no_compress = true;
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('klutz');
 
 $cli = $injector->getInstance('Horde_Cli');
@@ -121,22 +121,21 @@ if (count($mode) == 0 || in_array('menu', $mode)) {
     }
     $comic_select .= '</select>';
 
-    $sums_url = Horde::url('backend.php');
-    $sums_url = Horde_Util::addParameter($sums_url, 'mode[]', 'sums');
-    $sums_url = Horde_Util::addParameter($sums_url, 'mode[]', 'menu');
-    $title = _("Comics Update");
-    require $registry->get('templates', 'horde') . '/common-header.inc';
-    echo Horde::menu();
+    $sums_url = Horde::url('backend.php')->add('mode[]', 'sums')->add('mode[]', 'menu');
+
+    $page_output->header(array(
+        'title' => _("Comics Update")
+    ));
     require KLUTZ_TEMPLATES . '/backend.html.php';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 
 /* Make it at least look prettier if we are running from web */
 if (!$cli->runningFromCLI() && empty($redirect)) {
-    $title = _("Comics Update");
-    require $registry->get('templates', 'horde') . '/common-header.inc';
-    echo Horde::menu();
+    $page_output->header(array(
+        'title' => _("Comics Update")
+    ));
 }
 
 if (in_array('fetch', $mode)) {
@@ -304,12 +303,12 @@ if (method_exists($klutz_driver, 'saveSums')) {
 
 // Redirect?
 if (!empty($redirect)) {
-    header('Location: ' . Horde_Util::addParameter(Horde::url($redirect),
-                                             array('actionID' => Horde_Util::getFormData('action'),
-                                                   'date' => $date,
-                                                   'index' => $index), null, false));
+    header('Location: ' . Horde::url($redirect)->add(array(
+        'actionID' => Horde_Util::getFormData('action'),
+        'date' => $date,
+        'index' => $index))->setRaw(true));
 }
 
 if (!$cli->runningFromCLI()) {
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
 }

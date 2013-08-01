@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
-
-/**
  * Test the Kolab mock driver.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -497,22 +492,6 @@ extends Horde_Kolab_Storage_TestCase
             array(4),
             $mock->getUids('INBOX/WithDeleted')
         );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testGetParser()
-    {
-        $this->getNullMock()->getParser();
-    }
-
-    public function testSetParser()
-    {
-        $mock = $this->getNullMock();
-        $parser = $this->getMock('Horde_Kolab_Storage_Data_Parser');
-        $mock->setParser($parser);
-        $this->assertSame($parser, $mock->getParser());
     }
 
     public function testGetStamp()

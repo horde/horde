@@ -14,7 +14,7 @@
 /**
  * The Horde_Kolab_Storage_Folder_Namespace_Element:: class represents a namespace type.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -190,8 +190,6 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
 
     /**
      * Generate a folder path for the given subpath and owner.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @param string $subpath The subpath of the folder.
      * @param string $owner   The folder owner.

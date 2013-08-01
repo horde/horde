@@ -1,13 +1,22 @@
 <?php
 /**
- * The Ansel_View_Upload:: class provides a view for handling image uploads.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
+ */
+/**
+ * The Ansel_View_Upload:: class provides a view for handling image uploads.
+ *
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
 
@@ -28,7 +37,7 @@ class Ansel_View_Upload
     /**
      * Force the older, non-javascript uploader view.
      *
-     * @var Boolean
+     * @var boolean
      */
     protected $_forceNoScript = false;
 
@@ -46,11 +55,11 @@ class Ansel_View_Upload
      *   'target'        - Url of the target page to upload images to.
      *   'drop_target'   - Dom id of the element to receive drag and drop images
      *                     (If runtime supports it).
-     *   'gallery'
+     *   'gallery'       - The gallery id we are uploading to.
      * </pre>
      * @param <type> $params
      */
-    public function __construct($params)
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
         $this->_gallery = $this->_params['gallery'];
@@ -59,23 +68,25 @@ class Ansel_View_Upload
         }
 
         Ansel::initJSVariables();
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('carousel.js', 'ansel', true);
-        Horde::addScriptFile('upload.js', 'ansel');
+
+        global $page_output;
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+        $page_output->addScriptFile('carousel.js');
     }
 
     public function run()
     {
-        /* Check for file upload */
+        // Check for file upload
         $this->_handleFileUpload();
 
         // TODO: Configure which runtimes to allow?
-        Horde::addScriptFile('plupload/plupload.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.flash.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.silverlight.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.html5.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.browserplus.js', 'horde');
-        Horde::addScriptFile('plupload/uploader.js', 'horde');
+        global $page_output;
+        $page_output->addScriptFile('plupload/plupload.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.flash.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.silverlight.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.html5.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.browserplus.js', 'horde');
+        $page_output->addScriptFile('plupload/uploader.js', 'horde');
 
         $startText = _("Upload");
         $addText = _("Add Images");
@@ -85,10 +96,6 @@ class Ansel_View_Upload
         $sizeError = _("File size error.");
         $typeError = _("File type error.");
 
-        $imple = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'UploadNotification'));
-        $notificationUrl = (string)$imple->getUrl();
         $this->_params['target']->add('gallery', $this->_params['gallery']->id);
         $jsuri = $GLOBALS['registry']->get('jsuri', 'horde');
         // workaround for older mozilla browsers that incorrectly enocde as utf8
@@ -98,7 +105,6 @@ class Ansel_View_Upload
             $multipart = 'false';
         }
         $js = <<< EOT
-        Ansel.ajax.uploadNotificationUrl = '{$notificationUrl}';
         var uploader = new Horde_Uploader({
             'target': "{$this->_params['target']}",
             drop_target: "{$this->_params['drop_target']}",
@@ -113,13 +119,13 @@ class Ansel_View_Upload
                     size: '{$sizeError}',
                     type: '{$typeError}'
             },
-            header_class: 'hordeUploaderHeader',
             container_class: 'uploaderContainer',
             return_target: '{$this->_params['return_target']}',
             multipart: {$multipart}
         },
         {
             'uploadcomplete': function(up, files) {
+                $('uploadimages').hide();
                 Ansel.uploadedImages = files;
                 if (Ansel.conf.havetwitter) {
                     $('twitter').toggleClassName('hidden');
@@ -128,12 +134,22 @@ class Ansel_View_Upload
         });
         uploader.init();
         $('twitter').observe('click', function() {
-            AnselUpload.doUploadNotification('twitter', '{$this->_gallery->id}');
+            HordeCore.doAction(
+                'uploadNotification',
+                {
+                    s: 'twitter',
+                    g: '{$this->_gallery->id}'
+                },
+                {
+                     callback: function(r) { $('twitter').hide(); }
+
+                }
+            );
         });
 EOT;
 
         $js .= $this->_doCarouselSetup();
-        Horde::addInlineScript($js, 'load');
+        $page_output->addInlineScript($js, true);
     }
 
     /**
@@ -141,7 +157,7 @@ EOT;
      */
     public function handleLegacy()
     {
-        global $conf, $notification, $browser;
+        global $conf, $notification, $page_output, $browser;
 
         $vars = Horde_Variables::getDefaultVariables();
         $form = new Ansel_Form_Upload($vars, _("Upload photos"));
@@ -150,7 +166,7 @@ EOT;
         // explicitly selected the old uploader.
         $js = $this->_doCarouselSetup();
         if (!empty($js)) {
-            Horde::addInlineScript($js, 'load');
+            $page_output->addInlineScript($js, true);
         }
 
         if ($form->validate($vars)) {
@@ -286,7 +302,7 @@ EOT;
 
         function runCarousel() {
             updateCarouselSize();
-            carousel = new UI.Ajax.Carousel("horizontal_carousel", { url: "{$previewUrl}", elementSize: 115 })
+            carousel = new UI.Ajax.Carousel("horizontal_carousel", { url: "{$previewUrl->toString(true)}", elementSize: 115 })
                 .observe("request:started", function() {
                     $('spinner').show().morph("opacity:0.8", {duration:0.5});
                 })
@@ -444,8 +460,8 @@ EOT;
         $len = strlen($filename);
         if ($filename[$len - 1] == '/' ||
             $filename == 'Thumbs.db' ||
-            strrpos($filename, '.DS_Store') == ($len - 9) ||
-            strrpos($filename, '.localized') == ($len - 10) ||
+            strrpos($filename, '.DS_Store') === ($len - 9) ||
+            strrpos($filename, '.localized') === ($len - 10) ||
             strpos($filename, '__MACOSX/') !== false) {
 
             return true;

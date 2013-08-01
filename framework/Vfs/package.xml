@@ -27,31 +27,32 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-01</date>
- <time>15:07:55</time>
+ <date>2013-07-16</date>
+ <time>19:32:41</time>
  <version>
-  <release>2.0.0alpha1</release>
+  <release>2.1.2</release>
   <api>2.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add hasFeature().
-* [jan] Drop listFolders() method.
-* [jan] Remove Horde_Vfs_Browser, Horde_Vfs_ListItem, Horde_Vfs_Object classes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="horde-vfs" role="script" />
+    <file name="horde-vfs" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Vfs">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Vfs -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -65,12 +66,15 @@ Reading, writing and listing of files are all supported.</description>
       <file name="Gc.php" role="php" />
       <file name="Horde.php" role="php" />
       <file name="Kolab.php" role="php" />
+      <file name="Mongo.php" role="php" />
       <file name="Musql.php" role="php" />
       <file name="Smb.php" role="php" />
       <file name="Sql.php" role="php" />
       <file name="SqlFile.php" role="php" />
       <file name="Ssh2.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Vfs -->
      <file name="Vfs.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -341,6 +345,7 @@ Reading, writing and listing of files are all supported.</description>
      <dir name="Vfs">
       <file name="1_horde_vfs_base_tables.php" role="data" />
       <file name="2_horde_vfs_upgrade_autoincrement.php" role="data" />
+      <file name="3_horde_vfs_fix_blob_length.php" role="data" />
      </dir> <!-- /migration/Horde/Vfs -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -351,10 +356,37 @@ Reading, writing and listing of files are all supported.</description>
        <file name="samba1.txt" role="test" />
        <file name="samba2.txt" role="test" />
       </dir> <!-- /test/Horde/Vfs/fixtures -->
+      <dir name="Sql">
+       <dir name="Pdo">
+        <file name="MysqlTest.php" role="test" />
+        <file name="PgsqlTest.php" role="test" />
+        <file name="SqliteTest.php" role="test" />
+       </dir> <!-- /test/Horde/Vfs/Sql/Pdo -->
+       <file name="Base.php" role="test" />
+       <file name="MysqliTest.php" role="test" />
+       <file name="MysqlTest.php" role="test" />
+      </dir> <!-- /test/Horde/Vfs/Sql -->
+      <dir name="SqlFile">
+       <dir name="Pdo">
+        <file name="MysqlTest.php" role="test" />
+        <file name="PgsqlTest.php" role="test" />
+        <file name="SqliteTest.php" role="test" />
+       </dir> <!-- /test/Horde/Vfs/SqlFile/Pdo -->
+       <file name="Base.php" role="test" />
+       <file name="MysqliTest.php" role="test" />
+       <file name="MysqlTest.php" role="test" />
+      </dir> <!-- /test/Horde/Vfs/SqlFile -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="FileTest.php" role="test" />
+      <file name="FtpTest.php" role="test" />
       <file name="KolabTest.php" role="test" />
+      <file name="MongoTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="SmbTest.php" role="test" />
+      <file name="Ssh2Test.php" role="test" />
+      <file name="TestBase.php" role="test" />
      </dir> <!-- /test/Horde/Vfs -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -363,7 +395,7 @@ Reading, writing and listing of files are all supported.</description>
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -371,72 +403,80 @@ Reading, writing and listing of files are all supported.</description>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.4</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.3</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Session</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>ssh2</name>
     <channel>pecl.php.net</channel>
     <min>0.10</min>
+    <providesextension>ssh2</providesextension>
    </package>
    <extension>
     <name>ftp</name>
@@ -447,6 +487,7 @@ Reading, writing and listing of files are all supported.</description>
   <filelist>
    <install as="horde-vfs" name="bin/horde-vfs" />
    <install as="COPYING" name="doc/Horde/Vfs/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Vfs/UPGRADING" />
    <install as="Horde/Vfs.php" name="lib/Horde/Vfs.php" />
    <install as="Horde/Vfs/Base.php" name="lib/Horde/Vfs/Base.php" />
    <install as="Horde/Vfs/Exception.php" name="lib/Horde/Vfs/Exception.php" />
@@ -455,6 +496,7 @@ Reading, writing and listing of files are all supported.</description>
    <install as="Horde/Vfs/Gc.php" name="lib/Horde/Vfs/Gc.php" />
    <install as="Horde/Vfs/Horde.php" name="lib/Horde/Vfs/Horde.php" />
    <install as="Horde/Vfs/Kolab.php" name="lib/Horde/Vfs/Kolab.php" />
+   <install as="Horde/Vfs/Mongo.php" name="lib/Horde/Vfs/Mongo.php" />
    <install as="Horde/Vfs/Musql.php" name="lib/Horde/Vfs/Musql.php" />
    <install as="Horde/Vfs/Smb.php" name="lib/Horde/Vfs/Smb.php" />
    <install as="Horde/Vfs/Sql.php" name="lib/Horde/Vfs/Sql.php" />
@@ -550,12 +592,32 @@ Reading, writing and listing of files are all supported.</description>
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Vfs.po" name="locale/zh_TW/LC_MESSAGES/Horde_Vfs.po" />
    <install as="migration/1_horde_vfs_base_tables.php" name="migration/Horde/Vfs/1_horde_vfs_base_tables.php" />
    <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/Vfs/2_horde_vfs_upgrade_autoincrement.php" />
+   <install as="migration/3_horde_vfs_fix_blob_length.php" name="migration/Horde/Vfs/3_horde_vfs_fix_blob_length.php" />
    <install as="Horde/Vfs/AllTests.php" name="test/Horde/Vfs/AllTests.php" />
+   <install as="Horde/Vfs/bootstrap.php" name="test/Horde/Vfs/bootstrap.php" />
+   <install as="Horde/Vfs/conf.php.dist" name="test/Horde/Vfs/conf.php.dist" />
    <install as="Horde/Vfs/FileTest.php" name="test/Horde/Vfs/FileTest.php" />
+   <install as="Horde/Vfs/FtpTest.php" name="test/Horde/Vfs/FtpTest.php" />
    <install as="Horde/Vfs/KolabTest.php" name="test/Horde/Vfs/KolabTest.php" />
+   <install as="Horde/Vfs/MongoTest.php" name="test/Horde/Vfs/MongoTest.php" />
+   <install as="Horde/Vfs/phpunit.xml" name="test/Horde/Vfs/phpunit.xml" />
    <install as="Horde/Vfs/SmbTest.php" name="test/Horde/Vfs/SmbTest.php" />
+   <install as="Horde/Vfs/Ssh2Test.php" name="test/Horde/Vfs/Ssh2Test.php" />
+   <install as="Horde/Vfs/TestBase.php" name="test/Horde/Vfs/TestBase.php" />
    <install as="Horde/Vfs/fixtures/samba1.txt" name="test/Horde/Vfs/fixtures/samba1.txt" />
    <install as="Horde/Vfs/fixtures/samba2.txt" name="test/Horde/Vfs/fixtures/samba2.txt" />
+   <install as="Horde/Vfs/Sql/Base.php" name="test/Horde/Vfs/Sql/Base.php" />
+   <install as="Horde/Vfs/Sql/MysqliTest.php" name="test/Horde/Vfs/Sql/MysqliTest.php" />
+   <install as="Horde/Vfs/Sql/MysqlTest.php" name="test/Horde/Vfs/Sql/MysqlTest.php" />
+   <install as="Horde/Vfs/Sql/Pdo/MysqlTest.php" name="test/Horde/Vfs/Sql/Pdo/MysqlTest.php" />
+   <install as="Horde/Vfs/Sql/Pdo/PgsqlTest.php" name="test/Horde/Vfs/Sql/Pdo/PgsqlTest.php" />
+   <install as="Horde/Vfs/Sql/Pdo/SqliteTest.php" name="test/Horde/Vfs/Sql/Pdo/SqliteTest.php" />
+   <install as="Horde/Vfs/SqlFile/Base.php" name="test/Horde/Vfs/SqlFile/Base.php" />
+   <install as="Horde/Vfs/SqlFile/MysqliTest.php" name="test/Horde/Vfs/SqlFile/MysqliTest.php" />
+   <install as="Horde/Vfs/SqlFile/MysqlTest.php" name="test/Horde/Vfs/SqlFile/MysqlTest.php" />
+   <install as="Horde/Vfs/SqlFile/Pdo/MysqlTest.php" name="test/Horde/Vfs/SqlFile/Pdo/MysqlTest.php" />
+   <install as="Horde/Vfs/SqlFile/Pdo/PgsqlTest.php" name="test/Horde/Vfs/SqlFile/Pdo/PgsqlTest.php" />
+   <install as="Horde/Vfs/SqlFile/Pdo/SqliteTest.php" name="test/Horde/Vfs/SqlFile/Pdo/SqliteTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -929,7 +991,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-08</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix inconsistent behavior of the different backend drivers.
@@ -942,17 +1004,182 @@ Added a class for providing garbage collection; removed all Horde dependancies.
   </release>
   <release>
    <version>
-    <release>2.0.0alpha1</release>
-    <api>2.0.0</api></version>
+    <release>1.0.10</release>
+    <api>1.0.0</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2012-03-01</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-06</date>
+   <time>15:07:55</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
 * [jan] Add hasFeature().
 * [jan] Drop listFolders() method.
 * [jan] Remove Horde_Vfs_Browser, Horde_Vfs_ListItem, Horde_Vfs_Object classes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+* [jan] Fix finding locale directory if installed with PEAR.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix sending and reading files in SSH2 driver if vfsroot is not set (Bug #11451).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix check whether quota limit is set (Bug #11455).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix old folder not being removed when moving a folder (Bug #11703).
+* [jan] Fix checking source and destination paths being the same (Bug #11702).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix deleting folders from absolute path in FTP backend (Bug #11761).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Don&apos;t rely on PEAR to determine Windows OS in Samba backend.
+* [jan] Implement vfsroot parameter in Samba backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add MongoDB storage driver.
+* [jan] Use ssh2_sftp_chmod() if available (ssh2 0.12).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Return more detailed error messages from File driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

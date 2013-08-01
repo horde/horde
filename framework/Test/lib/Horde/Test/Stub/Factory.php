@@ -20,12 +20,10 @@
  * to be used as a prepared stub that can be provided to the injector and will
  * return the instance required for testing.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @since Horde_Test 1.2.0
  *
  * @category Horde
  * @package  Test

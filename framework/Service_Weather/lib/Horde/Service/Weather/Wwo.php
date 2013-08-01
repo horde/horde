@@ -3,7 +3,7 @@
  * This file contains the Horde_Service_Weather class for communicating with
  * the World Weather Online API.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -21,8 +21,8 @@
 class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
  {
 
-    const API_URL = 'http://free.worldweatheronline.com/feed/weather.ashx';
-    const SEARCH_URL = 'http://www.worldweatheronline.com/feed/search.ashx';
+    const API_URL = 'http://api.worldweatheronline.com/free/v1/weather.ashx';
+    const SEARCH_URL = 'http://api.worldweatheronline.com/free/v1/search.ashx';
 
     public $title = 'World Weather Online';
     public $link = 'http://worldweatheronline.com';
@@ -129,7 +129,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     {
         switch ($type) {
         case Horde_Service_Weather::SEARCHTYPE_STANDARD:
-        case Horde_Service_Weather::SEARCHTYPE_IP;
+        case Horde_Service_Weather::SEARCHTYPE_IP:
             return $this->_parseSearchLocations($this->_searchLocations($location));
         }
     }
@@ -139,7 +139,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     {
         $url = new Horde_Url(self::SEARCH_URL);
         $url->add(array(
-            'query' => $search,
+            'q' => $search,
             'format' => 'json',
             'num_of_results' => 25));
 
@@ -292,7 +292,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         $url = new Horde_Url(self::SEARCH_URL);
         $url = $url->add(array(
             'timezone' => 'yes',
-            'query' => $location,
+            'q' => $location,
             'num_of_results' => 10));
 
         return $this->_makeRequest($url);
@@ -316,10 +316,12 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     }
 
     /**
+     * Make the remote API call.
      *
-     * @param Horde_Url $url
+     * @param Horde_Url $url  The endpoint.
      *
-     * @return SimplexmlElement
+     * @return mixed  The unserialized results form the remote API call.
+     * @throws Horde_Service_Weather_Exception
      */
     protected function _makeRequest(Horde_Url $url)
     {

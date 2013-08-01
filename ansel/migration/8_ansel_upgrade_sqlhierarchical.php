@@ -2,7 +2,7 @@
 /**
  * Migrate to Horde_Share_Sql hierarchical shares.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -25,7 +25,7 @@ class AnselUpgradeSqlHierarchical extends Horde_Db_Migration_Base
         try {
             $this->removeIndex('ansel_shares', array('name' => 'ansel_shares_share_parents_idx'));
         } catch (Exception $e) {}
-        $this->addColumn('ansel_shares', 'share_name', 'string', array('limit' => 255, 'null' => false));
+        $this->addColumn('ansel_shares', 'share_name', 'string', array('limit' => 255, 'null' => false, 'default' => ''));
         $this->changeColumn('ansel_shares', 'share_parents', 'text');
 
         // Add sharenames

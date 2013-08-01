@@ -1,13 +1,72 @@
---------
-v3.0-git
---------
+----------
+v3.0.2-git
+----------
 
+
+
+------
+v3.0.1
+------
+
+[jan] Fix saving columns preference if only one backend exists (Bug #12003).
+
+
+------
+v3.0.0
+------
+
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+---------
+v3.0.0RC2
+---------
+
+[jan] Pass custom login parameters to VFS backend (Bug #11771).
+[jan] Fix selecting display columns in preferences (Bug #11851).
+[jan] Fix automatic login to other than the first backend.
+[jan] Fix downloading if backend key doesn't match driver name (Bug #11746).
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[jan] Change recursive deletion preference to ask by default.
+[jan] Fix share_id column if using old share backend (Bug #11833).
+[jan] Show loading layer when changing backends on login form.
+
+
+---------
+v3.0.0RC1
+---------
+
+[jan] Don't show permissions link if permissions are disabled (Bug #11705).
+[jan] Use short date format in file listing (Request #11722).
+[jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>).
+
+
+-----------
+v3.0.0beta1
+-----------
+
+[jan] Convert templates to Horde_View.
+[jan] Fix sorting if using a pager.
+[jan] Use standard Horde dialogs.
 
 
 ----------
-v2.0.2-git
+v2.0.3-git
 ----------
 
+[jan] Fix setting quota parameters to the VFS backend (Bug #11455).
+[jan] Fix getViewLink() API method (Bug #11226).
+[jan] Update Turkish translation (İstanbul Technical University).
+
+
+------
+v2.0.2
+------
+
+[jan] Don't show user name and password fields on login page if not required.
+[jan] Display 'loginparams' on login screen (Bug #11088).
+[jan] Fix removing filter (Bug #11043).
 [jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
 
 

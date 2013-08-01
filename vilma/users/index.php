@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
@@ -10,12 +10,12 @@
  * @author David Cummings <davidcummings@acm.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($curdomain)) {
-    $registry->authenticateFailure('vilma');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 // Input validation: make sure we have a valid section.
@@ -102,13 +102,7 @@ $template->set('addresses', $addresses);
 if (!$vilma->driver->isBelowMaxUsers($curdomain['domain_name'])) {
     $template->set('maxusers', _("Maximum Users"));
 }
-$template->set('menu', Horde::menu());
 $template->set('tabs', $tabs->render());
-
-Horde::startBuffer();
-$notification->notify(array('listeners' => 'status'));
-$template->set('notify', Horde::endBuffer());
-
 $template->set('pager', $pager->render());
 
 /* Set up the field list. */
@@ -117,6 +111,7 @@ $images = array('delete' => Horde::img('delete.png', _("Delete User")),
 $template->set('images', $images);
 
 /* Render the page. */
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
+$notification->notify(array('listeners' => 'status'));
 echo $template->fetch(VILMA_TEMPLATES . '/users/index.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

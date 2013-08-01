@@ -6,7 +6,7 @@
  * CSS class names "toggleQuoteHide" and "toggleQuoteShow" are used to style
  * toggle text.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,8 +28,9 @@ class Horde_Core_Text_Filter_Highlightquotes extends Horde_Text_Filter_Highlight
     public function __construct(array $params = array())
     {
         if (empty($params['noJS'])) {
-            Horde::addScriptFile('effects.js', 'horde');
-            Horde::addScriptFile('toggle_quotes.js', 'horde');
+            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+            $page_output->addScriptFile('toggle_quotes.js', 'horde');
         }
 
         parent::__construct($params);

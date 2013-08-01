@@ -13,6 +13,13 @@ class Horde_Core_Factory_Logger extends Horde_Core_Factory_Injector
     public $error;
 
     /**
+     * Log queue.
+     *
+     * @var array
+     */
+    static protected $_queue;
+
+    /**
      */
     public function create(Horde_Injector $injector)
     {
@@ -84,19 +91,73 @@ class Horde_Core_Factory_Logger extends Horde_Core_Factory_Injector
             return new Horde_Core_Log_Logger(new Horde_Log_Handler_Null());
         }
 
-        if (!defined('Horde_Log::' . $conf['log']['priority'])) {
-            $conf['log']['priority'] = 'NOTICE';
+        switch ($conf['log']['priority']) {
+        case 'WARNING':
+            // Bug #12109
+            $priority = 'WARN';
+            break;
+
+        default:
+            $priority = defined('Horde_Log::' . $conf['log']['priority'])
+                ? $conf['log']['priority']
+                : 'NOTICE';
+            break;
         }
-        $handler->addFilter(constant('Horde_Log::' . $conf['log']['priority']));
+        $handler->addFilter(constant('Horde_Log::' . $priority));
 
         try {
             /* Horde_Core_Log_Logger contains code to format the log
              * message. */
-            return new Horde_Core_Log_Logger($handler);
+            $ob = new Horde_Core_Log_Logger($handler);
+            self::processQueue($ob);
+            return $ob;
         } catch (Horde_Log_Exception $e) {
             $this->error = $e;
             return new Horde_Core_Log_Logger(new Horde_Log_Handler_Null());
         }
+    }
+
+    /**
+     * Is the logger available?
+     *
+     * @return boolean  True if logging is available.
+     */
+    static public function available()
+    {
+        return (isset($GLOBALS['registry']) && $GLOBALS['registry']->hordeInit);
+    }
+
+    /**
+     * Queue log entries to output once the framework is initialized.
+     */
+    static public function queue(Horde_Core_Log_Object $ob)
+    {
+        if (!isset(self::$_queue)) {
+            self::$_queue = array();
+            register_shutdown_function(array(__CLASS__, 'processQueue'));
+        }
+
+        self::$_queue[] = $ob;
+    }
+
+    /**
+     * Process the log queue.
+     */
+    static public function processQueue($logger = null)
+    {
+        if (empty(self::$_queue) || !self::available()) {
+            return;
+        }
+
+        if (is_null($logger)) {
+            $logger = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
+        }
+
+        foreach (self::$_queue as $val) {
+            $logger->logObject($val);
+        }
+
+        self::$_queue = array();
     }
 
 }

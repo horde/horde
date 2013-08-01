@@ -1,30 +1,40 @@
 <?php
 /**
- * This class provides the data structure for a message flag.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This class provides the data structure for a message flag.
  *
- * @property string $abbreviation  The abbreviation to use in the mimp view.
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ *
+ * @property-read string $abbreviation  The abbreviation to use in the minimal
+ *                                      view.
  * @property string $bgcolor  The background color.
- * @property boolean $bgdefault  Is the backgroud color the default?
- * @property boolean $canset  Can this flag be set by the user?
- * @property string $css  The CSS class for the icon when the flag is set.
- * @property string $cssicon  The CSS class for the icon.
- * @property string $fgcolor  The foreground (text) color.
- * @property string $form_set  Form value to use when setting flag.
- * @property string $form_unset  Form value to use when unsetting flag.
- * @property string $id  Unique ID.
- * @property string $label  The query label.
- * @property string $span  Return SPAN HTML to output the icon for use in a
- *                         mailbox row.
+ * @property-read boolean $bgdefault  Is the background color the default?
+ * @property-read boolean $canset  Can this flag be set by the user?
+ * @property-read string $css  The CSS class for the icon when the flag is
+ *                             set.
+ * @property-read string $cssicon  The CSS class for the icon.
+ * @property-read string $fgcolor  The foreground (text) color.
+ * @property-read string $form_set  Form value to use when setting flag.
+ * @property-read string $form_unset  Form value to use when unsetting flag.
+ * @property-read string $id  Unique ID.
+ * @property-read string $label  The query label.
+ * @property-read string $span  Return SPAN HTML to output the icon for use in
+ *                              a mailbox row.
  */
 abstract class IMP_Flag_Base implements Serializable
 {

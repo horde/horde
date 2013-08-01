@@ -1,16 +1,24 @@
 <?php
 /**
- * This class provides the data structure for a user-defined message flag.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This class provides the data structure for a user-defined message flag.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Flag_User extends IMP_Flag_Imap
 {
@@ -48,6 +56,7 @@ class IMP_Flag_User extends IMP_Flag_Imap
     }
 
     /**
+     * @throws IMP_Exception
      */
     public function __set($name, $value)
     {
@@ -55,7 +64,12 @@ class IMP_Flag_User extends IMP_Flag_Imap
         case 'imapflag':
             /* IMAP keywords must conform to RFC 3501 [9] (flag-keyword).
              * Convert whitespace to underscore. */
-            $this->_imapflag = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->stripNonAtomChars(strtr($value, ' ', '_'));
+            if (Horde_Mime::is8bit($value)) {
+                throw new IMP_Exception(_("Invalid characters in flag name."));
+            }
+
+            $atom = new Horde_Imap_Client_Data_Format_Atom(strtr($value, ' ', '_'));
+            $this->_imapflag = $atom->stripNonAtomCharacters();
             break;
 
         case 'label':

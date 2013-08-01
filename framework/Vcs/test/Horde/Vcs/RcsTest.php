@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once __DIR__ . '/TestBase.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
@@ -17,12 +17,12 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
     public function setUp()
     {
         if (!self::$conf) {
-            $this->markTestSkipped();
+            $this->markTestSkipped('No test configuration');
         }
         $this->vcs = Horde_Vcs::factory(
             'Rcs',
             array_merge(self::$conf,
-                        array('sourceroot' => dirname(__FILE__) . '/repos/rcs')));
+                        array('sourceroot' => __DIR__ . '/repos/rcs')));
     }
 
     public function testFactory()
@@ -46,17 +46,19 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
     public function testDirectory()
     {
         $dir = $this->vcs->getDirectory('');
+        $dir->applySort(Horde_Vcs::SORT_NAME);
         $this->assertInstanceOf('Horde_Vcs_Directory_Rcs', $dir);
         $files = $dir->getFiles();
         $this->assertInternalType('array', $files);
         $this->assertEquals(2, count($files));
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $files[0]);
-        $this->assertEquals('umläüte', $files[0]->getFileName());
-        $this->assertEquals('file1', $files[1]->getFileName());
+        $this->assertEquals('file1', $files[0]->getFileName());
+        $this->assertEquals('umläüte', $files[1]->getFileName());
         $this->assertEquals(2, count($dir->getFiles(true)));
         $this->assertEquals(array(), $dir->getBranches());
 
         $dir = $this->vcs->getDirectory('dir1');
+        $dir->applySort();
         $this->assertInstanceOf('Horde_Vcs_Directory_Rcs', $dir);
         $this->assertEquals(array(), $dir->getDirectories());
         $files = $dir->getFiles();
@@ -81,13 +83,13 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $file);
         $this->assertEquals('file1', $file->getFileName());
         $this->assertEquals('file1', $file->getSourcerootPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/file1',
+        $this->assertEquals(__DIR__ . '/repos/rcs/file1',
                             $file->getPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/file1,v',
+        $this->assertEquals(__DIR__ . '/repos/rcs/file1,v',
                             $file->getFullPath());
-        $this->assertEquals('1.2', $file->getRevision());
+        $this->assertEquals('1.3', $file->getRevision());
         $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
-        $this->assertEquals(2, $file->revisionCount());
+        $this->assertEquals(3, $file->revisionCount());
         $this->assertEquals(array(), $file->getTags());
         $this->assertEquals(array(), $file->getBranches());
         $this->assertFalse($file->isDeleted());
@@ -98,10 +100,10 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1_1', $file->getFileName());
         $this->assertEquals('dir1/file1_1', $file->getSourcerootPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/rcs/dir1/file1_1',
+            __DIR__ . '/repos/rcs/dir1/file1_1',
             $file->getPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/rcs/dir1/file1_1,v',
+            __DIR__ . '/repos/rcs/dir1/file1_1,v',
             $file->getFullPath());
         $this->assertEquals('1.1', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());
@@ -115,15 +117,22 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
+    }
+
+    public function testUnicodeFile()
+    {
+        if (!setlocale(LC_ALL, 'de_DE.UTF-8')) {
+            $this->skipTest('Cannot set de_DE locale');
+        }
 
         /* Test unicode file. */
         $file = $this->vcs->getFile('umläüte');
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $file);
         $this->assertEquals('umläüte', $file->getFileName());
         $this->assertEquals('umläüte', $file->getSourcerootPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/umläüte',
+        $this->assertEquals(__DIR__ . '/repos/rcs/umläüte',
                             $file->getPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/umläüte,v',
+        $this->assertEquals(__DIR__ . '/repos/rcs/umläüte,v',
                             $file->getFullPath());
         $this->assertEquals('1.1', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());
@@ -136,7 +145,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
     {
         $logs = $this->vcs->getFile('file1')->getLog();
         $this->assertInternalType('array', $logs);
-        $this->assertEquals(array('1.2', '1.1'), array_keys($logs));
+        $this->assertEquals(array('1.3', '1.2', '1.1'), array_keys($logs));
         $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $logs['1.2']);
 
         $log = $logs['1.2'];
@@ -163,6 +172,13 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertEquals(array(), $log->getBranch());
         $this->assertEquals(array(), $log->getTags());
 
+        $this->assertEquals(
+            'Multiline commit message.
+
+More message here
+and here.',
+            $logs['1.3']->getMessage());
+
         $logs = $this->vcs->getFile('umläüte')->getLog();
         $this->assertInternalType('array', $logs);
         $this->assertEquals(array('1.1'), array_keys($logs));
@@ -175,9 +191,12 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
             ->getFile('file1')
             ->getLastLog();
         $this->assertInstanceof('Horde_Vcs_QuickLog_Rcs', $log);
-        $this->assertEquals('1.2', $log->getRevision());
-        $this->assertEquals(1322495969, $log->getDate());
+        $this->assertEquals('1.3', $log->getRevision());
+        $this->assertEquals(1332506787, $log->getDate());
         $this->assertEquals('jan', $log->getAuthor());
-        $this->assertEquals('Commit 2nd version.', $log->getMessage());
+        $this->assertEquals('Multiline commit message.
+
+More message here
+and here.', $log->getMessage());
     }
 }

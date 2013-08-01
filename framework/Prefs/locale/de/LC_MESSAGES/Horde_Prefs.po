@@ -1,5 +1,5 @@
 # German translations for Horde_Prefs module.
-# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Prefs module.
 # Automatically generated, 2010.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,7 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Prefs/Identity.php:112
+#: lib/Horde/Prefs/Identity.php:342
+#, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "\"%s\" ist keine gültige E-Mail-Adresse."
+
+#: lib/Horde/Prefs/Identity.php:117
 msgid "Default Identity"
 msgstr "Standardidentität"
 
@@ -37,7 +42,7 @@ msgstr "Benutzereinstellungen"
 msgid "Unfiled"
 msgstr "Nicht zugeordnet"
 
-#: lib/Horde/Prefs/Identity.php:322
+#: lib/Horde/Prefs/Identity.php:331
 msgid "Unnamed"
 msgstr "Unbenannt"
 

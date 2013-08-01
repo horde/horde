@@ -16,7 +16,7 @@ Localization
 
 =====================   ======================================================
 Arabic (Syria)          Platinum Development Team <devteam@platinum-sy.net>
-Basque                  Euskal Herriko Unibertsitatea <xabier.arrieta@ehu.es>
+Basque                  Euskal Herriko Unibertsitatea <webmaster@ehu.es>
 Bosnian                 Alen Sarkinovic <alen@linux.org.ba>
                         Vedran Ljubovic <vljubovic@smartnet.ba>
 Brazilian Portuguese    Carlos Daniel Kibrit <kibrit@terra.com.br>
@@ -34,6 +34,8 @@ Croatian                Iva Rumora <iva.rumora@zg.t-com.hr>
                         Matej Vela <matej.vela@carnet.hr>
 Czech                   Pavel Chytil <paja@asp.ogi.edu>
                         Jan Krivanek <honza@atack.cz>
+                        Petra Kostinkova <kostinkova.petra@active24.cz>
+                        Michal Foist <foist.michal@active24.cz>
 Danish                  Martin List-Petersen <martin@list-petersen.dk>
                         Brian Truelsen <horde+i18n@briantruelsen.dk>
                         Niels Baggesen <nba@users.sourceforge.net>
@@ -50,6 +52,8 @@ French                  Frederic Trudeau <ftrudeau@cam.org>
                         Pierre Lachance <pl@pierrelachance.net>
                         Gregory Colpart <gcolpart@evolix.net>
                         Yannick Sebastia <yannick.sebastia@ecole-navale.fr>
+                        Paul De Vlieger
+                        <paul.de_vlieger@moniut.univ-bpclermont.fr>
 Galician                Rafael Varela <rafael.varela@usc.es>
                         Guillermo Mendez <guille@usc.es>
 German                  Jan Schneider <jan@horde.org>
@@ -59,6 +63,7 @@ Greek                   Stefanos I. Dimitriou <support@teiath.gr>
                         Konstantinos C. Milosis <kmilosis@yahoo.com>
 Hebrew                  Matt Selsky <selsky@columbia.edu>
 Hungarian               Laszlo L. Tornoci <torlasz@xenia.sote.hu>
+                        Zoltán Németh <nemeth.zoltan@etit.hu>
 Icelandic               Bjorn Davidsson <bjossi@snerpa.is>
 Indonesian              Slamin <slamin@unej.ac.id>
                         James Doe <james@actionmessage.com>
@@ -67,6 +72,7 @@ Italian                 Paola Carpenter <pcarpenter@infvic.it>
                         Federico Giannici <giannici@neomedia.it>
                         Marco Pirovano <marco.pirovano@unibocconi.it>
                         Cristian Manoni <cristian.manoni@nethesis.it>
+                        Emilien <emilien@wifi.e4a.it>)
 Japanese                B.J. Black <william.black@sun.com>
                         Takeshi Morishima <tm@onepost.net>
                         Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
@@ -89,6 +95,7 @@ Persian                 MetaNET Amirkabir <persian-horde@metanetworking.com>
 Polish                  Mariusz Zynel <mariusz@math.uwb.edu.pl>
                         Krzysztof Kozlowski <kozik1@o2.pl>
                         Daniel Horecki <shinden@linux.pl>
+                        Krzysztof Kozera <krzysztof113@o2.pl>
 Portuguese              Nuno Loureiro <nuno@eth.pt>
                         Manuel Menezes de Sequeira <Manuel.Sequeira>
 Romanian                Corneliu Musat <cmusat@tiamat.keysys.ro>
@@ -99,6 +106,8 @@ Russian                 Ignat Ikryanov <ignat@ibd.ru>
 Slovak                  Leo Mrafko <leo@oel.sk>
                         Ivan Noris <noris@bgs.sk>
                         Martin Matuška <martin@matuska.org>
+                        Marika Schvarczova <schvarczova.marika@domeny.sk>
+                        Jozef Sudolský <jozef.sudolsky@elbia.sk>
 Slovenian               Jure Krasovic <jurek@rcc-irc.si>
                         Matic Dolar <matic@medium.si>
 Spanish                 Raúl Alvarez Venegas <rav@tecoman.ucol.mx>
@@ -106,6 +115,7 @@ Spanish                 Raúl Alvarez Venegas <rav@tecoman.ucol.mx>
                         Juan C. Blanco <jcblanco@fi.upm.es>
 Swedish                 Andreas Dahlén <andreas@dahlen.ws>
                         Joaquim Homrighausen <joho@webbplatsen.se>
+                        Jakob Alvermark <jakob.alvermark@bsdlabs.com>
 Turkish                 Genco Yilmaz <gencoyilmaz@yahoo.com>
                         Istanbul Technical University IT Department
                         <itubim@itu.edu.tr>

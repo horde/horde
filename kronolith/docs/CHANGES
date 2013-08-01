@@ -1,7 +1,183 @@
---------
-v4.0-git
---------
+----------
+v4.1.3-git
+----------
 
+[mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
+
+
+------
+v4.1.2
+------
+
+[jan] Display CalDAV URL of system calendars and tasklists (Bug #12342).
+[jan] Fix system calendar listing via WebDAV.
+[rla] Add system calendar support for Kronolith CalDAV access (Request #12342).
+[mjr] Fix automatically adding organizer as attendee in dynamic view.
+[mjr] Prompt for sending cancellation iTip when deleting an event (Bug #12415).
+[rla] Properly display system-owned calendars when browsing DAV (Bug #12325).
+
+
+------
+v4.1.1
+------
+
+[mjr] Fix setting RECURRENCE-ID field when exporting ics file (Bug #12368).
+[jan] Fix propagating calendar URLs if import/export is turned off.
+[mjr] Add API methods for using history modification sequences.
+
+
+------
+v4.1.0
+------
+
+[jan] Add help text for CalDAV usage.
+
+
+---------
+v4.1.0RC1
+---------
+
+[jan] Fix editing of events per CalDAV if client sends LAST-MODIFIED attribute
+      (Bug #12244).
+
+
+-----------
+v4.1.0beta2
+-----------
+
+[jan] Fix incorrect dependencies.
+
+
+-----------
+v4.1.0beta1
+-----------
+
+[jan] Add CalDAV server support (Request #4267).
+[jan] Use Horde_Dav for accessing remote calendars.
+[mjr] Expose Kronolith_FreeBusy::get() via the external API.
+
+
+------
+v4.0.5
+------
+
+[jan] Don't throw error on importing events with unknown timezones (Bug
+      #11688).
+[jan] Don't send notifications for all recurrence exceptions when deleting
+      events.
+[jan] Only send update notifications for local calendars.
+[jan] Re-enable users in drop-down list after revoking permissions (Bug
+      #12000).
+[jan] Fix exporting events of a certain time span (piper@hrz.uni-marburg.de,
+      Bug #12074).
+[mjr] Always populate the meetingstatus property in ActiveSync requests  to
+      avoid issues with some versions of iOS (Bug #12056).
+[mjr] Fix deletion of resource events after deleting resource (Bug #12034).
+
+
+------
+v4.0.4
+------
+
+[jan] Update alarms, resources, and tags when deleting Kolab events (Bug
+      #11988).
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Fix some issues with workweek views if first day of week is Sunday (Bug
+      #11973).
+[jan] Fix adding holiday calendars if not using English locale (Bug #11961).
+[jan] More robust date parsing during event importing (Bug #11916).
+[jan] Always export year numbers with four digits to CSV (Request #11917).
+[jan] Fix JavaScript error if Nag is not installed.
+
+
+------
+v4.0.3
+------
+
+[jan] Fix setting default start time in new event dialog of basic view (Bug
+      #11861).
+[jan] Fix saving alarm methods to Kolab backend (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11880).
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[jan] Fix moving events between calendars (Bug #11830).
+[jan] Fix fatal error on recurring events with custom timezone (Bug #11587).
+[jan] Fix double owner name on shared calendars.
+[jan] Use default Kolab folder for default calendar preference.
+[jan] Mark Kolab folder as default when changing default calendar preference.
+[jan] Defer navigation in dynamic view until environment has been initialized.
+[jan] Fix receiving resource calendars in dynamic view (Bug #11776).
+
+
+------
+v4.0.2
+------
+
+[jan] Use Kolab modification and creation dates in the UI (Bug #11591).
+[jan] Try to translate holiday drivers (Request #11755).
+[jan] Fix timezone when reading events from Kolab (Bug #11695).
+[jan] Use encoded UIDs as IDs in Kolab driver.
+[jan] Fix saving of events if no calendar has been loaded yet.
+[mjr] Fix importing events from ActiveSync with empty descriptions in EAS
+      version 2.5
+
+
+------
+v4.0.1
+------
+
+[jan] Fix migration of exceptionoriginaldate field (Bug #11654).
+[jan] Fix generating calendar names when exporting non-internal calendars to
+      iCalendar.
+[jan] Fix authentication to remote calendars (Bug #11643).
+[jan] Fix incorrect nesting of VTIMEZONE components when exporting to iCalendar
+      (Bug #11636).
+[jan] Fix fatal error when moving non-recurring events with resources (Bug
+      #11629).
+
+
+------
+v4.0.0
+------
+
+[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
+
+
+---------
+v4.0.0RC1
+---------
+
+[jan] Show completed future tasks in complete category, not in future category
+      (Bug #11562).
+[jan] Fix exporting of recurring events with exceptions from Kolab backends.
+[jan] Fix export links for calendars (Bug #11576).
+[jan] Fix broken Apple iCal behavior with exception dates (Evert Pot
+      <evert@rooftopsolutions.nl>).
+[jan] Use more compatible message format for iTip notifications (Bug #9854).
+[jan] Fix free/busy retrieval on Kolab.
+
+
+-----------
+v4.0.0beta2
+-----------
+
+[jan] Synchronize tags with Kolab categories.
+[mjr] Improvements to resource calendar handling.
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Always mark the initial share as default calendar.
+[jan] Fix attendees button in traditional view.
+[jan] Fix sending alarm emails.
+
+
+-----------
+v4.0.0beta1
+-----------
+
+[jan] Add quick task adding to dynamic view.
+[rla] Fix sender of appointment notification (Bug #11198)
+[mjr] Fix tagging in traditional interface.
+[rla] Make system shares browseable in WebDAV (Request #10998).
 [jan] Make calendar lists collapsible (Request #10865).
 [jan] Delay calendar list loading to speed up initial display.
 [mjr] Implement resource scheduling in dynamic view (Request #9774).
@@ -23,9 +199,48 @@ v4.0-git
 
 
 -----------
-v3.0.16-git
+v3.0.18-git
 -----------
 
+[mms] Fix permissions checking in the 'path_delete' API call.
+[mms] SECURITY: Fix XSS vulnerabilities in the portal blocks.
+[mjr] Fix setting permissions in dynamic mode while $conf[share][world] is
+      false (Bug #11359).
+[mjr] Fix issue causing broken alarm values from being imported from certain
+      ics files.
+[rla] Fix sender of appointment notification (Bug #11198).
+[mjr] Use SSL for map providers if current connection is SSL (Request #11193).
+[jan] Don't show location of private events (Bug #11235).
+[jan] Fix exporting multi-all-day events to iCalendar.
+[jan] Update Turkish translation (İstanbul Technical University).
+[jan] Update Swedish translation (Jakob Alvermark
+      <jakob.alvermark@bsdlabs.com>).
+
+
+-------
+v3.0.17
+-------
+
+[jan] SECURITY: Fix XSS vulnerabilities in tasks view and search view (Bug
+      #11189).
+[jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
+[jan] Improve print styles.
+[jan] Catch if external client doesn't send LAST-MODIFIED attributes (Bug
+      #11130).
+[jan] Don't stop agenda script if there is an error with a single user (Bug
+      #11129).
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
+[jan] Show round corners only on the start and end of multi-day events
+      (Request #11067).
+
+
+-------
+v3.0.16
+-------
+
+[jan] Use preferred date format in week and agenda views (Bug #11089).
+[jan] Fix fatal error if no external calendars are available (Bug #11079).
+[jan] Fix positioning of events on DST changing dates (Bug #11070).
 [mjr] Fix bug that caused time shift of all day events when imported from
       ActiveSync devices for users in certain timezones (Bug #10991).
 [mjr] Correctly deal with deleted calendars in sync clients (Bug #10969).

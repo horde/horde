@@ -4,8 +4,8 @@
  <configtab name="general" desc="General">
   <configheader>Storage System Settings</configheader>
   <configsection name="storage">
-   <configswitch name="driver" desc="What storage driver should we use?">sql
-    <case name="sql" desc="SQL">
+   <configswitch name="driver" desc="What storage driver should we use?">rdo
+    <case name="rdo" desc="Horde Rdo Driver">
      <configsection name="params">
       <configsql switchname="driverconfig"/>
      </configsection>
@@ -34,11 +34,6 @@
   <configsection name="menu">
    <configheader>Menu settings</configheader>
    <configboolean name="print" desc="Should we display a print link in the Horde application menus?">true</configboolean>
-   <configmultienum name="apps" desc="Select any applications that should be linked in Papers's menu">
-    <values>
-    <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
   </configsection>
  </configtab>
 </configuration>

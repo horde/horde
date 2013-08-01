@@ -5,7 +5,7 @@
  * This file defines Horde's application interface. Other Horde libraries
  * and applications can interact with Beatnik through this API.
  *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (GPL). If you did not
  * did not receive this file, see http://www.horde.org/licenses/gpl
@@ -15,7 +15,7 @@
  */
 
 if (!defined('BEATNIK_BASE')) {
-    define('BEATNIK_BASE', dirname(__FILE__). '/..');
+    define('BEATNIK_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -51,7 +51,7 @@ class Beatnik_Application extends Horde_Registry_Application
             try {
                 $domain = $this->driver->getDomain(Horde_Util::getFormData('curdomain'));
             } catch (Exception $e) {
-                $notification->push($e->getMessage(), 'horde.error');
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
                 $domain = $domains[0];
             }
 
@@ -63,10 +63,10 @@ class Beatnik_Application extends Horde_Registry_Application
             $_SESSION['beatnik']['expertmode'] = false;
         } elseif (Horde_Util::getFormData('expertmode') == 'toggle') {
             if ($_SESSION['beatnik']['expertmode']) {
-                $notification->push(_('Expert Mode off'), 'horde.message');
+                $GLOBALS['notification']->push(_("Expert Mode off"), 'horde.message');
                 $_SESSION['beatnik']['expertmode'] = false;
             } else {
-                $notification->push(_('Expert Mode ON'), 'horde.warning');
+                $GLOBALS['notification']->push(_("Expert Mode ON"), 'horde.warning');
                 $_SESSION['beatnik']['expertmode'] = true;
             }
         }
@@ -88,7 +88,7 @@ class Beatnik_Application extends Horde_Registry_Application
         );
 
         // Run through every domain
-        foreach ($beatnik->driver->getDomains() as $domain) {
+        foreach ($this->driver->getDomains() as $domain) {
             $perms['domains:' . $domain['zonename']] = array(
                 'title' => $domain['zonename']
             );
@@ -101,7 +101,25 @@ class Beatnik_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        return Beatnik::getMenu();
+        // We are editing rather than adding if an ID was passed
+        $editing = Horde_Util::getFormData('id');
+        $editing = !empty($editing);
+
+        $menu->add(Horde::url('listzones.php'), _("List Domains"), 'website.png');
+        if (!empty($_SESSION['beatnik']['curdomain'])) {
+            $menu->add(Horde::url('editrec.php')->add('curdomain', $_SESSION['beatnik']['curdomain']['zonename']), ($editing) ? _("Edit Record") : _("Add Record"), 'edit.png');
+        } else {
+            $menu->add(Horde::url('editrec.php?rectype=soa'), _("Add Zone"), 'edit.png');
+        }
+
+        $url = Horde::selfUrl(true)->add(array('expertmode' => 'toggle'));
+        $menu->add($url, _("Expert Mode"), 'hide_panel.png', null, '', null, ($_SESSION['beatnik']['expertmode']) ? 'current' : '');
+
+        if (count(Beatnik::needCommit())) {
+            $url = Horde::url('commit.php')->add(array('domain' => 'all'));
+            $menu->add($url, _("Commit All"), 'commit-all.png');
+        }
+
     }
 
 }

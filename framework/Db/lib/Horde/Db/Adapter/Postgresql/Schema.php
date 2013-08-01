@@ -4,7 +4,7 @@
  * SQL dialects and quoting.
  *
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -289,7 +289,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function indexes($tableName, $name = null)
     {
-        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName"));
+        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName", 0));
 
         if (!$indexes) {
             $schemas = array();
@@ -344,7 +344,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function columns($tableName, $name = null)
     {
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->_columnDefinitions($tableName, $name);
@@ -454,6 +454,11 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $this->execute($sql);
 
         if (array_key_exists('default', $options)) {
+            $sql = sprintf('UPDATE %s SET %s = %s',
+                           $this->quoteTableName($tableName),
+                           $this->quoteColumnName($columnName),
+                           $this->quote($options['default']));
+            $this->execute($sql);
             $this->changeColumnDefault($tableName, $columnName,
                                        $options['default']);
         }
@@ -516,7 +521,6 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                 // Booleans can't always be cast to other data types; do extra
                 // work to handle them.
                 $oldType = null;
-                $columns = $this->columns($tableName);
                 foreach ($this->columns($tableName) as $column) {
                     if ($column->getName() == $columnName) {
                         $oldType = $column->getType();
@@ -668,8 +672,6 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
 
     /**
      * Removes a primary key from a table.
-     *
-     * @since Horde_Db 1.1.0
      *
      * @param string $tableName  A table name.
      *
@@ -893,8 +895,6 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
 
     /**
      * Generates a modified date for SELECT queries.
-     *
-     * @since Horde_Db 1.2.0
      *
      * @param string $reference  The reference date - this is a column
      *                           referenced in the SELECT.

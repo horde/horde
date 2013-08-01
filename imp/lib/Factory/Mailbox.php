@@ -1,31 +1,26 @@
 <?php
 /**
- * A Horde_Injector:: based IMP_Mailbox:: factory.
- *
- * PHP version 5
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @link     http://pear.horde.org/index.php?package=IMP
- * @package  IMP
- */
-
-/**
- * A Horde_Injector:: based IMP_Mailbox:: factory.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @link     http://pear.horde.org/index.php?package=IMP
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
-class IMP_Factory_Mailbox extends Horde_Core_Factory_Base
+
+/**
+ * A Horde_Injector based IMP_Mailbox factory.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+class IMP_Factory_Mailbox extends Horde_Core_Factory_Base implements Horde_Shutdown_Task
 {
     const STORAGE_KEY = 'mbox/';
 
@@ -46,17 +41,19 @@ class IMP_Factory_Mailbox extends Horde_Core_Factory_Base
      */
     public function create($mbox)
     {
+        global $session;
+
         if ($mbox instanceof IMP_Mailbox) {
             return $mbox;
         }
 
         if (!isset($this->_instances[$mbox])) {
             if (empty($this->_instances)) {
-                register_shutdown_function(array($this, 'shutdown'));
+                Horde_Shutdown::add($this);
             }
 
             $ob = new IMP_Mailbox($mbox);
-            $ob->cache = $GLOBALS['session']->get('imp', self::STORAGE_KEY . $mbox, Horde_Session::TYPE_ARRAY);
+            $ob->cache = $session->get('imp', self::STORAGE_KEY . $mbox, Horde_Session::TYPE_ARRAY);
 
             $this->_instances[$mbox] = $ob;
         }
@@ -78,14 +75,16 @@ class IMP_Factory_Mailbox extends Horde_Core_Factory_Base
      */
     public function shutdown()
     {
+        global $session;
+
         foreach ($this->_instances as $ob) {
             switch ($ob->changed) {
             case IMP_Mailbox::CHANGED_YES:
-                $GLOBALS['session']->set('imp', self::STORAGE_KEY . $ob, $ob->cache);
+                $session->set('imp', self::STORAGE_KEY . $ob, $ob->cache);
                 break;
 
             case IMP_Mailbox::CHANGED_DELETE:
-                $GLOBALS['session']->remove('imp', self::STORAGE_KEY . $ob);
+                $session->remove('imp', self::STORAGE_KEY . $ob);
                 break;
             }
         }

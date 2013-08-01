@@ -10,10 +10,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:54:14</time>
+ <date>2012-11-19</date>
+ <time>18:38:50</time>
  <version>
-  <release>1.0.2</release>
+  <release>2.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -26,6 +26,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Translation">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Translation -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Translation">
@@ -52,7 +59,9 @@
        </dir> <!-- /test/Horde/Translation/locale/de -->
       </dir> <!-- /test/Horde/Translation/locale -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="GettextTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="TestBase.php" role="test" />
       <file name="WrapperTest.php" role="test" />
      </dir> <!-- /test/Horde/Translation -->
@@ -63,7 +72,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -73,9 +82,9 @@
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>gettext</name>
@@ -84,12 +93,15 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Translation/COPYING" />
    <install as="Horde/Translation.php" name="lib/Horde/Translation.php" />
    <install as="Horde/Translation/Exception.php" name="lib/Horde/Translation/Exception.php" />
    <install as="Horde/Translation/Handler.php" name="lib/Horde/Translation/Handler.php" />
    <install as="Horde/Translation/Handler/Gettext.php" name="lib/Horde/Translation/Handler/Gettext.php" />
    <install as="Horde/Translation/AllTests.php" name="test/Horde/Translation/AllTests.php" />
+   <install as="Horde/Translation/bootstrap.php" name="test/Horde/Translation/bootstrap.php" />
    <install as="Horde/Translation/GettextTest.php" name="test/Horde/Translation/GettextTest.php" />
+   <install as="Horde/Translation/phpunit.xml" name="test/Horde/Translation/phpunit.xml" />
    <install as="Horde/Translation/TestBase.php" name="test/Horde/Translation/TestBase.php" />
    <install as="Horde/Translation/WrapperTest.php" name="test/Horde/Translation/WrapperTest.php" />
    <install as="Horde/Translation/locale/de/LC_MESSAGES/Horde_Other.mo" name="test/Horde/Translation/locale/de/LC_MESSAGES/Horde_Other.mo" />
@@ -194,7 +206,72 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [rla] Add license file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

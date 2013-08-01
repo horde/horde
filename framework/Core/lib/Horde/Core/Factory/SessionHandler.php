@@ -2,7 +2,7 @@
 /**
  * Factory for creating Horde_SessionHandler objects.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @category Horde
  * @package  Core
@@ -10,12 +10,16 @@
 class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
 {
     /**
-     * Attempts to return a concrete instance based on $driver.
+     * Storage driver.
      *
-     * @param string $driver  The type of concrete subclass to return
-     *                        (case-insensitive).
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
+     * @since 2.5.0
+     *
+     * @var Horde_SessionHandler_Storage
+     */
+    public $storage;
+
+    /**
+     * Attempts to return a concrete instance based on $driver.
      *
      * @return Horde_SessionHandler_Driver  The newly created concrete
      *                                      instance.
@@ -43,36 +47,41 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             $noset = true;
             break;
 
-        case 'ldap':
-            $params['ldap'] = $injector
-                ->getInstances('Horde_Core_Factory_Ldap')
-                ->create('horde', 'sessionhandler');
+        case 'hashtable':
+        // DEPRECATED
+        case 'memcache':
+            $params['hashtable'] = $injector->getInstance('Horde_HashTable');
+            $driver = 'hashtable';
             break;
 
-        case 'memcache':
-            $params['memcache'] = $injector->getInstance('Horde_Memcache');
+        case 'nosql':
+            $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'sessionhandler');
+            if ($nosql instanceof Horde_Mongo_Client) {
+                $params['mongo_db'] = $nosql;
+                $driver = 'Horde_SessionHandler_Storage_Mongo';
+            }
             break;
 
         case 'sql':
             $factory = $injector->getInstance('Horde_Core_Factory_Db');
-            $params['db'] = $factory->createDb($factory->getConfig('sessionhandler'));
+            $config = $factory->getConfig('sessionhandler');
+            unset($config['umask'], $config['driverconfig']);
+            $params['db'] = $factory->createDb($config);
             break;
         }
 
-        $class = 'Horde_SessionHandler_Storage_' . Horde_String::ucfirst($driver);
-        if (!class_exists($class)) {
-            throw new Horde_SessionHandler_Exception('Driver not found: ' . $class);
-        }
-        $storage = new $class($params);
+        $class = $this->_getDriverName($driver, 'Horde_SessionHandler_Storage');
+        $storage = $this->storage = new $class($params);
 
-        if (!empty($conf['sessionhandler']['memcache']) &&
-            !in_array($driver, array('builtin', 'memcache'))) {
+        if ((!empty($conf['sessionhandler']['hashtable']) ||
+             !empty($conf['sessionhandler']['memcache'])) &&
+            !in_array($driver, array('builtin', 'hashtable'))) {
             $storage = new Horde_SessionHandler_Storage_Stack(array(
                 'stack' => array(
-                    new Horde_SessionHandler_Storage_Memcache(array(
-                        'memcache' => $injector->getInstance('Horde_Memcache')
+                    new Horde_SessionHandler_Storage_Hashtable(array(
+                        'hashtable' => $injector->getInstance('Horde_HashTable')
                     )),
-                    $storage
+                    $this->storage
                 )
             ));
         }
@@ -113,6 +122,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
 
         if (session_id()) {
             $new_sess = false;
+            session_decode($session_data);
         } else {
             $stub = new Horde_Support_Stub();
 
@@ -130,15 +140,16 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             ob_end_clean();
 
             $new_sess = true;
+            session_decode($session_data);
+            $GLOBALS['session']->session_data = $_SESSION;
         }
-
-        session_decode($session_data);
 
         $data = $GLOBALS['session']->get('horde', 'auth/');
         $apps = $GLOBALS['session']->get('horde', 'auth_app/');
 
         if ($new_sess) {
             session_destroy();
+            $GLOBALS['session']->session_data = $old_sess;
         }
 
         $_SESSION = $old_sess;

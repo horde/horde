@@ -8,8 +8,7 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Kronolith
  */
-class Kronolith_Calendars_Default
-extends Kronolith_Calendars_Base
+class Kronolith_Calendars_Default extends Kronolith_Calendars_Base
 {
     /**
      * The current identity.
@@ -41,7 +40,7 @@ extends Kronolith_Calendars_Base
      *
      * @return string The name of a default share.
      */
-    protected function getDefaultShareName()
+    protected function _getDefaultShareName()
     {
         return sprintf(_("Calendar of %s"), $this->_identity->getName());
     }

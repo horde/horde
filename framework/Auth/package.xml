@@ -23,19 +23,19 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-31</date>
- <time>11:25:07</time>
+ <date>2013-07-16</date>
+ <time>16:36:26</time>
  <version>
-  <release>2.0.0</release>
+  <release>2.0.7</release>
   <api>2.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Removed charset parameter for Imap and Cyrsql drivers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -100,6 +100,24 @@
       <file name="Horde_Auth.po" role="data" />
      </dir> <!-- /locale/et/LC_MESSAGES -->
     </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_Auth.mo" role="data" />
@@ -142,6 +160,7 @@
       </dir> <!-- /test/Horde/Auth/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="TestCase.php" role="test" />
      </dir> <!-- /test/Horde/Auth -->
@@ -152,7 +171,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -160,16 +179,16 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>hash</name>
@@ -179,66 +198,75 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_History</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Lock</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Session</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Imsp</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>pam</name>
     <channel>pecl.php.net</channel>
+    <providesextension>pam</providesextension>
    </package>
    <package>
     <name>sasl</name>
     <channel>pecl.php.net</channel>
+    <providesextension>sasl</providesextension>
    </package>
    <extension>
     <name>ctype</name>
@@ -283,6 +311,12 @@
    <install as="locale/es/LC_MESSAGES/Horde_Auth.po" name="locale/es/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Auth.mo" name="locale/et/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Auth.po" name="locale/et/LC_MESSAGES/Horde_Auth.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Auth.mo" name="locale/eu/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Auth.po" name="locale/eu/LC_MESSAGES/Horde_Auth.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Auth.mo" name="locale/fi/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Auth.po" name="locale/fi/LC_MESSAGES/Horde_Auth.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Auth.mo" name="locale/fr/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Auth.po" name="locale/fr/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Auth.mo" name="locale/ja/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Auth.po" name="locale/ja/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/lv/LC_MESSAGES/Horde_Auth.mo" name="locale/lv/LC_MESSAGES/Horde_Auth.mo" />
@@ -290,6 +324,7 @@
    <install as="migration/1_horde_auth_base_tables.php" name="migration/Horde/Auth/1_horde_auth_base_tables.php" />
    <install as="Horde/Auth/AllTests.php" name="test/Horde/Auth/AllTests.php" />
    <install as="Horde/Auth/Autoload.php" name="test/Horde/Auth/Autoload.php" />
+   <install as="Horde/Auth/bootstrap.php" name="test/Horde/Auth/bootstrap.php" />
    <install as="Horde/Auth/phpunit.xml" name="test/Horde/Auth/phpunit.xml" />
    <install as="Horde/Auth/TestCase.php" name="test/Horde/Auth/TestCase.php" />
    <install as="Horde/Auth/fixtures/test.passwd" name="test/Horde/Auth/fixtures/test.passwd" />
@@ -671,10 +706,178 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-31</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.10</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-03-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix Horde_Auth_Passwd#updateUser().
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-05</date>
+   <time>10:30:07</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] Removed charset parameter for Imap and Cyrsql drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+* [rla] Use constant for permanent lock and provide more verbose feedback (Request #11254).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix setting IMAP ACLs in IMAP and Cyrsql drivers.
+* [mms] Fix user management in Passwd driver.
+* [mms] Fix setting soft expiration in SQL driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Fix updating users in LDAP driver (Bug #11791).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Fix argument reading in Samba drivers (Bug #11926).
+* [mms] Remove call-time pass-by-reference, which was causing PAM authentication driver to fail in PHP 5.4+ (Bug #10965).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Improve documentation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add password policy for minimum number of non-alphabetic characters (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
+* [jan] Fix resetting passwords with LDAP driver (Bug #12317).
+* [mms] Fix authentication with the Http auth driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix adding/deleting users via IMAP administration (Bug #12426).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

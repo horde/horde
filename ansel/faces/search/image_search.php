@@ -2,7 +2,7 @@
 /**
  * Image search
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see /var/www/www.fsf.org/copyleft/gpl.html.
@@ -39,7 +39,6 @@ if (($face_id = Horde_Util::getGet('face_id')) !== null) {
     }
 }
 
-$title = _("Photo search");
 $vars = Horde_Variables::getDefaultVariables();
 $pager = new Horde_Core_Ui_Pager(
     'page',
@@ -51,8 +50,9 @@ $pager = new Horde_Core_Ui_Pager(
     )
 );
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'title' => _("Photo search")
+));
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/search.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

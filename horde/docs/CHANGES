@@ -1,7 +1,213 @@
---------
-v5.0-git
---------
+----------
+v5.1.3-git
+----------
 
+[jan] Make "Others" and cogwheel menu entry available on iOS (Bug #11937).
+
+
+------
+v5.1.2
+------
+
+[jan] Set Basic Authentication HTTP headers if running PHP as CGI.
+[jan] Return to original URL after logging in.
+[jan] Fix login icon.
+[jan] Enable Turkish translation on PHP 5.5.
+[rla] Add a cli script for running queue tasks.
+[jan] Create parent permissions too if automatically creating permissions (Bug
+      #11689).
+
+
+------
+v5.1.1
+------
+
+[mjr] Update Twitter block layout to honor Twitter's API version 1.1 display
+      requirements, and add support for updating favorites.
+
+
+------
+v5.1.0
+------
+
+[mms] Add 'ajaxaction_handle' hook and deprecate 'ajaxaction' hook.
+[mms] Add configuration option to configure the e-mail address reset password
+      confirmation messages should be sent from.
+[mms] Treat an AJAX session token failure as a session timeout.
+
+
+-----------
+v5.1.0beta3
+-----------
+
+[jan] Fix broken configuration definition.
+
+
+-----------
+v5.1.0beta2
+-----------
+
+[mms] Add configuration of the Horde_HashTable package.
+[jan] Fix incorrect dependencies.
+
+
+-----------
+v5.1.0beta1
+-----------
+
+[mms] Add ability to update/create NoSQL indices from the admin config page.
+[mjr] Add activesync device hooks.
+[mms] Add a global default NoSQL driver configuration.
+[mms] Allow MongoDB to be used as a cache backend.
+[jan] Check all installed PEAR packages when checking for updates.
+[mms] Add 'ajaxaction_data' hook.
+
+
+------
+v5.0.5
+------
+
+[mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado
+      <geral@jpaulo.eu>).
+[jan] Fix changing expired passwords.
+[jan] Fix form to reset passwords.
+[mjr] Fix displaying activesync devices when a username hook is being used
+      (Bug #12186).
+[jan] Hide navigation elements from print layout (Bug #12163).
+[cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is
+      installed.
+[mms] Login screen now hides the mode input if javascript is not available, as
+      minimal view is the only supported mode (Request #12093).
+[jan] Fix searching from topbar if search URL contains parameters.
+
+
+------
+v5.0.4
+------
+
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
+v5.0.3
+------
+
+[jan] Fix setting menu refresh rate to none (Bug #11867).
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[jan] Fix JavaScript errors after updating the top menu.
+
+
+------
+v5.0.2
+------
+
+[jan] Fix adding user in admin actions (Bug #11690).
+[mms] Fix removing user in admin actions (Bug #11690).
+[jan] Allow to set custom search field label.
+
+
+------
+v5.0.1
+------
+
+[jan] Fix form for editing and removing of users.
+[mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug #11624).
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+[mms] Fix topbar javascript on IE8 (Bug #11614).
+[jan] Fix LDAP example for authusername hook.
+
+
+------
+v5.0.0
+------
+
+[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
+
+
+---------
+v5.0.0RC1
+---------
+
+[jan] Port VAT identification block to use SOAP extension.
+[jan] Fix dynamic updating of portal blocks.
+[mms] Allow view-specific help files to inherit from base application help
+      file.
+[mms] Allow application basic/dynamic views to have different help source
+      files.
+
+
+-----------
+v5.0.0beta6
+-----------
+
+[mms] Show non-javascript enhanced login screen for non-smartmobile mobile
+      browsers (Bug #11215).
+[mms] Add version parameter to CSS/javascript file URLs to help with cache
+      busting when these files change between releases.
+[mms] Add configuration option for maximum allowed session times.
+
+
+-----------
+v5.0.0beta5
+-----------
+
+[jan] Fix cancelling problem report.
+[jan] Fix audio notification path printed in page output.
+
+
+-----------
+v5.0.0beta4
+-----------
+
+[jan] Fix logging in without JavaScript (Bug #11328).
+[mms] Fix sidebar element wrapping.
+[mms] Better handling of backend authentication errors when returning AJAX data
+      (Bug #11297).
+[mjr] Fix autocompletion of tags in ajax views.
+
+
+-----------
+v5.0.0beta3
+-----------
+
+[jan] Fix dependency on Horde_Service_Weather.
+
+
+-----------
+v5.0.0beta2
+-----------
+
+[mjr] Request SSL connection from map providers if using SSL (Bug #11193).
+[jan] Remove optional dependency on Horde_DataTree.
+
+
+-----------
+v5.0.0beta1
+-----------
+
+[jan] Remove DataTree support.
+[jan] Allow to configure encryption in global IMAP configuration (Request
+      #11272).
+[jan] Update icon set.
+[rla] Retrieve more detailed message from Horde_Auth when a user is temporarily
+      or permanently locked out (Request #11254).
+
+
+------------
+v5.0.0alpha1
+------------
+
+[jan] Implement new user interface.
+[mms] Add 'suppress' option to prefs.php group entries.
+[mms] Add 'on_change', 'on_init', 'requires', 'requires_nolock', and
+      'suppress' options to prefs.php preference entries.
+[mms] Remove support for IE 6.
+[mms] Token protect all AJAX actions.
+[jan] Allow to use IMAP storage for shares and groupware data without a
+      complete Kolab server.
+[mms] Implement growler-like notifications for smartmobile view.
 [mms] Modified pushapp hook behavior.
 [mms] Removed pushapp_post hook.
 [mms] AJAX core features now contained within Horde_Core.
@@ -13,9 +219,27 @@ v5.0-git
 
 
 -----------
-v4.0.15-git
+v4.0.16-git
 -----------
 
+[jan] Fix adding attachments to problem tickets (Bug #10654).
+[jan] Update Turkish translation (İstanbul Technical University).
+[jan] Fix setting permissions on static/ directory with horde-set-perms (Bug
+      #11219).
+
+
+-------
+v4.0.15
+-------
+
+[jan] Update Swedish translation (Jakob Alvermark
+      <jakob.alvermark@bsdlabs.com>).
+[jan] Update Italian translation (Emilien <emilien@wifi.e4a.it>).
+[jan] Update Lybian flag (Request #11169).
+[jan] Update Slovak translation (Marika Schvarczova
+      <schvarczova.marika@domeny.sk>).
+[jan] Update Czech translation (Michal Foist <michal@foist.cz>).
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [jan] Fix horde-set-perms script (Arjen de Korte, Bug #11048).
 
 

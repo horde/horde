@@ -3,7 +3,7 @@
  * The Kronolith_Driver_Holidays implements support for the PEAR package
  * Date_Holidays.
  *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -23,24 +23,32 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
      * Lists all events in the time range, optionally restricting results to
      * only events with alarms.
      *
-     * @param Horde_Date $startInterval  Start of range date object.
-     * @param Horde_Date $endInterval    End of range data object.
-     * @param boolean $showRecurrence    Return every instance of a recurring
-     *                                   event? If false, will only return
-     *                                   recurring events once inside the
-     *                                   $startDate - $endDate range.
-     * @param boolean $hasAlarm          Only return events with alarms? Has no
-     *                                   effect in this driver.
-     * @param boolean $json              Store the results of the events'
-     *                                   toJson() method?
-     * @param boolean $coverDates        Whether to add the events to all days
-     *                                   that they cover.
+     * @param Horde_Date $startDate  The start of range date.
+     * @param Horde_Date $endDate    The end of date range.
+     * @param array $options         Additional options:
+     *   - show_recurrence: (boolean) Return every instance of a recurring
+     *                       event?
+     *                      DEFAULT: false (Only return recurring events once
+     *                      inside $startDate - $endDate range)
+     *   - has_alarm:       (boolean) Only return events with alarms.
+     *                      DEFAULT: false (Return all events)
+     *   - json:            (boolean) Store the results of the event's toJson()
+     *                      method?
+     *                      DEFAULT: false
+     *   - cover_dates:     (boolean) Add the events to all days that they
+     *                      cover?
+     *                      DEFAULT: true
+     *   - hide_exceptions: (boolean) Hide events that represent exceptions to
+     *                      a recurring event.
+     *                      DEFAULT: false (Do not hide exception events)
+     *   - fetch_tags:      (boolean) Fetch tags for all events.
+     *                      DEFAULT: false (Do not fetch event tags)
      *
-     * @return array  Events in the given time range.
+     * @throws Kronolith_Exception
      */
-    public function listEvents($startDate = null, $endDate = null,
-                               $showRecurrence = false, $hasAlarm = false,
-                               $json = false, $coverDates = true)
+    protected function _listEvents(Horde_Date $startDate = null,
+                                   Horde_Date $endDate = null,
+                                   array $options = array())
     {
         if (!class_exists('Date_Holidays')) {
             Horde::logMessage('Support for Date_Holidays has been enabled but the package seems to be missing.', 'ERR');
@@ -55,7 +63,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
             $endDate = clone $startDate;
             $endDate->year++;
         }
-        if ($hasAlarm || is_null($startDate) || is_null($endDate)) {
+        if ($options['has_alarm'] || is_null($startDate) || is_null($endDate)) {
             return array();
         }
 
@@ -79,7 +87,9 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
             $events = $this->_getEvents($dh, $startDate, $endDate);
             foreach ($events as $event) {
                 Kronolith::addEvents($results, $event, $startDate, $endDate,
-                                     $showRecurrence, $json, $coverDates);
+                                     $options['show_recurrence'],
+                                     $options['json'],
+                                     $options['cover_dates']);
             }
         }
 
@@ -139,30 +149,6 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
             }
         }
         return $events;
-    }
-
-    private function _getTranslationFile($driver)
-    {
-        static $data_dir;
-        if (!isset($data_dir)) {
-            $pear_config = new PEAR_Config();
-            $data_dir = $pear_config->get('data_dir');
-        }
-        if (empty($data_dir)) {
-            return;
-        }
-
-        foreach (array('', '_' . $driver) as $pkg_ext) {
-            foreach (array('ser', 'xml') as $format) {
-                $location = $data_dir . '/Date_Holidays' . $pkg_ext . '/lang/'
-                    . $driver . '/' . $this->_params['language'] . '.' . $format;
-                if (file_exists($location)) {
-                    return array($format, $location);
-                }
-            }
-        }
-
-        return array(null, null);
     }
 
 }

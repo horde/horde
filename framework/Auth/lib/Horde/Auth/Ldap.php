@@ -1,19 +1,26 @@
 <?php
 /**
- * The Horde_Auth_Ldap class provides an LDAP implementation of the Horde
- * authentication system.
- *
- * 'preauthenticate' hook should return LDAP connection information in the
- * 'ldap' credentials key.
- *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
  *
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Ldap class provides an LDAP implementation of the Horde
+ * authentication system.
+ *
+ * 'preauthenticate' hook should return LDAP connection information in the
+ * 'ldap' credentials key.
+ *
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Ldap extends Horde_Auth_Base
@@ -368,9 +375,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         try {
             if ($oldID != $newID) {
                 $this->_ldap->move($olddn, $newdn);
-                $this->_ldap->modify($newdn, $entry);
+                $this->_ldap->modify($newdn, array('replace' => $entry));
             } else {
-                $this->_ldap->modify($olddn, $entry);
+                $this->_ldap->modify($olddn, array('replace' => $entry));
             }
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to update user "%s"', $newID));
@@ -417,7 +424,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
 
         /* Update user entry. */
         try {
-            $this->_ldap->modify($dn, $entry);
+            $this->_ldap->modify($dn, array('replace' => $entry));
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
@@ -426,9 +433,11 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     }
 
     /**
-     * List Users
+     * Lists all users in the system.
      *
-     * @return array  List of Users
+     * @param boolean $sort  Sort the users?
+     *
+     * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
     public function listUsers($sort = false)
@@ -451,7 +460,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             foreach ($search as $val) {
                 $userlist[] = $val->getValue($uid, 'single');
             }
-        } catch (Horde_Ldap_Exception $e) {}
+        } catch (Horde_Ldap_Exception $e) {
+        }
+
         return $this->_sort($userlist, $sort);
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
@@ -56,8 +56,6 @@ class Horde_Http_Request_Mock extends Horde_Http_Request_Base
     /**
      * Set the HTTP response(s) to be returned by this adapter as an array of strings.
      *
-     * @since Horde_Http 1.1.0
-     *
      * @param array $responses The responses to be added to the stack.
      *
      * @return NULL
@@ -81,8 +79,6 @@ class Horde_Http_Request_Mock extends Horde_Http_Request_Base
 
     /**
      * Adds a response to the stack of responses.
-     *
-     * @since Horde_Http 1.1.0
      *
      * @param string|resourse $body    The response body content.
      * @param string          $code    The response code.

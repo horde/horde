@@ -1,45 +1,38 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="summary" md5="68ca33f7f0c9aae4c103eb47492cdc15" state="uptodate">
+    <entry id="summary" md5="68ca33f7f0c9aae4c103eb47492cdc15" state="changed">
 <title>Portaali</title>
  <para>
-  Portaalissa voit n&#xE4;hd&#xE4; pikaisesti lyhyen yhteenvedon t&#xE4;rke&#xE4;ksi
-  merkitsemist&#xE4; asioista. Esimerkiksi voit n&#xE4;hd&#xE4; montako uutta
-  s&#xE4;hk&#xF6;postiviesti&#xE4; sinulle on tullut INBOX kansioon, tulevat
-  tapahtumat kalenterissa, teht&#xE4;v&#xE4;t to-do listalla, otsikot
-  valitsemistasi uutispalveluista jne. Monet n&#xE4;ist&#xE4; yhteenvedoista
-  sis&#xE4;lt&#xE4;v&#xE4;t linkkej&#xE4; yleisimpiin toimintoihin kuten esimerkiksi viestin
-  kirjoitus, kalenterimerkinn&#xE4;n tai teht&#xE4;v&#xE4;n lis&#xE4;ys jne.
+  Portaalissa voit nähdä pikaisesti lyhyen yhteenvedon tärkeäksi
+  merkitsemistä asioista. Esimerkiksi voit nähdä montako uutta
+  sähköpostiviestiä sinulle on tullut INBOX kansioon, tulevat
+  tapahtumat kalenterissa, tehtävät to-do listalla, otsikot
+  valitsemistasi uutispalveluista jne. Monet näistä yhteenvedoista
+  sisältävät linkkejä yleisimpiin toimintoihin kuten esimerkiksi viestin
+  kirjoitus, kalenterimerkinnän tai tehtävän lisäys jne.
  </para>
  <para>
-  Portaalin sis&#xE4;lt&#xF6; on muokattavissa Asettelu painikkeen kautta. Voit
-  esimerkiksi valita mitk&#xE4; asiat liitet&#xE4;&#xE4;n portaaliin ja miss&#xE4;
-  j&#xE4;rjestyksess&#xE4; ne n&#xE4;ytet&#xE4;&#xE4;n.
+  Portaalin sisältö on muokattavissa Asettelu painikkeen kautta. Voit
+  esimerkiksi valita mitkä asiat liitetään portaaliin ja missä
+  järjestyksessä ne näytetään.
  </para>
-</entry>
-  <entry id="navbar" md5="b8cf0ae19e57dfa0c2b962e516782f47" state="uptodate">
-<title>Ohjelmien navigointivalikko</title>
- <para>
-  Www-sivun vasemalla laidalla on navigointivalikko eri ohjelmiin.
-  Napsauttamalla ikoneita navigointivalikossa voit helposti ja
-  nopeasti vaihtaa ohjelmasta toiseen.
- </para>
-</entry>
-  <entry id="prefs-do_maintenance" md5="dd95df07a03031232baea919288b2d00" state="uptodate">
-    <title>Asetukset: Yll&#xE4;pitotoimenpiteet: Suorita yll&#xE4;pitotoimet</title>
-    <para>
-    Jos haluat suorittaa yll&#xE4;pitotoimenpiteit&#xE4; sis&#xE4;&#xE4;nkirjautumisen
-    yhteydess&#xE4;, niin aseta t&#xE4;m&#xE4; toiminto p&#xE4;&#xE4;lle valintaruudusta.
-    </para>
-</entry>
-  <entry id="prefs-confirm_maintenance" md5="a21162cdff3b1d8faeadb7296240036e" state="uptodate">
-    <title>Asetukset: Yll&#xE4;pitotoimenpiteet: Varmista yll&#xE4;pitotoimet</title>
-    <para>
-    Jos haluat varmistaa kaikki yll&#xE4;pitotoimenpiteet enennkuin ne
-    suoritetaan, niin aseta t&#xE4;m&#xE4; toiminto p&#xE4;&#xE4;lle
-    valintaruudusta. Jos varmistusta ei ole p&#xE4;&#xE4;ll&#xE4;, niin kaikki
-    yll&#xE4;pitotoimenpiteet suoritetaan automaattisesti ja niit&#xE4; ei voi
-    perua.
-    </para>
-</entry>
+<!-- English entry (2012-11-06):
+<entry id="summary">
+        <title>The Portal Page</title>
+        <para>
+            This portal page provides a quick summary of all your important information. For example, it might show how many new e-mail messages you have in your INBOX, upcoming events on your calendar, tasks on your to-do list, headlines from selected news services, and so on. Many of these summaries will contain quick shortcuts to common functions, such as composing a new mail message, creating a new calendar event or task, etc.
+         </para>
+         <para>
+            The contents of this portal page are customizable via the Layout button. For example, you can choose which items to include on this portal page as well as in which order they are shown.
+        </para>
+    </entry>--><!-- English entry (2012-11-06):
+<entry id="summary">
+        <title>The Portal Page</title>
+        <para>
+            This portal page provides a quick summary of all your important information. For example, it might show how many new e-mail messages you have in your INBOX, upcoming events on your calendar, tasks on your to-do list, headlines from selected news services, and so on.
+         </para>
+         <para>
+            The contents of this portal page are customizable via the "Add Content" button. For example, you can choose which items to include on this portal page as well as in which order they are shown.
+        </para>
+    </entry>--></entry>
 </help>

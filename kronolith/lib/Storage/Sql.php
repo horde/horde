@@ -95,7 +95,7 @@ class Kronolith_Storage_Sql extends Kronolith_Storage
 
         /* Execute the query. */
         try {
-            $result = $this->_db->insert($query, $values);
+            $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }

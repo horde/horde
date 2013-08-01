@@ -1,21 +1,28 @@
 <?php
 /**
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @package  Wicked
  */
 
 /**
- * Wicked NewPage class.
+ * Adds a new page to the backend.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @package  Wicked
  */
-class Wicked_Page_NewPage extends Wicked_Page {
-
+class Wicked_Page_NewPage extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *
@@ -78,20 +85,17 @@ class Wicked_Page_NewPage extends Wicked_Page {
      */
     public function display()
     {
-        // Load the page template.
+        $GLOBALS['page_output']->addScriptFile('edit.js');
+
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->action = Wicked::url('NewPage');
+        $view->formInput = Horde_Util::formInput();
+        $view->referrer = $this->referrer();
         if ($this->_template) {
-            $page = Wicked_Page::getPage($this->_template);
-            $page_text = $page->getText();
-        } else {
-            $page_text = '';
+            $view->text = Wicked_Page::getPage($this->_template)->getText();
         }
 
-        Horde::addInlineScript(array(
-            'if (document.editform && document.editform.page_text) document.editform.changelog.page_text()'
-        ), 'dom');
-
-        require WICKED_TEMPLATES . '/edit/new.inc';
-        return true;
+        return $view->render('edit/new');
     }
 
     public function pageName()

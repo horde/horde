@@ -1,12 +1,14 @@
 <?php
 /**
- * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $beatnik = Horde_Registry::appInit('beatnik');
 
 // Unset the current domain since we are generating a zone list
@@ -46,22 +48,22 @@ foreach ($fields as $field_id => $field) {
 }
 
 // Add javascript navigation and striping
-Horde::addScriptFile('beatnik.js');
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('beatnik.js');
+$page_output->addScriptFile('stripe.js', 'horde');
 
 // Initialization complete.  Render the page.
 Beatnik::notifyCommits();
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require BEATNIK_TEMPLATES . '/menu.inc';
 
+$page_output->header();
+require BEATNIK_TEMPLATES . '/menu.inc';
 require BEATNIK_TEMPLATES . '/listzones/header.inc';
 foreach ($domains as $domain) {
-    $autourl = Horde_Util::addParameter(Horde::url('autogenerate.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
-    $deleteurl = Horde_Util::addParameter(Horde::url('delete.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
-    $viewurl = Horde_Util::addParameter(Horde::url('viewzone.php'), 'curdomain', $domain['zonename']);
-    $editurl = Horde_Util::addParameter(Horde::url('editrec.php'), array('curdomain' => $domain['zonename'], 'id' => $domain['id'], 'rectype' => 'soa'));
+    $autourl = Horde::url('autogenerate.php')->add(array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
+    $deleteurl = Horde::url('delete.php')->add(array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
+    $viewurl = Horde::url('viewzone.php')->add('curdomain', $domain['zonename']);
+    $editurl = Horde::url('editrec.php')->add(array('curdomain' => $domain['zonename'], 'id' => $domain['id'], 'rectype' => 'soa'));
     require BEATNIK_TEMPLATES . '/listzones/row.inc';
 }
 require BEATNIK_TEMPLATES . '/listzones/footer.inc';
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

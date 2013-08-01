@@ -3,7 +3,7 @@
  * The Horde_Text_Filter_Emails:: class finds email addresses in a block of
  * text and turns them into links.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -20,15 +20,13 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
      *
      * @param array $params  Parameters (in addition to base
      *                       Horde_Text_Filter_Emails parameters):
-     * <pre>
-     * always_mailto - (boolean) If true, a mailto: link is generated always.
-     *                 Only if no mail/compose registry API method exists
-     *                 otherwise.
-     *                 DEFAULT: false
-     * callback - (callback) Use this callback instead of the mail/compose
-     *            API call.
-     *            DEFAULT: Use mail/compose API call.
-     * </pre>
+     *   - always_mailto: (boolean) If true, a mailto: link is always
+     *                    generated. Only if no mail/compose registry API
+     *                    method exists otherwise.
+     *                    DEFAULT: false
+     *   - callback: (callback) Use this callback instead of the mail/compose
+     *               API call.
+     *               DEFAULT: Use mail/compose API call.
      */
     public function __construct(array $params = array())
     {
@@ -77,7 +75,7 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
 
         if (substr($url, 0, 11) == 'javascript:') {
             $href = '#';
-            $onclick = ' onclick="' . substr($url, 11) . ';return false;"';
+            $onclick = ' onclick="' . htmlspecialchars(substr($url, 11)) . ';return false;"';
         } else {
             $href = htmlspecialchars($url);
             $onclick = '';
@@ -87,9 +85,9 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
             ? ''
             : ' class="' . $this->_params['class'] . '"';
 
-        return '<a' . $class .' href="' . $href . '"' . $onclick . '>' .
-            htmlspecialchars($email) . htmlspecialchars($args_long) .
-            '</a>';
+        return '<a' . $class .' href="' . $href . '"' . $onclick . '>'
+            . htmlspecialchars($email) . htmlspecialchars($args_long)
+            . '</a>';
     }
 
 }

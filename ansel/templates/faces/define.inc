@@ -34,9 +34,9 @@ window.observe('load', function() {
 <form method="post" action="<?php echo Horde::url('faces/search/image_save.php'); ?>">
 
 <div class="control" style="width: <?php echo $conf['screen']['height'] ?>px">
- <input type="submit" name="submit" id="submit" value="<?php echo _("Search") ?>" />
- <input type="submit" name="submit" id="submit" value="<?php echo _("Cancel") ?>" />
- <input type="reset" name="reset" id="reset" value="<?php echo _("Reset") ?>" />
+ <input type="submit" class="horde-default" name="submit" value="<?php echo _("Search") ?>" />
+ <input type="reset" value="<?php echo _("Reset") ?>" />
+ <input type="submit" class="horde-cancel" name="submit" value="<?php echo _("Cancel") ?>" />
 </div>
 <table style="width: <?php echo $conf['screen']['height'] ?>px">
  <tr valign="top">

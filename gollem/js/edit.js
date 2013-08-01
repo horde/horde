@@ -13,7 +13,7 @@ var GollemEdit = {
             window.close();
         });
 
-        $('editcontent').focus();
+        $('gollem-edit').focus();
     }
 
 };

@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once __DIR__ . '/../../lib/base.php';
 require_once FOLKS_BASE . '/edit/tabs.php';
 
 $title = _("Users waiting our approval");
@@ -46,7 +46,9 @@ if ($registry->hasInterface('letter')) {
                         'name' => _("Send message"));
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('friendsof');
@@ -54,4 +56,4 @@ require FOLKS_TEMPLATES . '/edit/header.php';
 require FOLKS_TEMPLATES . '/edit/friends.php';
 require FOLKS_TEMPLATES . '/edit/footer.php';
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

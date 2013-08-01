@@ -1,32 +1,34 @@
 <?php
 /**
- * A Horde_Injector:: based Horde_Mime_Viewer factory for IMP drivers.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  IMP
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/gpl GPL
- * @link     http://pear.horde.org/index.php?package=IMP
- */
-
-/**
- * A Horde_Injector:: based Horde_Mime_Viewer factory for IMP drivers.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @category Horde
- * @package  IMP
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/gpl GPL
- * @link     http://pear.horde.org/index.php?package=IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * A Horde_Injector based Horde_Mime_Viewer factory for IMP drivers.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Factory_MimeViewer extends Horde_Core_Factory_Base
 {
+    /**
+     * Instances.
+     *
+     * @var array
+     */
+    private $_instances = array();
+
     /**
      * Attempts to return a concrete Horde_Mime_Viewer object based on the
      * MIME type.
@@ -42,18 +44,28 @@ class IMP_Factory_MimeViewer extends Horde_Core_Factory_Base
     public function create(Horde_Mime_Part $mime,
                            IMP_Contents $contents = null, $type = null)
     {
-        list($driver, $params) = $this->_injector->getInstance('Horde_Core_Factory_MimeViewer')->getViewerConfig($type ? $type : $mime->getType(), 'imp');
+        $sig = implode('|', array(
+            spl_object_hash($mime),
+            !is_null($contents) ? spl_object_hash($contents) : '',
+            strval($type)
+        ));
 
-        switch ($driver) {
-        case 'Report':
-        case 'Security':
-            $params['viewer_callback'] = array($this, 'createCallback');
-            break;
+        if (!isset($this->_instances[$sig])) {
+            list($driver, $params) = $this->_injector->getInstance('Horde_Core_Factory_MimeViewer')->getViewerConfig($type ? $type : $mime->getType(), 'imp');
+
+            switch ($driver) {
+            case 'Report':
+            case 'Security':
+                $params['viewer_callback'] = array($this, 'createCallback');
+                break;
+            }
+
+            $params['imp_contents'] = $contents;
+
+            $this->_instances[$sig] = Horde_Mime_Viewer::factory($driver, $mime, $params);
         }
 
-        $params['imp_contents'] = $contents;
-
-        return Horde_Mime_Viewer::factory($driver, $mime, $params);
+        return $this->_instances[$sig];
     }
 
     /**

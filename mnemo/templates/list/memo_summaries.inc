@@ -3,8 +3,8 @@
 <?php
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     $label = sprintf(_("Edit \"%s\""), $memo['desc']);
-    echo Horde::link(Horde::url(Horde_Util::addParameter($memourl, 'actionID', 'modify_memo')), $label) .
-        Horde::img('edit.png', $label, '') . '</a>';
+    echo Horde::url($memourl)->add('actionID', 'modify_memo')->link(array('title' => $label))
+        . Horde::img('edit.png', $label, '') . '</a>';
 }
 ?>
   </td>
@@ -14,8 +14,8 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
   <td>
    <?php echo Horde::linkTooltip(Horde::url($viewurl), '', '', '', '', ($memo['body'] != $memo['desc']) ? Mnemo::getNotePreview($memo) : '') . (strlen($memo['desc']) ? htmlspecialchars($memo['desc']) : '<em>' . _("Empty Note") . '</em>') ?></a>
   </td>
-  <td>
-   <?php echo strftime($prefs->getValue('date_format'), $modDate) ?>
+  <td sortval="<?php if ($modified) echo $modified->timestamp() ?>">
+    <?php if ($modified) echo $modified->strftime($prefs->getValue('date_format')) ?>
   </td>
   <td class="base-category" style="<?php echo Mnemo::getCssStyle($memo['category']) ?>"><?php echo htmlspecialchars($memo['category'] ? $memo['category'] : _("Unfiled")) ?></td>
  </tr>

@@ -35,7 +35,7 @@ class Whups_Block_Myrequests extends Whups_Block_Tickets
                       'queue' => $queue_ids);
         $requests = $GLOBALS['whups_driver']->getTicketsByProperties($info);
         if (!$requests) {
-            return '<p><em>' . _("You have no open requests.") . '</em></p>';
+            return '<p class="horde-content"><em>' . _("You have no open requests.") . '</em></p>';
         }
 
         return $this->_table($requests);

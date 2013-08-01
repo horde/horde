@@ -8,23 +8,30 @@
  */
 class Ansel_View_Slideshow extends Ansel_View_Image
 {
-    /**
-     * const'r
-     *
-     */
-    public function __construct($params = array())
+
+    protected function _includeViewSpecificScripts()
     {
-        parent::__construct($params);
-        Horde::addScriptFile('slideshow.js', 'ansel');
+        $GLOBALS['page_output']->addScriptFile('slideshow.js');
+        $GLOBALS['page_output']->addScriptFile('views/slideshow.js');
     }
 
     protected function _html()
     {
         global $registry, $prefs;
+
+        $view = $this->_getView();
+        $view->hasEdit = $this->gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT);
+        $view->hasDelete = $this->gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE);
+        $view->urls = $this->_urls;
+
+        $GLOBALS['page_output']->addScriptFile('views/common.js');
+
         $imageIndex = $this->_revList[$this->resource->id];
-        Horde::startBuffer();
-        require ANSEL_TEMPLATES . '/view/slideshow.inc';
-        return Horde::endBuffer();
+        $js = 'SlideController.initialize(' . self::json($this->gallery, array('view_links' => true)) . ','
+            . $imageIndex . ', "' . $registry->get('webroot') . '", ' . $this->gallery->id . ', "");';
+        $GLOBALS['page_output']->addInlineScript($js, true);
+
+        return $view->render('slideshow');
     }
 
     public function viewType()

@@ -1,0 +1,11 @@
+/* iTip styles. */
+table.imp-itip {
+    margin: 10px 0;
+}
+.imp-itip tr.imp-itipcollision {
+    background-color: #f03232;
+    color: #fff;
+}
+.imp-itip tr.imp-itipnearcollision {
+    background-color: #ffdf4d;
+}

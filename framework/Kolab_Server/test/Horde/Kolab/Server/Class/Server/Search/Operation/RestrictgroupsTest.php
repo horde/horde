@@ -14,12 +14,12 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../../../../TestCase.php';
+require_once __DIR__ . '/../../../../TestCase.php';
 
 /**
  * Test the search operations restricted to groups.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

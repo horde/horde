@@ -31,14 +31,17 @@ class Mnemo_Form_DeleteNotepad extends Horde_Form
         $this->addHidden('', 'n', 'text', true);
         $this->addVariable(sprintf(_("Really delete the notepad \"%s\"? This cannot be undone and all data on this notepad will be permanently removed."), $this->_notepad->get('name')), 'desc', 'description', false);
 
-        $this->setButtons(array(_("Delete"), _("Cancel")));
+        $this->setButtons(array(
+            array('class' => 'horde-delete', 'value' => _("Delete")),
+            array('class' => 'horde-cancel', 'value' => _("Cancel")),
+        ));
     }
 
     public function execute()
     {
         // If cancel was clicked, return false.
         if ($this->_vars->get('submitbutton') == _("Cancel")) {
-            return false;
+            Horde::url('', true)->redirect();
         }
 
         if (!$GLOBALS['registry']->getAuth() ||
@@ -57,8 +60,5 @@ class Mnemo_Form_DeleteNotepad extends Horde_Form
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Mnemo_Exception($e->getMessage());
         }
-
-        return true;
     }
-
 }

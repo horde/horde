@@ -6,10 +6,6 @@ class Kronolith_Block_Month extends Horde_Core_Block
 {
     /**
      */
-    private $_share = null;
-
-    /**
-     */
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
@@ -110,7 +106,7 @@ class Kronolith_Block_Month extends Horde_Core_Block
                                         'hour' => 23, 'min' => 59, 'sec' => 59));
 
         /* Table start. and current month indicator. */
-        $html = '<table cellspacing="1" class="block-monthgrid" width="100%"><tr>';
+        $html = '<table cellspacing="1" class="monthgrid" width="100%"><tr>';
 
         /* Set up the weekdays. */
         $weekdays = array(_("Mo"), _("Tu"), _("We"), _("Th"), _("Fr"), _("Sa"));
@@ -128,7 +124,8 @@ class Kronolith_Block_Month extends Horde_Core_Block
                 $this->_params['calendar'] != '__all') {
                 list($type, $calendar) = explode('_', $this->_params['calendar'], 2);
                 $driver = Kronolith::getDriver($type, $calendar);
-                $all_events = $driver->listEvents($startDate, $endDate, true);
+                $all_events = $driver->listEvents($startDate, $endDate, array(
+                    'show_recurrence' => true));
             } else {
                 $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
             }
@@ -136,7 +133,6 @@ class Kronolith_Block_Month extends Horde_Core_Block
             return '<em>' . $e->getMessage() . '</em>';
         }
 
-        $weeks = array();
         $weekday = 0;
         $week = -1;
         for ($day = $startOfView; $day < $startOfView + $daysInView; ++$day) {
@@ -150,13 +146,13 @@ class Kronolith_Block_Month extends Horde_Core_Block
 
             $date_ob = new Kronolith_Day($month, $day, $year);
             if ($date_ob->isToday()) {
-                $td_class = 'today';
+                $td_class = 'kronolith-today';
             } elseif ($date_ob->month != $month) {
-                $td_class = 'othermonth';
+                $td_class = 'kronolith-othermonth';
             } elseif ($date_ob->dayOfWeek() == 0 || $date_ob->dayOfWeek() == 6) {
-                $td_class = 'weekend';
+                $td_class = 'kronolith-weekend';
             } else {
-                $td_class = 'text';
+                $td_class = '';
             }
             $html .= '<td align="center" class="' . $td_class . '">';
 
@@ -182,8 +178,9 @@ class Kronolith_Block_Month extends Horde_Core_Block
                     } else {
                         $day_events .= $event->start->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p') . '-' . $event->end->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p');
                     }
+                    $location = $event->getLocation();
                     $day_events .= ':'
-                        . (($event->location) ? ' (' . $event->location . ')' : '')
+                        . ($location ? ' (' . htmlspecialchars($location) . ')' : '')
                         . ' ' . $event->getTitle() . "\n";
                 }
                 $cell = Horde::linkTooltip($url, _("View Day"), '', '', '', $day_events) . $date_ob->mday . '</a>';

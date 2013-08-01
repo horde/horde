@@ -10,12 +10,6 @@
  * @license  http://www.horde.org/licenses/bsd BSD
  * @link     http://pear.horde.org/index.php?package=Injector
  */
-
-if (version_compare(PHP_VERSION, '5.3', 'lt')) {
-    echo "PHP 5.3+ is required for the closure binder\n";
-    exit(1);
-}
-
 require 'Horde/Autoloader.php';
 
 class ClosureCreated

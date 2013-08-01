@@ -2,7 +2,7 @@
 /**
  * Hermes_Slice:: Lightweight wrapper around a single timeslice
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -38,7 +38,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
         $this->_properties = array (
             'client' => $json->c,
             'costobject' => $json->co,
-            'c_costobject_name' => $json->con,
+            '_costobject_name' => $json->con,
             'date' => $json->d,
             'description' => $json->desc,
             'employee' => $json->e,
@@ -59,7 +59,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
     public function readForm()
     {
         // Required
-        $this->_properties['date'] = new Horde_Date(Horde_Util::getPost('start_date'));
+        $this->_properties['date'] = Hermes::parseDate(Horde_Util::getPost('start_date'));
         $this->_properties['hours'] = Horde_Util::getPost('hours');
         $this->_properties['description'] = Horde_Util::getPost('description');
         $this->_properties['id'] = Horde_Util::getPost('id', 0);
@@ -71,6 +71,17 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
         $this->_properties['type'] = Horde_Util::getPost('type');
         $this->_properties['costobject'] = Horde_Util::getPost('costobject');
         $this->_properties['note'] = Horde_Util::getPost('notes');
+
+        // Admin only
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'hermes:timeadmin')) ||
+            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            $this->_properties['employee'] = Horde_Util::getPost('employee');
+            if (empty($this->_properties['employee'])) {
+                $this->_properties['employee'] = $GLOBALS['registry']->getAuth();
+            }
+        } else {
+            $this->_properties['employee'] = $GLOBALS['registry']->getAuth();
+        }
     }
 
     /**
@@ -92,6 +103,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      * t    - type id
      * tn   - type name
      * b    - billable
+     * x    - can edit
      *</pre>
      *
      * @return array
@@ -115,10 +127,36 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
             's' => $this->_properties['submitted'],
             't' => $this->_properties['type'],
             'tn' => $this->_properties['_type_name'],
-            'b'  => $this->_properties['billable']
+            'b'  => $this->_properties['billable'],
+            'x'  => Hermes::canEditTimeslice($this->_properties['id'])
         );
 
         return $json;
+    }
+
+    /**
+     * Render this slice as a string.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        $fields = array(
+            'h' => _("Hours"),
+            'con' => _("Cost object"),
+            'desc' => _("Description"),
+            'n' => _("Notes"),
+            'tn' => _("Job Type"),
+            'b' => _("Billable")
+        );
+        $string = '';
+        $values = $this->toJson();
+        foreach ($fields as $field => $title) {
+            $string .= sprintf("%s: %s \n", $title, $values[$field]);
+        }
+        $string .= sprintf("%s: %s", _("Client"), $values['cn']['name']);
+
+        return $string;
     }
 
     /**

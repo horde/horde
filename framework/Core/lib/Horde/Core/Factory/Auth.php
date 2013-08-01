@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Auth:: factory.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -127,22 +127,16 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
             );
 
             try {
-                $ob = Horde_Imap_Client::factory('Socket', $imap_config);
+                $ob = new Horde_Imap_Client_Socket($imap_config);
                 $ob->login();
                 $params['imap'] = $ob;
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new Horde_Auth_Exception($e);
             }
 
-            if (!empty($params['driverconfig']) &&
-                $params['driverconfig'] == 'horde') {
-                $params['db'] = $this->_injector
-                    ->getInstance('Horde_Db_Adapter');
-            } else {
-                $params['db'] = $this->_injector
-                    ->getInstance('Horde_Core_Factory_Db')
-                    ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
-            }
+            $params['db'] = $this->_injector
+                ->getInstance('Horde_Core_Factory_Db')
+                ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
             break;
 
         case 'http_remote':
@@ -173,15 +167,9 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
 
         case 'customsql':
         case 'sql':
-            if (!empty($params['driverconfig']) &&
-                $params['driverconfig'] == 'horde') {
-                $params['db'] = $this->_injector
-                    ->getInstance('Horde_Db_Adapter');
-            } else {
-                $params['db'] = $this->_injector
-                    ->getInstance('Horde_Core_Factory_Db')
-                    ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
-            }
+            $params['db'] = $this->_injector
+                ->getInstance('Horde_Core_Factory_Db')
+                ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
             break;
         }
 

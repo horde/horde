@@ -1,13 +1,8 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Base.php';
-
-/**
  * Test the SSH based virtual file system.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -18,10 +13,8 @@ require_once dirname(__FILE__) . '/Base.php';
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Vfs_Ssh2Test extends Horde_Vfs_Test_Base
+class Horde_Vfs_Ssh2Test extends Horde_Vfs_TestBase
 {
-    protected static $reason;
-
     public function testListEmpty()
     {
         $this->_listEmpty();
@@ -173,9 +166,11 @@ class Horde_Vfs_Ssh2Test extends Horde_Vfs_Test_Base
             self::$reason = 'No ssh2 extension';
             return;
         }
-        $config = self::getConfig('VFS_SSH2_TEST_CONFIG', dirname(__FILE__));
+        $config = self::getConfig('VFS_SSH2_TEST_CONFIG', __DIR__);
         if ($config && !empty($config['vfs']['ssh2'])) {
             self::$vfs = Horde_Vfs::factory('Ssh2', $config['vfs']['ssh2']);
+        } else {
+            self::$reason = 'No ssh2 configuration';
         }
     }
 
@@ -191,10 +186,4 @@ class Horde_Vfs_Ssh2Test extends Horde_Vfs_Test_Base
         parent::tearDownAfterClass();
     }
 
-    public function setUp()
-    {
-        if (!self::$vfs) {
-            $this->markTestSkipped(self::$reason);
-        }
-    }
 }

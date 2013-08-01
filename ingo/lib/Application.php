@@ -1,11 +1,6 @@
 <?php
 /**
- * Ingo application API.
- *
- * This file defines Horde's core API interface. Other core Horde libraries
- * can interact with Ingo through this API.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -17,7 +12,7 @@
 
 /* Determine the base directories. */
 if (!defined('INGO_BASE')) {
-    define('INGO_BASE', dirname(__FILE__) . '/..');
+    define('INGO_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -36,27 +31,25 @@ require_once HORDE_BASE . '/lib/core.php';
 
 /**
  * Ingo application API.
+ *
+ * This class defines Horde's core API interface. Other core Horde libraries
+ * can interact with Ingo through this API.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (3.0-git)';
+    public $features = array(
+        'smartmobileView' => true
+    );
 
     /**
      */
-    protected function _bootstrap()
-    {
-        /* Add Ingo-specific factories. */
-        $factories = array(
-            'Ingo_Script' => 'Ingo_Factory_Script',
-            'Ingo_Transport' => 'Ingo_Factory_Transport'
-        );
-
-        foreach ($factories as $key => $val) {
-            $GLOBALS['injector']->bindFactory($key, $val, 'create');
-        }
-    }
+    public $version = 'H5 (3.1.3-git)';
 
     /**
      * Global variables defined:
@@ -65,33 +58,26 @@ class Ingo_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        global $injector, $registry, $session;
+
         // Create the session.
         $this->_createSession();
 
-        // Create shares if necessary.
-        if ($GLOBALS['injector']->getInstance('Ingo_Transport')->supportShares()) {
-            $GLOBALS['ingo_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
+        if ($sig = $session->get('ingo', 'personal_share')) {
+            $GLOBALS['ingo_shares'] = $injector->getInstance('Horde_Core_Factory_Share')->create();
             $GLOBALS['all_rulesets'] = Ingo::listRulesets();
 
-            /* If personal share doesn't exist then create it. */
-            $signature = $GLOBALS['session']->get('ingo', 'backend/id') . ':' . $GLOBALS['registry']->getAuth();
-            if (!$GLOBALS['ingo_shares']->exists($signature)) {
-                $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-                $name = $identity->getValue('fullname');
-                if (trim($name) == '') {
-                    $name = $GLOBALS['registry']->getAuth('original');
-                }
-                $share = $GLOBALS['ingo_shares']->newShare($GLOBALS['registry']->getAuth(), $signature, $name);
-                $GLOBALS['ingo_shares']->addShare($share);
-                $GLOBALS['all_rulesets'][$signature] = $share;
-            }
+            $curr_share = $session->get('ingo', 'current_share');
+            $ruleset = Horde_Util::getFormData('ruleset');
 
             /* Select current share. */
-            $GLOBALS['session']->set('ingo', 'current_share', Horde_Util::getFormData('ruleset', $GLOBALS['session']->get('ingo', 'current_share')));
-            if (!$GLOBALS['session']->get('ingo', 'current_share') ||
-                empty($GLOBALS['all_rulesets'][$GLOBALS['session']->get('ingo', 'current_share')]) ||
-                !$GLOBALS['all_rulesets'][$GLOBALS['session']->get('ingo', 'current_share')]->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-                $GLOBALS['session']->set('ingo', 'current_share', $signature);
+            if (is_null($curr_share) || ($ruleset != $curr_share)) {
+                $session->set('ingo', 'current_share', $ruleset);
+                if (is_null($curr_share) ||
+                    empty($GLOBALS['all_rulesets'][$ruleset]) ||
+                    !$GLOBALS['all_rulesets'][$ruleset]->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
+                    $session->set('ingo', 'current_share', $sig);
+                }
             }
         } else {
             $GLOBALS['ingo_shares'] = null;
@@ -105,32 +91,26 @@ class Ingo_Application extends Horde_Registry_Application
      *   - backend: (array) The backend configuration to use.
      *   - change: (integer) The timestamp of the last time the rules were
      *                       altered.
+     *   - personal_share: (string) Personal share signature.
      *   - storage: (array) Used by Ingo_Storage:: for caching data.
      *   - script_categories: (array) The list of available categories for the
      *                                Ingo_Script driver in use.
-     *   - script_generate: (boolean) Is the Ingo_Script::generate() call
-     *                                available?
      *
      * @throws Ingo_Exception
      */
     protected function _createSession()
     {
-        global $injector, $prefs, $session;
+        global $injector, $prefs, $registry, $session;
 
-        if ($session->exists('ingo', 'script_generate')) {
+        if ($session->exists('ingo', 'script_categories')) {
             return;
         }
 
         /* getBackend() and loadIngoScript() will both throw Exceptions, so
          * do these first as errors are fatal. */
-        foreach (Ingo::getBackend() as $key => $val) {
-            if ($val) {
-                $session->set('ingo', 'backend/' . $key, $val);
-            }
+        foreach (array_filter(Ingo::getBackend()) as $key => $val) {
+            $session->set('ingo', 'backend/' . $key, $val);
         }
-
-        $ingo_script = $injector->getInstance('Ingo_Script');
-        $session->set('ingo', 'script_generate', $ingo_script->generateAvailable());
 
         /* Disable categories as specified in preferences */
         $locked_prefs = array(
@@ -148,7 +128,39 @@ class Ingo_Application extends Horde_Registry_Application
         }
 
         /* Set the list of categories this driver supports. */
-        $session->set('ingo', 'script_categories', array_diff(array_merge($ingo_script->availableActions(), $ingo_script->availableCategories()), $locked));
+        $ingo_scripts = $injector->getInstance('Ingo_Factory_Script')
+            ->createAll();
+        $categories = array();
+        foreach ($ingo_scripts as $ingo_script) {
+            $categories = array_merge($categories,
+                                      $ingo_script->availableActions(),
+                                      $ingo_script->availableCategories());
+        }
+        $session->set('ingo', 'script_categories',
+                      array_diff($categories, $locked));
+
+        /* Create shares if necessary. */
+        $factory = $injector->getInstance('Ingo_Factory_Transport');
+        foreach ($session->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY) as $transport) {
+            if ($factory->create($transport)->supportShares()) {
+                $shares = $injector->getInstance('Horde_Core_Factory_Share')->create();
+
+                /* If personal share doesn't exist then create it. */
+                $sig = $session->get('ingo', 'backend/id') . ':' . $registry->getAuth();
+                if (!$shares->exists($sig)) {
+                    $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
+                    $name = $identity->getValue('fullname');
+                    if (trim($name) == '') {
+                        $name = $registry->getAuth('original');
+                    }
+                    $share = $shares->newShare($registry->getAuth(), $sig, $name);
+                    $shares->addShare($share);
+                }
+
+                $session->set('ingo', 'personal_share', $sig);
+                break;
+            }
+        }
     }
 
     /**
@@ -171,37 +183,115 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
+        global $conf, $ingo_shares, $injector, $prefs, $registry, $session;
+
+        $s_categories = $session->get('ingo', 'script_categories');
+        $vars = $injector->getInstance('Horde_Variables');
+
+        $menu->add(Ingo_Basic_Filters::url(), _("Filter _Rules"), 'ingo-rules', null, null, null, $vars->page == 'filters' ? 'current' : '__noselection');
+
         try {
-            $menu->add(Horde::url('filters.php'), _("Filter _Rules"), 'ingo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'whitelist.png');
-            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'blacklist.png');
+            if (in_array(Ingo_Storage::ACTION_WHITELIST, $s_categories)) {
+                $menu->add(Horde::url($injector->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'ingo-whitelist', null, null, null, $vars->page == 'whitelist' ? 'current' : '__noselection');
+            }
+            if (in_array(Ingo_Storage::ACTION_BLACKLIST, $s_categories)) {
+                $menu->add(Horde::url($injector->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'ingo-blacklist', null, null, null, $vars->page == 'blacklist' ? 'current' : '__noselection');
+            }
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
 
-        $s_categories = $GLOBALS['session']->get('ingo', 'script_categories');
-
         if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
-            $menu->add(Horde::url('vacation.php'), _("_Vacation"), 'vacation.png');
+            $menu->add(Ingo_Basic_Vacation::url(), _("_Vacation"), 'ingo-vacation', null, null, null, $vars->page == 'vacation' ? 'current' : '__noselection');
         }
 
         if (in_array(Ingo_Storage::ACTION_FORWARD, $s_categories)) {
-            $menu->add(Horde::url('forward.php'), _("_Forward"), 'forward.png');
+            $menu->add(Ingo_Basic_Forward::url(), _("_Forward"), 'ingo-forward', null, null, null, $vars->page == 'forward' ? 'current' : '__noselection');
         }
 
         if (in_array(Ingo_Storage::ACTION_SPAM, $s_categories)) {
-            $menu->add(Horde::url('spam.php'), _("S_pam"), 'spam.png');
+            $menu->add(Ingo_Basic_Spam::url(), _("S_pam"), 'ingo-spam', null, null, null, $vars->page == 'spam' ? 'current' : '__noselection');
         }
 
-        if ($GLOBALS['session']->get('ingo', 'script_generate') &&
-            (!$GLOBALS['prefs']->isLocked('auto_update') ||
-             !$GLOBALS['prefs']->getValue('auto_update'))) {
-            $menu->add(Horde::url('script.php'), _("_Script"), 'script.png');
+        if ((!$prefs->isLocked('auto_update') ||
+             !$prefs->getValue('auto_update')) &&
+            $injector->getInstance('Ingo_Factory_Script')->hasFeature('script_file')) {
+            $menu->add(Ingo_Basic_Script::url(), _("_Script"), 'ingo-script', null, null, null, $vars->page == 'script' ? 'current' : '__noselection');
+        }
+
+        if (!empty($ingo_shares) && empty($conf['share']['no_sharing'])) {
+            $menu->add(
+                '#',
+                _("_Permissions"),
+                'horde-perms',
+                null,
+                '',
+                Horde::popupJs(
+                    Horde::url(
+                        $registry->get('webroot', 'horde')
+                            . '/services/shares/edit.php',
+                        true
+                    ),
+                    array(
+                        'params' => array(
+                            'app' => 'ingo',
+                            'share' => $session->get('ingo', 'backend/id')
+                                . ':' . $registry->getAuth()
+                        ),
+                        'urlencode' => true
+                    )
+                ) . 'return false;'
+            );
+        }
+    }
+
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        global $injector;
+
+        $perms = $injector->getInstance('Horde_Core_Perms');
+        $actions = array();
+        foreach ($injector->getInstance('Ingo_Factory_Script')->createAll() as $script) {
+            $actions = array_merge($actions, $script->availableActions());
+        }
+        $filters = $injector->getInstance('Ingo_Factory_Storage')
+            ->create()
+            ->retrieve(Ingo_Storage::ACTION_FILTERS)
+            ->getFilterList();
+
+        if (!empty($actions) &&
+            ($perms->hasAppPermission('allow_rules') &&
+             ($perms->hasAppPermission('max_rules') === true ||
+              $perms->hasAppPermission('max_rules') > count($filters)))) {
+            $sidebar->addNewButton(_("New Rule"), Ingo_Basic_Rule::url());
         }
 
         if (!empty($GLOBALS['ingo_shares']) &&
-            empty($GLOBALS['conf']['share']['no_sharing'])) {
-            $menu->add('#', _("_Permissions"), 'perms.png', null, '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $GLOBALS['session']->get('ingo', 'backend/id') . ':' . $GLOBALS['registry']->getAuth()), 'urlencode' => true)) . 'return false;');
+            (count($GLOBALS['all_rulesets']) > 1)) {
+            $url = Ingo_Basic_Filters::url();
+            $current = $GLOBALS['session']->get('ingo', 'current_share');
+
+            $sidebar->containers['rulesets'] = array(
+                'header' => array(
+                    'id' => 'ingo-toggle-rules',
+                    'label' => _("Ruleset"),
+                    'collapsed' => false,
+                ),
+            );
+            foreach ($GLOBALS['all_rulesets'] as $id => $ruleset) {
+                $row = array(
+                    'selected' => ($current == $id),
+                    'url' => $url->add('ruleset', $id),
+                    'label' => $ruleset->get('name'),
+                    'type' => 'radiobox',
+                );
+                $sidebar->addRow($row, 'rulesets');
+            }
         }
     }
 
@@ -272,15 +362,6 @@ class Ingo_Application extends Horde_Registry_Application
             foreach ($shares as $share) {
                 $GLOBALS['ingo_shares']->removeShare($share);
             }
-        }
-    }
-
-    /**
-     */
-    public function prefsInit($ui)
-    {
-        if (!$GLOBALS['session']->get('ingo', 'script_generate')) {
-            $ui->suppressGroups[] = 'script';
         }
     }
 

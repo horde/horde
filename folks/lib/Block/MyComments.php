@@ -42,7 +42,7 @@ class Folks_Block_MyComments extends Horde_Core_Block
             return $threads;
         }
 
-        Horde::addScriptFile('tables.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
         $html = '<table class="sortable striped" id="my_comment_list" style="width: 100%">'
               . '<thead><tr><th>' . _("Title") . '</th>'
               . '<th>' . _("User") . '</th></tr></thead>';

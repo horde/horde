@@ -1,13 +1,37 @@
---------
-v3.0-git
---------
-
-
-
 ----------
-v2.0.2-git
+v3.0.0-git
 ----------
 
+
+
+---------
+v3.0.0RC1
+---------
+
+[mjr] Fix performing image actions in Lightbox galleries.
+[mjr] Fix display of missing widgets.
+
+
+-----------
+v3.0.0beta1
+-----------
+
+[mjr] Various fixes for SQLite to work with Ansel.
+
+
+------
+v2.0.2
+------
+
+[mjr] Fix auto rotation of images based on orientation exif data (Bug #11441).
+[mjr] Honor locked default_download pref (Bug #11325).
+[mjr] Fix getting gallery data via the API (maxime@chavagne.net, Bug# 11229).
+[mjr] Fix carousel when viewing upload screen in an iFrame (Bug #10889).
+[mjr] Fix returning to gallery view after uploading images when viewing Ansel
+      in an iFrame (Bug #11209).
+[mjr] Fix moving a subgallery to a top level gallery (Bug #11134).
+[jan] Fix redirection after setting gallery password (thpo+horde@dotrc.de, Bug
+      #11195).
 
 
 ------
@@ -31,6 +55,7 @@ v2.0
       mozilla.
 [mjr] Fix issue with deleting galleries in date mode with key images (Bug
       #10671).
+
 
 --------
 v2.0-RC2

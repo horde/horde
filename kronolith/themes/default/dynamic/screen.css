@@ -1,0 +1,727 @@
+html, body {
+    height: 100%;
+}
+
+#kronolithToday {
+    font-weight: bold;
+}
+
+.kronolithSeparator {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #808080;
+}
+
+.kronolithDatePicker {
+    cursor: pointer;
+}
+
+/* Loading spinner */
+.kronolithLoading {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+}
+#kronolithLoadingday, #kronolithLoadingmonth,
+#kronolithLoadingweek, #kronolithLoadingworkweek {
+    top: 0;
+}
+#kronolithLoadingtasks, #kronolithLoadingagenda {
+    display: inline-block;
+    position: relative;
+    top: 5px;
+}
+#kronolithLoading, #kronolithFBLoading {
+    background: transparent url("../graphics/loading.gif") no-repeat 4px 3px;
+    width: 22px;
+    height: 22px;
+    opacity: 0.5;
+}
+#kronolithFBLoading {
+    position: absolute;
+    top: 65px;
+    border: none;
+}
+
+/* Main area */
+#kronolithMain {
+    clear: both;
+    height: 100%;
+}
+
+/* Left menu column */
+#kronolithMenu {
+    position: absolute;
+    top: 280px;
+    bottom: 0;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 2px;
+}
+#kronolithMenuCalendars {
+    padding-bottom: 10px;
+}
+#kronolithLoadingCalendars {
+    padding-left: 10px;
+}
+.horde-new-extra {
+    background: none;
+}
+.horde-new-extra a {
+    background-repeat: no-repeat;
+}
+#kronolithQuickEvent {
+    background-image: url("../graphics/new.png");
+}
+#kronolithQuickEvent.kronolithNewTask {
+    background-image: url("../graphics/new_task.png");
+}
+
+/* Quick edit */
+#kronolithQuickinsert {
+    line-height: 2em;
+}
+
+.kronolithDialogInfo {
+    background: transparent url("../graphics/alerts/message.png") left 2px no-repeat;
+    padding-left: 23px;
+    font-style: italic;
+}
+.kronolithDialogWarning {
+    background: transparent url("../graphics/alerts/warning.png") left 2px no-repeat;
+    padding-left: 23px;
+}
+.kronolithDialogWarning strong {
+    color: #f00;
+}
+
+/* Calendar form dialogs */
+.kronolithCPAdvancedMore {
+    max-height: 300px;
+    overflow-y: auto;
+}
+.kronolithCPAdvanced th:first-child {
+    width: 220px;
+}
+
+/* Event/task form dialogs */
+.kronolithDialog {
+    width: 700px;
+    padding: 10px 20px;
+    border: 1px #999 solid;
+}
+.kronolithDialog div {
+    margin-bottom: 5px;
+}
+.kronolithDialog td {
+    padding-right: 10px;
+    vertical-align: top;
+}
+.kronolithDialog label {
+    font-weight: bold;
+}
+.kronolithLongField {
+    width: 100%;
+}
+div.kronolithFormActions {
+    margin: 5px 0;
+}
+
+#kronolithEventStartDate, #kronolithEventStartTime, #kronolithEventEndDate, #kronolithEventEndTime, #kronolithTaskDueDate, #kronolithTaskDueTime, .kronolithEventValue {
+    text-align: center;
+}
+#kronolithEventLocation {
+    width: 300px;
+}
+.kronolithTopTags {
+    max-height: 75px;
+    overflow: auto;
+    line-height: 20px;
+}
+ul.horde-tags li:hover {
+    background-color: #ffc;
+    cursor: pointer;
+}
+
+.kronolithDialog .tabset {
+    background: none;
+    float: none;
+    margin: 15px 0 0;
+    min-height: inherit;
+    width: auto;
+}
+#RB_window .kronolithDialog .tabset ul {
+    float: left;
+    margin: 0;
+}
+.kronolithDialog .tabset li {
+    margin-top: 0;
+}
+.kronolithDialog .tabset li.horde-active {
+    border: 1px solid #d0d0d0;
+    border-bottom-width: 0;
+    height: 21px;
+}
+.kronolithDialog .tabset .kronolithSeparator {
+    float: left;
+}
+.kronolithDialog hr {
+   margin: 5px 0;
+   height: 0;
+   line-height: 0;
+   border-width: 1px 0;
+   border-color: #ccc transparent #fff;
+   border-style: solid none;
+}
+
+.kronolithTabsOption {
+    position: relative;
+    line-height: 150%;
+}
+#kronolithEventTabAttendees table, #kronolithEventTabResources table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+#kronolithEventTabAttendees td, #kronolithEventTabAttendees th,
+#kronolithEventTabResources td, #kronolithEventTabResources th {
+    border: 1px solid #999;
+    padding: 1px;
+    width: 22px;
+    font-size: 85%;
+    line-height: 140%;
+}
+#kronolithEventTabAttendees td:first-child, #kronolithEventTabAttendees th:first-child,
+#kronolithEventTabResources td:first-child, #kronolithEventTabResources th:first-child {
+    width: auto;
+    overflow: hidden;
+}
+#kronolithEventTabAttendees th, #kronolithEventTabResources th {
+    text-align: center;
+}
+#kronolithEventTabAttendees th:first-child, #kronolithEventTabResources th:first-child {
+    text-align: left;
+}
+#kronolithEventTabAttendees th.night, #kronolithEventTabResources th.night {
+    background-color: #ccc;
+}
+
+#kronolithEventAttendeesList, #kronolithEventResourcesList {
+    max-height: 150px;
+    overflow-y: auto;
+}
+#kronolithEventTabAttendees td div, #kronolithEventTabResources td div {
+    margin: 0;
+    height: 100%;
+}
+#kronolithEventACBox, #kronolithCalendarinternalACBox, #kronolithAttendeesACBox,
+#kronolithResourceACBox {
+    line-height: 100%;
+}
+#kronolithEventTabAttendees td.kronolithAttendeeNone ,
+#kronolithEventTabResources td.kronolithAttendeeNone {
+    background-image: url("../graphics/attendee-none.png");
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+}
+#kronolithEventTabAttendees td.kronolithAttendeeAccepted,
+#kronolithEventTabResources td.kronolithAttendeeAccepted {
+    background-image: url("../graphics/attendee-accepted.png");
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+}
+#kronolithEventTabAttendees td.kronolithAttendeeDeclined,
+#kronolithEventTabResources td.kronolithAttendeeDeclined {
+    background-image: url("../graphics/attendee-declined.png");
+    text-decoration: line-through;
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+}
+#kronolithEventTabAttendees td.kronolithAttendeeTentative {
+    background-image: url("../graphics/attendee-tentative.png");
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+}
+
+.kronolithFBFree {
+    position: relative;
+}
+.kronolithFBBusy {
+    position: absolute;
+}
+
+/* Map */
+#kronolithEventMap {
+    height: 300px;
+    width: 700px;
+}
+#kronolithEventMap_OpenLayers_ViewPort div {
+    margin-bottom: 0;
+}
+.olMapViewPort div {
+    margin-bottom: 0;
+}
+.olControlLayerSwitcher div {
+    line-height: 100%;
+    margin-bottom: 0px;
+}
+
+/* Mini calendar */
+.kronolith-minical {
+    position: relative;
+    margin: 10px;
+    background-color: #d5dcde;
+    overflow: auto;
+}
+.kronolith-minical table tbody td, #kronolithMinicalDate {
+    cursor: pointer;
+}
+
+/* Main views */
+#kronolithBody {
+    position: absolute;
+    top: 30px;
+    left: 8px;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.kronolithAllDayContainer {
+    height: 100%;
+    overflow: hidden;
+}
+#kronolithViewDay .kronolithAllDayContainer {
+    overflow: auto;
+}
+
+/* Main view header row */
+.kronolith-view-head {
+    border-left: 1px solid #a6afb1;
+    border-right: 1px solid #a6afb1;
+}
+.kronolith-view-head .kronolithViewDay td {
+    background-color: transparent;
+}
+.kronolith-view-head .kronolith-all-day {
+    background-color: #fff;
+}
+.kronolith-view-head .kronolith-all-day td {
+    padding: 0;
+}
+
+/* Captions. */
+#kronolithBody caption {
+    position: relative;
+    margin: 2px 2px 0 26px;
+    height: 20px;
+    line-height: 20px;
+    text-align: left;
+    font-weight: bold;
+}
+#kronolithBody caption span {
+    padding: 0;
+}
+
+/* Main view year */
+#kronolithViewYear .kronolith-minical {
+    float: left;
+    margin: 10px 0 0 10px;
+    height: 200px;
+}
+#kronolithViewYear .kronolithLoading {
+    left: 10px;
+    top: 10px;
+    z-index: 1;
+}
+.kronolithHasEvents {
+    font-weight: bold;
+}
+.kronolith-minical .kronolithIsBusy {
+    background-color: #fff760;
+}
+.kronolith-minical .heat1 {
+    background-color: #faf374;
+}
+.kronolith-minical .heat2 {
+    background-color: #fad374;
+}
+.kronolith-minical .heat3 {
+    background-color: #fab374
+}
+.kronolith-minical .heat4 {
+    background-color: #fa9374;
+}
+.kronolith-minical .heat5 {
+    background-color: #fa7347;
+    color: #fff;
+}
+.kronolith-minical .heat6 {
+    background-color: #fa5347;
+    color: #fff;
+}
+
+/* Main view week */
+.kronolithWeekDay {
+    cursor: pointer;
+}
+
+/* Main view day */
+#kronolithEventsDay {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 3px;
+    left: 23px;
+}
+#kronolithEventsWeek, #kronolithEventsWorkweek {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    bottom: 1px;
+    left: 22px;
+}
+.kronolithEventsWeek, .kronolithEventsWorkweek {
+    position: relative;
+    float: left;
+    height: 100%;
+}
+.kronolithEventsWeek {
+    width: 14.285714%;
+}
+.kronolithEventsWorkweek {
+    width: 20%;
+}
+.kronolithEventsWeek .kronolith-event, .kronolithEventsWorkweek .kronolith-event {
+    margin: 0 1px;
+}
+
+/* Main view week and day */
+.kronolithViewBody .kronolith-first-col span {
+    font-weight: normal;
+}
+.kronolith-view-head {
+    position: relative;
+    overflow-y: scroll;
+}
+.kronolithViewBody {
+    position: absolute;
+    top: 103px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border: 1px solid #a6afb1;
+}
+.kronolithViewBodyContainer {
+    position: relative;
+}
+#kronolithTimeMarker {
+    width: 100%;
+    height: 1px;
+    margin-left: 1px;
+    background-color: red;
+}
+#kronolithEventsWeek #kronolithTimeMarker {
+    margin-left: 1px;
+}
+#kronolithEventsDay #kronolithTimeMarker {
+    margin-left: 0;
+}
+
+/* Main view month */
+#kronolithViewMonthContainer {
+    position: absolute;
+    top: 22px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+#kronolith-month-body td {
+    padding-bottom: 16px;
+}
+.kronolithMore {
+    padding: 0 2px;
+    color: #888;
+    font-style: italic;
+    cursor: pointer;
+}
+.kronolithMore:hover {
+    text-decoration: underline;
+}
+#kronolithViewMonth .kronolithMore {
+    position: absolute;
+}
+
+/* Main view agenda and tasks. */
+#kronolithViewAgenda .tabset, #kronolithViewTasks .tabset {
+    margin-bottom: 0;
+}
+#kronolithViewAgenda td, #kronolithViewTasksBody td {
+    background-color: #fff;
+}
+#kronolithViewAgenda .kronolith-view, #kronolithViewTasks .kronolith-view {
+    clear: left;
+}
+
+/* Main view agenda. */
+#kronolithViewAgenda table {
+    border: 1px solid #a6afb1;
+    border-top-width: 0;
+}
+#kronolithViewAgenda td.kronolith-first-col {
+    width: 80px;
+    padding: 4px;
+    vertical-align: top;
+    text-align: left;
+    cursor: pointer;
+    background-color: #c2cccf;
+}
+#kronolithViewAgenda .kronolith-event {
+    position: static;
+}
+#kronolithViewAgenda .kronolith-event .kronolithDate {
+    font-weight: normal;
+    color: #333;
+}
+#kronolithViewAgenda .kronolith-event {
+    padding: 2px 4px;
+}
+#kronolithAgendaNoItems td {
+    padding: 4px;
+}
+
+/* Main view tasks. */
+#kronolithViewTasksBody td {
+    cursor: pointer;
+    padding: 4px;
+}
+#kronolithViewTasksBody #kronolithTasksNoItems td {
+    cursor: default;
+}
+#kronolithViewTasksBody div.kronolithTaskCheckbox {
+    background: url("../graphics/checkbox_off.png") no-repeat;
+    margin-right: 5px;
+    float: left;
+    width: 16px;
+    height: 16px
+}
+#kronolithViewTasksBody div.kronolithTaskCheckbox:hover {
+    background: url("../graphics/checkbox_on.png") no-repeat;
+}
+#kronolithViewTasksBody td.kronolithTaskCompleted {
+    color: #ccc;
+    text-decoration: line-through;
+}
+#kronolithViewTasksBody td.kronolithTaskCompleted div {
+    background: url("../graphics/checkbox_on.png") no-repeat;
+}
+#kronolithViewTasksBody td.kronolithTaskDue {
+    color: #a00;
+    font-weight: bold;
+}
+#kronolithViewTasks .kronolithInfo {
+    font-style: italic;
+}
+#kronolithViewTasks ul.horde-tags {
+    margin-left: 0.5em;
+}
+
+/* Tab sets */
+#kronolithViewTasks caption, #kronolithViewAgenda caption {
+    margin-left: 0;
+}
+#kronolithViewTasks caption.tabset, #kronolithViewAgenda caption.tabset {
+    float: none;
+    width: auto;
+    background: none;
+}
+#kronolithViewTasks caption.tabset ul, #kronolithViewAgenda caption.tabset ul {
+    margin-top: 2px;
+}
+#kronolithViewTasks caption.tabset li a, #kronolithViewAgenda caption.tabset li a {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* More main view */
+#kronolithViewMonth .kronolith-first-col {
+    cursor: pointer;
+}
+tr.kronolithNight td {
+    background-color: #f4f4f4;
+}
+.kronolith-day {
+    cursor: pointer;
+}
+.kronolithAddEvent {
+    display: inline;
+    width: auto;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    padding: 2px;
+    text-align: center;
+    background: transparent url("../graphics/new_small_fade.png") no-repeat 3px 5px;
+}
+.kronolithAddEvent:hover {
+    background-image: url("../graphics/new_small.png");
+}
+#kronolithViewIframe iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+/* Events */
+.kronolith-event {
+    cursor: pointer;
+    position: absolute;
+}
+#kronolithViewDay .kronolith-event,
+#kronolithViewWeek .kronolith-event,
+#kronolithViewWorkweek .kronolith-event {
+    position: absolute;
+}
+#kronolithViewMonth .kronolith-event,
+#kronolithViewDay .kronolith-view-head .kronolith-event,
+#kronolithViewWeek .kronolith-view-head .kronolith-event,
+#kronolithViewWorkweek .kronolith-view-head .kronolith-event {
+    position: relative;
+    width: auto;
+}
+#kronolithViewMonth .kronolith-event:hover {
+    max-height: 2.5em;
+}
+#kronolithViewDay .kronolith-view-head .kronolith-event,
+#kronolithViewWeek .kronolith-view-head .kronolith-event,
+#kronolithViewWorkweek .kronolith-view-head .kronolith-event {
+    white-space: nowrap;
+    margin-right: 10px;
+}
+#kronolithViewWeek .kronolith-view-head .kronolith-event,
+#kronolithViewWorkweek .kronolith-view-head .kronolith-event {
+    margin-right: 10%;
+}
+.kronolith-event .kronolithDragger {
+    position: absolute;
+    visibility: hidden;
+    left: 0;
+    right: 0;
+    height: 11px;
+}
+.kronolith-event.kronolithEditable {
+    cursor: move;
+}
+.kronolith-event.kronolithEditable .kronolithDragger {
+    background: transparent url("../graphics/drag-handle.png") no-repeat center center;
+}
+.kronolithDragger.drag {
+    background: transparent url("../graphics/drag-handle.png") no-repeat center center;
+ }
+.kronolith-event.kronolithEditable:hover .kronolithDragger,
+.kronolith-event.kronolithEditable.kronolith-selected .kronolithDragger,
+.kronolithDragger.drag {
+    background-color: #616161 !important;
+}
+.kronolith-event .kronolithDragger.kronolithDraggerTop,
+.kronolithDraggerTop.drag {
+    top: 0;
+}
+.kronolith-event .kronolithDragger.kronolithDraggerBottom,
+.kronolithDraggerBottom.drag {
+    bottom: 0;
+}
+.kronolith-event.kronolithEditable .kronolithDragger.kronolithDraggerTop {
+    cursor: n-resize;
+}
+.kronolith-event.kronolithEditable .kronolithDragger.kronolithDraggerBottom {
+    cursor: s-resize;
+}
+.kronolith-event .kronolith-event-info {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+div.kronolithEditable.kronolithFirst:hover .kronolith-event-info,
+.kronolith-event.kronolithFirst.kronolith-selected .kronolith-event-info {
+    top: 7px;
+}
+div.kronolithEditable.kronolithLast:hover .kronolith-event-info,
+.kronolith-event.kronolithLast.kronolith-selected .kronolith-event-info {
+    bottom: 7px;
+}
+div.kronolithEditable:hover .kronolithDragger,
+.kronolith-event.kronolith-selected .kronolithDragger {
+    visibility: inherit;
+}
+
+/* Redbox styles. */
+#RB_window {
+    top: 50px !important;
+}
+
+#hordeAlerts div.kronolith-sticky, #hordeAlerts div.kronolith-sticky {
+    background-color: #ebe20c;
+    background-image: url("../graphics/warning.png");
+    border-color: #807b00;
+    color: #000;
+}
+
+@media print {
+    #kronolithMenu, #kronolithBar, #kronolithHeader {
+        display: none;
+    }
+
+    #kronolithBody {
+        position: static;
+    }
+
+    table.kronolith-view td,
+    .kronolith-minical th,
+    .kronolith-minical tbody td,
+    .kronolith-minical td.kronolith-minical-week {
+        border: thin solid #000 !important;
+    }
+    #kronolithViewMonth .kronolith-event {
+        max-height: none;
+        clear: left;
+        border: thin solid #000;
+    }
+
+    .kronolith-view-head {
+        margin-right: 0;
+    }
+
+    .kronolithViewBody {
+        overflow: hidden;
+        top: 10px;
+        position: relative;
+    }
+    #kronolithViewDay .kronolithViewBody .kronolith-event,
+    #kronolithViewWeek .kronolithViewBody .kronolith-event {
+        margin-left: 0.5%;
+    }
+    #kronolithViewDay .kronolith-event,
+    #kronolithViewWeek .kronolith-event {
+        border: thin solid #000;
+    }
+    #kronolithViewDay .kronolith-view-head .kronolith-event,
+    #kronolithViewWeek .kronolith-view-head .kronolith-event {
+        white-space: normal;
+    }
+}

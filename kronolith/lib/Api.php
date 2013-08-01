@@ -14,7 +14,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'show' => '%application%/event.php?calendar=|calendar|&eventID=|event|&uid=|uid|'
     );
 
@@ -56,8 +56,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        global $registry;
-
         // Default properties.
         if (!$properties) {
             $properties = array('name', 'icon', 'browseable');
@@ -75,7 +73,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $calendars = Kronolith::listInternalCalendars(false, Horde_Perms::READ);
             $owners = array();
             foreach ($calendars as $calendar) {
-                $owners[$calendar->get('owner')] = true;
+                $owners[$calendar->get('owner') ? $calendar->get('owner') : '-system-'] = true;
             }
 
             $results = array();
@@ -122,20 +120,24 @@ class Kronolith_Api extends Horde_Registry_Api
 
         } elseif (count($parts) == 1) {
             // This request is for all calendars owned by the requested user
+            $owner = $parts[0] == '-system-' ? '' : $parts[0];
             $calendars = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(
                 $GLOBALS['registry']->getAuth(),
                 array('perm' => Horde_Perms::SHOW,
-                      'attributes' => $parts[0]));
+                      'attributes' => $owner));
             $results = array();
             foreach ($calendars as $calendarId => $calendar) {
+                if ($parts[0] == '-system-' && $calendar->get('owner')) {
+                    continue;
+                }
                 $retpath = 'kronolith/' . $parts[0] . '/' . $calendarId;
                 if (in_array('name', $properties)) {
-                    $results[$retpath]['name'] = sprintf(_("Events from %s"), $calendar->get('name'));
-                    $results[$retpath . '.ics']['name'] = $calendar->get('name');
+                    $results[$retpath]['name'] = sprintf(_("Events from %s"), Kronolith::getLabel($calendar));
+                    $results[$retpath . '.ics']['name'] = Kronolith::getLabel($calendar);
                 }
                 if (in_array('displayname', $properties)) {
-                    $results[$retpath]['displayname'] = rawurlencode($calendar->get('name'));
-                    $results[$retpath . '.ics']['displayname'] = rawurlencode($calendar->get('name')) . '.ics';
+                    $results[$retpath]['displayname'] = rawurlencode(Kronolith::getLabel($calendar));
+                    $results[$retpath . '.ics']['displayname'] = rawurlencode(Kronolith::getLabel($calendar)) . '.ics';
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('kronolith.png');
@@ -324,35 +326,41 @@ class Kronolith_Api extends Horde_Registry_Api
                         // the event's history.
                         $created = $modified = null;
                         try {
-                            $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('kronolith:' . $calendar . ':' . $uid);
-                            foreach ($log as $entry) {
-                                switch ($entry['action']) {
-                                case 'add':
-                                    $created = $entry['ts'];
-                                    break;
-
-                                case 'modify':
-                                    $modified = $entry['ts'];
-                                    break;
-                                }
+                            $history = $GLOBALS['injector']->getInstance('Horde_History');
+                            $created = $history->getActionTimestamp(
+                                'kronolith:' . $calendar . ':' . $uid, 'add');
+                            $modified = $history->getActionTimestamp(
+                                'kronolith:' . $calendar . ':' . $uid, 'modify');
+                            /* The history driver returns 0 for not found. If 0
+                             * or null does not matter, strip this */
+                            if ($created == 0) {
+                                $created = null;
                             }
-                        } catch (Exception $e) {}
+                            if ($modified == 0) {
+                                $modified = null;
+                            }
+                        } catch (Horde_Exception $e) {
+                        }
                         if (empty($modified) && !empty($created)) {
                             $modified = $created;
                         }
-                        if (!empty($modified) &&
-                            $modified >= $content->getAttribute('LAST-MODIFIED')) {
+                        try {
+                            if (!empty($modified) &&
+                                $modified >= $content->getAttribute('LAST-MODIFIED')) {
                                 // LAST-MODIFIED timestamp of existing entry
                                 // is newer: don't replace it.
                                 continue;
                             }
+                        } catch (Horde_Icalendar_Exception $e) {
+                        }
 
                         // Don't change creator/owner.
                         $event->creator = $existing_event->creator;
-                    } catch (Horde_Exception_NotFound $e) {}
+                    } catch (Horde_Exception_NotFound $e) {
+                    }
 
                     // Save entry.
-                    $saved = $event->save();
+                    $event->save();
                     $ids[] = $event->uid;
                 }
             }
@@ -393,13 +401,13 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (!(count($parts) == 2 || count($parts) == 3) ||
-            !Kronolith::hasPermission($calendar, Horde_Perms::DELETE)) {
+            !Kronolith::hasPermission($calendarId, Horde_Perms::DELETE)) {
                 throw new Kronolith_Exception("Calendar does not exist or no permission to delete");
             }
 
         if (count($parts) == 3) {
             // Delete just a single entry
-            return Kronolith::getDriver(null, $calendarId)->deleteEvent($parts[2]);
+            Kronolith::getDriver(null, $calendarId)->deleteEvent($parts[2]);
         } else {
             // Delete the entire calendar
             try {
@@ -407,7 +415,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 // Remove share and all groups/permissions.
                 $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
                 $share = $kronolith_shares->getShare($calendarId);
-                $result = $kronolith_shares->removeShare($share);
+                $kronolith_shares->removeShare($share);
             } catch (Exception $e) {
                 throw new Kronolith_Exception(sprintf(_("Unable to delete calendar \"%s\": %s"), $calendarId, $e->getMessage()));
             }
@@ -418,7 +426,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * Returns all calendars a user has access to, according to several
      * parameters/permission levels.
      *
-     * @param boolean $owneronly   Only return calenders that this user owns?
+     * @param boolean $owneronly   Only return calendars that this user owns?
      *                             Defaults to false.
      * @param integer $permission  The permission to filter calendars by.
      *
@@ -438,9 +446,9 @@ class Kronolith_Api extends Horde_Registry_Api
      * events that represent exceptions, making this method useful for syncing
      * purposes. For more control, use the listEvents method.
      *
-     * @param string $calendars      The calendar to check for events.
-     * @param object $startstamp    The start of the time range.
-     * @param object $endstamp      The end of the time range.
+     * @param string $calendars    The calendar to check for events.
+     * @param object $startstamp   The start of the time range.
+     * @param object $endstamp     The end of the time range.
      *
      * @return array  The event ids happening in this time period.
      * @throws Kronolith_Exception
@@ -467,12 +475,9 @@ class Kronolith_Api extends Horde_Registry_Api
                 $events = $driver->listEvents(
                     $startstamp ? new Horde_Date($startstamp) : null,
                     $endstamp   ? new Horde_Date($endstamp)   : null,
-                    false,  // recurrence
-                    false,  // alarm
-                    false,  // no json cache
-                    false,  // Don't cover dates
-                    true,   // Hide exceptions
-                    false); // No tags
+                    array('cover_dates' => false,
+                          'hide_exceptions' => true)
+                );
                 Kronolith::mergeEvents($results, $events);
             } catch (Kronolith_Exception $e) {
                 Horde::logMessage($e);
@@ -496,6 +501,8 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param integer $timestamp  The time to start the search.
      * @param string  $calendar   The calendar to search in.
      * @param integer $end        The optional ending timestamp
+     * @param boolean $isModSeq   If true, $timestamp and $end are modification
+     *                            sequences and not timestamps. @since 4.1.1
      *
      * @return array  An array of UIDs matching the action and time criteria.
      *
@@ -503,24 +510,31 @@ class Kronolith_Api extends Horde_Registry_Api
      * @throws Horde_History_Exception
      * @throws InvalidArgumentException
      */
-    public function listBy($action, $timestamp, $calendar = null, $end = null)
+    public function listBy($action, $timestamp, $calendar = null, $end = null, $isModSeq = false)
     {
         if (empty($calendar)) {
             $cs = Kronolith::getSyncCalendars($action == 'delete');
             $results = array();
             foreach ($cs as $c) {
                 $results = array_merge(
-                    $results, $this->listBy($action, $timestamp, $c, $end));
+                    $results, $this->listBy($action, $timestamp, $c, $end, $isModSeq));
             }
             return $results;
         }
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
-        if (!empty($end)) {
+        if (!empty($end) && !$isModSeq) {
             $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
         }
-        $histories = $GLOBALS['injector']
-            ->getInstance('Horde_History')
-            ->getByTimestamp('>', $timestamp, $filter, 'kronolith:' . $calendar);
+
+        if (!$isModSeq) {
+            $histories = $GLOBALS['injector']
+                ->getInstance('Horde_History')
+                ->getByTimestamp('>', $timestamp, $filter, 'kronolith:' . $calendar);
+        } else {
+            $histories = $GLOBALS['injector']
+                ->getInstance('Horde_History')
+                ->getByModSeq($timestamp, $end, $filter, 'kronolith:' . $calendar);
+        }
 
         // Strip leading kronolith:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -535,12 +549,15 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param integer $start             The starting timestamp
      * @param integer $end               The ending timestamp.
      * @param boolean $ignoreExceptions  Do not include exceptions in results.
+     * @param boolean $isModSeq          If true, $timestamp and $end are
+     *                                   modification sequences and not
+     *                                   timestamps. @since 4.1.1
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      * @throws Horde_Exception_PermissionDenied
      * @throws Kronolith_Exception
      */
-    public function getChanges($start, $end, $ignoreExceptions = true)
+    public function getChanges($start, $end, $ignoreExceptions = true, $isModSeq = false)
     {
         // Only get the calendar once
         $cs = Kronolith::getSyncCalendars();
@@ -551,7 +568,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         foreach ($cs as $c) {
              // New events
-            $uids = $this->listBy('add', $start, $c, $end);
+            $uids = $this->listBy('add', $start, $c, $end, $isModSeq);
             if ($ignoreExceptions) {
                 foreach ($uids as $uid) {
                     try {
@@ -568,7 +585,7 @@ class Kronolith_Api extends Horde_Registry_Api
             }
 
             // Edits
-            $uids = $this->listBy('modify', $start, $c, $end);
+            $uids = $this->listBy('modify', $start, $c, $end, $isModSeq);
             if ($ignoreExceptions) {
                 foreach ($uids as $uid) {
                     try {
@@ -585,12 +602,26 @@ class Kronolith_Api extends Horde_Registry_Api
             }
             // No way to figure out if this was an exception, so we must include all
             $changes['delete'] = array_keys(
-                array_flip(array_merge($changes['delete'], $this->listBy('delete', $start, $c, $end))));
+                array_flip(array_merge($changes['delete'], $this->listBy('delete', $start, $c, $end, $isModSeq))));
         }
 
         return $changes;
     }
 
+    /**
+     * Return all changes occuring between the specified modification
+     * sequences.
+     *
+     * @param integer $start  The starting modseq.
+     * @param integer $end    The ending modseq.
+     *
+     * @return array  The changes @see getChanges()
+     * @since 4.1.1
+     */
+    public function getChangesByModSeq($start, $end)
+    {
+        return $this->getChanges($start, $end, true, true);
+    }
 
     /**
      * Returns the timestamp of an operation for a given uid an action
@@ -598,13 +629,15 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $uid      The uid to look for.
      * @param string $action   The action to check for - add, modify, or delete.
      * @param string $calendar The calendar to search in.
+     * @param boolean $modSeq  Request a modification sequence instead of a
+     *                         timestamp. @since 4.1.1
      *
-     * @return integer  The timestamp for this action.
+     * @return integer  The timestamp or modseq for this action.
      *
      * @throws Kronolith_Exception
      * @throws InvalidArgumentException
      */
-    public function getActionTimestamp($uid, $action, $calendar = null)
+    public function getActionTimestamp($uid, $action, $calendar = null, $modSeq = false)
     {
         if (empty($calendar)) {
             $calendar = Kronolith::getDefaultCalendar();
@@ -612,7 +645,22 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        return $GLOBALS['injector']->getInstance('Horde_History')->getActionTimestamp('kronolith:' . $calendar . ':' . $uid, $action);
+        if (!$modSeq) {
+            return $GLOBALS['injector']->getInstance('Horde_History')->getActionTimestamp('kronolith:' . $calendar . ':' . $uid, $action);
+        }
+
+        return $GLOBALS['injector']->getInstance('Horde_History')->getActionModSeq('kronolith:' . $calendar . ':' . $uid, $action);
+    }
+
+    /**
+     * Return the largest modification sequence from the history backend.
+     *
+     * @return integer  The modseq.
+     * @since 4.1.1
+     */
+    public function getHighestModSeq()
+    {
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('kronolith');
     }
 
     /**
@@ -665,7 +713,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     // added before any of the instance exceptions. Easiest way
                     // to do that is just add all the recurrence-id entries last
                     try {
-                        $recurrenceId = $content->getAttribute('RECURRENCE-ID');
+                        $content->getAttribute('RECURRENCE-ID');
                         $recurrences[] = $content;
                     } catch (Horde_Icalendar_Exception $e) {
                         $ids[] = $this->_addiCalEvent($content, $kronolith_driver);
@@ -712,7 +760,7 @@ class Kronolith_Api extends Horde_Registry_Api
         // first by UID.
         $uid = $event->uid;
         try {
-            $existing_event = $driver->getByUID($uid, array($driver->calendar));
+            $driver->getByUID($uid, array($driver->calendar));
             throw new Kronolith_Exception(sprintf(_("%s Already Exists"), $uid));
         } catch (Horde_Exception $e) {}
         $result = $driver->search($event);
@@ -768,12 +816,14 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                              Still in wide use)
      *                             activesync (Horde_ActiveSync_Message_Appointment)
      *                            </pre>
+     * @param array $optinos      Any additional options to be passed to the
+     *                            exporter.
      *
      * @return string  The requested data.
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function export($uid, $contentType)
+    public function export($uid, $contentType, array $options = array())
     {
         $event = Kronolith::getDriver()->getByUID($uid);
         if (!$event->hasPermission(Horde_Perms::READ)) {
@@ -796,7 +846,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return $iCal->exportvCalendar();
 
         case 'activesync':
-            return $event->toASAppointment();
+            return $event->toASAppointment($options);
         }
 
         throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -813,7 +863,6 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                            this is specified in rfc2445)
      *                             text/x-vcalendar (old VCALENDAR 1.0 format.
      *                                              Still in wide use)
-     *                             activesync (Horde_ActiveSync_Message_Appointment)
      *                             </pre>
      *
      * @return string  The iCalendar representation of the calendar.
@@ -826,15 +875,18 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
-        $events = $kronolith_driver->listEvents(null, null, false, false, false, false, false, true);
-
+        $events = $kronolith_driver->listEvents(null, null, array(
+            'cover_dates' => false,
+            'hide_exceptions' => true)
+        );
         $version = '2.0';
         switch ($contentType) {
         case 'text/x-vcalendar':
             $version = '1.0';
         case 'text/calendar':
-            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
-
+            $share = $GLOBALS['injector']
+                ->getInstance('Kronolith_Shares')
+                ->getShare($calendar);
             $iCal = new Horde_Icalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
             if (strlen($share->get('desc'))) {
@@ -850,7 +902,10 @@ class Kronolith_Api extends Horde_Registry_Api
             return $iCal->exportvCalendar();
         }
 
-        throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+        throw new Kronolith_Exception(sprintf(
+            _("Unsupported Content-Type: %s"),
+            $contentType)
+        );
     }
 
     /**
@@ -871,7 +926,7 @@ class Kronolith_Api extends Horde_Registry_Api
         // at once.
         if (is_array($uid)) {
             foreach ($uid as $g) {
-                $result = $this->delete($g);
+                $this->delete($g);
             }
             return;
         }
@@ -1017,6 +1072,19 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
+     * Attempt to lookup the free/busy information for the given email address.
+     *
+     * @param string $email  The email to lookup free/busy information for.
+     * @param boolean $json  Return the data in a simple json format. If false,
+     *                       returns the vCalander object.
+     * @since 4.1.0
+     */
+    public function lookupFreeBusy($email, $json = false)
+    {
+        return Kronolith_FreeBusy::get($email, $json);
+    }
+
+    /**
      * Retrieves a Kronolith_Event object, given an event UID.
      *
      * @param string $uid  The event's UID.
@@ -1037,7 +1105,7 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Updates an attendee's response status for a specified event.
      *
-     * @param Horde_Icalender_Vevent $response  A Horde_Icalender_Vevent
+     * @param Horde_Icalendar_Vevent $response  A Horde_Icalendar_Vevent
      *                                          object, with a valid UID
      *                                          attribute that points to an
      *                                          existing event.  This is
@@ -1098,7 +1166,6 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $found = false;
         $error = _("No attendees have been updated because none of the provided email addresses have been found in the event's attendees list.");
-        $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
         $sender_lcase = Horde_String::lower($sender);
 
         foreach ($atnames as $index => $attendee) {
@@ -1176,13 +1243,14 @@ class Kronolith_Api extends Horde_Registry_Api
         return Kronolith::listEvents(
             new Horde_Date($startstamp),
             new Horde_Date($endstamp),
-            $calendars,
-            $showRecurrence,
-            $alarmsOnly,
-            $showRemote,
-            $hideExceptions,
-            $coverDates,
-            $fetchTags);
+            $calendars, array(
+                'show_recurrence' => $showRecurrence,
+                'has_alarm' => $alarmsOnly,
+                'show_remote' => $showRemote,
+                'hide_exceptions' => $hideExceptions,
+                'cover_dates' => $coverDates,
+                'fetch_tags' => $fetchTags)
+        );
     }
 
     /**
@@ -1363,6 +1431,8 @@ class Kronolith_Api extends Horde_Registry_Api
     public function searchTags($names, $max = 10, $from = 0,
                                $resource_type = '', $user = null, $raw = false)
     {
+        // TODO: $max, $from, $resource_type not honored
+
         $results = $GLOBALS['injector']
             ->getInstance('Kronolith_Tagger')
             ->search(

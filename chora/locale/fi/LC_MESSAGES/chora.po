@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chora 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-08 07:27:51+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2012-03-28 20:09:16+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "%s Revision %s (%s ago)"
 msgstr "%s Revisio %s (%s sitten)"
 
-#: lib/Application.php:169
+#: lib/Application.php:170
 #, php-format
 msgid "%s: Forbidden by server configuration"
 msgstr "%s: Estetty palvelimen asetuksissa"
@@ -45,23 +45,18 @@ msgstr "%s: Estetty palvelimen asetuksissa"
 #: cvsgraph.php:24
 #, php-format
 msgid "%s: no such file or directory"
-msgstr "%s ei tiedostoa tai hakemistoa"
+msgstr "%s: ei tiedostoa tai hakemistoa"
 
 #: app/views/diff/caption.html.php:4
 msgid "Added"
 msgstr "Lisätty"
 
-#: templates/directory/header.inc:7
+#: templates/directory/header.inc:7 templates/log/header.inc:23
 msgid "All Branches"
 msgstr "Kaikki haarat"
 
-#: co.php:88
-msgid "Annotate"
-msgstr "Selitysmerkintä"
-
 #: annotate.php:32 templates/annotate/header.inc:5
-#: templates/directory/header.inc:28 templates/patchsets/header_table.inc:13
-#: templates/stats/stats.inc:4
+#: templates/patchsets/header_table.inc:13 templates/stats/stats.inc:4
 msgid "Author"
 msgstr "Tekijä"
 
@@ -69,8 +64,7 @@ msgstr "Tekijä"
 msgid "Back"
 msgstr "Takaisin"
 
-#: app/views/_logMessage.html.php:20 lib/Chora.php:332 lib/Chora.php:333
-#: lib/Chora.php:336 lib/Chora.php:337
+#: app/views/_logMessage.html.php:20 lib/Chora.php:333 lib/Chora.php:337
 msgid "Branches"
 msgstr "Haarat"
 
@@ -78,7 +72,7 @@ msgstr "Haarat"
 msgid "Branching to"
 msgstr "Haarautumispiste:"
 
-#: lib/Chora.php:234
+#: lib/Chora.php:235
 msgid "Change repositories:"
 msgstr "Vaihda varastoa:"
 
@@ -125,8 +119,7 @@ msgstr "Kommitoinnit %s"
 msgid "Da_te"
 msgstr "Päi_väys"
 
-#: annotate.php:33 templates/directory/header.inc:31
-#: templates/patchsets/header_table.inc:12
+#: annotate.php:33 templates/patchsets/header_table.inc:12
 msgid "Date"
 msgstr "Päiväys"
 
@@ -138,7 +131,7 @@ msgstr "Poistettu tiedosto"
 msgid "Description"
 msgstr "Kuvaus"
 
-#: app/views/_logMessage.html.php:10 patchsets.php:52
+#: app/views/_logMessage.html.php:10 patchsets.php:54
 #: templates/log/header.inc:11
 msgid "Diff"
 msgstr "Muutokset"
@@ -146,7 +139,7 @@ msgstr "Muutokset"
 #: diff.php:65
 #, php-format
 msgid "Diff for %s between version %s and %s"
-msgstr "Muutokset %s:ssä versioiden %s ja %s välillä"
+msgstr "Muutokset %s versioiden %s ja %s välillä"
 
 #: templates/annotate/line.inc:13
 #, php-format
@@ -157,7 +150,7 @@ msgstr "Muutoksen nähden %s"
 msgid "Directory"
 msgstr "Hakemisto"
 
-#: annotate.php:48 co.php:89
+#: annotate.php:48
 msgid "Download"
 msgstr "Tallenna"
 
@@ -179,7 +172,6 @@ msgid "Error Encountered"
 msgstr "Tapahtui virhe"
 
 #: templates/directory/file.inc:7 templates/directory/file.inc:30
-#: templates/directory/header.inc:22
 msgid "File"
 msgstr "Tiedosto"
 
@@ -190,11 +182,7 @@ msgstr "Hae muutokset"
 #: cvsgraph.php:53
 #, php-format
 msgid "Graph for %s"
-msgstr "Graafi %s:lle"
-
-#: browsedir.php:43
-msgid "Hide Deleted Files"
-msgstr "Piilota poistetut tiedostot"
+msgstr "Graafi %s"
 
 #: browsedir.php:43
 msgid "Hide _Deleted Files"
@@ -208,7 +196,7 @@ msgstr "Viimeisin lokiviesti"
 msgid "Line"
 msgstr "Rivi"
 
-#: annotate.php:53
+#: annotate.php:54
 msgid "Loading..."
 msgstr "Ladataan..."
 
@@ -216,7 +204,7 @@ msgstr "Ladataan..."
 msgid "Location:"
 msgstr "Paikka:"
 
-#: lib/Chora.php:319 lib/Chora.php:320
+#: lib/Chora.php:320
 msgid "Logs"
 msgstr "Lokit"
 
@@ -232,7 +220,7 @@ msgstr "Muokattu"
 msgid "No commit ID given"
 msgstr "Ei annettu commit ID tietoa"
 
-#: lib/Application.php:112
+#: lib/Application.php:111
 msgid "No repositories found."
 msgstr "Varastoja ei lötynyt."
 
@@ -240,7 +228,7 @@ msgstr "Varastoja ei lötynyt."
 msgid "Parent Directory"
 msgstr "Edellinen hakemisto"
 
-#: lib/Chora.php:324 lib/Chora.php:325
+#: lib/Chora.php:325
 msgid "Patchsets"
 msgstr "Paikkajoukkot"
 
@@ -256,11 +244,11 @@ msgstr "Edel"
 msgid "Removed"
 msgstr "Poistettu"
 
-#: lib/Application.php:179
+#: lib/Application.php:180
 msgid "Repositories"
 msgstr "Varastot"
 
-#: templates/annotate/header.inc:6 templates/directory/header.inc:25
+#: templates/annotate/header.inc:6
 msgid "Rev"
 msgstr "Rev"
 
@@ -286,10 +274,6 @@ msgstr "Hae paikkajoukkiosta:"
 msgid "Show Branch:"
 msgstr "Näytä Haara:"
 
-#: browsedir.php:43
-msgid "Show Deleted Files"
-msgstr "Näytä poistetut tiedostot"
-
 #: templates/log/header.inc:14
 msgid "Show Differences"
 msgstr "Näyt eroavaisuudet"
@@ -303,10 +287,6 @@ msgstr "Näytä _poistetut tiedostot"
 msgid "Show diffs between %s and %s"
 msgstr "Näytä muutokset versioiden %s ja %s välillä"
 
-#: co.php:93
-msgid "Snapshot"
-msgstr "Tilatallenne"
-
 #: annotate.php:45
 #, php-format
 msgid "Source Annotation of %s (revision %s)"
@@ -315,9 +295,9 @@ msgstr "Lähdekoodin selitysmerkinnät %s (revisio %s)"
 #: history.php:129
 #, php-format
 msgid "Source Branching View for %s"
-msgstr "Näkymä lähdekoodin haarautumiseen %s:lle"
+msgstr "Näkymä lähdekoodin haarautumiseen %s"
 
-#: lib/Application.php:165
+#: lib/Application.php:166
 msgid ""
 "Sourceroot not found. This could be a misconfiguration by the server "
 "administrator, or the server could be having temporary problems. Please try "
@@ -327,20 +307,20 @@ msgstr ""
 "palvelimen asetuksissa, tai palvelimella on väliaikainen virhetilanne. Yritä "
 "uudestaan myöhemmin."
 
-#: lib/Chora.php:342 lib/Chora.php:343
+#: lib/Chora.php:343
 msgid "Statistics"
 msgstr "Tilastot"
 
 #: stats.php:33
 #, php-format
 msgid "Statistics for %s"
-msgstr "Tilastot %s:lle"
+msgstr "Tilastot %s"
 
 #: app/views/_logMessage.html.php:29 templates/patchsets/ps.inc:8
 msgid "Tags"
 msgstr "Tagit"
 
-#: lib/Application.php:118
+#: lib/Application.php:117
 #, php-format
 msgid "The repository with the slug '%s' was not found"
 msgstr "Varastoa luodilla '%s' ei löytynyt"
@@ -363,7 +343,7 @@ msgid "Unmodified"
 msgstr "Muokkaamaton"
 
 #: annotate.php:47 templates/directory/header.inc:12
-#: templates/log/header.inc:25
+#: templates/log/header.inc:28
 msgid "View"
 msgstr "Näytä"
 
@@ -375,7 +355,7 @@ msgstr "Näytä Haara:"
 msgid "View commit"
 msgstr "Näytä kommitointi"
 
-#: co.php:95 lib/Chora.php:345
+#: co.php:95 lib/Chora.php:346
 msgid "View:"
 msgstr "Näytä:"
 
@@ -387,11 +367,11 @@ msgstr "_Selitysmerkintä"
 msgid "_Author"
 msgstr "_Tekijä"
 
-#: lib/Chora.php:333 lib/Chora.php:337
+#: lib/Chora.php:334 lib/Chora.php:338
 msgid "_Branches"
 msgstr "_Haarat"
 
-#: lib/Application.php:198
+#: lib/Application.php:199
 msgid "_Browse"
 msgstr "_Selaa"
 
@@ -403,11 +383,11 @@ msgstr "_Tallenna"
 msgid "_File"
 msgstr "_Tiedosto"
 
-#: lib/Chora.php:320
+#: lib/Chora.php:321
 msgid "_Logs"
 msgstr "_Lokitiedot"
 
-#: lib/Chora.php:325
+#: lib/Chora.php:326
 msgid "_Patchsets"
 msgstr "_Korjausjoukot"
 
@@ -419,7 +399,7 @@ msgstr "_Rev"
 msgid "_Snapshot"
 msgstr "_Tilatalenne"
 
-#: lib/Chora.php:343
+#: lib/Chora.php:344
 msgid "_Statistics"
 msgstr "T_ilastot"
 
@@ -428,11 +408,11 @@ msgstr "T_ilastot"
 msgid "by %s"
 msgstr "%s"
 
-#: lib/Chora.php:388
+#: lib/Chora.php:389
 msgid "day"
 msgstr "päivä"
 
-#: lib/Chora.php:388
+#: lib/Chora.php:389
 msgid "days"
 msgstr "päivää"
 
@@ -440,27 +420,27 @@ msgstr "päivää"
 msgid "for further information."
 msgstr "saadaksesi lisätietoja."
 
-#: lib/Chora.php:387
+#: lib/Chora.php:388
 msgid "hour"
 msgstr "tunti"
 
-#: lib/Chora.php:387
+#: lib/Chora.php:388
 msgid "hours"
 msgstr "tuntia"
 
-#: lib/Chora.php:386
+#: lib/Chora.php:387
 msgid "minute"
 msgstr "minuutti"
 
-#: lib/Chora.php:386
+#: lib/Chora.php:387
 msgid "minutes"
 msgstr "minuuttia"
 
-#: lib/Chora.php:390
+#: lib/Chora.php:391
 msgid "month"
 msgstr "kuukausi"
 
-#: lib/Chora.php:390
+#: lib/Chora.php:391
 msgid "months"
 msgstr "kuukautta"
 
@@ -469,30 +449,30 @@ msgstr "kuukautta"
 msgid "revision %s"
 msgstr "revisio %s"
 
-#: lib/Chora.php:385
+#: lib/Chora.php:386
 msgid "second"
 msgstr "sekunti"
 
-#: lib/Chora.php:385
+#: lib/Chora.php:386
 msgid "seconds"
 msgstr "sekuntia"
 
-#: lib/Chora.php:406
+#: lib/Chora.php:407
 msgid "very little time"
 msgstr "hyvin vähän aikaa"
 
-#: lib/Chora.php:389
+#: lib/Chora.php:390
 msgid "week"
 msgstr "viikko"
 
-#: lib/Chora.php:389
+#: lib/Chora.php:390
 msgid "weeks"
 msgstr "viikkoa"
 
-#: lib/Chora.php:391
+#: lib/Chora.php:392
 msgid "year"
 msgstr "vuosi"
 
-#: lib/Chora.php:391
+#: lib/Chora.php:392
 msgid "years"
 msgstr "vuotta"

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Meilof Veeningen <meilof@gmail.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
@@ -74,13 +74,12 @@ if ($search_mode == 'basic') {
         if ($cal->get('owner') && $cal->get('owner') == $current_user) {
             $calendars[_("My Calendars:")]['|' . $id] = $cal->get('name');
         } else {
-            $calendars[_("Shared Calendars:")]['|' . $id] = $cal->get('name');
+            $calendars[_("Shared Calendars:")]['|' . $id] = Kronolith::getLabel($cal);
         }
     }
     foreach ($GLOBALS['all_external_calendars'] as $id => $cal) {
         $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($cal->api()));
-        if (!empty($GLOBALS['conf']['share']['hidden']) &&
-            !in_array($id, $GLOBALS['display_external_calendars'])) {
+        if (!$cal->display()) {
             continue;
         }
         $calendars[$app . ':']['Horde|external_' . $id] = $cal->name();
@@ -94,23 +93,22 @@ if ($search_mode == 'basic') {
 }
 
 if ($search_mode == 'basic') {
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("pattern_title").focus()'
-    ), 'dom');
+    ), true);
 } else {
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("title").focus()'
-    ), 'dom');
+    ), true);
     Horde_Core_Ui_JsCalendar::init(array('full_weekdays' => true));
-    Horde::addScriptFile('edit.js', 'kronolith');
+    $page_output->addScriptFile('edit.js');
 }
 
-$menu = Horde::menu();
-$title = _("Search");
-Horde::addScriptFile('tooltips.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('tooltips.js', 'horde');
+$page_output->header(array(
+    'title' => _("Search")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
@@ -138,5 +136,4 @@ if (!is_null($events)) {
 }
 
 echo '</div>';
-require KRONOLITH_TEMPLATES . '/panel.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

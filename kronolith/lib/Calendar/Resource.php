@@ -3,7 +3,7 @@
  * Kronolith_Calendar_Resource defines an API for single internal resource
  * calendars.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -103,10 +103,10 @@ class Kronolith_Calendar_Resource extends Kronolith_Calendar
      */
     public function toHash()
     {
-        $id = $this->_resource->getId();
         $owner = $GLOBALS['registry']->isAdmin();
         $hash = parent::toHash();
 
+        $hash['id']    = $this->_resource->getId();
         $hash['name']  = $this->name();
         $hash['owner'] = $owner;
         $hash['show']  = $this->display();

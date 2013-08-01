@@ -254,6 +254,14 @@ class csstidy {
     }
 
     /**
+     */
+    public function __clone()
+    {
+        $this->print = new csstidy_print($this);
+        $this->optimise = new csstidy_optimise($this);
+    }
+
+    /**
      * Get the value of a setting.
      * @param string $setting
      * @access public
@@ -438,7 +446,6 @@ class csstidy {
         $this->print = new csstidy_print($this);
         $this->optimise = new csstidy_optimise($this);
 
-        $all_properties =& $GLOBALS['csstidy']['all_properties'];
         $at_rules =& $GLOBALS['csstidy']['at_rules'];
 
         $this->css = array();

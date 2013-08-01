@@ -3,22 +3,18 @@
 /**
  * This script outputs statistics on the current memcache pool.
  *
- * Usage: horde-memcache-stats [--all] [--flush] [--lookup=key] [--raw]
- *                             [--summary]
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
- * By default, shows statistics for all servers.
- *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = __DIR__ . '/../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {
@@ -31,60 +27,62 @@ Horde_Registry::appInit('horde', array(
     'cli' => true
 ));
 
-$c = new Console_Getopt();
-$argv = $c->readPHPArgv();
-array_shift($argv);
-$options = $c->getopt2($argv, '', array('all', 'flush', 'lookup=', 'raw', 'summary'));
-if (PEAR::isError($options)) {
-    $cli->writeln($cli->red("ERROR: Invalid arguments."));
+$hashtable = $injector->getInstance('Horde_HashTable');
+if (!($hashtable instanceof Horde_HashTable_Memcache)) {
+    $cli->fatal('Memcache HashTable driver not enabled.');
+}
+
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-a', '--all', array(
+    'action' => 'store_true',
+    'dest' => 'all',
+    'help' => 'Show all servers'
+));
+$parser->addOption('--flush', array(
+    'action' => 'store_true',
+    'dest' => 'flush',
+    'help' => 'Flush all data'
+));
+$parser->addOptions('-l', '--lookup', array(
+    'dest' => 'lookup',
+    'help' => 'Key to lookup'
+));
+$parser->addOptions('-r', '--raw', array(
+    'action' => 'store_true',
+    'dest' => 'raw',
+    'help' => 'Display raw data'
+));
+$parser->addOptions('-s', '--summary', array(
+    'action' => 'store_true',
+    'dest' => 'summary',
+    'help' => 'Display summary'
+));
+list($values,) = $parser->parseArgs();
+
+if ($values->flush) {
+    if ($cli->prompt($cli->red('Are you sure you want to flush all data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
+        $hashtable->clear();
+        $cli->writeln($cli->green('Done.'));
+    }
     exit;
 }
 
-$all = $raw = $summary = false;
-$memcache = $injector->getInstance('Horde_Memcache');
-
-foreach ($options[0] as $val) {
-    switch ($val[0]) {
-    case '--all':
-        $all = true;
-        break;
-
-    case '--flush':
-        if ($cli->prompt($cli->red('Are you sure you want to flush all data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y') {
-            $memcache->flush();
-            $cli->writeln($cli->green('Done.'));
-        }
-        exit;
-
-    case '--lookup':
-        $data = $memcache->get($val[1]);
-        if (!empty($data)) {
-            $cli->writeln(print_r($data, true));
-        } else {
-            $cli->writeln('[Key not found.]');
-        }
-        exit;
-
-    case '--raw':
-        $raw = true;
-        break;
-
-    case '--summary':
-        $summary = true;
-        break;
-    }
+if ($values->lookup) {
+    $data = $hashtable->get($values->lookup);
+    $cli->writeln(empty($data) ? '[Key not found.]' : print_r($data, true));
+    exit;
 }
 
-$stats = $memcache->stats();
+$stats = $hashtable->stats();
 
-if ($raw) {
+if ($values->raw) {
     $cli->writeln(print_r($stats, true));
-} elseif (!$summary) {
-    $all = true;
+} elseif (!$values->summary) {
+    $values->all = true;
 }
 
-if ($all || $summary) {
-    if ($summary) {
+if ($values->all || $values->summary) {
+    if ($values->summary) {
         $total = array();
         $total_keys = array('bytes', 'limit_maxbytes', 'curr_items', 'total_items', 'get_hits', 'get_misses', 'curr_connections', 'bytes_read', 'bytes_written');
         foreach ($total_keys as $key) {
@@ -103,22 +101,22 @@ if ($all || $summary) {
 
         ++$s_count;
 
-        if ($summary) {
+        if ($values->summary) {
             foreach ($total_keys as $k) {
                 $total[$k] += $val[$k];
             }
         }
 
-        if ($all) {
+        if ($values->all) {
             $cli->writeln($cli->green('Server: ' . $key . ' (Version: ' . $val['version'] . ' - ' . $val['threads'] . ' thread(s))'));
             _outputInfo($val, $cli);
-            if (--$i || $summary) {
+            if (--$i || $values->summary) {
                 $cli->writeln();
             }
         }
     }
 
-    if ($summary) {
+    if ($values->summary) {
         $cli->writeln($cli->green('Memcache pool (' . $s_count . ' active server(s))'));
         if ($s_count) {
             _outputInfo($total, $cli);

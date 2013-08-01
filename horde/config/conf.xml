@@ -103,16 +103,26 @@
    off&lt;/b&gt;. Cookies must be working and enabled in the browser though, or
    you won't be able to login to Horde. If false, session information will be
    passed via both the URL and cookies.">true</configboolean>
+   <configinteger name="timeout" desc="The cookie lifetime (in seconds). If 0,
+   (DEFAULT; RECOMMENDED) cookies will expire when the browser closes.
+   Otherwise, this is the length after which a cookie will expire (this
+   lifetime is updated after every browser request). Setting a non-zero value
+   is NOT RECOMMENDED as there is no guarantee a session will ever expire;
+   additionally, the session expiration value is based on the SERVER, not the
+   CLIENT, so this will most certainly not work the way you want/think it
+   should (see
+   http://www.php.net/manual/en/function.session-set-cookie-params.php) for
+   further information.">0</configinteger>
    <configstring name="cache_limiter" desc="What caching level should we use
    for the session? DO NOT CHANGE THIS UNLESS YOU &lt;strong&gt;REALLY
    &lt;/strong&gt; KNOW WHAT YOU ARE DOING. Setting this to anything other
    than 'nocache' will almost certainly result in severely broken script
    behavior.">nocache</configstring>
-   <configinteger name="timeout" desc="How long should sessions last (in
-   seconds)? 0 means that the session ends when the user closes their browser.
-   Set other values with care - see
-   http://www.php.net/manual/en/function.session-set-cookie-params.php.">
-   0</configinteger>
+   <configinteger name="max_time" desc="The maximum length of time (in
+   seconds) a session can be active after user authentication before it will
+   be destroyed. (Sessions may otherwise never timeout if a user never closes
+   their browser.) 0 means there is no maximum session time (NOT
+   RECOMMENDED).">604800</configinteger>
   </configsection>
   <configsection name="cookie">
    <configphp name="domain" desc="What domain should we set cookies from? If
@@ -133,14 +143,25 @@
   </configsection>
  </configtab>
 
- <configtab name="sql" desc="Database">
-  <configsection name="sql">
-   <configheader>Database Settings</configheader>
+ <configtab name="db" desc="Database">
    <configdescription>&lt;strong&gt;NOTE:&lt;/strong&gt; These are only the
    &lt;em&gt;default&lt;/em&gt; values for any database driven backends. You
    still need to configure the different systems like "Preferences" to actually
    &lt;em&gt;use&lt;/em&gt; a database backend.</configdescription>
+  <configsection name="sql">
+   <configheader>SQL Database Settings</configheader>
+   <configdescription>These are the database settings for the traditional
+   relational databases backends (e.g. databases that use SQL to manage its
+   data).</configdescription>
    <configsql switchname="phptype" baseconfig="true" />
+  </configsection>
+  <configsection name="nosql">
+   <configheader>NoSQL Database Settings</configheader>
+   <configdescription>These are the database settings for the NoSQL database
+   backends. These are databases generally optimized for
+   scalability/availability, but do not use a standardized query language to
+   interact with the data.</configdescription>
+   <confignosql switchname="phptype" baseconfig="true" default="false"/>
   </configsection>
  </configtab>
 
@@ -168,8 +189,15 @@
    validate the browser string of the client (as seen by the web server) in
    the session? Doing so will help increase security by making it harder for
    an attacker to hijack the session.">true</configboolean>
-   <configboolean name="resetpassword" desc="Allow users to reset passwords and
-   provide a link on the login screen?">true</configboolean>
+   <configswitch name="resetpassword" desc="Allow users to reset passwords and
+   provide a link on the login screen?">true
+    <case name="true" desc="Yes">
+     <configstring name="resetpassword_from" required="false" desc="The e-mail
+     address to send password reset e-mails from. If empty, is sent from the
+     user's e-mail address."/>
+    </case>
+    <case name="false" desc="No"/>
+   </configswitch>
    <configstring name="alternate_login" desc="If this is not false, it is
    assumed to be the URL of an alternate login screen which will be used in
    place of horde's default login screen. The URL will have an &quot;app&quot;
@@ -278,7 +306,7 @@
       connect. IMAP is generally 143, while IMAP-SSL is generally
       993.">143</configinteger>
       <configenum name="secure" desc="The encryption to use to connect to
-      the IMAP server.">none
+      the IMAP server.">tls
        <values>
         <value>none</value>
         <value>tls</value>
@@ -683,11 +711,9 @@
    </configswitch>
    <configsection name="params">
     <configboolean name="count_bad_logins" required="false" desc="Should Horde
-    count the number of bad logins? Requires Horde_Auth 1.2.0 or
-    higher">false</configboolean>
+    count the number of bad logins?">false</configboolean>
     <configboolean name="login_block" required="false" desc="Allow to block
-    logins for certain users? Requires Horde_Auth 1.2.0 or
-    higher">false</configboolean>
+    logins for certain users?">false</configboolean>
     <configinteger name="login_block_count" required="false" desc="After how
     many failed logins the login should be blocked? Setting 0 disables the
     feature">5</configinteger>
@@ -705,7 +731,7 @@
   </configsection>
  </configtab>
 
- <configtab name="signup" desc="Sign Up">
+ <configtab name="signup" desc="Signing Up">
   <configsection name="signup">
    <configheader>Sign Up Settings</configheader>
    <configswitch name="allow" desc="Allow non-registered users to register and
@@ -749,7 +775,7 @@
        <value desc="ALERT">ALERT</value>
        <value desc="CRIT">CRIT</value>
        <value desc="ERR">ERR</value>
-       <value desc="WARNING">WARNING</value>
+       <value desc="WARN">WARNING</value>
        <value desc="NOTICE">NOTICE</value>
        <value desc="INFO">INFO</value>
        <value desc="DEBUG">DEBUG</value>
@@ -812,9 +838,9 @@
    INFO.">false</configboolean>
  </configtab>
 
- <configtab name="prefs" desc="Preference System">
+ <configtab name="prefs" desc="Preferences">
   <configsection name="prefs">
-   <configheader>Preference System Settings</configheader>
+   <configheader>Preferences Settings</configheader>
    <configinteger name="maxsize" required="false" desc="The size of the
    preferences field in your backend in bytes. Horde will reject any write to
    the preferences backend if its length exceeds this value. Leave empty to
@@ -824,6 +850,11 @@
    KB (65535 bytes). These installations would want to turn checking on."/>
    <configswitch name="driver" desc="What preferences driver should we
    use?">Sql
+     <case name="Nosql" desc="NoSQL Database">
+      <configsection name="params">
+       <confignosql switchname="driverconfig" />
+      </configsection>
+     </case>
      <case name="Sql" desc="SQL Database">
       <configsection name="params">
        <configsql switchname="driverconfig">
@@ -846,15 +877,15 @@
       </configsection>
      </case>
      <case name="Session" desc="PHP Sessions"/>
-     <case name="KolabImap" desc="Kolab (IMAP)" />
+     <case name="KolabImap" desc="IMAP/Kolab Server" />
      <case name="Imsp" desc="IMSP Server" />
    </configswitch>
   </configsection>
  </configtab>
 
- <configtab name="alarms" desc="Alarm System">
+ <configtab name="alarms" desc="Alarms">
   <configsection name="alarms">
-   <configheader>Alarm System Settings</configheader>
+   <configheader>Alarms Settings</configheader>
    <configswitch name="driver" desc="What alarm storage driver should we
    use?">Sql
      <case name="false" desc="None"/>
@@ -866,27 +897,6 @@
        </configsql>
        <configinteger name="ttl" desc="How often should the applications be
        queried for new alarms, in seconds?">300</configinteger>
-      </configsection>
-     </case>
-   </configswitch>
-  </configsection>
- </configtab>
-
- <configtab name="datatree" desc="DataTree System">
-  <configsection name="datatree">
-   <configheader>DataTree System Settings</configheader>
-   <configswitch name="driver" desc="What backend should we use for Horde
-   DataTree storage?">null
-     <case name="null" desc="None"/>
-     <case name="sql" desc="SQL Database">
-      <configsection name="params">
-       <configsql switchname="driverconfig">
-        <configstring name="table" required="false" desc="The name of the
-        data table in the database [horde_datatree]"/>
-        <configstring name="table_attributes" required="false" desc="The name
-        of the data attributes table in the database
-        [horde_datatree_attributes]"/>
-       </configsql>
       </configsection>
      </case>
    </configswitch>
@@ -938,13 +948,6 @@
      <configsql switchname="driverconfig" />
     </case>
    </configswitch>
-   <configheader>Group Caching</configheader>
-   <configdescription>GROUP CACHING HAS NOT BEEN IMPLEMENTED FOR HORDE 4 YET. Enabling group caching improves performance because the
-   group backend will only be queried once per session. But it also increases
-   the users' session sizes, and group changes won't take effect before the
-   users log in the next time.</configdescription>
-   <!--<configboolean name="cache" required="false" desc="Enable group
-   caching?">false</configboolean>-->
   </configsection>
  </configtab>
 
@@ -999,18 +1002,20 @@
      You can use different driver types for the Horde Share
      system. The default driver is the SQL-NG driver.
    </configdescription>
-   <configswitch name="driver" desc="What backend should we use for Horde
+   <configenum name="driver" desc="What backend should we use for Horde
    Shares?">Sqlng
-     <case name="Kolab" desc="Kolab"/>
-     <case name="Sqlng" desc="Next-Generation SQL"/>
-     <case name="Sql" desc="SQL"/>
-   </configswitch>
+    <values>
+     <value desc="IMAP/Kolab">Kolab</value>
+     <value desc="Next-Generation SQL">Sqlng</value>
+     <value desc="SQL">Sql</value>
+    </values>
+   </configenum>
   </configsection>
  </configtab>
 
- <configtab name="cache" desc="Cache System">
+ <configtab name="cache" desc="Caching">
   <configsection name="cache">
-   <configheader>Cache System Settings</configheader>
+   <configheader>Caching Settings</configheader>
    <configinteger name="default_lifetime" desc="How long, in seconds, should
    data be cached by default?">86400</configinteger>
    <configswitch name="driver" desc="If you want to enable the Horde Cache,
@@ -1051,13 +1056,18 @@
       use for the cache files."/>
      </configsection>
     </case>
-    <case name="Memcache" desc="Use a Memcache server">
+    <case name="Hashtable" desc="Use a Distributed Hash Table server">
      <configsection name="params">
       <configstring name="prefix" required="false" desc="The prefix to use for
       cache entries."/>
      </configsection>
     </case>
-    <case name="Sql" desc="SQL-based cache storage">
+    <case name="Nosql" desc="NoSQL-based cache storage">
+     <configsection name="params">
+      <confignosql switchname="driverconfig" />
+     </configsection>
+    </case>
+    <case name="Sql" desc="SQL-based cache storage (NOT RECOMMENDED)">
      <configsection name="params">
       <configsql switchname="driverconfig">
        <configstring name="table" required="false" desc="The name of the
@@ -1072,8 +1082,6 @@
      </configsection>
     </case>
    </configswitch>
-   <configboolean name="compress" required="false" desc="Compress cached
-   data? Requires the 'lzf' PECL package to be installed">true</configboolean>
    <configswitch name="use_memorycache" required="false" desc="Use a
    separate memory cache driver to store data in memory? If data is not found
    in this driver, we will fall back to accessing the persistent backend. This
@@ -1081,7 +1089,7 @@
     <case name="" desc="None"/>
     <case name="Apc" desc="APC"/>
     <case name="Eaccelerator" desc="eAccelerator"/>
-    <case name="Memcache" desc="Memcache"/>
+    <case name="Hashtable" desc="Hashtable"/>
     <case name="Xcache" desc="xCache"/>
    </configswitch>
   </configsection>
@@ -1094,7 +1102,12 @@
    user's browsing experience, and is HIGHLY RECOMMENDED.
   </configdescription>
   <configswitch name="cachecss" desc="Cache CSS?">false
-   <case name="false" desc="No" />
+   <case name="false" desc="No">
+    <configsection name="cachecssparams">
+     <configboolean name="url_version_param" desc="Add version information to
+     CSS URLs?">true</configboolean>
+    </configsection>
+   </case>
    <case name="true" desc="Yes">
     <configsection name="cachecssparams">
      <configswitch name="driver" desc="How should we store the cached data?">
@@ -1111,18 +1124,15 @@
       <case name="horde_cache" desc="Horde Cache">
        <configdescription>
         &lt;strong&gt;Requires a configured Horde caching
-        backend.&lt;/strong&gt;
+        backend.&lt;/strong&gt; This method is STRONGLY DISCOURAGED. Browsers
+        will likely cache this data and ignore updates, even though we append
+        a "cache-busting" unique version parameter to the URL. You almost
+        certainly want to use 'filesystem' instead.
        </configdescription>
       </case>
      </configswitch>
      <configinteger name="lifetime" desc="Lifetime of the cached files, in
      seconds.">86400</configinteger>
-     <configswitch name="compress" desc="How should we compress the static
-     cached files?">php
-      <case name="none" desc="No compression" />
-      <case name="php" desc="Built-in compressor (Good compression, good
-      speed)" />
-     </configswitch>
     </configsection>
    </case>
   </configswitch>
@@ -1136,7 +1146,12 @@
    RECOMMENDED.
   </configdescription>
   <configswitch name="cachejs" desc="Cache javascript?">false
-   <case name="false" desc="No" />
+   <case name="false" desc="No">
+    <configsection name="cachejsparams">
+     <configboolean name="url_version_param" desc="Add version information to
+     javascript URLs?">true</configboolean>
+    </configsection>
+   </case>
    <case name="true" desc="Yes">
     <configsection name="cachejsparams">
      <configswitch name="driver" desc="How should we store the cached data?">
@@ -1153,7 +1168,10 @@
       <case name="horde_cache" desc="Horde Cache">
        <configdescription>
         &lt;strong&gt;Requires a configured Horde caching
-        backend.&lt;/strong&gt;
+        backend.&lt;/strong&gt; This method is STRONGLY DISCOURAGED. Browsers
+        will likely cache this data and ignore updates, even though we append
+        a "cache-busting" unique version parameter to the URL. You almost
+        certainly want to use 'filesystem' instead.
        </configdescription>
       </case>
      </configswitch>
@@ -1178,7 +1196,7 @@
       </case>
      </configswitch>
      <configinteger name="lifetime" desc="Lifetime of the cached files, in
-     seconds.">86400</configinteger>
+     seconds.">604800</configinteger>
     </configsection>
    </case>
   </configswitch>
@@ -1216,12 +1234,17 @@
   </configswitch>
  </configtab>
 
- <configtab name="lock" desc="Lock System">
+ <configtab name="lock" desc="Locking">
   <configsection name="lock">
-   <configheader>Lock System Settings</configheader>
+   <configheader>Locking Settings</configheader>
    <configswitch name="driver" desc="If you want to enable resource locking
    you must choose a driver here.">Sql
     <case name="Null" desc="Disable Horde Locks"/>
+    <case name="Nosql" desc="NoSQL-based locking">
+     <configsection name="params">
+      <confignosql switchname="driverconfig" />
+     </configsection>
+    </case>
     <case name="Sql" desc="SQL-based locking">
      <configsection name="params">
       <configsql switchname="driverconfig">
@@ -1234,9 +1257,9 @@
   </configsection>
  </configtab>
 
- <configtab name="token" desc="Token System">
+ <configtab name="token" desc="Tokens">
   <configsection name="token">
-   <configheader>Token System Settings</configheader>
+   <configheader>Tokens Settings</configheader>
    <configinteger name="timeout" required="false" desc="The period (in
    seconds) after which an id is purged"/>
    <configswitch name="driver" desc="If you want to enable Form Tokens, select
@@ -1249,12 +1272,32 @@
       to keep token files"/>
      </configsection>
     </case>
+    <case name="Nosql" desc="NoSQL-based token storage">
+     <configsection name="params">
+       <confignosql switchname="driverconfig" />
+     </configsection>
+    </case>
     <case name="Sql" desc="SQL-based token storage">
      <configsection name="params">
       <configsql switchname="driverconfig">
        <configstring name="table" required="false" desc="The name of the
        tokens table in the database [horde_tokens]"/>
       </configsql>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="dav" desc="DAV">
+  <configsection name="davstorage">
+   <configheader>DAV Settings</configheader>
+   <configswitch name="driver" desc="If you want to use CalDAV or CardDAV,
+   select a driver here.">Sql
+    <case name="Null" desc="Disable CalDAV/CardDAV support"/>
+    <case name="Sql" desc="SQL-based metadata storage">
+     <configsection name="params">
+      <configsql switchname="driverconfig"/>
      </configsection>
     </case>
    </configswitch>
@@ -1290,7 +1333,7 @@
       to [25]"/>
       <configstring name="localhost" required="false" desc="The local hostname
       / domain [localhost]"/>
-      <configenum name="auth" desc="SMTP authentication">0
+      <configenum name="auth" desc="SMTP authentication">false
        <values>
         <value desc="No authentication">false</value>
         <value desc="Best available authentication">true</value>
@@ -1301,9 +1344,9 @@
        </values>
       </configenum>
       <configstring name="username" required="false" desc="The username to use
-      for SMTP auth"/>
+      for SMTP auth. If empty, uses the Horde authentication username."/>
       <configstring name="password" required="false" desc="The password to use
-      for SMTP auth"/>
+      for SMTP auth. If empty, uses the Horde authentication password."/>
      </configsection>
     </case>
    </configswitch>
@@ -1329,16 +1372,16 @@
   </configsection>
  </configtab>
 
- <configtab name="session" desc="Custom Session Handler">
+ <configtab name="session" desc="Session Handler">
   <configsection name="sessionhandler">
-   <configheader>Custom Session Handler Settings</configheader>
+   <configheader>Session Handler Settings</configheader>
    <configswitch name="type" desc="What sessionhandler driver should we
    use?">Builtin
     <case name="Builtin" desc="Use the default PHP session handler (file-based
     by default)">
      <configdescription>
-      If you have configured a custom session extension in php.ini, such as
-      native memcache sessions, then you should use this option. Horde doesn't
+      If you have configured a custom session extension in php.ini (such as
+      native memcache sessions) then you should use this option. Horde doesn't
       force PHP to use the file-based session handler, so your php.ini
       settings settings will be deferred to.
      </configdescription>
@@ -1359,19 +1402,18 @@
       in.">/tmp/</configstring>
      </configsection>
     </case>
-    <case name="Memcache" desc="Memcache only">
+    <case name="HashTable" desc="Distributed Hash Table">
      <configsection name="params">
       <configswitch name="track" required="false" desc="Keep track of active
-      session information? Tracking requires a small amount of extra load.">
-      false
+      session information? Tracking requires extra load to maintain.">false
        <case name="false" desc="No" />
-       <case name="true" desc="Yes" >
-        <configinteger name="track_lifetime" required="false" desc="The number
-        of seconds after which tracked sessions will be treated as
-        expired. If empty, defaults to value in php.ini's
-        'session.gc_maxlifetime'."></configinteger>
-       </case>
+       <case name="true" desc="Yes" />
       </configswitch>
+     </configsection>
+    </case>
+    <case name="Nosql" desc="NoSQL Database">
+     <configsection name="params">
+       <confignosql switchname="driverconfig" />
      </configsection>
     </case>
     <case name="Sql" desc="SQL Database">
@@ -1383,8 +1425,8 @@
      </configsection>
     </case>
    </configswitch>
-   <configboolean name="memcache" desc="Use memcache to cache session
-   information?">false</configboolean>
+   <configboolean name="hashtable" desc="Use a distributed hash table to cache
+   session information?">false</configboolean>
   </configsection>
  </configtab>
 
@@ -1472,13 +1514,13 @@
    <configheader>Image Manipulation Settings</configheader>
    <configswitch name="driver" description="What driver should we use for
    manipulating images?">false
-   <case name="false" desc="None"></case>
-   <case name="Imagick" desc="The PECL Imagick Library (recommended)"></case>
-   <case name="Im" desc="Imagemagick">
-     <configstring name="convert" desc="Path to the 'convert' binary"></configstring>
-     <configstring name="identify" desc="Path the 'identify' binary"></configstring>
-   </case>
-   <case name="Gd" desc="The PHP GD2 extensions (not recommended)"></case>
+    <case name="false" desc="None"/>
+    <case name="Imagick" desc="The PECL Imagick Library (recommended)"/>
+    <case name="Im" desc="Imagemagick">
+     <configstring name="convert" desc="Path to the 'convert' binary"/>
+     <configstring name="identify" desc="Path the 'identify' binary"/>
+    </case>
+    <case name="Gd" desc="The PHP GD2 extensions (not recommended)"/>
    </configswitch>
   </configsection>
   <configsection name="exif" desc="Image Metadata">
@@ -1501,7 +1543,9 @@
   <configsection name="mime">
    <configheader>MIME Detection Settings</configheader>
    <configstring name="magic_db" required="false" desc="Location of the MIME
-   magic database. Usually /usr/share/misc/magic or /etc/magic."/>
+   magic database. This only needs to be set if PHP cannot auto-determine the
+   value (the output from the test script will clearly indiciate if this is
+   an issue)."/>
   </configsection>
  </configtab>
 
@@ -1570,16 +1614,6 @@
  <configtab name="menu" desc="Menu">
   <configheader>Menu Settings</configheader>
   <configsection name="menu">
-   <configmultienum name="apps" desc="Select any applications that should be
-   linked in Horde's menu" required="false">
-    <values>
-     <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
-
-   <configboolean name="always" desc="Should we &lt;strong&gt;always
-   &lt;/strong&gt; display the Horde sidebar menu?">false</configboolean>
-
    <configsection name="links">
     <configenum name="help" desc="Should we display help links in the
     menu?">all
@@ -1591,7 +1625,7 @@
     </configenum>
     <configenum name="prefs" desc="Should we display preferences links in the
     menu? You still need to configure a preference backend in the
-    &quot;Preference System&quot; section.">authenticated
+    &quot;Preferences&quot; section.">authenticated
      <values>
       <value desc="All users">all</value>
       <value desc="Authenticated users">authenticated</value>
@@ -1717,9 +1751,9 @@
      <configenum name="force_view" desc="Force an application view to be used
      for all users?">
       <values>
-       <value desc="None (use user's browser and 'dynamic_view'
-       preference)"></value>
-       <value desc="Traditional">traditional</value>
+       <value desc="None (use user's browser and application
+       preferences)"></value>
+       <value desc="Basic">basic</value>
        <value desc="Dynamic">dynamic</value>
        <value desc="Mobile">mobile</value>
        <value desc="Smartphone">smartmobile</value>
@@ -1742,6 +1776,8 @@
    <configstring name="yahoomaps" desc="Yahoo Maps API Key" required="false" />
    <configstring name="cloudmade" desc="Cloudmade API Key" required="false" />
    <configstring name="mytopo" desc="Mytopo Maps API Key" required="false" />
+   <configstring name="mytopo_partnerID" desc="Mytopo partner id" required="false" />
+   <configstring name="bing" desc="Bing Maps API Key" required="false" />
   </configsection>
   <configsection name="facebook">
    <configheader>Facebook Integration Settings</configheader>
@@ -1796,12 +1832,6 @@
        </configinteger>
       </configsection>
     </case>
-    <case name="Google" desc="Google Weather API - Unofficial API. Free, no registration. VERY basic forecast data.">
-      <configsection name="params">
-       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
-       </configinteger>
-      </configsection>
-    </case>
     <case name="Wwo" desc="World Weather Online API. Free, requires registration. Slighty more detailed than Google.">
       <configsection name="params">
         <configstring name="key" desc="API Key. For information on registration
@@ -1810,6 +1840,40 @@
        <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
        </configinteger>
       </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="imap" desc="IMAP Server">
+  <configsection name="imap">
+   <configheader>IMAP Server Settings</configheader>
+   <configdescription>
+    If you intend to store user data like shares and groupware data on an IMAP
+    server then you will need to ensure that the following fields correspond to
+    your IMAP server setup. The IMAP groupware storage will use version 2 of
+    the Kolab XML format. See http://wiki.kolab.org/Kolab_Format_Intro for
+    details.
+   </configdescription>
+   <configswitch name="enabled" quote="false" desc="Use an IMAP server?">false
+    <case name="false" desc="Disabled" />
+    <case name="true" desc="Enabled">
+     <configheader>IMAP Server Settings</configheader>
+     <configstring name="server" desc="Server
+     address">localhost</configstring>
+     <configinteger name="port" desc="Server port">143</configinteger>
+      <configenum name="secure" desc="The encryption to use to connect to
+      the IMAP server.">tls
+       <values>
+        <value>none</value>
+        <value>tls</value>
+        <value>ssl</value>
+       </values>
+      </configenum>
+     <configstring name="maildomain" desc="Default
+     maildomain">example.com</configstring>
+     <configboolean name="cache_folders" desc="Cache IMAP folders?"
+      required="true">true</configboolean>
     </case>
    </configswitch>
   </configsection>
@@ -1829,7 +1893,7 @@
      <configstring name="server" desc="Server Address:">localhost</configstring>
      <configstring name="port" desc="Server port:">406</configstring>
      <configswitch name="auth_method" desc="The authentication method to
-     use">plaintext
+     use">Plaintext
       <case name="Plaintext" desc="Plaintext" />
       <case name="CramMd5" desc="CRAM-MD5" />
       <case name="Imtest" desc="Cyrus imtest">
@@ -1921,76 +1985,140 @@
   </configsection>
  </configtab>
 
- <configtab name="memcache" desc="Memcache Server">
-  <configsection name="memcache">
-   <configheader>Memcache Server Settings</configheader>
-   <configswitch name="enabled" quote="false" desc="Use a memcache
-   server?">false
-    <case name="false" desc="Disabled"/>
-    <case name="true" desc="Enabled">
-     <configlist name="hostspec" required="false" desc="What hostname(s) is
-     the memcache server(s) running on, or what is the name of the system
-     DSN(s)? Specify multiple servers by separating with
-     commas.">localhost</configlist>
-     <configlist name="port" required="false" desc="Port(s) the memcache
-     server(s) are running on. If more than one host is used, specify ports
-     for respective servers, separated by commas.">11211</configlist>
-     <configlist name="weight" required="false" desc="The weight to give each
-     memcache server. If more than one host is used, specify weights
-     for respective servers, separated by commas."></configlist>
-     <configboolean name="persistent" required="false" desc="Enable
-     persistent connections to server(s).">false</configboolean>
-     <configswitch name="compression" quote="false" desc="Enable compression
-     when storing entries on server.">false
-      <case name="false" desc="No" />
-      <case name="true" desc="Yes">
-       <configinteger name="c_threshold" required="false" desc="The threshold
-       length before compressing data.">0</configinteger>
-      </case>
-     </configswitch>
-     <configphp name="prefix" required="false" desc="Prefix to use for the
-     memcache keys. PHP expressions are allowed."></configphp>
-     <configphp name="large_items" required="false" desc="Memcache natively
-     supports data of limited length only (default: 1 MB). If this option is
-     true, Horde will transparently work around this
-     limitation.">true</configphp>
+ <configtab name="hashtable" desc="Distributed Hash Table">
+  <configsection name="hashtable">
+   <configdescription>A distributed hash table is a way of sharing data across
+   multiple servers by associating a piece of data with a static key. It is
+   useful for cache-like operations, since it is usually much faster to set and
+   retrieve the data from the hash table than the underlying data storage
+   driver.</configdescription>
+   <configswitch name="driver" desc="What backend should we use for the
+   distributed hash table?">none
+    <case name="none" desc="None" />
+    <case name="Memcache" desc="Memcache Server">
+     <configsection name="params">
+      <configlist name="hostspec" required="false" desc="What hostname(s) is
+      the memcache server(s) running on, or what is the name of the system
+      DSN(s)? Specify multiple servers by separating with
+      commas.">localhost</configlist>
+      <configlist name="port" required="false" desc="Port(s) the memcache
+      server(s) are running on. If more than one host is used, specify ports
+      for respective servers, separated by commas.">11211</configlist>
+      <configlist name="weight" required="false" desc="The weight to give each
+      memcache server. If more than one host is used, specify weights
+      for respective servers, separated by commas."></configlist>
+      <configboolean name="persistent" required="false" desc="Enable
+      persistent connections to server(s).">false</configboolean>
+      <configswitch name="compression" quote="false" desc="Enable compression
+      when storing entries on server.">false
+       <case name="false" desc="No" />
+       <case name="true" desc="Yes">
+        <configinteger name="c_threshold" required="false" desc="The threshold
+        length before compressing data.">0</configinteger>
+       </case>
+      </configswitch>
+      <configphp name="prefix" required="false" desc="Prefix to use for the
+      memcache keys. PHP expressions are allowed."></configphp>
+      <configphp name="large_items" required="false" desc="Memcache natively
+      supports data of limited length only (default: 1 MB). If this option is
+      true, Horde will transparently work around this
+      limitation.">true</configphp>
+     </configsection>
+    </case>
+    <case name="Predis" desc="Redis Server">
+     <configsection name="params">
+      <configlist name="hostspec" required="false" desc="What hostname(s) is
+      the redis server(s) running on, or what is the name of the system
+      DSN(s)? Specify multiple servers by separating with
+      commas.">localhost</configlist>
+      <configlist name="port" required="false" desc="Port(s) the redis
+      server(s) are running on. If more than one host is used, specify ports
+      for respective servers, separated by commas.">6379</configlist>
+     </configsection>
     </case>
    </configswitch>
   </configsection>
  </configtab>
+
  <configtab name="activesync" desc="ActiveSync">
   <configsection name="activesync">
-   <configdescription>To enable ActiveSync support, you must create an alias on
-   your webserver to redirect /Microsoft-Servers-ActiveSync to /horde/rpc.php.
+   <configdescription>The use of ActiveSync in the United States is PROHIBITED
+   due to patent issues. If you are NOT in the United States, or you have a
+   license to use ActiveSync, you may enable ActiveSync below and create an
+   alias on your webserver to redirect /Microsoft-Server-ActiveSync to
+   /horde/rpc.php.
    See http://wiki.horde.org/ActiveSync for more information.
    </configdescription>
-   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
+   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
-     <configsection name="state">
-      <configheader>State Storage Settings</configheader>
-       <configsection name="params">
-        <configstring name="devicetable" desc="Name of table to hold device
-        information:">horde_activesync_device</configstring>
-        <configstring name="statetable" desc="Name of table to hold state
-        data:">horde_activesync_state</configstring>
-        <configstring name="maptable" desc="Name of table to hold mapping data
-        for device-sent changes.">horde_activesync_map</configstring>
-        <configstring name="userstable" desc="Name of table to hold user-device
-        data:">horde_activesync_device_users</configstring>
-       </configsection>
-     </configsection>
+     <configheader>Capabilities</configheader>
+      <configboolean name="emailsync" desc="Enable Email support?">true
+      </configboolean>
+      <configenum name="version" desc="What is the highest version of EAS that
+      Horde should support? All versions are backwards compatible so selecting
+      a higher version also includes support for the lower versions as well.">14
+      <values>
+       <value desc="Exchange 2003 (EAS 2.5)">2.5</value>
+       <value desc="Exchange 2007 (EAS 12.0)">12</value>
+       <value desc="Exchange 2007sp1 (EAS 12.1)">12.1</value>
+       <value desc="Exchange 2010sp1 (EAS 14.0)">14</value>
+       <value desc="Exchange 2010sp2 (EAS 14.1)">14.1</value>
+      </values>
+     </configenum>
+     <configheader>Autodiscovery</configheader>
+     <configenum name="autodiscovery" desc="Some devices attempt to use an
+     Autodiscovery service to configure the device's account using only the
+     user's email address and password. For this to work you must create an
+     alias on your webserver to point /autodiscover/autodiscover.xml to
+     /horde/rpc.php. Also, Horde must be able to determine the user's username
+     given the email address. Set the method you want Horde to use to attempt to
+     determine this below. If this fails, the device will fall back to requiring
+     manual account configuration. See http://wiki.horde.org/ActiveSync for more
+     information">
+      <values>
+       <value desc="Use the full email address as the username">full</value>
+       <value desc="Use only the username - everything after and including the
+       first @ will be stripped.">user</value>
+       <value desc="Use a custom hook. You must create this hook in the
+       hooks.php file.">hook</value>
+      </values>
+     </configenum>
+     <configswitch name="outlookdiscovery" desc="Horde can answer Autodiscover
+     requests from Microsoft Outlook clients to send configuration information
+     for things like IMAP/POP3/SMTP servers. Should this be enabled? NOTE: This
+     does not enable syncing between Horde and Microsoft Outlook!">
+       <case name="false" desc="No" />
+       <case name="true" desc="Yes">
+         <configsection name="hosts">
+           <configsection name="imap">
+             <configstring name="host" desc="IMAP host" required="false"></configstring>
+             <configinteger name="port" desc="IMAP port" required="fasle"></configinteger>
+             <configboolean name="ssl" desc="Use SSL?" />
+           </configsection>
+           <configsection name="pop">
+             <configstring name="host" desc="POP3 host" required="false"></configstring>
+             <configinteger name="port" desc="POP3 port" required="fasle"></configinteger>
+             <configboolean name="ssl" desc="Use SSL?" />
+           </configsection>
+           <configsection name="smtp">
+             <configstring name="host" desc="SMTP host" required="false"></configstring>
+             <configinteger name="port" desc="SMTP port" required="fasle"></configinteger>
+             <configboolean name="popauth" desc="Require Pop Auth?" required="false" />
+             <configboolean name="ssl" desc="Use SSL?" />
+           </configsection>
+         </configsection>
+       </case>
+     </configswitch>
      <configheader>Logging</configheader>
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send
       activesync-related log messages to a seperate log. If you want to do this,
-      set this to Custom and enter the path to the log file to use. Horde will
-      attempt to create device specific log files in the same directory as the
-      filepath you provide here. If it is unable to do so, all log entries will
-      be sent to the filename you provide.">
+      set this to Custom and enter the path to the directory to place log files
+      in. Horde will create device specific log files in this directory.">
         <case name="horde" desc="Horde" />
         <case name="custom" desc="Custom">
-         <configstring name="path" desc="Path to logfile" />
+         <configstring name="path" desc="Path to custom log directory." />
         </case>
       </configswitch>
      </configsection>
@@ -2029,72 +2157,7 @@
       to wait longer between checks for changes during the heartbeat,
       essentially reducing the number of checks done during each heartbeat.
       Lowering this value will increase the number of checks that are down
-      during each heartbeat.">5</configinteger>
-     </configsection>
-     <configsection name="securitypolicies">
-     <configheader>Security Policies</configheader>
-      <configswitch name="provisioning" desc="How should device provisioning be
-      handled? Set to DISABLE to ignore provisioning. Set to ALLOW to force
-      devices that CAN be provisioned to use provisioning, but allow older
-      devices with no support for provisioning to still be used. Set to FORCE
-      to only allow devices that are provisioned to connect to your
-      server.">false
-       <case name="false" desc="Disable" />
-       <case name="loose" desc="Allow">
-        <configswitch name="pin" desc="Force device to use a PIN to unlock
-        the device.">false
-         <case name="false" desc="No" />
-         <case name="true" desc="Yes">
-          <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped? Set to 0 to disable this policy.">10
-          </configinteger>
-          <configinteger name="codewordfrequency" desc="How many unlock attempts
-          before validating that an actual person is using the device is able to
-          read and write. This should typically be half of thewipethreshold
-          setting above. Set to 0 to disable this policy.">5</configinteger>
-          <configinteger name="minimumlength" desc="Minimum PIN
-          size">5</configinteger>
-          <configenum name="complexity" desc="PIN/Password complexity. Some
-          devices may be able to ONLY support numeric PINs.">
-           <values>
-            <value desc="Require alphanumeric">0</value>
-            <value desc="Allow only numeric">1</value>
-            <value desc="Allow any">2</value>
-         </values>
-        </configenum>
-        <configinteger name="inactivity" desc="Number of minutes of inactivity
-        before device should lock.">3</configinteger>
-         </case>
-        </configswitch>
-       </case>
-       <case name="true" desc="Force">
-        <configswitch name="pin" desc="Force device to use a PIN to unlock
-        the device.">false
-         <case name="false" desc="No" />
-         <case name="true" desc="Yes">
-          <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped? Set to 0 to disable this policy.">10
-          </configinteger>
-          <configinteger name="codewordfrequency" desc="How many unlock attempts
-          before validating that an actual person is using the device is able to
-          read and write. This should typically be half of thewipethreshold
-          setting above. Set to 0 to disable this policy.">5</configinteger>
-          <configinteger name="minimumlength" desc="Minimum PIN
-          size">5</configinteger>
-          <configenum name="complexity" desc="PIN/Password complexity. Some
-          devices may be able to ONLY support numeric PINs.">
-           <values>
-            <value desc="Require alphanumeric">0</value>
-            <value desc="Allow only numeric">1</value>
-            <value desc="Allow any">2</value>
-           </values>
-          </configenum>
-          <configinteger name="inactivity" desc="Number of minutes of
-          inactivity before device should lock.">3</configinteger>
-         </case>
-        </configswitch>
-       </case>
-      </configswitch>
+      during each heartbeat.">15</configinteger>
      </configsection>
     </case>
    </configswitch>

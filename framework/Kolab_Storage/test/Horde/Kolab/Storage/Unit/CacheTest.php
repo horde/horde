@@ -12,14 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the Kolab cache.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -246,76 +241,6 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertSame(
             $resource2, $this->cache->loadAttachment('test', '1', '2')
         );
-    }
-
-    public function testGetListCache()
-    {
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Cache_List',
-            $this->cache->getListCache($this->_getIdParameters())
-        );
-    }
-
-    public function testCachedListCache()
-    {
-        $this->assertSame(
-            $this->cache->getListCache($this->_getIdParameters()),
-            $this->cache->getListCache($this->_getIdParameters())
-        );
-    }
-
-    public function testNewHost()
-    {
-        $this->assertNotSame(
-            $this->cache->getListCache(
-                array('host' => 'b', 'port' => 1, 'user' => 'x')
-            ),
-            $this->cache->getListCache($this->_getIdParameters())
-        );
-    }
-
-    public function testNewPort()
-    {
-        $this->assertNotSame(
-            $this->cache->getListCache(
-                array('host' => 'a', 'port' => 2, 'user' => 'x')
-            ),
-            $this->cache->getListCache($this->_getIdParameters())
-        );
-    }
-
-    public function testNewUser()
-    {
-        $this->assertNotSame(
-            $this->cache->getListCache(
-                array('host' => 'a', 'port' => 1, 'user' => 'y')
-            ),
-            $this->cache->getListCache($this->_getIdParameters())
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testMissingHost()
-    {
-        $this->cache->getListCache(array('port' => 1, 'user' => 'x'));
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testMissingPort()
-    {
-        $this->cache->getListCache(array('host' => 'a', 'user' => 'x'));
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testMissingUser()
-    {
-        $this->cache->getListCache(array('host' => 'a', 'port' => 1));
     }
 
     public function testLoadList()

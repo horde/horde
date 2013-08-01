@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the Kolab configuration handler.
  *
  * Copyright 2010 Klarälvdalens Datakonsult AB
@@ -45,7 +40,7 @@ extends Horde_Kolab_Config_ConfigStoryTestCase
             ->then('the Config Object will throw an exception of type', 'Horde_Kolab_Config_Exception')
             ->and('the exception has the message',
                   'No configuration files found in '
-                  . realpath(dirname(__FILE__) . '/../fixture/empty') . '.'
+                  . realpath(__DIR__ . '/../fixture/empty') . '.'
             );
     }
 

@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once __DIR__ . '/lib/base.php';
 
 $title = _("New");
 
@@ -37,10 +37,10 @@ $pager = new Horde_Core_Ui_Pager('page',
 $pager->preserve($criteria);
 $list_url = Folks::getUrlFor('list', 'new');
 
-Horde::addScriptFile('stripe.js', 'horde');
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require FOLKS_TEMPLATES . '/menu.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
+$notification->notify(array('listeners' => 'status'));
 require FOLKS_TEMPLATES . '/list/list.php';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

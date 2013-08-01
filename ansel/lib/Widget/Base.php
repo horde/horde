@@ -3,7 +3,7 @@
  * Ansel_Widget:: class wraps the display of widgets to be displayed in various
  * Ansel_Views.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -53,6 +53,14 @@ abstract class Ansel_Widget_Base
     protected $_autoRender = true;
 
     /**
+     * List of views this widget supports. Assume we support both. Concrete
+     * classes should override this if this is not the case.
+     *
+     * @var array
+     */
+    protected $_supported_views = array('Image', 'Gallery');
+
+    /**
      * Constructor
      *   render
      *   style
@@ -71,13 +79,16 @@ abstract class Ansel_Widget_Base
      * Attach this widget to the passed in view. Normally called
      * by the Ansel_View once this widget is added.
      *
-     * @param Ansel_View $view  The view to attach to
+     * @param Ansel_View_Base $view  The view to attach
      *
-     * @return boolean.
-     * @TODO: Remove return value, throw exception instead.
+     * @return boolean
      */
-    public function attach($view)
+    public function attach(Ansel_View_Base $view)
     {
+        if (!in_array($view->viewType(), $this->_supported_views)) {
+            return false;
+        }
+
         $this->_view = $view;
         if (!empty($this->_params['style'])) {
             $this->_style = $this->_params['style'];

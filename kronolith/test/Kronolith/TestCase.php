@@ -15,7 +15,7 @@
 /**
  * Basic Kronolith test case.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -84,12 +84,12 @@ extends PHPUnit_Framework_TestCase
         );
         $setup->setup(
             array(
-                'Horde_Share_Base' => 'Share',
+                'Kronolith_Shares' => 'Share',
             )
         );
         $GLOBALS['injector']->setInstance(
-            'Kronolith_Shares',
-            new Kronolith_Stub_ShareFactory('Horde_Share_Base')
+            'Horde_Core_Factory_Share',
+            new Kronolith_Stub_ShareFactory($setup->getInjector()->getInstance('Kronolith_Shares'))
         );
         $GLOBALS['conf']['storage']['driver'] = 'sql';
         $GLOBALS['conf']['calendars']['driver'] = 'default';
@@ -105,19 +105,20 @@ extends PHPUnit_Framework_TestCase
                         'imapuser' => 'test',
                     )
                 ),
-                'Horde_Share_Base' => array(
+                'Kronolith_Shares' => array(
                     'factory' => 'Share',
                     'method' => 'Kolab',
                 ),
             )
         );
         $GLOBALS['injector']->setInstance(
-            'Kronolith_Shares',
-            new Kronolith_Stub_ShareFactory('Horde_Share_Base')
+            'Horde_Core_Factory_Share',
+            new Kronolith_Stub_ShareFactory($setup->getInjector()->getInstance('Kronolith_Shares'))
         );
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
         $GLOBALS['conf']['calendars']['driver'] = 'kolab';
     }
+
     static protected function createKolabSetup()
     {
         $setup = new Horde_Test_Setup();

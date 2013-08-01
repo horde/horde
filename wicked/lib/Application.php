@@ -1,21 +1,18 @@
 <?php
 /**
- * Wicked application API.
- *
- * This file defines Horde's core API interface. Other core Horde libraries
- * can interact with Wicked through this API.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package Wicked
  */
 
 /* Determine the base directories. */
 if (!defined('WICKED_BASE')) {
-    define('WICKED_BASE', dirname(__FILE__) . '/..');
+    define('WICKED_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -32,11 +29,21 @@ if (!defined('HORDE_BASE')) {
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
+/**
+ * Wicked application API.
+ *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Wicked through this API.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package Wicked
+ */
 class Wicked_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (2.0-git)';
+    public $version = 'H5 (2.0.0-git)';
 
     protected function _bootstrap()
     {
@@ -46,12 +53,46 @@ class Wicked_Application extends Horde_Registry_Application
     /**
      * Global variables defined:
      * - $wicked:   The Wicked_Driver object.
-     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
         $GLOBALS['wicked'] = $GLOBALS['injector']->getInstance('Wicked_Driver');
-        $GLOBALS['linkTags'] = array('<link href="' . Horde::url('opensearch.php', true, -1) . '" rel="search" type="application/opensearchdescription+xml" title="' . $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')" />');
+    }
+
+    /**
+     */
+    public function menu($menu)
+    {
+        global $conf, $page;
+
+        if (@count($conf['menu']['pages'])) {
+            $pages = array(
+                'Wiki/Home' => _("_Home"),
+                'Wiki/Usage' => _("_Usage"),
+                'RecentChanges' => _("_Recent Changes"),
+                'AllPages' => _("_All Pages"),
+                'MostPopular' => _("Most Popular"),
+                'LeastPopular' => _("Least Popular"),
+            );
+            foreach ($conf['menu']['pages'] as $pagename) {
+                /* Determine who we should say referred us. */
+                $curpage = isset($page) ? $page->pageName() : null;
+                $referrer = Horde_Util::getFormData('referrer', $curpage);
+
+                /* Determine if we should depress the button. We have to do
+                 * this on our own because all the buttons go to the same .php
+                 * file, just with different args. */
+                if (!strstr($_SERVER['PHP_SELF'], 'prefs.php') &&
+                    $curpage === $pagename) {
+                    $cellclass = 'current';
+                } else {
+                    $cellclass = '__noselection';
+                }
+
+                $url = Wicked::url($pagename)->add('referrer', $referrer);
+                $menu->add($url, $pages[$pagename], 'wicked-' . str_replace('/', '', $pagename), null, null, null, $cellclass);
+            }
+        }
     }
 
     /**
@@ -81,6 +122,62 @@ class Wicked_Application extends Horde_Registry_Application
         } catch (Wicked_Exception $e) {}
 
         return $perms;
+    }
+
+    /* Download data. */
+
+    /**
+     */
+    public function download(Horde_Variables $vars)
+    {
+        global $wicked;
+
+        $page = $vars->get('page', 'Wiki/Home');
+
+        $page_id = (($id = $wicked->getPageId($page)) === false)
+            ? $page
+            : $id;
+
+        $version = $vars->version;
+        if (empty($version)) {
+            try {
+                $attachments = $wicked->getAttachedFiles($page_id);
+                foreach ($attachments as $attachment) {
+                    if ($attachment['attachment_name'] == $vars->file) {
+                        $version = $attachment['attachment_version'];
+                    }
+                }
+            } catch (Wicked_Exception $e) {}
+
+            if (empty($version)) {
+                // If we redirect here, we cause an infinite loop with inline
+                // attachments.
+                header('HTTP/1.1 404 Not Found');
+                exit;
+            }
+        }
+
+        try {
+            $data = $wicked->getAttachmentContents($page_id, $vars->file, $version);
+            $wicked->logAttachmentDownload($page_id, $vars->file);
+        } catch (Wicked_Exception $e) {
+            // If we redirect here, we cause an infinite loop with inline
+            // attachments.
+            header('HTTP/1.1 404 Not Found');
+            echo $e->getMessage();
+            exit;
+        }
+
+        $type = Horde_Mime_Magic::analyzeData($data, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
+        if ($type === false) {
+            $type = Horde_Mime_Magic::filenameToMime($vars->file, false);
+        }
+
+        return array(
+            'data' => $data,
+            'file' => $vars->file,
+            'type' => $type
+        );
     }
 
 }

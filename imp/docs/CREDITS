@@ -2,8 +2,8 @@
  Acknowledgements
 ==================
 
-Development of the Ajax interface sponsored by Portugal Telecom's SAPO division
-(http://softwarelivre.sapo.pt/).
+Development of the dynamic interface sponsored by Portugal Telecom's SAPO
+division (http://softwarelivre.sapo.pt/).
 
 
 ======================
@@ -25,7 +25,7 @@ Localization
 =====================   ======================================================
 Arabic (Oman)           Said Al-Hosni <admin@wabhosting.com>
 Arabic (Syria)          Platinum Development Team <devteam@platinum-sy.net>
-Basque                  Euskal Herriko Unibertsitatea <xabier.arrieta@ehu.es>
+Basque                  Euskal Herriko Unibertsitatea <webmaster@ehu.es>
 Bosnian                 Alen Sarkinovic <alen@linux.org.ba>
                         Vedran Ljubovic <vljubovic@smartnet.ba>
 Brazilian Portuguese    <hostmaster@sbs.srv.br>
@@ -44,6 +44,8 @@ Croatian                Iva Rumora <iva.rumora@zg.t-com.hr>
                         Matej Vela <matej.vela@carnet.hr>
 Czech                   Pavel Chytil <pchytil@asp.ogi.edu>
                         Jan Krivanek <honza@atack.cz>
+                        Petra Kostinkova <kostinkova.petra@active24.cz>
+                        Michal Foist <foist.michal@active24.cz>
 Danish                  Martin List-Petersen <martin@list-petersen.dk>
                         Brian Truelsen <horde+i18n@briantruelsen.dk>
                         Niels Baggesen <nba@users.sourceforge.net>
@@ -62,6 +64,8 @@ French                  Christophe Ruelle <ruelle@echo.fr>
                         Vincent Vinet <vvinet@revolutionlinux.com>
                         Yannick Sebastia <yannick.sebastia@ecole-navale.fr>
                         Ronan Salmon <rsalmon@mbpgroup.com>
+                        Paul De Vlieger
+                        <paul.de_vlieger@moniut.univ-bpclermont.fr>
 Galician                Rafael Varela <rafael.varela@usc.es>
                         Guillermo Mendez <guille@usc.es>
 German                  Carsten Guenther <cguenther@guenthers.net>
@@ -73,11 +77,13 @@ Greek                   Stefanos I. Dimitriou <support@teiath.gr>
 Hebrew                  Matt Selsky <selsky@columbia.edu>
 Hungarian               Laszlo L. Tornoci <torlasz@xenia.sote.hu>
                         Andras Galos <galosa@netinform.hu>
+                        Zoltán Németh <nemeth.zoltan@etit.hu>
 Icelandic               Bjorn Davidsson <bjossi@snerpa.is>
 Indonesian              Slamin <slamin@unej.ac.id>
 Italian                 Giovanni Meneghetti <gmeneghetti@infvic.it>
                         Marco Pirovano <marco.pirovano@unibocconi.it>
                         Cristian Manoni <cristian.manoni@nethesis.it>
+                        Emilien <emilien@wifi.e4a.it>
 Japanese                B.J. Black <william.black@sun.com>
                         Takeshi Morishima <tm@onepost.net>
                         Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
@@ -106,6 +112,7 @@ Polish                  Mariusz Zynel <mariusz@math.uwb.edu.pl>
                         Piotr Adamcio <adamcios@o2.pl>
                         Tadeusz Lesiecki <lesiecki@tmtsystem.pl>
                         Piotr Tarnowski <drfugazi@drfugazi.eu.org>
+                        Krzysztof Kozera <krzysztof113@o2.pl>
 Portuguese              Nuno Loureiro <nuno@eth.pt>
                         Manuel Menezes de Sequeira <Manuel.Sequeira>
 Romanian                Corneliu Musat <cmusat@tiamat.keysys.ro>
@@ -115,13 +122,17 @@ Russian                 Anton Nekhoroshih <anton@valuehost.ru>
 Slovak                  Leo Mrafko <leo@oel.sk>
                         Ivan Noris <noris@bgs.sk>
                         Martin Matuška <martin@matuska.org>
+                        Marika Schvarczova <schvarczova.marika@domeny.sk>
+                        Jozef Sudolský <jozef.sudolsky@elbia.sk>
 Slovenian               Jure Krasovic <jurek@rcc-irc.si>
                         Matic Dolar <matic@medium.si>
 Spanish                 Raul Alvarez Venegas <rav@tecoman.ucol.mx>
                         Manuel Perez Ayala <mperaya@alcazaba.unex.es>
                         Juan C. Blanco <jcblanco@fi.upm.es>
 Swedish                 Andreas Dahlén <andreas@dahlen.ws>
+                        Andreas Påhlsson <andreas@pahlsson.info>
                         Joaquim Homrighausen <joho@webbplatsen.se>
+                        Jakob Alvermark <jakob.alvermark@bsdlabs.com>
 Thai                    Surasak Srisawan <surasak@rirc.ac.th>
 Turkish                 Genco Yilmaz <gencoyilmaz@yahoo.com>
                         Istanbul Technical University IT Department

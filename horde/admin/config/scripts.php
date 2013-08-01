@@ -6,32 +6,27 @@
  * files either as download or saved to the server's temporary
  * directory.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
-$permission = 'configuration';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
-
-/* Get form data. */
-$setup = Horde_Util::getFormData('setup');
-$type = Horde_Util::getFormData('type');
-$save = Horde_Util::getFormData('save');
-$clean = Horde_Util::getFormData('clean');
+require_once __DIR__ . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:configuration')
+));
 
 $filename = 'horde_configuration_upgrade.php';
+$vars = $injector->getInstance('Horde_Variables');
 
 /* Check if this is only a request to clean up. */
-if ($clean == 'tmp') {
+if ($vars->clean == 'tmp') {
     $tmp_dir = Horde::getTempDir();
     $path = Horde_Util::realPath($tmp_dir . '/' . $filename);
     if (@unlink($tmp_dir . '/' . $filename)) {
@@ -44,7 +39,7 @@ if ($clean == 'tmp') {
 }
 
 $data = '';
-if ($setup == 'conf' && $type == 'php') {
+if ($vars->setup == 'conf' && $vars->type == 'php') {
     /* Save PHP code into a string for creating the script to be run at the
      * command prompt. */
     $data = '#!/usr/bin/env php' . "\n";
@@ -75,7 +70,7 @@ if ($setup == 'conf' && $type == 'php') {
     }
 }
 
-if ($save != 'tmp') {
+if ($vars->save != 'tmp') {
     /* Output script to browser for download. */
     $browser->downloadHeaders($filename, 'text/plain', false, strlen($data));
     echo $data;
@@ -92,11 +87,9 @@ $data .= '    echo \'WARNING!!! REMOVE SCRIPT MANUALLY FROM ' . $tmp_dir . '\' .
 $data .= '}' . "\n";
 /* The script should be saved to server's temporary directory. */
 $path = Horde_Util::realPath($tmp_dir . '/' . $filename);
-if ($fp = @fopen($tmp_dir . '/' . $filename, 'w')) {
-    fwrite($fp, $data);
-    fclose($fp);
+if (file_put_contents($tmp_dir . '/' . $filename, $data)) {
     chmod($tmp_dir . '/' . $filename, 0777);
-    $notification->push(sprintf(_("Saved configuration upgrade script to: \"%s\"."), $path), 'horde.success');
+    $notification->push(sprintf(_("Saved configuration upgrade script to: \"%s\"."), $path), 'horde.success', array('sticky'));
 } else {
     $notification->push(sprintf(_("Could not save configuration upgrade script to: \"%s\"."), $path), 'horde.error');
 }

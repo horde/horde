@@ -6,14 +6,4 @@
   <configboolean name="rules" required="false" desc="Should the rules page
   be enabled?">true</configboolean>
  </configsection>
-
- <configsection name="menu" desc="Menu settings">
-  <configheader>Menu settings</configheader>
-  <configmultienum name="apps" desc="Select any applications that should be
-  linked in Sam's menu">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
- </configsection>
 </configuration>

@@ -15,7 +15,7 @@
 /**
  * Driver test base.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If you did not
  * receive this file, see http://www.horde.org/licenses/gpl
@@ -99,7 +99,7 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
         $end   = new Horde_Date(345600);
         $this->assertEquals(
             1,
-            count(self::$driver->listEvents($start, $end, true))
+            count(self::$driver->listEvents($start, $end, array('show_recurrence' => true)))
         );
     }
 
@@ -110,7 +110,7 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
         $end   = new Horde_Date(172800);
         $this->assertEquals(
             array(),
-            self::$driver->listEvents($start, $end, true)
+            self::$driver->listEvents($start, $end, array('show_recurrence' => true))
         );
     }
 
@@ -122,18 +122,11 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
         $event->start = new Horde_Date(0);
         $event->end = new Horde_Date(14400);
         $event->recurrence = new Horde_Date_Recurrence($event->start);
-        $event->recurrence->fromHash(
-            array(
-                'interval' => 1,
-                'cycle' => 'daily',
-                'range-type' => 'number',
-                'range' => 4,
-                'exceptions' => array(
-                    '19700102',
-                    '19700103'
-                )
-            )
-        );
+        $event->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
+        $event->recurrence->setRecurInterval(1);
+        $event->recurrence->setRecurCount(4);
+        $event->recurrence->exceptions[] = '19700102';
+        $event->recurrence->exceptions[] = '19700103';
         return $event;
     }
 }

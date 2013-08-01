@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $gallery_id = Horde_Util::getFormData('gallery');
@@ -45,15 +45,15 @@ $view = new Ansel_View_Upload(
         'drop_target' => 'filelist',
         'upload_button' => 'uploadfiles',
         'gallery' => $gallery,
-        'return_target' => $return_url->toString()));
+        'return_target' => $return_url->toString(true, true)));
 if (!$prefs->getValue('force_old_uploader', 'false')) {
     $view->run();
 }
 $nojs = $view->handleLegacy();
 
-$title = _("Add Photo");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'title' => _("Add Photo")
+));
 echo '<div class="header" id="galleryHeader"><span class="breadcrumbs">' . Ansel::getBreadCrumbs($gallery) . '</span></div>';
 require ANSEL_TEMPLATES . '/image/plupload.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

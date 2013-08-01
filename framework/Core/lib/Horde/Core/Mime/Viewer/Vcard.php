@@ -2,7 +2,7 @@
 /**
  * The Horde_Core_Mime_Viewer_Vcard class renders out vCards in HTML format.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -36,15 +36,12 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
     /**
      * Constructor.
      *
-     * @param Horde_Mime_Part $mime_part  The object with the data to be
-     *                                    rendered.
-     * @param array $conf                 Configuration:
-     * <pre>
-     * 'browser' - (Horde_Browser) Browser object.
-     * 'notification' - (Horde_Notification_Base) Notification object.
-     * 'prefs' - (Horde_Prefs) Prefs object.
-     * 'registry' - (Horde_Registry) Registry object.
-     * </pre>
+     * @param Horde_Mime_Part $part  The object with the data to be rendered.
+     * @param array $conf            Configuration:
+     *   - browser: (Horde_Browser) Browser object.
+     *   - notification: (Horde_Notification_Base) Notification object.
+     *   - prefs: (Horde_Prefs) Prefs object.
+     *   - registry: (Horde_Registry) Registry object.
      *
      * @throws InvalidArgumentException
      */
@@ -67,16 +64,18 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
      */
     protected function _render()
     {
+        global $page_output;
+
         $ret = $this->_renderInline();
 
         if (!empty($ret)) {
-            $templates = $this->getConfigParam('registry')->get('templates', 'horde');
+            $page_output->sidebar = $page_output->topbar = false;
 
             reset($ret);
             Horde::startBuffer();
-            include $templates . '/common-header.inc';
+            $page_output->header();
             echo $ret[key($ret)]['data'];
-            include $templates . '/common-footer.inc';
+            $page_output->footer();
             $ret[key($ret)]['data'] = Horde::endBuffer();
         }
 
@@ -95,10 +94,8 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
         $prefs = $this->getConfigParam('prefs');
         $registry = $this->getConfigParam('registry');
 
-        $app = false;
         $data = $this->_mimepart->getContents();
         $html = '';
-        $import_msg = null;
         $title = Horde_Core_Translation::t("vCard");
 
         $iCal = new Horde_Icalendar();
@@ -114,7 +111,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
             foreach ($iCal->getComponents() as $c) {
                 if ($c->getType() == 'vcard') {
                     try {
-                        $contacts = $registry->call('contacts/import', array($c, null, $source));
+                        $registry->call('contacts/import', array($c, null, $source));
                         ++$count;
                     } catch (Horde_Exception $e) {
                         $notification->push(Horde_Core_Translation::t("There was an error importing the contact data:") . ' ' . $e->getMessage(), 'horde.error');
@@ -129,7 +126,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                                 'horde.success');
         }
 
-        $html .= '<table cellspacing="1" border="0" cellpadding="1">';
+        $html .= '<table class="horde-table" style="width:100%">';
 
         foreach ($iCal->getComponents() as $i => $vc) {
             if ($i > 0) {
@@ -176,11 +173,11 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                     if ($browser->hasFeature('datauri') === true ||
                         $browser->hasFeature('datauri') >= strlen($photo['value'])) {
                         $html .= $this->_row(Horde_Core_Translation::t("Photo"),
-                                             '<img src="data:' . htmlspecialchars($photo['params']['TYPE'] . ';base64,' . $photo['value']) . '" />',
+                                             '<img src="' . Horde_Url_Data::create($photo['params']['TYPE'], base64_decode($photo['value'])) . '" />',
                                              false);
                     } elseif ($this->_imageUrl) {
                         $html .= $this->_row(Horde_Core_Translation::t("Photo"),
-                                             '<img src="' . htmlspecialchars($this->_imageUrl->add(array('c' => $i, 'p' => $p))) . '" />',
+                                             '<img src="' . $this->_imageUrl->add(array('c' => $i, 'p' => $p)) . '" />',
                                              false);
                     }
                 }
@@ -391,9 +388,11 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
             } catch (Horde_Icalendar_Exception $e) {}
         }
 
+        $html .=  '</table>';
+
         if ($registry->hasMethod('contacts/import') &&
             $registry->hasMethod('contacts/sources')) {
-            $html .= '<tr><td colspan="2" class="smallheader"><form action="'
+            $html .= '<div class="horde-form-buttons"><form action="'
                 . Horde::selfUrl() . '" method="get" name="vcard_import">'
                 . Horde_Util::formInput();
             foreach ($_GET as $key => $val) {
@@ -404,9 +403,9 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
             $sources = $registry->call('contacts/sources', array(true));
             if (count($sources) > 1) {
                 $html .=
-                    '<input type="submit" class="button" name="import" value="'
+                    '<input type="submit" class="horde-default" name="import" value="'
                     . Horde_Core_Translation::t("Add to address book:") . '" />'
-                    . '<label for="add_source" class="hidden">'
+                    . ' <label for="add_source" class="hidden">'
                     . Horde_Core_Translation::t("Address Book") . '</label>'
                     . '<select id="add_source" name="source">';
                 foreach ($sources as $key => $label) {
@@ -416,19 +415,18 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                         . $selected . '>' . htmlspecialchars($label)
                         . '</option>';
                 }
+                $html .= '</select>';
             } else {
                 reset($sources);
                 $html .=
-                    '<input type="submit" class="button" name="import" value="'
+                    '<input type="submit" class="horde-default" name="import" value="'
                     . Horde_Core_Translation::t("Add to my address book") . '" />'
                     . '<input type="hidden" name="source" value="'
                     . htmlspecialchars(key($sources)) . '" />';
             }
 
-            $html .= '</form></td></tr><tr><td>&nbsp;</td></tr>';
+            $html .= '</form></div>';
         }
-
-        $html .=  '</table>';
 
         Horde::startBuffer();
         $notification->notify(array('listeners' => 'status'));
@@ -448,8 +446,8 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
             $label = htmlspecialchars($label);
             $value = htmlspecialchars($value);
         }
-        return '<tr><td class="item" valign="top">' . $label .
-            '</td><td class="item" valign="top">' . nl2br($value) .
+        return '<tr><td>' . $label .
+            '</td><td>' . nl2br($value) .
             "</td></tr>\n";
     }
 

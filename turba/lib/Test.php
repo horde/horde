@@ -2,7 +2,7 @@
 /**
  * This class provides the Turba configuration for the test script.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -31,11 +31,7 @@ class Turba_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_pearList = array(
-        'Net_LDAP' => array(
-            'error' => 'Net_LDAP is required when doing schema checks with LDAP address books.',
-        )
-    );
+    protected $_pearList = array();
 
     /**
      * Required configuration files.

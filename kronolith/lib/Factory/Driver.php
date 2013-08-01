@@ -43,7 +43,8 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
             break;
 
         case 'resource':
-            $driver = 'Resource';
+        case 'Resource':
+            $driver = 'Resource_Sql';
             break;
         }
 
@@ -56,7 +57,6 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
         }
 
         switch ($driver) {
-        case 'Resource':
         case 'Sql':
             $params = array_merge(Horde::getDriverConfig('calendar', 'sql'), $params);
             if ($params['driverconfig'] != 'Horde') {
@@ -67,7 +67,23 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
                 $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
             }
             break;
-                                                                                        case 'Kolab':
+
+        case 'Resource_Sql':
+            if (!isset($GLOBALS['conf']['calendar']['driver']) ||
+                $GLOBALS['conf']['resource']['driver'] != 'sql') {
+                return new Horde_Support_Stub();
+            }
+            $params = array_merge(Horde::getDriverConfig('resource', 'sql'), $params);
+            if ($params['driverconfig'] != 'Horde') {
+                $customParams = $params;
+                unset($customParams['driverconfig'], $customParams['table'], $customParams['utc']);
+                $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('kronolith', $customParams);
+            } else {
+                $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+            }
+            break;
+
+        case 'Kolab':
             $params['storage'] = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
             break;
 

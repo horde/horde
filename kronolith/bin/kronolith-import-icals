@@ -5,7 +5,7 @@
  * The data is read from standard input, the calendar and user name passed as
  * parameters.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -13,8 +13,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-if (file_exists(dirname(__FILE__) . '/../../kronolith/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../kronolith/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()
@@ -24,7 +24,6 @@ require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('kronolith', array('cli' => true));
 
 // Read command line parameters.
-$cli = Horde_Cli::singleton();
 if (count($argv) != 3) {
     $cli->message('Too many or too few parameters.', 'cli.error');
     usage();

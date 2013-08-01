@@ -3,13 +3,6 @@
 class Kronolith_Factory_Storage extends Horde_Core_Factory_Base
 {
     /**
-     * Instances.
-     *
-     * @var array
-     */
-    private $_instances = array();
-
-    /**
      * Return the driver instance.
      *
      * @return Kronolith_Storage

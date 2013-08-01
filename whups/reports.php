@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -8,8 +8,10 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('whups');
+
+Whups::addTopbarSearch();
 
 /* Supported graph types. Unused at the moment. */
 $graphs = array('open|queue_name' => array('chart', _("Open Tickets by Queue")),
@@ -28,16 +30,12 @@ $stats = array('avg|open' => _("Average time a ticket is unresolved"),
                'min|open' => _("Minimum time a ticket is unresolved"));
 
 $queues = Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ);
-if (!count($queues)) {
-    $notification->push(_("No stats available."));
-}
 
 $reporter = new Whups_Reports($whups_driver);
 
-$title = _("Reports");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
-if (count($queues)) {
-    require WHUPS_TEMPLATES . '/reports/stats.inc';
-}
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->header(array(
+    'title' => _("Reports")
+));
+$notification->notify(array('listeners' => 'status'));
+require WHUPS_TEMPLATES . '/reports/stats.inc';
+$page_output->footer();

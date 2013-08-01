@@ -16,12 +16,10 @@
  * The hook that updates the Horde history information once data gets
  * synchronized with the Kolab backend.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @since Horde_Kolab_Storage 1.1.0
  *
  * @category Kolab
  * @package  Kolab_Storage

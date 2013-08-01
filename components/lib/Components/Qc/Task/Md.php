@@ -14,7 +14,7 @@
 /**
  * Components_Qc_Task_Md:: runs a mess detection check on the component.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -58,14 +58,13 @@ extends Components_Qc_Task_Base
      *
      * @param array &$options Additional options.
      *
-     * @return NULL
+     * @return integer Number of errors.
      */
     public function run(&$options)
     {
         $lib = realpath($this->_config->getPath() . '/lib');
 
-        // @todo: The emacs renderer is a customization.
-        $renderer = new PHP_PMD_Renderer_EmacsRenderer();
+        $renderer = new PHP_PMD_Renderer_TextRenderer();
         $renderer->setWriter(new PHP_PMD_Writer_Stream(STDOUT));
 
         $ruleSetFactory = new PHP_PMD_RuleSetFactory();

@@ -1,17 +1,25 @@
 <?php
 /**
- * Login tasks module that purges old messages in the Spam mailbox.
- *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Matt Selsky <selsky@columbia.edu>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Login tasks module that purges old messages in the Spam mailbox.
+ *
+ * @author    Matt Selsky <selsky@columbia.edu>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
 {
@@ -37,7 +45,8 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
     public function execute()
     {
         /* If there is no Spam mailbox set, or it doesn't exist, exit. */
-        if (!($spam = IMP_Mailbox::getPref('spam_folder')) || !$spam->exists) {
+        if (!($spam = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_SPAM)) ||
+            !$spam->exists) {
             return false;
         }
 
@@ -70,7 +79,7 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
     public function describe()
     {
         return sprintf(_("All messages in your \"%s\" mailbox older than %s days will be permanently deleted."),
-                       IMP_Mailbox::getPref('spam_folder')->display_html,
+                       IMP_Mailbox::getPref(IMP_Mailbox::MBOX_SPAM)->display_html,
                        $GLOBALS['prefs']->getValue('purge_spam_keep'));
     }
 

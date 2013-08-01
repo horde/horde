@@ -2,10 +2,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Base.php';
+require_once __DIR__ . '/../Base.php';
 
 /**
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -17,11 +17,13 @@ class Horde_Share_Sql_Pdo_SqliteTest extends Horde_Share_Test_Sql_Base
 {
     public static function setUpBeforeClass()
     {
-        if (!extension_loaded('pdo') ||
-            !in_array('sqlite', PDO::getAvailableDrivers())) {
-            return;
+        $factory_db = new Horde_Test_Factory_Db();
+
+        try {
+            self::$db = $factory_db->create();
+            parent::setUpBeforeClass();
+        } catch (Horde_Test_Exception $e) {
+            self::$reason = 'Sqlite not available';
         }
-        self::$db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:', 'charset' => 'utf-8'));
-        parent::setUpBeforeClass();
     }
 }

@@ -1,6 +1,6 @@
-================================
- Installing Horde Framework 5.0
-================================
+==============================
+ Installing Horde Framework 5
+==============================
 
 :Contact: horde@lists.horde.org
 
@@ -108,19 +108,21 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    Horde is primarily developed under the Apache and Lighttpd webservers,
    which we recommend.  These servers are available from:
 
-      http://httpd.apache.org/
-      http://www.lighttpd.net/
+      - http://httpd.apache.org/
+      - http://www.lighttpd.net/
 
-2. PHP 5.2.0 or above.
+2. PHP 5.3.0 or above.
 
    PHP is the interpreted language in which Horde is written.
 
-   .. Note:: If possible, you should install PHP with your operating system's
-             package manager. Alternatively you build PHP yourself.
-
-   To build PHP from sources, you can obtain it at
+   You can obtain PHP sources at::
 
       http://www.php.net/
+
+   .. Note:: While it may be possible to install PHP using the package manager
+      for your operating system, it is highly recommended to install PHP from
+      source, since distribution packages often do not contain the most recent
+      bug and security patches.
 
    Follow the instructions in the PHP package to build PHP for your system. If
    you use Apache, be sure to build PHP as a library with one of the following
@@ -147,6 +149,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
          http://www.gnu.org/software/gettext/gettext.html
 
       See also note below on configuring Translations_.
+
+      All Horde translations are stored in UTF-8, so your underlying system
+      MUST support UTF-8 for all locales that you wish to provide translation
+      support for.
 
    b. XML and DOM support.
 
@@ -213,10 +219,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       will be configurable via Horde's web interface - the default values
       stored in each applications ``config/prefs.php`` file will be used.
 
-   c. UTF-8 support (mbstring and iconv extensions) ``--enable-mbstring``
+   c. Multibyte character support (mbstring and iconv extensions) ``--enable-mbstring``
 
       If these extensions are enabled, Horde can better support multibyte
-      character sets like UTF-8.
+      character sets.
 
       For iconv support you should use the GNU libiconv library, which is more
       stable and supports more charsets, compared to other iconv
@@ -256,6 +262,30 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
                   also. Please check ``docs/INSTALL`` for all applications you
                   wish to use to see if other PHP options are needed.
 
+   f. fileinfo
+
+      Allows Horde applications to guess the MIME type of files by analyzing
+      their contents.
+
+      This extension is automatically enabled by default.
+
+   g. intl
+
+      The intl extension is required to handle display of Internationalized
+      Domain Names (see RFC 3490), e.g in e-mail addresses.
+
+      This extension can be enabled by adding the ``--enable-intl`` option
+      when compiling PHP.
+
+   h. _curl ``--with-curl``
+
+      The curl extension, if installed, will be used instead of PHP's fopen()
+      when retrieving data from external HTTP servers (remote calendars, web
+      APIs, etc.). This is much more reliable and flexible, so it is
+      recommended to either enable it or install the http_ extension.
+
+      This extension can be enabled by adding the ``--with-curl`` option when
+      compiling PHP.
 
 3. PEAR Modules
 
@@ -288,18 +318,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    .. Important:: If you are going to install Horde the recommended way,
                   i.e. using the PEAR installer, you can skip the remainder of
                   this section. Installing Horde through PEAR will
-                  automatically download and install all required PEAR modules.
+                  automatically download and install all required PEAR
+                  packages.
 
-   These PEAR modules are **REQUIRED** to be installed for complete Horde
-   functionality:
-
-   a. Crypt_Blowfish (>= 1.0.1)
-
-      To install, enter the following at the command prompt::
-
-        pear install Crypt_Blowfish
-
-   These PEAR modules are **RECOMMENDED** to be installed:
+   These PEAR packages are **RECOMMENDED** to be installed:
 
    a. Net_DNS2
 
@@ -329,13 +351,13 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
        pear install File_Fstab
 
-   This method of installing PEAR modules requires that you have a PHP version
+   This method of installing PEAR packages requires that you have a PHP version
    that has been compiled as a static binary.  All versions of PHP build both
    both a SAPI module (Apache, CGI, etc.) and a command-line (CLI) binary.
    Check if you have a php binary in ``/usr/local/bin`` (``/usr/bin`` if you
    installed from an operating system package) before recompiling.
 
-   For more detailed directions on installing PEAR modules, see the PEAR
+   For more detailed directions on installing PEAR packages, see the PEAR
    documentation at http://pear.php.net/manual/
 
 4. PECL Modules
@@ -362,35 +384,12 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    After that, restart your webserver.
 
-   These PECL modules are **RECOMMENDED** to be installed:
+   These PECL packages are **RECOMMENDED** to be installed:
 
-   a. fileinfo
+   a. imagick
 
-      Allows Horde modules to guess the MIME type of files by analyzing
-      their contents.
-
-      To install, enter the following at the command prompt::
-
-        pecl install fileinfo
-
-      .. As of PHP 5.3.0, this module is automatically enabled by default.
-
-   b. intl
-
-      The intl module is required to handle display of Internationalized
-      Domain Names (see RFC 3490), e.g in e-mail addresses.
-
-      To install, enter the following at the command prompt::
-
-        pecl install intl
-
-      Alternatively, this module is shipped with PHP 5.3.0+ and can be
-      enabled by adding the ``--enable-intl`` option when compiling PHP.
-
-   c. imagick
-
-      The imagick module can be used by Horde's image library to provide all
-      kind of image manipulations.
+      The imagick extension can be used by Horde's image library to provide
+      image manipulations.
 
       To install, enter the following at the command prompt::
 
@@ -399,22 +398,34 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       The imagick extension **must** be compiled against ImageMagick version
       6.2.9 or better, though version 6.5.7 or better is recommended.
 
-   d. lzf
+   b. horde_lz4
 
-      If the lzf module is available, Horde can compress cached data within
-      the current session, thus reducing the size of the current session.
+      If the horde_lz4 extension is available, Horde can perform real-time
+      compression on data, resulting in reduced storage load on the server for
+      things like cache storage and session data. It is highly recommended.
 
       To install, enter the following at the command prompt::
 
-        pecl install lzf
+        pecl install horde_lz4
 
-   e. memcache
+   c. memcache
 
       If using memcache, the memcache PECL extension must be installed.
 
       To install, enter the following at the command prompt::
 
         pecl install memcache
+
+   d. _http
+
+      The http extension, if installed, will be used instead of PHP's fopen()
+      when retrieving data from external HTTP servers (remote calendars, web
+      APIs, etc.). This is much more reliable and flexible, so it recommended
+      to either install this or enable the curl_ extension.
+
+      To install, enter the following at the command prompt::
+
+        pecl install http
 
    For additional help on using the pear command-line program to install PECL
    extensions, see the PEAR installation section above.
@@ -461,7 +472,7 @@ latest not yet released fixes, you can install Horde from Git.
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
 
-Before beginning, make sure your PEAR package is up-to-date:
+Before beginning, make sure your PEAR package is up-to-date::
 
    pear upgrade PEAR
 
@@ -519,21 +530,21 @@ the PEAR installation you just created, e.g.::
    /var/www/horde/pear/pear -c /var/www/horde/pear.conf channel-discover \
        pear.horde.org
 
-Finally update the .htaccess file in ``/var/www/horde/`` or configure your web
-server in some other way to point PHP's ``include_path`` setting to the PEAR
-installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the web
-root::
+Finally configure your web server in some way to point PHP's ``include_path``
+setting to the PEAR installation and the ``PHP_PEAR_SYSCONF_DIR`` environment
+variable to the web root::
 
    php_value include_path /var/www/horde/pear/php
    SetEnv PHP_PEAR_SYSCONF_DIR /var/www/horde
+
+It is recommended to not use the .htaccess file in ``/var/www/horde/`` to set
+these values because it will be overwritten with every further update.
 
 
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
 
-See::
-
-   http://horde.org/source/git.php
+See http://www.horde.org/development/git
 
 
 Configuring Horde
@@ -674,7 +685,7 @@ Configuring Horde
       # Horde Alarms
       */5 * * * * /usr/bin/horde-alarms
 
-   If not installing Horde through PEAR of if PEAR's ``bin_dir`` configuration
+   If not installing Horde through PEAR or if PEAR's ``bin_dir`` configuration
    doesn't point to ``/usr/bin/``, replace ``/usr/bin/horde-alarms`` with the
    path to the ``horde-alarms`` script in your Horde installation.
 
@@ -692,7 +703,7 @@ Configuring Horde
    completed, the testdisable option should be reset to true.
 
    Check that your PHP and PEAR versions are acceptably recent, that all
-   required module capabilities are present, and that ``magic_quotes_runtime``
+   required capabilities are present, and that ``magic_quotes_runtime``
    is set to ``Off``. Then note the ``Session counter: 1`` line under ``PHP
    Sessions``, and reload the page. The session counter should increment.
 
@@ -788,9 +799,10 @@ reasons, some of these files may not be removed when the user's session
 ends. To reclaim this disk space, it may be necessary to periodically delete
 these old temporary files.
 
-An example cron-based solution can be found at ``scripts/temp-cleanup.cron``.
-Another possible solution is to use Red Hat's ``tmpwatch`` utility or anything
-similar to remove old files (see http://www.redhat.com/).
+An example cron-based solution can be found at
+``horde/scripts/temp-cleanup.cron`` in PEAR's ``data_dir`` directory.  Another
+possible solution is to use utilities like ``tmpwatch``, ``tmpreaper`` or
+anything similar to remove old files.
 
 Stale sessions are automatically pruned by PHP according to the
 `session.gc_probability`_, `session.gc_divisor`_, and
@@ -808,7 +820,7 @@ Note for international users: Horde uses GNU gettext to provide local
 translations of text displayed by applications; the translations are found in
 the po/ directory.  If a translation is not yet available for your locale (and
 you wish to create one), or if you're having trouble using a provided
-translation, please see the `horde/docs/TRANSLATIONS`_ file for instructions.
+translation, please see the docs/TRANSLATIONS_ file for instructions.
 
 
 Obtaining Support
@@ -841,7 +853,9 @@ The Horde Team
 
 .. _README: README
 .. _docs/SECURITY: SECURITY
-.. _`horde/docs/TRANSLATIONS`: TRANSLATIONS
+.. _docs/TRANSLATIONS: TRANSLATIONS
+.. _curl: http://php.net/curl
+.. _http: http://php.net/http
 .. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads
 .. _`Firebug`: http://www.getfirebug.com/
 .. _`session.gc_probability`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability

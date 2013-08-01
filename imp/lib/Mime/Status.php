@@ -1,17 +1,25 @@
 <?php
 /**
- * Provides the object that contains the status data to output when viewing
- * MIME parts in IMP.
- *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Provides the object that contains the status data to output when viewing
+ * MIME parts in IMP.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Mime_Status
 {
@@ -19,6 +27,17 @@ class IMP_Mime_Status
     const ERROR = 1;
     const SUCCESS = 2;
     const WARNING = 3;
+
+    /**
+     * Views to display this status in.
+     *
+     * @var array
+     */
+    public $views = array(
+        Horde_Registry::VIEW_BASIC,
+        Horde_Registry::VIEW_DYNAMIC,
+        Horde_Registry::VIEW_MINIMAL
+    );
 
     /**
      * DOM ID to use for the status block.
@@ -117,24 +136,38 @@ class IMP_Mime_Status
      */
     public function __toString()
     {
-        $out = '<div><table class="mimeStatusMessageTable"' .
-            (isset($this->_domid) ? (' id="' . $this->_domid . '" ') : '')
-            . '>';
+        global $registry;
 
-        /* If no image, simply print out the message. */
-        if (empty($this->_icon)) {
+        $out = '';
+
+        switch ($registry->getView()) {
+        case $registry::VIEW_SMARTMOBILE:
             foreach ($this->_text as $val) {
-                $out .= '<tr><td>' . $val . '</td></tr>';
+                $out .= '<div>' . $val . '</div>';
             }
-        } else {
-            $out .= '<tr><td class="mimeStatusIcon">' . $this->_icon . '</td><td><table>';
-            foreach ($this->_text as $val) {
-                $out .= '<tr><td>' . $val . '</td></tr>';
+            break;
+
+        default:
+            $out = '<div><table class="mimeStatusMessageTable"' .
+                (isset($this->_domid) ? (' id="' . $this->_domid . '" ') : '')
+                . '>';
+
+            /* If no image, simply print out the message. */
+            if (empty($this->_icon)) {
+                foreach ($this->_text as $val) {
+                    $out .= '<tr><td>' . $val . '</td></tr>';
+                }
+            } else {
+                $out .= '<tr><td class="mimeStatusIcon">' . $this->_icon . '</td><td><table>';
+                foreach ($this->_text as $val) {
+                    $out .= '<tr><td>' . $val . '</td></tr>';
+                }
+                $out .= '</table></td></tr>';
             }
-            $out .= '</table></td></tr>';
+
+            $out .= '</table></div>';
+            break;
         }
-
-        $out .= '</table></div>';
 
         return '<div class="mimeStatusMessage">' . $out . '</div>';
     }

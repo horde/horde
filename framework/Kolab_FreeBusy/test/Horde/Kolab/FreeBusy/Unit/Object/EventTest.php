@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
-
-/**
  * Test the event object.
  *
  * Copyright 2011 Kolab Systems AG

@@ -1,12 +1,21 @@
 <?php
 /**
- * The Horde_Auth_Imap:: class provides an IMAP implementation of the Horde
- * authentication system.
- *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Gaudenz Steinlin <gaudenz@soziologie.ch>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Imap:: class provides an IMAP implementation of the Horde
+ * authentication system.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Gaudenz Steinlin <gaudenz@soziologie.ch>
@@ -28,7 +37,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
-     *   - admin_password: (string) The password of the adminstrator.
+     *   - admin_password: (string) The password of the administrator.
      *                     DEFAULT: null
      *   - admin_user: (string) The name of a user with admin privileges.
      *                 DEFAULT: null
@@ -95,10 +104,17 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
+        if (!$this->hasCapability('add')) {
+            throw new Horde_Auth_Exception('Adding of users is not supported.');
+        }
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
-            $ob->createMailbox($this->_params['userhierarchy']);
-            $ob->setACL($this->_params['userhierarchy'], $this->_params['admin_user'], 'lrswipcda');
+
+            $name = $this->_params['userhierarchy'] . $userId;
+            $ob->createMailbox($name);
+            $ob->setACL($name, $this->_params['admin_user'], array(
+                'rights' => 'lrswipcda'
+            ));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
@@ -113,23 +129,35 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      */
     public function removeUser($userId)
     {
+        if (!$this->hasCapability('remove')) {
+            throw new Horde_Auth_Exception('Removing of users is not supported.');
+        }
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
-            $ob->setACL($this->_params['userhierarchy'], $this->_params['admin_user'], 'lrswipcda');
-            $ob->deleteMailbox($this->_params['userhierarchy']);
+
+            $name = $this->_params['userhierarchy'] . $userId;
+            $ob->setACL($name, $this->_params['admin_user'], array(
+                'rights' => 'lrswipcda'
+            ));
+            $ob->deleteMailbox($name);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
     }
 
     /**
-     * List all users in the system.
+     * Lists all users in the system.
+     *
+     * @param boolean $sort  Sort the users?
      *
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
     public function listUsers($sort = false)
     {
+        if (!$this->hasCapability('list')) {
+            throw new Horde_Auth_Exception('Listing of users is not supported.');
+        }
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $list = $ob->listMailboxes($this->_params['userhierarchy'] . '%', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
@@ -166,7 +194,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
             );
 
             try {
-                $this->_ob[$sig] = Horde_Imap_Client::factory('Socket', $imap_config);
+                $this->_ob[$sig] = new Horde_Imap_Client_Socket($imap_config);
             } catch (InvalidArgumentException $e) {
                 throw new Horde_Auth_Exception($e);
             }

@@ -40,7 +40,7 @@ var Horde_Twitter = Class.create({
             refreshrate: 300
         }, opts);
 
-        $(this.opts.input).observe('focus', function() {this.clearInput()}.bind(this));
+        $(this.opts.input).observe('focus', function() { this.clearInput(); }.bind(this));
         $(this.opts.input).observe('blur', function() {
             if (!$(this.opts.input).value.length) {
                 $(this.opts.input).value = this.opts.strings.defaultText;
@@ -57,6 +57,22 @@ var Horde_Twitter = Class.create({
         }.bind(this));
 
         this.instanceid = opts.instanceid;
+
+        $(this.instanceid + '_updatebutton').observe('click', function(e) {
+            this.updateStatus($F(this.instanceid + '_newStatus'));
+            e.stop();
+        }.bind(this));
+
+        $(this.instanceid + '_showcontenttab').observe('click', function(e) {
+            this.showStream();
+            e.stop();
+        }.bind(this));
+
+        $(this.instanceid + '_showmentiontab').observe('click', function(e) {
+            this.showMentions();
+            e.stop();
+        }.bind(this));
+
         this.overlay = new Element('div', { 'class': 'hordeSmOverlay' }).update('&nbsp;');
         this.overlay.hide();
         $(this.instanceid + '_preview').insert({ 'before': this.overlay });
@@ -112,6 +128,63 @@ var Horde_Twitter = Class.create({
                 this.inReplyTo = '';
             }.bind(this)
         });
+    },
+
+    /**
+     * Favorite a tweet
+     */
+    favorite: function(id)
+    {
+        $(this.opts.spinner).toggle();
+        var params = {
+            actionID: 'favorite',
+            tweetId: id
+        };
+        new Ajax.Request(this.opts.endpoint, {
+            method: 'post',
+            parameters: params,
+            onSuccess: function(response) {
+                this.favoriteCallback(response.responseJSON);
+            }.bind(this),
+            onFailure: function() {
+                $(this.opts.spinner).toggle();
+            }.bind(this)
+        });
+    },
+
+    unfavorite: function(id)
+    {
+        $(this.opts.spinner).toggle();
+        var params = {
+            actionID: 'unfavorite',
+            tweetId: id
+        };
+        new Ajax.Request(this.opts.endpoint, {
+            method: 'post',
+            parameters: params,
+            onSuccess: function(response) {
+                this.unfavoriteCallback(response.responseJSON);
+            }.bind(this),
+            onFailure: function() {
+                $(this.opts.spinner).toggle();
+            }.bind(this)
+        });
+    },
+
+    favoriteCallback: function(r)
+    {
+        $(this.opts.spinner).toggle();
+        $('favorite' + this.instanceid + r.id_str).update(this.opts.strings.unfavorite);
+        $('favorite' + this.instanceid + r.id_str).writeAttribute('onClick', '');
+        $('favorite' + this.instanceid + r.id_str).observe('click', function(e) { this.unfavorite(r.id_str); e.stop(); }.bind(this));
+    },
+
+    unfavoriteCallback: function(r)
+    {
+        $(this.opts.spinner).toggle();
+        $('favorite' + this.instanceid + r.id_str).update(this.opts.strings.favorite);
+        $('favorite' + this.instanceid + r.id_str).writeAttribute('onClick', '');
+        $('favorite' + this.instanceid + r.id_str).observe('click', function(e) { this.favorite(r.id_str); e.stop(); }.bind(this));
     },
 
     /**
@@ -202,7 +275,6 @@ var Horde_Twitter = Class.create({
     },
 
     hidePreview: function(e) {
-      console.log(e);
       $(this.instanceid + '_preview').hide();
       this.overlay.hide();
     },
@@ -214,10 +286,10 @@ var Horde_Twitter = Class.create({
      * @param object response  The response object from the Ajax request.
      */
     _getOlderEntriesCallback: function(response) {
-        var content = response.responseJSON.c;
+        var h, content = response.responseJSON.c;
         if (response.responseJSON.o) {
             this.oldestId = response.responseJSON.o;
-            var h = $(this.opts.content).scrollHeight
+            h = $(this.opts.content).scrollHeight
             $(this.opts.content).insert(content);
             $(this.opts.content).scrollTop = h;
         }
@@ -230,11 +302,11 @@ var Horde_Twitter = Class.create({
      * @param object response  The response object from the Ajax request.
      */
     _getOlderMentionsCallback: function(response) {
-        var content = response.responseJSON.c;
+        var h, content = response.responseJSON.c;
         // If no more available, the oldest id will be null
         if (response.responseJSON.o) {
             this.oldestMention = response.responseJSON.o;
-            var h = $(this.opts.mentions).scrollHeight
+            h = $(this.opts.mentions).scrollHeight
             $(this.opts.mentions).insert(content);
             $(this.opts.mentions).scrollTop = h;
         }
@@ -249,7 +321,7 @@ var Horde_Twitter = Class.create({
         var h, content = response.responseJSON.c;
 
         if (response.responseJSON.n != this.newestId) {
-            var h = $(this.opts.content).scrollHeight
+            h = $(this.opts.content).scrollHeight;
             $(this.opts.content).insert({ 'top': content });
             if (this.activeTab != 'stream') {
                 $(this.opts.contenttab).addClassName('hordeSmNew');
@@ -280,7 +352,7 @@ var Horde_Twitter = Class.create({
         var h, content = response.responseJSON.c;
 
         if (response.responseJSON.n != this.newestMention) {
-            h = $(this.opts.mentions).scrollHeight
+            h = $(this.opts.mentions).scrollHeight;
             $(this.opts.mentions).insert({ 'top': content });
             if (this.activeTab != 'mentions') {
                 $(this.opts.mentiontab).addClassName('hordeSmNew');
@@ -329,8 +401,8 @@ var Horde_Twitter = Class.create({
      * Build and display the node for a new tweet.
      */
     buildNewTweet: function(response) {
-        var tweet = new Element('div', {'class':'hordeSmStreamstory'});
-        var tPic = new Element('div', {'class':'solidbox hordeSmAvatar'}).update(
+        var tweet = new Element('div', {'class':'hordeSmStreamstory'}),
+            tPic = new Element('div', {'class':'solidbox hordeSmAvatar'}).update(
             new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(
                 new Element('img', {'src':response.user.profile_image_url})
             )
@@ -375,8 +447,8 @@ var Horde_Twitter = Class.create({
 
     toggleTabs: function()
     {
-        $(this.opts.contenttab).toggleClassName('activeTab');
-        $(this.opts.mentiontab).toggleClassName('activeTab');
+        $(this.opts.contenttab).toggleClassName('horde-active');
+        $(this.opts.mentiontab).toggleClassName('horde-active');
     },
 
     /**

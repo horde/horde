@@ -51,13 +51,12 @@
  </tr>
  <tr>
   <td align="right">
-   <label for="encrypt">Use SSL/TLS:</label>
+   <label for="encrypt">Use Secure Connection:</label>
   </td>
   <td>
    <select id="encrypt" name="encrypt">
     <option value="">No</option>
-    <option value="ssl">SSL</option>
-    <option value="tls">TLS</option>
+    <option value="yes">Yes</option>
    </select>
   </td>
  </tr>

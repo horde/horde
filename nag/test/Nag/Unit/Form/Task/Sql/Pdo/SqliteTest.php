@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../../../Autoload.php';
-
-/**
  * Test the task form with a sqlite DB.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If you did not
  * receive this file, see http://www.horde.org/licenses/gpl
@@ -35,12 +30,6 @@ require_once dirname(__FILE__) . '/../../../../../Autoload.php';
 class Nag_Unit_Form_Task_Sql_Pdo_SqliteTest extends Nag_Unit_Form_Task_Sql_Base
 {
     protected $backupGlobals = false;
-
-    static public function setUpBeforeClass()
-    {
-        self::$callback = array(__CLASS__, 'getDb');
-        parent::setUpBeforeClass();
-    }
 
     static protected function getDb()
     {

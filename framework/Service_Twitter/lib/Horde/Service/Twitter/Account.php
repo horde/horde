@@ -2,7 +2,7 @@
 /**
  * Horde_Service_Twitter_Account class for calling account methods
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -16,7 +16,7 @@ class Horde_Service_Twitter_Account
      *
      * @var string
      */
-    protected $_endpoint = 'http://twitter.com/account/';
+    protected $_endpoint = 'https://api.twitter.com/1.1/account/';
 
     /**
      * The request/response format to use, xml or json.
@@ -41,6 +41,7 @@ class Horde_Service_Twitter_Account
      * http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-account%C2%A0verify_credentials
      *
      * @return string  JSON reprentation of profile.
+     * @throws Horde_Service_Twitter_Exception
      */
     public function verifyCredentials()
     {

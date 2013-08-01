@@ -3,7 +3,7 @@
  * Horde_Serivce_VimeoSimple:: wrapper around Vimeo's (http://www.vimeo.com)
  * Simple API.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -112,7 +112,8 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
         }
 
         // We should have a url now, and possibly other options.
-        $url = Horde_Util::addParameter($this->_oembed_endpoint, $options, null, false);
+        $url = new Horde_Url($this->_oembed_endpoint);
+        $url->add($options)->setRaw(true);
 
         try {
             $response = $this->_http_client->request('GET', $url);

@@ -1,8 +1,8 @@
 /**
  * Provides the javascript for managing categories.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 
 var HordeCategoryPrefs = {
@@ -40,7 +40,7 @@ var HordeCategoryPrefs = {
     colorPicker: function(e)
     {
         var elt = e.element(),
-            input = e.element().up().previous('INPUT');
+            input = elt.up().previous('INPUT');
 
         new ColorPicker({
             color: $F(input),
@@ -54,7 +54,7 @@ var HordeCategoryPrefs = {
     onDomLoad: function()
     {
         $('prefs').observe('reset', function() {
-            this.resetBackgrounds.defer()
+            this.resetBackgrounds.defer();
         }.bind(this));
         $('add_category').observe('click', this.addCategory.bind(this));
 

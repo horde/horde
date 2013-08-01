@@ -1,16 +1,24 @@
 <?php
 /**
- * Block: show list of new mail messages.
- *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2007-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Block: show list of new mail messages.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2007-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Block_Newmail extends Horde_Core_Block
 {
@@ -59,8 +67,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
         if (empty($indices)) {
             $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
-            $charset = 'UTF-8';
-            $imp_ui = new IMP_Ui_Mailbox($inbox);
+            $imp_ui = new IMP_Mailbox_Ui($inbox);
             $shown = empty($this->_params['msgs_shown'])
                 ? 3
                 : $this->_params['msgs_shown'];
@@ -69,27 +76,26 @@ class IMP_Block_Newmail extends Horde_Core_Block
             $query->envelope();
 
             try {
-                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
                 $fetch_ret = $imp_imap->fetch($inbox, $query, array(
                     'ids' => $imp_imap->getIdsOb(array_slice($indices, 0, $shown))
                 ));
             } catch (IMP_Imap_Exception $e) {
-                $fetch_ret = array();
+                $fetch_ret = new Horde_Imap_Client_Fetch_Results();
             }
 
-            reset($fetch_ret);
-            while (list($uid, $ob) = each($fetch_ret)) {
+            foreach ($fetch_ret as $uid => $ob) {
                 $envelope = $ob->getEnvelope();
 
                 $date = $imp_ui->getDate($envelope->date);
-                $from = $imp_ui->getFrom($envelope, array('specialchars' => $charset));
+                $from = $imp_ui->getFrom($envelope);
                 $subject = $imp_ui->getSubject($envelope->subject, true);
 
                 $html .= '<tr style="cursor:pointer" class="text"><td>' .
-                    $inbox->url('message.php', $uid)->link() .
-                    '<strong>' . $from['from'] . '</strong><br />' .
+                    $inbox->url('message', $uid)->link() .
+                    '<strong>' . htmlspecialchars($from['from'], ENT_QUOTES, 'UTF-8') . '</strong><br />' .
                     $subject . '</a></td>' .
-                    '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
+                    '<td>' . htmlspecialchars($date, ENT_QUOTES, 'UTF-8') . '</td></tr>';
             }
 
             $more_msgs = count($indices) - $shown;
@@ -99,7 +105,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
         }
 
         return $html .
-               '<tr><td colspan="2" style="cursor:pointer" align="right">' . $inbox->url('mailbox.php')->link() . $text . '</a></td></tr>' .
+               '<tr><td colspan="2" style="cursor:pointer" align="right">' . $inbox->url('mailbox')->link() . $text . '</a></td></tr>' .
                '</table>';
     }
 

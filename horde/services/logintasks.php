@@ -2,40 +2,41 @@
 /**
  * Login tasks confirmation page.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
-$vars = Horde_Variables::getDefaultVariables();
+$form_key = 'logintasks_confirm_';
+$vars = $injector->getInstance('Horde_Variables');
 
 /* If no 'module' parameter passed in, die with an error. */
 if (!($app = basename($vars->app))) {
-    throw new Horde_Exception('Do not directly access logintasks.php.');
+    throw new Horde_Exception('Do not directly access this script.');
 }
 
 $registry->pushApp($app, array('logintasks' => false));
 
 if (!($tasks = $injector->getInstance('Horde_Core_Factory_LoginTasks')->create($app))) {
-    throw new Horde_Exception('The Horde_LoginTasks:: class did not load successfully.');
+    throw new Horde_Exception('The Horde_LoginTasks class did not load successfully.');
 }
 
 /* If we are through with tasks, this call will redirect to application. */
 $confirmed = array();
 if ($vars->logintasks_page) {
     foreach ($vars as $key => $val) {
-        if ($val && (strpos($key, 'logintasks_confirm_') === 0)) {
-            $confirmed[] = $key;
+        if ($val && (strpos($key, $form_key) === 0)) {
+            $confirmed[] = substr($key, strlen($form_key));
         }
     }
 }
@@ -45,8 +46,9 @@ $tasks->runTasks(array(
     'user_confirmed' => $vars->logintasks_page
 ));
 
-/* Create the Horde_Template item. */
-$template = $injector->createInstance('Horde_Template');
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/logintasks'
+));
 
 /* Have the maintenance module do all necessary processing. */
 $tasklist = $tasks->displayTasks();
@@ -62,9 +64,9 @@ switch ($tasklist[0]->display) {
 case Horde_LoginTasks::DISPLAY_CONFIRM_NO:
 case Horde_LoginTasks::DISPLAY_CONFIRM_YES:
     /* Confirmation-style output. */
-    $template->set('confirm', true, true);
-    $template->set('agree', false, true);
-    $template->set('notice', false, true);
+    $view->confirm = true;
+    $view->agree = false;
+    $view->notice = false;
 
     $title = sprintf(_("%s Tasks - Confirmation"), $app_name);
     $header = sprintf(_("%s is ready to perform the tasks below. Select each operation to run at this time."), $app_name);
@@ -72,9 +74,9 @@ case Horde_LoginTasks::DISPLAY_CONFIRM_YES:
 
 case Horde_LoginTasks::DISPLAY_AGREE:
     /* Agreement-style output. */
-    $template->set('confirm', false, true);
-    $template->set('agree', true, true);
-    $template->set('notice', false, true);
+    $view->confirm = false;
+    $view->agree = true;
+    $view->notice = false;
 
     $title = sprintf(_("%s Terms of Agreement"), $app_name);
     $header = _("Please read the following text. You MUST agree with the terms to use the system.");
@@ -82,9 +84,9 @@ case Horde_LoginTasks::DISPLAY_AGREE:
 
 case Horde_LoginTasks::DISPLAY_NOTICE:
     /* Notice-style output. */
-    $template->set('confirm', false, true);
-    $template->set('agree', false, true);
-    $template->set('notice', true, true);
+    $view->confirm = false;
+    $view->agree = false;
+    $view->notice = true;
 
     $title = sprintf(_("%s - Notice"), $app_name);
     $header = '';
@@ -97,31 +99,42 @@ foreach ($tasklist as $key => $ob) {
     $display_tasks[] = array(
         'checked' => ($ob->display == Horde_LoginTasks::DISPLAY_CONFIRM_YES),
         'descrip' => $ob->describe(),
-        'key' => $key
+        'name' => $form_key . $key
     );
 }
 
-$template->setOption('gettext', true);
-$template->set('title', $title);
-$template->set('header', $header);
-$template->set('tasks', $display_tasks, true);
-$template->set('logintasks_url', $tasks->getLoginTasksUrl());
-
-Horde::addScriptFile('logintasks.js', 'horde');
-
-$bodyId = 'services_logintasks';
-$bodyClass = 'modal-form';
+$view->title = $title;
+$view->header = $header;
+$view->tasks = $display_tasks;
+$view->logintasks_url = $tasks->getLoginTasksUrl();
 
 switch ($registry->getView()) {
 case Horde_Registry::VIEW_SMARTMOBILE:
-    require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
-    echo $template->fetch(HORDE_TEMPLATES . '/logintasks/mobile.html');
-    require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
+    $page_output->addScriptFile('logintasks-jquery.js', 'horde');
     break;
 
 default:
-    require HORDE_TEMPLATES . '/common-header.inc';
-    echo $template->fetch(HORDE_TEMPLATES . '/logintasks/logintasks.html');
-    require HORDE_TEMPLATES . '/common-footer.inc';
+    $page_output->addScriptFile('logintasks.js', 'horde');
     break;
 }
+
+$page_output->topbar = $page_output->sidebar = false;
+
+$page_output->header(array(
+    'body_class' => 'modal-form',
+    'body_id' => 'services_logintasks',
+    'title' => $title,
+    'view' => $registry->getView()
+));
+
+switch ($registry->getView()) {
+case Horde_Registry::VIEW_SMARTMOBILE:
+    echo $view->render('smartmobile');
+    break;
+
+default:
+    echo $view->render('logintasks');
+    break;
+}
+
+$page_output->footer();

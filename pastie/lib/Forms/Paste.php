@@ -2,8 +2,8 @@
 /**
  * Copyright 2010 Alkaloid Networks LLC <http://www.alkaloid.net>
  *
- * See the enclosed file LICENSE for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author Ben Klang <ben@alkaloid.net>
  * @package Pastie
@@ -14,7 +14,7 @@ class PasteForm extends Horde_Form
      */
     function PasteForm(&$vars)
     {
-        parent::Horde_Form($vars, _("New Paste"));
+        parent::__construct($vars, _("New Paste"));
 
         $engine = 'Pastie_Highlighter_' . $GLOBALS['conf']['highlighter']['engine'];
         $tmp = call_user_func(array($engine, 'getSyntaxes'));
@@ -33,7 +33,7 @@ class PasteForm extends Horde_Form
         $this->addVariable(_("Title"), 'title', 'text', false);
 
         $this->addVariable(_("Syntax"), 'syntax', 'enum', true,
-		           false, null, array($types, false));
+                   false, null, array($types, false));
 
         $this->addVariable(_("Paste"), 'paste', 'longtext', true, false, null,
                            array('rows' => 20, 'cols' => 100));

@@ -104,4 +104,17 @@ class Horde_Text_Filter_Text2htmlTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testBug12253()
+    {
+        // ISO-8859-2 encoded data.
+        $text = base64_decode('a/ZubmVu');
+
+        $filter = Horde_Text_Filter::filter($text, 'text2html', array(
+            'charset' => 'iso-8859-2',
+            'parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL
+        ));
+
+        $this->assertGreaterThan(0, strlen($filter));
+    }
+
 }

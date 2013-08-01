@@ -95,18 +95,17 @@ Webserver/PHP tuning
 
 * Enable Apache keepalives.
 
-* You can configure Horde Groupware Webmail Edition to serve all images, style
-  sheets and/or static javascript files from a different server. This could be
-  a very lightweight server without PHP (and other CGI modules) builtin. If
-  using SSL to serve all pages, the images/js server will also have to serve
-  SSL content or else browsers will complain about non-secure content in a
-  secure page. Good lightweight servers that support SSL include lighttpd_ and
-  Hiawatha_. If using a Horde Groupware Webmail Edition installation that
-  doesn't use SSL (or only uses SSL for logins), good choices for servers
-  include thttpd_ or Boa_. You need to set the ``themesuri`` and/or ``jsuri``
-  parameters in ``config/registry.php`` for all applications and copy all
-  ``themes`` and/or ``js`` directories in the same directory layout to the
-  other server.
+* You can configure Horde to serve all images, style sheets and/or static
+  javascript files from a different server. This could be a very lightweight
+  server without PHP (and other CGI modules) builtin. If using SSL to serve
+  all pages, the images/js server will also have to serve SSL content or else
+  browsers will complain about non-secure content in a secure page. Since this
+  server does not need to handle dynamic content, it would be wise to use a
+  high-performance server with low memory and/or system resource requirements
+  (this `IBM Article`_ can provide further information). You need to set
+  the ``themesuri`` and/or ``jsuri`` parameters in ``config/registry.php`` for
+  all applications and copy all ``themes`` and/or ``js`` directories in the
+  same directory layout to the other server.
 
 * Your webserver should use Expires headers to make sure static content can
   be cached on the user's browser.  For example, to make lighttpd set an
@@ -139,10 +138,7 @@ Webserver/PHP tuning
 .. _`Alternative PHP Cache`: http://www.php.net/apc
 .. _eAccelerator: http://eaccelerator.net/
 .. _XCache: http://xcache.lighttpd.net/
-.. _`lighttpd`: http://www.lighttpd.net/
-.. _`Hiawatha`: http://hiawatha.leisink.org/
-.. _`thttpd`: http://www.acme.com/software/thttpd/
-.. _`Boa`: http://www.boa.org/
+.. _`IBM Article`: http://www.ibm.com/developerworks/web/library/wa-ltwebserv/
 .. _`Yahoo's Analysis`: http://yuiblog.com/blog/2006/11/28/performance-research-part-1/
 
 
@@ -165,12 +161,21 @@ IMAP tuning
   which contains features used internally by Horde Groupware Webmail Edition to
   speed up access to the remote server.
 
+  NOTE: if your installation connects to multiple imapproxy instances, you MUST
+  configure your Horde Groupware Webmail Edition installation to persistently
+  connect to a single backend over the course of a session. If this is not
+  possible, you must remove support for imapproxy's advanced features by adding
+  'XIMAPPROXY' to the 'capability_ignore' parameter in your local
+  configuration.
+
 * Use an IMAP server that supports CONDSTORE (RFC 4551) and/or QRESYNC (RFC
   5162).
 
-  These extensions are required to properly cache data and to properly keep
-  the dynamic display synchronized. It is impossible to do otherwise, and the
-  UI experience will be limited without these extensions.
+  These extensions are required to properly cache data and to properly keep the
+  dynamic display synchronized. It is impossible to do otherwise, and the UI
+  experience will be limited without these extensions. Additionally, if these
+  IMAP extensions are available, Horde Groupware Webmail Edition is able to
+  cache servers which signficantly saves on client/server IMAP interactions.
 
   Technical information can be found here:
 
@@ -181,7 +186,7 @@ IMAP tuning
   advanced IMAP protocols, and use server-side caching to speed performance.
 
 * Consider switching to a faster mailbox storage format if needed. This may
-  also entail switching the underlying filesystem.
+  also require switching the underlying filesystem.
 
   Further information can be found here:
 
@@ -224,12 +229,23 @@ MySQL tuning
 Horde tuning
 ============
 
-
 Autoloading
 -----------
 
-* An easy way to improve the performance of the Horde Autoloader library, is to
-  install the Autoloader Cache extension::
+* Horde Groupware Webmail Edition automatically loads PHP source files on
+  demand which relies on the PHP autoloading feature introduced with PHP 5 and
+  the Horde Autoloader library.  Both allow to limit the set of source code
+  files pulled into the system to the minimal amount required to answer the
+  current request. This saves memory and time but at the same time the
+  Autoloader library has to map each class name to the path of the
+  corresponding PHP file that holds the class definition. This procedure is
+  expensive and can slow the system down.  Fortunately the mapping is fixed
+  unless files are added or removed which usually only happens during an
+  upgrade.
+
+  Thus Autoloading is amenable to caching and an easy way to improve the
+  performance of the Horde Autoloader library, is to install the Autoloader
+  Cache extension::
 
     pear install horde/horde_autoloader_cache
 
@@ -247,15 +263,13 @@ Autoloading
   or empty the cache manually, e.g. by restarting the web server or deleting
   the cache file from the temporary directory.
 
-
 VFS
 ---
 
-* Try to avoid using a SQL backend for VFS. Many databases require binary data
-  to be heavily escaped, resulting in storage sizes that are many times greater
-  than the actual size of the data, so users attaching larger files to outgoing
-  mail messages may cause PHP out-of-memory errors to occur. File system VFS
-  will normally provide much improved performance.
+* Configure Horde Groupware Webmail Edition to use a VFS filesystem-based
+  backend. Presently, the SQL VFS backend uses ~5 times the amount of memory as
+  a filesystem-based backend, so users attaching larger files to outgoing mail
+  messages may cause PHP out-of-memory errors to occur.
 
 
 Application tuning
@@ -277,6 +291,8 @@ Webmail tuning
   the potentially large amounts of cached data this option will
   produce. However, cache storage is potentially cheap when compared to the
   performance gained by using caching.
+
+  If CONDSTORE/QRESYNC is available on the server, IMAP flags can be cached.
 
   To use this caching, you must have a ``Cache System`` configured in Horde
   Groupware Webmail Edition's ``Administration/Configuration`` screen and have

@@ -5,8 +5,6 @@
  * @subpackage UnitTests
  */
 
-require_once dirname(__FILE__) . '/Autoload.php';
-
 /**
  * @category   Horde
  * @package    Date

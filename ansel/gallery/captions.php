@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $galleryId = Horde_Util::getFormData('gallery');
@@ -30,7 +30,7 @@ try {
 
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(
-        sprintf(_("Access denied setting captions for %s."), $gallery->get('name')),
+        _("Access denied setting captions for this gallery."),
         'horde.error');
     Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
@@ -66,9 +66,9 @@ case 'save':
     exit;
 }
 
-$title = _("Caption Editor");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'title' => _("Caption Editor")
+));
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/captions/captions.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

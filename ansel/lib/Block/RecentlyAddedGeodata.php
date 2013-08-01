@@ -2,12 +2,12 @@
 /**
  * Display most recently geotagged images.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Michael Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  */
 class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
 {
@@ -16,7 +16,6 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-
         $this->_name = _("Recently Geotagged Photos");
     }
 
@@ -42,10 +41,14 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
      */
     protected function _content()
     {
-        Ansel::initHordeMap();
-        Horde::addScriptFile('blocks/geotag.js');
+        global $page_output, $registry, $injector, $prefs;
+
+        Horde::initMap();
+        $page_output->addScriptFile('map.js');
+        $page_output->addScriptFile('blocks/geotag.js');
+
         try {
-            $images = $GLOBALS['injector']
+            $images = $injector
                 ->getInstance('Ansel_Storage')
                 ->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
         } catch (Ansel_Exception $e) {
@@ -54,7 +57,7 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
         $images = array_reverse($images);
         foreach ($images as $key => $image) {
             $id = $image['image_id'];
-            $gallery = $GLOBALS['injector']
+            $gallery = $injector
                 ->getInstance('Ansel_Storage')
                 ->getGallery($image['gallery_id']);
 
@@ -67,36 +70,36 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
             // Generate the image view url
             $url = Ansel::getUrlFor(
                 'view',
-                array('view' => 'Image',
-                      'slug' => $gallery->get('slug'),
-                      'gallery' => $gallery->id,
-                      'image' => $id,
-                      'gallery_view' => $style->gallery_view), true);
-            $images[$key]['icon'] = (string)Ansel::getImageUrl($images[$key]['image_id'], 'mini', true);
-            $images[$key]['link'] = (string)$url;
+                array(
+                    'view' => 'Image',
+                    'slug' => $gallery->get('slug'),
+                    'gallery' => $gallery->id,
+                    'image' => $id,
+                    'gallery_view' => $style->gallery_view),
+                true);
+            $images[$key]['icon'] = strval(Ansel::getImageUrl($images[$key]['image_id'], 'mini', true));
+            $images[$key]['link'] = strval($url);
             $images[$key]['markerOnly'] = false;
         }
+
         // URL for updating selected layer
-        $imple =  $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'MapLayerSelect'));
-        $layerImpleUrl = $imple->getUrl();
+        $layerUrl = $registry->getServiceLink('ajax', 'ansel')->setRaw(true);
+        $layerUrl->url .= 'setPrefValue';
 
         // And the current defaultLayer, if any.
-        $defaultLayer = $GLOBALS['prefs']->getValue('current_maplayer');
+        $defaultLayer = $prefs->getValue('current_maplayer');
 
+        $opts = array(
+            'layerUpdateEndpoint' => strval($layerUrl),
+            'layerUpdatePref' => 'current_maplayer',
+            'defaultBaseLayer' => $defaultLayer);
         $json = Horde_Serialize::serialize(array_values($images), Horde_Serialize::JSON);
-        $html = '<div id="ansel_map" style="height:' . $this->_params['height'] . 'px;"></div>';
-        $html .= <<<EOT
-        <script type="text/javascript">
-            var opts = {
-                'layerUpdateEndpoint': '{$layerImpleUrl}',
-                'defaultBaseLayer': '{$defaultLayer}'
-            }
-            document.observe('dom:loaded', function() { new AnselBlockGeoTag({$json}, opts); });
-        </script>
-EOT;
-        return $html;
+        $js = array(
+            'var opts = ' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON),
+            'new AnselBlockGeoTag(' . $json . ', opts);');
+        $page_output->addInlineScript($js, true);
+
+        return '<div id="ansel_map" style="height:' . $this->_params['height'] . 'px;"></div>';
     }
 
 }

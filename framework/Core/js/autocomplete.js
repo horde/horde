@@ -16,7 +16,7 @@
  * TODO: options = autoSelect, frequency, minChars, onSelect, onShow, onType,
  *                 paramName, tokens
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -40,6 +40,7 @@ Autocompleter.Base = Class.create({
             minChars: 1,
             onSelect: Prototype.K,
             onShow: Prototype.K,
+            onHide: Prototype.K,
             onType: Prototype.K,
             filterCallback: Prototype.K,
             paramName: elt.readAttribute('name'),
@@ -139,6 +140,7 @@ Autocompleter.Base = Class.create({
                 this.knl = new KeyNavList(this.elt, {
                     onChoose: this.onSelect.bind(this),
                     onShow: this.opts.onShow.bind(this),
+                    onHide: this.opts.onHide.bind(this),
                     domParent: this.opts.domParent,
                     keydownObserver: this.opts.keydownObserver
                 });
@@ -235,7 +237,8 @@ Autocompleter.Base = Class.create({
     onSelect: function(entry)
     {
         if (entry) {
-            this.elt.setValue(this.opts.onSelect(this.getNewVal(entry))).focus();
+            this.elt.focus();
+            this.elt.setValue(this.opts.onSelect(this.getNewVal(entry)));
             if (this.knl) {
                 this.knl.markSelected();
             }
@@ -321,7 +324,7 @@ Autocompleter.Local = Class.create(Autocompleter.Base, {
 
         choices = o.arr.findAll(function(t) {
             if (i == o.choices) {
-                throw $break;
+                return false;
             }
 
             if (o.ignoreCase) {
@@ -331,7 +334,7 @@ Autocompleter.Local = Class.create(Autocompleter.Base, {
 
             var pos = t.indexOf(entry);
             if (pos != -1 &&
-                ((pos == 0 && t.length != entry_len) ||
+                ((pos === 0 && t.length != entry_len) ||
                  (entry_len >= o.partialChars &&
                   o.partialSearch &&
                   (o.fullSearch || /\s/.test(t.substr(pos - 1, 1)))))) {

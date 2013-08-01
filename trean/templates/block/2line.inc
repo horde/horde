@@ -1,5 +1,5 @@
 <?php
-$bookmark_url = Horde_Util::addParameter(Horde::url('redirect.php'), 'b', $bookmark->id);
+$bookmark_url = Horde::url('redirect.php')->add('b', $bookmark->id);
 $target = $GLOBALS['prefs']->getValue('show_in_new_window') ? '_blank' : '';
 if ($bookmark->http_status == 'error') {
     $status = 'error.png';
@@ -10,9 +10,9 @@ if ($bookmark->http_status == 'error') {
 }
 ?>
 <table width="100%" cellspacing="0">
-  <td valign="top">
-    <?php echo Horde::img(Trean::getFavicon($bookmark), '', 'class="favicon"', '') ?>
+  <td align="center" valign="top">
     <?php if ($status) echo Horde::img('http/' . $status) ?>
+    <?php echo Horde::img(Trean::getFavicon($bookmark), '', 'class="trean-favicon"', '') ?>
   </td>
 
   <td width="100%" valign="top">

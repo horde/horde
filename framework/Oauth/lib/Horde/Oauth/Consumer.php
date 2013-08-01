@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -62,6 +62,7 @@ class Horde_Oauth_Consumer
     public function getRequestToken($params = array())
     {
         $params['oauth_consumer_key'] = $this->key;
+        $params['oauth_callback'] = $this->callbackUrl;
 
         $request = new Horde_Oauth_Request($this->requestTokenUrl, $params);
         $request->sign($this->signatureMethod, $this);

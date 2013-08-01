@@ -1,16 +1,24 @@
 <?php
 /**
- * The abstract class that all quota drivers inherit from.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * The abstract class that all quota drivers inherit from.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 abstract class IMP_Quota
 {
@@ -20,6 +28,7 @@ abstract class IMP_Quota
      * @var array
      */
     protected $_params = array(
+        'hide_when_unlimited' => false,
         'unit' => 'MB'
     );
 
@@ -40,15 +49,9 @@ abstract class IMP_Quota
         $this->_params = array_merge($this->_params, $params);
 
         $this->_params['format'] = array(
-            'long' => isset($this->_params['format']['long'])
-                ? $this->_params['format']['long']
-                : _("Quota status: %.2f %s / %.2f %s  (%.2f%%)"),
             'short' => isset($this->_params['format']['short'])
                 ? $this->_params['format']['short']
                 : _("%.0f%% of %.0f %s"),
-            'nolimit_long' => isset($this->_params['format']['nolimit_long'])
-                ? $this->_params['format']['nolimit_long']
-                : _("Quota status: %.2f %s / NO LIMIT"),
             'nolimit_short' => isset($this->_params['format']['nolimit_short'])
                 ? $this->_params['format']['nolimit_short']
                 : _("%.0f %s")
@@ -58,13 +61,25 @@ abstract class IMP_Quota
     /**
      * Get quota information (used/allocated), in bytes.
      *
+     * @param string $mailbox  Mailbox to check.
+     *
      * @return array  An array with the following keys:
      *   - limit: Maximum quota allowed
      *   - usage: Currently used portion of quota (in bytes)
      *
      * @throws IMP_Exception
      */
-    abstract public function getQuota();
+    abstract public function getQuota($mailbox = null);
+
+    /**
+     * Should quota be displayed if no limit is configured?
+     *
+     * @return boolean  Whether to hide the quota.
+     */
+    public function isHiddenWhenUnlimited()
+    {
+        return $this->_params['hide_when_unlimited'];
+    }
 
     /**
      * Returns the quota messages variants, including sprintf placeholders.

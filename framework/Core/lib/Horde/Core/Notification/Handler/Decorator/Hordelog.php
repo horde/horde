@@ -1,8 +1,8 @@
 <?php
 /**
- * The Hordelog Decorator logs error events via Horde::logMessage().
+ * The Hordelog Decorator logs error events via Horde::log().
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -24,7 +24,7 @@ extends Horde_Notification_Handler_Decorator_Base
      */
     public function push(Horde_Notification_Event $event, $options)
     {
-        Horde::logMessage($event->message, 'DEBUG');
+        Horde::log($event->message, 'DEBUG');
     }
 
 }

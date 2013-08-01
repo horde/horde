@@ -1,5 +1,18 @@
 <?php
 /**
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you did
+ * not receive this file, http://www.horde.org/licenses/lgpl21
+ *
+ * @author   Ilya Krel <mail@krel.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
  * The Horde_Auth_Cyrsql class provides a SQL implementation of the Horde
  * authentication system for the Cyrus IMAP server. Most of the functionality
  * is the same as for the SQL class; only what is different overrides the
@@ -77,15 +90,10 @@
  * );
  * </pre>
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, http://www.horde.org/licenses/lgpl21
- *
  * @author   Ilya Krel <mail@krel.org>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Cyrsql extends Horde_Auth_Sql
@@ -248,7 +256,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 
         try {
             $this->_imap->createMailbox($mailbox);
-            $this->_imap->setACL($mailbox, $this->_params['cyradmin'], 'lrswipcda');
+            $this->_imap->setACL($mailbox, $this->_params['cyradmin'], array('rights' => 'lrswipcda'));
             if (isset($this->_params['quota']) &&
                 ($this->_params['quota'] >= 0)) {
                 $this->_imap->setQuota($mailbox, array('storage' => $this->_params['quota']));
@@ -260,7 +268,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         foreach ($this->_params['folders'] as $val) {
             try {
                 $this->_imap->createMailbox($val);
-                $this->_imap->setACL($val, $this->_params['cyradmin'], 'lrswipcda');
+                $this->_imap->setACL($val, $this->_params['cyradmin'], array('rights' => 'lrswipcda'));
             } catch (Horde_Imap_Client_Exception $e) {}
         }
     }
@@ -313,6 +321,8 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 
     /**
      * List all users in the system.
+     *
+     * @param boolean $sort  Sort the users?
      *
      * @return mixed  The array of userIds.
      * @throws Horde_Auth_Exception

@@ -3,15 +3,15 @@
 <input type="hidden" name="actionID" value="search_calendar" />
 <input type="hidden" name="search_mode" value="basic" />
 
-<br /><br />
 <h1 class="header">
  <span class="smallheader rightFloat">
-  <?php echo Horde::widget(Horde::url('search.php')->add('search_mode', 'advanced'), _("Advanced Search"), 'smallheader', '', '', _("Ad_vanced Search")) ?>
+  <?php echo Horde::widget(array('url' => Horde::url('search.php')->add('search_mode', 'advanced'), 'class' => 'smallheader', 'title' => _("Ad_vanced Search"))) ?>
  </span>
  <?php echo _("Basic Search") ?>
 </h1>
 
-<table cellspacing="0" class="striped">
+<div class="horde-content">
+<table cellspacing="0">
 <!-- search pattern -->
 <tr>
   <td class="rightAlign">
@@ -60,7 +60,10 @@ range_option_string('+', _("All Future"));
   </td>
 </tr>
 </table>
+</div>
 
-<br />
-<input type="submit" class="button" value="<?php echo _("Search") ?>" />
+<p class="horde-form-buttons">
+  <input type="submit" class="horde-default" value="<?php echo _("Search") ?>" />
+</p>
+
 </form>

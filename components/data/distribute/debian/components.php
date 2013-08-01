@@ -45,10 +45,18 @@ $package_version = shell_exec(
     $pkg_info . ' debian_version ' .
     escapeshellarg($component->getVersion())
 );
-
 $archive = array_shift(
     $component->placeArchive($destination, array("logger" => $this->_output))
 );
+
+// Canonicalize path
+$archive = realpath($archive);
+
+if (substr($archive, -4)=='.tgz') {
+    // Tarball name is not a Debian orig one
+    rename($archive, dirname($archive) . '/' . $package_name . '_' . $package_version . '.orig.tar.gz');
+    $archive = dirname($archive) . '/' . $package_name . '_' . $package_version . '.orig.tar.gz';
+}
 
 $destination .= '/' . $package_name . '-' . $package_version;
 

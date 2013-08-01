@@ -23,10 +23,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:11:12</time>
+ <date>2013-07-13</date>
+ <time>13:06:08</time>
  <version>
-  <release>1.0.11</release>
+  <release>2.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -383,17 +383,18 @@
     <dir name="Horde">
      <dir name="Image">
       <dir name="Exif">
-       <file name="Base.php" role="test" />
        <file name="BundledTest.php" role="test" />
        <file name="ExiftoolTest.php" role="test" />
        <file name="PhpTest.php" role="test" />
+       <file name="TestBase.php" role="test" />
       </dir> <!-- /test/Horde/Image/Exif -->
       <dir name="Fixtures">
        <file name="img_exif.jpg" role="test" />
       </dir> <!-- /test/Horde/Image/Fixtures -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Image -->
     </dir> <!-- /test/Horde -->
     <file name=".htaccess" role="test" />
@@ -413,7 +414,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -421,33 +422,40 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>XML_SVG</name>
     <channel>pear.php.net</channel>
@@ -617,14 +625,15 @@
    <install as="swf.php" name="test/swf.php" />
    <install as="two_page.tif.tiff" name="test/two_page.tif.tiff" />
    <install as="Horde/Image/AllTests.php" name="test/Horde/Image/AllTests.php" />
-   <install as="Horde/Image/Autoload.php" name="test/Horde/Image/Autoload.php" />
+   <install as="Horde/Image/bootstrap.php" name="test/Horde/Image/bootstrap.php" />
    <install as="Horde/Image/conf.php.dist" name="test/Horde/Image/conf.php.dist" />
-   <install as="Horde/Image/Exif/Base.php" name="test/Horde/Image/Exif/Base.php" />
+   <install as="Horde/Image/phpunit.xml" name="test/Horde/Image/phpunit.xml" />
    <install as="Horde/Image/Exif/BundledTest.php" name="test/Horde/Image/Exif/BundledTest.php" />
    <install as="Horde/Image/Exif/ExiftoolTest.php" name="test/Horde/Image/Exif/ExiftoolTest.php" />
    <install as="Horde/Image/Exif/PhpTest.php" name="test/Horde/Image/Exif/PhpTest.php" />
+   <install as="Horde/Image/Exif/TestBase.php" name="test/Horde/Image/Exif/TestBase.php" />
    <install as="Horde/Image/Fixtures/img_exif.jpg" name="test/Horde/Image/Fixtures/img_exif.jpg" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -853,12 +862,129 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>1.0.11</release>
+    <release>2.0.0alpha1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Japanese translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix image watermarking for Imagick and ImageMagick drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Improve unit tests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix generating center image crops on Solaris systems that still use older Bourne shell.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Autoload.php';
-
-/**
  * Basic Turba test case.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -84,7 +79,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
                     'factory' => 'Db',
                     'params' => array(
                         'migrations' => array(
-                            'migrationsPath' => dirname(__FILE__) . '/../../migration',
+                            'migrationsPath' => __DIR__ . '/../../migration',
                             'schemaTableName' => 'turba_test_schema'
                         )
                     )
@@ -103,7 +98,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         );
         $setup->setup(
             array(
-                'Horde_Share_Base' => 'Share',
+                'Turba_Shares' => 'Share',
             )
         );
         $GLOBALS['cfgSources']['test']['type'] = 'Sql';
@@ -121,7 +116,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
                         'imapuser' => 'test',
                     )
                 ),
-                'Horde_Share_Base' => array(
+                'Turba_Shares' => array(
                     'factory' => 'Share',
                     'method' => 'Kolab',
                 ),
@@ -130,7 +125,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         $setup->getInjector()->setInstance(
             'Horde_Core_Factory_Share',
             new Horde_Test_Stub_Factory(
-                $setup->getInjector()->getInstance('Horde_Share_Base')
+                $setup->getInjector()->getInstance('Turba_Shares')
             )
         );
         $GLOBALS['cfgSources']['test']['type'] = 'Kolab';
@@ -190,7 +185,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
 
     static private function _createShare($name, $owner)
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $share = $turba_shares->newShare(
             $owner, strval(new Horde_Support_Randomid()), $name
         );
@@ -257,7 +252,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
             'workPhone'         => 'phone-business1',
             'cellPhone'         => 'phone-mobile',
             'fax'               => 'phone-businessfax',
-            'instantMessenger'  => 'im-address',
+            'imaddress'         => 'im-address',
             /* Organization */
             'title'             => 'job-title',
             'role'              => 'profession',

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
@@ -70,8 +70,9 @@ for ($i = 0; $i < count($sa) - 1; $i += 2) {
 $display = Horde_Util::getFormData('display', 'name');
 
 /* Display the form. */
-$title = _("Address Book");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Address Book")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 require KRONOLITH_TEMPLATES . '/contacts/contacts.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -4,7 +4,7 @@
  * various preferences storage mediums.  It also includes all of the
  * functions for retrieving, storing, and checking preference values.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -103,7 +103,7 @@ class Horde_Prefs implements ArrayAccess
         }
         $this->_storage = $storage;
 
-        register_shutdown_function(array($this, 'store'));
+        register_shutdown_function(array($this, 'store'), false);
 
         $this->retrieve($scope);
     }
@@ -146,14 +146,28 @@ class Horde_Prefs implements ArrayAccess
      */
     public function remove($pref = null)
     {
+        $to_remove = array();
+
         if (is_null($pref)) {
-            foreach ($this->_scopes as $val) {
-                foreach (array_keys(iterator_to_array($val)) as $prefname) {
-                    $val->remove($prefname);
-                }
+            foreach ($this->_scopes as $key => $val) {
+                $to_remove[$key] = array_keys(iterator_to_array($val));
             }
         } elseif ($scope = $this->_getScope($pref)) {
-            $this->_scopes[$scope]->remove($pref);
+            $to_remove[$scope] = array($pref);
+        }
+
+        foreach ($to_remove as $key => $val) {
+            $scope = $this->_scopes[$key];
+
+            foreach ($val as $prefname) {
+                $scope->remove($prefname);
+
+                foreach ($this->_storage as $storage) {
+                    try {
+                        $storage->remove($scope->scope, $prefname);
+                    } catch (Exception $e) {}
+                }
+            }
         }
     }
 
@@ -165,8 +179,12 @@ class Horde_Prefs implements ArrayAccess
      * @param string $val   The preference value (UTF-8).
      * @param array $opts   Additional options:
      * <pre>
-     * nosave - (boolean) If true, the preference will not be saved to the
-     *          storage backend(s).
+     *   - force: (boolean) If true, will set the value disregarding the
+     *            current locked status of the pref. (@since 2.5.0)
+     *            DEFAULT: false
+     *   - nosave: (boolean) If true, the preference will not be saved to the
+     *             storage backend(s).
+     *             DEFAULT: false
      * </pre>
      *
      * @return boolean  True if the value was successfully set, false on a
@@ -177,7 +195,8 @@ class Horde_Prefs implements ArrayAccess
     {
         /* Exit early if preference doesn't exist or is locked. */
         if (!($scope = $this->_getScope($pref)) ||
-            $this->_scopes[$scope]->isLocked($pref)) {
+            (empty($opts['force']) &&
+             $this->_scopes[$scope]->isLocked($pref))) {
             return false;
         }
 
@@ -358,7 +377,8 @@ class Horde_Prefs implements ArrayAccess
 
         // Now check the prefs cache for existing values.
         try {
-            if (($cached = $this->_cache->get($scope)) !== false) {
+            if ((($cached = $this->_cache->get($scope)) !== false) &&
+                ($cached instanceof Horde_Prefs_Scope)) {
                 $this->_scopes[$scope] = $cached;
                 return;
             }
@@ -381,21 +401,20 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
-     * This function will be run at the end of every request as a shutdown
-     * function (registered by the constructor).  All dirty prefs will be
-     * saved to the storage backend.
+     * Save all dirty prefs to the storage backend.
+     *
+     * @param boolean $throw  Throw exception on error? If false, ignores
+     *                        errors. (Since 2.1.0)
      */
-    public function store()
+    public function store($throw = true)
     {
-        $backtrace = new Horde_Support_Backtrace();
-        $from_shutdown = $backtrace->getNestingLevel() == 1;
         foreach ($this->_scopes as $scope) {
             if ($scope->isDirty()) {
                 foreach ($this->_storage as $storage) {
                     try {
                         $storage->store($scope);
                     } catch (Exception $e) {
-                        if (!$from_shutdown) {
+                        if ($throw) {
                             throw $e;
                         }
                     }
@@ -404,7 +423,7 @@ class Horde_Prefs implements ArrayAccess
                 try {
                     $this->_cache->store($scope);
                 } catch (Exception $e) {
-                    if (!$from_shutdown) {
+                    if ($throw) {
                         throw $e;
                     }
                 }

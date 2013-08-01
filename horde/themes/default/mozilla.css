@@ -1,0 +1,10 @@
+/**
+ * CSS corrections for Gecko.
+ */
+
+input[type="submit"], input[type="button"], input[type="reset"] {
+    padding: 3px 10px;
+}
+input.horde-cancel {
+    padding: 3px 0;
+}

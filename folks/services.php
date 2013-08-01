@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once __DIR__ . '/lib/base.php';
 
 $title = _("Available services");
 
@@ -20,8 +20,9 @@ foreach ($registry->listApps() as $app) {
 }
 asort($apps);
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require FOLKS_TEMPLATES . '/menu.inc';
+$page_output->header(array(
+    'title' => $title
+));
+$notification->notify(array('listeners' => 'status'));
 require FOLKS_TEMPLATES . '/services/services.php';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

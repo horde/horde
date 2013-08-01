@@ -2,7 +2,7 @@
 /**
  * Report offensive content
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -11,7 +11,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once __DIR__ . '/lib/base.php';
 
 $user = Horde_Util::getFormData('user');
 if (empty($user)) {
@@ -62,7 +62,9 @@ if ($form->validate()) {
     Folks::getUrlFor('user', $user)->redirect();
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require FOLKS_TEMPLATES . '/menu.inc';
+$page_output->header(array(
+    'title' => $title
+));
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive(null, null, null, 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

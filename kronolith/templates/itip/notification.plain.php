@@ -7,7 +7,7 @@
 
 <?php endif; ?>
 <?php if ($this->attendees): ?>
-<?php echo _("Attendees:") ?> <?php echo implode(', ', $this->attendees) ?>
+<?php echo _("Attendees:") ?> <?php echo $this->attendees ?>
 
 
 <?php endif; ?>

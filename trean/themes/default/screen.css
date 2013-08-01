@@ -1,90 +1,63 @@
-td, th {
-    text-align: left;
-}
-table.control {
-    width: 100%;
-}
-table.control td.actions {
-    text-align: right;
+.horde-form table {
+    width: auto;
 }
 
-#bookmarkList table {
-    width: 100%;
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
+.trean-favicon-container {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 2px;
 }
-#bookmarkList th {
-    padding: 3px;
-    background: #e9e9e9;
-    border-right: 1px solid #ccc;
-    text-align: left;
-}
-#bookmarkList th.rightAlign {
-    text-align: right;
-}
-#bookmarkList th.sortup {
-    background: #bbcbff url("graphics/za.png") center left no-repeat;
-    padding-left: 10px;
-}
-#bookmarkList th.sortdown {
-    background: #bbcbff url("graphics/az.png") center left no-repeat;
-    padding-left: 10px;
-}
-#bookmarkList td {
-    padding: 3px;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+.trean-favicon {
+    max-width: 20px;
+    max-height: 20px;
 }
 
-div.bookmarks img {
-    padding-right: 2px;
+.trean-bookmarks-date {
+    white-space: nowrap;
 }
-
-.favicon {
-    width: 16px;
-    height: 16px;
-}
-
-.bl-title {
+.trean-bookmarks-title {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.bl-title a {
-    font-weight: bold;
-}
-.bl-clicks {
+.trean-bookmarks-clicks {
     text-align: center;
 }
 
-.bl-actions form {
+.trean-bookmarks-actions form {
     display: inline;
 }
 
-.bl-tags a {
-    padding: 1px;
-    background-color: #e9e9e9;
-    border-radius: 5px;
+#trean-browser-instructions {
+    margin: 10px;
+    padding: 10px;
 }
 
-#browser-instructions {
-    margin: 8px;
-    padding: 8px;
+.trean-tags-related, .trean-tags-browsing {
+    padding-bottom: 12px;
+    padding-left: 5px;
 }
 
-.tag-list {
-    display: inline;
-    list-style-type: none;
-    font-size: 80%;
+.horde-tags li a img {
+    padding-left: 5px;
 }
 
-.tag-list li {
-    display: inline-block;
-    background-color: lightblue;
-    border: 1px solid #C0C0C0;
-    border-radius: 4px 4px 4px 4px;
-    margin: 5px;
+.treanBookmarkTag:hover {
+    background: #bbcbff;
+    cursor: pointer;
 }
 
-.tag-list li img {
-    vertical-align: middle;
+/* Sidebar images. */
+.trean-browse {
+    background-image: url("graphics/trean.png");
+}
+.trean-tag {
+    background-image: url("graphics/tag.png");
+}
+
+.treanACBox {
+  background: #ebeff0;
+  border: 1px solid #d0d0d0;
+  cursor: default;
+  text-align: left;
 }

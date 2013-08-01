@@ -5,17 +5,17 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Pastie through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @package Pastie
  */
 
 /* Determine the base directories. */
 if (!defined('PASTIE_BASE')) {
-    define('PASTIE_BASE', dirname(__FILE__) . '/..');
+    define('PASTIE_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -39,13 +39,17 @@ class Pastie_Application extends Horde_Registry_Application
     public $version = 'H5 (0.1-git)';
 
     /**
+     * @var $driver;
+     */
+    public $driver;
+    /**
      */
     protected function _init()
     {
         try {
-            $this->driver = Pastie_Driver::factory();
+            $this->driver = $GLOBALS['injector']->getInstance('Pastie_Factory_Driver')->create();
         } catch (Pastie_Exception $e) {
-            $GLOBALS['notification']->notify($e);
+            $GLOBALS['notification']->notify($e->getMessage());
         }
     }
 
@@ -53,7 +57,6 @@ class Pastie_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        return Pastie::getMenu();
+        $menu->add(Horde::url('paste.php'), _("Paste"), 'pastie.png');
     }
-
 }

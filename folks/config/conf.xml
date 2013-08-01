@@ -175,15 +175,4 @@
     </configsection>
    </configsection>
 </configtab>
-
- <configtab name="menu" desc="Menu">
-   <configsection name="menu">
-     <configmultienum name="apps" desc="Select any applications that should be linked in Folks's menu" required="false">
-       <values>
-        <configspecial application="horde" name="apps" />
-       </values>
-     </configmultienum>
-   </configsection>
- </configtab>
-
 </configuration>

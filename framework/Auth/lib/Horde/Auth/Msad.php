@@ -1,18 +1,25 @@
 <?php
 /**
- * The Horde_Auth_Msad class provides an experimental MSAD extension of the
- * LDAP implementation of the Horde authentication system.
- *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
+ *
+ * @author   Francois Helly <fhelly@bebop-design.net>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Msad class provides an experimental MSAD extension of the
+ * LDAP implementation of the Horde authentication system.
  *
  * @todo Use Horde_Ldap
  *
  * @author   Francois Helly <fhelly@bebop-design.net>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Msad extends Horde_Auth_Ldap
@@ -141,9 +148,11 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
     /**
      * Update a set of authentication credentials.
      *
-     * @param string $oldID       The old userId.
-     * @param string $newID       The new userId.
-     * @param array $credentials  The new credentials
+     * @param string $oldId       The old userId.
+     * @param string $newId       The new userId.
+     * @param array $credentials  The new credentials.
+     * @param string $olddn       The old user DN.
+     * @param string $newdn       The new user DN.
      *
      * @throws Horde_Auth_Exception
      */
@@ -167,7 +176,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
             }
         }
 
-        if ($oldID != $newID) {
+        if ($oldId != $newID) {
             $newdn = str_replace($oldId, $newID, $dn);
             ldap_rename($this->_ds, $olddn, $newdn, $this->_params['basedn'], true);
             $success = @ldap_modify($this->_ds, $newdn, $entry);
@@ -249,7 +258,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         foreach ($this->_params['uid'] as $uid) {
             $entries = array($uid);
             if ($uid != $this->_params['authId']) {
-                array_push($entries, $this->_params['authId']);
+                $entries[] = $this->_params['authId'];
             }
             $search = @ldap_search($this->_ds, $this->_params['basedn'],
                                $uid . '=' . $userId,

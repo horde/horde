@@ -2,7 +2,7 @@
 /**
  * Horde_Data implementation for tab-separated data (TSV).
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -39,7 +39,7 @@ class Horde_Data_Tsv extends Horde_Data_Base
      */
     public function importData($contents, $header = false, $delimiter = "\t")
     {
-        if ($GLOBALS['injector']->getInstance('Horde_Session')->get('horde', 'import_data/format') == 'pine') {
+        if ($this->storage->get('format') == 'pine') {
             $contents = preg_replace('/\n +/', '', $contents);
         }
 
@@ -136,15 +136,13 @@ class Horde_Data_Tsv extends Horde_Data_Base
      *                data set after the final step.
      * @throws Horde_Data_Exception
      */
-    public function nextStep($action, $param = array())
+    public function nextStep($action, array $param = array())
     {
-        $session = $GLOBALS['injector']->getInstance('Horde_Session');
-
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
             parent::nextStep($action, $param);
 
-            $format = $session->get('horde', 'import_data/format');
+            $format = $this->storage->get('format');
             if (in_array($format, array('mulberry', 'pine'))) {
                 $filedata = $this->importFile($_FILES['import_file']['tmp_name']);
 
@@ -206,8 +204,8 @@ class Horde_Data_Tsv extends Horde_Data_Base
                     $data[] = $hash;
                 }
 
-                $session->set('horde', 'import_data/data', $data);
-                $session->set('horde', 'import_data/map', $map);
+                $this->storage->set('data', $data);
+                $this->storage->set('map', $map);
 
                 return $this->nextStep(Horde_Data::IMPORT_DATA, $param);
             }
@@ -223,7 +221,7 @@ class Horde_Data_Tsv extends Horde_Data_Base
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded file could not be saved."));
             }
-            $session->set('horde', 'import_data/file_name', $file_name);
+            $this->storage->set('file_name', $file_name);
 
             /* Read the file's first two lines to show them to the user. */
             $first_lines = '';
@@ -235,13 +233,13 @@ class Horde_Data_Tsv extends Horde_Data_Base
                     ++$line_no;
                 }
             }
-            $session->set('horde', 'import_data/first_lines', $first_lines);
+            $this->storage->set('first_lines', $first_lines);
             return Horde_Data::IMPORT_TSV;
 
         case Horde_Data::IMPORT_TSV:
-            $session->set('horde', 'import_data/header', $this->_vars->header);
-            $session->set('horde', 'import_data/data', $this->importFile($session->get('horde', 'import_data/file_name'), $session->get('horde', 'import_data/header')));
-            $session->remove('horde', 'import_data/map');
+            $this->storage->set('header', $this->_vars->header);
+            $this->storage->set('data', $this->importFile($this->storage->get('file_name'), $this->storage->get('header')));
+            $this->storage->set('map');
             return Horde_Data::IMPORT_MAPPED;
         }
 

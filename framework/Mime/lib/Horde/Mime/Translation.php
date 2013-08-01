@@ -1,18 +1,24 @@
 <?php
 /**
- * @package Mime
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Mime
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Mime
  */
 
 /**
  * Horde_Mime_Translation is the translation wrapper class for Horde_Mime.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Mime
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Mime
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Mime
  */
 class Horde_Mime_Translation extends Horde_Translation
 {
@@ -27,7 +33,7 @@ class Horde_Mime_Translation extends Horde_Translation
     static public function t($message)
     {
         self::$_domain = 'Horde_Mime';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_Mime/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../locale' : '@data_dir@/Horde_Mime/locale';
         return parent::t($message);
     }
 
@@ -44,7 +50,7 @@ class Horde_Mime_Translation extends Horde_Translation
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Mime';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_Mime/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../locale' : '@data_dir@/Horde_Mime/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }

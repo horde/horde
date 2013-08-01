@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Sesha H4 (1.0-git)\n"
+"Project-Id-Version: Sesha H5 (1.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"POT-Creation-Date: 2013-01-29 11:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,48 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/menu.inc:6
-msgid "#Stock"
-msgstr ""
-
-#: list.php:86
-#, php-format
-msgid "%d Items"
-msgstr ""
-
-#: list.php:85
-msgid "1 Item"
-msgstr ""
-
-#: lib/Application.php:54
+#: lib/Application.php:60
 msgid "Add Stock"
 msgstr ""
 
-#: stock.php:40
+#: stock.php:46
 msgid "Add Stock To Inventory"
 msgstr ""
 
-#: admin.php:39
+#: admin.php:45
 msgid "Add a category"
 msgstr ""
 
-#: admin.php:230
+#: admin.php:236
 msgid "Add a new category"
 msgstr ""
 
-#: admin.php:198 admin.php:256
+#: admin.php:204 admin.php:261
 msgid "Add a new property"
 msgstr ""
 
-#: admin.php:194
+#: admin.php:200
 msgid "Add a property"
 msgstr ""
 
-#: lib/Sesha.php:255
-msgid "Admin"
-msgstr ""
-
-#: lib/Application.php:51
+#: lib/Application.php:57 lib/Application.php:82
 msgid "Administration"
 msgstr ""
 
@@ -66,20 +49,24 @@ msgstr ""
 msgid "Ascending"
 msgstr ""
 
-#: list.php:54
+#: lib/View/List.php:36
 msgid "Available Inventory"
 msgstr ""
 
-#: list.php:54
+#: lib/View/List.php:34
 #, php-format
 msgid "Available Inventory in %s"
 msgstr ""
 
-#: lib/Forms/CategoryList.php:36 lib/Forms/Stock.php:65
+#: lib/View/List.php:31
+msgid "Back to stock list"
+msgstr ""
+
+#: lib/Form/CategoryList.php:37 lib/Form/Stock.php:64
 msgid "Category"
 msgstr ""
 
-#: lib/Forms/Category.php:53
+#: lib/Form/Category.php:53
 msgid "Category Name"
 msgstr ""
 
@@ -87,48 +74,44 @@ msgstr ""
 msgid "Change your inventory sorting and display options."
 msgstr ""
 
-#: lib/Forms/Type/Client.php:45
+#: lib/Form/Type/Client.php:45
 msgid "Client"
 msgstr ""
 
-#: lib/Forms/CategoryDelete.php:25 lib/Forms/PropertyDelete.php:25
+#: lib/Form/CategoryDelete.php:25 lib/Form/PropertyDelete.php:25
 msgid "Confirm"
 msgstr ""
 
-#: admin.php:49
+#: admin.php:55
 msgid "Could not add new category."
 msgstr ""
 
-#: admin.php:57
+#: admin.php:63
 #, php-format
 msgid "Could not add properties to new category: %s, %s"
 msgstr ""
 
-#: admin.php:205
+#: admin.php:211
 msgid "Could not add property."
 msgstr ""
 
-#: admin.php:72
+#: admin.php:78
 msgid "Could not retrieve category"
 msgstr ""
 
-#: admin.php:89
+#: admin.php:95
 msgid "Could not update category details."
 msgstr ""
 
-#: admin.php:96
+#: admin.php:102
 msgid "Could not update properties for this category."
 msgstr ""
 
-#: admin.php:159
+#: admin.php:165
 msgid "Could not update property details."
 msgstr ""
 
-#: list.php:18
-msgid "Current Inventory"
-msgstr ""
-
-#: lib/Forms/Property.php:35
+#: lib/Form/Property.php:35
 msgid "Data Type"
 msgstr ""
 
@@ -140,24 +123,24 @@ msgstr ""
 msgid "Default sorting direction:"
 msgstr ""
 
-#: admin.php:108 lib/Forms/CategoryDelete.php:18 lib/Forms/CategoryList.php:20
+#: admin.php:114 lib/Form/CategoryDelete.php:18 lib/Form/CategoryList.php:21
 msgid "Delete Category"
 msgstr ""
 
-#: admin.php:109
+#: admin.php:115
 #, php-format
 msgid "Delete Category \"%s\""
 msgstr ""
 
-#: list.php:82 list.php:133
+#: lib/View/List.php:160 lib/View/List.php:178
 msgid "Delete Item"
 msgstr ""
 
-#: admin.php:143 lib/Forms/PropertyDelete.php:18 lib/Forms/PropertyList.php:20
+#: admin.php:149 lib/Form/PropertyDelete.php:18 lib/Form/PropertyList.php:22
 msgid "Delete Property"
 msgstr ""
 
-#: admin.php:144
+#: admin.php:150
 #, php-format
 msgid "Delete Property \"%s\""
 msgstr ""
@@ -166,7 +149,7 @@ msgstr ""
 msgid "Descending"
 msgstr ""
 
-#: lib/Forms/Category.php:54 lib/Forms/Property.php:40
+#: lib/Form/Category.php:54 lib/Form/Property.php:40
 msgid "Description"
 msgstr ""
 
@@ -174,35 +157,35 @@ msgstr ""
 msgid "Display Options"
 msgstr ""
 
-#: stock.php:134
+#: stock.php:139
 msgid "Edit"
 msgstr ""
 
-#: admin.php:77 lib/Forms/CategoryList.php:19
+#: admin.php:83 lib/Form/CategoryList.php:20
 msgid "Edit Category"
 msgstr ""
 
-#: stock.php:132
+#: stock.php:137
 msgid "Edit Inventory Item"
 msgstr ""
 
-#: list.php:80 list.php:130
+#: lib/View/List.php:158 lib/View/List.php:172
 msgid "Edit Item"
 msgstr ""
 
-#: lib/Forms/PropertyList.php:20
+#: lib/Form/PropertyList.php:21
 msgid "Edit Property"
 msgstr ""
 
-#: lib/Forms/CategoryList.php:26
+#: lib/Form/CategoryList.php:27
 msgid "Edit a category"
 msgstr ""
 
-#: lib/Forms/PropertyList.php:26
+#: lib/Form/PropertyList.php:28
 msgid "Edit a property"
 msgstr ""
 
-#: lib/Forms/Search.php:35
+#: lib/Form/Search.php:35
 msgid "For this value"
 msgstr ""
 
@@ -210,19 +193,19 @@ msgstr ""
 msgid "General Options"
 msgstr ""
 
-#: templates/menu.inc:7
-msgid "Go"
+#: lib/View/List.php:37
+msgid "Inventory List"
 msgstr ""
 
-#: config/prefs.php:29 lib/Forms/Search.php:32 list.php:102
+#: config/prefs.php:29 lib/Form/Search.php:32 lib/View/List.php:106
 msgid "Item Name"
 msgstr ""
 
-#: lib/Forms/Search.php:33
+#: lib/Form/Search.php:33
 msgid "Item Note"
 msgstr ""
 
-#: stock.php:83
+#: stock.php:88
 #, php-format
 msgid "Item number %d was successfully deleted"
 msgstr ""
@@ -231,155 +214,160 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: admin.php:25
+#: admin.php:31
 msgid "Manage Categories"
 msgstr ""
 
-#: admin.php:26
+#: admin.php:32
 msgid "Manage Properties"
 msgstr ""
 
-#: list.php:51
-msgid "Matching Inventory"
-msgstr ""
-
-#: admin.php:79
+#: admin.php:85
 #, php-format
 msgid "Modifying %s"
 msgstr ""
 
-#: admin.php:149
+#: admin.php:155
 #, php-format
 msgid "Modifying property \"%s\""
 msgstr ""
 
-#: lib/Forms/Stock.php:58
+#: lib/Form/Stock.php:57
 msgid "Name"
 msgstr ""
 
-#: admin.php:61
+#: admin.php:67
 msgid "New category added successfully."
 msgstr ""
 
-#: admin.php:209
+#: admin.php:215
 msgid "New property added successfully."
 msgstr ""
 
-#: lib/Forms/CategoryDelete.php:20 lib/Forms/PropertyDelete.php:20
+#: lib/Form/CategoryDelete.php:20 lib/Form/PropertyDelete.php:20
 msgid "No"
 msgstr ""
 
-#: lib/Forms/Stock.php:61
+#: lib/Form/Stock.php:60
 msgid ""
-"No categories are currently configured. Click 'Admin' (above) to add some."
+"No categories are currently configured. Click \"Administration\" on the left "
+"to add some."
 msgstr ""
 
-#: lib/Forms/CategoryList.php:32
+#: lib/Form/CategoryList.php:33
 msgid "No categories are currently configured. Use the form below to add one."
 msgstr ""
 
-#: lib/Forms/Category.php:58
+#: lib/Form/Category.php:58
 msgid ""
-"No properties are currently configured. Use the 'Manage Properties' tab "
-"(above) to add some."
+"No properties are currently configured. Use the \"Manage Properties\" tab "
+"above to add some."
 msgstr ""
 
-#: lib/Forms/PropertyList.php:32
+#: lib/Form/PropertyList.php:34
 msgid "No properties are currently configured. Use the form below to add one."
 msgstr ""
 
-#: config/prefs.php:30 lib/Forms/Stock.php:99 list.php:116
+#: config/prefs.php:30 lib/Form/Stock.php:96 lib/View/List.php:120
 msgid "Note"
 msgstr ""
 
-#: lib/Forms/Category.php:62
+#: lib/Form/Search.php:36
+msgid "Only exact matches"
+msgstr ""
+
+#: lib/Form/Category.php:62
 msgid "Properties"
 msgstr ""
 
-#: lib/Forms/PropertyList.php:36
+#: lib/Form/PropertyList.php:38
 msgid "Property"
 msgstr ""
 
-#: lib/Forms/Property.php:32
+#: lib/Form/Property.php:32
 msgid "Property Name"
 msgstr ""
 
-#: lib/Forms/Search.php:34
+#: lib/Form/Search.php:34
 msgid "Property Value"
 msgstr ""
 
-#: admin.php:138
+#: admin.php:144
 msgid "Property not found"
 msgstr ""
 
-#: lib/Forms/CategoryDelete.php:21
+#: lib/Form/CategoryDelete.php:21
 msgid "Really delete this category?"
 msgstr ""
 
-#: lib/Forms/PropertyDelete.php:21
+#: lib/Form/PropertyDelete.php:21
 msgid "Really delete this property?"
 msgstr ""
 
-#: admin.php:78 lib/Forms/Category.php:19
+#: admin.php:84 lib/Form/Category.php:19
 msgid "Save Category"
 msgstr ""
 
-#: lib/Forms/Stock.php:31
+#: lib/Form/Stock.php:31
 msgid "Save Item"
 msgstr ""
 
-#: lib/Forms/Property.php:17
+#: lib/Form/Property.php:17
 msgid "Save Property"
 msgstr ""
 
-#: config/prefs.php:51 lib/Forms/Search.php:26
+#: config/prefs.php:51 lib/Form/Search.php:26
 msgid "Search"
 msgstr ""
 
-#: list.php:50 search.php:18
+#: search.php:24
 msgid "Search Inventory"
 msgstr ""
 
-#: lib/Forms/Search.php:24
+#: lib/View/List.php:28 lib/View/List.php:29
+msgid "Search Results"
+msgstr ""
+
+#: lib/Form/Search.php:24
 msgid "Search The Inventory"
 msgstr ""
 
-#: lib/Forms/Search.php:29
+#: lib/Form/Search.php:29
 msgid "Search these properties"
 msgstr ""
 
 #: config/prefs.php:64
 msgid ""
-"Select properties that you would like to see in the list view (all other "
-"properties are only shown on individual item screens):"
+"Select properties that you would like to see in the list view. All other "
+"properties are only shown on individual item screens:"
 msgstr ""
 
 #: config/prefs.php:54
 msgid "Select the view to display after login:"
 msgstr ""
 
-#: templates/list.html:12
+#: templates/view/list.php:11
 msgid "Show Category:"
 msgstr ""
 
-#: lib/Forms/Category.php:55 lib/Forms/Property.php:41
+#: lib/Form/Category.php:55 lib/Form/Property.php:41
 msgid "Sort Weight"
 msgstr ""
 
-#: list.php:109
+#: lib/View/List.php:113
 #, php-format
 msgid "Sort by %s"
 msgstr ""
 
-#: list.php:102
+#: lib/View/List.php:106
 msgid "Sort by item name"
 msgstr ""
 
-#: list.php:116
+#: lib/View/List.php:120
 msgid "Sort by note"
 msgstr ""
 
-#: list.php:98
+#: lib/View/List.php:102
 msgid "Sort by stock ID"
 msgstr ""
 
@@ -387,131 +375,135 @@ msgstr ""
 msgid "Stock"
 msgstr ""
 
-#: config/prefs.php:28 lib/Forms/Search.php:31 lib/Forms/Stock.php:52
-#: lib/Forms/Stock.php:54 list.php:98
+#: admin.php:17 config/prefs.php:28 lib/Form/Search.php:31
+#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:102
+#: list.php:31 search.php:20 stock.php:23
 msgid "Stock ID"
 msgstr ""
 
-#: admin.php:126
+#: lib/Driver/Rdo.php:226
+#, php-format
+msgid "The category %d could not be found"
+msgstr ""
+
+#: admin.php:132
 msgid "The category was deleted."
 msgstr ""
 
-#: admin.php:128
+#: admin.php:134
 msgid "The category was not deleted."
 msgstr ""
 
-#: lib/Forms/Property.php:93
+#: lib/Form/Property.php:93
 #, php-format
 msgid "The form field type \"%s\" doesn't exist."
 msgstr ""
 
-#: stock.php:57
+#: stock.php:63
 msgid "The item was added succcessfully."
 msgstr ""
 
-#: admin.php:185
+#: lib/Driver/Rdo.php:299
+#, php-format
+msgid "The property %d could not be found"
+msgstr ""
+
+#: lib/Driver/Rdo.php:258
+#, php-format
+msgid "The property %d could not be loaded"
+msgstr ""
+
+#: admin.php:191
 msgid "The property was deleted."
 msgstr ""
 
-#: admin.php:187
+#: admin.php:193
 msgid "The property was not deleted."
 msgstr ""
 
-#: stock.php:161
+#: stock.php:166
 msgid "The stock item was successfully updated."
 msgstr ""
 
-#: list.php:34
-msgid "There are no categories"
-msgstr ""
-
-#: templates/list.html:66
-msgid "There are no stocked items matching the criteria"
-msgstr ""
-
-#: stock.php:51
+#: stock.php:57
 #, php-format
 msgid "There was a problem adding the item: %s"
 msgstr ""
 
-#: stock.php:145
+#: stock.php:150
 #, php-format
 msgid "There was a problem updating the inventory: %s"
 msgstr ""
 
-#: stock.php:79
+#: stock.php:84
 #, php-format
 msgid "There was a problem with the driver while deleting: %s"
 msgstr ""
 
-#: admin.php:122
+#: admin.php:128
 msgid "There was an error removing the category."
 msgstr ""
 
-#: admin.php:181
+#: admin.php:187
 msgid "There was an error removing the property."
 msgstr ""
 
-#: lib/Forms/Property.php:39
+#: lib/Form/Property.php:39
 msgid "Unit"
 msgstr ""
 
-#: lib/Forms/Stock.php:85
+#: lib/Form/Stock.php:83
 msgid "Unit: "
 msgstr ""
 
-#: admin.php:100
+#: admin.php:106
 msgid "Updated category successfully."
 msgstr ""
 
-#: admin.php:163
+#: admin.php:169
 msgid "Updated property successfully."
 msgstr ""
 
-#: stock.php:95
+#: stock.php:100
 msgid "View Inventory Item"
 msgstr ""
 
-#: list.php:138 list.php:141
+#: lib/View/List.php:189 lib/View/List.php:197
 msgid "View Item"
 msgstr ""
 
-#: lib/Forms/Category.php:55
+#: lib/Form/Category.php:55
 msgid ""
 "When categories are displayed, they will be shown in weight order from "
 "highest to lowest"
 msgstr ""
 
-#: lib/Forms/Property.php:41
+#: lib/Form/Property.php:41
 msgid ""
 "When properties are displayed, they will be shown in weight order from "
 "highest to lowest"
 msgstr ""
 
-#: lib/Forms/CategoryDelete.php:19 lib/Forms/PropertyDelete.php:19
+#: lib/Form/CategoryDelete.php:19 lib/Form/PropertyDelete.php:19
 msgid "Yes"
 msgstr ""
 
-#: admin.php:29
+#: admin.php:35
 msgid "You are no administrator"
 msgstr ""
 
-#: stock.php:85
+#: stock.php:90
 msgid "You do not have sufficient permissions to delete."
 msgstr ""
 
-#: lib/Sesha.php:254
+#: lib/Application.php:97
 msgid "_Add Stock"
 msgstr ""
 
-#: lib/Sesha.php:252
+#: lib/Application.php:76
 msgid "_List Stock"
 msgstr ""
 
-#: lib/Sesha.php:261
-msgid "_Print"
-msgstr ""
-
-#: lib/Sesha.php:257
+#: lib/Application.php:79
 msgid "_Search"
 msgstr ""

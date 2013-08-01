@@ -1,13 +1,24 @@
 <?php
 /**
- * Ingo_Storage_Blacklist is the object used to hold blacklist rule
- * information.
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Ingo
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo_Storage_Blacklist is the object used to hold blacklist rule
+ * information.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Storage_Blacklist extends Ingo_Storage_Rule
 {
@@ -18,24 +29,24 @@ class Ingo_Storage_Blacklist extends Ingo_Storage_Rule
     /**
      * Sets the list of blacklisted addresses.
      *
-     * @param mixed $data    The list of addresses (array or string).
-     * @param boolean $sort  Sort the list?
+     * @param mixed $data  The list of addresses (array or string).
      *
-     * @return boolean  True on success.
      * @throws Ingo_Exception
      */
-    public function setBlacklist($data, $sort = false)
+    public function setBlacklist($data)
     {
-        $addr = array_filter($this->_addressList($data, $sort), array('Ingo', 'filterEmptyAddress'));
-        if (!empty($GLOBALS['conf']['storage']['maxblacklist'])) {
+        global $conf;
+
+        $addr = $this->_addressList($data);
+
+        if (!empty($conf['storage']['maxblacklist'])) {
             $addr_count = count($addr);
-            if ($addr_count > $GLOBALS['conf']['storage']['maxblacklist']) {
-                throw new Ingo_Exception(sprintf(_("Maximum number of blacklisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to blacklist."), $addr_count, $GLOBALS['conf']['storage']['maxblacklist']));
+            if ($addr_count > $conf['storage']['maxblacklist']) {
+                throw new Ingo_Exception(sprintf(_("Maximum number of blacklisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to blacklist."), $addr_count, $conf['storage']['maxblacklist']));
             }
         }
 
         $this->_addr = $addr;
-        return true;
     }
 
     /**

@@ -6,7 +6,7 @@
  * All content has to be passed UTF-8 encoded. The charset parameters is used
  * for the generated message only.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -144,7 +144,6 @@ class Horde_Mime_Mail
      *
      * @param string $header      The header name.
      * @param string $value       The header value.
-     * @param string $charset     The header value's charset.
      * @param boolean $overwrite  If true, an existing header of the same name
      *                            is being overwritten; if false, multiple
      *                            headers are added; if null, the correct
@@ -210,6 +209,7 @@ class Horde_Mime_Mail
         $this->_body->setType('text/plain');
         $this->_body->setCharset($charset);
         $this->_body->setContents($body);
+        $this->_base = null;
     }
 
     /**
@@ -234,6 +234,7 @@ class Horde_Mime_Mail
         if ($alternative) {
             $this->setBody(Horde_Text_Filter::filter($body, 'Html2text', array('charset' => $charset, 'wrap' => false)), $charset);
         }
+        $this->_base = null;
     }
 
     /**
@@ -427,6 +428,7 @@ class Horde_Mime_Mail
             if (count($this->_parts)) {
                 $basepart = new Horde_Mime_Part();
                 $basepart->setType('multipart/mixed');
+                $basepart->isBasePart(true);
                 if ($body) {
                     $basepart->addPart($body);
                 }
@@ -435,6 +437,7 @@ class Horde_Mime_Mail
                 }
             } else {
                 $basepart = $body;
+                $basepart->isBasePart(true);
             }
         }
         $basepart->setHeaderCharset($this->_charset);
@@ -453,10 +456,24 @@ class Horde_Mime_Mail
 
         /* Send message. */
         $recipients->unique();
-        $basepart->send($recipients->writeAddress(array(
-            'encode' => $this->_charset,
-            'idn' => true
-        )), $this->_headers, $mailer);
+        $basepart->send($recipients->writeAddress(), $this->_headers, $mailer);
+
+        /* Remember the basepart */
+        $this->_base = $basepart;
+    }
+
+    /**
+     * Return the base MIME part.
+     *
+     * @return Horde_Mime_Part
+     */
+    public function getBasePart()
+    {
+        if (empty($this->_base)) {
+            throw new Horde_Mail_Exception('No base part set.');
+        }
+
+        return $this->_base;
     }
 
 }

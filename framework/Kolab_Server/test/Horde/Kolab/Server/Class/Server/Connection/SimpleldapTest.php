@@ -14,12 +14,12 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../../../LdapTestCase.php';
+require_once __DIR__ . '/../../../LdapTestCase.php';
 
 /**
  * Test the handler for a simple LDAP setup without read-only slaves.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -35,12 +35,14 @@ extends Horde_Kolab_Server_LdapTestCase
 {
     public function testMethodConstructHasParameterNetldap2Connection()
     {
+        $this->skipIfNoLdap();
         $ldap = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Simpleldap($ldap);
     }
 
     public function testMethodConstructHasPostconditionThatTheGivenServerWasStored()
     {
+        $this->skipIfNoLdap();
         $ldap = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Simpleldap($ldap);
         $this->assertSame($ldap, $conn->getRead());
@@ -48,6 +50,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetreadHasResultNetldap2TheHandledConnection()
     {
+        $this->skipIfNoLdap();
         $ldap = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Simpleldap($ldap);
         $this->assertInstanceOf('Horde_Ldap', $conn->getRead());
@@ -55,6 +58,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetwriteHasResultNetldap2TheHandledConnection()
     {
+        $this->skipIfNoLdap();
         $ldap = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Simpleldap($ldap);
         $this->assertSame($conn->getWrite(), $conn->getRead());

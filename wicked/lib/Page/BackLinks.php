@@ -1,17 +1,28 @@
 <?php
 /**
- * Wicked BackLinks class.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
  */
-class Wicked_Page_BackLinks extends Wicked_Page {
 
+/**
+ * Display page backlinks
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
+ */
+class Wicked_Page_BackLinks extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *
@@ -40,20 +51,27 @@ class Wicked_Page_BackLinks extends Wicked_Page {
      */
     public function displayContents($isBlock)
     {
-        $summaries = $GLOBALS['wicked']->getBackLinks($this->_referrer);
-        Horde::addScriptFile('tables.js', 'horde', true);
-        ob_start();
-        require WICKED_TEMPLATES . '/pagelist/header.inc';
+        global $injector, $page_output, $wicked;
+
+        $page_output->addScriptFile('tables.js', 'horde');
+
+        $view = $injector->createInstance('Horde_View');
+        $content = $view->render('pagelist/header');
+
+        $summaries = $wicked->getBackLinks($this->_referrer);
         foreach ($summaries as $page) {
             if (!empty($page['page_history'])) {
                 $page = new Wicked_Page_StandardHistoryPage($page);
             } else {
                 $page = new Wicked_Page_StandardPage($page);
             }
-            require WICKED_TEMPLATES . '/pagelist/summary.inc';
+            $content .= $view->renderPartial(
+                'pagelist/page',
+                array('object' => $page->toView())
+            );
         }
-        require WICKED_TEMPLATES . '/pagelist/footer.inc';
-        return ob_get_clean();
+
+        return $content . $view->render('pagelist/footer');
     }
 
     public function pageName()

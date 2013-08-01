@@ -3,10 +3,10 @@
  *
  * Provides the javascript class for handling tabbed sections in Horde Forms.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author  Marko Djukic <marko@oblo.com>
  * @package Horde_Form
@@ -37,27 +37,27 @@ function Horde_Form_Sections(instanceName, openSection)
         s = document.getElementById(this._instanceName + '_section_' + sectionId);
         if (s) {
             s.style.display = '';
-            document.getElementById(this._instanceName + '_tab_' + sectionId).className = 'activeTab';
+            document.getElementById(this._instanceName + '_tab_' + sectionId).className = 'horde-active';
         }
 
         /* Store the newly opened section. */
         this._set(sectionId);
-    }
+    };
 
     this._get = function()
     {
         return this._openSection;
-    }
+    };
 
     this._set = function(sectionId)
     {
         var form = document.getElementById(this._instanceName);
-        if (form != null &&
+        if (form !== null &&
             typeof form.__formOpenSection != 'undefined') {
             form.__formOpenSection.value = sectionId;
         }
         this._openSection = sectionId;
-    }
+    };
 
     this._set(openSection);
 }

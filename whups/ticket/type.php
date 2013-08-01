@@ -3,23 +3,25 @@
  * Displays and handles the form to change the ticket type.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $ticket = Whups::getCurrentTicket();
-$linkTags[] = $ticket->feedLink();
+$page_output->addLinkTag($ticket->feedLink());
 $details = $ticket->getDetails();
 if (!Whups::hasPermission($details['queue'], 'queue', 'update')) {
     $notification->push(_("Permission Denied"), 'horde.error');
     Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
 }
+
+Whups::addTopbarSearch();
 
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
@@ -69,9 +71,10 @@ if ($form == 'whups_form_settypesteptwo') {
     }
 }
 
-$title = sprintf(_("Set Type for %s"), '[#' . $id . '] ' . $ticket->get('summary'));
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
+$page_output->header(array(
+    'title' => sprintf(_("Set Type for %s"), '[#' . $id . '] ' . $ticket->get('summary'))
+));
+$notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
 $tabs = Whups::getTicketTabs($vars, $id);
@@ -95,4 +98,4 @@ default:
     break;
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

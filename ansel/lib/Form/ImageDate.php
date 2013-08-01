@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -16,7 +16,7 @@ class Ansel_Form_ImageDate extends Horde_Form
     {
         global $gallery;
 
-        parent::Horde_Form($vars, $title);
+        parent::__construct($vars, $title);
 
         $this->setButtons(_("Save"));
         $this->addHidden('', 'actionID', 'text', false);

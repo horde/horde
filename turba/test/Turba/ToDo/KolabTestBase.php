@@ -15,7 +15,7 @@
 /**
  * Base for PHPUnit scenarios.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -157,7 +157,7 @@ class Turba_KolabTestBase extends Turba_TestCase
 
     function provideHordeBase()
     {
-        require_once dirname(__FILE__) . '/../Application.php';
+        require_once __DIR__ . '/../Application.php';
         return HORDE_BASE;
     }
 }

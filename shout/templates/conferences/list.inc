@@ -12,14 +12,10 @@
         </tr>
         <?php
             $url = Horde::url("conferences.php");
-            $editurl = Horde_Util::addParameter($url, 'action', 'edit');
-            $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
+            $editurl = $url->copy()->add('action', 'edit');
+            $deleteurl = $url->copy()->add('action', 'delete');
             foreach ($conferences as $roomno => $info) {
-                $editurl = Horde_Util::addParameter($editurl,
-                    array(
-                        'roomno' => $roomno,
-                    )
-                );
+                $editurl->add(array('roomno' => $roomno));
                 ?>
                 <tr class="item">
                     <td>
@@ -42,10 +38,9 @@
 </div>
 <ul id="controls">
     <?php
-    $addurl = Horde::url('conferences.php');
-    $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+    $addurl = Horde::url('conferences.php')->add('action', 'add');
     ?>
-    <li><a class="button" href="<?php echo $addurl; ?>">
+    <li><a class="horde-create" href="<?php echo $addurl; ?>">
         <?php echo Horde::img('conference-add.png'); ?>&nbsp;New Conference Room
         </a>
     </li>

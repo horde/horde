@@ -2,24 +2,21 @@
 /**
  * Administrative management of ActiveSync devices.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-$permission = 'activesync';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() &&
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:activesync')
+));
 
 if (empty($conf['activesync']['enabled'])) {
     throw new Horde_Exception_PermissionDenied(_("ActiveSync not activated."));
@@ -42,7 +39,10 @@ if ($actionID = Horde_Util::getPost('actionID')) {
         break;
 
     case 'delete':
-        $stateMachine->removeState(null, $deviceID, Horde_Util::getPost('uid'));
+        $stateMachine->removeState(array(
+            'devId' => $deviceID,
+            'user' => Horde_Util::getPost('uid'))
+        );
         $GLOBALS['notification']->push(_("Device successfully removed."), 'horde.success');
         break;
 
@@ -65,13 +65,14 @@ foreach ($devices as $key => $val) {
     );
 }
 
-Horde::addScriptFile('activesyncadmin.js');
-Horde::addInlineJsVars(array(
+$page_output->addScriptFile('activesyncadmin.js');
+$page_output->addInlineJsVars(array(
     'HordeActiveSyncAdmin.devices' => $js
 ));
 
-$title = _("ActiveSync Device Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("ActiveSync Device Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
@@ -130,29 +131,27 @@ $tree->setHeader(array(
 ));
 
 /* Root tree node, and reprovision button */
-$tree->addNode(
-    'root',
-    null,
-    _("Registered User Devices"),
-    0,
-    true,
-    $base_node_params,
-    array('--', $spacer, '--', $spacer, '--', $spacer, '--', $spacer, '<input class="button" type="button" value="' . _("Reprovision All Devices") . '" id="reset" />' )
-);
+$tree->addNode(array(
+    'id' => 'root',
+    'parent' => null,
+    'label' => _("Registered User Devices"),
+    'expanded' => true,
+    'params' => $base_node_params,
+    'right' => array('--', $spacer, '--', $spacer, '--', $spacer, '--', $spacer, '<input type="button" class="horde-delete" value="' . _("Reprovision All Devices") . '" id="reset" />' )
+));
 
 /* Build the device entry */
 foreach ($devices as $key => $device) {
     $node_params = array();
     if (array_search($device['device_user'], $users) === false) {
         $users[] = $device['device_user'];
-        $tree->addNode(
-            $device['device_user'],
-            'root',
-            $device['device_user'],
-            0,
-            false,
-            $user_node
-        );
+        $tree->addNode(array(
+            'id' => $device['device_user'],
+            'parent' => 'root',
+            'label' => $device['device_user'],
+            'expanded' => false,
+            'params' => $user_node
+        ));
     }
 
     /* Load this device */
@@ -180,25 +179,24 @@ foreach ($devices as $key => $device) {
     /* Build the action links */
     $actions = '';
     if ($device['device_policykey']) {
-        $actions .= '<input class="button" type="button" value="' . _("Wipe") . '" id="wipe_' . $key . '" . />';
+        $actions .= '<input type="button" class="horde-delete" value="' . _("Wipe") . '" id="wipe_' . $key . '" . />';
     } elseif ($device['device_rwstatus'] == Horde_ActiveSync::RWSTATUS_PENDING) {
-        $actions .= '<input class="button" type="button" value="' . _("Cancel Wipe") . '" id="cancel_' . $key . '" />';
+        $actions .= '<input type="button" value="' . _("Cancel Wipe") . '" id="cancel_' . $key . '" />';
     }
-    $actions .= '&nbsp;<input class="button removeDevice" type="button" value="' . _("Remove") . '" id="remove_' . $key . '" />';
+    $actions .= '&nbsp;<input class="horde-delete removeDevice" type="button" value="' . _("Remove") . '" id="remove_' . $key . '" />';
 
     /* Add it */
-    $tree->addNode(
-        $device['device_id'] . $device['device_user'],
-        $device['device_user'],
-        $device['device_type']. ' | ' . $device['device_agent'],
-        0,
-        true,
-        $device_node + $node_params,
-        array($ts->format('r'), $spacer, $device['device_policykey'], $spacer, $status, $spacer, $device['device_id'], $spacer, $actions)
-    );
+    $tree->addNode(array(
+        'id' => $device['device_id'] . $device['device_user'],
+        'parent' => $device['device_user'],
+        'label' => $device['device_type']. ' | ' . $device['device_agent'],
+        'expanded' => true,
+        'params' => $device_node + $node_params,
+        'right' => array($ts->format('r'), $spacer, $device['device_policykey'], $spacer, $status, $spacer, $device['device_id'], $spacer, $actions)
+    ));
 }
 
 echo '<h1 class="header">' . Horde::img('group.png') . ' ' . _("ActiveSync Devices") . '</h1>';
 $tree->renderTree();
 echo '</form>';
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

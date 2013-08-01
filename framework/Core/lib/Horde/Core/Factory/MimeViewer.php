@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Mime_Viewer factory.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -303,7 +303,7 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
                     unset($tmp['icons']);
                 }
 
-                $config = array_merge(Horde_Array::replaceRecursive($config, $tmp), array(
+                $config = array_merge(array_replace_recursive($config, $tmp), array(
                     'app' => $val[0],
                     'driver' => $driver
                 ));

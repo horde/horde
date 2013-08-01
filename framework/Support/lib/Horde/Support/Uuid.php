@@ -6,7 +6,7 @@
  * $uuid = (string)new Horde_Support_Uuid;
  * </code>
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Support
@@ -36,9 +36,22 @@ class Horde_Support_Uuid
      */
     public function generate()
     {
+        $this->_uuid = null;
         if (extension_loaded('uuid')) {
-            $this->_uuid = uuid_create();
-        } else {
+            if (function_exists('uuid_export')) {
+                // UUID extension from http://www.ossp.org/pkg/lib/uuid/
+                if (uuid_create($ctx) == UUID_RC_OK &&
+                    uuid_make($ctx, UUID_MAKE_V4) == UUID_RC_OK &&
+                    uuid_export($ctx, UUID_FMT_STR, $str) == UUID_RC_OK) {
+                    $this->_uuid = $str;
+                    uuid_destroy($ctx);
+                }
+            } else {
+                // UUID extension from http://pecl.php.net/package/uuid
+                $this->_uuid = uuid_create();
+            }
+        }
+        if (!$this->_uuid) {
             list($time_mid, $time_low) = explode(' ', microtime());
             $time_low = (int)$time_low;
             $time_mid = (int)substr($time_mid, 2) & 0xffff;

@@ -15,7 +15,7 @@
 /**
  * Dummy IMP_Prefs_Identity stub.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -54,11 +54,20 @@ class Horde_Itip_Stub_Identity
     public function getFromAddress()
     {
         if ($this->_id == 'test') {
-            return 'test@example.org';
+            return new Horde_Mail_Rfc822_Address('test@example.org');
         }
         if ($this->_id == 'default') {
-            return 'default@example.org';
+            return new Horde_Mail_Rfc822_Address('default@example.org');
         }
+    }
+
+    public function getDefaultFromAddress($fullname = false)
+    {
+        $ob = $this->getFromAddress();
+        if ($fullname) {
+            $ob->personal = $this->getValue('fullname');
+        }
+        return $ob;
     }
 
     public function getValue($value)

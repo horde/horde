@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/KolabTestBase.php';
+require_once __DIR__ . '/KolabTestBase.php';
 
 /**
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
@@ -19,7 +19,7 @@ class Turba_ToDo_KolabTest extends Turba_KolabTestBase {
         $this->markTestIncomplete('Convert to use Horde_Test.');
         $this->prepareTurba();
 
-        $this->_kolab = &new Kolab();
+        $this->_kolab = new Kolab();
     }
 
     function testBug5476()

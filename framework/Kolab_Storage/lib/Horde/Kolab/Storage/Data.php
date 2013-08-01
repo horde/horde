@@ -14,7 +14,7 @@
 /**
  * Defines the Kolab data handler.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -29,14 +29,11 @@ interface Horde_Kolab_Storage_Data
 extends Horde_Kolab_Storage_Queriable
 {
     /** Identifies the preferences query */
-    /** @since Horde_Kolab_Storage 1.1.0 */
     const QUERY_PREFS  = 'Preferences';
     const QUERY_HISTORY  = 'History';
 
     /**
      * Return the folder path for this data handler.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @return string The folder path.
      */
@@ -44,8 +41,6 @@ extends Horde_Kolab_Storage_Queriable
 
     /**
      * Return the ID of the current user.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @return string The current user.
      */
@@ -145,13 +140,6 @@ extends Horde_Kolab_Storage_Queriable
     public function getBackendId($object_id);
 
     /**
-     * Generate a unique object ID.
-     *
-     * @return string  The unique ID.
-     */
-    public function generateUid();
-
-    /**
      * Check if the given object ID exists.
      *
      * @param string $object_id The object ID.
@@ -195,16 +183,12 @@ extends Horde_Kolab_Storage_Queriable
     /**
      * Retrieve all objects in the current folder by backend id.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return array An array of all objects.
      */
     public function getObjectsByBackendId();
 
     /**
      * Retrieve an object in the current folder by backend id.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @param string $uid Backend id of the object to be returned.
      *
@@ -215,8 +199,6 @@ extends Horde_Kolab_Storage_Queriable
     /**
      * Return the mapping of object IDs to backend IDs.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return array The object to backend mapping.
      */
     public function getObjectToBackend();
@@ -224,16 +206,12 @@ extends Horde_Kolab_Storage_Queriable
     /**
      * Retrieve the list of object duplicates.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return array The list of duplicates.
      */
     public function getDuplicates();
 
     /**
      * Retrieve the list of object errors.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @return array The list of errors.
      */
@@ -268,8 +246,6 @@ extends Horde_Kolab_Storage_Queriable
 
     /**
      * Delete the specified messages from this folder.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @param array|string $uids Backend id(s) of the message to be deleted.
      *

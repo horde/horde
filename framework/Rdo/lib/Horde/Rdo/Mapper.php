@@ -81,9 +81,29 @@ abstract class Horde_Rdo_Mapper implements Countable
      */
     protected $_defaultSort;
 
+    /**
+     * The caching factory, if used
+     *
+     * @var Horde_Rdo_Factory
+     */
+    protected $_factory = null;
+
     public function __construct(Horde_Db_Adapter $adapter)
     {
         $this->adapter = $adapter;
+    }
+
+    /**
+     * Attach a Horde_Rdo_Factory to the mapper.
+     * If called without arguments, detaches the mapper from factory
+     *
+     * @param Horde_Rdo_Factory $factory  A Factory instance or null
+     * @return Horde_Rdo_Mapper  this mapper
+     */
+    public function setFactory(Horde_Rdo_Factory $factory = null)
+    {
+        $this->_factory = $factory;
+        return $this;
     }
 
     /**
@@ -96,6 +116,8 @@ abstract class Horde_Rdo_Mapper implements Countable
      *
      * adapter: The Horde_Db_Adapter this mapper is using to talk to
      * the database.
+     *
+     * factory: The Horde_Rdo_Factory instance, if present
      *
      * inflector: The Horde_Support_Inflector this Mapper uses to singularize
      * and pluralize PHP class, database table, and database field/key names.
@@ -145,6 +167,7 @@ abstract class Horde_Rdo_Mapper implements Countable
         case 'lazyFields':
         case 'relationships':
         case 'lazyRelationships':
+        case 'factory':
         case 'defaultSort':
             return $this->{'_' . $key};
         }
@@ -213,10 +236,15 @@ abstract class Horde_Rdo_Mapper implements Countable
         if (count($relationships)) {
             foreach ($this->relationships as $relationship => $rel) {
                 if (isset($rel['mapper'])) {
+                    if ($this->_factory) {
+                        $m = $this->_factory->create($rel['mapper']);
+                    }
                     // @TODO - should be getting this instance from somewhere
                     // else external, and not passing the adapter along
                     // automatically.
-                    $m = new $rel['mapper']($this->adapter);
+                    else {
+                        $m = new $rel['mapper']($this->adapter);
+                    }
                 } else {
                     $m = $this->tableToMapper($relationship);
                     if (is_null($m)) {
@@ -317,7 +345,7 @@ abstract class Horde_Rdo_Mapper implements Countable
         // here. We set updated_at to the initial creation time so it's
         // always set.
         if ($this->_setTimestamps) {
-            $time = gmmktime();
+            $time = time();
             $fields['created_at'] = $time;
             $fields['updated_at'] = $time;
         }
@@ -376,7 +404,7 @@ abstract class Horde_Rdo_Mapper implements Countable
 
         // If configured to record update time, set it here.
         if ($this->_setTimestamps) {
-            $fields['updated_at'] = gmmktime();
+            $fields['updated_at'] = time();
         }
 
         // Filter out any extra fields.
@@ -384,7 +412,7 @@ abstract class Horde_Rdo_Mapper implements Countable
 
         if (!$fields) {
             // Nothing to change.
-            return true;
+            return 0;
         }
 
         $sql = 'UPDATE ' . $this->adapter->quoteTableName($this->table) . ' SET';
@@ -482,6 +510,135 @@ abstract class Horde_Rdo_Mapper implements Countable
         // Build a full Query object.
         $query = Horde_Rdo_Query::create($query, $this);
         return new Horde_Rdo_List($query);
+    }
+
+    /**
+     * Adds a relation.
+     *
+     * - For one-to-one relations, simply updates the relation field.
+     * - For one-to-many relations, updates the related object's relation field.
+     * - For many-to-many relations, adds an entry in the "through" table.
+     * - Performs a no-op if the peer is already related.
+     *
+     * @param string $relationship    The relationship key in the mapper.
+     * @param Horde_Rdo_Base $ours    The object from this mapper to add the
+     *                                relation.
+     * @param Horde_Rdo_Base $theirs  The other object from any mapper to add
+     *                                the relation.
+     *
+     * @throws Horde_Rdo_Exception
+     */
+    public function addRelation($relationship, Horde_Rdo_Base $ours,
+                                Horde_Rdo_Base $theirs)
+    {
+        if ($ours->hasRelation($relationship, $theirs)) {
+            return;
+        }
+
+        $ourKey = $this->primaryKey;
+        $theirKey = $theirs->mapper->primaryKey;
+
+        if (isset($this->relationships[$relationship])) {
+            $rel = $this->relationships[$relationship];
+        } elseif (isset($this->lazyRelationships[$relationship])) {
+            $rel = $this->lazyRelationships[$relationship];
+        } else {
+            throw new Horde_Rdo_Exception('The requested relation is not defined in the mapper');
+        }
+
+        switch ($rel['type']) {
+        case Horde_Rdo::ONE_TO_ONE:
+        case Horde_Rdo::MANY_TO_ONE:
+            $ours->$rel['foreignKey'] = $theirs->$theirKey;
+            $ours->save();
+            break;
+
+        case Horde_Rdo::ONE_TO_MANY:
+            $theirs->$rel['foreignKey'] = $ours->$ourKey;
+            $theirs->save();
+            break;
+
+        case Horde_Rdo::MANY_TO_MANY:
+            $sql = sprintf('INSERT INTO %s (%s, %s) VALUES (?, ?)',
+                           $this->adapter->quoteTableName($rel['through']),
+                           $this->adapter->quoteColumnName($ourKey),
+                           $this->adapter->quoteColumnName($theirKey));
+            try {
+                $this->adapter->insert($sql, array($ours->$ourKey, $theirs->$theirKey));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Rdo_Exception($e);
+            }
+            break;
+        }
+    }
+
+    /**
+     * Removes a relation to one of the relationships defined in the mapper.
+     *
+     * - For one-to-one and one-to-many relations, simply sets the relation
+     *   field to 0.
+     * - For many-to-many, either deletes all relations to this object or just
+     *   the relation to a given peer object.
+     * - Performs a no-op if the peer is already unrelated.
+     *
+     * This is a proxy to the mapper's removeRelation method.
+     *
+     * @param string $relationship    The relationship key in the mapper.
+     * @param Horde_Rdo_Base $ours    The object from this mapper.
+     * @param Horde_Rdo_Base $theirs  The object to remove from the relation.
+     * @return integer  the number of affected relations
+     *
+     * @throws Horde_Rdo_Exception
+     */
+    public function removeRelation($relationship, Horde_Rdo_Base $ours,
+                                   Horde_Rdo_Base $theirs = null)
+    {
+        if (!$ours->hasRelation($relationship, $theirs)) {
+            return;
+        }
+
+        $ourKey = $this->primaryKey;
+
+        if (isset($this->relationships[$relationship])) {
+            $rel = $this->relationships[$relationship];
+        } elseif (isset($this->lazyRelationships[$relationship])) {
+            $rel = $this->lazyRelationships[$relationship];
+        } else {
+            throw new Horde_Rdo_Exception('The requested relation is not defined in the mapper');
+        }
+
+        switch ($rel['type']) {
+        case Horde_Rdo::ONE_TO_ONE:
+        case Horde_Rdo::MANY_TO_ONE:
+            $ours->$rel['foreignKey'] = null;
+            $ours->save();
+            return 1;
+            break;
+
+        case Horde_Rdo::ONE_TO_MANY:
+            $theirs->$rel['foreignKey'] = null;
+            $theirs->save();
+            return 1;
+            break;
+
+        case Horde_Rdo::MANY_TO_MANY:
+            $sql = sprintf('DELETE FROM %s WHERE %s = ? ',
+                           $this->adapter->quoteTableName($rel['through']),
+                           $this->adapter->quoteColumnName($ourKey));
+            $values = array($ours->$ourKey);
+            if (!empty($theirs)) {
+                $theirKey = $theirs->mapper->primaryKey;
+                $sql .= sprintf(' AND %s = ?',
+                                $this->adapter->quoteColumnName($theirKey));
+                $values[] = $theirs->$theirKey;
+            }
+            try {
+                return $this->adapter->delete($sql, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Rdo_Exception($e);
+            }
+            break;
+        }
     }
 
     /**

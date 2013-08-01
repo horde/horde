@@ -1,23 +1,63 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Download service script.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
- * @author Michael Slusarz <slusarz@horde.org>
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array(
     'authentication' => 'none',
     'session_control' => 'readonly'
 ));
 
-if (!($module = Horde_Util::getFormData('module')) ||
-    !file_exists($registry->get('fileroot', $module))) {
-    throw new Horde_Exception('Do not call this script directly.');
+$vars = $injector->getInstance('Horde_Variables');
+
+if (!isset($vars->app)) {
+    exit;
 }
 
-$registry->pushApp($module);
-include $registry->get('fileroot', $module) . '/view.php';
+$vars->filename = substr($vars->fn, 1);
+unset($vars->fn);
+
+$res = $registry->callAppMethod($vars->app, 'download', array(
+    'args' => array($vars)
+));
+
+if (!isset($res['data'])) {
+    exit;
+}
+
+if (!array_key_exists('size', $res)) {
+    if (is_resource($res['data'])) {
+        fseek($res['data'], 0, SEEK_END);
+        $res['size'] = ftell($res['data']);
+    } else {
+        $res['size'] = strlen($res['data']);
+    }
+}
+
+$browser->downloadHeaders(
+    isset($res['name']) ? $res['name'] : $vars->filename,
+    isset($res['type']) ? $res['type'] : null,
+    false,
+    $res['size']
+);
+
+if (is_resource($res['data'])) {
+    rewind($res['data']);
+    while (!feof($res['data'])) {
+        echo fread($res['data'], 8192);
+    }
+    fclose($res['data']);
+} else {
+    echo $res['data'];
+}

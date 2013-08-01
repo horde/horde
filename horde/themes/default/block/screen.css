@@ -1,0 +1,74 @@
+.horde-block-links a, a.horde-block-links {
+    display: block;
+}
+
+#portal .horde-content {
+    padding: 5px;
+}
+table.horde-block-weather {
+    border: 1px solid transparent;
+    border-collapse: collapse;
+    width: 100%;
+}
+table.horde-block-weather td {
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#googlesearch {
+    padding: .3em;
+}
+
+/* Social Media Related CSS */
+.hordeSmStreamstory {
+    margin-bottom: 7px;
+    padding-top: 7px;
+    position: relative;
+}
+.hordeSmStreambody {
+    min-height: 70px;
+}
+.hordeSmStreamMessage {
+    margin-top: 7px;
+    margin-left: 78px;
+    overflow: auto;
+}
+.hordeSmStreaminfo {
+    color: #777777;
+    padding: 2px 0 0;
+    font-style: italic;
+    font-size: 90%;
+    margin-left: 78px;
+}
+.hordeSmStreaminfo p {
+    display: inline;
+}
+.hordeSmGetmore {
+    text-align: center;
+}
+.hordeSmCurrent {
+    font-style: italic;
+    color: gray;
+}
+.hordeSmAvatar {
+    float: left;
+    text-align: center;
+    height: 73px;
+    width: 73px;
+    margin-right: 5px;
+    padding-top: 5px;
+}
+.hordeSmNew {
+    color: red;
+}
+.hordeSmPreview {
+    text-align: center;
+    position: absolute;
+    z-index: 10000;
+}
+.hordeSmOverlay {
+    position: absolute;
+    opacity: 0.8;
+    z-index: 9000;
+    background-color: #000000;
+}

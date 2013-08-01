@@ -1,8 +1,6 @@
 <?php
 /**
- * Skeleton_Driver factory.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -11,6 +9,16 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Skeleton
+ */
+
+/**
+ * Skeleton_Driver factory.
+ *
+ * @author    Your Name <you@example.com>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Skeleton
  */
 class Skeleton_Factory_Driver extends Horde_Core_Factory_Injector
 {

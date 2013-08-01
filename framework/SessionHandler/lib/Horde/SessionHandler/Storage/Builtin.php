@@ -4,7 +4,7 @@
  * This doesn't do any session handling itself - instead, it exists to allow
  * utility features to be used with the built-in PHP handler.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -31,7 +31,7 @@ class Horde_SessionHandler_Storage_Builtin extends Horde_SessionHandler_Storage
 
         $this->_path = session_save_path();
         if (!$this->_path) {
-            $this->_path = Horde_Util::getTempDir();
+            $this->_path = sys_get_temp_dir();
         }
     }
 
@@ -51,13 +51,7 @@ class Horde_SessionHandler_Storage_Builtin extends Horde_SessionHandler_Storage
      */
     public function read($id)
     {
-        $file = $this->_path . '/sess_' . $id;
-        $session_data = @file_get_contents($file);
-        if (($session_data === false) && $this->_logger) {
-            $this->_logger->log('Unable to read file: ' . $file, 'ERR');
-        }
-
-        return strval($session_data);
+        return strval(@file_get_contents($this->_path . '/sess_' . $id));
     }
 
     /**

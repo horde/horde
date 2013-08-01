@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
-
-/**
  * Test the core package XML handler.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -243,7 +238,7 @@ extends Horde_Pear_TestCase
 
     public function testEquality()
     {
-        $orig = file_get_contents(dirname(__FILE__) . '/../../fixture/horde/framework/simple/package.xml');
+        $orig = file_get_contents(__DIR__ . '/../../fixture/horde/framework/simple/package.xml');
         $xml = $this->_getFixture();
         $this->assertEquals($orig, (string) $xml);
     }
@@ -320,7 +315,7 @@ extends Horde_Pear_TestCase
     public function testCreateContents()
     {
         $this->_assertNodeExists(
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/empty'),
+            $this->_getUpdatedContents(__DIR__ . '/../../fixture/horde/framework/empty'),
             '/p:package/p:contents'
         );
     }
@@ -328,7 +323,7 @@ extends Horde_Pear_TestCase
     public function testCreateContentsDir()
     {
         $this->_assertNodeExists(
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/empty'),
+            $this->_getUpdatedContents(__DIR__ . '/../../fixture/horde/framework/empty'),
             '/p:package/p:contents/p:dir'
         );
     }
@@ -337,7 +332,7 @@ extends Horde_Pear_TestCase
     {
         $this->_assertContentsContain(
             'File.php',
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/empty')
+            $this->_getUpdatedContents(__DIR__ . '/../../fixture/horde/framework/empty')
         );
     }
 
@@ -345,7 +340,7 @@ extends Horde_Pear_TestCase
     {
         $this->_assertContentsContain(
             'lib/Stays.php',
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/simple-empty')
+            $this->_getUpdatedContents(__DIR__ . '/../../fixture/horde/framework/simple-empty')
         );
     }
 
@@ -353,7 +348,7 @@ extends Horde_Pear_TestCase
     {
         $this->_assertContentsContain(
             'test/Horde/a.php',
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/tree')
+            $this->_getUpdatedContents(__DIR__ . '/../../fixture/horde/framework/tree')
         );
     }
 
@@ -361,7 +356,7 @@ extends Horde_Pear_TestCase
     {
         $this->_assertContentsNotContain(
             'lib/Old.php',
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/remove')
+            $this->_getUpdatedContents(__DIR__ . '/../../fixture/horde/framework/remove')
         );
     }
 
@@ -370,7 +365,7 @@ extends Horde_Pear_TestCase
         $this->assertContains(
             '<dir name="lib">
     <dir name="b">',
-            (string) $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/remove')
+            (string) $this->_getUpdatedContents(__DIR__ . '/../../fixture/horde/framework/remove')
         );
     }
 
@@ -393,13 +388,13 @@ extends Horde_Pear_TestCase
       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
     </file>
     <file name="Z.php" role="php" />',
-            (string) $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/order')
+            (string) $this->_getUpdatedContents(__DIR__ . '/../../fixture/horde/framework/order')
         );
     }
 
     public function testRole()
     {
-        $xml = $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/simple-empty');
+        $xml = $this->_getUpdatedContents(__DIR__ . '/../../fixture/horde/framework/simple-empty');
         $file = $this->_getContentsFile('lib/Stays.php', $xml);
         $this->assertEquals('php', $file->getAttribute('role'));
     }
@@ -409,7 +404,7 @@ extends Horde_Pear_TestCase
      */
     public function testUndefined()
     {
-        $xml = $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/simple');
+        $xml = $this->_getUpdatedContents(__DIR__ . '/../../fixture/horde/framework/simple');
         $xml->noSuchTaskHasBeenDefined();
     }
 
@@ -547,14 +542,14 @@ extends Horde_Pear_TestCase
     private function _getFixture()
     {
         return new Horde_Pear_Package_Xml(
-            fopen(dirname(__FILE__) . '/../../fixture/horde/framework/simple/package.xml', 'r')
+            fopen(__DIR__ . '/../../fixture/horde/framework/simple/package.xml', 'r')
         );
     }
 
     private function _getEmptyNotesFixture()
     {
         return new Horde_Pear_Package_Xml(
-            fopen(dirname(__FILE__) . '/../../fixture/horde/framework/notes/package.xml', 'r')
+            fopen(__DIR__ . '/../../fixture/horde/framework/notes/package.xml', 'r')
         );
     }
 }

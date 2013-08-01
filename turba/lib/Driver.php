@@ -4,7 +4,7 @@
  * various directory search drivers.  It includes functions for searching,
  * adding, removing, and modifying directory entries.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -111,6 +111,62 @@ class Turba_Driver implements Countable
      * @var string
      */
     protected $_contact_owner = '';
+
+    /**
+     * Mapping of Turba attributes to ActiveSync fields.
+     *
+     * @var array
+     */
+    static protected $_asMap = array(
+        'name' => 'fileas',
+        'lastname' => 'lastname',
+        'firstname' => 'firstname',
+        'middlenames' => 'middlename',
+        'alias' => 'nickname',
+        'nickname' => 'nickname',
+        'namePrefix' => 'title',
+        'nameSuffix' => 'suffix',
+        'homeStreet' => 'homestreet',
+        'homeCity' => 'homecity',
+        'homeProvince' => 'homestate',
+        'homePostalCode' => 'homepostalcode',
+        'homeCountryFree' => 'homecountry',
+        'otherStreet' => 'otherstreet',
+        'otherCity' => 'othercity',
+        'otherProvince' => 'otherstate',
+        'otherPostalCode' => 'otherpostalcode',
+        'otherCountryFree' => 'othercountry',
+        'workStreet' => 'businessstreet',
+        'workCity' => 'businesscity',
+        'workProvince' => 'businessstate',
+        'workPostalCode' => 'businesspostalcode',
+        'workCountryFree' => 'businesscountry',
+        'title' => 'jobtitle',
+        'company' => 'companyname',
+        'department' => 'department',
+        'office' => 'officelocation',
+        'spouse' => 'spouse',
+        'website' => 'webpage',
+        'assistant' => 'assistantname',
+        'manager' => 'managername',
+        'yomifirstname' => 'yomifirstname',
+        'yomilastname' => 'yomilastname',
+        'imaddress' => 'imaddress',
+        'imaddress2' => 'imaddress2',
+        'imaddress3' => 'imaddress3',
+        'homePhone' => 'homephonenumber',
+        'homePhone2' => 'home2phonenumber',
+        'workPhone' => 'businessphonenumber',
+        'workPhone2' => 'business2phonenumber',
+        'fax' => 'businessfaxnumber',
+        'homeFax' => 'homefaxnumber',
+        'pager' => 'pagernumber',
+        'cellPhone' => 'mobilephonenumber',
+        'carPhone' => 'carphonenumber',
+        'assistPhone' => 'assistnamephonenumber',
+        'companyPhone' => 'companymainphone',
+        'radioPhone' => 'radiophonenumber'
+    );
 
     /**
      * Constructs a new Turba_Driver object.
@@ -489,13 +545,18 @@ class Turba_Driver implements Countable
      * @param array $custom_strict    A list of fields that must match exactly.
      * @param boolean $match_begin    Whether to match only at beginning of
      *                                words.
+     * @param boolean $count_only   Only return the count of matching entries,
+     *                              not the entries themselves.
      *
-     * @return Turba_List  The sorted, filtered list of search results.
+     * @return mixed Turba_List|integer  The sorted, filtered list of search
+     *                                   results or the number of matching
+     *                                   entries (if $count_only is true).
      * @throws Turba_Exception
      */
     public function search(array $search_criteria, $sort_order = null,
                            $search_type = 'AND', array $return_fields = array(),
-                           array $custom_strict = array(), $match_begin = false)
+                           array $custom_strict = array(), $match_begin = false,
+                           $count_only = false)
     {
         /* If we are not using Horde_Share, enforce the requirement that the
          * current user must be the owner of the addressbook. */
@@ -515,6 +576,10 @@ class Turba_Driver implements Countable
         $fields = $this->makeSearch($search_criteria, $search_type,
                                     $strict_fields, $match_begin);
 
+        if (in_array('email', $return_fields) &&
+            !in_array('emails', $return_fields)) {
+            $return_fields[] = 'emails';
+        }
         if (count($return_fields)) {
             $return_fields_pre = array_unique(array_merge(array('__key', '__type', '__owner', '__members', 'name'), $return_fields));
             $return_fields = array();
@@ -540,8 +605,10 @@ class Turba_Driver implements Countable
         }
 
         /* Retrieve the search results from the driver. */
-        $objects = $this->_search($fields, $return_fields, $this->toDriverKeys($this->getBlobs()));
-
+        $objects = $this->_search($fields, $return_fields, $this->toDriverKeys($this->getBlobs()), $count_only);
+        if ($count_only) {
+            return $objects;
+        }
         return $this->_toTurbaObjects($objects, $sort_order);
     }
 
@@ -679,7 +746,8 @@ class Turba_Driver implements Countable
                 'recurrence' => array('type' => Horde_Date_Recurrence::RECUR_YEARLY_DATE,
                                       'interval' => 1),
                 'params' => array('source' => $this->_name, 'key' => $key),
-                'link' => Horde::url('contact.php', true)->add(array('source' => $this->_name, 'key' => $key))->setRaw(true));
+                'link' => Horde::url('contact.php', true)->add(array('source' => $this->_name, 'key' => $key))->setRaw(true)
+            );
         }
 
         return $t_objects;
@@ -728,6 +796,7 @@ class Turba_Driver implements Countable
      *
      * @return array  The array of retrieved objects (Turba_Objects).
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getObjects(array $objectIds)
     {
@@ -736,7 +805,7 @@ class Turba_Driver implements Countable
                                 array_values($this->fields),
                                 $this->toDriverKeys($this->getBlobs()));
         if (!is_array($objects)) {
-            throw new Turba_Exception(_("Requested object not found."));
+            throw new Horde_Exception_NotFound();
         }
 
         $results = array();
@@ -766,13 +835,14 @@ class Turba_Driver implements Countable
      *
      * @return Turba_Object  The retrieved object.
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getObject($objectId)
     {
         $result = $this->getObjects(array($objectId));
 
         if (empty($result[0])) {
-            throw new Turba_Exception('No results');
+            throw new Horde_Exception_NotFound();
         }
 
         $result = $result[0];
@@ -850,6 +920,7 @@ class Turba_Driver implements Countable
      * @param string $object_id  The ID of the object to delete.
      *
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function delete($object_id)
     {
@@ -863,7 +934,7 @@ class Turba_Driver implements Countable
 
         $own_contact = $GLOBALS['prefs']->getValue('own_contact');
         if (!empty($own_contact)) {
-            @list($source, $id) = explode(';', $own_contact);
+            @list(,$id) = explode(';', $own_contact);
             if ($id == $object_id) {
                 $GLOBALS['prefs']->setValue('own_contact', '');
             }
@@ -880,7 +951,14 @@ class Turba_Driver implements Countable
             }
         }
 
-        return true;
+        /* Remove any CalDAV mappings. */
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Horde_Dav_Storage')
+                ->deleteInternalObjectId($object_id, $this->_name);
+        } catch (Horde_Exception $e) {
+            Horde::log($e);
+        }
     }
 
     /**
@@ -918,10 +996,16 @@ class Turba_Driver implements Countable
     }
 
     /**
-     * TODO
+     * Deletes all contacts from an address book.
+     *
+     * @param string $sourceName  The source to remove all contacts from.
+     *
+     * @return array  An array of UIDs that have been deleted.
+     * @throws Turba_Exception
      */
     protected function _deleteAll()
     {
+        return array();
     }
 
     /**
@@ -1005,11 +1089,15 @@ class Turba_Driver implements Countable
                 try {
                     $val = Horde::callHook(
                         'decode_attribute',
-                        array($attribute, $this->attributes[$attribute], $this),
+                        array($key, $val, $object),
                         'turba');
                 } catch (Turba_Exception $e) {}
             }
             switch ($key) {
+            case '__uid':
+                $vcard->setAttribute('UID', $val);
+                break;
+
             case 'name':
                 if ($fields && !isset($fields['FN'])) {
                     break;
@@ -1319,7 +1407,7 @@ class Turba_Driver implements Countable
                 }
                 break;
 
-            case 'instantMessenger':
+            case 'imaddress':
                 if ($fields && !isset($fields['X-WV-ID'])) {
                     break;
                 }
@@ -1910,6 +1998,10 @@ class Turba_Driver implements Countable
         $attr = $vcard->getAllAttributes();
         foreach ($attr as $item) {
             switch ($item['name']) {
+            case 'UID':
+                $hash['__uid'] = $item['value'];
+                break;
+
             case 'FN':
                 $hash['name'] = $item['value'];
                 break;
@@ -2115,6 +2207,8 @@ class Turba_Driver implements Countable
                     } elseif (in_array('HOME', $item['params']['TYPE']) &&
                               !isset($hash['homePhone'])) {
                         $hash['homePhone'] = $item['value'];
+                    } elseif (!isset($hash['phone'])) {
+                        $hash['phone'] = $item['value'];
                     }
                 } elseif (isset($item['params']['CELL'])) {
                     if (isset($item['params']['WORK']) &&
@@ -2133,23 +2227,17 @@ class Turba_Driver implements Countable
                     } elseif (isset($item['params']['HOME']) &&
                               !isset($hash['homeVideoCall'])) {
                         $hash['homeVideoCall'] = $item['value'];
-                    } elseif (!isset($hash['homeVideoCall'])) {
+                    } elseif (!isset($hash['videoCall'])) {
                         $hash['videoCall'] = $item['value'];
                     }
-                } elseif (count($item['params']) <= 1 ||
-                          isset($item['params']['VOICE'])) {
-                    // There might be e.g. SAT;WORK which must not overwrite
-                    // WORK.
+                } else {
                     if (isset($item['params']['WORK']) &&
                         !isset($hash['workPhone'])) {
                         $hash['workPhone'] = $item['value'];
                     } elseif (isset($item['params']['HOME']) &&
                               !isset($hash['homePhone'])) {
                         $hash['homePhone'] = $item['value'];
-                    } elseif ((count($item['params']) == 0 ||
-                               (count($item['params']) == 1 &&
-                                isset($item['params']['VOICE']))) &&
-                              !isset($hash['phone'])) {
+                    } else {
                         $hash['phone'] = $item['value'];
                     }
                 }
@@ -2192,7 +2280,7 @@ class Turba_Driver implements Countable
                 if (!isset($hash['emails'])) {
                     $hash['emails'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 } else {
-                    $hash['emails'] .= ', ' . Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['emails'] .= ',' . Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 }
                 break;
 
@@ -2276,7 +2364,7 @@ class Turba_Driver implements Countable
                 break;
 
             case 'X-WV-ID':
-                $hash['instantMessenger'] = $item['value'];
+                $hash['imaddress'] = $item['value'];
                 break;
 
             case 'X-ANNIVERSARY':
@@ -2326,12 +2414,22 @@ class Turba_Driver implements Countable
      * Convert the contact to an ActiveSync contact message
      *
      * @param Turba_Object $object  The turba object to convert
+     * @param array $options        Options:
+     *   - protocolversion: (float)  The EAS version to support
+     *                      DEFAULT: 2.5
+     *   - bodyprefs: (array)  A BODYPREFERENCE array.
+     *                DEFAULT: none (No body prefs enforced).
+     *   - truncation: (integer)  Truncate event body to this length
+     *                 DEFAULT: none (No truncation).
      *
      * @return Horde_ActiveSync_Message_Contact
      */
-    public function toASContact(Turba_Object $object)
+    public function toASContact(Turba_Object $object, array $options = array())
     {
-        $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
+        $message = new Horde_ActiveSync_Message_Contact(array(
+            'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+            'protocolversion' => $options['protocolversion'])
+        );
         $hash = $object->getAttributes();
         if (!isset($hash['lastname']) && isset($hash['name'])) {
             $this->_guessName($hash);
@@ -2364,229 +2462,127 @@ class Turba_Driver implements Countable
                 try {
                     $value = Horde::callHook(
                         'decode_attribute',
-                        array($attribute, $this->attributes[$attribute], $this),
+                        array($field, $value, $object),
                         'turba');
                 } catch (Turba_Exception $e) {
                     Horde::logMessage($e);
                 }
             }
-            switch ($field) {
-            case 'name':
-                $message->fileas = $value;
-                break;
-
-            case 'lastname':
-                $message->lastname = $value;
-                break;
-
-            case 'firstname':
-                $message->firstname = $value;
-                break;
-
-            case 'middlenames':
-                $message->middlename = $value;
-                break;
-
-            case 'namePrefix':
-                $message->title = $value;
-                break;
-
-            case 'alias':
-            case 'nickname':
+            if (isset(self::$_asMap[$field])) {
                 try {
-                    $message->nickname = $value;
+                    $message->{self::$_asMap[$field]} = $value;
                 } catch (InvalidArgumentException $e) {
                 }
-                break;
+                continue;
+            }
 
-            case 'nameSuffix':
-                $message->suffix = $value;
-                break;
-
+            switch ($field) {
             case 'photo':
                 $message->picture = base64_encode($value);
                 break;
 
-            case 'homeStreet':
-                $message->homestreet = $hash['homeStreet'];
-                break;
-
-            case 'homeCity':
-                $message->homecity = $hash['homeCity'];
-                break;
-
-            case 'homeProvince':
-                $message->homestate = $hash['homeProvince'];
-                break;
-
-            case 'homePostalCode':
-                $message->homepostalcode = $hash['homePostalCode'];
-                break;
-
             case 'homeCountry':
-                $message->homecountry = !empty($hash['homeCountry']) ? Horde_Nls::getCountryISO($hash['homeCountry']) : null;
-                break;
-
-            case 'otherStreet':
-                $message->otherstreet = $hash['otherStreet'];
-                break;
-
-            case 'otherCity':
-                $message->othercity = $hash['otherCity'];
-                break;
-
-            case 'otherProvince':
-                $message->otherstate = $hash['otherProvince'];
-                break;
-
-            case 'otherPostalCode':
-                $message->otherpostalcode = $hash['otherPostalCode'];
+                $message->homecountry = !empty($hash['homeCountryFree'])
+                    ? $hash['homeCountryFree']
+                    : !empty($hash['homeCountry'])
+                        ? Horde_Nls::getCountryISO($hash['homeCountry'])
+                        : null;
                 break;
 
             case 'otherCountry':
-                $message->othercountry = !empty($hash['otherCountry']) ? Horde_Nls::getCountryISO($hash['otherCountry']) : null;
-                break;
-
-            case 'workStreet':
-                $message->businessstreet = $hash['workStreet'];
-                break;
-
-            case 'workCity':
-                $message->businesscity = $hash['workCity'];
-                break;
-
-            case 'workProvince':
-                $message->businessstate = $hash['workProvince'];
-                break;
-
-            case 'workPostalCode':
-                $message->businesspostalcode = $hash['workPostalCode'];
+                $message->othercountry = !empty($hash['otherCountryFree'])
+                    ? $hash['otherCountryFree']
+                    : !empty($hash['otherCountry'])
+                        ? Horde_Nls::getCountryISO($hash['otherCountry'])
+                        : null;
                 break;
 
             case 'workCountry':
-                $message->businesscountry = !empty($hash['workCountry']) ? Horde_Nls::getCountryISO($hash['workCountry']) : null;
-
-            case 'homePhone':
-                /* Phone */
-                $message->homephonenumber = $hash['homePhone'];
-                break;
-
-            case 'homePhone2':
-                $message->home2phonenumber = $hash['homePhone2'];
-                break;
-
-            case 'cellPhone':
-                $message->mobilephonenumber = $hash['cellPhone'];
-                break;
-
-            case 'carPhone':
-                $message->carphonenumber = $hash['carPhone'];
-                break;
-
-            case 'fax':
-                $message->businessfaxnumber = $hash['fax'];
-                break;
-
-            case 'homeFax':
-                $message->homefaxnumber = $hash['homeFax'];
-                break;
-
-            case 'workPhone':
-                $message->businessphonenumber = $hash['workPhone'];
-                break;
-
-            case 'workPhone2':
-                $message->business2phonenumber = $hash['workPhone2'];
-                break;
-
-            case 'assistPhone':
-                $message->assistnamephonenumber = $hash['assistPhone'];
-                break;
-
-            case 'companyPhone':
-                $message->companymainphone = $hash['companyPhone'];
-                break;
-
-            case 'radioPhone':
-                $message->radiophonenumber = $hash['radioPhone'];
-                break;
-
-            case 'pager':
-                $message->pagernumber = $hash['pager'];
+                $message->businesscountry = !empty($hash['workCountryFree'])
+                    ? $hash['workCountryFree']
+                    : !empty($hash['workCountry'])
+                        ? Horde_Nls::getCountryISO($hash['workCountry'])
+                        : null;
                 break;
 
             case 'email':
-                $message->email1address = Horde_Icalendar_Vcard::getBareEmail($value);
+                $message->email1address = $value;
                 break;
 
             case 'homeEmail':
-                $message->email2address = Horde_Icalendar_Vcard::getBareEmail($value);
+                $message->email2address = $value;
                 break;
 
             case 'workEmail':
-                $message->email3address = Horde_Icalendar_Vcard::getBareEmail($value);
+                $message->email3address = $value;
                 break;
 
-            case 'imaddress':
-                try {
-                    $message->imaddress = $value;
-                } catch (InvalidArgumentException $e) {
+            case 'emails':
+                $address = 1;
+                foreach (explode(',', $value) as $email) {
+                    while ($address <= 3 &&
+                           $message->{'email' . $address . 'address'}) {
+                        $address++;
+                    }
+                    if ($address > 3) {
+                        break;
+                    }
+                    $message->{'email' . $address . 'address'} = $email;
+                    $address++;
                 }
-                break;
-
-            case 'imaddress2':
-                try {
-                    $message->imaddress2 = $value;
-                } catch (InvalidArgumentException $e) {
-
-                }
-                break;
-
-            case 'imaddress3':
-                try {
-                    $message->imaddress3 = $value;
-                } catch (InvalidArgumentException $e) {
-                }
-                break;
-
-            case 'title':
-                $message->jobtitle = $value;
-                break;
-
-            case 'company':
-                $message->companyname = $value;
-                break;
-
-            case 'department':
-                $message->department = $value;
                 break;
 
             case 'category':
-                // Categories FROM horde are a simple string value, going BACK to horde are an array with 'value' and 'new' keys
+                // Categories FROM horde are a simple string value, categories going BACK to horde are an array with 'value' and 'new' keys
                 $message->categories = explode(';', $value);
                 break;
 
-            case 'spouse':
-                $message->spouse = $value;
-                break;
-            case 'notes':
-                /* Assume no truncation - AS server will truncate as needed */
-                $message->body = $value;
-                $message->bodysize = strlen($message->body);
-                $message->bodytruncated = false;
+            case 'children':
+                // Children FROM horde are a simple string value. Even though EAS
+                // uses an array stucture to pass them, we pass as a single
+                // string since we can't assure what delimter the user will
+                // use and (at least in some languages) a comma can be used
+                // within a full name.
+                $message->children = array($value);
                 break;
 
-            case 'website':
-                $message->webpage = $value;
+            case 'notes':
+                if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
+                    $bp = $options['bodyprefs'];
+                    $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
+                    // No HTML supported in Turba's notes. Always use plaintext.
+                    $note->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+                    if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                        if (Horde_String::length($value) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                            $note->data = Horde_String::substr($value, 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
+                            $note->truncated = 1;
+                        } else {
+                            $note->data = $value;
+                        }
+                        $note->estimateddatasize = Horde_String::length($value);
+                    }
+                    $message->airsyncbasebody = $note;
+                } else {
+                    // EAS 2.5
+                    $message->body = $value;
+                    $message->bodysize = strlen($message->body);
+                    $message->bodytruncated = 0;
+                }
                 break;
 
             case 'birthday':
             case 'anniversary':
-                if (!empty($value)) {
+                if (!empty($value) && $value != '0000-00-00') {
                     try {
                         $date = new Horde_Date($value);
-                        $message->{$field} = $date;
                     } catch (Horde_Date_Exception $e) {
+                        $message->$field = null;
+                    }
+                    // Some sanity checking to make sure the date was
+                    // successfully parsed.
+                    if ($date->month != 0) {
+                        $message->$field = $date;
+                    } else {
                         $message->$field = null;
                     }
                 } else {
@@ -2615,63 +2611,8 @@ class Turba_Driver implements Countable
     public function fromASContact(Horde_ActiveSync_Message_Contact $message)
     {
         $hash = array();
-        $formattedname = false;
 
-        $textMap = array(
-            'fileas' => 'name',
-            'lastname' => 'lastname',
-            'firstname' => 'firstname',
-            'middlename' => 'middlenames',
-            'nickname' => 'nickname',
-            'title' => 'namePrefix',
-            'suffix' => 'nameSuffix',
-            'homestreet' => 'homeStreet',
-            'homecity' => 'homeCity',
-            'homestate' => 'homeProvince',
-            'homepostalcode' => 'homePostalCode',
-            'otherstreet' => 'otherStreet',
-            'othercity' => 'otherCity',
-            'otherstate' => 'otherProvince',
-            'otherpostalcode' => 'otherPostalCode',
-            'businessstreet' => 'workStreet',
-            'businesscity' => 'workCity',
-            'businessstate' => 'workProvince',
-            'businesspostalcode' => 'workPostalCode',
-            'jobtitle' => 'title',
-            'companyname' => 'company',
-            'department' => 'department',
-            'spouse' => 'spouse',
-            'body' => 'notes',
-            'webpage' => 'website',
-            'assistantname' => 'assistant',
-            'imaddress' => 'imaddress',
-            'imaddress2' => 'imaddress2',
-            'imaddress3' => 'imaddress3'
-        );
-        foreach ($textMap as $asField => $turbaField) {
-            if (!$message->isGhosted($asField)) {
-                try {
-                    $hash[$turbaField] = $message->{$asField};
-                } catch (InvalidArgumentException $e) {
-                }
-            }
-        }
-
-        $nonTextMap = array(
-            'homephonenumber' => 'homePhone',
-            'home2phonenumber' => 'homePhone2',
-            'businessphonenumber' => 'workPhone',
-            'business2phonenumber' => 'workPhone2',
-            'businessfaxnumber' => 'fax',
-            'homefaxnumber' => 'homeFax',
-            'pagernumber' => 'pager',
-            'mobilephonenumber' => 'cellPhone',
-            'carphonenumber' => 'carPhone',
-            'assistnamephonenumber' => 'assistPhone',
-            'companymainphone' => 'companyPhone',
-            'radiophonenumber' => 'radioPhone'
-        );
-        foreach ($nonTextMap as $asField => $turbaField) {
+        foreach (self::$_asMap as $turbaField => $asField) {
             if (!$message->isGhosted($asField)) {
                 try {
                     $hash[$turbaField] = $message->{$asField};
@@ -2682,26 +2623,48 @@ class Turba_Driver implements Countable
 
         /* Requires special handling */
 
+        try {
+            if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
+                if (!empty($message->airsyncbasebody)) {
+                    $hash['notes'] = $message->airsyncbasebody->data;
+                }
+            } else {
+                $hash['notes'] = $message->body;
+            }
+        } catch (InvalidArgumentException $e) {}
+
         // picture ($message->picture *should* already be base64 encdoed)
         if (!$message->isGhosted('picture')) {
             $hash['photo'] = base64_decode($message->picture);
         }
 
         /* Email addresses */
+        $hash['emails'] = array();
         if (!$message->isGhosted('email1address')) {
-            $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
+            $hash['emails'][] = $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
         }
         if (!$message->isGhosted('email2address')) {
-            $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
+            $hash['emails'][] = $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
         }
         if (!$message->isGhosted('email3address')) {
-            $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
+            $hash['emails'][] = $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
         }
+        $hash['emails'] = implode(',', $hash['emails']);
+
         /* Categories */
-        if (count($message->categories)) {
-            $hash['category'] = implode('|', $message->categories);
+        if (is_array($message->categories) && count($message->categories)) {
+            $hash['category'] = implode(';', $message->categories);
         } elseif (!$message->isGhosted('categories')) {
             $hash['category'] = '';
+        }
+
+        /* Children */
+        if (is_array($message->children) && count($message->children)) {
+            // We use a comma as incoming delimiter as it's the most
+            // common even though it might be used withing a name string.
+            $hash['children'] = implode(', ', $message->children);
+        } elseif (!$message->isGhosted('children')) {
+            $hash['children'] = '';
         }
 
         /* Birthday and Anniversary */
@@ -2723,31 +2686,43 @@ class Turba_Driver implements Countable
         /* Countries */
         include 'Horde/Nls/Countries.php';
         if (!empty($message->homecountry)) {
-            $country = array_search($message->homecountry, $countries);
-            if ($country === false) {
-                $country = $message->homecountry;
+            if (!empty($this->map['homeCountryFree'])) {
+                $hash['homeCountryFree'] = $message->homecountry;
+            } else {
+                $country = array_search($message->homecountry, $countries);
+                if ($country === false) {
+                    $country = $message->homecountry;
+                }
+                $hash['homeCountry'] = $country;
             }
-            $hash['homeCountry'] = $country;
         } elseif (!$message->isGhosted('homecountry')) {
             $hash['homeCountry'] = null;
         }
 
         if (!empty($message->businesscountry)) {
-            $country = array_search($message->businesscountry, $countries);
-            if ($country === false) {
-                $country = $message->businesscountry;
+            if (!empty($this->map['workCountryFree'])) {
+                $hash['workCountryFree'] = $message->businesscountry;
+            } else {
+                $country = array_search($message->businesscountry, $countries);
+                if ($country === false) {
+                    $country = $message->businesscountry;
+                }
+                $hash['workCountry'] = $country;
             }
-            $hash['workCountry'] = $country;
         } elseif (!$message->isGhosted('businesscountry')) {
             $hash['workCountry'] = null;
         }
 
         if (!empty($message->othercountry)) {
-            $country = array_search($message->othercountry, $countries);
-            if ($country === false) {
-                $country = $message->othercountry;
+            if (!empty($this->map['otherCountryFree'])) {
+                $hash['otherCountryFree'] = $message->othercountry;
+            } else {
+                $country = array_search($message->othercountry, $countries);
+                if ($country === false) {
+                    $country = $message->othercountry;
+                }
+                $hash['otherCountry'] = $country;
             }
-            $hash['otherCountry'] = $country;
         } elseif (!$message->isGhosted('othercountry')) {
             $hash['otherCountry'] = null;
         }
@@ -2847,6 +2822,15 @@ class Turba_Driver implements Countable
     }
 
     /**
+     * Runs any actions after setting a new default tasklist.
+     *
+     * @param string $share  The default share ID.
+     */
+    public function setDefaultShare($share)
+    {
+    }
+
+    /**
      * Creates an object key for a new object.
      *
      * @param array $attributes  The attributes (in driver keys) of the
@@ -2883,14 +2867,16 @@ class Turba_Driver implements Countable
      * filtered list of results. If the criteria parameter is an empty array,
      * all records will be returned.
      *
-     * @param array $criteria    Array containing the search criteria.
-     * @param array $fields      List of fields to return.
-     * @param array $blobFields  Array of fields containing binary data.
+     * @param array $criteria       Array containing the search criteria.
+     * @param array $fields         List of fields to return.
+     * @param array $blobFields     Array of fields containing binary data.
+     * @param boolean $count_only   Only return the count of matching entries,
+     *                              not the entries themselves.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         throw new Turba_Exception(_("Searching is not available."));
     }

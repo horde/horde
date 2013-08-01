@@ -1,102 +1,69 @@
 <?php
 /**
- * Attach the import encrpyt key javascript code into a page.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Attach the import encrpyt key javascript code into a page.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
 {
     /**
-     * Import DOM ID counter.
-     *
-     * @var integer
-     */
-    static protected $_importId = 0;
-
-    /**
-     * Constructor.
-     *
      * @param array $params  Configuration parameters:
-     *   - id: (string) [OPTIONAL] The DOM ID to attach to.
-     *   - mailbox: (IMP_Mailbox) The mailbox of the message.
      *   - mime_id: (string) The MIME ID of the message part with the key.
+     *   - muid: (string) The MUID of the message.
      *   - type: (string) Key type. Either 'pgp' or 'smime'.
-     *   - uid: (string) The UID of the message.
      */
-    public function __construct($params)
+    public function __construct(array $params = array())
     {
-        if (!isset($params['id'])) {
-            $params['id'] = 'imp_importencryptkey' . self::$_importId;
-        }
-
-        ++self::$_importId;
-
         parent::__construct($params);
     }
 
     /**
-     * Attach the object to a javascript event.
      */
-    public function attach()
+    protected function _attach($init)
     {
-        $js_params = array(
-            'mailbox' => $this->_params['mailbox']->form_to,
+        if ($init) {
+            $this->_jsOnComplete('e.element().up("TR").remove()');
+        }
+
+        return array(
             'mime_id' => $this->_params['mime_id'],
-            'type' => $this->_params['type'],
-            'uid' => $this->_params['uid']
+            'muid' => $this->_params['muid'],
+            'type' => $this->_params['type']
         );
-
-        if (defined('SID')) {
-            parse_str(SID, $sid);
-            $js_params = array_merge($js_params, $sid);
-        }
-
-        if (self::$_importId == 1) {
-            Horde::addScriptFile('importencryptkey.js', 'imp');
-
-            Horde::addInlineJsVars(array(
-                'IMPImportEncryptKey.uri' => strval($this->_getUrl('ImportEncryptKey', 'imp', array('sessionWrite' => 1)))
-            ), array('onload' => 'dom'));
-        }
-
-        Horde::addInlineJsVars(array(
-            'IMPImportEncryptKey.handles[' . Horde_Serialize::serialize($this->getImportId(), Horde_Serialize::JSON) . ']' => $js_params
-        ), array('onload' => 'dom'));
     }
 
     /**
-     * Perform the given action.
-     *
      * Variables required in form input:
-     *   - mailbox
      *   - mime_id
+     *   - muid
      *   - type
-     *   - uid
      *
-     * @param array $args  Not used.
-     * @param array $post  Not used.
-     *
-     * @return object  An object with the following entries:
-     *   - success: (integer) 1 on success, 0 on failure.
+     * @return boolean  True on success.
+     * @throws IMP_Exception
      */
-    public function handle($args, $post)
+    protected function _handle(Horde_Variables $vars)
     {
         global $injector, $notification;
 
-        $result = 0;
-        $vars = Horde_Variables::getDefaultVariables();
-
         /* Retrieve the key from the message. */
         try {
-            $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP_Mailbox::formFrom($vars->mailbox), $vars->uid));
+            $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Mailbox($vars));
             $mime_part = $contents->getMIMEPart($vars->mime_id);
             if (empty($mime_part)) {
                 throw new IMP_Exception(_("Cannot retrieve public key from message."));
@@ -121,23 +88,12 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
                 $notification->push(_("Successfully added certificate from message."), 'horde.success');
                 break;
             }
-
-            $result = 1;
         } catch (Exception $e) {
             $notification->push($e, 'horde.error');
+            return false;
         }
 
-        return new Horde_Core_Ajax_Response($result, true);
-    }
-
-    /**
-     * Generates a unique DOM ID.
-     *
-     * @return string  A unique DOM ID.
-     */
-    public function getImportId()
-    {
-        return $this->_params['id'];
+        return true;
     }
 
 }

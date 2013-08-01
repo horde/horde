@@ -16,11 +16,11 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:03:45</time>
+ <date>2013-05-28</date>
+ <time>13:20:28</time>
  <version>
-  <release>1.0.11</release>
-  <api>1.0.0</api>
+  <release>2.0.7</release>
+  <api>2.0.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -36,6 +36,7 @@
     <dir name="Horde">
      <dir name="Date">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Date -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -137,6 +138,7 @@
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Date.mo" role="data" />
       <file name="Horde_Date.po" role="data" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
     </dir> <!-- /locale/eu -->
@@ -338,8 +340,9 @@
        <file name="YearTest.php" role="test" />
       </dir> <!-- /test/Horde/Date/Repeater -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="DateTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="RecurrenceTest.php" role="test" />
       <file name="SpanTest.php" role="test" />
       <file name="UtilsTest.php" role="test" />
@@ -351,7 +354,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -359,32 +362,39 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>calendar</name>
@@ -394,6 +404,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Date/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Date/UPGRADING" />
    <install as="Horde/Date.php" name="lib/Horde/Date.php" />
    <install as="Horde/Date/Exception.php" name="lib/Horde/Date/Exception.php" />
    <install as="Horde/Date/Recurrence.php" name="lib/Horde/Date/Recurrence.php" />
@@ -436,6 +447,7 @@
    <install as="locale/es/LC_MESSAGES/Horde_Date.po" name="locale/es/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Date.mo" name="locale/et/LC_MESSAGES/Horde_Date.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Date.po" name="locale/et/LC_MESSAGES/Horde_Date.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Date.mo" name="locale/eu/LC_MESSAGES/Horde_Date.mo" />
    <install as="locale/eu/LC_MESSAGES/Horde_Date.po" name="locale/eu/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/fa/LC_MESSAGES/Horde_Date.po" name="locale/fa/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Date.mo" name="locale/fi/LC_MESSAGES/Horde_Date.mo" />
@@ -492,8 +504,9 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Date.po" name="locale/zh_CN/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Date.po" name="locale/zh_TW/LC_MESSAGES/Horde_Date.po" />
    <install as="Horde/Date/AllTests.php" name="test/Horde/Date/AllTests.php" />
-   <install as="Horde/Date/Autoload.php" name="test/Horde/Date/Autoload.php" />
+   <install as="Horde/Date/bootstrap.php" name="test/Horde/Date/bootstrap.php" />
    <install as="Horde/Date/DateTest.php" name="test/Horde/Date/DateTest.php" />
+   <install as="Horde/Date/phpunit.xml" name="test/Horde/Date/phpunit.xml" />
    <install as="Horde/Date/RecurrenceTest.php" name="test/Horde/Date/RecurrenceTest.php" />
    <install as="Horde/Date/SpanTest.php" name="test/Horde/Date/SpanTest.php" />
    <install as="Horde/Date/UtilsTest.php" name="test/Horde/Date/UtilsTest.php" />
@@ -730,7 +743,197 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Avoid infinite loop when requesting invalid date property.
+* [bak] Avoid printing empty BYDAY field on RRULE.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.12</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Include time when parsing recurrence end date from vCalendar/iCalendar.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [jan] Rename fromHash()/toHash() to fromKolab()/toKolab().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Include time when parsing recurrence end date from vCalendar/iCalendar.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix adding completed recurrence exceptions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Support non-padding operators in strftime() formatting (Bug #10435).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+* [jan] Fix strftime() formatting of certain locale-specific format specifiers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Fix more strftime() formatting of certain locale-specific format specifiers (Bug #11831).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Fix error: DateTime::__construct(): Failed to parse time string (-001-11-01).
+* [jan] Catch DateTime exception in Horde_Date_Utils:daysInMonth() (Bug #11916).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix recurring dates on the 5th weekday of a month (Bug #11181).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix parsing yearly recurrences on the same day from Kolab data (Bug #12227).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Don&apos;t use /e modifier with preg_replace() calls (Remi Collet &lt;fedora@famillecollet.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

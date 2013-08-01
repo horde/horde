@@ -2,12 +2,11 @@
  Passwd Development Team
 =========================
 
-
 Core Developers
 ===============
 
-- Eric Rostetter <eric.rostetter@physics.utexas.edu>
 - Jan Schneider <jan@horde.org>
+- Michael Slusarz <slusarz@horde.org>
 
 
 Driver Developers
@@ -28,6 +27,7 @@ Driver Developers
 - Stuart Bingë <skbinge@gmail.com>
 - Tjeerd van der Zee <admin@xar.nl>
 - Ralf Lang <lang@b1-systems.de>
+
 
 Localization
 ============
@@ -54,6 +54,8 @@ Finnish                 Tero Matinlassi <terom@iki.fi>
 French                  Daniel Huhardeaux <daniel.huhardeaux@tootai.com>
                         Benoit St-André
                         Pierre Lachance <pl@pierrelachance.net>
+                        Paul De Vlieger
+                        <paul.de_vlieger@moniut.univ-bpclermont.fr>
 Galician                Rafael Varela <rafael.varela@usc.es>
                         Guillermo Mendez <guille@usc.es>
 German                  Jens A Tkotz <jens.tkotz@f2h9.de>
@@ -65,6 +67,7 @@ Indonesian              Slamin <slamin@unej.ac.id>
 Italian                 Gianrico Fichera <gianrico.fichera@itesys.it>
                         Marko Djukic <marko@oblo.com>
                         Fabio Pedretti <fabio.pedretti@ing.unibs.it>
+                        Massimo Malabotta <mmalabotta@units.it>
 Japanese                Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 Latvian                 Jānis Eisaks <jancs@dv.lv>
 Lithuanian              Darius Matuliauskas <darius@lnk.lt>
@@ -75,14 +78,17 @@ Polish                  Mariusz Zynel <mariusz@solaris-x86.org>
                         Piotr Adamcio <adamcios@o2.pl>
                         Tadeusz Lesiecki <lesiecki@tmtsystem.pl>
                         Piotr Tarnowski <drfugazi@drfugazi.eu.org>
+                        Krzysztof Kozera <krzysztof113@o2.pl>
 Portuguese              João César Marigonda <joao@webnow.com.br>
                         Manuel Menezes de Sequeira <Manuel.Sequeira>
 Romanian                Marius Dragulescu <mariusd@urban-grafx.ro>
                         Eugen Hoanca <eugenh@urban-grafx.ro>
 Russian                 Illya Belov <belov@iop.irkps.ru>
 Slovak                  Ivan Noris <vix@vazka.sk>
+                        Jozef Sudolský <jozef.sudolsky@elbia.sk>
 Slovenian               Duck <duck@obala.net>
 Spanish                 Manuel Perez Ayala <mayala@unex.es>
+                        Juan C. Blanco <jcblanco@fi.upm.es>
 Swedish                 Mattias Webjörn Eriksson <mattias@webjorn>
 Turkish                 Middle East Technical University <horde-tr@metu.edu.tr>
 =====================   ======================================================
@@ -92,6 +98,8 @@ Inactive Developers
 ===================
 
 - Mathieu Clabaut
+- Chuck Hagenbuch <chuck@horde.org>
+- Eric Rostetter <eric.rostetter@physics.utexas.edu>
 
 
 Special thanks

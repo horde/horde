@@ -3,7 +3,7 @@
  * This file contains all Horde_Form classes to create a new ticket.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -89,14 +89,11 @@ class Whups_Form_Ticket_CreateStepThree extends Horde_Form
         $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         $mygroups = $groups->listGroups($GLOBALS['registry']->getAuth());
         if ($mygroups) {
-            foreach (array_keys($mygroups) as $gid) {
-                $grouplist[$gid] = $groups->getName($gid, true);
-            }
-            asort($grouplist);
-            $grouplist = array(0 => _("This comment is visible to everyone")) + $grouplist;
-            $this->addVariable(
+            $mygroups = array(0 => _("This comment is visible to everyone")) + $mygroups;
+            $v = $this->addVariable(
                 _("Make this comment visible only to members of a group?"), 'group',
-                'enum', false, false, null, array($grouplist));
+                'enum', false, false, null, array($mygroups));
+            $v->setDefault(0);
         }
     }
 

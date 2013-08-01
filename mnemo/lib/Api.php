@@ -5,7 +5,7 @@
  * This file defines Mnemo's external API interface.  Other applications can
  * interact with Mnemo through this API.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -70,7 +70,7 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         // Set notepad for listMemos.
@@ -91,15 +91,33 @@ class Mnemo_Api extends Horde_Registry_Api
      *
      * @param integer $start             The starting timestamp
      * @param integer $end               The ending timestamp.
+     * @param boolean $isModSeq          If true, $timestamp and $end are
+     *                                   modification sequences and not
+     *                                   timestamps. @since 4.1.1
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      * @since 3.0.5
      */
-    public function getChanges($start, $end)
+    public function getChanges($start, $end, $isModSeq = false)
     {
-        return array('add' => $this->listBy('add', $start, null, $end),
-                     'modify' => $this->listBy('modify', $start, null, $end),
-                     'delete' => $this->listBy('delete', $start, null, $end));
+        return array('add' => $this->listBy('add', $start, null, $end, $isModSeq),
+                     'modify' => $this->listBy('modify', $start, null, $end, $isModSeq),
+                     'delete' => $this->listBy('delete', $start, null, $end, $isModSeq));
+    }
+
+    /**
+     * Return all changes occuring between the specified modification
+     * sequences.
+     *
+     * @param integer $start  The starting modseq.
+     * @param integer $end    The ending modseq.
+     *
+     * @return array  The changes @see getChanges()
+     * @since 4.1.1
+     */
+    public function getChangesByModSeq($start, $end)
+    {
+        return $this->getChanges($start, $end, true);
     }
 
     /**
@@ -110,10 +128,12 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param integer $timestamp  The time to start the search.
      * @param string  $notepad    The notepad to search in.
      * @param integer $end        The optional ending timestamp.
+     * @param boolean $isModSeq   If true, $timestamp and $end are modification
+     *                            sequences and not timestamps. @since 4.1.1
      *
      * @return array  An array of UIDs matching the action and time criteria.
      */
-    public function listBy($action, $timestamp, $notepad = null, $end = null)
+    public function listBy($action, $timestamp, $notepad = null, $end = null, $isModSeq = false)
     {
         /* Make sure we have a valid notepad. */
         if (empty($notepad)) {
@@ -121,15 +141,19 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
-           throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+           throw new Horde_Exception_PermissionDenied();
         }
 
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
-        if (!empty($end)) {
+        if (!empty($end) && !$isModSeq) {
             $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
         }
         $history = $GLOBALS['injector']->getInstance('Horde_History');
-        $histories = $history->getByTimestamp('>', $timestamp, $filter, 'mnemo:' . $notepad);
+        if (!$isModSeq) {
+            $histories = $history->getByTimestamp('>', $timestamp, $filter, 'mnemo:' . $notepad);
+        } else {
+            $histories = $history->getByModSeq($timestamp, $end, $filter, 'mnemo:' . $notepad);
+        }
 
         // Strip leading mnemo:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -138,14 +162,16 @@ class Mnemo_Api extends Horde_Registry_Api
     /**
      * Returns the timestamp of an operation for a given uid an action.
      *
-     * @param string $uid     The uid to look for.
-     * @param string $action  The action to check for - add, modify, or delete.
-     * @param string $notepad The notepad to search in.
+     * @param string $uid      The uid to look for.
+     * @param string $action   The action to check for - add, modify, or delete.
+     * @param string $notepad  The notepad to search in.
+     * @param boolean $modSeq  Request a modification sequence instead of a
+     *                         timestamp. @since 4.1.1
      *
-     * @return integer  The timestamp for this action.
+     * @return integer  The timestamp or modseq for this action.
      * @throws Horde_Exception_PermissionDenied
      */
-    public function getActionTimestamp($uid, $action, $notepad = null)
+    public function getActionTimestamp($uid, $action, $notepad = null, $modSeq = false)
     {
         /* Make sure we have a valid notepad. */
         if (empty($notepad)) {
@@ -153,11 +179,26 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $history = $GLOBALS['injector']->getInstance('Horde_History');
-        return $history->getActionTimestamp('mnemo:' . $notepad . ':' . $uid, $action);
+        if (!$modSeq) {
+            return $history->getActionTimestamp('mnemo:' . $notepad . ':' . $uid, $action);
+        } else {
+            return $history->getActionModSeq('mnemo:' . $notepad . ':' . $uid, $action);
+        }
+    }
+
+    /**
+     * Return the largest modification sequence from the history backend.
+     *
+     * @return integer  The modseq.
+     * @since 4.1.1
+     */
+    public function getHighestModSeq()
+    {
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('mnemo');
     }
 
     /**
@@ -167,6 +208,7 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param string $contentType  What format is the data in? Currently supports:
      *                             text/plain
      *                             text/x-vnote
+     *                             activesync
      * @param string $notepad      (optional) The notepad to save the memo on.
      *
      * @return string  The new UID, or false on failure.
@@ -184,7 +226,7 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::EDIT))) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         /* Create a Mnemo_Driver instance. */
@@ -216,9 +258,9 @@ class Mnemo_Api extends Horde_Registry_Api
                     foreach ($components as $content) {
                         if ($content instanceof Horde_Icalendar_Vnote) {
                             $note = $storage->fromiCalendar($content);
-                            $noteId = $storage->add($note['desc'],
-                                                    $note['body'],
-                                                    !empty($note['category']) ? $note['category'] : '');
+                            $noteId = $storage->add(
+                                $note['desc'], $note['body'],
+                                !empty($note['category']) ? $note['category'] : '');
                             $ids[] = $noteId;
                         }
                     }
@@ -227,8 +269,14 @@ class Mnemo_Api extends Horde_Registry_Api
             }
 
             $note = $storage->fromiCalendar($content);
-            $noteId = $storage->add($note['desc'],
-                                    $note['body'], !empty($note['category']) ? $note['category'] : '');
+            $noteId = $storage->add(
+                $note['desc'], $note['body'],
+                !empty($note['category']) ? $note['category'] : '');
+            break;
+
+        case 'activesync':
+            $category = is_array($content->categories) ? current($content->categories) : '';
+            $noteId = $storage->add($content->subject, $content->body->data, $category);
             break;
 
         default:
@@ -248,13 +296,16 @@ class Mnemo_Api extends Horde_Registry_Api
      *                             <pre>
      *                               'text/plain'
      *                               'text/x-vnote'
+     *                               'activesync'
      *                             </pre>
+     * @param array $options       Any additional options to be passed to the
+     *                             exporter.
      *
      * @return string  The requested data
      * @throws Mnemo_Exception
      * @throws Horde_Exception_PermissionDenied
      */
-    public function export($uid, $contentType)
+    public function export($uid, $contentType, array $options = array())
     {
         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
         try {
@@ -269,7 +320,7 @@ class Mnemo_Api extends Horde_Registry_Api
             }
         }
         if (!array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         switch ($contentType) {
@@ -286,6 +337,9 @@ class Mnemo_Api extends Horde_Registry_Api
             // Create a new vNote.
             $vNote = $storage->toiCalendar($memo, $iCal);
             return $vNote->exportvCalendar();
+
+        case 'activesync':
+            return $storage->toASNote($memo, $options);
         }
 
         throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"),$contentType));
@@ -314,7 +368,7 @@ class Mnemo_Api extends Horde_Registry_Api
         if (!$GLOBALS['registry']->isAdmin() &&
             !array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::DELETE))) {
 
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $storage->delete($memo['memo_id']);
@@ -324,11 +378,12 @@ class Mnemo_Api extends Horde_Registry_Api
      * Replace the memo identified by UID with the content represented in
      * the specified contentType.
      *
-     * @param string $uid         Idenfity the memo to replace.
+     * @param string $uid          Idenfity the memo to replace.
      * @param string $content      The content of the memo.
      * @param string $contentType  What format is the data in? Currently supports:
      *                             text/plain
      *                             text/x-vnote
+     *                             activesync
      * @throws Mnemo_Exception
      * @throws Horde_Exception_PermissionDenied
      */
@@ -337,7 +392,7 @@ class Mnemo_Api extends Horde_Registry_Api
         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
         $memo = $storage->getByUID($uid);
         if (!array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::EDIT))) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         switch ($contentType) {
@@ -370,6 +425,12 @@ class Mnemo_Api extends Horde_Registry_Api
                              $note['body'],
                              !empty($note['category']) ? $note['category'] : '');
             break;
+
+        case 'activesync':
+            $category = is_array($content->categories) ? current($content->categories) : '';
+            $storage->modify($memo['memo_id'], $content->subject, $content->body->data, $category);
+            break;
+
         default:
             throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"),$contentType));
         }

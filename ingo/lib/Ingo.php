@@ -1,11 +1,19 @@
 <?php
 /**
- * Ingo base class.
- *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo base class.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
@@ -27,6 +35,27 @@ class Ingo
     const USER_HEADER = '++USER_HEADER++';
 
     /**
+     * Only filter unseen messages.
+     */
+    const FILTER_UNSEEN = 1;
+
+    /**
+     * Only filter seen messages.
+     */
+    const FILTER_SEEN = 2;
+
+    /**
+     * Constants for rule types.
+     */
+    const RULE_ALL = 0;
+    const RULE_FILTER = 1;
+    const RULE_BLACKLIST = 2;
+    const RULE_WHITELIST = 3;
+    const RULE_VACATION = 4;
+    const RULE_FORWARD = 5;
+    const RULE_SPAM = 6;
+
+    /**
      * hasSharePermission() cache.
      *
      * @var integer
@@ -41,15 +70,13 @@ class Ingo
      * is returned.
      *
      * @param string $value    The current value for the field.
-     * @param string $form     The form name for the newFolderName() call.
      * @param string $tagname  The label for the select tag.
      *
      * @return string  The HTML to render the field.
      */
-    static public function flistSelect($value = null, $form = null,
-                                       $tagname = 'actionvalue')
+    static public function flistSelect($value = null, $tagname = 'actionvalue')
     {
-        global $conf, $registry;
+        global $page_output, $registry;
 
         if ($registry->hasMethod('mail/mailboxList')) {
             try {
@@ -67,14 +94,14 @@ class Ingo
                 foreach ($mailboxes as $val) {
                     $text .= sprintf(
                         "<option value=\"%s\"%s>%s</option>\n",
-                        htmlspecialchars($val['ob']->utf7imap),
-                        ($key === $value) ? ' selected="selected"' : '',
+                        htmlspecialchars($val['ob']),
+                        ($val['ob'] == $value) ? ' selected="selected"' : '',
                         str_repeat('&nbsp;', $val['level'] * 2) . htmlspecialchars($val['label'])
                     );
                 }
 
-                Horde::addScriptFile('new_folder.js', 'ingo');
-                Horde::addInlineJsVars(array(
+                $page_output->addScriptFile('new_folder.js');
+                $page_output->addInlineJsVars(array(
                     'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:")
                 ));
 
@@ -100,7 +127,7 @@ class Ingo
 
         if (isset($vars->$new_id)) {
             if ($GLOBALS['registry']->hasMethod('mail/createMailbox') &&
-                $GLOBALS['registry']->call('mail/createMailbox', $vars->$new_id)) {
+                $GLOBALS['registry']->call('mail/createMailbox', array($vars->$new_id))) {
                 return $vars->$new_id;
             }
         } elseif (isset($vars->$name) && strlen($vars->$name)) {
@@ -120,9 +147,7 @@ class Ingo
     static public function getUser($full = true)
     {
         if (empty($GLOBALS['ingo_shares'])) {
-            $baseuser = ($full ||
-                        ($GLOBALS['session']->get('ingo', 'backend/hordeauth') === 'full'));
-            return $GLOBALS['registry']->getAuth($baseuser ? null : 'bare');
+            return $GLOBALS['registry']->getAuth($full ? null : 'bare');
         }
 
         list(, $user) = explode(':', $GLOBALS['session']->get('ingo', 'current_share'), 2);
@@ -146,61 +171,51 @@ class Ingo
     }
 
     /**
-     * Connects to the backend and uploads the script and sets it active.
+     * Connects to the backend, uploads the scripts and sets them active.
      *
-     * @param string $script       The script to set active.
+     * @param array $scripts       A list of scripts to set active.
      * @param boolean $deactivate  If true, notification will identify the
      *                             script as deactivated instead of activated.
-     * @param array $additional    Any additional scripts that need to uploaded.
      *
-     * @return boolean  True on success, false on failure.
+     * @throws Ingo_Exception
      */
-    static public function activateScript($script, $deactivate = false,
-                                          $additional = array())
+    static public function activateScripts($scripts, $deactivate = false)
     {
-        try {
-            $GLOBALS['injector']->getInstance('Ingo_Transport')->setScriptActive($script, $additional);
-        } catch (Ingo_Exception $e) {
-            $msg = $deactivate
-              ? _("There was an error deactivating the script.")
-              : _("There was an error activating the script.");
-            $GLOBALS['notification']->push($msg . ' ' . _("The driver said: ") . $e->getMessage(), 'horde.error');
-            return false;
+        foreach ($scripts as $script) {
+            try {
+                $GLOBALS['injector']
+                    ->getInstance('Ingo_Factory_Transport')
+                    ->create($script['transport'])
+                  ->setScriptActive($script);
+            } catch (Ingo_Exception $e) {
+                $msg = $deactivate
+                  ? _("There was an error deactivating the script.")
+                  : _("There was an error activating the script.");
+                throw new Ingo_Exception(sprintf(_("%s The driver said: %s"), $msg, $e->getMessage()));
+            }
         }
 
         $msg = ($deactivate)
             ? _("Script successfully deactivated.")
             : _("Script successfully activated.");
         $GLOBALS['notification']->push($msg, 'horde.success');
-
-        return true;
-    }
-
-    /**
-     * Connects to the backend and returns the currently active script.
-     *
-     * @return string  The currently active script.
-     */
-    static public function getScript()
-    {
-        return self::getTransport()->getScript();
     }
 
     /**
      * Does all the work in updating the script on the server.
+     *
+     * @throws Ingo_Exception
      */
     static public function updateScript()
     {
-        if ($GLOBALS['session']->get('ingo', 'script_generate')) {
-            try {
-                $ingo_script = $GLOBALS['injector']->getInstance('Ingo_Script');
-
-                /* Generate and activate the script. */
-                self::activateScript($ingo_script->generate(),
-                                     false,
-                                     $ingo_script->additionalScripts());
-            } catch (Ingo_Exception $e) {
-                $GLOBALS['notification']->push(_("Script not updated."), 'horde.error');
+        foreach ($GLOBALS['injector']->getInstance('Ingo_Factory_Script')->createAll() as $script) {
+            if ($script->hasFeature('script_file')) {
+                try {
+                    /* Generate and activate the script. */
+                    self::activateScripts($script->generate());
+                } catch (Ingo_Exception $e) {
+                    throw new Ingo_Exception(sprintf(_("Script not updated: %s"), $e->getMessage()));
+                }
             }
         }
     }
@@ -243,6 +258,7 @@ class Ingo
                     $backend = $name;
                 }
             }
+            $backends[$name]['id'] = $name;
         }
 
         /* Check for valid backend configuration. */
@@ -250,18 +266,12 @@ class Ingo
             throw new Ingo_Exception(_("No backend configured for this host"));
         }
 
-        $backends[$backend]['id'] = $name;
         $backend = $backends[$backend];
 
         foreach (array('script', 'transport') as $val) {
             if (empty($backend[$val])) {
                 throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), $val));
             }
-        }
-
-        /* Make sure the 'params' entry exists. */
-        if (!isset($backend['params'])) {
-            $backend['params'] = array();
         }
 
         return $backend;
@@ -281,13 +291,27 @@ class Ingo
                                         $permission = Horde_Perms::SHOW)
     {
         try {
-            $rulesets = $GLOBALS['ingo_shares']->listShares(
+            $tmp = $GLOBALS['ingo_shares']->listShares(
                 $GLOBALS['registry']->getAuth(),
                 array('perm' => $permission,
                       'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
+        }
+
+        /* Check if filter backend of the share still exists. */
+        $backends = Horde::loadConfiguration('backends.php', 'backends', 'ingo');
+        if (!isset($backends) || !is_array($backends)) {
+            throw new Ingo_Exception(_("No backends configured in backends.php"));
+        }
+        $rulesets = array();
+        foreach ($tmp as $id => $ruleset) {
+            list($backend) = explode(':', $id);
+            if (isset($backends[$backend]) &&
+                empty($backends[$backend]['disabled'])) {
+                $rulesets[$id] = $ruleset;
+            }
         }
 
         return $rulesets;
@@ -310,62 +334,130 @@ class Ingo
     }
 
     /**
-     * Returns whether an address is empty or only contains a "@".
-     * Helper function for array_filter().
+     * Returns the vacation reason with all placeholder replaced.
      *
-     * @param string $address  An email address to test.
+     * @param string $reason  The vacation reason including placeholders.
+     * @param integer $start  The vacation start timestamp.
+     * @param integer $end    The vacation end timestamp.
      *
-     * @return boolean  True if the address is not empty.
+     * @return string  The vacation reason suitable for usage in the filter
+     *                 scripts.
      */
-    static public function filterEmptyAddress($address)
+    static public function getReason($reason, $start, $end)
     {
-        $address = trim($address);
-        return (!empty($address) && ($address != '@'));
+        $identity = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create(Ingo::getUser());
+        $format = $GLOBALS['prefs']->getValue('date_format');
+
+        return str_replace(array('%NAME%',
+                                 '%EMAIL%',
+                                 '%SIGNATURE%',
+                                 '%STARTDATE%',
+                                 '%ENDDATE%'),
+                           array($identity->getName(),
+                                 $identity->getDefaultFromAddress(),
+                                 $identity->getValue('signature'),
+                                 $start ? strftime($format, $start) : '',
+                                 $end ? strftime($format, $end) : ''),
+                           $reason);
     }
 
     /**
-     * Create ingo's menu.
+     * Updates a list (blacklist/whitelist) filter.
      *
-     * @return string  The menu text.
+     * @param mixed $addresses  Addresses of the filter.
+     * @param integer $type     Type of filter.
+     *
+     * @return Horde_Storage_Rule  The filter object.
      */
-    static public function menu()
+    static public function updateListFilter($addresses, $type)
     {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->set('form_url', Horde::url('filters.php'));
-        $t->set('forminput', Horde_Util::formInput());
+        global $injector;
 
-        if (!empty($GLOBALS['ingo_shares']) &&
-            (count($GLOBALS['all_rulesets']) > 1)) {
-            $options = array();
-            foreach (array_keys($GLOBALS['all_rulesets']) as $id) {
-                $options[] = array(
-                    'name' => htmlspecialchars($GLOBALS['all_rulesets'][$id]->get('name')),
-                    'selected' => ($GLOBALS['session']->get('ingo', 'current_share') == $id),
-                    'val' => htmlspecialchars($id)
-                );
-            }
-            $t->set('options', $options);
+        $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+        $rule = $storage->retrieve($type);
+
+        switch ($type) {
+        case $storage::ACTION_BLACKLIST:
+            $rule->setBlacklist($addresses);
+            $addr = $rule->getBlacklist();
+
+            $rule2 = $storage->retrieve($storage::ACTION_WHITELIST);
+            $addr2 = $rule2->getWhitelist();
+            break;
+
+        case $storage::ACTION_WHITELIST:
+            $rule->setWhitelist($addresses);
+            $addr = $rule->getWhitelist();
+
+            $rule2 = $storage->retrieve($storage::ACTION_BLACKLIST);
+            $addr2 = $rule2->getBlacklist();
+            break;
         }
 
-        $t->set('menu_string', Horde::menu(array('menu_ob' => true))->render());
+        /* Filter out the rule's addresses in the opposite filter. */
+        $ob = new Horde_Mail_Rfc822_List($addr2);
+        $ob->setIteratorFilter(0, $addr);
 
-        $menu = $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
+        switch ($type) {
+        case $storage::ACTION_BLACKLIST:
+            $rule2->setWhitelist($ob->bare_addresses);
+            break;
 
-        /* Need to buffer sidebar output here, because it may add things like
-         * cookies which need to be sent before output begins. */
-        Horde::startBuffer();
-        require HORDE_BASE . '/services/sidebar.php';
-        return $menu . Horde::endBuffer();
+        case $storage::ACTION_WHITELIST:
+            $rule2->setBlacklist($ob->bare_addresses);
+            break;
+        }
+
+        $storage->store($rule);
+        $storage->store($rule2);
+
+        return $rule;
     }
 
     /**
-     * Outputs Ingo's status/notification bar.
+     * Output description for a rule.
+     *
+     * @param array $rule  Rule.
+     *
+     * @return string  Text description.
      */
-    static public function status()
+    static public function ruleDescription($rule)
     {
-        $GLOBALS['notification']->notify(array(
-            'listeners' => array('status', 'audio')
-        ));
+        global $injector;
+
+        $condition_size = count($rule['conditions']) - 1;
+        $descrip = '';
+        $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+
+        foreach ($rule['conditions'] as $key => $val) {
+            $info = $storage->getTestInfo($val['match']);
+            $descrip .= sprintf("%s %s \"%s\"", _($val['field']), $info->label, $val['value']);
+
+            if (!empty($val['case'])) {
+                $descrip .= ' [' . _("Case Sensitive") . ']';
+            }
+
+            if ($key < $condition_size) {
+                $descrip .= ($rule['combine'] == Ingo_Storage::COMBINE_ALL)
+                    ? _(" and")
+                    : _(" or");
+                $descrip .= "\n  ";
+            }
+        }
+
+        $descrip .= "\n" . $storage->getActionInfo($rule['action'])->label;
+
+        if ($rule['action-value']) {
+            $descrip .= ': ' . $rule['action-value'];
+        }
+
+        if ($rule['stop']) {
+            $descrip .= "\n[stop]";
+        }
+
+        return $descrip;
     }
 
 }

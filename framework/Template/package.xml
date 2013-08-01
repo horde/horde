@@ -16,10 +16,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-20</date>
- <time>23:16:28</time>
+ <date>2012-11-19</date>
+ <time>18:26:31</time>
  <version>
-  <release>1.0.2</release>
+  <release>2.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -48,7 +48,8 @@
     <dir name="Horde">
      <dir name="Template">
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="TemplateTest.php" role="test" />
      </dir> <!-- /test/Horde/Template -->
     </dir> <!-- /test/Horde -->
@@ -58,19 +59,29 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Template/COPYING" />
    <install as="Horde/Template.php" name="lib/Horde/Template.php" />
    <install as="Horde/Template/AllTests.php" name="test/Horde/Template/AllTests.php" />
-   <install as="Horde/Template/Autoload.php" name="test/Horde/Template/Autoload.php" />
+   <install as="Horde/Template/bootstrap.php" name="test/Horde/Template/bootstrap.php" />
+   <install as="Horde/Template/phpunit.xml" name="test/Horde/Template/phpunit.xml" />
    <install as="Horde/Template/TemplateTest.php" name="test/Horde/Template/TemplateTest.php" />
   </filelist>
  </phprelease>
@@ -198,12 +209,64 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
+    <release>2.0.0alpha1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-20</date>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

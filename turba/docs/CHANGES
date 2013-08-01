@@ -1,13 +1,203 @@
---------
-v4.0-git
---------
+----------
+v4.1.2-git
+----------
 
+
+
+------
+v4.1.1
+------
+
+[jan] Import and export UID vCard attributes (Bug #12427).
+[mjr] Honor the 'browse' setting when attempting empty searches.
+[jan] Set generic 'phone' attribute when importing from vCard (Bug #12329).
+[mjr] Add API methods for using history modification sequences.
+
+
+------
+v4.1.0
+------
+
+[jan] Fix searching in LDAP address books (Bug #12297).
+
+
+---------
+v4.1.0RC1
+---------
+
+[mms] Back button in smartmobile view for group member returns to group entry,
+      not browse list.
+[mms] Fix resetting smartmobile entry page when viewing more than 1 contact.
 
 
 -----------
-v3.0.13-git
+v4.1.0beta2
 -----------
 
+[mjr] Update the default SQL schema.
+[jan] Fix incorrect dependencies.
+
+
+-----------
+v4.1.0beta1
+-----------
+
+[jan] Add CardDAV server support.
+[mjr] Update the default SQL source schema (Request #11993).
+[mms] Add links to group members on smartmobile entry page.
+[mms] Add group icon to group contacts in smartmobile browse view.
+[jan] Allow to search all search fields at once in basic searching.
+
+
+------
+v4.0.4
+------
+
+[mms] SECURITY: Fix XSS vulnerability on smartmobile contacts details page
+      (João Machado <geral@jpaulo.eu>).
+[jan] Fix importing certain phone fields from vCard (Bug #12178).
+[mjr] Fix issues with importing contacts via ActiveSync when no default_dir
+      pref is set (Thomas Jarosch <thomas.jarosch@intra2net.com>, Bug #12188)
+[mjr] Fix ActiveSync global address book searches when using LDAP as backend
+      (Bug #12089).
+
+
+------
+v4.0.3
+------
+
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Fix emptying shared address books.
+[jan] Fix importing of LDIF data (Bug #11972).
+
+
+------
+v4.0.2
+------
+
+[mjr] Avoid sending broken datetime values to ActiveSync.
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[jan] Update French translation (Laurent Foucher
+      <laurent.foucher@iut-tlse3.fr>).
+[jan] Mark Kolab folder as default when changing default address book
+      preference.
+
+
+------
+v4.0.1
+------
+
+[jan] Add free-text country attributes and use them in default Kolab backend
+      (Request #11692).
+[gwr] Fix handling empty dates in the Kolab driver (Bug #11691).
+[jan] Use encoded UIDs as IDs in Kolab driver.
+[jan] Fix searching shares for duplicates.
+[mjr] Fix calling decode_attribute hook when exporting to ActiveSync
+      (kd@tu-cottbus.de, Bug #11678).
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+
+
+------
+v4.0.0
+------
+
+[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
+
+
+---------
+v4.0.0RC1
+---------
+
+[jan] Allow searching for 'emails' attributes (Bug #11185).
+[jan] Fix LIKE matching of attributes in Kolab driver.
+[mms] Convert turba minisearch block to the Horde AJAX framework.
+[jan] Support 'emails' attribute in smartphone view (Bug #11544).
+[jan] Attach share owner to all address book titles (Bug #11528).
+[jan] Fix exporting from browse view (Bug #11526).
+[jan] Return to the same page after running actions from the browse view.
+
+
+-----------
+v4.0.0beta3
+-----------
+
+[jan] Support importing contacts via API if using 'emails' attributes (Bug
+      #8358).
+[jan] Support 'emails' attribute with ActiveSync.
+[jan] Fix marking contacts as deleted in the history if deleting shared address
+      books (Bug #11480).
+[jan] Set gender field values literally to 'male' or 'female'.
+[jan] Drop preference which address books to display.
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Always mark the initial share as default addressbook.
+[mms] Initial implementation of smartmobile view.
+
+
+-----------
+v4.0.0beta2
+-----------
+
+[jan] Use Horde 5 action bar.
+
+
+-----------
+v4.0.0beta1
+-----------
+
+[jan] Add configuration example for Kolab/IMAP address books.
+[jan] Update icon set.
+[jan] Fix searching multiple names via the API.
+[jan] Fix searching and listing clients via the API.
+
+
+------------
+v4.0.0alpha1
+------------
+
+[mms] Import API call now throws an ObjectExists exception when a duplicate is
+      found.
+[jan] Add parameters to specify field size of phone and email fields.
+
+
+-----------
+v3.0.15-git
+-----------
+
+[jan] Fix sorting of columns in preferences (Bug #10795).
+[jan] Remove user's address books when removing users, independent from address
+      book permissions.
+[mms] Fix infinite loop if array was passed to delete API call.
+[mms] Fix descending sorting of result lists.
+[mms] Return to same page when deleting contact from browse view.
+[mjr] Add ability to return count of objects matching search in place of full
+      result set.
+[jan] Update Turkish translation (İstanbul Technical University).
+[jan] Fix strict searching in favourites driver (Bug #11207).
+
+
+-------
+v3.0.14
+-------
+
+[jan] Update Swedish translation (Per Olof Ljungmark <peo@bsdlabs.com>).
+[jan] Update Italian translation (Emilien <emilien@wifi.e4a.it>).
+[jan] Fix number of contacts in a list that cannot be displayed.
+[jan] Update Slovak translation (Marika Schvarczova
+      <schvarczova.marika@domeny.sk>).
+[jan] Update Czech translation (Michal Foist <michal@foist.cz>).
+
+
+-------
+v3.0.13
+-------
+
+[jan] Fix decode_attribute hook when exporting to vCard (kd@tu-cottbus.de, Bug
+      #11123).
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
+[jan] Only connect to LDAP driver for read/write requests (Dominique Lalot
+      <dom.lalot@gmail.com>, Request #11082).
 [mjr] Fix bug that caused time shifting of contact birthday and anniversary
       values from ActiveSync devices for users in certain timezones.
 

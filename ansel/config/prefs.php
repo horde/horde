@@ -14,7 +14,7 @@ $prefGroups['display'] = array(
     'members' => array(
         'grouptitle', 'defaultview', 'tilesperrow', 'tilesperpage',
         'facesperpage', 'groupby', 'groupsperpage',
-        'default_gallerystyle_select', 'default_category_select',
+        'default_gallerystyle_select',
         'force_old_uploader'
     )
 );
@@ -70,7 +70,6 @@ $_prefs['groupby'] = array(
     'type' => 'enum',
     'enum' => array(
         'owner' => _("Owner"),
-        'category' => _("Category"),
         'none' => _("None")
     ),
     'desc' => _("Group galleries by")
@@ -122,17 +121,8 @@ $_prefs['default_gallerystyle'] = array(
     'value' => 'ansel_default'
 );
 $_prefs['default_gallerystyle_select'] = array(
-    'type' => 'special'
-);
-
-// Default category
-$_prefs['default_category'] = array(
-    'value' => ''
-);
-
-// Default category
-$_prefs['default_category_select'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Ansel_Prefs_Special_GalleryStyle'
 );
 
 $_prefs['show_actions'] = array(
@@ -239,12 +229,16 @@ $_prefs['group_permissions'] = array(
 $_prefs['exif_tags'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
+    'enum' => Horde_Image_Exif::getFields(array($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array()), true),
     'desc' => _("Which metadata fields should we automatically add as image tags during upload?"),
 );
 
 $_prefs['exif_title'] = array(
     'value' => '',
     'type' => 'enum',
+    'enum' => array_merge(array(
+        'none' => _("None"),
+    ), Horde_Image_Exif::getFields(array($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array()), true)),
     'desc' => _("Should we automatically set the image title on upload if able? If so, choose the field to obtain the title from.")
 );
 

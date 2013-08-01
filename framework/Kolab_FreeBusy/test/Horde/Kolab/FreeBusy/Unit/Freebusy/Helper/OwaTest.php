@@ -14,14 +14,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
-
-/**
  * Test the OWA parser.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  * Copyright 2011 Kolab Systems AG
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -47,7 +42,7 @@ extends PHPUnit_Framework_TestCase
     {
         $owa = new Horde_Kolab_FreeBusy_Freebusy_Helper_Owa(
             file_get_contents(
-                dirname(__FILE__) . '/../../../fixtures/owa_freebusy.xml'
+                __DIR__ . '/../../../fixtures/owa_freebusy.xml'
             )
         );
         $this->assertContains('a:response', (string) $owa);
@@ -58,7 +53,7 @@ extends PHPUnit_Framework_TestCase
     {
         $owa = new Horde_Kolab_FreeBusy_Freebusy_Helper_Owa(
             fopen(
-                dirname(__FILE__) . '/../../../fixtures/owa_freebusy.xml', 'r'
+                __DIR__ . '/../../../fixtures/owa_freebusy.xml', 'r'
             )
         );
         $this->assertContains('a:response', (string) $owa);
@@ -78,7 +73,7 @@ extends PHPUnit_Framework_TestCase
     {
         $owa = new Horde_Kolab_FreeBusy_Freebusy_Helper_Owa(
             fopen(
-                dirname(__FILE__) . '/../../../fixtures/owa_freebusy.xml', 'r'
+                __DIR__ . '/../../../fixtures/owa_freebusy.xml', 'r'
             )
         );
         $result = $owa->convert(
@@ -99,7 +94,7 @@ extends PHPUnit_Framework_TestCase
     {
         $owa = new Horde_Kolab_FreeBusy_Freebusy_Helper_Owa(
             fopen(
-                dirname(__FILE__) . '/../../../fixtures/owa_freebusy.xml', 'r'
+                __DIR__ . '/../../../fixtures/owa_freebusy.xml', 'r'
             )
         );
         $result = $owa->convert(

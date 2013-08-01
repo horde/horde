@@ -23,8 +23,8 @@
  </tr>
 </table>
 
-<p>
- <input type="submit" class="button" value="<?php echo _("Search") ?>" />
+<p class="horde-form-buttons">
+ <input type="submit" class="horde-default" value="<?php echo _("Search") ?>" />
 </p>
 
 </form>

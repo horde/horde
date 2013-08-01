@@ -3,7 +3,7 @@
  * Step One in creating new tickets.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -19,7 +19,7 @@ class Whups_Form_Ticket_CreateStepOne extends Horde_Form
 {
     protected $_useFormToken = false;
 
-    public function __construct(&$vars)
+    public function __construct($vars)
     {
         global $whups_driver;
 
@@ -44,7 +44,7 @@ class Whups_Form_Ticket_CreateStepOne extends Horde_Form
                 $vars->set('queue', array_pop(array_keys($queues)));
             }
 
-            $queues = &$this->addVariable(
+            $queues = $this->addVariable(
                 _("Queue Name"), 'queue', 'enum', true, false, null,
                 array($queues, _("Choose:")));
             $queues->setAction(Horde_Form_Action::factory('submit'));

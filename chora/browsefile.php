@@ -2,7 +2,7 @@
 /**
  * Browse view (for files).
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -14,7 +14,7 @@
  * @package  Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 if ($atdir) {
@@ -30,9 +30,8 @@ try {
     Chora::fatal($e);
 }
 
-$title = $where;
+$title = _("Logs for:");
 
-$extraLink = Chora::getFileViews($where, 'browsefile');
 $logs = $fl->getLog();
 $first = end($logs);
 $diffValueLeft = $first->getRevision();
@@ -43,20 +42,14 @@ foreach ($fl->getTags() as $sm => $rv) {
     $sel .= '<option value="' . $rv . '">' . $sm . '</option>';
 }
 
-$selAllBranches = '';
+$branches = array();
 if ($VC->hasFeature('branches')) {
-    foreach (array_keys($fl->getBranches()) as $sym) {
-        $selAllBranches .= '<option value="' . $sym . '"' . (($sym === $onb) ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
-    }
-    if (!empty($selAllBranches)) {
-        $selAllBranches = '<option></option>' . $selAllBranches;
-    }
+    $branches = $fl->getBranches();
 }
 
-Horde::addScriptFile('revlog.js', 'chora');
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+$page_output->addScriptFile('revlog.js');
+Chora::header($title);
+echo Chora::getHistoryViews($where)->render('browsefile');
 require CHORA_TEMPLATES . '/log/header.inc';
 
 $view = $injector->createInstance('Horde_View');
@@ -74,4 +67,4 @@ foreach ($logs as $log) {
 }
 
 echo '</div>';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

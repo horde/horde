@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -9,7 +9,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -31,6 +31,8 @@ try {
     $notification->push($e->getMessage());
 }
 
+Whups::addTopbarSearch();
+
 // If we have an error, or if we still don't have a query, or if we don't have
 // read permissions on the requested query, go to the initial Whups page.
 if (!isset($whups_query) ||
@@ -46,14 +48,6 @@ if (!isset($whups_query) ||
 $tabs = $whups_query->getTabs($vars);
 
 $renderer = new Horde_Form_Renderer();
-
-// Update sorting preferences.
-if (Horde_Util::getFormData('sortby') !== null) {
-    $prefs->setValue('sortby', Horde_Util::getFormData('sortby'));
-}
-if (Horde_Util::getFormData('sortdir') !== null) {
-    $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
-}
 
 $tickets = null;
 $isvalid = false;
@@ -72,11 +66,13 @@ if ($isvalid) {
 }
 
 if ($whups_query->id) {
-    $linkTags[] = $whups_query->feedLink();
+    $page_output->addLinkTag($whups_query->feedLink());
 }
+
 $title = $whups_query->name ? $whups_query->name : _("Query Results");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
+Whups::addFeedLink();
+$page_output->header(array('title' => $title));
+$notification->notify(array('listeners' => 'status'));
 
 echo $tabs->render($vars->get('action') ? $vars->get('action') : 'run');
 
@@ -109,6 +105,6 @@ if (!is_null($tickets)) {
     $form->close($renderer);
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
 
 $session->set('whups', 'query', $whups_query);

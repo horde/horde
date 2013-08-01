@@ -109,8 +109,6 @@ class Horde_Yaml_DumperTest extends PHPUnit_Framework_TestCase
 
     public function testMovedArray()
     {
-        return $this->markTestSkipped();
-
         $arr = array_flip(range(1, 1000));
         $string = $this->dumper->dump($arr);
         $arr2 = Horde_Yaml::load($string);
@@ -130,8 +128,6 @@ class Horde_Yaml_DumperTest extends PHPUnit_Framework_TestCase
 
     public function testNegativeKeysArray()
     {
-        $this->markTestSkipped();
-
         $arr = array(-1 => 'test', -2 => 'test2', 0 => 'test3');
 
         $string = $this->dumper->dump($arr);

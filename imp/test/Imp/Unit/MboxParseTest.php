@@ -1,34 +1,25 @@
 <?php
 /**
- * Test the mbox parsing library.
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright  2011-2013 Horde LLC
  * @license    http://www.horde.org/licenses/gpl GPL
- * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the mbox parsing library.
- *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright  2011-2013 Horde LLC
+ * @ignore
  * @license    http://www.horde.org/licenses/gpl GPL
- * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests
  */
@@ -36,7 +27,7 @@ class Imp_Unit_MboxParseTest extends PHPUnit_Framework_TestCase
 {
     public function testMboxParse()
     {
-        $parse = new IMP_Mbox_Parse(dirname(__FILE__) . '/../fixtures/test.mbox');
+        $parse = new IMP_Mbox_Parse(__DIR__ . '/../fixtures/test.mbox');
 
         $this->assertEquals(
             2,
@@ -51,20 +42,20 @@ class Imp_Unit_MboxParseTest extends PHPUnit_Framework_TestCase
             );
 
             $this->assertInternalType(
-                'resource',
+                'array',
                 $val
             );
 
             $this->assertEquals(
                 "Return-Path: <bugs@horde.org>\r\n",
-                fgets($val)
+                fgets($val['data'])
             );
         }
     }
 
     public function testEmlParse()
     {
-        $parse = new IMP_Mbox_Parse(dirname(__FILE__) . '/../fixtures/test.eml');
+        $parse = new IMP_Mbox_Parse(__DIR__ . '/../fixtures/test.eml');
 
         $this->assertEquals(
             0,
@@ -74,13 +65,13 @@ class Imp_Unit_MboxParseTest extends PHPUnit_Framework_TestCase
         $val = $parse[0];
 
         $this->assertInternalType(
-            'resource',
+            'array',
             $val
         );
 
         $this->assertEquals(
             "Return-Path: <bugs@horde.org>\r\n",
-            fgets($val)
+            fgets($val['data'])
         );
     }
 
@@ -89,7 +80,7 @@ class Imp_Unit_MboxParseTest extends PHPUnit_Framework_TestCase
      */
     public function testBadData()
     {
-        new IMP_Mbox_Parse(dirname(__FILE__) . '/noexist');
+        new IMP_Mbox_Parse(__DIR__ . '/noexist');
     }
 
 }

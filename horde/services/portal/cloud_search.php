@@ -2,25 +2,28 @@
 /**
  * Perform search request for the horde-wide tag cloud block.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @TODO: If/when more apps support the searchTags api calls, probably
  *        should not hardcode the supported apps.  Also should allow excluding
  *        of applications in the tag search
  *
- * @author Michael J. Rubinksy <mrubinsk@horde.org>
+ * @author   Michael J. Rubinksy <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintaks' => true));
 
 $tag = Horde_Util::getFormData('tag');
 $results = array();
-foreach ($GLOBALS['registry']->listAPIs() as $api) {
-    if ($GLOBALS['registry']->hasMethod($api . '/listTagInfo')) {
+foreach ($registry->listAPIs() as $api) {
+    if ($registry->hasMethod($api . '/listTagInfo')) {
         try {
             $results = array_merge(
                 $results, $registry->{$api}->searchTags(array($tag), 10, 0, '', $registry->getAuth()));

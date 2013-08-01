@@ -2,96 +2,25 @@
 /**
  * Defines the AJAX interface for Horde.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 class Horde_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
      */
-    public function responseType()
+    protected function _init()
     {
-        switch ($this->_action) {
-        case 'blockAutoUpdate':
-        case 'blockRefresh':
-            return 'html';
-        }
-
-        return parent::responseType();
-    }
-
-    /**
-     * AJAX action: Update sidebar.
-     *
-     * @return object  See Horde_Tree_Javascript#renderNodeDefinitions().
-     */
-    public function sidebarUpdate()
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Core_Sidebar')->getTree()->renderNodeDefinitions();
-    }
-
-    /**
-     * AJAX action: Auto-update portal block.
-     */
-    public function blockAutoUpdate()
-    {
-        if (isset($this->_vars->app) && isset($this->_vars->blockid)) {
-            try {
-                return $GLOBALS['injector']
-                    ->getInstance('Horde_Core_Factory_BlockCollection')
-                    ->create()
-                    ->getBlock($this->_vars->app, $this->_vars->blockid)
-                    ->getContent(isset($this->_vars->options) ? $this->_vars->options : null);
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-        }
-
-        return '';
-    }
-
-    public function blockRefresh()
-    {
-        if (isset($this->_vars->app) && isset($this->_vars->blockid)) {
-            try {
-                return $GLOBALS['injector']
-                    ->getInstance('Horde_Core_Factory_BlockCollection')
-                    ->create()
-                    ->getBlock($this->_vars->app, $this->_vars->blockid)
-                    ->refreshContent($this->_vars);
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-        }
-
-        return '';
-    }
-
-    /**
-     * AJAX action: Update portal block.
-     */
-    public function blockUpdate()
-    {
-        if (isset($this->_vars->blockid)) {
-            try {
-                return $GLOBALS['injector']
-                    ->getInstance('Horde_Core_Factory_BlockCollection')
-                    ->create()
-                    ->getBlock($this->_vars->blockid)
-                    ->getAjaxUpdate($this->_vars);
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-        }
-
-        return '';
+        $this->addHandler('Horde_Ajax_Application_Handler');
+        // Needed because Core contains Imples
+        $this->addHandler('Horde_Core_Ajax_Application_Handler_Imple');
     }
 
 }

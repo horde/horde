@@ -3,7 +3,7 @@
  * This file contains all Horde_Core_Ui_VarRenderer extensions for Whups
  * specific form fields.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -25,7 +25,7 @@ class Horde_Core_Ui_VarRenderer_whups extends Horde_Core_Ui_VarRenderer_Html {
     {
         $name = $var->getVarName();
 
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('whups', 'ContactAutoCompleter'), array(
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Whups_Ajax_Imple_ContactAutoCompleter', array(
             'triggerId' => $name
         ));
 

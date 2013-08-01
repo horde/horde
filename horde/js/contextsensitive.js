@@ -111,7 +111,7 @@ var ContextSensitive = Class.create({
         if (this.current.size()) {
             this.current.splice(idx, this.current.size() - idx).each(function(s) {
                 // Fade-out on final display.
-                if (!immediate && idx == 0) {
+                if (!immediate && idx === 0) {
                     s.fade({ duration: 0.15 });
                 } else {
                     $(s).hide();
@@ -122,7 +122,7 @@ var ContextSensitive = Class.create({
                 $(s).removeClassName('contextHover');
             });
 
-            if (idx == 0) {
+            if (idx === 0) {
                 this.baseelt = null;
             }
         }
@@ -286,7 +286,8 @@ var ContextSensitive = Class.create({
      */
     _displayMenu: function(elt_id, x, y)
     {
-        var elt = $(elt_id);
+        var eltL, h, id, v, w,
+            elt = $(elt_id);
 
         if (!elt) {
             document.fire('ContextSensitive:trigger', elt_id);
@@ -305,16 +306,17 @@ var ContextSensitive = Class.create({
             });
         }
 
-        // Get window/element dimensions
-        var eltL, h, w,
-            id = elt.identify(),
-            v = document.viewport.getDimensions();
+        id = elt.identify();
 
+        this.baseelt.fire('ContextSensitive:show', id);
+
+        // Get window/element dimensions
         elt.setStyle({ visibility: 'hidden' }).show();
         eltL = elt.getLayout(),
         h = eltL.get('border-box-height');
         w = eltL.get('border-box-width');
         elt.hide().setStyle({ visibility: 'visible' });
+        v = document.viewport.getDimensions();
 
         // Make sure context window is entirely on screen
         if ((y + h) > v.height) {
@@ -327,9 +329,7 @@ var ContextSensitive = Class.create({
                 : (v.width - w - 2);
         }
 
-        this.baseelt.fire('ContextSensitive:show', id);
-
-        elt.setStyle({ left: x + 'px', top: y + 'px' })
+        elt.setStyle({ left: x + 'px', top: y + 'px' });
 
         if (this.current.size()) {
             elt.show();
@@ -386,7 +386,7 @@ var ContextSensitive = Class.create({
                 voffsets = document.viewport.getScrollOffsets();
                 x = offsets[0] + voffsets.left + elt.getWidth();
                 y = offsets[1] + voffsets.top;
-                if (this._displayMenu(sub, x, y, id)) {
+                if (this._displayMenu(sub, x, y)) {
                     this.triggers.push(id);
                     elt.addClassName('contextHover');
                 }

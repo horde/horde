@@ -3,7 +3,7 @@
  * Kronolith_Driver defines an API for implementing storage backends for
  * Kronolith.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -162,7 +162,7 @@ class Kronolith_Driver
         $events = $this->listEvents(
             (!empty($query->start) ? $query->start : null),
             (!empty($query->end) ? $query->end : null));
-        foreach ($events as $day => $day_events) {
+        foreach ($events as $day_events) {
             foreach ($day_events as $event) {
                 if ((((!isset($query->start) ||
                        $event->end->compareDateTime($query->start) > 0) &&
@@ -178,9 +178,11 @@ class Kronolith_Driver
                     (empty($query->description) ||
                      stristr($event->description, $query->description)) &&
                     (empty($query->creator) ||
-                     stristr($event->creator, $query->creator))  &&
+                     stristr($event->creator, $query->creator)) &&
                     (!isset($query->status) ||
-                     $event->status == $query->status)) {
+                     $event->status == $query->status) &&
+                    (empty($query->baseid) ||
+                     $event->baseid == $query->baseid)) {
                     Kronolith::addEvents($results, $event, $event->start, $event->end, false, $json, false);
                 }
             }
@@ -264,11 +266,73 @@ class Kronolith_Driver
     }
 
     /**
-     * Stub to be overridden in the child class.
+     * Lists all events in the time range, optionally restricting results to
+     * only events with alarms.
+     *
+     * @param Horde_Date $startDate  The start of range date.
+     * @param Horde_Date $endDate    The end of date range.
+     * @param array $options         Additional options:
+     *   - show_recurrence: (boolean) Return every instance of a recurring
+     *                       event?
+     *                      DEFAULT: false (Only return recurring events once
+     *                      inside $startDate - $endDate range)
+     *   - has_alarm:       (boolean) Only return events with alarms.
+     *                      DEFAULT: false (Return all events)
+     *   - json:            (boolean) Store the results of the event's toJson()
+     *                      method?
+     *                      DEFAULT: false
+     *   - cover_dates:     (boolean) Add the events to all days that they
+     *                      cover?
+     *                      DEFAULT: true
+     *   - hide_exceptions: (boolean) Hide events that represent exceptions to
+     *                      a recurring event.
+     *                      DEFAULT: false (Do not hide exception events)
+     *   - fetch_tags:      (boolean) Fetch tags for all events.
+     *                      DEFAULT: false (Do not fetch event tags)
      *
      * @throws Kronolith_Exception
      */
-    public function listEvents()
+    public function listEvents(Horde_Date $startDate = null,
+                               Horde_Date $endDate = null,
+                               array $options = array())
+    {
+        // Defaults
+        $options = array_merge(array(
+            'show_recurrence' => false,
+            'has_alarm' => false,
+            'json' => false,
+            'cover_dates' => true,
+            'hide_exceptions' => false,
+            'fetch_tags' => false), $options);
+
+        return $this->_listEvents($startDate, $endDate, $options);
+    }
+
+    /**
+     * Stub to be overridden in concrete class.
+     *
+     * @param Horde_Date $startDate  The start of range date.
+     * @param Horde_Date $endDate    The end of date range.
+     * @param array $options         Additional options:
+     *   - show_recurrence: (boolean) Return every instance of a recurring event?
+     *                      DEFAULT: false (Only return recurring events once
+     *                      inside $startDate - $endDate range).
+     *   - has_alarm: (boolean) Only return events with alarms.
+     *                DEFAULT: false (Return all events)
+     *   - json: (boolean) Store the results of the event's toJson() method?
+     *           DEFAULT: false
+     *   - cover_dates: (boolean) Add the events to all days that they cover?
+     *                  DEFAULT: true
+     *   - hide_exceptions: (boolean) Hide events that represent exceptions to
+     *                      a recurring event.
+     *                      DEFAULT: false (Do not hide exception events)
+     *   - fetch_tags: (boolean) Fetch tags for all events.
+     *                 DEFAULT: false (Do not fetch event tags)
+     *
+     * @throws Kronolith_Exception
+     */
+    protected function _listEvents(
+        Horde_Date $startDate = null, Horde_Date $endDate = null, array $options = array())
     {
         throw new Kronolith_Exception($this->_errormsg);
     }
@@ -369,10 +433,109 @@ class Kronolith_Driver
     }
 
     /**
-     * Stub to be overridden in the child class.
+     * Deletes an event.
+     *
+     * @param mixed $eventId   Either the event id to delete, or the event
+     *                         object.
+     * @param boolean $silent  Don't send notifications, used when deleting
+     *                         events in bulk from maintenance tasks.
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Mime_Exception
      */
-    public function deleteEvent($eventId)
+    public function deleteEvent($eventId, $silent = false)
     {
+        $event = $this->_deleteEvent($eventId, $silent);
+        if (!$event) {
+            return;
+        }
+
+        /* Log the deletion of this item in the history log. */
+        if ($event->uid) {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
+        }
+
+        /* Remove the event from any resources that are attached to it. */
+        $resources = $event->getResources();
+        if (count($resources)) {
+            $rd = Kronolith::getDriver('Resource');
+            foreach ($resources as $uid => $resource) {
+                if ($resource['response'] !== Kronolith::RESPONSE_DECLINED &&
+                    $resource['response'] !== Kronolith::RESPONSE_NONE) {
+                    $r = $rd->getResource($uid);
+                    $r->removeEvent($event);
+                }
+            }
+        }
+
+        /* Remove any pending alarms. */
+        $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($event->uid);
+
+        /* Remove any tags */
+        $tagger = Kronolith::getTagger();
+        $tagger->replaceTags($event->uid, array(), $event->creator, 'event');
+
+        /* Remove any geolocation data. */
+        try {
+            $GLOBALS['injector']->getInstance('Kronolith_Geo')->deleteLocation($event->id);
+        } catch (Kronolith_Exception $e) {
+        }
+
+        /* Remove any CalDAV mappings. */
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Horde_Dav_Storage')
+                ->deleteInternalObjectId($event->id, $event->calendar);
+        } catch (Horde_Exception $e) {
+            Horde::log($e);
+        }
+
+        /* See if this event represents an exception - if so, touch the base
+         * event's history. The $isRecurring check is to prevent an infinite
+         * loop in the off chance that an exception is entered as a recurring
+         * event.
+         */
+        if ($event->baseid && !$event->recurs()) {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, array('action' => 'modify'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
+        }
+    }
+
+    /**
+     * Stub to be overridden in the child class.
+     *
+     * @param mixed $eventId   Either the event id to delete, or the event
+     *                         object.
+     * @param boolean $silent  Don't send notifications, used when deleting
+     *                         events in bulk from maintenance tasks.
+     *
+     * @return Kronolith_Event  Returns the deleted event.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Mime_Exception
+     */
+    protected function _deleteEvent($eventId)
+    {
+    }
+
+    /**
+     * Wrapper for sending notifications, so that we can overwrite this action
+     * in Kronolith_Driver_Resource.
+     *
+     * @param Kronolith_Event $event
+     * @param string $action
+     */
+    protected function _handleNotifications(Kronolith_Event $event, $action)
+    {
+        Kronolith::sendNotification($event, $action);
     }
 
     /**
@@ -395,5 +558,56 @@ class Kronolith_Driver
     public function removeUserData($user)
     {
         throw new Kronolith_Exception('Deprecated.');
+    }
+
+    /**
+     * Helper function to update an existing event's tags to tagger storage.
+     *
+     * @param Kronolith_Event $event  The event to update
+     */
+    protected function _updateTags(Kronolith_Event $event)
+    {
+        Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
+
+        // Resources don't currently have owners, so can't tag as owner.
+        if ($event->calendarType == 'resource') {
+            return;
+        }
+
+        // Add tags again, but as the share owner (replaceTags removes ALL tags)
+        try {
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
+        } catch (Horde_Share_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+        Kronolith::getTagger()->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+    }
+
+    /**
+     * Helper function to add tags from a newly creted event to the tagger.
+     *
+     * @param Kronolith_Event $event  The event to save tags to storage for.
+     */
+    protected function _addTags(Kronolith_Event $event)
+    {
+        $tagger = Kronolith::getTagger();
+        $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
+
+        // Resources don't currently have owners, so can't tag as owner.
+        if ($event->calendarType == 'resource') {
+            return;
+        }
+
+        // Add tags again, but as the share owner.
+        try {
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Kronolith_Exception($e);
+        }
+
+        if ($cal->get('owner') != $event->creator) {
+            $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+        }
     }
 }

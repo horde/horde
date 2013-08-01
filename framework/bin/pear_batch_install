@@ -11,6 +11,9 @@
 /* Don't die if time limit exceeded. */
 set_time_limit(0);
 
+/* Console_Getopt is not E_STRICT. */
+error_reporting(error_reporting() & ~E_STRICT);
+
 /* Get any arguments. */
 require_once 'Console/Getopt.php';
 $args = Console_Getopt::readPHPArgv();
@@ -29,7 +32,7 @@ USAGE;
 /* Set these options to empty by default. */
 $config_file = $install_dir = '';
 
-$dir = dirname(dirname(__FILE__));
+$dir = dirname(__DIR__);
 foreach ($options[0] as $option) {
     switch ($option[0]) {
     case 'b':

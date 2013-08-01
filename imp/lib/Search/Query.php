@@ -2,7 +2,7 @@
 /**
  * This class provides a data structure for a search query.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -243,7 +243,7 @@ class IMP_Search_Query implements Serializable
             return $qout;
 
         case 'querytext':
-            $text = array(_("Search"));
+            $text = array();
 
             foreach ($this->_criteria as $elt) {
                 if ($elt instanceof IMP_Search_Element_Or) {
@@ -266,7 +266,7 @@ class IMP_Search_Query implements Serializable
                 }
             }
 
-            return implode(' ', $text) . ' ' . _("in") . ' [' . implode(', ', $mbox_display) . ']';
+            return sprintf(_("Search %s in %s"), implode(' ', $text), '[' . implode(', ', $mbox_display) . ']');
         }
     }
 

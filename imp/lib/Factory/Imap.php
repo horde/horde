@@ -1,100 +1,69 @@
 <?php
 /**
- * A Horde_Injector:: based IMP_Imap:: factory.
- *
- * PHP version 5
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @link     http://pear.horde.org/index.php?package=IMP
- * @package  IMP
- */
-
-/**
- * A Horde_Injector:: based IMP_Imap:: factory.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @link     http://pear.horde.org/index.php?package=IMP
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
-class IMP_Factory_Imap extends Horde_Core_Factory_Base
+
+/**
+ * A Horde_Injector based IMP_Imap factory.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+class IMP_Factory_Imap extends Horde_Core_Factory_Injector implements Horde_Shutdown_Task
 {
     /**
-     * Instances.
-     *
-     * @var array
+     * @var IMP_Imap
      */
-    private $_instances = array();
+    private $_instance;
 
     /**
-     * Return the IMP_Imap:: instance.
-     *
-     * @param string $id  The server ID.
-     *
-     * @return IMP_Imap  The singleton instance.
-     * @throws IMP_Exception
      */
-    public function create($id = null)
+    public function create(Horde_Injector $injector)
     {
-        global $injector, $registry, $session;
-
-        if (is_null($id) &&
-            !($id = $session->get('imp', 'server_key'))) {
-            $id = 'default';
-        }
-
-        if (isset($this->_instances[$id])) {
-            return $this->_instances[$id];
-        }
-
-        if (empty($this->_instances)) {
-            register_shutdown_function(array($this, 'shutdown'));
-        }
+        global $session;
 
         try {
-            $ob = $session->get('imp', 'imap_ob/' . $id);
+            $this->_instance = $session->get('imp', 'imap_ob');
         } catch (Exception $e) {
             // This indicates an unserialize() error.  This is fatal, so
             // logout.
-            $injector->getInstance('Horde_Core_Factory_Auth')->create()->setError(Horde_Auth::REASON_SESSION);
-            $registry->authenticateFailure('imp');
+            throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
         }
 
-        if (!$ob) {
-            $ob = new IMP_Imap();
+        if (!$this->_instance) {
+            $this->_instance = new IMP_Imap();
 
             /* Explicitly save object when first creating. Prevents losing
              * authentication information in case a misconfigured server
              * crashes before shutdown operations can occur. */
-            if ($id != 'default') {
-                $session->set('imp', 'imap_ob/' . $id, $ob);
-            }
+            $session->set('imp', 'imap_ob', $this->_instance);
         }
 
-        $this->_instances[$id] = $ob;
+        Horde_Shutdown::add($this);
 
-        return $this->_instances[$id];
+        return $this->_instance;
     }
 
     /**
-     * Saves IMP_Imap instances to the session on shutdown.
+     * Saves IMP_Imap instance to the session on shutdown.
      */
     public function shutdown()
     {
-        if ($GLOBALS['registry']->getAuth() !== false) {
-            foreach ($this->_instances as $id => $ob) {
-                if (($id != 'default') && $ob->changed) {
-                    $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $ob);
-                }
-            }
+        global $registry, $session;
+
+        if ($this->_instance->changed && ($registry->getAuth() !== false)) {
+            $session->set('imp', 'imap_ob', $this->_instance);
         }
     }
 

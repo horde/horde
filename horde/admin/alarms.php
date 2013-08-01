@@ -1,20 +1,20 @@
 <?php
 /**
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Jan Schneider <jan@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-$permission = 'alarms';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:alarms')
+));
 
 $horde_alarm = $injector->getInstance('Horde_Alarm');
 $methods = array();
@@ -22,7 +22,7 @@ foreach ($horde_alarm->handlers() as $name => $method) {
     $methods[$name] = $method->getDescription();
 }
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 $form = new Horde_Form($vars, _("Add new alarm"));
 $form->addHidden('', 'alarm', 'text', false);
@@ -59,7 +59,7 @@ if ($form->validate()) {
 
     // Full path to any sound files.
     if (!empty($params['notify']['sound'])) {
-        $params['notify']['sound'] = $registry->get('themesuri', 'horde') . '/sounds/' . $params['notify']['sound'];
+        $params['notify']['sound'] = (string)Horde_Themes::sound($params['notify']['sound']);
     }
 
     try {
@@ -111,8 +111,10 @@ if ($id) {
     }
 }
 
-$view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/admin/alarms'));
-new Horde_View_Helper_Text($view);
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/admin/alarms'
+));
+$view->addHelper('Text');
 
 try {
     $alarms = $horde_alarm->globalAlarms();
@@ -135,10 +137,10 @@ try {
     $view->error = sprintf(_("Listing alarms failed: %s"), $e->getMessage());
 }
 
-$title = _("Alarms");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Alarms")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 echo $view->render('list');
 $form->renderActive();
-
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

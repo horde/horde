@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -226,25 +226,50 @@ class Mnemo
      * Returns the default notepad for the current user at the specified
      * permissions level.
      *
-     * @return mixed  The notepad identifier, or false if none found
+     * @param integer $permission  Horde_Perms constant for permission level
+     *                             required.
+     *
+     * @return string  The notepad identifier, or null if none.
      */
     public static function getDefaultNotepad($permission = Horde_Perms::SHOW)
     {
-        global $prefs;
-
-        $default_notepad = $prefs->getValue('default_notepad');
         $notepads = self::listNotepads(false, $permission);
 
+        $default_notepad = $GLOBALS['prefs']->getValue('default_notepad');
         if (isset($notepads[$default_notepad])) {
             return $default_notepad;
-        } elseif ($prefs->isLocked('default_notepad')) {
-            return $GLOBALS['registry']->getAuth();
-        } elseif (count($notepads)) {
-            reset($notepads);
-            return key($notepads);
         }
 
-        return false;
+        $default_notepad = $GLOBALS['injector']
+            ->getInstance('Mnemo_Factory_Notepads')
+            ->create()
+            ->getDefaultShare();
+        if (isset($notepads[$default_notepad])) {
+            $GLOBALS['prefs']->setValue('default_notepad', $default_notepad);
+            return $default_notepad;
+        }
+
+        reset($notepads);
+        return key($notepads);
+    }
+
+    /**
+     * Returns the label to be used for a notepad.
+     *
+     * Attaches the owner name of shared notepads if necessary.
+     *
+     * @param Horde_Share_Object  A notepad.
+     *
+     * @return string  The notepad's label.
+     */
+    public static function getLabel($notepad)
+    {
+        $label = $notepad->get('name');
+        if ($notepad->get('owner') &&
+            $notepad->get('owner') != $GLOBALS['registry']->getAuth()) {
+            $label .= ' [' . $GLOBALS['registry']->convertUsername($notepad->get('owner'), false) . ']';
+        }
+        return $label;
     }
 
     /**
@@ -293,7 +318,7 @@ class Mnemo
      */
     protected static function _rsortByDesc($a, $b)
     {
-        return strcoll($b['desc'], $a['desc']);
+        return self::_sortByDesc($b, $a);
     }
 
     /**
@@ -322,8 +347,7 @@ class Mnemo
      */
     protected static function _rsortByCategory($a, $b)
     {
-        return strcoll($b['category'] ? $b['category'] : _("Unfiled"),
-                       $a['category'] ? $a['category'] : _("Unfiled"));
+        return self::_sortByCategory($b, $a);
     }
 
     /**
@@ -364,20 +388,7 @@ class Mnemo
      */
     protected static function _rsortByNotepad($a, $b)
     {
-        $aowner = $a['memolist_id'];
-        $bowner = $b['memolist_id'];
-
-        $ashare = $GLOBALS['mnemo_shares']->getShare($aowner);
-        $bshare = $GLOBALS['mnemo_shares']->getShare($bowner);
-
-        if ($aowner != $ashare->get('owner')) {
-            $aowner = $ashare->get('name');
-        }
-        if ($bowner != $bshare->get('owner')) {
-            $bowner = $bshare->get('name');
-        }
-
-        return strcoll($bowner, $aowner);
+        return self::_sortByNotepad($b, $a);
     }
 
     /**
@@ -426,29 +437,7 @@ class Mnemo
      */
     protected static function _rsortByModDate($a, $b)
     {
-        // Get note's history
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
-
-        $guidA = 'mnemo:' . $a['memolist_id'] . ':' . $a['uid'];
-        $guidB = 'mnemo:' . $b['memolist_id'] . ':' . $b['uid'];
-
-        // Gets the timestamp of the most recent modification to the note
-        $modDateA = $history->getActionTimestamp($guidA, 'modify');
-        $modDateB = $history->getActionTimestamp($guidB, 'modify');
-
-        // If the note hasn't been modified, get the creation timestamp
-        if ($modDateA == 0) {
-            $modDateA = $history->getActionTimestamp($guidA, 'add');
-        }
-        if ($modDateB == 0) {
-            $modDateB = $history->getActionTimestamp($guidB, 'add');
-        }
-
-        if ($modDateA == $modDateB) {
-            return 0;
-        }
-
-        return ($modDateA < $modDateB) ? 1 : -1;
+        return self::_sortByModDate($b, $a);
     }
 
     /**
@@ -493,7 +482,7 @@ class Mnemo
         }
         if ($passphrase = $GLOBALS['session']->get('mnemo', 'passphrase/' . $id)) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            return $secret->read($secret->getKey('mnemo'), $passphrase);
+            return $secret->read($secret->getKey(), $passphrase);
         }
     }
 
@@ -509,7 +498,7 @@ class Mnemo
     public static function storePassphrase($id, $passphrase)
     {
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $GLOBALS['session']->set('mnemo', 'passphrase/' . $id, $secret->write($secret->getKey('mnemo'), $passphrase));
+        $GLOBALS['session']->set('mnemo', 'passphrase/' . $id, $secret->write($secret->getKey(), $passphrase));
     }
 
     /**
@@ -562,6 +551,7 @@ class Mnemo
             ->create();
         if (($new_default = $notepads->ensureDefaultShare()) !== null) {
             $GLOBALS['display_notepads'][] = $new_default;
+            $GLOBALS['prefs']->setValue('default_notepad', $new_default);
         }
 
         $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));
@@ -569,7 +559,7 @@ class Mnemo
 
     /**
      */
-    static public function getCssStyle($category, $stickies = false)
+    static public function getCssStyle($category)
     {
         $cManager = new Horde_Prefs_CategoryManager();
         $colors = $cManager->colors();
@@ -578,23 +568,7 @@ class Mnemo
         }
         $fgColors = $cManager->fgColors();
 
-        if (!$stickies) {
-            return 'color:' . (isset($fgColors[$category]) ? $fgColors[$category] : $fgColors['_default_']) . ';' .
-                'background:' . $colors[$category] . ';';
-        }
-
-        $hex = str_replace('#', '', $colors[$category]);
-        if (strlen($hex) == 3) {
-            $r = hexdec(substr($hex, 0, 1));
-            $g = hexdec(substr($hex, 1, 1));
-            $b = hexdec(substr($hex, 2, 1));
-        } else {
-            $r = hexdec(substr($hex, 0, 2));
-            $g = hexdec(substr($hex, 2, 2));
-            $b = hexdec(substr($hex, 4, 2));
-        }
-
-        return "background: rgba($r, $g, $b, 0.5)";
+        return 'color:' . (isset($fgColors[$category]) ? $fgColors[$category] : $fgColors['_default_']) . ';' .
+            'background:' . $colors[$category] . ';';
     }
-
 }

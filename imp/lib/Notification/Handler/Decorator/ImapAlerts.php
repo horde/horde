@@ -1,16 +1,24 @@
 <?php
 /**
- * Add IMAP alert notifications to the stack.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Add IMAP alert notifications to the stack.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Notification_Handler_Decorator_ImapAlerts
 extends Horde_Core_Notification_Handler_Decorator_Base
@@ -30,8 +38,8 @@ extends Horde_Core_Notification_Handler_Decorator_Base
                            Horde_Notification_Listener $listener)
     {
         if (($listener instanceof Horde_Notification_Listener_Status) &&
-            ($ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()) &&
-            $ob->ob) {
+            ($ob = $GLOBALS['injector']->getInstance('IMP_Imap')) &&
+            $ob->init) {
             /* Display IMAP alerts. */
             foreach ($ob->alerts() as $alert) {
                 $handler->push($alert, 'horde.warning');

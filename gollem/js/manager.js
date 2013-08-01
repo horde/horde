@@ -7,15 +7,6 @@
 
 var Gollem = {
 
-    toggleRow: function()
-    {
-        $$('table.striped tr').each(function(tr) {
-            var td = tr.select('TD');
-            tr.observe('mouseover', td.invoke.bind(td, 'addClassName', 'selected'));
-            tr.observe('mouseout', td.invoke.bind(td, 'removeClassName', 'selected'));
-        });
-    },
-
     getChecked: function()
     {
         return this.getElements().findAll(function(e) {
@@ -31,6 +22,15 @@ var Gollem = {
     getSelected: function()
     {
         return this.getChecked().pluck('value').join("\n");
+    },
+
+    toggleSelection: function()
+    {
+        var e = this.getElements(),
+            checked = (this.getChecked().size() != e.length);
+        e.each(function(f) {
+            f.checked = checked;
+        });
     },
 
     getItemsArray: function()
@@ -50,67 +50,11 @@ var Gollem = {
         }).compact().join("\n");
     },
 
-    chooseAction: function(i)
-    {
-        var action = $F('action' + i);
-
-        switch (action) {
-        case 'paste_items':
-            $('actionID').setValue('paste_items');
-            $('manager').submit();
-            break;
-
-        default:
-            if (!this.getChecked().size()) {
-                alert(GollemText.select_item);
-                break;
-            }
-            switch (action) {
-            case 'rename_items':
-                this.renameItems();
-                break;
-
-            case 'delete_items':
-                this.deleteItems();
-                break;
-
-            case 'chmod_modify':
-                $('attributes').show();
-                break;
-
-            case 'cut_items':
-                $('actionID').setValue('cut_items');
-                $('manager').submit();
-                break;
-
-            case 'copy_items':
-                $('actionID').setValue('copy_items');
-                $('manager').submit();
-                break;
-            }
-            break;
-        }
-    },
-
-    changeDirectory: function(elt)
-    {
-        this._prepPopup('changeDirectory', elt);
-        $('cdfrm_fname').focus();
-    },
-
-    createFolder: function(elt)
-    {
-        this._prepPopup('createFolder', elt);
-        $('createfrm_fname').focus();
-    },
-
-    _prepPopup: function(elt, elt2)
+    _clearChecks: function()
     {
         this.getChecked().each(function(e) {
             e.checked = false;
         });
-
-        $(elt).clonePosition(elt2, { setWidth: false, setHeight: false, offsetTop: elt2.getHeight() }).show();
     },
 
     renameItems: function()
@@ -118,9 +62,12 @@ var Gollem = {
         var c = this.getChecked();
         if (c.size()) {
             c[0].checked = false;
-            $('rename').show();
             $('renamefrm_oldname').setValue(c[0].value);
-            $('renamefrm_newname').setValue(c[0].value).focus();
+            HordeDialog.display({
+                form_id: 'renamefrm',
+                input_val: c[0].value,
+                text: GollemText.rename
+            });
         }
     },
 
@@ -129,7 +76,7 @@ var Gollem = {
         var cont = true, sf;
 
         if (window.confirm(GollemText.delete_confirm_1 + '\n' + this.getSelected() + '\n' + GollemText.delete_confirm_2)) {
-            if (warn_recursive) {
+            if (GollemVar.warn_recursive) {
                 sf = this.getSelectedFoldersList();
                 if (!sf.empty() &&
                     !window.confirm(GollemText.delete_recurs_1 + '\n' + sf + '\n' + GollemText.delete_recurs_2)) {
@@ -146,69 +93,30 @@ var Gollem = {
         }
     },
 
-    toggleSelection: function()
-    {
-        var e = this.getElements(),
-            checked = (this.getChecked().size() != e.length);
-        e.each(function(f) {
-            f.checked = checked;
-        });
-    },
-
     createFolderOK: function()
     {
-        $('createFolder').hide();
-        if ($F('createfrm_fname')) {
-            $('new_folder').setValue($F('createfrm_fname'));
+        if ($F('dialog_input')) {
+            $('new_folder').setValue($F('dialog_input'));
             $('actionID').setValue('create_folder');
             $('manager').submit();
         }
     },
 
-    createFolderKeyCheck: function(e)
-    {
-        switch (e.keyCode) {
-        case Event.KEY_ESC:
-            this.createFolderCancel();
-            e.stop();
-            break;
-
-        case EVENT.KEY_RETURN:
-            this.createFolderOK();
-            e.stop();
-            break;
-        }
-    },
-
-    createFolderCancel: function()
-    {
-        $('createFolder').hide();
-        $('createfrm').reset();
-    },
-
-    chmodCancel: function()
-    {
-        $('attributes').hide();
-        $('chmodfrm').reset();
-    },
-
-    chmodSave: function()
+    chmodOK: function()
     {
         var all = group = owner = 0;
 
         $('chmodfrm').getElements().each(function(e) {
-            if (e.name == "owner[]" && e.checked) {
+            if (e.name == 'owner[]' && e.checked) {
                 owner |= e.value;
-            } else if (e.name == "group[]" && e.checked) {
+            } else if (e.name == 'group[]' && e.checked) {
                 group |= e.value;
-            } else if (e.name == "all[]" && e.checked) {
+            } else if (e.name == 'all[]' && e.checked) {
                 all |= e.value;
             }
         });
 
-        $('attributes').hide();
-
-        $('chmod').setValue("0" + owner + "" + group + "" + all);
+        $('chmod').setValue('0' + owner + '' + group + '' + all);
         $('actionID').setValue('chmod_modify');
         $('manager').submit();
     },
@@ -216,20 +124,20 @@ var Gollem = {
     renameOK: function()
     {
         var c = this.getChecked(),
-            newname = $F('renamefrm_newname'),
+            newname = $F('dialog_input'),
             newNames = $F('new_names'),
             oldname = $F('renamefrm_oldname'),
             oldNames = $F('old_names');
 
         if (newname && newname != oldname) {
-            newNames += "|" + newname;
-            oldNames += "|" + oldname;
+            newNames += '|' + newname;
+            oldNames += '|' + oldname;
         }
 
-        if (newNames.startsWith("|")) {
+        if (newNames.startsWith('|')) {
             newNames = newNames.substring(1);
         }
-        if (oldNames.startsWith("|")) {
+        if (oldNames.startsWith('|')) {
             oldNames = oldNames.substring(1);
         }
 
@@ -237,67 +145,19 @@ var Gollem = {
         $('old_names').setValue(oldNames);
 
         if (c.size()) {
-            c[0].checked = false;
-            found = true;
-            $('rename').show();
-            $F(c[0]).focus();
+            this.renameItems.defer();
         } else {
             $('actionID').setValue('rename_items');
             $('manager').submit();
-        }
-
-        return false;
-    },
-
-    renameCancel: function()
-    {
-        $('new_names', 'old_names').invoke('setValue', '');
-        $('rename').hide();
-    },
-
-    renameKeyCheck: function(e)
-    {
-        switch (e.keyCode) {
-        case Event.KEY_ESC:
-            this.renameCancel();
-            e.stop();
-            break;
-
-        case EVENT.KEY_RETURN:
-            this.renameOK();
-            e.stop();
-            break;
         }
     },
 
     changeDirectoryOK: function()
     {
-        $('changeDirectory').hide();
-        if ($F('cdfrm_fname')) {
-            $('dir').setValue($F('cdfrm_fname'));
+        if ($F('dialog_input')) {
+            $('dir').setValue($F('dialog_input'));
             $('manager').submit();
         }
-    },
-
-    changeDirectoryKeyCheck: function(e)
-    {
-        switch (e.keyCode) {
-        case Event.KEY_ESC:
-            this.changeDirectoryCancel();
-            e.stop();
-            break;
-
-        case EVENT.KEY_RETURN:
-            this.changeDirectoryOK();
-            e.stop();
-            break;
-        }
-    },
-
-    changeDirectoryCancel: function()
-    {
-        $('changeDirectory').hide();
-        $('cdfrm').reset();
     },
 
     uploadFields: function()
@@ -313,17 +173,6 @@ var Gollem = {
             $('actionID').setValue('upload_file');
             $('manager').submit();
         }
-    },
-
-    applyFilter: function()
-    {
-        $('manager').submit();
-    },
-
-    clearFilter: function()
-    {
-        $('filter').setValue('');
-        this.applyFilter();
     },
 
     uploadsExist: function()
@@ -361,14 +210,6 @@ var Gollem = {
         }
     },
 
-    doPrefsUpdate: function(column, sortDown)
-    {
-        try {
-            new Ajax.Request(GollemVar.URI_AJAX + 'setPrefValue', { parameters: { pref: 'sortby', value: column.substring(1) } });
-            new Ajax.Request(GollemVar.URI_AJAX + 'setPrefValue', { parameters: { pref: 'sortdir', value: sortDown } });
-        } catch (e) {}
-    },
-
     clickHandler: function(e)
     {
         if (e.isRightClick()) {
@@ -382,16 +223,12 @@ var Gollem = {
             id = elt.readAttribute('id');
 
             switch (id) {
-            case 'cdfrmcancel':
-                this.changeDirectoryCancel();
-                return;
-
-            case 'cdfrmok':
-                this.changeDirectoryOK();
-                return;
-
-            case 'changefolder':
-                this.changeDirectory(elt);
+            case 'gollem-changefolder':
+                this._clearChecks();
+                HordeDialog.display({
+                    form_id: 'cdfrm',
+                    text: GollemText.change_directory
+                });
                 e.stop();
                 return;
 
@@ -399,45 +236,64 @@ var Gollem = {
                 this.toggleSelection();
                 break;
 
-            case 'chmodcancel':
-                this.chmodCancel();
-                break;
-
-            case 'chmodsave':
-                this.chmodSave();
-                break;
-
-            case 'createcancel':
-                this.createFolderCancel();
-                break;
-
-            case 'createfolder':
-                this.createFolder(elt);
+            case 'gollem-createfolder':
+                this._clearChecks();
+                HordeDialog.display({
+                    form_id: 'createfrm',
+                    text: GollemText.create_folder
+                });
                 e.stop();
                 return;
 
-            case 'createok':
-                this.createFolderOK();
-                break;
-
-            case 'filterapply':
-                this.applyFilter();
-                break;
-
-            case 'filterclear':
-                this.clearFilter();
-                break;
-
-            case 'renamecancel':
-                this.renameCancel();
-                break;
-
-            case 'renamesave':
-                this.renameOK();
-                break;
-
             case 'uploadfile':
                 this.uploadFile();
+                break;
+
+            case 'gollem-rename':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                this.renameItems();
+                break;
+
+            case 'gollem-delete':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                this.deleteItems();
+                break;
+
+            case 'gollem-chmod':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                HordeDialog.display({
+                    form: $('gollem-attributes').clone(true).show(),
+                    form_id: 'chmodfrm',
+                    form_opts: { action: GollemVar.actionUrl },
+                    header: GollemText.permissions
+                });
+                break;
+
+            case 'gollem-cut':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                $('actionID').setValue('cut_items');
+                $('manager').submit();
+                break;
+
+            case 'gollem-copy':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                $('actionID').setValue('copy_items');
+                $('manager').submit();
                 break;
             }
 
@@ -445,28 +301,35 @@ var Gollem = {
         }
     },
 
+    okHandler: function(e)
+    {
+        switch (e.element().identify()) {
+        case 'cdfrm':
+            Gollem.changeDirectoryOK();
+            break;
+
+        case 'chmodfrm':
+            Gollem.chmodOK();
+            break;
+
+        case 'createfrm':
+            Gollem.createFolderOK();
+            break;
+
+        case 'renamefrm':
+            Gollem.renameOK();
+            break;
+        }
+    },
+
+    closeHandler: function(e)
+    {
+        $('new_names', 'old_names').invoke('setValue', '');
+    },
+
     onDomLoad: function()
     {
         var tmp;
-
-        this.toggleRow()
-
-        if (tmp = $('renamefrm_newname')) {
-            tmp.observe('keypress', this.renameKeyCheck.bindAsEventListener(this));
-        }
-
-        $('createfrm_fname').observe('keypress', this.createFolderKeyCheck.bindAsEventListener(this));
-        $('cdfrm_fname').observe('keypress', this.changeDirectoryKeyCheck.bindAsEventListener(this));
-
-        $('createfrm', 'cdfrm').invoke('observe', 'submit', Event.stop);
-
-        // Observe actual event since IE does not bubble change events.
-        if (tmp = $('action1')) {
-            tmp.observe('change', function() {
-                this.chooseAction(1);
-                $('action1').selectedIndex = 0;
-            }.bind(this));
-        }
 
         if (tmp = $('file_upload_1')) {
             tmp.observe('change', this.uploadChanged.bind(this));
@@ -475,13 +338,7 @@ var Gollem = {
 
 };
 
-function table_sortCallback(tableId, column, sortDown)
-{
-    if (Gollem.prefs_update_timeout) {
-        window.clearTimeout(Gollem.prefs_update_timeout);
-    }
-    Gollem.prefs_update_timeout = Gollem.doPrefsUpdate.bind(this, column, sortDown).delay(0.3);
-}
-
 document.observe('dom:loaded', Gollem.onDomLoad.bind(Gollem));
 document.observe('click', Gollem.clickHandler.bindAsEventListener(Gollem));
+document.observe('HordeDialog:onClick', Gollem.okHandler.bindAsEventListener(Gollem));
+document.observe('HordeDialog:close', Gollem.closeHandler.bindAsEventListener(Gollem));

@@ -1,0 +1,119 @@
+# French translations for Horde_Auth package.
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Auth package.
+#
+# Automatically generated, 2013.
+# Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont.fr>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Auth \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2013-01-14 10:11+0100\n"
+"Last-Translator: Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont."
+"fr>\n"
+"Language-Team: French <i18n@lists.horde.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
+
+#: lib/Horde/Auth.php:353
+#, php-format
+msgid ""
+"The password is too long; passwords may not be more than %d characters long!"
+msgstr ""
+"Votre nouveau mot de passe est trop long ; un mot de passe ne peut posséder "
+"plus de %d caractères !"
+
+#: lib/Horde/Auth.php:421 lib/Horde/Auth.php:430
+msgid "The password is too simple to guess."
+msgstr "Votre nouveau mot de passe est trop simple."
+
+#: lib/Horde/Auth.php:349
+#, php-format
+msgid "The password must be at least %d characters long!"
+msgstr "Votre nouveau mot de passe doit avoir au moins %d caractères !"
+
+#: lib/Horde/Auth.php:385
+#, php-format
+msgid "The password must contain at least %d alphabetic character."
+msgid_plural "The password must contain at least %d alphabetic characters."
+msgstr[0] ""
+"Votre nouveau mot de passe doit avoir au moins %d caractère alphabétique ."
+msgstr[1] ""
+"Votre nouveau mot de passe doit avoir au moins %d caractères alphabétiques."
+
+#: lib/Horde/Auth.php:388
+#, php-format
+msgid "The password must contain at least %d alphanumeric character."
+msgid_plural "The password must contain at least %d alphanumeric characters."
+msgstr[0] ""
+"Votre nouveau mot de passe doit avoir au moins %d caractère alphanumérique."
+msgstr[1] ""
+"Votre nouveau mot de passe doit avoir au moins %d caractères alphanumériques."
+
+#: lib/Horde/Auth.php:391
+#, php-format
+msgid ""
+"The password must contain at least %d different types of characters. The "
+"types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Votre nouveau mot de passe doit avoir au moins %d types de caractères "
+"différents. Les types sont : minuscule, majuscule, numérique et symboles."
+
+#: lib/Horde/Auth.php:379
+#, php-format
+msgid "The password must contain at least %d lowercase character."
+msgid_plural "The password must contain at least %d lowercase characters."
+msgstr[0] ""
+"Votre nouveau mot de passe doit avoir au moins %d lettre en minuscule."
+msgstr[1] ""
+"Votre nouveau mot de passe doit avoir au moins %d lettres en minuscule."
+
+#: lib/Horde/Auth.php:382
+#, php-format
+msgid "The password must contain at least %d numeric character."
+msgid_plural "The password must contain at least %d numeric characters."
+msgstr[0] ""
+"Votre nouveau mot de passe doit avoir au moins %d caractère numérique."
+msgstr[1] ""
+"Votre nouveau mot de passe doit avoir au moins %d caractères numériques."
+
+#: lib/Horde/Auth.php:400
+#, php-format
+msgid "The password must contain at least %d symbol character."
+msgid_plural "The password must contain at least %d symbol characters."
+msgstr[0] ""
+"Votre nouveau mot de passe doit avoir au moins %d caractère numérique."
+msgstr[1] ""
+"Votre nouveau mot de passe doit avoir au moins %d caractères numériques."
+
+#: lib/Horde/Auth.php:376
+#, php-format
+msgid "The password must contain at least %d uppercase character."
+msgid_plural "The password must contain at least %d uppercase characters."
+msgstr[0] ""
+"Votre nouveau mot de passe doit avoir au moins %d lettre en majuscule."
+msgstr[1] ""
+"Votre nouveau mot de passe doit avoir au moins %d lettres en majuscule."
+
+#: lib/Horde/Auth.php:395
+#, php-format
+msgid "The password must contain less than %d whitespace characters."
+msgstr "Votre nouveau mot de passe doit avoir moins de %d espaces."
+
+#: lib/Horde/Auth.php:397
+msgid "The password must not contain whitespace characters."
+msgstr "Votre nouveau mot de passe ne doit pas contenir d'espaces."
+
+#: lib/Horde/Auth/Base.php:148
+#, php-format
+msgid "Your account has been locked for %d minutes"
+msgstr "Votre compte a été verrouillé %d minutes"
+
+#: lib/Horde/Auth/Base.php:146
+msgid "Your account has been permanently locked"
+msgstr "Votre compte a été verrouillé définitivement"

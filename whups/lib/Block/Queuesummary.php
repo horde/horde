@@ -22,7 +22,7 @@ class Whups_Block_Queuesummary extends Horde_Core_Block
         $queues = Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ);
         $qsummary = $whups_driver->getQueueSummary(array_keys($queues));
         if (!$qsummary) {
-            return '<p><em>' . _("There are no open tickets.") . '</em></p>';
+            return '<p class="horde-content"><em>' . _("There are no open tickets.") . '</em></p>';
         }
 
         $summary = $types = array();
@@ -49,9 +49,9 @@ class Whups_Block_Queuesummary extends Horde_Core_Block
             $html .= '</tr>';
         }
 
-        Horde::addScriptFile('tables.js', 'horde', true);
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
 
-        return '<table id="whups_block_queuesummary" cellspacing="0" class="tickets striped sortable">' . $html . '</tbody></table>';
+        return '<table id="whups_block_queuesummary" class="horde-table sortable" style="width:100%">' . $html . '</tbody></table>';
     }
 
 }

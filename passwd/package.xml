@@ -2,8 +2,8 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>passwd</name>
  <channel>pear.horde.org</channel>
- <summary> Horde password changing application</summary>
- <description>An application to change any user passwords stored in various backends like SQL, LDAP, Kolab, passwd files etc...</description>
+ <summary>Horde password changing application</summary>
+ <description>An application to change any user passwords stored in various backends like SQL, LDAP, Kolab, passwd files etc.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
@@ -11,26 +11,27 @@
   <active>yes</active>
  </lead>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-28</date>
- <time>12:46:13</time>
+ <date>2013-06-11</date>
+ <time>16:07:10</time>
  <version>
-  <release>5.0.0</release>
+  <release>5.0.1</release>
   <api>5.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [rla] Don&apos;t pass too many parameters from backends.php to Horde_Db (Bug #10963).
-* [jan] Make expect driver locale independent (Bug #9166).
-* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+* [jan] Don&apos;t overwrite parameters for composite sub-drivers (Bug #12284).
+* [jan] Don&apos;t install expect scripts as executables.
+* [jan] Fix fatal error in Samba/LDAP driver (Bug #12319).
+* [jan] Fix user name parameter in LDAP driver (Bug #12331).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -61,6 +62,7 @@
      <file name="Http.php" role="horde" />
      <file name="Kolab.php" role="horde" />
      <file name="Ldap.php" role="horde" />
+     <file name="Null.php" role="horde" />
      <file name="Pine.php" role="horde" />
      <file name="Poppassd.php" role="horde" />
      <file name="Procopen.php" role="horde" />
@@ -78,9 +80,9 @@
     </dir> <!-- /lib/Factory -->
     <file name=".htaccess" role="horde" />
     <file name="Application.php" role="horde" />
+    <file name="Basic.php" role="horde" />
     <file name="Driver.php" role="horde" />
     <file name="Exception.php" role="horde" />
-    <file name="Passwd.php" role="horde" />
     <file name="Test.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
@@ -312,6 +314,8 @@
      </dir> <!-- /test/Passwd/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
+     <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Passwd -->
    </dir> <!-- /test -->
@@ -321,14 +325,7 @@
       <file name="favicon.ico" role="horde" />
       <file name="passwd.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="favicon.ico" role="horde" />
-      <file name="passwd.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-    </dir> <!-- /themes/silver -->
    </dir> <!-- /themes -->
    <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
@@ -338,7 +335,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -347,50 +344,50 @@
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>5.0.0</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.4.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.3.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Injector</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>gettext</name>
@@ -400,23 +397,30 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Crypt_CHAP</name>
@@ -433,6 +437,11 @@
    </extension>
   </optional>
  </dependencies>
+ <usesrole>
+ <role>horde</role>
+ <package>Role</package>
+ <channel>pear.horde.org</channel>
+</usesrole>
  <phprelease>
   <filelist>
    <install as="COPYING" name="COPYING" />
@@ -451,9 +460,9 @@
    <install as="passwd/js/passwd.js" name="js/passwd.js" />
    <install as="passwd/lib/.htaccess" name="lib/.htaccess" />
    <install as="passwd/lib/Application.php" name="lib/Application.php" />
+   <install as="passwd/lib/Basic.php" name="lib/Basic.php" />
    <install as="passwd/lib/Driver.php" name="lib/Driver.php" />
    <install as="passwd/lib/Exception.php" name="lib/Exception.php" />
-   <install as="passwd/lib/Passwd.php" name="lib/Passwd.php" />
    <install as="passwd/lib/Test.php" name="lib/Test.php" />
    <install as="passwd/lib/Driver/Adsi.php" name="lib/Driver/Adsi.php" />
    <install as="passwd/lib/Driver/Composite.php" name="lib/Driver/Composite.php" />
@@ -463,6 +472,7 @@
    <install as="passwd/lib/Driver/Http.php" name="lib/Driver/Http.php" />
    <install as="passwd/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="passwd/lib/Driver/Ldap.php" name="lib/Driver/Ldap.php" />
+   <install as="passwd/lib/Driver/Null.php" name="lib/Driver/Null.php" />
    <install as="passwd/lib/Driver/Pine.php" name="lib/Driver/Pine.php" />
    <install as="passwd/lib/Driver/Poppassd.php" name="lib/Driver/Poppassd.php" />
    <install as="passwd/lib/Driver/Procopen.php" name="lib/Driver/Procopen.php" />
@@ -558,14 +568,13 @@
    <install as="passwd/templates/index.html.php" name="templates/index.html.php" />
    <install as="Passwd/AllTests.php" name="test/Passwd/AllTests.php" />
    <install as="Passwd/Autoload.php" name="test/Passwd/Autoload.php" />
+   <install as="Passwd/bootstrap.php" name="test/Passwd/bootstrap.php" />
+   <install as="Passwd/phpunit.xml" name="test/Passwd/phpunit.xml" />
    <install as="Passwd/TestCase.php" name="test/Passwd/TestCase.php" />
    <install as="Passwd/Unit/Driver/SqlTest.php" name="test/Passwd/Unit/Driver/SqlTest.php" />
    <install as="Passwd/Unit/Factory/DriverTest.php" name="test/Passwd/Unit/Factory/DriverTest.php" />
-   <install as="passwd/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="passwd/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="passwd/themes/default/graphics/passwd.png" name="themes/default/graphics/passwd.png" />
-   <install as="passwd/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="passwd/themes/silver/graphics/passwd.png" name="themes/silver/graphics/passwd.png" />
   </filelist>
  </phprelease>
  <changelog>
@@ -631,15 +640,63 @@
   </release>
   <release>
    <version>
-    <release>4.0.2</release>
-    <api>4.0.0</api></version>
+    <release>5.0.0beta1</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Add option to destroy Horde session after changing password (Bug #11766).
+* [mms] Http driver now uses Horde_Http_Client.
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
+* [jan] Fix preparing multiple backends (Bug #11023).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0RC1</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Add policy for minimum number of non-alphanumeric characters (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
+* [jan] Add parameter for sudo program name to expect script (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0</release>
+    <api>5.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-28</date>
+   <date>2013-06-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Fix preparing multiple backends (Bug #11023).
+* Final release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.1</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Don&apos;t overwrite parameters for composite sub-drivers (Bug #12284).
+* [jan] Don&apos;t install expect scripts as executables.
+* [jan] Fix fatal error in Samba/LDAP driver (Bug #12319).
+* [jan] Fix user name parameter in LDAP driver (Bug #12331).
    </notes>
   </release>
  </changelog>

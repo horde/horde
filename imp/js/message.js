@@ -1,7 +1,7 @@
 /**
- * Provides the javascript for the message.php script (standard view).
+ * Provides the javascript for the basic view message page.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -13,9 +13,9 @@
 
 var ImpMessage = {
 
-    // Set in message.php: pop3delete, stripatc
+    // Set in PHP code: pop3delete, text
 
-    _arrowHandler: function(e)
+    arrowHandler: function(e)
     {
         if (e.altKey || e.shiftKey || e.ctrlKey) {
             return;
@@ -40,13 +40,13 @@ var ImpMessage = {
     {
         switch (actID) {
         case 'spam_report':
-            if (!window.confirm(IMP.text.spam_report)) {
+            if (!window.confirm(this.text.spam_report)) {
                 return;
             }
             break;
 
-        case 'notspam_report':
-            if (!window.confirm(IMP.text.notspam_report)) {
+        case 'innocent_report':
+            if (!window.confirm(this.text.innocent_report)) {
                 return;
             }
             break;
@@ -60,8 +60,8 @@ var ImpMessage = {
     {
         var f1 = $('flag1'), f2 = $('flag2');
 
-        if ((form == 1 && $F(f1) != "") ||
-            (form == 2 && $F(f2) != "")) {
+        if ((form == 1 && !$F(f1).empty()) ||
+            (form == 2 && !$F(f2).empty())) {
             $('messages').down('[name=flag]').setValue((form == 1) ? $F(f1) : $F(f2));
             this.submit('flag_message');
         }
@@ -78,23 +78,21 @@ var ImpMessage = {
 
         // Check for a mailbox actually being selected.
         if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
-            newMbox = window.prompt(IMP.text.newmbox, '');
-            if (newMbox != null && newMbox != '') {
+            newMbox = window.prompt(this.text.newmbox, '');
+            if (newMbox !== null && !newMbox.empty()) {
                 $('newMbox').setValue(1);
                 tmbox.setValue(newMbox);
                 this.submit(actID);
             }
         } else if (target.empty()) {
-            window.alert(IMP.text.target_mbox);
+            window.alert(this.text.target_mbox);
         } else if (target.startsWith("notepad\0") ||
                    target.startsWith("tasklist\0")) {
             this.actIDconfirm = actID;
             HordeDialog.display({
-                cancel_text: IMP.text.no,
                 form_id: 'RB_ImpMessageConfirm',
                 noinput: true,
-                ok_text: IMP.text.yes,
-                text: IMP.text.moveconfirm
+                text: this.text.moveconfirm
             });
         } else {
             this.submit(actID);
@@ -126,7 +124,7 @@ var ImpMessage = {
             fixcopy.clonePosition(ul);
 
             zindex = li.getStyle('zIndex');
-            if (zindex === null || zindex == '') {
+            if (zindex === null || zindex.empty()) {
                 li.setStyle({ zIndex: 2 });
                 fixcopy.setStyle({ zIndex: 1 });
             } else {
@@ -146,9 +144,7 @@ var ImpMessage = {
 
     onDomLoad: function()
     {
-        // Set up left and right arrows to go to the previous/next page.
-        document.observe('keydown', this._arrowHandler.bindAsEventListener(this));
-        document.observe('click', this._clickHandler.bindAsEventListener(this));
+        HordeCore.initHandler('click');
 
         if (Prototype.Browser.IE) {
             $('flag1', 'target1', 'flag2', 'target2').compact().invoke('observe', 'change', this._changeHandler.bindAsEventListener(this));
@@ -182,45 +178,54 @@ var ImpMessage = {
         }
     },
 
-    _clickHandler: function(e)
+    clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
-
-        var elt = e.element();
-
-        while (Object.isElement(elt)) {
-            if (elt.match('.msgactions A.widget')) {
-                if (this.pop3delete && elt.hasClassName('deleteAction')) {
-                    if (!window.confirm(this.pop3delete)) {
-                        e.stop();
-                        return;
-                    }
+        $w(e.element().className).each(function(c) {
+            switch (c) {
+            case 'deleteAction':
+                if (this.pop3delete && !window.confirm(this.pop3delete)) {
+                    e.memo.stop();
                 }
-                if (elt.hasClassName('moveAction')) {
-                    this._transfer('move_message');
-                } else if (elt.hasClassName('copyAction')) {
-                    this._transfer('copy_message');
-                } else if (elt.hasClassName('spamAction')) {
-                    this.submit('spam_report');
-                } else if (elt.hasClassName('notspamAction')) {
-                    this.submit('notspam_report');
-                } else if (elt.hasClassName('stripAllAtc')) {
-                    if (!window.confirm(this.stripatc)) {
-                        e.stop();
-                        return;
-                    }
+                break;
+
+            case 'moveAction':
+                this._transfer('move_message');
+                break;
+
+            case 'copyAction':
+                this._transfer('copy_message');
+                break;
+
+            case 'spamAction':
+                this.submit('spam_report');
+                break;
+
+            case 'innocentAction':
+                this.submit('innocent_report');
+                break;
+
+            case 'stripAllAtc':
+                if (!window.confirm(this.text.stripallwarn)) {
+                    e.memo.stop();
                 }
-            } else if (elt.hasClassName('unblockImageLink')) {
-                IMP_JS.unblockImages(e);
+                break;
+
+             case 'unblockImageLink':
+                IMP_JS.unblockImages(e.memo);
+                break;
+
+            case 'stripAtc':
+                if (!window.confirm(this.text.stripwarn)) {
+                    e.memo.stop();
+                }
+                break;
             }
-
-            elt = elt.up();
-        }
+        }, this);
     }
 
 };
 
 document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
+document.observe('keydown', ImpMessage.arrowHandler.bindAsEventListener(ImpMessage));
+document.observe('HordeCore:click', ImpMessage.clickHandler.bindAsEventListener(ImpMessage));
 document.observe('HordeDialog:onClick', ImpMessage.onDialogClick.bind(ImpMessage));

@@ -1,7 +1,7 @@
 /**
  * edit.js - Base application logic.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -74,11 +74,11 @@ var KronolithEdit =
             break;
 
         case 'attendees_button':
-            Horde.popup({
-                params: Object.toQueryString({
+            HordePopup.popup({
+                params: {
                     startdate: (('000' + $F('start_year')).slice(-4) + ('0' + $F('start_month')).slice(-2) + ('0' + $F('start_day')).slice(-2) + ('0' + $F('start_hour')).slice(-2) + ('0' + $F('start_min')).slice(-2) + '00'),
                     enddate: (('000' + $F('end_year')).slice(-4) + ('0' + $F('end_month')).slice(-2) + ('0' + $F('end_day')).slice(-2) + ('0' + $F('end_hour')).slice(-2) + ('0' + $F('end_min')).slice(-2) + '00')
-                }),
+                },
                 url: elt.readAttribute('href')
             });
             e.stop();

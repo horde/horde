@@ -2,7 +2,7 @@
 /**
  * This file contains all Horde_Form classes for ticket type administration.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -21,7 +21,7 @@ class Whups_Form_Admin_EditTypeStepOne extends Horde_Form
             array(
                 _("Edit Type"),
                 _("Clone Type"),
-                _("Delete Type")));
+                array('class' => 'horde-delete', 'value' => _("Delete Type"))));
 
         $types = $whups_driver->getAllTypes();
         if ($types) {

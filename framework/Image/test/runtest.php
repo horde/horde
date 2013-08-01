@@ -3,7 +3,7 @@
  * Test harness for generating the test images for Horde_Image tests
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $allTests = array(

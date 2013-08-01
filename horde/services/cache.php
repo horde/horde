@@ -5,20 +5,22 @@
  * MANDATORY: type (css, js, or app)
  * OPTIONAL: cid (required for type == [css, js]), nocache
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
 /* The amount of time (in minutes) to cache the generated CSS and JS files.
  * DEFAULT: 525600 = 1 year */
 $expire_time = 525600;
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 
 if (!($path = Horde_Util::getFormData('cache'))) {
     exit;

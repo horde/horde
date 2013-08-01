@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Kolab_Session:: factory.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -72,7 +72,8 @@ class Horde_Core_Factory_KolabSession extends Horde_Core_Factory_Base
      */
     public function createSession()
     {
-        if (!isset($GLOBALS['conf']['kolab']['users'])) {
+        if (!empty($GLOBALS['conf']['kolab']['enabled']) &&
+	    !isset($GLOBALS['conf']['kolab']['users'])) {
             $session = new Horde_Kolab_Session_Base(
                 $this->_injector->getInstance('Horde_Kolab_Server_Composite'),
                 $GLOBALS['conf']['kolab']
@@ -80,7 +81,9 @@ class Horde_Core_Factory_KolabSession extends Horde_Core_Factory_Base
         } else {
             $session = new Horde_Kolab_Session_Imap(
                 new Horde_Kolab_Session_Factory_Imap(),
-                $GLOBALS['conf']['kolab']
+                empty($GLOBALS['conf']['kolab']['enabled'])
+                    ? $GLOBALS['conf']['imap']
+                    : $GLOBALS['conf']['kolab']
             );
         }
 
@@ -112,9 +115,8 @@ class Horde_Core_Factory_KolabSession extends Horde_Core_Factory_Base
             $this->_injector->getInstance('Horde_Registry')->getAuth()
         )->validate();
 
-        if (isset($GLOBALS['conf']['kolab']['session']['anonymous']['user'])
-            && isset($GLOBALS['conf']['kolab']['session']['anonymous']['pass'])
-        ) {
+        if (isset($GLOBALS['conf']['kolab']['session']['anonymous']['user']) &&
+            isset($GLOBALS['conf']['kolab']['session']['anonymous']['pass'])) {
             $session = new Horde_Kolab_Session_Decorator_Anonymous(
                 $session,
                 $GLOBALS['conf']['kolab']['session']['anonymous']['user'],

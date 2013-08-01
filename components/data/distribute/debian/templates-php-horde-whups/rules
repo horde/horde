@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+HORDENAME=whups
+DESTDIR=$(CURDIR)/debian/php-horde-$(HORDENAME)
+
+%:
+	dh $@ --buildsystem=phppear --with phppear
+
+binary: build
+	dh binary --buildsystem=phppear --with phppear --until dh_install
+	dh_installdirs etc/horde
+	# config of "whups" app:
+	mv $(DESTDIR)/usr/share/horde/$(HORDENAME)/config $(DESTDIR)/etc/horde/$(HORDENAME)
+	dh_link etc/horde/$(HORDENAME) usr/share/horde/$(HORDENAME)/config
+	# back to debhelper:
+	dh binary --buildsystem=phppear --with phppear --after dh_install

@@ -8,8 +8,6 @@
  * @package    Text_Filter
  * @subpackage UnitTests
  */
-require_once dirname(__FILE__) . '/Autoload.php';
-
 class Horde_Text_Filter_LinkurlsTest extends Horde_Test_Case
 {
     /**
@@ -103,4 +101,29 @@ class Horde_Text_Filter_LinkurlsTest extends Horde_Test_Case
                                       'linkurls',
                                       array('target' => null)));
     }
+
+    public function testBug11116()
+    {
+        $text = file_get_contents(__DIR__ . '/fixtures/bug_11116.txt');
+
+        $this->assertNotNull(
+            Horde_Text_Filter::filter($text, 'linkurls')
+        );
+    }
+
+    public function testBug12152()
+    {
+        $text = 'http://imslp.org/wiki/Symphony_No.5,_D.485_(Schubert,_Franz)';
+
+        $old_ini = ini_get('pcre.backtrack_limit');
+        ini_set('pcre.backtrack_limit', 1000);
+
+        $this->assertEquals(
+            $text,
+            Horde_Text_Filter::filter($text, 'linkurls')
+        );
+
+        ini_set('pcre.backtrack_limit', $old_ini);
+    }
+
 }

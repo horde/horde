@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>14:41:04</time>
+ <date>2012-11-19</date>
+ <time>18:53:10</time>
  <version>
-  <release>1.0.4</release>
+  <release>2.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -83,8 +83,9 @@
      <dir name="Xml">
       <dir name="Wbxml">
        <file name="AllTests.php" role="test" />
-       <file name="Autoload.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="DecodeTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
       </dir> <!-- /test/Horde/Xml/Wbxml -->
      </dir> <!-- /test/Horde/Xml -->
     </dir> <!-- /test/Horde -->
@@ -94,7 +95,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -102,11 +103,20 @@
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -136,8 +146,9 @@
    <install as="Horde/Xml/Wbxml/Dtd/SyncMlDevInf.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMlDevInf.php" />
    <install as="Horde/Xml/Wbxml/Dtd/SyncMlMetInf.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMlMetInf.php" />
    <install as="Horde/Xml/Wbxml/AllTests.php" name="test/Horde/Xml/Wbxml/AllTests.php" />
-   <install as="Horde/Xml/Wbxml/Autoload.php" name="test/Horde/Xml/Wbxml/Autoload.php" />
+   <install as="Horde/Xml/Wbxml/bootstrap.php" name="test/Horde/Xml/Wbxml/bootstrap.php" />
    <install as="Horde/Xml/Wbxml/DecodeTest.php" name="test/Horde/Xml/Wbxml/DecodeTest.php" />
+   <install as="Horde/Xml/Wbxml/phpunit.xml" name="test/Horde/Xml/Wbxml/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -243,12 +254,64 @@
   </release>
   <release>
    <version>
-    <release>1.0.4</release>
+    <release>2.0.0alpha1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

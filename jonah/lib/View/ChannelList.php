@@ -2,7 +2,7 @@
 /**
  * View for displaying Jonah channels.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE
@@ -61,13 +61,16 @@ class Jonah_View_ChannelList extends Jonah_View_Base
         $view->addHelper('Tag');
         $view->channels = $channels;
         $view->search_img = Horde::img('search.png');
-        $title = _("Feeds");
-        Horde::addScriptFile('tables.js', 'horde', true);
-        Horde::addScriptFile('quickfinder.js', 'horde', true);
-        require $registry->get('templates', 'horde') . '/common-header.inc';
-        require JONAH_TEMPLATES . '/menu.inc';
+        global $page_output;
+        $page_output->addScriptFile('tables.js', 'horde');
+        $page_output->addScriptFile('quickfinder.js', 'horde');
+
+        $page_output->header(array(
+            'title' => _("Feeds")
+        ));
+        $notification->notify(array('listeners' => 'status'));
         echo $view->render('channellist');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
 }

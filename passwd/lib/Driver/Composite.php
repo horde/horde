@@ -1,15 +1,25 @@
 <?php
 /**
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2003-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
  * The composite class chains other drivers together to change and a user's
  * password stored on various backends.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
- *
- * @author  Max Kalika <max@horde.org>
- * @package Passwd
+ * @author    Max Kalika <max@horde.org>
+ * @category  Horde
+ * @copyright 2003-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Composite extends Passwd_Driver
 {
@@ -18,24 +28,15 @@ class Passwd_Driver_Composite extends Passwd_Driver
      *
      * @var array
      */
-    protected $_drivers = array();
+    protected $_drivers = null;
 
     /**
-     * State of the loaded drivers.
-     *
-     * @var boolean
-     */
-    protected $_loaded = false;
-
-    /**
-     * Constructor.
-     *
-     * @param array $params  A hash containing chained drivers and their
-     *                       parameters.
+     * @param array $params  Driver parameters:
+     *   - drivers: (array) Array of Passwd_Driver objects.
      *
      * @throws Passwd_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (!isset($params['drivers']) || !is_array($params['drivers'])) {
             throw new Passwd_Exception(_("Required 'drivers' is misconfigured in Composite configuration."));
@@ -49,58 +50,40 @@ class Passwd_Driver_Composite extends Passwd_Driver
      */
     protected function _loadDrivers()
     {
-        if ($this->_loaded) {
+        if (!is_null($this->_drivers)) {
             return;
         }
 
-        foreach ($this->_params['drivers'] as $key => $settings) {
-            if (isset($this->_drivers[$key])) {
-                continue;
-            }
-            $settings['is_subdriver'] = true;
-            try {
-                $res = $GLOBALS['injector']
-                    ->getInstance('Passwd_Factory_Driver')
-                    ->create($key, $settings);
-            } catch (Passwd_Exception $e) {
-                throw new Passwd_Exception(
-                    sprintf(_("%s: unable to load sub driver: %s"),
-                            $key, $e->getMessage()));
-            }
+        $driver = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver');
 
-            $this->_drivers[$key] = $res;
+        foreach ($this->_params['drivers'] as $key => $val) {
+            if (!isset($this->_drivers[$key])) {
+                try {
+                    $res = $driver->create($key, array_merge($val, array(
+                        'is_subdriver' => true
+                    )));
+                } catch (Passwd_Exception $e) {
+                    throw new Passwd_Exception(sprintf(_("%s: unable to load sub driver: %s"), $key, $e->getMessage()));
+                }
+
+                $this->_drivers[$key] = $res;
+            }
         }
-
-        $this->_loaded = true;
     }
 
     /**
-     * Changes the user's password.
-     *
-     * @param string $username      The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($username,  $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
         $this->_loadDrivers();
 
         foreach ($this->_drivers as $key => $driver) {
-            if (isset($driver->_params['be_username'])) {
-                $user = $driver->_params['be_username'];
-            } else {
-                $user = $username;
-            }
             try {
-                $driver->changePassword($user, $old_password,  $new_password);
+                $driver->changePassword($user, $oldpass,  $newpass);
             } catch (Passwd_Exception $e) {
-                throw new Passwd_Exception(
-                    sprintf(_("Failure in changing password for %s: %s"),
-                            $this->_params['drivers'][$key]['name'],
-                            $e->getMessage()));
+                throw new Passwd_Exception(sprintf(_("Failure in changing password for %s: %s"), $this->_params['drivers'][$key]['name'], $e->getMessage()));
             }
         }
     }
+
 }

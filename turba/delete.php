@@ -2,7 +2,7 @@
 /**
  * Turba delete.php.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -13,7 +13,7 @@
  * @package  Turba
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -22,8 +22,8 @@ $driver = $injector->getInstance('Turba_Factory_Driver')->create($vars->source);
 try {
     $object = $driver->getObject($vars->key);
     $object->deleteFiles();
-} catch (Turba_Exception $e) {
-    $notification->push($e, 'horde.error');
+} catch (Horde_Exception $e) {
+    $notification->push($e);
     Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 
@@ -38,7 +38,8 @@ try {
     $notification->push(sprintf(_("There was an error deleting this contact: %s"), $e->getMessage()), 'horde.error');
 }
 
-$title = _("Deletion failed");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require TURBA_TEMPLATES . '/menu.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->header(array(
+    'title' => _("Deletion failed")
+));
+$notification->notify(array('listeners' => 'status'));
+$page_output->footer();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -157,7 +157,16 @@ class Kronolith_Event_Horde extends Kronolith_Event
             }
             if (isset($event['recurrence']['exceptions'])) {
                 foreach ($event['recurrence']['exceptions'] as $exception) {
-                    $recurrence->addException($exception);
+                    $recurrence->addException(substr($exception, 0, 4),
+                                              substr($exception, 4, 2),
+                                              substr($exception, 6, 2));
+                }
+            }
+            if (isset($event['recurrence']['completions'])) {
+                foreach ($event['recurrence']['completions'] as $completion) {
+                    $recurrence->addCompletion(substr($completion, 0, 4),
+                                               substr($completion, 4, 2),
+                                               substr($completion, 6, 2));
                 }
             }
             $this->recurrence = $recurrence;

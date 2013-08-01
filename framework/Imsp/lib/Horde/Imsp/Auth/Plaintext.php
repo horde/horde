@@ -8,7 +8,7 @@
  *   'server'    The hostname of the IMSP server.
  *   'port'      The port of the IMSP server.</pre>
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,14 +33,14 @@ class Horde_Imsp_Auth_Plaintext extends Horde_Imsp_Auth_Base
         $this->_imsp->send('LOGIN ', true, false);
 
         /* Username as a {}? */
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $userId)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $userId)) {
             $biUser = sprintf('{%d}', strlen($userId));
             $result = $this->_imsp->send($biUser, false, true, true);
         }
         $this->_imsp->send($userId . ' ', false, false);
 
         /* Pass as {}? */
-        if (preg_match(Horde_Imsp::MUST_USE_LITERAL, $credentials)) {
+        if (preg_match(Horde_Imsp_Client_Base::MUST_USE_LITERAL, $credentials)) {
             $biPass = sprintf('{%d}', strlen($credentials));
             $this->_imsp->send($biPass, false, true, true);
         }

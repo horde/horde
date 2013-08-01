@@ -2,7 +2,7 @@
 /**
  * The Horde_Core_Ui_Pager:: provides links to individual pages.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -44,8 +44,6 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
      */
     public function render($data = null)
     {
-        global $prefs, $registry, $conf;
-
         $num = $this->_config['num'];
         $url = $this->_config['url'];
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Rubinsky <mrubinsk@horde.org>
@@ -77,7 +77,11 @@ class Content_Objects_Manager
             $objects = array($objects);
         }
         if (!count($objects)) {
-            throw new InvalidArgumentException('No object requested');
+            return array();
+        }
+        // Ensure we take the object as a string indentifier.
+        foreach ($objects as &$object) {
+            $object = strval($object);
         }
         $params = $objects;
         $params[] = $type;

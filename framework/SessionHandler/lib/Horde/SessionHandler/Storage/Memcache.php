@@ -1,16 +1,26 @@
 <?php
 /**
- * Horde_SessionHandler implementation for memcache.
- *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Rong-En Fan <rafan@infor.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @package  SessionHandler
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   SessionHandler
+ */
+
+/**
+ * Memcache sessionhandler driver.
+ *
+ * @author     Rong-En Fan <rafan@infor.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2005-2013 Horde LLC
+ * @deprecated Use HashTable driver instead
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    SessionHandler
  */
 class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
 {
@@ -59,8 +69,8 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
 
         parent::__construct($params);
 
-        if (empty($this->_params['track_lt'])) {
-            $this->_params['track_lt'] = ini_get('session.gc_maxlifetime');
+        if (empty($this->_params['track_lifetime'])) {
+            $this->_params['track_lifetime'] = ini_get('session.gc_maxlifetime');
         }
 
         if (!empty($this->_params['track']) && (rand(0, 999) == 0)) {
@@ -97,20 +107,9 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
                 $this->_memcache->unlock($id);
             }
 
-            if ($result === false) {
-                if ($this->_logger) {
-                    $this->_logger->log('Error retrieving session data (id = ' . $id . ')', 'DEBUG');
-                }
-                return false;
-            }
-        }
-
-        if (!$this->readonly) {
+            $result = '';
+        } elseif (!$this->readonly) {
             $this->_id = $id;
-        }
-
-        if ($this->_logger) {
-            $this->_logger->log('Read session data (id = ' . $id . ')', 'DEBUG');
         }
 
         return $result;
@@ -132,9 +131,6 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
 
         if (!$res &&
             !$this->_memcache->set($id, $session_data)) {
-            if ($this->_logger) {
-                $this->_logger->log('Error writing session data (id = ' . $id . ')', 'ERR');
-            }
             return false;
         }
 
@@ -150,10 +146,6 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
             $this->_memcache->unlock($this->_trackID);
         }
 
-        if ($this->_logger) {
-            $this->_logger->log('Wrote session data (id = ' . $id . ')', 'DEBUG');
-        }
-
         return true;
     }
 
@@ -165,9 +157,6 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
         $this->_memcache->unlock($id);
 
         if ($result === false) {
-            if ($this->_logger) {
-                $this->_logger->log('Failed to delete session (id = ' . $id . ')', 'DEBUG');
-            }
             return false;
         }
 
@@ -179,10 +168,6 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
                 $this->_memcache->set($this->_trackID, $ids);
             }
             $this->_memcache->unlock($this->_trackID);
-        }
-
-        if ($this->_logger) {
-            $this->_logger->log('Deleted session data (id = ' . $id . ')', 'DEBUG');
         }
 
         return true;
@@ -225,7 +210,7 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
             return;
         }
 
-        $tstamp = time() - $this->_params['track_lt'];
+        $tstamp = time() - $this->_params['track_lifetime'];
         $alter = false;
 
         foreach ($ids as $key => $val) {

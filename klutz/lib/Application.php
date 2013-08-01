@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('KLUTZ_BASE')) {
-    define('KLUTZ_BASE', dirname(__FILE__) . '/..');
+    define('KLUTZ_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -64,9 +64,7 @@ class Klutz_Application extends Horde_Registry_Application
     {
         global $conf, $injector;
 
-        $today = Horde::url('comics.php');
-        $today = Horde_Util::addParameter($today, array('actionID' => 'day',
-                                                  'date' => mktime(0, 0, 0)));
+        $today = Horde::url('comics.php')->add(array('actionID' => 'day', 'date' => mktime(0, 0, 0)));
 
         $me = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
 
@@ -82,47 +80,4 @@ class Klutz_Application extends Horde_Registry_Application
         }
     }
 
-    public function prefsInit($ui)
-    {
-    }
-
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        /*
-function handle_comic_select($updated)
-{
-    $viewcomics = Horde_Util::getFormData('viewcomics');
-    if (!is_null($viewcomics)) {
-        $GLOBALS['prefs']->setValue('viewcomics', $viewcomics);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-$comicgallery_options = array();
-if (!$prefs->isLocked('comicgallery') &&
-    $registry->hasMethod('images/listGalleries')) {
-
-    $gals = $registry->call('images/listGalleries', array(null, PERMS_EDIT));
-    foreach ($gals as $key => $gal) {
-        $comicgallery_options[$key] = $gal['attribute_name'];
-    }
-}
-        */
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-    }
 }

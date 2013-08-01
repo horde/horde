@@ -15,12 +15,12 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../TestCase.php';
+require_once __DIR__ . '/../../TestCase.php';
 
 /**
  * Test the core Turba class with various backends.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -71,7 +71,7 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function tearDown()
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         foreach ($turba_shares->listShares('test@example.com') as $share) {
             $turba_shares->removeShare($share);
         }
@@ -81,7 +81,7 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function testCreateDefaultShare()
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $GLOBALS['conf']['share']['auto_create'] = true;
         Turba::getConfigFromShares(array('test' => array('use_shares' => true)));
         $this->assertEquals(
@@ -91,7 +91,7 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function testDefaultShareName()
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $GLOBALS['conf']['share']['auto_create'] = true;
         Turba::getConfigFromShares(array('test' => array('use_shares' => true)));
         $shares = $turba_shares->listShares('test@example.com');
@@ -105,7 +105,7 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function testNoAutoCreate()
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $GLOBALS['conf']['share']['auto_create'] = false;
         Turba::getConfigFromShares(array('test' => array('use_shares' => true)));
         $this->assertEquals(
@@ -115,7 +115,7 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function testDefaultShareDeletePermission()
     {
-        $turba_shares = $injector->getInstance('Turba_Shares');
+        $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $GLOBALS['conf']['share']['auto_create'] = true;
         Turba::getConfigFromShares(array('test' => array('use_shares' => true)));
         $shares = $turba_shares->listShares('test@example.com');

@@ -2,7 +2,7 @@
 /**
  * Explicitly add/edit a face range to an image.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -10,7 +10,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $image_id = (int)Horde_Util::getFormData('image');
@@ -64,19 +64,43 @@ if ($face_id) {
 $height = $x2 - $x1;
 $width = $y2 - $y1;
 
-$title = _("Create a new face");
+$page_output->addScriptFile('scriptaculous/builder.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+$page_output->addScriptFile('scriptaculous/controls.js', 'horde');
+$page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
+$page_output->addScriptFile('cropper.js');
+$page_output->addScriptFile('stripe.js', 'horde');
 
-Horde::addScriptFile('builder.js', 'horde');
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('controls.js', 'horde');
-Horde::addScriptFile('dragdrop.js', 'horde');
-Horde::addScriptFile('cropper.js');
-Horde::addScriptFile('stripe.js', 'horde');
+$script = <<<EOT
+function onEndCrop(coords, dimensions) {
+    $('x1').value = coords.x1;
+    $('y1').value = coords.y1;
+    $('x2').value = coords.x2;
+    $('y2').value = coords.y2;
+}
 
-$injector->getInstance('Horde_Themes_Css')->addThemeStylesheet('cropper.css');
+new Cropper.ImgWithPreview(
+    'faceImage',
+    {
+        minWidth: 50,
+        minHeight: 50,
+        ratioDim: {
+            x: 50,
+            y: 50
+        },
+        onEndCrop: onEndCrop,
+        previewWrap: 'previewArea'
+EOT;
+if ($x1) {
+    $script .= ', onloadCoords: { x1: ' . $x1 . ', y1: ' . $y1 . ', x2: ' . $x2 . ', y2: ' . $y2 . ' }';
+}
+$script .= '});';
+$page_output->addInlineScript($script, 'dom');
+$page_output->addThemeStylesheet('cropper.css');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'title' => _("Create a new face")
+));
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/custom.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

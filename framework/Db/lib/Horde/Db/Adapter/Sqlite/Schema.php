@@ -4,7 +4,7 @@
  * dialects and quoting.
  *
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -158,7 +158,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     public function primaryKey($tableName, $name = null)
     {
         // Share the columns cache with the columns() method
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->selectAll('PRAGMA table_info(' . $this->quoteTableName($tableName) . ')', $name);
@@ -186,7 +186,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function indexes($tableName, $name = null)
     {
-        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName"));
+        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName", 0));
 
         if (!$indexes) {
             $indexes = array();
@@ -220,7 +220,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function columns($tableName, $name = null)
     {
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->selectAll('PRAGMA table_info(' . $this->quoteTableName($tableName) . ')', $name);
@@ -382,8 +382,6 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     /**
      * Adds a primary key to a table.
      *
-     * @since Horde_Db 1.1.0
-     *
      * @param string $tableName         A table name.
      * @param string|array $columnName  One or more column names.
      *
@@ -405,8 +403,6 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
     /**
      * Removes a primary key from a table.
-     *
-     * @since Horde_Db 1.1.0
      *
      * @param string $tableName  A table name.
      *
@@ -478,8 +474,6 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
     /**
      * Generates a modified date for SELECT queries.
-     *
-     * @since Horde_Db 1.2.0
      *
      * @param string $reference  The reference date - this is a column
      *                           referenced in the SELECT.

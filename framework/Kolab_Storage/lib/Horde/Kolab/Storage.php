@@ -37,7 +37,7 @@
  *     $folder = Horde_Kolab_Storage::getShareData(Auth::getAuth(), 'event');
  *   </code>
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -89,7 +89,7 @@ interface Horde_Kolab_Storage
      *                             access in the folder.
      * @param int    $data_version Format version of the object data.
      *
-     * @return Horde_Kolab_Data The data object.
+     * @return Horde_Kolab_Storage_Data The data object.
      */
     public function getData($folder, $object_type = null, $data_version = 1);
 }

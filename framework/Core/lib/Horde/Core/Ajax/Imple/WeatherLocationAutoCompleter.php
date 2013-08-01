@@ -1,8 +1,8 @@
 <?php
 /**
- * Attach the auto completer to a javascript element.
+ * Imple to provide weather/location autocompletion.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -14,19 +14,17 @@
 class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
 {
     /**
-     * Attach the object to a javascript event.
      */
-    protected function _attach($js_params)
+    protected function _getAutoCompleter()
     {
-        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
-        $js_params['tokens'] = array();
-        $updateurl = Horde::getServiceLink('ajax', 'horde')->setRaw(true);
-        $updateurl->pathInfo = 'blockRefresh';
-        $updateurl->add('app', 'horde')
-                  ->add('blockid', 'horde_block_weather');
-        Horde::addInlineScript(
+        $url = $GLOBALS['registry']->getServiceLink('ajax')->setRaw(true);
+        $url->url .= 'blockRefresh';
+        $url->add('blockid', 'horde_block_weather');
+        $indicator = $this->_params['id'] . '_loading_img';
+
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(
             array(
-                'window.weatherupdate = window.weatherupdate || {};',
+                'window.weatherupdate = window.weatherupdate || {}',
                 'window.weatherupdate["' . $this->_params['instance'] . '"] = {
                     value: false,
                     choices: {},
@@ -37,14 +35,14 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                         } else {
                             v = $F("location' . $this->_params['instance'] . '");
                         }
-                        $("' . $js_params['indicator'] . '").toggle();
+                        $("' . $indicator . '").toggle();
                         new Ajax.Updater(
                             "weathercontent' . $this->_params['instance'] . '",
-                            "' . strval($updateurl) . '",
+                            "' . $url . '",
                             {
                                 evalScripts: true,
                                 parameters: { location: v },
-                                onComplete: function() { $("' . $js_params['indicator'] . '").toggle(); }
+                                onComplete: function() { $("' . $indicator . '").toggle(); }
                             }
                         );
 
@@ -54,69 +52,46 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                 '$("button' . $this->_params['instance'] . '").observe("click", function(e) {
                     window.weatherupdate["' . $this->_params['instance'] . '"].update();
                     e.stop();
-                });'
+                })'
             ),
-            'dom'
+            true
         );
 
-
-        $ret = array(
-            'params' => $js_params,
-            'raw_params' => array(
-                'filterCallback' => 'function(c) {
-                    if (c) {
-                        window.weatherupdate["' . $this->_params['instance'] . '"].choices = c;
-                        var r = [];
-                        c.each(function(i) {
-                            r.push(i.name);
-                        });
-                        return r;
-                    } else {
-                        return [];
-                    }
-                }',
-                'onSelect' => 'function(c) {
-                    window.weatherupdate["' . $this->_params['instance'] . '"].choices.each(function(i) {
-                        if (i.name == c) {
-                            window.weatherupdate["' . $this->_params['instance'] . '"].value = i.code.replace("/q/", "");
-                            throw $break;
-                        } else {
-                            window.weatherupdate["' . $this->_params['instance'] . '"].value = false;
-                        }
+        return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax(array(
+            'minChars' => 5,
+            'tokens' => array(),
+            'domParent' => 'horde-content',
+            'filterCallback' => 'function(c) {
+                if (c) {
+                    window.weatherupdate["' . $this->_params['instance'] . '"].choices = c;
+                    var r = [];
+                    c.each(function(i) {
+                        r.push(i.name);
                     });
-                    return c;
-                }'
-            )
-        );
-        $ret['params']['minChars'] = 5;
-        $ret['ajax'] = 'WeatherLocationAutoCompleter';
-
-        if (!empty($this->_params['var'])) {
-            $ret['var'] = $this->_params['var'];
-        }
-
-        return $ret;
+                    return r;
+                } else {
+                    return [];
+                }
+            }',
+            'onSelect' => 'function(c) {
+                window.weatherupdate["' . $this->_params['instance'] . '"].choices.each(function(i) {
+                    if (i.name == c) {
+                        window.weatherupdate["' . $this->_params['instance'] . '"].value = i.code.replace("/q/", "");
+                        throw $break;
+                    } else {
+                        window.weatherupdate["' . $this->_params['instance'] . '"].value = false;
+                    }
+                });
+                return c;
+            }'
+        ));
     }
 
     /**
-     * Perform the address search.
-     *
-     * @param array $args  Array with 1 key: 'input'.
-     *
-     * @return array  The data to send to the autocompleter JS code.
      */
-    public function handle($args, $post)
+    protected function _handleAutoCompleter($input)
     {
-        // Avoid errors if 'input' isn't set and short-circuit empty searches.
-        if (empty($args['input']) ||
-            !($input = Horde_Util::getPost($args['input']))) {
-            return array();
-        }
-        $w = $GLOBALS['injector']
-            ->getInstance('Horde_Weather');
-        $r = $w->autocompleteLocation($input);
-
-        return $r;
+        return $GLOBALS['injector']->getInstance('Horde_Weather')->autocompleteLocation($input);
     }
 
 }

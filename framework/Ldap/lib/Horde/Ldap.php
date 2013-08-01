@@ -3,7 +3,7 @@
  * The main Horde_Ldap class.
  *
  * Copyright 2003-2007 Tarjej Huse, Jan Wagner, Del Elson, Benedikt Hallinger
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * @package   Ldap
  * @author    Tarjej Huse <tarjei@bergfald.no>
@@ -135,6 +135,9 @@ class Horde_Ldap
      */
     public function __construct($config = array())
     {
+        if (!Horde_Util::loadExtension('ldap')) {
+            throw new Horde_Ldap_Exception('No PHP LDAP extension');
+        }
         $this->setConfig($config);
         $this->bind();
     }
@@ -685,7 +688,7 @@ class Horde_Ldap
         /* Perform changes mentioned separately. */
         foreach (array('add', 'delete', 'replace') as $action) {
             if (!isset($parms[$action])) {
-                continue;
+                throw new Horde_Ldap_Exception('Unknown modify action: ' . $action);
             }
             $entry->$action($parms[$action]);
             $entry->setLDAP($this);

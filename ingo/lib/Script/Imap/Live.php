@@ -1,15 +1,25 @@
 <?php
 /**
- * The Ingo_Script_Imap_Live:: driver.
- *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Ingo
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The Ingo_Script_Imap_Live driver.
+ *
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
 {
@@ -105,7 +115,7 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
         if ($GLOBALS['registry']->hasMethod('mail/imapOb')) {
             $ob = $GLOBALS['registry']->call('mail/imapOb');
             try {
-                return $ob->getCacheId($this->_params->_getMboxOb());
+                return $ob->getCacheId($this->_params['mailbox']);
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 

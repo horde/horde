@@ -1,34 +1,25 @@
 <?php
 /**
- * Test the Quota library.
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright 2010-2013 Horde LLC
  * @license    http://www.horde.org/licenses/gpl GPL
- * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the Quota library.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright  2010-2013 Horde LLC
+ * @ignore
  * @license    http://www.horde.org/licenses/gpl GPL
- * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests
  */
@@ -36,20 +27,16 @@ class Imp_Unit_QuotaTest extends PHPUnit_Framework_TestCase
 {
     public function testMaildir()
     {
-        $quota = new IMP_Quota_Maildir(array(
-            'path' => dirname(__FILE__) . '/../fixtures',
-            'username' => 'foo'
-        ));
-
+        $quota = new IMP_Quota_Null();
         $data = $quota->getQuota();
 
         $this->assertEquals(
-            1000000000,
+            0,
             $data['limit']
         );
 
         $this->assertEquals(
-            550839239,
+            0,
             $data['usage']
         );
     }

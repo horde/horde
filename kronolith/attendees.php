@@ -7,7 +7,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
@@ -215,7 +215,7 @@ foreach ($session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY) as $
         ($status['attendance'] == Kronolith::PART_REQUIRED ||
          $status['attendance'] == Kronolith::PART_OPTIONAL)) {
         try {
-            $vfb = Kronolith_Freebusy::get($email);
+            $vfb = Kronolith_FreeBusy::get($email);
             $organizer = $vfb->getAttribute('ORGANIZER');
             if (empty($organizer)) {
                 $vfb->setAttribute('ORGANIZER', 'mailto:' . $email, array(),
@@ -259,14 +259,16 @@ $end =  new Horde_Date(Horde_Util::getFormData('enddate', date('Ymd') . '000000'
 
 $vfb_html = $attendee_view->render($date);
 
-// Add the ContactAutoCompleter
-$injector->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'ContactAutoCompleter'), array(
-    'triggerId' => 'newAttendees'
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
+    'id' => 'newAttendees'
 ));
 
 $title = _("Edit attendees");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->sidebar = $page_output->topbar = false;
+$page_output->header(array(
+    'title' => $title
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/attendees/attendees.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

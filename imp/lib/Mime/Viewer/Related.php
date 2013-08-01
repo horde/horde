@@ -1,17 +1,24 @@
 <?php
 /**
- * The IMP_Mime_Viewer_Related class handles multipart/related
- * (RFC 2387) messages.
- *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Renderer for multipart/related messages (RFC 2387).
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
 {
@@ -33,11 +40,11 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
     );
 
     /**
-     * The start MIME ID.
+     * The multipart/related info object.
      *
-     * @var string
+     * @var Horde_Mime_Related
      */
-    protected $_start;
+    protected $_related;
 
     /**
      */
@@ -131,9 +138,10 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
                 ));
                 $status->action(IMP_Mime_Status::WARNING);
 
-                if (isset($ret[$related_id]['status']) &&
-                    !is_array($ret[$related_id]['status'])) {
-                    $ret[$related_id]['status'] = array($ret[$related_id]['status']);
+                if (isset($ret[$related_id]['status'])) {
+                    if (!is_array($ret[$related_id]['status'])) {
+                        $ret[$related_id]['status'] = array($ret[$related_id]['status']);
+                    }
                 } else {
                     $ret[$related_id]['status'] = array();
                 }
@@ -153,44 +161,20 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
      */
     protected function _init($inline)
     {
-        if (!isset($this->_start)) {
-            $ids = array_keys($this->_mimepart->contentTypeMap());
-            $related_id = $this->_mimepart->getMimeId();
-            $cids = array();
-            $id = null;
-
-            /* Build a list of parts -> CIDs. */
-            foreach ($ids as $val) {
-                if (strcmp($related_id, $val) !== 0) {
-                    $part = $this->_mimepart->getPart($val);
-                    $cids[$val] = $part->getContentId();
-                }
-            }
-
-            /* Look at the 'start' parameter to determine which part to start
-             * with. If no 'start' parameter, use the first part. RFC 2387
-             * [3.1] */
-            $start = $this->_mimepart->getContentTypeParameter('start');
-            if (!empty($start)) {
-                $id = array_search($id, $cids);
-            }
-
-            if (empty($id)) {
-                reset($ids);
-                $id = next($ids);
-            }
+        if (!isset($this->_related)) {
+            $this->_related = new Horde_Mime_Related($this->_mimepart);
 
             /* Set related information in message metadata. */
-            $this->_mimepart->setMetadata('related_cids', $cids);
-
-            $this->_start = $id;
+            $this->_mimepart->setMetadata('related_ob', $this->_related);
         }
+
+        $start_id = $this->_related->startId();
 
         /* Only display if the start part (normally text/html) can be
          * displayed inline -OR- we are viewing this part as an attachment. */
-        return ($inline && !$this->getConfigParam('imp_contents')->canDisplay($this->_start, IMP_Contents::RENDER_INLINE))
+        return ($inline && !is_null($start_id) && !$this->getConfigParam('imp_contents')->canDisplay($start_id, IMP_Contents::RENDER_INLINE))
             ? null
-            : $this->_start;
+            : $start_id;
     }
 
     /**

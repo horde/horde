@@ -1,15 +1,23 @@
 <?php
 /**
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package Wicked
+ */
+
+/**
  * Wicked external API interface.
  *
  * This file defines Wicked's external API interface. Other applications
  * can interact with Wicked through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package Wicked
  */
 class Wicked_Api extends Horde_Registry_Api
@@ -19,7 +27,7 @@ class Wicked_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'show' => '%application%/display.php?page=|page|&version=|version|#|toc|'
     );
 
@@ -66,7 +74,7 @@ class Wicked_Api extends Horde_Registry_Api
      */
     public function getMultiplePageInfo($pagenames = array())
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         if (empty($pagenames)) {
             $pagenames = $GLOBALS['wicked']->getPages(false);

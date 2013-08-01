@@ -16,11 +16,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-20</date>
- <time>23:43:57</time>
+ <date>2013-07-16</date>
+ <time>19:18:23</time>
  <version>
-  <release>1.0.5</release>
-  <api>1.0.0</api>
+  <release>2.2.2</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,6 +35,13 @@
    <dir name="data">
     <file name="cache.sql" role="data" />
    </dir> <!-- /data -->
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Cache">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Cache -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Cache">
@@ -43,8 +50,10 @@
        <file name="Base.php" role="php" />
        <file name="Eaccelerator.php" role="php" />
        <file name="File.php" role="php" />
+       <file name="Hashtable.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="Mock.php" role="php" />
+       <file name="Mongo.php" role="php" />
        <file name="Null.php" role="php" />
        <file name="Session.php" role="php" />
        <file name="Sql.php" role="php" />
@@ -60,6 +69,7 @@
     <dir name="Horde">
      <dir name="Cache">
       <file name="1_horde_cache_base_tables.php" role="data" />
+      <file name="2_horde_cache_fix_blob_length.php" role="data" />
      </dir> <!-- /migration/Horde/Cache -->
     </dir> <!-- /migration/Horde -->
     </dir> <!-- /migration -->
@@ -68,24 +78,31 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Horde_Exception</name>
+    <name>Horde_Compress_Fast</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>hash</name>
@@ -95,57 +112,73 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
+    <min>2.0.3</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_HashTable</name>
+    <channel>pear.horde.org</channel>
     <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Log</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Memcache</name>
     <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
     <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>APC</name>
     <channel>pecl.php.net</channel>
     <min>3.1.1</min>
-   </package>
-   <package>
-    <name>lzf</name>
-    <channel>pecl.php.net</channel>
-    <min>1.5.2</min>
+    <providesextension>apc</providesextension>
    </package>
    <extension>
     <name>eaccelerator</name>
     <min>0.9.5</min>
+    <max>0.9.6</max>
+    <exclude>0.9.6</exclude>
    </extension>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="cache.sql" name="data/cache.sql" />
+   <install as="COPYING" name="doc/Horde/Cache/COPYING" />
    <install as="Horde/Cache.php" name="lib/Horde/Cache.php" />
    <install as="Horde/Cache/Exception.php" name="lib/Horde/Cache/Exception.php" />
    <install as="Horde/Cache/Storage/Apc.php" name="lib/Horde/Cache/Storage/Apc.php" />
    <install as="Horde/Cache/Storage/Base.php" name="lib/Horde/Cache/Storage/Base.php" />
    <install as="Horde/Cache/Storage/Eaccelerator.php" name="lib/Horde/Cache/Storage/Eaccelerator.php" />
    <install as="Horde/Cache/Storage/File.php" name="lib/Horde/Cache/Storage/File.php" />
+   <install as="Horde/Cache/Storage/Hashtable.php" name="lib/Horde/Cache/Storage/Hashtable.php" />
    <install as="Horde/Cache/Storage/Memcache.php" name="lib/Horde/Cache/Storage/Memcache.php" />
    <install as="Horde/Cache/Storage/Mock.php" name="lib/Horde/Cache/Storage/Mock.php" />
+   <install as="Horde/Cache/Storage/Mongo.php" name="lib/Horde/Cache/Storage/Mongo.php" />
    <install as="Horde/Cache/Storage/Null.php" name="lib/Horde/Cache/Storage/Null.php" />
    <install as="Horde/Cache/Storage/Session.php" name="lib/Horde/Cache/Storage/Session.php" />
    <install as="Horde/Cache/Storage/Sql.php" name="lib/Horde/Cache/Storage/Sql.php" />
    <install as="Horde/Cache/Storage/Stack.php" name="lib/Horde/Cache/Storage/Stack.php" />
    <install as="Horde/Cache/Storage/Xcache.php" name="lib/Horde/Cache/Storage/Xcache.php" />
    <install as="migration/1_horde_cache_base_tables.php" name="migration/Horde/Cache/1_horde_cache_base_tables.php" />
+   <install as="migration/2_horde_cache_fix_blob_length.php" name="migration/Horde/Cache/2_horde_cache_fix_blob_length.php" />
    </filelist>
  </phprelease>
  <changelog>
@@ -308,7 +341,180 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-20</date>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [rla] Add license file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Correctly invalidate cache when write error occurs while using the stack driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+* [mms] Add Horde_Cache#testReadWrite().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Correctly invalidate cache when write error occurs while using the stack driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Re-packaged 2.0.0 release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Abstract data compression out into Horde_Compress_Fast package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix regression preventing compression of Horde_Cache data (Bug #12088).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Make Horde_Compress_Fast a required package (Bug #12166).
+* [mms] Fix serialization of all storage drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add MongoDB cache driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix return from get() when using the Hashtable driver.
+* [mms] Fix hashtable driver name.
+* [mms] Horde_Memcache cache driver is now deprecated in favor of the Horde_HashTable driver.
+* [mms] Add Horde_HashTable cache driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix explicit key expiration (João Machado &lt;geral@jpaulo.eu&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

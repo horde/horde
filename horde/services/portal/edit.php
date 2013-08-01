@@ -1,37 +1,41 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Mike Cochrane <mike@graftonhall.co.nz>
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Jan Schneider <jan@horde.org>
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 $blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create();
 $layout = $blocks->getLayoutManager();
+$vars = $injector->getInstance('Horde_Variables');
 
 // Handle requested actions.
-$layout->handle(Horde_Util::getFormData('action'),
-                (int)Horde_Util::getFormData('row'),
-                (int)Horde_Util::getFormData('col'));
+$layout->handle($vars->action, intval($vars->row), intval($vars->col));
 
 if ($layout->updated()) {
     $prefs->setValue('portal_layout', $layout->serialize());
-    if (Horde_Util::getFormData('url')) {
-        $url = new Horde_Url(Horde_Util::getFormData('url'));
+    if ($vars->url) {
+        $url = new Horde_Url($vars->url);
         $url->unique()->redirect();
     }
 }
 
-$title = _("My Portal Layout");
-require HORDE_TEMPLATES . '/common-header.inc';
-echo Horde::menu();
+$page_output->sidebar = false;
+
+$page_output->header(array(
+    'title' => _("My Portal Layout")
+));
 $notification->notify(array('listeners' => 'status'));
 require HORDE_TEMPLATES . '/portal/edit.inc';
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

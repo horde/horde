@@ -44,9 +44,13 @@ request processing steps:
 - write response
 
 add filtered requests/blue_filter port to Horde?
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('horde');
 
 $request = $injector->getInstance('Horde_Controller_Request');

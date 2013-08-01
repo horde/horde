@@ -1,17 +1,25 @@
 <?php
 /**
- * Object containing data returned by the Horde_Imap_Client_Base#fetch()
- * command.
- *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * Object containing data returned by the Horde_Imap_Client_Base#fetch()
+ * command.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Data_Fetch
 {
@@ -407,6 +415,37 @@ class Horde_Imap_Client_Data_Fetch
     }
 
     /**
+     * Set the internationalized downgraded status for the message.
+     *
+     * @since 2.11.0
+     *
+     * @param boolean $downgraded  True if at least one message component has
+     *                             been downgraded.
+     */
+    public function setDowngraded($downgraded)
+    {
+        if ($downgraded) {
+            $this->_data[Horde_Imap_Client::FETCH_DOWNGRADED] = true;
+        } else {
+            unset($this->_data[Horde_Imap_Client::FETCH_DOWNGRADED]);
+        }
+    }
+
+    /**
+     * Does the message contain internationalized downgraded data (i.e. it
+     * is a "surrogate" message)?
+     *
+     * @since 2.11.0
+     *
+     * @return boolean  True if at least one message components has been
+     *                  downgraded.
+     */
+    public function isDowngraded()
+    {
+        return !empty($this->_data[Horde_Imap_Client::FETCH_DOWNGRADED]);
+    }
+
+    /**
      * Return the internal representation of the data.
      *
      * @return array  The data array.
@@ -423,7 +462,7 @@ class Horde_Imap_Client_Data_Fetch
      */
     public function merge(Horde_Imap_Client_Data_Fetch $data)
     {
-        $this->_data = Horde_Array::replaceRecursive($this->_data, $data->getRawData());
+        $this->_data = array_replace_recursive($this->_data, $data->getRawData());
     }
 
     /**

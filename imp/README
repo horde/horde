@@ -9,7 +9,7 @@
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
-access to IMAP and POP3 mail servers and provides Ajax, mobile and traditional
+access to IMAP and POP3 mail servers and provides Ajax, mobile and basic
 interfaces with a rich range of features normally found only in desktop email
 clients, including attachments, spell-check, address books, multiple mailboxes,
 and multiple-language support.

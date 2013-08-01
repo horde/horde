@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test recurrence handling
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -38,7 +33,7 @@ extends Horde_Kolab_Format_TestCase
     public function testBug6388()
     {
         $xml   = $this->getFactory()->create('XML', 'event');
-        $recur = file_get_contents(dirname(__FILE__) . '/../fixtures/recur_fail.xml');
+        $recur = file_get_contents(__DIR__ . '/../fixtures/recur_fail.xml');
         // Check that the xml fails because of a missing interval value
         try {
             $xml->load($recur);
@@ -154,7 +149,7 @@ extends Horde_Kolab_Format_TestCase
     private function _loadExclusions()
     {
         return $this->getFactory()->create('XML', 'event')->load(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/recur.xml')
+            file_get_contents(__DIR__ . '/../fixtures/recur.xml')
         );
     }
 
@@ -162,7 +157,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $parser = $this->getFactory()->create('XML', 'event');
         $object = $parser->load(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/recur.xml')
+            file_get_contents(__DIR__ . '/../fixtures/recur.xml')
         );
         $xml = $parser->save($object);
         return $parser->load($xml);
@@ -171,7 +166,7 @@ extends Horde_Kolab_Format_TestCase
     private function _loadComplete()
     {
         return $this->getFactory()->create('XML', 'event')->load(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/recur_complete.xml')
+            file_get_contents(__DIR__ . '/../fixtures/recur_complete.xml')
         );
     }
 
@@ -179,7 +174,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $parser = $this->getFactory()->create('XML', 'event');
         $object = $parser->load(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/recur_complete.xml')
+            file_get_contents(__DIR__ . '/../fixtures/recur_complete.xml')
         );
         $xml = $parser->save($object);
         return $parser->load($xml);

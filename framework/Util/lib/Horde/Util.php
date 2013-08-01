@@ -2,7 +2,7 @@
 /**
  * The Horde_Util:: class provides generally useful methods.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,16 +28,6 @@ class Horde_Util
         "\x88", "\x99", "\xaa", "\xbb", "\xcc", "\xdd", "\xee", "\xff",
         "\x92\x49\x24", "\x49\x24\x92", "\x24\x92\x49", "\x6d\xb6\xdb",
         "\xb6\xdb\x6d", "\xdb\x6d\xb6"
-    );
-
-    /**
-     * Temp directory locations.
-     *
-     * @var array
-     */
-    static public $tmpLocations = array(
-        '/tmp/', '/var/tmp/', 'c:\WUTemp\\', 'c:\temp\\', 'c:\windows\temp\\',
-        'c:\winnt\temp\\'
     );
 
     /**
@@ -73,36 +63,6 @@ class Horde_Util
     static protected $_cache = array();
 
     /**
-     * Returns an object's clone.
-     *
-     * @param object &$obj  The object to clone.
-     *
-     * @return object  The cloned object.
-     */
-    static public function &cloneObject(&$obj)
-    {
-        if (!is_object($obj)) {
-            $bt = debug_backtrace();
-            if (isset($bt[1])) {
-                $caller = $bt[1]['function'];
-                if (isset($bt[1]['class'])) {
-                    $caller = $bt[1]['class'].$bt[1]['type'].$caller;
-                }
-            } else {
-                $caller = 'main';
-            }
-
-            $caller .= ' on line ' . $bt[0]['line'] . ' of ' . $bt[0]['file'];
-
-            $ret = $obj;
-            return $ret;
-        }
-
-        $ret = clone($obj);
-        return $ret;
-    }
-
-    /**
      * Checks to see if a value has been set by the script and not by GET,
      * POST, or cookie input. The value being checked MUST be in the global
      * scope.
@@ -119,66 +79,6 @@ class Horde_Util
         return (isset($_GET[$varname]) || isset($_POST[$varname]) || isset($_COOKIE[$varname]))
             ? $default
             : (isset($GLOBALS[$varname]) ? $GLOBALS[$varname] : $default);
-    }
-
-    /**
-     * Adds a name=value pair to the end of an URL, taking care of whether
-     * there are existing parameters and whether to use ?, & or &amp; as the
-     * glue.  All data will be urlencoded.
-     *
-     * @deprecated
-     *
-     * @param Horde_Url|string $url  The URL to modify.
-     * @param mixed $parameter       Either the name value -or- an array of
-     *                               name/value pairs.
-     * @param string $value          If specified, the value part ($parameter
-     *                               is then assumed to just be the parameter
-     *                               name).
-     * @param boolean $encode        Encode the argument separator?
-     *
-     * @return Horde_Url  The modified URL.
-     */
-    static public function addParameter($url, $parameter, $value = null,
-                                        $encode = true)
-    {
-        if (empty($parameter)) {
-            return $url;
-        }
-
-        if ($url instanceof Horde_Url) {
-            $url = $url->copy()->add($parameter, $value);
-            if (is_null($url->raw)) {
-                $url->setRaw(!$encode);
-            }
-            return $url;
-        }
-
-        $url = new Horde_Url($url);
-        if (is_null($url->raw) && count($url->parameters)) {
-            $url->setRaw(!$encode);
-        }
-        return $url->add($parameter, $value);
-    }
-
-    /**
-     * Removes name=value pairs from a URL.
-     *
-     * @deprecated
-     *
-     * @param Horde_Url|string $url  The URL to modify.
-     * @param mixed $remove          Either a single parameter to remove or an
-     *                               array of parameters to remove.
-     *
-     * @return Horde_Url  The modified URL.
-     */
-    static public function removeParameter($url, $remove)
-    {
-        if ($url instanceof Horde_Url) {
-            return $url->copy()->remove($remove);
-        }
-
-        $horde_url = new Horde_Url($url);
-        return $horde_url->remove($remove);
     }
 
     /**
@@ -281,45 +181,6 @@ class Horde_Util
     }
 
     /**
-     * Determines the location of the system temporary directory.
-     *
-     * @return string  A directory name which can be used for temp files.
-     *                 Returns false if one could not be found.
-     */
-    static public function getTempDir()
-    {
-        $tmp = false;
-
-        // Try sys_get_temp_dir() - only available in PHP 5.2.1+.
-        if (function_exists('sys_get_temp_dir')) {
-            $tmp = sys_get_temp_dir();
-        }
-
-        // First, try PHP's upload_tmp_dir directive.
-        if (!$tmp) {
-            $tmp = ini_get('upload_tmp_dir');
-
-            // Otherwise, try to determine the TMPDIR environment
-            // variable.
-            if (!$tmp) {
-                $tmp = getenv('TMPDIR');
-
-                // If we still cannot determine a value, then cycle through a
-                // list of preset possibilities.
-                if (!$tmp) {
-                    foreach (self::$tmpLocations as $tmp_check) {
-                        if (@is_dir($tmp_check)) {
-                            return $tmp_check;
-                        }
-                    }
-                }
-            }
-        }
-
-        return $tmp ? $tmp : false;
-    }
-
-    /**
      * Creates a temporary filename for the lifetime of the script, and
      * (optionally) registers it to be deleted at request shutdown.
      *
@@ -337,7 +198,7 @@ class Horde_Util
                                        $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
-            ? self::getTempDir()
+            ? sys_get_temp_dir()
             : $dir;
 
         $tempFile = tempnam($tempDir, $prefix);
@@ -376,7 +237,7 @@ class Horde_Util
                                                     $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
-            ? self::getTempDir()
+            ? sys_get_temp_dir()
             : $dir;
 
         if (empty($tempDir)) {
@@ -434,7 +295,7 @@ class Horde_Util
     static public function createTempDir($delete = true, $temp_dir = null)
     {
         if (is_null($temp_dir)) {
-            $temp_dir = self::getTempDir();
+            $temp_dir = sys_get_temp_dir();
         }
 
         if (empty($temp_dir)) {
@@ -456,66 +317,6 @@ class Horde_Util
         umask($old_umask);
 
         return $new_dir;
-    }
-
-    /**
-     * Wrapper around fgetcsv().
-     *
-     * Empty lines will be skipped. If the 'length' parameter is provided, all
-     * rows are filled up with empty strings up to this length, or stripped
-     * down to this length.
-     *
-     * @param resource $file  A file pointer.
-     * @param array $params   Optional parameters. Possible values:
-     *                        - 'separator': The field delimiter.
-     *                        - 'quote': The quote character.
-     *                        - 'escape': The escape character.
-     *                        - 'length': The expected number of fields.
-     *
-     * @return array|boolean  A row from the CSV file or false on error or end
-     *                        of file.
-     */
-    static public function getCsv($file, $params = array())
-    {
-        $params += array('separator' => ',', 'quote' => '"', 'escape' => '\\');
-
-        // Detect Mac line endings.
-        $old = ini_get('auto_detect_line_endings');
-        ini_set('auto_detect_line_endings', 1);
-
-        do {
-            // fgetcsv() throws a warning if the quote character is empty.
-            if (!strlen($params['quote']) && $params['escape'] != '\\') {
-                $params['quote'] = '"';
-            }
-            if (!strlen($params['quote'])) {
-                $row = fgetcsv($file, 0, $params['separator']);
-            } elseif (version_compare(PHP_VERSION, '5.3.0', '<')) {
-                $row = fgetcsv($file, 0, $params['separator'], $params['quote']);
-            } else {
-                $row = fgetcsv($file, 0, $params['separator'], $params['quote'], $params['escape']);
-            }
-        } while ($row && $row[0] === null);
-
-        ini_set('auto_detect_line_endings', $old);
-
-        if ($row) {
-            if (strlen($params['quote']) && strlen($params['escape'])) {
-                $row = array_map(create_function('$a', 'return str_replace(\'' . str_replace('\'', '\\\'', $params['escape'] . $params['quote']) . '\', \'' . str_replace('\'', '\\\'', $params['quote']) . '\', $a);'), $row);
-            } else {
-                $row = array_map('trim', $row);
-            }
-            if (!empty($params['length'])) {
-                $length = count($row);
-                if ($length < $params['length']) {
-                    $row += array_fill($length, $params['length'] - $length, '');
-                } elseif ($length > $params['length']) {
-                    array_splice($row, $params['length']);
-                }
-            }
-        }
-
-        return $row;
     }
 
     /**

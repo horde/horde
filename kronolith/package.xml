@@ -22,36 +22,47 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-22</date>
- <time>13:50:37</time>
+ <date>2013-07-16</date>
+ <time>23:23:35</time>
  <version>
-  <release>4.0.0</release>
-  <api>4.0.0</api>
+  <release>4.1.3</release>
+  <api>4.1.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="kronolith-agenda" role="script" />
-    <file name="kronolith-convert-datatree-shares-to-sql" role="script" />
-    <file name="kronolith-convert-sql-shares-to-sqlng" role="script" />
-    <file name="kronolith-convert-to-utc" role="script" />
-    <file name="kronolith-import-icals" role="script" />
-    <file name="kronolith-import-squirrelmail-calendar" role="script" />
+    <file name="kronolith-agenda" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-convert-datatree-shares-to-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-convert-to-utc" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-import-icals" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-import-squirrelmail-calendar" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="calendars">
     <file name="create.php" role="horde" />
     <file name="delete.php" role="horde" />
     <file name="edit.php" role="horde" />
-    <file name="index.php" role="horde" />
-    <file name="info.php" role="horde" />
+    <file name="index.html" role="horde" />
     <file name="remote_edit.php" role="horde" />
     <file name="remote_subscribe.php" role="horde" />
     <file name="remote_unsubscribe.php" role="horde" />
@@ -78,23 +89,22 @@
     <file name="index.php" role="horde" />
    </dir> <!-- /feed -->
    <dir name="js">
-    <file name="calendar-panel.js" role="horde" />
     <file name="dragdrop2.js" role="horde" />
     <file name="edit.js" role="horde" />
     <file name="embed.js" role="horde" />
     <file name="goto.js" role="horde" />
     <file name="kronolith.js" role="horde" />
-    <file name="mobile.js" role="horde" />
-    <file name="tagactions.js" role="horde" />
+    <file name="smartmobile.js" role="horde" />
     <file name="views.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
+     <dir name="Application">
+      <file name="Handler.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
-      <file name="Embed.php" role="horde" />
       <file name="ResourceAutoCompleter.php" role="horde" />
-      <file name="TagActions.php" role="horde" />
       <file name="TagAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
@@ -114,6 +124,7 @@
      <file name="Internal.php" role="horde" />
      <file name="Remote.php" role="horde" />
      <file name="Resource.php" role="horde" />
+     <file name="ResourceGroup.php" role="horde" />
     </dir> <!-- /lib/Calendar -->
     <dir name="Calendars">
      <file name="Base.php" role="horde" />
@@ -121,29 +132,37 @@
      <file name="Kolab.php" role="horde" />
     </dir> <!-- /lib/Calendars -->
     <dir name="Driver">
+     <dir name="Resource">
+      <file name="Sql.php" role="horde" />
+     </dir> <!-- /lib/Driver/Resource -->
      <file name="Holidays.php" role="horde" />
      <file name="Horde.php" role="horde" />
      <file name="Ical.php" role="horde" />
      <file name="Kolab.php" role="horde" />
      <file name="Mock.php" role="horde" />
-     <file name="Resource.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Driver -->
     <dir name="Event">
+     <dir name="Resource">
+      <file name="Sql.php" role="horde" />
+     </dir> <!-- /lib/Event/Resource -->
      <file name="Holidays.php" role="horde" />
      <file name="Horde.php" role="horde" />
      <file name="Ical.php" role="horde" />
      <file name="Kolab.php" role="horde" />
-     <file name="Resource.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Event -->
     <dir name="Factory">
      <file name="Calendars.php" role="horde" />
      <file name="Driver.php" role="horde" />
      <file name="Geo.php" role="horde" />
+     <file name="Shares.php" role="horde" />
      <file name="Storage.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
+     <dir name="Type">
+      <file name="KronolithTags.php" role="horde" />
+     </dir> <!-- /lib/Form/Type -->
      <file name="CreateCalendar.php" role="horde" />
      <file name="CreateResource.php" role="horde" />
      <file name="CreateResourceGroup.php" role="horde" />
@@ -179,11 +198,13 @@
       <file name="PurgeEvents.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/Task -->
     </dir> <!-- /lib/LoginTasks -->
-    <dir name="Notification">
-     <dir name="Listener">
-      <file name="AjaxStatus.php" role="horde" />
-     </dir> <!-- /lib/Notification/Listener -->
-    </dir> <!-- /lib/Notification -->
+    <dir name="Prefs">
+     <dir name="Special">
+      <file name="DefaultAlarm.php" role="horde" />
+      <file name="EventAlarms.php" role="horde" />
+      <file name="Sourceselect.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
+    </dir> <!-- /lib/Prefs -->
     <dir name="Resource">
      <file name="Base.php" role="horde" />
      <file name="Group.php" role="horde" />
@@ -193,6 +214,11 @@
      <file name="Kolab.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Storage -->
+    <dir name="Ui">
+     <dir name="VarRenderer">
+      <file name="Kronolith.php" role="horde" />
+     </dir> <!-- /lib/Ui/VarRenderer -->
+    </dir> <!-- /lib/Ui -->
     <dir name="View">
      <file name="Day.php" role="horde" />
      <file name="DeleteEvent.php" role="horde" />
@@ -200,11 +226,14 @@
      <file name="Event.php" role="horde" />
      <file name="ExportEvent.php" role="horde" />
      <file name="Month.php" role="horde" />
+     <file name="Sidebar.php" role="horde" />
+     <file name="SidebarTasks.php" role="horde" />
      <file name="Week.php" role="horde" />
      <file name="WorkWeek.php" role="horde" />
      <file name="Year.php" role="horde" />
     </dir> <!-- /lib/View -->
     <file name=".htaccess" role="horde" />
+    <file name="Ajax.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Calendar.php" role="horde" />
@@ -462,18 +491,19 @@
     <file name="18_kronolith_upgrade_categoriestotags.php" role="horde" />
     <file name="19_kronolith_upgrade_addmysqlgeo.php" role="horde" />
     <file name="20_kronolith_upgrade_timezone.php" role="horde" />
+    <file name="21_kronolith_upgrade_exceptionutc.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
      <file name="create.php" role="horde" />
      <file name="delete.php" role="horde" />
      <file name="edit.php" role="horde" />
-     <file name="index.php" role="horde" />
+     <file name="index.html" role="horde" />
     </dir> <!-- /resources/groups -->
     <file name="create.php" role="horde" />
     <file name="delete.php" role="horde" />
     <file name="edit.php" role="horde" />
-    <file name="index.php" role="horde" />
+    <file name="index.html" role="horde" />
    </dir> <!-- /resources -->
    <dir name="templates">
     <dir name="agenda">
@@ -508,6 +538,19 @@
      <file name="delete.inc" role="horde" />
      <file name="one.inc" role="horde" />
     </dir> <!-- /templates/delete -->
+    <dir name="dynamic">
+     <file name="agenda.inc" role="horde" />
+     <file name="day.inc" role="horde" />
+     <file name="edit.inc" role="horde" />
+     <file name="index.inc" role="horde" />
+     <file name="month.inc" role="horde" />
+     <file name="sidebar.html.php" role="horde" />
+     <file name="task.inc" role="horde" />
+     <file name="tasks.inc" role="horde" />
+     <file name="week.inc" role="horde" />
+     <file name="workweek.inc" role="horde" />
+     <file name="year.inc" role="horde" />
+    </dir> <!-- /templates/dynamic -->
     <dir name="edit">
      <file name="edit.inc" role="horde" />
      <file name="edit_timespan.inc" role="horde" />
@@ -525,31 +568,10 @@
     <dir name="feeds">
      <file name="atom.xml" role="horde" />
     </dir> <!-- /templates/feeds -->
-    <dir name="index">
-     <file name="agenda.inc" role="horde" />
-     <file name="day.inc" role="horde" />
-     <file name="edit.inc" role="horde" />
-     <file name="index.inc" role="horde" />
-     <file name="month.inc" role="horde" />
-     <file name="task.inc" role="horde" />
-     <file name="tasks.inc" role="horde" />
-     <file name="week.inc" role="horde" />
-     <file name="workweek.inc" role="horde" />
-     <file name="year.inc" role="horde" />
-    </dir> <!-- /templates/index -->
     <dir name="itip">
      <file name="notification.html.php" role="horde" />
      <file name="notification.plain.php" role="horde" />
     </dir> <!-- /templates/itip -->
-    <dir name="mobile">
-     <file name="day.html.php" role="horde" />
-     <file name="event.html.php" role="horde" />
-     <file name="head.html.php" role="horde" />
-     <file name="javascript_defs.php" role="horde" />
-     <file name="month.html.php" role="horde" />
-     <file name="notice.html.php" role="horde" />
-     <file name="summary.html.php" role="horde" />
-    </dir> <!-- /templates/mobile -->
     <dir name="month">
      <file name="head.inc" role="horde" />
      <file name="head_side_by_side.inc" role="horde" />
@@ -562,7 +584,6 @@
     </dir> <!-- /templates/prefs -->
     <dir name="resources">
      <file name="form-header.inc" role="horde" />
-     <file name="resource-form.php" role="horde" />
     </dir> <!-- /templates/resources -->
     <dir name="search">
      <file name="empty.inc" role="horde" />
@@ -577,6 +598,13 @@
      <file name="notification.html.php" role="horde" />
      <file name="notification.plain.php" role="horde" />
     </dir> <!-- /templates/share -->
+    <dir name="smartmobile">
+     <file name="day.html.php" role="horde" />
+     <file name="event.html.php" role="horde" />
+     <file name="javascript_defs.php" role="horde" />
+     <file name="month.html.php" role="horde" />
+     <file name="summary.html.php" role="horde" />
+    </dir> <!-- /templates/smartmobile -->
     <dir name="view">
      <file name="view.inc" role="horde" />
     </dir> <!-- /templates/view -->
@@ -584,20 +612,16 @@
      <file name="head.inc" role="horde" />
      <file name="head_side_by_side.inc" role="horde" />
     </dir> <!-- /templates/week -->
-    <dir name="year">
-     <file name="head.inc" role="horde" />
-    </dir> <!-- /templates/year -->
-    <file name="calendar_info.php" role="horde" />
-    <file name="calendar_list.php" role="horde" />
+    <file name="buttonbar.html.php" role="horde" />
     <file name="calendar_titles.inc" role="horde" />
     <file name="javascript_defs.php" role="horde" />
-    <file name="panel.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Kronolith">
      <dir name="fixtures">
       <file name="allday.ics" role="test" />
       <file name="bug7068.ics" role="test" />
+      <file name="bug11688.ics" role="test" />
       <file name="export1.ics" role="test" />
       <file name="export2.ics" role="test" />
       <file name="export3.ics" role="test" />
@@ -638,15 +662,19 @@
      </dir> <!-- /test/Kronolith/Stub -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Kronolith -->
    </dir> <!-- /test -->
    <dir name="themes">
-    <dir name="bluewhite">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluewhite -->
     <dir name="default">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/block -->
+     <dir name="dynamic">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
       <dir name="alerts">
        <file name="alarm.png" role="horde" />
@@ -667,6 +695,7 @@
       <file name="attendees-000.png" role="horde" />
       <file name="attendees-fff.png" role="horde" />
       <file name="attendees.png" role="horde" />
+      <file name="back.png" role="horde" />
       <file name="back_quick.png" role="horde" />
       <file name="big_agenda.png" role="horde" />
       <file name="big_alarm.png" role="horde" />
@@ -677,9 +706,11 @@
       <file name="checkbox_on.png" role="horde" />
       <file name="checkbox_over.png" role="horde" />
       <file name="close.png" role="horde" />
+      <file name="data.png" role="horde" />
       <file name="dayview.png" role="horde" />
       <file name="delete-000.png" role="horde" />
       <file name="delete-fff.png" role="horde" />
+      <file name="down.png" role="horde" />
       <file name="drag-handle.png" role="horde" />
       <file name="edit-000.png" role="horde" />
       <file name="edit-fff.png" role="horde" />
@@ -716,135 +747,16 @@
       <file name="workweekview.png" role="horde" />
       <file name="yearview.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <dir name="smartmobile">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/smartmobile -->
      <file name="embed.css" role="horde" />
-     <file name="ie7.css" role="horde" />
      <file name="ie8.css" role="horde" />
-     <file name="mobile.css" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="graphics">
-      <dir name="alerts">
-       <file name="alarm.png" role="horde" />
-       <file name="error.png" role="horde" />
-       <file name="message.png" role="horde" />
-       <file name="success.png" role="horde" />
-       <file name="warning.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/alerts -->
-      <file name="addressbook_browse.png" role="horde" />
-      <file name="agenda.png" role="horde" />
-      <file name="alarm-000.png" role="horde" />
-      <file name="alarm-fff.png" role="horde" />
-      <file name="alarm.png" role="horde" />
-      <file name="attendee-accepted.png" role="horde" />
-      <file name="attendee-declined.png" role="horde" />
-      <file name="attendee-none.png" role="horde" />
-      <file name="attendee-tentative.png" role="horde" />
-      <file name="attendees-000.png" role="horde" />
-      <file name="attendees-fff.png" role="horde" />
-      <file name="attendees.png" role="horde" />
-      <file name="calendars.png" role="horde" />
-      <file name="close.png" role="horde" />
-      <file name="dayview.png" role="horde" />
-      <file name="delete-000.png" role="horde" />
-      <file name="delete-fff.png" role="horde" />
-      <file name="edit-000.png" role="horde" />
-      <file name="edit-fff.png" role="horde" />
-      <file name="exception-000.png" role="horde" />
-      <file name="exception-fff.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="goto.png" role="horde" />
-      <file name="help.png" role="horde" />
-      <file name="kronolith.png" role="horde" />
-      <file name="left.png" role="horde" />
-      <file name="loading.gif" role="horde" />
-      <file name="logout.png" role="horde" />
-      <file name="menu-active.png" role="horde" />
-      <file name="menu.png" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="monthview.png" role="horde" />
-      <file name="new.png" role="horde" />
-      <file name="new_big.png" role="horde" />
-      <file name="new_small.png" role="horde" />
-      <file name="new_task.png" role="horde" />
-      <file name="picker.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="prefs.png" role="horde" />
-      <file name="print.png" role="horde" />
-      <file name="private-000.png" role="horde" />
-      <file name="private-fff.png" role="horde" />
-      <file name="recur-000.png" role="horde" />
-      <file name="recur-fff.png" role="horde" />
-      <file name="right.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="tasks.png" role="horde" />
-      <file name="today.png" role="horde" />
-      <file name="unknown-background.png" role="horde" />
-      <file name="weekview.png" role="horde" />
-      <file name="workweekview.png" role="horde" />
-      <file name="yearview.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="ie7.css" role="horde" />
-     <file name="ie8.css" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <dir name="alerts">
-       <file name="alarm.png" role="horde" />
-       <file name="error.png" role="horde" />
-       <file name="message.png" role="horde" />
-       <file name="success.png" role="horde" />
-       <file name="warning.png" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/alerts -->
-      <file name="addressbook_browse.png" role="horde" />
-      <file name="alarm-000.png" role="horde" />
-      <file name="alarm-fff.png" role="horde" />
-      <file name="alarm.png" role="horde" />
-      <file name="attendee-accepted.png" role="horde" />
-      <file name="attendee-declined.png" role="horde" />
-      <file name="attendee-none.png" role="horde" />
-      <file name="attendee-tentative.png" role="horde" />
-      <file name="attendees-000.png" role="horde" />
-      <file name="attendees-fff.png" role="horde" />
-      <file name="attendees.png" role="horde" />
-      <file name="calendars.png" role="horde" />
-      <file name="close.png" role="horde" />
-      <file name="dayview.png" role="horde" />
-      <file name="delete-000.png" role="horde" />
-      <file name="delete-fff.png" role="horde" />
-      <file name="edit-000.png" role="horde" />
-      <file name="edit-fff.png" role="horde" />
-      <file name="exception-000.png" role="horde" />
-      <file name="exception-fff.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="goto.png" role="horde" />
-      <file name="kronolith.png" role="horde" />
-      <file name="loading.gif" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="monthview.png" role="horde" />
-      <file name="new.png" role="horde" />
-      <file name="new_big.png" role="horde" />
-      <file name="new_small.png" role="horde" />
-      <file name="picker.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="print.png" role="horde" />
-      <file name="private-000.png" role="horde" />
-      <file name="private-fff.png" role="horde" />
-      <file name="recur-000.png" role="horde" />
-      <file name="recur-fff.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="today.png" role="horde" />
-      <file name="unknown-background.png" role="horde" />
-      <file name="weekview.png" role="horde" />
-      <file name="workweekview.png" role="horde" />
-      <file name="yearview.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="add.php" role="horde" />
    <file name="attend.php" role="horde" />
    <file name="attendees.php" role="horde" />
@@ -857,12 +769,12 @@
    <file name="event.php" role="horde" />
    <file name="fb.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="mobile.php" role="horde" />
    <file name="month.php" role="horde" />
    <file name="new.php" role="horde" />
    <file name="perms.php" role="horde" />
    <file name="README" role="doc" />
    <file name="search.php" role="horde" />
+   <file name="smartmobile.php" role="horde" />
    <file name="view.php" role="horde" />
    <file name="week.php" role="horde" />
    <file name="workweek.php" role="horde" />
@@ -872,7 +784,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -881,204 +793,218 @@
     <name>content</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>5.0.0</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.4</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.5.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Data</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date_Parser</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Dav</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_History</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Image</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Lock</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_LoginTasks</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Notification</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.3</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Share</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Timezone</name>
+    <channel>pear.horde.org</channel>
     <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Date</name>
@@ -1096,32 +1022,39 @@
   </required>
   <optional>
    <package>
+    <name>nag</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.0</min>
+    <max>5.0.0alpha1</max>
+    <exclude>5.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>timeobjects</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.4.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.2.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>1.3.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Date_Holidays</name>
@@ -1149,8 +1082,7 @@
    <install as="kronolith/calendars/create.php" name="calendars/create.php" />
    <install as="kronolith/calendars/delete.php" name="calendars/delete.php" />
    <install as="kronolith/calendars/edit.php" name="calendars/edit.php" />
-   <install as="kronolith/calendars/index.php" name="calendars/index.php" />
-   <install as="kronolith/calendars/info.php" name="calendars/info.php" />
+   <install as="kronolith/calendars/index.html" name="calendars/index.html" />
    <install as="kronolith/calendars/remote_edit.php" name="calendars/remote_edit.php" />
    <install as="kronolith/calendars/remote_subscribe.php" name="calendars/remote_subscribe.php" />
    <install as="kronolith/calendars/remote_unsubscribe.php" name="calendars/remote_unsubscribe.php" />
@@ -1169,16 +1101,15 @@
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="kronolith/feed/.htaccess" name="feed/.htaccess" />
    <install as="kronolith/feed/index.php" name="feed/index.php" />
-   <install as="kronolith/js/calendar-panel.js" name="js/calendar-panel.js" />
    <install as="kronolith/js/dragdrop2.js" name="js/dragdrop2.js" />
    <install as="kronolith/js/edit.js" name="js/edit.js" />
    <install as="kronolith/js/embed.js" name="js/embed.js" />
    <install as="kronolith/js/goto.js" name="js/goto.js" />
    <install as="kronolith/js/kronolith.js" name="js/kronolith.js" />
-   <install as="kronolith/js/mobile.js" name="js/mobile.js" />
-   <install as="kronolith/js/tagactions.js" name="js/tagactions.js" />
+   <install as="kronolith/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="kronolith/js/views.js" name="js/views.js" />
    <install as="kronolith/lib/.htaccess" name="lib/.htaccess" />
+   <install as="kronolith/lib/Ajax.php" name="lib/Ajax.php" />
    <install as="kronolith/lib/Api.php" name="lib/Api.php" />
    <install as="kronolith/lib/Application.php" name="lib/Application.php" />
    <install as="kronolith/lib/Calendar.php" name="lib/Calendar.php" />
@@ -1193,10 +1124,9 @@
    <install as="kronolith/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="kronolith/lib/Test.php" name="lib/Test.php" />
    <install as="kronolith/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="kronolith/lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
    <install as="kronolith/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
-   <install as="kronolith/lib/Ajax/Imple/Embed.php" name="lib/Ajax/Imple/Embed.php" />
    <install as="kronolith/lib/Ajax/Imple/ResourceAutoCompleter.php" name="lib/Ajax/Imple/ResourceAutoCompleter.php" />
-   <install as="kronolith/lib/Ajax/Imple/TagActions.php" name="lib/Ajax/Imple/TagActions.php" />
    <install as="kronolith/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="kronolith/lib/Block/Month.php" name="lib/Block/Month.php" />
    <install as="kronolith/lib/Block/Monthlist.php" name="lib/Block/Monthlist.php" />
@@ -1207,6 +1137,7 @@
    <install as="kronolith/lib/Calendar/Internal.php" name="lib/Calendar/Internal.php" />
    <install as="kronolith/lib/Calendar/Remote.php" name="lib/Calendar/Remote.php" />
    <install as="kronolith/lib/Calendar/Resource.php" name="lib/Calendar/Resource.php" />
+   <install as="kronolith/lib/Calendar/ResourceGroup.php" name="lib/Calendar/ResourceGroup.php" />
    <install as="kronolith/lib/Calendar/External/Tasks.php" name="lib/Calendar/External/Tasks.php" />
    <install as="kronolith/lib/Calendars/Base.php" name="lib/Calendars/Base.php" />
    <install as="kronolith/lib/Calendars/Default.php" name="lib/Calendars/Default.php" />
@@ -1216,17 +1147,18 @@
    <install as="kronolith/lib/Driver/Ical.php" name="lib/Driver/Ical.php" />
    <install as="kronolith/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="kronolith/lib/Driver/Mock.php" name="lib/Driver/Mock.php" />
-   <install as="kronolith/lib/Driver/Resource.php" name="lib/Driver/Resource.php" />
    <install as="kronolith/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="kronolith/lib/Driver/Resource/Sql.php" name="lib/Driver/Resource/Sql.php" />
    <install as="kronolith/lib/Event/Holidays.php" name="lib/Event/Holidays.php" />
    <install as="kronolith/lib/Event/Horde.php" name="lib/Event/Horde.php" />
    <install as="kronolith/lib/Event/Ical.php" name="lib/Event/Ical.php" />
    <install as="kronolith/lib/Event/Kolab.php" name="lib/Event/Kolab.php" />
-   <install as="kronolith/lib/Event/Resource.php" name="lib/Event/Resource.php" />
    <install as="kronolith/lib/Event/Sql.php" name="lib/Event/Sql.php" />
+   <install as="kronolith/lib/Event/Resource/Sql.php" name="lib/Event/Resource/Sql.php" />
    <install as="kronolith/lib/Factory/Calendars.php" name="lib/Factory/Calendars.php" />
    <install as="kronolith/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="kronolith/lib/Factory/Geo.php" name="lib/Factory/Geo.php" />
+   <install as="kronolith/lib/Factory/Shares.php" name="lib/Factory/Shares.php" />
    <install as="kronolith/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
    <install as="kronolith/lib/Form/CreateCalendar.php" name="lib/Form/CreateCalendar.php" />
    <install as="kronolith/lib/Form/CreateResource.php" name="lib/Form/CreateResource.php" />
@@ -1240,6 +1172,7 @@
    <install as="kronolith/lib/Form/EditResourceGroup.php" name="lib/Form/EditResourceGroup.php" />
    <install as="kronolith/lib/Form/SubscribeRemoteCalendar.php" name="lib/Form/SubscribeRemoteCalendar.php" />
    <install as="kronolith/lib/Form/UnsubscribeRemoteCalendar.php" name="lib/Form/UnsubscribeRemoteCalendar.php" />
+   <install as="kronolith/lib/Form/Type/KronolithTags.php" name="lib/Form/Type/KronolithTags.php" />
    <install as="kronolith/lib/FreeBusy/View.php" name="lib/FreeBusy/View.php" />
    <install as="kronolith/lib/FreeBusy/View/Day.php" name="lib/FreeBusy/View/Day.php" />
    <install as="kronolith/lib/FreeBusy/View/Month.php" name="lib/FreeBusy/View/Month.php" />
@@ -1250,18 +1183,23 @@
    <install as="kronolith/lib/Geo/Sql.php" name="lib/Geo/Sql.php" />
    <install as="kronolith/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="kronolith/lib/LoginTasks/Task/PurgeEvents.php" name="lib/LoginTasks/Task/PurgeEvents.php" />
-   <install as="kronolith/lib/Notification/Listener/AjaxStatus.php" name="lib/Notification/Listener/AjaxStatus.php" />
+   <install as="kronolith/lib/Prefs/Special/DefaultAlarm.php" name="lib/Prefs/Special/DefaultAlarm.php" />
+   <install as="kronolith/lib/Prefs/Special/EventAlarms.php" name="lib/Prefs/Special/EventAlarms.php" />
+   <install as="kronolith/lib/Prefs/Special/Sourceselect.php" name="lib/Prefs/Special/Sourceselect.php" />
    <install as="kronolith/lib/Resource/Base.php" name="lib/Resource/Base.php" />
    <install as="kronolith/lib/Resource/Group.php" name="lib/Resource/Group.php" />
    <install as="kronolith/lib/Resource/Single.php" name="lib/Resource/Single.php" />
    <install as="kronolith/lib/Storage/Kolab.php" name="lib/Storage/Kolab.php" />
    <install as="kronolith/lib/Storage/Sql.php" name="lib/Storage/Sql.php" />
+   <install as="kronolith/lib/Ui/VarRenderer/Kronolith.php" name="lib/Ui/VarRenderer/Kronolith.php" />
    <install as="kronolith/lib/View/Day.php" name="lib/View/Day.php" />
    <install as="kronolith/lib/View/DeleteEvent.php" name="lib/View/DeleteEvent.php" />
    <install as="kronolith/lib/View/EditEvent.php" name="lib/View/EditEvent.php" />
    <install as="kronolith/lib/View/Event.php" name="lib/View/Event.php" />
    <install as="kronolith/lib/View/ExportEvent.php" name="lib/View/ExportEvent.php" />
    <install as="kronolith/lib/View/Month.php" name="lib/View/Month.php" />
+   <install as="kronolith/lib/View/Sidebar.php" name="lib/View/Sidebar.php" />
+   <install as="kronolith/lib/View/SidebarTasks.php" name="lib/View/SidebarTasks.php" />
    <install as="kronolith/lib/View/Week.php" name="lib/View/Week.php" />
    <install as="kronolith/lib/View/WorkWeek.php" name="lib/View/WorkWeek.php" />
    <install as="kronolith/lib/View/Year.php" name="lib/View/Year.php" />
@@ -1367,19 +1305,18 @@
    <install as="kronolith/migration/18_kronolith_upgrade_categoriestotags.php" name="migration/18_kronolith_upgrade_categoriestotags.php" />
    <install as="kronolith/migration/19_kronolith_upgrade_addmysqlgeo.php" name="migration/19_kronolith_upgrade_addmysqlgeo.php" />
    <install as="kronolith/migration/20_kronolith_upgrade_timezone.php" name="migration/20_kronolith_upgrade_timezone.php" />
+   <install as="kronolith/migration/21_kronolith_upgrade_exceptionutc.php" name="migration/21_kronolith_upgrade_exceptionutc.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
-   <install as="kronolith/resources/index.php" name="resources/index.php" />
+   <install as="kronolith/resources/index.html" name="resources/index.html" />
    <install as="kronolith/resources/groups/create.php" name="resources/groups/create.php" />
    <install as="kronolith/resources/groups/delete.php" name="resources/groups/delete.php" />
    <install as="kronolith/resources/groups/edit.php" name="resources/groups/edit.php" />
-   <install as="kronolith/resources/groups/index.php" name="resources/groups/index.php" />
-   <install as="kronolith/templates/calendar_info.php" name="templates/calendar_info.php" />
-   <install as="kronolith/templates/calendar_list.php" name="templates/calendar_list.php" />
+   <install as="kronolith/resources/groups/index.html" name="resources/groups/index.html" />
+   <install as="kronolith/templates/buttonbar.html.php" name="templates/buttonbar.html.php" />
    <install as="kronolith/templates/calendar_titles.inc" name="templates/calendar_titles.inc" />
    <install as="kronolith/templates/javascript_defs.php" name="templates/javascript_defs.php" />
-   <install as="kronolith/templates/panel.inc" name="templates/panel.inc" />
    <install as="kronolith/templates/agenda/notification.html.php" name="templates/agenda/notification.html.php" />
    <install as="kronolith/templates/agenda/notification.plain.php" name="templates/agenda/notification.plain.php" />
    <install as="kronolith/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
@@ -1396,6 +1333,17 @@
    <install as="kronolith/templates/day/rows.html" name="templates/day/rows.html" />
    <install as="kronolith/templates/delete/delete.inc" name="templates/delete/delete.inc" />
    <install as="kronolith/templates/delete/one.inc" name="templates/delete/one.inc" />
+   <install as="kronolith/templates/dynamic/agenda.inc" name="templates/dynamic/agenda.inc" />
+   <install as="kronolith/templates/dynamic/day.inc" name="templates/dynamic/day.inc" />
+   <install as="kronolith/templates/dynamic/edit.inc" name="templates/dynamic/edit.inc" />
+   <install as="kronolith/templates/dynamic/index.inc" name="templates/dynamic/index.inc" />
+   <install as="kronolith/templates/dynamic/month.inc" name="templates/dynamic/month.inc" />
+   <install as="kronolith/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
+   <install as="kronolith/templates/dynamic/task.inc" name="templates/dynamic/task.inc" />
+   <install as="kronolith/templates/dynamic/tasks.inc" name="templates/dynamic/tasks.inc" />
+   <install as="kronolith/templates/dynamic/week.inc" name="templates/dynamic/week.inc" />
+   <install as="kronolith/templates/dynamic/workweek.inc" name="templates/dynamic/workweek.inc" />
+   <install as="kronolith/templates/dynamic/year.inc" name="templates/dynamic/year.inc" />
    <install as="kronolith/templates/edit/edit.inc" name="templates/edit/edit.inc" />
    <install as="kronolith/templates/edit/edit_timespan.inc" name="templates/edit/edit_timespan.inc" />
    <install as="kronolith/templates/fbview/busyblock.html" name="templates/fbview/busyblock.html" />
@@ -1407,31 +1355,13 @@
    <install as="kronolith/templates/fbview/section.html" name="templates/fbview/section.html" />
    <install as="kronolith/templates/fbview/unknownblock.html" name="templates/fbview/unknownblock.html" />
    <install as="kronolith/templates/feeds/atom.xml" name="templates/feeds/atom.xml" />
-   <install as="kronolith/templates/index/agenda.inc" name="templates/index/agenda.inc" />
-   <install as="kronolith/templates/index/day.inc" name="templates/index/day.inc" />
-   <install as="kronolith/templates/index/edit.inc" name="templates/index/edit.inc" />
-   <install as="kronolith/templates/index/index.inc" name="templates/index/index.inc" />
-   <install as="kronolith/templates/index/month.inc" name="templates/index/month.inc" />
-   <install as="kronolith/templates/index/task.inc" name="templates/index/task.inc" />
-   <install as="kronolith/templates/index/tasks.inc" name="templates/index/tasks.inc" />
-   <install as="kronolith/templates/index/week.inc" name="templates/index/week.inc" />
-   <install as="kronolith/templates/index/workweek.inc" name="templates/index/workweek.inc" />
-   <install as="kronolith/templates/index/year.inc" name="templates/index/year.inc" />
    <install as="kronolith/templates/itip/notification.html.php" name="templates/itip/notification.html.php" />
    <install as="kronolith/templates/itip/notification.plain.php" name="templates/itip/notification.plain.php" />
-   <install as="kronolith/templates/mobile/day.html.php" name="templates/mobile/day.html.php" />
-   <install as="kronolith/templates/mobile/event.html.php" name="templates/mobile/event.html.php" />
-   <install as="kronolith/templates/mobile/head.html.php" name="templates/mobile/head.html.php" />
-   <install as="kronolith/templates/mobile/javascript_defs.php" name="templates/mobile/javascript_defs.php" />
-   <install as="kronolith/templates/mobile/month.html.php" name="templates/mobile/month.html.php" />
-   <install as="kronolith/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
-   <install as="kronolith/templates/mobile/summary.html.php" name="templates/mobile/summary.html.php" />
    <install as="kronolith/templates/month/head.inc" name="templates/month/head.inc" />
    <install as="kronolith/templates/month/head_side_by_side.inc" name="templates/month/head_side_by_side.inc" />
    <install as="kronolith/templates/perms/perms.inc" name="templates/perms/perms.inc" />
    <install as="kronolith/templates/prefs/defaultalarm.html" name="templates/prefs/defaultalarm.html" />
    <install as="kronolith/templates/resources/form-header.inc" name="templates/resources/form-header.inc" />
-   <install as="kronolith/templates/resources/resource-form.php" name="templates/resources/resource-form.php" />
    <install as="kronolith/templates/search/empty.inc" name="templates/search/empty.inc" />
    <install as="kronolith/templates/search/event_footers.inc" name="templates/search/event_footers.inc" />
    <install as="kronolith/templates/search/event_headers.inc" name="templates/search/event_headers.inc" />
@@ -1441,16 +1371,22 @@
    <install as="kronolith/templates/search/search_advanced.inc" name="templates/search/search_advanced.inc" />
    <install as="kronolith/templates/share/notification.html.php" name="templates/share/notification.html.php" />
    <install as="kronolith/templates/share/notification.plain.php" name="templates/share/notification.plain.php" />
+   <install as="kronolith/templates/smartmobile/day.html.php" name="templates/smartmobile/day.html.php" />
+   <install as="kronolith/templates/smartmobile/event.html.php" name="templates/smartmobile/event.html.php" />
+   <install as="kronolith/templates/smartmobile/javascript_defs.php" name="templates/smartmobile/javascript_defs.php" />
+   <install as="kronolith/templates/smartmobile/month.html.php" name="templates/smartmobile/month.html.php" />
+   <install as="kronolith/templates/smartmobile/summary.html.php" name="templates/smartmobile/summary.html.php" />
    <install as="kronolith/templates/view/view.inc" name="templates/view/view.inc" />
    <install as="kronolith/templates/week/head.inc" name="templates/week/head.inc" />
    <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
-   <install as="kronolith/templates/year/head.inc" name="templates/year/head.inc" />
    <install as="Kronolith/AllTests.php" name="test/Kronolith/AllTests.php" />
    <install as="Kronolith/Autoload.php" name="test/Kronolith/Autoload.php" />
+   <install as="Kronolith/bootstrap.php" name="test/Kronolith/bootstrap.php" />
    <install as="Kronolith/phpunit.xml" name="test/Kronolith/phpunit.xml" />
    <install as="Kronolith/TestCase.php" name="test/Kronolith/TestCase.php" />
    <install as="Kronolith/fixtures/allday.ics" name="test/Kronolith/fixtures/allday.ics" />
    <install as="Kronolith/fixtures/bug7068.ics" name="test/Kronolith/fixtures/bug7068.ics" />
+   <install as="Kronolith/fixtures/bug11688.ics" name="test/Kronolith/fixtures/bug11688.ics" />
    <install as="Kronolith/fixtures/export1.ics" name="test/Kronolith/fixtures/export1.ics" />
    <install as="Kronolith/fixtures/export2.ics" name="test/Kronolith/fixtures/export2.ics" />
    <install as="Kronolith/fixtures/export3.ics" name="test/Kronolith/fixtures/export3.ics" />
@@ -1472,14 +1408,13 @@
    <install as="Kronolith/Stub/ShareFactory.php" name="test/Kronolith/Stub/ShareFactory.php" />
    <install as="Kronolith/Stub/Tagger.php" name="test/Kronolith/Stub/Tagger.php" />
    <install as="Kronolith/Stub/Types.php" name="test/Kronolith/Stub/Types.php" />
-   <install as="kronolith/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
-   <install as="kronolith/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="kronolith/themes/default/ie8.css" name="themes/default/ie8.css" />
-   <install as="kronolith/themes/default/mobile.css" name="themes/default/mobile.css" />
    <install as="kronolith/themes/default/opera.css" name="themes/default/opera.css" />
    <install as="kronolith/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="kronolith/themes/default/webkit.css" name="themes/default/webkit.css" />
+   <install as="kronolith/themes/default/block/screen.css" name="themes/default/block/screen.css" />
+   <install as="kronolith/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="kronolith/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="kronolith/themes/default/graphics/agenda.png" name="themes/default/graphics/agenda.png" />
    <install as="kronolith/themes/default/graphics/alarm-000.png" name="themes/default/graphics/alarm-000.png" />
@@ -1492,6 +1427,7 @@
    <install as="kronolith/themes/default/graphics/attendees-000.png" name="themes/default/graphics/attendees-000.png" />
    <install as="kronolith/themes/default/graphics/attendees-fff.png" name="themes/default/graphics/attendees-fff.png" />
    <install as="kronolith/themes/default/graphics/attendees.png" name="themes/default/graphics/attendees.png" />
+   <install as="kronolith/themes/default/graphics/back.png" name="themes/default/graphics/back.png" />
    <install as="kronolith/themes/default/graphics/back_quick.png" name="themes/default/graphics/back_quick.png" />
    <install as="kronolith/themes/default/graphics/big_agenda.png" name="themes/default/graphics/big_agenda.png" />
    <install as="kronolith/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
@@ -1502,9 +1438,11 @@
    <install as="kronolith/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
    <install as="kronolith/themes/default/graphics/checkbox_over.png" name="themes/default/graphics/checkbox_over.png" />
    <install as="kronolith/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
+   <install as="kronolith/themes/default/graphics/data.png" name="themes/default/graphics/data.png" />
    <install as="kronolith/themes/default/graphics/dayview.png" name="themes/default/graphics/dayview.png" />
    <install as="kronolith/themes/default/graphics/delete-000.png" name="themes/default/graphics/delete-000.png" />
    <install as="kronolith/themes/default/graphics/delete-fff.png" name="themes/default/graphics/delete-fff.png" />
+   <install as="kronolith/themes/default/graphics/down.png" name="themes/default/graphics/down.png" />
    <install as="kronolith/themes/default/graphics/drag-handle.png" name="themes/default/graphics/drag-handle.png" />
    <install as="kronolith/themes/default/graphics/edit-000.png" name="themes/default/graphics/edit-000.png" />
    <install as="kronolith/themes/default/graphics/edit-fff.png" name="themes/default/graphics/edit-fff.png" />
@@ -1545,114 +1483,7 @@
    <install as="kronolith/themes/default/graphics/alerts/message.png" name="themes/default/graphics/alerts/message.png" />
    <install as="kronolith/themes/default/graphics/alerts/success.png" name="themes/default/graphics/alerts/success.png" />
    <install as="kronolith/themes/default/graphics/alerts/warning.png" name="themes/default/graphics/alerts/warning.png" />
-   <install as="kronolith/themes/silver/ie7.css" name="themes/silver/ie7.css" />
-   <install as="kronolith/themes/silver/ie8.css" name="themes/silver/ie8.css" />
-   <install as="kronolith/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="kronolith/themes/silver/graphics/addressbook_browse.png" name="themes/silver/graphics/addressbook_browse.png" />
-   <install as="kronolith/themes/silver/graphics/agenda.png" name="themes/silver/graphics/agenda.png" />
-   <install as="kronolith/themes/silver/graphics/alarm-000.png" name="themes/silver/graphics/alarm-000.png" />
-   <install as="kronolith/themes/silver/graphics/alarm-fff.png" name="themes/silver/graphics/alarm-fff.png" />
-   <install as="kronolith/themes/silver/graphics/alarm.png" name="themes/silver/graphics/alarm.png" />
-   <install as="kronolith/themes/silver/graphics/attendee-accepted.png" name="themes/silver/graphics/attendee-accepted.png" />
-   <install as="kronolith/themes/silver/graphics/attendee-declined.png" name="themes/silver/graphics/attendee-declined.png" />
-   <install as="kronolith/themes/silver/graphics/attendee-none.png" name="themes/silver/graphics/attendee-none.png" />
-   <install as="kronolith/themes/silver/graphics/attendee-tentative.png" name="themes/silver/graphics/attendee-tentative.png" />
-   <install as="kronolith/themes/silver/graphics/attendees-000.png" name="themes/silver/graphics/attendees-000.png" />
-   <install as="kronolith/themes/silver/graphics/attendees-fff.png" name="themes/silver/graphics/attendees-fff.png" />
-   <install as="kronolith/themes/silver/graphics/attendees.png" name="themes/silver/graphics/attendees.png" />
-   <install as="kronolith/themes/silver/graphics/calendars.png" name="themes/silver/graphics/calendars.png" />
-   <install as="kronolith/themes/silver/graphics/close.png" name="themes/silver/graphics/close.png" />
-   <install as="kronolith/themes/silver/graphics/dayview.png" name="themes/silver/graphics/dayview.png" />
-   <install as="kronolith/themes/silver/graphics/delete-000.png" name="themes/silver/graphics/delete-000.png" />
-   <install as="kronolith/themes/silver/graphics/delete-fff.png" name="themes/silver/graphics/delete-fff.png" />
-   <install as="kronolith/themes/silver/graphics/edit-000.png" name="themes/silver/graphics/edit-000.png" />
-   <install as="kronolith/themes/silver/graphics/edit-fff.png" name="themes/silver/graphics/edit-fff.png" />
-   <install as="kronolith/themes/silver/graphics/exception-000.png" name="themes/silver/graphics/exception-000.png" />
-   <install as="kronolith/themes/silver/graphics/exception-fff.png" name="themes/silver/graphics/exception-fff.png" />
-   <install as="kronolith/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="kronolith/themes/silver/graphics/goto.png" name="themes/silver/graphics/goto.png" />
-   <install as="kronolith/themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
-   <install as="kronolith/themes/silver/graphics/kronolith.png" name="themes/silver/graphics/kronolith.png" />
-   <install as="kronolith/themes/silver/graphics/left.png" name="themes/silver/graphics/left.png" />
-   <install as="kronolith/themes/silver/graphics/loading.gif" name="themes/silver/graphics/loading.gif" />
-   <install as="kronolith/themes/silver/graphics/logout.png" name="themes/silver/graphics/logout.png" />
-   <install as="kronolith/themes/silver/graphics/menu-active.png" name="themes/silver/graphics/menu-active.png" />
-   <install as="kronolith/themes/silver/graphics/menu.png" name="themes/silver/graphics/menu.png" />
-   <install as="kronolith/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
-   <install as="kronolith/themes/silver/graphics/monthview.png" name="themes/silver/graphics/monthview.png" />
-   <install as="kronolith/themes/silver/graphics/new.png" name="themes/silver/graphics/new.png" />
-   <install as="kronolith/themes/silver/graphics/new_big.png" name="themes/silver/graphics/new_big.png" />
-   <install as="kronolith/themes/silver/graphics/new_small.png" name="themes/silver/graphics/new_small.png" />
-   <install as="kronolith/themes/silver/graphics/new_task.png" name="themes/silver/graphics/new_task.png" />
-   <install as="kronolith/themes/silver/graphics/picker.png" name="themes/silver/graphics/picker.png" />
-   <install as="kronolith/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
-   <install as="kronolith/themes/silver/graphics/prefs.png" name="themes/silver/graphics/prefs.png" />
-   <install as="kronolith/themes/silver/graphics/print.png" name="themes/silver/graphics/print.png" />
-   <install as="kronolith/themes/silver/graphics/private-000.png" name="themes/silver/graphics/private-000.png" />
-   <install as="kronolith/themes/silver/graphics/private-fff.png" name="themes/silver/graphics/private-fff.png" />
-   <install as="kronolith/themes/silver/graphics/recur-000.png" name="themes/silver/graphics/recur-000.png" />
-   <install as="kronolith/themes/silver/graphics/recur-fff.png" name="themes/silver/graphics/recur-fff.png" />
-   <install as="kronolith/themes/silver/graphics/right.png" name="themes/silver/graphics/right.png" />
-   <install as="kronolith/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="kronolith/themes/silver/graphics/tasks.png" name="themes/silver/graphics/tasks.png" />
-   <install as="kronolith/themes/silver/graphics/today.png" name="themes/silver/graphics/today.png" />
-   <install as="kronolith/themes/silver/graphics/unknown-background.png" name="themes/silver/graphics/unknown-background.png" />
-   <install as="kronolith/themes/silver/graphics/weekview.png" name="themes/silver/graphics/weekview.png" />
-   <install as="kronolith/themes/silver/graphics/workweekview.png" name="themes/silver/graphics/workweekview.png" />
-   <install as="kronolith/themes/silver/graphics/yearview.png" name="themes/silver/graphics/yearview.png" />
-   <install as="kronolith/themes/silver/graphics/alerts/alarm.png" name="themes/silver/graphics/alerts/alarm.png" />
-   <install as="kronolith/themes/silver/graphics/alerts/error.png" name="themes/silver/graphics/alerts/error.png" />
-   <install as="kronolith/themes/silver/graphics/alerts/message.png" name="themes/silver/graphics/alerts/message.png" />
-   <install as="kronolith/themes/silver/graphics/alerts/success.png" name="themes/silver/graphics/alerts/success.png" />
-   <install as="kronolith/themes/silver/graphics/alerts/warning.png" name="themes/silver/graphics/alerts/warning.png" />
-   <install as="kronolith/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
-   <install as="kronolith/themes/tango-blue/graphics/addressbook_browse.png" name="themes/tango-blue/graphics/addressbook_browse.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alarm-000.png" name="themes/tango-blue/graphics/alarm-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alarm-fff.png" name="themes/tango-blue/graphics/alarm-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alarm.png" name="themes/tango-blue/graphics/alarm.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendee-accepted.png" name="themes/tango-blue/graphics/attendee-accepted.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendee-declined.png" name="themes/tango-blue/graphics/attendee-declined.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendee-none.png" name="themes/tango-blue/graphics/attendee-none.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendee-tentative.png" name="themes/tango-blue/graphics/attendee-tentative.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendees-000.png" name="themes/tango-blue/graphics/attendees-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendees-fff.png" name="themes/tango-blue/graphics/attendees-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendees.png" name="themes/tango-blue/graphics/attendees.png" />
-   <install as="kronolith/themes/tango-blue/graphics/calendars.png" name="themes/tango-blue/graphics/calendars.png" />
-   <install as="kronolith/themes/tango-blue/graphics/close.png" name="themes/tango-blue/graphics/close.png" />
-   <install as="kronolith/themes/tango-blue/graphics/dayview.png" name="themes/tango-blue/graphics/dayview.png" />
-   <install as="kronolith/themes/tango-blue/graphics/delete-000.png" name="themes/tango-blue/graphics/delete-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/delete-fff.png" name="themes/tango-blue/graphics/delete-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/edit-000.png" name="themes/tango-blue/graphics/edit-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/edit-fff.png" name="themes/tango-blue/graphics/edit-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/exception-000.png" name="themes/tango-blue/graphics/exception-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/exception-fff.png" name="themes/tango-blue/graphics/exception-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
-   <install as="kronolith/themes/tango-blue/graphics/goto.png" name="themes/tango-blue/graphics/goto.png" />
-   <install as="kronolith/themes/tango-blue/graphics/kronolith.png" name="themes/tango-blue/graphics/kronolith.png" />
-   <install as="kronolith/themes/tango-blue/graphics/loading.gif" name="themes/tango-blue/graphics/loading.gif" />
-   <install as="kronolith/themes/tango-blue/graphics/minus.png" name="themes/tango-blue/graphics/minus.png" />
-   <install as="kronolith/themes/tango-blue/graphics/monthview.png" name="themes/tango-blue/graphics/monthview.png" />
-   <install as="kronolith/themes/tango-blue/graphics/new.png" name="themes/tango-blue/graphics/new.png" />
-   <install as="kronolith/themes/tango-blue/graphics/new_big.png" name="themes/tango-blue/graphics/new_big.png" />
-   <install as="kronolith/themes/tango-blue/graphics/new_small.png" name="themes/tango-blue/graphics/new_small.png" />
-   <install as="kronolith/themes/tango-blue/graphics/picker.png" name="themes/tango-blue/graphics/picker.png" />
-   <install as="kronolith/themes/tango-blue/graphics/plus.png" name="themes/tango-blue/graphics/plus.png" />
-   <install as="kronolith/themes/tango-blue/graphics/print.png" name="themes/tango-blue/graphics/print.png" />
-   <install as="kronolith/themes/tango-blue/graphics/private-000.png" name="themes/tango-blue/graphics/private-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/private-fff.png" name="themes/tango-blue/graphics/private-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/recur-000.png" name="themes/tango-blue/graphics/recur-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/recur-fff.png" name="themes/tango-blue/graphics/recur-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/search.png" name="themes/tango-blue/graphics/search.png" />
-   <install as="kronolith/themes/tango-blue/graphics/today.png" name="themes/tango-blue/graphics/today.png" />
-   <install as="kronolith/themes/tango-blue/graphics/unknown-background.png" name="themes/tango-blue/graphics/unknown-background.png" />
-   <install as="kronolith/themes/tango-blue/graphics/weekview.png" name="themes/tango-blue/graphics/weekview.png" />
-   <install as="kronolith/themes/tango-blue/graphics/workweekview.png" name="themes/tango-blue/graphics/workweekview.png" />
-   <install as="kronolith/themes/tango-blue/graphics/yearview.png" name="themes/tango-blue/graphics/yearview.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alerts/alarm.png" name="themes/tango-blue/graphics/alerts/alarm.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alerts/error.png" name="themes/tango-blue/graphics/alerts/error.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alerts/message.png" name="themes/tango-blue/graphics/alerts/message.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alerts/success.png" name="themes/tango-blue/graphics/alerts/success.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alerts/warning.png" name="themes/tango-blue/graphics/alerts/warning.png" />
+   <install as="kronolith/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="kronolith/add.php" name="add.php" />
    <install as="kronolith/attend.php" name="attend.php" />
    <install as="kronolith/attendees.php" name="attendees.php" />
@@ -1665,17 +1496,17 @@
    <install as="kronolith/event.php" name="event.php" />
    <install as="kronolith/fb.php" name="fb.php" />
    <install as="kronolith/index.php" name="index.php" />
-   <install as="kronolith/mobile.php" name="mobile.php" />
    <install as="kronolith/month.php" name="month.php" />
    <install as="kronolith/new.php" name="new.php" />
    <install as="kronolith/perms.php" name="perms.php" />
    <install as="README" name="README" />
    <install as="kronolith/search.php" name="search.php" />
+   <install as="kronolith/smartmobile.php" name="smartmobile.php" />
    <install as="kronolith/view.php" name="view.php" />
    <install as="kronolith/week.php" name="week.php" />
    <install as="kronolith/workweek.php" name="workweek.php" />
    <install as="kronolith/year.php" name="year.php" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -2043,11 +1874,334 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-31</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use preferred date format in week and agenda views (Bug #11089).
+* [jan] Fix fatal error if no external calendars are available (Bug #11079).
+* [jan] Fix positioning of events on DST changing dates (Bug #11070).
 * [mjr] Fix bug that caused time shift of all day events when imported from ActiveSync devices for users in certain timezones (Bug #10991).
 * [mjr] Correctly deal with deleted calendars in sync clients (Bug #10969).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.17</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-14</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] SECURITY: Fix XSS vulnerabilities in tasks view and search view (Bug #11189).
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
+* [jan] Improve print styles.
+* [jan] Catch if external client doesn&apos;t send LAST-MODIFIED attributes (Bug #11130).
+* [jan] Don&apos;t stop agenda script if there is an error with a single user (Bug #11129).
+* [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
+* [jan] Show round corners only on the start and end of multi-day events (Request #11067).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.18</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-14</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Fix permissions checking in the &apos;path_delete&apos; API call.
+* [mms] SECURITY: Fix XSS vulnerabilities in the portal blocks.
+* [mjr] Fix setting permissions in dynamic mode while $conf[share][world] is false (Bug #11359).
+* [mjr] Fix issue causing broken alarm values from being imported from certain ics files.
+* [rla] Fix sender of appointment notification (Bug #11198).
+* [mjr] Use SSL for map providers if current connection is SSL (Request #11193).
+* [jan] Don&apos;t show location of private events (Bug #11235).
+* [jan] Fix exporting multi-all-day events to iCalendar.
+* [jan] Update Turkish translation (İstanbul Technical University).
+* [jan] Update Swedish translation (Jakob Alvermark &lt;jakob.alvermark@bsdlabs.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <date>2012-08-29</date>
+   <time>17:24:36</time>
+   <version>
+    <release>4.0.0beta1</release>
+    <api>4.0.0beta1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Add quick task adding to dynamic view.
+* [rla] Fix sender of appointment notification (Bug #11198)
+* [mjr] Fix tagging in traditional interface.
+* [rla] Make system shares browseable in WebDAV (Request #10998).
+* [jan] Make calendar lists collapsible (Request #10865).
+* [jan] Delay calendar list loading to speed up initial display.
+* [mjr] Implement resource scheduling in dynamic view (Request #9774).
+* [mjr] Fix issue that could cause incorrect freebusy data to be displayed in certain circumstances.
+* [mjr] Prompt to send updates when modifying an event with attendees (Request #10724).
+* [mjr] Add heatmap to year view (Request #10658).
+* [mjr] Implement proper editing and deleting of recurrence series and exceptions in ajax view (Request #9926).
+* [jan] Remove print buttons.
+* [jan] Add work week view to dynamic interface (rsalmon@mbpgroup.com, Request #10519).
+* [jan] Support importing of iCalendar events with non-local timezones (Request #7156).
+* [jan] Include timezone information when exporting events to iCalendar (Request #7156).
+* [jan] Allow to set individual timezones for each event (Request #10727).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta2</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Synchronize tags with Kolab categories.
+* [mjr] Improvements to resource calendar handling.
+* [gwr] Mark the initial default share as such with the Kolab backend.
+* [gwr] Always mark the initial share as default calendar.
+* [jan] Fix attendees button in traditional view.
+* [jan] Fix sending alarm emails.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC1</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Show completed future tasks in complete category, not in future category (Bug #11562).
+* [jan] Fix exporting of recurring events with exceptions from Kolab backends.
+* [jan] Fix export links for calendars (Bug #11576).
+* [jan] Fix broken Apple iCal behavior with exception dates (Evert Pot &lt;evert@rooftopsolutions.nl&gt;).
+* [jan] Use more compatible message format for iTip notifications (Bug #9854).
+* [jan] Fix free/busy retrieval on Kolab.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
+* [jan] Update Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix migration of exceptionoriginaldate field (Bug #11654).
+* [jan] Fix generating calendar names when exporting non-internal calendars to iCalendar.
+* [jan] Fix authentication to remote calendars (Bug #11643).
+* [jan] Fix incorrect nesting of VTIMEZONE components when exporting to iCalendar (Bug #11636).
+* [jan] Fix fatal error when moving non-recurring events with resources (Bug #11629).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Use Kolab modification and creation dates in the UI (Bug #11591).
+* [jan] Try to translate holiday drivers (Request #11755).
+* [jan] Fix timezone when reading events from Kolab (Bug #11695).
+* [jan] Use encoded UIDs as IDs in Kolab driver.
+* [jan] Fix saving of events if no calendar has been loaded yet.
+* [mjr] Fix importing events from ActiveSync with empty descriptions in EAS version 2.5
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix setting default start time in new event dialog of basic view (Bug #11861).
+* [jan] Fix saving alarm methods to Kolab backend (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11880).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Fix moving events between calendars (Bug #11830).
+* [jan] Fix fatal error on recurring events with custom timezone (Bug #11587).
+* [jan] Fix double owner name on shared calendars.
+* [jan] Use default Kolab folder for default calendar preference.
+* [jan] Mark Kolab folder as default when changing default calendar preference.
+* [jan] Defer navigation in dynamic view until environment has been initialized.
+* [jan] Fix receiving resource calendars in dynamic view (Bug #11776).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update alarms, resources, and tags when deleting Kolab events (Bug #11988).
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Fix some issues with workweek views if first day of week is Sunday (Bug #11973).
+* [jan] Fix adding holiday calendars if not using English locale (Bug #11961).
+* [jan] More robust date parsing during event importing (Bug #11916).
+* [jan] Always export year numbers with four digits to CSV (Request #11917).
+* [jan] Fix JavaScript error if Nag is not installed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.5</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Don&apos;t throw error on importing events with unknown timezones (Bug #11688).
+* [jan] Don&apos;t send notifications for all recurrence exceptions when deleting events.
+* [jan] Only send update notifications for local calendars.
+* [jan] Re-enable users in drop-down list after revoking permissions (Bug #12000).
+* [jan] Fix exporting events of a certain time span (piper@hrz.uni-marburg.de, Bug #12074).
+* [mjr] Always populate the meetingstatus property in ActiveSync requests  to avoid issues with some versions of iOS (Bug #12056).
+* [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
+   </notes>
+  </release>
+  <release>
+   <date>2013-05-07</date>
+   <time>16:40:30</time>
+   <version>
+    <release>4.1.0beta1</release>
+    <api>4.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Add CalDAV server support (Request #4267).
+* [jan] Use Horde_Dav for accessing remote calendars.
+* [mjr] Expose Kronolith_FreeBusy::get() via the external API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.0beta2</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-14</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix incorrect dependencies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.0RC1</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix editing of events per CalDAV if client sends LAST-MODIFIED attribute (Bug #12244).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.0</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Add help text for CalDAV usage.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.1</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix setting RECURRENCE-ID field when exporting ics file (Bug #12368).
+* [jan] Fix propagating calendar URLs if import/export is turned off.
+* [mjr] Add API methods for using history modification sequences.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.2</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Display CalDAV URL of system calendars and tasklists (Bug #12342).
+* [jan] Fix system calendar listing via WebDAV.
+* [rla] Add system calendar support for Kronolith CalDAV access (Request #12342).
+* [mjr] Fix automatically adding organizer as attendee in dynamic view.
+* [mjr] Prompt for sending cancellation iTip when deleting an event (Bug #12415).
+* [rla] Properly display system-owned calendars when browsing DAV (Bug #12325).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.3</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
    </notes>
   </release>
  </changelog>

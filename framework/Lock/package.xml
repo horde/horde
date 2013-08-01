@@ -10,11 +10,11 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>13:55:39</time>
+ <date>2013-05-06</date>
+ <time>18:51:31</time>
  <version>
-  <release>1.0.2</release>
-  <api>1.0.0</api>
+  <release>2.1.1</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -37,6 +37,7 @@
     <dir name="Horde">
      <dir name="Lock">
       <file name="Exception.php" role="php" />
+      <file name="Mongo.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/Lock -->
@@ -52,12 +53,27 @@
      </dir> <!-- /migration/Horde/Lock -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Lock">
+      <dir name="Storage">
+       <file name="MongoTest.php" role="test" />
+       <file name="SqlTest.php" role="test" />
+       <file name="TestBase.php" role="test" />
+      </dir> <!-- /test/Horde/Lock/Storage -->
+      <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/Lock -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -65,32 +81,39 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Log</name>
     <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
     <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -99,11 +122,19 @@
    <install as="COPYING" name="doc/Horde/Lock/COPYING" />
    <install as="Horde/Lock.php" name="lib/Horde/Lock.php" />
    <install as="Horde/Lock/Exception.php" name="lib/Horde/Lock/Exception.php" />
+   <install as="Horde/Lock/Mongo.php" name="lib/Horde/Lock/Mongo.php" />
    <install as="Horde/Lock/Null.php" name="lib/Horde/Lock/Null.php" />
    <install as="Horde/Lock/Sql.php" name="lib/Horde/Lock/Sql.php" />
    <install as="migration/1_horde_lock_base_tables.php" name="migration/Horde/Lock/1_horde_lock_base_tables.php" />
    <install as="migration/2_horde_lock_upgrade_column_types.php" name="migration/Horde/Lock/2_horde_lock_upgrade_column_types.php" />
    <install as="migration/3_horde_lock_fix_owner_width.php" name="migration/Horde/Lock/3_horde_lock_fix_owner_width.php" />
+   <install as="Horde/Lock/AllTests.php" name="test/Horde/Lock/AllTests.php" />
+   <install as="Horde/Lock/bootstrap.php" name="test/Horde/Lock/bootstrap.php" />
+   <install as="Horde/Lock/conf.php.dist" name="test/Horde/Lock/conf.php.dist" />
+   <install as="Horde/Lock/phpunit.xml" name="test/Horde/Lock/phpunit.xml" />
+   <install as="Horde/Lock/Storage/MongoTest.php" name="test/Horde/Lock/Storage/MongoTest.php" />
+   <install as="Horde/Lock/Storage/SqlTest.php" name="test/Horde/Lock/Storage/SqlTest.php" />
+   <install as="Horde/Lock/Storage/TestBase.php" name="test/Horde/Lock/Storage/TestBase.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -198,12 +229,95 @@
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
+    <release>2.0.0alpha1</release>
     <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+* [rla] Add handling of permanent locks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Re-packaged 2.0.0 release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix retrieving lock list if permanent locks exist (piper@hrz.uni-marburg.de, Bug #12077).
+* [jan] Deny exclusive lock if shared locks exist.
+* [jan] Don&apos;t make lock non-permanent when resetting a permanent lock.
+* [jan] Fix retrieving information for permanent locks.
+* [jan] Add unit tests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add MongoDB driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

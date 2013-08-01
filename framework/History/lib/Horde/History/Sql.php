@@ -15,7 +15,7 @@
  * The Horde_History_Sql:: class provides a method of tracking changes in
  * Horde objects, stored in a SQL table.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -109,14 +109,15 @@ class Horde_History_Sql extends Horde_History
                     $values[] = $attributes
                         ? serialize($attributes)
                         : null;
+                    $values[] = $this->_nextModSeq();
                     $values[] = $entry['id'];
-
                     try {
-                        $r = $this->_db->update(
+                        $this->_db->update(
                             'UPDATE horde_histories SET history_ts = ?,' .
                             ' history_who = ?,' .
                             ' history_desc = ?,' .
-                            ' history_extra = ? WHERE history_id = ?', $values
+                            ' history_extra = ?,' .
+                            ' history_modseq = ? WHERE history_id = ?', $values
                         );
                     } catch (Horde_Db_Exception $e) {
                         throw new Horde_History_Exception($e);
@@ -136,7 +137,8 @@ class Horde_History_Sql extends Horde_History
                 $attributes['ts'],
                 $attributes['who'],
                 isset($attributes['desc']) ? $attributes['desc'] : null,
-                isset($attributes['action']) ? $attributes['action'] : null
+                isset($attributes['action']) ? $attributes['action'] : null,
+                $this->_nextModSeq()
             );
 
             unset($attributes['ts'], $attributes['who'], $attributes['desc'], $attributes['action']);
@@ -147,8 +149,8 @@ class Horde_History_Sql extends Horde_History
 
             try {
                 $this->_db->insert(
-                    'INSERT INTO horde_histories (object_uid, history_ts, history_who, history_desc, history_action, history_extra)' .
-                    ' VALUES (?, ?, ?, ?, ?, ?)', $values
+                    'INSERT INTO horde_histories (object_uid, history_ts, history_who, history_desc, history_action, history_modseq, history_extra)' .
+                    ' VALUES (?, ?, ?, ?, ?, ?, ?)', $values
                 );
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_History_Exception($e);
@@ -216,6 +218,45 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
+     * Return history objects with changes during a modseq interval, and
+     * optionally filtered on other fields as well.
+     *
+     * @param integer $start   The start of the modseq range.
+     * @param integer $end     The end of the modseq range.
+     * @param array   $filters An array of additional (ANDed) criteria.
+     *                         Each array value should be an array with 3
+     *                         entries:
+     *                         - field: the history field being compared (i.e.
+     *                           'action').
+     *                         - op: the operator to compare this field with.
+     *                         - value: the value to check for (i.e. 'add').
+     * @param string  $parent  The parent history to start searching at. If
+     *                         non-empty, will be searched for with a LIKE
+     *                         '$parent:%' clause.
+     *
+     * @return array  An array of history object ids, or an empty array if
+     *                none matched the criteria.
+     */
+    protected function _getByModSeq($start, $end, $filters = array(), $parent = null)
+    {
+        // Build the modseq test.
+        $where = array("history_modseq > $start AND history_modseq <= $end");
+
+        // Add additional filters, if there are any.
+        if ($filters) {
+            foreach ($filters as $filter) {
+                $where[] = 'history_' . $filter['field'] . ' ' . $filter['op'] . ' ' . $this->_db->quote($filter['value']);
+            }
+        }
+
+        if ($parent) {
+            $where[] = 'object_uid LIKE ' . $this->_db->quote($parent . ':%');
+        }
+
+        return $this->_db->selectAssoc('SELECT DISTINCT object_uid, history_id FROM horde_histories WHERE ' . implode(' AND ', $where));
+    }
+
+    /**
      * Removes one or more history entries by name.
      *
      * @param array $names  The history entries to remove.
@@ -231,8 +272,70 @@ class Horde_History_Sql extends Horde_History
         $ids = array();
         foreach ($names as $name) {
             $ids[] = $this->_db->quote($name);
+            if ($this->_cache) {
+                $this->_cache->expire('horde:history:' . $name);
+            }
         }
 
         $this->_db->delete('DELETE FROM horde_histories WHERE object_uid IN (' . implode(',', $ids) . ')');
     }
+
+    /**
+     *  Return the current value of the modseq. We take the MAX of the
+     *  horde_histories table instead of the value of the horde_histories_modseq
+     *  table to ensure we never miss an entry if we query the history system
+     *  between the time we call nextModSeq() and the time the new entry is
+     *  written.
+     *
+     * @param string $parent  Restrict to entries a specific parent.
+     *
+     * @return integer|boolean  The highest used modseq value, false if no history.
+     */
+    public function getHighestModSeq($parent = null)
+    {
+        $sql = 'SELECT history_modseq FROM horde_histories';
+        if (!empty($parent)) {
+            $sql .= ' WHERE object_uid LIKE ' . $this->_db->quote($parent . ':%');
+        }
+        $sql .= ' ORDER BY history_modseq DESC';
+        $sql = $this->_db->addLimitOffset($sql, array('limit' => 1));
+
+        try {
+            $modseq = $this->_db->selectValue($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_History_Exception($e);
+        }
+        if (is_null($modseq)) {
+            try {
+                $modseq = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories_modseq');
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_History_Exception($e);
+            }
+            if (!empty($modseq)) {
+                return $modseq;
+            } else {
+                return false;
+            }
+        }
+
+        return $modseq;
+    }
+
+    /**
+     * Increment, and return, the modseq value.
+     *
+     * @return integer  The new modseq value.
+     */
+    protected function _nextModSeq()
+    {
+        try {
+            $result = $this->_db->insert('INSERT INTO horde_histories_modseq (history_modseqempty) VALUES(0)');
+            $this->_db->delete('DELETE FROM horde_histories_modseq WHERE history_modseq <> ?', array($result));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_History_Exception($e);
+        }
+
+        return $result;
+    }
+
 }

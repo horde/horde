@@ -1,17 +1,25 @@
 <?php
 /**
- * This class is responsible for parsing/building theme elements and then
- * caching these results.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * This class is responsible for parsing/building theme elements and then
+ * caching these results.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Themes_Cache implements Serializable
 {
@@ -20,6 +28,7 @@ class Horde_Themes_Cache implements Serializable
     const APP_DEFAULT = 2;
     const HORDE_THEME = 4;
     const APP_THEME = 8;
+    const VIEW = 16;
 
     /**
      * Has the data changed?
@@ -132,6 +141,15 @@ class Horde_Themes_Cache implements Serializable
      */
     public function get($item, $mask = 0)
     {
+        if ($mask & self::VIEW) {
+            $item_dir = Horde_Themes::viewDir($GLOBALS['registry']->getView()) . '/' . $item;
+            $mask &= ~self::VIEW;
+
+            if (!is_null($out = $this->get($item_dir, $mask))) {
+                return $out;
+            }
+        }
+
         if (!($entry = $this->_get($item))) {
             return null;
         }
@@ -196,6 +214,7 @@ class Horde_Themes_Cache implements Serializable
     protected function _getOutput($app, $theme, $item)
     {
         return array(
+            'app' => $app,
             'fs' => $GLOBALS['registry']->get('themesfs', $app) . '/' . $theme . '/' . $item,
             'uri' => $GLOBALS['registry']->get('themesuri', $app) . '/' . $theme . '/' . $item
         );
@@ -220,10 +239,10 @@ class Horde_Themes_Cache implements Serializable
         if ($entry & self::HORDE_THEME) {
             $out[] = $this->_getOutput('horde', $this->_theme, $item);
         }
-        if ($entry & self::APP_DEFAULT) {
+        if (($this->_theme != 'default') && $entry & self::APP_DEFAULT) {
             $out[] = $this->_getOutput($this->_app, 'default', $item);
         }
-        if ($entry & self::HORDE_DEFAULT) {
+        if (($this->_theme != 'default') && $entry & self::HORDE_DEFAULT) {
             $out[] = $this->_getOutput('horde', 'default', $item);
         }
 
@@ -276,11 +295,15 @@ class Horde_Themes_Cache implements Serializable
     {
         $out = @unserialize($data);
 
-        if (isset($out['id']) && ($out['id'] != $this->getCacheId())) {
-            throw new Exception('Cache invalidated');
+        // Needed to generate cache ID.
+        if (isset($out['a'])) {
+            $this->_app = $out['a'];
         }
 
-        $this->_app = $out['a'];
+        if (isset($out['id']) && ($out['id'] != $this->getCacheId())) {
+            throw new Exception('Cache invalidated for ' . $out['a'] . ': ' . $out['id'] . " != ".$this->getCacheId());
+        }
+
         $this->_complete = $out['c'];
         $this->_data = $out['d'];
         $this->_theme = $out['t'];

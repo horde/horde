@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -11,6 +11,8 @@
  * @package    Db
  * @subpackage UnitTests
  */
+
+require_once __DIR__ . '/SqliteBase.php';
 
 /**
  * @author     Mike Naberezny <mike@maintainable.com>
@@ -22,11 +24,13 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_Pdo_SqliteBase
 {
     protected function setUp()
     {
-        list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
+        parent::setUp();
+
+        list($this->_conn, $this->_cache) = self::getConnection();
 
         $table = $this->_conn->createTable('unit_tests');
           $table->column('integer_value',   'integer',  array('limit' => 11, 'default' => 0));
@@ -48,7 +52,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         // read sql file for statements
         $statements = array();
         $current_stmt = '';
-        $fp = fopen(dirname(__FILE__) . '/../../fixtures/unit_tests.sql', 'r');
+        $fp = fopen(__DIR__ . '/../../fixtures/unit_tests.sql', 'r');
         while ($line = fgets($fp, 8192)) {
             $line = rtrim(preg_replace('/^(.*)--.*$/s', '\1', $line));
             if (!$line) {
@@ -689,6 +693,10 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
         $sql = "SELECT modified_at FROM sports WHERE id = 1";
         $this->assertEquals("2007-01-01", $this->_conn->selectValue($sql));
+
+        $this->_conn->addColumn('sports', 'with_default', 'integer', array('default' => 1));
+        $sql = "SELECT with_default FROM sports WHERE id = 1";
+        $this->assertEquals(1, $this->_conn->selectValue($sql));
     }
 
     public function testRemoveColumn()
@@ -1277,12 +1285,12 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
     public function testInsertAndReadInCp1257()
     {
-        list($conn,) = Horde_Db_AllTests::$connFactory->getConnection(array('charset' => 'cp1257'));
+        list($conn,) = self::getConnection(array('charset' => 'cp1257'));
         $table = $conn->createTable('charset_cp1257');
             $table->column('text', 'string');
         $table->end();
 
-        $input = file_get_contents(dirname(__FILE__) . '/../../fixtures/charsets/cp1257.txt');
+        $input = file_get_contents(__DIR__ . '/../../fixtures/charsets/cp1257.txt');
         $conn->insert("INSERT INTO charset_cp1257 (text) VALUES (?)", array($input));
         $output = $conn->selectValue('SELECT text FROM charset_cp1257');
 
@@ -1291,12 +1299,12 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
     public function testInsertAndReadInUtf8()
     {
-        list($conn,) = Horde_Db_AllTests::$connFactory->getConnection(array('charset' => 'utf8'));
+        list($conn,) = self::getConnection(array('charset' => 'utf8'));
         $table = $conn->createTable('charset_utf8');
             $table->column('text', 'string');
         $table->end();
 
-        $input = file_get_contents(dirname(__FILE__) . '/../../fixtures/charsets/utf8.txt');
+        $input = file_get_contents(__DIR__ . '/../../fixtures/charsets/utf8.txt');
         $conn->insert("INSERT INTO charset_utf8 (text) VALUES (?)", array($input));
         $output = $conn->selectValue('SELECT text FROM charset_utf8');
 
@@ -1312,24 +1320,24 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     {
         // remove any current cache.
         $this->_cache->set('tables/indexes/cache_table', '');
-        $this->assertEquals('', $this->_cache->get('tables/indexes/cache_table'));
+        $this->assertEquals('', $this->_cache->get('tables/indexes/cache_table', 0));
 
         $this->_createTestTable('cache_table');
         $idxs = $this->_conn->indexes('cache_table');
 
-        $this->assertNotEquals('', $this->_cache->get('tables/indexes/cache_table'));
+        $this->assertNotEquals('', $this->_cache->get('tables/indexes/cache_table', 0));
     }
 
     public function testCachedTableColumns()
     {
         // remove any current cache.
         $this->_cache->set('tables/columns/cache_table', '');
-        $this->assertEquals('', $this->_cache->get('tables/columns/cache_table'));
+        $this->assertEquals('', $this->_cache->get('tables/columns/cache_table', 0));
 
         $this->_createTestTable('cache_table');
         $cols = $this->_conn->columns('cache_table');
 
-        $this->assertNotEquals('', $this->_cache->get('tables/columns/cache_table'));
+        $this->assertNotEquals('', $this->_cache->get('tables/columns/cache_table', 0));
     }
 
 

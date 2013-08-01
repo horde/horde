@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Imsp_Auth:: factory.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -90,20 +90,18 @@ class Horde_Core_Factory_ImspAuth
      * @return mixed  The created Horde_Imsp_Auth subclass.
      * @throws Horde_Exception
      */
-    static protected function _factory($driver, array $params)
+    static protected function _factory($driver, array $params = array())
     {
         $driver = basename($driver);
         $class = 'Horde_Imsp_Auth_' . $driver;
+
         // Verify user/pass
         if (empty($params['username'])) {
             $params['username'] = $GLOBALS['registry']->getAuth('bare');
             $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
         }
-        if (class_exists($class)) {
-            return new $class($params);
-        }
 
-        throw new Horde_Exception(sprintf('Unable to load the definition of %s.', $class));
+        return new $class($params);
     }
 
 }

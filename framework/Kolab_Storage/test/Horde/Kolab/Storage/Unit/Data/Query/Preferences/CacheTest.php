@@ -12,14 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
-
-/**
  * Test the handling of the cached preference data query.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -92,8 +87,8 @@ extends Horde_Kolab_Storage_TestCase
                     'user/test/Preferences' => array(
                         't' => 'h-prefs.default',
                         'm' => array(
-                            1 => array('file' => dirname(__FILE__) . '/../../../../fixtures/preferences.1'),
-                            2 => array('file' => dirname(__FILE__) . '/../../../../fixtures/preferences.2'),
+                            1 => array('file' => __DIR__ . '/../../../../fixtures/preferences.1'),
+                            2 => array('file' => __DIR__ . '/../../../../fixtures/preferences.2'),
                         ),
                     )
                 )

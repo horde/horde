@@ -1,15 +1,16 @@
 <?php
 /*
- * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author Ben Klang <ben@alkaloid.net>
  */
 
 $accesskey = $prefs->getValue('widget_accesskey') ? Horde::getAccessKey(_("Select _Domain")) : '';
 $menu_view = $prefs->getValue('menu_view');
 ?>
-<div id="menu">
 <span style="float:right">
 <?php
     $link = Horde::link('#', _("Select Domain"), '', '', 'domainSubmit(true); return false;');
@@ -35,7 +36,4 @@ $menu_view = $prefs->getValue('menu_view');
         </label>
     </form>
 </span>
-<?php echo Beatnik::getMenu('string') ?>
-</div>
-<?php require HORDE_BASE . '/services/sidebar.php'; ?>
 <?php $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>

@@ -13,7 +13,7 @@
  * 'Horde_Tree:collapse'
  *   Fired when a tree element is collapsed.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -41,8 +41,8 @@ var Horde_Tree = Class.create({
             randstr += this.charlist.charAt(Math.floor(Math.random() * 26));
         }
 
-        this.childid = 'child_' + randstr + '_';
-        this.toggleid = 'toggle_' + randstr + '_';
+        this.childid = 'horde-tree-child-' + randstr + '-';
+        this.toggleid = 'horde-tree-toggle-' + randstr + '-';
 
         if (this.opts.initTree) {
             this.renderTree(this.opts.initTree.nodes, this.opts.initTree.root_nodes, this.opts.initTree.is_static);
@@ -50,8 +50,6 @@ var Horde_Tree = Class.create({
         }
 
         $(this.opts.target).observe('click', this._onClick.bindAsEventListener(this));
-
-        this.opts.ie6 = (navigator.userAgent.toLowerCase().substr(25,6)=="msie 6");
     },
 
     renderTree: function(nodes, rootNodes, renderStatic)
@@ -71,26 +69,9 @@ var Horde_Tree = Class.create({
         $(this.opts.target).update('');
         $(this.opts.target).appendChild(this.output);
 
-        if (this.opts.ie6) {
-            /* Correct for frame scrollbar in IE6 by determining if a scrollbar
-             * is present, and if not readjusting the marginRight property to
-             * 0. See http://www.xs4all.nl/~ppk/js/doctypes.html for why this
-             * works */
-            if (document.documentElement.clientHeight == document.documentElement.offsetHeight) {
-                // no scrollbar present, take away extra margin
-                $(document.body).setStyle({ marginRight: 0 });
-            } else {
-                $(document.body).setStyle({ marginRight: '15px' });
-            }
-        }
-
         // If using alternating row shading, work out correct shade.
         if (this.opts.options.alternate) {
             this.stripe();
-        }
-
-        if (window.Horde_Tooltips) {
-            window.Horde_ToolTips.attachBehavior();
         }
     },
 
@@ -147,7 +128,7 @@ var Horde_Tree = Class.create({
             column = 0,
             node = this.nodes[nodeId];
 
-        div = new Element('DIV', { className: 'treeRow' });
+        div = new Element('DIV', { className: 'horde-tree-row' });
         if (node['class']) {
             div.addClassName(node['class']);
         }
@@ -168,8 +149,8 @@ var Horde_Tree = Class.create({
 
         tmp = document.createDocumentFragment();
         for (i = Number(this.renderStatic); i < node.indent; ++i) {
-            tmp.appendChild(new Element('SPAN').addClassName('treeImg').addClassName(
-                'treeImg' + ((this.dropline[i] && this.opts.options.lines)
+            tmp.appendChild(new Element('SPAN').addClassName('horde-tree-image').addClassName(
+                'horde-tree-image-' + ((this.dropline[i] && this.opts.options.lines)
                     ? this.opts.imgLine
                     : this.opts.imgBlank)
             ));
@@ -202,7 +183,7 @@ var Horde_Tree = Class.create({
 
             label = label.wrap('SPAN');
         } else {
-            label = new Element('SPAN').addClassName('toggle').insert(
+            label = new Element('SPAN').addClassName('horde-toggle').insert(
                 this._setNodeIcon(nodeId)
             ).insert(
                 node.label
@@ -219,7 +200,7 @@ var Horde_Tree = Class.create({
             ));
         } else {
             div.appendChild(tmp);
-            div.insert(label)
+            div.insert(label);
         }
 
         ++column;
@@ -268,7 +249,7 @@ var Horde_Tree = Class.create({
             this.dropline[node.indent] = !node.node_last;
         }
 
-        return new Element('SPAN', { id: this.toggleid + nodeId }).addClassName('treeToggle').addClassName('treeImg').addClassName('treeImg' + this._getNodeToggle(nodeId));
+        return new Element('SPAN', { id: this.toggleid + nodeId }).addClassName('horde-tree-toggle').addClassName('horde-tree-image').addClassName('horde-tree-image-' + this._getNodeToggle(nodeId));
     },
 
     _getNodeToggle: function(nodeId)
@@ -381,17 +362,21 @@ var Horde_Tree = Class.create({
             node = this.nodes[nodeId];
 
         // Image.
-        if (node.icon) {
-            // Node has a user defined icon.
-            img = new Element('IMG', { id: "nodeIcon_" + nodeId, src: (node.iconopen && node.expanded ? node.iconopen : node.icon) }).addClassName('treeIcon')
+        if (!Object.isUndefined(node.icon)) {
+            if (!node.icon) {
+                return '';
+            } else {
+                // Node has a user defined icon.
+                img = new Element('IMG', { id: 'horde-node-icon-' + nodeId, src: (node.iconopen && node.expanded ? node.iconopen : node.icon) }).addClassName('horde-tree-icon');
+            }
         } else {
-            img = new Element('SPAN', { id: "nodeIcon_" + nodeId }).addClassName('treeIcon');
+            img = new Element('SPAN', { id: 'horde-node-icon-' + nodeId }).addClassName('horde-tree-icon');
             if (node.children) {
                 // Standard icon: node with children.
-                img.addClassName('treeImg' + (node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder));
+                img.addClassName('horde-tree-image-' + (node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder));
             } else {
                 // Standard icon: node, no children.
-                img.addClassName('treeImg' + this.opts.imgLeaf);
+                img.addClassName('horde-tree-image-' + this.opts.imgLeaf);
             }
         }
 
@@ -404,7 +389,7 @@ var Horde_Tree = Class.create({
 
     toggle: function(nodeId)
     {
-        var icon, nodeToggle, toggle, children,
+        var icon, toggle, children,
             node = this.nodes[nodeId];
 
         if (!node.children) {
@@ -412,13 +397,13 @@ var Horde_Tree = Class.create({
         }
 
         node.expanded = !node.expanded;
-        if (children = $(this.childid + nodeId)) {
+        if ((children = $(this.childid + nodeId))) {
             children.setStyle({ display: node.expanded ? 'block' : 'none' });
         }
 
         // Toggle the node's icon if it has separate open and closed
         // icons.
-        if (icon = $('nodeIcon_' + nodeId)) {
+        if ((icon = $('horde-node-icon-' + nodeId))) {
             // Image.
             if (node.icon) {
                 icon.writeAttribute('src', (node.expanded && node.iconopen) ? node.iconopen : node.icon);
@@ -433,13 +418,13 @@ var Horde_Tree = Class.create({
             this.stripe();
         }
 
-        if (toggle = $(this.toggleid + nodeId)) {
-            toggle.writeAttribute('class', 'treeToggle treeImg').addClassName('treeImg' + this._getNodeToggle(nodeId));
+        if ((toggle = $(this.toggleid + nodeId))) {
+            toggle.writeAttribute('class', 'horde-tree-toggle horde-tree-image').addClassName('horde-tree-image-' + this._getNodeToggle(nodeId));
         }
 
         $(this.opts.target).fire(node.expanded ? 'Horde_Tree:expand' : 'Horde_Tree:collapse', nodeId);
 
-        this.saveState(nodeId, node.expanded)
+        this.saveState(nodeId, node.expanded);
     },
 
     stripe: function()
@@ -447,7 +432,7 @@ var Horde_Tree = Class.create({
         var classes = [ 'rowEven', 'rowOdd' ],
             i = 0;
 
-        $(this.opts.target).select('DIV.treeRow').each(function(r) {
+        $(this.opts.target).select('DIV.horde-tree-row').each(function(r) {
             classes.each(r.removeClassName.bind(r));
             if (r.clientHeight) {
                 r.addClassName(classes[++i % 2]);
@@ -472,7 +457,7 @@ var Horde_Tree = Class.create({
             // Collapse requested so remove from cookie.
             oldCookie.split(',').each(function(n) {
                 if (n != nodeId) {
-                    newNodes[newNodes.length] = n
+                    newNodes[newNodes.length] = n;
                 }
             });
             newCookie = newNodes.join(',');
@@ -490,7 +475,7 @@ var Horde_Tree = Class.create({
 
         if (begin == -1) {
             begin = dc.indexOf(prefix);
-            if (begin != 0) {
+            if (begin !== 0) {
                 return '';
             }
         } else {
@@ -507,12 +492,11 @@ var Horde_Tree = Class.create({
 
     _onClick: function(e)
     {
-        var elt = e.element(),
-            id = elt.readAttribute('id');
+        var elt = e.element(), id;
 
-        if (elt.hasClassName('treeIcon')) {
+        if (elt.hasClassName('horde-tree-icon')) {
             elt = elt.up().previous();
-        } else if (elt.hasClassName('toggle')) {
+        } else if (elt.hasClassName('horde-toggle')) {
             elt = elt.previous();
         }
 

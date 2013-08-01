@@ -5,7 +5,7 @@
  * This query matches if one of the e-mails defined in the identities
  * matches the To/Cc/Bcc header of an email.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -25,31 +25,32 @@ class IMP_Search_Element_Personal extends IMP_Search_Element
     public function __construct($not = false)
     {
         /* Data element: (integer) Do a NOT search? */
-        $this->_data = intval($not);
+        $this->_data = intval(!empty($not));
     }
 
     /**
      */
     public function createQuery($mbox, $queryob)
     {
-        $and_ob = new Horde_Imap_Client_Search_Query();
+        $search_ob = new Horde_Imap_Client_Search_Query();
+        $and_ob = clone $search_ob;
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
-        foreach ($identity->getAllIdentityAddresses() as $val) {
-            $ob = new Horde_Imap_Client_Search_Query();
+        foreach ($identity->getAllIdentityAddresses()->bare_addresses as $val) {
+            $ob = clone $search_ob;
             $ob->headerText('to', $val, $this->_data);
-            $and_ob->orSearch(array($ob));
+            $and_ob->orSearch($ob);
 
-            $ob = new Horde_Imap_Client_Search_Query();
+            $ob = clone $search_ob;
             $ob->headerText('cc', $val, $this->_data);
-            $and_ob->orSearch(array($ob));
+            $and_ob->orSearch($ob);
 
-            $ob = new Horde_Imap_Client_Search_Query();
+            $ob = clone $search_ob;
             $ob->headerText('bcc', $val, $this->_data);
-            $and_ob->orSearch(array($ob));
+            $and_ob->orSearch($ob);
         }
 
-        $queryob->andSearch(array($and_ob));
+        $queryob->andSearch($and_ob);
 
         return $queryob;
     }

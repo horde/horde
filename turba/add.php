@@ -2,7 +2,7 @@
 /**
  * The Turba script to add a new entry into an address book.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -10,7 +10,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
 /* Setup some variables. */
@@ -67,9 +67,13 @@ $form = new Turba_Form_AddContact($vars, $contact);
 if ($form->validate()) {
     $form->execute();
 }
-
-$title = _("New Contact");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require TURBA_TEMPLATES . '/menu.inc';
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('add.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$formHtml = Horde::endBuffer();
+
+$page_output->header(array(
+    'title' => _("New Contact")
+));
+echo $formHtml;
+$page_output->footer();

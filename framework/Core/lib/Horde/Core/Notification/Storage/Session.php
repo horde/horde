@@ -12,7 +12,7 @@
 /**
  * A class that stores notifications in the session, using Horde_Session.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -47,7 +47,9 @@ implements Horde_Notification_Storage_Interface
     {
         if ($GLOBALS['session']->isActive()) {
             $this->_processCached();
-            $GLOBALS['session']->set('horde', 'notify/' . $key, $value);
+            if (!empty($value) || $this->exists($key)) {
+                $GLOBALS['session']->set('horde', 'notify/' . $key, $value);
+            }
         } else {
             $this->_cached[] = array($key, $value);
         }

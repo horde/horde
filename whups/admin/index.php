@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -8,12 +8,12 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('whups');
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('whups', array(
+    'permission' => array('whups:admin', Horde_Perms::EDIT)
+));
 
-if (!$registry->isAdmin(array('permission' => 'whups:admin'))) {
-    $registry->authenticateFailure('whups', $e);
-}
+Whups::addTopbarSearch();
 
 // Set up the page config vars.
 $showExtraForm = null;
@@ -37,7 +37,7 @@ $renderer = new Horde_Form_Renderer();
 // start the page
 function _open($isopened = false)
 {
-    global $vars;
+    global $notification, $vars;
     static $opened;
 
     if ($isopened) {
@@ -49,8 +49,10 @@ function _open($isopened = false)
 
         $opened = true;
         $title = _("Administration");
-        require $registry->get('templates', 'horde') . '/common-header.inc';
-        require WHUPS_TEMPLATES . '/menu.inc';
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
+        $notification->notify(array('listeners' => 'status'));
         echo $tabs->render($vars->get('action'));
     }
 }
@@ -910,7 +912,7 @@ case 'whups_form_admin_editattributestepone':
                 break;
 
             case _("Delete Attribute"):
-                $form2 = new DeleteAttributeDescForm($vars);
+                $form2 = new Whups_Form_Admin_DeleteAttribute($vars);
                 $form2->renderActive($renderer, $vars, $adminurl, 'post');
                 break;
             }
@@ -1218,4 +1220,4 @@ if (!_open(true)) {
 }
 
 _open();
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

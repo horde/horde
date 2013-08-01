@@ -1,24 +1,36 @@
 <?php
 /**
- * Wicked SearchAll class.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author Ben Chavet <ben@horde.org>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Ben Chavet <ben@horde.org>
+ * @package  Wicked
  */
-class Wicked_Page_Search extends Wicked_Page {
 
+/**
+ * Displays and handles search forms and results.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Ben Chavet <ben@horde.org>
+ * @package  Wicked
+ */
+class Wicked_Page_Search extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      * @var array
      */
     public $supportedModes = array(
         Wicked::MODE_CONTENT => true,
-        Wicked::MODE_DISPLAY => true);
+        Wicked::MODE_DISPLAY => true
+    );
 
     /**
      * Cached search results.
@@ -41,7 +53,8 @@ class Wicked_Page_Search extends Wicked_Page {
         }
         return array(
             'titles' => $GLOBALS['wicked']->searchTitles($searchtext),
-            'pages' => $GLOBALS['wicked']->searchText($searchtext, false));
+            'pages' => $GLOBALS['wicked']->searchText($searchtext, false)
+        );
     }
 
     /**
@@ -64,41 +77,40 @@ class Wicked_Page_Search extends Wicked_Page {
      *
      * @param string $searchtext  The title to search for.
      *
+     * @return string  The content.
      * @throws Wicked_Exception
      */
     public function display($searchtext)
     {
-        global $notification;
+        global $injector, $notification, $page_output, $wicked;
+
+        $view = $injector->createInstance('Horde_View');
 
         if (!$searchtext) {
-            require WICKED_TEMPLATES . '/pagelist/search.inc';
-            require WICKED_TEMPLATES . '/pagelist/footer.inc';
-            return true;
+            return $view->render('pagelist/search')
+                . $view->render('pagelist/footer');
         }
-
-        Horde::addScriptFile('tables.js', 'horde', true);
-
-        $template = $GLOBALS['injector']->createInstance('Horde_Template');
 
         /* Prepare exact match section */
         $exact = array();
         $page = new Wicked_Page_StandardPage($searchtext);
-        if ($GLOBALS['wicked']->pageExists($searchtext)) {
-            $exact[] = array('author' => htmlspecialchars($page->author()),
-                             'created' => $page->formatVersionCreated(),
-                             'name' => htmlspecialchars($page->pageName()),
-                             'context' => false,
-                             'url' => $page->pageUrl(),
-                             'version' => $page->version(),
-                             'class' => '');
+        if ($wicked->pageExists($searchtext)) {
+            $exact[] = $page->toView();
         } else {
-            $exact[] = array('author' => '',
-                             'created' => '',
-                             'name' => htmlspecialchars($searchtext),
-                             'context' => sprintf(_("%s does not exist. You can create it now."), '<strong>' . htmlspecialchars($searchtext) . '</strong>'),
-                             'url' => Wicked::url($searchtext, false),
-                             'version' => '',
-                             'class' => 'newpage');
+            $exact[] = (object)array(
+                'author' => '',
+                'context' => Wicked::url($searchtext, false)
+                    ->link(array(
+                        'title' => sprintf(_("Create %s"), $searchtext)
+                    ))
+                    . sprintf(_("%s does not exist. You can create it now."), '<strong>' . htmlspecialchars($searchtext) . '</strong>')
+                    . '</a>',
+                'date' => '',
+                'name' => htmlspecialchars($searchtext),
+                'timestamp' => 0,
+                'version' => '',
+                'url' => Wicked::url($searchtext, false)
+            );
         }
 
         /* Prepare page title matches */
@@ -110,13 +122,7 @@ class Wicked_Page_Search extends Wicked_Page {
                 $page = new Wicked_Page_StandardPage($page);
             }
 
-            $titles[] = array('author' => $page->author(),
-                              'created' => $page->formatVersionCreated(),
-                              'name' => $page->pageName(),
-                              'context' => false,
-                              'url' => $page->pageUrl(),
-                              'version' => $page->version(),
-                              'class' => '');
+            $titles[] = $page->toView();
         }
 
         /* Prepare page text matches */
@@ -127,49 +133,52 @@ class Wicked_Page_Search extends Wicked_Page {
             } else {
                 $page = new Wicked_Page_StandardPage($page);
             }
-
-            $pages[] = array('author' => $page->author(),
-                             'created' => $page->formatVersionCreated(),
-                             'name' => $page->pageName(),
-                             'context' => $this->getContext($page, $searchtext),
-                             'url' => $page->pageUrl(),
-                             'version' => $page->version(),
-                             'class' => '');
+            $object = $page->toView();
+            $object->context = $this->getContext($page, $searchtext);
+            $pages[] = $object;
         }
 
-        $template->set('hits', false, true);
+        $page_output->addScriptFile('tables.js', 'horde');
 
-        $template->set('th_page', _("Page"), true);
-        $template->set('th_version', _("Current Version"), true);
-        $template->set('th_author', _("Last Author"), true);
-        $template->set('th_updated', _("Last Update"), true);
+        $header = $injector->createInstance('Horde_View');
+        $header->th_page = _("Page");
+        $header->th_version = _("Current Version");
+        $header->th_author = _("Last Author");
+        $header->th_updated = _("Last Update");
+
+        $view = $injector->createInstance('Horde_View');
 
         // Show search form and page header.
-        require WICKED_TEMPLATES . '/pagelist/search.inc';
+        $content = $view->render('pagelist/search');
 
         // Show exact match.
-        $template->set('title', _("Exact Match"), true);
-        $template->set('pages', $exact, true);
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/results_header.html');
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
-        require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
+        $header->title = _("Exact Match");
+        $content .= $header->render('pagelist/results_header')
+            . $view->renderPartial(
+                'pagelist/page',
+                array('collection' => $exact)
+            )
+            . $view->render('pagelist/results_footer');
 
         // Show page title matches.
-        $template->set('title', _("Page Title Matches"), true);
-        $template->set('pages', $titles, true);
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/results_header.html');
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
-        require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
+        $header->title = _("Page Title Matches");
+        $content .= $header->render('pagelist/results_header')
+            . $view->renderPartial(
+                'pagelist/page',
+                array('collection' => $titles)
+            )
+            . $view->render('pagelist/results_footer');
 
         // Show page text matches.
-        $template->set('title', _("Page Text Matches"), true);
-        $template->set('pages', $pages, true);
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/results_header.html');
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
-        require WICKED_TEMPLATES . '/pagelist/results_footer.inc';
-        echo '</div>';
+        $header->title = _("Page Text Matches");
+        $content .= $header->render('pagelist/results_header')
+            . $view->renderPartial(
+                'pagelist/page',
+                array('collection' => $pages)
+            )
+            . $view->render('pagelist/results_footer');
 
-        return true;
+        return $content;
     }
 
     public function getContext($page, $searchtext)
@@ -180,7 +189,7 @@ class Wicked_Page_Search extends Wicked_Page {
             $text = $page->getText();
         }
         if (preg_match('/.{0,100}' . preg_quote($searchtext, '/') . '.{0,100}/i', $text, $context)) {
-            return preg_replace('/' . preg_quote($searchtext, '/') . '/i', '<span class="match">' . htmlspecialchars($searchtext) . '</span>', htmlspecialchars($context[0]));
+            return trim(preg_replace('/' . preg_quote($searchtext, '/') . '/i', '<span class="match">' . htmlspecialchars($searchtext) . '</span>', htmlspecialchars($context[0])));
         }
         return '';
     }

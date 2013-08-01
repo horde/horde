@@ -1,14 +1,167 @@
---------
-v3.0-git
---------
+----------
+v3.1.3-git
+----------
 
+
+
+------
+v3.1.2
+------
+
+[mms] Disable links if the underlying preferences are locked.
+[jan] Fix setting excluded addresses and mailing list flag in Sieve vacation
+      rule.
+
+
+------
+v3.1.1
+------
+
+[jan] Fix option to filter by user-defined headers (Bug #12345).
+[jan] Fix highlighting of menu entries.
+[jan] Restore compatibility with PHP 5.3 (Bug #12306).
+
+
+------
+v3.1.0
+------
+
+[mjr] Fix fatal error when updating filters.
+
+
+---------
+v3.1.0RC1
+---------
+
+[mms] Fix regression in accessing Ingo links from the external API (Bug
+      #12249).
+
+
+-----------
+v3.1.0beta1
+-----------
+
+[jan] Add composite script backends.
+[jan] Add vacation driver for ISPConfig (Michael Bunk
+      <mb@computer-leipzig.com>).
+[jan] Hide unsupported form fields of vacation form (Michael Bunk
+      <mb@computer-leipzig.com>).
+[jan] Add composite transport backends.
+[jan] Move shared ruleset selection to sidebar.
+[mms] All Ingo templates now use Horde_View.
+
+
+------
+v3.0.4
+------
+
+[mms] SECURITY: Fix XSS vulnerability on smartmobile rule page (João Machado
+      <geral@jpaulo.eu>).
+[mms] Fix copy/move actions when destination mailbox contains non ASCII
+      characters (Bug #12217).
+[mms] Translate rule descriptions to the local language in UI.
+[jan] Allow multiple addresses for Sieve redirects (it@wenn.com, Request
+      #11457).
+
+
+------
+v3.0.3
+------
+
+[jan] Fix multiple user-defined headers in a single rule (Zephaniah E.
+      Loss-Cutler-Hull, Bug #11893).
+[jan] Use more portable procmail recipe for rejects (Bug #7520).
+[jan] Fix configuration of 'forward_file' parameter (Bug #11989).
+[mms] Require non-empty subject and reason fields when creating a vacation
+      message (crohmann@netcologne.de, Request #8376).
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
+v3.0.2
+------
+
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[jan] Fix changing permissions for shared rulesets.
+
+
+------
+v3.0.1
+------
+
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+[mms] Fix PHP error notification thrown if backends 'params' parameter was
+      empty (Bug #11615).
+
+
+------
+v3.0.0
+------
+
+[mms] Add 'euser' option to 'transport_auth' hook allowing the effective user
+      to be provided for the timsieved transport driver.
+
+
+-----------
+v3.0.0beta2
+-----------
+
+[mms] Add 'transport_auth' hook to handle defining authentication parameters
+      for transport backends.
+[mms] Remove session caching of rules.
+[mms] Initial implementation of smartmobile view.
+[mms] Disable blacklist, vacation, and whitelist API methods if the preference
+      is locked.
+
+
+-----------
+v3.0.0beta1
+-----------
+
+[jan] Update icon set.
+[mms] Fix javascript actions on the vacation page.
+
+
+------------
+v3.0.0alpha1
+------------
+
+[mms] When adding to blacklist/whitelist, remove added addresses from the
+      other list.
+[jan] Allow to use placeholder variables in vacation messages (Request #10316).
+[mjr] Add ability to retrieve vacation message details from the API.
 [jan] Validate start and end dates of vacation rules (Request #10879).
 
 
-----------
-v2.0.8-git
-----------
+-------
+v2.0.10
+-------
+[mms] Correctly reindex existing rules when deleting a rule and using the SQL
+      filters storage driver.
+[mms] Don't allow a user to save a rule with no matching conditions.
 
+
+------
+v2.0.9
+------
+
+[mms] Fix patch for filtering on combination fields (Bug #11197).
+[mms] Procmail driver now explicitly sets the base Maildir directory by default
+      (Bug #10113).
+[jan] Update Turkish translation (İstanbul Technical University).
+
+
+------
+v2.0.8
+------
+
+[jan] Update Swedish translation (Per Olof Ljungmark <peo@bsdlabs.com>).
+[mms] Fix IMAP filtering on combination fields (Bug #11197).
+[jan] Fix showing blacklist option to mark message as deleted (Bug #11186).
+[jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
+[jan] Fix folder names in Procmail rules if using Maildir (Bug #10113).
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [mms] Application initialization should only be done on first access.
 
 

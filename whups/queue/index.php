@@ -2,7 +2,7 @@
 /**
  * Allows direct access to open tickets in specified queue.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -10,7 +10,7 @@
  * @author Michael J. Rubinsk <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 // See if we were passed a slug or id. Slug is tried first.
@@ -29,20 +29,11 @@ if (!$id) {
         ->redirect();
 }
 
-// Update sorting preferences.
-if (Horde_Util::getFormData('sortby') !== null) {
-    $prefs->setValue('sortby', Horde_Util::getFormData('sortby'));
-}
-if (Horde_Util::getFormData('sortdir') !== null) {
-    $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
-}
-if (Horde_Util::getFormData('isajax') !== null) {
-    exit;
-}
-
-$title = sprintf(_("Open tickets in %s"), $queue['name']);
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
+Whups::addFeedLink();
+$page_output->header(array(
+    'title' => sprintf(_("Open tickets in %s"), $queue['name'])
+));
+$notification->notify(array('listeners' => 'status'));
 
 $criteria = array('queue' => $id,
                   'category' => array('unconfirmed', 'new', 'assigned'));
@@ -64,4 +55,4 @@ try {
         'horde.error');
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

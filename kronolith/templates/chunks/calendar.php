@@ -1,4 +1,5 @@
 <?php
+
 $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
 $groups = array();
@@ -12,6 +13,27 @@ try {
 } catch (Horde_Group_Exception $e) {}
 
 $file_upload = $GLOBALS['browser']->allowFileUploads();
+
+if (!empty($GLOBALS['conf']['resource']['driver'])) {
+    $resources = Kronolith::getDriver('Resource')
+        ->listResources(Horde_Perms::READ,
+                        array('type' => Kronolith_Resource::TYPE_SINGLE));
+    $resource_enum = array();
+    foreach ($resources as $resource) {
+        $resource_enum[$resource->getId()] = htmlspecialchars($resource->get('name'));
+    }
+}
+
+$accountUrl = $GLOBALS['registry']->get('webroot', 'horde');
+if (isset($GLOBALS['conf']['urls']['pretty']) &&
+    $GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
+    $accountUrl .= '/rpc/';
+} else {
+    $accountUrl .= '/rpc.php/';
+}
+$accountUrl = Horde::url($accountUrl, true, -1)
+    . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
+
 ?>
 <div id="kronolithCalendarDialog" class="kronolithDialog">
 
@@ -44,7 +66,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 
 <div class="tabset">
   <ul>
-    <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkDescription"><?php echo _("Description") ?></a></li>
+    <li class="horde-active"><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkTags"><?php echo _("Tags") ?></a></li>
   </ul>
   <span>
@@ -80,10 +102,20 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 
 <div id="kronolithCalendarinternalTabUrls" class="kronolithTabsOption" style="display:none">
   <div id="kronolithCalendarinternalUrls">
+    <div id="kronolithCalendarinternalCaldav">
+      <label for="kronolithCalendarinternalUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this calendar from another calendar program") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlCaldav" class="kronolithLongField" onfocus="this.select()" />
+    </div>
     <div>
-      <label for="kronolithCalendarinternalUrlSub"><?php echo _("Subscription URL") ?></label>
-      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another calendar program") ?></span><br />
-      <input type="text" id="kronolithCalendarinternalUrlSub" class="kronolithLongField" onfocus="this.select()" /><br />
+      <label for="kronolithCalendarinternalUrlAccount"><?php echo _("CalDAV Account URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to all your calendars from another calendar program") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlAccount" class="kronolithLongField" onfocus="this.select()" value="<?php echo $accountUrl ?>" />
+    </div>
+    <div>
+      <label for="kronolithCalendarinternalUrlWebdav"><?php echo _("WebDAV/ICS Subscription URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this calendar from another calendar program") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlWebdav" class="kronolithLongField" onfocus="this.select()" />
     </div>
     <div>
       <label for="kronolithCalendarinternalUrlFeed"><?php echo _("Feed URL") ?></label>
@@ -100,7 +132,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendarinternalTabPerms" class="kronolithTabsOption" style="display:none">
-<?php $type = 'internal'; include dirname(__FILE__) . '/permissions.inc'; ?>
+<?php $type = 'internal'; include __DIR__ . '/permissions.inc'; ?>
 </div>
 
 <div id="kronolithCalendarinternalTabImport" class="kronolithTabsOption" style="display:none">
@@ -126,11 +158,11 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div class="kronolithFormActions">
-  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
-  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
+  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />
+  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete horde-delete" />
   <input type="button" value="<?php echo _("Subscribe") ?>" class="kronolithCalendarSubscribe button ok" style="display:none" />
-  <input type="button" value="<?php echo _("Unsubscribe") ?>" class="kronolithCalendarUnsubscribe button ko" style="display:none" />
-  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <input type="button" value="<?php echo _("Unsubscribe") ?>" class="kronolithCalendarUnsubscribe horde-delete" style="display:none" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
@@ -156,7 +188,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 
 <div class="tabset">
   <ul>
-    <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkDescription"><?php echo _("Description") ?></a></li>
+    <li class="horde-active"><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkDescription"><?php echo _("Description") ?></a></li>
   </ul>
   <span>
     <span class="kronolithSeparator">|</span>
@@ -181,15 +213,25 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendartasklistsTabUrls" class="kronolithTabsOption" style="display:none">
+  <div id="kronolithCalendartasklistsCaldav">
+    <label for="kronolithCalendartasklistsUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this task list from another calendar program") ?></span><br />
+    <input type="text" id="kronolithCalendartasklistsUrlCaldav" class="kronolithLongField" onfocus="this.select()" />
+  </div>
   <div>
-    <label for="kronolithCalendartasklistsUrlSub"><?php echo _("Subscription URL") ?></label>
-    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another calendar program") ?></span><br />
-    <input type="text" id="kronolithCalendartasklistsUrlSub" class="kronolithLongField" onfocus="this.select()" /><br />
+    <label for="kronolithCalendartasklistsUrlAccount"><?php echo _("CalDAV Account URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to all your calendars from another calendar program") ?></span><br />
+    <input type="text" id="kronolithCalendartasklistsUrlAccount" class="kronolithLongField" onfocus="this.select()" value="<?php echo $accountUrl ?>" />
+  </div>
+  <div>
+    <label for="kronolithCalendartasklistsUrlWebdav"><?php echo _("WebDAV/ICS Subscription URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this task list from another calendar program") ?></span><br />
+    <input type="text" id="kronolithCalendartasklistsUrlWebdav" class="kronolithLongField" onfocus="this.select()" />
   </div>
 </div>
 
 <div id="kronolithCalendartasklistsTabPerms" class="kronolithTabsOption" style="display:none">
-<?php $type = 'tasklists'; include dirname(__FILE__) . '/permissions.inc'; ?>
+<?php $type = 'tasklists'; include __DIR__ . '/permissions.inc'; ?>
 </div>
 
 <div id="kronolithCalendartasklistsTabExport" class="kronolithTabsOption" style="display:none">
@@ -201,11 +243,11 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div class="kronolithFormActions">
-  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
-  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
+  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />
+  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete horde-delete" />
   <input type="button" value="<?php echo _("Subscribe") ?>" class="kronolithCalendarSubscribe button ok" style="display:none" />
-  <input type="button" value="<?php echo _("Unsubscribe") ?>" class="kronolithCalendarUnsubscribe button ko" style="display:none" />
-  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <input type="button" value="<?php echo _("Unsubscribe") ?>" class="kronolithCalendarUnsubscribe horde-delete" style="display:none" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
@@ -230,9 +272,9 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div class="kronolithFormActions">
-  <input type="button" value="<?php echo _("Continue") ?>" class="kronolithCalendarContinue button ok" />
-  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
-  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <input type="button" value="<?php echo _("Continue") ?>" class="kronolithCalendarContinue horde-default" />
+  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete horde-delete" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
@@ -252,8 +294,8 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div class="kronolithFormActions">
-  <input type="button" value="<?php echo _("Continue") ?>" class="kronolithCalendarContinue button ok" />
-  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <input type="button" value="<?php echo _("Continue") ?>" class="kronolithCalendarContinue horde-default" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
@@ -271,9 +313,9 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div class="kronolithFormActions">
-  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
-  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
-  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />
+  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete horde-delete" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
@@ -295,15 +337,16 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div class="kronolithFormActions">
-  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
-  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
-  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />
+  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete horde-delete" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
 </form>
 <?php endif ?>
 
+<?php if (!empty($GLOBALS['conf']['resource']['driver'])): ?>
 <form id="kronolithCalendarFormresource" action="">
 <input type="hidden" name="type" value="resource" />
 <input id="kronolithCalendarresourceId" type="hidden" name="calendar" />
@@ -332,12 +375,51 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 <input id="kronolithCalendarresourceColor" type="hidden" name="color" />
 <input class="kronolithColorPicker" type="hidden" />
 <div class="kronolithFormActions">
-  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
-  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
-  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />
+  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete horde-delete" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
+</div>
 </form>
+
+<form id="kronolithCalendarFormresourcegroup" action="">
+<input type="hidden" name="type" value="resourcegroup" />
+<input id="kronolithCalendarresourcegroupId" type="hidden" name="calendar" />
+<div class="kronolithCalendarDiv" id="kronolithCalendarresourcegroup1">
+<div>
+  <label><?php echo _("Name") ?>:<br />
+    <input type="text" name="name" id="kronolithCalendarresourcegroupName" class="kronolithLongField" />
+  </label>
+</div>
+<div>
+  <label><?php echo _("Description") ?>:<br />
+    <textarea name="description" id="kronolithCalendarresourcegroupDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  </label>
+</div>
+<div>
+  <label><?php echo _("Resources") ?>:<br />
+   <select id="kronolithCalendarresourcegroupmembers" name="members[]" multiple="multiple">
+   <?php foreach ($resource_enum as $id => $resource_name): ?>
+    <option value="<?php echo $id ?>"><?php echo $resource_name ?></option>
+   <?php endforeach; ?>
+   </select>
+  </label>
+</div>
+
+<div>
+<input id="kronolithCalendarresourcegroupColor" type="hidden" name="color" />
+<input class="kronolithColorPicker" type="hidden" />
+<div class="kronolithFormActions">
+  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />
+  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete horde-delete" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
+</div>
+</div>
+
+</div>
+</form>
+<?php endif ?>
 
 </div>

@@ -15,7 +15,7 @@ class Vilma_Form_EditDomain extends Horde_Form
         /* Check if a form is being edited. */
         $editing = $vars->exists('domain_id');
         $domain = $GLOBALS['session']->get('vilma', 'domain');
-        parent::Horde_Form($vars, $editing ? _("Edit Domain") : _("New Domain"));
+        parent::__construct($vars, $editing ? _("Edit Domain") : _("New Domain"));
         if ($editing && !$this->isSubmitted()) {
             $domain = $GLOBALS['vilma']->driver->getDomain($vars->get('domain_id'));
         }

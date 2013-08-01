@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -10,7 +10,7 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 if (!$atdir) {
@@ -39,10 +39,6 @@ $title = ($where == '')
     ? $chora_conf['introTitle']
     : "/$where";
 
-$extraLink = $VC->hasFeature('deleted')
-    ? Horde::widget(Chora::url('browsedir', $where . '/', $branchArgs + array('sa' => ($acts['sa'] ? 0 : 1))), $acts['sa'] ? _("Hide Deleted Files") : _("Show Deleted Files"), 'widget', '', '', $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files"))
-    : '';
-
 $umap = array(
     'age' => Horde_Vcs::SORT_AGE,
     'rev' => Horde_Vcs::SORT_REV,
@@ -67,10 +63,15 @@ if ($VC->hasFeature('branches')) {
 $printAllCols = count($fileList);
 $sortdirclass = $acts['sbt'] ? 'sortdown' : 'sortup';
 
-Horde::addScriptFile('tables.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+
+Chora::header($title);
+if ($VC->hasFeature('deleted')) {
+    require CHORA_TEMPLATES . '/directory/deleted.inc';
+}
+if (!$where && is_file($chora_conf['introText'])) {
+    require CHORA_TEMPLATES . '/directory/intro.inc';
+}
 require CHORA_TEMPLATES . '/directory/header.inc';
 
 /* Unless we're at the top, display the 'back' bar. */
@@ -137,4 +138,4 @@ if ($readmes) {
     $readmeRenderer = new Chora_Renderer_File_Html($injector->createInstance('Horde_View'), $readmeFile, $readmeFile->getRevision());
     echo $readmeRenderer->render();
 }
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

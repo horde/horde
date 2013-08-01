@@ -35,44 +35,34 @@ class Horde_Controller_Request_Http implements Horde_Controller_Request
         return $serverVars['REQUEST_METHOD'];
     }
 
-    /**
-     * Gets the request variables GET, POST, COOKIE, SERVER, REQUEST etc.
-     *
-     * @param string $name  The name of the superglobal whose vars to return
-     */
-    protected function getVars($name)
-    {
-        return $GLOBALS['_' . $name];
-    }
-
     public function getGetVars()
     {
-        return $this->getVars('GET');
+        return $_GET;
     }
 
     public function getFileVars()
     {
-        return $this->getVars('FILES');
+        return $_FILES;
     }
 
     public function getServerVars()
     {
-        return $this->getVars('SERVER');
+        return $_SERVER;
     }
 
     public function getPostVars()
     {
-        return $this->getVars('POST');
+        return $_POST;
     }
 
     public function getCookieVars()
     {
-        return $this->getVars('COOKIE');
+        return $_COOKIE;
     }
 
     public function getRequestVars()
     {
-        return $this->getVars('REQUEST');
+        return $_REQUEST;
     }
 
     public function getSessionId()

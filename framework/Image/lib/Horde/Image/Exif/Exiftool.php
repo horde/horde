@@ -2,7 +2,7 @@
 /**
  * Exiftool driver for reading/writing image meta data
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -51,7 +51,9 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
             $tags .= ' -' . $field;
         }
         $command = '-j' . $tags . ' ' . $image;
+        $this->_logDebug('Command executed by Exiftool: ' . $command);
         $results = json_decode($this->_execute($command));
+        $this->_logDebug('Results of Exiftool command: ' . print_r($results, true));
         if (is_array($results)) {
             return $this->_processData((array)array_pop($results));
         }

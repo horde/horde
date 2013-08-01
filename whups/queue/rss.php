@@ -2,7 +2,7 @@
 /**
  * Whups RSS feed.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -10,7 +10,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 // See if we were passed a slug or id. Slug is tried first.
@@ -105,12 +105,8 @@ if (isset($type) && isset($queue['name'])) {
 }
 $template->set('title', htmlspecialchars($rss_title));
 $template->set('items', $items, true);
-$template->set('url',
-               Horde_Util::addParameter(Horde::url('queue/', true, -1),
-                                  'id', $id));
-$template->set('rss_url',
-               Horde_Util::addParameter(Horde::url('rss.php', true, -1),
-                                  'id',  $id));
+$template->set('url', Horde::url('queue/', true, -1)->add('id', $id));
+$template->set('rss_url', Horde::url('rss.php', true, -1)->add('id', $id));
 if (isset($queue['name'])) {
     $description = sprintf(_("Open tickets in %s"), $queue['name']);
 } else {

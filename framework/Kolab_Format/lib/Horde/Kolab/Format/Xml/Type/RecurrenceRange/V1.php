@@ -14,13 +14,11 @@
 /**
  * Handles api version 1 of the recurrence range attribute.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
  * http://www.horde.org/licenses/lgpl21.
- *
- * @since Horde_Kolab_Format 1.1.0
  *
  * @category Kolab
  * @package  Kolab_Format
@@ -88,7 +86,7 @@ extends Horde_Kolab_Format_Xml_Type_String
             return null;
         }
         if ($type == 'date') {
-            return Horde_Kolab_Format_Date::decodeDate($result);
+            return Horde_Kolab_Format_Date::readDate($result);
         }
         return $result;
     }
@@ -122,7 +120,7 @@ extends Horde_Kolab_Format_Xml_Type_String
     {
         if (isset($attributes['range-type']) &&
             $attributes['range-type'] == 'date') {
-            $attributes[$name] = Horde_Kolab_Format_Date::encodeDate($attributes[$name]);
+            $attributes[$name] = Horde_Kolab_Format_Date::writeDate($attributes[$name]);
         }
         $node = parent::save(
             $name, $attributes, $parent_node, $helper, $params

@@ -3,7 +3,7 @@
  * TimeObjects driver for exposing weatherunderground information via the
  * listTimeObjects API.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -213,10 +213,12 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             }
         }
 
-        if (is_array($location)) {
+        if (is_array($location) && count($location)) {
             $location = $location[0];
         }
-        $this->_location = $location->code;
+        if ($location) {
+            $this->_location = $location->code;
+        }
     }
 
     /**

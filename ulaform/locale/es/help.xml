@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
 
-<entry id="form-action">
+<entry id="form-action" state="uptodate" md5="2602c213308d7a2e2e2dd526bd4f5b9c">
     <title>Creación de formularios: Acción</title>
     <heading>Acción</heading>
     <para>Puede seleccionar qué tipo de acción disparará el formulario al enviarlo. Las acciones instaladas actualmente se listan en el menú desplegable.</para>
-</entry>
+  </entry>
 
-<entry id="on-submit">
+<entry id="on-submit" state="uptodate" md5="ed9ced1ca59e2ce7718a23bf252bc119">
 	<title>Creación de formularios: Envío</title>
     <heading>Envío</heading>
     <para>Puede incluir cualquier javascript válido que se ejecutará cuando se envíe el formulario.</para>
-</entry>
+  </entry>
 
 </help>

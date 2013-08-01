@@ -1,6 +1,3 @@
-<?php if (!empty($this->menu)): ?>
-<?php echo $this->menu; ?>
-<?php endif; ?>
 <?php echo $this->notify; ?>
 
 <?php if (!empty($this->messages)): ?>

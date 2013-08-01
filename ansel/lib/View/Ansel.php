@@ -1,7 +1,7 @@
 <?php
 /**
  * Abstract Ansel_View class for Ansel UI specific views.
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -40,8 +40,7 @@ abstract class Ansel_View_Ansel extends Ansel_View_Base
      */
     public function addWidget($widget)
     {
-        $result = $widget->attach($this);
-        if (!empty($result)) {
+        if ($widget->attach($this)) {
             $this->_widgets[] = $widget;
         }
     }

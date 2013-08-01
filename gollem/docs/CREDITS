@@ -14,7 +14,7 @@ Localization
 ============
 
 ======================  ===============================================
-Basque                  Euskal Herriko Unibertsitatea <xabier.arrieta@ehu.es>
+Basque                  Euskal Herriko Unibertsitatea <webmaster@ehu.es>
 Brazilian Portuguese    Fábio Gomes <flgoms@uol.com.br>
                         Luis Felipe Marzagao <duli@fedoraproject.org>
                         Eduardo de Carli <carliedu@ig.com.br>
@@ -26,6 +26,7 @@ Czech                   Pavel Chytil <pchytil@asp.ogi.edu>
 Danish                  Brian Truelsen <horde+i18n@briantruelsen.dk>
 Dutch                   Jan Kuipers <jrkuipers@lauwerscollege.nl>
                         Peter Arien <peter.arien@cc.kuleuven.ac.be>
+                        Arjen de Korte <build+horde@de-korte.org>
 Estonian                Alar Sing <alar.sing@err.ee>
 Finnish                 Leena Heino <leena.heino@uta.fi>
 French                  Remi Cohen-Scali <Remi@Cohen-Scali.com>
@@ -48,12 +49,14 @@ Romanian                Eugen Hoanca <eugenh@urban-grafx.ro>
 Russian                 Anton Nekhoroshih <anton@valuehost.ru>
 Slovak                  Martin Matuška <martin@matuska.org>
                         Alexey Zakharov <baber@mosga.net>
+                        Jozef Sudolský <jozef.sudolsky@elbia.sk>
 Slovenian               Duck <duck@obala.net>
 Spanish                 Raúl Alvarez Venegas <rav@tecoman.ucol.mx>
                         Manuel Perez Ayala <mperaya@alcazaba.unex.es>
                         Juan C. Blanco <jcblanco@fi.upm.es>
 Swedish                 Andreas Dahlén <andreas@dahlen.ws>
 Turkish                 Middle East Technical University <horde-tr@metu.edu.tr>
+                        İstanbul Technical University <sistemdestek@itu.edu.tr>
 Ukrainian               Andriy Kopystyansky <anri@polynet.lviv.ua>
 ======================  ===============================================
 

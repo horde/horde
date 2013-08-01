@@ -9,7 +9,7 @@
  * See http://wiki.horde.org/SyncHowTo for a description how to create a test
  * case.
  *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -41,7 +41,7 @@ define('SYNCMLTEST_USERNAME', 'syncmltest');
 $syncml_backend_driver = 'Horde';
 $syncml_backend_parms = array(
     /* debug output to this dir, must be writeable be web server: */
-    'debug_dir' => '/tmp/sync',
+    'debug_dir' => Horde::getTempDir().'/sync',
     /* log all (wb)xml packets received or sent to debug_dir: */
     'debug_files' => true,
     /* Log everything: */
@@ -86,7 +86,7 @@ require_once 'SyncML/Backend.php';
 
 /* Do Horde includes if test for horde backend: */
 if ($syncml_backend_driver == 'Horde') {
-    require_once dirname(__FILE__) . '/../../../lib/Application.php';
+    require_once __DIR__ . '/../../../lib/Application.php';
     Horde_Registry::appInit('horde', array('cli' => true, 'session_control' => 'none'));
 }
 

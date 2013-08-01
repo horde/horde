@@ -1,17 +1,28 @@
 <?php
 /**
- * Wicked RevertPage class (for confirming reversions).
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @package  Wicked
  */
-class Wicked_Page_RevertPage extends Wicked_Page {
 
+/**
+ * Displays and handles forms for confirming reversions of page history.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @package  Wicked
+ */
+class Wicked_Page_RevertPage extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *
@@ -78,8 +89,8 @@ class Wicked_Page_RevertPage extends Wicked_Page {
 <div class="headerbox" style="padding:4px">
  <p><?php echo $msg ?></p>
  <p>
-  <input type="submit" value="<?php echo _("Revert") ?>" class="button" />
-  <a class="button" href="<?php echo Wicked::url($page->pageName()) ?>"><?php echo _("Cancel") ?></a>
+  <input type="submit" value="<?php echo _("Revert") ?>" class="horde-default" />
+  <a class="horde-cancel" href="<?php echo Wicked::url($page->pageName()) ?>"><?php echo _("Cancel") ?></a>
  </p>
 </div>
 

@@ -1,12 +1,25 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Test_Size class represents a message size test.
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Ingo
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The Ingo_Script_Sieve_Test_Size class represents a message size test.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Script_Sieve_Test_Size extends Ingo_Script_Sieve_Test
 {
@@ -30,7 +43,7 @@ class Ingo_Script_Sieve_Test_Size extends Ingo_Script_Sieve_Test
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
         return 'size ' . $this->_vars['comparison'] . ' ' . $this->_vars['size'];
     }
@@ -50,5 +63,4 @@ class Ingo_Script_Sieve_Test_Size extends Ingo_Script_Sieve_Test
 
         return true;
     }
-
 }

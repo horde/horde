@@ -2,7 +2,7 @@
 /**
  * This file contains all Horde_Form classes for form reply administration.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -16,7 +16,7 @@ class Whups_Form_Admin_EditReplyStepOne extends Horde_Form
     public function __construct(&$vars)
     {
         parent::__construct($vars, _("Edit or Delete Form Replies"));
-        $this->setButtons(array(_("Edit Form Reply"), _("Delete Form Reply")));
+        $this->setButtons(array(_("Edit Form Reply"), array('class' => 'horde-delete', 'value' => _("Delete Form Reply"))));
 
         $replies = $GLOBALS['whups_driver']->getReplies($vars->get('type'));
         if ($replies) {

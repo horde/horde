@@ -74,7 +74,7 @@ class IMP_Hooks
            return Horde::url('', false, array('app' => 'turba'));
 
        case 'h-prefs':
-           return Horde::getServiceLink('prefs', 'horde');
+           return $GLOBALS['registry']->getServiceLink('prefs', 'horde');
 
        default:
            return '';

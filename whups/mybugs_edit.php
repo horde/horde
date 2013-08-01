@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -10,7 +10,7 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
 // Instantiate the blocks objects.
@@ -29,8 +29,11 @@ if ($layout->updated()) {
     }
 }
 
-$title = sprintf(_("My %s :: Add Content"), $registry->get('name'));
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
+Whups::addTopbarSearch();
+
+$page_output->header(array(
+    'title' => sprintf(_("My %s :: Add Content"), $registry->get('name'))
+));
+$notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/portal/edit.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -2,7 +2,7 @@
 /**
  * Gollem quota script.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -13,29 +13,29 @@
  * @package  Gollem
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
 /* Is this a popup window? */
 $isPopup = $browser->hasFeature('javascript');
 
 /* Set up the template object. */
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
+$template = $injector->createInstance('Horde_View');
 if ($isPopup) {
-    $template->set('closebutton', _("Close"));
-    Horde::addInlineScript(array(
+    $template->closebutton = _("Close");
+    $page_output->topbar = $page_output->sidebar = false;
+    $page_output->addInlineScript(array(
         '$("closebutton").observe("click", function() { window.close(); })'
-    ), 'dom');
+    ), true);
 }
 
 /* Get the quota information. */
-$template->set('noquota', true, true);
-$template->set('quotaerror', false, true);
-$template->set('quotadisplay', false, true);
-$template->set('quotagraph', false, true);
-if (Gollem::$backend['quota_val'] > -1) {
-    $template->set('noquota', false, true);
+$template->noquota = true;
+$template->quotaerror = false;
+$template->quotadisplay = false;
+$template->quotagraph = false;
+if (!empty(Gollem::$backend['quota'])) {
+    $template->noquota = false;
     try {
         $quota_info = $injector->getInstance('Gollem_Vfs')->getQuota();
         $usage = $quota_info['usage'] / (1024 * 1024.0);
@@ -43,23 +43,22 @@ if (Gollem::$backend['quota_val'] > -1) {
 
         $percent = ($usage * 100) / $limit;
         if ($percent >= 90) {
-            $template->set('quotastyle', '<div style="color:red">');
+            $template->quotastyle = '<div style="color:red">';
         } else {
-            $template->set('quotastyle', '<div>');
+            $template->quotastyle = '<div>';
         }
-        $template->set('quotadisplay', sprintf(_("%.2fMB / %.2fMB  (%.2f%%)"), $usage, $limit, $percent), true);
+        $template->quotadisplay = sprintf(_("%.2fMB / %.2fMB  (%.2f%%)"), $usage, $limit, $percent);
     } catch (Horde_Vfs_Exception $e) {
-        $template->set('quotaerror', true, true);
-        $template->set('quotaerrormsg', $e->getMessage());
+        $template->quotaerror = true;
+        $template->quotaerrormsg = $e->getMessage();
     }
 }
 
-$title = _("Quota Display");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require GOLLEM_TEMPLATES . '/javascript_defs.php';
+$page_output->header(array(
+    'title' => _("Quota Display")
+));
 if (!$isPopup) {
-    Gollem::menu();
-    Gollem::status();
+    $notification->notify(array('listeners' => 'status'));
 }
-echo $template->fetch(GOLLEM_TEMPLATES . '/quota/quota.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+echo $template->render('quota');
+$page_output->footer();

@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Agora through this API.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -17,7 +17,7 @@
 
 /* Determine the base directories. */
 if (!defined('AGORA_BASE')) {
-    define('AGORA_BASE', dirname(__FILE__) . '/..');
+    define('AGORA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -108,48 +108,6 @@ class Agora_Application extends Horde_Registry_Application
 
         $url = Horde::url('search.php')->add('scope', $scope);
         $menu->add($url, _("_Search"), 'search.png');
-    }
-
-    /**
-     */
-    public function prefsInit($ui)
-    {
-        /* Hide prefGroups. */
-        if (!$GLOBALS['conf']['avatar']['allow_avatars']) {
-            $ui->suppressGroups[] = 'display_avatar';
-        }
-    }
-
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'avatar_link':
-                $vfs = Agora::getVFS();
-                if (($vfs instanceof PEAR_Error) ||
-                    !$GLOBALS['conf']['avatar']['enable_gallery'] ||
-                    !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
-                    $ui->suppress[] = 'avatar_link';
-                } else {
-                    Horde::addScriptFile('popup.js', 'horde', true);
-                }
-                break;
-            }
-        }
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'avatarselect':
-            return $this->_accountsManagement($ui);
-        }
-
-        return '';
     }
 
 }

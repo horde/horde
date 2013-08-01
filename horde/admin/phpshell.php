@@ -2,22 +2,23 @@
 /**
  * PHP Shell.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-$permission = 'phpshell';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() &&
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:phpshell')
+));
+
+$vars = $injector->getInstance('Horde_Variables');
 
 $apps_tmp = $registry->listApps();
 $apps = array();
@@ -31,37 +32,22 @@ foreach ($apps_tmp as $app) {
 }
 asort($apps);
 
-$application = Horde_Util::getFormData('app', 'horde');
-$command = trim(Horde_Util::getFormData('php'));
+$application = $vars->get('app', 'horde');
+$command = trim($vars->php);
 
 $title = _("PHP Shell");
-Horde::addScriptFile('stripe.js', 'horde');
-require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/admin/menu.inc';
 
-?>
-<div>
-<form action="<?php echo Horde::url('admin/phpshell.php') ?>" method="post">
-<?php Horde_Util::pformInput() ?>
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/admin'
+));
+$view->addHelper('Horde_Core_View_Helper_Help');
+$view->addHelper('Text');
 
-<h1 class="header"><?php echo $title ?></h1>
-<br />
-<label for="app"><?php echo _("Application Context: ") ?></label>
-<select id="app" name="app">
-<?php foreach ($apps as $app => $name): ?>
- <option value="<?php echo $app ?>"<?php if ($application == $app) echo ' selected="selected"' ?>><?php echo $name ?></option>
-<?php endforeach; ?>
-</select><br /><br />
-
-<label for="php" class="hidden"><?php echo _("PHP") ?></label>
-<textarea class="fixed" id="php" name="php" rows="10" cols="80">
-<?php if (!empty($command)) echo htmlspecialchars($command) ?></textarea>
-<br />
-<input type="submit" class="button" value="<?php echo _("Execute") ?>" />
-<?php echo Horde_Help::link('admin', 'admin-phpshell') ?>
-</form><br />
-
-<?php
+$view->action = Horde::url('admin/phpshell.php');
+$view->application = $application;
+$view->apps = $apps;
+$view->command = $command;
+$view->title = $title;
 
 if ($command) {
     $pushed = $registry->pushApp($application);
@@ -72,22 +58,24 @@ if ($command) {
     $part->buildMimeIds();
 
     $pretty = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($part)->render('inline');
-
-    echo '<h1 class="header">' . _("PHP Code") . '</h1>' .
-        $pretty[1]['data'] .
-        '<br />' .
-        '<h1 class="header">' . _("Results") . '</h1>' .
-        '<pre class="text">';
-    eval($command);
-    echo '</pre>';
+    $view->pretty = $pretty[1]['data'];
+    Horde::startBuffer();
+    try {
+        eval($command);
+    } catch (Exception $e) {
+        echo $e;
+    }
+    $view->command_exec = Horde::endBuffer();
 
     if ($pushed) {
         $registry->popApp();
     }
 }
-?>
 
-</div>
-<?php
-
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
+require HORDE_TEMPLATES . '/admin/menu.inc';
+echo $view->render('phpshell');
+$page_output->footer();

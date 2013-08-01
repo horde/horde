@@ -1,17 +1,12 @@
 <?php
 /**
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/bsd
  */
-
-/**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Autoload.php';
 
 function backtraceTestFunction()
 {
@@ -93,9 +88,9 @@ class Horde_Support_BacktraceTest extends PHPUnit_Framework_TestCase
         $backtrace = new Horde_Support_Backtrace(array_slice($this->instanceMethod(), 0, 4));
         $file = __FILE__;
         $this->assertEquals("1. Horde_Support_BacktraceTest->testToString()
-2. Horde_Support_BacktraceTest->instanceMethod() $file:93
-3. Horde_Support_BacktraceTest::staticMethod() $file:33
-4. backtraceTestFunction() $file:38
+2. Horde_Support_BacktraceTest->instanceMethod() $file:88
+3. Horde_Support_BacktraceTest::staticMethod() $file:28
+4. backtraceTestFunction() $file:33
 ",
                             (string)$backtrace);
     }

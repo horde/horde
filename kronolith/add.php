@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
@@ -45,12 +45,12 @@ do {
         }
         if ($user == $GLOBALS['registry']->getAuth() &&
             !$kronolith_calendar->hasPermission(Horde_Perms::EDIT)) {
-            $notification->push(sprintf(_("You do not have permission to add events to %s."), $kronolith_calendar->name()), 'horde.warning');
+            $notification->push(_("You do not have permission to add events to this calendar."), 'horde.warning');
             break;
         }
         if ($user != $GLOBALS['registry']->getAuth() &&
             !$kronolith_calendar->hasPermission(Kronolith::PERMS_DELEGATE)) {
-            $notification->push(sprintf(_("You do not have permission to delegate events to %s."), Kronolith::getUserName($user)), 'horde.warning');
+            $notification->push(_("You do not have permission to delegate events to this user."), 'horde.warning');
             break;
         }
         $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');

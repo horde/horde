@@ -3,7 +3,7 @@
  * The Horde_Perms_Sql:: class provides a SQL driver for the Horde
  * permissions system.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -102,7 +102,10 @@ class Horde_Perms_Sql extends Horde_Perms_Base
         }
 
         $perm = $this->_cache->get('perm_sql_' . $this->_cacheVersion . $name, $GLOBALS['conf']['cache']['default_lifetime']);
-        if (empty($perm)) {
+        if (!empty($perm)) {
+            $this->_permsCache[$name] = unserialize($perm);
+        }
+        if (empty($this->_permsCache[$name])) {
             $query = 'SELECT perm_id, perm_data FROM ' .
                 $this->_params['table'] . ' WHERE perm_name = ?';
 
@@ -113,7 +116,7 @@ class Horde_Perms_Sql extends Horde_Perms_Base
             }
 
             if (empty($result)) {
-                throw new Horde_Perms_Exception('Does not exist');
+                throw new Horde_Perms_Exception('Does not exist', Horde_Perms_Exception::NOT_EXIST);
             }
 
             $object = new Horde_Perms_Permission_Sql($name, $this->_cacheVersion);
@@ -123,8 +126,6 @@ class Horde_Perms_Sql extends Horde_Perms_Base
             $this->_cache->set('perm_sql_' . $this->_cacheVersion . $name, serialize($object));
 
             $this->_permsCache[$name] = $object;
-        } else {
-            $this->_permsCache[$name] = unserialize($perm);
         }
 
         $this->_permsCache[$name]->setObs($this->_cache, $this->_db);
@@ -156,7 +157,7 @@ class Horde_Perms_Sql extends Horde_Perms_Base
             }
 
             if (empty($result)) {
-                throw new Horde_Perms_Exception('Does not exist');
+                throw new Horde_Perms_Exception('Does not exist', Horde_Perms_Exception::NOT_EXIST);
             }
 
             $object = new Horde_Perms_Permission_Sql($result['perm_name'], $this->_cacheVersion);
@@ -365,7 +366,7 @@ class Horde_Perms_Sql extends Horde_Perms_Base
         }
 
         if (empty($result)) {
-            throw new Horde_Perms_Exception('Does not exist');
+            throw new Horde_Perms_Exception('Does not exist', Horde_Perms_Exception::NOT_EXIST);
         }
 
         return $this->_getParents($result);

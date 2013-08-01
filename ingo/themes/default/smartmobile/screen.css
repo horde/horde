@@ -1,0 +1,12 @@
+/* Rule styles. */
+#rule dt {
+    background-color: #ddd;
+    padding: 3px;
+}
+#rule dd {
+    margin: 15px 0 15px 30px;
+}
+#ingo-rule-description {
+    font-family: monospace;
+    white-space: pre;
+}

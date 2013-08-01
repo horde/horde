@@ -2,7 +2,7 @@
 /**
  * This class represent a single day of free busy information sets.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information.
  *
@@ -16,7 +16,7 @@ class Kronolith_FreeBusy_View_Day extends Kronolith_FreeBusy_View
 
     protected function _title()
     {
-        global $registry, $prefs;
+        global $prefs;
 
         $prev = new Horde_Date($this->_start);
         $prev->mday--;

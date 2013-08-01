@@ -1,0 +1,42 @@
+From: user
+To: user
+Date: Tue, 11 Sep 2012 09:06:04 +0200
+Subject: ABC1234
+User-Agent: Horde::Kolab::Storage v@version@
+MIME-Version: 1.0
+X-Kolab-Type: application/x-vnd.kolab.note
+Content-Type: multipart/mixed; name="Kolab Groupware Data";
+ boundary="=_23WLX7vgjhlQTuLb6j00EAA"
+Content-Disposition: attachment; filename="Kolab Groupware Data"
+
+This message is in MIME format.
+
+--=_23WLX7vgjhlQTuLb6j00EAA
+Content-Type: text/plain; name="Kolab Groupware Information"; charset=utf-8
+Content-Disposition: inline; filename="Kolab Groupware Information"
+
+This is a Kolab Groupware object. To view this object you will need an email
+client that understands the Kolab Groupware format. For a list of such email
+clients please visit http://www.kolab.org/content/kolab-clients
+--=_23WLX7vgjhlQTuLb6j00EAA
+Content-Type: application/x-vnd.kolab.note; name=kolab.xml
+Content-Disposition: inline; x-kolab-type=xml; filename=kolab.xml
+Content-Transfer-Encoding: quoted-printable
+
+<?xml version=3D"1.0" encoding=3D"UTF-8"?>
+<note version=3D"1.0">
+  <uid>ABC1234</uid>
+  <body></body>
+  <categories></categories>
+  <creation-date>2012-09-11T09:06:04Z</creation-date>
+  <last-modification-date>2012-09-11T07:06:04Z</last-modification-date>
+  <sensitivity>public</sensitivity>
+  <product-id>Horde_Kolab_Format_Xml-@version@ (api version: 2)</product-id=
+>
+  <summary>TEST</summary>
+  <x-test>other client</x-test>
+  <background-color>#000000</background-color>
+  <foreground-color>#ffff00</foreground-color>
+</note>
+
+--=_23WLX7vgjhlQTuLb6j00EAA--

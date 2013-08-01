@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -49,7 +49,7 @@ function _mail($story_part, $from, $recipients, $subject, $note)
     return $mail->send(Horde::getMailerConfig());
 }
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('jonah', array(
     'authentication' => 'none',
     'session_control' => 'readonly'
@@ -95,8 +95,7 @@ if ($form->validate($vars)) {
 
     $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($channel_id);
     if (empty($channel['channel_story_url'])) {
-        $story_url = Horde::url('stories/view.php', true);
-        $story_url = Horde_Util::addParameter($story_url, array('channel_id' => '%c', 'id' => '%s'));
+        $story_url = Horde::url('stories/view.php', true)->add(array('channel_id' => '%c', 'id' => '%s'));
     } else {
         $story_url = $channel['channel_story_url'];
     }
@@ -127,17 +126,11 @@ if ($form->validate($vars)) {
     }
 }
 
-$share_template = new Horde_Template();
+$page_output->topbar = $page_output->sidebar = false;
 
-// Buffer the form and notifications and send to the template
-Horde::startBuffer();
+$page_output->header(array(
+    'title' => $title
+));
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive(null, $vars, Horde::url('stories/share.php'), 'post');
-$share_template->set('main', Horde::endBuffer());
-
-Horde::startBuffer();
-$GLOBALS['notification']->notify(array('listeners' => 'status'));
-$share_template->set('notify', Horde::endBuffer());
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $share_template->fetch(JONAH_TEMPLATES . '/stories/share.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

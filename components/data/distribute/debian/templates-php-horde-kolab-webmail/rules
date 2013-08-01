@@ -8,27 +8,27 @@ DESTDIR=$(CURDIR)/debian/php-horde-$(HORDENAME)
 
 binary: build
 	dh binary --buildsystem=phppear --with phppear --until dh_install
-	dh_installdirs etc/horde4
+	dh_installdirs etc/horde
 	# config of "horde" app:
-	mv $(DESTDIR)/usr/share/horde4/config $(DESTDIR)/etc/horde4/horde
-	dh_link etc/horde4/horde usr/share/horde4/config
+	mv $(DESTDIR)/usr/share/horde/config $(DESTDIR)/etc/horde/horde
+	dh_link etc/horde/horde usr/share/horde/config
 	# config of "imp" app:
-	mv $(DESTDIR)/usr/share/horde4/imp/config $(DESTDIR)/etc/horde4/imp
-	dh_link etc/horde4/imp usr/share/horde4/imp/config
+	mv $(DESTDIR)/usr/share/horde/imp/config $(DESTDIR)/etc/horde/imp
+	dh_link etc/horde/imp usr/share/horde/imp/config
 	# config of "ingo" app:
-	mv $(DESTDIR)/usr/share/horde4/ingo/config $(DESTDIR)/etc/horde4/ingo
-	dh_link etc/horde4/ingo usr/share/horde4/ingo/config
+	mv $(DESTDIR)/usr/share/horde/ingo/config $(DESTDIR)/etc/horde/ingo
+	dh_link etc/horde/ingo usr/share/horde/ingo/config
 	# config of "kronolith" app:
-	mv $(DESTDIR)/usr/share/horde4/kronolith/config $(DESTDIR)/etc/horde4/kronolith
-	dh_link etc/horde4/kronolith usr/share/horde4/kronolith/config
+	mv $(DESTDIR)/usr/share/horde/kronolith/config $(DESTDIR)/etc/horde/kronolith
+	dh_link etc/horde/kronolith usr/share/horde/kronolith/config
 	# config of "mnemo" app:
-	mv $(DESTDIR)/usr/share/horde4/mnemo/config $(DESTDIR)/etc/horde4/mnemo
-	dh_link etc/horde4/mnemo usr/share/horde4/mnemo/config
+	mv $(DESTDIR)/usr/share/horde/mnemo/config $(DESTDIR)/etc/horde/mnemo
+	dh_link etc/horde/mnemo usr/share/horde/mnemo/config
 	# config of "nag" app:
-	mv $(DESTDIR)/usr/share/horde4/nag/config $(DESTDIR)/etc/horde4/nag
-	dh_link etc/horde4/nag usr/share/horde4/nag/config
+	mv $(DESTDIR)/usr/share/horde/nag/config $(DESTDIR)/etc/horde/nag
+	dh_link etc/horde/nag usr/share/horde/nag/config
 	# config of "turba" app:
-	mv $(DESTDIR)/usr/share/horde4/turba/config $(DESTDIR)/etc/horde4/turba
-	dh_link etc/horde4/turba usr/share/horde4/turba/config
+	mv $(DESTDIR)/usr/share/horde/turba/config $(DESTDIR)/etc/horde/turba
+	dh_link etc/horde/turba usr/share/horde/turba/config
 	# back to debhelper:
 	dh binary --buildsystem=phppear --with phppear --after dh_install

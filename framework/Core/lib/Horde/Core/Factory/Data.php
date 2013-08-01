@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Data:: factory.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -38,14 +38,11 @@ class Horde_Core_Factory_Data extends Horde_Core_Factory_Base
      */
     public function create($driver, array $params = array())
     {
+        $class = $this->_getDriverName($driver, 'Horde_Data');
         $params['browser'] = $this->_injector->getInstance('Horde_Browser');
-        $params['vars'] = Horde_Variables::getDefaultVariables();
+        $params['vars'] = $this->_injector->getInstance('Horde_Variables');
 
-        if (strcasecmp($driver, 'csv') === 0) {
-            $params['charset'] = 'UTF-8';
-        }
-
-        return Horde_Data::factory($driver, $params);
+        return new $class($this->_injector->getInstance('Horde_Core_Data_Storage'), $params);
     }
 
 }

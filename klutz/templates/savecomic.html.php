@@ -25,7 +25,7 @@
  <input name="tags" type="text" />
 </p>
 <div class="nowrap">
- <input type="submit" name="submit" class="button" value="<?php echo _("Submit") ?>" />&nbsp;
- <input type="button" class="button" onclick="window.close();" value="<?php echo _("Cancel") ?>" />
+ <input type="submit" name="submit" class="horde-default" value="<?php echo _("Submit") ?>" />&nbsp;
+ <input type="button" class="horde-cancel" onclick="window.close();" value="<?php echo _("Cancel") ?>" />
 </div>
 </form>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 $cmd = Horde_Util::getFormData('cmd');
@@ -28,8 +28,11 @@ $PUBLISH_ONBACK = '';
 $PUBLISH_ONNEXT = '';
 $PUBLISH_CMD = '';
 
-$title = sprintf(_("Publish to %s"), $registry->get('name'));
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->topbar = $page_output->sidebar = false;
+
+$page_output->header(array(
+    'title' => sprintf(_("Publish to %s"), $registry->get('name'))
+));
 
 // Check for a login.
 if ($cmd == 'login') {
@@ -58,7 +61,7 @@ if (!$registry->isAuthenticated()) {
     $PUBLISH_CMD = 'login.username.focus();';
     require ANSEL_TEMPLATES . '/xppublish/login.inc';
     require ANSEL_TEMPLATES . '/xppublish/javascript.inc';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 
@@ -136,7 +139,7 @@ if ($cmd == 'new') {
         $PUBLISH_BUTTONS = 'true,true,true';
         require ANSEL_TEMPLATES . '/xppublish/new.inc';
         require ANSEL_TEMPLATES . '/xppublish/javascript.inc';
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
 
@@ -172,7 +175,7 @@ if ($cmd == 'add') {
         try {
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
             if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                $error = sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name'));
+                $error = _("Access denied adding photos to this gallery.");
             } else {
                 $error = false;
             }
@@ -211,4 +214,4 @@ if ($cmd == 'add') {
 }
 
 require ANSEL_TEMPLATES . '/xppublish/javascript.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

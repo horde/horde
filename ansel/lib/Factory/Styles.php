@@ -25,9 +25,7 @@ class Ansel_Factory_Styles extends Horde_Core_Factory_Injector
         }
 
         /* Check if the browser / server has png support */
-        if ($GLOBALS['browser']->hasQuirk('png_transparency') ||
-            $GLOBALS['conf']['image']['type'] != 'png') {
-
+        if ($GLOBALS['conf']['image']['type'] != 'png') {
             $test = $styles;
             foreach ($test as $key => $style) {
                 if (!empty($style['requires_png'])) {

@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the basic storage handler.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -43,7 +38,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetList()
     {
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List',
+            'Horde_Kolab_Storage_List_Tools',
             $this->createStorage()->getList()
         );
     }
@@ -90,7 +85,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $params = array('system' => array('' => array('username' => 'system', 'password' => '')));
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List',
+            'Horde_Kolab_Storage_List_Tools',
             $this->_getSystemStorage($params)->getSystemList('test')
         );
     }
@@ -103,15 +98,6 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_List',
             $this->createStorage()->getSystemList('test')
-        );
-    }
-
-    public function testSystemList()
-    {
-        $params = array('system' => array('test' => array('username' => 'system', 'password' => '')));
-        $this->assertEquals(
-            'system@mock:0',
-            $this->_getSystemStorage($params)->getSystemList('test')->getId()
         );
     }
 

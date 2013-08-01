@@ -1,15 +1,24 @@
 <?php
 /**
- * Skeleton storage implementation for the Horde_Db database abstraction layer.
- *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Your Name <you@example.com>
  * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Skeleton
+ */
+
+/**
+ * Skeleton storage implementation for the Horde_Db database abstraction layer.
+ *
+ * @author    Your Name <you@example.com>
+ * @category  Horde
+ * @copyright 2007-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Skeleton
  */
 class Skeleton_Driver_Sql extends Skeleton_Driver
 {
@@ -45,10 +54,6 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
         $this->_db = $params['db'];
         unset($params['db']);
 
-        $params = array_merge($params, array(
-            'table' => 'skeleton_foo'
-        ), $params);
-
         parent::__construct($params);
     }
 
@@ -60,8 +65,15 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
     public function retrieve()
     {
         /* Build the SQL query. */
-        $query = 'SELECT * FROM ' . $this->_params['table'] . ' WHERE foo = ?';
-        $values = array($this->_params['bar']);
+
+        // Unrestricted query
+
+        $query = 'SELECT * FROM skeleton_items';
+
+        // Restricted query alternative
+
+        //$query = 'SELECT * FROM skeleton_items WHERE foo = ?';
+        //$values = array($this->_params['bar']);
 
         /* Execute the query. */
         try {
@@ -72,5 +84,25 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
 
         /* Store the retrieved values in the foo variable. */
         $this->_foo = array_merge($this->_foo, $rows);
+    }
+
+    /**
+     * Stores a foo in the database.
+     *
+     * @throws Sms_Exception
+     */
+    public function store($data)
+    {
+        $query = 'INSERT INTO skeleton_items' .
+                 ' (item_owner, item_data)' .
+                     ' VALUES (?, ?)';
+        $values = array($GLOBALS['registry']->getAuth(),
+                        $data);
+
+        try {
+            $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sms_Exception($e->getMessage());
+        }
     }
 }

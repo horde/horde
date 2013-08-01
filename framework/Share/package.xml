@@ -23,11 +23,11 @@ owns or has access to.</description>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-08</date>
- <time>23:37:00</time>
+ <date>2013-07-05</date>
+ <time>15:20:10</time>
  <version>
-  <release>1.2.3</release>
-  <api>1.2.0</api>
+  <release>2.0.5</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,7 +35,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Properly cache empty listShares results (Bug #11045).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -50,16 +50,11 @@ owns or has access to.</description>
     <dir name="Horde">
      <dir name="Share">
       <dir name="Object">
-       <dir name="Datatree">
-        <file name="Share.php" role="php" />
-       </dir> <!-- /lib/Horde/Share/Object/Datatree -->
-       <file name="Datatree.php" role="php" />
        <file name="Kolab.php" role="php" />
        <file name="Sql.php" role="php" />
        <file name="Sqlng.php" role="php" />
       </dir> <!-- /lib/Horde/Share/Object -->
       <file name="Base.php" role="php" />
-      <file name="Datatree.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Kolab.php" role="php" />
       <file name="Object.php" role="php" />
@@ -368,10 +363,11 @@ owns or has access to.</description>
       </dir> <!-- /test/Horde/Share/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
-      <file name="Base.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="stress-test" role="test" />
+      <file name="TestBase.php" role="test" />
      </dir> <!-- /test/Horde/Share -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -380,7 +376,7 @@ owns or has access to.</description>
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -388,74 +384,74 @@ owns or has access to.</description>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
-    <name>Horde_DataTree</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -463,18 +459,15 @@ owns or has access to.</description>
   <filelist>
    <install as="COPYING" name="doc/Horde/Share/COPYING" />
    <install as="Horde/Share/Base.php" name="lib/Horde/Share/Base.php" />
-   <install as="Horde/Share/Datatree.php" name="lib/Horde/Share/Datatree.php" />
    <install as="Horde/Share/Exception.php" name="lib/Horde/Share/Exception.php" />
    <install as="Horde/Share/Kolab.php" name="lib/Horde/Share/Kolab.php" />
    <install as="Horde/Share/Object.php" name="lib/Horde/Share/Object.php" />
    <install as="Horde/Share/Sql.php" name="lib/Horde/Share/Sql.php" />
    <install as="Horde/Share/Sqlng.php" name="lib/Horde/Share/Sqlng.php" />
    <install as="Horde/Share/Translation.php" name="lib/Horde/Share/Translation.php" />
-   <install as="Horde/Share/Object/Datatree.php" name="lib/Horde/Share/Object/Datatree.php" />
    <install as="Horde/Share/Object/Kolab.php" name="lib/Horde/Share/Object/Kolab.php" />
    <install as="Horde/Share/Object/Sql.php" name="lib/Horde/Share/Object/Sql.php" />
    <install as="Horde/Share/Object/Sqlng.php" name="lib/Horde/Share/Object/Sqlng.php" />
-   <install as="Horde/Share/Object/Datatree/Share.php" name="lib/Horde/Share/Object/Datatree/Share.php" />
    <install as="locale/Horde_Share.pot" name="locale/Horde_Share.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Share.mo" name="locale/ar/LC_MESSAGES/Horde_Share.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Share.po" name="locale/ar/LC_MESSAGES/Horde_Share.po" />
@@ -564,10 +557,11 @@ owns or has access to.</description>
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Share.po" name="locale/zh_TW/LC_MESSAGES/Horde_Share.po" />
    <install as="Horde/Share/AllTests.php" name="test/Horde/Share/AllTests.php" />
    <install as="Horde/Share/Autoload.php" name="test/Horde/Share/Autoload.php" />
-   <install as="Horde/Share/Base.php" name="test/Horde/Share/Base.php" />
+   <install as="Horde/Share/bootstrap.php" name="test/Horde/Share/bootstrap.php" />
    <install as="Horde/Share/conf.php.dist" name="test/Horde/Share/conf.php.dist" />
    <install as="Horde/Share/phpunit.xml" name="test/Horde/Share/phpunit.xml" />
    <install as="Horde/Share/stress-test" name="test/Horde/Share/stress-test" />
+   <install as="Horde/Share/TestBase.php" name="test/Horde/Share/TestBase.php" />
    <install as="Horde/Share/Kolab/MockTest.php" name="test/Horde/Share/Kolab/MockTest.php" />
    <install as="Horde/Share/Kolab/UnitTest.php" name="test/Horde/Share/Kolab/UnitTest.php" />
    <install as="Horde/Share/migration/sql.php" name="test/Horde/Share/migration/sql.php" />
@@ -817,15 +811,173 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>1.2.3</release>
-    <api>1.2.0</api></version>
+    <release>1.3.0</release>
+    <api>1.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-08</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add renameShare().
 * [mjr] Properly cache empty listShares results (Bug #11045).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+* [jan] Remove DataTree driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Remove optional dependency on Horde_DataTree.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [gwr] Adapt to API changes in Kolab_Storage.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta4</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [gwr] Propagate setting the default attribute to the Kolab backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix sorting of Kolab shares (Bug #11509).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix testing for owner and user permissions in Kolab shares.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix setting permissions while saving shares when using the sqlng driver (Bug #12413).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

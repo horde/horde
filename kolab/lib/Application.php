@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Kolab through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('KOLAB_BASE')) {
-    define('KOLAB_BASE', dirname(__FILE__) . '/..');
+    define('KOLAB_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

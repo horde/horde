@@ -6,7 +6,7 @@
  * Antony Raijekov <dev@strategma.bg>
  * http://uruds.gateway.bg/zeos/
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -78,7 +78,7 @@ class Horde_Compress_Dbx extends Horde_Compress_Base
             $position = 0x30;
             $buf = unpack('Lposition', substr($data, $position, 4));
             $position = $buf['position'];
-            $result = $this->_readIndex($data, $position);
+            $this->_readIndex($data, $position);
         }
 
         return $this->_mails;
@@ -122,7 +122,11 @@ class Horde_Compress_Dbx extends Horde_Compress_Base
                     if (strlen($s) == 0) {
                         break;
                     }
-                    $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/a512Content', $s);
+                    if (version_compare(PHP_VERSION, '5.5.0-dev', '>=')) {
+                        $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/Z512Content', $s);
+                    } else {
+                        $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/a512Content', $s);
+                    }
                     if ($msg_item['FilePos'] != $position) {
                         throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid file format"));
                     }
@@ -261,7 +265,7 @@ class Horde_Compress_Dbx extends Horde_Compress_Base
                 }
                 if (($IndexItem['ChildIndex'] > 0) &&
                     empty($this->_tmp[$IndexItem['ChildIndex']])) {
-                    $this->_readIndex($fp, $IndexItem['ChildIndex']);
+                    $this->_readIndex($data, $IndexItem['ChildIndex']);
                 }
             }
         }

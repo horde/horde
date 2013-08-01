@@ -1,14 +1,23 @@
 <?php
 /**
- * Wicked Abtract Page Class.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
+ */
+
+/**
+ * Abstract page class.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
  */
 class Wicked_Page
 {
@@ -330,10 +339,46 @@ class Wicked_Page
      */
     public function display()
     {
+        global $injector;
+
         // Get content first, it might throw an exception.
         $inner = $this->displayContents(false);
-        require WICKED_TEMPLATES . '/display/title.inc';
-        echo $inner;
+
+        $topbar = $injector->getInstance('Horde_View_Topbar');
+        try {
+            $version = $this->version();
+            $diff_url = Horde::url('diff.php')
+                ->add(array(
+                    'page' => $this->pageName(),
+                    'v1' => '?',
+                    'v2' => $version
+                ));
+
+            $diff_alt = sprintf(_("Show changes for %s"), $version);
+            $topbar->subinfo = $diff_url->link(array('title' => $diff_alt))
+                . sprintf(_("Last Modified %s by %s"),
+                          $this->formatVersionCreated(),
+                          $this->author())
+                . '</a>';
+        } catch (Wicked_Exception $e) {
+        }
+
+        $view = $injector->createInstance('Horde_View');
+        $view->name = $this->pageName();
+        if ($this->referrer()) {
+            $view->referrer = Wicked::url($this->referrer())->link()
+                . htmlspecialchars($this->referrer()) . '</a>';
+        }
+        $view->isOld = $this->isOld();
+        $view->version = $version;
+        $view->refresh = $this->pageUrl()
+            ->link(array('title' => _("Reload Page")))
+            . Horde::img('reload.png', _("Reload Page")) . '</a>';
+        if ($this->isLocked()) {
+            $this->locked = Horde::img('locked.png', _("Locked"));
+        }
+
+        return $view->render('display/title') . $inner;
     }
 
     /**
@@ -392,7 +437,7 @@ class Wicked_Page
         throw new Wicked_Exception(_("Unsupported"));
     }
 
-    public function &getProcessor($output_format = 'Xhtml')
+    public function getProcessor($output_format = 'Xhtml')
     {
         if (isset($this->_proc)) {
             return $this->_proc;
@@ -411,29 +456,44 @@ class Wicked_Page
          * character. See http://pear.php.net/bugs/bug.php?id=12490. */
         $this->_proc->delim = chr(1);
 
-        if ($output_format == 'Xhtml') {
-            /* Override rules */
+        /* Override rules */
+        $this->_proc->insertRule('Heading2', 'Heading');
+        $this->_proc->deleteRule('Heading');
+        $this->_proc->loadParseObj('Paragraph');
+        $skip = $this->_proc->parseObj['Paragraph']->getConf('skip');
+        $skip[] = 'heading2';
+        $this->_proc->setParseConf('Paragraph', 'skip', $skip);
+
+        if ($GLOBALS['conf']['wicked']['format'] == 'Default' ||
+            $GLOBALS['conf']['wicked']['format'] == 'Cowiki' ||
+            $GLOBALS['conf']['wicked']['format'] == 'Tiki') {
+            $this->_proc->insertRule('Toc2', 'Toc');
+        }
+        $this->_proc->deleteRule('Toc');
+
+        switch ($output_format) {
+        case 'Xhtml':
             if ($GLOBALS['conf']['wicked']['format'] != 'Creole') {
                 $this->_proc->insertRule('Code2', 'Code');
-                $this->_proc->deleteRule('Code');
             }
+            $this->_proc->deleteRule('Code');
 
             if ($GLOBALS['conf']['wicked']['format'] == 'BBCode') {
                 $this->_proc->insertRule('Wickedblock', 'Code2');
             } else {
                 $this->_proc->insertRule('Wikilink2', 'Wikilink');
                 $this->_proc->setParseConf('Wikilink2', 'utf-8', true);
-                $this->_proc->deleteRule('Wikilink');
 
                 $this->_proc->insertRule('Wickedblock', 'Raw');
             }
+            $this->_proc->deleteRule('Wikilink');
 
             if ($GLOBALS['conf']['wicked']['format'] == 'Default' ||
                 $GLOBALS['conf']['wicked']['format'] == 'Cowiki' ||
                 $GLOBALS['conf']['wicked']['format'] == 'Tiki') {
                 $this->_proc->insertRule('Freelink2', 'Freelink');
-                $this->_proc->deleteRule('Freelink');
             }
+            $this->_proc->deleteRule('Freelink');
 
             $this->_proc->insertRule('Image2', 'Image');
             $this->_proc->deleteRule('Image');
@@ -457,21 +517,31 @@ class Wicked_Page
 
             $this->_proc->setRenderConf('Xhtml', 'Wikilink2', $linkConf);
             $this->_proc->setRenderConf('Xhtml', 'Freelink2', $linkConf);
-            $this->_proc->setRenderConf('Xhtml', 'Toc',
+            $this->_proc->setRenderConf('Xhtml', 'Toc2',
                                         array('title' => '<h2>' . _("Table of Contents") . '</h2>'));
             $this->_proc->setRenderConf('Xhtml', 'Table',
-                                        array('css_table' => 'table',
-                                              'css_td' => 'table-cell',
-                                              'css_th' => 'table-cell'));
+                                        array('css_table' => 'horde-table'));
 
-            $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Render_Xhtml/', WICKED_BASE . '/lib/Text_Wiki/Render/Xhtml'));
-        } elseif ($output_format == 'Rst') {
-            require_once dirname(__FILE__) . '/Text_Wiki/Render/Rst.php';
-            $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Render_Rst/', WICKED_BASE . '/lib/Text_Wiki/Render/Rst'));
+            break;
+
+        case 'Rst':
+            require_once __DIR__ . '/Text_Wiki/Render/Rst.php';
+            break;
         }
 
-
-        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Parse/', WICKED_BASE . '/lib/Text_Wiki/Parse/' . $GLOBALS['conf']['wicked']['format']));
+        $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
+        $autoloader->addClassPathMapper(
+            new Horde_Autoloader_ClassPathMapper_Prefix(
+                '/^Text_Wiki_Render_' . $output_format . '/',
+                WICKED_BASE . '/lib/Text_Wiki/Render/' . $output_format
+            )
+        );
+        $autoloader->addClassPathMapper(
+            new Horde_Autoloader_ClassPathMapper_Prefix(
+                '/^Text_Wiki_Parse/',
+                WICKED_BASE . '/lib/Text_Wiki/Parse/' . $GLOBALS['conf']['wicked']['format']
+            )
+        );
 
         return $this->_proc;
     }
@@ -500,6 +570,34 @@ class Wicked_Page
         default:
             throw new Wicked_Exception(_("Unsupported"));
         }
+    }
+
+    /**
+     * Returns an object with Horde_View properties.
+     *
+     * The returned object is supposed to be used with the _page.html.php
+     * partial.
+     *
+     * @return object  A simple object.
+     * @throws Wicked_Exception
+     */
+    public function toView()
+    {
+        return (object)array(
+            'author' => $this->author(),
+            'date' => $this->formatVersionCreated(),
+            'name' => $this->pageUrl()
+                ->link(array(
+                    'title' => sprintf(_("Display %s"), $this->pageName())
+                ))
+                . htmlspecialchars($this->pageName()) . '</a>',
+            'timestamp' => $this->versionCreated(),
+            'version' => $this->pageUrl()
+                ->link(array(
+                    'title' => sprintf(_("Display Version %s"), $this->version())
+                ))
+                . $this->version() . '</a>',
+        );
     }
 
     public function isLocked()
@@ -554,7 +652,7 @@ class Wicked_Page
             $url = Horde::url($linkpage);
         }
 
-        return Horde_Util::addParameter($url, $params);
+        return $url->add($params);
     }
 
     public function pageTitle()

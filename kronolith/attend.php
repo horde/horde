@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -9,7 +9,7 @@
  * @package Kronolith
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith', array('authentication' => 'none'));
 
 $cal = Horde_Util::getFormData('c');
@@ -40,7 +40,7 @@ default:
 }
 
 if (((empty($cal) || empty($id)) && empty($uid)) || empty($user)) {
-    $notification->push(_("The request was incomplete. Some parameters that are necessary to accept or decline an event are missing."), 'horde.error');
+    $notification->push(_("The request was incomplete. Some parameters that are necessary to accept or decline an event are missing."), 'horde.error', array('sticky'));
     $title = '';
 } else {
     try {
@@ -50,27 +50,30 @@ if (((empty($cal) || empty($id)) && empty($uid)) || empty($user)) {
             $event = Kronolith::getDriver()->getByUID($uid);
         }
         if (!$event->hasAttendee($user)) {
-            $notification->push(_("You are not an attendee of the specified event."), 'horde.error');
+            $notification->push(_("You are not an attendee of the specified event."), 'horde.error', array('sticky'));
             $title = $event->getTitle();
         } else {
             $event->addAttendee($user, Kronolith::PART_IGNORE, $action);
             try {
                 $event->save();
                 if (!empty($msg)) {
-                    $notification->push($msg, 'horde.success');
+                    $notification->push($msg, 'horde.success', array('sticky'));
                 }
             } catch (Exception $e) {
-                $notification->push($e, 'horde.error');
+                $notification->push($e, 'horde.error', array('sticky'));
             }
             $title = $event->getTitle();
         }
     } catch (Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e, 'horde.error', array('sticky'));
         $title = '';
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->topbar = $page_output->sidebar = false;
+$page_output->header(array(
+    'title' => $title
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 
 ?>
@@ -78,4 +81,4 @@ require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 <?php
 
 $notification->notify(array('listeners' => 'status'));
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

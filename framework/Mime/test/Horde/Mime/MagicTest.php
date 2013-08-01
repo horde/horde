@@ -2,7 +2,7 @@
 /**
  * Tests for the Horde_Mime_Magic class.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
@@ -10,11 +10,6 @@
  * @package    Mime
  * @subpackage UnitTests
  */
-
-/**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -33,7 +28,7 @@ class Horde_Mime_MagicTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'text/plain',
-            Horde_Mime_Magic::analyzeFile(dirname(__FILE__) . '/fixtures/flowed_msg.txt')
+            Horde_Mime_Magic::analyzeFile(__DIR__ . '/fixtures/flowed_msg.txt')
         );
     }
 

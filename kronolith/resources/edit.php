@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
@@ -16,8 +16,9 @@ if (Kronolith::showAjaxView()) {
 }
 
 // Exit if this isn't an authenticated administrative user.
+$default = Horde::url($prefs->getValue('defaultview') . '.php', true);
 if (!$registry->isAdmin()) {
-    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
+    $default->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -25,11 +26,11 @@ try {
     $resource = Kronolith::getDriver('Resource')->getResource($vars->get('c'));
     if (!$resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("You are not allowed to change this resource."), 'horde.error');
-        Horde::url('resources/', true)->redirect();
+        $default->redirect();
     }
 } catch (Exception $e) {
-    $notification->push($e, 'horde.error');
-    Horde::url('resources/', true)->redirect();
+    $notification->push($e);
+    $default->redirect();
 }
 $form = new Kronolith_Form_EditResource($vars, $resource);
 
@@ -43,11 +44,10 @@ if ($form->validate($vars)) {
         } else {
             $notification->push(sprintf(_("The resource \"%s\" has been saved."), $original_name), 'horde.success');
         }
+        $default->redirect();
     } catch (Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
-
-    Horde::url('resources/', true)->redirect();
 }
 
 $vars->set('name', $resource->get('name'));
@@ -56,11 +56,10 @@ $vars->set('description', $resource->get('description'));
 $vars->set('category', Kronolith::getDriver('Resource')->getGroupMemberships($resource->getId()));
 $vars->set('responsetype', $resource->get('response_type'));
 
-$menu = Horde::menu();
-$title = $form->getTitle();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('resources/edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

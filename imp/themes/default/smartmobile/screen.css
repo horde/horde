@@ -1,0 +1,126 @@
+/* Mailbox */
+#mailbox .ui-btn-innner {
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+}
+#mailbox .ui-grid-a .ui-li-desc {
+    margin: 0;
+}
+.imp-mailbox-more a {
+    text-align: center;
+}
+.imp-mailbox-date {
+    float: right;
+}
+.imp-mailbox-secondrow {
+    font-size: 80%;
+    font-weight: normal;
+    padding: 0 40px 11px 15px;
+}
+.imp-mailbox-from {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+.imp-mailbox-deleted a {
+    text-decoration: line-through !important;
+}
+.imp-mailbox-seen a {
+    font-weight: normal;
+}
+
+.divSwipe a {
+    font-weight: bold;
+    margin-top: 15px;
+}
+.divSwipe span.ui-btn-inner {
+    padding-right: 20px;
+}
+
+/* Message */
+#imp-message-headers {
+    margin-top: 0;
+}
+#imp-message-headers div.ui-collapsible-content {
+    overflow: hidden;
+}
+.imp-header-label {
+    font-weight: bold;
+    padding-right: 5px;
+    vertical-align: top;
+}
+.imp-message-atc {
+    margin-bottom: 0;
+}
+#imp-message-date {
+    font-size: 90%;
+    font-weight: normal;
+    padding-left: 8px;
+}
+.imp-message-spacer {
+    margin: 12px;
+}
+
+/* Compose */
+.imp-compose-atc {
+    margin-bottom: 0;
+}
+#imp-compose-message {
+    height: auto;
+}
+
+@media all and (min-width:450px) {
+    .imp-compose-addr-div {
+        display: inline-block;
+        width: 78%;
+    }
+    #imp-compose-to, #imp-compose-cc {
+        width: 100%;
+    }
+}
+
+#imp-compose-upload-container {
+    position: relative;
+}
+#imp-compose-upload-container input {
+    height: 1%;
+    left: 50%
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 1%;
+}
+
+/* Style for HTML data iframe. */
+.htmlMsgData {
+    width: 100%;
+}
+
+/* MIME part display. */
+.mimePartData .fixed {
+    font-size: 90%;
+}
+
+/* Mime Viewer styles. */
+.mimeHeaders {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    display: -moz-inline-stack;
+    display: inline-block;
+    margin: 5px 0 3px 0;
+    padding: 5px;
+}
+.mimePartWrap, .mimePartWrapValid, .mimePartWrapInvalid {
+    border: 1px solid #d0d0d0;
+    margin: 2px 0;
+    padding: 10px;
+}
+
+/* Notification styles. */
+#horde-notification {
+    bottom: 50px;
+}

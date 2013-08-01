@@ -2,7 +2,7 @@
 /**
  * Allow searching of address books from the portal.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -11,6 +11,8 @@ class Turba_Block_Minisearch extends Horde_Core_Block
 {
     /**
      * The available options for address book selection
+     *
+     * @var array
      */
     protected $_options = array();
 
@@ -49,15 +51,17 @@ class Turba_Block_Minisearch extends Horde_Core_Block
      */
     protected function _content()
     {
-        if (!$GLOBALS['browser']->hasFeature('iframes')) {
-            return '<em>' . _("A browser that supports iframes is required") . '</em>';
-        }
+        global $page_output, $registry;
 
-        $calendars = empty($this->_params['addressbooks'])
-            ? implode(';', array_keys($this->_options))
-            : implode(';', $this->_params['addressbooks']);
+        $abooks = empty($this->_params['addressbooks'])
+            ? array_keys($this->_options)
+            : $this->_params['addressbooks'];
 
-        Horde::addScriptFile('minisearch.js', 'turba');
+        $page_output->addInlineJsVars(array(
+            'TurbaMinisearch.abooks' => $abooks,
+            'TurbaMinisearch.URI_AJAX' => $registry->getServiceLink('ajax', 'turba')->url
+        ));
+        $page_output->addScriptFile('minisearch.js');
 
         Horde::startBuffer();
         include TURBA_TEMPLATES . '/block/minisearch.inc';

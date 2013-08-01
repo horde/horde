@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
-
-/**
  * Test the CLI.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -35,17 +30,12 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Push_Unit_Push_CliTest
 extends Horde_Push_TestCase
 {
-    public function tearDown()
-    {
-        unset($_SERVER);
-    }
-
     public function testEmpty()
     {
         ob_start();
         $_SERVER['argv'] = array(
             'test',
-            'yaml://' . dirname(__FILE__) . '/../../fixtures/push.yaml'
+            'yaml://' . __DIR__ . '/../../fixtures/push.yaml'
         );
         Horde_Push_Cli::main(array('no_exit' => true));
         $output = ob_get_clean();

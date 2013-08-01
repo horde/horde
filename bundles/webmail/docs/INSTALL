@@ -1,5 +1,5 @@
 ================================================
- Installing Horde Groupware Webmail Edition 4.0
+ Installing Horde Groupware Webmail Edition 5.0
 ================================================
 
 :Contact: horde@lists.horde.org
@@ -31,6 +31,7 @@ detailed instructions, start reading below at Prerequisites_.
                  --with-gd --with-png-dir=/usr --with-jpeg-dir=/usr \
                  [--with-mysql|--with-pgsql|--with-oci8]
                  [--with-tidy]
+                 [--with-ftp]
      make
      make install
 
@@ -85,7 +86,7 @@ Edition to function properly.
 
      "broken-scriptfilename" => "enable"
 
-3. PHP 5.2.0 or above.
+3. PHP 5.3.0 or above.
 
    PHP is the interpreted language in which Horde Groupware Webmail Edition is
    written.
@@ -246,6 +247,23 @@ Edition to function properly.
       See http://www.php.net/openssl for information on compiling OpenSSL
       into PHP.
 
+   g. fileinfo
+
+      Allows Horde modules to guess the MIME type of files by analyzing
+      their contents.
+
+      This module is automatically enabled by default.
+
+   h. intl ``--enable-intl``
+
+      The intl module is required to handle display of Internationalized
+      Domain Names (see RFC 3490), e.g in e-mail addresses.
+
+   i. FTP support ``--with-ftp``
+
+      If using the FTP VFS driver for the file manager, the FTP PHP module is
+      **required**.
+
 4. Additional PECL Modules
 
    PECL is short for "PHP Extension Community Library".  The goal of PECL is
@@ -266,31 +284,10 @@ Edition to function properly.
 
    After that, restart your webserver.
 
-   These PECL modules are **RECOMMENDED** to be installed:
-
-   a. fileinfo
-
-      Allows Horde Groupware Webmail Edition modules to guess the MIME type of
-      files by analyzing their contents.
-
-      If not enabled, Horde Groupware Webmail Edition will use its own PHP
-      code to perform MIME magic lookups. However, this lookup is slower,
-      less accurate, and detects fewer MIME types than the PECL extension
-      will.
-
-      To install, enter the following at the command prompt::
-
-        pecl install fileinfo
-
    These PECL modules are **RECOMMENDED** to be installed if you need
    advanced functionality:
 
-   a. idn
-
-      idn is required in order to handle Internationalized Domain Names
-      (see RFC 3490).
-
-   b. imagick
+   a. imagick
 
       The imagick module can be used by Horde's image library to provide all
       kind of image manipulations.
@@ -299,7 +296,7 @@ Edition to function properly.
 
         pecl install imagick
 
-   c. lzf
+   b. lzf
 
       If the lzf module is available, Horde Groupware Webmail Edition can
       compress some cached data in the current session, thus reducing the size
@@ -309,7 +306,7 @@ Edition to function properly.
 
         pecl install lzf
 
-   d. memcache
+   c. memcache
 
       If using the memcached SessionHandler, the memcache PECL extension must
       be installed.
@@ -327,7 +324,7 @@ Edition to function properly.
    use Horde Groupware Webmail Edition.
 
    IMAP is **strongly** recommended over POP3. See, e.g.,
-   http://www.imap.org/imap.vs.pop.brief.html
+   http://staff.washington.edu/gray/papers/imap.vs.pop.brief.html
 
    Freely available IMAP servers (for \*nix systems) that have been verified
    to work best with Horde Groupware Webmail Edition include:
@@ -347,9 +344,9 @@ Edition to function properly.
    The POP server MUST support POP3 (RFC 1939/STD 53).
 
    .. Note:: If using a POP server, it MUST support the UIDL capability.
+             POP3 support is limited to performing only basic mail actions;
              Caching, on-demand filtering, searching, and sorting will be
-             disabled; POP3 support is limited to performing only basic mail
-             actions.
+             disabled.
 
 6. Sendmail or SMTP server.
 
@@ -369,6 +366,19 @@ The following non-PHP prerequisites are **RECOMMENDED**:
    You can obtain aspell from:
 
       http://aspell.sourceforge.net/
+
+2. FTP server.
+
+   If using a FTP backend for the file manager, you **must** have at least one
+   FTP server.
+
+3. ElasticSearch server.
+
+   An ElasticSearch_ server or cluster running on localhost can be used to
+   provide indexing of bookmarks data and quick searching of the indexed
+   content.
+
+.. _ElasticSearch: http://www.elasticsearch.org/
 
 
 Installing Horde Groupware Webmail Edition
@@ -437,13 +447,15 @@ the PEAR installation you just created, e.g.::
    /var/www/webmail/pear/pear -c /var/www/webmail/pear.conf \
        channel-discover pear.horde.org
 
-Finally update the .htaccess file in ``/var/www/webmail/`` or configure your
-web server in some other way to point PHP's ``include_path`` setting to the
-PEAR installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the
-web root::
+Finally configure your web server in some way to point PHP's ``include_path``
+setting to the PEAR installation and the ``PHP_PEAR_SYSCONF_DIR`` environment
+variable to the web root::
 
    php_value include_path /var/www/webmail/pear/php
    SetEnv PHP_PEAR_SYSCONF_DIR /var/www/webmail
+
+It is recommended to not use the .htaccess file in ``/var/www/webmail/`` to set
+these values because it will be overwritten with every further update.
 
 
 Finishing installation
@@ -528,6 +540,13 @@ Configuring Horde Groupware Webmail Edition
 
                    php -l mime_drivers.local.php
 
+   The default configuration stores files uploaded through the file manager in
+   the SQL database. This is the most compatible configuration but doesn't
+   scale well, may hit some database server limits, and may only work for very
+   small installations. You should configure a different backend as soon as
+   possible. See ``gollem/config/backends.php`` and
+   ``gollem/config/backends.d/10-webmail.php`` for details.
+
 3. Setting up alarm emails
 
    If you want your users to be able to receive emails from the Horde_Alarm
@@ -541,7 +560,7 @@ Configuring Horde Groupware Webmail Edition
       # Horde Alarms
       */5 * * * * /usr/bin/horde-alarms
 
-   If not installing Horde Groupware Webmail Edition through PEAR of if PEAR's
+   If not installing Horde Groupware Webmail Edition through PEAR or if PEAR's
    ``bin_dir`` configuration doesn't point to ``/usr/bin/``, replace
    ``/usr/bin/horde-alarms`` with the path to the ``horde-alarms`` script in
    your Horde installation.
@@ -589,24 +608,38 @@ Configuring Horde Groupware Webmail Edition
 
    b. User Passwords
 
-      There are two channels by which, unless steps are taken to avoid it,
-      Horde Groupware Webmail Edition encourages users to pass their IMAP and
-      POP3 passwords around the Internet unencrypted.
+      Unless steps are taken to avoid it, there are two channels by which Horde
+      Groupware Webmail Edition can cause users to pass their IMAP/POP3
+      passwords across the network unencrypted.
 
-      The first channel is between their browser and the Web server. We
-      strongly recommend using an SSL-capable Web server to give users the
-      option of encrypting communications between their browser and the Web
-      server on which Horde Groupware Webmail Edition is running; some sites
-      may wish to disable non-SSL access entirely.
+      The first channel is between the browser and the Web server.  We strongly
+      recommend using an SSL-capable Web server to give users the option of
+      encrypting communications between their browser and the Web server on
+      which Horde Groupware Webmail Edition is running. Some sites may wish to
+      disable non-SSL access entirely.
 
       The second channel is between the Web server and their IMAP or POP3
-      server. The simplest way to avoid this is to have the mail server
+      server.  The simplest way to avoid this is to have the mail server
       running on the same system as the Web server, and configuring Horde
       Groupware Webmail Edition to connect to the IMAP or POP3 server on
-      ``localhost`` instead of on the Internet hostname. This is the default
-      setup. In cases where that is not possible, we recommend using IMAP-SSL
-      or POP3-SSL to ensure that users' passwords remain safe after they have
-      entrusted them to Horde Groupware Webmail Edition.
+      ``localhost`` instead of on the Internet hostname. In cases where that is
+      not possible, it is highly recommended that the mail server be located on
+      a private, secure network. Alternatively, the mail server can be accessed
+      via TLS to ensure that users' passwords remain safe after they have
+      entrusted them to Horde Groupware Webmail Edition (this is the default
+      configuration).
+
+      Other security steps you can take to increase security include:
+
+      * Use session cookies instead of URL based sessions.
+      * Set your php ``session.entropy_length`` to a larger value (e.g. 16) and
+        ``session.entropy_file`` to a random source (e.g. ``/dev/urandom``)
+      * If your database, mail server, and web server are on the same host
+        machine, then:
+
+        * Use unix socket database access and disable TCP database access.
+        * Use ``localhost`` for all TCP/IP connections to avoid the network, or
+          run all services on a local, private network.
 
    b. Sessions
 
@@ -636,9 +669,18 @@ setup).  For various reasons, some of these files may not be removed when the
 user's session ends. To reclaim this disk space, it may be necessary to
 periodically delete these old temporary files.
 
-An example cron-based solution can be found at ``scripts/temp-cleanup.cron``.
-Another possible solution is to use Red Hat's ``tmpwatch`` utility or anything
-similar to remove old files (see http://www.redhat.com/).
+An example cron-based solution can be found at
+``horde/scripts/temp-cleanup.cron`` in PEAR's ``data_dir`` directory.  Another
+possible solution is to use utilities like ``tmpwatch``, ``tmpreaper`` or
+anything similar to remove old files.
+
+Stale sessions are automatically pruned by PHP according to the
+`session.gc_probability`_, `session.gc_divisor`_, and
+`session.gc_maxlifetime`_ settings located in ``php.ini``. However, the
+default settings are very aggressive: the garbage collection routine runs on
+average 1% of the time a page is loaded. For most installations, a lower
+garbage collection rate is recommended (setting session.gc_divisor to 10,000
+or higher is much more reasonable).
 
 
 Translations
@@ -648,7 +690,7 @@ Note for international users: Horde Groupware Webmail Edition uses GNU gettext
 to provide local translations of text displayed by applications; the
 translations are found in the po/ directory.  If a translation is not yet
 available for your locale (and you wish to create one), or if you're having
-trouble using a provided translation, please see the `horde/docs/TRANSLATIONS`_
+trouble using a provided translation, please see the `docs/TRANSLATIONS`_
 file for instructions.
 
 
@@ -686,7 +728,11 @@ Thanks for using Horde Groupware Webmail Edition!
 The Horde Team
 
 
-.. _README: ?f=README.html
-.. _docs/SECURITY: ?f=SECURITY.html
-.. _`horde/docs/TRANSLATIONS`: ?f=TRANSLATIONS.html
+.. _README: README
+.. _docs/PERFORMANCE: PERFORMANCE
+.. _docs/SECURITY: ../../horde/docs/SECURITY
+.. _docs/TRANSLATIONS: ../../horde/docs/TRANSLATIONS
 .. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads
+.. _`session.gc_probability`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability
+.. _`session.gc_divisor`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-divisor
+.. _`session.gc_maxlifetime`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-maxlifetime

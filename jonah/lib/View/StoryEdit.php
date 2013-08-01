@@ -2,7 +2,7 @@
 /**
  * Jonah_View_StoryEdit:: to add/edit stories.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -44,7 +44,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         /* Check permissions. */
         if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
-            $registry->authenticateFailure();
+            throw new Horde_Exception_AuthenticationFailure();
         }
 
         /* Check if a story is being edited. */
@@ -71,12 +71,14 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         }
 
         /* Needed javascript. */
-        Horde::addScriptFile('open_calendar.js', 'horde');
-        $title = $form->getTitle();
-        require $registry->get('templates', 'horde') . '/common-header.inc';
-        require JONAH_TEMPLATES . '/menu.inc';
+        global $page_output;
+        $page_output->addScriptFile('open_calendar.js', 'horde');
+        $page_output->header(array(
+            'title' => $form->getTitle()
+        ));
+        $notification->notify(array('listeners' => 'status'));
         $form->renderActive($form->getRenderer(), $vars, Horde::url('stories/edit.php'), 'post');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
 }

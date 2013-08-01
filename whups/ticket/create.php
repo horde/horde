@@ -1,13 +1,13 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $empty = '';
@@ -16,6 +16,8 @@ $wereerrors = 0;
 
 $vars = Horde_Variables::getDefaultVariables($empty);
 $formname = $vars->get('formname');
+
+Whups::addTopbarSearch();
 
 $form1 = new Whups_Form_Ticket_CreateStepOne($vars);
 $form2 = new Whups_Form_Ticket_CreateStepTwo($vars);
@@ -58,9 +60,10 @@ if ($valid1 && $valid2 && $valid3 &&
 }
 
 // Start the page.
-$title = _("New Ticket");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
+$page_output->header(array(
+    'title' => _("New Ticket")
+));
+$notification->notify(array('listeners' => 'status'));
 
 if ($valid3 && $valid2 && $valid1) {
     $form4->open($r, $vars, 'create.php', 'post');
@@ -178,4 +181,4 @@ if ($valid3 && $valid2 && $valid1) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

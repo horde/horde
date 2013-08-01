@@ -1,25 +1,25 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
-$permission = 'perms';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:perms')
+));
 
 /* Set up the form variables. */
-$vars = Horde_Variables::getDefaultVariables();
-$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$vars = $injector->getInstance('Horde_Variables');
+$perms = $injector->getInstance('Horde_Perms');
 $corePerms = $injector->getInstance('Horde_Core_Perms');
 $perm_id = $vars->get('perm_id');
 
@@ -54,8 +54,9 @@ if ($ui->validateAddForm($info)) {
     }
 }
 
-$title = _("Permissions Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Permissions Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 /* Render the form and tree. */
@@ -63,4 +64,4 @@ $ui->renderForm('addchild.php');
 echo '<br />';
 $ui->renderTree($perm_id);
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

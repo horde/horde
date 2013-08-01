@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/account/tabs.php';
+require_once __DIR__ . '/account/tabs.php';
 require_once FOLKS_BASE . '/lib/Forms/Login.php';
 
 /*
@@ -87,7 +87,7 @@ if ($conf['login']['prelogin'] &&
  * Login parameters
  */
 $url_param = Horde_Util::getFormData('url');
-$login_url = Horde_Util::addParameter(Horde::getServiceLink('login', 'folks'), 'url', $url_param);
+$login_url = $registry->getServiceLink('login', 'folks')->add('url', $url_param);
 
 /*
  * We are already logged in?
@@ -229,9 +229,9 @@ if ($form->isSubmitted()) {
     exit;
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require FOLKS_TEMPLATES . '/menu.inc';
-
+$page_output->header(array(
+    'title' => $title
+));
+$notification->notify(array('listeners' => 'status'));
 require FOLKS_TEMPLATES . '/login/login.php';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

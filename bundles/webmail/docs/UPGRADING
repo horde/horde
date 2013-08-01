@@ -39,6 +39,241 @@ as an administrator, go to Administration => Configuration and update
 anything that's highlighted as outdated.
 
 
+Upgrading Horde Groupware Webmail Edition from 4.x to 5.x
+=========================================================
+
+Configuration Options (config/conf.php)
+---------------------------------------
+
+The $conf['session']['max_time'] option was added. The default is no maximum
+session time, the same behavior as in Horde Groupware Webmail Edition 4.
+
+The $conf['cachecssparams']['url_version_param'] option was added. This option
+is only used if no CSScaching is selected (a configuration that is NOT
+recommended for production servers). The new default is to add version
+information to CSS server URLs, which is altered behavior from Horde Groupware
+Webmail Edition 4.
+
+The $conf['cachejsparams']['url_version_param'] option was added. This option
+is only used if no javascript caching is selected (a configuration that is NOT
+recommended for production servers). The new default is to add version
+information to javascript server URLs, which is altered behavior from Horde
+Groupware Webmail Edition 4.
+
+
+Hooks (config/hooks.php)
+------------------------
+
+The 'appauthenticated' hook has been added.
+
+The behavior of the 'pushapp' hook has changed - it is now called a maximum of
+one time per page access for an application.
+
+The 'appinitialized' hook was removed (replaced by the 'appauthenticated'
+hook).
+
+The 'pushapp_post' hook was removed.
+
+See ``config/hooks.php.dist`` for further details.
+
+
+Preferences (config/prefs.php)
+------------------------------
+
+The 'sending_charset' preference now defaults to 'UTF-8'.
+
+The 'menu_view' and 'show_sidebar' preferences have been removed.
+
+
+ActiveSync (EAS) Integration
+----------------------------
+
+Email support has been added, along with support for the EAS 12.0 and 12.1
+protocol versions. New configuration options have been added to support this.
+You MUST update Horde Groupware Webmail Edition's ActiveSync configuration.
+
+The Custom logging option has been changed to ALWAYS be a path to a directory,
+and not a specific filename.
+
+The security policy settings have been moved out of the global configuration and
+into the permissions system for greater per user control over policies.
+
+New database migrations have been added, you MUST run these migrations for
+ActiveSync to work.
+
+
+Mail Module
+-----------
+
+The basic view now requires javascript support on the browser. If not
+available, the user will automatically be redirected to the minimal view.
+
+
+Server Options (imp/config/backends.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'namespace' option now requires the namespaces to be in the UTF-8 charset,
+not UTF7-IMAP.
+
+The 'smtphost' and 'smtpport' options have been removed. They have been
+replaced by the 'smtp' option, which allows ALL available SMTP configuration
+options to be overriden.
+
+The 'admin' option has been changed: optional configuration parameters should
+live within the base 'admin' array rather than a 'params' array within the
+base.
+
+
+Configuration Options (imp/config/conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The $conf['fixed_folders'] option now requires the mailboxes to be in the
+UTF-8 charset, not UTF7-IMAP.
+
+The $conf['compose']['link_attach_size_limit'] option was added.
+
+The $conf['print']['add_printedby'] option was removed and replaced by the
+'add_printedby' preference.
+
+The $conf['user']['select_sentmail_folder'] option was removed. To prevent
+changing the sentmail mailbox, the 'sent_mail_folder' preference should be
+locked instead.
+
+The following configuration options were removed::
+
+   $conf['dimp']['viewport']['buffer_pages']
+   $conf['dimp']['viewport']['viewport_wait']
+
+
+MIME Viewer Options (imp/config/mime_drivers.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'safe_addrs' option has been removed from the Images driver config.
+To set the default list of e-mail addresses that should be considered "safe",
+the 'image_replacement_addrs' preference can now be used.
+
+
+Hooks (imp/config/hooks.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'mbox_sort' and 'mbox_special' hooks have been added.
+
+The 'dimp_addressformatting' hook has been removed.
+
+The $action parameter for reporting not spam message to the 'spam_email' and
+'post_spam' hooks has been changed from 'ham' to 'innocent'.
+
+
+Preferences (imp/config/prefs.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The default values for these preferences have been changed::
+
+   drafts_folder
+   sent_mail_folder
+   spam_folder
+   trash_folder
+
+The following preferences are no longer used and may be safely removed from
+your preference backend (only after all users have logged in - these
+preferences MAY be used to automatically upgrade to new preferences when
+a user logs into Horde Groupware Webmail Edition 5 for the first time)::
+
+   dimp_qsearch_field
+   dimp_show_preview
+   dimp_splitbar
+   dimp_splitbar_vert
+   dimp_toggle_headers
+   dynamic_view
+   image_addrbook
+   move_ham_after_report
+   sig_first
+   stationery
+
+The 'cursor_compose' preference removed the 'sig' option. Existing preferences
+will automatically be converted to 'bottom'.
+
+The 'save_attachments' preference removed the 'prompt_yes' and 'prompt_no'
+options. Existing preferences will automatically be converted.
+
+The 'add_printedby', 'image_replacement_addrs', 'reply_charset', and
+'reply_strip_sig' preferences were added.
+
+The 'forward_default' preference now contains the 'editasnew' option.
+
+
+API Changes
+~~~~~~~~~~~
+
+  - copyMessages
+
+    The $mailbox and $target parameters are now required to be UTF-8 strings.
+
+  - createFolder
+
+    This call has been removed (replaced with 'createMailbox').
+
+  - deleteMessages
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+  - flagMessages
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+  - folderlist
+
+    This call has been removed (replaced with 'mailboxList').
+
+  - moveMessages
+
+    The $mailbox and $target parameters are now required to be UTF-8 strings.
+
+  - searchMailbox
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+
+Filters Module
+--------------
+
+Backend Configuration (ingo/config/backends.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'hordeauth' parameter and the 'password' and 'username' parameters have
+been removed. By default, the transport backend will use Horde Groupware
+Webmail Edition authentication credentials to access. To set a different
+username and/or password, you should use the 'transport_auth' hook.
+
+
+Address Book Module
+-------------------
+
+Attribute Changes
+~~~~~~~~~~~~~~~~~
+
+  - The "gender" attribute sets values of (literally) "male" or "female" now,
+    and no longer 0 or 1.
+
+
+Preference Changes
+~~~~~~~~~~~~~~~~~~
+
+  - The "addressbooks" preference has been removed.
+
+
+API Changes
+~~~~~~~~~~~
+
+  - search
+
+    The $sources, $fields, $matchBegin, $forceSource and $returnFields
+    parameters have been removed and replaced by the $opts parameter.
+
+    Added a 'rfc822Return' option to return a Horde_Mail_Rfc822_List object
+    instead of the search results array (which remains the default).
+
+
 Upgrading Horde Groupware Webmail Edition from 4.0.x to 4.0.4
 =============================================================
 

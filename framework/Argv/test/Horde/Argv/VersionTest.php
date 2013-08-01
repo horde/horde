@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/TestCase.php';
+require_once __DIR__ . '/TestCase.php';
 
 /**
  * @author     Chuck Hagenbuch <chuck@horde.org>
@@ -32,7 +32,7 @@ class Horde_Argv_VersionTest extends Horde_Argv_TestCase
             'version' => "%prog 0.1"));
         $saveArgv = $_SERVER['argv'];
         try {
-            $_SERVER['argv'][0] = dirname(__FILE__) . '/foo/bar';
+            $_SERVER['argv'][0] = __DIR__ . '/foo/bar';
             $this->assertOutput(array("--version"), "bar 0.1\n");
         } catch (Exception $e) {
             $_SERVER['argv'] = $saveArgv;

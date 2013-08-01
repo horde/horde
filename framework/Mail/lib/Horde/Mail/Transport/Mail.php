@@ -1,10 +1,6 @@
 <?php
 /**
- * Internal PHP-mail() interface.
- *
- * LICENSE:
- *
- * Copyright (c) 2010 Chuck Hagenbuch
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,25 +29,24 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Horde
- * @package   Mail
- * @author    Chuck Hagenbuch <chuck@horde.org>
- * @author    Michael Slusarz <slusarz@horde.org>
- * @copyright 2010 Chuck Hagenbuch
- * @copyright 2010 Michael Slusarz
+ * @copyright 2010-2013 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 
 /**
  * Internal PHP-mail() interface.
  *
- * @category Horde
- * @package  Mail
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 class Horde_Mail_Transport_Mail extends Horde_Mail_Transport
 {
     /**
-     * Constructor.
-     *
      * @param array $params  Additional parameters:
      *   - args: (string) Extra arguments for the mail() function.
      */
@@ -61,37 +56,11 @@ class Horde_Mail_Transport_Mail extends Horde_Mail_Transport
     }
 
     /**
-     * Send a message.
-     *
-     * @param mixed $recipients  Either a comma-seperated list of recipients
-     *                           (RFC822 compliant), or an array of
-     *                           recipients, each RFC822 valid. This may
-     *                           contain recipients not specified in the
-     *                           headers, for Bcc:, resending messages, etc.
-     * @param array $headers     The headers to send with the mail, in an
-     *                           associative array, where the array key is the
-     *                           header name (ie, 'Subject'), and the array
-     *                           value is the header value (ie, 'test'). The
-     *                           header produced from those values would be
-     *                           'Subject: test'.
-     *                           If the '_raw' key exists, the value of this
-     *                           key will be used as the exact text for
-     *                           sending the message.
-     * @param mixed $body        The full text of the message body, including
-     *                           any Mime parts, etc. Either a string or a
-     *                           stream resource.
-     *
-     * @throws Horde_Mail_Exception
      */
     public function send($recipients, array $headers, $body)
     {
         $headers = $this->_sanitizeHeaders($headers);
-
-        // If we're passed an array of recipients, implode it.
-        if (is_array($recipients)) {
-            $recipients = array_map('trim', implode(',', $recipients));
-        }
-
+        $recipients = $this->parseRecipients($recipients);
         $subject = '';
 
         foreach (array_keys($headers) as $hdr) {
@@ -142,4 +111,5 @@ class Horde_Mail_Transport_Mail extends Horde_Mail_Transport
             throw new Horde_Mail_Exception('mail() returned failure.');
         }
     }
+
 }

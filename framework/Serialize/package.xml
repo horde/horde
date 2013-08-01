@@ -16,10 +16,16 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-08</date>
- <time>22:42:28</time>
+ <developer>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </developer>
+ <date>2013-03-05</date>
+ <time>17:34:23</time>
  <version>
-  <release>1.0.3</release>
+  <release>2.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -57,8 +63,9 @@
        <file name="badutf8.txt" role="test" />
       </dir> <!-- /test/Horde/Serialize/fixtures -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="JsonTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Serialize -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -67,7 +74,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -75,37 +82,45 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
+    <providesextension>lzf</providesextension>
    </package>
    <extension>
     <name>bz2</name>
@@ -128,8 +143,9 @@
    <install as="Horde/Serialize.php" name="lib/Horde/Serialize.php" />
    <install as="Horde/Serialize/Exception.php" name="lib/Horde/Serialize/Exception.php" />
    <install as="Horde/Serialize/AllTests.php" name="test/Horde/Serialize/AllTests.php" />
-   <install as="Horde/Serialize/Autoload.php" name="test/Horde/Serialize/Autoload.php" />
+   <install as="Horde/Serialize/bootstrap.php" name="test/Horde/Serialize/bootstrap.php" />
    <install as="Horde/Serialize/JsonTest.php" name="test/Horde/Serialize/JsonTest.php" />
+   <install as="Horde/Serialize/phpunit.xml" name="test/Horde/Serialize/phpunit.xml" />
    <install as="Horde/Serialize/fixtures/badutf8.txt" name="test/Horde/Serialize/fixtures/badutf8.txt" />
   </filelist>
  </phprelease>
@@ -271,12 +287,77 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>1.0.3</release>
+    <release>2.0.0alpha1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-08</date>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Improve dependency detection.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -2,7 +2,7 @@
 /**
  * Jonah_View_StoryView:: class to display an individual story.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -26,8 +26,9 @@ class Jonah_View_StoryView extends Jonah_View_Base
     {
         extract($this->_params, EXTR_REFS);
 
-        Horde::addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde');
-        Horde::addScriptFile('syntaxhighlighter/scripts/shAutoloader.js', 'horde');
+        global $page_output;
+        $page_output->addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde');
+        $page_output->addScriptFile('syntaxhighlighter/scripts/shAutoloader.js', 'horde');
         $path = $GLOBALS['registry']->get('jsuri', 'horde') . '/syntaxhighlighter/scripts/';
         $brushes = <<<EOT
           SyntaxHighlighter.autoloader(
@@ -57,27 +58,26 @@ class Jonah_View_StoryView extends Jonah_View_Base
           'xml xhtml xslt html    {$path}shBrushXml.js'
         );
 EOT;
-        Horde::addInlineScript(array(
+        $page_output->addInlineScript(array(
             $brushes,
             'SyntaxHighlighter.defaults[\'toolbar\'] = false',
             'SyntaxHighlighter.all()'
-        ), 'dom');
+        ), true);
 
         $sh_js_fs = $GLOBALS['registry']->get('jsfs', 'horde') . '/syntaxhighlighter/styles/';
         $sh_js_uri = Horde::url($GLOBALS['registry']->get('jsuri', 'horde'), false, -1) . '/syntaxhighlighter/styles/';
 
-        $css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
-        $css->addStylesheet($sh_js_fs . 'shCoreEclipse.css', $sh_js_uri . 'shCoreEclipse.css');
-        $css->addStylesheet($sh_js_fs . 'shThemeEclipse.css', $sh_js_uri . 'shThemeEclipse.css');
+        $page_output->addStylesheet($sh_js_fs . 'shCoreEclipse.css', $sh_js_uri . 'shCoreEclipse.css');
+        $page_output->addStylesheet($sh_js_fs . 'shThemeEclipse.css', $sh_js_uri . 'shThemeEclipse.css');
 
         $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
         try {
             $story = $driver->getStory($channel_id, $story_id, !$browser->isRobot());
         } catch (Exception $e) {
             $notification->push(sprintf(_("Error fetching story: %s"), $e->getMessage()), 'horde.warning');
-            require $registry->get('templates', 'horde') . '/common-header.inc';
-            require JONAH_TEMPLATES . '/menu.inc';
-            require $registry->get('templates', 'horde') . '/common-footer.inc';
+            $page_output->header();
+            $notification->notify(array('listeners' => 'status'));
+            $page_output->footer();
             exit;
         }
 
@@ -141,10 +141,10 @@ EOT;
             }
         }
 
-        require $registry->get('templates', 'horde') . '/common-header.inc';
-        require JONAH_TEMPLATES . '/menu.inc';
+        $page_output->header();
+        $notification->notify(array('listeners' => 'status'));
         echo $view->render('view');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
 }

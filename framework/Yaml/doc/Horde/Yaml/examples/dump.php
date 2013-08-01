@@ -3,7 +3,7 @@
  * @package Yaml
  */
 
-require_once dirname(dirname(dirname(__FILE__))) . '/Yaml/__autoload.php';
+require_once dirname(dirname(__DIR__)) . '/Yaml/__autoload.php';
 
 $array[] = 'Sequence item';
 $array['The Key'] = 'Mapped value';

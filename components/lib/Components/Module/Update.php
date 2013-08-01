@@ -16,7 +16,7 @@
  * Components_Module_Update:: can update the package.xml of
  * a Horde element.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -32,7 +32,7 @@ extends Components_Module_Base
 {
     public function getOptionGroupTitle()
     {
-        return 'Update ppackage.xml';
+        return 'Update package.xml';
     }
 
     public function getOptionGroupDescription()
@@ -83,6 +83,20 @@ extends Components_Module_Base
                     'help'   => 'Set a new api number in the package.xml.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--new-state',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Set a new release state in the package.xml.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--new-apistate',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Set a new api state in the package.xml.'
+                )
+            ),
         );
     }
 
@@ -119,6 +133,8 @@ extends Components_Module_Base
             '--regenerate' => 'Purge the old file listings and replace them with a completely fresh list.',
             '--new-version' => '',
             '--new-api' => '',
+            '--new-state' => '',
+            '--new-apistate' => '',
             '--commit' => 'Commit the changed package.xml to git.',
         );
     }

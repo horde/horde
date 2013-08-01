@@ -2,7 +2,7 @@
 /**
  * Class representing vEvents.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -34,9 +34,13 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
             'UID' => strval(new Horde_Support_Uuid())
         );
 
-        $method = !empty($this->_container)
-            ? $this->_container->getAttribute('METHOD')
-            : 'PUBLISH';
+        $method = null;
+        if (!empty($this->_container)) {
+            try {
+                $method = $this->_container->getAttribute('METHOD');
+            } catch (Horde_Icalendar_Exception $e) {
+            }
+        }
 
         switch ($method) {
         case 'PUBLISH':
@@ -67,6 +71,10 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
 
         case 'REFRESH':
             $requiredAttributes['ATTENDEE'] = '';
+            break;
+
+        default:
+            $requiredAttributes['DTSTART'] = time();
             break;
         }
 
@@ -140,7 +148,7 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
         $newAttributes = $vevent->getAllAttributes();
         foreach ($newAttributes as $newAttribute) {
             try {
-                $currentValue = $this->getAttribute($newAttribute['name']);
+                $this->getAttribute($newAttribute['name']);
             } catch (Horde_Icalendar_Exception $e) {
                 // Already exists so just add it.
                 $this->setAttribute($newAttribute['name'],
@@ -198,7 +206,7 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
             }
 
             try {
-                $currentValue = $this->getAttribute($newAttribute['name']);
+                $this->getAttribute($newAttribute['name']);
             } catch (Horde_Icalendar_Exception $e) {
                 // Already exists so just add it.
                 $this->setAttribute($newAttribute['name'],

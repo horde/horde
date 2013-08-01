@@ -26,21 +26,21 @@ class Folks_Application extends Horde_Registry_Application
     public $version = 'H5 (0.1-git)';
 
     /**
-     * Global variables defined:
-     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
-        $links = array(Folks::getUrlFor('feed', 'online') => _("Online users"));
+        $links = array(Folks::getUrlFor('feed', 'online', true, -1) => _("Online users"));
         if ($GLOBALS['registry']->isAuthenticated()) {
-            $links[Folks::getUrlFor('feed', 'friends')] = _("Online friends");
-            $links[Folks::getUrlFor('feed', 'activity')] = _("Friends activity");
-            $links[Folks::getUrlFor('feed', 'know')] = _("People you might know");
+            $links[Folks::getUrlFor('feed', 'friends', true, -1)] = _("Online friends");
+            $links[Folks::getUrlFor('feed', 'activity', true, -1)] = _("Friends activity");
+            $links[Folks::getUrlFor('feed', 'know', true, -1)] = _("People you might know");
         }
 
-        $GLOBALS['linkTags'] = array();
         foreach ($links as $url => $label) {
-            $GLOBALS['linkTags'][] = '<link rel="alternate" type="application/rss+xml" href="' . $url . '" title="' . $label . '" />';
+            $GLOBALS['page_output']->addLinkTag(array(
+                'href' => $url,
+                'title' => $label
+            ));
         }
     }
 
@@ -48,15 +48,20 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        return Folks::getMenu();
+        $menu->add(self::getUrlFor('user', $GLOBALS['registry']->getAuth()), _("My profile"), 'myaccount.png');
+        $menu->add(self::getUrlFor('list', 'friends'), _("Friends"), 'group.png');
+        $menu->add(Horde::url('edit/edit.php'), _("Edit profile"), 'edit.png');
+        $menu->add(Horde::url('services.php'), _("Services"), 'horde.png');
+        $menu->add(Horde::url('search.php'), _("Search"), 'search.png');
+        $menu->add(self::getUrlFor('list', 'online'), _("List"), 'group.png');
     }
 
     /**
-     * @param array $credentials  Array of criedentials (password requied)
+     * @param array $credentials  Array of credentials (password requied)
      */
     public function authAuthenticate($userID, $credentials)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         $result = $GLOBALS['folks_driver']->comparePassword($userID, $credentials['password']);
         if ($result !== true) {
@@ -73,7 +78,7 @@ class Folks_Application extends Horde_Registry_Application
             return false;
         }
 
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
         $GLOBALS['folks_driver'] = Folks_Driver::factory();
         if ($_COOKIE['folks_login_code'] == $GLOBALS['folks_driver']->getCookie($_COOKIE['folks_login_user'])) {
             $GLOBALS['registry']->setAuth($_COOKIE['folks_login_user']);
@@ -89,7 +94,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authUserExists($userId)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         return $GLOBALS['folks_driver']->userExists($userId);
     }
@@ -98,7 +103,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authUserList()
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         $users = array();
         foreach ($GLOBALS['folks_driver']->getUsers() as $user) {
@@ -112,7 +117,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authAddUser($userId, $credentials)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         $result = $GLOBALS['folks_driver']->addUser($userId, $credentials);
         if ($result instanceof PEAR_Error) {
@@ -128,7 +133,7 @@ class Folks_Application extends Horde_Registry_Application
         $password = Horde_Auth::genRandomPassword();
 
         /* Update password in DB. */
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
         $result = $GLOBALS['folks_driver']->changePassword($password, $userId);
         if ($result instanceof PEAR_Error) {
             throw new Horde_Auth_Exception($result);
@@ -141,7 +146,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authRemoveUser($userId)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         return $GLOBALS['folks_driver']->deleteUser($userId);
     }

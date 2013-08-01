@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="admin-phpshell" state="uptodate" md5="d5017591ef4a3f39d9787b581a0abba5">
+
+<entry id="admin-phpshell" state="uptodate" md5="d5017591ef4a3f39d9787b581a0abba5">
     <title>Adminisztrációs eszközök: a PHP Shell</title>
     <heading>A PHP Shell használata</heading>
     <para>A PHP parancsértelmező segítségével tetszőleges PHP parancsokat
@@ -12,7 +13,8 @@
           vagy print parancsokat kell tartalmaznia.
     </para>
 </entry>
-  <entry id="admin-sqlshell" state="uptodate" md5="5bd2fcb9c9678e62ca141566ab8f4c4f">
+
+<entry id="admin-sqlshell" state="uptodate" md5="5bd2fcb9c9678e62ca141566ab8f4c4f">
     <title>Adminisztrációs eszközök: az SQL Shell</title>
     <heading>Az SQL Shell használata</heading>
     <para>Az SQL parancsértelmező segítségével tetszőleges SQL parancsot
@@ -24,7 +26,8 @@
           ill. a kapott adatokat.
     </para>
 </entry>
-  <entry id="admin-cmdshell" state="uptodate" md5="9dbbe593735eebbb34de991a57b98b9f">
+
+<entry id="admin-cmdshell" state="uptodate" md5="9dbbe593735eebbb34de991a57b98b9f">
     <title>Adminisztrációs eszközök: a parancssor</title>
     <heading>A parancssor használata</heading>
     <para>A parancssor segítségével parancsokat hajthat végre a szerveren.
@@ -33,4 +36,5 @@
           jutnia.
     </para>
 </entry>
+
 </help>

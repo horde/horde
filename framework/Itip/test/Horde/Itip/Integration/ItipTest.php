@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the itip response handling.
  *
  * Copyright 2010 Kolab Systems AG
@@ -36,10 +31,19 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Itip_Integration_ItipTest
 extends PHPUnit_Framework_TestCase
 {
+    static public function setUpBeforeClass()
+    {
+        setlocale(LC_ALL, 'C');
+    }
+
+    static public function tearDownAfterClass()
+    {
+        setlocale(LC_ALL, '');
+    }
+
     public function setUp()
     {
         $this->_transport = new Horde_Mail_Transport_Mock();
-        setlocale(LC_ALL, 'C');
     }
 
     public function testMinimalItipHandlingSteps()

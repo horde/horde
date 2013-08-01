@@ -1,11 +1,14 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
 // Edit the following line to match the filesystem location of your Horde
@@ -16,6 +19,7 @@ require_once $HORDE_DIR . '/lib/Application.php';
 Horde_Registry::appInit('horde');
 
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
+$vars = $injector->getInstance('Horde_Variables');
 
 // Check for HTTP auth.
 if (empty($_SERVER['PHP_AUTH_USER']) ||
@@ -28,10 +32,7 @@ if (empty($_SERVER['PHP_AUTH_USER']) ||
     exit('Forbidden');
 }
 
-if ($url = Horde_Util::getFormData('url')) {
-    $url = new Horde_Url($url);
-} else {
-    $url = Horde::url('login.php');
-}
-
+$url = isset($vars->url)
+    ? new Horde_Url($vars->url)
+    : Horde::url('login.php');
 $url->redirect();

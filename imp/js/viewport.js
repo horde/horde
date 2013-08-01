@@ -8,10 +8,9 @@
  *
  * Required options:
  * -----------------
- * ajax_url: (string) The URL to send the viewport requests to.
- *           This URL should return its response in an object named
- *           'ViewPort' (other information can be returned in the response and
- *           will be ignored by this class).
+ * ajax: (function) The function that will send the AJAX request to the server
+ *       endpoint. The parameters to send to the server will be passed in as
+ *       the first argument as a Hash object.
  * container: (Element/string) A DOM element/ID of the container that holds
  *            the viewport. This element should be empty and have no children.
  * onContent: (function) A function that takes 2 arguments - the data object
@@ -28,8 +27,6 @@
  *
  * Optional options:
  * -----------------
- * ajax_opts: (object) Any additional options to pass to the Ajax.Request
- *            object when sending an AJAX message.
  * buffer_pages: (integer) The number of viewable pages to send to the browser
  *               per server access when listing rows.
  * empty_msg: (string | function) A string to display when the view is empty.
@@ -44,31 +41,16 @@
  *              as a header.
  * lookbehind: (integer) What percentage of the received buffer should be
  *             used to download rows before the given row number?
- * onAjaxFailure: (function) Callback function that handles a failure response
- *                from an AJAX request.
- *                params: (XMLHttpRequest object)
- *                        (mixed) Result of evaluating the X-JSON response
- *                        header, if any (can be null).
- *                return: NONE
  * onAjaxRequest: (function) Callback function that allows additional
  *                parameters to be added to the outgoing AJAX request.
  *                params: (Hash) The params list (the current view can be
  *                        obtained via the view property).
- *                return: NONE
- * onAjaxResponse: (function) Callback function that allows user-defined code
- *                 to additionally process the AJAX return data.
- *                params: (XMLHttpRequest object)
- *                        (mixed) Result of evaluating the X-JSON response
- *                        header, if any (can be null).
- *                return: NONE
+ *                return: (Hash) The params list to use for the outgoing
+ *                        request.
  * onContentOffset: (function) Callback function that alters the starting
  *                  offset of the content about to be rendered.
  *                  params: (integer) The current offset.
  *                  return: (integer) The altered offset.
- * onSlide: (function) Callback function that is triggered when the
- *          viewport slider bar is moved.
- *          params: NONE
- *          return: NONE
  * page_size: (integer) Default page size to view on load. Only used if
  *            pane_mode is 'horiz'.
  * pane_data: (Element/string) A DOM element/ID of the container to hold
@@ -80,6 +62,8 @@
  *             pane_mode is 'vert'.
  * split_bar_class: (object) The CSS class(es) to use for the split bar.
  *                  Takes two properties: 'horiz' and 'vert'.
+ * split_bar_handle_class: (object) The CSS class(es) to use for the split bar
+ *                         handle. Takes two properties: 'horiz' and 'vert'.
  * wait: (integer) How long, in seconds, to wait before displaying an
  *       informational message to users that the list is still being
  *       built.
@@ -125,8 +109,20 @@
  *
  * ViewPort:select
  *   Fired when rows are selected.
- *   params: (object) opts = (object) Boolean options [delay, right]
+ *   params: (object) opts = (object) Boolean options [right]
  *                    vs = (ViewPort_Selection) A ViewPort_Selection object.
+ *
+ * ViewPort:sliderEnd
+ *   Fired when the scrollbar slide is completed.
+ *   params: NONE
+ *
+ * ViewPort:sliderSlide
+ *   Fired when the scrollbar is moved.
+ *   params: NONE
+ *
+ * ViewPort:sliderStart
+ *   Fired when the scrollbar is first clicked on.
+ *   params: NONE
  *
  * ViewPort:splitBarChange
  *   Fired when the splitbar is moved.
@@ -178,7 +174,7 @@
  * data: (object) Data for each entry. Keys are a unique ID (see also the
  *       'rowlist' entry). Values are the data objects. Internal keys for
  *       these data objects must NOT begin with the string 'VP_' (reserved
- *       keys). THese values update current cached values.
+ *       keys). These values update current cached values.
  * data_reset: (integer) If set, purge all browser cached data objects.
  * disappear: (array) The list of unique IDs that are browser cached but no
  *            longer exist on the server.
@@ -205,6 +201,7 @@
  *   VP_domid: (string) The DOM ID of the row.
  *   VP_id: (string) The unique ID used to store the data entry.
  *   VP_rownum: (integer) The row number of the row.
+ *   VP_view: (string) The containing view.
  *
  *
  * Scroll bars are styled using these CSS class names:
@@ -215,10 +212,14 @@
  * vpScrollDown - The DOWN arrow.
  *
  *
- * Requires prototypejs 1.6+, scriptaculous 1.8+ (effects.js only), and
- * Horde's dragdrop2.js and slider2.js.
+ * Requires:
+ *   - prototypejs 1.6+
+ *   - scriptaculous 1.8+ (effects.js only)
+ *   - dragdrop2.js (Horde)
+ *   - slider2.js (Horde)
+ *   - viewport_utils.js
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -232,13 +233,14 @@ var ViewPort = Class.create({
             buffer_pages: 10,
             limit_factor: 35,
             lookbehind: 40,
-            split_bar_class: {}
+            split_bar_class: {},
+            split_bar_handle_class: {}
         }, opts);
 
         this.opts.container = $(opts.container);
         this.opts.pane_data = $(opts.pane_data);
 
-        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ float: 'left' });
+        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ cssFloat: 'left' });
         this.opts.list_container = new Element('DIV');
         if (this.opts.list_header) {
             this.opts.list_container.insert(this.opts.list_header);
@@ -255,7 +257,6 @@ var ViewPort = Class.create({
             horiz: {
                 loc: opts.page_size
             },
-            init: false,
             spacer: null,
             vert: {
                 width: opts.pane_width
@@ -272,12 +273,10 @@ var ViewPort = Class.create({
         // Init empty string now.
         this.empty_msg = new Element('SPAN', { className: 'vpEmpty' });
 
-        // Set up AJAX response function.
-        this.ajax_response = this.opts.onAjaxResponse || function(r) {
-            this.parseJSONResponse(r.responseJSON);
-        }.bind(this);
-
         Event.observe(window, 'resize', this.onResize.bind(this));
+        document.observe('DragDrop2:start', this._onDragStart.bindAsEventListener(this));
+        document.observe('DragDrop2:end', this._onDragEnd.bindAsEventListener(this));
+        document.observe('dblclick', this._onDragDblClick.bindAsEventListener(this));
     },
 
     // view = (string) ID of view.
@@ -322,10 +321,11 @@ var ViewPort = Class.create({
             this.view = view;
         }
 
-        if (curr = this.views[view]) {
+        if ((curr = this.views[view])) {
             this._updateContent(curr.getMetaData('offset') || 0, f_opts);
             if (!opts.background) {
-                this._ajaxRequest({ checkcache: 1 });
+                this.opts.container.fire('ViewPort:fetch', view);
+                this.opts.ajax(this.addRequestParams({ checkcache: 1 }));
             }
             return;
         }
@@ -336,7 +336,7 @@ var ViewPort = Class.create({
             this.scroller.clear();
         }
 
-        this.views[view] = buffer = this._getBuffer(view, true);
+        this.views[view] = this._getBuffer(view, true);
 
         if (opts.search) {
             f_opts.search = opts.search;
@@ -355,6 +355,8 @@ var ViewPort = Class.create({
         if (this.view == view) {
             return false;
         }
+
+        this.opts.container.fire('ViewPort:remove', this.createSelectionBuffer(view));
 
         delete this.views[view];
         return true;
@@ -424,9 +426,6 @@ var ViewPort = Class.create({
                 this.isbusy = true;
                 try {
                     this._remove(vs);
-                    if (vs.getBuffer().getView() == this.view) {
-                        this.requestContentRefresh(this.currentOffset());
-                    }
                 } catch (e) {
                     this.isbusy = false;
                     throw e;
@@ -441,14 +440,15 @@ var ViewPort = Class.create({
     {
         var buffer = vs.getBuffer();
 
-        if (buffer.getView() == this.view) {
-            this.deselect(vs);
-        }
-
+        this.deselect(vs);
         this.opts.container.fire('ViewPort:remove', vs);
 
         buffer.remove(vs.get('rownum'));
         buffer.setMetaData({ total_rows: buffer.getMetaData('total_rows') - vs.size() }, true);
+
+        if (vs.getBuffer().getView() == this.view) {
+            this.requestContentRefresh(this.currentOffset());
+        }
     },
 
     // nowait = (boolean) If true, don't delay before resizing.
@@ -501,13 +501,13 @@ var ViewPort = Class.create({
             h += lh * this.page_size;
             this.opts.list_container.setStyle({
                 height: h + 'px',
-                float: 'none',
+                cssFloat: 'none',
                 overflow: 'hidden',
                 width: 'auto'
             });
             this.opts.content.setStyle({ width: '100%' });
             sp.currbar.show();
-            this.opts.pane_data.setStyle({ height: Math.max(this._getMaxHeight() - h, 0) + 'px' }).show();
+            this.opts.pane_data.show().setStyle({ height: Math.max(document.viewport.getHeight() - this.opts.pane_data.viewportOffset()[1], 0) + 'px' });
             break;
 
         case 'vert':
@@ -521,14 +521,14 @@ var ViewPort = Class.create({
                 sp.vert.width = parseInt(this.opts.container.clientWidth * 0.35, 10);
             }
 
-            h += lh * this.page_size;
+            h += lh * this.page_size - this.opts.container.getLayout().get('border-bottom');
             this.opts.list_container.setStyle({
-                float: 'left',
+                cssFloat: 'left',
                 height: h + 'px'
             });
             this.opts.content.setStyle({ width: sp.vert.width + 'px' });
-            sp.currbar.setStyle({ height: h + 'px' }).show();
-            this.opts.pane_data.setStyle({ height: h + 'px' }).show();
+            sp.currbar.setStyle({ height: h - sp.currbar.getLayout().get('border-bottom') + 'px' }).show();
+            this.opts.pane_data.setStyle({ height: h - this.opts.pane_data.getLayout().get('border-bottom') + 'px' }).show();
             break;
 
         default:
@@ -546,7 +546,7 @@ var ViewPort = Class.create({
             }
 
             this.opts.list_container.setStyle({
-                float: 'none',
+                cssFloat: 'none',
                 height: (h + (lh * this.page_size)) + 'px',
                 overflow: 'hidden',
                 width: 'auto'
@@ -639,6 +639,7 @@ var ViewPort = Class.create({
             }
 
             if (opts.purge) {
+                this.opts.container.fire('ViewPort:remove', this.createSelectionBuffer(view));
                 b.resetRowlist();
             }
 
@@ -701,7 +702,10 @@ var ViewPort = Class.create({
             this._handleWait();
         }
 
-        this._ajaxRequest(params, { noslice: true, view: view });
+        this.opts.ajax(this.addRequestParams(params, {
+            noslice: true,
+            view: view
+        }));
     },
 
     // rownum = (integer) Row number
@@ -763,47 +767,34 @@ var ViewPort = Class.create({
     // Returns a Hash object
     addRequestParams: function(args, opts)
     {
+        args = args || {};
         opts = opts || {};
+
         var cid = this.getMetaData('cacheid', opts.view),
             params = $H(),
             cached, rowlist;
 
-        params.update({ view: opts.view || this.view });
+        params.set('view', opts.view || this.view);
 
         if (cid) {
-            params.update({ cacheid: cid });
+            params.set('cacheid', cid);
         }
 
         if (!opts.noslice) {
             rowlist = this._getSliceBounds(this.currentOffset(), null, opts.view);
-            params.update({ slice: rowlist.start + ':' + rowlist.end });
+            params.set('slice', rowlist.start + ':' + rowlist.end);
         }
 
         cached = this._getBuffer(opts.view).getAllUIDs();
         if (cached.size()) {
-            params.update({ cache: Object.toJSON(cached) });
+            params.set('cache', cached.toViewportUidString());
         }
 
         params.update(args);
 
-        if (this.opts.onAjaxRequest) {
-            this.opts.onAjaxRequest(params);
-        }
-
-        return params;
-    },
-
-    // params - (object) A list of parameters to send to server
-    // opts - (object) Args to pass to addRequestParams().
-    _ajaxRequest: function(params, other)
-    {
-        new Ajax.Request(this.opts.ajax_url, Object.extend(this.opts.ajax_opts || {}, {
-            evalJS: false,
-            evalJSON: true,
-            onComplete: this.ajax_response,
-            onFailure: this.opts.onAjaxFailure || Prototype.emptyFunction,
-            parameters: this.addRequestParams(params, other)
-        }));
+        return this.opts.onAjaxRequest
+            ? $H(this.opts.onAjaxRequest(params))
+            : params;
     },
 
     // r - (object) responseJSON returned from the server.
@@ -845,7 +836,8 @@ var ViewPort = Class.create({
             llist = buffer.getMetaData('llist') || $H();
 
         if (r.data_reset) {
-            this.deselect(this.getSelected());
+            this.deselect(this.getSelected(r.view));
+            this.opts.container.fire('ViewPort:remove', this.createSelectionBuffer(r.view));
         } else if (r.disappear && r.disappear.size()) {
             this._remove(this.createSelection('uid', r.disappear, r.view));
         }
@@ -1033,6 +1025,11 @@ var ViewPort = Class.create({
             : new ViewPort_Buffer(this, view);
     },
 
+    bufferLoaded: function(view)
+    {
+        return Boolean(this.views[view]);
+    },
+
     currentOffset: function()
     {
         return this.scroller.currentOffset();
@@ -1052,12 +1049,12 @@ var ViewPort = Class.create({
 
     _getLineHeight: function()
     {
-        var mode = this.pane_mode || 'horiz';
+        var d, mode = this.pane_mode || 'horiz';
 
         if (!this.split_pane[mode].lh) {
             // To avoid hardcoding the line height, create a temporary row to
             // figure out what the CSS says.
-            var d = new Element('DIV', { className: this.opts.list_class }).insert(this.prepareRow({ VP_domid: null }, mode)).hide();
+            d = new Element('DIV', { className: this.opts.list_class }).insert(this.prepareRow({ VP_domid: null }, mode)).hide();
             $(document.body).insert(d);
             this.split_pane[mode].lh = d.getHeight();
             d.remove();
@@ -1080,16 +1077,11 @@ var ViewPort = Class.create({
                 : Math.max(parseInt(this.getPageSize('max') * 0.45, 10), 5);
 
         case 'max':
-            return parseInt(this._getMaxHeight() / this._getLineHeight());
+            return parseInt((document.viewport.getHeight() - this.opts.content.viewportOffset()[1]) / this._getLineHeight(), 10);
 
         default:
             return this.page_size;
         }
-    },
-
-    _getMaxHeight: function()
-    {
-        return document.viewport.getHeight() - this.opts.content.viewportOffset()[1];
     },
 
     bufferSize: function()
@@ -1134,7 +1126,8 @@ var ViewPort = Class.create({
             return;
         }
 
-        sp.currbar = sp[this.pane_mode].bar = new Element('DIV', { className: this.opts.split_bar_class[this.pane_mode] });
+        sp.currbar = sp[this.pane_mode].bar = new Element('DIV', { className: this.opts.split_bar_class[this.pane_mode] })
+            .insert(new Element('DIV', { className: this.opts.split_bar_handle_class[this.pane_mode] }));
 
         if (!this.opts.pane_data.descendantOf(this.opts.container)) {
             this.opts.container.insert(this.opts.pane_data.remove());
@@ -1150,7 +1143,7 @@ var ViewPort = Class.create({
                 nodrop: true,
                 snap: function(x, y, elt) {
                     var sp = this.split_pane,
-                        l = parseInt((y - sp.pos) / sp.lh);
+                        l = parseInt((y - sp.pos) / sp.lh, 10);
                     if (l < 1) {
                         l = 1;
                     } else if (l > sp.max) {
@@ -1163,20 +1156,16 @@ var ViewPort = Class.create({
             break;
 
         case 'vert':
-            new Drag(sp.currbar.setStyle({ float: 'left' }), {
+            new Drag(sp.currbar.setStyle({
+                cssFloat: 'left',
+                position: 'relative'
+            }), {
                 constraint: 'horizontal',
                 ghosting: true,
                 nodrop: true,
                 snapToParent: true
             });
             break;
-        }
-
-        if (!sp.init) {
-            document.observe('DragDrop2:end', this._onDragEnd.bindAsEventListener(this));
-            document.observe('DragDrop2:start', this._onDragStart.bindAsEventListener(this));
-            document.observe('dblclick', this._onDragDblClick.bindAsEventListener(this));
-            sp.init = true;
         }
     },
 
@@ -1232,7 +1221,9 @@ var ViewPort = Class.create({
 
     _onDragDblClick: function(e)
     {
-        if (e.element() != this.split_pane.currbar) {
+        if (!Object.isElement(this.split_pane.currbar) ||
+            (e.element() != this.split_pane.currbar &&
+             !e.element().descendantOf(this.split_pane.currbar))) {
             return;
         }
 
@@ -1297,7 +1288,10 @@ var ViewPort = Class.create({
             slice = this.createSelection('rownum', vs);
             if (vs.size() != slice.size()) {
                 this.opts.container.fire('ViewPort:fetch', this.view);
-                return this._ajaxRequest({ rangeslice: 1, slice: vs.min() + ':' + vs.size() });
+                return this.opts.ajax(this.addRequestParams({
+                    rangeslice: 1,
+                    slice: vs.min() + ':' + vs.max()
+                }));
             }
             vs = slice;
         }
@@ -1327,18 +1321,20 @@ var ViewPort = Class.create({
     // opts = (object) TODO [clearall]
     deselect: function(vs, opts)
     {
+        var buffer = vs.getBuffer();
         opts = opts || {};
 
         if (vs.size() &&
-            this._getBuffer().deselect(vs, opts && opts.clearall)) {
+            buffer.deselect(vs, opts.clearall) &&
+            buffer.getView() == this.view) {
             vs.get('div').invoke('removeClassName', 'vpRowSelected');
             this.opts.container.fire('ViewPort:deselect', { opts: opts, vs: vs });
         }
     },
 
-    getSelected: function()
+    getSelected: function(view)
     {
-        return Object.clone(this._getBuffer().getSelected());
+        return Object.clone(this._getBuffer(view).getSelected());
     }
 
 }),
@@ -1361,13 +1357,23 @@ ViewPort_Scroller = Class.create({
         var c = this.vp.opts.content;
 
         // Create the outer div.
-        this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ float: 'left', overflow: 'hidden' }).hide();
+        this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ cssFloat: 'left', overflow: 'hidden' }).hide();
         c.insert({ after: this.scrollDiv });
 
-        this.scrollDiv.observe('Slider2:change', this._onScroll.bind(this));
-        if (this.vp.opts.onSlide) {
-            this.scrollDiv.observe('Slider2:slide', this.vp.opts.onSlide);
-        }
+        this.scrollDiv.observe('Slider2:change', function() {
+            if (!this.noupdate) {
+                this.vp.requestContentRefresh(this.currentOffset());
+            }
+        }.bind(this));
+        this.scrollDiv.observe('Slider2:end', function() {
+            this.vp.opts.container.fire('ViewPort:sliderEnd');
+        }.bind(this));
+        this.scrollDiv.observe('Slider2:slide', function() {
+            this.vp.opts.container.fire('ViewPort:sliderSlide');
+        }.bind(this));
+        this.scrollDiv.observe('Slider2:start', function() {
+            this.vp.opts.container.fire('ViewPort:sliderStart');
+        }.bind(this));
 
         // Create scrollbar object.
         this.scrollbar = new Slider2(this.scrollDiv, {
@@ -1438,13 +1444,6 @@ ViewPort_Scroller = Class.create({
     {
         this._createScrollBar();
         this.scrollbar.setScrollPosition(offset);
-    },
-
-    _onScroll: function()
-    {
-        if (!this.noupdate) {
-            this.vp.requestContentRefresh(this.currentOffset());
-        }
     },
 
     currentOffset: function()
@@ -1531,14 +1530,14 @@ ViewPort_Buffer = Class.create({
         range = $A($R(offset + 1, Math.min(offset + this.vp.getPageSize() - 1, tr)));
 
         return rows
-            ? (range.diff(this.rowlist.keys().concat(rows)).size() == 0)
+            ? (range.diff(this.rowlist.keys().concat(rows)).size() === 0)
             : !this._rangeCheck(range);
     },
 
     isNearingLimit: function(offset)
     {
         if (this.rowlist.size() != this.getMetaData('total_rows')) {
-            if (offset != 0 &&
+            if (offset !== 0 &&
                 this._rangeCheck($A($R(Math.max(offset + 1 - this.vp.limitTolerance(), 1), offset)))) {
                 return 'top';
             } else if (this._rangeCheck($A($R(offset + 1, Math.min(offset + this.vp.limitTolerance() + this.vp.getPageSize() - 1, this.getMetaData('total_rows')))).reverse())) {
@@ -1567,6 +1566,7 @@ ViewPort_Buffer = Class.create({
                     e.VP_domid = 'VProw_' + (++this.vp.id);
                 }
                 e.VP_id = u;
+                e.VP_view = this.view;
                 return e;
             }
         }, this).compact();
@@ -1644,6 +1644,7 @@ ViewPort_Buffer = Class.create({
             newsize = rowsize - rownums.size();
 
         return this.rowlist.keys().each(function(n) {
+            n = parseInt(n, 10);
             if (n >= minrow) {
                 var id = this.rowlist.get(n), r;
                 if (rownums.include(n)) {
@@ -1809,26 +1810,40 @@ ViewPort_Selection = Class.create({
     //   regex - Matches the RegExp contained in the query.
     search: function(params)
     {
-        return this._search(params, this.get('dataob'));
-    },
-
-    _search: function(params, data)
-    {
-        return new ViewPort_Selection(this.buffer, 'uid', data.findAll(function(i) {
+        return new ViewPort_Selection(this.buffer, 'uid', this.get('dataob').findAll(function(i) {
             // i = data object
             return $H(params).all(function(k) {
                 // k.key = search key; k.value = search criteria
                 return $H(k.value).all(function(s) {
+                    var r;
+
+                    // Normalize dynamically created values. We know the
+                    // required types for these values, and certain browsers
+                    // do strict type-checking (e.g. Chrome).
+                    switch (k.key) {
+                    case 'VP_domid':
+                    case 'VP_id':
+                        s.value = s.value.invoke('toString');
+                        break;
+
+                    case 'VP_rownum':
+                        s.value = s.value.collect(function(i) {
+                            var val = parseInt(i, 10);
+                            return isNaN(val) ? null : val;
+                        }).compact();
+                        break;
+                    }
+
                     // s.key = search type; s.value = search query
                     switch (s.key) {
                     case 'equal':
                     case 'notequal':
-                        var r = i[k.key] && s.value.include(i[k.key]);
+                        r = i[k.key] && s.value.include(i[k.key]);
                         return (s.key == 'equal') ? r : !r;
 
                     case 'include':
                     case 'notinclude':
-                        var r = i[k.key] && Object.isArray(i[k.key]) && i[k.key].include(s.value);
+                        r = i[k.key] && Object.isArray(i[k.key]) && i[k.key].include(s.value);
                         return (s.key == 'include') ? r : !r;
 
                     case 'regex':
@@ -1858,22 +1873,4 @@ ViewPort_Selection = Class.create({
         return this.buffer;
     }
 
-});
-
-/** Utility Functions **/
-Object.extend(Array.prototype, {
-    // Need our own diff() function because prototypejs's without() function
-    // does not handle array input.
-    diff: function(values)
-    {
-        return this.select(function(value) {
-            return !values.include(value);
-        });
-    },
-    numericSort: function()
-    {
-        return this.collect(Number).sort(function(a, b) {
-            return (a > b) ? 1 : ((a < b) ? -1 : 0);
-        });
-    }
 });

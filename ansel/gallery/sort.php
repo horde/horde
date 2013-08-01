@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 /* If we aren't provided with a gallery, redirect to the gallery
@@ -19,7 +19,7 @@ if (!isset($galleryId)) {
     exit;
 }
 try {
-    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
+    $gallery = $injector->getInstance('Ansel_Storage')->getGallery($galleryId);
 } catch (Ansel_Excception $e) {
     $notification->push(_("There was an error accessing the gallery."), 'horde.error');
     Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
@@ -27,7 +27,7 @@ try {
 }
 
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-    $notification->push(sprintf(_("Access denied editing gallery \"%s\"."), $gallery->get('name')), 'horde.error');
+    $notification->push(_("Access denied editing this gallery."), 'horde.error');
     Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
 }
 
@@ -35,36 +35,57 @@ $style = $gallery->getStyle();
 $date = Ansel::getDateParameter();
 $gallery->setDate($date);
 
-switch (Horde_Util::getPost('action')) {
+switch (Horde_Util::getFormData('action')) {
 case 'Sort':
     parse_str(Horde_Util::getPost('order'), $order);
     $order = $order['order'];
     foreach ($order as $pos => $id) {
         $gallery->setImageOrder($id, $pos);
     }
-
     $notification->push(_("Gallery sorted."), 'horde.success');
     $style = $gallery->getStyle();
-
-    Ansel::getUrlFor('view',
-                     array_merge(
-                           array('view' => 'Gallery',
-                                 'gallery' => $galleryId,
-                                 'slug' => $gallery->get('slug')),
-                           $date
-                     ),
-                     true)->redirect();
+    Ansel::getUrlFor(
+        'view',
+         array_merge(
+               array('view' => 'Gallery',
+                     'gallery' => $galleryId,
+                     'slug' => $gallery->get('slug')
+                ),
+                $date
+        ),
+        true)->redirect();
+    exit;
+case 'Reset':
+    // Reset the sort order by date.
+    $images = $injector->getInstance('Ansel_Storage')
+          ->listImages(array('gallery_id' => $galleryId, 'sort' => 'image_original_date'));
+    $pos = 0;
+    foreach ($images as $id) {
+        $gallery->setImageOrder($id, $pos++);
+    }
+    $notification->push(_("Gallery sort reset."), 'horde.success');
+    $style = $gallery->getStyle();
+    Ansel::getUrlFor(
+        'view',
+        array_merge(
+            array('view' => 'Gallery',
+                  'gallery' => $galleryId,
+                  'slug' => $gallery->get('slug')
+            ),
+            $date
+        ),
+        true)->redirect();
     exit;
 }
 
-Horde::addInlineScript(array(
+$page_output->addInlineScript(array(
     'jQuery("#sortContainer").sortable()',
     'jQuery("#sortContainer").disableSelection()',
-), 'dom');
-
+), true);
 $title = sprintf(_("%s :: Sort"), $gallery->get('name'));
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'title' => _("Search Forums")
+));
 $notification->notify(array('listeners' => 'status'));
 ?>
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>
@@ -101,4 +122,4 @@ echo '</div>';
 <script>jQuery.noConflict();</script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js" type="text/javascript"></script>
 <?php
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

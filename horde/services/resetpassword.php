@@ -1,25 +1,28 @@
 <?php
 /**
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author Marko Djukic <marko@oblo.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
+
+$vars = $injector->getInstance('Horde_Variables');
 
 // Make sure auth backend allows passwords to be reset.
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (empty($conf['auth']['resetpassword']) ||
     !$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot reset password automatically, contact your administrator."), 'horde.error');
-    Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
+    $registry->getServiceLink('login')->add('url', $vars->url)->redirect();
 }
-
-$vars = Horde_Variables::getDefaultVariables();
 
 $title = _("Reset your password");
 $form = new Horde_Form($vars, $title);
@@ -49,7 +52,7 @@ if ($username = $vars->get('username')) {
         $form->addVariable(_("Answer"), 'answer', 'text', true);
         if (!$question) {
             $notification->push(_("No security question has been set. Please contact your administrator."), 'horde.error');
-            Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
+            $registry->getServiceLink('login')->add('url', $vars->url)->redirect();
         }
     } else {
         $notification->push(_("Incorrect username or alternate address. Try again or contact your administrator if you need further help."), 'horde.error');
@@ -75,17 +78,21 @@ if ($can_validate && $form->validate($vars)) {
             $success = false;
         }
 
-        $mail = new Horde_Mime_Mail(array('subject' => _("Your password has been reset"),
-                                          'body' => sprintf(_("Your new password for %s is: %s"),
-                                                            $registry->get('name', 'horde'),
-                                                            $password),
-                                          'to' => $email,
-                                          'from' => $email,
-                                          'charset' => 'UTF-8'));
+        $mail = new Horde_Mime_Mail(array(
+            'body' => sprintf(_("Your new password for %s is: %s"),
+                        $registry->get('name', 'horde'),
+                        $password
+                      ),
+            'charset' => 'UTF-8',
+            'From' => empty($conf['auth']['resetpassword_from']) ? $email : $conf['auth']['resetpassword_from'],
+            'To' => $email,
+            'Subject' => _("Your password has been reset")
+        ));
+
         try {
-            $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+            $mail->send($injector->getInstance('Horde_Mail'));
             $notification->push(_("Your password has been reset, check your email and log in with your new password."), 'horde.success');
-            Horde::getServiceLink('login')->add('url', $info['url'])->redirect();
+            $registry->getServiceLink('login')->add('url', $info['url'])->redirect();
             exit;
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
@@ -99,7 +106,12 @@ if ($can_validate && $form->validate($vars)) {
 }
 
 $renderer = new Horde_Core_Ui_ModalFormRenderer();
-$bodyClass = 'modal-form';
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->topbar = $page_output->sidebar = false;
+
+$page_output->header(array(
+    'body_class' => 'modal-form',
+    'title' => $title
+));
 require $registry->get('templates', 'horde') . '/login/resetpassword.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

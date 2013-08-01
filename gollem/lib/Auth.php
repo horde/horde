@@ -2,7 +2,7 @@
 /**
  * The Gollem_Auth class provides authentication for Gollem.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -53,7 +53,7 @@ class Gollem_Auth
         if ((!isset($credentials['userId']) ||
              !isset($credentials['password'])) &&
             !$GLOBALS['session']->exists('gollem', 'backend_key') &&
-            self::_canAutoLogin()) {
+            self::canAutoLogin($credentials['backend_key'])) {
             if (!empty($backend['hordeauth'])) {
                 $credentials['userId'] = self::getAutologinID($credentials['backend_key']);
                 $credentials['password'] = $GLOBALS['registry']->getAuthCredential('password');
@@ -70,8 +70,9 @@ class Gollem_Auth
             !empty($backend['params']['password'])) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             $credentials['password'] = $secret->read(
-                $secret->getKey('gollem'),
-                $backend['params']['password']);
+                $secret->getKey(),
+                $backend['params']['password']
+            );
         }
 
         if (!isset($credentials['userId']) ||
@@ -83,35 +84,15 @@ class Gollem_Auth
             $vfs = $GLOBALS['injector']
                 ->getInstance('Gollem_Factory_Vfs')
                 ->create($credentials['backend_key']);
-            $vfs->setParams(array('username' => $credentials['userId'],
-                                  'password' => $credentials['password']));
-            $vfs->checkCredentials();
-
-            if (!empty($backend['quota'])) {
-                $quotaroot = $backend['root'] == '/' ? '' : $backend['root'];
-                if (isset($backend['quota_val'])) {
-                    $vfs->setQuota($backend['quota_val'], $backend['quota_metric']);
-                    $vfs->setQuotaRoot($quotaroot);
-                } else {
-                    $quota_metric = array(
-                        'B' => Horde_Vfs::QUOTA_METRIC_BYTE,
-                        'KB' => Horde_Vfs::QUOTA_METRIC_KB,
-                        'MB' => Horde_Vfs::QUOTA_METRIC_MB,
-                        'GB' => Horde_Vfs::QUOTA_METRIC_GB
-                    );
-                    $quota_str = explode(' ', $backend['quota'], 2);
-                    if (is_numeric($quota_str[0])) {
-                        $metric = trim(Horde_String::upper($quota_str[1]));
-                        if (!isset($quota_metric[$metric])) {
-                            $metric = 'B';
-                        }
-                        $vfs->setQuota($quota_str[0], $quota_metric[$metric]);
-                        $vfs->setQuotaRoot($quotaroot);
-                        $backend['quota_val'] = $quota_str[0];
-                        $backend['quota_metric'] = $quota_metric[$metric];
-                    }
+            $params = array('username' => $credentials['userId'],
+                            'password' => $credentials['password']);
+            foreach (array_keys($backend['loginparams']) as $param) {
+                if (isset($credentials[$param])) {
+                    $backend['params'][$param] = $params[$param] = $credentials[$param];
                 }
             }
+            $vfs->setParams($params);
+            $vfs->checkCredentials();
         } catch (Horde_Exception $e) {
             throw new Horde_Auth_Exception($e->getMessage(), Horde_Auth::REASON_MESSAGE);
         }
@@ -128,7 +109,7 @@ class Gollem_Auth
         }
         if (!isset($backend['params']['password'])) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            $backend['params']['password'] = $secret->write($secret->getKey('gollem'), $credentials['password']);
+            $backend['params']['password'] = $secret->write($secret->getKey(), $credentials['password']);
         }
 
         // Make sure we have a 'root' parameter.
@@ -197,7 +178,7 @@ class Gollem_Auth
 
         if (empty($credentials['transparent'])) {
             /* Attempt hordeauth authentication. */
-            $credentials = self::_canAutoLogin();
+            $credentials = self::canAutoLogin();
             if ($credentials === false) {
                 return false;
             }
@@ -242,7 +223,7 @@ class Gollem_Auth
                 }
                 if (isset($backends[$key]['params']['password'])) {
                     $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-                    $backends[$key]['params']['password'] = $secret->write($secret->getKey('gollem'), $backends[$key]['params']['password']);
+                    $backends[$key]['params']['password'] = $secret->write($secret->getKey(), $backends[$key]['params']['password']);
                 }
             }
             $GLOBALS['session']->set('gollem', 'backends', $backends);
@@ -314,22 +295,18 @@ class Gollem_Auth
     /**
      * Can we log in without a login screen for the requested backend key?
      *
-     * @param string $key     The backend key to check. Defaults to
-     *                        self::getPreferredBackend().
-     * @param boolean $force  If true, check the backend key even if there is
-     *                        more than one backend.
+     * @param string $key  The backend to login to.
      *
      * @return array  The credentials needed to login ('userId', 'password',
      *                'backend') or false if autologin not available.
      */
-    static protected function _canAutoLogin($key = null, $force = false)
+    static public function canAutoLogin($key = null)
     {
-        $auto_server = self::getPreferredBackend();
-        if ($key === null) {
-            $key = $auto_server;
+        if (is_null($key)) {
+            $key = self::getPreferredBackend();
         }
 
-        if ((count($auto_server) == 1 || $force) &&
+        if ($key &&
             $GLOBALS['registry']->getAuth() &&
             ($config = self::getBackend($key)) &&
             empty($config['loginparams']) &&

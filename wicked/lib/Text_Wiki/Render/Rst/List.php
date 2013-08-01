@@ -2,7 +2,7 @@
 /**
  * Renders a list for a Wiki page.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
  * you did not receive this file, see
@@ -42,10 +42,11 @@ class Text_Wiki_Render_Rst_List
 
         switch ($type) {
         case 'bullet_list_start':
-        case 'bullet_list_end':
         case 'number_list_start':
-        case 'number_list_end':
             return '';
+        case 'bullet_list_end':
+        case 'number_list_end':
+            return "\n";
         case 'bullet_item_start':
             return str_repeat(' ', ($level - 1) * 2) . '* ';
         case 'number_item_start':

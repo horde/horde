@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Ooo class renders out OpenOffice.org documents in
  * HTML format.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -65,10 +65,8 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
     protected function _render()
     {
         $has_xsl = Horde_Util::extensionExists('xsl');
-        // DOESN'T WORK AT THE MOMENT
-        $has_xsl = false;
         if ($has_xsl) {
-            $tmpdir = Horde_Util::createTempDir(true);
+            $tmpdir = Horde_Util::createTempDir(true) . '/';
         }
 
         $fnames = array('content.xml', 'styles.xml', 'meta.xml');
@@ -116,12 +114,12 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
 
         $xslt = new XSLTProcessor();
         $xsl = new DOMDocument();
-        $xsl->load(realpath(dirname(__FILE__) . '/Ooo/main_html.xsl'));
+        $xsl->load(realpath(__DIR__ . '/Ooo/export/xhtml/opendoc2xhtml.xsl'));
         $xslt->importStylesheet($xsl);
         $xslt->setParameter('http://www.w3.org/1999/XSL/Transform', array(
-            'metaFileURL' => $tmpdir . 'meta.xml',
-            'stylesFileURL' => $tmpdir . 'styles.xml',
-            'disableJava' => true
+            'metaFileURL' => 'file://' . $tmpdir . 'meta.xml',
+            'stylesFileURL' => 'file://' . $tmpdir . 'styles.xml',
+            'java' => false,
         ));
         $xml = new DOMDocument();
         $xml->load(realpath($tmpdir . 'content.xml'));

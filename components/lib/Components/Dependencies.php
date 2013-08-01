@@ -16,7 +16,7 @@
  * The Components_Dependencies:: interface is a central broker for
  * providing the dependencies to the different application parts.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -83,6 +83,13 @@ interface Components_Dependencies
      * @return Components_Runner_CiPrebuild The CI pre-build handler.
      */
     public function getRunnerCiPrebuild();
+
+    /**
+     * Returns the composer handler for a package.
+     *
+     * @return Components_Runner_Composer The composer handler.
+     */
+    public function getRunnerComposer();
 
     /**
      * Returns the release handler for a package.

@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -92,14 +92,11 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
                 $comment = $change['comment'];
                 $private = !empty($change['private']);
                 if ($comment) {
-                    $reply =
-                        Horde::link(
-                            Horde::url(
-                                Horde_Util::addParameter(
-                                    $canUpdate ? 'ticket/update.php' : 'ticket/comment.php',
-                                    array('id' => $vars->get('ticket_id'),
-                                          'transaction' => $transaction))))
-                        . _("Reply to this comment") . '</a>';
+                    $reply = Horde::link(
+                        Horde::url($canUpdate ? 'ticket/update.php' : 'ticket/comment.php')->add(array(
+                            'id' => $vars->get('ticket_id'),
+                            'transaction' => $transaction
+                        ))) . _("Reply to this comment") . '</a>';
                 }
                 break;
 

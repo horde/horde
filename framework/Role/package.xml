@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:17:41</time>
+ <date>2012-11-19</date>
+ <time>15:15:54</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -32,6 +32,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Role">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Role -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="Horde">
     <file name="Role.php" role="php">
      <tasks:postinstallscript>
@@ -53,7 +60,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -62,6 +69,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="PEAR/Installer/Role/doc/Horde/Role/COPYING" name="doc/Horde/Role/COPYING" />
    <install as="PEAR/Installer/Role/Horde/Role.php" name="Horde/Role.php" />
    <install as="PEAR/Installer/Role/Horde.php" name="Horde.php" />
    <install as="PEAR/Installer/Role/Horde.xml" name="Horde.xml" />
@@ -166,7 +174,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [rla] Add license file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

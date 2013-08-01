@@ -2,7 +2,7 @@
 /**
  * Delegates to the correct view.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -10,7 +10,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $viewname = basename(Horde_Util::getFormData('view', 'Gallery'));
@@ -39,20 +39,19 @@ $params['image_id'] = Horde_Util::getFormData('image');
 try {
     $view = new $view($params);
 } catch (Horde_Exception $e) {
-    require $registry->get('templates', 'horde') . '/common-header.inc';
-    echo Horde::menu();
+    $page_output->header();
     $notification->notify(array('listeners' => 'status'));
     echo '<br /><em>' . htmlspecialchars($e->getMessage()) . '</em>';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 
 Ansel::initJSVariables();
-
-$title = $view->getTitle();
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->growler = true;
+$page_output->header(array(
+    'title' => $view->getTitle(),
+    'ajax' => true,
+));
 $notification->notify(array('listeners' => 'status'));
-$view_html = $view->html();
-echo $view_html;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+echo $view->html();
+$page_output->footer();

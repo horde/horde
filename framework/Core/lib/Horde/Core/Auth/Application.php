@@ -3,7 +3,7 @@
  * The Horde_Core_Auth_Application class provides application-specific
  * authentication built on top of the horde/Auth API.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
@@ -20,9 +20,12 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * Authentication failure reasons (additions to Horde_Auth:: reasons):
      *   - REASON_BROWSER: A browser change was detected
      *   - REASON_SESSIONIP: Logout due to change of IP address during session
+     *   - REASON_SESSIONMAXTIME: Logout due to the session exceeding the
+     *                            maximum allowed length.
      */
     const REASON_BROWSER = 100;
     const REASON_SESSIONIP = 101;
+    const REASON_SESSIONMAXTIME = 102;
 
     /**
      * Application for authentication.
@@ -276,7 +279,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if ($this->hasCapability('update')) {
             $GLOBALS['registry']->callAppMethod($this->_app, 'authUpdateUser', array('args' => array($oldID, $newID, $credentials)));
         } else {
-            parent::updateUser($userId, $credentials);
+            parent::updateUser($oldID, $newID, $credentials);
         }
     }
 
@@ -453,12 +456,12 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * @param mixed $value  The credential value to set. See getCredential()
      *                      for the list of valid credentials/types.
      */
-    public function setCredential($type, $value)
+    public function setCredential($name, $value)
     {
         if ($this->_base) {
-            $this->_base->setCredential($type, $value);
+            $this->_base->setCredential($name, $value);
         } else {
-            parent::setCredential($type, $value);
+            parent::setCredential($name, $value);
         }
     }
 
@@ -499,10 +502,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'js_code' - (array) A list of javascript statements to be included via
-     *             Horde::addInlineScript().
-     * 'js_files' - (array) A list of javascript files to be included via
-     *              Horde::addScriptFile().
+     * 'js_code' - (array) A list of javascript statements to be included.
+     * 'js_files' - (array) A list of javascript files to be included.
      * 'params' - (array) A list of parameters to display on the login screen.
      *            Each entry is an array with the following entries:
      *            'label' - (string) The label of the entry.
@@ -568,10 +569,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         try {
             $result = Horde::callHook($type, array($userId, $credentials), $this->_app);
-        } catch (Horde_Exception $e) {
-            throw new Horde_Auth_Exception($e);
         } catch (Horde_Exception_HookNotSet $e) {
             return $ret_array;
+        } catch (Horde_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
 
         unset($credentials['authMethod']);
@@ -619,7 +620,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         /* Destroy any existing session on login and make sure to use a
          * new session ID, to avoid session fixation issues. */
         if (($userId = $registry->getAuth()) === false) {
-            $registry->getCleanSession();
+            $GLOBALS['session']->clean();
             $userId = $this->getCredential('userId');
         }
 
@@ -659,7 +660,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     protected function _setView()
     {
-        global $conf, $browser, $notification, $prefs, $registry, $session;
+        global $conf, $browser, $notification, $registry;
 
         $mode = $this->_view;
 
@@ -678,55 +679,61 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
          * login screen parameters and configuration. */
         switch ($mode) {
         case 'auto':
-            if (Horde::ajaxAvailable()) {
+            if ($browser->hasFeature('ajax')) {
                 $mode = $browser->isMobile()
-                    // THIS IS A HACK. DO PROPER SMARTPHONE DETECTION.
-                    ? (($browser->getBrowser() == 'webkit') ? 'smartmobile' : 'mobile')
+                    ? 'smartmobile'
                     : 'dynamic';
             } else {
                 $mode = $browser->isMobile()
                     ? 'mobile'
-                    : 'traditional';
+                    : 'basic';
             }
             break;
 
-            case 'dynamic':
-                if (!Horde::ajaxAvailable()) {
-                    if ($browser->hasFeature('javascript')) {
-                        $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
-                        $mode = 'traditional';
-                    } else {
-                        $notification->push(_("Your browser is too old to display the dynamic mode. Using mobile mode instead."), 'horde.warning');
-                        $mode = 'mobile';
-                    }
-                }
-                break;
-
-            case 'smartmobile':
-                if (!Horde::ajaxAvailable()) {
-                    $notification->push(_("Your browser is too old to display the dynamic mode. Using mobile mode instead."), 'horde.warning');
-                    $mode = 'mobile';
-                }
-                break;
-
-            case 'traditional':
-                if (!$browser->hasFeature('javascript')) {
-                    $notification->push(_("Your browser does not support javascript. Using mobile mode instead."), 'horde.warning');
-                    $mode = 'mobile';
-                }
-                break;
-
-            case 'mobile':
-            default:
+        case 'basic':
+            if (!$browser->hasFeature('javascript')) {
+                $notification->push(Horde_Core_Translation::t("Your browser does not support javascript. Using minimal view instead."), 'horde.warning');
                 $mode = 'mobile';
-                break;
+            }
+            break;
+
+        case 'dynamic':
+            if (!$browser->hasFeature('ajax')) {
+                if ($browser->hasFeature('javascript')) {
+                    $notification->push(Horde_Core_Translation::t("Your browser does not support the dynamic view. Using basic view instead."), 'horde.warning');
+                    $mode = 'basic';
+                } else {
+                    $notification->push(Horde_Core_Translation::t("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
+                    $mode = 'mobile';
+                }
+            }
+            break;
+
+        case 'smartmobile':
+            if (!$browser->hasFeature('ajax')) {
+                $notification->push(Horde_Core_Translation::t("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
+                $mode = 'mobile';
+            }
+            break;
+
+        case 'mobile':
+        default:
+            $mode = 'mobile';
+            break;
+        }
+
+        if (($browser->getBrowser() == 'msie') &&
+            ($browser->getMajor() < 8) &&
+            ($mode != 'mobile')) {
+            $notification->push(Horde_Core_Translation::t("You are using an old, unsupported version of Internet Explorer. You need at least Internet Explorer 8. If you already run IE8 or higher, disable the Compatibility View. Minimal view will be used until you upgrade your browser."));
+            $mode = 'mobile';
         }
 
         $registry_map = array(
+            'basic' => Horde_Registry::VIEW_BASIC,
             'dynamic' => Horde_Registry::VIEW_DYNAMIC,
             'mobile' => Horde_Registry::VIEW_MINIMAL,
-            'smartmobile' => Horde_Registry::VIEW_SMARTMOBILE,
-            'traditional' => Horde_Registry::VIEW_BASIC
+            'smartmobile' => Horde_Registry::VIEW_SMARTMOBILE
         );
 
         $this->_view = $mode;

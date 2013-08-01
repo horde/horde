@@ -4,7 +4,7 @@
  * @package Rpc
  */
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/horde/lib/Application.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/horde/lib/Application.php';
 Horde_Registry::appInit('horde', array('cli' => true));
 
 $conf['server']['name'] = 'localhost';

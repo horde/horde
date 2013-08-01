@@ -92,6 +92,18 @@ $attributes['nickname'] = array(
     'required' => false,
     'params' => array('regex' => '', 'size' => 32, 'maxlength' => 32)
 );
+$attributes['yomifirstname'] = array(
+    'label' => _("Phonetic First Name"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
+$attributes['yomilastname'] = array(
+    'label' => _("Phonetic Last Name"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
 $attributes['birthday'] = array(
     'label' => _("Birthday"),
     'type' => 'monthdayyear',
@@ -174,6 +186,12 @@ $attributes['homeCountry'] = array(
     'required' => false,
     'params' => array('prompt' => true)
 );
+$attributes['homeCountryFree'] = array(
+    'label' => _("Home Country"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
 $attributes['workAddress'] = array(
     'label' => _("Work Address"),
     'type' => 'address',
@@ -215,6 +233,12 @@ $attributes['workCountry'] = array(
     'type' => 'country',
     'required' => false,
     'params' => array('prompt' => true)
+);
+$attributes['workCountryFree'] = array(
+    'label' => _("Work Country"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
 );
 $attributes['companyAddress'] = array(
     'label' => _("Company Address"),
@@ -258,6 +282,12 @@ $attributes['otherCountry'] = array(
     'required' => false,
     'params' => array('prompt' => true)
 );
+$attributes['otherCountryFree'] = array(
+    'label' => _("Other Country"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
 $attributes['otherPOBox'] = array(
     'label' => _("Other Post Office Box"),
     'type' => 'text',
@@ -276,44 +306,49 @@ $attributes['email'] = array(
     'label' => _("Email"),
     'type' => 'email',
     'required' => false,
-    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true)
+    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true, 'link_name' => null, 'delimiters' => ',', 'size' => null)
 );
 $attributes['emails'] = array(
     'label' => _("Emails"),
     'type' => 'email',
     'required' => false,
-    'params' => array('allow_multi' => true, 'strip_domain' => false, 'link_compose' => true)
+    'params' => array('allow_multi' => true, 'strip_domain' => false, 'link_compose' => true, 'link_name' => null, 'delimiters' => ',', 'size' => null)
 );
 $attributes['homePhone'] = array(
     'label' => _("Home Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['homePhone2'] = array(
     'label' => _("Home Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
-
 $attributes['workPhone'] = array(
     'label' => _("Work Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['workPhone2'] = array(
     'label' => _("Work Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['assistPhone'] = array(
     'label' => _("Assistant Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['companyPhone'] = array(
     'label' => _("Company Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['cellPhone'] = array(
     'label' => _("Mobile Phone"),
@@ -323,42 +358,47 @@ $attributes['cellPhone'] = array(
 $attributes['carPhone'] = array(
     'label' => _("Car Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['radioPhone'] = array(
     'label' => _("Radio Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['fax'] = array(
     'label' => _("Fax"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['homeFax'] = array(
     'label' => _("Home Fax"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['pager'] = array(
     'label' => _("Pager"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['imaddress'] = array(
-    'label' => _("IM Address"),
+    'label' => _("Instant Messenger"),
     'type' => 'text',
     'required' => false,
     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
 );
 $attributes['imaddress2'] = array(
-    'label' => _("IM Address"),
+    'label' => _("Instant Messenger"),
     'type' => 'text',
     'required' => false,
     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
 );
 $attributes['imaddress3'] = array(
-    'label' => _("IM Address"),
+    'label' => _("Instant Messenger"),
     'type' => 'text',
     'required' => false,
     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
@@ -474,12 +514,6 @@ $attributes['initials'] = array(
     'required' => false,
     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
 );
-$attributes['instantMessenger'] = array(
-    'label' => _("Instant Messenger"),
-    'type' => 'text',
-    'required' => false,
-    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
-);
 $attributes['manager'] = array(
     'label' => _("Manager"),
     'type' => 'text',
@@ -496,7 +530,7 @@ $attributes['gender'] = array(
     'label' => _("Gender"),
     'type' => 'enum',
     'required' => false,
-    'params' => array('values' => array(_("male"), _("female")), 'prompt' => true),
+    'params' => array('values' => array('male' => _("male"), 'female' => _("female")), 'prompt' => true),
 );
 $attributes['language'] = array(
     'label' => _("Language"),
@@ -520,28 +554,31 @@ $attributes['workEmail'] = array(
     'label' => _("Work Email"),
     'type' => 'email',
     'required' => false,
-    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true)
+    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true, 'link_name' => null, 'delimiters' => ',', 'size' => null)
 );
 $attributes['homeEmail'] = array(
     'label' => _("Home Email"),
     'type' => 'email',
     'required' => false,
-    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true)
+    'params' => array('allow_multi' => false, 'strip_domain' => false, 'link_compose' => true, 'link_name' => null, 'delimiters' => ',', 'size' => null)
 );
 $attributes['phone'] = array(
     'label' => _("Common Phone"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['workFax'] = array(
     'label' => _("Work Fax"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['homeFax'] = array(
     'label' => _("Home Fax"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['workCellPhone'] = array(
     'label' => _("Work Mobile Phone"),
@@ -556,33 +593,38 @@ $attributes['homeCellPhone'] = array(
 $attributes['videoCall'] = array(
     'label' => _("Common Video Call"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['workVideoCall'] = array(
     'label' => _("Work Video Call"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['homeVideoCall'] = array(
     'label' => _("Home Video Call"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['voip'] = array(
     'label' => _("VoIP"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['sip'] = array(
     'label' => _("SIP"),
     'type' => 'email',
     'required' => false,
-    'params' => array('allow_multi' => true, 'strip_domain' => false, 'link_compose' => true)
+    'params' => array('allow_multi' => true, 'strip_domain' => false, 'link_compose' => true, 'link_name' => null, 'delimiters' => ',', 'size' => null)
 );
 $attributes['ptt'] = array(
     'label' => _("PTT"),
     'type' => 'phone',
-    'required' => false
+    'required' => false,
+    'params' => array('size' => 15)
 );
 $attributes['commonExtended'] = array(
     'label' => _("Common Address Extended"),
@@ -621,6 +663,12 @@ $attributes['commonPostalCode'] = array(
     'params' => array('regex' => '', 'size' => 10, 'maxlength' => 10)
 );
 $attributes['commonCountry'] = array(
+    'label' => _("Common Country"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
+$attributes['commonCountryFree'] = array(
     'label' => _("Common Country"),
     'type' => 'text',
     'required' => false,

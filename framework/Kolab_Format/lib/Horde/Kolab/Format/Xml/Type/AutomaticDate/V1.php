@@ -14,13 +14,11 @@
 /**
  * Handles api-version 1 of auto-generated date attributes.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
  * http://www.horde.org/licenses/lgpl21.
- *
- * @since Horde_Kolab_Format 1.1.0
  *
  * @category Kolab
  * @package  Kolab_Format
@@ -82,7 +80,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
     {
         $result = $helper->fetchNodeValue($node);
         if ($result !== null) {
-            $date = Horde_Kolab_Format_Date::decodeDateTime($result);
+            $date = Horde_Kolab_Format_Date::readUtcDateTime($result);
             if ($date === false && !$this->isRelaxed($params)) {
                 throw new Horde_Kolab_Format_Exception(
                     sprintf('Invalid date input "%s"!', $result)

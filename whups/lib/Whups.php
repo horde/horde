@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -152,8 +152,7 @@ class Whups
                     $param = array('query' => $data);
                 }
                 $url = $controller == 'query' ? 'query/run.php' : 'query/rss.php';
-                $url = Horde_Util::addParameter($url, $param);
-                return Horde::url($url, $full, $append_session);
+                return Horde::url($url, $full, $append_session)->add($param);
             }
             break;
         }
@@ -379,8 +378,11 @@ class Whups
     static public function getCurrentTicket()
     {
         $default = Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true);
-
-        $id = preg_replace('|\D|', '', Horde_Util::getFormData('id'));
+        $id = Horde_Util::getFormData('searchfield');
+        if (empty($id)) {
+            $id = Horde_Util::getFormData('id');
+        }
+        $id = preg_replace('|\D|', '', $id);
         if (!$id) {
             $GLOBALS['notification']->push(_("Invalid Ticket Id"), 'horde.error');
             $default->redirect();
@@ -398,6 +400,16 @@ class Whups
             $GLOBALS['notification']->push($e);
             $default->redirect();
         }
+    }
+
+    /**
+     * Adds topbar search to page
+     */
+    static public function addTopbarSearch() {
+        $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
+        $topbar->search = true;
+        $topbar->searchAction = Horde::url('ticket');
+        $topbar->searchLabel =  $GLOBALS['session']->get('whups', 'search') ?: _("Ticket #Id");
     }
 
     /**
@@ -546,7 +558,8 @@ class Whups
                 return $in;
             }
             foreach ($in as $queueID => $name) {
-                if ($perms->hasPermission('whups:queues:' . $queueID, $user,
+                if (!$perms->exists('whups:queues:' . $queueID) ||
+                    $perms->hasPermission('whups:queues:' . $queueID, $user,
                                           $permission, $creator)) {
                     $out[$queueID] = $name;
                 }
@@ -558,7 +571,8 @@ class Whups
                 return $in;
             }
             foreach ($in as $queueID) {
-                if ($perms->hasPermission('whups:queues:' . $queueID, $user,
+                if (!$perms->exists('whups:queues:' . $queueID) ||
+                    $perms->hasPermission('whups:queues:' . $queueID, $user,
                                           $permission, $creator)) {
                     $out[] = $queueID;
                 }
@@ -652,8 +666,10 @@ class Whups
     {
         if (is_null($user)) {
             $user = $GLOBALS['registry']->getAuth();
-        } elseif (empty($user)) {
-            return array('user' => '',
+        }
+        if (empty($user)) {
+            return array('type' => 'user',
+                         'user' => '',
                          'name' => '',
                          'email' => '');
         }
@@ -696,7 +712,7 @@ class Whups
                 self::$_users[$user]['name'] = '';
                 self::$_users[$user]['email'] = $whups_driver->getGuestEmail($user);
 
-                $addr_ob = new Horde_Mail_Rfc822_Address(self::$_user[$user]['email']);
+                $addr_ob = new Horde_Mail_Rfc822_Address(self::$_users[$user]['email']);
                 if ($addr_ob->valid) {
                     self::$_users[$user]['name'] = is_null($addr_ob->personal)
                         ? ''
@@ -706,8 +722,8 @@ class Whups
             } else {
                 $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
 
-                self::$_users[$user]['name'] = $identity->getValue('fullname');
-                self::$_users[$user]['email'] = $identity->getValue('from_addr');
+                self::$_users[$user]['name'] = $identity->getName();
+                self::$_users[$user]['email'] = $identity->getDefaultFromAddress();
             }
             break;
 
@@ -911,9 +927,9 @@ class Whups
         $remind = array();
         foreach ($tickets as $info) {
             $info['link'] = self::urlFor('ticket', $info['id'], true, -1);
-            $owners = current($whups_driver->getOwners($info['id']));
+            $owners = $whups_driver->getOwners($info['id']);
             if (!empty($owners)) {
-                foreach ($owners as $owner) {
+                foreach (reset($owners) as $owner) {
                     $remind[$owner][] = $info;
                 }
             } elseif (!empty($unassigned)) {
@@ -1007,11 +1023,11 @@ class Whups
         $mime_part->setType(Horde_Mime_Magic::extToMime($file['type']));
         $viewer = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part);
         if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {
-            $url = Horde_Util::addParameter(Horde::url('view.php'),
-                                      array('actionID' => 'view_file',
-                                            'type' => $file['type'],
-                                            'file' => $file['name'],
-                                            'ticket' => $ticket));
+            $url = Horde::url('view.php')->add(array(
+                'actionID' => 'view_file',
+                'type' => $file['type'],
+                'file' => $file['name'],
+                'ticket' => $ticket));
             $link .= Horde::link($url, $file['name'], null, '_blank') . $file['name'] . '</a>';
         } else {
             $link .= $file['name'];
@@ -1021,12 +1037,11 @@ class Whups
         $url_params = array('actionID' => 'download_file',
                             'file' => $file['name'],
                             'ticket' => $ticket);
-        $link .= ' ' . Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
+        $link .= ' ' . Horde::link($GLOBALS['registry']->downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
 
         // Admins can delete attachments.
         if (self::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
-            $url = Horde_Util::addParameter(
-                Horde::url('ticket/delete_attachment.php'),
+            $url = Horde::url('ticket/delete_attachment.php')->add(
                 array('file' => $file['name'],
                       'id' => $ticket,
                       'url' => Horde::selfUrl(true, false, true)));
@@ -1059,9 +1074,8 @@ class Whups
         }
 
         $results = array();
-        $owners = reset($owners);
-        if ($owners !== false) {
-            foreach ($owners as $owner) {
+        if ($owners) {
+            foreach (reset($owners) as $owner) {
                 $results[] = self::formatUser($owner, $showemail, $showname);
             }
         }
@@ -1164,4 +1178,15 @@ class Whups
             'sources' => $src
         );
     }
+
+    static public function addFeedLink()
+    {
+        $GLOBALS['page_output']->addLinkTag(array(
+            'href' => Horde::url('opensearch.php', true, -1),
+            'rel' => 'search',
+            'type' => 'application/opensearchdescription+xml',
+            'title' => $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')'
+        ));
+    }
+
 }

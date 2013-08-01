@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Kolab_Storage:: factory.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -55,6 +55,9 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
         $configuration = array();
 
         //@todo: Update configuration parameters
+        if (!empty($GLOBALS['conf']['imap'])) {
+            $configuration = $GLOBALS['conf']['imap'];
+        }
         if (!empty($GLOBALS['conf']['kolab']['imap'])) {
             $configuration = $GLOBALS['conf']['kolab']['imap'];
         }
@@ -76,28 +79,33 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
     {
         $configuration = $this->_injector->getInstance('Horde_Kolab_Storage_Configuration');
 
-        $session = $this->_injector->getInstance('Horde_Kolab_Session');
-
-        $mail = $session->getMail();
-        if (empty($mail)) {
-            return false;
-        }
-
         $params = array(
             'driver' => 'horde',
             'params' => array(
-                'host' => $session->getImapServer(),
+                'host' => $configuration['server'],
                 'username' => $GLOBALS['registry']->getAuth(),
                 'password' => $GLOBALS['registry']->getAuthCredential('password'),
                 'port'     => $configuration['port'],
-                'secure'   => 'tls'
+                'secure'   => $configuration['secure']
+            ),
+            'queries' => array(
+                'list' => array(
+                    Horde_Kolab_Storage_List_Tools::QUERY_BASE => array(
+                        'cache' => true
+                    ),
+                    Horde_Kolab_Storage_List_Tools::QUERY_ACL => array(
+                        'cache' => true
+                    ),
+                    Horde_Kolab_Storage_List_Tools::QUERY_SHARE => array(
+                        'cache' => true
+                    ),
+                )
             ),
             'queryset' => array(
-                'list' => array('queryset' => 'horde'),
                 'data' => array('queryset' => 'horde'),
             ),
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
-            'timelog' => $this->_injector->getInstance('Horde_Log_Logger'),
+            'log' => array('debug'),
             'cache' => $this->_injector->getInstance('Horde_Cache'),
         );
 

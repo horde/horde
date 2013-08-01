@@ -1,0 +1,32 @@
+/**
+ * CSS corrections for IE 8.
+ */
+
+input[type="submit"], input[type="button"], input[type="reset"] {
+    padding: 1px 13px 2px;
+}
+
+div.modal-form .submit-button {
+    background-color: #000;
+    width: 100px;
+}
+
+// IE 8 only supports one url argument for background.
+table.horde-table thead .horde-split-left.sortup,
+table.horde-table thead .horde-split-right.sortup {
+    background-image: url("graphics/za.png");
+}
+table.horde-table thead .horde-split-left.sortdown,
+table.horde-table thead .horde-split-right.sortdown {
+    background-image: url("graphics/az.png");
+}
+form[action^="https://"] input[type="submit"].horde-default {
+    background-image: url("graphics/locked-inv.png");
+    background-position: 95% center;
+    background-repeat: no-repeat;
+    padding-right: 33px;
+}
+.horde-buttonbar li:hover, .horde-buttonbar li.horde-active {
+    background-image: url("graphics/button-split.png");
+    background-repeat: no-repeat;
+}

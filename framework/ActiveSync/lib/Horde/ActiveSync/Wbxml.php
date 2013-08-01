@@ -1,58 +1,78 @@
 <?php
 /**
- * ActiveSync specific WBXML handling. This (and all related code) needs to be
- * refactored to use XML_WBXML, or the H4 equivelant when it is written...
+ * Horde_ActiveSync_Wbxml::
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
+ *
+ *   Created   :   01.10.2007
+ *
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 
 /**
- * File      :   wbxml.php
- * Project   :   Z-Push
- * Descr     :   WBXML mapping file
+ * Wbxml handler
  *
- * Created   :   01.10.2007
- *
- * � Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Wbxml
 {
-    const SWITCH_PAGE =     0x00;
-    const END =             0x01;
-    const ENTITY =          0x02;
-    const STR_I =           0x03;
-    const LITERAL =         0x04;
-    const EXT_I_0 =         0x40;
-    const EXT_I_1 =         0x41;
-    const EXT_I_2 =         0x42;
-    const PI =              0x43;
-    const LITERAL_C =       0x44;
-    const EXT_T_0 =         0x80;
-    const EXT_T_1 =         0x81;
-    const EXT_T_2 =         0x82;
-    const STR_T =           0x83;
-    const LITERAL_A =       0x84;
-    const EXT_0 =           0xC0;
-    const EXT_1 =           0xC1;
-    const EXT_2 =           0xC2;
-    const OPAQUE =          0xC3;
-    const LITERAL_AC =      0xC4;
+    const SWITCH_PAGE         = 0x00;
+    const END                 = 0x01;
+    const ENTITY              = 0x02;
+    const STR_I               = 0x03;
+    const LITERAL             = 0x04;
+    const EXT_I_0             = 0x40;
+    const EXT_I_1             = 0x41;
+    const EXT_I_2             = 0x42;
+    const PI                  = 0x43;
+    const LITERAL_C           = 0x44;
+    const EXT_T_0             = 0x80;
+    const EXT_T_1             = 0x81;
+    const EXT_T_2             = 0x82;
+    const STR_T               = 0x83;
+    const LITERAL_A           = 0x84;
+    const EXT_0               = 0xC0;
+    const EXT_1               = 0xC1;
+    const EXT_2               = 0xC2;
+    const OPAQUE              = 0xC3;
+    const LITERAL_AC          = 0xC4;
 
-    const EN_TYPE =                1;
-    const EN_TAG =                 2;
-    const EN_CONTENT =             3;
-    const EN_FLAGS =               4;
-    const EN_ATTRIBUTES =          5;
+    const EN_TYPE             = 1;
+    const EN_TAG              = 2;
+    const EN_CONTENT          = 3;
+    const EN_FLAGS            = 4;
+    const EN_ATTRIBUTES       = 5;
 
-    const EN_TYPE_STARTTAG =       1;
-    const EN_TYPE_ENDTAG =         2;
-    const EN_TYPE_CONTENT =        3;
+    const EN_TYPE_STARTTAG    = 1;
+    const EN_TYPE_ENDTAG      = 2;
+    const EN_TYPE_CONTENT     = 3;
 
-    const EN_FLAGS_CONTENT =       1;
-    const EN_FLAGS_ATTRIBUTES =    2;
+    const EN_FLAGS_CONTENT    = 1;
+    const EN_FLAGS_ATTRIBUTES = 2;
+
+    /* Valid WBXML Version header value */
+    const WBXML_VERSION       = 0x03;
 
     /**
      * The code page definitions for the wbxml encoder/decoders
@@ -93,6 +113,13 @@ class Horde_ActiveSync_Wbxml
                 0x21 => 'SoftDelete',
                 0x22 => 'MIMESupport',
                 0x23 => 'MIMETruncation',
+                0x24 => 'Wait',
+                0x25 => 'Limit',
+                0x26 => 'Partial',
+                // EAS 14.0
+                0x27 => 'ConversationMode',
+                0x28 => 'MaxItems',
+                0x29 => 'HeartbeatInterval',
             ),
             /* POOMCONTACTS */
             1 => array (
@@ -150,8 +177,11 @@ class Horde_ActiveSync_Wbxml
                 0x38 => 'YomiCompanyName',
                 0x39 => 'YomiFirstName',
                 0x3a => 'YomiLastName',
-                0x3b => 'Rtf',
+                0x3b => 'Rtf',               // EAS 2.5 only.
                 0x3c => 'Picture',
+                // EAS 14.0
+                0x3d => 'Alias',
+                0x3e => 'WeightedRank',
             ),
             /* POOMMAIL */
             2 => array (
@@ -177,8 +207,8 @@ class Horde_ActiveSync_Wbxml
                 0x18 => 'From',
                 0x19 => 'Reply-To',
                 0x1a => 'AllDayEvent',
-                0x1b => 'Categories',
-                0x1c => 'Category',
+                0x1b => 'Categories',  // EAS 14.0
+                0x1c => 'Category',    // EAS 14.0
                 0x1d => 'DtStamp',
                 0x1e => 'EndTime',
                 0x1f => 'InstanceType',
@@ -208,28 +238,18 @@ class Horde_ActiveSync_Wbxml
                 0x37 => 'MIMETruncated',
                 0x38 => 'MIMESize',
                 0x39 => 'InternetCPID',
+                // EAS 12.0
+                0x3a => 'Flag',
+                0x3b => 'FlagStatus',
+                0x3c => 'ContentClass',
+                0x3d => 'FlagType',
+                0x3e => 'CompleteTime',
+                // EAS 14.0
+                0x3f => 'DisallowNewTimeProposal',
             ),
-            /* AIRNOTIFY */
-            3 => array (
-                0x05 => 'Notify',
-                0x06 => 'Notification',
-                0x07 => 'Version',
-                0x08 => 'Lifetime',
-                0x09 => 'DeviceInfo',
-                0x0a => 'Enable',
-                0x0b => 'Folder',
-                0x0c => 'ServerEntryId',
-                0x0d => 'DeviceAddress',
-                0x0e => 'ValidCarrierProfiles',
-                0x0f => 'CarrierProfile',
-                0x10 => 'Status',
-                0x11 => 'Replies',
-                0x12 => 'Devices',
-                0x13 => 'Device',
-                0x14 => 'Id',
-                0x15 => 'Expiry',
-                0x16 => 'NotifyGUID',
-            ),
+
+            /* 3 == AirNotify == deprecated */
+
             /* POOMCAL */
             4 => array (
                 0x05 => 'Timezone',
@@ -238,12 +258,12 @@ class Horde_ActiveSync_Wbxml
                 0x08 => 'Attendee',
                 0x09 => 'Email',
                 0x0a => 'Name',
-                0x0b => 'Body',
-                0x0c => 'BodyTruncated',
+                0x0b => 'Body',          // 2.5 Only
+                0x0c => 'BodyTruncated', // 2.5 Only
                 0x0d => 'BusyStatus',
                 0x0e => 'Categories',
                 0x0f => 'Category',
-                0x10 => 'Rtf',
+                0x10 => 'Rtf',           // 2.5 ONly
                 0x11 => 'DtStamp',
                 0x12 => 'EndTime',
                 0x13 => 'Exception',
@@ -268,9 +288,29 @@ class Horde_ActiveSync_Wbxml
                 0x26 => 'Subject',
                 0x27 => 'StartTime',
                 0x28 => 'UID',
-                //0x29 => 'AttendeeStatus',
-                //0x2A => 'AttendeeType',
-                //0x36 => 'ResponseType',
+                // EAS 12.0
+                0x29 => 'AttendeeStatus',
+                0x2A => 'AttendeeType',
+                // EAS 12.1 (Apparently no longer documented).
+                0x2B => 'Attachment',
+                0x2C => 'Attachments',
+                0x2D => 'AttName',
+                0x2E => 'AttSize',
+                0x2F => 'AttOid',
+                0x30 => 'AttMethod',
+                0x31 => 'AttRemoved',
+                0x32 => 'DisplayName',
+                // EAS 14
+                0x33 => 'DisallowNewTimeProposal',
+                0x34 => 'ResponseRequested',
+                0x35 => 'AppointmentReplyTime',
+                0x36 => 'ResponseType',
+                0x37 => 'CalendarType',
+                0x38 => 'IsLeapMonth',
+                // EAS 14.1
+                0x39 => 'FirstDayOfWeek',
+                0x3a => 'OnlineMeetingConfLink',
+                0x3b => 'OnlineMeetingExternalLink',
             ),
             /* MOVE */
             5 => array (
@@ -286,12 +326,12 @@ class Horde_ActiveSync_Wbxml
             /* GETITEMESTIMATE */
             6 => array (
                 0x05 => 'GetItemEstimate',
-                0x06 => 'Version',
+                0x06 => 'Version',    // 12.1
                 0x07 => 'Folders',
                 0x08 => 'Folder',
-                0x09 => 'FolderType',
+                0x09 => 'FolderType', // 12.1
                 0x0a => 'FolderId',
-                0x0b => 'DateTime',
+                0x0b => 'DateTime',   // 12.1
                 0x0c => 'Estimate',
                 0x0d => 'Response',
                 0x0e => 'Status',
@@ -362,6 +402,14 @@ class Horde_ActiveSync_Wbxml
                 0x1f => 'UtcStartDate',
                 0x20 => 'Subject',
                 0x21 => 'Rtf',
+                // EAS 12.0
+                0x22 => 'OrdinalDate',
+                0x23 => 'SubOrdinalDate',
+                // EAS 14.0
+                0x24 => 'CalendarType',
+                0x25 => 'IsLeapMonth',
+                // EAS 14.1
+                0x26 => 'FirstDayOfWeek',
             ),
             /* RESOLVERECIPIENTS */
             0xa => array (
@@ -382,8 +430,17 @@ class Horde_ActiveSync_Wbxml
                 0x13 => 'MaxCertificates',
                 0x14 => 'MaxAmbiguousRecipients',
                 0x15 => 'CertificateCount',
+                0x16 => 'Availability',
+                0x17 => 'StartTime',
+                0x18 => 'EndTime',
+                0x19 => 'MergedFreeBusy',
+                // 14.1
+                0x1a => 'Picture',
+                0x1b => 'MaxSize',
+                0x1c => 'Data',
+                0x1d => 'MaxPictures',
             ),
-            /* VALIDATECERTS */
+            /* VALIDATECERT */
             0xb => array (
                 0x05 => 'ValidateCert',
                 0x06 => 'Certificates',
@@ -408,12 +465,14 @@ class Horde_ActiveSync_Wbxml
             /* PING */
             0xd => array (
                 0x05 => 'Ping',
+                0x06 => 'AutdState',
                 0x07 => 'Status',
                 0x08 => 'HeartbeatInterval',
                 0x09 => 'Folders',
                 0x0a => 'Folder',
                 0x0b => 'ServerEntryId',
                 0x0c => 'FolderType',
+                0x0d => 'MaxFolders',
             ),
             /* PROVISION */
             0xe => array (
@@ -426,6 +485,53 @@ class Horde_ActiveSync_Wbxml
                 0x0B => 'Status',
                 0x0C => 'RemoteWipe',
                 0x0D => 'EASProvisionDoc',
+                // EAS 12.0
+                0x0E => 'DevicePasswordEnabled',
+                0x0F => 'AlphanumericDevicePasswordRequired',
+                0x10 => 'DeviceEncryptionEnabled',
+                0x11 => 'PasswordRecoveryEnabled',
+                0x12 => 'DocumentBrowseEnabled',
+                0x13 => 'AttachmentsEnabled',
+                0x14 => 'MinDevicePasswordLength',
+                0x15 => 'MaxInactivityTimeDeviceLock',
+                0x16 => 'MaxDevicePasswordFailedAttempts',
+                0x17 => 'MaxAttachmentSize',
+                0x18 => 'AllowSimpleDevicePassword',
+                0x19 => 'DevicePasswordExpiration',
+                0x1A => 'DevicePasswordHistory',
+                // EAS 12.1
+                0x1B => 'AllowStorageCard',
+                0x1C => 'AllowCamera',
+                0x1D => 'RequireDeviceEncryption',
+                0x1E => 'AllowUnsignedApplications',
+                0x1F => 'AllowUnsignedInstallationPackages',
+                0x20 => 'MinDevicePasswordComplexCharacters',
+                0x21 => 'AllowWiFi',
+                0x22 => 'AllowTextMessaging',
+                0x23 => 'AllowPOPIMAPEmail',
+                0x24 => 'AllowBluetooth',
+                0x25 => 'AllowIrDA',
+                0x26 => 'RequireManualSyncWhenRoaming',
+                0x27 => 'AllowDesktopSync',
+                0x28 => 'MaxCalendarAgeFilter',
+                0x29 => 'AllowHTMLEmail',
+                0x2A => 'MaxEmailAgeFilter',
+                0x2B => 'MaxEmailBodyTruncationSize',
+                0x2C => 'MaxHTMLBodyTruncationSize',
+                0x2D => 'RequireSignedSMIMEMessages',
+                0x2E => 'RequireEncryptedSMIMEMessages',
+                0x2F => 'RequireSignedSMIMEAlgorithm',
+                0x30 => 'RequireEncryptedSMIMEAlgorithm',
+                0x31 => 'AllowSMIMEEncryptionAlgorithmNegotiation',
+                0x32 => 'AllowSMIMESoftCerts',
+                0x33 => 'AllowBrowser',
+                0x34 => 'AllowConsumerEmail',
+                0x35 => 'AllowRemoteDesktop',
+                0x36 => 'AllowInternetSharing',
+                0x37 => 'UnapprovedInROMApplicationList',
+                0x38 => 'ApplicationName',
+                0x39 => 'ApprovedApplicationList',
+                0x3A => 'Hash',
             ),
             /* SEARCH */
             0xf => array(
@@ -452,6 +558,14 @@ class Horde_ActiveSync_Wbxml
                 0x1B => 'GreaterThan',
                 0x1C => 'Schema',
                 0x1D => 'Supported',
+                // EAS 12.1
+                0x1E => 'UserName',
+                0x1F => 'Password',
+                0x20 => 'ConversationId',
+                // EAS 14.1
+                0x21 => 'Picture',
+                0x22 => 'MaxSize',
+                0x23 => 'MaxPictures',
             ),
             /* GAL (Global Address List) */
             0x10 => array(
@@ -466,26 +580,229 @@ class Horde_ActiveSync_Wbxml
                 0x0D => 'HomePhone',
                 0x0E => 'MobilePhone',
                 0x0F => 'EmailAddress',
+                // 14.1
+                0x10 => 'Picture',
+                0x11 => 'Status',
+                0x12 => 'Data',
+            ),
+
+            // EAS 12.0
+            /* AIRSYNCBASE */
+            0x11 => array(
+                0x05 => 'BodyPreference',
+                0x06 => 'Type',
+                0x07 => 'TruncationSize',
+                0x08 => 'AllOrNone',
+                0x0A => 'Body',
+                0x0B => 'Data',
+                0x0C => 'EstimatedDataSize',
+                0x0D => 'Truncated',
+                0x0E => 'Attachments',
+                0x0F => 'Attachment',
+                0x10 => 'DisplayName',
+                0x11 => 'FileReference',
+                0x12 => 'Method',
+                0x13 => 'ContentId',
+                0x14 => 'ContentLocation',
+                0x15 => 'IsInline',
+                0x16 => 'NativeBodyType',
+                0x17 => 'ContentType',
+                // EAS 14.0
+                0x18 => 'Preview',
+                // EAS 14.1
+                0x19 => 'BodyPartPreference',
+                0x1a => 'BodyPart',
+                0x1b => 'Status',
+            ),
+
+            /* SETTINGS */
+            0x12 => array(
+                0x05 => 'Settings',
+                0x06 => 'Status',
+                0x07 => 'Get',
+                0x08 => 'Set',
+                0x09 => 'Oof',
+                0x0A => 'OofState',
+                0x0B => 'StartTime',
+                0x0C => 'EndTime',
+                0x0D => 'OofMessage',
+                0x0E => 'AppliesToInternal',
+                0x0F => 'AppliesToExternalKnown',
+                0x10 => 'AppliesToExternalUnknown',
+                0x11 => 'Enabled',
+                0x12 => 'ReplyMessage',
+                0x13 => 'BodyType',
+                0x14 => 'DevicePassword',
+                0x15 => 'Password',
+                0x16 => 'DeviceInformation',
+                0x17 => 'Model',
+                0x18 => 'IMEI',
+                0x19 => 'FriendlyName',
+                0x1A => 'OS',
+                0x1B => 'OSLanguage',
+                0x1C => 'PhoneNumber',
+                0x1D => 'UserInformation',
+                0x1E => 'EmailAddresses',
+                0x1F => 'SmtpAddress',
+                // EAS 12.1
+                0x20 => 'UserAgent',
+                // EAS 14.0
+                0x21 => 'EnableOutboundSMS',
+                0x22 => 'MobileOperator',
+                // EAS 14.1
+                0x23 => 'PrimarySmtpAddress',
+                0x24 => 'Accounts',
+                0x25 => 'Account',
+                0x26 => 'AccountId',
+                0x27 => 'AccountName',
+                0x28 => 'UserDisplayName',
+                0x29 => 'SendDisabled',
+                0x2b => 'RightsManagementInformation',
+            ),
+
+            /* Document Library */
+            0x13 => array(
+                0x05 => 'LinkId',
+                0x06 => 'DisplayName',
+                0x07 => 'IsFolder',
+                0x08 => 'CreationDate',
+                0x09 => 'LastModifiedDate',
+                0x0A => 'IsHidden',
+                0x0B => 'ContentLength',
+                0x0C => 'ContentType'
+            ),
+
+            /* ITEMOPERATIONS */
+            0x14 => array(
+                0x05 => 'ItemOperations',
+                0x06 => 'Fetch',
+                0x07 => 'Store',
+                0x08 => 'Options',
+                0x09 => 'Range',
+                0x0A => 'Total',
+                0x0B => 'Properties',
+                0x0C => 'Data',
+                0x0D => 'Status',
+                0x0E => 'Response',
+                0x0F => 'Version',
+                0x10 => 'Schema',
+                0x11 => 'Part',
+                0x12 => 'EmptyFolderContent',
+                0x13 => 'DeleteSubFolders',
+                // EAS 12.1
+                0x14 => 'UserName',
+                0x15 => 'Password',
+                // EAS 14.0
+                0x16 => 'Move',
+                0x17 => 'DstFldId',
+                0x18 => 'ConversationId',
+                0x19 => 'MoveAlways',
+
+            ),
+
+            /* COMPOSEMAIL (14.0) */
+            0x15 => array(
+                0x05 => 'SendMail',
+                0x06 => 'SmartForward',
+                0x07 => 'SmartReply',
+                0x08 => 'SaveInSentItems',
+                0x09 => 'ReplaceMime',
+                0x0A => 'Type',
+                0x0B => 'Source',
+                0x0C => 'FolderId',
+                0x0D => 'ItemId',
+                0x0E => 'LongId',
+                0x0F => 'InstanceId',
+                0x10 => 'MIME',
+                0x11 => 'ClientId',
+                0x12 => 'Status',
+                // 14.1
+                0x13 => 'AccountId',
+            ),
+
+            /* POOMMAIL2 (14.0) */
+            0x16 => array(
+                0x05 => 'UmCallerId',
+                0x06 => 'UmUserNotes',
+                0x07 => 'UmAttDuration',
+                0x08 => 'UmAttOrder',
+                0x09 => 'ConversationId',
+                0x0A => 'ConversationIndex',
+                0x0B => 'LastVerbExecuted',
+                0x0C => 'LastVerbExecutionTime',
+                0x0D => 'ReceivedAsBcc',
+                0x0E => 'Sender',
+                0x0F => 'CalendarType',
+                0x10 => 'IsLeapMonth',
+                // 14.1
+                0x11 => 'AccountId',
+                0x12 => 'FirstDayOfWeek',
+                0x13 => 'MeetingMessageType',
+            ),
+
+            /* Notes (14.0) */
+            0x17 => array(
+                0x05 => 'Subject',
+                0x06 => 'MessageClass',
+                0x07 => 'LastModifiedDate',
+                0x08 => 'Categories',
+                0x09 => 'Category',
+            ),
+
+            /* Rights Management (14.1) */
+            // Included here to decode without errors.
+            // Functionality not implemented.
+            0x18 => array(
+                0x05 => 'RightsManagementSupport',
+                0x06 => 'RightsManagementTemplates',
+                0x07 => 'RightsManagementTemplate',
+                0x08 => 'RightsManagementLicense',
+                0x09 => 'EditAllowed',
+                0x0A => 'ReplyAllowed',
+                0x0B => 'ReplyAllAllowed',
+                0x0C => 'ForwardAllowed',
+                0x0D => 'ModifyRecipientsAllowed',
+                0x0E => 'ExtractAllowed',
+                0x0F => 'PrintAllowed',
+                0x10 => 'ExportAllowed',
+                0x11 => 'ProgrammaticAccessAllowed',
+                0x12 => 'Owner',
+                0x13 => 'ContentExpiryDate',
+                0x14 => 'TemplateID',
+                0x15 => 'TemplateName',
+                0x16 => 'TemplateDescription',
+                0x17 => 'ContentOwner',
+                0x18 => 'RemoveRightsManagementDistribution'
             )
-      ),
-      'namespaces' => array(
-          1 => 'POOMCONTACTS',
-          2 => 'POOMMAIL',
-          3 => 'AirNotify',
-          4 => 'POOMCAL',
-          5 => 'Move',
-          6 => 'GetItemEstimate',
-          7 => 'FolderHierarchy',
-          8 => 'MeetingResponse',
-          9 => 'POOMTASKS',
-          0xA => 'ResolveRecipients',
-          0xB => 'ValidateCerts',
-          0xC => 'POOMCONTACTS2',
-          0xD => 'Ping',
-          0xE => 'Provision',
-          0xF => 'Search',
-          0x10 => 'GAL',
-      )
+        ),
+
+        'namespaces' => array(
+              1    => 'POOMCONTACTS',
+              2    => 'POOMMAIL',
+              4    => 'POOMCAL',
+              5    => 'Move',
+              6    => 'GetItemEstimate',
+              7    => 'FolderHierarchy',
+              8    => 'MeetingResponse',
+              9    => 'POOMTASKS',
+              0xA  => 'ResolveRecipients',
+              0xB  => 'ValidateCert',
+              0xC  => 'POOMCONTACTS2',
+              0xD  => 'Ping',
+              0xE  => 'Provision',
+              0xF  => 'Search',
+              0x10 => 'GAL',
+              // EAS 12.0
+              0x11 => 'AirSyncBase',
+              0x12 => 'Settings',
+              0x13 => 'DocumentLibrary',
+              0x14 => 'ItemOperations',
+              // EAS 14
+              0x15 => 'ComposeMail',
+              0x16 => 'POOMMAIL2',
+              0x17 => 'Notes',
+              0x18 => 'RightsManagement',
+        )
     );
 
     /**
@@ -518,13 +835,37 @@ class Horde_ActiveSync_Wbxml
      */
      protected $_stream;
 
+     /**
+      * The current procid
+      *
+      * @var integer
+      */
+     protected $_procid;
+
     /**
-     * [__construct description]
+     *
+     * @param stream $stream  The [input|output] stream.
      */
     public function __construct($stream)
     {
         $this->_stream = $stream;
         $this->_logger = new Horde_Support_Stub();
+        $this->_procid = getmypid();
+    }
+
+    public function getStream()
+    {
+        return $this->_stream;
+    }
+
+    /**
+     * Set the logger instance
+     *
+     * @param Horde_Log_Logger $logger  The logger.
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
     }
 
 }

@@ -3,7 +3,7 @@
  * Class to encapsulate a single gallery. Implemented as an extension of
  * the Horde_Share_Object class.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -113,7 +113,7 @@ class Ansel_Gallery implements Serializable
         }
     }
 
-    public function setPermission(Horde_Perms_Permision$permission, $update = true)
+    public function setPermission(Horde_Perms_Permission $permission, $update = true)
     {
         $this->_share->setPermission($permission, $update);
     }
@@ -167,7 +167,7 @@ class Ansel_Gallery implements Serializable
     public function canDownload()
     {
         if ($GLOBALS['registry']->getAuth() &&
-            ($GLOBALS['registry']->getAuth() == $this->data['share_owner'] ||
+            ($GLOBALS['registry']->getAuth() == $this->get('owner') ||
              $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin')))) {
             return true;
         }
@@ -475,8 +475,7 @@ class Ansel_Gallery implements Serializable
     {
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(
-                sprintf(_("Access denied copying photos to \"%s\"."),
-                        $gallery->get('name')));
+                _("Access denied copying photos to this gallery."));
         }
 
         $imgCnt = 0;
@@ -914,9 +913,7 @@ class Ansel_Gallery implements Serializable
         // Check browser requirements. If we require PNG support, and do not
         // have it, revert to the basic ansel_default style.
         if ($style->requiresPng() &&
-            ($GLOBALS['browser']->hasQuirk('png_transparency') ||
-             $GLOBALS['conf']['image']['type'] != 'png')) {
-
+            $GLOBALS['conf']['image']['type'] != 'png') {
             $style = Ansel::getStyleDefinition('ansel_default');
         }
 
@@ -1060,7 +1057,7 @@ class Ansel_Gallery implements Serializable
 
         /* Call the parent class method */
         try {
-            $this->_share->setParent($parent->getShare());
+            $this->_share->setParent(!is_null($parent) ? $parent->getShare() : null);
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }

@@ -53,17 +53,17 @@ function removePair()
 <h1 class="header">
  <?php printf(_("Import, Step %d"), (int)$import_step) ?>
 </h1>
-<div class="item">
+<div class="horde-content">
  <?php echo _("In the lists below select both, a field imported from the source file at the left, and the matching field available in your address book at the right. Then hit \"Add pair\" to mark them for the import. Once your are finished hit \"Next\".") ?><br /><br />
  <div class="leftFloat">
   <?php echo Horde::label('select1', _("Imported fields:")) ?> <br />
   <select id="select1" name="select1" size="10">
    <?php
-   $data = $GLOBALS['session']->get('horde', 'import_data/data');
+   $data = $storage->get('data');
    foreach ($data[0] as $key => $value):
    if (!isset($app_fields[$key])):
    ?>
-   <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($GLOBALS['session']->get('horde', 'import_data/header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
+   <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($storage->get('header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
    <?php endif; endforeach; ?>
   </select>
  </div>
@@ -90,7 +90,7 @@ function removePair()
   </select>
  </div>
  <br class="clear" />
- <input type="button" value="<?php echo _("Add pair") ?>" class="button" onclick="addPair()" />
+ <input type="button" value="<?php echo _("Add pair") ?>" onclick="addPair()" />
  <br /><br />
 
  <?php echo _("To exclude a particular field form the import or to correct a wrong match select a field in the lists below and hit \"Remove pair\".") ?><br /><br />
@@ -107,7 +107,7 @@ function removePair()
   if (isset($app_fields[$key])):
   $matching[] = array($key, $app_fields[$key]);
   ?>
-  <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($GLOBALS['session']->get('horde', 'import_data/header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
+  <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($storage->get('header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
   <?php endif; endforeach; ?>
  </select>
  <label for="selectApp" class="hidden"><?php echo _("Application") ?></label>
@@ -116,8 +116,11 @@ function removePair()
   <option value="<?php echo htmlspecialchars($pair[0]) ?>"><?php echo htmlspecialchars($pair[1]) ?></option>
   <?php endforeach; ?>
  </select><br />
- <input type="button" value="<?php echo _("Remove pair") ?>" class="button" onclick="removePair()" /><br /><br />
- <input type="submit" value="<?php echo _("Next") ?>" class="button" />
+ <input type="button" value="<?php echo _("Remove pair") ?>" onclick="removePair()" />
+</div>
+
+<div class="horde-form-buttons">
+ <input type="submit" value="<?php echo _("Next") ?>" class="horde-default" />
 </div>
 </form>
 <script type="text/javascript">

@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the Components entry point.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -63,7 +58,7 @@ extends Components_TestCase
         $_SERVER['argv'] = array(
             'horde-components',
             '--list-deps',
-            dirname(__FILE__) . '/../fixture/framework/Install/package.xml'
+            __DIR__ . '/../fixture/framework/Install/package.xml'
         );
         $output = $this->_callUnstrictComponents();
         $this->assertContains(
@@ -77,7 +72,7 @@ extends Components_TestCase
         $_SERVER['argv'] = array(
             'horde-components',
             '--list-deps',
-            dirname(__FILE__) . '/../fixture/framework/Install'
+            __DIR__ . '/../fixture/framework/Install'
         );
         $output = $this->_callUnstrictComponents();
         $this->assertContains(
@@ -89,7 +84,7 @@ extends Components_TestCase
     public function testWithinComponent()
     {
         $oldcwd = getcwd();
-        chdir(dirname(__FILE__) . '/../fixture/framework/Install');
+        chdir(__DIR__ . '/../fixture/framework/Install');
         $_SERVER['argv'] = array(
             'horde-components',
             '--list-deps',
@@ -105,7 +100,7 @@ extends Components_TestCase
     public function testWithinComponentNoAction()
     {
         $oldcwd = getcwd();
-        chdir(dirname(__FILE__) . '/../fixture/framework/Install');
+        chdir(__DIR__ . '/../fixture/framework/Install');
         $_SERVER['argv'] = array(
             'horde-components',
         );

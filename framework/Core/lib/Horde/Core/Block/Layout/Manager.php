@@ -2,7 +2,7 @@
 /**
  * Provides manipulation of block layouts.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -75,7 +75,6 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
      * Constructor.
      *
      * @param Horde_Core_Block_Collection $collection  TODO
-     * @param array $layout                            TODO
      */
     public function __construct(Horde_Core_Block_Collection $collection)
     {
@@ -692,7 +691,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
      */
     public function addCol($col)
     {
-        foreach ($this->_layout as $id => $val) {
+        foreach (array_keys($this->_layout) as $id) {
             $this->_layout[$id][$col] = 'empty';
         }
         ++$this->_columns;
@@ -933,7 +932,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
                 }
                 if (empty($moved[$block[1] . ':' . $block[0]])) {
                     try {
-                        $result = $this->moveDown($block[0], $block[1]);
+                        $this->moveDown($block[0], $block[1]);
                     } catch (Horde_Exception $e) {
                         return false;
                     }
@@ -1093,7 +1092,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
                 }
                 if (empty($moved[$block[1] . ':' . $block[0]])) {
                     try {
-                        $result = $this->moveRight($block[0], $block[1]);
+                        $this->moveRight($block[0], $block[1]);
                     } catch (Horde_Exception $e) {
                         return false;
                     }

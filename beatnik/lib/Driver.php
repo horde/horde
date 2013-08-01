@@ -64,6 +64,10 @@ class Beatnik_Driver {
             return array();
         }
 
+        if (empty($domains)) {
+            return array();
+        }
+
         if (!$GLOBALS['registry']->isAdmin() &&
             !$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains', $GLOBALS['registry']->getAuth(), $perms)) {
             foreach ($domains as $id => $domain) {
@@ -80,7 +84,6 @@ class Beatnik_Driver {
 
         // Sort the resulting list by domain name
         // TODO: Allow sorting by other columns
-        require_once 'Horde/Array.php';
         Horde_Array::arraySort($domains, 'zonename');
 
         return $domains;
@@ -304,7 +307,6 @@ class Beatnik_Driver {
             }
         }
 
-        require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
         $class = 'Beatnik_Driver_' . $driver;
         if (class_exists($class)) {
             return new $class($params);

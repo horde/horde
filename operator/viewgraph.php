@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $operator = Horde_Registry::appInit('operator');
 
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
@@ -83,16 +83,15 @@ if (!empty($stats)) {
     $graphtypes = Operator::getGraphInfo();
 
     foreach($graphtypes as $type => $info) {
-        $graphs[$type] = Horde_Util::addParameter($url, array(
-                            'graph' => $type, 'key' => $cachekey));
+        $graphs[$type] = $url->add(array('graph' => $type, 'key' => $cachekey));
     }
 }
 $curgraph = $vars->get('graph');
 
-$title = _("Call Detail Records Graph");
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require OPERATOR_TEMPLATES . '/menu.inc';
+$page_output->header(array(
+    'title' => _("Call Detail Records Graph")
+));
+$notification->notify(array('listeners' => 'status'));
 
 $form->renderActive($renderer, $vars, Horde::url('viewgraph.php'), 'post');
 
@@ -101,7 +100,7 @@ if (!empty($stats) && !empty($graphs[$curgraph])) {
     echo '<img src="' . $graphs[$curgraph] . '"/><br />';
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
 
 // Don't leave stale stats lying about
 $session->remove('operator', 'stats');

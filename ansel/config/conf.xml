@@ -10,13 +10,6 @@
    that can be displayed in a gallery drop down list. If more than this number
    of galleries would appear, then selection list will be disabled."
    required="false"/>
-   <configinteger name="numlimit" desc="On installations with large
-   numbers of galleries, it can be useful when displaying gallery lists to guest
-   users to display only galleries with a certain number of photos. For example
-   to avoid listing empty galleries. Enter the minimum number of photos you
-   would like to require to be displayed in guest gallery lists. Note that this
-   setting will be ignored when specifically requesting all of a particular
-   user's galleries." required="false"/>
    <configboolean name="downloadzip" desc="Allow the ability to download an
    entire gallery as a .zip file? This is a potential performance hit, and will
    likely require a larger memory_limit value.">false</configboolean>
@@ -31,17 +24,6 @@
    trying to read. If you are getting errors regarding unloadable preferences
    when loading Ansel, try turning this off.">true</configboolean>
   </configsection>
-  <configsection name="menu">
-   <configheader>Menu Settings</configheader>
-   <configboolean name="print" desc="Should we display a Print link in Ansel's
-   menu?">true</configboolean>
-   <configmultienum name="apps" desc="Select any applications that should be
-   linked in Ansel's menu" required="false">
-    <values>
-     <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
-  </configsection>
  </configtab>
  <configtab name="anselmap" desc="Map Settings">
   <configsection name="maps">
@@ -53,23 +35,13 @@
     <configmultienum name="providers" desc="Which layers should we add to the
     map?">
      <values>
-      <value desc="Google">Google</value>
-      <value desc="Bing">Bing</value>
-      <value desc="Yahoo">Yahoo</value>
-      <value desc="CloudMade">Cloudmade</value>
-      <value desc="MyTopo">Mytopo</value>
-      <value desc="Tiles@Home">Tilesathome</value>
-      <value desc="OpenStreetMap">Osm</value>
-      <value desc="OpenCycleMap">Ocm</value>
-      <value desc="OpenMapquest">Mapquest</value>
+       <configspecial application="horde" name="mapsources"/>
      </values>
     </configmultienum>
     <configenum default="false" name="geocoder" desc="Which Geocoder service
     should we use?">
      <values>
-      <value desc="None" default="true">Null</value>
-      <value desc="Google">Google</value>
-      <value desc="Yahoo">Yahoo</value>
+       <configspecial application="horde" name="geocoders"/>
      </values>
     </configenum>
    </case>

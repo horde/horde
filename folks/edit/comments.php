@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
+define('FOLKS_BASE', __DIR__ . '/..');
 require_once FOLKS_BASE . '/lib/base.php';
 require_once 'tabs.php';
 
@@ -80,8 +80,10 @@ if (!$form->isSubmitted()) {
     }
 }
 
-Horde::addScriptFile('tables.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('comments');
@@ -96,4 +98,4 @@ if ($profile['user_comments'] == 'moderate') {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

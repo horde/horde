@@ -16,7 +16,7 @@
  * The Horde_History:: class provides a method of tracking changes in Horde
  * objects, stored in a SQL table.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -36,6 +36,13 @@ abstract class Horde_History
      * @var string
      */
     protected $_auth;
+
+    /**
+     * Cache driver object.
+     *
+     * @var Horde_Cache
+     */
+    protected $_cache;
 
     /**
      * Our log handler.
@@ -67,6 +74,18 @@ abstract class Horde_History
     }
 
     /**
+     * Set Cache object.
+     *
+     * @since 2.1.0
+     *
+     * @param Horde_Cache $cache  The cache instance.
+     */
+    public function setCache(Horde_Cache $cache)
+    {
+        $this->_cache = $cache;
+    }
+
+    /**
      * Logs an event to an item's history log.
      *
      * The item must be uniquely identified by $guid. Any other details about
@@ -90,7 +109,7 @@ abstract class Horde_History
                         $replaceAction = false)
     {
         if (!is_string($guid)) {
-            throw new Horde_History_Exception('The guid needs to be a string!');
+            throw new InvalidArgumentException('The guid needs to be a string!');
         }
 
         $history = $this->getHistory($guid);
@@ -103,6 +122,10 @@ abstract class Horde_History
         }
 
         $this->_log($history, $attributes, $replaceAction);
+
+        if ($this->_cache) {
+            $this->_cache->expire('horde:history:' . $guid);
+        }
     }
 
     /**
@@ -138,7 +161,18 @@ abstract class Horde_History
         if (!is_string($guid)) {
             throw new Horde_History_Exception('The guid needs to be a string!');
         }
-        return $this->_getHistory($guid);
+
+        if ($this->_cache &&
+            ($history = @unserialize($this->_cache->get('horde:history:' . $guid, 0)))) {
+            return $history;
+        }
+
+        $history = $this->_getHistory($guid);
+        if ($this->_cache) {
+            $this->_cache->set('horde:history:' . $guid, serialize($history), 0);
+        }
+
+        return $history;
     }
 
     /**
@@ -184,6 +218,35 @@ abstract class Horde_History
             throw new Horde_History_Exception('The timestamp needs to be an integer!');
         }
         return $this->_getByTimestamp($cmp, $ts, $filters, $parent);
+    }
+
+    /**
+     * Return history objects with changes during a modseq interval, and
+     * optionally filtered on other fields as well.
+     *
+     * @param integer $start   The start of the modseq range.
+     * @param integer $end     The end of the modseq range.
+     * @param array   $filters An array of additional (ANDed) criteria.
+     *                         Each array value should be an array with 3
+     *                         entries:
+     *                         - field: the history field being compared (i.e.
+     *                           'action').
+     *                         - op: the operator to compare this field with.
+     *                         - value: the value to check for (i.e. 'add').
+     * @param string  $parent  The parent history to start searching at. If
+     *                         non-empty, will be searched for with a LIKE
+     *                         '$parent:%' clause.
+     *
+     * @return array  An array of history object ids, or an empty array if
+     *                none matched the criteria.
+     */
+    public function getByModSeq($start, $end, $filters = array(), $parent = null)
+    {
+        if (!is_integer($start) || !is_integer($end)) {
+            throw new Horde_History_Exception('The modseq values must be integers!');
+        }
+
+        return $this->_getByModSeq($start, $end, $filters, $parent);
     }
 
     /**
@@ -271,4 +334,54 @@ abstract class Horde_History
      * @throws Horde_History_Exception
      */
     abstract public function removeByNames(array $names);
+
+    /**
+     * Return the maximum modification sequence. To be overridden in concrete
+     * class.
+     *
+     * @param string $parent  Restrict to entries a specific parent.
+     *
+     * @return integer  The modseq
+     * @since 2.2.0
+     * @todo Make abstract in H6. Need to make this non-abstract for BC.
+     */
+    public function getHighestModSeq($parent = null)
+    {
+        return false;
+    }
+
+    /**
+     * Gets the modseq of the most recent change to $guid
+     *
+     * @param string $guid   The name of the history entry to retrieve.
+     * @param string $action An action: 'add', 'modify', 'delete', etc.
+     *
+     * @return integer  The modseq, or 0 if no matching entry is found.
+     *
+     * @throws Horde_History_Exception If the input parameters are not of type string.
+     * @since 2.2.0
+     * @todo  Make abstract in H6.
+     */
+    public function getActionModSeq($guid, $action)
+    {
+        if (!is_string($guid) || !is_string($action)) {
+            throw new Horde_History_Exception('$guid and $action need to be strings!');
+        }
+
+        try {
+            $history = $this->getHistory($guid);
+        } catch (Horde_History_Exception $e) {
+            return 0;
+        }
+
+        $last = 0;
+        foreach ($history as $entry) {
+            if (($entry['action'] == $action) && ($entry['modseq'] > $last)) {
+                $last = $entry['modseq'];
+            }
+        }
+
+        return (int)$last;
+    }
+
 }

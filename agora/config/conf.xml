@@ -36,15 +36,6 @@
   for every scope you would use.">false</configboolean>
  </configsection>
 
- <configsection name="menu">
-  <configheader>Menu Settings</configheader>
-  <configmultienum name="apps" desc="Select any applications that should be linked in Agora's menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
- </configsection>
-
  <configsection name="avatar">
   <configheader>Avatar Settings</configheader>
 

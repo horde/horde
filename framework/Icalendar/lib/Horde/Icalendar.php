@@ -7,7 +7,7 @@
 /**
  * Class representing iCalendar files.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -491,7 +491,6 @@ class Horde_Icalendar
         // Default values.
         // TODO: HORDE_VERSION does not exist.
         $requiredAttributes['PRODID'] = '-//The Horde Project//Horde iCalendar Library' . (defined('HORDE_VERSION') ? ', Horde ' . constant('HORDE_VERSION') : '') . '//EN';
-        $requiredAttributes['METHOD'] = 'PUBLISH';
 
         foreach ($requiredAttributes as $name => $default_value) {
             try {
@@ -555,6 +554,8 @@ class Horde_Icalendar
             $this->clear();
         }
 
+        $text = Horde_String::trimUtf8Bom($text);
+
         if (preg_match('/^BEGIN:' . $base . '(.*)^END:' . $base . '/ism', $text, $matches)) {
             $container = true;
             $vCal = $matches[1];
@@ -568,7 +569,7 @@ class Horde_Icalendar
 
         // Extract all subcomponents.
         $matches = $components = null;
-        if (preg_match_all('/^BEGIN:(.*)(\r\n|\r|\n)(.*)^END:\1/Uims', $vCal, $components)) {
+        if (preg_match_all('/^BEGIN:(.*)\s*?(\r\n|\r|\n)(.*)^END:\1\s*?/Uims', $vCal, $components)) {
             foreach ($components[0] as $key => $data) {
                 // Remove from the vCalendar data.
                 $vCal = str_replace($data, '', $vCal);
@@ -595,7 +596,7 @@ class Horde_Icalendar
         if (preg_match_all('/^((?:[^":]+|(?:"[^"]*")+)*):([^\r\n]*)\r?$/m', $vCal, $matches)) {
             foreach ($matches[0] as $attribute) {
                 preg_match('/([^;^:]*)((;(?:[^":]+|(?:"[^"]*")+)*)?):([^\r\n]*)[\r\n]*/', $attribute, $parts);
-                $tag = trim(Horde_String::upper($parts[1]));
+                $tag = trim(preg_replace('/^.*\./', '', Horde_String::upper($parts[1])));
                 $value = $parts[4];
                 $params = array();
 
@@ -622,7 +623,15 @@ class Horde_Icalendar
                                 }
                             }
                         }
-                        $params[$paramName] = $paramValue;
+                        if (isset($params[$paramName])) {
+                            if (is_array($params[$paramName])) {
+                                $params[$paramName][] = $paramValue;
+                            } else {
+                                $params[$paramName] = array($params[$paramName], $paramValue);
+                            }
+                        } else {
+                            $params[$paramName] = $paramValue;
+                        }
                     }
                 }
 
@@ -694,6 +703,9 @@ class Horde_Icalendar
 
                     foreach ($values[1] as $value) {
                         $stamp = $this->_parseDateTime($value);
+                        if (!is_int($stamp)) {
+                            continue;
+                        }
                         $dates[] = array('year' => date('Y', $stamp),
                                          'month' => date('m', $stamp),
                                          'mday' => date('d', $stamp));
@@ -938,7 +950,9 @@ class Horde_Icalendar
             case 'DUE':
             case 'AALARM':
             case 'RECURRENCE-ID':
-                $floating = $base == 'STANDARD' || $base == 'DAYLIGHT';
+                $floating = $base == 'STANDARD'
+                    || $base == 'DAYLIGHT'
+                    || isset($params['TZID']);
                 if (isset($params['VALUE'])) {
                     if ($params['VALUE'] == 'DATE') {
                         // VCALENDAR 1.0 uses T000000 - T235959 for all day events:
@@ -1107,7 +1121,7 @@ class Horde_Icalendar
                 $attr_string = $name . $params_str . ':' . $value;
                 if (!$this->_oldFormat) {
                     if (isset($params['ENCODING']) && $params['ENCODING'] == 'b') {
-                        $attr_string = chunk_split($attr_string, 75, $this->_newline . ' ');
+                        $attr_string = trim(chunk_split($attr_string, 75, $this->_newline . ' '));
                     } else {
                         $attr_string = Horde_String::wordwrap($attr_string, 75, $this->_newline . ' ', true, true);
                     }
@@ -1220,10 +1234,10 @@ class Horde_Icalendar
 
         $change_times = array();
         foreach ($vtimezone->getComponents() as $o) {
-            $t = $vtimezone->parseChild($o, $date['year']);
-            if ($t !== false) {
-                $change_times[] = $t;
-            }
+            $change_times = array_merge(
+                $change_times,
+                $vtimezone->parseChild($o, $date['year'])
+            );
         }
 
         if (!$change_times) {
@@ -1271,7 +1285,7 @@ class Horde_Icalendar
         $dateParts = explode('T', $text);
         if (count($dateParts) != 2 && !empty($text)) {
             // Not a datetime field but may be just a date field.
-            if (!preg_match('/^(\d{4})-?(\d{2})-?(\d{2})$/', $text, $match)) {
+            if (!preg_match('/^(\d{4})-?(\d{2})-?(\d{2})$/', $text)) {
                 // Or not
                 return $text;
             }
@@ -1291,13 +1305,11 @@ class Horde_Icalendar
         if ($time['zone'] == 'UTC' || $tzoffset !== false) {
             $result = @gmmktime($time['hour'], $time['minute'], $time['second'],
                                 $date['month'], $date['mday'], $date['year']);
-            if ($tzoffset) {
+            if ($result !== false && $tzoffset) {
                 $result -= $tzoffset;
             }
         } else {
             // We don't know the timezone so assume local timezone.
-            // FIXME: shouldn't this be based on the user's timezone
-            // preference rather than the server's timezone?
             $result = @mktime($time['hour'], $time['minute'], $time['second'],
                               $date['month'], $date['mday'], $date['year']);
         }
@@ -1315,8 +1327,7 @@ class Horde_Icalendar
      *                                     Horde_Date, array, or timestamp).
      * @param boolean $floating            Whether to return a floating
      *                                     date-time (without time zone
-     *                                     information). @since Horde_Icalendar
-     *                                     1.0.5.
+     *                                     information).
      *
      * @return string  The string representation of the datetime value.
      */

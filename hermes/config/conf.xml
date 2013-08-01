@@ -53,19 +53,4 @@
    </case>
   </configswitch>
  </configsection>
-
- <configsection name="menu">
-  <configheader>Menu Settings</configheader>
-  <configboolean name="print" desc="Should we display a Print link in the
-  main menu?">true</configboolean>
-  <configmultienum name="apps" desc="Select any applications that should be
-  linked in Hermes' menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
-  <configboolean name="apps_iframe" desc="Should linked applications be loaded
-  in an IFRAME within the Ajax interface?"
-  required="false">false</configboolean>
- </configsection>
 </configuration>

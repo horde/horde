@@ -15,7 +15,7 @@
 /**
  * Logs access to the export system.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -27,7 +27,6 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
- * @since    Horde 3.2
  */
 class Horde_Kolab_FreeBusy_User_Decorator_Log
 implements Horde_Kolab_FreeBusy_User

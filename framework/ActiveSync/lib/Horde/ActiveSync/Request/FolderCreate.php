@@ -1,186 +1,219 @@
 <?php
 /**
- * Handle FolderCreate requests.
- * 
- * Logic adapted from Z-Push, original copyright notices below.
+ * Horde_ActiveSync_Request_FolderCreate::
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *   Created   :   01.10.2007
+ *
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution   of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 /**
- * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * Handle FolderCreate requests.
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Base
 {
+    const FOLDERCREATE  = 'FolderHierarchy:FolderCreate';
+    const FOLDERDELETE  = 'FolderHierarchy:FolderDelete';
+    const FOLDERUPDATE  = 'FolderHierarchy:FolderUpdate';
+
+    const STATUS_SUCCESS = 1;
+    const STATUS_ERROR   = 6;
+    const STATUS_KEYMISM = 9;
     /**
      * Handle request
      *
      * @return boolean
      */
-    public function handle()
+    protected function _handle()
     {
+        $status = self::STATUS_SUCCESS;
+        $create = $update = $delete = false;
+        $this->_logger->info(sprintf(
+            '[%s] Handling FOLDER[CREATE|DELETE|CHANGE] command.',
+            $this->_device->id)
+        );
+
         $el = $this->_decoder->getElement();
         if ($el[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
-            return false;
+            throw new Horde_ActiveSync_Exception('Protocol Error');
         }
-
-        $create = $update = $delete = false;
-
-        if ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERHIERARCHY_FOLDERCREATE) {
+        if ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERCREATE) {
             $create = true;
-        } elseif ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERHIERARCHY_FOLDERUPDATE) {
+        } elseif ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERUPDATE) {
             $update = true;
-        } elseif ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERHIERARCHY_FOLDERDELETE) {
+        } elseif ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERDELETE) {
             $delete = true;
         }
 
         if (!$create && !$update && !$delete) {
-            return false;
+            $this->_logger->err('No CREATE/UPDATE/DELETE specified');
+            throw new Horde_ActiveSync_Exception('Protocol Error');
         }
 
         // SyncKey
-        if (!$this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_SYNCKEY)) {
-            return false;
+        if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY)) {
+            throw new Horde_ActiveSync_Exception('Protocol Error');
         }
         $synckey = $this->_decoder->getElementContent();
         if (!$this->_decoder->getElementEndTag()) {
-            return false;
+            $this->_logger->err('No FOLDERSYNCKEY');
+            throw new Horde_ActiveSync_Exception('Protocol Error');
         }
 
         // ServerID
         $serverid = false;
-        if ($this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_SERVERENTRYID)) {
+        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID)) {
             $serverid = $this->_decoder->getElementContent();
             if (!$this->_decoder->getElementEndTag()) {
-                return false;
+                throw new Horde_ActiveSync_Exception('Protocol Error');
             }
         }
 
-        // when creating or updating more information is necessary
         if (!$delete) {
-            // Parent
             $parentid = false;
-            if ($this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_PARENTID)) {
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_PARENTID)) {
                 $parentid = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
-                    return false;
+                    throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
             }
-
-            // Displayname
-            if (!$this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_DISPLAYNAME)) {
-                return false;
+            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_DISPLAYNAME)) {
+                throw new Horde_ActiveSync_Exception('Protocol Error');
             }
             $displayname = $this->_decoder->getElementContent();
             if (!$this->_decoder->getElementEndTag()) {
-                return false;
+                throw new Horde_ActiveSync_Exception('Protocol Error');
             }
-
-            // Type
             $type = false;
-            if ($this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_TYPE)) {
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_TYPE)) {
                 $type = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
-                    return false;
+                    throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
             }
         }
 
         if (!$this->_decoder->getElementEndTag()) {
-            return false;
+            throw new Horde_ActiveSync_Exception('Protocol Error');
         }
 
-        // Get state of hierarchy
+        $collections = $this->_activeSync->getCollectionsObject();
         try {
-            $syncstate = $this->_stateMachine->loadState($synckey);
-            $newsynckey = $this->_stateMachine->getNewSyncKey($synckey);
+            $collections->initHierarchySync($synckey);
+            $newsynckey = $this->_state->getNewSyncKey($synckey);
         } catch (Horde_ActiveSync_Exception $e) {
-            // @TODO - send error status keymism when refactored.
+            $status = self::STATUS_KEYMISM;
         }
 
-        // additional information about already seen folders
-        $seenfolders = unserialize($this->_stateMachine->loadState('s' . $synckey));
-        if (!$seenfolders) {
-            $seenfolders = array();
-        }
-        // Configure importer with last state
-        $importer = $this->_driver->getHierarchyImporter();
-        $importer->Config($syncstate);
-
-        if (!$delete) {
-            // Send change
-            $serverid = $importer->importFolderChange($serverid, $parentid, $displayname, $type);
-        } else {
-            // delete folder
-            $deletedstat = $importer->importFolderDeletion($serverid, 0);
+        if ($status == self::STATUS_SUCCESS) {
+            // Configure importer with last state
+            $importer = $this->_activeSync->getImporter();
+            $importer->init($this->_state);
+            if (!$delete) {
+                if (!$serverid = $importer->importFolderChange($serverid, $displayname, $parentid)) {
+                    $status = self::STATUS_ERROR;
+                }
+            } else {
+                try {
+                   $importer->importFolderDeletion($serverid);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $status = self::STATUS_ERROR;
+                }
+            }
         }
 
         $this->_encoder->startWBXML();
         if ($create) {
-            // add folder id to the seen folders
-            $seenfolders[] = $serverid;
+            // @TODO: Horde 6 - pass a H_AS_Message_Folder object to the importFolderChange()
+            //        method so we can delegate the _serverid creation to the backend like
+            //        it should be.
+            $folder = $this->_activeSync->messageFactory('Folder');
+            $folder->serverid = $serverid;
+            $folder->displayname = $displayname;
+            $folder->type = $type;
+            $folder->_serverid = $displayname;
+            $collections->updateFolderInHierarchy($folder);
+            $collections->save();
 
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERCREATE);
+            $this->_encoder->startTag(self::FOLDERCREATE);
 
-
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_STATUS);
-            $this->_encoder->content(1);
+            $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_STATUS);
+            $this->_encoder->content($status);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_SYNCKEY);
+            $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY);
             $this->_encoder->content($newsynckey);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_SERVERENTRYID);
+            $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID);
             $this->_encoder->content($serverid);
             $this->_encoder->endTag();
 
             $this->_encoder->endTag();
-
-            $this->_encoder->endTag();
         } elseif ($update) {
+            // @TODO: See note above about H6.
+            $folder = $this->_activeSync->messageFactory('Folder');
+            $folder->serverid = $serverid;
+            $folder->displayname = $displayname;
+            $folder->type = $type;
+            $folder->_serverid = $displayname;
+            $collections->updateFolderInHierarchy($folder, true);
+            $collections->save();
 
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERUPDATE);
+            $this->_encoder->startTag(self::FOLDERUPDATE);
 
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_STATUS);
-            $this->_encoder->content(1);
+            $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_STATUS);
+            $this->_encoder->content($status);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_SYNCKEY);
+            $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY);
             $this->_encoder->content($newsynckey);
             $this->_encoder->endTag();
 
             $this->_encoder->endTag();
         } elseif ($delete) {
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERDELETE);
+            // @TODO: See note about H6
+            $collections->deleteFolderFromHierarchy($serverid);
+            $this->_encoder->startTag(self::FOLDERDELETE);
 
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_STATUS);
-            $this->_encoder->content($deletedstat);
+            $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_STATUS);
+            $this->_encoder->content($status);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_SYNCKEY);
+            $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY);
             $this->_encoder->content($newsynckey);
             $this->_encoder->endTag();
 
             $this->_encoder->endTag();
-
-            // remove folder from the folderflags array
-            if (($sid = array_search($serverid, $seenfolders)) !== false) {
-                unset($seenfolders[$sid]);
-                $seenfolders = array_values($seenfolders);
-                $this->_logger->debug('Deleted from seenfolders: ' . $serverid);
-            }
         }
 
         $this->_encoder->endTag();
-        // Save the sync state for the next time
-        $this->_stateMachine->setState($newsynckey, $importer->GetState());
-        $this->_stateMachine->setState('s' . $newsynckey, serialize($seenfolders));
-        $this->_stateMachine->save();
+        $this->_state->setNewSyncKey($newsynckey);
+        $this->_state->save();
 
         return true;
     }

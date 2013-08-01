@@ -2,7 +2,7 @@
 /**
  * $Horde: luxor/symbol.php,v 1.6 2009/06/10 19:54:42 chuck Exp $
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -11,7 +11,7 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('luxor');
 
 $ident = Horde_Util::getFormData('i');
@@ -73,7 +73,9 @@ if ($r) {
 }
 
 $title = sprintf(_("%s :: Symbol \"%s\""), $source['name'], $index->symname($ident));
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require LUXOR_TEMPLATES . '/menu.inc';
 
 $view = new Horde_View(array('templatePath' => LUXOR_TEMPLATES));
@@ -83,4 +85,4 @@ $view->declarations = $ds;
 $view->references = $rs;
 echo $view->render('symbol.html.php');
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

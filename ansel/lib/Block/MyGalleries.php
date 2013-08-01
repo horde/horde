@@ -2,7 +2,7 @@
 /**
  * Display summary information on top level galleries.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -49,7 +49,7 @@ class Ansel_Block_MyGalleries extends Horde_Core_Block
      */
     protected function _content()
     {
-        Horde::addScriptFile('block.js');
+        $GLOBALS['page_output']->addScriptFile('block.js');
 
         /* Get the top level galleries */
         try {

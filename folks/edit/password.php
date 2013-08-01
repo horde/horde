@@ -8,7 +8,7 @@
  * @author Duck <duck@obala.net>
  */
 
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
+define('FOLKS_BASE', __DIR__ . '/..');
 require_once FOLKS_BASE . '/lib/base.php';
 require_once 'tabs.php';
 
@@ -17,7 +17,7 @@ require_once 'tabs.php';
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot update password, contact your administrator."), 'horde.error');
-    $registry->authenticateFailure('folks');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 */
 
@@ -185,11 +185,13 @@ if (!$prefs->isLocked('security_question')) {
 $v = &$form_security->addVariable(_("Security answer"), 'security_answer', 'text', true);
 $v->setDefault($prefs->getValue('security_answer'));
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('password');
 $form->renderActive(null, null, null, 'post');
 echo '<br />';
 $form_security->renderActive(null, null, null, 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

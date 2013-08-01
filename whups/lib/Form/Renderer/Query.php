@@ -3,7 +3,7 @@
  * A Horde_Form_Renderer for rendering Whups queries.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -45,7 +45,7 @@ class Whups_Form_Renderer_Query extends Horde_Form_Renderer
     }
 
     /**
-     * @TODO: this is public becuase the parent:: method is public
+     * @TODO: this is public because the parent:: method is public
      */
     public function _renderForm(&$query, &$vars, $active)
     {
@@ -133,12 +133,16 @@ class Whups_Form_Renderer_Query extends Horde_Form_Renderer
             case Whups_Query::CRITERION_ATTRIBUTE:
                 // The value of the following depends on the type.
                 $aname = $whups_driver->getAttributeName($cvalue);
-                $type = $this->attributes[$cvalue]['type_id'];
-                $text = '';
-                if (isset($this->ticketTypes[$type])) {
-                    $text = '[' . $this->ticketTypes[$type] . '] ';
+                foreach ($this->attributes as $attribute) {
+                    if ($attribute['attribute_id'] == $cvalue) {
+                        $type = $attribute['type_id'];
+                        break;
+                    }
                 }
-                $text .= sprintf("Attribute \"%s\"", $aname);
+                if (isset($this->ticketTypes[$type])) {
+                    $aname .= ' (' . $this->ticketTypes[$type] . ')';
+                }
+                $text = sprintf("Attribute \"%s\"", $aname);
                 break;
 
             case Whups_Query::CRITERION_TIMESTAMP:

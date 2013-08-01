@@ -1,6 +1,8 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Base redirection page for IMP.
+ *
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -12,8 +14,7 @@
  */
 
 // Will redirect to login page if not authenticated.
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-// Load initial page as defined by view mode & preferences.
-require IMP_Auth::getInitialPage()->fullpath;
+IMP_Auth::getInitialPage()->url->redirect();

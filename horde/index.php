@@ -2,16 +2,22 @@
 /**
  * Horde redirection script.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
+require_once __DIR__ . '/lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'nologintasks' => true
+));
 
 $main_page = Horde_Util::nonInputVar('horde_login_url', Horde_Util::getFormData('url'));
 
@@ -62,7 +68,7 @@ if ($main_page) {
             if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
                 $main_page = $registry->hasView(Horde_Registry::VIEW_MINIMAL, $initial_app)
                     ? Horde::url(rtrim($initial_app, '/') . '/', true)
-                    : Horde::getServiceLink('portal');
+                    : $registry->getServiceLink('portal');
             } else {
                 $main_page = Horde::url(rtrim($initial_app, '/') . '/', true);
             }
@@ -71,13 +77,13 @@ if ($main_page) {
              * index.php or login.php, since that would lead to inifinite
              * loops. */
             if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
-                $main_page = Horde::getServiceLink('portal');
+                $main_page = $registry->getServiceLink('portal');
             } elseif (!empty($registry->applications['horde']['initial_page']) &&
                 !in_array($registry->applications['horde']['initial_page'], array('index.php', 'login.php'))) {
                 $main_page = Horde::url($registry->applications['horde']['initial_page'], true);
             } else {
                 /* Finally, fallback to the portal page. */
-                $main_page = Horde::getServiceLink('portal');
+                $main_page = $registry->getServiceLink('portal');
             }
         }
     }

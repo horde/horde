@@ -3,7 +3,7 @@
  * The Horde_Core_Auth_Shibboleth class provides Horde-specific code that
  * extends the base Shibboleth driver.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
@@ -31,7 +31,7 @@ class Horde_Core_Auth_Shibboleth extends Horde_Auth_Shibboleth
         // Consider this a session expiration.
         $this->setError(Horde_Auth::REASON_SESSION);
 
-        Horde::logMessage('Shibboleth authentication expired for user ' . $GLOBALS['registry']->getAuth(), 'INFO');
+        Horde::log('Shibboleth authentication expired for user ' . $GLOBALS['registry']->getAuth(), 'INFO');
 
         return false;
     }

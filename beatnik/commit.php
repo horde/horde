@@ -1,12 +1,14 @@
 <?php
 /**
- * Copyright 2006-2007 Ben Klang <ben@alkaloid.net>
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $beatnik = Horde_Registry::appInit('beatnik');
 
 require_once BEATNIK_BASE . '/lib/Forms/EditRecord.php';

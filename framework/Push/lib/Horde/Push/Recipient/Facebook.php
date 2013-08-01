@@ -14,7 +14,7 @@
 /**
  * Facebook as recipient.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -66,8 +66,12 @@ extends Horde_Push_Recipient_Base
     {
         $text = $content->getSummary();
         if (empty($options['pretend'])) {
-            $streams = new Horde_Service_Facebook_Streams($this->_facebook);
-            $streams->publish($text, array(), '', '', '', $this->getAcl());
+            $options = array();
+            $acl = $this->getAcl();
+            if (!empty($acl)) {
+                $options['privacy'] = $acl;
+            }
+            $this->_facebook->streams->post('me', $text, $options);
             return 'Pushed to facebook stream.';
         } else {
             return sprintf(

@@ -1,11 +1,6 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Base.php';
-
-/**
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -13,7 +8,7 @@ require_once dirname(__FILE__) . '/Base.php';
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Group_MockTest extends Horde_Group_Test_Base
+class Horde_Group_MockTest extends Horde_Group_TestBase
 {
     public function testListAllWithNoGroupsCreated()
     {

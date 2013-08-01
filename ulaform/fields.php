@@ -4,7 +4,7 @@
  * It recognises what extra parameters need to be instered for a particular
  * field and adjusts the form accordingly.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -12,7 +12,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ulaform', array('admin' => true));
 
 /* Get some variables. */
@@ -119,9 +119,9 @@ $view->images = $images;
 $view->fields = $fields_list;
 
 /* Render the page. */
-$title = _("Form Fields");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'title' => _("Form Fields")
+));
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('fields');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

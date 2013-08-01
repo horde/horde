@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
-
-/**
  * Test the dependency list.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -211,7 +206,7 @@ extends Components_TestCase
     {
         $this->lessStrict();
         $comp = $this->getComponent(
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $this->assertTrue(
             $comp->getDependencyList()->{'pear.horde.org/Dependency'}->isRequired()

@@ -2,7 +2,7 @@
 /**
  * The Agora script to lock a message and prevent further posts to this thread.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -10,7 +10,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
@@ -65,10 +65,9 @@ if ($form->validate()) {
 
 /* Set up template data. */
 $view = new Agora_View();
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, Horde::url('message/lock.php'), 'post');
+$form->renderActive(null, $vars, Horde::url('messages/lock.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 Horde::startBuffer();
@@ -80,6 +79,6 @@ $view->message_author = $message['message_author'];
 $view->message_date = strftime($prefs->getValue('date_format'), $message['message_timestamp']);
 $view->message_body = Agora_Driver::formatBody($message['body']);
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $view->render('messages/form');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

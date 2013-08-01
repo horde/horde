@@ -2,7 +2,7 @@
 /**
  * Patchsets script.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -13,7 +13,7 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 // Exit if patchset feature is not available.
@@ -21,11 +21,11 @@ if (!$GLOBALS['VC']->hasFeature('patchsets')) {
     Chora::url('browsefile', $where)->redirect();
 }
 
-$ps_opts = array();
+$ps_opts = array('timezone' => $prefs->getValue('timezone'));
 if ($where) {
     $ps_opts['file'] = $where;
     if (!isset($title)) {
-        $title = sprintf(_("Commits to %s"), $where);
+        $title = _("Commits to:");
     }
 }
 
@@ -40,13 +40,10 @@ if (empty($patchsets)) {
     Chora::fatal(_("Commit Not Found"), '404 Not Found');
 }
 
-$extraLink = Chora::getFileViews($where, 'patchsets');
-
-Horde::addScriptFile('tables.js', 'horde');
-Horde::addScriptFile('quickfinder.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addScriptFile('quickfinder.js', 'horde');
+Chora::header($title);
+echo Chora::getHistoryViews($where)->render('patchsets');
 require CHORA_TEMPLATES . '/patchsets/header_table.inc';
 
 $diff_img = Horde::img('diff.png', _("Diff"));
@@ -67,4 +64,4 @@ while (list($id, $patchset) = each($patchsets)) {
 }
 
 require CHORA_TEMPLATES . '/patchsets/footer.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

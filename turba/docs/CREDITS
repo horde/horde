@@ -16,7 +16,7 @@ Localization
 
 =====================   ======================================================
 Arabic (Syria)          Platinum Development Team <devteam@platinum-sy.net>
-Basque                  Euskal Herriko Unibertsitatea <xabier.arrieta@ehu.es>
+Basque                  Euskal Herriko Unibertsitatea <webmaster@ehu.es>
 Brazilian Portuguese    Carlos Daniel Kibrit <kibrit@terra.com.br>
                         Fabio Gomes <flgoms@uol.com.br>
                         Luis Felipe Marzagao <duli@fedoraproject.org>
@@ -31,6 +31,8 @@ Croatian                Iva Rumora <iva.rumora@zg.t-com.hr>
                         Matej Vela <matej.vela@carnet.hr>
 Czech                   Pavel Chytil <pchytil@asp.ogi.edu>
                         Jan Krivanek <honza@atack.cz>
+                        Petra Kostinkova <kostinkova.petra@active24.cz>
+                        Michal Foist <foist.michal@active24.cz>
 Danish                  Martin List-Petersen <martin@list-petersen.dk>
                         Brian Truelsen <horde+i18n@briantruelsen.dk>
                         Niels Baggesen <nba@users.sourceforge.net>
@@ -46,6 +48,8 @@ French                  Sam Przyswa <samp@arial-concept.com>
                         Vincent Vinet <vvinet@revolutionlinux.com>
                         Yannick Sebastia <yannick.sebastia@ecole-navale.fr>
                         Laurent Foucher <laurent.foucher@iut-tlse3.fr>
+                        Paul De Vlieger
+                        <paul.de_vlieger@moniut.univ-bpclermont.fr>
 Galician                Rafael Varela Pet <rafael.varela@usc.es>
                         Guillermo Mendez <guille@usc.es>
 German                  Jan Schneider <jan@horde.org>
@@ -55,10 +59,12 @@ Greek                   Stefanos I. Dimitriou <support@teiath.gr>
                         Konstantinos C. Milosis <kmilosis@yahoo.com>
 Hungarian               Laszlo L. Tornoci <torlasz@xenia.sote.hu>
                         Andras Galos <galosa@netinform.hu>
+                        Zoltán Németh <nemeth.zoltan@etit.hu>
 Icelandic               Bjorn Davidsson <bjossi@snerpa.is>
 Italian                 Giovanni Meneghetti <gmeneghetti@infvic.it>
                         Marco Pirovano <marco.pirovano@unibocconi.it>
                         Cristian Manoni <cristian.manoni@nethesis.it>
+                        Emilien <emilien@wifi.e4a.it>)
 Japanese                B.J. Black <william.black@sun.com>
                         Takeshi Morishima <tm@onepost.net>
                         Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
@@ -81,6 +87,7 @@ Polish                  Piotr Roszatycki <dexter@debian.pl>
                         Piotr Adamcio <adamcios@o2.pl>
                         Tadeusz Lesiecki <lesiecki@tmtsystem.pl>
                         Piotr Tarnowski <drfugazi@drfugazi.eu.org>
+                        Krzysztof Kozera <krzysztof113@o2.pl>
 Portuguese              Nuno Loureiro <nuno@eth.pt>
                         Jose' Carlos <horde.i18n@abismo.org>
                         Manuel Menezes de Sequeira <Manuel.Sequeira>
@@ -93,6 +100,8 @@ Russian                 Ignat Ikryanov <ignat@ibd.ru>
 Slovak                  Leo Mrafko <leo@oel.sk>
                         Ivan Noris <noris@bgs.sk>
                         Martin Matuška <martin@matuska.org>
+                        Marika Schvarczova <schvarczova.marika@domeny.sk>
+                        Jozef Sudolský <jozef.sudolsky@elbia.sk>
 Slovenian               Jure Krasovic <jurek@rcc-irc.si>
                         Matic Dolar <matic@medium.si>
 Spanish                 Julian Jares <jjares@techie.com>
@@ -100,7 +109,9 @@ Spanish                 Julian Jares <jjares@techie.com>
                         Manuel Perez Ayala <mperaya@alcazaba.unex.es>
                         Juan C. Blanco <jcblanco@fi.upm.es>
 Swedish                 Andreas Dahlén <andreas@dahlen.ws>
+                        Per Olof Ljungmark <peo@bsdlabs.com>
 Turkish                 Middle East Technical University <horde-tr@metu.edu.tr>
+                        İstanbul Technical University <sistemdestek@itu.edu.tr>
 Ukrainian               Andriy Kopystyansky <anri@polynet.lviv.ua>
 =====================   ======================================================
 

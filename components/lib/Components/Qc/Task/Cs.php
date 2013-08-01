@@ -14,7 +14,7 @@
 /**
  * Components_Qc_Task_Cs:: runs a code style check on the component.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -58,15 +58,17 @@ extends Components_Qc_Task_Base
      *
      * @param array &$options Additional options.
      *
-     * @return NULL
+     * @return integer Number of errors.
      */
     public function run(&$options)
     {
+        $old_dir = getcwd();
         $lib = realpath($this->_config->getPath() . '/lib');
         $argv = $_SERVER['argv'];
         $argc = $_SERVER['argv'];
         $_SERVER['argv'] = array();
         $_SERVER['argc'] = 0;
+        define('PHPCS_DEFAULT_WARN_SEV', 0);
         $phpcs = new PHP_CodeSniffer();
         $phpcs->process(
             $lib,
@@ -77,6 +79,7 @@ extends Components_Qc_Task_Base
 
         $reporting = new PHP_CodeSniffer_Reporting();
         $filesViolations = $phpcs->getFilesErrors();
+        chdir($old_dir);
         return $reporting->printReport('emacs', $filesViolations, false, null);
     }
 }

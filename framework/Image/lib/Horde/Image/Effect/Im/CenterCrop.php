@@ -30,7 +30,7 @@ class Horde_Image_Effect_Im_CenterCrop extends Horde_Image_Effect
             $initialCrop = $this->_params->width * 2;
             $command = "-resize x{$initialCrop} -resize '{$initialCrop}x<' -resize 50% -gravity center -crop {$this->_params->width}x{$this->_params->height}+0+0 +repage";
         } else {
-            $command = "-thumbnail {$this->_params->width}x{$this->_params->height}^ -gravity center -extent {$this->_params->width}x{$this->_params->height}";
+            $command = "-thumbnail {$this->_params->width}x{$this->_params->height}\^ -gravity center -extent {$this->_params->width}x{$this->_params->height}";
         }
         $this->_image->addPostSrcOperation($command);
         $this->_image->clearGeometry();

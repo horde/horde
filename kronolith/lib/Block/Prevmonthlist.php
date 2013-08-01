@@ -60,11 +60,11 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $registry, $prefs;
+        global $page_output, $registry, $prefs;
 
         $GLOBALS['from_block'] = true;
 
-        Horde::addScriptFile('tooltips.js', 'horde');
+        $page_output->addScriptFile('tooltips.js', 'horde');
 
         $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n') - $this->_params['months'], 'mday' => date('j')));
         $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j') - 1));
@@ -83,7 +83,8 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
                 }
                 list($type, $calendar) = explode('_', $this->_params['calendar']);
                 $driver = Kronolith::getDriver($type, $calendar);
-                $all_events = $driver->listEvents($startDate, $endDate, true);
+                $all_events = $driver->listEvents(
+                    $startDate, $endDate, array('show_recurrence' => true));
             } else {
                 $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
             }
@@ -146,9 +147,9 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
                 $html .= '<td class="text" nowrap="nowrap" valign="top">';
                 if ($event->start->compareDate($startDate) < 0 &&
                     $event->end->compareDate($startDate) > 0) {
-                    $html .= '<strong>' . $event->location . '</strong>';
+                    $html .= '<strong>' . htmlspecialchars($event->getLocation()) . '</strong>';
                 } else {
-                    $html .= $event->location;
+                    $html .= htmlspecialchars($event->getLocation());
                 }
                 if ($event->start->compareDate($startDate) < 0 &&
                     $event->end->compareDate($startDate) > 0) {

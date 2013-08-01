@@ -1,38 +1,3 @@
 <?php
-/**
- * Tests for the horde/Crypt package.
- *
- * @author     Michael Slusarz <slusarz@horde.org>
- * @category   Horde
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Crypt
- * @package    Crypt
- * @subpackage UnitTests
- */
-
-/**
- * Define the main method
- */
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Crypt_AllTests::main');
-}
-
-/**
- * Prepare the test setup.
- */
 require_once 'Horde/Test/AllTests.php';
-
-/**
- * @category   Horde
- * @package    Crypt
- * @subpackage UnitTests
- */
-class Horde_Crypt_AllTests extends Horde_Test_AllTests
-{
-}
-
-Horde_Crypt_AllTests::init('Horde_Crypt', __FILE__);
-
-if (PHPUnit_MAIN_METHOD == 'Horde_Crypt_AllTests::main') {
-    Horde_Crypt_AllTests::main();
-}
+Horde_Test_AllTests::init(__FILE__)->run();

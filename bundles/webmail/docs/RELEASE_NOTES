@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 4.0.6.
+Webmail Edition version 5.1.1.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,29 +29,49 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 4.0.5
+The major changes compared to the Horde Groupware Webmail Edition version 5.1.0
 are:
 
 General changes:
+    * Improved logins from anonymous pages.
+    * Added support for improved history API.
+    * Fixed Basic Authentication with CGI versions of PHP
+    * Enabled Turkish translations on PHP 5.5.
     * Small bugfixes and improvements.
 
 Mail changes:
-    * Fixed XSS vulnerabilities.
+    * Fixed message redirection.
+    * Fixed bugs in search results view.
+    * Fixed bugs with attachment and image uploads.
 
-Calendar changes:
-    * Display event time in dynamic view if requested.
+Filter changes:
+    * Fixed advanced options for Sieve vacation rules.
+    * Fixed disabling features by locking preferences.
 
-Address book changes:
-    * Improved vCard compatibility.
-    * Updated Japanese translation.
+Address Book changes:
+    * Import generic phone attributes from vCard.
+
+Calendar and Tasks changes:
+    * Fixed system calendar and task list support via WebDAV/CalDAV.
+    * Prompt for sending cancellations when deleting an event.
+
+Bookmarks changes:
+    * Show recently used tags on-demand.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS vulnerabilities.
-Display event time in dynamic calendar view if requested.
-Improved vCard compatibility.
-Updated Japanese translation.
+Added support for improved history API.
+Fixed Basic Authentication with CGI versions of PHP.
+Enabled Turkish translations on PHP 5.5.
+Fixed message redirection.
+Fixed bugs in message search results view and attachment and image uploads.
+Fixed advanced options for Sieve vacation rules.
+Fixed disabling features by locking filter preferences.
+Import generic phone attributes from vCard.
+Fixed system calendar and task list support via WebDAV/CalDAV.
+Prompt for sending cancellations when deleting an event.
+Show recently used bookmark tags on-demand.
 Small bugfixes and improvements.
 FM;
 

@@ -2,7 +2,7 @@
 /**
  * Class to encapsulate the UI for adding/viewing/changing galleries.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -39,7 +39,7 @@ class Ansel_View_GalleryProperties
      *
      * @param array $params  Parameters for the view
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
     }
@@ -96,16 +96,25 @@ class Ansel_View_GalleryProperties
      */
     private function _output()
     {
-        $view = new Horde_View(array('templatePath' => array(ANSEL_TEMPLATES . '/gallery',
-                                                             ANSEL_TEMPLATES . '/gallery/partial',
-                                                             ANSEL_TEMPLATES . '/gallery/layout')));
-        $view->addHelper('Text');
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->addTemplatePath(array(
+            ANSEL_TEMPLATES . '/gallery',
+            ANSEL_TEMPLATES . '/gallery/partial',
+            ANSEL_TEMPLATES . '/gallery/layout'));
+
         $view->properties = $this->_properties;
         $view->title = $this->_title;
         $view->action = $this->_params['actionID'];
         $view->url = $this->_params['url'];
         $view->availableThumbs = $this->_thumbStyles();
         $view->galleryViews = $this->_galleryViewStyles();
+        $view->locked = array('download' => $GLOBALS['prefs']->isLocked('default_download'));
+        $view->isOwner = $GLOBALS['registry']->getAuth() &&
+                         $GLOBALS['registry']->getAuth() == $this->_properties['owner'];
+
+        $view->havePretty = $GLOBALS['conf']['image']['prettythumbs'];
+        $view->ages = $GLOBALS['conf']['ages']['limits'];
+
         $js = array('$("gallery_name").focus()');
         if ($GLOBALS['conf']['image']['type'] != 'png') {
             $js[] = 'function checkStyleSelection()
@@ -127,21 +136,19 @@ class Ansel_View_GalleryProperties
                 }';
             $js[] = '$("background_color").observe("change", checkStyleSelection); $("thumbnail_style").observe("change", checkStyleSelection);';
         }
-        Horde::addInlineScript($js, 'dom');
-        Horde::addScriptFile('stripe.js', 'horde');
-        Horde::addScriptFile('popup.js', 'horde');
 
-        /* Attach the slug check action to the form */
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'GallerySlugCheck'), array(
-            'bindTo' => 'gallery_slug',
-            'slug' => $this->_properties['slug']
+        global $page_output;
+        $page_output->addInlineScript($js, true);
+        $page_output->addScriptFile('popup.js', 'horde');
+        $page_output->addScriptFile('slugcheck.js');
+        $page_output->addInlineJsVars(array(
+            'AnselSlugCheck.text' => $this->_properties['slug']
         ));
 
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
-        echo Horde::menu();
+        $page_output->header();
         $GLOBALS['notification']->notify(array('listeners' => 'status'));
         echo $view->render('properties');
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
     /**
@@ -177,8 +184,7 @@ class Ansel_View_GalleryProperties
         }
 
         if (!$parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $GLOBALS['notification']->push(sprintf(_("Access denied adding a gallery to \"%s\"."),
-                                $parent->get('name')), 'horde.error');
+            $GLOBALS['notification']->push(_("Access denied adding a sub gallery to this gallery."), 'horde.error');
             Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
@@ -281,7 +287,7 @@ class Ansel_View_GalleryProperties
             // Modifying an existing gallery.
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
             if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                $GLOBALS['notification']->push(sprintf(_("Access denied saving gallery \"%s\"."), $gallery->get('name')), 'horde.error');
+                $GLOBALS['notification']->push(_("Access denied saving this gallery."), 'horde.error');
             } else {
                 // Don't allow the display name to be nulled out.
                 if ($gallery_name) {
@@ -338,9 +344,9 @@ class Ansel_View_GalleryProperties
                     exit;
                 }
                 if (!$parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                    $GLOBALS['notification']->push(sprintf(
-                        _("You do not have permission to add children to %s."),
-                        $parent->get('name')), 'horde.error');
+                    $GLOBALS['notification']->push(
+                        _("You do not have permission to add sub galleries to this gallery."),
+                        'horde.error');
 
                     Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
                     exit;
@@ -375,8 +381,8 @@ class Ansel_View_GalleryProperties
 
                 $galleryId = $gallery->id;
                 $msg = sprintf(_("The gallery \"%s\" was created successfully."), $gallery_name);
-                Horde::logMessage($msg, 'DEBUG');
                 $GLOBALS['notification']->push($msg, 'horde.success');
+                Horde::url('img/upload.php')->add('gallery', $galleryId)->redirect();
             } catch (Ansel_Exception $e) {
                 $galleryId = null;
                 $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"),
@@ -459,5 +465,5 @@ class Ansel_View_GalleryProperties
 
         return $views;
     }
-}
 
+}

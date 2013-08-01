@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="summary" state="uptodate" md5="68ca33f7f0c9aae4c103eb47492cdc15">
+    <entry id="summary" state="changed" md5="68ca33f7f0c9aae4c103eb47492cdc15">
 <title>A Página do Portal</title>
  <para>
 Esta página fornece um breve sumário de toda a sua informação importante.
@@ -14,27 +14,23 @@ de uma nova mensagem de e-mail, criação de um novo calendário de eventos ou t
 Os conteúdos deste portal são personalizáveis através de um botão de Layout.
 Por exemplo, pode escolher quais os items a incluir neste portal e a sua ordem de apresentação
  </para>
-</entry>
-  <entry id="navbar" state="uptodate" md5="b8cf0ae19e57dfa0c2b962e516782f47">
-<title>The Application Navigation Bar</title>
- <para>
-No lado esquerdo da página web está a barra de navegação.
-Clique nos ícones desta barra de navegação para rápida e fácilmente escolher
-as aplicações disponíveis.
- </para>
-</entry>
-  <entry id="prefs-do_maintenance" state="uptodate" md5="dd95df07a03031232baea919288b2d00">
-    <title>Preferences: Maintenance: Do Maintenance</title>
-    <para>
-Se pretender realizar operações de manutenção no login, seleccione esta caixa.
- </para>
-</entry>
-  <entry id="prefs-confirm_maintenance" state="uptodate" md5="a21162cdff3b1d8faeadb7296240036e">
-    <title>Preferências: Manutenção: Confirmar Manutenção</title>
-    <para>
-Se pretender confirmar todas as tarefas de manutenção antes de serem aplicadas, seleccione esta caixa.
-Se não seleccionar esta caixa, todas as operações de manutenção serão realizadas automáticamente sem a opção de
-cancelar no login.
-    </para>
-</entry>
+<!-- English entry (2012-11-06):
+<entry id="summary">
+        <title>The Portal Page</title>
+        <para>
+            This portal page provides a quick summary of all your important information. For example, it might show how many new e-mail messages you have in your INBOX, upcoming events on your calendar, tasks on your to-do list, headlines from selected news services, and so on. Many of these summaries will contain quick shortcuts to common functions, such as composing a new mail message, creating a new calendar event or task, etc.
+         </para>
+         <para>
+            The contents of this portal page are customizable via the Layout button. For example, you can choose which items to include on this portal page as well as in which order they are shown.
+        </para>
+    </entry>--><!-- English entry (2012-11-06):
+<entry id="summary">
+        <title>The Portal Page</title>
+        <para>
+            This portal page provides a quick summary of all your important information. For example, it might show how many new e-mail messages you have in your INBOX, upcoming events on your calendar, tasks on your to-do list, headlines from selected news services, and so on.
+         </para>
+         <para>
+            The contents of this portal page are customizable via the "Add Content" button. For example, you can choose which items to include on this portal page as well as in which order they are shown.
+        </para>
+    </entry>--></entry>
 </help>

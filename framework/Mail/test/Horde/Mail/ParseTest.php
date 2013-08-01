@@ -16,6 +16,11 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->rfc822 = new Horde_Mail_Rfc822();
     }
 
+    public function tearDown()
+    {
+        unset($this->rfc822);
+    }
+
     /* Test case for PEAR Mail:: bug #13659 */
     public function testParseBug13659()
     {
@@ -469,6 +474,11 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
             $email,
             $ob[0]->mailbox
         );
+
+        $this->assertEquals(
+            $email,
+            (string)$ob[0]
+        );
     }
 
     public function testParsingPersonalPartWithQuotes()
@@ -478,13 +488,69 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $ob = new Horde_Mail_Rfc822_Address($email);
 
         $this->assertEquals(
-            'Test "F-oo" Bar <foo@example.com>',
+            '"Test \"F-oo\" Bar" <foo@example.com>',
             $ob->writeAddress()
         );
 
         $this->assertEquals(
             $email,
             $ob->writeAddress(true)
+        );
+    }
+
+    public function testParsingPersonalPartWithCommas()
+    {
+        $email = "\"Foo, Bar\" <foo@example.com>";
+
+        $ob = $this->rfc822->parseAddressList($email);
+
+        $this->assertEquals(
+            $email,
+            $ob->writeAddress(true)
+        );
+
+        $ob = $this->rfc822->parseAddressList($email, array(
+            'validate' => true
+        ));
+
+        $this->assertEquals(
+            $email,
+            $ob->writeAddress(true)
+        );
+    }
+
+    public function testParseOfGroupObject()
+    {
+        $email = 'Test: foo@example.com, bar@example.com;';
+        $ob = $this->rfc822->parseAddressList($email);
+        $ob2 = $this->rfc822->parseAddressList($ob);
+
+        $this->assertEquals(
+            2,
+            count($ob2)
+        );
+    }
+
+    public function testDefaultDomain()
+    {
+        $address = 'foo@example2.com';
+        $result = $this->rfc822->parseAddressList($address, array(
+           'default_domain' => 'example.com'
+        ));
+
+        $this->assertEquals(
+            'foo@example2.com',
+            strval($result)
+        );
+
+        $address = 'foo';
+        $result = $this->rfc822->parseAddressList($address, array(
+           'default_domain' => 'example.com'
+        ));
+
+        $this->assertEquals(
+            'foo@example.com',
+            strval($result)
         );
     }
 

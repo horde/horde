@@ -2,19 +2,7 @@
 /**
  * Test the SMB based virtual file system.
  *
- * PHP version 5
- *
- * @category   Horde
- * @package    VFS
- * @subpackage UnitTests
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Vfs
- */
-
-/**
- * Test the SMB based virtual file system.
- *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -22,13 +10,41 @@
  * @category   Horde
  * @package    VFS
  * @subpackage UnitTests
+ * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Vfs
  */
-class Horde_Vfs_SmbTest extends PHPUnit_Framework_TestCase
+class Horde_Vfs_SmbTest extends Horde_Vfs_TestBase
 {
+    static public function setUpBeforeClass()
+    {
+        $config = self::getConfig('VFS_FTP_TEST_CONFIG', __DIR__);
+        if ($config && !empty($config['vfs']['smb'])) {
+            if (!is_executable($config['vfs']['smb']['smbclient'])) {
+                self::$reason = 'No executable smbclient';
+                return;
+            }
+            self::$vfs = Horde_Vfs::factory('Smb', $config['vfs']['smb']);
+        } else {
+            self::$reason = 'No smb configuration';
+        }
+    }
+
+    static public function tearDownAfterClass()
+    {
+        if (self::$vfs) {
+            try {
+                self::$vfs->emptyFolder('');
+            } catch (Horde_Vfs_Exception $e) {
+                echo $e;
+            }
+        }
+        parent::tearDownAfterClass();
+    }
+
     public function setUp()
     {
+        parent::setUp();
+
         $this->_oldTimezone = date_default_timezone_get();
         date_default_timezone_set('Europe/Berlin');
     }
@@ -38,11 +54,159 @@ class Horde_Vfs_SmbTest extends PHPUnit_Framework_TestCase
         date_default_timezone_set($this->_oldTimezone);
     }
 
+    public function testListEmpty()
+    {
+        $this->_listEmpty();
+    }
+
+    public function testCreateFolder()
+    {
+        $this->_createFolderStructure();
+    }
+
+    /**
+     * @depends testCreateFolder
+     */
+    public function testWriteData()
+    {
+        $this->_writeData();
+    }
+
+    /**
+     * @depends testCreateFolder
+     */
+    public function testWrite()
+    {
+        $this->_write();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testRead()
+    {
+        $this->_read();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testReadFile()
+    {
+        $this->_readFile();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testReadStream()
+    {
+        $this->_readStream();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testSize()
+    {
+        $this->_size();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testFolderSize()
+    {
+        $this->markTestIncomplete();
+        $this->_folderSize();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testVfsSize()
+    {
+        $this->markTestIncomplete();
+        $this->_vfsSize();
+    }
+
+    /**
+     * @depends testWrite
+     * @depends testWriteData
+     */
+    public function testCopy()
+    {
+        $this->_copy();
+    }
+
+    /**
+     * @depends testCopy
+     */
+    public function testRename()
+    {
+        $this->_rename();
+    }
+
+    /**
+     * @depends testRename
+     */
+    public function testMove()
+    {
+        $this->_move();
+    }
+
+    /**
+     * @depends testMove
+     */
+    public function testDeleteFile()
+    {
+        $this->_deleteFile();
+    }
+
+    /**
+     * @depends testMove
+     */
+    public function testDeleteFolder()
+    {
+        $this->_deleteFolder();
+    }
+
+    /**
+     * @depends testMove
+     */
+    public function testEmptyFolder()
+    {
+        $this->_emptyFolder();
+    }
+
+    /**
+     * @depends testMove
+     */
+    public function testQuota()
+    {
+        $this->markTestIncomplete();
+        $this->_quota();
+    }
+
+    /**
+     * @depends testQuota
+     */
+    public function testListFolder()
+    {
+        $this->_listFolder();
+    }
+
     public function testParseListing()
     {
         $vfs = new Horde_Vfs_Smb();
 
-        $listing = $vfs->parseListing(file(dirname(__FILE__) . '/fixtures/samba1.txt'), null, true, false);
+        $listing = $vfs->parseListing(file(__DIR__ . '/fixtures/samba1.txt'), null, true, false);
         $this->assertInternalType('array', $listing);
         $this->assertEquals(7, count($listing));
         $this->assertEquals(
@@ -120,7 +284,7 @@ class Horde_Vfs_SmbTest extends PHPUnit_Framework_TestCase
                 ),
             $listing);
 
-        $listing = $vfs->parseListing(file(dirname(__FILE__) . '/fixtures/samba2.txt'), null, true, false);
+        $listing = $vfs->parseListing(file(__DIR__ . '/fixtures/samba2.txt'), null, true, false);
         $this->assertInternalType('array', $listing);
         $this->assertEquals(26, count($listing));
         $this->assertEquals(

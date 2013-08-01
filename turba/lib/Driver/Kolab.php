@@ -2,7 +2,7 @@
 /**
  * Horde Turba driver for the Kolab IMAP Server.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -36,14 +36,21 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @var Horde_Kolab_Storage_Data
      */
-    private $_data;
+    protected $_data;
 
     /**
      * The current addressbook represented as share.
      *
      * @var Horde_Share_Object
      */
-    private $_share;
+    protected $_share;
+
+    /**
+     * The cached contacts.
+     *
+     * @var array
+     */
+    protected $_contacts_cache;
 
     /**
      * What can this backend do?
@@ -77,11 +84,121 @@ class Turba_Driver_Kolab extends Turba_Driver
     }
 
     /**
-     * Return the Kolab data handler for the current notepad.
+     * Translates the keys of the first hash from the generalized Turba
+     * attributes to the driver-specific fields. The translation is based on
+     * the contents of $this->map.
      *
-     * @return Horde_Kolab_Storage_Date The data handler.
+     * @param array $hash  Hash using Turba keys.
+     *
+     * @return array  Translated version of $hash.
      */
-    private function _getData()
+    public function toDriverKeys(array $hash)
+    {
+        $hash = parent::toDriverKeys($hash);
+
+        if (isset($hash['name'])) {
+            $hash['name'] = array('full-name' => $hash['name']);
+        }
+
+        if (isset($hash['emails'])) {
+            $list = new Horde_Mail_Rfc822_List($hash['emails']);
+            $hash['email'] = array();
+            foreach ($list as $address) {
+                $hash['email'][] = array('smtp-address' => $address->bare_address);
+            }
+            unset($hash['emails']);
+        }
+
+        /* TODO: use Horde_Kolab_Format_Xml_Type_Composite_* */
+        foreach (array('given-name',
+                       'middle-names',
+                       'last-name',
+                       'initials',
+                       'prefix',
+                       'suffix') as $sub) {
+            if (isset($hash[$sub])) {
+                $hash['name'][$sub] = $hash[$sub];
+                unset($hash[$sub]);
+            }
+        }
+
+        foreach (array('phone-business1',
+                       'phone-business2',
+                       'phone-businessfax',
+                       'phone-car',
+                       'phone-company',
+                       'phone-home1',
+                       'phone-home2',
+                       'phone-homefax',
+                       'phone-mobile',
+                       'phone-pager',
+                       'phone-radio',
+                       'phone-assistant') as $sub) {
+            if (isset($hash[$sub])) {
+                if (!isset($hash['phone'])) {
+                    $hash['phone'] = array();
+                }
+                $hash['phone'][] = array('type' => substr($sub, 6),
+                                         'number' => $hash[$sub]);
+                unset($hash[$sub]);
+            }
+        }
+
+        $address = array();
+        foreach (array('addr-business-street',
+                       'addr-business-locality',
+                       'addr-business-region',
+                       'addr-business-postal-code',
+                       'addr-business-country') as $sub) {
+            if (isset($hash[$sub])) {
+                $address[substr($sub, 14)] = $hash[$sub];
+                unset($hash[$sub]);
+            }
+        }
+        if ($address) {
+            $hash['address'] = array();
+            $address['type'] = 'business';
+            $hash['address'][] = $address;
+        }
+        $address = array();
+        foreach (array('addr-home-street',
+                       'addr-home-locality',
+                       'addr-home-region',
+                       'addr-home-postal-code',
+                       'addr-home-country') as $sub) {
+            if (isset($hash[$sub])) {
+                $address[substr($sub, 10)] = $hash[$sub];
+                unset($hash[$sub]);
+            }
+        }
+        if ($address) {
+            if (!isset($hash['address'])) {
+                $hash['address'] = array();
+            }
+            $address['type'] = 'home';
+            $hash['address'][] = $address;
+        }
+
+        if (isset($hash['categories'])) {
+            $hash['categories'] = array($hash['categories']);
+        }
+
+        if (isset($hash['birthday'])) {
+            $hash['birthday'] = new DateTime($hash['birthday']);
+        }
+        if (isset($hash['anniversary'])) {
+            $hash['anniversary'] = new DateTime($hash['anniversary']);
+        }
+
+        return $hash;
+    }
+
+    /**
+     * Return the Kolab data handler for the current address book.
+     *
+     * @return Horde_Kolab_Storage_Data The data handler.
+     */
+    protected function _getData()
     {
         if ($this->_data === null) {
             if (!empty($this->_share)) {
@@ -90,13 +207,12 @@ class Turba_Driver_Kolab extends Turba_Driver
                     'contact'
                 );
                 $this->setContactOwner($this->_share->get('owner'));
-            } else if (empty($this->_name)) {
+            } elseif (empty($this->_name)) {
                 throw new Turba_Exception(
                     'The addressbook has been left undefined but is required!'
                 );
-            } else {
-                $this->_data = $this->_getDataForAddressbook($this->_name);
             }
+            $this->_data = $this->_getDataForAddressbook($this->_name);
         }
         return $this->_data;
     }
@@ -108,9 +224,11 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return Horde_Kolab_Storage_Date The data handler.
      */
-    private function _getDataForAddressbook($addressbook)
+    protected function _getDataForAddressbook($addressbook)
     {
-        $share = $GLOBALS['injector']->getInstance('Turba_Shares')->getShare($addressbook);
+        $share = $GLOBALS['injector']
+            ->getInstance('Turba_Shares')
+            ->getShare($addressbook);
         $this->setContactOwner($share->get('owner'));
         return $this->_kolab->getData($share->get('folder'), 'contact');
     }
@@ -120,8 +238,12 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @throws Turba_Exception
      */
-    function connect()
+    public function connect()
     {
+        if ($this->_connected) {
+            return;
+        }
+
         /* Fetch the contacts first */
         $raw_contacts = $this->_getData()->getObjects();
         if (!$raw_contacts) {
@@ -129,23 +251,72 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
         $contacts = array();
         foreach ($raw_contacts as $id => $contact) {
-            if (isset($contact['email'])) {
-                unset($contact['email']);
-            }
+            $contact = $contact->getData();
+            $contact['__key'] = Horde_Url::uriB64Encode($id);
+
             if (isset($contact['picture'])) {
                 $name = $contact['picture'];
                 if (isset($contact['_attachments'][$name])) {
-                    $contact['photo'] =  $this->_getData()->getAttachment($contact['_attachments'][$name]['key']);
+                    $contact['photo'] = $this->_getData()
+                        ->getAttachment($contact['_attachments'][$name]['key']);
                     $contact['phototype'] = $contact['_attachments'][$name]['type'];
                 }
             }
+
             if (isset($contact['name'])) {
                 foreach ($contact['name'] as $detail => $value) {
                     $contact[$detail] = $value;
                 }
                 unset($contact['name']);
             }
-            $contacts[$id] = $contact;
+
+            if (isset($contact['phone'])) {
+                foreach ($contact['phone'] as $phone) {
+                    $contact['phone-' . $phone['type']] = $phone['number'];
+                }
+                unset($contact['phone']);
+            }
+
+            if (isset($contact['email'])) {
+                $contact['emails'] = array();
+                foreach ($contact['email'] as $email) {
+                    $contact['emails'][] = $email['smtp-address'];
+                }
+                if ($contact['emails']) {
+                    $contact['email'] = $contact['emails'][0];
+                } else {
+                    unset($contact['email']);
+                }
+                $contact['emails'] = implode(', ', $contact['emails']);
+            }
+
+            if (isset($contact['address'])) {
+                foreach ($contact['address'] as $address) {
+                    foreach ($address as $detail => $value) {
+                        if ($detail != 'type') {
+                            $contact['addr-' . $address['type'] . '-' . $detail] = $value;
+                        }
+                    }
+                }
+                unset($contact['address']);
+            }
+
+            if (isset($contact['categories'])) {
+                if (empty($contact['categories'])) {
+                    $contact['categories'] = '';
+                } else {
+                    $contact['categories'] = $contact['categories'][0];
+                }
+            }
+
+            if (!empty($contact['birthday'])) {
+                $contact['birthday'] = $contact['birthday']->format('Y-m-d');
+            }
+            if (!empty($contact['anniversary'])) {
+                $contact['anniversary'] = $contact['anniversary']->format('Y-m-d');
+            }
+
+            $contacts[Horde_Url::uriB64Encode($id)] = $contact;
         }
 
         /* Now we retrieve distribution-lists */
@@ -159,6 +330,8 @@ class Turba_Driver_Kolab extends Turba_Driver
 
         /* Store the results in our cache */
         $this->_contacts_cache = array_merge($contacts, $groups);
+
+        $this->_connected = true;
     }
 
     /**
@@ -174,28 +347,35 @@ class Turba_Driver_Kolab extends Turba_Driver
      * @throws Turba_Exception
      */
     protected function _search(array $criteria, array $fields,
-                               array $blobFields = array())
+                               array $blobFields = array(), $count_only = false)
     {
         $this->connect();
 
         if (!count($criteria)) {
-            return $this->_contacts_cache;
+            return $count_only
+                ? count($this->_contacts_cache)
+                : array_values($this->_contacts_cache);
         }
 
         // keep only entries matching criteria
         $ids = array();
         foreach ($criteria as $key => $criteria) {
-            $ids[] = $this->_doSearch($criteria, strval($key), $this->_contacts_cache);
+            $ids[] = $this->_doSearch($criteria, strval($key));
         }
         $ids = $this->_removeDuplicated($ids);
 
         /* Now we have a list of names, get the rest. */
-        $this->_read('uid', $ids, null, $fields);
+        $result = $this->_read(
+            'uid',
+            array_map(array('Horde_Url', 'uriB64Encode'), $ids),
+            null,
+            $fields
+        );
 
         Horde::logMessage(sprintf('Kolab returned %s results',
                                   count($result)), 'DEBUG');
 
-        return array_values($result);
+        return $count_only ? count($result) : array_values($result);
     }
 
     /**
@@ -206,20 +386,20 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return array  Array containing the ids of the selected entries.
      */
-    protected function _doSearch($criteria, $glue, &$entries)
+    protected function _doSearch($criteria, $glue)
     {
         $ids = array();
 
-        foreach ($criteria as $key => $vals) {
+        foreach ($criteria as $vals) {
             if (!empty($vals['OR'])) {
-                $ids[] = $this->_doSearch($vals['OR'], 'OR', $entries);
+                $ids[] = $this->_doSearch($vals['OR'], 'OR');
             } elseif (!empty($vals['AND'])) {
-                $ids[] = $this->_doSearch($vals['AND'], 'AND', $entries);
+                $ids[] = $this->_doSearch($vals['AND'], 'AND');
             } else {
                 /* If we are here, and we have a ['field'] then we
                  * must either do the 'AND' or the 'OR' search. */
                 if (isset($vals['field'])) {
-                    $ids[] = $this->_selectEntries($vals, $entries);
+                    $ids[] = $this->_selectEntries($vals);
                 } else {
                     foreach ($vals as $test) {
                         if (!empty($test['OR'])) {
@@ -247,17 +427,16 @@ class Turba_Driver_Kolab extends Turba_Driver
      * Applies one filter criterium to a list of entries
      *
      * @param $test          Test criterium
-     * @param &$entries       List of fields to return.
      *
      * @return array  Array containing the ids of the selected entries
      */
-    protected function _selectEntries($test, &$entries)
+    protected function _selectEntries($test)
     {
         $ids = array();
 
         if (!isset($test['field'])) {
             Horde::logMessage('Search field not set. Returning all entries.', 'DEBUG');
-            foreach ($entries as $entry) {
+            foreach ($this->_contacts_cache as $entry) {
                 $ids[] = $entry['uid'];
             }
         } else {
@@ -273,19 +452,20 @@ class Turba_Driver_Kolab extends Turba_Driver
                 $test['begin'] = false;
             }
             if (!isset($test['op']) || $test['op'] == '=') {
-                foreach ($entries as $entry) {
+                foreach ($this->_contacts_cache as $entry) {
                     if (isset($entry[$field]) && $entry[$field] == $value) {
                         $ids[] = $entry['uid'];
                     }
                 }
             } else {
                 // 'op' is LIKE
-                foreach ($entries as $entry) {
+                foreach ($this->_contacts_cache as $entry) {
                     if (empty($value) ||
                         (isset($entry[$field]) &&
-                         !empty($test['begin']) &&
-                         (($pos = stripos($entry[$field], $value)) !== false) &&
-                         ($pos == 0))) {
+                         ((empty($test['begin']) &&
+                           stripos($entry[$field], $value) !== false) ||
+                          (!empty($test['begin']) &&
+                           stripos($entry[$field], $value) === 0)))) {
                         $ids[] = $entry['uid'];
                     }
                 }
@@ -336,6 +516,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     protected function _removeDuplicated($ids)
     {
+        $unames = array();
         for ($i = 0; $i < count($ids); ++$i) {
             if (is_array($ids[$i])) {
                 $unames = array_merge($unames, $ids[$i]);
@@ -370,7 +551,7 @@ class Turba_Driver_Kolab extends Turba_Driver
 
         $count = count($fields);
         foreach ($ids as $id) {
-            if (in_array($id, array_keys($this->_contacts_cache))) {
+            if (isset($this->_contacts_cache[$id])) {
                 $object = $this->_contacts_cache[$id];
 
                 if (!isset($object['__type']) || $object['__type'] == 'Object') {
@@ -441,21 +622,6 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected function _add(array $attributes, array $blob_fields = array())
     {
         $this->connect();
-
-        if (isset($attributes['last-name'])) {
-            $attributes['full-name'] = $attributes['last-name'];
-        }
-        if (isset($attributes['middle-names'])) {
-            $attributes['full-name'] = $attributes['middle-names'] . ' ' . $attributes['full-name'];
-        }
-        if (isset($attributes['given-name'])) {
-            $attributes['full-name'] = $attributes['given-name'] . ' ' . $attributes['full-name'];
-        }
-
-        $attributes['name'] = array(
-            'last-name' => $attributes['last-name'],
-        );
-
         $this->_store($attributes);
     }
 
@@ -471,23 +637,28 @@ class Turba_Driver_Kolab extends Turba_Driver
     {
         $this->connect();
 
-        if ($object_key != 'uid') {
-            throw new Turba_Exception(sprintf('Key for saving must be a UID not %s!', $object_key));
+        if ($object_key == 'uid') {
+            $object_id = Horde_Url::uriB64Encode($object_id);
+        } elseif ($object_key != '__key') {
+            throw new Turba_Exception(sprintf('Key for deleting must be a UID or ID not %s!', $object_key));
         }
 
-        if (!in_array($object_id, array_keys($this->_contacts_cache))) {
-            throw new Turba_Exception(sprintf(_("Object with UID %s does not exist!"), $object_id));
+        if (!isset($this->_contacts_cache[$object_id])) {
+            throw new Turba_Exception(sprintf(_("Object with UID %s does not exist!"), $uid));
         }
 
-        $group = (isset($this->_contacts_cache[$object_id]['__type']) &&
-                  $this->_contacts_cache[$object_id]['__type'] == 'Group');
+        $group = isset($this->_contacts_cache[$object_id]['__type']) &&
+            $this->_contacts_cache[$object_id]['__type'] == 'Group';
 
         if ($group) {
             //@todo: group support
             //$result = $this->_store->setObjectType('distribution-list');
         }
 
-        $result = $this->_getData()->delete($object_id);
+        $result = $this->_getData()->delete($this->_contacts_cache[$object_id]['uid']);
+
+        /* Invalidate cache. */
+        $this->_connected = false;
 
         return $result;
     }
@@ -495,15 +666,18 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * Deletes all contacts from a specific address book.
      *
-     * @return array  An array of UIDs that have been deleted.
+     * @param string $sourceName  The source to remove all contacts from.
+     *
+     * @return array  An array of UIDs
+     * @throws Turba_Exception
      */
     protected function _deleteAll($sourceName = null)
     {
         $this->connect();
-        $uids = array_keys($this->_contacts_cache);
+        $uids = array_map(array('Horde_Url', 'uriB64Decode'), array_keys($this->_contacts_cache));
 
         /* Delete contacts */
-        $result = $this->_getData()->deleteAll();
+        $this->_getData()->deleteAll();
 
         /* Delete groups */
         //@todo: group support
@@ -524,12 +698,8 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected function _save(Turba_Object $object)
     {
         $this->connect();
-
-        if ($object_key != 'uid') {
-            throw new Turba_Exception(sprintf('Key for saving must be \'uid\' not %s!', $object_key));
-        }
-
-        return $this->_store($attributes, $object_id);
+        return $this->_store($this->toDriverKeys($object->getAttributes()),
+                             $object->getValue('__uid'));
     }
 
     /**
@@ -561,29 +731,33 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
 
         if ($object_id === null) {
-            $result = $this->_getData()->create($attributes);
+            $object_id = $this->_getData()->create($attributes);
         } else {
-            $result = $this->_getData()->modify($attributes);
+            $object_id = $this->_getData()->modify($attributes);
         }
-        if ($group) {
+        /* if ($group) {
             $result = $this->_store->setObjectType('contact');
-        }
+        } */
 
-        return $object_id;
+        /* Invalidate cache. */
+        $this->_connected = false;
+
+        return Horde_Url::uriB64Encode($object_id);
     }
 
     /**
      * TODO
      */
-    function _convertMembers(&$attributes)
+    protected function _convertMembers(&$attributes)
     {
         if (isset($attributes['__members'])) {
             $member_ids = unserialize($attributes['__members']);
             $attributes['member'] = array();
-            foreach ($member_ids as $member_id) {
+            foreach ($member_ids as $uid) {
+                $member_id = Horde_Url::uriB64Encode($uid);
                 if (isset($this->_contacts_cache[$member_id])) {
                     $member = $this->_contacts_cache[$member_id];
-                    $mail = array('uid' => $member_id);
+                    $mail = array('uid' => $uid);
                     if (!empty($member['full-name'])) {
                         $mail['display-name'] = $member['full-name'];
                     }
@@ -612,9 +786,10 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     protected function _makeKey(array $attributes)
     {
-        return isset($attributes['uid'])
-            ? $attributes['uid']
-            : $this->_generateUid();
+        return Horde_Url::uriB64Encode(
+            isset($attributes['uid'])
+                ? $attributes['uid']
+                : $this->_generateUid());
     }
 
     /**
@@ -632,7 +807,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return string  A unique ID for the new object.
      */
-    private function _generateUid()
+    protected function _generateUid()
     {
         return $this->_getData()->generateUID();
     }
@@ -650,6 +825,10 @@ class Turba_Driver_Kolab extends Turba_Driver
         if (!isset($params['name'])) {
             $params['name'] = _('Contacts');
         }
+        if (!empty($params['params']['default'])) {
+            $params['default'] = true;
+            unset($params['params']['default']);
+        }
         return Turba::createShare($share_name, $params);
     }
 
@@ -661,11 +840,33 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return boolean TODO
      */
-    public function checkDefaultShare(Horde_Share_Object $share, array $srcconfig)
+    public function checkDefaultShare(Horde_Share_Object $share,
+                                      array $srcconfig)
     {
         $params = @unserialize($share->get('params'));
         return isset($params['default'])
             ? $params['default']
             : false;
+    }
+
+    /**
+     * Runs any actions after setting a new default notepad.
+     *
+     * @param string $share  The default share ID.
+     */
+    public function setDefaultShare($share)
+    {
+           $addressbooks = $GLOBALS['injector']->getInstance('Turba_Shares')
+               ->listShares(
+                   $GLOBALS['registry']->getAuth(),
+                   array('perm' => Horde_Perms::SHOW,
+                         'attributes' => $GLOBALS['registry']->getAuth()));
+           foreach ($addressbooks as $id => $addressbook) {
+               if ($id == $share) {
+                   $addressbook->set('default', true);
+                   $addressbook->save();
+                   break;
+               }
+           }
     }
 }

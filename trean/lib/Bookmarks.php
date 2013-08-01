@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -26,7 +26,11 @@ class Trean_Bookmarks
     public function __construct(Content_Users_Manager $userManager)
     {
         $this->_userManager = $userManager;
-        $this->_userId = current($this->_userManager->ensureUsers($GLOBALS['registry']->getAuth()));
+        try {
+            $this->_userId = current($this->_userManager->ensureUsers($GLOBALS['registry']->getAuth()));
+        } catch (Content_Exception $e) {
+            throw new Trean_Exception($e);
+        }
     }
 
     /**
@@ -46,58 +50,44 @@ class Trean_Bookmarks
     /**
      * Search bookmarks.
      */
-    function listBookmarks($sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
+    public function listBookmarks($sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
     {
         $values = array($this->_userId);
 
-        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, bookmark_dt
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
                 FROM trean_bookmarks
                 WHERE user_id = ?
                 ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
         $sql = $GLOBALS['trean_db']->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
 
-        return Trean_Bookmarks::resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
+        return $this->_resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
     }
 
     /**
      * Search bookmarks.
      */
-    function searchBookmarks($search_criteria, $search_operator = 'OR',
-                             $sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
+    public function searchBookmarks($q)
     {
-        // Validate the search operator (AND or OR).
-        switch ($search_operator) {
-        case 'AND':
-        case 'OR':
-            break;
-
-        default:
-            $search_operator = 'AND';
+        $indexer = $GLOBALS['injector']->getInstance('Content_Indexer');
+        try {
+            $search = $indexer->search('horde-user-' . $this->_userId, 'trean-bookmark', $q);
+        } catch (Content_Exception $e) {
+            throw new Trean_Exception($e);
+        }
+        if (!$search->hits->total) {
+            return array();
+        }
+        $bookmarkIds = array();
+        foreach ($search->hits->hits as $bookmarkHit) {
+            $bookmarkIds[] = (int)$bookmarkHit->_id;
         }
 
-        $clauses = array();
-        $values = array($this->_userId);
-        foreach ($search_criteria as $criterion) {
-            $clause = $GLOBALS['trean_db']->buildClause(
-                'bookmark_' . $criterion[0],
-                $criterion[1],
-                Horde_String::convertCharset($criterion[2],
-                                             $GLOBALS['conf']['sql']['charset'],
-                                             'UTF-8'),
-                true,
-                isset($criterion[3]) ? $criterion[3] : array());
-            $clauses[] = $clause[0];
-            $values = array_merge($values, $clause[1]);
-        }
-
-        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, bookmark_dt
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
                 FROM trean_bookmarks
-                WHERE user_id = ?
-                      AND (' . implode(' ' . $search_operator . ' ', $clauses) . ')
-                ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
-        $sql = $GLOBALS['trean_db']->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
+                WHERE user_id = ? AND bookmark_id IN (' . implode(',', $bookmarkIds) . ')';
+        $values = array($this->_userId);
 
-        return Trean_Bookmarks::resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
+        return $this->_resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
     }
 
     /**
@@ -105,7 +95,7 @@ class Trean_Bookmarks
      *
      * @return integer  The number of all bookmarks.
      */
-    function countBookmarks()
+    public function countBookmarks()
     {
         $sql = 'SELECT COUNT(*) FROM trean_bookmarks WHERE user_id = ?';
         return $GLOBALS['trean_db']->selectValue($sql, array($this->_userId));
@@ -114,7 +104,7 @@ class Trean_Bookmarks
     /**
      * Return counts on grouping bookmarks by a specific property.
      */
-    function groupBookmarks($groupby)
+    public function groupBookmarks($groupby)
     {
         switch ($groupby) {
         case 'status':
@@ -137,17 +127,17 @@ class Trean_Bookmarks
      *
      * @return Trean_Bookmark  The bookmark object corresponding to the given name.
      */
-    function getBookmark($id)
+    public function getBookmark($id)
     {
         $bookmark = $GLOBALS['trean_db']->selectOne('
-            SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, bookmark_dt
+            SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
             FROM trean_bookmarks
             WHERE bookmark_id = ' . (int)$id);
         if (is_null($bookmark)) {
             throw new Trean_Exception('not found');
         }
 
-        $bookmark = $this->resultSet(array($bookmark));
+        $bookmark = $this->_resultSet(array($bookmark));
         return array_pop($bookmark);
     }
 
@@ -156,14 +146,8 @@ class Trean_Bookmarks
      *
      * @param Trean_Bookmark $bookmark  The bookmark to remove.
      */
-    function removeBookmark($bookmark)
+    public function removeBookmark(Trean_Bookmark $bookmark)
     {
-        /* Make sure $bookmark is a Trean_Bookmark; if not, try
-         * loading it. */
-        if (!is_a($bookmark, 'Trean_Bookmark')) {
-            $bookmark = $this->getBookmark($bookmark);
-        }
-
         /* Check permissions. */
         if ($bookmark->userId != $this->_userId) {
             throw new Trean_Exception('permission denied');
@@ -173,7 +157,8 @@ class Trean_Bookmarks
         $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
         $tagger->replaceTags((string)$bookmark->id, array(), $GLOBALS['registry']->getAuth(), 'bookmark');
 
-        /* TODO: Decrement favicon refcount. */
+        /* @TODO delete from content index? */
+        //$indexer->index('horde-user-' . $this->_userId, 'trean-bookmark', $this->_bookmarkId, json_encode(array(
 
         /* Delete from SQL. */
         $GLOBALS['trean_db']->delete('DELETE FROM trean_bookmarks WHERE bookmark_id = ' . (int)$bookmark->id);
@@ -182,10 +167,9 @@ class Trean_Bookmarks
     }
 
     /**
-     * Create Trean_Bookmark objects for each row in a SQL result.
-     * @static
+     * Creates Trean_Bookmark objects for each row in a SQL result.
      */
-    function resultSet($bookmarks)
+    protected function _resultSet($bookmarks)
     {
         if (is_null($bookmarks)) {
             return array();
@@ -193,10 +177,11 @@ class Trean_Bookmarks
 
         $objects = array();
         $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
+        $charset = $GLOBALS['trean_db']->getOption('charset');
         foreach ($bookmarks as $bookmark) {
             foreach ($bookmark as $key => $value) {
                 if (!empty($value) && !is_numeric($value)) {
-                    $cvBookmarks[$key] = Horde_String::convertCharset($value, $GLOBALS['conf']['sql']['charset'], 'UTF-8');
+                    $cvBookmarks[$key] = Horde_String::convertCharset($value, $charset, 'UTF-8');
                 } else {
                     $cvBookmarks[$key] = $value;
                 }
@@ -204,6 +189,7 @@ class Trean_Bookmarks
             $cvBookmarks['bookmark_tags'] = $tagger->getTags((string)$cvBookmarks['bookmark_id'], 'bookmark');
             $objects[] = new Trean_Bookmark($cvBookmarks);
         }
+
         return $objects;
     }
 }

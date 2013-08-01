@@ -1,29 +1,27 @@
 <?php
 /**
- * Tests for the mailbox object.
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @package  Imap_Client
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Imap_Client
+ * @category   Horde
+ * @copyright  2011-2013 Horde LLC
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Imap_Client
+ * @subpackage UnitTests
  */
 
 /**
  * Tests for the mailbox object.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @category Horde
- * @package  Imap_Client
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Imap_Client
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2011-2013 Horde LLC
+ * @ignore
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Imap_Client
+ * @subpackage UnitTests
  */
 class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
 {
@@ -72,20 +70,6 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testMailboxAutoDetect()
-    {
-        $mailbox = Horde_Imap_Client_Mailbox::get('Envoy&AOk-', null);
-
-        $this->assertEquals(
-            'Envoyé',
-            $mailbox->utf8
-        );
-        $this->assertEquals(
-            'Envoy&AOk-',
-            $mailbox->utf7imap
-        );
-    }
-
     public function testBug10093()
     {
         $orig = 'Foo&Bar-2011';
@@ -100,18 +84,26 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
             'Foo&-Bar-2011',
             $mailbox->utf7imap
         );
+    }
 
-        /* Auto-detection SHOULD be broken for this example - this is
-         * Bug #10093. */
-        $mailbox = Horde_Imap_Client_Mailbox::get($orig, null);
+    public function testListEscape()
+    {
+        $orig = '***Foo***';
 
-        $this->assertNotEquals(
-            'Foo&Bar-2011',
-            $mailbox->utf8
+        $mailbox = new Horde_Imap_Client_Mailbox($orig);
+
+        $this->assertEquals(
+            '%Foo%',
+            $mailbox->list_escape
         );
-        $this->assertNotEquals(
-            'Foo&-Bar-2011',
-            $mailbox->utf7imap
+
+        $orig = 'IN.***Foo**.Bar.Test**';
+
+        $mailbox = new Horde_Imap_Client_Mailbox($orig);
+
+        $this->assertEquals(
+            'IN.%Foo%.Bar.Test%',
+            $mailbox->list_escape
         );
     }
 

@@ -16,7 +16,7 @@
  * Components_Release_Task_Announce:: announces new releases to the mailing
  * lists.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -75,7 +75,7 @@ extends Components_Release_Task_Base
             $this->getNotes()->getBranch(),
             $options['from'],
             $this->getNotes()->getList(),
-            Components_Helper_Version::pearToHorde($this->getComponent()->getVersion()),
+            $this->getComponent()->getVersion(),
             $this->getNotes()->getFocusList()
         );
         $mailer->append($this->getNotes()->getAnnouncement());

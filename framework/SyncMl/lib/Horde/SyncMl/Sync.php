@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -515,9 +515,9 @@ class Horde_SyncMl_Sync
                                                     $clientEncodingType,
                                                     null, $suid);
                 $this->_server_add_count++;
+                $state->serverChanges[$state->messageID][$this->_targetLocURI][$cmdId] = array($suid, 0);
             }
             unset($this->_server_adds[$suid]);
-            $state->serverChanges[$state->messageID][$this->_targetLocURI][$cmdId] = array($suid, 0);
         }
 
         if ($this->_server_add_count) {

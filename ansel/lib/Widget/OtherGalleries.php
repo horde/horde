@@ -1,10 +1,16 @@
 <?php
 /**
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
+ */
+/**
  * Ansel_Widget_OtherGalleries:: class to display a widget containing mini
  * thumbnails and links to other galleries owned by the same user as the
  * currently viewed image/gallery.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -19,13 +25,16 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
      */
     public function attach(Ansel_View_Base $view)
     {
-        parent::attach($view);
-        $owner = $this->_view->gallery->getIdentity();
-        $name = $owner->getValue('fullname');
-        if (!$name) {
-            $name = $this->_view->gallery->get('owner');
+        if (parent::attach($view)) {
+            $owner = $this->_view->gallery->getIdentity();
+            $name = $owner->getValue('fullname');
+            if (!$name) {
+                $name = $this->_view->gallery->get('owner');
+            }
+            $this->_title = sprintf(_("%s's Galleries"), $name);
+        } else {
+            return false;
         }
-        $this->_title = sprintf(_("%s's Galleries"), $name);
 
         return true;
     }
@@ -37,47 +46,44 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
      */
     public function html()
     {
-        // The cache breaks this block for some reason, disable until figured
-        // out.
-//        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-//            $widget = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'));
-//            if ($widget !== false) {
-//                return $widget;
-//            }
-//        }
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
+        $view->title = $this->_title;
+        $view->background = $this->_style->background;
+        $view->toggle_url = Horde::selfUrl(true, true)
+            ->add('actionID', 'show_othergalleries')
+            ->link(array(
+                'id' => 'othergalleries-toggle',
+                'class' => ($GLOBALS['prefs']->getValue('show_othergalleries') ? 'hide' : 'show')
+            )
+        );
+        $this->_getOtherGalleries($view);
 
-        $widget = $this->_htmlBegin() . $this->_getOtherGalleries() . $this->_htmlEnd();
-//        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-//            $GLOBALS['injector']->getInstance('Horde_Cache')->set('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'), $widget);
-//        }
-
-        return $widget;
+        return $view->render('othergalleries');
     }
 
     /**
      * Build the HTML for the other galleries widget content.
      *
-     * @return string  The HTML
+     * @param Horde_View $view  The view object.
      */
-    protected function _getOtherGalleries()
+    protected function _getOtherGalleries(&$view)
     {
         $owner = $this->_view->gallery->get('owner');
 
-        /* Set up the tree */
-        $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('otherAnselGalleries_' . md5($owner), 'Javascript', array('class' => 'anselWidgets'));
+        // Set up the tree
+        $tree = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Tree')
+            ->create('otherAnselGalleries_' . md5($owner), 'Javascript', array('class' => 'anselWidgets'));
 
         try {
-            $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
-                    ->listGalleries(array('attributes' => $owner));
+            $galleries = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->listGalleries(array('attributes' => $owner));
         } catch (Ansel_Exception $e) {
             Horde::logMessage($e, 'ERR');
-            return '';
+            return;
         }
-
-        $html = '<div style="display:'
-            . (($GLOBALS['prefs']->getValue('show_othergalleries')) ? 'block' : 'none')
-            . ';background:' . $this->_style->background
-            . ';width:100%;max-height:300px;overflow:auto;" id="othergalleries" >';
 
         foreach ($galleries as $gallery) {
             $parents = $gallery->get('parents');
@@ -88,34 +94,37 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                 $parent = array_pop($parents);
             }
 
-            $img = (string)Ansel::getImageUrl($gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default')), 'mini', true);
-            $link = Ansel::getUrlFor('view', array('gallery' => $gallery->id,
-                                                   'slug' => $gallery->get('slug'),
-                                                   'view' => 'Gallery'),
-                                     true);
+            $img = (string)Ansel::getImageUrl(
+                $gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default')),
+                'mini',
+                true);
+            $link = Ansel::getUrlFor(
+                'view',
+                array('gallery' => $gallery->id,
+                      'slug' => $gallery->get('slug'),
+                      'view' => 'Gallery'),
+                true);
 
-            $tree->addNode($gallery->id, $parent, $gallery->get('name'), null,
-                           ($gallery->id == $this->_view->gallery->id),
-                           array('icon' => $img, 'url' => $link));
+            $tree->addNode(array(
+                'id' => $gallery->id,
+                'parent' => $parent,
+                'label' => $gallery->get('name'),
+                'expanded' => $gallery->id == $this->_view->gallery->id,
+                'params' => array('icon' => $img, 'url' => $link)
+            ));
         }
 
         Horde::startBuffer();
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'ToggleOtherGalleries'), array(
-            'bindTo' => 'othergalleries'
-        ));
-
         $tree->sort('label');
         $tree->renderTree();
-        $html .= Horde::endBuffer();
-        $html .= '</div>';
-        $selfurl = Horde::selfUrl(true, true);
-        $html .= '<div class="control">'
-              . $selfurl->add('actionID', 'show_actions')->link(
-                        array('id' => 'othergalleries-toggle',
-                              'class' => ($GLOBALS['prefs']->getValue('show_othergalleries') ? 'hide' : 'show')))
-              . '&nbsp;</a></div>';
+        $view->tree = Horde::endBuffer();
 
-        return $html;
+        $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Imple')
+            ->create(
+                'Ansel_Ajax_Imple_ToggleOtherGalleries',
+                array('id' => 'othergalleries-toggle'));
+
     }
 
 }

@@ -4,7 +4,7 @@
  * the value of one Horde_Form variable as the variable the action is
  * attached to is updated.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -27,7 +27,6 @@ class Horde_Form_Action_updatefield extends Horde_Form_Action {
 
     function printJavaScript()
     {
-        $this->_printJavaScriptStart();
         $pieces = explode('%s', $this->_params['format']);
         $fields = $this->_params['fields'];
         $val_first = (substr($this->_params['format'], 0, 2) == '%s');
@@ -46,6 +45,7 @@ class Horde_Form_Action_updatefield extends Horde_Form_Action {
             $args[] = "'" . array_shift($pieces) . "'";
             $args[] = "document.getElementById('" . array_shift($fields) . "').value";
         }
+        Horde::startBuffer();
 ?>
 // Updater for <?php echo $this->getTarget() ?>.
 function updateField<?php echo $this->id() ?>()
@@ -55,7 +55,8 @@ function updateField<?php echo $this->id() ?>()
         target.value = (<?php echo implode(' + ', str_replace("\n", "\\n", $args)) ?>).replace(/(^ +| +$)/, '').replace(/ +/g, ' ');
     }
 }<?php
-        $this->_printJavaScriptEnd();
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')
+            ->addInlineScript(Horde::endBuffer());
     }
 
 }

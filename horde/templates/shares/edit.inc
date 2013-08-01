@@ -329,17 +329,10 @@ foreach ($groupperms as $group => $gperm):
   </td>
 </tr>
 
-<tr>
- <td>&nbsp;</td>
-</tr>
-
-<tr>
- <td colspan="7">
-  <input type="submit" class="button" value="<?php echo htmlspecialchars(sprintf(_("Save \"%s\""), $share->get('name'))) ?>" />
-  <input type="submit" class="button" name="save_and_finish" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
- </td>
-</tr>
-
 </table>
+
+<p class="horde-form-buttons">
+  <input type="submit" value="<?php echo htmlspecialchars(sprintf(_("Save \"%s\""), $share->get('name'))) ?>" />
+  <input type="submit" class="horde-default" name="save_and_finish" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
+</p>
 </form>
-<br />

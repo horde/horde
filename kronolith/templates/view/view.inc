@@ -71,17 +71,17 @@ if ($this->event->initialized && $this->event->alarm > 0):
  </td>
 </tr>
 
-<?php if (isset($created)): ?>
+<?php if ($this->event->created): ?>
 <tr>
   <td class="nowrap rightAlign"><strong><?php echo _("Created") ?></strong>&nbsp;&nbsp;</td>
-  <td class="nowrap"><?php  echo $created->strftime($dateFormat) . ' ' . $created->format($timeFormat) . ' ' . htmlspecialchars($createdby) ?></td>
+  <td class="nowrap"><?php  echo $this->event->created->strftime($dateFormat) . ' ' . $this->event->created->format($timeFormat) . ' ' . htmlspecialchars($this->event->createdby) ?></td>
 </tr>
 <?php endif; ?>
 
-<?php if (isset($modified)): ?>
+<?php if ($this->event->modified): ?>
 <tr>
   <td class="nowrap rightAlign"><strong><?php echo _("Last Modified") ?></strong>&nbsp;&nbsp;</td>
-  <td class="nowrap"><?php echo $modified->strftime($dateFormat) . ' ' . $modified->format($timeFormat) . ' ' . htmlspecialchars($modifiedby) ?></td>
+  <td class="nowrap"><?php echo $this->event->modified->strftime($dateFormat) . ' ' . $this->event->modified->format($timeFormat) . ' ' . htmlspecialchars($this->event->modifiedby) ?></td>
 </tr>
 <?php endif; ?>
 
@@ -137,6 +137,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
 </tr>
 <?php endif; endif; endif; ?>
 
+<?php if (!$private): ?>
 <!-- tags  -->
 <?php if (!empty($tags)):?>
     <tr>
@@ -147,7 +148,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
     </tr>
 <?php endif;?>
 
-<?php if (!$private && !empty($description)): ?>
+<?php if (!empty($description)): ?>
 <!-- description -->
 <tr>
  <td colspan="2" class="control"><strong><?php echo _("Description") ?></strong></td>
@@ -156,9 +157,11 @@ if ($this->event->initialized && $this->event->alarm > 0):
  <td colspan="2" class="description"><?php echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($description, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => 'text')) ?></td>
 </tr>
 <?php endif; ?>
+<?php endif; ?>
 
 </table>
 
+<?php if (!$private): ?>
 <table cellspacing="0">
 <?php if (!empty($attendees)): ?>
  <!-- attendees -->
@@ -170,9 +173,9 @@ if ($this->event->initialized && $this->event->alarm > 0):
   <th width="25%"><?php echo _("Attendance") ?></th>
   <th width="25%"><?php echo _("Response") ?></th>
  </tr>
- <?php $link_emails = $GLOBALS['registry']->hasMethod('mail/compose'); foreach (array_map('strval', Kronolith::getAttendeeEmailList($attendees)) as $full) ?>
+ <?php $link_emails = $GLOBALS['registry']->hasMethod('mail/compose'); foreach (Kronolith::getAttendeeEmailList($attendees) as $full): ?>
  <tr>
-  <td class="nowrap"><?php echo ($link_emails && strpos($email, '@') !== false) ? ($GLOBALS['registry']->call('mail/compose', array(array('to' => $full)))->link(array('title' => sprintf(_("Send an email to %s"), empty($status['name']) ? $email : $status['name']))) . htmlspecialchars($full) . '</a>') : htmlspecialchars($full) ?></td>
+  <td class="nowrap"><?php echo ($link_emails && strpos($full, '@') !== false) ? ($GLOBALS['registry']->call('mail/compose', array(array('to' => $full)))->link(array('title' => sprintf(_("Send an email to %s"), empty($status['name']) ? $email : $status['name']))) . htmlspecialchars($full) . '</a>') : htmlspecialchars($full) ?></td>
   <td><?php echo Kronolith::partToString($status['attendance']) ?></td>
   <td><?php echo Kronolith::responseToString($status['response']) ?></td>
  </tr>
@@ -197,3 +200,4 @@ if ($this->event->initialized && $this->event->alarm > 0):
 <?php endforeach;?>
 <?php endif; ?>
 </table>
+<?php endif; ?>

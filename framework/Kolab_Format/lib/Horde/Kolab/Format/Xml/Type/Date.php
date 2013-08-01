@@ -14,13 +14,11 @@
 /**
  * Handles date attributes.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
  * http://www.horde.org/licenses/lgpl21.
- *
- * @since Horde_Kolab_Format 1.1.0
  *
  * @category Kolab
  * @package  Kolab_Format
@@ -48,15 +46,7 @@ extends Horde_Kolab_Format_Xml_Type_String
     )
     {
         $result = $helper->fetchNodeValue($node);
-        $tz = $node->getAttribute('tz');
-        if (empty($tz)) {
-            /**
-             * @todo Be more strict once KEP2 has been completely adopted
-             * if (!$this->isRelaxed()) throw new Horde_Kolab_Format_Exception();
-             */
-            $tz = 'UTC';
-        }
-        $date = Horde_Kolab_Format_Date::readDate($result, $tz);
+        $date = Horde_Kolab_Format_Date::readDate($result);
         if ($date === false && !$this->isRelaxed($params)) {
             throw new Horde_Kolab_Format_Exception(
                 sprintf('Invalid date input "%s"!', $result)
@@ -106,7 +96,6 @@ extends Horde_Kolab_Format_Xml_Type_String
         $node = parent::saveNodeValue(
             $name, $date, $parent_node, $helper, $params, $old_node
         );
-        $node->setAttribute('tz', $value->getTimezone()->getName());
         return $node;
     }
 }

@@ -5,7 +5,7 @@
  * This file defines Ulaform's internal API interface. Other applications can
  * interact with Ulaform through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('ULAFORM_BASE')) {
-    define('ULAFORM_BASE', dirname(__FILE__) . '/..');
+    define('ULAFORM_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -72,8 +72,6 @@ class Ulaform_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        $menu->setMask(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
-
         $menu->add(Horde::url('forms.php'), _("_List Forms"), 'ulaform.png');
         $menu->add(Horde::url('edit.php'), _("_New Form"), 'new.png');
     }

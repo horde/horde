@@ -16,11 +16,17 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:35:35</time>
+ <developer>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </developer>
+ <date>2013-04-08</date>
+ <time>17:06:16</time>
  <version>
-  <release>1.0.3</release>
-  <api>1.0.0</api>
+  <release>2.1.1</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -51,12 +57,14 @@
       </dir> <!-- /lib/Horde/Support/Numerizer -->
       <file name="Array.php" role="php" />
       <file name="Backtrace.php" role="php" />
+      <file name="CaseInsensitiveArray.php" role="php" />
       <file name="CombineStream.php" role="php" />
       <file name="ConsistentHash.php" role="php" />
       <file name="Guid.php" role="php" />
       <file name="Inflector.php" role="php" />
       <file name="Memory.php" role="php" />
       <file name="Numerizer.php" role="php" />
+      <file name="ObjectStub.php" role="php" />
       <file name="Randomid.php" role="php" />
       <file name="Stack.php" role="php" />
       <file name="StringStream.php" role="php" />
@@ -77,13 +85,16 @@
       </dir> <!-- /test/Horde/Support/Numerizer -->
       <file name="AllTests.php" role="test" />
       <file name="ArrayTest.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="BacktraceTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="CaseInsensitiveArrayTest.php" role="test" />
       <file name="CombineStreamTest.php" role="test" />
       <file name="ConsistentHashTest.php" role="test" />
       <file name="GuidTest.php" role="test" />
       <file name="InflectorTest.php" role="test" />
       <file name="MemoryTest.php" role="test" />
+      <file name="ObjectStubTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="RandomidTest.php" role="test" />
       <file name="StackTest.php" role="test" />
       <file name="StringStreamTest.php" role="test" />
@@ -98,7 +109,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -106,30 +117,41 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Stream_Wrapper</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Support/COPYING" />
    <install as="Horde/Support/Array.php" name="lib/Horde/Support/Array.php" />
    <install as="Horde/Support/Backtrace.php" name="lib/Horde/Support/Backtrace.php" />
+   <install as="Horde/Support/CaseInsensitiveArray.php" name="lib/Horde/Support/CaseInsensitiveArray.php" />
    <install as="Horde/Support/CombineStream.php" name="lib/Horde/Support/CombineStream.php" />
    <install as="Horde/Support/ConsistentHash.php" name="lib/Horde/Support/ConsistentHash.php" />
    <install as="Horde/Support/Guid.php" name="lib/Horde/Support/Guid.php" />
    <install as="Horde/Support/Inflector.php" name="lib/Horde/Support/Inflector.php" />
    <install as="Horde/Support/Memory.php" name="lib/Horde/Support/Memory.php" />
    <install as="Horde/Support/Numerizer.php" name="lib/Horde/Support/Numerizer.php" />
+   <install as="Horde/Support/ObjectStub.php" name="lib/Horde/Support/ObjectStub.php" />
    <install as="Horde/Support/Randomid.php" name="lib/Horde/Support/Randomid.php" />
    <install as="Horde/Support/Stack.php" name="lib/Horde/Support/Stack.php" />
    <install as="Horde/Support/StringStream.php" name="lib/Horde/Support/StringStream.php" />
@@ -141,13 +163,16 @@
    <install as="Horde/Support/Numerizer/Locale/Pt.php" name="lib/Horde/Support/Numerizer/Locale/Pt.php" />
    <install as="Horde/Support/AllTests.php" name="test/Horde/Support/AllTests.php" />
    <install as="Horde/Support/ArrayTest.php" name="test/Horde/Support/ArrayTest.php" />
-   <install as="Horde/Support/Autoload.php" name="test/Horde/Support/Autoload.php" />
    <install as="Horde/Support/BacktraceTest.php" name="test/Horde/Support/BacktraceTest.php" />
+   <install as="Horde/Support/bootstrap.php" name="test/Horde/Support/bootstrap.php" />
+   <install as="Horde/Support/CaseInsensitiveArrayTest.php" name="test/Horde/Support/CaseInsensitiveArrayTest.php" />
    <install as="Horde/Support/CombineStreamTest.php" name="test/Horde/Support/CombineStreamTest.php" />
    <install as="Horde/Support/ConsistentHashTest.php" name="test/Horde/Support/ConsistentHashTest.php" />
    <install as="Horde/Support/GuidTest.php" name="test/Horde/Support/GuidTest.php" />
    <install as="Horde/Support/InflectorTest.php" name="test/Horde/Support/InflectorTest.php" />
    <install as="Horde/Support/MemoryTest.php" name="test/Horde/Support/MemoryTest.php" />
+   <install as="Horde/Support/ObjectStubTest.php" name="test/Horde/Support/ObjectStubTest.php" />
+   <install as="Horde/Support/phpunit.xml" name="test/Horde/Support/phpunit.xml" />
    <install as="Horde/Support/RandomidTest.php" name="test/Horde/Support/RandomidTest.php" />
    <install as="Horde/Support/StackTest.php" name="test/Horde/Support/StackTest.php" />
    <install as="Horde/Support/StringStreamTest.php" name="test/Horde/Support/StringStreamTest.php" />
@@ -290,12 +315,132 @@
   </release>
   <release>
    <version>
-    <release>1.0.3</release>
-    <api>1.0.0</api></version>
+    <release>2.0.0alpha1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] Add Horde_Support_ObjectStub.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [jan] If creating Horde_Support_Backtrace from an Exception, include any previous exceptions.
+* [jan] Make Horde_Support_Backtrace#backtrace a public property.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>1.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [jan] Support uuid extension from OSSP (remi@famillecollet.com, Request #11653).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Better generation of random IDs.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Fix detection of sys_getloadavg() on Windows (Bug #11972).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Simplify Horde_Support_Array iterator.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-08</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Add Horde_Support_CaseInsensitiveArray class.
+* [mms] Add missing magic methods to Horde_Support_Stub.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-08</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

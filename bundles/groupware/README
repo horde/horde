@@ -7,9 +7,9 @@ What is Horde Groupware?
 .. section-numbering::
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
-suite. Users can manage and share calendars, contacts, tasks and notes with
-the standards compliant components from the `Horde Project`_. Horde Groupware
-bundles the separately available applications Kronolith, Turba, Nag and Mnemo.
+suite. Users can manage and share calendars, contacts, tasks and notes with the
+standards compliant components from the `Horde Project`_. Horde Groupware
+bundles the separately available applications Turba_, Kronolith_, Nag_, Mnemo_, Gollem_, and Trean_.
 
 It can be extended with any of the released `Horde applications`_ or the
 `Horde modules`_ that are still in development, like a file manager, a
@@ -19,6 +19,12 @@ This software is OSI Certified Open Source Software.  OSI Certified is a
 certification mark of the `Open Source Initiative`_.
 
 .. _`Horde Project`: http://www.horde.org/
+.. _Turba: http://www.horde.org/apps/turba
+.. _Kronolith: http://www.horde.org/apps/Kronolith
+.. _Nag: http://www.horde.org/apps/nag
+.. _Mnemo: http://www.horde.org/apps/mnemo
+.. _Gollem: http://www.horde.org/apps/gollem
+.. _Trean: http://www.horde.org/apps/trean
 .. _`Horde applications`: http://www.horde.org/apps
 .. _`Horde modules`: http://www.horde.org/development/modules
 .. _`Open Source Initiative`: http://www.opensource.org/
@@ -38,11 +44,17 @@ Documentation
 
 The following documentation is available in the Horde Groupware distribution:
 
-:README_:            This file
-:`docs/CHANGES`_:    Changes by release
-:`docs/INSTALL`_:    Installation instructions and notes
-:`docs/UPGRADING`_:  Pointers on upgrading from previous Horde Groupware
-                     versions
+:README_:                   This file
+:`docs/CHANGES`_:           Changes by release
+:`docs/CODING_STANDARDS`_:  Coding standards for Horde projects
+:`docs/CONTRIBUTING`_:      How to contribute to Horde
+:`docs/CREDITS`_:           Project developers
+:`docs/INSTALL`_:           Installation instructions and notes
+:`docs/PERFORMANCE`_:       Performance guide
+:`docs/RELEASE`_:           Release process notes
+:`docs/SECURITY`_:          Security notes
+:`docs/UPGRADING`_:         Pointers on upgrading from previous Horde Groupware
+                            versions
 
 
 Installation
@@ -90,6 +102,12 @@ The Horde Groupware team
 
 .. _README: README
 .. _docs/CHANGES: CHANGES
+.. _docs/CODING_STANDARDS: ../../horde/docs/CODING_STANDARDS
+.. _docs/CONTRIBUTING: ../../horde/docs/CONTRIBUTING
+.. _docs/CREDITS: ../../horde/docs/CREDITS
 .. _INSTALL:
 .. _docs/INSTALL: INSTALL
+.. _docs/PERFORMANCE: PERFORMANCE
+.. _docs/RELEASE: ../../horde/docs/RELEASE
+.. _docs/SECURITY: ../../horde/docs/SECURITY
 .. _docs/UPGRADING: UPGRADING

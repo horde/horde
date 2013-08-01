@@ -1,16 +1,27 @@
 <?php
 /**
- * The Ingo_Script_Procmail_Variable:: class represents a Procmail variable.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Ingo
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
-class Ingo_Script_Procmail_Variable
+
+/**
+ * The Ingo_Script_Procmail_Variable class represents a Procmail variable.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+class Ingo_Script_Procmail_Variable implements Ingo_Script_Item
 {
     /**
      */
@@ -39,7 +50,6 @@ class Ingo_Script_Procmail_Variable
      */
     public function generate()
     {
-        return $this->_name . '=' . $this->_value . "\n";
+        return $this->_name . '=' . $this->_value;
     }
-
 }

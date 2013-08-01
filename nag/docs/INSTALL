@@ -1,6 +1,6 @@
-====================
- Installing Nag 4.0
-====================
+===================
+ Installing Nag H5
+===================
 
 :Contact: nag@lists.horde.org
 
@@ -17,7 +17,7 @@ in the top-level directory of the Nag distribution.
 Prerequisites
 =============
 
-To function properly, Nag requires the following:
+To function properly, Nag **requires** the following:
 
 1. A working Horde installation.
 
@@ -25,7 +25,7 @@ To function properly, Nag requires the following:
    for web applications written in PHP.  You must install Horde before
    installing Nag.
 
-   .. Important:: Nag 4.0 requires version 5.0+ of the Horde Framework -
+   .. Important:: Nag H5 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the
@@ -77,9 +77,7 @@ your PHP configuration::
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
 
-See::
-
-   http://horde.org/source/git.php
+See http://www.horde.org/source/git.php
 
 
 Configuring Nag

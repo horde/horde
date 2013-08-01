@@ -16,7 +16,7 @@
  *     $entry = $ldif->readEntry();
  *     $dn    = $entry->dn();
  *     echo " done building entry: $dn\n";
- *     array_push($entries, $entry);
+ *     $entries[] = $entry;
  * } while (!$ldif->eof());
  * $ldif->done();
  *
@@ -27,7 +27,7 @@
  * </code>
  *
  * Copyright 2009 Benedikt Hallinger
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @category  Horde
  * @package   Ldap

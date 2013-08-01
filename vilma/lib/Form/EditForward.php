@@ -21,7 +21,7 @@ class Vilma_Form_EditForward extends Horde_Form
             $title = sprintf(_("New Forward for %s"),
                              $vars->get('address'));
         }
-        parent::Horde_Form($vars, $title);
+        parent::__construct($vars, $title);
 
         /* Set up the form. */
         $this->setButtons(true, true);

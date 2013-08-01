@@ -12,14 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
-
-/**
  * Test the file based preferences storage backend.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -45,7 +40,7 @@ class Horde_Prefs_Unit_Storage_FileTest extends PHPUnit_Framework_TestCase
      */
     public function testInvalidDirectory()
     {
-        $b = new Horde_Prefs_Storage_File('nobody', array('directory' => dirname(__FILE__) . '/DOES_NOT_EXIST'));
+        $b = new Horde_Prefs_Storage_File('nobody', array('directory' => __DIR__ . '/DOES_NOT_EXIST'));
     }
 
     public function testConstruction()

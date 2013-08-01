@@ -19,7 +19,7 @@ require_once 'Horde/Autoloader.php';
 /**
  * Combine the tests for this package.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -58,7 +58,7 @@ class Koward_Test_AllTests
 
         $suite = new PHPUnit_Framework_TestSuite('Kolab server test suite');
 
-        $basedir    = dirname(__FILE__);
+        $basedir    = __DIR__;
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {

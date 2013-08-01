@@ -3,7 +3,7 @@
  * This class provides an object-oriented representation of a MIME part
  * (defined by RFC 2045).
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -37,6 +37,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /* Unknown types. */
     const UNKNOWN = 'x-unknown';
 
+    /* MIME nesting limit. */
+    const NESTING_LIMIT = 100;
+
     /**
      * The default charset to use when parsing text parts with no charset
      * information.
@@ -51,7 +54,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @var array
      */
     static public $encodingTypes = array(
-        '7bit', '8bit', 'base64', 'binary', 'quoted-printable'
+        '7bit', '8bit', 'base64', 'binary', 'quoted-printable',
+        // Non-RFC types, but old mailers may still use
+        'uuencode', 'x-uuencode', 'x-uue'
     );
 
     /**
@@ -132,9 +137,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * The content type parameters of this part.
      *
-     * @var array
+     * @var Horde_Support_CaseInsensitiveArray
      */
-    protected $_contentTypeParams = array();
+    protected $_contentTypeParams;
 
     /**
      * The subparts of this part.
@@ -254,6 +259,22 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     );
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->_init();
+    }
+
+    /**
+     * Initialization tasks.
+     */
+    protected function _init()
+    {
+        $this->_contentTypeParams = new Horde_Support_CaseInsensitiveArray();
+    }
+
+    /**
      * Function to run on clone.
      */
     public function __clone()
@@ -262,6 +283,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         while (list($k, $v) = each($this->_parts)) {
             $this->_parts[$k] = clone $v;
         }
+
+        $this->_contentTypeParams = clone $this->_contentTypeParams;
     }
 
     /**
@@ -286,7 +309,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * Get the content-disposition of this part.
      *
      * @return string  The part's content-disposition.  An empty string means
-     * q               no desired disposition has been set for this part.
+     *                 no desired disposition has been set for this part.
      */
     public function getDisposition()
     {
@@ -443,8 +466,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *   - stream: (boolean) Return the body as a stream resource.
      *             DEFAULT: No
      *
-     * @return mixed  The body text of the part, or a stream resource if
-     *                'stream' is true.
+     * @return mixed  The body text (string) of the part, null if there is no
+     *                contents, and a stream resource if 'stream' is true.
      */
     public function getContents($options = array())
     {
@@ -468,33 +491,39 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (ftell($fp)) {
             switch ($encoding) {
             case 'base64':
-                return $this->_writeStream($fp, array(
-                    'filter' => array(
-                        'convert.base64-decode' => array()
-                    )
-                ));
+                try {
+                    return $this->_writeStream($fp, array(
+                        'error' => true,
+                        'filter' => array(
+                            'convert.base64-decode' => array()
+                        )
+                    ));
+                } catch (ErrorException $e) {}
+
+                rewind($fp);
+                return $this->_writeStream(base64_decode(stream_get_contents($fp)));
 
             case 'quoted-printable':
                 try {
-                    $stream = $this->_writeStream($fp, array(
+                    return $this->_writeStream($fp, array(
                         'error' => true,
                         'filter' => array(
                             'convert.quoted-printable-decode' => array()
                         )
                     ));
-                } catch (ErrorException $e) {
-                    // Workaround for Horde Bug #8747
-                    rewind($fp);
-                    $stream = $this->_writeStream(quoted_printable_decode(stream_get_contents($fp)));
-                }
-                return $stream;
+                } catch (ErrorException $e) {}
+
+                // Workaround for Horde Bug #8747
+                rewind($fp);
+                return $this->_writeStream(quoted_printable_decode(stream_get_contents($fp)));
 
             case 'uuencode':
             case 'x-uuencode':
             case 'x-uue':
                 /* Support for uuencoded encoding - although not required by
                  * RFCs, some mailers may still encode this way. */
-                return $this->_writeStream(convert_uuencode($this->_readStream($fp)));
+                $res = Horde_Mime::uudecode($this->_readStream($fp));
+                return $this->_writeStream($res[0]['data']);
             }
         }
 
@@ -506,10 +535,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @param resource $fp      A stream containing the data to encode.
      * @param string $encoding  The encoding to use.
+     * @param string $eol       EOL string.
      *
      * @return resource  A new file resource with the encoded data.
      */
-    protected function _transferEncode($fp, $encoding)
+    protected function _transferEncode($fp, $encoding, $eol)
     {
         $this->_temp['transferEncodeClose'] = true;
 
@@ -519,7 +549,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return $this->_writeStream($fp, array(
                 'filter' => array(
                     'convert.base64-encode' => array(
-                        'line-break-chars' => $this->getEOL(),
+                        'line-break-chars' => $eol,
                         'line-length' => 76
                     )
                 )
@@ -530,7 +560,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return $this->_writeStream($fp, array(
                 'filter' => array(
                     'convert.quoted-printable-encode' => array(
-                        'line-break-chars' => $this->getEOL(),
+                        'line-break-chars' => $eol,
                         'line-length' => 76
                     )
                 )
@@ -579,7 +609,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
       *
       * @param boolean $charset  Append character set information to the end
       *                          of the content type if this is a text/* part?
-      *
+      *`
       * @return string  The mimetype of this part (ex.: text/plain;
       *                 charset=us-ascii) or false.
       */
@@ -801,7 +831,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setTransferEncoding($encoding, $options = array())
     {
-        if (empty($options['send']) && !empty($this->_contents)) {
+        if (empty($encoding) ||
+            (empty($options['send']) && !empty($this->_contents))) {
             return;
         }
 
@@ -978,7 +1009,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function getAllContentTypeParameters()
     {
-        return $this->_contentTypeParams;
+        return $this->_contentTypeParams->getArrayCopy();
     }
 
     /**
@@ -1170,7 +1201,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $this->_temp['toString'] = '';
             $options['_baseptr'] = &$this->_temp['toString'];
 
-            /* Any information about a message/* is embedded in the message
+            /* Any information about a message is embedded in the message
              * contents themself. Simply output the contents of the part
              * directly and return. */
             $ptype = $this->getPrimaryType();
@@ -1191,7 +1222,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                         break;
                     }
 
-                    $parts[] = $this->_transferEncode($this->_contents, $encoding);
+                    $parts[] = $this->_transferEncode(
+                        $this->_contents,
+                        $encoding,
+                        (empty($options['canonical']) ? $this->getEOL() : self::RFC_EOL)
+                    );
 
                     /* If not using $this->_contents, we can close the stream
                      * when finished. */
@@ -1237,6 +1272,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         $newfp = $this->_writeStream($parts);
+
         array_map('fclose', $parts_close);
 
         if (!is_null($oldbaseptr)) {
@@ -1450,23 +1486,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return 0;
         }
 
-        $kb = $bytes / 1024;
         $localeinfo = Horde_Nls::getLocaleInfo();
-
-        /* Reduce need for decimals as part size gets larger. */
-        if ($kb > 100) {
-            $decimals = 0;
-        } elseif ($kb > 10) {
-            $decimals = 1;
-        } else {
-            $decimals = 2;
-        }
 
         // TODO: Workaround broken number_format() prior to PHP 5.4.0.
         return str_replace(
             array('X', 'Y'),
             array($localeinfo['decimal_point'], $localeinfo['thousands_sep']),
-            number_format($kb, $decimals, 'X', 'Y')
+            number_format(ceil($bytes / 1024), 0, 'X', 'Y')
         );
     }
 
@@ -1483,7 +1509,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (is_null($this->_contentid)) {
             $this->_contentid = is_null($cid)
                 ? (strval(new Horde_Support_Randomid()) . '@' . $_SERVER['SERVER_NAME'])
-                : $cid;
+                : trim($cid, '<>');
         }
 
         return $this->_contentid;
@@ -1645,15 +1671,20 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Sends this message.
      *
-     * @param string $email                The address list to send to.
-     * @param Horde_Mime_Headers $headers  The Horde_Mime_Headers object
-     *                                     holding this message's headers.
-     * @param Horde_Mail_Transport $mailer A Horde_Mail_Transport object.
+     * @param string $email                 The address list to send to.
+     * @param Horde_Mime_Headers $headers   The Horde_Mime_Headers object
+     *                                      holding this message's headers.
+     * @param Horde_Mail_Transport $mailer  A Horde_Mail_Transport object.
+     * @param array $opts                   Additional options:
+     *   - encode: (integer) The encoding to use. A mask of self::ENCODE_*
+     *             values.
+     *             DEFAULT: Auto-determined based on transport driver.
      *
      * @throws Horde_Mime_Exception
      * @throws InvalidArgumentException
      */
-    public function send($email, $headers, Horde_Mail_Transport $mailer)
+    public function send($email, $headers, Horde_Mail_Transport $mailer,
+                         array $opts = array())
     {
         $old_basepart = $this->_basepart;
         $this->_basepart = true;
@@ -1662,7 +1693,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
          * BINARYMIME (RFC 3030) extensions? Requires Net_SMTP version
          * 1.3+. */
         $encode = self::ENCODE_7BIT;
-        if ($mailer instanceof Horde_Mail_Transport_Smtp) {
+        if (isset($opts['encode'])) {
+            /* Always allow 7bit encoding. */
+            $encode |= $opts['encode'];
+        } elseif ($mailer instanceof Horde_Mail_Transport_Smtp) {
             try {
                 $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
                 if (isset($smtp_ext['8BITMIME'])) {
@@ -1716,10 +1750,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         $this->_basepart = $old_basepart;
         $rfc822 = new Horde_Mail_Rfc822();
-
         try {
             $mailer->send($rfc822->parseAddressList($email)->writeAddress(array(
-                'encode' => $this->getCharset(),
+                'encode' => $this->getHeaderCharset(),
                 'idn' => true
             )), $headers->toArray(array(
                 'canonical' => true,
@@ -1737,7 +1770,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @param string $subtype  Specifically search for this subtype.
      *
      * @return mixed  The MIME ID of the main body part, or null if a body
-                      part is not found.
+     *                part is not found.
      */
     public function findBody($subtype = null)
     {
@@ -1919,54 +1952,70 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * This function can be called statically via:
      *    $mime_part = Horde_Mime_Part::parseMessage();
      *
-     * @param string $text    The text of the MIME message.
-     * @param array $options  Additional options:
+     * @param string $text  The text of the MIME message.
+     * @param array $opts   Additional options:
      *   - forcemime: (boolean) If true, the message data is assumed to be
      *                MIME data. If not, a MIME-Version header must exist (RFC
      *                2045 [4]) to be parsed as a MIME message.
      *                DEFAULT: false
+     *   - level: (integer) Current nesting level of the MIME data.
+     *            DEFAULT: 0
+     *   - no_body: (boolean) If true, don't set body contents of parts (since
+     *              2.2.0).
+     *              DEFAULT: false
      *
      * @return Horde_Mime_Part  A MIME Part object.
      * @throws Horde_Mime_Exception
      */
-    static public function parseMessage($text, $options = array())
+    static public function parseMessage($text, array $opts = array())
     {
         /* Find the header. */
         list($hdr_pos, $eol) = self::_findHeader($text);
 
-        $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol), null, !empty($options['forcemime']));
+        unset($opts['ctype']);
+        $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol), $opts);
         $ob->buildMimeIds();
         return $ob;
     }
 
     /**
-     * Creates a structure object from the text of one part of a MIME message.
+     * Creates a MIME object from the text of one part of a MIME message.
      *
-     * @param string $header      The header text.
-     * @param string $body        The body text.
-     * @param string $ctype       The default content-type.
-     * @param boolean $forcemime  If true, the message data is assumed to be
-     *                            MIME data. If not, a MIME-Version header
-     *                            must exist to be parsed as a MIME message.
+     * @param string $header  The header text.
+     * @param string $body    The body text.
+     * @param array $opts     Additional options:
+     * <pre>
+     *   - ctype: (string) The default content-type.
+     *   - forcemime: (boolean) If true, the message data is assumed to be
+     *                MIME data. If not, a MIME-Version header must exist to
+     *                be parsed as a MIME message.
+     *   - level: (integer) Current nesting level.
+     *   - no_body: (boolean) If true, don't set body contents of parts.
+     * </pre>
      *
-     * @return Horde_Mime_Part  TODO
+     * @return Horde_Mime_Part  The MIME part object.
      */
     static protected function _getStructure($header, $body,
-                                            $ctype = 'application/octet-stream',
-                                            $forcemime = false)
+                                            array $opts = array())
     {
+        $opts = array_merge(array(
+            'ctype' => 'application/octet-stream',
+            'forcemime' => false,
+            'level' => 0,
+            'no_body' => false
+        ), $opts);
+
         /* Parse headers text into a Horde_Mime_Headers object. */
         $hdrs = Horde_Mime_Headers::parseHeaders($header);
 
         $ob = new Horde_Mime_Part();
 
         /* This is not a MIME message. */
-        if (!$forcemime && !$hdrs->getValue('mime-version')) {
+        if (!$opts['forcemime'] && !$hdrs->getValue('mime-version')) {
             $ob->setType('text/plain');
 
-            if (!empty($body)) {
+            if (!$opts['no_body'] && !empty($body)) {
                 $ob->setContents($body);
-                $ob->setBytes( strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
             }
 
             return $ob;
@@ -1981,8 +2030,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 $ob->setContentTypeParameter($key, $val);
             }
         } else {
-            $ob->setType($ctype);
-            $ctype_params = array();
+            $ob->setType($opts['ctype']);
         }
 
         /* Content transfer encoding. */
@@ -2013,12 +2061,14 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $ob->setContentId($tmp);
         }
 
-        /* Get file size (if 'body' text is set). */
-        if (!empty($body)) {
+        if (!$opts['no_body'] &&
+            !empty($body) &&
+            ($ob->getPrimaryType() != 'multipart')) {
             $ob->setContents($body);
-            if ($ob->getType() != '/message/rfc822') {
-                $ob->setBytes(strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
-            }
+        }
+
+        if (++$opts['level'] >= self::NESTING_LIMIT) {
+            return $ob;
         }
 
         /* Process subparts. */
@@ -2030,12 +2080,17 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             break;
 
         case 'multipart':
-            if (isset($ctype_params['boundary'])) {
-                $b_find = self::_findBoundary($body, 0, $ctype_params['boundary']);
-                foreach ($b_find as $val) {
+            $boundary = $ob->getContentTypeParameter('boundary');
+            if (!is_null($boundary)) {
+                foreach (self::_findBoundary($body, 0, $boundary) as $val) {
                     $subpart = substr($body, $val['start'], $val['length']);
                     list($hdr_pos, $eol) = self::_findHeader($subpart);
-                    $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain', true));
+                    $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), array(
+                        'ctype' => ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain',
+                        'forcemime' => true,
+                        'level' => $opts['level'],
+                        'no_body' => $opts['no_body']
+                    )));
                 }
             }
             break;
@@ -2091,6 +2146,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         $base_pos = strpos($id, '.');
+        $orig_id = $id;
+
         if ($base_pos !== false) {
             $base_pos = substr($id, 0, $base_pos);
             $id = substr($id, $base_pos);
@@ -2101,6 +2158,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         $params = $hdr_ob->getValue('Content-Type', Horde_Mime_Headers::VALUE_PARAMS);
         if (!isset($params['boundary'])) {
+            if ($orig_id == '1') {
+                return substr($rawtext, $curr_pos + 1);
+            }
+
             throw new Horde_Mime_Exception('Could not find MIME part.');
         }
 
@@ -2240,7 +2301,15 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         );
 
         foreach ($this->_serializedVars as $val) {
-            $data[] = $this->$val;
+            switch ($val) {
+            case '_contentTypeParams':
+                $data[] = $this->$val->getArrayCopy();
+                break;
+
+            default:
+                $data[] = $this->$val;
+                break;
+            }
         }
 
         if (!empty($this->_contents)) {
@@ -2263,11 +2332,21 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (!is_array($data) ||
             !isset($data[0]) ||
             (array_shift($data) != self::VERSION)) {
-            throw new Horde_Mime_Exception('Cache version change');
+            throw new Exception('Cache version change');
         }
 
+        $this->_init();
+
         foreach ($this->_serializedVars as $key => $val) {
-            $this->$val = $data[$key];
+            switch ($val) {
+            case '_contentTypeParams':
+                $this->$val = new Horde_Support_CaseInsensitiveArray($data[$key]);
+                break;
+
+            default:
+                $this->$val = $data[$key];
+                break;
+            }
         }
 
         // $key now contains the last index of _serializedVars.

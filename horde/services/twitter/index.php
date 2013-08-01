@@ -2,23 +2,46 @@
 /**
  * Callback page for Twitter integration.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Michael J. Rubinsky <mrubinsk.horde.org>
- * @package @horde
+ * @author   Michael J. Rubinsky <mrubinsk.horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+function _outputError($e)
+{
+    global $notification, $page_output;
+
+    Horde::log($e, 'INFO');
+    $body = ($e instanceof Exception) ? $e->getMessage() : $e;
+    if (($errors = json_decode($body, true)) && isset($errors['errors'])) {
+        $errors = $errors['errors'];
+    } else {
+        $errors = array(array('message' => $body));
+    }
+    $notification->push(_("Error connecting to Twitter. Details have been logged for the administrator."), 'horde.error', array('sticky'));
+    foreach ($errors as $error) {
+        $notification->push($error['message'], 'horde.error', array('sticky'));
+    }
+    $page_output->header();
+    $notification->notify(array('listeners' => 'status'));
+    $page_output->footer();
+    exit;
+}
+
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 if (empty($conf['twitter']['enabled'])) {
     Horde::url('index.php', false, array('app' => 'horde'))->redirect();
 }
 
-$twitter = $GLOBALS['injector']->getInstance('Horde_Service_Twitter');
+$twitter = $injector->getInstance('Horde_Service_Twitter');
 
 /* See if we have an existing token for the current user */
 $token = unserialize($prefs->getValue('twitter'));
@@ -44,23 +67,43 @@ case 'updateStatus':
         header('Content-Type: application/json');
         echo $result;
     } catch (Horde_Service_Twitter_Exception $e) {
+        Horde::log($e->getMessage(), 'ERR');
         header('HTTP/1.1: 500');
     }
     exit;
-
-case 'retweet':
+case 'favorite':
     try {
-        $result = $twitter->statuses->retweet(Horde_Util::getPost('tweetId'));
+        $result = $twitter->favorites->create(Horde_Util::getPost('tweetId'));
+        header('Content-Type: application/json');
+        echo $result;
+    } catch (Horde_Service_Twitter_Exception $e) {
+        Horde::log($e->getMessage(), 'ERR');
+        header('HTTP/1.1: 500');
+    }
+    exit;
+case 'unfavorite':
+    try {
+        $result = $twitter->favorites->destroy(Horde_Util::getPost('tweetId'));
         header('Content-Type: application/json');
         echo $result;
     } catch (Horde_Service_Twitter_Exception $e) {
         header('HTTP/1.1: 500');
     }
     exit;
+case 'retweet':
+    try {
+        $result = $twitter->statuses->retweet(Horde_Util::getPost('tweetId'));
+        header('Content-Type: application/json');
+        echo $result;
+    } catch (Horde_Service_Twitter_Exception $e) {
+        Horde::log($e->getMessage(), 'ERR');
+        header('HTTP/1.1: 500');
+    }
+    exit;
 
 case 'getPage':
     try {
-        $params = array();
+        $params = array('include_entities' => 1);
         if ($max = Horde_Util::getPost('max_id')) {
             $params['max_id'] = $max;
         } elseif ($since = Horde_Util::getPost('since_id')) {
@@ -70,13 +113,10 @@ case 'getPage':
         if (Horde_Util::getPost('mentions', null)) {
             $stream = Horde_Serialize::unserialize($twitter->statuses->mentions($params), Horde_Serialize::JSON);
         } else {
-            $params['include_entities'] = 1;
             $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
         }
     } catch (Horde_Service_Twitter_Exception $e) {
-        //header('HTTP/1.1: 500');
-        echo sprintf(_("Unable to contact Twitter. Please try again later. Error returned: %s"), $e->getMessage());
-        exit;
+        _outputError($e);
     }
     $html = '';
     if (count($stream)) {
@@ -89,7 +129,6 @@ case 'getPage':
     $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
     $view->addHelper('Tag');
     foreach ($stream as $tweet) {
-
         /* Don't return the max_id tweet, since we already have it */
         if (!empty($params['max_id']) && $params['max_id'] == $tweet->id_str) {
             continue;
@@ -98,41 +137,40 @@ case 'getPage':
         $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
         // Links and media
-        $map = array();
-        $previews = array();
-        //var_dump($tweet);
+        $map = $previews = array();
+
         foreach ($tweet->entities->urls as $link) {
-            $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . htmlspecialchars($link->display_url) . '</a>';
+            $replace = '<a target="_blank" href="' . $link->url . '" title="' . $link->expanded_url . '">' . htmlspecialchars($link->display_url) . '</a>';
             $map[$link->indices[0]] = array($link->indices[1], $replace);
         }
         if (!empty($tweet->entities->media)) {
             foreach ($tweet->entities->media as $picture) {
-                $replace = '<a href="' . $picture->url . '" title="' . $picture->expanded_url . '">' . htmlentities($picture->display_url) . '</a>';
+                $replace = '<a href="' . $picture->url . '" title="' . $picture->expanded_url . '">' . htmlentities($picture->display_url,  ENT_COMPAT, 'UTF-8') . '</a>';
                 $map[$picture->indices[0]] = array($picture->indices[1], $replace);
                 $previews[] = ' <a href="#" onclick="return Horde[\'twitter' . $instance . '\'].showPreview(\'' . $picture->media_url . ':small\');"><img src="' . Horde_Themes::img('mime/image.png') . '" /></a>';
             }
         }
         if (!empty($tweet->entities->user_mentions)) {
             foreach ($tweet->entities->user_mentions as $user) {
-                $replace = ' <a title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name) . '</a>';
+                $replace = ' <a target="_blank" title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name,  ENT_COMPAT, 'UTF-8') . '</a>';
                 $map[$user->indices[0]] = array($user->indices[1], $replace);
             }
         }
-        if (!empty($tweet->entities->hastags)) {
+        if (!empty($tweet->entities->hashtags)) {
             foreach ($tweet->entities->hashtags as $hashtag) {
-                $replace = ' <a href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text) . '</a>';
+                $replace = ' <a target="_blank" href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text, ENT_COMPAT, 'UTF-8') . '</a>';
                 $map[$hashtag->indices[0]] = array($hashtag->indices[1], $replace);
             }
         }
         $body = '';
         $pos = 0;
-        while ($pos <= strlen($tweet->text) -1) {
+        while ($pos <= Horde_String::length($tweet->text) - 1) {
             if (!empty($map[$pos])) {
                 $entity = $map[$pos];
                 $body .= $entity[1];
                 $pos = $entity[0];
             } else {
-                $body .= substr($tweet->text, $pos, 1);
+                $body .= Horde_String::substr($tweet->text, $pos, 1);
                 ++$pos;
             }
         }
@@ -151,7 +189,7 @@ case 'getPage':
         /* These are all referencing the *original* tweet */
         $view->profileLink = Horde::externalUrl('http://twitter.com/' . htmlspecialchars($tweetObj->user->screen_name), true);
         $view->profileImg = $tweetObj->user->profile_image_url;
-        $view->authorName = htmlspecialchars($tweetObj->user->screen_name);
+        $view->authorName = '@' . htmlspecialchars($tweetObj->user->screen_name);
         $view->authorFullname = htmlspecialchars($tweetObj->user->name);
         $view->createdAt = $tweetObj->created_at;
         $view->clientText = $filter->filter($tweet->source, 'xss');
@@ -171,18 +209,21 @@ case 'getPage':
     exit;
 }
 
+$page_output->topbar = $page_output->sidebar = false;
+
 /* No requested action, check to see if we have a valid token */
 if (!empty($auth_token)) {
-    $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
-} elseif ($r_secret = $session->retrieve('twitter_request_secret')) {
-     /* No existing auth token, maybe we are in the process of getting it? */
     try {
-        $auth_token = $twitter->auth->getAccessToken($GLOBALS['injector']->getInstance('Horde_Controller_Request'), $r_secret);
+        $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
     } catch (Horde_Service_Twitter_Exception $e) {
-        echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
-        echo '</form>';
-        require HORDE_TEMPLATES . '/common-footer.inc';
-        exit;
+        _outputError($e);
+    }
+} elseif ($r_secret = $session->retrieve('twitter_request_secret')) {
+    /* No existing auth token, maybe we are in the process of getting it? */
+    try {
+        $auth_token = $twitter->auth->getAccessToken($injector->getInstance('Horde_Controller_Request'), Horde_Util::getFormData('oauth_verifier'));
+    } catch (Horde_Service_Twitter_Exception $e) {
+        _outputError($e);
     }
 
     /* Clear the temporary request secret */
@@ -202,18 +243,16 @@ if (!empty($auth_token)) {
         try {
             $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
         } catch (Horde_Service_Twitter_Exception $e) {
-            echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
-            echo '</form>';
-            require HORDE_TEMPLATES . '/common-footer.inc';
-            exit;
+            _outputError($e);
         }
         if (!empty($profile->error)) {
-            echo $profile->error;
-            die;
+            _outputError($profile->error);
         }
         if (!empty($profile)) {
-            require HORDE_TEMPLATES . '/common-header.inc';
+            $page_output->header();
             echo '<script type="text/javascript">window.opener.location.reload(true);window.close();</script>';
+            $page_output->footer();
+            exit;
         }
     }
 }

@@ -2,7 +2,7 @@
 /**
  * This class provides an API to the blocks (applets) framework.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -340,7 +340,7 @@ class Horde_Core_Block_Collection implements Serializable
             asort($blockvalues);
 
             $widget = sprintf('<select name="params[__%s]" onchange="document.blockform.action.value=\'save-resume\';document.blockform.submit()">', $param_id) . "\n";
-            foreach ($param['values'] as $key => $values) {
+            foreach (array_keys($param['values']) as $key) {
                 $name = Horde_String::length($key) > 30 ? Horde_String::substr($key, 0, 27) . '...' : $key;
                 $widget .= sprintf("<option value=\"%s\"%s>%s</option>\n",
                                    htmlspecialchars($key),

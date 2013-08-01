@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -9,14 +9,19 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
+
+
+if (Hermes::showAjaxView()) {
+    Horde::url('', true)->setAnchor('time')->redirect();
+}
 
 $vars = Horde_Variables::getDefaultVariables();
 if (!$vars->exists('id') && $vars->exists('timer')) {
     $timer_id = $vars->get('timer');
-    $timer = Hermes::getTimer($timer_id);
-    if ($timer) {
+    try {
+        $timer = Hermes::getTimer($timer_id);
         $tname = $timer['name'];
         $tformat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:i a';
         $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
@@ -25,9 +30,11 @@ if (!$vars->exists('id') && $vars->exists('timer')) {
             $vars->set('note', sprintf(_("Using the \"%s\" stop watch from %s to %s"), $tname, date($tformat, $timer_id), date($tformat, time())));
         }
         $notification->push(sprintf(_("The stop watch \"%s\" has been stopped."), $tname), 'horde.success');
-        unset($timers[$timer_id]);
-        $prefs->setValue('running_timers', serialize($timers));
-    }
+        if ($timers = @unserialize($prefs->getValue('running_timers'))) {
+            unset($timers[$timer_id]);
+            $prefs->setValue('running_timers', serialize($timers));
+        }
+    } catch (Horde_Exception_NotFound $e) {}
 }
 
 switch ($vars->get('formname')) {
@@ -47,10 +54,10 @@ case 'hermes_form_time_entry':
         $form->getInfo($vars, $info);
         try {
             if ($vars->exists('id')) {
-                $notification->push(_("Your time was successfully updated."), 'horde.success');
+                $notification->push(_("Your time was successfully updated."), 'horde.success', array('sticky'));
                 $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($info));
             } else {
-                $notification->push(_("Your time was successfully entered."), 'horde.success');
+                $notification->push(_("Your time was successfully entered."), 'horde.success', array('sticky'));
                 $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $info);
             }
         } catch (Exception $e) {
@@ -86,9 +93,9 @@ default:
 }
 $form->setCostObjects($vars);
 
-$title = $vars->exists('id') ? _("Edit Time") : _("New Time");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'title' => $vars->exists('id') ? _("Edit Time") : _("New Time")
+));
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('entry.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

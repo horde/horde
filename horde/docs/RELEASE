@@ -21,77 +21,55 @@ The steps to use when cutting a new release
    - Write the release announcements into the ``docs/RELEASE_NOTES`` file and
      check if it parses with ``php -l docs/RELEASE_NOTES``.
 
-   - Make sure sentinel reflects the most recent version (i.e. remove the
-     '-cvs' suffix).
-
-   As an extra effort to ensure completeness, you could also check the CVS
+   As an extra effort to ensure completeness, you could also check the
    changelogs for any changes that may not have been inserted in the
    ``*/docs/CHANGES`` file and integrate them into the above points.
 
-2. Examine ``*/README`` and ``docs/*`` files, and update the version if
-   this is a major release. Minor releases should not change the versions in
-   these files.
+2. Examine ``docs/*`` files, and update the version if this is a major
+   release. Minor releases should not change the versions in these files.
 
-3. Update the .pot file: ``./po/translation.php extract --module foo`` and
-   commit it.
+   Add ``-alpha`` or ``-beta`` sentinels to the ``pear install`` instructions
+   if switching from stable release to pre-release, and vice versa.
 
-4. Make sure your settings in ``horde-make-release-conf.php`` are correct. The
-   configuration file is loaded from the same directory as
-   ``horde-make-release.php``.
+3. Update the .pot file: ``horde-translation extract --module foo`` and commit
+   it.
 
-5. If you want to use another ``CVSROOT`` than the default one, set the
-   ``CVSROOT`` environment variable to a user with commit privs
-   (e.g. ``user@cvs.horde.org:/repository``) and change to an empty directory.
+4. Make sure your settings in ``components/config/conf.php`` are correct.
 
-6. Make a "dry run" of the ``horde-make-release.php`` script by adding
-   ``--dryrun`` to the command line parameters.
+5. Make a "dry run" of the ``horde-components`` script by adding ``--pretend``
+   to the command line parameters.
 
-7. Create the tarballs/patches using ``horde-make-release.php``::
+6. Create the PEAR package releases using ``horde-components ./foo release``::
 
-   - Must be run as root (to set file ownership).
-   - Omit ``--branch`` when building HEAD.
    - For usage, use the ``--help`` flag.
 
-8. If upgrading from a release candidate, remove the old tarball from the FTP
-   server.
-
-9. Update the web site (``hordeweb`` CVS directory):
-
-   - Edit ``config/news.php`` to include the release announcement link.
+7. Update the web site (``horde-web`` Git repository):
 
    - Edit ``config/versions.php`` to update the version information.
 
-   - Edit ``main.html`` to include a blurb on the release.
+8. Add new version to bugs.horde.org if not added automatically by the release
+   script.
 
-   - If applicable (i.e. new branch, new major release), under
-     ``hordeweb/source`` edit::
+   If releasing the first stable version after a release cycle, mark all
+   pre-release versions as inactive.
 
-        versions.html
-        modules.html
-
-10. Add new version to bugs.horde.org if not added automatically by the
-    release script.
-
-11. Bump version numbers of showstopper tickets that didn't go into the
-    release, then bump version number in the showstopper query on
-    bugs.horde.org.
+9. Bump version numbers of showstopper tickets that didn't go into the release,
+   then bump version number in the showstopper query on bugs.horde.org.
 
 
-Guidelines for release candidates (RCs)
-=======================================
+Guidelines for release cycles
+=============================
 
-* The last time we introduced a bug with code from a new minor release so we
-  had to release another version right after. This might always happen if
-  there is more than one change since the last release or if the changes were
-  done recently.
+* When switching between stable and unstable releases, make sure the release
+  state and release version in package.xml are correct.
 
-* If we have a security leak that needs to be plugged immediately, it is the
-  common way to release a new minor version that *only* contains the fix for
-  that leak.
+* During unstable releases the release version must be checked for every
+  release, because the components scripts does automatically bump versions, but
+  doesn't switch versions when changing from alpha to beta to RC.
 
-* RCs are necessary for every release (except 3) because many translators only
-  update their translations when there is a new (minor) release cycle starting
-  because they don't translate on CVS versions.
+* During unstable releases check carefully the dependency versions. It may be
+  necessary to set an alpha/beta/RC version as the minimum version of a
+  dependency.
 
 
 Example format for announcement messages

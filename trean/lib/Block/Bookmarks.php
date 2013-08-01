@@ -2,7 +2,7 @@
 /**
  * Show bookmarks.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -16,7 +16,6 @@ class Trean_Block_Bookmarks extends Horde_Core_Block
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-
         $this->_name = _("Bookmarks");
     }
 
@@ -69,8 +68,6 @@ class Trean_Block_Bookmarks extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $template = TREAN_TEMPLATES . '/block/' . $this->_params['template'] . '.inc';
 
         $sortby = 'title';

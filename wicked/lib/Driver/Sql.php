@@ -1,15 +1,27 @@
 <?php
 /**
- * @package Wicked
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @package  Wicked
  */
 
 /**
  * Wicked storage implementation for the Horde_Db database abstraction layer.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @package  Wicked
  */
 class Wicked_Driver_Sql extends Wicked_Driver
 {
@@ -128,6 +140,35 @@ class Wicked_Driver_Sql extends Wicked_Driver
                                     $where,
                                     'version_created DESC');
         return array_merge($result, $result2);
+    }
+
+    /**
+     * Returns the most recently changed pages.
+     *
+     * @param integer $limit  The number of most recent pages to return.
+     *
+     * @return array  Pages.
+     * @throws Wicked_Exception
+     */
+    public function mostRecent($limit = 10)
+    {
+        $result = $this->_retrieve($this->_params['table'],
+                                   '',
+                                   'version_created DESC',
+                                   $limit);
+        $result2 = $this->_retrieve($this->_params['historytable'],
+                                    '',
+                                    'version_created DESC',
+                                    $limit);
+        $result = array_merge($result, $result2);
+        usort(
+            $result,
+            function($a, $b)
+            {
+                return $a['version_created'] - $b['version_created'];
+            }
+        );
+        return array_slice($result, 0, $limit);
     }
 
     /**
@@ -342,17 +383,19 @@ class Wicked_Driver_Sql extends Wicked_Driver
         foreach (array_keys($data) as $key) {
             $data[$key]['attachment_name'] = $this->_convertFromDriver($data[$key]['attachment_name']);
         }
-        usort($data, array($this, '_getAttachedFiles_usort'));
+
+        usort(
+            $data,
+            function($a, $b)
+            {
+                if ($res = strcmp($a['attachment_name'], $b['attachment_name'])) {
+                    return $res;
+                }
+                return ($a['attachment_version'] - $b['attachment_version']);
+            }
+        );
 
         return $data;
-    }
-
-    protected function _getAttachedFiles_usort($a, $b)
-    {
-        if ($res = strcmp($a['attachment_name'], $b['attachment_name'])) {
-            return $res;
-        }
-        return ($a['attachment_version'] - $b['attachment_version']);
     }
 
     /**
@@ -683,7 +726,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
         }
 
         if ($special) {
-            $this->_pageNames += $this->getSpecialPages();
+            return $this->_pageNames + $this->getSpecialPages();
         }
 
         return $this->_pageNames;
@@ -761,6 +804,9 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function removeAllVersions($pagename)
     {
+        /* Remove attachments and do other cleanup. */
+        parent::removeAllVersions($pagename);
+
         $this->_pageNames = null;
 
         try {
@@ -779,9 +825,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
             $this->_db->rollbackDbTransaction();
             throw new Wicked_Exception($e);
         }
-
-        /* Remove attachments and do other cleanup. */
-        return parent::removeAllVersions($pagename);
     }
 
     /**

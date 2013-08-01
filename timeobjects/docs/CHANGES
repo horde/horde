@@ -1,13 +1,52 @@
---------
-v2.0-git
---------
-
-
-
 ----------
-v1.0.7-git
+v2.0.5-git
 ----------
 
+
+
+------
+v2.0.4
+------
+
+[jan] Fix timeobjects not showing up in the administration (Bug #12365).
+[jan] Add Spanish translation (Manuel P. Ayala <mayala@unex.es>).
+
+
+------
+v2.0.3
+------
+
+[jan] Add French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
+v2.0.2
+------
+
+[jan] Add Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+
+
+------
+v2.0.1
+------
+
+[jan] Re-packaged 2.0.0 release.
+
+
+------
+v2.0.0
+------
+
+[jan] Add Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+
+
+------
+v1.0.7
+------
+
+[jan] Add Swedish translation (Jakob Alvermark <jakob.alvermark@bsdlabs.com>).
+[jan] Add Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 
 
 ------

@@ -7,8 +7,6 @@
  * @subpackage UnitTests
  */
 
-require_once dirname(__FILE__) . '/Autoload.php';
-
 /**
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://www.horde.org/licenses/bsd BSD
@@ -20,8 +18,8 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->element = new Horde_Xml_Element(file_get_contents(dirname(__FILE__) . '/fixtures/Sample.xml'));
-        $this->namespacedElement = new Horde_Xml_Element(file_get_contents(dirname(__FILE__) . '/fixtures/NamespacedSample.xml'));
+        $this->element = new Horde_Xml_Element(file_get_contents(__DIR__ . '/fixtures/Sample.xml'));
+        $this->namespacedElement = new Horde_Xml_Element(file_get_contents(__DIR__ . '/fixtures/NamespacedSample.xml'));
     }
 
     public function testXml()
@@ -100,8 +98,8 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
 
     public function testOffsetUnset()
     {
-        $element = new Horde_Xml_Element(file_get_contents(dirname(__FILE__) . '/fixtures/Sample.xml'));
-        $namespacedElement = new Horde_Xml_Element(file_get_contents(dirname(__FILE__) . '/fixtures/NamespacedSample.xml'));
+        $element = new Horde_Xml_Element(file_get_contents(__DIR__ . '/fixtures/Sample.xml'));
+        $namespacedElement = new Horde_Xml_Element(file_get_contents(__DIR__ . '/fixtures/NamespacedSample.xml'));
 
         $this->assertTrue(isset($element['version']));
         unset($element['version']);
@@ -137,8 +135,8 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
 
     public function testUnset()
     {
-        $element = new Horde_Xml_Element(file_get_contents(dirname(__FILE__) . '/fixtures/Sample.xml'));
-        $namespacedElement = new Horde_Xml_Element(file_get_contents(dirname(__FILE__) . '/fixtures/NamespacedSample.xml'));
+        $element = new Horde_Xml_Element(file_get_contents(__DIR__ . '/fixtures/Sample.xml'));
+        $namespacedElement = new Horde_Xml_Element(file_get_contents(__DIR__ . '/fixtures/NamespacedSample.xml'));
 
         $this->assertTrue(isset($element->title));
         unset($element->title);

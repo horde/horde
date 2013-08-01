@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -13,7 +13,7 @@
  */
 
 /**
- * MySQL Improved Horde_Db_Adapter
+ * MySQL Horde_Db_Adapter
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -122,7 +122,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
      */
     public function isActive()
     {
-        return isset($this->_connection) && mysql_ping($this->_connection);
+        return isset($this->_connection) && @mysql_ping($this->_connection);
     }
 
 
@@ -287,7 +287,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
      */
     public function beginDbTransaction()
     {
-        $this->_transactionStarted = true;
+        $this->_transactionStarted++;
         $this->_lastQuery = 'SET AUTOCOMMIT=0; BEGIN';
         @mysql_query('SET AUTOCOMMIT=0', $this->_connection) && @mysql_query('BEGIN', $this->_connection);
     }
@@ -297,9 +297,11 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
      */
     public function commitDbTransaction()
     {
-        $this->_lastQuery = 'COMMIT; SET AUTOCOMMIT=1';
-        @mysql_query('COMMIT', $this->_connection) && @mysql_query('SET AUTOCOMMIT=1', $this->_connection);
-        $this->_transactionStarted = false;
+        $this->_transactionStarted--;
+        if (!$this->_transactionStarted) {
+            $this->_lastQuery = 'COMMIT; SET AUTOCOMMIT=1';
+            @mysql_query('COMMIT', $this->_connection) && @mysql_query('SET AUTOCOMMIT=1', $this->_connection);
+        }
     }
 
     /**
@@ -314,7 +316,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
 
         $this->_lastQuery = 'ROLLBACK; SET AUTOCOMMIT=1';
         @mysql_query('ROLLBACK', $this->_connection) && @mysql_query('SET AUTOCOMMIT=1', $this->_connection);
-        $this->_transactionStarted = false;
+        $this->_transactionStarted = 0;
     }
 
 

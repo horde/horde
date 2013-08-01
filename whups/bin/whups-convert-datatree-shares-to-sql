@@ -5,8 +5,8 @@
  * Horde_Share driver to the SQL Horde_Share driver.
  */
 
-if (file_exists(dirname(__FILE__) . '/../../whups/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../whups/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()

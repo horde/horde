@@ -1,8 +1,9 @@
 <?php
 /**
- * A Horde_Injector:: based Ingo_Storage:: factory.
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
@@ -12,12 +13,7 @@
  */
 
 /**
- * A Horde_Injector:: based Ingo_Storage:: factory.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/apache.
+ * A Horde_Injector based Ingo_Storage factory.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
@@ -71,7 +67,7 @@ class Ingo_Factory_Storage extends Horde_Core_Factory_Base
             if (class_exists($class)) {
                 $this->_instances[$driver] = new $class($params);
             } else {
-                throw new Ingo_Exception(sprintf(_("Unable to load the storage driver \"%s.\""), $class));
+                throw new Ingo_Exception(sprintf(_("Unable to load the storage driver \"%s\"."), $class));
             }
         }
 

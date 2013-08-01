@@ -6,7 +6,7 @@
  */
 
 /** Horde_Text_Textile_TestCase */
-require_once dirname(__FILE__) . '/TestCase.php';
+require_once __DIR__ . '/TestCase.php';
 
 /**
  * These tests correspond to "5. Lists" from http://hobix.com/textile/.

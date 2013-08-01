@@ -3,7 +3,7 @@
  * The IMP_Search:: class contains all code related to mailbox searching
  * in IMP.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -149,14 +149,25 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         case self::CREATE_QUERY:
             $this->_search['query'][$ob->id] = $ob;
+            $ob->mbox_ob->list_ob->rebuild(true);
             break;
 
         case self::CREATE_VFOLDER:
             /* This will overwrite previous value, if it exists. */
             $this->_search['vfolders'][$ob->id] = $ob;
             $this->setVFolders($this->_search['vfolders']);
+            $ob->mbox_ob->expire(array(
+                IMP_Mailbox::CACHE_DISPLAY,
+                IMP_Mailbox::CACHE_LABEL
+            ));
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete(strval($ob));
             $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($ob);
             break;
+        }
+
+        /* Reset the sort direction for system queries. */
+        if ($this->isSystemQuery($ob)) {
+            $ob->mbox_ob->setSort(null, null, true);
         }
 
         $this->changed = true;
@@ -378,7 +389,24 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function editUrl($id)
     {
-        return IMP_Mailbox::get($this->createSearchId($id))->url('search.php')->add(array('edit_query' => 1));
+        global $registry;
+
+        $mbox = IMP_Mailbox::get($this->createSearchId($id));
+
+        switch ($registry->getView()) {
+        case $registry::VIEW_BASIC:
+            return $mbox->url(IMP_Basic_Search::url())->add(array(
+                'edit_query' => 1
+            ));
+
+        case $registry::VIEW_DYNAMIC:
+            return IMP_Dynamic_Mailbox::url()->setAnchor(
+                'search:' . Horde_Serialize::serialize(array(
+                    'edit_query' => 1,
+                    'mailbox' => $mbox->form_to
+                ), Horde_Serialize::JSON, 'UTF-8')
+            );
+        }
     }
 
     /**
@@ -451,7 +479,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     /**
      * Alter the current IMAP search query.
      *
-     * @param string $id               The search query id.
+     * @param string $offset           The search query id.
      * @param IMP_Search_Query $value  The query object.
      *
      * @throws InvalidArgumentException
@@ -486,7 +514,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     /**
      * Deletes an IMAP search query.
      *
-     * @param string $id  The search query id.
+     * @param string $offset  The search query id.
      */
     public function offsetUnset($offset)
     {

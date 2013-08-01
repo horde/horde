@@ -1,17 +1,28 @@
 <?php
 /**
- * Wicked AllPages class.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
  */
-class Wicked_Page_AllPages extends Wicked_Page {
 
+/**
+ * Displays a list of all pages.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
+ */
+class Wicked_Page_AllPages extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      */
@@ -37,31 +48,22 @@ class Wicked_Page_AllPages extends Wicked_Page {
      */
     public function displayContents($isBlock)
     {
-        $template = $GLOBALS['injector']->createInstance('Horde_Template');
+        global $injector, $page_output;
+
         $pages = array();
         foreach ($this->content() as $page) {
             $page = new Wicked_Page_StandardPage($page);
-            $pages[] = array('author' => $page->author(),
-                             'created' => $page->formatVersionCreated(),
-                             'name' => $page->pageName(),
-                             'context' => false,
-                             'url' => $page->pageUrl(),
-                             'version' => $page->version(),
-                             'class' => '');
+            $pages[] = $page->toView();
         }
-        $template->set('pages', $pages, true);
-        $template->set('hits', false, true);
 
-        Horde::addScriptFile('tables.js', 'horde', true);
+        $page_output->addScriptFile('tables.js', 'horde');
+
+        $view = $injector->createInstance('Horde_View');
 
         // Show search form and page header.
-        ob_start();
-        require WICKED_TEMPLATES . '/pagelist/header.inc';
-        echo $template->fetch(WICKED_TEMPLATES . '/pagelist/pagelist.html');
-        require WICKED_TEMPLATES . '/pagelist/footer.inc';
-        $contents = ob_get_contents();
-        ob_end_clean();
-        return $contents;
+        return $view->render('pagelist/header')
+            . $view->renderPartial('pagelist/page', array('collection' => $pages))
+            . $view->render('pagelist/footer');
     }
 
     public function pageName()

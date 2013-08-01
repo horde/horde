@@ -1,18 +1,38 @@
 <?php
 /**
- * Handle PROVISION requests
+ * Horde_ActiveSync_Request_Provision::
  *
- * Logic adapted from Z-Push, original copyright notices below.
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ *   Created   :   01.10.2007
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 /**
- * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * Hanlde Provision requests.
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 {
@@ -36,9 +56,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
     const STATUS_CLIENT_FAILED     = 3; // No policies applied at all.
     const STATUS_CLIENT_THIRDPARTY = 4; // Client provisioned by 3rd party?
 
-    const POLICYTYPE_XML           = 'MS-WAP-Provisioning-XML';
-    const POLICYTYPE_WBXML         = 'MS-EAS-Provisioning-WBXML';
-
     /**
      * Handle the Provision request. This is a 3-phase process. Phase 1 is
      * actually the enforcement, when the server rejects a request and forces
@@ -48,13 +65,16 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
-
         // Be optimistic
         $status = self::STATUS_SUCCESS;
         $policyStatus = self::STATUS_SUCCESS;
+
+        if ($error = $this->_activeSync->checkGlobalError()) {
+            $this->_globalError($error);
+            return true;
+        }
 
         // Start by assuming we are in stage 2
         $phase2 = true;
@@ -62,7 +82,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             return $this->_globalError(self::STATUS_PROTERROR);
         }
 
-        // Handle android remote wipe
+        // Handle remote wipe status response for Android devices.
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_REMOTEWIPE)) {
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
                 return $this->_globalError(self::STATUS_PROTERROR);
@@ -75,10 +95,17 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             if ($status == self::STATUS_CLIENT_SUCCESS) {
                 $this->_state->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
             }
-
-            // Need to send *something* in the policytype field even if wiping
-            $policytype = self::POLICYTYPE_XML;
+            $policytype = Horde_ActiveSync::POLICYTYPE_XML;
         } else {
+            if ($this->_device->version == Horde_ActiveSync::VERSION_FOURTEENONE) {
+                if ($deviceinfo = $this->_handleSettings()) {
+                    $deviceinfo['version'] = $this->_device->version;
+                    $this->_device->setDeviceProperties($deviceinfo);
+                }
+            } else {
+                $deviceinfo = false;
+            }
+
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICIES) ||
                 !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICY)) {
 
@@ -94,7 +121,10 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 }
             } else {
                 $policytype = $this->_decoder->getElementContent();
-                if ($policytype != self::POLICYTYPE_XML) {
+                if ($this->_device->version < Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_XML) {
+                    $policyStatus = self::STATUS_POLICYUNKNOWN;
+                }
+                if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_WBXML) {
                     $policyStatus = self::STATUS_POLICYUNKNOWN;
                 }
                 if (!$this->_decoder->getElementEndTag()) {//policytype
@@ -102,16 +132,10 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            // Check to be sure that we *need* to PROVISION
-            if ($this->_provisioning === false) {
-                $this->_sendNoProvisionNeededResponse($status);
-                return true;
-            }
-
             // POLICYKEY is only sent by client in phase 3
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYKEY)) {
                 $policykey = $this->_decoder->getElementContent();
-                $this->_logger->debug('[' . $this->_device->id .'] PHASE 3 policykey sent from PIM: ' . $policykey);
+                $this->_logger->info('[' . $this->_device->id .'] PHASE 3 policykey sent from PIM: ' . $policykey);
                 if (!$this->_decoder->getElementEndTag() ||
                     !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
 
@@ -141,7 +165,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
 
-            // Handle remote wipe for other devices
+            // Handle remote wipe status for other devices
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_REMOTEWIPE)) {
                 if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
                     return $this->_globalError(self::STATUS_PROTERROR);
@@ -159,6 +183,12 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 
         if (!$this->_decoder->getElementEndTag()) { //provision
             return $this->_globalError(self::STATUS_PROTERROR);
+        }
+
+        // Check to be sure that we *need* to PROVISION
+        if ($this->_provisioning === false) {
+            $this->_sendNoProvisionNeededResponse($status);
+            return true;
         }
 
         // Start handling request and sending output
@@ -183,12 +213,29 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             $this->_state->setPolicyKey($this->_device->id, $policykey);
         }
 
+        // If we are phase2 we need to check this here, before the status is
+        // sent. Prevents devices not supporting the required policies from
+        // being able to connect.
+        if ($phase2 && $status == self::STATUS_SUCCESS &&
+            $policyStatus == self::STATUS_SUCCESS &&
+            $this->_provisioning == Horde_ActiveSync::PROVISIONING_FORCE) {
+
+            $policyHandler = new Horde_ActiveSync_Policies(
+                $this->_encoder,
+                $this->_device->version,
+                $this->_driver->getCurrentPolicy($deviceinfo)
+            );
+
+            if (!$policyHandler->validatePolicyVersion()) {
+                $this->_handleVersionMismatch();
+                return true;
+            }
+        }
+
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
         $this->_encoder->content($status);
         $this->_encoder->endTag();
-
-        // Wipe data if status is pending or wiped
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICYTYPE);
@@ -201,29 +248,40 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->content($policykey);
         $this->_encoder->endTag();
 
-        // Send security policies - configure this/move to it's own method.
+        // Send security policies.
         if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_DATA);
-            if ($policytype == self::POLICYTYPE_XML) {
-                $this->_encoder->content($this->_driver->getCurrentPolicy(self::POLICYTYPE_XML));
+            if ($policytype == Horde_ActiveSync::POLICYTYPE_XML) {
+                $policyHandler->toXml();
             } else {
-                // TODO wbxml for 12.0
+                $policyHandler->toWbxml();
             }
             $this->_encoder->endTag(); //data
         }
+
         $this->_encoder->endTag();     //policy
         $this->_encoder->endTag();     //policies
+
+        // Remote wipe if requested.
         $rwstatus = $this->_state->getDeviceRWStatus($this->_device->id);
-        if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
+        if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING ||
+            $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
+
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_REMOTEWIPE, false, true);
             $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
         }
-        $this->_encoder->endTag();         //provision
+        $this->_encoder->endTag();     //provision
 
         return true;
     }
 
-    private function _sendNoProvisionNeededResponse($status)
+    /**
+     * Send a WBXML response to the output stream indicating that no
+     * provision requests are necessary.
+     *
+     * @param integer $status  The status code to send along with the response.
+     */
+    protected function _sendNoProvisionNeededResponse($status)
     {
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
@@ -233,14 +291,20 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
-        $this->_encoder->content(Horde_ActivSync::STATUS_NOTDEFINED);
+        $this->_encoder->content(self::STATUS_NOTDEFINED);
         $this->_encoder->endTag();
         $this->_encoder->endTag();
         $this->_encoder->endTag();
         $this->_encoder->endTag();
     }
 
-    private function _globalError($status)
+    /**
+     * Handle global provision request errors, and send the output to the
+     * output stream.
+     *
+     * @param integer $status  The status code to send.
+     */
+    protected function _globalError($status)
     {
         $this->_encoder->StartWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
@@ -250,6 +314,57 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
 
         return false;
+    }
+
+    /**
+     * Handle the EAS 14.1 SETTINGS_DEVICEINFORMATION parsing.
+     *
+     * @return boolean|array  An array of received device information or false
+     *                        on any protocol error.
+     */
+    protected function _handleSettings()
+    {
+        // EAS 14.1 REQUIRES SETTINGS_DEVICEINFORMATION in the PROVISION command.
+        if (!$this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_DEVICEINFORMATION)) {
+            return false;
+        }
+        if (!$this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_SET)) {
+            return false;
+        }
+        $di = array();
+        while (($field = ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_MODEL) ? Horde_ActiveSync_Request_Settings::SETTINGS_MODEL :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_IMEI) ? Horde_ActiveSync_Request_Settings::SETTINGS_IMEI :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_FRIENDLYNAME) ? Horde_ActiveSync_Request_Settings::SETTINGS_FRIENDLYNAME :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_OS) ? Horde_ActiveSync_Request_Settings::SETTINGS_OS :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_OSLANGUAGE) ? Horde_ActiveSync_Request_Settings::SETTINGS_OSLANGUAGE :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_PHONENUMBER) ? Horde_ActiveSync_Request_Settings::SETTINGS_PHONENUMBER :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT) ? Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR) ? Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_ENABLEOUTBOUNDSMS) ? Horde_ActiveSync_Request_Settings::SETTINGS_ENABLEOUTBOUNDSMS :
+               -1)))))))))) != -1) {
+
+            if (($di[$field] = $this->_decoder->getElementContent()) !== false) {
+                $this->_decoder->getElementEndTag(); // end $field
+            }
+        }
+        $this->_decoder->getElementEndTag();
+        $this->_decoder->getElementEndTag();
+
+        return $di;
+    }
+
+    /**
+     * Output status that indicates device does not support the required
+     * policies.
+     *
+     */
+    protected function _handleVersionMismatch()
+    {
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
+        $this->_encoder->content(Horde_ActiveSync_Status::DEVICE_NOT_FULLY_PROVISIONABLE);
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
     }
 
 }

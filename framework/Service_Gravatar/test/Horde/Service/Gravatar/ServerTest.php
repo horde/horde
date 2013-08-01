@@ -12,13 +12,11 @@
  * @link     http://pear.horde.org/index.php?package=Service_Gravatar
  */
 
-require_once dirname(__FILE__) . '/Autoload.php';
-
 /**
  * Horde_Service_Gravatar abstracts communication with Services supporting the
  * Gravatar API (http://www.gravatar.com/site/implement/).
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -29,21 +27,18 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Service_Gravatar
  */
-class Horde_Service_Gravatar_ServerTest
-extends PHPUnit_Framework_TestCase
+class Horde_Service_Gravatar_ServerTest extends Horde_Test_Case
 {
     private $_server;
 
     public function setUp()
     {
-        parent::setUp();
-        if (@include_once(dirname(__FILE__) . '/conf.php')) {
-            if (!empty($conf['service']['gravatar']['server'])) {
-                $this->_server = $conf['service']['gravatar']['server'];
-                return;
-            }
+        $config = self::getConfig('SERVICE_GRAVATAR_TEST_CONFIG');
+        if ($config && !empty($config['service']['gravatar']['server'])) {
+            $this->_server = $config['service']['gravatar']['server'];
+        } else {
+            $this->markTestSkipped('Configuration is missing and remote server tests are disabled.');
         }
-        $this->markTestSkipped('Configuration is missing and remote server tests are disabled.');
     }
 
     public function testGetProfile()
@@ -51,7 +46,7 @@ extends PHPUnit_Framework_TestCase
         $g = new Horde_Service_Gravatar($this->_server);
         $profile = $g->getProfile('wrobel@horde.org');
         $this->assertEquals(
-            'http://gravatar.com/gunnarwrobel',
+            'http://gravatar.com/abc1xyz2',
             $profile['entry'][0]['profileUrl']
         );
     }

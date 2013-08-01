@@ -3,7 +3,7 @@
  * Ansel_Gallery_Mode_Normal:: Class for encapsulating gallery methods that
  * depend on the current display mode of the gallery.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -50,7 +50,8 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
                         array('parent' => $this->_gallery->id,
                               'all_levels' => false,
                               'from' => $from,
-                              'count' => $to));
+                              'count' => $to,
+                              'sort_by' => 'name'));
             }
         }
 
@@ -158,9 +159,9 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
     public function moveImagesTo($images, $gallery)
     {
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-          throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
+          throw new Horde_Exception_PermissionDenied(("Access denied moving photos to this gallery."));
         } elseif (!$this->_gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(_("Access denied removing photos from this gallery."));
         }
 
         /* Sanitize image ids, and see if we're removing our key image. */

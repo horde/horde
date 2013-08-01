@@ -2,7 +2,7 @@
 /*
  * Jonah_View:: class wraps display or the various channel and story views.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE
@@ -33,15 +33,14 @@ abstract class Jonah_View_Base
     {
         extract($this->_params, EXTR_REFS);
         $notification->push(sprintf(_("Error fetching story: %s"), $message), 'horde.error');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $GLOBALS['page_output']->header();
         $notification->notify(array('listeners' => 'status'));
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
         exit;
     }
 
     /**
      * Render this view.
-     *
      */
     abstract public function run();
 

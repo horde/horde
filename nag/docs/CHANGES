@@ -1,13 +1,161 @@
---------
-v4.0-git
---------
+----------
+v4.1.2-git
+----------
 
+
+
+------
+v4.1.1
+------
+
+[jan] Display CalDAV URL of system tasklists (Bug #12342).
+[mjr] Only query Horde_History when it's required.
+[jan] Fix system tasklist listing via WebDAV.
+[rla] Add system tasklist support for Nag CalDAV access (Request #12342).
+[jan] Fix task description tooltip (Bug #12421).
+[mjr] Persist the tasklist and parent when creating a new task and using "Save
+      and New" (Bug #12400).
+[mjr] Fix tag browsing of shared tasklists (Bug #12405).
+[mjr] Fix importing VTODOs containing RELATED-TO fields (Bug #12355).
+[mjr] Add API methods for using history modification sequences.
+
+
+------
+v4.1.0
+------
+
+[jan] Don't include external tasks in listTasks() API results.
+
+
+-----------
+v4.1.0beta2
+-----------
+
+[jan] Fix incorrect dependencies.
+
+
+-----------
+v4.1.0beta1
+-----------
+
+[jan] Add CalDAV server support (Request #4267).
+[jan] Update design to closer match the Horde 5 UI.
+
+
+------
+v4.0.3
+------
+
+[jan] Fix recurring tasks in Kolab driver (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #12222).
+[mjr] Fix setting alarm time when syncing (Bug #12201,
+      <thomas.jarosch@intra2net.com>).
+[mjr] Fix issue causing due dates to be offset when syncing (Bug #12200,
+      <thomas.jarosch@intra2net.com>)
+[jan] Fix listing alarms of recurring tasks.
+[jan] Fix default task list in portal block (Bug #12133).
+[jan] Fix displaying of due dates of recurring events in some views.
+[jan] Update broken rows due to migration bug in PostgreSQL (Bug #12101).
+[mjr] Fix uncompleting tasks from task view in smartmobile view
+      (ctimoteo@sapo.pt, Bug #12098).
+[jan] Include parent tasks in cost object labels.
+[jan] Only return completed tasks up to a week old as cost objects.
+[mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
+v4.0.2
+------
+
+[mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
+[mjr] Fix displaying and editing tasks from search results (Bug #11847).
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[mjr] Fix incoming task sync with certain combinations of due date values.
+[mjr] Fix quick task addition without session cookies enabled (Bug #11875,
+      Thomas Jarosch <thomas.jarosch@intra2net.com>).
+[jan] Fix editing tasks from the merged list view in smartmobile mode (Bug
+      #11840).
+[jan] Use default Kolab folder for default taks list preference.
+[jan] Mark Kolab folder as default when changing default task list preference.
+
+
+------
+v4.0.1
+------
+
+[jan] Use Kolab modification and creation dates in the UI (Bug #11591).
+[gwr] Ignore empty dates (Bug #11736).
+[jan] Use encoded UIDs as IDs in Kolab driver.
+[mjr] Fix support for due/start dates for certain ActiveSync clients (Bug
+      #11693).
+[jan] Fix importing tasks from iCalendar (Bug #11681).
+[jan] Fix listing of recurring tasks via timeobjects API.
+
+
+------
+v4.0.0
+------
+
+[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+
+
+---------
+v4.0.0RC1
+---------
+
+[jan] Fix export links for tasklists (Bug #11576).
+[mjr] Fix various issues with importing CSV files.
+[mjr] Format datetime fields when exporting a task as a hash (Bug #11537).
+[jan] Fix retrieving tasks from Kolab backend by UID (Bug #11532).
+[jan] Fix toggling tasklists (Bug #11511).
+[jan] Fix listing tasks from Kolab backends.
+[jan] Fix sending alarm e-mail messages.
+
+
+-----------
+v4.0.0beta2
+-----------
+
+[jan] Synchronize tags with Kolab categories.
+[mjr] Fix deleting tasks from the task form.
+[mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Always mark the initial share as default tasklist.
+[jan] Move complete task list management into the sidebar.
+[jan] Allow to edit task list color in traditional view.
+[mjr] Tweak display of smartlist links in list view.
+[mjr] Fix fatal recursion error when searching with smartlists were present.
+
+
+-----------
+v4.0.0beta1
+-----------
+
+[mjr] Add support for smart tasklists.
+[mjr] Migrate categories to tags.
+[jan] Fix fatal error if the task form doesn't validate.
+[jan] Add recurring tasks (Request #2150).
 
 
 ----------
-v3.0.8-git
+v3.0.9-git
 ----------
 
+[mms] Fix getTasklist() API call.
+[jan] Fix changing sort direction.
+[jan] Fix sorting by owner if displaying external task sources.
+[jan] Update Turkish translation (İstanbul Technical University).
+
+
+------
+v3.0.8
+------
+
+[jan] Update Swedish translation (Per Olof Ljungmark <peo@bsdlabs.com>).
+[jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 
 
 ------

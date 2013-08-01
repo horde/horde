@@ -2,7 +2,7 @@
 /**
  * Horde_Share_Sql provides the SQL backend for the Horde share system.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -370,7 +370,7 @@ class Horde_Share_Sql extends Horde_Share_Base
                               $params);
         $key = md5(serialize(array($userid, $params)));
         if (isset($this->_listcache[$key])) {
-            return is_array($this->_listcache[$key]) ? $this->_listcache[$key] : array();
+            return $this->_listcache[$key];
         }
         $shares = array();
         if (is_null($params['sort_by'])) {
@@ -446,7 +446,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             $sharelist = $this->runCallback('list', array($userid, $sharelist, $params));
         }
 
-        $this->_listcache[$key] = empty($sharelist) ? false : $sharelist;
+        $this->_listcache[$key] = $sharelist;
 
         return $sharelist;
     }
@@ -689,6 +689,25 @@ class Horde_Share_Sql extends Horde_Share_Base
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Share_Exception($e->getMessage());
             }
+        }
+    }
+
+    /**
+     * Renames a share in the shares system.
+     *
+     * @param Horde_Share_Object $share  The share to rename.
+     * @param string $name               The share's new name.
+     *
+     * @throws Horde_Share_Exception
+     */
+    protected function _renameShare(Horde_Share_Object $share, $name)
+    {
+        try {
+            $this->_db->update(
+                'UPDATE ' . $this->_table . ' SET share_name = ? WHERE share_id = ?',
+                array($name, $share->getId()));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e);
         }
     }
 

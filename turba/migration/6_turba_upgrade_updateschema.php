@@ -6,12 +6,12 @@
  * @package  Turba
  */
 
-require_once dirname(__FILE__) . '/../lib/Turba.php';
+require_once __DIR__ . '/../lib/Turba.php';
 
 /**
  * Add hierarchcal related columns to the legacy sql share driver
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -69,10 +69,10 @@ class TurbaUpgradeUpdateSchema extends Horde_Db_Migration_Base
         $this->removeColumn('turba_objects', 'object_department');
         $this->removeColumn('turba_objects', 'object_spouse');
         $this->removeColumn('turba_objects', 'object_homefax');
-        $this->removeColumn('turba_objects', 'object_anniversary');
         $this->removeColumn('turba_objects', 'object_nickname');
         $this->removeColumn('turba_objects', 'object_assistantphone');
         $this->removeColumn('turba_objects', 'object_imaddress');
+        $this->removeColumn('turba_objects', 'object_imaddress2');
         $this->removeColumn('turba_objects', 'object_imaddress3');
     }
 

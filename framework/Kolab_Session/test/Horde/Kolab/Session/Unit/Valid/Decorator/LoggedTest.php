@@ -12,14 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
-
-/**
  * Test the log decorator for validators.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -50,7 +45,7 @@ extends Horde_Kolab_Session_TestCase
         $this->logger->expects($this->exactly(2))
             ->method('__call')
             ->with(
-                'info',
+                'debug',
                 $this->logicalOr(
                     array('Invalid Kolab session for current user "auth@example.org" and requested user "nobody@example.org".'),
                     array('Validating Kolab session for current user "auth@example.org", requested user "nobody@example.org", and stored user "somebody@example.org".')

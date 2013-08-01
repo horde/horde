@@ -2,48 +2,156 @@
 /**
  * Endpoint for Facebook integration.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
+function build_post($post, $uid, $instance)
+{
+    global $facebook, $prefs;
+
+    $postView = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
+    $postView->actorImgUrl = $facebook->users->getThumbnail($post->from->id);
+    $postView->actorProfileLink = Horde::externalUrl(
+        $facebook->users->getProfileLink($post->from->id), true);
+    $postView->actorName = $post->from->name;
+    $postView->message = empty($post->message) ? '' : $post->message;
+    $postView->likes = $post->likes->count;
+    $postView->postId = $post->id;
+    $postView->privacy = $post->privacy;
+    $postView->postInfo = sprintf(
+        _("Posted %s"),
+        Horde_Date_Utils::relativeDateTime(
+            $post->created_time,
+            $prefs->getValue('date_format'),
+            $prefs->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P"))
+        . ' ' . sprintf(_("Comments: %d"), $post->comments->count);
+
+    $postView->type = $post->type;
+    if (!empty($post->picture)) {
+        $postView->attachment = new stdClass();
+        $postView->attachment->image = $post->picture;
+        if (!empty($post->link)) {
+            $postView->attachment->link = Horde::externalUrl($post->link, true);
+        }
+        if (!empty($post->name)) {
+            $postView->attachment->name = $post->name;
+        }
+        if (!empty($post->caption)) {
+            $postView->attachment->caption = $post->caption;
+        }
+        if (!empty($post->icon)) {
+            $postView->icon = $post->icon;
+        }
+        if (!empty($post->description)) {
+            $postView->attachment->description = $post->description;
+        }
+    }
+    if (!empty($post->place)) {
+        $postView->place = array(
+            'name' => $post->place->name,
+            'link' => Horde::externalUrl($facebook->getFacebookUrl() . '/' . $post->place->id, true),
+            'location' => $post->place->location
+        );
+    }
+    if (!empty($post->with_tags)) {
+        $postView->with = array();
+        foreach ($post->with_tags->data as $with) {
+            $postView->with[] = array(
+                'name' => $with->name,
+                'link' => Horde::externalUrl($facebook->users->getProfileLink($with->id), true)
+            );
+        }
+    }
+
+    // Actions
+    $like = '';
+    foreach ($post->actions as $availableAction) {
+        if ($availableAction->name == 'Like') {
+            $like = '<a href="#" onclick="Horde[\'' . $instance . '_facebook\'].addLike(\'' . $post->id . '\');return false;">' . _("Like") . '</a>';
+        }
+    }
+    $likes = '';
+    if ($post->likes->count) {
+        foreach ($post->likes->data as $likeData) {
+            if ($likeData->id == $uid &&
+                $post->likes->count > 1) {
+                $likes = sprintf(ngettext("You and %d other person likes this", "You and %d other people like this", $post->likes->count - 1), $post->likes->count - 1);
+                break;
+            } elseif ($likeData->id == $uid) {
+                $likes = _("You like this");
+                break;
+            }
+        }
+        if (empty($likes)) {
+            $likes = sprintf(ngettext("%d person likes this", "%d persons like this", $post->likes->count), $post->likes->count) . (!empty($like) ? ' ' . $like : '');
+        } else {
+            $likes = $likes . !empty($like) ? ' ' . $like : '';
+        }
+    } else {
+        $likes = $like;
+    }
+    $postView->likesInfo = $likes;
+
+    return $postView->render('facebook_story');
+}
+
+// Get the facebook client.
 try {
-    $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+    $facebook = $injector->getInstance('Horde_Service_Facebook');
 } catch (Horde_Exception $e) {
     Horde::url('index.php', false, array('app' => 'horde'))->redirect();
 }
 
-$return_url = Horde::getServiceLink('prefs', 'horde')
+// Url to return to after processing.
+$return_url = $registry->getServiceLink('prefs', 'horde')
       ->add(array('group' => 'facebook'));
 
-/* See why we are here. A $code indicates the user has *just* authenticated the
- * application and we now need to obtain the auth_token.*/
-if ($code = Horde_Util::getFormData('code')) {
+// See why we are here. A $code indicates the user has *just* authenticated the
+// application and we now need to obtain the auth_token.
+$vars = $injector->getInstance('Horde_Variables');
+if (isset($vars->code)) {
+    $token = $injector->getInstance('Horde_Token');
+    if (!$token->isValid($vars->state, '', -1, false)) {
+        $notification->push(_("Unable to validate the request token. Please try your request again."));
+        $return_url->redirect();
+    }
     try {
-        $sessionKey = $facebook->auth->getSessionKey($code, Horde::url('services/facebook', true));
+        $sessionKey = $facebook->auth->getSessionKey(
+            $vars->code, Horde::url('services/facebook', true));
         if ($sessionKey) {
-            // Remember in user prefs
-            $sid =  $sessionKey;
+            // Store in user prefs
+            $sid = $sessionKey;
             $uid = $facebook->auth->getLoggedInUser();
             $prefs->setValue('facebook', serialize(array('uid' => (string)$uid, 'sid' => $sid)));
-            $notification->push(_("Succesfully connected your Facebook account or updated permissions."), 'horde.success');
+            $notification->push(
+                _("Succesfully connected your Facebook account or updated permissions."),
+                'horde.success');
         } else {
-            $notification->push(_("There was an error obtaining your Facebook session. Please try again later."), 'horde.error');
+            $notification->push(
+                _("There was an error obtaining your Facebook session. Please try again later."),
+                'horde.error');
         }
     } catch (Horde_Service_Facebook_Exception $e) {
-        $notification->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.error');
+        $notification->push(
+            _("Temporarily unable to connect with Facebook, Please try again."),
+            'horde.error');
     }
     $return_url->redirect();
 }
 
-if ($error = Horde_Util::getFormData('error')) {
-    if (Horde_Util::getFormData('error_reason') == 'user_denied') {
+if (isset($vars->error)) {
+    if ($vars->error_reason == 'user_denied') {
         $notification->push(_("You have denied the requested permissions."), 'horde.warning');
     } else {
         $notification->push(_("There was an error with the requested permissions"), 'horde.error');
@@ -57,7 +165,11 @@ if ($action = Horde_Util::getPost('actionID')) {
         try {
             $count = Horde_Util::getPost('count');
             $filter = Horde_Util::getPost('filter');
-            $stream = $facebook->streams->get('', array(), Horde_Util::getPost('oldest'), Horde_Util::getPost('newest'), $count, $filter);
+            $options = array(
+                'since' => Horde_Util::getPost('oldest'),
+                'until' => Horde_Util::getPost('newest')
+            );
+            $stream = $facebook->streams->getStream($filter, $options);
         } catch (Horde_Service_Facebook_Exception $e) {
             $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
             $html .= sprintf(_("You can also check your Facebook settings in your %s."), $return_url->link() . _("preferences") . '</a>');
@@ -65,7 +177,7 @@ if ($action = Horde_Util::getPost('actionID')) {
             return $html;
         }
 
-        /* Do we want notifications too? */
+        // Notifications
         $n_html = '';
         if (Horde_Util::getPost('notifications')) {
             try {
@@ -83,48 +195,20 @@ if ($action = Horde_Util::getPost('actionID')) {
             }
         }
 
-        /* Start parsing the posts */
-        $posts = $stream['posts'];
+        // Parse the posts.
+        $posts = $stream->data;
         $profiles = array();
-        $newest = $posts[0]['created_time'];
-        $oldest = $posts[count($posts) -1]['created_time'];
+        $newest = new Horde_Date($posts[0]->created_time);
+        $oldest = new Horde_Date($posts[count($posts) -1]->created_time);
+        $newest = $newest->timestamp();
+        $oldest = $oldest->timestamp();
         $instance = Horde_Util::getPost('instance');
 
-        /* Sure would be nice if fb returned these keyed properly... */
-        foreach ($stream['profiles'] as $profile) {
-            $profiles[(string)$profile['id']] = $profile;
-        }
-
-        /* Build Horde_View for each story */
+        // Build the view for each story.
         $html = '';
+        $uid = $facebook->auth->getLoggedInUser();
         foreach ($posts as $post) {
-                $postView = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
-                $postView->actorImgUrl = $profiles[(string)$post['actor_id']]['pic_square'];
-                $postView->actorProfileLink =  Horde::externalUrl($profiles[(string)$post['actor_id']]['url'], true);
-                $postView->actorName = $profiles[(string)$post['actor_id']]['name'];
-                $postView->message = empty($post['message']) ? '' : $post['message'];
-                $postView->attachment = empty($post['attachment']) ? null : $post['attachment'];
-                $postView->likes = $post['likes'];
-                $postView->postId = $post['post_id'];
-                $postView->postInfo = sprintf(_("Posted %s"), Horde_Date_Utils::relativeDateTime($post['created_time'], $GLOBALS['prefs']->getValue('date_format'), $GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P")) . ' ' . sprintf(_("Comments: %d"), $post['comments']['count']);
-
-                /* Build the 'Likes' string. */
-                if (empty($post['likes']['user_likes']) && !empty($post['likes']['can_like'])) {
-                    $like = '<a href="#" onclick="Horde[\'' . $instance . '_facebook\'].addLike(\'' . $post['post_id'] . '\');return false;">' . _("Like") . '</a>';
-                } else {
-                    $like = '';
-                }
-                if (!empty($post['likes']['user_likes']) && !empty($post['likes']['count'])) {
-                    $likes = sprintf(ngettext("You and %d other person likes this", "You and %d other people like this", $post['likes']['count'] - 1), $post['likes']['count'] - 1);
-                } elseif (!empty($post['likes']['user_likes'])) {
-                    $likes = _("You like this");
-                } elseif (!empty($post['likes']['count'])) {
-                    $likes = sprintf(ngettext("%d person likes this", "%d persons like this", $post['likes']['count']), $post['likes']['count']) . (!empty($like) ? ' ' . $like : '');
-                } else {
-                    $likes = $like;
-                }
-                $postView->likesInfo = $likes;
-                $html .= $postView->render('facebook_story');
+            $html .= build_post($post, $uid, $instance);
         }
 
         /* Build response structure */
@@ -136,17 +220,18 @@ if ($action = Horde_Util::getPost('actionID')) {
         );
         header('Content-Type: application/json');
         echo Horde_Serialize::serialize($result, Horde_Serialize::JSON);
-        exit;
+        break;
 
     case 'updateStatus':
         // This is an AJAX action, so just echo the result and return.
         $status = Horde_Util::getPost('statusText');
-        if ($facebook->users->setStatus($status)) {
-            echo htmlspecialchars($status);
+        if ($results = $facebook->streams->post('me', $status)) {
+            $uid = $facebook->auth->getLoggedInUser();
+            echo build_post($facebook->streams->getPost($results), $uid, Horde_Util::getPost('instance'));
         } else {
             echo _("Status unable to be set.");
         }
-        exit;
+        break;
 
     case 'addLike':
         $id = Horde_Util::getPost('post_id');
@@ -158,7 +243,7 @@ if ($action = Horde_Util::getPost('actionID')) {
                 // Already set the like by the time we are here, so just indicate
                 // that.
                 echo _("You like this");
-                exit;
+                break;
             }
             $post = current($post);
             $likes = $post['likes'];
@@ -171,7 +256,7 @@ if ($action = Horde_Util::getPost('actionID')) {
         } else {
             echo _("Unable to set like.");
         }
-        exit;
+        break;
     }
 }
 

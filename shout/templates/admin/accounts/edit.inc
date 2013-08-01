@@ -2,9 +2,6 @@
 $Form->renderActive($RENDERER, $vars, Horde::url('admin/accounts.php'), 'post');
 
 if ($vars->get('action') == 'edit') {
-    $deleteUrl = Horde::url('admin/accounts.php');
-    $params = array ('action' => 'delete',
-                     'account' => $account);
-    $deleteUrl = Horde_Util::addParameter($deleteUrl, $params);
+    $deleteUrl = Horde::url('admin/accounts.php')->add(array('action' => 'delete', 'account' => $account));
     echo '<a href="' . $deleteUrl . '">Delete Account</a>';
 }

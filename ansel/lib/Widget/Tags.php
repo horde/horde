@@ -1,20 +1,55 @@
 <?php
+ /**
+  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
+  *
+  * See the enclosed file COPYING for license information (GPL). If you
+  * did not receive this file, see http://www.horde.org/licenses/gpl.
+  *
+  * @author Michael J Rubinsky <mrubinsk@horde.org>
+  * @package Ansel
+  */
 /**
  * Ansel_Widget_Tags:: class to display a tags widget in the image and gallery
  * views.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Ansel
- */
+*/
 class Ansel_Widget_Tags extends Ansel_Widget_Base
 {
+    /**
+     * The type of resource the widget is connected to.
+     * i.e., image or gallery
+     *
+     * @var string
+     */
     protected $_resourceType;
 
+    /**
+     *
+     * @var array $params  The parameters:
+     *   - view:  The view we are attaching to (image, gallery).
+     */
     public function __construct($params)
     {
         parent::__construct($params);
         $this->_resourceType = $params['view'];
         $this->_title = _("Tags");
+
+        // Handle any incoming tag changes from non-script browsers.
+        $tags = Horde_Util::getFormData('addtag');
+        if (!is_null($tags) && strlen($tags)) {
+            $tagger = $GLOBALS['injector']->getInstance('Ansel_Tagger');
+            $this->_view->resource->setTags($tags, $tagger->split($tags));
+        } elseif (Horde_Util::getFormData('actionID') == 'deleteTags') {
+            $tag = Horde_Util::getFormData('tag');
+            $this->_view->resource->removeTag($tag);
+        }
     }
 
     /**
@@ -24,40 +59,32 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
      */
     public function html()
     {
-        if ($this->_resourceType == 'image') {
-            $image_id = $this->_view->resource->id;
-        } else {
-            $image_id = null;
-        }
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
+        $view->title = _("Tags");
+        $view->background = $this->_style->background;
+        $view->action_url = Horde::url('gallery.php');
+        $image_id = ($this->_resourceType == 'image')
+            ? $this->_view->resource->id
+            : null;
 
-        /* Build the tag widget */
-        $html = $this->_htmlBegin();
         try {
-            $html .= '<div id="tags">' . $this->_getTagHTML() . '</div>';
+            $view->tag_html = $this->_getTagHTML();
         } catch (Ansel_Exception $e) {
-            return $html . sprintf(_("There was an error fetching tags: %s"), $e->getMessage()) . $this->_htmlEnd();
+            $view->error_text = sprintf(_("There was an error fetching tags: %s"), $e->getMessage());
         }
+
         if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            Horde::startBuffer();
-            /* Attach the Ajax action */
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'TagActions'), array(
-                'bindTo' => array('add' => 'tagbutton'),
-                'gallery' => $this->_view->gallery->id,
-                'image' => $image_id
+            $view->have_edit = true;
+            $GLOBALS['page_output']->addScriptFile('widgets/tagactions.js');
+            $GLOBALS['page_output']->addInlineJsVars(array(
+               'AnselTagActions.gallery' => $this->_view->gallery->id,
+               'AnselTagActions.image' => $image_id,
+               'AnselTagActions.remove_image' => strval(Horde_Themes::img('delete-small.png'))
             ));
-            $html .= Horde::endBuffer();
-
-            $actionUrl = Horde::url('image.php')->add(
-                array('image' => $this->_view->resource->id,
-                      'gallery' => $this->_view->gallery->id));
-
-            $html .= '<form name="tagform" action="' . $actionUrl . '" onsubmit="return !addTag();" method="post">';
-            $html .= '<input id="addtag" name="addtag" type="text" size="15" /> <input name="tagbutton" id="tagbutton" class="button" value="' . _("Add") . '" type="submit" />';
-            $html .= '</form>';
         }
-        $html .= $this->_htmlEnd();
 
-        return $html;
+        return $view->render('tags');
     }
 
 
@@ -70,25 +97,37 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
     {
         global $registry;
 
-        /* Clear the tag cache? */
+        // Clear the tag cache?
         if (Horde_Util::getFormData('havesearch', 0) == 0) {
-            Ansel_Search_Tag::clearSearch();
+            $tag_browser = new Ansel_TagBrowser($GLOBALS['injector']->getInstance('Ansel_Tagger'));
+            $tag_browser->clearSearch();
         }
 
         $tagger = $GLOBALS['injector']->getInstance('Ansel_Tagger');
-        $hasEdit = $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(),
-                                                        Horde_Perms::EDIT);
+        $hasEdit = $this->_view->gallery->hasPermission(
+            $GLOBALS['registry']->getAuth(),
+            Horde_Perms::EDIT);
         $owner = $this->_view->gallery->get('owner');
         $tags = $tagger->getTags((int)$this->_view->resource->id, $this->_resourceType);
+
         if (count($tags)) {
             $tags = $tagger->getTagInfo(array_keys($tags), 500, $this->_resourceType);
         }
-
+        if ($this->_resourceType != 'image') {
+            $removeLink = Horde::url('gallery.php')->add(array(
+                'actionID' => 'removeTags',
+                'gallery' => $this->_view->gallery->id));
+        } else {
+            $removeLink = Horde::url('image.php')->add(array(
+                'actionID' => 'removeTags',
+                'gallery' => $this->_view->gallery->id,
+                'image' => $this->_view->resource->id));
+        }
         $links = Ansel::getTagLinks($tags, 'add', $owner);
-        $html = '<ul>';
+        $html = '<ul class="horde-tags">';
         foreach ($tags as $taginfo) {
             $tag_id = $taginfo['tag_id'];
-            $html .= '<li>' . $links[$tag_id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos", $taginfo['count']), $taginfo['count']))) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="#" onclick="removeTag(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
+            $html .= '<li>' . $links[$tag_id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos", $taginfo['count']), $taginfo['count']))) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="' . strval($removeLink) . '" onclick="return AnselTagActions.remove(' . $tag_id . ');"> ' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
         }
         $html .= '</ul>';
 

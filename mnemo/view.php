@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @package Mnemo
  */
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
 /* Check if a passphrase has been sent. */
@@ -43,7 +43,7 @@ try {
     Horde::url('list.php', true)->redirect();
 }
 if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-    $notification->push(sprintf(_("You do not have permission to view the notepad %s."), $share->get('name')), 'horde.error');
+    $notification->push(_("You do not have permission to view this notepad."), 'horde.error');
     Horde::url('list.php', true)->redirect();
 }
 
@@ -55,34 +55,6 @@ if (!$memo || !isset($memo['memo_id'])) {
 
 /* Get the note's history. */
 $userId = $GLOBALS['registry']->getAuth();
-$createdby = '';
-$modifiedby = '';
-if (!empty($memo['uid'])) {
-    $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
-    if ($log) {
-    foreach ($log as $entry) {
-            switch ($entry['action']) {
-            case 'add':
-                $created = $entry['ts'];
-                if ($userId != $entry['who']) {
-                    $createdby = sprintf(_("by %s"), Mnemo::getUserName($entry['who']));
-                } else {
-                    $createdby = _("by me");
-                }
-                break;
-
-            case 'modify':
-                $modified = $entry['ts'];
-                if ($userId != $entry['who']) {
-                    $modifiedby = sprintf(_("by %s"), Mnemo::getUserName($entry['who']));
-                } else {
-                    $modifiedby = _("by me");
-                }
-                break;
-            }
-        }
-    }
-}
 
 /* Encryption tests. */
 $show_passphrase = false;
@@ -112,12 +84,10 @@ if ($memo['body'] instanceof Mnemo_Exception) {
 }
 
 /* Set the page title to the current note's name, if it exists. */
-$title = $memo ? $memo['desc'] : _("Note Details");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-
-Horde::addScriptFile('stripe.js', 'horde', true);
-echo Horde::menu();
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $memo ? $memo['desc'] : _("Note Details")
+));
 $notification->notify();
-
 require MNEMO_TEMPLATES . '/view/memo.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

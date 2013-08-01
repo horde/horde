@@ -7,7 +7,7 @@
     <para>
     La libreta de direcciones ofrece un método y lugar adecuados para almacenar la información de contactos para su cómoda recuperación y uso. En función de cómo haya configurado el sistema el administrador, puede disponer de libretas de direcciones privadas así como acceder a servicios de directorio de red públicos. También admite listas de distribución de forma que pueda crear sus propias "listas de correo".
     </para>
-</entry>
+  </entry>
 
 <entry id="menu-add" md5="3c1f92eb1a82839404d11d9b0a20b3ce" state="uptodate">
     <title>Menú: Añadir</title>
@@ -15,7 +15,7 @@
     <para>
     Añade un usuario a la libreta de direcciones. Sólo se puede añadir usuarios a las libretas de direcciones si dispone de privilegios de escritura. Si están activadas libretas de direcciones compartidas o públicas, a menudos son de sólo lectura y no podrá añadir contactos en ellas.
     </para>
-</entry>
+  </entry>
 
 <entry id="menu-search" md5="8daf81ab28602d772358a174571f9ad2" state="uptodate">
     <title>Menú: Buscar</title>
@@ -26,7 +26,7 @@
     <para>
     Para una búsqueda más compleja, puede utilizar la "<ref module="turba" entry="menu-advanced-search">Búsqueda avanzada</ref>" que le permitirá buscar en otros campos.
     </para>
-</entry>
+  </entry>
 
 <entry id="menu-advanced-search" md5="6be703ffeba614f6ada151749fa44ab5" state="uptodate">
     <title>Menú: Búsqueda avanzada</title>
@@ -34,21 +34,18 @@
     <para>
     Le permite buscar en una libreta de direcciones para localizar información. Este método de búsqueda le permite buscar en varios campos. Los campos disponibles para la búsqueda dependen de la libreta de direcciones en la que esté buscando.
     </para>
-</entry>
+  </entry>
 
 <entry id="menu-import" md5="3c6c40f2a6213e9fc1f9a77827bfb5d4" state="uptodate">
     <title>Menú: Importar/Exportar</title>
     <heading>Importar/Exportar</heading>
-
     <para>
     Este menú permite la importación o exportación a o desde su libreta de direcciones personal. Soporta tanto el formato CSV (Valores separados por comas) de Outlook como el vCard así como algunos otros formatos habituales.
     </para>
-
     <heading>Importar</heading>
     <para>
     Para importar una libreta de direcciones, necesita tener en la máquina local (en la que se ejecuta el navegador web) los datos de la libreta de direcciones que quiera importar. Para ello primero tendrá que exportar la información de la libreta de direcciones de su cliente de correo actual.
     </para>
-
     <para>
     Si utiliza Outlook Express:
     </para>
@@ -70,18 +67,16 @@
     <para>
     6) Pulse 'Cerrar' en la 'Herramienta de exportación de direcciones' y cierre Outlook Express.
     </para>
-
     <tip>
     Si el archivo de direcciones exportado no está en su escritorio y está utilizando un sistema operativo Windows, pulse el menú Inicio &gt; Buscar &gt; Archivos o Carpetas y busque en su unidad de disco duro principal el nombre de archivo que utilizó en el paso 3. Anote la localización del archivo.
     </tip>
-
     <para>
     Para importar una libreta de direcciones, abra la libreta de direcciones a la que desee importar la información. Pulse el icono "Importar/Exportar". Seleccione en el listado desplegable el tipo de archivo de datos de información de direcciones que desee importar. Pulse el botón "Examinar" para localizar el archivo de datos de direcciones en su ordenador. Seleccione el archivo y pulse el botón "Siguiente". Siga las instrucciones y la información del archivo se importará a su libreta de direcciones.
     </para>
     <tip>
     Algunas entradas complejas o cuyos campos no coincidan con los de su libreta de direcciones pueden no importarse correctamente. Es conveniente que compruebe los datos importados tras una operación de importación.
     </tip>
-</entry>
+  </entry>
 
 <entry id="searching-search_results" md5="ffed8d72fa3b710df8e902c2493b254f" state="uptodate">
     <title>Búsqueda: Resultados de la búsqueda</title>
@@ -95,10 +90,9 @@
     <para>
     En función de cómo haya configurado el sistema su administrador, los resultados de las búsquedas podrán ser acumulativos. Cada búsqueda añadirá los resultados nuevos a los existentes. Ésto es útil al elaborar listas. Para eliminar los resultados de búsquedas acumuladas y empezar una nueva, pulse el vínculo "Limpiar búsqueda".
     </para>
-
     <tip>
     Al ver un listado de entradas, puede ordenarlas por cada uno de los campos mostrados pulsando en la cabecera de columna adecuada. Para conmutar el sentido de la clasificación entre ascendente y descendente, pulse el icono de flecha de la cabecera de la columna.
     </tip>
-</entry>
+  </entry>
 
 </help>

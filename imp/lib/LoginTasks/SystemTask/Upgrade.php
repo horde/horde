@@ -1,16 +1,24 @@
 <?php
 /**
- * Login system task for automated upgrade tasks.
- *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Login system task for automated upgrade tasks.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask_Upgrade
 {
@@ -22,7 +30,8 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
      */
     protected $_versions = array(
         '5.0',
-        '6.0'
+        '6.0',
+        '6.1'
     );
 
     /**
@@ -49,9 +58,16 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
 
         case '6.0':
             $this->_upgradeComposeCursor();
+            $this->_upgradeInnocentPrefs();
             $this->_upgradeMailboxPrefs();
+            $this->_upgradeSaveAttachments();
             $this->_upgradeStationeryToTemplates();
-            $this->_upgradeVirtualFolders51();
+            $this->_upgradeVirtualFolders6();
+            break;
+
+        case '6.1':
+            $this->_upgradeComposePrefs61();
+            $this->_upgradeRequestMdn();
             break;
         }
     }
@@ -361,7 +377,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $prefs->setValue('trash_folder', strval($vtrash));
         }
 
-        foreach ($vfolders as $id => $vfolder) {
+        foreach ($vfolders as $vfolder) {
             $ui = $vfolder['uiinfo'];
 
             $or_match = ($ui['match'] == 'or');
@@ -476,7 +492,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     }
 
     /**
-     * Upgrades the 'compose_cursor' preference (IMP 5.1).
+     * Upgrades the 'compose_cursor' preference (IMP 6).
      */
     protected function _upgradeComposeCursor()
     {
@@ -488,7 +504,19 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     }
 
     /**
-     * As of 5.1, special mailboxes are stored in UTF-8, not UTF7-IMAP.
+     * Upgrades the 'move_ham_after_report' preference (IMP 6).
+     */
+    protected function _upgradeInnocentPrefs()
+    {
+        global $prefs;
+
+        if (!$prefs->isDefault('move_ham_after_report')) {
+            $prefs->setValue('move_innocent_after_report', $prefs->getValue('move_ham_after_report'));
+        }
+    }
+
+    /**
+     * As of IMP 6, special mailboxes are stored in UTF-8, not UTF7-IMAP.
      */
     protected function _upgradeMailboxPrefs()
     {
@@ -502,16 +530,18 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
 
         foreach ($special_mboxes as $val) {
             if (!$prefs->isDefault($val)) {
-                $old_pref = IMP_Mailbox::getPref($val);
-                $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($old_pref), 'UTF7-IMAP', 'UTF-8'));
-                $prefs->setValue($val, $mbox->pref_to);
+                $old_pref = strval(IMP_Mailbox::getPref($val));
+                if (!Horde_Mime::is8bit($old_pref, 'UTF-8')) {
+                    $mbox = IMP_Mailbox::get(Horde_String::convertCharset($old_pref, 'UTF7-IMAP', 'UTF-8'));
+                    $prefs->setValue($val, $old_pref->$mbox->pref_to);
+                }
             }
         }
 
         $imp_identity = $injector->getInstance('IMP_Identity');
 
         foreach ($imp_identity->getAll('sent_mail_folder') as $key => $val) {
-            if (!is_null($val)) {
+            if (!is_null($val) && !Horde_Mime::is8bit($val, 'UTF-8')) {
                 $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($val), 'UTF7-IMAP', 'UTF-8'));
                 $imp_identity->setValue('sent_mail_folder', $mbox, $key);
             }
@@ -519,7 +549,25 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     }
 
     /**
-     * For 5.1, upgrade stationery preference -> templates mailbox.
+     * For IMP 6, upgrade deprecated save_attachments preferences.
+     */
+    protected function _upgradeSaveAttachments()
+    {
+        global $prefs;
+
+        switch ($prefs->getValue('save_attachments')) {
+        case 'prompt_no':
+            $prefs->setValue('save_attachments', 'never');
+            break;
+
+        case 'prompt_yes':
+            $prefs->setValue('save_attachments', 'always');
+            break;
+        }
+    }
+
+    /**
+     * For IMP 6, upgrade stationery preference -> templates mailbox.
      */
     protected function _upgradeStationeryToTemplates()
     {
@@ -543,7 +591,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     /**
      * Upgrade IMP 5.0.x virtual folders.
      */
-    protected function _upgradeVirtualFolders51()
+    protected function _upgradeVirtualFolders6()
     {
         $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
@@ -588,6 +636,29 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                 $val->replace($tmp);
                 $imp_search[$key] = $val;
             }
+        }
+    }
+
+    /**
+     * IMP 6.1: Upgrade compose preferences.
+     */
+    protected function _upgradeComposePrefs61()
+    {
+        global $prefs;
+
+        $prefs->remove('compose_bcc');
+        $prefs->remove('compose_cc');
+    }
+
+    /**
+     * IMP 6.1: Upgrade from removed 'ask' option for 'request_mdn' pref.
+     */
+    protected function _upgradeRequestMdn()
+    {
+        global $prefs;
+
+        if ($prefs->getValue('request_mdn') == 'ask') {
+            $prefs->remove('request_mdn');
         }
     }
 

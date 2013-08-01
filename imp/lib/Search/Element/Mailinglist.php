@@ -5,7 +5,7 @@
  * Uses the List-Id header defined by RFC 2919 to identify mailing list
  * messages.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -25,7 +25,7 @@ class IMP_Search_Element_Mailinglist extends IMP_Search_Element
     public function __construct($not = false)
     {
         /* Data element: (integer) Do a NOT search? */
-        $this->_data = intval($not);
+        $this->_data = intval(!empty($not));
     }
 
     /**

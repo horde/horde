@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -49,7 +49,7 @@ function showPassphrase($memo)
     return false;
 }
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
 /* Redirect to the notepad view if no action has been requested. */
@@ -76,13 +76,24 @@ case 'add_memo':
         );
         Horde::url('list.php', true)->redirect();
     }
+
     /* Set up the note attributes. */
     if (empty($memolist_id)) {
         try {
             $memolist_id = Mnemo::getDefaultNotepad();
         } catch (Mnemo_Exception $e) {
-            $notification->push($memolist_id, 'horde.error');
+            $notification->push($e);
         }
+    }
+    try {
+        $share = $mnemo_shares->getShare($memolist_id);
+    } catch (Horde_Share_Exception $e) {
+        $notification->push($e);
+        Horde::url('list.php', true)->redirect();
+    }
+    if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
+        $notification->push(_("Access denied addings notes to this notepad."), 'horde.error');
+        Horde::url('list.php', true)->redirect();
     }
     $memo_id = null;
     $memo_body = '';
@@ -97,8 +108,9 @@ case 'modify_memo':
     $passphrase = Horde_Util::getFormData('memo_passphrase');
 
     /* Get the current note. */
-    $memo = Mnemo::getMemo($memolist_id, $memo_id, $passphrase);
-    if (!$memo || !isset($memo['memo_id'])) {
+    try {
+        $memo = Mnemo::getMemo($memolist_id, $memo_id, $passphrase);
+    } catch (Horde_Exception_NotFound $e) {
         $notification->push(_("Note not found."), 'horde.error');
         Horde::url('list.php', true)->redirect();
     }
@@ -127,11 +139,12 @@ case 'save_memo':
     try {
         $share = $mnemo_shares->getShare($notepad_target);
     } catch (Horde_Share_Exception $e) {
-        throw new Mnemo_Exception($e);
+        $notification->push($e);
+        Horde::url('list.php', true)->redirect();
     }
 
     if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-        $notification->push(sprintf(_("Access denied saving note to %s."), $share->get('name')), 'horde.error');
+        $notification->push(_("Access denied saving note to this notepad."), 'horde.error');
     } elseif ($memo_passphrase != $memo_passphrase2) {
         $notification->push(_("The passwords don't match."), 'horde.error');
         if (empty($memo_id)) {
@@ -177,7 +190,7 @@ case 'save_memo':
                         throw new Mnemo_Exception($e);
                     }
                     if ($share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-                        $result = $storage->move($memo_id, $notepad_target);
+                        $storage->move($memo_id, $notepad_target);
                         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad_target);
                     } else {
                         $notification->push(_("Access denied moving the note."), 'horde.error');
@@ -206,9 +219,8 @@ case 'save_memo':
             $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad_target);
             $memo_desc = $storage->getMemoDescription($memo_body);
             try {
-                $result = $memo_id = $storage->add($memo_desc, $memo_body,
-                                                   $memo_category, null,
-                                                   $memo_passphrase);
+                $memo_id = $storage->add($memo_desc, $memo_body,
+                                         $memo_category, $memo_passphrase);
             } catch (Mnemo_Exception $e) {
                 $haveError = $e->getMessage();
             }
@@ -257,8 +269,9 @@ default:
 }
 
 $notepads = Mnemo::listNotepads(false, Horde_Perms::EDIT);
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify();
 require MNEMO_TEMPLATES . '/memo/memo.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

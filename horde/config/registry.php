@@ -36,7 +36,7 @@
  *             hidden: Enable application, but hide.
  *             inactive: Disable application
  *             notoolbar: TODO
- *             sidebar: Show in sidebar only.
+ *             topbar: Show in topbar only.
  *         DEFAULT: 'active'
  * webroot: (string) The base URI path for the module.
  *          DEFAULT: Applications live one level below the base horde
@@ -66,7 +66,7 @@
 // If your applications live in a different base directory, defining these
 // variables will change the default directory without the need to change
 // every application's 'fileroot'/'webroot' settings.
-// $app_fileroot = dirname(__FILE__) . '../';
+// $app_fileroot = __DIR__ . '../';
 // $app_webroot = $this->_detectWebroot();
 
 $this->applications = array(
@@ -110,12 +110,21 @@ $this->applications = array(
     'imp-menu' => array(
         'app' => 'imp',
         'menu_parent' => 'imp',
-        'status' => 'sidebar',
+        'status' => 'topbar',
     ),
 
-    'organizing' => array(
-        'name' => _("Organizing"),
-        'status' => 'heading',
+    'kronolith' => array(
+        'name' => _("Calendar"),
+        'provides' => 'calendar',
+    ),
+
+    'kronolith-menu' => array(
+        'status' => 'topbar',
+        'app' => 'kronolith',
+        'topbar_params' => array(
+            'id' => 'menu'
+        ),
+        'menu_parent' => 'kronolith',
     ),
 
     'turba' => array(
@@ -131,58 +140,23 @@ $this->applications = array(
             'clients/deleteClient',
             'clients/searchClients'
         ),
-        'menu_parent' => 'organizing'
     ),
 
     'turba-menu' => array(
         'app' => 'turba',
         'menu_parent' => 'turba',
-        'status' => 'sidebar',
-    ),
-
-    'kronolith' => array(
-        'name' => _("Calendar"),
-        'provides' => 'calendar',
-        'menu_parent' => 'organizing'
-    ),
-
-    'kronolith-alarms' => array(
-        'status' => 'sidebar',
-        'app' => 'kronolith',
-        'sidebar_params' => array(
-            'id' => 'alarms'
-        ),
-        'menu_parent' => 'kronolith',
-    ),
-
-    'kronolith-menu' => array(
-        'status' => 'sidebar',
-        'app' => 'kronolith',
-        'sidebar_params' => array(
-            'id' => 'menu'
-        ),
-        'menu_parent' => 'kronolith',
+        'status' => 'topbar',
     ),
 
     'nag' => array(
         'name' => _("Tasks"),
         'provides' => 'tasks',
-        'menu_parent' => 'organizing'
-    ),
-
-    'nag-alarms' => array(
-        'status' => 'sidebar',
-        'app' => 'nag',
-        'sidebar_params' => array(
-            'id' => 'alarms'
-        ),
-        'menu_parent' => 'nag',
     ),
 
     'nag-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'nag',
-        'sidebar_params' => array(
+        'topbar_params' => array(
             'id' => 'menu'
         ),
         'menu_parent' => 'nag',
@@ -191,30 +165,47 @@ $this->applications = array(
     'mnemo' => array(
         'name' => _("Notes"),
         'provides' => 'notes',
-        'menu_parent' => 'organizing'
     ),
 
     'mnemo-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'mnemo',
         'menu_parent' => 'mnemo',
+    ),
+
+    'others' => array(
+        'name' => _("Others"),
+        'status' => 'heading',
     ),
 
     'trean' => array(
         'name' => _("Bookmarks"),
         'provides' => 'bookmarks',
-        'menu_parent' => 'organizing'
+        'menu_parent' => 'others'
     ),
 
     'trean-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'trean',
         'menu_parent' => 'trean',
+    ),
+
+    'ansel' => array(
+        'name' => _("Photos"),
+        'provides' => 'images',
+        'menu_parent' => 'others'
+    ),
+
+    'wicked' => array(
+        'name' => _("Wiki"),
+        'provides' => 'wiki',
+        'menu_parent' => 'others'
     ),
 
     'devel' => array(
         'name' => _("Development"),
         'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'chora' => array(
@@ -223,7 +214,7 @@ $this->applications = array(
     ),
 
     'chora-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'chora',
         'menu_parent' => 'chora',
     ),
@@ -235,7 +226,7 @@ $this->applications = array(
     ),
 
     'whups-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'whups',
         'menu_parent' => 'whups',
     ),
@@ -248,6 +239,7 @@ $this->applications = array(
     'info' => array(
         'name' => _("Information"),
         'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'klutz' => array(
@@ -262,7 +254,7 @@ $this->applications = array(
     ),
 
     'jonah-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'jonah',
         'menu_parent' => 'jonah',
     ),
@@ -270,6 +262,7 @@ $this->applications = array(
     'office' => array(
         'name' => _("Office"),
         'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'hermes' => array(
@@ -279,21 +272,29 @@ $this->applications = array(
     ),
 
     'hermes-stopwatch' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'hermes',
-        'sidebar_params' => array(
+        'topbar_params' => array(
             'id' => 'stopwatch',
         ),
         'menu_parent' => 'hermes',
     ),
 
     'hermes-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'hermes',
-        'sidebar_params' => array(
+        'topbar_params' => array(
             'id' => 'menu'
         ),
         'menu_parent' => 'hermes',
+    ),
+
+    'sesha' => array(
+        'name' => _("Inventory"),
+        /* Uncomment this line if you want Sesha to provide queue and
+         * version names instead of Whups: */
+        // 'provides' => array('tickets/listQueues', 'tickets/getQueueDetails', 'tickets/listVersions', 'tickets/getVersionDetails'),
+        'menu_parent' => 'office',
     ),
 
     'kolab' => array(
@@ -304,16 +305,17 @@ $this->applications = array(
     'myaccount' => array(
         'name' => _("My Account"),
         'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'gollem' => array(
         'name' => _("File Manager"),
-        'menu_parent' => 'myaccount',
+        'menu_parent' => 'others',
         'provides' => 'files',
     ),
 
     'gollem-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'gollem',
         'menu_parent' => 'gollem',
     ),
@@ -326,6 +328,7 @@ $this->applications = array(
     'website' => array(
         'name' => _("Web Site"),
         'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'agora' => array(
@@ -339,18 +342,6 @@ $this->applications = array(
         'menu_parent' => 'website'
     ),
 
-    'ansel' => array(
-        'name' => _("Photos"),
-        'provides' => 'images',
-        'menu_parent' => 'website'
-    ),
-
-    'wicked' => array(
-        'name' => _("Wiki"),
-        'provides' => 'wiki',
-        'menu_parent' => 'website'
-    ),
-
     'vilma' => array(
         'name' => _("Mail Admin"),
         'menu_parent' => 'administration'
@@ -358,14 +349,6 @@ $this->applications = array(
 
     'content' => array(
         'status' => 'hidden'
-    ),
-
-    'sesha' => array(
-        'name' => _("Inventory"),
-            // Uncomment this line if you want Sesha to provide queue and version
-            // names instead of Whups:
-            // 'provides' => array('tickets/listQueues', 'tickets/getQueueDetails', 'tickets/listVersions', 'tickets/getVersionDetails'),
-        'menu_parent' => 'office',
     ),
 
     'timeobjects' => array(

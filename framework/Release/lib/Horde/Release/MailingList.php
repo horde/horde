@@ -16,7 +16,7 @@
 /**
  * Announce releases on the mailing lists.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -192,8 +192,8 @@ class Horde_Release_MailingList
      */
     private function _isLatest()
     {
-        if (preg_match('/([.\d]+)\-(.*)/', $this->_version, $matches)
-            && !preg_match('/^pl\d/', $matches[2])) {
+        if (preg_match('/([.\d]+)([^.\d].*)/', $this->_version, $matches) &&
+            !preg_match('/^pl\d/', $matches[2])) {
             return false;
         }
         return true;

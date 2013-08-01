@@ -1,17 +1,12 @@
 <?php
 /**
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/bsd
  */
-
-/**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @category   Horde

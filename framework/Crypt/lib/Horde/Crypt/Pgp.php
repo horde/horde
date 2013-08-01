@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Crypt
+ */
+
+/**
  * Horde_Crypt_Pgp:: provides a framework for Horde applications to interact
  * with the GNU Privacy Guard program ("GnuPG").  GnuPG implements the OpenPGP
  * standard (RFC 2440).
@@ -9,11 +21,7 @@
  * This class has been developed with, and is only guaranteed to work with,
  * Version 1.21 or above of GnuPG.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
+ * @todo     Use Horde_Http_Client for keyserver communication.
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -69,7 +77,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     );
 
     /* The default public PGP keyserver to use. */
-    const KEYSERVER_PUBLIC = 'pgp.mit.edu';
+    const KEYSERVER_PUBLIC = 'pool.sks-keyservers.net';
 
     /* The number of times the keyserver refuses connection before an error is
      * returned. */
@@ -166,13 +174,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Generates a personal Public/Private keypair combination.
      *
-     * @param string $realname    The name to use for the key.
-     * @param string $email       The email to use for the key.
-     * @param string $passphrase  The passphrase to use for the key.
-     * @param string $comment     The comment to use for the key.
-     * @param integer $keylength  The keylength to use for the key.
-     * @param integer $expire     The expiration date (UNIX timestamp). No
-     *                            expiration if empty (since 1.1.0).
+     * @param string $realname     The name to use for the key.
+     * @param string $email        The email to use for the key.
+     * @param string $passphrase   The passphrase to use for the key.
+     * @param string $comment      The comment to use for the key.
+     * @param integer $keylength   The keylength to use for the key.
+     * @param integer $expire      The expiration date (UNIX timestamp). No
+     *                             expiration if empty.
+     * @param string $key_type     Key type (since 2.2.0).
+     * @param string $subkey_type  Subkey type (since 2.2.0).
      *
      * @return array  An array consisting of:
      * <pre>
@@ -184,7 +194,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @throws Horde_Crypt_Exception
      */
     public function generateKey($realname, $email, $passphrase, $comment = '',
-                                $keylength = 1024, $expire = null)
+                                $keylength = 1024, $expire = null,
+                                $key_type = 'RSA', $subkey_type = 'RSA')
     {
         /* Create temp files to hold the generated keys. */
         $pub_file = $this->_createTempFile('horde-pgp');
@@ -199,14 +210,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $input = array(
             '%pubring ' . $pub_file,
             '%secring ' . $secret_file,
-            'Key-Type: DSA',
-            'Key-Length: 1024',
-            'Subkey-Type: ELG-E',
+            'Key-Type: ' . $key_type,
+            'Key-Length: ' . $keylength,
+            'Subkey-Type: ' . $subkey_type,
             'Subkey-Length: ' . $keylength,
             'Name-Real: ' . $realname,
             'Name-Email: ' . $email,
             'Expire-Date: ' . $expire,
-            'Passphrase: ' . $passphrase
+            'Passphrase: ' . $passphrase,
+            'Preferences: AES256 AES192 AES CAST5 3DES SHA256 SHA512 SHA384 SHA224 SHA1 ZLIB BZIP2 ZIP Uncompressed'
         );
         if (!empty($comment)) {
             $input[] = 'Name-Comment: ' . $comment;
@@ -223,8 +235,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $result = $this->_callGpg($cmdline, 'w', $input, true, true);
 
         /* Get the keys from the temp files. */
-        $public_key = file($pub_file);
-        $secret_key = file($secret_file);
+        $public_key = file_get_contents($pub_file);
+        $secret_key = file_get_contents($secret_file);
 
         /* If either key is empty, something went wrong. */
         if (empty($public_key) || empty($secret_key)) {
@@ -257,21 +269,21 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *   )
      *
      * [keyid] => Key ID of the PGP data (if available)
-     *            16-bit hex value (as of Horde 3.2)
+     *            16-bit hex value
      *
      * [signature] => Array (
      *     [id{n}/'_SIGNATURE'] => Array (
      *         [name]        => Full Name
      *         [comment]     => Comment
      *         [email]       => E-mail Address
-     *         [keyid]       => 16-bit hex value (as of Horde 3.2)
+     *         [keyid]       => 16-bit hex value
      *         [created]     => Signature creation - UNIX timestamp
      *         [expires]     => Signature expiration - UNIX timestamp
      *         [micalg]      => The hash used to create the signature
      *         [sig_{hex}]   => Array [details of a sig verifying the ID] (
      *             [created]     => Signature creation - UNIX timestamp
      *             [expires]     => Signature expiration - UNIX timestamp
-     *             [keyid]       => 16-bit hex value (as of Horde 3.2)
+     *             [keyid]       => 16-bit hex value
      *             [micalg]      => The hash used to create the signature
      *         )
      *     )
@@ -569,20 +581,10 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     public function pgpPacketSignatureByUidIndex($pgpdata, $uid_idx)
     {
         $data = $this->pgpPacketInformation($pgpdata);
-        $return_array = array();
 
-        /* Search for the UID index. */
-        if (!isset($data['signature']) ||
-            !isset($data['signature'][$uid_idx])) {
-            return $return_array;
-        }
-
-        /* Store the signature information now. */
-        foreach ($data['signature'][$uid_idx] as $key => $value) {
-            $return_array[$key] = $value;
-        }
-
-        return $this->_pgpPacketSignature($data, $return_array);
+        return isset($data['signature'][$uid_idx])
+            ? $this->_pgpPacketSignature($data, $data['signature'][$uid_idx])
+            : array();
     }
 
     /**
@@ -834,7 +836,9 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             $pubkey = $output;
         } elseif (strpos($output, 'pub:') !== false) {
             $output = explode("\n", $output);
-            $keyids = array();
+            $keyids = $keyuids = array();
+            $curid = null;
+
             foreach ($output as $line) {
                 if (substr($line, 0, 4) == 'pub:') {
                     $line = explode(':', $line);
@@ -843,13 +847,32 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                         (!empty($line[5]) && $line[5] <= time())) {
                         continue;
                     }
-                    $keyids[$line[4]] = $line[1];
+                    $curid = $line[4];
+                    $keyids[$curid] = $line[1];
+                } elseif (!is_null($curid) && substr($line, 0, 4) == 'uid:') {
+                    preg_match("/<([^>]+)>/", $line, $matches);
+                    $keyuids[$curid][] = $matches[1];
                 }
             }
+
+            /* Remove keys without a matching UID. */
+            foreach ($keyuids as $id => $uids) {
+                $match = false;
+                foreach ($uids as $uid) {
+                    if ($uid == $address) {
+                        $match = true;
+                        break;
+                    }
+                }
+                if (!$match) {
+                    unset($keyids[$id]);
+                }
+            }
+
             /* Sort by timestamp to use the newest key. */
             if (count($keyids)) {
                 ksort($keyids);
-                $pubkey = $this->getPublicKeyserver(array_pop($keyids));
+                $pubkey = $this->getPublicKeyserver(array_pop($keyids), $server, $timeout);
             }
         }
 
@@ -1030,7 +1053,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     {
         $cmdline = array(
             '--decrypt',
-            '--batch'
+            '--batch',
+            '--passphrase ""'
         );
         $result = $this->_callGpg($cmdline, 'w', $text, true, true, true);
         return strpos($result->stderr, 'gpg: encrypted with 1 passphrase') !== false;
@@ -1633,14 +1657,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     public function generateRevocation($key, $email, $passphrase)
     {
-        $keyring = $this->_putInKeyring($key, 'private');
+        $keyring1 = $this->_putInKeyring($key, 'public');
+        $keyring2 = $this->_putInKeyring($key, 'private');
 
         /* Prepare the canned answers. */
         $input = array(
             'y', // Really generate a revocation certificate
             '0', // Refuse to specify a reason
             '',  // Empty comment
-            'y', // Confirm empty comment
+            'y'  // Confirm empty comment
         );
         if (!empty($passphrase)) {
             $input[] = $passphrase;
@@ -1648,7 +1673,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* Run through gpg binary. */
         $cmdline = array(
-            $keyring,
+            $keyring1,
+            $keyring2,
             '--command-fd 0',
             '--gen-revoke ' . $email,
         );
@@ -1660,6 +1686,33 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         }
 
         return $results->output;
+    }
+
+    /**
+     * Generates a public key from a private key.
+     *
+     * @param string $data  Armor text of private key.
+     *
+     * @return string  Armor text of public key, or null if it could not be
+     *                 generated.
+     */
+    public function getPublicKeyFromPrivateKey($data)
+    {
+        $this->_putInKeyring(array($data), 'private');
+        $fingerprints = $this->getFingerprintsFromKey($data);
+        reset($fingerprints);
+
+        $cmdline = array(
+            '--armor',
+            '--export',
+            key($fingerprints)
+        );
+
+        $result = $this->_callGpg($cmdline, 'r', array(), true, true);
+
+        return empty($result->output)
+            ? null
+            : $result->output;
     }
 
 }

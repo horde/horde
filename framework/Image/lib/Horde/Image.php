@@ -4,7 +4,7 @@
  * of a color as well as a factory method responsible for creating a concrete
  * Horde_Image driver.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -142,7 +142,7 @@ class Horde_Image
      */
     static public function getRGB($colorname)
     {
-        require_once dirname(__FILE__) . '/Image/rgb.php';
+        require_once __DIR__ . '/Image/rgb.php';
         return isset($GLOBALS['horde_image_rgb_colors'][$colorname]) ?
             $GLOBALS['horde_image_rgb_colors'][$colorname] :
             array(0, 0, 0);
@@ -157,7 +157,7 @@ class Horde_Image
      */
     static public function getHexColor($colorname)
     {
-        require_once dirname(__FILE__) . '/Image/rgb.php';
+        require_once __DIR__ . '/Image/rgb.php';
         if (isset($GLOBALS['horde_image_rgb_colors'][$colorname])) {
             list($r, $g, $b) = $GLOBALS['horde_image_rgb_colors'][$colorname];
             return '#' . str_pad(dechex(min($r, 255)), 2, '0', STR_PAD_LEFT) . str_pad(dechex(min($g, 255)), 2, '0', STR_PAD_LEFT) . str_pad(dechex(min($b, 255)), 2, '0', STR_PAD_LEFT);

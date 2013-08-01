@@ -1,10 +1,6 @@
 <?php
 /**
- * Sendmail interface.
- *
- * LICENSE:
- *
- * Copyright (c) 2010 Chuck Hagenbuch
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,19 +29,20 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Horde
- * @package   Mail
- * @author    Chuck Hagenbuch <chuck@horde.org>
- * @author    Michael Slusarz <slusarz@horde.org>
- * @copyright 2010 Chuck Hagenbuch
- * @copyright 2010 Michael Slusarz
+ * @copyright 2010-2013 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 
 /**
  * Sendmail interface.
  *
- * @category Horde
- * @package  Mail
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
 {
@@ -88,27 +85,6 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
     }
 
     /**
-     * Send a message.
-     *
-     * @param mixed $recipients  Either a comma-seperated list of recipients
-     *                           (RFC822 compliant), or an array of
-     *                           recipients, each RFC822 valid. This may
-     *                           contain recipients not specified in the
-     *                           headers, for Bcc:, resending messages, etc.
-     * @param array $headers     The headers to send with the mail, in an
-     *                           associative array, where the array key is the
-     *                           header name (ie, 'Subject'), and the array
-     *                           value is the header value (ie, 'test'). The
-     *                           header produced from those values would be
-     *                           'Subject: test'.
-     *                           If the '_raw' key exists, the value of this
-     *                           key will be used as the exact text for
-     *                           sending the message.
-     * @param mixed $body        The full text of the message body, including
-     *                           any Mime parts, etc. Either a string or a
-     *                           stream resource.
-     *
-     * @throws Horde_Mail_Exception
      */
     public function send($recipients, array $headers, $body)
     {
@@ -116,25 +92,7 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
 
         $headers = $this->_sanitizeHeaders($headers);
         list($from, $text_headers) = $this->prepareHeaders($headers);
-
-        /* Since few MTAs are going to allow this header to be forged
-         * unless it's in the MAIL FROM: exchange, we'll use Return-Path
-         * instead of From: if it's set. */
-        foreach (array_keys($headers) as $hdr) {
-            if (strcasecmp($hdr, 'Return-Path') === 0) {
-                $from = $headers[$hdr];
-                break;
-            }
-        }
-
-        if (!strlen($from)) {
-            throw new Horde_Mail_Exception('No From address given.');
-        } elseif ((strpos($from, ' ') !== false) ||
-                  (strpos($from, ';') !== false) ||
-                  (strpos($from, '&') !== false) ||
-                  (strpos($from, '`') !== false)) {
-            throw new Horde_Mail_Exception('From address specified with dangerous characters.');
-        }
+        $from = $this->_getFrom($from, $headers);
 
         $mail = @popen($this->_sendmailPath . (empty($this->_sendmailArgs) ? '' : ' ' . $this->_sendmailArgs) . ' -f ' . escapeshellarg($from) . ' -- ' . $recipients, 'w');
         if (!$mail) {
@@ -237,4 +195,5 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
 
         throw new Horde_Mail_Exception('sendmail: ' . $msg . ' (' . $result . ')', $result);
     }
+
 }

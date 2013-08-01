@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Tnef class allows MS-TNEF attachments to be
  * displayed.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -80,7 +80,7 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
         $mixed->setType('multipart/mixed');
 
         reset($tnefData);
-        while (list($key, $data) = each($tnefData)) {
+        while (list(,$data) = each($tnefData)) {
             $temp_part = new Horde_Mime_Part();
             $temp_part->setName($data['name']);
             $temp_part->setDescription($data['name']);

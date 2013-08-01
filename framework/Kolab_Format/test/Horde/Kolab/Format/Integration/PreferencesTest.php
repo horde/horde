@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the preferences XML format.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -52,7 +47,7 @@ extends Horde_Kolab_Format_TestCase
         $preferences = $this->_getHprefs();
 
         $xml = file_get_contents(
-            dirname(__FILE__) . '/../fixtures/preferences_read_old.xml'
+            __DIR__ . '/../fixtures/preferences_read_old.xml'
         );
         $object = array(
             'uid' => 1,
@@ -61,7 +56,7 @@ extends Horde_Kolab_Format_TestCase
         );
         $xml = $preferences->save($object, array('previous' => $xml));
         $expect = file_get_contents(
-            dirname(__FILE__) . '/../fixtures/preferences_write_old.xml'
+            __DIR__ . '/../fixtures/preferences_write_old.xml'
         );
         $this->assertEquals(
             $this->removeLastModification($expect),
@@ -77,7 +72,7 @@ extends Horde_Kolab_Format_TestCase
             'uid' => 1,
             'pref' => array('test'),
             'categories' => 'Test',
-            'creation-date' => 1
+            'creation-date' => new DateTime('@1')
         );
         $xml = $preferences->save($object);
         $this->assertEquals(
@@ -102,7 +97,7 @@ extends Horde_Kolab_Format_TestCase
         $preferences = $this->_getHprefs();
 
         $xml = file_get_contents(
-            dirname(__FILE__) . '/../fixtures/preferences_read_old.xml'
+            __DIR__ . '/../fixtures/preferences_read_old.xml'
         );
         return $preferences->load($xml);
     }

@@ -1,11 +1,12 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
@@ -16,17 +17,75 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @group      horde_db
  * @category   Horde
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Adapter_Pdo_MysqlTest extends Horde_Test_Case
 {
+    protected static $columnTest;
+
+    protected static $tableTest;
+
+    protected static $skip = true;
+
+    protected static $reason = 'The PDO_MySQL adapter is not available';
+
+    public static function setUpBeforeClass()
+    {
+        if (extension_loaded('pdo') &&
+            in_array('mysql', PDO::getAvailableDrivers())) {
+            self::$skip = false;
+            list($conn,) = self::getConnection();
+            if (self::$skip) {
+                return;
+            }
+            $conn->disconnect();
+        }
+        require_once __DIR__ . '/../Mysql/ColumnDefinition.php';
+        require_once __DIR__ . '/../Mysql/TableDefinition.php';
+        self::$columnTest = new Horde_Db_Adapter_Mysql_ColumnDefinition();
+        self::$tableTest = new Horde_Db_Adapter_Mysql_TableDefinition();
+    }
+
+    public static function getConnection($overrides = array())
+    {
+        $config = Horde_Test_Case::getConfig('DB_ADAPTER_PDO_MYSQL_TEST_CONFIG',
+                                             null,
+                                             array('host' => 'localhost',
+                                                   'username' => '',
+                                                   'password' => '',
+                                                   'dbname' => 'test'));
+        if (isset($config['db']['adapter']['pdo']['mysql']['test'])) {
+            $config = $config['db']['adapter']['pdo']['mysql']['test'];
+        }
+        if (!is_array($config)) {
+            self::$skip = true;
+            self::$reason = 'No configuration for pdo_mysql test';
+            return;
+        }
+        $config = array_merge($config, $overrides);
+
+        $conn = new Horde_Db_Adapter_Pdo_Mysql($config);
+
+        $cache = new Horde_Cache(new Horde_Cache_Storage_Mock());
+        $conn->setCache($cache);
+
+        return array($conn, $cache);
+    }
+
     protected function setUp()
     {
-        list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
+        if (self::$skip) {
+            $this->markTestSkipped(self::$reason);
+        }
+
+        list($this->_conn, $this->_cache) = self::getConnection();
+        self::$columnTest->conn = $this->_conn;
+        self::$tableTest->conn = $this->_conn;
 
         // clear out detritus from any previous test runs.
         $this->_dropTestTables();
@@ -51,7 +110,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         // read sql file for statements
         $statements = array();
         $current_stmt = '';
-        $fp = fopen(dirname(__FILE__) . '/../../fixtures/unit_tests.sql', 'r');
+        $fp = fopen(__DIR__ . '/../../fixtures/unit_tests.sql', 'r');
         while ($line = fgets($fp, 8192)) {
             $line = rtrim(preg_replace('/^(.*)--.*$/s', '\1', $line));
             if (!$line) {
@@ -755,6 +814,10 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
 
         $sql = "SELECT modified_at FROM sports WHERE id = 1";
         $this->assertEquals("2007-01-01", $this->_conn->selectValue($sql));
+
+        $this->_conn->addColumn('sports', 'with_default', 'integer', array('default' => 1));
+        $sql = "SELECT with_default FROM sports WHERE id = 1";
+        $this->assertEquals(1, $this->_conn->selectValue($sql));
     }
 
     public function testRemoveColumn()
@@ -864,7 +927,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->_conn->changeColumn('text_to_binary', 'data', 'binary');
 
         $afterChange = $this->_getColumn('text_to_binary', 'data');
-        $this->assertEquals('blob', $afterChange->getSqlType());
+        $this->assertEquals('longblob', $afterChange->getSqlType());
         $this->assertEquals(
             "foo\0bar",
             $this->_conn->selectValue('SELECT data FROM text_to_binary'));
@@ -1118,7 +1181,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
     public function testTypeToSqlTypeBinary()
     {
         $result = $this->_conn->typeToSql('binary');
-        $this->assertEquals('blob', $result);
+        $this->assertEquals('longblob', $result);
     }
 
     public function testTypeToSqlTypeFloat()
@@ -1359,12 +1422,12 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
 
     public function testInsertAndReadInCp1257()
     {
-        list($conn,) = Horde_Db_AllTests::$connFactory->getConnection(array('charset' => 'cp1257'));
+        list($conn,) = self::getConnection(array('charset' => 'cp1257'));
         $table = $conn->createTable('charset_cp1257');
             $table->column('text', 'string');
         $table->end();
 
-        $input = file_get_contents(dirname(__FILE__) . '/../../fixtures/charsets/cp1257.txt');
+        $input = file_get_contents(__DIR__ . '/../../fixtures/charsets/cp1257.txt');
         $conn->insert("INSERT INTO charset_cp1257 (text) VALUES (?)", array($input));
         $output = $conn->selectValue('SELECT text FROM charset_cp1257');
 
@@ -1373,12 +1436,12 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
 
     public function testInsertAndReadInUtf8()
     {
-        list($conn,) = Horde_Db_AllTests::$connFactory->getConnection(array('charset' => 'utf8'));
+        list($conn,) = self::getConnection(array('charset' => 'utf8'));
         $table = $conn->createTable('charset_utf8');
             $table->column('text', 'string');
         $table->end();
 
-        $input = file_get_contents(dirname(__FILE__) . '/../../fixtures/charsets/utf8.txt');
+        $input = file_get_contents(__DIR__ . '/../../fixtures/charsets/utf8.txt');
         $conn->insert("INSERT INTO charset_utf8 (text) VALUES (?)", array($input));
         $output = $conn->selectValue('SELECT text FROM charset_utf8');
 
@@ -1394,24 +1457,24 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
     {
         // remove any current cache.
         $this->_cache->set('tables/indexes/cache_table', '');
-        $this->assertEquals('', $this->_cache->get('tables/indexes/cache_table'));
+        $this->assertEquals('', $this->_cache->get('tables/indexes/cache_table', 0));
 
         $this->_createTestTable('cache_table');
         $idxs = $this->_conn->indexes('cache_table');
 
-        $this->assertNotEquals('', $this->_cache->get('tables/indexes/cache_table'));
+        $this->assertNotEquals('', $this->_cache->get('tables/indexes/cache_table', 0));
     }
 
     public function testCachedTableColumns()
     {
         // remove any current cache.
         $this->_cache->set('tables/columns/cache_table', '');
-        $this->assertEquals('', $this->_cache->get('tables/columns/cache_table'));
+        $this->assertEquals('', $this->_cache->get('tables/columns/cache_table', 0));
 
         $this->_createTestTable('cache_table');
         $cols = $this->_conn->columns('cache_table');
 
-        $this->assertNotEquals('', $this->_cache->get('tables/columns/cache_table'));
+        $this->assertNotEquals('', $this->_cache->get('tables/columns/cache_table', 0));
     }
 
 
@@ -1513,5 +1576,70 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
             sort($columns);
             if ($columns == $indexes) return $index;
         }
+    }
+
+    public function testColumnConstruct()
+    {
+        self::$columnTest->testConstruct();
+    }
+
+    public function testColumnToSql()
+    {
+        self::$columnTest->testToSql();
+    }
+
+    public function testColumnToSqlLimit()
+    {
+        self::$columnTest->testToSqlLimit();
+    }
+
+    public function testColumnToSqlPrecisionScale()
+    {
+        self::$columnTest->testToSqlPrecisionScale();
+    }
+
+    public function testColumnToSqlUnsigned()
+    {
+        self::$columnTest->testToSqlUnsigned();
+    }
+
+    public function testColumnToSqlNotNull()
+    {
+        self::$columnTest->testToSqlNotNull();
+    }
+
+    public function testColumnToSqlDefault()
+    {
+        self::$columnTest->testToSqlDefault();
+    }
+
+    public function testTableConstruct()
+    {
+        self::$tableTest->testConstruct();
+    }
+
+    public function testTableName()
+    {
+        self::$tableTest->testName();
+    }
+
+    public function testTableGetOptions()
+    {
+        self::$tableTest->testGetOptions();
+    }
+
+    public function testTablePrimaryKey()
+    {
+        self::$tableTest->testPrimaryKey();
+    }
+
+    public function testTableColumn()
+    {
+        self::$tableTest->testColumn();
+    }
+
+    public function testTableToSql()
+    {
+        self::$tableTest->testToSql();
     }
 }

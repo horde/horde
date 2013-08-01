@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Horde_MIME</extends>
  <summary>Horde MIME Library</summary>
- <description>Provides methods for dealing with MIME (RFC 2045) and related e-mail (RFC 822/2822/5322) standards.</description>
+ <description>Provides methods for dealing with Multipurpose Internet Mail Extensions (MIME) features (RFC 2045/2046/2047).</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -17,19 +17,19 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-29</date>
- <time>22:40:16</time>
+ <date>2013-07-16</date>
+ <time>19:29:58</time>
  <version>
-  <release>2.0.0</release>
-  <api>2.0.0</api>
+  <release>2.2.4</release>
+  <api>2.2.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+* [mms] Use the correct EOL string when transfer encoding content (Bug #12452).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -51,6 +51,7 @@
       <file name="Mdn.php" role="php" />
       <file name="mime.mapping.php" role="php" />
       <file name="Part.php" role="php" />
+      <file name="Related.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
@@ -324,17 +325,26 @@
      <dir name="Mime">
       <dir name="fixtures">
        <file name="attachment.bin" role="test" />
+       <file name="deeply_nested.txt" role="test" />
        <file name="flowed_msg.txt" role="test" />
+       <file name="header_trailing_ws.txt" role="test" />
+       <file name="multiple_to.txt" role="test" />
+       <file name="related_msg.txt" role="test" />
+       <file name="samplemultipart_msg.txt" role="test" />
        <file name="sample_msg.txt" role="test" />
+       <file name="sample_msg2.txt" role="test" />
+       <file name="sample_msg3.txt" role="test" />
        <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="HeadersTest.php" role="test" />
       <file name="MagicTest.php" role="test" />
       <file name="MailTest.php" role="test" />
       <file name="MimeTest.php" role="test" />
       <file name="PartTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="RelatedTest.php" role="test" />
      </dir> <!-- /test/Horde/Mime -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -343,7 +353,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -351,67 +361,74 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Flowed</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Net_DNS2</name>
@@ -420,14 +437,13 @@
    <package>
     <name>idn</name>
     <channel>pecl.php.net</channel>
+    <providesextension>idn</providesextension>
    </package>
    <package>
     <name>intl</name>
     <channel>pecl.php.net</channel>
+    <providesextension>intl</providesextension>
    </package>
-   <extension>
-    <name>intl</name>
-   </extension>
   </optional>
  </dependencies>
  <phprelease>
@@ -442,6 +458,7 @@
    <install as="Horde/Mime/Mdn.php" name="lib/Horde/Mime/Mdn.php" />
    <install as="Horde/Mime/mime.mapping.php" name="lib/Horde/Mime/mime.mapping.php" />
    <install as="Horde/Mime/Part.php" name="lib/Horde/Mime/Part.php" />
+   <install as="Horde/Mime/Related.php" name="lib/Horde/Mime/Related.php" />
    <install as="Horde/Mime/Translation.php" name="lib/Horde/Mime/Translation.php" />
    <install as="locale/Horde_Mime.pot" name="locale/Horde_Mime.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.mo" name="locale/ar/LC_MESSAGES/Horde_Mime.mo" />
@@ -531,15 +548,24 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Mime.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" name="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" />
    <install as="Horde/Mime/AllTests.php" name="test/Horde/Mime/AllTests.php" />
-   <install as="Horde/Mime/Autoload.php" name="test/Horde/Mime/Autoload.php" />
+   <install as="Horde/Mime/bootstrap.php" name="test/Horde/Mime/bootstrap.php" />
    <install as="Horde/Mime/HeadersTest.php" name="test/Horde/Mime/HeadersTest.php" />
    <install as="Horde/Mime/MagicTest.php" name="test/Horde/Mime/MagicTest.php" />
    <install as="Horde/Mime/MailTest.php" name="test/Horde/Mime/MailTest.php" />
    <install as="Horde/Mime/MimeTest.php" name="test/Horde/Mime/MimeTest.php" />
    <install as="Horde/Mime/PartTest.php" name="test/Horde/Mime/PartTest.php" />
+   <install as="Horde/Mime/phpunit.xml" name="test/Horde/Mime/phpunit.xml" />
+   <install as="Horde/Mime/RelatedTest.php" name="test/Horde/Mime/RelatedTest.php" />
    <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
+   <install as="Horde/Mime/fixtures/deeply_nested.txt" name="test/Horde/Mime/fixtures/deeply_nested.txt" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
+   <install as="Horde/Mime/fixtures/header_trailing_ws.txt" name="test/Horde/Mime/fixtures/header_trailing_ws.txt" />
+   <install as="Horde/Mime/fixtures/multiple_to.txt" name="test/Horde/Mime/fixtures/multiple_to.txt" />
+   <install as="Horde/Mime/fixtures/related_msg.txt" name="test/Horde/Mime/fixtures/related_msg.txt" />
+   <install as="Horde/Mime/fixtures/samplemultipart_msg.txt" name="test/Horde/Mime/fixtures/samplemultipart_msg.txt" />
    <install as="Horde/Mime/fixtures/sample_msg.txt" name="test/Horde/Mime/fixtures/sample_msg.txt" />
+   <install as="Horde/Mime/fixtures/sample_msg2.txt" name="test/Horde/Mime/fixtures/sample_msg2.txt" />
+   <install as="Horde/Mime/fixtures/sample_msg3.txt" name="test/Horde/Mime/fixtures/sample_msg3.txt" />
    <install as="Horde/Mime/fixtures/uudecode.txt" name="test/Horde/Mime/fixtures/uudecode.txt" />
   </filelist>
  </phprelease>
@@ -877,11 +903,276 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-29</date>
+   <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add MIME headers to the list of single-value headers.
 * [mms] Don&apos;t add personal part to e-mail address if it is identical to the address itself.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.0</release>
+    <api>1.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Work around broken messages with multiple address headers.
+* [mms] Add option to allow encoding options to be defined for Horde_Mime_Part#send() (Bug #11058).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.1</release>
+    <api>1.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Workaround PHP&apos;s broken convert_uudecode() function.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.2</release>
+    <api>1.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Workaround broken base64 data.
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-06</date>
+   <time>22:59:32</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mjr] Fix issue that could cause outputting of duplicate data from a parsed mulitpart mime message.
+* [mms] Added Horde_Mime_Related class.
+* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Catch/fix malformed undisclosed-recipients address headers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Add method for returning the message&apos;s base MIME part.
+* [mms] Update MIME mapping file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix issue where parsing multipart/alternative messages would turn the parts into attachments.
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Never return decimal values from Horde_Mime_Part#getSize().
+* [mms] Added parsing limit for deeply nested MIME parts.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix regression in outputting Content-Disposition &apos;size&apos; parameter if no other Content-Disposition parameter is present.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Allow a Horde_Domhtml object to be directly passed in to Horde_Mime_Related#cidReplace().
+* [mms] Content-Type parameters are case-insensitive (Bug #12161).
+* [mms] Sanity checking: ignore empty values for Content-Transfer-Encoding MIME header (Bug #12146).
+* [mms] Null characters are no longer allowed in e-mail headers as of RFC 2822.
+* [mms] More accurate/comprehensive Horde_Mime::is8bit() check (Bug #12127).
+* [mms] Only use non-ASCII in MIME parameters when absolutely necessary.
+* [mms] Need to always add charset information to MIME encoded parameters if they are not displayable in pure US-ASCII (Bug #12127).
+* [mms] Correctly quote forbidden characters in MIME parameter data (Bug #12127).
+* [mms] Round up size output in Horde_Mime_Part#getSize().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix parsing wrapped header lines that contain no atom data (Bug #12189).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add &apos;no_body&apos; parameter to Horde_Mime_Part#parseMessage().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix Horde_Mime_Part::getRawPartText() when obtaining the first body part of a single part message.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Update MIME extension mapping.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.3</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix setting a different body if reusing a Horde_Mime_Mail object.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.4</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use the correct EOL string when transfer encoding content (Bug #12452).
    </notes>
   </release>
  </changelog>

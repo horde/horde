@@ -2,7 +2,7 @@
 /**
  * Horde_Imsp_Utils::
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -109,7 +109,7 @@ class Horde_Core_Imsp_Utils
         // A share for each IMSP adress book we can see.
         foreach ($abooks as $abook_uid) {
             $found = false;
-            foreach ($shares as $id => $share) {
+            foreach ($shares as $share) {
                 $params = @unserialize($share->get('params'));
                 if (!empty($params['name']) && $params['name'] == $abook_uid &&
                     $params['source'] == 'imsp') {
@@ -151,7 +151,7 @@ class Horde_Core_Imsp_Utils
 
         // Now prune any shares that no longer exist on the IMSP server.
         $existing = $share_obj->listShares($GLOBALS['registry']->getAuth(), array('perm' => Horde_Perms::READ));
-        foreach ($existing as $key => $share) {
+        foreach ($existing as $share) {
             $temp = unserialize($share->get('params'));
             if (is_array($temp)) {
                 $sourceType = $temp['source'];
@@ -209,8 +209,8 @@ class Horde_Core_Imsp_Utils
     /**
      * Translates IMSP acl into share permissions and sets them in share.
      *
-     * @param Datatree_Object_Share $share  The share to assign perms to
-     * @param string $acl                   The IMSP acl string.
+     * @param Horde_Share_Object $share  The share to assign perms to
+     * @param string $acl                The IMSP acl string.
      */
     static protected function _setPerms(&$share, $acl)
     {

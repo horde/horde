@@ -14,7 +14,7 @@
 /**
  * Horde_Pear_Package_Type_Horde:: deals with packages provided by Horde.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -93,6 +93,7 @@ implements Horde_Pear_Package_Type
         return new Horde_Pear_Package_Contents_Ignore_Composite(
             array(
                 new Horde_Pear_Package_Contents_Ignore_Dot(),
+                new Horde_Pear_Package_Contents_Ignore_Symlink(),
                 new Horde_Pear_Package_Contents_Ignore_Patterns(
                     array(
                         '/package.xml',
@@ -100,6 +101,8 @@ implements Horde_Pear_Package_Type
                         'conf.php',
                         'CVS/*',
                         'bin/.htaccess',
+                        'composer/*',
+                        'composer.*',
                     ),
                     $this->getRootPath()
                 ),
@@ -275,7 +278,7 @@ implements Horde_Pear_Package_Type
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>

@@ -7,7 +7,7 @@
  * <dairiki@dairiki.org>, and is used/adapted with his permission.
  *
  * Copyright 2004 Geoffrey T. Dairiki <dairiki@dairiki.org>
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -58,8 +58,6 @@ class Horde_Text_Diff
     /**
      * returns the number of new (added) lines in a given diff.
      *
-     * @since Text_Diff 1.1.0
-     *
      * @return integer The number of new lines
      */
     public function countAddedLines()
@@ -76,8 +74,6 @@ class Horde_Text_Diff
 
     /**
      * Returns the number of deleted (removed) lines in a given diff.
-     *
-     * @since Text_Diff 1.1.0
      *
      * @return integer The number of deleted lines
      */

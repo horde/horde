@@ -6,7 +6,6 @@
 class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
 {
     /**
-     *
      * @throws Horde_Exception
      */
     public function create(Horde_Injector $injector)
@@ -14,20 +13,17 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
         global $conf, $injector;
 
         if (empty($conf['weather']['provider'])) {
-            throw new Horde_Exception(_("Weather support not configured."));
+            throw new Horde_Exception(Horde_Core_Translation::t("Weather support not configured."));
         }
+
         // Parameters for all driver types
         $params = array(
-            'http_client' => $injector->createInstance('Horde_Core_Factory_HttpClient')->create(),
             'cache' => $injector->getInstance('Horde_Cache'),
-            'cache_lifetime' => $conf['weather']['params']['lifetime']
+            'cache_lifetime' => $conf['weather']['params']['lifetime'],
+            'http_client' => $injector->createInstance('Horde_Core_Factory_HttpClient')->create()
         );
 
-        if (!empty($conf['weather']['provider'])) {
-            $driver = $conf['weather']['provider'];
-        } else {
-            throw new Horde_Exception('No Weather configuration found.');
-        }
+        $driver = $conf['weather']['provider'];
 
         switch ($driver) {
         case 'WeatherUnderground':
@@ -41,14 +37,13 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
             break;
         }
 
+        $class = $this->_getDriverName($driver, 'Horde_Service_Weather');
+
         try {
-            $class = 'Horde_Service_Weather_' . $driver;
-            $driver = new $class($params);
+            return new $class($params);
         } catch (InvalidArgumentException $e) {
             throw new Horde_Exception($e);
         }
-
-        return $driver;
     }
 
 }

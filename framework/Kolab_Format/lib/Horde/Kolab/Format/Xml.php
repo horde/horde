@@ -19,7 +19,7 @@
  * class and provide a _load/_save function.
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -251,7 +251,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      * @param array $object  The data array representing the object.
      * @param array $options Additional options when writing the XML.
      * <pre>
-     * - previos: The previous XML text (default: empty string)
+     * - previous: The previous XML text (default: empty string)
      * - relaxed: Relaxed error checking (default: false)
      * </pre>
      *
@@ -286,8 +286,6 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     /**
      * Return the API version of the data structures that are being used for in-
      * and output.
-     *
-     * @since Horde_Kolab_Format 1.1.0
      *
      * @return int The version number;
      */

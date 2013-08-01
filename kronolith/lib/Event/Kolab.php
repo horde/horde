@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -42,6 +42,13 @@ class Kronolith_Event_Kolab extends Kronolith_Event
     }
 
     /**
+     * Retrieves history information for this event from the history backend.
+     */
+    public function loadHistory()
+    {
+    }
+
+    /**
      * Imports a backend specific event object.
      *
      * @param array $event  Backend specific event object that this object
@@ -49,8 +56,8 @@ class Kronolith_Event_Kolab extends Kronolith_Event
      */
     public function fromDriver($event)
     {
-        $this->id = $event['uid'];
-        $this->uid = $this->id;
+        $this->uid = $event['uid'];
+        $this->id = Horde_Url::uriB64Encode($event['uid']);
 
         if (isset($event['summary'])) {
             $this->title = $event['summary'];
@@ -78,10 +85,24 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         if (isset($event['alarm'])) {
             $this->alarm = $event['alarm'];
         }
+        if (isset($event['horde-alarm-methods'])) {
+            $this->methods = @unserialize($event['horde-alarm-methods']);
+        }
 
+
+        $tz_local = date_default_timezone_get();
         $this->start = new Horde_Date($event['start-date']);
+        $this->start->setTimezone($tz_local);
         $this->end = new Horde_Date($event['end-date']);
+        $this->end->setTimezone($tz_local);
         $this->durMin = ($this->end->timestamp() - $this->start->timestamp()) / 60;
+
+        if (!empty($event['creation-date'])) {
+            $this->created = new Horde_Date($event['creation-date']);
+        }
+        if (!empty($event['last-modification-date'])) {
+            $this->modified = new Horde_Date($event['last-modification-date']);
+        }
 
         if (isset($event['show-time-as'])) {
             switch ($event['show-time-as']) {
@@ -108,7 +129,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                 $exceptions = array();
                 foreach($event['recurrence']['exclusion'] as $exclusion) {
                     if (!empty($exclusion)) {
-                        $exceptions[] = join('', explode('-', $exclusion));
+                        $exceptions[] = $exclusion->format('Ymd');
                     }
                 }
                 $event['recurrence']['exceptions'] = $exceptions;
@@ -117,13 +138,13 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                 $completions = array();
                 foreach($event['recurrence']['complete'] as $complete) {
                     if (!empty($complete)) {
-                        $completions[] = join('', explode('-', $complete));
+                        $completions[] = $complete->format('Ymd');
                     }
                 }
                 $event['recurrence']['completions'] = $completions;
             }
             $this->recurrence = new Horde_Date_Recurrence($this->start);
-            $this->recurrence->fromHash($event['recurrence']);
+            $this->recurrence->fromKolab($event['recurrence']);
         }
 
         // Attendees
@@ -179,6 +200,11 @@ class Kronolith_Event_Kolab extends Kronolith_Event
             }
         }
 
+        // Tags
+        if (isset($event['categories'])) {
+            $this->_internaltags = $event['categories'];
+        }
+
         $this->initialized = true;
         $this->stored = true;
     }
@@ -207,9 +233,12 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         if ($this->alarm != 0) {
             $event['alarm'] = $this->alarm;
         }
+        if ($this->methods !== null) {
+            $event['horde-alarm-methods'] = serialize($this->methods);
+        }
 
-        $event['start-date'] = $this->start->timestamp();
-        $event['end-date'] = $this->end->timestamp();
+        $event['start-date'] = $this->start->toDateTime();
+        $event['end-date'] = $this->end->toDateTime();
         $event['_is_all_day'] = $this->isAllDay();
 
         switch ($this->status) {
@@ -230,29 +259,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         // Recurrence
         if ($this->recurs()) {
-            $event['recurrence'] = $this->recurrence->toHash();
-            if (!empty($event['recurrence']['exceptions'])) {
-                $exclusions = array();
-                foreach($event['recurrence']['exceptions'] as $exclusion) {
-                    if (!empty($exclusion)) {
-                        $exclusions[] = vsprintf(
-                            '%04d-%02d-%02d', sscanf($exclusion, '%04d%02d%02d')
-                        );
-                    }
-                }
-                $event['recurrence']['exclusion'] = $exclusions;
-            }
-            if (!empty($event['recurrence']['completions'])) {
-                $completions = array();
-                foreach($event['recurrence']['completions'] as $complete) {
-                    if (!empty($complete)) {
-                        $completions[] = vsprintf(
-                            '%04d-%02d-%02d', sscanf($complete, '%04d%02d%02d')
-                        );
-                    }
-                }
-                $event['recurrence']['complete'] = $completions;
-            }
+            $event['recurrence'] = $this->recurrence->toKolab();
         }
 
         // Attendees
@@ -283,7 +290,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                 break;
             }
 
-            $new_attendee['request-response'] = '0';
+            $new_attendee['request-response'] = 'false';
 
             switch ($attendee['response']) {
             case Kronolith::RESPONSE_ACCEPTED:
@@ -305,6 +312,14 @@ class Kronolith_Event_Kolab extends Kronolith_Event
             }
 
             $event['attendee'][] = $new_attendee;
+        }
+
+        // Tags
+        if (!is_array($this->tags)) {
+            $this->tags = Kronolith::getTagger()->split($this->tags);
+        }
+        if ($this->tags) {
+            $event['categories'] = $this->tags;
         }
 
         return $event;

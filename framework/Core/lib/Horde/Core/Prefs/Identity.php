@@ -3,7 +3,7 @@
  * This class provides Horde-specific functions for the Horde_Prefs_Identity
  * class.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -29,7 +29,7 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function verifyIdentity($id, $old_addr)
     {
-        global $conf;
+        global $registry;
 
         $hash = strval(new Horde_Support_Randomid());
 
@@ -40,7 +40,7 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
         $this->_prefs->setValue('confirm_email', serialize($pref));
 
         $new_addr = $this->getValue($this->_prefnames['from_addr'], $id);
-        $confirm = Horde::url(Horde::getServiceLink('emailconfirm'), true)->add('h', $hash)->setRaw(true);
+        $confirm = Horde::url($registry->getServiceLink('emailconfirm')->add('h', $hash)->setRaw(true), true);
         $message = sprintf(Horde_Core_Translation::t("You have requested to add the email address \"%s\" to the list of your personal email addresses.\n\nGo to the following link to confirm that this is really your address:\n%s\n\nIf you don't know what this message means, you can delete it."),
                            $new_addr,
                            $confirm);
@@ -123,7 +123,11 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function getFromAddress($ident = null)
     {
-        return $GLOBALS['prefs']->getValue('from_addr');
+        $from = $this->getValue('from_addr', $ident);
+        if (strlen($from)) {
+            return $from;
+        }
+        return $this->_user;
     }
 
     /**

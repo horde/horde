@@ -37,6 +37,9 @@
  *     // the cursor.
  *     offset: { x:0, y:0 },
  *
+ *     // Allow right click to trigger drag behavior.
+ *     rightclick: false,
+ *
  *     // Scroll this element when above/below (only for vertical elements).
  *     scroll: element,
  *
@@ -121,7 +124,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde
@@ -277,6 +280,7 @@ Drag = Class.create({
             constraint: null,
             ghosting: false,
             nodrop: false,
+            rightclick: false,
             scroll: null,
             snap: null,
             snapToParent: false,
@@ -304,6 +308,10 @@ Drag = Class.create({
 
     mouseDown: function(e)
     {
+        if (!this.options.rightclick && e.isRightClick()) {
+            return;
+        }
+
         DragDrop.Drags.activate(this);
         this.move = 0;
         this.wasDragged = false;
@@ -360,11 +368,9 @@ Drag = Class.create({
 
                 // Create the "ghost", i.e. the moving element, a clone of the
                 // original element, if it doesn't exist yet.
-                layout = this.element.getLayout();
                 elt = $(this.element.clone(true))
                     .writeAttribute('id', null)
-                    .addClassName(this.options.classname)
-                    .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' });
+                    .addClassName(this.options.classname);
 
                 if (this.options.ghosting) {
                     z = parseInt(this.element.getStyle('zIndex'), 10);
@@ -378,7 +384,14 @@ Drag = Class.create({
 
                 $(document.body).insert(elt);
 
-                elt.clonePosition(this.element);
+                elt.clonePosition(this.element, {
+                    setWidth: false
+                });
+                layout = elt.getLayout();
+                elt.setStyle({
+                    position: 'absolute',
+                    width: (this.element.getWidth() - (layout.get('margin-box-width') - layout.get('width'))) + 'px'
+                });
 
                 this.ghost = this._prepareHover(elt, xy[0], xy[1], 'ghost');
             }
@@ -474,7 +487,7 @@ Drag = Class.create({
             }
             try {
                 this.ghost.elt.remove();
-            } catch (e) {}
+            } catch (ex) {}
             this.ghost = null;
         }
 
@@ -554,7 +567,7 @@ Drag = Class.create({
 
     _updateCaption: function(d, div, e, x, y)
     {
-        var caption, cname, c_opt, vo;
+        var caption, cname, c_opt;
 
         if (d && DragDrop.validDrop(this.element)) {
             d_cap = d.options.caption;

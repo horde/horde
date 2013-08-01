@@ -2,7 +2,7 @@
 /**
  * Horde Modal Form Renderer
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
@@ -15,20 +15,6 @@
 class Horde_Core_Ui_ModalFormRenderer extends Horde_Form_Renderer
 {
     var $_stripedRows = false;
-
-    /**
-     * Constructor
-     *
-     * @param array $params  This is a hash of renderer-specific parameters.
-     *                       Possible keys:
-     *                       - 'varrenderer_driver': specifies the driver
-     *                         parameter to Horde_Core_Ui_VarRenderer::factory().
-     *                       - 'encode_title': @see $_encodeTitle
-     */
-    public function __construct($params = array())
-    {
-        parent::Horde_Form_Renderer($params);
-    }
 
     function _renderSectionBegin(&$form, $section)
     {
@@ -56,17 +42,17 @@ class Horde_Core_Ui_ModalFormRenderer extends Horde_Form_Renderer
 
     function _renderHeader($header, $error = '')
     {
-        echo '<div class="form-header">';
+        echo '<div class="horde-form-header">';
         echo $header;
         if (!empty($error)) {
-            echo '<br /><span class="form-error">' . $error . '</span>';
+            echo '<br /><span class="horde-form-error">' . $error . '</span>';
         }
         echo '</div>';
     }
 
     function _renderDescription($text)
     {
-?><div><p class="form-description" style="padding:8px"><?php echo $text ?></p></div>
+?><div><p class="horde-form-description" style="padding:8px"><?php echo $text ?></p></div>
 <?php
     }
 
@@ -99,16 +85,16 @@ class Horde_Core_Ui_ModalFormRenderer extends Horde_Form_Renderer
         printf('  <label for="%s">%s</label>%s' . "\n",
                $this->_genId($var),
                $var->getHumanName(),
-               $isvalid ? '' : ' <span class="form-error">' . $message . '</span>');
+               $isvalid ? '' : ' <span class="horde-form-error">' . $message . '</span>');
         printf('</div><div%s>',
-               ($var->isDisabled() ? ' class="form-disabled"' : ''));
+               ($var->isDisabled() ? ' class="horde-form-disabled"' : ''));
     }
 
     function _renderVarInputEnd(&$form, &$var, &$vars)
     {
         /* Display any description for the field. */
         if ($var->hasDescription()) {
-            echo '<p class="form-field-description">' . $var->getDescription() . '</p>';
+            echo '<p class="horde-form-field-description">' . $var->getDescription() . '</p>';
         }
 
         echo "</div>\n";
@@ -117,7 +103,7 @@ class Horde_Core_Ui_ModalFormRenderer extends Horde_Form_Renderer
     function _sectionHeader($title, $extra = '')
     {
         if (strlen($title)) {
-            echo '<div class="form-header">';
+            echo '<div class="horde-form-header">';
             if (!empty($extra)) {
                 echo '<span class="rightFloat">' . $extra . '</span>';
             }

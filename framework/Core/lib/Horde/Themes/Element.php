@@ -1,20 +1,28 @@
 <?php
 /**
- * The Horde_Themes_Element:: class provides an object-oriented interface to
- * a themes element.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @package  Core
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * An object-oriented interface to a themes element.
  *
- * @property $fs  (string) Filesystem location.
- * @property $fulluri  (Horde_Url) Full URI.
- * @property $uri (string) Relative URI.
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ *
+ * @property-read string $fs  Filesystem location.
+ * @property-read string $fulluri  Full URI.
+ * @property-read string $uri  Relative URI.
  */
 class Horde_Themes_Element
 {
@@ -59,15 +67,15 @@ class Horde_Themes_Element
      * @param string $name    The element name. If null, will return the
      *                        element directory.
      * @param array $options  Additional options:
-     * <pre>
-     * 'app' - (string) Use this application instead of the current app.
-     * 'data' - (array) Contains 2 elements: 'fs' - filesystem path,
-                        'uri' - the element URI. If set, use as the data
-                        values instead of auto determining.
-     * 'nohorde' - (boolean) If true, do not fallback to horde for element.
-     * 'theme' - (string) Use this theme instead of the Horde default.
-     * 'uri' - (string) Use this as the URI value.
-     * </pre>
+     *   - app: (string) Use this application instead of the current app.
+     *   - data: (array) Contains 2 elements: 'fs' - filesystem path,
+     *                   'uri' - the element URI. If set, use as the data
+     *                   values instead of auto determining.
+     *   - nohorde: (boolean) If true, do not fallback to horde for element.
+     *   - noview: (boolean) If true, do not load images from view-specific
+     *             directories. (Since 2.4.0)
+     *   - theme: (string) Use this theme instead of the Horde default.
+     *   - uri: (string) Use this as the URI value.
      */
     public function __construct($name = '', array $options = array())
     {
@@ -97,7 +105,7 @@ class Horde_Themes_Element
         try {
             return (string)$this->uri;
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return '';
         }
     }
@@ -124,8 +132,11 @@ class Horde_Themes_Element
                 $mask = empty($this->_opts['nohorde'])
                     ? 0
                     : Horde_Themes_Cache::APP_DEFAULT | Horde_Themes_Cache::APP_THEME;
+                if (empty($this->_opts['noview'])) {
+                    $mask |= Horde_Themes_Cache::VIEW;
+                }
 
-                $this->_data = $cache->get($this->_dirname . '/' . $this->_name, $mask);
+                $this->_data = $cache->get((strlen($this->_dirname) ? $this->_dirname . '/' : '') . $this->_name, $mask);
             }
         }
 

@@ -4,13 +4,13 @@
  * and not a prettythumb since we have no way of knowing what the client
  * requesting this will be viewing the image on.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel', array('session_control' => 'readonly'));
 
 // Get form data

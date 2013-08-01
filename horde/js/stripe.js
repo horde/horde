@@ -5,8 +5,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @author Matt Warden <mwarden@gmail.com>
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 
 window.Horde = window.Horde || {};

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  *
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -27,7 +27,7 @@ class Horde_Service_Weather_Translation extends Horde_Translation
     static public function t($message)
     {
         self::$_domain = 'Horde_Service_Weather';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../../locale' : '@data_dir@/Horde_Service_Weather/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../../locale' : '@data_dir@/Horde_Service_Weather/locale';
         return parent::t($message);
     }
 
@@ -44,7 +44,7 @@ class Horde_Service_Weather_Translation extends Horde_Translation
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Service_Weather';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../../locale' : '@data_dir@/Horde_Service_Weather/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../../locale' : '@data_dir@/Horde_Service_Weather/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 

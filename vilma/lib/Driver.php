@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
@@ -115,7 +115,7 @@ abstract class Vilma_Driver
      * @param string $domain_name  The name of the domain for which to
      *                             return the administrator.
      *
-     * @return string  The domain adminstrator.
+     * @return string  The domain administrator.
      * @throws Vilma_Exception
      */
     public function getDomainAdmin($domain_name)

@@ -3,7 +3,7 @@
  * This class defines the Horde_Image:: API, and also provides some
  * utility functions, such as generating highlights of a color.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -376,7 +376,7 @@ abstract class Horde_Image_Base extends EmptyIterator
             $class = str_replace('Horde_Image_', '', get_class($this));
             $this->_loadedEffects = array();
             // First, load the driver-agnostic Effects.
-            $path = dirname(__FILE__) . '/Effect/';
+            $path = __DIR__ . '/Effect/';
             if (is_dir($path)) {
                 if ($handle = opendir($path)) {
                     while (($file = readdir($handle)) !== false) {

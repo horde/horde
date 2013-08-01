@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('hermes', array('admin' => true));
 
 $r = new Horde_Form_Renderer();
@@ -19,14 +19,14 @@ function _open()
 {
     static $opened;
 
-    if (is_null($opened)) {
-        global $registry, $prefs, $browser, $conf, $notification, $beendone, $title;
+    global $page_output, $notification, $beendone;
 
+    if (is_null($opened)) {
         $opened = true;
         $beendone = true;
-        $title = _("Administration");
-        require $registry->get('templates', 'horde') . '/common-header.inc';
-        echo Horde::menu();
+        $page_output->header(array(
+            'title' => _("Administration")
+        ));
         $notification->notify(array('listeners' => 'status'));
     }
 }
@@ -251,4 +251,4 @@ if (!$beendone) {
     $form3->close($r);
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

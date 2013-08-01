@@ -2,7 +2,7 @@
 /**
  * This file contains all Horde_Form classes for priority administration.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -18,7 +18,7 @@ class Whups_Form_Admin_EditPriorityStepOne extends Horde_Form
         global $whups_driver;
 
         parent::__construct($vars, _("Edit or Delete Priorities"));
-        $this->setButtons(array(_("Edit Priority"), _("Delete Priority")));
+        $this->setButtons(array(_("Edit Priority"), array('class' => 'horde-delete', 'value' => _("Delete Priority"))));
 
         $priorities = $whups_driver->getPriorities($vars->get('type'));
         if ($priorities) {

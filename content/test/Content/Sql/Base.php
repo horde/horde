@@ -1,6 +1,6 @@
 <?php
 
- require_once dirname(__FILE__) . '/../Base.php';
+ require_once __DIR__ . '/../Base.php';
 
 /**
  *
@@ -47,6 +47,11 @@ class Content_Test_Sql_Base extends Content_Test_Base
     public function testEnsureTags()
     {
         $this->_testEnsureTags();
+    }
+
+    public function testEnsureTypes()
+    {
+        $this->_testEnsureTypes();
     }
 
     /**
@@ -179,11 +184,12 @@ class Content_Test_Sql_Base extends Content_Test_Base
         self::$migrator = new Horde_Db_Migration_Migrator(
             self::$db,
             null, //$logger,
-            array('migrationsPath' => dirname(__FILE__) . '/../../../migration',
+            array('migrationsPath' => __DIR__ . '/../../../migration',
                   'schemaTableName' => 'content_test_schema'));
 
         self::$migrator->up();
         self::$tagger = self::$injector->getInstance('Content_Tagger');
+        self::$type_mgr = self::$injector->createInstance('Content_Types_Manager');
     }
 
     public static function tearDownAfterClass()

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -9,8 +9,15 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('chora');
+require_once __DIR__ . '/lib/Application.php';
+
+/* If a revision is specified, it's safe to cache for a long time. */
+if (empty($_GET['r'])) {
+    Horde_Registry::appInit('chora');
+} else {
+    session_cache_expire(10080);
+    Horde_Registry::appInit('chora', array('session_cache_limiter' => 'public'));
+}
 
 /* If we know we're at a directory, just go to browsedir.php. */
 if ($atdir) {
@@ -31,13 +38,9 @@ try {
 /* Get the revision number. */
 $r = Horde_Util::getFormData('r');
 
-/* If no revision is specified, default to HEAD.  If a revision is
- * specified, it's safe to cache for a long time. */
+/* If no revision is specified, default to HEAD. */
 if (is_null($r)) {
     $r = $file->getRevision();
-    header('Cache-Control: max-age=60, must-revalidate');
-} else {
-    header('Cache-Control: max-age=2419200');
 }
 
 /* Is this a valid revision being requested? */
@@ -67,39 +70,27 @@ if (!$plain) {
         $data = reset($data);
         $rendered = '<div class="fixed">' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($data['data'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) . '</div>';
     } elseif (strpos($mime_type, 'image/') !== false) {
-        $rendered = Horde::img(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1), '', '', '');
+        $rendered = Horde::img(Horde::selfUrl(true)->add('p', 1), '', '', '');
     } elseif ($pretty->canRender('inline')) {
         $data = $pretty->render('inline');
         $data = reset($data);
         $rendered = $data['data'];
     } else {
-        $rendered = Horde::link(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1)) . Horde::img('download.png') . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
+        $rendered = Horde::link(Horde::selfUrl(true)->add('p', 1)) . Horde::img('download.png') . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
     }
 
     /* Get this revision's attributes in printable form. */
     $log = $file->getLog($r);
 
-    $title = sprintf(_("%s Revision %s (%s ago)"),
-                     basename($fullname),
+    $title = sprintf(_("Revision %s (%s ago) for:"),
                      $r,
                      Chora::readableTime($log->getDate(), true));
 
-    $views = array(
-        Horde::widget(Chora::url('annotate', $where, array('rev' => $r)), _("Annotate"), 'widget', '', '', _("_Annotate")),
-        Horde::widget(Chora::url('co', $where, array('r' => $r, 'p' => 1)), _("Download"), 'widget', '', '', _("_Download"))
-    );
-    if ($VC->hasFeature('snapshots')) {
-        $snapdir = dirname($file->getPath());
-        $views[] = Horde::widget(Chora::url('browsedir', $snapdir == '.' ? '' : $snapdir . '/', array('onb' => $r)), _("Snapshot"), 'widget', '', '', _("_Snapshot"));
-    }
-    $extraLink = _("View:") . ' ' . implode(' | ', $views);
-
-    Horde::addScriptFile('stripe.js', 'horde');
-    require $registry->get('templates', 'horde') . '/common-header.inc';
-    require CHORA_TEMPLATES . '/menu.inc';
-    require CHORA_TEMPLATES . '/headerbar.inc';
+    $page_output->addScriptFile('stripe.js', 'horde');
+    Chora::header($title);
+    echo Chora::getFileViews($where, $r)->render('co');
     require CHORA_TEMPLATES . '/checkout/checkout.inc';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 

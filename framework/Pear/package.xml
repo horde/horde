@@ -10,10 +10,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-11-13</date>
- <time>18:39:55</time>
+ <date>2013-03-05</date>
+ <time>17:16:01</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0alpha5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix tests to work with PHPUnit 3.6.
-* [gwr] Fix retrieving the package.xml from the server.
-* [gwr] Basic support for reading PEAR package.xml v1 files.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -54,6 +52,7 @@
          <file name="Hidden.php" role="php" />
          <file name="Nothing.php" role="php" />
          <file name="Patterns.php" role="php" />
+         <file name="Symlink.php" role="php" />
         </dir> <!-- /lib/Horde/Pear/Package/Contents/Ignore -->
         <dir name="Include">
          <file name="All.php" role="php" />
@@ -225,6 +224,7 @@
           <file name="GitTest.php" role="test" />
           <file name="HiddenTest.php" role="test" />
           <file name="PatternsTest.php" role="test" />
+          <file name="SymlinkTest.php" role="test" />
          </dir> <!-- /test/Horde/Pear/Unit/Package/Contents/Ignore -->
          <dir name="InstallAs">
           <file name="HordeApplicationTest.php" role="test" />
@@ -255,6 +255,7 @@
       </dir> <!-- /test/Horde/Pear/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="TestCase.php" role="test" />
      </dir> <!-- /test/Horde/Pear -->
@@ -265,7 +266,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.9.0</min>
@@ -273,25 +274,32 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Xml_Element</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -323,6 +331,7 @@
    <install as="Horde/Pear/Package/Contents/Ignore/Hidden.php" name="lib/Horde/Pear/Package/Contents/Ignore/Hidden.php" />
    <install as="Horde/Pear/Package/Contents/Ignore/Nothing.php" name="lib/Horde/Pear/Package/Contents/Ignore/Nothing.php" />
    <install as="Horde/Pear/Package/Contents/Ignore/Patterns.php" name="lib/Horde/Pear/Package/Contents/Ignore/Patterns.php" />
+   <install as="Horde/Pear/Package/Contents/Ignore/Symlink.php" name="lib/Horde/Pear/Package/Contents/Ignore/Symlink.php" />
    <install as="Horde/Pear/Package/Contents/Include/All.php" name="lib/Horde/Pear/Package/Contents/Include/All.php" />
    <install as="Horde/Pear/Package/Contents/InstallAs/Horde.php" name="lib/Horde/Pear/Package/Contents/InstallAs/Horde.php" />
    <install as="Horde/Pear/Package/Contents/InstallAs/HordeApplication.php" name="lib/Horde/Pear/Package/Contents/InstallAs/HordeApplication.php" />
@@ -344,6 +353,7 @@
    <install as="Horde/Pear/Rest/Releases.php" name="lib/Horde/Pear/Rest/Releases.php" />
    <install as="Horde/Pear/AllTests.php" name="test/Horde/Pear/AllTests.php" />
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
+   <install as="Horde/Pear/bootstrap.php" name="test/Horde/Pear/bootstrap.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
    <install as="Horde/Pear/TestCase.php" name="test/Horde/Pear/TestCase.php" />
    <install as="Horde/Pear/fixture/package.xml.v1.0" name="test/Horde/Pear/fixture/package.xml.v1.0" />
@@ -401,6 +411,7 @@
    <install as="Horde/Pear/Unit/Package/Contents/Ignore/GitTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/GitTest.php" />
    <install as="Horde/Pear/Unit/Package/Contents/Ignore/HiddenTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/HiddenTest.php" />
    <install as="Horde/Pear/Unit/Package/Contents/Ignore/PatternsTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/PatternsTest.php" />
+   <install as="Horde/Pear/Unit/Package/Contents/Ignore/SymlinkTest.php" name="test/Horde/Pear/Unit/Package/Contents/Ignore/SymlinkTest.php" />
    <install as="Horde/Pear/Unit/Package/Contents/InstallAs/HordeApplicationTest.php" name="test/Horde/Pear/Unit/Package/Contents/InstallAs/HordeApplicationTest.php" />
    <install as="Horde/Pear/Unit/Package/Contents/InstallAs/HordeTest.php" name="test/Horde/Pear/Unit/Package/Contents/InstallAs/HordeTest.php" />
    <install as="Horde/Pear/Unit/Package/Type/HordeTest.php" name="test/Horde/Pear/Unit/Package/Type/HordeTest.php" />
@@ -435,17 +446,57 @@
   </release>
   <release>
    <version>
-    <release>1.0.0beta1</release>
+    <release>1.0.0alpha2</release>
     <api>1.0.0</api></version>
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-11-13</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix tests to work with PHPUnit 3.6.
 * [gwr] Fix retrieving the package.xml from the server.
 * [gwr] Basic support for reading PEAR package.xml v1 files.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [jan] Add Horde_Pear_Package_Xml#setState().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Ignore symbolic links when building content lists.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

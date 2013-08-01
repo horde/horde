@@ -1,8 +1,8 @@
 /**
  * Provides the javascript for administering ActiveSync partner devices.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 var HordeActiveSyncAdmin = {
 
@@ -10,8 +10,7 @@ var HordeActiveSyncAdmin = {
 
     clickHandler: function(e)
     {
-        var elt = e.element(),
-            id = elt.readAttribute('id') || '';
+        var id = e.element().readAttribute('id');
 
         switch (id) {
         case 'reset':
@@ -46,6 +45,6 @@ var HordeActiveSyncAdmin = {
     {
         $('activesyncadmin').observe('click', this.clickHandler.bindAsEventListener(this));
     }
-}
+};
 
 document.observe('dom:loaded', HordeActiveSyncAdmin.onDomLoad.bind(HordeActiveSyncAdmin));

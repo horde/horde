@@ -1,12 +1,12 @@
 # Chora Russian translation.
-# Copyright 2005 Jan Schneider.
+# Copyright 2005-2013 Horde LLC (http://www.horde.org/)
 # Illya Belov <belov@iop.irkps.ru>, 2005.
 msgid ""
 msgstr ""
 "Project-Id-Version: Chora 2.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2005-07-27 02:04+0200\n"
-"PO-Revision-Date: 2005-07-27 02:40+0200\n"
+"PO-Revision-Date: 2013-01-09 11:23+0100\n"
 "Last-Translator: Illya Belov <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"

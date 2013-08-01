@@ -2,7 +2,7 @@
 /**
  * This file contains all Horde_Form classes for queue administration.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -18,10 +18,10 @@ class Whups_Form_Admin_EditQueueStepOne extends Horde_Form
         global $whups_driver, $registry;
 
         if ($registry->hasMethod('tickets/listQueues') == $registry->getApp()) {
-            parent::Horde_Form($vars, _("Edit or Delete Queues"));
-            $this->setButtons(array(_("Edit Queue"), _("Delete Queue")));
+            parent::__construct($vars, _("Edit or Delete Queues"));
+            $this->setButtons(array(_("Edit Queue"), array('class' => 'horde-delete', 'value' => _("Delete Queue"))));
         } else {
-            parent::Horde_Form($vars, _("Edit Queues"));
+            parent::__construct($vars, _("Edit Queues"));
             $this->setButtons(array(_("Edit Queue")));
         }
 

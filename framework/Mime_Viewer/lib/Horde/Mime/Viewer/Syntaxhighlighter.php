@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Syntaxhighlighter class renders source code appropriate
  * for highlighting with http://alexgorbatchev.com/SyntaxHighlighter/.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -113,6 +113,12 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         case 'text/html':
         case 'text/xhtml':
         case 'application/xhtml':
+        case 'application/x-vnd.kolab.contact':
+        case 'application/x-vnd.kolab.event':
+        case 'application/x-vnd.kolab.h-ledger':
+        case 'application/x-vnd.kolab.h-prefs':
+        case 'application/x-vnd.kolab.note':
+        case 'application/x-vnd.kolab.task':
             return 'xml';
 
         case 'text/css':

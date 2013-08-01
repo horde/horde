@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -9,7 +9,7 @@
  * @package Kronolith
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 $viewName = Horde_Util::getFormData('view', 'Event');
@@ -47,18 +47,15 @@ case 'EditEvent':
     break;
 }
 
-$title = $view->getTitle();
-if ($prefs->getValue('show_panel')) {
-    $bodyClass = 'rightPanel';
-}
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
+    'title' => $view->getTitle()
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
 Kronolith::eventTabs($viewName, $view->event);
 $view->html();
 echo '</div>';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -2,7 +2,7 @@
 /**
  * Gollem edit script.
  *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -13,7 +13,7 @@
  * @package  Gollem
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -60,13 +60,21 @@ case 'edit_file':
         $injector->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
     }
 
-    Horde::addScriptFile('edit.js', 'gollem');
+    $view = $injector->createInstance('Horde_View');
+    $view->self_url = Horde::url('edit.php');
+    $view->forminput = Horde_Util::formInput();
+    $view->vars = $vars;
+    $view->data = $data;
 
-    require $registry->get('templates', 'horde') . '/common-header.inc';
-    require GOLLEM_TEMPLATES . '/javascript_defs.php';
-    Gollem::status();
-    require GOLLEM_TEMPLATES . '/edit/edit.inc';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->addScriptFile('edit.js');
+    $page_output->topbar = $page_output->sidebar = false;
+
+    $page_output->header(array(
+        'title' => $title
+    ));
+    $notification->notify(array('listeners' => 'status'));
+    echo $view->render('edit');
+    $page_output->footer();
     exit;
 }
 

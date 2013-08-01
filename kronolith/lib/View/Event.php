@@ -14,9 +14,10 @@ class Kronolith_View_Event
     protected $_event;
 
     /**
-     * @param Kronolith_Event $event
+     * @param mixed Kronolith_Event|string $event  The event object or error
+     *                                             string to display.
      */
-    public function __construct(Kronolith_Event $event)
+    public function __construct($event)
     {
         $this->_event = $event;
     }
@@ -60,43 +61,13 @@ class Kronolith_View_Event
 
         global $conf, $prefs;
 
-        $createdby = '';
-        $modifiedby = '';
-        $userId = $GLOBALS['registry']->getAuth();
-        if ($this->_event->uid) {
-            /* Get the event's history. */
-            try {
-                $log = $GLOBALS['injector']->getInstance('Horde_History')
-                    ->getHistory('kronolith:' . $this->_event->calendar . ':' . $this->_event->uid);
-                foreach ($log as $entry) {
-                    switch ($entry['action']) {
-                    case 'add':
-                        $created = new Horde_Date($entry['ts']);
-                        if ($userId != $entry['who']) {
-                            $createdby = sprintf(_("by %s"), Kronolith::getUserName($entry['who']));
-                        } else {
-                            $createdby = _("by me");
-                        }
-                        break;
-
-                    case 'modify':
-                        $modified = new Horde_Date($entry['ts']);
-                        if ($userId != $entry['who']) {
-                            $modifiedby = sprintf(_("by %s"), Kronolith::getUserName($entry['who']));
-                        } else {
-                            $modifiedby = _("by me");
-                        }
-                        break;
-                    }
-                }
-            } catch (Exception $e) {}
-        }
+        $this->_event->loadHistory();
 
         $creatorId = $this->_event->creator;
         $description = $this->_event->description;
         $location = $this->_event->location;
         $eventurl = $this->_event->url;
-        $private = $this->_event->private && $creatorId != $GLOBALS['registry']->getAuth();
+        $private = $this->_event->isPrivate();
         $owner = Kronolith::getUserName($creatorId);
         $status = Kronolith::statusToString($this->_event->status);
         $attendees = $this->_event->attendees;

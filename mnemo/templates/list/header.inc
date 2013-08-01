@@ -1,4 +1,3 @@
-<div id="page">
 <div class="header leftAlign">
  <?php echo htmlspecialchars($title) . ' (' . count($memos) . ')' ?>
  <a id="quicksearchL" href="<?php echo Horde::url('search.php') ?>" title="<?php echo _("Search") ?>" onclick="$('quicksearchL').hide(); $('quicksearch').show(); $('quicksearchT').focus(); return false;"><?php echo Horde::img('search.png', _("Search"), '') ?></a>

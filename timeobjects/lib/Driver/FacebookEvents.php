@@ -3,7 +3,7 @@
  * TimeObjects driver for exposing a user's Facebook Events via the
  * listTimeObjects API.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -56,10 +56,14 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
             $start->setTimezone('America/Los_Angeles');
             $end = new Horde_Date($event['end_time'], $tz);
             $end->setTimezone('America/Los_Angeles');
+            $title = $event['name'];
+            if (isset($event['tagline']) && strlen($event['tagline'])) {
+                $title .= ' - ' . $event['tagline'];
+            }
 
             $objects[] = array(
                 'id' => $event['eid'],
-                'title' => $event['name'] . (strlen($event['tagline']) ? ' - ' . $event['tagline'] : ''),
+                'title' => $title,
                 'start' => sprintf('%d-%02d-%02dT%02d:%02d:00',
                                    $start->year,
                                    $start->month,
@@ -79,7 +83,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
                 'status' => (empty($event['rsvp_status']) ? 'free' : $event['rsvp_status']),
                 'private' => $event['privacy'] == 'SECRET',
                 'icon' => $event['pic_square'],
-                'params' => array(),
+                'params' => array()
             );
         }
 

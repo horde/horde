@@ -28,7 +28,7 @@ class Whups_Block_Myqueries extends Horde_Core_Block
             return $html;
         }
 
-        return '<p><em>' . _("No queries have been saved.") . '</em></p>';
+        return '<p class="horde-content"><em>' . _("No queries have been saved.") . '</em></p>';
     }
 
 }

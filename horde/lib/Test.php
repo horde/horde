@@ -3,17 +3,17 @@
  * The Horde_Test:: class provides functions used in the test scripts
  * used in the various applications (test.php).
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @author   Brent J. Nordquist <bjn@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 
@@ -39,17 +39,18 @@ class Horde_Test
      * @var array
      */
     protected $_supported = array(
-        '5.2', '5.3'
+        '5.3',
+        '5.4'
     );
 
     /**
      * The module list
      * <pre>
-     * KEY:   module name
+     * KEY:   extension name
      * VALUE: Either the description or an array with the following entries:
      *        descrip: (string) Module description
      *        error: (string) Error message
-     *        fatal: (boolean) Is missing module fatal?
+     *        fatal: (boolean) Is missing extension fatal?
      *        function: (string) Reference to function to run. If function
      *                  returns boolean true, error message will be output.
      *                  If function returns a string, this error message
@@ -62,33 +63,34 @@ class Horde_Test
     protected $_moduleList = array(
         'ctype' => array(
             'descrip' => 'Ctype Support',
-            'error' => 'The ctype functions are required by the help system, the weather portal blocks, and a few Horde applications.'
+            'error' => 'The ctype functions are required by various Horde libraries. Don\t compile PHP with <code>--disable-all/--disable-ctype</code>.',
+            'fatal' => true
         ),
         'dom' => array(
             'descrip' => 'DOM XML Support',
-            'error' => 'Horde will not run without the dom extension. Don\'t compile PHP with <code>--disable-all/--disable-dom</code>, or enable the dom extension individually before continuing.',
+            'error' => 'Horde will not run without the dom extension. Don\'t compile PHP with <code>--disable-all/--disable-dom</code>.',
             'fatal' => true
         ),
         'fileinfo' => array(
             'descrip' => 'MIME Magic Support (fileinfo)',
-            'error' => 'The fileinfo PECL module is used to provide MIME Magic scanning on unknown data. See horde/docs/INSTALL for information on how to install PECL extensions.'
+            'error' => 'The fileinfo extension is used to provide MIME Magic scanning on unknown data. Don\'t compile PHP with <code>--disable-all/--disable-fileinfo</code>.'
         ),
         'fileinfo_check' => array(
             'descrip' => 'MIME Magic Support (fileinfo) - Configuration',
-            'error' => 'The fileinfo module could not open the default MIME Magic database location. You will need to manually specify the MIME Magic database location in the config file.',
+            'error' => 'The fileinfo extension could not open the default MIME Magic database location. You will need to manually specify the MIME Magic database location in the config file.',
             'function' => '_checkFileinfo'
         ),
         'ftp' => array(
             'descrip' => 'FTP Support',
-            'error' => 'FTP support is only required if you want to authenticate against an FTP server, upload your configuration files with FTP, or use an FTP server for file storage.'
+            'error' => 'FTP support is only required if you want to authenticate against an FTP server, upload your configuration files with FTP, or use an FTP server for file storage. Compile PHP with <code>--enable-ftp</code> to ensure the extension is active on your server.'
         ),
         'gd' => array(
             'descrip' => 'GD Support',
-            'error' => 'Horde will use the GD extension to perform manipulations on image data. You can also use either the ImageMagick software or Imagick extension to do these manipulations instead.'
+            'error' => 'Horde will use the GD extension to perform manipulations on image data (compile PHP with <code>--with-gd</code>). It is recommended to use the PECL imagick library instead over this extension.'
         ),
         'gettext' => array(
             'descrip' => 'Gettext Support',
-            'error' => 'Horde will not run without gettext support. Compile PHP with <code>--with-gettext</code> before continuing.',
+            'error' => 'Horde will not run without gettext support. Compile PHP with <code>--with-gettext</code>.',
             'fatal' => true
         ),
         'geoip' => array(
@@ -97,12 +99,16 @@ class Horde_Test
         ),
         'hash' => array(
             'descrip' => 'Hash Support',
-            'error' => 'Horde will not run without the hash extension. Don\'t compile PHP with <code>--disable-all/--disable-hash</code>, or enable the hash extension individually before continuing.',
+            'error' => 'Horde will not run without the hash extension. Don\'t compile PHP with <code>--disable-all/--disable-hash</code>.',
             'fatal' => true
+        ),
+        'horde_lz4' => array(
+            'descrip' => 'LZ4 Compression Support (PECL extension)',
+            'error' => 'If the horde_lz4 PECL extension is available, Horde can perform real-time compression on cached data to optimize storage resources.'
         ),
         'iconv' => array(
             'descrip' => 'Iconv Support',
-            'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the iconv extension.'
+            'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the iconv extension. Don\t compile PHP with <code>--disable-all/--disable-iconv</code>.'
         ),
         'iconv_libiconv' => array(
             'descrip' => 'GNU Iconv Support',
@@ -111,50 +117,45 @@ class Horde_Test
         ),
         'intl' => array(
             'descrip' => 'Internationalization Support',
-            'error' => 'Horde requires the intl module to handle Internationalized Domain Names. This module can either be compiled with PHP 5.3.0+ (requires <code>--enable-intl</code>) or can be installed via PECL.'
+            'error' => 'Horde requires the intl extension to handle Internationalized Domain Names. Compile PHP with <code>--enable-intl</code>.'
         ),
         'imagick' => array(
-            'descrip' => 'Imagick Library',
-            'error' => 'Horde can make use of the Imagick Library, if it is installed on your system.  It is highly recommended to use either ImageMagick\'s convert utility or the Imagick php library for faster results.'
+            'descrip' => 'Imagick (PECL extension)',
+            'error' => 'Horde can make use of the Imagick library to manipulate images. It is highly recommended to use the PECL extension (although, alternatively, Horde can be configured to use the convert command line utility instead).'
         ),
         'json' => array(
             'descrip' => 'JSON Support',
-            'error' => 'Horde will not run without the json extension. Don\'t compile PHP with <code>--disable-all/--disable-json</code>, or enable the json extension individually before continuing.',
+            'error' => 'Horde will not run without the json extension. Don\'t compile PHP with <code>--disable-all/--disable-json</code>.',
             'fatal' => true
         ),
         'ldap' => array(
             'descrip' => 'LDAP Support',
-            'error' => 'LDAP support is only required if you want to use an LDAP server for anything like authentication, address books, or preference storage.'
+            'error' => 'LDAP support is only required if you want to use an LDAP server for anything like authentication, address books, or preference storage. Compile PHP with <code>--with-ldap</code> to activate the extension.'
         ),
         'lzf' => array(
             'descrip' => 'LZF Compression Support (PECL extension)',
-            'error' => 'If the lzf PECL module is available, Horde can compress some cached data in your session to make your session size smaller.'
+            'error' => 'If the lzf PECL extension is available, Horde can perform real-time compression on cached data to optimize storage resources. It is recommended to use horde_lz4 instead, as its compression speed is twice as fast as this extension.'
         ),
         'mbstring' => array(
             'descrip' => 'Mbstring Support',
-            'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the mbstring extension.'
+            'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the mbstring extension. Compile PHP with <code>--enable-mbstring</code> to activate the extension.'
         ),
         'memcache' => array(
             'descrip' => 'memcached Support (memcache) (PECL extension)',
-            'error' => 'The memcache PECL module is only needed if you are using a memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.'
+            'error' => 'The memcache PECL extension is only needed if you are using a memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.'
         ),
         'mysql' => array(
             'descrip' => 'MySQL Support',
-            'error' => 'The MySQL extension is only required if you want to use a MySQL database server for data storage.'
+            'error' => 'The MySQL extension is only required if you want to use a MySQL database server for data storage. See the PHP documentation on how to enable MySQL support when compiling PHP.'
         ),
         'openssl' => array(
             'descrip' => 'OpenSSL Support',
-            'error' => 'The OpenSSL extension is required for any kind of S/MIME support.'
+            'error' => 'The OpenSSL extension is required for various cryptographic actions (highly recommended). Compile PHP with <code>--with-openssl</code> to activate the extension.'
         ),
         'pam' => array(
-            'descrip' => 'PAM Support',
-            'error' => 'The PAM extension is required to allow PAM authentication to be used.',
+            'descrip' => 'PAM Support (PECL extension)',
+            'error' => 'The PAM PECL extension is required to allow PAM authentication to be used.',
             'function' => '_checkPam'
-        ),
-        'pcre' => array(
-            'descrip' => 'PCRE Support',
-            'error' => 'Horde will not run without the pcre extension. Don\'t compile PHP with <code>--disable-all/--without-pcre-regex</code>, or enable the pcre extension individually before continuing.',
-            'fatal' => true
         ),
         'pdo' => array(
             'descrip' => 'PDO',
@@ -166,26 +167,27 @@ class Horde_Test
         ),
         'session' => array(
             'descrip' => 'Session Support',
+            'error' => 'Session support is required to use Horde. Don\'t compile PHP with <code>--disable-all/--disable-session</code>.',
             'fatal' => true
         ),
         'SimpleXML' => array(
             'descrip' => 'SimpleXML support',
-            'error' => 'Horde will not run without the SimpleXML extension. Don\'t compile PHP with <code>--disable-all/--disable-simplexml</code>, or enable the SimpleXML extension individually before continuing.',
+            'error' => 'Horde will not run without the SimpleXML extension. Don\'t compile PHP with <code>--disable-all/--disable-simplexml</code>.',
             'fatal' => true
         ),
         'tidy' => array(
             'descrip' => 'Tidy support',
-            'error' => 'The tidy PHP extension is used to sanitize HTML data.'
+            'error' => 'The tidy PHP extension is used to sanitize HTML data. Compile PHP with <code>--with-tidy</code> to activate the extension.'
         ),
         'xml' => array(
             'descrip' => 'XML Parser support',
-            'error' => 'Horde will not run without the xml extension. Don\'t compile PHP with <code>--disable-all/--without-xml</code>, or enable the xml extension individually before continuing.',
+            'error' => 'Horde will not run without the xml extension. Don\'t compile PHP with <code>--disable-all/--without-xml</code>.',
             'fatal' => true,
             'function' => '_checkLibxmlVersion'
         ),
         'zlib' => array(
             'descrip' => 'Zlib Support',
-            'error' => 'The zlib module is highly recommended for use with Horde.  It allows page compression and handling of ZIP and GZ data. Compile PHP with <code>--with-zlib</code> to activate.'
+            'error' => 'The zlib extension is highly recommended for use with Horde.  It allows page compression and handling of ZIP and GZ data. Compile PHP with <code>--with-zlib</code> to activate.'
         )
     );
 
@@ -211,11 +213,11 @@ class Horde_Test
         ),
         'magic_quotes_runtime' => array(
             'setting' => false,
-            'error' => 'magic_quotes_runtime may cause problems with database inserts, etc. Horde will attempt to disable automatically, but it is best to manually disable also.'
+            'error' => 'magic_quotes_runtime may cause problems with database inserts, etc. Horde will attempt to disable automatically, but it is best to manually disable also. This setting is deprecated in PHP 5.3.'
         ),
         'magic_quotes_sybase' => array(
             'setting' => false,
-            'error' => 'magic_quotes_sybase may cause problems with database inserts, etc. Horde will attempt to disable automatically, but it is best to manually disable also.'
+            'error' => 'magic_quotes_sybase may cause problems with database inserts, etc. Horde will attempt to disable automatically, but it is best to manually disable also. This setting is deprecated in PHP 5.3.'
         ),
         'memory_limit' => array(
             'setting' => 'value',
@@ -224,11 +226,11 @@ class Horde_Test
         ),
         'register_globals' => array(
             'setting' => false,
-            'error' => 'Register globals has been deprecated in PHP 5. Horde will fatally exit if it is set. Turn it off.'
+            'error' => 'Horde will fatally exit if register_globals is set. Turn it off. This setting is deprecated in PHP 5.3.'
         ),
         'safe_mode' => array(
             'setting' => false,
-            'error' => 'If safe_mode is enabled, Horde cannot set enviroment variables, which means Horde will be unable to translate the user interface into different languages.'
+            'error' => 'If safe_mode is enabled, Horde cannot set enviroment variables, which means Horde will be unable to translate the user interface into different languages. This setting is deprecated in PHP 5.3.'
         ),
         'session.auto_start' => array(
             'setting' => false,
@@ -251,14 +253,6 @@ class Horde_Test
         'tidy.clean_output' => array(
             'setting' => false,
             'error' => 'This will break output of any dynamically created, non-HTML content. Horde will attempt to disable automatically, but it is best to manually disable also.'
-        ),
-        'zend_accelerator.compress_all' => array(
-            'setting' => false,
-            'error' => 'You should not enable output compression unconditionally because some browsers and scripts don\'t work well with output compression. Enable compression in Horde\'s configuration instead, so that we have full control over the conditions where to enable and disable it.'
-        ),
-        'zend.ze1_compatibility_mode' => array(
-            'setting' => false,
-            'error' => 'Unneeded, deprecated PHP 4 compatibility option. Horde will attempt to disable automatically, but it is best to manually disable also.'
         ),
         'zlib.output_compression' => array(
             'setting' => false,
@@ -283,44 +277,18 @@ class Horde_Test
      * @var array
      */
     protected $_pearList = array(
-        'Auth_SASL' => array(
-            'error' => 'Horde will work without the Auth_SASL class, but if you use Access Control Lists in IMP you should be aware that without this class passwords will be sent to the IMAP server in plain text when retrieving ACLs.'
-        ),
-        'Cache' => array(
-            'error' => 'Cache is used by the Services_Weather module on the weather applet/block on the portal page.'
-        ),
-        'Crypt_Blowfish' => array(
-            'error' => 'Crypt_Blowfish is required to store authentication credentials securely within the session data.',
-            'required' => true
-        ),
-        'Date' => array(
-            'path' => 'Date/Calc.php',
-            'error' => 'Horde requires the Date_Calc class for Kronolith to calculate dates.'
-        ),
-        'HTTP_Request' => array(
-            'error' => 'Parts of Horde (Jonah, the XML-RPC client/server) use the HTTP_Request library to retrieve URLs and do other HTTP requests.'
-        ),
-        'HTTP_WebDAV_Server' => array(
-            'error' => 'The HTTP_WebDAV_Server is required if you want to use the WebDAV interface of Horde, e.g. to access calendars or tasklists with external clients.'
-        ),
-        'MDB2' => array(
-            'error' => 'You will need MDB2 if you are using the SQL driver for Shares.',
+        'File_Fstab' => array(
+            'error' => 'Horde requires the File_Fstab package if using the localhost driver for the Accounts block.'
         ),
         'Net_DNS2' => array(
             'error' => 'Net_DNS2 can speed up hostname lookups against broken DNS servers.'
         ),
         'Net_SMTP' => array(
-            'error' => 'Make sure you are using the Net_SMTP module if you want "smtp" to work as a mailer option.'
-        ),
-        'Net_Socket' => array(
-            'error' => 'Make sure you are using a version of PEAR which includes the Net_Socket class, or that you have installed the Net_Socket package seperately. See the INSTALL file for instructions on installing Net_Socket.'
+            'error' => 'The Net_SMTP package is necessary if you want to use SMTP to send e-mails in Horded.',
         ),
         'Services_Weather' => array(
-            'error' => 'Services_Weather is used by the weather applet/block on the portal page.'
+            'error' => 'Services_Weather is used by the METAR weather applet/block on the portal page.'
         ),
-        'XML_Serializer' => array(
-            'error' => 'XML_Serializer is used by the Services_Weather module on the weather applet/block on the portal page.'
-        )
     );
 
     /**
@@ -604,9 +572,11 @@ class Horde_Test
         $output .= $this->_outputLine(array("<strong>PEAR Search Path (PHP's include_path)</strong>", '&nbsp;<tt>' . ini_get('include_path') . '</tt>'));
 
         /* Check for PEAR in general. */
-        $entry = array();
-        $entry[] = 'PEAR';
-        $entry[] = $this->_status(!isset($php_errormsg));
+        @include_once 'PEAR.php';
+        $entry = array(
+            'PEAR',
+            $this->_status(!isset($php_errormsg)),
+        );
         if (isset($php_errormsg)) {
             $entry[] = 'Check your PHP include_path setting to make sure it has the PEAR library directory.';
             $output .= $this->_outputLine($entry);
@@ -806,7 +776,7 @@ class Horde_Test
         $output->class = $this->_phpver['class'];
 
         $output->status_color = 'red';
-        if ($output->major < '5.2') {
+        if ($output->major < '5.3') {
             $output->status = 'This version of PHP is not supported. You need to upgrade to a more recent version.';
             $vers_check = false;
         } elseif (in_array($output->major, $this->_supported)) {
@@ -818,7 +788,7 @@ class Horde_Test
         }
 
         if (!$vers_check) {
-            $output->version_check = 'Horde requires PHP 5.2.0 or greater.';
+            $output->version_check = 'Horde requires PHP 5.3.0 or greater.';
         }
 
         return $output;
@@ -894,11 +864,14 @@ class Horde_Test
             '</li></ul>';
 
         /* Determine if 'static' is writable by the web user. */
+        $user = function_exists('posix_getuid') ? posix_getpwuid(posix_getuid()) : null;
         $ret .= '<h1>Local File Permissions</h1><ul>' .
-            '<li>Is <tt>' . htmlspecialchars(HORDE_BASE) . '/static</tt> writable by the web server user? ';
+            sprintf('<li>Is <tt>%s/static</tt> writable by the web server user%s? ',
+                    htmlspecialchars(HORDE_BASE),
+                    $user ? (' (' . $user['name'] . ')') : '');
         $ret .= is_writable(HORDE_BASE . '/static')
             ? '<strong style="color:green">Yes</strong>'
-            : "<strong style=\"color:red\">No</strong><br /><strong style=\"color:orange\">If caching javascript and CSS files by storing them in static files (HIGHLY RECOMMENDED), this directory must be writable as the user the web server runs as.</strong>";
+            : '<strong style="color:red">No</strong><br /><strong style="color:orange">If caching javascript and CSS files by storing them in static files (HIGHLY RECOMMENDED), this directory must be writable as the user the web server runs as%s.</strong>';
 
         if (extension_loaded('imagick')) {
             $im = new Imagick();

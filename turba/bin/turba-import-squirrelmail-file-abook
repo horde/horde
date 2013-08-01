@@ -8,7 +8,7 @@
  * Input can be either a single squirrelmail .abook file, or a directory
  * containing multiple .abook files.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -16,8 +16,8 @@
  * @author Ben Chavet <ben@horde.org>
  */
 
-if (file_exists(dirname(__FILE__) . '/../../turba/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../turba/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()

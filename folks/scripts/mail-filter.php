@@ -3,7 +3,7 @@
 /**
  * This script parses MIME messages and deactivates users with returned emails.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -35,7 +35,7 @@ Options:
 EOU;
 }
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('folks', array('cli' => true));
 
 // Read command-line parameters.

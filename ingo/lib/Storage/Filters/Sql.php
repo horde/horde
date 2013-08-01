@@ -1,15 +1,27 @@
 <?php
 /**
- * Ingo_Storage_Filters_Sql is the object used to hold user-defined filtering
- * rule information.
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Ingo
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
-class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
+
+/**
+ * Ingo_Storage_Filters_Sql is the object used to hold user-defined filtering
+ * rule information.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters
+{
 
     /**
      * Handle for the current database connection.
@@ -187,11 +199,17 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
                          $this->_params['table_rules']);
         $values = array($this->_filters[$id]['id'], Ingo::getUser());
         try {
-            $result = $this->_db->delete($query, $values);
+            $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Ingo_Exception($e);
         }
+
+        /* Remove the rule from the filter list. */
         unset($this->_filters[$id]);
+        $this->_filters = array_combine(
+            range(1, count($this->_filters)),
+            array_values($this->_filters)
+        );
 
         $query = sprintf('UPDATE %s SET rule_order = rule_order - 1 WHERE rule_owner = ? AND rule_order > ?',
                          $this->_params['table_rules']);

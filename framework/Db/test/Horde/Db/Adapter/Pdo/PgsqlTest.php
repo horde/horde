@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -11,6 +11,8 @@
  * @package    Db
  * @subpackage UnitTests
  */
+
+require_once __DIR__ . '/PgsqlBase.php';
 
 /**
  * @author     Mike Naberezny <mike@maintainable.com>
@@ -22,11 +24,13 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Adapter_Pdo_PgsqlTest extends Horde_Db_Adapter_Pdo_PgsqlBase
 {
     protected function setUp()
     {
-        list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
+        parent::setUp();
+
+        list($this->_conn, $this->_cache) = self::getConnection();
 
         // clear out detritus from any previous test runs.
         $this->_dropTestTables();
@@ -51,7 +55,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         // read sql file for statements
         $statements = array();
         $current_stmt = '';
-        $fp = fopen(dirname(__FILE__) . '/../../fixtures/unit_tests.sql', 'r');
+        $fp = fopen(__DIR__ . '/../../fixtures/unit_tests.sql', 'r');
         while ($line = fgets($fp, 8192)) {
             $line = rtrim(preg_replace('/^(.*)--.*$/s', '\1', $line));
             if (!$line) {
@@ -702,6 +706,10 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
         $sql = "SELECT modified_at FROM sports WHERE id = 1";
         $this->assertEquals("2007-01-01", $this->_conn->selectValue($sql));
+
+        $this->_conn->addColumn('sports', 'with_default', 'integer', array('default' => 1));
+        $sql = "SELECT with_default FROM sports WHERE id = 1";
+        $this->assertEquals(1, $this->_conn->selectValue($sql));
     }
 
     public function testRemoveColumn()
@@ -1288,24 +1296,24 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     {
         // remove any current cache.
         $this->_cache->set('tables/indexes/cache_table', '');
-        $this->assertEquals('', $this->_cache->get('tables/indexes/cache_table'));
+        $this->assertEquals('', $this->_cache->get('tables/indexes/cache_table', 0));
 
         $this->_createTestTable('cache_table');
         $idxs = $this->_conn->indexes('cache_table');
 
-        $this->assertNotEquals('', $this->_cache->get('tables/indexes/cache_table'));
+        $this->assertNotEquals('', $this->_cache->get('tables/indexes/cache_table', 0));
     }
 
     public function testCachedTableColumns()
     {
         // remove any current cache.
         $this->_cache->set('tables/columns/cache_table', '');
-        $this->assertEquals('', $this->_cache->get('tables/columns/cache_table'));
+        $this->assertEquals('', $this->_cache->get('tables/columns/cache_table'), 0);
 
         $this->_createTestTable('cache_table');
         $cols = $this->_conn->columns('cache_table');
 
-        $this->assertNotEquals('', $this->_cache->get('tables/columns/cache_table'));
+        $this->assertNotEquals('', $this->_cache->get('tables/columns/cache_table', 0));
     }
 
 

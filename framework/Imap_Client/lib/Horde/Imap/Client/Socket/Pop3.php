@@ -1,22 +1,13 @@
 <?php
 /**
- * An interface to a POP3 server using PHP functions.
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
- * It is an abstraction layer allowing POP3 commands to be used based on
- * IMAP equivalents.
- *
- * This driver implements the following POP3-related RFCs:
- *   - STD 53/RFC 1939: POP3 specification
- *   - RFC 2195: CRAM-MD5 authentication
- *   - RFC 2449: POP3 extension mechanism
- *   - RFC 2595/4616: PLAIN authentication
- *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
- *   - RFC 3206: AUTH/SYS response codes
- *   - RFC 1734/5034: POP3 SASL
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * ---------------------------------------------------------------------------
  *
- * Originally based on the PEAR Net_POP3 package (version 1.3.6) by:
+ * Based on the PEAR Net_POP3 package (version 1.3.6) by:
  *     Richard Heyes <richard@phpguru.org>
  *     Damian Fernandez Sosa <damlists@cnba.uba.ar>
  *
@@ -50,15 +41,35 @@
  *
  * ---------------------------------------------------------------------------
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * @category  Horde
+ * @copyright 2002 Richard Heyes
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * An interface to a POP3 server using PHP functions.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * It is an abstraction layer allowing POP3 commands to be used based on
+ * IMAP equivalents.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * This driver implements the following POP3-related RFCs:
+ *   - STD 53/RFC 1939: POP3 specification
+ *   - RFC 2195: CRAM-MD5 authentication
+ *   - RFC 2449: POP3 extension mechanism
+ *   - RFC 2595/4616: PLAIN authentication
+ *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
+ *   - RFC 3206: AUTH/SYS response codes
+ *   - RFC 1734/5034: POP3 SASL
+ *
+ * @author    Richard Heyes <richard@phpguru.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002 Richard Heyes
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 {
@@ -77,27 +88,14 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     protected $_fetchDataClass = 'Horde_Imap_Client_Data_Fetch_Pop3';
 
     /**
-     * The socket connection to the POP3 server.
-     *
-     * @var resource
-     */
-    protected $_stream = null;
-
-    /**
-     */
-    protected $_utilsClass = 'Horde_Imap_Client_Utils_Pop3';
-
-    /**
      */
     public function __construct(array $params = array())
     {
-        if (empty($params['port'])) {
-            $params['port'] = (isset($params['secure']) && ($params['secure'] == 'ssl'))
-                ? 995
-                : 110;
-        }
-
         parent::__construct($params);
+
+        if (empty($params['port'])) {
+            $this->setParam('port', in_array($this->getParam('secure'), array('ssl', 'sslv2', 'sslv3')) ? 995 : 110);
+        }
     }
 
     /**
@@ -124,11 +122,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $capability = array();
 
         try {
-            $this->_sendLine('CAPA');
+            $res = $this->_sendLine('CAPA', array(
+                'multiline' => 'array'
+            ));
 
-            foreach ($this->_getMultiline(true) as $val) {
+            foreach ($res['data'] as $val) {
                 $prefix = explode(' ', $val);
-
                 $capability[strtoupper($prefix[0])] = (count($prefix) > 1)
                     ? array_slice($prefix, 1)
                     : true;
@@ -139,21 +138,21 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $capability = array('USER', 'SASL');
 
             try {
-                $this->_sendLine('UIDL');
-                fclose($this->_getMultiline());
+                $this->_sendLine('UIDL', array(
+                    'multiline' => 'none'
+                ));
                 $capability[] = 'UIDL';
             } catch (Horde_Imap_Client_Exception $e) {}
 
             try {
-                $this->_sendLine('TOP 1 0');
-                fclose($this->_getMultiline());
+                $this->_sendLine('TOP 1 0', array(
+                    'multiline' => 'none'
+                ));
                 $capability[] = 'TOP';
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         $this->_setInit('capability', $capability);
-
-        return $this->_init['capability'];
     }
 
     /**
@@ -164,10 +163,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _getNamespaces()
     {
-        $this->_exception('IMAP namespaces not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Namespaces');
     }
 
     /**
@@ -184,26 +184,28 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $this->_connect();
 
         // Switch to secure channel if using TLS.
-        if (!$this->_isSecure &&
-            ($this->_params['secure'] == 'tls')) {
+        if (!$this->isSecureConnection() &&
+            ($this->getParam('secure') == 'tls')) {
             // Switch over to a TLS connection.
             if (!$this->queryCapability('STLS')) {
-                $this->_exception(Horde_Imap_Client_Translation::t("Could not open secure connection to the POP3 server.") . ' ' . Horde_Imap_Client_Translation::t("Server does not support secure connections."), 'LOGIN_TLSFAILURE');
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::t("Could not open secure connection to the POP3 server.") . ' ' . Horde_Imap_Client_Translation::t("Server does not support secure connections."),
+                    Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
+                );
             }
 
             $this->_sendLine('STLS');
 
-            $res = @stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
-
-            if (!$res) {
+            if (!$this->_connection->startTls()) {
                 $this->logout();
-                $this->_exception(Horde_Imap_Client_Translation::t("Could not open secure connection to the POP3 server."), 'LOGIN_TLSFAILURE');
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::t("Could not open secure connection to the POP3 server."),
+                    Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
+                );
             }
 
             // Expire cached CAPABILITY information
             $this->_setInit('capability');
-
-            $this->_isSecure = true;
         }
 
         if (empty($this->_init['authmethod'])) {
@@ -227,13 +229,16 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 return true;
             } catch (Horde_Imap_Client_Exception $e) {
                 if (!empty($this->_init['authmethod'])) {
-                    $this->_setInit('authmethod');
+                    $this->_setInit();
                     return $this->login();
                 }
             }
         }
 
-        $this->_exception(Horde_Imap_Client_Translation::t("POP3 server denied authentication."), $e->getCode() ? $e->getCode() : 'LOGIN_AUTHENTICATIONFAILED');
+        throw new Horde_Imap_Client_Exception(
+            Horde_Imap_Client_Translation::t("POP3 server denied authentication."),
+            $e->getCode() ? $e->getCode() : Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+        );
     }
 
     /**
@@ -243,43 +248,16 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _connect()
     {
-        if (!is_null($this->_stream)) {
+        if (!is_null($this->_connection)) {
             return;
         }
 
-        if (!empty($this->_params['secure']) && !extension_loaded('openssl')) {
-            new InvalidArgumentException('Secure connections require the PHP openssl extension.');
-        }
+        $this->_connection = new Horde_Imap_Client_Socket_Connection_Pop3($this, $this->_debug);
 
-        switch ($this->_params['secure']) {
-        case 'ssl':
-            $conn = 'ssl://';
-            $this->_isSecure = true;
-            break;
-
-        case 'tls':
-        default:
-            $conn = 'tcp://';
-            break;
-        }
-
-        $this->_stream = @stream_socket_client($conn . $this->_params['hostspec'] . ':' . $this->_params['port'], $error_number, $error_string, $this->_params['timeout']);
-
-        if ($this->_stream === false) {
-            $this->_stream = null;
-            $this->_isSecure = false;
-            $this->_exception(array(
-                Horde_Imap_Client_Translation::t("Error connecting to POP3 server."),
-                sprintf("[%u] %s.", $error_number, $error_string)
-            ), 'SERVER_CONNECT');
-        }
-
-        stream_set_timeout($this->_stream, $this->_params['timeout']);
-
-        $line = $this->_getLine();
+        $line = $this->_getResponse();
 
         // Check for string matching APOP timestamp
-        if (preg_match('/<.+@.+>/U', $line['line'], $matches)) {
+        if (preg_match('/<.+@.+>/U', $line['resp'], $matches)) {
             $this->_temp['pop3timestamp'] = $matches[0];
         }
     }
@@ -293,6 +271,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _tryLogin($method)
     {
+        $username = $this->getParam('username');
+        $password = $this->getParam('password');
+
         switch ($method) {
         case 'CRAM-MD5':
         case 'CRAM-SHA1':
@@ -300,25 +281,30 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             // RFC 5034: CRAM-MD5
             // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
             $challenge = $this->_sendLine('AUTH ' . $method);
-            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower($method, 5), $this->getParam('password'), base64_decode(substr($challenge['line'], 2)), true));
-            $this->_sendLine($response, array('debug' => '[' . $method . ' Response]'));
+            $response = base64_encode($username . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(substr($challenge['resp'], 2)), $password, true));
+            $this->_sendLine($response, array(
+                'debug' => sprintf('[%s Response - username: %s]', $method, $username)
+            ));
             break;
 
         case 'DIGEST-MD5':
             // RFC 2831; Obsoleted by RFC 6331
             $challenge = $this->_sendLine('AUTH DIGEST-MD5');
             $response = base64_encode(new Horde_Imap_Client_Auth_DigestMD5(
-                $this->_params['username'],
-                $this->getParam('password'),
-                base64_decode(substr($challenge['line'], 2)),
-                $this->_params['hostspec'],
+                $username,
+                $password,
+                base64_decode(substr($challenge['resp'], 2)),
+                $this->getParam('hostspec'),
                 'pop3'
             ));
             $sresponse = $this->_sendLine($response, array(
-                'debug' => '[DIGEST-MD5 Response]'
+                'debug' => sprintf('[%s Response - username: %s]', $method, $username)
             ));
-            if (stripos(base64_decode(substr($sresponse['line'], 2)), 'rspauth=') === false) {
-                $this->_exception(Horde_Imap_Client_Translation::t("Unexpected response from server when authenticating."), 'SERVER_CONNECT');
+            if (stripos(base64_decode(substr($sresponse['resp'], 2)), 'rspauth=') === false) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::t("Unexpected response from server when authenticating."),
+                    Horde_Imap_Client_Exception::SERVER_CONNECT
+                );
             }
 
             /* POP3 doesn't use protocol's third step. */
@@ -328,34 +314,39 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         case 'LOGIN':
             // RFC 5034
             $this->_sendLine('AUTH LOGIN');
-            $this->_sendLine(base64_encode($this->_params['username']));
-            $this->_sendLine(base64_encode($this->getParam('password')), array(
+            $this->_sendLine(base64_encode($username), array(
+                'debug' => sprintf('[AUTH LOGIN Command - username: %s]', $username)
+            ));
+            $this->_sendLine(base64_encode($password), array(
                 'debug' => '[AUTH LOGIN Command - password]'
             ));
             break;
 
         case 'PLAIN':
             // RFC 5034
-            $this->_sendLine('AUTH PLAIN ' . base64_encode(chr(0) . $this->_params['username'] . chr(0) . $this->getParam('password')), array(
-                'debug' => sprintf('[AUTH PLAIN Command - username: %s]', $this->_params['username'])
+            $this->_sendLine('AUTH PLAIN ' . base64_encode(implode("\0", array($username, $this->getParam('password')))), array(
+                'debug' => sprintf('[AUTH PLAIN Command - username: %s]', $username)
             ));
             break;
 
         case 'APOP':
             // RFC 1939 [7]
-            $this->_sendLine('APOP ' . $this->_params['username'] . ' ' . hash('md5', $this->_temp['pop3timestamp'] . $this->_params['password']));
+            $this->_sendLine('APOP ' . $username . ' ' . hash('md5', $this->_temp['pop3timestamp'] . $password));
             break;
 
         case 'USER':
             // RFC 1939 [7]
-            $this->_sendLine('USER ' . $this->_params['username']);
-            $this->_sendLine('PASS ' . $this->getParam('password'), array(
+            $this->_sendLine('USER ' . $username);
+            $this->_sendLine('PASS ' . $password, array(
                 'debug' => '[USER Command - password]'
             ));
             break;
 
         default:
-            $this->_exception(sprintf(Horde_Imap_Client_Translation::t("Unknown authentication method: %s"), $method), 'SERVER_CONNECT');
+            throw new Horde_Imap_Client_Exception(
+                sprintf(Horde_Imap_Client_Translation::t("Unknown authentication method: %s"), $method),
+                Horde_Imap_Client_Exception::SERVER_CONNECT
+            );
         }
     }
 
@@ -363,21 +354,18 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _logout()
     {
-        if (!is_null($this->_stream)) {
-            try {
-                $this->_sendLine('QUIT');
-            } catch (Horde_Imap_Client_Exception $e) {}
-            fclose($this->_stream);
-            $this->_stream = null;
-            $this->_deleted = array();
-        }
+        try {
+            $this->_sendLine('QUIT');
+        } catch (Horde_Imap_Client_Exception $e) {}
+        $this->_deleted = array();
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _sendID($info)
     {
-        $this->_exception('IMAP ID command not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('ID command');
     }
 
     /**
@@ -392,56 +380,64 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _setLanguage($langs)
     {
-        $this->_exception('IMAP LANGUAGE extension not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('LANGUAGE extension');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _getLanguage($list)
     {
-        $this->_exception('IMAP LANGUAGE extension not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('LANGUAGE extension');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _openMailbox(Horde_Imap_Client_Mailbox $mailbox, $mode)
     {
         if (strcasecmp($mailbox, 'INBOX') !== 0) {
-            $this->_exception('Mailboxes other than INBOX not supported on POP3 servers.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportPop3('Mailboxes other than INBOX');
         }
+        $this->_changeSelected($mailbox, $mode);
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _createMailbox(Horde_Imap_Client_Mailbox $mailbox, $opts)
     {
-        $this->_exception('Creating mailboxes not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Creating mailboxes');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _deleteMailbox(Horde_Imap_Client_Mailbox $mailbox)
     {
-        $this->_exception('Deleting mailboxes not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Deleting mailboxes');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _renameMailbox(Horde_Imap_Client_Mailbox $old,
                                       Horde_Imap_Client_Mailbox $new)
     {
-        $this->_exception('Renaming mailboxes not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Renaming mailboxes');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _subscribeMailbox(Horde_Imap_Client_Mailbox $mailbox,
                                          $subscribe)
     {
-        $this->_exception('Mailboxes other than INBOX not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Mailboxes other than INBOX');
     }
 
     /**
@@ -465,19 +461,16 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     /**
      * @param integer $flags   This driver only supports the options listed
      *                         under Horde_Imap_Client::STATUS_ALL.
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
-    protected function _status(Horde_Imap_Client_Mailbox $mailbox, $flags)
+    protected function _status($mboxes, $flags)
     {
-        $this->openMailbox($mailbox);
-
-        // This driver only supports the base flags given by c-client.
-        if (($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
-            ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
-            ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
-            ($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) ||
-            ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY)) {
-            $this->_exception('Improper status request on POP3 server.', 'NO_SUPPORT');
+        if ((count($mboxes) > 1) ||
+            (strcasecmp(reset($mboxes), 'INBOX') !== 0)) {
+            throw new Horde_Imap_Client_Exception_NoSupportPop3('Mailboxes other than INBOX');
         }
+
+        $this->openMailbox('INBOX');
 
         $ret = array();
 
@@ -491,6 +484,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $ret['recent'] = $res['msgs'];
         }
 
+        // No need for STATUS_UIDNEXT_FORCE handling since STATUS_UIDNEXT will
+        // always return a value.
         if ($flags & Horde_Imap_Client::STATUS_UIDNEXT) {
             $res = $this->_pop3Cache('stat');
             $ret['uidnext'] = $res['msgs'] + 1;
@@ -506,15 +501,16 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $ret['unseen'] = 0;
         }
 
-        return $ret;
+        return array('INBOX' => $ret);
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _append(Horde_Imap_Client_Mailbox $mailbox, $data,
                                $options)
     {
-        $this->_exception('Appending messages not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Appending messages');
     }
 
     /**
@@ -547,6 +543,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _search($query, $options)
     {
@@ -555,11 +552,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             : reset($options['sort']);
 
         // Only support a single query: an ALL search sorted by sequence.
-        if ((reset($options['_query']['query']) != 'ALL') ||
+        if ((strval($options['_query']['query']) != 'ALL') ||
             ($sort &&
              ((count($options['sort']) > 1) ||
               ($sort != Horde_Imap_Client::SORT_SEQUENCE)))) {
-            $this->_exception('Server search not supported on POP3 server.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportPop3('Server search');
         }
 
         $status = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES);
@@ -599,48 +596,62 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _setComparator($comparator)
     {
-        $this->_exception('Search comparators not supported on POP3 server.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Search comparators');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _getComparator()
     {
-        $this->_exception('Search comparators not supported on POP3 server.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Search comparators');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _thread($options)
     {
-        $this->_exception('Server threading not supported on POP3 server.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Server threading');
     }
 
     /**
      */
-    protected function _fetch($query, $results, $options)
+    protected function _fetch(Horde_Imap_Client_Fetch_Results $results,
+                              $queries)
     {
-        // These options are not supported by this driver.
-        if (!empty($options['changedsince']) ||
-            !empty($options['vanished'])) {
-            $this->_exception('Fetch options not supported on POP3 server.', 'NO_SUPPORT');
+        foreach ($queries as $options) {
+            $this->_fetchCmd($results, $options);
         }
 
+        $this->_updateCache($results);
+    }
+
+     /**
+     * Fetch data for a given fetch query.
+     *
+     * @param Horde_Imap_Client_Fetch_Results $results  Fetch results.
+     * @param array $options                            Fetch query options.
+     */
+    protected function _fetchCmd(Horde_Imap_Client_Fetch_Results $results,
+                                 $options)
+    {
         // Grab sequence IDs - IDs will always be the message number for
         // POP3 fetch commands.
         $seq_ids = $this->_getSeqIds($options['ids']);
         if (empty($seq_ids)) {
-            return $results;
+            return;
         }
 
         $lookup = $options['ids']->sequence
             ? array_combine($seq_ids, $seq_ids)
             : $this->_pop3Cache('uidl');
 
-        foreach ($query as $type => $c_val) {
+        foreach ($options['_query'] as $type => $c_val) {
             switch ($type) {
             case Horde_Imap_Client::FETCH_FULLMSG:
                 foreach ($seq_ids as $id) {
@@ -649,9 +660,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                     if (empty($c_val['start']) && empty($c_val['length'])) {
                         $tmp2 = fopen('php://temp', 'r+');
                         stream_copy_to_stream($tmp, $tmp2, empty($c_val['length']) ? -1 : $c_val['length'], empty($c_val['start']) ? 0 : $c_val['start']);
-                        $results[$lookup[$id]]->setFullMsg($tmp2);
+                        $results->get($lookup[$id])->setFullMsg($tmp2);
                     } else {
-                        $results[$lookup[$id]]->setFullMsg($tmp);
+                        $results->get($lookup[$id])->setFullMsg($tmp);
                     }
                 }
                 break;
@@ -666,7 +677,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                             $tmp = ($key == 0)
                                 ? $this->_pop3Cache('hdr', $id)
                                 : Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'header', $key);
-                            $results[$lookup[$id]]->setHeaderText($key, $this->_processString($tmp, $c_val));
+                            $results->get($lookup[$id])->setHeaderText($key, $this->_processString($tmp, $c_val));
                         } catch (Horde_Mime_Exception $e) {}
                     }
                 }
@@ -677,7 +688,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 foreach ($c_val as $key => $val) {
                     foreach ($seq_ids as $id) {
                         try {
-                            $results[$lookup[$id]]->setBodyText($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'body', $key), $val));
+                            $results->get($lookup[$id])->setBodyText($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'body', $key), $val));
                         } catch (Horde_Mime_Exception $e) {}
                     }
                 }
@@ -688,7 +699,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 foreach ($c_val as $key => $val) {
                     foreach ($seq_ids as $id) {
                         try {
-                            $results[$lookup[$id]]->setMimeHeader($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'header', $key), $val));
+                            $results->get($lookup[$id])->setMimeHeader($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'header', $key), $val));
                         } catch (Horde_Mime_Exception $e) {}
                     }
                 }
@@ -699,7 +710,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 foreach ($c_val as $key => $val) {
                     foreach ($seq_ids as $id) {
                         try {
-                            $results[$lookup[$id]]->setBodyPart($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'body', $key), $val));
+                            $results->get($lookup[$id])->setBodyPart($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'body', $key), $val));
                         } catch (Horde_Mime_Exception $e) {}
                     }
                 }
@@ -725,7 +736,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                             }
                         }
 
-                        $results[$lookup[$id]]->setHeaders($key, $tmp);
+                        $results->get($lookup[$id])->setHeaders($key, $tmp);
                     }
                 }
                 break;
@@ -734,7 +745,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 foreach ($seq_ids as $id) {
                     if ($ptr = $this->_pop3Cache('msg', $id)) {
                         try {
-                            $results[$lookup[$id]]->setStructure(Horde_Mime_Part::parseMessage(stream_get_contents($ptr)));
+                            $results->get($lookup[$id])->setStructure(Horde_Mime_Part::parseMessage(stream_get_contents($ptr), array('no_body' => true)));
                         } catch (Horde_Exception $e) {}
                     }
                 }
@@ -743,7 +754,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_ENVELOPE:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
-                    $results[$lookup[$id]]->setEnvelope(array(
+                    $results->get($lookup[$id])->setEnvelope(array(
                         'date' => $tmp->getValue('date'),
                         'subject' => $tmp->getValue('subject'),
                         'from' => $tmp->getOb('from'),
@@ -761,20 +772,20 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_IMAPDATE:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
-                    $results[$lookup[$id]]->setImapDate($tmp->getValue('date'));
+                    $results->get($lookup[$id])->setImapDate($tmp->getValue('date'));
                 }
                 break;
 
             case Horde_Imap_Client::FETCH_SIZE:
                 $sizelist = $this->_pop3Cache('size');
                 foreach ($seq_ids as $id) {
-                    $results[$lookup[$id]]->setSize($sizelist[$id]);
+                    $results->get($lookup[$id])->setSize($sizelist[$id]);
                 }
                 break;
 
             case Horde_Imap_Client::FETCH_SEQ:
                 foreach ($seq_ids as $id) {
-                    $results[$lookup[$id]]->setSeq($id);
+                    $results->get($lookup[$id])->setSeq($id);
                 }
                 break;
 
@@ -782,18 +793,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 $uidllist = $this->_pop3Cache('uidl');
                 foreach ($seq_ids as $id) {
                     if (isset($uidllist[$id])) {
-                        $results[$lookup[$id]]->setUid($uidllist[$id]);
+                        $results->get($lookup[$id])->setUid($uidllist[$id]);
                     }
                 }
                 break;
             }
         }
-
-        $this->_updateCache($results, array(
-            'seq' => $options['ids']->sequence
-        ));
-
-        return $results;
     }
 
     /**
@@ -823,11 +828,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $data = null;
             if ($this->queryCapability('TOP')) {
                 try {
-                    $resp = $this->_sendLine('TOP ' . $index . ' 0');
-                    $ptr = $this->_getMultiline();
-                    rewind($ptr);
-                    $data = stream_get_contents($ptr);
-                    fclose($ptr);
+                    $res = $this->_sendLine('TOP ' . $index . ' 0', array(
+                        'multiline' => 'stream'
+                    ));
+                    rewind($res['data']);
+                    $data = stream_get_contents($res['data']);
+                    fclose($res['data']);
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
 
@@ -841,8 +847,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             break;
 
         case 'msg':
-            $resp = $this->_sendLine('RETR ' . $index);
-            $data = $this->_getMultiline();
+            $res = $this->_sendLine('RETR ' . $index, array(
+                'multiline' => 'stream'
+            ));
+            $data = $res['data'];
             rewind($data);
             break;
 
@@ -850,8 +858,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         case 'uidl':
             $data = array();
             try {
-                $this->_sendLine(($type == 'size') ? 'LIST' : 'UIDL');
-                foreach ($this->_getMultiline(true) as $val) {
+                $res = $this->_sendLine(($type == 'size') ? 'LIST' : 'UIDL', array(
+                    'multiline' => 'array'
+                ));
+                foreach ($res['data'] as $val) {
                     $resp_data = explode(' ', $val, 2);
                     $data[$resp_data[0]] = $resp_data[1];
                 }
@@ -860,7 +870,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         case 'stat':
             $resp = $this->_sendLine('STAT');
-            $resp_data = explode(' ', $resp['line'], 2);
+            $resp_data = explode(' ', $resp['resp'], 2);
             $data = array('msgs' => $resp_data[0], 'size' => $resp_data[1]);
             break;
         }
@@ -890,10 +900,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _vanished($modseq, Horde_Imap_Client_Ids $ids)
     {
-        $this->_exception('QRESYNC items not supported on POP3 server.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('QRESYNC commands');
     }
 
     /**
@@ -930,6 +941,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             foreach ($this->_getSeqIds($options['ids']) as $id) {
                 try {
                     $this->_sendLine('DELE ' . $id);
+                    $this->_deleted[] = $id;
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
         }
@@ -938,81 +950,99 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _copy(Horde_Imap_Client_Mailbox $dest, $options)
     {
-        $this->_exception('Copying messages not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Copying messages');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _setQuota(Horde_Imap_Client_Mailbox $root, $options)
     {
-        $this->_exception('IMAP quotas not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Quotas');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _getQuota(Horde_Imap_Client_Mailbox $root)
     {
-        $this->_exception('IMAP quotas not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Quotas');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _getQuotaRoot(Horde_Imap_Client_Mailbox $mailbox)
     {
-        $this->_exception('IMAP quotas not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Quotas');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _setACL(Horde_Imap_Client_Mailbox $mailbox, $identifier,
                                $options)
     {
-        $this->_exception('IMAP ACLs not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('ACLs');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
+     */
+    protected function _deleteACL(Horde_Imap_Client_Mailbox $mailbox, $identifier)
+    {
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('ACLs');
+    }
+
+    /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _getACL(Horde_Imap_Client_Mailbox $mailbox)
     {
-        $this->_exception('IMAP ACLs not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('ACLs');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _listACLRights(Horde_Imap_Client_Mailbox $mailbox,
                                       $identifier)
     {
-        $this->_exception('IMAP ACLs not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('ACLs');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _getMyACLRights(Horde_Imap_Client_Mailbox $mailbox)
     {
-        $this->_exception('IMAP ACLs not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('ACLs');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _getMetadata(Horde_Imap_Client_Mailbox $mailbox,
                                     $entries, $options)
     {
-        $this->_exception('IMAP metadata not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Metadata');
     }
 
     /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
     protected function _setMetadata(Horde_Imap_Client_Mailbox $mailbox, $data)
     {
-        $this->_exception('IMAP metadata not supported on POP3 servers.', 'NO_SUPPORT');
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('Metadata');
     }
 
     /**
      */
-    protected function _getSearchCache($type, $mailbox, $options)
+    protected function _getSearchCache($type, $options)
     {
         /* POP3 does not support search caching. */
         return null;
@@ -1024,145 +1054,160 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * Perform a command on the server. A connection to the server must have
      * already been made.
      *
-     * @param string $query   The command to execute.
+     * @param string $cmd     The command to execute.
      * @param array $options  Additional options:
+     * <pre>
      *   - debug: (string) When debugging, send this string instead of the
      *            actual command/data sent.
      *            DEFAULT: Raw data output to debug stream.
+     *   - multiline: (mixed) 'array', 'none', or 'stream'.
+     * </pre>
+     *
+     * @return array  See _getResponse().
+     *
+     * @throws Horde_Imap_Client_Exception
      */
-    protected function _sendLine($query, $options = array())
+    protected function _sendLine($cmd, $options = array())
     {
-        $this->writeDebug((empty($options['debug']) ? $query : $options['debug']) . "\n", Horde_Imap_Client::DEBUG_CLIENT);
+        $old_debug = $this->_debug->debug;
+        if (!empty($options['debug'])) {
+            $this->_debug->raw($options['debug'] . "\n");
+            $this->_debug->debug = false;
+        }
 
-        fwrite($this->_stream, $query . "\r\n");
+        try {
+            $this->_connection->write($cmd);
+        } catch (Horde_Imap_Client_Exception $e) {
+            $this->_debug->debug = $old_debug;
+            throw $e;
+        }
 
-        return $this->_getLine();
+        $this->_debug->debug = $old_debug;
+
+        return $this->_getResponse(
+            empty($options['multiline']) ? false : $options['multiline']
+        );
     }
 
     /**
      * Gets a line from the stream and parses it.
      *
+     * @param mixed $multiline  'array', 'none', 'stream', or null.
+     *
      * @return array  An array with the following keys:
-     *   - line: (string) The server response text.
-     *   - response: (string) Either 'OK', 'END', '+', or ''.
+     *   - data: (mixed) Stream, array, or null.
+     *   - resp: (string) The server response text.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _getLine()
+    protected function _getResponse($multiline = false)
     {
-        $ob = array('line' => '', 'response' => '');
+        $ob = array('resp' => '');
 
-        if (feof($this->_stream)) {
-            $this->logout();
-            $this->_exception(Horde_Imap_Client_Translation::t("POP3 Server closed the connection unexpectedly."), 'DISCONNECT');
+        $read = explode(' ', rtrim($this->_connection->read(), "\r\n"), 2);
+        if (!in_array($read[0], array('+OK', '-ERR'))) {
+            $this->_debug->info("ERROR: IMAP read/timeout error.");
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
+                Horde_Imap_Client_Exception::SERVER_READERROR
+            );
         }
 
-        $read = rtrim(fgets($this->_stream));
-        if (empty($read)) {
-            return;
+        $respcode = null;
+        if (isset($read[1]) &&
+            isset($this->_init['capability']) &&
+            $this->queryCapability('RESP-CODES')) {
+            $respcode = $this->_parseResponseCode($read[1]);
         }
-
-        $this->writeDebug($read . "\n", Horde_Imap_Client::DEBUG_SERVER);
-
-        $orig_read = $read;
-        $read = explode(' ', $read, 2);
 
         switch ($read[0]) {
         case '+OK':
-            $ob['response'] = 'OK';
-            if (isset($read[1])) {
-                $response = $this->_parseResponseText($read[1]);
-                $ob['line'] = $response->text;
+            if ($respcode) {
+                $ob['resp'] = $respcode->text;
+            } elseif (isset($read[1])) {
+                $ob['resp'] = $read[1];
             }
             break;
 
         case '-ERR':
             $errcode = 0;
-            if (isset($read[1])) {
-                $response = $this->_parseResponseText($read[1]);
-                $errtext = $response->text;
-                if (isset($response->code)) {
-                    switch ($response->code) {
+            if ($respcode) {
+                $errtext = $respcode->text;
+
+                if (isset($respcode->code)) {
+                    switch ($respcode->code) {
                     // RFC 2449 [8.1.1]
                     case 'IN-USE':
                     // RFC 2449 [8.1.2]
                     case 'LOGIN-DELAY':
-                        $errcode = 'LOGIN_UNAVAILABLE';
+                        $errcode = Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE;
                         break;
 
                     // RFC 3206 [4]
                     case 'SYS/TEMP':
-                        $errcode = 'POP3_TEMP_ERROR';
+                        $errcode = Horde_Imap_Client_Exception::POP3_TEMP_ERROR;
                         break;
 
                     // RFC 3206 [4]
                     case 'SYS/PERM':
-                        $errcode = 'POP3_PERM_ERROR';
+                        $errcode = Horde_Imap_Client_Exception::POP3_PERM_ERROR;
                         break;
 
                     // RFC 3206 [5]
                     case 'AUTH':
-                        $errcode = 'LOGIN_AUTHENTICATIONFAILED';
+                        $errcode = Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED;
                         break;
                     }
                 }
+            } elseif (isset($read[1])) {
+                $errtext = $read[1];
             } else {
                 $errtext = '[No error message provided by server]';
             }
 
-            $this->_exception(array(
+            $e = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("POP3 error reported by server."),
-                $errtext
-            ), $errcode);
+                $errcode
+            );
+            $e->details = $errtext;
+            throw $e;
+        }
 
-        case '.':
-            $ob['response'] = 'END';
+        switch ($multiline) {
+        case 'array':
+            $ob['data'] = array();
             break;
 
-        case '+':
-            $ob['response'] = '+';
+        case 'none':
+            $ob['data'] = null;
+            break;
+
+        case 'stream':
+            $ob['data'] = fopen('php://temp', 'r+');
             break;
 
         default:
-            $ob['line'] = $orig_read;
-            break;
+            return $ob;
         }
 
-        return $ob;
-    }
-
-    /**
-     * Obtain multiline input.
-     *
-     * @param boolean $retarray  Return an array?
-     *
-     * @return mixed  An array if $retarray is true, a stream resource
-     *                otherwise.
-     *
-     * @throws Horde_Imap_Client_Exception
-     */
-    protected function _getMultiline($retarray = false)
-    {
-        $data = $retarray
-            ? array()
-            : fopen('php://temp', 'r+');
-
         do {
-            $line = $this->_getLine();
-            if (empty($line['response'])) {
-                if (substr($line['line'], 0, 2) == '..') {
-                    $line['line'] = substr($line['line'], 1);
-                }
+            $orig_read = $this->_connection->read();
+            $read = rtrim($orig_read, "\r\n");
 
-                if ($retarray) {
-                    $data[] = $line['line'];
-                } else {
-                    fwrite($data, $line['line'] . "\r\n");
-                }
+            if ($read == '.') {
+                break;
+            } elseif (substr($read, 0, 2) == '..') {
+                $read = substr($read, 1);
             }
-        } while ($line['response'] != 'END');
 
-        return $data;
+            if (is_array($ob['data'])) {
+                $ob['data'][] = $read;
+            } elseif (!is_null($ob['data'])) {
+                fwrite($ob['data'], $orig_read);
+            }
+        } while (true);
+
+        return $ob;
     }
 
     /**
@@ -1182,6 +1227,38 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         return array_keys(array_intersect($this->_pop3Cache('uidl'), $ids->ids));
+    }
+
+    /**
+     * Parses response text for response codes (RFC 2449 [8]).
+     *
+     * @param string $text  The response text.
+     *
+     * @return object  An object with the following properties:
+     *   - code: (string) The response code, if it exists.
+     *   - data: (string) The response code data, if it exists.
+     *   - text: (string) The human-readable response text.
+     */
+    protected function _parseResponseCode($text)
+    {
+        $ret = new stdClass;
+
+        $text = trim($text);
+        if ($text[0] == '[') {
+            $pos = strpos($text, ' ', 2);
+            $end_pos = strpos($text, ']', 2);
+            if ($pos > $end_pos) {
+                $ret->code = strtoupper(substr($text, 1, $end_pos - 1));
+            } else {
+                $ret->code = strtoupper(substr($text, 1, $pos - 1));
+                $ret->data = substr($text, $pos + 1, $end_pos - $pos - 1);
+            }
+            $ret->text = trim(substr($text, $end_pos + 1));
+        } else {
+            $ret->text = $text;
+        }
+
+        return $ret;
     }
 
 }

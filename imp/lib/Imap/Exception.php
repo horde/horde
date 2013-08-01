@@ -1,19 +1,26 @@
 <?php
 /**
- * Exception class for handling Horde_Imap_Client exceptions in IMP.
- *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Exception class for handling Horde_Imap_Client exceptions in IMP.
  *
- * @property boolean $logged  Logged the error?
- * @property boolean $notified  Sent notification of the error?
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ *
+ * @property-read boolean $notified  Sent notification of the error?
  */
 class IMP_Imap_Exception extends Horde_Imap_Client_Exception
 {
@@ -46,36 +53,45 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
     /**
      * Generates an authentication exception.
      *
+     * @param boolean $default  Return exception, even if no code exists?
+     *
      * @return Horde_Auth_Exception  An authentication exception.
      */
-    public function authException()
+    public function authException($default = true)
     {
         $e = $this;
 
         switch ($this->getCode()) {
-        case Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED:
-        case Horde_Imap_Client_Exception::LOGIN_AUTHORIZATIONFAILED:
+        case self::LOGIN_AUTHENTICATIONFAILED:
+        case self::LOGIN_AUTHORIZATIONFAILED:
             $code = Horde_Auth::REASON_BADLOGIN;
             break;
 
-        case Horde_Imap_Client_Exception::LOGIN_EXPIRED:
+        case self::LOGIN_EXPIRED:
             $code = Horde_Auth::REASON_EXPIRED;
             break;
 
-        case Horde_Imap_Client_Exception::SERVER_CONNECT:
-        case Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE:
+        case self::SERVER_CONNECT:
+        case self::LOGIN_UNAVAILABLE:
             $code = Horde_Auth::REASON_MESSAGE;
             break;
 
-        case Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD:
-        case Horde_Imap_Client_Exception::LOGIN_PRIVACYREQUIRED:
-        case Horde_Imap_Client_Exception::LOGIN_TLSFAILURE:
-        default:
+        case self::LOGIN_NOAUTHMETHOD:
+        case self::LOGIN_PRIVACYREQUIRED:
+        case self::LOGIN_TLSFAILURE:
             $code = Horde_Auth::REASON_FAILED;
+            break;
+
+        default:
+            $code = $default
+                ? Horde_Auth::REASON_FAILED
+                : null;
             break;
         }
 
-        return new Horde_Auth_Exception($e, $code);
+        return is_null($code)
+            ? null
+            : new Horde_Auth_Exception($e, $code);
     }
 
     /**

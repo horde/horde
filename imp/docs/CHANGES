@@ -1,7 +1,495 @@
---------
-v6.0-git
---------
+----------
+v6.1.4-git
+----------
 
+[mms] Correctly save multipart/related data when saving compose message as a
+      draft.
+[mms] When checking for newmail in a mailbox, use the total number of recent
+      messages seen at any time during the page access (Request #12447).
+[mms] Workaround IE8's broken XMLHttpRequest when sending data in dynamic
+      compose view (Bug #12474).
+
+
+------
+v6.1.3
+------
+
+[mms] Workaround Chrome bug preventing drag/drop of attachments in dynamic
+      compose (Bug #12418).
+[mms] Better handle transient mail server connection issues in basic and
+      minimal views.
+[mms] Fix regression of redirect message not working in dynamic view (Bug
+      #12417).
+[jan] Fix link to setup browser for mailto: protocol.
+[mms] Fix uploading attachments on Firefox 22+ in dynamic view.
+[mms] Fix image upload dialog in the HTML compose editor.
+[mms] Fix purging search previews from browser cache when switching mailboxes
+      (Bug #12384).
+[mms] Fix parsing signed & encrypted S/MIME messages sent from Outlook
+      2007/2010 (Bug #12374).
+[mms] Fix updating mailbox list when changing sort direction in search
+      mailboxes (Bug #12369).
+
+
+------
+v6.1.2
+------
+
+[mms] Fix saving S/MIME certificate to addressbook when message is both signed
+      & encrypted (Bug #12354).
+[jan] Fix displaying photos in rendered vCard files.
+[jan] Fix detecting capability to list users if called via RPC (Bug #12305).
+[mms] Clear cached previews in dynamic view when changing or refreshing a
+      search mailbox (Bug #12349).
+[mms] Fix adding an HTML trailer to a compose message.
+[mms] Fix regression preventing ACLs from being added (Bug #12346).
+[mms] More fixes for regressions in linked attachment behavior.
+
+
+------
+v6.1.1
+------
+
+[mms] Fixes for regressions in linked attachment behavior.
+[mms] Catch invalid characters in user-defined flag names (Bug #12335).
+[mms] Workaround IE javascript limitations preventing attachments from being
+      uploaded in dynamic view.
+[mms] Remember mailbox list position when viewing messages in smartmobile view.
+[mms] Fix handling unsuccessful mailbox import in dynamic view.
+[mms] Mailbox imports are now limited to 2500 messages by default.
+[mms] Fix adding addresses from the contacts popup in certain situations (Bug
+      #12312).
+[jan] Fix fatal error when importing a PGP key (Bug #12318).
+[mms] Fix regressions in navigation arrow links on basic message page.
+[mms] Fix regression preventing Virtual Inbox from refreshing once opened in
+      dynamic view (Bug #12304).
+[mms] Don't show option to add senders to safe images list if the current
+      address cannot be added to the safe list.
+[mms] Don't log authentication exception messages from the IMAP library;
+      authentication failures are already logged by the authentication code.
+
+
+------
+v6.1.0
+------
+
+[mms] Fix fatal error when importing a S/MIME key (Bug #12290).
+[mms] Fixed segfaults caused by SMTP debugging.
+
+
+---------
+v6.1.0RC1
+---------
+
+[mms] Add ability to (un)subscribe to all subfolders in dynamic view.
+[mms] When checking for personal addresses when deciding whether to display
+      images, only check against e-mail field.
+[mms] Correctly notify dynamic mailbox view if sent-mail mailboxes are created
+      in compose page.
+[mms] Fix sending group addresses from smartmobile view.
+[mms] Add 'horde_auth' option to SMTP configuration in backends.php.
+[mms] Add null spam reporting driver.
+[mms] Display information to user if incorrect character set data is preventing
+      a text part from being displayed.
+[mms] Fix regression in renaming mailboxes (Bug #12260).
+
+
+-----------
+v6.1.0beta2
+-----------
+
+[mms] Directly output image thumbnails via data URIs when possible.
+[jan] Fix incorrect dependencies.
+
+
+-----------
+v6.1.0beta1
+-----------
+
+[mms] Add ability to create new flag directly from dynamic mailbox screen.
+[mms] Implement 'refresh_time' preference in smartmobile view.
+[mms] Add taphold message action menu to smartmobile mailbox page.
+[mms] Add MongoDB driver for sentmail log storage.
+[mms] Add IMAP cache specific purge action to the imap cache query script.
+[mms] Add support for using SQL and NoSQL backends for IMAP/POP caching.
+[mms] Add thumbnail generation for video attachments.
+[mms] Convert Data URLs in a reply message into attachments so that compose
+      attachment limits can be enforced (Bug #12167).
+[mms] Allow attachments to be dragged/dropped from local filesystem on the
+      dynamic compose page.
+[mms] Hide browser generated file input widget for attachment upload in dynamic
+      compose page.
+[mms] Add attachment upload capability to smartmobile compose page.
+[mms] Add HTML image/style blocking to smartmobile view.
+[mms] Improved autocompleter in smartmobile compose view.
+[mms] Add saving compose drafts in smartmobile view.
+[mms] Rename 'compose_attach' hook as 'compose_attachment'.
+[mms] Honor forward_default preference in smartmobile view.
+[mms] Add PGP keylength configuration option (Request #12099).
+[mjr] Expose the Maillog via the public API.
+[mms] Better handling of flag change attempts when browser cached state
+      (dynamic/smartmobile view) is different than the server state.
+[mms] Move backend configuration parsing/retrieval to IMP_Imap_Config.
+[mms] Spam reporting configuration has been moved to the backends file.
+[mms] Support showing blocked Data URIs in HTML message data.
+[mms] Add the 'mbox_acl' hook.
+[mms] Move folder disabling configuration into the permissions system.
+[mms] Upgraded IMP permissions to allow permissions to be set per active
+      backend.
+[mms] Allow the active search query to be edited in the smartmobile view.
+[mms] Add link to exit out of search view in smartmobile view into the
+      original mailbox.
+[mms] Allow default special mailbox names to be overriden by a backend.
+[mms] Move special mailboxes autocreation configuration into backends.php.
+[mms] Add SMTP debugging.
+[mms] Disable mailbox sorting by default if the remote server does not natively
+      support it (Bug #12001).
+[mms] Add the 'msg_filter' hook.
+[mms] Added the 'attach_body_check' hook.
+[mms] Add linked attachment information directly to main body text.
+[mms] Added argument to the 'trailer' hook to allow HTML trailers to be
+      generated.
+[mms] Attachments can now be configured to be linked only if over a
+      configurable size threshold.
+[mms] Linked attachments are no longer a user-configurable action.
+[mms] Spam/innocent reporting on the smartmobile message page now uses a popup
+      instead of a modal dialog.
+[mms] Rewritten/improved linked attachment code.
+[mms] Add discard draft option to compose page allowing the user to cancel
+      composition and permanently delete the original draft (Request #12017).
+[mms] Minimal view menu entries are now accessible via numbered accesskeys
+      (Request #5847).
+[mms] Add image upload feature to the HTML editor image plugin.
+[mms] Allow drag & drop/pasting of images into the HTML editor.
+[mms] All basic view pages are now routed through the basic.php endpoint.
+[mms] Save AJAX showMessage call when reloading the dynamic mailbox page with a
+      message preview active.
+[mms] Dynamically display MIME type icon for attachments uploaded on the
+      dynamic compose page.
+[mms] Remove 'compose_cc' and 'compose_bcc' preferences.
+[mms] Support attaching vCard in dynamic compose.
+[mms] Support attaching PGP public keys in dynamic compose.
+[mms] Smartmobile view now uses additive loading instead of pagination on the
+      mailbox page.
+[mms] Removed the 'link_all_attachments' configuration option.
+[mms] Support link attachment feature in dynamic view.
+[mms] Display Virtual Folders in smartmobile view.
+[mms] Abstract all UIDs used for mailbox/message navigation on the browser to
+      BUIDs (browser UIDs) (Bug #10719).
+[mms] Use more efficient murmurhash3 to determine changes in compose message
+      that will trigger auto saved drafts.
+[mms] Initialize viewport and mailbox list in single AJAX call when initially
+      loading the dynamic mailbox view.
+[mms] Add message thread view to dynamic mailbox preview.
+[mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
+[mms] Collapse multiple mailbox export options in dynamic mailbox view to
+      single action.
+[mms] Importing a PGP personal key now only requires the private key.
+
+
+------
+v6.0.6
+------
+
+[mms] Fix displaying some HTML messages that contain blocked CSS rules (Bug
+      #12294).
+[mms] Catch and ignore errors from contacts backend when determining whether to
+      show images in a message (Bug #12294).
+
+
+------
+v6.0.5
+------
+
+[mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado
+      <geral@jpaulo.eu>).
+[mms] Fix navigating to search page in dynamic view from top menu (Bug #12273).
+[mms] Correctly update viewport selected status if mailbox is switched during a
+      delete action (Bug #12230).
+[jan] Fix empty label for spellcheck button.
+[mms] Fix signature verification for PGP combined signed & encrypted messages
+      (Bug #12142).
+[mms] Don't display empty mailbox action for mailboxes when Virtual Trash is
+      active (Bug #12162).
+[mms] Fix renaming mailboxes in dynamic view.
+[mms] Switching from HTML to text in dynamic compose view must be a synchronous
+      operation, or else HTML tags may appear in compose window.
+[mms] Fix ability to switch to non-default date sorting algorithm in dynamic
+      view (Bug #12139).
+[mms] Fix printing quoted text when viewing a list message.
+[mms] Use Horde_Css_Parser package, which is compatible with CSS3 declarations,
+      instead of the unmaintained Horde_Text_Filter_Csstidy code.
+[mms] Fix verifying signed & encrypted PGP messages (Bug #12100).
+[mms] Update virtual folder name in folder tree when editing the label (Bug
+      #12079).
+[mms] Fix links to virtual folders on search preferences page.
+[mms] Fix edit links for virtual folders in dynamic view (Bug #12072).
+[mms] Fix regression in displaying user-defined virtual folders in folder
+      listings.
+[mms] Correctly generate self URLs if a URL parameter is altered by the current
+      message action (Bug #12058).
+[mms] Fix possible issue creating folder tree if multiple special mailboxes
+      appeared in the same branch (Bug #12050).
+
+
+------
+v6.0.4
+------
+
+[mms] Improved detection of charset in text/html message parts.
+[mms] Fix displaying dynamic compose screen when sent-mail preferences are
+      locked (Bug #12009).
+[mms] Fix usage of textContent property on IE8 (Bug #12012).
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+[jan] Fix display of end dates/times of iTip attachments (Bug #11976).
+[mms] Fix Reply all/list buttons on basic compose page (Bug #11990).
+[mms] Fix deleting virtual folders/filters from preferences page (Bug #11982).
+[mms] Fix saving mailbox expansion state in basic folders view (Bug #11979).
+[mms] Hide attachment upload UI in dynamic view if file uploads are disabled.
+[jan] Fix JavaScript errors with Internet Explorer 8.
+[mms] Fix display of mail log icons on the basic message page (Bug #11964).
+[jan] Fix stripping attachments in dynamic view (aarno.sandvik@helsinki.fi,
+      Bug #11959).
+[mms] Workaround broken Message-IDs generated by Outlook when replying to a
+      message (Bug #11953).
+[mms] Fix display of attachment name in basic compose screen (Bug #11947).
+
+
+------
+v6.0.3
+------
+
+[mms] Re-add apply mail filters action in dynamic view.
+[mms] Improved parsing of References header when replying to a message.
+[mms] Fix verifying an enveloped signed & encrypted S/MIME message (Bug
+      #11874).
+[mms] Fix converting charset of signature/trailer in compose message if not
+      sending in UTF-8 (Bug #11898).
+[mms] Fix redirection to mailbox page after sending message in minimal view
+      (Thomas Jarosch <thomas.jarosch@intra2net.com>, Bug #11897).
+[mms] Fix duplicate signature being added to compose messages in minimal view
+      (Thomas Jarosch <thomas.jarosch@intra2net.com>, Bug #11896).
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[mms] Fix loss of HTML body if related conversion is turned off (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11883).
+[mms] Ensure that polled mailboxes in dynamic view continue to show unseen
+      message count if its child status changes (Bug #11864).
+[jan] Include address groups in auto-completion list if address book is below
+      AJAX lookup threshold.
+[jan] Update French translation (Laurent Foucher
+      <laurent.foucher@iut-tlse3.fr>).
+[mms] Correctly remember form state when refreshing basic view compose page
+      (Bug #11794).
+[mms] Fix NOT criteria for custom header searches (Bug #11802).
+[mms] Fix saving compose message to draft mailbox when session expires (Bug
+      #11795).
+[mms] Honor 'hide_when_unlimited' option for the quota driver (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11782).
+[mms] Fix toggling other options in dynamic compose screen.
+
+
+------
+v6.0.2
+------
+
+[mms] Always add MDNSent flag when saving a draft/sent message.
+[mms] Fix preview message text in basic view (Bug #11724).
+[mms] Don't delete saved draft on session close.
+[mms] Improved generation and parsing of mbox files.
+[mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug
+      #11672).
+[mms] Fix editing/sending templates in dynamic view.
+[mms] Allow iCalendar events to be added to the calendar even if they are
+      missing the required UID parameter (Bug #11669).
+[mms] Fix displaying flag changes for messages in search mailboxes in dynamic
+      view (Bug #11622).
+[mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
+[mms] Don't try to save sent-mail to a non-existent sent-mail mailbox.
+[mms] Fix displaying encrypted message in dynamic preview when correct
+      passphrase is entered (Bug #11661).
+[mms] Purge IMAP cache data when upgrading from IMP 5.
+
+
+------
+v6.0.1
+------
+
+[mms] Fix shift-clicking in dynamic mailbox view when navigating to other
+      mailboxes (Bug #11520).
+[mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+[mms] If persistent IMAP caching is disabled, use an in-memory cache for the
+      current page load.
+[mms] Fix importing personal S/MIME certificate.
+[mms] Correctly show ACL entry for current user even if ACL response for
+      mailbox is empty.
+[mms] Correctly remove unseen information from folder tree in dynamic mailbox
+      view when mailbox is marked as not polled for new mail.
+[mms] Fix expanding folder list in dynamic view when opening a mailbox and
+      folder expansion is not saved in the prefs (Bug #11609).
+[mms] Fix displaying HTML signature preference on identities preference page.
+[mms] Fix dynamic view loading in IE8 (Bug #11614).
+[mms] Optimize permission checking when creating a mailbox if no limit exists
+      for a user.
+[mms] Fix displaying column headers in dynamic mailbox view when accessing a
+      POP3 server.
+[mms] Fix display of innocent button in dynamic mailbox view (Bug #11604).
+[mms] Fix displaying move to spam mailbox option in the preferences (Bug
+      #11603).
+[mms] Fixes to PGP Private key generation (Bug #11597).
+[mms] Don't block remote message styling if sender is in whitelist.
+[mms] Fix spellcheck display in dynamic view if HTML composition mode is the
+      default (Bug #11592).
+
+
+------
+v6.0.0
+------
+
+[mms] Fix regression in adding an attachment in minimal view.
+
+
+---------
+v6.0.0RC2
+---------
+
+[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
+[mms] Fix regression causing large amounts of whitespace padding to be added to
+      compose text in basic view.
+[mms] Fix regression in sending messages in basic/minimal mode if no attachment
+      is added (Bug #11582).
+[jan] Fix key navigation in message view of basic mode.
+
+
+---------
+v6.0.0RC1
+---------
+
+[mms] Attach as many files as possible instead of aborting on first failed
+      attachment add.
+[mms] Fix determining first/last unseen message in a mailbox (use message date
+      instead of arrival date).
+[jan] Don't show application menus in iTip MIME viewer popups.
+[mms] Hide subfolder creation option in dynamic view if IMAP server indicates
+      that child mailboxes cannot be created.
+[mms] Correctly send deleted flag information to browser cache when using
+      dynamic/smartmobile view (Bug #11362).
+[mms] Auto-update folders list in smartmobile view if special mailbox is
+      auto-created (Request #11482).
+[mms] Load folders list on-demand in smartmobile view.
+[mms] Fix thread view when mailbox is not thread sorted (Bug #11320).
+[mms] Display message range when dragging slider on dynamic mailbox page.
+
+
+-----------
+v6.0.0beta4
+-----------
+
+[mms] Add predefined templates to ACL management screen (Request #10648).
+[mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME
+      HTML message data (Bug #11428).
+[mms] All IMP templates now use Horde_View.
+[mms] Add swipe action buttons to the smartmobile mailbox page.
+[mms] Optimize loading of message bodies when using dynamic view.
+[mms] Load new mailbox when renaming current mailbox in dynamic view (Request
+      #11394).
+[mms] Add simple address autocompleter to smartmobile compose page.
+[mms] Add refresh button to smartmobile folder page.
+[jan] Fix popdown positioning in mailbox table header (Bug #11384).
+
+
+-----------
+v6.0.0beta3
+-----------
+
+[mms] Allow certain iCalendar events to be configured to automatically update
+      the local user's calendar (Request #11376).
+[mms] Remember message selections when changing mailboxes in dynamic view.
+[mms] Add ability to edit list of safe addresses used with the
+      image_replacement preference.
+[mms] Add attachment download links to smartmobile view (Request #11379).
+[mms] Indicate deleted messages with strikethrough in smartmobile mailbox
+      listing (Request #11362).
+[mms] Show polled children in smartmobile folder list when parent mailbox is
+      not polled (Bug #11238).
+[mms] More complete handling of linked data in subject header across views
+      (Bug #11372).
+[mms] Add Top link to smartmobile mailbox page.
+[mms] Fixes to the iTip Request handler (Bug #11264).
+[mms] Fix searching in smartmobile view (Bug #11365).
+[mms] Tweak smartmobile mailbox page to use mobile-style list clicking
+      (Request #11364).
+[mms] Fix regression in updating dynamic folder list when deleting parent
+      mailboxes that contain children (Bug #11296).
+[mms] Fix regression preventing compose messages from being sent in the
+      smartmobile view (Bug #11342).
+[jan] Allow to reset flag colors and to specify as HTML colors.
+[mjr] The mailboxList API call now returns delimiter and attribute information.
+[jan] Fix polling for new mail from other applications.
+
+
+-----------
+v6.0.0beta2
+-----------
+
+[jan] Highlight quota level in dynamic mode.
+[mms] Add keyboard shortcuts to dynamic compose page (Michael Wing
+      <marsfurrycreature@gmail.com>).
+[mms] Fix sidebar element wrapping.
+[mms] Fix regression preventing contacts popup window from working (Bug
+      #11324).
+[mms] Fix regression in select all checkbox on traditional mailbox page (Bug
+      #11317).
+[mms] Fix regression in altering sort direction in dynamic mailbox view (Bug
+      #11300).
+[mms] Hide empty MIME parts when displaying inline.
+[mms] Fix expanding all mailboxes in dynamic view (Bug #11289).
+[mms] Fix handling of identity tie-to addresses when searching for matching
+      identities.
+[mms] Fix recursive mailbox delete in dynamic view (Bug #11288).
+
+
+-----------
+v6.0.0beta1
+-----------
+
+[mms] Fix regression in sorting of special mailboxes (Bug #11241).
+[mms] Fix mailbox sorting in traditional view (Bug #11278).
+[mms] Fix regression in IMAP cache query script preventing stats in all mailbox
+      reports (Bug #11265).
+[mms] Fix regression in creating submailboxes in dynamic view.
+[jan] Fix displaying messages in a popup (Bug #11251).
+[jan] Fix automatic selection of the default identity if other identities
+      contain the same address(es).
+[jan] Fix editing mailbox ACLs (Bug #11247).
+[jan] Fix using admin users and passwords for quota or mailbox management.
+
+
+------------
+v6.0.0alpha1
+------------
+
+[mms] Fix browser-based AJAX autocompletion (Bug #11233).
+[mms] Only show Inbox, special mailboxes, and polled mailboxes by default in
+      smartmobile view.
+[mms] Add 'reply_strip_sig' preference (Request #11056).
+[mms] Move attachment strip icon to MIME part tree display.
+[mms] Convert dynamic view to Horde_View.
+[mms] Convert minimal view to Horde_View.
+[mms] Honor initial_page preference in smartmobile view (Request #11165).
+[mms] Lock mailbox sort to descending date when using minimal view.
+[mms] Pre-fetch unseen messages in polled mailboxes in dynamic view.
+[mms] Allow Edit As New to be used as the default forward action (Request
+      #11135).
+[mms] Improved handling of messages with multiple From addresses in mailbox
+      views.
+[mms] Replying to a multipart/related message in HTML mode now correctly
+      attaches data from the original message.
+[mms] Allow deletion of all subfolders at once in dynamic view.
+[mms] Provide details of when search results were last refreshed.
+[mms] Dynamically update unseen message counts in folder list in smartmobile
+      view.
 [mms] Add mailbox caching to the smartmobile view.
 [mms] Cache last seen message in smartmobile view.
 [mms] Viewing a mailbox in smartmobile mode no longer resets the sortpref
@@ -57,13 +545,79 @@ v6.0-git
 [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 [mms] Size of sidebar now saved in dynamic view.
 [mms] Browser-specific UI elements in dynamic view now saved in browser storage
-      (Ticket #10723).
+      (Request #10723).
 
 
------------
-v5.0.20-git
------------
+-------
+v5.0.24
+-------
 
+[mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from
+      the browser's local filesystem that has a filename that contains HTML.
+[mms] Don't attempt to use non-IMAP mailbox names in IMAP server commands (Bug
+      #11623).
+[mms] Catch failure to add attachments in dynamic view because PHP's maximum
+      allowed POST size was exceeded.
+[jan] Fix search link from portal if using dynamic view (Bug #11314).
+[mms] Fix regression in using Virtual Trash (Bug #11478;
+      tonyb@go-concepts.com).
+[mms] Fix sending MDN notifications in traditional view (Bug #11311).
+[mms] Fix changing sort order in dynamic search mailboxes (Bug #11108).
+[mms] Fix regression in creating top-level mailbox in traditional view (Bug
+      #11326).
+[mms] Fix spam reporting in minimal view.
+
+
+-------
+v5.0.23
+-------
+
+[mjr] Only ask for the count of matching contacts when determining to use
+      browser vs ajax autocompletion.
+[jan] Fix closing the compose window after redirecting (Bug #11259).
+[jan] Display correct values in permission-denied error messages (Bug #11253).
+
+
+-------
+v5.0.22
+-------
+
+[mms] SECURITY: Only allow display of basic image types directly in browser.
+[jan] Update Turkish translation (İstanbul Technical University).
+[jan] Re-add option to report messages as spam/ham through redirection.
+[jan] Update Swedish translation (Jakob Alvermark
+      <jakob.alvermark@bsdlabs.com>).
+
+
+-------
+v5.0.21
+-------
+
+[mms] SECURITY: Fix XSS vulnerabilities on the dynamic compose page and the
+      minimal mailbox and message pages.
+[jan] Re-add leading paragraph before HTML signatures to avoid writing into
+      the signature.
+[jan] Use preferred editor if not opening compose window from dynamic view.
+[jan] Update Italian translation (Emilien <emilien@wifi.e4a.it>).
+[mms] Save Bcc addresses when saving compose message as draft.
+[mms] Fix handling of RETURN keypress in the Subject input on the dynamic
+      compose page.
+[jan] Fix regression in sending PGP encrypted messages (Bug #11150).
+[jan] Update Slovak translation (Marika Schvarczova
+      <schvarczova.marika@domeny.sk>).
+[jan] Update Czech translation (Michal Foist <michal@foist.cz>).
+
+
+-------
+v5.0.20
+-------
+
+[mms] Added the 'delhide_trash' preference.
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
+[mms] Ensure that PGP & S/MIME signed message bodies are not altered after the
+      signature is calculated (Bug #11058).
+[mms] Fix internal storage of date searches (Bug #11109).
+[mms] Fix regression in sending PGP encrypted messages (Bug #11085).
 [mms] Only poll mailboxes in dynamic view that exist in the browser folder
       tree.
 [mms] Fix regression in displaying From address on mailbox page in traditional

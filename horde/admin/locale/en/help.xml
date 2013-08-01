@@ -18,8 +18,8 @@
     <heading>How to use the SQL Shell</heading>
     <para>The SQL query shell lets you execute arbitrary SQL
           statements on your database. These commands are executed
-          against the database defined in $conf['sql'] using the
-          PEAR::DB classes. You can use this tool to do queries into
+          against the database defined in the Horde configuration file.
+          You can use this tool to do queries into
           the database, to do complicated SQL updates, deletes, etc.,
           or to do simple data collection. It sends SQL queries to the
           database directly, and will report return codes and complete

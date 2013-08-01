@@ -2,7 +2,7 @@
 /**
  * @package Hermes
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -21,13 +21,12 @@ class Hermes_Form_Search extends Horde_Form
 
     public function __construct(&$vars)
     {
-        parent::Horde_Form($vars, _("Search For Time"));
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        parent::__construct($vars, _("Search For Time"));
 
-        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'hermes:review'))) {
             $type = Hermes::getEmployeesType();
-            $this->addVariable(_("Employees"), 'employees', $type[0], false,
-                               false, null, $type[1]);
+            $this->addVariable(
+                _("Employees"), 'employees', $type[0], false, false, null, array($type[1]));
         }
         $type = $this->getClientsType();
         $cli = &$this->addVariable(_("Clients"), 'clients', $type[0], false, false, null, $type[1]);
@@ -40,7 +39,7 @@ class Hermes_Form_Search extends Horde_Form
 
         $this->addVariable(_("Cost Objects"), 'costobjects', 'multienum',
                            false, false, null,
-                           array(Hermes::getCostObjectType($vars->get('client'))));
+                           array(Hermes::getCostObjectType($vars->get('clients'))));
 
         $this->addVariable(_("Do not include entries before"), 'start',
                            'monthdayyear', false, false, null,
@@ -145,16 +144,14 @@ class Hermes_Form_Search extends Horde_Form
     }
 
 
-    public function getSearchCriteria(&$vars)
+    public function getSearchCriteria($vars)
     {
         if (!$this->isValid() || !$this->isSubmitted()) {
             return null;
         }
         $this->getInfo($vars, $info);
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-
         $criteria = array();
-        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'hermes:review'))) {
             if (!empty($info['employees'])) {
                 $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
                 if (!$auth->hasCapability('list')) {

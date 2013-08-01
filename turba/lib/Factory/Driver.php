@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Turba_Driver:: factory.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (APL). If you
  * did not receive this file, see http://www.horde.org/licenses/apl.html.
@@ -103,9 +103,9 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
 
             /* Store and translate the map at the Source level. */
             $driver->map = $srcConfig['map'];
-            foreach ($driver->map as $key => $val) {
+            foreach ($driver->map as $mapkey => $val) {
                 if (!is_array($val)) {
-                    $driver->fields[$key] = $val;
+                    $driver->fields[$mapkey] = $val;
                 }
             }
 

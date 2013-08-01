@@ -23,7 +23,7 @@ Localization
 
 =====================   ======================================================
 Arabic (Syria)          Platinum Development Team <devteam@platinum-sy.net>
-Basque                  Euskal Herriko Unibertsitatea <xabier.arrieta@ehu.es>
+Basque                  Euskal Herriko Unibertsitatea <webmaster@ehu.es>
 Brazilian Portuguese    Samuel Mota <samuel@bumerangue.com>
                         Fabio Gomes <flgoms@uol.com.br>
                         Luis Felipe Marzagao <duli@fedoraproject.org>
@@ -41,6 +41,7 @@ Danish                  Bill Edgington <horde@0x20.com>
                         Niels Baggesen <nba@users.sourceforge.net>
 Dutch                   Jan Kuipers <jrkuipers@lauwerscollege.nl>
                         Han Spruyt <han.spruyt@ijsselgroep.nl>
+                        Arjen de Korte <build+horde@de-korte.org>
 Estonian                Alar Sing <alar.sing@err.ee>
 Finnish                 Leena Heino <liinu@uta.fi>
 French                  Mikhaël Janson <mik@galaxie.net>
@@ -49,6 +50,8 @@ French                  Mikhaël Janson <mik@galaxie.net>
                         Vincent Vinet <vvinet@revolutionlinux.com>
                         Yannick Sebastia <yannick.sebastia@ecole-navale.fr>
                         Laurent Foucher <laurent.foucher@iut-tlse3.fr>
+                        Paul De Vlieger
+                        <paul.de_vlieger@moniut.univ-bpclermont.fr>
 German                  Jan Schneider <jan@horde.org>
 Greek                   Stefanos I. Dimitriou <support@teiath.gr>
                         Silligardos Xristoforos
@@ -56,9 +59,12 @@ Greek                   Stefanos I. Dimitriou <support@teiath.gr>
                         Konstantinos C. Milosis <kmilosis@yahoo.com>
 Hungarian               Laszlo L. Tornoci <torlasz@xenia.sote.hu>
                         Andras Galos <galosa@netinform.hu>
+                        Zoltán Németh <nemeth.zoltan@etit.hu>
+                        Kiraly Laszlo <kiru@madalbal.hu>
 Italian                 Giovanni Meneghetti <gmeneghetti@infvic.it>
                         Marco Pirovano <marco.pirovano@unibocconi.it>
                         Cristian Manoni <cristian.manoni@nethesis.it>
+                        Massimo Malabotta <mmalabotta@units.it>
 Japanese                Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 Korean                  J.I Kim <aporie@netian.com>
 Latvian                 Ivars Stivrins <ivars@kraslava.lv>
@@ -72,6 +78,7 @@ Norwegian Bokmaal       Torstein S. Hansen <huleboer@techbee.no>
 Norwegian Nynorsk       Per-Stian Vatne <psv@orsta.org>
 Polish                  Maciek Uhlig <muhlig@us.edu.pl>
                         Piotr Adamcio <adamcios@o2.pl>
+                        Krzysztof Kozera <krzysztof113@o2.pl>
 Portuguese              Manuel Menezes de Sequeira <Manuel.Sequeira>
 Romanian                Eugen Hoanca <eugenh@urban-grafx.ro>
                         Marius Dragulescu <mariusd@urban-grafx.ro>
@@ -84,6 +91,8 @@ Spanish                 Manuel Perez Ayala <mperaya@alcazaba.unex.es>
                         Juan C. Blanco <jcblanco@fi.upm.es>
 Swedish                 Andreas Dahlén <andreas@dahlen.ws>
                         Joaquim Homrighausen <joho@webbplatsen.se>
+                        Jakob Alvermark <jakob.alvermark@bsdlabs.com>
 Turkish                 Middle East Technical University <horde-tr@metu.edu.tr>
+                        İstanbul Technical University <sistemdestek@itu.edu.tr>
 Ukrainian               Andriy Kopystyansky <anri@polynet.lviv.ua>
 =====================   ======================================================

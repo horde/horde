@@ -1,19 +1,27 @@
 <?php
 /**
- * This object allows easy access to parsing mbox data (RFC 4155).
- *
- * See:
- * http://homepage.ntlworld.com./jonathan.deboynepollard/FGA/mail-mbox-formats
- *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This object allows easy access to parsing mbox data (RFC 4155).
+ *
+ * See:
+ * http://homepage.ntlworld.com/jonathan.deboynepollard/FGA/mail-mbox-formats
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Mbox_Parse implements ArrayAccess, Countable, Iterator
 {
@@ -25,54 +33,64 @@ class IMP_Mbox_Parse implements ArrayAccess, Countable, Iterator
     protected $_data;
 
     /**
+     * Dates of parsed messages.
+     *
+     * @var array
+     */
+    protected $_dates = array();
+
+    /**
      * Parsed boundaries.
      *
      * @var array
      */
-    protected $_parsed;
+    protected $_parsed = array();
 
     /**
      * Constructor.
      *
-     * @param mixed $data  The mbox data. Either a resource or a filename
-     *                     as interpreted by fopen() (string).
+     * @param mixed $data     The mbox data. Either a resource or a filename
+     *                        as interpreted by fopen() (string).
+     * @param integer $limit  Limit to this many messages; additional messages
+     *                        will throw an exception.
      *
      * @throws IMP_Exception
      */
-    public function __construct($data)
+    public function __construct($data, $limit = null)
     {
         $this->_data = is_resource($data)
             ? $data
             : @fopen($data, 'r');
 
         if ($this->_data === false) {
-            throw new IMP_Exception('Could not open mbox data.');
+            throw new IMP_Exception(_("Could not parse mailbox data."));
         }
 
-        $this->_init();
-    }
+        rewind($this->_data);
 
-    /**
-     */
-    protected function _init()
-    {
-        if (!isset($this->_parsed)) {
-            $this->_parsed = array();
-            rewind($this->_data);
+        $curr = $last_line = null;
+        $i = 0;
 
-            $curr = $last_line = null;
+        while (!feof($this->_data)) {
+            $line = fgets($this->_data);
 
-            while (!feof($this->_data)) {
-                $line = fgets($this->_data);
+            if ((substr($line, 0, 5) == 'From ') &&
+                (is_null($curr) || (trim($last_line) == ''))) {
+                $this->_parsed[] = ftell($this->_data);
 
-                if (strpos($line, 'From ') === 0) {
-                    if (is_null($curr) || (trim($last_line) == '')) {
-                        $this->_parsed[] = ftell($this->_data);
-                    }
+                if ($limit && ($i++ > $limit)) {
+                    throw new IMP_Exception(sprintf(_("Imported mailbox contains more than enforced limit of %u messages."), $limit));
                 }
 
-                $last_line = $line;
+                $from_line = explode(' ', $line, 3);
+                try {
+                    $this->_dates[] = new DateTime($from_line[2]);
+                } catch (Exception $e) {
+                    $this->_dates[] = null;
+                }
             }
+
+            $last_line = $line;
         }
     }
 
@@ -102,28 +120,29 @@ class IMP_Mbox_Parse implements ArrayAccess, Countable, Iterator
                     break;
                 }
 
-                if (strpos($line, '>From ') === 0) {
-                    fwrite($fd, substr($line, 1));
-                } else {
-                    fwrite($fd, $line);
-                }
+                fwrite($fd, (substr($line, 0, 6) == '>From ') ? substr($line, 1) : $line);
             }
 
-            rewind($fd);
-
-            return $fd;
-        }
-
-        if (($offset == 0) && !count($this)) {
+            $date = $this->_dates[$offset];
+        } elseif (($offset == 0) && !count($this)) {
             $fd = fopen('php://temp', 'w+');
             rewind($this->_data);
-            stream_copy_to_stream($this->_data, $fd);
-            rewind($fd);
-
-            return $fd;
+            while (!feof($this->_data)) {
+                fwrite($fd, fgets($this->_data));
+            }
+            $date = null;
+        } else {
+            return null;
         }
 
-        return null;
+        $out = array(
+            'data' => $fd,
+            'date' => $date,
+            'size' => intval(ftell($fd))
+        );
+        rewind($fd);
+
+        return $out;
     }
 
     /**

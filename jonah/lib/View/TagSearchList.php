@@ -3,7 +3,7 @@
  * Turba_View_TagSearchList:: A view to handle displaying a list of stories
  * matching a requested tag filter.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -32,7 +32,7 @@ class Jonah_View_TagSearchList extends Jonah_View_Base
             $channel = $driver->getChannel($channel_id);
             if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::SHOW, $channel_id)) {
                 $notification->push(_("You are not authorised for this action."), 'horde.warning');
-                $registry->authenticateFailure();
+                throw new Horde_Exception_AuthenticationFailure();
             }
             $channel_ids = array($channel_id);
         } else {
@@ -108,10 +108,13 @@ class Jonah_View_TagSearchList extends Jonah_View_Base
         $view->stories = $stories;
         $view->read = true;
         $view->comments = $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages') && $channel['channel_type'] == Jonah::INTERNAL_CHANNEL;
-        require $registry->get('templates', 'horde') . '/common-header.inc';
-        require JONAH_TEMPLATES . '/menu.inc';
+
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
+        $notification->notify(array('listeners' => 'status'));
         echo $view->render('index');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
 }

@@ -3,7 +3,7 @@
  * The Turba_List:: class provides an interface for dealing with a
  * list of Turba_Objects.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -40,7 +40,8 @@ class Turba_List implements Countable
             try {
                 $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
                 $this->insert($driver->getObject($key));
-            } catch (Turba_Exception $e) {}
+            } catch (Horde_Exception $e) {
+            }
         }
     }
 
@@ -195,22 +196,22 @@ class Turba_List implements Countable
                 }
             }
 
-            $field = $field['field'];
+            $f = $field['field'];
             switch ($sortmethod) {
             case 'int':
-                $result = ($a->getValue($field) > $b->getValue($field)) ? 1 : -1;
+                $result = ($a->getValue($f) > $b->getValue($f)) ? 1 : -1;
                 break;
 
             case 'text':
-                if (!isset($a->sortValue[$field])) {
-                    $a->sortValue[$field] = Horde_String::lower($a->getValue($field), true, 'UTF-8');
+                if (!isset($a->sortValue[$f])) {
+                    $a->sortValue[$f] = Horde_String::lower($a->getValue($f), true, 'UTF-8');
                 }
-                if (!isset($b->sortValue[$field])) {
-                    $b->sortValue[$field] = Horde_String::lower($b->getValue($field), true, 'UTF-8');
+                if (!isset($b->sortValue[$f])) {
+                    $b->sortValue[$f] = Horde_String::lower($b->getValue($f), true, 'UTF-8');
                 }
 
                 // Use strcoll for locale-safe comparisons.
-                $result = strcoll($a->sortValue[$field], $b->sortValue[$field]);
+                $result = strcoll($a->sortValue[$f], $b->sortValue[$f]);
                 break;
             }
 

@@ -6,14 +6,14 @@
  * At least, we need to rename this to something other that image.php to
  * reflect what it's used for.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Duck <duck@obala.net>
  */
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
@@ -26,10 +26,11 @@ try {
     exit;
 }
 
-$title = _("Face") . ' :: ' . $face['face_name'];
 $facename = htmlspecialchars($face['face_name']);
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+
+$page_output->header(array(
+    'title' => _("Face") . ' :: ' . $face['face_name']
+));
 $notification->notify(array('listeners' => 'status'));
 require_once ANSEL_TEMPLATES . '/faces/face.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

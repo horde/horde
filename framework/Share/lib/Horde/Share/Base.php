@@ -2,7 +2,7 @@
 /**
  * Base class for all Horde_Share drivers.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  * Copyright 2002-2007 Infoteck Internet <webmaster@infoteck.qc.ca>
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -467,6 +467,36 @@ abstract class Horde_Share_Base
      * @param Horde_Share_Object $share  The new share object.
      */
     abstract protected function _addShare(Horde_Share_Object $share);
+
+    /**
+     * Renames a share in the shares system.
+     *
+     * @param Horde_Share_Object $share  The share to rename.
+     * @param string $name               The share's new name.
+     *
+     * @throws Horde_Share_Exception
+     */
+    public function renameShare(Horde_Share_Object $share, $name)
+    {
+        /* Move share in the caches. */
+        unset($this->_cache[$share->getName()]);
+        $this->_cache[$name] = $share;
+
+        /* Reset caches that depend on unknown criteria. */
+        $this->expireListCache();
+
+        $this->_renameShare($share, $name);
+    }
+
+    /**
+     * Renames a share in the shares system.
+     *
+     * @param Horde_Share_Object $share  The share to rename.
+     * @param string $name               The share's new name.
+     *
+     * @throws Horde_Share_Exception
+     */
+    abstract protected function _renameShare(Horde_Share_Object $share, $name);
 
     /**
      * Removes a share from the shares system permanently.

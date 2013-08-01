@@ -48,4 +48,17 @@ class Horde_Date_Parser_TokenTest extends Horde_Test_Case
         $this->assertInstanceOf('Horde_Date_Repeater_DayName', $repeater);
         $this->assertEquals('sunday', $repeater->type);
     }
+
+    public function testScanForTz()
+    {
+         $parser = Horde_Date_Parser::factory();
+         $tokenizer = $parser->componentFactory('Timezone');
+         $token = new Horde_Date_Parser_Token('test');
+         $results = $tokenizer->scan(array($token));
+         $this->assertEmpty($results[0]->getTag('timezone'));
+
+         $token = new Horde_Date_Parser_Token('EST');
+         $results = $tokenizer->scan(array($token));
+         $this->assertEquals('tz', $results[0]->getTag('timezone'));
+    }
 }

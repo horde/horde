@@ -15,7 +15,7 @@ class Horde_Core_Form_Renderer_Html extends Horde_Core_Form_Renderer
         $open_section = $form->getOpenSection();
 
         /* Add the javascript for the toggling the sections. */
-        Horde::addScriptFile('form_sections.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('form_sections.js', 'horde');
         echo '<script type="text/javascript">' . "\n" .
             sprintf('var sections_%1$s = new Horde_Form_Sections(\'%1$s\', \'%2$s\');',
                     $form->getName(),
@@ -26,7 +26,7 @@ class Horde_Core_Form_Renderer_Html extends Horde_Core_Form_Renderer
         echo "<div class=\"tabset\">\n";
         $js = array();
         foreach ($form->_sections as $section => $val) {
-            $class = ($section == $open_section) ? ' class="activeTab"' : '';
+            $class = ($section == $open_section) ? ' class="horde-active"' : '';
             $tabid = htmlspecialchars($form->getName() . '_tab_' . $section);
             $js[$linkid] = sprintf('sections_%s.toggle(\'%s\'); return false;"',
                                    $form->getName(),
@@ -63,7 +63,7 @@ if (document.getElementById(%1$s)){
     {
         // Stripe alternate rows if that option is turned on.
         if ($this->_stripedRows) {
-            Horde::addScriptFile('stripe.js', 'horde');
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
             $class = 'striped';
         } else {
             $class = '';
@@ -131,7 +131,7 @@ if (document.getElementById(%1$s)){
             }
         }
         echo '<input type="hidden" name="_formvars" value="'
-            . htmlspecialchars(serialize($vars))
+            . htmlspecialchars(json_encode($vars))
             . '" />';
     }
 

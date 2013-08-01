@@ -1,14 +1,14 @@
 # Spanish translations for Horde_Compress package.
-# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Compress package.
-# Automatically generated, 2012.
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -23,8 +23,8 @@ msgstr ""
 msgid "Invalid RAR data."
 msgstr "Datos RAR no válidos"
 
-#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:229
-#: lib/Horde/Compress/Zip.php:249
+#: lib/Horde/Compress/Zip.php:191 lib/Horde/Compress/Zip.php:196
+#: lib/Horde/Compress/Zip.php:223 lib/Horde/Compress/Zip.php:243
 msgid "Invalid ZIP data"
 msgstr "Datos ZIP no válidos"
 
@@ -33,7 +33,7 @@ msgstr "Datos ZIP no válidos"
 msgid "Invalid file format"
 msgstr "Formato de archivo no válido"
 
-#: lib/Horde/Compress/Zip.php:100
+#: lib/Horde/Compress/Zip.php:96
 msgid "This server can't compress zip files."
 msgstr "Este servidor no puede comprimir archivos zip."
 
@@ -41,7 +41,7 @@ msgstr "Este servidor no puede comprimir archivos zip."
 msgid "This server can't uncompress gzip files."
 msgstr "Este servidor no puede descomprimir archivos gzip."
 
-#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:79
+#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:81
 #: lib/Horde/Compress/Tar.php:76
 msgid "Unable to decompress data."
 msgstr "Incapaz de descomprimir los datos."

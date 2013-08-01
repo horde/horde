@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-29</date>
- <time>22:36:56</time>
+ <date>2012-11-19</date>
+ <time>14:13:00</time>
  <version>
-  <release>1.0.2</release>
+  <release>2.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -36,6 +36,9 @@
    <dir name="doc">
     <dir name="Horde">
      <dir name="Autoloader">
+      <dir name="examples">
+       <file name="most_basic.php" role="doc" />
+      </dir> <!-- /doc/Horde/Autoloader/examples -->
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Autoloader -->
     </dir> <!-- /doc/Horde -->
@@ -69,6 +72,7 @@
       </dir> <!-- /test/Horde/Autoloader/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="AutoloaderTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Autoloader -->
     </dir> <!-- /test/Horde -->
@@ -84,10 +88,20 @@
     <min>1.7.0</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Autoloader/COPYING" />
+   <install as="examples/most_basic.php" name="doc/Horde/Autoloader/examples/most_basic.php" />
    <install as="Horde/Autoloader.php" name="lib/Horde/Autoloader.php" />
    <install as="Horde/Autoloader/Base.php" name="lib/Horde/Autoloader/Base.php" />
    <install as="Horde/Autoloader/ClassPathMapper.php" name="lib/Horde/Autoloader/ClassPathMapper.php" />
@@ -98,6 +112,7 @@
    <install as="Horde/Autoloader/ClassPathMapper/Prefix.php" name="lib/Horde/Autoloader/ClassPathMapper/Prefix.php" />
    <install as="Horde/Autoloader/AllTests.php" name="test/Horde/Autoloader/AllTests.php" />
    <install as="Horde/Autoloader/AutoloaderTest.php" name="test/Horde/Autoloader/AutoloaderTest.php" />
+   <install as="Horde/Autoloader/bootstrap.php" name="test/Horde/Autoloader/bootstrap.php" />
    <install as="Horde/Autoloader/phpunit.xml" name="test/Horde/Autoloader/phpunit.xml" />
    <install as="Horde/Autoloader/ClassPathMapper/ApplicationTest.php" name="test/Horde/Autoloader/ClassPathMapper/ApplicationTest.php" />
    <install as="Horde/Autoloader/ClassPathMapper/DefaultTest.php" name="test/Horde/Autoloader/ClassPathMapper/DefaultTest.php" />
@@ -199,12 +214,64 @@
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
+    <release>2.0.0alpha1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-29</date>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

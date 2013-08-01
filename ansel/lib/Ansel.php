@@ -2,7 +2,7 @@
 /**
  * Ansel Base Class.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -64,7 +64,12 @@ class Ansel
             $treeparams['selected'] = $gallery_id == $params->selected;
             $parent = $gallery->getParent();
             $parent = empty($parent) ? null : $parent->id;
-            $tree->addNode($gallery->id, $parent, $label, null, true, $treeparams);
+            $tree->addNode(array(
+                'id' => $gallery->id,
+                'parent' => $parent,
+                'label' => $label,
+                'params' => $treeparams
+            ));
         }
 
         return $tree->getTree();
@@ -356,7 +361,7 @@ class Ansel
                 $image = $GLOBALS['injector']
                     ->getInstance('Ansel_Storage')
                     ->getImage($imageId);
-            } catch (Ansel_Exception $e) {
+            } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
@@ -522,7 +527,7 @@ class Ansel
             $owner = $gallery->get('owner');
         }
 
-        if (!empty($image_id)) {
+        if (!empty($image_id) && empty($actionID)) {
             $image = $ansel_storage->getImage($image_id);
             if (empty($gallery)) {
                 $gallery = $ansel_storage->getGallery($image->gallery);
@@ -567,7 +572,7 @@ class Ansel
         // the path back to the top.  By constructing it backward we can treat
         // the last element (the current page) specially.
         $levels = 0;
-        $nav = '</span>';
+        $nav = '';
         $urlFlags = array(
             'havesearch' => $haveSearch,
             'force_grouping' => true);
@@ -682,11 +687,15 @@ class Ansel
      */
     static public function getStyleDefinition($style)
     {
+        if ($style instanceof Ansel_Style) {
+            return $style;
+        }
+
         $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
         if (isset($styles[$style])) {
             return new Ansel_Style($styles[$style]);
         } else {
-            return  new Ansel_Style($styles['ansel_default']);
+            return new Ansel_Style($styles['ansel_default']);
         }
     }
 
@@ -818,12 +827,11 @@ class Ansel
             $domid = $options['container'];
         }
 
-        $imple = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'Embed'), $options);
+        $url = $GLOBALS['registry']->getServiceLink('ajax', 'ansel', true)->add($options);
+        $url->url .= 'embed';
 
-        return '<script type="text/javascript" src="' . $imple->getUrl()
-            . '"></script><div id="' . $domid . '"></div>';
+        return '<script type="text/javascript" src="' . $url .
+               '"></script><div id="' . $domid . '"></div>';
     }
 
     /**
@@ -871,82 +879,37 @@ class Ansel
                         'app' => 'ansel',
                         'append_session' => -1)));
 
-            // IF
             $code['conf']['maps'] = $GLOBALS['conf']['maps'];
-            $code['conf']['pixeluri'] = (string)Horde::getServiceLink('pixel', 'ansel');
+            $code['conf']['pixeluri'] = (string)$GLOBALS['registry']->getServiceLink('pixel', 'ansel');
             $code['conf']['markeruri'] = (string)Horde_Themes::img('photomarker.png');
             $code['conf']['shadowuri'] = (string)Horde_Themes::img('photomarker-shadow.png');
             $code['conf']['havetwitter'] = !empty($GLOBALS['conf']['twitter']['enabled']);
             $code['ajax'] = new stdClass();
             $code['widgets'] = new stdClass();
-            Horde::addInlineJsVars(array(
-                'var Ansel' => $code));
+
+            $GLOBALS['page_output']->addInlineJsVars(array(
+                'var Ansel' => $code
+            ));
         }
     }
 
-   /**
-     * Initialize the map.
+    /**
+     * Helper function for displaying Lat/Lng values
      *
-     * @TODO: Horde 5 - move this to a method in either Core or a new Horde_Map
-     *        framework pacakge.
-     * @param array $params Parameters to pass the the map
+     * @param float $value  The value to convert.
+     * @param boolean $lat  Is this a latitude value?
      *
-     * @return void
+     * @return string
      */
-    static public function initHordeMap($params = array())
+    static public function point2Deg($value, $lat = false)
     {
-        if (empty($params['providers'])) {
-            $params['providers'] = $GLOBALS['conf']['maps']['providers'];
-        }
-        if (empty($params['geocoder'])) {
-            $params['geocoder'] = $GLOBALS['conf']['maps']['geocoder'];
-        }
-        // Language specific file needed?
-        $language = str_replace('_', '-', $GLOBALS['language']);
-        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
-            $language = 'en-US';
-        }
-        $params['conf'] = array(
-            'language' => $language
-        );
-        $params['driver'] = 'Horde';
-        foreach ($params['providers'] as $layer) {
-            switch ($layer) {
-            case 'Google':
-                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
-                break;
-            case 'Yahoo':
-                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
-                break;
-            case 'Cloudmade':
-                $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
-                break;
-            case 'Mytopo':
-                $params['conf']['apikeys']['mytopo'] = $GLOBALS['conf']['api']['mytopo'];
-                break;
-            case 'Bing':
-                $params['conf']['apikeys']['bing'] = $GLOBALS['conf']['api']['bing'];
-            }
-        }
+        $letter = $lat ? ($value > 0 ? "N" : "S") : ($value > 0 ? "E" : "W");
+        $value = abs($value);
+        $deg = floor($value);
+        $min = floor(($value - $deg) * 60);
+        $sec = ($value - $deg - $min / 60) * 3600;
 
-        if (!empty($params['geocoder'])) {
-            switch ($params['geocoder']) {
-            case 'Google':
-                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
-                break;
-            case 'Yahoo':
-                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
-                break;
-            case 'Cloudmade':
-                $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
-                break;
-            }
-        }
-        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
-        Horde::addScriptFile('map/map.js', 'horde');
-        Horde::addScriptFile('map.js');
-        $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
-        Horde::addinlineScript($js);
+        return $deg . "&deg; " . $min . '\' ' . round($sec, 2) . '" ' . $letter;
     }
 
 }

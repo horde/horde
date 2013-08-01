@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the contact XML format.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -52,7 +47,7 @@ extends Horde_Kolab_Format_TestCase
             'creation-date' => new DateTime('1970-01-01T00:00:00Z')
         );
         $xml     = $contact->save($object);
-        $expect  = file_get_contents(dirname(__FILE__)
+        $expect  = file_get_contents(__DIR__
                                      . '/../fixtures/contact_mail.xml');
         $this->assertEquals(
             $this->removeLastModification($expect),
@@ -63,16 +58,17 @@ extends Horde_Kolab_Format_TestCase
     public function testCategories()
     {
         $contact = $this->_getContact();
-        $xml     = file_get_contents(dirname(__FILE__)
+        $xml     = file_get_contents(__DIR__
                                      . '/../fixtures/contact_category.xml');
         $object  = $contact->load($xml);
-        $this->assertContains('Test', $object['categories']);
+        $this->assertEquals(array('Test', 'Test 2', 'Test,3'),
+                            $object['categories']);
     }
 
     public function testUtf8()
     {
         $contact = $this->_getContact();
-        $xml = file_get_contents(dirname(__FILE__) . '/../fixtures/contact-kyr.xml');
+        $xml = file_get_contents(__DIR__ . '/../fixtures/contact-kyr.xml');
 
         $object = $contact->load($xml);
         $this->assertEquals('леле  Какакака', $object['name']['full-name']);
@@ -81,7 +77,7 @@ extends Horde_Kolab_Format_TestCase
     public function testAddresses()
     {
         $contact = $this->_getContact();
-        $xml = file_get_contents(dirname(__FILE__) . '/../fixtures/contact_address.xml');
+        $xml = file_get_contents(__DIR__ . '/../fixtures/contact_address.xml');
 
         $object = $contact->load($xml);
         $this->assertEquals(

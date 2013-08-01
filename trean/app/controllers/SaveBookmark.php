@@ -14,7 +14,7 @@ class Trean_SaveBookmark_Controller extends Horde_Controller_Base
             $bookmark->url = Horde_Util::getFormData('bookmark_url');
             $bookmark->title = Horde_Util::getFormData('bookmark_title');
             $bookmark->description = Horde_Util::getFormData('bookmark_description');
-            $bookmark->tags = Horde_Util::getFormData('bookmark_tags');
+            $bookmark->tags = Horde_Util::getFormData('treanBookmarkTags');
 
             if ($old_url != $bookmark->url) {
                 $bookmark->http_status = '';

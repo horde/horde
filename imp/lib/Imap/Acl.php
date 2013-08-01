@@ -1,35 +1,34 @@
 <?php
 /**
- * Contains functions related to managing IMAP Access Control Lists.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Chris Hastie <imp@oak-wood.co.uk>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2003-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Management of IMAP Access Control Lists.
+ *
+ * @author    Chris Hastie <imp@oak-wood.co.uk>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2003-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Imap_Acl
 {
     /**
-     * Constructor.
+     * Cached data for getRightsMbox().
      *
-     * @throws IMP_Exception
+     * @var array
      */
-    public function __construct()
-    {
-        if (!$GLOBALS['session']->get('imp', 'imap_acl')) {
-            throw new IMP_Exception(_("ACLs not configured for this server."));
-        }
-
-        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->queryCapability('ACL')) {
-            throw new IMP_Exception(_("Server does not support ACLs."));
-        }
-    }
+    protected $_cache = array();
 
     /**
      * Retrieve the existing ACLs for a mailbox from the server.
@@ -37,21 +36,42 @@ class IMP_Imap_Acl
      * @param IMP_Mailbox $mbox  The mailbox to get the ACL for.
      * @param boolean $user      Return only the current user's rights?
      *
-     * @return array  If $user is false, see Horde_Imap_Client_Base::getACL().
+     * @return mixed  If $user is false, see Horde_Imap_Client_Base::getACL().
      *                If $user is true, see
      *                Horde_Imap_Client_Base::getMyACLRights().
      * @throws IMP_Exception
      */
     public function getACL(IMP_Mailbox $mbox, $user = false)
     {
-        try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            return $user
-                ? $imp_imap->getMyACLRights($mbox)
-                : $imp_imap->getACL($mbox);
-        } catch (IMP_Imap_Exception $e) {
-            throw new IMP_Exception(_("Could not retrieve ACL"));
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+
+        if ($imp_imap->access(IMP_Imap::ACCESS_ACL)) {
+            try {
+                if ($user) {
+                    return $imp_imap->getMyACLRights($mbox);
+                }
+
+                $ret = $imp_imap->getACL($mbox);
+                $user = $imp_imap->getParam('username');
+                if (!isset($ret[$user]) &&
+                    ($acl = $this->getACL($mbox, true))) {
+                    $ret[$user] = $acl;
+                }
+                return $ret;
+            } catch (IMP_Imap_Exception $e) {
+                switch ($e->getCode()) {
+                case $e::NOPERM:
+                    throw new IMP_Exception(_("You do not have permission to view the ACLs on this mailbox."));
+                }
+            }
         }
+
+        $ret = new Horde_Imap_Client_Data_Acl(implode('', array_keys($this->getRights())));
+        unset($ret[Horde_Imap_Client::ACL_ADMINISTER]);
+
+        return $user
+            ? $ret
+            : array($imp_imap->getParam('username') => $ret);
     }
 
     /**
@@ -65,12 +85,15 @@ class IMP_Imap_Acl
      */
     public function addRights(IMP_Mailbox $mbox, $user, $rights)
     {
-        if (!strlen($rights)) {
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+
+        if (!strlen($rights) || !$imp_imap->access(IMP_Imap::ACCESS_ACL)) {
             return;
         }
 
         try {
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->setACL($mbox, $user, array(
+            $imp_imap->setACL($mbox, $user, array(
+                'action' => 'add',
                 'rights' => $rights
             ));
         } catch (IMP_Imap_Exception $e) {
@@ -90,11 +113,20 @@ class IMP_Imap_Acl
      */
     public function removeRights(IMP_Mailbox $mbox, $user, $rights)
     {
+        $imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        if (!$imap->access(IMP_Imap::ACCESS_ACL)) {
+            return;
+        }
+
         try {
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->setACL($mbox, $user, array(
-                'remove' => true,
-                'rights' => $rights
-            ));
+            if (is_null($rights)) {
+                $imap->deleteACL($mbox, $user);
+            } else {
+                $imap->setACL($mbox, $user, array(
+                    'action' => 'remove',
+                    'rights' => $rights
+                ));
+            }
         } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(sprintf(_("Could not remove rights for user \"%s\" for the mailbox \"%s\"."), $user, $mbox));
         }
@@ -109,7 +141,7 @@ class IMP_Imap_Acl
      */
     public function canEdit(IMP_Mailbox $mbox)
     {
-        $rights = $this->getRightsMbox($mbox, $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getParam('username'));
+        $rights = $this->getRightsMbox($mbox, $GLOBALS['injector']->getInstance('IMP_Imap')->getParam('username'));
         return $rights[Horde_Imap_Client::ACL_ADMINISTER];
     }
 
@@ -180,11 +212,24 @@ class IMP_Imap_Acl
      */
     public function getRightsMbox(IMP_Mailbox $mbox, $user)
     {
-        try {
-            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listACLRights($mbox, $user);
-        } catch (IMP_Imap_Exception $e) {
-            return new Horde_Imap_Client_Data_AclRights(array(), array_keys($this->getRights()));
+        $smbox = strval($mbox);
+
+        if (!isset($this->_cache[$smbox][$user])) {
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+            $ob = null;
+
+            if ($imp_imap->access(IMP_Imap::ACCESS_ACL)) {
+                try {
+                    $ob = $imp_imap->listACLRights($mbox, $user);
+                } catch (IMP_Imap_Exception $e) {}
+            }
+
+            $this->_cache[$smbox][$user] = is_null($ob)
+                ? new Horde_Imap_Client_Data_AclRights()
+                : $ob;
         }
+
+        return $this->_cache[$smbox][$user];
     }
 
 }

@@ -1,96 +1,162 @@
 <?php
 /**
- * Handle MoveItems requests.
- * 
- * Logic adapted from Z-Push, original copyright notices below.
+ * Horde_ActiveSync_Request_MoveItems::
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *   Created   :   01.10.2007
+ *
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 /**
- * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * Handle MoveItems requests.
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
-// Move
-define("SYNC_MOVE_MOVES","Move:Moves");
-define("SYNC_MOVE_MOVE","Move:Move");
-define("SYNC_MOVE_SRCMSGID","Move:SrcMsgId");
-define("SYNC_MOVE_SRCFLDID","Move:SrcFldId");
-define("SYNC_MOVE_DSTFLDID","Move:DstFldId");
-define("SYNC_MOVE_RESPONSE","Move:Response");
-define("SYNC_MOVE_STATUS","Move:Status");
-define("SYNC_MOVE_DSTMSGID","Move:DstMsgId");
 class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
 {
+
+    /* Wbxml constants */
+    const MOVES    = 'Move:Moves';
+    const MOVE     = 'Move:Move';
+    const SRCMSGID = 'Move:SrcMsgId';
+    const SRCFLDID = 'Move:SrcFldId';
+    const DSTFLDID = 'Move:DstFldId';
+    const RESPONSE = 'Move:Response';
+    const STATUS   = 'Move:Status';
+    const DSTMSGID = 'Move:DstMsgId';
+
+    /* keys */
+    const SRCMSGKEY = 'srcmsgid';
+    const SRCFLDKEY = 'srcfldid';
+    const DSTFLDKEY = 'dstfldid';
+
+    /* Status */
+    const STATUS_INVALID_SRC  = 1;
+    const STATUS_INVALID_DST  = 2;
+    const STATUS_SUCCESS      = 3;
+    const STATUS_SAME_FOLDERS = 4;
+    const STATUS_SERVER_ERR   = 5;
+
     /**
      * Handle request
      *
      * @return boolean
      */
-    public function handle()
+    protected function _handle()
     {
-       if (!$this->_decoder->getElementStartTag(SYNC_MOVE_MOVES)) {
-            return false;
+        $this->_logger->info(sprintf(
+            '[%s] Handling MoveItems command.',
+            $this->_procid)
+        );
+
+        if (!$this->_decoder->getElementStartTag(self::MOVES)) {
+            throw new Horde_ActiveSync_Exception('Protocol Error');
         }
 
         $moves = array();
-        while ($this->_decoder->getElementStartTag(SYNC_MOVE_MOVE)) {
+        while ($this->_decoder->getElementStartTag(self::MOVE)) {
             $move = array();
-            if ($this->_decoder->getElementStartTag(SYNC_MOVE_SRCMSGID)) {
-                $move['srcmsgid'] = $this->_decoder->getElementContent();
+            if ($this->_decoder->getElementStartTag(self::SRCMSGID)) {
+                $move[self::SRCMSGKEY] = $this->_decoder->getElementContent();
                 if(!$this->_decoder->getElementEndTag())
                     break;
             }
-            if ($this->_decoder->getElementStartTag(SYNC_MOVE_SRCFLDID)) {
-                $move['srcfldid'] = $this->_decoder->getElementContent();
+            if ($this->_decoder->getElementStartTag(self::SRCFLDID)) {
+                $move[self::SRCFLDKEY] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     break;
                 }
             }
-            if ($this->_decoder->getElementStartTag(SYNC_MOVE_DSTFLDID)) {
-                $move['dstfldid'] = $this->_decoder->getElementContent();
+            if ($this->_decoder->getElementStartTag(self::DSTFLDID)) {
+                $move[self::DSTFLDKEY] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     break;
                 }
             }
-            array_push($moves, $move);
-
+            $moves[] = $move;
             if (!$this->_decoder->getElementEndTag()) {
-                return false;
+                throw new Horde_ActiveSync_Exception('Protocol Error');
             }
         }
+        if (!$this->_decoder->getElementEndTag()) {
+            throw new Horde_ActiveSync_Exception('Protocol Error');
+        }
 
-        if (!$this->_decoder->getElementEndTag())
-            return false;
-
+        // Start response
         $this->_encoder->StartWBXML();
+        $this->_encoder->startTag(self::MOVES);
 
-        $this->_encoder->startTag(SYNC_MOVE_MOVES);
-
+        // Can't do these all at once since the device may send any combination
+        // of src and dest mailboxes in the same request, though oddly enough
+        // the server response only needs to include the message uids, not
+        // the mailbox identifier.
         foreach ($moves as $move) {
-            $this->_encoder->startTag(SYNC_MOVE_RESPONSE);
-            $this->_encoder->startTag(SYNC_MOVE_SRCMSGID);
-            $this->_encoder->content($move['srcmsgid']);
+            $status = self::STATUS_SUCCESS;
+            $this->_encoder->startTag(self::RESPONSE);
+            $this->_encoder->startTag(self::SRCMSGID);
+            $this->_encoder->content($move[self::SRCMSGKEY]);
             $this->_encoder->endTag();
 
-            $importer = $this->_driver->getContentsImporter($move['srcfldid']);
-            $result = $importer->importMessageMove($move['srcmsgid'], $move['dstfldid']);
+            if ($move[self::SRCFLDKEY] == $move[self::DSTFLDKEY]) {
+                $status = self::STATUS_SAME_FOLDERS;
+            } else {
+                $importer = $this->_activeSync->getImporter();
+                $importer->init($this->_state, $move[self::SRCFLDKEY]);
+                try {
+                    $move_res = $importer->importMessageMove(
+                        array($move[self::SRCMSGKEY]),
+                        $move[self::DSTFLDKEY]);
+                    if (empty($move_res['results'][$move[self::SRCMSGKEY]])) {
+                        $status = self::STATUS_SERVER_ERR;
+                    } else {
+                        $new_msgid = $move_res['results'][$move[self::SRCMSGKEY]];
+                    }
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $status = self::STATUS_SERVER_ERR;
+                }
+                if (empty($new_msgid)) {
+                    $status = self::STATUS_SERVER_ERR;
+                }
+            }
 
             // We discard the importer state for now.
-            $this->_encoder->startTag(SYNC_MOVE_STATUS);
-            $this->_encoder->content($result ? 3 : 1);
+            $this->_encoder->startTag(self::STATUS);
+            $this->_encoder->content($status);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(SYNC_MOVE_DSTMSGID);
-            $this->_encoder->content(is_string($result) ? $result : $move['srcmsgid']);
+            if ($status == self::STATUS_SUCCESS) {
+                $this->_encoder->startTag(self::DSTMSGID);
+                $this->_encoder->content($new_msgid);
+                $this->_encoder->endTag();
+            }
             $this->_encoder->endTag();
-            $this->_encoder->endTzg();
         }
         $this->_encoder->endTag();
 
         return true;
     }
+
 }

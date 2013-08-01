@@ -16,7 +16,7 @@
  * Components_Helper_Website:: is a helper for a horde-web git repository
  * checkout.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -62,6 +62,9 @@ class Components_Helper_Website
             throw new Components_Exception('"destination" MUST be set for this action!');
         } else {
             $destination = $options['destination'];
+        }
+        if (empty($options['html_generator'])) {
+            throw new Components_Exception('"--html-generator" MUST be set for this action!');
         }
 
         $tmp_dir = Horde_Util::createTempDir();
@@ -218,6 +221,7 @@ class Components_Helper_Website
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)) as $file) {
             if ($file->isFile() &&
                 preg_match('/[A-Z_]+/', $file->getFilename()) &&
+                !preg_match('/\.(html|php)$/', $file->getFilename()) &&
                 !in_array($file->getFilename(), array('COPYING', 'LICENSE')) &&
                 !preg_match('#/examples/#', $file->getPathname())) {
                 $doc_files[$file->getPathname()] = $file->getFilename();

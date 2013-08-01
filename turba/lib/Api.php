@@ -5,7 +5,7 @@
  * This file defines Turba's external API interface. Other applications can
  * interact with Turba through this API.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -22,8 +22,9 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
-        'show' => '%application%/contact.php?source=|source|&key=|key|&uid=|uid|'
+    protected $_links = array(
+        'show' => '%application%/contact.php?source=|source|&key=|key|&uid=|uid|',
+        'smartmobile_browse' => '%application%/smartmobile.php#browse'
     );
 
     /**
@@ -31,7 +32,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $noPerms = array(
+    protected $_noPerms = array(
         'getClientSource', 'getClient', 'getClients', 'searchClients'
     );
 
@@ -52,7 +53,8 @@ class Turba_Api extends Horde_Registry_Api
         if (isset($GLOBALS['cfgSources'][$source]) && $key) {
             try {
                 return $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source)->getObject($key)->getValue('name');
-            } catch (Turba_Exception $e) {}
+            } catch (Horde_Exception $e) {
+            }
         }
 
         return false;
@@ -72,16 +74,22 @@ class Turba_Api extends Horde_Registry_Api
      * Returns a list of available sources.
      *
      * @param boolean $writeable  If true, limits to writeable sources.
+     * @param boolean $sync_only  Only include synchable address books.
      *
      * @return array  An array of the available sources. Keys are source IDs,
      *                values are source titles.
      */
-    public function sources($writeable = false)
+    public function sources($writeable = false, $sync_only = false)
     {
         $out = array();
 
         foreach (Turba::getAddressBooks($writeable ? Horde_Perms::EDIT : Horde_Perms::READ) as $key => $val) {
             $out[$key] = $val['title'];
+        }
+
+        if ($sync_only) {
+            $syncable = unserialize($GLOBALS['prefs']->getValue('sync_books'));
+            $out = array_intersect_key($out, array_flip($syncable));
         }
 
         return $out;
@@ -177,11 +185,12 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return array  Content of the specified path.
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function browse($path = '',
                           $properties = array('name', 'icon', 'browseable'))
     {
-        global $cfgSource, $registry, $session;
+        global $injector, $session;
 
         // Strip off the application name if present
         if (substr($path, 0, 5) == 'turba') {
@@ -260,7 +269,7 @@ class Turba_Api extends Horde_Registry_Api
                     // No backends are configured to provide shares
                     return array();
                 }
-                $addressbooks = $GLOBALS['injector']->getInstance('Turba_Shares')->listShares($parts[0], array(
+                $addressbooks = $injector->getInstance('Turba_Shares')->listShares($parts[0], array(
                     'attributes' => $parts[0],
                     'perm' => Horde_Perms::READ
                 ));
@@ -278,9 +287,13 @@ class Turba_Api extends Horde_Registry_Api
 
             foreach ($addressbooks as $addressbook => $info) {
                 if (in_array('name', $properties)) {
-                    $results[$curpath . $addressbook]['name'] = ($info instanceof Horde_Share_Object)
-                        ? $info->get('title')
-                        : $info['title'];
+                    $results[$curpath . $addressbook]['name'] =
+                        sprintf(
+                            _("Contacts from %s"),
+                            ($info instanceof Horde_Share_Object)
+                                ? $info->get('name')
+                                : $info['title']
+                        );
                 }
                 if (in_array('icon', $properties)) {
                     $results[$curpath . $addressbook]['icon'] = Horde_Themes::img('turba.png');
@@ -322,7 +335,7 @@ class Turba_Api extends Horde_Registry_Api
                 return array();
             }
 
-            $contacts = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($parts[1])->search(array());
+            $contacts = $injector->getInstance('Turba_Factory_Driver')->create($parts[1])->search(array());
             $contacts->reset();
 
             $curpath = 'turba/' . $parts[0] . '/' . $parts[1] . '/';
@@ -350,10 +363,10 @@ class Turba_Api extends Horde_Registry_Api
                     $results[$key]['contentlength'] = strlen($data);
                 }
                 if (in_array('modified', $properties)) {
-                    $results[$key]['modified'] = $this->_modified($contact->getValue('__uid'));
+                    $results[$key]['modified'] = $this->_modified($contact->getValue('__uid'), $parts[1]);
                 }
                 if (in_array('created', $properties)) {
-                    $results[$key]['created'] = $this->getActionTimestamp($contact->getValue('__uid'), 'add');
+                    $results[$key]['created'] = $this->getActionTimestamp($contact->getValue('__uid'), 'add', $parts[1]);
                 }
             }
 
@@ -369,7 +382,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             // Load the Turba driver.
-            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($parts[1]);
+            $driver = $injector->getInstance('Turba_Factory_Driver')->create($parts[1]);
 
             $contact = $driver->getObject($parts[2]);
 
@@ -377,7 +390,7 @@ class Turba_Api extends Horde_Registry_Api
                 'data' => $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource()),
                 'mimetype' => 'text/x-vcard'
             );
-            $modified = $this->_modified($contact->getValue('__uid'));
+            $modified = $this->_modified($contact->getValue('__uid'), $parts[1]);
             if (!empty($modified)) {
                 $result['mtime'] = $modified;
             }
@@ -397,8 +410,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function path_delete($path)
     {
-        global $registry, $cfgSources;
-
         // Strip off the application name if present
         if (substr($path, 0, 5) == 'turba') {
             $path = substr($path, 5);
@@ -461,12 +472,15 @@ class Turba_Api extends Horde_Registry_Api
      * @param string|array $sources  The source(s) for which to retrieve the
      *                               history.
      * @param integer $end           The optional ending timestamp.
+     * @param boolean $isModSeq      If true, $timestamp and $end are
+     *                               modification sequences and not timestamps.
+     *                               @since 4.1.1
      *
      * @return array  An array of UIDs matching the action and time criteria.
      *
      * @throws Turba_Exception
      */
-    public function listBy($action, $timestamp, $sources = null, $end = null)
+    public function listBy($action, $timestamp, $sources = null, $end = null, $isModSeq = false)
     {
         $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver');
         $history = $GLOBALS['injector']->getInstance('Horde_History');
@@ -479,7 +493,7 @@ class Turba_Api extends Horde_Registry_Api
         );
         $uids = array();
 
-        if (!empty($end)) {
+        if (!empty($end) && !$isModSeq) {
             $filter[] = array(
                 'field' => 'ts',
                 'op' => '<',
@@ -489,11 +503,15 @@ class Turba_Api extends Horde_Registry_Api
 
         foreach ($this->_getSources($sources) as $source) {
             $sdriver = $driver->create($source);
-
-            $histories = $history->getByTimestamp(
-                '>', $timestamp, $filter,
-                'turba:' . $sdriver->getName()
-            );
+            if (!$isModSeq) {
+                $histories = $history->getByTimestamp(
+                    '>', $timestamp, $filter,
+                    'turba:' . $sdriver->getName()
+                );
+            } else {
+                $histories = $history->getByModSeq(
+                    $timestamp, $end, $filter, 'turba:' . $sdriver->getName());
+            }
 
             // Filter out groups
             $nguids = str_replace(
@@ -528,18 +546,35 @@ class Turba_Api extends Horde_Registry_Api
      * Essentially a wrapper around listBy(), but returns an array containing
      * all adds, edits, and deletions.
      *
-     * @param integer $start  The starting timestamp
-     * @param integer $end    The ending timestamp.
+     * @param integer $start     The starting timestamp
+     * @param integer $end       The ending timestamp.
+     * @param boolean $isModSeq  If true, $start and $end are modification
+     *                           sequences and not timestamps. @since 4.1.1
      *
      * @return array  A hash with 'add', 'modify' and 'delete' arrays.
      */
-    public function getChanges($start, $end)
+    public function getChanges($start, $end, $isModSeq = false)
     {
         return array(
-            'add' => $this->listBy('add', $start, null, $end),
-            'modify' => $this->listBy('modify', $start, null, $end),
-            'delete' => $this->listBy('delete', $start, null, $end)
+            'add' => $this->listBy('add', $start, null, $end, $isModSeq),
+            'modify' => $this->listBy('modify', $start, null, $end, $isModSeq),
+            'delete' => $this->listBy('delete', $start, null, $end, $isModSeq)
         );
+    }
+
+    /**
+     * Return all changes occuring between the specified modification
+     * sequences.
+     *
+     * @param integer $start  The starting modseq.
+     * @param integer $end    The ending modseq.
+     *
+     * @return array  The changes @see getChanges()
+     * @since 4.1.1
+     */
+    public function getChangesByModSeq($start, $end)
+    {
+        return $this->getChanges($start, $end, true);
     }
 
     /**
@@ -550,28 +585,46 @@ class Turba_Api extends Horde_Registry_Api
      *                               delete.
      * @param string|array $sources  The source(s) for which to retrieve the
      *                               history.
+     * @param boolean $modSeq        Request a modification sequence instead of
+     *                               timestamp. @since 4.1.1
      *
      * @return integer  The timestamp for this action.
      *
      * @throws Turba_Exception
      */
-    public function getActionTimestamp($uid, $action, $sources = null)
+    public function getActionTimestamp($uid, $action, $sources = null, $modSeq = false)
     {
         $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver');
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         $last = 0;
 
         foreach ($this->_getSources($sources) as $source) {
-            $ts = $history->getActionTimestamp(
-                'turba:' . $driver->create($source)->getName() . ':' . $uid,
-                $action
-            );
+            if (!$modSeq) {
+                $ts = $history->getActionTimestamp(
+                    'turba:' . $driver->create($source)->getName() . ':' . $uid,
+                    $action);
+            } else {
+                $ts = $history->getActionModSeq(
+                    'turba:' . $driver->create($source)->getName() . ':' . $uid,
+                    $action);
+            }
             if (!empty($ts) && $ts > $last) {
                 $last = $ts;
             }
         }
 
         return $last;
+    }
+
+    /**
+     * Return the largest modification sequence from the history backend.
+     *
+     * @return integer  The modseq.
+     * @since 4.1.1
+     */
+    public function getHighestModSeq()
+    {
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHighestModSeq('turba');
     }
 
     /**
@@ -584,30 +637,40 @@ class Turba_Api extends Horde_Registry_Api
      * @param string $source       The source into which the contact will be
      *                             imported.
      *
-     * @return string  The new UID, or false on failure.
+     * @return string  The new UID.
+     *
      * @throws Turba_Exception
+     * @throws Turba_Exception_ObjectExists
      */
-    public function import($content, $contentType = 'array',
-                           $import_source = null)
+    public function import($content, $contentType = 'array', $source = null)
     {
-        global $cfgSources, $prefs;
+        global $cfgSources, $injector, $prefs;
 
         /* Get default address book from user preferences. */
-        if (is_null($import_source) &&
-            !($import_source = $prefs->getValue('default_dir'))) {;
-            /* On new installations default_dir is not set; use first source
-             * instead. */
-            $import_source = key(Turba::getAddressBooks(Horde_Perms::EDIT));
+        if (empty($source) &&
+            !($source = $prefs->getValue('default_dir'))) {
+            // On new installations default_dir is not set. Try default
+            // addressbook if it's editable. Otherwise use first editable
+            // addressbook.
+            $edit_sources = Turba::getAddressBooks(Horde_Perms::EDIT);
+            $default_source = Turba::getDefaultAddressbook();
+            if (isset($edit_sources[$default_source])) {
+                // use default addressbook
+                $source = $default_source;
+            } else {
+                // Use first writable source
+                $source = reset($edit_sources);
+            }
         }
 
         // Check existence of and permissions on the specified source.
-        if (!isset($cfgSources[$import_source])) {
-            throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $import_source));
+        if (!isset($cfgSources[$source])) {
+            throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
         }
 
-        $driver = $GLOBALS['injector']
+        $driver = $injector
             ->getInstance('Turba_Factory_Driver')
-            ->create($import_source);
+            ->create($source);
 
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             throw new Turba_Exception(_("Permission denied"));
@@ -617,9 +680,6 @@ class Turba_Api extends Horde_Registry_Api
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = $cManager->get();
 
-        // Need an object to add attributes to.
-        $object = new Turba_Object($driver);
-
         if (!($content instanceof Horde_Icalendar_Vcard)) {
             switch ($contentType) {
             case 'activesync':
@@ -627,6 +687,9 @@ class Turba_Api extends Horde_Registry_Api
                 break;
 
             case 'array':
+                if (!isset($content['emails']) && isset($content['email'])) {
+                    $content['emails'] = $content['email'];
+                }
                 break;
 
             case 'text/x-vcard':
@@ -679,10 +742,10 @@ class Turba_Api extends Horde_Registry_Api
             $content = $driver->toHash($content);
         }
 
-        // Check if the entry already exists in the data source:
+        // Check if the entry already exists in the data source.
         $result = $driver->search($content);
         if (count($result)) {
-            throw new Turba_Exception(_("Already Exists"));
+            throw new Turba_Exception_ObjectExists(_("Already Exists"));
         }
 
         // We can't use $object->setValue() here since that cannot be used
@@ -720,11 +783,13 @@ class Turba_Api extends Horde_Registry_Api
      * @param array $fields          Hash of field names and
      *                               Horde_SyncMl_Property properties with the
      *                               requested fields.
+     * @param array $options         Any additional options to be passed to the
+     *                               exporter.
      *
      * @return mixed  The requested data.
      * @throws Turba_Exception
      */
-    public function export($uid, $contentType, $sources = null, $fields = null)
+    public function export($uid, $contentType, $sources = null, $fields = null, array $options = array())
     {
         if (empty($uid)) {
             throw new Turba_Exception(_("Invalid ID"));
@@ -743,7 +808,7 @@ class Turba_Api extends Horde_Registry_Api
             if (count($result) == 0) {
                 continue;
             } elseif (count($result) > 1) {
-                throw new Turba_Exception("Internal Horde Error: multiple Turba objects with same objectId.");
+                throw new Turba_Exception(sprintf("Internal Horde Error: multiple Turba objects with same objectId %s.", $uid));
             }
 
             $version = '3.0';
@@ -779,14 +844,14 @@ class Turba_Api extends Horde_Registry_Api
                 foreach ($result->objects as $object) {
                     $return = $object;
                 }
-                return $sdriver->toASContact($return);
+                return $sdriver->toASContact($return, $options);
 
             default:
                 throw new Turba_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
             }
         }
 
-        throw new Turba_Exception(_("Object not found."));
+        throw new Turba_Exception(sprintf(_("Object %s not found."), $uid));
     }
 
     /**
@@ -845,7 +910,7 @@ class Turba_Api extends Horde_Registry_Api
 
         try {
             $contact = $driver->getObject($id);
-        } catch (Turba_Exception $e) {
+        } catch (Horde_Exception_NotFound $e) {
             throw new Turba_Exception(_("Your own contact cannot be found in the address book."));
         }
 
@@ -876,7 +941,7 @@ class Turba_Api extends Horde_Registry_Api
         // contacts at once.
         if (is_array($uid)) {
             foreach ($uid as $g) {
-                if (!$this->delete($uid, $source)) {
+                if (!$this->delete($g, $sources)) {
                     return false;
                 }
             }
@@ -912,7 +977,7 @@ class Turba_Api extends Horde_Registry_Api
      * the specified contentType.
      *
      * @param string $uid            Idenfity the contact to replace.
-     * @param string $content        The content of the contact.
+     * @param mixed  $content        The content of the contact.
      * @param string $contentType    What format is the data in? Currently
      *                               supports array, text/directory,
      *                               text/vcard, text/x-vcard and activesync.
@@ -942,7 +1007,7 @@ class Turba_Api extends Horde_Registry_Api
             if (!count($result)) {
                 continue;
             } elseif (count($result) > 1) {
-                throw new Turba_Exception(_("Multiple contacts found with same unique ID."));
+                throw new Turba_Exception(sprintf(_("Multiple contacts found with same unique ID %s."), $uid));
             }
 
             $object = $result->objects[0];
@@ -950,7 +1015,6 @@ class Turba_Api extends Horde_Registry_Api
             switch ($contentType) {
             case 'activesync':
                 $content = $sdriver->fromASContact($content);
-                /* Must check for ghosted properties for activesync requests */
                 foreach ($content as $attribute => $value) {
                     if ($attribute != '__key') {
                         $object->setValue($attribute, $value);
@@ -995,7 +1059,7 @@ class Turba_Api extends Horde_Registry_Api
             return $object->store();
         }
 
-        throw new Turba_Exception(_("Object not found."));
+        throw new Turba_Exception(sprintf(_("Object %s not found."), $uid));
     }
 
     /**
@@ -1003,6 +1067,8 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @param mixed $names  The search filter values.
      * @param array $opts   Optional parameters:
+     *   - customStrict: (array) An array of fields that must match exactly.
+     *                   DEFAULT: None
      *   - fields: (array) The fields to search on.
      *             DEFAULT: All fields
      *   - forceSource: (boolean) Whether to use the specified sources, even
@@ -1015,7 +1081,10 @@ class Turba_Api extends Horde_Registry_Api
      *   - rfc822Return: Return a Horde_Mail_Rfc822_List object.
      *                   DEFAULT: Returns an array of search results.
      *   - sources: (array) The sources to search in.
-     *              DEFAULT: All sources
+     *              DEFAULT: Search the user's default address book
+     *   - count_only: (boolean) If true, only return the count of matching
+     *                           results.
+     *                 DEFAULT: false (Return the full data set).
      *
      * @return mixed  Either a hash containing the search results or a
      *                Rfc822 List object (if 'rfc822Return' is true).
@@ -1023,7 +1092,7 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function search($names = null, array $opts = array())
     {
-        global $attributes, $cfgSources, $injector, $prefs;
+        global $attributes, $cfgSources, $injector;
 
         $opts = array_merge(array(
             'fields' => array(),
@@ -1031,12 +1100,16 @@ class Turba_Api extends Horde_Registry_Api
             'matchBegin' => false,
             'returnFields' => array(),
             'rfc822Return' => false,
-            'sources' => array()
+            'sources' => array(),
+            'customStrict' => array(),
+            'count_only' => false,
         ), $opts);
 
-        $results = empty($opts['rfc822Return'])
-            ? array()
-            : new Horde_Mail_Rfc822_List();
+        $results = !empty($opts['count_only'])
+            ? 0
+            : (empty($opts['rfc822Return'])
+                ? array()
+                : new Horde_Mail_Rfc822_List());
 
         if (!isset($cfgSources) ||
             !is_array($cfgSources) ||
@@ -1064,31 +1137,23 @@ class Turba_Api extends Horde_Registry_Api
             $opts['sources'] = array(Turba::getDefaultAddressbook());
         }
 
-        // Read the columns to display from the preferences.
-        $sort_columns = Turba::getColumns();
-
         $driver = $injector->getInstance('Turba_Factory_Driver');
-
-        foreach ($sources as $source) {
+        foreach ($opts['sources'] as $source) {
             // Skip invalid sources -or-
             // skip sources that aren't browseable if the search is empty.
             if (!isset($cfgSources[$source]) ||
                 (empty($cfgSources[$source]['browse']) &&
                  (!count($names) ||
                   ((count($names) == 1) && empty($names[0]))))) {
+
                 continue;
             }
 
             $sdriver = $driver->create($source);
 
-            // Determine the name of the column to sort by.
-            $columns = isset($sort_columns[$source])
-                ? $sort_columns[$source]
-                : array();
-
             foreach ($names as $name) {
                 $trimname = trim($name);
-                $criteria = array();
+                $out = $criteria = array();
                 if (strlen($trimname)) {
                     if (isset($opts['fields'][$source])) {
                         foreach ($opts['fields'][$source] as $field) {
@@ -1105,18 +1170,22 @@ class Turba_Api extends Horde_Registry_Api
                     Turba::getPreferredSortOrder(),
                     'OR',
                     $opts['returnFields'],
-                    array(),
-                    $opts['matchBegin']
+                    $opts['customStrict'],
+                    $opts['matchBegin'],
+                    $opts['count_only']
                 );
+                if ($opts['count_only']) {
+                    $results += $search;
 
-                if (!($search instanceof Turba_List)) {
+                    continue;
+                } elseif (!($search instanceof Turba_List)) {
                     continue;
                 }
 
                 $rfc822 = new Horde_Mail_Rfc822();
 
                 while ($ob = $search->next()) {
-                    $emails = $out = $seen = array();
+                    $emails = $seen = array();
 
                     if ($ob->isGroup()) {
                         /* Is a distribution list. */
@@ -1186,7 +1255,7 @@ class Turba_Api extends Horde_Registry_Api
 
                         if (count($email)) {
                             foreach ($email as $val) {
-                                $seen_key = trim(Horde_String::lower($display_name)) . '/' . trim(Horde_String::lower($val));
+                                $seen_key = trim(Horde_String::lower($display_name)) . '/' . Horde_String::lower($val->bare_address);
                                 if (empty($seen[$seen_key])) {
                                     $seen[$seen_key] = true;
                                     if (empty($opts['rfc822Return'])) {
@@ -1213,10 +1282,10 @@ class Turba_Api extends Horde_Registry_Api
                             }
                         }
                     }
+                }
 
-                    if (!empty($out)) {
-                        $results[$name] = $out;
-                    }
+                if (!empty($out)) {
+                    $results[$name] = $out;
                 }
             }
         }
@@ -1232,6 +1301,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return array  The retrieved contact.
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getContact($source = null, $objectId = '')
     {
@@ -1261,6 +1331,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return array  The retrieved contact.
      * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getContacts($source = '', array $objectIds = array())
     {
@@ -1352,7 +1423,9 @@ class Turba_Api extends Horde_Registry_Api
                 !empty($attribute['time_object_label'])) {
                 foreach ($GLOBALS['cfgSources'] as $srcKey => $source) {
                     if (!empty($source['map'][$key])) {
-                        $categories[$key . '/'. $srcKey] = sprintf(_("%s in %s"), $attribute['time_object_label'], $source['title']);
+                        $categories[$key . '/'. $srcKey] =array(
+                            'title' => sprintf(_("%s in %s"), $attribute['time_object_label'], $source['title']),
+                            'type' => 'share');
                     }
                 }
             }
@@ -1487,12 +1560,13 @@ class Turba_Api extends Horde_Registry_Api
                                   array $fields = array(),
                                   $matchBegin = false)
     {
+        $abook = $GLOBALS['conf']['client']['addressbook'];
         return $this->search(
             $names,
-            array($GLOBALS['conf']['client']['addressbook']),
-            array($GLOBALS['conf']['client']['addressbook'] => $fields),
-            $matchBegin,
-            true
+            array('sources' => array($abook),
+                  'fields' => array($abook => $fields),
+                  'matchBegin' => $matchBegin,
+                  'forceSource' => true)
         );
     }
 
@@ -1958,7 +2032,7 @@ class Turba_Api extends Horde_Registry_Api
         if (!$entry) {
             return array();
         }
-        list($source, $id) = explode(':', $gid);
+        list($source,) = explode(':', $gid);
         $members = @unserialize($entry['members']);
         if (!is_array($members)) {
             return array();
@@ -2022,11 +2096,11 @@ class Turba_Api extends Horde_Registry_Api
 
     /**
      */
-    private function _modified($uid)
+    private function _modified($uid, $sources)
     {
-        $modified = $this->getActionTimestamp($uid, 'modify');
+        $modified = $this->getActionTimestamp($uid, 'modify', $sources);
         if (empty($modified)) {
-            $modified = $this->getActionTimestamp($uid, 'add');
+            $modified = $this->getActionTimestamp($uid, 'add', $sources);
         }
         return $modified;
     }

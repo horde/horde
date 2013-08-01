@@ -2,7 +2,7 @@
 /**
  * The Ansel_View_Abstract:: Parent class for the various Ansel_View classes
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -71,7 +71,7 @@ abstract class Ansel_View_Base
      *                         when clicking on breadcrumb links, for example.
      * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
     }
@@ -139,7 +139,7 @@ abstract class Ansel_View_Base
         }
 
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-            throw new Horde_Exception(sprintf(_("Access denied to gallery \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception(_("Access denied to this gallery."));
         }
 
         /* Set any date info we might have */

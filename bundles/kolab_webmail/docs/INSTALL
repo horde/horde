@@ -101,7 +101,7 @@ Edition to function properly.
 
      "broken-scriptfilename" => "enable"
 
-3. PHP 5.2.0 or above.
+3. PHP 5.3.0 or above.
 
    PHP is the interpreted language in which Horde Kolab Edition is
    written.

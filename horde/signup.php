@@ -1,14 +1,17 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author Marko Djukic <marko@oblo.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
@@ -17,7 +20,7 @@ $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     $notification->push(_("User Registration has been disabled for this site."), 'horde.error');
-    Horde::getServiceLink('login')->redirect();
+    $registry->getServiceLink('login')->redirect();
 }
 
 try {
@@ -25,10 +28,10 @@ try {
 } catch (Horde_Exception $e) {
     Horde::logMessage($e, 'ERR');
     $notification->push(_("User Registration is not properly configured for this site."), 'horde.error');
-    Horde::getServiceLink('login')->redirect();
+    $registry->getServiceLink('login')->redirect();
 }
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 $formsignup = new Horde_Core_Auth_Signup_Form($vars);
 if ($formsignup->validate()) {
     $formsignup->getInfo($vars, $info);
@@ -59,13 +62,16 @@ if ($formsignup->validate()) {
             $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()), 'horde.error');
         } else {
             $notification->push($success_message, 'horde.success');
-            Horde::getServiceLink('login')->add('url', $info['url'])->redirect();
+            $registry->getServiceLink('login')->add('url', $info['url'])->redirect();
         }
     }
 }
 
-$title = _("User Registration");
-$bodyClass = 'modal-form';
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->topbar = $page_output->sidebar = false;
+
+$page_output->header(array(
+    'body_class' => 'modal-form',
+    'title' => _("User Registration")
+));
 require HORDE_TEMPLATES . '/login/signup.inc';
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

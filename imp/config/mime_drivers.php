@@ -12,12 +12,11 @@
  * use mime_drivers-servername.php.
  *
  * Additional settings for IMP:
- * + If you want to limit the display of message data inline for large
- *   messages of a certain type, add a 'limit_inline_size' parameter to the
- *   desired mime type to the maximum size of the displayed message in bytes
- *   (see example under text/plain below).  If set, the user will only be able
- *   to download the part.  Don't set the parameter, or set to 0, to disable
- *   this check.
+ *   - limit_inline_size: (integer) If present, limits the display of message
+ *     data inline for large messages.  The value is the maximum number of
+ *     bytes that can be shown for the part; above this limit, the user will
+ *     only be able to download the part. Don't set the parameter, or set the
+ *     value to 0, to disable this check.
  */
 
 $mime_drivers = array(
@@ -30,10 +29,6 @@ $mime_drivers = array(
             'text/rfc822-headers'
         ),
 
-        /* If you want to limit the display of message data inline for large
-         * messages, set the maximum size of the displayed message here (in
-         * bytes).  If exceeded, the user will only be able to download the
-         * part. Set to 0 to disable this check. */
         'limit_inline_size' => 1048576,
 
         /* If you want to scan ALL incoming text/plain messages for UUencoded
@@ -55,10 +50,6 @@ $mime_drivers = array(
             'default' => 'html.png'
         ),
 
-        /* If you want to limit the display of message data inline for large
-         * messages, set the maximum size of the displayed message here (in
-         * bytes).  If exceeded, the user will only be able to download the
-         * part. Set to 0 to disable this check. */
         'limit_inline_size' => 1048576,
 
         /* Check for phishing exploits? */
@@ -81,7 +72,10 @@ $mime_drivers = array(
         ),
 
         /* Display images inline that are less than this size (in bytes). */
-        'inlinesize' => 262144
+        'inlinesize' => 262144,
+
+        /* Display image thumbnails? */
+        'thumbnails' => true
     ),
 
     /* Enriched text display. */
@@ -104,7 +98,10 @@ $mime_drivers = array(
         ),
         'icons' => array(
             'default' => 'pdf.png'
-        )
+        ),
+
+        /* Display PDF thumbnails? */
+        'thumbnails' => true
     ),
 
     /* PGP (Pretty Good Privacy) display. */
@@ -136,6 +133,7 @@ $mime_drivers = array(
 
     /* vCard display. */
     'vcard' => array(
+        'inline' => true,
         'handles' => array(
             'text/directory',
             'text/vcard',
@@ -195,7 +193,37 @@ $mime_drivers = array(
         ),
         'icons' => array(
             'default' => 'itip.png'
-        )
+        ),
+
+        /* How event replies are handled when a user opens the message.
+         *   - false: Reply status is never automatically updated; requires
+         *            explicit action by the user.
+         *   - true: Reply status is always automatically updated.
+         *   - Array: An array of domains for which replies are always
+         *            automatically updated. All other domains require the
+         *            reply status to be explicitly updated by user action. */
+        'auto_update_eventreply' => false,
+
+        /* How free/busy publish data is handled when a user opens the
+         * message.
+         *   - false: Free/busy data is never automatically updated; requires
+         *            explicit action by the user.
+         *   - true: Free/busy data is always automatically updated.
+         *   - Array: An array of domains for which free/busy data is always
+         *            automatically updated. All other domains require the
+         *            free/busy data to be explicitly updated by user
+         *            action. */
+        'auto_update_fbpublish' => false,
+
+        /* How free/busy replies are handled when a user opens the message.
+         *   - false: Free/busy data is never automatically updated; requires
+         *            explicit action by the user.
+         *   - true: Free/busy data is always automatically updated.
+         *   - Array: An array of domains for which free/busy data is always
+         *            automatically updated. All other domains require the
+         *            free/busy data to be explicitly updated by user
+         *            action. */
+        'auto_update_fbreply' => false
     ),
 
     /* Audio data. */
@@ -215,7 +243,14 @@ $mime_drivers = array(
         ),
         'icons' => array(
             'default' => 'video.png'
-        )
+        ),
+
+        /* Display video thumbnails? */
+        'thumbnails' => true,
+
+        /* REQUIRED for thumbnails: location of ffmpeg binary.
+         * http://ffmpeg.org/ */
+        'ffmpeg' => '/usr/bin/ffmpeg'
     ),
 
     /* Alternative part display.

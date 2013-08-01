@@ -1,23 +1,24 @@
 <?php
 /**
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Imap_Client
  */
 
 /**
  * Translation wrapper class for Horde_Imap_Client.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL
- * @package  Imap_Client
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Translation extends Horde_Translation
 {
@@ -32,7 +33,7 @@ class Horde_Imap_Client_Translation extends Horde_Translation
     static public function t($message)
     {
         self::$_domain = 'Horde_Imap_Client';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../../locale' : '@data_dir@/Horde_Imap_Client/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../../locale' : '@data_dir@/Horde_Imap_Client/locale';
         return parent::t($message);
     }
 
@@ -49,7 +50,7 @@ class Horde_Imap_Client_Translation extends Horde_Translation
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Imap_Client';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../../locale' : '@data_dir@/Horde_Imap_Client/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../../locale' : '@data_dir@/Horde_Imap_Client/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }

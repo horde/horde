@@ -1,16 +1,27 @@
 <?php
 /**
- * The Ingo_Script_Maildrop_Recipe:: class represents a maildrop recipe.
- *
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Matt Weyland <mathias@weyland.ch>
- * @package Ingo
+ * @author   Matt Weyland <mathias@weyland.ch>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
-class Ingo_Script_Maildrop_Recipe
+
+/**
+ * The Ingo_Script_Maildrop_Recipe class represents a Maildrop recipe.
+ *
+ * @author   Matt Weyland <mathias@weyland.ch>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
 {
     /**
      */
@@ -92,7 +103,8 @@ class Ingo_Script_Maildrop_Recipe
             break;
 
         case Ingo_Storage::ACTION_REJECT:
-            $this->_action[] = '   EXITCODE=77'; # EX_NOPERM (permanent failure)
+            // EX_NOPERM (permanent failure)
+            $this->_action[] = '   EXITCODE=77';
             $this->_action[] = '   echo "5.7.1 ' . $params['action-value'] . '"';
             $this->_action[] = '   exit';
             break;
@@ -333,10 +345,10 @@ class Ingo_Script_Maildrop_Recipe
                 $comment = new Ingo_Script_Maildrop_Comment($val);
                 $code .= $comment->generate() . "\n";
             }
-            return $code . "\n";
-        } else {
-            return implode("\n", $text) . "\n";
+            return $code;
         }
+
+        return implode("\n", $text);
     }
 
     /**
@@ -367,5 +379,4 @@ class Ingo_Script_Maildrop_Recipe
             return str_replace(' ', '\ ', $folder);
         }
     }
-
 }

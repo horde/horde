@@ -1,36 +1,35 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-$permission = 'groups';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:groups')
+));
 
-$groups = $injector->getInstance('Horde_Group');
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
+$groups = $injector->getInstance('Horde_Group');
+$vars = $injector->getInstance('Horde_Variables');
 
 $form = $groups->readOnly() ? null : 'add.inc';
-$actionID = Horde_Util::getFormData('actionID');
-$gid = Horde_Util::getFormData('gid');
+$gid = $vars->gid;
 
-switch ($actionID) {
+switch ($vars->actionID) {
 case 'addform':
-    $name = Horde_Util::getFormData('name');
     try {
-        $gid = $groups->create($name);
+        $gid = $groups->create($vars->name);
         $group = $groups->getData($gid);
         $form = 'edit.inc';
-        $notification->push(sprintf(_("\"%s\" was added to the groups system."), $name), 'horde.success');
+        $notification->push(sprintf(_("\"%s\" was added to the groups system."), $vars->name), 'horde.success');
     } catch (Horde_Group_Exception $e) {
         Horde::logMessage($e, 'ERR');
         $notification->push(sprintf(_("Group was not created: %s."), $e->getMessage()), 'horde.error');
@@ -50,8 +49,7 @@ case 'delete':
     break;
 
 case 'deleteform':
-    if ($groups->readOnly() ||
-        Horde_Util::getFormData('confirm') != _("Delete")) {
+    if ($groups->readOnly() || ($vars->confirm != _("Delete"))) {
         break;
     }
     if (!$groups->exists($gid)) {
@@ -73,9 +71,8 @@ case 'edit':
     try {
         $group = $groups->getData($gid);
         $form = 'edit.inc';
-        break;
-    } catch (Horde_Group_Exception $e) {
-    }
+    } catch (Horde_Group_Exception $e) {}
+    break;
 
 case 'editform':
     if ($groups->readOnly()) {
@@ -83,7 +80,7 @@ case 'editform':
     }
     try {
         // Add any new users.
-        $newuser = Horde_Util::getFormData('new_user');
+        $newuser = $vars->new_user;
         if (!empty($newuser)) {
             if (is_array($newuser)) {
                 foreach ($newuser as $new) {
@@ -95,7 +92,7 @@ case 'editform':
         }
 
         // Remove any users marked for purging.
-        $removes = Horde_Util::getFormData('remove');
+        $removes = $vars->remove;
         if (!empty($removes) && is_array($removes)) {
             foreach ($removes as $user => $junk) {
                 $groups->removeUser($gid, $user);
@@ -103,7 +100,7 @@ case 'editform':
         }
 
         // Set the email address of the group.
-        $groups->setData($gid, 'email', Horde_Util::getFormData('email'));
+        $groups->setData($gid, 'email', $vars->email);
 
         $notification->push(sprintf(_("Updated \"%s\"."), $groups->getName($gid)), 'horde.success');
     } catch (Horde_Group_Exception $e) {
@@ -115,16 +112,15 @@ case 'editform':
     try {
         $group = $groups->getData($gid);
         $form = 'edit.inc';
-    } catch (Horde_Group_Exception $e) {
-    }
+    } catch (Horde_Group_Exception $e) {}
     break;
 }
 
 switch ($form) {
 case 'addchild.inc':
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("child").focus()'
-    ), 'dom');
+    ), true);
     break;
 
 case 'edit.inc':
@@ -159,11 +155,11 @@ case 'edit.inc':
         $user_list = array();
     }
     break;
-
 }
 
-$title = _("Group Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Group Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 if (!empty($form)) {
     require HORDE_TEMPLATES . '/admin/groups/' . $form;
@@ -191,7 +187,7 @@ $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('admin_groups'
 ));
 $tree->setHeader(array(
     array(
-        'class' => 'treeHdrSpacer'
+        'class' => 'horde-tree-spacer'
     )
 ));
 
@@ -210,17 +206,16 @@ foreach ($nodes as $id => $node) {
         $delete_link = Horde::link($delete->copy()->add('gid', $id), sprintf(_("Delete \"%s\""), $node)) . $delete_img . '</a>';
     }
 
-    $tree->addNode(
-        $id,
-        null,
-        $node,
-        0,
-        false,
-        $group_node + $node_params,
-        array($spacer, $delete_link)
-    );
+    $tree->addNode(array(
+        'id' => $id,
+        'parent' => null,
+        'label' => $node,
+        'expanded' => false,
+        'params' => $group_node + $node_params,
+        'right' => array($spacer, $delete_link)
+    ));
 }
 
 echo '<h1 class="header">' . Horde::img('group.png') . ' ' . _("Groups") . '</h1>';
 $tree->renderTree();
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

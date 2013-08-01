@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Chora through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -14,7 +14,7 @@
  */
 
 if (!defined('CHORA_BASE')) {
-    define('CHORA_BASE', dirname(__FILE__) . '/..');
+    define('CHORA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -35,7 +35,7 @@ class Chora_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (3.0-git)';
+    public $version = 'H5 (3.0.0-git)';
 
     /**
      * Global variables defined:
@@ -44,16 +44,18 @@ class Chora_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot;
+        global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot, $page_output;
+
+        // TODO: If chora isn't fully/properly setup, init() will throw fatal
+        // errors. Don't want that if this class is being loaded simply to
+        // obtain basic chora application information.
+        $initial_app = ($GLOBALS['registry']->initialApp == 'chora');
 
         try {
             $GLOBALS['sourceroots'] = Horde::loadConfiguration('backends.php', 'sourceroots');
         } catch (Horde_Exception $e) {
             $GLOBALS['sourceroots'] = array();
-            // If chora isn't fully/properly setup, init() will throw fatal
-            // errors. Don't want that if this class is being loaded simply to
-            // obtain basic chora application information.
-            if ($GLOBALS['registry']->initialApp != 'chora') {
+            if (!$initial_app) {
                 return;
             }
             $GLOBALS['notification']->push($e);
@@ -108,13 +110,19 @@ class Chora_Application extends Horde_Registry_Application
                 }
 
                 if (is_null($acts['rt'])) {
-                    Chora::fatal(new Chora_Exception(_("No repositories found.")));
+                    if ($initial_app) {
+                        Chora::fatal(new Chora_Exception(_("No repositories found.")));
+                    }
+                    return;
                 }
             }
         }
 
         if (!isset($sourceroots[$acts['rt']])) {
-            Chora::fatal(new Chora_Exception(sprintf(_("The repository with the slug '%s' was not found"), $acts['rt'])));
+            if ($initial_app) {
+                Chora::fatal(new Chora_Exception(sprintf(_("The repository with the slug '%s' was not found"), $acts['rt'])));
+            }
+            return;
         }
 
         $sourcerootopts = $sourceroots[$acts['rt']];
@@ -145,6 +153,10 @@ class Chora_Application extends Horde_Registry_Application
             'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
             'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''
         ));
+
+        if (!$initial_app) {
+            return;
+        }
 
         $where = Horde_Util::getFormData('f', '/');
 
@@ -182,7 +194,7 @@ class Chora_Application extends Horde_Registry_Application
         );
 
         // Run through every source repository
-        require dirname(__FILE__) . '/../config/backends.php';
+        require __DIR__ . '/../config/backends.php';
         foreach ($sourceroots as $sourceroot => $srconfig) {
             $perms['sourceroots:' . $sourceroot] = array(
                 'title' => $srconfig['name']
@@ -193,33 +205,44 @@ class Chora_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
      */
-    public function menu($menu)
+    public function sidebar($sidebar)
     {
-        $menu->add(Chora::url('browsedir'), _("_Browse"), 'chora.png');
+        foreach (Chora::sourceroots() as $key => $val) {
+            $row = array(
+                'selected' => $GLOBALS['sourceroot'] == $key,
+                'url' => Chora::url('browsedir', '', array('rt' => $key)),
+                'label' => $val['name'],
+                'type' => 'radiobox',
+            );
+            $sidebar->addRow($row, 'backends');
+        }
     }
 
-    /* Sidebar method. */
+    /* Topbar method. */
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         asort($GLOBALS['sourceroots']);
 
         foreach ($GLOBALS['sourceroots'] as $key => $val) {
             if (Chora::checkPerms($key)) {
-                $tree->addNode($parent . $key,
-                    $parent,
-                    $val['name'],
-                    1,
-                    false,
-                    array(
+                $tree->addNode(array(
+                    'id' => $parent . $key,
+                    'parent' => $parent,
+                    'label' => $val['name'],
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => Horde_Themes::img('tree/folder.png'),
-                        'url' => Chora::url('browsedir', '', array('rt' => $key))->setRaw(true)
+                        'url' => Chora::url('browsedir', '', array('rt' => $key))
                     )
-                );
+                ));
             }
         }
     }

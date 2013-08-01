@@ -1,8 +1,20 @@
 <?php
 /**
+ * Horde_ActiveSync_Timezone::
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+/**
  * Utility functions for dealing with Microsoft ActiveSync's Timezone format.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -10,10 +22,14 @@
  * Code dealing with searching for a timezone identifier from an AS timezone
  * blob inspired by code in the Tine20 Project (http://tine20.org).
  *
- * @author   Michael J. Rubinsky <mrubinsk@horde.org>
- *
- * @category Horde
- * @package  ActiveSync
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Timezone
 {
@@ -62,9 +78,16 @@ class Horde_ActiveSync_Timezone
      */
     static public function getOffsetsFromSyncTZ($data)
     {
-        $tz = unpack('lbias/a64stdname/vstdyear/vstdmonth/vstdday/vstdweek/vstdhour/vstdminute/vstdsecond/vstdmillis/' .
-                     'lstdbias/a64dstname/vdstyear/vdstmonth/vdstday/vdstweek/vdsthour/vdstminute/vdstsecond/vdstmillis/' .
-                     'ldstbias', base64_decode($data));
+        if (version_compare(PHP_VERSION, '5.5.0-dev', '>=')) {
+            $format = 'lbias/Z64stdname/vstdyear/vstdmonth/vstdday/vstdweek/vstdhour/vstdminute/vstdsecond/vstdmillis/'
+                . 'lstdbias/Z64dstname/vdstyear/vdstmonth/vdstday/vdstweek/vdsthour/vdstminute/vdstsecond/vdstmillis/'
+                . 'ldstbias';
+        } else {
+            $format = 'lbias/a64stdname/vstdyear/vstdmonth/vstdday/vstdweek/vstdhour/vstdminute/vstdsecond/vstdmillis/'
+                . 'lstdbias/a64dstname/vdstyear/vdstmonth/vdstday/vdstweek/vdsthour/vdstminute/vdstsecond/vdstmillis/'
+                . 'ldstbias';
+        }
+        $tz = unpack($format, base64_decode($data));
         $tz['timezone'] = $tz['bias'];
         $tz['timezonedst'] = $tz['dstbias'];
 
@@ -376,6 +399,7 @@ class Horde_ActiveSync_Timezone
     static protected function _isNthOcurrenceOfWeekdayInMonth($timestamp, $occurence)
     {
         $original = new Horde_Date($timestamp);
+        $original->setTimezone('UTC');
         if ($occurence == 5) {
             $modified = $original->add(array('mday' => 7));
             return $modified->month > $original->month;

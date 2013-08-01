@@ -16,7 +16,7 @@
  * The Components_Dependencies_Injector:: class provides the
  * Components dependencies based on the Horde injector.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -150,6 +150,16 @@ implements Components_Dependencies
     public function getRunnerFetchdocs()
     {
         return $this->getInstance('Components_Runner_Fetchdocs');
+    }
+
+    /**
+     * Returns the composer handler for a package.
+     *
+     * @return Components_Runner_Composer The composer handler.
+     */
+    public function getRunnerComposer()
+    {
+        return $this->getInstance('Components_Runner_Composer');
     }
 
     /**

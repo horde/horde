@@ -45,7 +45,17 @@
  *
  * -----
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * This file contains code adapted from PEAR's PHP_Compat library (v1.6.0a3).
+ *
+ *   http://pear.php.net/package/PHP_Compat
+ *
+ * This code appears in Horde_Mime::_uudecode().
+ *
+ * This code was originally released under the LGPL 2.1
+ *
+ * -----
+ *
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -64,6 +74,16 @@ class Horde_Mime
      * @var string
      */
     const EOL = "\r\n";
+
+    /**
+     * The list of characters required to be quoted in MIME parameters
+     * (regular expression).
+     *
+     * @since 2.1.0
+     *
+     * @var string
+     */
+    const MIME_PARAM_QUOTED = '/[\x01-\x20\x22\x28\x29\x2c\x2f\x3a-\x40\x5b-\x5d]/';
 
     /**
      * Attempt to work around non RFC 2231-compliant MUAs by generating both
@@ -93,16 +113,7 @@ class Horde_Mime
      */
     static public function is8bit($string, $charset = null)
     {
-        if (empty($charset)) {
-            $charset = 'us-ascii';
-        }
-
-        /* ISO-2022-JP is a 7bit charset, but it is an 8bit representation so
-         * it needs to be entirely encoded. */
-        return is_string($string) &&
-               ((stristr('iso-2022-jp', $charset) &&
-                (strstr($string, "\x1b\$B"))) ||
-                preg_match('/[\x80-\xff]/', $string));
+        return ($string != Horde_String::convertCharset($string, $charset, 'US-ASCII'));
     }
 
     /**
@@ -115,12 +126,14 @@ class Horde_Mime
      */
     static public function encode($text, $charset = 'UTF-8')
     {
-        $charset = Horde_String::lower($charset);
-        $text = Horde_String::convertCharset($text, 'UTF-8', $charset);
-
-        if (!self::is8bit($text, $charset)) {
+        /* The null character is valid US-ASCII, but was removed from the
+         * allowed e-mail header characters in RFC 2822. */
+        if (!self::is8bit($text, 'UTF-8') && (strpos($text, null) === false)) {
             return $text;
         }
+
+        $charset = Horde_String::lower($charset);
+        $text = Horde_String::convertCharset($text, 'UTF-8', $charset);
 
         /* Get the list of elements in the string. */
         $size = preg_match_all('/([^\s]+)([\s]*)/', $text, $matches, PREG_SET_ORDER);
@@ -281,7 +294,12 @@ class Horde_Mime
             case 'Q':
             case 'q':
                 $out .= Horde_String::convertCharset(
-                    preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', str_replace('_', ' ', $encoded_text)),
+                    preg_replace_callback(
+                        '/=([0-9a-f]{2})/i',
+                        function($ord) {
+                            return chr(hexdec($ord[1]));
+                        },
+                        str_replace('_', ' ', $encoded_text)),
                     $orig_charset,
                     'UTF-8'
                 );
@@ -311,14 +329,11 @@ class Horde_Mime
      * Encodes a MIME parameter string pursuant to RFC 2183 & 2231
      * (Content-Type and Content-Disposition headers).
      *
-     * @param string $name     The parameter name.
-     * @param string $val      The parameter value (UTF-8).
-     * @param array $opts      Additional options:
+     * @param string $name  The parameter name.
+     * @param string $val   The parameter value (UTF-8).
+     * @param array $opts   Additional options:
      *   - charset: (string) The charset to encode to.
      *              DEFAULT: UTF-8
-     *   - escape: (boolean) If true, escape param values as described in
-     *             RFC 2045 [Appendix A].
-     *             DEFAULT: false
      *   - lang: (string) The language to use when encoding.
      *           DEFAULT: None specified
      *
@@ -334,18 +349,25 @@ class Horde_Mime
             ? $opts['charset']
             : 'UTF-8';
 
-        $val = Horde_String::convertCharset($val, 'UTF-8', $charset);
-
         // 2 = '=', ';'
         $pre_len = strlen($name) + 2;
 
-        if (self::is8bit($val, $charset)) {
-            $string = Horde_String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : Horde_String::lower($opts['lang'])) . '\'' . rawurlencode($val);
+        /* Several possibilities:
+         *   - String is ASCII. Output as ASCII (duh).
+         *   - Language information has been provided. We MUST encode output
+         *     to include this information.
+         *   - String is non-ASCII, but can losslessly translate to ASCII.
+         *     Output as ASCII (most efficient).
+         *   - String is in non-ASCII, but doesn't losslessly translate to
+         *     ASCII. MUST encode output (duh). */
+        if (empty($opts['lang']) && !self::is8bit($val, 'UTF-8')) {
+            $string = $val;
+        } else {
+            $cval = Horde_String::convertCharset($val, 'UTF-8', $charset);
+            $string = Horde_String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : Horde_String::lower($opts['lang'])) . '\'' . rawurlencode($cval);
             $encode = true;
             /* Account for trailing '*'. */
             ++$pre_len;
-        } else {
-            $string = $val;
         }
 
         if (($pre_len + strlen($string)) > 75) {
@@ -380,15 +402,17 @@ class Horde_Mime
         }
 
         if (self::$brokenRFC2231 && !isset($output[$name])) {
-            $output = array_merge(array($name => self::encode($val, $charset)), $output);
+            $output = array_merge(array(
+                $name => self::encode($val, $charset)
+            ), $output);
         }
 
-        /* Escape certain characters in params (See RFC 2045 [Appendix A]). */
-        if (!empty($opts['escape'])) {
-            foreach (array_keys($output) as $key) {
-                if (strcspn($output[$key], "\11\40\"(),/:;<=>?@[\\]") != strlen($output[$key])) {
-                    $output[$key] = '"' . addcslashes($output[$key], '\\"') . '"';
-                }
+        /* Escape certain characters in params (See RFC 2045 [Appendix A]).
+         * Must be quoted-string if one of these exists.
+         * Forbidden: SPACE, CTLs, ()<>@,;:\"/[]?= */
+        foreach ($output as $k => $v) {
+            if (preg_match(self::MIME_PARAM_QUOTED, $v)) {
+                $output[$k] = '"' . addcslashes($v, '\\"') . '"';
             }
         }
 
@@ -399,10 +423,10 @@ class Horde_Mime
      * Decodes a MIME parameter string pursuant to RFC 2183 & 2231
      * (Content-Type and Content-Disposition headers).
      *
-     * @param string $type     Either 'Content-Type' or 'Content-Disposition'
-     *                         (case-insensitive).
-     * @param mixed $data      The text of the header or an array of
-     *                         param name => param values.
+     * @param string $type  Either 'Content-Type' or 'Content-Disposition'
+     *                      (case-insensitive).
+     * @param mixed $data   The text of the header or an array of param name
+     *                      => param values.
      *
      * @return array  An array with the following entries (all strings in
      *                UTF-8):
@@ -636,7 +660,7 @@ class Horde_Mime
             reset($matches);
             while (list(,$v) = each($matches)) {
                 $data[] = array(
-                    'data' => convert_uudecode($v[3]),
+                    'data' => self::_uudecode($v[3]),
                     'name' => $v[2],
                     'perm' => $v[1]
                 );
@@ -644,6 +668,44 @@ class Horde_Mime
         }
 
         return $data;
+    }
+
+    /**
+     * PHP 5's built-in convert_uudecode() is broken. Need this wrapper.
+     *
+     * @param string $input  UUencoded input.
+     *
+     * @return string  Decoded string.
+     */
+    static protected function _uudecode($input)
+    {
+        $decoded = '';
+
+        foreach (explode("\n", $input) as $line) {
+            $c = count($bytes = unpack('c*', substr(trim($line,"\r\n\t"), 1)));
+
+            while ($c % 4) {
+                $bytes[++$c] = 0;
+            }
+
+            foreach (array_chunk($bytes, 4) as $b) {
+                $b0 = ($b[0] == 0x60) ? 0 : $b[0] - 0x20;
+                $b1 = ($b[1] == 0x60) ? 0 : $b[1] - 0x20;
+                $b2 = ($b[2] == 0x60) ? 0 : $b[2] - 0x20;
+                $b3 = ($b[3] == 0x60) ? 0 : $b[3] - 0x20;
+
+                $b0 <<= 2;
+                $b0 |= ($b1 >> 4) & 0x03;
+                $b1 <<= 4;
+                $b1 |= ($b2 >> 2) & 0x0F;
+                $b2 <<= 6;
+                $b2 |= $b3 & 0x3F;
+
+                $decoded .= pack('c*', $b0, $b1, $b2);
+            }
+        }
+
+        return rtrim($decoded, "\0");
     }
 
 }

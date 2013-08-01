@@ -1,20 +1,39 @@
 <?php
 /**
- * The IMP_Mime_Viewer_Vcard class renders out the contents of vCard
- * files in HTML format and allows inline display of embedded photos.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Handler to render the contents of vCard files in HTML format, allowing
+ * inline display of embedded photos.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
 {
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => false,
+        'embedded' => false,
+        'forceinline' => true
+    );
+
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
@@ -25,11 +44,13 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
      * @return array  See parent::render().
      * @throws Horde_Exception
      */
-    protected function _render()
+    protected function _renderInline()
     {
-        if (is_null(Horde_Util::getFormData('p'))) {
-            $this->_imageUrl = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'download_render');
-            return parent::_render();
+        $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
+
+        if (!isset($vars->p)) {
+            $this->_imageUrl = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'download_render', array('params' => array('mode' => IMP_Contents::RENDER_INLINE)));
+            return parent::_renderInline();
         }
 
         /* Send the requested photo. */
@@ -40,30 +61,29 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
             return array();
         }
         $components = $ical->getComponents();
-        $c = Horde_Util::getFormData('c');
-        $p = Horde_Util::getFormData('p');
-        if (!isset($components[$c])) {
+        if (!isset($components[$vars->c])) {
             // TODO: Error reporting
             return array();
         }
-        $name = $components[$c]->getAttributeDefault('FN', false);
+        $name = $components[$vars->c]->getAttributeDefault('FN', false);
         if ($name === false) {
-            $name = $components[$c]->printableName();
+            $name = $components[$vars->c]->printableName();
         }
         if (empty($name)) {
             $name = preg_replace('/\..*?$/', '', $this->_mimepart->getName());
         }
 
-        $photos = $components[$c]->getAllAttributes('PHOTO');
-        if (!isset($photos[$p])) {
+        $photos = $components[$vars->c]->getAllAttributes('PHOTO');
+        if (!isset($photos[$vars->p])) {
             // TODO: Error reporting
             return array();
         }
+        $type = 'image/' . Horde_String::lower($photos[$vars->p]['params']['TYPE']);
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => base64_decode($photos[$p]['value']),
-                'name' => $name . '.' . Horde_Mime_Magic::mimeToExt($photos[$p]['params']['TYPE']),
-                'type' => $photos[$p]['params']['TYPE'],
+                'data' => base64_decode($photos[$vars->p]['value']),
+                'name' => $name . '.' . Horde_Mime_Magic::mimeToExt($type),
+                'type' => $type,
             )
         );
     }

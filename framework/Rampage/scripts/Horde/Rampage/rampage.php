@@ -4,7 +4,7 @@
  * Script to automatically create a new Horde application based on a database
  * table definition.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * For license info, see COPYING, for more information and a user guide see
  * README.
@@ -13,9 +13,9 @@
  * @package Rampage
  */
 
-@define('ZOMBIE_BASE', dirname(__FILE__) . '/..');
+@define('ZOMBIE_BASE', __DIR__ . '/..');
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 /* List of files that are parsed, converted and copied to output
@@ -43,7 +43,6 @@ $files = array('COPYING',
                'lib/Driver.php',
                'lib/Driver/sql.php',
                'locale/en/help.xml',
-               'templates/common-header.inc',
                'templates/edit/edit.inc',
                'templates/list/empty.inc',
                'templates/list/footer.inc',
@@ -567,8 +566,8 @@ function t_templates_list_list_headers($c)
         $n = $i['name']; // shortcut
         if ($i['list']) {
             $s .= "<th class=\"<?php echo (\$sortby == ZOMBIE_SORT_$n) ? 'selected' : 'item' ?>\" width=\"2%\">
-                <?php if (\$sortby == ZOMBIE_SORT_$n) echo Horde::link(Horde::url(Horde_Util::addParameter(\$sortbyurl, 'sortby', ZOMBIE_SORT_$n)), _(\"Change sort direction\"), 'widget') . Horde::img(\$sortdir ? 'za.gif' :  'az.gif', _(\"Change sort direction\"), null, \$registry->get('graphics', 'horde')) ?></a>
-                <?php echo Horde::widget(Horde::url(Horde_Util::addParameter('list.php', 'sortby', ZOMBIE_SORT_$n)), _(\"Sort by User Name\"), 'widget', '', '', _(\"" . $i['desc'] . "\")) ?></a>&nbsp;</th>\n";
+                <?php if (\$sortby == ZOMBIE_SORT_$n) echo Horde::link(Horde::url(\$sortbyurl)->add('sortby', ZOMBIE_SORT_$n)), _(\"Change sort direction\"), 'widget') . Horde::img(\$sortdir ? 'za.gif' :  'az.gif', _(\"Change sort direction\"), null, \$registry->get('graphics', 'horde')) ?></a>
+                <?php echo Horde::linkTooltip(Horde::url('list.php')->add('sortby', ZOMBIE_SORT_$n), _(\"Sort by User Name\"), 'widget', '', '', _(\"" . $i['desc'] . "\")) ?></a>&nbsp;</th>\n";
         }
     }
 

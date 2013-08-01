@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once __DIR__ . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/Forms/AddFriend.php';
 require_once FOLKS_BASE . '/edit/tabs.php';
 
@@ -41,8 +41,8 @@ if ($user) {
             $body = sprintf(_("User %s added you to his firends list on %s. \nTo approve, go to: %s \nTo reject, go to: %s \nTo see to his profile, go to: %s \n"),
                             $GLOBALS['registry']->getAuth(),
                             $registry->get('name', 'horde'),
-                            Horde_Util::addParameter(Horde::url('edit/friends/approve.php', true, -1), 'user', $GLOBALS['registry']->getAuth()),
-                            Horde_Util::addParameter(Horde::url('edit/friends/reject.php', true, -1), 'user', $GLOBALS['registry']->getAuth()),
+                            Horde::url('edit/friends/approve.php', true, -1)->add('user', $GLOBALS['registry']->getAuth()),
+                            Horde::url('edit/friends/reject.php', true, -1)->add('user', $GLOBALS['registry']->getAuth()),
                             Folks::getUrlFor('user', $GLOBALS['registry']->getAuth(), true, -1));
             $result = $friends->sendNotification($user, $title, $body);
             if ($result instanceof PEAR_Error) {
@@ -60,11 +60,13 @@ if ($user) {
 
 $friend_form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
 
-Horde::addScriptFile('tables.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 echo $tabs->render('add');
 require FOLKS_TEMPLATES . '/edit/header.php';
 require FOLKS_TEMPLATES . '/edit/add.php';
 require FOLKS_TEMPLATES . '/edit/footer.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

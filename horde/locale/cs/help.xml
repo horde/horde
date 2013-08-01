@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="summary" state="uptodate" md5="68ca33f7f0c9aae4c103eb47492cdc15">
+    <entry id="summary" state="changed" md5="68ca33f7f0c9aae4c103eb47492cdc15">
 <title>Portál</title>
  <para>
   Stránka Portálu poskytuje stručný přehled všech důležitých informací.
@@ -13,27 +13,23 @@
   Například, můžete si vybrat, které prvky si přejete zobrazit a také v jakém
   pořadí.
  </para>
-</entry>
-  <entry id="navbar" state="uptodate" md5="b8cf0ae19e57dfa0c2b962e516782f47">
-<title>Navigační Lišta pro Aplikace</title>
- <para>
-  Navigační lišta je umístněna vlevo na webstránce. Klikněte na ikonky
-  této lišty poskytující přehlednější a rychlejší přepínání mezi aplikacemi.
- </para>
-</entry>
-  <entry id="prefs-do_maintenance" state="uptodate" md5="dd95df07a03031232baea919288b2d00">
-    <title>Nastavení: Údržba: Provést Údržbu</title>
-    <para>
-    Označte tento rámeček, pokud si přejete provést operace údržby při
-    přihlášení do sytému.
-    </para>
-</entry>
-  <entry id="prefs-confirm_maintenance" state="uptodate" md5="a21162cdff3b1d8faeadb7296240036e">
-    <title>Nastavení: Údržba: Potvrdit Údržbu</title>
-    <para>
-    Označte tento rámeček, pokud si přejete potvrdit všechny operace údržby
-    než se provedou. Pokud tento rámeček zůstane neoznačený, potřebné operace
-    se provedou automaticky bez možnosti storna.
-    </para>
-</entry>
+<!-- English entry (2012-11-06):
+<entry id="summary">
+        <title>The Portal Page</title>
+        <para>
+            This portal page provides a quick summary of all your important information. For example, it might show how many new e-mail messages you have in your INBOX, upcoming events on your calendar, tasks on your to-do list, headlines from selected news services, and so on. Many of these summaries will contain quick shortcuts to common functions, such as composing a new mail message, creating a new calendar event or task, etc.
+         </para>
+         <para>
+            The contents of this portal page are customizable via the Layout button. For example, you can choose which items to include on this portal page as well as in which order they are shown.
+        </para>
+    </entry>--><!-- English entry (2012-11-06):
+<entry id="summary">
+        <title>The Portal Page</title>
+        <para>
+            This portal page provides a quick summary of all your important information. For example, it might show how many new e-mail messages you have in your INBOX, upcoming events on your calendar, tasks on your to-do list, headlines from selected news services, and so on.
+         </para>
+         <para>
+            The contents of this portal page are customizable via the "Add Content" button. For example, you can choose which items to include on this portal page as well as in which order they are shown.
+        </para>
+    </entry>--></entry>
 </help>

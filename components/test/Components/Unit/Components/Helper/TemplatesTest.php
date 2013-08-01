@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
-
-/**
  * Test the template machinery.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -39,7 +34,7 @@ extends Components_TestCase
     {
         $tdir =  $this->getTemporaryDirectory();
         $templates = new Components_Helper_Templates_Single(
-            dirname(__FILE__) . '/../../../fixture/templates',
+            __DIR__ . '/../../../fixture/templates',
             $tdir,
             'simple',
             'target'
@@ -52,7 +47,7 @@ extends Components_TestCase
     {
         $tdir =  $this->getTemporaryDirectory();
         $templates = new Components_Helper_Templates_Single(
-            dirname(__FILE__) . '/../../../fixture/templates',
+            __DIR__ . '/../../../fixture/templates',
             $tdir,
             'simple',
             'target'
@@ -69,7 +64,7 @@ extends Components_TestCase
      */
     public function testMissingSource()
     {
-        $source = dirname(__FILE__) . '/NO_SUCH_TEMPLATE';
+        $source = __DIR__ . '/NO_SUCH_TEMPLATE';
         $templates = new Components_Helper_Templates_Single($source, '', '', '');
     }
 
@@ -77,7 +72,7 @@ extends Components_TestCase
     {
         $tdir =  $this->getTemporaryDirectory();
         $templates = new Components_Helper_Templates_Single(
-            dirname(__FILE__) . '/../../../fixture/templates',
+            __DIR__ . '/../../../fixture/templates',
             $tdir,
             'variables',
             'target'
@@ -93,7 +88,7 @@ extends Components_TestCase
     {
         $tdir =  $this->getTemporaryDirectory();
         $templates = new Components_Helper_Templates_Single(
-            dirname(__FILE__) . '/../../../fixture/templates',
+            __DIR__ . '/../../../fixture/templates',
             $tdir,
             'php',
             'target'
@@ -109,7 +104,7 @@ extends Components_TestCase
     {
         $tdir =  $this->getTemporaryDirectory();
         $templates = new Components_Helper_Templates_Single(
-            dirname(__FILE__) . '/../../../fixture/templates',
+            __DIR__ . '/../../../fixture/templates',
             $tdir,
             'input',
             'target'
@@ -125,7 +120,7 @@ extends Components_TestCase
     {
         $tdir =  $this->getTemporaryDirectory();
         $templates = new Components_Helper_Templates_Directory(
-            dirname(__FILE__) . '/../../../fixture/templates/dir',
+            __DIR__ . '/../../../fixture/templates/dir',
             $tdir
         );
         $templates->write(array('one' => 'One', 'two' => 'Two'));
@@ -145,7 +140,7 @@ extends Components_TestCase
     public function testMissingDirectory()
     {
         new Components_Helper_Templates_Directory(
-            dirname(__FILE__) . '/../../../fixture/templates/NOSUCHDIR',
+            __DIR__ . '/../../../fixture/templates/NOSUCHDIR',
             $this->getTemporaryDirectory()
         );
     }
@@ -155,7 +150,7 @@ extends Components_TestCase
         $tdir =  $this->getTemporaryDirectory() . DIRECTORY_SEPARATOR
             . 'a' .'/b';
         $templates = new Components_Helper_Templates_Directory(
-            dirname(__FILE__) . '/../../../fixture/templates/dir',
+            __DIR__ . '/../../../fixture/templates/dir',
             $tdir
         );
         $templates->write(array('one' => 'One', 'two' => 'Two'));
@@ -173,7 +168,7 @@ extends Components_TestCase
     {
         $tdir =  $this->getTemporaryDirectory();
         $templates = new Components_Helper_Templates_Directory(
-            dirname(__FILE__) . '/../../../fixture/templates/rewrite',
+            __DIR__ . '/../../../fixture/templates/rewrite',
             $tdir
         );
         $templates->write(array('one' => 'One'));
@@ -187,7 +182,7 @@ extends Components_TestCase
     {
         $tdir =  $this->getTemporaryDirectory();
         $templates = new Components_Helper_Templates_RecursiveDirectory(
-            dirname(__FILE__) . '/../../../fixture/templates/rec-dir',
+            __DIR__ . '/../../../fixture/templates/rec-dir',
             $tdir
         );
         $templates->write(array('one' => 'One', 'two' => 'Two'));
@@ -207,7 +202,7 @@ extends Components_TestCase
     public function testMissingRecursiveDirectory()
     {
         new Components_Helper_Templates_RecursiveDirectory(
-            dirname(__FILE__) . '/../../../fixture/templates/NOSUCHDIR',
+            __DIR__ . '/../../../fixture/templates/NOSUCHDIR',
             $this->getTemporaryDirectory()
         );
     }
@@ -217,7 +212,7 @@ extends Components_TestCase
         $tdir =  $this->getTemporaryDirectory() . DIRECTORY_SEPARATOR
             . 'a' .'/b';
         $templates = new Components_Helper_Templates_RecursiveDirectory(
-            dirname(__FILE__) . '/../../../fixture/templates/rec-dir',
+            __DIR__ . '/../../../fixture/templates/rec-dir',
             $tdir
         );
         $templates->write(array('one' => 'One', 'two' => 'Two'));

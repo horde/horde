@@ -1,15 +1,26 @@
 <?php
 /**
- * Utility class to help in loading DOM data from HTML strings.
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @package  Util
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @package   Util
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Domhtml
+
+/**
+ * Parse DOM data from HTML strings.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @package   Util
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ */
+class Horde_Domhtml implements Iterator
 {
     /**
      * DOM object.
@@ -17,6 +28,13 @@ class Horde_Domhtml
      * @var DOMDocument
      */
     public $dom;
+
+    /**
+     * Iterator status.
+     *
+     * @var array
+     */
+    protected $_iterator = null;
 
     /**
      * Original charset of data.
@@ -81,6 +99,19 @@ class Horde_Domhtml
         }
 
         $this->dom = $doc;
+
+        /* Sanity checking: make sure we have the documentElement object. */
+        if (!$this->dom->documentElement) {
+            $this->dom->appendChild($this->dom->createElement('html'));
+        }
+
+        /* Remove old charset information. */
+        $xpath = new DOMXPath($this->dom);
+        $domlist = $xpath->query('/html/head/meta[@http-equiv="content-type"]');
+        for ($i = $domlist->length; $i > 0; --$i) {
+            $meta = $domlist->item($i - 1);
+            $meta->parentNode->removeChild($meta);
+        }
     }
 
     /**
@@ -96,19 +127,76 @@ class Horde_Domhtml
         }
 
         $headelt = $this->dom->createElement('head');
-        $this->dom->appendChild($headelt);
+        $this->dom->documentElement->insertBefore($headelt, $this->dom->documentElement->firstChild);
 
         return $headelt;
     }
 
     /**
+     * Returns the BODY element, or creates one if it doesn't exist.
+     *
+     * @since 2.2.0
+     *
+     * @return DOMElement  BODY element.
+     */
+    public function getBody()
+    {
+        $body = $this->dom->getElementsByTagName('body');
+        if ($body->length) {
+            return $body->item(0);
+        }
+
+        $bodyelt = $this->dom->createElement('body');
+        $this->dom->documentElement->appendChild($bodyelt);
+
+        return $bodyelt;
+    }
+
+    /**
      * Returns the full HTML text in the original charset.
+     *
+     * @param array $opts  Additional options: (since 2.1.0)
+     *   - charset: (string) Return using this charset. If set but empty, will
+     *              return as currently stored in the DOM object.
+     *   - metacharset: (boolean) If true, will add a META tag containing the
+     *                  charset information.
      *
      * @return string  HTML text.
      */
-    public function returnHtml()
+    public function returnHtml(array $opts = array())
     {
-        $text = Horde_String::convertCharset($this->dom->saveHTML(), $this->dom->encoding || $this->_origCharset, $this->_origCharset);
+        $curr_charset = $this->getCharset();
+        if (strcasecmp($curr_charset, 'US-ASCII') === 0) {
+            $curr_charset = 'UTF-8';
+        }
+        $charset = array_key_exists('charset', $opts)
+            ? (empty($opts['charset']) ? $curr_charset : $opts['charset'])
+            : $this->_origCharset;
+
+        if (empty($opts['metacharset'])) {
+            $text = $this->dom->saveHTML();
+        } else {
+            /* Add placeholder for META tag. Can't add charset yet because DOM
+             * extension will alter output if it exists. */
+            $meta = $this->dom->createElement('meta');
+            $meta->setAttribute('http-equiv', 'content-type');
+            $meta->setAttribute('horde_dom_html_charset', '');
+
+            $head = $this->getHead();
+            $head->insertBefore($meta, $head->firstChild);
+
+            $text = str_replace(
+                'horde_dom_html_charset=""',
+                'content="text/html; charset=' . $charset . '"',
+                $this->dom->saveHTML()
+            );
+
+            $head->removeChild($meta);
+        }
+
+        if (strcasecmp($curr_charset, $charset) !== 0) {
+            $text = Horde_String::convertCharset($text, $curr_charset, $charset);
+        }
 
         if (!$this->_xmlencoding ||
             (($pos = strpos($text, $this->_xmlencoding)) === false)) {
@@ -125,16 +213,102 @@ class Horde_Domhtml
      */
     public function returnBody()
     {
-        $body = $this->dom->getElementsByTagName('body')->item(0);
+        $body = $this->getBody();
         $text = '';
 
-        if ($body && $body->hasChildNodes()) {
+        if ($body->hasChildNodes()) {
             foreach ($body->childNodes as $child) {
                 $text .= $this->dom->saveXML($child);
             }
         }
 
         return Horde_String::convertCharset($text, 'UTF-8', $this->_origCharset);
+    }
+
+    /**
+     * Get the charset of the DOM data.
+     *
+     * @since 2.1.0
+     *
+     * @return string  Charset of DOM data.
+     */
+    public function getCharset()
+    {
+        return $this->dom->encoding
+            ? $this->dom->encoding
+            : ($this->_xmlencoding ? 'UTF-8' : $this->_origCharset);
+    }
+
+    /* Iterator methods. */
+
+    /**
+     */
+    public function current()
+    {
+        if ($this->_iterator instanceof DOMDocument) {
+            return $this->_iterator;
+        }
+
+        $curr = end($this->_iterator);
+        return $curr['list']->item($curr['i']);
+    }
+
+    /**
+     */
+    public function key()
+    {
+        return 0;
+    }
+
+    /**
+     */
+    public function next()
+    {
+        /* Iterate in the reverse direction through the node list. This allows
+         * alteration of the original list without breaking things (foreach()
+         * w/removeChild() may exit iteration after removal is complete. */
+
+        if ($this->_iterator instanceof DOMDocument) {
+            $this->_iterator = array();
+            $curr = array();
+            $node = $this->dom;
+        } elseif (empty($this->_iterator)) {
+            $this->_iterator = null;
+            return;
+        } else {
+            $curr = &$this->_iterator[count($this->_iterator) - 1];
+            $node = $curr['list']->item($curr['i']);
+        }
+
+        if (empty($curr['child']) &&
+            ($node instanceof DOMNode) &&
+            $node->hasChildNodes()) {
+            $curr['child'] = true;
+            $this->_iterator[] = array(
+                'child' => false,
+                'i' => $node->childNodes->length - 1,
+                'list' => $node->childNodes
+            );
+        } elseif (--$curr['i'] < 0) {
+            array_pop($this->_iterator);
+            $this->next();
+        } else {
+            $curr['child'] = false;
+        }
+    }
+
+    /**
+     */
+    public function rewind()
+    {
+        $this->_iterator = $this->dom;
+    }
+
+    /**
+     */
+    public function valid()
+    {
+        return !is_null($this->_iterator);
     }
 
 }

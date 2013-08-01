@@ -1,0 +1,20 @@
+======================
+ Upgrading Horde_Core
+======================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between releases of the package.
+
+
+Upgrading to 2.0.0
+==================
+
+Horde::logMessage() has been deprecated and will be removed in version
+3.0.0. Use Horde::log() instead.
+
+Horde::widget() takes a parameter hash instead of a large number of parameters.

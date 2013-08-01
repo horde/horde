@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -55,12 +55,12 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
         // Temporarily set the client message level above error to prevent unintentional
         // error messages in the logs when working on a PostgreSQL database server that
         // does not support standard conforming strings.
-        $clientMinMessageOld = $this->getClientMinMessages();
+        $clientMinMessagesOld = $this->getClientMinMessages();
         $this->setClientMinMessages('panic');
 
         $hasSupport = $this->selectValue('SHOW standard_conforming_strings');
 
-        $this->setClientMinMessages($clientMinMessagesOld);
+        $this->setClientMinMessages($clientMinMessageOld);
         return $hasSupport;
     }
 
@@ -128,7 +128,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
                            $idValue = null, $sequenceName = null)
     {
         // Extract the table from the insert sql. Yuck.
-        $temp = explode(' ', $sql, 4);
+        $temp = explode(' ', trim($sql), 4);
         $table = str_replace('"', '', $temp[2]);
 
         // Try an insert with 'returning id' if available (PG >= 8.2)

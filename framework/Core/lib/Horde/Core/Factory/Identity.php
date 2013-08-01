@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Identity:: factory.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -61,18 +61,17 @@ class Horde_Core_Factory_Identity extends Horde_Core_Factory_Base
             break;
 
         default:
-            if (!empty($driver)) {
+            if (!is_null($driver)) {
                 $class = Horde_String::ucfirst($driver) . '_Prefs_Identity';
+                if (!class_exists($class)) {
+                    throw new Horde_Exception($driver . ' identity driver does not exist.');
+                }
             }
             break;
         }
         $key = $class . '|' . $user;
 
         if (!isset($this->_instances[$key])) {
-            if (!class_exists($class)) {
-                throw new Horde_Exception('Class definition of ' . $class . ' not found.');
-            }
-
             $params = array(
                 'user' => is_null($user) ? $registry->getAuth() : $user,
             );

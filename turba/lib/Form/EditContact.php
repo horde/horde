@@ -18,8 +18,6 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
      */
     public function __construct($vars, Turba_Object $contact)
     {
-        global $conf;
-
         parent::__construct($vars, '', 'Turba_View_EditContact');
         $this->_contact = $contact;
 
@@ -45,7 +43,7 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
 
     public function execute()
     {
-        global $conf, $notification;
+        global $attributes, $notification;
 
         if (!$this->validate($this->_vars)) {
             throw new Turba_Exception('Invalid');
@@ -57,7 +55,7 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
         /* Update the contact. */
         foreach ($info['object'] as $info_key => $info_val) {
             if ($info_key != '__key') {
-                if ($GLOBALS['attributes'][$info_key]['type'] == 'image' && !empty($info_val['file'])) {
+                if ($attributes[$info_key]['type'] == 'image' && !empty($info_val['file'])) {
                     $this->_contact->setValue($info_key, file_get_contents($info_val['file']));
                     if (isset($info_val['type'])) {
                         $this->_contact->setValue($info_key . 'type', $info_val['type']);

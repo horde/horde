@@ -35,7 +35,7 @@ $label = Horde::highlightAccessKey($label, $ak);
   <small>
    [ <?php echo implode(' ', $prevnext_links) ?> ]
    <?php if ($ls = $GLOBALS['session']->get('whups', 'last_search')): ?>
-   [ <?php echo Horde::link(Horde_Util::addParameter($ls, 'haveSearch', true), '', '', '', '', '', $ak) . $label ?></a> ]
+   [ <?php echo Horde::link(Horde::url($ls)->add('haveSearch', true), '', '', '', '', '', $ak) . $label ?></a> ]
    <?php endif; ?>
   </small>
  </p>

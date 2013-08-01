@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Imsp:: factory.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -100,17 +100,13 @@ class Horde_Core_Factory_Imsp extends Horde_Core_Factory_Base
         if (empty($driver)) {
             return $socket;
         }
+
         if (!$socket->authenticate($params)) {
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $class = 'Horde_Imsp_' . $driver;
-        if (class_exists($class)) {
-            $obj = new $class($socket, $params);
-            return $obj;
-        }
-
-        throw new Horde_Exception('Class ' . $class . ' Not Found');
+        $class = $this->_getDriverName($driver, 'Horde_Imsp');
+        return new $class($socket, $params);
     }
 
 }

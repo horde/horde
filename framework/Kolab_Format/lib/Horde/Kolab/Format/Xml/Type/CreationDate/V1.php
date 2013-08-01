@@ -14,13 +14,11 @@
 /**
  * Handles api version 1 of the creation date attribute.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
  * http://www.horde.org/licenses/lgpl21.
- *
- * @since Horde_Kolab_Format 1.1.0
  *
  * @category Kolab
  * @package  Kolab_Format
@@ -63,14 +61,14 @@ extends Horde_Kolab_Format_Xml_Type_AutomaticDate_V1
         );
         if ($node !== false) {
             if (isset($attributes[$name]) &&
-                ($old = $this->loadNodeValue($node, $params)) != $attributes[$name]) {
+                ($old = $this->loadNodeValue($node, $helper, $params)) != $attributes[$name]) {
                 if (!$this->isRelaxed($params)) {
                     throw new Horde_Kolab_Format_Exception(
                         sprintf(
                             'Not attempting to overwrite old %s %s with new value %s!',
                             $name,
-                            Horde_Kolab_Format_Date::encodeDateTime($old),
-                            Horde_Kolab_Format_Date::encodeDateTime($attributes[$name])
+                            Horde_Kolab_Format_Date::writeDateTime($old),
+                            Horde_Kolab_Format_Date::writeDateTime($attributes[$name])
                         )
                     );
                 }
@@ -104,11 +102,11 @@ extends Horde_Kolab_Format_Xml_Type_AutomaticDate_V1
     protected function generateWriteValue($name, $attributes, $params)
     {
         if (isset($attributes[$name])) {
-            return Horde_Kolab_Format_Date::encodeDateTime(
+            return Horde_Kolab_Format_Date::writeUtcDateTime(
                 $attributes[$name]
             );
         } else {
-            return Horde_Kolab_Format_Date::encodeDateTime(time());
+            return Horde_Kolab_Format_Date::writeUtcDateTime(new DateTime());
         }
     }
 

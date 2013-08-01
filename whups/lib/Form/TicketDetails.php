@@ -8,7 +8,7 @@ class Whups_Form_TicketDetails extends Horde_Form
 
     /**
      */
-    public function __construct(&$vars, &$ticket, $title = '')
+    public function __construct($vars, $ticket, $title = '')
     {
         parent::__construct($vars, $title);
 
@@ -92,9 +92,9 @@ class Whups_Form_TicketDetails extends Horde_Form
                     break;
 
                 case 'owner':
-                    $owner = &$this->addVariable(
+                    $owner = $this->addVariable(
                         _("Owners"), 'user_id_owner', 'email', false, false,
-                         null, array(false, true));
+                         null, array(true, true));
                     $owner->setDefault(_("Unassigned"));
                     break;
 

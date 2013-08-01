@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test handling all day events.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If you did not
  * receive this file, see http://www.horde.org/licenses/gpl
@@ -65,7 +60,7 @@ class Kronolith_Integration_AllDayTest extends Kronolith_TestCase
     {
         $iCal = new Horde_Icalendar();
         $iCal->parsevCalendar(
-            file_get_contents(dirname(__FILE__) . '/../fixtures/allday.ics')
+            file_get_contents(__DIR__ . '/../fixtures/allday.ics')
         );
         $components = $iCal->getComponents();
         return $components[$element];

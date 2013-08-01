@@ -1,9 +1,8 @@
 <?php
 /**
- * The Horde_String:: class provides static methods for charset and locale
- * safe string manipulation.
+ * Provides static methods for charset and locale safe string manipulation.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -80,7 +79,7 @@ class Horde_String
                 return '';
             }
 
-            $input = Horde_Util::cloneObject($input);
+            $input = clone $input;
             $vars = get_object_vars($input);
             while (list($key, $val) = each($vars)) {
                 $input->$key = self::convertCharset($val, $from, $to, $force);
@@ -149,7 +148,7 @@ class Horde_String
             $out = @iconv($from, $to . '//TRANSLIT', $input);
             $errmsg = isset($php_errormsg);
             ini_restore('track_errors');
-            if (!$errmsg) {
+            if (!$errmsg && $out !== false) {
                 return $out;
             }
         }
@@ -721,27 +720,45 @@ class Horde_String
     /**
      * Check to see if a string is valid UTF-8.
      *
-     * @since 1.1.0
-     *
      * @param string $text  The text to check.
      *
      * @return boolean  True if valid UTF-8.
      */
     static public function validUtf8($text)
     {
-        /* Regex from:
-         * http://stackoverflow.com/questions/1523460/ensuring-valid-utf-8-in-php
-         */
-        return preg_match('/^(?:
-              [\x09\x0A\x0D\x20-\x7E]            # ASCII
-            | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
-            | \xE0[\xA0-\xBF][\x80-\xBF]         # excluding overlongs
-            | [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}  # straight 3-byte
-            | \xED[\x80-\x9F][\x80-\xBF]         # excluding surrogates
-            | \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
-            | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
-            | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
-        )*$/xs', $text);
+        $text = strval($text);
+
+        for ($i = 0, $len = strlen($text); $i < $len; ++$i) {
+            $c = ord($text[$i]);
+
+            if ($c > 128) {
+                if ($c > 247) {
+                    // STD 63 (RFC 3629) eliminates 5 & 6-byte characters.
+                    return false;
+                } elseif ($c > 239) {
+                    $j = 3;
+                } elseif ($c > 223) {
+                    $j = 2;
+                } elseif ($c > 191) {
+                    $j = 1;
+                } else {
+                    return false;
+                }
+
+                if (($i + $j) > $len) {
+                    return false;
+                }
+
+                do {
+                    $c = ord($text[++$i]);
+                    if (($c < 128) || ($c > 191)) {
+                        return false;
+                    }
+                } while (--$j);
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -758,14 +775,23 @@ class Horde_String
          * example, by various versions of Outlook to send Korean characters.
          * Use UHC (CP949) encoding instead. See, e.g.,
          * http://lists.w3.org/Archives/Public/ietf-charsets/2001AprJun/0030.html */
-        if ($charset == 'UTF-8' || $charset == 'utf-8') {
-            return $charset;
-        }
-        if (in_array(self::lower($charset), array('ks_c_5601-1987', 'ks_c_5601-1989'))) {
-            $charset = 'UHC';
-        }
+        return in_array(self::lower($charset), array('ks_c_5601-1987', 'ks_c_5601-1989'))
+            ? 'UHC'
+            : $charset;
+    }
 
-        return $charset;
+    /**
+     * Strip UTF-8 byte order mark (BOM) from string data.
+     *
+     * @param string $str  Input string (UTF-8).
+     *
+     * @return string  Stripped string (UTF-8).
+     */
+    static public function trimUtf8Bom($str)
+    {
+        return (substr($str, 0, 3) == pack('CCC', 239, 187, 191))
+            ? substr($str, 3)
+            : $str;
     }
 
 }

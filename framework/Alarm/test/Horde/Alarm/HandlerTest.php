@@ -19,7 +19,7 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Horde_Notification not installed');
             return;
         }
-        if (!class_exists('Horde_Mail')) {
+        if (!class_exists('Horde_Mail_Transport_Mock')) {
             $this->markTestSkipped('Horde_Mail not installed');
             return;
         }
@@ -75,7 +75,7 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %s %d:%d:%d %s%d
 Content-Type: text/plain; charset=UTF-8; format=flowed; DelSp=Yes
 MIME-Version: 1.0';
-        $body = "Action is required.\r\n";
+        $body = "Action is required.\n";
 
         $alarm = self::$alarm->get('personalalarm', 'john');
         $alarm['methods'] = array('mail');
@@ -116,7 +116,7 @@ MIME-Version: 1.0';
     public function desktopCallback($js)
     {
         $this->assertEquals(
-            "if(window.webkitNotifications&&!window.webkitNotifications.checkPermission())(function(){var notify=window.webkitNotifications.createNotification('test.png','This is a personal alarm.','Action is required.');notify.show();(function(){notify.cancel()}).delay(5)})()",
+            "if(window.webkitNotifications)(function(){function show(){switch(window.webkitNotifications.checkPermission()){case 0:var notify=window.webkitNotifications.createNotification(\"test.png\",\"This is a personal alarm.\",\"Action is required.\");notify.show();(function(){notify.cancel()}).delay(5);break;case 1:window.webkitNotifications.requestPermission(function(){});break}}show()})()",
             $js);
     }
 }

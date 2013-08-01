@@ -12,7 +12,7 @@
 
 /* Determine the base directories. */
 if (!defined('LUXOR_BASE')) {
-    define('LUXOR_BASE', dirname(__FILE__) . '/..');
+    define('LUXOR_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -48,7 +48,6 @@ class Luxor_Application extends Horde_Registry_Application
      */
     public function menu(Horde_Menu $menu)
     {
-        return Luxor::getMenu();
+        $menu->add(Horde::url('source.php'), _("_Browse"), 'luxor.png');
     }
-
 }

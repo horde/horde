@@ -1,17 +1,28 @@
 <?php
 /**
- * Special page for merging or renaming pages.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Jason M. Felice <eraserhd@speakeasy.net>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Jason M. Felice <eraserhd@speakeasy.net>
+ * @package  Wicked
  */
-class Wicked_Page_MergeOrRename extends Wicked_Page {
 
+/**
+ * Special page for merging or renaming pages.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Jason M. Felice <eraserhd@speakeasy.net>
+ * @package  Wicked
+ */
+class Wicked_Page_MergeOrRename extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *
@@ -19,6 +30,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
      */
     public $supportedModes = array(
         Wicked::MODE_EDIT => true,
+        Wicked::MODE_REMOVE => true,
         Wicked::MODE_DISPLAY => true);
 
     /**
@@ -83,34 +95,26 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
     {
         global $wicked, $registry, $notification;
 
-        $template = $GLOBALS['injector']->createInstance('Horde_Template');
-        $template->setOption('gettext', true);
-
         $referrer = $this->referrer();
-        $template->set('pageName', 'MergeOrRename');
-        $template->set('formAction', Wicked::url('MergeOrRename'));
-        $template->set('referrer', $referrer);
 
-        $template->set('referrerLink', Wicked::url($referrer));
-
-        $requiredMarker = Horde::img('required.png', '*');
-        $template->set('requiredMarker', $requiredMarker);
+        $callback = function($string) {
+            return '=' . str_pad(dechex(ord($string[1])), 2, '0', STR_PAD_LEFT);
+        };
 
         $references = $wicked->getBackLinks($referrer);
-
         foreach ($references as $key => $page) {
-            $references[$key]['page_url'] = htmlspecialchars(Wicked::url($page['page_name']));
-            $references[$key]['page_name'] = htmlspecialchars($page['page_name']);
+            $references[$key]['page_url'] = Wicked::url($page['page_name']);
+            $references[$key]['page_name'] = $page['page_name'];
 
             // Since the page name can have [ and ] and other special
             // characters in it, and we don't want the browser or PHP decoding
             // it, we encode it in quoted printable for the checkbox names.
-            $references[$key]['checkbox'] = preg_replace('/([^a-zA-Z_0-9 ])/e', '"=" . str_pad(dechex(ord(\'\\1\')), 2, \'0\', STR_PAD_LEFT)', $page['page_name']);
+            $references[$key]['checkbox'] = preg_replace_callback(
+                '/([^a-zA-Z_0-9 ])/',
+                $callback,
+                $page['page_name']
+            );
         }
-
-        $template->set('references', $references);
-        $template->set('referenceCount', sprintf(_("This page is referenced from %d other page(s)."), count($references)));
-        $template->set('formInput', Horde_Util::formInput());
 
         // Propogate any validation errors.
         foreach (array('new_name', 'collision') as $elt) {
@@ -118,13 +122,20 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
                 $this->_errors[$elt] = '';
             }
         }
-        $template->set('errors', $this->_errors);
 
-        $template->set('new_name', Horde_Util::getFormData('new_name'));
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->pageName = 'MergeOrRename';
+        $view->formAction = Wicked::url('MergeOrRename');
+        $view->referrer = $referrer;
+        $view->referrerLink = Wicked::url($referrer);
+        $view->requiredMarker = Horde::img('required.png', '*');
+        $view->references = $references;
+        $view->referenceCount = sprintf(_("This page is referenced from %d other page(s)."), count($references));
+        $view->formInput = Horde_Util::formInput();
+        $view->errors = $this->_errors;
+        $view->new_name = Horde_Util::getFormData('new_name');
 
-        Horde::addScriptFile('stripe.js', 'horde', true);
-        echo $template->fetch(WICKED_TEMPLATES . '/display/MergeOrRename.html');
-        return true;
+        echo $view->render('display/MergeOrRename');
     }
 
     public function pageName()
@@ -177,7 +188,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
         }
 
         $destPage = Wicked_Page::getPage($new_name);
-        if (!is_a($destPage, 'AddPage')) {
+        if (!($destPage instanceof Wicked_Page_AddPage)) {
             // Destination page exists.
             if ($collision != 'merge') {
                 // We don't want to overwrite.

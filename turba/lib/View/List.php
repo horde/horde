@@ -3,7 +3,7 @@
  * The Turba_View_List:: class provides an interface for objects that
  * visualize Turba_List objects.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -163,18 +163,17 @@ class Turba_View_List implements Countable
      * @TODO: these should be injected when we refactor to Horde_View
      * @global $prefs
      * @global $session
-     * @global $default_source
      */
     public function display()
     {
-        global $prefs, $session, $default_source;
+        global $prefs, $session;
 
         $driver = $GLOBALS['injector']
             ->getInstance('Turba_Factory_Driver')
-            ->create($default_source);
+            ->create(Turba::$source);
         $hasDelete = $driver->hasPermission(Horde_Perms::DELETE);
         $hasEdit = $driver->hasPermission(Horde_Perms::EDIT);
-        $hasExport = ($GLOBALS['conf']['menu']['import_export'] && !empty($GLOBALS['cfgSources'][$default_source]['export']));
+        $hasExport = ($GLOBALS['conf']['menu']['import_export'] && !empty($GLOBALS['cfgSources'][Turba::$source]['export']));
         $vars = Horde_Variables::getDefaultVariables();
 
         list($addToList, $addToListSources) = $this->getAddSources();
@@ -192,11 +191,11 @@ class Turba_View_List implements Countable
             $max = $min + $perpage;
             $start = ($page * $perpage) + 1;
             $end = min($numitem, $start + $perpage - 1);
-            $listHtml = $this->getPage($numDisplayed, $min, $max);
+            $listHtml = $this->getPage($numDisplayed, $min, $max, $vars->get('page'));
             $crit = array();
             if ($session->get('turba', 'search_mode') == 'advanced') {
                 $map = $driver->getCriteria();
-                foreach ($map as $key => $value) {
+                foreach (array_keys($map) as $key) {
                     if (($key != '__key') && !empty($vars->$key)) {
                         $crit[$key] = $vars->$key;
                     }
@@ -205,7 +204,7 @@ class Turba_View_List implements Countable
             $params = array_merge($crit, array(
                 'criteria' => $vars->criteria,
                 'val' => $vars->val,
-                'source' => $vars->get('source', $default_source)
+                'source' => $vars->get('source', Turba::$source)
             ));
             $viewurl = Horde::url('search.php')->add($params);
             $pager = new Horde_Core_Ui_Pager('page', $vars, array(
@@ -241,7 +240,7 @@ class Turba_View_List implements Countable
         if ($numDisplayed) {
             $copymove_source_options = '';
             foreach ($GLOBALS['copymoveSources'] as $key => $curSource) {
-                if ($key != $GLOBALS['default_source']) {
+                if ($key != Turba::$source) {
                     $copymove_source_options .= '<option value="' . htmlspecialchars($key) . '">' . htmlspecialchars($curSource['title']) . '</option>';
                 }
             }
@@ -262,16 +261,18 @@ class Turba_View_List implements Countable
      *                               rendered.
      * @param integer $min           Minimum number of rows to display.
      * @param integer $max           Maximum number of rows to display.
+     * @param string $page           The currently displayed page.
      *
      * @return string  HTML to echo.
      */
-    public function getPage(&$numDisplayed, $min = 0, $max = null)
+    public function getPage(&$numDisplayed, $min = 0, $max = null, $page = 0)
     {
         if (is_null($max)) {
             $max = count($this);
         }
         return $this->_get($numDisplayed,
-                           new Turba_View_List_PageFilter($min, $max));
+                           new Turba_View_List_PageFilter($min, $max),
+                           $page);
     }
 
     /**
@@ -286,7 +287,8 @@ class Turba_View_List implements Countable
     public function getAlpha(&$numDisplayed, $alpha)
     {
         return $this->_get($numDisplayed,
-                           new Turba_View_List_AlphaFilter($alpha));
+                           new Turba_View_List_AlphaFilter($alpha),
+                           $alpha);
     }
 
     /**
@@ -348,7 +350,7 @@ class Turba_View_List implements Countable
         $sortorder = Turba::getPreferredSortOrder();
         foreach ($sortorder as $elt) {
             $field = $elt['field'];
-            if ($field == 'lastname') {
+            if (!strlen($field) || ($field == 'lastname')) {
                 $field = 'name';
             }
             $description[] = $GLOBALS['attributes'][$field]['label'];
@@ -400,12 +402,13 @@ class Turba_View_List implements Countable
     }
 
     /**
-     * @param integer $numDisplayed
-     * @param object $filter         A Turba_View_List filter object
+     * @param integer $numDisplayed  Set to the number of displayed contacts.
+     * @param object $filter         A Turba_View_List filter object.
+     * @param string $page           The currently displayed page.
      *
      * @return string
      */
-    protected function _get(&$numDisplayed, $filter)
+    protected function _get(&$numDisplayed, $filter, $page)
     {
         ob_start();
         $width = floor(90 / (count($this->columns) + 1));
@@ -415,6 +418,8 @@ class Turba_View_List implements Countable
         } else {
             $own_source = $own_id = null;
         }
+
+        $vars = Horde_Variables::getDefaultVariables();
 
         include TURBA_TEMPLATES . '/browse/column_headers.inc';
 

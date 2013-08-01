@@ -14,7 +14,7 @@
 /**
  * Components_Qc_Task_Unit:: runs the test suite of the component.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -58,22 +58,22 @@ extends Components_Qc_Task_Base
      *
      * @param array &$options Additional options.
      *
-     * @return NULL
+     * @return integer Number of errors.
      */
     public function run(&$options)
     {
-        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator(realpath($this->_config->getPath() . '/test'))) as $file) {
+        try {
+            $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(realpath($this->_config->getPath() . '/test')));
+        } catch (Exception $e) {
+            return false;
+        }
+
+        foreach ($iterator as $file) {
             if ($file->getFilename() == 'AllTests.php') {
-                $runner = new PHPUnit_TextUI_Command();
-                $result = $runner->run(
-                    array(
-                        $this->getComponent()->getName() . '_AllTests',
-                        $file->getPath()
-                    ),
-                    false
-                );
+                $result = Horde_Test_AllTests::init(strval($file))->run();
             }
         }
-        return !empty($result);
+
+        return $result->errorCount() + $result->failureCount();
     }
 }

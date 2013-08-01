@@ -1,0 +1,1 @@
+CKEDITOR.plugins.setLang("placeholder","sk",{placeholder:{title:"Vlastnosti placeholdera",toolbar:"Vytvoriť placeholder",text:"Text placeholdera",edit:"Upraviť placeholder",textMissing:"Placeholder musí obsahovať text."}});

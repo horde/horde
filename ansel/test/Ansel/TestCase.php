@@ -15,7 +15,7 @@
 /**
  * Basic Ansel test case.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -66,7 +66,7 @@ extends PHPUnit_Framework_TestCase
     {
         $setup->getInjector()->setInstance(
             'Ansel_Vfs',
-            new Horde_Vfs_File(array('vfsroot' => dirname(__FILE__) . '/fixtures/vfs'))
+            new Horde_Vfs_File(array('vfsroot' => __DIR__ . '/fixtures/vfs'))
         );
 
         $setup->getInjector()->setInstance(

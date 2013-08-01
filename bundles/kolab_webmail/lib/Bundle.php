@@ -4,7 +4,7 @@
  *
  * This file defines information about Horde bundles.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * @package kolab_webmail
  */
@@ -25,6 +25,11 @@ class Horde_Bundle extends Horde_Core_Bundle
      * The bundle descriptive name.
      */
     const FULLNAME = 'Horde Kolab Edition';
+
+    /**
+     * The short bundle descriptive name.
+     */
+    const SHORTNAME = 'Kolab';
 
     /**
      * Asks for the administrator settings.

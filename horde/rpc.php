@@ -3,30 +3,28 @@
  * RPC processing script.
  *
  * Possible GET values:
- * <pre>
- * 'requestMissingAuthorization' - Whether or not to request authentication
- *                                 credentials if they are not already
- *                                 present.
- * 'wsdl' - TODO
- * </pre>
+ *   - requestMissingAuthorization: Whether or not to request authentication
+ *                                  credentials if they are not already
+ *                                  present.
+ *   - wsdl: TODO
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 
 // Since different RPC servers have different session requirements, we can't
 // call appInit() until we know which server we are requesting. We  don't
 // initialize the application until after we know the rpc server we want.
-$input = $session_control = null;
+$input = $session_control = $cache_control = null;
 $nocompress = false;
 $params = array();
 
@@ -34,12 +32,14 @@ $params = array();
  * and determine what kind of request this is. */
 if ((!empty($_SERVER['CONTENT_TYPE']) &&
      (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.ms-sync.wbxml') !== false)) ||
-   (strpos($_SERVER['REQUEST_URI'], 'Microsoft-Server-ActiveSync') !== false)) {
+   (strpos($_SERVER['REQUEST_URI'], 'Microsoft-Server-ActiveSync') !== false) ||
+   (stripos($_SERVER['REQUEST_URI'], 'autodiscover/autodiscover.xml') !== false)) {
     /* ActiveSync Request */
     $conf['cookie']['path'] = '/Microsoft-Server-ActiveSync';
     $serverType = 'ActiveSync';
     $nocompress = true;
     $session_control = 'none';
+    $cache_control = 'private';
 } elseif (!empty($_SERVER['PATH_INFO']) ||
           in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
     $serverType = 'Webdav';
@@ -67,17 +67,18 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
 } elseif ($_SERVER['QUERY_STRING'] && $_SERVER['QUERY_STRING'] == 'phpgw') {
     $serverType = 'Phpgw';
 } else {
-    $serverType = 'Soap';
+    $serverType = 'Webdav';
 }
 
 /* Initialize Horde environment. */
 Horde_Registry::appInit('horde', array(
     'authentication' => 'none',
     'nocompress' => $nocompress,
-    'session_control' => $session_control
+    'session_control' => $session_control,
+    'session_cache_limiter' => $cache_control
 ));
 
-$request = $GLOBALS['injector']->getInstance('Horde_Controller_Request');
+$request = $injector->getInstance('Horde_Controller_Request');
 
 $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
@@ -90,13 +91,12 @@ if (($ra = Horde_Util::getGet('requestMissingAuthorization')) !== null) {
 /* Driver specific tasks that require Horde environment. */
 switch ($serverType) {
 case 'ActiveSync':
-    /* Check if we are even enabled for AS */
+    // Check if AS is enabled. Note that we can't check the user perms for it
+    // here since the user is not yet logged into horde at this point.
     if (empty($conf['activesync']['enabled'])) {
         exit;
     }
-    $params['backend'] = $injector->getInstance('Horde_ActiveSyncBackend');
     $params['server'] = $injector->getInstance('Horde_ActiveSyncServer');
-    $params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning'];
     break;
 
 case 'Soap':
@@ -117,16 +117,17 @@ try {
 } catch (Horde_Rpc_Exception $e) {
     Horde::logMessage($e, 'ERR');
     header('HTTP/1.1 501 Not Implemented');
+    exit;
 }
 
 // Let the backend check authentication. By default, we look for HTTP
 // basic authentication against Horde, but backends can override this
 // as needed. Must reset the authentication argument since we delegate
 // auth to the RPC server.
-$GLOBALS['registry']->setAuthenticationSetting(
-    (array_key_exists($params, 'requireAuthorization') && $params['requireAuthorization'] === false)
-     ? 'none'
-     : 'Authenticate');
+$registry->setAuthenticationSetting(
+    (array_key_exists('requireAuthorization', $params) && $params['requireAuthorization'] === false)
+    ? 'none'
+    : 'Authenticate');
 
 try {
     $server->authorize();

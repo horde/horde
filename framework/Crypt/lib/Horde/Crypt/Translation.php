@@ -1,18 +1,21 @@
 <?php
 /**
- * @package Crypt
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Crypt
  */
 
 /**
  * Horde_Crypt_Translation is the translation wrapper class for Horde_Crypt.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Crypt
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Crypt
  */
 class Horde_Crypt_Translation extends Horde_Translation
 {
@@ -27,7 +30,7 @@ class Horde_Crypt_Translation extends Horde_Translation
     static public function t($message)
     {
         self::$_domain = 'Horde_Crypt';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_Crypt/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../locale' : '@data_dir@/Horde_Crypt/locale';
         return parent::t($message);
     }
 
@@ -44,7 +47,7 @@ class Horde_Crypt_Translation extends Horde_Translation
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Crypt';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_Crypt/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../locale' : '@data_dir@/Horde_Crypt/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }

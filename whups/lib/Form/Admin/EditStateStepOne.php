@@ -2,7 +2,7 @@
 /**
  * This file contains all Horde_Form classes for ticket state administration.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -16,7 +16,7 @@ class Whups_Form_Admin_EditStateStepOne extends Horde_Form
     function __construct(&$vars)
     {
         parent::__construct($vars, _("Edit or Delete States"));
-        $this->setButtons(array(_("Edit State"), _("Delete State")));
+        $this->setButtons(array(_("Edit State"), array('class' => 'horde-delete', 'value' => _("Delete State"))));
 
         $states = $GLOBALS['whups_driver']->getStates($vars->get('type'));
         if ($states) {

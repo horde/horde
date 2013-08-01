@@ -16,21 +16,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>13:32:24</time>
+ <date>2013-07-17</date>
+ <time>00:13:16</time>
  <version>
-  <release>3.0.0</release>
+  <release>3.0.0RC2</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* [jan] Fix saving portal blocks.
-* [jan] Fix deleting queries (Bug #10985).
-* [jan] Fix encoding of auto-completion results (Bug #10945).
+* [jan] Fix table header of query results.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -186,6 +184,11 @@
       <file name="Zip.php" role="horde" />
      </dir> <!-- /lib/Mime/Viewer -->
     </dir> <!-- /lib/Mime -->
+    <dir name="Prefs">
+     <dir name="Special">
+      <file name="Sourceselect.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
+    </dir> <!-- /lib/Prefs -->
     <dir name="Query">
      <file name="Manager.php" role="horde" />
     </dir> <!-- /lib/Query -->
@@ -402,7 +405,6 @@
      <file name="savedqueries.inc" role="horde" />
     </dir> <!-- /templates/view -->
     <file name=".htaccess" role="horde" />
-    <file name="menu.inc" role="horde" />
     <file name="prevnext.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
@@ -410,41 +412,15 @@
      <dir name="graphics">
       <file name="admin.png" role="horde" />
       <file name="az.png" role="horde" />
-      <file name="create.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="query.png" role="horde" />
       <file name="reports.png" role="horde" />
-      <file name="search.png" role="horde" />
       <file name="whups.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="hordeweb">
-     <dir name="graphics">
-      <file name="admin.png" role="horde" />
-      <file name="create.png" role="horde" />
-      <file name="query.png" role="horde" />
-      <file name="reports.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="whups.png" role="horde" />
-     </dir> <!-- /themes/hordeweb/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/hordeweb -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="admin.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="create.png" role="horde" />
-      <file name="query.png" role="horde" />
-      <file name="reports.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="whups.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <dir name="ticket">
     <file name=".htaccess" role="horde" />
     <file name="comment.php" role="horde" />
@@ -459,7 +435,6 @@
     <file name="update.php" role="horde" />
     <file name="watch.php" role="horde" />
    </dir> <!-- /ticket -->
-   <file name="data.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="LICENSE" role="horde" />
    <file name="mybugs.php" role="horde" />
@@ -474,7 +449,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -483,162 +458,162 @@
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>5.0.0</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Compress</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.2.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Notification</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.3</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Scheduler</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Share</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>gettext</name>
@@ -650,7 +625,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="whups/data.php" name="data.php" />
    <install as="whups/index.php" name="index.php" />
    <install as="whups/LICENSE" name="LICENSE" />
    <install as="whups/mybugs.php" name="mybugs.php" />
@@ -780,6 +754,7 @@
    <install as="whups/lib/Form/Type/whupsemail.php" name="lib/Form/Type/whupsemail.php" />
    <install as="whups/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="whups/lib/Mime/Viewer/Zip.php" name="lib/Mime/Viewer/Zip.php" />
+   <install as="whups/lib/Prefs/Special/Sourceselect.php" name="lib/Prefs/Special/Sourceselect.php" />
    <install as="whups/lib/Query/Manager.php" name="lib/Query/Manager.php" />
    <install as="whups/lib/tests/ApiTest.php" name="lib/tests/ApiTest.php" />
    <install as="whups/lib/tests/TestBase.php" name="lib/tests/TestBase.php" />
@@ -854,7 +829,6 @@
    <install as="whups/queue/rss.php" name="queue/rss.php" />
    <install as="whups/search/rss.php" name="search/rss.php" />
    <install as="whups/templates/.htaccess" name="templates/.htaccess" />
-   <install as="whups/templates/menu.inc" name="templates/menu.inc" />
    <install as="whups/templates/prevnext.inc" name="templates/prevnext.inc" />
    <install as="whups/templates/admin/mtmatrix.inc" name="templates/admin/mtmatrix.inc" />
    <install as="whups/templates/renderer/querysetcurrenttype.inc" name="templates/renderer/querysetcurrenttype.inc" />
@@ -868,29 +842,11 @@
    <install as="whups/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="whups/themes/default/graphics/admin.png" name="themes/default/graphics/admin.png" />
    <install as="whups/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
-   <install as="whups/themes/default/graphics/create.png" name="themes/default/graphics/create.png" />
    <install as="whups/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="whups/themes/default/graphics/query.png" name="themes/default/graphics/query.png" />
    <install as="whups/themes/default/graphics/reports.png" name="themes/default/graphics/reports.png" />
-   <install as="whups/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="whups/themes/default/graphics/whups.png" name="themes/default/graphics/whups.png" />
    <install as="whups/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
-   <install as="whups/themes/hordeweb/screen.css" name="themes/hordeweb/screen.css" />
-   <install as="whups/themes/hordeweb/graphics/admin.png" name="themes/hordeweb/graphics/admin.png" />
-   <install as="whups/themes/hordeweb/graphics/create.png" name="themes/hordeweb/graphics/create.png" />
-   <install as="whups/themes/hordeweb/graphics/query.png" name="themes/hordeweb/graphics/query.png" />
-   <install as="whups/themes/hordeweb/graphics/reports.png" name="themes/hordeweb/graphics/reports.png" />
-   <install as="whups/themes/hordeweb/graphics/search.png" name="themes/hordeweb/graphics/search.png" />
-   <install as="whups/themes/hordeweb/graphics/whups.png" name="themes/hordeweb/graphics/whups.png" />
-   <install as="whups/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="whups/themes/silver/graphics/admin.png" name="themes/silver/graphics/admin.png" />
-   <install as="whups/themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
-   <install as="whups/themes/silver/graphics/create.png" name="themes/silver/graphics/create.png" />
-   <install as="whups/themes/silver/graphics/query.png" name="themes/silver/graphics/query.png" />
-   <install as="whups/themes/silver/graphics/reports.png" name="themes/silver/graphics/reports.png" />
-   <install as="whups/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="whups/themes/silver/graphics/whups.png" name="themes/silver/graphics/whups.png" />
-   <install as="whups/themes/silver/graphics/za.png" name="themes/silver/graphics/za.png" />
    <install as="whups/ticket/.htaccess" name="ticket/.htaccess" />
    <install as="whups/ticket/comment.php" name="ticket/comment.php" />
    <install as="whups/ticket/create.php" name="ticket/create.php" />
@@ -1002,6 +958,76 @@
 * [jan] Fix saving portal blocks.
 * [jan] Fix deleting queries (Bug #10985).
 * [jan] Fix encoding of auto-completion results (Bug #10945).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-02-28</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* [jan] Fix converting searches in individual queues to queries (Bug #11819).
+* [jan] Fix editing single attribute and text criteria in query editor.
+* [jan] Fix setting active tabs in query editor.
+* [jan] Group active and inactive versions in queue adminstration.
+* [jan] Fix auto-submitting of tickets if using groups (Bug #10654).
+* [jan] Improve error reporting in whups-mail-filter.
+   </notes>
+  </release>
+  <release>
+   <date>2013-06-19</date>
+   <time>22:26:49</time>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* [jan] Fix deleting attributes.
+* [jan] Add configuration option to include raw processed message.
+* [jan] Add due date to ticket columns (Request #10986).
+* [jan] Make columns of portal block configurable (Request #10986).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-07-17</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* [jan] Set assign and update dates when creating new tickets (Bug #12414).
+* [jan] Fix counting of responsible users (Bug #12406).
+* [jan] Never send empty messages.
+* [jan] Don&apos;t send reply messages to guests if disabled in preferences.
+* [jan] Fix downloading of attachments.
+* [jan] Add more tests to filter out bounces and auto-replies in the mail parser.
+* [jan] Hide topbar and sidebar when displaying attachments.
+* [jan] Fix displaying of multiple owners (Bug #12051).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-07-17</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* [jan] Fix table header of query results.
    </notes>
   </release>
  </changelog>

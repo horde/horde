@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Data/Csv.php:98
+#: lib/Horde/Data/Csv.php:70
 msgid "Cannot open file."
 msgstr ""
 
-#: lib/Horde/Data/Tsv.php:222
+#: lib/Horde/Data/Csv.php:227
+msgid "Incorrect charset given for the data."
+msgstr ""
+
+#: lib/Horde/Data/Tsv.php:216
 msgid "TSV file"
 msgstr ""
 
-#: lib/Horde/Data/Base.php:279
+#: lib/Horde/Data/Base.php:282
 msgid "The file contained no data."
 msgstr ""
 
-#: lib/Horde/Data/Base.php:339
+#: lib/Horde/Data/Base.php:343
 msgid "The uploaded data was lost since the previous step."
 msgstr ""
 
-#: lib/Horde/Data/Csv.php:230 lib/Horde/Data/Tsv.php:228
+#: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:222
 msgid "The uploaded file could not be saved."
 msgstr ""
 
@@ -41,7 +45,7 @@ msgstr ""
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Horde/Data/Base.php:286
+#: lib/Horde/Data/Base.php:289
 msgid ""
 "You didn\\'t map any fields from the imported file to the corresponding "
 "fields."

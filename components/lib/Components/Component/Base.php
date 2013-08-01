@@ -14,7 +14,7 @@
 /**
  * Represents base functionality for a component.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -456,5 +456,24 @@ abstract class Components_Component_Base implements Components_Component
         $installation_options['force'] = !empty($options['force']);
         $installation_options['nodeps'] = !empty($options['nodeps']);
         return $installation_options;
+    }
+
+    /**
+     * Check if the library has a CI job.
+     *
+     * @return boolean True if a CI job is defined.
+     */
+    protected function _hasCi()
+    {
+        if ($this->getChannel() != 'pear.horde.org') {
+            return false;
+        }
+        $client = new Horde_Http_Client(array('request.timeout' => 15));
+        try {
+            $response = $client->get('http://ci.horde.org/job/' . str_replace('Horde_', '', $this->getName() . '/api/json'));
+        } catch (Horde_Http_Exception $e) {
+            return false;
+        }
+        return $response->code != 404;
     }
 }

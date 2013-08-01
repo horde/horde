@@ -3,7 +3,7 @@
  * Whups_View for displaying a list of tickets.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * @author  Robert E. Coyle <robertcoyle@hotmail.com>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
@@ -21,7 +21,7 @@ class Whups_View_Results extends Whups_View_Base
 
     public function html()
     {
-        Horde::addScriptFile('tables.js', 'horde', true);
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
 
         global $prefs, $registry, $session;
 

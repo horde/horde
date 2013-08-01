@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -9,8 +9,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-if (file_exists(dirname(__FILE__) . '/../../kronolith/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../kronolith/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()
@@ -74,7 +74,7 @@ function send_agendas()
     $view->imageId = $image->getContentId();
     $view->date = $runtime;
     if (!$GLOBALS['prefs']->isLocked('daily_agenda')) {
-        $view->prefsUrl = Horde::url(Horde::getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
+        $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
     }
 
     // Loop through the users and generate an agenda for them
@@ -132,7 +132,8 @@ function send_agendas()
         $eventlist = array();
         foreach ($calendars as $calId) {
             $kronolith_driver->open($calId);
-            $events = $kronolith_driver->listEvents($runtime, $runtime, true);
+            $events = $kronolith_driver->listEvents(
+                $runtime, $runtime, array('show_recurrence' => true));
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
                     // The event list contains events starting at 12am.
@@ -175,7 +176,7 @@ function send_agendas()
         try {
             $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
         } catch (Horde_Mime_Exception $e) {
-            die($e);
+            Horde::logMessage(sprintf('Error sending daily agenda to %s: %s', $email, $e->getMessage()), 'WARN');
         }
     }
 }

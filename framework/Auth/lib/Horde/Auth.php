@@ -1,12 +1,20 @@
 <?php
 /**
- * The Horde_Auth class provides some useful authentication-related utilities
- * and constants for the Auth package.
- *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth class provides some useful authentication-related utilities
+ * and constants for the Auth package.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
@@ -308,8 +316,6 @@ class Horde_Auth
     /**
      * Checks whether a password matches some expected policy.
      *
-     * @since   Horde_Auth 1.4.0
-     *
      * @param string $password  A password.
      * @param array $policy     A configuration with policy rules. Supported
      *                          rules:
@@ -327,7 +333,8 @@ class Horde_Auth
      *   - minNumeric:  Minimum number of numeric characters (0-9)
      *   - minAlphaNum: Minimum number of alphanumeric characters
      *   - minAlpha:    Minimum number of alphabetic characters
-     *   - minSymbol:   Minimum number of alphabetic characters
+     *   - minSymbol:   Minimum number of punctuation / symbol characters
+     *   - minNonAlpha: Minimum number of non-alphabetic characters
      *
      *     Alternatively (or in addition to), the minimum number of
      *     character classes can be configured by setting the
@@ -357,7 +364,7 @@ class Horde_Auth
 
         // Dissect the password in a localized way.
         $classes = array();
-        $alpha = $alnum = $num = $upper = $lower = $space = $symbol = 0;
+        $alpha = $nonalpha = $alnum = $num = $upper = $lower = $space = $symbol = 0;
         for ($i = 0; $i < strlen($password); $i++) {
             $char = substr($password, $i, 1);
             if (ctype_lower($char)) {
@@ -365,9 +372,9 @@ class Horde_Auth
             } elseif (ctype_upper($char)) {
                 $upper++; $alpha++; $alnum++; $classes['upper'] = 1;
             } elseif (ctype_digit($char)) {
-                $num++; $alnum++; $classes['number'] = 1;
+                $num++; $nonalpha++; $alnum++; $classes['number'] = 1;
             } elseif (ctype_punct($char)) {
-                $symbol++; $classes['symbol'] = 1;
+                $symbol++; $nonalpha++; $classes['symbol'] = 1;
             } elseif (ctype_space($char)) {
                 $space++; $classes['symbol'] = 1;
             }
@@ -389,6 +396,9 @@ class Horde_Auth
         if (isset($policy['minAlphaNum']) && $policy['minAlphaNum'] > $alnum) {
             throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::ngettext("The password must contain at least %d alphanumeric character.", "The password must contain at least %d alphanumeric characters.", $policy['minAlphaNum']), $policy['minAlphaNum']));
         }
+        if (isset($policy['minNonAlpha']) && $policy['minNonAlpha'] > $nonalpha) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::ngettext("The password must contain at least %d numeric or special character.", "The password must contain at least %d numeric or special characters.", $policy['minNonAlpha']), $policy['minNonAlpha']));
+        }
         if (isset($policy['minClasses']) && $policy['minClasses'] > array_sum($classes)) {
             throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::t("The password must contain at least %d different types of characters. The types are: lower, upper, numeric, and symbols."), $policy['minClasses']));
         }
@@ -406,12 +416,10 @@ class Horde_Auth
     /**
      * Checks whether a password is too similar to a dictionary of strings.
      *
-     * @since   Horde_Auth 1.4.0
-     *
      * @param string $password  A password.
      * @param array $dict       A dictionary to check for similarity, for
      *                          example the user name or an old password.
-     * @param float $percent    The maximum allowed similarity in percent.
+     * @param float $max        The maximum allowed similarity in percent.
      *
      * @throws Horde_Auth_Exception if the password is too similar.
      */

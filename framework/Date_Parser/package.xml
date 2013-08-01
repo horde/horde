@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-06</date>
- <time>11:01:50</time>
+ <date>2013-03-05</date>
+ <time>12:37:58</time>
  <version>
-  <release>1.0.3</release>
+  <release>2.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -99,8 +99,10 @@
         <file name="DeTest.php" role="test" />
        </dir> <!-- /test/Horde/Date/Parser/Locale -->
        <file name="AllTests.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="HandlerTest.php" role="test" />
        <file name="ParserTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
        <file name="ResultTest.php" role="test" />
        <file name="TokenTest.php" role="test" />
       </dir> <!-- /test/Horde/Date/Parser -->
@@ -112,7 +114,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -120,18 +122,27 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -168,8 +179,10 @@
    <install as="Horde/Date/Parser/Locale/Pt/Separator.php" name="lib/Horde/Date/Parser/Locale/Pt/Separator.php" />
    <install as="Horde/Date/Parser/Locale/Pt/Timezone.php" name="lib/Horde/Date/Parser/Locale/Pt/Timezone.php" />
    <install as="Horde/Date/Parser/AllTests.php" name="test/Horde/Date/Parser/AllTests.php" />
+   <install as="Horde/Date/Parser/bootstrap.php" name="test/Horde/Date/Parser/bootstrap.php" />
    <install as="Horde/Date/Parser/HandlerTest.php" name="test/Horde/Date/Parser/HandlerTest.php" />
    <install as="Horde/Date/Parser/ParserTest.php" name="test/Horde/Date/Parser/ParserTest.php" />
+   <install as="Horde/Date/Parser/phpunit.xml" name="test/Horde/Date/Parser/phpunit.xml" />
    <install as="Horde/Date/Parser/ResultTest.php" name="test/Horde/Date/Parser/ResultTest.php" />
    <install as="Horde/Date/Parser/TokenTest.php" name="test/Horde/Date/Parser/TokenTest.php" />
    <install as="Horde/Date/Parser/Locale/BaseTest.php" name="test/Horde/Date/Parser/Locale/BaseTest.php" />
@@ -295,12 +308,77 @@
   </release>
   <release>
    <version>
-    <release>1.0.3</release>
+    <release>2.0.0alpha1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-06</date>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix several parsing bugs (Bug #12006).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

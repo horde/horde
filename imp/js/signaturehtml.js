@@ -14,15 +14,22 @@ var ImpHtmlSignaturePrefs = {
         switch (e.memo.pref) {
         case 'signature_html_select':
             if (this.ready) {
-                CKEDITOR.instances['signature_html'].setData(this.sigs[e.memo.i]);
+                CKEDITOR.instances.signature_html.setData(this.sigs[e.memo.i]);
             } else {
                 this.changeIdentity.bind(this, e).defer();
             }
             break;
         }
+    },
+
+    onDomLoad: function()
+    {
+        CKEDITOR.on('instanceReady', function(e) {
+            ImpHtmlSignaturePrefs.ready = true;
+        });
     }
 
 };
 
-CKEDITOR.on('instanceReady', function(e) { ImpHtmlSignaturePrefs.ready = true; });
+document.observe('dom:loaded', ImpHtmlSignaturePrefs.onDomLoad.bind(ImpHtmlSignaturePrefs));
 document.observe('HordeIdentitySelect:change', ImpHtmlSignaturePrefs.changeIdentity.bindAsEventListener(ImpHtmlSignaturePrefs));

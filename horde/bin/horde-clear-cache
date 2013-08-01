@@ -3,21 +3,18 @@
 /**
  * This script clears cache data from a backend.
  *
- * Usage: horde-clear-cache [-f]
- *        -f: Force clearing without prompt.
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 
-$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = __DIR__ . '/../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {
@@ -36,32 +33,22 @@ try {
     $cli->fatal($e);
 }
 
-$c = new Console_Getopt();
-$argv = $c->readPHPArgv();
-array_shift($argv);
-$options = $c->getopt2($argv, 'f');
-if ($options instanceof PEAR_Error) {
-    $cli->fatal($options->getMessage());
-}
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-f', array(
+    'action' => 'store_true',
+    'help' => 'Force cleaning without prompt',
+    'dest' => 'force'
+));
+list($values,) = $parser->parseArgs();
 
-$prompt = false;
+$clear = $values->force
+   ? true
+   : ($cli->prompt($cli->red('Are you sure you want to expire all cached data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y');
 
-foreach ($options[0] as $val) {
-    switch ($val[0]) {
-    case 'f':
-        $prompt = true;
-        break;
-    }
-}
-
-if (!$prompt) {
-    $prompt = $cli->prompt($cli->red('Are you sure you want to expire all cached data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y';
-}
-
-if ($prompt) {
+if ($clear) {
     try {
         $cache->clear();
-        $cli->message('Cache data cleared.', 'cli.success');
+        $cli->message('Cache data cleared. NOTE: This does not indicate that cache data was successfully cleared on the backend, only that no error messages were returned.', 'cli.success');
     } catch (Horde_Exception $e) {
         $cli->fatal($e);
     }

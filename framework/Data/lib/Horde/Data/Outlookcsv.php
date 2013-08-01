@@ -2,7 +2,7 @@
 /**
  * Horde_Data implementation for Outlook comma-separated data (CSV).
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -22,6 +22,7 @@ class Horde_Data_Outlookcsv extends Horde_Data_Csv
      *                         set.
      * @param boolean $header  If true, the rows of $data are associative
      *                         arrays with field names as their keys.
+     * @param array $export_mapping  TODO
      *
      * @return string  The CSV data.
      */

@@ -5,7 +5,7 @@
  *
  * Requires: prototype.js (v1.6.1+), KeyNavList.js
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * Custom Events:
  * --------------
@@ -49,13 +49,11 @@ var SpellChecker = Class.create({
     //   url = (string) URL of specllchecker handler
     initialize: function(opts)
     {
-        var d, lc, tmp, ul;
-
         this.url = opts.url;
         this.target = $(opts.target);
         this.statusButton = $(opts.statusButton);
         this.buttonStates = opts.bs;
-        this.statusClass = opts.sc || '';
+        this.statusClass = opts.sc || this.statusButton.className;
         this.disabled = false;
 
         this.options.onComplete = this.onComplete.bind(this);
@@ -68,7 +66,7 @@ var SpellChecker = Class.create({
                 onChoose: this.setLocale.bindAsEventListener(this)
             });
 
-            this.statusButton.insert({ after: new Element('SPAN', { className: 'iconImg spellcheckPopdownImg' }) });
+            this.statusButton.insert({ after: new Element('SPAN', { className: 'horde-popdown horde-spellcheck-popdown' }) });
         }
 
         this.setStatus('CheckSpelling');
@@ -91,22 +89,22 @@ var SpellChecker = Class.create({
         this.target.fire('SpellChecker:before');
 
         var opts = Object.clone(this.options),
-            p = $H(),
-            url = this.url;
+            p = $H();
 
         this.setStatus('Checking');
 
         p.set(this.target.identify(), this.targetValue());
-        opts.parameters = p.toQueryString();
 
         if (this.locale) {
-            url += '/locale=' + this.locale;
+            p.set('locale', this.locale);
         }
         if (this.htmlAreaParent) {
-            url += '/html=1';
+            p.set('html', 1);
         }
 
-        new Ajax.Request(url, opts);
+        opts.parameters = p.toQueryString();
+
+        new Ajax.Request(this.url, opts);
     },
 
     onComplete: function(request)
@@ -142,7 +140,7 @@ var SpellChecker = Class.create({
             // Go through and see if we matched anything inside a tag (i.e.
             // class/spellcheckIncorrect is often matched if using a
             // non-English lang).
-            content = content.replace(new RegExp("(<[^>]*)" + RegExp.escape(re_text) + "([^>]*>)", 'g'), '\$1' + node + '\$2');
+            content = content.replace(new RegExp("(<[^>]*)" + RegExp.escape(re_text) + "([^>]*>)", 'g'), '$1' + node + '$2');
         }, this);
 
         if (!this.reviewDiv) {
@@ -197,7 +195,7 @@ var SpellChecker = Class.create({
             }
 
             e.stop();
-        } else if (elt.hasClassName('spellcheckPopdownImg')) {
+        } else if (elt.hasClassName('horde-spellcheck-popdown')) {
             this.lc.show();
             this.lc.ignoreClick(e);
             e.stop();
@@ -234,9 +232,11 @@ var SpellChecker = Class.create({
 
         var t;
 
-        this.reviewDiv.select('span.spellcheckIncorrect').each(function(n) {
-            n.replace(n.innerHTML);
-        });
+        [ 'Corrected', 'Incorrect' ].each(function(i) {
+            this.reviewDiv.select('span.spellcheck' + i).each(function(n) {
+                n.insert({ before: n.innerHTML }).remove();
+            });
+        }, this);
 
         t = this.reviewDiv.innerHTML;
         if (!this.htmlAreaParent) {

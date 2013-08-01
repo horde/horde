@@ -12,14 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
-
-/**
  * Test the log decorator.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -52,7 +47,7 @@ extends Horde_Kolab_Session_TestCase
         $this->logger->expects($this->once())
             ->method('__call')
             ->with(
-                'info',
+                'debug',
                 array(
                     'Connected Kolab session for "somebody@example.org".'
                 )
@@ -102,7 +97,7 @@ extends Horde_Kolab_Session_TestCase
         $this->logger->expects($this->once())
             ->method('__call')
             ->with(
-                'info',
+                'debug',
                 array(
                     'Exported session data for "somebody@example.org" (s:4:"test";).'
                 )
@@ -125,7 +120,7 @@ extends Horde_Kolab_Session_TestCase
         $this->logger->expects($this->once())
             ->method('__call')
             ->with(
-                'info',
+                'debug',
                 array(
                     'Imported session data for "somebody@example.org" (a:1:{i:0;s:4:"test";}).'
                 )

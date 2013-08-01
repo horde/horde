@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -297,20 +297,29 @@ class Content_Tagger
      * would all be one. In addition, this method returns counts for each tag.
      *
      * @param array  $args  Search criteria:
-     *   limit      Maximum number of tags to return.
-     *   offset     Offset the results. Only useful for paginating, and not recommended.
-     *   userId     Only return tags that have been applied by a specific user.
-     *   typeId     Only return tags that have been applied by specific object types.
-     *   objectId   Only return tags that have been applied to a specific object.
-     *   tagIds     Only return information on specific tag (an array of tag ids)
+     *   - limit: (integer)  Maximum number of tags to return.
+     *   - offset: (integet) Offset the results. Only useful for paginating, and
+     *                       not recommended.
+     *   - userId: (string)  Only return tags that have been applied by a
+     *                       specific user.
+     *   - typeId: (array)   Only return tags that have been applied by specific
+     *                       object types.
+     *   - objectId: (array) Only return tags that have been applied to specific
+     *                       objects all objects must be of the same type and
+     *                       specified by typeId.
+     *   - tagIds: (array)   Only return information on specific tag
+     *                       (an array of tag ids).
      *
      * @return array  An array of hashes, each containing tag_id, tag_name, and count.
      */
     public function getTagCloud($args = array())
     {
         if (isset($args['objectId'])) {
-            $args['objectId'] = $this->_ensureObject($args['objectId']);
-            $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id WHERE tagged.object_id = ' . (int)$args['objectId'] . ' GROUP BY t.tag_id, t.tag_name';
+            if (empty($args['typeId'])) {
+                throw new Content_Exception('Specified objectId, but failed to specify typeId for getTagCloud call.');
+            }
+            $args['objectId'] = $this->_objectManager->ensureObjects($args['objectId'], $args['typeId']);
+            $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' tagged INNER JOIN ' . $this->_t('tags') . ' t ON tagged.tag_id = t.tag_id WHERE tagged.object_id IN (' . implode(',', $args['objectId']) . ') GROUP BY t.tag_id, t.tag_name';
         } elseif (isset($args['userId']) && isset($args['typeId'])) {
             $args['userId'] = current($this->_userManager->ensureUsers($args['userId']));
             $args['typeId'] = $this->_typeManager->ensureTypes($args['typeId']);
@@ -688,7 +697,7 @@ class Content_Tagger
      * @param string|array $tags    The tag names to check.
      * @param boolean      $create  If true, create the tag in the tags table.
      *
-     * @return array
+     * @return array  A hash of tag_name => tag_id values.
      */
     protected function _checkTags($tags, $create = true)
     {
@@ -697,15 +706,15 @@ class Content_Tagger
         }
 
         if (!is_array($tags)) {
-            $tags = array($tags);
+            $tags = is_int($tags) ? array($tags) : $this->splitTags($tags);
         }
 
         $tagIds = array();
 
         // Anything already typed as an integer is assumed to be a tag id.
-        foreach ($tags as $tagIndex => $tag) {
+        foreach ($tags as $tag) {
             if (is_int($tag)) {
-                $tagIds[] = $tag;
+                $tagIds[$tag] = $tag;
                 continue;
             }
 
@@ -719,10 +728,10 @@ class Content_Tagger
                 . ' WHERE LOWER(tag_name) = LOWER('
                 . $this->toDriver($tag) . ')';
             if ($id = $this->_db->selectValue($sql)) {
-                $tagIds[] = $id;
+                $tagIds[$tag] = (int)$id;
             } elseif ($create) {
                 // Create any tags that didn't already exist
-                $tagIds[] = $this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->toDriver($tag) . ')');
+                $tagIds[$tag] = (int)$this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->toDriver($tag) . ')');
             }
         }
 
@@ -735,7 +744,7 @@ class Content_Tagger
      *
      * @param array $tags  Array of tag names or ids.
      *
-     * @return array  Array of tag ids.
+     * @return array  Hash of tag_name => tag_id values.
      */
     public function ensureTags($tags)
     {

@@ -14,13 +14,14 @@ try {
 <?php elseif (!count($allQueued)): ?>
  <div class="text"><em><?php echo _("No pending signups.") ?></em></div>
 <?php else: ?>
-<table class="striped horde-table" id="signup-pending" cellspacing="0">
+<br />
+<table class="horde-table" id="signup-pending">
 <thead>
  <tr>
   <th>&nbsp;</th>
   <th>&nbsp;</th>
-  <th class="leftAlign"><?php echo _("Username") ?></th>
-  <th class="leftAlign"><?php echo _("Date Received") ?></th>
+  <th class="horde-split-left"><?php echo _("Username") ?></th>
+  <th class="horde-split-left"><?php echo _("Date Received") ?></th>
  </tr>
 </thead>
 <tbody>
@@ -30,14 +31,14 @@ try {
    <form method="post" action="<?php echo Horde::selfUrl() ?>">
     <input type="hidden" name="user_name" value="<?php echo $signup->getName() ?>" />
     <input type="hidden" name="form" value="approve_f" />
-    <input type="submit" class="button" value="<?php echo _("Approve") ?>" />
+    <input type="submit" class="horde-default" value="<?php echo _("Approve") ?>" />
    </form>
   </td>
   <td>
    <form method="post" action="<?php echo Horde::selfUrl() ?>">
     <input type="hidden" name="user_name" value="<?php echo $signup->getName() ?>" />
     <input type="hidden" name="form" value="removequeued_f" />
-    <input type="submit" class="button" value="<?php echo _("Remove") ?>" />
+    <input type="submit" class="horde-delete" value="<?php echo _("Remove") ?>" />
    </form>
   </td>
   <td><?php echo htmlspecialchars($signup->getName()) ?></td>
@@ -46,5 +47,5 @@ try {
 <?php endforeach; ?>
 </tbody>
 </table>
+<br />
 <?php endif; ?>
-<br class="spacer" />

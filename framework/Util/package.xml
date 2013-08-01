@@ -17,11 +17,17 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-17</date>
- <time>12:37:27</time>
+ <developer>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </developer>
+ <date>2013-06-27</date>
+ <time>09:32:26</time>
  <version>
-  <release>1.2.1</release>
-  <api>1.2.0</api>
+  <release>2.3.1</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -37,6 +43,7 @@
     <dir name="Horde">
      <dir name="Util">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Util -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -58,37 +65,13 @@
     <dir name="Horde">
      <dir name="Util">
       <dir name="fixtures">
-       <file name="001.csv" role="test" />
-       <file name="002.csv" role="test" />
-       <file name="003.csv" role="test" />
-       <file name="004.csv" role="test" />
-       <file name="005.csv" role="test" />
-       <file name="bug_3839.csv" role="test" />
-       <file name="bug_4025.csv" role="test" />
-       <file name="bug_6311.csv" role="test" />
-       <file name="bug_6370.csv" role="test" />
-       <file name="bug_6372.csv" role="test" />
-       <file name="columns1.csv" role="test" />
-       <file name="columns2.csv" role="test" />
-       <file name="multiline1.csv" role="test" />
-       <file name="notrailing_crlf.csv" role="test" />
-       <file name="notrailing_lf.csv" role="test" />
-       <file name="quote1.csv" role="test" />
-       <file name="quote2.csv" role="test" />
-       <file name="quote3.csv" role="test" />
-       <file name="quote4.csv" role="test" />
-       <file name="quote5.csv" role="test" />
-       <file name="quote6.csv" role="test" />
-       <file name="quote7.csv" role="test" />
-       <file name="simple_cr.csv" role="test" />
-       <file name="simple_crlf.csv" role="test" />
-       <file name="simple_lf.csv" role="test" />
+       <file name="domhtml_test.html" role="test" />
       </dir> <!-- /test/Horde/Util/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="ArrayTest.php" role="test" />
-      <file name="Autoload.php" role="test" />
-      <file name="CsvTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="DomhtmlTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="StringTest.php" role="test" />
       <file name="UtilTest.php" role="test" />
       <file name="VariablesTest.php" role="test" />
@@ -100,18 +83,11 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
-   <package>
-    <name>Horde_Url</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
    <extension>
     <name>dom</name>
    </extension>
@@ -120,9 +96,16 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>ctype</name>
@@ -132,6 +115,9 @@
    </extension>
    <extension>
     <name>iconv</name>
+   </extension>
+   <extension>
+    <name>json</name>
    </extension>
    <extension>
     <name>mbstring</name>
@@ -144,6 +130,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Util/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Util/UPGRADING" />
    <install as="Horde/Array.php" name="lib/Horde/Array.php" />
    <install as="Horde/Domhtml.php" name="lib/Horde/Domhtml.php" />
    <install as="Horde/String.php" name="lib/Horde/String.php" />
@@ -152,38 +139,14 @@
    <install as="Horde/Array/Sort/Helper.php" name="lib/Horde/Array/Sort/Helper.php" />
    <install as="Horde/Util/AllTests.php" name="test/Horde/Util/AllTests.php" />
    <install as="Horde/Util/ArrayTest.php" name="test/Horde/Util/ArrayTest.php" />
-   <install as="Horde/Util/Autoload.php" name="test/Horde/Util/Autoload.php" />
-   <install as="Horde/Util/CsvTest.php" name="test/Horde/Util/CsvTest.php" />
+   <install as="Horde/Util/bootstrap.php" name="test/Horde/Util/bootstrap.php" />
    <install as="Horde/Util/DomhtmlTest.php" name="test/Horde/Util/DomhtmlTest.php" />
+   <install as="Horde/Util/phpunit.xml" name="test/Horde/Util/phpunit.xml" />
    <install as="Horde/Util/StringTest.php" name="test/Horde/Util/StringTest.php" />
    <install as="Horde/Util/UtilTest.php" name="test/Horde/Util/UtilTest.php" />
    <install as="Horde/Util/VariablesTest.php" name="test/Horde/Util/VariablesTest.php" />
-   <install as="Horde/Util/fixtures/001.csv" name="test/Horde/Util/fixtures/001.csv" />
-   <install as="Horde/Util/fixtures/002.csv" name="test/Horde/Util/fixtures/002.csv" />
-   <install as="Horde/Util/fixtures/003.csv" name="test/Horde/Util/fixtures/003.csv" />
-   <install as="Horde/Util/fixtures/004.csv" name="test/Horde/Util/fixtures/004.csv" />
-   <install as="Horde/Util/fixtures/005.csv" name="test/Horde/Util/fixtures/005.csv" />
-   <install as="Horde/Util/fixtures/bug_3839.csv" name="test/Horde/Util/fixtures/bug_3839.csv" />
-   <install as="Horde/Util/fixtures/bug_4025.csv" name="test/Horde/Util/fixtures/bug_4025.csv" />
-   <install as="Horde/Util/fixtures/bug_6311.csv" name="test/Horde/Util/fixtures/bug_6311.csv" />
-   <install as="Horde/Util/fixtures/bug_6370.csv" name="test/Horde/Util/fixtures/bug_6370.csv" />
-   <install as="Horde/Util/fixtures/bug_6372.csv" name="test/Horde/Util/fixtures/bug_6372.csv" />
-   <install as="Horde/Util/fixtures/columns1.csv" name="test/Horde/Util/fixtures/columns1.csv" />
-   <install as="Horde/Util/fixtures/columns2.csv" name="test/Horde/Util/fixtures/columns2.csv" />
-   <install as="Horde/Util/fixtures/multiline1.csv" name="test/Horde/Util/fixtures/multiline1.csv" />
-   <install as="Horde/Util/fixtures/notrailing_crlf.csv" name="test/Horde/Util/fixtures/notrailing_crlf.csv" />
-   <install as="Horde/Util/fixtures/notrailing_lf.csv" name="test/Horde/Util/fixtures/notrailing_lf.csv" />
-   <install as="Horde/Util/fixtures/quote1.csv" name="test/Horde/Util/fixtures/quote1.csv" />
-   <install as="Horde/Util/fixtures/quote2.csv" name="test/Horde/Util/fixtures/quote2.csv" />
-   <install as="Horde/Util/fixtures/quote3.csv" name="test/Horde/Util/fixtures/quote3.csv" />
-   <install as="Horde/Util/fixtures/quote4.csv" name="test/Horde/Util/fixtures/quote4.csv" />
-   <install as="Horde/Util/fixtures/quote5.csv" name="test/Horde/Util/fixtures/quote5.csv" />
-   <install as="Horde/Util/fixtures/quote6.csv" name="test/Horde/Util/fixtures/quote6.csv" />
-   <install as="Horde/Util/fixtures/quote7.csv" name="test/Horde/Util/fixtures/quote7.csv" />
-   <install as="Horde/Util/fixtures/simple_cr.csv" name="test/Horde/Util/fixtures/simple_cr.csv" />
-   <install as="Horde/Util/fixtures/simple_crlf.csv" name="test/Horde/Util/fixtures/simple_crlf.csv" />
-   <install as="Horde/Util/fixtures/simple_lf.csv" name="test/Horde/Util/fixtures/simple_lf.csv" />
-  </filelist>
+   <install as="Horde/Util/fixtures/domhtml_test.html" name="test/Horde/Util/fixtures/domhtml_test.html" />
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -451,12 +414,233 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>1.2.1</release>
-    <api>1.2.0</api></version>
+    <release>1.3.0</release>
+    <api>1.3.0</api>
+   </version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-03-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Implement ArrayAccess in Horde_Variables.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix Horde_String::validUtf8() to workaround PHP/PCRE bug where segfault will occur on input strings &gt; ~5000 characters
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add Horde_String::trimUtf8Bom().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.1</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-06</date>
+   <time>14:00:48</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] Removed e-mail array manipulation methods (Horde_Mail package now provides this feature).
+* [mms] Removed Horde_Util::getCsv() (moved to Horde_Data package).
+* [mms] Add iteration to Horde_Domhtml object.
+* [jan] Remove Horde_Util::getTempDir().
+* [jan] Remove Horde_Array::replaceRecursive().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Remove Horde_Util::addParameter() and Horde_Util::removeParameter().
+* [mms] Remove Horde_Util::cloneObject().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Convert Horde_String#validUtf8() from a preg-regex to a string iterator to eliminate PCRE issues relating to stack sizes (Bug #11899).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix validating certain strings of UTF-8 data (Bug #11930).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Added &apos;charset&apos; and &apos;metacharset&apos; parameters to returnHtml().
+* [mms] Added Horde_Domhtml#getCharset() to get best-guess charset of current encoding within the DOM object.
+* [mms] Fix inserting HEAD into HTML document with Horde_Domhtml#getHead() if it doesn&apos;t already exist in the document.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Can&apos;t add charset directly to HTML document or else DOM will alter document when generating HTML.
+* [mms] Added Horde_Domhtml#getBody().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Simplify Horde_Variables iterator.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix Horde_Domhtml#returnBody().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] SECURITY: &apos;_formvars&apos; form input must now be JSON encoded, not PHP serialized.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

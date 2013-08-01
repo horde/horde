@@ -1,11 +1,9 @@
+<?php echo Shout::getMenu('string') ?>
+
 <a name="top"></a>
 <?php
 $menu_view = $prefs->getValue('menu_view');
-?>
 
-<div id="menu">
-
-<?php
 // Only show the account selector if there is more than one available account
 try {
     $accounts = $shout->storage->getAccounts();
@@ -54,7 +52,3 @@ function accountSubmit(clear)
   </span>
  </form>
 <?php } // if (count(accounts) > 1) ?>
-
-  <?php echo Shout::getMenu('string') ?>
-</div>
-<?php require HORDE_BASE . '/services/sidebar.php'; ?>

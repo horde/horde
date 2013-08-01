@@ -36,13 +36,14 @@ $_prefs['sortdirsfirst'] = array(
 
 // columns selection widget
 $_prefs['columnselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Gollem_Prefs_Special_Columnselect'
 );
 
 // columns to be displayed
 $_prefs['columns'] = array(
-    // 'value' = json_encode(array())
-    'value' => '["ftp","type","name","download","modified","size","permission","owner","group"]'
+    // 'value' = json_encode(array(array('ftp', 'type', 'name', 'size')))
+    'value' => '[]'
 );
 
 
@@ -89,7 +90,7 @@ $prefGroups['settings'] = array(
 
 // user preferred recursive deletes
 $_prefs['recursive_deletes'] = array(
-    'value' => 'disabled',
+    'value' => 'warn',
     'type' => 'enum',
     'enum' => array(
         'disabled' => _("No"),

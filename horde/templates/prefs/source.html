@@ -8,6 +8,9 @@
  <div>
   <select id="source_select" name="source_select">
    <option value=""><tag:sourcelabel /></option>
+<loop:sources>
+   <option value="<tag:sources.key />"><tag:sources.label /></option>
+</loop:sources>
   </select>
  </div>
 </if:source_select>
@@ -17,7 +20,7 @@
    <td>
     <label for="unselected_sources" class="hidden"><tag:unselectlabel /></label>
     <select id="unselected_sources" name="unselected_sources" multiple="multiple" size="5">
-     <option class="control" disabled="disabled" value=""><tag:unselectlabel /></option>
+     <option disabled="disabled" value=""><tag:unselectlabel /></option>
 <if:unselected>
 <loop:unselected>
      <option value="<tag:unselected.v />"><tag:unselected.l /></option>
@@ -33,7 +36,7 @@
    <td>
     <label for="selected_sources" class="hidden"><tag:selectlabel /></label>
     <select name="selected_sources" multiple="multiple" size="5" id="selected_sources">
-     <option class="control" disabled="disabled" value=""><tag:selectlabel /></option>
+     <option disabled="disabled" value=""><tag:selectlabel /></option>
 <if:selected>
 <loop:selected>
      <option value="<tag:selected.v />"><tag:selected.l /></option>

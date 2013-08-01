@@ -3,7 +3,7 @@
  * Test the module wrapper.
  *
  * PHP version 5
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -15,11 +15,6 @@
  * @license    http://www.horde.org/licenses/lgpl21 LGPL
  * @link       http://www.horde.org/components/Horde_Cli_Modular
  */
-
-/**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
  * Test the module wrapper.
@@ -42,7 +37,7 @@ extends Horde_Cli_Modular_TestCase
         $modular = new Horde_Cli_Modular(
             array(
                 'modules' => array(
-                    'directory' => dirname(__FILE__) . '/../Stub/Module'
+                    'directory' => __DIR__ . '/../Stub/Module'
                 ),
                 'provider' => array(
                     'prefix' => 'Horde_Cli_Modular_Stub_Module_'
@@ -81,7 +76,7 @@ extends Horde_Cli_Modular_TestCase
         $modular = new Horde_Cli_Modular(
             array('modules' => new Horde_Cli_Modular_Modules(
                       array(
-                          'directory' => dirname(__FILE__) . '/../fixtures/Module'
+                          'directory' => __DIR__ . '/../fixtures/Module'
                       )
                   )
             )
@@ -104,7 +99,7 @@ extends Horde_Cli_Modular_TestCase
         $modular = new Horde_Cli_Modular(
             array(
                 'modules' => array(
-                    'directory' => dirname(__FILE__) . '/../fixtures/Module'
+                    'directory' => __DIR__ . '/../fixtures/Module'
                 ),
             )
         );
@@ -217,7 +212,7 @@ extends Horde_Cli_Modular_TestCase
                     'usage' => 'GLOBAL USAGE'
                 ),
                 'modules' => array(
-                    'directory' => dirname(__FILE__) . '/../Stub/Module'
+                    'directory' => __DIR__ . '/../Stub/Module'
                 ),
                 'provider' => array(
                     'prefix' => 'Horde_Cli_Modular_Stub_Module_'

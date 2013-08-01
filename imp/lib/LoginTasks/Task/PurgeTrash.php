@@ -1,16 +1,24 @@
 <?php
 /**
- * Login tasks module that purges old messages in the Trash mailbox.
- *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Login tasks module that purges old messages in the Trash mailbox.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
 {
@@ -38,7 +46,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
         global $injector, $notification, $prefs;
 
         if (!$prefs->getValue('use_trash') ||
-            !($trash = IMP_Mailbox::getPref('trash_folder')) ||
+            !($trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)) ||
             $trash->vtrash ||
             !$trash->exists) {
             return false;
@@ -73,7 +81,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
     public function describe()
     {
         return sprintf(_("All messages in your \"%s\" mailbox older than %s days will be permanently deleted."),
-                       IMP_Mailbox::getPref('trash_folder')->display_html,
+                       IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)->display_html,
                        $GLOBALS['prefs']->getValue('purge_trash_keep'));
     }
 

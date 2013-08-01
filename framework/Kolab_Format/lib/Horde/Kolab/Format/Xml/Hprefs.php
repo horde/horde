@@ -14,7 +14,7 @@
 /**
  * Kolab XML handler for client preferences.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -42,6 +42,7 @@ class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
      */
     protected $_fields_specific = array(
         'application' => 'Horde_Kolab_Format_Xml_Type_PrefsApplication',
+        'categories' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
         'pref' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
     );
 }

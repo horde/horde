@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -9,17 +9,24 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-$ticket = Whups::getCurrentTicket();
 $vars = Horde_Variables::getDefaultVariables();
+if ($vars->searchfield) {
+    $vars->id = $vars->searchfield;
+}
+$ticket = Whups::getCurrentTicket();
 $ticket->setDetails($vars);
-$linkTags[] = $ticket->feedLink();
-
 $title = '[#' . $ticket->getId() . '] ' . $ticket->get('summary');
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
+
+Whups::addTopbarSearch();
+Whups::addFeedLink();
+$page_output->addLinkTag($ticket->feedLink());
+$page_output->header(array(
+    'title' => $title
+));
+$notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
 $tabs = Whups::getTicketTabs($vars, $ticket->getId());
@@ -51,4 +58,4 @@ if ($prefs->getValue('comment_sort_dir')) {
 echo implode('', $chtml);
 $comment->end();
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

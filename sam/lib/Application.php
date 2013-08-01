@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Sam through this API.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('SAM_BASE')) {
-    define('SAM_BASE', dirname(__FILE__) . '/..');
+    define('SAM_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

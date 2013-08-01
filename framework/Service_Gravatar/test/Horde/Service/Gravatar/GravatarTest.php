@@ -12,13 +12,11 @@
  * @link     http://pear.horde.org/index.php?package=Service_Gravatar
  */
 
-require_once dirname(__FILE__) . '/Autoload.php';
-
 /**
  * Horde_Service_Gravatar abstracts communication with Services supporting the
  * Gravatar API (http://www.gravatar.com/site/implement/).
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

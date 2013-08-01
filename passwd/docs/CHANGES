@@ -1,13 +1,33 @@
---------
-v5.0-git
---------
-
-
-
 ----------
-v4.0.2-git
+v5.0.1-git
 ----------
 
+[jan] Don't overwrite parameters for composite sub-drivers (Bug #12284).
+[jan] Don't install expect scripts as executables.
+[jan] Fix fatal error in Samba/LDAP driver (Bug #12319).
+[jan] Fix user name parameter in LDAP driver (Bug #12331).
+
+
+------
+v5.0.0
+------
+
+[jan] Add policy for minimum number of non-alphanumeric characters (Friedrich
+      Haubensak <hsk@fli-leibniz.de>, Request #12243).
+[jan] Add parameter for sudo program name to expect script (Friedrich Haubensak
+      <hsk@fli-leibniz.de>, Request #12243).
+
+
+-----------
+v5.0.0beta1
+-----------
+
+[mms] Add option to destroy Horde session after changing password (Bug #11766).
+[mms] Http driver now uses Horde_Http_Client.
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
 [jan] Fix preparing multiple backends (Bug #11023).
 
 
@@ -15,7 +35,8 @@ v4.0.2-git
 v4.0.1
 ------
 
-[rla] Don't pass too many parameters from backends.php to Horde_Db (Bug #10963).
+[rla] Don't pass too many parameters from backends.php to Horde_Db (Bug
+      #10963).
 [jan] Make expect driver locale independent (Bug #9166).
 [jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
 

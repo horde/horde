@@ -3,7 +3,7 @@
  * Turba directory driver implementation for Horde Preferences - very simple,
  * lightweight container.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -25,9 +25,9 @@ class Turba_Driver_Prefs extends Turba_Driver
      *
      * @return array  Hash containing the search results.
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
-        return array_values($this->_getAddressBook());
+        return $count_only ? count($this->_getAddressBook()) : array_values($this->_getAddressBook());
     }
 
     /**
@@ -96,7 +96,7 @@ class Turba_Driver_Prefs extends Turba_Driver
      */
     function _save($object)
     {
-        list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
+        list(,$object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
         $attributes = $this->toDriverKeys($object->getAttributes());
 
         $book = $this->_getAddressBook();

@@ -68,7 +68,7 @@ class Folks_Friends {
 
         $class = 'Folks_Friends_' . $driver;
         if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Friends/' . $driver . '.php';
+            include __DIR__ . '/Friends/' . $driver . '.php';
         }
         if (class_exists($class)) {
             return new $class($params);
@@ -223,7 +223,7 @@ class Folks_Friends {
             return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $user));
         }
 
-        // Do not allow to blacklist adminstrators
+        // Do not allow to blacklist administrators
         if (in_array($user, $this->_getAdmins())) {
             return PEAR::raiseError(sprintf(_("You cannot add \"%s\" to your blacklist."), $user));
         }

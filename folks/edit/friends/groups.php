@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once __DIR__ . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/base.php';
 require_once FOLKS_BASE . '/edit/tabs.php';
 
@@ -103,19 +103,19 @@ default:
 break;
 }
 
-$remove_url = Horde_Util::addParameter(Horde::url('edit/friends/groups.php'), 'action', 'delete');
+$remove_url = Horde::url('edit/friends/groups.php')->add('action', 'delete');
 $remove_img = Horde::img('delete.png');
-$edit_url = Horde_Util::addParameter(Horde::url('edit/friends/groups.php'), 'action', 'edit');
+$edit_url = Horde::url('edit/friends/groups.php')->add('action', 'edit');
 $edit_img = Horde::img('edit.png');
 $perms_url = Horde::url('perms.php');
 $perms_img = Horde::img('perms.png');
 $members_url = Horde::url('edit/friends/friends.php');
 $members_img = Horde::img('group.png');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
-
 echo $tabs->render('groups');
 require FOLKS_TEMPLATES . '/edit/groups.php';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

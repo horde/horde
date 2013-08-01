@@ -2,7 +2,7 @@
 /**
  * VFS API for abstracted file storage and access.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -310,7 +310,11 @@ abstract class Horde_Vfs_Base
     public function move($path, $name, $dest, $autocreate = false)
     {
         $this->copy($path, $name, $dest, $autocreate);
-        $this->deleteFile($path, $name);
+        if ($this->isFolder($path, $name)) {
+            $this->deleteFolder($path, $name, true);
+        } else {
+            $this->deleteFile($path, $name);
+        }
     }
 
     /**
@@ -325,10 +329,7 @@ abstract class Horde_Vfs_Base
      */
     public function copy($path, $name, $dest, $autocreate = false)
     {
-        $orig = $this->_getPath($path, $name);
-        if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new Horde_Vfs_Exception('Cannot copy file(s) - source and destination are the same.');
-        }
+        $this->_checkDestination($path, $dest);
 
         if ($autocreate) {
             $this->autocreatePath($dest);
@@ -338,6 +339,21 @@ abstract class Horde_Vfs_Base
             $this->_copyRecursive($path, $name, $dest);
         } else {
             $this->writeData($dest, $name, $this->read($path, $name), $autocreate);
+        }
+    }
+
+    /**
+     * Checks whether a source and destination directory are the same.
+     *
+     * @param string $path  A source path.
+     * @param string $dest  A destination path.
+     *
+     * @throws Horce_Vfs_Exception of both paths are the same.
+     */
+    protected function _checkDestination($path, $dest)
+    {
+        if (preg_match('|^' . preg_quote(rtrim($path, '/'), '|') . '/?$|', $dest)) {
+            throw new Horde_Vfs_Exception('Cannot copy file(s) - source and destination are the same.');
         }
     }
 
@@ -698,7 +714,7 @@ abstract class Horde_Vfs_Base
      */
     public function getQuota()
     {
-        if (empty($this->_params['vfs_quotalimit'])) {
+        if ($this->_params['vfs_quotalimit'] == -1) {
             throw new Horde_Vfs_Exception('No quota set.');
         }
 

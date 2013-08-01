@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -9,7 +9,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -18,6 +18,8 @@ $qManager = new Whups_Query_Manager();
 // Set up the page config vars.
 $showEditQuery = true;
 $showExtraForm = null;
+
+Whups::addTopbarSearch();
 
 // Find our current query.
 if ($whups_query = $session->get('whups', 'query')) {
@@ -79,7 +81,7 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
             $notification->push($e->getMessage());
             $qf = 'props';
         }
-        $session->set('whups', 'query_form', 'props');
+        $session->set('whups', 'query_form', $qf);
         $vars->set('edit', true);
         break;
     }
@@ -106,19 +108,7 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
     $action = $vars->get('action');
 
     switch ($action) {
-    // Current form actions.
-    case 'props':
-    case 'user':
-    case 'group':
-    case 'date':
-    case 'text':
-    case 'attribs':
-        $session->set('whups', 'query_form', $action);
-        break;
-
-    // Global query options
     case 'new':
-        unset($whups_query);
         $whups_query = $qManager->newQuery();
         break;
 
@@ -138,6 +128,10 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
         break;
     }
 }
+if ($vars->get('criteria') != '' &&
+    in_array($vars->get('criteria'), array('props', 'user', 'group', 'date', 'text', 'attribs'))) {
+    $session->set('whups', 'query_form', $vars->get('criteria'));
+}
 
 // Query actions.
 $queryTabs = $whups_query->getTabs($vars);
@@ -145,7 +139,7 @@ $queryTabs = $whups_query->getTabs($vars);
 // Criterion form types.
 $queryurl = Horde::url('query/index.php');
 $vars->set('action', $session->get('whups', 'query_form'));
-$criteriaTabs = new Horde_Core_Ui_Tabs('action', $vars);
+$criteriaTabs = new Horde_Core_Ui_Tabs('criteria', $vars);
 $criteriaTabs->preserve('path', $vars->get('path'));
 $criteriaTabs->addTab(_("_Property Criteria"), $queryurl, 'props');
 $criteriaTabs->addTab(_("_User Criteria"), $queryurl, 'user');
@@ -166,11 +160,13 @@ $qops = array(
 
 // Start the page.
 if ($whups_query->id) {
-    $linkTags[] = $whups_query->feedLink();
+    $page_output->addLinkTag($whups_query->feedLink());
 }
-$title = _("Query Builder");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
+Whups::addFeedLink();
+$page_output->header(array(
+    'title' => _("Query Builder")
+));
+$notification->notify(array('listeners' => 'status'));
 
 echo $queryTabs->render(Horde_Util::getFormData('action', 'edit'));
 
@@ -225,7 +221,7 @@ if ($showEditQuery) {
     $queryRenderer->edit($qops, $form->getName(), 2);
     $renderer->end();
 
-    echo '<br />' . $criteriaTabs->render();
+    echo '<br />' . $criteriaTabs->render($session->get('whups', 'query_form'));
 
     $renderer->beginActive($form->getTitle());
     $renderer->renderFormActive($form, $vars);
@@ -241,6 +237,6 @@ if ($showEditQuery) {
     $renderer->end();
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
 
 $session->set('whups', 'query', $whups_query);

@@ -51,22 +51,24 @@ var Horde_Facebook = Class.create({
      */
     updateStatus: function()
     {
+        if (!$F(this.opts.input)) {
+            return;
+        }
         $(this.opts.spinner).toggle();
-        params = new Object();
-        params.actionID = 'updateStatus';
-        params.statusText = $F(this.opts.input);
-        new Ajax.Updater({success:'currentStatus'},
-             this.opts.endpoint,
-             {
-                 method: 'post',
-                 parameters: params,
-                 onComplete: function() {
-                     $(this.opts.input).value = '';
-                     $(this.opts.spinner).toggle()
-                 },
-                 onFailure: function() {$(this.opts.spinner).toggle()}
-             }
-       );
+        var params = {
+            actionID: 'updateStatus',
+            statusText: $F(this.opts.input)
+        };
+        new Ajax.Request(this.opts.endpoint, {
+            method: 'post',
+            parameters: params,
+            onSuccess: function(response) {
+                $(this.opts.input).value = '';
+                $(this.opts.spinner).toggle();
+                $(this.opts.content).insert({ 'top': response.responseText });
+            }.bind(this),
+            onFailure: function() { $(this.opts.spinner).toggle(); }
+        });
     },
 
     addLike: function(post_id)
@@ -82,8 +84,8 @@ var Horde_Facebook = Class.create({
              {
                  method: 'post',
                  parameters: params,
-                 onComplete: function() {$(this.opts.spinner).toggle()}.bind(this),
-                 onFailure: function() {$(this.opts.spinner).toggle()}.bind(this)
+                 onComplete: function() { $(this.opts.spinner).toggle(); }.bind(this),
+                 onFailure: function() { $(this.opts.spinner).toggle(); }.bind(this)
              }
        );
 
@@ -110,9 +112,9 @@ var Horde_Facebook = Class.create({
 
     _getOlderEntriesCallback: function(response)
     {
-        var content = response.responseJSON.c;
+        var content = response.responseJSON.c,
+            h = $(this.opts.content).scrollHeight;
         this.oldest = response.responseJSON.o;
-        var h = $(this.opts.content).scrollHeight
         $(this.opts.content).insert(content);
         $(this.opts.content).scrollTop = h;
     },

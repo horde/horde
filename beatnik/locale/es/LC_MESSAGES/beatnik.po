@@ -1,0 +1,571 @@
+# Spanish translations for Beatnik H5 package.
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Beatnik package.
+# Automatically generated, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Beatnik H5 (1.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: scripts/export_config.php:139
+msgid "-h, --help                   Show this help"
+msgstr "-h, --help                   Muestra esta ayuda"
+
+#: scripts/export_config.php:141
+msgid "-p, --password[=password]    Horde login password"
+msgstr "-p, --password[=contraseña]    Contraseña de inicio de Horde"
+
+#: scripts/export_config.php:143
+msgid "-r, --rpc[=http://example.com/horde/rpc.php]    Remote url"
+msgstr "-r, --rpc[=http://ejemplo.com/horde/rpc.php]    Url remota"
+
+#: scripts/export_config.php:142
+msgid "-t, --type[=type]    Export format"
+msgstr "-t, --type[=tipo]    Formato de exportación"
+
+#: scripts/export_config.php:140
+msgid "-u, --username[=username]    Horde login username"
+msgstr "-u, --username[=usuario]    Usuario de inicio de sesión de Horde"
+
+#: lib/Beatnik.php:29
+msgid "A (Address)"
+msgstr "A (Dirección)"
+
+#: lib/Beatnik.php:30
+msgid "AAAA (IPv6 Address)"
+msgstr "Dirección IPv6"
+
+#: templates/listzones/header.inc:33 templates/view/header.inc:36
+msgid "Actions"
+msgstr "Acciones"
+
+#: lib/Forms/EditRecord.php:29
+msgid "Add DNS Record"
+msgstr "Añadir registro DNS"
+
+#: lib/Application.php:110
+msgid "Add Record"
+msgstr "Añadir registro"
+
+#: lib/Application.php:112
+msgid "Add Zone"
+msgstr "Añadir zona"
+
+#: lib/Driver/pdnsgsql.php:131 lib/Driver/pdnsgsql.php:185
+msgid ""
+"An error occurred while searching the database.  Details have been logged "
+"for the administrator."
+msgstr ""
+"Error buscando en la base de datos. Se han registrado los detalles para el "
+"administrador."
+
+#: lib/Forms/DeleteRecord.php:17
+msgid "Are you sure you want to delete this record?"
+msgstr "¿Seguro que desea eliminar este registro?"
+
+#: autogenerate.php:24 autogenerate.php:39 lib/Forms/Autogenerate.php:20
+#: templates/listzones/row.inc:5 templates/view/header.inc:16
+msgid "Autogenerate"
+msgstr "Autogenerar"
+
+#: autogenerate.php:32
+msgid "Autogeneration not performed"
+msgstr "No se ha realizado la generación automática"
+
+#: lib/Beatnik.php:32
+msgid "CNAME (Alias)"
+msgstr "CNAME (Apodo)"
+
+#: lib/Forms/Autogenerate.php:20 lib/Forms/DeleteRecord.php:35
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: lib/Forms/Autogenerate.php:19
+msgid "Choose a template for autogenerating the records:"
+msgstr "Elija una plantilla para la generación automática de los registros:"
+
+#: lib/Application.php:120
+msgid "Commit All"
+msgstr "Asentar todo"
+
+#: templates/view/header.inc:4
+msgid "Commit Changes"
+msgstr "Asentar cambios"
+
+#: lib/Beatnik.php:102
+msgid "Contact e-mail address for this zone"
+msgstr "Correo de contacto de esta zona"
+
+#: lib/Driver/pdnsgsql.php:143
+msgid "Corrupt SOA found for zone.  Contact your administrator."
+msgstr "Registro SOA de zona corrupto. Consulte a su administrador."
+
+#: scripts/export_config.php:40
+msgid "Couldn't read command-line options."
+msgstr "No se pudieron leer las opciones de línea de comandos."
+
+#: lib/Beatnik.php:327
+msgid "DNS Service Record Port Number"
+msgstr "Registro de número de puerto de servicio DNS"
+
+#: lib/Beatnik.php:307
+msgid "DNS Service Record Priority"
+msgstr "Registro de prioridad de servicio DNS"
+
+#: lib/Beatnik.php:317
+msgid "DNS Service Record Weight"
+msgstr "Registro de importancia de servicio DNS"
+
+#: config/prefs.php:44
+msgid "Default Time-To-Live for new records."
+msgstr "Tiempo-De-Vida por omisión para nuevos registros."
+
+#: delete.php:23 delete.php:47 lib/Forms/DeleteRecord.php:35
+#: templates/listzones/row.inc:7 templates/view/header.inc:18
+#: templates/view/record.inc:10
+msgid "Delete"
+msgstr "Eliminar"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Mostrar opciones"
+
+#: templates/listzones/header.inc:4
+msgid "Domain Categories"
+msgstr "Categorías de dominio"
+
+#: lib/Beatnik.php:83 lib/Beatnik.php:265
+msgid "Domain Name"
+msgstr "Nombre de dominio"
+
+#: lib/Application.php:86
+msgid "Domains"
+msgstr "Dominios"
+
+#: lib/Driver.php:314
+msgid "Driver not found."
+msgstr "No se encontró el controlador."
+
+#: templates/listzones/row.inc:9 templates/view/header.inc:14
+#: templates/view/record.inc:8
+msgid "Edit"
+msgstr "Modificar"
+
+#: lib/Forms/EditRecord.php:29
+msgid "Edit DNS Record"
+msgstr "Modificar registro DNS"
+
+#: lib/Application.php:110
+msgid "Edit Record"
+msgstr "Modificar registro"
+
+#: templates/listzones/header.inc:8
+msgid "Edit categories and colors"
+msgstr "Modificar categorías y colores"
+
+#: templates/listzones/header.inc:7
+msgid "Edit domain groups and colors"
+msgstr "Modificar grupos y colores de dominio"
+
+#: lib/Driver/pdnsgsql.php:83
+msgid ""
+"Error getting domain list.  Details have been logged for the administrator."
+msgstr ""
+"Error al obtener la lista de dominios. Se han registrado los detalles para "
+"el administrador."
+
+#: lib/Application.php:116
+msgid "Expert Mode"
+msgstr "Modo experto"
+
+#: lib/Application.php:69
+msgid "Expert Mode ON"
+msgstr "Modo experto ACTIVO"
+
+#: lib/Application.php:66
+msgid "Expert Mode off"
+msgstr "Modo experto INACTIVO"
+
+#: lib/Beatnik.php:138
+msgid "Expiration"
+msgstr "Vencimiento"
+
+#: scripts/export_config.php:117
+msgid "Have noting to do."
+msgstr "No hay nada que hacer."
+
+#: lib/Beatnik.php:159 lib/Beatnik.php:180 lib/Beatnik.php:201
+#: lib/Beatnik.php:244 lib/Beatnik.php:288 lib/Beatnik.php:339
+msgid "Hostname"
+msgstr "Servidor"
+
+#: lib/Beatnik.php:210 lib/Beatnik.php:222 lib/Beatnik.php:253
+#: lib/Beatnik.php:276 lib/Beatnik.php:297
+msgid "Hostname Target"
+msgstr "Servidor destino"
+
+#: lib/Beatnik.php:254
+msgid "Hostname for CNAME alias"
+msgstr "Servidor de apodo CNAME"
+
+#: lib/Beatnik.php:298
+msgid "Hostname for DNS Service Record"
+msgstr "Servidor de registro de servicio DNS"
+
+#: lib/Beatnik.php:211
+msgid "Hostname for Reverse DNS"
+msgstr "Servidor de DNS inverso"
+
+#: lib/Beatnik.php:277
+msgid "Hostname of Authoritative Name Server"
+msgstr "Servidor de servidor de nombre autoritativo"
+
+#: lib/Beatnik.php:223
+msgid "Hostname of Mail eXchanger"
+msgstr "Servidor de intercambio de correo (MX)"
+
+#: config/prefs.php:37
+msgid "How many domain to display per page."
+msgstr "Dominios mostrados por página."
+
+#: lib/Beatnik.php:168
+msgid "IP Address"
+msgstr "Dirección IP"
+
+#: lib/Beatnik.php:202
+msgid "IP in Reverse notation (.in-addr.arpa)"
+msgstr "IP en notación inversa (.in-addr.arpa)"
+
+#: lib/Beatnik.php:169
+msgid "IPv4 Network Address"
+msgstr "Dirección de red IPv4"
+
+#: lib/Beatnik.php:189
+msgid "IPv6 Address"
+msgstr "Dirección IPv6"
+
+#: lib/Beatnik.php:190
+msgid "IPv6 Network Address"
+msgstr "Dirección de red IPv6"
+
+#: lib/Driver/ldap2dns.php:245
+#, php-format
+msgid "Internal error: %s"
+msgstr "Error interno: %s"
+
+#: lib/Driver/ldap2dns.php:347
+msgid "Invalid record type specified."
+msgstr "Se ha indicado un tipo de registro no válido."
+
+#: lib/Application.php:108
+msgid "List Domains"
+msgstr "Listar dominios"
+
+#: scripts/export_config.php:109
+#, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr "Se ha iniciado sesión correctamente como \"%s\"."
+
+#: scripts/export_config.php:105
+msgid "Login is incorrect."
+msgstr "Inicio de sesión incorrecto."
+
+#: lib/Beatnik.php:33
+msgid "MX (Mail eXchange)"
+msgstr "MX (Intercambio de correo)"
+
+#: lib/Beatnik.php:232
+msgid "MX Preference (lower is more preferred)"
+msgstr "Prioridad MX (mayor prioridad cuanto más pequeño)"
+
+#: scripts/export_config.php:137
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+"Los argumentos requeridos por las opciones completas también son requeridos "
+"en las opciones abreviadas."
+
+#: lib/Beatnik.php:147
+msgid "Minimum"
+msgstr "Mínimo"
+
+#: lib/Driver/ldap2dns.php:398
+#, php-format
+msgid "Missing required field %s to save record."
+msgstr "Falta el campo requerido %s para guardar el registro."
+
+#: lib/Beatnik.php:28
+msgid "NS (Name Server)"
+msgstr "NS (Servidor de nombres)"
+
+#: lib/Driver/pdnsgsql.php:412
+msgid "Not implemented."
+msgstr "Sin desarrollar."
+
+#: lib/Beatnik.php:31
+msgid "PTR (Reverse DNS)"
+msgstr "PTR (DNS inverso)"
+
+#: lib/Beatnik.php:231
+msgid "Preference"
+msgstr "Opción"
+
+#: config/prefs.php:12 config/prefs.php:19
+msgid "Preferences"
+msgstr "Opciones"
+
+#: lib/Beatnik.php:92
+msgid "Primary Nameserver"
+msgstr "Servidor principal"
+
+#: lib/Beatnik.php:93
+msgid "Primary nameserver for this zone"
+msgstr "Servidor principal de esta zona"
+
+#: config/prefs.php:20
+msgid "Record Defaults"
+msgstr "Valores por omisión del registro"
+
+#: lib/Beatnik.php:361
+msgid "Record Time-To-Live (seconds)"
+msgstr "Rgistro Tiempo-De-Vida (segundos)"
+
+#: lib/Forms/EditRecord.php:37
+msgid "Record Type"
+msgstr "Tipo de registro"
+
+#: lib/Beatnik.php:545
+#, php-format
+msgid "Record added: %s/%s"
+msgstr "Se añadió el registro: %s/%s"
+
+#: delete.php:30
+msgid "Record deleted"
+msgstr "Registro eliminado"
+
+#: delete.php:37
+msgid "Record not deleted"
+msgstr "Registro no eliminado"
+
+#: lib/Beatnik.php:129
+msgid "Retry"
+msgstr "Reintentar"
+
+#: lib/Beatnik.php:27 lib/Forms/EditRecord.php:34
+msgid "SOA (Start of Authority)"
+msgstr "SOA (Inicio de autoridad)"
+
+#: lib/Beatnik.php:34
+msgid "SRV (Service Record)"
+msgstr "SRV (Registro de servicio)"
+
+#: lib/Beatnik.php:326
+msgid "SRV Port"
+msgstr "Puerto SRV"
+
+#: lib/Beatnik.php:306
+msgid "SRV Priority"
+msgstr "Prioridad SRV"
+
+#: lib/Beatnik.php:316
+msgid "SRV Weight"
+msgstr "Importancia de SRV"
+
+#: templates/menu.inc:16
+msgid "Select Domain"
+msgstr "Seleccionar dominio"
+
+#: templates/menu.inc:11 templates/menu.inc:17
+msgid "Select _Domain"
+msgstr "Seleccionar _dominio"
+
+#: lib/Beatnik.php:110
+msgid "Serial"
+msgstr "Número de serie"
+
+#: config/prefs.php:14
+msgid "Set default display parameters."
+msgstr "Define parámetros de visualización por omisión."
+
+#: config/prefs.php:21
+msgid "Set default record parameters."
+msgstr "Define parámetros por omisión del registro."
+
+#: lib/Beatnik.php:160 lib/Beatnik.php:181 lib/Beatnik.php:245
+#: lib/Beatnik.php:289 lib/Beatnik.php:340
+msgid "Short hostname for this record"
+msgstr "Nombre de servidor abreviado de este registro"
+
+#: lib/Beatnik.php:266
+msgid ""
+"Short sub-domain for NS record (leave blank unless creating a subdomain)"
+msgstr ""
+"Subdominio abreviado de registro NS (déjelo en blanco a menos que esté "
+"creando un subdominio)"
+
+#: lib/Beatnik.php:540
+msgid "Skipping existing identical record"
+msgstr "Saltando registros idénticos existentes"
+
+#: lib/Beatnik.php:349
+msgid "String payload for DNS TXT"
+msgstr "Cadena de carga de TXT DNS"
+
+#: lib/Beatnik.php:360
+msgid "TTL"
+msgstr "TTL"
+
+#: lib/Beatnik.php:35
+msgid "TXT (Text Record)"
+msgstr "TXT (Registro de texto)"
+
+#: lib/Forms/Autogenerate.php:27
+msgid "Template"
+msgstr "Plantilla"
+
+#: lib/Driver/pdnsgsql.php:135
+msgid "Too many domains matched that name.  Contact your administrator."
+msgstr ""
+"Demasiados dominios coincidentes con este nonbre. Consulte a su "
+"administrador."
+
+#: lib/Forms/DeleteRecord.php:25 templates/view/header.inc:37
+msgid "Type"
+msgstr "Tipo"
+
+#: lib/Beatnik.php:71
+msgid "UID"
+msgstr "UID"
+
+#: lib/Driver/ldap2dns.php:467
+#, php-format
+msgid "Unable to add record to LDAP. Reason: %s"
+msgstr "Incapaz de añadir el registro a LDAP. Motivo: %s"
+
+#: commit.php:50
+#, php-format
+msgid "Unable to construct valid SOA for %s.  Not incrementing serial."
+msgstr ""
+"Incapaz de construir un SOA válido para %s. No se incrementa el número de "
+"serie."
+
+#: lib/Driver/ldap2dns.php:320
+#, php-format
+msgid "Unable to delete record.  Reason: %s"
+msgstr "Incapaz de eliminar el registro. Motivo: %s"
+
+#: lib/Driver/ldap2dns.php:299
+msgid "Unable to delete record: No record ID specified."
+msgstr "Incapaz de eliminar el registro: No se ha indicado un ID de registro."
+
+#: lib/Beatnik.php:420
+msgid "Unable to determine if domain needs committing: invalid parameter."
+msgstr ""
+"Incapaz de determinar si el dominio necesita guardar los cambios: parámetro "
+"inválido."
+
+#: lib/Driver.php:147
+msgid "Unable to locate requested record."
+msgstr "Incapaz de ubicar el registro solicitado."
+
+#: lib/Driver/ldap2dns.php:450
+#, php-format
+msgid "Unable to modify record.  Reason: %s"
+msgstr "Incapaz de modificar el registro. Motivo: %s"
+
+#: lib/Driver.php:108
+#, php-format
+msgid "Unable to read requested domain %s"
+msgstr "Incapaz de leer el %s de dominio solicitado"
+
+#: lib/Driver/ldap2dns.php:440
+#, php-format
+msgid "Unable to rename old object.  Reason: %s"
+msgstr "Incapaz de renombra el objeto anterior. Motivo: %s"
+
+#: lib/Driver/ldap2dns.php:144
+#, php-format
+msgid "Unable to retrieve data from LDAP results: %s"
+msgstr "Incapaz de recuperar datos de los resultados LDAP: %s"
+
+#: lib/Beatnik.php:72
+msgid "Unique Identifier (Used as Record ID)"
+msgstr "Identificador único (Utilizado como ID de registro)"
+
+#: lib/Driver/ldap2dns.php:435
+msgid "Unsupported operation: cannot rename a domain."
+msgstr "Operación no disponible: no se puede renombrar un dominio."
+
+#: lib/Driver/ldap2dns.php:308
+msgid "Unsupported recursive delete."
+msgstr "Borrado recursivo no disponible."
+
+#: scripts/export_config.php:135
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "Uso: %s [OPCIONES]..."
+
+#: lib/Driver.php:81
+msgid "You are not permitted to view any domains."
+msgstr "Carece de permisos para ver ningún dominio."
+
+#: lib/Driver.php:207
+msgid "You do not have permission to create new domains."
+msgstr "Carece de permisos para crear dominios."
+
+#: lib/Driver.php:220
+msgid "You do not have permssion to edit the SOA of this zone."
+msgstr "Carece de permisos para modificar el SOA de esta zona."
+
+#: lib/Driver.php:225
+msgid "You do not have permssion to edit this record."
+msgstr "Carece de permisos para modificar este registro."
+
+#: lib/Beatnik.php:430
+#, php-format
+msgid "You have uncommitted changes in %s."
+msgstr "Tiene cambios sin guardar en %s."
+
+#: lib/Beatnik.php:101
+msgid "Zone Contact"
+msgstr "Contacto de la zona"
+
+#: lib/Beatnik.php:84
+msgid "Zone Domain Name"
+msgstr "Nombre de dominio de la zona"
+
+#: lib/Beatnik.php:139
+msgid "Zone Expiry"
+msgstr "Caducidad de zona"
+
+#: lib/Beatnik.php:148
+msgid "Zone Minimum"
+msgstr "Mínimo de zona"
+
+#: lib/Beatnik.php:121
+msgid "Zone Refresh"
+msgstr "Actualización de zona"
+
+#: lib/Beatnik.php:130
+msgid "Zone Retry"
+msgstr "Reintento de zona"
+
+#: lib/Beatnik.php:111
+msgid "Zone Serial Number"
+msgstr "Número de serie de zona"
+
+#: commit.php:48
+#, php-format
+msgid "Zone serial for %s incremented."
+msgstr "Se ha incrementado el número de serie de zona de %s."

@@ -14,31 +14,19 @@ var ImpPgp = {
 
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
+        var elt = e.element();
 
-        var id,
-            elt = e.element();
+        switch (elt.readAttribute('id')) {
+        case 'generate_expire':
+            elt.next().toggle();
+            break;
 
-        while (Object.isElement(elt)) {
-            id = elt.readAttribute('id');
-
-            switch (id) {
-            case 'generate_expire':
-                elt.next().toggle();
-                return;
-
-            default:
-                if (elt.hasClassName('calendarImg')) {
-                    Horde_Calendar.open(elt.identify(), new Date(Number($('generate_expire_date').getValue())));
-                    e.stop();
-                    return;
-                }
-                break;
+        default:
+            if (elt.hasClassName('calendarImg')) {
+                Horde_Calendar.open(elt.identify(), new Date(Number($('generate_expire_date').getValue())));
+                e.memo.stop();
             }
-
-            elt = elt.up();
+            break;
         }
     },
 
@@ -49,6 +37,8 @@ var ImpPgp = {
 
     onDomLoad: function()
     {
+        HordeCore.initHandler('click');
+
         var now = new Date();
         now.setFullYear(now.getFullYear() + 1);
         this.replaceDate(now);
@@ -57,5 +47,5 @@ var ImpPgp = {
 };
 
 document.observe('dom:loaded', ImpPgp.onDomLoad.bind(ImpPgp));
-document.observe('click', ImpPgp.clickHandler.bindAsEventListener(ImpPgp))
+document.observe('HordeCore:click', ImpPgp.clickHandler.bindAsEventListener(ImpPgp));
 document.observe('Horde_Calendar:select', ImpPgp.calendarSelectHandler.bindAsEventListener(ImpPgp));

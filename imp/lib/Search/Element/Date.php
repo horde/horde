@@ -4,7 +4,7 @@
  *
  * @deprecated  Use IMP_Search_Element_Daterange instead.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -69,7 +69,7 @@ class IMP_Search_Element_Date extends IMP_Search_Element
             break;
         }
 
-        return sprintf("%s '%s'", $label, strftime('%x', $this->_data->d));
+        return sprintf("%s '%s'", $label, gmstrftime('%x', $this->_data->d));
     }
 
 }

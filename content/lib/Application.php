@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Content through this API.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * @license  http://www.horde.org/licenses/bsd BSD
  * @package Content
@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('CONTENT_BASE')) {
-    define('CONTENT_BASE', dirname(__FILE__) . '/..');
+    define('CONTENT_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -34,5 +34,5 @@ class Content_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (2.0-git)';
+    public $version = '2.0.4-git';
 }

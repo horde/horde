@@ -2,7 +2,7 @@
 /**
  * Whups mail processing library.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -50,12 +50,18 @@ class Whups_Mail
             return true;
         }
 
-        // Try to avoid bounces.
+        // Try to avoid bounces, auto-replies, and mailing list responses.
         $from = $headers->getValue('from');
         if (strpos($headers->getValue('Content-Type'), 'multipart/report') !== false ||
             stripos($from, 'mailer-daemon@') !== false ||
             stripos($from, 'postmaster@') !== false ||
-            !is_null($headers->getValue('X-Failed-Recipients'))) {
+            !is_null($headers->getValue('X-Failed-Recipients')) ||
+            !is_null($headers->getValue('X-Autoreply-Domain')) ||
+            $headers->getValue('Auto-Submitted') == 'auto-replied' ||
+            $headers->getValue('Precedence') == 'auto_reply' ||
+            $headers->getValue('X-Precedence') == 'auto_reply' ||
+            $headers->getValue('X-Auto-Response-Suppress') == 'All' ||
+            $headers->getValue('X-List-Administrivia') == 'Yes') {
             return true;
         }
 
@@ -133,8 +139,23 @@ class Whups_Mail
             $GLOBALS['registry']->setAuth($auth_user, array());
         }
 
-        // Extract attachments.
+        // Attach message.
         $attachments = array();
+        if (!empty($GLOBALS['conf']['mail']['attach_message'])) {
+            $tmp_name = Horde::getTempFile('whups');
+            $fp = @fopen($tmp_name, 'wb');
+            if (!$fp) {
+                throw new Whups_Exception(
+                    sprintf('Cannot open file %s for writing.', $tmp_name));
+            }
+            fwrite($fp, $text);
+            fclose($fp);
+            $attachments[] = array(
+                'name' => _("Original Message") . '.eml',
+                'tmp_name' => $tmp_name);
+        }
+
+        // Extract attachments.
         $dl_list = array_slice(array_keys($message->contentTypeMap()), 1);
         foreach ($dl_list as $key) {
             $part = $message->getPart($key);
@@ -146,9 +167,8 @@ class Whups_Mail
             $tmp_name = Horde::getTempFile('whups');
             $fp = @fopen($tmp_name, 'wb');
             if (!$fp) {
-                Horde::logMessage(sprintf('Cannot open file %s for writing.',
-                                          $tmp_name), 'ERR');
-                return $ticket;
+                throw new Whups_Exception(
+                    sprintf('Cannot open file %s for writing.', $tmp_name));
             }
             fwrite($fp, $part->getContents());
             fclose($fp);

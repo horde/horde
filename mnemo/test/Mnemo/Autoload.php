@@ -12,13 +12,9 @@
  * @link       http://www.horde.org/apps/mnemo
  */
 
-$mappings = array('Mnemo' => dirname(__FILE__) . '/../../lib/');
-require_once 'Horde/Test/Autoload.php';
-
-/** Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
+Horde_Test_Autoload::addPrefix('Mnemo', __DIR__ . '/../../lib');
 
 /** Load the basic test definition */
-require_once dirname(__FILE__) . '/TestCase.php';
-require_once dirname(__FILE__) . '/Unit/Mnemo/Base.php';
-require_once dirname(__FILE__) . '/Unit/Mnemo/Sql/Base.php';
+require_once __DIR__ . '/TestCase.php';
+require_once __DIR__ . '/Unit/Mnemo/Base.php';
+require_once __DIR__ . '/Unit/Mnemo/Sql/Base.php';

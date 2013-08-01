@@ -4,9 +4,9 @@
  *
  * This file defines information about Horde bundles.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * @author  Jan Schneider <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package groupware
  */
 class Horde_Bundle extends Horde_Core_Bundle
@@ -19,12 +19,17 @@ class Horde_Bundle extends Horde_Core_Bundle
     /**
      * The bundle version.
      */
-    const VERSION = '4.0.7-git';
+    const VERSION = '5.1.2-git';
 
     /**
      * The bundle descriptive name.
      */
     const FULLNAME = 'Horde Groupware';
+
+    /**
+     * The short bundle descriptive name.
+     */
+    const SHORTNAME = 'Groupware';
 
     /**
      * Asks for the administrator settings.
@@ -42,7 +47,7 @@ class Horde_Bundle extends Horde_Core_Bundle
                 $this->_cli->writeln($this->_cli->red('An administration user is required'));
                 continue;
             }
-            $admin_pass = $this->_cli->passwordPrompt('Specify a password for the adminstrator account:');
+            $admin_pass = $this->_cli->passwordPrompt('Specify a password for the administrator account:');
             if (empty($admin_pass)) {
                 $this->_cli->writeln($this->_cli->red('An administrator password is required'));
                 continue;
@@ -69,7 +74,7 @@ class Horde_Bundle extends Horde_Core_Bundle
                     $auth->addUser($admin_user, array('password' => $admin_pass));
                 }
             } catch (Horde_Exception $e) {
-                $this->_cli->message('An error occured while adding or updating the adminstrator. Error messages:', 'cli.error');
+                $this->_cli->message('An error occured while adding or updating the administrator. Error messages:', 'cli.error');
                 $this->_cli->writeln($e->getMessage());
                 return;
             }

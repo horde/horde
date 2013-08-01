@@ -2,7 +2,7 @@
 /**
  * Preferences storage implementation for a Kolab IMAP server.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -193,8 +193,6 @@ class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage_Base
     /**
      * Lists all available scopes.
      *
-     * @since Horde_Prefs 1.1.0
-     *
      * @return array The list of scopes stored in the backend.
      */
     public function listScopes()
@@ -241,7 +239,7 @@ class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage_Base
         $folder = $this->_kolab->getList()
             ->getNamespace()
             ->constructFolderName($params['user'], $this->_folder);
-        $this->_kolab->getList()->createFolder($folder, 'h-prefs.default');
+        $this->_kolab->getList()->getListManipulation()->createFolder($folder, 'h-prefs.default');
         if ($this->_logger !== null) {
             $this->_logger->info(
                 sprintf(

@@ -1,13 +1,24 @@
 <?php
 /**
- * Ingo_Storage_Filters is the object used to hold user-defined filtering rule
- * information.
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Ingo
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo_Storage_Filters is the object used to hold user-defined filtering rule
+ * information.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Storage_Filters
 {
@@ -48,11 +59,50 @@ class Ingo_Storage_Filters
     /**
      * Returns the filter list.
      *
+     * @param arary  The rules to skip, a list of Ingo::RULE_* constants.
+     *
      * @return array  The list of rule hashes.
      */
-    public function getFilterList()
+    public function getFilterList($skip = array())
     {
-        return $this->_filters;
+        $skip = array_flip($skip);
+        $filters = array();
+        foreach ($this->_filters as $id => $filter) {
+            switch ($filter['action']) {
+            case Ingo_Storage::ACTION_BLACKLIST:
+                if (isset($skip[Ingo::RULE_BLACKLIST])) {
+                    continue 2;
+                }
+                break;
+            case Ingo_Storage::ACTION_WHITELIST:
+                if (isset($skip[Ingo::RULE_WHITELIST])) {
+                    continue 2;
+                }
+                break;
+            case Ingo_Storage::ACTION_FORWARD:
+                if (isset($skip[Ingo::RULE_FORWARD])) {
+                    continue 2;
+                }
+                break;
+            case Ingo_Storage::ACTION_VACATION:
+                if (isset($skip[Ingo::RULE_VACATION])) {
+                    continue 2;
+                }
+                break;
+            case Ingo_Storage::ACTION_SPAM:
+                if (isset($skip[Ingo::RULE_SPAM])) {
+                    continue 2;
+                }
+                break;
+            default:
+                if (isset($skip[Ingo::RULE_FILTER])) {
+                    continue 2;
+                }
+                break;
+            }
+            $filters[$id] = $filter;
+        }
+        return $filters;
     }
 
     /**
@@ -139,7 +189,7 @@ class Ingo_Storage_Filters
      * @param boolean $default  If true merge the rule hash with default rule
      *                          values.
      */
-    public function addRule($rule, $default = true)
+    public function addRule(array $rule, $default = true)
     {
         if ($default) {
             $this->_filters[] = array_merge($this->getDefaultRule(), $rule);

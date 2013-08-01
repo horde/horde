@@ -2,18 +2,15 @@
 /**
  * Setup autoloading for the tests.
  *
- * PHP version 5
- *
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
+ * @ignore
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
  * @subpackage UnitTests
- * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/gpl GPL
- * @link       http://pear.horde.org/index.php?package=Imp
  */
 
-$mappings = array('IMP' => dirname(__FILE__) . '/../../lib/');
-require_once 'Horde/Test/Autoload.php';
+Horde_Test_Autoload::addPrefix('IMP', __DIR__ . '/../../lib');
 
-/** Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
+require_once 'Stub/HtmlViewer.php';
+require_once 'Stub/ItipRequest.php';

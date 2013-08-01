@@ -1,18 +1,12 @@
 <?php
-/**
- * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- */
 
 foreach ($zonedata[$type] as $record) {
 
     $params = array('id' => $record['id'], 'rectype' => $type);
     echo '<tr>' . "\n";
-    echo '<td>' . Horde::link(Horde_Util::addParameter($edit, $params))
+    echo '<td>' . Horde::link($edit->copy()->add($params))
                 . Horde::img('edit.png', _("Edit")) . '</a> '
-                . Horde::link(Horde_Util::addParameter($delete, $params))
+                . Horde::link($delete->copy()->add($params))
                 . Horde::img('delete.png', _("Delete")) . '</a></td>';
     echo '<td>' . $rectypes[$type] . '</td>';
 

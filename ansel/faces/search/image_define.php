@@ -2,7 +2,7 @@
 /**
  * Process an single image (to be called by ajax)
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -47,14 +47,14 @@ if (count($faces) > 1) {
 $height = $x2 - $x1;
 $width = $y2 - $y1;
 
-Horde::addScriptFile('scriptaculous.js', 'horde');
-Horde::addScriptFile('builder.js', 'horde');
-Horde::addScriptFile('cropper.js', 'ansel');
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('scriptaculous/scriptaculous.js', 'horde');
+$page_output->addScriptFile('scriptaculous/builder.js', 'horde');
+$page_output->addScriptFile('cropper.js');
+$page_output->addScriptFile('stripe.js', 'horde');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/define.inc';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -2,7 +2,7 @@
 /**
  * This class provides a data structure for storing a stored filter.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -27,7 +27,7 @@ class IMP_Search_Filter extends IMP_Search_Query
     {
         switch ($name) {
         case 'querytext':
-            $text = array(_("Search"));
+            $text = array();
 
             foreach ($this->_criteria as $elt) {
                 $text[] = $elt->queryText();
@@ -37,7 +37,7 @@ class IMP_Search_Filter extends IMP_Search_Query
             }
             array_pop($text);
 
-            return implode(' ', $text);
+            return sprintf(_("Search %s"), implode(' ', $text));
         }
 
         return parent::__get($name);

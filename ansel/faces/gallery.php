@@ -4,7 +4,7 @@
  *
  * TODO: Turn this into an Ansel_View::
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -12,7 +12,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $gallery_id = (int)Horde_Util::getFormData('gallery');
@@ -29,7 +29,7 @@ try {
     exit;
 }
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-    $notification->push(sprintf(_("Access denied editing gallery \"%s\"."), $gallery->get('name')), 'horde.error');
+    $notification->push(_("Access denied editing this gallery."), 'horde.error');
     Ansel::getUrlFor('view', array('gallery' => $gallery_id))->redirect();
     exit;
 }
@@ -57,10 +57,12 @@ $pager = new Horde_Core_Ui_Pager(
 $pager->preserve('gallery',  $gallery_id);
 
 $title = sprintf(_("Searching for faces in %s"),Ansel::getUrlFor('view', array('gallery' => $gallery_id, 'view' => 'Gallery'))->link() . $gallery->get('name') . '</a>');
-Horde::addScriptFile('stripe.js', 'horde');
-Horde::addScriptFile('popup.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('popup.js', 'horde');
+
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/gallery.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

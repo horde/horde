@@ -2,7 +2,7 @@
 /**
  * Base file class.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -178,7 +178,7 @@ abstract class Horde_Vcs_File_Base
         $class = 'Horde_Vcs_Log_' . $this->_driver;
 
         if (!is_null($rev) && !empty($this->_cache)) {
-            $cacheId = implode('|', array($class, $this->sourceroot, $fl->getPath(), $rev, $this->_cacheVersion));
+            $cacheId = implode('|', array($class, $this->sourceroot, $this->getPath(), $rev, $this->_cacheVersion));
 
             // Individual revisions can be cached forever
             if ($this->_cache->exists($cacheId, 0)) {

@@ -11,12 +11,10 @@
  * Example configuration file that enables the Samba backend in favor of the
  * FTP backend and sets a server name for the Samba server:
  *
- * <code>
  * <?php
  * $backends['ftp']['disabled'] = true;
  * $backends['smb']['disabled'] = false;
  * $backends['smb']['params']['hostspec'] = 'FILESERVER HOST';
- * </code>
  *
  * Properties that can be set for each server:
  *   - attributes: (array) The list of attributes that the driver supports.
@@ -71,6 +69,12 @@
  *           - MB: megabytes
  *           - GB: gigabytes
  *         Examples: "2 MB", "2048 B", "1.5 GB"
+ *   - shares: (boolean) Whether to enable share support for this backend.
+ *             This allows flexible file sharing independent from the
+ *             permission support in the storage backend. For sharing to work
+ *             properly, you need a backend type that does not implicitly
+ *             enforce user permissions, and individual home directories for
+ *             each user.
  *   - root: (string) The directory that will be the "top" or "root" directory,
  *           being the topmost directory where users can change to. This is in
  *           addition to any 'vfsroot' parameter set in the params array.
@@ -85,8 +89,6 @@
  *                preferred list, then that entry will be selected by default
  *                on the login screen. Otherwise the first entry in the list
  *                is selected.
- *
- * $Id: ab0ea802731049d75e59e3e05c02e6acd838f04f $
  */
 
 // FTP Example.
@@ -103,8 +105,9 @@ $backends['ftp'] = array(
         'port' => 21,
         // Use passive mode?
         'pasv' => false,
-        // Set timeout (in seconds) for the FTP server. Default: 90 seconds
-        // 'timeout' => 90,
+        // The return formatting from the 'ls' command. Possible Values: 'aix',
+        // 'standard'.
+        // 'lsformat' => 'standard',
         // If true and the POSIX extension is available the driver will map
         // the user and group IDs returned from the FTP server with the local
         // IDs from the local password file.  This is useful only if the FTP
@@ -112,7 +115,15 @@ $backends['ftp'] = array(
         // IDs are identical to the remote FTP server.
         // 'maplocalids' => true,
         // The default permissions to set for newly created folders and files.
-        // 'permissions' => '750'
+        // 'permissions' => '750',
+        // If true, and PHP had been compiled with OpenSSL support, TLS
+        // transport-level encryption will be negotiated with the server.
+        // 'ssl' => false,
+        // Set timeout (in seconds) for the FTP server. Default: 90 seconds
+        // 'timeout' => 90,
+        // The type of the remote FTP server. Possible values: 'unix', 'win',
+        // 'netware'. By default, we attempt to auto-detect type.
+        // 'type' => 'unix',
     ),
     'loginparams' => array(
         // Allow the user to change the FTP server
@@ -152,8 +163,9 @@ $backends['hordeftp'] = array(
         'port' => 21,
         // Use passive mode?
         'pasv' => false,
-        // Set timeout (in seconds) for the FTP server. Default: 90 seconds
-        // 'timeout' => 90,
+        // The return formatting from the 'ls' command. Possible Values: 'aix',
+        // 'standard'.
+        // 'lsformat' => 'standard',
         // If true and the POSIX extension is available the driver will map
         // the user and group IDs returned from the FTP server with the local
         // IDs from the local password file.  This is useful only if the FTP
@@ -161,7 +173,15 @@ $backends['hordeftp'] = array(
         // IDs are identical to the remote FTP server.
         // 'maplocalids' => true,
         // The default permissions to set for newly created folders and files.
-        // 'permissions' => '750'
+        // 'permissions' => '750',
+        // If true, and PHP had been compiled with OpenSSL support, TLS
+        // transport-level encryption will be negotiated with the server.
+        // 'ssl' => false,
+        // Set timeout (in seconds) for the FTP server. Default: 90 seconds
+        // 'timeout' => 90,
+        // The type of the remote FTP server. Possible values: 'unix', 'win',
+        // 'netware'. By default, we attempt to auto-detect type.
+        // 'type' => 'unix',
     ),
     'loginparams' => array(
         // Allow the user to change the FTP server.
@@ -265,16 +285,16 @@ $backends['sqlhome'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
+    'shares' => true,
     'attributes' => array(
         'type',
         'name',
+        'share',
         'edit',
         'download',
         'modified',
         'size',
-        'permission',
         'owner',
-        'group'
     )
 );
 
@@ -292,7 +312,7 @@ $backends['file'] = array(
         // The base location under which the user home directories live.
         'vfsroot' => '/exampledir/home/',
         // The default permissions to set for newly created folders and files.
-        // 'permissions' => 0750
+        // 'permissions' => '750'
     ),
     'loginparams' => array(),
     'root' => '/',
@@ -300,16 +320,15 @@ $backends['file'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
+    'shares' => true,
     'attributes' => array(
         'type',
         'name',
+        'share',
         'edit',
         'download',
         'modified',
         'size',
-        'permission',
-        'owner',
-        'group'
     )
 );
 

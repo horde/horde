@@ -2,7 +2,7 @@
 /**
  * This class contains functions related to handling the headers of MIME data.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -348,7 +348,21 @@ class Horde_Mime_Headers implements Serializable
         // Fields defined in RFC 2822 that contain address information
         if (in_array($lcHeader, $this->addressFields())) {
             $rfc822 = new Horde_Mail_Rfc822();
-            $value = strval($rfc822->parseAddressList($value));
+            $addr_list = $rfc822->parseAddressList($value);
+
+            switch ($lcHeader) {
+            case 'bcc':
+            case 'cc':
+            case 'from':
+            case 'to':
+                /* Catch malformed undisclosed-recipients entries. */
+                if ((count($addr_list) == 1) &&
+                    preg_match("/^\s*undisclosed-recipients:?\s*$/i", $addr_list[0]->bare_address)) {
+                    $addr_list = new Horde_Mail_Rfc822_List('undisclosed-recipients:;');
+                }
+                break;
+            }
+            $value = strval($addr_list);
         } else {
             $value = Horde_Mime::decode($value);
         }
@@ -442,10 +456,16 @@ class Horde_Mime_Headers implements Serializable
         }
 
         $ptr = &$this->_headers[$header];
-        $base = (is_array($ptr['v']) &&
-                 in_array($header, $this->singleFields(true)))
-            ? $ptr['v'][0]
-            : $ptr['v'];
+        if (is_array($ptr['v']) &&
+            in_array($header, $this->singleFields(true))) {
+            if (in_array($header, $this->addressFields())) {
+                $base = str_replace(';,', ';', implode(', ', $ptr['v']));
+            } else {
+                $base = $ptr['v'][0];
+            }
+        } else {
+            $base = $ptr['v'];
+        }
         $params = isset($ptr['p']) ? $ptr['p'] : array();
 
         switch ($type) {
@@ -568,7 +588,7 @@ class Horde_Mime_Headers implements Serializable
         }
 
         $rfc822 = new Horde_Mail_Rfc822();
-        return $rfc822->parseAddressList($this->getValue($field));
+        return $rfc822->parseAddressList($value);
     }
 
     /**
@@ -581,12 +601,16 @@ class Horde_Mime_Headers implements Serializable
     protected function _sanityCheck($data)
     {
         $charset_test = array(
-            'UTF-8',
             'windows-1252',
             self::$defaultCharset
         );
 
-        if (Horde_Mime::is8bit($data)) {
+        if (!Horde_String::validUtf8($data)) {
+            /* Appears to be a PHP error with the internal String structure
+             * which prevents accurate manipulation of the string. Copying
+             * the data to a new variable fixes things. */
+            $data = substr($data, 0);
+
             /* Assumption: broken charset in headers is generally either
              * UTF-8 or ISO-8859-1/Windows-1252. Test these charsets
              * first before using default charset. This may be a
@@ -620,7 +644,7 @@ class Horde_Mime_Headers implements Serializable
         $to_process = array();
 
         foreach (explode("\n", $text) as $val) {
-            $val = rtrim($val);
+            $val = rtrim($val, "\r\n");
             if (empty($val)) {
                 break;
             }
@@ -629,7 +653,7 @@ class Horde_Mime_Headers implements Serializable
                 $currtext .= ' ' . ltrim($val);
             } else {
                 if (!is_null($currheader)) {
-                    $to_process[] = array($currheader, $currtext);
+                    $to_process[] = array($currheader, rtrim($currtext));
                 }
 
                 $pos = strpos($val, ':');

@@ -1,7 +1,7 @@
 #!@php_bin@
 <?php
 /**
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -10,7 +10,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/horde-base.php';
+require_once __DIR__ . '/horde-base.php';
 Horde_Registry::appInit('horde', array(
     'authentication' => 'none',
     'cli' => true

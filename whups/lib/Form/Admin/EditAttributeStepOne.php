@@ -2,7 +2,7 @@
 /**
  * This file contains all Horde_Form classes for attribute administration.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -16,7 +16,7 @@ class Whups_Form_Admin_EditAttributeStepOne extends Horde_Form
     public function __construct(&$vars)
     {
         parent::__construct($vars, _("Edit or Delete Attributes"));
-        $this->setButtons(array(_("Edit Attribute"), _("Delete Attribute")));
+        $this->setButtons(array(_("Edit Attribute"), array('class' => 'horde-delete', 'value' => _("Delete Attribute"))));
 
         $attributes = $GLOBALS['whups_driver']->getAttributesForType($vars->get('type'));
         if ($attributes) {

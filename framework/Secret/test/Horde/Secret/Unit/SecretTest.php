@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the secret class.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -75,7 +70,7 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $key = "\x88";
         $plaintext = "\x01\x01\x01\x01\x01\x01\x01\x01";
 
-        $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext . "\x00")));
+        $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext)));
     }
 
     /**
@@ -87,13 +82,13 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $secret->read(new Horde_Secret_Stub_Message(), "\x01");
     }
 
-    /**
-     * @expectedException Horde_Secret_Exception
-     */
     public function testLongKeyException()
     {
         $secret = new Horde_Secret();
-        $secret->read('012345678901234567890123456789012345678901234567890123456789', "\x01");
+        $this->assertEquals(
+            $secret->read('012345678901234567890123456789012345678901234567890123456', "\x01"),
+            $secret->read('012345678901234567890123456789012345678901234567890123456789', "\x01")
+        );
     }
 
     public function testShortKeyRead()

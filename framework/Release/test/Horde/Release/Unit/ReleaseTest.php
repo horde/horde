@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test the version processing.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -97,7 +92,7 @@ v1.0.1-cvs
 
     public function testI18NForPreRelease()
     {
-        $r = $this->_getAnnounceHelper(array('version' => '1.0-RC1'));
+        $r = $this->_getAnnounceHelper(array('version' => '1.0.0RC1'));
         $this->assertContains(
             'i18n@lists.horde.org',
             $this->_announce($r)
@@ -124,7 +119,7 @@ v1.0.1-cvs
 
     public function testSubjectForPreRelease()
     {
-        $r = $this->_getAnnounceHelper(array('version' => '1.0-RC1'));
+        $r = $this->_getAnnounceHelper(array('version' => '1.0.0RC1'));
         $this->assertNotContains(
             '(final)',
             $this->_announce($r)

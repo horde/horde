@@ -14,7 +14,7 @@
 /**
  * The cache decorator for Kolab storage data handlers.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -181,8 +181,6 @@ extends Horde_Kolab_Storage_Data_Base
     /**
      * Return the mapping of object IDs to backend IDs.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return array The object to backend mapping.
      */
     public function getObjectToBackend()
@@ -194,8 +192,6 @@ extends Horde_Kolab_Storage_Data_Base
     /**
      * Retrieve the list of object duplicates.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return array The list of duplicates.
      */
     public function getDuplicates()
@@ -206,8 +202,6 @@ extends Horde_Kolab_Storage_Data_Base
 
     /**
      * Retrieve the list of object errors.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @return array The list of errors.
      */

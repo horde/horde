@@ -2,7 +2,7 @@
 /**
  * Ansel external API interface.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -77,7 +77,7 @@ class Ansel_Api extends Horde_Registry_Api
                     array('attributes' => $parts[0],
                           'all_levels' => false));
                 $images = array();
-            } elseif ($this->galleryExists(null, end($parts))) {
+            } elseif ($this->galleryExists(end($parts))) {
                 // This request if for a certain gallery, list all sub-galleries
                 // and images.
                 $gallery_id = end($parts);
@@ -91,7 +91,7 @@ class Ansel_Api extends Horde_Registry_Api
                           'view' => 'mini'));
 
             } elseif (count($parts) > 2 &&
-                      $this->galleryExists(null, $parts[count($parts) - 2]) &&
+                      $this->galleryExists($parts[count($parts) - 2]) &&
                       ($image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage(end($parts)))) {
 
                 return array(
@@ -106,7 +106,10 @@ class Ansel_Api extends Horde_Registry_Api
             foreach ($galleries as $gallery) {
                 $retpath = 'ansel/' . implode('/', $parts) . '/' . $gallery->id;
                 if (in_array('name', $properties)) {
-                    $results[$retpath]['name'] = $gallery->get('name');
+                    $results[$retpath]['name'] = sprintf(
+                        _("Photos from %s"),
+                        $gallery->get('name')
+                    );
                 }
                 if (in_array('displayname', $properties)) {
                     $results[$retpath]['displayname'] = rawurlencode($gallery->get('name'));
@@ -141,7 +144,7 @@ class Ansel_Api extends Horde_Registry_Api
                     $results[$retpath]['displayname'] = rawurlencode($image['name']);
                 }
                 if (in_array('icon', $properties)) {
-                    $results[$retpath]['icon'] = Horde::url($image['url'], true);
+                    $results[$retpath]['icon'] = $image['url'];
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$retpath]['browseable'] = false;
@@ -195,7 +198,7 @@ class Ansel_Api extends Horde_Registry_Api
         }
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            throw new Horde_Exception_PermissionDenied(_("Access denied adding photos to \"%s\"."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied adding photos to this gallery."));
         }
 
         return $gallery->addImage(array(
@@ -347,7 +350,7 @@ class Ansel_Api extends Horde_Registry_Api
 
         // Check perms for requested gallery
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(_("Access denied adding photos to this gallery."));
         }
 
         // Changing any values while we are at it?
@@ -425,7 +428,7 @@ class Ansel_Api extends Horde_Registry_Api
         $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(_("Access denied deleting photos from this gallery."));
         }
 
         $gallery->removeImage($image);
@@ -512,7 +515,7 @@ class Ansel_Api extends Horde_Registry_Api
         // Get, and check perms on the gallery
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting gallery \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(_("Access denied deleting this gallery."));
         } else {
             $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
@@ -651,7 +654,7 @@ class Ansel_Api extends Horde_Registry_Api
             ->getGallery($image->gallery);
 
         // Check age and password
-        if (!$gallery->hasPasswd() || !$gallery->isOldEnough()) {
+        if ($gallery->hasPasswd() || !$gallery->isOldEnough()) {
             throw new Horde_Exception_PermissionDenied(
                 _("Locked galleries are not viewable via the api."));
         }
@@ -660,7 +663,7 @@ class Ansel_Api extends Horde_Registry_Api
             // Check permissions for full view
             if (!$gallery->canDownload()) {
                 throw new Horde_Exception_PermissionDenied(
-                    sprintf(_("Access denied downloading full sized photos from \"%s\"."), $gallery->get('name')));
+                    _("Access denied downloading full sized photos from this gallery."));
             }
 
             // Try reading the data
@@ -756,7 +759,7 @@ class Ansel_Api extends Horde_Registry_Api
         $galleries = array();
         foreach ($results as $gallery) {
             $galleries[$gallery->id] = array_merge(
-                $gallery->data,
+                $gallery->toArray(),
                 array('crumbs' => $gallery->getGalleryCrumbData()));
         }
 
@@ -1098,8 +1101,13 @@ class Ansel_Api extends Horde_Registry_Api
         $classname = 'Ansel_View_' . basename($view);
         $params['api'] = true;
         $params['view'] = $view;
+        if ($params['style']) {
+            $params['style'] = Ansel::getStyleDefinition($params['style']);
+        }
+
         $trail = array();
         $return = array();
+
         try {
             $view = new $classname($params);
         } catch (Horde_Exception $e) {
@@ -1107,6 +1115,7 @@ class Ansel_Api extends Horde_Registry_Api
             $return['crumbs'] = array();
             return $return;
         }
+
         $return['html'] = $view->html();
         if ($params['view'] == 'Gallery' || $params['view'] == 'Image') {
             $trail = $view->getGalleryCrumbData();
@@ -1115,5 +1124,4 @@ class Ansel_Api extends Horde_Registry_Api
 
         return $return;
     }
-
 }

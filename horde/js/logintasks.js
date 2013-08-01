@@ -1,19 +1,13 @@
 /**
  * Provides the javascript for the logintasks confirmation page.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 
-document.observe('click', function(e) {
-    switch (e.element().readAttribute('id')) {
-    case 'logintasks_skip':
+document.observe('dom:loaded', function() {
+    $('logintasks_skip').show().observe('click', function() {
         $('logintasks_confirm').getInputs('checkbox').invoke('setValue', 0);
         $('logintasks_confirm').submit();
-        break;
-    }
-});
-
-document.observe('dom:loaded', function() {
-    $('logintasks_skip').show();
+    });
 });

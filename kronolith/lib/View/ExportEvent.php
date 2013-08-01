@@ -3,15 +3,16 @@
  * The Kronolith_View_ExportEvent:: class provides an API for exporting
  * events.
  *
- * @author  Jan Schneider <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
 class Kronolith_View_ExportEvent
 {
     /**
-     * @param Kronolith_Event $event
+     * @param mixed Kronolith_Event|string $event  The event object or error
+     *                                             string to display.
      */
-    public function __construct(Kronolith_Event $event)
+    public function __construct($event)
     {
         if (!$event) {
             echo '<h3>' . _("Event not found") . '</h3>';

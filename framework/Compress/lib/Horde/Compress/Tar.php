@@ -2,7 +2,7 @@
 /**
  * This class allows tar files to be read.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -71,7 +71,11 @@ class Horde_Compress_Tar extends Horde_Compress_Base
         $return_array = array();
 
         while ($position < $data_len) {
-            $info = @unpack("a100filename/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/Ctypeflag/a100link/a6magic/a2version/a32uname/a32gname/a8devmajor/a8devminor", substr($data, $position));
+            if (version_compare(PHP_VERSION, '5.5.0-dev', '>=')) {
+                $info = @unpack('Z100filename/Z8mode/Z8uid/Z8gid/Z12size/Z12mtime/Z8checksum/Ctypeflag/Z100link/Z6magic/Z2version/Z32uname/Z32gname/Z8devmajor/Z8devminor', substr($data, $position));
+            } else {
+                $info = @unpack('a100filename/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/Ctypeflag/a100link/a6magic/a2version/a32uname/a32gname/a8devmajor/a8devminor', substr($data, $position));
+            }
             if (!$info) {
                 throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Unable to decompress data."));
             }

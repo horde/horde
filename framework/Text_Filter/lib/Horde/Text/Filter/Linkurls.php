@@ -30,7 +30,7 @@
  *   - target: (string) The link target.
  *             DEFAULT: '_blank'
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -89,7 +89,8 @@ class Horde_Text_Filter_Linkurls extends Horde_Text_Filter_Base
    (?:[a-z][\w-+]{0,19})?:/{1,3}  # URL protocol and colon followed by 1-3
                                   # slashes, or just colon and slashes (://)
     |                             #  - or -
-    www\d{0,3}\.                  # "www.", "www1.", "www2." … "www999."
+    (?<!\.)www\d{0,3}\.           # "www.", "www1.", "www2." … "www999."
+                                  # without a leading period
     |                             #  - or -
     [a-z0-9.\-]+\.[a-z]{2,4}/    # looks like domain name followed by a slash
   )
@@ -173,7 +174,12 @@ END_OF_REGEX;
      */
     static public function decode($text)
     {
-        return preg_replace('/\00\00\00([\w=+\/]*)\00\00\00/e', 'base64_decode(\'$1\')', $text);
+        return preg_replace_callback(
+            '/\00\00\00([\w=+\/]*)\00\00\00/',
+            function($hex) {
+                return base64_decode($hex[1]);
+            },
+            $text);
     }
 
 }

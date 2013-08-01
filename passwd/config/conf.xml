@@ -1,16 +1,6 @@
 <?xml version="1.0"?>
 <!-- $Id$ -->
 <configuration>
- <configsection name="menu" desc="Menu settings">
-  <configheader>Menu settings</configheader>
-  <configmultienum name="apps" desc="Select any applications that should be
-  linked in Passwd's menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
- </configsection>
-
  <configsection name="backend">
   <configheader>Backend Settings</configheader>
   <configenum name="backend_list" desc="Should we display a list of backends

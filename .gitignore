@@ -3,8 +3,10 @@
 .cache
 .project
 .settings
+nbproject/
 *~
 .#*
+!framework/Vcs/test/Horde/Vcs/repos/cvs/CVSROOT/.#*
 *.bak
 *.orig
 *.rej
@@ -12,13 +14,11 @@
 *.kdev4
 .kdev4/*
 
+# Ignore ALL config files
+conf.php
+
 # Ignore testing files
 run-tests.log
-framework/*/tests/*.diff
-framework/*/tests/*.exp
-framework/*/tests/*.log
-framework/*/tests/*.out
-framework/*/tests/*.php
 framework/*/test/*/*/*.diff
 framework/*/test/*/*/*.exp
 framework/*/test/*/*/*.log
@@ -27,29 +27,7 @@ framework/*/test/*/*/*/*.diff
 framework/*/test/*/*/*/*.exp
 framework/*/test/*/*/*/*.log
 framework/*/test/*/*/*/*.out
-!framework/File_CSV/tests/common.php
-!framework/Image/tests/swf.php
-!framework/Image/tests/gd.php
-!framework/Image/tests/im.php
-!framework/Image/tests/runtest.php
-!framework/Image/tests/svg.php
-!framework/SyncML/tests/testpacket.php
-!framework/SyncML/tests/testsync.php
-!framework/XML_WBXML/tests/decode.php
-framework/Alarm/test/Horde/Alarm/conf.php
-framework/Db/test/Horde/Db/Adapter/conf.php
-framework/Db/test/Horde/Db/Adapter/Pdo/conf.php
-framework/Group/test/Horde/Group/conf.php
-framework/Http/test/Horde/Http/conf.php
-framework/Kolab_Storage/test/Horde/Kolab/Storage/conf.php
-framework/Ldap/test/Horde/Ldap/conf.php
-framework/Pear/test/Horde/Pear/Server/conf.php
-framework/Prefs/test/Horde/Prefs/conf.php
-framework/Share/test/Horde/Share/conf.php
-framework/Vcs/test/Horde/Vcs/conf.php
-!framework/Vcs/test/Horde/Vcs/repos/cvs/CVSROOT/.#*
-framework/Vfs/test/Horde/Vfs/conf.php
-content/test/Content/conf.php
+
 # Dynamically generated content that may live in the repo directories
 /lib/
 /libs/
@@ -67,8 +45,6 @@ content/test/Content/conf.php
 */config/menu.php
 */config/*.local.php
 */config/*-*.php
-/chora/config/backends.php
-/luxor/config/backends.php
 framework/bin/*.conf
 !/horde/admin/config/
 !/bundles/*/config/*.d/*.php
@@ -83,8 +59,6 @@ ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.pbxuser
 ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.perspectivev3
 ApertureToAnselExportPlugin/*.pbxproject
 ApertureToAnselExportPlugin/Installer/*.pkg
-
-framework/Rdo/examples/Horde/Rdo/conf.php
 
 iPhoto2Ansel/build/
 iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.pbxuser

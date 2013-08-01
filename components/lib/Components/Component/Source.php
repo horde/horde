@@ -14,7 +14,7 @@
 /**
  * Represents a source component.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -70,13 +70,35 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
+     * Return a data array with the most relevant information about this
+     * component.
+     *
+     * @return array Information about this component.
+     */
+    public function getData()
+    {
+        $data = new stdClass;
+        $package = $this->getPackageXml();
+        $data->name = $package->getName();
+        $data->summary = $package->getSummary();
+        $data->description = $package->getDescription();
+        $data->version = $package->getVersion();
+        $data->releaseDate = $package->getDate()
+            . ' ' . $package->getNodeText('/p:package/p:time');
+        $data->download = sprintf('http://pear.horde.org/get/%s-%s.tgz',
+                                  $data->name, $data->version);
+        $data->hasCi = $this->_hasCi();
+        return $data;
+    }
+
+    /**
      * Indicate if the component has a local package.xml.
      *
      * @return boolean True if a package.xml exists.
      */
     public function hasLocalPackageXml()
     {
-        return file_exists($this->_getPackageXmlPath());
+        return file_exists($this->getPackageXmlPath());
     }
 
     /**
@@ -143,21 +165,26 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function updatePackageXml($action, $options)
     {
-        if (!file_exists($this->_getPackageXmlPath())) {
+        if (!file_exists($this->getPackageXmlPath())) {
             $this->getFactory()->createPackageFile($this->_directory);
         }
 
         $package_xml = $this->getPackageXml();
-        $package_xml->updateContents(
-            $this->getFactory()->createContentList($this->_directory),
-            $options
-        );
+
+        /* Skip updating if this is a PECL package. */
+        if (!$package_xml->findNode('/p:package/p:providesextension')) {
+            $package_xml->updateContents(
+                $this->getFactory()->createContentList($this->_directory),
+                $options
+            );
+        }
+
         switch($action) {
         case 'print':
             return (string) $package_xml;
         case 'diff':
             $new = (string) $package_xml;
-            $old = file_get_contents($this->_getPackageXmlPath());
+            $old = file_get_contents($this->getPackageXmlPath());
             $renderer = new Horde_Text_Diff_Renderer_Unified();
             return $renderer->render(
                 new Horde_Text_Diff(
@@ -165,10 +192,10 @@ class Components_Component_Source extends Components_Component_Base
                 )
             );
         default:
-            file_put_contents($this->_getPackageXmlPath(), (string) $package_xml);
+            file_put_contents($this->getPackageXmlPath(), (string) $package_xml);
             if (!empty($options['commit'])) {
                 $options['commit']->add(
-                    $this->_getPackageXmlPath(), $this->_directory
+                    $this->getPackageXmlPath(), $this->_directory
                 );
             }
             return true;
@@ -190,7 +217,7 @@ class Components_Component_Source extends Components_Component_Base
     {
         if (empty($options['nopackage'])) {
             $file = $helper->packageXml(
-                $log, $this->getPackageXml(), $this->_getPackageXmlPath(), $options
+                $log, $this->getPackageXml(), $this->getPackageXmlPath(), $options
             );
             if ($file && !empty($options['commit'])) {
                 $options['commit']->add($file, $this->_directory);
@@ -218,20 +245,20 @@ class Components_Component_Source extends Components_Component_Base
             $package = $this->getPackageXml();
             $package->timestamp();
             $package->syncCurrentVersion();
-            file_put_contents($this->_getPackageXmlPath(), (string) $package);
+            file_put_contents($this->getPackageXmlPath(), (string) $package);
             $result = sprintf(
                 'Marked package.xml "%s" with current timestamp and synchronized the change log.',
-                $this->_getPackageXmlPath()
+                $this->getPackageXmlPath()
             );
         } else {
             $result = sprintf(
                 'Would timestamp "%s" now and synchronize its change log.',
-                $this->_getPackageXmlPath()
+                $this->getPackageXmlPath()
             );
         }
         if (!empty($options['commit'])) {
             $options['commit']->add(
-                $this->_getPackageXmlPath(), $this->_directory
+                $this->getPackageXmlPath(), $this->_directory
             );
         }
         return $result;
@@ -251,24 +278,58 @@ class Components_Component_Source extends Components_Component_Base
         if (empty($options['pretend'])) {
             $package = $this->getPackageXml();
             $package->setVersion($rel_version, $api_version);
-            file_put_contents($this->_getPackageXmlPath(), (string) $package);
+            file_put_contents($this->getPackageXmlPath(), (string) $package);
             if (!empty($options['commit'])) {
                 $options['commit']->add(
-                    $this->_getPackageXmlPath(), $this->_directory
+                    $this->getPackageXmlPath(), $this->_directory
                 );
             }
             $result = sprintf(
                 'Set release version "%s" and api version "%s" in %s.',
                 $rel_version,
                 $api_version,
-                $this->_getPackageXmlPath()
+                $this->getPackageXmlPath()
             );
         } else {
             $result = sprintf(
                 'Would set release version "%s" and api version "%s" in %s now.',
                 $rel_version,
                 $api_version,
-                $this->_getPackageXmlPath()
+                $this->getPackageXmlPath()
+            );
+        }
+        return $result;
+    }
+
+    /**
+     * Sets the state in the package.xml
+     *
+     * @param string $rel_state  The new release state.
+     * @param string $api_state  The new api state.
+     */
+    public function setState($rel_state = null, $api_state = null)
+    {
+        if (empty($options['pretend'])) {
+            $package = $this->getPackageXml();
+            $package->setState($rel_state, $api_state);
+            file_put_contents($this->getPackageXmlPath(), (string) $package);
+            if (!empty($options['commit'])) {
+                $options['commit']->add(
+                    $this->getPackageXmlPath(), $this->_directory
+                );
+            }
+            $result = sprintf(
+                'Set release state "%s" and api state "%s" in %s.',
+                $rel_state,
+                $api_state,
+                $this->getPackageXmlPath()
+            );
+        } else {
+            $result = sprintf(
+                'Would set release state "%s" and api state "%s" in %s now.',
+                $rel_state,
+                $api_state,
+                $this->getPackageXmlPath()
             );
         }
         return $result;
@@ -297,19 +358,19 @@ class Components_Component_Source extends Components_Component_Base
             $package->addNextVersion(
                 $version, $initial_note, $stability_api, $stability_release
             );
-            file_put_contents($this->_getPackageXmlPath(), (string) $package);
+            file_put_contents($this->getPackageXmlPath(), (string) $package);
             $result = sprintf(
                 'Added next version "%s" with the initial note "%s" to %s.',
                 $version,
                 $initial_note,
-                $this->_getPackageXmlPath()
+                $this->getPackageXmlPath()
             );
         } else {
             $result = sprintf(
                 'Would add next version "%s" with the initial note "%s" to %s now.',
                 $version,
                 $initial_note,
-                $this->_getPackageXmlPath()
+                $this->getPackageXmlPath()
             );
         }
         if ($stability_release !== null) {
@@ -321,7 +382,7 @@ class Components_Component_Source extends Components_Component_Base
 
         if (!empty($options['commit'])) {
             $options['commit']->add(
-                $this->_getPackageXmlPath(), $this->_directory
+                $this->getPackageXmlPath(), $this->_directory
             );
         }
         return $result;
@@ -441,12 +502,12 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function placeArchive($destination, $options = array())
     {
-        if (!file_exists($this->_getPackageXmlPath())) {
+        if (!file_exists($this->getPackageXmlPath())) {
             throw new Components_Exception(
                 sprintf(
                     'The component "%s" still lacks a package.xml file at "%s"!',
                     $this->getName(),
-                    $this->_getPackageXmlPath()
+                    $this->getPackageXmlPath()
                 )
             );
         }
@@ -465,7 +526,7 @@ class Components_Component_Source extends Components_Component_Base
 
         $package = $this->_getPackageFile();
         $pkg = $this->getFactory()->pear()->getPackageFile(
-            $this->_getPackageXmlPath(),
+            $this->getPackageXmlPath(),
             $package->getEnvironment()
         );
         $pkg->_packageInfo['version']['release'] = $version;
@@ -532,14 +593,14 @@ class Components_Component_Source extends Components_Component_Base
         $this->installChannel($env, $options);
         if (!empty($options['symlink'])) {
             $env->linkPackageFromSource(
-                $this->_getPackageXmlPath(), $reason
+                $this->getPackageXmlPath(), $reason
             );
         } else {
             $env->addComponent(
                 $this->getName(),
-                array($this->_getPackageXmlPath()),
+                array($this->getPackageXmlPath()),
                 $this->getBaseInstallationOptions($options),
-                ' from source in ' . dirname($this->_getPackageXmlPath()),
+                ' from source in ' . dirname($this->getPackageXmlPath()),
                 $reason
             );
         }
@@ -553,16 +614,16 @@ class Components_Component_Source extends Components_Component_Base
     protected function getPackageXml()
     {
         if (!isset($this->_package)) {
-            if (!file_exists($this->_getPackageXmlPath())) {
+            if (!file_exists($this->getPackageXmlPath())) {
                 throw new Components_Exception(
                     sprintf(
                         'The package.xml of the component at "%s" is missing.',
-                        $this->_getPackageXmlPath()
+                        $this->getPackageXmlPath()
                     )
                 );
             }
             $this->_package = $this->getFactory()->createPackageXml(
-                $this->_getPackageXmlPath()
+                $this->getPackageXmlPath()
             );
         }
         return $this->_package;
@@ -580,12 +641,12 @@ class Components_Component_Source extends Components_Component_Base
             if (isset($options['pearrc'])) {
                 $this->_package_file = $this->getFactory()->pear()
                     ->createPackageForPearConfig(
-                        $this->_getPackageXmlPath(), $options['pearrc']
+                        $this->getPackageXmlPath(), $options['pearrc']
                     );
             } else {
                 $this->_package_file = $this->getFactory()->pear()
                     ->createPackageForDefaultLocation(
-                        $this->_getPackageXmlPath()
+                        $this->getPackageXmlPath()
                     );
             }
         }
@@ -597,7 +658,7 @@ class Components_Component_Source extends Components_Component_Base
      *
      * @return string The path to the package.xml file.
      */
-    private function _getPackageXmlPath()
+    public function getPackageXmlPath()
     {
         return $this->_directory . '/package.xml';
     }

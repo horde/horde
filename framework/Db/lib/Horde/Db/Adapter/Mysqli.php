@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -346,8 +346,8 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function beginDbTransaction()
     {
-        $this->_transactionStarted = true;
         $this->_connection->autocommit(false);
+        $this->_transactionStarted++;
     }
 
     /**
@@ -356,7 +356,9 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     public function commitDbTransaction()
     {
         parent::commitDbTransaction();
-        $this->_connection->autocommit(true);
+        if (!$this->_transactionStarted) {
+            $this->_connection->autocommit(true);
+        }
     }
 
     /**
@@ -366,7 +368,9 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     public function rollbackDbTransaction()
     {
         parent::rollbackDbTransaction();
-        $this->_connection->autocommit(true);
+        if (!$this->_transactionStarted) {
+            $this->_connection->autocommit(true);
+        }
     }
 
 

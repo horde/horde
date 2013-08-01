@@ -14,7 +14,7 @@
 /**
  * A log decorator definition for the Kolab storage drivers.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -40,7 +40,7 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      *
      * @param Horde_Kolab_Storage_Driver $driver The decorated driver.
      * @param mixed                      $logger The log handler. This instance
-     *                                           must provide the info() method.
+     *                                           must provide the debug() method.
      */
     public function __construct(Horde_Kolab_Storage_Driver $driver, $logger)
     {
@@ -55,16 +55,155 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      */
     public function createBackend()
     {
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf('Driver "%s": Creating backend.', $this->getDriverName())
         );
         $result = $this->_driver->createBackend();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'Driver "%s": Backend successfully created', $this->getDriverName()
             )
         );
         return $result;
+    }
+
+    /**
+     * Create the specified folder.
+     *
+     * @param string $folder The folder to create.
+     *
+     * @return NULL
+     */
+    public function create($folder)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Creating folder %s.',
+                $this->getDriverName(),
+                $folder
+            )
+        );
+        $result = parent::create($folder);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully created folder %s.',
+                $this->getDriverName(),
+                $folder
+            )
+        );
+    }
+
+    /**
+     * Delete the specified folder.
+     *
+     * @param string $folder  The folder to delete.
+     *
+     * @return NULL
+     */
+    public function delete($folder)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Deleting folder %s.',
+                $this->getDriverName(),
+                $folder
+            )
+        );
+        $result = parent::delete($folder);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully deleted folder %s.',
+                $this->getDriverName(),
+                $folder
+            )
+        );
+    }
+
+    /**
+     * Rename the specified folder.
+     *
+     * @param string $old  The folder to rename.
+     * @param string $new  The new name of the folder.
+     *
+     * @return NULL
+     */
+    public function rename($old, $new)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Renaming folder %s.',
+                $this->getDriverName(),
+                $old
+            )
+        );
+        $result = parent::rename($old, $new);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully renamed folder %s to %s.',
+                $this->getDriverName(),
+                $old,
+                $new
+            )
+        );
+    }
+
+    /**
+     * Set the access rights for a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to set the ACL for.
+     * @param string $acl     The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($folder, $user, $acl)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Setting ACL %s for user %s on folder %s.',
+                $this->getDriverName(),
+                $acl,
+                $user,
+                $folder
+            )
+        );
+        parent::setAcl($folder, $user, $acl);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully set ACL on folder %s to %s.',
+                $this->getDriverName(),
+                $folder,
+                $acl
+            )
+        );
+    }
+
+    /**
+     * Delete the access rights for user on a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($folder, $user)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Deleting ACL for user %s on folder %s.',
+                $this->getDriverName(),
+                $user,
+                $folder
+            )
+        );
+        parent::deleteAcl($folder, $user);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully deleted ACL on folder %s.',
+                $this->getDriverName(),
+                $folder
+            )
+        );
     }
 
     /**
@@ -74,11 +213,11 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      */
     public function listFolders()
     {
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf('Driver "%s": Listing folders.', $this->getDriverName())
         );
         $result = parent::listFolders();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'Driver "%s": List contained %s folders.',
                 $this->getDriverName(),
@@ -97,11 +236,11 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      */
     public function listAnnotation($annotation)
     {
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf('Driver "%s": Listing annotation "%s".', $this->getDriverName(), $annotation)
         );
         $result = parent::listAnnotation($annotation);
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'Driver "%s": List contained %s folder annotations.',
                 $this->getDriverName(),
@@ -117,11 +256,11 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      */
     public function getNamespace()
     {
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf('Driver "%s": Retrieving namespaces.', $this->getDriverName())
         );
         $result = parent::getNamespace();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'Driver "%s": Retrieved namespaces [%s].',
                 $this->getDriverName(),

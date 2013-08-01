@@ -2,7 +2,7 @@
 /**
  * Thread display script
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -10,7 +10,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
@@ -103,7 +103,7 @@ $actions = array();
 /* Check if the thread allows replies. */
 if (!$message['locked']) {
     $url = Agora::setAgoraId($forum_id, null, Horde::url('messages/edit.php'));
-    $url = Horde_Util::addParameter($url, 'message_parent_id', $message_id);
+    $url = $url->add('message_parent_id', $message_id);
     $actions[] = Horde::link($url, _("Reply")) . _("Reply") . '</a>';
 }
 
@@ -147,8 +147,8 @@ switch ($view_bodies) {
 case '2':
     $threads_template = 'messages/flat';
     if (!$prefs->isLocked('thread_view_bodies')) {
-        $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
-        $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 1), _("Thread")) . _("Thread") . '</a>';
+        $actions[] = Horde::link($url->add('bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
+        $actions[] = Horde::link($url->add('bodies', 1), _("Thread")) . _("Thread") . '</a>';
     }
     $threads = $messages->getThreadsUi($threads_list, $col_headers, $view_bodies, $threads_template);
     break;
@@ -156,14 +156,18 @@ case '2':
 case '1':
     $threads_template = 'messages/flat_thread';
     if (!$prefs->isLocked('thread_view_bodies')) {
-        $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
-        $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 2), _("Flat")) . _("Flat") . '</a>';
+        $actions[] = Horde::link($url->add('bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
+        $actions[] = Horde::link($url->add('bodies', 2), _("Flat")) . _("Flat") . '</a>';
     }
 
     /* Resort messages by thread */
     $tree = new Agora_Tree_Flat('flatthread');
     foreach ($threads_list as &$node) {
-        $tree->addNode($node['message_id'], $node['parent'], $node['body'], $node['indent'], true, array(), $node);
+        $tree->addNode(
+            array('id' => $node['message_id'],
+                  'parent' => $node['parent'],
+                  'label' => $node['body'],
+                  'right' => $node));
     }
 
     $threads = $tree->getTree();
@@ -172,14 +176,13 @@ case '1':
 default:
     $threads_template = false;
     if (!$prefs->isLocked('thread_view_bodies')) {
-        $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 1), _("View bodies")) . _("View bodies") . '</a>';
+        $actions[] = Horde::link($url->add('bodies', 1), _("View bodies")) . _("View bodies") . '</a>';
     }
     $threads = $messages->getThreadsUi($threads_list, $col_headers, $view_bodies, $threads_template);
     break;
 }
 
 /* Set up the main template tags. */
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
@@ -187,7 +190,7 @@ $view->notify = Horde::endBuffer();
 
 $view->actions = $actions;
 $view->threads = $threads;
-$view->rss = Horde_Util::addParameter(Horde::url('rss/messages.php', true, -1), array('scope' => $scope, 'message_id' => $message_id, 'forum_id' => $forum_id));
+$view->rss = Horde::url('rss/messages.php', true, -1)->add(array('scope' => $scope, 'message_id' => $message_id, 'forum_id' => $forum_id));
 
 /* Display an edit-dialogue if the thread is not locked and we can edit messages in them. */
 if (!$messages->hasPermission(Horde_Perms::EDIT)) {
@@ -204,10 +207,10 @@ if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $vars->set('message_body_old', $reply['body']);
     $form = $messages->getForm($vars, sprintf(_("Post a Reply to \"%s\""), $reply['message_subject']));
     Horde::startBuffer();
-    $form->renderActive(null, null, Horde::url('message/edit.php'), 'post', null, false);
+    $form->renderActive(null, null, Horde::url('messages/edit.php'), 'post', null, false);
     $view->form = Horde::endBuffer();
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $view->render($template_file);
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

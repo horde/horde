@@ -1,4 +1,3 @@
-<?php echo $this->menu; ?>
 <?php echo $this->notify; ?>
 
 <h1 class="header"><?php echo _('Moderators'); ?></h1>

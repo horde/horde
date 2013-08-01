@@ -2,7 +2,7 @@
 /**
  * Tests for the Horde_Mime_Part class.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
@@ -10,11 +10,6 @@
  * @package    Mime
  * @subpackage UnitTests
  */
-
-/**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -27,16 +22,12 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
 {
     public function testParseMessage()
     {
-        $msg = file_get_contents(dirname(__FILE__) . '/fixtures/sample_msg.txt');
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg.txt');
         $part = Horde_Mime_Part::parseMessage($msg);
 
         $this->assertEquals(
             'multipart/mixed',
             $part->getType()
-        );
-        $this->assertEquals(
-            1869,
-            $part->getBytes()
         );
         $this->assertEquals(
             '=_k4kgcwkwggwc',
@@ -84,6 +75,54 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             "Content-Disposition: attachment; filename=index.png\r\n" .
             'Content-Transfer-Encoding: base64',
             Horde_Mime_Part::getRawPartText($msg, 'header', '3')
+        );
+
+        // Test the length of the resulting MIME string to ensure
+        // the incoming multipart data was not output twice.
+        $this->assertEquals(1777, strlen($part->toString()));
+
+        // Message with a single part.
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg3.txt');
+
+        $this->assertEquals(
+            "\r\nTest.\r\n",
+            Horde_Mime_Part::getRawPartText($msg, 'body', '1')
+        );
+    }
+
+    public function testParsingMultipartAlternativeDoesNotProduceAttachment()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/samplemultipart_msg.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+        $part->isBasePart(true);
+        $msg = $part->toString(array('headers' => true));
+        $test_part = Horde_Mime_Part::parseMessage($msg);
+        $map = array(
+            'multipart/alternative',
+            'text/plain',
+            'text/html');
+        $this->assertEquals($map, $test_part->contentTypeMap());
+
+        $part_one = $test_part->getPart(1);
+        $this->assertEquals('', $test_part->getPart(1)->getDisposition());
+    }
+
+    public function testAddingSizeToContentDisposition()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+        $part->setContents('123');
+        $part->setBytes(3);
+
+        $this->assertEquals(
+            "Content-Type: text/plain\r\n" .
+            "Content-Disposition: attachment; size=3\r\n" .
+            "\r\n" .
+            '123',
+            $part->toString(array(
+                'canonical' => true,
+                'headers' => true
+            ))
         );
     }
 
@@ -137,7 +176,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
 
     public function testAlterPart()
     {
-        $msg = file_get_contents(dirname(__FILE__) . '/fixtures/sample_msg.txt');
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg.txt');
         $part = Horde_Mime_Part::parseMessage($msg);
 
         $map = $part->contentTypeMap();
@@ -257,6 +296,65 @@ C
         $part31->setDisposition('attachment');
         $this->assertNull(
             $part->findBody('html')
+        );
+    }
+
+    // Deeply nested creation is OK
+    public function testDeeplyNestedPartCreation()
+    {
+        // Part #1
+        $base_part = $part = new Horde_Mime_Part();
+        $part->setType('multipart/mixed');
+
+        // Part #2-101
+        for ($i = 0; $i < 100; ++$i) {
+            $new_part = new Horde_Mime_Part();
+            $new_part->setType('multipart/mixed');
+            $part->addPart($new_part);
+            $part = $new_part;
+        }
+
+        // Part #102
+        $new_part = new Horde_Mime_Part();
+        $new_part->setType('text/plain');
+        $new_part->setContents('Test');
+        $part->addPart($new_part);
+
+        $base_part->isBasePart(true);
+        $base_part->buildMimeIds();
+
+        $this->assertEquals(
+            102,
+            count($base_part->contentTypeMap())
+        );
+    }
+
+    // Deeply nested parsing is limited
+    public function testDeeplyNestedPartParsing()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/deeply_nested.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertEquals(
+            100,  // Actual levels: 102
+            count($part->contentTypeMap())
+        );
+    }
+
+    public function testBug12161()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg2.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertEquals(
+            '=_k4kgcwkwggwc',
+            $part->getContentTypeParameter('boundary')
+        );
+
+        $part_1 = $part->getPart(1);
+        $this->assertEquals(
+            'text/plain',
+            $part_1->getType()
         );
     }
 

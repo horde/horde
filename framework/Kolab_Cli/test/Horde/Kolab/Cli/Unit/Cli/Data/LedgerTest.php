@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
-
-/**
  * Test the ledger data handler.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -60,7 +55,7 @@ extends Horde_Kolab_Cli_TestCase
     private function _import()
     {
         $ledger = new Horde_Kolab_Cli_Data_Ledger();
-        $ledger->importFile(dirname(__FILE__) . '/../../../fixtures/ledger.xml');
+        $ledger->importFile(__DIR__ . '/../../../fixtures/ledger.xml');
         return $ledger;
     }
 }

@@ -1,19 +1,28 @@
 <?php
 /**
- * Horde_Variables:: class. Provides OO-way to access form variables.
- *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Robert E. Coyle <robertecoyle@hotmail.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Util
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Util
  */
-class Horde_Variables implements Countable, Iterator
+
+/**
+ * An OO-way to access form variables.
+ *
+ * @author    Robert E. Coyle <robertecoyle@hotmail.com>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Util
+ */
+class Horde_Variables implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * The list of expected variables.
@@ -52,7 +61,9 @@ class Horde_Variables implements Countable, Iterator
      * Constructor.
      *
      * @param array $vars       The list of form variables (if null, defaults
-     *                          to PHP's $_REQUEST value).
+     *                          to PHP's $_REQUEST value). If '_formvars'
+     *                          exists, it must be a JSON encoded array that
+     *                          contains the list of allowed form variables.
      * @param string $sanitize  Sanitize the input variables?
      */
     public function __construct($vars = array(), $sanitize = false)
@@ -63,7 +74,7 @@ class Horde_Variables implements Countable, Iterator
         }
 
         if (isset($vars['_formvars'])) {
-            $this->_expected = @unserialize($vars['_formvars']);
+            $this->_expected = @json_decode($vars['_formvars'], true);
             unset($vars['_formvars']);
         }
 
@@ -112,6 +123,16 @@ class Horde_Variables implements Countable, Iterator
     }
 
     /**
+     * Implements isset() for ArrayAccess interface.
+     *
+     * @see __isset()
+     */
+    public function offsetExists($field)
+    {
+        return $this->__isset($field);
+    }
+
+    /**
      * Returns the value of a given form variable.
      *
      * @param string $varname  The form variable name.
@@ -137,6 +158,16 @@ class Horde_Variables implements Countable, Iterator
     {
         $this->_getExists($this->_vars, $varname, $value);
         return $value;
+    }
+
+    /**
+     * Implements getter for ArrayAccess interface.
+     *
+     * @see __get()
+     */
+    public function offsetGet($field)
+    {
+        return $this->__get($field);
     }
 
     /**
@@ -195,6 +226,16 @@ class Horde_Variables implements Countable, Iterator
     }
 
     /**
+     * Implements setter for ArrayAccess interface.
+     *
+     * @see __set()
+     */
+    public function offsetSet($field, $value)
+    {
+        $this->__set($field, $value);
+    }
+
+    /**
      * Deletes a given form variable.
      *
      * @see __unset()
@@ -232,6 +273,16 @@ class Horde_Variables implements Countable, Iterator
     }
 
     /**
+     * Implements unset() for ArrayAccess interface.
+     *
+     * @see __unset()
+     */
+    public function offsetUnset($field)
+    {
+        $this->__unset($field);
+    }
+
+    /**
      * Merges a list of variables into the current form variable list.
      *
      * @param array $vars  Form variables.
@@ -263,8 +314,6 @@ class Horde_Variables implements Countable, Iterator
 
     /**
      * Filters a form value so that it can be used in HTML output.
-     *
-     * @since Horde_Util 1.2.0
      *
      * @param string $varname  The form variable name.
      *
@@ -337,31 +386,11 @@ class Horde_Variables implements Countable, Iterator
         return count($this->_vars);
     }
 
-    /* Iterator methods. */
+    /* IteratorAggregate method. */
 
-    public function current()
+    public function getIterator()
     {
-        return current($this->_vars);
-    }
-
-    public function key()
-    {
-        return key($this->_vars);
-    }
-
-    public function next()
-    {
-        next($this->_vars);
-    }
-
-    public function rewind()
-    {
-        reset($this->_vars);
-    }
-
-    public function valid()
-    {
-        return (key($this->_vars) !== null);
+        return new ArrayIterator($this->_vars);
     }
 
 }

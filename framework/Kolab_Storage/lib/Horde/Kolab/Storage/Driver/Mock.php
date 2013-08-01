@@ -14,7 +14,7 @@
 /**
  * An Kolab storage mock driver.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -351,8 +351,10 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $result = array();
         foreach ($this->_data->arrayKeys() as $folder) {
-            if ($this->_data->hasAnnotation($folder, $annotation)) {
-                $result[$this->_convertToExternal($folder)] = $this->_data->getAnnotation($folder, $annotation);
+            if ($this->_folderVisible($folder, $this->getAuth())) {
+                if ($this->_data->hasAnnotation($folder, $annotation)) {
+                    $result[$this->_convertToExternal($folder)] = $this->_data->getAnnotation($folder, $annotation);
+                }
             }
         }
         return $result;

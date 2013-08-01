@@ -1,8 +1,8 @@
 <?php
 /**
- * Auto completer for contact entries.
+ * Javascript autocompleter for contacts.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -16,36 +16,31 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
 {
     /**
      */
-    protected function _attach($js_params)
+    protected function _getAutoCompleter()
     {
-        $js_params['tokens'] = array(',');
-        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
-
-        return array(
-            'ajax' => 'ContactAutoCompleter',
-            'params' => $js_params,
-            'raw_params' => array(
-                'onSelect' => 'function (v) { return v + ", "; }',
-                'onType' => 'function (e) { return e.include("<") ? "" : e; }'
-            )
+        return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax(
+            $this->_getAutoCompleterParams()
         );
     }
 
     /**
-     * Perform the address search.
+     * Return the basic autocompleter parameters.
      *
-     * @param array $args  Array with 1 key: 'input'.
-     *
-     * @return array  The data to send to the autocompleter JS code.
+     * @return array  Autocompleter parameters.
      */
-    public function handle($args, $post)
+    protected function _getAutoCompleterParams()
     {
-        // Avoid errors if 'input' isn't set and short-circuit empty searches.
-        if (empty($args['input']) ||
-            !($input = Horde_Util::getPost($args['input']))) {
-            return array();
-        }
+        return array(
+            'onSelect' => 'function (v) { return v + ", "; }',
+            'onType' => 'function (e) { return e.include("<") ? "" : e; }',
+            'tokens' => array(',')
+        );
+    }
 
+    /**
+     */
+    protected function _handleAutoCompleter($input)
+    {
         return array_map('strval', $this->getAddressList($input, array(
             'levenshtein' => true
         ))->base_addresses);
@@ -57,17 +52,13 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
      *
      * @param string $str  The name(s) or address(es) to expand.
      * @param array $opts  Additional options:
-     *   - levenshtein: (boolean)  Do levenshtein sorting.
+     *   - levenshtein: (boolean) Do levenshtein sorting,
+     *   - count_only: (boolean) Only return the count of results.
      *
      * @return Horde_Mail_Rfc822_List  Expand results.
      */
     public function getAddressList($str = '', array $opts = array())
     {
-        $str = trim($str);
-        if (!strlen($str)) {
-            return new Horde_Mail_Rfc822_List();
-        }
-
         $searchpref = $this->_getAddressbookSearchParams();
 
         try {
@@ -75,24 +66,29 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
                 'fields' => $searchpref->fields,
                 'returnFields' => array('email', 'name'),
                 'rfc822Return' => true,
-                'sources' => $searchpref->sources
+                'sources' => $searchpref->sources,
+                'count_only' => !empty($opts['count_only'])
             )));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return new Horde_Mail_Rfc822_List();
         }
 
-        if (empty($levenshtein)) {
+        if (!empty($opts['count_only'])) {
+            return $search;
+        }
+
+        if (empty($opts['levenshtein'])) {
             return $search;
         }
 
         $sort_list = array();
-        foreach ($search->addresses as $val) {
-            $sort_list[$val] = @levenshtein($str, $val);
+        foreach ($search->base_addresses as $val) {
+            $sort_list[strval($val)] = @levenshtein($str, $val);
         }
         asort($sort_list, SORT_NUMERIC);
 
-        return new Horde_Mail_Rfc822_List($sort_list);
+        return new Horde_Mail_Rfc822_List(array_keys($sort_list));
     }
 
     /**

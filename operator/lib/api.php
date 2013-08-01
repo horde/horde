@@ -5,7 +5,7 @@
  * This file defines Operator's external API interface. Other applications
  * can interact with Operator through this API.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -26,7 +26,7 @@ function _operator_perms()
         return $perms;
     }
 
-    @define('OPERATOR_BASE', dirname(__FILE__) . '/..');
+    @define('OPERATOR_BASE', __DIR__ . '/..');
     require_once OPERATOR_BASE . '/lib/base.php';
 
     $perms['tree']['operator']['accountcodes'] = false;

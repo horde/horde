@@ -13,14 +13,9 @@
             $line = 0;
             foreach ($devices as $devid => $info) {
 
-                $url = Horde::url("devices.php");
-                $url = Horde_Util::addParameter($url,
-                    array(
-                        'devid' => $devid,
-                    )
-                );
-                $editurl = Horde_Util::addParameter($url, 'action', 'edit');
-                $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
+                $url = Horde::url("devices.php")->add('devid', $devid);
+                $editurl = $url->copy()->add('action', 'edit');
+                $deleteurl = $url->copy()->add('action', 'delete');
         ?>
         <tr class="item">
             <td>
@@ -40,10 +35,9 @@
 </div>
 <ul id="controls">
     <?php
-    $addurl = Horde::url('devices.php');
-    $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+    $addurl = Horde::url('devices.php')->add('action', 'add');
     ?>
-    <li><a class="button" href="<?php echo $addurl; ?>">
+    <li><a class="horde-create" href="<?php echo $addurl; ?>">
         <?php echo Horde::img('device-add.png'); ?>&nbsp;New Device
         </a>
     </li>

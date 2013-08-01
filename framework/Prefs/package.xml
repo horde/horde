@@ -22,11 +22,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>12:01:54</time>
+ <date>2013-07-16</date>
+ <time>19:30:40</time>
  <version>
-  <release>1.1.8</release>
-  <api>1.1.0</api>
+  <release>2.5.1</release>
+  <api>2.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,7 +39,9 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="horde-prefs" role="script" />
+    <file name="horde-prefs" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
@@ -62,6 +64,7 @@
        <file name="Imsp.php" role="php" />
        <file name="KolabImap.php" role="php" />
        <file name="Ldap.php" role="php" />
+       <file name="Mongo.php" role="php" />
        <file name="Null.php" role="php" />
        <file name="Sql.php" role="php" />
       </dir> <!-- /lib/Horde/Prefs/Storage -->
@@ -342,6 +345,7 @@
      <dir name="Prefs">
       <file name="1_horde_prefs_base_tables.php" role="data" />
       <file name="2_horde_prefs_upgrade_binary_value.php" role="data" />
+      <file name="3_horde_prefs_fix_blob_length.php" role="data" />
      </dir> <!-- /migration/Horde/Prefs -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -373,6 +377,7 @@
       </dir> <!-- /test/Horde/Prefs/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Prefs -->
@@ -383,7 +388,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -391,37 +396,37 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>json</name>
@@ -431,37 +436,58 @@
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.3</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Image</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Imsp</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Ldap</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
     <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -483,6 +509,7 @@
    <install as="Horde/Prefs/Storage/Imsp.php" name="lib/Horde/Prefs/Storage/Imsp.php" />
    <install as="Horde/Prefs/Storage/KolabImap.php" name="lib/Horde/Prefs/Storage/KolabImap.php" />
    <install as="Horde/Prefs/Storage/Ldap.php" name="lib/Horde/Prefs/Storage/Ldap.php" />
+   <install as="Horde/Prefs/Storage/Mongo.php" name="lib/Horde/Prefs/Storage/Mongo.php" />
    <install as="Horde/Prefs/Storage/Null.php" name="lib/Horde/Prefs/Storage/Null.php" />
    <install as="Horde/Prefs/Storage/Sql.php" name="lib/Horde/Prefs/Storage/Sql.php" />
    <install as="locale/Horde_Prefs.pot" name="locale/Horde_Prefs.pot" />
@@ -574,8 +601,10 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" name="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" />
    <install as="migration/1_horde_prefs_base_tables.php" name="migration/Horde/Prefs/1_horde_prefs_base_tables.php" />
    <install as="migration/2_horde_prefs_upgrade_binary_value.php" name="migration/Horde/Prefs/2_horde_prefs_upgrade_binary_value.php" />
+   <install as="migration/3_horde_prefs_fix_blob_length.php" name="migration/Horde/Prefs/3_horde_prefs_fix_blob_length.php" />
    <install as="Horde/Prefs/AllTests.php" name="test/Horde/Prefs/AllTests.php" />
    <install as="Horde/Prefs/Autoload.php" name="test/Horde/Prefs/Autoload.php" />
+   <install as="Horde/Prefs/bootstrap.php" name="test/Horde/Prefs/bootstrap.php" />
    <install as="Horde/Prefs/conf.php.dist" name="test/Horde/Prefs/conf.php.dist" />
    <install as="Horde/Prefs/phpunit.xml" name="test/Horde/Prefs/phpunit.xml" />
    <install as="Horde/Prefs/fixtures/preferences.1" name="test/Horde/Prefs/fixtures/preferences.1" />
@@ -840,7 +869,204 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update translations.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.9</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-05</date>
+   <time>19:43:18</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] Use new Horde_Mail API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+* [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] When removing a pref, reset its value in the cached scope to the default (Bug #11895).
+* [mms] Delete preference from storage backend when calling Horde_Prefs#remove().
+* [mms] Add throw parameter to Horde_Prefs#store().
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Fix creating storage folder for Kolab/IMAP backends (Bug #11751).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Horde_Prefs_Identity#getDefaultFromAddress() now returns a Horde_Mail_Rfc822_Address object.
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.0</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Prefs_Identity#getFromAddress().
+* [jan] Fix LDAP driver and use Horde_Ldap (Heinz Schweiger &lt;heinz@htl-steyr.ac.at&gt;, Request #11697).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix regression that broke Horde_Prefs_Identity#getDefaultFromAddress() in 2.3.0.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Improve unit tests.
+* [mms] Simplify Horde_Prefs_Scope iterator.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.0</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add MongoDB storage driver.
+* [mms] Fix removing preference from backend (Bug #12207).
+* [mms] More compact internal/serialized representation of data in Horde_Prefs_Scope.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix removing prefs from storage backends (Bug #12208).
+* [mms] Fix fatal error in Horde_Prefs_Scope#valid().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.0</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add ability to override locked pref status when setting value via Horde_Prefs#setValue().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.1</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -36,7 +36,7 @@ class Folks_Block_Friends extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
+        require_once __DIR__ . '/../base.php';
 
         $friends_driver = Folks_Friends::singleton();
         $friends = $friends_driver->getFriends();
@@ -77,7 +77,7 @@ class Folks_Block_Friends extends Horde_Core_Block
                                 'name' => _("Send message"));
         }
 
-        Horde::addScriptFile('stripe.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('stripe.js', 'horde');
 
         ob_start();
         require FOLKS_TEMPLATES . '/block/users.php';

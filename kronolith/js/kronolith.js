@@ -3,7 +3,7 @@
  *
  * TODO: loadingImg()
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -16,7 +16,7 @@ KronolithCore = {
     // Vars used and defaulting to null/false:
     //   weekSizes, daySizes,
     //   groupLoading, colorPicker, duration, timeMarker, monthDays,
-    //   allDays, eventsWeek, eventTagAc, calendarTagAc, attendeesAc
+    //   allDays, eventsWeek, initialized
 
     view: '',
     ecache: $H(),
@@ -29,7 +29,6 @@ KronolithCore = {
     viewLoading: [],
     fbLoading: 0,
     redBoxLoading: false,
-    inPrefs: false,
     date: Date.today(),
     tasktype: 'incomplete',
     knl: {},
@@ -82,7 +81,7 @@ KronolithCore = {
             $('kronolithLoading').hide();
         }
         this.closeRedBox();
-        HordeCore.notify(HordeCoreText.ajax_error, 'horde.error');
+        HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
         parentfunc(r, e);
     },
 
@@ -107,6 +106,11 @@ KronolithCore = {
 
     go: function(fullloc, data)
     {
+        if (!this.initialized) {
+            this.go.bind(this, fullloc, data).defer();
+            return;
+        }
+
         if (this.viewLoading.size()) {
             this.viewLoading.push([ fullloc, data ]);
             return;
@@ -115,10 +119,6 @@ KronolithCore = {
         var locParts = fullloc.split(':');
         var loc = locParts.shift();
 
-        if (this.inPrefs && loc != 'prefs') {
-            this.redirect(fullloc, true);
-            return;
-        }
         if (this.openLocation == fullloc) {
             return;
         }
@@ -126,8 +126,10 @@ KronolithCore = {
         this.viewLoading.push([ fullloc, data ]);
 
         if (loc != 'search') {
-            $('kronolithSearchTerm').setValue($('kronolithSearchTerm').readAttribute('default'));
+            HordeTopbar.searchGhost.reset();
         }
+
+        this.switchTaskView(false);
 
         switch (loc) {
         case 'day':
@@ -139,7 +141,7 @@ KronolithCore = {
         case 'tasks':
             this.closeView(loc);
             var locCap = loc.capitalize();
-            $('kronolithNav' + locCap).addClassName('on');
+            $('kronolithNav' + locCap).up().addClassName('horde-active');
 
             switch (loc) {
             case 'day':
@@ -199,7 +201,11 @@ KronolithCore = {
 
             case 'tasks':
                 var tasktype = locParts.shift() || this.tasktype;
-                this.setTitle(Kronolith.text.tasks);
+
+
+                this.switchTaskView(true);
+                $('kronolithCurrent')
+                    .update(this.setTitle(Kronolith.text.tasks));
                 if (this.view == loc && this.tasktype == tasktype) {
                     this.addHistory(fullloc);
                     this.loadNextView();
@@ -214,9 +220,9 @@ KronolithCore = {
                 this.view = loc;
                 this.tasktype = tasktype;
                 $w('All Complete Incomplete Future').each(function(tasktype) {
-                    $('kronolithTasks' + tasktype).up().removeClassName('activeTab');
+                    $('kronolithTasks' + tasktype).up().removeClassName('horde-active');
                 });
-                $('kronolithTasks' + this.tasktype.capitalize()).up().addClassName('activeTab');
+                $('kronolithTasks' + this.tasktype.capitalize()).up().addClassName('horde-active');
                 this.loadTasks(this.tasktype);
                 $('kronolithView' + locCap).appear({
                     duration: this.effectDur,
@@ -258,9 +264,9 @@ KronolithCore = {
             this.addHistory(fullloc);
             this.search = time;
             $w('All Past Future').each(function(time) {
-                $('kronolithSearch' + time).up().removeClassName('activeTab');
+                $('kronolithSearch' + time).up().removeClassName('horde-active');
             });
-            $('kronolithSearch' + this.search.capitalize()).up().addClassName('activeTab');
+            $('kronolithSearch' + this.search.capitalize()).up().addClassName('horde-active');
             this.closeView('agenda');
             this.view = 'agenda';
             this.updateView(null, 'search', term);
@@ -354,6 +360,15 @@ KronolithCore = {
             break;
 
         case 'task':
+            // Load view first if necessary.
+            if (!this.view ) {
+                this.viewLoading.pop();
+                this.go('tasks');
+                this.go.bind(this, fullloc, data).defer();
+                return;
+            }
+
+            this.switchTaskView(true);
             switch (locParts.length) {
             case 0:
                 this.addHistory(fullloc, false);
@@ -376,34 +391,6 @@ KronolithCore = {
             }
             this.addHistory(fullloc, false);
             this.editCalendar(locParts.join(':'));
-            this.loadNextView();
-            break;
-
-        case 'prefs':
-            var url = Kronolith.conf.prefs_url;
-            if (data) {
-                url += (url.include('?') ? '&' : '?') + $H(data).toQueryString();
-            }
-            this.addHistory(loc);
-            this.inPrefs = true;
-            this.closeView('iframe');
-            this.iframeContent(url);
-            this.setTitle(Kronolith.text.prefs);
-            this.updateMinical(this.date);
-            this.loadNextView();
-            break;
-
-        case 'app':
-            this.addHistory(fullloc);
-            this.closeView('iframe');
-            var app = locParts.shift();
-            if (data) {
-                this.loadPage(data);
-            } else if (Kronolith.conf.app_urls[app]) {
-                this.loadPage(Kronolith.conf.app_urls[app]);
-            }
-            this.updateMinical(this.date);
-            this.view = 'iframe';
             this.loadNextView();
             break;
 
@@ -451,8 +438,7 @@ KronolithCore = {
             this.dayEvents = [];
             this.dayGroups = [];
             this.allDayEvents = [];
-            $('kronolithViewDay')
-                .down('caption span')
+            $('kronolithCurrent')
                 .update(this.setViewTitle(date, view, data));
             $('kronolithViewDay')
                 .down('.kronolithAllDayContainer')
@@ -479,17 +465,16 @@ KronolithCore = {
                 today = Date.today(),
                 day, dateString, i, hourCol;
 
-            $('kronolithView' + what)
-                .down('caption span')
+            $('kronolithCurrent')
                 .update(this.setViewTitle(date, view, data));
 
             for (i = 0; i < 24; i++) {
                 day = dates[0].clone();
                 hourCol = hourRow.down('td').next('td');
                 while (hourCol) {
-                    hourCol.removeClassName('kronolithToday');
+                    hourCol.removeClassName('kronolith-today');
                     if (day.equals(today)) {
-                        hourCol.addClassName('kronolithToday');
+                        hourCol.addClassName('kronolith-today');
                     }
                     hourCol = hourCol.next('td');
                     day.next().day();
@@ -506,12 +491,12 @@ KronolithCore = {
                     .writeAttribute('id', 'kronolithEvents' + what + dateString);
                 th.store('date', dateString)
                     .down('span').update(day.toString('dddd, d'));
-                td.removeClassName('kronolithToday');
+                td.removeClassName('kronolith-today');
                 this.allDays['kronolithAllDay' + dateString]
                     .writeAttribute('id', 'kronolithAllDay' + dateString)
                     .store('date', dateString);
                 if (day.equals(today)) {
-                    td.addClassName('kronolithToday');
+                    td.addClassName('kronolith-today');
                     this.addTimeMarker('kronolithEvents' + what + dateString);
                 }
                 new Drop(td.down('div'));
@@ -523,12 +508,11 @@ KronolithCore = {
             break;
 
         case 'month':
-            var tbody = $('kronolithViewMonthBody'),
+            var tbody = $('kronolith-month-body'),
                 dates = this.viewDates(date, view),
                 day = dates[0].clone();
 
-            $('kronolithViewMonth')
-                .down('caption span')
+            $('kronolithCurrent')
                 .update(this.setViewTitle(date, view, data));
 
             // Remove old rows. Maybe we should only rebuild the calendars if
@@ -553,7 +537,7 @@ KronolithCore = {
         case 'year':
             var month;
 
-            $('kronolithYearDate').update(this.setViewTitle(date, view, data));
+            $('kronolithCurrent').update(this.setViewTitle(date, view, data));
 
             // Build new calendar view.
             for (month = 0; month < 12; month++) {
@@ -568,15 +552,13 @@ KronolithCore = {
             // to add.
             if (view == 'agenda') {
                 var dates = this.viewDates(date, view);
-                $('kronolithAgendaDate')
+                $('kronolithCurrent')
                     .update(this.setViewTitle(date, view, data));
-                $('kronolithAgendaNavigation').show();
-                $('kronolithSearchNavigation').hide();
+                $('kronolithSearchNavigation').up().up().hide();
             } else {
-                $('kronolithAgendaDate')
+                $('kronolithCurrent')
                     .update(this.setViewTitle(date, view, data));
-                $('kronolithAgendaNavigation').hide();
-                $('kronolithSearchNavigation').show();
+                $('kronolithSearchNavigation').up().up().show();
             }
 
             // Remove old rows. Maybe we should only rebuild the calendars if
@@ -609,7 +591,7 @@ KronolithCore = {
         case 'week':
         case 'workweek':
             var dates = this.viewDates(date, view);
-            return this.setTitle(dates[0].toString('d') + ' - ' + dates[1].toString('d'));
+            return this.setTitle(dates[0].toString(Kronolith.conf.date_format) + ' - ' + dates[1].toString(Kronolith.conf.date_format));
 
         case 'month':
             return this.setTitle(date.toString('MMMM yyyy'));
@@ -619,10 +601,10 @@ KronolithCore = {
 
         case 'agenda':
             var dates = this.viewDates(date, view);
-            return this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d'));
+            return this.setTitle(dates[0].toString(Kronolith.conf.date_format) + ' - ' + dates[1].toString(Kronolith.conf.date_format));
 
         case 'search':
-            return this.setTitle(Kronolith.text.searching.interpolate({ term: data }));
+            return this.setTitle(Kronolith.text.searching.interpolate({ term: data })).escapeHTML();
         }
     },
 
@@ -634,7 +616,7 @@ KronolithCore = {
         $w('Day Workweek Week Month Year Tasks Agenda').each(function(a) {
             a = $('kronolithNav' + a);
             if (a) {
-                a.removeClassName('on');
+                a.up().removeClassName('horde-active');
             }
         });
         if (this.view && this.view != loc) {
@@ -652,7 +634,7 @@ KronolithCore = {
      *
      * @param Date date        The first day to show in the row.
      * @param integer month    The current month. Days not from the current
-     *                         month get the kronolithOtherMonth CSS class
+     *                         month get the kronolith-other-month CSS class
      *                         assigned.
      * @param array viewDates  Array of Date objects with the start and end
      *                         dates of the view.
@@ -678,16 +660,16 @@ KronolithCore = {
             this.monthDays['kronolithMonthDay' + dateString] = cell;
             cell.id = 'kronolithMonthDay' + dateString;
             cell.store('date', dateString);
-            cell.removeClassName('kronolithOtherMonth').removeClassName('kronolithToday');
+            cell.removeClassName('kronolith-other-month').removeClassName('kronolith-today');
             if (day.getMonth() != month) {
-                cell.addClassName('kronolithOtherMonth');
+                cell.addClassName('kronolith-other-month');
             }
             if (dateString == today) {
-                cell.addClassName('kronolithToday');
+                cell.addClassName('kronolith-today');
             }
             new Drop(cell);
             cell.store('date', dateString)
-                .down('.kronolithDay')
+                .down('.kronolith-day')
                 .store('date', dateString)
                 .update(day.getDate());
 
@@ -761,12 +743,12 @@ KronolithCore = {
         tbody.writeAttribute('id', 'kronolithYearTable' + month);
 
         // Set month name.
-        table.down('span')
+        table.down('tr.kronolith-minical-nav th')
             .store('date', year.toPaddedString(4) + (month + 1).toPaddedString(2) + '01')
             .update(Date.CultureInfo.monthNames[month]);
 
         // Build month table.
-        this.buildMinical(tbody, new Date(year, month, 1), null, idPrefix);
+        this.buildMinical(tbody, new Date(year, month, 1), null, idPrefix, year);
 
         return table;
     },
@@ -869,7 +851,7 @@ KronolithCore = {
             .store('date', date.dateString())
             .update(date.toString('MMMM yyyy'));
 
-        this.buildMinical($('kronolithMinical').down('tbody'), date, view);
+        this.buildMinical($('kronolith-minical').down('tbody'), date, view);
     },
 
     /**
@@ -882,15 +864,17 @@ KronolithCore = {
      *                         in the mini calendar are highlighted.
      * @param string idPrefix  If present, each day will get a DOM ID with this
      *                         prefix
+     * @param integer year     If present, generating mini calendars for the
+     *                         year view of this year.
      */
-    buildMinical: function(tbody, date, view, idPrefix)
+    buildMinical: function(tbody, date, view, idPrefix, year)
     {
         var dates = this.viewDates(date, 'month'),
             day = dates[0].clone(),
             date7 = date.clone().add(1).week(),
             today = Date.today(),
             week = this.viewDates(this.date, 'week'),
-            workweek = [ week[0], week[1].add(-2).day() ],
+            workweek = this.viewDates(this.date, 'workweek'),
             dateString, td, tr, i;
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
@@ -903,7 +887,7 @@ KronolithCore = {
             if (day.getDay() == Kronolith.conf.week_start) {
                 tr = new Element('tr');
                 tbody.insert(tr);
-                td = new Element('td', { className: 'kronolithMinicalWeek' })
+                td = new Element('td', { className: 'kronolith-minical-week' })
                     .store('weekdate', dateString);
                 td.update(day.getRealWeek());
                 tr.insert(td);
@@ -915,7 +899,7 @@ KronolithCore = {
             // Insert day cell.
             td = new Element('td').store('date', dateString);
             if (day.getMonth() != date.getMonth()) {
-                td.addClassName('kronolithMinicalEmpty');
+                td.addClassName('kronolith-other-month');
             } else if (!Object.isUndefined(idPrefix)) {
                 td.id = idPrefix + dateString;
             }
@@ -927,12 +911,15 @@ KronolithCore = {
                  (view == 'workweek' && day.between(workweek[0], workweek[1])) ||
                  (view == 'day' && day.equals(this.date)) ||
                  (view == 'agenda' && !day.isBefore(date) && day.isBefore(date7)))) {
-                td.addClassName('kronolithSelected');
+                td.addClassName('kronolith-selected');
             }
 
             // Highlight today.
-            if (day.equals(today)) {
-                td.addClassName('kronolithToday');
+            if (day.equals(today) &&
+                (Object.isUndefined(year) ||
+                 (day.getYear() + 1900 == year &&
+                  date.getMonth() == day.getMonth()))) {
+                td.addClassName('kronolith-today');
             }
             td.update(day.getDate());
             tr.insert(td);
@@ -950,27 +937,32 @@ KronolithCore = {
      */
     insertCalendarInList: function(type, id, cal, div)
     {
-        var noItems, calendar;
+        var noItems, calendar, link;
         if (!div) {
             div = this.getCalendarList(type, cal.owner);
         }
         noItems = div.previous();
         if (noItems &&
             noItems.tagName == 'DIV' &&
-            noItems.className == 'kronolithDialogInfo') {
+            noItems.className == 'horde-info') {
             noItems.hide();
         }
-        if (type != 'holiday' && type != 'external') {
-            div.insert(new Element('span', { className: 'kronolithCalEdit' })
-                   .setStyle({ backgroundColor: cal.bg, color: cal.fg })
-                   .insert('&#9658;'));
-        }
-        calendar = new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+        link = new Element('span', { className: type != 'resourcegroup' ? (cal.show ? 'horde-resource-on' : 'horde-resource-off') : 'horde-resource-none' })
+            .insert(cal.name.escapeHTML());
+        calendar = new Element('div')
             .store('calendar', id)
             .store('calendarclass', type)
-            .setStyle({ backgroundColor: cal.bg, color: cal.fg })
-            .insert(cal.name.escapeHTML());
-        this.addShareIcon(cal, calendar);
+            .setStyle({ backgroundColor: cal.bg, color: cal.fg });
+        if (type != 'holiday' && type != 'external') {
+            calendar.insert(
+                new Element('span', { className: 'horde-resource-edit-' + cal.fg.substring(1) })
+                    .setStyle({ backgroundColor: cal.bg, color: cal.fg })
+                    .insert('&#9658;'));
+        }
+        calendar.insert(
+            new Element('div', { className: 'horde-resource-link' })
+                .insert(link));
+        this.addShareIcon(cal, link);
         div.insert(calendar);
     },
 
@@ -1018,6 +1010,12 @@ KronolithCore = {
             }, this);
         }
 
+        if (Kronolith.conf.calendars.resourcegroup) {
+            $H(Kronolith.conf.calendars.resourcegroup).each(function(cal) {
+                this.insertCalendarInList('resourcegroup', cal.key, cal.value);
+            }, this);
+        }
+
         $H(Kronolith.conf.calendars.external).each(function(cal) {
             var parts = cal.key.split('/'), api = parts.shift();
             if (!ext.get(api)) {
@@ -1028,10 +1026,12 @@ KronolithCore = {
         });
         ext.each(function(api) {
             extContainer
-                .insert(new Element('h3')
-                        .insert(new Element('span', { className: 'kronolithToggleExpand', title: Kronolith.text.expand })
-                                .insert({ bottom: extNames.get(api.key).escapeHTML() })))
-                .insert(new Element('div', { id: 'kronolithExternalCalendar' + api.key, className: 'kronolithCalendars', style: 'display:none' }));
+                .insert(new Element('div', { className: 'horde-sidebar-split' }))
+                .insert(new Element('div')
+                        .insert(new Element('h3')
+                                .insert(new Element('span', { className: 'horde-expand', title: HordeSidebar.text.expand })
+                                        .insert({ bottom: extNames.get(api.key).escapeHTML() })))
+                        .insert(new Element('div', { id: 'kronolithExternalCalendar' + api.key, className: 'horde-resources', style: 'display:none' })));
             api.value.each(function(cal) {
                 this.insertCalendarInList('external', api.key + '/' + cal.key, cal.value, $('kronolithExternalCalendar' + api.key));
             }, this);
@@ -1069,6 +1069,8 @@ KronolithCore = {
                 : $('kronolithSharedCalendars');
         case 'resource':
             return $('kronolithResourceCalendars');
+        case 'resourcegroup':
+            return $('kronolithResourceGroups');
         case 'tasklists':
             return personal
                 ? $('kronolithMyTasklists')
@@ -1109,11 +1111,11 @@ KronolithCore = {
         var elt = $('kronolithMenuCalendars').select('div').find(function(div) {
             return div.retrieve('calendarclass') == type &&
             div.retrieve('calendar') == calendar;
-        });
+        }).down('.horde-resource-link').down('span');
 
         Kronolith.conf.calendars[type][calendar].show = !Kronolith.conf.calendars[type][calendar].show;
-        elt.toggleClassName('kronolithCalOn');
-        elt.toggleClassName('kronolithCalOff');
+        elt.toggleClassName('horde-resource-on');
+        elt.toggleClassName('horde-resource-off');
 
         switch (this.view) {
         case 'month':
@@ -1127,7 +1129,7 @@ KronolithCore = {
                 });
                 if (this.view == 'month' && Kronolith.conf.max_events) {
                     var dates = this.viewDates(this.date, this.view);
-                    if (elt.hasClassName('kronolithCalOff')) {
+                    if (elt.hasClassName('horde-resource-off')) {
                         var day, more, events, calendars = [];
                         $H(Kronolith.conf.calendars).each(function(type) {
                             $H(type.value).each(function(cal) {
@@ -1145,7 +1147,7 @@ KronolithCore = {
                         for (var date = dates[0]; !date.isAfter(dates[1]); date.add(1).days()) {
                             day = this.monthDays['kronolithMonthDay' + date.dateString()];
                             more = day.select('.kronolithMore');
-                            events = day.select('.kronolithEvent');
+                            events = day.select('.kronolith-event');
                             if (more.size() &&
                                 events.size() < Kronolith.conf.max_events) {
                                 more[0].purge();
@@ -1182,7 +1184,7 @@ KronolithCore = {
                 break;
             }
             var tasklist = calendar.substr(6);
-            if (elt.hasClassName('kronolithCalOff')) {
+            if (elt.hasClassName('horde-resource-off')) {
                 $('kronolithViewTasksBody').select('tr').findAll(function(el) {
                     return el.retrieve('tasklist') == tasklist;
                 }).invoke('remove');
@@ -1227,9 +1229,9 @@ KronolithCore = {
         var dialog = elt.up('form'), tab = $(elt.id.replace(/Link/, 'Tab')),
             field;
         dialog.select('.kronolithTabsOption').invoke('hide');
-        dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
+        dialog.select('.tabset li').invoke('removeClassName', 'horde-active');
         tab.show();
-        elt.up().addClassName('activeTab');
+        elt.up().addClassName('horde-active');
         if (elt.id == 'kronolithEventLinkMap') {
             if (!this.mapInitialized) {
                 this.initializeMap();
@@ -1430,10 +1432,10 @@ KronolithCore = {
                 this.dayGroups = [];
                 this.allDayEvents = [];
                 if (view == 'day') {
-                    $$('.kronolithEvent').invoke('remove');
+                    $$('.kronolith-event').invoke('remove');
                 } else {
                     this.eventsWeek['kronolithEvents' + (view == 'week' ? 'Week' : 'Workweek') + date]
-                        .select('.kronolithEvent')
+                        .select('.kronolith-event')
                         .invoke('remove');
                     this.allDays['kronolithAllDay' + date]
                         .childElements()
@@ -1476,7 +1478,7 @@ KronolithCore = {
                         }
                     }
                     if (view == 'month' && Kronolith.conf.max_events) {
-                        var events = monthDay.select('.kronolithEvent');
+                        var events = monthDay.select('.kronolith-event');
                         if (events.size() >= Kronolith.conf.max_events) {
                             if (date == (new Date().dateString())) {
                                 // This is today.
@@ -1596,23 +1598,16 @@ KronolithCore = {
 
             case 'year':
                 var td = $('kronolithYear' + date);
-                if (td.className == 'kronolithMinicalEmpty') {
+                if (td.className == 'kronolith-minical-empty') {
                     continue;
                 }
-                if (td.hasClassName('kronolithToday')) {
-                    td.className = 'kronolithToday';
+                if (td.hasClassName('kronolith-today')) {
+                    td.className = 'kronolith-today';
                 } else {
                     td.className = '';
                 }
-                if (td.retrieve('nicetitle')) {
-                    Horde_ToolTips.detach(td);
-                    td.store('nicetitle');
-                }
                 if (title) {
                     td.addClassName('kronolithHasEvents');
-                    td.store('nicetitle', title);
-                    td.observe('mouseover', Horde_ToolTips.onMouseover.bindAsEventListener(Horde_ToolTips));
-                    td.observe('mouseout', Horde_ToolTips.out.bind(Horde_ToolTips));
                     if (busyHours > 0) {
                         td.addClassName(this.getHeatmapClass(busyHours));
                         busyHours = 0;
@@ -1644,14 +1639,14 @@ KronolithCore = {
         event.value.nodeId = ('kronolithEvent' + view + event.value.calendar + date + event.key).replace(new RegExp('[^a-zA-Z0-9]', 'g'), '');
 
         var _createElement = function(event) {
-            var className ='kronolithEvent';
+            var className ='kronolith-event';
             switch (event.value.x) {
             case 3:
-                className += ' kronolithEventCancelled';
+                className += ' kronolith-event-cancelled';
                 break;
             case 1:
             case 4:
-                className += ' kronolithEventTentative';
+                className += ' kronolith-event-tentative';
                 break;
             }
             var el = new Element('div', { id: event.value.nodeId, className: className })
@@ -1694,14 +1689,14 @@ KronolithCore = {
                         if (event.value.pe) {
                             div.addClassName('kronolithEditable');
                             var layout = div.getLayout(),
-                                minLeft = weekHead.down('.kronolithFirstCol').getWidth() + this[storage].spacing + (parseInt(div.getStyle('marginLeft'), 10) || 0),
+                                minLeft = weekHead.down('.kronolith-first-col').getWidth() + this[storage].spacing + (parseInt(div.getStyle('marginLeft'), 10) || 0),
                                 minTop = weekHead.down('thead').getHeight() + this[storage].spacing + (parseInt(div.getStyle('marginTop'), 10) || 0),
                                 maxLeft = weekHead.getWidth() - layout.get('margin-box-width'),
-                                maxTop = weekHead.down('thead').getHeight() + weekHead.down('.kronolithAllDay').getHeight(),
+                                maxTop = weekHead.down('thead').getHeight() + weekHead.down('.kronolith-all-day').getHeight(),
                                 opts = {
                                     threshold: 5,
                                     parentElement: function() {
-                                        return $('kronolithView' + what).down('.kronolithViewHead');
+                                        return $('kronolithView' + what).down('.kronolith-view-head');
                                     },
                                     snap: function(x, y) {
                                         return [Math.min(Math.max(x, minLeft), maxLeft),
@@ -1717,8 +1712,9 @@ KronolithCore = {
 
             var midnight = this.parseDate(date),
                 resizable = event.value.pe && (Object.isUndefined(event.value.vl) || event.value.vl),
-                innerDiv = new Element('div', { className: 'kronolithEventInfo' }),
-                minHeight = 0, parentElement, draggerTop, draggerBottom;
+                innerDiv = new Element('div', { className: 'kronolith-event-info' }),
+                minHeight = 0, parentElement, draggerTop, draggerBottom,
+                elapsed = (event.value.start.getHours() - midnight.getHours()) * 60 + (event.value.start.getMinutes() - midnight.getMinutes());
             switch (view) {
             case 'day':
                 parentElement = $('kronolithEventsDay');
@@ -1731,24 +1727,24 @@ KronolithCore = {
                 break;
             }
             if (event.value.fi) {
+                div.addClassName('kronolithFirst');
                 if (resizable) {
                     draggerTop = new Element('div', { id: event.value.nodeId + 'top', className: 'kronolithDragger kronolithDraggerTop' }).setStyle(style);
-                    div.addClassName('kronolithFirst');
                 }
             } else {
                 innerDiv.setStyle({ top: 0 });
             }
             if (event.value.la) {
+                div.addClassName('kronolithLast');
                 if (resizable) {
                     draggerBottom = new Element('div', { id: event.value.nodeId + 'bottom', className: 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
-                    div.addClassName('kronolithLast');
                 }
             } else {
                 innerDiv.setStyle({ bottom: 0 });
             }
 
             div.setStyle({
-                top: (Math.round(midnight.getElapsed(event.value.start) / 60000) * this[storage].height / 60 | 0) + 'px',
+                top: (elapsed * this[storage].height / 60 | 0) + 'px',
                 width: 100 - margin + '%'
             })
                 .insert(innerDiv.setStyle(style));
@@ -1972,7 +1968,7 @@ KronolithCore = {
             monthDay.insert(div);
             if (event.value.pe) {
                 div.setStyle({ cursor: 'move' });
-                new Drag(event.value.nodeId, { threshold: 5, parentElement: function() { return $('kronolithViewMonthContainer'); }, snapToParent: true });
+                new Drag(event.value.nodeId, { threshold: 5, parentElement: function() { return $('kronolith-month-body'); }, snapToParent: true });
             }
             if (Kronolith.conf.max_events) {
                 var more = monthDay.down('.kronolithMore');
@@ -1993,8 +1989,8 @@ KronolithCore = {
 
         this.setEventText(div, event.value,
                           { time: view == 'agenda' || Kronolith.conf.show_time })
-            .observe('mouseover', div.addClassName.curry('kronolithSelected'))
-            .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
+            .observe('mouseover', div.addClassName.curry('kronolith-selected'))
+            .observe('mouseout', div.removeClassName.curry('kronolith-selected'));
     },
 
     /**
@@ -2017,12 +2013,12 @@ KronolithCore = {
         case 'month':
             dates.each(function(date) {
                 var day = this.monthDays['kronolithMonthDay' + date];
-                day.select('.kronolithEvent').each(function(event) {
+                day.select('.kronolith-event').each(function(event) {
                     if (event.retrieve('calendar').startsWith('holiday')) {
                         delete this.holidays[event.retrieve('eventid')];
                     }
                     event.remove();
-                });
+                }, this);
                 day.select('.kronolithMore').invoke('remove');
                 date = this.parseDate(date);
                 this.loadEvents(date, date, 'month');
@@ -2077,7 +2073,8 @@ KronolithCore = {
     setEventText: function(div, event, opts)
     {
         var calendar = event.calendar.split('|'),
-            span = new Element('span');
+            span = new Element('span'),
+            time;
         opts = Object.extend({ time: false }, opts || {}),
 
         div.update();
@@ -2085,11 +2082,12 @@ KronolithCore = {
             div.insert(new Element('img', { src: event.ic, className: 'kronolithEventIcon' }));
         }
         if (opts.time && !event.al) {
-            div.insert(event.start.toString(Kronolith.conf.time_format));
+            time = new Element('span', { className: 'kronolith-time' })
+                .insert(event.start.toString(Kronolith.conf.time_format));
             if (!event.start.equals(event.end)) {
-                div.insert('-' + event.end.toString(Kronolith.conf.time_format));
+                time.insert('-' + event.end.toString(Kronolith.conf.time_format));
             }
-            div.insert(': ');
+            div.insert(time);
         }
         div.insert(event.t.escapeHTML());
         div.insert(span);
@@ -2118,7 +2116,7 @@ KronolithCore = {
     removeEvent: function(calendar, event)
     {
         this.deleteCache(calendar, event);
-        this.kronolithBody.select('div.kronolithEvent').findAll(function(el) {
+        this.kronolithBody.select('div.kronolith-event').findAll(function(el) {
             return el.retrieve('calendar') == calendar &&
                 (!event || el.retrieve('eventid') == event);
         }).invoke('remove');
@@ -2133,7 +2131,7 @@ KronolithCore = {
      */
     removeException: function(calendar, uid)
     {
-        this.kronolithBody.select('div.kronolithEvent').findAll(function(el) {
+        this.kronolithBody.select('div.kronolith-event').findAll(function(el) {
             if (el.retrieve('calendar') == calendar && el.retrieve('bid') == uid) {
                 this.removeEvent(calendar, el.retrieve('eventid'));
             }
@@ -2167,6 +2165,23 @@ KronolithCore = {
             minute: minute,
             second: second
         });
+    },
+
+    switchTaskView: function(on)
+    {
+        if (on) {
+            $('kronolithNewEvent', 'kronolithNewTask').compact()[0]
+                .replace(Kronolith.conf.new_task);
+            $('kronolithQuickEvent').addClassName('kronolithNewTask');
+            $('kronolithHeader').down('.kronolithPrev').up().addClassName('disabled');
+            $('kronolithHeader').down('.kronolithNext').up().addClassName('disabled');
+        } else {
+            $('kronolithNewEvent', 'kronolithNewTask').compact()[0]
+                .replace(Kronolith.conf.new_event);
+            $('kronolithQuickEvent').removeClassName('kronolithNewTask');
+            $('kronolithHeader').down('.kronolithPrev').up().removeClassName('disabled');
+            $('kronolithHeader').down('.kronolithNext').up().removeClassName('disabled');
+        }
     },
 
     /**
@@ -2296,9 +2311,7 @@ KronolithCore = {
             $H(tasks).each(function(task) {
                 switch (tasktype) {
                 case 'complete':
-                    if (!task.value.cp ||
-                        (!Object.isUndefined(task.value.start) &&
-                         task.value.start.isAfter(now))) {
+                    if (!task.value.cp) {
                         return;
                     }
                     break;
@@ -2310,7 +2323,8 @@ KronolithCore = {
                     }
                     break;
                 case 'future':
-                    if (Object.isUndefined(task.value.start) ||
+                    if (task.value.cp ||
+                        Object.isUndefined(task.value.start) ||
                         !task.value.start.isAfter(now)) {
                         return;
                     }
@@ -2320,7 +2334,7 @@ KronolithCore = {
             }, this);
         }, this);
 
-        if ($('kronolithViewTasksBody').select('tr').length > 3) {
+        if ($('kronolithViewTasksBody').select('tr').length > 2) {
             $('kronolithTasksNoItems').hide();
         } else {
             $('kronolithTasksNoItems').show();
@@ -2335,12 +2349,14 @@ KronolithCore = {
     insertTask: function(task)
     {
         var row = $('kronolithTasksTemplate').clone(true),
-            col = row.down();
+            col = row.down(), tagc;
+
 
         row.removeAttribute('id');
         row.store('tasklist', task.value.l);
         row.store('taskid', task.key);
         col.addClassName('kronolithTask' + (!!task.value.cp ? 'Completed' : ''));
+        col.setStyle({ backgroundColor: Kronolith.conf.calendars.tasklists['tasks/' + task.value.l].bg, color: Kronolith.conf.calendars.tasklists['tasks/' + task.value.l].fg });
         col.insert(task.value.n.escapeHTML());
         if (!Object.isUndefined(task.value.due)) {
             var now = new Date();
@@ -2349,13 +2365,24 @@ KronolithCore = {
             }
             col.insert(new Element('span', { className: 'kronolithSeparator' }).update(' &middot; '));
             col.insert(new Element('span', { className: 'kronolithDate' }).update(task.value.due.toString(Kronolith.conf.date_format)));
+            if (task.value.r) {
+                col.insert(' ')
+                    .insert(new Element('img', { src: Kronolith.conf.images.recur.replace(/fff/, Kronolith.conf.calendars.tasklists['tasks/' + task.value.l].fg.substr(1)), title: Kronolith.text.recur[task.value.r] }));
+            }
         }
 
         if (!Object.isUndefined(task.value.sd)) {
             col.insert(new Element('span', { className: 'kronolithSeparator' }).update(' &middot; '));
-            col.insert(new Element('span', { className: 'kronolithInfo' }).update(task.value.sd));
+            col.insert(new Element('span', { className: 'kronolithInfo' }).update(task.value.sd.escapeHTML()));
         }
 
+        if (task.value.t && task.value.t.size() > 0) {
+            tagc = new Element('ul', { className: 'horde-tags' });
+            task.value.t.each(function(x) {
+                tagc.insert(new Element('li').update(x.escapeHTML()));
+            });
+            col.insert(tagc);
+        }
         row.insert(col.show());
         this.insertTaskPosition(row, task);
     },
@@ -2369,8 +2396,8 @@ KronolithCore = {
     insertTaskPosition: function(newRow, newTask)
     {
         var rows = $('kronolithViewTasksBody').select('tr');
-        // The first row is the add task row, the second a template, ignoring.
-        for (var i = 3; i < rows.length; i++) {
+        // The first row is a template, ignoring.
+        for (var i = 2; i < rows.length; i++) {
             var rowTasklist = rows[i].retrieve('tasklist');
             var rowTaskId = rows[i].retrieve('taskid');
             var rowTask = this.tcache.inject(null, function(acc, list) {
@@ -2407,10 +2434,13 @@ KronolithCore = {
     /**
      * Completes/uncompletes a task.
      *
-     * @param string tasklist  The task list to which the tasks belongs
-     * @param string taskid    The id of the task
+     * @param string tasklist          The task list to which the tasks belongs.
+     * @param string taskid            The id of the task.
+     * @param boolean|string complete  True if the task is completed, a
+     *                                 due date if there are still
+     *                                 incomplete recurrences.
      */
-    toggleCompletion: function(tasklist, taskid)
+    toggleCompletion: function(tasklist, taskid, complete)
     {
         // Update the cache.
         var task = this.tcache.inject(null, function(acc, list) {
@@ -2426,12 +2456,16 @@ KronolithCore = {
             this.toggleCompletionClass(taskid);
             return;
         }
-        task.cp = !task.cp;
+        if (Object.isUndefined(complete) || complete === true) {
+            task.cp = !task.cp;
+        }
 
         if (this.tcache.get(task.cp ? 'complete' : 'incomplete')) {
             this.tcache.get(task.cp ? 'complete' : 'incomplete').get(tasklist).set(taskid, task);
         }
-        this.tcache.get(task.cp ? 'incomplete' : 'complete').get(tasklist).unset(taskid);
+        if (this.tcache.get(task.cp ? 'incomplete' : 'complete')) {
+            this.tcache.get(task.cp ? 'incomplete' : 'complete').get(tasklist).unset(taskid);
+        }
 
         // Remove row if necessary.
         var row = this.getTaskRow(taskid);
@@ -2447,6 +2481,17 @@ KronolithCore = {
                     row.remove();
                 }
             });
+        }
+
+        // Update due date if necessary.
+        if (!Object.isUndefined(complete) && complete !== true) {
+            var now = new Date(), due = Date.parse(complete);
+            row.down('span.kronolithDate')
+                .update(due.toString(Kronolith.conf.date_format));
+            if (now.isBefore(due)) {
+                row.down('td.kronolithTaskCol')
+                    .removeClassName('kronolithTaskDue');
+            }
         }
     },
 
@@ -2480,9 +2525,14 @@ KronolithCore = {
         });
     },
 
-    editTask: function(tasklist, id)
+    editTask: function(tasklist, id, desc)
     {
         if (this.redBoxLoading) {
+            return;
+        }
+
+        if (Object.isUndefined(HordeImple.AutoCompleter.kronolithTaskTags)) {
+            this.editTask.bind(this, tasklist, id, desc).defer();
             return;
         }
 
@@ -2502,6 +2552,7 @@ KronolithCore = {
         this.openTab($('kronolithTaskForm').down('.tabset a.kronolithTabLink'));
         $('kronolithTaskForm').enable();
         $('kronolithTaskForm').reset();
+        HordeImple.AutoCompleter.kronolithTaskTags.reset();
         $('kronolithTaskSave').show().enable();
         $('kronolithTaskDelete').show().enable();
         $('kronolithTaskForm').down('.kronolithFormActions .kronolithSeparator').show();
@@ -2516,15 +2567,23 @@ KronolithCore = {
             }, {
                 callback: this.editTaskCallback.bind(this)
             });
+            $('kronolithTaskTopTags').update();
         } else {
             $('kronolithTaskId').clear();
             $('kronolithTaskOldList').clear();
             $('kronolithTaskList').setValue(Kronolith.conf.tasks.default_tasklist);
             //$('kronolithTaskLocation').setValue('http://');
+            HordeCore.doAction('listTopTags', {}, {
+                callback: this.topTagsCallback.curry('kronolithTaskTopTags', 'kronolithTaskTag')
+            });
             $('kronolithTaskPriority').setValue(3);
             if (Kronolith.conf.tasks.default_due) {
                 this.setDefaultDue();
             }
+            if (desc) {
+                $('kronolithTaskDescription').setValue(desc);
+            }
+            this.toggleRecurrence(false, 'None');
             $('kronolithTaskDelete').hide();
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithTaskDialog').show());
@@ -2599,10 +2658,24 @@ KronolithCore = {
             $('kronolithTaskAlarmOff').setValue(true);
         }
 
+        /* Recurrence */
+        if (task.r) {
+            this.setRecurrenceFields(false, task.r);
+        } else {
+            this.toggleRecurrence(false, 'None');
+        }
+
+        HordeImple.AutoCompleter.kronolithTaskTags.reset(task.t);
+
         if (!task.pe) {
             $('kronolithTaskSave').hide();
             $('kronolithTaskForm').disable();
+        } else {
+            HordeCore.doAction('listTopTags', {}, {
+                callback: this.topTagsCallback.curry('kronolithTaskTopTags', 'kronolithTaskTag')
+            });
         }
+
         if (!task.pd) {
             $('kronolithTaskDelete').show();
         }
@@ -2667,7 +2740,7 @@ KronolithCore = {
                 (!task || el.retrieve('taskid') == task);
         }).invoke('remove');
         this.removeEvent('tasklists|tasks/' + list, task ? '_tasks' + task : null);
-        if ($('kronolithViewTasksBody').select('tr').length > 3) {
+        if ($('kronolithViewTasksBody').select('tr').length > 2) {
             $('kronolithTasksNoItems').hide();
         } else {
             $('kronolithTasksNoItems').show();
@@ -2691,10 +2764,10 @@ KronolithCore = {
             start = viewDates[0].dateString(),
             end = viewDates[1].dateString();
 
+        HordeImple.AutoCompleter.kronolithTaskTags.shutdown();
         $('kronolithTaskSave').disable();
         this.startLoading('tasklists|tasks/' + target, start + end + this.tasktype);
         this.loading++;
-        $('kronolithLoading').show();
         HordeCore.doAction(
             'saveTask',
             $H($('kronolithTaskForm').serialize({ hash: true })).merge({
@@ -2720,6 +2793,38 @@ KronolithCore = {
         );
     },
 
+    quickSaveTask: function()
+    {
+        var text = $F('kronolithQuicktaskQ'),
+            viewDates = this.viewDates(this.date, 'tasks'),
+            start = viewDates[0].dateString(),
+            end = viewDates[1].dateString(),
+            params = {
+                sig: start + end + this.tasktype,
+                view: 'tasks',
+                view_start: start,
+                view_end: end,
+                tasklist: Kronolith.conf.tasks.default_tasklist,
+                text: text
+            };
+
+        this.closeRedBox();
+        this.startLoading('tasklists|tasks/' + Kronolith.conf.tasks.default_tasklist,
+                          params.sig);
+        this.loading++;
+        HordeCore.doAction('quickSaveTask', params, {
+            callback: function(r) {
+                this.loadTasksCallback(r, false);
+                this.loadEventsCallback(r, false);
+                if (!r.tasks || !$H(r.tasks).size()) {
+                    this.editTask(null, null, text);
+                } else {
+                    $('kronolithQuicktaskQ').value = '';
+                }
+            }.bind(this)
+         });
+    },
+
     /**
      * Opens the form for editing a calendar.
      *
@@ -2735,7 +2840,7 @@ KronolithCore = {
         this.quickClose();
 
         var type = calendar.split('|')[0], cal = calendar.split('|')[1];
-        if (!$w('internal tasklists remote holiday resource').include(type)) {
+        if (!$w('internal tasklists remote holiday resource resourcegroup').include(type)) {
             return;
         }
 
@@ -2824,9 +2929,13 @@ KronolithCore = {
         $('kronolithCalendarDialog').select('.kronolithCalendarDiv').invoke('hide');
         $('kronolithCalendar' + type + '1').show();
         form.select('.kronolithCalendarContinue').invoke('enable');
-
-        if (type == 'internal' || type == 'tasklists') {
-        }
+        $('kronolithC' + type + 'PUNew', 'kronolithC' + type + 'PGNew').compact().each(function(elm) {
+            if (elm.tagName == 'SELECT') {
+                $A(elm.options).each(function(option) {
+                    option.writeAttribute('disabled', false);
+                });
+            }
+        });
 
         var newCalendar = !calendar;
         if (calendar &&
@@ -2842,7 +2951,7 @@ KronolithCore = {
         if (newCalendar) {
             switch (type) {
             case 'internal':
-                this.calendarTagAc.reset();
+                HordeImple.AutoCompleter.kronolithCalendarinternalTags.reset();
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'LinkExport').up('span').hide();
@@ -2856,14 +2965,13 @@ KronolithCore = {
             case 'holiday':
                 $('kronolithCalendarholidayDriver').update();
                 $H(Kronolith.conf.calendars.holiday).each(function(calendar) {
-                    calendar = calendar.value;
-                    if (calendar.show) {
+                    if (calendar.value.show) {
                         return;
                     }
                     $('kronolithCalendarholidayDriver').insert(
-                        new Element('option', { value: calendar.name })
-                            .setStyle({ color: calendar.fg, backgroundColor: calendar.bg })
-                            .insert(calendar.name)
+                        new Element('option', { value: calendar.key })
+                            .setStyle({ color: calendar.value.fg, backgroundColor: calendar.value.bg })
+                            .insert(calendar.value.name.escapeHTML())
                     );
                 });
                 break;
@@ -2884,24 +2992,34 @@ KronolithCore = {
 
             switch (type) {
             case 'internal':
-                this.calendarTagAc.reset(Kronolith.conf.calendars.internal[calendar].tg);
+                HordeImple.AutoCompleter.kronolithCalendarinternalTags.reset(Kronolith.conf.calendars.internal[calendar].tg);
                 $('kronolithCalendar' + type + 'ImportCal').setValue('internal_' + calendar);
-                if (info.edit) {
-                    $('kronolithCalendar' + type + 'LinkImport').up('li').show();
-                } else {
-                    $('kronolithCalendar' + type + 'LinkImport').up('li').hide();
+                if ($('kronolithCalendar' + type + 'LinkImport')) {
+                    if (info.edit) {
+                        $('kronolithCalendar' + type + 'LinkImport').up('li').show();
+                    } else {
+                        $('kronolithCalendar' + type + 'LinkImport').up('li').hide();
+                    }
                 }
                 $('kronolithCalendar' + type + 'UrlFeed').setValue(info.feed);
                 $('kronolithCalendar' + type + 'EmbedUrl').setValue(info.embed);
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
-                $('kronolithCalendar' + type + 'LinkExport').up('span').show();
-                $('kronolithCalendar' + type + 'Export').href = type == 'internal'
-                    ? Kronolith.conf.URI_CALENDAR_EXPORT + calendar
-                    : Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
+                if ($('kronolithCalendar' + type + 'LinkExport')) {
+                    $('kronolithCalendar' + type + 'LinkExport').up('span').show();
+                    $('kronolithCalendar' + type + 'Export').href = type == 'internal'
+                        ? Kronolith.conf.URI_CALENDAR_EXPORT.interpolate({ calendar: calendar })
+                        : Kronolith.conf.tasks.URI_TASKLIST_EXPORT.interpolate({ tasklist: calendar.substring(6) });
+                }
                 $('kronolithCalendar' + type + 'LinkUrls').up().show();
-                $('kronolithCalendar' + type + 'UrlSub').setValue(info.sub);
+                if (info.caldav) {
+                    $('kronolithCalendar' + type + 'UrlCaldav').setValue(info.caldav);
+                    $('kronolithCalendar' + type + 'Caldav').show();
+                } else {
+                    $('kronolithCalendar' + type + 'Caldav').hide();
+                }
+                $('kronolithCalendar' + type + 'UrlWebdav').setValue(info.sub);
                 break;
             case 'remote':
                 $('kronolithCalendarremoteUrl').setValue(calendar);
@@ -2909,9 +3027,13 @@ KronolithCore = {
                 $('kronolithCalendarremoteUsername').setValue(info.user);
                 $('kronolithCalendarremotePassword').setValue(info.password);
                 break;
+            case 'resourcegroup':
+                $('kronolithCalendarresourcegroupDescription').setValue(info.desc)
+                $('kronolithCalendarresourcegroupmembers').setValue(info.members);
+                break;
             case 'resource':
                 $('kronolithCalendarresourceDescription').setValue(info.desc);
-                $('kronolithCalendarresourceResponseType').setValue(info);
+                $('kronolithCalendarresourceResponseType').setValue(info.response_type);
             }
         }
 
@@ -2922,7 +3044,9 @@ KronolithCore = {
                 $('kronolithC' + type + 'PBasic').show();
                 $('kronolithC' + type + 'PAdvanced').hide();
                 $('kronolithC' + type + 'PNone').setValue(1);
-                $('kronolithC' + type + 'PAllShow').disable();
+                if ($('kronolithC' + type + 'PAllShow')) {
+                    $('kronolithC' + type + 'PAllShow').disable();
+                }
                 $('kronolithC' + type + 'PGList').disable();
                 $('kronolithC' + type + 'PGPerms').disable();
                 $('kronolithC' + type + 'PUList').disable();
@@ -2961,12 +3085,14 @@ KronolithCore = {
             form.down('.kronolithCalendarDelete').hide();
             form.down('.kronolithCalendarSave').hide();
             if (type == 'internal' || type == 'tasklists') {
-                $('kronolithCalendar' + type + 'UrlSub').enable();
+                $('kronolithCalendar' + type + 'UrlCaldav').enable();
+                $('kronolithCalendar' + type + 'UrlAccount').enable();
+                $('kronolithCalendar' + type + 'UrlWebdav').enable();
                 if (type == 'internal') {
                     $('kronolithCalendar' + type + 'UrlFeed').enable();
                     $('kronolithCalendar' + type + 'EmbedUrl').enable();
                 }
-                this.calendarTagAc.disable();
+                HordeImple.AutoCompleter.kronolithCalendarinternalTags.disable();
                 if (Kronolith.conf.calendars[type][calendar].show) {
                     form.down('.kronolithCalendarSubscribe').hide();
                     form.down('.kronolithCalendarUnsubscribe').show().enable();
@@ -3000,7 +3126,9 @@ KronolithCore = {
 
         switch (perm) {
         case 'None':
-            $('kronolithC' + type + 'PAllShow').disable();
+            if ($('kronolithC' + type + 'PAllShow')) {
+                $('kronolithC' + type + 'PAllShow').disable();
+            }
             $('kronolithC' + type + 'PGList').disable();
             $('kronolithC' + type + 'PGPerms').disable();
             $('kronolithC' + type + 'PUList').disable();
@@ -3023,7 +3151,9 @@ KronolithCore = {
             this.setPermsFields(type, perms);
             break;
         case 'G':
-            $('kronolithC' + type + 'PAllShow').disable();
+            if ($('kronolithC' + type + 'PAllShow')) {
+                $('kronolithC' + type + 'PAllShow').disable();
+            }
             $('kronolithC' + type + 'PGList').enable();
             $('kronolithC' + type + 'PGPerms').enable();
             $('kronolithC' + type + 'PUList').disable();
@@ -3045,7 +3175,9 @@ KronolithCore = {
             }
             break;
         case 'U':
-            $('kronolithC' + type + 'PAllShow').disable();
+            if ($('kronolithC' + type + 'PAllShow')) {
+                $('kronolithC' + type + 'PAllShow').disable();
+            }
             $('kronolithC' + type + 'PGList').disable();
             $('kronolithC' + type + 'PGPerms').disable();
             $('kronolithC' + type + 'PUList').enable();
@@ -3323,10 +3455,10 @@ KronolithCore = {
      * @param what string          Either 'group' or 'user'.
      * @param group string         The group id or user name to insert.
      *                             Defaults to the value of the drop down.
-     * @param notadvanced boolean  Enforces to NOT switch to the advanced
+     * @param stay_basic boolean   Enforces to NOT switch to the advanced
      *                             permissions screen.
      */
-    insertGroupOrUser: function(type, what, id, notadvanced)
+    insertGroupOrUser: function(type, what, id, stay_basic)
     {
         var elm = $(what == 'user' ? 'kronolithC' + type + 'PUNew' : 'kronolithC' + type + 'PGNew');
         if (id) {
@@ -3360,7 +3492,7 @@ KronolithCore = {
             elm.clear();
         }
 
-        if (!notadvanced) {
+        if (!stay_basic) {
             this.activateAdvancedPerms(type);
         }
     },
@@ -3373,11 +3505,13 @@ KronolithCore = {
     activateAdvancedPerms: function(type)
     {
         [$('kronolithC' + type + 'PNone'),
-         $('kronolithC' + type + 'PAll'),
          $('kronolithC' + type + 'PU'),
          $('kronolithC' + type + 'PG')].each(function(radio) {
             radio.checked = false;
         });
+        if ($('kronolithC' + type + 'PAll')) {
+            $('kronolithC' + type + 'PAll').checked = false;
+        }
         $('kronolithC' + type + 'PBasic').hide();
         $('kronolithC' + type + 'PAdvanced').show();
     },
@@ -3470,10 +3604,10 @@ KronolithCore = {
                 id = data.calendar;
                 this.getCalendarList(type, cal.owner).select('div').each(function(element) {
                     if (element.retrieve('calendar') == id) {
-                        element
-                            .setStyle(color)
-                            .update(cal.name.escapeHTML());
-                        this.addShareIcon(cal, element);
+                        var link = element.down('.horde-resource-link span');
+                        element.setStyle(color);
+                        link.update(cal.name.escapeHTML());
+                        this.addShareIcon(cal, link);
                         throw $break;
                     }
                 }, this);
@@ -3517,14 +3651,14 @@ KronolithCore = {
             div = container.select('div').find(function(element) {
                 return element.retrieve('calendar') == calendar;
             }),
-            arrow = div.previous('span');
+            arrow = div.down('span');
         arrow.purge();
         arrow.remove();
         div.purge();
         div.remove();
         if (noItems &&
             noItems.tagName == 'DIV' &&
-            noItems.className == 'kronolithDialogInfo' &&
+            noItems.className == 'horde-info' &&
             !container.childElements().size()) {
             noItems.show();
         }
@@ -3570,6 +3704,9 @@ KronolithCore = {
         switch (view) {
         case 'week':
         case 'workweek':
+            if (view == 'workweek') {
+                start.add(1).days();
+            }
             start.moveToBeginOfWeek(view == 'week' ? Kronolith.conf.week_start : 1);
             end.moveToEndOfWeek(Kronolith.conf.week_start);
             if (view == 'workweek') {
@@ -3852,32 +3989,17 @@ KronolithCore = {
      */
     loadPage: function(loc)
     {
-        if (Kronolith.conf.use_iframe) {
-            this.iframeContent(loc);
-        } else {
-            window.location.assign(loc);
-        }
+        window.location.assign(loc);
     },
 
-    /**
-     * Loads a page into the iframe view.
-     *
-     * @param string loc  The URL of the page to load.
-     */
-    iframeContent: function(loc)
+    searchSubmit: function(e)
     {
-        var view = $('kronolithViewIframe'), iframe = $('kronolithIframe');
-        view.hide();
-        if (!iframe) {
-            view.insert(new Element('iframe', { id: 'kronolithIframe', className: 'kronolithIframe', frameBorder: 0 }));
-            iframe = $('kronolithIframe');
-        }
-        iframe.observe('load', function() {
-            view.appear({ duration: this.effectDur, queue: 'end' });
-            iframe.stopObserving('load');
-        }.bind(this));
-        iframe.src = HordeCore.addURLParam(loc, { ajaxui: 1 });
-        this.view = 'iframe';
+        this.go('search:' + this.search + ':' + $F('horde-search-input'));
+    },
+
+    searchReset: function(e)
+    {
+        HordeTopbar.searchGhost.reset();
     },
 
     /* Keydown event handler */
@@ -3900,9 +4022,13 @@ KronolithCore = {
             }
             break;
 
-        case 'kronolithCalendarinternalUrlSub':
+        case 'kronolithCalendarinternalUrlCaldav':
+        case 'kronolithCalendarinternalUrlWebdav':
+        case 'kronolithCalendarinternalUrlAccount':
         case 'kronolithCalendarinternalUrlFeed':
-        case 'kronolithCalendartasklistsUrlSub':
+        case 'kronolithCalendartasklistsUrlCaldav':
+        case 'kronolithCalendartasklistsUrlWebdav':
+        case 'kronolithCalendartasklistsUrlAccount':
             if (String.fromCharCode(kc) != 'C' ||
                 (this.macos && !e.metaKey) ||
                 (!this.macos && !e.ctrlKey)) {
@@ -3930,11 +4056,6 @@ KronolithCore = {
                     }
                     break;
 
-                case 'kronolithSearchForm':
-                    this.go('search:' + this.search + ':' + $F('kronolithSearchTerm'));
-                    e.stop();
-                    break;
-
                 case 'kronolithQuickinsertForm':
                     this.quickSaveEvent();
                     e.stop();
@@ -3957,9 +4078,11 @@ KronolithCore = {
             case Event.KEY_ESC:
                 switch (form.identify()) {
                 case 'kronolithQuickinsertForm':
+                case 'kronolithQuicktaskForm':
                     this.quickClose();
                     break;
                 case 'kronolithEventForm':
+                case 'kronolithTaskForm':
                     Horde_Calendar.hideCal();
                     this.closeRedBox();
                     this.go(this.lastLocation);
@@ -4025,15 +4148,6 @@ KronolithCore = {
             id = elt.readAttribute('id');
 
             switch (id) {
-            case 'kronolithLogo':
-                if (Kronolith.conf.URI_HOME) {
-                    this.redirect(Kronolith.conf.URI_HOME);
-                } else {
-                    this.go(Kronolith.conf.login_view);
-                }
-                e.stop();
-                return;
-
             case 'kronolithNewEvent':
                 this.go('event');
                 e.stop();
@@ -4045,14 +4159,13 @@ KronolithCore = {
                 return;
 
             case 'kronolithQuickEvent':
-                this.updateCalendarDropDown('kronolithQuickinsertCalendars');
-                $('kronolithQuickinsertCalendars').setValue(Kronolith.conf.default_calendar);
-                $('kronolithQuickinsert').appear({
-                    duration: this.effectDur,
-                    afterFinish: function() {
-                        $('kronolithQuickinsertQ').focus();
-                    }
-                });
+                if (this.view == 'tasks') {
+                    RedBox.showHtml($('kronolithQuicktask').show());
+                } else {
+                    this.updateCalendarDropDown('kronolithQuickinsertCalendars');
+                    $('kronolithQuickinsertCalendars').setValue(Kronolith.conf.default_calendar);
+                    RedBox.showHtml($('kronolithQuickinsert').show());
+                }
                 e.stop();
                 return;
 
@@ -4061,8 +4174,23 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithQuicktaskSave':
+                this.quickSaveTask();
+                e.stop();
+                return;
+
             case 'kronolithQuickinsertCancel':
+            case 'kronolithQuicktaskCancel':
                 this.quickClose();
+                e.stop();
+                return;
+
+            case 'kronolithGotoToday':
+                var view = this.view;
+                if (!$w('day workweek week month year agenda').include(view)) {
+                    view = Kronolith.conf.login_view;
+                }
+                this.go(view + ':' + new Date().dateString());
                 e.stop();
                 return;
 
@@ -4079,16 +4207,24 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventAlarmPrefs':
-                this.closeRedBox();
-                this.go(this.lastLocation);
-                this.go('prefs', { app: 'kronolith', group: 'notification' });
+                HordeCore.redirect(HordeCore.addURLParam(
+                    Kronolith.conf.prefs_url,
+                    {
+                        group: 'notification'
+                    }
+                ));
                 e.stop();
                 break;
 
             case 'kronolithTaskAlarmPrefs':
-                this.closeRedBox();
-                this.go(this.lastLocation);
-                this.go('prefs', { app: 'nag', group: 'notification' });
+                if (Kronolith.conf.tasks.prefs_url) {
+                    HordeCore.redirect(HordeCore.addURLParam(
+                        Kronolith.conf.tasks.prefs_url,
+                        {
+                            group: 'notification'
+                        }
+                    ));
+                }
                 e.stop();
                 break;
 
@@ -4098,7 +4234,15 @@ KronolithCore = {
             case 'kronolithEventLinkMonthly':
             case 'kronolithEventLinkYearly':
             case 'kronolithEventLinkLength':
-                this.toggleRecurrence(id.substring(18));
+            case 'kronolithTaskLinkNone':
+            case 'kronolithTaskLinkDaily':
+            case 'kronolithTaskLinkWeekly':
+            case 'kronolithTaskLinkMonthly':
+            case 'kronolithTaskLinkYearly':
+            case 'kronolithTaskLinkLength':
+                this.toggleRecurrence(
+                    id.startsWith('kronolithEvent'),
+                    id.substring(id.startsWith('kronolithEvent') ? 18 : 17));
                 break;
 
             case 'kronolithEventRepeatDaily':
@@ -4106,7 +4250,14 @@ KronolithCore = {
             case 'kronolithEventRepeatMonthly':
             case 'kronolithEventRepeatYearly':
             case 'kronolithEventRepeatLength':
-                this.toggleRecurrence(id.substring(20));
+            case 'kronolithTaskRepeatDaily':
+            case 'kronolithTaskRepeatWeekly':
+            case 'kronolithTaskRepeatMonthly':
+            case 'kronolithTaskRepeatYearly':
+            case 'kronolithTaskRepeatLength':
+                this.toggleRecurrence(
+                    id.startsWith('kronolithEvent'),
+                    id.substring(id.startsWith('kronolithEvent') ? 20 : 19));
                 break;
 
             case 'kronolithEventSave':
@@ -4156,13 +4307,19 @@ KronolithCore = {
             case 'kronolithEventDelete':
                 $('kronolithEventDiv').hide();
                 $('kronolithDeleteDiv').show();
+                e.stop();
                 break;
 
             case 'kronolithEventDeleteCancel':
                 $('kronolithDeleteDiv').hide();
                 $('kronolithEventDiv').show();
+                e.stop();
                 return;
 
+            case 'kronolithEventSendCancellationYes':
+                $('kronolithEventSendUpdates').setValue(1);
+            case 'kronolithEventSendCancellationNo':
+                $('kronolithCancellationDiv').hide();
             case 'kronolithRecurDeleteAll':
             case 'kronolithRecurDeleteCurrent':
             case 'kronolithRecurDeleteFuture':
@@ -4172,6 +4329,18 @@ KronolithCore = {
                     break;
                 }
                 elt.disable();
+
+                if (id != 'kronolithEventSendCancellationNo'
+                    && id != 'kronolithEventSendCancellationYes'
+                    && $F('kronolithEventAttendees')) {
+
+                    $('kronolithEventSendUpdates').setValue(0);
+                    $('kronolithDeleteDiv').hide();
+                    $('kronolithCancellationDiv').show();
+                    e.stop();
+                    break;
+                }
+
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId');
                 var params = {
@@ -4179,7 +4348,8 @@ KronolithCore = {
                     id: eventid,
                     rstart: $F('kronolithEventRecurOStart'),
                     cstart: this.cacheStart.toISOString(),
-                    cend: this.cacheEnd.toISOString()
+                    cend: this.cacheEnd.toISOString(),
+                    sendupdates: $F('kronolithEventSendUpdates')
                 };
                 switch (id) {
                 case 'kronolithRecurDeleteAll':
@@ -4204,11 +4374,10 @@ KronolithCore = {
                 params.view_end = end;
 
                 HordeCore.doAction('deleteEvent', params, {
-                    callback: function(r) {
+                    callback: function(elt,r) {
                         if (r.deleted) {
                             var days;
-                            if ((this.view == 'month' &&
-                                 Kronolith.conf.max_events) ||
+                            if (this.view == 'month' ||
                                 this.view == 'week' ||
                                 this.view == 'workweek' ||
                                 this.view == 'day') {
@@ -4223,13 +4392,13 @@ KronolithCore = {
                                 this.reRender(days);
                             }
                         } else {
-                            elt.enable();
                             this.kronolithBody.select('div').findAll(function(el) {
                                 return el.retrieve('calendar') == cal &&
                                        el.retrieve('eventid') == eventid;
                             }).invoke('show');
                         }
-                    }.bind(this)
+                        elt.enable();
+                    }.curry(elt).bind(this)
                 });
 
                 $('kronolithDeleteDiv').hide();
@@ -4349,30 +4518,20 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithOptions':
-                this.go('prefs');
-                e.stop();
-                return;
-
-            case 'kronolithLogout':
-                HordeCore.logout();
-                e.stop();
-                return;
-
             case 'kronolithMinicalDate':
                 this.go('month:' + orig.retrieve('date'));
                 e.stop();
                 return;
 
-            case 'kronolithMinical':
-                if (orig.id == 'kronolithMinicalPrev') {
+            case 'kronolith-minical':
+                if (orig.id == 'kronolith-minical-prev') {
                     var date = this.parseDate($('kronolithMinicalDate').retrieve('date'));
                     date.previous().month();
                     this.updateMinical(date, date.getMonth() == this.date.getMonth() ? this.view : undefined);
                     e.stop();
                     return;
                 }
-                if (orig.id == 'kronolithMinicalNext') {
+                if (orig.id == 'kronolith-minical-next') {
                     var date = this.parseDate($('kronolithMinicalDate').retrieve('date'));
                     date.next().month();
                     this.updateMinical(date, date.getMonth() == this.date.getMonth() ? this.view : null);
@@ -4386,7 +4545,7 @@ KronolithCore = {
                 }
                 if (tmp) {
                     if (tmp.retrieve('weekdate') &&
-                        tmp.hasClassName('kronolithMinicalWeek')) {
+                        tmp.hasClassName('kronolith-minical-week')) {
                         this.go('week:' + tmp.retrieve('weekdate'));
                     } else if (tmp.retrieve('date') &&
                                !tmp.hasClassName('empty')) {
@@ -4404,7 +4563,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithViewMonth':
-                if (orig.hasClassName('kronolithFirstCol')) {
+                if (orig.hasClassName('kronolith-first-col')) {
                     var date = orig.retrieve('date');
                     if (date) {
                         this.go('week:' + date);
@@ -4417,12 +4576,12 @@ KronolithCore = {
 
             case 'kronolithViewYear':
                 var tmp = orig;
-                if (tmp.tagName != 'td') {
+                if (tmp.tagName != 'td' && tmp.tagName != 'th') {
                     tmp.up('td');
                 }
                 if (tmp) {
                     if (tmp.retrieve('weekdate') &&
-                        tmp.hasClassName('kronolithMinicalWeek')) {
+                        tmp.hasClassName('kronolith-minical-week')) {
                         this.go('week:' + tmp.retrieve('weekdate'));
                     } else if (tmp.hasClassName('kronolithMinicalDate')) {
                         this.go('month:' + tmp.retrieve('date'));
@@ -4446,33 +4605,29 @@ KronolithCore = {
                 return;
 
             case 'kronolithSearchButton':
-                this.go('search:' + this.search + ':' + $F('kronolithSearchTerm'));
+                this.go('search:' + this.search + ':' + $F('horde-search-input'));
                 e.stop();
                 break;
 
             case 'kronolithSearchFuture':
                 if (this.search != 'future') {
-                    this.go('search:future:' + $F('kronolithSearchTerm'));
+                    this.go('search:future:' + $F('horde-search-input'));
                 }
                 e.stop();
                 break;
 
             case 'kronolithSearchPast':
                 if (this.search != 'past') {
-                    this.go('search:past:' + $F('kronolithSearchTerm'));
+                    this.go('search:past:' + $F('horde-search-input'));
                 }
                 e.stop();
                 break;
 
             case 'kronolithSearchAll':
                 if (this.search != 'all') {
-                    this.go('search:all:' + $F('kronolithSearchTerm'));
+                    this.go('search:all:' + $F('horde-search-input'));
                 }
                 e.stop();
-                break;
-
-            case 'kronolithNotifications':
-                HordeCore.Growler.toggleLog();
                 break;
 
             case 'kronolithEventDialog':
@@ -4503,16 +4658,6 @@ KronolithCore = {
             // Caution, this only works if the element has definitely only a
             // single CSS class.
             switch (elt.className) {
-            case 'kronolithDateChoice':
-            case 'kronolithGotoToday':
-                var view = this.view;
-                if (!$w('day workweek week month year agenda').include(view)) {
-                    view = Kronolith.conf.login_view;
-                }
-                this.go(view + ':' + new Date().dateString());
-                e.stop();
-                return;
-
             case 'kronolithPrev':
             case 'kronolithNext':
                 var newDate = this.date.clone(),
@@ -4537,23 +4682,9 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithAdd':
+            case 'horde-add':
                 this.go('calendar:' + id.replace(/kronolithAdd/, ''));
                 e.stop();
-                return;
-
-            case 'kronolithToggleCollapse':
-                elt.up().next().blindUp();
-                elt.title = Kronolith.text.expand;
-                elt.removeClassName('kronolithToggleCollapse');
-                elt.addClassName('kronolithToggleExpand');
-                return;
-
-            case 'kronolithToggleExpand':
-                elt.up().next().blindDown();
-                elt.title = Kronolith.text.collapse;
-                elt.removeClassName('kronolithToggleExpand');
-                elt.addClassName('kronolithToggleCollapse');
                 return;
 
             case 'kronolithTabLink':
@@ -4561,7 +4692,7 @@ KronolithCore = {
                 e.stop();
                 break;
 
-            case 'kronolithFormCancel':
+            case 'horde-cancel':
                 this.closeRedBox();
                 this.resetMap();
                 this.go(this.lastLocation);
@@ -4569,12 +4700,17 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventTag':
-                this.eventTagAc.addNewItemNode(elt.getText());
+                HordeImple.AutoCompleter.kronolithEventTags.addNewItemNode(elt.getText());
                 e.stop();
                 break;
 
             case 'kronolithCalendarTag':
-                this.calendarTagAc.addNewItemNode(elt.getText());
+                HordeImple.AutoCompleter.kronolithCalendarinternalTags.addNewItemNode(elt.getText());
+                e.stop();
+                break;
+
+            case 'kronolithTaskTag':
+                HordeImple.AutoCompleter.kronolithTaskTags.addNewItemNode(elt.getText());
                 e.stop();
                 break;
 
@@ -4591,8 +4727,9 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithCalEdit':
-                this.go('calendar:' + elt.next().retrieve('calendarclass') + '|' + elt.next().retrieve('calendar'));
+            case 'horde-resource-edit-000':
+            case 'horde-resource-edit-fff':
+                this.go('calendar:' + elt.up().retrieve('calendarclass') + '|' + elt.up().retrieve('calendar'));
                 e.stop();
                 return;
 
@@ -4619,7 +4756,7 @@ KronolithCore = {
                 return;
             }
 
-            if (elt.hasClassName('kronolithEvent')) {
+            if (elt.hasClassName('kronolith-event')) {
                 if (!Object.isUndefined(elt.retrieve('ajax'))) {
                     this.go(elt.retrieve('ajax'));
                 } else {
@@ -4628,7 +4765,7 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithMonthDay')) {
-                if (orig.hasClassName('kronolithDay')) {
+                if (orig.hasClassName('kronolith-day')) {
                     var date = orig.retrieve('date');
                     if (date) {
                         this.go('day:' + date);
@@ -4668,7 +4805,10 @@ KronolithCore = {
                 }, {
                     callback: function(r) {
                         if (r.toggled) {
-                            this.toggleCompletion(tasklist, taskid);
+                            this.toggleCompletion(tasklist, taskid, r.toggled);
+                            if (r.toggled !== true) {
+                                this.toggleCompletionClass(taskid);
+                            }
                         } else {
                             this.toggleCompletionClass(taskid);
                         }
@@ -4944,10 +5084,10 @@ KronolithCore = {
         var elt = e.element();
 
         if (elt.hasClassName('kronolithDragger')) {
-            elt.up().addClassName('kronolithSelected');
+            elt.up().addClassName('kronolith-selected');
             DragDrop.Drags.getDrag(elt).top = elt.cumulativeOffset().top;
         } else if (elt.hasClassName('kronolithEditable')) {
-            elt.addClassName('kronolithSelected').setStyle({ left: 0, width: (this.view == 'week' || this.view == 'workweek') ? '90%' : '95%', zIndex: 1 });
+            elt.addClassName('kronolith-selected').setStyle({ left: 0, width: (this.view == 'week' || this.view == 'workweek') ? '90%' : '95%', zIndex: 1 });
         }
 
         this.scrollTop = $('kronolithView' + this.view.capitalize())
@@ -5004,7 +5144,7 @@ KronolithCore = {
         } else if (elt.hasClassName('kronolithEditable')) {
             // Moving the event.
             if (Object.isUndefined(drag.innerDiv)) {
-                drag.innerDiv = drag.ghost.down('.kronolithEventInfo');
+                drag.innerDiv = drag.ghost.down('.kronolith-event-info');
             }
             if ((this.view == 'week') || (this.view == 'workweek')) {
                 var offsetX = Math.round(drag.ghost.offsetLeft / drag.stepX);
@@ -5043,7 +5183,7 @@ KronolithCore = {
             sig = start + end + (Math.random() + '').slice(2),
             element, attributes;
 
-        div.removeClassName('kronolithSelected');
+        div.removeClassName('kronolith-selected');
         if (!Object.isUndefined(drag.innerDiv)) {
             this.setEventText(drag.innerDiv, event.value);
         }
@@ -5112,7 +5252,7 @@ KronolithCore = {
         if (this.redBoxLoading) {
             return;
         }
-        if (Object.isUndefined(this.eventTagAc)) {
+        if (Object.isUndefined(HordeImple.AutoCompleter.kronolithEventTags)) {
             this.editEvent.bind(this, calendar, id, date).defer();
             return;
         }
@@ -5128,7 +5268,7 @@ KronolithCore = {
                 $('kronolithEventForm').focusFirstElement();
             } catch(e) {}
             if (Kronolith.conf.maps.driver &&
-                $('kronolithEventLinkMap').up().hasClassName('activeTab') &&
+                $('kronolithEventLinkMap').up().hasClassName('horde-active') &&
                 !this.mapInitialized) {
 
                 this.initializeMap();
@@ -5144,9 +5284,9 @@ KronolithCore = {
         this.knl.kronolithEventEndTime.markSelected();
         $('kronolithEventForm').reset();
         this.resetMap();
-        this.attendeesAc.reset();
-        this.eventTagAc.reset();
-        this.resourceAc.reset();
+        HordeImple.AutoCompleter.kronolithEventAttendees.reset();
+        HordeImple.AutoCompleter.kronolithEventTags.reset();
+        HordeImple.AutoCompleter.kronolithEventResources.reset();
         if (Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').hide();
         }
@@ -5205,7 +5345,7 @@ KronolithCore = {
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
             $('kronolithEventLinkExport').up('span').hide();
             $('kronolithEventSaveAsNew').hide();
-            this.toggleRecurrence('None');
+            this.toggleRecurrence(true, 'None');
             $('kronolithEventEditRecur').hide();
             this.enableAlarm('Event', Kronolith.conf.default_alarm);
             // Need to clear any existing handler for new events, as they are
@@ -5229,16 +5369,15 @@ KronolithCore = {
      */
     saveEventParams: function()
     {
-        var start, end, sig,
-            viewDates = this.viewDates(this.date, this.view),
-            params = { sig: viewDates[0].dateString() + viewDates[1].dateString() };
+        var viewDates = this.viewDates(this.date, this.view),
+            params = {
+                sig: viewDates[0].dateString() + viewDates[1].dateString(),
+                view: this.view
+            };
         if (this.cacheStart) {
-            start = this.cacheStart.dateString();
-            end = this.cacheEnd.dateString();
-            params.view_start = start;
-            params.view_end = end;
+            params.view_start = this.cacheStart.dateString();
+            params.view_end = this.cacheEnd.dateString();
         }
-        params.view = this.view;
         return params;
     },
 
@@ -5264,9 +5403,11 @@ KronolithCore = {
         params = $H($('kronolithEventForm').serialize({ hash: true }))
             .merge(this.saveEventParams());
         params.set('as_new', asnew ? 1 : 0);
-        params.set('cstart', this.cacheStart.toISOString());
-        params.set('cend', this.cacheEnd.toISOString());
-        this.eventTagAc.shutdown();
+        if (this.cacheStart) {
+            params.set('cstart', this.cacheStart.toISOString());
+            params.set('cend', this.cacheEnd.toISOString());
+        }
+        HordeImple.AutoCompleter.kronolithEventTags.shutdown();
         $('kronolithEventSave').disable();
         $('kronolithEventSaveAsNew').disable();
         $('kronolithEventDelete').disable();
@@ -5303,16 +5444,16 @@ KronolithCore = {
         params.set('text', text);
         params.set('cal', cal);
 
-        $('kronolithQuickinsert').fade({ duration: this.effectDur });
+        this.closeRedBox();
         this.startLoading(cal, params.get('sig'));
         HordeCore.doAction('quickSaveEvent', params, {
             callback: function(r) {
                 this.loadEventsCallback(r, false);
-                if (r.msgs.size()) {
+                if (r.error) {
                     this.editEvent(null, null, null, text);
-                 } else {
-                     $('kronolithQuickinsertQ').value = '';
-                 }
+                } else {
+                    $('kronolithQuickinsertQ').value = '';
+                }
              }.bind(this)
          });
     },
@@ -5322,8 +5463,11 @@ KronolithCore = {
      */
     quickClose: function()
     {
-        $('kronolithQuickinsert').fade({ duration: this.effectDur });
         $('kronolithQuickinsertQ').value = '';
+        if ($('kronolithQuicktaskQ')) {
+            $('kronolithQuicktaskQ').value = '';
+        }
+        this.closeRedBox();
     },
 
     topTagsCallback: function(update, tagclass, r)
@@ -5334,12 +5478,12 @@ KronolithCore = {
             return;
         }
 
-        var t = new Element('div');
+        var t = new Element('ul', { className: 'horde-tags' });
         r.tags.each(function(tag) {
             if (tag == null) {
                 return;
             }
-            t.insert(new Element('span', { className: tagclass }).update(tag.escapeHTML()));
+            t.insert(new Element('li', { className: tagclass }).update(tag.escapeHTML()));
         });
         $(update).update(t);
     },
@@ -5369,7 +5513,7 @@ KronolithCore = {
         $('kronolithEventId').setValue(ev.id);
         $('kronolithEventCalendar').setValue(ev.ty + '|' + ev.c);
         $('kronolithEventTarget').setValue(ev.ty + '|' + ev.c);
-        $('kronolithEventTargetRO').update(Kronolith.conf.calendars[ev.ty][ev.c].name);
+        $('kronolithEventTargetRO').update(Kronolith.conf.calendars[ev.ty][ev.c].name.escapeHTML());
         $('kronolithEventTitle').setValue(ev.t);
         $('kronolithEventLocation').setValue(ev.l);
         $('kronolithEventTimezone').setValue(ev.tz);
@@ -5449,37 +5593,7 @@ KronolithCore = {
 
         /* Recurrence */
         if (ev.r) {
-            var scheme = Kronolith.conf.recur[ev.r.t],
-                schemeLower = scheme.toLowerCase(),
-                div = $('kronolithEventRepeat' + scheme);
-            $('kronolithEventLink' + scheme).setValue(true);
-            if (scheme == 'Monthly' || scheme == 'Yearly') {
-                div.down('input[name=recur_' + schemeLower + '_scheme][value=' + ev.r.t + ']').setValue(true);
-            }
-            if (scheme == 'Weekly') {
-                div.select('input[type=checkbox]').each(function(input) {
-                    if (input.name == 'weekly[]' &&
-                        input.value & ev.r.d) {
-                        input.setValue(true);
-                    }
-                });
-            }
-            if (ev.r.i == 1) {
-                div.down('input[name=recur_' + schemeLower + '][value=1]').setValue(true);
-            } else {
-                div.down('input[name=recur_' + schemeLower + '][value=0]').setValue(true);
-                div.down('input[name=recur_' + schemeLower + '_interval]').setValue(ev.r.i);
-            }
-            if (!Object.isUndefined(ev.r.e)) {
-                $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=date]').setValue(true);
-                $('kronolithEventRecurDate').setValue(Date.parse(ev.r.e).toString(Kronolith.conf.date_format));
-            } else if (!Object.isUndefined(ev.r.c)) {
-                $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=count]').setValue(true);
-                $('kronolithEventRecurCount').setValue(ev.r.c);
-            } else {
-                $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=none]').setValue(true);
-            }
-            this.toggleRecurrence(scheme);
+            this.setRecurrenceFields(true, ev.r);
             $('kronolithRecurDelete').show();
             $('kronolithNoRecurDelete').hide();
             $('kronolithEventEditRecur').show();
@@ -5489,12 +5603,12 @@ KronolithCore = {
             $('kronolithEventEditRecur').hide();
             var div = $('kronolithEventRepeatException');
             div.down('span').update(ev.eod);
-            this.toggleRecurrence('Exception');
+            this.toggleRecurrence(true, 'Exception');
         } else {
             $('kronolithRecurDelete').hide();
             $('kronolithNoRecurDelete').show();
             $('kronolithEventEditRecur').hide();
-            this.toggleRecurrence('None');
+            this.toggleRecurrence(true, 'None');
         }
 
         /* Attendees */
@@ -5502,7 +5616,7 @@ KronolithCore = {
             $('kronolithEventStartDate').stopObserving('change', this.attendeeStartDateHandler);
         }
         if (!Object.isUndefined(ev.at)) {
-            this.attendeesAc.reset(ev.at.pluck('l'));
+            HordeImple.AutoCompleter.kronolithEventAttendees.reset(ev.at.pluck('l'));
             ev.at.each(this.addAttendee.bind(this));
             if (this.fbLoading) {
                 $('kronolithFBLoading').show();
@@ -5521,7 +5635,7 @@ KronolithCore = {
         }
         if (!Object.isUndefined(ev.rs)) {
             var rs = $H(ev.rs);
-            this.resourceAc.reset(rs.values().pluck('name'));
+            HordeImple.AutoCompleter.kronolithEventResources.reset(rs.values().pluck('name'));
             rs.each(function(r) { this.addResource(r.value, r.key) }.bind(this));
             if (this.fbLoading) {
                 $('kronolithResourceFBLoading').show();
@@ -5537,7 +5651,7 @@ KronolithCore = {
         }
 
         /* Tags */
-        this.eventTagAc.reset(ev.tg);
+        HordeImple.AutoCompleter.kronolithEventTags.reset(ev.tg);
 
         /* Geo */
         if (ev.gl) {
@@ -5548,7 +5662,7 @@ KronolithCore = {
 
         if (!ev.pe) {
             $('kronolithEventSave').hide();
-            this.eventTagAc.disable();
+            HordeImple.AutoCompleter.kronolithEventTags.disable();
             $('kronolithEventTabTags').select('label').invoke('hide');
         } else {
             HordeCore.doAction('listTopTags', {}, {
@@ -5680,7 +5794,7 @@ KronolithCore = {
         tr, i;
         if (att.resource) {
             this.fbLoading++;
-            HoreCore.doAction('getFreeBusy', att, {
+            HordeCore.doAction('getFreeBusy', att, {
                 callback: this.addResourceCallback.curry(resource).bind(this)
             });
             tr = new Element('tr');
@@ -5738,9 +5852,10 @@ KronolithCore = {
 
     checkOrganizerAsAttendee: function()
     {
-        if (this.attendeesAc.selectedItems.length == 1 && this.attendeesAc.selectedItems.first().rawValue != Kronolith.conf.email) {
+        if (HordeImple.AutoCompleter.kronolithEventAttendees.selectedItems.length == 1 &&
+            HordeImple.AutoCompleter.kronolithEventAttendees.selectedItems.first().rawValue != Kronolith.conf.email) {
             // Invite the organizer of this event to the new event.
-            KronolithCore.attendeesAc.addNewItemNode(Kronolith.conf.email);
+            HordeImple.AutoCompleter.kronolithEventAttendees.addNewItemNode(Kronolith.conf.email);
             this.addAttendee(Kronolith.conf.email);
         }
     },
@@ -5869,27 +5984,29 @@ KronolithCore = {
     },
 
     /**
-     * Toggles the recurrence fields of the event edit form.
+     * Toggles the recurrence fields of the event and task edit forms.
      *
-     * @param string recur  The recurrence part of the field name, i.e. 'None',
-     *                      'Daily', etc.
+     * @param boolean event  Whether to use the event form.
+     * @param string recur   The recurrence part of the field name, i.e. 'None',
+     *                       'Daily', etc.
      */
-    toggleRecurrence: function(recur)
+    toggleRecurrence: function(event, recur)
     {
+        var prefix = 'kronolith' + (event ? 'Event' : 'Task');
         if (recur == 'Exception') {
-            if (!$('kronolithEventRepeatException').visible()) {
-                $('kronolithEventTabRecur').select('div').invoke('hide');
-                $('kronolithEventRepeatException').show();
+            if (!$(prefix + 'RepeatException').visible()) {
+                $(prefix + 'TabRecur').select('div').invoke('hide');
+                $(prefix + 'RepeatException').show();
             }
         } else if (recur != 'None') {
-            var div = $('kronolithEventRepeat' + recur),
-                length = $('kronolithEventRepeatLength');
+            var div = $(prefix + 'Repeat' + recur),
+                length = $(prefix + 'RepeatLength');
             this.lastRecurType = recur;
             if (!div.visible()) {
-                $('kronolithEventTabRecur').select('div').invoke('hide');
+                $(prefix + 'TabRecur').select('div').invoke('hide');
                 div.show();
                 length.show();
-                $('kronolithEventRepeatType').show();
+                $(prefix + 'RepeatType').show();
             }
             switch (recur) {
             case 'Daily':
@@ -5906,21 +6023,63 @@ KronolithCore = {
             }
 
             if (length.down('input[name=recur_end_type][value=date]').checked) {
-                $('kronolithEventRecurDate').enable();
-                $('kronolithEventRecurPicker').setStyle({ visibility: 'visible' });
+                $(prefix + 'RecurDate').enable();
+                $(prefix + 'RecurPicker').setStyle({ visibility: 'visible' });
             } else {
-                $('kronolithEventRecurDate').disable();
-                $('kronolithEventRecurPicker').setStyle({ visibility: 'hidden' });
+                $(prefix + 'RecurDate').disable();
+                $(prefix + 'RecurPicker').setStyle({ visibility: 'hidden' });
             }
             if (length.down('input[name=recur_end_type][value=count]').checked) {
-                $('kronolithEventRecurCount').enable();
+                $(prefix + 'RecurCount').enable();
             } else {
-                $('kronolithEventRecurCount').disable();
+                $(prefix + 'RecurCount').disable();
             }
         } else {
-            $('kronolithEventTabRecur').select('div').invoke('hide');
-            $('kronolithEventRepeatType').show();
+            $(prefix + 'TabRecur').select('div').invoke('hide');
+            $(prefix + 'RepeatType').show();
         }
+    },
+
+    /**
+     * Fills the recurrence fields of the event and task edit forms.
+     *
+     * @param boolean event  Whether to use the event form.
+     * @param object recur   The recurrence object from the ajax response.
+     */
+    setRecurrenceFields: function(event, recur)
+    {
+        var scheme = Kronolith.conf.recur[recur.t],
+            schemeLower = scheme.toLowerCase(),
+            prefix = 'kronolith' + (event ? 'Event' : 'Task'),
+            div = $(prefix + 'Repeat' + scheme);
+        $(prefix + 'Link' + scheme).setValue(true);
+        if (scheme == 'Monthly' || scheme == 'Yearly') {
+            div.down('input[name=recur_' + schemeLower + '_scheme][value=' + recur.t + ']').setValue(true);
+        }
+        if (scheme == 'Weekly') {
+            div.select('input[type=checkbox]').each(function(input) {
+                if (input.name == 'weekly[]' &&
+                    input.value & recur.d) {
+                    input.setValue(true);
+                }
+            });
+        }
+        if (recur.i == 1) {
+            div.down('input[name=recur_' + schemeLower + '][value=1]').setValue(true);
+        } else {
+            div.down('input[name=recur_' + schemeLower + '][value=0]').setValue(true);
+            div.down('input[name=recur_' + schemeLower + '_interval]').setValue(recur.i);
+        }
+        if (!Object.isUndefined(recur.e)) {
+            $(prefix + 'RepeatLength').down('input[name=recur_end_type][value=date]').setValue(true);
+            $(prefix + 'RecurDate').setValue(Date.parse(recur.e).toString(Kronolith.conf.date_format));
+        } else if (!Object.isUndefined(recur.c)) {
+            $(prefix + 'RepeatLength').down('input[name=recur_end_type][value=count]').setValue(true);
+            $(prefix + 'RecurCount').setValue(recur.c);
+        } else {
+            $(prefix + 'RepeatLength').down('input[name=recur_end_type][value=none]').setValue(true);
+        }
+        this.toggleRecurrence(event, scheme);
     },
 
     /**
@@ -6320,9 +6479,9 @@ KronolithCore = {
         }
         var dialog = $('kronolithEventForm');
         dialog.select('.kronolithTabsOption').invoke('hide');
-        dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
+        dialog.select('.tabset li').invoke('removeClassName', 'horde-active');
         $('kronolithEventTabMap').show();
-        $('kronolithEventLinkMap').up().addClassName('activeTab');
+        $('kronolithEventLinkMap').up().addClassName('horde-active');
     },
 
     /**
@@ -6359,17 +6518,6 @@ KronolithCore = {
         }.bind(this);
         RedBox.duration = this.effectDur;
 
-        $('kronolithSearchTerm').observe('focus', function() {
-            if ($F(this) == this.readAttribute('default')) {
-                this.clear();
-            }
-        });
-        $('kronolithSearchTerm').observe('blur', function() {
-            if (!$F(this)) {
-                this.setValue(this.readAttribute('default'));
-            }
-        });
-
         $('kronolithEventStartDate', 'kronolithEventEndDate', 'kronolithTaskDueDate').compact().invoke('observe', 'blur', this.checkDate.bind(this));
         var timeFields = $('kronolithEventStartTime', 'kronolithEventEndTime', 'kronolithTaskDueTime').compact();
         timeFields.invoke('observe', 'blur', this.checkTime.bind(this));
@@ -6403,54 +6551,16 @@ KronolithCore = {
         }, this);
 
         this.updateMinical(this.date);
-
-        $('kronolithMenu').select('div.kronolithCalendars div').each(function(s) {
-            s.observe('mouseover', s.addClassName.curry('kronolithCalOver'));
-            s.observe('mouseout', s.removeClassName.curry('kronolithCalOver'));
-        });
-
-        document.observe('Growler:toggled', function(e) {
-            var button = $('kronolithNotifications');
-            if (e.memo.visible) {
-                button.title = Kronolith.text.hidelog;
-                button.addClassName('kronolithClose');
-            } else {
-                button.title = Kronolith.text.alerts;
-                button.removeClassName('kronolithClose');
-            }
-            Horde_ToolTips.detach(button);
-            Horde_ToolTips.attach(button);
-        }.bindAsEventListener(this));
-
-        /* Catch notification actions. */
-        document.observe('HordeCore:showNotifications', function(e) {
-            switch (e.memo.type) {
-            case 'horde.error':
-            case 'horde.warning':
-            case 'horde.message':
-            case 'horde.success':
-                var notify = $('kronolithNotifications'),
-                    className = e.memo.type.replace(/\./, '-'),
-                    order = 'horde-error,horde-warning,horde-message,horde-success,kronolithNotifications',
-                    open = notify.hasClassName('kronolithClose');
-                notify.removeClassName('kronolithClose');
-                if (order.indexOf(notify.className) > order.indexOf(className)) {
-                    notify.className = className;
-                }
-                if (open) {
-                    notify.addClassName('kronolithClose');
-                }
-                break;
-            }
-        });
     },
 
     initialize: function(location, r)
     {
         Kronolith.conf.calendars = r.calendars;
         this.updateCalendarList();
+        HordeSidebar.refreshEvents();
         $('kronolithLoadingCalendars').hide();
         $('kronolithMenuCalendars').show();
+        this.initialized = true;
 
         /* Initialize the starting page. */
         if (!location.empty()) {
@@ -6472,6 +6582,8 @@ document.observe('DragDrop2:drop', KronolithCore.onDrop.bindAsEventListener(Kron
 document.observe('DragDrop2:end', KronolithCore.onDragEnd.bindAsEventListener(KronolithCore));
 document.observe('DragDrop2:start', KronolithCore.onDragStart.bindAsEventListener(KronolithCore));
 document.observe('Horde_Calendar:select', KronolithCore.datePickerHandler.bindAsEventListener(KronolithCore));
+document.observe('FormGhost:reset', KronolithCore.searchReset.bindAsEventListener(KronolithCore));
+document.observe('FormGhost:submit', KronolithCore.searchSubmit.bindAsEventListener(KronolithCore));
 if (Prototype.Browser.IE) {
     $('kronolithBody').observe('selectstart', Event.stop);
 }

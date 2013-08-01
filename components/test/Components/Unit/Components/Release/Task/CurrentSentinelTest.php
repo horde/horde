@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
-
-/**
  * Test the current sentinel release task.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -42,15 +37,15 @@ extends Components_TestCase
         $package = $this->getComponent($tmp_dir);
         $tasks->run(array('CurrentSentinel'), $package);
         $this->assertEquals(
-            '----------
-v4.0.1-RC1
-----------
+            '---------
+v4.0.1RC1
+---------
 TEST',
             file_get_contents($tmp_dir . '/docs/CHANGES')
         );
         $this->assertEquals(
             'class Application {
-public $version = \'4.0.1-RC1\';
+public $version = \'4.0.1RC1\';
 }
 ',
             file_get_contents($tmp_dir . '/lib/Application.php')
@@ -64,15 +59,15 @@ public $version = \'4.0.1-RC1\';
         $package = $this->getComponent($tmp_dir);
         $tasks->run(array('CurrentSentinel'), $package);
         $this->assertEquals(
-            '----------
-v4.0.1-RC1
-----------
+            '---------
+v4.0.1RC1
+---------
 TEST',
             file_get_contents($tmp_dir . '/docs/CHANGES')
         );
         $this->assertEquals(
             'class Horde_Bundle {
-const VERSION = \'4.0.1-RC1\';
+const VERSION = \'4.0.1RC1\';
 }
 ',
             file_get_contents($tmp_dir . '/lib/Bundle.php')
@@ -97,11 +92,11 @@ const VERSION = \'4.0.1-RC1\';
         );
         $this->assertEquals(
             array(
-                sprintf('Would replace sentinel in %s/docs/CHANGES with "4.0.1-RC1" now.', $tmp_dir),
-                sprintf('Would replace sentinel in %s/lib/Application.php with "4.0.1-RC1" now.', $tmp_dir),
+                sprintf('Would replace sentinel in %s/docs/CHANGES with "4.0.1RC1" now.', $tmp_dir),
+                sprintf('Would replace sentinel in %s/lib/Application.php with "4.0.1RC1" now.', $tmp_dir),
                 sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
                 sprintf('Would run "git add %s/lib/Application.php" now.', $tmp_dir),
-                'Would run "git commit -m "Released Horde-4.0.1rc1"" now.'
+                'Would run "git commit -m "Released Horde-4.0.1RC1"" now.'
             ),
             $this->output->getOutput()
         );
@@ -125,11 +120,11 @@ const VERSION = \'4.0.1-RC1\';
         );
         $this->assertEquals(
             array(
-                sprintf('Would replace sentinel in %s/docs/CHANGES with "4.0.1-RC1" now.', $tmp_dir),
-                sprintf('Would replace sentinel in %s/lib/Bundle.php with "4.0.1-RC1" now.', $tmp_dir),
+                sprintf('Would replace sentinel in %s/docs/CHANGES with "4.0.1RC1" now.', $tmp_dir),
+                sprintf('Would replace sentinel in %s/lib/Bundle.php with "4.0.1RC1" now.', $tmp_dir),
                 sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
                 sprintf('Would run "git add %s/lib/Bundle.php" now.', $tmp_dir),
-                'Would run "git commit -m "Released Horde-4.0.1rc1"" now.'
+                'Would run "git commit -m "Released Horde-4.0.1RC1"" now.'
             ),
             $this->output->getOutput()
         );
@@ -152,7 +147,7 @@ const VERSION = \'4.0.1-RC1\';
 <package xmlns="http://pear.php.net/dtd/package-2.0">
  <name>Horde</name>
  <version>
-  <release>4.0.1rc1</release>
+  <release>4.0.1RC1</release>
   <api>4.0.0</api>
  </version>
 </package>'

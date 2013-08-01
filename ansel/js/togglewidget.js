@@ -2,33 +2,31 @@
  * @param string node  The DOM id of the node to show or hide.
  *                     The node that contains the toggle link should be named
  *                     {node}-toggle
- *
- * @param string requestType  The class name of the Ajax_Imple type for this
- *                            widget.
- *
  */
-function doActionToggle(node, requestType)
+function doActionToggle(node, pref_name)
 {
+    togglePlusMinus(node, pref_name);
+    node = node.replace('-toggle', '');
     $(node).toggle();
-    togglePlusMinus(node, requestType);
     return false;
 }
 
-function togglePlusMinus(node, requestType)
+function togglePlusMinus(node, pref_name)
 {
     var pref_value;
 
-    if ($(node + '-toggle').hasClassName('show')) {
-        $(node + '-toggle').removeClassName('show');
-        $(node + '-toggle').addClassName('hide');
-        var pref_value = 1;
-    } else if ($(node + '-toggle').hasClassName('hide')) {
-        $(node + '-toggle').removeClassName('hide');
-        $(node + '-toggle').addClassName('show');
-        var pref_value = 0;
+    if ($(node).hasClassName('show')) {
+        $(node).removeClassName('show');
+        $(node).addClassName('hide');
+        pref_value = 1;
+    } else if ($(node).hasClassName('hide')) {
+        $(node).removeClassName('hide');
+        $(node).addClassName('show');
+        pref_value = 0;
     }
 
-    var url = Ansel.widgets[requestType].url;
-    var params = { "value": "value=" + pref_value };
-    new Ajax.Request(url, { parameters: params });
+    HordeCore.doAction('setPrefValue', {
+        pref: pref_name,
+        value: pref_value
+    });
 }

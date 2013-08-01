@@ -33,14 +33,13 @@ th {
 .slideControls {
     text-align: center;
     margin: 5px;
-    padding: 2px;
 }
 .slideControls a {
     margin: 2px;
     padding: 3px;
 }
 .slideControls a:hover {
-    background: #e9e9e9;
+    background: #ebeff0;
     padding: 2px;
     border: 1px solid #ccc;
 }
@@ -59,15 +58,38 @@ th {
     padding: 1em;
 }
 
-#Container {
+/* Main view containers */
+#ansel-contentwrapper {
+    width: 100%;
+    float: right;
+}
+#ansel-content {
+    vertical-align: top;
+    margin-left: 5px;
+    margin-right: 255px;
+}
+#ansel-widgetcontent {
+    float: right;
+    width: 250px;
+    margin-left: 5px;
+    margin-right: -100%;
+    margin-top: 5px;
+    vertical-align: top;
+}
+#ansel-content-nowidgets {
+  vertical-align: top;
+}
+
+/* Image view */
+#anselimagecontainer, #Photo {
     text-align: center;
 }
-#CaptionContainer {
+#anselcaptioncontainer, #CaptionContainer {
     margin: 0 auto;
     text-align: left;
     font-size: 125%;
 }
-#Caption {
+#anselcaption, #Caption {
     padding: 1em;
 }
 
@@ -85,18 +107,9 @@ th {
     cursor: move;
 }
 
-/* Widgets */
-.anselWidget {
-    border: 1px solid #ccc;
-}
-.anselWidget .control {
-    background: #eee;
-    text-align: center;
-    border: 0;
-}
+/* Widgets container*/
 .anselWidgets {
     margin-right: 5px;
-    margin-left:5px;
     vertical-align: top;
 }
 .anselWidgets .header {
@@ -106,18 +119,35 @@ th {
 .anselWidgets .header a {
     color: #333333;
 }
-.anselWidgets #similar img {
+.anselWidgets img {
     padding: 1px;
 }
-.embedInput {
-    border-top: 1px solid #ccc;
-    color: #aaa;
+
+/* Widget blocks */
+.anselWidget {
+    border: 1px solid #ccc;
+    padding: 4px;
 }
-.embedInput input {
-    color: #aaa;
-    width: 250px;
-    margin: 5px;
+.anselWidget .control {
+    background: #eee;
+    text-align: center;
+    border: 0;
 }
+.anselWidget {
+    padding: 4px;
+}
+
+/* Specific widgets */
+.ansel-embedlink {
+   border-top: 1px solid #ccc;
+}
+.ansel-embedlink textarea {
+    color: #aaa;
+    width: 100%;
+    resize: none;
+    overflow: auto;
+}
+
 .tagTitle {
     font-size: 100%;
     border: none;
@@ -125,27 +155,9 @@ th {
 #tags {
     padding: 4px;
 }
-#tags li {
-    list-style: none;
-}
-#tagform {
+#tags form {
     white-space: nowrap;
-    padding: 4px;
-}
-.tag-list {
-    display: inline;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    font-size: 80%;
-}
-.tag-list li {
-    margin: 0;
-    padding: 0 .2em;
-    display: inline;
-}
-.tag-list img {
-    vertical-align: middle;
+    margin-top: 4px;
 }
 #gallery-actions a:hover {
     text-decoration: underline;
@@ -167,7 +179,7 @@ th {
 #gallery-actions-toggle:hover, #othergalleries-toggle:hover {
     text-decoration: none;
 }
-#othergalleries .treeRow img {
+#othergalleries .horde-tree-row img {
     margin: 5px;
 }
 
@@ -235,7 +247,6 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 /* Gallery styles */
 .gallery-desc {
     background: #fff;
-    padding: 1em;
 }
 
 /* Gallery tiles */
@@ -262,12 +273,16 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 .image-tile-highlight {
     background-color: #ccc;
 }
+
+/* Exif data */
+#ansel-exif-table {
+  width: 100%;
+  t
+}
+
 /* Actions */
 .anselActions {
-    margin-left: 0;
-    background: #e9e9e9;
-    padding: 4px;
-    border: 1px #cccccc solid;
+    /*border: 1px #cccccc solid;*/
 }
 .anselActions a, .anselActions a:visited, .anselActions label {
     white-space: nowrap;
@@ -277,31 +292,35 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
     padding-right: 2px;
 }
 
-.success {
-    background: url('graphics/success.png') center left no-repeat;
-    padding-left: 15px;
-}
-.problem {
-    background: url('graphics/problem.png') center left no-repeat;
-    padding-left: 15px;
-}
-
 /* Image resizer/slider */
 #slider-track {
     background: url('graphics/scaler_slider_track.gif') no-repeat;
     width:200px;
-    margin:10px 0;
+/*    margin:10px 0; */
     position: relative;
     height:18px;
     margin: 4px auto 4px auto;
 }
 
 .sliderHandle {
-    background: url('graphics/scaler_slider.gif') center left no-repeat;
-    cursor:move;
+    cursor: move;
     position: absolute;
     width: 18px;
     height: 18px;
+}
+
+/* Icons. */
+.ansel-browse {
+  background-image: url('graphics/browse.png');
+}
+.ansel-mygalleries {
+  background-image: url('graphics/galleries.png');
+}
+.ansel-allgalleries {
+  background-image: url('graphics/allgalleries.png');
+}
+.ansel-faces {
+  background-image: url('graphics/faces.png');
 }
 
  /* Map */
@@ -391,10 +410,6 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 .uploadnotification {
   min-height: 20px;
   padding-left: 8px;
-}
-.twitterbutton {
-  background: url('graphics/twitter.png') none-repeat;
-  padding-left: 16px !important;
 }
 
 /* Horizontal Carousel */

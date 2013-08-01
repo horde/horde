@@ -1,17 +1,31 @@
 <?php
 /**
- * The abstract class that all sentmail implementations inherit from.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * The abstract class that all sentmail implementations inherit from.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ *
+ * @property-read integer $limit_period  If limiting recipients per time
+ *                                       period, how many hours should this
+ *                                       period last?
+ * @property-read integer $threshold  How many days should old log entries be
+ *                                    kept?
  */
 abstract class IMP_Sentmail
 {
@@ -42,6 +56,19 @@ abstract class IMP_Sentmail
     }
 
     /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'limit_period':
+        case 'threshold':
+            return isset($this->_params[$name])
+                ? intval($this->_params[$name])
+                : 0;
+        }
+    }
+
+    /**
      * Logs an attempt to send a message.
      *
      * @param integer $action           Why the message was sent (IMP_Sentmail
@@ -68,7 +95,7 @@ abstract class IMP_Sentmail
      */
     public function gc()
     {
-        $this->_deleteOldEntries(time() - ((isset($this->_params['threshold']) ? $this->_params['threshold'] : 0) * 86400));
+        $this->_deleteOldEntries(time() - ($this->threshold * 86400));
     }
 
     /**
@@ -77,7 +104,7 @@ abstract class IMP_Sentmail
      * @param integer $action     Why the message was sent (IMP_Sentmail
      *                            constant).
      * @param string $message_id  The Message-ID.
-     * @param string $recipients  A message recipient.
+     * @param string $recipient   A message recipient.
      * @param boolean $success    Whether the attempt was successful.
      */
     abstract protected function _log($action, $message_id, $recipient,

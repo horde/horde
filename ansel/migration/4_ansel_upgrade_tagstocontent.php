@@ -2,7 +2,7 @@
 /**
  * Move tags from ansel to content storage.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -30,11 +30,15 @@ class AnselUpgradeTagsToContent extends Horde_Db_Migration_Base
             'image' => (int)$types[1]);
         $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
         $this->_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('ansel');
-
     }
 
     public function up()
     {
+        if (strtolower($this->adapterName()) == 'pdo_sqlite') {
+            $this->announce('Migrating Ansel 1.x tags to Sqlite is not supported. Your existing tag data will not be removed, but will be unavailable from within Ansel.');
+            return;
+        }
+
         $tableList = $this->tables();
         if (in_array('ansel_galleries_tags', $tableList)) {
             /* Gallery tags */

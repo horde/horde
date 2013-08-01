@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -9,7 +9,7 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('luxor');
 
 $symbol = Horde_Util::getFormData('s');
@@ -24,9 +24,9 @@ if (count($ids) == 1) {
 }
 
 // If there are multiple search results, display some info for all of them.
-
-$title = sprintf(_("Symbol Search for \"%s\""), $symbol);
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => sprintf(_("Symbol Search for \"%s\""), $symbol)
+));
 require LUXOR_TEMPLATES . '/menu.inc';
 
 echo '<h1 class="header">' . htmlspecialchars($title) . '</h1>';
@@ -59,4 +59,4 @@ foreach ($ids as $ident) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -31,3 +31,13 @@ table.stock th.sortdown {
     background: #bbcbff url("graphics/az.png") center left no-repeat;
     padding-left: 10px;
 }
+/* Icons. */
+.sesha-list {
+    background-image: url('graphics/stock.png');
+}
+.sesha-search {
+    background-image: url('graphics/search.png');
+}
+.sesha-admin {
+    background-image: url('graphics/administration.png');
+}

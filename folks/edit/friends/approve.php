@@ -9,11 +9,11 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once __DIR__ . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/Friends.php';
 
 if (!$registry->isAuthenticated()) {
-    $registry->authenticateFailure('folks');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 $user = Horde_Util::getGet('user');

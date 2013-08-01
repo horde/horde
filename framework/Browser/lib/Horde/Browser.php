@@ -5,13 +5,12 @@
  * Browser identification is performed by examining the HTTP_USER_AGENT
  * environment variable provided by the web server.
  *
- * @TODO http://ajaxian.com/archives/parse-user-agent
- *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @todo     http://ajaxian.com/archives/parse-user-agent
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
@@ -199,6 +198,13 @@ class Horde_Browser
     protected $_mobile = false;
 
     /**
+     * Is this a tablet browser?
+     *
+     * @var boolean
+     */
+    protected $_tablet = false;
+
+    /**
      * Features.
      *
      * @var array
@@ -283,11 +289,31 @@ class Horde_Browser
 
         if (strpos($lowerAgent, 'iemobile') !== false ||
             strpos($lowerAgent, 'mobileexplorer') !== false ||
-            strpos($lowerAgent, 'openwave') !== false ||
-            strpos($lowerAgent, 'opera mini') !== false ||
-            strpos($lowerAgent, 'operamini') !== false) {
+            strpos($lowerAgent, 'openwave') !== false) {
             $this->setFeature('frames', false);
             $this->setFeature('javascript', false);
+            $this->setQuirk('avoid_popup_windows');
+            $this->setMobile(true);
+
+            if (preg_match('|iemobile[/ ]([0-9.]+)|', $lowerAgent, $version)) {
+                list($this->_majorVersion, $this->_minorVersion) = explode('.', $version[1]);
+                if ($this->_majorVersion >= 7) {
+                    // Windows Phone, Modern Browser
+                    $this->setBrowser('msie');
+                    $this->setFeature('javascript');
+                    $this->setFeature('xmlhttpreq');
+                    $this->setFeature('ajax');
+                    $this->setFeature('dom');
+                    $this->setFeature('utf');
+                    $this->setFeature('rte');
+                    $this->setFeature('cite');
+                }
+            }
+        } elseif (strpos($lowerAgent, 'opera mini') !== false ||
+                  strpos($lowerAgent, 'operamini') !== false) {
+            $this->setBrowser('opera');
+            $this->setFeature('frames', false);
+            $this->setFeature('javascript');
             $this->setQuirk('avoid_popup_windows');
             $this->setMobile(true);
         } elseif (preg_match('|Opera[/ ]([0-9.]+)|', $agent, $version)) {
@@ -300,6 +326,9 @@ class Horde_Browser
              * agent strings. */
             if (preg_match('/; (120x160|240x280|240x320|320x320)\)/', $agent)) {
                 $this->setMobile(true);
+            } elseif (preg_match('|Tablet|', $agent)) {
+                $this->setMobile(true);
+                $this->setTablet(true);
             }
 
             if ($this->_majorVersion >= 7) {
@@ -310,6 +339,7 @@ class Horde_Browser
                 if ($this->_majorVersion >= 9) {
                     $this->setFeature('dataurl', 4100);
                     if ($this->_minorVersion >= 5) {
+                        $this->setFeature('ajax');
                         $this->setFeature('rte');
                     }
                 }
@@ -360,10 +390,12 @@ class Horde_Browser
 
             switch ($this->_majorVersion) {
             default:
+            case 10:
             case 9:
             case 8:
             case 7:
                 $this->setFeature('javascript', 1.4);
+                $this->setFeature('ajax');
                 $this->setFeature('dom');
                 $this->setFeature('iframes');
                 $this->setFeature('utf');
@@ -445,9 +477,19 @@ class Horde_Browser
             $this->setFeature('dataurl');
 
             if (strpos($agent, 'Mobile') !== false ||
-                strpos($agent, 'NokiaN') !== false ||
-                strpos($agent, 'SymbianOS') !== false) {
+                strpos($agent, 'Android') !== false ||
+                strpos($agent, 'SAMSUNG-GT') !== false ||
+                ((strpos($agent, 'Nokia') !== false ||
+                 strpos($agent, 'Symbian') !== false) &&
+                 strpos($agent, 'WebKit') !== false) ||
+                (strpos($agent, 'N900') !== false &&
+                 strpos($agent, 'Maemo Browser') !== false) ||
+                (strpos($agent, 'MeeGo') !== false &&
+                strpos($agent, 'NokiaN9') !== false)) {
                 // WebKit Mobile
+                $this->setFeature('frames', false);
+                $this->setFeature('javascript');
+                $this->setQuirk('avoid_popup_windows');
                 $this->setMobile(true);
             }
 
@@ -456,12 +498,14 @@ class Horde_Browser
                 $this->_minorVersion = $version[2];
             }
 
-            if (stripos($agent, 'Chrome/') !== false) {
+            if (stripos($agent, 'Chrome/') !== false ||
+                stripos($agent, 'CriOS/') !== false) {
                 // Google Chrome.
                 $this->setFeature('ischrome');
                 $this->setFeature('rte');
                 $this->setFeature('utf');
                 $this->setFeature('javascript', 1.4);
+                $this->setFeature('ajax');
                 $this->setFeature('dom');
                 $this->setFeature('iframes');
                 $this->setFeature('accesskey');
@@ -481,6 +525,7 @@ class Horde_Browser
                 if (preg_match('|Version/([0-9.]+)|', $agent, $version_string)) {
                     list($this->_majorVersion, $this->_minorVersion) = explode('.', $version_string[1], 2);
                     $this->_minorVersion = intval($this->_minorVersion);
+                    $this->setFeature('ajax');
                     $this->setFeature('rte');
                 } elseif ($this->_majorVersion >= 412) {
                     $this->_majorVersion = 2;
@@ -514,7 +559,8 @@ class Horde_Browser
                 case 3:
                     $this->setFeature('dom');
                     $this->setFeature('iframes');
-                    if ($this->_minorVersion >= 5 || $this->_majorVersion == 4) {
+                    if ($this->_minorVersion >= 5 ||
+                        $this->_majorVersion == 4) {
                         $this->setFeature('accesskey');
                         $this->setFeature('xmlhttpreq');
                     }
@@ -533,6 +579,7 @@ class Horde_Browser
                     $this->setQuirk('break_disposition_filename');
                 }
                 $this->setFeature('javascript', 1.4);
+                $this->setFeature('ajax');
                 $this->setFeature('dom');
                 $this->setFeature('accesskey');
                 $this->setFeature('optgroup');
@@ -551,6 +598,12 @@ class Horde_Browser
                     if (version_compare($revision[1], '10.0', '>=')) {
                         $this->setFeature('utf');
                     }
+                }
+                if (stripos($agent, 'mobile') !== false) {
+                    $this->setMobile(true);
+                } elseif (stripos($agent, 'tablet') !== false) {
+                    $this->setTablet(true);
+                    $this->setMobile(true);
                 }
                 break;
 
@@ -653,6 +706,7 @@ class Horde_Browser
             $this->setMobile(true);
             if ($this->_majorVersion >= 5 ||
                 ($this->_majorVersion == 4 && $this->_minorVersion >= 6)) {
+                $this->setFeature('ajax');
                 $this->setFeature('iframes');
                 $this->setFeature('javascript', 1.5);
                 $this->setFeature('dom');
@@ -738,6 +792,32 @@ class Horde_Browser
     public function isMobile()
     {
         return $this->_mobile;
+    }
+
+    /**
+     * Set this browser as a tablet device.
+     *
+     * @since 2.1.0
+     *
+     * @param boolean $tablet  True if the browser is a tablet device.
+     */
+    public function setTablet($tablet)
+    {
+        $this->_tablet = (bool)$tablet;
+    }
+
+    /**
+     * Is the current browser a tablet device? This is not 100% reliable, as
+     * most browsers do not differentiate between smartphone and tablet
+     * versions.
+     *
+     * @since 2.1.0
+     *
+     * @return boolean  True if we do, false if we don't.
+     */
+    public function isTablet()
+    {
+        return $this->_tablet;
     }
 
     /**
@@ -871,6 +951,7 @@ class Horde_Browser
      *
      * @param string $feature  The capability to set. Features:
      *   - accesskey
+     *   - ajax
      *   - cite
      *   - dataurl
      *   - dom
@@ -1070,7 +1151,7 @@ class Horde_Browser
             // SUCCESS
         } elseif (($error == UPLOAD_ERR_INI_SIZE) ||
                   ($error == UPLOAD_ERR_FORM_SIZE)) {
-            throw new Horde_Browser_Exception(sprintf(Horde_Browser_Translation::t("There was a problem with the file upload: The %s was larger than the maximum allowed size (%d bytes)."), $name, min($uploadSize, Horde_Util::getFormData('MAX_FILE_SIZE'))), $error);
+            throw new Horde_Browser_Exception(sprintf(Horde_Browser_Translation::t("There was a problem with the file upload: The %s was larger than the maximum allowed size (%d bytes)."), $name, $uploadSize), $error);
         } elseif ($error == UPLOAD_ERR_PARTIAL) {
             throw new Horde_Browser_Exception(sprintf(Horde_Browser_Translation::t("There was a problem with the file upload: The %s was only partially uploaded."), $name), $error);
         }

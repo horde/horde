@@ -1,20 +1,21 @@
 #!/usr/bin/env php
 <?php
 /**
- * Query the contents of a user's cached IMAP data.
+ * Query/manage the contents of a user's cached IMAP data.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 
-$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = __DIR__ . '/../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {
@@ -24,57 +25,75 @@ if (file_exists($baseFile)) {
 }
 Horde_Registry::appInit('imp', array('cli' => true));
 
-$c = new Console_Getopt();
-$argv = $c->readPHPArgv();
-array_shift($argv);
-$options = $c->getopt2($argv, '', array('user=', 'pass=', 'server='));
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-l', '--lifetime', array(
+    'dest' => 'lifetime',
+    'help' => 'Purge lifetime (in seconds; default: ALL entries purged)',
+    'type' => 'int'
+));
+$parser->addOption('-p', '--pass', array(
+    'dest' => 'pass',
+    'help' => 'Password (otherwise, is prompted; query mode)'
+));
+$parser->addOption('-P', '--purge', array(
+    'action' => 'store_const',
+    'const' => 1,
+    'dest' => 'purge',
+    'help' => 'Purge cache'
+));
+$parser->addOption('-s', '--server', array(
+    'dest' => 'server',
+    'help' => 'Server key (otherwise, is prompted)'
+));
+$parser->addOption('-u', '--user', array(
+    'dest' => 'user',
+    'help' => 'Username (otherwise, is prompted; query mode)'
+));
+list($values,) = $parser->parseArgs();
 
-if (PEAR::isError($options)) {
-    _usage();
+$imp_imap = $injector->getInstance('IMP_Imap');
+
+/* Set first entry to 1, not 0. */
+$sconfig = $slookup = array('');
+$i = 1;
+
+foreach ($imp_imap->loadServerConfig() as $key => $val) {
+    $sconfig[$i] = $val->name . ' [' . $key . ']';
+    $slookup[$i++] = $key;
 }
+unset($sconfig[0]);
 
-$pass = $server = $user = null;
-foreach ($options[0] as $val) {
-    switch ($val[0]) {
-    case '--help':
-        _usage();
+$server = $values->server;
+while (is_null($server) || !in_array($server, $slookup)) {
+    $tmp = $cli->prompt('Server:', $sconfig);
+    if (isset($slookup[$tmp])) {
+        $server = $slookup[$tmp];
+    }
+}
+$cli->message('Server: ' . $server);
 
-    case '--pass':
-        $pass = $val[1];
-        break;
-
-    case '--server':
-        $server = $val[1];
-        break;
-
-    case '--user':
-        $user = $val[1];
-        break;
+/* Purge cache? */
+$action = $values->purge;
+if (is_null($action)) {
+    $opts = array(
+        1 => 'Purge Cache',
+        2 => 'Query Cache'
+    );
+    while (is_null($action)) {
+        $action = $cli->prompt('Action:', $opts);
     }
 }
 
-$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-
-if (is_null($server)) {
-    /* Set first entry to 1, not 0. */
-    $sconfig = $slookup = array('');
-    $i = 1;
-
-    foreach ($imp_imap->loadServerConfig() as $key => $val) {
-        $sconfig[$i] = $val['name'] . ' [' . $key . ']';
-        $slookup[$i++] = $key;
+if ($action == 1) {
+    $config = $imp_imap->loadServerConfig($server)->cache_params;
+    if (isset($config['backend'])) {
+        $config['backend']->clear($values->lifetime);
+        $cli->message('Cache cleared.');
     }
-
-    unset($sconfig[0]);
-
-    while (is_null($server)) {
-        $server = $cli->prompt('Server:', $sconfig);
-    }
-    $server = $slookup[$server];
-} else {
-    $cli->message('Server: ' . $server);
+    exit;
 }
 
+$user = $values->user;
 if (is_null($user)) {
     while (is_null($user)) {
         $user = $cli->prompt('Username:');
@@ -86,6 +105,7 @@ if (is_null($user)) {
     $cli->message('Username: ' . $user);
 }
 
+$pass = $values->pass;
 while (is_null($pass)) {
     $pass = $cli->passwordPrompt('Password:');
     if (!strlen($pass)) {
@@ -93,29 +113,15 @@ while (is_null($pass)) {
     }
 }
 
-$cli->writeln();
-
 $ob = $imp_imap->createImapObject($user, $pass, $server);
 if (!$ob) {
     $cli->fatal('Could not create Imap Client object.');
 }
 
-if ($ob->cache) {
-    $cli->fatal('Caching not setup for this server.');
-} else {
-    $driver = $ob->getParam('cache');
-    if (!isset($driver['cacheob'])) {
-        $cli->message('Caching has been disabled for this server.', 'cli.error');
-        exit;
-    }
-
-    try {
-        $driver['cacheob']->set('imap_cache_test', 1);
-        $driver['cacheob']->expire('imap_cache_test');
-    } catch (Exception $e) {
-        $cli->message($e, 'cli.error');
-        exit;
-    }
+/* Make sure IMAP cache exists in the IMAP driver. */
+$cache = $ob->getCache();
+if (is_null($cache)) {
+    $cli->fatal('Could not get cache object from IMAP driver.');
 }
 
 try {
@@ -140,8 +146,6 @@ $opts = array(
     0 => 'Exit'
 );
 
-$use_lzf = (!empty($conf['cache']['compress']) && Horde_Util::extensionExists('lzf'));
-
 while (true) {
     $cli->writeln();
 
@@ -154,15 +158,15 @@ while (true) {
         $mbox_list = array();
         $msg_cnt = $search_cnt = 0;
 
-        foreach ($mboxes as $val) {
-            if ($res = $ob->cache->get($val)) {
+        foreach (array_map('strval', $mboxes) as $val) {
+            if ($res = $cache->get($val)) {
                 $mbox_list[$val] = array(
                     'msgs' => count($res)
                 );
                 $msg_cnt += $mbox_list[$val]['msgs'];
 
-                if ($res = $ob->cache->getMetaData($val, null, array('HICsearch'))) {
-                    $mbox_list[$val]['search'] = count($res['HICsearch']) - 1;
+                if ($res = $cache->getMetaData($val, null, array(Horde_Imap_Client_Base::CACHE_SEARCH))) {
+                    $mbox_list[$val]['search'] = count($res[Horde_Imap_Client_Base::CACHE_SEARCH]);
                     $search_cnt += $mbox_list[$val]['search'];
                 }
             }
@@ -183,31 +187,28 @@ while (true) {
             }
             $mbox_list = array($prompt);
         } else {
-            $mbox_list = $mboxes;
+            $mbox_list = array_map('strval', $mboxes);
         }
 
         foreach ($mbox_list as $mbox) {
-            if ($res = $ob->cache->get($mbox)) {
+            if ($res = $cache->get($mbox)) {
                 $cli->writeln();
 
-                $cli->message('Mailbox: ' . $cli->green($mbox));
-                $cli->message('Cached messages: ' . count($res) . ' [' . $ob->utils->toSequenceString($res) . ']');
+                $indices = new IMP_Indices($mbox, $res);
+                $uids = $indices->getSingle(true);
 
-                $lzf_size = $total_size = 0;
-                foreach ($ob->cache->get($mbox, $res, null) as $val) {
+                $cli->message('Mailbox: ' . $cli->green($mbox));
+                $cli->message('Cached messages: ' . count($res) . ' [' . $imp_imap->getIdsOb($uids[1])->tostring_sort . ']');
+
+                $total_size = 0;
+                foreach ($cache->get($mbox, $res, null) as $val) {
                     $data = serialize($val);
                     $total_size += strlen($data);
-                    if ($use_lzf) {
-                        $lzf_size += strlen(lzf_compress($data));
-                    }
                 }
 
-                $cli->message('Approximate size (bytes): ' . $total_size);
-                if (!empty($lzf_size)) {
-                    $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 - round($lzf_size / $total_size * 100, 1) . '% savings') . ']');
-                }
+                $cli->message('Approximate size: ' . IMP::sizeFormat($total_size));
 
-                if ($res = $ob->cache->getMetaData($mbox)) {
+                if ($res = $cache->getMetaData($mbox)) {
                     try {
                         $status = $ob->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
                     } catch (Horde_Imap_Client_Exception $e) {
@@ -215,11 +216,11 @@ while (true) {
                         $cli->message('IMAP error: ' . $e->getMessage(), 'cli.error');
                     }
                     $cli->message('UIDVALIDITY: ' . $res['uidvalid'] . ' [Server value: ' . (($status['uidvalidity'] != $res['uidvalid']) ? $cli->red($status['uidvalidity']) : $status['uidvalidity']) . ']');
-                    if (isset($res['HICmodseq'])) {
-                        $cli->message('Highest MODSEQ seen: ' . $res['HICmodseq'] . ' [Server value: ' . (($status['highestmodseq'] != $res['HICmodseq']) ? $cli->red($status['highestmodseq']) : $status['highestmodseq']) . ']');
+                    if (isset($res[Horde_Imap_Client_Base::CACHE_MODSEQ])) {
+                        $cli->message('Highest MODSEQ seen: ' . $res[Horde_Imap_Client_Base::CACHE_MODSEQ] . ' [Server value: ' . (($status['highestmodseq'] != $res[Horde_Imap_Client_Base::CACHE_MODSEQ]) ? $cli->red($status['highestmodseq']) : $status['highestmodseq']) . ']');
                     }
-                    if (isset($res['HICsearch'])) {
-                        $cli->message('Cached searches: ' . (count($res['HICsearch']) - 1));
+                    if (isset($res[Horde_Imap_Client_Base::CACHE_SEARCH])) {
+                        $cli->message('Cached searches: ' . count($res[Horde_Imap_Client_Base::CACHE_SEARCH]));
                     }
                 }
             } elseif ($action == 3) {
@@ -239,19 +240,14 @@ while (true) {
         if (!strlen($uid)) {
             break;
         }
-        if ($res = $ob->cache->get($mbox, array($uid), null)) {
+        if ($res = $cache->get($mbox, array($uid), null)) {
             $cli->writeln();
             $cli->message(sprintf('Message information [%s:%d]', $mbox, $uid));
             $cli->message('Cached fields: ' . implode(', ', array_keys($res[$uid])));
 
             $data = serialize($res[$uid]);
             $msg_size = strlen($data);
-            $cli->message('Approximate size (bytes): ' . $msg_size);
-
-            if ($use_lzf) {
-                $lzf_size = strlen(lzf_compress($data));
-                $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 - round($lzf_size / $msg_size * 100, 1) . '% savings') . ']');
-            }
+            $cli->message('Approximate size: ' . IMP::sizeFormat($msg_size));
 
             if ($action == 5) {
                 $cli->writeln();
@@ -272,13 +268,13 @@ while (true) {
             }
             $mbox_list = array($prompt);
         } else {
-            $mbox_list = $mboxes;
+            $mbox_list = array_map('strval', $mboxes);
         }
 
         if ($cli->prompt('Delete mailbox cache(s)?', array('1' => 'No', '2' => 'Yes'), 1) == 2) {
             $cli->writeln();
             foreach ($mbox_list as $val) {
-                $ob->cache->deleteMailbox($val);
+                $cache->deleteMailbox($val);
                 $cli->message('Deleted cache: ' . $val, 'cli.success');
             }
         }
@@ -293,8 +289,8 @@ while (true) {
         if (!strlen($uids)) {
             break;
         }
-        $uids = $ob->utils->fromSequenceString($uids);
-        if (empty($uids)) {
+        $uids = new IMP_Indices($uids);
+        if (!count($uids)) {
             $cli->writeln();
             $cli->message('No UIDs found', 'cli.error');
             break;
@@ -303,7 +299,7 @@ while (true) {
         $cli->writeln();
 
         try {
-            $ob->cache->deleteMsgs($mbox, $uids);
+            $cache->deleteMsgs($mbox, $uids->getSingle(true));
             $cli->message(sprintf('Deleted %d UIDs from cache.', count($uids)), 'cli.success');
         } catch (Horde_Imap_Client_Exception $e) {
             $cli->writeln();
@@ -311,18 +307,4 @@ while (true) {
         }
         break;
     }
-}
-
-function _usage()
-{
-    global $cli;
-
-    $cli->writeln($cli->bold('Usage: imp-query-imap-cache [--user=username]'));
-    $cli->writeln($cli->bold('                            [--pass=password]'));
-    $cli->writeln($cli->bold('                            [--server=serverkey]'));
-    $cli->writeln();
-    $cli->writeln($cli->indent('--pass    Use this password (otherwise, is prompted)'));
-    $cli->writeln($cli->indent('--server  Use this server key (otherwise, is prompted)'));
-    $cli->writeln($cli->indent('--user    Use this username (otherwise, is prompted)'));
-    exit;
 }

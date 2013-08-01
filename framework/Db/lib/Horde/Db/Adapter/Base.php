@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -40,9 +40,9 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     /**
      * Has a transaction been started?
      *
-     * @var boolean
+     * @var integer
      */
-    protected $_transactionStarted = false;
+    protected $_transactionStarted = 0;
 
     /**
      * The last query sent to the database.
@@ -332,7 +332,6 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function resetRuntime()
     {
-        $runtime = $this->_runtime;
         $this->_runtime = 0;
 
         return $this->_runtime;
@@ -632,7 +631,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function transactionStarted()
     {
-        return $this->_transactionStarted;
+        return (bool)$this->_transactionStarted;
     }
 
     /**
@@ -640,8 +639,10 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function beginDbTransaction()
     {
-        $this->_transactionStarted = true;
-        $this->_connection->beginTransaction();
+        if (!$this->_transactionStarted) {
+            $this->_connection->beginTransaction();
+        }
+        $this->_transactionStarted++;
     }
 
     /**
@@ -649,8 +650,10 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function commitDbTransaction()
     {
-        $this->_connection->commit();
-        $this->_transactionStarted = false;
+        $this->_transactionStarted--;
+        if (!$this->_transactionStarted) {
+            $this->_connection->commit();
+        }
     }
 
     /**
@@ -664,7 +667,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         }
 
         $this->_connection->rollBack();
-        $this->_transactionStarted = false;
+        $this->_transactionStarted = 0;
     }
 
     /**
@@ -711,7 +714,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     public function addLock(&$sql, array $options = array())
     {
         $sql .= (isset($options['lock']) && is_string($options['lock']))
-            ? ' ' . $lock
+            ? ' ' . $options['lock']
             : ' FOR UPDATE';
     }
 
@@ -777,7 +780,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         $paramCount = substr_count($sql, '?');
         if (count($args) != $paramCount) {
             $this->_logError('Parameter count mismatch: ' . $sql, 'Horde_Db_Adapter_Base::_replaceParameters');
-            throw new Horde_Db_Exception('Parameter count mismatch');
+            throw new Horde_Db_Exception(sprintf('Parameter count mismatch, expecting %d, got %d', $paramCount, count($args)));
         }
 
         $sqlPieces = explode('?', $sql);

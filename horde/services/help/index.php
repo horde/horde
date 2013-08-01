@@ -2,28 +2,31 @@
 /**
  * Help display script.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 $rtl = $registry->nlsconfig->curr_rtl;
-$title = _("Help");
 $show = isset($vars->show)
     ? Horde_String::lower($vars->show)
     : 'index';
 $module = isset($vars->module)
     ? Horde_String::lower(preg_replace('/\W/', '', $vars->module))
     : 'horde';
-$topic = isset($vars->topic) ? $vars->topic : 'overview';
+$topic = $vars->get('topic', 'overview');
 
-$base_url = Horde::getServiceLink('help', $module);
+$base_url = $registry->getServiceLink('help', $module);
 
 $sidebar_url = Horde::url($base_url->copy()->add(array(
     'show' => 'sidebar',
@@ -41,18 +44,40 @@ if ($show == 'index') {
     exit;
 }
 
-if ($module == 'admin') {
-    $help_app = $registry->get('name', 'horde');
-    $fileroot = $registry->get('fileroot') . '/admin';
-} else {
-    $help_app = $registry->get('name', $module);
-    $fileroot = $registry->get('fileroot', $module);
+$help_app = $registry->get('name', ($module == 'admin') ? 'horde' : $module);
+$fileroot = ($module == 'admin')
+    ? $registry->get('fileroot') . '/admin'
+    : $registry->get('fileroot', $module);
+$fileroots = array(
+    $fileroot . '/locale/' . $language . '/',
+    $fileroot . '/locale/' . substr($language, 0, 2) . '/',
+    $fileroot . '/locale/en/'
+);
+foreach ($fileroots as $val) {
+    $fname = $val . 'help.xml';
+    if (@is_file($fname)) {
+        break;
+    }
 }
 
-$help = new Horde_Help(Horde_Help::SOURCE_FILE, array($fileroot . '/locale/' . $language . '/help.xml', $fileroot . '/locale/' . substr($language, 0, 2) . '/help.xml', $fileroot . '/locale/en/help.xml'));
+$views = array();
+switch ($registry->getView()) {
+case $registry::VIEW_BASIC:
+    $views[] = 'basic';
+    break;
 
-$bodyClass = 'help help_' . urlencode($show);
-require HORDE_TEMPLATES . '/common-header.inc';
+case $registry::VIEW_DYNAMIC:
+    $views[] = 'dynamic';
+    break;
+}
+
+$help = new Horde_Help(Horde_Help::SOURCE_FILE, $fname, $views);
+
+$page_output->sidebar = $page_output->topbar = false;
+$page_output->header(array(
+    'body_class' => 'help help_' . urlencode($show),
+    'title' => _("Help")
+));
 
 switch ($show) {
 case 'menu':
@@ -61,11 +86,10 @@ case 'menu':
     break;
 
 case 'sidebar':
-    if (!isset($vars->side_show)) {
-        $vars->set('side_show', 'index');
-    }
-
     /* Generate Tabs */
+    if (!isset($vars->side_show)) {
+        $vars->side_show = 'index';
+    }
     $tabs = new Horde_Core_Ui_Tabs('side_show', $vars);
     $tabs->addTab(_("Help _Topics"), $sidebar_url, 'index');
     $tabs->addTab(_("Sea_rch"), $sidebar_url, 'search');
@@ -75,12 +99,12 @@ case 'sidebar':
     $tree->setOption(array('target' => 'help_main'));
 
     $contents = '';
-    switch ($vars->side_show) {
+    switch ($vars->get('side_show', 'index')) {
     case 'index':
         $topics = $help->topics();
         $added_nodes = array();
         $node_params_master = array(
-            'icon' => strval(Horde_Themes::img('help.png')),
+            'icon' => '',
             'target' => 'help_main'
         );
 
@@ -88,9 +112,6 @@ case 'sidebar':
             if (!$title) {
                 continue;
             }
-
-            $node_params = $node_params_master;
-            $parent = null;
 
             /* If the title doesn't begin with :: then replace all
              * double colons with single colons. */
@@ -100,24 +121,29 @@ case 'sidebar':
 
             /* Split title in multiple levels */
             $levels = preg_split('/:\s/', $title);
-            if (count($levels) == 1) {
-                $levels = array(1 => $title);
-            }
 
-            $parent = null;
             $idx = '';
+            $lcount = count($levels) - 1;
+            $node_params = $node_params_master;
+            $parent = null;
 
             foreach ($levels as $key => $name) {
                 $idx .= '|' . $name;
                 if (empty($added_nodes[$idx])) {
-                    $added_nodes[$idx] = true;
-                    if ($key) {
+                    if ($key == $lcount) {
                         $node_params['url'] = $base_url->copy()->setRaw(true)->add(array(
                             'show' => 'entry',
                             'topic' => $id
                         ));
+                        $added_nodes[$idx] = true;
                     }
-                    $tree->addNode($idx, $parent, $name, 0, false, $node_params);
+                    $tree->addNode(array(
+                        'id' => $idx,
+                        'parent' => $parent,
+                        'label' => $name,
+                        'expanded' => false,
+                        'params' => $node_params
+                    ));
                 }
                 $parent .= '|' . $name;
             }
@@ -129,6 +155,7 @@ case 'sidebar':
         $searchForm = new Horde_Form($vars, null, 'search');
         $searchForm->setButtons(_("Search"));
 
+        $searchForm->addHidden('sidebar', 'show', 'text', false);
         $searchForm->addHidden('', 'module', 'text', false);
         $searchForm->addHidden('', 'side_show', 'text', false);
         $searchForm->addVariable(_("Keyword"), 'keyword', 'text', false, false, null, array(null, 20));
@@ -164,4 +191,4 @@ case 'entry':
     break;
 }
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

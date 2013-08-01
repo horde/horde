@@ -16,13 +16,11 @@ class Horde_Core_Factory_Notification extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        global $registry, $session;
+        global $registry;
 
         if (isset($this->_notify)) {
             return $this->_notify;
         }
-
-        $auth = $registry->getAuth();
 
         $this->_notify = new Horde_Notification_Handler(
             new Horde_Core_Notification_Storage_Session()
@@ -31,15 +29,24 @@ class Horde_Core_Factory_Notification extends Horde_Core_Factory_Injector
         $this->_notify->addType('default', '*', 'Horde_Core_Notification_Event_Status');
         $this->_notify->addType('status', 'horde.*', 'Horde_Core_Notification_Event_Status');
 
-        $this->_notify->addDecorator(new Horde_Notification_Handler_Decorator_Alarm($injector->getInstance('Horde_Core_Factory_Alarm'), $auth));
+        $this->_notify->addDecorator(new Horde_Notification_Handler_Decorator_Alarm($injector->getInstance('Horde_Core_Factory_Alarm'), $registry->getAuth()));
         $this->_notify->addDecorator(new Horde_Core_Notification_Handler_Decorator_Hordelog());
+
+        return $this->_notify;
+    }
+
+    /**
+     */
+    public function addApplicationHandlers()
+    {
+        global $registry, $session;
 
         /* Cache notification handler application method existence. */
         $cache = $session->get('horde', 'factory_notification');
 
         if (is_null($cache)) {
             $save = array();
-            $changed = ($auth !== false);
+            $changed = ($registry->getAuth() !== false);
 
             try {
                 $apps = $registry->listApps(null, false, Horde_Perms::READ);
@@ -67,7 +74,5 @@ class Horde_Core_Factory_Notification extends Horde_Core_Factory_Injector
         if ($changed) {
             $session->set('horde', 'factory_notification', $save);
         }
-
-        return $this->_notify;
     }
 }

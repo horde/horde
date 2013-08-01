@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -140,10 +140,6 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function selectAssoc($sql, $arg1=null, $arg2=null)
     {
-        // PDO::FETCH_KEY_PAIR is only available since PHP 5.2.3
-        if (version_compare(PHP_VERSION, '5.2.3') < 0) {
-            return parent::selectAssoc($sql, $arg1, $arg2);
-        }
         $result = $this->execute($sql, $arg1, $arg2);
         return $result ? $result->fetchAll(PDO::FETCH_KEY_PAIR) : array();
     }

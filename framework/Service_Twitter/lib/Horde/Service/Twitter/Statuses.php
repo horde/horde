@@ -2,7 +2,7 @@
 /**
  * Horde_Service_Twitter_Statuses class for updating, retrieving user statuses.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -16,7 +16,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @var string
      */
-    private $_endpoint = 'http://api.twitter.com/1/statuses/';
+    private $_endpoint = 'https://api.twitter.com/1.1/statuses/';
 
     /**
      * Format to use json or xml
@@ -270,7 +270,7 @@ class Horde_Service_Twitter_Statuses
      */
     public function mentions($params = array())
     {
-        $url = $this->_endpoint . 'mentions.' . $this->_format;
+        $url = $this->_endpoint . 'mentions_timeline.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
     }
 

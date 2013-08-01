@@ -1,17 +1,28 @@
 <?php
 /**
- * Wicked RecentChanges class.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
  */
-class Wicked_Page_RecentChanges extends Wicked_Page {
 
+/**
+ * Lists the most recently changed pages.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @package  Wicked
+ */
+class Wicked_Page_RecentChanges extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *
@@ -34,6 +45,10 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
         $days = (int)Horde_Util::getGet('days', 3);
         $summaries = $wicked->getRecentChanges($days);
 
+        if (count($summaries) < 10) {
+            $summaries = $wicked->mostRecent(10);
+        }
+
         $bydate = array();
         $changes = array();
         foreach ($summaries as $page) {
@@ -44,12 +59,12 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
             $createDate = mktime(0, 0, 0, $tm['tm_mon'], $tm['tm_mday'],
                                  $tm['tm_year'], $tm['tm_isdst']);
 
-            $version_url = Horde_Util::addParameter($page->pageUrl(), 'version',
-                                              $page->version());
-            $diff_url = Horde_Util::addParameter(Horde::url('diff.php'),
-                                           array('page' => $page->pageName(),
-                                                 'v1' => '?',
-                                                 'v2' => $page->version()));
+            $version_url = $page->pageUrl()->add('version', $page->version());
+            $diff_url = Horde::url('diff.php')->add(array(
+                'page' => $page->pageName(),
+                'v1' => '?',
+                'v2' => $page->version()
+            ));
             $diff_alt = sprintf(_("Show changes for %s"), $page->version());
             $diff_img = Horde::img('diff.png', $diff_alt);
             $pageInfo = array('author' => $page->author(),
@@ -64,15 +79,19 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
                               'diff_img' => $diff_img,
                               'created' => $page->formatVersionCreated(),
                               'change_log' => $page->changeLog());
-            $bydate[$createDate][$page->versionCreated()] = $pageInfo;
+            $bydate[$createDate][$page->versionCreated()][$page->version()] = $pageInfo;
         }
         krsort($bydate);
 
-        foreach ($bydate as $pageList) {
-            krsort($pageList);
-            $pageList = array_values($pageList);
-            $changes[] = array('date' => $pageList[0]['created'],
-                               'pages' => $pageList);
+        foreach ($bydate as $bysecond) {
+            $day = array();
+            krsort($bysecond);
+            foreach ($bysecond as $pageList) {
+                krsort($pageList);
+                $day = array_merge($day, array_values($pageList));
+            }
+            $changes[] = array('date' => $day[0]['created'],
+                               'pages' => $day);
         }
 
         return $changes;
@@ -86,9 +105,9 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
      */
     public function displayContents($isBlock)
     {
-        $template = $GLOBALS['injector']->createInstance('Horde_Template');
-        $template->set('changes', $this->content());
-        return $template->fetch(WICKED_TEMPLATES . '/display/RecentChanges.html');
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->changes = $this->content();
+        return $view->render('display/RecentChanges');
     }
 
     public function pageName()

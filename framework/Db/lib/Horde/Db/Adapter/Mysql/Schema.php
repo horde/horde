@@ -4,7 +4,7 @@
  * dialects and quoting.
  *
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -134,7 +134,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
             'timestamp'        => array('name' => 'datetime',   'limit' => null),
             'time'             => array('name' => 'time',       'limit' => null),
             'date'             => array('name' => 'date',       'limit' => null),
-            'binary'           => array('name' => 'blob',       'limit' => null),
+            'binary'           => array('name' => 'longblob',   'limit' => null),
             'boolean'          => array('name' => 'tinyint',    'limit' => 1),
         );
     }
@@ -160,7 +160,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     public function primaryKey($tableName, $name = null)
     {
         // Share the column cache with the columns() method
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->selectAll(
@@ -190,7 +190,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function indexes($tableName, $name=null)
     {
-        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName"));
+        $indexes = @unserialize($this->_cache->get("tables/indexes/$tableName", 0));
 
         if (!$indexes) {
             $indexes = array();
@@ -223,7 +223,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function columns($tableName, $name=null)
     {
-        $rows = @unserialize($this->_cache->get("tables/columns/$tableName"));
+        $rows = @unserialize($this->_cache->get("tables/columns/$tableName", 0));
 
         if (!$rows) {
             $rows = $this->selectAll('SHOW FIELDS FROM ' . $this->quoteTableName($tableName), $name);
@@ -401,8 +401,6 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
 
     /**
      * Removes a primary key from a table.
-     *
-     * @since Horde_Db 1.1.0
      *
      * @param string $tableName  A table name.
      *

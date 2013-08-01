@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -44,12 +44,14 @@ class Horde_Support_Numerizer_Locale_Base
     public $TEN_PREFIXES = array(
         'twenty' => 20,
         'thirty' => 30,
-        'fourty' => 40,
+        'forty' => 40,
+        'fourty' => 40, // Common mis-spelling
         'fifty' => 50,
         'sixty' => 60,
         'seventy' => 70,
         'eighty' => 80,
         'ninety' => 90,
+        'ninty' => 90, // Common mis-spelling
     );
 
     public $BIG_PREFIXES = array(

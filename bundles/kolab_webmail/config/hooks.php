@@ -2,7 +2,6 @@
 
 class Horde_Hooks
 {
-   // PREFERENCES INIT: See above for documentation.
    public function prefs_init($pref, $value, $username, $scope_ob)
    {
        switch ($pref) {

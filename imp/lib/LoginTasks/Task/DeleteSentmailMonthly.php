@@ -1,16 +1,24 @@
 <?php
 /**
- * Logint tasks module that deletes old sent-mail mailboxes.
- *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Login tasks module that deletes old sent-mail mailboxes.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
 {
@@ -43,7 +51,7 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
 
         $mbox_list = array();
 
-        foreach ($imaptree as $k => $v) {
+        foreach (array_keys($imaptree) as $k) {
             foreach ($sent_mail as $mbox) {
                 if (preg_match('/^' . str_replace('/', '\/', $mbox) . '-([^-]+)-([0-9]{4})$/i', $k, $regs)) {
                     $mbox_list[$k] = is_numeric($regs[1])
@@ -63,7 +71,7 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
 
             /* Delete the old mailboxes now. */
             foreach (IMP_Mailbox::get($purge) as $val) {
-                if ($val->delete(true)) {
+                if ($val->delete()) {
                     $return_val = true;
                 }
             }

@@ -2,7 +2,7 @@
 /**
  * Token tracking implementation for local files.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -42,7 +42,7 @@ class Horde_Token_File extends Horde_Token_Base
     public function __construct($params = array())
     {
         $params = array_merge(array(
-            'token_dir' => Horde_Util::getTempDir()
+            'token_dir' => sys_get_temp_dir()
         ), $params);
 
         parent::__construct($params);

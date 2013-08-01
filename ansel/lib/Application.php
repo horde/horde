@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Ansel through this API.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -17,7 +17,7 @@
  */
 
 if (!defined('ANSEL_BASE')) {
-    define('ANSEL_BASE', dirname(__FILE__) . '/..');
+    define('ANSEL_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -33,7 +33,13 @@ class Ansel_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (3.0-git)';
+    public $features = array(
+        'smartmobileView' => true
+    );
+
+    /**
+     */
+    public $version = 'H5 (3.0.0-git)';
 
     /**
      * Global variables defined:
@@ -94,129 +100,65 @@ class Ansel_Application extends Horde_Registry_Application
         global $conf, $registry;
 
         /* Browse/Search */
-        $menu->add(Horde::url('browse.php'), _("_Browse"),
-                   'browse.png', null, null, null,
-                   (($GLOBALS['prefs']->getValue('defaultview') == 'browse' &&
-                    basename($_SERVER['PHP_SELF']) == 'index.php') ||
-                    (basename($_SERVER['PHP_SELF']) == 'browse.php'))
-                   ? 'current'
-                   : '__noselection');
-
-        $menu->add(Ansel::getUrlFor('view', array('view' => 'List')), _("_Galleries"),
-                   'galleries.png', null, null, null,
-                   (($GLOBALS['prefs']->getValue('defaultview') == 'galleries' &&
-                    basename($_SERVER['PHP_SELF']) == 'index.php') ||
-                    ((basename($_SERVER['PHP_SELF']) == 'group.php') &&
-                     Horde_Util::getFormData('owner') !== $GLOBALS['registry']->getAuth())
-                   ? 'current'
-                   : '__noselection'));
+        $menu->add(
+            Horde::url('browse.php'),
+            _("_Browse"),
+            'ansel-browse', null, null, null,
+            (($GLOBALS['prefs']->getValue('defaultview') == 'browse' && basename($_SERVER['PHP_SELF']) == 'index.php') ||
+             (basename($_SERVER['PHP_SELF']) == 'browse.php')) ? 'current' : '__noselection'
+        );
 
         if ($GLOBALS['registry']->getAuth()) {
-            $url = Ansel::getUrlFor('view', array('owner' => $GLOBALS['registry']->getAuth(),
-                                    'groupby' => 'owner',
-                                    'view' => 'List'));
-            $menu->add($url, _("_My Galleries"), 'mygalleries.png', null, null,
-                       null,
-                       (Horde_Util::getFormData('owner', false) == $GLOBALS['registry']->getAuth())
-                       ? 'current' :
-                       '__noselection');
+            $url = Ansel::getUrlFor(
+                'view',
+                array(
+                    'owner' => $GLOBALS['registry']->getAuth(),
+                    'groupby' => 'owner',
+                    'view' => 'List')
+            );
+
+            $menu->add(
+                $url,
+                _("_My Galleries"), 'ansel-mygalleries', null, null, null,
+                (Horde_Util::getFormData('owner', false) == $GLOBALS['registry']->getAuth())
+                    ? 'current'
+                    : '__noselection'
+            );
         }
 
+        $menu->add(
+            Ansel::getUrlFor('view', array('view' => 'List')),
+            _("_All Galleries"), 'ansel-allgalleries', null, null, null,
+           (($GLOBALS['prefs']->getValue('defaultview') == 'galleries' && basename($_SERVER['PHP_SELF']) == 'index.php') ||
+            (basename($_SERVER['PHP_SELF']) == 'group.php' && Horde_Util::getFormData('owner') !== $GLOBALS['registry']->getAuth())
+                   ? 'current'
+                   : '__noselection')
+        );
+
+        if ($conf['faces']['driver'] && $registry->isAuthenticated()) {
+            $menu->add(Horde::url('faces/search/all.php'), _("_Faces"), 'ansel-faces');
+        }
+    }
+
+    /**
+     * Adds additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
         /* Let authenticated users create new galleries. */
         if ($GLOBALS['registry']->isAdmin() ||
             (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && $GLOBALS['registry']->getAuth()) ||
              $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $menu->add(Horde::url('gallery.php')->add('actionID', 'add'),
-                       _("_New Gallery"), 'add.png', null, null, null,
-                       (basename($_SERVER['PHP_SELF']) == 'gallery.php' &&
-                        Horde_Util::getFormData('actionID') == 'add')
-                       ? 'current'
-                       : '__noselection');
+
+
+            $sidebar->addNewButton(
+                _("_New Gallery"),
+                Horde::url('gallery.php')->add('url', Horde::selfUrl(true, false, true))->add('actionID', 'add')
+            );
+
         }
-
-        if ($conf['faces']['driver'] && $registry->isAuthenticated()) {
-            $menu->add(Horde::url('faces/search/all.php'), _("_Faces"), 'user.png');
-        }
-
-        /* Print. */
-        if ($conf['menu']['print'] &&
-            ($pl = Horde_Util::nonInputVar('print_link'))) {
-            $menu->add($pl, _("_Print"), 'print.png',
-                       null, '_blank',
-                       Horde::popupJs($pl, array('urlencode' => true)) . 'return false;');
-        }
-    }
-
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        global $conf;
-
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'exif_tags':
-                $fields = Horde_Image_Exif::getFields(array($conf['exif']['driver'], !empty($conf['exif']['params']) ? $conf['exif']['params'] : array()), true);
-                $ui->override['exif_tags'] = $fields;
-                $ui->override['exif_title'] = array_merge(array(
-                    'none' => _("None")
-                ), $fields);
-                break;
-            }
-        }
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'default_gallerystyle_select':
-            return _("Default style for galleries") .
-                Ansel::getStyleSelect('default_gallerystyle_select', $GLOBALS['prefs']->getValue('default_gallerystyle')) .
-                '<br />';
-        }
-
-        return '';
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        switch ($item) {
-        case 'default_gallerystyle_select':
-            if (isset($ui->vars->default_gallerystyle_select)) {
-                $GLOBALS['prefs']->setValue('default_gallerystyle', $ui->vars->default_gallerystyle_select);
-                return true;
-            }
-            break;
-        }
-
-        return false;
-    }
-
-    /**
-     * Callback, called from common-template-mobile.inc that sets up the jquery
-     * mobile init hanler.
-     */
-    public function mobileInitCallback()
-    {
-        require ANSEL_TEMPLATES . '/mobile/javascript_defs.php';
-        Horde::addScriptFile('mobile.js');
-        Horde::addInlineScript(
-          '$(window.document).bind("mobileinit", function() {
-              $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
-              $.mobile.loadingMessage = "' . _("loading") . '";
-              // TODO: Figure out how to force load the gallerylist page..
-              // this does not work
-              //$("#imageview").live("pagebeforeshow", function() {
-              //    if (!AnselMobile.currentImage) {
-              //        $.mobile.changePage("gallerylist", "slide", false, true);
-              //    }
-              //});
-          });'
-        );
     }
 
 }

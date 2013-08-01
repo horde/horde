@@ -11,9 +11,6 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Filter
  */
 
-/** Setup default autoloading */
-require_once 'Horde/Autoloader/Default.php';
-
 /**
  * The main entry point for the Kolab_Filter application.
  *

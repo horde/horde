@@ -2,7 +2,7 @@
 /**
  * Ulaform_Action Class
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -41,7 +41,7 @@ class Ulaform_Action {
             return $drivers;
         }
 
-        $driver_path = dirname(__FILE__) . '/Action/';
+        $driver_path = __DIR__ . '/Action/';
         $drivers = array();
 
         if ($driver_dir = opendir($driver_path)) {

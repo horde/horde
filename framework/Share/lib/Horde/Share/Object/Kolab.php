@@ -16,7 +16,7 @@
  * Extension of the Horde_Share_Object class for handling Kolab share
  * information.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -149,9 +149,9 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     public function getPermissionId()
     {
         if ($this->_id === null) {
-            /* We only get here if permissions are being set before the name has
-             * been set. For the Kolab permission instance it should not matter if the name is
-             * a random string. */
+            /* We only get here if permissions are being set before the name
+             * has been set. For the Kolab permission instance it should not
+             * matter if the name is a random string. */
             return md5(pack('I', mt_rand()));
         }
         return $this->_id;
@@ -300,7 +300,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     /**
      * Get all of this share's parents.
      *
-     * @return array()  An array of Horde_Share_Objects
+     * @return array()  An array of Horde_Share_Objects.
      */
     public function getParents()
     {
@@ -355,8 +355,12 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function hasPermission($userid, $permission, $creator = null)
     {
+        $owner = $this->getOwner();
+        if ($userid !== false && $userid == $owner) {
+            return (bool)($this->getPermission()->getOwnerPermissions() & $permission);
+        }
         if (empty($creator)) {
-            $creator = $this->getOwner();
+            $creator = $owner;
         }
         return $this->getShareOb()->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);
     }
@@ -377,9 +381,9 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     /**
      * Sets the permissions on the share.
      *
-     * @param Horde_Perms_Permission_Kolab $perms  Permission object to folder on the
-     *                                             object.
-     * @param boolean                      $update Save the updated information?
+     * @param Horde_Perms_Permission_Kolab $perms  Permission object to folder
+     *                                             on the object.
+     * @param boolean $update                      Save the updated information?
      *
      * @return NULL
      */

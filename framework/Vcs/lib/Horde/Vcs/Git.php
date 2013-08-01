@@ -10,7 +10,7 @@
  *
  * @TODO find bad output earlier - use proc_open, check stderr or result codes?
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -106,7 +106,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
 
         $where = str_replace($this->sourceroot . '/', '', $where);
         $command = $this->getCommand() . ' ls-tree ' . escapeshellarg($branch) . ' ' . escapeshellarg($where) . ' 2>&1';
-        exec($command, $entry, $retval);
+        exec($command, $entry);
 
         if (!count($entry)) { return false; }
 
@@ -148,6 +148,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
         if (!$stream || !is_resource($stream)) {
             throw new Horde_Vcs_Exception('Failed to execute git: ' . $cmd);
         }
+        stream_set_blocking($pipes[2], 0);
         if ($error = stream_get_contents($pipes[2])) {
             fclose($pipes[2]);
             proc_close($stream);
@@ -310,7 +311,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
             $command = $this->getCommand() . ' diff -M -C ' . $flags . ' --no-color ' . escapeshellarg($rev1 . '..' . $rev2) . ' -- ' . escapeshellarg($file->getSourcerootPath()) . ' 2>&1';
         }
 
-        exec($command, $diff, $retval);
+        exec($command, $diff);
         return $diff;
     }
 

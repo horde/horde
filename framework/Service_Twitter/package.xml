@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-18</date>
- <time>13:49:24</time>
+ <date>2013-07-07</date>
+ <time>15:54:46</time>
  <version>
-  <release>1.1.4</release>
-  <api>1.1.0</api>
+  <release>2.1.2</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -30,9 +30,11 @@
     <dir name="Horde">
      <dir name="Service">
       <dir name="Twitter">
+       <dir name="examples">
+        <file name="twitter_browser.php" role="doc" />
+        <file name="twitter_cli.php" role="doc" />
+       </dir> <!-- /doc/Horde/Service/Twitter/examples -->
        <file name="COPYING" role="doc" />
-       <file name="twitter_browser.php" role="doc" />
-       <file name="twitter_cli.php" role="doc" />
       </dir> <!-- /doc/Horde/Service/Twitter -->
      </dir> <!-- /doc/Horde/Service -->
     </dir> <!-- /doc/Horde -->
@@ -50,6 +52,7 @@
        <file name="Account.php" role="php" />
        <file name="Auth.php" role="php" />
        <file name="Exception.php" role="php" />
+       <file name="Favorites.php" role="php" />
        <file name="Request.php" role="php" />
        <file name="Statuses.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Twitter -->
@@ -62,7 +65,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -70,49 +73,50 @@
    <package>
     <name>Horde_Controller</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Oauth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Service/Twitter/COPYING" />
-   <install as="twitter_browser.php" name="doc/Horde/Service/Twitter/twitter_browser.php" />
-   <install as="twitter_cli.php" name="doc/Horde/Service/Twitter/twitter_cli.php" />
+   <install as="examples/twitter_browser.php" name="doc/Horde/Service/Twitter/examples/twitter_browser.php" />
+   <install as="examples/twitter_cli.php" name="doc/Horde/Service/Twitter/examples/twitter_cli.php" />
    <install as="Horde/Service/Twitter.php" name="lib/Horde/Service/Twitter.php" />
    <install as="Horde/Service/Twitter/Account.php" name="lib/Horde/Service/Twitter/Account.php" />
    <install as="Horde/Service/Twitter/Auth.php" name="lib/Horde/Service/Twitter/Auth.php" />
    <install as="Horde/Service/Twitter/Exception.php" name="lib/Horde/Service/Twitter/Exception.php" />
+   <install as="Horde/Service/Twitter/Favorites.php" name="lib/Horde/Service/Twitter/Favorites.php" />
    <install as="Horde/Service/Twitter/Request.php" name="lib/Horde/Service/Twitter/Request.php" />
    <install as="Horde/Service/Twitter/Statuses.php" name="lib/Horde/Service/Twitter/Statuses.php" />
    <install as="Horde/Service/Twitter/Auth/Oauth.php" name="lib/Horde/Service/Twitter/Auth/Oauth.php" />
@@ -255,7 +259,126 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-18</date>
+   <date>2012-06-28</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mjr] Update API endpoints.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mjr] Update API endpoints.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-22</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [jan] Re-packaged 2.0.0 release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [jan] Fix examples location.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mjr] Fix initial authentication for recently changed Twitter API requirements (Bug #12165).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-17</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mjr] Use API version 1.1
+* [mjr] Add support for favorites.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-07</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mjr] Fix fetching user mentions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-07</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

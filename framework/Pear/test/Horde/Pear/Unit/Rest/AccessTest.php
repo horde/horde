@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
-
-/**
  * Test the rest access helper.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -177,7 +172,7 @@ extends Horde_Pear_TestCase
         }
         $response = new Horde_Http_Response_Mock(
             '',
-            fopen(dirname(__FILE__) . '/../../fixture/horde/horde/package.xml', 'r')
+            fopen(__DIR__ . '/../../fixture/horde/horde/package.xml', 'r')
         );
         $response->code = $code;
         $request = new Horde_Http_Request_Mock();

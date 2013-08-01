@@ -37,12 +37,6 @@ $_prefs['show_notepad'] = array(
     'desc' => _("Should the Notepad be shown in its own column in the List view?")
 );
 
-// show the notepad options panel?
-// a value of 0 = no, 1 = yes
-$_prefs['show_panel'] = array(
-    'value' => 1
-);
-
 // user preferred sorting column
 $_prefs['sortby'] = array(
     'value' => Mnemo::SORT_DESC,
@@ -80,9 +74,22 @@ $_prefs['memo_colors'] = array(
 // default notepad
 // Set locked to true if you don't want users to have multiple notepads.
 $_prefs['default_notepad'] = array(
-    'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
+    'value' => '',
     'type' => 'enum',
-    'desc' => _("Your default notepad:")
+    'enum' => array(),
+    'desc' => _("Your default notepad:"),
+    'on_init' => function($ui) {
+        $enum = array();
+        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $key => $val) {
+            $enum[$key] = Mnemo::getLabel($val);
+        }
+        $ui->prefs['default_notepad']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('Mnemo_Factory_Notepads')
+            ->create()
+            ->setDefaultShare($GLOBALS['prefs']->getValue('default_notepad'));
+    },
 );
 
 // store the notepads to diplay

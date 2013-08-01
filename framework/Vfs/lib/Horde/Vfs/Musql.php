@@ -18,7 +18,7 @@
  * The table structure for the VFS can be created with the horde-db-migrate
  * script from the Horde_Db package.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -451,7 +451,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                                 WHERE vfs_id = ?',
                                $this->_params['table']);
                 try {
-                    $result = $this->_db->update($sql, array($perm, $file['vfs_id']));
+                    $this->_db->update($sql, array($perm, $file['vfs_id']));
                 } catch (Horde_Db_Exception $e) {
                     throw new Horde_Vfs_Exception($e);
                 }

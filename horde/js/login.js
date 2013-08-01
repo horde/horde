@@ -18,18 +18,12 @@ var HordeLogin = {
             $('horde_pass').focus();
         } else {
             $('login-button').disable();
-            if (Prototype.Browser.IE) {
-                try {
-                    document.body.style.behavior = "url(#default#clientCaps)";
-                    $('ie_version').setValue(document.body.getComponentVersion("{89820200-ECBD-11CF-8B85-00AA005B4383}", "componentid"));
-                } catch (e) {}
-            }
             $('login_post').setValue(1);
             $('horde_login').submit();
         }
     },
 
-    _selectLang: function()
+    selectLang: function()
     {
         // We need to reload the login page here, but only if the user hasn't
         // already entered a username and password.
@@ -40,6 +34,18 @@ var HordeLogin = {
         }
     },
 
+    loginButton: function(e)
+    {
+        if (e.isRightClick()) {
+            return;
+        }
+
+        if (!e.element().readAttribute('disabled')) {
+            this.submit();
+        }
+        e.stop();
+    },
+
     /* Removes any leading hash that might be on a location string. */
     _removeHash: function(h)
     {
@@ -48,8 +54,7 @@ var HordeLogin = {
 
     onDomLoad: function()
     {
-        document.observe('change', this._changeHandler.bindAsEventListener(this));
-        document.observe('click', this._clickHandler.bindAsEventListener(this));
+        var s = $('horde_select_view');
 
         // Need to capture hash information if it exists in URL
         if (location.hash) {
@@ -64,48 +69,18 @@ var HordeLogin = {
             $('login-button').focus();
         }
 
-        /* Activate dynamic view. */
-        var s = $('horde_select_view');
+        /* Programatically activate views that require javascript. */
         if (s) {
-            s.down('option[value=dynamic]').show();
-            s.down('option[value=smartmobile]').show();
+            s.down('option[value=mobile_nojs]').remove();
             if (this.pre_sel) {
                 s.selectedIndex = s.down('option[value=' + this.pre_sel + ']').index;
             }
-        }
-    },
-
-    _changeHandler: function(e)
-    {
-        switch (e.element().readAttribute('id')) {
-        case 'new_lang':
-            this._selectLang();
-            break;
-        }
-    },
-
-    _clickHandler: function(e)
-    {
-        if (e.isRightClick()) {
-            return;
-        }
-
-        var elt = e.element();
-
-        while (Object.isElement(elt)) {
-            switch (elt.readAttribute('id')) {
-            case 'login-button':
-                if (!elt.readAttribute('disabled')) {
-                    this.submit();
-                }
-                e.stop();
-                break;
-            }
-
-            elt = elt.up();
+            $('horde_select_view_div').show();
         }
     }
 
 };
 
 document.observe('dom:loaded', HordeLogin.onDomLoad.bind(HordeLogin));
+document.on('change', '#new_lang', HordeLogin.selectLang.bind(HordeLogin));
+document.on('click', '#login-button', HordeLogin.loginButton.bind(HordeLogin));

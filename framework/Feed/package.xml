@@ -10,10 +10,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>15:26:13</time>
+ <date>2012-11-19</date>
+ <time>14:52:13</time>
  <version>
-  <release>1.1.2</release>
+  <release>2.0.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -256,8 +256,8 @@
       <file name="AllTests.php" role="test" />
       <file name="AtomEntryOnlyTest.php" role="test" />
       <file name="AtomPublishingTest.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="BlogrollTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="CountTest.php" role="test" />
       <file name="IteratorTest.php" role="test" />
       <file name="LexiconTest.php" role="test" />
@@ -271,7 +271,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -279,23 +279,23 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Xml_Element</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>dom</name>
@@ -305,9 +305,9 @@
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -334,8 +334,8 @@
    <install as="Horde/Feed/AllTests.php" name="test/Horde/Feed/AllTests.php" />
    <install as="Horde/Feed/AtomEntryOnlyTest.php" name="test/Horde/Feed/AtomEntryOnlyTest.php" />
    <install as="Horde/Feed/AtomPublishingTest.php" name="test/Horde/Feed/AtomPublishingTest.php" />
-   <install as="Horde/Feed/Autoload.php" name="test/Horde/Feed/Autoload.php" />
    <install as="Horde/Feed/BlogrollTest.php" name="test/Horde/Feed/BlogrollTest.php" />
+   <install as="Horde/Feed/bootstrap.php" name="test/Horde/Feed/bootstrap.php" />
    <install as="Horde/Feed/CountTest.php" name="test/Horde/Feed/CountTest.php" />
    <install as="Horde/Feed/IteratorTest.php" name="test/Horde/Feed/IteratorTest.php" />
    <install as="Horde/Feed/LexiconTest.php" name="test/Horde/Feed/LexiconTest.php" />
@@ -641,12 +641,64 @@
   </release>
   <release>
    <version>
-    <release>1.1.2</release>
+    <release>2.0.0alpha1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
     <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

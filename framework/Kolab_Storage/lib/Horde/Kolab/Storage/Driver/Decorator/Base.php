@@ -14,7 +14,7 @@
 /**
  * The basic driver decorator definition for accessing Kolab storage.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -196,7 +196,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function rename($old, $new)
     {
-        return $this->_driver->listFolders();
+        return $this->_driver->rename($old, $new);
     }
 
     /**
@@ -400,6 +400,19 @@ implements Horde_Kolab_Storage_Driver
     public function fetchComplete($folder, $uid)
     {
         return $this->_driver->fetchComplete($folder, $uid);
+    }
+
+    /**
+     * Retrieves the message headers.
+     *
+     * @param string $folder The folder to fetch the message from.
+     * @param array  $uid    The message UID.
+     *
+     * @return Horde_Mime_Headers The message headers.
+     */
+    public function fetchHeaders($folder, $uid)
+    {
+        return $this->_driver->fetchHeaders($folder, $uid);
     }
 
     /**

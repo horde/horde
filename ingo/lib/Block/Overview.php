@@ -1,11 +1,23 @@
 <?php
 /**
- * Block to show filter information.
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Oliver Kuhl <okuhl@netcologne.de>
+ * @author   Oliver Kuhl <okuhl@netcologne.de>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Block to show filter information.
+ *
+ * @author   Oliver Kuhl <okuhl@netcologne.de>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Block_Overview extends Horde_Core_Block
 {
@@ -48,7 +60,7 @@ class Ingo_Block_Overview extends Horde_Core_Block
                     $html .= '<tr><td>' .
                         '<span class="iconImg vacationImg"></span>' .
                         '</td><td>' .
-                        Horde::url('vacation.php')->link(array('title' => _("Edit"))) .
+                        Ingo_Basic_Vacation::url()->link(array('title' => _("Edit"))) .
                         _("Vacation") . '</a> ' . $active .
                         '</td></tr>';
                 }
@@ -59,7 +71,7 @@ class Ingo_Block_Overview extends Horde_Core_Block
                     $html .= '<tr><td>' .
                         '<span class="iconImg forwardImg"></span>' .
                         '</td><td>' .
-                        Horde::url('forward.php')->link(array('title' => _("Edit"))) .
+                        Ingo_Basic_Forward::url()->link(array('title' => _("Edit"))) .
                         _("Forward") . '</a> ' . $active;
                     $data = unserialize($GLOBALS['prefs']->getValue('forward'));
                     if (!empty($data['a'])) {
@@ -74,7 +86,7 @@ class Ingo_Block_Overview extends Horde_Core_Block
                     $html .= '<tr><td>' .
                         '<span class="iconImg whitelistImg"></span>' .
                         '</td><td>' .
-                        Horde::url('whitelist.php')->link(array('title' => _("Edit"))) .
+                        Ingo_Basic_Whitelist::url()->link(array('title' => _("Edit"))) .
                         _("Whitelist") . '</a> ' . $active .
                        '</td></tr>';
                 }
@@ -85,7 +97,7 @@ class Ingo_Block_Overview extends Horde_Core_Block
                     $html .= '<tr><td>' .
                         '<span class="iconImg blacklistImg"></span>' .
                         '</td><td>' .
-                        Horde::url('blacklist.php')->link(array('title' => _("Edit"))) .
+                        Ingo_Basic_Blacklist::url()->link(array('title' => _("Edit"))) .
                         _("Blacklist") . '</a> ' . $active .
                         '</td></tr>';
                 }
@@ -96,7 +108,7 @@ class Ingo_Block_Overview extends Horde_Core_Block
                     $html .= '<tr><td>' .
                         '<span class="iconImg spamImg"></span>' .
                         '</td><td>' .
-                        Horde::url('spam.php')->link(array('title' => _("Edit"))) .
+                        Ingo_Basic_Spam::url()->link(array('title' => _("Edit"))) .
                         _("Spam Filter") . '</a> ' . $active .
                         '</td></tr>';
                 }

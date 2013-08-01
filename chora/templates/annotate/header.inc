@@ -1,7 +1,7 @@
-<table width="100%" cellspacing="0" class="annotate">
+<table width="100%" class="horde-table annotate nowrap">
 <thead>
  <tr>
-  <th class="rightAlign"><?php echo _("#") ?></th>
+  <th>&nbsp;</th>
   <th><?php echo _("Author") ?></th>
   <th><?php echo _("Rev") ?></th>
   <th></th>

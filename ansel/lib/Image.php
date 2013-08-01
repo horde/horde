@@ -2,7 +2,7 @@
 /**
  * Class to describe a single Ansel image.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -686,11 +686,13 @@ class Ansel_Image Implements Iterator
         } catch (Horde_Vfs_Exception $e) {
             throw new Ansel_Exception($e);
         }
+        $params = !empty($GLOBALS['conf']['exif']['params']) ?
+                $GLOBALS['conf']['exif']['params'] :
+                array();
+        $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
         $exif = Horde_Image_Exif::factory(
             $GLOBALS['conf']['exif']['driver'],
-            !empty($GLOBALS['conf']['exif']['params']) ?
-                $GLOBALS['conf']['exif']['params'] :
-                array());
+            $params);
 
         try {
             $exif_fields = $exif->getData($imageFile);
@@ -725,7 +727,9 @@ class Ansel_Image Implements Iterator
         }
 
         // Attempt to autorotate based on Orientation field
-        $this->_autoRotate();
+        if (!empty($exif_fields['Orientation'])) {
+            $this->_autoRotate($exif_fields['Orientation']);
+        }
 
         // Save attributes.
         if ($replacing) {
@@ -750,10 +754,10 @@ class Ansel_Image Implements Iterator
      * Autorotate based on EXIF orientation field. Updates the data in memory
      * only.
      */
-    protected function _autoRotate()
+    protected function _autoRotate($orientation)
     {
-        if (isset($this->_exif['Orientation']) && $this->_exif['Orientation'] != 1) {
-            switch ($this->_exif['Orientation']) {
+        if (!empty($orientation) && $orientation != 1) {
+            switch ($orientation) {
             case 2:
                 $this->mirror();
                 break;
@@ -787,8 +791,7 @@ class Ansel_Image Implements Iterator
             }
 
             if ($this->_dirty) {
-                $this->_exif['Orientation'] = 1;
-                $this->data['full'] = $this->raw();
+                $this->_data['full'] = $this->raw();
                 $this->_writeData();
             }
         }
@@ -907,7 +910,7 @@ class Ansel_Image Implements Iterator
                 ->getGallery($this->gallery);
             if (!$gallery->canDownload()) {
                 throw Horde_Exception_PermissionDenied(
-                    sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')));
+                    _("Access denied downloading photos from this gallery."));
             }
 
             try {
@@ -920,8 +923,10 @@ class Ansel_Image Implements Iterator
                 throw new Ansel_Exception($e);
             }
             echo $data;
-        } else {
+        } elseif (!$this->_dirty) {
             $this->load($view, $style);
+            $this->_image->display();
+        } else {
             $this->_image->display();
         }
     }
@@ -1311,36 +1316,34 @@ class Ansel_Image Implements Iterator
     /**
      * Get the image attributes from the backend.
      *
-     * @param boolean $format     Format the EXIF data. If false, the raw data
-     *                            is returned.
-     *
-     * @return array  The EXIF data.
+     * @return array  A hash of Exif fieldnames => values.
      */
-    public function getAttributes($format = false)
+    public function getAttributes()
     {
-        $attributes = $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $attributes = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->getImageAttributes($this->id);
+
+        $params = !empty($GLOBALS['conf']['exif']['params']) ?
+                $GLOBALS['conf']['exif']['params'] :
+                array();
+        $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
+
         $exif = Horde_Image_Exif::factory(
             $GLOBALS['conf']['exif']['driver'],
-            !empty($GLOBALS['conf']['exif']['params']) ?
-                $GLOBALS['conf']['exif']['params'] :
-                array());
+            $params
+        );
         $fields = Horde_Image_Exif::getFields($exif);
-        $output = array();
 
+        $output = array();
         foreach ($fields as $field => $data) {
             if (!isset($attributes[$field])) {
                 continue;
             }
-            $value = Horde_Image_Exif::getHumanReadable(
+            $output[$field] = $value = Horde_Image_Exif::getHumanReadable(
                 $field,
-                Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset'], 'UTF-8'));
-            if (!$format) {
-                $output[$field] = $value;
-            } else {
-                $description = isset($data['description']) ? $data['description'] : $field;
-                $output[] = '<td><strong>' . $description . '</strong></td><td>' . htmlspecialchars($value) . '</td>';
-            }
+                Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset'], 'UTF-8')
+            );
         }
 
         return $output;

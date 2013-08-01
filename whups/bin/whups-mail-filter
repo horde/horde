@@ -56,8 +56,8 @@ function _dump($hash)
     return $dump;
 }
 
-if (file_exists(dirname(__FILE__) . '/../../whups/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../whups/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()
@@ -168,11 +168,11 @@ if (empty($mail['user'])) {
     try {
         Whups_Mail::processMail($cli->readStdin(), $info);
     } catch (Whups_Exception $e) {
-        $cli->fatal(_("Error processing message:") . ' ' . $e->getMessage());
+        $cli->fatal($e);
     }
 } else {
     $messages = array();
-    $imap = @imap_open(sprintf('{%s:%d/%s}%s',
+    $imap = imap_open(sprintf('{%s:%d/%s}%s',
                                $mail['host'],
                                $mail['port'],
                                $mail['protocol'],
@@ -181,7 +181,9 @@ if (empty($mail['user'])) {
     if (!$imap) {
         $cli->fatal(_("Cannot authenticate at mail server:") . ' ' . implode('; ', imap_errors()));
     }
+    _error();
     $mailbox = imap_search($imap, 'ALL', SE_UID);
+    _error();
     if ($mailbox) {
         foreach ($mailbox as $uid) {
             $message = imap_fetchheader($imap, $uid, FT_UID)
@@ -191,7 +193,7 @@ if (empty($mail['user'])) {
                 Whups_Mail::processMail($message, $info);
                 imap_delete($imap, $uid, FT_UID);
             } catch (Whups_Exception $e) {
-                $cli->message(_("Error processing message:") . ' ' . $result->getMessage() . ' ' . $result->getUserInfo(), 'cli.error');
+                $cli->message(_("Error processing message:") . ' ' . $e->getMessage(), 'cli.error');
             }
         }
     }

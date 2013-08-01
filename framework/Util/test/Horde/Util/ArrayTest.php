@@ -1,10 +1,5 @@
 <?php
 /**
- * Require our basic test case definition
- */
-require_once dirname(__FILE__) . '/Autoload.php';
-
-/**
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @category   Horde
@@ -52,23 +47,5 @@ class Horde_Util_ArrayTest extends PHPUnit_Framework_TestCase
             ),
             $this->array
         );
-    }
-
-    public function testArrayMergeRecursive()
-    {
-        $this->assertEquals(
-            array('one' => 1,
-                  'two' => array('two/one' => 1,
-                                 'two/two' => 22),
-                  'three' => 33,
-                  'four' => 4),
-            Horde_Array::replaceRecursive(
-                array('one' => 1,
-                      'two' => array('two/one' => 1,
-                                     'two/two' => 2),
-                      'three' => 3),
-                array('two' => array('two/two' => 22),
-                      'three' => 33,
-                      'four' => 4)));
     }
 }

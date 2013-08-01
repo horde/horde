@@ -1,24 +1,30 @@
 <?php
 /**
- * This class represents thread information for a single message.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This class represents thread information for a single message.
  *
- * @property string $img  An image HTML tag of the thread.
- * @property string $raw  The raw thread data.
- * @property string $reverse_img  An image HTML tag of the thread (reversed).
- * @property string $reverse_raw  The raw thread data (reversed).
- * @property string $reverse_txt  A text representation of the thread icon
- *                                (reversed).
- * @property string $txt  A text representation of the thread icon.
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ *
+ * @property-read string $img  An image HTML tag of the thread.
+ * @property-read string $raw  The raw thread data.
+ * @property-read string $reverse_img  An image HTML tag of the thread
+ *                                     (reversed).
+ * @property-read string $reverse_raw  The raw thread data (reversed).
  */
 class IMP_Mailbox_List_Thread
 {
@@ -53,7 +59,6 @@ class IMP_Mailbox_List_Thread
         switch ($name) {
         case 'reverse_img':
         case 'reverse_raw':
-        case 'reverse_txt':
             $ret = strtr($this->_data, array(
                 self::JOINBOTTOM_DOWN => self::JOINBOTTOM,
                 self::JOINBOTTOM => self::JOINBOTTOM_DOWN
@@ -71,7 +76,7 @@ class IMP_Mailbox_List_Thread
             $tmp = '';
             if (strlen($ret)) {
                 foreach (str_split($ret) as $val) {
-                    $tmp .= '<span class="treeImg treeImg' . $val . '"></span>';
+                    $tmp .= '<span class="horde-tree-image horde-tree-image-' . $val . '"></span>';
                 }
             }
             return $tmp;
@@ -79,16 +84,6 @@ class IMP_Mailbox_List_Thread
         case 'raw':
         case 'reverse_raw':
             return $ret;
-
-        case 'txt':
-        case 'reverse_txt':
-            return strtr($ret, array(
-                self::BLANK => '  ',
-                self::LINE => '| ',
-                self::JOIN => '|-',
-                self::JOINBOTTOM_DOWN => '/-',
-                self::JOINBOTTOM => '\-'
-            ));
         }
     }
 

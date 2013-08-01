@@ -3,7 +3,7 @@
  * The Turba_View_Browse class provides the logic for browsing lists
  * of contacts.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -31,30 +31,7 @@ class Turba_View_Browse
     public function updateSortOrderFromVars()
     {
         extract($this->_params, EXTR_REFS);
-
-        if (strlen($sortby = $vars->get('sortby'))) {
-            $sources = Turba::getColumns();
-            $columns = isset($sources[$source]) ? $sources[$source] : array();
-            $column_name = Turba::getColumnName($sortby, $columns);
-            $append = true;
-            $ascending = ($vars->get('sortdir') == 0);
-            if ($vars->get('sortadd')) {
-                $sortorder = Turba::getPreferredSortOrder();
-                foreach ($sortorder as $i => $elt) {
-                    if ($elt['field'] == $column_name) {
-                        $sortorder[$i]['ascending'] = $ascending;
-                        $append = false;
-                    }
-                }
-            } else {
-                $sortorder = array();
-            }
-            if ($append) {
-                $sortorder[] = array('field' => $column_name,
-                                     'ascending' => $ascending);
-            }
-            $prefs->setValue('sortorder', serialize($sortorder));
-        }
+        Turba::setPreferredSortOrder($vars, $source);
     }
 
     public function run()
@@ -200,11 +177,11 @@ class Turba_View_Browse
 
                     try {
                         $object = $sourceDriver->getObject($objectKey);
-                    } catch (Turba_Exception $e) {
+                    } catch (Horde_Exception_NotFound $e) {
                         $notification->push(
-                            sprintf(_("Failed to find object to be added: %s"),
-                                $e->getMessage()),
-                            'horde.error');
+                            _("Failed to find object to be added"),
+                            'horde.error'
+                        );
                         continue;
                     }
 
@@ -241,6 +218,9 @@ class Turba_View_Browse
                         }
                     }
                     unset($objAttributes['__owner']);
+                    if ($actionID == 'copy') {
+                        unset($objAttributes['__uid']);
+                    }
 
                     try {
                         $targetDriver->add($objAttributes);
@@ -312,8 +292,8 @@ class Turba_View_Browse
 
                     try {
                         $target = $targetDriver->getObject($targetKey);
-                    } catch (Turba_Exception $e) {
-                        $notification->push($e, 'horde.error');
+                    } catch (Horde_Exception $e) {
+                        $notification->push($e);
                         break;
                     }
                 } else {
@@ -436,7 +416,7 @@ class Turba_View_Browse
             // We might get here from the search page but are not allowed to browse
             // the current address book.
             if ($actionID && empty($cfgSources[$source]['browse'])) {
-                Horde::url($prefs->getValue('initial_page'), true)
+                Horde::url($GLOBALS['prefs']->getValue('initial_page'), true)
                     ->redirect();
             }
         }
@@ -454,7 +434,7 @@ class Turba_View_Browse
                 // We are displaying a list.
                 try {
                     $list = $driver->getObject($vars->get('key'));
-                } catch (Turba_Exception $e) {
+                } catch (Horde_Exception $e) {
                     $notification->push(_("There was an error displaying the list"), 'horde.error');
                     $list = null;
                 }
@@ -468,7 +448,7 @@ class Turba_View_Browse
                     try {
                         $results = $list->listMembers($sortorder);
                         if (count($results) != $list->count()) {
-                            $count = count($list) - count($results);
+                            $count = $list->count() - count($results);
                             $notification->push(
                                 sprintf(ngettext("There is %d contact in this list that is not viewable to you",
                                                  "There are %d contacts in this list that are not viewable to you", $count),
@@ -512,11 +492,14 @@ class Turba_View_Browse
             $templates[] = '/browse/header.inc';
         }
 
-        Horde::addScriptFile('quickfinder.js', 'horde');
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
-        require TURBA_TEMPLATES . '/menu.inc';
+        global $page_output;
+        $page_output->addScriptFile('quickfinder.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+        $page_output->addScriptFile('redbox.js', 'horde');
+        $page_output->header(array(
+            'title' => $title
+        ));
+        $notification->notify(array('listeners' => 'status'));
         foreach ($templates as $template) {
             require TURBA_TEMPLATES . $template;
         }
@@ -525,7 +508,7 @@ class Turba_View_Browse
             $view->display();
         }
 
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
 }

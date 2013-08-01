@@ -1,10 +1,7 @@
 <?php
 /**
- * The Horde_Auth_Passwd:: class provides a passwd-file implementation of
- * the Horde authentication system.
- *
  * Copyright 1997-2007 Rasmus Lerdorf <rasmus@php.net>
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -12,7 +9,18 @@
  * @author   Rasmus Lerdorf <rasmus@php.net>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Passwd class provides a passwd-file implementation of the
+ * Horde authentication system.
+ *
+ * @author   Rasmus Lerdorf <rasmus@php.net>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Passwd extends Horde_Auth_Base
@@ -165,7 +173,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         }
 
         if ($this->_params['lock']) {
-            $this->_fplock = fopen(Horde_Util::getTempDir() . '/passwd.lock', 'w');
+            $this->_fplock = fopen(sys_get_temp_dir() . '/passwd.lock', 'w');
             flock($this->_fplock, LOCK_EX);
             $this->_locked = true;
         }
@@ -282,7 +290,9 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
     }
 
     /**
-     * List all users in the system.
+     * Lists all users in the system.
+     *
+     * @param boolean $sort  Sort the users?
      *
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
@@ -320,7 +330,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         }
 
         if (isset($this->_users[$userId])) {
-            throw new Horde_Auth_Exception("Couldn't add user '$user', because the user already exists.");
+            throw new Horde_Auth_Exception("Couldn't add user '$userId', because the user already exists.");
         }
 
         $this->_users[$userId] = array(
@@ -349,7 +359,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
             throw new Horde_Auth_Exception('Password file not locked');
         }
 
-        if (!isset($this->_users[$userId])) {
+        if (!isset($this->_users[$oldID])) {
             throw new Horde_Auth_Exception("Couldn't modify user '$oldID', because the user doesn't exist.");
         }
 
@@ -396,7 +406,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         }
 
         if (!isset($this->_users[$userId])) {
-            throw new Horde_Auth_Exception("Couldn't delete user '$oldID', because the user doesn't exist.");
+            throw new Horde_Auth_Exception("Couldn't delete user '$userId', because the user doesn't exist.");
         }
 
         unset($this->_users[$userId]);

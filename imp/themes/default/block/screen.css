@@ -1,9 +1,8 @@
 /* Block styles. */
 table.impBlockSummary th, table.impBlockSummary td {
-    padding: 0 8px;
+    padding: 1px 5px;
     text-align: center;
 }
-table.impBlockSummary tr > th:first-child, table.impBlockSummary tr > td:first-child {
-    padding: 0;
+table.impBlockSummary th:first-child, table.impBlockSummary td:first-child {
     text-align: left;
 }

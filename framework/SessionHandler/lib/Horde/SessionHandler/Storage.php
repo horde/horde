@@ -1,16 +1,25 @@
 <?php
 /**
- * This is the abstract class that all storage drivers inherit from.
- *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  SessionHandler
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   SessionHandler
+ */
+
+/**
+ * This is the abstract class that all SessionHandler storage drivers inherit
+ * from.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   SessionHandler
  */
 abstract class Horde_SessionHandler_Storage
 {
@@ -20,13 +29,6 @@ abstract class Horde_SessionHandler_Storage
      * @var boolean
      */
     public $readonly = false;
-
-    /**
-     * A logger instance.
-     *
-     * @var Horde_Log_Logger
-     */
-    protected $_logger;
 
     /**
      * Hash containing connection parameters.
@@ -46,13 +48,20 @@ abstract class Horde_SessionHandler_Storage
     }
 
     /**
+     * Storage objects do not support serialization.
+     */
+    public function __sleep()
+    {
+        throw new LogicException('SessionHandler storage objects do not support serialization.');
+    }
+
+    /**
      * Set the logger object.
      *
-     * @param Horde_Log_Logger $log  The logger instance.
+     * @deprecated
      */
     public function setLogger(Horde_Log_Logger $log)
     {
-        $this->_logger = $log;
     }
 
     /**

@@ -1,9 +1,6 @@
 <?php
 /**
- * Mail transport base class.
- *
- * LICENSE:
- *
+ * Copyright 1997-2013 Horde LLC (http://www.horde.org/)
  * Copyright (c) 2002-2007, Richard Heyes
  * All rights reserved.
  *
@@ -32,21 +29,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category    Mail
- * @package     Mail
- * @author      Chuck Hagenbuch <chuck@horde.org>
- * @author      Michael Slusarz <slusarz@horde.org>
- * @copyright   1997-2010 Chuck Hagenbuch
- * @copyright   2010 Michael Slusarz
- * @license     http://www.horde.org/licenses/bsd New BSD License
+ * @category  Horde
+ * @copyright 1997-2013 Horde LLC (http://www.horde.org/)
+ * @copyright 2002-2007 Richard Heyes
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 
 /**
  * Mail transport base class.
  *
- * @access public
- * @version $Revision: 294747 $
- * @package Mail
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Richard Heyes <richard@phpguru.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1997-2013 Horde LLC (http://www.horde.org/)
+ * @copyright 2002-2007 Richard Heyes
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 abstract class Horde_Mail_Transport
 {
@@ -163,29 +163,32 @@ abstract class Horde_Mail_Transport
      * addresses (forward paths) that can be passed to sendmail or an SMTP
      * server with the 'RCPT TO:' command.
      *
-     * @param mixed  Either a comma-separated list of recipients (RFC822
-     *               compliant), or an array of recipients, each RFC822 valid.
+     * @param mixed $recipients  Either a comma-separated list of recipients
+     *                           (RFC822 compliant), or an array of
+     *                           recipients, each RFC822 valid.
      *
-     * @return array  Forward paths (bare addresses).
+     * @return array  Forward paths (bare addresses, IDN encoded).
      * @throws Horde_Mail_Exception
      */
     public function parseRecipients($recipients)
     {
-        // if we're passed an array, assume addresses are valid and
-        // implode them before parsing.
-        if (is_array($recipients)) {
-            $recipients = implode(', ', $recipients);
-        }
-
         // Parse recipients, leaving out all personal info. This is
         // for smtp recipients, etc. All relevant personal information
         // should already be in the headers.
         $rfc822 = new Horde_Mail_Rfc822();
-        $addresses = $rfc822->parseAddressList($recipients, array(
+        $raw = $rfc822->parseAddressList($recipients, array(
             'validate' => true
-        ));
+        ))->raw_addresses;
 
-        return $addresses->bare_addresses;
+        $out = array();
+        foreach ($raw as $val) {
+            $val->personal = null;
+            $out[] = $val->writeAddress(array(
+                'idn' => true
+            ));
+        }
+
+        return $out;
     }
 
     /**
@@ -222,6 +225,37 @@ abstract class Horde_Mail_Transport
             "\r" => $this->sep,
             "\n" => $this->sep
         ));
+    }
+
+    /**
+     * Get the from address.
+     *
+     * @param string $from    From address.
+     * @param array $headers  Headers array.
+     *
+     * @return string  Address object.
+     * @throws Horde_Mail_Exception
+     */
+    protected function _getFrom($from, $headers)
+    {
+        /* Since few MTAs are going to allow this header to be forged unless
+         * it's in the MAIL FROM: exchange, we'll use Return-Path instead of
+         * From: if it's set. */
+        foreach (array_keys($headers) as $hdr) {
+            if (strcasecmp($hdr, 'Return-Path') === 0) {
+                $from = $headers[$hdr];
+                break;
+            }
+        }
+
+        if (!strlen($from)) {
+            throw new Horde_Mail_Exception('No from address provided.');
+        }
+
+        $from = new Horde_Mail_Rfc822_Address($from);
+        $from->personal = null;
+
+        return $from->writeAddress(array('idn' => true));
     }
 
 }

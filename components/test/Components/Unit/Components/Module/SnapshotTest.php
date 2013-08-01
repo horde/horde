@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
-
-/**
  * Test the Snapshot module.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -53,7 +48,7 @@ extends Components_TestCase
             '--verbose',
             '--snapshot',
             '--destination=' . $tmp_dir,
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $this->_callUnstrictComponents();
         $this->fileRegexpPresent(
@@ -69,7 +64,7 @@ extends Components_TestCase
             '--keep-version',
             '--snapshot',
             '--destination=' . $tmp_dir,
-            dirname(__FILE__) . '/../../../fixture/framework/Install'
+            __DIR__ . '/../../../fixture/framework/Install'
         );
         $this->_callUnstrictComponents();
         $this->fileRegexpPresent('/Install-0.0.1/', $tmp_dir);
@@ -85,7 +80,7 @@ extends Components_TestCase
             '--verbose',
             '--snapshot',
             '--destination=' . $tmp_dir,
-            dirname(__FILE__) . '/../../../fixture/simple'
+            __DIR__ . '/../../../fixture/simple'
         );
         try {
             $this->_callUnstrictComponents();

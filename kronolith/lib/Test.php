@@ -2,7 +2,7 @@
 /**
  * This class provides the Kronolith configuration for the test script.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -41,11 +41,6 @@ class Kronolith_Test extends Horde_Test
             'error' => 'Date_Holidays can be used to calculate and display national and/or religious holidays.',
             'required' => false,
         ),
-        'XML_Serializer' => array(
-            'path' => 'XML/Unserializer.php',
-            'error' => 'The XML_Serializer might be needed by the Date_Holidays package for the translation of holidays',
-            'required' => false,
-        )
     );
 
     /**

@@ -29,6 +29,8 @@ if (typeof(require) != 'undefined' && typeof(XRegExp) == 'undefined')
 // This is a shorthand for local reference in order to avoid long namespace 
 // references to SyntaxHighlighter.whatever...
 var sh = {
+	count : 0,
+
 	defaults : {
 		/** Additional CSS class names to be added to highlighter elements. */
 		'class-name' : '',
@@ -1402,7 +1404,8 @@ sh.Highlighter.prototype = {
 			'number' + lineNumber,
 			'index' + lineIndex,
 			'alt' + (lineNumber % 2 == 0 ? 1 : 2).toString()
-		];
+		],
+			anchor = 'c' + this.count + 'l' + lineNumber;
 		
 		if (this.isLineHighlighted(lineNumber))
 		 	classes.push('highlighted');
@@ -1410,7 +1413,7 @@ sh.Highlighter.prototype = {
 		if (lineNumber == 0)
 			classes.push('break');
 			
-		return '<div class="' + classes.join(' ') + '">' + code + '</div>';
+		return '<div class="' + classes.join(' ') + '"><a href="#' + anchor + '" name="' + anchor + '">' + code + '</a></div>';
 	},
 	
 	/**
@@ -1667,6 +1670,7 @@ sh.Highlighter.prototype = {
 	 */
 	init: function(params)
 	{
+		this.count = sh.count++;
 		this.id = guid();
 		
 		// register this instance in the highlighters list

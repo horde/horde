@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * Resources:
  * http://wezfurlong.org/blog/2006/nov/http-post-from-php-without-curl
@@ -19,6 +19,13 @@
  */
 class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
 {
+    /**
+     * Catched errors from the error handler.
+     *
+     * @var array
+     */
+    protected $_errors = array();
+
     /**
      * Constructor
      *
@@ -93,16 +100,21 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         $opts['http']['timeout'] = $this->timeout;
         $opts['http']['max_redirects'] = $this->redirects;
         $opts['http']['ignore_errors'] = true;
+        $opts['http']['user_agent'] = $this->userAgent;
+        $opts['ssl']['verify_peer'] = $this->verifyPeer;
+        $opts['ssl']['allow_self_signed'] = true;
 
         $context = stream_context_create($opts);
-        $stream = @fopen($uri, 'rb', false, $context);
+        set_error_handler(array($this, '_errorHandler'), E_WARNING | E_NOTICE);
+        $stream = fopen($uri, 'rb', false, $context);
+        restore_error_handler();
         if (!$stream) {
-            $error = error_get_last();
-            if (preg_match('/HTTP\/(\d+\.\d+) (\d{3}) (.*)$/', $error['message'], $matches)) {
+            if (isset($this->_errors[0]['message']) &&
+                preg_match('/HTTP\/(\d+\.\d+) (\d{3}) (.*)$/', $this->_errors[0]['message'], $matches)) {
                 // Create a Response for the HTTP error code
                 return new Horde_Http_Response_Fopen($uri, null, $matches[0]);
             } else {
-                throw new Horde_Http_Exception('Problem with ' . $uri . ': ', $error);
+                throw new Horde_Http_Exception('Problem with ' . $uri . ': ' . implode('. ', array_reverse($this->_errors)));
             }
         }
 
@@ -110,5 +122,20 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         $headers = isset($meta['wrapper_data']) ? $meta['wrapper_data'] : array();
 
         return new Horde_Http_Response_Fopen($uri, $stream, $headers);
+    }
+
+    /**
+     * PHP error handler.
+     *
+     * @param integer $errno     See set_error_handler().
+     * @param string $errstr     See set_error_handler().
+     * @param string $errfile    See set_error_handler().
+     * @param integer $errline   See set_error_handler().
+     * @param array $errcontext  See set_error_handler().
+     */
+    protected function _errorHandler($errno, $errstr, $errfile, $errline,
+                                     $errcontext)
+    {
+        array_unshift($this->_errors, preg_replace('/^(.*?) \[<a href[^\]]*\](.*)/', '$1$2', $errstr));
     }
 }

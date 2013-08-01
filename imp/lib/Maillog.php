@@ -1,17 +1,25 @@
 <?php
 /**
- * This class contains all functions related to handling logging of responses
- * to individual e-mail messages.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2003-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This class contains all functions related to handling logging of responses
+ * to individual e-mail messages.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2003-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Maillog
 {
@@ -35,7 +43,7 @@ class IMP_Maillog
      *                        message was sent to. For mdn this is the
      *                        MDN-type of the message that was sent.
      */
-    static public function log($type, $msg_ids, $data = null)
+    public function log($type, $msg_ids, $data = null)
     {
         $history = $GLOBALS['injector']->getInstance('Horde_History');
 
@@ -43,12 +51,13 @@ class IMP_Maillog
             $msg_ids = array($msg_ids);
         }
 
-        foreach ($msg_ids as $val) {
+        foreach (array_filter($msg_ids) as $val) {
             switch ($type) {
             case IMP_Compose::FORWARD:
             case IMP_Compose::FORWARD_ATTACH:
             case IMP_Compose::FORWARD_BODY:
             case IMP_Compose::FORWARD_BOTH:
+            case self::FORWARD:
                 $params = array(
                     'action' => self::FORWARD,
                     'recipients' => $data
@@ -63,6 +72,7 @@ class IMP_Maillog
                 break;
 
             case IMP_Compose::REDIRECT:
+            case self::REDIRECT:
                 $params = array(
                     'action' => self::REDIRECT,
                     'recipients' => $data
@@ -71,18 +81,21 @@ class IMP_Maillog
 
             case IMP_Compose::REPLY:
             case IMP_Compose::REPLY_SENDER:
+            case self::REPLY:
                 $params = array(
                     'action' => self::REPLY
                 );
                 break;
 
             case IMP_Compose::REPLY_ALL:
+            case self::REPLY_ALL:
                 $params = array(
                     'action' => self::REPLY_ALL
                 );
                 break;
 
             case IMP_Compose::REPLY_LIST:
+            case self::REPLY_LIST:
                 $params = array(
                     'action' => self::REPLY_LIST
                 );
@@ -102,7 +115,7 @@ class IMP_Maillog
                      * confusion, especially since they most likely don't even
                      * know the message is being logged. */
                     $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $e->getMessage());
-                    Horde::logMessage($entry, 'ERR');
+                    Horde::log($entry, 'ERR');
                 }
             }
         }
@@ -116,9 +129,35 @@ class IMP_Maillog
      * @return Horde_History_Log  The object containing the log information.
      * @throws Horde_Exception
      */
-    static public function getLog($msg_id)
+    public function getLog($msg_id)
     {
-        return $GLOBALS['injector']->getInstance('Horde_History')->getHistory(self::_getUniqueHistoryId($msg_id));
+        return strlen($msg_id)
+            ? $GLOBALS['injector']->getInstance('Horde_History')->getHistory(self::_getUniqueHistoryId($msg_id))
+            : new Horde_History_Log(new Horde_Support_Uuid());
+    }
+
+    /**
+     * Retrieve history for a given Message-ID and return as a list of
+     *  objects.
+     *
+     * @param string $msg_id  The Message-ID header of the message.
+     *
+     * @return array  An array of arrays with the following information:
+     *   - m: (string) Log message
+     *   - t: (string) Log type
+     */
+    public function getLogObs($msg_id)
+    {
+        $ret = array();
+
+        foreach ($this->parseLog($msg_id) as $val) {
+            $ret[] = array_map('htmlspecialchars', array(
+                'm' => $val['msg'],
+                't' => $val['action']
+            ));
+        }
+
+        return $ret;
     }
 
     /**
@@ -131,7 +170,7 @@ class IMP_Maillog
      * @return boolean  True if a MDN has been sent for this message with
      *                  the given type.
      */
-    static public function sentMDN($msg_id, $type)
+    public function sentMDN($msg_id, $type)
     {
         try {
             $msg_history = self::getLog($msg_id);
@@ -139,11 +178,9 @@ class IMP_Maillog
             return false;
         }
 
-        if ($msg_history) {
-            foreach ($msg_history as $entry) {
-                if (($entry['action'] == 'mdn') && ($entry['type'] == $type)) {
-                    return true;
-                }
+        foreach ($msg_history as $entry) {
+            if (($entry['action'] == 'mdn') && ($entry['type'] == $type)) {
+                return true;
             }
         }
 
@@ -156,7 +193,7 @@ class IMP_Maillog
      *
      * @param string $msg_id  The Message-ID of the message.
      */
-    static public function displayLog($msg_id)
+    public function displayLog($msg_id)
     {
         foreach (self::parseLog($msg_id) as $entry) {
             $GLOBALS['notification']->push($entry['msg'], 'imp.' . $entry['action']);
@@ -173,13 +210,15 @@ class IMP_Maillog
      *   - action: (string) The log action.
      *   - msg: (string) The log message.
      */
-    static public function parseLog($msg_id)
+    public function parseLog($msg_id)
     {
         try {
-            if (!$msg_history = self::getLog($msg_id)) {
-                return array();
-            }
+            $msg_history = self::getLog($msg_id);
         } catch (Horde_Exception $e) {
+            return array();
+        }
+
+        if (!count($msg_history)) {
             return array();
         }
 
@@ -239,14 +278,29 @@ class IMP_Maillog
      * @param mixed $msg_ids  Either a single Message-ID or an array
      *                        of Message-IDs to delete.
      */
-    static public function deleteLog($msg_ids)
+    public function deleteLog($msg_ids)
     {
         if (!is_array($msg_ids)) {
             $msg_ids = array($msg_ids);
         }
+
         $GLOBALS['injector']->getInstance('Horde_History')->removeByNames(
-            array_map(array('IMP_Maillog', '_getUniqueHistoryId'), $msg_ids)
+            array_map(array($this, '_getUniqueHistoryId'), array_filter($msg_ids))
         );
+    }
+
+    /**
+     * Retrieve changes to the Maillog since the provided timestamp.
+     *
+     * @param integer $ts  Timestamp.
+     *
+     * @return array  An array of changes, keyed by the history guid.
+     */
+    public function getChanges($ts)
+    {
+        $parent = implode(':', array('imp', str_replace('.', '*', $GLOBALS['registry']->getAuth())));
+
+        return $GLOBALS['injector']->getInstance('Horde_History')->getByTimestamp('>', $ts, array(), $parent);
     }
 
     /**
@@ -256,11 +310,11 @@ class IMP_Maillog
      *
      * @return string  The unique log ID to use with Horde_History::.
      */
-    static protected function _getUniqueHistoryId($msgid)
+    protected function _getUniqueHistoryId($msgid)
     {
         return is_array($msgid)
             ? ''
-            : implode('.', array('imp', str_replace('.', '*', $GLOBALS['registry']->getAuth()), $msgid));
+            : implode(':', array('imp', str_replace('.', '*', $GLOBALS['registry']->getAuth()), $msgid));
     }
 
 }

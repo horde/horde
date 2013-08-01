@@ -1,25 +1,25 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
-$permission = 'perms';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:perms')
+));
 
 /* Set up the form variables. */
-$vars = Horde_Variables::getDefaultVariables();
-$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$vars = $injector->getInstance('Horde_Variables');
+$perms = $injector->getInstance('Horde_Perms');
 $corePerms = $injector->getInstance('Horde_Core_Perms');
 $perm_id = $vars->get('perm_id');
 $category = $vars->get('category');
@@ -31,23 +31,43 @@ if ($category !== null) {
         $permission = $perms->getPermission($category);
         $perm_id = $perms->getPermissionId($permission);
     } catch (Horde_Perms_Exception $e) {
-        if (Horde_Util::getFormData('autocreate')) {
+        if ($vars->autocreate) {
             /* Check to see if the permission we are copying from exists
              * before we autocreate. */
-            $copyFrom = Horde_Util::getFormData('autocreate_copy');
+            $copyFrom = $vars->autocreate_copy;
             if ($copyFrom && !$perms->exists($copyFrom)) {
                 $copyFrom = null;
             }
 
+            /* Create parents if necessary. Remove root from the name. */
+            $root = Horde_Perms::ROOT . ':';
+            if (substr($category, 0, strlen($root)) == ($root)) {
+                $category = substr($category, strlen($root));
+            }
+            $pos = -1;
+            while (($pos = strpos($category, ':', $pos + 1)) !== false) {
+                $parent = substr($category, 0, $pos);
+                if (!$perms->exists($parent)) {
+                    try {
+                        $permission = $corePerms->newPermission($parent);
+                        $perms->addPermission($permission);
+                        $permission->addDefaultPermission(Horde_Perms::ALL);
+                    } catch (Exception $e) {
+                        $notification->push($e);
+                        Horde::url('admin/perms/index.php', true)->redirect();
+                    }
+                }
+            }
+
             try {
                 $permission = $corePerms->newPermission($category);
-                $result = $perms->addPermission($permission);
+                $perms->addPermission($permission);
                 $form = 'edit.inc';
                 $perm_id = $perms->getPermissionId($permission);
 
                 if ($copyFrom) {
-                    /* We have autocreated the permission and we have been told to
-                     * copy an existing permission for the defaults. */
+                    /* We have autocreated the permission and we have been told
+                     * to copy an existing permission for the defaults. */
                     $copyFromObj = $perms->getPermission($copyFrom);
                     $permission->addGuestPermission($copyFromObj->getGuestPermissions(), false);
                     $permission->addDefaultPermission($copyFromObj->getDefaultPermissions(), false);
@@ -62,15 +82,15 @@ if ($category !== null) {
                     /* We have autocreated the permission and we don't have an
                      * existing permission to copy.  See if some defaults were
                      * supplied. */
-                    $addPerms = Horde_Util::getFormData('autocreate_guest');
+                    $addPerms = $vars->autocreate_guest;
                     if ($addPerms) {
                         $permission->addGuestPermission($addPerms, false);
                     }
-                    $addPerms = Horde_Util::getFormData('autocreate_default');
+                    $addPerms = $vars->autocreate_default;
                     if ($addPerms) {
                         $permission->addDefaultPermission($addPerms, false);
                     }
-                    $addPerms = Horde_Util::getFormData('autocreate_creator');
+                    $addPerms = $vars->autocreate_creator;
                     if ($addPerms) {
                         $permission->addCreatorPermission($addPerms, false);
                     }
@@ -78,6 +98,7 @@ if ($category !== null) {
                 $permission->save();
             } catch (Exception $e) {
                 $notification->push($e);
+                Horde::url('admin/perms/index.php', true)->redirect();
             }
         } else {
             $redirect = true;
@@ -113,13 +134,23 @@ if ($ui->validateEditForm($info)) {
         ->redirect();
 }
 
-$title = _("Permissions Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/admin/menu.inc';
-
-/* Render the form and tree. */
+// Buffer the tree rendering
+Horde::startBuffer();
 $ui->renderForm('edit.php');
 echo '<br />';
 $ui->renderTree($perm_id);
+$tree_output = Horde::endBuffer();
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+// Buffer the menu output
+Horde::startBuffer();
+require HORDE_TEMPLATES . '/admin/menu.inc';
+$menu_output = Horde::endBuffer();
+
+$page_output->header(array(
+    'title' => _("Permissions Administration")
+));
+
+/* Render the form and tree. */
+echo $menu_output;
+echo $tree_output;
+$page_output->footer();

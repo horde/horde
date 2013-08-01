@@ -14,7 +14,7 @@
 /**
  * The IMAP driver class for accessing Kolab storage.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -41,11 +41,7 @@ extends Horde_Kolab_Storage_Driver_Base
         if (isset($config['debug']) && $config['debug'] == 'STDOUT') {
             $config['debug'] = STDOUT;
         }
-        if ($config['driver'] = 'horde') {
-            return new Horde_Imap_Client_Socket($config);
-        } else {
-            return new Horde_Imap_Client_Cclient($config);
-        }
+        return new Horde_Imap_Client_Socket($config);
     }
 
     /**
@@ -55,11 +51,17 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function listFolders()
     {
-        return $this->decodeList(
-            $this->getBackend()->listMailboxes(
-                '*', Horde_Imap_Client::MBOX_ALL, array('flat' => true)
-            )
-        );
+        try {
+            return $this->decodeList(
+                $this->getBackend()->listMailboxes(
+                    '*', Horde_Imap_Client::MBOX_ALL, array('flat' => true)
+                )
+            );
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -71,7 +73,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function create($folder)
     {
-        return $this->getBackend()->createMailbox($folder);
+        try {
+            return $this->getBackend()->createMailbox($folder);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -83,7 +91,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function delete($folder)
     {
-        $this->getBackend()->deleteMailbox($folder);
+        try {
+            $this->getBackend()->deleteMailbox($folder);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -96,7 +110,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function rename($old, $new)
     {
-        $this->getBackend()->renameMailbox($old, $new);
+        try {
+            $this->getBackend()->renameMailbox($old, $new);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -106,8 +126,14 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function hasAclSupport()
     {
-        $this->getBackend()->login();
-        return $this->getBackend()->queryCapability('ACL');
+        try {
+            $this->getBackend()->login();
+            return $this->getBackend()->queryCapability('ACL');
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -119,7 +145,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getAcl($folder)
     {
-        $acl = $this->getBackend()->getACL($folder);
+        try {
+            $acl = $this->getBackend()->getACL($folder);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
 
         $result = array();
         foreach ($acl as $user => $rights) {
@@ -138,7 +170,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getMyAcl($folder)
     {
-        return strval($this->getBackend()->getMyACLRights($folder));
+        try {
+            return strval($this->getBackend()->getMyACLRights($folder));
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -152,7 +190,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function setAcl($folder, $user, $acl)
     {
-        $this->getBackend()->setACL($folder, $user, array('rights' => $acl));
+        try {
+            $this->getBackend()->setACL($folder, $user, array('rights' => $acl));
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -165,7 +209,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function deleteAcl($folder, $user)
     {
-        $this->getBackend()->setACL($folder, $user, array('remove' => true));
+        try {
+            $this->getBackend()->deleteACL($folder, $user);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -178,7 +228,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function listAnnotation($annotation)
     {
-        $result = $this->getBackend()->getMetadata('*', $annotation);
+        try {
+            $result = $this->getBackend()->getMetadata('*', $annotation);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
         $data = array();
         foreach ($result as $folder => $annotations) {
             if (isset($annotations[$annotation])) {
@@ -218,11 +274,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function setAnnotation($folder, $annotation, $value)
     {
-        $this->getBackend()->login();
         try {
+            $this->getBackend()->login();
             return $this->getBackend()->setMetadata(
                 $folder, array($annotation => $value)
             );
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Kolab_Storage_Exception($e);
         }
@@ -235,9 +293,12 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getNamespace()
     {
-        if ($this->_namespace === null) {
+        if ($this->_namespace !== null) {
+            return parent::getNamespace();
+        }
+        try {
             $this->getBackend()->login();
-            if ( $this->getBackend()->queryCapability('NAMESPACE') === true) {
+            if ($this->getBackend()->queryCapability('NAMESPACE') === true) {
                 $c = array();
                 $configuration = $this->getParam('namespaces', array());
                 foreach ($this->getBackend()->getNamespaces() as $namespace) {
@@ -263,7 +324,12 @@ extends Horde_Kolab_Storage_Driver_Base
                 }
                 $this->_namespace = $this->getFactory()->createNamespace('imap', $this->getAuth(), $c);
             }
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
         }
+
         return parent::getNamespace();
     }
 
@@ -276,7 +342,13 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function select($folder, $mode = Horde_Imap_Client::OPEN_AUTO)
     {
-        $this->getBackend()->openMailbox($folder, $mode);
+        try {
+            $this->getBackend()->openMailbox($folder, $mode);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -289,11 +361,17 @@ extends Horde_Kolab_Storage_Driver_Base
     public function status($folder)
     {
         // @todo: Condstore
-        return $this->getBackend()->status(
-            $folder,
-            Horde_Imap_Client::STATUS_UIDNEXT
-            | Horde_Imap_Client::STATUS_UIDVALIDITY
-        );
+        try {
+            return $this->getBackend()->status(
+                $folder,
+                Horde_Imap_Client::STATUS_UIDNEXT |
+                Horde_Imap_Client::STATUS_UIDVALIDITY
+            );
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -307,7 +385,13 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $search_query = new Horde_Imap_Client_Search_Query();
         $search_query->flag('DELETED', false);
-        $uidsearch = $this->getBackend()->search($folder, $search_query);
+        try {
+            $uidsearch = $this->getBackend()->search($folder, $search_query);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
         $uids = $uidsearch['match'];
         return $uids->ids;
     }
@@ -326,16 +410,50 @@ extends Horde_Kolab_Storage_Driver_Base
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->fullText();
 
-        $ret = $this->getBackend()->fetch(
-            $folder,
-            $query,
-            array('ids' => new Horde_Imap_Client_Ids($uid))
-        );
-        $msg = $ret[$uid]->getFullMsg();
+        try {
+            $ret = $this->getBackend()->fetch(
+                $folder,
+                $query,
+                array('ids' => new Horde_Imap_Client_Ids($uid))
+            );
+            $msg = $ret[$uid]->getFullMsg();
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
         return array(
             Horde_Mime_Headers::parseHeaders($msg),
             Horde_Mime_Part::parseMessage($msg)
         );
+    }
+
+    /**
+     * Retrieves the message headers.
+     *
+     * @param string $folder The folder to fetch the message from.
+     * @param array  $uid    The message UID.
+     *
+     * @return Horde_Mime_Headers The message headers.
+     */
+    public function fetchHeaders($folder, $uid)
+    {
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->headerText();
+
+        try {
+            $ret = $this->getBackend()->fetch(
+                $folder,
+                $query,
+                array('ids' => new Horde_Imap_Client_Ids($uid))
+            );
+            $msg = $ret[$uid]->getHeaderText();
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
+        return Horde_Mime_Headers::parseHeaders($msg);
     }
 
     /**
@@ -356,15 +474,21 @@ extends Horde_Kolab_Storage_Driver_Base
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->structure();
 
-        $ret = $this->getBackend()->fetch(
-            $folder,
-            $query,
-            array('ids' => new Horde_Imap_Client_Ids($uids))
-        );
+        try {
+            $ret = $this->getBackend()->fetch(
+                $folder,
+                $query,
+                array('ids' => new Horde_Imap_Client_Ids($uids))
+            );
 
-        $out = array();
-        foreach (array_keys($ret) as $key) {
-            $out[$key]['structure'] = $ret[$key]->getStructure();
+            $out = array();
+            foreach ($ret as $key => $result) {
+                $out[$key]['structure'] = $result->getStructure();
+            }
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
         }
 
         return $out;
@@ -384,13 +508,19 @@ extends Horde_Kolab_Storage_Driver_Base
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->bodyPart($id);
 
-        $ret = $this->getBackend()->fetch(
-            $folder,
-            $query,
-            array('ids' => new Horde_Imap_Client_Ids($uid))
-        );
+        try {
+            $ret = $this->getBackend()->fetch(
+                $folder,
+                $query,
+                array('ids' => new Horde_Imap_Client_Ids($uid))
+            );
 
-        return $ret[$uid]->getBodyPart($id, true);
+            return $ret[$uid]->getBodyPart($id, true);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -404,7 +534,14 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function appendMessage($folder, $msg)
     {
-        $result = $this->getBackend()->append($folder, array(array('data' => $msg)));
+        try {
+            $result = $this->getBackend()
+                ->append($folder, array(array('data' => $msg)));
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
         return $result->ids[0];
     }
 
@@ -418,10 +555,16 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function deleteMessages($folder, $uids)
     {
-        return $this->getBackend()->store($folder, array(
-            'add' => array('\\deleted'),
-            'ids' => new Horde_Imap_Client_Ids($uids)
-        ));
+        try {
+            return $this->getBackend()->store($folder, array(
+                'add' => array('\\deleted'),
+                'ids' => new Horde_Imap_Client_Ids($uids)
+            ));
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -435,8 +578,16 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function moveMessage($uid, $old_folder, $new_folder)
     {
-        $options = array('ids' => new Horde_Imap_Client_Ids($uid), 'move' => true);
-        return $this->getBackend()->copy($old_folder, $new_folder, $options);
+        $options = array('ids' => new Horde_Imap_Client_Ids($uid),
+                         'move' => true);
+        try {
+            return $this->getBackend()
+                ->copy($old_folder, $new_folder, $options);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
@@ -448,6 +599,12 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function expunge($folder)
     {
-        return $this->getBackend()->expunge($folder);
+        try {
+            return $this->getBackend()->expunge($folder);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            throw new Horde_Kolab_Storage_Exception($e->details);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 }

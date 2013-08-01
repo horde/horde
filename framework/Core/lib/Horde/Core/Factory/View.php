@@ -2,7 +2,7 @@
 /**
  * A Horde_Injector:: based factory for creating Horde_View objects.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -17,7 +17,7 @@
 /**
  * A Horde_Injector:: based factory for creating Horde_View objects.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -32,7 +32,8 @@ class Horde_Core_Factory_View extends Horde_Core_Factory_Injector
 {
     public function create(Horde_Injector $injector)
     {
-        $view = new Horde_View();
+        $registry = $injector->getInstance('Horde_Registry');
+        $view = new Horde_View(array('templatePath' => $registry->get('templates', $registry->getApp())));
         $view->addHelper('Tag');
         $view->addHelper('Text');
         return $view;

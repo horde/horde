@@ -1,10 +1,5 @@
 <?php
 /**
- * Require our basic test case definition
- */
-require_once dirname(__FILE__) . '/Autoload.php';
-
-/**
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @category   Horde
@@ -13,6 +8,11 @@ require_once dirname(__FILE__) . '/Autoload.php';
  */
 class Horde_Util_StringTest extends PHPUnit_Framework_TestCase
 {
+    public function tearDown()
+    {
+        setlocale(LC_ALL, '');
+    }
+
     public function testUpper()
     {
         $this->assertEquals(
@@ -468,6 +468,53 @@ EOT
             "<html>",
             Horde_String::convertCharset("<html>", 'UTF-8', 'Windows-1258')
         );
+    }
+
+    public function testLongStringsBreakUtf8DetectionRegex()
+    {
+        $string = str_repeat('1 A B', 10000);
+
+        /* Failing test will cause a PHP segfault here. */
+        Horde_String::validUtf8($string);
+    }
+
+    public function testValidUtf8()
+    {
+        // Examples from:
+        // http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
+        $valid = array(
+            'Valid ASCII' => "a",
+            'Valid 2 Octet Sequence' => "\xc3\xb1",
+            'Valid 3 Octet Sequence' => "\xe2\x82\xa1",
+            'Valid 4 Octet Sequence' => "\xf0\x90\x8c\xbc",
+            'Bug #11930' => 'ö ä ü ß\n\nMit freundlichen Grüßen',
+            'Bug #11930-2' => 'öäüß'
+        );
+        $invalid = array(
+            'Invalid 2 Octet Sequence' => "\xc3\x28",
+            'Invalid Sequence Identifier' => "\xa0\xa1",
+            'Invalid 3 Octet Sequence (in 2nd Octet)' => "\xe2\x28\xa1",
+            'Invalid 3 Octet Sequence (in 3rd Octet)' => "\xe2\x82\x28",
+            'Invalid 4 Octet Sequence (in 2nd Octet)' => "\xf0\x28\x8c\xbc",
+            'Invalid 4 Octet Sequence (in 3rd Octet)' => "\xf0\x90\x28\xbc",
+            'Invalid 4 Octet Sequence (in 4th Octet)' => "\xf0\x28\x8c\x28",
+            'Valid 5 Octet Sequence (but not Unicode!)' => "\xf8\xa1\xa1\xa1\xa1",
+            'Valid 6 Octet Sequence (but not Unicode!)' => "\xfc\xa1\xa1\xa1\xa1\xa1"
+        );
+
+        foreach ($valid as $val) {
+            $this->assertEquals(
+                true,
+                Horde_String::validUtf8($val)
+            );
+        }
+
+        foreach ($invalid as $val) {
+            $this->assertEquals(
+                false,
+                Horde_String::validUtf8($val)
+            );
+        }
     }
 
 }

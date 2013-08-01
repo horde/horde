@@ -2,7 +2,7 @@
 /**
  * Horde_Text_Filter:: is a parent class for defining stackable text filters.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -76,13 +76,21 @@ class Horde_Text_Filter
 
             /* preg_replace complex patterns. */
             if (isset($patterns['regexp'])) {
-                $text = preg_replace(array_keys($patterns['regexp']), array_values($patterns['regexp']), $text);
+                $new_text = preg_replace(array_keys($patterns['regexp']), array_values($patterns['regexp']), $text);
+                if (strlen($new_text) ||
+                    (preg_last_error() != PREG_BACKTRACK_LIMIT_ERROR)) {
+                    $text = $new_text;
+                }
             }
 
             /* preg_replace_callback complex patterns. */
             if (isset($patterns['regexp_callback'])) {
                 foreach ($patterns['regexp_callback'] as $key => $val) {
-                    $text = preg_replace_callback($key, $val, $text);
+                    $new_text = preg_replace_callback($key, $val, $text);
+                    if (strlen($new_text) ||
+                        (preg_last_error() != PREG_BACKTRACK_LIMIT_ERROR)) {
+                        $text = $new_text;
+                    }
                 }
             }
 

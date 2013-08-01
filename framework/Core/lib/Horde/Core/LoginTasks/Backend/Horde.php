@@ -3,7 +3,7 @@
  * This class provides the Horde specific implementation of the LoginTasks
  * backend.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -41,7 +41,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getTasklistFromCache()
     {
-        return $GLOBALS['session']->get('horde', 'logintasks/' . $this->_app);
+        return $GLOBALS['session']->get($this->_app, 'logintasks');
     }
 
     /**
@@ -52,7 +52,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function storeTasklistInCache($tasklist)
     {
-        $GLOBALS['session']->set('horde', 'logintasks/' . $this->_app, $tasklist);
+        $GLOBALS['session']->set($this->_app, 'logintasks', $tasklist);
     }
 
     /**
@@ -127,7 +127,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getLoginTasksUrl()
     {
-        return Horde::getServiceLink('logintasks', $this->_app);
+        return $GLOBALS['registry']->getServiceLink('logintasks', $this->_app);
     }
 
 }

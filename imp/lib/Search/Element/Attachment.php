@@ -5,7 +5,7 @@
  * Right now, uses a tremendously simplistic algorithm: it checks if the
  * base part is 'multipart/mixed' or 'message/rfc822'.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -25,7 +25,7 @@ class IMP_Search_Element_Attachment extends IMP_Search_Element
     public function __construct($not = false)
     {
         /* Data element: (integer) Do a NOT search? */
-        $this->_data = intval($not);
+        $this->_data = intval(!empty($not));
     }
 
     /**
@@ -49,7 +49,7 @@ class IMP_Search_Element_Attachment extends IMP_Search_Element
 
         /* ...but the combined search must be AND'd with the rest of the
          * search terms. */
-        $queryob->andSearch(array($ob3));
+        $queryob->andSearch($ob3);
 
         return $queryob;
     }

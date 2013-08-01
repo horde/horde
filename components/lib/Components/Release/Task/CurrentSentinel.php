@@ -16,7 +16,7 @@
  * Components_Release_Task_CurrentSentinel:: updates the CHANGES and the
  * Application.php/Bundle.php files with the current package version.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -39,9 +39,7 @@ extends Components_Release_Task_Sentinel
      */
     public function run(&$options)
     {
-        $changes_version = Components_Helper_Version::pearToHorde(
-            $this->getComponent()->getVersion()
-        );
+        $changes_version = $this->getComponent()->getVersion();
         $application_version = Components_Helper_Version::pearToHordeWithBranch(
             $this->getComponent()->getVersion(), $this->getNotes()->getBranch()
         );

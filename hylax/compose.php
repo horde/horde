@@ -2,7 +2,7 @@
 /**
  * The Hylax script to compose a new fax.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -10,7 +10,7 @@
  * @author Joel Vandal <joel@scopserv.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $hylax = Horde_Registry::appInit('hylax');
 
 /* Load Cover Page templates */
@@ -54,10 +54,8 @@ Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $template->fetch(HYLAX_TEMPLATES . '/compose/compose.html');
-
 $renderer = new Horde_Form_Renderer();
 $form->renderActive($renderer, $vars, Horde::selfURL(), 'post');
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

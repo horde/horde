@@ -1,11 +1,6 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Base.php';
-
-/**
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -13,9 +8,11 @@ require_once dirname(__FILE__) . '/../Base.php';
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
+class Horde_Share_Test_Sql_Base extends Horde_Share_TestBase
 {
     protected static $db;
+
+    protected static $reason;
 
     public function testGetApp()
     {
@@ -174,17 +171,25 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
         $this->removeShare();
     }
 
+    /**
+     * @depends testGetShare
+     */
+    public function testRenameShare()
+    {
+        $this->renameShare();
+    }
+
     public function testCallback()
     {
-        $this->callback(new Horde_Share_Object_Sql(array()));
+        $this->callbackSetShareOb(new Horde_Share_Object_Sql(array()));
     }
 
     public static function setUpBeforeClass()
     {
-        require_once dirname(__FILE__) . '/../migration/sql.php';
+        require_once __DIR__ . '/../migration/sql.php';
         migrate_sql(self::$db);
 
-        $group = new Horde_Group_Test();
+        $group = new Horde_Share_Stub_Group();
         self::$share = new Horde_Share_Sql('test', 'john', new Horde_Perms_Sql(array('db' => self::$db)), $group);
         self::$share->setStorage(self::$db);
 
@@ -207,7 +212,7 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
     public function setUp()
     {
         if (!self::$db) {
-            $this->markTestSkipped('No sqlite extension or no sqlite PDO driver.');
+            $this->markTestSkipped(self::$reason);
         }
     }
 }

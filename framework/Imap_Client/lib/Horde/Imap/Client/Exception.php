@@ -1,19 +1,27 @@
 <?php
 /**
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2008-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
  * Exception handler for the Horde_Imap_Client package.
  *
  * Additional server debug information MAY be found in the $details
  * property.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2008-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
 {
@@ -50,6 +58,12 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
 
     // Thrown if read error for server response.
     const SERVER_READERROR = 12;
+
+    // Thrown if write error in server interaction.
+    const SERVER_WRITEERROR = 16;
+
+    // Thrown on CATENATE if the URL is invalid.
+    const CATENATE_BADURL = 13;
 
     // Thrown on CATENATE if the message was too big.
     const CATENATE_TOOBIG = 14;
@@ -127,6 +141,9 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Could not open/access mailbox
     const MAILBOX_NOOPEN = 200;
 
+    // Could not complete the command because the mailbox is read-only
+    const MAILBOX_READONLY = 201;
+
 
     // POP3 specific error codes
 
@@ -142,5 +159,26 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
 
     // Function/feature is not supported on this server.
     const NOT_SUPPORTED = 400;
+
+
+    /**
+     * Allow the error message to be altered.
+     *
+     * @param string $msg  Error message.
+     */
+    public function setMessage($msg)
+    {
+        $this->message = strval($msg);
+    }
+
+    /**
+     * Allow the error code to be altered.
+     *
+     * @param integer $code  Error code.
+     */
+    public function setCode($code)
+    {
+        $this->code = intval($code);
+    }
 
 }

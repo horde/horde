@@ -2,7 +2,7 @@
 /**
  * Horde specific wrapper for Horde_Share drivers. Adds Horde hook calls etc...
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
@@ -64,16 +64,15 @@ class Horde_Core_Share_Driver
     /**
      * Lock an item belonging to a share, or an entire share itself.
      *
-     * @param Horde_Lock $locks          The lock object
-     * @param Horde_Share_Object $share  The share object
-     * @param string $uid                The uid of a specific object to lock,
-     *                                   if null, entire share is locked.
+     * @param Horde_Lock $locks  The lock object.
+     * @param string $uid        The uid of a specific object to lock, if
+     *                           null, entire share is locked.
      *
      * @return mixed  A lock ID on sucess, false if:
-     *                  - The share is already locked,
-     *                  - The item is already locked,
-     *                  - A share lock was requested and an item is already
-     *                    locked in the share.
+     *   - The share is already locked,
+     *   - The item is already locked,
+     *   - A share lock was requested and an item is already locked in the
+     *     share.
      */
     public function lock(Horde_Lock $locks, $uid = null)
     {
@@ -159,7 +158,7 @@ class Horde_Core_Share_Driver
         try {
             $result = $locks->getLocks($this->_share->getShareOb()->getApp(), $shareid, $locktype);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             throw new Horde_Exception_Wrapped($e);
         }
 
@@ -169,7 +168,7 @@ class Horde_Core_Share_Driver
             try {
                 $result = $locks->getLocks($this->_share->getShareOb()->getApp() . ':' . $shareid, $item_uid, $locktype);
             } catch (Horde_Lock_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 throw new Horde_Exception($e->getMessage());
             }
         } else {

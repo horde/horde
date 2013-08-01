@@ -18,7 +18,7 @@
 <?php echo Horde::label('overwrite', _("Overwrite comics if they exist?")) ?><br />
 <input id="nounique" type="checkbox" name="nounique" value="true" />
 <?php echo Horde::label('nounique', _("Don't check for uniqueness")) ?><br />
-<input class="button" type="submit" value="<?php echo _("Fetch Comics") ?>" />
+<input class="horde-default" type="submit" value="<?php echo _("Fetch Comics") ?>" />
 </form>
 <hr />
 <form action="<?php echo Horde::url('backend.php') ?>" method="get">
@@ -32,7 +32,7 @@
  <option value="newer">on or after</option>
 </select>
 <?php echo $delete_date_select ?><br />
-<input class="button" type="submit" value="<?php echo _("Delete Comics") ?>" />
+<input class="horde-delete" type="submit" value="<?php echo _("Delete Comics") ?>" />
 </form>
 <hr />
 <strong><?php echo _("Maintenance Functions") ?></strong>

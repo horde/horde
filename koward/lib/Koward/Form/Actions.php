@@ -19,7 +19,7 @@ class Koward_Form_Actions extends Horde_Form {
     {
         $this->koward = &Koward::singleton();
 
-        parent::Horde_Form(Horde_Variables::getDefaultVariables());
+        parent::__construct(Horde_Variables::getDefaultVariables());
 
         $this->setTitle(_("Object actions"));
 

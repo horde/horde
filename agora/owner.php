@@ -2,7 +2,7 @@
 /**
  * The Agora script to display a list of forums.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -10,7 +10,7 @@
  * @author Duck  <duck@oabla.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Default to agora and current user if is not an admin. */
@@ -21,9 +21,8 @@ $owner = $registry->isAdmin() ? Horde_Util::getGet('owner', $registry->getAuth()
 $sort_by = Agora::getSortBy('threads');
 $sort_dir = Agora::getSortDir('threads');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo '<h1>' . sprintf(_("Last posts in forums owned by %s"), $owner) . '</h1>';
 
@@ -68,4 +67,4 @@ foreach ($registry->listApps() as $scope) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

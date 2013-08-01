@@ -1,17 +1,25 @@
 <?php
 /**
- * Login system task for automated upgrade tasks.
- * These tasks REQUIRE IMP authentication.
- *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Login system task for automated upgrade tasks.
+ * These tasks REQUIRE IMP authentication.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_LoginTasks_SystemTask_UpgradeAuth extends Horde_Core_LoginTasks_SystemTask_Upgrade
 {
@@ -26,7 +34,8 @@ class IMP_LoginTasks_SystemTask_UpgradeAuth extends Horde_Core_LoginTasks_System
     /**
      */
     protected $_versions = array(
-        '5.0'
+        '5.0',
+        '6.0.2'
     );
 
     /**
@@ -35,6 +44,10 @@ class IMP_LoginTasks_SystemTask_UpgradeAuth extends Horde_Core_LoginTasks_System
     {
         switch ($version) {
         case '5.0':
+            $this->_upgradeExpireImapCache();
+            break;
+
+        case '6.0.2':
             $this->_upgradeExpireImapCache();
             break;
         }
@@ -46,15 +59,13 @@ class IMP_LoginTasks_SystemTask_UpgradeAuth extends Horde_Core_LoginTasks_System
     protected function _upgradeExpireImapCache()
     {
         try {
-            $ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->ob;
+            $ob = $GLOBALS['injector']->getInstance('IMP_Imap');
 
             if ($cache = $ob->getCache()) {
-                $ob->login();
-
                 $mboxes = $ob->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
 
                 foreach ($mboxes as $val) {
-                    $ob->cache->deleteMailbox($val);
+                    $cache->deleteMailbox($val);
                 }
             }
         } catch (Exception $e) {}

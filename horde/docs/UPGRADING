@@ -30,8 +30,74 @@ schemes. Log in as an administrator, go to Administration => Configuration and
 update anything that's highlighted as outdated.
 
 
+Upgrading Horde from 5.0.x to 5.1.x
+===================================
+
+Configuration Options (conf.php)
+--------------------------------
+
+It is now possible to configure Horde-wide settings for a NoSQL database
+backend. Addtionally, several Horde packages now allow a NoSQL backend driver
+to be used.
+
+The Memcache configuration options have been deprecated and have been replaced
+by the generic Horde_HashTable package (which supports both Memcache and Redis
+servers). Although the previous memcache configuration will continue to work
+in Horde 5.x, it is recommended to upgrade to the new 'hashtable'
+configuration setup.
+
+The following options were added::
+
+   $conf['auth']['resetpassword_from']
+
+The following options were removed::
+
+   $conf['cache']['compress']
+   $conf['cachecssparams']['compress']
+
+
+Hooks (hooks.php)
+-----------------
+
+The 'ajaxaction' hook has been deprecated and replaced with the
+'ajaxaction_handle' hook (new hook needed in order to allow, e.g., adding
+tasks to the outgoing response).
+
+The following hooks were added::
+
+   ajaxaction_data
+
+
+Upgrading Horde from 5.0 to 5.0.1
+=================================
+
+Weather portal block
+--------------------
+
+Google no longer provides a weather API. Support for this has therefore been
+removed from Horde. If you were using Google as a source for weather, you will
+need to pick a new provider and update the Horde configuration.
+
+
 Upgrading Horde from 4.x to 5.x
 ===============================
+
+Configuration Options (conf.php)
+--------------------------------
+
+The $conf['session']['max_time'] option was added. The default is no maximum
+session time, the same behavior as in Horde 4.
+
+The $conf['cachecssparams']['url_version_param'] option was added. This option
+is only used if no CSScaching is selected (a configuration that is NOT
+recommended for production servers). The new default is to add version
+information to CSS server URLs, which is altered behavior from Horde 4.
+
+The $conf['cachejsparams']['url_version_param'] option was added. This option
+is only used if no javascript caching is selected (a configuration that is NOT
+recommended for production servers). The new default is to add version
+information to javascript server URLs, which is altered behavior from Horde 4.
+
 
 Hooks (hooks.php)
 -----------------
@@ -52,8 +118,30 @@ See ``config/hooks.php.dist`` for further details.
 Preferences (prefs.php)
 -----------------------
 
-The 'sending_charset' preference now defaults to 'UTF-8'.
+The 'sending_charset' preference now defaults to 'UTF-8'. Any previous saved
+value will be deleted when upgrading to 5.0 - if you want to send in a
+charset other than UTF-8 (NOT RECOMMENDED), you will need to explicitly set
+this value again (in either ``config/prefs.local.php`` or you preferences
+storage backend).
 
+The 'menu_view' and 'show_sidebar' preferences have been removed.
+
+
+ActiveSync (EAS) Integration
+----------------------------
+
+Email support has been added, along with support for the EAS 12.0 and 12.1
+protocol versions. New configuration options have been added to support this.
+You MUST update Horde's ActiveSync configuration.
+
+The Custom logging option has been changed to ALWAYS be a path to a directory,
+and not a specific filename.
+
+The security policy settings have been moved out of the global configuration and
+into the permissions system for greater per user control over policies.
+
+New database migrations have been added, you MUST run these migrations for
+ActiveSync to work.
 
 
 Upgrading Horde from 4.0.x to 4.0.12
@@ -79,7 +167,6 @@ service in Horde's configuration::
 Upgrading Horde from 4.0.x to 4.0.10
 ====================================
 
-
 Configuration changes
 ---------------------
 
@@ -88,7 +175,6 @@ The 'nobase64_img' option was added.
 
 Upgrading Horde from 4.0 to 4.0.1
 =================================
-
 
 Configuration Values
 --------------------
@@ -106,7 +192,6 @@ details on this hook.
 
 Upgrading Horde from 3.3.x to 4.x
 =================================
-
 
 New installation method
 -----------------------
@@ -143,7 +228,7 @@ your database server's console or web frontend. A migration framework has been
 created instead that can be used through the web interface and a command line
 script.
 
-After updating, log in to Horde as an adminstrator, make sure that all
+After updating, log in to Horde as an administrator, make sure that all
 configurations are up-to-date, then click on the ``Update all DB schemas``
 button. You can also update the database schemas individually if necessary.
 
@@ -278,7 +363,6 @@ installed on your system::
 Upgrading Horde from 3.1.x to 3.2.x
 ===================================
 
-
 SQL Backends
 ------------
 
@@ -356,7 +440,6 @@ exploits.
 Upgrading Horde from 3.1.1 to 3.1.2
 ===================================
 
-
 Session Configuration
 ---------------------
 
@@ -387,7 +470,6 @@ if you have large preference tables.
 Upgrading Horde from 3.1 to 3.1.1
 =================================
 
-
 MySQL Session Handler
 ---------------------
 
@@ -406,7 +488,6 @@ to change the table type to InnoDB, execute the following SQL statement::
 
 Upgrading Horde from 3.0.x to 3.1.x
 ===================================
-
 
 SQL Backends
 ------------

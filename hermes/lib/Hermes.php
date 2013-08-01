@@ -2,7 +2,6 @@
 /**
  * Hermes Base Class.
  *
- *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
@@ -12,63 +11,94 @@
 class Hermes
 {
     /**
-     * Get a list of available clients
+     * List of available clients.
      *
-     * @param string $name  The string to search for in the client name
+     * @var array
+     */
+    protected static $_clients = array();
+
+    /**
+     * Returns a list of available clients.
      *
-     * @staticvar array $clients
-     * @return array  A hash of client_id => client_name
+     * @param string $name  The string to search for in the client name.
+     *
+     * @return array  A hash of client_id => client_name.
      */
     public static function listClients($name = '')
     {
-        static $clients;
-
-        if (is_null($clients) || empty($clients[$name])) {
-            try {
-                $result = $GLOBALS['registry']->clients->searchClients(array($name), array('name'), true);
-            } catch (Horde_Exception $e) {
-                // No client backend
-            }
-            $client_name_field = $GLOBALS['conf']['client']['field'];
-            $clients = is_null($clients) ?  array() : $clients;
-            if (!empty($result)) {
-                $result = $result[$name];
-                foreach ($result as $client) {
-                    $clients[$name][$client['id']] = $client[$client_name_field];
-                }
-            }
-            if (!empty($clients[$name])) {
-                uasort($clients[$name], 'strcoll');
-            } else {
-                $clients[$name] = array();
-            }
+        if (isset(self::$_clients['name'])) {
+            return self::$_clients['name'];
         }
 
-        return $clients[$name];
+        self::$_clients[$name] = array();
+
+        try {
+            $result = $GLOBALS['registry']->clients->searchClients(array($name), array('name'), true);
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, 'WARN');
+            return self::$_clients[$name];
+        }
+
+        if (!empty($result)) {
+            $result = $result[$name];
+            foreach ($result as $client) {
+                self::$_clients[$name][$client['id']] =
+                    $client[$GLOBALS['conf']['client']['field']];
+            }
+        }
+        uasort(self::$_clients[$name], 'strcoll');
+
+        return self::$_clients[$name];
     }
 
-    public static function getClientSelect($id)
+    /**
+     * Return the HTML needed to build an enum or multienum for selecting
+     * clients.
+     *
+     * @param string $id      The DOM id to identify the select list.
+     * @param boolean $multi  Allow multi select?
+     *
+     * @return string  The HTML to render the select element.
+     */
+    public static function getClientSelect($id, $multi = false)
     {
         $clients = self::listClients();
-        $select = '<select name="client" id="' . $id . '">';
+        $select = '<select name="'
+            . ($multi ? 'client[]' : 'client')
+            . '" id="' . $id . '" '
+            . ($multi ? 'multiple = "multiple"' : '') . '>';
         $select .= '<option value="">' . _("--- Select A Client ---") . '</option>';
         foreach ($clients as $cid => $client) {
-            $select .= '<option value="' . $cid . '">' . $client . '</option>';
+            $select .= '<option value="' . $cid . '">' . htmlspecialchars($client) . '</option>';
         }
 
         return $select . '</select>';
     }
 
     /**
-     * @TODO: Build these via ajax once we have UI support for editing jobtypes
-     * @return <type>
+     * Return HTML needed to build an enum or multienum for jobtype selection.
+     *
+     * @param string $id      The DOM id to identify the select list.
+     * @param boolean $multi  Allow multi select?
+     *
+     * @return string  The HTML needed to render the select element.
      */
-    public static function getJobTypeSelect($id)
+    public static function getJobTypeSelect($id, $multi = false, $show_disabled = false)
     {
-        $types = $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes(array('enabled' => true));
-        $select = '<select name="type" id="' . $id . '">';
+        if ($show_disabled) {
+            $params = array();
+        } else {
+            $params = array('enabled' => true);
+        }
+        $types = $GLOBALS['injector']->getInstance('Hermes_Driver')
+            ->listJobTypes($params);
+        $select = '<select name="'
+            . ($multi ? 'type[]' : 'type')
+            . '" id="' . $id . '" '
+            . ($multi ? 'multiple="multiple"' : '') . '>';
+        $select .= '<option value="">' . _("--- Select a Job Type ---") . '</option>';
         foreach ($types as $tid => $type) {
-            $select .= '<option value="' . $tid . '">' . $type['name'] . '</option>';
+            $select .= '<option value="' . $tid . '">' . htmlspecialchars($type['name']) . '</option>';
         }
 
         return $select . '</select>';
@@ -121,8 +151,9 @@ class Hermes
 
         $clients = Hermes::listClients();
         $namecache = array();
+        $results = array();
         for ($i = 0; $i < count($hours); $i++) {
-            $timeentry = &$hours[$i];
+            $timeentry = $hours[$i]->toArray();
             $timeentry['item'] = $timeentry['_type_name'];
             if (isset($clients[$timeentry['client']])) {
                 $timeentry['client'] = $clients[$timeentry['client']];
@@ -140,9 +171,10 @@ class Hermes
                     $namecache[$emp] = $emp;
                 }
             }
+            $results[] = $timeentry;
         }
 
-        return $hours;
+        return $results;
     }
 
     /**
@@ -166,7 +198,7 @@ class Hermes
             $users = $auth->listUsers();
         } catch (Exception $e) {
             return array('invalid',
-                         array(sprintf(_("An error occurred listing users: %s"), $e->getMessage())));
+                         sprintf(_("An error occurred listing users: %s"), $e->getMessage()));
         }
 
         $employees = array();
@@ -179,7 +211,7 @@ class Hermes
             $employees[$user] = $label;
         }
 
-        return array($enumtype, array($employees));
+        return array($enumtype, $employees);
     }
 
     public static function getCostObjectByID($id)
@@ -207,43 +239,56 @@ class Hermes
     }
 
     /**
+     * Return data for costobjects, optionally filtered by client_ids.
+     *
+     * @param mixed $client_ids  A client id or an array of client ids to
+     *                           filter cost obejcts by.
+     *
+     * @return array  An array of cost objects data.
      */
-    public static function getCostObjectType($clientID = null)
+    public static function getCostObjectType($client_ids = null)
     {
         global $registry;
 
-        /* Check to see if any other active applications are exporting cost
-         * objects to which we might want to bill our time. */
-        $criteria = array('user'   => $GLOBALS['registry']->getAuth(),
-                          'active' => true);
-        if (!empty($clientID)) {
-            $criteria['client_id'] = $clientID;
+        // Check to see if any other active applications are exporting cost
+        // objects to which we might want to bill our time.
+        $criteria = array(
+            'user'   => $GLOBALS['registry']->getAuth(),
+            'active' => true
+        );
+        if (empty($client_ids)) {
+            $client_ids = array('');
+        } elseif (!is_array($client_ids)) {
+            $client_ids = array($client_ids);
         }
 
         $costobjects = array();
-        foreach ($registry->listApps() as $app) {
-            if (!$registry->hasMethod('listCostObjects', $app)) {
-                continue;
-            }
-
-            try {
-                $result = $registry->callByPackage($app, 'listCostObjects', array($criteria));
-            } catch (Horde_Exception $e) {
-                $GLOBALS['notification']->push(sprintf(_("Error retrieving cost objects from \"%s\": %s"), $registry->get('name', $app), $e->getMessage()), 'horde.error');
-                continue;
-            }
-
-            foreach (array_keys($result) as $catkey) {
-                foreach (array_keys($result[$catkey]['objects']) as $okey){
-                    $result[$catkey]['objects'][$okey]['id'] = $app . ':' .
-                        $result[$catkey]['objects'][$okey]['id'];
+        foreach ($client_ids as $client_id) {
+            $criteria['client_id'] = $client_id;
+            foreach ($registry->listApps() as $app) {
+                if (!$registry->hasMethod('listCostObjects', $app)) {
+                    continue;
                 }
-            }
 
-            if ($app == $registry->getApp()) {
-                $costobjects = array_merge($result, $costobjects);
-            } else {
-                $costobjects = array_merge($costobjects, $result);
+                try {
+                    $result = $registry->callByPackage($app, 'listCostObjects', array($criteria));
+                } catch (Horde_Exception $e) {
+                    $GLOBALS['notification']->push(sprintf(_("Error retrieving cost objects from \"%s\": %s"), $registry->get('name', $app), $e->getMessage()), 'horde.error');
+                    continue;
+                }
+
+                foreach (array_keys($result) as $catkey) {
+                    foreach (array_keys($result[$catkey]['objects']) as $okey){
+                        $result[$catkey]['objects'][$okey]['id'] = $app . ':' .
+                            $result[$catkey]['objects'][$okey]['id'];
+                    }
+                }
+
+                if ($app == $registry->getApp()) {
+                    $costobjects = array_merge($result, $costobjects);
+                } else {
+                    $costobjects = array_merge($costobjects, $result);
+                }
             }
         }
 
@@ -253,11 +298,7 @@ class Hermes
             Horde_Array::arraySort($category['objects'], 'name');
             $elts['category%' . $counter++] = sprintf('--- %s ---', $category['category']);
             foreach ($category['objects'] as $object) {
-                $name = $object['name'];
-                if (Horde_String::length($name) > 80) {
-                    $name = Horde_String::substr($name, 0, 76) . ' ...';
-                }
-
+                $name = Horde_String::truncate($object['name'], 80);
                 $hours = 0.0;
                 $filter = array('costobject' => $object['id']);
                 if (!empty($GLOBALS['conf']['time']['sum_billable_only'])) {
@@ -307,7 +348,44 @@ class Hermes
     }
 
     /**
-     * Create a new timer and save it to storage.
+     * Return list of current timers.
+     *
+     * @param boolean $running_only  Only return running timers if true.
+     *
+     * @return array  An array of timer hashes.
+     */
+    public static function listTimers($running_only = false)
+    {
+        $timers = $GLOBALS['prefs']->getValue('running_timers');
+        if (!empty($timers)) {
+            $timers = @unserialize($timers);
+        } else {
+            $timers = array();
+        }
+        $return = array();
+        foreach ($timers as $id => $timer) {
+            if ($running_only && $timer['paused']) {
+                continue;
+            }
+            $elapsed = (!$timer['paused'] ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
+            $timer['e'] = round((float)$elapsed / 3600, 2);
+            $timer['id'] = $id;
+            unset($timer['elapsed']);
+            $return[] = $timer;
+        }
+
+        return $return;
+    }
+
+    /**
+     * Create a new timer and save it to storage. Timers contain the following
+     * values:
+     *  - name: (string) The descriptive name of the timer.
+     *  - time: (integer) Contains the timestamp of the last time this timer
+     *          was started. Contains zero if paused.
+     *  - paused: (boolean)  Flag to indicate the timer is paused.
+     *  - elapsed: (integer) Total elapsed time since the timer was CREATED.
+     *             Updated when timer is paused.
      *
      * @param string $description  The timer description.
      *
@@ -327,11 +405,17 @@ class Hermes
         return $now;
     }
 
+    /**
+     * Return a specific timer.
+     *
+     * @param integer  The timer id.
+     *
+     * @return array  The timer hash.
+     * @throws Horde_Exception_NotFound
+     */
     public static function getTimer($id)
     {
-        global $prefs;
-
-        $timers = $prefs->getValue('running_timers');
+        $timers = $GLOBALS['prefs']->getValue('running_timers');
         if (!empty($timers)) {
             $timers = @unserialize($timers);
         } else {
@@ -339,16 +423,20 @@ class Hermes
         }
 
         if (empty($timers[$id])) {
-            return false;
+            throw new Horde_Exception_NotFound(_("The requested timer was not found."));
         }
 
         return $timers[$id];
     }
 
+    /**
+     * Clear a timer
+     *
+     * @param integer $id  The timer id to clear/remove.
+     */
     public static function clearTimer($id)
     {
         global $prefs;
-
         $timers = @unserialize($prefs->getValue('running_timers'));
          if (!is_array($timers)) {
             $timers = array();
@@ -358,6 +446,12 @@ class Hermes
         $prefs->setValue('running_timers', serialize($timers));
     }
 
+    /**
+     * Update an existing timer.
+     *
+     * @param integer $id   The timer id.
+     * @param array $timer  The timer hash.
+     */
     public static function updateTimer($id, $timer)
     {
          global $prefs;
@@ -368,6 +462,90 @@ class Hermes
          }
          $timers[$id] = $timer;
          $prefs->setValue('running_timers', serialize($timers));
+    }
+
+    /**
+     * Returns true if we are showing the Ajax view.
+     *
+     * @return boolean
+     */
+    public static function showAjaxView()
+    {
+        return $GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC && $GLOBALS['prefs']->getValue('dynamic_view');
+    }
+
+    /**
+     * Return a URL to a specific view, taking self::showAjaxView() into account
+     *
+     * @param string $view   The view to link to.
+     * @param array $params  Optional paramaters.
+     *   - id: A slice id.
+     *
+     * @return Horde_Url  The Url
+     */
+    public static function url($view, array $params = array())
+    {
+        if (self::showAjaxView()) {
+            // For ajax view 'entry' is done on the 'time' view.
+            if ($view == 'entry') {
+                $view = 'time';
+            }
+            $url = Horde::url('')->setAnchor($view . (!empty($params['id']) ? ':' . $params['id'] : ''));
+        } else {
+            $url = Horde::url($view . '.php');
+            if (!empty($params['id'])) {
+                $url->add('id', $params['id']);
+            }
+        }
+
+        return $url;
+    }
+
+    /**
+     * Parses a complete date-time string into a Horde_Date object.
+     *
+     * @param string $date       The date-time string to parse.
+     *
+     * @return Horde_Date  The parsed date.
+     * @throws Horde_Date_Exception
+     */
+    static public function parseDate($date)
+    {
+        // strptime() is not available on Windows.
+        if (!function_exists('strptime')) {
+            return new Horde_Date($date);
+        }
+
+        // strptime() is locale dependent, i.e. %p is not always matching
+        // AM/PM. Set the locale to C to workaround this, but grab the
+        // locale's D_FMT before that.
+        $format = Horde_Nls::getLangInfo(D_FMT);
+        $old_locale = setlocale(LC_TIME, 0);
+        setlocale(LC_TIME, 'C');
+
+        // Try exact format match first.
+        $date_arr = strptime($date, $format);
+        setlocale(LC_TIME, $old_locale);
+
+        if (!$date_arr) {
+            // Try with locale dependent parsing next.
+            $date_arr = strptime($date, $format);
+            if (!$date_arr) {
+                // Try throwing at Horde_Date finally.
+                return new Horde_Date($date);
+            }
+        }
+
+        return new Horde_Date(
+            array(
+                'year'  => $date_arr['tm_year'] + 1900,
+                'month' => $date_arr['tm_mon'] + 1,
+                'mday'  => $date_arr['tm_mday'],
+                'hour'  => $date_arr['tm_hour'],
+                'min'   => $date_arr['tm_min'],
+                'sec'   => $date_arr['tm_sec']
+            )
+        );
     }
 
 }

@@ -11,13 +11,36 @@
  * This is an example for the file based storage backend:
  *
  * <pre>
+ * <?php
  *   $conf['driver'] = 'File';
  *   $conf['params']['directory'] = '/var/www/data/horde/prefs';
+ * </pre>
+ *
+ * The following example is the necessary setup for a SQL database:
+ *
+ * <pre>
+ * <?php
+ *   $conf['driver'] = 'Sql';
+ *   $conf['params']['db'] = new Horde_Db_Adapter_Mysql(
+ *     array(
+ *      'persistent' => false,
+ *      'username' => 'root',
+ *      'password' => 'PASSWORD',
+ *      'socket' => '/var/run/mysqld/mysqld.sock',
+ *      'protocol' => 'unix',
+ *      'database' => 'horde',
+ *      'charset' => 'utf-8',
+ *      'ssl' => true,
+ *      'splitread' => false,
+ *      'phptype' => 'mysql',
+ *    )
+ *  );
  * </pre>
  *
  * Configuring for the Kolab storage backend is more complex:
  *
  * <pre>
+ * <?php
  *   $conf['driver'] = 'KolabImap';
  *   $factory = new Horde_Kolab_Storage_Factory(
  *       array(
@@ -41,7 +64,7 @@
  * </pre>
  *
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -50,7 +73,7 @@
  */
 
 if (strpos('@php_dir@', '@php_dir') === 0) {
-    set_include_path(dirname(__FILE__) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
+    set_include_path(__DIR__ . '/../../../lib' . PATH_SEPARATOR . get_include_path());
 }
 
 @include 'Horde/Autoloader/Default.php';

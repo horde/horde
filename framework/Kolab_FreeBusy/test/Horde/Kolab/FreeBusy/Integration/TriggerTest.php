@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test triggering the generation/caching of free/busy data.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -57,7 +52,7 @@ class Horde_Kolab_FreeBusy_Integration_TriggerTest extends PHPUnit_Framework_Tes
                 'Horde_Log_Handler_Null' => array(),
             )
         );
-        
+
         $application = new Horde_Kolab_FreeBusy('Kolab', 'Freebusy', $params);
         ob_start();
         $application->dispatch();

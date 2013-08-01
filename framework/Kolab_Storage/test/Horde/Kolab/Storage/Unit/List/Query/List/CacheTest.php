@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
-
-/**
  * Test the cached list query.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,410 +28,403 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_List_Query_List_CacheTest
-extends Horde_Kolab_Storage_TestCase
+extends PHPUnit_Framework_TestCase
 {
-    public function testAnotationsReturnsArray()
+    public function testListTypes()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getNullList($factory), $factory);
-        $this->assertInternalType('array', $query->listFolderTypeAnnotations());
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::TYPES)
+            ->will($this->returnValue(array('foo' => 'BAR')));
+        $this->assertEquals(array('foo' => 'BAR'), $list->listTypes());
     }
 
-    public function testAnnotationsReturnsHandlers()
+    public function testUnitializedListTypes()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        foreach ($query->listFolderTypeAnnotations() as $folder => $type) {
-            $this->assertInstanceOf('Horde_Kolab_Storage_Folder_Type', $type);
-        };
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::TYPES)
+            ->will($this->returnValue(false));
+        $this->sync->expects($this->once())
+            ->method('synchronize');
+        $list->listTypes('foo');
     }
 
-    public function testTypeReturnsArray()
+    public function testInitializedListTypes()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getNullList($factory), $factory);
-        $this->assertInternalType('array', $query->listTypes());
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::TYPES)
+            ->will($this->returnValue(true));
+        $this->sync->expects($this->never())
+            ->method('synchronize');
+        $list->listTypes('foo');
     }
 
-    public function testTypeReturnsAnnotations()
+    public function testListByType()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::BY_TYPE)
+            ->will($this->returnValue(array('foo' => array('BAR' => array('a' => 'b')))));
         $this->assertEquals(
-            array(
-                'INBOX' => 'mail',
-                'INBOX/Calendar' => 'event',
-                'INBOX/Contacts' => 'contact',
-                'INBOX/Notes' => 'note',
-                'INBOX/Tasks' => 'task',
-                'INBOX/a' => 'mail',
-            ),
-            $query->listTypes()
+            array('BAR'), $list->listByType('foo')
         );
     }
 
-    public function testByTypeReturnsArray()
+    public function testUnitializedListByType()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getNullList($factory), $factory);
-        $this->assertInternalType('array', $query->listByType('test'));
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::BY_TYPE)
+            ->will($this->returnValue(false));
+        $this->sync->expects($this->once())
+            ->method('synchronize');
+        $list->listByType('foo');
     }
 
-    public function testListCalendarsListsCalendars()
+    public function testItializedListByType()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $this->assertEquals(array('INBOX/Calendar'), $query->listByType('event'));
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::BY_TYPE)
+            ->will($this->returnValue(true));
+        $this->sync->expects($this->never())
+            ->method('synchronize');
+        $list->listByType('foo');
     }
 
-    public function testListTasklistsListsTasklists()
+    public function testDataByType()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $this->assertEquals(array('INBOX/Tasks'), $query->listByType('task'));
-    }
-
-    public function testListOwnersReturn()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $this->assertInternalType(
-            'array',
-            $query->listOwners()
-        );
-    }
-
-    public function testListOwnerList()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::BY_TYPE)
+            ->will($this->returnValue(array('foo' => array('BAR' => array('a' => 'b')))));
         $this->assertEquals(
-            array(
-                'INBOX' => 'test@example.com',
-                'INBOX/Calendar' => 'test@example.com',
-                'INBOX/Contacts' => 'test@example.com',
-                'INBOX/Notes' => 'test@example.com',
-                'INBOX/Tasks' => 'test@example.com',
-                'INBOX/a' => 'test@example.com',
-            ),
-            $query->listOwners()
+            array('BAR' => array('a' => 'b')), $list->dataByType('foo')
         );
     }
 
-    public function testListOwnerNamespace()
+    public function testUnitializedDataByType()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getNamespaceList($factory), $factory);
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::BY_TYPE)
+            ->will($this->returnValue(false));
+        $this->sync->expects($this->once())
+            ->method('synchronize');
+        $list->dataByType('foo');
+    }
+
+    public function testItializedDataByType()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::BY_TYPE)
+            ->will($this->returnValue(true));
+        $this->sync->expects($this->never())
+            ->method('synchronize');
+        $list->dataByType('foo');
+    }
+
+    public function testFolderData()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::FOLDERS)
+            ->will($this->returnValue(array('BAR' => array('a' => 'b'))));
+        $this->assertEquals(array('a' => 'b'), $list->folderData('BAR'));
+    }
+
+    public function testUninitializedFolderData()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::FOLDERS)
+            ->will($this->returnValue(false));
+        $this->sync->expects($this->once())
+            ->method('synchronize');
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::FOLDERS)
+            ->will($this->returnValue(array('BAR' => array('a' => 'b'))));
+        $list->folderData('BAR');
+    }
+
+    public function testInitializedFolderData()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::FOLDERS)
+            ->will($this->returnValue(true));
+        $this->sync->expects($this->never())
+            ->method('synchronize');
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::FOLDERS)
+            ->will($this->returnValue(array('BAR' => array('a' => 'b'))));
+        $list->folderData('BAR');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_List_Exception
+     */
+    public function testMissingFolderData()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::FOLDERS)
+            ->will($this->returnValue(array('BAR' => array('a' => 'b'))));
+        $list->folderData('INBOX/NO');
+    }
+
+    public function testListOwners()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::OWNERS)
+            ->will($this->returnValue(array('FOO' => 'bar')));
         $this->assertEquals(
-            array(
-                'INBOX' => 'test@example.com',
-                'INBOX/Calendar' => 'test@example.com',
-                'INBOX/Contacts' => 'test@example.com',
-                'INBOX/Notes' => 'test@example.com',
-                'INBOX/Tasks' => 'test@example.com',
-                'INBOX/a' => 'test@example.com',
-                'shared.Calendars/All' => null,
-                'shared.Calendars/Others' => null,
-                'user/example/Calendar' => 'example@example.com',
-                'user/example/Notes' => 'example@example.com',
-                'user/someone/Calendars/Events' => 'someone@example.com',
-                'user/someone/Calendars/Party' => 'someone@example.com',
-            ),
-            $query->listOwners()
+            array('FOO' => 'bar'),
+            $list->listOwners()
         );
     }
 
-    public function testDefaultReturn()
+    public function testUninitializedListOwners()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $this->assertInternalType(
-            'string',
-            $query->getDefault('event')
-        );
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::OWNERS)
+            ->will($this->returnValue(false));
+        $this->sync->expects($this->once())
+            ->method('synchronize');
+        $list->listOwners();
     }
 
-    public function testDefaultCalendar()
+    public function testInitializedListOwners()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::OWNERS)
+            ->will($this->returnValue(true));
+        $this->sync->expects($this->never())
+            ->method('synchronize');
+        $list->listOwners();
+    }
+
+    public function testSetDefault()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->exactly(2))
+            ->method('getQuery')
+            ->with(
+                $this->logicalOr(
+                    Horde_Kolab_Storage_List_Query_List_Cache::FOLDERS,
+                    Horde_Kolab_Storage_List_Query_List_Cache::PERSONAL_DEFAULTS
+                )
+            )
+            ->will($this->returnValue(array('INBOX/Foo' => array('folder' => 'INBOX/Foo', 'type' => 'event'))));
+        $this->sync->expects($this->once())
+            ->method('setDefault')
+            ->with(array('folder' => 'INBOX/Foo', 'type' => 'event'), null);
+        $list->setDefault('INBOX/Foo');
+    }
+
+    public function testListPersonalDefaults()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::PERSONAL_DEFAULTS)
+            ->will($this->returnValue(array('FOO' => 'bar')));
         $this->assertEquals(
-            'INBOX/Calendar',
-            $query->getDefault('event')
+            array('FOO' => 'bar'),
+            $list->listPersonalDefaults()
         );
     }
 
-    public function testDefaultNotes()
+    public function testUninitializedListPersonalDefaults()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::PERSONAL_DEFAULTS)
+            ->will($this->returnValue(false));
+        $this->sync->expects($this->once())
+            ->method('synchronize');
+        $list->listPersonalDefaults();
+    }
+
+    public function testInitializedListPersonalDefaults()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::PERSONAL_DEFAULTS)
+            ->will($this->returnValue(true));
+        $this->sync->expects($this->never())
+            ->method('synchronize');
+        $list->listPersonalDefaults();
+    }
+
+    public function testListDefaults()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::DEFAULTS)
+            ->will($this->returnValue(array('FOO' => 'bar')));
         $this->assertEquals(
-            'INBOX/Notes',
-            $query->getDefault('note')
+            array('FOO' => 'bar'),
+            $list->listDefaults()
         );
+    }
+
+    public function testUninitializedListDefaults()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::DEFAULTS)
+            ->will($this->returnValue(false));
+        $this->sync->expects($this->once())
+            ->method('synchronize');
+        $list->listDefaults();
+    }
+
+    public function testInitializedListDefaults()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::DEFAULTS)
+            ->will($this->returnValue(true));
+        $this->sync->expects($this->never())
+            ->method('synchronize');
+        $list->listDefaults();
+    }
+
+    public function testGetDefault()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::PERSONAL_DEFAULTS)
+            ->will($this->returnValue(array('bar' => 'FOO')));
+        $this->assertEquals('FOO', $list->getDefault('bar'));
     }
 
     public function testMissingDefault()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getNullList($factory), $factory);
-        $this->assertFalse(
-            $query->getDefault('note')
-        );
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::PERSONAL_DEFAULTS)
+            ->will($this->returnValue(array('bar' => 'FOO')));
+        $this->assertFalse($list->getDefault('foo'));
     }
 
-    public function testIgnoreForeignDefault()
+    public function testGetForeignDefault()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getForeignDefaultList($factory), $factory);
-        $this->assertFalse(
-            $query->getDefault('event')
-        );
-    }
-
-    public function testIdentifyDefault()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getEventList($factory), $factory);
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::DEFAULTS)
+            ->will($this->returnValue(array('owner' => array('bar' => 'FOO'))));
         $this->assertEquals(
-            'INBOX/Events',
-            $query->getDefault('event')
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testBailOnDoubleDefault()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getDoubleEventList($factory), $factory);
-        $query->getDefault('event');
-    }
-
-    public function testForeignDefaultReturn()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getEventList($factory), $factory);
-        $this->assertInternalType(
-            'string',
-            $query->getForeignDefault('someone@example.com', 'event')
-        );
-    }
-
-    public function testForeignDefaultCalendar()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getEventList($factory), $factory);
-        $this->assertEquals(
-            'user/someone/Calendar',
-            $query->getForeignDefault('someone@example.com', 'event')
-        );
-    }
-
-    public function testForeignDefaultNotes()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getEventList($factory), $factory);
-        $this->assertEquals(
-            'user/someone/Notes',
-            $query->getForeignDefault('someone@example.com', 'note')
+            'FOO', $list->getForeignDefault('owner', 'bar')
         );
     }
 
     public function testMissingForeignDefault()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getNullList($factory), $factory);
-        $this->assertFalse(
-            $query->getForeignDefault('someone@example.com', 'contact')
-        );
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::DEFAULTS)
+            ->will($this->returnValue(array('owner' => array('bar' => 'FOO'))));
+        $this->assertFalse($list->getForeignDefault('owner', 'foo'));
     }
 
-    public function testIdentifyForeignDefault()
+    public function testGetStamp()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getEventList($factory), $factory);
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getStamp')
+            ->will($this->returnValue('STAMP'));
         $this->assertEquals(
-            'user/someone/Calendar',
-            $query->getForeignDefault('someone@example.com', 'event')
+            'STAMP', $list->getStamp()
         );
     }
 
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testBailOnDoubleForeignDefault()
+    public function testUpdateAfterCreateFolder()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getDoubleEventList($factory), $factory);
-        $query->getForeignDefault('someone@example.com', 'event');
+        $list = $this->_getList();
+        $this->sync->expects($this->once())
+            ->method('updateAfterCreateFolder')
+            ->with('INBOX/Calendar', 'event.default');
+        $list->updateAfterCreateFolder('INBOX/Calendar', 'event.default');
     }
 
-    public function testListPersonalDefaults()
+    public function testUpdateAfterDeleteFolder()
     {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $this->assertEquals(
-            array(
-                'contact' => 'INBOX/Contacts',
-                'event' => 'INBOX/Calendar',
-                'note' => 'INBOX/Notes',
-                'task' => 'INBOX/Tasks'
-            ),
-            $query->listPersonalDefaults()
+        $list = $this->_getList();
+        $this->sync->expects($this->once())
+            ->method('updateAfterDeleteFolder')
+            ->with('INBOX/Calendar');
+        $list->updateAfterDeleteFolder('INBOX/Calendar');
+    }
+
+    public function testUpdateAfterRenameFolder()
+    {
+        $list = $this->_getList();
+        $this->sync->expects($this->once())
+            ->method('updateAfterRenameFolder')
+            ->with('INBOX/Calendar', 'INBOX/Kalender');
+        $list->updateAfterRenameFolder('INBOX/Calendar', 'INBOX/Kalender');
+    }
+
+    public function testSynchronize()
+    {
+        $list = $this->_getList();
+        $this->sync->expects($this->once())
+            ->method('synchronize')
+            ->with();
+        $list->synchronize();
+    }
+
+    public function testDuplicateDefaults()
+    {
+        $duplicates = array('a' => 'b');
+        $list = $this->_getList();
+        $this->sync->expects($this->once())
+            ->method('getDuplicateDefaults')
+            ->will($this->returnValue($duplicates));
+        $this->assertEquals($duplicates, $list->getDuplicateDefaults());
+    }
+
+    private function _getList()
+    {
+        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $this->sync = $this->getMock('Horde_Kolab_Storage_List_Query_List_Cache_Synchronization', array(), array(), '', false, false);
+        return new Horde_Kolab_Storage_List_Query_List_Cache(
+            $this->sync, $this->cache
         );
-    }
-
-    public function testListDefaults()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getForeignDefaultList($factory), $factory);
-        $this->assertEquals(
-            array(
-                'example@example.com' => array(
-                    'event' => 'user/example/Calendar'
-                ),
-                'someone@example.com' => array(
-                    'event' => 'user/someone/Calendars/Events'
-                )
-            ),
-            $query->listDefaults()
-        );
-    }
-
-    public function testDataByTypeReturnsArray()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getNullList($factory), $factory);
-        $this->assertInternalType('array', $query->dataByType('test'));
-    }
-
-    public function testListCalendarsListsCalendarData()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $this->assertEquals(array('INBOX/Calendar'), array_keys($query->dataByType('event')));
-    }
-
-    public function testListTasklistsListsTasklistData()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $this->assertEquals(array('INBOX/Tasks'), array_keys($query->dataByType('task')));
-    }
-
-    public function testListDataHasOwner()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $data = $query->dataByType('event');
-        $this->assertEquals(
-            'test@example.com',
-            $data['INBOX/Calendar']['owner']
-        );
-    }
-
-    public function testListDataHasTitle()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory);
-        $data = $query->dataByType('event');
-        $this->assertEquals(
-            'Calendar',
-            $data['INBOX/Calendar']['name']
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testMissingFolderData()
-    {
-        $this->assertInternalType('array', $this->getNullQuery()->folderData('INBOX/Calendar'));
-    }
-
-    public function testFolderDataReturnsArray()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertInternalType('array', $data);
-    }
-
-    public function testFolderDataHasOwner()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals('test@example.com', $data['owner']);
-    }
-
-    public function testFolderDataHasTitle()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals('Calendar', $data['name']);
-    }
-
-    public function testFolderDataHasType()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals('event', $data['type']);
-    }
-
-    public function testFolderDataHasDefault()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertTrue($data['default']);
-    }
-
-    public function testMailFolderDataType()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX');
-        $this->assertEquals('mail', $data['type']);
-    }
-
-    public function testMailFolderDataNoDefault()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX');
-        $this->assertFalse($data['default']);
-    }
-
-    public function testFolderDataHasNamespace()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals('personal', $data['namespace']);
-    }
-
-    public function testFolderDataHasNamespacePrefix()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals('INBOX', $data['prefix']);
-    }
-
-    public function testFolderDataHasNamespacePrefixUser()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getNamespaceList($factory), $factory)->folderData('user/example/Calendar');
-        $this->assertEquals('user', $data['prefix']);
-    }
-
-    public function testFolderDataHasSubpath()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals('Calendar', $data['subpath']);
-    }
-
-    public function testFolderDataHasDelimiter()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals('/', $data['delimiter']);
     }
 }

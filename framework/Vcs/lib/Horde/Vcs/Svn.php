@@ -8,7 +8,7 @@
  * 'paths': Hash with the locations of all necessary binaries: 'svn', 'diff'
  * </pre>
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -76,7 +76,7 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
         $svnPath = $this->getPath('svn');
         $tempDir = isset($this->_paths['svn_home'])
             ? $this->_paths['svn_home']
-            : Horde_Util::getTempDir();
+            : sys_get_temp_dir();
         $command = $svnPath . ' --non-interactive --config-dir ' . $tempDir;
 
         if ($this->_username) {
@@ -213,7 +213,7 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
         // be compatible with some diffs.
         $command = $this->getCommand() . " diff --diff-cmd " . $this->getPath('diff') . ' -r ' . escapeshellarg($rev1 . ':' . $rev2) . ' -x ' . escapeshellarg($flags) . ' ' . escapeshellarg($file->getPath()) . ' 2>&1';
 
-        exec($command, $diff, $retval);
+        exec($command, $diff);
         return $diff;
     }
 }

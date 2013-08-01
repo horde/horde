@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Deb class renders out lists of files in Debian
  * packages by using the dpkg tool to query the package.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -75,10 +75,11 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Base
         }
 
         $data = '';
+        $tmp_deb = $this->_getTempFile();
 
         file_put_contents($tmp_deb, $this->_mimepart->getContents());
 
-        $fh = popen($location . ' -f ' . $this->_getTempFile() . ' 2>&1', 'r');
+        $fh = popen($location . ' -f ' . $tmp_deb . ' 2>&1', 'r');
         while ($rc = fgets($fh, 8192)) {
             $data .= $rc;
         }

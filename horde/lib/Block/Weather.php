@@ -3,7 +3,7 @@
  * Portal block for displaying weather information obtained via
  * Horde_Service_Weather.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -72,7 +72,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 'name' => _("Units"),
                 'default' => 'standard',
                 'values' => array(
-                    Horde_Service_Weather::UNITS_STANDARD => _("Standard"),
+                    Horde_Service_Weather::UNITS_STANDARD => _("English"),
                     Horde_Service_Weather::UNITS_METRIC =>  _("Metric")
                 )
             ),
@@ -94,8 +94,6 @@ class Horde_Block_Weather extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $conf, $prefs;
-
         $weather = $GLOBALS['injector']
             ->getInstance('Horde_Weather');
 
@@ -104,6 +102,8 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
             $location = $this->_refreshParams->location;
+            $html = '';
+            $instance = '';
         } else {
             $instance = hash('md5', mt_rand());
             $GLOBALS['injector']
@@ -111,14 +111,14 @@ class Horde_Block_Weather extends Horde_Core_Block
                 ->create(
                     'WeatherLocationAutoCompleter',
                     array(
-                        'triggerId' => 'location' . $instance,
+                        'id' => 'location' . $instance,
                         'instance' => $instance
                     )
                 );
 
-            $html = '<input id="location' . $instance . '" name="location' . $instance . '"><input type="button" id="button' . $instance . '" class="button" value="'
+            $html = '<div class="horde-content"><input id="location' . $instance . '" name="location' . $instance . '"> <input type="button" id="button' . $instance . '" class="horde-default" value="'
                 . _("Change Location") . '" /><span style="display:none;" id="location' . $instance . '_loading_img">'
-                . Horde::img('loading.gif') . '</span>';
+                . Horde::img('loading.gif') . '</span></div>';
             $location = $this->_params['location'];
         }
 
@@ -160,6 +160,7 @@ class Horde_Block_Weather extends Horde_Core_Block
         }
         $html .= '</div>';
 
+        $html .= '<div class="horde-content">';
         // Sunrise/sunset.
         if ($station->sunrise) {
             $html .= '<strong>' . _("Sunrise") . ': </strong>'
@@ -228,7 +229,8 @@ class Horde_Block_Weather extends Horde_Core_Block
         $condition = $current->condition;
         $html .= '<br /><strong>' . _("Current condition") . ': </strong>'
             . Horde::img(Horde_Themes::img('weather/32x32/' . $current->icon))
-            .  ' ' . $condition;
+            .  ' ' . $condition
+            . '</div>';
 
         // Forecast
         if ($this->_params['days'] > 0) {

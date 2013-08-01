@@ -78,14 +78,7 @@ Event.observe(window, 'load', function() {
                 prevLink.observe('click', function(e) {displayPage(e, arg2)});
                 $(jx).appendChild(nextLink);
                 $(jx).appendChild(prevLink);
-                Horde_ToolTips.attachBehavior(jx);
-                Event.observe(window, 'unload', Horde_ToolTips.out.bind(Horde_ToolTips));
 
-            })();
-        } else {
-            (function () {
-                var jx = j;
-                Horde_ToolTips.attachBehavior(jx);
             })();
         }
     }
@@ -93,8 +86,6 @@ Event.observe(window, 'load', function() {
         lbOptions['gallery_json'] = lightboxData;
         ansel_lb = new Lightbox(lbOptions);
     }
-
-    Event.observe(window, 'unload', Horde_ToolTips.out.bind(Horde_ToolTips));
  });
 
 /**
@@ -151,7 +142,6 @@ function displayPage(event, args) {
      mainNode.appendChild(nextLink);
      mainNode.appendChild(prevLink);
 
-     Horde_ToolTips.attachBehavior(node);
      anseljson[node]['page'] = page;
      event.stop();
 }

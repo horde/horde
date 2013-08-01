@@ -1,20 +1,26 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
- <entry id="summary" md5="68ca33f7f0c9aae4c103eb47492cdc15" state="uptodate">
+    <entry id="summary" md5="68ca33f7f0c9aae4c103eb47492cdc15" state="changed">
   <title>درگاه</title>
   <para>اين درگاه خلاصه‌ايي از اطلاعات مهم شما را در اختيار قرار مي‌دهد. برای مثال اين درگاه نشان مي‌دهد که چند نامهٔ الکترونيکی تازه در نامه‌دان شما موجود است، چه وقايعی طبق تقويم شما رخ داده است، چه وظايفی طبق ليست وظايف شما به عهده‌اتان است، سرتيترهای سرويسهای خبری انتخابی شما چيست و ....</para>
   <para>محتوای اين درگاه از طريق دگمهٔ جانمائی می‌تواند به شکل دلخواه شما دربيايد. برای مثال شما می‌توانيد موارد دلخواه خود را برای نمايش در درگاه و همچنين ترتيب نمايش آنها را نيز تعيين نماييد.</para>
- </entry>
- <entry id="navbar" md5="b8cf0ae19e57dfa0c2b962e516782f47" state="uptodate">
-  <title>گزینگان مرورگر برنامه‌ها</title>
-  <para>در سمت راست اين درگاه گزینگان مرورگر برنامه‌های کاربردی قرار دارد که با فشردن دگمه موس بر روی هر يک از اين برنامه‌ها به راحتی می‌توانيد از آنها استفاده نماييد.</para>
- </entry>
- <entry id="prefs-do_maintenance" md5="dd95df07a03031232baea919288b2d00" state="uptodate">
-  <title>ترجيحات : نگهداری : انجام نگهداری</title>
-  <para>اگر شما مايل به انجام عمليات نگهداری به هنگام ورود می‌باشيد اين گزينه را بايد انتخاب کنيد.</para>
- </entry>
- <entry id="prefs-confirm_maintenance" md5="a21162cdff3b1d8faeadb7296240036e" state="uptodate">
-  <title>ترجيحات : نگهداری : تأئيد نگهداری</title>
-  <para>اگر شما مايل هستيد که عمليات نگهداری را قبل از انجام آنها تأئيد کنيد، اين گزينه را انتخاب کنيد. در غير اين صورت تمام عمليات نگهداری به هنگام ورود انجام يافته و شما شانسی برای ملغی کردن آن نخواهيد داشت.</para>
- </entry>
+ <!-- English entry (2012-11-06):
+<entry id="summary">
+        <title>The Portal Page</title>
+        <para>
+            This portal page provides a quick summary of all your important information. For example, it might show how many new e-mail messages you have in your INBOX, upcoming events on your calendar, tasks on your to-do list, headlines from selected news services, and so on. Many of these summaries will contain quick shortcuts to common functions, such as composing a new mail message, creating a new calendar event or task, etc.
+         </para>
+         <para>
+            The contents of this portal page are customizable via the Layout button. For example, you can choose which items to include on this portal page as well as in which order they are shown.
+        </para>
+    </entry>--><!-- English entry (2012-11-06):
+<entry id="summary">
+        <title>The Portal Page</title>
+        <para>
+            This portal page provides a quick summary of all your important information. For example, it might show how many new e-mail messages you have in your INBOX, upcoming events on your calendar, tasks on your to-do list, headlines from selected news services, and so on.
+         </para>
+         <para>
+            The contents of this portal page are customizable via the "Add Content" button. For example, you can choose which items to include on this portal page as well as in which order they are shown.
+        </para>
+    </entry>--></entry>
 </help>

@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Server test of the different driver implementations.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -38,7 +33,6 @@ class Horde_Kolab_Storage_Server_DriverTest extends PHPUnit_Framework_TestCase
     const CCLIENT      = 'Cclient';
     const PEAR         = 'Pear';
     const IMAP_SOCKET  = 'Imap_Socket';
-    const IMAP_CCLIENT = 'Imap_Cclient';
 
     public function setUp()
     {
@@ -70,7 +64,6 @@ class Horde_Kolab_Storage_Server_DriverTest extends PHPUnit_Framework_TestCase
             'PHP c-client based driver' => array(self::CCLIENT),
             'PEAR-Net_IMAP based driver' => array(self::PEAR),
             'Horde_Imap_Client_Socket based driver' => array(self::IMAP_SOCKET),
-            'Horde_Imap_Client_Cclient based driver' => array(self::IMAP_CCLIENT),
         );
     }
 
@@ -112,23 +105,6 @@ class Horde_Kolab_Storage_Server_DriverTest extends PHPUnit_Framework_TestCase
                     'secure'   => false
                 );
                 $client = Horde_Imap_Client::factory('socket', $params);
-                $client->login();
-
-                $connection = new Horde_Kolab_Storage_Driver_Imap(
-                    $client,
-                    $this->group
-                );
-                break;
-            case self::IMAP_CCLIENT:
-                $params = array(
-                    'hostspec' => $this->sharedFixture->conf['host'],
-                    'username' => $this->sharedFixture->conf['user'],
-                    'password' => $this->sharedFixture->conf['pass'],
-                    'debug'    => $this->sharedFixture->conf['debug'],
-                    'port'     => 143,
-                    'secure'   => false
-                );
-                $client = Horde_Imap_Client::factory('cclient', $params);
                 $client->login();
 
                 $connection = new Horde_Kolab_Storage_Driver_Imap(

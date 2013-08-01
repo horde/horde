@@ -3,7 +3,7 @@
  * The Horde_Rpc_Syncml class provides a SyncML implementation of the Horde
  * RPC system.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -35,7 +35,7 @@ class Horde_Rpc_Syncml extends Horde_Rpc
         $backendparms = array(
             /* Write debug output to this dir, must be writeable be web
              * server. */
-            'debug_dir' => '/tmp/sync',
+            'debug_dir' => Horde::getTempDir().'/sync',
             /* Log all (wb)xml packets received or sent to debug_dir. */
             'debug_files' => true,
             /* Log everything. */

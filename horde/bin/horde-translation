@@ -3,8 +3,15 @@
 /**
  * Translation helper application for the Horde framework.
  *
- * For usage information call:
- * ./translation help
+ * Copyright 2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
  */
 
 /**
@@ -189,7 +196,7 @@ class Horde_Translation_Script
             }
         } else {
             $this->writeln('Usage:' . ' horde-translation [options] command [command-options]');
-            $this->writeln(str_repeat(' ', Horde_String::length('Usage:')) . ' translation [help|-h|--help] [command]');
+            $this->writeln(str_repeat(' ', Horde_String::length('Usage:')) . ' horde-translation [help|-h|--help] [command]');
             $this->writeln();
             $this->writeln('Helper application to create and maintain translations for the Horde');
             $this->writeln('framework and its applications.');
@@ -1404,7 +1411,15 @@ class Horde_Translation_Script
                 $date = date('Y-m-d');
                 $xpath = new DOMXPath($doc_loc);
                 foreach ($doc_en->getElementsByTagName('entry') as $entry) {
-                    $list = $xpath->query('//entry[@id="' . $entry->getAttribute('id') . '"]');
+                    $view = $entry->parentNode;
+                    while ($view->tagName != 'view' && $view != $doc_en) {
+                         $view = $view->parentNode;
+                    }
+                    $query = '//entry[@id="' . $entry->getAttribute('id') . '"]';
+                    if ($view->tagName == 'view') {
+                        $query = '//view[@id="' . $view->getAttribute('id') . '"]'. $query;
+                    }
+                    $list = $xpath->query($query);
                     if ($list->length) {
                         $entry_loc = $doc_en->importNode($list->item(0), true);
                         if ($entry_loc->hasAttribute('md5') &&
@@ -1527,7 +1542,15 @@ class Horde_Translation_Script
                         }
                     }
                     $count_all++;
-                    $list = $xpath->query('//entry[@id="' . $entry->getAttribute('id') . '"]');
+                    $view = $entry->parentNode;
+                    while ($view->tagName != 'view' && $view != $doc_en) {
+                         $view = $view->parentNode;
+                    }
+                    $query = '//entry[@id="' . $entry->getAttribute('id') . '"]';
+                    if ($view->tagName == 'view') {
+                        $query = '//view[@id="' . $view->getAttribute('id') . '"]'. $query;
+                    }
+                    $list = $xpath->query($query);
                     if ($list->length) {
                         $entry->setAttribute('md5', md5($list->item(0)->textContent));
                         $entry->setAttribute('state', 'uptodate');
@@ -1550,7 +1573,7 @@ class Horde_Translation_Script
 define('DS', DIRECTORY_SEPARATOR);
 putenv('LANG=en');
 
-$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = __DIR__ . '/../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {
@@ -1572,6 +1595,8 @@ $c->writeln($c->bold('---------------------------'));
 /* Instantiate main object. */
 $script = new Horde_Translation_Script();
 $script->cli = $c;
+$registry = new Horde_Support_Stub();
+$injector = new Horde_Support_Stub();
 
 /* Sanity checks */
 if (!extension_loaded('gettext')) {

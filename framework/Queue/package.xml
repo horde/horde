@@ -10,19 +10,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:37:31</time>
+ <date>2013-06-20</date>
+ <time>12:57:46</time>
  <version>
-   <release>1.0.0alpha1</release>
+   <release>1.0.1</release>
    <api>1.0.0</api>
  </version>
  <stability>
-   <release>alpha</release>
-   <api>alpha</api>
+   <release>stable</release>
+   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 4.
+* [rla] Add Db backend for Queues.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -32,6 +32,7 @@
       <dir name="examples">
        <file name="shutdown_runner.php" role="doc" />
       </dir> <!-- /doc/Horde/Queue/examples -->
+      <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Queue -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -52,12 +53,19 @@
      </dir> <!-- /lib/Horde/Queue -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="migration">
+    <dir name="Horde">
+     <dir name="Queue">
+      <file name="1_horde_queue_base_tables.php" role="data" />
+     </dir> <!-- /migration/Horde/Queue -->
+    </dir> <!-- /migration/Horde -->
+   </dir> <!-- /migration -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -66,7 +74,7 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/shutdown_runner.php" name="doc/Horde/Queue/examples/shutdown_runner.php" />
+   <install as="COPYING" name="doc/Horde/Queue/COPYING" />
    <install as="Horde/Queue/Runner.php" name="lib/Horde/Queue/Runner.php" />
    <install as="Horde/Queue/Storage.php" name="lib/Horde/Queue/Storage.php" />
    <install as="Horde/Queue/Task.php" name="lib/Horde/Queue/Task.php" />
@@ -74,6 +82,7 @@
    <install as="Horde/Queue/Storage/Array.php" name="lib/Horde/Queue/Storage/Array.php" />
    <install as="Horde/Queue/Storage/Db.php" name="lib/Horde/Queue/Storage/Db.php" />
    <install as="Horde/Queue/Storage/Sqs.php" name="lib/Horde/Queue/Storage/Sqs.php" />
+   <install as="migration/1_horde_queue_base_tables.php" name="migration/Horde/Queue/1_horde_queue_base_tables.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -86,10 +95,37 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-07-21</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* First alpha release for Horde 4.
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+* [cjh] Modify the RequestShutdown runner to handle tasks that spawn other tasks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [rla] Add Db backend for Queues.
    </notes>
   </release>
  </changelog>

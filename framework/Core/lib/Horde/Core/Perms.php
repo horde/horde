@@ -3,7 +3,7 @@
  * The Horde_Core_Perms class provides information about internal Horde
  * elements that can be managed through the Horde_Perms system.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -100,7 +100,7 @@ class Horde_Core_Perms
         }
 
         $perms_list = array();
-        foreach ($children as $perm_key => $perm_val) {
+        foreach (array_keys($children) as $perm_key) {
             $perms_list[$perm_key] = $perms['title'][$name . ':' . $perm_key];
         }
 
@@ -125,7 +125,7 @@ class Horde_Core_Perms
         if (count($levels) == 1) {
             return $this->_registry->get('name', $name) . ' (' . $name . ')';
         }
-        $perm = array_pop($levels);
+        array_pop($levels); // This is the permission name
 
         /* First level is always app. */
         $app = $levels[0];
@@ -237,6 +237,9 @@ class Horde_Core_Perms
                     }
                     if (isset($val['type'])) {
                         $perms['type'][$app . ':' . $key] = $val['type'];
+                    }
+                    if (isset($val['params'])) {
+                        $perms['params'][$app . ':' . $key] = $val['params'];
                     }
                 }
             }

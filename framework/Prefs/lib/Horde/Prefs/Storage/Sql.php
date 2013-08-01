@@ -2,7 +2,7 @@
 /**
  * Preferences storage implementation for a SQL database.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -65,7 +65,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
     public function get($scope_ob)
     {
         $charset = $this->_db->getOption('charset');
-        $query = 'SELECT pref_scope, pref_name, pref_value FROM ' .
+        $query = 'SELECT pref_name, pref_value FROM ' .
             $this->_params['table'] . ' ' .
             'WHERE pref_uid = ? AND pref_scope = ?';
         $values = array($this->_params['user'], $scope_ob->scope);
@@ -90,25 +90,22 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
      */
     public function store($scope_ob)
     {
+        if (!$this->_db->isActive()) {
+            $this->_db->reconnect();
+        }
+
         $charset = $this->_db->getOption('charset');
 
         // For each preference, check for an existing table row and
         // update it if it's there, or create a new one if it's not.
         foreach ($scope_ob->getDirty() as $name) {
             $value = $scope_ob->get($name);
-            $values = array($this->_params['user'], $name, $scope_ob->scope);
 
             if (is_null($value)) {
-                $query = 'DELETE FROM ' . $this->_params['table'] .
-                    ' WHERE pref_uid = ? AND pref_name = ?' .
-                    ' AND pref_scope = ?';
-
-                try {
-                    $this->_db->delete($query, $values);
-                } catch (Horde_Db_Exception $e) {
-                    throw new Horde_Prefs_Exception($e);
-                }
+                $this->remove($scope_ob->scope, $name);
             } else {
+                $values = array($this->_params['user'], $name, $scope_ob->scope);
+
                 // Does a row already exist for this preference?
                 $query = 'SELECT 1 FROM ' . $this->_params['table'] .
                     ' WHERE pref_uid = ? AND pref_name = ?' .
@@ -192,8 +189,6 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
 
     /**
      * Lists all available scopes.
-     *
-     * @since Horde_Prefs 1.1.0
      *
      * @return array The list of scopes stored in the backend.
      */

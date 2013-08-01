@@ -2,7 +2,7 @@
 /**
  * Library to interact with the OpenSSL library and implement S/MIME.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -201,7 +201,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $mime_message = Horde_Mime_Part::parseMessage($message, array('forcemime' => true));
 
         $smime_sign = $mime_message->getPart('2');
-        $smime_sign->setDescription(Horde_Crypt_Translation::t("S/MIME Cryptographic Signature"));
+        $smime_sign->setDescription(Horde_Crypt_Translation::t("S/MIME Signature"));
         $smime_sign->setTransferEncoding('base64', array('send' => true));
 
         $smime_part = new Horde_Mime_Part();
@@ -474,9 +474,10 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Owner") . ":</strong>\n";
 
         foreach ($details['subject'] as $key => $value) {
+            $value = htmlspecialchars($this->_implodeValues($value));
             $text .= isset($fieldnames[$key])
-                ? sprintf("&nbsp;&nbsp;%s: %s\n", $fieldnames[$key], $value)
-                : sprintf("&nbsp;&nbsp;*%s: %s\n", $key, $value);
+                ? sprintf("&nbsp;&nbsp;%s: %s\n", htmlspecialchars($fieldnames[$key]), $value)
+                : sprintf("&nbsp;&nbsp;*%s: %s\n", htmlspecialchars($key), $value);
         }
         $text .= "\n";
 
@@ -484,9 +485,10 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $text .= "<strong>" . Horde_Crypt_Translation::t("Issuer") . ":</strong>\n";
 
         foreach ($details['issuer'] as $key => $value) {
+            $value = htmlspecialchars($this->_implodeValues($value));
             $text .= isset($fieldnames[$key])
-                ? sprintf("&nbsp;&nbsp;%s: %s\n", $fieldnames[$key], $value)
-                : sprintf("&nbsp;&nbsp;*%s: %s\n", $key, $value);
+                ? sprintf("&nbsp;&nbsp;%s: %s\n", htmlspecialchars($fieldnames[$key]), $value)
+                : sprintf("&nbsp;&nbsp;*%s: %s\n", htmlspecialchars($key), $value);
         }
         $text .= "\n";
 
@@ -501,9 +503,10 @@ class Horde_Crypt_Smime extends Horde_Crypt
             $text .= "<strong>" . Horde_Crypt_Translation::t("X509v3 extensions") . ":</strong>\n";
 
             foreach ($details['extensions'] as $key => $value) {
+                $value = htmlspecialchars(trim($this->_implodeValues($value, 6)));
                 $text .= isset($fieldnames[$key])
-                    ? sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $fieldnames[$key], trim($value))
-                    : sprintf("&nbsp;&nbsp;*%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $key, trim($value));
+                    ? sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", htmlspecialchars($fieldnames[$key]), $value)
+                    : sprintf("&nbsp;&nbsp;*%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", htmlspecialchars($key), $value);
             }
 
             $text .= "\n";
@@ -518,6 +521,23 @@ class Horde_Crypt_Smime extends Horde_Crypt
     }
 
     /**
+     * Formats a multi-value cert field.
+     *
+     * @param array|string $value  A cert field value.
+     * @param integer $indent      The indention level.
+     *
+     * @return string  The formatted cert field value(s).
+     */
+    protected function _implodeValues($value, $indent = 4)
+    {
+        if (is_array($value)) {
+            $value = "\n" . str_repeat('&nbsp;', $indent)
+                . implode("\n" . str_repeat('&nbsp;', $indent), $value);
+        }
+        return $value;
+    }
+
+    /**
      * Extract the contents of a PEM format certificate to an array.
      *
      * @param string $cert  PEM format certificate.
@@ -527,6 +547,9 @@ class Horde_Crypt_Smime extends Horde_Crypt
     public function parseCert($cert)
     {
         $data = openssl_x509_parse($cert, false);
+        if (!$data) {
+            throw new Horde_Crypt_Exception(sprintf(Horde_Crypt_Translation::t("Error parsing S/MIME certficate: %s"), openssl_error_string()));
+        }
 
         $details = array(
             'extensions' => $data['extensions'],
@@ -638,8 +661,8 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * Convert a PKCS 12 encrypted certificate package into a private key,
      * public key, and any additional keys.
      *
-     * @param string $text   The PKCS 12 data.
-     * @param array $params  The parameters needed for parsing.
+     * @param string $pkcs12  The PKCS 12 data.
+     * @param array $params   The parameters needed for parsing.
      * <pre>
      * Parameters:
      * ===========

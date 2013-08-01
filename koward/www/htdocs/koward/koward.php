@@ -2,7 +2,7 @@
 /**
  * Identify the horde base application.
  */
-require_once dirname(__FILE__) . '/../../koward/config/base.php';
+require_once __DIR__ . '/../../koward/config/base.php';
 
 /**
  * The Autoloader allows us to omit "require/include" statements.

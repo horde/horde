@@ -1,10 +1,32 @@
 <?php
 /**
- * @package Whups
+ * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
+ * @package  Whups
+ */
+
+/**
+ * Form to add or edit property criteria.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category  Horde
+ * @copyright 2001-2002 Robert E. Coyle
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Whups
  */
 class Whups_Form_Query_PropertyCriterion extends Horde_Form
 {
-    public function __construct(&$vars)
+    public function __construct($vars)
     {
         global $whups_driver;
 
@@ -26,7 +48,7 @@ class Whups_Form_Query_PropertyCriterion extends Horde_Form
         $queues = Whups::permissionsFilter(
             $whups_driver->getQueues(), 'queue', Horde_Perms::READ);
         if (count($queues)) {
-            $v = &$this->addVariable(
+            $v = $this->addVariable(
                 _("Queue"), 'queue', 'enum', false, false, null,
                 array($queues, _("Any")));
             $v->setAction(Horde_Form_Action::factory('reload'));
@@ -50,7 +72,7 @@ class Whups_Form_Query_PropertyCriterion extends Horde_Form
             array($priorities, _("Any")));
     }
 
-    public function execute(&$vars)
+    public function execute($vars)
     {
         $path = $vars->get('path');
 
@@ -111,5 +133,4 @@ class Whups_Form_Query_PropertyCriterion extends Horde_Form
 
         $this->unsetVars($vars);
     }
-
 }

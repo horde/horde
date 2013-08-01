@@ -2,31 +2,58 @@
  Kolab_Storage Development TODO List
 =====================================
 
- - Handle attachments / VFS
+ - [LIST/DATA] Fix the triggering decorator
 
- - Fix the triggering decorator
+ - [LIST/DATA] Consider quick triggering (https://bugzilla.kolabsys.com/show_bug.cgi?id=127)
 
- - Consider quick triggering (https://bugzilla.kolabsys.com/show_bug.cgi?id=127)
+ - [LIST/DATA] Support servers without annotation support
 
- - Change synchronization machinery so that it does not only
+ - [LIST] Common folder listing UI:
+   http://wiki.kolab.org/UI-Concepts/Folder-Listing 
+
+ - [LIST] Fix renaming of folder hierarchies with the list cache.
+
+ - [LIST] Allow to lazy load permissions in
+   Horde_Perms_Permission_Kolab_Storage so that only myRights() gets
+   called if required and getAcl() called when required
+
+ - [LIST] Decide on private share annotation data.
+
+ - [DATA] Handle attachments / VFS
+
+ - [DATA] Change synchronization machinery so that it does not only
    synchronize one data type but all data types in a folder. While at
    the same time optimizing single data retrieval.
 
- - The UID stamp must originate from the data cache, not the exact
+ - [DATA] The UID stamp must originate from the data cache, not the exact
    previous stamp as we cannot be certain the previous sync was
    complete.
 
- - Allow queued/step-wise sync
+ - [DATA] Allow queued/step-wise sync
 
- - Fix the renaming folder hierarchies with the list cache.
+ - [DATA] Use IMAP Condstore
 
- - Handle TLS/SSL accross all drivers (see also the Storage factory in Core).
+ - [DATA] Use IMAP CATENATE
 
- - Use IMAP Condstore
+ - [DATA] Support multiple-formats when writing the objects.
 
- - Use IMAP CATENATE
+ - [DATA] Support a descriptive text of the groupware object in the primary MIME part.
 
- - Do not hide the prefix of the shared namespace?
+ - [DATA] Verify if deleting a complete folder can fully adhere to the Kolab
+   spec without too much hassle (alternative: The consumer of the API
+   has to use the methods in correct order)
+
+ - [DATA] Allow to size restrict loading objects and attachments to avoid
+   memory issues
+
+ - [DATA] Allow indication of broken objects in the frontend (it is irritating if
+   the object is in the backend but is missing from the frontend). Would
+   help if the maximal amount of information gets displayed to the user
+   to get the issue fixed.
+
+ - [DRIVER] Split the "Driver" part into a separate package.
+
+ - [DRIVER] Handle TLS/SSL accross all drivers (see also the Storage factory in Core).
 
  - allow cli config file overriden by cli params
 
@@ -34,42 +61,10 @@
 
  - Multi-Host support
 
- - Decide on private share annotation data.
-
  - Support remapping the "anonymous" user
 
  - Support creating "system" folders in the shared namespace
 
- - The cache decorators are no decorators but alternative implementations.
-
- - Support multiple-formats when writing the objects.
-
- - Support a descriptive text of the groupware object in the primary MIME part.
-
- - Verify if deleting a complete folder can fully adhere to the Kolab
-   spec without too much hassle (alternative: The consumer of the API
-   has to use the methods in correct order)
-
- - Support servers without annotation support
-
- - Do not overwrite the previous XML part (should only be modified)
-
- - Split the "Driver" part into a separate package.
-
- - Common folder listing UI: http://wiki.kolab.org/UI-Concepts/Folder-Listing
-
  - Check http://evolution-kolab.git.sourceforge.net/git/gitweb.cgi?p=evolution-kolab/evolution-kolab;a=blob;f=src/libekolab/kolab-mail-synchronizer.c;h=3eea832b3bb82b29f5f391f1b71dd0fa8cb8d2c0;hb=4d49c76e1d2f89ee6c6676b0aabeada9ce076eed
 
  - Check http://sourceforge.net/apps/mediawiki/evolution-kolab/index.php?title=Conversion_Issues
-
- - Allow to lazy load permissions in
-   Horde_Perms_Permission_Kolab_Storage so that only myRights() gets
-   called if required and getAcl() called when required
-
- - Allow to size restrict loading objects and attachments to avoid
-   memory issues
-
- - Allow indication of broken objects in the frontend (it is irritating if
-   the object is in the backend but is missing from the frontend). Would
-   help if the maximal amount of information gets displayed to the user
-   to get the issue fixed.

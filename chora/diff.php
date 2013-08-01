@@ -8,7 +8,7 @@
  *   - t: 'colored'
  *   - ty: Diff type
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -19,8 +19,12 @@
  * @package  Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('chora');
+require_once __DIR__ . '/lib/Application.php';
+
+// Cache the diff output for a week - it can be longer, since it should never
+// change.
+session_cache_expire(10080);
+Horde_Registry::appInit('chora', array('session_cache_limiter' => 'public'));
 
 /* Spawn the repository and file objects */
 try {
@@ -47,10 +51,6 @@ if ($vars->ty == 'u') {
     $type = 'unified';
 }
 
-/* Cache the output of the diff for a week - it can be longer, since
- * it should never change. */
-header('Cache-Control: max-age=604800');
-
 /* All is ok, proceed with the diff. Always make sure there is a newline at
  * the end of the file - patch requires it. */
 if ($type != 'colored') {
@@ -74,10 +74,8 @@ foreach ($VC->getRevisionRange($fl, $vars->r1, $vars->r2) as $val) {
     }
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+Chora::header($title);
 require CHORA_TEMPLATES . '/diff/header.inc';
 
 $mime_type = Horde_Mime_Magic::filenameToMIME($fullname);
@@ -95,4 +93,4 @@ if (substr($mime_type, 0, 6) == 'image/') {
     echo $view->diffCaption();
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

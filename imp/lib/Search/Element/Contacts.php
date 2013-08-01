@@ -3,7 +3,7 @@
  * This class handles the search query for messages sent from a contact
  * located in a user's addressbook.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -23,23 +23,19 @@ class IMP_Search_Element_Contacts extends IMP_Search_Element
     public function __construct($not = false)
     {
         /* Data element: (integer) Do a NOT search? */
-        $this->_data = intval($not);
+        $this->_data = intval(!empty($not));
     }
 
     /**
      */
     public function createQuery($mbox, $queryob)
     {
-        $addrs = array();
-
         $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
         foreach ($ajax->getAddressList()->bare_addresses as $val) {
             $ob = new Horde_Imap_Client_Search_Query();
             $ob->headerText('from', $val, $this->_data);
-            $addrs[] = $ob;
+            $queryob->orSearch($ob);
         }
-
-        $queryob->orSearch($addrs);
 
         return $queryob;
     }

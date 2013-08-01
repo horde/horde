@@ -1,10 +1,5 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Autoload.php';
-
-/**
  * @author     Your Name <you@example.com>
  * @license    http://www.horde.org/licenses/gpl GPL
  * @category   Horde

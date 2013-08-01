@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-08</date>
- <time>22:21:11</time>
+ <date>2013-01-29</date>
+ <time>12:44:12</time>
  <version>
-  <release>1.1.5</release>
+  <release>2.0.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -70,12 +70,13 @@
        <file name="unsorted_w50_WIN.ldif" role="test" />
       </dir> <!-- /test/Horde/Ldap/fixtures -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="EntryTest.php" role="test" />
       <file name="FilterTest.php" role="test" />
       <file name="LdapTest.php" role="test" />
       <file name="LdifTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="SearchTest.php" role="test" />
       <file name="TestBase.php" role="test" />
       <file name="UtilTest.php" role="test" />
@@ -87,7 +88,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -95,21 +96,30 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>ldap</name>
    </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -124,12 +134,13 @@
    <install as="Horde/Ldap/Search.php" name="lib/Horde/Ldap/Search.php" />
    <install as="Horde/Ldap/Util.php" name="lib/Horde/Ldap/Util.php" />
    <install as="Horde/Ldap/AllTests.php" name="test/Horde/Ldap/AllTests.php" />
-   <install as="Horde/Ldap/Autoload.php" name="test/Horde/Ldap/Autoload.php" />
+   <install as="Horde/Ldap/bootstrap.php" name="test/Horde/Ldap/bootstrap.php" />
    <install as="Horde/Ldap/conf.php.dist" name="test/Horde/Ldap/conf.php.dist" />
    <install as="Horde/Ldap/EntryTest.php" name="test/Horde/Ldap/EntryTest.php" />
    <install as="Horde/Ldap/FilterTest.php" name="test/Horde/Ldap/FilterTest.php" />
    <install as="Horde/Ldap/LdapTest.php" name="test/Horde/Ldap/LdapTest.php" />
    <install as="Horde/Ldap/LdifTest.php" name="test/Horde/Ldap/LdifTest.php" />
+   <install as="Horde/Ldap/phpunit.xml" name="test/Horde/Ldap/phpunit.xml" />
    <install as="Horde/Ldap/SearchTest.php" name="test/Horde/Ldap/SearchTest.php" />
    <install as="Horde/Ldap/TestBase.php" name="test/Horde/Ldap/TestBase.php" />
    <install as="Horde/Ldap/UtilTest.php" name="test/Horde/Ldap/UtilTest.php" />
@@ -297,7 +308,85 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-08</date>
+   <date>2012-05-01</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* [jan] Throw exception if LDAP extension is missing.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* [jan] Replace preg_replace() /e modifier.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * 

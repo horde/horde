@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once 'Autoload.php';
-
-/**
  * Test the handling of attachments.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -41,8 +36,7 @@ class Horde_Kolab_Storage_AttachmentTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        // No 'auth' in world, so this won't work yet. Skip it.
-        $this->markTestSkipped();
+        $this->markTestIncomplete('Broken test, prepareBasicSetup() doesn\'t exist');
 
         $world = $this->prepareBasicSetup();
 

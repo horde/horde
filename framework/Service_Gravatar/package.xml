@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:40:55</time>
+ <date>2012-11-19</date>
+ <time>14:08:27</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -35,6 +35,7 @@
         <file name="fetch_profile.php" role="doc" />
         <file name="get_profile.php" role="doc" />
        </dir> <!-- /doc/Horde/Service/Gravatar/examples -->
+       <file name="COPYING" role="doc" />
       </dir> <!-- /doc/Horde/Service/Gravatar -->
      </dir> <!-- /doc/Horde/Service -->
     </dir> <!-- /doc/Horde -->
@@ -51,9 +52,10 @@
      <dir name="Service">
       <dir name="Gravatar">
        <file name="AllTests.php" role="test" />
-       <file name="Autoload.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="conf.php.dist" role="test" />
        <file name="GravatarTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
        <file name="ServerTest.php" role="test" />
       </dir> <!-- /test/Horde/Service/Gravatar -->
      </dir> <!-- /test/Horde/Service -->
@@ -64,7 +66,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -72,31 +74,33 @@
    <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Service/Gravatar/COPYING" />
    <install as="examples/fetch_avatar.php" name="doc/Horde/Service/Gravatar/examples/fetch_avatar.php" />
    <install as="examples/fetch_profile.php" name="doc/Horde/Service/Gravatar/examples/fetch_profile.php" />
    <install as="examples/get_profile.php" name="doc/Horde/Service/Gravatar/examples/get_profile.php" />
    <install as="Horde/Service/Gravatar.php" name="lib/Horde/Service/Gravatar.php" />
    <install as="Horde/Service/Gravatar/AllTests.php" name="test/Horde/Service/Gravatar/AllTests.php" />
-   <install as="Horde/Service/Gravatar/Autoload.php" name="test/Horde/Service/Gravatar/Autoload.php" />
+   <install as="Horde/Service/Gravatar/bootstrap.php" name="test/Horde/Service/Gravatar/bootstrap.php" />
    <install as="Horde/Service/Gravatar/conf.php.dist" name="test/Horde/Service/Gravatar/conf.php.dist" />
    <install as="Horde/Service/Gravatar/GravatarTest.php" name="test/Horde/Service/Gravatar/GravatarTest.php" />
+   <install as="Horde/Service/Gravatar/phpunit.xml" name="test/Horde/Service/Gravatar/phpunit.xml" />
    <install as="Horde/Service/Gravatar/ServerTest.php" name="test/Horde/Service/Gravatar/ServerTest.php" />
   </filelist>
  </phprelease>
@@ -110,7 +114,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-07-21</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.

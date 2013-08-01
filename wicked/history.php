@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Tyler Colbert <tyler@colberts.us>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('wicked');
 
 try {
@@ -23,8 +23,10 @@ if (!$page->allows(Wicked::MODE_HISTORY)) {
     Wicked::url($page->pageName(), true)->add('actionID', 'history')->redirect();
 }
 
-$title = sprintf(_("History: %s"), $page->pageName());
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WICKED_TEMPLATES . '/menu.inc';
-$page->render(Wicked::MODE_HISTORY);
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+Wicked::setTopbar();
+$page_output->header(array(
+    'title' => sprintf(_("History: %s"), $page->pageName())
+));
+$notification->notify(array('listeners' => 'status'));
+echo $page->render(Wicked::MODE_HISTORY);
+$page_output->footer();

@@ -2,19 +2,24 @@
 /**
  * Script to set the new language.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Marko Djukic <marko@oblo.com>
+ * @author   Marko Djukic <marko@oblo.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde');
 
+$vars = $injector->getInstance('Horde_Variables');
+
 /* Set the language. */
-$session->set('horde', 'language', $registry->preferredLang(Horde_Util::getFormData('new_lang')));
+$session->set('horde', 'language', $registry->preferredLang($vars->new_lang));
 $prefs->setValue('language', $session->get('horde', 'language'));
 
 /* Update apps language */
@@ -23,9 +28,7 @@ foreach ($registry->listApps() as $app) {
 }
 
 /* Redirect to the url or login page if none given. */
-$url = Horde_Util::getFormData('url');
-$url = empty($url)
+$url = isset($vars->url)
     ? Horde::url('index.php', true)
-    : Horde::url($url, true);
-
+    : Horde::url($vars->url, true);
 $url->redirect();

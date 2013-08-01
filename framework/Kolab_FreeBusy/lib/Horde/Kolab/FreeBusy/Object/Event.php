@@ -18,7 +18,7 @@
  * A reduced event representation derived from the Kronolith event
  * representation.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  * Copyright 2011 Kolab Systems AG
  *
@@ -140,7 +140,7 @@ class Horde_Kolab_FreeBusy_Object_Event {
         // Recurrence
         if (isset($event['recurrence'])) {
             $this->_recurrence = new Horde_Date_Recurrence($this->_start);
-            $this->_recurrence->fromHash($event['recurrence']);
+            $this->_recurrence->fromKolab($event['recurrence']);
         }
     }
 

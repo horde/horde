@@ -38,7 +38,7 @@
  *
  * Additional cleanups/code by the Horde Project.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -65,6 +65,8 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
     protected $_inputLength;
     protected $_lookAhead = null;
     protected $_output = '';
+    protected $_x = null;
+    protected $_y = null;
 
     public function __construct($input)
     {
@@ -88,7 +90,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
             case "\n":
                 if ($this->_b === ' ') {
                     $cmd = self::ACTION_DELETE_A_B;
-                } elseif (!strspn($this->_b, '{[(+-') &&
+                } elseif (!strspn($this->_b, '{[(+-!~') &&
                           !$this->_isAlphaNum($this->_b)) {
                     $cmd = self::ACTION_DELETE_A;
                 }
@@ -113,6 +115,11 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
         switch($d) {
         case self::ACTION_KEEP_A:
             $this->_output .= $this->_a;
+            if (($this->_a == $this->_b) &&
+                ($this->_y != $this->_a) &&
+                strspn($this->_a, '+-')) {
+                $this->_output .= ' ';
+            }
 
         case self::ACTION_DELETE_A:
             $this->_a = $this->_b;
@@ -140,7 +147,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
         case self::ACTION_DELETE_A_B:
             $this->_b = $this->_next();
 
-            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?{};\n')) {
+            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?+-~*\n')) {
                 $this->_output .= $this->_a . $this->_b;
 
                 while (true) {
@@ -188,6 +195,8 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
             ($this->_inputIndex < $this->_inputLength)) {
             $c = $this->_input[$this->_inputIndex];
             $this->_inputIndex += 1;
+            $this->_y = $this->_x;
+            $this->_x = $c;
         }
 
         if ($c === "\r") {

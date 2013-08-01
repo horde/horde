@@ -2,7 +2,7 @@
 /**
  * The Horde_Imsp_Client base class.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -125,7 +125,7 @@ abstract class Horde_Imsp_Client_Base
     static public function quoteSpacedString($string)
     {
         if (strpos($string, ' ') !== false ||
-            preg_match(Horde_Imsp::MUST_QUOTE, $string)) {
+            preg_match(self::MUST_QUOTE, $string)) {
             return '"' . $string . '"';
         } else {
             return $string;

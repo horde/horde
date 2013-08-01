@@ -14,7 +14,7 @@
 /**
  * Components_Release_Task_Package:: prepares and uploads a release package.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -51,6 +51,15 @@ extends Components_Release_Task_Base
     public function validate($options)
     {
         $errors = array();
+        $testpkg = Horde_Util::getTempFile();
+        $archive = new Archive_Tar($testpkg, 'gz');
+        $archive->addString('a', 'a');
+        $archive->addString('b', 'b');
+        $results = exec('tar tzvf ' . $testpkg . ' 2>&1');
+        // MacOS tar doesn't error out, but only returns the first string (ending in 'a');
+        if (strpos($results, 'lone zero block') !== false || substr($results, -1, 1) == 'a') {
+            $errors[] = 'Broken Archive_Tar, upgrade first.';
+        }
         $remote = new Horde_Pear_Remote();
         try {
             $exists = $remote->releaseExists(
@@ -66,14 +75,6 @@ extends Components_Release_Task_Base
             }
         } catch (Horde_Http_Exception $e) {
                 $errors[] = 'Failed accessing the remote PEAR server.';
-        }
-        if ($this->getComponent()->getState('api') != $this->getComponent()->getState('release') &&
-            !preg_match('/^(\d+\.\d+\.\d+)RC\d+$/', $this->getComponent()->getVersion())) {
-            $errors[] = sprintf(
-                'The release stability "%s" does not match the api stability "%s".',
-                $this->getComponent()->getState('api'),
-                $this->getComponent()->getState('release')
-            );
         }
         try {
             Components_Helper_Version::validateReleaseStability(
@@ -135,7 +136,7 @@ extends Components_Release_Task_Base
 
         if (!empty($options['upload'])) {
             $this->system('scp ' . $path . ' ' . $options['releaseserver'] . ':~/');
-            $this->system('ssh '. $options['releaseserver'] . ' "pirum add ' . $options['releasedir'] . ' ~/' . basename($path) . ' && rm ' . basename($path) . '"') . "\n";
+            $this->system('ssh '. $options['releaseserver'] . ' "umask 0002 && pirum add ' . $options['releasedir'] . ' ~/' . basename($path) . ' && rm ' . basename($path) . '"') . "\n";
             if (!$this->getTasks()->pretend()) {
                 unlink($path);
             }

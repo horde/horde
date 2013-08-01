@@ -15,8 +15,7 @@
 
 <?php foreach ($klutz_driver->listDates($date) as $time): ?>
    <div class="linedRow"><?php
-$url = Horde_Util::addParameter(Horde::selfUrl(), array('actionID' => 'day',
-                                                  'date' => $time));
+$url = Horde::selfUrl()->add(array('actionID' => 'day', 'date' => $time));
 if (in_array(date('Ymd',$time), $visited)) {
     echo Horde::link($url, strftime('%B %d, %Y', $time), 'visited');
 } else {
@@ -34,9 +33,7 @@ echo strftime('%B %d, %Y', $time);
 
 <?php foreach ($comics as $index => $comic): ?>
    <div class="linedRow"><?php
-$url = Horde_Util::addParameter(Horde::selfUrl(), array('actionID' => 'comic',
-                                                  'index' => $index,
-                                                  'date' => $date));
+$url = Horde::selfUrl()->add(array('actionID' => 'comic', 'index' => $index, 'date' => $date));
 if (!in_array($index, $selected)) {
     echo Horde::link($url, $comic['name'], 'unselected');
 } else {

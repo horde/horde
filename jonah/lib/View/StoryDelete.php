@@ -2,7 +2,7 @@
 /**
  * Jonah_View_StoryDelete:: handle story deletion
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -37,7 +37,7 @@ class Jonah_View_StoryDelete extends Jonah_View_Base
         /* Check permissions. */
         if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::DELETE, $channel_id)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
-            $registry->authenticateFailure();
+            throw new Horde_Exception_AuthenticationFailure();
         }
 
         try {
@@ -79,10 +79,13 @@ class Jonah_View_StoryDelete extends Jonah_View_Base
             Horde::url('stories/index.php', true)->add('channel_id', $channel_id)->setRaw(true)->redirect();
             exit;
         }
-        require $registry->get('templates', 'horde') . '/common-header.inc';
-        require JONAH_TEMPLATES . '/menu.inc';
+
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
+        $notification->notify(array('listeners' => 'status'));
         $form->renderActive(null, $vars, Horde::url('stories/delete.php'), 'post');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
 }

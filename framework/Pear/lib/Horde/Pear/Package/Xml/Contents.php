@@ -14,7 +14,7 @@
 /**
  * Handles the XML contents list.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -156,7 +156,7 @@ class Horde_Pear_Package_Xml_Contents
     private function _getInstallInsertionPoint($new)
     {
         $keys = array_keys($this->_install_list);
-        array_push($keys, $new);
+        $keys[] = $new;
         usort($keys, array($this, '_fileOrder'));
         $pos = array_search($new, $keys);
         if ($pos < (count($keys) - 1)) {

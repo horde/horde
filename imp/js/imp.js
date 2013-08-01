@@ -7,49 +7,54 @@
 
 var IMP_JS = {
 
-    // Defaulting to null: menumbox_load
     keydownhandler: null,
-    imgs: {},
-
-    menuMailboxSubmit: function(clear)
-    {
-        var mf = $('menuform');
-
-        if ((!this.menumbox_load || clear) &&
-            $F(mf.down('SELECT[name="mailbox"]'))) {
-            this.menumbox_load = true;
-            mf.submit();
-        }
-    },
 
     /**
      * Use DOM manipulation to un-block images.
      */
     unblockImages: function(e)
     {
-        var callback,
-            elt = e.element().up('.mimeStatusMessageTable').up(),
-            iframe = elt.up().next().down('.htmlMsgData'),
-            iframeid = iframe.readAttribute('id'),
-            imgload = false,
-            s = new Selector('[htmlimgblocked]'),
-            s2 = new Selector('[htmlcssblocked]'),
-            s3 = new Selector('STYLE[type=text/x-imp-cssblocked]');
+        var a, callback, doc,
+            elt = e.element(),
+            box = elt.up('.mimeStatusMessageTable').up(),
+            iframe = elt.up('.mimePartBase').down('.mimePartData IFRAME.htmlMsgData'),
+            imgload = false;
 
         e.stop();
 
-        elt.slideUp({
-            afterFinish: function() { elt.remove(); },
-            duration: 0.6
-        });
+        if (elt.hasClassName('noUnblockImageAdd')) {
+            box.slideUp({
+                afterFinish: function() { box.remove(); },
+                duration: 0.6
+            });
+        } else {
+            a = new Element('A')
+                .insert(IMP_JS.unblock_image_text)
+                .observe('click', function(e) {
+                    HordeCore.doAction('imageUnblockAdd', {
+                        muid: elt.readAttribute('muid')
+                    });
 
-        callback = this.imgOnload.bind(this, iframeid);
+                    box.slideUp({
+                        afterFinish: function() { box.remove(); },
+                        duration: 0.6
+                    });
+                });
 
-        s.findElements(iframe.contentWindow.document).each(function(img) {
+            elt.up('TBODY').update(
+                new Element('TR').insert(
+                    new Element('TD').insert(a)
+                )
+            );
+        }
+
+        callback = this.iframeResize.bind(this, iframe);
+        doc = iframe.contentDocument || iframe.contentWindow.document;
+
+        Prototype.Selector.select('[htmlimgblocked]', doc).each(function(img) {
             var src = img.getAttribute('htmlimgblocked');
             if (img.getAttribute('src')) {
                 img.onload = callback;
-                ++this.imgs[iframeid];
                 img.setAttribute('src', src);
                 imgload = true;
             } else {
@@ -67,23 +72,16 @@ var IMP_JS = {
             }
         }, this);
 
-        s2.findElements(iframe.contentWindow.document).each(function(link) {
+        Prototype.Selector.select('[htmlcssblocked]', doc).each(function(link) {
             link.setAttribute('href', link.getAttribute('htmlcssblocked'));
         });
 
-        s3.findElements(iframe.contentWindow.document).each(function(style) {
+        Prototype.Selector.select('STYLE[type="text/x-imp-cssblocked"]', doc).each(function(style) {
             style.setAttribute('type', 'text/css');
         });
 
         if (!imgload) {
-            this.iframeResize(iframeid);
-        }
-    },
-
-    imgOnload: function(id)
-    {
-        if (!(--this.imgs[id])) {
-            this.iframeResize(id);
+            this.iframeResize(iframe);
         }
     },
 
@@ -97,7 +95,12 @@ var IMP_JS = {
 
         id.observe('load', function(i) {
             i.stopObserving('load');
-            this.iframeResize.bind(this, i).defer(0.3);
+            if (Prototype.Browser.IE && !document.addEventListener) {
+                // IE8
+                this.iframeResize.bind(this, i).delay(1);
+            } else {
+                this.iframeResize.bind(this, i).defer();
+            }
         }.bind(this, id));
 
         d.open();
@@ -105,14 +108,10 @@ var IMP_JS = {
         d.close();
 
         if (this.keydownhandler) {
-            var responder = function(e) {
-                return this.keydownhandler(e);
-            }.bindAsEventListener(this)
-
             if (d.addEventListener) {
-                d.addEventListener('keydown', responder, false);
+                d.addEventListener('keydown', this.keydownhandler.bindAsEventListener(this), false);
             } else {
-                d.attachEvent('onkeydown', responder);
+                d.attachEvent('onkeydown', this.keydownhandler.bindAsEventListener(this));
             }
         }
 
@@ -140,11 +139,6 @@ var IMP_JS = {
                 // Finally, brute force if it still isn't working.
                 id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
             }
-            if (lc.style.setProperty) {
-                lc.style.setProperty('overflow-x', 'hidden', '');
-            } else {
-                lc.style['overflow-x'] = 'hidden';
-            }
         }
     },
 
@@ -157,19 +151,6 @@ var IMP_JS = {
         }
         win.print();
         win.close();
-    },
-
-    onDomLoad: function()
-    {
-        // If menu is present, attach event handlers to mailbox switcher.
-        var tmp = $('openmboxicon');
-        if (tmp) {
-            // Observe actual element since IE does not bubble change events.
-            $('menu').down('[name=mailbox]').observe('change', this.menuMailboxSubmit.bind(this));
-            tmp.down().observe('click', this.menuMailboxSubmit.bind(this, true));
-        }
     }
 
 };
-
-document.observe('dom:loaded', IMP_JS.onDomLoad.bind(IMP_JS));

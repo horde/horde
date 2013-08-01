@@ -3,32 +3,26 @@
  <name>Horde_Mail</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Mail Library</summary>
- <description>The Horde_Mail library is a fork of the PEAR Mail library that provides additional functionality, including (but not limited to):
-* Allows a stream to be passed in.
-* Allows raw headertext to be used in the outgoing messages (required for things like message redirection pursuant to RFC 5322 [3.6.6]).
-* Native PHP 5 code.
-* PHPUnit test suite.
-* Provides more comprehensive sendmail error messages.
-* Uses Exceptions instead of PEAR_Errors.</description>
+ <description>Provides interfaces for sending e-mail messages and parsing e-mail addresses.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-29</date>
- <time>17:29:46</time>
+ <date>2013-07-16</date>
+ <time>19:28:51</time>
  <version>
-  <release>2.0.0</release>
+  <release>2.0.7</release>
   <api>2.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -67,11 +61,15 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Mail">
+      <file name="AddressTest.php" role="test" />
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="GroupTest.php" role="test" />
       <file name="ListTest.php" role="test" />
+      <file name="MatchTest.php" role="test" />
       <file name="ObjectTest.php" role="test" />
       <file name="ParseTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="SendTest.php" role="test" />
      </dir> <!-- /test/Horde/Mail -->
     </dir> <!-- /test/Horde -->
@@ -81,7 +79,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -89,26 +87,33 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.5.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>Net_DNS2</name>
     <channel>pear.php.net</channel>
@@ -138,11 +143,15 @@
    <install as="Horde/Mail/Transport/Sendmail.php" name="lib/Horde/Mail/Transport/Sendmail.php" />
    <install as="Horde/Mail/Transport/Smtp.php" name="lib/Horde/Mail/Transport/Smtp.php" />
    <install as="Horde/Mail/Transport/Smtpmx.php" name="lib/Horde/Mail/Transport/Smtpmx.php" />
+   <install as="Horde/Mail/AddressTest.php" name="test/Horde/Mail/AddressTest.php" />
    <install as="Horde/Mail/AllTests.php" name="test/Horde/Mail/AllTests.php" />
+   <install as="Horde/Mail/bootstrap.php" name="test/Horde/Mail/bootstrap.php" />
    <install as="Horde/Mail/GroupTest.php" name="test/Horde/Mail/GroupTest.php" />
    <install as="Horde/Mail/ListTest.php" name="test/Horde/Mail/ListTest.php" />
+   <install as="Horde/Mail/MatchTest.php" name="test/Horde/Mail/MatchTest.php" />
    <install as="Horde/Mail/ObjectTest.php" name="test/Horde/Mail/ObjectTest.php" />
    <install as="Horde/Mail/ParseTest.php" name="test/Horde/Mail/ParseTest.php" />
+   <install as="Horde/Mail/phpunit.xml" name="test/Horde/Mail/phpunit.xml" />
    <install as="Horde/Mail/SendTest.php" name="test/Horde/Mail/SendTest.php" />
   </filelist>
  </phprelease>
@@ -284,7 +293,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-27</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Added Horde_Mail_Rfc822_Address#encoded property.
@@ -297,6 +306,168 @@
 * [mms] First argument to Horde_Mail_Rfc822#parseAddressList() can now be an array of addresses.
 * [mms] Add Horde_Mail_Rfc822#encode().
 * [mms] Workaround unexpected return from PHP_EOL in Mail transport drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-05</date>
+   <time>17:29:46</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Add Horde_Mail_Rfc822_Address#matchDomain().
+* [mms] Add Horde_Mail_Rfc822_Address#matchInsensitive().
+* [mms] Fix parsing Return-Path header when using sendmail driver (Bug #11361).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-16</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Ensure bare address is output to SMTP MAIL command.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-03</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Fix default_domain parameter to Horde_Mail_Rfc822 (Bug #11804).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-26</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Fix behavior of &apos;persist&apos; option in SMTP transport driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Improve unit tests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-08</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Correctly encode IDN domains when sending mail (Bug #12116).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Honor &apos;pipelining&apos; configuration option in SMTP transport driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

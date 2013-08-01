@@ -3,7 +3,7 @@
  * The Horde_Mime_Magic:: class provides an interface to determine a MIME type
  * for various content, if it provided with different levels of information.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -31,7 +31,7 @@ class Horde_Mime_Magic
     static protected function _getMimeExtensionMap()
     {
         if (is_null(self::$_map)) {
-            require dirname(__FILE__) . '/mime.mapping.php';
+            require __DIR__ . '/mime.mapping.php';
             self::$_map = $mime_extension_map;
         }
 

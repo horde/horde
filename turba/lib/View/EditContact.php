@@ -30,7 +30,7 @@ class Turba_View_EditContact
 
     public function html($active = true)
     {
-        global $conf, $prefs, $vars;
+        global $browser, $vars;
 
         if (!$this->contact) {
             echo '<h3>' . _("The requested contact was not found.") . '</h3>';
@@ -52,7 +52,7 @@ class Turba_View_EditContact
         $form->renderActive(new Horde_Form_Renderer, $vars, Horde::url('edit.php'), 'post');
         echo '</div>';
 
-        if ($active && $GLOBALS['browser']->hasFeature('dom')) {
+        if ($active && $browser->hasFeature('dom')) {
             if ($this->contact->hasPermission(Horde_Perms::READ)) {
                 $view = new Turba_View_Contact($this->contact);
                 $view->html(false);

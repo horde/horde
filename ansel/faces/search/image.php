@@ -2,7 +2,7 @@
 /**
  * Process an single image (to be called by ajax)
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -58,9 +58,9 @@ if ($form->validate()) {
 
 }
 
-$title = _("Upload face photo");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'title' => _("Upload face photo")
+));
 $notification->notify(array('listeners' => 'status'));
 echo $tabs->render(Horde_Util::getGet('search_faces', 'image'));
 $form->renderActive(null, null, null, 'post');
@@ -75,4 +75,4 @@ if (empty($name)) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

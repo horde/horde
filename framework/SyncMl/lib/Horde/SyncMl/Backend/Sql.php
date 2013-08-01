@@ -4,7 +4,7 @@
  *
  * This can be used as a starting point for a custom backend implementation.
  *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -111,10 +111,10 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
         $database = $this->normalize($databaseURI);
 
         switch($database) {
-        case 'tasks';
-        case 'calendar';
-        case 'notes';
-        case 'contacts';
+        case 'tasks':
+        case 'calendar':
+        case 'notes':
+        case 'contacts':
         case 'events':
         case 'memo':
             return true;
@@ -482,7 +482,7 @@ class Horde_SyncMl_Backend_Sql extends Horde_SyncMl_Backend
      *
      * @return string  The user name.
      */
-    public function setAuthenticated($username, $credData)
+    protected function _setAuthenticated($username, $credData)
     {
         return $username;
     }

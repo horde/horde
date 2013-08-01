@@ -11,7 +11,7 @@
  * width - (integer) The wrapping width. Set to 0 to not wrap.
  * </pre>
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -58,12 +58,16 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     {
         $replace = array(
             "\r" => '',
-            "\n" => ' ',
             "\t" => ' '
+        );
+        $regexp = array(
+            '/(?<!>)\n/' => ' ',
+            '/\n/' => ''
         );
 
         return array(
-            'replace' => $replace
+            'replace' => $replace,
+            'regexp' => $regexp,
         );
     }
 
@@ -78,7 +82,6 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     {
         $this->_indent = 0;
         $this->_linkList = array();
-        $this->_params['_bq'] = false;
 
         return $text;
     }
@@ -107,15 +110,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
         /* Wrap the text to a readable format. */
         if ($this->_params['width']) {
-            if ($dom_convert &&
-                $this->_params['_bq'] &&
-                class_exists('Horde_Text_Flowed')) {
-                $flowed = new Horde_Text_Flowed($text, $this->_params['charset']);
-                $flowed->setOptLength($this->_params['width']);
-                $text = $flowed->toFlowed();
-            } else {
-                $text = wordwrap($text, $this->_params['width']);
-            }
+            $text = wordwrap($text, $this->_params['width']);
         }
 
         /* Add link list. */
@@ -151,12 +146,12 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                 }
 
                 if ($child instanceof DOMElement) {
-                    switch (strtolower($child->tagName)) {
+                    switch (Horde_String::lower($child->tagName)) {
                     case 'h1':
                     case 'h2':
                     case 'h3':
                         $out .= "\n\n" .
-                            strtoupper($this->_node($doc, $child)) .
+                            Horde_String::upper($this->_node($doc, $child)) .
                             "\n\n";
                         break;
 
@@ -170,7 +165,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
                     case 'b':
                     case 'strong':
-                        $out .= strtoupper($this->_node($doc, $child));
+                        $out .= Horde_String::upper($this->_node($doc, $child));
                         break;
 
                     case 'u':
@@ -188,6 +183,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
                     case 'ol':
                     case 'ul':
+                    case 'dl':
                         ++$this->_indent;
                         $out .= "\n\n" . $this->_node($doc, $child) . "\n\n";
                         --$this->_indent;
@@ -195,7 +191,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
                     case 'p':
                         if ($tmp = $this->_node($doc, $child)) {
-                            $out .= "\n" . $tmp . "\n";
+                            if (!strspn(substr($out, -2), "\n")) {
+                                $out .= "\n";
+                            }
+                            $out .= $tmp . "\n";
                         }
                         break;
 
@@ -210,7 +209,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         break;
 
                     case 'th':
-                        $out .= strtoupper($this->_node($doc, $child)) . " \t";
+                        $out .= Horde_String::upper($this->_node($doc, $child)) . " \t";
                         break;
 
                     case 'td':
@@ -218,6 +217,8 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         break;
 
                     case 'li':
+                    case 'dd':
+                    case 'dt':
                         $out .= "\n" . str_repeat('  ', $this->_indent) . '* ' . $this->_node($doc, $child);
                         break;
 
@@ -226,16 +227,17 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         break;
 
                     case 'blockquote':
-                        $this->_params['_bq'] = true;
-                        foreach (explode("\n", $this->_node($doc, $child)) as $line) {
-                            $quote = '>';
-                            if ($line &&
-                                ($line[0] != '>') &&
-                                ($line[0] != ' ' || $line[0] != "\t")) {
-                                $quote .= ' ';
-                            }
-                            $out .= $quote . $line . "\n";
+                        $tmp = trim(preg_replace('/\s*\n{3,}/', "\n\n", $this->_node($doc, $child)));
+                        if (class_exists('Horde_Text_Flowed')) {
+                            $flowed = new Horde_Text_Flowed($tmp, $this->_params['charset']);
+                            $flowed->setMaxLength($this->_params['width']);
+                            $flowed->setOptLength($this->_params['width']);
+                            $tmp = $flowed->toFlowed(true);
                         }
+                        if (!strspn(substr($out, -1), " \r\n\t")) {
+                            $out .= "\n";
+                        }
+                        $out .= "\n" . rtrim($tmp) . "\n\n";
                         break;
 
                     case 'div':
@@ -250,17 +252,11 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         $out .= $this->_node($doc, $child);
                         break;
                     }
-                } elseif ((get_class($child) == 'DOMText') &&
-                          !$child->isWhitespaceInElementContent()) {
+                } elseif ($child instanceof DOMText) {
                     $tmp = $child->textContent;
-                    if ($child->parentNode->tagName == 'body' ||
-                        !$child->previousSibling) {
-                        $tmp = ltrim($tmp);
-                    }
-                    if (!$child->nextSibling) {
-                        $tmp = rtrim($tmp);
-                    }
-                    $out .= $tmp;
+                    $out .= strspn(substr($out, -1), " \r\n\t")
+                        ? ltrim($child->textContent)
+                        : $child->textContent;
                 }
             }
         }

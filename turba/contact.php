@@ -2,7 +2,7 @@
 /**
  * Turba contact.php.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -10,7 +10,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -42,8 +42,8 @@ if (!empty($uid)) {
 if (!$contact) {
     try {
         $contact = $driver->getObject($vars->get('key'));
-    } catch (Turba_Exception $e) {
-        $notification->push($e, 'horde.error');
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
         Horde::url($prefs->getValue('initial_page'), true)->redirect();
     }
 }
@@ -77,14 +77,23 @@ case 'DeleteContact':
 $url = $contact->url();
 $tabs = new Horde_Core_Ui_Tabs('view', $vars);
 $tabs->addTab(_("_View"), $url,
-              array('tabname' => 'Contact', 'id' => 'tabContact', 'onclick' => 'return ShowTab(\'Contact\');'));
+              array('tabname' => 'Contact',
+                    'id' => 'tabContact',
+                    'class' => 'horde-icon',
+                    'onclick' => 'return ShowTab(\'Contact\');'));
 if ($contact->hasPermission(Horde_Perms::EDIT)) {
     $tabs->addTab(_("_Edit"), $url,
-                  array('tabname' => 'EditContact', 'id' => 'tabEditContact', 'onclick' => 'return ShowTab(\'EditContact\');'));
+                  array('tabname' => 'EditContact',
+                        'id' => 'tabEditContact',
+                        'class' => 'horde-icon',
+                        'onclick' => 'return ShowTab(\'EditContact\');'));
 }
 if ($contact->hasPermission(Horde_Perms::DELETE)) {
     $tabs->addTab(_("De_lete"), $url,
-                  array('tabname' => 'DeleteContact', 'id' => 'tabDeleteContact', 'onclick' => 'return ShowTab(\'DeleteContact\');'));
+                  array('tabname' => 'DeleteContact',
+                        'id' => 'tabDeleteContact',
+                        'class' => 'horde-icon',
+                        'onclick' => 'return ShowTab(\'DeleteContact\');'));
 }
 
 @list($own_source, $own_id) = explode(';', $prefs->getValue('own_contact'));
@@ -99,13 +108,13 @@ if ($own_source == $source && $own_id == $contact->getValue('__key')) {
         . _("Mark this as your own contact") . '</a></span>';
 }
 
-$title = $view->getTitle();
-
-Horde::addScriptFile('contact_tabs.js', 'turba');
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require TURBA_TEMPLATES . '/menu.inc';
+$page_output->addScriptFile('contact_tabs.js');
+$page_output->header(array(
+    'title' => $view->getTitle()
+));
+$notification->notify(array('listeners' => 'status'));
 echo '<div id="page">';
-echo $tabs->render($viewName);
+echo $tabs->render($viewName, 'horde-buttonbar');
 echo '<h1 class="header">' . $own_link
     . ($contact->getValue('name')
        ? htmlspecialchars($contact->getValue('name'))
@@ -113,4 +122,4 @@ echo '<h1 class="header">' . $own_link
     . $own_icon . '</h1>';
 $view->html();
 echo '</div>';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

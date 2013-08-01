@@ -2,28 +2,30 @@
  * Slider2.js - A minimalist library to create a slider that acts like a
  * browser's native scrollbar.
  *
- * Requires prototype.js 1.6.0.2+
+ * Requires prototype.js v1.6.0.2+
  *
  *
  * Usage:
  * ------
- * slider = new Slider2(track, opts);
- *
- *   track - (element|string) TODO
- *   opts - (object) TODO
+ * slider = new Slider2(track, { options });
+ *   track: (element|string) TODO
+ *   options: (object) [buttonClass, cursorClass, pagesize, totalsize]
  *
  * Custom Events:
  * --------------
- * Custom events are triggered on the track element. The parameters given
- * below are available through the 'memo' property of the Event object.
+ * Custom events are triggered on the track element.
  *
  * Slider2:change
+ *   Fired when slidebar is released and has moved from the original value.
+ *
+ * Slider2:end
  *   Fired when slidebar is released.
- *   params: NONE
  *
  * Slider2:slide
  *   Fired when slidebar is moved.
- *   params: NONE
+ *
+ * Slider2:start
+ *   Fired when slidebar is clicked on.
  *
  *
  * Adapted from script.aculo.us slider.js v1.8.0
@@ -48,14 +50,12 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
 var Slider2 = Class.create({
-
-    value: 0,
 
     initialize: function(track, options)
     {
@@ -74,11 +74,10 @@ var Slider2 = Class.create({
             this.sbup = new Element('DIV', { className: this.options.buttonclass.up });
             this.sbdown = new Element('DIV', { className: this.options.buttonclass.down }).makePositioned();
             this.handle.insert({ before: this.sbup, after: this.sbdown });
-            [ this.sbup, this.sbdown ].invoke('observe', 'mousedown', this._arrowClick.bindAsEventListener(this));
         }
 
         if (Prototype.Browser.IE) {
-            [ this.track, this.sbup ].invoke('makePositioned');
+            [ this.track, this.sbup ].compact().invoke('makePositioned');
         }
 
         this.value = 0;
@@ -88,43 +87,53 @@ var Slider2 = Class.create({
             this._initScroll();
         }
 
-        [ this.handle, this.track ].invoke('observe', 'mousedown', this._startDrag.bindAsEventListener(this));
-
+        this.track.observe('mousedown', this._mousedownHandler.bindAsEventListener(this));
         document.observe('mouseup', this._endDrag.bindAsEventListener(this));
         document.observe('mousemove', this._update.bindAsEventListener(this));
     },
 
     _initScroll: function()
     {
-        if (this.init) {
-            return;
+        if (!this.init) {
+            this.init = true;
+            this.track.show();
+            this._updateHandleLength();
         }
-        this.init = true;
-        this.track.show();
-        this._updateHandleLength();
     },
 
-    _startDrag: function(e)
+    _mousedownHandler: function(e)
     {
-        var elt = e.element();
+        var dir,
+            elt = e.element();
 
-        if (!e.isLeftClick() || elt == this.sbup || elt == this.sbdown) {
+        if (!e.isLeftClick()) {
+            e.stop();
             return;
         }
 
-        var dir,
-            hoffsets = this.handle.cumulativeOffset();
-
-        if (elt == this.track) {
-            dir = (e.pointerY() < hoffsets[1]) ? -1 : 1;
-            this.setScrollPosition(this.getValue() - dir + (this.options.pagesize * dir));
-        } else {
+        switch (elt) {
+        case this.handle:
             this.curroffsets = this.track.cumulativeOffset();
-            this.offsetY = e.pointerY() - hoffsets[1] + this.sbup.offsetHeight;
+            this.offsetY = e.pointerY() - this.handle.cumulativeOffset()[1] + this.sbup.offsetHeight;
             this.active = true;
-        }
+            this.track.fire('Slider2:start');
+            e.stop();
+            break;
 
-        e.stop();
+        case this.sbdown:
+            this.setScrollPosition(this.getValue() + 1);
+            break;
+
+        case this.sbup:
+            this.setScrollPosition(this.getValue() - 1);
+            break;
+
+        case this.track:
+            dir = (e.pointerY() < this.handle.cumulativeOffset()[1]) ? -1 : 1;
+            this.setScrollPosition(this.getValue() - dir + (this.options.pagesize * dir));
+            e.stop();
+            break;
+        }
     },
 
     _update: function(e)
@@ -142,16 +151,14 @@ var Slider2 = Class.create({
 
     _endDrag: function(e)
     {
-        if (this.active && this.dragging) {
-            this._updateFinished();
-            e.stop();
+        if (this.active) {
+            if (this.dragging) {
+                this._updateFinished();
+                e.stop();
+            }
+            this.track.fire('Slider2:end');
         }
         this.active = this.dragging = false;
-    },
-
-    _arrowClick: function(e)
-    {
-        this.setScrollPosition(this.getValue() + ((e.element() == this.sbup) ? -1 : 1));
     },
 
     _updateFinished: function()
@@ -218,7 +225,7 @@ var Slider2 = Class.create({
              * absolute bottom or top. */
             if (isNaN(this.handlevalue)) {
                 this.handlevalue = 0;
-            } else if (this.handlevalue == 0 && this.value != 0) {
+            } else if (this.handlevalue === 0 && this.value !== 0) {
                 this.handlevalue += 1;
             } else if (this.handlevalue == this.handletop &&
                        ((this.options.totalsize - this.options.pagesize) != this.value)) {
@@ -233,4 +240,5 @@ var Slider2 = Class.create({
     {
         return (this.options.pagesize < this.options.totalsize);
     }
+
 });

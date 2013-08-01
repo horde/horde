@@ -1,7 +1,7 @@
 /**
  * Provides the javascript for toggle quotes (Highlightquotes text filter).
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -14,12 +14,7 @@
 
 var Horde_ToggleQuotes = {
 
-    onDomLoad: function()
-    {
-        document.observe('click', this._clickHandler.bindAsEventListener(this));
-    },
-
-    _clickHandler: function(e)
+    clickHandler: function(e)
     {
         if (e.isRightClick()) {
             return;
@@ -42,4 +37,4 @@ var Horde_ToggleQuotes = {
 
 };
 
-document.observe('dom:loaded', Horde_ToggleQuotes.onDomLoad.bind(Horde_ToggleQuotes));
+document.observe('click', Horde_ToggleQuotes.clickHandler.bindAsEventListener(Horde_ToggleQuotes));

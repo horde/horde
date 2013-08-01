@@ -13,7 +13,7 @@
   <thead>
     <tr>
       <th><?php echo $this->h($this->attributes[$field]['label']) ?></th>
-      <th><?php echo _("Count") ?></th>
+      <th class="horde-split-left"><?php echo _("Count") ?></th>
     </tr>
   </thead>
   <tbody>

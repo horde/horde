@@ -1,7 +1,7 @@
 /**
  * Geotagging widget
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -28,7 +28,7 @@ AnselGeoTagWidget = Class.create({
      *   relocateText [Localized text]
      *   deleteGeotagText [Localized text]
      *   hasEdit [boolean do we have PERMS_EDIT?]
-     *   updateEndPoint [AJAX endpoint for updating image data]
+     *   updateEndpoint [AJAX endpoint for updating image data]
      */
     initialize: function(imgs, opts)
     {
@@ -46,15 +46,15 @@ AnselGeoTagWidget = Class.create({
 
     setLocation: function(img, lat, lng)
     {
-        var params = { 'values': 'img=' + img + '/lat=' + lat + '/lng=' + lng };
-
-        new Ajax.Request(this.opts.updateEndpoint + '/action=geotag/post=values', {
+        new Ajax.Request(this.opts.updateEndpoint, {
             method: 'post',
-            parameters: params,
+            parameters: {
+                action: 'geotag',
+                img: img,
+                lat: lat,
+                lng: lng
+           },
             onComplete: function(transport) {
-                 if (typeof Horde_ToolTips != 'undefined') {
-                     Horde_ToolTips.out();
-                 }
                  if (transport.responseJSON.response == 1) {
                     var w = new Element('div');
                     w.appendChild(new Element('div', {id: 'ansel_map'}));
@@ -81,10 +81,12 @@ AnselGeoTagWidget = Class.create({
 
     deleteLocation: function(iid)
     {
-        var params = { 'values': 'img=' + iid };
-        new Ajax.Request(this.opts.updateEndpoint + '/action=untag/post=values', {
+        new Ajax.Request(this.opts.updateEndpoint, {
             method: 'post',
-            parameters: params,
+            parameters: {
+                action: 'untag',
+                img: iid
+            },
             onComplete: function(transport) {
                 if (transport.responseJSON.response == 1) {
                     $('ansel_geo_widget').update(transport.responseJSON.message);
@@ -95,15 +97,12 @@ AnselGeoTagWidget = Class.create({
 
     updateBaseLayer: function(l)
     {
-        var params = { 'values': 'name=' + l.layer.name };
-        new Ajax.Request(this.opts.layerUpdateEndpoint + '/post=values', {
+        new Ajax.Request(this.opts.layerUpdateEndpoint, {
             method: 'post',
-            parameters: params,
-            onComplete: function(transport) {
-                 if (typeof Horde_ToolTips != 'undefined') {
-                     Horde_ToolTips.out();
-                 }
-             }.bind(this)
+            parameters: {
+                pref: this.opts.layerUpdatePref,
+                value: l.layer.name
+            }
         });
     },
 
@@ -113,8 +112,6 @@ AnselGeoTagWidget = Class.create({
         this._bigMap = AnselMap.initMainMap('ansel_map', {
             'onHover': function(e) {
                 switch (e.type) {
-                case 'beforefeaturehighlighted':
-                    break;
                 case 'featurehighlighted':
                     if (this.opts.viewType == 'Gallery') {
                         $$('#imagetile_' + e.feature.attributes.image_id + ' img')[0].toggleClassName('image-tile-highlight');
@@ -286,10 +283,14 @@ AnselGeoTagWidget = Class.create({
                         }
                         // Save the results?
                         if (u) {
-                            new Ajax.Request(this.opts.updateEndpoint + '/action=location/post=values',
+                            new Ajax.Request(this.opts.updateEndpoint,
                                 {
                                     method: 'post',
-                                    parameters: { 'values': 'location=' + encodeURIComponent(result.address) + '/img=' + i.image_id }
+                                    parameters: {
+                                        action: 'location',
+                                        location: result.address,
+                                        img: i.image_id
+                                   }
                                 }
                             );
                         }
@@ -318,9 +319,11 @@ AnselGeoTagWidget = Class.create({
             ).update(this.opts.relocateText);
 
             a.observe('click', function(e) {
-                Horde.popup({
+                HordePopup.popup({
                     url: this.opts.relocateUrl,
-                    params: 'image=' + iid, width: 750, height: 600
+                    params: { 'image': iid },
+                    width: 720,
+                    height: 520
                 });
                 e.stop();
             }.bind(this));

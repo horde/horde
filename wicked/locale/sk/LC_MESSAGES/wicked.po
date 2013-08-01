@@ -1,15 +1,16 @@
 # Slovak translations for Wicked package.
-# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2011-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Wicked package.
 # Martin Matuška <martin@matuska.org>, 2011
+# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
-"PO-Revision-Date: 2011-10-28 23:08+0100\n"
-"Last-Translator: Martin Matuška <martin@matuska.org>\n"
+"POT-Creation-Date: 2013-06-11 16:43+0200\n"
+"PO-Revision-Date: 2012-12-30 17:54+0200\n"
+"Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team:  <i18n@lists.horde.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,7 +20,14 @@ msgstr ""
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 
-#: lib/Page/StandardPage.php:285
+#: templates/edit/create.html.php:12
+#, fuzzy, php-format
+msgid ""
+"\"%s\" does not exist, but maybe you were looking for one of the following "
+"pages?"
+msgstr "Stránka %s neexistuje. Možno hľadáte niektorú s nasledujúcich stránok?"
+
+#: lib/Page/StandardPage.php:471
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -27,13 +35,7 @@ msgstr[0] "%d minúta"
 msgstr[1] "%d minúty"
 msgstr[2] "%d minút"
 
-#: templates/edit/create.inc:13
-#, php-format
-msgid ""
-"%s does not exist, but maybe you were looking for one of the following pages?"
-msgstr "Stránka %s neexistuje. Možno hľadáte niektorú s nasledujúcich stránok?"
-
-#: templates/edit/create.inc:30
+#: templates/edit/create.html.php:33
 #, php-format
 msgid ""
 "%s does not exist. Click on \"Create\" below if you want to create this page "
@@ -42,34 +44,33 @@ msgstr ""
 "Stránka %s neexistuje. Ak ju chcete teraz vytvoriť, kliknite na \"Vytvoriť\" "
 "nižšie a môžete začať s jej úpravou."
 
-#: lib/Page/Search.php:98
+#: lib/Page/Search.php:103
 #, php-format
 msgid "%s does not exist. You can create it now."
 msgstr "Stránka %s neexistuje. Môžete ju teraz vytvoriť."
 
-#: templates/edit/create.inc:37
+#: templates/edit/create.html.php:40
 msgid "(None)"
 msgstr "(žiadne)"
 
-#: templates/sync/list.inc:25 templates/sync/list.inc:51
-#: templates/sync/list.inc:73
-msgid "Actions"
-msgstr "Operácie"
+#: templates/display/AttachedFiles.html.php:129
+msgid "-- select --"
+msgstr ""
 
-#: lib/Page/AddPage.php:101
+#: lib/Page/AddPage.php:105
 #, php-format
 msgid "Add Page: %s"
 msgstr "Pridať stránku: %s"
 
-#: templates/display/MergeOrRename.html:31
+#: templates/display/MergeOrRename.html.php:32
 msgid "Add the text from this page"
 msgstr "Vložiť text z tejto stránky"
 
-#: lib/Page/AllPages.php:74
+#: lib/Page/AllPages.php:76
 msgid "All Pages"
 msgstr "Všetky stránky"
 
-#: lib/Page/DeletePage.php:74
+#: lib/Page/DeletePage.php:81
 msgid ""
 "Are you sure you want to delete this page? All versions will be permanently "
 "removed."
@@ -77,123 +78,105 @@ msgstr ""
 "Naozaj chcete vymazať túto stránku? Všetky verzie budú permanentne "
 "odstránené."
 
-#: lib/Page/DeletePage.php:76
+#: lib/Page/DeletePage.php:83
 #, php-format
 msgid "Are you sure you want to delete version %s of this page?"
 msgstr "Naozaj chcete vymazať verziu %s tejto stránky?"
 
-#: lib/Page/RevertPage.php:65
+#: lib/Page/RevertPage.php:76
 #, php-format
 msgid "Are you sure you want to revert to version %s of this page?"
 msgstr "Naozaj chcete navrátiť stránku na verziu %s?"
 
-#: templates/display/AttachedFiles.html:88
+#: templates/display/AttachedFiles.html.php:92
 msgid "Attach File"
 msgstr "Priložiť súbor"
 
-#: templates/display/AttachedFiles.html:52
+#: templates/display/AttachedFiles.html.php:55
 msgid "Attach a New File"
 msgstr "Priložiť nový súbor"
 
-#: lib/Page/AttachedFiles.php:154
+#: lib/Page/AttachedFiles.php:160
 #, php-format
 msgid "Attached Files: %s"
 msgstr "Priložené súbory: %s"
 
-#: templates/display/AttachedFiles.html:7
+#: templates/display/AttachedFiles.html.php:9
 msgid "Attachment Name"
 msgstr "Názov prílohy"
 
-#: templates/display/standard.inc:80 templates/display/standard.inc:81
-#: templates/display/standard.inc:120
+#: lib/Page/StandardPage.php:243 templates/display/standard.html.php:47
 msgid "Attachments"
 msgstr "Prílohy"
 
-#: lib/Page/AttachedFiles.php:209
+#: lib/Page/AttachedFiles.php:215
 msgid "Attachments with spaces can't be embedded into a page."
 msgstr "Prílohy s medzerami nemôžu byť vnorené do stránky"
 
-#: lib/Page/Search.php:144 templates/edit/create.inc:19
-#: templates/history/header.inc:23 templates/pagelist/header.inc:7
-#: templates/sync/diff.inc:25 templates/sync/diff.inc:61
-#: templates/sync/list.inc:24 templates/sync/list.inc:50
-#: templates/display/AttachedFiles.html:10
+#: templates/display/AttachedFiles.html.php:12
+#: templates/edit/create.html.php:19 templates/history/header.html.php:26
+#: templates/pagelist/header.html.php:7
 msgid "Author"
 msgstr "Autor"
 
-#: templates/display/standard.inc:107
+#: lib/Page/StandardPage.php:271
 msgid "Ba_ck to"
 msgstr "Naspäť na"
 
-#: templates/display/standard.inc:107
-msgid "Back to"
-msgstr "Naspäť na"
-
-#: templates/display/standard.inc:70
-msgid "Backlinks"
-msgstr "Spätné odkazy"
-
-#: lib/Page/BackLinks.php:66
+#: lib/Page/BackLinks.php:84
 #, php-format
 msgid "Backlinks: %s"
 msgstr "Spätné odkazy: %s"
 
-#: lib/Page/SyncPages.php:232 lib/Page/SyncPages.php:235
-msgid "By default, your login data will be used"
-msgstr "Štandardne budú použité Vaše prihlasovacie údaje"
-
-#: lib/Page/AttachedFiles.php:215
+#: lib/Page/AttachedFiles.php:221
 msgid "Can't read uploaded file."
 msgstr "Chyba pri čítaní nahraného súboru."
 
-#: lib/Page/RevertPage.php:113
+#: lib/Page/RevertPage.php:124
 #, php-format
 msgid "Can't revert to an unknown version."
 msgstr "Nie je možné navrátiť na neznámu verziu."
 
-#: lib/Page/AttachedFiles.php:255
+#: lib/Page/AttachedFiles.php:261
 #, php-format
 msgid "Can't update \"%s\": no such attachment."
 msgstr "Chyba pri aktualizovaní \"%s\": príloha neexistuje."
 
-#: lib/Page/DeletePage.php:95 lib/Page/MergeOrRename.php:152
-#: lib/Page/RevertPage.php:82 templates/edit/create.inc:47
-#: templates/edit/standard.inc:27 templates/display/MergeOrRename.html:62
+#: lib/Page/DeletePage.php:102 lib/Page/EditPage.php:132
+#: lib/Page/MergeOrRename.php:163 lib/Page/RevertPage.php:93
+#: templates/display/MergeOrRename.html.php:61
+#: templates/edit/create.html.php:47
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: templates/history/header.inc:29 templates/display/AttachedFiles.html:12
+#: templates/display/AttachedFiles.html.php:14
+#: templates/history/header.html.php:30
 msgid "Change Log"
 msgstr "Protokol zmien"
 
-#: templates/edit/standard.inc:29 templates/sync/diff.inc:26
-#: templates/sync/diff.inc:62
+#: templates/edit/standard.html.php:17
 msgid "Change log"
 msgstr "Protokol zmien"
 
-#: templates/display/AttachedFiles.html:80
-#: templates/display/AttachedFiles.html:137
+#: templates/display/AttachedFiles.html.php:84
+#: templates/display/AttachedFiles.html.php:143
 msgid "Change log entry"
 msgstr "Záznam v protokole zmien"
 
-#: templates/display/MergeOrRename.html:40
+#: templates/display/MergeOrRename.html.php:40
 msgid "Change references to this page from:"
 msgstr "Zmenené odkazy na túto stránku z:"
 
-#: lib/Page/MergeOrRename.php:239
+#: lib/Page/MergeOrRename.php:250
 #, php-format
 msgid "Changed references from %s to %s"
 msgstr "Zmenené odkazy na túto stránku od %s do %s"
 
-#: templates/edit/standard.inc:28
+#: lib/Page/EditPage.php:136
 msgid "Changelog is required"
 msgstr "Protokol zmien je vyžadovaný"
 
-#: templates/sync/diff.inc:27 templates/sync/diff.inc:63
-msgid "Checksum"
-msgstr "Kontrolný súčet"
-
-#: templates/edit/create.inc:26
+#: templates/edit/create.html.php:29
 msgid ""
 "Click on \"Create\" below if you want to create this page now and start "
 "editing."
@@ -201,199 +184,163 @@ msgstr ""
 "Ak chcete vytvoriť túto stránku a začať s jej úpravou, kliknite nižšie na "
 "\"Vytvoriť\"."
 
-#: templates/edit/create.inc:46
+#: templates/edit/create.html.php:46
 msgid "Create"
 msgstr "Vytvoriť"
 
-#: lib/Page/NewPage.php:129
+#: lib/Page/NewPage.php:133
 #, php-format
 msgid "Create Failed: %s"
 msgstr "Chyba pri vytváraní: %s"
 
-#: templates/history/header.inc:24 templates/sync/diff.inc:24
-#: templates/sync/diff.inc:60 templates/sync/list.inc:23
-#: templates/sync/list.inc:49
+#: templates/history/header.html.php:27
 msgid "Created"
 msgstr "Vytvorené"
 
-#: lib/Page/Search.php:145 templates/edit/create.inc:20
-#: templates/pagelist/header.inc:8
+#: templates/edit/create.html.php:20 templates/pagelist/header.html.php:8
 msgid "Creation Date"
 msgstr "Dátum vytvorenia"
 
-#: lib/Page/SyncPages.php:217
-msgid "Custom"
-msgstr "Vlastné"
+#: lib/Page/Search.php:142
+msgid "Current Version"
+msgstr "Aktuálna verzia"
 
-#: templates/display/AttachedFiles.html:11
+#: templates/display/AttachedFiles.html.php:13
 msgid "Date"
 msgstr "Dátum"
 
-#: lib/Page/DeletePage.php:94
+#: lib/Page/DeletePage.php:101
 msgid "Delete"
 msgstr "Vymazať"
 
-#: templates/display/standard.inc:55
-#, php-format
-msgid "Delete %s"
-msgstr "Vymazať %s"
-
-#: lib/Page/DeletePage.php:88 lib/Page/DeletePage.php:110
+#: lib/Page/DeletePage.php:95 lib/Page/DeletePage.php:117
 msgid "Delete Page"
 msgstr "Vymazať stránku"
 
-#: templates/history/header.inc:16
+#: lib/Page/StandardPage.php:353
 msgid "Delete Version"
 msgstr "Vymazať verziu"
 
-#: templates/history/summary.inc:6
+#: lib/Page/StandardPage.php:388
 #, php-format
 msgid "Delete Version %s"
 msgstr "Vymazať verziu %s"
 
-#: lib/Page/DeletePage.php:132
+#: lib/Page/DeletePage.php:139
 #, php-format
 msgid "Deleted version %s of \"%s\"."
 msgstr "Vymazaná verzia %s stránky \"%s\""
 
-#: templates/history/header.inc:26
+#: templates/history/header.html.php:28
 msgid "Diff From"
 msgstr "Zmeny od"
 
-#: templates/history/header.inc:27
+#: templates/history/header.html.php:29
 msgid "Diff To"
 msgstr "Zmeny po"
 
-#: diff.php:53 templates/diff/diff.inc:2 templates/sync/diff.inc:101
+#: diff.php:55 templates/diff/diff.html.php:2
 #, php-format
 msgid "Diff for %s between %s and %s"
 msgstr "Zmeny %s medzi %s a %s"
 
-#: lib/Page/SyncPages.php:237
-msgid "Display"
-msgstr "Zobraziť"
-
-#: templates/pagelist/summary.inc:3
+#: lib/Page.php:593
 #, php-format
 msgid "Display %s"
 msgstr "Zobraziť %s"
 
-#: templates/history/summary.inc:2 templates/pagelist/summary.inc:6
+#: lib/Page.php:599 lib/Page/StandardPage.php:384
 #, php-format
 msgid "Display Version %s"
 msgstr "Zobraziť verziu %s"
 
-#: templates/sync/diff.inc:96 templates/sync/list.inc:35
-msgid "Download"
-msgstr "Stiahnuť"
-
-#: templates/display/standard.inc:139
+#: templates/display/standard.html.php:57
 msgid "Download this page as:"
 msgstr "Stiahnuť túto stránku ako:"
 
-#: lib/Page/SyncPages.php:352
-msgid "Downloaded from remote server"
-msgstr "Prevzaté zo vzdialeného servera"
-
-#: templates/display/AttachedFiles.html:13
+#: templates/display/AttachedFiles.html.php:15
 msgid "Downloads"
 msgstr "Prevzaté súbory"
 
-#: lib/Page/SyncPages.php:223
-msgid "Driver"
-msgstr "Ovládaťč"
-
-#: lib/Page/SyncPages.php:240
-msgid "Edit"
-msgstr "Upraviť"
-
-#: preview.php:22 templates/display/standard.inc:24
+#: preview.php:24
 #, php-format
 msgid "Edit %s"
 msgstr "Upraviť %s"
 
-#: lib/Page/EditPage.php:117 templates/edit/standard.inc:21
+#: lib/Page/EditPage.php:162 templates/edit/standard.html.php:8
 msgid "Edit Page"
 msgstr "Upraviť stránku"
 
-#: templates/history/header.inc:18
+#: lib/Page/StandardPage.php:357
 msgid "Edit Version"
 msgstr "Upraviť verziu"
 
-#: templates/history/summary.inc:16
+#: lib/Page/StandardPage.php:397
 #, php-format
 msgid "Edit Version %s"
 msgstr "Upraviť verziu %s"
 
-#: templates/sync/diff.inc:98
-msgid "Edit local"
-msgstr "Upraviť lokálne"
-
-#: templates/sync/diff.inc:99
-msgid "Edit remote"
-msgstr "Upraviť vzdialené"
-
-#: templates/display/AttachedFiles.html:67
-msgid "Enter a name for this file (if blank, will use the file's current name)"
-msgstr ""
-"Zadajte názov pre tento súbor (prázdne znamená použiť aktuálny názov súboru)"
-
-#: lib/Page/MergeOrRename.php:233
+#: lib/Page/MergeOrRename.php:244
 #, php-format
 msgid "Error retrieving %s: %s"
 msgstr "Chyba pri preberaní %s: %s"
 
-#: lib/Page/AttachedFiles.php:99 lib/Page/AttachedFiles.php:238
+#: lib/Page/AttachedFiles.php:113 lib/Page/AttachedFiles.php:244
 #, php-format
 msgid "Error retrieving attachments: %s"
 msgstr "Chyba pri preberaní príloh: %s"
 
-#: lib/Page/AddPage.php:63
-#, php-format
-msgid "Error retrieving templates: %s"
-msgstr "Chyba pri preberaní šablón: %s"
-
-#: lib/Page/Search.php:151
+#: lib/Page/Search.php:152
 msgid "Exact Match"
 msgstr "Presná zhoda"
 
-#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:257
-msgid "Fetch page list"
-msgstr "Získať zoznam stránok"
+#: templates/display/AttachedFiles.html.php:61
+#: templates/display/AttachedFiles.html.php:116
+#, fuzzy
+msgid "File to attach"
+msgstr "Vyberte súbor na priloženie:"
 
-#: templates/sync/diff.inc:54
-msgid "Found same content in history"
-msgstr "Bol nájdený rovnaký obsah v histórii"
+#: templates/display/AttachedFiles.html.php:125
+#, fuzzy
+msgid "File to update"
+msgstr "Vyberte súbor na aktualizáciu"
 
-#: lib/Page.php:258
+#: lib/Page.php:267
 msgid "Guest"
 msgstr "Hosť"
 
-#: templates/display/standard.inc:141
+#: lib/Page/StandardPage.php:318
 msgid "HTML"
 msgstr "HTML"
 
-#: templates/display/standard.inc:88
+#: lib/Page/StandardPage.php:248
 msgid "Hi_story"
 msgstr "Hi_stória"
 
-#: templates/display/standard.inc:87
-#, php-format
-msgid "History of %s"
-msgstr "História stránky %s"
+#: templates/history/header.html.php:7
+#, fuzzy
+msgid "History"
+msgstr "Hi_stória"
 
-#: lib/Page/StandardHistoryPage.php:45
+#: lib/Page/StandardHistoryPage.php:61
 msgid "History page not found"
 msgstr "Stránka s históriou nebola nájdená"
 
-#: history.php:26 templates/history/header.inc:7
+#: history.php:28
 #, php-format
 msgid "History: %s"
 msgstr "História: %s"
 
-#: templates/display/MergeOrRename.html:26
-msgid "If a page with the new name already exists, then"
+#: templates/display/MergeOrRename.html.php:27
+#, fuzzy
+msgid "If a page with the new name already exists"
 msgstr "Ak už existuje stránka s rovnakým názvom, tak"
+
+#: templates/display/AttachedFiles.html.php:74
+#, fuzzy
+msgid "If blank, will use the file's current name"
+msgstr ""
+"Zadajte názov pre tento súbor (prázdne znamená použiť aktuálny názov súboru)"
 
 #: display.php:18 history.php:17
 msgid "Internal error viewing requested page"
@@ -404,167 +351,133 @@ msgstr "Systémová chyba pri prehliadaní vyžadovanej stránky"
 msgid "Internal error viewing requested page: %s"
 msgstr "Systémová chyba pri prehliadaní vyžadovanej stránky: %s"
 
-#: lib/Api.php:250
+#: lib/Api.php:258
 msgid "Invalid page requested."
 msgstr "Vyžiadali ste neplatnú stránku."
 
-#: templates/display/title.inc:6 templates/edit/standard.inc:20
+#: lib/Page/Search.php:143
+msgid "Last Author"
+msgstr "Posledný autor"
+
+#: lib/Page.php:359 lib/Page/EditPage.php:113
 #, php-format
 msgid "Last Modified %s by %s"
 msgstr "Naposledy zmenené %s používateľom %s"
 
-#: templates/display/standard.inc:142
+#: lib/Page/Search.php:144
+msgid "Last Update"
+msgstr "Posledná aktualizácia"
+
+#: lib/Page/StandardPage.php:322
 msgid "Latex"
 msgstr "Latex"
 
-#: lib/Page/LeastPopular.php:78
+#: lib/Application.php:75 lib/Page/LeastPopular.php:82
 msgid "Least Popular"
 msgstr "Najmenej obľúbené"
 
-#: lib/Page/SyncDiff.php:59 lib/Page/SyncDiff.php:66
-#: templates/sync/diff.inc:32 templates/sync/diff.inc:68
-msgid "Local"
-msgstr "Miestne"
-
-#: templates/sync/diff.inc:22 templates/sync/diff.inc:58
-msgid "Location"
-msgstr "Umiestnenie"
-
-#: templates/display/standard.inc:43
-#, php-format
-msgid "Lock %s"
-msgstr "Uzamknúť %s"
-
-#: lib/Page/DeletePage.php:88 lib/Page/RevertPage.php:75
-#: templates/display/title.inc:33 templates/edit/standard.inc:21
+#: lib/Page.php:378 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:127
+#: lib/Page/RevertPage.php:86
 msgid "Locked"
 msgstr "Uzamknuté"
 
-#: templates/display/standard.inc:63
-msgid "Merge/Rename"
-msgstr "Zlúčíť/premenovať"
-
-#: lib/Page/MergeOrRename.php:137
+#: lib/Page/MergeOrRename.php:148
 #, php-format
 msgid "Merge/Rename: %s"
 msgstr "Zlúčíť/premenovať: %s"
 
-#: lib/Page/MergeOrRename.php:198
+#: lib/Page/MergeOrRename.php:209
 #, php-format
 msgid "Merged \"%s\" into \"%s\"."
 msgstr "Zlúčené \"%s\" do \"%s\"."
 
-#: lib/Page/MergeOrRename.php:201
+#: lib/Page/MergeOrRename.php:212
 #, php-format
 msgid "Merged \"%s\" into \"%s\". New page: %s\n"
 msgstr "Zlúčené \"%s\" do \"%s\". Nová stránka: %s\n"
 
-#: lib/Page/MergeOrRename.php:194
+#: lib/Page/MergeOrRename.php:205
 #, php-format
 msgid "Merged from %s"
 msgstr "Zlúčené zo %s"
 
-#: lib/Page/MostPopular.php:78
+#: lib/Application.php:74 lib/Page/MostPopular.php:82
 msgid "Most Popular"
 msgstr "Najviac obľúbené"
 
-#: lib/Block/Page.php:46
+#: templates/display/AttachedFiles.html.php:70
+msgid "Name for this file"
+msgstr ""
+
+#: lib/Block/Page.php:54
 msgid "Name of wiki page to display"
 msgstr "Názov stránky wiki na zobrazenie"
 
-#: lib/Page.php:250
+#: lib/Page.php:259
 msgid "Never"
 msgstr "Nikdy"
 
-#: lib/Page/NewPage.php:104
+#: lib/Page/NewPage.php:108
 msgid "New Page"
 msgstr "Nová stránka"
 
-#: templates/edit/new.inc:20
+#: templates/edit/new.html.php:8
 #, php-format
 msgid "New Page: %s"
 msgstr "Nová stránka: %s"
 
-#: lib/Page/AttachedFiles.php:286
+#: lib/Page/AttachedFiles.php:292
 #, php-format
 msgid "New attachment \"%s\" to page \"%s\"."
 msgstr "Nová príloha \"%s\" do stránky \"%s\"."
 
-#: templates/display/MergeOrRename.html:15
+#: templates/display/MergeOrRename.html.php:16
 msgid "New name"
 msgstr "Nový názov"
 
-#: lib/Page/MergeOrRename.php:162
+#: lib/Page/MergeOrRename.php:173
 msgid "New name is the same as old name."
 msgstr "Nový názov sa zhoduje so starým názvom."
 
-#: templates/sync/list.inc:42
-msgid "New pages on local server"
-msgstr "Nové stránky na miestnom serveri"
-
-#: templates/sync/list.inc:16
-msgid "New pages on remote server"
-msgstr "Nové stránky na vzdialenom serveri"
-
-#: lib/Api.php:188 lib/Page/EditPage.php:167 lib/Page/SyncPages.php:349
+#: lib/Api.php:196 lib/Page/EditPage.php:212
 msgid "No changes made"
 msgstr "Neboli vykonané žiadne zmeny"
 
-#: templates/sync/list.inc:18 templates/sync/list.inc:44
-msgid "No pages found"
-msgstr "Neboli nájdené žiadne stránky"
-
-#: templates/sync/list.inc:70
-msgid "No pages to sync"
-msgstr "Žiadne stránky na synchronizáciu"
-
-#: lib/Page/Search.php:142 templates/edit/create.inc:17
-#: templates/pagelist/header.inc:5 templates/sync/list.inc:21
-#: templates/sync/list.inc:47 templates/sync/list.inc:73
+#: lib/Page/Search.php:141 templates/edit/create.html.php:17
+#: templates/pagelist/header.html.php:5
 msgid "Page"
 msgstr "Stránka"
 
-#: lib/Page/MergeOrRename.php:184
+#: lib/Page/MergeOrRename.php:195
 #, php-format
 msgid "Page \"%s\" already exists."
 msgstr "Stránka \"%s\" už existuje."
 
-#: lib/Page/SyncPages.php:375
-#, php-format
-msgid "Page \"%s\" was sucessfully uploaded from local to remote wiki."
-msgstr "Stránka \"%s\" bola úspešne nahraná z miestneho do vzdialeného wiki."
-
-#: lib/Page/SyncPages.php:361
-#, php-format
-msgid "Page \"%s\" was sucessfuly downloaded from remote to local wiki."
-msgstr ""
-"Stránka \"%s\" bola úspešne nahraná zo vzdialeného wiki do miestneho wiki."
-
-#: lib/Page/NewPage.php:127
+#: lib/Page/NewPage.php:131
 msgid "Page Created"
 msgstr "Stránka bola vytvorená"
 
-#: lib/Page/EditPage.php:170
+#: lib/Page/EditPage.php:215
 msgid "Page Saved"
 msgstr "Stránka bola uložená"
 
-#: templates/edit/create.inc:35
+#: templates/edit/create.html.php:38
 msgid "Page Template:"
 msgstr "Šablóna stránky:"
 
-#: lib/Page/Search.php:165
+#: lib/Page/Search.php:170
 msgid "Page Text Matches"
 msgstr "Text stránky sa zhoduje"
 
-#: lib/Page/Search.php:158
+#: lib/Page/Search.php:161
 msgid "Page Title Matches"
 msgstr "Názov stránky sa zhoduje"
 
-#: templates/pagelist/header.inc:10
+#: templates/pagelist/header.html.php:10
 msgid "Page Views"
 msgstr "Počet prehliadnutí"
 
-#: display.php:33 lib/Page/EditPage.php:90
+#: display.php:33 lib/Page/EditPage.php:98
 #, php-format
 msgid "Page failed to lock: %s"
 msgstr "Nepodarilo sa uzamknúť stránku: %s"
@@ -574,7 +487,7 @@ msgstr "Nepodarilo sa uzamknúť stránku: %s"
 msgid "Page failed to unlock: %s"
 msgstr "Nepodarilo sa odomknúť stránku: %s"
 
-#: lib/Driver/Sql.php:559 lib/Page/AddPage.php:48 lib/Page/NewPage.php:65
+#: lib/Driver/Sql.php:598 lib/Page/AddPage.php:61 lib/Page/NewPage.php:72
 msgid "Page name must not be empty"
 msgstr "Názov stránky nemôže byť prázdny"
 
@@ -582,243 +495,165 @@ msgstr "Názov stránky nemôže byť prázdny"
 msgid "Page unlocked"
 msgstr "Stránka bola odomknutá"
 
-#: lib/Application.php:59
+#: lib/Application.php:104
 msgid "Pages"
 msgstr "Stránky"
 
-#: lib/Page/NewPage.php:121
+#: lib/Page/NewPage.php:125
 msgid "Pages cannot be empty."
 msgstr "Stránky nemôžu byť prázdne"
 
-#: templates/sync/list.inc:68
-msgid "Pages to sync"
-msgstr "Stránky na synchronizáciu"
-
-#: lib/Page/SyncPages.php:235
-msgid "Password"
-msgstr "Heslo"
-
-#: templates/display/standard.inc:103
+#: lib/Page/StandardPage.php:263
 msgid "Permissio_ns"
 msgstr "Oprávne_nia"
 
-#: lib/Api.php:246
+#: lib/Api.php:254
 msgid "Permission denied."
 msgstr "Oprávnenie odopreté."
 
-#: templates/display/standard.inc:140
+#: lib/Page/StandardPage.php:314
 msgid "Plain Text"
 msgstr "Čistý text"
 
-#: lib/Page/SyncPages.php:226
-msgid "Prefix"
-msgstr "Predpona"
-
-#: templates/edit/new.inc:25 templates/edit/standard.inc:26
+#: templates/edit/new.html.php:17 templates/edit/standard.html.php:30
 msgid "Preview"
 msgstr "Náhľad"
 
-#: lib/Page/EditPage.php:154
+#: lib/Page/EditPage.php:199
 msgid "Random string did not match."
 msgstr "Náhodný reťazec sa nezhoduje."
 
-#: lib/Page/RecentChanges.php:101
+#: lib/Page/RecentChanges.php:120
 msgid "Recent Changes"
 msgstr "Posledné zmeny"
 
-#: lib/Page/AttachedFiles.php:61
+#: lib/Page/AttachedFiles.php:72
 #, php-format
 msgid "Referrer \"%s\" does not exist."
 msgstr "Referrer \"%s\" neexistuje."
 
-#: lib/Page/AttachedFiles.php:115
+#: lib/Page/AttachedFiles.php:129
 #, php-format
 msgid "Reload \"%s\""
 msgstr "Opäť načítať \"%s\""
 
-#: templates/history/header.inc:8
+#: lib/Page/StandardPage.php:351
 msgid "Reload History"
 msgstr "Opäť načítať históriu"
 
-#: templates/display/title.inc:31 templates/display/title.inc:32
+#: lib/Page.php:375 lib/Page.php:376
 msgid "Reload Page"
 msgstr "Opäť načitať stránku"
 
-#: lib/Page/SyncDiff.php:60 lib/Page/SyncDiff.php:65
-#: templates/sync/diff.inc:40 templates/sync/diff.inc:76
-msgid "Remote"
-msgstr "Vzdialené"
-
-#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:282
-msgid "Remove login info"
-msgstr "Odstrániť prihlasovacie údaje"
-
-#: lib/Page/MergeOrRename.php:207
+#: lib/Page/MergeOrRename.php:218
 #, php-format
 msgid "Renamed \"%s\" to \"%s\"."
 msgstr "Premenované \"%s\" na \"%s\"."
 
-#: lib/Page/MergeOrRename.php:210
+#: lib/Page/MergeOrRename.php:221
 #, php-format
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr "Premenované \"%s\" na \"%s\". Nová stránka: %s\n"
 
-#: lib/Driver/Sql.php:627
+#: lib/Driver/Sql.php:666
 #, php-format
 msgid "Renamed page from %s"
 msgstr "Premenovaná stránka zo %s"
 
-#: lib/Page/SyncPages.php:179
-msgid "Reset"
-msgstr "Vynulovať"
-
-#: templates/history/header.inc:20
+#: lib/Page/StandardPage.php:358
 msgid "Restore Version"
 msgstr "Obnoviť verziu"
 
-#: lib/Page/RevertPage.php:81
+#: lib/Page/RevertPage.php:92
 msgid "Revert"
 msgstr "Vrátiť"
 
-#: lib/Page/RevertPage.php:75 lib/Page/RevertPage.php:97
+#: lib/Page/RevertPage.php:86 lib/Page/RevertPage.php:108
 msgid "Revert Page"
 msgstr "Vrátiť stránku"
 
-#: templates/history/summary.inc:26
+#: lib/Page/StandardPage.php:403
 #, php-format
 msgid "Revert to version %s"
 msgstr "Vrátiť na verziu %s"
 
-#: lib/Page/RevertPage.php:118
+#: lib/Page/RevertPage.php:129
 #, php-format
 msgid "Reverted to version %s of \"%s\"."
 msgstr "Vrátené na verziu %s, stránka \"%s\"."
 
-#: lib/Driver/Sql.php:563
+#: lib/Driver/Sql.php:602
 msgid "Robots are not allowed to create pages"
 msgstr "Roboti nemajú právo vytvárať stránky"
 
-#: templates/display/standard.inc:75
+#: lib/Page/StandardPage.php:238
 msgid "S_imilar Pages"
 msgstr "Podobné stránky"
 
-#: templates/edit/new.inc:24 templates/edit/standard.inc:25
+#: templates/edit/new.html.php:16 templates/edit/standard.html.php:29
 msgid "Save"
 msgstr "Uložiť"
 
-#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:271
-msgid "Save login info"
-msgstr "Uložiť prihlasovacie údaje"
-
-#: lib/Page/Search.php:190 templates/menu.inc:17
+#: lib/Page/Search.php:201
 msgid "Search"
 msgstr "Hľadať"
 
-#: templates/pagelist/search.inc:1
+#: templates/pagelist/search.html.php:1
 msgid "Search Results"
 msgstr "Výsledky hľadania"
 
-#: templates/display/AttachedFiles.html:58
-#: templates/display/AttachedFiles.html:110
-msgid "Select file to attach:"
-msgstr "Vyberte súbor na priloženie:"
-
-#: templates/display/AttachedFiles.html:119
-msgid "Select the file to update"
-msgstr "Vyberte súbor na aktualizáciu"
-
-#: templates/display/standard.inc:102
-#, php-format
-msgid "Set permissions for %s"
-msgstr "Nastavené oprávnenia pre %s"
-
-#: templates/sync/list.inc:79
-msgid "Show changes"
-msgstr "Zobraziť zmeny"
-
-#: lib/Page/RecentChanges.php:53 templates/display/title.inc:14
+#: lib/Page.php:357 lib/Page/RecentChanges.php:68
 #, php-format
 msgid "Show changes for %s"
 msgstr "Zobraziť zmeny pre %s"
 
-#: lib/Page/RecentChanges.php:60
+#: lib/Page/RecentChanges.php:75
 #, php-format
 msgid "Show version %s"
 msgstr "Zobraziť verziu %s"
 
-#: templates/display/standard.inc:75
-msgid "Similar Pages"
-msgstr "Podobné stránky"
-
-#: lib/Page/LikePages.php:67
+#: lib/Page/LikePages.php:84
 #, php-format
 msgid "Similar Pages: %s"
 msgstr "Podobné stránky: %s"
 
-#: templates/edit/standard.inc:40
-msgid "Spam Protection - Enter the letters below:"
+#: templates/edit/standard.html.php:22
+#, fuzzy
+msgid "Spam Protection - Enter the following letters below:"
 msgstr "Ochrana proti spamu - zadajte písmená uvedené nižšie:"
 
-#: templates/display/MergeOrRename.html:33
+#: templates/display/MergeOrRename.html.php:34
 msgid "Stop and don't do anything"
 msgstr "Zastaviť a nič neurobiť"
 
-#: lib/Page/SyncPages.php:217
-msgid "Stored"
-msgstr "Uložené"
-
-#: templates/display/MergeOrRename.html:61
+#: templates/display/MergeOrRename.html.php:60
 msgid "Submit"
 msgstr "Odoslať"
 
-#: lib/Page/DeletePage.php:126
+#: lib/Page/DeletePage.php:133
 #, php-format
 msgid "Successfully deleted \"%s\"."
 msgstr "Úspešne zmazané \"%s\"."
 
-#: lib/Page/AttachedFiles.php:187
+#: lib/Page/AttachedFiles.php:193
 #, php-format
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr "Úspešne zmazaná verzia %s stránky \"%s\" zo \"%s\""
 
-#: lib/Page/SyncDiff.php:100
-msgid "Sync Diff"
-msgstr "Synchronizovať zmeny"
-
-#: lib/Page/SyncPages.php:151
-msgid "Sync Pages"
-msgstr "Synchronizovať stránky"
-
-#: lib/Page/SyncPages.php:178
-msgid "Sync data"
-msgstr "Synchronizovať dáta"
-
-#: lib/Page/SyncPages.php:287
-msgid "Sync login info was removed."
-msgstr "Synchronizačné prihlasovacie údaje boli odstránené."
-
-#: lib/Page/SyncPages.php:278
-msgid "Sync login info was stored"
-msgstr "Synchronizačné prihlasovacie údaje boli uložené"
-
-#: lib/Page/SyncDiff.php:46
-msgid "Synchronization is disabled"
-msgstr "Synchronizácia je vypnutá"
-
-#: lib/Page.php:459
+#: lib/Page.php:521
 msgid "Table of Contents"
 msgstr "Obsah"
 
-#: lib/Page/StandardPage.php:253
+#: lib/Page/StandardPage.php:439
 msgid "The page is already locked."
 msgstr "Táto stránka je už uzamknutá."
 
-#: lib/Page/AttachedFiles.php:263
+#: lib/Page/AttachedFiles.php:269
 #, php-format
 msgid "There is already an attachment named \"%s\"."
 msgstr "Príloha s názvom \"%s\" už existuje."
 
-#: lib/Page/MergeOrRename.php:160 lib/Page/MergeOrRename.php:166
+#: lib/Page/MergeOrRename.php:171 lib/Page/MergeOrRename.php:177
 msgid "This is a required field."
 msgstr "Toto je vyžadované pole"
 
@@ -826,95 +661,65 @@ msgstr "Toto je vyžadované pole"
 msgid "This page does not have a history"
 msgstr "Táto stránka nemá históriu"
 
-#: display.php:133
+#: display.php:136
 #, php-format
 msgid "This page is locked by %s for %d Minutes."
 msgstr "Táto stránka je už uzamknutá používateľom %s na %d minút."
 
-#: lib/Page/MergeOrRename.php:112
+#: lib/Page/MergeOrRename.php:133
 #, php-format
 msgid "This page is referenced from %d other page(s)."
 msgstr "Stránky odkazujúce na túto stránku: %d."
 
-#: templates/display/standard.inc:35
+#: lib/Page/StandardPage.php:198
 msgid "Un_lock"
 msgstr "Odomknúť"
 
-#: lib/Page/StandardPage.php:70
+#: lib/Page/StandardPage.php:83
 #, php-format
 msgid "Unable to create %s"
 msgstr "Nepodarilo sa vytvoriť %s"
 
-#: lib/Page/StandardPage.php:80
-msgid "Unable to create WikiHome. The wiki is not configured."
-msgstr "Nepodarilo sa vytvoriť domovskú stránku. Wiki nie je nakonfigurované."
+#: lib/Page/StandardPage.php:93
+msgid "Unable to create Wiki/Home. The wiki is not configured."
+msgstr ""
+"Nepodarilo sa vytvoriť Wiki/domovskú stránku. Wiki nie je nakonfigurované."
 
-#: templates/display/standard.inc:34
-#, php-format
-msgid "Unlock %s"
-msgstr "Odomknúť %s"
-
-#: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:368
-#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:499
-#: lib/Page.php:510 lib/Page.php:515 lib/Page.php:520 lib/Page.php:525
-#: lib/Page.php:565
+#: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:413
+#: lib/Page.php:421 lib/Page.php:429 lib/Page.php:437 lib/Page.php:573
+#: lib/Page.php:612 lib/Page.php:617 lib/Page.php:622 lib/Page.php:627
+#: lib/Page.php:667
 msgid "Unsupported"
 msgstr "Nepodporované"
 
-#: templates/display/AttachedFiles.html:145
+#: templates/display/AttachedFiles.html.php:151
 msgid "Update File"
 msgstr "Aktualizovať súbor"
 
-#: templates/display/AttachedFiles.html:104
+#: templates/display/AttachedFiles.html.php:110
 msgid "Update an Attachment"
 msgstr "Aktualizovať prílohu"
 
-#: lib/Page/AttachedFiles.php:283
+#: lib/Page/AttachedFiles.php:289
 #, php-format
 msgid "Updated attachment \"%s\" on page \"%s\"."
 msgstr "Aktualizovaná príloha \"%s\" na stránke \"%s\"."
 
-#: templates/sync/diff.inc:97 templates/sync/list.inc:61
-msgid "Upload"
-msgstr "Nahrať"
-
-#: lib/Page/SyncPages.php:374
-msgid "Uploaded from remote server"
-msgstr "Nahrať zo vzdialeného servera"
-
-#: lib/Page/SyncPages.php:229
-msgid "Url"
-msgstr "URL"
-
-#: lib/Page/SyncPages.php:232
-msgid "User"
-msgstr "Používateľ"
-
-#: lib/Page/Search.php:143 templates/edit/create.inc:18
-#: templates/history/header.inc:13 templates/pagelist/header.inc:6
-#: templates/sync/diff.inc:23 templates/sync/diff.inc:59
-#: templates/sync/list.inc:22 templates/sync/list.inc:48
-#: templates/display/AttachedFiles.html:9
+#: templates/display/AttachedFiles.html.php:11
+#: templates/edit/create.html.php:18 templates/history/header.html.php:15
+#: templates/pagelist/header.html.php:6
 msgid "Version"
 msgstr "Verzia"
 
-#: lib/Page/SyncPages.php:160
-msgid "View local"
-msgstr "Zobraziť miestne"
-
-#: lib/Page/AttachedFiles.php:292
+#: lib/Page/AttachedFiles.php:298
 msgid "View page: "
 msgstr "Zobraziť stránku:"
 
-#: lib/Page/SyncPages.php:162
-msgid "View remote"
-msgstr "Zobraziť vzdialené"
-
-#: lib/Api.php:205
+#: lib/Api.php:213
 msgid "Wiki Templates"
 msgstr "Šablóny wiki"
 
-#: lib/Block/Page.php:20
+#: lib/Block/Page.php:28
 msgid "Wiki page"
 msgstr "Stránka wiki"
 
@@ -926,28 +731,27 @@ msgstr "Nemáte oprávnenie uzamknúť túto stránku"
 msgid "You are not allowed to unlock this page"
 msgstr "Nemáte oprávnenie odomknúť túto stránku"
 
-#: lib/Page/AttachedFiles.php:179
+#: lib/Page/AttachedFiles.php:185
 msgid "You do not have permission to delete attachments from this page."
 msgstr "Nemáte oprávnenie vymazať prílohy z tejto stránky."
 
-#: lib/Page/AttachedFiles.php:221 lib/Page/MergeOrRename.php:175
-#: lib/Page/MergeOrRename.php:188
+#: lib/Page/AttachedFiles.php:227 lib/Page/MergeOrRename.php:186
+#: lib/Page/MergeOrRename.php:199
 #, php-format
 msgid "You do not have permission to edit \"%s\""
 msgstr "Nemáte oprávnenie na úpravu \"%s\""
 
-#: lib/Page/NewPage.php:117
+#: lib/Page/NewPage.php:121
 #, php-format
 msgid "You don't have permission to create \"%s\"."
 msgstr "Nemáte oprávnenie na vytvorenie \"%s\"."
 
-#: lib/Page/DeletePage.php:138
+#: lib/Page/DeletePage.php:145
 #, php-format
 msgid "You don't have permission to delete \"%s\"."
 msgstr "Nemáte oprávnenie na vymazanie \"%s\"."
 
-#: lib/Api.php:170 lib/Page/EditPage.php:149 lib/Page/RevertPage.php:122
-#: lib/Page/SyncPages.php:343
+#: lib/Api.php:178 lib/Page/EditPage.php:194 lib/Page/RevertPage.php:133
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
 msgstr "Nemáte oprávnenie na úpravu \"%s\"."
@@ -956,58 +760,189 @@ msgstr "Nemáte oprávnenie na úpravu \"%s\"."
 msgid "You don't have permission to view this page."
 msgstr "Nemáte oprávnenie na zobrazenie tejto stránky"
 
-#: lib/Page/AttachedFiles.php:229
+#: lib/Page/AttachedFiles.php:235
 msgid "You must enter a change description to attach this file."
 msgstr "Musíte zadať popis zmeny, aby ste mohli priložiť tento súbor."
 
-#: lib/Api.php:174 lib/Page/EditPage.php:160
+#: lib/Api.php:182 lib/Page/EditPage.php:205
 msgid "You must provide a change log."
 msgstr "Musíte poskytnúť protokol zmien."
 
-#: lib/Wicked.php:105
+#: lib/Application.php:73
 msgid "_All Pages"
 msgstr "Všetky stránky"
 
-#: templates/display/standard.inc:70
+#: lib/Page/StandardPage.php:233
 msgid "_Backlinks"
 msgstr "Spätné odkazy"
 
-#: templates/display/standard.inc:56
+#: lib/Page/StandardPage.php:218
 msgid "_Delete"
 msgstr "Vymazať"
 
-#: templates/display/standard.inc:25
+#: lib/Page/StandardPage.php:190
 msgid "_Edit"
 msgstr "Upraviť"
 
-#: lib/Wicked.php:102
+#: lib/Application.php:70
 msgid "_Home"
 msgstr "Domov"
 
-#: templates/display/standard.inc:44
+#: lib/Page/StandardPage.php:206
 msgid "_Lock"
 msgstr "Uzamknúť"
 
-#: templates/display/standard.inc:64
+#: lib/Page/StandardPage.php:227
 msgid "_Merge/Rename"
 msgstr "Zlúčiť/premenovať"
 
-#: lib/Wicked.php:104
+#: lib/Application.php:72
 msgid "_Recent Changes"
 msgstr "Posledné zmeny"
 
-#: lib/Wicked.php:103
+#: lib/Application.php:71
 msgid "_Usage"
 msgstr "Návod"
 
-#: lib/Page/StandardPage.php:279
+#: lib/Page/StandardPage.php:465
 msgid "a guest"
 msgstr "hosťovi"
 
-#: lib/Page/AttachedFiles.php:201
+#: lib/Page/AttachedFiles.php:207
 msgid "attachment"
 msgstr "príloha"
 
-#: templates/display/standard.inc:143
+#: lib/Page/StandardPage.php:326
 msgid "reStructuredText"
 msgstr "reStructuredText"
+
+#~ msgid "Actions"
+#~ msgstr "Operácie"
+
+#~ msgid "By default, your login data will be used"
+#~ msgstr "Štandardne budú použité Vaše prihlasovacie údaje"
+
+#~ msgid "Checksum"
+#~ msgstr "Kontrolný súčet"
+
+#~ msgid "Custom"
+#~ msgstr "Vlastné"
+
+#~ msgid "Display"
+#~ msgstr "Zobraziť"
+
+#~ msgid "Download"
+#~ msgstr "Stiahnuť"
+
+#~ msgid "Downloaded from remote server"
+#~ msgstr "Prevzaté zo vzdialeného servera"
+
+#~ msgid "Driver"
+#~ msgstr "Ovládaťč"
+
+#~ msgid "Edit"
+#~ msgstr "Upraviť"
+
+#~ msgid "Edit local"
+#~ msgstr "Upraviť lokálne"
+
+#~ msgid "Edit remote"
+#~ msgstr "Upraviť vzdialené"
+
+#~ msgid "Error retrieving templates: %s"
+#~ msgstr "Chyba pri preberaní šablón: %s"
+
+#~ msgid "Fetch page list"
+#~ msgstr "Získať zoznam stránok"
+
+#~ msgid "Found same content in history"
+#~ msgstr "Bol nájdený rovnaký obsah v histórii"
+
+#~ msgid "Local"
+#~ msgstr "Miestne"
+
+#~ msgid "Location"
+#~ msgstr "Umiestnenie"
+
+#~ msgid "New pages on local server"
+#~ msgstr "Nové stránky na miestnom serveri"
+
+#~ msgid "New pages on remote server"
+#~ msgstr "Nové stránky na vzdialenom serveri"
+
+#~ msgid "No pages found"
+#~ msgstr "Neboli nájdené žiadne stránky"
+
+#~ msgid "No pages to sync"
+#~ msgstr "Žiadne stránky na synchronizáciu"
+
+#~ msgid "Page \"%s\" was sucessfully uploaded from local to remote wiki."
+#~ msgstr ""
+#~ "Stránka \"%s\" bola úspešne nahraná z miestneho do vzdialeného wiki."
+
+#~ msgid "Page \"%s\" was sucessfuly downloaded from remote to local wiki."
+#~ msgstr ""
+#~ "Stránka \"%s\" bola úspešne nahraná zo vzdialeného wiki do miestneho wiki."
+
+#~ msgid "Pages to sync"
+#~ msgstr "Stránky na synchronizáciu"
+
+#~ msgid "Password"
+#~ msgstr "Heslo"
+
+#~ msgid "Prefix"
+#~ msgstr "Predpona"
+
+#~ msgid "Remote"
+#~ msgstr "Vzdialené"
+
+#~ msgid "Remove login info"
+#~ msgstr "Odstrániť prihlasovacie údaje"
+
+#~ msgid "Reset"
+#~ msgstr "Vynulovať"
+
+#~ msgid "Save login info"
+#~ msgstr "Uložiť prihlasovacie údaje"
+
+#~ msgid "Show changes"
+#~ msgstr "Zobraziť zmeny"
+
+#~ msgid "Stored"
+#~ msgstr "Uložené"
+
+#~ msgid "Sync Diff"
+#~ msgstr "Synchronizovať zmeny"
+
+#~ msgid "Sync Pages"
+#~ msgstr "Synchronizovať stránky"
+
+#~ msgid "Sync data"
+#~ msgstr "Synchronizovať dáta"
+
+#~ msgid "Sync login info was removed."
+#~ msgstr "Synchronizačné prihlasovacie údaje boli odstránené."
+
+#~ msgid "Sync login info was stored"
+#~ msgstr "Synchronizačné prihlasovacie údaje boli uložené"
+
+#~ msgid "Synchronization is disabled"
+#~ msgstr "Synchronizácia je vypnutá"
+
+#~ msgid "Upload"
+#~ msgstr "Nahrať"
+
+#~ msgid "Uploaded from remote server"
+#~ msgstr "Nahrať zo vzdialeného servera"
+
+#~ msgid "Url"
+#~ msgstr "URL"
+
+#~ msgid "User"
+#~ msgstr "Používateľ"
+
+#~ msgid "View local"
+#~ msgstr "Zobraziť miestne"
+
+#~ msgid "View remote"
+#~ msgstr "Zobraziť vzdialené"

@@ -22,8 +22,8 @@ class Horde_Pdf_WriterTest extends PHPUnit_Framework_TestCase
         $options = array('orientation' => 'L', 'unit' => 'pt', 'format' => 'A3');
         $pdf = new Horde_Pdf_Writer($options);
 
-        $this->assertEquals('L',     $pdf->getDefaultOrientation());
-        $this->assertEquals(841.89,  $pdf->getFormatHeight());
+        $this->assertEquals('L', $pdf->getDefaultOrientation());
+        $this->assertEquals(841.89, $pdf->getFormatHeight());
         $this->assertEquals(1190.55, $pdf->getFormatWidth());
     }
 
@@ -31,10 +31,10 @@ class Horde_Pdf_WriterTest extends PHPUnit_Framework_TestCase
     {
         $pdf = new Horde_Pdf_Writer();
 
-        $this->assertEquals('P',     $pdf->getDefaultOrientation());
+        $this->assertEquals('P', $pdf->getDefaultOrientation());
         $this->assertTrue(abs($pdf->getScale() - 2.8346456692913) < 0.000001);
-        $this->assertEquals(595.28,  $pdf->getFormatHeight());
-        $this->assertEquals(841.89,  $pdf->getFormatWidth());
+        $this->assertEquals(841.89, $pdf->getFormatHeight());
+        $this->assertEquals(595.28, $pdf->getFormatWidth());
     }
 
     public function testHelloWorldUncompressed()
@@ -215,7 +215,7 @@ class Horde_Pdf_WriterTest extends PHPUnit_Framework_TestCase
         $pdf->write(15, 'here', $link);
         $pdf->addPage();
         $pdf->setLink($link);
-        $pdf->image(dirname(__FILE__) . '/fixtures/horde-power1.png', 15, 15, 0, 0, '', 'http://pear.horde.org/');
+        $pdf->image(__DIR__ . '/fixtures/horde-power1.png', 15, 15, 0, 0, '', 'http://pear.horde.org/');
         $actual = $pdf->getOutput();
 
         $expected = $this->fixture('links');
@@ -235,7 +235,7 @@ class Horde_Pdf_WriterTest extends PHPUnit_Framework_TestCase
 
     protected function fixture($name)
     {
-        $filename = dirname(__FILE__) . "/fixtures/{$name}.pdf";
+        $filename = __DIR__ . "/fixtures/{$name}.pdf";
         $fixture = file_get_contents($filename);
 
         $this->assertInternalType('string', $fixture);
@@ -282,7 +282,7 @@ class HeaderFooterStylesPdf extends Horde_Pdf_Writer
 
     public function chapterBody($file)
     {
-        $filename = dirname(__FILE__) . "/fixtures/$file";
+        $filename = __DIR__ . "/fixtures/$file";
         $text = file_get_contents($filename);
         $this->setFont('Times', '', 12);
         $this->multiCell(0, 5, $text);

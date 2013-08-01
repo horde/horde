@@ -5,7 +5,7 @@
  * The data is read from standard input, the tasklist and user name passed as
  * parameters.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -13,7 +13,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-$baseFile = dirname(__FILE__) . '/../../nag/lib/Application.php';
+$baseFile = __DIR__ . '/../../nag/lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {

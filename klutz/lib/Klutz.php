@@ -38,7 +38,7 @@ define('KLUTZ_FLD_HTML', 3);
 /**
  * Klutz Base Class.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Marcus I. Ryan <marcus@riboflavin.net>
  * @package Klutz

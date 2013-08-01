@@ -2,6 +2,6 @@
 <html>
  <head>
   <title><?php echo $app_name ?>: System Capabilities Test</title>
-  <style type="text/css"><?php echo file_get_contents(dirname(__FILE__) . '/test.css') ?></style>
+  <style type="text/css"><?php echo file_get_contents(__DIR__ . '/test.css') ?></style>
  </head>
  <body>

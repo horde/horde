@@ -8,7 +8,7 @@
  * Session variables set (stored in 'horde_prefs'):
  * 'advanced' - (boolean) If true, display advanced prefs.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -34,13 +34,6 @@ class Horde_Core_Prefs_Ui
      * @var array
      */
     public $prefs = array();
-
-    /**
-     * Data overrides (for 'enum' and 'multienum' types).
-     *
-     * @var array
-     */
-    public $override = array();
 
     /**
      * Suppressed preference entries.
@@ -107,24 +100,17 @@ class Horde_Core_Prefs_Ui
         $this->vars = $vars;
 
         /* Load the application's base environment. */
-        try {
-            $registry->pushApp($this->app);
-        } catch (Horde_Exception $e) {
-            if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
-                $registry->authenticateFailure($this->app, $e);
-            }
-            throw $e;
-        }
+        $registry->pushApp($this->app);
 
         /* Load preferences. */
         $this->_loadPrefs($this->app);
 
-        /* Run app-specific init code. */
-        $registry->callAppMethod($this->app, 'prefsInit', array('args' => array($this)));
-
-        if ($this->group &&
-            !in_array($this->group, $this->suppressGroups)) {
-            $registry->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
+        /* Suppress prefs groups, as needed. */
+        foreach ($this->_getPrefGroups() as $key => $val) {
+            if (!empty($val['suppress']) &&
+                (!is_callable($val['suppress']) || $val['suppress']())) {
+                $this->suppressGroups[] = $key;
+            }
         }
     }
 
@@ -149,6 +135,8 @@ class Horde_Core_Prefs_Ui
      */
     public function getChangeablePrefs($group = null)
     {
+        global $prefs;
+
         if (is_null($group)) {
             if (!$this->group) {
                 return array();
@@ -157,41 +145,55 @@ class Horde_Core_Prefs_Ui
             $group = $this->group;
         }
 
-        return (empty($this->prefGroups[$group]['members']) ||
-                in_array($group, $this->suppressGroups))
-            ? array()
-            : $this->_getChangeablePrefs($this->prefGroups[$group]['members']);
-    }
+        if (empty($this->prefGroups[$group]['members']) ||
+            in_array($group, $this->suppressGroups)) {
+            return array();
+        }
 
-    /**
-     * Returns the list of changeable prefs.
-     *
-     * @param array $preflist  The list of preferences to check.
-     *
-     * @return array  The list of changeable prefs.
-     */
-    protected function _getChangeablePrefs($preflist)
-    {
         $cprefs = array();
 
-        foreach ($preflist as $pref) {
+        foreach ($this->prefGroups[$group]['members'] as $pref) {
+            $p = $this->prefs[$pref];
+
             /* Changeable pref if:
              *   1. Not locked
-             *   2. Not in suppressed array ($this->suppress)
+             *   2. Not in suppressed array ($this->suppress) or supressed
+             *      variable is empty
              *   3. Not an advanced pref -or- in advanced view mode
-             *   4. Not an implicit pref */
+             *   4. Not an implicit pref
+             *   5. All required prefs are non-zero
+             *   6. All required_nolock prefs are not locked */
             if (!$GLOBALS['prefs']->isLocked($pref) &&
                 !in_array($pref, $this->suppress) &&
-                (empty($this->prefs[$pref]['advanced']) ||
+                (empty($p['advanced']) ||
                  $GLOBALS['session']->get('horde', 'prefs_advanced')) &&
-                ((!empty($this->prefs[$pref]['type']) &&
-                 ($this->prefs[$pref]['type'] != 'implicit')))) {
-                if ($this->prefs[$pref]['type'] == 'container') {
-                    if (isset($this->prefs[$pref]['value']) &&
-                        is_array($this->prefs[$pref]['value'])) {
-                        $cprefs = array_merge($cprefs, $this->prefs[$pref]['value']);
+                ((!empty($p['type']) && ($p['type'] != 'implicit')))) {
+                if (!empty($p['suppress']) &&
+                    (!is_callable($p['suppress']) || $p['suppress']())) {
+                    continue;
+                }
+
+                if ($p['type'] == 'container') {
+                    if (isset($p['value']) && is_array($p['value'])) {
+                        $cprefs = array_merge($cprefs, $p['value']);
                     }
                 } else {
+                    if (isset($p['requires'])) {
+                        foreach ($p['requires'] as $val) {
+                            if (!$prefs->getValue($val)) {
+                                continue 2;
+                            }
+                        }
+                    }
+
+                    if (isset($p['requires_nolock'])) {
+                        foreach ($p['requires_nolock'] as $val) {
+                            if ($prefs->isLocked($val)) {
+                                continue 2;
+                            }
+                        }
+                    }
+
                     $cprefs[] = $pref;
                 }
             }
@@ -270,7 +272,6 @@ class Horde_Core_Prefs_Ui
 
         $this->nobuttons = false;
         $this->suppress = array();
-        $GLOBALS['registry']->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
     }
 
     /*
@@ -282,23 +283,29 @@ class Horde_Core_Prefs_Ui
      */
     protected function _handleForm($preflist, $save)
     {
-        global $notification, $prefs, $registry;
+        global $injector, $notification, $prefs;
 
         $updated = false;
 
         /* Run through the action handlers */
         foreach ($preflist as $pref) {
+            $pref_updated = false;
+
+            if (isset($this->prefs[$pref]['on_init']) &&
+                is_callable($this->prefs[$pref]['on_init'])) {
+
+                $this->prefs[$pref]['on_init']($this);
+            }
+
             switch ($this->prefs[$pref]['type']) {
             case 'checkbox':
-                $updated |= $save->setValue($pref, intval(isset($this->vars->$pref)));
+                $pref_updated = $save->setValue($pref, intval(isset($this->vars->$pref)));
                 break;
 
             case 'enum':
-                $enum = isset($this->override[$pref])
-                    ? $this->override[$pref]
-                    : $this->prefs[$pref]['enum'];
+                $enum = $this->prefs[$pref]['enum'];
                 if (isset($enum[$this->vars->$pref])) {
-                    $updated |= $save->setValue($pref, $this->vars->$pref);
+                    $pref_updated = $save->setValue($pref, $this->vars->$pref);
                 } else {
                     $this->_errors[$pref] = Horde_Core_Translation::t("An illegal value was specified.");
                 }
@@ -308,10 +315,7 @@ class Horde_Core_Prefs_Ui
                 $set = array();
 
                 if (is_array($this->vars->$pref)) {
-                    $enum = isset($this->override[$pref])
-                        ? $this->override[$pref]
-                        : $this->prefs[$pref]['enum'];
-
+                    $enum = $this->prefs[$pref]['enum'];
                     foreach ($this->vars->$pref as $val) {
                         if (isset($enum[$val])) {
                             $set[] = $val;
@@ -322,7 +326,7 @@ class Horde_Core_Prefs_Ui
                     }
                 }
 
-                $updated |= $save->setValue($pref, @serialize($set));
+                $pref_updated = $save->setValue($pref, @serialize($set));
                 break;
 
             case 'number':
@@ -332,22 +336,35 @@ class Horde_Core_Prefs_Ui
                 } elseif (empty($num) && empty($this->prefs[$pref]['zero'])) {
                     $this->_errors[$pref] = Horde_Core_Translation::t("This value must be non-zero.");
                 } else {
-                    $updated |= $save->setValue($pref, $num);
+                    $pref_updated = $save->setValue($pref, $num);
                 }
                 break;
 
             case 'password':
             case 'text':
             case 'textarea':
-                $updated |= $save->setValue($pref, $this->vars->$pref);
+                $pref_updated = $save->setValue($pref, $this->vars->$pref);
                 break;
 
 
             case 'special':
                 /* Code for special elements written specifically for each
                  * application. */
-                $updated = $updated | (bool)$registry->callAppMethod($this->app, 'prefsSpecialUpdate', array('args' => array($this, $pref)));
+                if (isset($this->prefs[$pref]['handler']) &&
+                    ($ob = $injector->getInstance($this->prefs[$pref]['handler']))) {
+                    $ob->init($this);
+                    $pref_updated = $ob->update($this);
+                }
                 break;
+            }
+
+            if ($pref_updated) {
+                $updated = true;
+
+                if (isset($this->prefs[$pref]['on_change']) &&
+                    is_callable($this->prefs[$pref]['on_change'])) {
+                    $this->prefs[$pref]['on_change']();
+                }
             }
         }
 
@@ -360,8 +377,6 @@ class Horde_Core_Prefs_Ui
                 // Throws Exception caught in _identitiesUpdate().
                 $save->verify();
             }
-
-            $registry->callAppMethod($this->app, 'prefsCallback', array('args' => array($this)));
 
             if ($prefs instanceof Horde_Prefs_Session) {
                 $notification->push(Horde_Core_Translation::t("Your preferences have been updated for the duration of this session."), 'horde.success');
@@ -387,7 +402,7 @@ class Horde_Core_Prefs_Ui
      */
     public function selfUrl($options = array())
     {
-        $url = Horde::getServiceLink('prefs', $this->app);
+        $url = $GLOBALS['registry']->getServiceLink('prefs', $this->app);
         if ($this->group) {
             $url->add('group', $this->group);
         }
@@ -403,10 +418,12 @@ class Horde_Core_Prefs_Ui
     /**
      * Generate the UI for the preferences interface, either for a
      * specific group, or the group selection interface.
+     *
+     * @throws Horde_Exception
      */
     public function generateUI()
     {
-        global $notification, $prefs, $registry;
+        global $notification, $page_output, $prefs, $registry;
 
         $columns = $pref_list = array();
         $identities = false;
@@ -424,7 +441,7 @@ class Horde_Core_Prefs_Ui
             /* Add necessary init stuff for identities pages. */
             if (isset($prefgroups[$this->group]['type']) &&
                 ($prefgroups[$this->group]['type'] == 'identities')) {
-                Horde::addScriptFile('identityselect.js', 'horde');
+                $page_output->addScriptFile('identityselect.js', 'horde');
                 $identities = true;
 
                 /* If this is an identities group, need to grab the base
@@ -442,7 +459,7 @@ class Horde_Core_Prefs_Ui
             $this->nobuttons = true;
         }
 
-        $options_link = Horde::getServiceLink('prefs');
+        $options_link = $registry->getServiceLink('prefs');
         $h_templates = $registry->get('templates', 'horde');
 
         $base = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -452,7 +469,7 @@ class Horde_Core_Prefs_Ui
          * do things like add javascript to the page output. This should all
          * be combined and served in the page HEAD. */
         Horde::startBuffer();
-        Horde::addScriptFile('prefs.js', 'horde');
+        $page_output->addScriptFile('prefs.js', 'horde');
 
         if ($this->group) {
             if ($identities) {
@@ -460,8 +477,16 @@ class Horde_Core_Prefs_Ui
             }
 
             foreach ($pref_list as $pref) {
-                if ($this->prefs[$pref]['type'] == 'special') {
-                    echo $registry->callAppMethod($this->app, 'prefsSpecial', array('args' => array($this, $pref)));
+                if (isset($this->prefs[$pref]['on_init']) &&
+                    is_callable($this->prefs[$pref]['on_init'])) {
+                    $this->prefs[$pref]['on_init']($this);
+                }
+
+                if (($this->prefs[$pref]['type'] == 'special') &&
+                    isset($this->prefs[$pref]['handler']) &&
+                    ($ob = $GLOBALS['injector']->getInstance($this->prefs[$pref]['handler']))) {
+                    $ob->init($this);
+                    echo $ob->display($this);
                     continue;
                 }
 
@@ -484,9 +509,7 @@ class Horde_Core_Prefs_Ui
                     break;
 
                 case 'enum':
-                    $enum = isset($this->override[$pref])
-                        ? $this->override[$pref]
-                        : $this->prefs[$pref]['enum'];
+                    $enum = $this->prefs[$pref]['enum'];
                     $esc = !empty($this->prefs[$pref]['escaped']);
                     $curval = $prefs->getValue($pref);
 
@@ -521,9 +544,7 @@ class Horde_Core_Prefs_Ui
                     break;
 
                 case 'multienum':
-                    $enum = isset($this->override[$pref])
-                        ? $this->override[$pref]
-                        : $this->prefs[$pref]['enum'];
+                    $enum = $this->prefs[$pref]['enum'];
                     $esc = !empty($this->prefs[$pref]['escaped']);
                     if (!$selected = @unserialize($prefs->getValue($pref))) {
                         $selected = array();
@@ -555,6 +576,9 @@ class Horde_Core_Prefs_Ui
                 case 'rawhtml':
                     $t->set('html', $prefs->getValue($pref));
                     break;
+
+                default:
+                    throw new Horde_Exception(sprintf('Missing or invalid type option for the %s preference.', $pref));
                 }
 
                 echo $t->fetch(HORDE_TEMPLATES . '/prefs/' . $type . '.html');
@@ -585,7 +609,7 @@ class Horde_Core_Prefs_Ui
                     if ($this->groupIsEditable($group)) {
                         $tmp['groups'][] = array(
                             'desc' => htmlspecialchars($gvals['desc']),
-                            'link' => Horde::widget($options_link->copy()->add(array('app' => $this->app, 'group' => $group)), $gvals['label'], '', '', '', $gvals['label'])
+                            'link' => Horde::widget(array('url' => $options_link->copy()->add(array('app' => $this->app, 'group' => $group)), 'title' => $gvals['label']))
                         );
                     }
                 }
@@ -598,15 +622,9 @@ class Horde_Core_Prefs_Ui
 
         $content = Horde::endBuffer();
 
-        $title = Horde_Core_Translation::t("User Preferences");
-
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
-        $menu_out = $this->vars->ajaxui
-            ? ''
-            : Horde::menu(array(
-                  'app' => $this->app,
-              ));
+        $GLOBALS['page_output']->sidebar = false;
 
         /* Get list of accessible applications. */
         $apps = array();
@@ -619,15 +637,17 @@ class Horde_Core_Prefs_Ui
         asort($apps);
 
         /* Ouptut screen. */
-        $GLOBALS['bodyId'] = 'services_prefs';
-        require $h_templates . '/common-header.inc';
-        echo $menu_out;
+        $page_output->header(array(
+            'body_id' => 'services_prefs',
+            'title' => Horde_Core_Translation::t("User Preferences"),
+            // For now, force to Basic view for preferences.
+            'view' => $registry::VIEW_BASIC
+        ));
 
         $notification->notify(array('listeners' => 'status'));
 
         $base_ui = clone $base;
         $base_ui->set('action', $options_link);
-        $base_ui->set('ajaxui', intval($this->vars->ajaxui));
         $base_ui->set('forminput', Horde_Util::formInput());
 
         /* Show the current application and a form for switching
@@ -643,7 +663,17 @@ class Horde_Core_Prefs_Ui
             );
         }
         $t->set('apps', $tmp);
-        $t->set('header', htmlspecialchars(($this->app == 'horde') ? Horde_Core_Translation::t("Global Preferences") : sprintf(Horde_Core_Translation::t("Preferences for %s"), $registry->get('name', $this->app))));
+        if ($this->app == 'horde') {
+            $header = Horde_Core_Translation::t("Global Preferences");
+        } else {
+            $header = sprintf(
+                Horde_Core_Translation::t("Preferences for %s"),
+                Horde::url($registry->getInitialPage($this->app))->link()
+                    . htmlspecialchars($registry->get('name', $this->app))
+                    . '</a>'
+            );
+        }
+        $t->set('header', $header);
 
         $t->set('has_advanced', $this->hasAdvancedPrefs());
         if ($GLOBALS['session']->get('horde', 'prefs_advanced')) {
@@ -687,7 +717,7 @@ class Horde_Core_Prefs_Ui
 
         echo $content;
 
-        require $h_templates . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
     /**
@@ -838,7 +868,7 @@ class Horde_Core_Prefs_Ui
         }
         $t->set('entry', $entry);
 
-        Horde::addInlineScript(array(
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
             'HordeIdentitySelect.identities = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON)
         ));
 
@@ -943,7 +973,7 @@ class Horde_Core_Prefs_Ui
                 $identity->verifyIdentity($id, empty($current_from) ? $new_from : $current_from);
             } catch (Horde_Exception $e) {
                 $notification->push(Horde_Core_Translation::t("The new from address can't be verified, try again later: ") . $e->getMessage(), 'horde.error');
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         } else {
             $identity->setDefault($old_default);

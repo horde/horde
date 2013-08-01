@@ -1,30 +1,31 @@
 <?php
 /**
- * This class provides cache storage in the filesystem.
- *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Anil Madhavapeddy <anil@recoil.org>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Cache
+ * @category  Horde
+ * @copyright 1999-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
+ */
+
+/**
+ * Cache storage in the filesystem.
+ *
+ * @author    Anil Madhavapeddy <anil@recoil.org>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1999-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
  */
 class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 {
     /* Location of the garbage collection data file. */
     const GC_FILE = 'horde_cache_gc';
-
-    /**
-     * The location of the temp directory.
-     *
-     * @var string
-     */
-    protected $_dir;
 
     /**
      * List of key to filename mappings.
@@ -37,15 +38,13 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
-     * <pre>
-     * 'dir' - (string) The base directory to store the cache files in.
-     *         DEFAULT: System default
-     * 'prefix' - (string) The filename prefix to use for the cache files.
-     *            DEFAULT: 'cache_'
-     * 'sub' - (integer) If non-zero, the number of subdirectories to create
-     *         to store the file (i.e. PHP's session.save_path).
-     *         DEFAULT: 0
-     * </pre>
+     *   - dir: (string) The base directory to store the cache files in.
+     *          DEFAULT: System default
+     *   - prefix: (string) The filename prefix to use for the cache files.
+     *             DEFAULT: 'cache_'
+     *   - sub: (integer) If non-zero, the number of subdirectories to create
+     *          to store the file (i.e. PHP's session.save_path).
+     *          DEFAULT: 0
      */
     public function __construct(array $params = array())
     {
@@ -54,9 +53,9 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
             'sub' => 0
         ), $params);
 
-        $this->_dir = (isset($params['dir']) && @is_dir($params['dir']))
-            ? $params['dir']
-            : Horde_Util::getTempDir();
+        if (!isset($params['dir']) || !@is_dir($params['dir'])) {
+            $params['dir'] = sys_get_temp_dir();
+        }
 
         parent::__construct($params);
     }
@@ -66,12 +65,14 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
      */
     public function __destruct()
     {
+        $c_time = time();
+
         /* Only do garbage collection 0.1% of the time we create an object. */
-        if (rand(0, 999) != 0) {
+        if (intval(substr($c_time, -3)) != 0) {
             return;
         }
 
-        $filename = $this->_dir . '/' . self::GC_FILE;
+        $filename = $this->_params['dir'] . '/' . self::GC_FILE;
         $excepts = array();
 
         if (is_readable($filename)) {
@@ -83,8 +84,6 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
                 $excepts[$parts[0]] = $parts[1];
             }
         }
-
-        $c_time = time();
 
         foreach ($this->_getCacheFiles() as $fname => $pname) {
             $d_time = isset($excepts[$fname])
@@ -128,19 +127,19 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
     public function set($key, $data, $lifetime = 0)
     {
         $filename = $this->_keyToFile($key, true);
-        $tmp_file = Horde_Util::getTempFile('HordeCache', true, $this->_dir);
+        $tmp_file = Horde_Util::getTempFile('HordeCache', true, $this->_params['dir']);
         if (isset($this->_params['umask'])) {
             chmod($tmp_file, 0666 & ~$this->_params['umask']);
         }
 
         if (file_put_contents($tmp_file, $data) === false) {
-            throw new Horde_Cache_Exception('Cannot write to cache directory ' . $this->_dir);
+            throw new Horde_Cache_Exception('Cannot write to cache directory ' . $this->_params['dir']);
         }
 
         @rename($tmp_file, $filename);
 
         if (($lifetime != $this->_params['lifetime']) &&
-            ($fp = @fopen($this->_dir . '/' . self::GC_FILE, 'a'))) {
+            ($fp = @fopen($this->_params['dir'] . '/' . self::GC_FILE, 'a'))) {
             // This may result in duplicate entries in GC_FILE, but we
             // will take care of these whenever we do GC and this is quicker
             // than having to check every time we access the file.
@@ -175,8 +174,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
      */
     public function expire($key)
     {
-        $filename = $this->_keyToFile($key);
-        return @unlink($filename);
+        return @unlink($this->_keyToFile($key));
     }
 
     /**
@@ -186,7 +184,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         foreach ($this->_getCacheFiles() as $val) {
             @unlink($val);
         }
-        @unlink($this->_dir . '/' . self::GC_FILE);
+        @unlink($this->_params['dir'] . '/' . self::GC_FILE);
     }
 
     /**
@@ -200,8 +198,8 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 
         try {
             $it = empty($this->_params['sub'])
-                ? new DirectoryIterator($this->_dir)
-                : new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_dir), RecursiveIteratorIterator::CHILD_FIRST);
+                ? new DirectoryIterator($this->_params['dir'])
+                : new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_params['dir']), RecursiveIteratorIterator::CHILD_FIRST);
         } catch (UnexpectedValueException $e) {
             return $paths;
         }
@@ -228,7 +226,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
     protected function _keyToFile($key, $create = false)
     {
         if ($create || !isset($this->_file[$key])) {
-            $dir = $this->_dir . '/';
+            $dir = $this->_params['dir'] . '/';
             $md5 = hash('md5', $key);
             $sub = '';
 

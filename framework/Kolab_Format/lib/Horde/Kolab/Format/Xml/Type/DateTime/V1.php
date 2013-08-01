@@ -14,13 +14,11 @@
 /**
  * Handles api version 1 of date-time attributes.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
  * http://www.horde.org/licenses/lgpl21.
- *
- * @since Horde_Kolab_Format 1.1.0
  *
  * @category Kolab
  * @package  Kolab_Format
@@ -47,9 +45,8 @@ extends Horde_Kolab_Format_Xml_Type_String
         $params = array()
     )
     {
-        return Horde_Kolab_Format_Date::decodeDateOrDateTime(
-            $helper->fetchNodeValue($node)
-        );
+        $result = $helper->fetchNodeValue($node);
+        return Horde_Kolab_Format_Date::readDateOrDateTime($result);
     }
 
     /**
@@ -81,7 +78,7 @@ extends Horde_Kolab_Format_Xml_Type_String
         $old_node = false
     )
     {
-        $date = Horde_Kolab_Format_Date::encodeDateTime($value);
+        $date = Horde_Kolab_Format_Date::writeDateTime($value);
         $node = parent::saveNodeValue(
             $name, $date, $parent_node, $helper, $params, $old_node
         );

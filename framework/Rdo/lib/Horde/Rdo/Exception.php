@@ -8,6 +8,6 @@
  * @category Horde
  * @package  Rdo
  */
-class Horde_Rdo_Exception extends Exception
+class Horde_Rdo_Exception extends Horde_Exception_Wrapped
 {
 }

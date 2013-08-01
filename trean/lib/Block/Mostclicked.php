@@ -2,7 +2,7 @@
 /**
  * Show the most-clicked bookmarks.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -16,7 +16,6 @@ class Trean_Block_Mostclicked extends Horde_Core_Block
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-
         $this->_name = _("Most-clicked Bookmarks");
     }
 
@@ -59,12 +58,10 @@ class Trean_Block_Mostclicked extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $template = TREAN_TEMPLATES . '/block/' . $this->_params['template'] . '.inc';
 
         $html = '';
-        $bookmarks = $GLOBALS['trean_shares']->sortBookmarks('clicks', 1, 0, $this->_params['rows']);
+        $bookmarks = $GLOBALS['trean_gateway']->listBookmarks('clicks', 1, 0, $this->_params['rows']);
         foreach ($bookmarks as $bookmark) {
             ob_start();
             require $template;

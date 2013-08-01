@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -198,13 +198,16 @@ class Whups_Query
     }
 
     /**
-     * Returns a <link> tag for this query's feed.
+     * Returns <link> data for this query's feed.
      *
-     * @return string  A full <link> tag.
+     * @return array  Link data.
      */
     public function feedLink()
     {
-        return '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($this->name) . '" href="' . Whups::urlFor('query_rss', empty($this->slug) ? array('id' => $this->id) : array('slug' => $this->slug), true, -1) . '" />';
+        return array(
+            'href' => Whups::urlFor('query_rss', empty($this->slug) ? array('id' => $this->id) : array('slug' => $this->slug), true, -1),
+            'title' => $this->name
+        );
     }
 
     /**
@@ -225,12 +228,9 @@ class Whups_Query
             $tabs->addTab(_("_Edit Query"), $queryurl, 'edit');
         }
         if ($this->id && $edit && empty($GLOBALS['conf']['share']['no_sharing'])) {
-            Horde::addScriptFile('popup.js', 'horde', true);
+            $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
 
-            $permsurl = $GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php';
-            $permsurl = Horde_Util::addParameter(
-                $permsurl,
-                array(
+            $permsurl = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php')->add(array(
                     'app' => 'whups',
                     'cid' => $this->id));
             $tabs->addTab(
@@ -633,6 +633,9 @@ class Whups_Query
                     array_pop($path);
                     $vars->set('path', Whups_Query::pathToString($path));
                 }
+            } else {
+                $operator = $qobj['operator'];
+                $value = $qobj['value'];
             }
             if (!$criteria) {
                 $criteria = array($qobj['criterion']);
@@ -671,6 +674,9 @@ class Whups_Query
                     array_pop($path);
                     $vars->set('path', Whups_Query::pathToString($path));
                 }
+            } else {
+                $operator = $qobj['operator'];
+                $value = $qobj['value'];
             }
             if (!$criteria) {
                 $criteria = array($qobj['cvalue']);

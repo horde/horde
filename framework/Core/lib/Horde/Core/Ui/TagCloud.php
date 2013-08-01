@@ -4,7 +4,7 @@
  *
  * Based on a striped down version of Pear's HTML_TagCloud
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -18,12 +18,12 @@ class Horde_Core_Ui_TagCloud
     /**
      * @var integer
      */
-    public $basefontsize = 24;
+    public $basefontsize;
 
     /**
      * @var integer
      */
-    public $fontsizerange = 12;
+    public $fontsizerange;
 
     /**
      * @var string
@@ -90,14 +90,16 @@ class Horde_Core_Ui_TagCloud
     public function __construct($basefontsize = 24, $fontsizerange = 12)
     {
         $this->basefontsize = $basefontsize;
-        $this->minfontsize = max($this->basefontsize - $this->fontsizerange, 0);
-        $this->maxfontsize = $this->basefontsize + $this->fontsizerange;
+        $this->fontsizerange = $fontsizerange;
+
+        $this->minfontsize = max($basefontsize - $fontsizerange, 0);
+        $this->maxfontsize = $basefontsize + $fontsizerange;
     }
 
     /**
      * Add a Tag Element to build Tag Cloud.
      *
-     * @param string $tag         TODO
+     * @param string $name        TODO
      * @param string $url         TODO
      * @param integer $count      TODO
      * @param integer $timestamp  UNIX timestamp.

@@ -16,37 +16,48 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <lead>
+ <developer>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
   <active>yes</active>
- </lead>
- <date>2011-04-06</date>
- <time>01:22:58</time>
+ </developer>
+ <date>2013-03-05</date>
+ <time>13:58:42</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>2.0.3</release>
+  <api>2.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Tree">
+      <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
+     </dir> <!-- /doc/Horde/Tree -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Tree">
-      <file name="Base.php" role="php" />
+      <dir name="Renderer">
+       <file name="Base.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Jquerymobile.php" role="php" />
+       <file name="Select.php" role="php" />
+       <file name="Simplehtml.php" role="php" />
+      </dir> <!-- /lib/Horde/Tree/Renderer -->
       <file name="Exception.php" role="php" />
-      <file name="Html.php" role="php" />
-      <file name="Jquerymobile.php" role="php" />
-      <file name="Select.php" role="php" />
-      <file name="Simplehtml.php" role="php" />
+      <file name="Renderer.php" role="php" />
      </dir> <!-- //lib/Horde/Tree -->
      <file name="Tree.php" role="php" />
     </dir> <!-- //lib/Horde -->
@@ -56,7 +67,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -64,23 +75,23 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
@@ -91,13 +102,16 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Tree/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Tree/UPGRADING" />
    <install as="Horde/Tree.php" name="lib/Horde/Tree.php" />
-   <install as="Horde/Tree/Base.php" name="lib/Horde/Tree/Base.php" />
    <install as="Horde/Tree/Exception.php" name="lib/Horde/Tree/Exception.php" />
-   <install as="Horde/Tree/Html.php" name="lib/Horde/Tree/Html.php" />
-   <install as="Horde/Tree/Jquerymobile.php" name="lib/Horde/Tree/Jquerymobile.php" />
-   <install as="Horde/Tree/Select.php" name="lib/Horde/Tree/Select.php" />
-   <install as="Horde/Tree/Simplehtml.php" name="lib/Horde/Tree/Simplehtml.php" />
+   <install as="Horde/Tree/Renderer.php" name="lib/Horde/Tree/Renderer.php" />
+   <install as="Horde/Tree/Renderer/Base.php" name="lib/Horde/Tree/Renderer/Base.php" />
+   <install as="Horde/Tree/Renderer/Html.php" name="lib/Horde/Tree/Renderer/Html.php" />
+   <install as="Horde/Tree/Renderer/Jquerymobile.php" name="lib/Horde/Tree/Renderer/Jquerymobile.php" />
+   <install as="Horde/Tree/Renderer/Select.php" name="lib/Horde/Tree/Renderer/Select.php" />
+   <install as="Horde/Tree/Renderer/Simplehtml.php" name="lib/Horde/Tree/Renderer/Simplehtml.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -127,7 +141,7 @@ Initial release as a PEAR package
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Converted to package.xml 2.0 for pear.horde.org
    </notes>
@@ -142,7 +156,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Remove ability to set HTML &apos;onclick&apos; parameter.
@@ -164,7 +178,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -179,7 +193,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -194,7 +208,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -209,7 +223,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -221,8 +235,113 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [rla] Add license file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [jan] Separate tree object from tree renderers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Tweak CSS names.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Re-packaged 2.0.0 release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix licensing documentation; Horde_Tree has been released under LGPL 2.1 since 2004 (Bug #12070).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

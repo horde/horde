@@ -14,7 +14,7 @@
 /**
  * Tests for Horde_Registry.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -29,7 +29,7 @@ class Horde_Core_RegistryTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        require_once dirname(__FILE__) . '/Stub/Registry.php';
+        require_once __DIR__ . '/Stub/Registry.php';
     }
 
     public function testBug10381()

@@ -2,10 +2,8 @@
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>
 <br />
 <?php else: ?>
-<div class="options">
- <span>
-  <?php echo _("Search Patchsets:") ?>
-  <input type="text" for="patchsets_body" size="20" />
- </span>
-</div>
+<p class="horde-content">
+ <?php echo _("Search Patchsets:") ?>
+ <input type="text" for="patchsets_body" size="20" />
+</p>
 <?php endif; ?>

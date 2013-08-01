@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -14,14 +14,14 @@
  */
 function _getSearchUrl($vars)
 {
-    $qUrl = '';
+    $qUrl = new Horde_Url();
 
     $queue = (int)$vars->get('queue');
-    $qUrl = Horde_Util::addParameter($qUrl, array('queue' => $queue));
+    $qUrl->add(array('queue' => $queue));
 
     $summary = $vars->get('summary');
     if ($summary) {
-        $qUrl = Horde_Util::addParameter($qUrl, 'summary', $summary);
+        $qUrl->add('summary', $summary);
     }
 
     $states = $vars->get('states');
@@ -29,10 +29,10 @@ function _getSearchUrl($vars)
         foreach ($states as $type => $state) {
             if (is_array($state)) {
                 foreach ($state as $s) {
-                    $qUrl = Horde_Util::addParameter($qUrl, "states[$type][]", $s);
+                    $qUrl->add("states[$type][]", $s);
                 }
             } else {
-                $qUrl = Horde_Util::addParameter($qUrl, "states[$type]", $state);
+                $qUrl->add("states[$type]", $state);
             }
         }
     }
@@ -40,20 +40,14 @@ function _getSearchUrl($vars)
     return substr($qUrl, 1);
 }
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $renderer = new Horde_Form_Renderer();
 $beendone = false;
 $vars = Horde_Variables::getDefaultVariables();
 
-// Update sorting preferences.
-if (Horde_Util::getFormData('sortby') !== null) {
-    $prefs->setValue('sortby', Horde_Util::getFormData('sortby'));
-}
-if (Horde_Util::getFormData('sortdir') !== null) {
-    $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
-}
+Whups::addTopbarSearch();
 
 $form = new Whups_Form_Search($vars);
 $results = null;
@@ -70,7 +64,7 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
         }
         if ($vars->get('queue')) {
             $whups_query->insertCriterion('', Whups_Query::CRITERION_QUEUE, null,
-                                          Whups_Query::OPERATOR_EQUAL, $info['queue']);
+                                          Whups_Query::OPERATOR_EQUAL, $info['queue'][0]);
         }
         foreach (array('ticket_timestamp', 'date_updated', 'date_resolved', 'date_assigned', 'date_due') as $date_field) {
             if (!empty($info[$date_field]['from']) || !empty($info[$date_field]['to'])) {
@@ -145,16 +139,17 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
     }
 }
 
-$title = _("Search");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
+Whups::addFeedLink();
+$page_output->header(array(
+    'title' => _("Search")
+));
+$notification->notify(array('listeners' => 'status'));
 
 if ($results) {
     $results->html();
     if (is_object($form)) {
         $form->setTitle(_("Refine Search"));
         $form->renderActive($renderer, $vars, Horde::url('search.php'), 'get');
-        echo '<br />';
     }
 }
 
@@ -162,7 +157,6 @@ if (!$beendone) {
     // Front search page.
     $form->setTitle(_("Ticket Search"));
     $form->renderActive($renderer, $vars, Horde::url('search.php'), 'get');
-    echo '<br class="spacer" />';
 }
 
 $qManager = new Whups_Query_Manager();
@@ -171,4 +165,4 @@ $myqueries = new Whups_View_SavedQueries(
           'results' => $qManager->listQueries($GLOBALS['registry']->getAuth(), true)));
 $myqueries->html();
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -1,10 +1,10 @@
 <?php
-require_once dirname(__FILE__) . '/../lib/Style.php';
+require_once __DIR__ . '/../lib/Style.php';
 
 /**
  * Upgrade to Ansel 2 style schema
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

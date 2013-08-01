@@ -2,7 +2,7 @@
 /**
  * The Agora script to delete a forum.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -11,7 +11,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
@@ -69,18 +69,7 @@ if ($form->validate()) {
     Horde::url('forums.php', true)->redirect();
 }
 
-/* Set up template variables. */
-$view = new Agora_View();
-$view->menu = Horde::menu();
-
-Horde::startBuffer();
-$form->renderActive(null, $vars, Horde::url('deleteforum.php'), 'post');
-$view->main = Horde::endBuffer();
-
-Horde::startBuffer();
+$page_output->header();
 $notification->notify(array('listeners' => 'status'));
-$view->notify = Horde::endBuffer();
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('main');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$form->renderActive(null, $vars, Horde::url('deleteforum.php'), 'post');
+$page_output->footer();

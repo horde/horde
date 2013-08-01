@@ -28,7 +28,7 @@ if (empty($activities)) {
     </td>
     <td><?php echo Folks::format_datetime($activity['activity_date']) ?></td>
     <td><?php echo $activity['activity_message']; unset($activity['activity_message']); ?></td>
-    <td><a href="<?php echo Horde_Util::addParameter($delete_url, $activity) ?>" title="<?php echo _("Delete") ?>"/><?php echo $delete_img ?></a></td>
+    <td><a href="<?php echo $delete_url->add($activity) ?>" title="<?php echo _("Delete") ?>"/><?php echo $delete_img ?></a></td>
 </tr>
 <?php } ?>
 </tbody>

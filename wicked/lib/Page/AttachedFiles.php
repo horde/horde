@@ -1,17 +1,28 @@
 <?php
 /**
- * Wicked AttachedFiles class.
- *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Wicked
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @package  Wicked
  */
-class Wicked_Page_AttachedFiles extends Wicked_Page {
 
+/**
+ * Displays and handles attached files.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @package  Wicked
+ */
+class Wicked_Page_AttachedFiles extends Wicked_Page
+{
     /**
      * Display modes supported by this page.
      *
@@ -55,7 +66,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
      */
     public function content()
     {
-        global $wicked, $notification;
+        global $wicked, $notification, $registry;
 
         if (!$wicked->pageExists($this->referrer())) {
             throw new Wicked_Exception(sprintf(_("Referrer \"%s\" does not exist."),
@@ -66,10 +77,13 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
         $attachments = $wicked->getAttachedFiles($referrer_id, true);
 
         foreach ($attachments as $idx => $attach) {
-            $attachments[$idx]['date'] = date('M j, Y g:ia',
-                                              $attach['attachment_created']);
+            $attachments[$idx]['timestamp'] = $attach['attachment_created'];
+            $attachments[$idx]['date'] = strftime(
+                $GLOBALS['prefs']->getValue('date_format'),
+                $attach['attachment_created']
+            );
 
-            $attachments[$idx]['url'] = Horde::downloadUrl(
+            $attachments[$idx]['url'] = $registry->downloadUrl(
                 $attach['attachment_name'],
                 array('page' => $referrer_id,
                       'file' => $attach['attachment_name'],
@@ -102,20 +116,20 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
             throw $e;
         }
 
-        $template = $GLOBALS['injector']->createInstance('Horde_Template');
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
 
-        $template->setOption('gettext', true);
-        $template->set('pageName', $this->pageName());
-        $template->set('formAction', Wicked::url('AttachedFiles'));
-        $template->set('deleteButton', Horde_Themes::img('delete.png'));
-        $template->set('referrerLink', Wicked::url($this->referrer()));
+        $view->pageName = $this->pageName();
+        $view->formAction = Wicked::url('AttachedFiles');
+        $view->deleteButton = Horde_Themes::img('delete.png');
+        $view->referrerLink = Wicked::url($this->referrer());
 
         $refreshIcon = Horde::link($this->pageUrl())
             . Horde::img('reload.png',
                          sprintf(_("Reload \"%s\""), $this->pageTitle()))
             . '</a>';
-        $template->set('refreshIcon', $refreshIcon);
-        $template->set('attachments', $attachments, true);
+        $view->refreshIcon = $refreshIcon;
+        $view->attachments = $attachments;
 
         /* Get an array of unique filenames for the update form. */
         $files = array();
@@ -124,24 +138,16 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
         }
         $files = array_keys($files);
         sort($files);
-        $template->set('files', $files);
-        $template->set('canUpdate',
-                       $this->allows(Wicked::MODE_EDIT) && count($files),
-                       true);
-        $template->set('canAttach', $this->allows(Wicked::MODE_EDIT), true);
-        if ($conf['wicked']['require_change_log']) {
-            $template->set('requireChangelog', true, true);
-        } else {
-            $template->set('requireChangelog', false, true);
-        }
+        $view->files = $files;
+        $view->canUpdate = $this->allows(Wicked::MODE_EDIT) && count($files);
+        $view->canAttach = $this->allows(Wicked::MODE_EDIT);
+        $view->requireChangelog = $conf['wicked']['require_change_log'];
 
-        $requiredMarker = Horde::img('required.png', '*');
-        $template->set('requiredMarker', $requiredMarker);
-        $template->set('referrer', $this->referrer());
-        $template->set('formInput', Horde_Util::formInput());
+        $view->requiredMarker = Horde::img('required.png', '*');
+        $view->referrer = $this->referrer();
+        $view->formInput = Horde_Util::formInput();
 
-        Horde::addScriptFile('stripe.js', 'horde', true);
-        echo $template->fetch(WICKED_TEMPLATES . '/display/AttachedFiles.html');
+        echo $view->render('display/AttachedFiles');
     }
 
     public function pageName()

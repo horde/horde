@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $images = Horde_Util::getFormData('image', array());
@@ -93,8 +93,10 @@ $vars->set('image_originalDate', $image->originalDate);
 $renderer = new Horde_Form_Renderer();
 $count = count($images);
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->topbar = $page_output->sidebar = false;
+
+$page_output->header();
 $form->renderActive($renderer, $vars, null, 'post');
 // Needed to ensure the body element is large enough to hold the pop up calendar
 echo '<br /><br /><br />';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

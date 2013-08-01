@@ -3,17 +3,17 @@
  * Displays and handles the form to move a ticket to a different queue.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $ticket = Whups::getCurrentTicket();
-$linkTags[] = $ticket->feedLink();
+$page_output->addLinkTag($ticket->feedLink());
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 $form = $vars->get('formname');
@@ -22,6 +22,8 @@ if ($form != 'whups_form_queue_stepone') {
     $v = $vars->get('version');
     $t = $vars->get('type');
 }
+
+Whups::addTopbarSearch();
 
 // Get all ticket details from storage, then override any values that are
 // in the process of being edited.
@@ -99,9 +101,10 @@ if ($form == 'whups_form_queue_stepthree') {
     }
 }
 
-$title = sprintf(_("Set Queue for %s"), '[#' . $id . '] ' . $ticket->get('summary'));
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require WHUPS_TEMPLATES . '/menu.inc';
+$page_output->header(array(
+    'title' => sprintf(_("Set Queue for %s"), '[#' . $id . '] ' . $ticket->get('summary'))
+));
+$notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
 $tabs = Whups::getTicketTabs($vars, $id);
@@ -137,4 +140,4 @@ default:
     break;
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

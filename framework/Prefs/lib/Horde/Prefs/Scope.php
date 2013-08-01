@@ -2,7 +2,7 @@
 /**
  * This class provides the storage for a preference scope.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -45,6 +45,9 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      *            If not present, pref is not locked.
      *     [v] => (string) Current pref value
      * )
+     *
+     * For internal storage, if 'l' and 'v' are both not available:
+     * [pref_name] => (string) Current pref value
      * </pre>
      *
      * @var array
@@ -70,13 +73,15 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function remove($pref)
     {
-        if (!isset($this->_prefs[$pref])) {
+        if (!($p = $this->_fromInternal($pref))) {
             return false;
         }
 
-        unset($this->_prefs[$pref]);
-        if (!$this->init) {
-            $this->setDirty($pref, true);
+        if (isset($p['d'])) {
+            $p['v'] = $p['d'];
+            unset($p['d']);
+            $this->_toInternal($pref, $p);
+            $this->setDirty($pref, false);
         }
 
         return true;
@@ -90,29 +95,18 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function set($pref, $val)
     {
-        if (isset($this->_prefs[$pref])) {
-            $ptr = &$this->_prefs[$pref];
-
-            if ($val != $ptr['v']) {
-                if (isset($ptr['d']) && ($val == $ptr['d'])) {
-                    unset($ptr['d']);
+        if ($p = $this->_fromInternal($pref)) {
+            if ($val != $p['v']) {
+                if (isset($p['d']) && ($val == $p['d'])) {
+                    unset($p['d']);
                 } else {
-                    $ptr['d'] = $ptr['v'];
+                    $p['d'] = $p['v'];
                 }
-                $ptr['v'] = $val;
-
-                if (!$this->init) {
-                    $this->setDirty($pref, true);
-                }
+                $p['v'] = $val;
+                $this->_toInternal($pref, $p);
             }
         } else {
-            $this->_prefs[$pref] = array(
-                'v' => $val
-            );
-
-            if (!$this->init) {
-                $this->setDirty($pref, true);
-            }
+            $this->_toInternal($pref, array('v' => $val));
         }
     }
 
@@ -135,8 +129,8 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function get($pref)
     {
-        return isset($this->_prefs[$pref]['v'])
-            ? $this->_prefs[$pref]['v']
+        return ($p = $this->_fromInternal($pref))
+            ? $p['v']
             : null;
     }
 
@@ -148,21 +142,15 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function setLocked($pref, $locked)
     {
-        if (isset($this->_prefs[$pref])) {
-            $ptr = &$this->_prefs[$pref];
-
+        if ($p = $this->_fromInternal($pref)) {
             if ($locked) {
-                if (!isset($ptr['l'])) {
-                    $ptr['l'] = true;
-                    if (!$this->init) {
-                        $this->setDirty($pref, true);
-                    }
+                if (!isset($p['l'])) {
+                    $p['l'] = true;
+                    $this->_toInternal($pref, $p);
                 }
-            } elseif (isset($ptr['l'])) {
-                unset($ptr['l']);
-                if (!$this->init) {
-                    $this->setDirty($pref, true);
-                }
+            } elseif (isset($p['l'])) {
+                unset($p['l']);
+                $this->_toInternal($pref, $p);
             }
         }
     }
@@ -176,7 +164,9 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function isLocked($pref)
     {
-        return !empty($this->_prefs[$pref]['l']);
+        return ($p = $this->_fromInternal($pref))
+            ? !empty($p['l'])
+            : false;
     }
 
     /**
@@ -188,7 +178,9 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function isDefault($pref)
     {
-        return !isset($this->_prefs[$pref]['d']);
+        return ($p = $this->_fromInternal($pref))
+            ? !isset($p['d'])
+            : true;
     }
 
     /**
@@ -200,12 +192,8 @@ class Horde_Prefs_Scope implements Iterator, Serializable
      */
     public function getDefault($pref)
     {
-        if (!$this->isDefault($pref)) {
-            return $this->_prefs[$pref]['d'];
-        }
-
-        return isset($this->_prefs[$pref])
-            ? $this->_prefs[$pref]['v']
+        return ($p = $this->_fromInternal($pref))
+            ? (isset($p['d']) ? $p['d'] : $p['v'])
             : null;
     }
 
@@ -249,33 +237,70 @@ class Horde_Prefs_Scope implements Iterator, Serializable
         }
     }
 
-    /* Iterator methods. */
-
-    public function current()
+    /**
+     */
+    protected function _fromInternal($pref)
     {
-        return current($this->_prefs);
+        if (!isset($this->_prefs[$pref])) {
+            return false;
+        }
+
+        return is_array($this->_prefs[$pref])
+            ? $this->_prefs[$pref]
+            : array('v' => $this->_prefs[$pref]);
     }
 
+    /**
+     */
+    protected function _toInternal($pref, array $value)
+    {
+        if (!isset($value['d']) && !isset($value['l'])) {
+            $value = $value['v'];
+        }
+
+        $this->_prefs[$pref] = $value;
+
+        if (!$this->init) {
+            $this->setDirty($pref, true);
+        }
+    }
+
+    /* Iterator methods. */
+
+    /**
+     */
+    public function current()
+    {
+        return $this->_fromInternal(current($this->_prefs));
+    }
+
+    /**
+     */
     public function key()
     {
         return key($this->_prefs);
     }
 
+    /**
+     */
     public function next()
     {
-        next($this->_prefs);
+        return next($this->_prefs);
     }
 
+    /**
+     */
     public function rewind()
     {
-        reset($this->_prefs);
+        return rewind($this->_prefs);
     }
 
+    /**
+     */
     public function valid()
     {
-        return (key($this->_prefs) !== null);
+        return !is_null(key($this->_prefs));
     }
-
 
     /* Serializable methods. */
 

@@ -14,7 +14,12 @@ $prefGroups['script'] = array(
     'column' => _("Other Preferences"),
     'label' => _("Script Updating"),
     'desc' => _("Preferences about script updating."),
-    'members' => array('auto_update'));
+    'members' => array('auto_update'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('Ingo_Factory_Script')
+            ->hasFeature('script_file');
+    }
+);
 
 // Automatically update the script?
 $_prefs['auto_update'] = array(
@@ -40,7 +45,7 @@ $_prefs['show_filter_msg'] = array(
 );
 
 // Only filter [un]seen messages?
-// Values: 0, Ingo_Script::FILTER_UNSEEN, Ingo_Script::FILTER_SEEN
+// Values: 0, Ingo::FILTER_UNSEEN, Ingo::FILTER_SEEN
 $_prefs['filter_seen'] = array(
     'value' => 0,
     'locked' => false,

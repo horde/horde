@@ -2,7 +2,7 @@
 /**
  * RCS file class.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -265,9 +265,10 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
 
             case 'log':
                 if (strpos($line, '==============================') === 0) {
+                    $log = substr($log, 0, -1);
                     break 2;
                 }
-                $log .= $line;
+                $log .= $line . "\n";
             }
         }
 

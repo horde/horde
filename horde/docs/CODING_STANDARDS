@@ -1,6 +1,6 @@
-==========================
- Horde 4 Coding Standards
-==========================
+========================
+ Horde Coding Standards
+========================
 
 :Authors:       Jon Parise, Chuck Hagenbuch
 :Contact:       dev@lists.horde.org
@@ -243,16 +243,16 @@ Example for `LGPL`_'ed Horde code::
      * The Horde_Foo class provides an API for various foo
      * techniques that can be used by Horde applications.
      *
-     * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+     * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
      *
-     * See the enclosed file COPYING for license information (LGPL). If you
-     * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+     * See the enclosed file COPYING for license information (LGPL-2). If you
+     * did not receive this file, see http://www.horde.org/licenses/lgpl.
      *
      * @author   Original Author <author@example.com>
      * @author   Your Name <you@example.com>
      * @category Horde
      * @package  Package
-     * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+     * @license  http://www.horde.org/licenses/lgpl LGPL-2
      * @since    Horde 4.0.1 [only if needed]
      */
 
@@ -264,7 +264,7 @@ Example for `GPL`_'ed application code::
      * The App_Bar class contains all functions related to handling
      * bars in App.
      *
-     * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+     * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (GPL). If you
      * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -745,8 +745,7 @@ constants as well.
 eval and create_function - Obvious danger if user input is supplied to
 it in uncontrolled conditions.
 
-preg_replace - The /e modifier causes the replacement string to be
-evaluated as PHP code.
+preg_replace - The /e modifier is deprecated and must no longer be used.
 
 Command Execution:
 ------------------
@@ -821,10 +820,14 @@ Don't use array_unique().  The following is reported to be 20 times faster::
 Even better, if possible rework the algorithm to store the unique data in the
 key and then call array_keys($foo) to return the unique list.
 
+Avoid array_push(), the [] operator is much faster::
+
+    $array[] = 'element';
+
 User defined functions
 ----------------------
 User defined functions are more expensive than "regular" functions.  Use them
-only if they improve the code readability more then regular functions.
+only if they improve the code readability more than regular functions.
 
 Dynamically created functions (eval and create_function)
 --------------------------------------------------------
@@ -866,14 +869,3 @@ fread() to get the stream data::
     while (!feof($stream)) {
         echo fread($stream, 8192);
     }
-
-stream_get_contents()
----------------------
-This function was broken before PHP 5.2.7; the offset parameter did not
-respect a value of 0 (i.e. rewinding to beginning of stream).
-
-Use rewind() instead::
-
-    // NO: $foo = stream_get_contents($stream, -1, 0);
-    rewind($stream);
-    $foo = stream_get_contents($stream);

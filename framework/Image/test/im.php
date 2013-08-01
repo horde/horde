@@ -8,7 +8,7 @@
  * @package Image
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Putting these here so they don't interfere with timing/memory data when

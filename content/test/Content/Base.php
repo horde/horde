@@ -1,9 +1,6 @@
 <?php
-
-require_once dirname(__FILE__) . '/Autoload.php';
-
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @author     Chuck Hagenbuch <chuck@horde.org>
@@ -17,6 +14,7 @@ class Content_Test_Base extends Horde_Test_Case
      * @static Content_Tagger
      */
     static $tagger;
+    static $type_mgr;
 
     /**
      * Primes the fixture, and tests basic tagging functionality where all
@@ -52,6 +50,17 @@ class Content_Test_Base extends Horde_Test_Case
     }
 
     /**
+     * Test types
+     *
+     */
+    protected function _testEnsureTypes()
+    {
+        $this->assertEquals(array(0 => 1, 1 => 2), self::$type_mgr->ensureTypes(array('event', 'blog')));
+        $this->assertEquals(array(0 => 2, 1 => 1), self::$type_mgr->ensureTypes(array('blog', 'event')));
+        $this->assertEquals(array(0 => 3, 1 => 2), self::$type_mgr->ensureTypes(array('foo', 'blog')));
+    }
+
+    /**
      * Test ensureTags.
      *
      * 1 => play
@@ -62,19 +71,19 @@ class Content_Test_Base extends Horde_Test_Case
     protected function _testEnsureTags()
     {
         // Test passing tag_ids to ensureTags
-        $this->assertEquals(array(1), self::$tagger->ensureTags(1));
-        $this->assertEquals(array(1), self::$tagger->ensureTags(array(1)));
-        $this->assertEquals(array(1, 2), self::$tagger->ensureTags(array(1, 2)));
+        $this->assertEquals(array(1 => 1), self::$tagger->ensureTags(1));
+        $this->assertEquals(array(1 => 1), self::$tagger->ensureTags(array(1)));
+        $this->assertEquals(array(1 => 1, 2 => 2), self::$tagger->ensureTags(array(1, 2)));
 
         // Test passing tag names
-        $this->assertEquals(array(2), self::$tagger->ensureTags('work'));
-        $this->assertEquals(array(2), self::$tagger->ensureTags(array('work')));
-        $this->assertEquals(array(2, 1), self::$tagger->ensureTags(array('work', 'play')));
+        $this->assertEquals(array('work' => 2), self::$tagger->ensureTags('work'));
+        $this->assertEquals(array('work' => 2), self::$tagger->ensureTags(array('work')));
+        $this->assertEquals(array('work' => 2, 'play' => 1), self::$tagger->ensureTags(array('work', 'play')));
 
         // Test mixed
-        $this->assertEquals(array(1, 1), self::$tagger->ensureTags(array(1, 'play')));
-        $this->assertEquals(array(2, 2), self::$tagger->ensureTags(array('work', 2)));
-        $this->assertEquals(array(1, 2), self::$tagger->ensureTags(array(1, 'work')));
+        $this->assertEquals(array(1 => 1, 'play' => 1), self::$tagger->ensureTags(array(1, 'play')));
+        $this->assertEquals(array(2 => 2, 'work' => 2), self::$tagger->ensureTags(array('work', 2)));
+        $this->assertEquals(array(1 => 1, 'work' => 2), self::$tagger->ensureTags(array(1, 'work')));
     }
 
     protected function _testFullTagCloudSimple()
@@ -200,7 +209,8 @@ class Content_Test_Base extends Horde_Test_Case
         $this->assertEquals(4, count($recent));
         $this->assertEquals(4, $recent[0]['tag_id']);
         $this->assertEquals('personal', $recent[0]['tag_name']);
-        $this->assertEquals('2009-01-01 00:06:00', $recent[0]['created']);
+        $date = new Horde_Date($recent[0]['created'], 'UTC');
+        $this->assertEquals('1230786360', $date->timestamp());
     }
 
     protected function _testGetRecentTagsByUser()
@@ -226,7 +236,8 @@ class Content_Test_Base extends Horde_Test_Case
         $recent = self::$tagger->getRecentObjects();
         $this->assertEquals(4, count($recent));
         $this->assertEquals(4, $recent[0]['object_id']);
-        $this->assertEquals('2009-01-01 00:06:00', $recent[0]['created']);
+        $date = new Horde_Date($recent[0]['created'], 'UTC');
+        $this->assertEquals('1230786360', $date->timestamp());
     }
 
     protected function _testUntag()

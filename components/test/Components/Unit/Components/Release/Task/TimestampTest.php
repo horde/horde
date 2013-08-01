@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
-
-/**
  * Test the timestamp release task.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -37,11 +32,12 @@ extends Components_TestCase
 {
     public function setUp()
     {
-        $this->_fixture = dirname(__FILE__) . '/../../../../fixture/simple';
+        $this->_fixture = __DIR__ . '/../../../../fixture/simple';
     }
 
     public function testValidateSucceeds()
     {
+        $this->markTestSkipped('Release no longer possible with outdated package.xml');
         $package = $this->getComponent($this->_fixture);
         $task = $this->getReleaseTask('timestamp', $package);
         $this->assertEquals(array(), $task->validate(array()));
@@ -65,6 +61,7 @@ extends Components_TestCase
 
     public function testPretend()
     {
+        $this->markTestSkipped('Release no longer possible with outdated package.xml');
         $tasks = $this->getReleaseTasks();
         $package = $this->getComponent($this->_fixture);
         $tasks->run(

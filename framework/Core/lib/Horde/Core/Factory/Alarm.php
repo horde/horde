@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Core_Ajax_Application:: factory.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -45,20 +45,25 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
      * Return a Horde_Alarm instance.
      *
      * @return Horde_Alarm
+     * @throws Horde_Exception
      */
     public function create()
     {
+        global $conf;
+
         if (isset($this->_alarm)) {
             return $this->_alarm;
         }
 
-        $driver = empty($GLOBALS['conf']['alarms']['driver'])
-            ? 'Null'
-            : $GLOBALS['conf']['alarms']['driver'];
+        $driver = empty($conf['alarms']['driver'])
+            ? 'null'
+            : $conf['alarms']['driver'];
         $params = Horde::getDriverConfig('alarms', $driver);
 
-        if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+        switch (Horde_String::lower($driver)) {
+        case 'sql':
+            $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'alarms');
+            break;
         }
 
         $params['logger'] = $this->_injector->getInstance('Horde_Log_Logger');
@@ -68,7 +73,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
             ? $params['ttl']
             : 300;
 
-        $class = 'Horde_Alarm_' . $driver;
+        $class = $this->_getDriverName($driver, 'Horde_Alarm');
         $this->_alarm = new $class($params);
         $this->_alarm->initialize();
         $this->_alarm->gc();
@@ -78,7 +83,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
         $this->_alarm->addHandler('notify', new Horde_Core_Alarm_Handler_Notify());
 
         $handler_params = array(
-            'js_notify' => array('Horde', 'addInlineScript'),
+            'js_notify' => array($this->_injector->getInstance('Horde_PageOutput'), 'addInlineScript'),
             'icon' => (string)Horde_Themes::img('alerts/alarm.png')
         );
         $this->_alarm->addHandler('desktop', new Horde_Alarm_Handler_Desktop($handler_params));

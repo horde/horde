@@ -15,7 +15,7 @@
 /**
  * Basic test case.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license instorageion (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -61,6 +61,8 @@ extends PHPUnit_Framework_TestCase
             $driver,
             new Horde_Kolab_Storage_QuerySet_Uncached($factory),
             $factory,
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             $params
         );
     }
@@ -79,7 +81,8 @@ extends PHPUnit_Framework_TestCase
             $driver,
             new Horde_Kolab_Storage_QuerySet_Cached($factory, array(), $cache),
             $factory,
-            $cache
+            $cache,
+            $this->getMock('Horde_Log_Logger')
         );
     }
 
@@ -105,7 +108,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getNullList($factory), array('factory' => $factory)
+            $this->getNullMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -227,7 +232,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getAnnotatedList($factory), array('factory' => $factory)
+            $this->getAnnotatedMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -314,7 +321,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getNamespaceList($factory), array('factory' => $factory)
+            $this->getNamespaceMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -354,7 +363,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getForeignDefaultList($factory), array('factory' => $factory)
+            $this->getForeignDefaultMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -398,7 +409,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getEventList($factory), array('factory' => $factory)
+            $this->getEventMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -440,7 +453,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getDoubleEventList($factory), array('factory' => $factory)
+            $this->getDoubleEventMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -521,7 +536,8 @@ extends PHPUnit_Framework_TestCase
             array_merge(
                 array(
                     'driver' => 'mock',
-                    'params' => $data
+                    'params' => $data,
+                    'logger' => $this->getMock('Horde_Log_Logger'),
                 ),
                 $params
             )
@@ -538,23 +554,16 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getCachedQueryForList($bare_list, $factory)
+    protected function getCachedQueryForList($driver)
     {
-        $list_cache = $this->getMockListCache();
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $bare_list,
-            $list_cache
+        return new Horde_Kolab_Storage_List_Query_List_Cache(
+            new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+                $driver,
+                new Horde_Kolab_Storage_Folder_Types(),
+                new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+            ),
+            $this->getMockListCache()
         );
-        $query = new Horde_Kolab_Storage_List_Query_List_Cache(
-            $list,
-            array(
-                'factory' => $factory,
-                'cache' => $list_cache
-            )
-        );
-        $list->registerQuery('test', $query);
-        $list->synchronize();
-        return $query;
     }
 
     protected function getMockDriverList($factory = null)
@@ -580,10 +589,14 @@ extends PHPUnit_Framework_TestCase
 
     protected function getMockListCache()
     {
-        $cache = new Horde_Kolab_Storage_Cache_List(
-            $this->getMockCache()
+        $cache = new Horde_Kolab_Storage_List_Cache(
+            $this->getMockCache(),
+            array(
+                'host' => 'localhost',
+                'port' => '143',
+                'user' => 'user',
+            )
         );
-        $cache->setListId('test');
         return $cache;
     }
 
@@ -643,10 +656,10 @@ extends PHPUnit_Framework_TestCase
     protected function getDefaultEventData($add = '')
     {
         return array(
-            'structure' => dirname(__FILE__) . '/fixtures/event.struct',
+            'structure' => __DIR__ . '/fixtures/event.struct',
             'parts' => array(
                 '2' => array(
-                    'file' => dirname(__FILE__) . '/fixtures/event' . $add . '.xml.qp',
+                    'file' => __DIR__ . '/fixtures/event' . $add . '.xml.qp',
                 )
             )
         );

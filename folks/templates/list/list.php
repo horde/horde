@@ -1,13 +1,13 @@
 <div class="tabset">
 <ul>
-<li <?php if (basename($_SERVER['PHP_SELF']) == 'online.php') echo 'class="activeTab"' ?> title="<?php echo _("Users currently online") ?>"><a href="<?php echo Folks::getUrlFor('list', 'online') ?>"><?php echo _("Online") ?></a></li>
-<li <?php if (basename($_SERVER['PHP_SELF']) == 'new.php') echo 'class="activeTab"' ?> title="<?php echo _("New registered user") ?>"><a href="<?php echo Folks::getUrlFor('list', 'new') ?>"><?php echo _("New") ?></a></li>
+<li <?php if (basename($_SERVER['PHP_SELF']) == 'online.php') echo 'class="horde-active"' ?> title="<?php echo _("Users currently online") ?>"><a href="<?php echo Folks::getUrlFor('list', 'online') ?>"><?php echo _("Online") ?></a></li>
+<li <?php if (basename($_SERVER['PHP_SELF']) == 'new.php') echo 'class="horde-active"' ?> title="<?php echo _("New registered user") ?>"><a href="<?php echo Folks::getUrlFor('list', 'new') ?>"><?php echo _("New") ?></a></li>
 <?php if ($conf['services']['countcron']): ?>
-<li <?php if (basename($_SERVER['PHP_SELF']) == 'popularity.php') echo 'class="activeTab"' ?> title="<?php echo _("Most popular users") ?>"><a href="<?php echo Folks::getUrlFor('list', 'popularity') ?>"><?php echo _("Popularity") ?></a></li>
-<li <?php if (basename($_SERVER['PHP_SELF']) == 'activity.php') echo 'class="activeTab"' ?> title="<?php echo _("Most active users") ?>"><a href="<?php echo Folks::getUrlFor('list', 'activity') ?>"><?php echo _("Activity") ?></a></li>
+<li <?php if (basename($_SERVER['PHP_SELF']) == 'popularity.php') echo 'class="horde-active"' ?> title="<?php echo _("Most popular users") ?>"><a href="<?php echo Folks::getUrlFor('list', 'popularity') ?>"><?php echo _("Popularity") ?></a></li>
+<li <?php if (basename($_SERVER['PHP_SELF']) == 'activity.php') echo 'class="horde-active"' ?> title="<?php echo _("Most active users") ?>"><a href="<?php echo Folks::getUrlFor('list', 'activity') ?>"><?php echo _("Activity") ?></a></li>
 <?php endif; ?>
-<li <?php if (basename($_SERVER['PHP_SELF']) == 'birthday.php') echo 'class="activeTab"' ?> title="<?php echo _("Users celebrating birthday today") ?>"><a href="<?php echo Folks::getUrlFor('list', 'birthday') ?>"><?php echo _("Birthday") ?></a></li>
-<li <?php if (basename($_SERVER['PHP_SELF']) == 'list.php') echo 'class="activeTab"' ?> title="<?php echo _("All users") ?>"><a href="<?php echo Folks::getUrlFor('list', 'list') ?>"><?php echo _("List") ?></a></li>
+<li <?php if (basename($_SERVER['PHP_SELF']) == 'birthday.php') echo 'class="horde-active"' ?> title="<?php echo _("Users celebrating birthday today") ?>"><a href="<?php echo Folks::getUrlFor('list', 'birthday') ?>"><?php echo _("Birthday") ?></a></li>
+<li <?php if (basename($_SERVER['PHP_SELF']) == 'list.php') echo 'class="horde-active"' ?> title="<?php echo _("All users") ?>"><a href="<?php echo Folks::getUrlFor('list', 'list') ?>"><?php echo _("List") ?></a></li>
 </ul>
 </div>
 <br class="clear" />
@@ -48,10 +48,10 @@ $sortText = _("Sort Direction");
 foreach ($headers as $key => $val) {
     echo '<th class="widget leftAlign nowrap">' . "\n";
     if ($criteria['sort_by'] == $key) {
-        echo Horde::link(Horde_Util::addParameter($list_url, 'sort_dir', ($criteria['sort_dir'] == 'DESC') ? 'ASC' : 'DESC'), $val['text'], null, null, null, $val['text']);
+        echo Horde::link($list_url->add('sort_dir', ($criteria['sort_dir'] == 'DESC') ? 'ASC' : 'DESC'), $val['text'], null, null, null, $val['text']);
         echo Horde::img($sortImg, $sortText) . '</a>&nbsp;';
     }
-    echo Horde::widget(Horde_Util::addParameter(($criteria['sort_by'] == $key) ? $list_url : $list_url, 'sort_by', $key), $val['text'], 'widget');
+    echo Horde::widget(array('url' => $list_url->add('sort_by', $key), 'title' => $val['text']));
     echo '</th>';
 }
 ?>

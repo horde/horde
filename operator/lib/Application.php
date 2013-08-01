@@ -16,7 +16,7 @@
  */
 
 if (!defined('OPERATOR_BASE')) {
-    define('OPERATOR_BASE', dirname(__FILE__). '/..');
+    define('OPERATOR_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -55,6 +55,19 @@ class Operator_Application extends Horde_Registry_Application
 
         // Caching system for storing DB results
         $GLOBALS['cache'] = $GLOBALS['injector']->getInstance('Horde_Cache');
+    }
+
+    /**
+     */
+    public function menu($menu)
+    {
+        $menu->add(Horde::url('viewgraph.php'), _("_View Graphs"), 'graphs.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
+
+        /* Export */
+        if ($GLOBALS['conf']['menu']['export']) {
+            $menu->add(Horde::url('export.php'), _("_Export"), 'data.png');
+        }
     }
 
     /**

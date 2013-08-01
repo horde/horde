@@ -1,7 +1,7 @@
 /**
  * dimpcore.js - Dimp UI application logic.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -11,7 +11,11 @@
 var DimpCore = {
 
     // Vars used and defaulting to null/false:
-    //   DMenu, is_init
+    //   DMenu
+
+    conf: {},
+    context: {},
+    text: {},
 
     // Wrapper methods around HordeCore functions.
 
@@ -23,81 +27,23 @@ var DimpCore = {
             opts = opts || {};
 
             if (opts.uids.viewport_selection) {
-                opts.uids = this.selectionToRange(opts.uids);
+                opts.uids = opts.uids.get('uid');
             }
 
-            params.set('uid', this.toUIDString(opts.uids));
+            params.set('buid', opts.uids.toViewportUidString());
         }
 
-        HordeCore.doAction(action, params, opts);
+        return HordeCore.doAction(action, params, opts);
     },
 
-    // Dimp specific methods.
-    toUIDString: function(ob, opts)
+    compose: function(type, params)
     {
-        if (DIMP.conf.pop3) {
-            opts = opts || {};
-            opts.pop3 = 1;
-        }
+        params = params || {};
+        params.type = type;
 
-        return ImpIndices.toUIDString(ob, opts);
-    },
-
-    parseUIDString: function(str)
-    {
-        return ImpIndices.parseUIDString(str, DIMP.conf.pop3 ? { pop3: 1 } : {});
-    },
-
-    selectionToRange: function(s)
-    {
-        var b = s.getBuffer(),
-            tmp = {};
-
-        if (b.getMetaData('search')) {
-            s.get('dataob').each(function(r) {
-                if (tmp[r.mbox]) {
-                    tmp[r.mbox].push(r.uid);
-                } else {
-                    tmp[r.mbox] = [ r.uid ];
-                }
-            });
-        } else {
-            tmp[b.getView()] = s.get('uid');
-        }
-
-        return tmp;
-    },
-
-    compose: function(type, args)
-    {
-        var params = {};
-        if (type) {
-            params.type = type;
-        }
-
-        if (type.startsWith('forward') || !args || !args.uids) {
-            if (type.startsWith('forward')) {
-                params.uids = this.toUIDString(this.selectionToRange(args.uids));
-            } else if (args) {
-                if (args.to) {
-                    params.to = args.to;
-                }
-                if (args.toname) {
-                    params.toname = args.toname;
-                }
-            }
-            HordeCore.popupWindow(DIMP.conf.URI_COMPOSE, params, {
-                name: 'compose' + new Date().getTime()
-            });
-        } else {
-            args.uids.get('dataob').each(function(d) {
-                params.mailbox = d.mbox;
-                params.uid = d.uid;
-                HordeCore.popupWindow(DIMP.conf.URI_COMPOSE, params, {
-                    name: 'compose' + new Date().getTime()
-                });
-            }, this);
-        }
+        HordeCore.popupWindow(DimpCore.conf.URI_COMPOSE, params, {
+            name: 'compose' + new Date().getTime()
+        });
     },
 
     toggleButtons: function(elts, disable)
@@ -112,12 +58,13 @@ var DimpCore = {
     // o = (object) Options:
     //   - disabled: (boolean) Disabled?
     //   - insert: (string) Insertion position.
+    //   - no_offset: (boolean) If true, offset from popdown graphic.
     //   - trigger: (boolean) Trigger popdown on button click?
     addPopdown: function(p, t, o)
     {
         o = o || {};
 
-        var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' }),
+        var elt = new Element('SPAN', { className: 'horde-popdown' }),
             ins = {};
         p = $(p);
 
@@ -138,16 +85,9 @@ var DimpCore = {
             disable: o.disabled,
             elt: elt,
             left: true,
-            offset: elt.up(),
+            offset: (o.no_offset ? elt : elt.up()),
             type: t
         });
-    },
-
-    // See addPopdown() for documentation
-    addPopdownButton: function(p, t, o)
-    {
-        this.addPopdown(p, t, o);
-        $(p).next('SPAN.popdown').insert({ before: new Element('SPAN', { className: 'popdownSep' }) });
     },
 
     addContextMenu: function(p)
@@ -161,64 +101,77 @@ var DimpCore = {
     buildAddressLinks: function(alist, elt, limit)
     {
         var base, tmp,
-            cnt = alist.size();
+            df = document.createDocumentFragment();
 
-        if (cnt > 15) {
-            tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active');
+        if (alist.raw) {
+            elt.insert(alist.raw);
+            return elt;
+        }
+
+        this._buildAddressLinks(alist.addr, df);
+
+        if (limit && alist.limit) {
+            tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active').writeAttribute({ id: null });
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
             tmp = tmp.down('.largeaddrlist');
-            tmp.setText(tmp.getText().replace('%d', limit ? limit : cnt));
-            if (limit) {
-                base.down('.largeaddrlistlimit').show();
-            }
+            base.down('.largeaddrlistlimit').show();
+            tmp.setText((tmp.textContent || tmp.innerText).replace('%d', alist.limit));
         } else {
             base = elt;
         }
 
-        alist.each(function(o, i) {
-            var a;
-            if (o.raw) {
-                a = o.raw;
-            } else {
-                a = new Element('A', { className: 'address' }).store({ personal: o.personal, email: o.inner });
-                if (o.personal) {
-                    a.writeAttribute({ title: o.inner }).insert(o.personal.escapeHTML());
-                } else if (o.inner) {
-                    a.insert(o.inner.escapeHTML());
-                }
-                this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
-            }
-            base.insert(a);
-            if (i + 1 != cnt) {
-                base.insert(', ');
-            }
-        }, this);
+        base.appendChild(df);
 
-        if (limit) {
-            base.insert(', [...]');
+        if (limit && alist.limit) {
+            tmp = (base.down('.addrgroup-div') || base).insert('[...]');
         }
-
         return elt;
+    },
+
+    _buildAddressLinks: function(alist, df)
+    {
+        alist.each(function(o) {
+            var tmp,
+                a = new Element('A', { className: 'horde-button' }).store({ email: o });
+
+            if (o.g) {
+                a.insert(o.g.escapeHTML() + ':').addClassName('addrgroup-name');
+
+                tmp = new Element('DIV', { className: 'addrgroup-div' });
+                tmp.insert(a);
+                df.appendChild(tmp);
+
+                this._buildAddressLinks(o.a, tmp);
+            } else if (o.p) {
+                a.writeAttribute({ title: o.b }).insert(o.p.escapeHTML());
+                df.appendChild(a);
+            } else if (o.b) {
+                a.insert(o.b.escapeHTML());
+                df.appendChild(a);
+            }
+
+            this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
+        }, this);
     },
 
     /* Add message log info to message view. */
     updateMsgLog: function(log)
     {
-        var tmp = '';
+        var df = document.createDocumentFragment(),
+            tmp = $('msgloglist').down('UL');
+
         log.each(function(entry) {
-            tmp += '<li><span class="iconImg imp-' + entry.t + '"></span>' + entry.m + '</li>';
+            df.appendChild(new Element('LI').insert(new Element('SPAN', { className: 'iconImg imp-' + entry.t })).insert(entry.m));
         });
-        $('msgloglist').down('UL').update(tmp);
+
+        tmp.childElements().invoke('remove');
+        tmp.appendChild(df);
     },
 
+    // Abstract: define in any pages that need reloadMessage().
     reloadMessage: function(params)
     {
-        if (typeof DimpMessage != 'undefined') {
-            window.location = HordeCore.addURLParam(document.location.href, params);
-        } else {
-            DimpBase.loadPreview(null, params);
-        }
     },
 
     toggleCheck: function(elt, on)
@@ -244,40 +197,27 @@ var DimpCore = {
     /* Mouse click handler. */
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
+        var elt = e.element(), tmp;
 
-        var elt = e.element(), id, tmp;
-
-        while (Object.isElement(elt)) {
-            // CSS class based matching
-            if (elt.hasClassName('unblockImageLink')) {
-                IMP_JS.unblockImages(e);
-            } else if (elt.hasClassName('largeaddrspan_active')) {
-                if (e.element().hasClassName('largeaddrlistlimit')) {
-                    e.element().hide();
-                    elt.up('TD').fire('DimpCore:updateAddressHeader');
-                } else {
-                    tmp = elt.down();
-                    if (!tmp.next().visible() ||
-                        e.element().hasClassName('largeaddrlist')) {
-                        [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
-                    }
-                }
-            } else if (elt.hasClassName('pgpVerifyMsg')) {
-                elt.replace(DIMP.text.verify);
-                DimpCore.reloadMessage({ pgp_verify_msg: 1 });
-                e.stop();
-                return;
-            } else if (elt.hasClassName('smimeVerifyMsg')) {
-                elt.replace(DIMP.text.verify);
-                DimpCore.reloadMessage({ smime_verify_msg: 1 });
-                e.stop();
-                return;
+        if (elt.hasClassName('unblockImageLink')) {
+            IMP_JS.unblockImages(e.memo);
+        } else if (elt.hasClassName('largeaddrspan_active') &&
+                   !e.memo.element().hasClassName('horde-button')) {
+            if (e.memo.element().hasClassName('largeaddrlistlimit')) {
+                e.memo.element().hide();
+                elt.up('TD').fire('DimpCore:updateAddressHeader');
+            } else {
+                tmp = elt.down();
+                [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
             }
-
-            elt = elt.up();
+        } else if (elt.hasClassName('pgpVerifyMsg')) {
+            elt.replace(DimpCore.text.verify);
+            DimpCore.reloadMessage({ pgp_verify_msg: 1 });
+            e.memo.stop();
+        } else if (elt.hasClassName('smimeVerifyMsg')) {
+            elt.replace(DimpCore.text.verify);
+            DimpCore.reloadMessage({ smime_verify_msg: 1 });
+            e.memo.stop();
         }
     },
 
@@ -287,11 +227,15 @@ var DimpCore = {
 
         switch (e.memo.elt.readAttribute('id')) {
         case 'ctx_contacts_new':
-            this.compose('new', { to: baseelt.retrieve('email'), toname: baseelt.retrieve('personal') });
+            this.compose('new', {
+                to_json: Object.toJSON(baseelt.retrieve('email'))
+            });
             break;
 
         case 'ctx_contacts_add':
-            this.doAction('addContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') });
+            this.doAction('addContact', {
+                addr: Object.toJSON(baseelt.retrieve('email'))
+            });
             break;
         }
     },
@@ -310,10 +254,10 @@ var DimpCore = {
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if (e.element().retrieve('personal')) {
+            if ((tmp = e.element().retrieve('email')) && !tmp.g && tmp.p) {
                 $(e.memo)
                     .insert({ top: new Element('DIV', { className: 'sep' }) })
-                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(e.element().retrieve('email').escapeHTML()) });
+                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp.b.escapeHTML()) });
             }
             break;
         }
@@ -321,14 +265,14 @@ var DimpCore = {
 
     contextOnTrigger: function(e)
     {
-        if (!DIMP.context[e.memo]) {
+        if (!DimpCore.context[e.memo]) {
             return;
         }
 
         var div = new Element('DIV', { className: 'context', id: e.memo }).hide();
 
-        if (!Object.isArray(DIMP.context[e.memo])) {
-            $H(DIMP.context[e.memo]).each(function(pair) {
+        if (!Object.isArray(DimpCore.context[e.memo])) {
+            $H(DimpCore.context[e.memo]).each(function(pair) {
                 div.insert(this._contextOnTrigger(pair, e.memo));
             }, this);
         }
@@ -347,7 +291,7 @@ var DimpCore = {
             return new Element('DIV', { className: 'mboxName' }).insert(pair.value.escapeHTML());
         }
         if (pair.key.startsWith('_sub')) {
-            var elt = new Element('DIV').hide();
+            elt = new Element('DIV').hide();
             $H(pair.value).each(function(v) {
                 elt.insert(this._contextOnTrigger(v, ctx));
             }, this);
@@ -366,59 +310,62 @@ var DimpCore = {
         return elt;
     },
 
-    /* DIMP initialization function. */
-    init: function()
+    onDomLoad: function()
     {
-        if (this.is_init) {
-            return;
-        }
-        this.is_init = true;
+        HordeCore.initHandler('click');
 
         if (typeof ContextSensitive != 'undefined') {
             this.DMenu = new ContextSensitive();
-            document.observe('ContextSensitive:click', this.contextOnClick.bindAsEventListener(this));
-            document.observe('ContextSensitive:show', this.contextOnShow.bindAsEventListener(this));
-            document.observe('ContextSensitive:trigger', this.contextOnTrigger.bindAsEventListener(this));
         }
-
-        /* Add click handler. */
-        document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
-
-        /* Catch dialog actions. */
-        document.observe('HordeDialog:success', function(e) {
-            switch (e.memo) {
-            case 'pgpPersonal':
-            case 'pgpSymmetric':
-            case 'smimePersonal':
-                HordeDialog.noreload = true;
-                this.reloadMessage({});
-                break;
-            }
-        }.bindAsEventListener(this));
-
-        /* Catch notification actions. */
-        document.observe('HordeCore:showNotifications', function(e) {
-            switch (e.memo.type) {
-            case 'imp.reply':
-            case 'imp.forward':
-            case 'imp.redirect':
-                HordeBase.Growler.growl(m.message.escapeHTML(), {
-                    className: m.type.replace('.', '-'),
-                    life: 8
-                });
-                break;
-            }
-        }.bindAsEventListener(this));
-
-        /* Disable text selection for everything but compose/message body
-         * and FORM inputs. */
-        document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
-            if (!e.element().up('.messageBody') &&
-                !e.element().match('TEXTAREA') &&
-                !e.element().match('INPUT')) {
-                e.stop();
-            }
-        });
     }
 
 };
+
+/* Initialize onload handler. */
+document.observe('dom:loaded', DimpCore.onDomLoad.bind(DimpCore));
+
+/* Browser native events. */
+document.observe('HordeCore:click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
+
+/* ContextSensitive events. */
+document.observe('ContextSensitive:click', DimpCore.contextOnClick.bindAsEventListener(DimpCore));
+document.observe('ContextSensitive:show', DimpCore.contextOnShow.bindAsEventListener(DimpCore));
+document.observe('ContextSensitive:trigger', DimpCore.contextOnTrigger.bindAsEventListener(DimpCore));
+
+/* Dialog events. Since reloadMessage() can be extended, don't immediately
+ * bind function call now. */
+document.observe('ImpPassphraseDialog:success', function() {
+    DimpCore.reloadMessage({});
+});
+
+/* Notification events. */
+document.observe('HordeCore:showNotifications', function(e) {
+    switch (e.memo.type) {
+    case 'imp.reply':
+    case 'imp.forward':
+    case 'imp.redirect':
+        HordeBase.Growler.growl(m.message.escapeHTML(), {
+            className: m.type.replace('.', '-'),
+            life: 8
+        });
+        break;
+    }
+});
+
+/* Disable text selection for everything but compose/message body and FORM
+ * inputs. */
+document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
+    if (!e.findElement('.allowTextSelection') &&
+        !e.element().match('SELECT') &&
+        !e.element().match('TEXTAREA') &&
+        !e.element().match('INPUT')) {
+        e.stop();
+
+        if (document.activeElement) {
+            var ae = $(document.activeElement);
+            if (ae.match('TEXTAREA') || ae.match('INPUT')) {
+                ae.blur();
+            }
+        }
+    }
+});

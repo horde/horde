@@ -2,7 +2,7 @@
 /**
  * Sesha external API interface.
  *
- * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * This file defines Sesha's external API interface. Other applications can
  * interact with Sesha through this API.
@@ -10,91 +10,76 @@
  * @author  Bo Daley <bo@darkwork.net>
  * @package Sesha
  */
-
 class Sesha_Api extends Horde_Registry_Api
 {
 
-   /**
-    * List all available categories as queues
-    * @return array
-    */
+    /**
+     * List categories as ticket queues
+     * @return array  a list of ticket queues with category id as key and category caption as value
+     */
     public function listQueues()
     {
         $queues = array();
-        $categories = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->getCategories();
+        $categories = $GLOBALS['backend']->getCategories();
         foreach ($categories as $category) {
-            $queues[$category['category_id']] = $category['category'];
+            $queues[$category->category_id] = $category->category;
         }
         asort($queues);
 
         return $queues;
     }
 
-   /**
-    * Retrieve queue details - this is for ticketing integration
-    *
-    * @param string $queue_id The id of the queue to retrieve
-    *
-    * @return array
-    */
+    /**
+     * Get a queueDetails hash for a queue (category)
+     * @param integer $queue_id  The Queue for which to build the details hash
+     * @return array  A hash of category id as id, category label as name, category description as description, a link, a list of subjects as configured
+     */
     public function getQueueDetails($queue_id)
     {
         global $registry;
-
-        $category = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->getCategory($queue_id);
+        $category = $GLOBALS['backend']->getCategory($queue_id);
 
         return array('id' => $queue_id,
-                 'name' => $category['category'],
-                 'description' => $category['description'],
-                 'link' => Horde_Util::addParameter(Horde::url('list.php', true), 'display_category', $queue_id - 1, false),
-                 'subjectlist' => $GLOBALS['conf']['tickets']['subjects'],
-                 'versioned' => $registry->hasMethod('tickets/listVersions') == $registry->getApp(),
-                 'readonly' => true);
+                    'name' => $category->category,
+                    'description' => $category->description,
+                    'link' => Horde::applicationUrl('list.php', true)->add('display_category', $queue_id - 1)->setRaw(true),
+                    'subjectlist' => $GLOBALS['conf']['tickets']['subjects'],
+                    'versioned' => $registry->hasMethod('tickets/listVersions') == $registry->getApp(),
+                    'readonly' => true);
     }
 
-   /**
-    * List all versions for the queue
-    *
-    * @param string $queue_id The id of the queue
-    *
-    * @return array $versions List of versions
-    */
+    /**
+     * List Stock items as versions for a queue (category)
+     * @param integer $queue_id  The category id (queue) for which we want to fetch versions
+     * @return array  A hash containing stock id as id, stock name as name, stock note as description
+     */
     public function listVersions($queue_id)
     {
-        $inventory = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->listStock($queue_id);
+        $inventory = $GLOBALS['backend']->findStock(array('categories' => $queue_id));
         $versions = array();
         foreach ($inventory as $item) {
-        $versions[] = array('id' => $item['stock_id'],
-                            'name' => $item['stock_name'],
-                            'description' => $item['note'],
-                            'readonly' => true);
+            $versions[] = array('id' => $item->stock_id,
+                                'name' => $item->stock_name,
+                                'description' => $item->note,
+                                'readonly' => true);
         }
         Horde_Array::arraySort($versions, 'name', 0, false);
 
         return $versions;
     }
 
-   /**
-    * Retrieve item version details 
-    *
-    * @param string $version_id The id of the version to retrieve
-    *
-    * @throws Sesha_Exception
-    * @return array
-    */
+    /**
+     * return a version details hash by version id
+     * @param integer $version_id  The ID of the stock item to display as a version
+     * @return array  The version hash containing stock name as name, stock note as description and a link
+     */
     public function getVersionDetails($version_id)
     {
-        global $registry;
-
-        try {
-            $item = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->fetch($version_id);
-        } catch (Sesha_Exception $e) {
-            return array();
-        }
+        $item = $GLOBALS['backend']->fetch($version_id);
         return array('id' => $version_id,
-                 'name' => $item['stock_name'],
-                 'description' => $item['note'],
-                 'link' => Horde_Util::addParameter(Horde::url('stock.php', true), array('stock_id' => $version_id, 'actionId' => 'view_stock'), null, false),
-                 'readonly' => true);
+                    'name' => $item->stock_name,
+                    'description' => $item->note,
+                    'link' => Horde::applicationUrl('stock.php', true)->add(array('stock_id' => $version_id, 'actionId' => 'view_stock'))->setRaw(true),
+                    'readonly' => true);
     }
 }

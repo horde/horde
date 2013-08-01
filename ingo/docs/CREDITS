@@ -14,7 +14,7 @@ Localization
 ============
 
 =====================   ======================================================
-Basque                  Euskal Herriko Unibertsitatea <xabier.arrieta@ehu.es>
+Basque                  Euskal Herriko Unibertsitatea <webmaster@ehu.es>
 Brazilian Portuguese    Fabio Gomes <flgoms@uol.com.br>
                         Luis Felipe Marzagao <duli@fedoraproject.org>
                         Eduardo de Carli <carliedu@ig.com.br>
@@ -28,6 +28,7 @@ Danish                  Brian Truelsen <horde+i18n@briantruelsen.dk>
 Dutch                   Ruben van der Steenhoven
                         <ruben_donotspamme@webmeesters.net>
                         Jan Kuipers <jrkuipers@lauwerscollege.nl>
+                        Arjen de Korte <build+horde@de-korte.org>
 Estonian                Toomas Aas <toomas.aas@mail.ee>
                         Alar Sing <alar.sing@err.ee>
 Finnish                 Leena Heino <Leena.Heino@uta.fi>
@@ -37,14 +38,18 @@ French                  Florent Aide <faide@alphacent.com>
                         Vincent Vinet <vvinet@revolutionlinux.com>
                         Yannick Sebastia <yannick.sebastia@ecole-navale.fr>
                         Laurent Foucher <laurent.foucher@iut-tlse3.fr>
+                        Paul De Vlieger
+                        <paul.de_vlieger@moniut.univ-bpclermont.fr>
 German                  Jan Schneider <jan@horde.org>
 Greek                   Konstantinos C. Milosis <kmilosis@yahoo.com>
 Hungarian               Attila Nagy <bra@fsn.hu>
                         Laszlo L. Tornoci <torlasz@xenia.sote.hu>
                         Andras Galos <galosa@netinform.hu>
+                        Zoltán Németh <nemeth.zoltan@etit.hu>
 Italian                 Marko Djukic <marko@oblo.com>
                         Marco Pirovano <marco.pirovano@unibocconi.it>
                         Cristian Manoni <cristian.manoni@nethesis.it>
+                        Massimo Malabotta <mmalabotta@units.it>
 Japanese                Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 Korean                  Jinhyok Heo <novembre@ournature.org>
 Latvian                 Janis Eisaks <jancs@dv.lv>
@@ -60,11 +65,15 @@ Portuguese              Manuel Menezes de Sequeira <Manuel.Sequeira>
 Romanian                Eugen Hoanca <eugenh@urban-grafx.ro>
 Russian                 Alexey Zakharov <baber@mosga.net>
 Slovak                  Martin Matuška <martin@matuska.org>
+                        Jozef Sudolský <jozef.sudolsky@elbia.sk>
 Slovenian               Duck <duck@obala.net>
 Spanish                 Manuel Perez Ayala <mperaya@alcazaba.unex.es>
                         Juan C. Blanco <jcblanco@fi.upm.es>
 Swedish                 Anders Norrbring <anders@norrbring.biz>
+                        Andreas Dahlén <andreas@dahlen.ws>
+                        Per Olof Ljungmark <peo@bsdlabs.com>
 Turkish                 Middle East Technical University <horde-tr@metu.edu.tr>
+                        İstanbul Technical University <sistemdestek@itu.edu.tr>
 Ukrainian               Andriy Kopystyansky <anri@polynet.lviv.ua>
 =====================   ======================================================
 

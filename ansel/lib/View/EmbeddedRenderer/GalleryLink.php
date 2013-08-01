@@ -2,7 +2,7 @@
 /**
  * Ansel_View_EmbeddedRenderer_GalleryLink
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -70,11 +70,13 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Base
         }
         $json = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImageJson($images, null, true, $thumbsize, true);
 
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('jsembed.css');
+        global $page_output;
+        $page_output->addThemeStylesheet('jsembed.css');
         Horde::startBuffer();
-        Horde::includeStylesheetFiles(array(
+        $page_output->includeStylesheetFiles(array(
             'nobase' => true,
-            'nohorde' => true), true);
+            'nohorde' => true
+        ), true);
         $css = Horde::endBuffer();
 
         // Some paths

@@ -2,19 +2,13 @@
 /**
  * A bare-bones twitter client in a Horde block.
  *
- * Still @TODO:
- *  - configure block to show friendTimeline, specific user, public timeline,
- *    'mentions' for current user etc..
- *  - keep track of call limits and either dynamically alter update time or
- *    at least provide feedback to user.
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Horde
  */
 class Horde_Block_TwitterTimeline extends Horde_Core_Block
@@ -83,7 +77,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $conf;
+        global $page_output;
 
         /* Get the twitter driver */
         try {
@@ -105,26 +99,29 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
               }
             } catch (Horde_Service_Twitter_Exception $e) {
                 $msg = Horde_Serialize::unserialize($e->getMessage(), Horde_Serialize::JSON);
+                if (is_object($msg)) {
+                    $msg = $msg->errors[0]->message;
+                }
                 return sprintf(_("There was an error contacting Twitter: %s"), $msg);
             }
         }
 
         /* Build values to pass to the javascript twitter client */
-        $defaultText = _("What are you working on now?");
+        $defaultText = addslashes(_("What are you working on now?"));
         $endpoint = Horde::url('services/twitter/', true);
-        $spinner = $instance . '_loading';
-        $inputNode = $instance . '_newStatus';
         $inReplyToNode = $instance . '_inReplyTo';
-        $inReplyToText = _("In reply to:");
-        $contentNode = 'twitter_body' . $instance;
-        $justNowText = _("Just now...");
+        $inReplyToText = addslashes(_("In reply to:"));
+        $justNowText = addslashes(_("Just now..."));
         $refresh = empty($this->_params['refresh_rate']) ? 300 : $this->_params['refresh_rate'];
 
         /* Add the client javascript / initialize it */
-        Horde::addScriptFile('twitterclient.js');
-        Horde::addScriptFile('effects.js');
+        $page_output->addScriptFile('twitterclient.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+        $favorite = _("Favorite");
+        $unfavorite = _("Unfavorite");
+
         $script = <<<EOT
-            var Horde = window.Horde || {};
+            Horde = window.Horde = window.Horde || {};
             Horde['twitter{$instance}'] = new Horde_Twitter({
                instanceid: '{$instance}',
                getmore: '{$instance}_getmore',
@@ -138,13 +135,10 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
                inreplyto: '{$inReplyToNode}',
                refreshrate: {$refresh},
                counter: '{$instance}_counter',
-               strings: { inreplyto: '{$inReplyToText}', defaultText: '{$defaultText}', justnow: '{$justNowText}' }
+               strings: { inreplyto: '{$inReplyToText}', defaultText: '{$defaultText}', justnow: '{$justNowText}', favorite: '{$favorite}', unfavorite: '{$unfavorite}' }
             });
 EOT;
-        Horde::addInlineScript($script, 'dom');
-
-        /* Get the user's most recent tweet */
-
+        $page_output->addInlineScript($script, true);
 
         /* Build the UI */
         $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
@@ -165,7 +159,7 @@ EOT;
     {
         $token = unserialize($GLOBALS['prefs']->getValue('twitter'));
         if (empty($token['key']) && empty($token['secret'])) {
-            $pref_link = Horde::getServiceLink('prefs', 'horde')->add('group', 'twitter')->link();
+            $pref_link = $GLOBALS['registry']->getServiceLink('prefs', 'horde')->add('group', 'twitter')->link();
             throw new Horde_Exception(sprintf(_("You have not properly connected your Twitter account with Horde. You should check your Twitter settings in your %s."), $pref_link . _("preferences") . '</a>'));
         }
 

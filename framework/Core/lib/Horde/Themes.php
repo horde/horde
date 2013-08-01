@@ -1,16 +1,24 @@
 <?php
 /**
- * The Horde_Themes:: class provides an interface to handling Horde themes.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * An interface to handling Horde theme elements.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Themes
 {
@@ -23,11 +31,11 @@ class Horde_Themes
      * @param mixed $options  Additional options. If a string, is taken to be
      *                        the 'app' parameter. If an array, the following
      *                        options are available:
-     * <pre>
-     * 'app' - (string) Use this application instead of the current app.
-     * 'nohorde' - (boolean) If true, do not fallback to horde for image.
-     * 'theme' - (string) Use this theme instead of the Horde default.
-     * </pre>
+     *   - app: (string) Use this application instead of the current app.
+     *   - nohorde: (boolean) If true, do not fallback to horde for image.
+     *   - noview: (boolean) If true, do not load images from view-specific
+     *             directories. (Since 2.4.0)
+     *   - theme: (string) Use this theme instead of the Horde default.
      *
      * @return Horde_Themes_Image  An object which contains the URI
      *                             and filesystem location of the image.
@@ -50,11 +58,11 @@ class Horde_Themes
      * @param mixed $options  Additional options. If a string, is taken to be
      *                        the 'app' parameter. If an array, the following
      *                        options are available:
-     * <pre>
-     * 'app' - (string) Use this application instead of the current app.
-     * 'nohorde' - (boolean) If true, do not fallback to horde for sound.
-     * 'theme' - (string) Use this theme instead of the Horde default.
-     * </pre>
+     *   - app: (string) Use this application instead of the current app.
+     *   - nohorde: (boolean) If true, do not fallback to horde for sound.
+     *   - noview: (boolean) If true, do not load images from view-specific
+     *             directories. (Since 2.4.0)
+     *   - theme: (string) Use this theme instead of the Horde default.
      *
      * @return Horde_Themes_Sound  An object which contains the URI
      *                             and filesystem location of the sound.
@@ -99,8 +107,8 @@ class Horde_Themes
     /**
      * Returns a list of available sounds.
      *
-     * @param string $app  The app to search in.
-     * @param string $theme  The app to search in.
+     * @param string $app    The app to search in.
+     * @param string $theme  The theme to search in.
      *
      * @return array  An array of Horde_Themes_Sound objects. Keys are the
      *                base filenames.
@@ -139,6 +147,37 @@ class Horde_Themes
     static public function getFeedXsl()
     {
          return $GLOBALS['registry']->get('themesuri', 'horde') . '/default/feed-rss.xsl';
+    }
+
+    /**
+     * Return the view-specific directory for a Horde view.
+     *
+     * @since 2.4.0
+     *
+     * @param integer $view  The Horde view type.
+     *
+     * @return string  The directory prefix.
+     */
+    static public function viewDir($view)
+    {
+        global $registry;
+
+        switch ($view) {
+        case $registry::VIEW_BASIC:
+            return 'basic';
+
+        case $registry::VIEW_DYNAMIC:
+            return 'dynamic';
+
+        case $registry::VIEW_MINIMAL:
+            return 'minimal';
+
+        case $registry::VIEW_SMARTMOBILE:
+            return 'smartmobile';
+
+        default:
+            return null;
+        }
     }
 
 }

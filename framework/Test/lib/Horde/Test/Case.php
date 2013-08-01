@@ -15,7 +15,7 @@
 /**
  * Basic Horde test case helper.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -60,7 +60,7 @@ class Horde_Test_Case extends PHPUnit_Framework_TestCase
         if ($config) {
             $json = json_decode($config, true);
             if ($json) {
-                return Horde_Array::replaceRecursive($default, $json);
+                return array_replace_recursive($default, $json);
             }
         } else {
             if (!$path) {

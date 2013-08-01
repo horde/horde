@@ -1,30 +1,27 @@
 <?php
 /**
- * Ansel_Widget_Geotag:: class to wrap the display of a Google map showing
- * images with geolocation data.
- *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @TODO: Refactor the JS out to a seperate file, output needed values in the
- *        GLOBAL Ansel javascript object. Rewrite for Horde_Map js.
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
+ */
+/**
+ * Ansel_Widget_Geotag:: class to wrap the display of a Google map showing
+ * images with geolocation data.
+ *
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
 class Ansel_Widget_Geotag extends Ansel_Widget_Base
 {
-    /**
-     * List of views this widget supports
-     *
-     * @var array
-     */
-    protected $_supported_views = array(
-        'Image',
-        'Gallery');
-
     /**
      * Default params
      *
@@ -35,32 +32,16 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         'max_auto_zoom' => 15);
 
     /**
-     * Const'r
-     *
-     * @param array $params
-     *
-     * @return Ansel_Widget_Geotag
-     */
-    public function __construct($params)
-    {
-        parent::__construct($params);
-        $this->_title = _("Location");
-    }
-
-    /**
      * Attach widget to supplied view.
      *
      * @param Ansel_View_Base $view
-     *
-     * @return boolean
      */
     public function attach(Ansel_View_Base $view)
     {
         if (empty($GLOBALS['conf']['maps']['driver'])) {
             return false;
         }
-        parent::attach($view);
-        return true;
+        return parent::attach($view);
     }
 
     /**
@@ -70,6 +51,13 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
      */
     public function html()
     {
+        global $page_output;
+
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
+        $view->title = _("Location");
+        $view->background = $this->_style->background;
+
         $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
         $geodata = $ansel_storage->getImagesGeodata($this->_params['images']);
         $viewType = $this->_view->viewType();
@@ -77,35 +65,36 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         // Exit early?
         if (count($geodata) == 0 && $viewType != 'Image') {
             return '';
-        } elseif (count($geodata) == 0) {
-            $noGeotag = true;
         }
 
         // Setup map and javascript includes
-        Ansel::initHordeMap($GLOBALS['conf']['maps']);
-        Horde::addScriptFile('popup.js', 'horde');
-        Horde::addScriptFile('widgets/geotag.js');
+        Horde::initMap();
+        $page_output->addScriptFile('map.js');
+        $page_output->addScriptFile('popup.js', 'horde');
+        $page_output->addScriptFile('widgets/geotag.js');
 
         // Values needed by map javascript
-        $url = Horde::url('map_edit.php', true);
+        $relocate_url = Horde::url('map_edit.php', true);
         $rtext = _("Relocate this image");
         $dtext = _("Delete geotag");
         $thisTitleText = _("This image");
         $otherTitleText = _("Other images in this gallery");
-        $imple = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'ImageSaveGeotag'));
-        $impleUrl = $imple->getUrl();
+
+        $geotagUrl = $GLOBALS['registry']
+            ->getServiceLink('ajax', 'ansel')
+            ->setRaw(true);
+        $geotagUrl->url .= 'imageSaveGeotag';
 
         $permsEdit = (integer)$this->_view->gallery->hasPermission(
             $GLOBALS['registry']->getAuth(),
             Horde_Perms::EDIT);
+        $view->haveEdit = $permsEdit;
 
         // URL for updating selected layer
-        $imple =  $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'MapLayerSelect'));
-        $layerImpleUrl = $imple->getUrl();
+        $layerUrl = $GLOBALS['registry']
+            ->getServiceLink('ajax', 'ansel')
+            ->setRaw(true);
+        $layerUrl->url .= 'setPrefValue';
 
         // And the current defaultLayer, if any.
         $defaultLayer = $GLOBALS['prefs']->getValue('current_maplayer');
@@ -126,12 +115,11 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 true);
         }
 
-        // Start HTML building for widget
-        $html = $this->_htmlBegin() . "\n";
-        $content = '<div id="ansel_geo_widget">';
+        // Image view?
+        $view->isImageView = $viewType == 'Image';
 
         // If this is an image view, get the other gallery images
-        if ($viewType == 'Image') {
+        if ($viewType == 'Image' && !empty($geodata)) {
             $image_id = $this->_view->resource->id;
             $others = $this->_getGalleryImagesWithGeodata();
             foreach ($others as $id => $data) {
@@ -152,95 +140,72 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 }
             }
             $geodata = array_values(array_merge($geodata, $others));
-
-            // If we have geo data, build dom structure for maps, otherwise
-            // build HTML for "Add geodata" section.
-            if (empty($noGeotag)) {
-                $content .= '<div id="ansel_map"></div>';
-                $content .= '<div class="ansel_geolocation">';
-                $content .= '<div id="ansel_locationtext"></div>';
-                $content .= '<div id="ansel_latlng"></div>';
-                $content .= '<div id="ansel_relocate"></div><div id="ansel_deleteGeotag"></div></div>';
-                $content .= '<div id="ansel_map_small"></div>';
-            } elseif ($permsEdit) {
-                // Image view, but no geotags, provide ability to add it.
-                $addurl = Horde::url('map_edit.php')->add(
-                    'image',
-                    $this->_params['images'][0]);
-                $addLink = $addurl->link(
-                    array('onclick' => Horde::popupJs(
-                        Horde::url('map_edit.php'),
-                        array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600'))
-                    . 'return false;'));
-
-                $imgs = $ansel_storage
-                    ->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
-                if (count($imgs) > 0) {
-                    $imgsrc = '<div class="ansel_location_sameas">';
-                    foreach ($imgs as $id => $data) {
-                        if (!empty($data['image_location'])) {
-                            $title = $data['image_location'];
-                        } else {
-                            $title = $this->_point2Deg($data['image_latitude'], true)
-                                . ' '
-                                . $this->_point2Deg($data['image_longitude']);
-                        }
-                        $imgsrc .= $addurl->link(
-                            array('
-                                title' => $title,
-                                'onclick' => "Ansel.widgets.geotag.setLocation(" . $image_id . ",'" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "'); return false"
-                            ))
-                            . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[image]" /></a>';
-                    }
-                    $imgsrc .= '</div>';
-                    $content .= sprintf(_("No location data present. Place using %s map %s or click on image to place at the same location."), $addLink, '</a>') . $imgsrc;
-                } else {
-                    $content .= sprintf(_("No location data present. You may add some %s."), $addLink . _("here") . '</a>');
-                }
-            } else {
-                $content .= _("No location data present.");
-            }
-
-        } else {
-            // Gallery view-------------
-            $image_id = 0;
-            $content .= '<div id="ansel_map"></div>'
-                      . '<div id="ansel_locationtext" style="min-height: 20px;"></div>'
-                      . '<div id="ansel_map_small"></div>';
+            $view->geodata = $geodata;
         }
-        $content .= '</div>';
+        if ($permsEdit) {
+            // Image view, but no geotags, provide ability to add it.
+            $addurl = Horde::url('map_edit.php')->add(
+                'image',
+                $this->_params['images'][0]);
+
+            $view->addLink = $addurl->link(
+                array('onclick' => Horde::popupJs(
+                    Horde::url('map_edit.php'),
+                    array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600'))
+                . 'return false;'));
+
+            $view->imgs = $ansel_storage
+                ->getRecentImagesGeodata($GLOBALS['registry']
+                ->getAuth());
+
+            if (count($view->imgs) > 0) {
+                foreach ($view->imgs as $id => &$data) {
+                    if (!empty($data['image_location'])) {
+                        $data['title'] = $data['image_location'];
+                    } else {
+                        $data['title'] = sprintf(
+                            '%s %s',
+                            Ansel::point2Deg($data['image_latitude'], true),
+                            Ansel::point2Deg($data['image_longitude'])
+                        );
+                    }
+                    $data['add_link'] = $addurl->link(array(
+                        'title' => $title,
+                        'onclick' => "Ansel.widgets.geotag.setLocation(" . $image_id . ",'" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "'); return false"
+                        )
+                    );
+                }
+            }
+        }
 
         // Build the javascript to handle the map on the gallery/image views.
         $json = Horde_Serialize::serialize(array_values($geodata), Horde_Serialize::JSON);
-        $html .= <<<EOT
-        <script type="text/javascript">
-        Ansel.widgets = Ansel.widgets || {};
-        Ansel.widgets.geotag = new AnselGeoTagWidget(
-            {$json},
-            {
-                smallMap: 'ansel_map_small',
-                mainMap:  'ansel_map',
-                viewType: '{$viewType}',
-                relocateUrl: '{$url}',
-                relocateText: '{$rtext}',
-                markerLayerTitle: '{$thisTitleText}',
-                imageLayerTitle: '{$otherTitleText}',
-                defaultBaseLayer: '{$defaultLayer}',
-                deleteGeotagText: '{$dtext}',
-                hasEdit: {$permsEdit},
-                updateEndpoint: '{$impleUrl}',
-                layerUpdateEndpoint: '{$layerImpleUrl}',
-                geocoder: "{$GLOBALS['conf']['maps']['geocoder']}"
-            }
+        $js_params = array(
+            'smallMap' => 'ansel_map_small',
+            'mainMap' => 'ansel_map',
+            'viewType' => $viewType,
+            'relocateUrl' => strval($relocate_url),
+            'relocateText' => $rtext,
+            'markerLayerTitle' => $thisTitleText,
+            'imageLayerTitle' => $otherTitleText,
+            'defaultBaseLayer' => $defaultLayer,
+            'deleteGeotagText' => $dtext,
+            'hasEdit' => $permsEdit,
+            'updateEndpoint' => strval($geotagUrl),
+            'layerUpdateEndpoint' => strval($layerUrl),
+            'layerUpdatePref' => 'current_maplayer',
+            'geocoder' => $GLOBALS['conf']['maps']['geocoder']
         );
-EOT;
-        if (empty($noGeotag)) {
-            $html .= "\n" . 'Event.observe(window, "load", function() { Ansel.widgets.geotag.doMap(); });' . "\n";
+        $js = array(
+            'Ansel.widgets = Ansel.widgets || {};',
+            'Ansel.widgets.geotag = new AnselGeoTagWidget(' . $json . ',' . Horde_Serialize::serialize($js_params, Horde_Serialize::JSON) . ');'
+        );
+        $page_output->addInlineScript($js, true);
+        if (count($geodata)) {
+            $page_output->addInlineScript('Ansel.widgets.geotag.doMap();', true);
         }
-        $html .= '</script>' . "\n";
-        $html .= $content. $this->_htmlEnd();
 
-        return $html;
+        return $view->render('geotag');
     }
 
     /**
@@ -252,24 +217,6 @@ EOT;
         return $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
             ->getImagesGeodata(array(), $this->_view->gallery->id);
-    }
-
-    /**
-     * Helper function for converting from decimal points to degrees lat/lng
-     *
-     * @param float   $value  The value
-     * @param boolean $lat    Does this value represent a latitude?
-     *
-     * @return string  The textual representation in degrees.
-     */
-    protected function _point2Deg($value, $lat = false)
-    {
-        $letter = $lat ? ($value > 0 ? "N" : "S") : ($value > 0 ? "E" : "W");
-        $value = abs($value);
-        $deg = floor($value);
-        $min = floor(($value - $deg) * 60);
-        $sec = ($value - $deg - $min / 60) * 3600;
-        return $deg . "&deg; " . $min . '\' ' . round($sec, 2) . '" ' . $letter;
     }
 
 }

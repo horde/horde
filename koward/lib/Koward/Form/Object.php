@@ -21,7 +21,7 @@ class Koward_Form_Object extends Horde_Form {
 
         $this->object = &$object;
 
-        parent::Horde_Form($vars);
+        parent::__construct($vars);
 
         $type = false;
 

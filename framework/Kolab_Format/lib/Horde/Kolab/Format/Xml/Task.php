@@ -16,7 +16,7 @@
  * Kolab XML handler for task groupware objects.
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -56,5 +56,7 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
         'status'              => 'Horde_Kolab_Format_Xml_Type_TaskStatus',
         'due-date'            => 'Horde_Kolab_Format_Xml_Type_DateTime',
         'parent'              => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'horde-estimate'      => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'horde-alarm-methods' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
     );
 }

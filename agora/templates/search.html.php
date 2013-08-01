@@ -1,4 +1,3 @@
-<?php echo $this->menu; ?>
 <?php echo $this->notify; ?>
 
 <?php if (!empty($this->searchResults)): ?>

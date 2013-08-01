@@ -22,28 +22,32 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-31</date>
- <time>19:19:01</time>
+ <date>2013-07-16</date>
+ <time>23:01:09</time>
  <version>
-  <release>3.0.0</release>
+  <release>3.1.3</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+ <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Validate start and end dates of vacation rules (Request #10879).
-* [mms] Application initialization should only be done on first access.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="ingo-convert-datatree-shares-to-sql" role="script" />
-    <file name="ingo-convert-prefs-to-sql" role="script" />
-    <file name="ingo-convert-sql-shares-to-sqlng" role="script" />
-    <file name="ingo-postfix-policyd" role="script" />
+    <file name="ingo-convert-prefs-to-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="ingo-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="ingo-postfix-policyd" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
@@ -66,8 +70,27 @@
     <file name="filters.js" role="horde" />
     <file name="new_folder.js" role="horde" />
     <file name="rule.js" role="horde" />
+    <file name="smartmobile.js" role="horde" />
+    <file name="whitelist.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
+    <dir name="Ajax">
+     <dir name="Application">
+      <file name="Smartmobile.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
+    <dir name="Basic">
+     <file name="Base.php" role="horde" />
+     <file name="Blacklist.php" role="horde" />
+     <file name="Filters.php" role="horde" />
+     <file name="Forward.php" role="horde" />
+     <file name="Rule.php" role="horde" />
+     <file name="Script.php" role="horde" />
+     <file name="Spam.php" role="horde" />
+     <file name="Vacation.php" role="horde" />
+     <file name="Whitelist.php" role="horde" />
+    </dir> <!-- /lib/Basic -->
     <dir name="Block">
      <file name="Overview.php" role="horde" />
     </dir> <!-- /lib/Block -->
@@ -96,6 +119,9 @@
       <file name="Live.php" role="horde" />
       <file name="Mock.php" role="horde" />
      </dir> <!-- /lib/Script/Imap -->
+     <dir name="Ispconfig">
+      <file name="Vacation.php" role="horde" />
+     </dir> <!-- /lib/Script/Ispconfig -->
      <dir name="Maildrop">
       <file name="Comment.php" role="horde" />
       <file name="Recipe.php" role="horde" />
@@ -103,6 +129,7 @@
      </dir> <!-- /lib/Script/Maildrop -->
      <dir name="Procmail">
       <file name="Comment.php" role="horde" />
+      <file name="Default.php" role="horde" />
       <file name="Recipe.php" role="horde" />
       <file name="Variable.php" role="horde" />
      </dir> <!-- /lib/Script/Procmail -->
@@ -138,12 +165,18 @@
       <file name="Else.php" role="horde" />
       <file name="Elsif.php" role="horde" />
       <file name="If.php" role="horde" />
+      <file name="Require.php" role="horde" />
       <file name="Test.php" role="horde" />
      </dir> <!-- /lib/Script/Sieve -->
+     <file name="Base.php" role="horde" />
+     <file name="Customsql.php" role="horde" />
      <file name="Imap.php" role="horde" />
+     <file name="Ispconfig.php" role="horde" />
+     <file name="Item.php" role="horde" />
      <file name="Maildrop.php" role="horde" />
      <file name="Procmail.php" role="horde" />
      <file name="Sieve.php" role="horde" />
+     <file name="String.php" role="horde" />
     </dir> <!-- /lib/Script -->
     <dir name="Storage">
      <dir name="Filters">
@@ -174,9 +207,12 @@
      <file name="TestBase.php" role="horde" />
     </dir> <!-- /lib/tests -->
     <dir name="Transport">
+     <file name="Base.php" role="horde" />
+     <file name="Ispconfig.php" role="horde" />
      <file name="Ldap.php" role="horde" />
      <file name="Null.php" role="horde" />
      <file name="Sivtest.php" role="horde" />
+     <file name="Sql.php" role="horde" />
      <file name="Timsieved.php" role="horde" />
      <file name="Vfs.php" role="horde" />
     </dir> <!-- /lib/Transport -->
@@ -189,10 +225,9 @@
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Ingo.php" role="horde" />
-    <file name="Script.php" role="horde" />
+    <file name="Smartmobile.php" role="horde" />
     <file name="Storage.php" role="horde" />
     <file name="Test.php" role="horde" />
-    <file name="Transport.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="ca">
@@ -403,34 +438,32 @@
     <file name="5_ingo_upgrade_sqlnghierarchical.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
-    <dir name="blacklist">
-     <file name="blacklist.inc" role="horde" />
-    </dir> <!-- /templates/blacklist -->
-    <dir name="filters">
-     <file name="filter-none.inc" role="horde" />
-     <file name="filter.html" role="horde" />
-     <file name="footer.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="settings.inc" role="horde" />
-    </dir> <!-- /templates/filters -->
-    <dir name="menu">
-     <file name="menu.html" role="horde" />
-    </dir> <!-- /templates/menu -->
-    <dir name="rule">
-     <file name="filter.inc" role="horde" />
-     <file name="footer.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-    </dir> <!-- /templates/rule -->
-    <dir name="script">
-     <file name="activate.inc" role="horde" />
-     <file name="footer.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="script.inc" role="horde" />
-    </dir> <!-- /templates/script -->
-    <dir name="whitelist">
-     <file name="whitelist.inc" role="horde" />
-    </dir> <!-- /templates/whitelist -->
-   </dir> <!-- /templates -->
+    <dir name="basic">
+     <dir name="blacklist">
+      <file name="blacklist.html.php" role="horde" />
+     </dir> <!-- /templates/basic/blacklist -->
+     <dir name="filters">
+      <file name="filters.html.php" role="horde" />
+     </dir> <!-- /templates/basic/filters -->
+     <dir name="menu">
+      <file name="menu.html.php" role="horde" />
+     </dir> <!-- /templates/basic/menu -->
+     <dir name="rule">
+      <file name="rule.html.php" role="horde" />
+     </dir> <!-- /templates/basic/rule -->
+     <dir name="script">
+      <file name="script.html.php" role="horde" />
+      <file name="_script.html.php" role="horde" />
+     </dir> <!-- /templates/basic/script -->
+     <dir name="whitelist">
+      <file name="whitelist.html.php" role="horde" />
+     </dir> <!-- /templates/basic/whitelist -->
+    </dir> <!-- /templates/basic -->
+    <dir name="smartmobile">
+     <file name="rule.html.php" role="horde" />
+     <file name="rules.html.php" role="horde" />
+    </dir> <!-- /templates/smartmobile -->
+    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
      <dir name="block">
@@ -449,51 +482,23 @@
       <file name="vacation.png" role="horde" />
       <file name="whitelist.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <dir name="smartmobile">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/smartmobile -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="block">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/silver/block -->
-     <dir name="graphics">
-      <file name="blacklist.png" role="horde" />
-      <file name="copy.png" role="horde" />
-      <file name="disable.png" role="horde" />
-      <file name="enable.png" role="horde" />
-      <file name="forward.png" role="horde" />
-      <file name="ingo.png" role="horde" />
-      <file name="script.png" role="horde" />
-      <file name="spam.png" role="horde" />
-      <file name="vacation.png" role="horde" />
-      <file name="whitelist.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <file name="copy.png" role="horde" />
-      <file name="forward.png" role="horde" />
-      <file name="ingo.png" role="horde" />
-      <file name="spam.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
-   <file name="blacklist.php" role="horde" />
-   <file name="filters.php" role="horde" />
-   <file name="forward.php" role="horde" />
+    </dir> <!-- /themes -->
+   <file name="basic.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="LICENSE" role="doc" />
    <file name="README" role="doc" />
-   <file name="rule.php" role="horde" />
-   <file name="script.php" role="horde" />
-   <file name="spam.php" role="horde" />
-   <file name="vacation.php" role="horde" />
-   <file name="whitelist.php" role="horde" />
+   <file name="smartmobile.php" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -502,85 +507,92 @@
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>5.0.0</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.4</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Share</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_View</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>gettext</name>
@@ -590,9 +602,9 @@
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Net_Sieve</name>
@@ -612,7 +624,6 @@
  </usesrole>
  <phprelease>
   <filelist>
-   <install as="ingo-convert-datatree-shares-to-sql" name="bin/ingo-convert-datatree-shares-to-sql" />
    <install as="ingo-convert-prefs-to-sql" name="bin/ingo-convert-prefs-to-sql" />
    <install as="ingo-convert-sql-shares-to-sqlng" name="bin/ingo-convert-sql-shares-to-sqlng" />
    <install as="ingo-postfix-policyd" name="bin/ingo-postfix-policyd" />
@@ -632,14 +643,26 @@
    <install as="ingo/js/filters.js" name="js/filters.js" />
    <install as="ingo/js/new_folder.js" name="js/new_folder.js" />
    <install as="ingo/js/rule.js" name="js/rule.js" />
+   <install as="ingo/js/smartmobile.js" name="js/smartmobile.js" />
+   <install as="ingo/js/whitelist.js" name="js/whitelist.js" />
    <install as="ingo/lib/Api.php" name="lib/Api.php" />
    <install as="ingo/lib/Application.php" name="lib/Application.php" />
    <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
    <install as="ingo/lib/Ingo.php" name="lib/Ingo.php" />
-   <install as="ingo/lib/Script.php" name="lib/Script.php" />
+   <install as="ingo/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="ingo/lib/Storage.php" name="lib/Storage.php" />
    <install as="ingo/lib/Test.php" name="lib/Test.php" />
-   <install as="ingo/lib/Transport.php" name="lib/Transport.php" />
+   <install as="ingo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="ingo/lib/Ajax/Application/Smartmobile.php" name="lib/Ajax/Application/Smartmobile.php" />
+   <install as="ingo/lib/Basic/Base.php" name="lib/Basic/Base.php" />
+   <install as="ingo/lib/Basic/Blacklist.php" name="lib/Basic/Blacklist.php" />
+   <install as="ingo/lib/Basic/Filters.php" name="lib/Basic/Filters.php" />
+   <install as="ingo/lib/Basic/Forward.php" name="lib/Basic/Forward.php" />
+   <install as="ingo/lib/Basic/Rule.php" name="lib/Basic/Rule.php" />
+   <install as="ingo/lib/Basic/Script.php" name="lib/Basic/Script.php" />
+   <install as="ingo/lib/Basic/Spam.php" name="lib/Basic/Spam.php" />
+   <install as="ingo/lib/Basic/Vacation.php" name="lib/Basic/Vacation.php" />
+   <install as="ingo/lib/Basic/Whitelist.php" name="lib/Basic/Whitelist.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
    <install as="ingo/lib/Exception/Pear.php" name="lib/Exception/Pear.php" />
    <install as="ingo/lib/Factory/Script.php" name="lib/Factory/Script.php" />
@@ -650,17 +673,24 @@
    <install as="ingo/lib/Form/Spam.php" name="lib/Form/Spam.php" />
    <install as="ingo/lib/Form/Vacation.php" name="lib/Form/Vacation.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="ingo/lib/Script/Base.php" name="lib/Script/Base.php" />
+   <install as="ingo/lib/Script/Customsql.php" name="lib/Script/Customsql.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
+   <install as="ingo/lib/Script/Ispconfig.php" name="lib/Script/Ispconfig.php" />
+   <install as="ingo/lib/Script/Item.php" name="lib/Script/Item.php" />
    <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
    <install as="ingo/lib/Script/Procmail.php" name="lib/Script/Procmail.php" />
    <install as="ingo/lib/Script/Sieve.php" name="lib/Script/Sieve.php" />
+   <install as="ingo/lib/Script/String.php" name="lib/Script/String.php" />
    <install as="ingo/lib/Script/Imap/Api.php" name="lib/Script/Imap/Api.php" />
    <install as="ingo/lib/Script/Imap/Live.php" name="lib/Script/Imap/Live.php" />
    <install as="ingo/lib/Script/Imap/Mock.php" name="lib/Script/Imap/Mock.php" />
+   <install as="ingo/lib/Script/Ispconfig/Vacation.php" name="lib/Script/Ispconfig/Vacation.php" />
    <install as="ingo/lib/Script/Maildrop/Comment.php" name="lib/Script/Maildrop/Comment.php" />
    <install as="ingo/lib/Script/Maildrop/Recipe.php" name="lib/Script/Maildrop/Recipe.php" />
    <install as="ingo/lib/Script/Maildrop/Variable.php" name="lib/Script/Maildrop/Variable.php" />
    <install as="ingo/lib/Script/Procmail/Comment.php" name="lib/Script/Procmail/Comment.php" />
+   <install as="ingo/lib/Script/Procmail/Default.php" name="lib/Script/Procmail/Default.php" />
    <install as="ingo/lib/Script/Procmail/Recipe.php" name="lib/Script/Procmail/Recipe.php" />
    <install as="ingo/lib/Script/Procmail/Variable.php" name="lib/Script/Procmail/Variable.php" />
    <install as="ingo/lib/Script/Sieve/Action.php" name="lib/Script/Sieve/Action.php" />
@@ -668,6 +698,7 @@
    <install as="ingo/lib/Script/Sieve/Else.php" name="lib/Script/Sieve/Else.php" />
    <install as="ingo/lib/Script/Sieve/Elsif.php" name="lib/Script/Sieve/Elsif.php" />
    <install as="ingo/lib/Script/Sieve/If.php" name="lib/Script/Sieve/If.php" />
+   <install as="ingo/lib/Script/Sieve/Require.php" name="lib/Script/Sieve/Require.php" />
    <install as="ingo/lib/Script/Sieve/Test.php" name="lib/Script/Sieve/Test.php" />
    <install as="ingo/lib/Script/Sieve/Action/Addflag.php" name="lib/Script/Sieve/Action/Addflag.php" />
    <install as="ingo/lib/Script/Sieve/Action/Discard.php" name="lib/Script/Sieve/Action/Discard.php" />
@@ -711,9 +742,12 @@
    <install as="ingo/lib/tests/TestBase.php" name="lib/tests/TestBase.php" />
    <install as="tests/_data/from_spammer" name="lib/tests/_data/from_spammer" />
    <install as="tests/_data/not_from_spammer" name="lib/tests/_data/not_from_spammer" />
+   <install as="ingo/lib/Transport/Base.php" name="lib/Transport/Base.php" />
+   <install as="ingo/lib/Transport/Ispconfig.php" name="lib/Transport/Ispconfig.php" />
    <install as="ingo/lib/Transport/Ldap.php" name="lib/Transport/Ldap.php" />
    <install as="ingo/lib/Transport/Null.php" name="lib/Transport/Null.php" />
    <install as="ingo/lib/Transport/Sivtest.php" name="lib/Transport/Sivtest.php" />
+   <install as="ingo/lib/Transport/Sql.php" name="lib/Transport/Sql.php" />
    <install as="ingo/lib/Transport/Timsieved.php" name="lib/Transport/Timsieved.php" />
    <install as="ingo/lib/Transport/Vfs.php" name="lib/Transport/Vfs.php" />
    <install as="ingo/lib/Ui/VarRenderer/Ingo.php" name="lib/Ui/VarRenderer/Ingo.php" />
@@ -795,21 +829,15 @@
    <install as="ingo/migration/3_ingo_upgrade_sqlng.php" name="migration/3_ingo_upgrade_sqlng.php" />
    <install as="ingo/migration/4_ingo_upgrade_sqlhierarchical.php" name="migration/4_ingo_upgrade_sqlhierarchical.php" />
    <install as="ingo/migration/5_ingo_upgrade_sqlnghierarchical.php" name="migration/5_ingo_upgrade_sqlnghierarchical.php" />
-   <install as="ingo/templates/blacklist/blacklist.inc" name="templates/blacklist/blacklist.inc" />
-   <install as="ingo/templates/filters/filter-none.inc" name="templates/filters/filter-none.inc" />
-   <install as="ingo/templates/filters/filter.html" name="templates/filters/filter.html" />
-   <install as="ingo/templates/filters/footer.inc" name="templates/filters/footer.inc" />
-   <install as="ingo/templates/filters/header.inc" name="templates/filters/header.inc" />
-   <install as="ingo/templates/filters/settings.inc" name="templates/filters/settings.inc" />
-   <install as="ingo/templates/menu/menu.html" name="templates/menu/menu.html" />
-   <install as="ingo/templates/rule/filter.inc" name="templates/rule/filter.inc" />
-   <install as="ingo/templates/rule/footer.inc" name="templates/rule/footer.inc" />
-   <install as="ingo/templates/rule/header.inc" name="templates/rule/header.inc" />
-   <install as="ingo/templates/script/activate.inc" name="templates/script/activate.inc" />
-   <install as="ingo/templates/script/footer.inc" name="templates/script/footer.inc" />
-   <install as="ingo/templates/script/header.inc" name="templates/script/header.inc" />
-   <install as="ingo/templates/script/script.inc" name="templates/script/script.inc" />
-   <install as="ingo/templates/whitelist/whitelist.inc" name="templates/whitelist/whitelist.inc" />
+   <install as="ingo/templates/basic/blacklist/blacklist.html.php" name="templates/basic/blacklist/blacklist.html.php" />
+   <install as="ingo/templates/basic/filters/filters.html.php" name="templates/basic/filters/filters.html.php" />
+   <install as="ingo/templates/basic/menu/menu.html.php" name="templates/basic/menu/menu.html.php" />
+   <install as="ingo/templates/basic/rule/rule.html.php" name="templates/basic/rule/rule.html.php" />
+   <install as="ingo/templates/basic/script/script.html.php" name="templates/basic/script/script.html.php" />
+   <install as="ingo/templates/basic/script/_script.html.php" name="templates/basic/script/_script.html.php" />
+   <install as="ingo/templates/basic/whitelist/whitelist.html.php" name="templates/basic/whitelist/whitelist.html.php" />
+   <install as="ingo/templates/smartmobile/rule.html.php" name="templates/smartmobile/rule.html.php" />
+   <install as="ingo/templates/smartmobile/rules.html.php" name="templates/smartmobile/rules.html.php" />
    <install as="ingo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ingo/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="ingo/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
@@ -823,32 +851,12 @@
    <install as="ingo/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
    <install as="ingo/themes/default/graphics/vacation.png" name="themes/default/graphics/vacation.png" />
    <install as="ingo/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
-   <install as="ingo/themes/silver/block/screen.css" name="themes/silver/block/screen.css" />
-   <install as="ingo/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
-   <install as="ingo/themes/silver/graphics/copy.png" name="themes/silver/graphics/copy.png" />
-   <install as="ingo/themes/silver/graphics/disable.png" name="themes/silver/graphics/disable.png" />
-   <install as="ingo/themes/silver/graphics/enable.png" name="themes/silver/graphics/enable.png" />
-   <install as="ingo/themes/silver/graphics/forward.png" name="themes/silver/graphics/forward.png" />
-   <install as="ingo/themes/silver/graphics/ingo.png" name="themes/silver/graphics/ingo.png" />
-   <install as="ingo/themes/silver/graphics/script.png" name="themes/silver/graphics/script.png" />
-   <install as="ingo/themes/silver/graphics/spam.png" name="themes/silver/graphics/spam.png" />
-   <install as="ingo/themes/silver/graphics/vacation.png" name="themes/silver/graphics/vacation.png" />
-   <install as="ingo/themes/silver/graphics/whitelist.png" name="themes/silver/graphics/whitelist.png" />
-   <install as="ingo/themes/tango-blue/graphics/copy.png" name="themes/tango-blue/graphics/copy.png" />
-   <install as="ingo/themes/tango-blue/graphics/forward.png" name="themes/tango-blue/graphics/forward.png" />
-   <install as="ingo/themes/tango-blue/graphics/ingo.png" name="themes/tango-blue/graphics/ingo.png" />
-   <install as="ingo/themes/tango-blue/graphics/spam.png" name="themes/tango-blue/graphics/spam.png" />
-   <install as="ingo/blacklist.php" name="blacklist.php" />
-   <install as="ingo/filters.php" name="filters.php" />
-   <install as="ingo/forward.php" name="forward.php" />
+   <install as="ingo/basic.php" name="basic.php" />
    <install as="ingo/index.php" name="index.php" />
    <install as="LICENSE" name="LICENSE" />
    <install as="README" name="README" />
-   <install as="ingo/rule.php" name="rule.php" />
-   <install as="ingo/script.php" name="script.php" />
-   <install as="ingo/spam.php" name="spam.php" />
-   <install as="ingo/vacation.php" name="vacation.php" />
-   <install as="ingo/whitelist.php" name="whitelist.php" />
+   <install as="ingo/smartmobile.php" name="smartmobile.php" />
+   <install as="ingo/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
   </filelist>
  </phprelease>
  <changelog>
@@ -862,7 +870,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -877,7 +885,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * Fix creating new rules with PostgreSQL (Bug #9638).
    </notes>
@@ -892,7 +900,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * First release candidate for Horde 4.
 * [jan] Fix instantiation of VFS transport driver (Bug #9605).
@@ -909,7 +917,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Fix updating forward rules in SQL driver (Bug #9699).
@@ -925,7 +933,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Fix application-specific permission checks (Bug #9786).
@@ -947,7 +955,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Fix folder selection (Bug #9907).
 * [mms] Fix IMAP filtering using envelope data (Bug #9859).
@@ -961,7 +969,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix moving rules to an explicit position (Bug #10172).
 * [mms] Fix storage backend conversion script.
@@ -975,7 +983,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add -N parameter to mailbot calls by default (Request #10147).
 * [jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
@@ -992,7 +1000,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Fix creating new mailboxes (Bug #10282).
    </notes>
@@ -1005,7 +1013,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix disabling of actions by locking preferences (Bug #10455).
 * [jan] Sort blacklist and whitelist for display instead of for storage.
@@ -1019,7 +1027,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-10-18</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Fix displaying From address in notification when filtering with IMAP driver.
 * [jan] Catch if files don&apos;t exist while deleting with VFS transport (michael-dev@fami-braun.de, Bug #10494).
@@ -1034,7 +1042,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [jan] Set Return-Path: in Maildrop vacation driver (rsalmon@mbpgroup.com, Bug #10568).
@@ -1047,10 +1055,268 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <date>2012-05-29</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Update Swedish translation (Per Olof Ljungmark &lt;peo@bsdlabs.com&gt;).
+* [mms] Fix IMAP filtering on combination fields (Bug #11197).
+* [jan] Fix showing blacklist option to mark message as deleted (Bug #11186).
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
+* [jan] Fix folder names in Procmail rules if using Maildir (Bug #10113).
+* [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
 * [mms] Application initialization should only be done on first access.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.9</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-26</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Fix patch for filtering on combination fields (Bug #11197).
+* [mms] Procmail driver now explicitly sets the base Maildir directory by default (Bug #10113).
+* [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.10</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-02</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Correctly reindex existing rules when deleting a rule and using the SQL filters storage driver.
+* [mms] Don&apos;t allow a user to save a rule with no matching conditions.
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-06</date>
+   <time>17:25:14</time>
+   <version>
+    <release>3.0.0alpha1</release>
+    <api>3.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] When adding to blacklist/whitelist, remove added addresses from the other list.
+* [jan] Allow to use placeholder variables in vacation messages (Request #10316).
+* [mjr] Add ability to retrieve vacation message details from the API.
+* [jan] Validate start and end dates of vacation rules (Request #10879).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-20</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update icon set.
+* [mms] Fix javascript actions on the vacation page.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta2</release>
+    <api>3.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Add &apos;transport_auth&apos; hook to handle defining authentication parameters for transport backends.
+* [mms] Remove session caching of rules.
+* [mms] Initial implementation of smartmobile view.
+* [mms] Disable blacklist, vacation, and whitelist API methods if the preference is locked.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC1</release>
+    <api>3.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Add &apos;euser&apos; option to &apos;transport_auth&apos; hook allowing the effective user to be provided for the timsieved transport driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-07</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
+* [mms] Fix PHP error notification thrown if backends &apos;params&apos; parameter was empty (Bug #11615).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Fix changing permissions for shared rulesets.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix multiple user-defined headers in a single rule (Zephaniah E. Loss-Cutler-Hull, Bug #11893).
+* [jan] Use more portable procmail recipe for rejects (Bug #7520).
+* [jan] Fix configuration of &apos;forward_file&apos; parameter (Bug #11989).
+* [mms] Require non-empty subject and reason fields when creating a vacation message (crohmann@netcologne.de; Request #8376).
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-29</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] SECURITY: Fix XSS vulnerability on smartmobile rule page (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Fix copy/move actions when destination mailbox contains non ASCII characters (Bug #12217).
+* [mms] Translate rule descriptions to the local language in UI.
+* [jan] Allow multiple addresses for Sieve redirects (it@wenn.com, Request #11457).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.0beta1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-07</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Add composite script backends.
+* [jan] Add vacation driver for ISPConfig (Michael Bunk &lt;mb@computer-leipzig.com&gt;).
+* [jan] Hide unsupported form fields of vacation form (Michael Bunk &lt;mb@computer-leipzig.com&gt;).
+* [jan] Add composite transport backends.
+* [jan] Move shared ruleset selection to sidebar.
+* [mms] All Ingo templates now use Horde_View.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.0RC1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-29</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Fix regression in accessing Ingo links from the external API (Bug #12249).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.0</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-04</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix fatal error when updating filters.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix option to filter by user-defined headers (Bug #12345).
+* [jan] Fix highlighting of menu entries.
+* [jan] Restore compatibility with PHP 5.3 (Bug #12306).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Disable links if the underlying preferences are locked.
+* [jan] Fix setting excluded addresses and mailing list flag in Sieve vacation rule.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.1.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

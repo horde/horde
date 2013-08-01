@@ -2,7 +2,7 @@
 /**
  * Defines the AJAX interface for an application.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -11,6 +11,9 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
+ *
+ * @property string $app  The current application
+ * @property Horde_Variables $vars  The Variables object.
  */
 abstract class Horde_Core_Ajax_Application
 {
@@ -20,13 +23,6 @@ abstract class Horde_Core_Ajax_Application
      * @var mixed
      */
     public $data = null;
-
-    /**
-     * Determines if notification information is sent in response.
-     *
-     * @var boolean
-     */
-    public $notify = false;
 
     /**
      * The list of (possibly) unsolicited tasks/data to do for this request.
@@ -50,19 +46,11 @@ abstract class Horde_Core_Ajax_Application
     protected $_app;
 
     /**
-     * Default domain.
-     *
-     * @see parseEmailAddress()
-     * @var string
-     */
-    protected $_defaultDomain;
-
-    /**
-     * The list of actions that require readonly access to the session.
+     * AJAX method handlers.
      *
      * @var array
      */
-    protected $_readOnly = array();
+    protected $_handlers = array();
 
     /**
      * The request variables.
@@ -77,45 +65,118 @@ abstract class Horde_Core_Ajax_Application
      * @param string $app            The application name.
      * @param Horde_Variables $vars  Form/request data.
      * @param string $action         The AJAX action to perform.
+     * @param string $token          Session token.
+     *
+     * @throws Horde_Exception
      */
-    public function __construct($app, Horde_Variables $vars, $action = null)
+    public function __construct($app, Horde_Variables $vars, $action = null,
+                                $token = null)
     {
+        global $session;
+
         $this->_app = $app;
         $this->_vars = $vars;
+        $this->_action = $action;
 
-        if (!is_null($action)) {
-            /* Close session if action is labeled as read-only. */
-            if (in_array($action, $this->_readOnly)) {
-                $GLOBALS['session']->close();
+        $this->_init();
+
+        $ob = $this->_getHandler();
+
+        /* Check token. */
+        if ($ob && !$ob->external($action)) {
+            $session->checkToken($token);
+        }
+
+        /* Check for session regnerateion request. */
+        if ($vars->regenerate_sid) {
+            $session->regenerate();
+            if (SID) {
+                $this->addTask('sid', SID, 'horde');
             }
+        }
 
-            $this->_action = $action;
+        /* Close session if action is labeled as read-only. */
+        if ($ob && $ob->readonly($action)) {
+            $session->close();
         }
     }
 
     /**
-     * Performs the AJAX action.
+     * Application initialization code.
+     */
+    protected function _init()
+    {
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'app':
+            return $this->_app;
+
+        case 'vars':
+            return $this->_vars;
+        }
+    }
+
+    /**
+     * Add an AJAX method handler.
+     *
+     * @param string $class  Classname of a Handler to add.
+     *
+     * @return Horde_Core_Ajax_Application_Handler  Handler object.
+     */
+    final public function addHandler($class)
+    {
+        if (!isset($this->_handlers[$class])) {
+            if (!class_exists($class) ||
+                !($ob = new $class($this)) ||
+                !($ob instanceof Horde_Core_Ajax_Application_Handler)) {
+                throw new InvalidArgumentException('Bad AJAX handler: ' . $class);
+            }
+
+            $this->_handlers[$class] = $ob;
+        }
+
+        return $this->_handlers[$class];
+    }
+
+    /**
+     * Performs the AJAX action. The AJAX action should return either raw data
+     * (which will be output to the browser to be parsed by the HordeCore JS
+     * framework), or a Horde_Ajax_Core_Response object, which will be sent
+     * unaltered.
      *
      * @throws Horde_Exception
      */
     public function doAction()
     {
-        if (!$this->_action) {
+        if (!strlen($this->_action)) {
             return;
         }
 
-        if (method_exists($this, $this->_action)) {
-            $this->data = call_user_func(array($this, $this->_action));
-            return;
+        /* Look for action in helpers. */
+        if ($ob = $this->_getHandler()) {
+            $this->data = call_user_func(array($ob, $this->_action));
+        } else {
+            /* Look for action in application hook. */
+            try {
+                $this->data = Horde::callHook('ajaxaction_handle', array($this, $this->_action), $this->_app);
+            } catch (Horde_Exception $e) {
+                /* DEPRECATED hook. */
+                try {
+                    $this->data = Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
+                } catch (Horde_Exception $e) {
+                    throw new Horde_Exception('Handler for action "' . $this->_action . '" does not exist.');
+                }
+            }
         }
 
-        /* Look for hook in application. */
         try {
-            $this->data = Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
-            return;
-        } catch (Horde_Exception $e) {}
-
-        throw new Horde_Exception('Handler for action "' . $this->_action . '" does not exist.');
+            $this->data = Horde::callHook('ajaxaction_data', array($this->_action, $this->data), $this->_app);
+        } catch (Horde_Exception_HookNotSet $e) {}
     }
 
     /**
@@ -123,25 +184,16 @@ abstract class Horde_Core_Ajax_Application
      *
      * @param string $name  Task name.
      * @param mixed $data   Task data.
+     * @param string $app   Overwrite default application (since 2.5.0).
      */
-    public function addTask($name, $data)
+    public function addTask($name, $data, $app = null)
     {
         if (empty($this->tasks)) {
             $this->tasks = new stdClass;
         }
 
-        $name = $this->_app . ':' . $name;
+        $name = (is_null($app) ? $this->_app : $app) . ':' . $name;
         $this->tasks->$name = $data;
-    }
-
-    /**
-     * Determines the HTTP response output type.
-     *
-     * @return string  The output type.
-     */
-    public function responseType()
-    {
-        return 'json';
     }
 
     /**
@@ -149,142 +201,54 @@ abstract class Horde_Core_Ajax_Application
      */
     public function send()
     {
-        $response = new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks, $this->notify);
-        $response->sendAndExit($this->responseType());
-    }
+        if ($GLOBALS['session']->regenerate_due) {
+            $this->addTask('regenerate_sid', true, 'horde');
+        }
 
-    /**
-     * Sends a notification to the browser indicating that the user's session
-     * has timed out.
-     */
-    public function sessionTimeout()
-    {
-        $msg = new stdClass;
-        $msg->message = strval($this->getSessionLogoutUrl());
-        $msg->type = 'horde.ajaxtimeout';
-
-        $response = new Horde_Core_Ajax_Response(new stdClass);
-        $response->notifications = array($msg);
-        $response->sendAndExit('json');
-    }
-
-    /**
-     * Logs the user off the Horde session.
-     *
-     * This needs to be done here (server), rather than on the browser,
-     * because the logout tokens might otherwise expire.
-     */
-    public function logOut()
-    {
-        Horde::getServiceLink('logout', $this->_app)->setRaw(true)->redirect();
-    }
-
-    /**
-     * AJAX actions performed through the endpoint are normally not a good
-     * URL to return to.  Thus, by default after a session timeout, return
-     * to the base of the application instead.
-     *
-     * @return Horde_Url  The logout Horde_Url object.
-     */
-    public function getSessionLogoutUrl()
-    {
-        return $GLOBALS['registry']->getLogoutUrl(array(
-            'reason' => Horde_Auth::REASON_SESSION
-        ))->add('url', Horde::url('', false, array(
-            'app' => $this->_app,
-            'append_session' => -1
-        )));
-    }
-
-    /**
-     * Returns a hash of group IDs and group names that the user has access
-     * to.
-     *
-     * @return object  Object with the following properties:
-     *   - groups: (array) Groups hash.
-     */
-    public function listGroups()
-    {
-        $result = new stdClass;
-        try {
-            $groups = $GLOBALS['injector']
-                ->getInstance('Horde_Group')
-                ->listAll(empty($GLOBALS['conf']['share']['any_group'])
-                          ? $GLOBALS['registry']->getAuth()
-                          : null);
-            if ($groups) {
-                asort($groups);
-                $result->groups = $groups;
+        if ($this->data instanceof Horde_Core_Ajax_Response) {
+            $response = clone $this->data;
+            if ($response instanceof Horde_Core_Ajax_Response_HordeCore) {
+                $response->tasks = $this->tasks;
             }
-        } catch (Horde_Group_Exception $e) {
-            Horde::logMessage($e);
+        } else {
+            $response = new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks);
         }
-
-        return $result;
+        $response->sendAndExit();
     }
 
     /**
-     * Parses a valid email address out of a complete address string.
+     * Explicitly call an action.
      *
-     * Variables used:
-     *   - mbox: (string) The name of the new mailbox.
-     *   - parent: (string) The parent mailbox.
+     * @since 2.5.0
      *
-     * @return object  Object with the following properties:
-     *   - email: (string) The parsed email address.
+     * @param string $action  The action to call.
      *
-     * @throws Horde_Exception
-     * @throws Horde_Mail_Exception
+     * @return mixed  The response from the called action.
      */
-    public function parseEmailAddress()
+    public function callAction($action)
     {
-        $ob = new Horde_Mail_Rfc822_Address($this->_vars->email);
-        if (is_null($ob->mailbox)) {
-            throw new Horde_Exception(Horde_Core_Translation::t("No valid email address found"));
+        foreach ($this->_handlers as $ob) {
+            if ($ob->has($action)) {
+                return call_user_func(array($ob, $action));
+            }
         }
-
-        if ($this->_defaultDomain) {
-            $ob->host = $this->_defaultDomain;
-        }
-
-        $ret = new stdClass;
-        $ret->email = $ob->bare_address;
-
-        return $ret;
     }
 
     /**
-     * Loads a chunk of PHP code (usually an HTML template) from the
-     * application's templates directory.
+     * Return the Handler for the current action.
      *
-     * @return object  Object with the following properties:
-     *   - chunk: (string) A chunk of PHP output.
+     * @return mixed  A Horde_Core_Ajax_Application_Handler object, or null if
+     *                handler is not found.
      */
-    public function chunkContent()
+    protected function _getHandler()
     {
-        $chunk = basename($vars->chunk);
-        $result = new stdClass;
-        if (!empty($chunk)) {
-            Horde::startBuffer();
-            include $GLOBALS['registry']->get('templates', $this->_app) . '/chunks/' . $chunk . '.php';
-            $result->chunk = Horde::endBuffer();
+        foreach ($this->_handlers as $ob) {
+            if ($ob->has($this->_action)) {
+                return $ob;
+            }
         }
 
-        return $result;
-    }
-
-    /**
-     * Sets a preference value.
-     *
-     * Variables used:
-     *   - pref: (string) The preference name.
-     *   - value: (mixed) The preference value.
-     *
-     * @return boolean  True on success.
-     */
-    public function setPrefValue()
-    {
-        return $GLOBALS['prefs']->setValue($this->_vars->pref, $this->_vars->value);
+        return null;
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -9,7 +9,7 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 // TODO - This currently doesn't work.
@@ -126,12 +126,10 @@ foreach ($grid as $cols) {
     $maxCol = max($val, $maxCol);
 }
 
-$title = sprintf(_("Source Branching View for %s"), $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
-$extraLink = Chora::getFileViews($where, 'history');
+$title = _("Source Branching View for:");
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
+Chora::header($title);
+echo Chora::getHistoryViews($where)->render('history');
 require CHORA_TEMPLATES . '/history/header.inc';
 
 foreach ($grid as $row) {
@@ -184,4 +182,4 @@ foreach ($grid as $row) {
 }
 
 require CHORA_TEMPLATES . '/history/footer.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

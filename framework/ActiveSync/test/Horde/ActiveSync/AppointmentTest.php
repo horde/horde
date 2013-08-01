@@ -52,11 +52,12 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $encoder->startTag(Horde_ActiveSync::SYNC_DATA);
         $appt->encodeStream($encoder);
         $encoder->endTag();
-        $fixture = file_get_contents(dirname(__FILE__) . '/fixtures/appointment.wbxml');
+        $fixture = file_get_contents(__DIR__ . '/fixtures/appointment.wbxml');
         rewind($stream);
         $results = stream_get_contents($stream);
         fclose($stream);
 
+        // TODO
         $this->assertEquals($fixture, $results);
     }
 
@@ -65,7 +66,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $l = new Horde_Test_Log();
         $logger = $l->getLogger();
 
-        $stream = fopen(dirname(__FILE__) . '/fixtures/appointment.wbxml', 'r+');
+        $stream = fopen(__DIR__ . '/fixtures/appointment.wbxml', 'r+');
         $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream);
         $decoder->setLogger($logger);
 
@@ -124,11 +125,11 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $encoder->startTag(Horde_ActiveSync::SYNC_DATA);
         $appt->encodeStream($encoder);
         $encoder->endTag();
-
-        $fixture = file_get_contents(dirname(__FILE__) . '/fixtures/recurrence.wbxml');
+        $fixture = file_get_contents(__DIR__ . '/fixtures/recurrence.wbxml');
         rewind($stream);
         $results = stream_get_contents($stream);
         fclose($stream);
+
         $this->assertEquals($fixture, $results);
     }
 
@@ -138,7 +139,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $logger = $l->getLogger();
 
         // Test Decoding
-        $stream = fopen(dirname(__FILE__) . '/fixtures/recurrence.wbxml', 'r+');
+        $stream = fopen(__DIR__ . '/fixtures/recurrence.wbxml', 'r+');
         $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream);
 
         $element = $decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA);
@@ -212,10 +213,11 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $appt->encodeStream($encoder);
         $encoder->endTag();
 
-        $fixture = file_get_contents(dirname(__FILE__) . '/fixtures/simpleexception.wbxml');
+        $fixture = file_get_contents(__DIR__ . '/fixtures/simpleexception.wbxml');
         rewind($stream);
         $results = stream_get_contents($stream);
         fclose($stream);
+
         $this->assertEquals($fixture, $results);
     }
 
@@ -225,7 +227,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $logger = $l->getLogger();
 
         // Test Decoding
-        $stream = fopen(dirname(__FILE__) . '/fixtures/simpleexception.wbxml', 'r+');
+        $stream = fopen(__DIR__ . '/fixtures/simpleexception.wbxml', 'r+');
         $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream);
 
         $element = $decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA);
@@ -277,7 +279,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $logger = $l->getLogger();
 
         // Test Decoding
-        $stream = fopen(dirname(__FILE__) . '/fixtures/dst.wbxml', 'r+');
+        $stream = fopen(__DIR__ . '/fixtures/dst.wbxml', 'r+');
         $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream);
 
         $element = $decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA);

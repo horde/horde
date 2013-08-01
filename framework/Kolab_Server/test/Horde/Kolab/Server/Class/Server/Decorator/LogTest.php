@@ -12,14 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
-
-/**
  * Test the log decorator for the server.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -172,7 +167,7 @@ class Horde_Kolab_Server_Class_Server_Decorator_LogTest extends PHPUnit_Framewor
         $this->logger->expects($this->once())
             ->method('__call')
             ->with(
-                'info', array('The object "a" has been successfully saved!')
+                'debug', array('The object "a" has been successfully saved!')
             );
         $this->logged->save($object, array('a' => 'a'));
     }
@@ -186,7 +181,7 @@ class Horde_Kolab_Server_Class_Server_Decorator_LogTest extends PHPUnit_Framewor
         $this->logger->expects($this->once())
             ->method('__call')
             ->with(
-                'info', array('The object "a" has been successfully added!')
+                'debug', array('The object "a" has been successfully added!')
             );
         $this->logged->add($object, array('a' => 'a'));
     }
@@ -196,7 +191,7 @@ class Horde_Kolab_Server_Class_Server_Decorator_LogTest extends PHPUnit_Framewor
         $this->logger->expects($this->once())
             ->method('__call')
             ->with(
-                'info', array('The object "a" has been successfully deleted!')
+                'debug', array('The object "a" has been successfully deleted!')
             );
         $this->logged->delete('a');
     }
@@ -206,7 +201,7 @@ class Horde_Kolab_Server_Class_Server_Decorator_LogTest extends PHPUnit_Framewor
         $this->logger->expects($this->once())
             ->method('__call')
             ->with(
-                'info',
+                'debug',
                 array('The object "a" has been successfully renamed to "b"!')
             );
         $this->logged->rename('a', 'b');

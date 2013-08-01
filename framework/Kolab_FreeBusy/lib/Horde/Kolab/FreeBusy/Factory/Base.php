@@ -14,7 +14,7 @@
 /**
  * Factory methods for basic objects required by the export.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -269,7 +269,7 @@ implements Horde_Kolab_FreeBusy_Factory
         $owner_fb = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Owner')
             ->getRemoteServer();
         if (!empty($owner_fb) && $owner_fb != $params['server']) {
-            $this->_injector->getInstance('Horde_Log_Logger')->info(
+            $this->_injector->getInstance('Horde_Log_Logger')->debug(
                 sprintf(
                     "URL \"%s\" indicates remote free/busy server since we only offer \"%s\". Redirecting.", 
                     $owner_fb,

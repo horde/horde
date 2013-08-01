@@ -1,11 +1,18 @@
 <?php
 /**
- * This class provides an interface to all identities a user might have.
- *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Prefs
+ */
+
+/**
+ * This class provides an interface to all identities a user might have.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
@@ -62,24 +69,22 @@ class Horde_Prefs_Identity
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * default_identity: (string) The preference name for the default
-     *                   identity.
-     *                   DEFAULT: 'default_identity'
-     * from_addr: (string) The preference name for the user's from e-mail
-     *            address.
-     *            DEFAULT: 'from_addr'
-     * fullname: (string) The preference name for the user's full name.
-     *           DEFAULT: 'fullname'
-     * id: (string) The preference name for the identity name.
-     *     DEFAULT: 'id'
-     * identities: (string) The preference name for the identity store.
-     *             DEFAULT: 'identities'
-     * prefs: (Horde_Prefs) [REQUIRED] The prefs object to use.
-     * properties: (array) The list of properties for the identity.
-     *             DEFAULT: array('from_addr', 'fullname', 'id')
-     * user: (string) [REQUIRED] The user whose prefs we are handling.
-     * </pre>
+     *   - default_identity: (string) The preference name for the default
+     *                       identity.
+     *                       DEFAULT: 'default_identity'
+     *   - from_addr: (string) The preference name for the user's from e-mail
+     *                address.
+     *                DEFAULT: 'from_addr'
+     *   - fullname: (string) The preference name for the user's full name.
+     *               DEFAULT: 'fullname'
+     *   - id: (string) The preference name for the identity name.
+     *         DEFAULT: 'id'
+     *   - identities: (string) The preference name for the identity store.
+     *                 DEFAULT: 'identities'
+     *   - prefs: (Horde_Prefs) [REQUIRED] The prefs object to use.
+     *   - properties: (array) The list of properties for the identity.
+     *                 DEFAULT: array('from_addr', 'fullname', 'id')
+     *   - user: (string) [REQUIRED] The user whose prefs we are handling.
      */
     public function __construct($params = array())
     {
@@ -144,14 +149,18 @@ class Horde_Prefs_Identity
      *
      * @param integer $identity  The identity to retrieve.
      *
-     * @return array  An identity hash.
+     * @return array  An identity hash. Returns null if the identity does not
+     *                exist.
      */
     public function get($identity = null)
     {
         if (is_null($identity) || !isset($this->_identities[$identity])) {
             $identity = $this->_default;
         }
-        return $this->_identities[$identity];
+
+        return isset($this->_identities[$identity])
+            ? $this->_identities[$identity]
+            : null;
     }
 
     /**
@@ -359,33 +368,40 @@ class Horde_Prefs_Identity
     }
 
     /**
+     * Returns the from address based on the chosen identity.
+     *
+     * If no address can be found it is built from the current user.
+     *
+     * @since Horde_Prefs 2.3.0
+     *
+     * @param integer $ident  The identity to retrieve the address from.
+     *
+     * @return Horde_Mail_Rfc822_Address  A valid from address.
+     */
+    public function getFromAddress($ident = null)
+    {
+        $val = $this->getValue($this->_prefnames['from_addr'], $ident);
+        if (!strlen($val)) {
+            $val = $this->_user;
+        }
+        return new Horde_Mail_Rfc822_Address($val);
+    }
+
+    /**
      * Generates the from address to use for the default identity.
      *
      * @param boolean $fullname  Include the fullname information.
      *
-     * @return string  The default from address.
+     * @return Horde_Mail_Rfc822_Address  The default from address (object
+     *                                    returned since 2.2.0).
      */
     public function getDefaultFromAddress($fullname = false)
     {
-        $from_addr = '';
+        $ob = new Horde_Mail_Rfc822_Address($this->getFromAddress());
+        $ob->personal = $fullname
+            ? $this->getValue($this->_prefnames['fullname'])
+            : null;
 
-        if ($fullname) {
-            $name = $this->getValue($this->_prefnames['fullname']);
-            if (!empty($name)) {
-                $from_addr = $name . ' ';
-            }
-        }
-
-        $addr = $this->getValue($this->_prefnames['from_addr']);
-        if (empty($addr)) {
-            $addr = $this->_user;
-        }
-
-        if (empty($from_addr)) {
-            return $addr;
-        }
-
-        return $from_addr . '<' . $addr . '>';
+        return $ob;
     }
-
 }

@@ -5,7 +5,7 @@
  * This driver allows for use of caching backends on top of persistent
  * backends, for example.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -46,20 +46,6 @@ class Horde_SessionHandler_Storage_Stack extends Horde_SessionHandler_Storage
         unset($params['stack']);
 
         parent::__construct($params);
-    }
-
-    /**
-     * Set the logger object.
-     *
-     * @param Horde_Log_Logger $log  The logger instance.
-     */
-    public function setLogger(Horde_Log_Logger $log)
-    {
-        parent::setLogger($log);
-
-        foreach ($this->_stack as $ob) {
-            $ob->setLogger($log);
-        }
     }
 
     /**

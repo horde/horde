@@ -11,7 +11,7 @@
 /**
  * A Horde_Injector based Horde_Vfs factory.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -39,6 +39,7 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
      *                       from conf.php.
      *
      * @return Horde_Vfs  The VFS object.
+     * @throws Horde_Exception
      */
     public function create($scope = 'horde', $params = null)
     {
@@ -47,11 +48,7 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
                 $params = $this->getConfig($scope);
             }
 
-            $class = 'Horde_Vfs_' . basename(Horde_String::ucfirst($params['type']));
-            if (!class_exists($class)) {
-                throw new Horde_Exception('Class definition of ' . $class . ' not found.');
-            }
-
+            $class = $this->_getDriverName($params['type'], 'Horde_Vfs');
             $this->_instances[$scope] = new $class($params['params']);
         }
 
@@ -80,18 +77,22 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             : $conf[$name];
 
         switch (Horde_String::lower($vfs['type'])) {
+        case 'nosql':
+            $nosql = $this->_injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'vfs');
+            if ($nosql instanceof Horde_Mongo_Client) {
+                $vfs['params']['mongo_db'] = $nosql;
+                $vfs['type'] = 'mongo';
+            }
+            break;
+
         case 'sql':
         case 'sqlfile':
         case 'musql':
-            if ($name == 'horde' || $conf[$name]['type'] == 'horde') {
-                $vfs['params']['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
-            } else {
-                $config = Horde::getDriverConfig('vfs', 'sql');
-                unset($config['umask'], $config['vfsroot']);
-                $vfs['params']['db'] = $this->_injector
-                    ->getInstance('Horde_Core_Factory_Db')
-                    ->create('horde', $config);
-            }
+            $config = Horde::getDriverConfig('vfs', 'sql');
+            unset($config['umask'], $config['vfsroot']);
+            $vfs['params']['db'] = $this->_injector
+                ->getInstance('Horde_Core_Factory_Db')
+                ->create('horde', $config);
             break;
         }
 

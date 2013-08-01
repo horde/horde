@@ -22,19 +22,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>22:58:29</time>
+ <date>2013-06-12</date>
+ <time>13:25:07</time>
  <version>
-  <release>3.0.0</release>
+  <release>3.0.2</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -54,14 +54,13 @@
    <dir name="js">
     <file name="clipboard.js" role="horde" />
     <file name="edit.js" role="horde" />
+    <file name="login.js" role="horde" />
     <file name="manager.js" role="horde" />
     <file name="selectlist.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
-    <dir name="Ajax">
-     <file name="Application.php" role="horde" />
-    </dir> <!-- /lib/Ajax -->
     <dir name="Factory">
+     <file name="Shares.php" role="horde" />
      <file name="Vfs.php" role="horde" />
      <file name="VfsDefault.php" role="horde" />
     </dir> <!-- /lib/Factory -->
@@ -70,6 +69,11 @@
       <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
+    <dir name="Prefs">
+     <dir name="Special">
+      <file name="Columnselect.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
+    </dir> <!-- /lib/Prefs -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -261,32 +265,18 @@
     <file name=".htaccess" role="horde" />
     <file name="gollem.pot" role="horde" />
    </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_gollem_base_tables.php" role="horde" />
+    <file name="2_gollem_upgrade_autoincrement.php" role="horde" />
+   </dir> <!-- /migration -->
    <dir name="templates">
-    <dir name="clipboard">
-     <file name="clipboard.html" role="horde" />
-    </dir> <!-- /templates/clipboard -->
-    <dir name="edit">
-     <file name="edit.inc" role="horde" />
-    </dir> <!-- /templates/edit -->
-    <dir name="login">
-     <file name="login.html" role="horde" />
-    </dir> <!-- /templates/login -->
-    <dir name="manager">
-     <file name="manager.html" role="horde" />
-    </dir> <!-- /templates/manager -->
-    <dir name="quota">
-     <file name="quota.html" role="horde" />
-    </dir> <!-- /templates/quota -->
-    <dir name="selectlist">
-     <file name="selectlist.html" role="horde" />
-    </dir> <!-- /templates/selectlist -->
-    <file name="javascript_defs.php" role="horde" />
-    <file name="menu.html" role="horde" />
+    <file name="clipboard.html.php" role="horde" />
+    <file name="edit.html.php" role="horde" />
+    <file name="manager.html.php" role="horde" />
+    <file name="quota.html.php" role="horde" />
+    <file name="selectlist.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
-    <dir name="brown">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/brown -->
     <dir name="default">
      <dir name="graphics">
       <file name="az.png" role="horde" />
@@ -296,38 +286,22 @@
       <file name="download.png" role="horde" />
       <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
+      <file name="filter-topbar.png" role="horde" />
       <file name="folder.png" role="horde" />
       <file name="folder_create.png" role="horde" />
       <file name="folder_goto.png" role="horde" />
       <file name="folder_home.png" role="horde" />
       <file name="folder_symlink.png" role="horde" />
       <file name="gollem.png" role="horde" />
+      <file name="perms.png" role="horde" />
+      <file name="perms_disabled.png" role="horde" />
+      <file name="quota.png" role="horde" />
       <file name="reload.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="purple">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/purple -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="clipboard.png" role="horde" />
-      <file name="copy.png" role="horde" />
-      <file name="cut.png" role="horde" />
-      <file name="download.png" role="horde" />
-      <file name="edit.png" role="horde" />
-      <file name="folder.png" role="horde" />
-      <file name="folder_create.png" role="horde" />
-      <file name="folder_goto.png" role="horde" />
-      <file name="folder_home.png" role="horde" />
-      <file name="folder_symlink.png" role="horde" />
-      <file name="gollem.png" role="horde" />
-      <file name="reload.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="clipboard.php" role="horde" />
    <file name="COPYING" role="doc" />
    <file name="edit.php" role="horde" />
@@ -337,13 +311,14 @@
    <file name="quota.php" role="horde" />
    <file name="README" role="doc" />
    <file name="selectlist.php" role="horde" />
+   <file name="share.php" role="horde" />
    <file name="view.php" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -351,128 +326,114 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <min>5.0.2</min>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.4</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Browser</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Db</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.1.5</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Editor</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Notification</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Secret</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_View</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>gettext</name>
@@ -481,6 +442,22 @@
     <name>json</name>
    </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Share</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -493,6 +470,7 @@
    <install as="gollem/quota.php" name="quota.php" />
    <install as="README" name="README" />
    <install as="gollem/selectlist.php" name="selectlist.php" />
+   <install as="gollem/share.php" name="share.php" />
    <install as="gollem/view.php" name="view.php" />
    <install as="gollem/config/backends.php" name="config/backends.php" />
    <install as="gollem/config/conf.xml" name="config/conf.xml" />
@@ -505,6 +483,7 @@
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="gollem/js/clipboard.js" name="js/clipboard.js" />
    <install as="gollem/js/edit.js" name="js/edit.js" />
+   <install as="gollem/js/login.js" name="js/login.js" />
    <install as="gollem/js/manager.js" name="js/manager.js" />
    <install as="gollem/js/selectlist.js" name="js/selectlist.js" />
    <install as="gollem/lib/Api.php" name="lib/Api.php" />
@@ -513,10 +492,11 @@
    <install as="gollem/lib/Exception.php" name="lib/Exception.php" />
    <install as="gollem/lib/Gollem.php" name="lib/Gollem.php" />
    <install as="gollem/lib/Test.php" name="lib/Test.php" />
-   <install as="gollem/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="gollem/lib/Factory/Shares.php" name="lib/Factory/Shares.php" />
    <install as="gollem/lib/Factory/Vfs.php" name="lib/Factory/Vfs.php" />
    <install as="gollem/lib/Factory/VfsDefault.php" name="lib/Factory/VfsDefault.php" />
    <install as="gollem/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="gollem/lib/Prefs/Special/Columnselect.php" name="lib/Prefs/Special/Columnselect.php" />
    <install as="gollem/locale/.htaccess" name="locale/.htaccess" />
    <install as="gollem/locale/gollem.pot" name="locale/gollem.pot" />
    <install as="gollem/locale/bg/LC_MESSAGES/gollem.mo" name="locale/bg/LC_MESSAGES/gollem.mo" />
@@ -585,15 +565,13 @@
    <install as="gollem/locale/zh_TW/help.xml" name="locale/zh_TW/help.xml" />
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.mo" name="locale/zh_TW/LC_MESSAGES/gollem.mo" />
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.po" name="locale/zh_TW/LC_MESSAGES/gollem.po" />
-   <install as="gollem/templates/javascript_defs.php" name="templates/javascript_defs.php" />
-   <install as="gollem/templates/menu.html" name="templates/menu.html" />
-   <install as="gollem/templates/clipboard/clipboard.html" name="templates/clipboard/clipboard.html" />
-   <install as="gollem/templates/edit/edit.inc" name="templates/edit/edit.inc" />
-   <install as="gollem/templates/login/login.html" name="templates/login/login.html" />
-   <install as="gollem/templates/manager/manager.html" name="templates/manager/manager.html" />
-   <install as="gollem/templates/quota/quota.html" name="templates/quota/quota.html" />
-   <install as="gollem/templates/selectlist/selectlist.html" name="templates/selectlist/selectlist.html" />
-   <install as="gollem/themes/brown/screen.css" name="themes/brown/screen.css" />
+   <install as="gollem/migration/1_gollem_base_tables.php" name="migration/1_gollem_base_tables.php" />
+   <install as="gollem/migration/2_gollem_upgrade_autoincrement.php" name="migration/2_gollem_upgrade_autoincrement.php" />
+   <install as="gollem/templates/clipboard.html.php" name="templates/clipboard.html.php" />
+   <install as="gollem/templates/edit.html.php" name="templates/edit.html.php" />
+   <install as="gollem/templates/manager.html.php" name="templates/manager.html.php" />
+   <install as="gollem/templates/quota.html.php" name="templates/quota.html.php" />
+   <install as="gollem/templates/selectlist.html.php" name="templates/selectlist.html.php" />
    <install as="gollem/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="gollem/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="gollem/themes/default/graphics/clipboard.png" name="themes/default/graphics/clipboard.png" />
@@ -602,29 +580,19 @@
    <install as="gollem/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
    <install as="gollem/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="gollem/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="gollem/themes/default/graphics/filter-topbar.png" name="themes/default/graphics/filter-topbar.png" />
    <install as="gollem/themes/default/graphics/folder.png" name="themes/default/graphics/folder.png" />
    <install as="gollem/themes/default/graphics/folder_create.png" name="themes/default/graphics/folder_create.png" />
    <install as="gollem/themes/default/graphics/folder_goto.png" name="themes/default/graphics/folder_goto.png" />
    <install as="gollem/themes/default/graphics/folder_home.png" name="themes/default/graphics/folder_home.png" />
    <install as="gollem/themes/default/graphics/folder_symlink.png" name="themes/default/graphics/folder_symlink.png" />
    <install as="gollem/themes/default/graphics/gollem.png" name="themes/default/graphics/gollem.png" />
+   <install as="gollem/themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
+   <install as="gollem/themes/default/graphics/perms_disabled.png" name="themes/default/graphics/perms_disabled.png" />
+   <install as="gollem/themes/default/graphics/quota.png" name="themes/default/graphics/quota.png" />
    <install as="gollem/themes/default/graphics/reload.png" name="themes/default/graphics/reload.png" />
    <install as="gollem/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
-   <install as="gollem/themes/purple/screen.css" name="themes/purple/screen.css" />
-   <install as="gollem/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="gollem/themes/silver/graphics/clipboard.png" name="themes/silver/graphics/clipboard.png" />
-   <install as="gollem/themes/silver/graphics/copy.png" name="themes/silver/graphics/copy.png" />
-   <install as="gollem/themes/silver/graphics/cut.png" name="themes/silver/graphics/cut.png" />
-   <install as="gollem/themes/silver/graphics/download.png" name="themes/silver/graphics/download.png" />
-   <install as="gollem/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
-   <install as="gollem/themes/silver/graphics/folder.png" name="themes/silver/graphics/folder.png" />
-   <install as="gollem/themes/silver/graphics/folder_create.png" name="themes/silver/graphics/folder_create.png" />
-   <install as="gollem/themes/silver/graphics/folder_goto.png" name="themes/silver/graphics/folder_goto.png" />
-   <install as="gollem/themes/silver/graphics/folder_home.png" name="themes/silver/graphics/folder_home.png" />
-   <install as="gollem/themes/silver/graphics/folder_symlink.png" name="themes/silver/graphics/folder_symlink.png" />
-   <install as="gollem/themes/silver/graphics/gollem.png" name="themes/silver/graphics/gollem.png" />
-   <install as="gollem/themes/silver/graphics/reload.png" name="themes/silver/graphics/reload.png" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -725,10 +693,118 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2012-04-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t show user name and password fields on login page if not required.
+* [jan] Display &apos;loginparams&apos; on login screen (Bug #11088).
+* [jan] Fix removing filter (Bug #11043).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix setting quota parameters to the VFS backend (Bug #11455).
+* [jan] Fix getViewLink() API method (Bug #11226).
+* [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Convert templates to Horde_View.
+* [jan] Fix getViewLink() API method (Bug #11226).
+* [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Don&apos;t show permissions link if permissions are disabled (Bug #11705).
+* [jan] Use short date format in file listing (Request #11722).
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Pass custom login parameters to VFS backend (Bug #11771).
+* [jan] Fix selecting display columns in preferences (Bug #11851).
+* [jan] Fix automatic login to other than the first backend.
+* [jan] Fix downloading if backend key doesn&apos;t match driver name (Bug #11746).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Change recursive deletion preference to ask by default.
+* [jan] Fix share_id column if using old share backend (Bug #11833).
+* [jan] Show loading layer when changing backends on login form.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix saving columns preference if only one backend exists (Bug #12003).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

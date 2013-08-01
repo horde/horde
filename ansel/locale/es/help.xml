@@ -2,45 +2,37 @@
 <help>
 
 <entry id="overview" state="uptodate" md5="df2fe059a57c3b7fb286dd279e155bad">
-  <title>Introducción</title>
-  <heading>Introducción</heading>
-
-  <para>
-	  Esta aplicación le ofrece capacidades de manipulación, almacenamiento y visualización de imágenes para disponer de álbumes de fotos y galerías en línea. Puede redimensionarlas, girarlas y modificarlas de otras formas, organizarlas, renombrarlas y añadirles descripciones.
-  </para>
-</entry>
+    <title>Introducción</title>
+    <heading>Introducción</heading>
+    <para>
+    Esta aplicación le ofrece capacidades de manipulación, almacenamiento y visualización de imágenes para disponer de álbumes de fotos y galerías en línea. Puede redimensionarlas, girarlas y modificarlas de otras formas, organizarlas, renombrarlas y añadirles descripciones.
+    </para>
+  </entry>
 
 <entry id="upload" state="uptodate" md5="ca8e50685a92d0dd33690d9a24d23fb9">
-  <title>Carga de imágenes: Introducción</title>
-
-  <para>
-	  Puede cargar la mayoría de los formatos habituales de imágenes. Si hay algún problema con alguno de los archivos cargados se le comunicará, por lo que, ante la duda, haga una prueba. También dispone de dos opciones si tiene muchas imágenes que cargar de una vez. Puede cargar un archivo ZIP con todas las imágenes que se procesará de una sola vez o, si utiliza Windows XP puede utilizar el <ref ENTRY="xppublish" MODULE="ansel">Asistente de publicación XP</ref>.
-  </para>
-</entry>
+    <title>Carga de imágenes: Introducción</title>
+    <para>
+    Puede cargar la mayoría de los formatos habituales de imágenes. Si hay algún problema con alguno de los archivos cargados se le comunicará, por lo que, ante la duda, haga una prueba. También dispone de dos opciones si tiene muchas imágenes que cargar de una vez. Puede cargar un archivo ZIP con todas las imágenes que se procesará de una sola vez o, si utiliza Windows XP puede utilizar el <ref ENTRY="xppublish" MODULE="ansel">Asistente de publicación XP</ref>.
+    </para>
+  </entry>
 
 <entry id="xppublish" state="uptodate" md5="f4067b7d23111b69a9b69920eb17d794">
-  <title>Carga de imágenes: Publicación desde Windows XP</title>
-  <heading>Uso de la característica Publicación en Web de Windows XP</heading>
-
-  <para>
-	  Windows XP dispone de una útil característica que le permite publicar contenido en un servicio web directamente desde su escritorio.
-  </para>
-
-  <para><b>1. Configuración</b></para>
-
-  <para>
-	  Descargue el <href url="xppublish.php" app="ansel">Archivo de configuración de XP</href>. Guárdelo en el escritorio y asegúrese de que su extensión es .reg. Si no lo es renombre el archivo y si Windows le consulta si desea confirmar el cambio de tipo de archivo, conteste que sí.
-  </para>
-
-  <para>
-	  Haga doble-click en el archivo install-registry.reg. Se le consultará si desea importar esos valores al registro o no. Pulse "Aceptar". Se le comunicará si los valores se importan correctamente; vuelva a pulsar "Aceptar". ¡Ya está listo para cargar archivos!
-  </para>
-
-  <para><b>2. Carga</b></para>
-
-  <para>
-	  Abra el Explorador de Windows y navegue hasta la carpeta que desea cargar o que contenga el/los archivo(s) que querría cargar. Asegúrese de que puede ver las "Tareas de archivos y carpetas" a la izquierda de la ventana del explorador. Debería poder ver la opción "Publicar esta carpeta en la web" o, si tiene un archivo concreto seleccionado, "Publicar este archivo en la web". Pulse dicho vínculo y siga las instrucciones para seleccionar los archivos que desee cargar (se le permitirá seleccionar lo que quiera de la carpeta durante el proceso), inicie sesión, seleccione una galería o cree una nueva y publique la(s) imágen(es).
-  </para>
-</entry>
+    <title>Carga de imágenes: Publicación desde Windows XP</title>
+    <heading>Uso de la característica Publicación en Web de Windows XP</heading>
+    <para>
+    Windows XP dispone de una útil característica que le permite publicar contenido en un servicio web directamente desde su escritorio.
+    </para>
+    <para><b>1. Configuración</b></para>
+    <para>
+    Descargue el <href url="xppublish.php" app="ansel">Archivo de configuración de XP</href>. Guárdelo en el escritorio y asegúrese de que su extensión es .reg. Si no lo es renombre el archivo y si Windows le consulta si desea confirmar el cambio de tipo de archivo, conteste que sí.
+    </para>
+    <para>
+    Haga doble-click en el archivo install-registry.reg. Se le consultará si desea importar esos valores al registro o no. Pulse "Aceptar". Se le comunicará si los valores se importan correctamente; vuelva a pulsar "Aceptar". ¡Ya está listo para cargar archivos!
+    </para>
+    <para><b>2. Carga</b></para>
+    <para>
+    Abra el Explorador de Windows y navegue hasta la carpeta que desea cargar o que contenga el/los archivo(s) que querría cargar. Asegúrese de que puede ver las "Tareas de archivos y carpetas" a la izquierda de la ventana del explorador. Debería poder ver la opción "Publicar esta carpeta en la web" o, si tiene un archivo concreto seleccionado, "Publicar este archivo en la web". Pulse dicho vínculo y siga las instrucciones para seleccionar los archivos que desee cargar (se le permitirá seleccionar lo que quiera de la carpeta durante el proceso), inicie sesión, seleccione una galería o cree una nueva y publique la(s) imágen(es).
+    </para>
+  </entry>
 
 </help>

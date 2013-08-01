@@ -36,7 +36,7 @@ class Horde_Argv_Option
 
     /**
      * Not supplying a default is different from a default of None,
-     * so we need an explicit "not supplied" value.
+     * so we need an explicit 'not supplied' value.
      */
     public static $NO_DEFAULT = array('NO', 'DEFAULT');
 
@@ -196,41 +196,51 @@ class Horde_Argv_Option
      */
     public $CONST_ACTIONS = array('store_const', 'append_const');
 
-    # The set of known types for option parsers.  Again, listed here for
-    # constructor argument validation.
+    /**
+     * The set of known types for option parsers.
+     *
+     * Again, listed here for constructor argument validation.
+     */
     public $TYPES = array('string', 'int', 'long', 'float', 'complex', 'choice');
 
-    # Dictionary of argument checking functions, which convert and
-    # validate option arguments according to the option type.
-    #
-    # Signature of checking functions is:
-    #   check(option : Option, opt : string, value : string) -> any
-    # where
-    #   option is the Option instance calling the checker
-    #   opt is the actual option seen on the command-line
-    #     (eg. "-a", "--file")
-    #   value is the option argument seen on the command-line
-    #
-    # The return value should be in the appropriate Python type
-    # for option.type -- eg. an integer if option.type == "int".
-    #
-    # If no checker is defined for a type, arguments will be
-    # unchecked and remain strings.
-    public $TYPE_CHECKER = array("int"    => 'checkBuiltin',
-                                 "long"   => 'checkBuiltin',
-                                 "float"  => 'checkBuiltin',
-                                 "complex"=> 'checkBuiltin',
-                                 "choice" => 'checkChoice',
+    /**
+     * Dictionary of argument checking functions, which convert and validate
+     * option arguments according to the option type.
+     *
+     * Signature of checking functions is:
+     *
+     * <code>
+     * mixed function(Horde_Argv_Option $option, string $opt, string $value)
+     * </code>
+     *
+     * where
+     * - $option is the Horde_Argv_Option instance calling the checker
+     * - $opt is the actual option seen on the command-line (eg. '-a', '--file')
+     * - $value is the option argument seen on the command-line
+     *
+     * The return value should be in the appropriate PHP type
+     * for $option->type -- eg. an integer if $option->type == 'int'.
+     *
+     * If no checker is defined for a type, arguments will be unchecked and
+     * remain strings.
+     */
+    public $TYPE_CHECKER = array('int'     => 'checkBuiltin',
+                                 'long'    => 'checkBuiltin',
+                                 'float'   => 'checkBuiltin',
+                                 'complex' => 'checkBuiltin',
+                                 'choice'  => 'checkChoice',
     );
 
-    # CHECK_METHODS is a list of unbound method objects; they are called
-    # by the constructor, in order, after all attributes are
-    # initialized.  The list is created and filled in later, after all
-    # the methods are actually defined.  (I just put it here because I
-    # like to define and document all class attributes in the same
-    # place.)  Subclasses that add another _check_*() method should
-    # define their own CHECK_METHODS list that adds their check method
-    # to those from this class.
+    /**
+     * A list of unbound method objects.
+     *
+     * They are called by the constructor, in order, after all attributes are
+     * initialized.  The list is created and filled in later, after all the
+     * methods are actually defined.  (I just put it here because I like to
+     * define and document all class attributes in the same place.)  Subclasses
+     * that add another _check_*() method should define their own CHECK_METHODS
+     * list that adds their check method to those from this class.
+     */
     public $CHECK_METHODS = array('_checkAction',
                                   '_checkType',
                                   '_checkChoice',
@@ -238,7 +248,7 @@ class Horde_Argv_Option
                                   '_checkConst',
                                   '_checkNargs',
                                   '_checkCallback',
-                                  );
+    );
 
     // -- Constructor/initialization methods ----------------------------
 
@@ -302,7 +312,7 @@ class Horde_Argv_Option
             if (strlen($opt) < 2) {
                 throw new Horde_Argv_OptionException(sprintf("invalid option string '%s': must be at least two characters long", $opt), $this);
             } elseif (strlen($opt) == 2) {
-                if (!($opt[0] == "-" && $opt[1] != "-")) {
+                if (!($opt[0] == '-' && $opt[1] != '-')) {
                     throw new Horde_Argv_OptionException(sprintf(
                         "invalid short option string '%s': " .
                         "must be of the form -x, (x any non-dash char)", $opt), $this);
@@ -338,7 +348,7 @@ class Horde_Argv_Option
             $attrs = array_keys($attrs);
             sort($attrs);
             throw new Horde_Argv_OptionException(sprintf(
-                "invalid keyword arguments: %s", implode(", ", $attrs)), $this);
+                'invalid keyword arguments: %s', implode(', ', $attrs)), $this);
         }
     }
 
@@ -348,7 +358,7 @@ class Horde_Argv_Option
     public function _checkAction()
     {
         if (is_null($this->action)) {
-            $this->action = "store";
+            $this->action = 'store';
         } elseif (!in_array($this->action, $this->ACTIONS)) {
             throw new Horde_Argv_OptionException(sprintf("invalid action: '%s'", $this->action), $this);
         }
@@ -359,16 +369,16 @@ class Horde_Argv_Option
         if (is_null($this->type)) {
             if (in_array($this->action, $this->ALWAYS_TYPED_ACTIONS)) {
                 if (!is_null($this->choices)) {
-                    // The "choices" attribute implies "choice" type.
-                    $this->type = "choice";
+                    // The 'choices' attribute implies 'choice' type.
+                    $this->type = 'choice';
                 } else {
-                    // No type given?  "string" is the most sensible default.
-                    $this->type = "string";
+                    // No type given?  'string' is the most sensible default.
+                    $this->type = 'string';
                 }
             }
         } else {
-            if ($this->type == "str") {
-                $this->type = "string";
+            if ($this->type == 'str') {
+                $this->type = 'string';
             }
 
             if (!in_array($this->type, $this->TYPES)) {
@@ -384,7 +394,7 @@ class Horde_Argv_Option
 
     public function _checkChoice()
     {
-        if ($this->type == "choice") {
+        if ($this->type == 'choice') {
             if (is_null($this->choices)) {
                 throw new Horde_Argv_OptionException(
                     "must supply a list of choices for type 'choice'", $this);
@@ -409,7 +419,7 @@ class Horde_Argv_Option
             // Glean a destination from the first long option string,
             // or from the first short option string if no long options.
             if ($this->longOpts) {
-                // eg. "--foo-bar" -> "foo_bar"
+                // eg. '--foo-bar' -> 'foo_bar'
                 $this->dest = str_replace('-', '_', substr($this->longOpts[0], 2));
             } else {
                 $this->dest = $this->shortOpts[0][1];
@@ -441,7 +451,7 @@ class Horde_Argv_Option
 
     public function _checkCallback()
     {
-        if ($this->action == "callback") {
+        if ($this->action == 'callback') {
             if (!is_callable($this->callback)) {
                 $callback_name = is_array($this->callback) ?
                     is_object($this->callback[0]) ? get_class($this->callback[0] . '#' . $this->callback[1]) : implode('#', $this->callback) :
@@ -465,7 +475,7 @@ class Horde_Argv_Option
             }
             if (!is_null($this->callbackArgs)) {
                 throw new Horde_Argv_OptionException(
-                    "callbackArgs supplied for non-callback option", $this);
+                    'callbackArgs supplied for non-callback option', $this);
             }
         }
     }

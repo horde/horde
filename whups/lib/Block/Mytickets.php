@@ -33,7 +33,7 @@ class Whups_Block_Mytickets extends Whups_Block_Tickets
             'queue' => $queue_ids);
         $assigned = $GLOBALS['whups_driver']->getTicketsByProperties($info);
         if (!$assigned) {
-            return '<p><em>' . _("No tickets are assigned to you.") . '</em></p>';
+            return '<p class="horde-content"><em>' . _("No tickets are assigned to you.") . '</em></p>';
         }
 
         return $this->_table($assigned);

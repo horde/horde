@@ -3,7 +3,7 @@
  * Turn text into HTML with varying levels of parsing.  For no html
  * whatsoever, use htmlspecialchars() instead.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -166,11 +166,37 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
         /* For level MICRO or NOHTML, start with htmlspecialchars(). */
         $text2 = @htmlspecialchars($text, ENT_COMPAT, $this->_params['charset']);
 
-        /* Bad charset input in may result in an empty string. If so, try
-         * using the default charset encoding instead. */
-        if (!$text2) {
-            $text2 = @htmlspecialchars($text, ENT_COMPAT);
+        /* Bad charset input in may result in an empty string. Or the charset
+         * may not be supported. Convert to UTF-8 for htmlspecialchars() and
+         * then convert back. If we STILL don't have any output, the input
+         * charset is probably incorrect. Try the popular Western charsets as
+         * a last resort. */
+        if (!strlen($text2)) {
+            $text2 = Horde_String::convertCharset(
+                @htmlspecialchars(
+                    Horde_String::convertCharset($text, $this->_params['charset'], 'UTF-8'),
+                    ENT_COMPAT,
+                    'UTF-8'
+                ),
+                'UTF-8',
+                $this->_params['charset']
+            );
+
+            if (!strlen($text2)) {
+                foreach (array('windows-1252', 'utf-8') as $val) {
+                    $text2 = Horde_String::convertCharset(
+                        @htmlspecialchars($text, ENT_COMPAT, $val),
+                        $val,
+                        $this->_params['charset']
+                    );
+
+                    if (strlen($text2)) {
+                        break;
+                    }
+                }
+            }
         }
+
         $text = $text2;
 
         /* Do in-lining of http://xxx.xxx to link, xxx@xxx.xxx to email. */

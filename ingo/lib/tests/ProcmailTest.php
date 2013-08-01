@@ -10,7 +10,7 @@
  * @subpackage UnitTests
  */
 
-require_once dirname(__FILE__) . '/TestBase.php';
+require_once __DIR__ . '/TestBase.php';
 
 class Ingo_ProcmailTest extends Ingo_TestBase {
 

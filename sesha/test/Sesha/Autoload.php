@@ -2,7 +2,7 @@
 /**
  * Setup autoloading for the tests.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -13,11 +13,7 @@
  * @license    http://www.horde.org/licenses/gpl GPL
  */
 
-$mappings = array('Sesha' => dirname(__FILE__) . '/../../lib/');
-require_once 'Horde/Test/Autoload.php';
-
-/* Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
+Horde_Test_Autoload::addPrefix('Sesha', __DIR__ . '/../../lib');
 
 /** Load the basic test definition */
-require_once dirname(__FILE__) . '/TestCase.php';
+require_once __DIR__ . '/TestCase.php';

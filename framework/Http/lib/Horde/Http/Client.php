@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -62,7 +62,9 @@ class Horde_Http_Client
      *                    - request.proxyUsername
      *                    - request.proxyPassword
      *                    - request.proxyAuthenticationScheme
+     *                    - request.redirects
      *                    - request.timeout
+     *                    - request.verifyPeer
      */
     public function __construct($args = array())
     {

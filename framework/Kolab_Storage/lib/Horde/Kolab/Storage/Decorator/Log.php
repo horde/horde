@@ -14,7 +14,7 @@
 /**
  * A log decorator for the Kolab storage handler.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -49,7 +49,7 @@ implements Horde_Kolab_Storage
      *
      * @param Horde_Kolab_Storage $storage The storage handler.
      * @param mixed               $logger  The log handler. This instance
-     *                                     must provide the info() method.
+     *                                     must provide the debug() method.
      */
     public function __construct(Horde_Kolab_Storage $storage, $logger)
     {
@@ -65,10 +65,7 @@ implements Horde_Kolab_Storage
      */
     public function getList()
     {
-        return new Horde_Kolab_Storage_List_Decorator_Log(
-            $this->_storage->getList(),
-            $this->_logger
-        );
+        return $this->_storage->getList();
     }
 
     /**
@@ -81,10 +78,7 @@ implements Horde_Kolab_Storage
      */
     public function getSystemList($type)
     {
-        return new Horde_Kolab_Storage_List_Decorator_Log(
-            $this->_storage->getSystemList($type),
-            $this->_logger
-        );
+        return $this->_storage->getSystemList($type);
     }
 
     /**
@@ -108,7 +102,7 @@ implements Horde_Kolab_Storage
      *                             access in the folder.
      * @param int    $data_version Format version of the object data.
      *
-     * @return Horde_Kolab_Data The data object.
+     * @return Horde_Kolab_Storage_Data The data object.
      */
     public function getData($folder, $object_type = null, $data_version = 1)
     {

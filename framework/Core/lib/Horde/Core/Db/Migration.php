@@ -3,7 +3,7 @@
  * Horde_Core_Db_Migration provides a wrapper for all migration scripts
  * distributed through Horde applications or libraries.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,6 +33,13 @@ class Horde_Core_Db_Migration
     public $apps = array();
 
     /**
+     * List of all lower case module names matching the directories in $dirs.
+     *
+     * @var array
+     */
+    protected $_lower = array();
+
+    /**
      * Constructor.
      *
      * Searches all installed applications and libraries for migration
@@ -50,26 +57,41 @@ class Horde_Core_Db_Migration
             $dir = $GLOBALS['registry']->get('fileroot', $app) . '/migration';
             if (is_dir($dir)) {
                 $this->apps[] = $app;
+                $this->_lower[] = Horde_String::lower($app);
                 $this->dirs[] = realpath($dir);
             }
         }
 
+        // Silence PEAR errors.
+        $old_error_reporting = error_reporting();
+        error_reporting($old_error_reporting & ~E_DEPRECATED);
+        $pear = new PEAR_Config($pearconf);
+
         // Loop through local framework checkout.
         if ($basedir) {
+            $packageFile = new PEAR_PackageFile($pear);
             foreach (glob($basedir . '/framework/*/migration') as $dir) {
-                $this->apps[] = 'horde_' . Horde_String::lower(basename(dirname($dir)));
+                $package = $packageFile->fromPackageFile(
+                    dirname($dir) . '/package.xml', PEAR_VALIDATE_NORMAL
+                );
+                if ($package instanceof PEAR_Error) {
+                    Horde::log($package->getMessage(), Horde_Log::ERR);
+                    continue;
+                }
+                $this->apps[] = $package->getName();
+                $this->_lower[] = Horde_String::lower($package->getName());
                 $this->dirs[] = realpath($dir);
             }
         }
 
         // Loop through installed PEAR packages.
-        $old_error_reporting = error_reporting();
-        error_reporting($old_error_reporting & ~E_STRICT);
-        $pear = new PEAR_Config($pearconf);
+        $registry = $pear->getRegistry();
         foreach (glob($pear->get('data_dir') . '/*/migration') as $dir) {
-            $app = Horde_String::lower(basename(dirname($dir)));
+            $app = $registry->getPackage(
+                basename(dirname($dir)), 'pear.horde.org')->getName();
             if (!in_array($app, $this->apps)) {
                 $this->apps[] = $app;
+                $this->_lower[] = Horde_String::lower($app);
                 $this->dirs[] = realpath($dir);
             }
         }
@@ -86,11 +108,12 @@ class Horde_Core_Db_Migration
      */
     public function getMigrator($app, Horde_Log_Logger $logger = null)
     {
+        $app = Horde_String::lower($app);
         return new Horde_Db_Migration_Migrator(
             $GLOBALS['injector']->getInstance('Horde_Db_Adapter'),
             $logger,
             array(
-                'migrationsPath' => $this->dirs[array_search($app, $this->apps)],
+                'migrationsPath' => $this->dirs[array_search($app, $this->_lower)],
                 'schemaTableName' => $app . '_schema_info')
             );
     }

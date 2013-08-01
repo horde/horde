@@ -1,5 +1,5 @@
 # Finnish translations for Horde_Service_Weather package.
-# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# Copyright 2012-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Service_Weather package.
 # Leena Heino <liinu@uta.fi>, 2011-2012.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-03-07 18:39:03+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -622,7 +622,7 @@ msgstr "Pilvistä"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:128
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:146
 #: lib/Horde/Service/Weather/Wwo_Strings.php:54
-#: test/Horde/Service/Weather/WundergroundTest.php:76
+#: test/Horde/Service/Weather/WundergroundTest.php:77
 #: test/Horde/Service/Weather/WwoTest.php:32
 msgid "Partly Cloudy"
 msgstr "Osittain pilvistä"
@@ -757,11 +757,6 @@ msgstr "Vihmaa"
 #: test/Horde/Service/Weather/WwoTest.php:99
 msgid "Sunny"
 msgstr "Aurinkoista"
-
-#: lib/Horde/Service/Weather/Google.php:169
-msgid ""
-"There was a problem with the weather request. Maybe an invalid location?"
-msgstr "Ongelmia säätietojen kanssa. Ehkäpä paikkatieto on epäkelpo tai väärä?"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:38
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:154

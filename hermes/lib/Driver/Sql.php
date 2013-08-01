@@ -108,11 +108,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
      *              'rate'         The hourly rate the work was done at.
      *              'billable'     Whether or not the work is billable hours.
      *              'description'  A short description of the work.
+     *              'employee'     The employee
      *
      *                        If any rows contain a 'delete' entry, those rows
      *                        will be deleted instead of updated.
      *
-     * @return mixed  boolean
+     * @return integer  The number of successful updates.
      * @throws Horde_Exception_PermissionDenied
      * @throws Hermes_Exception
      */
@@ -130,18 +131,17 @@ class Hermes_Driver_Sql extends Hermes_Driver
                 }
             } else {
                 if (isset($info['employee'])) {
-                    $employee_cl = ' employee_id = ?,';
-
-                    $values = array($info['employee']);
+                    $employee_cl = ' ,employee_id = ?';
                 } else {
                     $employee_cl = '';
                 }
                 $dt = new Horde_Date($info['date']);
-                $sql = 'UPDATE hermes_timeslices SET' . $employee_cl .
+                $sql = 'UPDATE hermes_timeslices SET' .
                        ' clientjob_id = ?, jobtype_id = ?,' .
                        ' timeslice_hours = ?, timeslice_isbillable = ?,' .
                        ' timeslice_date = ?, timeslice_description = ?,' .
                        ' timeslice_note = ?, costobject_id = ?' .
+                       $employee_cl .
                        ' WHERE timeslice_id = ?';
                 $values = array($info['client'],
                                 $info['type'],
@@ -150,8 +150,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
                                 $dt->timestamp(),
                                 $this->_convertToDriver($info['description']),
                                 $this->_convertToDriver($info['note']),
-                                (empty($info['costobject']) ? null : $info['costobject']),
-                                (int)$info['id']);
+                                (empty($info['costobject']) ? null : $info['costobject']));
+                if (!empty($employee_cl)) {
+                    $values[] = $info['employee'];
+                }
+                $values[] = (int)$info['id'];
+
                 try {
                     return $this->_db->update($sql, $values);
                 } catch (Horde_Db_Exception $e) {
@@ -162,9 +166,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
     }
 
     /**
-     * Fetch time slices
+     * Fetch time slices with optional filter.
      *
-     * @param array $filters
+     * @param array $filters  An array of properties to filter on. Each entry
+     *                        is a field => value format. Possible field values:
+     *                        client, jobtype, submitted, exported, billable,
+     *                        start, end, employee, id, costobject.
      * @param array $fields
      *
      * @return array  Array of timeslice objects
@@ -245,7 +252,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
                     break;
 
                 case 'id':
-                    $where .= $glue . $this->_equalClause('timeslice_id', (int)$filter, false);
+                    if (is_array($filter)) {
+                        foreach ($filter as &$id) {
+                            $id = (int)$id;
+                        }
+                    }
+                    $where .= $glue . $this->_equalClause('timeslice_id', $filter, false);
                     $glue = ' AND';
                     break;
 
@@ -364,10 +376,19 @@ class Hermes_Driver_Sql extends Hermes_Driver
     }
 
     /**
-     * @TODO
+     * Return a list of optionally filtered jobtypes.
      *
-     * @param <type> $criteria
-     * @return <type>
+     * @param array $criteria  An array of optional criteria. Can include:
+     *   - id:      (string) The jobtype id.
+     *   - enabled: (boolean) The enabled property of the jobtype.
+     *
+     * @return array  An array of jobtype hashes. Each hash contains the
+     *                following keys:
+     *   - id:        The jobtype id.
+     *   - name:      The name.
+     *   - rate:      The hourly rate.
+     *   - billable:  The billable flag.
+     *   - enabled:   The enabled flag.
      */
     public function listJobTypes(array $criteria = array())
     {
@@ -525,8 +546,16 @@ class Hermes_Driver_Sql extends Hermes_Driver
             $values[] = $criteria['id'];
         }
         if (isset($criteria['client_id'])) {
-            $where[] = 'client_id = ?';
-            $values[] = $criteria['client_id'];
+            if (is_array($criteria['client_id'])) {
+                $where[] = 'client_id IN ('
+                    . implode(', ',
+                              array_fill(0, count($criteria['client_id']), '?'))
+                    . ')';
+                $values = array_merge($values, $criteria['client_id']);
+            } else {
+                $where[] = 'client_id = ?';
+                $values[] = $criteria['client_id'];
+            }
         }
         if (isset($criteria['active'])) {
             if ($criteria['active']) {

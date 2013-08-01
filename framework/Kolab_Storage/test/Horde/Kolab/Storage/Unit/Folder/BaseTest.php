@@ -12,14 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
-
-/**
  * Test the Kolab folder handler.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -162,15 +157,11 @@ extends Horde_Kolab_Storage_TestCase
 
     private function _getListMock($data = array())
     {
-        $list = $this->getMock('Horde_Kolab_Storage_List');
         $query = $this->getMock('Horde_Kolab_Storage_List_Query_List');
         $query->expects($this->any())
             ->method('folderData')
             ->will($this->returnValue($data));
-        $list->expects($this->any())
-            ->method('getQuery')
-            ->will($this->returnValue($query));
-        return $list;
+        return $query;
     }
 
 

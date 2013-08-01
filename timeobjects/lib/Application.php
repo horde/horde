@@ -10,7 +10,7 @@
  */
 /* Determine the base directories. */
 if (!defined('TIMEOBJECTS_BASE')) {
-    define('TIMEOBJECTS_BASE', dirname(__FILE__) . '/..');
+    define('TIMEOBJECTS_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -29,5 +29,5 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Timeobjects_Application extends Horde_Registry_Application
 {
-    public $version = 'H5 (2.0-git)';
+    public $version = '2.0.5-git';
 }

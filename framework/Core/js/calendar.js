@@ -52,7 +52,7 @@ var Horde_Calendar =
             return 30;
 
         case 1:
-            return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+            return (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0))
                 ? 29
                 : 28;
 
@@ -66,8 +66,8 @@ var Horde_Calendar =
         var firstWeekDays, weeks,
             firstOfMonth = (new Date(year, month, 1)).getDay();
 
-        if ((this.firstDayOfWeek == 1 && firstOfMonth == 0) ||
-            (this.firstDayOfWeek == 0 && firstOfMonth == 6)) {
+        if ((this.firstDayOfWeek == 1 && firstOfMonth === 0) ||
+            (this.firstDayOfWeek === 0 && firstOfMonth == 6)) {
             firstWeekDays = 7 - firstOfMonth + this.firstDayOfWeek;
             weeks = 1;
         } else {
@@ -85,7 +85,7 @@ var Horde_Calendar =
     {
         var newYear = new Date(d.getFullYear(), 0, 1),
             day = newYear.getDay();
-        if (this.firstDayOfWeek != 0) {
+        if (this.firstDayOfWeek !== 0) {
             day = ((day + (7 - this.firstDayOfWeek)) % 7);
         }
         return Math.ceil((((d - newYear) / 86400000) + day + 1) / 7);
@@ -117,11 +117,11 @@ var Horde_Calendar =
             open_month = open.getMonth(),
             open_day = open.getDate();
 
-        if (this.firstDayOfWeek == 0) {
+        if (this.firstDayOfWeek === 0) {
             startOfView = 1 - firstOfMonth;
         } else {
             // @TODO Adjust this for days other than Monday.
-            startOfView = (firstOfMonth == 0)
+            startOfView = (firstOfMonth === 0)
                 ? -5
                 : 2 - firstOfMonth;
         }
@@ -191,32 +191,12 @@ var Horde_Calendar =
             }
         }
 
-        // IE 6 only.
-        if (Prototype.Browser.IE && !window.XMLHttpRequest) {
-            iframe = $('hordeCalendarIframe');
-            if (!iframe) {
-                iframe = new Element('IFRAME', { name: 'hordeCalendarIframe', id: 'hordeCalendarIframe', src: 'javascript:false;', scrolling: 'no', frameborder: 0 }).hide();
-                $(document.body).insert(iframe);
-            }
-            iframe.clonePosition(div).setStyle({
-                position: 'absolute',
-                display: 'block',
-                zIndex: 1
-            });
-        }
-
         div.setStyle({ zIndex: 999 });
     },
 
     hideCal: function()
     {
-        var iefix = $('hordeCalendarIframe');
-
         $('hordeCalendar').hide();
-
-        if (iefix) {
-            iefix.hide();
-        }
     },
 
     changeYear: function(by)

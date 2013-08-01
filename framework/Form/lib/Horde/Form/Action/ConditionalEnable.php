@@ -16,7 +16,7 @@
  * action is attached to if the value of 'foo' is 1 or 2, and disable it
  * otherwise.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,7 +30,7 @@ class Horde_Form_Action_ConditionalEnable extends Horde_Form_Action {
 
     function getActionScript(&$form, $renderer, $varname)
     {
-        Horde::addScriptFile('form_helpers.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('form_helpers.js', 'horde');
 
         $form_name = $form->getName();
         $target = $this->_params['target'];

@@ -1,13 +1,4 @@
 <?xml version="1.0"?>
 <!-- $Id$ -->
 <configuration>
- <configsection name="menu">
-  <configheader>Menu Settings</configheader>
-  <configmultienum name="apps" desc="Select any applications that should be
-  linked in Kolab's menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
- </configsection>
 </configuration>

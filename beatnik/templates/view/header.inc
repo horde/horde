@@ -1,14 +1,7 @@
 <?php
-/**
- * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- */
-
 if (Beatnik::needCommit($_SESSION['beatnik']['curdomain']['zonename'])) {
-    $commit = Horde_Util::addParameter(Horde::url('commit.php'), array('domain' => 'current'));
-    echo Horde::link($commit, _('Commit Changes'), 'button') . _('Commit Changes') . '</a><br /><br />';
+    $commit = Horde::url('commit.php')->add(array('domain' => 'current'));
+    echo Horde::link($commit, _("Commit Changes"), 'button') . _("Commit Changes") . '</a><br /><br />';
 }
 ?>
 
@@ -17,11 +10,11 @@ if (Beatnik::needCommit($_SESSION['beatnik']['curdomain']['zonename'])) {
 $params = array('id' => $_SESSION['beatnik']['curdomain']['id'],
                 'rectype' => 'soa');
 echo $_SESSION['beatnik']['curdomain']['zonename'] . '&nbsp;'
-     . Horde::link(Horde_Util::addParameter($edit, $params))
+     . Horde::link($edit->copy()->add($params))
      . Horde::img('edit.png', _("Edit")) . '</a> '
-     . Horde::link(Horde_Util::addParameter($autogen, $params))
+     . Horde::link($autogen->copy()->add($params))
      . Horde::img('devel.png', _("Autogenerate")) . '</a> '
-     . Horde::link(Horde_Util::addParameter($delete, $params))
+     . Horde::link($delete->copy()->add($params))
      . Horde::img('delete.png', _("Delete")) . '</a></td>';
 ?>
 </div>

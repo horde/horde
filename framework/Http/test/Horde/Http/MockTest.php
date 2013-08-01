@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/Autoload.php';
-
-/**
  * Test the remote server handler.
  *
  * PHP version 5

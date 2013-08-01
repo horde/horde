@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../Autoload.php';
-
-/**
  * Test task handling.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -44,7 +39,7 @@ extends Horde_Kolab_Format_TestCase
         $xml = $this->getFactory()->create('XML', 'task');
 
         // Load XML
-        $task = file_get_contents(dirname(__FILE__) . '/../fixtures/task.xml');
+        $task = file_get_contents(__DIR__ . '/../fixtures/task.xml');
         $result = $xml->load($task);
         // Check that the xml loads fine
         $this->assertEquals($result['body'], 'TEST');

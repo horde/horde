@@ -3,7 +3,7 @@
  * Horde_Share_Sqlng provides the next-generation SQL backend driver for the
  * Horde_Share library.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -93,7 +93,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
 
         $key = md5(serialize(array($userid, $params)));
         if (isset($this->_listcache[$key])) {
-            return is_array($this->_listcache[$key]) ? $this->_listcache[$key] : array();
+            return $this->_listcache[$key];
         }
 
         $perms = $this->convertBitmaskToArray($params['perm']);
@@ -134,7 +134,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         if (!empty($this->_callbacks['list'])) {
             $sharelist = $this->runCallback('list', array($userid, $sharelist, $params));
         }
-        $this->_listcache[$key] = empty($sharelist) ? false : $sharelist;
+        $this->_listcache[$key] = $sharelist;
 
         return $this->_listcache[$key];
     }

@@ -2,7 +2,7 @@
 /**
  * Class for presenting Horde_History information.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -43,7 +43,8 @@ class Horde_History_Log implements IteratorAggregate, ArrayAccess, Countable
                 'desc' => $row['history_desc'],
                 'who' => $row['history_who'],
                 'id' => $row['history_id'],
-                'ts' => $row['history_ts']
+                'ts' => $row['history_ts'],
+                'modseq' => $row['history_modseq']
             );
 
             if ($row['history_extra']) {

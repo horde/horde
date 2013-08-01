@@ -2,6 +2,8 @@
 
 class Kronolith_Stub_Registry
 {
+    public $admin = false;
+
     public function getAuth()
     {
         return 'test';
@@ -9,7 +11,7 @@ class Kronolith_Stub_Registry
 
     public function isAdmin()
     {
-        return false;
+        return $this->admin;
     }
 
     public function get()

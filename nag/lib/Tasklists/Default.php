@@ -8,8 +8,7 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Nag
  */
-class Nag_Tasklists_Default
-extends Nag_Tasklists_Base
+class Nag_Tasklists_Default extends Nag_Tasklists_Base
 {
     /**
      * The current identity.
@@ -41,7 +40,7 @@ extends Nag_Tasklists_Base
      *
      * @return string The name of a default share.
      */
-    protected function getDefaultShareName()
+    protected function _getDefaultShareName()
     {
         return sprintf(_("Task list of %s"), $this->_identity->getName());
     }

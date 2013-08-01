@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,8 +8,14 @@
  * @author Bo Daley <bo@darkwork.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('sesha');
+
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
+$topbar->searchAction = new Horde_Url('list.php');
+$topbar->searchLabel = _("Stock ID");
+$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
 
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
@@ -35,11 +41,11 @@ if (!Sesha::isAdmin(Horde_Perms::DELETE)) {
 switch ($actionID) {
 
 case 'add_category':
-    $url = Horde_Util::addParameter('admin.php', 'actionID', 'list_categories');
+    $url = Horde::url('admin.php')->add('actionID', 'list_categories');
     $title = _("Add a category");
     $vars->set('actionID', $actionID);
     $renderer = new Horde_Form_Renderer();
-    $form = new Sesha_Forms_Category($vars);
+    $form = new Sesha_Form_Category($vars);
     if ($form->validate($vars)) {
         $form->getInfo($vars, $info);
         // Save category details.
@@ -65,7 +71,7 @@ case 'add_category':
     break;
 
 case 'edit_category':
-    $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'list_categories');
+    $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'list_categories');
     try {
         $category = $sesha_driver->getCategory($category_id);
     } catch (Sesha_Exception $e) {
@@ -78,7 +84,7 @@ case 'edit_category':
         $vars->get('submitbutton') == _("Save Category")) {
         $title = sprintf(_("Modifying %s"), $category['category']);
         $vars->set('actionID', $actionID);
-        $form = new Sesha_Forms_Category($vars);
+        $form = new Sesha_Form_Category($vars);
         $form->setTitle($title);
         if ($form->validate($vars)) {
             // Save category details.
@@ -108,13 +114,13 @@ case 'edit_category':
     } elseif ($vars->get('submitbutton') == _("Delete Category")) {
         $title = sprintf(_("Delete Category \"%s\""), $category['category']);
         $vars->set('actionID', 'delete_category');
-        $form = new Sesha_Forms_CategoryDelete($vars);
+        $form = new Sesha_Form_CategoryDelete($vars);
         $form->setTitle($title);
     }
     break;
 
 case 'delete_category':
-    $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'list_categories');
+    $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'list_categories');
     if ($vars->get('confirm') == 'yes') {
         try {
             $sesha_driver->deleteCategory($category_id);
@@ -131,7 +137,7 @@ case 'delete_category':
     exit;
 
 case 'edit_property':
-    $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'list_properties');
+    $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'list_properties');
     try {
         $property = $sesha_driver->getProperty($property_id);
     } catch (Sesha_Exception $e) {
@@ -143,12 +149,12 @@ case 'edit_property':
     if ($vars->get('submitbutton') == _("Delete Property")) {
         $title = sprintf(_("Delete Property \"%s\""), $property['property']);
         $vars->set('actionID', 'delete_property');
-        $form = new Sesha_Forms_PropertyDelete($vars);
+        $form = new Sesha_Form_PropertyDelete($vars);
         $form->setTitle($title);
     } else {
         $title = sprintf(_("Modifying property \"%s\""), $property['property']);
         $vars->set('actionID', $actionID);
-        $form = new Sesha_Forms_Property($vars);
+        $form = new Sesha_Form_Property($vars);
         $form->setTitle($title);
         if ($form->validate($vars)) {
             // Save property details.
@@ -173,7 +179,7 @@ case 'edit_property':
     break;
 
 case 'delete_property':
-    $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'list_properties');
+    $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'list_properties');
     if ($vars->get('confirm') == 'yes') {
         try {
             $sesha_driver->deleteProperty($property_id);
@@ -190,11 +196,11 @@ case 'delete_property':
     exit;
 
 case 'add_property':
-    $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'list_properties');
+    $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'list_properties');
     $title = _("Add a property");
     $vars->set('actionID', $actionID);
     $renderer = new Horde_Form_Renderer();
-    $form = new Sesha_Forms_Property($vars);
+    $form = new Sesha_Form_Property($vars);
     $form->setTitle(_("Add a new property"));
     if ($form->validate($vars)) {
         // Save property details.
@@ -214,25 +220,25 @@ case 'add_property':
 
 default:
 case 'list_categories':
-    $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'edit_category');
+    $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'edit_category');
     $vars->set('actionID', 'edit_category');
     $renderer = new Horde_Form_Renderer();
-    $form = new Sesha_Forms_CategoryList($vars, 'admin.php', 'post');
+    $form = new Sesha_Form_CategoryList($vars, 'admin.php', 'post');
     $valid = $form->validate($vars);
     if ($valid) {
         // Redirect to the category list form.
-        $url = Horde_Util::addParameter($url, 'category_id', $vars->get('category_id'));
-        header('Location: ' . Horde::url($url, true));
+        $url = Horde::url($url, true)->add('category_id', $vars->get('category_id'));
+        header('Location: ' . $url);
         exit;
     }
     $vars2 = Horde_Variables::getDefaultVariables();
-    $form2 = new Sesha_Forms_Category($vars2, 'admin.php', 'post');
+    $form2 = new Sesha_Form_Category($vars2, 'admin.php', 'post');
     $form2->setTitle(_("Add a new category"));
     $vars2->set('actionID', 'add_category');
     $valid = $form2->validate($vars2);
     if ($valid) {
         // Redirect to the category form.
-        $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'list_categories');
+        $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'list_categories');
         header('Location: ' . Horde::url($url, true));
         exit;
     }
@@ -241,31 +247,31 @@ case 'list_categories':
 case 'list_properties':
     $vars->set('actionID', 'edit_property');
     $renderer = new Horde_Form_Renderer();
-    $form = new Sesha_Forms_PropertyList($vars, 'admin.php', 'post');
+    $form = new Sesha_Form_PropertyList($vars, 'admin.php', 'post');
     $valid = $form->validate($vars);
     if ($valid) {
         // Redirect to the property list form.
-        $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'edit_property');
-        $url = Horde_Util::addParameter($url, 'property_id', $vars->get('property_id'));
+        $url = Horde::url($baseUrl . '/admin.php')->add('actionID', 'edit_property')->add('property_id', $vars->get('property_id'));
         header('Location: ' . Horde::url($url, true));
         exit;
     }
     $vars2 = Horde_Variables::getDefaultVariables();
     $vars2->set('actionID', 'add_property');
-    $form2 = new Sesha_Forms_Property($vars2, 'admin.php', 'post');
+    $form2 = new Sesha_Form_Property($vars2, 'admin.php', 'post');
     $form2->setTitle(_("Add a new property"));
     $valid = $form2->validate($vars2);
     if ($valid) {
         // Redirect to the property form.
-        $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'list_properties');
-        header('Location: ' . Horde::url($url, true));
+        $url = Horde::url($baseUrl . '/admin.php', true)->add('actionID', 'list_properties');
+        header('Location: ' . $url);
         exit;
     }
     break;
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require SESHA_TEMPLATES . '/menu.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo $tabs->render(strpos($actionID, 'propert') === false ? 'list_categories' : 'list_properties');
 
 // Render forms if they are defined.
@@ -277,4 +283,4 @@ if (isset($form2)) {
     $form2->renderActive($renderer, $vars2, Horde::url('admin.php'), 'post');
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

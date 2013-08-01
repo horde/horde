@@ -2,7 +2,7 @@
 /**
  * Turba directory driver implementation for an IMSP server.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -74,7 +74,6 @@ class Turba_Driver_Imsp extends Turba_Driver
      */
     public function __construct($name = '', $params)
     {
-        global $conf;
         parent::__construct($name, $params);
 
         $this->params       = $params;
@@ -103,7 +102,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      *
      * @return array  Hash containing the search results.
      */
-    protected function _search($criteria, $fields, $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only)
     {
         $query = $results = array();
 
@@ -128,14 +127,14 @@ class Turba_Driver_Imsp extends Turba_Driver
 
         Horde::logMessage(sprintf('IMSP returned %s results', count($results)), 'DEBUG');
 
-        return array_values($results);
+        return $count_only ? count($results) : array_values($results);
     }
 
     /**
      * Reads the given data from the address book and returns the results.
      *
      * @param string $key        The primary key field to use (always 'name'
-                                 for IMSP).
+     *                           for IMSP).
      * @param mixed $ids         The ids of the contacts to load.
      * @param string $owner      Only return contacts owned by this user.
      * @param array $fields      List of fields to return.
@@ -408,8 +407,7 @@ class Turba_Driver_Imsp extends Turba_Driver
     protected function _doSearch($criteria, $glue)
     {
         $results = array();
-        $names = array();
-        foreach ($criteria as $key => $vals) {
+        foreach ($criteria as $vals) {
             if (!empty($vals['OR'])) {
                 $results[] = $this->_doSearch($vals['OR'], 'OR');
             } elseif (!empty($vals['AND'])) {
@@ -447,8 +445,6 @@ class Turba_Driver_Imsp extends Turba_Driver
      */
     function _sendSearch($criteria)
     {
-        global $conf;
-
         $names = '';
         $imspSearch = array();
         $searchkey = $criteria['field'];
@@ -650,7 +646,7 @@ class Turba_Driver_Imsp extends Turba_Driver
 
         $result = Turba::createShare($share_id, $params);
         try {
-            $imsp_result = Horde_Core_Imsp_Utils::createBook($GLOBALS['cfgSources']['imsp'], $params['params']['name']);
+            Horde_Core_Imsp_Utils::createBook($GLOBALS['cfgSources']['imsp'], $params['params']['name']);
         } catch (Horde_Imsp_Exception $e) {
             throw new Turba_Exception($e);
         }
@@ -669,7 +665,6 @@ class Turba_Driver_Imsp extends Turba_Driver
     protected function _countDelimiters($in)
     {
         $cnt = $pos = 0;
-        $i = -1;
         while (($pos = strpos($in, ':', $pos + 1)) !== false) {
             ++$cnt;
         }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -46,6 +46,7 @@ class Kronolith_Event_Holidays extends Kronolith_Event
         $this->start = new Horde_Date($dhEvent->getDate()->getDate());
         $this->end = new Horde_Date($this->start);
         $this->end->mday++;
+        $this->end->sec--;
         $this->id = $dhEvent->getInternalName() . '-' . $this->start->dateString();
     }
 

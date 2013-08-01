@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -8,7 +8,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -33,14 +33,18 @@ if ($form->validate()) {
         $url = $vars->get('url');
         if (empty($url)) {
             $url = Horde::url('view.php')->add('gallery', $gallery->id);
+        } else {
+            $url = Horde::url($url);
         }
         $url->redirect();
         exit;
     }
 }
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
 echo '<div class="header">' . Ansel::getBreadCrumbs() . '</div>';
 $form->renderActive(null, null, null, 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

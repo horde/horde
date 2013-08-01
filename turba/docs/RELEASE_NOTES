@@ -10,32 +10,39 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Turba Contact
-Manager version H4 (3.0.12).
+Manager version H5 (4.1.1).
 
 Turba is the Horde contact management application. Leveraging the Horde
 framework to provide seamless integration with IMP and other Horde
-applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP
-address books. For more information on Turba, visit
-http://www.horde.org/apps/turba.
+applications, it supports contacts in SQL, LDAP, Kolab, IMSP, and Facebook
+address books, and works as a CardDAV server. For more information on Turba,
+visit http://www.horde.org/apps/turba.
 
-The major changes compared to the Turba version H4 (3.0.11) are:
-    * Improved navigation when editing group entries.
-    * Fixed phone number synchronization with newer Funambol clients.
-    * Small bugfixes and improvements.
+For upgrading instructions, please see
+http://www.horde.org/apps/turba/docs/UPGRADING
+
+For detailed installation and configuration instructions, please see
+http://www.horde.org/apps/turba/docs/INSTALL
+
+The major changes compared to the Turba version H5 (4.1.0) are:
+    * Import generic phone attributes from vCard.
+    * Added support for improved history API.
+    * Fixed CardDAV synchronization with Mac OSX addressbook.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Improved navigation when editing group entries.
-Fixed phone number synchronization with newer Funambol clients.
-Small bugfixes and improvements.
+Import generic phone attributes from vCard.
+Added support for improved history API.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Turba';
 $this->notes['fm']['project'] = 'turba';
-$this->notes['fm']['branch'] = 'Horde 4';
+$this->notes['fm']['branch'] = 'Horde 5';

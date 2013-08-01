@@ -2,7 +2,7 @@
 /**
  * SyncML Backend for the Horde Application framework.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -74,6 +74,8 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
         /* Only the server needs to start a session. */
         if ($this->_backendMode == Horde_SyncMl_Backend::MODE_SERVER) {
             /* Reload the Horde SessionHandler if necessary. */
+            $GLOBALS['session'] = new Horde_Session();
+            $GLOBALS['session']->destroy();
             $GLOBALS['session']->setup(true, null, $this->_sessionId);
             $this->state = $GLOBALS['session']->get('horde', 'syncml');
         }
@@ -84,6 +86,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
         if ($this->state) {
             $GLOBALS['session']->set('horde', 'syncml', $this->state);
         }
+        $GLOBALS['session']->close();
         parent::close();
     }
 
@@ -530,7 +533,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      *
      * @return string  The user name.
      */
-    public function setAuthenticated($username, $credData)
+    protected function _setAuthenticated($username, $credData)
     {
         global $registry;
 

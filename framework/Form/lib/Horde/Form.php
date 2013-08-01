@@ -9,7 +9,7 @@ require_once 'Horde/Form/Type.php';
  * other functionality for the Horde Application Framework.
  *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -38,7 +38,7 @@ class Horde_Form {
     protected $_enctype = null;
     public $_help = false;
 
-    function Horde_Form(&$vars, $title = '', $name = null)
+    function Horde_Form($vars, $title = '', $name = null)
     {
         if (empty($name)) {
             $name = Horde_String::lower(get_class($this));
@@ -54,7 +54,7 @@ class Horde_Form {
         $this->Horde_Form($vars, $title, $name);
     }
 
-    function &singleton($form, &$vars, $title = '', $name = null)
+    function singleton($form, &$vars, $title = '', $name = null)
     {
         static $instances = array();
 
@@ -128,10 +128,9 @@ class Horde_Form {
      * To use a custom form renderer, your form class needs to
      * override this function:
      * <code>
-     * function &getRenderer()
+     * function getRenderer()
      * {
-     *     $r = new CustomFormRenderer();
-     *     return $r;
+     *     return new CustomFormRenderer();
      * }
      * </code>
      *
@@ -219,9 +218,9 @@ class Horde_Form {
     /**
      * TODO
      */
-    function &addVariable($humanName, $varName, $type, $required,
-                          $readonly = false, $description = null,
-                          $params = array())
+    function addVariable($humanName, $varName, $type, $required,
+                         $readonly = false, $description = null,
+                         $params = array())
     {
         return $this->insertVariableBefore(null, $humanName, $varName, $type,
                                            $required, $readonly, $description,
@@ -231,11 +230,11 @@ class Horde_Form {
     /**
      * TODO
      */
-    function &insertVariableBefore($before, $humanName, $varName, $type,
-                                   $required, $readonly = false,
-                                   $description = null, $params = array())
+    function insertVariableBefore($before, $humanName, $varName, $type,
+                                  $required, $readonly = false,
+                                  $description = null, $params = array())
     {
-        $type = &$this->getType($type, $params);
+        $type = $this->getType($type, $params);
         $var = new Horde_Form_Variable($humanName, $varName, $type,
                                        $required, $readonly, $description);
 
@@ -314,11 +313,11 @@ class Horde_Form {
     /**
      * TODO
      */
-    function &addHidden($humanName, $varName, $type, $required,
-                        $readonly = false, $description = null,
-                        $params = array())
+    function addHidden($humanName, $varName, $type, $required,
+                       $readonly = false, $description = null,
+                       $params = array())
     {
-        $type = &$this->getType($type, $params);
+        $type = $this->getType($type, $params);
         $var = new Horde_Form_Variable($humanName, $varName, $type,
                                        $required, $readonly, $description);
         $var->hide();
@@ -326,7 +325,7 @@ class Horde_Form {
         return $var;
     }
 
-    function &getVariables($flat = true, $withHidden = false)
+    function getVariables($flat = true, $withHidden = false)
     {
         if ($flat) {
             $vars = array();

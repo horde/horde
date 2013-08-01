@@ -1,0 +1,1688 @@
+# Spanish translations for Folks H5 package.
+# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Folks package.
+# Automatically generated, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Folks H5 (0.1-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2013-06-11 20:26+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: edit/friends/invite.php:27
+#, php-format
+msgid "%s Invited to join %s."
+msgstr "%s ha invidato a unirse a %s"
+
+#: edit/friends/add.php:38
+#, php-format
+msgid "%s added you as a friend on %s"
+msgstr "%s le ha añadido como amigo en %s"
+
+#: edit/friends/approve.php:35
+#, php-format
+msgid "%s approved you as a friend on %s"
+msgstr "%s le ha aceptado como amigo en %s"
+
+#: edit/friends/reject.php:34
+#, php-format
+msgid "%s rejected you as a friend on %s"
+msgstr "%s le rechazó como amigo en %s"
+
+#: user.php:62
+#, php-format
+msgid "%s's profile"
+msgstr "Perfil de %s"
+
+#: edit/edit.php:27 edit/edit.php:41
+msgid "--- Select ---"
+msgstr "-- seleccionar --"
+
+#: scripts/mail.php:139
+msgid "-c, --count                  Limit count"
+msgstr "-c, --count                   Cuenta límite"
+
+#: scripts/mail.php:140
+msgid "-f, --from                   Limit offset"
+msgstr "-f, --from                   Desplazamiento límite"
+
+#: scripts/mail.php:138
+msgid "-h, --help                   Show this help"
+msgstr "-h, --help                   Muestra esta ayuda"
+
+#: scripts/mail.php:142
+msgid "-p, --password[=password]    Horde login password"
+msgstr "-p, --password[=contraseña]    Contraseña de inicio de Horde"
+
+#: scripts/mail.php:141
+msgid "-u, --username[=username]    Horde login username"
+msgstr "-u, --username[=usuario]    Usuario de inicio de sesión de Horde"
+
+#: edit/friends/add.php:51
+#, php-format
+msgid "A confirmation was send to \"%s\"."
+msgstr "Se envió una confirmación a \"%s\"."
+
+#: lib/Friends/shared.php:77 lib/Friends/shared.php:151
+msgid "A group names cannot be empty"
+msgstr "Un nombre de grupo no puede estar en blanco."
+
+#: templates/edit/activity.php:19 templates/edit/friends.php:16
+#: templates/edit/groups.php:14
+msgid "Action"
+msgstr "Acción"
+
+#: activity.php:14 edit/activity.php:17 edit/tabs.php:23
+#: lib/Forms/Activity.php:20 lib/Forms/Activity.php:22
+#: templates/edit/activity.php:18 templates/list/list.php:7
+#: templates/user/user.php:99 templates/user/user.php:338
+msgid "Activity"
+msgstr "Actividad"
+
+#: config/prefs.php:27
+msgid "Activity log"
+msgstr "Registro de actividades"
+
+#: edit/activity.php:26
+msgid "Activity successfully deleted"
+msgstr "Se ha eliminado correctamente la actividad"
+
+#: edit/activity.php:37 friends.php:28 user.php:54
+msgid "Activity successfully posted"
+msgstr "Se ha enviado correctamente la actividad"
+
+#: edit/friends/know.php:33 templates/edit/header.php:22
+msgid "Add"
+msgstr "Añadir"
+
+#: templates/user/actions.php:17 templates/user/user.php:120
+#, php-format
+msgid "Add %s as a friend?"
+msgstr "¿Añadir a %s como amigo?"
+
+#: templates/user/actions.php:20
+#, php-format
+msgid "Add %s to you blacklist?"
+msgstr "¿Añadir a %s a su lista negra?"
+
+#: lib/Forms/AddFriend.php:17
+msgid "Add / Remove"
+msgstr "Añadir / Eliminar"
+
+#: templates/user/actions.php:14 templates/user/actions.php:15
+msgid "Add a comment"
+msgstr "Añadir comentario"
+
+#: edit/friends/add.php:16 lib/Block/Know.php:33
+#: templates/friends/friends.php:25
+msgid "Add friend"
+msgstr "Añadir amigo"
+
+#: edit/friends/groups.php:77
+msgid "Add group"
+msgstr "Añadir grupo"
+
+#: edit/friends/add.php:61 edit/friends/blacklist.php:75
+msgid "Add or remove user"
+msgstr "Añadir o eliminar usuario"
+
+#: templates/user/user.php:145 templates/user/user.php:170
+#: templates/user/user.php:195 templates/user/user.php:222
+#: templates/user/user.php:248 templates/user/user.php:276
+#: templates/user/user.php:302 templates/user/user.php:335
+msgid "Add your content"
+msgstr "Añadir contenido"
+
+#: account/signup.php:41
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr "Se ha añadido \"%s\" al sistema. Ya puede iniciar la sesión."
+
+#: edit/friends/approve.php:47
+#, php-format
+msgid "Added user %s as a friend."
+msgstr "Se ha añadido el usuario %s como amigo."
+
+#: report.php:28
+msgid "Advertisement content"
+msgstr "Contenido publicitario"
+
+#: templates/list/list.php:28 templates/user/user.php:78
+msgid "Age"
+msgstr "Edad"
+
+#: lib/Forms/Search.php:21
+msgid "Age from"
+msgstr "Límite de edad inferior"
+
+#: lib/Forms/Search.php:22
+msgid "Age to"
+msgstr "Límite de edad superior"
+
+#: templates/list/list.php:36
+msgid "Albums"
+msgstr "Álbunes"
+
+#: edit/friends/index.php:15 lib/Block/Friends.php:27
+#: templates/edit/header.php:24
+msgid "All"
+msgstr "Todos"
+
+#: templates/list/list.php:10
+msgid "All users"
+msgstr "Todos los usuario"
+
+#: edit/privacy.php:30
+msgid "All visitors"
+msgstr "Todos los visitantes"
+
+#: edit/comments.php:25
+msgid "Any one"
+msgstr "Cualquiera"
+
+#: templates/edit/activity.php:16
+msgid "Application"
+msgstr "Aplicación"
+
+#: config/prefs.php:119
+msgid ""
+"Application you would like NOT to log activitiy when you post a new PUBLIC "
+"COMMENT"
+msgstr ""
+"Solicitud de que desearía NO registrar la actividad al enviar un COMENTARIO "
+"PÚBLICO nuevo."
+
+#: config/prefs.php:105
+msgid ""
+"Application you would like NOT to log your activitiy when you post a new "
+"PUBLIC CONTENT."
+msgstr ""
+"Solicitud de que desearía NO registrar su actividad al enviar un CONTENIDO "
+"PÚBLICO nuevo."
+
+#: edit/friends/for.php:37
+msgid "Approve"
+msgstr "Aprobar"
+
+#: lib/Folks.php:137 lib/Folks.php:141
+msgid "Aquarius"
+msgstr "Acuario"
+
+#: lib/Folks.php:145 lib/Folks.php:149
+msgid "Aries"
+msgstr "Aries"
+
+#: config/prefs.php:45
+msgid "Ascesending"
+msgstr "Ascendente"
+
+#: perms.php:41
+msgid "Attempt to edit a non-existent share."
+msgstr "Intenta modificar un recurso compartido inexistente."
+
+#: edit/comments.php:26
+msgid "Authenticated users"
+msgstr "Usuarios autentificados"
+
+#: services.php:14
+msgid "Available services"
+msgstr "Sevicios disponibles"
+
+#: birthday.php:14 edit/edit.php:26 templates/list/list.php:9
+msgid "Birthday"
+msgstr "Cumpleaños"
+
+#: edit/friends/blacklist.php:16 edit/tabs.php:20 templates/edit/header.php:34
+#: templates/user/actions.php:21
+msgid "Blacklist"
+msgstr "Lista negra"
+
+#: edit/friends/invite.php:29
+msgid "Body"
+msgstr "Cuerpo"
+
+#: edit/friends/groups.php:52 edit/friends/groups.php:58 report.php:26
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: lib/Folks.php:157 lib/Folks.php:161
+msgid "Cancer"
+msgstr "Cáncer"
+
+#: scripts/mail-filter.php:97
+msgid "Cannot authenticate at mail server:"
+msgstr "No se puede autentificar en el servidor de correo:"
+
+#: account/resetpassword.php:21
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr ""
+"No se puede actualizar la clave automáticamente, póngase en contacto con su "
+"administrador del sistema."
+
+#: lib/Folks.php:283
+msgid "Cannot retrieve user email."
+msgstr "No se puede recuperar el correo del usuario."
+
+#: lib/Folks.php:137 lib/Folks.php:181
+msgid "Capricorn"
+msgstr "Capricornio"
+
+#: edit/password.php:24
+msgid "Change Your Password"
+msgstr "Cambiar contraseña"
+
+#: edit/password.php:29
+msgid "Choose a password"
+msgstr "Elija una contraseña"
+
+#: edit/edit.php:28 lib/Forms/Search.php:18 lib/Forms/Search.php:20
+#: templates/list/list.php:30 templates/user/user.php:94
+msgid "City"
+msgstr "Localidad"
+
+#: templates/user/friends.php:10 templates/user/private.php:11
+msgid "Click here"
+msgstr "Pulse aquí"
+
+#: templates/user/authenticated.php:8
+msgid "Click here to login."
+msgstr "Pulse aquí para iniciar sesión."
+
+#: save_search.php:15 save_search.php:46
+msgid "Close"
+msgstr "Cerrar"
+
+#: lib/Api.php:83
+#, php-format
+msgid "Commented user %s."
+msgstr "Usuario %s comentado."
+
+#: edit/comments.php:16 edit/tabs.php:28
+msgid "Comments"
+msgstr "Comentarios"
+
+#: edit/comments.php:52
+msgid "Comments deleted successfuly"
+msgstr "Se han eliminado correctamente los comentarios"
+
+#: account/approve.php:13
+msgid "Confirm email"
+msgstr "Confirmar correo"
+
+#: account/resetpassword.php:29 edit/password.php:27 edit/password.php:180
+msgid "Continue"
+msgstr "Continuar"
+
+#: report.php:31
+msgid "Copyright infringement"
+msgstr "Infracción de Copyright"
+
+#: account/username.php:28
+msgid "Could not find any username with this email."
+msgstr "No se puede encontrar ningún usuario en este correo."
+
+#: edit/facebook.php:20 lib/Notification/facebook.php:132
+#, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Facebook account."
+msgstr ""
+"No se pudieron encontrar permisos de %s para interactuar con su cuenta de "
+"Facebook."
+
+#: account/resetpassword.php:94
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+"No se pudo restablecer la contraseña del usuario solicitado. Parte de los "
+"detalles o todos son incorrectos. Pruebe otra vez o póngase en contacto con "
+"el administrador del sistema para más información."
+
+#: scripts/mail.php:22
+msgid "Couldn't read command-line options."
+msgstr "No se pudieron leer las opciones de línea de comandos."
+
+#: edit/edit.php:29
+msgid "Country"
+msgstr "País"
+
+#: edit/password.php:28
+msgid "Current password"
+msgstr "Contraseña actual"
+
+#: templates/edit/activity.php:17
+msgid "Date"
+msgstr "Fecha"
+
+#: scripts/mail-filter.php:156
+#, php-format
+msgid ""
+"Dear %s, we tried to send you an email, but if turns out that the mail is "
+"usable any more. Maybe you run over quota. If your mail is discontinued, "
+"please update your profile with the email you are using now at %s."
+msgstr ""
+"Querido %s, intenté enviarte un mensaje pero volvió indicando que la "
+"dirección ya no está disponible. Puede que hayas excedido tu quota. Si la "
+"dirección ya no es válida, por favor, actualiza tu perfil con la dirección "
+"que estés usando ahora en %s."
+
+#: templates/edit/activity.php:31 templates/edit/groups.php:27
+#: templates/list/search.php:14
+msgid "Delete"
+msgstr "Eliminar"
+
+#: edit/comments.php:37 edit/comments.php:44
+msgid "Delete all current comments"
+msgstr "Eliminar todos los comentarios actuales"
+
+#: edit/edit.php:49 edit/edit.php:73
+msgid "Delete picture"
+msgstr "Eliminar imagen"
+
+#: config/prefs.php:44
+msgid "Descesending"
+msgstr "Descendente"
+
+#: edit/edit.php:47 lib/Forms/Search.php:18 templates/list/list.php:34
+#: templates/user/user.php:322
+msgid "Description"
+msgstr "Descripción"
+
+#: templates/edit/groups.php:27
+msgid "Do you really want to delete this group?"
+msgstr "¿Seguro que desea eliminar este grupo?"
+
+#: report.php:22
+msgid "Do you really want to report this user?"
+msgstr "¿Seguro que desea notificar este usuario?"
+
+#: lib/Block/Random.php:33
+msgid "Does not metter"
+msgstr "No mide"
+
+#: account/tabs.php:21
+msgid "Don't have an account? Sign up."
+msgstr "¿Carece de cuenta? Regístrese."
+
+#: lib/Notification/mail.php:20
+msgid "E-mail"
+msgstr "Correo"
+
+#: perms.php:220
+msgid "Edit Permissions"
+msgstr "Modificar permisos"
+
+#: perms.php:222
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Modificar permisos de %s"
+
+#: templates/friends/friends.php:61
+msgid "Edit activities"
+msgstr "Modificar prioridades"
+
+#: templates/friends/friends.php:9
+msgid "Edit friends"
+msgstr "Modificar amigos"
+
+#: templates/user/user.php:119
+msgid "Edit my firends"
+msgstr "Modificar mis amigos"
+
+#: edit/edit.php:16 edit/tabs.php:18
+msgid "Edit my profile"
+msgstr "Modificar mi perfil"
+
+#: lib/Application.php:53
+msgid "Edit profile"
+msgstr "Modificar perfil"
+
+#: edit/edit.php:25
+msgid "Email"
+msgstr "Correo"
+
+#: scripts/mail-filter.php:155
+msgid "Email problem"
+msgstr "Problema de correo"
+
+#: edit/friends/groups.php:82
+msgid "Enter custom name"
+msgstr "Introduzca un nombre personalizado"
+
+#: lib/Forms/Login.php:21
+#, php-format
+msgid "Enter the username you registered to %s"
+msgstr "Introduzca el usuario que registró en %s"
+
+#: lib/Forms/Login.php:24
+msgid "Enter your password. Please be aware that password is case sensitive."
+msgstr ""
+"Introduzca su contraseña. Tenga en cuenta que las contraseñas distinguen "
+"mayúsculas de minúsculas."
+
+#: edit/facebook.php:16 edit/tabs.php:32 lib/Notification/facebook.php:30
+msgid "Facebook"
+msgstr "Facebook"
+
+#: templates/user/user.php:252
+msgid "Faces"
+msgstr "Rostros"
+
+#: templates/user/user.php:252
+msgid "Faces in user galleries"
+msgstr "Rostros en galerías de usuarios"
+
+#: templates/edit/header.php:42
+msgid "Feeds"
+msgstr "Suscripciones"
+
+#: edit/edit.php:27 lib/Forms/Search.php:19 templates/list/list.php:69
+#: templates/user/user.php:91
+msgid "Female"
+msgstr "Hembra"
+
+#: account/tabs.php:25
+msgid "Forgot your password?"
+msgstr "¿Ha olvidado la contraseña?"
+
+#: account/tabs.php:28 account/username.php:15
+msgid "Forgot your username?"
+msgstr "¿Ha olvidado el usuario?"
+
+#: templates/user/actions.php:10
+msgid "Forward"
+msgstr "Reenviar"
+
+#: templates/user/actions.php:18
+msgid "Friend"
+msgstr "Amigo"
+
+#: edit/friends/invite.php:47
+#, php-format
+msgid "Friend \"%s\" was invited to join %s."
+msgstr "Se ha invitado a su amigo \"%s\" a unirse a %s."
+
+#: edit/friends/invite.php:24
+msgid "Friend's e-mail"
+msgstr "Correo del amigo"
+
+#: edit/friends/friends.php:16 edit/tabs.php:21 friends.php:19
+#: lib/Application.php:52 lib/Block/Friends.php:14 lib/Friends/prefs.php:161
+#: lib/Friends/sql.php:191 templates/edit/header.php:1
+#: templates/user/user.php:122
+msgid "Friends"
+msgstr "Amigos"
+
+#: lib/Api.php:236
+msgid "Friends Birthdays"
+msgstr "Cumpleaños de amigos"
+
+#: lib/Block/Activities.php:14 rss/activity.php:50
+#: templates/friends/friends.php:10
+msgid "Friends activities"
+msgstr "Actividades de amigos"
+
+#: lib/Application.php:35 templates/edit/header.php:46
+msgid "Friends activity"
+msgstr "Actividad de amigos"
+
+#: edit/friends/from.php:15
+msgid "Friends we are waiting approval from"
+msgstr "Amigos que estoy esperando que me acepten"
+
+#: lib/Folks.php:153 lib/Folks.php:157
+msgid "Gemini"
+msgstr "Géminis"
+
+#: edit/edit.php:27 lib/Forms/Search.php:19 templates/list/list.php:26
+#: templates/user/user.php:90
+msgid "Gender"
+msgstr "Género"
+
+#: templates/edit/groups.php:12
+msgid "Group"
+msgstr "Grupo"
+
+#: edit/friends/groups.php:39
+#, php-format
+msgid "Group \"%s\" has been deleted."
+msgstr "Se ha eliminado el grupo \"%s\"."
+
+#: edit/friends/groups.php:67
+#, php-format
+msgid "Group \"%s\" has been renamed to \"%s\"."
+msgstr "Se ha renombrado la el grupo \"%s\" como \"%s\"."
+
+#: edit/friends/groups.php:59
+#, php-format
+msgid "Group \"%s\" has not been renamed."
+msgstr "No se ha renombrado el grupo \"%s\"."
+
+#: edit/friends/groups.php:98
+#, php-format
+msgid "Group \"%s\" was success added."
+msgstr "Se añadió correctamente el grupo \"%s\"."
+
+#: edit/friends/groups.php:16 edit/tabs.php:22
+msgid "Groups"
+msgstr "Grupos"
+
+#: templates/user/user.php:25
+msgid "Has no picture"
+msgstr "No tiene foto"
+
+#: scripts/mail-filter.php:139 scripts/mail-filter.php:150
+msgid "Have no one to notify"
+msgstr "No hay nadie a quien notificar"
+
+#: edit/edit.php:31 templates/list/list.php:32 templates/user/user.php:108
+msgid "Homepage"
+msgstr "Página inicial"
+
+#: config/prefs.php:13
+msgid "How to preview users"
+msgstr "Cómo previsualizar usuarios"
+
+#: account/resetpassword.php:55
+msgid "Human check"
+msgstr "Comprobación humana"
+
+#: templates/edit/header.php:33
+msgid "I am friend of"
+msgstr "Soy amigo de"
+
+#: templates/user/user.php:109
+msgid "I don't have it"
+msgstr "No lo tengo"
+
+#: templates/edit/header.php:23
+msgid "Invite"
+msgstr "Invitar"
+
+#: edit/friends/invite.php:16
+msgid "Invite friend"
+msgstr "Invitar a amigo"
+
+#: lib/Forms/Search.php:24
+msgid "Is online"
+msgstr "En línea"
+
+#: templates/user/user.php:72
+msgid "Last activity"
+msgstr "Actividad reciente"
+
+#: lib/Block/MyComments.php:13
+msgid "Last comments on my profile"
+msgstr "Comentarios recientes en mi perfil"
+
+#: templates/user/user.php:54
+msgid "Last time online"
+msgstr "Última conexión"
+
+#: lib/Folks.php:161 lib/Folks.php:165
+msgid "Leo"
+msgstr "Leo"
+
+#: lib/Folks.php:169 lib/Folks.php:173
+msgid "Libra"
+msgstr "Libra"
+
+#: lib/Block/New.php:23 lib/Block/Random.php:23 lib/Block/Recent.php:23
+msgid "Limit"
+msgstr "Límite"
+
+#: lib/Application.php:56 list.php:14 templates/list/list.php:10
+msgid "List"
+msgstr "Listar"
+
+#: config/prefs.php:89
+msgid "Log account changes?"
+msgstr "¿Registrar cambios de la cuenta?"
+
+#: config/prefs.php:80
+msgid "Log when we comment a user?"
+msgstr "¿Registrar al comentar un usuario?"
+
+#: scripts/mail.php:71
+#, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr "Se ha iniciado sesión correctamente como \"%s\"."
+
+#: account/tabs.php:18 lib/Forms/Login.php:18
+msgid "Login"
+msgstr "Inicio de sesión"
+
+#: scripts/mail.php:67
+msgid "Login is incorrect."
+msgstr "Inicio de sesión incorrecto."
+
+#: login.php:54
+msgid "Login reminder"
+msgstr "Recordatorio de inicio de sesión"
+
+#: login.php:124
+#, php-format
+msgid "Login to %s"
+msgstr "Iniciar sesión en %s"
+
+#: templates/user/actions.php:9
+msgid "Look at this profile"
+msgstr "Consultar este perfil"
+
+#: edit/edit.php:27 lib/Forms/Search.php:19 templates/list/list.php:69
+#: templates/user/user.php:91
+msgid "Male"
+msgstr "Varón"
+
+#: scripts/mail.php:136
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+"Los argumentos requeridos por las opciones completas también son requeridos "
+"en las opciones abreviadas."
+
+#: lib/Forms/Search.php:23
+msgid "Mast have"
+msgstr "Imprescindibles"
+
+#: templates/edit/groups.php:24
+msgid "Members"
+msgstr "Miembros"
+
+#: templates/edit/header.php:30
+msgid "Might know"
+msgstr "Podría saber"
+
+#: edit/comments.php:27
+msgid "Moderate comments - I will approve every single comment"
+msgstr "Moderar comentarios - Aprobaré cada comentario individual"
+
+#: config/prefs.php:20
+msgid "Modify account preferences"
+msgstr "Modificar opciones de la cuenta"
+
+#: templates/list/list.php:7
+msgid "Most active users"
+msgstr "Usuarios más activos"
+
+#: templates/list/list.php:6
+msgid "Most popular users"
+msgstr "Usuarios más populares"
+
+#: lib/Application.php:51
+msgid "My profile"
+msgstr "Mi perfil"
+
+#: templates/list/search.php:11
+msgid "My queries"
+msgstr "Mis consultas"
+
+#: edit/friends/groups.php:81 edit/friends/groups.php:82
+#: lib/Forms/Search.php:18 save_search.php:44
+msgid "Name"
+msgstr "Nombre"
+
+#: new.php:14 templates/list/list.php:4
+msgid "New"
+msgstr "Nueva"
+
+#: edit/friends/groups.php:55
+msgid "New name"
+msgstr "Nombre nuevo"
+
+#: templates/list/list.php:4
+msgid "New registered user"
+msgstr "Nuevo usuario registrado"
+
+#: lib/Block/New.php:14
+msgid "New users"
+msgstr "Nuevos usuarios"
+
+#: config/prefs.php:60 config/prefs.php:69 config/prefs.php:78
+#: config/prefs.php:87 edit/privacy.php:46 templates/list/list.php:77
+#: templates/list/list.php:78 templates/list/list.php:79
+#: templates/list/list.php:80
+msgid "No"
+msgstr "No"
+
+#: lib/Friends/facebook.php:71 lib/Notification/facebook.php:125
+msgid "No Facebook integration exists."
+msgstr "No existe integración con Facebook."
+
+#: edit/comments.php:24 edit/privacy.php:33
+msgid "No one"
+msgstr "Nadie"
+
+#: templates/edit/friends.php:6
+msgid "No user listed"
+msgstr "No hay usuarios"
+
+#: templates/list/list.php:16
+msgid "No users found under selected criteria"
+msgstr "No se han encontrado usuarios bajo el criterio seleccionado"
+
+#: lib/Forms/Login.php:27
+msgid "No, only for this view"
+msgstr "No, sólo en esta vista"
+
+#: lib/Notification.php:251
+#, php-format
+msgid "Notification driver %s does not exists."
+msgstr "No existe el controlador de notificaciones %s."
+
+#: config/prefs.php:62
+msgid "Notify friends that I loged in"
+msgstr "Comunicar a los amigos que estoy conectado"
+
+#: edit/privacy.php:46
+msgid "Notify online friends that I logged in"
+msgstr "Comunicar a los amigos conectados que estoy conectado"
+
+#: lib/Block/Activities.php:23
+msgid "Number of activities to display"
+msgstr "Número de actividades mostradas"
+
+#: lib/Block/MyComments.php:22
+msgid "Number of comments to display"
+msgstr "Número de comentarios mostrados"
+
+#: config/prefs.php:53
+msgid "Number of users perpage"
+msgstr "Número de usuarios por página"
+
+#: report.php:30
+msgid "Offensive content"
+msgstr "Contenido ofensivo"
+
+#: lib/Block/Friends.php:29 templates/block/users.php:17
+#: templates/edit/friends.php:31 templates/user/user.php:47
+msgid "Offline"
+msgstr "Desconectado"
+
+#: edit/friends/groups.php:53
+msgid "Old name"
+msgstr "Nombre anterior"
+
+#: lib/Block/Friends.php:28 lib/Block/Random.php:32 online.php:14
+#: templates/block/users.php:15 templates/edit/friends.php:29
+#: templates/list/list.php:3 templates/user/user.php:45
+msgid "Online"
+msgstr "En línea"
+
+#: lib/Application.php:34 rss/friends.php:46 templates/edit/header.php:45
+msgid "Online friends"
+msgstr "Amigos en línea"
+
+#: lib/Application.php:32 rss/online.php:22 templates/edit/header.php:44
+msgid "Online users"
+msgstr "Usuarios en línea"
+
+#: edit/privacy.php:31
+msgid "Only authenticated users"
+msgstr "Sólo usuarios autentificados"
+
+#: templates/user/user.php:381 templates/user/user.php:387
+msgid "Only authenticated users can post comments."
+msgstr "Sólo los usuarios autentificados pueden enviar comentarios."
+
+#: edit/privacy.php:32
+msgid "Only my friedns"
+msgstr "Sólo mis amigos"
+
+#: perms.php:55
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Sólo el propietario o el administrador del sistema pueden cambiar la "
+"propiedad o los permisos del propietario de un recurso compartido"
+
+#: templates/user/user.php:148 templates/user/user.php:173
+#: templates/user/user.php:198 templates/user/user.php:225
+#: templates/user/user.php:251 templates/user/user.php:279
+#: templates/user/user.php:305
+msgid "Others user content"
+msgstr "Contenido de otros usuarios"
+
+#: templates/edit/groups.php:13
+msgid "Owner"
+msgstr "Propietario"
+
+#: edit/tabs.php:24 lib/Forms/Login.php:24
+msgid "Password"
+msgstr "Contraseña"
+
+#: edit/password.php:157
+msgid "Password changed."
+msgstr "Contraseña cambiada."
+
+#: edit/friends/know.php:15 lib/Application.php:36 lib/Block/Know.php:14
+#: rss/know.php:59 templates/edit/header.php:47
+#: templates/friends/friends.php:19
+msgid "People you might know"
+msgstr "Gente que desearías conocer"
+
+#: templates/edit/groups.php:28
+msgid "Permissions"
+msgstr "Permisos"
+
+#: edit/edit.php:48 lib/Forms/Search.php:23
+msgid "Picture"
+msgstr "Foto"
+
+#: lib/Folks.php:141 lib/Folks.php:145
+msgid "Pisces"
+msgstr "Piscis"
+
+#: lib/Forms/Login.php:37
+msgid "Please enter the text above"
+msgstr "Introduzca el texto de arriba"
+
+#: account/resetpassword.php:50
+msgid "Please respond to your security question: "
+msgstr "Responda a su pregunta de seguridad: "
+
+#: popularity.php:14 templates/list/list.php:6 templates/user/user.php:103
+msgid "Popularity"
+msgstr "Popularidad"
+
+#: lib/Forms/Activity.php:25
+msgid "Post"
+msgstr "Enviar"
+
+#: config/prefs.php:12 templates/user/user.php:146 templates/user/user.php:171
+#: templates/user/user.php:196 templates/user/user.php:223
+#: templates/user/user.php:249 templates/user/user.php:277
+#: templates/user/user.php:303 templates/user/user.php:336
+msgid "Preview"
+msgstr "Vista previa"
+
+#: edit/privacy.php:16 edit/tabs.php:19
+msgid "Privacy"
+msgstr "Privacidad"
+
+#: edit/privacy.php:28
+msgid "Private"
+msgstr "Privada"
+
+#: edit/privacy.php:24
+msgid "Public"
+msgstr "Público"
+
+#: edit/privacy.php:25
+msgid "Public - only authenticated users can see my personal data"
+msgstr ""
+"Público - sólo los usuarios autentificados pueden ver mis datos personales"
+
+#: edit/privacy.php:27
+msgid "Public - only my friends can see my presonal data"
+msgstr "Público - sólo mis amigos pueden ver mis datos personales"
+
+#: lib/Block/Random.php:14
+msgid "Random users"
+msgstr "Usuarios al azar"
+
+#: lib/Block/Recent.php:14
+msgid "Recent visitors"
+msgstr "Últimos visitantes"
+
+#: edit/friends/for.php:41
+msgid "Reject"
+msgstr "Rechazar"
+
+#: lib/Forms/Login.php:26
+msgid "Remember login?"
+msgstr "¿Recordar inicio de sesión?"
+
+#: edit/friends/blacklist.php:69 edit/friends/friends.php:34
+#: edit/friends/index.php:33
+msgid "Remove"
+msgstr "Eliminar"
+
+#: edit/friends/groups.php:52 edit/friends/groups.php:61
+#: templates/edit/groups.php:26
+msgid "Rename"
+msgstr "Renombrar"
+
+#: edit/friends/groups.php:49
+msgid "Rename group"
+msgstr "Renombrar grupo"
+
+#: account/renew.php:13
+msgid "Renew account"
+msgstr "Renovar cuenta"
+
+#: report.php:26 report.php:43 templates/user/actions.php:24
+msgid "Report"
+msgstr "Notificar"
+
+#: report.php:38 report.php:47
+msgid "Report reason"
+msgstr "Motivo de la notificación"
+
+#: report.php:37 report.php:46
+msgid "Report type"
+msgstr "Tipo de notificación"
+
+#: templates/user/actions.php:23
+msgid "Report user"
+msgstr "Notificar usuario"
+
+#: config/prefs.php:71
+msgid ""
+"Require my confirmation if someone would like to add me to his freidn list."
+msgstr ""
+"Requerir mi confirmación si alguien quisiera añadirme a su lista de amigos."
+
+#: edit/friends/groups.php:52 edit/password.php:180
+msgid "Reset"
+msgstr "Limpiar"
+
+#: account/resetpassword.php:27
+msgid "Reset Your Password"
+msgstr "Reiniciar su contraseña"
+
+#: lib/Folks.php:177 lib/Folks.php:181
+msgid "Sagittarius"
+msgstr "Sagitario"
+
+#: edit/comments.php:37 edit/edit.php:49 edit/edit.php:54 save_search.php:46
+msgid "Save"
+msgstr "Guardar"
+
+#: templates/list/search.php:3
+msgid "Save search criteria"
+msgstr "Guardar criterio de búsqueda"
+
+#: lib/Folks.php:173 lib/Folks.php:177
+msgid "Scorpio"
+msgstr "Escorpio"
+
+#: lib/Application.php:55 lib/Forms/Search.php:25 search.php:15
+msgid "Search"
+msgstr "Buscar"
+
+#: lib/Forms/Search.php:18
+msgid "Search by"
+msgstr "Buscar por"
+
+#: save_search.php:35
+msgid "Search criteria deleted."
+msgstr "Criterio de búsqueda eliminado."
+
+#: save_search.php:25
+msgid "Search criteria saved successfuly"
+msgstr "Criterio de búsqueda guardado correctamente"
+
+#: account/resetpassword.php:52 edit/password.php:185
+msgid "Security answer"
+msgstr "Respuesta de seguridad"
+
+#: edit/password.php:182
+msgid "Security question"
+msgstr "Pregunta de seguridad"
+
+#: edit/password.php:179
+msgid "Security question used when reseting password"
+msgstr "Pregunta de seguridad usada al restablecer la contraseña"
+
+#: account/username.php:17
+msgid "Send me my username"
+msgstr "Envíenme mi nombre de usuario"
+
+#: edit/friends/for.php:46 edit/friends/friends.php:43
+#: edit/friends/from.php:38 edit/friends/index.php:42 edit/friends/know.php:42
+#: edit/friends/of.php:38 lib/Block/Friends.php:77 lib/Block/Know.php:40
+#: lib/Block/New.php:54 lib/Block/Random.php:61 lib/Block/Recent.php:49
+#: templates/friends/friends.php:32 templates/friends/friends.php:51
+#: templates/user/actions.php:7
+msgid "Send message"
+msgstr "Enviar mensaje"
+
+#: templates/user/actions.php:6
+msgid "Send private message"
+msgstr "Enviar mensaje privado"
+
+#: templates/user/actions.php:9
+msgid "Send this profile to a friend"
+msgstr "Enviar este perfil a un amigo"
+
+#: lib/Application.php:54
+msgid "Services"
+msgstr "Servicios"
+
+#: config/prefs.php:21
+msgid "Set account action details"
+msgstr "Definir detalles de actividad de la cuenta"
+
+#: config/prefs.php:28
+msgid "Set activity preferences"
+msgstr "Definir opciones de actividad"
+
+#: config/prefs.php:14
+msgid "Set users preview paramaters"
+msgstr "Definir parámetros de previsualización de usuarios"
+
+#: config/prefs.php:19 config/prefs.php:26
+msgid "Settings"
+msgstr "Opciones"
+
+#: lib/Block/Friends.php:23
+msgid "Show friends that are"
+msgstr "Mostra amigos que son"
+
+#: account/signup.php:51
+msgid "Sign up"
+msgstr "Alta"
+
+#: templates/list/list.php:20 templates/list/list.php:41
+msgid "Sort Direction"
+msgstr "Sentido de clasificación"
+
+#: config/prefs.php:37 config/prefs.php:46
+msgid "Sort by"
+msgstr "Ordenar por"
+
+#: templates/list/list.php:27
+msgid "Sort by Age"
+msgstr "Ordenar por edad"
+
+#: templates/list/list.php:35
+msgid "Sort by Albums"
+msgstr "Ordenar por álbumes"
+
+#: templates/list/list.php:29
+msgid "Sort by City"
+msgstr "Ordenar por localidad"
+
+#: templates/list/list.php:33
+msgid "Sort by Description"
+msgstr "Ordenar por descripción"
+
+#: templates/list/list.php:25
+msgid "Sort by Gender"
+msgstr "Ordenar por género"
+
+#: templates/list/list.php:31
+msgid "Sort by Homepage"
+msgstr "Ordenar por página de inicio"
+
+#: templates/list/list.php:23
+msgid "Sort by Username"
+msgstr "Ordenar por nombre de usuario"
+
+#: templates/list/list.php:37
+msgid "Sort by Video"
+msgstr "Ordenar por vídeo"
+
+#: edit/privacy.php:37 templates/edit/friends.php:15
+#: templates/user/user.php:41
+msgid "Status"
+msgstr "Estado"
+
+#: edit/friends/invite.php:26
+msgid "Subject"
+msgstr "Asunto"
+
+#: account/signup.php:36
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
+"Se ha enviado la solicitud de alta de \"%s\" en el sistema. No podrá iniciar "
+"sesión hasta que se haya aprobado su solicitud."
+
+#: lib/Folks.php:149 lib/Folks.php:153
+msgid "Taurus"
+msgstr "Tauro"
+
+#: report.php:29
+msgid "Terms and conditions infringement"
+msgstr "Infracción de los términos y condiciones"
+
+#: account/approve.php:58 account/renew.php:58
+msgid ""
+"The code is not right. If you copy and paste the link from your email, "
+"please check if you copied the whole string."
+msgstr ""
+"El código es incorrecto. Si copió y pegó el vínculo del mensaje, compruebe "
+"si copió la cadena completa."
+
+#: account/resetpassword.php:54
+msgid ""
+"The picture above is for antispam checking. Please retype the characters "
+"from the picture. They are case sensitive."
+msgstr ""
+"La imagen de arriba es para comprobación antispam. Reescriba los caracteres "
+"de la imagen. Se diferencian mayúsculas de minúsculas."
+
+#: templates/edit/activity.php:7
+msgid "There is no activity logged for your account."
+msgstr "No se ha registrado actividad de su cuenta."
+
+#: account/signup.php:46
+#, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr "Se produjo un problema al añadir a \"%s\" al sistema: %s"
+
+#: login.php:185
+msgid "This account was deleted or is expired."
+msgstr "Esta cuenta se borró o había caducado."
+
+#: login.php:179
+msgid ""
+"This account was still not activated. Check your inbox, we send you the "
+"activation code there."
+msgstr ""
+"Esta cuenta todavía no está activada. Compruebe su buzón de Entrada, le "
+"enviamos allí el código de activación."
+
+#: lib/Block/MyComments.php:47
+msgid "Title"
+msgstr "Título"
+
+#: lib/Friends/application.php:23 lib/Friends/application.php:38
+#: lib/Friends/application.php:53 lib/Friends/application.php:68
+#: lib/Friends/application.php:83 lib/Friends/application.php:98
+msgid "Unsupported"
+msgstr "No está soportado"
+
+#: perms.php:212
+#, php-format
+msgid "Updated \"%s\"."
+msgstr "Se ha actualizado \"%s\"."
+
+#: edit/edit.php:65
+msgid "Updated his/her profile details."
+msgstr "Se han actualizado los detalles de su perfil."
+
+#: edit/edit.php:67
+msgid "Updated his/her profile picture."
+msgstr "Ha actualizado la foto de su perfil."
+
+#: edit/edit.php:40
+msgid "Upload a new video"
+msgstr "Cargar vídeo"
+
+#: scripts/mail.php:134
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "Uso: %s [OPCIONES]..."
+
+#: lib/Block/MyComments.php:48 report.php:45
+msgid "User"
+msgstr "Usuario"
+
+#: lib/Driver.php:299 lib/Driver/sql.php:311
+#, php-format
+msgid "User \"%s\" does not exists."
+msgstr "El usuario \"%s\" no existe."
+
+#: lib/Friends.php:223 lib/Friends.php:292
+#, php-format
+msgid "User \"%s\" does not exits"
+msgstr "El usuario \"%s\" no existe"
+
+#: lib/Friends.php:300
+#, php-format
+msgid "User \"%s\" is already in fiend list"
+msgstr "El usuario \"%s\" ya está en la lista de amigos"
+
+#: lib/Friends.php:308
+#, php-format
+msgid ""
+"User \"%s\" is already in fiend list, but we are waiting his/her approval."
+msgstr ""
+"El usuario \"%s\" ya pertenece a su lista de amigos, pero estamos esperando "
+"su aceptación."
+
+#: account/renew.php:38
+#, php-format
+msgid "User \"%s\" is not market to be in the removal process."
+msgstr "El usuario \"%s\" no está marcado en proceso de eliminación."
+
+#: edit/friends/add.php:55
+#, php-format
+msgid "User \"%s\" was added as your friend."
+msgstr "Se añadió el usuario \"%s\" como amigo suyo."
+
+#: edit/friends/blacklist.php:38
+#, php-format
+msgid "User \"%s\" was added to your blacklist."
+msgstr "Se añadió el usuario \"%s\" a su lista negra."
+
+#: account/approve.php:38
+#, php-format
+msgid "User \"%s\" was already activated."
+msgstr "El usuario \"%s\" ya estaba activado."
+
+#: edit/friends/approve.php:33
+#, php-format
+msgid "User \"%s\" was confirmed as a friend."
+msgstr "Se confirmó al usuario \"%s\" como amigo."
+
+#: edit/friends/reject.php:32
+#, php-format
+msgid "User \"%s\" was rejected as a friend."
+msgstr "Se rechazó al usuario \"%s\" como amigo."
+
+#: edit/friends/blacklist.php:30
+#, php-format
+msgid "User \"%s\" was removed from your blacklist."
+msgstr "Se eliminó al usuario \"%s\" de su lista negra."
+
+#: edit/friends/add.php:30
+#, php-format
+msgid "User \"%s\" was removed from your friend list."
+msgstr "Se eliminó el usuario \"%s\" de su lista de amigos."
+
+#: edit/friends/add.php:41
+#, php-format
+msgid ""
+"User %s added you to his firends list on %s. \n"
+"To approve, go to: %s \n"
+"To reject, go to: %s \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+"El usuario %s le añadió a su lista de amigos en %s. \n"
+"Para aceptarlo, vaya a: %s \n"
+"Para rechazarlo, vaya a: %s \n"
+"Para ver su perfil, vaya a: %s \n"
+
+#: edit/friends/approve.php:39
+#, php-format
+msgid ""
+"User %s confirmed you as a friend on %s.. \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+"El usuario %s le confirmó como amigo en %s. \n"
+"Para ver su perfil, vaya a: %s \n"
+
+#: templates/user/user.php:369
+#, php-format
+msgid "User %s does not wish to be commented."
+msgstr "El usuario %s no desea comentarios."
+
+#: templates/user/deleted.php:5
+#, php-format
+msgid "User %s has been disabled."
+msgstr "El usuario %s se ha deshabilitado."
+
+#: templates/user/inactive.php:5
+#, php-format
+msgid "User %s is inactive."
+msgstr "El usuario %s está inactivo."
+
+#: login.php:52
+#, php-format
+msgid ""
+"User %s just logged in.\n"
+"%s"
+msgstr ""
+"El usuario %s acaba de conectarse.\n"
+"%s"
+
+#: edit/friends/reject.php:38
+#, php-format
+msgid ""
+"User %s rejected you as a friend on %s.. \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+"El usuario %s le rechazó como amigo en %s. \n"
+"Para ver su perfil, vaya a: %s \n"
+
+#: templates/user/authenticated.php:5
+#, php-format
+msgid ""
+"User %s would like to his profile remains visible only to authenticated "
+"users."
+msgstr ""
+"El usuario %s querría que su perfil sólo fuera visible a usuarios "
+"autentificados."
+
+#: templates/user/friends.php:5
+#, php-format
+msgid "User %s would like to his profile remains visible only to his friends."
+msgstr ""
+"El usuario %s querría que su perfil sólo fuera visible para sus amigos."
+
+#: templates/user/private.php:5
+#, php-format
+msgid "User %s would like to remain private."
+msgstr "El usuario %s preferiría permanecer anónimo."
+
+#: account/signup.php:18
+msgid "User Registration has been disabled for this site."
+msgstr "Este sitio tiene desactivado el registro de usuarios."
+
+#: lib/Friends/facebook.php:78
+msgid "User has no link."
+msgstr "EL usuario no tiene vínculo."
+
+#: lib/Block/Random.php:28
+msgid "User is currently online?"
+msgstr "¿El usuario está conectado?"
+
+#: report.php:18
+msgid "User is not selected"
+msgstr "El usuario no está seleccionado"
+
+#: templates/user/actions.php:26
+msgid "User list"
+msgstr "Lista de usuarios"
+
+#: report.php:54 report.php:60
+msgid "User was not reported."
+msgstr "No se notificó el usuario."
+
+#: report.php:57
+msgid "User was reported."
+msgstr "Se notificó el usuario."
+
+#: account/resetpassword.php:46 config/prefs.php:36 lib/Forms/AddFriend.php:16
+#: lib/Forms/Login.php:20 templates/edit/friends.php:14
+#: templates/list/list.php:24
+msgid "Username"
+msgstr "Usuario"
+
+#: templates/user/actions.php:27
+msgid "Users"
+msgstr "Usuarios"
+
+#: templates/list/list.php:9
+msgid "Users celebrating birthday today"
+msgstr "Usuarios que celebran hoy su cumpleaños"
+
+#: templates/list/list.php:3
+msgid "Users currently online"
+msgstr "Usuarios conectados"
+
+#: edit/friends/for.php:15
+msgid "Users waiting our approval"
+msgstr "Usuarios a la espera de su aceptación"
+
+#: edit/edit.php:41 lib/Forms/Search.php:23 templates/list/list.php:38
+msgid "Video"
+msgstr "Vídeo"
+
+#: edit/friends/blacklist.php:73 edit/friends/for.php:33
+#: edit/friends/friends.php:38 edit/friends/from.php:33
+#: edit/friends/index.php:37 edit/friends/know.php:37 edit/friends/of.php:33
+#: lib/Block/Friends.php:73 lib/Block/Know.php:36 lib/Block/New.php:50
+#: lib/Block/Random.php:57 lib/Block/Recent.php:45
+#: templates/friends/friends.php:28 templates/friends/friends.php:47
+msgid "View profile"
+msgstr "Ver perfil"
+
+#: lib/Folks.php:165 lib/Folks.php:169
+msgid "Virgo"
+msgstr "Virgo"
+
+#: templates/user/user.php:109
+msgid "Visit my homepage"
+msgstr "Visitar mi página inicial"
+
+#: templates/edit/header.php:31
+msgid "Wainting for"
+msgstr "A la espera de"
+
+#: templates/edit/header.php:32
+msgid "Wainting from"
+msgstr "Esperando de"
+
+#: edit/friends/of.php:15
+msgid "We are friends of"
+msgstr "Somos amigos de"
+
+#: edit/activity.php:31 friends.php:22 user.php:48
+msgid "What are you doing right now?"
+msgstr "¿Qué estás haciendo ahora mismo?"
+
+#: edit/comments.php:35
+msgid "Who can post comments to your profile"
+msgstr "Quien puede enviar comentarios a su perfil"
+
+#: edit/privacy.php:43
+msgid "Who can see my acticity log on my profile"
+msgstr "Quien puede ver mi registro de actividades en mi perfil"
+
+#: edit/privacy.php:40
+msgid "Who can see when I was last time online"
+msgstr "Quien puede ver cuando estuve conectato por última vez"
+
+#: lib/Forms/Search.php:17
+msgid "Word"
+msgstr "Palabra"
+
+#: config/prefs.php:61 config/prefs.php:70 config/prefs.php:79
+#: config/prefs.php:88 edit/privacy.php:46 templates/list/list.php:77
+#: templates/list/list.php:78 templates/list/list.php:79
+#: templates/list/list.php:80
+msgid "Yes"
+msgstr "Sí"
+
+#: lib/Forms/Login.php:28
+msgid "Yes, remember me so the next time I don't neet to login"
+msgstr "Sí, recordarme la próxima vez para no tener que iniciar sesión"
+
+#: account/approve.php:55 account/renew.php:55
+msgid "You account is activated, you can login now."
+msgstr "Su cuenta está activada, puede iniciar sesión."
+
+#: lib/Friends/shared.php:156
+#, php-format
+msgid "You already have a group named \"%s\"."
+msgstr "Ya tiene un grupo llamado \"%s\"."
+
+#: login.php:135
+msgid "You are entering your data too fast!"
+msgstr "¡Está introduciendo sus datos demasiado rápido!"
+
+#: templates/user/user.php:377 templates/user/user.php:394
+#, php-format
+msgid "You are on %s blacklist."
+msgstr "Está en la lista negra de %s"
+
+#: templates/user/friends.php:9 templates/user/private.php:10
+#, php-format
+msgid "You can still send a private message to user %s."
+msgstr "Aún puede enviar un mensaje privado al usuario %s."
+
+#: lib/Friends.php:228
+#, php-format
+msgid "You cannot add \"%s\" to your blacklist."
+msgstr "No puede añadir a \"%s\" a su lista negra."
+
+#: lib/Friends.php:286
+msgid "You cannot add yourself as your own friend."
+msgstr "No puede añadirse a sí mismo como amigo."
+
+#: lib/Friends.php:217
+msgid "You cannot add yourself to your blacklist."
+msgstr "No puede añadirse a sí mismo a la lista negra."
+
+#: lib/Api.php:304
+msgid "You cannot log activities for other users."
+msgstr "No puede registrar actividades de otros usuarios."
+
+#: lib/Driver.php:666 lib/Forms/Activity.php:35
+msgid "You cannot post an empty activity message."
+msgstr "No puede enviar un mensaje de actividad en blanco."
+
+#: account/approve.php:18 account/renew.php:18
+msgid "You must supply a confirmation code."
+msgstr "Tiene que especificar un código de confirmación."
+
+#: account/approve.php:25 account/renew.php:25 edit/friends/approve.php:21
+#: edit/friends/reject.php:21
+msgid "You must supply a username."
+msgstr "Tiene que especificar un nombre de usuario."
+
+#: templates/friends/friends.php:62
+msgid "Your activities"
+msgstr "Sus actividades"
+
+#: edit/comments.php:78
+msgid "Your comments preference was sucessfuly saved."
+msgstr "Se guardaron correctamente sus opciones de comentarios."
+
+#: edit/edit.php:63 edit/privacy.php:62
+msgid "Your data were successfully updated."
+msgstr "Se actualizaron correctamente sus datos."
+
+#: account/username.php:18
+msgid "Your email"
+msgstr "Su correo"
+
+#: edit/edit.php:78
+msgid "Your image was deleted successfully."
+msgstr "Se eliminó correctamente su imagen."
+
+#: account/resetpassword.php:81
+#, php-format
+msgid ""
+"Your new password for %s is: %s. \n"
+"\n"
+" It was requested by %s on %s"
+msgstr ""
+"La nueva contraseña para %s es: %s. \n"
+"\n"
+" Fue solicitada por %s en %s"
+
+#: edit/password.php:64
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr ""
+"La contraseña es demasiado larga; ¡las contraseñas no deben tener más de %d "
+"caracteres!"
+
+#: edit/password.php:143
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "¡La contraseña es demasiado simple de adivinar! ¡No se cambió!"
+
+#: edit/password.php:134
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr "La contraseña es demasiado simple de adivinar. ¡No se cambió!"
+
+#: edit/password.php:59
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "¡La contraseña tiene que tener al menos %d caracteres!"
+
+#: edit/password.php:43
+msgid "Your new password must be different from your current password"
+msgstr "La contraseña antigua y la nueva tienen que ser distintas"
+
+#: edit/password.php:104
+#, php-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "La contraseña tiene que tener al menos %d caracteres alfabéticos."
+
+#: edit/password.php:109
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr "La contraseña tiene que tener al menos %d caracteres alfanuméricos."
+
+#: edit/password.php:114
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+"La contraseña tiene que tener al menos %d tipos de caracteres distintos. Los "
+"tipos son: minúsculas, mayúsculas, números y signos de puntuación."
+
+#: edit/password.php:94
+#, php-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "La contraseña tiene que tener al menos %d caracteres en minúsculas."
+
+#: edit/password.php:99
+#, php-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "La contraseña tiene que tener al menos %d caracteres numéricos."
+
+#: edit/password.php:89
+#, php-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "La contraseña tiene que tener al menos %d caracteres en mayúsculas."
+
+#: edit/password.php:120
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr "La nueva contraseña tiene que tener menos de %d espacios en blanco."
+
+#: edit/password.php:122
+msgid "Your new password must not contain whitespace characters."
+msgstr "La contraseña no puede tener espacios en blanco."
+
+#: edit/password.php:49
+msgid "Your old password didn't match"
+msgstr "Su contraseña anterior no coincide"
+
+#: account/resetpassword.php:87
+msgid "Your password has been reset"
+msgstr "Se ha cambiado su contraseña"
+
+#: account/resetpassword.php:89
+#, php-format
+msgid ""
+"Your password has been reset, check your email (%s) and log in with your new "
+"password."
+msgstr ""
+"Se ha cambiado su contraseña, consulte el correo (%s) e inicie sesión con su "
+"nueva contraseña."
+
+#: edit/password.php:175
+msgid "Your securiy questions was updated."
+msgstr "Se actualizó su pregunta de seguridad."
+
+#: account/username.php:32
+#, php-format
+msgid ""
+"Your username on %s %s is: %s. \n"
+"\n"
+" It was requested by %s on %s"
+msgstr ""
+"Su usuario en %s %s es: %s. \n"
+"\n"
+" Lo solicitó %s de %s"
+
+#: login.php:156
+msgid "Your username or password is incorrect."
+msgstr "El nombre de usuario o la contraseña son incorrectos."
+
+#: account/username.php:39
+msgid "Your username was requested"
+msgstr "Se solicitó su nombre de usuario"
+
+#: account/username.php:41
+#, php-format
+msgid "Your username was sent, check your email (%s)."
+msgstr "Se envió su nombre de usuario, consulte el correo (%s)."
+
+#: login.php:172
+#, php-format
+msgid ""
+"Your username was temporary deacirvated. For any additional information "
+"please write to %s, and don't forgot to incluide your username."
+msgstr ""
+"Su usuario se desactivó temporalmente. Para información adicional escriba a "
+"%s y no olvide incluir el nombre de usuario."
+
+#: edit/password.php:29
+msgid "type the password twice to confirm"
+msgstr "escriba dos veces la contraseña para confirmarla"

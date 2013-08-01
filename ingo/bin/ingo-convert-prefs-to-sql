@@ -10,15 +10,18 @@
  * the preferences backend (e.g. usernames may have to be in the form
  * user@example.com).
  *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author Jan Schneider <jan@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 
-$baseFile = dirname(__FILE__) . '/../../ingo/lib/Application.php';
+$baseFile = __DIR__ . '/../../ingo/lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {
@@ -58,16 +61,16 @@ while (!feof(STDIN)) {
     $session->set('ingo', 'current_share', ':' . $user);
 
     foreach ($rules as $rule) {
-        $filter = $prefs_storage->retrieve($rule, false);
+        $filter = $prefs_storage->retrieve($rule);
         if ($rule == Ingo_Storage::ACTION_FILTERS) {
-            $new_filter = $sql_storage->retrieve(Ingo_Storage::ACTION_FILTERS, true, true);
+            $new_filter = $sql_storage->retrieve(Ingo_Storage::ACTION_FILTERS, true);
             foreach ($filter->getFilterList() as $rule) {
                 $new_filter->addRule($rule);
                 echo '.';
             }
         }
         try {
-            $sql_storage->store($filter, false);
+            $sql_storage->store($filter);
         } catch (Horde_Exception $e) {
             $cli->writeln();
             $cli->message($e->getMessage(), 'cli.error');

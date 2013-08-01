@@ -2,7 +2,7 @@
 /**
  * The Agora script to display a list of threads in a forum.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -11,7 +11,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Make sure we have a forum id. */
@@ -61,13 +61,12 @@ $view->threads = $threads_list;
 $view->forum_name = sprintf(_("Threads in %s"), $forum_array['forum_name']);
 $view->forum_description =  Agora_Driver::formatBody($forum_array['forum_description']);
 $view->actions = $threads->getThreadActions();
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
-$view->rss = Horde_Util::addParameter(Horde::url('rss/threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id));
+$view->rss = Horde::url('rss/threads.php', true, -1)->add(array('scope' => $scope, 'forum_id' => $forum_id));
 
 /* Set up pager. */
 $vars = Horde_Variables::getDefaultVariables();
@@ -75,7 +74,8 @@ $pager_ob = new Horde_Core_Ui_Pager('thread_page', $vars, array('num' => $thread
 $pager_ob->preserve('agora', Horde_Util::getFormData('agora'));
 $view->pager_link = $pager_ob->render();
 
-$title = sprintf(_("Threads in %s"), $forum_array['forum_name']);
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => sprintf(_("Threads in %s"), $forum_array['forum_name'])
+));
 echo $view->render('threads');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

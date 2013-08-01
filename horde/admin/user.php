@@ -1,32 +1,31 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
+ * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-$permission = 'users';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:users')
+));
 
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
+$vars = $injector->getInstance('Horde_Variables');
 
 if ($conf['signup']['allow'] && $conf['signup']['approve']) {
     $signup = $injector->getInstance('Horde_Core_Auth_Signup');
 }
 
-$vars = Horde_Variables::getDefaultVariables();
 $addForm = new Horde_Form($vars, _("Add a new user:"), 'adduser');
 $addForm->setButtons(_("Add user"), _("Reset"));
 
-$vars->set('form', 'add');
 $addForm->addHidden('', 'form', 'text', true, true);
 
 /* Use hooks get any extra fields for new accounts. */
@@ -54,10 +53,7 @@ if (empty($extra)) {
     $addForm->addVariable(_("Password"), 'password', 'passwordconfirm', false, false, _("type the password twice to confirm"));
 }
 
-// Process forms. Use Horde_Util::getPost() instead of Horde_Util::getFormData()
-// for a lot of the data because we want to actively ignore GET data
-// in some cases - adding/modifying users - as a security precaution.
-switch (Horde_Util::getFormData('form')) {
+switch ($vars->form) {
 case 'add':
     $addForm->validate($vars);
     if ($addForm->isValid() && $vars->get('formname') == 'adduser') {
@@ -98,7 +94,7 @@ case 'add':
                 } catch (Horde_Exception_HookNotSet $e) {}
             }
 
-            if (Horde_Util::getFormData('removeQueuedSignup')) {
+            if ($vars->removeQueuedSignup) {
                 $signup->removeQueuedSignup($info['user_name']);
             }
 
@@ -109,47 +105,53 @@ case 'add':
     break;
 
 case 'remove_f':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
     $remove_form = true;
     break;
 
 case 'remove':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
+    $vars->remove('user_name');
+    if ($vars->submit == _("Cancel")) {
+        break;
+    }
     if (empty($f_user_name)) {
         $notification->push(_("You must specify a username to remove."), 'horde.message');
-    } elseif (Horde_Util::getFormData('submit') !== _("Cancel")) {
-        try {
-            $registry->removeUser($f_user_name);
-            $notification->push(sprintf(_("Successfully removed \"%s\" from the system."), $f_user_name), 'horde.success');
-        } catch (Horde_Exception $e) {
-            $notification->push(sprintf(_("There was a problem removing \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
-        }
+        break;
     }
-    $vars->remove('user_name');
+    try {
+        $registry->removeUser($f_user_name);
+        $notification->push(sprintf(_("Successfully removed \"%s\" from the system."), $f_user_name), 'horde.success');
+    } catch (Horde_Exception $e) {
+        $notification->push(sprintf(_("There was a problem removing \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
+    }
     break;
 
 case 'clear_f':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
     $clear_form = true;
     break;
 
 case 'clear':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
+    $vars->remove('user_name');
+    if ($vars->submit == _("Cancel")) {
+        break;
+    }
     if (empty($f_user_name)) {
         $notification->push(_("You must specify a username to clear out."), 'horde.message');
-    } elseif (Horde_Util::getFormData('submit') !== _("Cancel")) {
-        try {
-            $registry->removeUserData($f_user_name);
-            $notification->push(sprintf(_("Successfully cleared data for user \"%s\" from the system."), $f_user_name), 'horde.success');
-        } catch (Horde_Exception $e) {
-            $notification->push(sprintf(_("There was a problem clearing data for user \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
-        }
+        break;
     }
-    $vars->remove('user_name');
+    try {
+        $registry->removeUserData($f_user_name);
+        $notification->push(sprintf(_("Successfully cleared data for user \"%s\" from the system."), $f_user_name), 'horde.success');
+    } catch (Horde_Exception $e) {
+        $notification->push(sprintf(_("There was a problem clearing data for user \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
+    }
     break;
 
 case 'update_f':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
     $update_form = true;
     break;
 
@@ -198,7 +200,7 @@ case 'update':
     break;
 
 case 'approve_f':
-    $thisSignup = $signup->getQueuedSignup(Horde_Util::getFormData('user_name'));
+    $thisSignup = $signup->getQueuedSignup($vars->user_name);
     $info = $thisSignup->getData();
 
     $vars->set('password',
@@ -212,30 +214,31 @@ case 'approve_f':
     break;
 
 case 'removequeued_f':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
     $removequeued_form = true;
     break;
 
 case 'removequeued':
     try {
-        $signup->removeQueuedSignup(Horde_Util::getFormData('user_name'));
-        $notification->push(sprintf(_("The signup request for \"%s\" has been removed."), Horde_Util::getFormData('user_name')));
+        $signup->removeQueuedSignup($vars->user_name);
+        $notification->push(sprintf(_("The signup request for \"%s\" has been removed."), $vars->user_name));
     } catch (Horde_Exception $e) {
         $notification->push($e);
     }
     break;
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('stripe.js', 'horde');
 if (isset($update_form) && $auth->hasCapability('list')) {
-    Horde::addScriptFile('userupdate.js', 'horde');
-    Horde::addInlineJsVars(array(
+    $page_output->addScriptFile('userupdate.js', 'horde');
+    $page_output->addInlineJsVars(array(
         'HordeAdminUserUpdate.pass_error' => _("Passwords must match.")
     ));
 }
 
-$title = _("User Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("User Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 if (isset($update_form) && $auth->hasCapability('list')) {
@@ -250,7 +253,8 @@ if (isset($update_form) && $auth->hasCapability('list')) {
 } elseif (isset($removequeued_form)) {
     require HORDE_TEMPLATES . '/admin/user/removequeued.inc';
 } elseif ($auth->hasCapability('add')) {
-    require HORDE_TEMPLATES . '/admin/user/add.inc';
+    $vars->form = 'add';
+    $addForm->renderActive(new Horde_Form_Renderer(), $vars, Horde::selfUrl(), 'post');
     if ($conf['signup']['allow'] && $conf['signup']['approve']) {
         require HORDE_TEMPLATES . '/admin/user/approve.inc';
     }
@@ -260,8 +264,8 @@ if (isset($update_form) && $auth->hasCapability('list')) {
 
 if ($auth->hasCapability('list')) {
     /* If we aren't supplied with a page number, default to page 0. */
-    $page = Horde_Util::getFormData('page', 0);
-    $search_pattern = Horde_Util::getFormData('search_pattern', '');
+    $page = $vars->get('page', 0);
+    $search_pattern = $vars->get('search_pattern', '');
 
     $users = $auth->listUsers();
 
@@ -289,4 +293,4 @@ if ($auth->hasCapability('list')) {
     require HORDE_TEMPLATES . '/admin/user/nolist.inc';
 }
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

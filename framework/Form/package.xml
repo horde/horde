@@ -16,11 +16,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-17</date>
- <time>12:22:47</time>
+ <date>2013-06-27</date>
+ <time>10:05:42</time>
  <version>
-  <release>1.0.7</release>
-  <api>1.0.0</api>
+  <release>2.0.6</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -45,12 +45,10 @@
       <dir name="Action">
        <file name="ConditionalEnable.php" role="php" />
        <file name="ConditionalSetValue.php" role="php" />
-       <file name="conditional_enable.php" role="php" />
-       <file name="conditional_setvalue.php" role="php" />
        <file name="reload.php" role="php" />
        <file name="setcursorpos.php" role="php" />
        <file name="submit.php" role="php" />
-       <file name="sum_fields.php" role="php" />
+       <file name="SumFields.php" role="php" />
        <file name="updatefield.php" role="php" />
       </dir> <!-- /lib/Horde/Form/Action -->
       <dir name="Type">
@@ -132,6 +130,7 @@
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Form.mo" role="data" />
       <file name="Horde_Form.po" role="data" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
     </dir> <!-- /locale/eu -->
@@ -324,7 +323,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -332,66 +331,69 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.3.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
+   <extension>
+    <name>json</name>
+   </extension>
   </required>
  </dependencies>
  <phprelease>
@@ -405,12 +407,10 @@
    <install as="Horde/Form/Variable.php" name="lib/Horde/Form/Variable.php" />
    <install as="Horde/Form/Action/ConditionalEnable.php" name="lib/Horde/Form/Action/ConditionalEnable.php" />
    <install as="Horde/Form/Action/ConditionalSetValue.php" name="lib/Horde/Form/Action/ConditionalSetValue.php" />
-   <install as="Horde/Form/Action/conditional_enable.php" name="lib/Horde/Form/Action/conditional_enable.php" />
-   <install as="Horde/Form/Action/conditional_setvalue.php" name="lib/Horde/Form/Action/conditional_setvalue.php" />
    <install as="Horde/Form/Action/reload.php" name="lib/Horde/Form/Action/reload.php" />
    <install as="Horde/Form/Action/setcursorpos.php" name="lib/Horde/Form/Action/setcursorpos.php" />
    <install as="Horde/Form/Action/submit.php" name="lib/Horde/Form/Action/submit.php" />
-   <install as="Horde/Form/Action/sum_fields.php" name="lib/Horde/Form/Action/sum_fields.php" />
+   <install as="Horde/Form/Action/SumFields.php" name="lib/Horde/Form/Action/SumFields.php" />
    <install as="Horde/Form/Action/updatefield.php" name="lib/Horde/Form/Action/updatefield.php" />
    <install as="Horde/Form/Type/tableset.php" name="lib/Horde/Form/Type/tableset.php" />
    <install as="locale/Horde_Form.pot" name="locale/Horde_Form.pot" />
@@ -432,6 +432,7 @@
    <install as="locale/es/LC_MESSAGES/Horde_Form.po" name="locale/es/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Form.mo" name="locale/et/LC_MESSAGES/Horde_Form.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Form.po" name="locale/et/LC_MESSAGES/Horde_Form.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Form.mo" name="locale/eu/LC_MESSAGES/Horde_Form.mo" />
    <install as="locale/eu/LC_MESSAGES/Horde_Form.po" name="locale/eu/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/fa/LC_MESSAGES/Horde_Form.po" name="locale/fa/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Form.mo" name="locale/fi/LC_MESSAGES/Horde_Form.mo" />
@@ -678,12 +679,187 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>1.0.7</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-17</date>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add parameters to specify field size of phone and email fields.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-05</date>
+   <time>19:28:44</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] Use new Horde_Mail API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Form_Type_email#allowMultiple().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Allow to pass button attribute hashes to setButtons().
+* [jan] Allow to set CSS class for &apos;link&apos; form fields.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fixed autoloading of some field actions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Re-packaged 2.0.0 release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use changed behavior of &apos;_formvars&apos; in Horde_Variables.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

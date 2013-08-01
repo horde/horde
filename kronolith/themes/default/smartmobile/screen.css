@@ -1,0 +1,129 @@
+.kronolith-event-000 {
+    color: #000 !important;
+}
+.kronolith-event-fff {
+    color: #fff !important;
+    text-shadow: 0 1px 0 #000;
+}
+.kronolith-event-tentative {
+    font-style: italic;
+}
+.kronolith-event-cancelled {
+    text-decoration: line-through;
+}
+.event-time, .event-location {
+    font-size: 85%;
+}
+.kronolith-weekend {
+    background: #ffc;
+}
+.description {
+    padding: .5em;
+}
+.ui-btn-text {
+    z-index: 0;
+}
+
+/* Event view styles */
+.kronolithEventDetailTitle .ui-li-heading,
+.kronolithEventDetailTitle .ui-li-desc {
+    white-space: normal;
+}
+.kronolithEventDetail p {
+  margin-left: 5px;
+}
+.kronolithEventDetailCalendar {
+  font-style: italic;
+}
+.kronolithEventDetailLocation a {
+  font-size: 85%;
+}
+
+/* Day view styles */
+.kronolithDayDate {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.kronolithTimeWrapper {
+    float: left;
+    padding-right: 4px;
+    margin: 0 6px 0.6em 0;
+    border-right: 2px solid black;
+    min-width: 90px;
+}
+.kronolithEndTime {
+  font-size: 80%;
+}
+.kronolithDayLocationfff, .kronolithDayLocation000 {
+  font-style: italic;
+}
+.kronolithDayLocation000 {
+  color: #333;
+}
+.kronolithDayLocationfff {
+  color: lightgray;
+}
+
+/* Mini calendar */
+.kronolith-minical {
+    background-color: #fff;
+}
+.kronolith-minical table {
+    width: 100%;
+    border-spacing: 0;
+}
+#kronolithBody .kronolith-minical caption {
+    margin: 0 1px 1px 1px;
+    height: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    font-size: 100%;
+    border-bottom: 1px #999 dotted;
+    text-align: left;
+}
+
+.kronolith-minical th, .kronolith-minical td {
+    font-size: 90%;
+}
+.kronolith-minical th {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    background-color: #d6d6d6;
+    color: #202020;
+    border: 1px #999 solid !important;
+}
+.kronolith-minical tbody td {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #808080;
+    empty-cells: show;
+    cursor: pointer;
+    border: 1px transparent;
+}
+.kronolith-minical .kronolith-minical-empty {
+    background: none;
+    border-color: #e2e2e2;
+    color: silver;
+}
+.kronolith-minical .kronolithContainsEvents {
+    background-color: #ffc;
+    font-weight: bold;
+}
+
+.kronolith-minical .kronolith-selected {
+    border: 1px #999 solid !important;
+}
+
+.kronolithToday, .kronolith-minical .kronolithToday {
+    background-color: #ebf3fc;
+    border: 1px solid #808080;
+}
+
+/* Base jQuery Mobile tweaks/fixes. */
+.ui-navbar ul {
+    overflow: hidden;
+}

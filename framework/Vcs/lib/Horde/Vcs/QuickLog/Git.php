@@ -4,7 +4,7 @@
  *
  * Provides information for the most recent log entry of a file.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,20 +30,23 @@ class Horde_Vcs_QuickLog_Git extends Horde_Vcs_QuickLog_Base
     {
         parent::__construct($rep, $rev);
 
-        $cmd = 'whatchanged --no-color --pretty=format:"%H%x00%an <%ae>%x00%at%x00%s%x00%b" --no-abbrev -n 1 ' . escapeshellarg($this->_rev);
+        $cmd = 'log --no-color --pretty=format:"%H%x00%an <%ae>%x00%at%x00%s%x00%b%n%x00" --no-abbrev -n 1 ' . escapeshellarg($this->_rev);
         list($resource, $pipe) = $this->_rep->runCommand($cmd);
 
-        $fields = explode("\0", fgets($pipe));
+        $log = '';
+        while (!feof($pipe) && ($line = fgets($pipe)) && $line != "\0\n") {
+            $log .= $line;
+        }
+
+        $fields = explode("\0", substr($log, 0, -1));
+        fclose($pipe);
+        proc_close($resource);
         if ($this->_rev != $fields[0]) {
-            fclose($pipe);
-            proc_close($resource);
             throw new Horde_Vcs_Exception(
                 'Expected ' . $this->_rev . ', got ' . $fields[0]);
         }
         $this->_author = $fields[1];
         $this->_date = $fields[2];
-        $this->_log = trim($fields[3] . "\n" . $fields[4]);
-        fclose($pipe);
-        proc_close($resource);
+        $this->_log = trim($fields[3] . "\n\n" . $fields[4]);
     }
 }

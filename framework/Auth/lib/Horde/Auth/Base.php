@@ -1,9 +1,6 @@
 <?php
 /**
- * The Horde_Auth_Base:: class provides a common abstracted interface to
- * creating various authentication backends.
- *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -11,7 +8,18 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Base class provides a common abstracted interface to creating
+ * various authentication backends.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 abstract class Horde_Auth_Base
@@ -141,7 +149,13 @@ abstract class Horde_Auth_Base
             $this->_credentials['userId'] = $userId;
             if (($this->hasCapability('lock')) &&
                 $this->isLocked($userId)) {
-                throw new Horde_Auth_Exception('', Horde_Auth::REASON_LOCKED);
+                $details = $this->isLocked($userId, true);
+                if ($details['lock_timeout'] == Horde_Lock::PERMANENT) {
+                    $message = Horde_Auth_Translation::t("Your account has been permanently locked");
+                } else {
+                    $message = sprintf(Horde_Auth_Translation::t("Your account has been locked for %d minutes"), ceil(($details['lock_timeout'] - time()) / 60));
+                }
+                throw new Horde_Auth_Exception($message, Horde_Auth::REASON_LOCKED);
             }
             $this->_authenticate($userId, $credentials);
             $this->setCredential('userId', $this->_credentials['userId']);
@@ -157,7 +171,7 @@ abstract class Horde_Auth_Base
                     $this->hasCapability('badlogincount')) {
                     $this->_badLogin($userId);
                 }
-                $this->setError($code);
+                $this->setError($code, $e->getMessage());
             } else {
                 $this->setError(Horde_Auth::REASON_MESSAGE, $e->getMessage());
             }
@@ -192,7 +206,7 @@ abstract class Horde_Auth_Base
      * in the message field, and the Horde_Auth::REASON_* constant in the code
      * field (defaults to Horde_Auth::REASON_MESSAGE).
      *
-     * @param string $userID      The userID to check.
+     * @param string $userId      The userID to check.
      * @param array $credentials  An array of login credentials.
      *
      * @throws Horde_Auth_Exception
@@ -226,8 +240,6 @@ abstract class Horde_Auth_Base
     /**
      * Locks a user indefinitely or for a specified time.
      *
-     * @since Horde_Auth 1.2.0
-     *
      * @param string $userId  The user to lock.
      * @param integer $time   The duration in minutes, 0 = permanent.
      *
@@ -240,8 +252,7 @@ abstract class Horde_Auth_Base
         }
 
         if ($time == 0) {
-            /* Roughly max timestamp32. */
-            $time = pow(2, 32) - time();
+            $time = Horde_Lock::PERMANENT;
         } else {
             $time *= 60;
         }
@@ -260,8 +271,6 @@ abstract class Horde_Auth_Base
 
     /**
      * Unlocks a user and optionally resets the bad login count.
-     *
-     * @since Horde_Auth 1.2.0
      *
      * @param string  $userId          The user to unlock.
      * @param boolean $resetBadLogins  Reset bad login counter?
@@ -291,8 +300,6 @@ abstract class Horde_Auth_Base
 
     /**
      * Returns whether a user is currently locked.
-     *
-     * @since Horde_Auth 1.2.0
      *
      * @param string $userId         The user to check.
      * @param boolean $show_details  Return timeout too?
@@ -328,8 +335,6 @@ abstract class Horde_Auth_Base
     /**
      * Handles a bad login.
      *
-     * @since Horde_Auth 1.2.0
-     *
      * @param string $userId  The user with a bad login.
      *
      * @throws Horde_Auth_Exception
@@ -347,7 +352,8 @@ abstract class Horde_Auth_Base
                 array('action' => 'login_failed', 'who' => $userId));
             $history_log = $this->_history_api->getHistory($history_identifier);
             if ($this->_params['login_block_count'] > 0 &&
-                $this->_params['login_block_count'] <= $history_log->count()) {
+                $this->_params['login_block_count'] <= $history_log->count() &&
+                $this->hasCapability('lock')) {
                 $this->lockUser($userId, $this->_params['login_block_time']);
             }
         } catch (Horde_History_Exception $e) {
@@ -357,8 +363,6 @@ abstract class Horde_Auth_Base
 
     /**
      * Resets the bad login counter.
-     *
-     * @since Horde_Auth 1.2.0
      *
      * @param string $userId  The user to reset.
      *
@@ -405,6 +409,8 @@ abstract class Horde_Auth_Base
 
     /**
      * Lists all users in the system.
+     *
+     * @param boolean $sort  Sort the users?
      *
      * @return mixed  The array of userIds.
      * @throws Horde_Auth_Exception
@@ -491,19 +497,17 @@ abstract class Horde_Auth_Base
     }
 
     /**
-     * Retrieve internal credential value(s).
+     * Returns internal credential value(s).
      *
      * @param mixed $name  The credential value to get. If null, will return
      *                     the entire credential list. Valid names:
-     * <pre>
-     * 'change' - (boolean) Do credentials need to be changed?
-     * 'credentials' - (array) The credentials needed to authenticate.
-     * 'expire' - (integer) UNIX timestamp of the credential expiration date.
-     * 'userId' - (string) The user ID.
-     * </pre>
+     * - 'change': (boolean) Do credentials need to be changed?
+     * - 'credentials': (array) The credentials needed to authenticate.
+     * - 'expire': (integer) UNIX timestamp of the credential expiration date.
+     * - 'userId': (string) The user ID.
      *
-     * @return mixed  Return the credential information, or null if the
-     *                credential doesn't exist.
+     * @return mixed  The credential information, or null if the credential
+     *                doesn't exist.
      */
     public function getCredential($name = null)
     {
@@ -517,11 +521,11 @@ abstract class Horde_Auth_Base
     }
 
     /**
-     * Set internal credential value.
+     * Sets an internal credential value.
      *
-     * @param string $name  The credential name to set.
-     * @param mixed $value  The credential value to set. See getCredential()
+     * @param string $type  The credential name to set. See getCredential()
      *                      for the list of valid credentials/types.
+     * @param mixed $value  The credential value to set.
      */
     public function setCredential($type, $value)
     {

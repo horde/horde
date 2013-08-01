@@ -1,14 +1,23 @@
 <?php
 /**
- * This class provides the Ingo configuration for the test script.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Ingo
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * This class provides the Ingo configuration for the test script.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Test extends Horde_Test
 {
@@ -66,7 +75,7 @@ class Ingo_Test extends Horde_Test
     protected $_appList = array(
         'imp' => array(
             'error' => 'IMP can be used to interface ingo with a mailserver.',
-            'version' => '5.0'
+            'version' => '6.0'
         )
     );
 

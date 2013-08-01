@@ -16,15 +16,15 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-31</date>
- <time>12:34:34</time>
+ <date>2013-07-16</date>
+ <time>23:46:10</time>
  <version>
-  <release>4.0.0</release>
+  <release>4.1.2</release>
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
@@ -270,6 +270,12 @@
      </dir> <!-- /locale/tr/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
     <dir name="zh_CN">
      <dir name="LC_MESSAGES">
       <file name="mnemo.mo" role="horde" />
@@ -326,9 +332,6 @@
     <dir name="view">
      <file name="memo.inc" role="horde" />
     </dir> <!-- /templates/view -->
-    <file name="notepad_list.php" role="horde" />
-    <file name="panel.inc" role="horde" />
-    <file name="stickies.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Mnemo">
@@ -352,14 +355,12 @@
      </dir> <!-- /test/Mnemo/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Mnemo -->
    </dir> <!-- /test -->
    <dir name="themes">
-    <dir name="bluewhite">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluewhite -->
     <dir name="default">
      <dir name="graphics">
       <file name="add.png" role="horde" />
@@ -375,34 +376,7 @@
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="fadetogreen">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/fadetogreen -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="add.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="mnemo.png" role="horde" />
-      <file name="notepads.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <file name="add.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="mnemo.png" role="horde" />
-      <file name="notepads.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="data.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="LICENSE" role="doc" />
@@ -416,7 +390,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -425,113 +399,113 @@
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>5.0.0</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.4</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Data</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_History</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Injector</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Share</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>gettext</name>
@@ -539,39 +513,46 @@
   </required>
   <optional>
    <package>
+    <name>Horde_ActiveSync</name>
+    <channel>pear.horde.org</channel>
+    <min>2.4.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Cli</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Crypt</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Pdf</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>1.2.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -685,6 +666,8 @@
    <install as="mnemo/locale/tr/help.xml" name="locale/tr/help.xml" />
    <install as="mnemo/locale/tr/LC_MESSAGES/mnemo.mo" name="locale/tr/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/tr/LC_MESSAGES/mnemo.po" name="locale/tr/LC_MESSAGES/mnemo.po" />
+   <install as="mnemo/locale/uk/LC_MESSAGES/mnemo.mo" name="locale/uk/LC_MESSAGES/mnemo.mo" />
+   <install as="mnemo/locale/uk/LC_MESSAGES/mnemo.po" name="locale/uk/LC_MESSAGES/mnemo.po" />
    <install as="mnemo/locale/zh_CN/LC_MESSAGES/mnemo.mo" name="locale/zh_CN/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/zh_CN/LC_MESSAGES/mnemo.po" name="locale/zh_CN/LC_MESSAGES/mnemo.po" />
    <install as="mnemo/locale/zh_TW/LC_MESSAGES/mnemo.mo" name="locale/zh_TW/LC_MESSAGES/mnemo.mo" />
@@ -701,9 +684,6 @@
    <install as="mnemo/notepads/edit.php" name="notepads/edit.php" />
    <install as="mnemo/notepads/index.php" name="notepads/index.php" />
    <install as="mnemo/notes/index.php" name="notes/index.php" />
-   <install as="mnemo/templates/notepad_list.php" name="templates/notepad_list.php" />
-   <install as="mnemo/templates/panel.inc" name="templates/panel.inc" />
-   <install as="mnemo/templates/stickies.html.php" name="templates/stickies.html.php" />
    <install as="mnemo/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="mnemo/templates/data/import.inc" name="templates/data/import.inc" />
    <install as="mnemo/templates/list/empty.inc" name="templates/list/empty.inc" />
@@ -716,6 +696,7 @@
    <install as="mnemo/templates/view/memo.inc" name="templates/view/memo.inc" />
    <install as="Mnemo/AllTests.php" name="test/Mnemo/AllTests.php" />
    <install as="Mnemo/Autoload.php" name="test/Mnemo/Autoload.php" />
+   <install as="Mnemo/bootstrap.php" name="test/Mnemo/bootstrap.php" />
    <install as="Mnemo/phpunit.xml" name="test/Mnemo/phpunit.xml" />
    <install as="Mnemo/TestCase.php" name="test/Mnemo/TestCase.php" />
    <install as="Mnemo/Unit/Driver/KolabTest.php" name="test/Mnemo/Unit/Driver/KolabTest.php" />
@@ -724,7 +705,6 @@
    <install as="Mnemo/Unit/Mnemo/KolabTest.php" name="test/Mnemo/Unit/Mnemo/KolabTest.php" />
    <install as="Mnemo/Unit/Mnemo/Sql/Base.php" name="test/Mnemo/Unit/Mnemo/Sql/Base.php" />
    <install as="Mnemo/Unit/Mnemo/Sql/Pdo/SqliteTest.php" name="test/Mnemo/Unit/Mnemo/Sql/Pdo/SqliteTest.php" />
-   <install as="mnemo/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="mnemo/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="mnemo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="mnemo/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
@@ -736,23 +716,6 @@
    <install as="mnemo/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="mnemo/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="mnemo/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
-   <install as="mnemo/themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
-   <install as="mnemo/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="mnemo/themes/silver/graphics/add.png" name="themes/silver/graphics/add.png" />
-   <install as="mnemo/themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
-   <install as="mnemo/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="mnemo/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
-   <install as="mnemo/themes/silver/graphics/mnemo.png" name="themes/silver/graphics/mnemo.png" />
-   <install as="mnemo/themes/silver/graphics/notepads.png" name="themes/silver/graphics/notepads.png" />
-   <install as="mnemo/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
-   <install as="mnemo/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="mnemo/themes/silver/graphics/za.png" name="themes/silver/graphics/za.png" />
-   <install as="mnemo/themes/tango-blue/graphics/add.png" name="themes/tango-blue/graphics/add.png" />
-   <install as="mnemo/themes/tango-blue/graphics/az.png" name="themes/tango-blue/graphics/az.png" />
-   <install as="mnemo/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
-   <install as="mnemo/themes/tango-blue/graphics/mnemo.png" name="themes/tango-blue/graphics/mnemo.png" />
-   <install as="mnemo/themes/tango-blue/graphics/notepads.png" name="themes/tango-blue/graphics/notepads.png" />
-   <install as="mnemo/themes/tango-blue/graphics/za.png" name="themes/tango-blue/graphics/za.png" />
    <install as="mnemo/data.php" name="data.php" />
    <install as="mnemo/index.php" name="index.php" />
    <install as="LICENSE" name="LICENSE" />
@@ -923,7 +886,185 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-01-31</date>
+   <date>2012-05-29</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Swedish translation (Per Olof Ljungmark &lt;peo@bsdlabs.com&gt;).
+* [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
+* [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.7</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-29</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <date>2012-10-12</date>
+   <time>22:27:01</time>
+   <version>
+    <release>4.0.0beta1</release>
+    <api>4.0.0beta1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [gwr] Always mark the initial share as default notepad.
+* [gwr] Mark the initial default share as such with the Kolab backend.
+* [gwr] Fixed deletion of shares with the Kolab driver.
+* [jan] Fix display of note title (Bug #11275).
+* [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC1</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-27</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix client-side sorting by date.
+* [jan] Fix exporting (Bug #11507).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
+* [jan] Update Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Use Kolab modification and creation dates in the UI (Bug #11591).
+* [jan] Use modification and creation dates from backend if available (Request #11591).
+* [jan] Use encoded UIDs as IDs in Kolab driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [mjr] Fix importing notepads (Bug #11849).
+* [jan] Use default Kolab folder for default notepad preference.
+* [jan] Mark Kolab folder as default when changing default notepad preference.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Fix exporting bodies of encrypted notes (Bug #11960).
+   </notes>
+  </release>
+  <release>
+   <date>2013-05-07</date>
+   <time>16:12:35</time>
+   <version>
+    <release>4.1.0beta1</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Add Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
+* [mjr] Add support for ActiveSync synchronization of notes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.0beta2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2013-05-14</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix incorrect dependencies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.0</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-06-05</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* Final release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Add API methods for using history modification sequences.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * 

@@ -1,13 +1,101 @@
---------
-v4.0-git
---------
+----------
+v4.1.2-git
+----------
 
+
+
+------
+v4.1.1
+------
+
+[mjr] Add API methods for using history modification sequences.
+
+
+------
+v4.1.0
+------
+
+[jan] Fix incorrect dependencies.
+
+
+-----------
+v4.1.0beta1
+-----------
+
+[jan] Add Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
+[mjr] Add support for ActiveSync synchronization of notes.
+
+
+------
+v4.0.3
+------
+
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Fix exporting bodies of encrypted notes (Bug #11960).
+
+
+------
+v4.0.2
+------
+
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[mjr] Fix importing notepads (Bug #11849).
+[jan] Use default Kolab folder for default notepad preference.
+[jan] Mark Kolab folder as default when changing default notepad preference.
+
+
+------
+v4.0.1
+------
+
+[jan] Use Kolab modification and creation dates in the UI (Bug #11591).
+[jan] Use modification and creation dates from backend if available (Request
+      #11591).
+[jan] Use encoded UIDs as IDs in Kolab driver.
+
+
+------
+v4.0.0
+------
+
+[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
+
+
+---------
+v4.0.0RC1
+---------
+
+[jan] Fix client-side sorting by date.
+[jan] Fix exporting (Bug #11507).
+
+
+-----------
+v4.0.0beta1
+-----------
+
+[gwr] Always mark the initial share as default notepad.
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Fixed deletion of shares with the Kolab driver.
+[jan] Fix display of note title (Bug #11275).
 
 
 ----------
-v3.0.6-git
+v3.0.7-git
 ----------
 
+[jan] Update Turkish translation (İstanbul Technical University).
+
+
+------
+v3.0.6
+------
+
+[jan] Update Swedish translation (Per Olof Ljungmark <peo@bsdlabs.com>).
+[jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 
 
 ------

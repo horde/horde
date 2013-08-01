@@ -16,7 +16,7 @@
  *                                      array('name', 'email')));
  * </code>
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -31,14 +31,14 @@ class Horde_Rpc
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * Do we need an authenticated user?
      *
      * @var boolean
      */
-    var $_requireAuthorization = true;
+    protected $_requireAuthorization = true;
 
     /**
      * Whether we should exit if auth fails instead of requesting
@@ -46,7 +46,7 @@ class Horde_Rpc
      *
      * @var boolean
      */
-    var $_requestMissingAuthorization = true;
+    protected $_requestMissingAuthorization = true;
 
     /**
      * Request variables, cookies etc...
@@ -63,14 +63,11 @@ class Horde_Rpc
     protected $_logger;
 
     /**
-     * RPC server constructor.
+     * Constructor.
      *
-     * @param Horde_Controller_Request_Http  The request object
-     *
+     * @param Horde_Controller_Request_Http $request  The request object.
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
-     *
-     * @return Horde_Rpc  An RPC server instance.
      */
     public function __construct($request, $params = array())
     {
@@ -106,7 +103,7 @@ class Horde_Rpc
      *                  or other response codes/body if auth fails,
      *                  and take care of exiting.
      */
-    function authorize()
+    public function authorize()
     {
         $this->_logger->debug('Horde_Rpc::authorize() starting');
         if (!$this->_requireAuthorization) {
@@ -152,7 +149,7 @@ class Horde_Rpc
      *
      * @return mixed  The input - a string (default), a filehandle, etc.
      */
-    function getInput()
+    public function getInput()
     {
         if (isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
             return $GLOBALS['HTTP_RAW_POST_DATA'];
@@ -162,13 +159,14 @@ class Horde_Rpc
     }
 
     /**
-     * Sends an RPC request to the server and returns the result.
+     * Sends an RPC request to the server implementation and returns the
+     * result.
      *
      * @param string  The raw request string.
      *
-     * @return string  The XML encoded response from the server.
+     * @return string  The response from the server.
      */
-    function getResponse($request)
+    public function getResponse($request)
     {
         return 'not implemented';
     }
@@ -178,7 +176,7 @@ class Horde_Rpc
      *
      * @return string  The MIME Content-Type of the RPC response.
      */
-    function getResponseContentType()
+    public function getResponseContentType()
     {
         return 'text/xml';
     }
@@ -191,7 +189,7 @@ class Horde_Rpc
      *
      * @return void
      */
-    function sendOutput($output)
+    public function sendOutput($output)
     {
         header('Content-Type: ' . $this->getResponseContentType());
         header('Content-length: ' . strlen($output));
@@ -219,7 +217,8 @@ class Horde_Rpc
      * @return mixed  The returned result from the method
      * @throws Horde_Rpc_Exception
      */
-    public static function request($driver, $url, $method, $client, $params = null)
+    public static function request($driver, $url, $method, $client,
+                                   $params = null)
     {
         $driver = Horde_String::ucfirst(basename($driver));
         $class = 'Horde_Rpc_' . $driver;
@@ -251,5 +250,4 @@ class Horde_Rpc
             throw new Horde_Rpc_Exception('Class definition of ' . $class . ' not found.');
         }
     }
-
 }

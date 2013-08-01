@@ -3,35 +3,29 @@
  * Ansel_Ajax_Imple_ToggleOtherGalleries:: class for performing Ajax setting of
  * the gallery show_actions user pref.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
 class Ansel_Ajax_Imple_ToggleOtherGalleries extends Horde_Core_Ajax_Imple
 {
-    public function attach()
+    /**
+     */
+    protected function _attach($init)
     {
-        // Include the js
-        Horde::addScriptFile('togglewidget.js');
+        if ($init) {
+            $GLOBALS['page_output']->addScriptFile('togglewidget.js');
+        }
 
-        $url = $this->_getUrl('ToggleOtherGalleries', 'ansel', array('post' => 'value', 'sessionWrite' => true));
-        $js = array();
-        $js[] = "Ansel.widgets['otherGalleries'] = {'bindTo': '" . $this->_params['bindTo'] . "', 'url': '" . $url . "'}";
-        $js[] = "Event.observe(Ansel.widgets.otherGalleries.bindTo + '-toggle', 'click', function(event) {doActionToggle('" . $this->_params['bindTo'] . "', 'otherGalleries'); Event.stop(event)});";
-
-        Horde::addInlineScript($js, 'dom');
+        return 'doActionToggle("' . $this->getDomId() . '", "show_othergalleries")';
     }
 
-    public function handle($args, $post)
+    /**
+     * Noop.
+     */
+    protected function _handle(Horde_Variables $vars)
     {
-         if (!isset($post['value'])) {
-            return 0;
-         }
-
-        $GLOBALS['prefs']->setValue('show_othergalleries', $post['value']);
-
-        return $GLOBALS['prefs']->getValue('show_othergalleries');
     }
 
 }

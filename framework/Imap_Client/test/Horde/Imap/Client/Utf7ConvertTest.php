@@ -1,29 +1,27 @@
 <?php
 /**
- * Tests for UTF7-IMAP <-> UTF-8 conversions.
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @package  Imap_Client
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Imap_Client
+ * @category   Horde
+ * @copyright  2011-2013 Horde LLC
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Imap_Client
+ * @subpackage UnitTests
  */
 
 /**
  * Tests for UTF7-IMAP <-> UTF-8 conversions.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @category Horde
- * @package  Imap_Client
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Imap_Client
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2011-2013 Horde LLC
+ * @ignore
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Imap_Client
+ * @subpackage UnitTests
  */
 class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
 {
@@ -75,21 +73,21 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
         );
 
         $orig = '&-';
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
         $this->assertEquals(
             '&-',
             $utf7_imap
         );
 
         $orig = 'Envoy&AOk-';
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
         $this->assertEquals(
             'Envoy&AOk-',
             $utf7_imap
         );
 
         $orig = 'T&APY-st-';
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
         $this->assertEquals(
             'T&APY-st-',
             $utf7_imap
@@ -98,7 +96,7 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
         // Bug #10133
         $orig = 'Entw&APw-rfe';
 
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
         $this->assertEquals(
             $orig,
             $utf7_imap
