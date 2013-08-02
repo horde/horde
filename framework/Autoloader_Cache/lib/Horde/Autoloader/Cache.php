@@ -198,7 +198,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      */
     public function prune()
     {
-        foreach ($this->_getKeylist() as $val) {
+        foreach (array_unique(array_merge($this->_getKeylist(), array($this->_cachekey))) as $val) {
             switch ($this->_cachetype) {
             case self::APC:
                 apc_delete($val);
