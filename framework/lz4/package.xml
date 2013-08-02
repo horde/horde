@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-08</date>
+ <date>2013-08-02</date>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -132,7 +132,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-08</date>
+   <date>2013-08-02</date>
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
 * [mms] Update LZ4 source to r99.
