@@ -2641,13 +2641,17 @@ class Turba_Driver implements Countable
         /* Email addresses */
         $hash['emails'] = array();
         if (!$message->isGhosted('email1address')) {
-            $hash['emails'][] = $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
+            $e = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
+            $hash['emails'][] = $hash['email'] = $e ? $e : '';
+
         }
         if (!$message->isGhosted('email2address')) {
-            $hash['emails'][] = $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
+            $e = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
+            $hash['emails'][] = $hash['homeEmail'] = $e ? $e : '';
         }
         if (!$message->isGhosted('email3address')) {
-            $hash['emails'][] = $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
+            $e = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
+            $hash['emails'][] = $hash['workEmail'] = $e ? $e : '';
         }
         $hash['emails'] = implode(',', $hash['emails']);
 
@@ -2673,14 +2677,14 @@ class Turba_Driver implements Countable
             $bday->setTimezone(date_default_timezone_get());
             $hash['birthday'] = $bday->format('Y-m-d');
         } elseif (!$message->isGhosted('birthday')) {
-            $hash['birthday'] = null;
+            $hash['birthday'] = '';
         }
         if (!empty($message->anniversary)) {
             $anniversary = new Horde_Date($message->anniversary);
             $anniversary->setTimezone(date_default_timezone_get());
             $hash['anniversary'] = $anniversary->format('Y-m-d');
         } elseif (!$message->isGhosted('anniversary')) {
-            $hash['anniversary'] = null;
+            $hash['anniversary'] = '';
         }
 
         /* Countries */
@@ -2696,7 +2700,7 @@ class Turba_Driver implements Countable
                 $hash['homeCountry'] = $country;
             }
         } elseif (!$message->isGhosted('homecountry')) {
-            $hash['homeCountry'] = null;
+            $hash['homeCountry'] = '';
         }
 
         if (!empty($message->businesscountry)) {
@@ -2710,7 +2714,7 @@ class Turba_Driver implements Countable
                 $hash['workCountry'] = $country;
             }
         } elseif (!$message->isGhosted('businesscountry')) {
-            $hash['workCountry'] = null;
+            $hash['workCountry'] = '';
         }
 
         if (!empty($message->othercountry)) {
@@ -2724,7 +2728,7 @@ class Turba_Driver implements Countable
                 $hash['otherCountry'] = $country;
             }
         } elseif (!$message->isGhosted('othercountry')) {
-            $hash['otherCountry'] = null;
+            $hash['otherCountry'] = '';
         }
 
         return $hash;
