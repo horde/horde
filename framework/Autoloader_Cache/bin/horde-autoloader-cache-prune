@@ -18,15 +18,7 @@
 require_once 'Horde/Autoloader/Cache.php';
 
 if ($__autoloader->prune()) {
-    if (extension_loaded('apc')) {
-        echo "Pruned from APC cache.\n";
-    } elseif (extension_loaded('xcache')) {
-        echo "Pruned from XCache cache.\n";
-    } elseif (extension_loaded('eaccelerator')) {
-        echo "Pruned from eAccelerator cache.\n";
-    } else {
-        echo "Pruned from file system cache.\n";
-    }
+    echo "Cache pruned successfully.\n";
 } else {
     echo "No cache found or pruning failed.\n";
 }
