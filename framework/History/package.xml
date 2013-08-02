@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-02</date>
- <time>17:09:34</time>
+ <time>17:19:14</time>
  <version>
-  <release>2.1.6</release>
+  <release>2.1.7</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Further fixes for database migration issues, very index name and existence before removing (Bug #12498).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -424,6 +424,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Further fixes for database migration issues, very index name and existence before removing (Bug #12498).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.7</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
