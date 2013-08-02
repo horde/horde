@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-24</date>
- <time>17:27:10</time>
+ <date>2013-08-02</date>
+ <time>17:09:34</time>
  <version>
   <release>2.1.6</release>
   <api>2.1.0</api>
@@ -420,7 +420,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-24</date>
+   <date>2013-08-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Further fixes for database migration issues, very index name and existence before removing (Bug #12498).
