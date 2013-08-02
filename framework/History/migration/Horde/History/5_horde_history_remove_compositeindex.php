@@ -9,7 +9,8 @@ class HordeHistoryRemoveCompositeIndex extends Horde_Db_Migration_Base
 
     public function down()
     {
-        $this->addIndex('horde_histories', array('history_modseq', 'object_uid'));
+        $this->addIndex('horde_histories', 'history_modseq');
+        $this->addIndex('horde_histories', 'object_uid');
     }
 
 }
