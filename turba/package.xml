@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [mjr] Fix issue generating contact hashes from EAS contacts that could prevent duplicate contact detection from working when certain properties have empty values (Bug #12506).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1681,7 +1681,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [mjr] Fix issue generating contact hashes from EAS contacts that could prevent duplicate contact detection from working when certain properties have empty values (Bug #12506).
    </notes>
   </release>
  </changelog>
