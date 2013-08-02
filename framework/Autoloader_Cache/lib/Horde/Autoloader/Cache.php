@@ -173,18 +173,22 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     /**
      * Search registered mappers in LIFO order.
      *
-     * @param string $className  TODO.
+     * @param string $className  Classname.
      *
-     * @return string  TODO
+     * @return string  Path.
      */
     public function mapToPath($className)
     {
-        if (!array_key_exists($className, $this->_cache)) {
-            $this->_cache[$className] = parent::mapToPath($className);
+        if (isset($this->_cache[$className])) {
+            return $this->_cache[$className];
+        }
+
+        if ($res = parent::mapToPath($className)) {
+            $this->_cache[$className] = $res;
             $this->_changed = true;
         }
 
-        return $this->_cache[$className];
+        return $res;
     }
 
     /**
