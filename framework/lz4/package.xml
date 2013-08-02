@@ -12,7 +12,7 @@
  </lead>
  <date>2013-08-02</date>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* [mms] Update LZ4 source to r99.
+* 
  </notes>
  <contents>
   <dir name="/">
@@ -136,6 +136,19 @@
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
 * [mms] Update LZ4 source to r99.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-02</date>
+   <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
