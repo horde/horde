@@ -106,4 +106,17 @@ class Turba_Unit_Driver_Base extends Turba_TestCase
             self::$driver->search(array(), null, 'AND')
         );
     }
+
+    public function testDuplicateDetectionFromAsWithNoEmail()
+    {
+        $eas_obj = Horde_ActiveSync::messageFactory('Contact');
+        $eas_obj->firstname = 'Firstname';
+        $eas_obj->fileas = 'Firstname';
+        $eas_obj->homephonenumber = '+55555555';
+        $hash = self::$driver->fromASContact($eas_obj);
+        self::$driver->add($hash);
+        $result = self::$driver->search($hash);
+        $this->assertEquals(1, count($result));
+    }
+
 }
