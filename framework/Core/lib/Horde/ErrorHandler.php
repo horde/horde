@@ -24,10 +24,6 @@ class Horde_ErrorHandler
     {
         global $registry;
 
-        try {
-            Horde::log($error, 'EMERG');
-        } catch (Exception $e) {}
-
         if (is_object($error)) {
             switch (get_class($error)) {
             case 'Horde_Exception_AuthenticationFailure':
@@ -35,6 +31,10 @@ class Horde_ErrorHandler
                     $registry->clearAuthApp($error->application)) {
                     break;
                 }
+
+                try {
+                    Horde::log($error, 'NOTICE');
+                } catch (Exception $e) {}
 
                 if (Horde_Cli::runningFromCLI()) {
                     $cli = new Horde_Cli();
@@ -55,6 +55,10 @@ class Horde_ErrorHandler
                 exit;
             }
         }
+
+        try {
+            Horde::log($error, 'EMERG');
+        } catch (Exception $e) {}
 
         try {
             $cli = Horde_Cli::runningFromCLI();
