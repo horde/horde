@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefor has no history data (Bug #12531).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1581,7 +1581,7 @@
    <date>2013-07-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefor has no history data (Bug #12531).
    </notes>
   </release>
  </changelog>
