@@ -267,28 +267,32 @@ if ($auth->hasCapability('list')) {
     $page = $vars->get('page', 0);
     $search_pattern = $vars->get('search_pattern', '');
 
-    $users = $auth->listUsers();
+    try {
+        $users = $auth->listUsers();
 
-    /* Returns only users that match the specified pattern. */
-    $users = preg_grep('/' . $search_pattern . '/', $users);
-    sort($users);
+        /* Returns only users that match the specified pattern. */
+        $users = preg_grep('/' . $search_pattern . '/', $users);
+        sort($users);
 
-    $viewurl = Horde::url('admin/user.php')->add('search_pattern', $search_pattern);
+        $viewurl = Horde::url('admin/user.php')->add('search_pattern', $search_pattern);
 
-    $numitem = count($users);
-    $perpage = 20;
+        $numitem = count($users);
+        $perpage = 20;
 
-    $min = $page * $perpage;
-    while ($min > $numitem) {
-        $page--;
         $min = $page * $perpage;
+        while ($min > $numitem) {
+            $page--;
+            $min = $page * $perpage;
+        }
+        $max = $min + $perpage;
+
+        $start = ($page * $perpage) + 1;
+        $end = min($numitem, $start + $perpage - 1);
+
+        require HORDE_TEMPLATES . '/admin/user/list.inc';
+    } catch (Exception $e) {
+        require HORDE_TEMPLATES . '/admin/user/listfail.inc';
     }
-    $max = $min + $perpage;
-
-    $start = ($page * $perpage) + 1;
-    $end = min($numitem, $start + $perpage - 1);
-
-    require HORDE_TEMPLATES . '/admin/user/list.inc';
 } else {
     require HORDE_TEMPLATES . '/admin/user/nolist.inc';
 }

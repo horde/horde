@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
+ <date>2013-08-05</date>
  <version>
   <release>5.1.3</release>
   <api>5.0.0</api>
@@ -680,6 +680,7 @@
       <file name="approve.inc" role="horde" />
       <file name="clear.inc" role="horde" />
       <file name="list.inc" role="horde" />
+      <file name="listfail.inc" role="horde" />
       <file name="noadd.inc" role="horde" />
       <file name="nolist.inc" role="horde" />
       <file name="remove.inc" role="horde" />
@@ -2232,6 +2233,7 @@
    <install as="templates/admin/user/approve.inc" name="templates/admin/user/approve.inc" />
    <install as="templates/admin/user/clear.inc" name="templates/admin/user/clear.inc" />
    <install as="templates/admin/user/list.inc" name="templates/admin/user/list.inc" />
+   <install as="templates/admin/user/listfail.inc" name="templates/admin/user/listfail.inc" />
    <install as="templates/admin/user/noadd.inc" name="templates/admin/user/noadd.inc" />
    <install as="templates/admin/user/nolist.inc" name="templates/admin/user/nolist.inc" />
    <install as="templates/admin/user/remove.inc" name="templates/admin/user/remove.inc" />
@@ -3732,7 +3734,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-16</date>
+   <date>2013-08-05</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Improved session administration UI (Request #12515).
