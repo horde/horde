@@ -247,6 +247,35 @@ class Horde_Stream implements Serializable
         );
     }
 
+    /**
+     * Auto-determine the EOL string.
+     *
+     * @since 1.3.0
+     *
+     * @return string  The EOL string.
+     */
+    public function getEOL()
+    {
+        $pos = ftell($this->stream);
+
+        rewind($this->stream);
+        $pos2 = $this->search("\n", false, false);
+        if ($pos2) {
+            fseek($this->stream, -1, SEEK_CUR);
+            $eol = (fgetc($this->stream) == "\r")
+                ? "\r\n"
+                : "\n";
+        } else {
+            $eol = is_null($pos2)
+                ? null
+                : "\n";
+        }
+
+        fseek($this->stream, $pos);
+
+        return $eol;
+    }
+
     /* Serializable methods. */
 
     /**
