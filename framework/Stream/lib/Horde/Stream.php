@@ -129,11 +129,9 @@ class Horde_Stream implements Serializable
     }
 
     /**
-     * Stream utility method: get a string from a stream up to a certain
-     * character (or EOF).
+     * Stream utility method: get a string up to a certain character (or EOF).
      *
-     * @param resource $data  Data stream.
-     * @oaram string $end     The character to stop reading at.
+     * @oaram string $end  The character to stop reading at.
      *
      * @return string  The string up to $end (stream is positioned after the
      *                 end character(s), all of which are stripped from the

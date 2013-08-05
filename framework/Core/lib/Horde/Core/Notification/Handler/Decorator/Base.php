@@ -1,16 +1,23 @@
 <?php
 /**
- * Define the functions needed for a Decorator instance.
- *
  * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Notification
+ * @category  Horde
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+/**
+ * Define the functions needed for a Decorator instance.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Core_Notification_Handler_Decorator_Base extends Horde_Notification_Handler_Decorator_Base
 {

@@ -1,17 +1,24 @@
 <?php
 /**
- * The Horde_Corde_Auth_Imsp class provides basic authentication against an IMSP
- * server.
- *
  * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author   Michael J Rubinsky <mrubinsk@horde.org>
- * @category Horde
- * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
- * @package  Auth
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package   Core
+ */
+
+/**
+ * This class provides basic authentication against an IMSP server.
+ *
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package   Core
  */
 class Horde_Core_Auth_Imsp extends Horde_Auth_Base
 {
