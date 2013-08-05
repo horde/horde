@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-05</date>
- <time>05:53:04</time>
+ <time>06:02:57</time>
  <version>
-  <release>1.3.0</release>
+  <release>1.3.1</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add Horde_Stream#getEOL().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -182,6 +182,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_Stream#getEOL().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
