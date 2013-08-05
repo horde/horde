@@ -112,6 +112,8 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
             }
 
             $view->new_user = $new_user;
+        } catch (Horde_Auth_Exception $e) {
+            // No-op
         } catch (Horde_Exception $e) {
             if (!($e->getPrevious() instanceof IMP_Exception)) {
                 $notification->push($e);
