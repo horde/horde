@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add ability to access all reply methods in smartmobile view.
 * [mms] Smarter sizing of popup windows in dynamic view.
 * [mms] Correctly save multipart/related data when saving compose message as a draft.
 * [mms] When checking for newmail in a mailbox, use the total number of recent messages seen at any time during the page access (Request #12447).
@@ -3265,6 +3266,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add ability to access all reply methods in smartmobile view.
 * [mms] Smarter sizing of popup windows in dynamic view.
 * [mms] Correctly save multipart/related data when saving compose message as a draft.
 * [mms] When checking for newmail in a mailbox, use the total number of recent messages seen at any time during the page access (Request #12447).
