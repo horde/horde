@@ -535,11 +535,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @param resource $fp      A stream containing the data to encode.
      * @param string $encoding  The encoding to use.
-     * @param string $eol       EOL string.
      *
      * @return resource  A new file resource with the encoded data.
      */
-    protected function _transferEncode($fp, $encoding, $eol)
+    protected function _transferEncode($fp, $encoding)
     {
         $this->_temp['transferEncodeClose'] = true;
 
@@ -549,20 +548,24 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return $this->_writeStream($fp, array(
                 'filter' => array(
                     'convert.base64-encode' => array(
-                        'line-break-chars' => $eol,
+                        'line-break-chars' => $this->getEOL(),
                         'line-length' => 76
                     )
                 )
             ));
 
         case 'quoted-printable':
+            $stream = new Horde_Stream_Existing(array(
+                'stream' => $fp
+            ));
+
             /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
             return $this->_writeStream($fp, array(
                 'filter' => array(
-                    'convert.quoted-printable-encode' => array(
-                        'line-break-chars' => $eol,
+                    'convert.quoted-printable-encode' => array_filter(array(
+                        'line-break-chars' => $stream->getEOL(),
                         'line-length' => 76
-                    )
+                    ))
                 )
             ));
 
@@ -1222,11 +1225,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                         break;
                     }
 
-                    $parts[] = $this->_transferEncode(
-                        $this->_contents,
-                        $encoding,
-                        (empty($options['canonical']) ? $this->getEOL() : self::RFC_EOL)
-                    );
+                    $parts[] = $this->_transferEncode($this->_contents, $encoding);
 
                     /* If not using $this->_contents, we can close the stream
                      * when finished. */
