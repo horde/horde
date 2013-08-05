@@ -190,7 +190,7 @@ class Whups_Application extends Horde_Registry_Application
                     'name' => $vars->file
                 );
             } catch (Horde_Vfs_Exception $e) {
-                throw Whups_Exception(sprintf(_("Access denied to %s"), $vars->file));
+                throw new Whups_Exception(sprintf(_("Access denied to %s"), $vars->file));
             }
             break;
 
