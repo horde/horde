@@ -1,0 +1,9 @@
+<?php
+$conf['smtp'] = array(
+    'debug' => null,  // e.g. 'php://output'
+    'host' => '',
+    'password' => '',
+    'port' => '',
+    'secure' => '',  // empty, 'ssl', or 'tls'
+    'username' => ''
+);
