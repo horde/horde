@@ -1558,7 +1558,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         if ($rfc822) {
-            if (empty($this->_parts)) {
+            if (empty($this->_parts) &&
+                ($this->getPrimaryType() != 'multipart')) {
                 $this->setMimeId($id . '1');
             } else {
                 if (empty($id) && ($this->getType() == 'message/rfc822')) {
@@ -2082,6 +2083,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $boundary = $ob->getContentTypeParameter('boundary');
             if (!is_null($boundary)) {
                 foreach (self::_findBoundary($body, 0, $boundary) as $val) {
+                    if (!isset($val['length'])) {
+                        break;
+                    }
                     $subpart = substr($body, $val['start'], $val['length']);
                     list($hdr_pos, $eol) = self::_findHeader($subpart);
                     $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), array(

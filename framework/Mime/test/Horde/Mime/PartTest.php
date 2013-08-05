@@ -342,6 +342,16 @@ C
         );
     }
 
+    public function testBug12536()
+    {
+        // This is a broken MIME message - it is a multipart with no subparts
+        $msg = file_get_contents(__DIR__ . '/fixtures/bug12536.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertNotEmpty($part->getPart(0));
+        $this->assertEmpty($part->getPart(1));
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
