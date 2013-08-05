@@ -139,7 +139,12 @@ Content-Transfer-Encoding: quoted-printable',
 
         $this->assertEquals(
             "H=FCbsche Umlaute\n  und Leerzeichen.\n",
-            $sent['body']
+            // Some broken PHP versions will insert =20 instead of spaces.
+            str_replace(
+                '=20',
+                ' ',
+                $sent['body']
+            )
         );
 
         $this->assertEquals(
