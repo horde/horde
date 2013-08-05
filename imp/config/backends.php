@@ -398,7 +398,7 @@ $servers['advanced'] = array(
     //    'host' => 'smtp.example.com',
     //    'localhost' => 'localhost',
     //    'password' => null,
-    //    'port' => 25,
+    //    'port' => 587,
     //    'username' => null
     ),
     'spam' => array(
