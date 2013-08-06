@@ -646,15 +646,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Builds and sends a MIME message.
      *
-     * @param string $body   The message body.
-     * @param array $header  List of message headers.
-     * @param array $opts    An array of options w/the following keys:
+     * @param string $body                  The message body.
+     * @param array $header                 List of message headers.
+     * @param IMP_Prefs_Identity $identity  The Identity object for the sender
+     *                                      of this message.
+     * @param array $opts                   An array of options w/the
+     *                                      following keys:
      * <ul>
-     *  <li>
-     *   add_signature: (integer) Add the signature to the outgoing message?
-     *                  This is the ID of the identity to use.
-     *                  DEFAULT: No signature added
-     *  </li>
      *  <li>
      *   encrypt: (integer) A flag whether to encrypt or sign the message.
      *            One of:
@@ -668,10 +666,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *  <li>
      *   html: (boolean) Whether this is an HTML message.
      *         DEFAULT: false
-     *  </li>
-     *  <li>
-     *   identity: (IMP_Prefs_Identity) If set, checks for proper tie-to
-     *             addresses.
      *  </li>
      *  <li>
      *   pgp_attach_pubkey: (boolean) Attach the user's PGP public key to the
@@ -705,7 +699,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * @throws IMP_Compose_Exception
      * @throws IMP_Exception
      */
-    public function buildAndSendMessage($body, $header, array $opts = array())
+    public function buildAndSendMessage(
+        $body, $header, IMP_Prefs_Identity $identity, array $opts = array()
+    )
     {
         global $conf, $injector, $notification, $prefs, $registry;
 
@@ -722,11 +718,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Check for correct identity usage. */
         if (!$this->getMetadata('identity_check') &&
-            (count($recip['list']) === 1) &&
-            isset($opts['identity'])) {
-            $identity_search = $opts['identity']->getMatchingIdentity($recip['list'], false);
+            (count($recip['list']) === 1)) {
+            $identity_search = $identity->getMatchingIdentity($recip['list'], false);
             if (!is_null($identity_search) &&
-                ($opts['identity']->getDefault() != $identity_search)) {
+                ($identity->getDefault() != $identity_search)) {
                 $this->_metadata['identity_check'] = true;
                 $this->changed = 'changed';
 
@@ -751,8 +746,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $msg_options = array(
             'encrypt' => $encrypt,
             'html' => !empty($opts['html']),
+            'identity' => $identity,
             'pgp_attach_pubkey' => (!empty($opts['pgp_attach_pubkey']) && $prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')),
-            'signature' => isset($opts['add_signature']) ? $opts['add_signature'] : null,
+            'signature' => $identity,
             'vcard_attach' => ((!empty($opts['vcard_attach']) && $registry->hasMethod('contacts/ownVCard')) ? ((strlen($opts['vcard_attach']) ? $opts['vcard_attach'] : 'vcard') . '.vcf') : null)
         );
 
@@ -1258,11 +1254,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - from: (Horde_Mail_Rfc822_Address) The outgoing from address (only
      *           needed for multiple PGP encryption).
      *   - html: (boolean) Is this a HTML message?
+     *   - identity: (IMP_Prefs_Identity) Identity of the sender.
      *   - nofinal: (boolean) This is not a message which will be sent out.
      *   - noattach: (boolean) Don't add attachment information.
      *   - pgp_attach_pubkey: (boolean) Attach the user's PGP public key?
-     *   - signature: (integer) If set, will add the users' signature to the
-     *                message.
+     *   - signature: (IMP_Prefs_Identity) If set, add the signature to the
+     *                message?
      *   - vcard_attach: (string) If set, attach user's vcard to message.
      *
      * @return Horde_Mime_Part  The MIME message to send.
@@ -1270,8 +1267,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
-    protected function _createMimeMessage(Horde_Mail_Rfc822_List $to, $body,
-                                          array $options = array())
+    protected function _createMimeMessage(
+        Horde_Mail_Rfc822_List $to, $body, array $options = array()
+    )
     {
         global $conf, $injector, $prefs, $registry;
 
@@ -1304,13 +1302,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         /* Add signature data. */
-        if (isset($options['signature'])) {
-            $identity = $injector->getInstance('IMP_Identity');
-            $sig = $identity->getSignature('text', $options['signature']);
+        if (!empty($options['signature'])) {
+            $sig = $options['signature']->getSignature('text');
             $body .= $sig;
 
             if (!empty($options['html'])) {
-                $html_sig = $identity->getSignature('html', $options['signature']);
+                $html_sig = $options['signature']->getSignature('html');
                 if (!strlen($html_sig) && strlen($sig)) {
                     $html_sig = $this->text2html($sig);
                 }
@@ -1330,8 +1327,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* Get trailer text (if any). */
         if (empty($options['nofinal'])) {
             try {
-                $trailer = Horde::callHook('trailer', array(), 'imp');
-                $html_trailer = Horde::callHook('trailer', array(true), 'imp');
+                $trailer = Horde::callHook('trailer', array(false, $identity, $to), 'imp');
+                $html_trailer = Horde::callHook('trailer', array(true, $identity, $to), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {
                 $trailer = $html_trailer = null;
             }

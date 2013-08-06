@@ -519,22 +519,23 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $sent_mail = IMP_Mailbox::formFrom($this->vars->sent_mail);
                 }
 
-                $options = array(
-                    'add_signature' => $identity->getDefault(),
-                    'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt_options,
-                    'html' => $rtemode,
-                    'identity' => $identity,
-                    'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
-                    'priority' => $priority,
-                    'save_sent' => $save_sent_mail,
-                    'sent_mail' => $sent_mail,
-                    'save_attachments' => $this->vars->save_attachments_select,
-                    'readreceipt' => $request_read_receipt,
-                    'vcard_attach' => $this->vars->vcard ? $identity->getValue('fullname') : null
-                );
-
                 try {
-                    $imp_compose->buildAndSendMessage($message, $header, $options);
+                    $imp_compose->buildAndSendMessage(
+                        $message,
+                        $header,
+                        $identity,
+                        array(
+                            'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt_options,
+                            'html' => $rtemode,
+                            'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
+                            'priority' => $priority,
+                            'save_sent' => $save_sent_mail,
+                            'sent_mail' => $sent_mail,
+                            'save_attachments' => $this->vars->save_attachments_select,
+                            'readreceipt' => $request_read_receipt,
+                            'vcard_attach' => $this->vars->vcard ? $identity->getValue('fullname') : null
+                        )
+                    );
                     $imp_compose->destroy('send');
 
                     if ($isPopup) {

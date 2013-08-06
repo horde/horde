@@ -507,26 +507,27 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         $sm_displayed = !$prefs->isLocked(IMP_Mailbox::MBOX_SENT);
 
-        $options = array(
-            'add_signature' => $identity->getDefault(),
-            'encrypt' => ($prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt),
-            'html' => $this->vars->html,
-            'identity' => $identity,
-            'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
-            'priority' => $this->vars->priority,
-            'readreceipt' => $this->vars->request_read_receipt,
-            'save_attachments' => $this->vars->save_attachments_select,
-            'save_sent' => ($sm_displayed
-                            ? (bool)$this->vars->save_sent_mail
-                            : $identity->getValue('save_sent_mail')),
-            'sent_mail' => ($sm_displayed
-                              ? (isset($this->vars->save_sent_mail_mbox) ? IMP_Mailbox::formFrom($this->vars->save_sent_mail_mbox) : $identity->getValue(IMP_Mailbox::MBOX_SENT))
-                              : $identity->getValue(IMP_Mailbox::MBOX_SENT)),
-            'vcard_attach' => ($this->vars->vcard_attach ? $identity->getValue('fullname') : null)
-        );
-
         try {
-            $imp_compose->buildAndSendMessage($this->vars->message, $headers, $options);
+            $imp_compose->buildAndSendMessage(
+                $this->vars->message,
+                $headers,
+                $identity,
+                array(
+                    'encrypt' => ($prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt),
+                    'html' => $this->vars->html,
+                    'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
+                    'priority' => $this->vars->priority,
+                    'readreceipt' => $this->vars->request_read_receipt,
+                    'save_attachments' => $this->vars->save_attachments_select,
+                    'save_sent' => ($sm_displayed
+                                    ? (bool)$this->vars->save_sent_mail
+                                    : $identity->getValue('save_sent_mail')),
+                    'sent_mail' => ($sm_displayed
+                                      ? (isset($this->vars->save_sent_mail_mbox) ? IMP_Mailbox::formFrom($this->vars->save_sent_mail_mbox) : $identity->getValue(IMP_Mailbox::MBOX_SENT))
+                                      : $identity->getValue(IMP_Mailbox::MBOX_SENT)),
+                    'vcard_attach' => ($this->vars->vcard_attach ? $identity->getValue('fullname') : null)
+                )
+            );
             $notification->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;

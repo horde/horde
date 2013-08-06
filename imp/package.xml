@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] &apos;trailer&apos; hook now has the user&apos;s identity and the list of recipients passed as parameters.
 * [mms] Add ability to access all reply methods in smartmobile view.
 * [mms] Smarter sizing of popup windows in dynamic view.
 * [mms] Correctly save multipart/related data when saving compose message as a draft.
@@ -3266,6 +3267,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] &apos;trailer&apos; hook now has the user&apos;s identity and the list of recipients passed as parameters.
 * [mms] Add ability to access all reply methods in smartmobile view.
 * [mms] Smarter sizing of popup windows in dynamic view.
 * [mms] Correctly save multipart/related data when saving compose message as a draft.
