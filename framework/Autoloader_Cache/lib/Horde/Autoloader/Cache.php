@@ -105,7 +105,9 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
         } elseif (($tempdir = sys_get_temp_dir()) && is_readable($tempdir)) {
             $this->_tempdir = $tempdir;
             $this->_cachekey = hash('md5', $this->_cachekey);
-            $data = file_get_contents($tempdir . '/' . $this->_cachekey);
+            if (($data = @file_get_contents($tempdir . '/' . $this->_cachekey)) === false) {
+                unlink($tempdir . '/' . $this->_cachekey);
+            }
             $this->_cachetype = self::TEMPFILE;
         }
 
@@ -159,7 +161,9 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             break;
 
         case self::TEMPFILE:
-            file_put_contents($this->_tempdir . '/' . $this->_cachekey, $data);
+            if (!file_put_contents($this->_tempdir . '/' . $this->_cachekey, $data)) {
+                error_log('Cannot write Autoloader cache file to system temp directory: ' . $this->_tempdir, 4);
+            }
             break;
         }
 

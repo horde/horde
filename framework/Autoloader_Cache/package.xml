@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Improved error handling/logging when system temporary directory is not accessible.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -276,7 +276,7 @@
    <date>2013-08-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Improved error handling/logging when system temporary directory is not accessible.
    </notes>
   </release>
  </changelog>
