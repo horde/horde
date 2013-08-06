@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H5 (2.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-11 16:43+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -42,7 +42,7 @@ msgstr ""
 "%s no existe. Pulse sobre el vínculo \"Crear\" si desea añadir esta página "
 "ahora y empezar a modificarla."
 
-#: lib/Page/Search.php:103
+#: lib/Page/Search.php:106
 #, php-format
 msgid "%s does not exist. You can create it now."
 msgstr "%s no existe. Puede crearlo ahora."
@@ -186,6 +186,11 @@ msgstr ""
 msgid "Create"
 msgstr "Crear"
 
+#: lib/Page/Search.php:104
+#, php-format
+msgid "Create %s"
+msgstr "Crear %s"
+
 #: lib/Page/NewPage.php:133
 #, php-format
 msgid "Create Failed: %s"
@@ -199,7 +204,7 @@ msgstr "Creado"
 msgid "Creation Date"
 msgstr "Fecha de creación"
 
-#: lib/Page/Search.php:142
+#: lib/Page/Search.php:145
 msgid "Current Version"
 msgstr "Versión actual"
 
@@ -242,12 +247,12 @@ msgstr "Diferencias hasta"
 msgid "Diff for %s between %s and %s"
 msgstr "Diferencias de %s entre %s y %s"
 
-#: lib/Page.php:593
+#: lib/Page.php:591
 #, php-format
 msgid "Display %s"
 msgstr "Mostrar %s"
 
-#: lib/Page.php:599 lib/Page/StandardPage.php:384
+#: lib/Page.php:597 lib/Page/StandardPage.php:384
 #, php-format
 msgid "Display Version %s"
 msgstr "mostrar versión %s"
@@ -288,7 +293,7 @@ msgstr "Error al recuperar %s: %s"
 msgid "Error retrieving attachments: %s"
 msgstr "Error al recuperar los adjuntos: %s"
 
-#: lib/Page/Search.php:152
+#: lib/Page/Search.php:155
 msgid "Exact Match"
 msgstr "Coincidencia exacta"
 
@@ -347,7 +352,7 @@ msgstr "Error interno al ver la página solicitada: %s"
 msgid "Invalid page requested."
 msgstr "Se ha solicitado una página no válida."
 
-#: lib/Page/Search.php:143
+#: lib/Page/Search.php:146
 msgid "Last Author"
 msgstr "Último autor"
 
@@ -356,7 +361,7 @@ msgstr "Último autor"
 msgid "Last Modified %s by %s"
 msgstr "Última modificación el %s por %s"
 
-#: lib/Page/Search.php:144
+#: lib/Page/Search.php:147
 msgid "Last Update"
 msgstr "Última actualización"
 
@@ -435,7 +440,7 @@ msgstr "El nombre nuevo es el mismo que el antiguo."
 msgid "No changes made"
 msgstr "No se han hecho cambios"
 
-#: lib/Page/Search.php:141 templates/edit/create.html.php:17
+#: lib/Page/Search.php:144 templates/edit/create.html.php:17
 #: templates/pagelist/header.html.php:5
 msgid "Page"
 msgstr "Página"
@@ -457,11 +462,11 @@ msgstr "Se ha guardado la página"
 msgid "Page Template:"
 msgstr "Plantilla de página:"
 
-#: lib/Page/Search.php:170
+#: lib/Page/Search.php:173
 msgid "Page Text Matches"
 msgstr "Coincidencias en el texto de la página"
 
-#: lib/Page/Search.php:161
+#: lib/Page/Search.php:164
 msgid "Page Title Matches"
 msgstr "Coincidencias en el título de la página"
 
@@ -586,7 +591,7 @@ msgstr "Rostros s_imilares"
 msgid "Save"
 msgstr "Guardar"
 
-#: lib/Page/Search.php:201
+#: lib/Page/Search.php:204
 msgid "Search"
 msgstr "Buscar"
 
@@ -676,9 +681,9 @@ msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr "No se puede crear el Inicio del wiki. El wiki no está configurado."
 
 #: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:413
-#: lib/Page.php:421 lib/Page.php:429 lib/Page.php:437 lib/Page.php:573
-#: lib/Page.php:612 lib/Page.php:617 lib/Page.php:622 lib/Page.php:627
-#: lib/Page.php:667
+#: lib/Page.php:421 lib/Page.php:429 lib/Page.php:437 lib/Page.php:571
+#: lib/Page.php:610 lib/Page.php:615 lib/Page.php:620 lib/Page.php:625
+#: lib/Page.php:665
 msgid "Unsupported"
 msgstr "No está soportado"
 

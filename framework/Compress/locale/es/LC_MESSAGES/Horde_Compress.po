@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -28,8 +28,8 @@ msgstr "Datos RAR no válidos"
 msgid "Invalid ZIP data"
 msgstr "Datos ZIP no válidos"
 
-#: lib/Horde/Compress/Dbx.php:127 lib/Horde/Compress/Dbx.php:156
-#: lib/Horde/Compress/Dbx.php:237
+#: lib/Horde/Compress/Dbx.php:131 lib/Horde/Compress/Dbx.php:160
+#: lib/Horde/Compress/Dbx.php:241
 msgid "Invalid file format"
 msgstr "Formato de archivo no válido"
 
@@ -42,6 +42,6 @@ msgid "This server can't uncompress gzip files."
 msgstr "Este servidor no puede descomprimir archivos gzip."
 
 #: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:81
-#: lib/Horde/Compress/Tar.php:76
+#: lib/Horde/Compress/Tar.php:80
 msgid "Unable to decompress data."
 msgstr "Incapaz de descomprimir los datos."
