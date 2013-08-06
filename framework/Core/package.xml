@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-08-07</date>
- <time>00:54:48</time>
+ <time>01:07:08</time>
  <version>
-  <release>2.6.5</release>
+  <release>2.6.6</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Remove text overlaying menu icon (Bug #12496).
-* [mms] Log unexpected authentication errors at a NOTICE level instead of EMERG.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3080,6 +3079,19 @@
    <notes>
 * [jan] Remove text overlaying menu icon (Bug #12496).
 * [mms] Log unexpected authentication errors at a NOTICE level instead of EMERG.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.6</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
