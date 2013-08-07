@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-07</date>
- <time>11:28:42</time>
+ <time>11:35:23</time>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.6</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fixed connection to Memcache servers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -348,6 +348,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fixed connection to Memcache servers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
