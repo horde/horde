@@ -1327,8 +1327,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* Get trailer text (if any). */
         if (empty($options['nofinal'])) {
             try {
-                $trailer = Horde::callHook('trailer', array(false, $identity, $to), 'imp');
-                $html_trailer = Horde::callHook('trailer', array(true, $identity, $to), 'imp');
+                $trailer = Horde::callHook('trailer', array(false, $options['identity'], $to), 'imp');
+                $html_trailer = Horde::callHook('trailer', array(true, $options['identity'], $to), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {
                 $trailer = $html_trailer = null;
             }
