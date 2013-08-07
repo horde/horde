@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-05</date>
- <time>17:59:01</time>
+ <date>2013-08-06</date>
+ <time>23:12:43</time>
  <version>
   <release>2.2.4</release>
   <api>2.2.0</api>
@@ -1179,7 +1179,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-05</date>
+   <date>2013-08-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix parsing broken multipart messages (Bug #12536).
