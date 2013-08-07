@@ -267,10 +267,11 @@ class Horde_ActiveSync_Connector_Importer
 
         // Update client state. For MOVES, we treat it as a delete from the
         // SRC folder.
+        $mod = $this->_driver->getSyncStamp($this->_folderId);
         foreach ($uids as $uid) {
             $change = array();
             $change['id'] = $uid;
-            $change['mod'] = time();
+            $change['mod'] = $mod;
             $change['serverid'] = $this->_folderId;
             $change['class'] = Horde_ActiveSync::CLASS_EMAIL;
             $change['folderuid'] = $this->_folderUid;
