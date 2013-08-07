@@ -27,14 +27,14 @@ class Horde_Stream_Filter_Null extends php_user_filter
     /**
      * Search array.
      *
-     * @param mixed
+     * @var mixed
      */
     protected $_search = "\0";
 
     /**
      * Replacement data
      *
-     * @param mixed
+     * @var mixed
      */
     protected $_replace;
 
