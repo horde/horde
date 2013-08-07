@@ -659,8 +659,11 @@ class Horde_Api extends Horde_Registry_Api
      * Returns a list of ActiveSync devices that are partnered with Horde.
      *
      * @param array $filter  An array of parameters to filter on:
-     *  - user: Only return devices owned by user. If not present or empty will
-     *          return all devices.
+     *  - user: Only return devices owned by user. If not present will default
+     *          to returning devices for current user only. If present, but
+     *          empty and current user is admin, will return all devices.
+     *          Otherwise, will return devices matching the parameter (must be
+     *          admin to list users other than current).
      *
      * @return array  List of device properties.
      * @since 5.2.0
@@ -669,17 +672,22 @@ class Horde_Api extends Horde_Registry_Api
     {
         global $registry, $injector, $conf;
 
-        if (!$registry->isAdmin()) {
-            throw new Horde_Exception_PermissionDenied();
-        }
         if (empty($conf['activesync']['enabled'])) {
             return array();
         }
 
-        $filter = array_merge(array('user' => null), $filter);
         $state = $injector->getInstance('Horde_ActiveSyncState');
         $state->setLogger($injector->getInstance('Horde_Log_Logger'));
-
+        if (!isset($filter['user'])) {
+            $filter['user'] = $registry->getAuth();
+        } elseif (empty($filter['user'])) {
+            if (!$registry->isAdmin()) {
+                throw new Horde_Exception_PermissionDenied();
+            }
+            $filter['user'] = null;
+        } elseif ($filter['user'] != $registry->getAuth() && !$registry->isAdmin()) {
+            throw new Horde_Exception_PermissionDenied();
+        }
         try {
             return $state->listDevices($filter['user']);
         } catch (Horde_ActiveSync_Exception $e) {
@@ -693,11 +701,13 @@ class Horde_Api extends Horde_Registry_Api
      * @param string $action    The action to perform. One of:
      *                          WIPE, CANCEL_WIPE, REMOVE.
      * @param string $deviceid  The device's deviceid.
-     * @param string $user      Restrict 'REMOVE' action to only this user's
+     * @param string $user      Restrict actions to only this user's
      *                          account on the device in the case where the
      *                          device may have multiple user accounts on this
      *                          server. If empty, all users' state information
-     *                          will be removed.
+     *                          will be removed. If a non-admin calls this
+     *                          method, this will always be set to the current
+     *                          horde username.
      * @return boolean
      * @throws Horde_Exception
      */
@@ -705,9 +715,6 @@ class Horde_Api extends Horde_Registry_Api
     {
         global $injector, $conf, $registry;
 
-        if (!$registry->isAdmin()) {
-            throw new Horde_Exception_PermissionDenied();
-        }
         if (empty($conf['activesync']['enabled'])) {
             throw new Horde_Exception(_("ActiveSync not activated."));
         }
@@ -717,7 +724,14 @@ class Horde_Api extends Horde_Registry_Api
 
         $state = $injector->getInstance('Horde_ActiveSyncState');
         $state->setLogger($injector->getInstance('Horde_Log_Logger'));
-
+        // If not an admin, ensure the device is attached to the $user.
+        // Otherwise, any user could wipe any device if the deviceid is known.
+        if (!$registry->isAdmin()) {
+            $user = $registry->getAuth();
+            if (!$state->deviceExists($deviceid, $user)) {
+                throw new Horde_Exception_PermissionDenied();
+            }
+        }
         switch ($action) {
         case 'WIPE':
             try {
