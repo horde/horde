@@ -203,13 +203,6 @@ class Horde_ActiveSync_Connector_Importer
         // (2) the device state knows about the deletion before the server tries
         // to send the change back to the device.
         foreach ($ids as $id) {
-            // Email deletions do not conflict
-            if ($collection != Horde_ActiveSync::CLASS_EMAIL) {
-                $conflict = $this->_isConflict(
-                    Horde_ActiveSync::CHANGE_TYPE_DELETE, $this->_folderId, $ids);
-            } else {
-                $conflict = false;
-            }
 
             // Update client state
             $change = array();
@@ -221,13 +214,6 @@ class Horde_ActiveSync_Connector_Importer
                 $change,
                 Horde_ActiveSync::CHANGE_ORIGIN_PIM,
                 $this->_as->driver->getUser());
-
-            // If server wins the conflict, don't import change - it will be
-            // detected on next sync and sent back to PIM (since we updated the
-            // device state).
-            if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
-                return;
-            }
         }
 
         // Tell backend about the deletion
