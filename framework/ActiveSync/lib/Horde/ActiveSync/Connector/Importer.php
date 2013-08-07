@@ -124,16 +124,27 @@ class Horde_ActiveSync_Connector_Importer
      * @param Horde_ActiveSync_Device $device          A device descriptor
      * @param integer $clientid                        Client id sent from PIM
      *                                                 on message addition.
+     * @param string $class   The collection class (only needed for SMS).
+     *                        @since 2.6.0
+     *
+     * @todo Revisit passing $class for SMS. Probably pass class in the
+     *       const'r.
      *
      * @return string|array|boolean The server message id, an array containing
      *                              the serverid and failure code, or false
      */
     public function importMessageChange(
         $id, Horde_ActiveSync_Message_Base $message,
-        Horde_ActiveSync_Device $device, $clientid)
+        Horde_ActiveSync_Device $device, $clientid, $class = null)
     {
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
+        }
+
+        // Don't support SMS, but can't tell client that. Send back a phoney
+        // UID for any imported SMS objects.
+        if ($class == Horde_ActiveSync::CLASS_SMS) {
+            return 'IGNORESMS_' . $clientid;
         }
 
         // Changing an existing object

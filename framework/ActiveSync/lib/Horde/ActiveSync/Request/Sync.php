@@ -882,6 +882,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             if ($this->_activeSync->device->version > Horde_ActiveSync::VERSION_TWELVEONE &&
                 $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_ADD &&
                 $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE)) {
+
                 $collection['class'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
@@ -931,7 +932,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $appdata = Horde_ActiveSync::messageFactory('Note');
                     $appdata->decodeStream($this->_decoder);
                     break;
+                case Horde_ActiveSync::CLASS_SMS:
+                    $appdata = Horde_ActiveSync::messageFactory('Mail');
+                    $appdata->decodeStream($this->_decoder);
+                    break;
                 }
+
                 if (!$this->_decoder->getElementEndTag()) {
                     // End application data
                     $this->_statusCode = self::STATUS_PROTERROR;
@@ -957,7 +963,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 case Horde_ActiveSync::SYNC_ADD:
                     if (isset($appdata)) {
                         $id = $importer->importMessageChange(
-                            false, $appdata, $this->_device, $clientid);
+                            false, $appdata, $this->_device, $clientid, $collection['class']);
                         if ($clientid && $id) {
                             $collection['clientids'][$clientid] = $id;
                             $collection['importedchanges'] = true;
