@@ -78,6 +78,8 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
 
         try {
             if ($ui->vars->wipeid) {
+                // @TODO: No need to load the device. But we DO need to make sure the
+                // current user is allowed to wipe the device.
                 $stateMachine->loadDeviceInfo($ui->vars->wipeid, $auth);
                 $stateMachine->setDeviceRWStatus($ui->vars->wipeid, Horde_ActiveSync::RWSTATUS_PENDING);
                 $notification->push(sprintf(_("A remote wipe for device id %s has been initiated. The device will be wiped during the next synchronisation."), $ui->vars->wipe));
