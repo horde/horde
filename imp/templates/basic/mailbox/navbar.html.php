@@ -2,7 +2,7 @@
  <ul class="rightFloat">
   <li class="horde-nobutton">
 <?php if ($this->multiple_page): ?>
-   <form method="get" class="imp-navbar" action="<?php echo $this->mailbox_url ?>">
+   <form method="post" class="imp-navbar" action="<?php echo $this->mailbox_url ?>">
     <input type="hidden" name="mailbox" value="<?php echo $this->mailbox ?>" />
 <?php if ($this->url_first): ?>
     <a href="<?php echo $this->url_first ?>" title="<?php echo _("First Page") ?>"><span class="iconImg <?php echo $this->pages_first ?>"></span></a>

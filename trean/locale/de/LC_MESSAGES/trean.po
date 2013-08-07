@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-18 14:03+0200\n"
-"PO-Revision-Date: 2013-01-29 11:58+0100\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"PO-Revision-Date: 2013-07-16 21:29+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -41,7 +41,7 @@ msgstr "25 Zeilen"
 msgid "3 Line"
 msgstr "3 Zeilen"
 
-#: templates/add.html.php:49
+#: templates/add.html.php:52
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -83,7 +83,7 @@ msgstr "Lesezeichen-Feed"
 msgid "Browse"
 msgstr "Liste"
 
-#: templates/add.html.php:50 templates/edit.html.php:60
+#: templates/add.html.php:53 templates/edit.html.php:63
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -115,13 +115,13 @@ msgstr "Anzeige-Einstellungen"
 msgid "Display Rows"
 msgstr "Angezeigte Zeilen"
 
-#: templates/add.html.php:61
+#: templates/add.html.php:64
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
 msgstr ""
 "Ziehen Sie den \"Zu Lesezeichen hinzufügen\" Link auf die \"Links\"-"
 "Symbolleiste"
 
-#: templates/add.html.php:59
+#: templates/add.html.php:62
 msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
 msgstr ""
@@ -132,15 +132,15 @@ msgstr ""
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: edit.php:37
+#: edit.php:42
 msgid "Edit Bookmark"
 msgstr "Lesezeichen bearbeiten"
 
-#: templates/add.html.php:58
+#: templates/add.html.php:61
 msgid "Firefox/Mozilla"
 msgstr "Firefox/Mozilla"
 
-#: templates/add.html.php:60
+#: templates/add.html.php:63
 msgid "Internet Explorer"
 msgstr "Internet Explorer"
 
@@ -160,7 +160,7 @@ msgstr "Am häufigsten geklickt"
 msgid "Most-clicked Bookmarks"
 msgstr "Meistgeklickte Lesezeichen"
 
-#: add.php:73 templates/add.html.php:9
+#: add.php:78 templates/add.html.php:9
 msgid "New Bookmark"
 msgstr "Neues Lesezeichen"
 
@@ -180,7 +180,7 @@ msgstr "Keine Lesezeichen"
 msgid "No search"
 msgstr "Keine Suche"
 
-#: templates/add.html.php:64
+#: templates/add.html.php:67
 msgid "Note:"
 msgstr "Anmerkung:"
 
@@ -188,7 +188,7 @@ msgstr "Anmerkung:"
 msgid "Number of bookmarks to show"
 msgstr "Anzahl der angezeigten Lesezeichen"
 
-#: templates/add.html.php:65
+#: templates/add.html.php:68
 #, php-format
 msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
@@ -205,15 +205,15 @@ msgstr "Links in neuem Fenster öffnen?"
 msgid "Other Preferences"
 msgstr "Andere Einstellungen"
 
-#: templates/add.html.php:41 templates/edit.html.php:50
+#: templates/add.html.php:43 templates/edit.html.php:52
 msgid "Previously used tags"
 msgstr "Bisher verwendete Tags"
 
-#: lib/View/BookmarkList.php:210
+#: lib/View/BookmarkList.php:214
 msgid "Remove from search"
 msgstr "Aus der Suche entfernen"
 
-#: templates/edit.html.php:59
+#: templates/edit.html.php:62
 msgid "Save"
 msgstr "Speichern"
 
@@ -225,6 +225,10 @@ msgstr "Suche"
 #, php-format
 msgid "Search results (%s)"
 msgstr "Suchergebnisse (%s)"
+
+#: templates/add.html.php:41 templates/edit.html.php:50
+msgid "See previously used tags"
+msgstr "Bisher verwendete Tags anzeigen"
 
 #: config/prefs.php:14
 msgid "Set how to display bookmark listings and how to open links."
@@ -272,7 +276,7 @@ msgstr "Beim Speichern des Lesezeichens ist ein Fehler aufgetreten: %s"
 msgid "Title"
 msgstr "Titel"
 
-#: templates/add.html.php:57
+#: templates/add.html.php:60
 msgid "To be able to quickly add bookmarks from your web browser:"
 msgstr "Um schnell Lesezeichen von Ihrem Browser hinzuzufügen:"
 
@@ -280,7 +284,7 @@ msgstr "Um schnell Lesezeichen von Ihrem Browser hinzuzufügen:"
 msgid "URL"
 msgstr "Homepage"
 
-#: templates/add.html.php:62
+#: templates/add.html.php:65
 msgid ""
 "While browsing you will be able to bookmark the current page by clicking "
 "your new \"Add to Bookmarks\" shortcut."

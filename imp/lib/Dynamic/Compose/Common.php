@@ -36,7 +36,7 @@ class IMP_Dynamic_Compose_Common
      */
     public function compose(IMP_Dynamic_Base $base, array $args = array())
     {
-        global $page_output, $prefs;
+        global $injector, $page_output, $prefs;
 
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
@@ -58,10 +58,17 @@ class IMP_Dynamic_Compose_Common
 
         $view->compose_enable = IMP_Compose::canCompose();
 
+        /* Attach spellchecker & auto completer. */
+        $imp_ui = $injector->getInstance('IMP_Compose_Ui');
+
         if (!empty($args['redirect'])) {
             $base->js_conf['redirect'] = 1;
+            $imp_ui->attachAutoCompleter(array('redirect_to'));
             return $view->render('redirect');
         }
+
+        $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
+        $view->spellcheck = $imp_ui->attachSpellChecker();
 
         $this->_compose($base, $view, $args);
         return $view->render('compose') . $view->render('redirect');

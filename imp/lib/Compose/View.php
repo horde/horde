@@ -51,7 +51,7 @@ class IMP_Compose_View
         if (!empty($render)) {
             return reset($render);
         } elseif ($autodetect) {
-            $e = new IMP_Exception(_("Could not auto-determine data type."));
+            $e = new IMP_Exception(_("Could not display attachment data."));
             $e->logged = true;
             throw $e;
         }

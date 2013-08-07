@@ -29,7 +29,11 @@ class Nag_Tasklist
      */
     public function toHash()
     {
-        $tasks = Nag::listTasks(array('tasklists' => $this->_share->getName()));
+        $tasks = Nag::listTasks(array(
+            'tasklists' => $this->_share->getName(),
+            'include_history' => false)
+        );
+
         $hash = array(
             'name' => Nag::getLabel($this->_share),
             'desc' => $this->_share->get('desc'),

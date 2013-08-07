@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE, Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.1.0.
+Webmail Edition version 5.1.1.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,58 +29,50 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition 5.0 versions
+The major changes compared to the Horde Groupware Webmail Edition version 5.1.0
 are:
 
 General changes:
-    * Added file manager.
-    * Added bookmark manager.
-    * Support for NoSQL backends.
-    * Checking all installed packages for updates.
-    * Many further improvements.
+    * Improved logins from anonymous pages.
+    * Added support for improved history API.
+    * Fixed Basic Authentication with CGI versions of PHP
+    * Enabled Turkish translations on PHP 5.5.
+    * Small bugfixes and improvements.
 
 Mail changes:
-    * Added message thread view to dynamic mailbox preview.
-    * Support drag & drop of attachments, linking attachments, attaching PGP
-      public keys, and attaching vCards in dynamic view.
-    * Allow drag & drop, uploading, and pasting of images into the HTML editor.
-    * Display Virtual Folders in smartphone view.
-    * Added attachment uploading and saving compose drafts to smartphone view.
-    * Added taphold message action menu to smartmobile mailbox page.
-    * Allow HTML trailers for messages.
-    * Allow to set special mailboxes, spam reporting, and permissions per
-      backend.
-    * Added support for NoSQL caching and logging backends.
+    * Fixed message redirection.
+    * Fixed bugs in search results view.
+    * Fixed bugs with attachment and image uploads.
 
 Filter changes:
-    * Composite script and transport backends.
-    * Added vacation driver for ISPConfig and custom SQL queries.
+    * Fixed advanced options for Sieve vacation rules.
+    * Fixed disabling features by locking preferences.
 
-Address book Changes:
-    * Added CardDAV server support.
-    * Updated SQL schema.
-    * Allow to search all search fields at once.
+Address Book changes:
+    * Import generic phone attributes from vCard.
 
 Calendar and Tasks changes:
-    * Added CalDAV server support.
+    * Fixed system calendar and task list support via WebDAV/CalDAV.
+    * Prompt for sending cancellations when deleting an event.
 
-Notes changes:
-    * Added ActiveSync synchronization of notes.
+Bookmarks changes:
+    * Show recently used tags on-demand.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added file and bookmark manager.
-Added CalDAV/CardDAV server.
-Support for NoSQL backends.
-Support drag & drop of attachments and images to messages.
-Added missing features from basic webmail to dynamic and smartphone views.
-Allow uploading and pasting of images into the HTML editor.
-Added taphold message action menu to smartmobile mailbox page.
-Allow to set features and permissions per IMAP backend.
-Composite filter script and transport backends and new vacation drivers.
-Extended address book schema.
-ActiveSync synchronization of notes.
+Added support for improved history API.
+Fixed Basic Authentication with CGI versions of PHP.
+Enabled Turkish translations on PHP 5.5.
+Fixed message redirection.
+Fixed bugs in message search results view and attachment and image uploads.
+Fixed advanced options for Sieve vacation rules.
+Fixed disabling features by locking filter preferences.
+Import generic phone attributes from vCard.
+Fixed system calendar and task list support via WebDAV/CalDAV.
+Prompt for sending cancellations when deleting an event.
+Show recently used bookmark tags on-demand.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Horde Groupware Webmail Edition';

@@ -17,7 +17,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
      *
      * @var array
      */
-    private $_supported_views = array('Image');
+    protected $_supported_views = array('Image');
 
     /**
      * Attach widget to supplied view.

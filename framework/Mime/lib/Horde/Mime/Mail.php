@@ -209,6 +209,7 @@ class Horde_Mime_Mail
         $this->_body->setType('text/plain');
         $this->_body->setCharset($charset);
         $this->_body->setContents($body);
+        $this->_base = null;
     }
 
     /**
@@ -233,6 +234,7 @@ class Horde_Mime_Mail
         if ($alternative) {
             $this->setBody(Horde_Text_Filter::filter($body, 'Html2text', array('charset' => $charset, 'wrap' => false)), $charset);
         }
+        $this->_base = null;
     }
 
     /**

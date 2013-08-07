@@ -33,7 +33,7 @@ class Trean_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (1.0.3-git)';
+    public $version = 'H5 (1.0.4-git)';
 
     /**
      * Global variables defined:
@@ -113,14 +113,6 @@ class Trean_Application extends Horde_Registry_Application
             );
             $sidebar->addRow($row, 'tags');
         }
-    }
-
-    /**
-     */
-    public function cleanupData()
-    {
-        $GLOBALS['import_step'] = 1;
-        return Horde_Data::IMPORT_FILE;
     }
 
 }

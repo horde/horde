@@ -1,9 +1,15 @@
 ----------
-v1.0.3-git
+v1.0.4-git
 ----------
 
-[mjr] Add support for importing bookmarks from Mozilla's JSON format.
 
+
+------
+v1.0.3
+------
+
+[mjr] Fix some minor issues with crawling bookmarks.
+[mjr] Show recently used tags on-demand (Bug #11712).
 
 ------
 v1.0.2

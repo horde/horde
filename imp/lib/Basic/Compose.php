@@ -51,8 +51,13 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         $header = array();
         $msg = '';
 
-        $redirect = $resume = $showmenu = $spellcheck = false;
+        $redirect = $resume = $spellcheck = false;
         $oldrtemode = $rtemode = null;
+
+        /* Is this a popup window? */
+        if ($isPopup = ($prefs->getValue('compose_popup') || $this->vars->popup)) {
+            $page_output->topbar = $page_output->sidebar = false;
+        }
 
         /* Set the current identity. */
         $identity = $injector->getInstance('IMP_Identity');
@@ -135,9 +140,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         /* Init objects. */
         $imp_imap = $injector->getInstance('IMP_Imap');
         $imp_ui = new IMP_Compose_Ui();
-
-        /* Is this a popup window? */
-        $isPopup = ($prefs->getValue('compose_popup') || $this->vars->popup);
 
         /* Determine the composition type - text or HTML.
            $rtemode is null if browser does not support it. */
@@ -517,22 +519,23 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $sent_mail = IMP_Mailbox::formFrom($this->vars->sent_mail);
                 }
 
-                $options = array(
-                    'add_signature' => $identity->getDefault(),
-                    'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt_options,
-                    'html' => $rtemode,
-                    'identity' => $identity,
-                    'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
-                    'priority' => $priority,
-                    'save_sent' => $save_sent_mail,
-                    'sent_mail' => $sent_mail,
-                    'save_attachments' => $this->vars->save_attachments_select,
-                    'readreceipt' => $request_read_receipt,
-                    'vcard_attach' => $this->vars->vcard ? $identity->getValue('fullname') : null
-                );
-
                 try {
-                    $imp_compose->buildAndSendMessage($message, $header, $options);
+                    $imp_compose->buildAndSendMessage(
+                        $message,
+                        $header,
+                        $identity,
+                        array(
+                            'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt_options,
+                            'html' => $rtemode,
+                            'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
+                            'priority' => $priority,
+                            'save_sent' => $save_sent_mail,
+                            'sent_mail' => $sent_mail,
+                            'save_attachments' => $this->vars->save_attachments_select,
+                            'readreceipt' => $request_read_receipt,
+                            'vcard_attach' => $this->vars->vcard ? $identity->getValue('fullname') : null
+                        )
+                    );
                     $imp_compose->destroy('send');
 
                     if ($isPopup) {
@@ -609,12 +612,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             $imp_ui->attachAutoCompleter(array('to'));
         } else {
             $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
-
-            if (!empty($conf['spell']['driver'])) {
-                $spellcheck = true;
-                $imp_ui->attachSpellChecker();
-            }
-
+            $spellcheck = $imp_ui->attachSpellChecker();
             $page_output->addScriptFile('ieescguard.js', 'horde');
         }
 
@@ -642,7 +640,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             } else {
                 $cancel_url = $this->_mailboxReturnUrl(false)->setRaw(false);
             }
-            $showmenu = true;
         }
 
         /* Grab any data that we were supplied with. */
@@ -1023,9 +1020,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             $this->output = $view->render('compose');
         }
 
-        if (!$showmenu) {
-            $page_output->topbar = $page_output->sidebar = false;
-        }
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose.js');
         $page_output->addScriptFile('murmurhash3.js');
@@ -1040,10 +1034,12 @@ class IMP_Basic_Compose extends IMP_Basic_Base
     }
 
     /**
+     * @param array $opts
+     *   - full: (boolean) If true, output full URL.
      */
     static public function url(array $opts = array())
     {
-        return Horde::url('basic.php')->add('page', 'compose')->unique();
+        return Horde::url('basic.php', !empty($opts['full']))->add('page', 'compose')->unique();
     }
 
     /**

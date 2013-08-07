@@ -2481,6 +2481,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
                 $this->noop();
             }
+        } catch (Exception $e) {
+            // For any other error, ignore the Exception - fetch() is nice in
+            // that the return value explicitly handles missing data for any
+            // given message.
         }
 
         foreach ($resp->fetch as $k => $v) {

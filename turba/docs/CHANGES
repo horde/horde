@@ -1,7 +1,17 @@
 ----------
-v4.1.1-git
+v4.1.2-git
 ----------
 
+[mjr] Fix issue generating contact hashes from EAS contacts that could prevent
+      duplicate contact detection from working when certain properties have empty
+      values (Bug #12506).
+
+
+------
+v4.1.1
+------
+
+[jan] Import and export UID vCard attributes (Bug #12427).
 [mjr] Honor the 'browse' setting when attempting empty searches.
 [jan] Set generic 'phone' attribute when importing from vCard (Bug #12329).
 [mjr] Add API methods for using history modification sequences.

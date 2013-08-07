@@ -66,7 +66,7 @@ class IMP_Block_Summary extends Horde_Core_Block
 
         /* Get list of mailboxes to poll. */
         $poll = $injector->getInstance('IMP_Imap_Tree')->getPollList(true);
-        $status = $injector->getInstance('IMP_Imap')->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
+        $status = $injector->getInstance('IMP_Imap')->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT_TOTAL);
 
         $anyUnseen = false;
         $out = '';
@@ -90,8 +90,8 @@ class IMP_Block_Summary extends Horde_Core_Block
                     $out .= '<td>-</td>';
                 } else {
                     $out .= '<td><strong>' . intval($mbox_status['unseen']) . '</strong>';
-                    if (!empty($mbox_status['recent'])) {
-                        $out .= ' (<span style="color:red">' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent']), $mbox_status['recent']) . '</span>)';
+                    if (!empty($mbox_status['recent_total'])) {
+                        $out .= ' (<span style="color:red">' . sprintf(ngettext("%d new", "%d new", $mbox_status['recent_total']), $mbox_status['recent_total']) . '</span>)';
                     }
                     $out .='</td>';
                 }

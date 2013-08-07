@@ -266,6 +266,7 @@ class Horde_Registry
             case self::AUTH_FAILURE:
                 $failure = new Horde_Exception_AuthenticationFailure($e->getMessage());
                 $failure->application = $app;
+                $registry->clearAuth(true);
                 throw $failure;
 
             case self::NOT_ACTIVE:

@@ -1019,8 +1019,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $this->_base->queue->flagConfig();
 
-        if ($this->_base->tasks->viewport) {
-            IMP_Ajax_Application_ListMessages::addFlagMetadata($this->_base->tasks->viewport, IMP_Mailbox::formFrom($this->_vars->mailbox));
+        $name = 'imp:viewport';
+        if ($this->_base->tasks->$name) {
+            IMP_Ajax_Application_ListMessages::addFlagMetadata($this->_base->tasks->$name, IMP_Mailbox::formFrom($this->_vars->mailbox));
         }
 
         return true;

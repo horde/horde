@@ -73,7 +73,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     public function verify($identity = null)
     {
         if (!isset($identity)) {
-            $identity = $this->_default;
+            $identity = $this->getDefault();
         }
 
         /* Fill missing IMP preferences with default values. */
@@ -162,6 +162,10 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function getFromAddress($ident = null)
     {
+        if (is_null($ident)) {
+            $ident = $this->getDefault();
+        }
+
         if (!isset($this->_cached['from'][$ident])) {
             $val = $this->getValue($this->_prefnames['from_addr'], $ident);
             if (!strlen($val)) {
@@ -191,8 +195,12 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      *
      * @return Horde_Mail_Rfc822_List  Aliases for the identity.
      */
-    public function getAliasAddress($ident)
+    public function getAliasAddress($ident = null)
     {
+        if (is_null($ident)) {
+            $ident = $this->getDefault();
+        }
+
         if (!isset($this->_cached['aliases'][$ident])) {
             $list = IMP::parseAddressList($this->getValue('alias_addr', $ident));
             $list->add($this->getValue('replyto_addr', $ident));
@@ -361,6 +369,10 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function getFullname($ident = null)
     {
+        if (is_null($ident)) {
+            $ident = $this->getDefault();
+        }
+
         if (isset($this->_cached['names'][$ident])) {
             return $this->_cached['names'][$ident];
         }
@@ -382,6 +394,10 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function getSignature($type = 'text', $ident = null)
     {
+        if (is_null($ident)) {
+            $ident = $this->getDefault();
+        }
+
         $convert = false;
         $key = $ident . '|' . $type;
         $val = null;

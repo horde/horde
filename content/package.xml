@@ -16,10 +16,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-11</date>
- <time>23:39:34</time>
+ <date>2013-07-16</date>
+ <time>19:33:21</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Fix obtaining tag cloud information when filtering by objectIds.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -468,10 +468,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-11</date>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix obtaining tag cloud information when filtering by objectIds.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

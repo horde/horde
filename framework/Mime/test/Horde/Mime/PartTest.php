@@ -230,7 +230,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $part->setContents("A\r\nBā\r\nC");
 
         $this->assertEquals(
-            "A=0D\nB=C4=81=0D\nC",
+            "A\r\nB=C4=81\r\nC",
             $part->toString()
         );
 
@@ -254,22 +254,6 @@ Content-Transfer-Encoding: quoted-printable
 
 A
 B=C4=81
-C
---=_%s--",
-            $part2->toString()
-        );
-
-        $part->setEOL("\n");
-
-        $this->assertStringMatchesFormat(
-            "This message is in MIME format.
-
---=_%s
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-
-A=0D
-B=C4=81=0D
 C
 --=_%s--",
             $part2->toString()
@@ -356,6 +340,16 @@ C
             'text/plain',
             $part_1->getType()
         );
+    }
+
+    public function testBug12536()
+    {
+        // This is a broken MIME message - it is a multipart with no subparts
+        $msg = file_get_contents(__DIR__ . '/fixtures/bug12536.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertNotEmpty($part->getPart(0));
+        $this->assertEmpty($part->getPart(1));
     }
 
     protected function _getTestPart()

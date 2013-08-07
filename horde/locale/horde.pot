@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 5.1.1-git\n"
+"Project-Id-Version: Horde 5.1.2-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-18 14:03+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -435,7 +435,7 @@ msgstr ""
 msgid "Attempt to delete a non-existent permission."
 msgstr ""
 
-#: admin/perms/edit.php:98
+#: admin/perms/edit.php:119
 msgid "Attempt to edit a non-existent permission."
 msgstr ""
 
@@ -1579,17 +1579,17 @@ msgstr ""
 msgid "Last Updated:"
 msgstr ""
 
-#: lib/LoginTasks/Task/LastLogin.php:49
+#: lib/LoginTasks/Task/LastLogin.php:52
 #, php-format
 msgid "Last login: %s"
 msgstr ""
 
-#: lib/LoginTasks/Task/LastLogin.php:51
+#: lib/LoginTasks/Task/LastLogin.php:54
 #, php-format
 msgid "Last login: %s from %s"
 msgstr ""
 
-#: lib/LoginTasks/Task/LastLogin.php:47
+#: lib/LoginTasks/Task/LastLogin.php:50
 msgid "Last login: Never"
 msgstr ""
 
@@ -1794,10 +1794,6 @@ msgstr ""
 
 #: lib/Application.php:226
 msgid "Minimum PIN length"
-msgstr ""
-
-#: lib/Application.php:242
-msgid "Minutes of inactivity before device should lock"
 msgstr ""
 
 #: lib/Block/Fortune.php:58
@@ -2158,7 +2154,7 @@ msgid "Permissions"
 msgstr ""
 
 #: admin/perms/addchild.php:58 admin/perms/delete.php:53
-#: admin/perms/edit.php:129 admin/perms/index.php:23
+#: admin/perms/edit.php:150 admin/perms/index.php:23
 msgid "Permissions Administration"
 msgstr ""
 
@@ -2212,6 +2208,10 @@ msgstr ""
 msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
+msgstr ""
+
+#: lib/Block/FbStream.php:142
+msgid "Post"
 msgstr ""
 
 #: services/facebook/index.php:33
@@ -2510,6 +2510,10 @@ msgstr ""
 
 #: templates/admin/user/list.inc:12
 msgid "Search:"
+msgstr ""
+
+#: lib/Application.php:242
+msgid "Seconds of inactivity before device should lock"
 msgstr ""
 
 #: templates/shares/edit.inc:306 templates/shares/edit.inc:308
@@ -3112,7 +3116,7 @@ msgstr ""
 msgid "Unlock"
 msgstr ""
 
-#: lib/Block/FbStream.php:142 templates/admin/user/list.inc:34
+#: templates/admin/user/list.inc:34
 msgid "Update"
 msgstr ""
 
@@ -3138,7 +3142,7 @@ msgstr ""
 msgid "Update user"
 msgstr ""
 
-#: admin/groups.php:105 admin/perms/edit.php:110 services/shares/edit.php:239
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:239
 #, php-format
 msgid "Updated \"%s\"."
 msgstr ""
@@ -3444,7 +3448,7 @@ msgstr ""
 msgid "You have denied the requested permissions."
 msgstr ""
 
-#: lib/Block/TwitterTimeline.php:166
+#: lib/Block/TwitterTimeline.php:163
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3634,7 +3638,7 @@ msgid "inline"
 msgstr ""
 
 #: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
-#: lib/Block/TwitterTimeline.php:166 services/facebook/index.php:175
+#: lib/Block/TwitterTimeline.php:163 services/facebook/index.php:175
 #: services/facebook/index.php:192
 msgid "preferences"
 msgstr ""

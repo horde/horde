@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-22 11:43+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: 2013-05-22 14:13+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -50,7 +50,7 @@ msgstr "%d Stunden: %s"
 msgid "%s Deliverables"
 msgstr "Ergebnisse für %s"
 
-#: lib/Ajax.php:84
+#: lib/Ajax.php:85
 #, php-format
 msgid "%s notifications"
 msgstr "%s Benachrichtigungen"
@@ -341,7 +341,7 @@ msgstr "Arbeitsart bearbeiten"
 msgid "Edit job type, Step 2"
 msgstr "Arbeitsart bearbeiten, Schritt 2"
 
-#: lib/Ajax.php:91
+#: lib/Ajax.php:92
 msgid "Editing Time Entry"
 msgstr "Zeiteintrag bearbeiten"
 
@@ -423,7 +423,7 @@ msgstr "Exportiert?"
 msgid "General Preferences"
 msgstr "Allgemeine Einstellungen"
 
-#: lib/Ajax.php:85
+#: lib/Ajax.php:86
 msgid "Hide Notifications"
 msgstr "Benachrichtigungen verstecken"
 
@@ -547,7 +547,7 @@ msgstr "Neues Hauptergebnis"
 msgid "No"
 msgstr "Nein"
 
-#: lib/Ajax.php:83
+#: lib/Ajax.php:84
 msgid "No Notifications"
 msgstr "Keine Benachrichtigungen"
 
@@ -587,11 +587,11 @@ msgstr ""
 "Nur Kontrolleure mit Bearbeitungsberechtigung dürden Zeiteinträge für andere "
 "Benutzer eintragen."
 
-#: lib/Ajax.php:88
+#: lib/Ajax.php:89
 msgid "Please enter correct values in the form first."
 msgstr "Bitte geben Sie erst gültige Werte in das Formular ein."
 
-#: lib/Ajax.php:87
+#: lib/Ajax.php:88
 msgid "Preferences"
 msgstr "Benutzereinstellungen"
 
@@ -879,7 +879,7 @@ msgstr "Dies ist keine gültige Arbeitsart."
 msgid "Time Administration"
 msgstr "Zeit Administration"
 
-#: lib/Ajax.php:90 templates/dynamic/slices.inc:5
+#: lib/Ajax.php:91 templates/dynamic/slices.inc:5
 msgid "Time Entry"
 msgstr "Zeiteintrag"
 
@@ -932,7 +932,7 @@ msgstr "Mit Stoppuhr \"%s\" von %s bis %s"
 msgid "Yes"
 msgstr "Ja"
 
-#: lib/Ajax.php:89
+#: lib/Ajax.php:90
 #, php-format
 msgid ""
 "You used an unknown date format \"%s\". Please try something like \"%s\"."
@@ -976,7 +976,7 @@ msgstr "_Neuer Zeiteintrag"
 msgid "_Search"
 msgstr "_Suche"
 
-#: lib/Ajax.php:86
+#: lib/Ajax.php:87
 msgid "more..."
 msgstr "mehr..."
 

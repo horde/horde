@@ -1,14 +1,24 @@
 <?php
 /**
- * Horde_Imsp_Utils::
- *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Michael Rubinsky <mrubinsk@horde.org>
- * @package Horde_Imsp
+ * @category  Horde
+ * @copyright 2003-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Core
+ */
+
+/**
+ * Horde_Imsp_Utils.
+ *
+ * @author    Michael Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2003-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Core
  */
 class Horde_Core_Imsp_Utils
 {

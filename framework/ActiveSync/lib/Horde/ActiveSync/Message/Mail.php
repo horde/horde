@@ -294,6 +294,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                    'accountid'             => false,
                    'firstdayofweek'        => false,
                    'meetingmessagetype'    => false,
+                   'categories'            => array(),
 
                    // Internal use
                    'messageid'             => false,
@@ -325,6 +326,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     {
         switch ($tag) {
         case self::POOMMAIL_FLAG:
+        case self::POOMMAIL_CATEGORIES:
             return true;
         }
 

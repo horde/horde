@@ -232,7 +232,8 @@ class Nag_View_List
             $this->_tasks = Nag::listTasks(array(
                 'tasklists' => $lists,
                 'include_tags' => true,
-                'completed' => $this->_vars->show_completed)
+                'completed' => $this->_vars->show_completed,
+                'include_history' => false)
             );
         } catch (Nag_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');

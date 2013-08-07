@@ -94,8 +94,8 @@ class Ingo
                 foreach ($mailboxes as $val) {
                     $text .= sprintf(
                         "<option value=\"%s\"%s>%s</option>\n",
-                        htmlspecialchars($val['ob']->utf7imap),
-                        ($val['ob']->utf7imap === $value) ? ' selected="selected"' : '',
+                        htmlspecialchars($val['ob']),
+                        ($val['ob'] == $value) ? ' selected="selected"' : '',
                         str_repeat('&nbsp;', $val['level'] * 2) . htmlspecialchars($val['label'])
                     );
                 }

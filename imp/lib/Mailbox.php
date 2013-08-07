@@ -613,9 +613,9 @@ class IMP_Mailbox implements Serializable
             $info->unseen = 0;
 
             try {
-                if ($msgs_info = $injector->getInstance('IMP_Imap')->status($this->_mbox, Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
-                    if (!empty($msgs_info['recent'])) {
-                        $info->recent = intval($msgs_info['recent']);
+                if ($msgs_info = $injector->getInstance('IMP_Imap')->status($this->_mbox, Horde_Imap_Client::STATUS_RECENT_TOTAL | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
+                    if (!empty($msgs_info['recent_total'])) {
+                        $info->recent = intval($msgs_info['recent_total']);
                     }
                     $info->msgs = intval($msgs_info['messages']);
                     $info->unseen = intval($msgs_info['unseen']);

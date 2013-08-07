@@ -21,10 +21,29 @@
  <div class="ui-bar" data-role="footer" data-position="fixed">
   <a href="#message-delete" id="imp-message-delete" data-icon="delete"><?php echo _("Delete") ?></a>
 <?php if ($this->canCompose): ?>
-  <a href="#message-reply" data-icon="back"><?php echo _("Reply") ?></a>
+  <a href="#message-reply" data-icon="back" data-rel="popup"><?php echo _("Reply...") ?></a>
 <?php endif; ?>
   <a href="#message-more" data-rel="popup"><?php echo _("More...") ?></a>
  </div>
+
+<?php if ($this->canCompose): ?>
+ <div data-role="popup" data-history="false" data-theme="a" id="message-reply">
+  <ul data-role="listview" data-inset="true">
+   <li data-icon="back">
+    <a href="#message-reply-auto"><?php echo _("Reply (Auto)") ?></a>
+   </li>
+   <li data-icon="back">
+    <a href="#message-reply-sender"><?php echo _("Reply to Sender") ?></a>
+   </li>
+   <li data-icon="back">
+    <a href="#message-reply-all"><?php echo _("Reply to All") ?></a>
+   </li>
+   <li data-icon="back">
+    <a href="#message-reply-list"><?php echo _("Reply to List") ?></a>
+   </li>
+  </ul>
+ </div>
+<?php endif; ?>
 
  <div data-role="popup" data-history="false" data-theme="a" id="message-more">
   <ul data-role="listview" data-inset="true">

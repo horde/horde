@@ -28,6 +28,7 @@
  </stability>
  <license uri="TODO">TODO</license>
  <notes>
+* [jan] Fix proxy/browser caching of commit, checkout, and diff pages.
 * Initial release.
  </notes>
  <contents>
@@ -427,6 +428,7 @@
    <date>2013-06-22</date>
    <license uri="TODO">TODO</license>
    <notes>
+* [jan] Fix proxy/browser caching of commit, checkout, and diff pages.
 * Initial release.
    </notes>
   </release>

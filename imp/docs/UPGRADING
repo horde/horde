@@ -29,6 +29,18 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading IMP From 6.1.x To 6.1.4
+=================================
+
+Hooks (hooks.php)
+-----------------
+
+The 'trailer' hook now has two additional parameters in addition to the
+previously existing $html parameter: $identity and $to. Further details on
+the content of these parameters can be found in hooks.php.dist.
+
+
+
 Upgrading IMP From 6.0.x To 6.1
 ===============================
 

@@ -49,6 +49,7 @@ class Horde_Core_Factory_DavServer extends Horde_Core_Factory_Injector
                 isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null
             )
         );
+        $server->debugExceptions = false;
         $server->setBaseUri(
             $registry->get('webroot', 'horde')
             . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/' : '/rpc.php/')

@@ -10,6 +10,15 @@
 
 This lists the API changes between releases of the package.
 
+Upgrading to 2.12.0
+===================
+
+  - Horde_Imap_Client_Base
+
+    - status()
+
+      Added the Horde_Imap_Client::STATUS_RECENT_TOTAL return value.
+
 
 Upgrading to 2.11.0
 ===================

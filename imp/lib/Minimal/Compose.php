@@ -301,16 +301,17 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 break;
 
             case _("Send"):
-                $options = array(
-                    'add_signature' => $identity->getDefault(),
-                    'identity' => $identity,
-                    'readreceipt' => ($prefs->getValue('request_mdn') == 'always'),
-                    'save_sent' => $save_sent_mail,
-                    'sent_mail' => $sent_mail
-                );
-
                 try {
-                    $imp_compose->buildAndSendMessage($message, $header, $options);
+                    $imp_compose->buildAndSendMessage(
+                        $message,
+                        $header,
+                        $identity,
+                        array(
+                            'readreceipt' => ($prefs->getValue('request_mdn') == 'always'),
+                            'save_sent' => $save_sent_mail,
+                            'sent_mail' => $sent_mail
+                        )
+                    );
                     $imp_compose->destroy('send');
 
                     $notification->push(_("Message sent successfully."), 'horde.success');

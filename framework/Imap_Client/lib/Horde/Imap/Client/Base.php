@@ -1427,7 +1427,21 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *    </li>
      *    <li>
      *     Return format: (integer) The number of messages with the \Recent
-     *     flag set
+     *     flag set as currently reported in the mailbox
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_RECENT_TOTAL
+     *   <ul>
+     *    <li>
+     *     Return key: recent_total
+     *    </li>
+     *    <li>
+     *     Return format: (integer) The number of messages with the \Recent
+     *     flag set. This returns the total number of messages that have
+     *     been marked as recent in this mailbox since the PHP process began.
+     *     (since 2.12.0)
      *    </li>
      *   </ul>
      *  </li>
@@ -1716,6 +1730,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $this->openMailbox($val);
                 $ptr['syncvanished'] = $this->getIdsOb($this->_mailboxOb($val)->getStatus(Horde_Imap_Client::STATUS_SYNCVANISHED));
                 $tmp_flags &= ~Horde_Imap_Client::STATUS_SYNCVANISHED;
+                $opened = true;
+            }
+
+            /* Handle RECENT_TOTAL option. */
+            if ($flags & Horde_Imap_Client::STATUS_RECENT_TOTAL) {
+                $this->openMailbox($val);
+                $ptr['recent_total'] = $this->_mailboxOb($val)->getStatus(Horde_Imap_Client::STATUS_RECENT_TOTAL);
+                $tmp_flags &= ~Horde_Imap_Client::STATUS_RECENT_TOTAL;
                 $opened = true;
             }
 

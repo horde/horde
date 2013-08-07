@@ -85,6 +85,7 @@ class Horde_Imap_Client_Base_Mailbox
                 ? false
                 : null;
 
+        case Horde_Imap_Client::STATUS_RECENT_TOTAL:
         case Horde_Imap_Client::STATUS_SYNCMODSEQ:
             return 0;
 
@@ -127,6 +128,13 @@ class Horde_Imap_Client_Base_Mailbox
     public function setStatus($entry, $value)
     {
         switch ($entry) {
+        case Horde_Imap_Client::STATUS_RECENT:
+            /* Keep track of RECENT_TOTAL information. */
+            $this->_status[Horde_Imap_Client::STATUS_RECENT_TOTAL] = isset($this->_status[Horde_Imap_Client::STATUS_RECENT_TOTAL])
+                ? ($this->_status[Horde_Imap_Client::STATUS_RECENT_TOTAL] + $value)
+                : $value;
+            break;
+
         case Horde_Imap_Client::STATUS_SYNCMODSEQ:
             /* This is only set once per access. */
             if (isset($this->_status[$entry])) {

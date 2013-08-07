@@ -266,9 +266,9 @@ class Horde_ActiveSync
     const FOLDER_ROOT                           = 0;
 
     const VERSION_TWOFIVE                       = '2.5';
-    const VERSION_TWELVE                        = '12';
+    const VERSION_TWELVE                        = '12.0';
     const VERSION_TWELVEONE                     = '12.1';
-    const VERSION_FOURTEEN                      = '14';
+    const VERSION_FOURTEEN                      = '14.0';
     const VERSION_FOURTEENONE                   = '14.1';
 
     const MIME_SUPPORT_NONE                     = 0;
@@ -289,6 +289,8 @@ class Horde_ActiveSync
     /* Auth failure reasons */
     const AUTH_REASON_USER_DENIED               = 'user';
     const AUTH_REASON_DEVICE_DENIED             = 'device';
+
+    const LIBRARY_VERSION                       = '2.5.6';
 
     /**
      * Logger
@@ -871,6 +873,10 @@ class Horde_ActiveSync
      */
     public function activeSyncHeader()
     {
+        header('Allow: OPTIONS,POST');
+        header('Server: Horde_ActiveSync Library v' . self::LIBRARY_VERSION);
+        header('Public: OPTIONS,POST');
+
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
             header('MS-Server-ActiveSync: 6.5.7638.1');
@@ -885,7 +891,7 @@ class Horde_ActiveSync
             header('MS-Server-ActiveSync: 14.0');
             break;
         case self::VERSION_FOURTEENONE:
-            header('MS-Server-ActiveSync: 14.1');
+            header('MS-Server-ActiveSync: 14.2');
         }
     }
 
@@ -934,7 +940,7 @@ class Horde_ActiveSync
         case self::VERSION_TWELVEONE:
         case self::VERSION_FOURTEEN:
         case self::VERSION_FOURTEENONE:
-            return 'Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations';
+            return 'Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,Search,Settings,Ping,ItemOperations,Provision,ResolveRecipients,ValidateCert';
         }
     }
 
@@ -1087,9 +1093,13 @@ class Horde_ActiveSync
     }
 
     /**
+     * Return the number of bytes corresponding to the requested trunction
+     * constant.
      *
-     * @param $truncation
-     * @return unknown_type
+     * @param integer $truncation  The constant.
+     *
+     * @return integer|boolean  Either the size, in bytes, to truncate or
+     *                          falso if no truncation.
      */
     static public function getTruncSize($truncation)
     {
@@ -1112,7 +1122,7 @@ class Horde_ActiveSync
             return 102400;
         case Horde_ActiveSync::TRUNCATION_8:
         case Horde_ActiveSync::TRUNCATION_NONE:
-            return 1048576; // We'll limit to 1MB anyway
+            return false;
         default:
             return 1024; // Default to 1Kb
         }

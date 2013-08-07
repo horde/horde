@@ -59,7 +59,7 @@ abstract class Kronolith_Calendar
      */
     public function background()
     {
-        return '#dddddd';
+        return isset($this->_background) ? $this->_background : '#dddddd';
     }
 
     /**

@@ -38,14 +38,12 @@ class Trean_Bookmarks
      *
      * @return Trean_Bookmark
      */
-    public function newBookmark(array $properties, $crawl = true)
+    public function newBookmark(array $properties)
     {
         $properties['user_id'] = $this->_userId;
-        if (empty($properties['bookmark_dt'])) {
-            $properties['bookmark_dt'] = new Horde_Date(time());
-        }
+        $properties['bookmark_dt'] = new Horde_Date(time());
         $bookmark = new Trean_Bookmark($properties);
-        $bookmark->save($crawl);
+        $bookmark->save();
         return $bookmark;
     }
 

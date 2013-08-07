@@ -391,6 +391,10 @@ class Horde_ActiveSync_Message_Base
                     $encoder->endTag();
                 } elseif (isset($map[self::KEY_VALUES]) && is_array($this->$map[self::KEY_ATTRIBUTE])) {
                     // Array of objects
+                    if (!count($this->$map[self::KEY_ATTRIBUTE]) && $this->_checkSendEmpty($tag)) {
+                        // Some array tags must be sent as empty tags.
+                        $encoder->startTag($tag, null, true);
+                    }
                     $encoder->startTag($tag); // Outputs array container (eg Attachments)
                     foreach ($this->$map[self::KEY_ATTRIBUTE] as $element) {
                         if (is_object($element)) {

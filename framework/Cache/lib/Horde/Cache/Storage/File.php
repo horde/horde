@@ -174,8 +174,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
      */
     public function expire($key)
     {
-        $filename = $this->_keyToFile($key);
-        return @unlink($filename);
+        return @unlink($this->_keyToFile($key));
     }
 
     /**

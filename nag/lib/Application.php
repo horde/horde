@@ -41,7 +41,7 @@ class Nag_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.1.1-git)';
+    public $version = 'H5 (4.1.2-git)';
 
     /**
      * Global variables defined:
@@ -354,7 +354,8 @@ class Nag_Application extends Horde_Registry_Application
             $tasks = Nag::listTasks(array(
                 'tasklists' => $tasklists,
                 'completed' => $vars->exportTasks,
-                'include_tags' => true)
+                'include_tags' => true,
+                'include_history' => false)
             );
 
             $tasks->reset();
@@ -421,16 +422,19 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function davGetCollections($user)
     {
+        $opts = array('perm' => Horde_Perms::SHOW);
+        if ($user != '-system-') {
+            $opts['attributes'] = $user;
+        }
         $shares = $GLOBALS['nag_shares']
-            ->listShares(
-                $GLOBALS['registry']->getAuth(),
-                array('perm' => Horde_Perms::SHOW,
-                      'attributes' => $user)
-            );
+            ->listShares($GLOBALS['registry']->getAuth(), $opts);
         $dav = $GLOBALS['injector']
             ->getInstance('Horde_Dav_Storage');
         $tasklists = array();
         foreach ($shares as $id => $share) {
+            if ($user == '-system-' && $share->get('owner')) {
+                continue;
+            }
             try {
                 $id = $dav->getExternalCollectionId($id, 'tasks') ?: $id;
             } catch (Horde_Dav_Exception $e) {

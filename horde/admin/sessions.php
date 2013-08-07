@@ -62,9 +62,7 @@ try {
     $view->error = $e->getMessage();
 }
 
-$page_output->addInlineScript(array(
-    '$$("DIV.sesstoggle").invoke("observe", "click", function() { [ this.nextSiblings(), this.immediateDescendants() ].flatten().compact().invoke("toggle"); })'
-), true);
+$page_output->addScriptFile('tables.js', 'horde');
 $page_output->header(array(
     'title' => _("Session Administration")
 ));

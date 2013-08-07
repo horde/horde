@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Browser \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: 2011-03-24 16:00+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,29 +17,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Browser.php:1123
+#: lib/Horde/Browser.php:1122
 msgid "File uploads not supported."
 msgstr "Das Hochladen von Dateien wird nicht unterstützt."
 
-#: lib/Horde/Browser.php:1140
+#: lib/Horde/Browser.php:1139
 msgid "No file uploaded"
 msgstr "Keine Datei hochgeladen"
 
-#: lib/Horde/Browser.php:1150
+#: lib/Horde/Browser.php:1149
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
 "Die hochgeladene Datei scheint leer zu sein, eventuell existiert sie nicht "
 "auf Ihrem Computer."
 
-#: lib/Horde/Browser.php:1147
+#: lib/Horde/Browser.php:1146
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr ""
 "Beim Hochladen der Datei ist ein Fehler aufgetreten. %s wurde nicht "
 "hochgeladen."
 
-#: lib/Horde/Browser.php:1155
+#: lib/Horde/Browser.php:1154
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
@@ -48,7 +48,7 @@ msgstr ""
 "Beim Hochladen der Datei ist ein Fehler aufgetreten. %s war größer als die "
 "maximal erlaubte Größe (%d Bytes)."
 
-#: lib/Horde/Browser.php:1157
+#: lib/Horde/Browser.php:1156
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."

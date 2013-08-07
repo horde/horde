@@ -285,4 +285,36 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
     }
 
+    public function testEolDetection()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add("123\n456");
+
+        $this->assertEquals(
+            "\n",
+            $stream->getEOL()
+        );
+
+        $stream = new Horde_Stream_Temp();
+        $stream->add("123\r\n456");
+
+        $this->assertEquals(
+            "\r\n",
+            $stream->getEOL()
+        );
+
+        $stream = new Horde_Stream_Temp();
+        $stream->add("123456");
+
+        $this->assertNull($stream->getEOL());
+
+        $stream = new Horde_Stream_Temp();
+        $stream->add("\n123456\n");
+
+        $this->assertEquals(
+            "\n",
+            $stream->getEOL()
+        );
+    }
+
 }

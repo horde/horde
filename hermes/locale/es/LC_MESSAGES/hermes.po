@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (2.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-22 11:43+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -48,7 +48,7 @@ msgstr "%d horas: %s"
 msgid "%s Deliverables"
 msgstr "%s prestaciones"
 
-#: lib/Ajax.php:84
+#: lib/Ajax.php:85
 #, php-format
 msgid "%s notifications"
 msgstr "Notificaciones de %s"
@@ -338,7 +338,7 @@ msgstr "Modificar tipo de trabajo"
 msgid "Edit job type, Step 2"
 msgstr "Modificar tipo de trabajo. Paso 2"
 
-#: lib/Ajax.php:91
+#: lib/Ajax.php:92
 msgid "Editing Time Entry"
 msgstr "Modificando entrada de horas"
 
@@ -420,7 +420,7 @@ msgstr "¿Exportadas?"
 msgid "General Preferences"
 msgstr "Pref. generales"
 
-#: lib/Ajax.php:85
+#: lib/Ajax.php:86
 msgid "Hide Notifications"
 msgstr "Ocultar notificaciones"
 
@@ -542,7 +542,7 @@ msgstr "Añadir prestación principal"
 msgid "No"
 msgstr "No"
 
-#: lib/Ajax.php:83
+#: lib/Ajax.php:84
 msgid "No Notifications"
 msgstr "Sin notificaciones"
 
@@ -582,11 +582,11 @@ msgstr ""
 "Sólo los revisores de tiempos con permisos de modificación pueden enviar "
 "horas de otros usuarios."
 
-#: lib/Ajax.php:88
+#: lib/Ajax.php:89
 msgid "Please enter correct values in the form first."
 msgstr "Introduzca primero valores válidos en el formulario."
 
-#: lib/Ajax.php:87
+#: lib/Ajax.php:88
 msgid "Preferences"
 msgstr "Opciones"
 
@@ -869,7 +869,7 @@ msgstr "Éste no es un tipo de trabajo válido."
 msgid "Time Administration"
 msgstr "Gestión de horas"
 
-#: lib/Ajax.php:90 templates/dynamic/slices.inc:5
+#: lib/Ajax.php:91 templates/dynamic/slices.inc:5
 msgid "Time Entry"
 msgstr "Entrada de horas"
 
@@ -922,7 +922,7 @@ msgstr "Utilizando la temporización \"%s\" desde %s hasta %s"
 msgid "Yes"
 msgstr "Sí"
 
-#: lib/Ajax.php:89
+#: lib/Ajax.php:90
 #, php-format
 msgid ""
 "You used an unknown date format \"%s\". Please try something like \"%s\"."
@@ -965,7 +965,7 @@ msgstr "_Añadir"
 msgid "_Search"
 msgstr "_Buscar"
 
-#: lib/Ajax.php:86
+#: lib/Ajax.php:87
 msgid "more..."
 msgstr "más..."
 

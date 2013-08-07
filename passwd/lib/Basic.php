@@ -234,10 +234,12 @@ class Passwd_Basic
         } catch (Horde_Exception_HookNotSet $e) {}
 
         if (!empty($b_ptr['logout'])) {
-            $registry->getLogoutUrl(array(
+            $logout_url = $registry->getLogoutUrl(array(
                 'msg' => _("Your password has been succesfully changed. You need to re-login to the system with your new password."),
                 'reason' => Horde_Auth::REASON_MESSAGE
-            ))->redirect();
+            ));
+            $registry->clearAuth();
+            $logout_url->redirect();
         }
 
         if ($this->_vars->return_to) {

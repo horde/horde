@@ -108,8 +108,6 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
         $this->_encoder->StartWBXML();
         $this->_encoder->startTag(self::MOVES);
 
-        $collections = $this->_activeSync->getCollectionsObject();
-
         // Can't do these all at once since the device may send any combination
         // of src and dest mailboxes in the same request, though oddly enough
         // the server response only needs to include the message uids, not

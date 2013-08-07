@@ -90,9 +90,9 @@ class Nag_Driver_Smartlist extends Nag_Driver
 
     }
 
-    public function getChildren($parentId)
+    public function getChildren($parentId, $include_history = true)
     {
-        return $this->_driver->getChildren($parentId);
+        return $this->_driver->getChildren($parentId, $include_history);
     }
 
     public function get($taskId)

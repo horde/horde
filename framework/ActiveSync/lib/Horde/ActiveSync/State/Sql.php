@@ -445,11 +445,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *                          foldersync)
      * @param array $change     A stat/change hash describing the change.
      *  Contains:
-     *    - id: (mixed)       The message uid the change applies to.
+     *    - id: (mixed)         The message uid the change applies to.
      *    - serverid: (string)  The backend server id for the folder.
-     *    - parent: (string)  The parent of the message, normally the folder id.
-     *    - flags: (array)    If this is a flag change, the state of the flags.
-     *    - mod: (integer)    The modtime of this change.
+     *    - folderuid: (string) The EAS folder UID for the folder.
+     *    - parent: (string)    The parent of the current folder, if any.
+     *    - flags: (array)      If this is a flag change, the state of the flags.
+     *    - mod: (integer)      The modtime of this change.
      *
      * @param integer $origin   Flag to indicate the origin of the change:
      *    Horde_ActiveSync::CHANGE_ORIGIN_NA  - Not applicapble/not important
@@ -478,6 +479,15 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 }
                 $this->_folder = array_values($this->_folder);
                 return;
+            }
+
+            // Some requests like e.g., MOVEITEMS do not include the state
+            // information since there is no SYNCKEY. Attempt to map this from
+            // the $change array.
+            if (empty($this->_collection)) {
+                $this->_collection = array(
+                    'class' => $change['class'],
+                    'id' => $change['folderuid']);
             }
 
             // This is an incoming change from the PIM, store it so we
@@ -523,16 +533,17 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             default:
                 $sql = 'INSERT INTO ' . $this->_syncMapTable
                     . ' (message_uid, sync_modtime, sync_key, sync_devid,'
-                    . ' sync_folderid, sync_user, sync_clientid)'
-                    . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
+                    . ' sync_folderid, sync_user, sync_clientid, sync_deleted)'
+                    . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
                 $params = array(
                    $change['id'],
                    $change['mod'],
                    empty($this->_syncKey) ? 0 : $this->_syncKey,
                    $this->_deviceInfo->id,
-                   $change['parent'],
+                   $change['serverid'],
                    $user,
-                   $clientid);
+                   $clientid,
+                   $type == Horde_ActiveSync::CHANGE_TYPE_DELETE);
             }
 
             try {
@@ -842,7 +853,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function getChanges(array $options = array())
     {
         $this->_thisSyncStamp = $this->_backend->getSyncStamp(empty($this->_collection['id']) ? null : $this->_collection['id'], $this->_lastSyncStamp);
-        if (!$this->_thisSyncStamp) {
+        if ($this->_thisSyncStamp === false) {
             throw new Horde_ActiveSync_Exception_StaleState('Detecting a change in timestamp or modification sequence. Reseting state.');
         }
 
@@ -926,13 +937,24 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     break;
                 default:
                     foreach ($changes as $change) {
-                        $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
-                        $ts = $this->_getPIMChangeTS($change['id']);
-                        if ($ts && $ts >= $stat['mod']) {
+                        $pim_ts = $this->_getPIMChangeTS($change['id'], $change['type']);
+                        if ($pim_ts && $change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                            // If we have a delete, don't bother stating the message,
+                            // If we have a delete entry in the map table, the
+                            // entry should already be deleted on the client, we
+                            // should never, ever need to send a REMOVE to the client
+                            // if we have a delete entry in the map table.
+                            $stat['mod'] = 0;
+                        } else {
+                            // stat only returns MODIFY times, not deletion times,
+                            // so will return (int)0 for ADD or DELETE.
+                            $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
+                        }
+                        if ($pim_ts && $pim_ts >= $stat['mod']) {
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s)',
                                 $this->_procid,
-                                $change['id'], $ts, $stat['mod']));
+                                $change['id'], $pim_ts, $stat['mod']));
                         } else {
                             $this->_changes[] = $change;
                         }
@@ -1378,19 +1400,29 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @return integer|null The timestamp of the last PIM-initiated change for
      *                      the specified uid, or null if none found.
      */
-    protected function _getPIMChangeTS($uid)
+    protected function _getPIMChangeTS($uid, $type)
     {
         $sql = 'SELECT MAX(sync_modtime) FROM ' . $this->_syncMapTable
-            . ' WHERE message_uid = ? AND sync_devid = ? AND sync_user = ? AND'
-            . ' sync_key IN (?, ?)'
-            . ' GROUP BY message_uid';
+            . ' WHERE message_uid = ? AND sync_devid = ? AND sync_user = ?';
+
+        if ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+            $sql .= ' AND sync_deleted = ?';
+        }
+
+        $sql .= ' AND sync_key IN (?, ?) GROUP BY message_uid';
 
         // Get the allowed synckeys to include.
         $uuid = self::getSyncKeyUid($this->_syncKey);
         $cnt = self::getSyncKeyCounter($this->_syncKey);
+        $values = array($uid, $this->_deviceInfo->id, $this->_deviceInfo->user);
+        if ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+            $values[] = true;
+        }
+        foreach (array($uuid . $cnt, $uuid . ($cnt - 1)) as $v) {
+            $values[] = $v;
+        }
         try {
-            return $this->_db->selectValue(
-                $sql, array($uid, $this->_deviceInfo->id, $this->_deviceInfo->user, $uuid . $cnt, $uuid . ($cnt - 1)));
+            return $this->_db->selectValue($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }

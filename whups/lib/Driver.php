@@ -484,13 +484,8 @@ abstract class Whups_Driver
             }
         }
 
+        $from = Whups::getUserAttributes($opts['from']);
         foreach ($opts['recipients'] as $user => $role) {
-            if ($user == $opts['from'] &&
-                $user == $GLOBALS['registry']->getAuth() &&
-                $prefs->getValue('email_others_only')) {
-                continue;
-            }
-
             /* Make sure to check permissions as a guest for the 'always_copy'
              * address, and as the recipient for all others. */
             $to = $full_name = '';
@@ -515,6 +510,17 @@ abstract class Whups_Driver
                 continue;
             }
 
+            if ($details && $details['type'] == 'user') {
+                $user_prefs = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Prefs')
+                    ->create('whups', array('user' => $details['user']));
+                if ($from['type'] == 'user' &&
+		    $details['user'] == $from['user'] &&
+                    $user_prefs->getValue('email_others_only')) {
+                    continue;
+                }
+            }
+
             if ($opts['ticket']) {
                 /* Add attachments. */
                 $attachmentAdded = false;
@@ -524,37 +530,38 @@ abstract class Whups_Driver
                     $mail->clearParts();
                     foreach ($mycomments as $comment) {
                         foreach ($comment['changes'] as $change) {
-                            if ($change['type'] == 'attachment') {
-                                foreach ($attachments as $attachment) {
-                                    if ($attachment['name'] == $change['value']) {
-                                        if (!isset($attachment['part'])) {
-                                            $attachment['part'] = new Horde_Mime_Part();
-                                            $attachment['part']->setType(Horde_Mime_Magic::filenameToMime($change['value'], false));
-                                            $attachment['part']->setDisposition('attachment');
-                                            $attachment['part']->setContents($vfs->read(Whups::VFS_ATTACH_PATH . '/' . $opts['ticket']->getId(), $change['value']));
-                                            $attachment['part']->setName($change['value']);
-                                        }
-                                        $mail->addMimePart($attachment['part']);
-                                        $attachmentAdded = true;
-                                        break;
-                                    }
+                            if ($change['type'] != 'attachment') {
+                                continue;
+                            }
+                            foreach ($attachments as $attachment) {
+                                if ($attachment['name'] != $change['value']) {
+                                    continue;
                                 }
+                                if (!isset($attachment['part'])) {
+                                    $attachment['part'] = new Horde_Mime_Part();
+                                    $attachment['part']->setType(Horde_Mime_Magic::filenameToMime($change['value'], false));
+                                    $attachment['part']->setDisposition('attachment');
+                                    $attachment['part']->setContents($vfs->read(Whups::VFS_ATTACH_PATH . '/' . $opts['ticket']->getId(), $change['value']));
+                                    $attachment['part']->setName($change['value']);
+                                }
+                                $mail->addMimePart($attachment['part']);
+                                $attachmentAdded = true;
+                                break;
                             }
                         }
                     }
                 }
 
-                $formattedComment = $this->formatComments($mycomments, $opts['ticket']->getId());
+                $formattedComment = $this->formatComments(
+                    $mycomments, $opts['ticket']->getId()
+                );
 
-                if (isset($details['type']) && $details['type'] == 'user') {
-                    $user_prefs = $GLOBALS['injector']
-                        ->getInstance('Horde_Core_Factory_Prefs')
-                        ->create('whups', array('user' => $details['user']));
-                    if (!$attachmentAdded &&
-                        empty($formattedComment) &&
-                        $user_prefs->getValue('email_comments_only')) {
-                        continue;
-                    }
+                if (!$attachmentAdded &&
+                    !strlen(trim($formattedComment)) &&
+                    $details &&
+                    $details['type'] == 'user' &&
+                    $user_prefs->getValue('email_comments_only')) {
+                    continue;
                 }
 
                 $opts['view']->comment = $formattedComment;
@@ -573,14 +580,20 @@ abstract class Whups_Driver
                 }
             }
 
-            // use email address as fallback
+            // Use email address as fallback.
             if (empty($full_name)) {
                 $full_name = $to;
             }
 
             $opts['view']->full_name = $full_name;
             $opts['view']->role = $role;
-            $mail->setBody($opts['view']->render($opts['template']));
+
+            $body = $opts['view']->render($opts['template']);
+            if (!strlen(trim($body))) {
+                continue;
+            }
+
+            $mail->setBody($body);
 
             $mail->addHeader('Message-ID', Horde_Mime::generateMessageId());
             if ($opts['ticket']) {

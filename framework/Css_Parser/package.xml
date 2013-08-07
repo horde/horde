@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix certain sizes reduced by factor ten (Bug #12462).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -162,7 +162,7 @@
    <date>2013-04-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix certain sizes reduced by factor ten (Bug #12462).
    </notes>
   </release>
  </changelog>

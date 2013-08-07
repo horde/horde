@@ -283,16 +283,18 @@ class Nag_Api extends Horde_Registry_Api
             return $results;
 
         } elseif (count($parts) == 1) {
-            //
             // This request is for all tasklists owned by the requested user
-            //
+            $owner = $parts[0] == '-system-' ? '' : $parts[0];
             $tasklists = $GLOBALS['nag_shares']->listShares(
                 $GLOBALS['registry']->getAuth(),
                 array('perm' => Horde_Perms::SHOW,
-                      'attributes' => $parts[0]));
+                      'attributes' => $owner));
 
             $results = array();
             foreach ($tasklists as $tasklistId => $tasklist) {
+                if ($parts[0] == '-system-' && $tasklist->get('owner')) {
+                    continue;
+                }
                 $retpath = 'nag/' . $parts[0] . '/' . $tasklistId;
                 if (in_array('name', $properties)) {
                     $results[$retpath]['name'] = sprintf(_("Tasks from %s"), Nag::getLabel($tasklist));
@@ -677,8 +679,11 @@ class Nag_Api extends Horde_Registry_Api
             }
         }
 
-        $tasks = Nag::listTasks(
-            array('tasklists' => $tasklists, 'completed' => Nag::VIEW_ALL));
+        $tasks = Nag::listTasks(array(
+            'tasklists' => $tasklists,
+            'completed' => Nag::VIEW_ALL,
+            'include_history' => false)
+        );
         $uids = array();
         $tasks->reset();
         while ($task = $tasks->each()) {
@@ -711,7 +716,7 @@ class Nag_Api extends Horde_Registry_Api
             $tasklist = Nag::getSyncLists();
             $results = array();
             foreach ($tasklist as $list) {
-                $results = array_merge($results, $this->listBy($action, $timestamp, $list, $end));
+                $results = array_merge($results, $this->listBy($action, $timestamp, $list, $end, $isModSeq));
             }
             return $results;
         }
@@ -1241,7 +1246,10 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listCostObjects($criteria)
     {
-        $tasks = Nag::listTasks(array('completed' => Nag::VIEW_ALL));
+        $tasks = Nag::listTasks(array(
+            'completed' => Nag::VIEW_ALL,
+            'include_history' => false)
+        );
         $result = array();
         $tasks->reset();
         $last_week = time() - 7 * 86400;
@@ -1307,7 +1315,8 @@ class Nag_Api extends Horde_Registry_Api
         // List incomplete tasks.
         $tasks = Nag::listTasks(array(
             'tasklists' => $categories,
-            'completed' => Nag::VIEW_INCOMPLETE)
+            'completed' => Nag::VIEW_INCOMPLETE,
+            'include_history' => false)
         );
 
         $tasks->reset();

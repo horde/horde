@@ -359,9 +359,9 @@ class Horde_ActiveSync_Imap_Adapter
                 $query,
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
 
-            if ($condstore && $folder->modseq() > 0) {
+            if ($condstore && $folder->modseq() > 0 && count($search_ret['match']->ids)) {
                 $folder->setChanges($search_ret['match']->ids);
-            } else {
+            } elseif (count($search_ret['match']->ids)) {
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
                 $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));

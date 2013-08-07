@@ -315,7 +315,17 @@ class Horde_Cli
             $trace = debug_backtrace();
         }
         $backtrace = new Horde_Support_Backtrace($trace);
-        $details = '';
+        $details = null;
+        if (is_object($error)) {
+            $tmp = $error;
+            while (!isset($tmp->details) && isset($tmp->previous)) {
+                $tmp = $tmp->previous;
+            }
+            if (isset($tmp->details)) {
+                $details = $tmp->details;
+            }
+        }
+        $location = '';
         if (is_object($error) && method_exists($error, 'getMessage')) {
             $first = $error;
             while (method_exists($first, 'getPrevious') &&
@@ -325,10 +335,10 @@ class Horde_Cli
             $file = method_exists($first, 'getFile') ? $first->getFile() : null;
             $line = method_exists($first, 'getLine') ? $first->getLine() : null;
             if ($file) {
-                $details .= sprintf(Horde_Cli_Translation::t("In %s"), $file);
+                $location .= sprintf(Horde_Cli_Translation::t("In %s"), $file);
             }
             if ($line) {
-                $details .= sprintf(Horde_Cli_Translation::t(" on line %d"), $line);
+                $location .= sprintf(Horde_Cli_Translation::t(" on line %d"), $line);
             }
             $error = $error->getMessage();
         }
@@ -339,6 +349,9 @@ class Horde_Cli
         $this->writeln($this->red($error));
         if ($details) {
             $this->writeln($this->red($details));
+        }
+        if ($location) {
+            $this->writeln($this->red($location));
         }
         $this->writeln();
         $this->writeln((string)$backtrace);

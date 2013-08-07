@@ -14,7 +14,11 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('chora');
+
+// Cache the commit output for a week - it can be longer, since it should never
+// change.
+session_cache_expire(10080);
+Horde_Registry::appInit('chora', array('session_cache_limiter' => 'public'));
 
 // Exit if patchset feature is not available.
 if (!$GLOBALS['VC']->hasFeature('patchsets')) {
@@ -43,10 +47,6 @@ if (empty($patchsets)) {
 
 reset($patchsets);
 $patchset = current($patchsets);
-
-// Cache the commit output for a week - it can be longer, since it should never
-// change.
-header('Cache-Control: max-age=604800');
 
 $page_output->addScriptFile('tables.js', 'horde');
 $commit_page = 1;

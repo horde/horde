@@ -1,19 +1,5 @@
 <?php
 /**
- * Test for the Horde_Exception:: class.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Exception
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Exception
- */
-
-/**
- * Test for the Horde_Exception:: class.
- *
  * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -23,7 +9,15 @@
  * @package  Exception
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Exception
+ */
+
+/**
+ * Tests for the Horde_Exception class.
+ *
+ * @category Horde
+ * @package  Exception
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
 {

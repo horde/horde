@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Ansel Photo
-Management and Web Gallery application version H5 (3.0.0).
+The Horde Team is pleased to announce the first release candidate of the Ansel
+Photo Management and Web Gallery application version H5 (3.0.0).
 
 Ansel is a full featured photo management application. With it, you can
 organize your photos in any number of galleries and subgalleries, share
@@ -29,15 +29,13 @@ http://www.horde.org/apps/ansel/docs/INSTALL
 Testing is requested and comments are encouraged.
 Updated translations would also be great.
 
-Major changes compared to the Ansel H4 versions are:
-    * Compatible with Horde 5.
-    * Improved support for SQLite.
+Major changes compared to the Ansel version H5 (3.0.0beta1) are:
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Compatible with Horde 5.
-Improved support for SQLite.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Ansel';

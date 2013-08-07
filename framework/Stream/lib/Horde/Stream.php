@@ -129,11 +129,9 @@ class Horde_Stream implements Serializable
     }
 
     /**
-     * Stream utility method: get a string from a stream up to a certain
-     * character (or EOF).
+     * Stream utility method: get a string up to a certain character (or EOF).
      *
-     * @param resource $data  Data stream.
-     * @oaram string $end     The character to stop reading at.
+     * @oaram string $end  The character to stop reading at.
      *
      * @return string  The string up to $end (stream is positioned after the
      *                 end character(s), all of which are stripped from the
@@ -247,6 +245,35 @@ class Horde_Stream implements Serializable
             is_null($end) ? -1 : $end,
             is_null($start) ? -1 : $start
         );
+    }
+
+    /**
+     * Auto-determine the EOL string.
+     *
+     * @since 1.3.0
+     *
+     * @return string  The EOL string.
+     */
+    public function getEOL()
+    {
+        $pos = ftell($this->stream);
+
+        rewind($this->stream);
+        $pos2 = $this->search("\n", false, false);
+        if ($pos2) {
+            fseek($this->stream, -1, SEEK_CUR);
+            $eol = (fgetc($this->stream) == "\r")
+                ? "\r\n"
+                : "\n";
+        } else {
+            $eol = is_null($pos2)
+                ? null
+                : "\n";
+        }
+
+        fseek($this->stream, $pos);
+
+        return $eol;
     }
 
     /* Serializable methods. */

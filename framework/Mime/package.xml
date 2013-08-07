@@ -17,10 +17,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-18</date>
- <time>14:46:58</time>
+ <date>2013-08-06</date>
+ <time>23:19:52</time>
  <version>
-  <release>2.2.3</release>
+  <release>2.2.5</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -325,6 +325,7 @@
      <dir name="Mime">
       <dir name="fixtures">
        <file name="attachment.bin" role="test" />
+       <file name="bug12536.txt" role="test" />
        <file name="deeply_nested.txt" role="test" />
        <file name="flowed_msg.txt" role="test" />
        <file name="header_trailing_ws.txt" role="test" />
@@ -371,6 +372,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Stream</name>
+    <channel>pear.horde.org</channel>
+    <min>1.3.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Stream_Filter</name>
@@ -557,6 +565,7 @@
    <install as="Horde/Mime/phpunit.xml" name="test/Horde/Mime/phpunit.xml" />
    <install as="Horde/Mime/RelatedTest.php" name="test/Horde/Mime/RelatedTest.php" />
    <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
+   <install as="Horde/Mime/fixtures/bug12536.txt" name="test/Horde/Mime/fixtures/bug12536.txt" />
    <install as="Horde/Mime/fixtures/deeply_nested.txt" name="test/Horde/Mime/fixtures/deeply_nested.txt" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
    <install as="Horde/Mime/fixtures/header_trailing_ws.txt" name="test/Horde/Mime/fixtures/header_trailing_ws.txt" />
@@ -1156,7 +1165,34 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-18</date>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix setting a different body if reusing a Horde_Mime_Mail object.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.4</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix parsing broken multipart messages (Bug #12536).
+* [mms] Use the correct EOL string when transfer encoding content (Bug #12452).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.5</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

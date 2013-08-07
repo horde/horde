@@ -53,16 +53,23 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function links()
     {
-        global $registry;
+        global $prefs, $registry;
 
         $pushed = $registry->pushApp('ingo');
 
         $links = array(
-            'showBlacklist' => strval(Ingo_Basic_Blacklist::url()),
-            'showWhitelist' => strval(Ingo_Basic_Whitelist::url()),
-            'showFilters' => strval(Ingo_Basic_Filters::url()),
-            'showVacation' => strval(Ingo_Basic_Vacation::url())
+            'showFilters' => strval(Ingo_Basic_Filters::url())
         );
+
+        if (!$prefs->isLocked('blacklist')) {
+            $links['showBlacklist'] = strval(Ingo_Basic_Blacklist::url());
+        }
+        if (!$prefs->isLocked('whitelist')) {
+            $links['showWhitelist'] = strval(Ingo_Basic_Whitelist::url());
+        }
+        if (!$prefs->isLocked('vacation')) {
+            $links['showVacation'] = strval(Ingo_Basic_Vacation::url());
+        }
 
         if ($pushed) {
             $registry->popApp();

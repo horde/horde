@@ -65,6 +65,13 @@ class Horde_ActiveSync_Connector_Importer
     protected $_folderId;
 
     /**
+     * The EAS folder uid
+     *
+     * @var string
+     */
+    protected $_folderUid;
+
+    /**
      * Logger
      *
      * @var Horde_Log_Logger
@@ -93,9 +100,9 @@ class Horde_ActiveSync_Connector_Importer
         $this->_state = $state;
         $this->_flags = $flags;
         if (!empty($folderId)) {
-            $folderId = $this->_as->getCollectionsObject()->getBackendIdForFolderUid($folderId);
+            $this->_folderId = $this->_as->getCollectionsObject()->getBackendIdForFolderUid($folderId);
+            $this->_folderUid = $folderId;
         }
-        $this->_folderId = $folderId;
     }
 
     /**
@@ -118,7 +125,8 @@ class Horde_ActiveSync_Connector_Importer
      * @param integer $clientid                        Client id sent from PIM
      *                                                 on message addition.
      *
-     * @return string|boolean The server message id or false
+     * @return string|array|boolean The server message id, an array containing
+     *                              the serverid and failure code, or false
      */
     public function importMessageChange(
         $id, Horde_ActiveSync_Message_Base $message,
@@ -136,10 +144,10 @@ class Horde_ActiveSync_Connector_Importer
                 $id);
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
                 $this->_logger->notice(sprintf(
-                    '[%s] Conflict when updating %s.',
+                    '[%s] Conflict when updating %s, will overwrite client version on next sync.',
                     getmypid(), $id)
                 );
-                return $id;
+                return array($id, Horde_ActiveSync_Request_Sync::STATUS_CONFLICT);
             }
         } else {
             if ($uid = $this->_state->isDuplicatePIMAddition($clientid)) {
@@ -160,8 +168,7 @@ class Horde_ActiveSync_Connector_Importer
             );
             return false;
         }
-
-        $stat['parent'] = $this->_folderId;
+        $stat['serverid'] = $this->_folderId;
 
         // Record the state of the message
         $this->_state->updateState(
@@ -208,7 +215,7 @@ class Horde_ActiveSync_Connector_Importer
             $change = array();
             $change['id'] = $id;
             $change['mod'] = time();
-            $change['parent'] = $this->_folderId;
+            $change['serverid'] = $this->_folderId;
             $this->_state->updateState(
                 Horde_ActiveSync::CHANGE_TYPE_DELETE,
                 $change,
@@ -277,12 +284,14 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         // Update client state. For MOVES, we treat it as a delete from the
-        // DST folder.
+        // SRC folder.
         foreach ($uids as $uid) {
             $change = array();
             $change['id'] = $uid;
             $change['mod'] = time();
-            $change['parent'] = $this->_folderId;
+            $change['serverid'] = $this->_folderId;
+            $change['class'] = Horde_ActiveSync::CLASS_EMAIL;
+            $change['folderuid'] = $this->_folderUid;
             $this->_state->updateState(
                 Horde_ActiveSync::CHANGE_TYPE_DELETE,
                 $change,

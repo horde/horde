@@ -102,7 +102,7 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 
 <div id="kronolithCalendarinternalTabUrls" class="kronolithTabsOption" style="display:none">
   <div id="kronolithCalendarinternalUrls">
-    <div id="kronolithCalendarCaldav">
+    <div id="kronolithCalendarinternalCaldav">
       <label for="kronolithCalendarinternalUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
       <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this calendar from another calendar program") ?></span><br />
       <input type="text" id="kronolithCalendarinternalUrlCaldav" class="kronolithLongField" onfocus="this.select()" />
@@ -213,7 +213,7 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 </div>
 
 <div id="kronolithCalendartasklistsTabUrls" class="kronolithTabsOption" style="display:none">
-  <div id="kronolithTasklistCaldav">
+  <div id="kronolithCalendartasklistsCaldav">
     <label for="kronolithCalendartasklistsUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
     <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this task list from another calendar program") ?></span><br />
     <input type="text" id="kronolithCalendartasklistsUrlCaldav" class="kronolithLongField" onfocus="this.select()" />

@@ -69,10 +69,9 @@ if ($whups_query->id) {
     $page_output->addLinkTag($whups_query->feedLink());
 }
 
+$title = $whups_query->name ? $whups_query->name : _("Query Results");
 Whups::addFeedLink();
-$page_output->header(array(
-    'title' => $whups_query->name ? $whups_query->name : _("Query Results")
-));
+$page_output->header(array('title' => $title));
 $notification->notify(array('listeners' => 'status'));
 
 echo $tabs->render($vars->get('action') ? $vars->get('action') : 'run');

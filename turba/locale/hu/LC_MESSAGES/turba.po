@@ -1839,7 +1839,7 @@ msgstr "nő"
 #: lib/Application.php:509
 #, php-format
 msgid "in %s"
-msgstr "%s jegyzettömbben"
+msgstr "%s címjegyzékben"
 
 #: config/attributes.php:499
 msgid "male"

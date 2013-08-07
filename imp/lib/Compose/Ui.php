@@ -23,6 +23,13 @@
 class IMP_Compose_Ui
 {
     /**
+     * True if spellchecker has been attached.
+     *
+     * @var boolean
+     */
+    protected $_spellInit = false;
+
+    /**
      * Attach the auto-completer to the current compose form.
      *
      * @param array $fields  The list of DOM IDs to attach the autocompleter
@@ -38,10 +45,18 @@ class IMP_Compose_Ui
 
     /**
      * Attach the spellchecker to the current compose form.
+     *
+     * @return boolean  True if spellchecker is active.
      */
     public function attachSpellChecker()
     {
-        global $injector, $registry;
+        global $conf, $injector, $registry;
+
+        if (empty($conf['spell']['driver'])) {
+            return false;
+        } elseif ($this->_spellInit) {
+            return true;
+        }
 
         if ($registry->getView() == Horde_Registry::VIEW_BASIC) {
             $spell_img = '<span class="iconImg spellcheckImg"></span>';
@@ -60,6 +75,10 @@ class IMP_Compose_Ui
             ),
             'targetId' => 'composeMessage'
         ));
+
+        $this->_spellInit = true;
+
+        return true;
     }
 
     /**

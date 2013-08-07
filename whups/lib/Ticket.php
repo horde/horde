@@ -289,7 +289,11 @@ class Whups_Ticket
             case 'owners':
                 // Fetch $oldOwners list; then loop through $value adding and
                 // deleting as needed.
-                $oldOwners = current($whups_driver->getOwners($this->_id));
+                if ($owners = $whups_driver->getOwners($this->_id)) {
+                    $oldOwners = reset($owners);
+                } else {
+                    $oldOwners = array();
+                }
                 $this->_changes['oldowners'] = $oldOwners;
                 foreach ($value as $owner) {
                     if (!$oldOwners ||
@@ -430,7 +434,7 @@ class Whups_Ticket
         $message_file = basename($message_file);
 
         if ($GLOBALS['conf']['mail']['incl_resp'] ||
-            !count(current($whups_driver->getOwners($this->_id)))) {
+            !count($whups_driver->getOwners($this->_id))) {
             /* Include all responsible.  */
             $listeners = $whups_driver->getListeners(
                 $this->_id, true, false, true);
@@ -795,13 +799,6 @@ class Whups_Ticket
 
         $table .= "------------------------------------------------------------------------------";
 
-        /* Add the "do not reply" tag if we don't monitor incoming  mail. */
-        if (empty($conf['mail']['reply'])) {
-            $dont_reply = _("DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED.") . "\n\n";
-        } else {
-            $dont_reply = '';
-        }
-
         /* Build message template. */
         $view = new Horde_View(array('templatePath' => WHUPS_BASE . '/config'));
         $view->ticket_url = $url;
@@ -837,7 +834,7 @@ class Whups_Ticket
 
         if (empty($listeners)) {
             if ($conf['mail']['incl_resp'] ||
-                !count(current($whups_driver->getOwners($this->_id)))) {
+                !count($whups_driver->getOwners($this->_id))) {
                 /* Include all responsible.  */
                 $listeners = $whups_driver->getListeners(
                     $this->_id, true, true, true);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:15+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -18,31 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Block/Bookmarks.php:54 lib/Block/Mostclicked.php:45
+#: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
 msgid "1 Line"
 msgstr "1 línea"
 
-#: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
+#: lib/Block/Bookmarks.php:41 lib/Block/Mostclicked.php:32
 msgid "10 rows"
 msgstr "10 filas"
 
-#: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
+#: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
 msgid "15 rows"
 msgstr "15 filas"
 
-#: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
+#: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
 msgid "2 Line"
 msgstr "2 líneas"
 
-#: lib/Block/Bookmarks.php:44 lib/Block/Mostclicked.php:35
+#: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
 msgid "25 rows"
 msgstr "25 filas"
 
-#: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
+#: lib/Block/Bookmarks.php:51 lib/Block/Mostclicked.php:42
 msgid "3 Line"
 msgstr "3 líneas"
 
-#: templates/add.html.php:49
+#: templates/add.html.php:52
 msgid "Add"
 msgstr "Añadir"
 
@@ -71,7 +71,7 @@ msgstr "No se ha encontrado el marcador: %s."
 msgid "Bookmarked on"
 msgstr "Marcado"
 
-#: lib/Block/Bookmarks.php:20 lib/Block/Bookmarks.php:65
+#: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
 #: lib/View/BookmarkList.php:120
 msgid "Bookmarks"
 msgstr "Marcadores"
@@ -84,7 +84,7 @@ msgstr "Suscripción de marcadores"
 msgid "Browse"
 msgstr "Examinar"
 
-#: templates/add.html.php:50 templates/edit.html.php:60
+#: templates/add.html.php:53 templates/edit.html.php:63
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -112,17 +112,17 @@ msgstr "Descripción"
 msgid "Display Preferences"
 msgstr "Mostrar opciones"
 
-#: lib/Block/Bookmarks.php:38
+#: lib/Block/Bookmarks.php:37
 msgid "Display Rows"
 msgstr "Mostrar filas"
 
-#: templates/add.html.php:61
+#: templates/add.html.php:64
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
 msgstr ""
 "Arrastre el vínculo  inferior \"Añadir a los marcadores\" a su barra de "
 "\"Vínculos\""
 
-#: templates/add.html.php:59
+#: templates/add.html.php:62
 msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
 msgstr ""
@@ -133,15 +133,15 @@ msgstr ""
 msgid "Edit"
 msgstr "Modificar"
 
-#: edit.php:37
+#: edit.php:42
 msgid "Edit Bookmark"
 msgstr "Modificar marcador"
 
-#: templates/add.html.php:58
+#: templates/add.html.php:61
 msgid "Firefox/Mozilla"
 msgstr "Firefox/Mozilla"
 
-#: templates/add.html.php:60
+#: templates/add.html.php:63
 msgid "Internet Explorer"
 msgstr "Internet Explorer"
 
@@ -153,15 +153,15 @@ msgstr "Cargando..."
 msgid "Maximum Number of Bookmarks"
 msgstr "Máximo número de marcadores"
 
-#: config/prefs.php:25 lib/Block/Bookmarks.php:34
+#: config/prefs.php:25 lib/Block/Bookmarks.php:33
 msgid "Most Clicked"
 msgstr "Más visitados"
 
-#: lib/Block/Mostclicked.php:20
+#: lib/Block/Mostclicked.php:19
 msgid "Most-clicked Bookmarks"
 msgstr "Marcadores más visitados"
 
-#: add.php:73 templates/add.html.php:9
+#: add.php:78 templates/add.html.php:9
 msgid "New Bookmark"
 msgstr "Nuevo marcador"
 
@@ -169,7 +169,7 @@ msgstr "Nuevo marcador"
 msgid "No bookmarks found"
 msgstr "No se han encontrado marcadores"
 
-#: lib/Block/Bookmarks.php:94 lib/Block/Mostclicked.php:75
+#: lib/Block/Bookmarks.php:91 lib/Block/Mostclicked.php:72
 msgid "No bookmarks to display"
 msgstr "Sin marcadores visibles"
 
@@ -181,15 +181,15 @@ msgstr "No hay marcadores"
 msgid "No search"
 msgstr "No hay búsqueda"
 
-#: templates/add.html.php:64
+#: templates/add.html.php:67
 msgid "Note:"
 msgstr "Comentario:"
 
-#: lib/Block/Mostclicked.php:29
+#: lib/Block/Mostclicked.php:28
 msgid "Number of bookmarks to show"
 msgstr "Cantidad de marcadores mostrados"
 
-#: templates/add.html.php:65
+#: templates/add.html.php:68
 #, php-format
 msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
@@ -206,15 +206,15 @@ msgstr "¿Abrir vínculos en ventanas nuevas?"
 msgid "Other Preferences"
 msgstr "Otras opciones"
 
-#: templates/add.html.php:41 templates/edit.html.php:50
+#: templates/add.html.php:43 templates/edit.html.php:52
 msgid "Previously used tags"
 msgstr "Etiquetas usadas con anterioridad"
 
-#: lib/View/BookmarkList.php:210
+#: lib/View/BookmarkList.php:214
 msgid "Remove from search"
 msgstr "Eliminar de la búsqueda"
 
-#: templates/edit.html.php:59
+#: templates/edit.html.php:62
 msgid "Save"
 msgstr "Guardar"
 
@@ -227,6 +227,10 @@ msgstr "Buscar"
 msgid "Search results (%s)"
 msgstr "Resultados de la búsqueda (%s)"
 
+#: templates/add.html.php:41 templates/edit.html.php:50
+msgid "See previously used tags"
+msgstr "Ver etiquetas usadas con anterioridad"
+
 #: config/prefs.php:14
 msgid "Set how to display bookmark listings and how to open links."
 msgstr "Define cómo mostrar listados de marcadores y cómo abrir los vínculos."
@@ -235,7 +239,7 @@ msgstr "Define cómo mostrar listados de marcadores y cómo abrir los vínculos.
 msgid "Sort bookmarks by:"
 msgstr "Ordenar marcadores por:"
 
-#: lib/Block/Bookmarks.php:29
+#: lib/Block/Bookmarks.php:28
 msgid "Sort by"
 msgstr "Ordenar por"
 
@@ -247,7 +251,7 @@ msgstr "Sentido de clasificación:"
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: lib/Block/Bookmarks.php:48 lib/Block/Mostclicked.php:39
+#: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
 msgid "Template"
 msgstr "Plantilla"
 
@@ -266,12 +270,12 @@ msgstr "Se produjo un error al añadir el marcador: %s"
 msgid "There was an error saving the bookmark: %s"
 msgstr "Se produjo un error al guardar el marcador: %s"
 
-#: config/prefs.php:24 lib/Block/Bookmarks.php:33 templates/add.html.php:20
+#: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
 #: templates/edit.html.php:29 templates/list.html.php:12
 msgid "Title"
 msgstr "Título"
 
-#: templates/add.html.php:57
+#: templates/add.html.php:60
 msgid "To be able to quickly add bookmarks from your web browser:"
 msgstr "Para poder añadir rápidamente marcadores de su navegador:"
 
@@ -279,7 +283,7 @@ msgstr "Para poder añadir rápidamente marcadores de su navegador:"
 msgid "URL"
 msgstr "URL"
 
-#: templates/add.html.php:62
+#: templates/add.html.php:65
 msgid ""
 "While browsing you will be able to bookmark the current page by clicking "
 "your new \"Add to Bookmarks\" shortcut."

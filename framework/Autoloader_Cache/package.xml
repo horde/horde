@@ -16,10 +16,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-03-11</date>
- <time>22:23:27</time>
+ <date>2013-08-02</date>
+ <time>18:07:46</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Improved error handling/logging when system temporary directory is not accessible.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -259,10 +259,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-11</date>
+   <date>2013-08-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Don&apos;t cache missing class paths.
+* [mms] Purging the autoloader cache no longer requires knowledge of the various SERVER_NAME settings used on a given system.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Improved error handling/logging when system temporary directory is not accessible.
    </notes>
   </release>
  </changelog>

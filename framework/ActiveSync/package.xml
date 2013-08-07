@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-01</date>
- <time>20:24:02</time>
+ <date>2013-07-21</date>
+ <time>15:59:29</time>
  <version>
-  <release>2.5.4</release>
+  <release>2.5.7</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefor has no history data (Bug #12531).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -197,6 +197,7 @@
       <file name="15_horde_activesync_integerimapuidfield.php" role="data" />
       <file name="16_horde_activesync_fix_blob_length.php" role="data" />
       <file name="17_horde_activesync_clearallstate.php" role="data" />
+      <file name="18_horde_activesync_addmapdeleteflag.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -443,6 +444,7 @@
    <install as="migration/15_horde_activesync_integerimapuidfield.php" name="migration/Horde/ActiveSync/15_horde_activesync_integerimapuidfield.php" />
    <install as="migration/16_horde_activesync_fix_blob_length.php" name="migration/Horde/ActiveSync/16_horde_activesync_fix_blob_length.php" />
    <install as="migration/17_horde_activesync_clearallstate.php" name="migration/Horde/ActiveSync/17_horde_activesync_clearallstate.php" />
+   <install as="migration/18_horde_activesync_addmapdeleteflag.php" name="migration/Horde/ActiveSync/18_horde_activesync_addmapdeleteflag.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
@@ -1534,10 +1536,52 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-01</date>
+   <date>2013-07-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix bug that causes incorrect MIME truncation when the client requests no MIME truncation (Bug #12437).
+* [mjr] Fix returning proper values for the Horde_ActiveSync_Message_SendMail::replacemime property. The could cause replying to email with some EAS 14+ clients to fail.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.5</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-15</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix off by one error when checking WINDOWSIZE, which breaks syncing with clients that have broken WINDOWSIZE implementations (Bug #12443).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.6</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix filtering out changes due to incoming client email requests in certain cases.
+* [mjr] Send empty POOMMAIL_CATEGORIES tag as Exchange does.
+* [mjr] Fix sending deletion commands to clients when an item is created on one EAS client, but deleted on another EAS client.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.7</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefor has no history data (Bug #12531).
    </notes>
   </release>
  </changelog>

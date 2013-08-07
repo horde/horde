@@ -139,7 +139,12 @@ Content-Transfer-Encoding: quoted-printable',
 
         $this->assertEquals(
             "H=FCbsche Umlaute\n  und Leerzeichen.\n",
-            $sent['body']
+            // Some broken PHP versions will insert =20 instead of spaces.
+            str_replace(
+                '=20',
+                ' ',
+                $sent['body']
+            )
         );
 
         $this->assertEquals(
@@ -440,6 +445,10 @@ end
         $mail->send($dummy);
         $sent2 = str_replace("\r\n", "\n", $dummy->sentMessages[1]);
 
+        $mail->setBody("This is\nanother body");
+        $mail->send($dummy);
+        $sent3 = str_replace("\r\n", "\n", $dummy->sentMessages[2]);
+
         $hdrs1 = Horde_Mime_Headers::parseHeaders($sent1['header_text']);
         $hdrs2 = Horde_Mime_Headers::parseHeaders($sent2['header_text']);
 
@@ -452,6 +461,11 @@ end
         $this->assertEquals(
             array('recipient2@example.com'),
             $sent2['recipients']
+        );
+
+        $this->assertEquals(
+            "This is\nanother body\n",
+            $sent3['body']
         );
     }
 

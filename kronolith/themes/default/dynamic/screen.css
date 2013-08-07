@@ -555,7 +555,7 @@ ul.horde-tags li:hover {
 #kronolithViewMonth .kronolith-first-col {
     cursor: pointer;
 }
-.kronolithNight {
+tr.kronolithNight td {
     background-color: #f4f4f4;
 }
 .kronolith-day {

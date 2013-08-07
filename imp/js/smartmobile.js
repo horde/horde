@@ -28,6 +28,9 @@ var ImpMobile = {
     // /* Header data for the current message. */
     // headers,
     //
+    // /* Is the current message from a list? */
+    // listmsg,
+    //
     // /* The current mailbox. */
     // mailbox,
     //
@@ -68,7 +71,7 @@ var ImpMobile = {
      */
     toPage: function(e, data)
     {
-        var view = data.options.parsedUrl.view;
+        var tmp, view = data.options.parsedUrl.view;
 
         if ($.type(data.toPage) !== "string") {
             switch (HordeMobile.currentPage()) {
@@ -236,11 +239,29 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
-        case 'message-reply':
+        case 'message-reply-all':
+        case 'message-reply-auto':
+        case 'message-reply-list':
+        case 'message-reply-sender':
+            tmp = 'reply';
+            switch (view) {
+            case 'message-reply-all':
+                tmp += '_all';
+                break;
+
+            case 'message-reply-auto':
+                tmp += '_auto';
+                break;
+
+            case 'message-reply-list':
+                tmp += '_list';
+                break;
+            }
+
             $.mobile.changePage(HordeMobile.createUrl('compose', {
                 buid: ImpMobile.buid,
                 mbox: ImpMobile.mailbox,
-                type: 'reply_auto'
+                type: tmp
             }));
             e.preventDefault();
             break;
@@ -709,6 +730,7 @@ var ImpMobile = {
 
         data.headers.push({ name: IMP.text.subject, value: data.subject });
         ImpMobile.headers = data.headers;
+        ImpMobile.listmsg = (data.list_info && data.list_info.exists);
         ImpMobile.rowid = r.buid;
 
         $.fn[cache.readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
@@ -774,6 +796,16 @@ var ImpMobile = {
             }
         });
 
+        list.listview('refresh');
+    },
+
+    /**
+     */
+    messageReplyPopup: function()
+    {
+        var list = $('#message-reply :jqmData(role=listview)');
+
+        $.fn[ImpMobile.listmsg ? 'show' : 'hide'].call(list.find('a[href$="message-reply-list"]').parents('li'));
         list.listview('refresh');
     },
 
@@ -897,7 +929,10 @@ var ImpMobile = {
         ImpMobile.composetype = purl.params.type;
 
         switch (purl.params.type) {
+        case 'reply':
+        case 'reply_all':
         case 'reply_auto':
+        case 'reply_list':
             func = 'getReplyData';
             cache = '#imp-compose-cache';
             params.format = 'text';
@@ -1391,8 +1426,16 @@ var ImpMobile = {
             $.mobile.changePage('#message-next');
         }).on('swiperight', function() {
             $.mobile.changePage('#message-prev');
-        }).on('popupbeforeposition', function() {
-            ImpMobile.messageMorePopup();
+        }).on('popupbeforeposition', function(r) {
+            switch ($(r.target).attr('id')) {
+            case 'message-more':
+                ImpMobile.messageMorePopup();
+                break;
+
+            case 'message-reply':
+                ImpMobile.messageReplyPopup();
+                break;
+            }
         });
 
         $('#compose').on('popupbeforeposition', function() {

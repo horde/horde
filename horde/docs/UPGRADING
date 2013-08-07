@@ -228,7 +228,7 @@ your database server's console or web frontend. A migration framework has been
 created instead that can be used through the web interface and a command line
 script.
 
-After updating, log in to Horde as an adminstrator, make sure that all
+After updating, log in to Horde as an administrator, make sure that all
 configurations are up-to-date, then click on the ``Update all DB schemas``
 button. You can also update the database schemas individually if necessary.
 

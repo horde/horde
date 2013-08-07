@@ -33,10 +33,13 @@ class Horde_LoginTasks_Task_LastLogin extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        global $injector, $notification, $prefs;
+        global $injector, $notification, $prefs, $registry;
 
         /* Fetch the user's last login time. */
         $old_login = @unserialize($prefs->getValue('last_login'));
+
+        /* Set the timezone to the current default. */
+        $registry->setTimeZone();
 
         /* Display it, if we have a notification object and the
          * show_last_login preference is active. */
