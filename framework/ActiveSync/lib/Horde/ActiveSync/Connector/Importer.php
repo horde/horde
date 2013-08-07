@@ -198,16 +198,15 @@ class Horde_ActiveSync_Connector_Importer
             return;
         }
 
-        // Check all deletions for conflicts and update device state.
-        // We do this first, so (1) any conflicts will be properly resolved and
-        // (2) the device state knows about the deletion before the server tries
-        // to send the change back to the device.
+        // Tell backend about the deletion
+        $mod = $this->_driver->getSyncStamp($this->_folderId);
+        $ids = $this->_as->driver->deleteMessage($this->_folderId, $ids);
         foreach ($ids as $id) {
-
-            // Update client state
+            // Update client state. Note this only modifies the various map
+            // tables to prevent mirroring back any changes.
             $change = array();
             $change['id'] = $id;
-            $change['mod'] = time();
+            $change['mod'] = $mod;
             $change['serverid'] = $this->_folderId;
             $this->_state->updateState(
                 Horde_ActiveSync::CHANGE_TYPE_DELETE,
@@ -215,9 +214,6 @@ class Horde_ActiveSync_Connector_Importer
                 Horde_ActiveSync::CHANGE_ORIGIN_PIM,
                 $this->_as->driver->getUser());
         }
-
-        // Tell backend about the deletion
-        return $this->_as->driver->deleteMessage($this->_folderId, $ids);
     }
 
     /**
