@@ -11,6 +11,18 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.1
+================
+
+  - Horde_Mail_Rfc822_Address
+
+    Added the 'bare_address_idn' property.
+
+  - Horde_Mail_Rfc822_List
+
+    Added the 'bare_addresses_idn' property.
+
+
 Upgrading to 2.0
 ================
 
