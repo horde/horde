@@ -31,13 +31,8 @@
  <date>2013-08-07</date>
  <time>01:07:08</time>
  <version>
-<<<<<<< HEAD
   <release>2.7.0</release>
   <api>2.7.0</api>
-=======
-  <release>2.6.6</release>
-  <api>2.6.0</api>
->>>>>>> master
  </version>
  <stability>
   <release>stable</release>
@@ -45,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-<<<<<<< HEAD
 * [rla] Add support for external links in topbar (Feature #11977).
-=======
-* 
->>>>>>> master
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3100,7 +3091,7 @@
    <date>2013-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
