@@ -654,4 +654,126 @@ class Horde_Api extends Horde_Registry_Api
 
         return $share->listGroups($perm);
     }
+
+    /**
+     * Returns a list of ActiveSync devices that are partnered with Horde.
+     *
+     * @param array $filter  An array of parameters to filter on:
+     *  - user: Only return devices owned by user. If not present or empty will
+     *          return all devices.
+     *
+     * @return array  List of device properties.
+     * @since 5.2.0
+     */
+    public function listActiveSyncDevices($filter = array())
+    {
+        global $registry, $injector, $conf;
+
+        if (!$registry->isAdmin()) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+        if (empty($conf['activesync']['enabled'])) {
+            return array();
+        }
+
+        $filter = array_merge(array('user' => null), $filter);
+        $state = $injector->getInstance('Horde_ActiveSyncState');
+        $state->setLogger($injector->getInstance('Horde_Log_Logger'));
+
+        try {
+            return $state->listDevices($filter['user']);
+        } catch (Horde_ActiveSync_Exception $e) {
+            throw new Horde_Exception($e);
+        }
+    }
+
+    /**
+     * Perform an administrative action on a single paired ActiveSync device.
+     *
+     * @param string $action    The action to perform. One of:
+     *                          WIPE, CANCEL_WIPE, REMOVE.
+     * @param string $deviceid  The device's deviceid.
+     * @param string $user      Restrict 'REMOVE' action to only this user's
+     *                          account on the device in the case where the
+     *                          device may have multiple user accounts on this
+     *                          server. If empty, all users' state information
+     *                          will be removed.
+     * @return boolean
+     * @throws Horde_Exception
+     */
+    public function performActiveSyncDeviceAction($action, $deviceid, $user = null)
+    {
+        global $injector, $conf, $registry;
+
+        if (!$registry->isAdmin()) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+        if (empty($conf['activesync']['enabled'])) {
+            throw new Horde_Exception(_("ActiveSync not activated."));
+        }
+        if (!in_array($action, array('WIPE', 'CANCEL_WIPE', 'REMOVE'))) {
+            throw new Horde_Exception(_("Unsupported action."));
+        }
+
+        $state = $injector->getInstance('Horde_ActiveSyncState');
+        $state->setLogger($injector->getInstance('Horde_Log_Logger'));
+
+        switch ($action) {
+        case 'WIPE':
+            try {
+                $state->setDeviceRWStatus($deviceid, Horde_ActiveSync::RWSTATUS_PENDING);
+            } catch (Horde_ActiveSync_Exception $e) {
+                throw new Horde_Exception($e);
+            }
+            return true;
+        case 'CANCE_WIPE':
+            try {
+                $state->setDeviceRWStatus($deviceid, Horde_ActiveSync::RWSTATUS_OK);
+            } catch (Horde_ActiveSync_Exception $e) {
+                throw new Horde_Exception($e);
+            }
+            return true;
+        case 'REMOVE':
+            try {
+                $state->removeState(array(
+                    'devId' => $deviceid,
+                    'user' => $user)
+                );
+            } catch (Horde_ActiveSync_Exception $e) {
+                throw new Horde_Exception($e);
+            }
+            return true;
+        }
+    }
+
+    /**
+     * Perform an admistrative action on ALL paired ActiveSync devices.
+     *
+     * @param string $action  The action. Currently, only 'RESET' is supported.
+     *  - 'RESET': Causes all state for all devices to be removed. I.e., sets
+     *             the synckey for all devices to 0.
+     *
+     * @return boolean
+     */
+    public function performBulkActiveSyncDeviceAction($action)
+    {
+        global $injector, $conf, $registry;
+
+        if (!$registry->isAdmin()) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+        if (empty($conf['activesync']['enabled'])) {
+            throw new Horde_Exception(_("ActiveSync not activated."));
+        }
+        if (!in_array($action, array('RESET'))) {
+            throw new Horde_Exception(_("Unsupported action."));
+        }
+        try {
+            $injector->getInstance('Horde_ActiveSyncState')->resetAllPolicyKeys();
+        } catch (Horde_ActiveSync_Exception $e) {
+            throw new Horde_Exception($e);
+        }
+        return true;
+    }
+
 }
