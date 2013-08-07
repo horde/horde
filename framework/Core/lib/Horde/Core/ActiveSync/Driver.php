@@ -2297,7 +2297,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $modseq,
                 $collection));
 
-            return $modseq;
+            return intval($modseq);
         }
 
         return time();
