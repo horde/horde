@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-21</date>
- <time>15:59:29</time>
+ <date>2013-08-07</date>
+ <time>13:56:32</time>
  <version>
   <release>2.5.7</release>
   <api>2.5.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
 * [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefor has no history data (Bug #12531).
  </notes>
  <contents>
@@ -1578,9 +1579,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-21</date>
+   <date>2013-08-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
 * [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefor has no history data (Bug #12531).
    </notes>
   </release>
