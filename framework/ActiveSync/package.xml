@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix broken Email sync due to clients that send unsolicited SMS data (Bug #12544).
 * [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
 * [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefor has no history data (Bug #12531).
  </notes>
@@ -1582,6 +1583,7 @@
    <date>2013-08-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix broken Email sync due to clients that send unsolicited SMS data (Bug #12544).
 * [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
 * [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefor has no history data (Bug #12531).
    </notes>
