@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-06</date>
- <time>23:10:11</time>
+ <date>2013-08-07</date>
+ <time>11:28:42</time>
  <version>
   <release>2.0.5</release>
   <api>1.1.0</api>
@@ -344,7 +344,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-06</date>
+   <date>2013-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fixed connection to Memcache servers.
