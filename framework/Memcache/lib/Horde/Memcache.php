@@ -144,9 +144,9 @@ class Horde_Memcache implements Serializable
                 empty($this->_params['port'][$i]) ? 0 : $this->_params['port'][$i],
                 !empty($this->_params['persistent']),
                 !empty($this->_params['weight'][$i]) ? $this->_params['weight'][$i] : 1,
-                null,
-                null,
-                null,
+                1,
+                15,
+                true,
                 array($this, 'failover')
             );
 
@@ -424,7 +424,7 @@ class Horde_Memcache implements Serializable
     /**
      * Failover method.
      *
-     * @see Horde_Memcache#addServer
+     * @see Memcache::addServer()
      *
      * @param string $host   Hostname.
      * @param integer $port  Port.
