@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-06</date>
- <time>22:57:20</time>
+ <time>23:10:11</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Immediately throw exception when no servers can be connected to.
-* [mms] No need to serialize logging object twice.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -336,6 +335,19 @@
    <notes>
 * [mms] Immediately throw exception when no servers can be connected to.
 * [mms] No need to serialize logging object twice.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
