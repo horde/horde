@@ -1134,7 +1134,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1);
+                $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
                 // ActiveSync messages do NOT contain the serverUID value, put
                 // it in ourselves so we can have it during import/change.
@@ -1162,7 +1162,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1);
+                $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
                 if (!empty($device->supported[self::CONTACTS_FOLDER_UID])) {
                     $message->setSupported($device->supported[self::CONTACTS_FOLDER_UID]);
@@ -1187,7 +1187,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1);
+                $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
                 if (!empty($device->supported[self::TASKS_FOLDER_UID])) {
                     $message->setSupported($device->supported[self::TASKS_FOLDER_UID]);
@@ -1212,7 +1212,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1);
+                $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
                 if (!empty($device->supported[self::NOTES_FOLDER_UID])) {
                     $message->setSupported($device->supported[self::NOTES_FOLDER_UID]);
