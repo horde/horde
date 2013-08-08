@@ -183,10 +183,10 @@ class Turba_Driver_Kolab extends Turba_Driver
             $hash['categories'] = array($hash['categories']);
         }
 
-        if (isset($hash['birthday'])) {
+        if (!empty($hash['birthday'])) {
             $hash['birthday'] = new DateTime($hash['birthday']);
         }
-        if (isset($hash['anniversary'])) {
+        if (!empty($hash['anniversary'])) {
             $hash['anniversary'] = new DateTime($hash['anniversary']);
         }
 

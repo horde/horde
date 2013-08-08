@@ -210,7 +210,7 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         // Tell backend about the deletion
-        $mod = $this->_driver->getSyncStamp($this->_folderId);
+        $mod = $this->_as->driver->getSyncStamp($this->_folderId);
         $ids = $this->_as->driver->deleteMessage($this->_folderId, $ids);
         foreach ($ids as $id) {
             // Update client state. Note this only modifies the various map
@@ -278,7 +278,7 @@ class Horde_ActiveSync_Connector_Importer
 
         // Update client state. For MOVES, we treat it as a delete from the
         // SRC folder.
-        $mod = $this->_driver->getSyncStamp($this->_folderId);
+        $mod = $this->_as->driver->getSyncStamp($this->_folderId);
         foreach ($uids as $uid) {
             $change = array();
             $change['id'] = $uid;

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix requesting changes by modification sequence (Bug #12508, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
  </notes>
  <contents>
@@ -2201,6 +2202,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix requesting changes by modification sequence (Bug #12508, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
    </notes>
   </release>

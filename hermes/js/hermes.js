@@ -1468,9 +1468,9 @@ HermesCore = {
         if (r) {
             for (var i = 0; i < r.length; i++) {
                 var t = r[i];
-                $('hermesMenuTimers').select('.hermesMenuItem').each(function(elt) {
-                    if (elt.down('.hermesStopTimer').up().retrieve('tid') == t['id']) {
-                        elt.down('.hermesTimerLabel').update(t.name + ' (' + t.e + ' hours)');
+                $('hermesMenuTimers').select('.horde-resource-none').each(function(elt) {
+                    if (elt.retrieve('tid') == t['id']) {
+                        elt.down('div').update(t.name + ' (' + t.e + ' hours)');
                     }
                 });
             }
@@ -1557,7 +1557,7 @@ HermesCore = {
                 this.updateCostObjects(r, 'search');}.bind(this)
             }
         );
-        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
+        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll', {}, { 'callback': this.pollCallback.bind(this) }), 10);
     }
 };
 document.observe('dom:loaded', HermesCore.onDomLoad.bind(HermesCore));

@@ -2198,7 +2198,7 @@ class Horde_Registry
         }
 
         $params = array();
-        if ($options['reason'] != Horde_Auth::REASON_LOGOUT) {
+        if (!in_array($options['reason'], array(Horde_Auth::REASON_LOGOUT, Horde_Auth::REASON_MESSAGE))) {
             $params['url'] = Horde::selfUrl(true, true, true);
         }
 

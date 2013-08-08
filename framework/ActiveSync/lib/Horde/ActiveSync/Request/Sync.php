@@ -497,7 +497,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
                             $this->_encoder->content($clientid);
                             $this->_encoder->endTag();
-                            if ($status == self::STATUS_SUCCSS) {
+                            if ($status == self::STATUS_SUCCESS) {
                                 $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
                                 $this->_encoder->content($serverid);
                                 $this->_encoder->endTag();

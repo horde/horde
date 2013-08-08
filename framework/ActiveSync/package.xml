@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-08</date>
- <time>00:03:40</time>
+ <time>16:28:22</time>
  <version>
-  <release>2.6.0</release>
+  <release>2.6.2</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix obtaining the timestamp of the last successful sync when backend uses modification sequences (Bug #12529).
-* [mjr] Fix broken Email sync due to clients that send unsolicited SMS data (Bug #12544).
-* [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
-* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefore has no history data (Bug #12531).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1590,6 +1587,34 @@
 * [mjr] Fix broken Email sync due to clients that send unsolicited SMS data (Bug #12544).
 * [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
 * [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefore has no history data (Bug #12531).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.1</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Do not ask the IMAP server to fetch flags if we don&apos;t have an empty imap search result (Bug #12551).
+* [mjr] Fix typos that could cause some sync actions to fail (Bug #12548 and #12523, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [mjr] Ensure proper failure codes are returned when a client addition fails to be added to the backend during a PARTIAL sync.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.2</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

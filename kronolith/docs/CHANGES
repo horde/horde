@@ -2,6 +2,8 @@
 v4.1.3-git
 ----------
 
+[mjr] Fix requesting changes by modification sequence (Bug #12508, Thomas
+      Jarosch <thomas.jarosch@intra2net.com>).
 [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
 
 
