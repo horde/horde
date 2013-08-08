@@ -390,19 +390,21 @@ class Horde_ActiveSync_Imap_Adapter
                 $query,
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
 
-            // Update flags.
-            $query = new Horde_Imap_Client_Fetch_Query();
-            $query->flags();
-            $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
-            foreach ($fetch_ret as $uid => $data) {
-                $flags[$uid] = array(
-                    'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
-                );
-                if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+            if (count($search_ret['match']->ids)) {
+                // Update flags.
+                $query = new Horde_Imap_Client_Fetch_Query();
+                $query->flags();
+                $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
+                foreach ($fetch_ret as $uid => $data) {
+                    $flags[$uid] = array(
+                        'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
+                    );
+                    if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
+                        $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                    }
                 }
+                $folder->setChanges($search_ret['match']->ids, $flags);
             }
-            $folder->setChanges($search_ret['match']->ids, $flags);
             $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
         }
         $folder->setStatus($status);
