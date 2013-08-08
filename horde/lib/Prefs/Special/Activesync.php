@@ -69,11 +69,15 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
 
         try {
             if ($ui->vars->wipeid) {
-                $state->loadDeviceInfo($ui->vars->wipeid, $auth);
+                if (!$state->deviceExists($ui->vars->wipeid, $auth)) {
+                    throw new Horde_Exception_PermissionDenied();
+                }
                 $state->setDeviceRWStatus($ui->vars->wipeid, Horde_ActiveSync::RWSTATUS_PENDING);
                 $notification->push(sprintf(_("A remote wipe for device id %s has been initiated. The device will be wiped during the next synchronisation."), $ui->vars->wipe));
             } elseif ($ui->vars->cancelwipe) {
-                $state->loadDeviceInfo($ui->vars->cancelwipe, $auth);
+                if (!$state->deviceExists($ui->vars->wipeid, $auth)) {
+                    throw new Horde_Exception_PermissionDenied();
+                }
                 $state->setDeviceRWStatus($ui->vars->cancelwipe, Horde_ActiveSync::RWSTATUS_OK);
                 $notification->push(sprintf(_("The Remote Wipe for device id %s has been cancelled."), $ui->vars->wipe));
             } elseif ($ui->vars->reset) {
