@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-07</date>
- <time>13:56:32</time>
+ <date>2013-08-08</date>
+ <time>00:03:40</time>
  <version>
   <release>2.6.0</release>
   <api>2.6.0</api>
@@ -22,9 +22,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix obtaining the timestamp of the last successful sync when backend uses modification sequences (Bug #12529).
 * [mjr] Fix broken Email sync due to clients that send unsolicited SMS data (Bug #12544).
 * [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
-* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefor has no history data (Bug #12531).
+* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefore has no history data (Bug #12531).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -200,6 +201,7 @@
       <file name="16_horde_activesync_fix_blob_length.php" role="data" />
       <file name="17_horde_activesync_clearallstate.php" role="data" />
       <file name="18_horde_activesync_addmapdeleteflag.php" role="data" />
+      <file name="19_horde_activesync_addtimestamp.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -447,6 +449,7 @@
    <install as="migration/16_horde_activesync_fix_blob_length.php" name="migration/Horde/ActiveSync/16_horde_activesync_fix_blob_length.php" />
    <install as="migration/17_horde_activesync_clearallstate.php" name="migration/Horde/ActiveSync/17_horde_activesync_clearallstate.php" />
    <install as="migration/18_horde_activesync_addmapdeleteflag.php" name="migration/Horde/ActiveSync/18_horde_activesync_addmapdeleteflag.php" />
+   <install as="migration/19_horde_activesync_addtimestamp.php" name="migration/Horde/ActiveSync/19_horde_activesync_addtimestamp.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
@@ -1580,12 +1583,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-07</date>
+   <date>2013-08-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix obtaining the timestamp of the last successful sync when backend uses modification sequences (Bug #12529).
 * [mjr] Fix broken Email sync due to clients that send unsolicited SMS data (Bug #12544).
 * [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
-* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefor has no history data (Bug #12531).
+* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefore has no history data (Bug #12531).
    </notes>
   </release>
  </changelog>
