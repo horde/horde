@@ -2248,12 +2248,14 @@ class Turba_Driver implements Countable
                 if (isset($item['params']['HOME']) &&
                     (!isset($hash['homeEmail']) ||
                      isset($item['params']['PREF']))) {
-                    $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['homeEmail'] = $e ? $e : '';
                     $email_set = true;
                 } elseif (isset($item['params']['WORK']) &&
                           (!isset($hash['workEmail']) ||
                            isset($item['params']['PREF']))) {
-                    $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['workEmail'] = $e ? $e : '';
                     $email_set = true;
                 } elseif (isset($item['params']['TYPE'])) {
                     if (!is_array($item['params']['TYPE'])) {
@@ -2262,23 +2264,27 @@ class Turba_Driver implements Countable
                     if (in_array('HOME', $item['params']['TYPE']) &&
                         (!isset($hash['homeEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
-                        $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                        $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                        $hash['homeEmail'] = $e ? $e : '';
                         $email_set = true;
                     } elseif (in_array('WORK', $item['params']['TYPE']) &&
                               (!isset($hash['workEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
-                        $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                        $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                        $hash['workEmail'] = $e ? $e : '';
                         $email_set = true;
                     }
                 }
                 if (!$email_set &&
                     (!isset($hash['email']) ||
                      isset($item['params']['PREF']))) {
-                    $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['email'] = $e ? $e : '';
                 }
 
                 if (!isset($hash['emails'])) {
-                    $hash['emails'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['emails'] = $e ? $e : '';
                 } else {
                     $hash['emails'] .= ',' . Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 }
