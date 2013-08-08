@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-08-07</date>
- <time>01:07:08</time>
+ <date>2013-08-08</date>
+ <time>00:38:23</time>
  <version>
   <release>2.6.6</release>
   <api>2.6.0</api>
@@ -3089,7 +3089,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-07</date>
+   <date>2013-08-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Ensure modseq values are always integers which prevents sync loops when no history data is available (Bug #12531).
