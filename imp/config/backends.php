@@ -398,6 +398,12 @@ $servers['advanced'] = array(
     //    'host' => 'smtp.example.com',
     //    'localhost' => 'localhost',
     //    'password' => null,
+    //    /* Mail from a MUA SHOULD be sent via the mail submission port (587)
+    //     * rather than the MTA port (25). Note that mail submission
+    //     * REQUIRES some method of authentication (whether explicit
+    //     * user/password credentials, or configuring the mail submission
+    //     * agent to automatically authenticate this host based on the
+    //     * network location. */
     //    'port' => 587,
     //    'username' => null
     ),
