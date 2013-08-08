@@ -22,7 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Do not ask the IMAP server to fetch flags if we don&apos;t have an empty imap search result (Bug #12551).
+* [mjr] Fix typos that could cause some sync actions to fail (Bug #12548 and #12523, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [mjr] Ensure proper failure codes are returned when a client addition fails to be added to the backend during a PARTIAL sync.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1599,7 +1601,9 @@
    <date>2013-08-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Do not ask the IMAP server to fetch flags if we don&apos;t have an empty imap search result (Bug #12551).
+* [mjr] Fix typos that could cause some sync actions to fail (Bug #12548 and #12523, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [mjr] Ensure proper failure codes are returned when a client addition fails to be added to the backend during a PARTIAL sync.
    </notes>
   </release>
  </changelog>
