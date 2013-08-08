@@ -29,8 +29,8 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         if (empty($conf['activesync']['enabled'])) {
             return _("ActiveSync not activated.");
         }
-        $stateMachine = $injector->getInstance('Horde_ActiveSyncState');
-        $devices = $stateMachine->listDevices($registry->getAuth());
+        $state = $injector->getInstance('Horde_ActiveSyncState');
+        $devices = $state->listDevices($registry->getAuth());
 
         $view = new Horde_View(array(
             'templatePath' => HORDE_TEMPLATES . '/prefs'
@@ -41,7 +41,7 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         $devs = array();
         $js = array();
         foreach ($devices as $key => $device) {
-            $dev = $stateMachine->loadDeviceInfo($device['device_id'], $registry->getAuth());
+            $dev = $state->loadDeviceInfo($device['device_id'], $registry->getAuth());
             $js[$dev->id] = array(
                 'id' => $dev->id,
                 'user' => $dev->user
@@ -64,29 +64,29 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         global $injector, $notification, $registry;
 
         $auth = $registry->getAuth();
-        $stateMachine = $injector->getInstance('Horde_ActiveSyncState');
-        $stateMachine->setLogger($injector->getInstance('Horde_Log_Logger'));
+        $state = $injector->getInstance('Horde_ActiveSyncState');
+        $state->setLogger($injector->getInstance('Horde_Log_Logger'));
 
         try {
             if ($ui->vars->wipeid) {
-                $stateMachine->loadDeviceInfo($ui->vars->wipeid, $auth);
-                $stateMachine->setDeviceRWStatus($ui->vars->wipeid, Horde_ActiveSync::RWSTATUS_PENDING);
+                $state->loadDeviceInfo($ui->vars->wipeid, $auth);
+                $state->setDeviceRWStatus($ui->vars->wipeid, Horde_ActiveSync::RWSTATUS_PENDING);
                 $notification->push(sprintf(_("A remote wipe for device id %s has been initiated. The device will be wiped during the next synchronisation."), $ui->vars->wipe));
             } elseif ($ui->vars->cancelwipe) {
-                $stateMachine->loadDeviceInfo($ui->vars->cancelwipe, $auth);
-                $stateMachine->setDeviceRWStatus($ui->vars->cancelwipe, Horde_ActiveSync::RWSTATUS_OK);
+                $state->loadDeviceInfo($ui->vars->cancelwipe, $auth);
+                $state->setDeviceRWStatus($ui->vars->cancelwipe, Horde_ActiveSync::RWSTATUS_OK);
                 $notification->push(sprintf(_("The Remote Wipe for device id %s has been cancelled."), $ui->vars->wipe));
             } elseif ($ui->vars->reset) {
-                $devices = $stateMachine->listDevices($auth);
+                $devices = $state->listDevices($auth);
                 foreach ($devices as $device) {
-                    $stateMachine->removeState(array(
+                    $state->removeState(array(
                         'devId' => $device['device_id'],
                         'user' => $auth
                     ));
                 }
                 $notification->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
             } elseif ($ui->vars->removedevice) {
-                $stateMachine->removeState(array(
+                $state->removeState(array(
                     'devId' => $ui->vars->removedevice,
                     'user' => $auth
                 ));
