@@ -364,7 +364,7 @@ class Horde_ActiveSync_Imap_Adapter
             } elseif (count($search_ret['match']->ids)) {
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
-                $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
+                $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $search_ret['match']));
                 foreach ($fetch_ret as $uid => $data) {
                     $flags[$uid] = array(
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
@@ -394,7 +394,7 @@ class Horde_ActiveSync_Imap_Adapter
                 // Update flags.
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
-                $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
+                $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $search_ret['match']));
                 foreach ($fetch_ret as $uid => $data) {
                     $flags[$uid] = array(
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
