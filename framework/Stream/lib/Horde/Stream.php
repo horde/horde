@@ -252,7 +252,7 @@ class Horde_Stream implements Serializable
      *
      * @since 1.3.0
      *
-     * @return string  The EOL string.
+     * @return string  The EOL string, or null if no EOL found.
      */
     public function getEOL()
     {
