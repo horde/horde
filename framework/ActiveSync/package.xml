@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-08</date>
- <time>00:27:58</time>
+ <time>00:36:40</time>
  <version>
-  <release>2.6.0</release>
+  <release>2.6.1</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix obtaining the timestamp of the last successful sync when backend uses modification sequences (Bug #12529).
-* [mjr] Fix broken Email sync due to clients that send unsolicited SMS data (Bug #12544).
-* [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
-* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefore has no history data (Bug #12531).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1590,6 +1587,19 @@
 * [mjr] Fix broken Email sync due to clients that send unsolicited SMS data (Bug #12544).
 * [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
 * [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefore has no history data (Bug #12531).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.1</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
