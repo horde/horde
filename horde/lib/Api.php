@@ -740,7 +740,7 @@ class Horde_Api extends Horde_Registry_Api
                 throw new Horde_Exception($e);
             }
             return true;
-        case 'CANCE_WIPE':
+        case 'CANCEL_WIPE':
             try {
                 $state->setDeviceRWStatus($deviceid, Horde_ActiveSync::RWSTATUS_OK);
             } catch (Horde_ActiveSync_Exception $e) {
