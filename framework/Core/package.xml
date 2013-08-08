@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-08-08</date>
- <time>00:38:23</time>
+ <time>00:45:52</time>
  <version>
-  <release>2.6.6</release>
+  <release>2.6.7</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Ensure modseq values are always integers which prevents sync loops when no history data is available (Bug #12531).
-* [mms] Ensure Registry exists in error handler before attempting to access it (Bug #12540).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3094,6 +3093,19 @@
    <notes>
 * [mjr] Ensure modseq values are always integers which prevents sync loops when no history data is available (Bug #12531).
 * [mms] Ensure Registry exists in error handler before attempting to access it (Bug #12540).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.7</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
