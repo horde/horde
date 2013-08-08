@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -291,13 +291,13 @@ msgstr "Mensaje de error devuelto:"
 msgid "Revocation key not generated successfully."
 msgstr "No se generó correctamente la clave de anulación."
 
-#: lib/Horde/Crypt/Smime.php:204
-msgid "S/MIME Cryptographic Signature"
-msgstr "Firma criptográfica S/MIME"
-
 #: lib/Horde/Crypt/Smime.php:238
 msgid "S/MIME Encrypted Message"
 msgstr "Mensaje cifrado en S/MIME"
+
+#: lib/Horde/Crypt/Smime.php:204
+msgid "S/MIME Signature"
+msgstr "Firma S/MIME"
 
 #: lib/Horde/Crypt/Smime.php:518
 msgid "Serial Number"

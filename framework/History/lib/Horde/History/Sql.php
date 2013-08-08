@@ -293,10 +293,12 @@ class Horde_History_Sql extends Horde_History
      */
     public function getHighestModSeq($parent = null)
     {
-        $sql = 'SELECT MAX(history_modseq) FROM horde_histories';
+        $sql = 'SELECT history_modseq FROM horde_histories';
         if (!empty($parent)) {
             $sql .= ' WHERE object_uid LIKE ' . $this->_db->quote($parent . ':%');
         }
+        $sql .= ' ORDER BY history_modseq DESC';
+        $sql = $this->_db->addLimitOffset($sql, array('limit' => 1));
 
         try {
             $modseq = $this->_db->selectValue($sql);

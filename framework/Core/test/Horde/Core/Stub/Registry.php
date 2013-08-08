@@ -1,31 +1,25 @@
 <?php
 /**
- * Stub for testing the Registry object.
- * Needed because we need to access a protected method.
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
- * @package  Registry
+ * @package  Core
  */
 
 /**
  * Stub for testing the Registry object.
  * Needed because we need to access a protected method.
  *
- * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
- * @package  Registry
+ * @package  Core
  */
 class Horde_Core_Stub_Registry extends Horde_Registry
 {

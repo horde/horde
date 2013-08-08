@@ -139,14 +139,16 @@ implements Horde_HashTable_Lock
      */
     public function clear()
     {
-        $res = $this->_predis->keys(addcslashes(strval($this->_params['prefix']), '?*') . '*');
+        try {
+            $res = $this->_predis->keys(addcslashes(strval($this->_params['prefix']), '?*') . '*');
 
-        /* Before 2.0, KEYS returns a space-delimited string. */
-        if (is_string($res)) {
-            $res = explode(' ', $res);
-        }
+            /* Before 2.0, KEYS returns a space-delimited string. */
+            if (is_string($res)) {
+                $res = explode(' ', $res);
+            }
 
-        $this->_predis->del($res);
+            $this->_predis->del($res);
+        } catch (Exception $e) {}
     }
 
     /**

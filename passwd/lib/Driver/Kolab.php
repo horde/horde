@@ -55,15 +55,15 @@ class Passwd_Driver_Kolab extends Passwd_Driver
         }
 
         // Make sure we're using the full user@domain format.
-        if (strstr($username, '@') === false) {
-            $username .= '@' . $conf['kolab']['imap']['maildomain'];
+        if (strstr($user, '@') === false) {
+            $user .= '@' . $conf['kolab']['imap']['maildomain'];
         }
 
         // Find the user's DN.
         $result = ldap_search(
             $ds,
             $conf['kolab']['ldap']['basedn'],
-            'mail=' . $username
+            'mail=' . $user
         );
         $entry = ldap_first_entry($ds, $result);
         if ($entry === false) {

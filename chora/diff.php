@@ -20,7 +20,11 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('chora');
+
+// Cache the diff output for a week - it can be longer, since it should never
+// change.
+session_cache_expire(10080);
+Horde_Registry::appInit('chora', array('session_cache_limiter' => 'public'));
 
 /* Spawn the repository and file objects */
 try {
@@ -46,10 +50,6 @@ $type = $vars->get('t', 'colored');
 if ($vars->ty == 'u') {
     $type = 'unified';
 }
-
-/* Cache the output of the diff for a week - it can be longer, since
- * it should never change. */
-header('Cache-Control: max-age=604800');
 
 /* All is ok, proceed with the diff. Always make sure there is a newline at
  * the end of the file - patch requires it. */

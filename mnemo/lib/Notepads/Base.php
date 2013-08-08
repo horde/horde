@@ -73,7 +73,7 @@ abstract class Mnemo_Notepads_Base
      */
     public function ensureDefaultShare()
     {
-        /* If the user doesn't own a task list, create one. */
+        /* If the user doesn't own a notepad, create one. */
         if (!empty($this->_params['auto_create']) && $this->_user &&
             !count(Mnemo::listNotepads(true))) {
             $share = $this->_shares->newShare(

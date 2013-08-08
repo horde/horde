@@ -230,13 +230,21 @@ class IMP_Hooks
     /**
      * Dynamically create the contents of the message trailer text.
      *
-     * @param boolean $html  If true, the trailer text to be used in the HTML
-                             part. If null is returned, the plaintext trailer
-                             text will be used.
+     * @param boolean $html                 If true, the trailer text to be
+     *                                      used in the HTML part. If null is
+     *                                      returned, the plaintext trailer
+     *                                      text will be used.
+     * @param IMP_Prefs_Identity $identity  The identity object of the sender.
+     * @param Horde_Mail_Rfc822_List $to    The list of addresses the message
+     *                                      is being sent to.
      *
      * @return string  The trailer text to be used.
      */
-//    public function trailer($html = false)
+//    public function trailer(
+//        $html,
+//        IMP_Prefs_Identity $identity,
+//        Horde_Mail_Rfc822_List $to
+//    )
 //    {
 //        // Example #1: Static trailer text.
 //        if ($html) {

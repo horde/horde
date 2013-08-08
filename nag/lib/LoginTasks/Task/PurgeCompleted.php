@@ -45,7 +45,8 @@ class Nag_LoginTasks_Task_PurgeCompleted extends Horde_LoginTasks_Task
         $tasklists = Nag::listTasklists(true, Horde_Perms::DELETE, false);
         $tasks = Nag::listTasks(array(
             'completed' => Nag::VIEW_COMPLETE,
-            'tasklists' => array_keys($tasklists))
+            'tasklists' => array_keys($tasklists),
+            'include_history' => false)
         );
         $factory = $GLOBALS['injector']->getInstance('Nag_Factory_Driver');
         $count = 0;

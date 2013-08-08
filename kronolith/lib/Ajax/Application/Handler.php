@@ -1193,11 +1193,22 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
     public function getCalendar()
     {
         $result = new stdClass;
-        if (!isset($GLOBALS['all_calendars'][$this->vars->cal])) {
-            $GLOBALS['notification']->push(_("You are not allowed to view this calendar."), 'horde.error');
-            return $result;
+        if (!isset($GLOBALS['all_calendars'][$this->vars->cal]) && !$GLOBALS['conf']['share']['hidden']) {
+                $GLOBALS['notification']->push(_("You are not allowed to view this calendar."), 'horde.error');
+                return $result;
+        } elseif (!isset($GLOBALS['all_calendars'][$this->vars->cal])) {
+            // Subscribing to a "hidden" share, check perms.
+            $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+            $share = $kronolith_shares->getShare($this->vars->cal);
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+                $GLOBALS['notification']->push(_("You are not allowed to view this calendar."), 'horde.error');
+                return $result;
+            }
+            $calendar = new Kronolith_Calendar_Internal(array('share' => $share));
+        } else {
+            $calendar = $GLOBALS['all_calendars'][$this->vars->cal];
         }
-        $calendar = $GLOBALS['all_calendars'][$this->vars->cal];
+
         $result->calendar = $calendar->toHash();
         return $result;
     }

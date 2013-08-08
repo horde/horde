@@ -266,6 +266,7 @@ class Horde_Registry
             case self::AUTH_FAILURE:
                 $failure = new Horde_Exception_AuthenticationFailure($e->getMessage());
                 $failure->application = $app;
+                $registry->clearAuth(true);
                 throw $failure;
 
             case self::NOT_ACTIVE:
@@ -2196,7 +2197,7 @@ class Horde_Registry
         }
 
         $params = array();
-        if ($options['reason'] != Horde_Auth::REASON_LOGOUT) {
+        if (!in_array($options['reason'], array(Horde_Auth::REASON_LOGOUT, Horde_Auth::REASON_MESSAGE))) {
             $params['url'] = Horde::selfUrl(true, true, true);
         }
 

@@ -29,9 +29,11 @@
     <?php echo $this->actionButton(array('icon' => 'Templates', 'id' => 'template_button', 'title' => _("Save Template"))) ?>
    </li>
 <?php else: ?>
+<?php if ($this->spellcheck): ?>
    <li class="horde-icon">
     <?php echo $this->actionButton(array('icon' => 'Spellcheck', 'id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
    </li>
+<?php endif; ?>
 <?php if ($this->drafts): ?>
    <li class="horde-icon">
     <?php echo $this->actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))) ?>

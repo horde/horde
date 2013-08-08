@@ -83,6 +83,7 @@ $backends['hordeauth'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
+    'logout' => true,
 );
 
 $backends['hordesql'] = array(
@@ -103,6 +104,7 @@ $backends['hordesql'] = array(
             'encryption' => isset($GLOBALS['conf']['auth']['params']['encryption']) ? $GLOBALS['conf']['auth']['params']['encryption'] : false
         )
     ),
+    'logout' => true,
 );
 
 $backends['poppassd'] = array(

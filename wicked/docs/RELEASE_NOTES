@@ -14,8 +14,8 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Wicked wiki
-application version H5 (2.0.0).
+The Horde Team is pleased to announce the first release candidate of the Wicked
+wiki application version H5 (2.0.0).
 
 Wicked is a wiki application for the Horde Framework. It uses PEAR's Text_Wiki
 library for the actual wiki markup parsing and rendering. It supports Creole,
@@ -28,15 +28,13 @@ http://www.horde.org/apps/wicked/docs/INSTALL
 Testing is requested and comments are encouraged.
 Updated translations would also be great.
 
-The major changes compared to the Wicked H4 versions are:
-    * Compatible with Horde 5.
-    * Small bugfixes and improvements.
+The major changes compared to the Wicked version H5 (2.0.0beta1) are:
+    * Several bugfixes and small improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Compatible with Horde 5.
-Small bugfixes and improvements.
+Several bugfixes and small improvements.
 FM;
 
 $this->notes['name'] = 'Wicked';

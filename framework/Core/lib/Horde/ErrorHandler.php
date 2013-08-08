@@ -24,10 +24,6 @@ class Horde_ErrorHandler
     {
         global $registry;
 
-        try {
-            Horde::log($error, 'EMERG');
-        } catch (Exception $e) {}
-
         if (is_object($error)) {
             switch (get_class($error)) {
             case 'Horde_Exception_AuthenticationFailure':
@@ -36,13 +32,16 @@ class Horde_ErrorHandler
                     break;
                 }
 
+                try {
+                    Horde::log($error, 'NOTICE');
+                } catch (Exception $e) {}
+
                 if (Horde_Cli::runningFromCLI()) {
                     $cli = new Horde_Cli();
                     $cli->fatal($error);
                 }
 
                 $params = array(
-                    'app' => $error->application,
                     'reason' => $error->getCode()
                 );
 
@@ -56,6 +55,10 @@ class Horde_ErrorHandler
                 exit;
             }
         }
+
+        try {
+            Horde::log($error, 'EMERG');
+        } catch (Exception $e) {}
 
         try {
             $cli = Horde_Cli::runningFromCLI();
@@ -79,7 +82,7 @@ HTML;
 
         ob_start();
         try {
-            $admin = $registry->isAdmin();
+            $admin = (isset($registry) && $registry->isAdmin());
 
             echo '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
 

@@ -965,7 +965,11 @@ class Turba_Api extends Horde_Registry_Api
             $result = $sdriver->search(array('__uid' => $uid));
             if (count($result) != 0) {
                 $r = $result->objects[0];
-                return $sdriver->delete($r->getValue('__key'));
+                try {
+                    $sdriver->delete($r->getValue('__key'));
+                } catch (Turba_Exception $e) {
+                    return false;
+                }
             }
         }
 

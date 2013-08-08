@@ -218,6 +218,9 @@ class Turba_View_Browse
                         }
                     }
                     unset($objAttributes['__owner']);
+                    if ($actionID == 'copy') {
+                        unset($objAttributes['__uid']);
+                    }
 
                     try {
                         $targetDriver->add($objAttributes);

@@ -1128,6 +1128,10 @@ abstract class Kronolith_Event
                               'month' => (int)$this->end->month,
                               'mday'  => (int)$this->end->mday + 1),
                         $tzid);
+                } else {
+                    // Otherwise, honor RFC 2445 that says DTEND is non-inclusive
+                    // (we store it as inclusive).
+                    --$this->end->sec;
                 }
             } else {
                 // Date field

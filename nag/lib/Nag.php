@@ -192,6 +192,8 @@ class Nag
      *                   DEFAULT: false (Tags are lazy loaded as needed.)
      *   - tasklists: (array) An array of tasklists to include.
      *                DEFAULT: Use $GLOBALS['display_tasklists'];
+     *   - include_history: (boolean) Autoload created/modified data from Horde_History.
+     *                      DEFAULT: true (Automatically load history data).
      *
      * @return Nag_Task  A list of the requested tasks.
      */
@@ -213,6 +215,7 @@ class Nag
                 'completed' => $prefs->getValue('show_completed'),
                 'include_tags' => false,
                 'external' => true,
+                'include_history' => true
             ),
             $options
         );
@@ -227,7 +230,7 @@ class Nag
                 ->create($tasklist);
 
             // Retrieve the tasklist from storage.
-            $storage->retrieve($options['completed']);
+            $storage->retrieve($options['completed'], $options['include_history']);
             $tasks->mergeChildren($storage->tasks->children);
         }
 

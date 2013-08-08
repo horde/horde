@@ -23,10 +23,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>14:26:07</time>
+ <date>2013-07-16</date>
+ <time>16:36:26</time>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.7</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -35,8 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix resetting passwords with LDAP driver (Bug #12317).
-* [mms] Fix authentication with the Http auth driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -847,11 +846,38 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add password policy for minimum number of non-alphabetic characters (Friedrich Haubensak &lt;hsk@fli-leibniz.de&gt;, Request #12243).
 * [jan] Fix resetting passwords with LDAP driver (Bug #12317).
 * [mms] Fix authentication with the Http auth driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix adding/deleting users via IMAP administration (Bug #12426).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

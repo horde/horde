@@ -1522,7 +1522,7 @@ msgstr "Naptár (vTodo)"
 #: lib/Application.php:313
 #, php-format
 msgid "in %s"
-msgstr "%s jegyzettömbben"
+msgstr "%s feladatokban"
 
 #: lib/Nag.php:1087 lib/Nag.php:1088
 msgid "no due date"

@@ -168,11 +168,11 @@ table.nopadding .headerbox td, table.nopadding .headerbox th {
     font-weight: bold;
 }
 .sortup {
-    background: url("graphics/za.png") left center no-repeat;
+    background: url("graphics/za.png") left center no-repeat !important;
     text-indent: 15px;
 }
 .sortdown {
-    background: url("graphics/az.png") left center no-repeat;
+    background: url("graphics/az.png") left center no-repeat !important;
     text-indent: 15px;
 }
 
@@ -183,6 +183,7 @@ table.horde-table {
 table.horde-table th {
     text-align: left;
     font-weight: normal;
+    white-space: nowrap;
 }
 table.horde-table th.sortdown, table.horde-table th.sortup {
     font-weight: bold;
@@ -198,11 +199,11 @@ table.horde-table td {
     margin-left: 5px;
     padding: 0 5px;
 }
-.horde-table-header, table.horde-table thead tr {
+.horde-table-header, table.horde-table thead tr, table.horde-table th {
     background-image: url("graphics/tablehead-bg.png");
     background-repeat: repeat-x;
 }
-.horde-table-header a, table.horde-table thead a {
+.horde-table-header a, table.horde-table th a {
     color: #000;
 }
 .horde-table-header .horde-split-left,
@@ -1819,6 +1820,10 @@ left.horde-point-right {
 }
 .horde-icon-settings:hover {
     background-image: url("graphics/settings-active.png");
+}
+.horde-icon-settings a {
+    width: 22px;
+    height: 27px;
 }
 
 /* Sub bar. */

@@ -174,11 +174,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         global $injector;
 
         $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::authenticate() attempt for %s",
+            '[%s] Horde_Core_ActiveSync_Driver::authenticate() attempt for %s',
             $this->_pid,
             $username));
 
         if (!$this->_auth->authenticate($username, array('password' => $password))) {
+            $injector->getInstance('Horde_Log_Logger')->err(sprintf('Login failed from ActiveSync client for user %s.', $username));
             return false;
         }
 
@@ -197,9 +198,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         }
 
-        parent::authenticate($username, $password, $domain);
-
-        return true;
+        return parent::authenticate($username, $password, $domain);
     }
 
     /**
@@ -1135,7 +1134,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1, 'parent' => $folderid);
+                $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
                 // ActiveSync messages do NOT contain the serverUID value, put
                 // it in ourselves so we can have it during import/change.
@@ -1163,7 +1162,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1, 'parent' => $folderid);
+                $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
                 if (!empty($device->supported[self::CONTACTS_FOLDER_UID])) {
                     $message->setSupported($device->supported[self::CONTACTS_FOLDER_UID]);
@@ -1188,7 +1187,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1, 'parent' => $folderid);
+                $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
                 if (!empty($device->supported[self::TASKS_FOLDER_UID])) {
                     $message->setSupported($device->supported[self::TASKS_FOLDER_UID]);
@@ -1213,7 +1212,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = array('mod' => time(), 'id' => $id, 'flags' => 1, 'parent' => $folderid);
+                $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
                 if (!empty($device->supported[self::NOTES_FOLDER_UID])) {
                     $message->setSupported($device->supported[self::NOTES_FOLDER_UID]);
@@ -1234,7 +1233,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $stat = array(
                     'id' => $id,
                     'mod' => 0,
-                    'parent' => $folderid,
                     'flags' => array()
                 );
                 if ($message->read !== '') {
@@ -1326,12 +1324,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             // object in EAS 14+
             $save = $message->saveinsent;
 
-            // Did we edit the smart text? @TODO: Still need to research what
-            // the difference is between this and just pretending it was a
-            // plain SENDMAIL request.
-            // $replace = $message->replacemime;
+            // Do we want to just replace the mime part?
+            $replacemime = $message->replacemime;
         } else {
             $raw_message = new Horde_ActiveSync_Rfc822($rfc822);
+            $replacemime = false;
         }
 
         $headers = $raw_message->getHeaders();
@@ -1342,25 +1339,46 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Use the raw base part parsed from the rfc822 message if we don't
-        // need a smart reply or smart forward. The device will NOT send a
-        // smart reply/forward request if it is a s/mime signed.
-        if (!$parent) {
+        // need a smart reply or smart forward. We MUST use the raw message body
+        // as sent from the client since it may be s/mime signed.The device will
+        // NOT send a smart reply/forward request if it is s/mime signed.
+        // Note that we also cannot use Horde_Mime_Part::send or Horde_Mime_Mail
+        // since these all rebuild the mime parts.
+        if (!$parent || ($parent && $replacemime)) {
             $h_array = $headers->toArray(array('charset' => 'UTF-8'));
             if (is_array($h_array['From'])) {
                 $h_array['From'] = current($h_array['From']);
             }
-            $mail = new Horde_Mime_Mail($h_array);
-            $mail->setBasePart($raw_message->getMimeObject());
+            $recipients = $h_array['To'];
+            if (!empty($h_array['Cc'])) {
+                $recipients .= ',' . $h_array['Cc'];
+            }
+            if (!empty($h_array['Bcc'])) {
+                $recipients .= ',' . $h_array['Bcc'];
+            }
+            $GLOBALS['injector']->getInstance('Horde_Mail')->send($recipients, $h_array, $raw_message->getMessage()->stream);
 
             try {
                 // Need the message if we are saving to sent.
                 if ($save) {
                     $copy = $raw_message->getMimeObject();
                 }
-                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
+               // $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
+            }
+            if ($replacemime) {
+                // Even though we don't need to the original body, we still need
+                // to get the message headers so we have the message-id.
+                $source_uid = empty($forward) ? $reply : $forward;
+                $imap_message = array_pop($this->_imap->getImapMessage($parent, $source_uid, array('headers' => true)));
+                if (empty($imap_message)) {
+                    throw new Horde_Exception_NotFound('The forwarded/replied message was not found.');
+                }
+                $this->_logger->info(sprintf(
+                    '[%s] Client sent a SMART request along with REPLACEMIME tag.',
+                    $this->_pid));
             }
         } else {
             // Handle smartReplies and smartForward requests.
@@ -1556,7 +1574,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         $headers = $message->getHeaders();
         $from = strval($headers->getOb('from'));
-        $msg_pre = $from ? sprintf(Horde_Core_Translation::t("Quoting %s"), $from) : Horde_Core_Translation::t("Quoted") . "\n\n";
+        $msg_pre = ($from ? sprintf(Horde_Core_Translation::t("Quoting %s"), $from) : Horde_Core_Translation::t("Quoted")) . "\n\n";
         $msg = $this->_msgBody($body_data, $part, $html, true);
         if (!empty($msg) && $html) {
             $msg = '<p>' . $this->text2html($msg_pre) . '</p>'
@@ -2279,7 +2297,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $modseq,
                 $collection));
 
-            return $modseq;
+            return intval($modseq);
         }
 
         return time();

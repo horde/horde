@@ -2,6 +2,13 @@
 v2.0.0-git
 ----------
 
+
+
+---------
+v2.0.0RC1
+---------
+
+[jan] Add table layout (Bug #12402).
 [jan] Fix DB column width for page contents (Bug #12407).
 [mjr] Fix creating a new page from search results (Bug #12381).
 [jan] Fix syntax error in wicked CLI script (Bug #12378).

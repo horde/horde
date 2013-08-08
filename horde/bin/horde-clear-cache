@@ -48,7 +48,7 @@ $clear = $values->force
 if ($clear) {
     try {
         $cache->clear();
-        $cli->message('Cache data cleared.', 'cli.success');
+        $cli->message('Cache data cleared. NOTE: This does not indicate that cache data was successfully cleared on the backend, only that no error messages were returned.', 'cli.success');
     } catch (Horde_Exception $e) {
         $cli->fatal($e);
     }

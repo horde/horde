@@ -66,7 +66,8 @@ class Nag_Form_Task extends Horde_Form
         if (!$vars->get('mobile')) {
             $tasks = Nag::listTasks(array(
                 'tasklists' => array($tasklist),
-                'complete' => Nag::VIEW_FUTURE_INCOMPLETE)
+                'complete' => Nag::VIEW_FUTURE_INCOMPLETE,
+                'include_history' => false)
             );
             $task_enums = array('' => _("No parent task"));
             $tasks->reset();

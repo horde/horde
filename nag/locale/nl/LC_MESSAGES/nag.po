@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Nag H3 (2.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-06-03 23:40+0200\n"
-"PO-Revision-Date: 2013-06-07 16:12+0200\n"
+"PO-Revision-Date: 2013-06-24 19:59+0200\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -1236,7 +1236,7 @@ msgstr "Dan:"
 
 #: templates/list.html.php:30
 msgid "There are no tasks matching the current criteria."
-msgstr "Er zijn taken die overeenkomen met de huidige criteria."
+msgstr "Er zijn geen taken die overeenkomen met de huidige criteria."
 
 #: lib/CompleteTask.php:35
 #, php-format

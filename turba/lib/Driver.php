@@ -1094,6 +1094,10 @@ class Turba_Driver implements Countable
                 } catch (Turba_Exception $e) {}
             }
             switch ($key) {
+            case '__uid':
+                $vcard->setAttribute('UID', $val);
+                break;
+
             case 'name':
                 if ($fields && !isset($fields['FN'])) {
                     break;
@@ -1994,6 +1998,10 @@ class Turba_Driver implements Countable
         $attr = $vcard->getAllAttributes();
         foreach ($attr as $item) {
             switch ($item['name']) {
+            case 'UID':
+                $hash['__uid'] = $item['value'];
+                break;
+
             case 'FN':
                 $hash['name'] = $item['value'];
                 break;
@@ -2240,12 +2248,14 @@ class Turba_Driver implements Countable
                 if (isset($item['params']['HOME']) &&
                     (!isset($hash['homeEmail']) ||
                      isset($item['params']['PREF']))) {
-                    $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['homeEmail'] = $e ? $e : '';
                     $email_set = true;
                 } elseif (isset($item['params']['WORK']) &&
                           (!isset($hash['workEmail']) ||
                            isset($item['params']['PREF']))) {
-                    $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['workEmail'] = $e ? $e : '';
                     $email_set = true;
                 } elseif (isset($item['params']['TYPE'])) {
                     if (!is_array($item['params']['TYPE'])) {
@@ -2254,23 +2264,27 @@ class Turba_Driver implements Countable
                     if (in_array('HOME', $item['params']['TYPE']) &&
                         (!isset($hash['homeEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
-                        $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                        $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                        $hash['homeEmail'] = $e ? $e : '';
                         $email_set = true;
                     } elseif (in_array('WORK', $item['params']['TYPE']) &&
                               (!isset($hash['workEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
-                        $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                        $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                        $hash['workEmail'] = $e ? $e : '';
                         $email_set = true;
                     }
                 }
                 if (!$email_set &&
                     (!isset($hash['email']) ||
                      isset($item['params']['PREF']))) {
-                    $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['email'] = $e ? $e : '';
                 }
 
                 if (!isset($hash['emails'])) {
-                    $hash['emails'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['emails'] = $e ? $e : '';
                 } else {
                     $hash['emails'] .= ',' . Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 }
@@ -2633,13 +2647,17 @@ class Turba_Driver implements Countable
         /* Email addresses */
         $hash['emails'] = array();
         if (!$message->isGhosted('email1address')) {
-            $hash['emails'][] = $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
+            $e = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
+            $hash['emails'][] = $hash['email'] = $e ? $e : '';
+
         }
         if (!$message->isGhosted('email2address')) {
-            $hash['emails'][] = $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
+            $e = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
+            $hash['emails'][] = $hash['homeEmail'] = $e ? $e : '';
         }
         if (!$message->isGhosted('email3address')) {
-            $hash['emails'][] = $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
+            $e = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
+            $hash['emails'][] = $hash['workEmail'] = $e ? $e : '';
         }
         $hash['emails'] = implode(',', $hash['emails']);
 
@@ -2665,14 +2683,14 @@ class Turba_Driver implements Countable
             $bday->setTimezone(date_default_timezone_get());
             $hash['birthday'] = $bday->format('Y-m-d');
         } elseif (!$message->isGhosted('birthday')) {
-            $hash['birthday'] = null;
+            $hash['birthday'] = '';
         }
         if (!empty($message->anniversary)) {
             $anniversary = new Horde_Date($message->anniversary);
             $anniversary->setTimezone(date_default_timezone_get());
             $hash['anniversary'] = $anniversary->format('Y-m-d');
         } elseif (!$message->isGhosted('anniversary')) {
-            $hash['anniversary'] = null;
+            $hash['anniversary'] = '';
         }
 
         /* Countries */
@@ -2688,7 +2706,7 @@ class Turba_Driver implements Countable
                 $hash['homeCountry'] = $country;
             }
         } elseif (!$message->isGhosted('homecountry')) {
-            $hash['homeCountry'] = null;
+            $hash['homeCountry'] = '';
         }
 
         if (!empty($message->businesscountry)) {
@@ -2702,7 +2720,7 @@ class Turba_Driver implements Countable
                 $hash['workCountry'] = $country;
             }
         } elseif (!$message->isGhosted('businesscountry')) {
-            $hash['workCountry'] = null;
+            $hash['workCountry'] = '';
         }
 
         if (!empty($message->othercountry)) {
@@ -2716,7 +2734,7 @@ class Turba_Driver implements Countable
                 $hash['otherCountry'] = $country;
             }
         } elseif (!$message->isGhosted('othercountry')) {
-            $hash['otherCountry'] = null;
+            $hash['otherCountry'] = '';
         }
 
         return $hash;

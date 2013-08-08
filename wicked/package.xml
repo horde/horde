@@ -16,10 +16,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-03</date>
- <time>11:17:36</time>
+ <date>2013-07-17</date>
+ <time>00:21:43</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>2.0.0RC2</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix DB column width for page contents (Bug #12407).
-* [mjr] Fix creating a new page from search results (Bug #12381).
-* [jan] Fix syntax error in wicked CLI script (Bug #12378).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -947,17 +945,31 @@
   </release>
   <release>
    <version>
-    <release>2.0.0beta2</release>
+    <release>2.0.0RC1</release>
     <api>2.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-07-03</date>
+   <date>2013-07-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add table layout (Bug #12402).
 * [jan] Fix DB column width for page contents (Bug #12407).
 * [mjr] Fix creating a new page from search results (Bug #12381).
 * [jan] Fix syntax error in wicked CLI script (Bug #12378).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-07-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -520,9 +520,7 @@ class Wicked_Page
             $this->_proc->setRenderConf('Xhtml', 'Toc2',
                                         array('title' => '<h2>' . _("Table of Contents") . '</h2>'));
             $this->_proc->setRenderConf('Xhtml', 'Table',
-                                        array('css_table' => 'table',
-                                              'css_td' => 'table-cell',
-                                              'css_th' => 'table-cell'));
+                                        array('css_table' => 'horde-table'));
 
             break;
 

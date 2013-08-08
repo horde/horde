@@ -35,14 +35,14 @@ class Horde_Stream_Filter_Eol extends php_user_filter
     /**
      * Search array.
      *
-     * @param mixed
+     * @var mixed
      */
     protected $_search;
 
     /**
      * Replacement data
      *
-     * @param mixed
+     * @var mixed
      */
     protected $_replace;
 

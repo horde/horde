@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-06-17</date>
- <time>15:35:10</time>
+ <date>2013-08-08</date>
+ <time>00:45:52</time>
  <version>
-  <release>2.6.1</release>
+  <release>2.6.7</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -40,12 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Performance improvements to Horde_Core_TagBrowser when fetching related tags.
-* [mjr] Fix bug in TagBrowser causing shared resources to be ignored (Bug #12405).
-* [jan] Fix returning the default from address from a different user without identities.
-* [jan] Fix inactive email fields with multiple addresses if disabling linking (Bug #12051).
-* [mms] Use built-in ISO 639 mapping in LanguageDetect factory if the underlying library supports it.
-* [jan] Fix rendering of email addresses in inactive forms.
+* [mms] Don&apos;t redirect to current page&apos;s URL when logging out with a custom message (Bug #12538).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -473,6 +468,9 @@
       <dir name="Group">
        <file name="Ldap.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Group -->
+      <dir name="HashTable">
+       <file name="Wrapper.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/HashTable -->
       <dir name="Imsp">
        <file name="Utils.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Imsp -->
@@ -1787,6 +1785,7 @@
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
+   <install as="Horde/Core/HashTable/Wrapper.php" name="lib/Horde/Core/HashTable/Wrapper.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
    <install as="Horde/Core/Log/Object.php" name="lib/Horde/Core/Log/Object.php" />
@@ -3013,15 +3012,100 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-17</date>
+   <date>2013-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix issue with replying to emails using EAS 14+ that was causing duplicated original message bodies for some clients.
 * [mjr] Performance improvements to Horde_Core_TagBrowser when fetching related tags.
 * [mjr] Fix bug in TagBrowser causing shared resources to be ignored (Bug #12405).
 * [jan] Fix returning the default from address from a different user without identities.
 * [jan] Fix inactive email fields with multiple addresses if disabling linking (Bug #12051).
 * [mms] Use built-in ISO 639 mapping in LanguageDetect factory if the underlying library supports it.
 * [jan] Fix rendering of email addresses in inactive forms.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.2</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix sending s/mime signed email from EAS clients (Bug #12445).
+* [mms] Correctly logout when a Horde_Exception_AuthenticationFailure is handled by the default Horde error handler.
+* [mms] Don&apos;t convert image data URLs already contained within a CSS file when compressing (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Prevent endless loop when checkExistingAuth() test fails when initializing an application.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.3</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-24</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix fatal error caused by incorrect classname (Bug #12494).
+* [mms] Injector a HashTable wrapper object into Cache and SessionHandler objects, so we will reuse global HashTable instance when unserializing.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.4</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-24</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] SessionHandler should not use HashTable wrapper, as it explicitly can&apos;t be serialized.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.5</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Remove text overlaying menu icon (Bug #12496).
+* [mms] Log unexpected authentication errors at a NOTICE level instead of EMERG.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.6</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Ensure modseq values are always integers which prevents sync loops when no history data is available (Bug #12531).
+* [mms] Ensure Registry exists in error handler before attempting to access it (Bug #12540).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.7</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Don&apos;t redirect to current page&apos;s URL when logging out with a custom message (Bug #12538).
    </notes>
   </release>
  </changelog>

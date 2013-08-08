@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-04 11:48+0200\n"
+"POT-Creation-Date: 2013-07-29 11:06+0200\n"
 "PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid " (Accesskey %s)"
 msgstr " (Alt + %s)"
 
-#: lib/Horde/Registry.php:1280 lib/Horde/Registry.php:1971
+#: lib/Horde/Registry.php:1298 lib/Horde/Registry.php:1971
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" no se ha configurado en el registro de Horde."
@@ -76,7 +76,7 @@ msgstr "6 horas"
 msgid "<Previous"
 msgstr "<Anterior"
 
-#: lib/Horde/ErrorHandler.php:81
+#: lib/Horde/ErrorHandler.php:83
 msgid "A fatal error has occurred"
 msgstr "Se ha producido un error irreparable"
 
@@ -136,11 +136,11 @@ msgstr "Añadir a \"%s\" un permiso descendiente"
 msgid "Add source"
 msgstr "Añadir origen"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:405
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:407
 msgid "Add to address book:"
 msgstr "Añadir a las direcciones:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:420
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:423
 msgid "Add to my address book"
 msgstr "Añadir a las direcciones:"
 
@@ -149,11 +149,11 @@ msgstr "Añadir a las direcciones:"
 msgid "Address"
 msgstr "Dirección"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:407
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:409
 msgid "Address Book"
 msgstr "Direcciones"
 
-#: lib/Horde/Registry.php:301
+#: lib/Horde/Registry.php:302
 msgid ""
 "Admin authentication requested, but no admin users defined in configuration."
 msgstr ""
@@ -319,15 +319,15 @@ msgstr "Denegar la cuenta:"
 msgid "Department"
 msgstr "Departamento"
 
-#: lib/Horde/ErrorHandler.php:98
+#: lib/Horde/ErrorHandler.php:99
 msgid "Details"
 msgstr "Detalles"
 
-#: lib/Horde/ErrorHandler.php:107
+#: lib/Horde/ErrorHandler.php:106
 msgid "Details have been logged for the administrator."
 msgstr "Se han registrado los detalles para el administrador."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1164
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1168
 #, php-format
 msgid "Dial %s"
 msgstr "Marcar %s"
@@ -370,7 +370,7 @@ msgstr "No se encontraron Las direcciones de correo a comprobar."
 msgid "Emoticons"
 msgstr "Emoticonos"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1532
+#: lib/Horde/Core/ActiveSync/Driver.php:1556
 msgid "End forwarded message"
 msgstr "Terminar mensaje reenviado"
 
@@ -410,11 +410,11 @@ msgstr "Relación de aspecto fija"
 msgid "Flip"
 msgstr "Voltear"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1530
+#: lib/Horde/Core/ActiveSync/Driver.php:1554
 msgid "Forwarded message"
 msgstr "Mensaje reenviado"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1530
+#: lib/Horde/Core/ActiveSync/Driver.php:1554
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Mensaje reenviado de %s"
@@ -431,7 +431,7 @@ msgstr "Viernes"
 msgid "Global Preferences"
 msgstr "Globales"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1307
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1311
 msgid "Google Maps"
 msgstr "Mapas de Google"
 
@@ -464,7 +464,7 @@ msgstr "Domicilio"
 msgid "Home Phone"
 msgstr "Teléfono particular"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2385
+#: lib/Horde/Core/ActiveSync/Driver.php:2470
 msgid "Inbox"
 msgstr "Entrada"
 
@@ -517,8 +517,8 @@ msgstr "Salir"
 msgid "MM"
 msgstr "MM"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1233
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1282
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1237
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1286
 msgid "MapQuest map"
 msgstr "Mapa MapQuest"
 
@@ -577,7 +577,7 @@ msgstr "Desplazar hacia abajo"
 msgid "Move up"
 msgstr "Desplazar hacia arriba"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1202
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1206
 msgid "Multimap UK map"
 msgstr "Mapa UK múltiple"
 
@@ -589,7 +589,7 @@ msgstr "Nombre"
 msgid "Next>"
 msgstr "Siguiente>"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1052
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1056
 msgid "No"
 msgstr "No"
 
@@ -618,19 +618,19 @@ msgstr "No se han podido añadir descendientes a este permiso."
 msgid "No configuration information specified for %s."
 msgstr "No se ha especificado información de configuración para %s."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1560
+#: lib/Horde/Core/ActiveSync/Driver.php:1584
 msgid "No message body text"
 msgstr "No hay texto en el cuerpo del mensaje"
 
-#: lib/Horde/Core/Ajax/Application/Handler/Email.php:41
+#: lib/Horde/Core/Ajax/Application/Handler/Email.php:40
 msgid "No valid email address found"
 msgstr "No se encontraron direcciones de correo válidas"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1060
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1070
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1081
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1098
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1115
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1064
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1074
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1085
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1102
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1119
 msgid "No values"
 msgstr "Sin valores"
 
@@ -667,7 +667,7 @@ msgstr "Octubre"
 msgid "Ok"
 msgstr "Aceptar"
 
-#: lib/Horde/Core/ActiveSync/Connector.php:651
+#: lib/Horde/Core/ActiveSync/Connector.php:670
 msgid "Out Of Office"
 msgstr "Fuera de la oficina"
 
@@ -680,7 +680,7 @@ msgstr "Dirección de parcela"
 msgid "Permission"
 msgstr "Permiso"
 
-#: lib/Horde/Registry.php:312
+#: lib/Horde/Registry.php:313
 msgid "Permission denied."
 msgstr "Permiso denegado."
 
@@ -721,7 +721,7 @@ msgstr "Opciones de %s"
 msgid "Preferred Address"
 msgstr "Dirección preferida"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1531
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1535
 msgid "Preview"
 msgstr "Vista previa"
 
@@ -729,11 +729,11 @@ msgstr "Vista previa"
 msgid "Problem"
 msgstr "¿Problemas?"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1553
+#: lib/Horde/Core/ActiveSync/Driver.php:1577
 msgid "Quoted"
 msgstr "Citado"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1553
+#: lib/Horde/Core/ActiveSync/Driver.php:1577
 #, php-format
 msgid "Quoting %s"
 msgstr "Cita de %s"
@@ -819,11 +819,11 @@ msgstr "seleccionar..."
 msgid "Selected address books:"
 msgstr "Libretas de direcciones seleccionadas:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1180
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1184
 msgid "Send SMS"
 msgstr "Enviar SMS"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2380
+#: lib/Horde/Core/ActiveSync/Driver.php:2465
 msgid "Sent"
 msgstr "Enviados"
 
@@ -832,6 +832,10 @@ msgstr "Enviados"
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:493
 msgid "September"
 msgstr "Septiembre"
+
+#: lib/Horde/Core/Topbar.php:112
+msgid "Settings"
+msgstr "Opciones"
 
 #: lib/Horde/Core/Block/Layout/Manager.php:536
 msgid "Shrink"
@@ -917,7 +921,7 @@ msgstr ""
 "Las siguientes aplicaciones tuvieron errores al eliminar los datos de "
 "usuario: %s"
 
-#: lib/Horde/ErrorHandler.php:99
+#: lib/Horde/ErrorHandler.php:100
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -937,7 +941,7 @@ msgstr ""
 "No se puede comprobar la nueva dirección de remitente, pruebe otra vez más "
 "tarde: "
 
-#: lib/Horde/Core/Factory/Prefs.php:225
+#: lib/Horde/Core/Factory/Prefs.php:227
 #, php-format
 msgid ""
 "The preference \"%s\" could not be saved because its data exceeds the "
@@ -946,7 +950,7 @@ msgstr ""
 "No se ha podido guardar la opción \"%s\" porque sus datos exceden el tamaño "
 "máximo permitido"
 
-#: lib/Horde/Core/Factory/Prefs.php:197
+#: lib/Horde/Core/Factory/Prefs.php:199
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default preferences."
@@ -989,7 +993,7 @@ msgstr "Ha habido errores al actualizar sus opciones."
 msgid "This is the notification log."
 msgstr "Este es el registro de notificaciones"
 
-#: lib/Horde/Registry.php:498
+#: lib/Horde/Registry.php:499
 msgid "This system is currently deactivated."
 msgstr "Este sistema actualmente está desactivado."
 
@@ -1021,7 +1025,7 @@ msgstr ""
 msgid "Toggle Alerts Log"
 msgstr "Conmutar registro de alertas"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2375
+#: lib/Horde/Core/ActiveSync/Driver.php:2460
 msgid "Trash"
 msgstr "Papelera"
 
@@ -1080,7 +1084,7 @@ msgstr "No se ha configurado soporte para el tiempo."
 msgid "Wednesday"
 msgstr "Miércoles"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1209
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1213
 msgid "Whereis Australia map"
 msgstr "Mapa de localización de Australia"
 
@@ -1098,11 +1102,11 @@ msgstr "Teléfono del trabajo"
 msgid "YYYY"
 msgstr "AAAA"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1253
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1257
 msgid "Yahoo! map"
 msgstr "¡Mapa de Yahoo!"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1052
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1056
 msgid "Yes"
 msgstr "Sí"
 

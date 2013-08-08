@@ -23,6 +23,9 @@
  * @property-read array $addresses  The list of all addresses (address
  *                                  w/personal parts).
  * @property-read array $bare_addresses  The list of all addresses (mail@host).
+ * @property-read array $bare_addresses_idn  The list of all addresses
+ *                                           (mail@host; IDN encoded).
+ *                                           (@since 2.1.0)
  * @property-read array $base_addresses  The list of ONLY base addresses
  *                                       (Address objects).
  * @property-read array $raw_addresses  The list of all addresses (Address
@@ -91,6 +94,10 @@ class Horde_Mail_Rfc822_List extends Horde_Mail_Rfc822_Object implements ArrayAc
 
                 case 'bare_addresses':
                     $out[] = $val->bare_address;
+                    break;
+
+                case 'bare_addresses_idn':
+                    $out[] = $val->bare_address_idn;
                     break;
 
                 case 'base_addresses':

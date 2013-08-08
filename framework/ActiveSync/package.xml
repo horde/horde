@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-01</date>
- <time>20:24:02</time>
+ <date>2013-08-08</date>
+ <time>16:28:22</time>
  <version>
-  <release>2.5.4</release>
-  <api>2.5.0</api>
+  <release>2.6.2</release>
+  <api>2.6.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -197,6 +197,8 @@
       <file name="15_horde_activesync_integerimapuidfield.php" role="data" />
       <file name="16_horde_activesync_fix_blob_length.php" role="data" />
       <file name="17_horde_activesync_clearallstate.php" role="data" />
+      <file name="18_horde_activesync_addmapdeleteflag.php" role="data" />
+      <file name="19_horde_activesync_addtimestamp.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -443,6 +445,8 @@
    <install as="migration/15_horde_activesync_integerimapuidfield.php" name="migration/Horde/ActiveSync/15_horde_activesync_integerimapuidfield.php" />
    <install as="migration/16_horde_activesync_fix_blob_length.php" name="migration/Horde/ActiveSync/16_horde_activesync_fix_blob_length.php" />
    <install as="migration/17_horde_activesync_clearallstate.php" name="migration/Horde/ActiveSync/17_horde_activesync_clearallstate.php" />
+   <install as="migration/18_horde_activesync_addmapdeleteflag.php" name="migration/Horde/ActiveSync/18_horde_activesync_addmapdeleteflag.php" />
+   <install as="migration/19_horde_activesync_addtimestamp.php" name="migration/Horde/ActiveSync/19_horde_activesync_addtimestamp.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
@@ -1534,7 +1538,80 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-01</date>
+   <date>2013-07-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix bug that causes incorrect MIME truncation when the client requests no MIME truncation (Bug #12437).
+* [mjr] Fix returning proper values for the Horde_ActiveSync_Message_SendMail::replacemime property. The could cause replying to email with some EAS 14+ clients to fail.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.5</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-15</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix off by one error when checking WINDOWSIZE, which breaks syncing with clients that have broken WINDOWSIZE implementations (Bug #12443).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.6</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-07-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix filtering out changes due to incoming client email requests in certain cases.
+* [mjr] Send empty POOMMAIL_CATEGORIES tag as Exchange does.
+* [mjr] Fix sending deletion commands to clients when an item is created on one EAS client, but deleted on another EAS client.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.0</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix obtaining the timestamp of the last successful sync when backend uses modification sequences (Bug #12529).
+* [mjr] Fix broken Email sync due to clients that send unsolicited SMS data (Bug #12544).
+* [mjr] Fix returning incorrect syncstamp when adding, editing, or deleting messages and backend uses modification sequences (Bug #12523).
+* [mjr] Fix bug that could cause a sync loop if history data is removed or a collection is empty and therefore has no history data (Bug #12531).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.1</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Do not ask the IMAP server to fetch flags if we don&apos;t have an empty imap search result (Bug #12551).
+* [mjr] Fix typos that could cause some sync actions to fail (Bug #12548 and #12523, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [mjr] Ensure proper failure codes are returned when a client addition fails to be added to the backend during a PARTIAL sync.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.2</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

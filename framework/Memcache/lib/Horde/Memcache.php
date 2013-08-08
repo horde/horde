@@ -54,11 +54,25 @@ class Horde_Memcache implements Serializable
     protected $_locks = array();
 
     /**
+     * Logger instance.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Memcache object.
      *
      * @var Memcache
      */
     protected $_memcache;
+
+    /**
+     * A list of items known not to exist.
+     *
+     * @var array
+     */
+    protected $_noexist = array();
 
     /**
      * Memcache defaults.
@@ -75,18 +89,11 @@ class Horde_Memcache implements Serializable
     );
 
     /**
-     * A list of items known not to exist.
+     * The list of active servers.
      *
      * @var array
      */
-    protected $_noexist = array();
-
-    /**
-     * Logger instance.
-     *
-     * @var Horde_Log_Logger
-     */
-    protected $_logger;
+    protected $_servers = array();
 
     /**
      * Constructor.
@@ -117,11 +124,6 @@ class Horde_Memcache implements Serializable
     public function __construct(array $params = array())
     {
         $this->_params = array_merge($this->_params, $params);
-
-        if (isset($params['logger'])) {
-            $this->_logger = $params['logger'];
-        }
-
         $this->_init();
 
         register_shutdown_function(array($this, 'shutdown'));
@@ -136,15 +138,25 @@ class Horde_Memcache implements Serializable
     {
         $this->_memcache = new Memcache();
 
-        $servers = array();
         for ($i = 0, $n = count($this->_params['hostspec']); $i < $n; ++$i) {
-            if ($this->_memcache->addServer($this->_params['hostspec'][$i], empty($this->_params['port'][$i]) ? 0 : $this->_params['port'][$i], !empty($this->_params['persistent']), !empty($this->_params['weight'][$i]) ? $this->_params['weight'][$i] : 1)) {
-                $servers[] = $this->_params['hostspec'][$i] . (!empty($this->_params['port'][$i]) ? ':' . $this->_params['port'][$i] : '');
+            $res = $this->_memcache->addServer(
+                $this->_params['hostspec'][$i],
+                empty($this->_params['port'][$i]) ? 0 : $this->_params['port'][$i],
+                !empty($this->_params['persistent']),
+                !empty($this->_params['weight'][$i]) ? $this->_params['weight'][$i] : 1,
+                1,
+                15,
+                true,
+                array($this, 'failover')
+            );
+
+            if ($res) {
+                $this->_servers[] = $this->_params['hostspec'][$i] . (!empty($this->_params['port'][$i]) ? ':' . $this->_params['port'][$i] : '');
             }
         }
 
         /* Check if any of the connections worked. */
-        if (empty($servers)) {
+        if (empty($this->_servers)) {
             throw new Horde_Memcache_Exception('Could not connect to any defined memcache servers.');
         }
 
@@ -155,8 +167,9 @@ class Horde_Memcache implements Serializable
         // Force consistent hashing
         ini_set('memcache.hash_strategy', 'consistent');
 
-        if ($this->_logger) {
-            $this->_logger->log('Connected to the following memcache servers:' . implode($servers, ', '), 'DEBUG');
+        if (isset($this->_params['logger'])) {
+            $this->_logger = $this->_params['logger'];
+            $this->_logger->log('Connected to the following memcache servers:' . implode($this->_servers, ', '), 'DEBUG');
         }
     }
 
@@ -237,7 +250,7 @@ class Horde_Memcache implements Serializable
                 default:
                     $os[$key] = $this->_getOSKeyArray($key, $part_count);
                     foreach ($os[$key] as $val2) {
-                        $missing_parts[] = $key_map[$val2] = $this->_key[$val2];
+                        $missing_parts[] = $key_map[$val2] = $this->_key($val2);
                     }
                     break;
                 }
@@ -409,6 +422,27 @@ class Horde_Memcache implements Serializable
     }
 
     /**
+     * Failover method.
+     *
+     * @see Memcache::addServer()
+     *
+     * @param string $host   Hostname.
+     * @param integer $port  Port.
+     *
+     * @throws Horde_Memcache_Exception
+     */
+    public function failover($host, $port)
+    {
+        $pos = array_search($host . ':' . $port, $this->_servers);
+        if ($pos !== false) {
+            unset($this->_servers[$pos]);
+            if (!count($this->_servers)) {
+                throw new Horde_Memcache_Exception('Could not connect to any defined memcache servers.');
+            }
+        }
+    }
+
+    /**
      * Obtains the md5 sum for a key.
      *
      * @param string $key  The key.
@@ -460,8 +494,7 @@ class Horde_Memcache implements Serializable
     {
         return serialize(array(
             self::VERSION,
-            $this->_params,
-            $this->_logger
+            $this->_params
         ));
     }
 
@@ -483,7 +516,6 @@ class Horde_Memcache implements Serializable
         }
 
         $this->_params = $data[1];
-        $this->_logger = $data[2];
 
         $this->_init();
     }

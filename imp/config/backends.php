@@ -92,7 +92,8 @@
  *           horde/config/conf.xml). (This option is DEPRECATED; use one of
  *           the below options instead.)
  *     - 'cache': Caching is enabled using the Horde cache (configured in
- *           horde/config/conf.xml).
+ *           horde/config/conf.xml). It is recommended to use either 'nosql'
+ *           or 'sql' instead, as these backends have much better performance.
  *     - 'nosql': Caching is enabled using the Horde NoSQL database
  *                (configured in horde/config/conf.xml).
  *     - 'sql': Caching is enabled using the Horde SQL database (configured in
@@ -141,25 +142,34 @@
  *             server must support the QUOTAROOT command to use this driver.
  *             This is the RECOMMENDED way of handling quotas.
  *
- * smtp: (array) If Horde is configured to use SMTP as the mailer, entries
- *   defined in this array will overwrite the default Horde SMTP parameters.
+ * smtp: (array) SMTP configuration parameters.
+ *
+ *   For configuration parameters marked with a [*] below, the Horde-wide SMTP
+ *   configuration is used by default.
+ *
+ *   If allowing access to external mail servers (e.g. Gmail), you almost
+ *   certainly will want to override the defaults to specify the foreign SMTP
+ *   server used to send messages from that given mail domain.
+ *
+ *   NOTE: By default, IMP will use the authentication credentials used to
+ *   login to the current backend. To use the credentials specified by the
+ *   Horde-wide SMTP configuration, 'horde_auth' must be true (see below).
+ *
  *   These configuration parameters are available:
- *     - auth: (integer|boolean) Authentication method to use. Set to boolean
- *             true to choose the best available authenticate method
+ *     - auth: [*] (integer|boolean) Authentication method to use. Set to
+ *             boolean true to choose the best available authenticate method
  *             (RECOMMENDED).
  *     - debug: (string) If set, enables SMTP debugging. See the 'debug'
  *              parameter below (under the 'Debugging Properties' header)
  *              for acceptable values.
  *     - horde_auth: (boolean) If true, populates the 'password' and
- *                   'username' parameters with Horde's authentication
- *                   credentials if those fields are not defined. Otherwise,
- *                   IMP's authentication credentials are used instead (this
- *                   option only makes a difference if IMP's authentication
- *                   credenitals differ from Horde's).
- *     - host: (string) SMTP server host.
- *     - localhost: (string) The local hostname.
+ *                   'username' parameters with the authentication credentials
+ *                   used by the Horde-wide SMTP configuration (only if those
+ *                   fields are not defined for this backend in IMP).
+ *     - host: [*] (string) SMTP server host.
+ *     - localhost: [*] (string) The local hostname.
  *     - password: (string) Password to use for SMTP server authentication.
- *     - port: (integer) SMTP server port.
+ *     - port: [*] (integer) SMTP server port.
  *     - username: (string) Username to use for SMTP server authentication.
  *
  * spam: (array) Spam reporting configuration. This array can contain two
@@ -384,11 +394,17 @@ $servers['advanced'] = array(
     'smtp' => array(
     //    'auth' => true,
     //    'debug' => false,
+    //    'horde_auth' => false,
     //    'host' => 'smtp.example.com',
-    //    'imp_auth' => false,
     //    'localhost' => 'localhost',
     //    'password' => null,
-    //    'port' => 25,
+    //    /* Mail from a MUA SHOULD be sent via the mail submission port (587)
+    //     * rather than the MTA port (25). Note that mail submission
+    //     * REQUIRES some method of authentication (whether explicit
+    //     * user/password credentials, or configuring the mail submission
+    //     * agent to automatically authenticate this host based on the
+    //     * network location. */
+    //    'port' => 587,
     //    'username' => null
     ),
     'spam' => array(

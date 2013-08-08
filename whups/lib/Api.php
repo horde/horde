@@ -336,8 +336,6 @@ class Whups_Api extends Horde_Registry_Api
             throw new Whups_Exception(_("Invalid arguments: Must supply a ticket number and new attributes."));
         }
 
-        $ticket = $whups_driver->getTicketDetails($info['ticket_id']);
-
         // Convert the RPC parameters into what we'd expect if we were
         // posting the EditAttributes form.
         $ainfo = array();

@@ -2,6 +2,17 @@
 v3.0.0-git
 ----------
 
+[jan] Fix table header of query results.
+
+
+---------
+v3.0.0RC1
+---------
+
+[jan] Set assign and update dates when creating new tickets (Bug #12414).
+[jan] Fix counting of responsible users (Bug #12406).
+[jan] Never send empty messages.
+[jan] Don't send reply messages to guests if disabled in preferences.
 [jan] Fix downloading of attachments.
 [jan] Add more tests to filter out bounces and auto-replies in the mail parser.
 [jan] Hide topbar and sidebar when displaying attachments.

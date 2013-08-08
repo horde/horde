@@ -26,14 +26,12 @@ class IMP_Dynamic_Helper_Base extends Horde_View_Helper_Base
      * Output an action button.
      *
      * @param array $params  A list of parameters:
-     *   - app: (string) The application to load the icon from.
      *   - class: (string) The CSS classname to use for the link.
      *   - htmltitle: (string) The string to use for the HTML title attribute,
      *                if different than 'title'.
      *   - icon: (string) The icon CSS classname.
      *   - id: (string) The DOM ID of the link.
      *   - title: (string) The title string.
-     *   - right: (boolean) Right align button?
      *
      * @return string  An HTML link to $url.
      */

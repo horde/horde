@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0.3-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-18 14:03+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "3 Line"
 msgstr ""
 
-#: templates/add.html.php:49
+#: templates/add.html.php:52
 msgid "Add"
 msgstr ""
 
@@ -83,7 +83,7 @@ msgstr ""
 msgid "Browse"
 msgstr ""
 
-#: templates/add.html.php:50 templates/edit.html.php:60
+#: templates/add.html.php:53 templates/edit.html.php:63
 msgid "Cancel"
 msgstr ""
 
@@ -115,11 +115,11 @@ msgstr ""
 msgid "Display Rows"
 msgstr ""
 
-#: templates/add.html.php:61
+#: templates/add.html.php:64
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
 msgstr ""
 
-#: templates/add.html.php:59
+#: templates/add.html.php:62
 msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
 msgstr ""
@@ -128,15 +128,15 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: edit.php:37
+#: edit.php:42
 msgid "Edit Bookmark"
 msgstr ""
 
-#: templates/add.html.php:58
+#: templates/add.html.php:61
 msgid "Firefox/Mozilla"
 msgstr ""
 
-#: templates/add.html.php:60
+#: templates/add.html.php:63
 msgid "Internet Explorer"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Most-clicked Bookmarks"
 msgstr ""
 
-#: add.php:73 templates/add.html.php:9
+#: add.php:78 templates/add.html.php:9
 msgid "New Bookmark"
 msgstr ""
 
@@ -176,7 +176,7 @@ msgstr ""
 msgid "No search"
 msgstr ""
 
-#: templates/add.html.php:64
+#: templates/add.html.php:67
 msgid "Note:"
 msgstr ""
 
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Number of bookmarks to show"
 msgstr ""
 
-#: templates/add.html.php:65
+#: templates/add.html.php:68
 #, php-format
 msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
@@ -199,15 +199,15 @@ msgstr ""
 msgid "Other Preferences"
 msgstr ""
 
-#: templates/add.html.php:41 templates/edit.html.php:50
+#: templates/add.html.php:43 templates/edit.html.php:52
 msgid "Previously used tags"
 msgstr ""
 
-#: lib/View/BookmarkList.php:210
+#: lib/View/BookmarkList.php:214
 msgid "Remove from search"
 msgstr ""
 
-#: templates/edit.html.php:59
+#: templates/edit.html.php:62
 msgid "Save"
 msgstr ""
 
@@ -218,6 +218,10 @@ msgstr ""
 #: search.php:47
 #, php-format
 msgid "Search results (%s)"
+msgstr ""
+
+#: templates/add.html.php:41 templates/edit.html.php:50
+msgid "See previously used tags"
 msgstr ""
 
 #: config/prefs.php:14
@@ -264,7 +268,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: templates/add.html.php:57
+#: templates/add.html.php:60
 msgid "To be able to quickly add bookmarks from your web browser:"
 msgstr ""
 
@@ -272,7 +276,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: templates/add.html.php:62
+#: templates/add.html.php:65
 msgid ""
 "While browsing you will be able to bookmark the current page by clicking "
 "your new \"Add to Bookmarks\" shortcut."

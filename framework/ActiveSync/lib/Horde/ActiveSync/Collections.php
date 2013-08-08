@@ -790,6 +790,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         // Update _collections with all data that was not sent, but we
         // have a synckey for in the sync_cache.
         foreach ($this->_tempSyncCache->getCollections() as $value) {
+            // The collection might have been updated due to incoming
+            // changes. Some clients send COMMANDS in a PARTIAL sync and
+            // initializing the PARTIAL afterwards will overwrite the various
+            // flags stored in $collection['id'][]
+            if (!empty($this->_collections[$value['id']])) {
+                continue;
+            }
             $this->_logger->info(sprintf(
                 'Using SyncCache State for %s',
                 $value['serverid']

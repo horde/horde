@@ -247,8 +247,9 @@ class Whups_Driver_Sql extends Whups_Driver
      */
     public function addTicket(array &$info, $requester)
     {
+        $timestamp  = time();
         $type       = (int)$info['type'];
-        $state      = (int)$info['state'];
+        $state      = $this->getState((int)$info['state']);
         $priority   = (int)$info['priority'];
         $queue      = (int)$info['queue'];
         $summary    = $info['summary'];
@@ -262,16 +263,19 @@ class Whups_Driver_Sql extends Whups_Driver
             $ticket_id = $this->_db->insert(
                 'INSERT INTO whups_tickets (ticket_summary, '
                     . 'user_id_requester, type_id, state_id, priority_id, '
-                    . 'queue_id, ticket_timestamp, ticket_due, version_id)'
-                    . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    . 'queue_id, ticket_timestamp, ticket_due, date_updated, '
+                    . 'date_assigned, version_id)'
+                    . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 array($this->_toBackend($summary),
                       $requester,
                       $type,
-                      $state,
+                      $state['id'],
                       $priority,
                       $queue,
-                      time(),
+                      $timestamp,
                       $due,
+                      $timestamp,
+                      $state['category'] == 'assigned' ? $timestamp : null,
                       $version));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
@@ -313,7 +317,7 @@ class Whups_Driver_Sql extends Whups_Driver
 
         $transaction = $this->updateLog($ticket_id,
                                         $requester,
-                                        array('state' => $state,
+                                        array('state' => $state['id'],
                                               'priority' => $priority,
                                               'type' => $type,
                                               'summary' => $summary,
@@ -334,6 +338,12 @@ class Whups_Driver_Sql extends Whups_Driver
             $this->updateLog($ticket_id, $requester,
                              array('assign' => $owner),
                              $transaction);
+        }
+
+        // Set timestamps, if necessary.
+        if ($state['category'] == 'assigned') {
+            $this->updateLog($ticket_id, $requester,
+                             array('date_assigned' => $timestamp));
         }
 
         // Add any supplied attributes for this ticket.
@@ -1103,8 +1113,7 @@ class Whups_Driver_Sql extends Whups_Driver
             $tickets[$ticket['id']] = $ticket;
         }
 
-        $owners = $this->getOwners(array_keys($tickets));
-        foreach ($owners as $id => $owners) {
+        foreach ($this->getOwners(array_keys($tickets)) as $id => $owners) {
             $tickets[$id]['owners'] = $owners;
             foreach($owners as $owner) {
                 $tickets[$id]['owners_formatted'][] = Whups::formatUser($owner, false, true, true);
@@ -3092,6 +3101,16 @@ class Whups_Driver_Sql extends Whups_Driver
             } catch (Horde_Db_Exception $e) {
                 throw new Whups_Exception($e);
             }
+            $attributes = $this->_fromBackend($attributes);
+
+            foreach ($attributes as &$ticket) {
+                try {
+                    $ticket['attribute_value'] = Horde_Serialize::unserialize(
+                        $ticket['attribute_value'],
+                        Horde_Serialize::JSON);
+                } catch (Horde_Serialize_Exception $e) {
+                }
+            }
         } else {
             try {
                 $attributes = $this->_db->selectAssoc(
@@ -3104,13 +3123,10 @@ class Whups_Driver_Sql extends Whups_Driver
             } catch (Horde_Db_Exception $e) {
                 throw new Whups_Exception($e);
             }
-        }
-
-        $attributes = $this->_fromBackend($attributes);
-        foreach ($attributes as &$attribute) {
+            $attributes = $this->_fromBackend($attributes);
             try {
-                $attribute = Horde_Serialize::unserialize(
-                    $attribute,
+                $attributes['attribute_value'] = Horde_Serialize::unserialize(
+                    $attributes['attribute_value'],
                     Horde_Serialize::JSON);
             } catch (Horde_Serialize_Exception $e) {
             }

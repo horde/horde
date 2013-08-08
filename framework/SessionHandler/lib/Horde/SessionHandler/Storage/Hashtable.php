@@ -59,7 +59,7 @@ class Horde_SessionHandler_Storage_Hashtable extends Horde_SessionHandler_Storag
             throw new InvalidArgumentException('Missing hashtable parameter.');
         }
 
-        if (!($params['hashtable'] instanceof Horde_HashTable_Lock)) {
+        if (!$params['hashtable']->locking) {
             throw new InvalidArgumentException('HashTable object must support locking.');
         }
 

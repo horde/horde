@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Imap_Client \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-18 14:03+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,7 +77,6 @@ msgid "Could not save message on server."
 msgstr ""
 
 #: lib/Horde/Imap/Client/Socket/Connection.php:82
-#: lib/Horde/Imap/Client/Socket/Pop3/Connection.php:75
 msgid "Error connecting to mail server."
 msgstr ""
 
@@ -93,9 +92,9 @@ msgid "Error converting UTF7-IMAP string."
 msgstr ""
 
 #: lib/Horde/Imap/Client/Socket.php:3937
-#: lib/Horde/Imap/Client/Socket/Connection.php:270
+#: lib/Horde/Imap/Client/Socket/Connection/Pop3.php:71
+#: lib/Horde/Imap/Client/Socket/Connection/Socket.php:202
 #: lib/Horde/Imap/Client/Socket/Pop3.php:1111
-#: lib/Horde/Imap/Client/Socket/Pop3/Connection.php:161
 msgid "Error when communicating with the mail server."
 msgstr ""
 
@@ -117,7 +116,7 @@ msgstr ""
 msgid "Invalid METADATA value type \"%s\"."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket/Connection.php:211
+#: lib/Horde/Imap/Client/Socket/Connection/Socket.php:143
 msgid "Mail server closed the connection unexpectedly."
 msgstr ""
 
@@ -138,7 +137,7 @@ msgstr ""
 msgid "Operation failed due to a lack of a secure connection."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket/Pop3/Connection.php:153
+#: lib/Horde/Imap/Client/Socket/Connection/Pop3.php:63
 msgid "POP3 Server closed the connection unexpectedly."
 msgstr ""
 
@@ -166,9 +165,9 @@ msgstr ""
 msgid "Server rejected connection."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Socket/Connection.php:144
-#: lib/Horde/Imap/Client/Socket/Connection.php:177
-#: lib/Horde/Imap/Client/Socket/Pop3/Connection.php:132
+#: lib/Horde/Imap/Client/Socket/Connection/Pop3.php:42
+#: lib/Horde/Imap/Client/Socket/Connection/Socket.php:76
+#: lib/Horde/Imap/Client/Socket/Connection/Socket.php:109
 msgid "Server write error."
 msgstr ""
 

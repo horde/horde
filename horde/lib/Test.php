@@ -864,11 +864,14 @@ class Horde_Test
             '</li></ul>';
 
         /* Determine if 'static' is writable by the web user. */
+        $user = function_exists('posix_getuid') ? posix_getpwuid(posix_getuid()) : null;
         $ret .= '<h1>Local File Permissions</h1><ul>' .
-            '<li>Is <tt>' . htmlspecialchars(HORDE_BASE) . '/static</tt> writable by the web server user? ';
+            sprintf('<li>Is <tt>%s/static</tt> writable by the web server user%s? ',
+                    htmlspecialchars(HORDE_BASE),
+                    $user ? (' (' . $user['name'] . ')') : '');
         $ret .= is_writable(HORDE_BASE . '/static')
             ? '<strong style="color:green">Yes</strong>'
-            : "<strong style=\"color:red\">No</strong><br /><strong style=\"color:orange\">If caching javascript and CSS files by storing them in static files (HIGHLY RECOMMENDED), this directory must be writable as the user the web server runs as.</strong>";
+            : '<strong style="color:red">No</strong><br /><strong style="color:orange">If caching javascript and CSS files by storing them in static files (HIGHLY RECOMMENDED), this directory must be writable as the user the web server runs as%s.</strong>';
 
         if (extension_loaded('imagick')) {
             $im = new Imagick();

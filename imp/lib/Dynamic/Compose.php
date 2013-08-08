@@ -218,14 +218,8 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             break;
         }
 
-        /* Attach spellchecker & auto completer. */
-        $imp_ui = new IMP_Compose_Ui();
         if ($this->vars->type == 'forward_redirect') {
             $compose_opts['redirect'] = true;
-            $imp_ui->attachAutoCompleter(array('redirect_to'));
-        } else {
-            $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
-            $imp_ui->attachSpellChecker();
         }
 
         if (isset($onload->addr) || !empty($addr)) {

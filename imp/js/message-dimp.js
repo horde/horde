@@ -245,6 +245,9 @@ var DimpMessage = {
 
     onDomLoad: function()
     {
+        /* Resize height. */
+        window.resizeTo(window.outerWidth, screen.availHeight - window.screenY - 50);
+
         HordeCore.initHandler('click');
 
         if (DimpCore.conf.disable_compose) {

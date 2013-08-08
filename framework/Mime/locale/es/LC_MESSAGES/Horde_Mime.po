@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
 "PO-Revision-Date: 2013-06-11 20:26+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Disposition Notification"
 msgstr "Notificación de consulta"
 
-#: lib/Horde/Mime/Mail.php:419
+#: lib/Horde/Mime/Mail.php:421
 msgid "HTML Version of Message"
 msgstr "Versión HTML del mensaje"
 
@@ -54,7 +54,7 @@ msgstr "List-Subscribe"
 msgid "List-Unsubscribe"
 msgstr "List-Unsubscribe"
 
-#: lib/Horde/Mime/Mail.php:417
+#: lib/Horde/Mime/Mail.php:419
 msgid "Plaintext Version of Message"
 msgstr "Versión de texto del mensaje"
 

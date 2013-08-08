@@ -115,7 +115,7 @@ abstract class Vilma_Driver
      * @param string $domain_name  The name of the domain for which to
      *                             return the administrator.
      *
-     * @return string  The domain adminstrator.
+     * @return string  The domain administrator.
      * @throws Vilma_Exception
      */
     public function getDomainAdmin($domain_name)

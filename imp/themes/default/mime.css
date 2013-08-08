@@ -1,24 +1,11 @@
 /* iTip styles. */
-.itipconflicts {
-    border-spacing: 0;
+table.imp-itip {
+    margin: 10px 0;
 }
-.itipconflicts tr.itipcollision {
+.imp-itip tr.imp-itipcollision {
     background-color: #f03232;
     color: #fff;
 }
-.itipconflicts tr.itipnearcollision {
+.imp-itip tr.imp-itipnearcollision {
     background-color: #ffdf4d;
-}
-
-table.itipAttendees {
-    padding-bottom: 10px;
-}
-table.itipAttendees td {
-    padding-right: 10px;
-}
-table.itipSummary {
-    padding: 10px 0;
-}
-table.itipSummary td {
-    padding-right: 8px;
 }
