@@ -288,7 +288,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         $tformat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:i a';
         $results['h'] = round((float)$elapsed / 3600, 2);
         if ($prefs->getValue('add_description')) {
-            $results['n'] = sprintf(_("Using the \"%s\" stop watch from %s to %s"), $tname, date($tformat, $timer_id), date($tformat, time()));
+            $results['n'] = sprintf(_("Using the \"%s\" stop watch from %s to %s"), $tname, date($tformat, $this->vars->t), date($tformat, time()));
         } else {
             $results['n'] = '';
         }
