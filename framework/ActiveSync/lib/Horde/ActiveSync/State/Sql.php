@@ -1458,26 +1458,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Get the timestamp for the last successful sync for the current collection
-     *
-     * @return integer  The timestamp of the last successful sync or 0 if none
-     */
-    protected function _getLastSyncTS()
-    {
-        $sql = 'SELECT MAX(sync_time) FROM ' . $this->_syncStateTable
-            . ' WHERE sync_folderid = ? AND sync_devid = ?';
-
-        try {
-            $this->_lastSyncStamp = $this->_db->selectValue(
-                $sql, array($this->_collection['id'], $this->_deviceInfo->id));
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_ActiveSync_Exception($e);
-        }
-
-        return !empty($this->_lastSyncStamp) ? $this->_lastSyncStamp : 0;
-    }
-
-    /**
      * Determines if a specific email change originated from the client. Used to
      * avoid mirroring back client initiated changes.
      *
