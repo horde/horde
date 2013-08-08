@@ -3566,7 +3566,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
 
             $convert = 2;
-        } elseif (!$convert || (!$ids->sequence && ($convert == 1))) {
+        } elseif (!$convert ||
+                  (!$ids->sequence && ($convert == 1)) ||
+                  $ids->isEmpty()) {
             return clone $ids;
         } else {
             /* Do an all or nothing: either we have all the numbers/UIDs in
