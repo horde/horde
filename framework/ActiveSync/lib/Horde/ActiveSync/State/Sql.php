@@ -20,7 +20,7 @@
  *
  * Needs a number of SQL tables present:
  *    syncStateTable (horde_activesync_state):
- *        sync_time:    - The timestamp of last sync
+ *        sync_timestamp:    - The timestamp of last sync
  *        sync_key:     - The syncKey for the last sync
  *        sync_pending: - If the last sync resulted in a MOREAVAILABLE, this
  *                        contains a list of UIDs that still need to be sent to
@@ -31,7 +31,8 @@
  *                        collections during a SYNC).
  *        sync_devid:   - The device id.
  *        sync_folderid:- The folder id for this sync.
- *        sync_user:    - The user for this synckey
+ *        sync_user:    - The user for this synckey.
+ *        sync_mod:     - The last modification stamp.
  *
  *    syncMapTable (horde_activesync_map):
  *        message_uid    - The server uid for the object
@@ -269,7 +270,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         // Load the previous syncState from storage
         try {
-            $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_time, sync_pending FROM '
+            $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_mod, sync_pending FROM '
                 . $this->_syncStateTable . ' WHERE sync_key = ?', array($syncKey));
         } catch (Horde_Db_Exception $e) {
             $this->_logger->err('Error in loading state from DB: ' . $e->getMessage());
@@ -298,8 +299,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected function _loadStateFromResults($results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
     {
         // Load the last known sync time for this collection
-        $this->_lastSyncStamp = !empty($results['sync_time'])
-            ? $results['sync_time']
+        $this->_lastSyncStamp = !empty($results['sync_mod'])
+            ? $results['sync_mod']
             : 0;
 
         // Pre-Populate the current sync timestamp in case this is only a
@@ -377,8 +378,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     {
         // Update state table to remember this last synctime and key
         $sql = 'INSERT INTO ' . $this->_syncStateTable
-            . ' (sync_key, sync_data, sync_devid, sync_time, sync_folderid, sync_user, sync_pending)'
-            . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
+            . ' (sync_key, sync_data, sync_devid, sync_mod, sync_folderid, sync_user, sync_pending, sync_timestamp)'
+            . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 
         // Prepare state and pending data
         if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
@@ -401,7 +402,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             (self::getSyncKeyCounter($this->_syncKey) == 1 ? 0 : $this->_thisSyncStamp),
             (!empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC),
             $this->_deviceInfo->user,
-            $pending);
+            $pending,
+            time());
         $this->_logger->info(
             sprintf('[%s] Saving state: %s',
                 $this->_procid,
@@ -413,7 +415,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         $params[3],
                         $params[4],
                         $params[5],
-                        count($this->_changes)),
+                        count($this->_changes),
+                        time()),
                     true)
                 )
             );
@@ -831,7 +834,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $id = empty($id) ? $this->_deviceInfo->id : $id;
         $user = empty($user) ? $this->_deviceInfo->user : $user;
 
-        $sql = 'SELECT MAX(sync_time) FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_user = ?';
+        $sql = 'SELECT MAX(sync_timestamp) FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_user = ?';
         try {
             return $this->_db->selectValue($sql, array($id, $user));
         } catch (Horde_Db_Exception $e) {
