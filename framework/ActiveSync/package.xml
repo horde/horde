@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-08</date>
- <time>16:20:55</time>
+ <time>16:28:22</time>
  <version>
-  <release>2.6.1</release>
+  <release>2.6.2</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Do not ask the IMAP server to fetch flags if we don&apos;t have an empty imap search result (Bug #12551).
-* [mjr] Fix typos that could cause some sync actions to fail (Bug #12548 and #12523, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [mjr] Ensure proper failure codes are returned when a client addition fails to be added to the backend during a PARTIAL sync.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1604,6 +1602,19 @@
 * [mjr] Do not ask the IMAP server to fetch flags if we don&apos;t have an empty imap search result (Bug #12551).
 * [mjr] Fix typos that could cause some sync actions to fail (Bug #12548 and #12523, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mjr] Ensure proper failure codes are returned when a client addition fails to be added to the backend during a PARTIAL sync.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.2</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
