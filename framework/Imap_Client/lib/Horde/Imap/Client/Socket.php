@@ -3628,6 +3628,48 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
+     * Parse an ANNOTATION response (ANNOTATEMORE/ANNOTATEMORE2).
+     *
+     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  Pipeline
+     *                                                          object.
+     * @param Horde_Imap_Client_Tokenize $data  The server response.
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _parseAnnotation(
+        Horde_Imap_Client_Interaction_Pipeline $pipeline,
+        Horde_Imap_Client_Tokenize $data
+    )
+    {
+        // Mailbox name is in UTF7-IMAP.
+        $mbox = Horde_Imap_Client_Mailbox::get($data->next(), true);
+        $entry = $data->next();
+
+        // Ignore unsolicited responses.
+        if ($data->next() !== true) {
+            return;
+        }
+
+        while (($type = $data->next()) !== false) {
+            switch ($type) {
+            case 'value.priv':
+                $pipeline->data['metadata'][strval($mbox)]['/private' . $entry] = $data->next();
+                break;
+
+            case 'value.shared':
+                $pipeline->data['metadata'][strval($mbox)]['/shared' . $entry] = $data->next();
+                break;
+
+            default:
+                throw new Horde_Imap_Client_Exception(
+                    sprintf(Horde_Imap_Client_Translation::t("Invalid METADATA value type \"%s\"."), $type),
+                    Horde_Imap_Client_Exception::METADATA_INVALID
+                );
+            }
+        }
+    }
+
+    /**
      * Parse a METADATA response (RFC 5464 [4.4]).
      *
      * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  Pipeline
@@ -3641,47 +3683,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         Horde_Imap_Client_Tokenize $data
     )
     {
-        switch ($data->current()) {
-        case 'ANNOTATION':
-            $mbox = $data->next();
-            $entry = $data->next();
+        // Mailbox name is in UTF7-IMAP.
+        $mbox = Horde_Imap_Client_Mailbox::get($data->next(), true);
 
-            // Ignore unsolicited responses.
-            if ($data->next() !== true) {
-                break;
-            }
-
-            while (($type = $data->next()) !== false) {
-                switch ($type) {
-                case 'value.priv':
-                    $pipeline->data['metadata'][$mbox]['/private' . $entry] = $data->next();
-                    break;
-
-                case 'value.shared':
-                    $pipeline->data['metadata'][$mbox]['/shared' . $entry] = $data->next();
-                    break;
-
-                default:
-                    throw new Horde_Imap_Client_Exception(
-                        sprintf(Horde_Imap_Client_Translation::t("Invalid METADATA value type \"%s\"."), $type),
-                        Horde_Imap_Client_Exception::METADATA_INVALID
-                    );
-                }
-            }
-            break;
-
-        case 'METADATA':
-            $mbox = $data->next();
-
-            // Ignore unsolicited responses.
-            if ($data->next() !== true) {
-                break;
-            }
-
+        // Ignore unsolicited responses.
+        if ($data->next() === true) {
             while (($entry = $data->next()) !== false) {
-                $pipeline->data['metadata'][$mbox][$entry] = $data->next();
+                $pipeline->data['metadata'][strval($mbox)][$entry] = $data->next();
             }
-            break;
         }
     }
 
@@ -4176,8 +4185,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'ANNOTATION':
+            // Parse an ANNOTATION response.
+            $this->_parseAnnotation($pipeline, $token);
+            break;
+
         case 'METADATA':
-            // Parse a ANNOTATEMORE/METADATA response.
+            // Parse a METADATA response.
             $this->_parseMetadata($pipeline, $token);
             break;
 

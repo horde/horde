@@ -247,6 +247,7 @@ class Horde_ActiveSync
     const CLASS_CALENDAR                        = 'Calendar';
     const CLASS_TASKS                           = 'Tasks';
     const CLASS_NOTES                           = 'Notes';
+    const CLASS_SMS                             = 'SMS';
 
     /* Filtertype constants */
     const FILTERTYPE_ALL                        = 0;

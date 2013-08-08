@@ -3091,7 +3091,7 @@
    <date>2013-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [mms] Ensure Registry exists in error handler before attempting to access it (Bug #12540).
    </notes>
   </release>
  </changelog>

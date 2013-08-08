@@ -82,7 +82,7 @@ HTML;
 
         ob_start();
         try {
-            $admin = $registry->isAdmin();
+            $admin = (isset($registry) && $registry->isAdmin());
 
             echo '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
 
