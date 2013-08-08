@@ -2,6 +2,8 @@
 v6.1.4-git
 ----------
 
+[mms] Fix updating message index when deleting a message in basic message view
+      (Bug #12539).
 [mms] 'trailer' hook now has the user's identity and the list of recipients
       passed as parameters.
 [mms] Add ability to access all reply methods in smartmobile view.

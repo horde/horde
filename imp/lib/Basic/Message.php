@@ -30,7 +30,6 @@ class IMP_Basic_Message extends IMP_Basic_Base
         global $conf, $injector, $notification, $page_output, $prefs, $registry;
 
         $imp_imap = $injector->getInstance('IMP_Imap');
-        list(,$buid) = $this->indices->buids->getSingle();
         $mailbox = $this->indices->mailbox;
 
         /* We know we are going to be exclusively dealing with this mailbox,
@@ -248,6 +247,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $page_label = $mailbox->label;
 
         /* Generate the link to ourselves. */
+        $buid = $imp_mailbox->getBuid($mailbox, $msg_index['u']);
         $msgindex = $imp_mailbox->getIndex();
         $message_url = Horde::url('basic.php')->add('page', 'message');
         $message_token = $horde_token->get('imp.message');
