@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Don&apos;t redirect to current page&apos;s URL when logging out with a custom message (Bug #12538).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3105,7 +3105,7 @@
    <date>2013-08-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Don&apos;t redirect to current page&apos;s URL when logging out with a custom message (Bug #12538).
    </notes>
   </release>
  </changelog>
