@@ -24,8 +24,6 @@
 * [mms] Initial release.
  </notes>
  <contents>
- </contents>
- <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
     <dir name="Horde">
