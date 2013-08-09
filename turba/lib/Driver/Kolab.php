@@ -719,6 +719,14 @@ class Turba_Driver_Kolab extends Turba_Driver
             unset($attributes['photo'], $attributes['phototype']);
         }
 
+        // EAS sets the date fields to '' instead of null -> fix it up
+        $fix_date_fields = array('birthday', 'anniversary');
+        foreach($fix_date_fields as $fix_date) {
+            if (empty($attributes[$fix_date])) {
+                unset($attributes[$fix_date]);
+            }
+        }
+
         if ($object_id === null) {
             $object_id = $this->_getData()->create($attributes);
         } else {
