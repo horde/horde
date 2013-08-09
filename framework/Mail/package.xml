@@ -13,8 +13,8 @@
  <date>2013-07-16</date>
  <time>19:28:51</time>
  <version>
-  <release>2.0.7</release>
-  <api>2.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mms] Added the Horde_Mail_Transport_SmtpHorde driver.
 * [mms] Added the &apos;bare_addresses_idn&apos; property to Horde_Mail_Rfc822_List.
 * [mms] Added the &apos;bare_address_idn&apos; property to Horde_Mail_Rfc822_Address.
  </notes>
@@ -108,6 +109,20 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Smtp</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
@@ -460,14 +475,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.7</release>
-    <api>2.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Added the Horde_Mail_Transport_SmtpHorde driver.
 * [mms] Added the &apos;bare_addresses_idn&apos; property to Horde_Mail_Rfc822_List.
 * [mms] Added the &apos;bare_address_idn&apos; property to Horde_Mail_Rfc822_Address.
    </notes>
