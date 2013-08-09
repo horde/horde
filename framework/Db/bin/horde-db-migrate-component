@@ -39,7 +39,8 @@ if (!isset($params['adapter'])) {
 }
 
 $dir = $args[0];
-$module = $args[1];
+// horde-db-migrate and horde-db-migrate-component need to use the same table name
+$module = strtolower($args[1]);
 if (!is_dir($dir)) {
     die("$dir is not a migration directory");
 }
