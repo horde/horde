@@ -140,13 +140,18 @@ implements Horde_Kolab_Storage_Data_Query_History
 
         // clean up history database: Mark stale entries as deleted
         $all_entries = $this->history->getByTimestamp('>', 0, array(), $search_prefix);
-        foreach ($all_entries as $full_id => $db_id) {
-            if (isset($seen_objects[$full_id]))
-                continue;
 
-            $this->history->log(
-                $full_id, array('action' => 'delete'), true
-            );
+        foreach ($all_entries as $full_id => $db_id) {
+            if (isset($seen_objects[$full_id])) {
+                continue;
+            }
+
+            $last = $this->history->getLatestEntry($full_id);
+            if ($last === false || $last['action'] != 'delete') {
+                $this->history->log(
+                    $full_id, array('action' => 'delete'), true
+                );
+            }
         }
     }
 
@@ -222,21 +227,13 @@ implements Horde_Kolab_Storage_Data_Query_History
      */
     private function _updateLog($object, $bid, $force=false)
     {
-        $log = $this->history->getHistory($object);
-        if (count($log) == 0) {
+        $last = $this->history->getLatestEntry($object);
+        if ($last === false) {
             // New, unknown object
             $this->history->log(
                 $object, array('action' => 'add', 'bid' => $bid), true
             );
         } else {
-            $last = array('modseq' => 0, 'action' => 'unknown');
-            foreach ($log as $entry) {
-                $action = $entry['action'];
-                if ($entry['modseq'] > $last['modseq'] && ($action == 'add' || $action == 'modify' || $action == 'delete')) {
-                    $last = $entry;
-                }
-            }
-
             // If the last action for this object was 'delete', we issue an 'add'.
             // Objects can vanish and re-appear using the same object uid.
             // (a foreign client is sending an update over a slow link)
