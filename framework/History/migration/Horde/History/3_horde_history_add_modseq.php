@@ -17,7 +17,9 @@ class HordeHistoryAddModSeq extends Horde_Db_Migration_Base
             $this->update('UPDATE horde_histories SET history_modseq = ? WHERE history_id = ?',
                 array($seq++, $row['history_id']));
         }
-        $this->insert('INSERT INTO horde_histories_modseq (history_modseq) VALUES(?)', array($seq - 1));
+        if (!empty($rows)) {
+            $this->insert('INSERT INTO horde_histories_modseq (history_modseq) VALUES(?)', array($seq - 1));
+        }
         $this->commitDbTransaction();
 
         // Add the index after the new values are set for performance reasons.
