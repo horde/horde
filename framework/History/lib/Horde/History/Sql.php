@@ -305,7 +305,7 @@ class Horde_History_Sql extends Horde_History
         } catch (Horde_Db_Exception $e) {
             throw new Horde_History_Exception($e);
         }
-        if (is_null($modseq)) {
+        if (is_null($modseq) || $modseq === false) {
             try {
                 $modseq = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories_modseq');
             } catch (Horde_Db_Exception $e) {
