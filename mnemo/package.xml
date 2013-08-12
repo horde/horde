@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
- <time>23:46:10</time>
+ <date>2013-08-12</date>
+ <time>23:42:38</time>
  <version>
   <release>4.1.2</release>
   <api>4.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Convert to Horde_View.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -52,6 +52,10 @@
     <file name="TODO" role="doc" />
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
+   <dir name="js">
+    <file name="memo.js" role="horde" />
+    <file name="view.js" role="horde" />
+   </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Imple">
@@ -324,13 +328,13 @@
      <file name="memo_summaries.inc" role="horde" />
     </dir> <!-- /templates/list -->
     <dir name="memo">
-     <file name="memo.inc" role="horde" />
+     <file name="memo.html.php" role="horde" />
     </dir> <!-- /templates/memo -->
     <dir name="search">
      <file name="search.inc" role="horde" />
     </dir> <!-- /templates/search -->
     <dir name="view">
-     <file name="memo.inc" role="horde" />
+     <file name="view.html.php" role="horde" />
     </dir> <!-- /templates/view -->
    </dir> <!-- /templates -->
    <dir name="test">
@@ -577,6 +581,8 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="mnemo/js/memo.js" name="js/memo.js" />
+   <install as="mnemo/js/view.js" name="js/view.js" />
    <install as="mnemo/lib/Api.php" name="lib/Api.php" />
    <install as="mnemo/lib/Application.php" name="lib/Application.php" />
    <install as="mnemo/lib/Driver.php" name="lib/Driver.php" />
@@ -691,9 +697,9 @@
    <install as="mnemo/templates/list/memo_footers.inc" name="templates/list/memo_footers.inc" />
    <install as="mnemo/templates/list/memo_headers.inc" name="templates/list/memo_headers.inc" />
    <install as="mnemo/templates/list/memo_summaries.inc" name="templates/list/memo_summaries.inc" />
-   <install as="mnemo/templates/memo/memo.inc" name="templates/memo/memo.inc" />
+   <install as="mnemo/templates/memo/memo.html.php" name="templates/memo/memo.html.php" />
    <install as="mnemo/templates/search/search.inc" name="templates/search/search.inc" />
-   <install as="mnemo/templates/view/memo.inc" name="templates/view/memo.inc" />
+   <install as="mnemo/templates/view/view.html.php" name="templates/view/view.html.php" />
    <install as="Mnemo/AllTests.php" name="test/Mnemo/AllTests.php" />
    <install as="Mnemo/Autoload.php" name="test/Mnemo/Autoload.php" />
    <install as="Mnemo/bootstrap.php" name="test/Mnemo/bootstrap.php" />
@@ -1064,10 +1070,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-16</date>
+   <date>2013-08-12</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Convert to Horde_View.
    </notes>
   </release>
  </changelog>

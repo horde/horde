@@ -5,8 +5,9 @@
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Mnemo
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  */
 
  /**
@@ -98,6 +99,7 @@ case 'add_memo':
     $memo_id = null;
     $memo_body = '';
     $memo_category = '';
+    $memo_encrypted = $show_passphrase = false;
     $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
 
     $title = _("New Note");
@@ -268,10 +270,55 @@ default:
     Horde::url('list.php', true)->redirect();
 }
 
-$notepads = Mnemo::listNotepads(false, Horde_Perms::EDIT);
+$view = $injector->createInstance('Horde_View');
+$view->formInput = Horde_Util::formInput();
+$view->id = $memo_id;
+$view->listid = $memolist_id;
+$view->modify = $actionID == 'modify_memo';
+$view->passphrase = $show_passphrase;
+$view->title = $title;
+$view->url = Horde::url('memo.php');
+
+if (!$view->modify || !$view->passphrase) {
+    $view->body = $memo_body;
+    $view->categories = $cManager->getSelect('memo_category', $memo_category);
+    $view->count = sprintf(
+        _("%s characters"),
+        '<span id="mnemo-count">'
+            . Horde_String::length(str_replace(array("\r", "\n"), '', $memo_body))
+            . '</span>'
+    );
+    $view->encrypted = $memo_encrypted;
+    $view->encryption = $storage->encryptionSupported();
+    try {
+        $view->help = Horde::callHook('description_help', array(), 'mnemo', '');
+    } catch (Horde_Exception_HookNotSet $e) {
+    }
+    $view->javascript = $cManager->getJavaScript('memo', 'memo_category');
+    $view->notepads = array();
+    if (!$prefs->isLocked('default_notepad')) {
+        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $id => $notepad) {
+            $view->notepads[] = array(
+                'id' => $id,
+                'selected' => $id == $memolist_id,
+                'label' => Mnemo::getLabel($notepad)
+            );
+        }
+    }
+    if ($memo_id &&
+        $mnemo_shares->getShare($memolist_id)->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
+        $view->delete = Horde::url('memo.php')->add(array(
+            'memo' => $memo_id,
+            'memolist' => $memolist_id,
+            'actionID', 'delete_memos'
+        ));
+    }
+}
+
+$page_output->addScriptFile('memo.js');
 $page_output->header(array(
     'title' => $title
 ));
 $notification->notify();
-require MNEMO_TEMPLATES . '/memo/memo.inc';
+echo $view->render('memo/memo');
 $page_output->footer();
