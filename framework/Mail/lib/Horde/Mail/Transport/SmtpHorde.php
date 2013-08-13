@@ -87,7 +87,7 @@ class Horde_Mail_Transport_SmtpHorde extends Horde_Mail_Transport
      *   </ul>
      *  </li>
      *  <li>
-     *   timeout: (integer)  Connection timeout, in seconds.
+     *   timeout: (integer) Connection timeout, in seconds.
      *            DEFAULT: 30 seconds
      *  </li>
      *  <li>
