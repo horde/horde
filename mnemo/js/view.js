@@ -9,7 +9,8 @@
  * @package Mnemo
  * @author  Jan Schneider <jan@horde.org>
  */
-Mnemo_View = {
+
+var Mnemo_View = {
     // Externally set properties:
     //  confirm
     onDomLoad: function()

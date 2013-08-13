@@ -54,13 +54,11 @@ case 'search_memos':
     break;
 }
 
-$page_output->addScriptFile('tables.js', 'horde');
-$page_output->addScriptFile('quickfinder.js', 'horde');
-$page_output->header(array(
-    'title' => $title
-));
-$notification->notify();
-require MNEMO_TEMPLATES . '/list/header.inc';
+$view = $injector->createInstance('Horde_View');
+$view->count = count($memos);
+$view->searchImg = Horde::img('search.png', _("Search"), '');
+$view->searchUrl = Horde::url('search.php');
+$view->title = $title;
 
 if (count($memos)) {
     $cManager = new Horde_Prefs_CategoryManager();
@@ -68,7 +66,6 @@ if (count($memos)) {
     $fgcolors = $cManager->fgColors();
     $sortby = $prefs->getValue('sortby');
     $sortdir = $prefs->getValue('sortdir');
-    $showNotepad = $prefs->getValue('show_notepad');
 
     $baseurl = Horde::url('list.php');
     if ($actionID == 'search_memos') {
@@ -78,22 +75,92 @@ if (count($memos)) {
                   'search_type' => $search_type));
     }
 
-    require MNEMO_TEMPLATES . '/list/memo_headers.inc';
+    $page_output->addInlineJsVars(array(
+        'Mnemo_List.ajaxUrl' => $registry->getServiceLink('ajax', 'mnemo')->url . 'setPrefValue'
+    ));
+    $view->editImg = Horde::img('edit.png', _("Edit Note"), '');
+    $view->showNotepad = $prefs->getValue('show_notepad');
+    $view->sortdirclass = $sortdir ? 'sortup' : 'sortdown';
+    $view->headers = array();
+    if ($view->showNotepad) {
+        $view->headers[] = array(
+            'id' => 's' . Mnemo::SORT_NOTEPAD,
+            'sorted' => $sortby == Mnemo::SORT_NOTEPAD,
+            'width' => '2%',
+            'label' => Horde::widget(array('url' => $baseurl->add('sortby', Mnemo::SORT_NOTEPAD), 'class' => 'sortlink', 'title' => _("Notepad"))),
+        );
+    }
+    $view->headers[] = array(
+        'id' => 's' . MNEMO::SORT_DESC,
+        'sorted' => $sortby == MNEMO::SORT_DESC,
+        'width' => '80%',
+        'label' => Horde::widget(array(
+            'url' => $baseurl->add('sortby', Mnemo::SORT_DESC),
+            'class' => 'sortlink',
+            'title' => _("No_te")
+         )),
+    );
+    $view->headers[] = array(
+        'id' => 's' . MNEMO::SORT_MOD_DATE,
+        'sorted' => $sortby == Mnemo::SORT_MOD_DATE,
+        'width' => '2%',
+        'label' => Horde::widget(array(
+            'url' => $baseurl->add('sortby', MNEMO::SORT_MOD_DATE),
+            'class' => 'sortlink',
+            'title' => _("Date")
+         )),
+    );
+    $label = Horde::widget(array(
+         'url' => Horde::url('list.php')->add('sortby', Mnemo::SORT_CATEGORY),
+         'class' => 'sortlink',
+         'title' => _("_Category")
+    ));
+    if ($registry->getAuth() &&
+        (!$prefs->isLocked('categories') ||
+         !$prefs->isLocked('category_colors'))) {
+        $label .= ' '
+            . Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php')
+                ->add(array('app' => 'horde', 'group' => 'categories'))
+                ->link(array('title' => _("Edit categories and colors"), 'target' => '_blank', 'onclick' => 'HordePopup.popup({url:this.href});Event.stop(event);return false;'))
+            . Horde::img('colorpicker.png', _("Edit categories and colors"), '')
+            . '</a>';
+    }
+    $view->headers[] = array(
+        'id' => 's' . Mnemo::SORT_CATEGORY,
+        'sorted' => $sortby == Mnemo::SORT_CATEGORY,
+        'width' => '15%',
+        'label' => $label,
+    );
 
-    foreach ($memos as $memo_id => $memo) {
-        $viewurl = Horde::url('view.php')->add(
-            array('memo' => $memo['memo_id'],
-                  'memolist' => $memo['memolist_id']));
-
-        $memourl = Horde::url('memo.php')->add(
-            array('memo' => $memo['memo_id'],
-                  'memolist' => $memo['memolist_id']));
+    foreach ($memos as $memo_id => &$memo) {
         try {
-            $share = $GLOBALS['mnemo_shares']->getShare($memo['memolist_id']);
-            $notepad = Mnemo::getLabel($share);
+            $share = $mnemo_shares->getShare($memo['memolist_id']);
         } catch (Horde_Share_Exception $e) {
-            $notepad = $memo['memolist_id'];
+            $notification->push($e);
+            continue;
         }
+
+        if ($share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
+            $label = sprintf(_("Edit \"%s\""), $memo['desc']);
+            $memo['edit'] = Horde::url('memo.php')
+                ->add(array(
+                    'memo' => $memo['memo_id'],
+                    'memolist' => $memo['memolist_id'],
+                    'actionID' => 'modify_memo'
+                ))
+                ->link(array('title' => $label))
+                . Horde::img('edit.png', $label, '') . '</a>';
+        }
+
+        $memo['link'] = Horde::linkTooltip(
+            Horde::url('view.php')->add(array(
+                'memo' => $memo['memo_id'],
+                'memolist' => $memo['memolist_id']
+            )),
+            '', '', '', '',
+            ($memo['body'] != $memo['desc']) ? Mnemo::getNotePreview($memo) : ''
+        )
+            . (strlen($memo['desc']) ? htmlspecialchars($memo['desc']) : '<em>' . _("Empty Note") . '</em>');
 
         // Get memo's most recent modification date or, if nonexistent,
         // the creation (add) date
@@ -104,13 +171,29 @@ if (count($memos)) {
         } else {
             $modified = null;
         }
+        if ($modified) {
+            $memo['modifiedStamp'] = $modified->timestamp();
+            $memo['modifiedString'] = $modified->strftime($prefs->getValue('date_format'));
+        } else {
+            $memo['modifiedStamp'] = $memo['modifiedString'] = '';
+        }
 
-        require MNEMO_TEMPLATES . '/list/memo_summaries.inc';
     }
-
-    require MNEMO_TEMPLATES . '/list/memo_footers.inc';
-} else {
-    require MNEMO_TEMPLATES . '/list/empty.inc';
 }
 
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addScriptFile('quickfinder.js', 'horde');
+$page_output->addScriptFile('list.js');
+$page_output->header(array(
+    'title' => $title
+));
+$notification->notify();
+echo $view->render('list/header');
+if (count($memos)) {
+    echo $view->render('list/memo_headers');
+    echo $view->renderPartial('list/summary', array('collection' => array_values($memos)));
+    echo $view->render('list/memo_footers');
+} else {
+    echo $view->render('list/empty');
+}
 $page_output->footer();

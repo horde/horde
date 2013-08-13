@@ -9,7 +9,8 @@
  * @package Mnemo
  * @author  Jan Schneider <jan@horde.org>
  */
-Mnemo_Memo = {
+
+var Mnemo_Memo = {
     // Externally set properties:
     //  confirm
     updateCharacterCount: function()

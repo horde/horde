@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2013-08-13</date>
- <time>12:27:17</time>
+ <time>16:41:40</time>
  <version>
   <release>4.1.2</release>
   <api>4.0.0</api>
@@ -53,6 +53,7 @@
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
+    <file name="list.js" role="horde" />
     <file name="memo.js" role="horde" />
     <file name="view.js" role="horde" />
    </dir> <!-- /js -->
@@ -322,11 +323,11 @@
      <file name="import.inc" role="horde" />
     </dir> <!-- /templates/data -->
     <dir name="list">
-     <file name="empty.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="memo_footers.inc" role="horde" />
-     <file name="memo_headers.inc" role="horde" />
-     <file name="memo_summaries.inc" role="horde" />
+     <file name="empty.html.php" role="horde" />
+     <file name="header.html.php" role="horde" />
+     <file name="memo_footers.html.php" role="horde" />
+     <file name="memo_headers.html.php" role="horde" />
+     <file name="_summary.html.php" role="horde" />
     </dir> <!-- /templates/list -->
     <dir name="memo">
      <file name="memo.html.php" role="horde" />
@@ -579,6 +580,7 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="mnemo/js/list.js" name="js/list.js" />
    <install as="mnemo/js/memo.js" name="js/memo.js" />
    <install as="mnemo/js/view.js" name="js/view.js" />
    <install as="mnemo/lib/Api.php" name="lib/Api.php" />
@@ -691,11 +693,11 @@
    <install as="mnemo/notes/index.php" name="notes/index.php" />
    <install as="mnemo/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="mnemo/templates/data/import.inc" name="templates/data/import.inc" />
-   <install as="mnemo/templates/list/empty.inc" name="templates/list/empty.inc" />
-   <install as="mnemo/templates/list/header.inc" name="templates/list/header.inc" />
-   <install as="mnemo/templates/list/memo_footers.inc" name="templates/list/memo_footers.inc" />
-   <install as="mnemo/templates/list/memo_headers.inc" name="templates/list/memo_headers.inc" />
-   <install as="mnemo/templates/list/memo_summaries.inc" name="templates/list/memo_summaries.inc" />
+   <install as="mnemo/templates/list/empty.html.php" name="templates/list/empty.html.php" />
+   <install as="mnemo/templates/list/header.html.php" name="templates/list/header.html.php" />
+   <install as="mnemo/templates/list/memo_footers.html.php" name="templates/list/memo_footers.html.php" />
+   <install as="mnemo/templates/list/memo_headers.html.php" name="templates/list/memo_headers.html.php" />
+   <install as="mnemo/templates/list/_summary.html.php" name="templates/list/_summary.html.php" />
    <install as="mnemo/templates/memo/memo.html.php" name="templates/memo/memo.html.php" />
    <install as="mnemo/templates/view/view.html.php" name="templates/view/view.html.php" />
    <install as="Mnemo/AllTests.php" name="test/Mnemo/AllTests.php" />
