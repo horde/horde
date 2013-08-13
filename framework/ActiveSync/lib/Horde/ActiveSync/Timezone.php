@@ -91,6 +91,12 @@ class Horde_ActiveSync_Timezone
         $tz['timezone'] = $tz['bias'];
         $tz['timezonedst'] = $tz['dstbias'];
 
+        if (!self::_isLittleEndian()) {
+            $tz['bias'] = self::_chbo($tz['bias']);
+            $tz['stdbias'] = self::_chbo($tz['stdbias']);
+            $tz['dstbias'] = self::_chbo($tz['dstbias']);
+        }
+
         return $tz;
     }
 
@@ -104,6 +110,12 @@ class Horde_ActiveSync_Timezone
      */
     static public function getSyncTZFromOffsets(array $offsets)
     {
+        if (!self::_isLittleEndian()) {
+            $offsets['bias'] = self::_chbo($offsets['bias']);
+            $offsets['stdbias'] = self::_chbo($offsets['stdbias']);
+            $offsets['dstbias'] = self::_chbo($offsets['dstbias']);
+        }
+
         $packed = pack('la64vvvvvvvvla64vvvvvvvvl',
                 $offsets['bias'], '', 0, $offsets['stdmonth'], $offsets['stdday'], $offsets['stdweek'], $offsets['stdhour'], $offsets['stdminute'], $offsets['stdsecond'], $offsets['stdmillis'],
                 $offsets['stdbias'], '', 0, $offsets['dstmonth'], $offsets['dstday'], $offsets['dstweek'], $offsets['dsthour'], $offsets['dstminute'], $offsets['dstsecond'], $offsets['dstmillis'],
@@ -410,6 +422,32 @@ class Horde_ActiveSync_Timezone
             return $modified->month < $original->month &&
                    $modified2->month == $original->month;
        }
+    }
+
+    /**
+     * Determine if the current machine is little endian.
+     *
+     * @return boolean  True if endianness is little endian, otherwise false.
+     */
+    static protected function _isLittleEndian() {
+        $testint = 0x00FF;
+        $p = pack('S', $testint);
+
+        return ($testint === current(unpack('v', $p)));
+    }
+
+    /**
+     * Change the byte order of a number. Used to allow big endian machines to
+     * decode the timezone blobs, which are encoded in little endian order.
+     *
+     * @param integer $num  The number to reverse.
+     *
+     * @return integer  The number, in the reverse byte order.
+     */
+    static protected function _chbo($num) {
+        $u = unpack('l', strrev(pack('l', $num)));
+
+        return $u[1];
     }
 
 }
