@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-12</date>
- <time>23:42:38</time>
+ <date>2013-08-13</date>
+ <time>12:27:17</time>
  <version>
   <release>4.1.2</release>
   <api>4.0.0</api>
@@ -79,6 +79,7 @@
      <file name="CreateNotepad.php" role="horde" />
      <file name="DeleteNotepad.php" role="horde" />
      <file name="EditNotepad.php" role="horde" />
+     <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Form -->
     <dir name="Notepads">
      <file name="Base.php" role="horde" />
@@ -330,9 +331,6 @@
     <dir name="memo">
      <file name="memo.html.php" role="horde" />
     </dir> <!-- /templates/memo -->
-    <dir name="search">
-     <file name="search.inc" role="horde" />
-    </dir> <!-- /templates/search -->
     <dir name="view">
      <file name="view.html.php" role="horde" />
     </dir> <!-- /templates/view -->
@@ -599,6 +597,7 @@
    <install as="mnemo/lib/Form/CreateNotepad.php" name="lib/Form/CreateNotepad.php" />
    <install as="mnemo/lib/Form/DeleteNotepad.php" name="lib/Form/DeleteNotepad.php" />
    <install as="mnemo/lib/Form/EditNotepad.php" name="lib/Form/EditNotepad.php" />
+   <install as="mnemo/lib/Form/Search.php" name="lib/Form/Search.php" />
    <install as="mnemo/lib/Notepads/Base.php" name="lib/Notepads/Base.php" />
    <install as="mnemo/lib/Notepads/Default.php" name="lib/Notepads/Default.php" />
    <install as="mnemo/lib/Notepads/Kolab.php" name="lib/Notepads/Kolab.php" />
@@ -698,7 +697,6 @@
    <install as="mnemo/templates/list/memo_headers.inc" name="templates/list/memo_headers.inc" />
    <install as="mnemo/templates/list/memo_summaries.inc" name="templates/list/memo_summaries.inc" />
    <install as="mnemo/templates/memo/memo.html.php" name="templates/memo/memo.html.php" />
-   <install as="mnemo/templates/search/search.inc" name="templates/search/search.inc" />
    <install as="mnemo/templates/view/view.html.php" name="templates/view/view.html.php" />
    <install as="Mnemo/AllTests.php" name="test/Mnemo/AllTests.php" />
    <install as="Mnemo/Autoload.php" name="test/Mnemo/Autoload.php" />
@@ -1070,7 +1068,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-12</date>
+   <date>2013-08-13</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Convert to Horde_View.

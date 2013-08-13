@@ -6,10 +6,15 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Jon Parise <jon@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Mnemo
  */
+
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
+
+$vars = Horde_Variables::getDefaultVariables();
+$form = new Mnemo_Form_Search($vars);
 
 $page_output->addInlineScript(array(
     '$("search_pattern").focus()'
@@ -19,5 +24,5 @@ $page_output->header(array(
     'title' => _("Search")
 ));
 $notification->notify();
-require MNEMO_TEMPLATES . '/search/search.inc';
+$form->render();
 $page_output->footer();
