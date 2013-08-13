@@ -2292,10 +2292,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (!empty($last) && $last > $modseq && (($last - $modseq) > 1000000000)) {
                 return false;
             }
-            $this->_logger->info(sprintf('[%s] Using MODSEQ %s for %s.',
-                getmypid(),
-                $modseq,
-                $collection));
 
             return intval($modseq);
         }
