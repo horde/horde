@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-24</date>
- <time>01:03:53</time>
+ <date>2013-08-13</date>
+ <time>16:53:32</time>
  <version>
   <release>2.12.1</release>
   <api>2.12.0</api>
@@ -1868,7 +1868,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-24</date>
+   <date>2013-08-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix returning list of expunged UIDs when expunging all messages in a mailbox that doesn&apos;t support CONDSTORE (Bug #12559).
