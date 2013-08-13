@@ -1,19 +1,12 @@
 .notePassphrase {
     padding: 10px;
-    background: #fff;
-    border-top: 1px solid #ccc;
 }
 
 .noteBody {
     padding: 10px;
-    background: #fff;
-    border-top: 1px solid #ccc;
     font-family: "Lucida Console",Courier,"Courier New";
     white-space: normal;
     overflow: auto;
-}
-.headerbox .noteBody {
-    border-top-width: 0;
 }
 
 #mnemo-body {
@@ -89,4 +82,14 @@ table#notepad-list th.sortdown {
 }
 .mnemo-search {
     background-image: url('graphics/search.png');
+}
+
+.mnemo-pdf {
+    background-image: url('graphics/download.png');
+}
+.mnemo-edit {
+    background-image: url('graphics/edit.png');
+}
+.mnemo-delete {
+    background-image: url('graphics/delete.png');
 }

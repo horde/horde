@@ -116,7 +116,7 @@ $view->pdfurl = Horde::url('note/pdf.php')
 if ($share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
     $view->delete = Horde::widget(array(
         'url' => $url->add('actionID', 'delete_memos'),
-        'class' => 'smallheader',
+        'class' => 'mnemo-delete',
         'id' => 'mnemo-delete',
         'title' => _("_Delete")
     ));
@@ -124,7 +124,7 @@ if ($share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
 if ($share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $view->edit = Horde::widget(array(
         'url' => $url->add('actionID', 'modify_memo'),
-        'class' => 'smallheader',
+        'class' => 'mnemo-edit',
         'title' => _("_Edit")
     ));
 }

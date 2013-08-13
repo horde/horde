@@ -1,17 +1,20 @@
 <div class="header">
- <div class="rightFloat">
-  <?php echo Horde::widget(array('url' => $this->pdfurl, 'title' => _("Save as PDF"), 'class' => 'smallheader')) ?>
-<?php if ($this->edit): ?>
-  <?php echo ' | ' . $this->edit ?>
-<?php endif ?>
-<?php if ($this->delete): ?>
-  <?php echo ' | ' . $this->delete ?>
-<?php endif ?>
- </div>
  <?php echo $this->h($this->desc) ?>
 </div>
 
-<table cellspacing="0" width="100%" class="headerbox striped nowrap">
+<div class="horde-buttonbar">
+ <ul>
+  <li class="horde-icon"><?php echo Horde::widget(array('url' => $this->pdfurl, 'title' => _("Save as PDF"), 'class' => 'mnemo-pdf')) ?></li>
+<?php if ($this->edit): ?>
+  <li class="horde-icon"><?php echo $this->edit ?></li>
+<?php endif ?>
+<?php if ($this->delete): ?>
+  <li class="horde-icon"><?php echo $this->delete ?></li>
+<?php endif ?>
+ </ul>
+</div>
+
+<table cellspacing="0" width="100%" class="horde-table nowrap">
 <tr>
   <td class="rightAlign"><strong><?php echo _("Category") ?></strong>&nbsp;</td>
   <td width="100%"><?php echo $this->h($this->category ?: _("Unfiled")) ?></td>

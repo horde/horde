@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2013-08-13</date>
- <time>16:41:40</time>
+ <time>16:57:38</time>
  <version>
   <release>4.1.2</release>
   <api>4.0.0</api>
@@ -368,6 +368,9 @@
      <dir name="graphics">
       <file name="add.png" role="horde" />
       <file name="az.png" role="horde" />
+      <file name="delete.png" role="horde" />
+      <file name="download.png" role="horde" />
+      <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="mnemo.png" role="horde" />
@@ -715,6 +718,9 @@
    <install as="mnemo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="mnemo/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="mnemo/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
+   <install as="mnemo/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
+   <install as="mnemo/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
+   <install as="mnemo/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="mnemo/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="mnemo/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
    <install as="mnemo/themes/default/graphics/mnemo.png" name="themes/default/graphics/mnemo.png" />
