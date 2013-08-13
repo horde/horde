@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-13</date>
- <time>16:53:32</time>
+ <time>17:02:14</time>
  <version>
-  <release>2.12.1</release>
+  <release>2.12.2</release>
   <api>2.12.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix returning list of expunged UIDs when expunging all messages in a mailbox that doesn&apos;t support CONDSTORE (Bug #12559).
-* [mms] Translate mailbox names from UTF7-IMAP -&gt; UTF-8 in return from Horde_Imap_Client_Base#getMetadata() (Bug #12541).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1873,6 +1872,19 @@
    <notes>
 * [mms] Fix returning list of expunged UIDs when expunging all messages in a mailbox that doesn&apos;t support CONDSTORE (Bug #12559).
 * [mms] Translate mailbox names from UTF7-IMAP -&gt; UTF-8 in return from Horde_Imap_Client_Base#getMetadata() (Bug #12541).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.2</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
