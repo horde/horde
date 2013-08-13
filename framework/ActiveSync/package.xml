@@ -22,7 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue that could lead to email being duplicated on client due to incorrect Collection Type being detected for unsolicited SMS data (Bug #12544).
+* [mjr] Fix decoding EAS Timezone blobs on Big Endian systems.
+* [mjr] Fix race condition where changes may not be sent to the client due to a combination of a long running MOREAVAILABLE sync and server side changes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1614,7 +1616,9 @@
    <date>2013-08-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue that could lead to email being duplicated on client due to incorrect Collection Type being detected for unsolicited SMS data (Bug #12544).
+* [mjr] Fix decoding EAS Timezone blobs on Big Endian systems.
+* [mjr] Fix race condition where changes may not be sent to the client due to a combination of a long running MOREAVAILABLE sync and server side changes.
    </notes>
   </release>
  </changelog>

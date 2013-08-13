@@ -71,7 +71,7 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
 
         $filename = $this->_params['path'] . '/' . self::PREFIX . $id;
 
-        $this->_fp = fopen($filename, is_readable($filename) ? 'r+' : 'w+');
+        $this->_fp = fopen($filename, 'c+');
         if ($this->_fp) {
             flock($this->_fp, LOCK_EX);
         }

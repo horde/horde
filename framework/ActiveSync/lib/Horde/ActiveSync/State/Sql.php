@@ -855,11 +855,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function getChanges(array $options = array())
     {
-        $this->_thisSyncStamp = $this->_backend->getSyncStamp(empty($this->_collection['id']) ? null : $this->_collection['id'], $this->_lastSyncStamp);
-        if ($this->_thisSyncStamp === false) {
-            throw new Horde_ActiveSync_Exception_StaleState('Detecting a change in timestamp or modification sequence. Reseting state.');
-        }
-
         if (!empty($this->_collection['id'])) {
             // How far back to sync (for those collections that use this)
             $cutoffdate = self::_getCutOffDate(!empty($this->_collection['filtertype'])
@@ -880,6 +875,21 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         $this->_procid));
                     return $this->_changes;
                 }
+
+                // Get the current syncStamp from the backend.
+                $this->_thisSyncStamp = $this->_backend->getSyncStamp(
+                    empty($this->_collection['id']) ? null : $this->_collection['id'],
+                    $this->_lastSyncStamp);
+                if ($this->_thisSyncStamp === false) {
+                    throw new Horde_ActiveSync_Exception_StaleState(
+                        'Detecting a change in timestamp or modification sequence. Reseting state.');
+                }
+
+                $this->_logger->info(sprintf(
+                    '[%s] Using MODSEQ %s for %s.',
+                    $this->_procid,
+                    $this->_thisSyncStamp,
+                    $this->_collection['id']));
 
                 // No existing changes, poll the backend
                 $changes = $this->_backend->getServerChanges(

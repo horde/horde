@@ -176,19 +176,9 @@ abstract class Horde_Mail_Transport
         // for smtp recipients, etc. All relevant personal information
         // should already be in the headers.
         $rfc822 = new Horde_Mail_Rfc822();
-        $raw = $rfc822->parseAddressList($recipients, array(
+        return $rfc822->parseAddressList($recipients, array(
             'validate' => true
-        ))->raw_addresses;
-
-        $out = array();
-        foreach ($raw as $val) {
-            $val->personal = null;
-            $out[] = $val->writeAddress(array(
-                'idn' => true
-            ));
-        }
-
-        return $out;
+        ))->bare_addresses_idn;
     }
 
     /**
@@ -253,9 +243,8 @@ abstract class Horde_Mail_Transport
         }
 
         $from = new Horde_Mail_Rfc822_Address($from);
-        $from->personal = null;
 
-        return $from->writeAddress(array('idn' => true));
+        return $from->bare_address_idn;
     }
 
 }
