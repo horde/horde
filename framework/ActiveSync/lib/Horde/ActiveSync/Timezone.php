@@ -135,27 +135,27 @@ class Horde_ActiveSync_Timezone
     static public function getOffsetsFromDate(Horde_Date $date)
     {
         $offsets = array(
-	        'bias' => 0,
-	        'stdname' => '',
-	        'stdyear' => 0,
-	        'stdmonth' => 0,
-	        'stdday' => 0,
-	        'stdweek' => 0,
-	        'stdhour' => 0,
-	        'stdminute' => 0,
-	        'stdsecond' => 0,
-	        'stdmillis' => 0,
-	        'stdbias' => 0,
-	        'dstname' => '',
-	        'dstyear' => 0,
-	        'dstmonth' => 0,
-	        'dstday' => 0,
-	        'dstweek' => 0,
-	        'dsthour' => 0,
-	        'dstminute' => 0,
-	        'dstsecond' => 0,
-	        'dstmillis' => 0,
-	        'dstbias' => 0
+            'bias' => 0,
+            'stdname' => '',
+            'stdyear' => 0,
+            'stdmonth' => 0,
+            'stdday' => 0,
+            'stdweek' => 0,
+            'stdhour' => 0,
+            'stdminute' => 0,
+            'stdsecond' => 0,
+            'stdmillis' => 0,
+            'stdbias' => 0,
+            'dstname' => '',
+            'dstyear' => 0,
+            'dstmonth' => 0,
+            'dstday' => 0,
+            'dstweek' => 0,
+            'dsthour' => 0,
+            'dstminute' => 0,
+            'dstsecond' => 0,
+            'dstmillis' => 0,
+            'dstbias' => 0
         );
 
         $timezone = $date->toDateTime()->getTimezone();
@@ -218,21 +218,21 @@ class Horde_ActiveSync_Timezone
     }
 
     /**
-	 * Calculate the offsets for the specified transition
-	 *
-	 * @param array $offsets      A TZ offset hash
-	 * @param array $transition   A transition hash
-	 * @param string $type        Transition type - dst or std
+     * Calculate the offsets for the specified transition
      *
-	 * @return array  A populated offset hash
-	 */
-	static protected function _generateOffsetsForTransition(array $offsets, array $transition, $type)
-	{
+     * @param array $offsets      A TZ offset hash
+     * @param array $transition   A transition hash
+     * @param string $type        Transition type - dst or std
+     *
+     * @return array  A populated offset hash
+     */
+    static protected function _generateOffsetsForTransition(array $offsets, array $transition, $type)
+    {
         // We can't use Horde_Date directly here, since it is unable to
         // properly convert to UTC from local ON the exact hour of a std -> dst
         // transition. This is due to a conversion to DateTime in the localtime
         // zone internally before the timezone change is applied
-	    $transitionDate = new DateTime($transition['time']);
+        $transitionDate = new DateTime($transition['time']);
         $transitionDate->setTimezone(new DateTimeZone('UTC'));
         $transitionDate = new Horde_Date($transitionDate);
         $offsets[$type . 'month'] = $transitionDate->format('n');
@@ -247,8 +247,7 @@ class Horde_ActiveSync_Timezone
         }
 
         return $offsets;
-	}
-
+    }
 
     /**
      * Attempt to guess the timezone identifier from the $offsets array.
