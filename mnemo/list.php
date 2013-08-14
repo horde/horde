@@ -61,9 +61,6 @@ $view->searchUrl = Horde::url('search.php');
 $view->title = $title;
 
 if (count($memos)) {
-    $cManager = new Horde_Prefs_CategoryManager();
-    $colors = $cManager->colors();
-    $fgcolors = $cManager->fgColors();
     $sortby = $prefs->getValue('sortby');
     $sortdir = $prefs->getValue('sortdir');
 
@@ -110,27 +107,6 @@ if (count($memos)) {
             'title' => _("Date")
          )),
     );
-    $label = Horde::widget(array(
-         'url' => Horde::url('list.php')->add('sortby', Mnemo::SORT_CATEGORY),
-         'class' => 'sortlink',
-         'title' => _("_Category")
-    ));
-    if ($registry->getAuth() &&
-        (!$prefs->isLocked('categories') ||
-         !$prefs->isLocked('category_colors'))) {
-        $label .= ' '
-            . Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php')
-                ->add(array('app' => 'horde', 'group' => 'categories'))
-                ->link(array('title' => _("Edit categories and colors"), 'target' => '_blank', 'onclick' => 'HordePopup.popup({url:this.href});Event.stop(event);return false;'))
-            . Horde::img('colorpicker.png', _("Edit categories and colors"), '')
-            . '</a>';
-    }
-    $view->headers[] = array(
-        'id' => 's' . Mnemo::SORT_CATEGORY,
-        'sorted' => $sortby == Mnemo::SORT_CATEGORY,
-        'width' => '15%',
-        'label' => $label,
-    );
 
     foreach ($memos as $memo_id => &$memo) {
         try {
@@ -160,7 +136,8 @@ if (count($memos)) {
             '', '', '', '',
             ($memo['body'] != $memo['desc']) ? Mnemo::getNotePreview($memo) : ''
         )
-            . (strlen($memo['desc']) ? htmlspecialchars($memo['desc']) : '<em>' . _("Empty Note") . '</em>');
+            . (strlen($memo['desc']) ? htmlspecialchars($memo['desc']) : '<em>' . _("Empty Note") . '</em>')
+            . '</a>';
 
         // Get memo's most recent modification date or, if nonexistent,
         // the creation (add) date
@@ -177,7 +154,6 @@ if (count($memos)) {
         } else {
             $memo['modifiedStamp'] = $memo['modifiedString'] = '';
         }
-
     }
 }
 

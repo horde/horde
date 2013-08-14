@@ -260,7 +260,7 @@ class Mnemo_Api extends Horde_Registry_Api
                             $note = $storage->fromiCalendar($content);
                             $noteId = $storage->add(
                                 $note['desc'], $note['body'],
-                                !empty($note['category']) ? $note['category'] : '');
+                                !empty($note['tags']) ? $note['tags'] : '');
                             $ids[] = $noteId;
                         }
                     }
@@ -271,12 +271,11 @@ class Mnemo_Api extends Horde_Registry_Api
             $note = $storage->fromiCalendar($content);
             $noteId = $storage->add(
                 $note['desc'], $note['body'],
-                !empty($note['category']) ? $note['category'] : '');
+                !empty($note['tags']) ? $note['tags'] : '');
             break;
 
         case 'activesync':
-            $category = is_array($content->categories) ? current($content->categories) : '';
-            $noteId = $storage->add($content->subject, $content->body->data, $category);
+            $noteId = $storage->add($content->subject, $content->body->data, $content->categories);
             break;
 
         default:
@@ -423,17 +422,15 @@ class Mnemo_Api extends Horde_Registry_Api
             $storage->modify($memo['memo_id'],
                              $note['desc'],
                              $note['body'],
-                             !empty($note['category']) ? $note['category'] : '');
+                             !empty($note['tags']) ? $note['tags'] : '');
             break;
 
         case 'activesync':
-            $category = is_array($content->categories) ? current($content->categories) : '';
-            $storage->modify($memo['memo_id'], $content->subject, $content->body->data, $category);
+            $storage->modify($memo['memo_id'], $content->subject, $content->body->data, $content->categories);
             break;
 
         default:
             throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"),$contentType));
         }
     }
-
 }

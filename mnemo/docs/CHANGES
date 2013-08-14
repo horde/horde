@@ -2,6 +2,7 @@
 v4.1.2-git
 ----------
 
+[jan] Replace categories with tags.
 [jan] Convert to Horde_View.
 
 

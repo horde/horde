@@ -43,7 +43,6 @@ $_prefs['sortby'] = array(
     'type' => 'enum',
     'enum' => array(
         Mnemo::SORT_DESC => _("Note Text"),
-        Mnemo::SORT_CATEGORY => _("Note Category"),
         Mnemo::SORT_NOTEPAD => _("Notepad"),
         Mnemo::SORT_MOD_DATE => _("Modification Date"),
     ),
@@ -59,16 +58,6 @@ $_prefs['sortdir'] = array(
         Mnemo::SORT_DESCEND => _("Descending")
     ),
     'desc' => _("Default sorting direction:")
-);
-
-// user note categories
-$_prefs['memo_categories'] = array(
-    'value' => ''
-);
-
-// category highlight colors
-$_prefs['memo_colors'] = array(
-    'value' => ''
 );
 
 // default notepad

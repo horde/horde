@@ -30,12 +30,6 @@ class Mnemo_Block_Summary extends Horde_Core_Block
      */
     protected function _params()
     {
-        $cManager = new Horde_Prefs_CategoryManager();
-        $categories = array();
-        foreach ($cManager->get() as $c) {
-            $categories[$c] = $c;
-        }
-
         return array(
             'show_actions' => array(
                 'type' => 'checkbox',
@@ -47,12 +41,6 @@ class Mnemo_Block_Summary extends Horde_Core_Block
                 'name' => _("Show notepad name?"),
                 'default' => 1
             ),
-            'show_categories' => array(
-                'type' => 'multienum',
-                'name' => _("Show notes from these categories"),
-                'default' => array(),
-                'values' => $categories
-            )
         );
     }
 
@@ -62,10 +50,6 @@ class Mnemo_Block_Summary extends Horde_Core_Block
     {
         global $registry, $prefs;
 
-        $cManager = new Horde_Prefs_CategoryManager();
-        $colors = $cManager->colors();
-        $fgcolors = $cManager->fgColors();
-
         if (!empty($this->_params['show_notepad'])) {
             $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
         }
@@ -74,11 +58,6 @@ class Mnemo_Block_Summary extends Horde_Core_Block
         $memos = Mnemo::listMemos($prefs->getValue('sortby'),
                                   $prefs->getValue('sortdir'));
         foreach ($memos as $id => $memo) {
-            if (!empty($this->_params['show_categories']) &&
-                !in_array($memo['category'], $this->_params['show_categories'])) {
-                continue;
-            }
-
             $html .= '<tr>';
 
             if (!empty($this->_params['show_actions'])) {
@@ -104,10 +83,11 @@ class Mnemo_Block_Summary extends Horde_Core_Block
                     '', '', '', '',
                     $memo['body'] != $memo['desc'] ? Mnemo::getNotePreview($memo) : '')
                 . (strlen($memo['desc']) ? htmlspecialchars($memo['desc']) : '<em>' . _("Empty Note") . '</em>')
-                . '</a></td><td width="1%" class="base-category" style="'
-                . Mnemo::getCssStyle($memo['category']) . '">'
-                . htmlspecialchars($memo['category'] ? $memo['category'] : _("Unfiled"))
-                . "</td></tr>\n";
+                . '</a> <ul class="horde-tags">';
+            foreach ($memo['tags'] as $tag) {
+                $html .= '<li>' . htmlspecialchars($tag) . '</li>';
+            }
+            $html .= '</ul></td></tr>';
         }
 
         if (!$memos) {

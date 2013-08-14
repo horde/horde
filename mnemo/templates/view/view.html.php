@@ -15,15 +15,17 @@
 </div>
 
 <table cellspacing="0" width="100%" class="horde-table nowrap">
+<?php if ($this->tags): ?>
 <tr>
-  <td class="rightAlign"><strong><?php echo _("Category") ?></strong>&nbsp;</td>
-  <td width="100%"><?php echo $this->h($this->category ?: _("Unfiled")) ?></td>
+  <td class="rightAlign"><strong><?php echo _("Tags") ?></strong>&nbsp;</td>
+  <td width="100%"><?php echo $this->h($this->tags) ?></td>
 </tr>
+<?php endif ?>
 
 <?php if ($this->created): ?>
 <tr>
   <td class="rightAlign"><strong><?php echo _("Created") ?></strong>&nbsp;</td>
-  <td>
+  <td width="100%">
     <?php echo $this->created ?>
     <?php echo $this->h($this->createdby) ?>
   </td>
@@ -33,7 +35,7 @@
 <?php if ($this->modified): ?>
 <tr>
   <td class="rightAlign"><strong><?php echo _("Last Modified") ?></strong>&nbsp;</td>
-  <td>
+  <td width="100%">
     <?php echo $this->modified ?>
     <?php echo $this->h($this->modifiedby) ?>
 </td>

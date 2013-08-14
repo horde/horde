@@ -40,7 +40,7 @@ if ($GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max
 
 /* Field/clear name mapping. */
 $app_fields = array('body' => _("Memo Text"),
-                    'category' => _("Category"));
+                    'tags' => _("Tags"));
 
 /* Initial values. */
 $param = array('file_types'  => $file_types);
@@ -75,10 +75,6 @@ if ($import_format) {
 
 /* We have a final result set. */
 if (is_array($next_step)) {
-    /* Create a category manager. */
-    $cManager = new Horde_Prefs_CategoryManager();
-    $categories = $cManager->get();
-
     /* Create a Mnemo storage instance. */
     $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($storage->get('target'));
     $max_memos = $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_notes');
@@ -104,9 +100,9 @@ if (is_array($next_step)) {
             }
         }
 
-        /* Default the category if there isn't one. */
-        if (empty($row['category'])) {
-            $row['category'] = '';
+        /* Default the tags if there isn't one. */
+        if (empty($row['tags'])) {
+            $row['tags'] = '';
         }
 
         /* Parse out the first line as the description if necessary. */
@@ -115,7 +111,7 @@ if (is_array($next_step)) {
             $row['desc'] = array_shift($tmp);
         }
         try {
-            $result = $storage->add($row['desc'], $row['body'], $row['category']);
+            $result = $storage->add($row['desc'], $row['body'], $row['tags']);
         } catch (Mnemo_Exception $e) {
             $haveError = $e->getMessage();
             break;
@@ -139,12 +135,6 @@ if (is_array($next_step)) {
             }
             $history->log('mnemo:' . $storage->get('target') . ':' . $note['uid'],
                           array('action' => 'modify', 'ts' => $row['modified']), true);
-        }
-
-        if (!empty($row['category']) &&
-            !in_array($row['category'], $categories)) {
-            $cManager->add($row['category']);
-            $categories[] = $row['category'];
         }
 
         $num_memos++;

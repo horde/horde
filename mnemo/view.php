@@ -113,6 +113,7 @@ $view->listid = $memolist_id;
 $view->passphrase = $show_passphrase;
 $view->pdfurl = Horde::url('note/pdf.php')
     ->add(array('note' => $memo_id, 'notepad' => $memolist_id));
+$view->tags = implode(', ', $memo['tags']);
 if ($share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
     $view->delete = Horde::widget(array(
         'url' => $url->add('actionID', 'delete_memos'),

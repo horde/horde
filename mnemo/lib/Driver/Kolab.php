@@ -115,25 +115,19 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Adds a note to the backend storage.
      *
-     * @param string $noteId    The ID of the new note.
-     * @param string $desc      The first line of the note.
-     * @param string $body      The whole note body.
-     * @param string $category  The category of the note.
+     * @param string $noteId  The ID of the new note.
+     * @param string $desc    The first line of the note.
+     * @param string $body    The whole note body.
+     * @param string $tags    The tags of the note.
      *
      * @return string  The unique ID of the new note.
      * @throws Mnemo_Exception
      */
-    protected function _add($noteId, $desc, $body, $category)
+    protected function _add($noteId, $desc, $body, $tags)
     {
-        $uid = Horde_Url::uriB64Decode($noteId);
-        $object = array(
-            'uid' => $uid,
-            'summary' => $desc,
-            'body' => $body,
-            'categories' => array($category),
-        );
         try {
-            $this->_getData()->create($object);
+            $this->_getData()
+                ->create($this->_buildObject($noteId, $desc, $body, $tags));
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
@@ -143,30 +137,47 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Modifies an existing note.
      *
-     * @param string $noteId    The note to modify.
-     * @param string $desc      The first line of the note.
-     * @param string $body      The whole note body.
-     * @param string $category  The category of the note.
+     * @param string $noteId  The note to modify.
+     * @param string $desc    The first line of the note.
+     * @param string $body    The whole note body.
+     * @param string $tags    The tags of the note.
      *
      * @return string  The note's UID.
      * @throws Mnemo_Exception
      */
-    protected function _modify($noteId, $desc, $body, $category)
+    protected function _modify($noteId, $desc, $body, $tags)
     {
-        $uid = Horde_Url::uriB64Decode($noteId);
         try {
-            $this->_getData()->modify(
-                array(
-                    'uid' => $uid,
-                    'summary' => $desc,
-                    'body' => $body,
-                    'categories' => array($category),
-                )
-            );
+            $this->_getData()
+                ->modify($this->_buildObject($noteId, $desc, $body, $tags));
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
         return $uid;
+    }
+
+    /**
+     * Converts a note hash to a Kolab hash.
+     *
+     * @param string $noteId  The note to modify.
+     * @param string $desc    The first line of the note.
+     * @param string $body    The whole note body.
+     * @param string $tags    The tags of the note.
+     *
+     * @return string  The Kolab hash.
+     */
+    protected function _buildObject($noteId, $desc, $body, $tags)
+    {
+        $uid = Horde_Url::uriB64Decode($noteId);
+        $object = array(
+            'uid' => $uid,
+            'summary' => $desc,
+            'body' => $body,
+        );
+        $object['categories'] = $GLOBALS['injector']
+            ->getInstance('Mnemo_Tagger')
+            ->split($tags);
+        usort($object['categories'], 'strcoll');
     }
 
     /**
@@ -276,8 +287,8 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Build a note based on data array
      *
-     * @param array  $note     The data for the note
-     * @param string $passphrase A passphrase for decrypting a note
+     * @param array $note         The data for the note
+     * @param string $passphrase  A passphrase for decrypting a note
      *
      * @return array  The converted data array representing the note
      */
@@ -304,11 +315,26 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
             }
         }
 
+        $tagger = $GLOBALS['injector']->getInstance('Mnemo_Tagger');
+        $tags = $tagger->getTags($note['uid'], 'note');
+        if (!empty($note['categories'])) {
+            usort($tags, 'strcoll');
+            if (array_diff($note['categories'], $tags)) {
+                $tagger->replaceTags(
+                    $note['uid'],
+                    $note['categories'],
+                    $this->_notepad,
+                    'note'
+                );
+            }
+            $tags = $note['categories'];
+        }
+
         $result = array(
             'memolist_id' => $this->_notepad,
             'memo_id' => $id,
             'uid' => $note['uid'],
-            'category' => empty($note['categories']) ? '' : $note['categories'][0],
+            'tags' => $tags,
             'desc' => $note['summary'],
             'encrypted' => $encrypted,
             'body' => $body,

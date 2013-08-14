@@ -72,10 +72,6 @@ table#notepad-list th.sortdown {
     width: 1%;
 }
 
-.base-category {
-    padding: 0 4px;
-}
-
 /* Icons. */
 .mnemo-list {
     background-image: url('graphics/mnemo.png');

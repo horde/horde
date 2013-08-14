@@ -21,11 +21,6 @@ class Mnemo
     const SORT_DESC = 0;
 
     /**
-     * Sort by memo category.
-     */
-    const SORT_CATEGORY = 1;
-
-    /**
      * Sort by notepad.
      */
     const SORT_NOTEPAD = 2;
@@ -60,8 +55,7 @@ class Mnemo
      * also sort the resulting list, if requested.
      *
      * @param constant $sortby   The field by which to sort. (self::SORT_DESC,
-     *                           self::SORT_CATEGORY, self::SORT_NOTEPAD,
-     *                           self::SORT_MOD_DATE)
+     *                           self::SORT_NOTEPAD, self::SORT_MOD_DATE)
      * @param constant $sortdir  The direction by which to sort.
      *                           (self::SORT_ASC, self::SORT_DESC)
      *
@@ -78,7 +72,6 @@ class Mnemo
         /* Sort the memo list. */
         $sort_functions = array(
             self::SORT_DESC => 'ByDesc',
-            self::SORT_CATEGORY => 'ByCategory',
             self::SORT_NOTEPAD => 'ByNotepad',
             self::SORT_MOD_DATE => 'ByModDate'
         );
@@ -322,35 +315,6 @@ class Mnemo
     }
 
     /**
-     * Comparison function for sorting notes by category.
-     *
-     * @param array $a  Note one.
-     * @param array $b  Note two.
-     *
-     * @return integer  1 if note one is greater, -1 if note two is greater; 0
-     *                  if they are equal.
-     */
-    protected static function _sortByCategory($a, $b)
-    {
-        return strcoll($a['category'] ? $a['category'] : _("Unfiled"),
-                       $b['category'] ? $b['category'] : _("Unfiled"));
-    }
-
-    /**
-     * Comparison function for reverse sorting notes by category.
-     *
-     * @param array $a  Note one.
-     * @param array $b  Note two.
-     *
-     * @return integer  -1 if note one is greater, 1 if note two is greater; 0
-     *                  if they are equal.
-     */
-    protected static function _rsortByCategory($a, $b)
-    {
-        return self::_sortByCategory($b, $a);
-    }
-
-    /**
      * Comparison function for sorting notes by notepad name.
      *
      * @param array $a  Note one.
@@ -555,20 +519,5 @@ class Mnemo
         }
 
         $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));
-    }
-
-    /**
-     */
-    static public function getCssStyle($category)
-    {
-        $cManager = new Horde_Prefs_CategoryManager();
-        $colors = $cManager->colors();
-        if (!isset($colors[$category])) {
-            return '';
-        }
-        $fgColors = $cManager->fgColors();
-
-        return 'color:' . (isset($fgColors[$category]) ? $fgColors[$category] : $fgColors['_default_']) . ';' .
-            'background:' . $colors[$category] . ';';
     }
 }

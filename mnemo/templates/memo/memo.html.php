@@ -19,7 +19,6 @@
  <?php echo $this->formInput ?>
  <input type="hidden" name="actionID" value="save_memo" />
  <input type="hidden" name="memo" value="<?php echo $this->h($this->id) ?>" />
- <input type="hidden" name="new_category" value="" />
  <input type="hidden" name="memolist_original" value="<?php echo $this->h($this->listid) ?>" />
 <?php if (count($this->notepads) <= 1): ?>
  <input type="hidden" name="notepad_target" value="<?php echo $this->h($this->listid) ?>" />
@@ -29,7 +28,7 @@
  <?php echo $this->help ?>
 
  <p class="horde-form-buttons">
-  <input type="submit" class="horde-default" value="<?php echo _("Save") ?>" onclick="return checkCategory();" />
+  <input type="submit" class="horde-default" value="<?php echo _("Save") ?>" />
 <?php if ($this->delete): ?>
   <a class="horde-delete" href="<?php echo $this->delete ?>"><?php echo _("Delete") ?></a>
 <?php endif ?>
@@ -48,8 +47,11 @@
   </tr>
 <?php endif; ?>
   <tr>
-   <td class="rightAlign"><?php echo Horde::label('memo_category', _("_Category:")) ?></td>
-   <td><?php echo $this->categories ?></td>
+   <td class="rightAlign"><?php echo Horde::label('memo_tags', _("T_ags:")) ?></td>
+   <td>
+    <input id="memo_tags" type="text" name="memo_tags" value="<?php echo $this->h($this->tags) ?>" />
+    <span id="memo_tags_loading_img" style="display:none;"><?php echo $this->loadingImg ?></span>
+   </td>
   </tr>
 <?php if ($this->encryption): ?>
 <?php if ($this->modify && $this->encrypted && !$this->passphrase): ?>

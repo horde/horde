@@ -16,18 +16,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-13</date>
- <time>16:57:38</time>
+ <date>2013-08-14</date>
+ <time>16:59:09</time>
  <version>
-  <release>4.1.2</release>
+  <release>4.2.0alpha1</release>
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Replace categories with tags.
 * [jan] Convert to Horde_View.
  </notes>
  <contents>
@@ -61,6 +62,7 @@
     <dir name="Ajax">
      <dir name="Imple">
       <file name="EditNote.php" role="horde" />
+      <file name="TagAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -92,6 +94,7 @@
     <file name="Driver.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Mnemo.php" role="horde" />
+    <file name="Tagger.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="bg">
@@ -303,6 +306,7 @@
     <file name="3_mnemo_upgrade_sqlng.php" role="horde" />
     <file name="4_mnemo_upgrade_sqlhierarchical.php" role="horde" />
     <file name="5_mnemo_upgrade_sqlnghierarchical.php" role="horde" />
+    <file name="6_mnemo_upgrade_categoriestotags.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="note">
     <file name="index.php" role="horde" />
@@ -401,6 +405,13 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>content</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.3</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
@@ -591,8 +602,10 @@
    <install as="mnemo/lib/Driver.php" name="lib/Driver.php" />
    <install as="mnemo/lib/Exception.php" name="lib/Exception.php" />
    <install as="mnemo/lib/Mnemo.php" name="lib/Mnemo.php" />
+   <install as="mnemo/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="mnemo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="mnemo/lib/Ajax/Imple/EditNote.php" name="lib/Ajax/Imple/EditNote.php" />
+   <install as="mnemo/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="mnemo/lib/Block/Note.php" name="lib/Block/Note.php" />
    <install as="mnemo/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="mnemo/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
@@ -687,6 +700,7 @@
    <install as="mnemo/migration/3_mnemo_upgrade_sqlng.php" name="migration/3_mnemo_upgrade_sqlng.php" />
    <install as="mnemo/migration/4_mnemo_upgrade_sqlhierarchical.php" name="migration/4_mnemo_upgrade_sqlhierarchical.php" />
    <install as="mnemo/migration/5_mnemo_upgrade_sqlnghierarchical.php" name="migration/5_mnemo_upgrade_sqlnghierarchical.php" />
+   <install as="mnemo/migration/6_mnemo_upgrade_categoriestotags.php" name="migration/6_mnemo_upgrade_categoriestotags.php" />
    <install as="mnemo/note/index.php" name="note/index.php" />
    <install as="mnemo/note/pdf.php" name="note/pdf.php" />
    <install as="mnemo/notepads/create.php" name="notepads/create.php" />
@@ -1076,9 +1090,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-13</date>
+   <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0alpha1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2013-08-14</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Replace categories with tags.
 * [jan] Convert to Horde_View.
    </notes>
   </release>
