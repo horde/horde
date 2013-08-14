@@ -19,7 +19,7 @@ class MnemoUpgradeCategoriesToTags extends Horde_Db_Migration_Base
     {
         parent::__construct($connection, $version);
 
-        // Can't use Mnemo's tagger since we can't init Nag.
+        // Can't use Mnemo's tagger since we can't init Mnemo.
         $GLOBALS['injector']->getInstance('Horde_Autoloader')
             ->addClassPathMapper(
                 new Horde_Autoloader_ClassPathMapper_Prefix(
