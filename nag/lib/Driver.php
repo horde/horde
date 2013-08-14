@@ -473,7 +473,7 @@ abstract class Nag_Driver
     }
 
     /**
-     * Helper function to add tags from a newly creted event to the tagger.
+     * Helper function to add tags from a newly created event to the tagger.
      *
      * @param array $task  The task to save tags to storage for.
      */
