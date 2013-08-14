@@ -54,7 +54,7 @@ class MnemoUpgradeCategoriesToTags extends Horde_Db_Migration_Base
                     $this->_tagger->tag(
                         $list->get('owner'),
                         array('object' => (string)$row['memo_uid'],
-                              'type' => $this->_type_ids['memo']),
+                              'type' => $this->_type_ids['note']),
                         $row['memo_category']
                     );
                 } catch (Exception $e) {
@@ -75,7 +75,7 @@ class MnemoUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         foreach ($rows as $row) {
             $tags = $this->_tagger->getTagsByObjects(
                 $row['memo_uid'],
-                $this->_type_ids['memo']);
+                $this->_type_ids['note']);
             if (!count($tags) || !count($tags[$row['memo_uid']])) {
                 continue;
             }
