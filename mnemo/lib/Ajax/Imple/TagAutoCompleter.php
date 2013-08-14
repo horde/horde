@@ -32,7 +32,6 @@ class Mnemo_Ajax_Imple_TagAutoCompleter extends Horde_Core_Ajax_Imple_AutoComple
      */
     protected function _handleAutoCompleter($input)
     {
-        Horde::debug($input);
         return array_values($GLOBALS['injector']->getInstance('Mnemo_Tagger')->listTags($input));
     }
 
