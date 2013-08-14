@@ -2,7 +2,7 @@
 /**
  * Move tags from mnemo categories to content storage.
  *
- * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
