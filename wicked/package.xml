@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Request CAPTCHA when creating pages too.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -969,7 +969,7 @@
    <date>2013-07-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Request CAPTCHA when creating pages too.
    </notes>
   </release>
  </changelog>
