@@ -38,5 +38,6 @@ PasswdCore = {
 
 
 document.observe('dom:loaded', function() {
+    PasswdCore.validatePassword();
     $('passwd-newpassword0').observe('keyup', PasswdCore.validatePassword);
 });
