@@ -2555,8 +2555,6 @@ class Turba_Driver implements Countable
                 break;
 
             case '__tags':
-                // Categories FROM horde are a simple string value, categories
-                // going BACK to horde are an array with 'value' and 'new' keys
                 $message->categories = $value;
                 break;
 
