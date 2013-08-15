@@ -1,3 +1,22 @@
+/* @todo Move to Horde in H6 */
+.horde-header {
+    padding: 10px;
+    background-color: #eceff0;
+    border-bottom: 1px solid #d0d0d0;
+}
+.horde-header tr {
+    vertical-align: top;
+}
+.horde-header td {
+    padding: 0 0 1px 0;
+}
+.horde-header td.horde-label {
+    font-weight: bold;
+    padding-right: 4px;
+    text-align: right;
+    white-space: nowrap;
+}
+
 .notePassphrase {
     padding: 10px;
 }
