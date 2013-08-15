@@ -17,6 +17,11 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('passwd');
 
+if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC) {
+    include PASSWD_BASE . '/dynamic.php';
+    exit;
+}
+
 $ob = new Passwd_Basic($injector->getInstance('Horde_Variables'));
 
 $status = $ob->status();
