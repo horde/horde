@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-13</date>
- <time>17:02:14</time>
+ <date>2013-08-15</date>
+ <time>12:59:12</time>
  <version>
   <release>2.12.2</release>
   <api>2.12.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add remote POP3 server test.
 * [mms] Fix sniffing capabilities for POP3 servers that don&apos;t support the CAPA command.
  </notes>
  <contents>
@@ -242,6 +243,7 @@
        <file name="MapTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="RemoteImapServerTest.php" role="test" />
+       <file name="RemotePop3ServerTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
        <file name="SocketTest.php" role="test" />
        <file name="SortTest.php" role="test" />
@@ -471,6 +473,7 @@
    <install as="Horde/Imap/Client/MapTest.php" name="test/Horde/Imap/Client/MapTest.php" />
    <install as="Horde/Imap/Client/phpunit.xml" name="test/Horde/Imap/Client/phpunit.xml" />
    <install as="Horde/Imap/Client/RemoteImapServerTest.php" name="test/Horde/Imap/Client/RemoteImapServerTest.php" />
+   <install as="Horde/Imap/Client/RemotePop3ServerTest.php" name="test/Horde/Imap/Client/RemotePop3ServerTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SortTest.php" name="test/Horde/Imap/Client/SortTest.php" />
@@ -1881,9 +1884,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-13</date>
+   <date>2013-08-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add remote POP3 server test.
 * [mms] Fix sniffing capabilities for POP3 servers that don&apos;t support the CAPA command.
    </notes>
   </release>

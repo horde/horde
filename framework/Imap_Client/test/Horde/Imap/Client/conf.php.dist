@@ -1,5 +1,7 @@
 <?php
 $conf['imapclient'] = array(
+    'enabled' => false,
+
     // Configuration for the remote IMAP server test.
     'client_config' => array(
         'username' => '',
@@ -11,6 +13,23 @@ $conf['imapclient'] = array(
     ),
     'test_mbox' => 'TestMailboxTest',
     'test_mbox_utf8' => 'TestMailboxTest1è',
+
+    // Configuration for the Mongo cache driver test.
+    'mongo' => null,
+);
+
+$conf['pop3client'] = array(
+    'enabled' => false,
+
+    // Configuration for the remote POP3 server test.
+    'client_config' => array(
+        'username' => '',
+        'password' => '',
+        'hostspec' => '',
+        'port' => '',
+        'secure' => '', // empty, 'ssl', or 'tls'
+        'debug' => null // e.g. 'php://output'
+    ),
 
     // Configuration for the Mongo cache driver test.
     'mongo' => null,
