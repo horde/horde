@@ -1,7 +1,11 @@
 .policy_bad {
     background: #ff0000;
+    background-image: url("graphics/failed.png");
+    background-repeat: no-repeat;
 }
 
 .policy_good {
     background: #00ff00;
+    background-image: url("graphics/passed.png");
+    background-repeat: no-repeat;
 }
