@@ -2,6 +2,7 @@
 v6.1.4-git
 ----------
 
+[mms] Fix applying the 'allow_folders' permission.
 [mms] Fix canceling/discarding compose message in basic view (Bug #12555).
 [mms] Fix updating message index when deleting a message in basic message view
       (Bug #12539).

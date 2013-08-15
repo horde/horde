@@ -343,7 +343,7 @@ class IMP_Imap implements Serializable
         case self::ACCESS_FOLDERS:
         case self::ACCESS_TRASH:
             return ($this->isImap() &&
-                    $injector->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('access_folders')));
+                    $injector->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('allow_folders')));
         }
 
         return false;
