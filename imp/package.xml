@@ -3261,6 +3261,7 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix applying the &apos;allow_folders&apos; permission.
 * [mms] Fix canceling/discarding compose message in basic view (Bug #12555).
 * [mms] Fix updating message index when deleting a message in basic message view (Bug #12539).
 * [mms] &apos;trailer&apos; hook now has the user&apos;s identity and the list of recipients passed as parameters.

@@ -133,23 +133,29 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                     : true;
             }
         } catch (Horde_Imap_Client_Exception $e) {
+            $this->_temp['no_capa'] = true;
+
             /* Need to probe for capabilities if CAPA command is not
              * available. */
-            $capability = array('USER', 'SASL');
+            $capability = array('USER' => true);
 
-            try {
-                $this->_sendLine('UIDL', array(
-                    'multiline' => 'none'
-                ));
-                $capability[] = 'UIDL';
-            } catch (Horde_Imap_Client_Exception $e) {}
+            /* Capability sniffing only guaranteed after authentication is
+             * completed (if any). */
+            if (!empty($this->_init['authmethod'])) {
+                try {
+                    $this->_sendLine('UIDL', array(
+                        'multiline' => 'none'
+                    ));
+                    $capability['UIDL'] = true;
+                } catch (Horde_Imap_Client_Exception $e) {}
 
-            try {
-                $this->_sendLine('TOP 1 0', array(
-                    'multiline' => 'none'
-                ));
-                $capability[] = 'TOP';
-            } catch (Horde_Imap_Client_Exception $e) {}
+                try {
+                    $this->_sendLine('TOP 1 0', array(
+                        'multiline' => 'none'
+                    ));
+                    $capability['TOP'] = true;
+                } catch (Horde_Imap_Client_Exception $e) {}
+            }
         }
 
         $this->_setInit('capability', $capability);
@@ -226,6 +232,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             try {
                 $this->_tryLogin($method);
                 $this->_setInit('authmethod', $method);
+
+                if (!empty($this->_temp['no_capa'])) {
+                    $this->_capability();
+                }
+
                 return true;
             } catch (Horde_Imap_Client_Exception $e) {
                 if (!empty($this->_init['authmethod'])) {
