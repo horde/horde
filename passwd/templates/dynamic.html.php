@@ -80,7 +80,7 @@
 </div>
 
 <p class="horde-form-buttons">
- <input class="horde-default" type="submit" name="submit" id="passwd-submit" value="<?php echo _("Change Password") ?>" />
+ <input class="horde-default" type="submit" disabled="disabled" name="submit" id="passwd-submit" value="<?php echo _("Change Password") ?>" />
  <input type="reset" name="reset" value="<?php echo _("Reset") ?>" />
 </p>
 </form>
