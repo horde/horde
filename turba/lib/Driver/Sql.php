@@ -704,8 +704,7 @@ class Turba_Driver_Sql extends Turba_Driver
         }
 
         $fields_pre = array(
-            '__key', '__type', '__owner', 'name', 'birthday', 'category',
-            'anniversary'
+            '__key', '__type', '__owner', 'name', 'birthday', 'anniversary'
         );
 
         $fields = array();

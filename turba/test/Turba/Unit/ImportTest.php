@@ -431,7 +431,7 @@ END:VCARD
                 'email' => 'email@domain.com',
                 'emails' => 'email@domain.com',
                 'website' => '',
-                'category' => 'Friends',
+                '__tags' => array('Friends'),
                 'businessCategory' => 'Friends',
                 'notes' => '',
                 'homeAddress' => 'Street address

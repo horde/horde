@@ -291,11 +291,7 @@ class Turba_Driver_Kolab extends Turba_Driver
             }
 
             if (isset($contact['categories'])) {
-                if (empty($contact['categories'])) {
-                    $contact['categories'] = '';
-                } else {
-                    $contact['categories'] = $contact['categories'][0];
-                }
+                $contact['__internaltags'] = $contact['categories'];
             }
 
             if (!empty($contact['birthday'])) {
@@ -592,7 +588,7 @@ class Turba_Driver_Kolab extends Turba_Driver
                         $object['__members'] = serialize($member_ids);
                         unset($object['member']);
                     }
-                    $results[] = $object;;
+                    $results[] = $object;
                 }
             }
         }
@@ -721,10 +717,19 @@ class Turba_Driver_Kolab extends Turba_Driver
 
         // EAS sets the date fields to '' instead of null -> fix it up
         $fix_date_fields = array('birthday', 'anniversary');
-        foreach($fix_date_fields as $fix_date) {
+        foreach ($fix_date_fields as $fix_date) {
             if (empty($attributes[$fix_date])) {
                 unset($attributes[$fix_date]);
             }
+        }
+
+        if (isset($attributes['__tags'])) {
+            if (!is_array($attributes['__tags'])) {
+                $attributes['categories'] = $GLOBALS['injector']->getInstance('Nag_Tagger')->split($attributes['__tags']);
+            } else {
+                $attributes['categories'] = $attributes['__tags'];
+            }
+            usort($attributes['categories'], 'strcoll');
         }
 
         if ($object_id === null) {

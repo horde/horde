@@ -69,7 +69,7 @@ if ($form->validate()) {
 }
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
-$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('add.php'), 'post');
+$form->renderActive($form->getRenderer(), $vars, Horde::url('add.php'), 'post');
 $formHtml = Horde::endBuffer();
 
 $page_output->header(array(

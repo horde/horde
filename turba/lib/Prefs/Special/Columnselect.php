@@ -39,6 +39,8 @@ class Turba_Prefs_Special_Columnselect implements Horde_Core_Prefs_Ui_Special
 
         $col_list = $cols = array();
         foreach ($cfgSources as $source => $info) {
+            $info['map']['__tags'] = array();
+
             $col_list[] = array(
                 'first' => empty($col_list),
                 'source' => htmlspecialchars($source),
@@ -52,10 +54,11 @@ class Turba_Prefs_Special_Columnselect implements Horde_Core_Prefs_Ui_Special
             if (isset($sources[$source])) {
                 $selected = array_flip($sources[$source]);
                 foreach ($sources[$source] as $column) {
-                    if ((substr($column, 0, 2) == '__') ||
-                        ($column == 'name')) {
-                            continue;
-                        }
+                    if ((substr($column, 0, 2) == '__' && $column != '__tags') ||
+                        !isset($info['map'][$column]) ||
+                        $column == 'name') {
+                        continue;
+                    }
 
                     $inputs[] = array(
                         'checked' => isset($selected[$column]),
@@ -72,11 +75,11 @@ class Turba_Prefs_Special_Columnselect implements Horde_Core_Prefs_Ui_Special
 
             // Then the unselected columns in source order.
             foreach (array_keys($info['map']) as $column) {
-                if ((substr($column, 0, 2) == '__') ||
+                if ((substr($column, 0, 2) == '__' && $column != '__tags') ||
                     ($column == 'name') ||
                     isset($selected[$column])) {
-                        continue;
-                    }
+                    continue;
+                }
 
                 $inputs[] = array(
                     'checked' => isset($selected[$column]),

@@ -234,17 +234,6 @@ class Turba_Driver implements Countable
      */
     public function toDriverKeys(array $hash)
     {
-        /* Handle category. */
-        if (!empty($hash['category'])) {
-            if (is_array($hash['category']) && !empty($hash['category']['new'])) {
-                $cManager = new Horde_Prefs_CategoryManager();
-                $cManager->add($hash['category']['value']);
-                $hash['category'] = $hash['category']['value'];
-            } elseif (is_array($hash['category'])) {
-                $hash['category'] = $hash['category']['value'];
-            }
-        }
-
         // Add composite fields to $hash if at least one field part exists
         // and the composite field will be saved to storage.
         // Otherwise composite fields won't be computed during an import.
@@ -742,7 +731,6 @@ class Turba_Driver implements Countable
                                  $t_object_end->year,
                                  $t_object_end->month,
                                  $t_object_end->mday),
-                'category' => $ob->getValue('category'),
                 'recurrence' => array('type' => Horde_Date_Recurrence::RECUR_YEARLY_DATE,
                                       'interval' => 1),
                 'params' => array('source' => $this->_name, 'key' => $key),
@@ -786,7 +774,7 @@ class Turba_Driver implements Countable
      */
     protected function _getTimeObjectTurbaListFallback(Horde_Date $start, Horde_Date $end, $field)
     {
-        return $this->search(array(), null, 'AND', array('name', $field, 'category'));
+        return $this->search(array(), null, 'AND', array('name', $field));
     }
 
     /**
@@ -881,6 +869,17 @@ class Turba_Driver implements Countable
         $attributes = $this->toDriverKeys($attributes);
 
         $this->_add($attributes, $this->toDriverKeys($this->getBlobs()));
+
+        /* Add tags. */
+        if (isset($attributes['__tags'])) {
+            $GLOBALS['injector']->getInstance('Turba_Tagger')
+                ->tag(
+                    $uid,
+                    $attributes['__tags'],
+                    $this->getContactOwner(),
+                    'contact'
+                );
+        }
 
         /* Log the creation of this item in the history log. */
         try {
@@ -1020,8 +1019,19 @@ class Turba_Driver implements Countable
     {
         $object_id = $this->_save($object);
 
-        /* Log the modification of this item in the history log. */
-        if ($object->getValue('__uid')) {
+        if ($uid = $object->getValue('__uid')) {
+            /* Update tags. */
+            if (!is_null($tags = $object->getValue('__tags'))) {
+                $GLOBALS['injector']->getInstance('Turba_Tagger')
+                    ->replaceTags(
+                        $uid,
+                        $tags,
+                        $this->getContactOwner(),
+                        'contact'
+                    );
+            }
+
+            /* Log the modification of this item in the history log. */
             try {
                 $GLOBALS['injector']->getInstance('Horde_History')->log($object->getGuid(),
                                                 array('action' => 'modify'),
@@ -1602,11 +1612,13 @@ class Turba_Driver implements Countable
                 break;
 
             case 'businessCategory':
-            case 'category':
-                if ($fields && !isset($fields['CATEGORIES'])) {
+            case '__tags':
+                // No CATEGORIES in vCard 2.1
+                if ($version == '2.1' ||
+                    ($fields && !isset($fields['CATEGORIES']))) {
                     break;
                 }
-                $vcard->setAttribute('CATEGORIES', $val);
+                $vcard->setAttribute('CATEGORIES', null, array(), true, $val);
                 break;
 
             case 'anniversary':
@@ -2314,7 +2326,8 @@ class Turba_Driver implements Countable
                 break;
 
             case 'CATEGORIES':
-                $hash['businessCategory'] = $hash['category'] = str_replace('\; ', ';', $item['value']);
+                $hash['businessCategory'] = $item['value'];
+                $hash['__tags'] = $item['values'];
                 break;
 
             case 'URL':
@@ -2541,9 +2554,10 @@ class Turba_Driver implements Countable
                 }
                 break;
 
-            case 'category':
-                // Categories FROM horde are a simple string value, categories going BACK to horde are an array with 'value' and 'new' keys
-                $message->categories = explode(';', $value);
+            case '__tags':
+                // Categories FROM horde are a simple string value, categories
+                // going BACK to horde are an array with 'value' and 'new' keys
+                $message->categories = $value;
                 break;
 
             case 'children':
@@ -2666,9 +2680,7 @@ class Turba_Driver implements Countable
 
         /* Categories */
         if (is_array($message->categories) && count($message->categories)) {
-            $hash['category'] = implode(';', $message->categories);
-        } elseif (!$message->isGhosted('categories')) {
-            $hash['category'] = '';
+            $hash['__tags'] = $message->categories;
         }
 
         /* Children */

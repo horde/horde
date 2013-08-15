@@ -58,6 +58,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         );
         $GLOBALS['session'] = new Horde_Session();
         $GLOBALS['conf']['prefs']['driver'] = 'Null';
+        putenv('HORDE_UNIT_TEST=1');
     }
 
     static protected function tearDownBasicTurbaSetup()
@@ -262,7 +263,6 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
             'manager'           => 'manager-name',
             'assistant'         => 'assistant',
             /* Other */
-            'category'          => 'categories',
             'notes'             => 'body',
             'website'           => 'web-page',
             'freebusyUrl'       => 'free-busy-url',
@@ -343,7 +343,6 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
             'company' => 'object_company',
             'logo' => 'object_logo',
             'logotype' => 'object_logotype',
-            'category' => 'object_category',
             'notes' => 'object_notes',
             'website' => 'object_url',
             'freebusyUrl' => 'object_freebusyurl',

@@ -86,7 +86,7 @@ $title = sprintf($contact->isGroup() ? _("Edit Group \"%s\"") : _("Edit \"%s\"")
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $form->setTitle($title);
-$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('edit.php'), 'post');
+$form->renderActive($form->getRenderer(), $vars, Horde::url('edit.php'), 'post');
 $formHtml = Horde::endBuffer();
 
 $page_output->header(array(

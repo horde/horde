@@ -718,3 +718,8 @@ $attributes['homeLongitude'] = array(
     'type' => 'number',
     'required' => false,
 );
+$attributes['__tags'] = array(
+    'label' => _("Tags"),
+    'type' => 'Turba:TurbaTags',
+    'required' => false,
+);

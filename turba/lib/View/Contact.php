@@ -30,7 +30,7 @@ class Turba_View_Contact
 
     public function html($active = true)
     {
-        global $browser, $conf, $registry;
+        global $browser, $conf, $injector, $registry;
 
         if (!$this->contact ||
             !$this->contact->hasPermission(Horde_Perms::READ)) {
@@ -55,7 +55,7 @@ class Turba_View_Contact
         }
 
         echo '<div id="Contact"' . ($active ? '' : ' style="display:none"') . '>';
-        $form->renderInactive(new Horde_Form_Renderer(), $vars);
+        $form->renderInactive($form->getRenderer(), $vars);
 
         /* Comments. */
         if (!empty($conf['comments']['allow']) && $registry->hasMethod('forums/doComments')) {

@@ -45,7 +45,7 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.1.2-git)';
+    public $version = 'H5 (4.2.0-git)';
 
     /**
      */
@@ -610,7 +610,7 @@ class Turba_Application extends Horde_Registry_Application
             'Assistant\'s Name' => 'assistant',
             'Birthday' => 'birthday',
             'Business Address PO Box' => 'workPOBox',
-            'Categories' => 'category',
+            'Categories' => '__tags',
             'Children' => 'children',
             'E-mail Address' => 'email',
             'Home Address PO Box' => 'homePOBox',

@@ -56,6 +56,7 @@ class Turba_Unit_ExportTest extends Turba_TestCase
             'longitude' => '13.377778',
             'photo' => file_get_contents(__DIR__ . '/../fixtures/az.png'),
             'phototype' => 'image/png',
+            '__tags' => array('Foo', 'Foo,Bar', 'Foo;Bar', 'Bar'),
         );
         $this->driver = new Turba_Driver();
         $this->object = new Turba_Object($this->driver, $this->contact);

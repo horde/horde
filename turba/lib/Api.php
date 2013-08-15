@@ -676,10 +676,6 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(_("Permission denied"));
         }
 
-        // Create a category manager.
-        $cManager = new Horde_Prefs_CategoryManager();
-        $categories = $cManager->get();
-
         if (!($content instanceof Horde_Icalendar_Vcard)) {
             switch ($contentType) {
             case 'activesync':
@@ -719,13 +715,7 @@ class Turba_Api extends Horde_Registry_Api
                                 continue;
                             }
 
-                            $result = $driver->add($content);
-                            if (!empty($content['category']) &&
-                                !in_array($content['category'], $categories)) {
-                                $cManager->add($content['category']);
-                                $categories[] = $content['category'];
-                            }
-                            $ids[] = $result;
+                            $ids[] = $driver->add($content);
                         }
                     }
 
@@ -758,11 +748,6 @@ class Turba_Api extends Horde_Registry_Api
             }
         }
         $result = $driver->add($content);
-
-        if (!empty($content['category']) &&
-            !in_array($content['category'], $categories)) {
-            $cManager->add($content['category']);
-        }
 
         return $driver->getObject($result)->getValue('__uid');
     }
