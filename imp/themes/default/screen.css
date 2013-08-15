@@ -294,6 +294,26 @@ table.searchesmanagement td.searchdescription {
     border-top-width: 0;
 }
 
+table.remotemanagement {
+    padding-bottom: 10px;
+}
+table.remotemanagement td {
+    padding-right: 12px;
+}
+table.remotemanagement thead td {
+    font-weight: bold;
+    text-decoration: underline;
+}
+table.remotemanagement td.required, .remoteNotSecure {
+    color: red;
+}
+table.remotemanagement td.noneconfigured {
+    font-style: italic;
+}
+.remoteSecure {
+    color: green;
+}
+
 /* Prefs styles. */
 .prefsPgpContainer, .prefsSmimeContainer {
     border: 1px solid black;

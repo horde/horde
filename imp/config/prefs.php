@@ -122,6 +122,32 @@ $_prefs['acl'] = array(
 
 
 
+// *** Remote Accounts Preferences ***
+
+$prefGroups['remote'] = array(
+    'column' => _("General"),
+    'label' => _("Remote Accounts"),
+    'desc' => _("Configure remote mail accounts to display."),
+    'members' => array('remotemanagement')
+);
+
+// UI for remote management.
+$_prefs['remotemanagement'] = array(
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Remote',
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_REMOTE);
+    }
+);
+
+// Internal remote accounts storage value
+$_prefs['remote'] = array(
+    // 'value' = json_encode(array())
+    'value' => '[]'
+);
+
+
+
 // *** Saved Searches Preferences ***
 
 $prefGroups['searches'] = array(

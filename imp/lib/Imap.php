@@ -49,6 +49,7 @@ class IMP_Imap implements Serializable
     const ACCESS_COMPOSE_TIMELIMIT = 9;
     const ACCESS_ACL = 10;
     const ACCESS_DRAFTS = 11;
+    const ACCESS_REMOTE = 12;
 
     /**
      * Cached backend configuration.
@@ -344,6 +345,9 @@ class IMP_Imap implements Serializable
         case self::ACCESS_TRASH:
             return ($this->isImap() &&
                     $injector->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('allow_folders')));
+
+        case self::ACCESS_REMOTE:
+            return $injector->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('allow_remote'));
         }
 
         return false;

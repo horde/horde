@@ -40,6 +40,10 @@ class IMP_Perms
                 'title' => _("Allow folder navigation?"),
                 'type' => 'boolean'
             ),
+            'allow_remote' => array(
+                'title' => _("Allow remote account access?"),
+                'type' => 'boolean'
+            ),
             'create_mboxes' => array(
                 'imaponly' => true,
                 'title' => _("Allow mailbox creation?"),

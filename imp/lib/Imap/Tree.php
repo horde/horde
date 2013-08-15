@@ -45,6 +45,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const ELT_NONIMAP = 256;
     const ELT_INVISIBLE = 512;
     const ELT_NOT_POLLED = 1024;
+    const ELT_REMOTE = 2048;
 
     /* The isOpen() expanded mode constants. */
     const OPEN_NONE = 0;
@@ -267,6 +268,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     ));
                 }
             }
+        }
+
+        /* Add remote servers. */
+        foreach ($injector->getInstance('IMP_Remote') as $key => $val) {
+            $this->_insertElt($this->_makeElt($key, self::ELT_NOSELECT | self::ELT_NONIMAP | self::ELT_REMOTE));
         }
 
         /* Create the list (INBOX and all other hierarchies). */
@@ -1002,6 +1008,20 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $elt = $this->getElement($in);
 
         return ($elt && ($elt['a'] & self::ELT_NONIMAP));
+    }
+
+    /**
+     * Is this element a remote element?
+     *
+     * @param mixed $in  A mailbox name or a tree element.
+     *
+     * @return boolean  True if the element is a remote element.
+     */
+    public function isRemote($in)
+    {
+        $elt = $this->getElement($in);
+
+        return ($elt && ($elt['a'] & self::ELT_REMOTE));
     }
 
     /**

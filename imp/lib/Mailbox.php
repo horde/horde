@@ -106,6 +106,7 @@
  * @property-read string $pref_to  Convert mailbox name to preference storage.
  * @property-read boolean $query  Is this a search query?
  * @property-read boolean $readonly  Is this mailbox read-only?
+ * @property-read boolean $remote  Is this mailbox a remote element?
  * @property-read boolean $search  Is this a search mailbox?
  * @property-read boolean $spam  Is this a Spam mailbox?
  * @property-read boolean $spam_show  Show the spam action in this mailbox?
@@ -648,6 +649,9 @@ class IMP_Mailbox implements Serializable
                     !$acl[Horde_Imap_Client::ACL_INSERT] &&
                     !$acl[Horde_Imap_Client::ACL_SEEN] &&
                     !$acl[Horde_Imap_Client::ACL_WRITE]);
+
+        case 'remote':
+            return $injector->getInstance('IMP_Imap_Tree')->isRemote($this->_mbox);
 
         case 'search':
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
@@ -1592,6 +1596,11 @@ class IMP_Mailbox implements Serializable
 
         case IMP_Imap_Tree::VFOLDER_KEY:
             return _("Virtual Folders");
+        }
+
+        /* Handle remote mailboxes. */
+        if ($this->remote) {
+            return '';
         }
 
         $ns_info = $this->namespace_info;
