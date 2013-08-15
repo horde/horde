@@ -56,6 +56,9 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
                 ->create($registry->getAuth());
             $view->identities = $ident->getAll('id');
             $view->default = $prefs->getValue('activesync_identity');
+            if (is_null($view->default)) {
+                $view->default = $prefs->getValue('default_identity');
+            }
         }
         $page_output->addScriptFile('activesyncprefs.js', 'horde');
         $page_output->addInlineJsVars(array(
