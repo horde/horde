@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix sniffing capabilities for POP3 servers that don&apos;t support the CAPA command.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1884,7 +1884,7 @@
    <date>2013-08-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix sniffing capabilities for POP3 servers that don&apos;t support the CAPA command.
    </notes>
   </release>
  </changelog>
