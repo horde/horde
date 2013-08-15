@@ -239,6 +239,7 @@ Deutschland',
                 'email' => 'email@domain.tld',
                 'emails' => 'email@domain.tld',
                 'cellPhone' => '0123-123456',
+                '__uid' => 'b33393c4-98a1-4e1a-8f5c-d29459406093',
             ),
             $this->toHash($vcard)
         );
@@ -368,9 +369,9 @@ END:VCARD
                 'fax' => '+49 123 1234564',
                 'nickname' => '',
                 'alias' => '',
-                'email' => null,
-                'emails' => null,
-                'homeEmail' => null,
+                'email' => '',
+                'emails' => '',
+                'homeEmail' => '',
                 'homeAddress' => 'Carl-Bantzer-Str. 99
 Foobar, Sachsen 01234',
                 'homeStreet' => 'Carl-Bantzer-Str. 99',
@@ -498,6 +499,7 @@ END:VCARD
                 'emails' => 'work@example.com,home@example.com,mail@example.com,pref@example.com',
                 'homeEmail' => 'home@example.com',
                 'email' => 'pref@example.com',
+                '__uid' => 'nhCnPyv0u7',
             ),
             $this->toHash($vcard)
         );

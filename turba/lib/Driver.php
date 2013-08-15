@@ -2283,10 +2283,13 @@ class Turba_Driver implements Countable
                 }
 
                 if (!isset($hash['emails'])) {
-                    $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
-                    $hash['emails'] = $e ? $e : '';
-                } else {
-                    $hash['emails'] .= ',' . Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['emails'] = '';
+                }
+                if ($e = Horde_Icalendar_Vcard::getBareEmail($item['value'])) {
+                    if (strlen($hash['emails'])) {
+                        $hash['emails'] .= ',';
+                    }
+                    $hash['emails'] .= $e;
                 }
                 break;
 
