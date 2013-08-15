@@ -43,6 +43,14 @@ class Horde_Icalendar_ParseTest extends Horde_Test_Case
             array('mailto:a@b.c'),
             $ical->getComponent(1)->getAttributeValues('ORGANIZER')
         );
+        $this->assertEquals(
+            array('Foo'),
+            $ical->getComponent(0)->getAttributeValues('CATEGORIES')
+        );
+        $this->assertEquals(
+            array('Foo', 'Foo,Bar', 'Bar'),
+            $ical->getComponent(1)->getAttributeValues('CATEGORIES')
+        );
     }
 
     public function testQuotedParameters()
