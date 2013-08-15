@@ -30,10 +30,10 @@ if (empty($action)) {
 }
 
 try {
-    Horde_Registry::appInit($app, array('authentication' => 'none'));
-} catch (Horde_Exception_AuthenticationFailure $e) {
-    $response = new Horde_Core_Ajax_Response_HordeCore_SessionTimeout($app);
-    $response->sendAndExit();
+    // Authentication checking will occur via token checking.
+    Horde_Registry::appInit($app, array(
+        'authentication' => 'none'
+    ));
 } catch (Exception $e) {
     // Uncaught exception.  Sending backtrace info back via AJAX is just a
     // waste of time.
