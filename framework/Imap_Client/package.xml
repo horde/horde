@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-15</date>
- <time>13:34:22</time>
+ <time>13:42:56</time>
  <version>
-  <release>2.12.2</release>
+  <release>2.12.3</release>
   <api>2.12.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add remote POP3 server test.
-* [mms] Fix sniffing capabilities for POP3 servers that don&apos;t support the CAPA command.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1889,6 +1888,19 @@
    <notes>
 * [mms] Add remote POP3 server test.
 * [mms] Fix sniffing capabilities for POP3 servers that don&apos;t support the CAPA command.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.3</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
