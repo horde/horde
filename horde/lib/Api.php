@@ -689,10 +689,16 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
         try {
-            return $state->listDevices($filter['user']);
+            $devices = $state->listDevices($filter['user']);
         } catch (Horde_ActiveSync_Exception $e) {
             throw new Horde_Exception($e);
         }
+        foreach ($devices as $key => &$device) {
+            $device['last_synctime'] = new Horde_Date($state->getLastSyncTimestamp($device['device_id']));
+            $device['last_synctime']->setTimezone('UTC');
+        }
+
+        return $devices;
     }
 
     /**
