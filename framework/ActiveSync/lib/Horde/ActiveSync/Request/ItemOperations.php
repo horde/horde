@@ -255,6 +255,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
         $this->_encoder->endTag(); //end SYNC_ITEMOPERATIONS_RESPONSE
         $this->_encoder->endTag(); //end SYNC_ITEMOPERATIONS_ITEMOPERATIONS
 
+        // @TODO This is for BC, remove in H6.
         return $this->_encoder->multipart
             ? 'application/vnd.ms-sync.multipart'
             : 'application/vnd.ms-sync.wbxml';

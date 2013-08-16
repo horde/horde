@@ -59,6 +59,10 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
             $attname));
         $att = $this->_driver->getAttachment($attname);
 
+        // Send the content-type header in case the attachment is large enough
+        // to trigger the output buffer to be flushed.
+        $this->_activeSync->contentTypeHeader($att['content-type']);
+
         // Output the attachment data to the stream.
         if (is_resource($att['data'])) {
             $this->_logger->info('Copying attachment data directly from stream to stream.');
@@ -70,6 +74,7 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
         }
 
         // Indicate the content-type
+        // @TODO This is for BC only. Can remove for H6.
         return $att['content-type'];
     }
 

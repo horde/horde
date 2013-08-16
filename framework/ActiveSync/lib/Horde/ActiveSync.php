@@ -1083,6 +1083,23 @@ class Horde_ActiveSync
     }
 
     /**
+     * Send the content type header.
+     *
+     */
+    public function contentTypeHeader($content_type = null)
+    {
+        if (!empty($content_type)) {
+            header('Content-Type: ' . $content_type);
+            return;
+        }
+        if ($this->_multipart) {
+            header('Content-Type: application/vnd.ms-sync.multipart');
+        } else {
+            header('Content-Type: application/vnd.ms-sync.wbxml');
+        }
+    }
+
+    /**
      * Send the OPTIONS request response headers.
      *
      */
