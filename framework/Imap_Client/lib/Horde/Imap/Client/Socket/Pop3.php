@@ -61,7 +61,7 @@
  *   - RFC 2595/4616: PLAIN authentication
  *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
  *   - RFC 3206: AUTH/SYS response codes
- *   - RFC 1734/5034: POP3 SASL
+ *   - RFC 5034: POP3 SASL
  *
  * @author    Richard Heyes <richard@phpguru.org>
  * @author    Michael Slusarz <slusarz@horde.org>

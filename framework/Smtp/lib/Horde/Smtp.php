@@ -16,7 +16,7 @@
  *
  * Implements the following SMTP-related RFCs:
  * <pre>
- *   - RFC 1653/STD 10: Message Size Declaration
+ *   - RFC 1870/STD 10: Message Size Declaration
  *   - RFC 2034: Enhanced-Status-Codes
  *   - RFC 2195: CRAM-MD5 (SASL Authentication)
  *   - RFC 2595/4616: TLS & PLAIN (SASL Authentication)
