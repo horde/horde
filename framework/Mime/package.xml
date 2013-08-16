@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Support Horde_Mail_Transport_Smtphorde when sending messages.
 * [mms] Net_SMTP does not support sending via BINARYMIME.
  </notes>
  <contents>
@@ -1195,6 +1196,7 @@
    <date>2013-08-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Support Horde_Mail_Transport_Smtphorde when sending messages.
 * [mms] Net_SMTP does not support sending via BINARYMIME.
    </notes>
   </release>
