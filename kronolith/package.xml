@@ -22,21 +22,19 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
- <time>23:23:35</time>
+ <date>2013-08-16</date>
+ <time>15:41:55</time>
  <version>
-  <release>4.1.3</release>
+  <release>4.2.0alpha1</release>
   <api>4.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Link to CalDAV help text from calendar dialog.
-* [mjr] Fix requesting changes by modification sequence (Bug #12508, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2206,6 +2204,19 @@
 * [jan] Link to CalDAV help text from calendar dialog.
 * [mjr] Fix requesting changes by modification sequence (Bug #12508, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.0alpha1</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2013-08-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
