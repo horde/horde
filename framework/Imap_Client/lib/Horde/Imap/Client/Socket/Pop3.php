@@ -142,19 +142,15 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             /* Capability sniffing only guaranteed after authentication is
              * completed (if any). */
             if (!empty($this->_init['authmethod'])) {
-                try {
-                    $this->_sendLine('UIDL', array(
-                        'multiline' => 'none'
-                    ));
+                $this->_pop3Cache('uidl');
+                if (empty($this->_temp['no_uidl'])) {
                     $capability['UIDL'] = true;
-                } catch (Horde_Imap_Client_Exception $e) {}
+                }
 
-                try {
-                    $this->_sendLine('TOP 1 0', array(
-                        'multiline' => 'none'
-                    ));
+                $this->_pop3Cache('top', 1);
+                if (empty($this->_temp['no_top'])) {
                     $capability['TOP'] = true;
-                } catch (Horde_Imap_Client_Exception $e) {}
+                }
             }
         }
 
@@ -816,7 +812,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * Retrieve locally cached message data.
      *
      * @param string $type    Either 'hdr', 'hdrob', 'msg', 'size', 'stat',
-     *                        or 'uidl'.
+     *                        'top', or 'uidl'.
      * @param integer $index  The message index.
      * @param mixed $data     Additional information needed.
      *
@@ -836,8 +832,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         switch ($type) {
         case 'hdr':
+        case 'top':
             $data = null;
-            if ($this->queryCapability('TOP')) {
+            if ($this->queryCapability('TOP') || ($type == 'top')) {
                 try {
                     $res = $this->_sendLine('TOP ' . $index . ' 0', array(
                         'multiline' => 'stream'
@@ -845,7 +842,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                     rewind($res['data']);
                     $data = stream_get_contents($res['data']);
                     fclose($res['data']);
-                } catch (Horde_Imap_Client_Exception $e) {}
+                } catch (Horde_Imap_Client_Exception $e) {
+                    $this->_temp['no_top'] = true;
+                    if ($type == 'top') {
+                        return null;
+                    }
+                }
             }
 
             if (is_null($data)) {
@@ -876,7 +878,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                     $resp_data = explode(' ', $val, 2);
                     $data[$resp_data[0]] = $resp_data[1];
                 }
-            } catch (Horde_Imap_Client_Exception $e) {}
+            } catch (Horde_Imap_Client_Exception $e) {
+                if ($type == 'uidl') {
+                    $this->_temp['no_uidl'] = true;
+                }
+            }
             break;
 
         case 'stat':

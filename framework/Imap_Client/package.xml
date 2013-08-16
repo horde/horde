@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Cache any data returned from POP3 capability sniffing.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1900,7 +1900,7 @@
    <date>2013-08-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Cache any data returned from POP3 capability sniffing.
    </notes>
   </release>
  </changelog>
