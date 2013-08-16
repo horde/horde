@@ -84,11 +84,12 @@ class Horde_Core_Db_Migration
             }
         }
 
+        $pearchannel = 'pear.horde.org';
         // Loop through installed PEAR packages.
         $registry = $pear->getRegistry();
-        foreach (glob($pear->get('data_dir') . '/*/migration') as $dir) {
+        foreach (glob($pear->get('data_dir', null, $pearchannel) . '/*/migration') as $dir) {
             $app = $registry->getPackage(
-                basename(dirname($dir)), 'pear.horde.org')->getName();
+                basename(dirname($dir)), $pearchannel)->getName();
             if (!in_array($app, $this->apps)) {
                 $this->apps[] = $app;
                 $this->_lower[] = Horde_String::lower($app);
