@@ -30,7 +30,7 @@ if (empty($action)) {
 }
 
 try {
-    Horde_Registry::appInit($app);
+    Horde_Registry::appInit($app, array('authentication' => 'none'));
 } catch (Horde_Exception_AuthenticationFailure $e) {
     $response = new Horde_Core_Ajax_Response_HordeCore_SessionTimeout($app);
     $response->sendAndExit();

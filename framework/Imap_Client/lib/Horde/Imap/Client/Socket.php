@@ -1778,7 +1778,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $use_cache = $this->_initCache(true);
 
         if ($ids->all) {
-            if (!$uidplus && ($list_msgs || $use_cache)) {
+            if (!$uidplus || $list_msgs || $use_cache) {
                 $ids = $this->resolveIds($this->_selected, $ids, 2);
             }
         } elseif ($uidplus) {

@@ -76,8 +76,8 @@ class Horde_History_Mock extends Horde_History
             'history_uid'    => $history->uid,
             'history_ts'     => $attributes['ts'],
             'history_who'    => $attributes['who'],
-            'history_desc'   => isset($attributes['desc']) ? $attributes['desc'] : '',
-            'history_action' => isset($attributes['action']) ? $attributes['action'] : '',
+            'history_desc'   => isset($attributes['desc']) ? $attributes['desc'] : null,
+            'history_action' => isset($attributes['action']) ? $attributes['action'] : null,
             'history_modseq' => ++$this->_modseq
         );
 

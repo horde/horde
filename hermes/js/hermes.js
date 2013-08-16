@@ -196,6 +196,10 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesJobReset':
+                $('hermesJobFormId').value = null;
+                $('hermesJobSaveAsNew').hide();
+                break;
             case 'hermesJobSaveAsNew':
                 $('hermesJobFormId').value = null;
             case 'hermesJobSave':

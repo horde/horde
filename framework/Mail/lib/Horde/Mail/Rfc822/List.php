@@ -77,6 +77,7 @@ class Horde_Mail_Rfc822_List extends Horde_Mail_Rfc822_Object implements ArrayAc
         switch ($name) {
         case 'addresses':
         case 'bare_addresses':
+        case 'bare_addresses_idn':
         case 'base_addresses':
         case 'raw_addresses':
             $old = $this->_filter;

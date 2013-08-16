@@ -494,6 +494,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                                 $status = self::STATUS_INVALID;
                             }
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
+                            // If we have clientids and a CLASS_EMAIL, this is
+                            // a SMS response.
+                            if ($collection['class'] == Horde_ActiveSync::CLASS_EMAIL) {
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
+                                $this->_encoder->content(Horde_ActiveSync::CLASS_SMS);
+                                $this->_encoder->endTag();
+                            }
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
                             $this->_encoder->content($clientid);
                             $this->_encoder->endTag();

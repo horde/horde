@@ -119,7 +119,7 @@ class Horde_Smtp implements Serializable
      *   </ul>
      *  </li>
      *  <li>
-     *   timeout: (integer)  Connection timeout, in seconds.
+     *   timeout: (integer) Connection timeout, in seconds.
      *            DEFAULT: 30 seconds
      *  </li>
      *  <li>

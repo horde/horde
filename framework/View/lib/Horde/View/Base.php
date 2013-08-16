@@ -302,10 +302,9 @@ abstract class Horde_View_Base
             // Collection.
             $rendered = '';
             if (is_array($options['collection'])) {
-                $sz = count($options['collection']);
-                for ($i = 0; $i < $sz; $i++) {
+                foreach (array_values($options['collection']) as $i => $item) {
                     $locals["{$name}Counter"] = $i;
-                    $locals[$name] = $options['collection'][$i];
+                    $locals[$name] = $item;
                     $rendered .= $this->render("{$path}_{$name}", $locals);
                 }
             }

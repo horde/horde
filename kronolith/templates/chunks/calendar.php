@@ -103,6 +103,7 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 <div id="kronolithCalendarinternalTabUrls" class="kronolithTabsOption" style="display:none">
   <div id="kronolithCalendarinternalUrls">
     <div id="kronolithCalendarinternalCaldav">
+      <?php echo Horde_Help::link('kronolith', 'caldav') . ' ' . _("Learn how to subscribe via CalDAV from calendar clients.") ?><br />
       <label for="kronolithCalendarinternalUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
       <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this calendar from another calendar program") ?></span><br />
       <input type="text" id="kronolithCalendarinternalUrlCaldav" class="kronolithLongField" onfocus="this.select()" />

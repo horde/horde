@@ -211,7 +211,7 @@ class Horde_History_TestBase extends Horde_Test_Case
         $data = self::$history->getHistory('yours_uid');
         $expect = array(
             'action' => 'yours_action',
-            'desc'   => '',
+            'desc'   => null,
             'who'    => 'you',
             'id'     => 3,
             'ts'     => 2000,

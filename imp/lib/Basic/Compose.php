@@ -624,22 +624,26 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         if ($isPopup) {
             if ($resume || count($imp_compose)) {
                 $cancel_url = self::url()->setRaw(true)->add(array(
+                    'actionID' => 'cancel_compose',
                     'compose_requestToken' => $horde_token->get('imp.compose'),
                     'composeCache' => $composeCacheID,
                     'popup' => 1
-                ));
+                  ));
+                $discard_url = clone $cancel_url;
+                $discard_url->add('actionID', 'discard_compose');
             } else {
-                $cancel_url = '';
+                $cancel_url = $discard_url = '';
             }
+        } elseif ($resume || count($imp_compose)) {
+            $cancel_url = $this->_mailboxReturnUrl(self::url()->setRaw(true))->setRaw(true)->add(array(
+                'actionID' => 'cancel_compose',
+                'compose_requestToken' => $horde_token->get('imp.compose'),
+                'composeCache' => $composeCacheID
+            ));
+            $discard_url = clone $cancel_url;
+            $discard_url->add('actionID', 'discard_compose');
         } else {
-            if ($resume || count($imp_compose)) {
-                $cancel_url = $this->_mailboxReturnUrl(self::url()->setRaw(true))->add(array(
-                    'compose_requestToken' => $horde_token->get('imp.compose'),
-                    'composeCache' => $composeCacheID
-                ));
-            } else {
-                $cancel_url = $this->_mailboxReturnUrl(false)->setRaw(false);
-            }
+            $cancel_url = $discard_url = $this->_mailboxReturnUrl(false)->setRaw(true);
         }
 
         /* Grab any data that we were supplied with. */
@@ -704,6 +708,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             'ImpCompose.auto_save' => intval($prefs->getValue('auto_save_drafts')),
             'ImpCompose.cancel_url' => strval($cancel_url),
             'ImpCompose.cursor_pos' => ($rtemode ? null : $prefs->getValue('compose_cursor')),
+            'ImpCompose.discard_url' => strval($discard_url),
             'ImpCompose.max_attachments' => (($max_attach === true) ? null : $max_attach),
             'ImpCompose.popup' => intval($isPopup),
             'ImpCompose.redirect' => intval($redirect),

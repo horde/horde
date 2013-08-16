@@ -257,7 +257,7 @@ $_prefs['filter_any_mailbox'] = array(
 $_prefs['filter_menuitem'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Show the filter icon on the menubar?"),
+    'desc' => _("Show the filter icon on the menubar?") . ' (<em>' . _("Basic view only") . '</em>)',
     'help' => 'filter-menuitem'
 );
 
@@ -1211,7 +1211,7 @@ $_prefs['delhide_trash'] = array(
 $_prefs['empty_trash_menu'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display the \"Empty Trash\" link in the menubar?"),
+    'desc' => _("Display the \"Empty Trash\" link in the menubar?") . ' (<em>' . _("Basic view only") . '</em>)',
     'requires' => array('use_trash'),
     'requires_nolock' => array('use_trash'),
     'suppress' => function() {
@@ -1313,7 +1313,7 @@ $_prefs['move_innocent_after_report'] = array(
 $_prefs['empty_spam_menu'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display the \"Empty Spam\" link in the menubar?"),
+    'desc' => _("Display the \"Empty Spam\" link in the menubar?") . ' (<em>' . _("Basic view only") . '</em>)',
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
     }

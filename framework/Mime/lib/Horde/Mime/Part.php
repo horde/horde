@@ -1689,9 +1689,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $old_basepart = $this->_basepart;
         $this->_basepart = true;
 
-        /* Does the SMTP backend support 8BITMIME (RFC 1652) or
-         * BINARYMIME (RFC 3030) extensions? Requires Net_SMTP version
-         * 1.3+. */
+        /* Does the SMTP backend support 8BITMIME (RFC 1652)? */
         $encode = self::ENCODE_7BIT;
         if (isset($opts['encode'])) {
             /* Always allow 7bit encoding. */
@@ -1701,9 +1699,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
                 if (isset($smtp_ext['8BITMIME'])) {
                     $encode |= self::ENCODE_8BIT;
-                }
-                if (isset($smtp_ext['BINARYMIME'])) {
-                    $encode |= self::ENCODE_BINARY;
                 }
             } catch (Horde_Mail_Exception $e) {}
         }
@@ -1738,10 +1733,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (!empty($this->_temp['toString'])) {
             $headers->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
             switch ($this->_temp['toString']) {
-            case 'binary':
-                $mailer->addServiceExtensionParameter('BODY', 'BINARYMIME');
-                break;
-
             case '8bit':
                 $mailer->addServiceExtensionParameter('BODY', '8BITMIME');
                 break;
