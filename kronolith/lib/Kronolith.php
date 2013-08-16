@@ -383,10 +383,12 @@ class Kronolith
                     $nextEnd->mday  += $diff[2];
                     $nextEnd->hour  += $diff[3];
                     $nextEnd->min   += $diff[4];
+                    $addEvent = clone $event;
+                    $addEvent->start = $addEvent->originalStart = $next;
+                    $addEvent->end = $addEvent->originalEnd = $nextEnd;
                     if ($coverDates) {
-                        self::addCoverDates($results, $event, $next, $nextEnd, $json);
+                        self::addCoverDates($results, $addEvent, $next, $nextEnd, $json);
                     } else {
-                        $addEvent = clone $event;
                         $addEvent->start = $next;
                         $addEvent->end = $nextEnd;
                         $results[$addEvent->start->dateString()][$addEvent->id] = $json ? $addEvent->toJson() : $addEvent;

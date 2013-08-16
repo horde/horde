@@ -1461,6 +1461,7 @@ KronolithCore = {
                 events = this.getCacheForDate(date);
             }
             events.sortBy(this.sortEvents).each(function(event) {
+                var insertBefore;
                 switch (view) {
                 case 'month':
                 case 'agenda':
@@ -1477,7 +1478,8 @@ KronolithCore = {
                             more.remove();
                         }
                     }
-                    if (view == 'month' && Kronolith.conf.max_events) {
+                    if (view == 'month') {
+                        if (Kronolith.conf.max_events) {
                         var events = monthDay.select('.kronolith-event');
                         if (events.size() >= Kronolith.conf.max_events) {
                             if (date == (new Date().dateString())) {
@@ -1505,6 +1507,7 @@ KronolithCore = {
                                 if (remove) {
                                     remove.purge();
                                     remove.remove();
+                                    insertBefore = this.findInsertBefore(events, event, date);
                                 } else {
                                     this.insertMore(date);
                                     return;
@@ -1535,6 +1538,7 @@ KronolithCore = {
                                                 this.insertMore(date);
                                                 return;
                                             }
+                                            insertBefore = free.next();
                                             free.purge();
                                             free.remove();
                                         } else {
@@ -1548,6 +1552,7 @@ KronolithCore = {
                                         var elm = events.pop();
                                         elm.purge();
                                         elm.remove();
+                                        insertBefore = events.first();
                                     }
                                 } else {
                                     if (allDays.size() > 1) {
@@ -1556,6 +1561,7 @@ KronolithCore = {
                                         var elm = allDays.pop();
                                         elm.purge();
                                         elm.remove();
+                                        insertBefore = this.findInsertBefore(events, event, date);
                                     } else {
                                         // This day is full.
                                         this.insertMore(date);
@@ -1564,6 +1570,12 @@ KronolithCore = {
                                 }
                             }
                             this.insertMore(date);
+                        } else {
+                            insertBefore = this.findInsertBefore(events, event, date);
+                        }
+                        } else {
+                            var events = monthDay.select('.kronolith-event');
+                            insertBefore = this.findInsertBefore(events, event, date);
                         }
                     }
                     break;
@@ -1584,7 +1596,7 @@ KronolithCore = {
                     title += '<br />';
                     return;
                 }
-                this.insertEvent(event, date, view);
+                this.insertEvent(event, date, view, insertBefore);
             }, this);
 
             switch (view) {
@@ -1621,6 +1633,25 @@ KronolithCore = {
         Prototype.emptyFunction();
     },
 
+    findInsertBefore: function(events, event, date)
+    {
+        var insertBefore, insertSort;
+        events.each(function(elm) {
+            var calendar = elm.retrieve('calendar').split('|'),
+                existing = this.ecache
+                    .get(calendar[0])
+                    .get(calendar[1])
+                    .get(date)
+                    .get(elm.retrieve('eventid'));
+            if (event.value.sort < existing.sort &&
+                (!insertSort || existing.sort < insertSort)) {
+                insertBefore = elm;
+                insertSort = existing.sort;
+            }
+        }, this);
+        return insertBefore;
+    },
+
     getHeatmapClass: function(hours)
     {
         return 'heat' + Math.min(Math.ceil(hours / 2), 6);
@@ -1629,11 +1660,12 @@ KronolithCore = {
     /**
      * Creates the DOM node for an event bubble and inserts it into the view.
      *
-     * @param object event  A Hash member with the event to insert.
-     * @param string date   The day to update.
-     * @param string view   The view to update.
+     * @param object event    A Hash member with the event to insert.
+     * @param string date     The day to update.
+     * @param string view     The view to update.
+     * @param Element before  Insert the event before this element (month view).
      */
-    insertEvent: function(event, date, view)
+    insertEvent: function(event, date, view, before)
     {
         var calendar = event.value.calendar.split('|');
         event.value.nodeId = ('kronolithEvent' + view + event.value.calendar + date + event.key).replace(new RegExp('[^a-zA-Z0-9]', 'g'), '');
@@ -1965,7 +1997,11 @@ KronolithCore = {
                 .setStyle({ backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                             color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg });
             div.writeAttribute('title', event.value.t);
-            monthDay.insert(div);
+            if (before) {
+                before.insert({ before: div });
+            } else {
+                monthDay.insert(div);
+            }
             if (event.value.pe) {
                 div.setStyle({ cursor: 'move' });
                 new Drag(event.value.nodeId, { threshold: 5, parentElement: function() { return $('kronolith-month-body'); }, snapToParent: true });
@@ -2127,7 +2163,7 @@ KronolithCore = {
      * represented by uid.
      *
      * @param string calendar  A calendar name.
-     * @param stirng uid       An event uid.
+     * @param string uid       An event uid.
      */
     removeException: function(calendar, uid)
     {
@@ -3804,8 +3840,6 @@ KronolithCore = {
                 event.value.calendar = cal;
                 event.value.start = Date.parse(event.value.s);
                 event.value.end = Date.parse(event.value.e);
-                event.value.sort = event.value.start.toString('HHmmss')
-                    + (240000 - parseInt(event.value.end.toString('HHmmss'), 10)).toPaddedString(6);
             });
 
             // Store events in cache.

@@ -186,6 +186,26 @@ abstract class Kronolith_Event
     public $end;
 
     /**
+     * The original start time of the event.
+     *
+     * This may differ from $start on multi-day events where $start is the
+     * start time on the current day. For recurring events this is the start
+     * time of the current recurrence.
+     *
+     * @var Horde_Date
+     */
+    public $originalStart;
+
+    /**
+     * The original end time of the event.
+     *
+     * @se $originalStart for details.
+     *
+     * @var Horde_Date
+     */
+    public $originalEnd;
+
+    /**
      * The duration of this event in minutes
      *
      * @var integer
@@ -363,6 +383,8 @@ abstract class Kronolith_Event
 
         if (!is_null($eventObject)) {
             $this->fromDriver($eventObject);
+            $this->originalStart = clone $this->start;
+            $this->originalEnd = clone $this->end;
         }
     }
 
@@ -1108,6 +1130,7 @@ abstract class Kronolith_Event
                           'mday'  => (int)$start['mday']),
                     $tzid);
             }
+            $this->originalStart = clone $this->start;
         } catch (Horde_Icalendar_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -1141,6 +1164,7 @@ abstract class Kronolith_Event
                           'mday'  => (int)$end['mday']),
                     $tzid);
             }
+            $this->originalEnd = clone $this->end;
         } catch (Horde_Icalendar_Exception $e) {
             $end = null;
         }
@@ -1407,6 +1431,8 @@ abstract class Kronolith_Event
         $this->start->setTimezone($tz);
         $this->end = clone($dates['end']);
         $this->end->setTimezone($tz);
+        $this->originalStart = clone $this->start;
+        $this->originalEnd = clone $this->end;
         $this->allday = $dates['allday'];
 
         /* Sensitivity */
@@ -1850,6 +1876,7 @@ abstract class Kronolith_Event
                                                     'hour' => $time[0],
                                                     'min' => $time[1],
                                                     'sec' => $time[2]));
+                $this->originalStart = clone $this->start;
             }
         }
         if (!isset($this->start)) {
@@ -1871,6 +1898,7 @@ abstract class Kronolith_Event
             $hash['duration'] = ($weeks * 60 * 60 * 24 * 7) + ($days * 60 * 60 * 24) + ($hours * 60 * 60) + ($minutes * 60) + $seconds;
             $this->end = new Horde_Date($this->start);
             $this->end->sec += $hash['duration'];
+            $this->originalEnd = clone $this->end;
         }
         if (!empty($hash['end_date'])) {
             $date = array_map('intval', explode('-', $hash['end_date']));
@@ -1890,6 +1918,7 @@ abstract class Kronolith_Event
                                                   'hour' => $time[0],
                                                   'min' => $time[1],
                                                   'sec' => $time[2]));
+                $this->originalEnd = clone $this->end;
             }
         }
         if (!empty($hash['alarm'])) {
@@ -2093,6 +2122,11 @@ abstract class Kronolith_Event
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
         $json->l = $this->getLocation();
         $json->mt = !empty($this->attendees);
+        $json->sort = sprintf(
+            '%010s%06s',
+            $this->originalStart->timestamp(),
+            240000 - $this->end->format('His')
+        );
 
         if ($this->icon) {
             $json->ic = $this->icon;

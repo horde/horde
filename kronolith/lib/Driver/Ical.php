@@ -305,10 +305,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         for ($i = 0; $i < $count; $i++) {
             $component = $components[$i];
             if ($component->getType() == 'vEvent') {
-                $event = new Kronolith_Event_Ical($this);
-                $event->status = Kronolith::STATUS_FREE;
+                $event = new Kronolith_Event_Ical($this, $component);
                 $event->permission = $this->getPermission();
-                $event->fromDriver($component);
                 // Force string so JSON encoding is consistent across drivers.
                 $event->id = $id ? $id : 'ical' . $i;
 
@@ -402,10 +400,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $components = $ical->getComponents();
         if (isset($components[$eventId]) &&
             $components[$eventId]->getType() == 'vEvent') {
-            $event = new Kronolith_Event_Ical($this);
-            $event->status = Kronolith::STATUS_FREE;
+            $event = new Kronolith_Event_Ical($this, $components[$eventId]);
             $event->permission = $this->getPermission();
-            $event->fromDriver($components[$eventId]);
             $event->id = 'ical' . $eventId;
             return $event;
         }

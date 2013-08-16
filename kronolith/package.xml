@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Improve sort order of events in month view (Request #11155).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2216,7 +2216,7 @@
    <date>2013-08-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Improve sort order of events in month view (Request #11155).
    </notes>
   </release>
  </changelog>
