@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-17</date>
- <time>00:13:16</time>
+ <date>2013-08-16</date>
+ <time>16:30:18</time>
  <version>
   <release>3.0.0RC2</release>
   <api>3.0.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Fix setting ticket sort order.
 * [jan] Fix autocompletion for requester field.
 * [jan] Fix table header of query results.
  </notes>
@@ -77,6 +78,7 @@
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
+     <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
      <file name="Myqueries.php" role="horde" />
@@ -677,6 +679,7 @@
    <install as="whups/lib/Scheduler.php" name="lib/Scheduler.php" />
    <install as="whups/lib/Ticket.php" name="lib/Ticket.php" />
    <install as="whups/lib/Whups.php" name="lib/Whups.php" />
+   <install as="whups/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="whups/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="whups/lib/Block/Myqueries.php" name="lib/Block/Myqueries.php" />
    <install as="whups/lib/Block/Myrequests.php" name="lib/Block/Myrequests.php" />
@@ -1025,9 +1028,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-07-17</date>
+   <date>2013-08-16</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Fix setting ticket sort order.
 * [jan] Fix autocompletion for requester field.
 * [jan] Fix table header of query results.
    </notes>

@@ -2,6 +2,7 @@
 v3.0.0-git
 ----------
 
+[jan] Fix setting ticket sort order.
 [jan] Fix autocompletion for requester field.
 [jan] Fix table header of query results.
 
