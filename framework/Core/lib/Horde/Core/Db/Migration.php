@@ -88,8 +88,15 @@ class Horde_Core_Db_Migration
         // Loop through installed PEAR packages.
         $registry = $pear->getRegistry();
         foreach (glob($pear->get('data_dir', null, $pearchannel) . '/*/migration') as $dir) {
-            $app = $registry->getPackage(
-                basename(dirname($dir)), $pearchannel)->getName();
+            $pkg = $registry->getPackage( basename(dirname($dir)), $pearchannel);
+            $isa = get_class($pkg);
+            if ( $isa == 'PEAR_PackageFile_v2' ) {
+                $app = $pkg->getName();
+            } else {
+                /* backup plan */
+                $path = split('/', $dir);
+                $app = $path[sizeof($path) - 2];
+            }
             if (!in_array($app, $this->apps)) {
                 $this->apps[] = $app;
                 $this->_lower[] = Horde_String::lower($app);
