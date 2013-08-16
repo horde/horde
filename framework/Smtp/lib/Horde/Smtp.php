@@ -413,8 +413,6 @@ class Horde_Smtp implements Serializable
      */
     public function send($from, $to, $data, array $opts = array())
     {
-        $cmds = array();
-
         if (!($from instanceof Horde_Mail_Rfc822_Address)) {
             $from = new Horde_Mail_Rfc822_Address($from);
         }
@@ -438,6 +436,8 @@ class Horde_Smtp implements Serializable
             $mailcmd .= ' BODY=8BITMIME';
         }
 
+        $cmds = array($mailcmd);
+
         if (!($to instanceof Horde_Mail_Rfc822_List)) {
             $to = new Horde_Mail_Rfc822_List($to);
         }
@@ -449,9 +449,7 @@ class Horde_Smtp implements Serializable
         $error = null;
 
         if ($this->queryExtension('PIPELINING')) {
-            $this->_connection->write(
-                implode("\r\n", $cmds) . "\r\n" . 'DATA'
-            );
+            $this->_connection->write(array_merge($cmds, array('DATA')));
 
             foreach ($cmds as $val) {
                 try {
@@ -468,7 +466,7 @@ class Horde_Smtp implements Serializable
                 $this->_getResponse(array(250, 251), 'reset');
             }
 
-            $this->_command->write('DATA');
+            $this->_connection->write('DATA');
         }
 
         try {
@@ -477,29 +475,23 @@ class Horde_Smtp implements Serializable
             throw ($error ? $error : $e);
         }
 
-        if ($error) {
-            $this->_command->write('.');
-        } else {
+        if (!$error) {
             if (!is_resource($data)) {
                 $stream = fopen('php://temp', 'r+');
                 fwrite($stream, $data);
                 $data = $stream;
             }
 
-            rewind($data);
-
             // Add SMTP escape filter.
             stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
             $res = stream_filter_append($data, 'horde_smtp_data', STREAM_FILTER_READ);
 
-            while (!feof($data)) {
-                $this->_command->write(fread($data, 8192));
-            }
-
+            rewind($data);
+            $this->_connection->write($data);
             stream_filter_remove($res);
-
-            $this->_command->write("\r\n.");
         }
+
+        $this->_connection->write('.');
 
         try {
             $this->_getResponse(250, 'reset');
