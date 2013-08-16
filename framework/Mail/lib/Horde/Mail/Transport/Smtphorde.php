@@ -43,7 +43,7 @@
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
-class Horde_Mail_Transport_SmtpHorde extends Horde_Mail_Transport
+class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
 {
     /**
      * SMTP object.
