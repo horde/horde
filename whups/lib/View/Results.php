@@ -21,9 +21,10 @@ class Whups_View_Results extends Whups_View_Base
 
     public function html()
     {
-        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
+        global $page_output, $prefs, $registry, $session;
 
-        global $prefs, $registry, $session;
+        $page_output->ajax = true;
+        $page_output->addScriptFile('tables.js', 'horde');
 
         $sortby = $prefs->getValue('sortby');
         $sortdir = $prefs->getValue('sortdir');
