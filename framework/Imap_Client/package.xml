@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix regression in caching for POP3 servers.
 * [mms] Cache any data returned from POP3 capability sniffing.
  </notes>
  <contents>
@@ -1900,6 +1901,7 @@
    <date>2013-08-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix regression in caching for POP3 servers.
 * [mms] Cache any data returned from POP3 capability sniffing.
    </notes>
   </release>

@@ -1065,6 +1065,16 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         return null;
     }
 
+    /**
+     */
+    public function resolveIds(Horde_Imap_Client_Mailbox $mailbox,
+                               Horde_Imap_Client_Ids $ids, $convert = 0)
+    {
+        return (!$ids->special && (!$convert || (!$ids->sequence && ($convert == 1)) || $ids->isEmpty()))
+            ? clone $ids
+            : $this->getIdsOb($this->_getSeqIds($ids));
+    }
+
     /* Internal functions. */
 
     /**
