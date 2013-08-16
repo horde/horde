@@ -23,9 +23,7 @@ class Whups_View_Results extends Whups_View_Base
     {
         global $page_output, $prefs, $registry, $session;
 
-        $page_output->addScriptFile('hordecore.js', 'horde');
         $page_output->addScriptFile('tables.js', 'horde');
-
         $sortby = $prefs->getValue('sortby');
         $sortdir = $prefs->getValue('sortdir');
         $sortdirclass = $sortdir ? 'sortup' : 'sortdown';
