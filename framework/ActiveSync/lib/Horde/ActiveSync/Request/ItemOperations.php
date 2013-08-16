@@ -76,7 +76,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
     /**
      * Handle the request.
      *
-     * @return boolean
+     * @return string  The Content-Type of the attachment data.
      */
     protected function _handle()
     {
