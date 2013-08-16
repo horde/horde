@@ -854,6 +854,9 @@ class Horde_ActiveSync
         // We must send the eas header here, since some requests may start
         // output and be large enough to flush the buffer (e.g., GetAttachment)
         $this->activeSyncHeader();
+        if ($cmd != 'GetAttachment') {
+            $this->contentTypeHeader();
+        }
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
             $request = new $class($this);
