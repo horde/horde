@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Fix sorting tickets by date.
 * [jan] Fix setting ticket sort order.
 * [jan] Fix autocompletion for requester field.
 * [jan] Fix table header of query results.
@@ -1031,6 +1032,7 @@
    <date>2013-08-16</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Fix sorting tickets by date.
 * [jan] Fix setting ticket sort order.
 * [jan] Fix autocompletion for requester field.
 * [jan] Fix table header of query results.

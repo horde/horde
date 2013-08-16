@@ -44,7 +44,7 @@ function table_sortCallback(tableId, column, sortDown)
              $sortval = '';
              if ($value == 'timestamp' || $value == 'due' ||
                  substr($value, 0, 5) == 'date_') {
-                 $sortval = (strlen($thevalue) ? ' sortval="' . $thevalue . '"' : '');
+                 $sortval = isset($info[$value]) ? ' sortval="' . $info[$value] . '"' : '';
              }
 
              echo '<td' . $sortval . '>' . (strlen($thevalue) ? $thevalue : '&nbsp;') . '</td>';
