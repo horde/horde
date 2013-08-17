@@ -45,7 +45,7 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
     {
         $this->_logger->info(sprintf(
             '[%s] Handling GETATTACHMENT command.',
-            $this->_device->id)
+            $this->_procid)
         );
         $get = $this->_activeSync->getGetVars();
         if (empty($get['AttachmentName'])) {
