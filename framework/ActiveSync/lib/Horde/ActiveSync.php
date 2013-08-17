@@ -832,6 +832,7 @@ class Horde_ActiveSync
         // clients may allow changing the protocol version.
         $device->version = $version;
         $this->_device = $device;
+
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             $this->_doOptionsRequest();
@@ -857,6 +858,12 @@ class Horde_ActiveSync
         if ($cmd != 'GetAttachment') {
             $this->contentTypeHeader();
         }
+
+        // Should we announce a new version is available to the client?
+        if ($device->version < $this->_maxVersion) {
+            header("X-MS-RP: ". $this->getSupportedVersions());
+        }
+
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
             $request = new $class($this);
@@ -979,9 +986,9 @@ class Horde_ActiveSync
     }
 
     /**
-     * Obtain the ActiveSync protocol version
+     * Obtain the ActiveSync protocol version requested by the client headers.
      *
-     * @return string
+     * @return long
      */
     public function getProtocolVersion()
     {
