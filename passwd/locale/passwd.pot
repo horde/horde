@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Passwd H5 (5.0.0-git)\n"
+"Project-Id-Version: Passwd H5 (5.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-05-07 14:14+0200\n"
+"POT-Creation-Date: 2013-08-18 14:13+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,24 +44,24 @@ msgstr ""
 msgid "Cannot send command to server."
 msgstr ""
 
-#: index.php:25 templates/index.html.php:78
+#: index.php:30 templates/dynamic.html.php:83 templates/index.html.php:78
 msgid "Change Password"
 msgstr ""
 
-#: templates/index.html.php:60
+#: templates/dynamic.html.php:65 templates/index.html.php:60
 msgid "Change password for:"
 msgstr ""
 
-#: lib/Basic.php:132
+#: lib/Basic.php:132 lib/Dynamic.php:123
 msgid "Change your password"
 msgstr ""
 
-#: lib/Basic.php:134
+#: lib/Basic.php:134 lib/Dynamic.php:125
 #, php-format
 msgid "Changing password for %s"
 msgstr ""
 
-#: templates/index.html.php:49
+#: templates/dynamic.html.php:54 templates/index.html.php:49
 msgid "Confirm new password:"
 msgstr ""
 
@@ -109,7 +109,7 @@ msgstr ""
 msgid "Failed to verify old password."
 msgstr ""
 
-#: lib/Basic.php:226 lib/Driver/Composite.php:84
+#: lib/Basic.php:226 lib/Driver/Composite.php:84 lib/Dynamic.php:218
 #, php-format
 msgid "Failure in changing password for %s: %s"
 msgstr ""
@@ -128,15 +128,59 @@ msgstr ""
 msgid "Incorrect password"
 msgstr ""
 
+#: lib/Policy.php:49
+msgid "Maximum length: "
+msgstr ""
+
+#: lib/Policy.php:52
+msgid "Maximum white space characters: "
+msgstr ""
+
+#: lib/Policy.php:55
+msgid "Minimum alphabetic characters: "
+msgstr ""
+
+#: lib/Policy.php:58
+msgid "Minimum alphanumeric characters: "
+msgstr ""
+
+#: lib/Policy.php:79
+msgid "Minimum characters: classes"
+msgstr ""
+
+#: lib/Policy.php:61
+msgid "Minimum length: "
+msgstr ""
+
+#: lib/Policy.php:64
+msgid "Minimum lowercase characters: "
+msgstr ""
+
+#: lib/Policy.php:67
+msgid "Minimum non-alphabetic characters: "
+msgstr ""
+
+#: lib/Policy.php:70
+msgid "Minimum numeric characters (0-9): "
+msgstr ""
+
 #: lib/Driver/Ldap.php:154
 msgid "Minimum password age has not yet expired"
+msgstr ""
+
+#: lib/Policy.php:73
+msgid "Minimum punctuation characters: "
+msgstr ""
+
+#: lib/Policy.php:76
+msgid "Minimum uppercase characters: "
 msgstr ""
 
 #: lib/Driver/Expectpecl.php:129
 msgid "New password not valid (too short, bad password, too similar, ...)"
 msgstr ""
 
-#: templates/index.html.php:39
+#: templates/dynamic.html.php:44 templates/index.html.php:39
 msgid "New password:"
 msgstr ""
 
@@ -152,7 +196,7 @@ msgstr ""
 msgid "No prompt returned from server."
 msgstr ""
 
-#: templates/index.html.php:29
+#: templates/dynamic.html.php:29 templates/index.html.php:29
 msgid "Old password:"
 msgstr ""
 
@@ -160,7 +204,7 @@ msgstr ""
 msgid "Passwd is not properly configured."
 msgstr ""
 
-#: lib/Basic.php:230
+#: lib/Basic.php:230 lib/Dynamic.php:222
 #, php-format
 msgid "Password changed on %s."
 msgstr ""
@@ -177,19 +221,19 @@ msgstr ""
 msgid "Password module is missing target parameter."
 msgstr ""
 
-#: lib/Basic.php:215
+#: lib/Basic.php:215 lib/Dynamic.php:207
 msgid "Password module is not properly configured"
 msgstr ""
 
-#: lib/Basic.php:145
+#: lib/Basic.php:145 lib/Dynamic.php:137
 msgid "Please provide a new password"
 msgstr ""
 
-#: lib/Basic.php:144
+#: lib/Basic.php:144 lib/Dynamic.php:136
 msgid "Please provide your current password"
 msgstr ""
 
-#: lib/Basic.php:146
+#: lib/Basic.php:146 lib/Dynamic.php:138
 msgid "Please verify your new password"
 msgstr ""
 
@@ -197,7 +241,7 @@ msgstr ""
 msgid "Required 'drivers' is misconfigured in Composite configuration."
 msgstr ""
 
-#: templates/index.html.php:79
+#: templates/dynamic.html.php:84 templates/index.html.php:79
 msgid "Reset"
 msgstr ""
 
@@ -244,32 +288,32 @@ msgstr ""
 msgid "User not found."
 msgstr ""
 
-#: templates/index.html.php:18
+#: templates/dynamic.html.php:18 templates/index.html.php:18
 msgid "Username:"
 msgstr ""
 
-#: lib/Basic.php:163
+#: lib/Basic.php:163 lib/Dynamic.php:155
 #, php-format
 msgid "You can't change password for user %s"
 msgstr ""
 
-#: lib/Basic.php:169
+#: lib/Basic.php:169 lib/Dynamic.php:161
 msgid "You must give your current password"
 msgstr ""
 
-#: lib/Basic.php:174
+#: lib/Basic.php:174 lib/Dynamic.php:166
 msgid "You must give your new password"
 msgstr ""
 
-#: lib/Basic.php:178
+#: lib/Basic.php:178 lib/Dynamic.php:170
 msgid "You must verify your new password"
 msgstr ""
 
-#: lib/Basic.php:188
+#: lib/Basic.php:188 lib/Dynamic.php:180
 msgid "Your new password must be different from your current password"
 msgstr ""
 
-#: lib/Basic.php:183
+#: lib/Basic.php:183 lib/Dynamic.php:175
 msgid "Your new passwords didn't match"
 msgstr ""
 
@@ -277,13 +321,13 @@ msgstr ""
 msgid "Your password could not be changed."
 msgstr ""
 
-#: lib/Basic.php:238
+#: lib/Basic.php:238 lib/Dynamic.php:230
 msgid ""
 "Your password has been succesfully changed. You need to re-login to the "
 "system with your new password."
 msgstr ""
 
-#: lib/Basic.php:147
+#: lib/Basic.php:147 lib/Dynamic.php:139
 msgid "Your passwords do not match"
 msgstr ""
 
