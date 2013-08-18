@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-08</date>
- <time>16:28:22</time>
+ <date>2013-08-18</date>
+ <time>16:21:48</time>
  <version>
   <release>2.6.2</release>
   <api>2.6.0</api>
@@ -1615,7 +1615,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-08</date>
+   <date>2013-08-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue that could cause corrupt email attachment downloads on certain webservers due to PHP flushing the output buffer (Bug #12486).
