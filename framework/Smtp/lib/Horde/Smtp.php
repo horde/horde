@@ -105,7 +105,7 @@ class Horde_Smtp implements Serializable
      *  </li>
      *  <li>
      *   port: (string) The SMTP port.
-     *         DEFAULT: 587
+     *         DEFAULT: 25
      *  </li>
      *  <li>
      *   secure: (string) Use SSL or TLS to connect.
@@ -133,7 +133,7 @@ class Horde_Smtp implements Serializable
         // Default values.
         $params = array_merge(array(
             'host' => 'localhost',
-            'port' => 587,
+            'port' => 25,
             'secure' => false,
             'timeout' => 30
         ), array_filter($params));
