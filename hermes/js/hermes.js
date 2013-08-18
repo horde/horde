@@ -339,6 +339,14 @@ HermesCore = {
                 this.playTimer(elt);
                 e.stop();
                 return;
+            } else if (elt.hasClassName('jobTypeEdit')) {
+                this.jobtypeChangeHandler(elt.up().up().retrieve('jid'));
+                e.stop();
+                return;
+            } else if (elt.hasClassName('jobTypeDelete')) {
+                this.deleteJobType(elt.up().up());
+                e.stop();
+                return;
             }
             elt = elt.up();
         }
@@ -447,6 +455,22 @@ HermesCore = {
             this.go('time');
             $('hermesReturnToSearch').show();
         }
+    },
+
+    /**
+     * Delete a jobtype
+     */
+    deleteJobType: function(elt)
+    {
+        HordeCore.doAction('deleteJobType',
+            { 'id': elt.retrieve('jid') },
+            { 'callback': this.deleteJobTypeCallback.curry(elt).bind(this) }
+        );
+    },
+
+    deleteJobTypeCallback: function(elt)
+    {
+        elt.fade({ duration: this.effectDur, queue: 'end' });
     },
 
     /**
@@ -631,10 +655,10 @@ HermesCore = {
         }
     },
 
-    jobtypeChangeHandler: function(e)
+    jobtypeChangeHandler: function(id)
     {
         HordeCore.doAction('listJobTypes',
-            { 'id': $F('hermesJobTypeSelect') },
+            { 'id': id },
             { 'callback': this.listJobtypeCallback.bind(this) }
         );
     },
@@ -697,36 +721,33 @@ HermesCore = {
     createJobTypeCallback: function(r)
     {
         // Build the new select list in the admin,time,search form.
-        HordeCore.doAction('listJobTypes', {}, { 'callback': this.updateJobTypeListCallback.bind(this) });
-    },
-
-    updateJobTypeListCallback: function(r)
-    {
-        var o, sl = new Element('select', { 'id': 'hermesJobTypeSelect' }),
-            jsl = new Element('select', { 'id': 'hermesTimeFormJobtype'});
-
-        sl.insert(new Element('option', { value: '' }).update('--- ' + Hermes.text.select_jobtype + ' ---'));
-        jsl.insert(new Element('option', { value: '' }).update('--- ' + Hermes.text.select_jobtype + ' ---'));
-
-        for (var i = 0; i < r.length; i++) {
-            sl.insert(new Element('option', { value: r[i].id }).update(r[i].name));
-            if (r[i].enabled) {
-                jsl.insert(new Element('option', { value: r[i].id }).update(r[i].name));
-            }
-        }
-
-        sl.observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
-        $('hermesJobTypeSelect').replace(sl);
-        $('hermesTimeFormJobtype').replace(jsl);
-        $('hermesJobFormId').value = null;
-        $('hermesJobSaveAsNew').hide();
-        $('hermesJobForm').reset();
+        HordeCore.doAction('listJobTypes', {}, { 'callback': function(r) {
+            this.updateJobTypeListCallback(r); this.loadJobListCallback(r);
+        }.bind(this)});
     },
 
     updateJobTypeCallback: function(r)
     {
         // Build the new select list in the admin,time,search form.
-        HordeCore.doAction('listJobTypes', {}, { 'callback': this.updateJobTypeListCallback.bind(this) });
+        HordeCore.doAction('listJobTypes', {}, { 'callback': function(r) {
+            this.updateJobTypeListCallback(r); this.loadJobListCallback(r);
+        }.bind(this)});
+    },
+
+    updateJobTypeListCallback: function(r)
+    {
+        var o, jsl = new Element('select', { 'id': 'hermesTimeFormJobtype'});
+
+        jsl.insert(new Element('option', { value: '' }).update('--- ' + Hermes.text.select_jobtype + ' ---'));
+        for (var i = 0; i < r.length; i++) {
+            if (r[i].enabled) {
+                jsl.insert(new Element('option', { value: r[i].id }).update(r[i].name));
+            }
+        }
+        $('hermesTimeFormJobtype').replace(jsl);
+        $('hermesJobFormId').value = null;
+        $('hermesJobSaveAsNew').hide();
+        $('hermesJobForm').reset();
     },
 
     /**
@@ -1109,6 +1130,30 @@ HermesCore = {
         if (id) {
             this.populateSliceForm(id);
         }
+    },
+
+    loadJobListCallback: function(r)
+    {
+        var t = $('hermesJobTypeListInternal').update();
+        r.each(function(jt) {
+            t.insert(this.buildJobTypeRow(jt).toggle());
+        }.bind(this));
+    },
+
+    buildJobTypeRow: function(jt)
+    {
+        var row, cell, d;
+
+        row = $('hermesJobTypeListTemplate').clone(true);
+        row.addClassName('hermesJobListRow');
+        row.removeAttribute('id');
+        row.store('jid', jt.id);
+        cell = row.down().next().update(jt.name);
+        cell = cell.next().update((jt.billable == 1) ? 'Y' : 'N');
+        cell = cell.next().update((jt.enabled == 1) ? 'Y' : 'N');
+        cell = cell.next().update(jt.rate);
+
+        return row;
     },
 
     /**
@@ -1586,7 +1631,14 @@ HermesCore = {
                 this.updateCostObjects(r, 'search');}.bind(this)
             }
         );
-        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll', {}, { 'callback': this.pollCallback.bind(this) }), 10);
+
+        // Populate jobtype list
+        HordeCore.doAction('listJobTypes',
+            { },
+            { 'callback': this.loadJobListCallback.bind(this) }
+        );
+
+        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll', {}, { 'callback': this.pollCallback.bind(this) }), 60);
     }
 };
 document.observe('dom:loaded', HermesCore.onDomLoad.bind(HermesCore));

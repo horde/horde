@@ -47,12 +47,29 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
             $id = $GLOBALS['injector']
                 ->getInstance('Hermes_Driver')
                 ->updateJobType($job);
+            $GLOBALS['notification']->push(_("Job type successfully added."), 'horde.success');
         } catch (Hermes_Exception $e) {
             $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
         }
-        $GLOBALS['notification']->push(_("Job type successfully added."), 'horde.success');
 
         return $id;
+    }
+
+    /**
+     * Delete a jobtype. Takes the following in $this->vars:
+     *   - id:  The jobtype id to delete.
+     *
+     */
+    public function deleteJobType()
+    {
+        try {
+            $GLOBALS['injector']->getInstance('Hermes_Driver')
+                ->deleteJobType($this->vars->id);
+            $GLOBALS['notification']->push(_("Job type successfully deleted."), 'horde.success');
+            return true;
+        } catch (Hermes_Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+        }
     }
 
     /**
