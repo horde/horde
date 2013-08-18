@@ -697,11 +697,36 @@ HermesCore = {
     createJobTypeCallback: function(r)
     {
         // Build the new select list in the admin,time,search form.
+        HordeCore.doAction('listJobTypes', {}, { 'callback': this.updateJobTypeListCallback.bind(this) });
+    },
+
+    updateJobTypeListCallback: function(r)
+    {
+        var o, sl = new Element('select', { 'id': 'hermesJobTypeSelect' }),
+            jsl = new Element('select', { 'id': 'hermesTimeFormJobtype'});
+
+        sl.insert(new Element('option', { value: '' }).update('--- ' + Hermes.text.select_jobtype + ' ---'));
+        jsl.insert(new Element('option', { value: '' }).update('--- ' + Hermes.text.select_jobtype + ' ---'));
+
+        for (var i = 0; i < r.length; i++) {
+            sl.insert(new Element('option', { value: r[i].id }).update(r[i].name));
+            if (r[i].enabled) {
+                jsl.insert(new Element('option', { value: r[i].id }).update(r[i].name));
+            }
+        }
+
+        sl.observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+        $('hermesJobTypeSelect').replace(sl);
+        $('hermesTimeFormJobtype').replace(jsl);
+        $('hermesJobFormId').value = null;
+        $('hermesJobSaveAsNew').hide();
+        $('hermesJobForm').reset();
     },
 
     updateJobTypeCallback: function(r)
     {
-        // Update the jobtype select list in the admin,time,search form.
+        // Build the new select list in the admin,time,search form.
+        HordeCore.doAction('listJobTypes', {}, { 'callback': this.updateJobTypeListCallback.bind(this) });
     },
 
     /**
