@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-18</date>
- <time>16:21:48</time>
+ <time>16:30:02</time>
  <version>
-  <release>2.6.2</release>
+  <release>2.6.3</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -22,11 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue that could cause corrupt email attachment downloads on certain webservers due to PHP flushing the output buffer (Bug #12486).
-* [mjr] Output X-MS-RP header to advertise to clients that a more recent EAS version is supported on the server.
-* [mjr] Fix issue that could lead to email being duplicated on client due to incorrect Collection Type being detected for unsolicited SMS data (Bug #12544).
-* [mjr] Fix decoding EAS Timezone blobs on Big Endian systems.
-* [mjr] Fix race condition where changes may not be sent to the client due to a combination of a long running MOREAVAILABLE sync and server side changes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1623,6 +1619,19 @@
 * [mjr] Fix issue that could lead to email being duplicated on client due to incorrect Collection Type being detected for unsolicited SMS data (Bug #12544).
 * [mjr] Fix decoding EAS Timezone blobs on Big Endian systems.
 * [mjr] Fix race condition where changes may not be sent to the client due to a combination of a long running MOREAVAILABLE sync and server side changes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.3</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
