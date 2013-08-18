@@ -84,7 +84,7 @@ HermesCore = {
         case 'adminjobs':
             this.closeView(loc);
             locCap = loc.capitalize();
-            $('hermesNav' + locCap).up().addClassName('horde-active');
+            $('hermesNav' + locCap).addClassName('horde-subnavi-active');
             $('hermesReturnToSearch').hide();
             switch (loc) {
             case 'time':
@@ -1365,10 +1365,10 @@ HermesCore = {
      */
     closeView: function(loc)
     {
-        $w('Time Search Admin').each(function(a) {
+        $w('Time Search Adminjobs').each(function(a) {
             a = $('hermesNav' + a);
             if (a) {
-                a.up().removeClassName('horde-active');
+                a.removeClassName('horde-subnavi-active');
             }
         });
         if (this.view && this.view != loc) {
