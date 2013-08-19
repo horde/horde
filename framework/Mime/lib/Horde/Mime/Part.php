@@ -1740,7 +1740,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $headers->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
             switch ($this->_temp['toString']) {
             case '8bit':
-                $mailer->addServiceExtensionParameter('BODY', '8BITMIME');
+                if ($mailer instanceof Horde_Mail_Transport_Smtp) {
+                    $mailer->addServiceExtensionParameter('BODY', '8BITMIME');
+                }
                 break;
             }
         }
