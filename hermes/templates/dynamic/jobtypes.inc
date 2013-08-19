@@ -4,7 +4,7 @@
   <form id="hermesJobForm" action="">
     <div id="hermesJobFormInputs">
       <input type="hidden" id="hermesJobFormId" name="job_id" />
-      <label for="HermesJobFormName"><?php echo _("Name") ?>*
+      <label for="hermesJobFormName"><?php echo _("Name") ?>*
         <input class="input" type="text" name="name" id="hermesJobFormName" />
       </label><br />
       <label for="hermesJobFormBillable">
@@ -27,19 +27,19 @@
     </div>
   </form>
   <div id="hermesJobTypeListHeader">
-    <div class="hermesJobTypeListOptions">&nbsp;</div>
     <div class="hermesJobTypeListName hermesBorderLeft"><?php echo _("Name")?></div>
     <div class="hermesJobTypeListBillable hermesBorderLeft"><?php echo _("Billable")?></div>
     <div class="hermesJobTypeListEnabled hermesBorderLeft"><?php echo _("Enabled")?></div>
     <div class="hermesJobTypeListRate hermesBorderLeft"><?php echo _("Rate")?></div>
+    <div class="hermesJobTypeListOptions">&nbsp;</div>
   </div>
   <div id="hermesJobTypeListBody">
     <div id="hermesJobTypeListTemplate" style="display:none;">
-      <div class="hermesJobTypeListOptions hermesBorderLeft"><span class="jobTypeEdit sliceControl">&nbsp;</span><span class="jobTypeDelete sliceControl">&nbsp;</span></div>
       <div class="hermesJobTypeListName hermesBorderLeft"></div>
       <div class="hermesJobTypeListBillable hermesBorderLeft"></div>
       <div class="hermesJobTypeListEnabled hermesBorderLeft"></div>
       <div class="hermesJobTypeListRate hermesBorderLeft"></div>
+      <div class="hermesJobTypeListOptions"><span class="jobTypeEdit sliceControl">&nbsp;</span><span class="jobTypeDelete sliceControl">&nbsp;</span></div>
     </div>
     <div id="hermesJobTypeListInternal"></div>
   </div>

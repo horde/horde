@@ -29,7 +29,7 @@ html, body {
 }
 
 /* Main links */
-#hermesNavTime, #hermesNavSearch, #hermesNavAdminjobs {
+#hermesNavTime, #hermesNavSearch, #hermesNavAdminjobs, #hermesNavAdmindeliverables {
     cursor: pointer;
 }
 #hermesNavTime a.icon {
@@ -40,6 +40,9 @@ html, body {
 }
 #hermesNavAdminjobs a.icon {
     background-image: url("../graphics/admin.png");
+}
+#hermesNavAdmindeliverables a.icon {
+    background-image: url("../graphics/deliverable.png");
 }
 
 /* Time summary */
@@ -128,12 +131,14 @@ html, body {
     float: left;
     white-space: pre-wrap;
 }
-#hermesTimeListHeader, #hermesSearchListHeader, #hermesJobTypeListHeader {
+#hermesTimeListHeader, #hermesSearchListHeader,
+#hermesJobTypeListHeader, #hermesDeliverablesListHeader {
     width: 100%;
     display: inline-block;
     background-color: #ddd;
 }
-#hermesTimeListHeader div, #hermesSearchListHeader div, #hermesJobTypeListHeader div {
+#hermesTimeListHeader div, #hermesSearchListHeader div,
+#hermesJobTypeListHeader div, #hermesDeliverablesListHeader div {
     height: 14px;
     text-indent: 2px;
     font-weight: bold;
@@ -141,7 +146,7 @@ html, body {
     padding-bottom: 1px;
 }
 #hermesTimeListBody div, #hermesSearchListBody div,
-#hermesJobTypeListBody div {
+#hermesJobTypeListBody div, #hermesDeliverablesListBody div {
     text-indent: 2px;
 }
 #hermesTimeListHeader div.sortup, #hermesTimeListHeader div.sortdown,
@@ -158,12 +163,14 @@ html, body {
 #hermesTimeListBody {
   width: 100%;
 }
-.hermesTimeListRow, .hermesJobListRow {
+
+.hermesTimeListRow, .hermesJobListRow, .hermesDeliverablesRow {
     font-size: 100%;
     line-height: 26px;
     overflow: hidden;
     border-bottom: 1px solid #eee;
 }
+
 .hermesBorderLeft {
     border-left: 1px solid #eee;
 }
@@ -174,17 +181,20 @@ html, body {
   float:right;
   margin: 2px 10px 0 0;
 }
-.sliceEdit, .jobTypeEdit {
+.sliceEdit, .jobTypeEdit, .deliverableEdit {
   background:  url('../graphics/edit.png') no-repeat scroll 0 0 transparent;
 }
-.sliceDelete, .jobTypeDelete {
+.sliceDelete, .jobTypeDelete, .deliverableDelete {
   background:  url('../graphics/delete.png') no-repeat scroll 0 0 transparent;
 }
 
-.hermesTimeListRow .hermesTimeSliceOptions, .hermesJobTypeListOptions {
+.hermesTimeListRow .hermesTimeSliceOptions, .hermesJobTypeListOptions,
+.hermesDeliverablesOptions {
     visibility: hidden;
 }
-.hermesTimeListRow:hover .hermesTimeSliceOptions, .hermesJobListRow:hover .hermesJobTypeListOptions {
+.hermesTimeListRow:hover .hermesTimeSliceOptions,
+.hermesJobListRow:hover .hermesJobTypeListOptions,
+.hermesDeliverablesRow:hover .hermesDeliverablesOptions {
     visibility: visible;
 }
 .hermesUnselectedSlice {
@@ -199,15 +209,17 @@ html, body {
 }
 
 /* Time Entry Form */
-#hermesTimeFormInputs, #hermesJobFormInputs {
+#hermesTimeFormInputs, #hermesJobFormInputs, #hermesDeliverablesFormInputs {
     margin-left: 7px;
     margin-right: 7px;
 }
-#hermesTimeFormInputs label, #hermesJobFormInputs label {
+#hermesTimeFormInputs label, #hermesJobFormInputs label,
+#hermesDeliverablesFormInputs label {
     font-weight: bold;
     white-space: nowrap;
 }
-#hermesTimeFormInputs .input, #hermesJobForm .input {
+#hermesTimeFormInputs .input, #hermesJobForm .input,
+#hermesDeliverablesForm .input {
   margin: 7px 7px 0 0;
   padding: 6px 5px 4px;
 }
@@ -215,6 +227,8 @@ html, body {
   margin: 0  7px 0;
   padding: 6px 5px 4px;
   width: 98%;
+}
+#hermesDeliverablesFormInputs .hermesLongField {
 
 }
 .hermesTimeFormDetails {
@@ -276,9 +290,10 @@ div.hermesTimeSliceOptions {
     cursor: default;
 }
 
-/* Job page */
+/* Job and Deliverables pages */
 div.hermesJobTypeListName, div.hermesJobTypeListBillable, div.hermesJobTypeListEnabled,
-div.hermesJobTypeListRate, div.hermesJobTypeListOptions {
+div.hermesJobTypeListRate, div.hermesJobTypeListOptions, div.hermesDeliverablesName,
+div.hermesDeliverablesActive, div.hermesDeliverablesEstimate, div.hermesDeliverablesDesc {
     float: left;
     white-space: pre-wrap;
     overflow: hidden;
@@ -292,6 +307,16 @@ div.hermesJobTypeListBillable, div.hermesJobTypeListEnabled {
 }
 div.hermesJobTypeListRate, div.hermesJobTypeListOptions {
   width: 10%;
+}
+
+div.hermesDeliverablesName, div.hermesDeliverablesEstimate {
+  width: 20%;
+}
+div.hermesDeliverablesActive {
+  width: 8%;
+}
+div.hermesDeliverablesDesc {
+  width: 30%;
 }
 
 /* Search Form */

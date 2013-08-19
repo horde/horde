@@ -1,0 +1,43 @@
+<div id="hermesViewAdmindeliverables" style="display:none;">
+<form id="hermesDeliverablesForm" action="">
+    <div class="header"><?php echo _("Deliverables")?><?php echo Hermes::getClientSelect('hermesDeliverablesClientSelect');?></div>
+    <div id="hermesDeliverablesFormInputs">
+      <input type="hidden" id="hermesDeliverablesId" name="deliverable_id" />
+      <label for="hermesDeliverablesFormName"><?php echo _("Name") ?>*
+        <input class="input" type="text" name="name" id="hermesDeliverablesFormName" />
+      </label><br />
+      <label for="hermesDeliverablesFormActive"><?php echo _("Active") ?>
+        <input type="checkbox" name="active" id="hermesDeliverablesFormActive" />
+        </label><br />
+      <label for="hermesDeliverablesFormEstimate"><?php echo _("Estimate") ?>
+        <input type="text" class="input" name="estimate" id="hermesDeliverablesFormEstimate" />
+        </label><br />
+      <label for="hermesDeliverablesFormDesc"><?php echo _("Description") ?>
+        <textarea rows="3" name="desc" id="hermesDeliverablesFormDesc" class="hermesLongField"></textarea>
+      </label>
+      <div class="horde-form-buttons">
+        <input id="hermesDeliverablesSave" class="horde-default" type="submit" value="<?php echo _("Save") ?>" />
+        <input id="hermesDeliverablesSaveAsNew" class="horde-create" type="submit" value="<?php echo _("Save As New") ?>" style="display:none;" />
+        <input id="hermesDeliverablesReset" type="reset" value ="<?php echo _("Reset") ?>" />
+      </div>
+    </div>
+  </form>
+  <div id="hermesDeliverablesListHeader">
+    <div class="hermesDeliverablesOptions">&nbsp;</div>
+    <div class="hermesDeliverablesName"><?php echo _("Name") ?></div>
+    <div class="hermesDeliverablesActive"><?php echo _("Active") ?></div>
+    <div class="hermesDeliverablesEstimate"><?php echo _("Estimate") ?></div>
+    <div class="hermesDeliverablesDesc"><?php echo _("Description") ?></div>
+  </div>
+  <div id="hermesDeliverablesBody">
+    <div id="hermesDeliverablesTemplate" style="display:none;">
+      <div class="hermesDeliverablesOptions"><span class="deliverableEdit sliceControl">&nbsp;</span><span class="deliverableDelete sliceControl">&nbsp;</span></div>
+      <div class="hermesDeliverablesName"></div>
+      <div class="hermesDeliverablesActive"></div>
+      <div class="hermesDeliverablesEstimate"></div>
+      <div class="hermesDeliverablesDesc"></div>
+    </div>
+    <div id="hermesDeliverablesListInternal"></div>
+  </div>
+
+</div>

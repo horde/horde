@@ -82,6 +82,7 @@ HermesCore = {
         case 'time':
         case 'search':
         case 'adminjobs':
+        case 'admindeliverables':
             this.closeView(loc);
             locCap = loc.capitalize();
             $('hermesNav' + locCap).addClassName('horde-subnavi-active');
@@ -188,6 +189,11 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesNavAdmindeliverables':
+                this.go('admindeliverables');
+                e.stop();
+                return;
+
             // Time entry form actions
             case 'hermesTimeSaveAsNew':
                 $('hermesTimeFormId').value = null;
@@ -195,7 +201,14 @@ HermesCore = {
                 this.saveTime();
                 e.stop();
                 return;
+            case 'hermesTimeReset':
+                $('hermesTimeSaveAsNew').hide();
+                $('hermesTimeForm').reset();
+                $('hermesTimeFormId').value = 0;
+                e.stop();
+                return;
 
+            // Job and Deliverables
             case 'hermesJobReset':
                 $('hermesJobFormId').value = null;
                 $('hermesJobSaveAsNew').hide();
@@ -206,12 +219,17 @@ HermesCore = {
                 this.saveJobType();
                 e.stop();
                 return;
-            case 'hermesTimeReset':
-                $('hermesTimeSaveAsNew').hide();
-                $('hermesTimeForm').reset();
-                $('hermesTimeFormId').value = 0;
+            case 'hermesDeliverablesReset':
+                $('hermesDeliverablesId').value = null;
+                $('hermesDeliverablesSaveAsNew').hide();
+                break;
+            case 'hermesDeliverablesSaveAsNew':
+                $('hermesDeliverablesId').value = null;
+            case 'hermesDeliverablesSave':
+                this.saveDeliverables();
                 e.stop();
                 return;
+
             case 'hermesSearchReset':
                 $('hermesSearchForm').reset();
                 e.stop();
@@ -340,11 +358,19 @@ HermesCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('jobTypeEdit')) {
-                this.jobtypeChangeHandler(elt.up().up().retrieve('jid'));
+                this.jobtypeEdit(elt.up().up().retrieve('jid'));
                 e.stop();
                 return;
             } else if (elt.hasClassName('jobTypeDelete')) {
                 this.deleteJobType(elt.up().up());
+                e.stop();
+                return;
+            } else if (elt.hasClassName('deliverableEdit')) {
+                this.deliverableEdit(elt.up().up().retrieve('did'));
+                e.stop();
+                return;
+            } else if (elt.hasClassName('deliverableDelete')) {
+                this.deleteDeliverable(elt.up().up());
                 e.stop();
                 return;
             }
@@ -468,6 +494,9 @@ HermesCore = {
         );
     },
 
+    /**
+     * Callback: Remove the jobtype element from the UI.
+     */
     deleteJobTypeCallback: function(elt)
     {
         elt.fade({ duration: this.effectDur, queue: 'end' });
@@ -635,8 +664,8 @@ HermesCore = {
     },
 
     /**
-     * Handle change events on the client field. Pulls in list of
-     * deliverables for the client.
+     * Handle change events on the client field in Time and Search views. Pulls
+     * in list of deliverables for the selected client.
      */
     clientChangeHandler: function(e)
     {
@@ -655,15 +684,21 @@ HermesCore = {
         }
     },
 
-    jobtypeChangeHandler: function(id)
+    /**
+     * Begin editing an existing jobtype.
+     */
+    jobtypeEdit: function(id)
     {
         HordeCore.doAction('listJobTypes',
             { 'id': id },
-            { 'callback': this.listJobtypeCallback.bind(this) }
+            { 'callback': this.jobtypeEditCallback.bind(this) }
         );
     },
 
-    listJobtypeCallback: function(r)
+    /**
+     * Callback: Populate the jobtype form.
+     */
+    jobtypeEditCallback: function(r)
     {
         var job = r[0];
         $('hermesJobFormName').setValue(job.name);
@@ -675,7 +710,51 @@ HermesCore = {
     },
 
     /**
-     * Update the deliverable list for the current client
+     * Delete a deliverable.
+     */
+    deleteDeliverable: function(elt)
+    {
+        HordeCore.doAction('deleteDeliverable',
+            { 'deliverable_id': elt.retrieve('did') },
+            { 'callback': this.deleteDeliverableCallback.curry(elt).bind(this) }
+        );
+    },
+
+    /**
+     * Callback: Remove the deleted deliverable element from the list.
+     */
+    deleteDeliverableCallback: function(elt)
+    {
+        elt.fade({ duration: this.effectDur, queue: 'end' });
+    },
+
+    /**
+     * Begin editing an existing deliverable.
+     */
+     deliverableEdit: function(id)
+     {
+        HordeCore.doAction('listLocalDeliverables',
+            { 'id': id },
+            { 'callback': this.deliverableEditCallback.bind(this) }
+        );
+     },
+
+     /**
+      * Callback: Populate the deliverable form.
+      */
+     deliverableEditCallback: function(r)
+     {
+        var d = r[0];
+        $('hermesDeliverablesFormName').setValue(d.name);
+        $('hermesDeliverablesId').setValue(d.id);
+        $('hermesDeliverablesFormActive').setValue(d.active == 1);
+        $('hermesDeliverablesFormEstimate').setValue(d.estimate);
+        $('hermesDeliverablesFormDesc').setValue(d.description);
+        $('hermesDeliverablesSaveAsNew').show();
+     },
+
+    /**
+     * Update the deliverable select list for the current client.
      */
     listDeliverablesCallback: function(r)
     {
@@ -701,6 +780,36 @@ HermesCore = {
         });
     },
 
+    /**
+     * Create/Update a deliverable in the backend.
+     */
+    saveDeliverables: function()
+    {
+        var params = $H($('hermesDeliverablesForm').serialize({ hash: true }));
+        HordeCore.doAction('updateDeliverable',
+            params,
+            { 'callback': this.saveDeliverableCallback.bind(this) }
+        );
+    },
+
+    /**
+     * Callback: Update UI after saving deliverables to backend.
+     */
+    saveDeliverableCallback: function(r)
+    {
+        HordeCore.doAction('listLocalDeliverables',
+            { 'c': $F('hermesDeliverablesClientSelect') },
+            { 'callback': this.listDeliverablesAdminCallback.bind(this) }
+        );
+
+        $('hermesDeliverablesId').value = null;
+        $('hermesDeliverablesSaveAsNew').hide();
+        $('hermesDeliverablesForm').reset();
+    },
+
+    /**
+     * Save the jobtype to the backend
+     */
     saveJobType: function()
     {
         var params = $H($('hermesJobForm').serialize({ hash: true }));
@@ -718,6 +827,9 @@ HermesCore = {
         }
     },
 
+    /**
+     * Callback after saving a new jobtype in the backend.
+     */
     createJobTypeCallback: function(r)
     {
         // Build the new select list in the admin,time,search form.
@@ -726,6 +838,9 @@ HermesCore = {
         }.bind(this)});
     },
 
+    /**
+     * Callback after updating a jobtype in the backend.
+     */
     updateJobTypeCallback: function(r)
     {
         // Build the new select list in the admin,time,search form.
@@ -734,6 +849,10 @@ HermesCore = {
         }.bind(this)});
     },
 
+    /**
+     * (Re)Builds the jobtype select list after a jobtype has been added/edited
+     * or removed.
+     */
     updateJobTypeListCallback: function(r)
     {
         var o, jsl = new Element('select', { 'id': 'hermesTimeFormJobtype'});
@@ -748,6 +867,47 @@ HermesCore = {
         $('hermesJobFormId').value = null;
         $('hermesJobSaveAsNew').hide();
         $('hermesJobForm').reset();
+    },
+
+    /**
+     * Update the list of local deliverables for the specified client.
+     */
+    deliverablesClientChangeHandler: function()
+    {
+        HordeCore.doAction('listLocalDeliverables',
+            { 'c': $F('hermesDeliverablesClientSelect') },
+            { 'callback': this.listDeliverablesAdminCallback.bind(this) }
+        );
+    },
+
+    /**
+     * Callback: Populate the deliverables grid for the selected client.
+     */
+    listDeliverablesAdminCallback: function(r)
+    {
+        var t = $('hermesDeliverablesListInternal').update();
+        r.each(function(jt) {
+            t.insert(this.buildDeliverablesRow(jt).toggle());
+        }.bind(this));
+    },
+
+    /**
+     * Builds a single deliverable entry in the grid.
+     */
+    buildDeliverablesRow: function(jt)
+    {
+        var row, cell, d;
+
+        row = $('hermesDeliverablesTemplate').clone(true);
+        row.addClassName('hermesDeliverablesRow');
+        row.removeAttribute('id');
+        row.store('did', jt.id);
+        cell = row.down().next().update(jt.name);
+        cell = cell.next().update((jt.active == 1) ? 'Y' : 'N');
+        cell = cell.next().update(jt.estimate);
+        cell = cell.next().update(jt.description);
+
+        return row;
     },
 
     /**
@@ -1132,6 +1292,9 @@ HermesCore = {
         }
     },
 
+    /**
+     * Callback: Populates the jobtype grid.
+     */
     loadJobListCallback: function(r)
     {
         var t = $('hermesJobTypeListInternal').update();
@@ -1140,6 +1303,9 @@ HermesCore = {
         }.bind(this));
     },
 
+    /**
+     * Build a single row in the jobtype list.
+     */
     buildJobTypeRow: function(jt)
     {
         var row, cell, d;
@@ -1148,7 +1314,7 @@ HermesCore = {
         row.addClassName('hermesJobListRow');
         row.removeAttribute('id');
         row.store('jid', jt.id);
-        cell = row.down().next().update(jt.name);
+        cell = row.down().update(jt.name);
         cell = cell.next().update((jt.billable == 1) ? 'Y' : 'N');
         cell = cell.next().update((jt.enabled == 1) ? 'Y' : 'N');
         cell = cell.next().update(jt.rate);
@@ -1410,7 +1576,7 @@ HermesCore = {
      */
     closeView: function(loc)
     {
-        $w('Time Search Adminjobs').each(function(a) {
+        $w('Time Search Adminjobs admindeliverables').each(function(a) {
             a = $('hermesNav' + a);
             if (a) {
                 a.removeClassName('horde-subnavi-active');
@@ -1575,11 +1741,9 @@ HermesCore = {
         $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
         $('hermesSearchFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
-        // Handler for the jobtype selection
-        if ($('hermesJobTypeSelect')) {
-            $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+        if ($('hermesDeliverablesClientSelect')) {
+            $('hermesDeliverablesClientSelect').observe('change', HermesCore.deliverablesClientChangeHandler.bindAsEventListener(HermesCore));
         }
-
         // Validate the date format.
         $('hermesTimeFormStartDate').observe('blur', this.checkDate.bind(this));
 
@@ -1644,5 +1808,3 @@ HermesCore = {
 document.observe('dom:loaded', HermesCore.onDomLoad.bind(HermesCore));
 document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
 HordeCore.onException = HordeCore.onException.wrap(HermesCore.onException.bind(HermesCore));
-
-

@@ -56,6 +56,50 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     }
 
     /**
+     * Create a new deliverable. Takes the following in $this->vars:
+     *   - deliverable_id:      The id of the deliverable if editing.
+     *   - name:   (string)     The deliverable name.
+     *   - active: (boolean)    Is the deliverable active?
+     *   - estimate: (integer)  The estimate for this deliverable.
+     *   - desc: (string)       The description.
+     *   - client: (string)     The client id this deliverable is for.
+     */
+    public function updateDeliverable()
+    {
+        $deliverable = array(
+            'id' => empty($this->vars->deliverable_id) ? 0 : $this->vars->deliverable_id,
+            'name' => $this->vars->name,
+            'active' => $this->vars->active == 'on',
+            'estimate' => $this->vars->estimate,
+            'description' => $this->vars->desc,
+            'client_id' => $this->vars->client);
+
+        try {
+            $result = $GLOBALS['injector']
+                ->getInstance('Hermes_Driver')
+                ->updateDeliverable($deliverable);
+
+            $GLOBALS['notification']->push(_("Deliverable successfully added."), 'horde.success');
+            return $result;
+        } catch (Hermes_Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+        }
+    }
+
+    public function deleteDeliverable()
+    {
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Hermes_Driver')
+                ->deleteDeliverable($this->vars->deliverable_id);
+            $GLOBALS['notification']->push(_("Deliverable successfully deleted."), 'horde.success');
+            return true;
+        } catch (Hermes_Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+        }
+    }
+
+    /**
      * Delete a jobtype. Takes the following in $this->vars:
      *   - id:  The jobtype id to delete.
      *
@@ -140,6 +184,24 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         $client = !empty($this->vars->c) ? $this->vars->c : null;
 
         return Hermes::getCostObjectType($client);
+    }
+
+    /**
+     * Get the list of Hermes-only deliverables for the requested client.
+     *  - c:   The client id
+     *  - id:  The optional deliverable id, if requesting a specific deliverable.
+     */
+    public function listLocalDeliverables()
+    {
+        global $injector;
+        if (!$this->vars->id) {
+            $params = array('client_id' => $this->vars->c);
+        } else {
+            $params = array('id' => $this->vars->id);
+        }
+
+        return array_values($injector->getInstance('Hermes_Driver')
+           ->listDeliverables($params));
     }
 
     /**
