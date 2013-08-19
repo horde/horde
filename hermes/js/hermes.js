@@ -1586,7 +1586,7 @@ HermesCore = {
      */
     closeView: function(loc)
     {
-        $w('Time Search Adminjobs admindeliverables').each(function(a) {
+        $w('Time Search Adminjobs Admindeliverables').each(function(a) {
             a = $('hermesNav' + a);
             if (a) {
                 a.removeClassName('horde-subnavi-active');
