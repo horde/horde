@@ -90,7 +90,8 @@ class Hermes_Ajax
             'wrong_date_format' => sprintf(_("You used an unknown date format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),
             'timeentry' => _("Time Entry"),
             'edittime' => _("Editing Time Entry"),
-            'select_jobtype' => _("Select a Job Type")
+            'select_jobtype' => _("Select a Job Type"),
+            'missing_client' => _("You must select a client first.")
         );
 
         return $js_vars;

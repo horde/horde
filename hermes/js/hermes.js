@@ -785,6 +785,10 @@ HermesCore = {
      */
     saveDeliverables: function()
     {
+        if (!$F('hermesDeliverablesClientSelect')) {
+            HordeCore.notify(Hermes.text.missing_client, 'horde.warning');
+            return;
+        }
         var params = $H($('hermesDeliverablesForm').serialize({ hash: true }));
         params.set('client_id', $F('hermesDeliverablesClientSelect'));
         HordeCore.doAction('updateDeliverable',
@@ -813,6 +817,11 @@ HermesCore = {
      */
     saveJobType: function()
     {
+        if (!$F('hermesJobFormName')) {
+            HordeCore.notify(Hermes.text.fix_form_values, 'horde.warning');
+            return;
+        }
+
         var params = $H($('hermesJobForm').serialize({ hash: true }));
         if ($F('hermesJobFormId') > 0) {
             HordeCore.doAction('updateJobType',
