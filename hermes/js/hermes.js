@@ -902,7 +902,7 @@ HermesCore = {
         row.addClassName('hermesDeliverablesRow');
         row.removeAttribute('id');
         row.store('did', jt.id);
-        cell = row.down().next().update(jt.name);
+        cell = row.down().update(jt.name);
         cell = cell.next().update((jt.active == 1) ? 'Y' : 'N');
         cell = cell.next().update(jt.estimate);
         cell = cell.next().update(jt.description);

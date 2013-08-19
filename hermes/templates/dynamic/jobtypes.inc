@@ -1,11 +1,11 @@
 <div id="hermesViewAdminjobs" style="display:none;">
 
-  <div class="header"><?php echo _("Job Types")?></div>
+  <div class="header"><?php echo _("Job Types")?></div><br />
   <form id="hermesJobForm" action="">
     <div id="hermesJobFormInputs">
       <input type="hidden" id="hermesJobFormId" name="job_id" />
       <label for="hermesJobFormName"><?php echo _("Name") ?>*
-        <input class="input" type="text" name="name" id="hermesJobFormName" />
+        <input type="text" name="name" id="hermesJobFormName" />
       </label><br />
       <label for="hermesJobFormBillable">
         <?php echo _("Billable")?>
@@ -17,7 +17,7 @@
         <input type="checkbox" name="enabled" id="hermesJobFormEnabled" />
       </label><br />
       <label for="HermesJobFormRate"><?php echo _("Hourly Rate") ?>
-        <input class="input" type="text" name="rate" id="hermesJobFormRate" />
+        <input type="text" name="rate" id="hermesJobFormRate" />
       </label>
       <div class="horde-form-buttons">
         <input id="hermesJobSave" class="horde-default" type="submit" value="<?php echo _("Save") ?>" />

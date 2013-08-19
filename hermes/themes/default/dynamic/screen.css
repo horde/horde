@@ -218,19 +218,18 @@ html, body {
     font-weight: bold;
     white-space: nowrap;
 }
-#hermesTimeFormInputs .input, #hermesJobForm .input,
-#hermesDeliverablesForm .input {
+#hermesTimeFormInputs .input, #hermesJobForm .input {
   margin: 7px 7px 0 0;
   padding: 6px 5px 4px;
 }
-#hermesTimeFormInputs .hermesLongField {
+
+#hermesTimeFormInputs .hermesLongField,
+#hermesDeliverablesFormInputs .hermesLongField {
   margin: 0  7px 0;
   padding: 6px 5px 4px;
   width: 98%;
 }
-#hermesDeliverablesFormInputs .hermesLongField {
 
-}
 .hermesTimeFormDetails {
     padding-top: 7px;
 }
@@ -293,7 +292,8 @@ div.hermesTimeSliceOptions {
 /* Job and Deliverables pages */
 div.hermesJobTypeListName, div.hermesJobTypeListBillable, div.hermesJobTypeListEnabled,
 div.hermesJobTypeListRate, div.hermesJobTypeListOptions, div.hermesDeliverablesName,
-div.hermesDeliverablesActive, div.hermesDeliverablesEstimate, div.hermesDeliverablesDesc {
+div.hermesDeliverablesActive, div.hermesDeliverablesEstimate, div.hermesDeliverablesDesc,
+div.hermesDeliverablesOptions {
     float: left;
     white-space: pre-wrap;
     overflow: hidden;
