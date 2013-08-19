@@ -413,6 +413,8 @@ class Horde_Smtp implements Serializable
      */
     public function send($from, $to, $data, array $opts = array())
     {
+        $this->login();
+
         if (!($from instanceof Horde_Mail_Rfc822_Address)) {
             $from = new Horde_Mail_Rfc822_Address($from);
         }
@@ -507,6 +509,8 @@ class Horde_Smtp implements Serializable
      */
     public function resetCmd()
     {
+        $this->login();
+
         // See RFC 5321 [4.1.1.5].
         // RSET only useful if we are already authenticated.
         if (!is_null($this->_extensions)) {
@@ -522,6 +526,8 @@ class Horde_Smtp implements Serializable
      */
     public function noop()
     {
+        $this->login();
+
         // See RFC 5321 [4.1.1.9].
         // NOOP only useful if we are already authenticated.
         if (!is_null($this->_extensions)) {
