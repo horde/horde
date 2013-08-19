@@ -1,0 +1,21 @@
+======================
+ Upgrading Horde_Smtp
+======================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between releases of the package.
+
+
+Upgrading to 1.1.0
+===================
+
+  - Horde_Smtp
+
+    - Constructor
+
+      Added the 'xoauth2_token' parameter.

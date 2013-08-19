@@ -29,6 +29,8 @@
  *   - RFC 5321: Simple Mail Transfer Protocol
  *   - RFC 6152/STD 71: 8bit-MIMEtransport
  *   - RFC 6409/STD 72: Message Submission for Mail
+ *
+ *   - XOAUTH2: https://developers.google.com/gmail/xoauth2_protocol
  * </pre>
  *
  * TODO:
@@ -125,6 +127,11 @@ class Horde_Smtp implements Serializable
      *  <li>
      *   username: (string) The SMTP username.
      *             DEFAULT: NONE
+     *  </li>
+     *  <li>
+     *   xoauth2_token: (string) If set, will authenticate via the XOAUTH2
+     *                  mechanism (if available) with this token (since
+     *                  1.1.0).
      *  </li>
      * </ul>
      */
@@ -360,7 +367,15 @@ class Horde_Smtp implements Serializable
             return;
         }
 
-        foreach (array_map('trim', explode(' ', $auth)) as $method) {
+        $auth = array_flip(array_map('trim', explode(' ', $auth)));
+
+        // XOAUTH2
+        if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
+            unset($auth['XOAUTH2']);
+            $auth = array('XOAUTH2' => true) + $auth;
+        }
+
+        foreach (array_keys($auth) as $method) {
             try {
                 $this->_auth($method);
                 return;
@@ -652,6 +667,25 @@ class Horde_Smtp implements Serializable
                 false
             );
             $this->_debug->raw($debug);
+            break;
+
+        case 'XOAUTH2':
+            // Google XOAUTH2
+            $this->_connection->write(
+                'AUTH ' . $method . ' ' . $this->getParam('xoauth2_token'),
+                false
+            );
+            $this->_debug->raw($debug);
+            try {
+                $this->_getResponse(235);
+                return;
+            } catch (Horde_Smtp_Exception $e) {
+                switch ($e->getSmtpCode()) {
+                case 334:
+                    $this->_connection->write('');
+                    break;
+                }
+            }
             break;
 
         default:
