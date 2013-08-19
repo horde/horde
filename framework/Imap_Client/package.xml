@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-16</date>
- <time>12:48:06</time>
+ <date>2013-08-19</date>
+ <time>13:42:26</time>
  <version>
   <release>2.13.0</release>
   <api>2.13.0</api>
@@ -1914,7 +1914,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-16</date>
+   <date>2013-08-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression in POP3 SASL PLAIN authentication command.
