@@ -1,6 +1,6 @@
 <div id="hermesViewAdminjobs" style="display:none;">
 
-  <div class="header"><?php echo _("Job Types")?></div><br />
+  <div class="header"><span class="horde-collapse" id="hermesJobTypesFormCollapse"><?php echo _("Job Types")?></div>
   <form id="hermesJobForm" action="">
     <div id="hermesJobFormInputs">
       <input type="hidden" id="hermesJobFormId" name="job_id" />

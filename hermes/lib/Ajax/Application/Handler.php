@@ -62,7 +62,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      *   - active: (boolean)    Is the deliverable active?
      *   - estimate: (integer)  The estimate for this deliverable.
      *   - desc: (string)       The description.
-     *   - client: (string)     The client id this deliverable is for.
+     *   - client_id: (string)     The client id this deliverable is for.
      */
     public function updateDeliverable()
     {
@@ -72,7 +72,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
             'active' => $this->vars->active == 'on',
             'estimate' => $this->vars->estimate,
             'description' => $this->vars->desc,
-            'client_id' => $this->vars->client);
+            'client_id' => $this->vars->client_id);
 
         try {
             $result = $GLOBALS['injector']

@@ -1,7 +1,8 @@
 <div id="hermesViewAdmindeliverables" style="display:none;">
+<div class="header"><span class="horde-collapse" id="hermesDeliverablesFormCollapse"><?php echo _("Deliverables")?></span></div>
 <form id="hermesDeliverablesForm" action="">
-    <div class="header"><?php echo _("Deliverables")?><?php echo Hermes::getClientSelect('hermesDeliverablesClientSelect');?></div><br />
     <div id="hermesDeliverablesFormInputs">
+      <input type="hidden" id="hermesDeliverablesClient" name="client_id" />
       <input type="hidden" id="hermesDeliverablesId" name="deliverable_id" />
       <label for="hermesDeliverablesFormName"><?php echo _("Name") ?>*
         <input type="text" name="name" id="hermesDeliverablesFormName" />
@@ -22,6 +23,7 @@
       </div>
     </div>
   </form>
+  <div class="header"><?php echo Hermes::getClientSelect('hermesDeliverablesClientSelect');?></div>
   <div id="hermesDeliverablesListHeader">
     <div class="hermesDeliverablesName hermesBorderLeft"><?php echo _("Name") ?></div>
     <div class="hermesDeliverablesActive hermesBorderLeft"><?php echo _("Active") ?></div>

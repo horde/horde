@@ -472,7 +472,7 @@ HermesCore = {
         if ($('hermesTimeFormEmployee')) {
             $('hermesTimeFormEmployee').setValue(slice.e);
         }
-        $('hordeTimeFormCollapse').update(Hermes.text.edittime);
+        $('hermesTimeFormCollapse').update(Hermes.text.edittime);
 
         // We might be on the search form when we click edit.
         this.fromSearch = (this.view == 'search');
@@ -786,6 +786,7 @@ HermesCore = {
     saveDeliverables: function()
     {
         var params = $H($('hermesDeliverablesForm').serialize({ hash: true }));
+        params.set('client_id', $F('hermesDeliverablesClientSelect'));
         HordeCore.doAction('updateDeliverable',
             params,
             { 'callback': this.saveDeliverableCallback.bind(this) }
@@ -939,7 +940,7 @@ HermesCore = {
             );
         }
         $('hermesTimeSaveAsNew').hide();
-        $('hordeTimeFormCollapse').update(Hermes.text.timeentry);
+        $('hermesTimeFormCollapse').update(Hermes.text.timeentry);
     },
 
     /**
