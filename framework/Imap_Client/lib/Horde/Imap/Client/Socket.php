@@ -202,12 +202,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
-        /* Assume capabilities are additive. */
-        $c = empty($this->_init['capability'])
-            ? array()
-            : $this->_init['capability'];
-
-        $pipeline->data['capabilties_set'] = true;
+        $c = array();
 
         foreach ($data as $val) {
             $cap_list = explode('=', $val);
@@ -656,17 +651,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         }
 
-        $pipeline = $this->_pipeline($cmd);
-
-        /* Set a flag indicating whether we have received a CAPABILITY
-         * response after we successfully login. Since capabilities may
-         * be different after login, we need to merge this information into
-         * the current CAPABILITY array (since some servers, e.g. Cyrus,
-         * may not include authentication capabilities that are still
-         * needed in the event this object is eventually serialized). */
-        $pipeline->data['in_login'] = true;
-
-        return $this->_sendCmd($pipeline);
+        return $this->_sendCmd($this->_pipeline($cmd));
     }
 
     /**
@@ -700,7 +685,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* If we logged in for first time, and server did not return
          * capability information, we need to mark for retrieval. */
-        if ($firstlogin && empty($resp['capabilities_set'])) {
+        if ($firstlogin && empty($this->_init['capability'])) {
             $this->_setInit('capability');
         }
 

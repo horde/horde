@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix regression in retrieving CAPABILITY information after we login.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1914,7 +1914,7 @@
    <date>2013-08-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix regression in retrieving CAPABILITY information after we login.
    </notes>
   </release>
  </changelog>
