@@ -1070,9 +1070,18 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     public function resolveIds(Horde_Imap_Client_Mailbox $mailbox,
                                Horde_Imap_Client_Ids $ids, $convert = 0)
     {
-        return (!$ids->special && (!$convert || (!$ids->sequence && ($convert == 1)) || $ids->isEmpty()))
-            ? clone $ids
-            : $this->getIdsOb($this->_getSeqIds($ids));
+        if (!$ids->special &&
+            (!$convert ||
+             (!$ids->sequence && ($convert == 1)) ||
+             $ids->isEmpty())) {
+            return clone $ids;
+         }
+
+         $uids = $this->_pop3Cache('uidl');
+
+         return $this->getIdsOb(
+             $ids->all ? array_values($uids) : array_intersect($uids, $ids->ids)
+         );
     }
 
     /* Internal functions. */

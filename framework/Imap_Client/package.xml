@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix regression in mapping message sequence numbers to UIDs when doing an &apos;all&apos; activity in POP3.
 * [mms] Added support for the Google XOAuth2 authentication mechanism for the IMAP Socket driver.
 * [mms] Fix regression in retrieving CAPABILITY information after we login.
  </notes>
@@ -1915,6 +1916,7 @@
    <date>2013-08-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix regression in mapping message sequence numbers to UIDs when doing an &apos;all&apos; activity in POP3.
 * [mms] Added support for the Google XOAuth2 authentication mechanism for the IMAP Socket driver.
 * [mms] Fix regression in retrieving CAPABILITY information after we login.
    </notes>
