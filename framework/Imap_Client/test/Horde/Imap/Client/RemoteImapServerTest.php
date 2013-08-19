@@ -40,6 +40,10 @@ class Horde_Imap_Client_RemoteImapServerTest extends Horde_Test_Case
             $this->markTestSkipped('Remote server authentication not configured.');
         }
 
+        if (empty($config['imapclient']['client_config']['username'])) {
+            $this->markTestSkipped('IMAP server test not enabled.');
+        }
+
         $this->test_mbox = $config['imapclient']['test_mbox'];
         $this->test_mbox_utf8 = $config['imapclient']['test_mbox_utf8'];
 

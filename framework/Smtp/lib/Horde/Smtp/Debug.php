@@ -72,11 +72,12 @@ class Horde_Smtp_Debug
     /**
      * Write client output to debug log.
      *
-     * @param string $msg  Debug message.
+     * @param string $msg   Debug message.
+     * @param boolean $eol  Output EOL?
      */
-    public function client($msg)
+    public function client($msg, $eol = true)
     {
-        $this->_write($msg . "\n", 'C: ');
+        $this->_write($msg . ($eol ? "\n" : ''), 'C: ');
     }
 
     /**

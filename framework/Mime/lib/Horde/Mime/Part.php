@@ -1701,6 +1701,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                     $encode |= self::ENCODE_8BIT;
                 }
             } catch (Horde_Mail_Exception $e) {}
+        } elseif ($mailer instanceof Horde_Mail_Transport_Smtphorde) {
+            try {
+                if ($mailer->getSMTPObject()->data_8bit) {
+                    $encode |= self::ENCODE_8BIT;
+                }
+            } catch (Horde_Mail_Exception $e) {}
         }
 
         $msg = $this->toString(array(

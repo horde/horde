@@ -22,6 +22,12 @@
       </div>
       <div class="horde-subnavi-point"><?php echo _("Job Types") ?></div>
     </div>
+    <div id="hermesNavAdmindeliverables" class="horde-subnavi">
+      <div class="horde-subnavi-icon">
+        <a class="icon"></a>
+      </div>
+      <div class="horde-subnavi-point"><?php echo _("Deliverables") ?></div>
+    </div>
   </div>
   <div class="horde-sidebar-split"></div>
   <?php endif; ?>

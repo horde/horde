@@ -159,22 +159,58 @@ class Horde_Smtp_Connection
     /**
      * Writes data to the output stream.
      *
-     * @param string $data    String data.
+     * @param mixed $data     String data (or array of string data), or a
+     *                        resource.
      * @param boolean $debug  Output debug data?
      *
      * @throws Horde_Smtp_Exception
      */
     public function write($data, $debug = true)
     {
-        if (fwrite($this->_stream, $data . "\r\n") === false) {
+        if (is_resource($data)) {
+            $this->_debug->client('', false);
+
+            while (!feof($data)) {
+                $chunk = fread($data, 8192);
+                $this->_debug->raw($chunk);
+
+                try {
+                    $this->_write($chunk);
+                } catch (Horde_Smtp_Exception $e) {
+                    $this->_debug->raw("\n");
+                    throw $e;
+                }
+            }
+
+            $this->_write("\r\n");
+            $this->_debug->raw("\n");
+        } else {
+            if (!is_array($data)) {
+                $data = array($data);
+            }
+
+            foreach ($data as $val) {
+                $this->_debug->client($val);
+            }
+
+            $this->_write(implode("\r\n", $data) . "\r\n");
+        }
+    }
+
+    /**
+     * Writes data to the output stream.
+     *
+     * @param string $data  String data.
+     *
+     * @throws Horde_Smtp_Exception
+     */
+    protected function _write($data)
+    {
+        if (fwrite($this->_stream, $data) === false) {
             throw new Horde_Smtp_Exception(
                 Horde_Smtp_Translation::t("Server write error."),
                 Horde_Smtp_Exception::SERVER_WRITEERROR
             );
-        }
-
-        if ($debug) {
-            $this->_debug->client($data);
         }
     }
 
