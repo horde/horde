@@ -61,6 +61,7 @@
  *   - RFC 2595/4616: PLAIN authentication
  *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
  *   - RFC 3206: AUTH/SYS response codes
+ *   - RFC 4616: AUTH=PLAIN
  *   - RFC 5034: POP3 SASL
  *
  * @author    Richard Heyes <richard@phpguru.org>
@@ -319,7 +320,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             break;
 
         case 'LOGIN':
-            // RFC 5034
+            // RFC 4616 (AUTH=PLAIN) & 5034 (POP3 SASL)
             $this->_sendLine('AUTH LOGIN');
             $this->_sendLine(base64_encode($username), array(
                 'debug' => sprintf('[AUTH LOGIN Command - username: %s]', $username)
@@ -331,7 +332,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         case 'PLAIN':
             // RFC 5034
-            $this->_sendLine('AUTH PLAIN ' . base64_encode(implode("\0", array($username, $this->getParam('password')))), array(
+            $this->_sendLine('AUTH PLAIN ' . base64_encode(implode("\0", array(
+                $username,
+                $username,
+                $password
+            ))), array(
                 'debug' => sprintf('[AUTH PLAIN Command - username: %s]', $username)
             ));
             break;
