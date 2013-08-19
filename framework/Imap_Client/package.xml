@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-19</date>
- <time>13:42:26</time>
+ <time>13:51:41</time>
  <version>
-  <release>2.13.0</release>
+  <release>2.13.1</release>
   <api>2.13.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix regression in POP3 SASL PLAIN authentication command.
-* [mms] Fix regression in mapping message sequence numbers to UIDs when doing an &apos;all&apos; activity in POP3.
-* [mms] Added support for the Google XOAuth2 authentication mechanism for the IMAP Socket driver.
-* [mms] Fix regression in retrieving CAPABILITY information after we login.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1921,6 +1918,19 @@
 * [mms] Fix regression in mapping message sequence numbers to UIDs when doing an &apos;all&apos; activity in POP3.
 * [mms] Added support for the Google XOAuth2 authentication mechanism for the IMAP Socket driver.
 * [mms] Fix regression in retrieving CAPABILITY information after we login.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.13.1</release>
+    <api>2.13.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
