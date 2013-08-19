@@ -29,7 +29,8 @@ html, body {
 }
 
 /* Main links */
-#hermesNavTime, #hermesNavSearch, #hermesNavAdminjobs, #hermesNavAdmindeliverables {
+#hermesNavTime, #hermesNavSearch, #hermesNavAdminjobs,
+#hermesNavAdmindeliverables {
     cursor: pointer;
 }
 #hermesNavTime a.icon {
