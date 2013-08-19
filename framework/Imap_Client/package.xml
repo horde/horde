@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added support for the Google XOAuth2 authentication mechanism for the IMAP Socket driver.
 * [mms] Fix regression in retrieving CAPABILITY information after we login.
  </notes>
  <contents>
@@ -1906,14 +1907,15 @@
   </release>
   <release>
    <version>
-    <release>2.12.4</release>
-    <api>2.12.0</api></version>
+    <release>2.13.0</release>
+    <api>2.13.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-08-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added support for the Google XOAuth2 authentication mechanism for the IMAP Socket driver.
 * [mms] Fix regression in retrieving CAPABILITY information after we login.
    </notes>
   </release>

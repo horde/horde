@@ -10,6 +10,16 @@
 
 This lists the API changes between releases of the package.
 
+Upgrading to 2.13.0
+===================
+
+  - Horde_Imap_Client_Socket
+
+    - Constructor
+
+      Added the 'xoauth2_token' parameter.
+
+
 Upgrading to 2.12.0
 ===================
 

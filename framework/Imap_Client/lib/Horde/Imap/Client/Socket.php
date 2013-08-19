@@ -76,6 +76,11 @@
  *    </li>
  *   </ul>
  *  </li>
+ *  <li>AUTH=XOAUTH2
+ *   <ul>
+ *    <li>https://developers.google.com/gmail/xoauth2_protocol</li>
+ *   </ul>
+ *  </li>
  * </ul>
  *
  * TODO (or not necessary?):
@@ -161,6 +166,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   - envelope_string: (integer) The maximum length of string fields
      *                      returned by the FETCH ENVELOPE command.
      *                      DEFAULT: 2048
+     *   - xoauth2_token: (string) If set, will authenticate via the XOAuth2
+     *                    mechanism (if available) with this token (since
+     *                    2.13.0).
      */
     public function __construct(array $params = array())
     {
@@ -380,6 +388,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $auth = array_flip($auth);
             }
 
+            // XOAuth2
+            if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
+                $auth_mech[] = 'XOAUTH2';
+                unset($auth['XOAUTH2']);
+            }
 
             // 'PLAIN' authentication always exists if under TLS. Use it over
             // all over authentication methods.
@@ -639,6 +652,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $authenticate_cmd = true;
             break;
 
+        case 'XOAUTH2':
+            // Google XOAuth2
+            $auth = $this->getParam('xoauth2_token');
+            $authenticate_cmd = true;
+            break;
+
         default:
             throw new Horde_Imap_Client_Exception(
                 sprintf(Horde_Imap_Client_Translation::t("Unknown authentication method: %s"), $method),
@@ -660,6 +679,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $cmd->debug = sprintf('[AUTHENTICATE Command - method: %s, username: %s]', $method, $username);
             }
 
+            /* This is an optional command continuation. E.g. XOAUTH2 will
+             * return error information in continuation response. */
             $error_continuation = new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) {
                 return new Horde_Imap_Client_Data_Format_List();
             });
