@@ -124,9 +124,15 @@ class Mnemo_Application extends Horde_Registry_Application
             ),
         );
         foreach (Mnemo::listNotepads() as $name => $notepad) {
+            $url->add(array(
+                'display_notepad' => $name,
+                'actionID' => in_array($name, $GLOBALS['display_notepads'])
+                    ? 'remove_displaylist'
+                    : 'add_displaylist'
+            ));
             $row = array(
                 'selected' => in_array($name, $GLOBALS['display_notepads']),
-                'url' => $url->add('display_notepad', $name),
+                'url' => $url,
                 'label' => Mnemo::getLabel($notepad),
                 'color' => $notepad->get('color') ?: '#dddddd',
                 'edit' => $edit->add('n', $notepad->getName()),

@@ -480,15 +480,18 @@ class Mnemo
         // user doesn't have any selected notepads for view then fall
         // back to some available notepad.
         $GLOBALS['display_notepads'] = unserialize($GLOBALS['prefs']->getValue('display_notepads'));
-        if (($notepadId = Horde_Util::getFormData('display_notepad')) !== null) {
-            if (is_array($notepadId)) {
-                $GLOBALS['display_notepads'] = $notepadId;
-            } else {
+        if (($actionID = Horde_Util::getFormData('actionID')) !== null) {
+            $notepadId = Horde_Util::getFormData('display_notepad');
+            switch ($actionID) {
+            case 'add_displaylist':
+                if (!in_array($notepadId, $GLOBALS['display_notepads'])) {
+                    $GLOBALS['display_notepads'][] = $notepadId;
+                }
+                break;
+            case 'remove_displaylist':
                 if (in_array($notepadId, $GLOBALS['display_notepads'])) {
                     $key = array_search($notepadId, $GLOBALS['display_notepads']);
                     unset($GLOBALS['display_notepads'][$key]);
-                } else {
-                    $GLOBALS['display_notepads'][] = $notepadId;
                 }
             }
         }

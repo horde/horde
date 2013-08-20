@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Make notepad checkbox links switches instead of toggles.
 * [jan] Replace categories with tags.
 * [jan] Convert to Horde_View.
  </notes>
@@ -1106,6 +1107,7 @@
    <date>2013-08-14</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Make notepad checkbox links switches instead of toggles.
 * [jan] Replace categories with tags.
 * [jan] Convert to Horde_View.
    </notes>
