@@ -287,7 +287,7 @@ MIME-Version: 1.0',
         );
 
         $this->assertEquals(
-            "<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>\n",
+            "<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>",
             $sent['body']
         );
 
@@ -528,7 +528,7 @@ id est laborum.
         $sent = str_replace("\r\n", "\n", $dummy->sentMessages[0]);
 
         $this->assertEquals(
-            "\n",
+            '',
             $sent['body']
         );
 

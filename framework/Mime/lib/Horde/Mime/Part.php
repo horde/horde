@@ -1716,21 +1716,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             'stream' => true
         ));
 
-        /* Make sure the message has a trailing newline. */
-        fseek($msg, -1, SEEK_END);
-        switch (fgetc($msg)) {
-        case "\r":
-            if (fgetc($msg) != "\n") {
-                fputs($msg, "\n");
-            }
-            break;
-
-        default:
-            fputs($msg, "\r\n");
-            break;
-        }
-        rewind($msg);
-
         /* Add MIME Headers if they don't already exist. */
         if (!$headers->getValue('MIME-Version')) {
             $headers = $this->addMimeHeaders(array('encode' => $encode, 'headers' => $headers));
