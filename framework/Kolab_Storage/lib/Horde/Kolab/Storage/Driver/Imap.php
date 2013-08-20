@@ -417,6 +417,17 @@ extends Horde_Kolab_Storage_Driver_Base
                 $query,
                 array('ids' => new Horde_Imap_Client_Ids($uid))
             );
+
+            if (!isset($ret[$uid])) {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        Horde_Kolab_Storage_Translation::t(
+                            "Failed fetching message %s in folder %s."
+                        ), $uid, $folder
+                    )
+                );
+            }
+
             $msg = $ret[$uid]->getFullMsg();
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);
