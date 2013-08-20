@@ -1,8 +1,8 @@
 <script type="text/javascript">
 function table_sortCallback(tableId, column, sortDown)
 {
-    HordeCore.doAction('setPrefValue', { pref: 'sortby', value: 'column' }); 
-    HordeCore.doAction('setPrefValue', { pref: 'sortdir', value: 'sortDown' }); 
+    HordeCore.doAction('setPrefValue', { pref: 'sortby', value: column }); 
+    HordeCore.doAction('setPrefValue', { pref: 'sortdir', value: sortDown }); 
 }
 </script>
 
