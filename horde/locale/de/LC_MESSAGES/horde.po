@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
-"PO-Revision-Date: 2013-07-16 21:35+0200\n"
+"POT-Creation-Date: 2013-08-20 17:52+0200\n"
+"PO-Revision-Date: 2013-08-20 18:11+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -191,7 +191,7 @@ msgstr ""
 msgid "A newer version (%s) exists."
 msgstr "Eine neuere Version (%s) existiert."
 
-#: lib/Prefs/Special/Activesync.php:74
+#: lib/Prefs/Special/Activesync.php:76
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -224,7 +224,7 @@ msgstr "ActiveSync"
 msgid "ActiveSync Device Administration"
 msgstr "ActiveSync-Geräteverwaltung"
 
-#: admin/activesync.php:199 lib/Api.php:93
+#: admin/activesync.php:196 lib/Api.php:93
 msgid "ActiveSync Devices"
 msgstr "ActiveSync-Geräte"
 
@@ -334,7 +334,7 @@ msgstr "Angemeldete Benutzer"
 msgid "All policy keys successfully reset."
 msgstr "Alle Richtlinien-Schlüssel wurden zurückgesetzt."
 
-#: lib/Prefs/Special/Activesync.php:87
+#: lib/Prefs/Special/Activesync.php:91
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -459,9 +459,9 @@ msgstr "Es wurde versucht, ein nicht existierendes Recht zu bearbeiten."
 msgid "Attempt to edit a non-existent share."
 msgstr "Es wurde versucht, ein nicht existierendes Recht zu bearbeiten."
 
-#: templates/admin/sessions.html.php:27
-msgid "Authenticated to"
-msgstr "Authentifiziert für"
+#: templates/admin/sessions.html.php:11
+msgid "Authenticated Apps"
+msgstr "Authentifizierte Anwendungen"
 
 #: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
 #: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:62
@@ -525,7 +525,7 @@ msgstr "Beides"
 msgid "Bottom"
 msgstr "Unten"
 
-#: templates/admin/sessions.html.php:19
+#: templates/admin/sessions.html.php:9
 msgid "Browser"
 msgstr "Browser"
 
@@ -546,7 +546,7 @@ msgstr "Abbrechen"
 msgid "Cancel Problem Report"
 msgstr "Problembericht abbrechen"
 
-#: admin/activesync.php:184 templates/prefs/activesync.html.php:33
+#: admin/activesync.php:181 templates/prefs/activesync.html.php:33
 msgid "Cancel Wipe"
 msgstr "Löschen abbrechen"
 
@@ -675,8 +675,7 @@ msgstr "Wolken"
 msgid "Codeword frequency"
 msgstr "Codewort-Häufigkeit"
 
-#: lib/View/Sidebar.php:65 templates/admin/sessions.html.php:9
-#: templates/sidebar/_container.html.php:14
+#: lib/View/Sidebar.php:65 templates/sidebar/_container.html.php:14
 msgid "Collapse"
 msgstr "Schließen"
 
@@ -855,7 +854,7 @@ msgstr "Aktuelle Alarme"
 msgid "Current Locks"
 msgstr "Aktuelle Sperren"
 
-#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:35
+#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:27
 msgid "Current Sessions"
 msgstr "Aktuelle Sessions"
 
@@ -1013,7 +1012,7 @@ msgstr "Geräteverschlüsselung"
 msgid "Device is Wiped"
 msgstr "Gerät wurde gelöscht"
 
-#: admin/activesync.php:168
+#: admin/activesync.php:165
 msgid "Device is wiped"
 msgstr "Gerät wurde gelöscht"
 
@@ -1221,8 +1220,7 @@ msgstr "Beispielwerte:"
 msgid "Execute"
 msgstr "Ausführen"
 
-#: lib/View/Sidebar.php:66 templates/admin/sessions.html.php:8
-#: templates/sidebar/_container.html.php:14
+#: lib/View/Sidebar.php:66 templates/sidebar/_container.html.php:14
 msgid "Expand"
 msgstr "Vergrößern"
 
@@ -1686,10 +1684,21 @@ msgstr "Das Anzeigen der Alarme ist fehlgeschlagen: %s"
 msgid "Listing locks failed: %s"
 msgstr "Das Anzeigen der Sperren ist fehlgeschlagen: %s"
 
-#: templates/admin/sessions.html.php:37
+#: templates/admin/sessions.html.php:29
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
+
+#: templates/admin/user/listfail.inc:5
+#, php-format
+msgid "Listing users failed with this error message: %s"
+msgstr ""
+"Das Anzeigen der Benutzer ist mit der folgenden Fehlermeldung "
+"fehlgeschlagen: %s"
+
+#: templates/admin/user/listfail.inc:2
+msgid "Listing users failed."
+msgstr "Das Anzeigen der Benutzer ist fehlgeschlagen."
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
@@ -2071,7 +2080,7 @@ msgstr "Nordisch (ISO-8859-10)"
 msgid "Northern Hemisphere"
 msgstr "Nördliche Hemisphere"
 
-#: admin/activesync.php:172 templates/prefs/activesync.html.php:37
+#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
 msgid "Not Provisioned"
 msgstr "Nicht verknüpft"
 
@@ -2331,7 +2340,7 @@ msgstr "Resource"
 msgid "Problem Description"
 msgstr "Problembeschreibung"
 
-#: admin/activesync.php:172 templates/prefs/activesync.html.php:37
+#: admin/activesync.php:169 templates/prefs/activesync.html.php:37
 msgid "Provisioned"
 msgstr "Verknüpft"
 
@@ -2407,11 +2416,11 @@ msgstr "Reguläre Apps"
 msgid "Remarks"
 msgstr "Bemerkungen"
 
-#: templates/admin/sessions.html.php:23
+#: templates/admin/sessions.html.php:10
 msgid "Remote Host"
 msgstr "Entfernter Rechner"
 
-#: admin/activesync.php:186 templates/admin/groups/edit.inc:25
+#: admin/activesync.php:183 templates/admin/groups/edit.inc:25
 #: templates/admin/user/approve.inc:41
 #: templates/admin/user/removequeued.inc:13
 #: templates/prefs/activesync.html.php:39
@@ -2666,11 +2675,11 @@ msgstr "Sensor: "
 msgid "Server Time"
 msgstr "Serverzeit"
 
-#: admin/sessions.php:69
+#: admin/sessions.php:67
 msgid "Session Administration"
 msgstr "Sitzungsverwaltung"
 
-#: templates/admin/sessions.html.php:15
+#: templates/admin/sessions.html.php:8
 msgid "Session Timestamp"
 msgstr "Sitzungs-Zeitstempel"
 
@@ -2950,7 +2959,7 @@ msgstr ""
 msgid "Thai (TIS-620)"
 msgstr "Thailändisch (TIS-620)"
 
-#: lib/Prefs/Special/Activesync.php:78
+#: lib/Prefs/Special/Activesync.php:82
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr ""
@@ -3022,7 +3031,7 @@ msgstr "Die Registrierungsanfrage von \"%s\" wurde entfernt."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Die Registrierungsanfrage von \"%s\" wurde entfernt."
 
-#: lib/Prefs/Special/Activesync.php:93
+#: lib/Prefs/Special/Activesync.php:97
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -3071,7 +3080,7 @@ msgstr "Beim Löschen von \"%s\" aus dem System ist ein Problem aufgetreten: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Beim Aktualisieren von \"%s\" ist ein Problem aufgetreten: %s"
 
-#: lib/Prefs/Special/Activesync.php:96
+#: lib/Prefs/Special/Activesync.php:100
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
@@ -3301,7 +3310,7 @@ msgstr ""
 "Server haben."
 
 #: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
-#: templates/admin/locks/list.html.php:12
+#: templates/admin/locks/list.html.php:12 templates/admin/sessions.html.php:7
 msgid "User"
 msgstr "Benutzer"
 
@@ -3467,7 +3476,7 @@ msgstr "Windgeschwindigtkeit in Knoten"
 msgid "Wind:"
 msgstr "Wind:"
 
-#: admin/activesync.php:182 templates/prefs/activesync.html.php:29
+#: admin/activesync.php:179 templates/prefs/activesync.html.php:29
 msgid "Wipe"
 msgstr "Löschen"
 
@@ -3475,7 +3484,7 @@ msgstr "Löschen"
 msgid "Wipe Pending"
 msgstr "Löschung steht an"
 
-#: admin/activesync.php:163
+#: admin/activesync.php:160
 msgid "Wipe is pending"
 msgstr "Löschung steht an"
 
