@@ -360,13 +360,11 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         // @todo: Condstore
         try {
-            // Close mailbox so we get fresh data from the IMAP server
-            $this->getBackend()->close();
-
             return $this->getBackend()->status(
                 $folder,
                 Horde_Imap_Client::STATUS_UIDNEXT |
-                Horde_Imap_Client::STATUS_UIDVALIDITY
+                Horde_Imap_Client::STATUS_UIDVALIDITY |
+                Horde_Imap_Client::STATUS_FORCE_REFRESH
             );
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);
