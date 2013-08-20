@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix DIGEST-MD5 authentication method.
 * [mms] Added support for the Google XOAuth2 authentication mechanism.
 * [jan] Fix detecting if connection to SMTP server fails.
  </notes>
@@ -162,6 +163,7 @@
    <date>2013-08-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix DIGEST-MD5 authentication method.
 * [mms] Added support for the Google XOAuth2 authentication mechanism.
 * [jan] Fix detecting if connection to SMTP server fails.
    </notes>

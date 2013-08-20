@@ -633,7 +633,7 @@ class Horde_Smtp implements Serializable
             $this->_connection->write(
                 base64_encode(new Horde_Imap_Client_Auth_DigestMD5(
                     $user,
-                    $password,
+                    $pass,
                     base64_decode(reset($resp)),
                     $this->getParam('hostspec'),
                     'smtp'
