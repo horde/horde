@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix generating the most recent changes.
 * [jan] Request CAPTCHA when creating pages too.
  </notes>
  <contents>
@@ -969,6 +970,7 @@
    <date>2013-07-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix generating the most recent changes.
 * [jan] Request CAPTCHA when creating pages too.
    </notes>
   </release>

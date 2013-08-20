@@ -1817,7 +1817,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.6.2</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3737,7 +3737,7 @@
    <date>2013-08-05</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* [mjr] Add support for managing ActiveSync devices through the API.
+* [mms] Allow non-authenticated AJAX actions to be defined.
 * [mms] Improved session administration UI (Request #12515).
 * [jan] Make "Others" and cogwheel menu entry available on iOS (Bug #11937).
    </notes>

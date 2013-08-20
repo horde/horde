@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H5 (2.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"POT-Creation-Date: 2013-08-20 17:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Create %s"
 msgstr ""
 
-#: lib/Page/NewPage.php:133
+#: lib/Page/NewPage.php:148
 #, php-format
 msgid "Create Failed: %s"
 msgstr ""
@@ -240,12 +240,12 @@ msgstr ""
 msgid "Diff for %s between %s and %s"
 msgstr ""
 
-#: lib/Page.php:591
+#: lib/Page.php:590
 #, php-format
 msgid "Display %s"
 msgstr ""
 
-#: lib/Page.php:597 lib/Page/StandardPage.php:384
+#: lib/Page.php:596 lib/Page/StandardPage.php:384
 #, php-format
 msgid "Display Version %s"
 msgstr ""
@@ -349,7 +349,7 @@ msgstr ""
 msgid "Last Author"
 msgstr ""
 
-#: lib/Page.php:359 lib/Page/EditPage.php:113
+#: lib/Page.php:360 lib/Page/EditPage.php:113
 #, php-format
 msgid "Last Modified %s by %s"
 msgstr ""
@@ -366,7 +366,7 @@ msgstr ""
 msgid "Least Popular"
 msgstr ""
 
-#: lib/Page.php:378 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:127
+#: lib/Page.php:377 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:127
 #: lib/Page/RevertPage.php:86
 msgid "Locked"
 msgstr ""
@@ -407,7 +407,7 @@ msgstr ""
 msgid "Never"
 msgstr ""
 
-#: lib/Page/NewPage.php:108
+#: lib/Page/NewPage.php:116
 msgid "New Page"
 msgstr ""
 
@@ -443,7 +443,7 @@ msgstr ""
 msgid "Page \"%s\" already exists."
 msgstr ""
 
-#: lib/Page/NewPage.php:131
+#: lib/Page/NewPage.php:146
 msgid "Page Created"
 msgstr ""
 
@@ -489,7 +489,7 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: lib/Page/NewPage.php:125
+#: lib/Page/NewPage.php:140
 msgid "Pages cannot be empty."
 msgstr ""
 
@@ -505,15 +505,15 @@ msgstr ""
 msgid "Plain Text"
 msgstr ""
 
-#: templates/edit/new.html.php:17 templates/edit/standard.html.php:30
+#: templates/edit/new.html.php:25 templates/edit/standard.html.php:30
 msgid "Preview"
 msgstr ""
 
-#: lib/Page/EditPage.php:199
+#: lib/Page/EditPage.php:199 lib/Page/NewPage.php:134
 msgid "Random string did not match."
 msgstr ""
 
-#: lib/Page/RecentChanges.php:120
+#: lib/Page/RecentChanges.php:121
 msgid "Recent Changes"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Reload History"
 msgstr ""
 
-#: lib/Page.php:375 lib/Page.php:376
+#: lib/Page.php:374 lib/Page.php:375
 msgid "Reload Page"
 msgstr ""
 
@@ -580,7 +580,7 @@ msgstr ""
 msgid "S_imilar Pages"
 msgstr ""
 
-#: templates/edit/new.html.php:16 templates/edit/standard.html.php:29
+#: templates/edit/new.html.php:24 templates/edit/standard.html.php:29
 msgid "Save"
 msgstr ""
 
@@ -592,12 +592,12 @@ msgstr ""
 msgid "Search Results"
 msgstr ""
 
-#: lib/Page.php:357 lib/Page/RecentChanges.php:68
+#: lib/Page.php:358 lib/Page/RecentChanges.php:69
 #, php-format
 msgid "Show changes for %s"
 msgstr ""
 
-#: lib/Page/RecentChanges.php:75
+#: lib/Page/RecentChanges.php:76
 #, php-format
 msgid "Show version %s"
 msgstr ""
@@ -607,7 +607,7 @@ msgstr ""
 msgid "Similar Pages: %s"
 msgstr ""
 
-#: templates/edit/standard.html.php:22
+#: templates/edit/new.html.php:17 templates/edit/standard.html.php:22
 msgid "Spam Protection - Enter the following letters below:"
 msgstr ""
 
@@ -629,7 +629,7 @@ msgstr ""
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr ""
 
-#: lib/Page.php:521
+#: lib/Page.php:520
 msgid "Table of Contents"
 msgstr ""
 
@@ -673,10 +673,10 @@ msgstr ""
 msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr ""
 
-#: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:413
-#: lib/Page.php:421 lib/Page.php:429 lib/Page.php:437 lib/Page.php:571
-#: lib/Page.php:610 lib/Page.php:615 lib/Page.php:620 lib/Page.php:625
-#: lib/Page.php:665
+#: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:412
+#: lib/Page.php:420 lib/Page.php:428 lib/Page.php:436 lib/Page.php:570
+#: lib/Page.php:609 lib/Page.php:614 lib/Page.php:619 lib/Page.php:624
+#: lib/Page.php:664
 msgid "Unsupported"
 msgstr ""
 
@@ -729,7 +729,7 @@ msgstr ""
 msgid "You do not have permission to edit \"%s\""
 msgstr ""
 
-#: lib/Page/NewPage.php:121
+#: lib/Page/NewPage.php:129
 #, php-format
 msgid "You don't have permission to create \"%s\"."
 msgstr ""

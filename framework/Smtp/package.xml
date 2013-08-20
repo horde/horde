@@ -10,18 +10,20 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-08</date>
+ <date>2013-08-19</date>
  <version>
-  <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Initial release.
+* [mms] Fix DIGEST-MD5 authentication method.
+* [mms] Added support for the Google XOAuth2 authentication mechanism.
+* [jan] Fix detecting if connection to SMTP server fails.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -29,6 +31,7 @@
     <dir name="Horde">
      <dir name="Smtp">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Smtp -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -119,6 +122,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Smtp/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Smtp/UPGRADING" />
    <install as="Horde/Smtp.php" name="lib/Horde/Smtp.php" />
    <install as="Horde/Smtp/Connection.php" name="lib/Horde/Smtp/Connection.php" />
    <install as="Horde/Smtp/Debug.php" name="lib/Horde/Smtp/Debug.php" />
@@ -136,17 +140,32 @@
  <changelog>
   <release>
    <version>
-    <release>1.0.0alpha1</release>
-    <api>1.0.0alpha1</api>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2013-08-08</date>
+   <date>2013-08-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Initial release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix DIGEST-MD5 authentication method.
+* [mms] Added support for the Google XOAuth2 authentication mechanism.
+* [jan] Fix detecting if connection to SMTP server fails.
    </notes>
   </release>
  </changelog>

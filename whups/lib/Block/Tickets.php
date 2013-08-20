@@ -48,6 +48,7 @@ class Whups_Block_Tickets extends Horde_Core_Block
             $tableId = get_class($this);
         }
 
+        $columns = isset($this->_params['columns']) ? $this->_params['columns'] : null;
         $sortby = $GLOBALS['prefs']->getValue('sortby');
         $sortdirclass = ' class="' . ($GLOBALS['prefs']->getValue('sortdir') ? 'sortup' : 'sortdown') . '"';
         $html = '<thead><tr><th' . ($sortby == 'id' ? $sortdirclass : '') . '>' . _("Id") . '</th>';
@@ -61,7 +62,7 @@ class Whups_Block_Tickets extends Horde_Core_Block
 
         Whups::sortTickets($tickets);
         foreach ($tickets as $ticket) {
-            foreach (Whups::getSearchResultColumns('block', $this->_params['columns']) as $column) {
+            foreach (Whups::getSearchResultColumns('block', $columns) as $column) {
                 $thevalue = Whups::formatColumn($ticket, $column);
                 $sortval = '';
                 if ($column == 'timestamp' || $column == 'due' ||
