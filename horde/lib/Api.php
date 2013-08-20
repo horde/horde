@@ -694,8 +694,10 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception($e);
         }
         foreach ($devices as $key => &$device) {
+            $device['device_properties'] = unserialize($device['device_properties']);
             $device['last_synctime'] = new Horde_Date($state->getLastSyncTimestamp($device['device_id']));
             $device['last_synctime']->setTimezone('UTC');
+            $device['last_synctime'] = $device['last_synctime']->format('r');
         }
 
         return $devices;
