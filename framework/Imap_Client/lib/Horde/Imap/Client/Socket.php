@@ -197,14 +197,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      * Parse a CAPABILITY Response (RFC 3501 [7.2.1]).
      *
-     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  Pipeline
-     *                                                          object.
      * @param array $data  An array of CAPABILITY strings.
      */
-    protected function _parseCapability(
-        Horde_Imap_Client_Interaction_Pipeline $pipeline,
-        $data
-    )
+    protected function _parseCapability($data)
     {
         if (!empty($this->_temp['no_cap'])) {
             return;
@@ -4144,7 +4139,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * line. */
         switch ($first = strtoupper($token->current())) {
         case 'CAPABILITY':
-            $this->_parseCapability($pipeline, $token->flushIterator());
+            $this->_parseCapability($token->flushIterator());
             break;
 
         case 'LIST':
@@ -4328,7 +4323,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
 
         case 'CAPABILITY':
-            $this->_parseCapability($pipeline, $rc->data);
+            $this->_parseCapability($rc->data);
             break;
 
         case 'PARSE':
