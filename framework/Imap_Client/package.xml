@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-20</date>
- <time>11:09:04</time>
+ <time>11:18:00</time>
  <version>
-  <release>2.13.1</release>
+  <release>2.13.2</release>
   <api>2.13.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix regression in setting CAPABILITY for IMAP servers that don&apos;t automatically send this information after login.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1931,6 +1931,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression in setting CAPABILITY for IMAP servers that don&apos;t automatically send this information after login.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.13.2</release>
+    <api>2.13.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
