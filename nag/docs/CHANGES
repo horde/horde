@@ -2,6 +2,7 @@
 v4.1.2-git
 ----------
 
+[jan] Fix highlighting task type tabs in list view.
 [jan] Fix fatal errors if DAV support is disabled (Bug #12481).
 [mjr] Fix requesting changes by modification sequence (Bug #12507, Thomas
       Jarosch <thomas.jarosch@intra2net.com>).
