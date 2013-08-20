@@ -166,7 +166,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   - envelope_string: (integer) The maximum length of string fields
      *                      returned by the FETCH ENVELOPE command.
      *                      DEFAULT: 2048
-     *   - xoauth2_token: (string) If set, will authenticate via the XOAuth2
+     *   - xoauth2_token: (string) If set, will authenticate via the XOAUTH2
      *                    mechanism (if available) with this token (since
      *                    2.13.0).
      */
@@ -388,7 +388,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $auth = array_flip($auth);
             }
 
-            // XOAuth2
+            // XOAUTH2
             if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
                 $auth_mech[] = 'XOAUTH2';
                 unset($auth['XOAUTH2']);
@@ -653,7 +653,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'XOAUTH2':
-            // Google XOAuth2
+            // Google XOAUTH2
             $auth = $this->getParam('xoauth2_token');
             $authenticate_cmd = true;
             break;
