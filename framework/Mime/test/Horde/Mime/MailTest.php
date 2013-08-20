@@ -51,7 +51,7 @@ class Horde_Mime_MailTest extends PHPUnit_Framework_TestCase
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 5
+User-Agent: Horde Application Framework %d
 Date: %s, %d %s %d %d:%d:%d %s
 Content-Type: text/plain; charset=iso-8859-15; format=flowed; DelSp=Yes
 MIME-Version: 1.0',
@@ -89,7 +89,7 @@ MIME-Version: 1.0',
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 5
+User-Agent: Horde Application Framework %d
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/plain; charset=iso-8859-15; format=flowed; DelSp=Yes
 MIME-Version: 1.0',
@@ -129,7 +129,7 @@ To: =?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>
 From: sender@example.com
 Cc: Der =?iso-8859-1?b?c2No9m5l?= Peter <peter@example.com>
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 5
+User-Agent: Horde Application Framework %d
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/plain; charset=iso-8859-1; format=flowed; DelSp=Yes
 MIME-Version: 1.0
@@ -185,7 +185,7 @@ Content-Transfer-Encoding: quoted-printable',
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 5
+User-Agent: Horde Application Framework %d
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: multipart/mixed; boundary="=_%s"
 MIME-Version: 1.0',
@@ -242,7 +242,7 @@ bHRlciBEZWljaC4K
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 5
+User-Agent: Horde Application Framework %d
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/plain; charset=iso-8859-1; format=flowed; DelSp=Yes
 MIME-Version: 1.0',
@@ -279,7 +279,7 @@ MIME-Version: 1.0',
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 5
+User-Agent: Horde Application Framework %d
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/html; charset=iso-8859-1
 MIME-Version: 1.0',
@@ -313,7 +313,7 @@ MIME-Version: 1.0',
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 5
+User-Agent: Horde Application Framework %d
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: multipart/alternative; boundary="=_%s"
 MIME-Version: 1.0',
@@ -374,7 +374,7 @@ Content-Description: HTML Version of Message
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 5
+User-Agent: Horde Application Framework %d
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: multipart/mixed; boundary="=_%s"
 MIME-Version: 1.0',
@@ -487,7 +487,7 @@ end
 To: recipient@example.com
 From: foo@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 5
+User-Agent: Horde Application Framework %d
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed; DelSp=Yes
 MIME-Version: 1.0',
