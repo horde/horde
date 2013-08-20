@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Smtp \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-08 00:11-0600\n"
+"POT-Creation-Date: 2013-08-20 17:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Smtp/Exception.php:109
+#: lib/Horde/Smtp/Exception.php:106
 msgid "Could not open secure TLS connection to the server."
 msgstr ""
 
@@ -25,42 +25,38 @@ msgstr ""
 msgid "Error connecting to SMTP server."
 msgstr ""
 
-#: lib/Horde/Smtp/Connection.php:202
+#: lib/Horde/Smtp/Connection.php:237
 msgid "Error when communicating with the server."
 msgstr ""
 
-#: lib/Horde/Smtp/Exception.php:104
+#: lib/Horde/Smtp/Exception.php:101
 msgid "Insufficient system storage."
 msgstr ""
 
-#: lib/Horde/Smtp/Exception.php:99
+#: lib/Horde/Smtp/Exception.php:96
 msgid "Mailbox unavailable."
 msgstr ""
 
-#: lib/Horde/Smtp.php:365
-msgid "No supported authentication method could be found."
-msgstr ""
-
-#: lib/Horde/Smtp/Connection.php:194
+#: lib/Horde/Smtp/Connection.php:229
 msgid "Server closed the connection unexpectedly."
 msgstr ""
 
-#: lib/Horde/Smtp.php:379
+#: lib/Horde/Smtp.php:387
 msgid "Server denied authentication."
 msgstr ""
 
-#: lib/Horde/Smtp.php:567
+#: lib/Horde/Smtp.php:573
 msgid "Server does not support TLS connections."
 msgstr ""
 
-#: lib/Horde/Smtp/Exception.php:127
+#: lib/Horde/Smtp/Exception.php:124
 msgid "Server is not accepting SMTP connections."
 msgstr ""
 
-#: lib/Horde/Smtp/Exception.php:114
+#: lib/Horde/Smtp/Exception.php:111
 msgid "Server requires authentication."
 msgstr ""
 
-#: lib/Horde/Smtp/Connection.php:171
+#: lib/Horde/Smtp/Connection.php:210
 msgid "Server write error."
 msgstr ""
