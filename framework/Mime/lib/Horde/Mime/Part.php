@@ -1692,7 +1692,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $this->_basepart = true;
 
         /* Does the SMTP backend support 8BITMIME (RFC 1652)? */
+        $canonical = true;
         $encode = self::ENCODE_7BIT;
+
         if (isset($opts['encode'])) {
             /* Always allow 7bit encoding. */
             $encode |= $opts['encode'];
@@ -1703,16 +1705,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                     $encode |= self::ENCODE_8BIT;
                 }
             } catch (Horde_Mail_Exception $e) {}
+            $canonical = false;
         } elseif ($mailer instanceof Horde_Mail_Transport_Smtphorde) {
             try {
                 if ($mailer->getSMTPObject()->data_8bit) {
                     $encode |= self::ENCODE_8BIT;
                 }
             } catch (Horde_Mail_Exception $e) {}
+            $canonical = false;
         }
 
         $msg = $this->toString(array(
-            'canonical' => true,
+            'canonical' => $canonical,
             'encode' => $encode,
             'headers' => false,
             'stream' => true
@@ -1743,7 +1747,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 'encode' => $this->getHeaderCharset(),
                 'idn' => true
             )), $headers->toArray(array(
-                'canonical' => true,
+                'canonical' => $canonical,
                 'charset' => $this->getHeaderCharset()
             )), $msg);
         } catch (Horde_Mail_Exception $e) {
