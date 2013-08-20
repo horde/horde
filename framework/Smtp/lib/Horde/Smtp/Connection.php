@@ -159,13 +159,12 @@ class Horde_Smtp_Connection
     /**
      * Writes data to the output stream.
      *
-     * @param mixed $data     String data (or array of string data), or a
-     *                        resource.
-     * @param boolean $debug  Output debug data?
+     * @param mixed $data  String data (or array of string data), or a
+     *                     resource.
      *
      * @throws Horde_Smtp_Exception
      */
-    public function write($data, $debug = true)
+    public function write($data)
     {
         if (is_resource($data)) {
             $this->_debug->client('', false);

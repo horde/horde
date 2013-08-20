@@ -31,6 +31,13 @@ class Horde_Smtp_Debug
     const SLOW_CMD = 5;
 
     /**
+     * Is debugging active?
+     *
+     * @var boolean
+     */
+    public $active = true;
+
+    /**
      * The debug stream.
      *
      * @var resource
@@ -118,7 +125,7 @@ class Horde_Smtp_Debug
      */
     protected function _write($msg, $pre = null)
     {
-        if (!$this->_stream) {
+        if (!$this->_stream || !$this->active) {
             return;
         }
 

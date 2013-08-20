@@ -611,10 +611,11 @@ class Horde_Smtp implements Serializable
             $this->_connection->write('AUTH ' . $method);
             $resp = $this->_getResponse(334);
 
+            $this->_debug->active = false;
             $this->_connection->write(
-                base64_encode($user . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(reset($resp)), $pass, false)),
-                false
+                base64_encode($user . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(reset($resp)), $pass, false))
             );
+            $this->_debug->active = true;
 
             $this->_debug->raw($debug);
             break;
@@ -630,6 +631,7 @@ class Horde_Smtp implements Serializable
             $this->_connection->write('AUTH ' . $method);
             $resp = $this->_getResponse(334);
 
+            $this->_debug->active = false;
             $this->_connection->write(
                 base64_encode(new Horde_Imap_Client_Auth_DigestMD5(
                     $user,
@@ -637,9 +639,9 @@ class Horde_Smtp implements Serializable
                     base64_decode(reset($resp)),
                     $this->getParam('hostspec'),
                     'smtp'
-                )),
-                false
+                ))
             );
+            $this->_debug->active = true;
             $this->_debug->raw($debug);
 
             $this->_getResponse(334);
@@ -651,7 +653,9 @@ class Horde_Smtp implements Serializable
             $this->_getResponse(334);
             $this->_connection->write(base64_encode($user));
             $this->_getResponse(334);
-            $this->_connection->write(base64_encode($pass), false);
+            $this->_debug->active = false;
+            $this->_connection->write(base64_encode($pass));
+            $this->_debug->active = true;
             $this->_debug->raw($debug);
             break;
 
@@ -662,20 +666,21 @@ class Horde_Smtp implements Serializable
                 $user,
                 $pass
             )));
-            $this->_connection->write(
-                'AUTH ' . $method . ' ' . $auth,
-                false
-            );
+            $this->_debug->active = false;
+            $this->_connection->write('AUTH ' . $method . ' ' . $auth);
+            $this->_debug->active = true;
             $this->_debug->raw($debug);
             break;
 
         case 'XOAUTH2':
             // Google XOAUTH2
+            $this->_debug->active = false;
             $this->_connection->write(
-                'AUTH ' . $method . ' ' . $this->getParam('xoauth2_token'),
-                false
+                'AUTH ' . $method . ' ' . $this->getParam('xoauth2_token')
             );
+            $this->_debug->active = true;
             $this->_debug->raw($debug);
+
             try {
                 $this->_getResponse(235);
                 return;
