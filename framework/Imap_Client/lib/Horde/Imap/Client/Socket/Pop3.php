@@ -1080,13 +1080,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
              (!$ids->sequence && ($convert == 1)) ||
              $ids->isEmpty())) {
             return clone $ids;
-         }
+        }
 
-         $uids = $this->_pop3Cache('uidl');
+        $uids = $this->_pop3Cache('uidl');
 
-         return $this->getIdsOb(
-             $ids->all ? array_values($uids) : array_intersect_keys($uids, $ids->ids)
-         );
+        return $this->getIdsOb(
+            $ids->all ? array_values($uids) : array_intersect_keys($uids, $ids->ids)
+        );
     }
 
     /* Internal functions. */
