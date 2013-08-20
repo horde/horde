@@ -268,10 +268,12 @@ class Horde_ActiveSync_Imap_Adapter
         if ($condstore = $imap->queryCapability('CONDSTORE')) {
             $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
                 Horde_Imap_Client::STATUS_UIDVALIDITY |
-                Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
+                Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
+                Horde_Imap_Client::STATUS_FORCE_REFRESH;
         } else {
             $status_flags = Horde_Imap_Client::STATUS_UIDVALIDITY |
-                Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
+                Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
+                Horde_Imap_Client::STATUS_FORCE_REFRESH;
         }
 
         try {
@@ -569,9 +571,11 @@ class Horde_ActiveSync_Imap_Adapter
         // Check for CONDSTORE
         if ($condstore = $imap->queryCapability('CONDSTORE')) {
             $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
-                Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
+                Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
+                Horde_Imap_Client::STATUS_FORCE_REFRESH;
         } else {
-            $status_flags = Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
+            $status_flags = Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
+                Horde_Imap_Client::STATUS_FORCE_REFRESH;
         }
 
         // Get IMAP status.
