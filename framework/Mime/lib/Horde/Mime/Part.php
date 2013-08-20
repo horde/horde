@@ -1409,10 +1409,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $eol = $this->getEOL();
         }
 
-        $fp = $this->_writeStream($text);
-
         stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-        stream_filter_append($fp, 'horde_eol', STREAM_FILTER_READ, array('eol' => $eol));
+        $fp = $this->_writeStream($text, array(
+            'filter' => array(
+                'horde_eol' => array('eol' => $eol)
+            )
+        ));
 
         return $stream ? $fp : $this->_readStream($fp, true);
     }
