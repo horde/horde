@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Catch errors in Kolab_Storage_Driver_Imap#fetchComplete() (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12584).
 * [jan] Retrieve status changes during running requests (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12589).
  </notes>
  <contents>
@@ -1319,6 +1320,7 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Catch errors in Kolab_Storage_Driver_Imap#fetchComplete() (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12584).
 * [jan] Retrieve status changes during running requests (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12589).
    </notes>
   </release>
