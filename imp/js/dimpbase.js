@@ -248,6 +248,11 @@ var DimpBase = {
             } else if (Object.isString(data) && data.isJSON()) {
                 data = data.evalJSON(true);
             }
+
+            if (Object.isString(data)) {
+                data = { mailbox: data };
+            }
+
             this.highlightSidebar();
             this.setTitle(DimpCore.text.search);
             $('dimpmain_iframe').insert(
