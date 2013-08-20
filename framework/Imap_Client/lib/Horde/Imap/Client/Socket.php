@@ -210,6 +210,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
+        $pipeline->data['capability_set'] = true;
+
         $c = array();
 
         foreach ($data as $val) {
@@ -697,7 +699,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @param boolean $firstlogin  Is this the first login?
      * @param array $resp          The data response from the login command.
      *                             May include:
-     *   - logincapset: (boolean) True if CAPABILITY sent after login.
+     *   - capability_set: (boolean) True if CAPABILITY was set after login.
      *   - proxyreuse: (boolean) True if re-used connection via imapproxy.
      *
      * @return boolean  True if global login tasks should be performed.
@@ -722,7 +724,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* If we logged in for first time, and server did not return
          * capability information, we need to mark for retrieval. */
-        if ($firstlogin && empty($this->_init['capability'])) {
+        if ($firstlogin && empty($resp['capability_set'])) {
             $this->_setInit('capability');
         }
 
