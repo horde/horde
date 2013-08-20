@@ -13,8 +13,8 @@
  <date>2013-08-20</date>
  <time>11:18:00</time>
  <version>
-  <release>2.13.2</release>
-  <api>2.13.0</api>
+  <release>2.14.0</release>
+  <api>2.14.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Added the Horde_Imap_Client::STATUS_FORCE_REFRESH flag.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1935,15 +1935,15 @@
   </release>
   <release>
    <version>
-    <release>2.13.2</release>
-    <api>2.13.0</api></version>
+    <release>2.14.0</release>
+    <api>2.14.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-08-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Added the Horde_Imap_Client::STATUS_FORCE_REFRESH flag.
    </notes>
   </release>
  </changelog>

@@ -10,6 +10,16 @@
 
 This lists the API changes between releases of the package.
 
+Upgrading to 2.14.0
+===================
+
+  - Horde_Imap_Client_Base
+
+    - status()
+
+      Added the Horde_Imap_Client::STATUS_FORCE_REFRESH flag.
+
+
 Upgrading to 2.13.0
 ===================
 

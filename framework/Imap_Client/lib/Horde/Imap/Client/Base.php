@@ -1604,6 +1604,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   </ul>
      *  </li>
      *  <li>
+     *   Horde_Imap_Client::STATUS_FORCE_REFRESH
+     *   <ul>
+     *    <li>
+     *     Normally, the status information will be cached for a given
+     *     mailbox. Since most PHP requests are generally less than a second,
+     *     this is fine. However, if your script is long running, the status
+     *     information may not be up-to-date. Specifying this flag will ensure
+     *     that the server is always polled for the current mailbox status
+     *     before results are returned. (since 2.14.0)
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
      *   Horde_Imap_Client::STATUS_ALL (DEFAULT)
      *   <ul>
      *    <li>
@@ -1688,18 +1701,25 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $name = strval($val);
             $tmp_flags = $flags;
 
-            /* A list of STATUS options (other than those handled directly
-             * below) that require the mailbox to be explicitly opened. */
-            $opened = ($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
-                ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
-                ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
-                ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY) ||
+            if ($val->equals($this->_selected)) {
                 /* Check if already in mailbox. */
-                $val->equals($this->_selected) ||
-                /* Force mailboxes containing wildcards to be accessed via
-                 * STATUS so that wildcards do not return a bunch of
-                 * mailboxes in the LIST-STATUS response. */
-                (strpbrk($name, '*%') !== false);
+                $opened = true;
+
+                if ($flags & Horde_Imap_Client::STATUS_FORCE_REFRESH) {
+                    $this->noop();
+                }
+            } else {
+                /* A list of STATUS options (other than those handled directly
+                 * below) that require the mailbox to be explicitly opened. */
+                $opened = ($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
+                    ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
+                    ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
+                    ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY) ||
+                    /* Force mailboxes containing wildcards to be accessed via
+                     * STATUS so that wildcards do not return a bunch of
+                     * mailboxes in the LIST-STATUS response. */
+                    (strpbrk($name, '*%') !== false);
+            }
 
             $ret[$name] = $master;
             $ptr = &$ret[$name];
