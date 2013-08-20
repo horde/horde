@@ -498,6 +498,8 @@ class Kronolith
                     if (!$allDay ||
                         $loopDate->compareDateTime($eventEnd) != 0) {
                         $addEvent = clone $event;
+                        $addEvent->originalStart = $eventStart;
+                        $addEvent->originalEnd = $eventEnd;
 
                         /* If this is the start day, set the start time to
                          * the real start time, otherwise set it to
