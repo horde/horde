@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Horde_Session now handles resetting the secret key on login.
 * [mms] Add Horde_Session::ENCRYPT flag for session data.
 * [mms] The Horde_Mail factory now uses Horde_Smtp as the underlying SMTP driver instead of Net_SMTP.
 * [mms] Don&apos;t redirect to current page&apos;s URL when logging out with a custom message (Bug #12538).
@@ -3107,6 +3108,7 @@
    <date>2013-08-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Horde_Session now handles resetting the secret key on login.
 * [mms] Add Horde_Session::ENCRYPT flag for session data.
 * [mms] The Horde_Mail factory now uses Horde_Smtp as the underlying SMTP driver instead of Net_SMTP.
 * [mms] Don&apos;t redirect to current page&apos;s URL when logging out with a custom message (Bug #12538).

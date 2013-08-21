@@ -262,6 +262,8 @@ class Horde_Session
         $this->_data = array();
         $this->_start();
 
+        $GLOBALS['injector']->getInstance('Horde_Secret')->setKey();
+
         $this->_cleansession = true;
 
         return true;
@@ -284,6 +286,7 @@ class Horde_Session
     {
         session_destroy();
         $this->_cleansession = true;
+        $GLOBALS['injector']->getInstance('Horde_Secret')->clearKey();
     }
 
     /**
