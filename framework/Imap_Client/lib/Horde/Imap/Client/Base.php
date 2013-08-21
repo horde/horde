@@ -494,8 +494,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Passwords may be stored encrypted. */
         switch ($key) {
         case 'password':
-            if ($this->_params['password'] instanceof Horde_Imap_Client_Base_Password) {
-                return $this->_params['password']->getPassword();
+            if ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password) {
+                return $this->_params[$key]->getPassword();
             }
 
             // DEPRECATED
