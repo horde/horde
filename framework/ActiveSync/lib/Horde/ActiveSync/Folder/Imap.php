@@ -162,7 +162,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
             foreach ($this->_added as $add) {
                 $this->_messages[] = $add;
             }
-            $this->_messages = array_intersect_key($this->_flags, array_flip($this->_messages));
+            $this->_messages = $this->_flags + array_flip($this->_messages);
         } else {
             foreach ($this->_added as $add) {
                 $this->_messages[] = $add;
