@@ -2854,7 +2854,17 @@ var DimpBase = {
                     ]
                 });
                 e.memo.stop();
+            } else if (elt.hasClassName('imp-sidebar-rcontainer')) {
+                HordeDialog.display({
+                    form: new Element('DIV').insert(
+                            new Element('INPUT', { name: 'remote_password', type: 'password' })
+                          ),
+                    form_id: 'remote_login',
+                    text: DimpCore.text.remote_password.sub('%s', this.fullMboxDisplay(elt))
+                });
+                e.memo.stop();
             }
+            break;
         }
     },
 
@@ -3135,6 +3145,7 @@ var DimpBase = {
         } else {
             switch (li.retrieve('ftype')) {
             case 'container':
+            case 'rcontainer':
             case 'scontainer':
             case 'vcontainer':
                 e.stop();
@@ -3281,7 +3292,10 @@ var DimpBase = {
             }
             title = label;
         } else if (ob.co) {
-            if (ob.n) {
+            if (ob.r) {
+                cname = 'imp-sidebar-rcontainer';
+                ftype = 'rcontainer';
+            } else if (ob.n) {
                 ftype = 'scontainer';
                 title = label;
             } else {
@@ -3404,6 +3418,7 @@ var DimpBase = {
             new Drag(li, this._mboxDragConfig);
             break;
 
+        case 'rcontainer':
         case 'scontainer':
             ftype = 'noactions';
             break;

@@ -476,6 +476,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'onlogout' => _("Logging Out..."),
             'portal' => _("Portal"),
             'prefs' => _("User Options"),
+            'remote_password' => _("Password for %s:"),
             'rename_prompt' => _("Rename %s to:"),
             'search' => _("Search"),
             'search_input' => _("Search (%s)"),
