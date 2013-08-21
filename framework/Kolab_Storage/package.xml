@@ -23,7 +23,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Catch errors in Kolab_Storage_Driver_Imap#fetchComplete() (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12584).
+* [jan] Retrieve status changes during running requests (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12589).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -697,7 +698,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>2.12.1</min>
+    <min>2.14.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1319,7 +1320,8 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Catch errors in Kolab_Storage_Driver_Imap#fetchComplete() (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12584).
+* [jan] Retrieve status changes during running requests (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12589).
    </notes>
   </release>
  </changelog>

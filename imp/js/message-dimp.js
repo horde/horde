@@ -241,6 +241,8 @@ var DimpMessage = {
         $('partlist').update(r.tree);
         $('msgHeaderAtc').down('TD.label').update(DimpCore.text.allparts_label + ':');
         $('msgHeaderAtc').show();
+
+        this.resizeWindow();
     },
 
     onDomLoad: function()

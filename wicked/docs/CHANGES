@@ -2,6 +2,7 @@
 v2.0.0-git
 ----------
 
+[jan] Fix generating the most recent changes.
 [jan] Request CAPTCHA when creating pages too.
 
 

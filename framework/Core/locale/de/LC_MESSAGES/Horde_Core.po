@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"POT-Creation-Date: 2013-08-20 17:52+0200\n"
 "PO-Revision-Date: 2013-07-16 21:41+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -75,7 +75,7 @@ msgstr "6 Stunden"
 msgid "<Previous"
 msgstr "<Zurück"
 
-#: lib/Horde/ErrorHandler.php:83
+#: lib/Horde/ErrorHandler.php:87
 msgid "A fatal error has occurred"
 msgstr "Ein schwerer Fehler ist aufgetreten:"
 
@@ -320,11 +320,11 @@ msgstr "Das Konto ablehnen:"
 msgid "Department"
 msgstr "Abteilung"
 
-#: lib/Horde/ErrorHandler.php:99
+#: lib/Horde/ErrorHandler.php:103
 msgid "Details"
 msgstr "Details"
 
-#: lib/Horde/ErrorHandler.php:106
+#: lib/Horde/ErrorHandler.php:110
 msgid "Details have been logged for the administrator."
 msgstr "Details wurden für den Administrator mitgeloggt."
 
@@ -371,7 +371,7 @@ msgstr "Zu bestätigende E-Mail-Adressen nicht gefunden."
 msgid "Emoticons"
 msgstr "Smileys"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1557
+#: lib/Horde/Core/ActiveSync/Driver.php:1556
 msgid "End forwarded message"
 msgstr "Ende der weitergeleiteten Nachricht"
 
@@ -411,11 +411,11 @@ msgstr "Verhältnis zurücksetzen"
 msgid "Flip"
 msgstr "Umdrehen"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1555
+#: lib/Horde/Core/ActiveSync/Driver.php:1554
 msgid "Forwarded message"
 msgstr "Weitergeleitete Nachricht"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1555
+#: lib/Horde/Core/ActiveSync/Driver.php:1554
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Weitergeleitete Nachricht von %s"
@@ -465,7 +465,7 @@ msgstr "Adresse privat"
 msgid "Home Phone"
 msgstr "Telefon privat"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2471
+#: lib/Horde/Core/ActiveSync/Driver.php:2466
 msgid "Inbox"
 msgstr "Posteingang"
 
@@ -620,7 +620,7 @@ msgstr ""
 msgid "No configuration information specified for %s."
 msgstr "Für %s wurden keine Konfigurationsinformationen angegeben."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1585
+#: lib/Horde/Core/ActiveSync/Driver.php:1584
 msgid "No message body text"
 msgstr "Kein Nachrichtentext"
 
@@ -731,11 +731,11 @@ msgstr "Vorschau"
 msgid "Problem"
 msgstr "Probleme"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1578
+#: lib/Horde/Core/ActiveSync/Driver.php:1577
 msgid "Quoted"
 msgstr "Zitat"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1578
+#: lib/Horde/Core/ActiveSync/Driver.php:1577
 #, php-format
 msgid "Quoting %s"
 msgstr "Zitat von %s"
@@ -825,7 +825,7 @@ msgstr "Ausgewählte Adressbücher:"
 msgid "Send SMS"
 msgstr "SMS verschicken"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2466
+#: lib/Horde/Core/ActiveSync/Driver.php:2461
 msgid "Sent"
 msgstr "Gesendet"
 
@@ -920,7 +920,7 @@ msgstr ""
 "Bei den folgenden Anwendungen sind Fehler aufgetreten, während die "
 "Benutzerdaten entfernt wurden: %s"
 
-#: lib/Horde/ErrorHandler.php:100
+#: lib/Horde/ErrorHandler.php:104
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -1025,7 +1025,7 @@ msgstr ""
 msgid "Toggle Alerts Log"
 msgstr "Alte Meldungen ein-/ausblenden"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2461
+#: lib/Horde/Core/ActiveSync/Driver.php:2456
 msgid "Trash"
 msgstr "Papierkorb"
 

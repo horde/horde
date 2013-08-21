@@ -22,7 +22,7 @@ Upgrading to 2.1
 
     Added the 'bare_addresses_idn' property.
 
-  - Horde_Mail_Transport_SmtpHorde
+  - Horde_Mail_Transport_Smtphorde
 
     This Transport driver has been added.
 

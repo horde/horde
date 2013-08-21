@@ -30,7 +30,8 @@ class Wicked_Page_RecentChanges extends Wicked_Page
      */
     public $supportedModes = array(
         Wicked::MODE_CONTENT => true,
-        Wicked::MODE_DISPLAY => true);
+        Wicked::MODE_DISPLAY => true
+    );
 
     /**
      * Renders this page in content mode.

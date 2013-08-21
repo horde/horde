@@ -25,6 +25,14 @@
 class Horde_Imap_Client_Interaction_Command_Continuation
 {
     /**
+     * Is this an optional continuation request?
+     *
+     * @since 2.13.0
+     * @var boolean
+     */
+    public $optional = false;
+
+    /**
      * Closure function to run after continuation response.
      *
      * @var Closure

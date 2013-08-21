@@ -84,33 +84,36 @@ class Kronolith_Form_EditCalendar extends Horde_Form
             $caldavUrl = $url . '/rpc.php/calendars/';
             $accountUrl = $url . '/rpc.php/';
         }
-        $accountUrl = Horde::url($accountUrl, true, -1)
-            . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
-        $caldavUrl = Horde::url($caldavUrl, true, -1)
-            . ($calendar->get('owner')
-               ? $calendar->get('owner')
-               : '-system-')
-                . '/'
-            . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($calendar->getName(), 'calendar')
-            . '/';
-        $this->addVariable(
-             _("CalDAV Subscription URL"), '', 'link', false, false, null,
-             array(array(
-                 'url' => $caldavUrl,
-                 'text' => $caldavUrl,
-             'title' => _("Copy this URL to a CalDAV client to subscribe to this calendar"),
-                 'target' => '_blank')
-             )
-        );
-        $this->addVariable(
-             _("CalDAV Account URL"), '', 'link', false, false, null,
-             array(array(
-                 'url' => $accountUrl,
-                 'text' => $accountUrl,
-             'title' => _("Copy this URL to a CalDAV client to subscribe to all your calendars"),
-                 'target' => '_blank')
-             )
-        );
+        try {
+            $accountUrl = Horde::url($accountUrl, true, -1)
+                . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
+            $caldavUrl = Horde::url($caldavUrl, true, -1)
+                . ($calendar->get('owner')
+                   ? $calendar->get('owner')
+                   : '-system-')
+                    . '/'
+                . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($calendar->getName(), 'calendar')
+                . '/';
+            $this->addVariable(
+                 _("CalDAV Subscription URL"), '', 'link', false, false, null,
+                 array(array(
+                     'url' => $caldavUrl,
+                     'text' => $caldavUrl,
+                 'title' => _("Copy this URL to a CalDAV client to subscribe to this calendar"),
+                     'target' => '_blank')
+                 )
+            );
+            $this->addVariable(
+                 _("CalDAV Account URL"), '', 'link', false, false, null,
+                 array(array(
+                     'url' => $accountUrl,
+                     'text' => $accountUrl,
+                 'title' => _("Copy this URL to a CalDAV client to subscribe to all your calendars"),
+                     'target' => '_blank')
+                 )
+            );
+        } catch (Horde_Exception $e) {
+        }
         $webdavUrl = Horde::url($webdavUrl, true, -1)
             . ($calendar->get('owner')
                ? $calendar->get('owner')

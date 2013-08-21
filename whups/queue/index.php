@@ -30,6 +30,7 @@ if (!$id) {
 }
 
 Whups::addFeedLink();
+$page_output->ajax = true;
 $page_output->header(array(
     'title' => sprintf(_("Open tickets in %s"), $queue['name'])
 ));
