@@ -19,3 +19,6 @@ Upgrading to 1.1.0
     - Constructor
 
       Added the 'xoauth2_token' parameter.
+      Added the ability to pass in a Horde_Smtp_Password object to the
+      'password' parameter.
+      The 'password_encrypt' parameter has been deprecated.
