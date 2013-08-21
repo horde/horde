@@ -355,7 +355,6 @@ class Horde_ActiveSync_Imap_Adapter
                     new Horde_Date($options['sincedate']),
                     Horde_Imap_Client_Search_Query::DATE_SINCE);
             }
-            $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
             $search_ret = $imap->search(
                 $mbox,
                 $query,
@@ -386,7 +385,6 @@ class Horde_ActiveSync_Imap_Adapter
                     new Horde_Date($options['sincedate']),
                     Horde_Imap_Client_Search_Query::DATE_SINCE);
             }
-            $query->flag(Horde_Imap_Client::FLAG_DELETED, false);
             $search_ret = $imap->search(
                 $mbox,
                 $query,
