@@ -79,13 +79,6 @@ class IMP_Imap implements Serializable
     protected $_ob = null;
 
     /**
-     * The password for the IMAP connection.
-     *
-     * @var IMP_Imap_Password
-     */
-    protected $_password;
-
-    /**
      * Temporary data cache (destroyed at end of request).
      *
      * @var array
@@ -215,8 +208,6 @@ class IMP_Imap implements Serializable
             throw $error;
         }
 
-        $this->_password = new IMP_Imap_Password($password);
-
         $imap_config = array(
             'cache' => $config->cache_params,
             'capability_ignore' => $config->capability_ignore,
@@ -226,7 +217,7 @@ class IMP_Imap implements Serializable
             'hostspec' => $config->hostspec,
             'id' => $config->id,
             'lang' => $config->lang,
-            'password' => $this->_password,
+            'password' => new IMP_Imap_Password($password),
             'port' => $config->port,
             'secure' => (($secure = $config->secure) ? $secure : false),
             'timeout' => $config->timeout,
