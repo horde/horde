@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Update session data stored with secret key if session ID changed and we are using non-cookie based sessions.
 * [mms] Horde_Session now handles resetting the secret key on login.
 * [mms] Add Horde_Session::ENCRYPT flag for session data.
 * [mms] The Horde_Mail factory now uses Horde_Smtp as the underlying SMTP driver instead of Net_SMTP.
@@ -3108,6 +3109,7 @@
    <date>2013-08-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Update session data stored with secret key if session ID changed and we are using non-cookie based sessions.
 * [mms] Horde_Session now handles resetting the secret key on login.
 * [mms] Add Horde_Session::ENCRYPT flag for session data.
 * [mms] The Horde_Mail factory now uses Horde_Smtp as the underlying SMTP driver instead of Net_SMTP.

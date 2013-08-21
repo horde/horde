@@ -237,8 +237,24 @@ class Horde_Session
      */
     public function regenerate()
     {
+        /* Load old encrypted data. */
+        $encrypted = array();
+        foreach ($this->_data[self::ENCRYPTED] as $app => $val) {
+            foreach (array_keys($val) as $val2) {
+                $encrypted[$app][$val2] = $this->get($app, $val2);
+            }
+        }
+
         session_regenerate_id(true);
         $this->_data[self::REGENERATE] = time() + $this->regenerate_interval;
+
+        /* Store encrypted data, since secret key may have changed. */
+        foreach ($encrypted as $app => $val) {
+            foreach ($val as $key2 => $val2) {
+                $this->set($app, $key2, $val2, self::ENCRYPTED);
+            }
+        }
+
         $this->sessionHandler->changed = true;
     }
 
