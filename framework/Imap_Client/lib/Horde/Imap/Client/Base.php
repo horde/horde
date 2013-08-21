@@ -137,7 +137,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *  <li>REQUIRED Parameters
      *   <ul>
      *    <li>password: (mixed) The IMAP user password. Either a string or
-     *                  a callable that returns the password (since
+     *                  a Horde_Imap_Client_Base_Password object (since
      *                  2.14.0).</li>
      *    <li>username: (string) The IMAP username.</li>
      *   </ul>
@@ -505,8 +505,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Passwords may be stored encrypted. */
         switch ($key) {
         case 'password':
-            if (is_callable($this->_params['password'])) {
-                return call_user_func($this->_params['password']);
+            if ($this->_params['password'] instanceof Horde_Imap_Client_Base_Password) {
+                return $this->_params['password']->getPassword();
             }
 
             // DEPRECATED
@@ -536,7 +536,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         switch ($key) {
         case 'password':
-            if (is_callable($this->_params['password'])) {
+            if ($this->_params['password'] instanceof Horde_Imap_Client_Base_Password) {
                 break;
             }
 

@@ -18,7 +18,8 @@ Upgrading to 2.14.0
     - Constructor
 
       The 'encryptKey' parameter is deprecated.
-      Instead, pass a callable via the 'password' parameter.
+      Instead, allow a Horde_Imap_Client_Base_Password object to be passed
+      via the 'password' parameter.
 
     - status()
 

@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-08-20</date>
- <time>11:18:00</time>
+ <time>22:32:57</time>
  <version>
   <release>2.14.0</release>
   <api>2.14.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add preferred way of retrieving password - by passing in callable to &apos;password&apos; parameter.
+* [mms] Deprecated the &apos;encryptKey&apos; parameter and instead support passing a Horde_Imap_Client_Base_Password object into the &apos;password&apos; parameter.
 * [mms] Added the Horde_Imap_Client::STATUS_FORCE_REFRESH flag.
  </notes>
  <contents>
@@ -49,6 +49,7 @@
         <file name="Debug.php" role="php" />
         <file name="Deprecated.php" role="php" />
         <file name="Mailbox.php" role="php" />
+        <file name="Password.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Base -->
        <dir name="Cache">
         <dir name="Backend">
@@ -390,6 +391,7 @@
    <install as="Horde/Imap/Client/Base/Debug.php" name="lib/Horde/Imap/Client/Base/Debug.php" />
    <install as="Horde/Imap/Client/Base/Deprecated.php" name="lib/Horde/Imap/Client/Base/Deprecated.php" />
    <install as="Horde/Imap/Client/Base/Mailbox.php" name="lib/Horde/Imap/Client/Base/Mailbox.php" />
+   <install as="Horde/Imap/Client/Base/Password.php" name="lib/Horde/Imap/Client/Base/Password.php" />
    <install as="Horde/Imap/Client/Cache/Backend.php" name="lib/Horde/Imap/Client/Cache/Backend.php" />
    <install as="Horde/Imap/Client/Cache/Backend/Cache.php" name="lib/Horde/Imap/Client/Cache/Backend/Cache.php" />
    <install as="Horde/Imap/Client/Cache/Backend/Db.php" name="lib/Horde/Imap/Client/Cache/Backend/Db.php" />
@@ -1944,7 +1946,7 @@
    <date>2013-08-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Add preferred way of retrieving password - by passing in callable to &apos;password&apos; parameter.
+* [mms] Deprecated the &apos;encryptKey&apos; parameter and instead support passing a Horde_Imap_Client_Base_Password object into the &apos;password&apos; parameter.
 * [mms] Added the Horde_Imap_Client::STATUS_FORCE_REFRESH flag.
    </notes>
   </release>
