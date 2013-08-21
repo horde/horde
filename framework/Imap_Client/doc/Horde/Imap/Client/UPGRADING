@@ -15,6 +15,11 @@ Upgrading to 2.14.0
 
   - Horde_Imap_Client_Base
 
+    - Constructor
+
+      The 'encryptKey' parameter is deprecated.
+      Instead, pass a callable via the 'password' parameter.
+
     - status()
 
       Added the Horde_Imap_Client::STATUS_FORCE_REFRESH flag.
