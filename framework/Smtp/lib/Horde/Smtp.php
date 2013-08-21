@@ -131,8 +131,8 @@ class Horde_Smtp implements Serializable
      *  </li>
      *  <li>
      *   xoauth2_token: (string) If set, will authenticate via the XOAUTH2
-     *                  mechanism (if available) with this token (since
-     *                  1.1.0).
+     *                  mechanism (if available) with this token. Either a
+     *                  string or a Horde_Smtp_Password object (since 1.1.0).
      *  </li>
      * </ul>
      */
@@ -239,12 +239,14 @@ class Horde_Smtp implements Serializable
         /* Passwords may be stored encrypted. */
         switch ($key) {
         case 'password':
-            if ($this->_params['password'] instanceof Horde_Smtp_Password) {
-                return $this->_params['password']->getPassword();
+        case 'xoauth2_token':
+            if ($this->_params[$key] instanceof Horde_Smtp_Password) {
+                return $this->_params[$key]->getPassword();
             }
 
             // DEPRECATED
-            if (!empty($this->_params['_passencrypt'])) {
+            if (($key == 'password') &&
+                !empty($this->_params['_passencrypt'])) {
                 try {
                     $secret = new Horde_Secret();
                     return $secret->read($this->_getEncryptKey(), $this->_params['password']);
