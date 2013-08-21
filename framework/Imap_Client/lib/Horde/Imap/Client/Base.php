@@ -525,7 +525,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         switch ($key) {
         case 'password':
-            if ($this->_params['password'] instanceof Horde_Imap_Client_Base_Password) {
+            if ($val instanceof Horde_Imap_Client_Base_Password) {
                 break;
             }
 
