@@ -50,9 +50,6 @@ class IMP_Imap implements Serializable
     const ACCESS_ACL = 10;
     const ACCESS_DRAFTS = 11;
 
-    /* Password key. */
-    const PASSWORD_KEY = 'imap_ob_pass';
-
     /**
      * Cached backend configuration.
      *
@@ -84,9 +81,9 @@ class IMP_Imap implements Serializable
     /**
      * The password for the IMAP connection.
      *
-     * @var string
+     * @var IMP_Imap_Password
      */
-    static protected $_password;
+    protected $_password;
 
     /**
      * Temporary data cache (destroyed at end of request).
@@ -218,7 +215,7 @@ class IMP_Imap implements Serializable
             throw $error;
         }
 
-        self::$_password = $password;
+        $this->_password = new IMP_Imap_Password($password);
 
         $imap_config = array(
             'cache' => $config->cache_params,
@@ -229,7 +226,7 @@ class IMP_Imap implements Serializable
             'hostspec' => $config->hostspec,
             'id' => $config->id,
             'lang' => $config->lang,
-            'password' => array(__CLASS__, 'getPassword'),
+            'password' => $this->_password,
             'port' => $config->port,
             'secure' => (($secure = $config->secure) ? $secure : false),
             'timeout' => $config->timeout,
@@ -690,26 +687,12 @@ class IMP_Imap implements Serializable
             : (isset(self::$_backends[$server]) ? self::$_backends[$server] : false);
     }
 
-    /* Callback functions used in Horde_Imap_Client_Base. */
-
-    /**
-     * Returns the password used for the IMAP object.
-     */
-    static public function getPassword()
-    {
-        return self::$_password;
-    }
-
     /* Serializable methods. */
 
     /**
      */
     public function serialize()
     {
-        global $session;
-
-        $session->set('imp', self::PASSWORD_KEY, self::$_password, $session::ENCRYPT);
-
         return serialize(array(
             $this->_ob,
             $this->_config
@@ -724,8 +707,6 @@ class IMP_Imap implements Serializable
             $this->_ob,
             $this->_config
         ) = unserialize($data);
-
-        self::$_password = $GLOBALS['session']->get('imp', self::PASSWORD_KEY);
     }
 
 }
