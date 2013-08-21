@@ -36,7 +36,6 @@ input[type=image] {
     background-color: transparent;
     background-position: center top;
     background-repeat: no-repeat;
-    display: -moz-inline-stack;
     display: inline-block;
     height: 20px;
     vertical-align: middle;
@@ -514,7 +513,6 @@ span.horde-tree-icon {
 span.horde-tree-image {
     height: 20px;
     width: 20px;
-    display: -moz-inline-stack;
     display: inline-block;
     vertical-align: middle;
 }
@@ -1391,7 +1389,6 @@ div.GrowlerNoticeExit {
 .mimeHeaders {
     border: 1px solid #ccc;
     background: #f9f9f9;
-    display: -moz-inline-stack;
     display: inline-block;
     margin-bottom: 3px;
     padding: 5px;
@@ -2030,7 +2027,6 @@ left.horde-point-right {
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: center right;
-    display: -moz-inline-stack;
     display: inline-block;
     height: 20px;
     margin: -1px 8px 0 10px;
