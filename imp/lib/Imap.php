@@ -50,6 +50,9 @@ class IMP_Imap implements Serializable
     const ACCESS_ACL = 10;
     const ACCESS_DRAFTS = 11;
 
+    /* Password key. */
+    const PASSWORD_KEY = 'imap_ob_pass';
+
     /**
      * Cached backend configuration.
      *
@@ -77,6 +80,13 @@ class IMP_Imap implements Serializable
      * @var Horde_Imap_Client
      */
     protected $_ob = null;
+
+    /**
+     * The password for the IMAP connection.
+     *
+     * @var string
+     */
+    static protected $_password;
 
     /**
      * Temporary data cache (destroyed at end of request).
@@ -208,17 +218,18 @@ class IMP_Imap implements Serializable
             throw $error;
         }
 
+        self::$_password = $password;
+
         $imap_config = array(
             'cache' => $config->cache_params,
             'capability_ignore' => $config->capability_ignore,
             'comparator' => $config->comparator,
             'debug' => $config->debug,
             'debug_literal' => $config->debug_raw,
-            'encryptKey' => array(__CLASS__, 'getEncryptKey'),
             'hostspec' => $config->hostspec,
             'id' => $config->id,
             'lang' => $config->lang,
-            'password' => $password,
+            'password' => array(__CLASS__, 'getPassword'),
             'port' => $config->port,
             'secure' => (($secure = $config->secure) ? $secure : false),
             'timeout' => $config->timeout,
@@ -681,9 +692,12 @@ class IMP_Imap implements Serializable
 
     /* Callback functions used in Horde_Imap_Client_Base. */
 
-    static public function getEncryptKey()
+    /**
+     * Returns the password used for the IMAP object.
+     */
+    static public function getPassword()
     {
-        return $GLOBALS['injector']->getInstance('Horde_Secret')->getKey();
+        return self::$_password;
     }
 
     /* Serializable methods. */
@@ -692,6 +706,10 @@ class IMP_Imap implements Serializable
      */
     public function serialize()
     {
+        global $session;
+
+        $session->set('imp', self::PASSWORD_KEY, self::$_password, $session::ENCRYPT);
+
         return serialize(array(
             $this->_ob,
             $this->_config
@@ -706,6 +724,8 @@ class IMP_Imap implements Serializable
             $this->_ob,
             $this->_config
         ) = unserialize($data);
+
+        self::$_password = $GLOBALS['session']->get('imp', self::PASSWORD_KEY);
     }
 
 }
