@@ -136,7 +136,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * <ul>
      *  <li>REQUIRED Parameters
      *   <ul>
-     *    <li>password: (string) The IMAP user password.</li>
+     *    <li>password: (mixed) The IMAP user password. Either a string or
+     *                  a callable that returns the password (since
+     *                  2.14.0).</li>
      *    <li>username: (string) The IMAP username.</li>
      *   </ul>
      *  </li>
@@ -209,6 +211,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                 used to encrypt the password. This function MUST be
      *                 static.
      *                 DEFAULT: No encryption
+     *                 DEPRECATED
      *    </li>
      *    <li>
      *     hostspec: (string) The hostname or IP address of the server.
@@ -297,6 +300,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
     /**
      * Get encryption key.
+     *
+     * @deprecated  Pass callable into 'password' parameter instead.
      *
      * @return string  The encryption key.
      */
@@ -498,13 +503,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function getParam($key)
     {
         /* Passwords may be stored encrypted. */
-        if (($key == 'password') && !empty($this->_params['_passencrypt'])) {
-            try {
-                $secret = new Horde_Secret();
-                return $secret->read($this->_getEncryptKey(), $this->_params['password']);
-            } catch (Exception $e) {
-                return null;
+        switch ($key) {
+        case 'password':
+            if (is_callable($this->_params['password'])) {
+                return call_user_func($this->_params['password']);
             }
+
+            // DEPRECATED
+            if (!empty($this->_params['_passencrypt'])) {
+                try {
+                    $secret = new Horde_Secret();
+                    return $secret->read($this->_getEncryptKey(), $this->_params['password']);
+                } catch (Exception $e) {
+                    return null;
+                }
+            }
+            break;
         }
 
         return isset($this->_params[$key])
@@ -522,7 +536,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         switch ($key) {
         case 'password':
-            // Encrypt password.
+            if (is_callable($this->_params['password'])) {
+                break;
+            }
+
+            // DEPRECATED: Encrypt password.
             try {
                 $encrypt_key = $this->_getEncryptKey();
                 if (strlen($encrypt_key)) {
