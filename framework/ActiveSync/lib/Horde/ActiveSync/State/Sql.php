@@ -906,7 +906,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     !empty($options['ping']),
                     $this->_folder->haveInitialSync
                 );
-                $this->_folder->updateState();
+                if (empty($options['ping'])) {
+                    $this->_folder->updateState();
+                }
             } else {
                 $changes = array();
             }
