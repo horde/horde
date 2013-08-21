@@ -1136,7 +1136,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.5.0</min>
+    <min>2.5.7</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3261,6 +3261,8 @@
    <date>2013-07-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix updating flags in dynamic search view (Bug #12594).
+* [mms] Use Horde_Smtp to send messages via SMTP.
 * [mms] Fix applying the &apos;allow_folders&apos; permission.
 * [mms] Fix canceling/discarding compose message in basic view (Bug #12555).
 * [mms] Fix updating message index when deleting a message in basic message view (Bug #12539).

@@ -8,7 +8,7 @@
    <th><?php echo _("Session Timestamp") ?></th>
    <th><?php echo _("Browser") ?></th>
    <th><?php echo _("Remote Host") ?></th>
-   <th><?php echo _("Authenticated Apps") ?></th>
+   <th><?php echo _("Authenticated Applications") ?></th>
   </tr>
  </thead>
  <tbody>

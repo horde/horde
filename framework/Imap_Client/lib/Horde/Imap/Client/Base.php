@@ -136,7 +136,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * <ul>
      *  <li>REQUIRED Parameters
      *   <ul>
-     *    <li>password: (string) The IMAP user password.</li>
+     *    <li>password: (mixed) The IMAP user password. Either a string or
+     *                  a Horde_Imap_Client_Base_Password object (since
+     *                  2.14.0).</li>
      *    <li>username: (string) The IMAP username.</li>
      *   </ul>
      *  </li>
@@ -151,10 +153,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *      <li>
      *       backend: [REQUIRED (or cacheob)] (Horde_Imap_Client_Cache_Backend)
      *                Backend cache driver (as of 2.9.0).
-     *      </li>
-     *      <li>
-     *       cacheob: [REQUIRED (or backend)] (Horde_Cache) The cache object to
-     *                use (DEPRECATED).
      *      </li>
      *      <li>
      *       fetch_ignore: (array) A list of mailboxes to ignore when storing
@@ -203,12 +201,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *            provided. The value can be any PHP supported wrapper that
      *            can be opened via fopen().
      *            DEFAULT: No debug output
-     *    </li>
-     *    <li>
-     *     encryptKey: (array) A callback to a function that returns the key
-     *                 used to encrypt the password. This function MUST be
-     *                 static.
-     *                 DEFAULT: No encryption
      *    </li>
      *    <li>
      *     hostspec: (string) The hostname or IP address of the server.
@@ -297,6 +289,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
     /**
      * Get encryption key.
+     *
+     * @deprecated  Pass callable into 'password' parameter instead.
      *
      * @return string  The encryption key.
      */
@@ -498,13 +492,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function getParam($key)
     {
         /* Passwords may be stored encrypted. */
-        if (($key == 'password') && !empty($this->_params['_passencrypt'])) {
-            try {
-                $secret = new Horde_Secret();
-                return $secret->read($this->_getEncryptKey(), $this->_params['password']);
-            } catch (Exception $e) {
-                return null;
+        switch ($key) {
+        case 'password':
+            if ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password) {
+                return $this->_params[$key]->getPassword();
             }
+
+            // DEPRECATED
+            if (!empty($this->_params['_passencrypt'])) {
+                try {
+                    $secret = new Horde_Secret();
+                    return $secret->read($this->_getEncryptKey(), $this->_params['password']);
+                } catch (Exception $e) {
+                    return null;
+                }
+            }
+            break;
         }
 
         return isset($this->_params[$key])
@@ -522,7 +525,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         switch ($key) {
         case 'password':
-            // Encrypt password.
+            if ($val instanceof Horde_Imap_Client_Base_Password) {
+                break;
+            }
+
+            // DEPRECATED: Encrypt password.
             try {
                 $encrypt_key = $this->_getEncryptKey();
                 if (strlen($encrypt_key)) {
@@ -530,9 +537,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     $val = $secret->write($encrypt_key, $val);
                     $this->_params['_passencrypt'] = true;
                 }
-            } catch (Exception $e) {
-                $this->_params['_passencrypt'] = false;
-            }
+            } catch (Exception $e) {}
             break;
         }
 
@@ -1604,6 +1609,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   </ul>
      *  </li>
      *  <li>
+     *   Horde_Imap_Client::STATUS_FORCE_REFRESH
+     *   <ul>
+     *    <li>
+     *     Normally, the status information will be cached for a given
+     *     mailbox. Since most PHP requests are generally less than a second,
+     *     this is fine. However, if your script is long running, the status
+     *     information may not be up-to-date. Specifying this flag will ensure
+     *     that the server is always polled for the current mailbox status
+     *     before results are returned. (since 2.14.0)
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
      *   Horde_Imap_Client::STATUS_ALL (DEFAULT)
      *   <ul>
      *    <li>
@@ -1688,18 +1706,25 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $name = strval($val);
             $tmp_flags = $flags;
 
-            /* A list of STATUS options (other than those handled directly
-             * below) that require the mailbox to be explicitly opened. */
-            $opened = ($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
-                ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
-                ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
-                ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY) ||
+            if ($val->equals($this->_selected)) {
                 /* Check if already in mailbox. */
-                $val->equals($this->_selected) ||
-                /* Force mailboxes containing wildcards to be accessed via
-                 * STATUS so that wildcards do not return a bunch of
-                 * mailboxes in the LIST-STATUS response. */
-                (strpbrk($name, '*%') !== false);
+                $opened = true;
+
+                if ($flags & Horde_Imap_Client::STATUS_FORCE_REFRESH) {
+                    $this->noop();
+                }
+            } else {
+                /* A list of STATUS options (other than those handled directly
+                 * below) that require the mailbox to be explicitly opened. */
+                $opened = ($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
+                    ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
+                    ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
+                    ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY) ||
+                    /* Force mailboxes containing wildcards to be accessed via
+                     * STATUS so that wildcards do not return a bunch of
+                     * mailboxes in the LIST-STATUS response. */
+                    (strpbrk($name, '*%') !== false);
+            }
 
             $ret[$name] = $master;
             $ptr = &$ret[$name];

@@ -61,7 +61,8 @@
  *   - RFC 2595/4616: PLAIN authentication
  *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
  *   - RFC 3206: AUTH/SYS response codes
- *   - RFC 1734/5034: POP3 SASL
+ *   - RFC 4616: AUTH=PLAIN
+ *   - RFC 5034: POP3 SASL
  *
  * @author    Richard Heyes <richard@phpguru.org>
  * @author    Michael Slusarz <slusarz@horde.org>
@@ -142,19 +143,15 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             /* Capability sniffing only guaranteed after authentication is
              * completed (if any). */
             if (!empty($this->_init['authmethod'])) {
-                try {
-                    $this->_sendLine('UIDL', array(
-                        'multiline' => 'none'
-                    ));
+                $this->_pop3Cache('uidl');
+                if (empty($this->_temp['no_uidl'])) {
                     $capability['UIDL'] = true;
-                } catch (Horde_Imap_Client_Exception $e) {}
+                }
 
-                try {
-                    $this->_sendLine('TOP 1 0', array(
-                        'multiline' => 'none'
-                    ));
+                $this->_pop3Cache('top', 1);
+                if (empty($this->_temp['no_top'])) {
                     $capability['TOP'] = true;
-                } catch (Horde_Imap_Client_Exception $e) {}
+                }
             }
         }
 
@@ -323,7 +320,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             break;
 
         case 'LOGIN':
-            // RFC 5034
+            // RFC 4616 (AUTH=PLAIN) & 5034 (POP3 SASL)
             $this->_sendLine('AUTH LOGIN');
             $this->_sendLine(base64_encode($username), array(
                 'debug' => sprintf('[AUTH LOGIN Command - username: %s]', $username)
@@ -335,7 +332,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         case 'PLAIN':
             // RFC 5034
-            $this->_sendLine('AUTH PLAIN ' . base64_encode(implode("\0", array($username, $this->getParam('password')))), array(
+            $this->_sendLine('AUTH PLAIN ' . base64_encode(implode("\0", array(
+                $username,
+                $username,
+                $password
+            ))), array(
                 'debug' => sprintf('[AUTH PLAIN Command - username: %s]', $username)
             ));
             break;
@@ -816,7 +817,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * Retrieve locally cached message data.
      *
      * @param string $type    Either 'hdr', 'hdrob', 'msg', 'size', 'stat',
-     *                        or 'uidl'.
+     *                        'top', or 'uidl'.
      * @param integer $index  The message index.
      * @param mixed $data     Additional information needed.
      *
@@ -836,8 +837,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         switch ($type) {
         case 'hdr':
+        case 'top':
             $data = null;
-            if ($this->queryCapability('TOP')) {
+            if ($this->queryCapability('TOP') || ($type == 'top')) {
                 try {
                     $res = $this->_sendLine('TOP ' . $index . ' 0', array(
                         'multiline' => 'stream'
@@ -845,7 +847,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                     rewind($res['data']);
                     $data = stream_get_contents($res['data']);
                     fclose($res['data']);
-                } catch (Horde_Imap_Client_Exception $e) {}
+                } catch (Horde_Imap_Client_Exception $e) {
+                    $this->_temp['no_top'] = true;
+                    if ($type == 'top') {
+                        return null;
+                    }
+                }
             }
 
             if (is_null($data)) {
@@ -876,7 +883,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                     $resp_data = explode(' ', $val, 2);
                     $data[$resp_data[0]] = $resp_data[1];
                 }
-            } catch (Horde_Imap_Client_Exception $e) {}
+            } catch (Horde_Imap_Client_Exception $e) {
+                if ($type == 'uidl') {
+                    $this->_temp['no_uidl'] = true;
+                }
+            }
             break;
 
         case 'stat':
@@ -1057,6 +1068,25 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     {
         /* POP3 does not support search caching. */
         return null;
+    }
+
+    /**
+     */
+    public function resolveIds(Horde_Imap_Client_Mailbox $mailbox,
+                               Horde_Imap_Client_Ids $ids, $convert = 0)
+    {
+        if (!$ids->special &&
+            (!$convert ||
+             (!$ids->sequence && ($convert == 1)) ||
+             $ids->isEmpty())) {
+            return clone $ids;
+        }
+
+        $uids = $this->_pop3Cache('uidl');
+
+        return $this->getIdsOb(
+            $ids->all ? array_values($uids) : array_intersect_keys($uids, $ids->ids)
+        );
     }
 
     /* Internal functions. */

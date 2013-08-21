@@ -21,6 +21,7 @@
 <!-- Begin admin-only inclusions -->
 <?php if ($GLOBALS['registry']->isAdmin()):
   require __DIR__ . '/jobtypes.inc';
+  require __DIR__ . '/deliverables.inc';
   endif;
 ?>
 

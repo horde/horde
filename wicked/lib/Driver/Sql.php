@@ -165,7 +165,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
             $result,
             function($a, $b)
             {
-                return $a['version_created'] - $b['version_created'];
+                return $b['version_created'] - $a['version_created'];
             }
         );
         return array_slice($result, 0, $limit);

@@ -154,9 +154,6 @@ foreach ($devices as $key => $device) {
         ));
     }
 
-    /* Load this device */
-    $stateMachine->loadDeviceInfo($device['device_id'], $device['device_user']);
-
     /* Parse the status */
     switch ($device['device_rwstatus']) {
     case Horde_ActiveSync::RWSTATUS_PENDING:
@@ -174,7 +171,7 @@ foreach ($devices as $key => $device) {
     }
 
     /* Last sync time */
-    $ts = new Horde_Date($stateMachine->getLastSyncTimestamp($device['device_id']));
+    $ts = new Horde_Date($stateMachine->getLastSyncTimestamp($device['device_id'], $device['device_user']));
 
     /* Build the action links */
     $actions = '';

@@ -52,6 +52,8 @@ class Horde_Imap_Client
     const STATUS_SYNCVANISHED = 16384;
     /* @since 2.12.0 */
     const STATUS_RECENT_TOTAL = 32768;
+    /* @since 2.14.0 */
+    const STATUS_FORCE_REFRESH = 65536;
 
     /* Constants for search() */
     const SORT_ARRIVAL = 1;

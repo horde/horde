@@ -93,33 +93,36 @@ class Nag_Form_EditTaskList extends Horde_Form
             $caldavUrl = $url . '/rpc.php/calendars/';
             $accountUrl = $url . '/rpc.php/';
         }
-        $accountUrl = Horde::url($accountUrl, true, -1)
-            . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
-        $caldavUrl = Horde::url($caldavUrl, true, -1)
-            . ($tasklist->get('owner')
-               ? $tasklist->get('owner')
-               : '-system-')
-                . '/'
-            . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($tasklist->getName(), 'tasks')
-            . '/';
-        $this->addVariable(
-             _("CalDAV Subscription URL"), '', 'link', false, false, null,
-             array(array(
-                 'url' => $caldavUrl,
-                 'text' => $caldavUrl,
-             'title' => _("Copy this URL to a CalDAV client to subscribe to this task list"),
-                 'target' => '_blank')
-             )
-        );
-        $this->addVariable(
-             _("CalDAV Account URL"), '', 'link', false, false, null,
-             array(array(
-                 'url' => $accountUrl,
-                 'text' => $accountUrl,
-             'title' => _("Copy this URL to a CalDAV client to subscribe to all your task lists"),
-                 'target' => '_blank')
-             )
-        );
+        try {
+            $accountUrl = Horde::url($accountUrl, true, -1)
+                . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
+            $caldavUrl = Horde::url($caldavUrl, true, -1)
+                . ($tasklist->get('owner')
+                   ? $tasklist->get('owner')
+                   : '-system-')
+                    . '/'
+                . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($tasklist->getName(), 'tasks')
+                . '/';
+            $this->addVariable(
+                 _("CalDAV Subscription URL"), '', 'link', false, false, null,
+                 array(array(
+                     'url' => $caldavUrl,
+                     'text' => $caldavUrl,
+                 'title' => _("Copy this URL to a CalDAV client to subscribe to this task list"),
+                     'target' => '_blank')
+                 )
+            );
+            $this->addVariable(
+                 _("CalDAV Account URL"), '', 'link', false, false, null,
+                 array(array(
+                     'url' => $accountUrl,
+                     'text' => $accountUrl,
+                 'title' => _("Copy this URL to a CalDAV client to subscribe to all your task lists"),
+                     'target' => '_blank')
+                 )
+            );
+        } catch (Horde_Exception $e) {
+        }
         $webdavUrl = Horde::url($webdavUrl, true, -1)
             . ($tasklist->get('owner')
                ? $tasklist->get('owner')

@@ -1372,7 +1372,7 @@ class IMP_Mailbox implements Serializable
 
         foreach ($uids as $val) {
             foreach ($val->uids as $val2) {
-                $out->add($val->mbox, $list_ob->getBuid($val->mbox, $val2));
+                $out->add($this->_mbox, $list_ob->getBuid($val->mbox, $val2));
             }
         }
 

@@ -9,7 +9,9 @@ $conf['imapclient'] = array(
         'hostspec' => '',
         'port' => '',
         'secure' => '', // empty, 'ssl', or 'tls'
-        'debug' => null // e.g. 'php://output'
+        'debug' => null, // e.g. 'php://output',
+        // Test for XOAUTH2
+        //'xoauth2_token' => ''
     ),
     'test_mbox' => 'TestMailboxTest',
     'test_mbox_utf8' => 'TestMailboxTest1è',

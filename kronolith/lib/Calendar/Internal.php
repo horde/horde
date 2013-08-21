@@ -137,10 +137,13 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
         $hash['owner'] = $owner;
         $hash['show']  = in_array($id, $GLOBALS['display_calendars']);
         $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);
-        $hash['caldav']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/calendars/' : '/rpc.php/calendars/'), true, -1)
-            . ($this->owner() ? $this->owner() : '-system-') . '/'
-            . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($id, 'calendar')
-            . '/';
+        try {
+            $hash['caldav']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/calendars/' : '/rpc.php/calendars/'), true, -1)
+                . ($this->owner() ? $this->owner() : '-system-') . '/'
+                . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($id, 'calendar')
+                . '/';
+        } catch (Horde_Exception $e) {
+        }
         $hash['sub']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/kronolith/' : '/rpc.php/kronolith/'), true, -1)
             . ($this->owner() ? $this->owner() : '-system-') . '/'
             . $id . '.ics';
