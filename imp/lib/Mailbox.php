@@ -301,7 +301,7 @@ class IMP_Mailbox implements Serializable
         switch ($key) {
         case 'abbrev_label':
             $label = $this->label;
-            return (($pos = strrpos($label, $this->namespace_delimiter)) === false)
+            return ($this->nonimap || ($pos = strrpos($label, $this->namespace_delimiter)) === false)
                 ? $label
                 : substr($label, $pos + 1);
 
@@ -1582,6 +1582,8 @@ class IMP_Mailbox implements Serializable
      */
     protected function _getDisplay($notranslate = false)
     {
+        global $injector;
+
         if (!$notranslate && isset($this->_cache[self::CACHE_DISPLAY])) {
             return $this->_cache[self::CACHE_DISPLAY];
         }
@@ -1600,7 +1602,8 @@ class IMP_Mailbox implements Serializable
 
         /* Handle remote mailboxes. */
         if ($this->remote) {
-            return '';
+            $remote = $injector->getInstance('IMP_Remote');
+            return $remote[$this->_mbox]['server'];
         }
 
         $ns_info = $this->namespace_info;

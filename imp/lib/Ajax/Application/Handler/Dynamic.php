@@ -286,9 +286,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $initreload = ($this->vars->initial || $this->vars->reload);
 
-        $mask = IMP_Imap_Tree::FLIST_VFOLDER;
+        $mask = $imptree::FLIST_VFOLDER | $imptree::FLIST_REMOTE;
         if ($this->vars->unsub) {
-            $mask |= IMP_Imap_Tree::FLIST_UNSUB;
+            $mask |= $imptree::FLIST_UNSUB;
         }
 
         if (isset($this->vars->base)) {
@@ -299,16 +299,16 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $this->_base->queue->setMailboxOpt('all', 1);
         } else {
             if ($initreload) {
-                $mask |= IMP_Imap_Tree::FLIST_ANCESTORS | IMP_Imap_Tree::FLIST_SAMELEVEL;
+                $mask |= $imptree::FLIST_ANCESTORS | $imptree::FLIST_SAMELEVEL;
                 if ($GLOBALS['prefs']->getValue('nav_expanded')) {
                     $this->_base->queue->setMailboxOpt('expand', 1);
-                    $mask |= IMP_Imap_Tree::FLIST_EXPANDED;
+                    $mask |= $imptree::FLIST_EXPANDED;
                 } else {
-                    $mask |= IMP_Imap_Tree::FLIST_NOCHILDREN;
+                    $mask |= $imptree::FLIST_NOCHILDREN;
                 }
             } else {
                 $this->_base->queue->setMailboxOpt('expand', 1);
-                $mask |= IMP_Imap_Tree::FLIST_EXPANDED | IMP_Imap_Tree::FLIST_NOBASE;
+                $mask |= $imptree::FLIST_EXPANDED | $imptree::FLIST_NOBASE;
             }
         }
 

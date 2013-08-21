@@ -64,6 +64,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const FLIST_ASIS = 256;
     const FLIST_NOSPECIALMBOXES = 512;
     const FLIST_POLLED = 1024;
+    const FLIST_REMOTE = 2048;
 
     /* The string used to indicate the base of the tree. This must include
      * null since this is the only 7-bit character not allowed in IMAP
@@ -1888,6 +1889,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *         DEFAULT: DimpCore.conf.base_mbox
      *   - po: (boolean) [polled] Is the element polled?
      *         DEFAULT: no
+     *   - r: (boolean) [remote] Is this a "remote" element?
      *   - s: (boolean) [special] Is this a "special" element?
      *        DEFAULT: no
      *   - t: (string) [title] Mailbox title.
@@ -1937,6 +1939,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $ob->co = 1;
             if ($elt->nonimap) {
                 $ob->n = 1;
+                if ($elt->remote) {
+                    $ob->r = 1;
+                }
             }
             if ($elt == self::VFOLDER_KEY) {
                 $ob->v = 1;
@@ -2170,6 +2175,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *   IMP_Imap_Tree::FLIST_POLLED: Only show polled mailboxes.
      *   Default: Polled status is ignored.
      *  </li>
+     *  <li>
+     *   IMP_Imap_Tree::FLIST_REMOTE: Show remote accounts.
+     *   Default: Remote accounts are ignored.
+     *  </li>
      *  <li>Options that require $base to be set:
      *   <ul>
      *    <li>
@@ -2215,8 +2224,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Show containers if NOCONTAINER is not set and children exist. */
         if ($this->isContainer($elt)) {
-            if (($c['mask'] & self::FLIST_NOCONTAINER) ||
-                !$this->hasChildren($elt, true)) {
+            if ($this->isRemote($elt)) {
+                if (!($c['mask'] & self::FLIST_REMOTE)) {
+                    return false;
+                }
+            } elseif (($c['mask'] & self::FLIST_NOCONTAINER) ||
+                      !$this->hasChildren($elt, true)) {
                 return false;
             }
         } elseif ($this->isInvisible($elt)) {
