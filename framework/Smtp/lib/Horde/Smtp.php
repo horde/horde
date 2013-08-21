@@ -156,8 +156,7 @@ class Horde_Smtp implements Serializable
     /**
      * Get encryption key.
      *
-     * @deprecated  Use 'password' parameter instead with Horde_Smtp_Password
-     *              object.
+     * @deprecated
      *
      * @return string  The encryption key.
      */
@@ -272,7 +271,7 @@ class Horde_Smtp implements Serializable
     {
         switch ($key) {
         case 'password':
-            if ($this->_params['password'] instanceof Horde_Smtp_Password) {
+            if ($this->_params[$key] instanceof Horde_Smtp_Password) {
                 break;
             }
 
@@ -284,9 +283,7 @@ class Horde_Smtp implements Serializable
                     $val = $secret->write($encrypt_key, $val);
                     $this->_params['_passencrypt'] = true;
                 }
-            } catch (Exception $e) {
-                $this->_params['_passencrypt'] = false;
-            }
+            } catch (Exception $e) {}
             break;
         }
 
