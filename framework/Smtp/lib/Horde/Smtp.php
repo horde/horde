@@ -101,12 +101,6 @@ class Horde_Smtp implements Serializable
      *             DEFAULT: NONE
      *  </li>
      *  <li>
-     *   password_encrypt: (callable) A callback to a function that returns
-     *                     the key used to encrypt the password. This function
-     *                     MUST be static (i.e. array(class, function_name)).
-     *                     DEFAULT: No encryption [DEPRECATED]
-     *  </li>
-     *  <li>
      *   port: (string) The SMTP port.
      *         DEFAULT: 25
      *  </li>
