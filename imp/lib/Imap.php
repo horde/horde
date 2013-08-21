@@ -282,12 +282,6 @@ class IMP_Imap implements Serializable
             break;
         }
         $this->updateFetchIgnore();
-
-        /* Secret key may have changed - recreate password values. */
-        if ($this->config->passwd_opts) {
-            $this->_config = $this->loadServerConfig($this->_ob->getParam('imp:backend'));
-            $this->_changed = true;
-        }
     }
 
     /**
