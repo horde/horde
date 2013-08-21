@@ -101,12 +101,6 @@ class Horde_Smtp implements Serializable
      *             DEFAULT: NONE
      *  </li>
      *  <li>
-     *   password_encrypt: (callable) A callback to a function that returns
-     *                     the key used to encrypt the password. This function
-     *                     MUST be static (i.e. array(class, function_name)).
-     *                     DEFAULT: No encryption [DEPRECATED]
-     *  </li>
-     *  <li>
      *   port: (string) The SMTP port.
      *         DEFAULT: 25
      *  </li>
@@ -131,8 +125,8 @@ class Horde_Smtp implements Serializable
      *  </li>
      *  <li>
      *   xoauth2_token: (string) If set, will authenticate via the XOAUTH2
-     *                  mechanism (if available) with this token (since
-     *                  1.1.0).
+     *                  mechanism (if available) with this token. Either a
+     *                  string or a Horde_Smtp_Password object (since 1.1.0).
      *  </li>
      * </ul>
      */
@@ -156,8 +150,7 @@ class Horde_Smtp implements Serializable
     /**
      * Get encryption key.
      *
-     * @deprecated  Use 'password' parameter instead with Horde_Smtp_Password
-     *              object.
+     * @deprecated
      *
      * @return string  The encryption key.
      */
@@ -239,12 +232,14 @@ class Horde_Smtp implements Serializable
         /* Passwords may be stored encrypted. */
         switch ($key) {
         case 'password':
-            if ($this->_params['password'] instanceof Horde_Smtp_Password) {
-                return $this->_params['password']->getPassword();
+        case 'xoauth2_token':
+            if ($this->_params[$key] instanceof Horde_Smtp_Password) {
+                return $this->_params[$key]->getPassword();
             }
 
             // DEPRECATED
-            if (!empty($this->_params['_passencrypt'])) {
+            if (($key == 'password') &&
+                !empty($this->_params['_passencrypt'])) {
                 try {
                     $secret = new Horde_Secret();
                     return $secret->read($this->_getEncryptKey(), $this->_params['password']);
@@ -270,7 +265,7 @@ class Horde_Smtp implements Serializable
     {
         switch ($key) {
         case 'password':
-            if ($this->_params['password'] instanceof Horde_Smtp_Password) {
+            if ($this->_params[$key] instanceof Horde_Smtp_Password) {
                 break;
             }
 
@@ -282,9 +277,7 @@ class Horde_Smtp implements Serializable
                     $val = $secret->write($encrypt_key, $val);
                     $this->_params['_passencrypt'] = true;
                 }
-            } catch (Exception $e) {
-                $this->_params['_passencrypt'] = false;
-            }
+            } catch (Exception $e) {}
             break;
         }
 

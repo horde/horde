@@ -3124,11 +3124,14 @@ class Whups_Driver_Sql extends Whups_Driver
                 throw new Whups_Exception($e);
             }
             $attributes = $this->_fromBackend($attributes);
-            try {
-                $attributes['attribute_value'] = Horde_Serialize::unserialize(
-                    $attributes['attribute_value'],
-                    Horde_Serialize::JSON);
-            } catch (Horde_Serialize_Exception $e) {
+            foreach ($attributes as &$attribute) {
+                try {
+                    $attribute = Horde_Serialize::unserialize(
+                        $attribute,
+                        Horde_Serialize::JSON
+                    );
+                } catch (Horde_Serialize_Exception $e) {
+                }
             }
         }
 

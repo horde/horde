@@ -2,6 +2,7 @@
 v6.1.4-git
 ----------
 
+[mms] Fix updating flags in dynamic search view (Bug #12594).
 [mms] Use Horde_Smtp to send messages via SMTP.
 [mms] Fix applying the 'allow_folders' permission.
 [mms] Fix canceling/discarding compose message in basic view (Bug #12555).
