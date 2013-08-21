@@ -630,6 +630,13 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>content</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.3</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>5.0.0</min>
