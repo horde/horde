@@ -37,7 +37,16 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     const VERSION        = 1;
 
     /**
+     * Total count of messages in the folder.
+     * Used to detect deletes on a non-CONDSTORE server.
+     *
+     * @var integer
+     */
+    protected $_total_messages = 0;
+
+    /**
      * The folder's current message list.
+     * Note: It is filtered by a date filter.
      *
      * @var array
      */
@@ -83,8 +92,10 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      * @param array $messages  An array of message UIDs.
      * @param array $flags     A hash of message read flags, keyed by UID.
      */
-    public function setChanges(array $messages, array $flags = array())
+    public function setChanges(array $messages, array $flags = array(), $total_messages=0)
     {
+        $this->_total_messages = $total_messages;
+
         foreach ($messages as $uid) {
             if ($uid >= $this->uidnext()) {
                 $this->_added[] = $uid;
@@ -216,6 +227,16 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     }
 
     /**
+     * Return the total, unfiltered number of messages in the folder.
+     *
+     * @return integer The total number of messages
+     */
+    public function total_messages()
+    {
+        return $this->_total_messages;
+    }
+
+    /**
      * Return the list of UIDs currently on the device.
      *
      * @return array The list of backend messages.
@@ -295,6 +316,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         return serialize(array(
             's' => $this->_status,
             'm' => $this->_messages,
+            't' => $this->_total_messages,
             'f' => $this->_serverid,
             'c' => $this->_class,
             'v' => self::VERSION)
@@ -310,10 +332,11 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     public function unserialize($data)
     {   $data = @unserialize($data);
         if (!is_array($data) || empty($data['v']) || $data['v'] != self::VERSION) {
-            throw new Horde_ActiveSync_Exception_StaleState('Cache vesion change');
+            throw new Horde_ActiveSync_Exception_StaleState('Cache version change');
         }
         $this->_status = $data['s'];
         $this->_messages = $data['m'];
+        $this->_total_messages = $data['t'];
         $this->_serverid = $data['f'];
         $this->_class = $data['c'];
     }
