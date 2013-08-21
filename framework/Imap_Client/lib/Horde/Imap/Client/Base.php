@@ -537,9 +537,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     $val = $secret->write($encrypt_key, $val);
                     $this->_params['_passencrypt'] = true;
                 }
-            } catch (Exception $e) {
-                $this->_params['_passencrypt'] = false;
-            }
+            } catch (Exception $e) {}
             break;
         }
 
