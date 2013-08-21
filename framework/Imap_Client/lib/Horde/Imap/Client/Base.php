@@ -155,10 +155,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                Backend cache driver (as of 2.9.0).
      *      </li>
      *      <li>
-     *       cacheob: [REQUIRED (or backend)] (Horde_Cache) The cache object to
-     *                use (DEPRECATED).
-     *      </li>
-     *      <li>
      *       fetch_ignore: (array) A list of mailboxes to ignore when storing
      *                     fetch data.
      *      </li>
@@ -205,13 +201,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *            provided. The value can be any PHP supported wrapper that
      *            can be opened via fopen().
      *            DEFAULT: No debug output
-     *    </li>
-     *    <li>
-     *     encryptKey: (array) A callback to a function that returns the key
-     *                 used to encrypt the password. This function MUST be
-     *                 static.
-     *                 DEFAULT: No encryption
-     *                 DEPRECATED
      *    </li>
      *    <li>
      *     hostspec: (string) The hostname or IP address of the server.
