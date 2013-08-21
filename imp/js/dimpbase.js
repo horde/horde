@@ -1175,6 +1175,13 @@ var DimpBase = {
             });
             break;
 
+        case 'ctx_remote_prefs':
+            HordeCore.redirect(HordeCore.addURLParam(
+                DimpCore.conf.URI_PREFS_IMP,
+                { group: 'remote' }
+            ));
+            break;
+
         default:
             if (menu == 'ctx_filteropts_filter') {
                 this.search = {
@@ -1263,6 +1270,7 @@ var DimpBase = {
 
         case 'ctx_container':
         case 'ctx_noactions':
+        case 'ctx_remote':
         case 'ctx_vfolder':
             baseelt = this.contextMbox(e);
             $(ctx_id).down('DIV.mboxName').update(this.fullMboxDisplay(baseelt));
@@ -3419,6 +3427,9 @@ var DimpBase = {
             break;
 
         case 'rcontainer':
+            ftype = 'remote';
+            break;
+
         case 'scontainer':
             ftype = 'noactions';
             break;
