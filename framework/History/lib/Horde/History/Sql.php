@@ -338,4 +338,36 @@ class Horde_History_Sql extends Horde_History
         return $result;
     }
 
+    /**
+     * Gets the latest entry of $guid
+     *
+     * @param string   $guid    The name of the history entry to retrieve.
+     * @param boolean  $use_ts  If false we use the 'modseq' field to determine
+     *                          the latest entry. If true we use the timestamp
+     *                          instead of modseq to determine the latest entry.
+     *                          Note: Only 'modseq' can give a definitive answer.
+     *
+     * @return array|boolean    The latest history entry, or false if $guid does not exist.
+     *
+     * @throws Horde_History_Exception If the input parameters are not of type string.
+     * @since 2.1.7
+     */
+    public function getLatestEntry($guid, $use_ts=false)
+    {
+        $query = 'SELECT * from horde_histories WHERE object_uid = ? ORDER BY ';
+        if ($use_ts) {
+            $query .= 'history_ts';
+        } else {
+            $query .= 'history_modseq';
+        }
+        $query .= ' DESC LIMIT 1';
+
+        $row = $this->_db->selectOne($query, array($guid));
+        if (empty($row['history_id'])) {
+            return false;
+        }
+
+        $log = new Horde_History_Log($guid, array($row));
+        return $log[0];
+    }
 }
