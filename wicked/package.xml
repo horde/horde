@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-17</date>
- <time>00:21:43</time>
+ <date>2013-08-22</date>
+ <time>18:44:15</time>
  <version>
   <release>2.0.0RC2</release>
   <api>2.0.0</api>
@@ -967,7 +967,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-07-17</date>
+   <date>2013-08-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix generating the most recent changes.
