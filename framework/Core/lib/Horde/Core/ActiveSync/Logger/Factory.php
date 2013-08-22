@@ -35,8 +35,8 @@ class Horde_Core_ActiveSync_Logger_Factory implements Horde_ActiveSync_Interface
     public function create($properties = array())
     {
         global $conf;
-        $logger = false;
 
+        $logger = false;
         if ($conf['activesync']['logging']['type'] == 'onefile') {
             if (!empty($properties['DeviceId'])) {
                 $device_id = $properties['DeviceId'];
@@ -44,7 +44,7 @@ class Horde_Core_ActiveSync_Logger_Factory implements Horde_ActiveSync_Interface
                 $formatter = new Horde_Log_Formatter_Simple(array('format' => $format));
                 $stream = fopen($conf['activesync']['logging']['path'], 'a');
                 if ($stream) {
-                    $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($stream, 'a', $formatter));
+                    $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($stream, false, $formatter));
                 }
             }
         } elseif ($conf['activesync']['logging']['type'] == 'perdevice') {
