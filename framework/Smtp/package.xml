@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-19</date>
+ <date>2013-08-22</date>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -45,6 +45,7 @@
       <file name="Connection.php" role="php" />
       <file name="Debug.php" role="php" />
       <file name="Exception.php" role="php" />
+      <file name="Password.php" role="php" />
       <file name="Translation.php" role="php" />
      </dir> <!-- /lib/Horde/Smtp -->
      <file name="Smtp.php" role="php" />
@@ -128,6 +129,7 @@
    <install as="Horde/Smtp/Connection.php" name="lib/Horde/Smtp/Connection.php" />
    <install as="Horde/Smtp/Debug.php" name="lib/Horde/Smtp/Debug.php" />
    <install as="Horde/Smtp/Exception.php" name="lib/Horde/Smtp/Exception.php" />
+   <install as="Horde/Smtp/Password.php" name="lib/Horde/Smtp/Password.php" />
    <install as="Horde/Smtp/Translation.php" name="lib/Horde/Smtp/Translation.php" />
    <install as="Horde/Smtp/Filter/Data.php" name="lib/Horde/Smtp/Filter/Data.php" />
    <install as="locale/Horde_Smtp.pot" name="locale/Horde_Smtp.pot" />
@@ -161,7 +163,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-19</date>
+   <date>2013-08-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Deprecated the &apos;password_encrypt&apos; parameter and instead support passing a Horde_Smtp_Password object into the &apos;password&apos; parameter.
