@@ -2,6 +2,7 @@
 v5.2.0-git
 ----------
 
+[mjr] Improve logging options for ActiveSync logging configuration.
 [mjr] Add support for managing ActiveSync devices through the API.
 [mjr] Add prefs for selecting From address when sending email via ActiveSync.
 
