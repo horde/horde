@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-22</date>
- <time>15:59:07</time>
+ <time>16:06:26</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Allow collections with arbitrary keys when rendering partials.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -425,6 +425,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Allow collections with arbitrary keys when rendering partials.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
