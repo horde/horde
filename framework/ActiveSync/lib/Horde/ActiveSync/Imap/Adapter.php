@@ -269,7 +269,6 @@ class Horde_ActiveSync_Imap_Adapter
             $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
                 Horde_Imap_Client::STATUS_UIDVALIDITY |
                 Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
-                Horde_Imap_Client::STATUS_MESSAGES |
                 Horde_Imap_Client::STATUS_FORCE_REFRESH;
         } else {
             $status_flags = Horde_Imap_Client::STATUS_UIDVALIDITY |
@@ -363,7 +362,7 @@ class Horde_ActiveSync_Imap_Adapter
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
 
             if ($condstore && $folder->modseq() > 0 && count($search_ret['match']->ids)) {
-                $folder->setChanges($search_ret['match']->ids, array(), $status['messages']);
+                $folder->setChanges($search_ret['match']->ids, array());
             } elseif (count($search_ret['match']->ids)) {
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
@@ -574,7 +573,6 @@ class Horde_ActiveSync_Imap_Adapter
         if ($condstore = $imap->queryCapability('CONDSTORE')) {
             $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
                 Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
-                Horde_Imap_Client::STATUS_MESSAGES |
                 Horde_Imap_Client::STATUS_FORCE_REFRESH;
         } else {
             $status_flags = Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
@@ -599,7 +597,7 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         // If the message count changes, something certainly changed.
-        if ($folder->total_messages() != $status['messages']) {
+        if (!$condstore && $folder->total_messages() != $status['messages']) {
             return true;
         }
 
