@@ -76,7 +76,8 @@ class Hermes_Ajax
             'client_name_field' => $conf['client']['field'],
             'has_review_edit' => $injector->getInstance('Horde_Perms')->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
             'has_review' => $registry->isAdmin(array('permission' => 'hermes:review')),
-            'has_timeadmin' => $registry->isAdmin(array('permission' => 'hermes:timeadmin'))
+            'has_timeadmin' => $registry->isAdmin(array('permission' => 'hermes:timeadmin')),
+            'has_deliverableadmin' => $registry->isAdmin(array('permission' => 'hermes:deliverables'))
         );
 
         /* Gettext strings used in core javascript files. */

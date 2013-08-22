@@ -79,9 +79,14 @@ HermesCore = {
         this.viewLoading.push([ fullloc, data ]);
 
         switch (loc) {
+        case 'adminjobs':
+            // If user is not admin, this won't be present.
+            if (!$('hermeViewAdminjobs')) {
+                this.viewLoading.pop();
+                return;
+            }
         case 'time':
         case 'search':
-        case 'adminjobs':
         case 'admindeliverables':
             this.closeView(loc);
             locCap = loc.capitalize();
@@ -916,6 +921,9 @@ HermesCore = {
         cell = cell.next().update((jt.active == 1) ? 'Y' : 'N');
         cell = cell.next().update(jt.estimate);
         cell = cell.next().update(jt.description);
+        if (!Hermes.conf.has_deliverableadmin) {
+            cell.next().remove();
+        }
 
         return row;
     },
@@ -1307,7 +1315,11 @@ HermesCore = {
      */
     loadJobListCallback: function(r)
     {
-        var t = $('hermesJobTypeListInternal').update();
+        var t = $('hermesJobTypeListInternal');
+        if (!t) {
+            return;
+        }
+        t.update();
         r.each(function(jt) {
             t.insert(this.buildJobTypeRow(jt).toggle());
         }.bind(this));
