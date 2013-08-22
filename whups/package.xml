@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-16</date>
- <time>16:30:18</time>
+ <date>2013-08-22</date>
+ <time>18:22:57</time>
  <version>
   <release>3.0.0RC2</release>
   <api>3.0.0</api>
@@ -1029,7 +1029,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-08-16</date>
+   <date>2013-08-22</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Fix sorting tickets by date.
