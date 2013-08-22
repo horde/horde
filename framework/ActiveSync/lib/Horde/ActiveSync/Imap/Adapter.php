@@ -265,17 +265,13 @@ class Horde_ActiveSync_Imap_Adapter
     {
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
-        if ($condstore = $imap->queryCapability('CONDSTORE')) {
-            $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
-                Horde_Imap_Client::STATUS_UIDVALIDITY |
-                Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
-                Horde_Imap_Client::STATUS_FORCE_REFRESH;
-        } else {
-            $status_flags = Horde_Imap_Client::STATUS_UIDVALIDITY |
-                Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
-                Horde_Imap_Client::STATUS_MESSAGES |
-                Horde_Imap_Client::STATUS_FORCE_REFRESH;
-        }
+
+        // Note: non-CONDSTORE servers will return a highestmodseq of 0
+        $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
+            Horde_Imap_Client::STATUS_UIDVALIDITY |
+            Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
+            Horde_Imap_Client::STATUS_MESSAGES |
+            Horde_Imap_Client::STATUS_FORCE_REFRESH;
 
         try {
             $status = $imap->status($mbox, $status_flags);
@@ -283,14 +279,10 @@ class Horde_ActiveSync_Imap_Adapter
             // If we can't status the mailbox, assume it's gone.
             throw new Horde_ActiveSync_Exception_FolderGone($e);
         }
-        if ($condstore) {
-            $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
-        } else {
-            $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ] = 0;
-        }
         $this->_logger->info('IMAP status: ' . print_r($status, true));
         $flags = array();
-        if ($condstore && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
+        $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
+        if ($modseq && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
             $this->_logger->info('CONDSTORE and CHANGES');
             $folder->checkValidity($status);
             $query = new Horde_Imap_Client_Fetch_Query();
@@ -362,7 +354,7 @@ class Horde_ActiveSync_Imap_Adapter
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
 
             if ($condstore && $folder->modseq() > 0 && count($search_ret['match']->ids)) {
-                $folder->setChanges($search_ret['match']->ids, array());
+                $folder->setChanges($search_ret['match']->ids, array(), $status['messages']);
             } elseif (count($search_ret['match']->ids)) {
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
@@ -377,7 +369,7 @@ class Horde_ActiveSync_Imap_Adapter
                 }
                 $folder->setChanges($search_ret['match']->ids, $flags, $status['messages']);
             }
-        } elseif (!$condstore || ($condstore && $modseq == 0)) {
+        } elseif ($modseq == 0) {
             $this->_logger->info(sprintf(
                 '[%s] NO CONDSTORE or per mailbox MODSEQ. minuid: %s, total_messages: %s',
                 getmypid(), $folder->minuid(), $status['messages']));
@@ -569,16 +561,11 @@ class Horde_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
 
-        // Check for CONDSTORE
-        if ($condstore = $imap->queryCapability('CONDSTORE')) {
-            $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
-                Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
-                Horde_Imap_Client::STATUS_FORCE_REFRESH;
-        } else {
-            $status_flags = Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
-                Horde_Imap_Client::STATUS_MESSAGES |
-                Horde_Imap_Client::STATUS_FORCE_REFRESH;
-        }
+        // Note: non-CONDSTORE servers will return a highestmodseq of 0
+        $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
+            Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
+            Horde_Imap_Client::STATUS_MESSAGES |
+            Horde_Imap_Client::STATUS_FORCE_REFRESH;
 
         // Get IMAP status.
         try {
@@ -591,19 +578,19 @@ class Horde_ActiveSync_Imap_Adapter
             throw new Horde_ActiveSync_Exception($e);
         }
 
+        // If we have per mailbox MODSEQ then we can pick up flag changes too.
+        $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
+        if ($modseq && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
+            return true;
+        }
+
         // Increase in UIDNEXT is always a positive PING.
         if ($folder->uidnext() < $status['uidnext']) {
             return true;
         }
 
         // If the message count changes, something certainly changed.
-        if (!$condstore && $folder->total_messages() != $status['messages']) {
-            return true;
-        }
-
-        // If we have per mailbox MODSEQ then we can pick up flag changes too.
-        if ($condstore && $folder->modseq() > 0 &&
-            $folder->modseq() < $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ]) {
+        if ($folder->total_messages() != $status['messages']) {
             return true;
         }
 
