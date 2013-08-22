@@ -329,7 +329,7 @@ class Horde_ActiveSync_Imap_Adapter
                     }
                 }
             }
-            $folder->setChanges($changes, $flags);
+            $folder->setChanges($changes, $flags, $status['messages']);
             try {
                 $deleted = $imap->vanished(
                     $mbox,
