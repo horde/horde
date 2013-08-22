@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Deprecated the &apos;password_encrypt&apos; parameter and instead support passing a Horde_Smtp_Password object into the &apos;password&apos; parameter.
 * [mms] Fix DIGEST-MD5 authentication method.
 * [mms] Added support for the Google XOAuth2 authentication mechanism.
 * [jan] Fix detecting if connection to SMTP server fails.
@@ -163,6 +164,7 @@
    <date>2013-08-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Deprecated the &apos;password_encrypt&apos; parameter and instead support passing a Horde_Smtp_Password object into the &apos;password&apos; parameter.
 * [mms] Fix DIGEST-MD5 authentication method.
 * [mms] Added support for the Google XOAuth2 authentication mechanism.
 * [jan] Fix detecting if connection to SMTP server fails.

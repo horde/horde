@@ -497,13 +497,15 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
-     * Return whether or not we want a looping sync.
+     * Return whether or not we want a looping sync. We can do a looping sync
+     * if we have no imported changes AND we have either a hbinterval, wait,
+     * or a shortSync.
      *
      * @return boolean  True if we want a looping sync, false otherwise.
      */
     public function canDoLoopingSync()
     {
-        return ($this->_shortSyncRequest || $this->_cache->hbinterval !== false || $this->_cache->wait !== false);
+        return !$this->_importedChanges && ($this->_shortSyncRequest || $this->_cache->hbinterval !== false || $this->_cache->wait !== false);
     }
 
     /**
