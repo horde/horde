@@ -30,7 +30,7 @@ var ImpRemotePrefs = {
         while (Object.isElement(elt)) {
             if (elt.hasClassName('remotedelete')) {
                 if (window.confirm(this.confirm_delete)) {
-                    this._sendData('delete', elt.up('TR').readAttribute('id').substring(11));
+                    this._sendData('delete', elt.readAttribute('data-id'));
                 }
                 e.stop();
                 return;

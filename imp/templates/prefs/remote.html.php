@@ -71,7 +71,7 @@
  <tbody>
 <?php if ($this->accounts): ?>
 <?php foreach ($this->accounts as $v): ?>
-  <tr id="remoteid_<?php echo $v->id ?>">
+  <tr>
    <td><?php echo $this->h($v->label) ?></td>
    <td><?php echo ($v->type == IMP_Remote_Account::POP3) ? 'POP3' : 'IMAP' ?></td>
    <td><?php echo $this->h($v->hostspec) ?></td>
@@ -85,7 +85,7 @@
    <td class="remoteNotSecure"><?php echo _("No") ?></td>
 <?php endif; ?>
    <td>
-    <a class="remotedelete" href="#"><?php echo $this->hordeImage('delete.png') ?></a>
+    <a class="remotedelete" href="#" data-id="<?php echo $v->id ?>"><?php echo $this->hordeImage('delete.png') ?></a>
    </td>
   </tr>
 <?php endforeach; ?>
