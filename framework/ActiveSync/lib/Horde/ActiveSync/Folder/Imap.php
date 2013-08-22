@@ -339,7 +339,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         }
         $this->_status = $data['s'];
         $this->_messages = $data['m'];
-        $this->_total_messages = $data['t'];
+        $this->_total_messages = !empty($data['t']) ? $data['t'] : 0;
         $this->_serverid = $data['f'];
         $this->_class = $data['c'];
     }
