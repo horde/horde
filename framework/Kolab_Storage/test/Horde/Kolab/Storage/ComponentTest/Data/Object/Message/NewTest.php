@@ -100,7 +100,8 @@ Content-Transfer-Encoding: quoted-printable
 
 --=_
 ',
-            $result
+            // Work around broken PHP quoted-printable encoder.
+            str_replace('=20', ' ', $result)
         );
     }
 }
