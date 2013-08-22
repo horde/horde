@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-22</date>
- <time>11:00:42</time>
+ <time>11:07:26</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Fix schema version table names when using horde-db-migrate-component.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -690,6 +690,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix schema version table names when using horde-db-migrate-component.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-22</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
