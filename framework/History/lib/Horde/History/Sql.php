@@ -240,7 +240,12 @@ class Horde_History_Sql extends Horde_History
     protected function _getByModSeq($start, $end, $filters = array(), $parent = null)
     {
         // Build the modseq test.
-        $where = array("history_modseq > $start AND history_modseq <= $end");
+        $where = array(
+            sprintf(
+                'history_modseq > %d AND history_modseq <= %d',
+                $start,
+                $end)
+        );
 
         // Add additional filters, if there are any.
         if ($filters) {
