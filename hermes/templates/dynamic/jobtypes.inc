@@ -1,4 +1,3 @@
-<?php if ($GLOBALS['registry']->isAdmin()): ?>
 <div id="hermesViewAdminjobs" style="display:none;">
 
   <div class="header"><span class="horde-collapse" id="hermesJobTypesFormCollapse"><?php echo _("Job Types")?></div>
@@ -46,4 +45,3 @@
   </div>
 
 </div>
-<?php endif; ?>
