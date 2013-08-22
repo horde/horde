@@ -92,8 +92,10 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      *
      * @param array $messages  An array of message UIDs.
      * @param array $flags     A hash of message read flags, keyed by UID.
+     * @param integer $total_messages  The total, unfiltered, count of messages
+     *                                 in this folder.
      */
-    public function setChanges(array $messages, array $flags = array(), $total_messages=0)
+    public function setChanges(array $messages, array $flags = array(), $total_messages = 0)
     {
         $this->_total_messages = $total_messages;
 
@@ -230,7 +232,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     /**
      * Return the total, unfiltered number of messages in the folder.
      *
-     * @return integer The total number of messages
+     * @return integer  The total number of messages.
      */
     public function total_messages()
     {
