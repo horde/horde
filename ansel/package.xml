@@ -22,19 +22,19 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-17</date>
- <time>00:28:53</time>
+ <date>2013-08-22</date>
+ <time>18:09:33</time>
  <version>
-  <release>3.0.0RC2</release>
+  <release>3.0.0</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fixed fatal error when using face widgets.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -57,7 +57,6 @@
     <file name="INSTALL" role="doc" />
     <file name="lighttpd-ansel.conf" role="doc" />
     <file name="RELEASE_NOTES" role="doc" />
-    <file name="TODO" role="doc" />
    </dir> <!-- /docs -->
    <dir name="faces">
     <dir name="search">
@@ -824,7 +823,6 @@
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="lighttpd-ansel.conf" name="docs/lighttpd-ansel.conf" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
-   <install as="TODO" name="docs/TODO" />
    <install as="ansel/faces/claim.php" name="faces/claim.php" />
    <install as="ansel/faces/custom.php" name="faces/custom.php" />
    <install as="ansel/faces/face.php" name="faces/face.php" />
@@ -1285,15 +1283,15 @@
   </release>
   <release>
    <version>
-    <release>3.0.0RC2</release>
+    <release>3.0.0</release>
     <api>3.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2013-07-17</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fixed fatal error when using face widgets.
    </notes>
   </release>
  </changelog>

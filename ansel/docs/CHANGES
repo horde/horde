@@ -2,6 +2,7 @@
 v3.0.0-git
 ----------
 
+[mjr] Fixed fatal error when using face widgets.
 
 
 ---------
