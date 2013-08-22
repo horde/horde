@@ -40,7 +40,6 @@ class Horde_History_Sql_Pdo_PgsqlTest extends Horde_History_TestBase
                 self::$logger->getLogger(),
                 array('migrationsPath' => $dir, 'schemaTableName' => 'horde_histories_schema'));
             self::$history = new Horde_History_Sql('test_user', self::$db);
-
         } else {
             self::$reason = 'No pdo_pgsql configuration';
         }
