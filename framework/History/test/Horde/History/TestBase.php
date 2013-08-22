@@ -306,6 +306,8 @@ class Horde_History_TestBase extends Horde_Test_Case
 
     public function testMethodGetbymodseqHasResultArrayContainingTheMatchingEventIds()
     {
+        $this->markTestIncomplete('getByModSeq has undefined behavior (Bug #12600)');
+
         self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action')); // 1
         self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1001, 'action' => 'test_action')); // 2
         self::$history->log('apptwo:test_uid', array('who' => 'you', 'ts' => 1002, 'action' => 'test_special_action')); // 3
