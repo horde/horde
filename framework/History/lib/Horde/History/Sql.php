@@ -352,15 +352,15 @@ class Horde_History_Sql extends Horde_History
      * @throws Horde_History_Exception If the input parameters are not of type string.
      * @since 2.1.7
      */
-    public function getLatestEntry($guid, $use_ts=false)
+    public function getLatestEntry($guid, $use_ts = false)
     {
         $query = 'SELECT * from horde_histories WHERE object_uid = ? ORDER BY ';
         if ($use_ts) {
-            $query .= 'history_ts';
+            $query .= 'history_ts ';
         } else {
-            $query .= 'history_modseq';
+            $query .= 'history_modseq ';
         }
-        $query .= ' DESC LIMIT 1';
+        $query .= 'DESC LIMIT 1';
 
         $row = $this->_db->selectOne($query, array($guid));
         if (empty($row['history_id'])) {
@@ -370,4 +370,5 @@ class Horde_History_Sql extends Horde_History
         $log = new Horde_History_Log($guid, array($row));
         return $log[0];
     }
+
 }

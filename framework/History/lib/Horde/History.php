@@ -398,7 +398,7 @@ abstract class Horde_History
      * @throws Horde_History_Exception If the input parameters are not of type string.
      * @since 2.1.7
      */
-    public function getLatestEntry($guid, $use_ts=false)
+    public function getLatestEntry($guid, $use_ts = false)
     {
         $log = $this->getHistory($guid);
         if (!count($log)) {
@@ -408,16 +408,19 @@ abstract class Horde_History
         $last = array('modseq' => -1, 'ts' => -1);
         if ($use_ts) {
             foreach ($log as $entry) {
-                if ($entry['ts'] > $last['ts'])
+                if ($entry['ts'] > $last['ts']) {
                     $last = $entry;
+                }
             }
         } else {
             foreach ($log as $entry) {
-                if ($entry['modseq'] > $last['modseq'])
+                if ($entry['modseq'] > $last['modseq']) {
                     $last = $entry;
+                }
             }
         }
 
         return $last;
     }
+
 }
