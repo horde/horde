@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-22</date>
- <time>13:42:49</time>
+ <time>13:49:54</time>
  <version>
-   <release>1.1.0</release>
+   <release>1.1.1</release>
    <api>1.1.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [rla] Add Db backend for Queues.
-* [cjh] Add Horde_Queue_Runner#runTask().
-* [cjh] Allow RequestShutdown runner to handle tasks that spawn other tasks.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -130,6 +128,19 @@
 * [rla] Add Db backend for Queues.
 * [cjh] Add Horde_Queue_Runner#runTask().
 * [cjh] Allow RequestShutdown runner to handle tasks that spawn other tasks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
