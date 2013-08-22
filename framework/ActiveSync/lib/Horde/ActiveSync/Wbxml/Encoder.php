@@ -283,7 +283,12 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     private function _content($content)
     {
         if (!is_resource($content)) {
-            $this->_logContent($content);
+            if ($this->_logLevel == self::LOG_PROTOCOL &&
+                ($l = Horde_String::length($content)) > self::LOG_MAXCONTENT) {
+                $this->_logContent(sprintf('[%d bytes of content]', $l));
+            } else {
+                $this->_logContent($content);
+            }
         } else {
             $this->_logContent('[STREAM]');
         }

@@ -295,11 +295,22 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
             break;
         case self::EN_TYPE_CONTENT:
             $spaces = str_repeat(' ', count($this->_logStack) + 1);
-            $this->_logger->debug(sprintf(
-                '[%s] I %s %s',
-                $this->_procid,
-                $spaces,
-                $el[self::EN_CONTENT]));
+            if ($this->_logLevel == self::LOG_PROTOCOL &&
+                ($l = Horde_String::length($el[self::EN_CONTENT])) > self::LOG_MAXCONTENT) {
+                $this->_logger->debug(sprintf(
+                    '[%s] I %s %s',
+                    $this->_procid,
+                    $spaces,
+                    sprintf('[%d bytes of content]', $l)
+                  ));
+            } else {
+                $this->_logger->debug(sprintf(
+                    '[%s] I %s %s',
+                    $this->_procid,
+                    $spaces,
+                    $el[self::EN_CONTENT])
+                );
+            }
             break;
         }
     }
