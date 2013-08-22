@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Allow reducing the amount of tag content that is logged to the Wbxml log.
 * [mjr] Fix broken wbxml in certain cases due to incorrect handling of encoding empty array values (Bug #12595).
 * [mjr] Detect IMAP message deletions on non-CONDSTORE servers during PING requests (Request #12597, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mjr] Do not initiate a looping SYNC in there were any incoming changes, this prevents an unnecessary backend ping for each collection.
@@ -1635,6 +1636,7 @@
    <date>2013-08-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Allow reducing the amount of tag content that is logged to the Wbxml log.
 * [mjr] Fix broken wbxml in certain cases due to incorrect handling of encoding empty array values (Bug #12595).
 * [mjr] Detect IMAP message deletions on non-CONDSTORE servers during PING requests (Request #12597, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mjr] Do not initiate a looping SYNC in there were any incoming changes, this prevents an unnecessary backend ping for each collection.
