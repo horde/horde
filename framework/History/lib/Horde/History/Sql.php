@@ -221,8 +221,8 @@ class Horde_History_Sql extends Horde_History
      * Return history objects with changes during a modseq interval, and
      * optionally filtered on other fields as well.
      *
-     * @param integer $start   The start of the modseq range.
-     * @param integer $end     The end of the modseq range.
+     * @param integer $start   The (exclusive) start of the modseq range.
+     * @param integer $end     The (inclusive) end of the modseq range.
      * @param array   $filters An array of additional (ANDed) criteria.
      *                         Each array value should be an array with 3
      *                         entries:
@@ -240,7 +240,12 @@ class Horde_History_Sql extends Horde_History
     protected function _getByModSeq($start, $end, $filters = array(), $parent = null)
     {
         // Build the modseq test.
-        $where = array("history_modseq > $start AND history_modseq <= $end");
+        $where = array(
+            sprintf(
+                'history_modseq > %d AND history_modseq <= %d',
+                $start,
+                $end)
+        );
 
         // Add additional filters, if there are any.
         if ($filters) {
