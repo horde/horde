@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-22</date>
- <time>18:12:41</time>
+ <time>18:21:03</time>
  <version>
-  <release>3.0.0</release>
+  <release>3.0.1</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fixed fatal error when using face widgets.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1292,6 +1292,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fixed fatal error when using face widgets.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
