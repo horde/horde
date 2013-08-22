@@ -319,23 +319,29 @@ class Horde_History_TestBase extends Horde_Test_Case
 
         // Only have two unique UIDS.
         $result = self::$history->getByModSeq(0, 5);
-        $this->assertEquals(array('appone:test_uid' => 5, 'apptwo:test_uid' => 4), $result);
+        $this->assertEquals(2, count($result));
+        $this->assertTrue(in_array('appone:test_uid', array_keys($result)));
+        $this->assertTrue(in_array('apptwo:test_uid', array_keys($result)));
 
         $result = self::$history->getByModSeq(4, 8);
-        $this->assertEquals(array('appone:test_uid' => 8), $result);
+        $this->assertEquals(1, count($result));
+        $this->assertTrue(in_array('appone:test_uid', array_keys($result)));
 
         // Test using action filter.
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => 'test_special_action'));
         $result = self::$history->getByModSeq(0, 5, $filter);
-        $this->assertEquals(array('apptwo:test_uid' => 3), $result);
+        $this->assertEquals(1, count($result));
+        $this->assertTrue(in_array('apptwo:test_uid', array_keys($result)));
 
         // Test using parent
         $result = self::$history->getByModSeq(0, 5, array(), 'apptwo');
-        $this->assertEquals(array('apptwo:test_uid' => 4), $result);
+        $this->assertEquals(1, count($result));
+        $this->assertTrue(in_array('apptwo:test_uid', array_keys($result)));
 
         // Test parent AND filter
         $result = self::$history->getByModSeq(0, 5, $filter, 'apptwo');
-        $this->assertEquals(array('apptwo:test_uid' => 3), $result);
+        $this->assertEquals(1, count($result));
+        $this->assertTrue(in_array('apptwo:test_uid', array_keys($result)));
     }
 
     public function testConditionThatHigestModSeqPersistsAfterLogDeletion()
