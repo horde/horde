@@ -37,7 +37,7 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function __construct()
     {
-        $this->_accounts = @json_decode($GLOBALS['prefs']->getValue('remote'), true);
+        $this->_accounts = @unserialize($GLOBALS['prefs']->getValue('remote')) ?: array();
     }
 
     /**
@@ -45,7 +45,7 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     protected function _save()
     {
-        $GLOBALS['prefs']->setValue('remote', json_encode($this->_accounts));
+        $GLOBALS['prefs']->setValue('remote', serialize($this->_accounts));
     }
 
     /* ArrayAccess methods. */
@@ -79,36 +79,11 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
     /**
      * Add a remote account.
      *
-     * @param string $offset  Account ID.
-     * @param array $value    Configuration:
-     *   - port: (integer) The remote port.
-     *   - secure: (boolean) True for secure, false for no. If not present,
-     *             use auto-detection.
-     *   - server: (string) The server hostspec.
-     *   - type: (string) Either 'imap' or 'pop3'.
-     *   - user: (string) The username.
-     *
-     * @throws IMP_Exception
+     * @param string $offset          Account ID.
+     * @param IMP_Remote_Account $ob  Account object.
      */
     public function offsetSet($offset, $value)
     {
-        if (!is_array($value) ||
-            !isset($value['server']) ||
-            !strlen($value['server']) ||
-            empty($value['type']) ||
-            !isset($value['user']) ||
-            !strlen($value['user'])) {
-            throw new IMP_Exception(_("Missing required values."));
-        }
-
-        if (empty($value['port'])) {
-            $value['port'] = ($value['type'] == 'pop3') ? 110 : 143;
-        }
-
-        if (!is_bool($value['secure'])) {
-            unset($value['secure']);
-        }
-
         $this->_accounts[$offset] = $value;
         $this->_save();
     }

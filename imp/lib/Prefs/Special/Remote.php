@@ -53,19 +53,8 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
             break;
 
         default:
-            $out = array();
-            foreach ($injector->getInstance('IMP_Remote') as $key => $val) {
-                $out[] = array(
-                    'id' => $key,
-                    'port' => $val['port'],
-                    'secure' => ($val['secure'] === true),
-                    'secure_auto' => !isset($val['secure']),
-                    'server' => $val['server'],
-                    'type' => $val['type'],
-                    'user' => $val['user'],
-                );
-            }
-            $view->accounts = $out;
+            $view->accounts = iterator_to_array($injector->getInstance('IMP_Remote'));
+            break;
         }
 
         return $view->render('remote');
@@ -83,14 +72,20 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
         switch ($ui->vars->remote_action) {
         case 'add':
             try {
-                $secure = $ui->vars->remote_secure;
-                $remote[strval(new Horde_Support_Randomid())] = array(
-                    'port' => $ui->vars->remote_port,
-                    'secure' => (($secure == 'auto') ? null : ($secure == 'yes')),
-                    'server' => $ui->vars->remote_server,
-                    'type' => $ui->vars->get('remote_type', 'imap'),
-                    'user' => $ui->vars->remote_user
-                );
+                $ob = new IMP_Remote_Account();
+                $ob->hostspec = $ui->vars->remote_server;
+                $ob->username = $ui->vars->remote_user;
+                if ($ui->vars->remote_port) {
+                    $ob->port = $ui->vars->remote_port;
+                }
+                if (($secure = $ui->vars->remote_secure) != 'auto') {
+                    $ob->secure = ($secure == 'yes');
+                }
+                if ($ui->vars->get('remote_type') == 'pop3') {
+                    $ob->type = $ob::POP3;
+                }
+
+                $remote[strval($ob)] = $ob;
 
                 $notification->push(sprintf(_("Account \"%s\" added."), $ui->vars->remote_server), 'horde.success');
                 $success = true;

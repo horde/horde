@@ -1603,7 +1603,7 @@ class IMP_Mailbox implements Serializable
         /* Handle remote mailboxes. */
         if ($this->remote) {
             $remote = $injector->getInstance('IMP_Remote');
-            return $remote[$this->_mbox]['server'];
+            return $remote[$this->_mbox]->label;
         }
 
         $ns_info = $this->namespace_info;

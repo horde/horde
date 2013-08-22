@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
+ <date>2013-08-22</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -75,6 +75,7 @@
     <dir name="jquery.mobile">
      <dir name="plugins">
       <file name="listviewtaphold.js" role="horde" />
+      <file name="textchange.js" role="horde" />
      </dir> <!-- /js/jquery.mobile/plugins -->
     </dir> <!-- /js/jquery.mobile -->
     <file name="acl.js" role="horde" />
@@ -96,6 +97,7 @@
     <file name="murmurhash3.js" role="horde" />
     <file name="passphrase.js" role="horde" />
     <file name="pgp.js" role="horde" />
+    <file name="remoteprefs.js" role="horde" />
     <file name="search.js" role="horde" />
     <file name="searchesprefs.js" role="horde" />
     <file name="signaturehtml.js" role="horde" />
@@ -356,6 +358,7 @@
       <file name="NewmailSound.php" role="horde" />
       <file name="PgpPrivateKey.php" role="horde" />
       <file name="PgpPublicKey.php" role="horde" />
+      <file name="Remote.php" role="horde" />
       <file name="Searches.php" role="horde" />
       <file name="Sentmail.php" role="horde" />
       <file name="SmimePrivateKey.php" role="horde" />
@@ -374,6 +377,9 @@
      <file name="Null.php" role="horde" />
      <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Quota -->
+    <dir name="Remote">
+     <file name="Account.php" role="horde" />
+    </dir> <!-- /lib/Remote -->
     <dir name="Script">
      <dir name="Package">
       <file name="ComposeBase.php" role="horde" />
@@ -457,6 +463,7 @@
     <file name="Message.php" role="horde" />
     <file name="Perms.php" role="horde" />
     <file name="Quota.php" role="horde" />
+    <file name="Remote.php" role="horde" />
     <file name="Search.php" role="horde" />
     <file name="Sentmail.php" role="horde" />
     <file name="Smartmobile.php" role="horde" />
@@ -852,6 +859,7 @@
      <file name="newmailaudio.html.php" role="horde" />
      <file name="pgpprivatekey.html.php" role="horde" />
      <file name="pgppublickey.html.php" role="horde" />
+     <file name="remote.html.php" role="horde" />
      <file name="searches.html.php" role="horde" />
      <file name="sentmail.html.php" role="horde" />
      <file name="signaturehtml.html.php" role="horde" />
@@ -1441,6 +1449,7 @@
    <install as="imp/js/murmurhash3.js" name="js/murmurhash3.js" />
    <install as="imp/js/passphrase.js" name="js/passphrase.js" />
    <install as="imp/js/pgp.js" name="js/pgp.js" />
+   <install as="imp/js/remoteprefs.js" name="js/remoteprefs.js" />
    <install as="imp/js/search.js" name="js/search.js" />
    <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
@@ -1451,6 +1460,7 @@
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
    <install as="imp/js/jquery.mobile/plugins/listviewtaphold.js" name="js/jquery.mobile/plugins/listviewtaphold.js" />
+   <install as="imp/js/jquery.mobile/plugins/textchange.js" name="js/jquery.mobile/plugins/textchange.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
@@ -1471,6 +1481,7 @@
    <install as="imp/lib/Message.php" name="lib/Message.php" />
    <install as="imp/lib/Perms.php" name="lib/Perms.php" />
    <install as="imp/lib/Quota.php" name="lib/Quota.php" />
+   <install as="imp/lib/Remote.php" name="lib/Remote.php" />
    <install as="imp/lib/Search.php" name="lib/Search.php" />
    <install as="imp/lib/Sentmail.php" name="lib/Sentmail.php" />
    <install as="imp/lib/Smartmobile.php" name="lib/Smartmobile.php" />
@@ -1652,6 +1663,7 @@
    <install as="imp/lib/Prefs/Special/NewmailSound.php" name="lib/Prefs/Special/NewmailSound.php" />
    <install as="imp/lib/Prefs/Special/PgpPrivateKey.php" name="lib/Prefs/Special/PgpPrivateKey.php" />
    <install as="imp/lib/Prefs/Special/PgpPublicKey.php" name="lib/Prefs/Special/PgpPublicKey.php" />
+   <install as="imp/lib/Prefs/Special/Remote.php" name="lib/Prefs/Special/Remote.php" />
    <install as="imp/lib/Prefs/Special/Searches.php" name="lib/Prefs/Special/Searches.php" />
    <install as="imp/lib/Prefs/Special/Sentmail.php" name="lib/Prefs/Special/Sentmail.php" />
    <install as="imp/lib/Prefs/Special/SmimePrivateKey.php" name="lib/Prefs/Special/SmimePrivateKey.php" />
@@ -1664,6 +1676,7 @@
    <install as="imp/lib/Quota/Imap.php" name="lib/Quota/Imap.php" />
    <install as="imp/lib/Quota/Null.php" name="lib/Quota/Null.php" />
    <install as="imp/lib/Quota/Ui.php" name="lib/Quota/Ui.php" />
+   <install as="imp/lib/Remote/Account.php" name="lib/Remote/Account.php" />
    <install as="imp/lib/Script/Package/ComposeBase.php" name="lib/Script/Package/ComposeBase.php" />
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
    <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />
@@ -1889,6 +1902,7 @@
    <install as="imp/templates/prefs/newmailaudio.html.php" name="templates/prefs/newmailaudio.html.php" />
    <install as="imp/templates/prefs/pgpprivatekey.html.php" name="templates/prefs/pgpprivatekey.html.php" />
    <install as="imp/templates/prefs/pgppublickey.html.php" name="templates/prefs/pgppublickey.html.php" />
+   <install as="imp/templates/prefs/remote.html.php" name="templates/prefs/remote.html.php" />
    <install as="imp/templates/prefs/searches.html.php" name="templates/prefs/searches.html.php" />
    <install as="imp/templates/prefs/sentmail.html.php" name="templates/prefs/sentmail.html.php" />
    <install as="imp/templates/prefs/signaturehtml.html.php" name="templates/prefs/signaturehtml.html.php" />

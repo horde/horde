@@ -272,8 +272,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         /* Add remote servers. */
-        foreach ($injector->getInstance('IMP_Remote') as $key => $val) {
-            $this->_insertElt($this->_makeElt($key, self::ELT_NOSELECT | self::ELT_NONIMAP | self::ELT_REMOTE));
+        foreach ($injector->getInstance('IMP_Remote') as $val) {
+            $this->_insertElt($this->_makeElt(strval($val), self::ELT_NOSELECT | self::ELT_NONIMAP | self::ELT_REMOTE));
         }
 
         /* Create the list (INBOX and all other hierarchies). */

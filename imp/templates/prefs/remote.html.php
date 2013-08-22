@@ -63,14 +63,14 @@
  <tbody>
 <?php if ($this->accounts): ?>
 <?php foreach ($this->accounts as $v): ?>
-  <tr id="remoteid_<?php echo $v['id'] ?>">
-   <td><?php echo $this->h($v['type']) ?></td>
-   <td><?php echo $this->h($v['server']) ?></td>
-   <td><?php echo $this->h($v['user']) ?></td>
-   <td><?php echo $this->h($v['port']) ?></td>
-<?php if ($v['secure_auto']): ?>
+  <tr id="remoteid_<?php echo $v->id ?>">
+   <td><?php echo ($v->type == IMP_Remote_Account::POP3) ? 'POP3' : 'IMAP' ?></td>
+   <td><?php echo $this->h($v->hostspec) ?></td>
+   <td><?php echo $this->h($v->username) ?></td>
+   <td><?php echo $this->h($v->port) ?></td>
+<?php if (is_null($v->secure)): ?>
    <td><?php echo _("Auto") ?></td>
-<?php elseif ($v['secure']): ?>
+<?php elseif ($v->secure): ?>
    <td class="remoteSecure"><?php echo _("Yes") ?></td>
 <?php else: ?>
    <td class="remoteNotSecure"><?php echo _("No") ?></td>
