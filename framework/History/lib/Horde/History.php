@@ -224,8 +224,8 @@ abstract class Horde_History
      * Return history objects with changes during a modseq interval, and
      * optionally filtered on other fields as well.
      *
-     * @param integer $start   The start of the modseq range.
-     * @param integer $end     The end of the modseq range.
+     * @param integer $start   The (exclusive) start of the modseq range.
+     * @param integer $end     The (inclusive) end of the modseq range.
      * @param array   $filters An array of additional (ANDed) criteria.
      *                         Each array value should be an array with 3
      *                         entries:
