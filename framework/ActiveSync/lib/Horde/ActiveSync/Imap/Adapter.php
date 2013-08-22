@@ -291,7 +291,6 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $this->_logger->info('IMAP status: ' . print_r($status, true));
         $flags = array();
-        $total_messages = $status['messages'];
         if ($condstore && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
             $this->_logger->info('CONDSTORE and CHANGES');
             $folder->checkValidity($status);
@@ -339,7 +338,7 @@ class Horde_ActiveSync_Imap_Adapter
                     }
                 }
             }
-            $folder->setChanges($changes, $flags, $total_messages);
+            $folder->setChanges($changes, $flags, $status['messages']);
             try {
                 $deleted = $imap->vanished(
                     $mbox,
@@ -364,7 +363,7 @@ class Horde_ActiveSync_Imap_Adapter
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
 
             if ($condstore && $folder->modseq() > 0 && count($search_ret['match']->ids)) {
-                $folder->setChanges($search_ret['match']->ids, array(), $total_messages);
+                $folder->setChanges($search_ret['match']->ids, array(), $status['messages']);
             } elseif (count($search_ret['match']->ids)) {
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
@@ -377,10 +376,12 @@ class Horde_ActiveSync_Imap_Adapter
                         $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
                     }
                 }
-                $folder->setChanges($search_ret['match']->ids, $flags, $total_messages);
+                $folder->setChanges($search_ret['match']->ids, $flags, $status['messages']);
             }
         } elseif (!$condstore || ($condstore && $modseq == 0)) {
-            $this->_logger->info('NO CONDSTORE or per mailbox MODSEQ: minuid=' . $folder->minuid());
+            $this->_logger->info(sprintf(
+                '[%s] NO CONDSTORE or per mailbox MODSEQ. minuid: %s, total_messages: %s',
+                getmypid(), $folder->minuid(), $status['messages']));
             $folder->checkValidity($status);
             $query = new Horde_Imap_Client_Search_Query();
             if (!empty($options['sincedate'])) {
@@ -406,7 +407,7 @@ class Horde_ActiveSync_Imap_Adapter
                         $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
                     }
                 }
-                $folder->setChanges($search_ret['match']->ids, $flags, $total_messages);
+                $folder->setChanges($search_ret['match']->ids, $flags, $status['messages']);
             }
             $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
         }
