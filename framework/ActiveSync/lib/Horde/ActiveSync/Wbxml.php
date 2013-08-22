@@ -74,6 +74,14 @@ class Horde_ActiveSync_Wbxml
     /* Valid WBXML Version header value */
     const WBXML_VERSION       = 0x03;
 
+    /* Logging levels */
+    // LOG_DETAILED = All data logged.
+    // LOG_PROTOCOL = Protocol detail is logged, but if content length of
+    // non-stream data exceeds LOG_MAXCONTENT bytes, only the size is logged.
+    const LOG_DETAILED         = 1;
+    const LOG_PROTOCOL         = 2;
+    const LOG_MAXCONTENT       = 50;
+
     /**
      * The code page definitions for the wbxml encoder/decoders
      *
@@ -842,6 +850,13 @@ class Horde_ActiveSync_Wbxml
       */
      protected $_procid;
 
+     /**
+      * Logging level.
+      *
+      * @param integer
+      */
+     protected $_logLevel;
+
     /**
      *
      * @param stream $stream  The [input|output] stream.
@@ -863,9 +878,10 @@ class Horde_ActiveSync_Wbxml
      *
      * @param Horde_Log_Logger $logger  The logger.
      */
-    public function setLogger(Horde_Log_Logger $logger)
+    public function setLogger(Horde_Log_Logger $logger, $level = self::LOG_PROTOCOL)
     {
         $this->_logger = $logger;
+        $this->_logLevel = $level;
     }
 
 }

@@ -104,7 +104,12 @@ Content-Transfer-Encoding: quoted-printable
 
 --=_
 ',
-            $result
+            // Work around broken PHP quoted-printable encoder.
+            str_replace(
+                array('=20', "</=\n+product-id>"),
+                array(' ', "</product-id=\n>"),
+                $result
+            )
         );
     }
 }

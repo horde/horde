@@ -390,28 +390,29 @@ class Horde_ActiveSync_Message_Base
                     $this->$map[self::KEY_ATTRIBUTE]->encodeStream($encoder);
                     $encoder->endTag();
                 } elseif (isset($map[self::KEY_VALUES]) && is_array($this->$map[self::KEY_ATTRIBUTE])) {
-                    // Array of objects
-                    if (!count($this->$map[self::KEY_ATTRIBUTE]) && $this->_checkSendEmpty($tag)) {
-                        // Some array tags must be sent as empty tags.
-                        $encoder->startTag($tag, null, true);
-                    }
-                    $encoder->startTag($tag); // Outputs array container (eg Attachments)
-                    foreach ($this->$map[self::KEY_ATTRIBUTE] as $element) {
-                        if (is_object($element)) {
-                            // Outputs object container (eg Attachment)
-                            $encoder->startTag($map[self::KEY_VALUES]);
-                            $element->encodeStream($encoder);
-                            $encoder->endTag();
-                        } else {
-                            // Do not ever output empty items here
-                            if(strlen($element) > 0) {
+                    // Array of objects. Note that some array values must be
+                    // send as an empty tag if they contain no elements.
+                    if (count($this->$map[self::KEY_ATTRIBUTE])) {
+                        $encoder->startTag($tag);
+                        foreach ($this->$map[self::KEY_ATTRIBUTE] as $element) {
+                            if (is_object($element)) {
+                                // Outputs object container (eg Attachment)
                                 $encoder->startTag($map[self::KEY_VALUES]);
-                                $encoder->content($element);
+                                $element->encodeStream($encoder);
                                 $encoder->endTag();
+                            } else {
+                                // Do not ever output empty items here
+                                if(strlen($element) > 0) {
+                                    $encoder->startTag($map[self::KEY_VALUES]);
+                                    $encoder->content($element);
+                                    $encoder->endTag();
+                                }
                             }
                         }
+                        $encoder->endTag();
+                    } elseif ($this->_checkSendEmpty($tag)) {
+                        $encoder->startTag($tag, null, true);
                     }
-                    $encoder->endTag();
                 } else {
                     // Simple type
                     if (!is_resource($this->$map[self::KEY_ATTRIBUTE]) &&
