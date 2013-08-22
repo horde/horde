@@ -2112,15 +2112,29 @@
      </configswitch>
      <configheader>Logging</configheader>
      <configsection name="logging">
-      <configswitch name="type" desc="For debugging, it may be useful to send
-      activesync-related log messages to a seperate log. If you want to do this,
-      set this to Custom and enter the path to the directory to place log files
-      in. Horde will create device specific log files in this directory.">
-        <case name="horde" desc="Horde" />
-        <case name="custom" desc="Custom">
-         <configstring name="path" desc="Path to custom log directory." />
-        </case>
-      </configswitch>
+       <configswitch name="type" desc="For debugging, it may be useful have a log
+       of the Wbxml stream along with some other activesync-related data. If you
+       want to do this, set this to either Per Device or Single File and enter
+       the appropriate path. If detailed debug logging is not needed, set this to
+       None.">None
+         <case name="false" desc="None" />
+         <case name="perdevice" desc="Per Device">
+           <configstring name="path" desc="Path to custom log directory." />
+           <configenum name="level" desc="Should Horde include all the raw data
+           in the Wbxml log stream? If set to Detailed, the entire raw content
+           is logged. If set to Protocol, all protocol level detail is included,
+           but any Wbxml tag content over 50 bytes is logged only as the size of
+           the data." required="false">protocol
+             <values>
+               <value desc="Protocol">2</value>
+               <value desc="Detailed">1</value>
+             </values>
+           </configenum>
+         </case>
+         <case name="onefile" desc="Single file">
+           <configstring name="path" desc="Log file name." />
+         </case>
+       </configswitch>
      </configsection>
      <configsection name="ping">
       <configheader>Ping Settings</configheader>
