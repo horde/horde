@@ -10,11 +10,11 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-20</date>
- <time>12:57:46</time>
+ <date>2013-08-22</date>
+ <time>13:42:49</time>
  <version>
-   <release>1.0.1</release>
-   <api>1.0.0</api>
+   <release>1.1.0</release>
+   <api>1.1.0</api>
  </version>
  <stability>
    <release>stable</release>
@@ -23,6 +23,8 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [rla] Add Db backend for Queues.
+* [cjh] Add Horde_Queue_Runner#runTask().
+* [cjh] Allow RequestShutdown runner to handle tasks that spawn other tasks.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -117,15 +119,17 @@
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-20</date>
+   <date>2013-08-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Add Db backend for Queues.
+* [cjh] Add Horde_Queue_Runner#runTask().
+* [cjh] Allow RequestShutdown runner to handle tasks that spawn other tasks.
    </notes>
   </release>
  </changelog>
