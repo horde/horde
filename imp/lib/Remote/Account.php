@@ -22,6 +22,7 @@
  *
  * @property string $hostspec  Remote host.
  * @property-read string $id  Remote account ID (i.e. mailbox name).
+ * @property string $label  Remote account label.
  * @property integer $port  Remote server port.
  * @property mixed $secure  True if security required, false if no security,
  *                          or null to use security if available.
@@ -70,6 +71,9 @@ class IMP_Remote_Account implements Serializable
         case 'hostspec':
             return 'localhost';
 
+        case 'label':
+            return $this->hostspec;
+
         case 'port':
             return ($this->type == self::POP3) ? 110 : 143;
 
@@ -90,6 +94,7 @@ class IMP_Remote_Account implements Serializable
     {
         switch ($name) {
         case 'hostspec':
+        case 'label':
         case 'username':
             $this->_config[$name] = strval($value);
             break;

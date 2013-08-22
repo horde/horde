@@ -4,6 +4,13 @@
 <table class="remotemanagement">
 <?php if ($this->new): ?>
  <tr>
+  <td class="item"><?php echo _("Label") ?>:</td>
+  <td class="item">
+   <input name="remote_label" size="30" />
+  </td>
+  <td></td>
+ </tr>
+ <tr>
   <td class="item"><?php echo _("Type") ?>:</td>
   <td class="item">
    <select name="remote_type">
@@ -14,7 +21,7 @@
   <td class="required"><?php echo _("REQUIRED") ?></td>
  </tr>
  <tr>
- <td class="item"><?php echo _("Server") ?>:</td>
+  <td class="item"><?php echo _("Server") ?>:</td>
   <td class="item">
    <input name="remote_server" size="30" />
   </td>
@@ -52,6 +59,7 @@
 <?php else: ?>
  <thead>
   <tr>
+   <td><?php echo _("Label") ?></td>
    <td><?php echo _("Type") ?></td>
    <td><?php echo _("Server") ?></td>
    <td><?php echo _("Username") ?></td>
@@ -64,6 +72,7 @@
 <?php if ($this->accounts): ?>
 <?php foreach ($this->accounts as $v): ?>
   <tr id="remoteid_<?php echo $v->id ?>">
+   <td><?php echo $this->h($v->label) ?></td>
    <td><?php echo ($v->type == IMP_Remote_Account::POP3) ? 'POP3' : 'IMAP' ?></td>
    <td><?php echo $this->h($v->hostspec) ?></td>
    <td><?php echo $this->h($v->username) ?></td>

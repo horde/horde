@@ -75,6 +75,9 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
                 $ob = new IMP_Remote_Account();
                 $ob->hostspec = $ui->vars->remote_server;
                 $ob->username = $ui->vars->remote_user;
+                if (strlen($ui->vars->remote_label)) {
+                    $ob->label = $ui->vars->remote_label;
+                }
                 if ($ui->vars->remote_port) {
                     $ob->port = $ui->vars->remote_port;
                 }
@@ -96,9 +99,9 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
 
         case 'delete':
             if (isset($remote[$ui->vars->remote_data])) {
-                $tmp = $remote[$ui->vars->remote_data];
+                $label = $remote[$ui->vars->remote_data]->label;
                 unset($remote[$ui->vars->remote_data]);
-                $notification->push(sprintf(_("Account \"%s\" deleted."), $tmp['server']), 'horde.success');
+                $notification->push(sprintf(_("Account \"%s\" deleted."), $label), 'horde.success');
                 $success = true;
             }
             break;
