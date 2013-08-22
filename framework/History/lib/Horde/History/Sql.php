@@ -350,7 +350,7 @@ class Horde_History_Sql extends Horde_History
      * @return array|boolean    The latest history entry, or false if $guid does not exist.
      *
      * @throws Horde_History_Exception If the input parameters are not of type string.
-     * @since 2.1.7
+     * @since 2.2.0
      */
     public function getLatestEntry($guid, $use_ts = false)
     {

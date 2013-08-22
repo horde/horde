@@ -342,7 +342,7 @@ abstract class Horde_History
      * @param string $parent  Restrict to entries a specific parent.
      *
      * @return integer  The modseq
-     * @since 2.2.0
+     * @since 2.1.0
      * @todo Make abstract in H6. Need to make this non-abstract for BC.
      */
     public function getHighestModSeq($parent = null)
@@ -359,7 +359,7 @@ abstract class Horde_History
      * @return integer  The modseq, or 0 if no matching entry is found.
      *
      * @throws Horde_History_Exception If the input parameters are not of type string.
-     * @since 2.2.0
+     * @since 2.1.0
      * @todo  Make abstract in H6.
      */
     public function getActionModSeq($guid, $action)
@@ -396,7 +396,7 @@ abstract class Horde_History
      * @return array|boolean    The latest history entry, or false if $guid does not exist.
      *
      * @throws Horde_History_Exception If the input parameters are not of type string.
-     * @since 2.1.7
+     * @since 2.2.0
      */
     public function getLatestEntry($guid, $use_ts = false)
     {
