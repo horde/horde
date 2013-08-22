@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-22</date>
- <time>14:09:28</time>
+ <time>14:16:33</time>
  <version>
-  <release>2.2.2</release>
+  <release>2.2.3</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix rare race condition when creating file-based session data for the first time (Thomas Jarosch &lt;thomas.jarosch@intra2net.com; Bug #12557).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -535,6 +535,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix rare race condition when creating file-based session data for the first time (Thomas Jarosch &lt;thomas.jarosch@intra2net.com; Bug #12557).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.3</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
