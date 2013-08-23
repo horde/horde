@@ -101,12 +101,12 @@ class Horde_Url
 
             /* Check if the argument separator has been already
              * htmlentities-ized in the URL. */
-            if (preg_match('/&amp;/', $query)) {
+            if (strpos($query, '&amp;') !== false) {
                 $query = html_entity_decode($query);
                 if (is_null($raw)) {
                     $raw = false;
                 }
-            } elseif (preg_match('/&/', $query)) {
+            } elseif (strpos($query, '&') !== false) {
                 if (is_null($raw)) {
                     $raw = true;
                 }

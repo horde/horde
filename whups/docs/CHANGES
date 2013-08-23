@@ -2,6 +2,12 @@
 v3.0.0-git
 ----------
 
+
+
+---------
+v3.0.0RC2
+---------
+
 [jan] Fix sorting tickets by date.
 [jan] Fix setting ticket sort order.
 [jan] Fix autocompletion for requester field.
