@@ -454,9 +454,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         /* Remote accounts context menu. */
         if ($imp_imap->access(IMP_Imap::ACCESS_REMOTE)) {
-            $context['ctx_remote'] = array(
-                '_mbox' => '',
-                '_sep1' => null,
+            $context['ctx_rcontainer'] = array(
                 '*prefs' => _("Show Remote Accounts")
             );
         }

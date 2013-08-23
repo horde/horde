@@ -68,12 +68,15 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
     /* The string used to indicate the base of the tree. This must include
      * null since this is the only 7-bit character not allowed in IMAP
-     * mailboxes. */
+     * mailboxes (nulls allow us to sort by name but never conflict with an
+     * IMAP mailbox). */
     const BASE_ELT = "base\0";
 
-    /* Add null to folder key since it allows us to sort by name but
-     * never conflict with an IMAP mailbox. */
+    /* Virtual folder key. */
     const VFOLDER_KEY = "vfolder\0";
+
+    /* Remote account key. */
+    const REMOTE_KEY = "remote\0";
 
     /* Defines used with namespace display. */
     const SHARED_KEY = "shared\0";
@@ -272,9 +275,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         /* Add remote servers. */
-        foreach ($injector->getInstance('IMP_Remote') as $val) {
-            $this->_insertElt($this->_makeElt(strval($val), self::ELT_NOSELECT | self::ELT_NONIMAP | self::ELT_REMOTE));
-        }
+        $this->insert(iterator_to_array($injector->getInstance('IMP_Remote')));
 
         /* Create the list (INBOX and all other hierarchies). */
         $this->_insert($this->_getList($this->_showunsub), $this->_showunsub ? null : true);
@@ -491,7 +492,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * Insert a mailbox/virtual folder into the tree.
      *
      * @param mixed $id  The name of the mailbox (or a list of mailboxes)
-     *                   to add. Can also be a virtual folder object.
+     *                   to add. Can also be a virtual folder object or a
+     *                   remote account object.
      */
     public function insert($id)
     {
@@ -510,20 +512,35 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $val = self::VFOLDER_KEY . $this->_delimiter . $val;
             }
 
-            /* Virtual Folders. */
             if (strpos($val, self::VFOLDER_KEY) === 0) {
+                /* Virtual Folders. */
+                $key = self::VFOLDER_KEY;
+                $elt_mask = self::ELT_VFOLDER;
+            } elseif ($val instanceof IMP_Remote_Account) {
+                /* Remote accounts. */
+                $key = self::REMOTE_KEY;
+                $elt_mask = self::ELT_REMOTE;
+            } else {
+                $key = null;
+            }
+
+            if (is_null($key)) {
+                $to_insert[] = IMP_Mailbox::getImapMboxOb($val);
+            } else {
                 if (!isset($this->_tree[$val])) {
-                    if (!isset($this->_tree[self::VFOLDER_KEY])) {
-                        $elt = $this->_makeElt(self::VFOLDER_KEY, self::ELT_VFOLDER | self::ELT_NOSELECT | self::ELT_NONIMAP);
+                    if (!isset($this->_tree[$key])) {
+                        $elt = $this->_makeElt($key, $elt_mask | self::ELT_NOSELECT | self::ELT_NONIMAP);
                         $this->_insertElt($elt);
                     }
 
-                    $elt = $this->_makeElt($val, self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP);
-                    $elt['v'] = Horde_String::substr($val, Horde_String::length(self::VFOLDER_KEY) + Horde_String::length($this->_delimiter));
+                    $elt = $this->_makeElt($val, $elt_mask | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP);
+                    if ($key == self::VFOLDER_KEY) {
+                        $elt['v'] = Horde_String::substr($val, Horde_String::length($key) + strlen($this->_delimiter));
+                    } else {
+                        $elt['p'] = $key;
+                    }
                     $this->_insertElt($elt);
                 }
-            } else {
-                $to_insert[] = IMP_Mailbox::getImapMboxOb($val);
             }
         }
 
@@ -1435,14 +1452,17 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         switch ($mailbox) {
         case self::OTHER_KEY:
+        case self::REMOTE_KEY:
         case self::SHARED_KEY:
         case self::VFOLDER_KEY:
             return null;
 
         default:
-            return (strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0)
-                ? $GLOBALS['injector']->getInstance('IMP_Imap')->getNamespace($mailbox)
-                : null;
+            if ((strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0) &&
+                (strpos($mailbox, self::REMOTE_KEY . $this->_delimiter) !== 0)) {
+                    return $GLOBALS['injector']->getInstance('IMP_Imap')->getNamespace($mailbox);
+            }
+            return null;
         }
     }
 
@@ -1930,8 +1950,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         if ($parent != self::BASE_ELT) {
             $ob->pa = $parent->form_to;
         }
+
         if ($elt->vfolder) {
             $ob->v = $elt->editvfolder ? 2 : 1;
+        } elseif ($elt->remote) {
+            $ob->r = 1;
         }
 
         if ($this->isContainer($elt)) {
@@ -1939,9 +1962,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $ob->co = 1;
             if ($elt->nonimap) {
                 $ob->n = 1;
-                if ($elt->remote) {
-                    $ob->r = 1;
-                }
             }
             if ($elt == self::VFOLDER_KEY) {
                 $ob->v = 1;

@@ -1593,6 +1593,9 @@ class IMP_Mailbox implements Serializable
         case IMP_Imap_Tree::OTHER_KEY:
             return _("Other Users");
 
+        case IMP_Imap_Tree::REMOTE_KEY:
+            return _("Remote Accounts");
+
         case IMP_Imap_Tree::SHARED_KEY:
             return _("Shared");
 

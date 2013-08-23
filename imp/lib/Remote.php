@@ -22,9 +22,6 @@
  */
 class IMP_Remote implements ArrayAccess, IteratorAggregate
 {
-    /* Prefix to indicate mailbox is located on remote server. */
-    const PREFIX = 'remote\0';
-
     /**
      * The list of remote accounts.
      *

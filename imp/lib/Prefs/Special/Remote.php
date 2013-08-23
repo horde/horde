@@ -67,7 +67,6 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
         global $injector, $notification;
 
         $remote = $injector->getInstance('IMP_Remote');
-        $success = false;
 
         switch ($ui->vars->remote_action) {
         case 'add':
@@ -91,7 +90,8 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
                 $remote[strval($ob)] = $ob;
 
                 $notification->push(sprintf(_("Account \"%s\" added."), $ui->vars->remote_server), 'horde.success');
-                $success = true;
+
+                $injector->getInstance('IMP_Imap_Tree')->insert($ob);
             } catch (IMP_Exception $e) {
                 $notification->push($e->getMessage(), 'horde.error');
             }
@@ -99,16 +99,13 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
 
         case 'delete':
             if (isset($remote[$ui->vars->remote_data])) {
-                $label = $remote[$ui->vars->remote_data]->label;
+                $ob = $remote[$ui->vars->remote_data];
                 unset($remote[$ui->vars->remote_data]);
-                $notification->push(sprintf(_("Account \"%s\" deleted."), $label), 'horde.success');
-                $success = true;
+                $notification->push(sprintf(_("Account \"%s\" deleted."), $ob->label), 'horde.success');
+
+                $injector->getInstance('IMP_Imap_Tree')->delete($ob);
             }
             break;
-        }
-
-        if ($success) {
-            $injector->getInstance('IMP_Imap_Tree')->init();
         }
 
         return false;
