@@ -59,7 +59,7 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function offsetExists($offset)
     {
-        return isset($this->_accounts[$offset]);
+        return isset($this->_accounts[strval($offset)]);
     }
 
     /**
@@ -71,6 +71,8 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function offsetGet($offset)
     {
+        $offset = strval($offset);
+
         return isset($this->_accounts[$offset])
             ? $this->_accounts[$offset]
             : false;
@@ -84,7 +86,7 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function offsetSet($offset, $value)
     {
-        $this->_accounts[$offset] = $value;
+        $this->_accounts[strval($offset)] = $value;
         $this->_save();
     }
 
@@ -95,6 +97,8 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function offsetUnset($offset)
     {
+        $offset = strval($offset);
+
         if (isset($this->_accounts[$offset])) {
             unset($this->_accounts[$offset]);
             $this->_save();
