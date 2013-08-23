@@ -54,8 +54,8 @@
  </tr>
 </table>
 
-<input id="add_button" type="button" class="button" value="<?php echo _("Save") ?>" />
-<input id="cancel_button" type="button" class="button" value="<?php echo _("Cancel") ?>" />
+<input id="add_button" type="button" class="horde-default" value="<?php echo _("Save") ?>" />
+<input id="cancel_button" type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
 <?php else: ?>
  <thead>
   <tr>
@@ -97,5 +97,5 @@
  </tbody>
 </table>
 
-<input id="new_button" type="submit" class="button" value="<?php echo _("Add Account") ?>" />
+<input id="new_button" type="submit" class="horde-create" value="<?php echo _("Add Account") ?>" />
 <?php endif; ?>
