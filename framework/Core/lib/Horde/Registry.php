@@ -1,21 +1,28 @@
 <?php
 /**
- * The Horde_Registry:: class provides a set of methods for communication
- * between Horde applications and keeping track of application
- * configuration information.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Jon Parise <jon@horde.org>
- * @author   Anil Madhavapeddy <anil@recoil.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 1999-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * The registry provides a set of methods for communication between Horde
+ * applications and keeping track of application configuration information.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Jon Parise <jon@horde.org>
+ * @author    Anil Madhavapeddy <anil@recoil.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1999-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Registry
 {
