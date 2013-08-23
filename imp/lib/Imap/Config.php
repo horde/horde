@@ -40,8 +40,6 @@
  * @property string $maildomain  The maildomain to use for outgoing mail.
  * @property string $name  Label for the backend.
  * @property array $namespace  Namespace overrides.
- * @propery-read array $passwd_opts  List of config options that contain
- *                                   password data.
  * @property string $port  Port number of the backend.
  * @property-write mixed $preferred  The preferred server(s).
  * @property-read array $preferred  The preferred servers list.
@@ -59,6 +57,9 @@
  */
 class IMP_Imap_Config implements Serializable
 {
+    /* Passwords session storage key. */
+    const PASSWORDS_KEY = 'imap_config_pass';
+
     /**
      * Array options.
      *
@@ -95,6 +96,13 @@ class IMP_Imap_Config implements Serializable
     );
 
     /**
+     * Passwords.
+     *
+     * @var array
+     */
+    private $_passwords = array();
+
+    /**
      * Password storage options (must be an array option).
      *
      * @var array
@@ -129,15 +137,9 @@ class IMP_Imap_Config implements Serializable
      */
     public function __set($name, $value)
     {
-        global $injector;
-
         if (in_array($name, $this->_poptions) && isset($value['password'])) {
-            $secret = $injector->getInstance('Horde_Secret');
-            // base64 encode since we store in session JSON encoded, which
-            // requires UTF-8.
-            $value['password'] = base64_encode(
-                $secret->write($secret->getKey(), $value['password'])
-            );
+            $this->_passwords[$name] = $value['password'];
+            unset($value['password']);
         }
 
         /* Normalize values. */
@@ -180,11 +182,8 @@ class IMP_Imap_Config implements Serializable
                 ? $this->_config[$name]
                 : array();
 
-            if (in_array($name, $this->_poptions) && isset($out['password'])) {
-                $secret = $injector->getInstance('Horde_Secret');
-                $out['password'] = $secret->read(
-                    $secret->getKey(), base64_decode($out['password'])
-                );
+            if (isset($this->_passwords[$name])) {
+                $out['password'] = $this->_passwords[$name];
             }
         } elseif (in_array($name, $this->_boptions)) {
             /* Boolean options. */
@@ -263,15 +262,6 @@ class IMP_Imap_Config implements Serializable
             }
             break;
 
-        case 'passwd_opts':
-            $out = array();
-            foreach ($this->_poptions as $val) {
-                if (isset($this->_config[$val]['password'])) {
-                    $out[] = $val;
-                }
-            }
-            break;
-
         case 'smtp':
             if (empty($out['horde_auth'])) {
                 if (!isset($out['username'])) {
@@ -327,6 +317,10 @@ class IMP_Imap_Config implements Serializable
      */
     public function serialize()
     {
+        global $session;
+
+        $session->set('imp', self::PASSWORDS_KEY, $this->_passwords, $session::ENCRYPT);
+
         return json_encode(array_filter($this->_config));
     }
 
@@ -334,7 +328,11 @@ class IMP_Imap_Config implements Serializable
      */
     public function unserialize($data)
     {
+        global $session;
+
         $this->_config = json_decode($data, true);
+
+        $this->_passwords = $session->get('imp', self::PASSWORDS_KEY, $session::TYPE_ARRAY);
     }
 
 }

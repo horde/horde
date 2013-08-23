@@ -31,8 +31,8 @@
  <date>2013-08-08</date>
  <time>00:45:52</time>
  <version>
-  <release>2.6.7</release>
-  <api>2.6.0</api>
+  <release>2.7.0</release>
+  <api>2.7.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,6 +40,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Update session data stored with secret key if session ID changed and we are using non-cookie based sessions.
+* [mms] Horde_Session now handles resetting the secret key on login.
+* [mms] Add Horde_Session::ENCRYPT flag for session data.
 * [mms] The Horde_Mail factory now uses Horde_Smtp as the underlying SMTP driver instead of Net_SMTP.
 * [mms] Don&apos;t redirect to current page&apos;s URL when logging out with a custom message (Bug #12538).
  </notes>
@@ -3098,14 +3101,17 @@
   </release>
   <release>
    <version>
-    <release>2.6.7</release>
-    <api>2.6.0</api></version>
+    <release>2.7.0</release>
+    <api>2.7.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-08-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Update session data stored with secret key if session ID changed and we are using non-cookie based sessions.
+* [mms] Horde_Session now handles resetting the secret key on login.
+* [mms] Add Horde_Session::ENCRYPT flag for session data.
 * [mms] The Horde_Mail factory now uses Horde_Smtp as the underlying SMTP driver instead of Net_SMTP.
 * [mms] Don&apos;t redirect to current page&apos;s URL when logging out with a custom message (Bug #12538).
    </notes>
