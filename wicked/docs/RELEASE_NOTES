@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Wicked
+The Horde Team is pleased to announce the second release candidate of the Wicked
 wiki application version H5 (2.0.0).
 
 Wicked is a wiki application for the Horde Framework. It uses PEAR's Text_Wiki
@@ -28,13 +28,15 @@ http://www.horde.org/apps/wicked/docs/INSTALL
 Testing is requested and comments are encouraged.
 Updated translations would also be great.
 
-The major changes compared to the Wicked version H5 (2.0.0beta1) are:
-    * Several bugfixes and small improvements.
+The major changes compared to the Wicked version H5 (2.0.0RC1) are:
+    * Request CAPTCHA when creating pages.
+    * Fixed listing of most recent changes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Several bugfixes and small improvements.
+Request CAPTCHA when creating pages.
+Fixed listing of most recent changes.
 FM;
 
 $this->notes['name'] = 'Wicked';
