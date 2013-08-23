@@ -504,16 +504,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $to_insert = array();
 
         foreach ($id as $val) {
-            /* Convert virtual folders to internal representation. */
             if ($val instanceof IMP_Search_Vfolder) {
+                /* Virtual Folders. */
                 if (!$val->enabled) {
                     continue;
                 }
-                $val = self::VFOLDER_KEY . $this->_delimiter . $val;
-            }
-
-            if (strpos($val, self::VFOLDER_KEY) === 0) {
-                /* Virtual Folders. */
                 $key = self::VFOLDER_KEY;
                 $elt_mask = self::ELT_VFOLDER;
             } elseif ($val instanceof IMP_Remote_Account) {
@@ -534,11 +529,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     }
 
                     $elt = $this->_makeElt($val, $elt_mask | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP);
-                    if ($key == self::VFOLDER_KEY) {
-                        $elt['v'] = Horde_String::substr($val, Horde_String::length($key) + strlen($this->_delimiter));
-                    } else {
-                        $elt['p'] = $key;
-                    }
+                    $elt['p'] = $key;
                     $this->_insertElt($elt);
                 }
             }
@@ -1458,11 +1449,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return null;
 
         default:
-            if ((strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0) &&
-                (strpos($mailbox, self::REMOTE_KEY . $this->_delimiter) !== 0)) {
-                    return $GLOBALS['injector']->getInstance('IMP_Imap')->getNamespace($mailbox);
-            }
-            return null;
+            return ($this->isVfolder($mailbox) || $this->isRemote($mailbox))
+                ? null
+                : $GLOBALS['injector']->getInstance('IMP_Imap')->getNamespace($mailbox);
         }
     }
 
@@ -1962,9 +1951,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $ob->co = 1;
             if ($elt->nonimap) {
                 $ob->n = 1;
-            }
-            if ($elt == self::VFOLDER_KEY) {
-                $ob->v = 1;
             }
         } else {
             if (!$this->isSubscribed($elt)) {
