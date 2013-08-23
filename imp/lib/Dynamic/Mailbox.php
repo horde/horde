@@ -46,6 +46,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             $this->view->picker_img = Horde::img('colorpicker.png', _("Color Picker"));
         }
 
+        if ($imp_imap->access(IMP_Imap::ACCESS_REMOTE)) {
+            $page_output->addScriptFile('base64.js');
+        }
+
         $this->_addMailboxVars();
 
         $this->view->show_innocent = !empty($imp_imap->config->innocent_params);

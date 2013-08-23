@@ -2870,7 +2870,9 @@ var DimpBase = {
             } else if (elt.hasClassName('imp-sidebar-rcontainer')) {
                 HordeDialog.display({
                     form: new Element('DIV').insert(
-                            new Element('INPUT', { name: 'remote_password', type: 'password' })
+                              new Element('INPUT', { name: 'remote_id', value: elt.retrieve('mbox') }).hide()
+                          ).insert(
+                              new Element('INPUT', { name: 'remote_password', type: 'password' })
                           ),
                     form_id: 'remote_login',
                     text: DimpCore.text.remote_password.sub('%s', this.fullMboxDisplay(elt))
@@ -4025,6 +4027,21 @@ document.observe('HordeDialog:onClick', function(e) {
             }.bind(this)
         });
         elt.update(DimpCore.text.import_mbox_loading);
+        break;
+
+    case 'remote_login':
+        DimpCore.doAction('remoteLogin', {
+            // Base64 encode just to keep password data from being plaintext.
+            // A trivial obfuscation, but will prevent passwords from leaking
+            // in the event of some sort of data dump.
+            password: Base64.encode($F(elt.down('INPUT[name="remote_password"]'))),
+            password_base64: true,
+            remoteid: $F(elt.down('INPUT[name="remote_id"]'))
+        }, {
+            callback: function() {
+                HordeDialog.close();
+            }
+        });
         break;
     }
 }.bindAsEventListener(DimpBase));

@@ -79,6 +79,7 @@
      </dir> <!-- /js/jquery.mobile/plugins -->
     </dir> <!-- /js/jquery.mobile -->
     <file name="acl.js" role="horde" />
+    <file name="base64.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
     <file name="compose.js" role="horde" />
@@ -116,6 +117,7 @@
        <file name="ImageUnblock.php" role="horde" />
        <file name="Mboxtoggle.php" role="horde" />
        <file name="Passphrase.php" role="horde" />
+       <file name="Remote.php" role="horde" />
        <file name="Search.php" role="horde" />
        <file name="Smartmobile.php" role="horde" />
       </dir> <!-- /lib/Ajax/Application/Handler -->
@@ -1431,6 +1433,7 @@
    <install as="RFCS" name="docs/RFCS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/js/acl.js" name="js/acl.js" />
+   <install as="imp/js/base64.js" name="js/base64.js" />
    <install as="imp/js/compose-base.js" name="js/compose-base.js" />
    <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
    <install as="imp/js/compose.js" name="js/compose.js" />
@@ -1499,6 +1502,7 @@
    <install as="imp/lib/Ajax/Application/Handler/ImageUnblock.php" name="lib/Ajax/Application/Handler/ImageUnblock.php" />
    <install as="imp/lib/Ajax/Application/Handler/Mboxtoggle.php" name="lib/Ajax/Application/Handler/Mboxtoggle.php" />
    <install as="imp/lib/Ajax/Application/Handler/Passphrase.php" name="lib/Ajax/Application/Handler/Passphrase.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Remote.php" name="lib/Ajax/Application/Handler/Remote.php" />
    <install as="imp/lib/Ajax/Application/Handler/Search.php" name="lib/Ajax/Application/Handler/Search.php" />
    <install as="imp/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />

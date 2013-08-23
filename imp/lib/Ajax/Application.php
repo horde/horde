@@ -67,6 +67,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $this->addHandler('IMP_Ajax_Application_Handler_Mboxtoggle');
             $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
             $this->addHandler('IMP_Ajax_Application_Handler_Search');
+            if ($injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_REMOTE)) {
+                $this->addHandler('IMP_Ajax_Application_Handler_Remote');
+            }
             break;
 
         case $registry::VIEW_SMARTMOBILE:
