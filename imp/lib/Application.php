@@ -430,14 +430,14 @@ class IMP_Application extends Horde_Registry_Application
             $onclick = null;
             switch ($registry->getView()) {
             case $registry::VIEW_DYNAMIC:
-                $url = Horde::url('dynamic.php')
+                $url = Horde::url('dynamic.php', true)
                     ->add('page', 'mailbox')
                     ->setAnchor('search');
                 $onclick = 'if (window.DimpBase) { DimpBase.go(\'search\') }';
                 break;
 
             default:
-                $url = IMP_Basic_Search::url();
+                $url = IMP_Basic_Search::url(array('full' => true));
                 break;
             }
 
