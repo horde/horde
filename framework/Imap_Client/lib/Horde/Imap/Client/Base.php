@@ -1690,7 +1690,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         );
 
         if (!$this->statuscache) {
-            $flags |= Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
+            $flags |= Horde_Imap_Client::STATUS_FORCE_REFRESH;
         }
 
         if ($flags & Horde_Imap_Client::STATUS_ALL) {
