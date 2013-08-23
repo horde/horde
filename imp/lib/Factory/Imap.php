@@ -43,11 +43,6 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Injector implements Horde_Shut
 
         if (!$this->_instance) {
             $this->_instance = new IMP_Imap();
-
-            /* Explicitly save object when first creating. Prevents losing
-             * authentication information in case a misconfigured server
-             * crashes before shutdown operations can occur. */
-            $session->set('imp', 'imap_ob', $this->_instance);
         }
 
         Horde_Shutdown::add($this);

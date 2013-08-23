@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added the &apos;statuscache&apos; property to Horde_Imap_Client_Base (Request #12589).
 * [mms] The &apos;xoauth2_token&apos; parameter now accepts a Horde_Imap_Client_Base_Password object.
 * [mms] Deprecated the &apos;encryptKey&apos; parameter and instead support passing a Horde_Imap_Client_Base_Password object into the &apos;password&apos; parameter.
 * [mms] Added the Horde_Imap_Client::STATUS_FORCE_REFRESH flag.
@@ -1947,6 +1948,7 @@
    <date>2013-08-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added the &apos;statuscache&apos; property to Horde_Imap_Client_Base (Request #12589).
 * [mms] The &apos;xoauth2_token&apos; parameter now accepts a Horde_Imap_Client_Base_Password object.
 * [mms] Deprecated the &apos;encryptKey&apos; parameter and instead support passing a Horde_Imap_Client_Base_Password object into the &apos;password&apos; parameter.
 * [mms] Added the Horde_Imap_Client::STATUS_FORCE_REFRESH flag.

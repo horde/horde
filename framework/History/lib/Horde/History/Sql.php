@@ -192,8 +192,15 @@ class Horde_History_Sql extends Horde_History
      *                         non-empty, will be searched for with a LIKE
      *                         '$parent:%' clause.
      *
-     * @return array  An array of history object ids, or an empty array if
-     *                none matched the criteria.
+     * @return array  An array of history object ids that have had at least one
+     *                match for the given $filters. Will return empty array if
+     *                none matched the criteria. If the same GUID has multiple
+     *                matches withing the range requested, there is no guarantee
+     *                which entry will be returned.
+     *
+     * Note: For BC reasons, the results are returned keyed by the object UID,
+     *       with a (fairly useless) history_id as the value. @todo This
+     *       should be changed for Horde 6.
      *
      * @throws Horde_History_Exception
      */
@@ -234,8 +241,15 @@ class Horde_History_Sql extends Horde_History
      *                         non-empty, will be searched for with a LIKE
      *                         '$parent:%' clause.
      *
-     * @return array  An array of history object ids, or an empty array if
-     *                none matched the criteria.
+     * @return array  An array of history object ids that have had at least one
+     *                match for the given $filters. Will return empty array if
+     *                none matched the criteria. If the same GUID has multiple
+     *                matches withing the range requested, there is no guarantee
+     *                which entry will be returned.
+     *
+     * Note: For BC reasons, the results are returned keyed by the object UID,
+     *       with a (fairly useless) history_id as the value. @todo This
+     *       should be changed for Horde 6.
      */
     protected function _getByModSeq($start, $end, $filters = array(), $parent = null)
     {
