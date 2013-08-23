@@ -4008,7 +4008,7 @@ document.observe('HordeDialog:onClick', function(e) {
         }), {
             callback: function() {
                 HordeDialog.close();
-            }.bind(this),
+            },
             uids: this.viewport.getSelected()
         });
         elt.update(DimpCore.text.newflag_wait);
