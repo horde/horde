@@ -18,21 +18,21 @@
     <option value="pop3"><?php echo _("POP3") ?></option>
    </select>
   </td>
-  <td class="required"><?php echo _("REQUIRED") ?></td>
+  <td class="required"><?php echo Horde::img('required.png', '*') ?></td>
  </tr>
  <tr>
   <td class="item"><?php echo _("Server") ?>:</td>
   <td class="item">
    <input name="remote_server" size="30" />
   </td>
-  <td class="required"><?php echo _("REQUIRED") ?></td>
+  <td class="required"><?php echo Horde::img('required.png', '*') ?></td>
  </tr>
  <tr>
   <td class="item"><?php echo _("Username") ?>:</td>
   <td class="item">
    <input name="remote_user" size="30" />
   </td>
-  <td class="required"><?php echo _("REQUIRED") ?></td>
+  <td class="required"><?php echo Horde::img('required.png', '*') ?></td>
  </tr>
  <tr>
   <td class="item"><?php echo _("Port") ?>:</td>
