@@ -215,11 +215,10 @@ class IMP_Imap implements Serializable
             'comparator' => $config->comparator,
             'debug' => $config->debug,
             'debug_literal' => $config->debug_raw,
-            'encryptKey' => array(__CLASS__, 'getEncryptKey'),
             'hostspec' => $config->hostspec,
             'id' => $config->id,
             'lang' => $config->lang,
-            'password' => $password,
+            'password' => new IMP_Imap_Password($password),
             'port' => $config->port,
             'secure' => (($secure = $config->secure) ? $secure : false),
             'timeout' => $config->timeout,
@@ -283,12 +282,6 @@ class IMP_Imap implements Serializable
             break;
         }
         $this->updateFetchIgnore();
-
-        /* Secret key may have changed - recreate password values. */
-        if ($this->config->passwd_opts) {
-            $this->_config = $this->loadServerConfig($this->_ob->getParam('imp:backend'));
-            $this->_changed = true;
-        }
     }
 
     /**
@@ -687,13 +680,6 @@ class IMP_Imap implements Serializable
         return is_null($server)
             ? self::$_backends
             : (isset(self::$_backends[$server]) ? self::$_backends[$server] : false);
-    }
-
-    /* Callback functions used in Horde_Imap_Client_Base. */
-
-    static public function getEncryptKey()
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Secret')->getKey();
     }
 
     /* Serializable methods. */

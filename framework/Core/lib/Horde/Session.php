@@ -34,14 +34,14 @@ class Horde_Session
     /* Class constants. */
     const BEGIN = '_b';
     const DATA = '_d';
+    const ENCRYPTED = '_e'; /* @since 2.7.0 */
+    const MODIFIED = '_m'; /* @deprecated */
     const PRUNE = '_p';
-    /* @since 2.5.0 */
-    const REGENERATE = '_r';
-    /* @deprecated */
-    const MODIFIED = '_m';
+    const REGENERATE = '_r'; /* @since 2.5.0 */
 
     const TYPE_ARRAY = 1;
     const TYPE_OBJECT = 2;
+    const ENCRYPT = 4; /* @since 2.7.0 */
 
     const NOT_SERIALIZED = 0;
     const IS_SERIALIZED = 1;
@@ -151,7 +151,7 @@ class Horde_Session
     public function setup($start = true, $cache_limiter = null,
                           $session_id = null)
     {
-        global $conf;
+        global $conf, $injector;
 
         ini_set('url_rewriter.tags', 0);
         if (empty($conf['session']['use_only_cookies'])) {
@@ -183,7 +183,7 @@ class Horde_Session
 
         /* We want to create an instance here, not get, since we may be
          * destroying the previous instances in the page. */
-        $this->sessionHandler = $GLOBALS['injector']->createInstance('Horde_SessionHandler');
+        $this->sessionHandler = $injector->createInstance('Horde_SessionHandler');
 
         if ($start) {
             $this->start();
@@ -237,8 +237,24 @@ class Horde_Session
      */
     public function regenerate()
     {
+        /* Load old encrypted data. */
+        $encrypted = array();
+        foreach ($this->_data[self::ENCRYPTED] as $app => $val) {
+            foreach (array_keys($val) as $val2) {
+                $encrypted[$app][$val2] = $this->get($app, $val2);
+            }
+        }
+
         session_regenerate_id(true);
         $this->_data[self::REGENERATE] = time() + $this->regenerate_interval;
+
+        /* Store encrypted data, since secret key may have changed. */
+        foreach ($encrypted as $app => $val) {
+            foreach ($val as $key2 => $val2) {
+                $this->set($app, $key2, $val2, self::ENCRYPTED);
+            }
+        }
+
         $this->sessionHandler->changed = true;
     }
 
@@ -262,6 +278,8 @@ class Horde_Session
         $this->_data = array();
         $this->_start();
 
+        $GLOBALS['injector']->getInstance('Horde_Secret')->setKey();
+
         $this->_cleansession = true;
 
         return true;
@@ -284,6 +302,7 @@ class Horde_Session
     {
         session_destroy();
         $this->_cleansession = true;
+        $GLOBALS['injector']->getInstance('Horde_Secret')->clearKey();
     }
 
     /**
@@ -318,8 +337,8 @@ class Horde_Session
      * @param string $app    Application name.
      * @param string $name   Session variable name.
      * @param integer $mask  One of:
-     *   - self::TYPE_ARRAY - Return an array value.
-     *   - self::TYPE_OBJECT - Return an object value.
+     *   - Horde_Session::TYPE_ARRAY - Return an array value.
+     *   - Horde_Session::TYPE_OBJECT - Return an object value.
      *
      * @return mixed  The value or null if the value doesn't exist.
      */
@@ -330,8 +349,16 @@ class Horde_Session
         if (isset($this->_data[$app][self::NOT_SERIALIZED . $name])) {
             return $this->_data[$app][self::NOT_SERIALIZED . $name];
         } elseif (isset($this->_data[$app][self::IS_SERIALIZED . $name])) {
+            $key = self::IS_SERIALIZED . $name;
+            $value = $this->_data[$app][$key];
+
+            if (isset($this->_data[self::ENCRYPTED][$app][$key])) {
+                $secret = $injector->getInstance('Horde_Secret');
+                $value = $secret->read($secret->getKey(), $value);
+            }
+
             return @unserialize(
-                $injector->getInstance('Horde_Compress_Fast')->decompress($this->_data[$app][self::IS_SERIALIZED . $name])
+                $injector->getInstance('Horde_Compress_Fast')->decompress($value)
             );
         }
 
@@ -365,8 +392,9 @@ class Horde_Session
      * @param string $name   Session variable name.
      * @param mixed $value   Session variable value.
      * @param integer $mask  One of:
-     *   - self::TYPE_ARRAY - Force save as an array value.
-     *   - self::TYPE_OBJECT - Force save as an object value.
+     *   - Horde_Session::TYPE_ARRAY: Force save as an array value.
+     *   - Horde_Session::TYPE_OBJECT: Force save as an object value.
+     *   - Horde_Session::ENCRYPT: Encrypt the value. (since 2.7.0)
      */
     public function set($app, $name, $value, $mask = 0)
     {
@@ -379,21 +407,33 @@ class Horde_Session
         /* Each particular piece of session data is generally not used on any
          * given page load.  Thus, for arrays and objects, it is beneficial to
          * always convert to string representations so that the object/array
-         * does not need to be rebuilt every time the session is reloaded. */
-        if (is_object($value) || ($mask & self::TYPE_OBJECT) ||
+         * does not need to be rebuilt every time the session is reloaded.
+         * For convenience, encrypted data is ALWAYS serialized, regardless
+         * of whether it is already a string. */
+        if (($mask & self::ENCRYPT) ||
+            is_object($value) || ($mask & self::TYPE_OBJECT) ||
             is_array($value) || ($mask & self::TYPE_ARRAY)) {
             $value = $injector->getInstance('Horde_Compress_Fast')->compress(serialize($value));
-            $to_save = self::IS_SERIALIZED;
-            $to_unset = self::NOT_SERIALIZED;
+
+            $to_save = self::IS_SERIALIZED . $name;
+            $to_unset = self::NOT_SERIALIZED . $name;
         } else {
-            $to_save = self::NOT_SERIALIZED;
-            $to_unset = self::IS_SERIALIZED;
+            $to_save = self::NOT_SERIALIZED . $name;
+            $to_unset = self::IS_SERIALIZED . $name;
         }
 
-        if (!isset($this->_data[$app][$to_save . $name]) ||
-            ($this->_data[$app][$to_save . $name] != $value)) {
-            $this->_data[$app][$to_save . $name] = $value;
-            unset($this->_data[$app][$to_unset . $name]);
+        if ($mask & self::ENCRYPT) {
+            $secret = $injector->getInstance('Horde_Secret');
+            $value = $secret->write($secret->getKey(), $value);
+            $this->_data[self::ENCRYPTED][$app][$to_save] = true;
+        } else {
+            unset($this->_data[self::ENCRYPTED][$app][self::IS_SERIALIZED . $name]);
+        }
+
+        if (!isset($this->_data[$app][$to_save]) ||
+            ($this->_data[$app][$to_save] != $value)) {
+            $this->_data[$app][$to_save] = $value;
+            unset($this->_data[$app][$to_unset]);
             $this->sessionHandler->changed = true;
         }
     }

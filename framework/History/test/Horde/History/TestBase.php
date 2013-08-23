@@ -306,8 +306,6 @@ class Horde_History_TestBase extends Horde_Test_Case
 
     public function testMethodGetbymodseqHasResultArrayContainingTheMatchingEventIds()
     {
-        $this->markTestIncomplete('getByModSeq has undefined behavior (Bug #12600)');
-
         self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action')); // 1
         self::$history->log('appone:test_uid', array('who' => 'me', 'ts' => 1001, 'action' => 'test_action')); // 2
         self::$history->log('apptwo:test_uid', array('who' => 'you', 'ts' => 1002, 'action' => 'test_special_action')); // 3
@@ -319,23 +317,29 @@ class Horde_History_TestBase extends Horde_Test_Case
 
         // Only have two unique UIDS.
         $result = self::$history->getByModSeq(0, 5);
-        $this->assertEquals(array('appone:test_uid' => 5, 'apptwo:test_uid' => 4), $result);
+        $this->assertCount(2, $result);
+        $this->assertArrayHasKey('appone:test_uid', $result);
+        $this->assertArrayHasKey('apptwo:test_uid', $result);
 
         $result = self::$history->getByModSeq(4, 8);
-        $this->assertEquals(array('appone:test_uid' => 8), $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey('appone:test_uid', $result);
 
         // Test using action filter.
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => 'test_special_action'));
         $result = self::$history->getByModSeq(0, 5, $filter);
-        $this->assertEquals(array('apptwo:test_uid' => 3), $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey('apptwo:test_uid', $result);
 
         // Test using parent
         $result = self::$history->getByModSeq(0, 5, array(), 'apptwo');
-        $this->assertEquals(array('apptwo:test_uid' => 4), $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey('apptwo:test_uid', $result);
 
         // Test parent AND filter
         $result = self::$history->getByModSeq(0, 5, $filter, 'apptwo');
-        $this->assertEquals(array('apptwo:test_uid' => 3), $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey('apptwo:test_uid', $result);
     }
 
     public function testConditionThatHigestModSeqPersistsAfterLogDeletion()
