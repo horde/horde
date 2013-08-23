@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix regression in authenticating to an application when a session is active.
 * [mms] Update session data stored with secret key if session ID changed and we are using non-cookie based sessions.
 * [mms] Horde_Session now handles resetting the secret key on login.
 * [mms] Add Horde_Session::ENCRYPT flag for session data.
@@ -3109,6 +3110,7 @@
    <date>2013-08-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix regression in authenticating to an application when a session is active.
 * [mms] Update session data stored with secret key if session ID changed and we are using non-cookie based sessions.
 * [mms] Horde_Session now handles resetting the secret key on login.
 * [mms] Add Horde_Session::ENCRYPT flag for session data.
