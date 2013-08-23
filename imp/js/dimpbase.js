@@ -1180,7 +1180,7 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_remote_prefs':
+        case 'ctx_rcontainer_prefs':
             HordeCore.redirect(HordeCore.addURLParam(
                 DimpCore.conf.URI_PREFS_IMP,
                 { group: 'remote' }
@@ -1275,7 +1275,6 @@ var DimpBase = {
 
         case 'ctx_container':
         case 'ctx_noactions':
-        case 'ctx_remote':
         case 'ctx_vfolder':
             baseelt = this.contextMbox(e);
             $(ctx_id).down('DIV.mboxName').update(this.fullMboxDisplay(baseelt));
@@ -3434,10 +3433,6 @@ var DimpBase = {
         case 'container':
         case 'mbox':
             new Drag(li, this._mboxDragConfig);
-            break;
-
-        case 'rcontainer':
-            ftype = 'rcontainer';
             break;
 
         case 'remote':
