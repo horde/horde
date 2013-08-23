@@ -22,6 +22,10 @@ Upgrading to 2.14.0
       Instead, allow a Horde_Imap_Client_Base_Password object to be passed
       via the 'password' parameter.
 
+    - $statuscache
+
+      This property has been added.
+
     - status()
 
       Added the Horde_Imap_Client::STATUS_FORCE_REFRESH flag.
