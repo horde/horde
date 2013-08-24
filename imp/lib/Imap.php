@@ -51,6 +51,9 @@ class IMP_Imap implements Serializable
     const ACCESS_DRAFTS = 11;
     const ACCESS_REMOTE = 12;
 
+    /* Base object ID. */
+    const BASE_OB = "baseob\0";
+
     /**
      * Cached backend configuration.
      *
@@ -73,11 +76,11 @@ class IMP_Imap implements Serializable
     protected $_config;
 
     /**
-     * The Horde_Imap_Client object.
+     * The Horde_Imap_Client object(s).
      *
-     * @var Horde_Imap_Client
+     * @var array
      */
-    protected $_ob = null;
+    protected $_ob = array();
 
     /**
      * Temporary data cache (destroyed at end of request).
@@ -92,7 +95,7 @@ class IMP_Imap implements Serializable
     {
         switch ($key) {
         case 'changed':
-            return $this->_changed || ($this->_ob && $this->_ob->changed);
+            return $this->_changed || ($this->init && $this->getOb()->changed);
 
         case 'config':
             return isset($this->_config)
@@ -100,7 +103,7 @@ class IMP_Imap implements Serializable
                 : new Horde_Support_Stub();
 
         case 'init':
-            return !is_null($this->_ob);
+            return !empty($this->_ob);
 
         case 'max_compose_recipients':
         case 'max_compose_timelimit':
@@ -109,7 +112,7 @@ class IMP_Imap implements Serializable
 
         case 'server_key':
             return $this->init
-                ? $this->_ob->getParam('imp:backend')
+                ? $this->getOb()->getParam('imp:backend')
                 : null;
 
         case 'thread_algo':
@@ -117,7 +120,7 @@ class IMP_Imap implements Serializable
                 return 'ORDEREDSUBJECT';
             }
 
-            if ($thread = $this->_ob->getParam('imp:thread_algo')) {
+            if ($thread = $this->getOb()->getParam('imp:thread_algo')) {
                 return $thread;
             }
 
@@ -127,7 +130,7 @@ class IMP_Imap implements Serializable
                 $thread = 'ORDEREDSUBJECT';
             }
 
-            $this->_ob->setParam('imp:thread_algo', $thread);
+            $this->getOb()->setParam('imp:thread_algo', $thread);
             $this->_changed = true;
 
             return $thread;
@@ -157,7 +160,17 @@ class IMP_Imap implements Serializable
      */
     public function getOb($mbox = null)
     {
-        return $this->_ob;
+        return $this->_ob[$this->_obId($mbox)];
+    }
+
+    /**
+     * TODO
+     */
+    protected function _obId($mbox = null)
+    {
+        return is_null($mbox)
+            ? self::BASE_OB
+            : self::BASE_OB;
     }
 
     /**
@@ -171,7 +184,8 @@ class IMP_Imap implements Serializable
      */
     public function isImap($mbox = null)
     {
-        return !$this->_ob || ($this->_ob instanceof Horde_Imap_Client_Socket);
+        return (!$this->init ||
+                ($this->getOb($mbox) instanceof Horde_Imap_Client_Socket));
     }
 
     /**
@@ -192,18 +206,20 @@ class IMP_Imap implements Serializable
      *
      * @param string $username  The username to authenticate with.
      * @param string $password  The password to authenticate with.
-     * @param string $key       Create a new object using this server key.
+     * @param string $skey      Create a new object using this server key.
+     * @param string $key       The key to save the object under.
      *
      * @return Horde_Imap_Client_Base  Client object.
      * @throws IMP_Imap_Exception
      */
-    public function createImapObject($username, $password, $key)
+    public function createImapObject($username, $password, $skey, $key)
     {
-        if (!is_null($this->_ob)) {
-            return $this->_ob;
+        $key = $this->_obId($key);
+        if (isset($this->_ob[$key])) {
+            return $this->_ob[$key];
         }
 
-        if (($config = $this->loadServerConfig($key)) === false) {
+        if (($config = $this->loadServerConfig($skey)) === false) {
             $error = new IMP_Imap_Exception('Could not load server configuration.');
             Horde::log($error);
             throw $error;
@@ -224,7 +240,7 @@ class IMP_Imap implements Serializable
             'timeout' => $config->timeout,
             'username' => $username,
             // IMP specific config
-            'imp:backend' => $key
+            'imp:backend' => $skey
             // 'imp:login' - Set in __call()
             // 'imp:nsdefault' - Set in defaultNamespace()
         );
@@ -240,7 +256,7 @@ class IMP_Imap implements Serializable
         }
 
         $this->_config = $config;
-        $this->_ob = $ob;
+        $this->_ob[$key] = $ob;
 
         return $ob;
     }
@@ -281,6 +297,7 @@ class IMP_Imap implements Serializable
             $prefs->setLocked(IMP_Mailbox::MBOX_TRASH, true);
             break;
         }
+
         $this->updateFetchIgnore();
     }
 
@@ -292,12 +309,12 @@ class IMP_Imap implements Serializable
     {
         if ($this->isImap()) {
             $special = IMP_Mailbox::getSpecialMailboxes();
-            $cache = $this->_ob->getParam('cache');
+            $cache = $this->getOb()->getParam('cache');
             $cache['fetch_ignore'] = array_filter(array(
                 strval($special[IMP_Mailbox::SPECIAL_SPAM]),
                 strval($special[IMP_Mailbox::SPECIAL_TRASH])
             ));
-            $this->_ob->setParam('cache', $cache);
+            $this->getOb()->setParam('cache', $cache);
         }
     }
 
@@ -312,7 +329,7 @@ class IMP_Imap implements Serializable
     {
         global $injector;
 
-        if (!$this->_ob) {
+        if (!$this->init) {
             return false;
         }
 
@@ -429,16 +446,16 @@ class IMP_Imap implements Serializable
      */
     public function defaultNamespace()
     {
-        if (!$this->_ob ||
+        if (!$this->init ||
             !$this->isImap() ||
-            !$this->_ob->getParam('imp:login')) {
+            !$this->getOb()->getParam('imp:login')) {
             return null;
         }
 
-        if (is_null($ns = $this->_ob->getParam('imp:nsdefault'))) {
+        if (is_null($ns = $this->getOb()->getParam('imp:nsdefault'))) {
             foreach ($this->getNamespaceList() as $val) {
                 if ($val['type'] == Horde_Imap_Client::NS_PERSONAL) {
-                    $this->_ob->setParam('imp:nsdefault', $val);
+                    $this->getOb()->setParam('imp:nsdefault', $val);
                     $this->_changed = true;
                     return $val;
                 }
@@ -501,7 +518,7 @@ class IMP_Imap implements Serializable
      */
     public function __call($method, $params)
     {
-        if (!$this->_ob) {
+        if (!$this->init) {
             /* Fallback for these methods. */
             switch ($method) {
             case 'getIdsOb':
@@ -513,7 +530,7 @@ class IMP_Imap implements Serializable
             throw new Horde_Exception_AuthenticationFailure('IMP is marked as authenticated, but no credentials can be found in the session.', Horde_Auth::REASON_SESSION);
         }
 
-        if (!method_exists($this->_ob, $method)) {
+        if (!method_exists($this->getOb(), $method)) {
             throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
         }
 
@@ -565,7 +582,7 @@ class IMP_Imap implements Serializable
         }
 
         try {
-            $result = call_user_func_array(array($this->_ob, $method), $params);
+            $result = call_user_func_array(array($this->getOb(), $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
             if ($auth_e = $error->authException(false)) {
@@ -585,7 +602,7 @@ class IMP_Imap implements Serializable
             break;
 
         case 'login':
-            if (!$this->_ob->getParam('imp:login')) {
+            if (!$this->getOb()->getParam('imp:login')) {
                 /* Check for POP3 UIDL support. */
                 if (!$this->isImap() &&
                     !$this->queryCapability('UIDL')) {
@@ -594,7 +611,7 @@ class IMP_Imap implements Serializable
                     throw $error;
                 }
 
-                $this->_ob->setParam('imp:login', true);
+                $this->getOb()->setParam('imp:login', true);
                 $this->_changed = true;
             }
             break;
