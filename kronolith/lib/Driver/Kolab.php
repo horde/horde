@@ -261,6 +261,10 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
                 continue;
             }
 
+            if ($options['hide_exceptions'] && !empty($event->baseid)) {
+                continue;
+            }
+
             /* Ignore events out of the period. */
             $recurs = $event->recurs();
             if (
