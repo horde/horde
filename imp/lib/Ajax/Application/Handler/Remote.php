@@ -49,7 +49,9 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
             $password = base64_decode($password);
         }
 
-        if (true) {
+        try {
+            $remote[$remoteid]->createImapObject($password)->login();
+        } catch (Exception $e) {
             $notification->push(_("Could not login to remote server."), 'horde.error');
             return false;
         }

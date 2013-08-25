@@ -110,6 +110,28 @@ class IMP_Remote_Account implements Serializable
         }
     }
 
+    /**
+     * Create the IMAP object in the session.
+     *
+     * @param string $password  Password.
+     *
+     * @return Horde_Imap_Client_Base  IMAP object.
+     * @throws IMP_Imap_Exception
+     */
+    public function createImapObject($password)
+    {
+        global $injector;
+
+        return $injector->getInstance('IMP_Imap')->createImapObject(array(
+            'hostspec' => $this->hostspec,
+            'password' => new IMP_Imap_Password($password),
+            'port' => $this->port,
+            // TODO: Secure
+            'secure' => false,
+            'username' => $this->username,
+        ), $this->type == self::IMAP, $this->id);
+    }
+
     /* Serializable methods. */
 
     /**
