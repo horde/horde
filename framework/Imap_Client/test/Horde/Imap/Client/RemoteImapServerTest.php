@@ -80,10 +80,7 @@ class Horde_Imap_Client_RemoteImapServerTest extends Horde_Test_Case
 
         // Tack on namespace information to mailbox names.
         $namespaces = $this->imap->getNamespaces();
-        $base_ns = reset($namespaces);
-        $ns_prefix = empty($base_ns['name'])
-            ? ''
-            : rtrim($base_ns['name'], $base_ns['delimiter']) . $base_ns['delimiter'];
+        $ns_prefix = strval(reset($namespaces));
         $test_mbox = $ns_prefix . $this->test_mbox;
         $test_mbox_utf8 = $ns_prefix . $this->test_mbox_utf8;
 

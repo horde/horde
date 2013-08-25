@@ -287,9 +287,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     )
     {
         $namespace_array = array(
-            Horde_Imap_Client::NS_PERSONAL,
-            Horde_Imap_Client::NS_OTHER,
-            Horde_Imap_Client::NS_SHARED
+            Horde_Imap_Client_Data_Namespace::NS_PERSONAL,
+            Horde_Imap_Client_Data_Namespace::NS_OTHER,
+            Horde_Imap_Client_Data_Namespace::NS_SHARED
         );
 
         $c = array();
@@ -306,13 +306,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             while ($data->next() !== false) {
                 $ob = Horde_Imap_Client_Mailbox::get($data->next(), true);
 
-                $c[strval($ob)] = array(
-                    'delimiter' => $data->next(),
-                    'hidden' => false,
-                    'name' => strval($ob),
-                    'translation' => '',
-                    'type' => $val
-                );
+                $ns = new Horde_Imap_Client_Data_Namespace();
+                $ns->delimiter = $data->next();
+                $ns->name = strval($ob);
+                $ns->type = $val;
+                // @todo: Remove key in 3.0
+                $c[strval($ob)] = $ns;
 
                 // RFC 4466: NAMESPACE extensions
                 while (($ext = $data->next()) !== false) {
@@ -320,7 +319,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     case 'TRANSLATION':
                         // RFC 5255 [3.4] - TRANSLATION extension
                         $data->next();
-                        $c[strval($ob)]['translation'] = $data->next();
+                        $ns->translation = $data->next();
                         $data->next();
                         break;
                     }

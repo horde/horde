@@ -113,7 +113,7 @@ class Horde_Imap_Client
     /* @since 2.11.0 */
     const FETCH_DOWNGRADED = 16;
 
-    /* Namespace constants. */
+    /* Namespace constants. @deprecated */
     const NS_PERSONAL = 1;
     const NS_OTHER = 2;
     const NS_SHARED = 3;

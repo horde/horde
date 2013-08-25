@@ -1,0 +1,151 @@
+<?php
+/**
+ * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2013-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * Namespace data.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2013-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ * @since     2.21.0
+ *
+ * @property string $delimiter  The namespace delimiter.
+ * @property boolean $hidden  Is this a hidden namespace?
+ * @property string $name  The namespace name (UTF-8).
+ * @property string $translation  Returns the translated name of the namespace
+ *                                (UTF-8).
+ * @property integer $type  The namespace type. Either self::NS_PERSONAL,
+ *                          self::NS_OTHER, or self::NS_SHARED.
+ */
+class Horde_Imap_Client_Data_Namespace implements ArrayAccess, Serializable
+{
+    /* Namespace type constants. */
+    const NS_PERSONAL = 1;
+    const NS_OTHER = 2;
+    const NS_SHARED = 3;
+
+    /**
+     * Data object.
+     *
+     * @var array
+     */
+    protected $_data = array();
+
+    /**
+     */
+    public function __get($name)
+    {
+        if (isset($this->_data[$name])) {
+            return $this->_data[$name];
+        }
+
+        switch ($name) {
+        case 'delimiter':
+        case 'name':
+        case 'translation':
+            return '';
+
+        case 'hidden':
+            return false;
+
+        case 'type':
+            return self::NS_PERSONAL;
+        }
+
+        return null;
+    }
+
+    /**
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+        case 'delimiter':
+        case 'name':
+        case 'translation':
+            $this->_data[$name] = strval($value);
+            break;
+
+        case 'hidden':
+            $this->_data[$name] = (bool)$value;
+            break;
+
+        case 'type':
+            $this->_data[$name] = intval($value);
+            break;
+        }
+    }
+
+    /**
+     */
+    public function __isset($name)
+    {
+        return isset($this->_data[$name]);
+    }
+
+    /**
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /* ArrayAccess methods (for BC). @deprecated */
+
+    /**
+     */
+    public function offsetExists($offset)
+    {
+        return !is_null($this->$offset);
+    }
+
+    /**
+     */
+    public function offsetGet($offset)
+    {
+        return $this->$offset;
+    }
+
+    /**
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->$offset = $value;
+    }
+
+    /**
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->_data[$offset]);
+    }
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        return json_encode($this->_data);
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        $this->_data = json_decode($data, true);
+    }
+
+}
