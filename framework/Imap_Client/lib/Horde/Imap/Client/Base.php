@@ -711,7 +711,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (!empty($to_process)) {
             foreach ($this->listMailboxes($to_process, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true)) as $val) {
                 $ns[$val] = array(
-                    'delimiter' => $first['delimiter'],
+                    'delimiter' => $val['delimiter'],
                     'hidden' => true,
                     'name' => $val,
                     'translation' => '',
