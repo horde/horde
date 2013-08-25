@@ -26,6 +26,13 @@ class IMP_Imap_Password implements Horde_Imap_Client_Base_Password, Serializable
     const PASSWORD_KEY = 'imap_ob_pass';
 
     /**
+     * Object storage ID.
+     *
+     * @var string
+     */
+    private $_id;
+
+    /**
      * Mail server password.
      *
      * @var string
@@ -59,16 +66,21 @@ class IMP_Imap_Password implements Horde_Imap_Client_Base_Password, Serializable
     {
         global $session;
 
-        $session->set('imp', self::PASSWORD_KEY, $this->_password, $session::ENCRYPT);
+        if (!isset($this->_id)) {
+            $this->_id = strval(new Horde_Support_Randomid());
+        }
 
-        return '';
+        $session->set('imp', self::PASSWORD_KEY . '/' . $this->_id, $this->_password, $session::ENCRYPT);
+
+        return $this->_id;
     }
 
     /**
      */
     public function unserialize($data)
     {
-        $this->_password = $GLOBALS['session']->get('imp', self::PASSWORD_KEY);
+        $this->_id = $data;
+        $this->_password = $GLOBALS['session']->get('imp', self::PASSWORD_KEY . '/' . $this->_id);
     }
 
 }
