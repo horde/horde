@@ -49,12 +49,12 @@ class IMP_Script_Package_ComposeBase extends Horde_Script_Package
 
             $js = new Horde_Script_File_JsDir('ckeditor/' . $plugin . '.js', 'imp');
             $page_output->addInlineScript(array(
-                'CKEDITOR.on("loaded", function(e) {' .
+                'if (window.CKEDITOR) { CKEDITOR.on("loaded", function(e) {' .
                   'CKEDITOR.plugins.addExternal("' . $plugin . '", "' . $js->url->url . '", "");' .
                   'CKEDITOR.config.extraPlugins = CKEDITOR.config.extraPlugins.split(",").concat("' . $plugin . '").join(",");' .
                   'CKEDITOR.config.filebrowserImageUploadUrl = "' . $upload_url . '";' .
                   'CKEDITOR.config.forcePasteAsPlainText = true;' .
-                '});'
+                '}); };'
             ), true);
 
         }

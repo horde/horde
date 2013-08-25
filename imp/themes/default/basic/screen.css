@@ -29,6 +29,7 @@ table.mboxactions {
 }
 
 #checkheader {
+    padding: 0 2px;
     width: 8%;
 }
 #checkheader input {

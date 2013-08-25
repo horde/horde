@@ -319,7 +319,9 @@ class IMP_Imap_Config implements Serializable
     {
         global $session;
 
-        $session->set('imp', self::PASSWORDS_KEY, $this->_passwords, $session::ENCRYPT);
+        if (!empty($this->_passwords)) {
+            $session->set('imp', self::PASSWORDS_KEY, $this->_passwords, $session::ENCRYPT);
+        }
 
         return json_encode(array_filter($this->_config));
     }
