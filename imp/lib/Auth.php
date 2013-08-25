@@ -76,7 +76,7 @@ class IMP_Auth
             }
 
             try {
-                $imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
+                $imp_imap->createBaseImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
             } catch (IMP_Imap_Exception $e) {
                 self::_log(false, $imp_imap);
                 throw $e->authException();

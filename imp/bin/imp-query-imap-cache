@@ -113,7 +113,7 @@ while (is_null($pass)) {
     }
 }
 
-$ob = $imp_imap->createImapObject($user, $pass, $server);
+$ob = $imp_imap->createBaseImapObject($user, $pass, $server);
 if (!$ob) {
     $cli->fatal('Could not create Imap Client object.');
 }

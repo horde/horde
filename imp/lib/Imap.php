@@ -21,8 +21,9 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
+ * @property-read Horde_Imap_Client_Base $base_ob  The base connection object.
  * @property-read boolean $changed  If true, this object has changed.
- * @property-read IMP_Imap_Config $config  Backend config settings.
+ * @property-read IMP_Imap_Config $config  Base backend config settings.
  * @property-read boolean $init  Has the base IMAP object been initialized?
  * @property-read integer $max_compose_recipients  The maximum number of
  *                                                 recipients to send to per
@@ -94,6 +95,11 @@ class IMP_Imap implements Serializable
     public function __get($key)
     {
         switch ($key) {
+        case 'base_ob':
+            return $this->init
+                ? $this->_ob[self::BASE_OB]
+                : null;
+
         case 'changed':
             return $this->_changed || ($this->init && $this->getOb()->changed);
 
@@ -202,21 +208,19 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Create a new Horde_Imap_Client object.
+     * Create the base Horde_Imap_Client object.
      *
      * @param string $username  The username to authenticate with.
      * @param string $password  The password to authenticate with.
      * @param string $skey      Create a new object using this server key.
-     * @param string $key       The key to save the object under.
      *
      * @return Horde_Imap_Client_Base  Client object.
      * @throws IMP_Imap_Exception
      */
-    public function createImapObject($username, $password, $skey, $key)
+    public function createBaseImapObject($username, $password, $skey)
     {
-        $key = $this->_obId($key);
-        if (isset($this->_ob[$key])) {
-            return $this->_ob[$key];
+        if ($base_ob = $this->base_ob) {
+            return $base_ob;
         }
 
         if (($config = $this->loadServerConfig($skey)) === false) {
@@ -226,18 +230,11 @@ class IMP_Imap implements Serializable
         }
 
         $imap_config = array(
-            'cache' => $config->cache_params,
-            'capability_ignore' => $config->capability_ignore,
-            'comparator' => $config->comparator,
-            'debug' => $config->debug,
-            'debug_literal' => $config->debug_raw,
             'hostspec' => $config->hostspec,
             'id' => $config->id,
-            'lang' => $config->lang,
             'password' => new IMP_Imap_Password($password),
             'port' => $config->port,
             'secure' => (($secure = $config->secure) ? $secure : false),
-            'timeout' => $config->timeout,
             'username' => $username,
             // IMP specific config
             'imp:backend' => $skey
@@ -245,18 +242,58 @@ class IMP_Imap implements Serializable
             // 'imp:nsdefault' - Set in defaultNamespace()
         );
 
+        /* Needed here to set config information in createImapObject(). */
+        $this->_config = $config;
+
         try {
-            $ob = ($config->protocol == 'imap')
-                ? new Horde_Imap_Client_Socket($imap_config)
-                : new Horde_Imap_Client_Socket_Pop3($imap_config);
+            return $this->createImapObject($imap_config, ($config->protocol == 'imap'));
+        } catch (IMP_Imap_Exception $e) {
+            unset($this->_config);
+            throw $e;
+        }
+    }
+
+    /**
+     * Create a Horde_Imap_Client object.
+     *
+     * @param array $config  The IMAP configuration.
+     * @param boolean $imap  True if IMAP connection, false if POP3.
+     * @param string $id     The ID to save the object as.
+     *
+     * @return Horde_Imap_Client_Base  Client object.
+     * @throws IMP_Imap_Exception
+     */
+    public function createImapObject($config, $imap = true, $id = null)
+    {
+        if (is_null($id)) {
+            $id = $this->_obId();
+        }
+        if (isset($this->_ob[$id])) {
+            return $this->_ob[$id];
+        }
+
+        $sconfig = $this->config;
+        $config = array_merge(array(
+            'cache' => $sconfig->cache_params,
+            'capability_ignore' => $sconfig->capability_ignore,
+            'comparator' => $sconfig->comparator,
+            'debug' => $sconfig->debug,
+            'debug_literal' => $sconfig->debug_raw,
+            'lang' => $sconfig->lang,
+            'timeout' => $sconfig->timeout,
+        ), $config);
+
+        try {
+            $ob = $imap
+                ? new Horde_Imap_Client_Socket($config)
+                : new Horde_Imap_Client_Socket_Pop3($config);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
             Horde::log($error);
             throw $error;
         }
 
-        $this->_config = $config;
-        $this->_ob[$key] = $ob;
+        $this->_ob[$id] = $ob;
 
         return $ob;
     }
