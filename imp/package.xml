@@ -3274,6 +3274,7 @@
    <date>2013-08-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix auto-complete of addresses on the dynamic redirect page.
 * [mms] Fix updating flags in dynamic search view (Bug #12594).
 * [mms] Use Horde_Smtp to send messages via SMTP.
 * [mms] Fix applying the &apos;allow_folders&apos; permission.

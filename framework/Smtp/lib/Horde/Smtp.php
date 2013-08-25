@@ -508,12 +508,12 @@ class Horde_Smtp implements Serializable
                 fwrite($stream, $data);
                 $data = $stream;
             }
+            rewind($data);
 
             // Add SMTP escape filter.
             stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
             $res = stream_filter_append($data, 'horde_smtp_data', STREAM_FILTER_READ);
 
-            rewind($data);
             $this->_connection->write($data);
             stream_filter_remove($res);
         }

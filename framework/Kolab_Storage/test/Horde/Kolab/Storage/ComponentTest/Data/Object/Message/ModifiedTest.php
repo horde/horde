@@ -33,7 +33,7 @@ extends PHPUnit_Framework_TestCase
     public function testStore()
     {
         if (version_compare(PHP_VERSION, '5.5.0', '>=') &&
-            version_compare(PHP_VERSION, '5.5.2', '<=')) {
+            version_compare(PHP_VERSION, '5.5.3', '<=')) {
             $this->markTestSkipped('PHP version with broken quoted-printable-encode');
         }
 
