@@ -94,7 +94,11 @@ $this->applications = array(
             'mail/showWhitelist',
             'mail/applyFilters',
             'mail/canApplyFilters',
-            'mail/showFilters'
+            'mail/showFilters',
+            'mail/getWhitelist',
+            'mail/getBlacklist',
+            'mail/exportFilters',
+            'mail/importFilters'
         ),
         'menu_parent' => 'imp'
     ),
