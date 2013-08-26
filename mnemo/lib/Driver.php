@@ -441,7 +441,7 @@ abstract class Mnemo_Driver
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         $log = $history->getHistory('mnemo:' . $memo['memolist_id'] . ':' . $memo['uid']);
         if ($log) {
-            foreach ($log->getData() as $entry) {
+            foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':
                     $created = $entry['ts'];
