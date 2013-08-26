@@ -25,7 +25,7 @@
 * [mjr] Allow reducing the amount of tag content that is logged to the Wbxml log.
 * [mjr] Fix broken wbxml in certain cases due to incorrect handling of encoding empty array values (Bug #12595).
 * [mjr] Detect IMAP message deletions on non-CONDSTORE servers during PING requests (Request #12597, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [mjr] Do not initiate a looping SYNC in there were any incoming changes, this prevents an unnecessary backend ping for each collection.
+* [mjr] Do not initiate a looping SYNC if there were any incoming changes, this prevents an unnecessary backend ping for each collection.
 * [mjr] Fix issue that could cause message deletions on the server to not be trasmitted to the client if the message falls outside of the FILTER window and the IMAP server does not support CONDSTORE.
 * [mjr] Don&apos;t filter out messages flagged as DELETED during initial sync request.
  </notes>
@@ -1639,7 +1639,7 @@
 * [mjr] Allow reducing the amount of tag content that is logged to the Wbxml log.
 * [mjr] Fix broken wbxml in certain cases due to incorrect handling of encoding empty array values (Bug #12595).
 * [mjr] Detect IMAP message deletions on non-CONDSTORE servers during PING requests (Request #12597, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [mjr] Do not initiate a looping SYNC in there were any incoming changes, this prevents an unnecessary backend ping for each collection.
+* [mjr] Do not initiate a looping SYNC if there were any incoming changes, this prevents an unnecessary backend ping for each collection.
 * [mjr] Fix issue that could cause message deletions on the server to not be trasmitted to the client if the message falls outside of the FILTER window and the IMAP server does not support CONDSTORE.
 * [mjr] Don&apos;t filter out messages flagged as DELETED during initial sync request.
    </notes>

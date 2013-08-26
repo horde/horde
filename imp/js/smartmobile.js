@@ -1627,6 +1627,15 @@ var IMP_JS = {
         d.write(data);
         d.close();
 
+        /* Catch compose links within HTML IFRAME data. */
+        $(d).on('click', 'a', function(e) {
+            var href = $(e.target).attr('href');
+            if (href.match(/\#compose[\?$]/)) {
+                $.mobile.changePage(href);
+                e.preventDefault();
+            }
+        });
+
         id.show().prev().remove();
     },
 
