@@ -21,9 +21,6 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
- * @property-read Horde_Imap_Client_Base $base_ob  The base IMAP client
- *                                                 (i.e. the backend object
- *                                                 used to login to IMP).
  * @property-read boolean $changed  If true, this object has changed.
  * @property-read Horde_Imap_Client_Base $client_ob  The IMAP client object.
  * @property-read IMP_Imap_Config $config  Base backend config settings.
@@ -95,9 +92,6 @@ class IMP_Imap implements Serializable
     public function __get($key)
     {
         switch ($key) {
-        case 'base_ob':
-            return $this->client_ob;
-
         case 'changed':
             return $this->_changed;
 
@@ -197,7 +191,7 @@ class IMP_Imap implements Serializable
     public function createBaseImapObject($username, $password, $skey)
     {
         if ($this->init) {
-            return $this->base_ob;
+            return $this->client_ob;
         }
 
         if (($config = $this->loadServerConfig($skey)) === false) {
