@@ -1375,8 +1375,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (!empty($options['status']) &&
             !$this->queryCapability('LIST-STATUS')) {
-            $status = $this->statusMultiple($this->_selected, $options['status']);
-            foreach ($status as $key => $val) {
+            foreach ($this->status(array_keys($ret), $options['status']) as $key => $val) {
                 $ret[$key]['status'] = $val;
             }
         }

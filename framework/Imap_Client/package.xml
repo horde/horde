@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix adding status information to listMailboxes() return when LIST-STATUS is not available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1961,7 +1961,7 @@
    <date>2013-08-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix adding status information to listMailboxes() return when LIST-STATUS is not available.
    </notes>
   </release>
  </changelog>
