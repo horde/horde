@@ -141,13 +141,20 @@ class IMP_Imap implements Serializable
     }
 
     /**
+     */
+    public function __toString()
+    {
+        return $this->_id;
+    }
+
+    /**
      * Get the full permission name for a permission.
      *
      * @param string $perm  The permission.
      *
      * @return string  The full (backend-specific) permission name.
      */
-    private function _getPerm($perm)
+    protected function _getPerm($perm)
     {
         return ($this->init ? $this->server_key . ':' : '') . $perm;
     }
@@ -209,8 +216,6 @@ class IMP_Imap implements Serializable
             'username' => $username,
             // IMP specific config
             'imp:backend' => $skey
-            // 'imp:login' - Set in __call()
-            // 'imp:nsdefault' - Set in defaultNamespace()
         );
 
         /* Needed here to set config information in createImapObject(). */
@@ -248,6 +253,8 @@ class IMP_Imap implements Serializable
             'debug_literal' => $sconfig->debug_raw,
             'lang' => $sconfig->lang,
             'timeout' => $sconfig->timeout,
+            // 'imp:login' - Set in __call()
+            // 'imp:nsdefault' - Set in defaultNamespace()
         ), $config);
 
         try {
