@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-22</date>
- <time>13:06:47</time>
+ <date>2013-08-26</date>
+ <time>12:58:54</time>
  <version>
   <release>2.1.1</release>
   <api>2.1.0</api>
@@ -495,7 +495,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-22</date>
+   <date>2013-08-26</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Workaround broken Net_SMTP handling regarding the end of message data (Bug #12614).
