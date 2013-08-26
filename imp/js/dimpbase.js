@@ -4039,11 +4039,14 @@ document.observe('HordeDialog:onClick', function(e) {
         }, {
             callback: function(r) {
                 if (r.success) {
+                    this.getMboxElt($F(elt.down('INPUT[name="remote_id"]')))
+                        .removeClassName('imp-sidebar-remote')
+                        .addClassName('imp-sidebar-container');
                     HordeDialog.close();
                 } else {
                     elt.enable().down('INPUT[name="remote_password"]').clear().focus();
                 }
-            }
+            }.bind(this)
         });
         elt.disable();
         break;
