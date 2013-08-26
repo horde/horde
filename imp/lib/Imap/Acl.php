@@ -43,7 +43,7 @@ class IMP_Imap_Acl
      */
     public function getACL(IMP_Mailbox $mbox, $user = false)
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imp_imap = $mbox->imp_imap;
 
         if ($imp_imap->access(IMP_Imap::ACCESS_ACL)) {
             try {
@@ -85,7 +85,7 @@ class IMP_Imap_Acl
      */
     public function addRights(IMP_Mailbox $mbox, $user, $rights)
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imp_imap = $mbox->imp_imap;
 
         if (!strlen($rights) || !$imp_imap->access(IMP_Imap::ACCESS_ACL)) {
             return;
@@ -113,7 +113,7 @@ class IMP_Imap_Acl
      */
     public function removeRights(IMP_Mailbox $mbox, $user, $rights)
     {
-        $imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imap = $mbox->imp_imap;
         if (!$imap->access(IMP_Imap::ACCESS_ACL)) {
             return;
         }
@@ -141,7 +141,7 @@ class IMP_Imap_Acl
      */
     public function canEdit(IMP_Mailbox $mbox)
     {
-        $rights = $this->getRightsMbox($mbox, $GLOBALS['injector']->getInstance('IMP_Imap')->getParam('username'));
+        $rights = $this->getRightsMbox($mbox, $mbox->imp_imap->getParam('username'));
         return $rights[Horde_Imap_Client::ACL_ADMINISTER];
     }
 
@@ -215,7 +215,7 @@ class IMP_Imap_Acl
         $smbox = strval($mbox);
 
         if (!isset($this->_cache[$smbox][$user])) {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+            $imp_imap = $mbox->imp_imap;
             $ob = null;
 
             if ($imp_imap->access(IMP_Imap::ACCESS_ACL)) {

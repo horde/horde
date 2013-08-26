@@ -129,7 +129,7 @@ class IMP_Ajax_Application_ListMessages
 
         /* Optimization: saves at least a STATUS and an EXAMINE call since
          * we will eventually open mailbox READ-WRITE. */
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $mbox->imp_imap;
         $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
 
         /* Create the base object. */

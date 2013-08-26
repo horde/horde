@@ -29,7 +29,6 @@ class IMP_Basic_Thread extends IMP_Basic_Base
     {
         global $injector, $notification, $page_output, $registry;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
         $imp_mailbox = $this->indices->mailbox->list_ob;
 
         switch ($mode = $this->vars->get('mode', 'thread')) {
@@ -72,6 +71,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         $query->envelope();
 
         foreach ($imp_indices as $ob) {
+            $imp_imap = $ob->mbox->imp_imap;
             $fetch_res = $imp_imap->fetch($ob->mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($ob->uids)
             ));

@@ -29,8 +29,8 @@ class IMP_Basic_Message extends IMP_Basic_Base
     {
         global $conf, $injector, $notification, $page_output, $prefs, $registry;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
         $mailbox = $this->indices->mailbox;
+        $imp_imap = $mailbox->imp_imap;
 
         /* We know we are going to be exclusively dealing with this mailbox,
          * so select it on the IMAP server (saves some STATUS calls). Open R/W

@@ -21,10 +21,13 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
- * @property-read Horde_Imap_Client_Base $base_ob  The base connection object.
+ * @property-read Horde_Imap_Client_Base $base_ob  The base IMAP client
+ *                                                 (i.e. the backend object
+ *                                                 used to login to IMP).
  * @property-read boolean $changed  If true, this object has changed.
+ * @property-read Horde_Imap_Client_Base $client_ob  The IMAP client object.
  * @property-read IMP_Imap_Config $config  Base backend config settings.
- * @property-read boolean $init  Has the base IMAP object been initialized?
+ * @property-read boolean $init  Has the IMAP object been initialized?
  * @property-read integer $max_compose_recipients  The maximum number of
  *                                                 recipients to send to per
  *                                                 compose message.
@@ -52,9 +55,6 @@ class IMP_Imap implements Serializable
     const ACCESS_DRAFTS = 11;
     const ACCESS_REMOTE = 12;
 
-    /* Base object ID. */
-    const BASE_OB = "baseob\0";
-
     /**
      * Cached backend configuration.
      *
@@ -77,11 +77,11 @@ class IMP_Imap implements Serializable
     protected $_config;
 
     /**
-     * The Horde_Imap_Client object(s).
+     * The IMAP client object.
      *
-     * @var array
+     * @var Horde_Imap_Client_Base
      */
-    protected $_ob = array();
+    protected $_ob;
 
     /**
      * Temporary data cache (destroyed at end of request).
@@ -96,12 +96,15 @@ class IMP_Imap implements Serializable
     {
         switch ($key) {
         case 'base_ob':
-            return $this->init
-                ? $this->_ob[self::BASE_OB]
-                : null;
+            return $this->client_ob;
 
         case 'changed':
-            return $this->_changed || ($this->init && $this->getOb()->changed);
+            return $this->_changed;
+
+        case 'client_ob':
+            return $this->init
+                ? $this->_ob
+                : null;
 
         case 'config':
             return isset($this->_config)
@@ -109,7 +112,7 @@ class IMP_Imap implements Serializable
                 : new Horde_Support_Stub();
 
         case 'init':
-            return !empty($this->_ob);
+            return isset($this->_ob);
 
         case 'max_compose_recipients':
         case 'max_compose_timelimit':
@@ -118,7 +121,7 @@ class IMP_Imap implements Serializable
 
         case 'server_key':
             return $this->init
-                ? $this->getOb()->getParam('imp:backend')
+                ? $this->_ob->getParam('imp:backend')
                 : null;
 
         case 'thread_algo':
@@ -126,7 +129,7 @@ class IMP_Imap implements Serializable
                 return 'ORDEREDSUBJECT';
             }
 
-            if ($thread = $this->getOb()->getParam('imp:thread_algo')) {
+            if ($thread = $this->_ob->getParam('imp:thread_algo')) {
                 return $thread;
             }
 
@@ -136,7 +139,7 @@ class IMP_Imap implements Serializable
                 $thread = 'ORDEREDSUBJECT';
             }
 
-            $this->getOb()->setParam('imp:thread_algo', $thread);
+            $this->_ob->setParam('imp:thread_algo', $thread);
             $this->_changed = true;
 
             return $thread;
@@ -156,42 +159,15 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Returns the IMAP Client object.
-     *
-     * @param IMP_Mailbox $mbox  Get the IMAP client for a given mailbox. If
-     *                           null, returns the IMAP client for the login
-     *                           backend.
-     *
-     * @return Horde_Imap_Client_Base  An IMAP Client object.
-     */
-    public function getOb($mbox = null)
-    {
-        return $this->_ob[$this->_obId($mbox)];
-    }
-
-    /**
-     * TODO
-     */
-    protected function _obId($mbox = null)
-    {
-        return is_null($mbox)
-            ? self::BASE_OB
-            : self::BASE_OB;
-    }
-
-    /**
      * Determine if this is a connection to an IMAP server.
-     *
-     * @param IMP_Mailbox $mbox  Specifically check this mailbox. Otherwise,
-     *                           checks the base IMAP objecct.
      *
      * @return boolean  True if connected to IMAP server, false if connected
      *                  to a POP3 server.
      */
-    public function isImap($mbox = null)
+    public function isImap()
     {
         return (!$this->init ||
-                ($this->getOb($mbox) instanceof Horde_Imap_Client_Socket));
+                ($this->_ob instanceof Horde_Imap_Client_Socket));
     }
 
     /**
@@ -204,11 +180,12 @@ class IMP_Imap implements Serializable
     public function canSort(IMP_Mailbox $mbox)
     {
         return ($this->config->sort_force ||
-                $this->getOb($mbox)->queryCapability('SORT'));
+                $this->_ob->queryCapability('SORT'));
     }
 
     /**
-     * Create the base Horde_Imap_Client object.
+     * Create the base Horde_Imap_Client object (from an entry in
+     * backends.php).
      *
      * @param string $username  The username to authenticate with.
      * @param string $password  The password to authenticate with.
@@ -219,8 +196,8 @@ class IMP_Imap implements Serializable
      */
     public function createBaseImapObject($username, $password, $skey)
     {
-        if ($base_ob = $this->base_ob) {
-            return $base_ob;
+        if ($this->init) {
+            return $this->base_ob;
         }
 
         if (($config = $this->loadServerConfig($skey)) === false) {
@@ -258,18 +235,14 @@ class IMP_Imap implements Serializable
      *
      * @param array $config  The IMAP configuration.
      * @param boolean $imap  True if IMAP connection, false if POP3.
-     * @param string $id     The ID to save the object as.
      *
      * @return Horde_Imap_Client_Base  Client object.
      * @throws IMP_Imap_Exception
      */
-    public function createImapObject($config, $imap = true, $id = null)
+    public function createImapObject($config, $imap = true)
     {
-        if (is_null($id)) {
-            $id = $this->_obId();
-        }
-        if (isset($this->_ob[$id])) {
-            return $this->_ob[$id];
+        if ($this->init) {
+            return $this->_ob;
         }
 
         $sconfig = $this->config;
@@ -284,18 +257,15 @@ class IMP_Imap implements Serializable
         ), $config);
 
         try {
-            $ob = $imap
+            $this->_ob = $imap
                 ? new Horde_Imap_Client_Socket($config)
                 : new Horde_Imap_Client_Socket_Pop3($config);
+            return $this->_ob;
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
             Horde::log($error);
             throw $error;
         }
-
-        $this->_ob[$id] = $ob;
-
-        return $ob;
     }
 
     /**
@@ -346,12 +316,12 @@ class IMP_Imap implements Serializable
     {
         if ($this->isImap()) {
             $special = IMP_Mailbox::getSpecialMailboxes();
-            $cache = $this->getOb()->getParam('cache');
+            $cache = $this->_ob->getParam('cache');
             $cache['fetch_ignore'] = array_filter(array(
                 strval($special[IMP_Mailbox::SPECIAL_SPAM]),
                 strval($special[IMP_Mailbox::SPECIAL_TRASH])
             ));
-            $this->getOb()->setParam('cache', $cache);
+            $this->_ob->setParam('cache', $cache);
         }
     }
 
@@ -485,14 +455,14 @@ class IMP_Imap implements Serializable
     {
         if (!$this->init ||
             !$this->isImap() ||
-            !$this->getOb()->getParam('imp:login')) {
+            !$this->_ob->getParam('imp:login')) {
             return null;
         }
 
-        if (is_null($ns = $this->getOb()->getParam('imp:nsdefault'))) {
+        if (is_null($ns = $this->_ob->getParam('imp:nsdefault'))) {
             foreach ($this->getNamespaceList() as $val) {
                 if ($val['type'] == Horde_Imap_Client::NS_PERSONAL) {
-                    $this->getOb()->setParam('imp:nsdefault', $val);
+                    $this->_ob->setParam('imp:nsdefault', $val);
                     $this->_changed = true;
                     return $val;
                 }
@@ -567,7 +537,7 @@ class IMP_Imap implements Serializable
             throw new Horde_Exception_AuthenticationFailure('IMP is marked as authenticated, but no credentials can be found in the session.', Horde_Auth::REASON_SESSION);
         }
 
-        if (!method_exists($this->getOb(), $method)) {
+        if (!method_exists($this->_ob, $method)) {
             throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
         }
 
@@ -619,7 +589,7 @@ class IMP_Imap implements Serializable
         }
 
         try {
-            $result = call_user_func_array(array($this->getOb(), $method), $params);
+            $result = call_user_func_array(array($this->_ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
             if ($auth_e = $error->authException(false)) {
@@ -639,7 +609,7 @@ class IMP_Imap implements Serializable
             break;
 
         case 'login':
-            if (!$this->getOb()->getParam('imp:login')) {
+            if (!$this->_ob->getParam('imp:login')) {
                 /* Check for POP3 UIDL support. */
                 if (!$this->isImap() &&
                     !$this->queryCapability('UIDL')) {
@@ -648,7 +618,7 @@ class IMP_Imap implements Serializable
                     throw $error;
                 }
 
-                $this->getOb()->setParam('imp:login', true);
+                $this->_ob->setParam('imp:login', true);
                 $this->_changed = true;
             }
             break;

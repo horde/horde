@@ -242,7 +242,7 @@ class IMP_Ajax_Queue
         }
 
         if (count($poll_list)) {
-            $imap_ob = $injector->getInstance('IMP_Imap');
+            $imap_ob = $injector->getInstance('IMP_Factory_Imap')->create();
             if ($imap_ob->init) {
                 foreach ($imap_ob->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
                     $poll[IMP_Mailbox::formTo($key)] = intval($val['unseen']);

@@ -50,9 +50,9 @@ class IMP_Mbox_Generate
             return $body;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        foreach (IMP_Mailbox::get($mboxes) as $val) {
+            $imp_imap = $val->imp_imap;
 
-        foreach ($mboxes as $val) {
             try {
                 $status = $imp_imap->status($val, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (IMP_Imap_Exception $e) {

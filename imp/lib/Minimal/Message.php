@@ -87,7 +87,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         /* Get envelope/flag/header information. */
         try {
-            $imp_imap = $injector->getInstance('IMP_Imap');
+            $imp_imap = $mailbox->imp_imap;
 
             /* Need to fetch flags before HEADERTEXT, because SEEN flag might
              * be set before we can grab it. */

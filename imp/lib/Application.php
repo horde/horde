@@ -101,7 +101,6 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Crypt_Smime' => 'IMP_Factory_Smime',
             'IMP_Flags' => 'IMP_Factory_Flags',
             'IMP_Identity' => 'IMP_Factory_Identity',
-            'IMP_Imap' => 'IMP_Factory_Imap',
             'IMP_Imap_Tree' => 'IMP_Factory_Imaptree',
             'IMP_Mail' => 'IMP_Factory_Mail',
             'IMP_Maillog' => 'IMP_Factory_Maillog',
@@ -117,7 +116,7 @@ class IMP_Application extends Horde_Registry_Application
 
         /* Methods only available if admin config is set for this
          * server/login. */
-        if (empty($injector->getInstance('IMP_Imap')->config->admin)) {
+        if (empty($injector->getInstance('IMP_Factory_Imap')->create()->config->admin)) {
             $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
         }
     }
@@ -171,7 +170,7 @@ class IMP_Application extends Horde_Registry_Application
 
         /* Grab the current server from the session to correctly populate
          * login form. */
-        $this->_oldserver = $GLOBALS['injector']->getInstance('IMP_Imap')->server_key;
+        $this->_oldserver = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->server_key;
     }
 
     /* Horde permissions. */
@@ -198,7 +197,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         global $injector, $prefs, $registry;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if ($imp_imap->access(IMP_Imap::ACCESS_TRASH) &&
             $prefs->getValue('use_trash') &&
@@ -265,7 +264,7 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         /* Folders. */
-        if ($GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
+        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             try {
                 $tree = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_Tree')
@@ -425,7 +424,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $onclick = null;
             switch ($registry->getView()) {
@@ -474,7 +473,7 @@ class IMP_Application extends Horde_Registry_Application
 
         $out = array();
 
-        $ob = $injector->getInstance('IMP_Imap')->config->cache_params;
+        $ob = $injector->getInstance('IMP_Factory_Imap')->create()->config->cache_params;
         if ($ob['backend'] instanceof Horde_Imap_Client_Cache_Backend_Mongo) {
             $out[] = $ob['backend'];
         }

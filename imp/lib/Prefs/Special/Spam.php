@@ -66,7 +66,7 @@ class IMP_Prefs_Special_Spam extends IMP_Prefs_Special_SpecialMboxes implements 
             return false;
         }
 
-        $injector->getInstance('IMP_Imap')->updateFetchIgnore();
+        $injector->getInstance('IMP_Factory_Imap')->create()->updateFetchIgnore();
         return true;
     }
 

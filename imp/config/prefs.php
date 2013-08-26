@@ -104,7 +104,7 @@ $prefGroups['acl'] = array(
     'desc' => _("Share your mailboxes with other users."),
     'members' => array('aclmanagement'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_ACL);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_ACL);
     }
 );
 
@@ -136,7 +136,7 @@ $_prefs['remotemanagement'] = array(
     'type' => 'special',
     'handler' => 'IMP_Prefs_Special_Remote',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_REMOTE);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_REMOTE);
     }
 );
 
@@ -158,7 +158,7 @@ $prefGroups['searches'] = array(
         'searchesmanagement'
     ),
     'suppress' => function() {
-        $imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         return (!$imap->access(IMP_Imap::ACCESS_SEARCH) ||
                 !$imap->access(IMP_Imap::ACCESS_FOLDERS));
     }
@@ -639,7 +639,7 @@ $prefGroups['composetemplates'] = array(
     'desc' => _("Edit compose templates."),
     'members' => array('composetemplates_management', 'composetemplates_new'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->isImap();
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->isImap();
     }
 );
 
@@ -852,7 +852,7 @@ $_prefs['rename_sentmail_monthly'] = array(
     'desc' => _("Rename sent mail mailbox at beginning of month?"),
     'help' => 'prefs-rename_sentmail_monthly',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -863,7 +863,7 @@ $_prefs['delete_sentmail_monthly_keep'] = array(
     'desc' => _("Delete old sent mail mailboxes after this many months (0 to never delete):"),
     'help' => 'prefs-delete_sentmail_monthly_keep',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -874,7 +874,7 @@ $_prefs['purge_sentmail_interval'] = array(
     'desc' => _("Purge sent mail how often:"),
     'help' => 'prefs-purge_sentmail_interval',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -885,7 +885,7 @@ $_prefs['purge_sentmail_keep'] = array(
     'help' => 'prefs-purge_sentmail_keep',
     'requires' => array('purge_sentmail_interval'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1203,7 +1203,7 @@ $_prefs['trashselect'] = array(
     'requires' => array('use_trash'),
     'requires_nolock' => array('use_trash', 'trash_folder'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
     }
 );
 
@@ -1241,7 +1241,7 @@ $_prefs['empty_trash_menu'] = array(
     'requires' => array('use_trash'),
     'requires_nolock' => array('use_trash'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
     }
 );
 
@@ -1254,7 +1254,7 @@ $_prefs['purge_trash_interval'] = array(
     'requires' => array('use_trash'),
     'requires_nolock' => array('use_trash'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
     }
 );
 
@@ -1266,7 +1266,7 @@ $_prefs['purge_trash_keep'] = array(
     'requires' => array('use_trash', 'purge_trash_interval'),
     'requires_nolock' => array('use_trash'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_TRASH);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
     }
 );
 
@@ -1315,7 +1315,7 @@ $_prefs['delete_spam_after_report'] = array(
             0 => _("Nothing"),
             1 => _("Delete message")
         );
-        if ($GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
+        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             $enum[2] = _("Move to Spam mailbox");
         }
         $ui->prefs['delete_spam_after_report']['enum'] = $enum;
@@ -1332,7 +1332,7 @@ $_prefs['move_innocent_after_report'] = array(
     'desc' => _("What to do with messages after they have been reported as innocent?"),
     'help' => 'prefs-move_innocent_after_report',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1341,7 +1341,7 @@ $_prefs['empty_spam_menu'] = array(
     'type' => 'checkbox',
     'desc' => _("Display the \"Empty Spam\" link in the menubar?") . ' (<em>' . _("Basic view only") . '</em>)',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1352,7 +1352,7 @@ $_prefs['purge_spam_interval'] = array(
     'desc' => _("Purge Spam mailbox how often:"),
     'help' => 'prefs-purge_spam_interval',
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1363,7 +1363,7 @@ $_prefs['purge_spam_keep'] = array(
     'help' => 'prefs-purge_spam_keep',
     'requires' => array('purge_spam_interval'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1424,7 +1424,7 @@ $prefGroups['flags'] = array(
     'desc' => _("Configure flag highlighting."),
     'members' => array('flagmanagement', 'show_all_flags'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FLAGS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS);
     }
 );
 
@@ -1488,7 +1488,7 @@ $_prefs['initialpageselect'] = array(
     'handler' => 'IMP_Prefs_Special_InitialPage',
     'requires_nolock' => array('initial_page'),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1673,7 +1673,7 @@ $_prefs['nav_expanded'] = array(
     ),
     'desc' => _("Expand the entire folder tree by default in the folders view?"),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
 );
 
@@ -1687,7 +1687,7 @@ $_prefs['tree_view'] = array(
     ),
     'desc' => _("How should namespaces be displayed in the folder tree view?"),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     },
     'on_change' => function() {
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
@@ -1706,7 +1706,7 @@ $_prefs['nav_poll_all'] = array(
     'type' => 'checkbox',
     'desc' => _("Poll all mailboxes for new mail?"),
     'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     },
     'on_change' => function() {
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();

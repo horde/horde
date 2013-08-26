@@ -200,7 +200,7 @@ class IMP_Imap_Config implements Serializable
 
         switch ($name) {
         case 'autocreate_special':
-            $out = ($out && $injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS));
+            $out = ($out && $injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS));
             break;
 
         case 'cache_params':
@@ -265,10 +265,10 @@ class IMP_Imap_Config implements Serializable
         case 'smtp':
             if (empty($out['horde_auth'])) {
                 if (!isset($out['username'])) {
-                    $out['username'] = $injector->getInstance('IMP_Imap')->getParam('username');
+                    $out['username'] = $injector->getInstance('IMP_Factory_Imap')->create()->getParam('username');
                 }
                 if (!isset($out['password'])) {
-                    $out['password'] = $injector->getInstance('IMP_Imap')->getParam('password');
+                    $out['password'] = $injector->getInstance('IMP_Factory_Imap')->create()->getParam('password');
                 }
             }
             break;

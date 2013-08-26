@@ -122,7 +122,7 @@ class IMP_Remote_Account implements Serializable
     {
         global $injector;
 
-        return $injector->getInstance('IMP_Imap')->createImapObject(array(
+        return $injector->getInstance('IMP_Factory_Imap')->create($this->id)->createImapObject(array(
             'hostspec' => $this->hostspec,
             'password' => new IMP_Imap_Password($password),
             'port' => $this->port,

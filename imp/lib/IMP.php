@@ -156,7 +156,7 @@ class IMP
      */
     static public function parseAddressList($in, array $opts = array())
     {
-        $md = $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
+        $md = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->config->maildomain;
 
         if ($in instanceof Horde_Mail_Rfc822_List) {
             $res = clone $in;

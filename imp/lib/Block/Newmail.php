@@ -76,7 +76,7 @@ class IMP_Block_Newmail extends Horde_Core_Block
             $query->envelope();
 
             try {
-                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create($inbox);
                 $fetch_ret = $imp_imap->fetch($inbox, $query, array(
                     'ids' => $imp_imap->getIdsOb(array_slice($indices, 0, $shown))
                 ));

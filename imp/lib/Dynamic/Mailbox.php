@@ -39,7 +39,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptPackage('Dialog');
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
             $page_output->addScriptFile('colorpicker.js', 'horde');
@@ -129,7 +129,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         global $conf, $injector, $prefs, $registry;
 
         /* Does server support ACLs? */
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         $acl = $imp_imap->access(IMP_Imap::ACCESS_ACL);
 
         $this->js_conf += array_filter(array(

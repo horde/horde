@@ -34,7 +34,7 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Mail
         if ($transport == 'smtp') {
             $params = array_merge(
                 $params,
-                $injector->getInstance('IMP_Imap')->config->smtp
+                $injector->getInstance('IMP_Factory_Imap')->create()->config->smtp
             );
         }
 

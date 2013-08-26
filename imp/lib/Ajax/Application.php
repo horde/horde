@@ -67,7 +67,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $this->addHandler('IMP_Ajax_Application_Handler_Mboxtoggle');
             $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
             $this->addHandler('IMP_Ajax_Application_Handler_Search');
-            if ($injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_REMOTE)) {
+            if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_REMOTE)) {
                 $this->addHandler('IMP_Ajax_Application_Handler_Remote');
             }
             break;
@@ -281,7 +281,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
          * on the IMAP server (saves some STATUS calls). */
         if (!is_null($rw)) {
             try {
-                $GLOBALS['injector']->getInstance('IMP_Imap')->openMailbox($this->indices->mailbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+                $this->indices->mailbox->imp_imap->openMailbox($this->indices->mailbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (IMP_Imap_Exception $e) {
                 $e->notify();
                 return null;

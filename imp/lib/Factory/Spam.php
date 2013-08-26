@@ -42,11 +42,11 @@ class IMP_Factory_Spam extends Horde_Core_Factory_Base
         if (!isset($this->_instances[$action])) {
             switch ($action) {
             case IMP_Spam::INNOCENT:
-                $config = $this->_injector->getInstance('IMP_Imap')->config->innocent_params;
+                $config = $this->_injector->getInstance('IMP_Factory_Imap')->create()->config->innocent_params;
                 break;
 
             case IMP_Spam::SPAM:
-                $config = $this->_injector->getInstance('IMP_Imap')->config->spam_params;
+                $config = $this->_injector->getInstance('IMP_Factory_Imap')->create()->config->spam_params;
                 break;
             }
 

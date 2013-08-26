@@ -20,34 +20,56 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Imap extends Horde_Core_Factory_Injector implements Horde_Shutdown_Task
+class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown_Task
 {
+    const BASE_OB = "base\0";
+
     /**
-     * @var IMP_Imap
+     * List of IMP_Imap instances.
+     *
+     * @var array
      */
-    private $_instance;
+    private $_instance = array();
 
     /**
      */
-    public function create(Horde_Injector $injector)
+    public function __construct(Horde_Injector $injector)
+    {
+        parent::__construct($injector);
+
+        Horde_Shutdown::add($this);
+    }
+
+    /**
+     * Return the IMP_Imap instance for a given mailbox/identifier.
+     *
+     * @param string $mailbox  Mailbox/identifier.
+     *
+     * @return IMP_Imap  IMP_Imap object.
+     */
+    public function create($mailbox = null)
     {
         global $session;
 
-        try {
-            $this->_instance = $session->get('imp', 'imap_ob');
-        } catch (Exception $e) {
-            // This indicates an unserialize() error.  This is fatal, so
-            // logout.
-            throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
+        $mailbox = self::BASE_OB;
+
+        if (!isset($this->_instance[$mailbox])) {
+            try {
+                $ob = $session->get('imp', 'imap_ob/' . $mailbox);
+            } catch (Exception $e) {
+                // This indicates an unserialize() error.  This is fatal, so
+                // logout.
+                throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
+            }
+
+            if (!$ob) {
+                $ob = new IMP_Imap();
+            }
+
+            $this->_instance[$mailbox] = $ob;
         }
 
-        if (!$this->_instance) {
-            $this->_instance = new IMP_Imap();
-        }
-
-        Horde_Shutdown::add($this);
-
-        return $this->_instance;
+        return $this->_instance[$mailbox];
     }
 
     /**
@@ -57,9 +79,29 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Injector implements Horde_Shut
     {
         global $registry, $session;
 
-        if ($this->_instance->changed && ($registry->getAuth() !== false)) {
-            $session->set('imp', 'imap_ob', $this->_instance);
+        if ($registry->getAuth() !== false) {
+            foreach ($this->_instance as $key => $val) {
+                if ($val->changed) {
+                    $session->set('imp', 'imap_ob/' . $key, $val);
+                }
+            }
         }
+    }
+
+    /**
+     * Returns IMAP alerts from all servers contacted this access.
+     *
+     * @return array  IMAP alerts.
+     */
+    public function alerts()
+    {
+        $out = array();
+
+        foreach ($this->_instance as $val) {
+            $out = array_merge($out, $val->alerts());
+        }
+
+        return $out;
     }
 
 }

@@ -66,7 +66,7 @@ class IMP_Auth
             $credentials['server'] = self::getAutoLoginServer();
         }
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         // Check for valid IMAP Client object.
         if (!$imp_imap->init) {
@@ -203,7 +203,7 @@ class IMP_Auth
     {
         global $injector, $registry;
 
-        if (($servers = $injector->getInstance('IMP_Imap')->loadServerConfig()) === false) {
+        if (($servers = $injector->getInstance('IMP_Factory_Imap')->create()->loadServerConfig()) === false) {
             return false;
         }
 
@@ -238,7 +238,7 @@ class IMP_Auth
     {
         $init_url = $GLOBALS['prefs']->getValue('initial_page');
         if (!$init_url ||
-            !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
+            !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             $init_url = 'INBOX';
         }
 
@@ -293,7 +293,7 @@ class IMP_Auth
     {
         global $browser, $injector, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         /* Perform post-login tasks for IMAP object. */
         $imp_imap->doPostLoginTasks();

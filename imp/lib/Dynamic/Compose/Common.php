@@ -97,7 +97,7 @@ class IMP_Dynamic_Compose_Common
         }
 
         /* Create list for sent-mail selection. */
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
             !$prefs->isLocked('save_sent_mail')) {
             $view->save_sent_mail = true;
@@ -227,7 +227,7 @@ class IMP_Dynamic_Compose_Common
             'templates_mbox' => $templates_mbox ? $templates_mbox->form_to : null
         ));
 
-        if ($injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_DRAFTS) &&
+        if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_DRAFTS) &&
             ($drafts_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)) &&
             !$drafts_mbox->readonly) {
             $base->js_conf += array_filter(array(

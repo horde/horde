@@ -156,7 +156,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
         }
 
         /* Check that searching is allowed. */
-        if (!$injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_SEARCH)) {
+        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
             $default_mailbox->url('mailbox')->redirect();
         }
 

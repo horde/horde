@@ -71,7 +71,7 @@ class IMP_Ajax_Application_ShowMessage
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
 
-            $imp_imap = $injector->getInstance('IMP_Imap');
+            $imp_imap = $mbox->imp_imap;
             $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
 
             $ret = $imp_imap->fetch($mbox, $query, array(
@@ -359,7 +359,7 @@ class IMP_Ajax_Application_ShowMessage
 
         /* Add changed flag information. */
         if (!$this->_peek && $mbox->is_imap) {
-            $status = $injector->getInstance('IMP_Imap')->status($mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
+            $status = $mbox->imp_imap->status($mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
             if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
                 $ajax_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $this->_indices);
             }

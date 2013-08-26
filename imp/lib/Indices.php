@@ -114,7 +114,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
             } elseif ($secondarg instanceof Horde_Imap_Client_Ids) {
                 $secondarg = $secondarg->ids;
             } else {
-                $secondarg = $GLOBALS['injector']->getInstance('IMP_Imap')->getIdsOb($secondarg)->ids;
+                $secondarg = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getIdsOb($secondarg)->ids;
             }
 
             if (!empty($secondarg)) {
@@ -180,7 +180,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
     public function toArray()
     {
         $converted = array();
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         foreach ($this->_indices as $key => $val) {
             $converted[IMP_Mailbox::formTo($key)] = strval($imp_imap->getIdsOb($val));
@@ -210,7 +210,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         }
 
         if ($str[0] != '{') {
-            return $GLOBALS['injector']->getInstance('IMP_Imap')->getIdsOb($str)->ids;
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getIdsOb($str)->ids;
         }
 
         $i = strpos($str, '}');
@@ -243,7 +243,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
      */
     protected function _toSequenceString($in)
     {
-        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $str = '';
 
         foreach ($in as $mbox => $ids) {

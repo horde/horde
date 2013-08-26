@@ -33,7 +33,7 @@ class IMP_Quota_Ui
     {
         global $injector;
 
-        if (!$injector->getInstance('IMP_Imap')->config->quota) {
+        if (!$injector->getInstance('IMP_Factory_Imap')->create()->config->quota) {
             return false;
         }
 

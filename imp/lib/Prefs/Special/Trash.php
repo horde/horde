@@ -86,7 +86,7 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
             return false;
         }
 
-        $injector->getInstance('IMP_Imap')->updateFetchIgnore();
+        $injector->getInstance('IMP_Factory_Imap')->create()->updateFetchIgnore();
 
         /* Switching to/from Virtual Trash requires us to expire all currently
          * cached mailbox lists (hide deleted status may have changed). */

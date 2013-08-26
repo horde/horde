@@ -366,15 +366,17 @@ class IMP_Contents
      */
     public function getHeaderAndMarkAsSeen($type = self::HEADER_OB)
     {
-        if ($this->getMailbox()->readonly) {
+        $mbox = $this->getMailbox();
+
+        if ($mbox->readonly) {
             $seen = false;
         } else {
             $seen = true;
 
             if (isset($this->_header)) {
                 try {
-                    $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
-                    $imp_imap->store($this->getMailbox(), array(
+                    $imp_imap = $mbox->imp_imap;
+                    $imp_imap->store($mbox, array(
                         'add' => array(
                             Horde_Imap_Client::FLAG_SEEN
                         ),
@@ -1545,8 +1547,9 @@ class IMP_Contents
         }
 
         try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
-            $res = $imp_imap->fetch($this->getMailbox(), $query, array(
+            $mbox = $this->getMailbox();
+            $imp_imap = $mbox->imp_imap;
+            $res = $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($this->getUid())
             ))->first();
         } catch (Horde_Imap_Client_Exception $e) {

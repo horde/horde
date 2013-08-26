@@ -50,7 +50,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        global $injector, $notification;
+        global $notification;
 
         $date_format = (substr($GLOBALS['language'], 0, 2) == 'en')
             ? 'M-Y'
@@ -58,8 +58,6 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
 
         $datetime = new DateTime();
         $now = $datetime->format($date_format);
-
-        $imp_imap = $injector->getInstance('IMP_Imap');
 
         foreach ($this->_getSentmail() as $sent) {
             /* Display a message to the user and rename the mailbox.
@@ -71,6 +69,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
                 $query->imapDate();
                 $query->uid();
 
+                $imp_imap = $sent->imp_imap;
                 $res = $imp_imap->fetch($sent, $query);
 
                 $msgs = array();

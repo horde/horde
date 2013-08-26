@@ -512,7 +512,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         if (!$this->_base->indices->mailbox->search &&
             $this->vars->viewport->cacheid &&
             array_diff($flags, $system_flags)) {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+            $imp_imap = $this->_base->indices->mailbox->imp_imap;
             $parsed = $imp_imap->parseCacheId($this->vars->viewport->cacheid);
 
             try {

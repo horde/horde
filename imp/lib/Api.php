@@ -237,7 +237,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function server()
     {
-        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         return array(
             'hostspec' => $imap_ob->getParam('hostspec'),
@@ -301,7 +301,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function imapOb()
     {
-        return $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->client_ob;
     }
 
     /**

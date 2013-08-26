@@ -231,7 +231,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         if ($this->_replytype) {
             try {
                 $indices = $this->getMetadata('indices');
@@ -297,7 +297,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add the message to the mailbox. */
         try {
-            $ids = $GLOBALS['injector']->getInstance('IMP_Imap')->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
+            $ids = $drafts_mbox->imp_imap->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
 
             if ($old_uid) {
                 $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
@@ -547,7 +547,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             if ($draft_url) {
                 $imap_url = new Horde_Imap_Client_Url(rtrim(ltrim($draft_url, '<'), '>'));
-                $imp_imap = $injector->getInstance('IMP_Imap');
+                $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
                 try {
                     if (($imap_url->protocol == ($imp_imap->isImap() ? 'imap' : 'pop')) &&
@@ -618,7 +618,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add the message to the mailbox. */
         try {
-            $GLOBALS['injector']->getInstance('IMP_Imap')->append($mbox, array(array(
+            $mbox->imp_imap->append($mbox, array(array(
                 'data' => $this->_saveDraftMsg($headers, $message, $opts),
                 'flags' => $append_flags
             )));
@@ -732,7 +732,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         $from = new Horde_Mail_Rfc822_Address($header['from']);
         if (is_null($from->host)) {
@@ -1025,7 +1025,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $from = $ob->getOb('from');
             $from = $from[0];
             if (is_null($from->host)) {
-                $from->host = $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
+                $from->host = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->config->maildomain;
             }
 
             $mdn = new Horde_Mime_Mdn($ob);
@@ -1115,7 +1115,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         global $injector;
 
         $email_count = count($email);
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if (!$imp_imap->accessCompose(IMP_Imap::ACCESS_COMPOSE_TIMELIMIT, $email_count)) {
             Horde::permissionDeniedError('imp', 'max_timelimit');

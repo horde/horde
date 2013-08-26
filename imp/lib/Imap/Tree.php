@@ -206,7 +206,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         global $injector, $prefs, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         $access_folders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
 
         $unsubmode = (!$access_folders ||
@@ -311,7 +311,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $searches[] = $val . '*';
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $result = $imp_imap->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array(
             'attributes' => true,
             'delimiter' => true,
@@ -541,7 +541,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $this->_sortList($to_insert);
 
             try {
-                $this->_insert($GLOBALS['injector']->getInstance('IMP_Imap')->listMailboxes($to_insert, Horde_Imap_Client::MBOX_ALL, array(
+                $this->_insert($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes($to_insert, Horde_Imap_Client::MBOX_ALL, array(
                     'attributes' => true,
                     'delimiter' => true,
                     'sort' => true,
@@ -1451,7 +1451,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         default:
             return ($this->isVfolder($mailbox) || $this->isRemote($mailbox))
                 ? null
-                : $GLOBALS['injector']->getInstance('IMP_Imap')->getNamespace($mailbox);
+                : IMP_Mailbox::get($mailbox)->imp_imap->getNamespace($mailbox);
         }
     }
 
@@ -1602,7 +1602,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     public function createMailboxName($parent, $new)
     {
         $ns_info = empty($parent)
-            ? $GLOBALS['injector']->getInstance('IMP_Imap')->defaultNamespace()
+            ? $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->defaultNamespace()
             : $this->_getNamespace($parent);
 
         if (is_null($ns_info)) {

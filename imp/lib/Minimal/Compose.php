@@ -366,7 +366,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
             $this->view->compose_enable = !$compose_disable;
             $this->view->msg = $msg;
-            $this->view->save_draft = ($injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_DRAFTS) && !$readonly_drafts);
+            $this->view->save_draft = ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_DRAFTS) && !$readonly_drafts);
             $this->view->subject = $header['subject'];
 
             $select_list = $identity->getSelectList();
