@@ -43,19 +43,19 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
     /**
      * Return the IMP_Imap instance for a given mailbox/identifier.
      *
-     * @param string $mailbox  Mailbox/identifier.
+     * @param string $id  Mailbox/identifier.
      *
      * @return IMP_Imap  IMP_Imap object.
      */
-    public function create($mailbox = null)
+    public function create($id = null)
     {
         global $session;
 
-        $mailbox = self::BASE_OB;
+        $id = self::BASE_OB;
 
-        if (!isset($this->_instance[$mailbox])) {
+        if (!isset($this->_instance[$id])) {
             try {
-                $ob = $session->get('imp', 'imap_ob/' . $mailbox);
+                $ob = $session->get('imp', 'imap_ob/' . $id);
             } catch (Exception $e) {
                 // This indicates an unserialize() error.  This is fatal, so
                 // logout.
@@ -63,13 +63,13 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
             }
 
             if (!$ob) {
-                $ob = new IMP_Imap();
+                $ob = new IMP_Imap($id);
             }
 
-            $this->_instance[$mailbox] = $ob;
+            $this->_instance[$id] = $ob;
         }
 
-        return $this->_instance[$mailbox];
+        return $this->_instance[$id];
     }
 
     /**

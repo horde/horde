@@ -74,6 +74,13 @@ class IMP_Imap implements Serializable
     protected $_config;
 
     /**
+     * Object identifier.
+     *
+     * @var string
+     */
+    protected $_id;
+
+    /**
      * The IMAP client object.
      *
      * @var Horde_Imap_Client_Base
@@ -86,6 +93,16 @@ class IMP_Imap implements Serializable
      * @var array
      */
     protected $_temp = array();
+
+    /**
+     * Constructor.
+     *
+     * @param string $id  Object identifier.
+     */
+    public function __construct($id)
+    {
+        $this->_id = strval($id);
+    }
 
     /**
      */
@@ -715,6 +732,7 @@ class IMP_Imap implements Serializable
     {
         return serialize(array(
             $this->_ob,
+            $this->_id,
             $this->_config
         ));
     }
@@ -725,6 +743,7 @@ class IMP_Imap implements Serializable
     {
         list(
             $this->_ob,
+            $this->_id,
             $this->_config
         ) = unserialize($data);
     }

@@ -135,7 +135,7 @@ extends PHPUnit_Framework_TestCase
             return $this->_mail;
 
         case 'IMP_Imap':
-            return new IMP_Imap();
+            return new IMP_Imap('foo');
         }
     }
 
