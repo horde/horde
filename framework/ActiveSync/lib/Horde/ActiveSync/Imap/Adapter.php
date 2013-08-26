@@ -329,7 +329,7 @@ class Horde_ActiveSync_Imap_Adapter
                     }
                 }
             }
-            $folder->setChanges($changes, $flags, $status['messages']);
+            $folder->setChanges($changes, $flags);
             try {
                 $deleted = $imap->vanished(
                     $mbox,
@@ -354,7 +354,7 @@ class Horde_ActiveSync_Imap_Adapter
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
 
             if ($modseq && $folder->modseq() > 0 && count($search_ret['match']->ids)) {
-                $folder->setChanges($search_ret['match']->ids, array(), $status['messages']);
+                $folder->setChanges($search_ret['match']->ids, array());
             } elseif (count($search_ret['match']->ids)) {
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
@@ -367,7 +367,7 @@ class Horde_ActiveSync_Imap_Adapter
                         $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
                     }
                 }
-                $folder->setChanges($search_ret['match']->ids, $flags, $status['messages']);
+                $folder->setChanges($search_ret['match']->ids, $flags);
             }
         } elseif ($modseq == 0) {
             $this->_logger->info(sprintf(
@@ -398,7 +398,7 @@ class Horde_ActiveSync_Imap_Adapter
                         $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
                     }
                 }
-                $folder->setChanges($search_ret['match']->ids, $flags, $status['messages']);
+                $folder->setChanges($search_ret['match']->ids, $flags);
             }
             $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
         }

@@ -1106,16 +1106,6 @@ class Horde_Config
             $xpath = new DOMXPath($node->ownerDocument);
         }
 
-        $persistent = array(
-            '_type' => 'boolean',
-            'required' => false,
-            'desc' => 'Request persistent connections?',
-            'default' => $this->_default(
-                $ctx . '|persistent',
-                $node ? ($xpath->evaluate('string(configboolean[@name="persistent"])', $node) ?: false) : false
-            )
-        );
-
         $hostspec = array(
             '_type' => 'text',
             'required' => true,
@@ -1248,7 +1238,6 @@ class Horde_Config
                     'desc' => 'Enabled',
                     'fields' => array(
                         'read' => array(
-                            'persistent' => $persistent,
                             'username' => $username,
                             'password' => $password,
                             'protocol' => $protocol,
@@ -1275,7 +1264,6 @@ class Horde_Config
                 'mysql' => array(
                     'desc' => 'MySQL / PDO',
                     'fields' => array(
-                        'persistent' => $persistent,
                         'username' => $username,
                         'password' => $password,
                         'protocol' => $mysql_protocol,
@@ -1328,7 +1316,6 @@ class Horde_Config
                 'pgsql' => array(
                     'desc' => 'PostgreSQL',
                     'fields' => array(
-                        'persistent' => $persistent,
                         'username' => $username,
                         'password' => $password,
                         'protocol' => $protocol,

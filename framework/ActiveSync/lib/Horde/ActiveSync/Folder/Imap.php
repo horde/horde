@@ -32,17 +32,10 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     const UIDVALIDITY    = 'uidvalidity';
     const UIDNEXT        = 'uidnext';
     const HIGHESTMODSEQ  = 'highestmodseq';
+    const MESSAGES       = 'messages';
 
     /* Serialize version */
     const VERSION        = 1;
-
-    /**
-     * Total count of messages in the folder.
-     * Used to detect deletes on a non-CONDSTORE server.
-     *
-     * @var integer
-     */
-    protected $_total_messages = 0;
 
     /**
      * The folder's current message list.
@@ -92,13 +85,9 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      *
      * @param array $messages  An array of message UIDs.
      * @param array $flags     A hash of message read flags, keyed by UID.
-     * @param integer $total_messages  The total, unfiltered, count of messages
-     *                                 in this folder.
      */
-    public function setChanges(array $messages, array $flags = array(), $total_messages = 0)
+    public function setChanges(array $messages, array $flags = array())
     {
-        $this->_total_messages = $total_messages;
-
         foreach ($messages as $uid) {
             if ($uid >= $this->uidnext()) {
                 $this->_added[] = $uid;
@@ -236,7 +225,9 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function total_messages()
     {
-        return $this->_total_messages;
+        return empty($this->_status[self::MESSAGES])
+            ? 0
+            : $this->_status[self::MESSAGES];
     }
 
     /**
@@ -319,7 +310,6 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         return serialize(array(
             's' => $this->_status,
             'm' => $this->_messages,
-            't' => $this->_total_messages,
             'f' => $this->_serverid,
             'c' => $this->_class,
             'v' => self::VERSION)
@@ -339,7 +329,6 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         }
         $this->_status = $data['s'];
         $this->_messages = $data['m'];
-        $this->_total_messages = !empty($data['t']) ? $data['t'] : 0;
         $this->_serverid = $data['f'];
         $this->_class = $data['c'];
     }
