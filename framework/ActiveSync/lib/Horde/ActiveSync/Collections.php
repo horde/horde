@@ -1032,12 +1032,15 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     $this->setGetChangesFlag($id);
                     continue;
                 } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
+                    // Thrown when state is unable to be initialized becuase the
+                    // collection has not yet been synched, but was requested to
+                    // be pinged.
                     $this->_logger->err(sprintf(
-                        '[%s] Heartbeat terminating: %s',
+                        '[%s] Unable to initialize state for %s. Ignoring during pollForChanges: %s.',
                         $this->_procid,
+                        $id,
                         $e->getMessage()));
-                    $this->setGetChangesFlag($id);
-                    $dataavailable = true;
+                    continue;
                 } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                     $this->_logger->warn('Folder gone for collection ' . $collection['id']);
                     return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
@@ -1156,6 +1159,12 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             if (!empty($this->_collections[$id]['synckey'])) {
                 $this->_logger->info(sprintf(
                     'Setting collection %s (%s) PINGABLE.',
+                    $collection['serverid'],
+                    $id));
+                $this->_cache->setPingableCollection($id);
+            } elseif (!empty($this->_collections[$id])) {
+                $this->_logger->notice(sprintf(
+                    'Received request to PING %s (%s), but we have an empty synckey (collection was not previously synched). Remembering collection, but not PINGing it.',
                     $collection['serverid'],
                     $id));
                 $this->_cache->setPingableCollection($id);
