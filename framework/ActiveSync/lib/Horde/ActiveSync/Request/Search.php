@@ -351,15 +351,15 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
                     $this->_encoder->endTag();//properties
                     $this->_encoder->endTag();//result
                 }
-
-                $this->_encoder->startTag(self::SEARCH_RANGE);
-                $this->_encoder->content($search_range);
-                $this->_encoder->endTag();
-
-                $this->_encoder->startTag(self::SEARCH_TOTAL);
-                $this->_encoder->content($search_total);
-                $this->_encoder->endTag();
             }
+
+            $this->_encoder->startTag(self::SEARCH_RANGE);
+            $this->_encoder->content($search_range);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag(self::SEARCH_TOTAL);
+            $this->_encoder->content($search_total);
+            $this->_encoder->endTag();
         }
 
         $this->_encoder->endTag();//store
