@@ -420,7 +420,7 @@ class IMP_Application extends Horde_Registry_Application
                 'expanded' => false,
                 'params' => array(
                     'icon' => Horde_Themes::img('compose.png'),
-                    'url' => $clink->link()->setRaw(false)
+                    'url' => $clink->link()->setRaw(true)
                 )
             ));
         }
