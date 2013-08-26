@@ -30,7 +30,8 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
      *   - password_base64: (boolean) If true, password is base64 encoded.
      *   - remoteid: (string) Remote server ID (base64url encoded).
      *
-     * @return boolean  True if login was successful.
+     * @return boolean  An object with the following properties:
+     *   - success: (boolean) True if login was successful.
      */
     public function remoteLogin()
     {
@@ -39,9 +40,12 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
         $remote = $injector->getInstance('IMP_Remote');
         $remoteid = IMP_Mailbox::formFrom($this->vars->remoteid);
 
+        $res = new stdClass;
+        $res->success = false;
+
         if (!isset($remote[$remoteid])) {
             $notification->push(_("Could not find remote server configuration."), 'horde.error');
-            return false;
+            return $res;
         }
 
         $password = $this->vars->password;
@@ -53,10 +57,12 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
             $remote[$remoteid]->createImapObject($password)->login();
         } catch (Exception $e) {
             $notification->push(_("Could not login to remote server."), 'horde.error');
-            return false;
+            return $res;
         }
 
-        return true;
+        $res->success = true;
+
+        return $res;
     }
 
 }

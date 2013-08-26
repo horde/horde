@@ -4037,10 +4037,15 @@ document.observe('HordeDialog:onClick', function(e) {
             password_base64: true,
             remoteid: $F(elt.down('INPUT[name="remote_id"]'))
         }, {
-            callback: function() {
-                HordeDialog.close();
+            callback: function(r) {
+                if (r.success) {
+                    HordeDialog.close();
+                } else {
+                    elt.enable().down('INPUT[name="remote_password"]').clear().focus();
+                }
             }
         });
+        elt.disable();
         break;
     }
 }.bindAsEventListener(DimpBase));
