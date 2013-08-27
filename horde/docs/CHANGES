@@ -7,9 +7,9 @@ v5.2.0-git
 [mjr] Add prefs for selecting From address when sending email via ActiveSync.
 
 
-----------
-v5.1.3-git
-----------
+------
+v5.1.3
+------
 
 [mjr] Fix issue displaying ActiveSync pref page when it contains a wiped
       device entry.

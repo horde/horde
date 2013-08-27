@@ -375,7 +375,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return $elt;
         }
 
-        $ns_info = $this->_getNamespace($name);
+        $ns_info = ($elt['a'] & self::ELT_NONIMAP)
+            ? null
+            : $this->_getNamespace($name);
         $delimiter = is_null($ns_info)
             ? $this->_delimiter
             : $ns_info['delimiter'];
@@ -619,7 +621,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         // UW fix - it may return both 'foo' and 'foo/' as mailbox names.
         // Only add one of these (without the namespace character) to
         // the tree.  See Ticket #5764.
-        $ns_info = $this->_getNamespace($elt['v']);
+        $ns_info = ($elt['a'] & self::ELT_NONIMAP)
+            ? null
+            : $this->_getNamespace($elt['v']);
         if (isset($this->_tree[rtrim($elt['v'], is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'])])) {
             return;
         }

@@ -1,7 +1,15 @@
 ----------
-v6.1.4-git
+v6.1.5-git
 ----------
 
+[mms] Don't display empty containers in dynamic folder list (Request #11425).
+
+
+------
+v6.1.4
+------
+
+[mms] Fix auto-complete of addresses on the dynamic redirect page.
 [mms] Fix updating flags in dynamic search view (Bug #12594).
 [mms] Use Horde_Smtp to send messages via SMTP.
 [mms] Fix applying the 'allow_folders' permission.

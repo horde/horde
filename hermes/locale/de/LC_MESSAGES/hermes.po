@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-20 17:53+0200\n"
+"POT-Creation-Date: 2013-08-27 14:53+0200\n"
 "PO-Revision-Date: 2013-08-20 18:04+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -50,7 +50,7 @@ msgstr "%d Stunden: %s"
 msgid "%s Deliverables"
 msgstr "Ergebnisse für %s"
 
-#: lib/Ajax.php:85
+#: lib/Ajax.php:86
 #, php-format
 msgid "%s notifications"
 msgstr "%s Benachrichtigungen"
@@ -283,7 +283,7 @@ msgid "Deliverable successfully deleted."
 msgstr "Ergebnis erfolgreich gelöscht."
 
 #: deliverables.php:49 lib/Api.php:359 lib/Application.php:183
-#: templates/dynamic/deliverables.inc:2 templates/dynamic/sidebar.html.php:29
+#: templates/dynamic/deliverables.inc:2 templates/dynamic/sidebar.html.php:18
 msgid "Deliverables"
 msgstr "Ergebnisse"
 
@@ -352,7 +352,7 @@ msgstr "Arbeitsart bearbeiten"
 msgid "Edit job type, Step 2"
 msgstr "Arbeitsart bearbeiten, Schritt 2"
 
-#: lib/Ajax.php:92
+#: lib/Ajax.php:93
 msgid "Editing Time Entry"
 msgstr "Zeiteintrag bearbeiten"
 
@@ -438,7 +438,7 @@ msgstr "Exportiert?"
 msgid "General Preferences"
 msgstr "Allgemeine Einstellungen"
 
-#: lib/Ajax.php:86
+#: lib/Ajax.php:87
 msgid "Hide Notifications"
 msgstr "Benachrichtigungen verstecken"
 
@@ -489,7 +489,7 @@ msgid "Job Type"
 msgstr "Arbeitsart"
 
 #: lib/Form/Search.php:37 templates/dynamic/jobtypes.inc:3
-#: templates/dynamic/sidebar.html.php:23
+#: templates/dynamic/sidebar.html.php:29
 msgid "Job Types"
 msgstr "Arbeitsarten"
 
@@ -567,7 +567,7 @@ msgstr "Neues Hauptergebnis"
 msgid "No"
 msgstr "Nein"
 
-#: lib/Ajax.php:84
+#: lib/Ajax.php:85
 msgid "No Notifications"
 msgstr "Keine Benachrichtigungen"
 
@@ -607,11 +607,11 @@ msgstr ""
 "Nur Kontrolleure mit Bearbeitungsberechtigung dürden Zeiteinträge für andere "
 "Benutzer eintragen."
 
-#: lib/Ajax.php:89
+#: lib/Ajax.php:90
 msgid "Please enter correct values in the form first."
 msgstr "Bitte geben Sie erst gültige Werte in das Formular ein."
 
-#: lib/Ajax.php:88
+#: lib/Ajax.php:89
 msgid "Preferences"
 msgstr "Benutzereinstellungen"
 
@@ -682,7 +682,7 @@ msgstr "Siehe angehängte Zeitübersicht"
 msgid "Select Client"
 msgstr "Kunde auswählen"
 
-#: lib/Ajax.php:93
+#: lib/Ajax.php:94
 msgid "Select a Job Type"
 msgstr "Arbeitsart auswählen"
 
@@ -905,7 +905,7 @@ msgstr "Dies ist keine gültige Arbeitsart."
 msgid "Time Administration"
 msgstr "Zeit Administration"
 
-#: lib/Ajax.php:91 templates/dynamic/slices.inc:5
+#: lib/Ajax.php:92 templates/dynamic/slices.inc:5
 msgid "Time Entry"
 msgstr "Zeiteintrag"
 
@@ -963,11 +963,11 @@ msgstr "Mit Stoppuhr \"%s\" von %s bis %s"
 msgid "Yes"
 msgstr "Ja"
 
-#: lib/Ajax.php:94
+#: lib/Ajax.php:95
 msgid "You must select a client first."
 msgstr "Sie müssen erst einen Kunden auswählen."
 
-#: lib/Ajax.php:90
+#: lib/Ajax.php:91
 #, php-format
 msgid ""
 "You used an unknown date format \"%s\". Please try something like \"%s\"."
@@ -1011,7 +1011,7 @@ msgstr "_Neuer Zeiteintrag"
 msgid "_Search"
 msgstr "_Suche"
 
-#: lib/Ajax.php:87
+#: lib/Ajax.php:88
 msgid "more..."
 msgstr "mehr..."
 

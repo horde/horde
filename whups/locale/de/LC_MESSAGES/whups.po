@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-20 17:52+0200\n"
+"POT-Creation-Date: 2013-08-27 14:53+0200\n"
 "PO-Revision-Date: 2013-06-18 14:10+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -899,7 +899,7 @@ msgstr "Geschichte"
 msgid "Hoist Children"
 msgstr "Kinder anheben"
 
-#: config/prefs.php:49 lib/Block/Tickets.php:53
+#: config/prefs.php:49 lib/Block/Tickets.php:54
 #: lib/Form/Query/PropertyCriterion.php:39 lib/Form/Renderer/Query.php:87
 #: lib/Whups.php:855 lib/Whups.php:878
 msgid "Id"

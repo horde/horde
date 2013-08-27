@@ -57,6 +57,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public $changed = false;
 
     /**
+     * Horde_Imap_Client is optimized for short (i.e. 1 seconds) scripts. It
+     * makes heavy use of mailbox caching to save on server accesses. This
+     * property should be set to false for long-running scripts, or else
+     * status() data may not reflect the current state of the mailbox on the
+     * server.
+     *
+     * @since 2.14.0
+     *
+     * @var boolean
+     */
+    public $statuscache = true;
+
+    /**
      * The Horde_Imap_Client_Cache object.
      *
      * @var Horde_Imap_Client_Cache
@@ -698,7 +711,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (!empty($to_process)) {
             foreach ($this->listMailboxes($to_process, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true)) as $val) {
                 $ns[$val] = array(
-                    'delimiter' => $first['delimiter'],
+                    'delimiter' => $val['delimiter'],
                     'hidden' => true,
                     'name' => $val,
                     'translation' => '',
@@ -1362,8 +1375,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (!empty($options['status']) &&
             !$this->queryCapability('LIST-STATUS')) {
-            $status = $this->statusMultiple($this->_selected, $options['status']);
-            foreach ($status as $key => $val) {
+            foreach ($this->status(array_keys($ret), $options['status']) as $key => $val) {
                 $ret[$key]['status'] = $val;
             }
         }
@@ -1675,6 +1687,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
             'uidvalidity' => Horde_Imap_Client::STATUS_UIDVALIDITY,
             'unseen' => Horde_Imap_Client::STATUS_UNSEEN
         );
+
+        if (!$this->statuscache) {
+            $flags |= Horde_Imap_Client::STATUS_FORCE_REFRESH;
+        }
 
         if ($flags & Horde_Imap_Client::STATUS_ALL) {
             foreach ($unselected_flags as $val) {

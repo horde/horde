@@ -102,8 +102,6 @@ class Kronolith_Event_Horde extends Kronolith_Event
      */
     public function fromDriver($event)
     {
-        $eventStart = new Horde_Date($event['start']);
-        $eventEnd = new Horde_Date($event['end']);
         $this->id = '_' . $this->_api . $event['id'];
         $this->icon = !empty($event['icon']) ? $event['icon'] : null;
         $this->title = $event['title'];
@@ -111,8 +109,8 @@ class Kronolith_Event_Horde extends Kronolith_Event
         if (isset($event['location'])) {
             $this->location = $event['location'];
         }
-        $this->start = $eventStart;
-        $this->end = $eventEnd;
+        $this->start = new Horde_Date($event['start']);
+        $this->end = new Horde_Date($event['end']);
         if (isset($event['status'])) {
             switch ($event['status']) {
             case 'confirmed':
@@ -140,7 +138,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $this->_foregroundColor = Kronolith::foregroundColor($event);
 
         if (isset($event['recurrence'])) {
-            $recurrence = new Horde_Date_Recurrence($eventStart);
+            $recurrence = new Horde_Date_Recurrence($this->start);
 
             $recurrence->setRecurType($event['recurrence']['type']);
             if (isset($event['recurrence']['end'])) {
