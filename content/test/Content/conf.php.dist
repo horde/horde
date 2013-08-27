@@ -22,5 +22,3 @@ $conf['content']['sql']['pdo_pgsql']['username'] = '';
 $conf['content']['sql']['pdo_pgsql']['password'] = '';
 $conf['content']['sql']['pdo_pgsql']['dbname'] = 'test';
 $conf['content']['sql']['pdo_pgsql']['charset'] = 'utf-8';
-$conf['content']['sql']['pdo_sqlite']['adapter'] = 'pdo_sqlite';
-$conf['content']['sql']['pdo_sqlite']['database'] = ':memory:';
