@@ -22,6 +22,7 @@
  *
  * @property string $hostspec  Remote host.
  * @property-read string $id  Remote account storage ID.
+ * @property-read IMP_Imap_Remote $imp_imap  IMP IMAP object.
  * @property string $label  Remote account label.
  * @property integer $port  Remote server port.
  * @property mixed $secure  True if security required, false if no security,
@@ -70,6 +71,9 @@ class IMP_Remote_Account implements Serializable
         switch ($name) {
         case 'hostspec':
             return 'localhost';
+
+        case 'imp_imap':
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create(strval($this));
 
         case 'label':
             return $this->hostspec;
@@ -120,9 +124,7 @@ class IMP_Remote_Account implements Serializable
      */
     public function createImapObject($password)
     {
-        global $injector;
-
-        return $injector->getInstance('IMP_Factory_Imap')->create(strval($this))->createImapObject(array(
+        return $this->imp_imap->createImapObject(array(
             'hostspec' => $this->hostspec,
             'password' => new IMP_Imap_Password($password),
             'port' => $this->port,

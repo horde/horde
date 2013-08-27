@@ -43,6 +43,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const ELT_INVISIBLE = 512;
     const ELT_NOT_POLLED = 1024;
     const ELT_REMOTE = 2048;
+    const ELT_REMOTE_AUTH = 4096;
 
     /* The isOpen() expanded mode constants. */
     const OPEN_NONE = 0;
@@ -527,27 +528,31 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     continue;
                 }
                 $key = self::VFOLDER_KEY;
-                $elt_mask = self::ELT_VFOLDER;
+                $base_mask = $elt_mask = self::ELT_VFOLDER;
             } elseif ($val instanceof IMP_Remote_Account) {
                 /* Remote accounts. */
                 $key = self::REMOTE_KEY;
-                $elt_mask = self::ELT_REMOTE;
+                $base_mask = $elt_mask = self::ELT_REMOTE;
+                if ($val->imp_imap->init) {
+                    $elt_mask |= self::ELT_REMOTE_AUTH;
+                }
             } else {
                 $key = null;
             }
 
             if (is_null($key)) {
                 $to_insert[] = IMP_Mailbox::getImapMboxOb($val);
-            } else {
-                if (!isset($this->_tree[$val])) {
-                    if (!isset($this->_tree[$key])) {
-                        $elt = $this->_makeElt($key, $elt_mask | self::ELT_NOSELECT | self::ELT_NONIMAP);
-                        $this->_insertElt($elt);
-                    }
-
-                    $elt = $this->_makeElt($val, $elt_mask | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP);
-                    $elt['p'] = $key;
+            } elseif (!isset($this->_tree[strval($val)])) {
+                if (!isset($this->_tree[$key])) {
+                    $elt = $this->_makeElt($key, $base_mask | self::ELT_NOSELECT | self::ELT_NONIMAP);
                     $this->_insertElt($elt);
+                }
+
+                $elt = $this->_makeElt($val, $elt_mask | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP);
+                $elt['p'] = $key;
+                $this->_insertElt($elt);
+
+                if ($elt_mask & self::ELT_REMOTE_AUTH) {
                 }
             }
         }
