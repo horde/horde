@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-27</date>
- <time>12:24:45</time>
+ <time>12:32:25</time>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Add method to get the most recent history entry for any given id (Request #12558, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -437,6 +437,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Add method to get the most recent history entry for any given id (Request #12558, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
