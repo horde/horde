@@ -553,6 +553,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $this->_insertElt($elt);
 
                 if ($elt_mask & self::ELT_REMOTE_AUTH) {
+                    $tree = new IMP_Imap_Tree_Remote(array(
+                        'imapkey' => strval($val)
+                    ));
                 }
             }
         }
