@@ -30,9 +30,6 @@
  */
 class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 {
-    /* Serialized version. */
-    const VERSION = 2;
-
     /* Constants for mailboxElt attributes. */
     const ELT_NOSELECT = 1;
     const ELT_NAMESPACE = 2;
@@ -2329,7 +2326,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         return serialize(array(
             // Serialized data ID.
-            self::VERSION,
             $this->_delimiter,
             $this->track ? $this->_eltdiff : null,
             $this->_namespaces,
@@ -2345,20 +2341,22 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     public function unserialize($data)
     {
         $data = @unserialize($data);
-        if (!is_array($data) ||
-            !isset($data[0]) ||
-            ($data[0] != self::VERSION)) {
+        if (!is_array($data)) {
             throw new Exception('Cache version change');
         }
 
-        $this->_delimiter = $data[1];
-        $this->_eltdiff = is_null($data[2])
+        list(
+            $this->_delimiter,
+            $eltdiff,
+            $this->_namespaces,
+            $this->_parent,
+            $this->_showunsub,
+            $this->_tree
+        ) = $data;
+
+        $this->_eltdiff = is_null($eltdiff)
             ? $this->_resetEltDiff()
-            : $data[2];
-        $this->_namespaces = $data[3];
-        $this->_parent = $data[4];
-        $this->_showunsub = $data[5];
-        $this->_tree = $data[6];
+            : $eltdiff;
     }
 
 }
