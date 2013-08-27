@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-22</date>
- <time>14:16:33</time>
+ <date>2013-08-27</date>
+ <time>13:34:18</time>
  <version>
   <release>2.2.3</release>
   <api>2.2.0</api>
@@ -544,7 +544,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-22</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix session ID tracking for the Hashtable driver.
