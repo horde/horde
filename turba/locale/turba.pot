@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba H5 (4.1.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-20 17:52+0200\n"
+"POT-Creation-Date: 2013-08-27 14:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -225,7 +225,7 @@ msgid "Can't add a group to itself."
 msgstr ""
 
 #: lib/Form/DeleteAddressBook.php:35 lib/Form/DeleteAddressBook.php:45
-#: lib/Form/EditAddressBook.php:136 lib/Form/EditAddressBook.php:157
+#: lib/Form/EditAddressBook.php:139 lib/Form/EditAddressBook.php:160
 msgid "Cancel"
 msgstr ""
 
@@ -233,11 +233,11 @@ msgstr ""
 msgid "Car Phone"
 msgstr ""
 
-#: lib/Form/EditAddressBook.php:90
+#: lib/Form/EditAddressBook.php:91
 msgid "CardDAV Account URL"
 msgstr ""
 
-#: lib/Form/EditAddressBook.php:80
+#: lib/Form/EditAddressBook.php:81
 msgid "CardDAV Subscription URL"
 msgstr ""
 
@@ -250,7 +250,7 @@ msgstr ""
 msgid "Change %s sort to %s"
 msgstr ""
 
-#: lib/Form/EditAddressBook.php:122
+#: lib/Form/EditAddressBook.php:125
 msgid "Change Permissions"
 msgstr ""
 
@@ -387,16 +387,16 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: lib/Form/EditAddressBook.php:84
+#: lib/Form/EditAddressBook.php:85
 msgid "Copy this URL to a CardDAV client to subscribe to this address book"
 msgstr ""
 
-#: lib/Form/EditAddressBook.php:94
+#: lib/Form/EditAddressBook.php:95
 msgid ""
 "Copy this URL to a CarddAV client to subscribe to all your address books"
 msgstr ""
 
-#: lib/Form/EditAddressBook.php:108
+#: lib/Form/EditAddressBook.php:111
 msgid "Copy this URL to a WebDAV client to browse this address book"
 msgstr ""
 
@@ -428,8 +428,8 @@ msgstr ""
 msgid "De_lete"
 msgstr ""
 
-#: lib/Form/DeleteAddressBook.php:34 lib/Form/EditAddressBook.php:135
-#: lib/Form/EditAddressBook.php:152 lib/View/DeleteContact.php:58
+#: lib/Form/DeleteAddressBook.php:34 lib/Form/EditAddressBook.php:138
+#: lib/Form/EditAddressBook.php:155 lib/View/DeleteContact.php:58
 #: templates/search/duplicate/contact_header.html.php:22
 msgid "Delete"
 msgstr ""
@@ -1217,7 +1217,7 @@ msgstr ""
 msgid "STARTTLS failed: (%s) %s"
 msgstr ""
 
-#: lib/Form/EditAddressBook.php:134 lib/Form/EditAddressBook.php:143
+#: lib/Form/EditAddressBook.php:137 lib/Form/EditAddressBook.php:146
 #: lib/Form/EditContact.php:24
 msgid "Save"
 msgstr ""
@@ -1596,7 +1596,7 @@ msgstr ""
 msgid "Unable to load the definition of %s."
 msgstr ""
 
-#: lib/Form/EditAddressBook.php:149
+#: lib/Form/EditAddressBook.php:152
 #, php-format
 msgid "Unable to save address book \"%s\": %s"
 msgstr ""
@@ -1623,7 +1623,7 @@ msgstr ""
 msgid "VoIP"
 msgstr ""
 
-#: lib/Form/EditAddressBook.php:104
+#: lib/Form/EditAddressBook.php:107
 msgid "WebDAV URL"
 msgstr ""
 
