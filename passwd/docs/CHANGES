@@ -1,6 +1,6 @@
-----------
-v5.0.1-git
-----------
+------
+v5.0.1
+------
 
 [jan] Don't overwrite parameters for composite sub-drivers (Bug #12284).
 [jan] Don't install expect scripts as executables.
