@@ -93,6 +93,9 @@ extends PHPUnit_Framework_TestCase
             }
             return $this->_contentsFactory;
 
+        case 'IMP_Factory_Imap':
+            return new IMP_Imap('foo');
+
         case 'IMP_Factory_Mailbox':
             if (!isset($this->_mailbox)) {
                 $mbox = $this->getMock('IMP_Factory_Mailbox', array(), array(), '', false);
@@ -133,9 +136,6 @@ extends PHPUnit_Framework_TestCase
                 $this->_mail = new Horde_Mail_Transport_Mock();
             }
             return $this->_mail;
-
-        case 'IMP_Imap':
-            return new IMP_Imap('foo');
         }
     }
 

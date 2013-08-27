@@ -507,7 +507,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
              * information is returned via a SELECT/EXAMINE call. */
             if ($sortpref->sortby == Horde_Imap_Client::SORT_SEQUENCE) {
                 try {
-                    $res = $GLOBALS['injector']->getInstance('IMP_Imap')->create($this->_mailbox)->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN | Horde_Imap_Client::STATUS_MESSAGES);
+                    $res = $this->_mailbox->imp_imap->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN | Horde_Imap_Client::STATUS_MESSAGES);
                     if (!is_null($res['firstunseen'])) {
                         return $sortpref->sortdir
                             ? ($res['messages'] - $res['firstunseen'] + 1)
