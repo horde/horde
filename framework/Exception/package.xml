@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-02-11</date>
- <time>19:16:04</time>
+ <date>2013-08-27</date>
+ <time>12:13:30</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update Ukrainian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -763,10 +763,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-11</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Ukrainian translation.
    </notes>
   </release>
  </changelog>
