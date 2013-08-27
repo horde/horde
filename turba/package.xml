@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-08-27</date>
- <time>16:15:38</time>
+ <time>16:23:39</time>
  <version>
-  <release>4.1.2</release>
+  <release>4.1.3</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Fix fatal errors if DAV support is disabled (Bug #12481).
-* [mjr] Fix deleting multiple contacts via the API (Bug #12554).
-* [mjr] Fix issue generating contact hashes from EAS contacts that could prevent duplicate contact detection from working when certain properties have empty values (Bug #12506).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1686,6 +1684,19 @@
 * [jan] Fix fatal errors if DAV support is disabled (Bug #12481).
 * [mjr] Fix deleting multiple contacts via the API (Bug #12554).
 * [mjr] Fix issue generating contact hashes from EAS contacts that could prevent duplicate contact detection from working when certain properties have empty values (Bug #12506).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
