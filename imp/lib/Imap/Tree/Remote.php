@@ -58,6 +58,14 @@ class IMP_Imap_Tree_Remote extends IMP_Imap_Tree
     }
 
     /**
+     */
+    protected function _makeElt($name, $attributes = 0)
+    {
+        $name = $this->_imapkey . "\0" . $name;
+        return parent::_makeElt($name, $attributes);
+    }
+
+    /**
      * Return the IMP_Imap object to use for this instance.
      *
      * @return IMP_Imap  IMP_Imap object.
