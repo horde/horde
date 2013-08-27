@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-27</date>
- <time>15:52:19</time>
+ <time>15:59:46</time>
  <version>
-  <release>4.1.2</release>
+  <release>4.1.3</release>
   <api>4.1.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix highlighting task type tabs in list view.
-* [jan] Fix fatal errors if DAV support is disabled (Bug #12481).
-* [mjr] Fix requesting changes by modification sequence (Bug #12507, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1410,6 +1408,19 @@
 * [jan] Fix highlighting task type tabs in list view.
 * [jan] Fix fatal errors if DAV support is disabled (Bug #12481).
 * [mjr] Fix requesting changes by modification sequence (Bug #12507, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.3</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
