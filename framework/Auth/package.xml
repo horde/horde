@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
- <time>16:36:26</time>
+ <date>2013-08-27</date>
+ <time>11:50:08</time>
  <version>
   <release>2.0.7</release>
   <api>2.0.0</api>
@@ -77,6 +77,7 @@
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
+      <file name="X509.php" role="php" />
      </dir> <!-- /lib/Horde/Auth -->
      <file name="Auth.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -303,6 +304,7 @@
    <install as="Horde/Auth/Smbclient.php" name="lib/Horde/Auth/Smbclient.php" />
    <install as="Horde/Auth/Sql.php" name="lib/Horde/Auth/Sql.php" />
    <install as="Horde/Auth/Translation.php" name="lib/Horde/Auth/Translation.php" />
+   <install as="Horde/Auth/X509.php" name="lib/Horde/Auth/X509.php" />
    <install as="Horde/Auth/Http/Remote.php" name="lib/Horde/Auth/Http/Remote.php" />
    <install as="locale/Horde_Auth.pot" name="locale/Horde_Auth.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Auth.mo" name="locale/de/LC_MESSAGES/Horde_Auth.mo" />
@@ -874,7 +876,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-16</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
