@@ -61,6 +61,24 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
     }
 
     /**
+     * Return the remote account for a valid remote mailbox/identifier.
+     *
+     * @param string $id  The mailbox name/identifier.
+     *
+     * @return mixed  Either a IMP_Remote_Account object or null.
+     */
+    public function getRemoteById($id)
+    {
+        if ($this->isRemoteMbox($id)) {
+            if (count($parts = explode("\0", $id)) > 1) {
+                return implode("\0", array_slice($parts, 0, 2));
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Return the label for the given mailbox.
      *
      * @param string $id  The mailbox name/identifier.

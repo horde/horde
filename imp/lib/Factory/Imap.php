@@ -49,9 +49,16 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
      */
     public function create($id = null)
     {
-        global $session;
+        global $registry, $session;
 
-        $id = self::BASE_OB;
+        if (!is_null($id) &&
+            ($registry->getAuth() !== false) &&
+            ($base = $this->_injector->getInstance('IMP_Remote')->getRemoteById($id))) {
+            $id = strval($base);
+        } else {
+            $base = null;
+            $id = self::BASE_OB;
+        }
 
         if (!isset($this->_instance[$id])) {
             try {
@@ -63,7 +70,9 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
             }
 
             if (!$ob) {
-                $ob = new IMP_Imap($id);
+                $ob = (is_null($base))
+                    ? new IMP_Imap($id)
+                    : new IMP_Imap_Remote($id);
             }
 
             $this->_instance[$id] = $ob;
