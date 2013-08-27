@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IMP H5 (6.1.4-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-20 17:53+0200\n"
+"POT-Creation-Date: 2013-08-27 14:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgstr ""
 msgid "%.0f%% of %.0f %s"
 msgstr ""
 
-#: lib/Basic/Folders.php:308 lib/Basic/Folders.php:323 lib/Message.php:889
+#: lib/Basic/Folders.php:308 lib/Basic/Folders.php:323 lib/Message.php:892
 #, php-format
 msgid "%.2fMB"
 msgstr ""
@@ -64,7 +64,7 @@ msgid_plural "%d Attachments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Basic/Mailbox.php:384 lib/Basic/Mailbox.php:385
+#: lib/Basic/Mailbox.php:391 lib/Basic/Mailbox.php:392
 #: lib/Basic/Thread.php:165
 #, php-format
 msgid "%d Messages"
@@ -77,7 +77,7 @@ msgid_plural "%d messages were purged from \"%s\"."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Dynamic/Mailbox.php:471 lib/Smartmobile.php:177
+#: lib/Dynamic/Mailbox.php:472 lib/Smartmobile.php:177
 #, php-format
 msgid "%d messages"
 msgstr ""
@@ -191,7 +191,7 @@ msgstr ""
 msgid "%s requests your presence at \"%s\"."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:483
+#: lib/Dynamic/Mailbox.php:484
 #, php-format
 msgid "%s selected."
 msgstr ""
@@ -257,7 +257,7 @@ msgstr ""
 msgid "(Message %d of %d)"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:470 lib/Smartmobile.php:176
+#: lib/Dynamic/Mailbox.php:471 lib/Smartmobile.php:176
 msgid "1 message"
 msgstr ""
 
@@ -590,7 +590,7 @@ msgstr ""
 msgid "Are you sure you want to delete all messages in this thread?"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:349
+#: lib/Basic/Mailbox.php:356
 msgid "Are you sure you want to delete this Virtual Folder Definition?"
 msgstr ""
 
@@ -621,13 +621,13 @@ msgstr ""
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:351 lib/Basic/Message.php:431
+#: lib/Basic/Mailbox.php:358 lib/Basic/Message.php:431
 msgid ""
 "Are you sure you want to move the message(s)? (Some message information "
 "might get lost, like message headers, text formatting or attachments!)"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:347
+#: lib/Basic/Mailbox.php:354
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
 msgstr ""
 
@@ -635,7 +635,7 @@ msgstr ""
 msgid "Are you sure you wish to PERMANENTLY delete this attachment?"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:348
+#: lib/Basic/Mailbox.php:355
 msgid "Are you sure you wish to delete all mail in this mailbox?"
 msgstr ""
 
@@ -647,12 +647,12 @@ msgstr ""
 msgid "Are you sure you wish to empty your trash mailbox?"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:350 lib/Basic/Message.php:430
+#: lib/Basic/Mailbox.php:357 lib/Basic/Message.php:430
 #: templates/smartmobile/message.html.php:89
 msgid "Are you sure you wish to report this message as innocent?"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:356 lib/Basic/Message.php:433
+#: lib/Basic/Mailbox.php:363 lib/Basic/Message.php:433
 #: templates/smartmobile/message.html.php:104
 msgid "Are you sure you wish to report this message as spam?"
 msgstr ""
@@ -884,7 +884,7 @@ msgstr ""
 msgid "Cancelling this message will permanently discard its contents."
 msgstr ""
 
-#: lib/Imap/Tree.php:1585
+#: lib/Imap/Tree.php:1589
 msgid "Cannot directly create mailbox in this folder."
 msgstr ""
 
@@ -1005,7 +1005,7 @@ msgstr ""
 msgid "Clear Search"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:624 lib/Dynamic/Mailbox.php:380
+#: lib/Basic/Mailbox.php:631 lib/Dynamic/Mailbox.php:380
 msgid "Clear Sort"
 msgstr ""
 
@@ -1203,7 +1203,7 @@ msgstr ""
 msgid "Convert textual emoticons into graphical ones?"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:548 lib/Basic/Message.php:522
+#: lib/Basic/Mailbox.php:555 lib/Basic/Message.php:522
 #: templates/smartmobile/copymove.html.php:11
 msgid "Copy"
 msgstr ""
@@ -1241,7 +1241,7 @@ msgstr ""
 msgid "Could not delete Virtual Folder \"%s\"."
 msgstr ""
 
-#: lib/Message.php:830
+#: lib/Message.php:833
 #, php-format
 msgid "Could not delete messages from %s. This mailbox is read-only."
 msgstr ""
@@ -1295,11 +1295,11 @@ msgstr ""
 msgid "Create Mailbox"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:473
+#: lib/Dynamic/Mailbox.php:474
 msgid "Create New Flag..."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:638 lib/Dynamic/Mailbox.php:254
+#: lib/Basic/Mailbox.php:645 lib/Dynamic/Mailbox.php:254
 msgid "Create New Template"
 msgstr ""
 
@@ -1338,7 +1338,7 @@ msgstr ""
 msgid "Create subfolders and rename mailbox"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:475
+#: lib/Dynamic/Mailbox.php:476
 msgid "Creating New Flag..."
 msgstr ""
 
@@ -1363,7 +1363,7 @@ msgstr ""
 msgid "Custom Header:"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:729
+#: lib/Basic/Mailbox.php:736
 msgid "Dat_e"
 msgstr ""
 
@@ -1694,7 +1694,7 @@ msgstr ""
 msgid "E-mail Address"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:915
+#: lib/Basic/Mailbox.php:922
 msgid "END"
 msgstr ""
 
@@ -1706,7 +1706,7 @@ msgstr ""
 msgid "EXAMPLE LINK"
 msgstr ""
 
-#: lib/Imap/Tree.php:1763
+#: lib/Imap/Tree.php:1767
 msgid "Edit"
 msgstr ""
 
@@ -1718,21 +1718,25 @@ msgstr ""
 msgid "Edit Filter"
 msgstr ""
 
+#: lib/Dynamic/Mailbox.php:464
+msgid "Edit Flags..."
+msgstr ""
+
 #: templates/smartmobile/mailbox.html.php:12
 msgid "Edit Search"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:418 templates/dynamic/mailbox.html.php:62
+#: lib/Basic/Mailbox.php:425 templates/dynamic/mailbox.html.php:62
 msgid "Edit Search Query"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:632 lib/Dynamic/Mailbox.php:253
+#: lib/Basic/Mailbox.php:639 lib/Dynamic/Mailbox.php:253
 #: lib/Dynamic/Mailbox.php:287
 msgid "Edit Template"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:415 lib/Dynamic/Mailbox.php:264
-#: lib/Imap/Tree.php:1763 templates/search/search.html.php:8
+#: lib/Basic/Mailbox.php:422 lib/Dynamic/Mailbox.php:264
+#: lib/Imap/Tree.php:1767 templates/search/search.html.php:8
 msgid "Edit Virtual Folder"
 msgstr ""
 
@@ -1761,12 +1765,12 @@ msgstr ""
 msgid "Edit your Whitelist"
 msgstr ""
 
-#: lib/Message.php:859
+#: lib/Message.php:862
 #, php-format
 msgid "Emptied all messages from %s."
 msgstr ""
 
-#: lib/Message.php:836
+#: lib/Message.php:839
 msgid "Emptied all messages from Virtual Trash Folder."
 msgstr ""
 
@@ -2039,7 +2043,7 @@ msgstr ""
 msgid "First Page"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:474
+#: lib/Dynamic/Mailbox.php:475
 msgid "Flag Name:"
 msgstr ""
 
@@ -2064,7 +2068,7 @@ msgid ""
 "precautionary to ensure you don't overwrite flag changes."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:664 lib/Basic/Message.php:625
+#: lib/Basic/Mailbox.php:671 lib/Basic/Message.php:625
 msgid "Fo_rward"
 msgstr ""
 
@@ -2146,7 +2150,7 @@ msgstr ""
 msgid "Free/Busy Request Response"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:714
+#: lib/Basic/Mailbox.php:721
 msgid "Fro_m"
 msgstr ""
 
@@ -2245,7 +2249,7 @@ msgstr ""
 msgid "Hide Addresses"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:275 lib/Dynamic/Mailbox.php:377
+#: lib/Basic/Mailbox.php:282 lib/Dynamic/Mailbox.php:377
 msgid "Hide Deleted"
 msgstr ""
 
@@ -2373,7 +2377,7 @@ msgstr[1] ""
 msgid "Imported mailbox contains more than enforced limit of %u messages."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:466
+#: lib/Dynamic/Mailbox.php:467
 msgid "Importing (this may take some time)..."
 msgstr ""
 
@@ -2565,7 +2569,7 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:476
+#: lib/Dynamic/Mailbox.php:477
 msgid "Logging Out..."
 msgstr ""
 
@@ -2722,7 +2726,7 @@ msgstr ""
 msgid "Maximum number of attachments reached."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:465
+#: lib/Dynamic/Mailbox.php:466
 msgid "Mbox or .eml file:"
 msgstr ""
 
@@ -2819,7 +2823,7 @@ msgstr ""
 msgid "Message:"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:484
+#: lib/Dynamic/Mailbox.php:485
 #, php-format
 msgid "Messages %d - %d"
 msgstr ""
@@ -2832,7 +2836,7 @@ msgstr ""
 msgid "Messages per page in the mailbox view."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:235
+#: lib/Basic/Mailbox.php:243
 msgid "Messages to"
 msgstr ""
 
@@ -2857,12 +2861,12 @@ msgstr ""
 msgid "More..."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:542 lib/Basic/Message.php:516
+#: lib/Basic/Mailbox.php:549 lib/Basic/Message.php:516
 #: templates/smartmobile/copymove.html.php:12
 msgid "Move"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:472
+#: lib/Dynamic/Mailbox.php:473
 #, php-format
 msgid "Move %s to %s"
 msgstr ""
@@ -2962,7 +2966,7 @@ msgstr ""
 msgid "New Message"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:928 lib/Message/Ui.php:264 lib/Message/Ui.php:293
+#: lib/Basic/Mailbox.php:935 lib/Message/Ui.php:264 lib/Message/Ui.php:293
 #, php-format
 msgid "New Message to %s"
 msgstr ""
@@ -3001,7 +3005,7 @@ msgid "Next Page"
 msgstr ""
 
 #: config/prefs.php:563 config/prefs.php:790 config/prefs.php:1644
-#: lib/Basic/Mailbox.php:353 templates/basic/compose/compose.html.php:296
+#: lib/Basic/Mailbox.php:360 templates/basic/compose/compose.html.php:296
 msgid "No"
 msgstr ""
 
@@ -3014,7 +3018,7 @@ msgstr ""
 msgid "No Keys in Keyring"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:381 rss.php:84
+#: lib/Basic/Mailbox.php:388 rss.php:84
 msgid "No Messages"
 msgstr ""
 
@@ -3022,7 +3026,7 @@ msgstr ""
 msgid "No PGP public key imported."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:899
+#: lib/Basic/Mailbox.php:906
 msgid "No Preview Text"
 msgstr ""
 
@@ -3082,11 +3086,11 @@ msgstr ""
 msgid "No message index given."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:469 lib/Smartmobile.php:175
+#: lib/Dynamic/Mailbox.php:470 lib/Smartmobile.php:175
 msgid "No messages"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:491
+#: lib/Dynamic/Mailbox.php:492
 msgid "No messages matched the search query."
 msgstr ""
 
@@ -3308,7 +3312,7 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:384
+#: lib/Basic/Mailbox.php:391
 #, php-format
 msgid "Page %d of %d"
 msgstr ""
@@ -3355,7 +3359,7 @@ msgstr ""
 msgid "Permanently delete %s?"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:464
+#: lib/Dynamic/Mailbox.php:465
 #, php-format
 msgid "Permanently delete all %d messages in %s?"
 msgstr ""
@@ -3423,7 +3427,7 @@ msgstr ""
 msgid "Please choose a mail server."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:352 lib/Basic/Message.php:432
+#: lib/Basic/Mailbox.php:359 lib/Basic/Message.php:432
 msgid "Please enter a name for the new mailbox:"
 msgstr ""
 
@@ -3459,7 +3463,7 @@ msgstr ""
 msgid "Poll all mailboxes for new mail?"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:477
+#: lib/Dynamic/Mailbox.php:478
 msgid "Portal"
 msgstr ""
 
@@ -3528,7 +3532,7 @@ msgstr ""
 msgid "Public PGP keyserver support has been disabled."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:464 lib/Basic/Mailbox.php:612
+#: lib/Basic/Mailbox.php:471 lib/Basic/Mailbox.php:619
 msgid "Pur_ge Deleted"
 msgstr ""
 
@@ -3648,7 +3652,7 @@ msgstr ""
 msgid "Redirec_t"
 msgstr ""
 
-#: lib/Basic/Compose.php:392 lib/Basic/Mailbox.php:669
+#: lib/Basic/Compose.php:392 lib/Basic/Mailbox.php:676
 #: lib/Dynamic/Base.php:169 lib/Dynamic/Compose.php:160
 #: lib/Minimal/Compose.php:225 lib/Minimal/Compose.php:228
 #: lib/Minimal/Message.php:252 lib/Notification/Event/Status.php:32
@@ -3692,7 +3696,7 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:479
+#: lib/Dynamic/Mailbox.php:480
 #, php-format
 msgid "Rename %s to:"
 msgstr ""
@@ -3798,13 +3802,13 @@ msgstr ""
 msgid "Report As Spam"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:685 lib/Basic/Message.php:720
+#: lib/Basic/Mailbox.php:692 lib/Basic/Message.php:720
 #: lib/Dynamic/Mailbox.php:299 lib/Minimal/Message.php:277
 #: templates/smartmobile/message.html.php:85
 msgid "Report as Innocent"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:677 lib/Basic/Message.php:711
+#: lib/Basic/Mailbox.php:684 lib/Basic/Message.php:711
 #: lib/Dynamic/Mailbox.php:298 lib/Minimal/Message.php:273
 #: templates/smartmobile/message.html.php:100
 msgid "Report as Spam"
@@ -3818,7 +3822,7 @@ msgstr ""
 msgid "Request read receipts?"
 msgstr ""
 
-#: lib/Ajax/Application/ShowMessage.php:87 lib/Basic/Mailbox.php:94
+#: lib/Ajax/Application/ShowMessage.php:87 lib/Basic/Mailbox.php:95
 msgid "Requested message not found."
 msgstr ""
 
@@ -3836,7 +3840,7 @@ msgstr ""
 msgid "Respondent Status Updated."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:482
+#: lib/Dynamic/Mailbox.php:483
 #, php-format
 msgid "Results are %d Minutes Old"
 msgstr ""
@@ -4095,7 +4099,7 @@ msgstr ""
 
 #: lib/Application.php:447 lib/Basic/Search.php:517
 #: lib/Basic/Searchbasic.php:120 lib/Dynamic/Mailbox.php:218
-#: lib/Dynamic/Mailbox.php:339 lib/Dynamic/Mailbox.php:480
+#: lib/Dynamic/Mailbox.php:339 lib/Dynamic/Mailbox.php:481
 #: lib/Minimal/Mailbox.php:198 templates/basic/folders/actions.html.php:47
 #: templates/basic/mailbox/header.html.php:18
 #: templates/contacts/contacts.html.php:24 templates/search/search.html.php:12
@@ -4115,7 +4119,7 @@ msgstr ""
 msgid "Search %s in %s"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:481
+#: lib/Dynamic/Mailbox.php:482
 #, php-format
 msgid "Search (%s)"
 msgstr ""
@@ -4316,7 +4320,7 @@ msgstr ""
 msgid "Show Common Headers"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:273 lib/Dynamic/Mailbox.php:376
+#: lib/Basic/Mailbox.php:280 lib/Dynamic/Mailbox.php:376
 msgid "Show Deleted"
 msgstr ""
 
@@ -4398,7 +4402,7 @@ msgstr ""
 msgid "Shown"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:734
+#: lib/Basic/Mailbox.php:741
 msgid "Si_ze"
 msgstr ""
 
@@ -4427,27 +4431,27 @@ msgstr ""
 msgid "Sort"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:728
+#: lib/Basic/Mailbox.php:735
 msgid "Sort by Date"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:713
+#: lib/Basic/Mailbox.php:720
 msgid "Sort by From Address"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:733
+#: lib/Basic/Mailbox.php:740
 msgid "Sort by Message Size"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:723
+#: lib/Basic/Mailbox.php:730
 msgid "Sort by Subject"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:718
+#: lib/Basic/Mailbox.php:725
 msgid "Sort by Thread"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:708
+#: lib/Basic/Mailbox.php:715
 msgid "Sort by To Address"
 msgstr ""
 
@@ -4499,7 +4503,7 @@ msgstr ""
 msgid "Strip the sender's signature from plaintext replies?"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:724
+#: lib/Basic/Mailbox.php:731
 msgid "Sub_ject"
 msgstr ""
 
@@ -4529,12 +4533,12 @@ msgstr ""
 msgid "Subscribe"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:485
+#: lib/Dynamic/Mailbox.php:486
 #, php-format
 msgid "Subscribe to %s?"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:486
+#: lib/Dynamic/Mailbox.php:487
 #, php-format
 msgid "Subscribe to all subfolders of %s?"
 msgstr ""
@@ -4801,7 +4805,7 @@ msgstr ""
 msgid "The mailbox \"%s\" was successfully renamed to \"%s\"."
 msgstr ""
 
-#: lib/Message.php:845
+#: lib/Message.php:848
 #, php-format
 msgid "The mailbox %s is already empty."
 msgstr ""
@@ -4877,11 +4881,11 @@ msgid ""
 "read this message."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:467
+#: lib/Dynamic/Mailbox.php:468
 msgid "The server is still generating the message list."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:468
+#: lib/Dynamic/Mailbox.php:469
 msgid "The server was unable to generate the message list."
 msgstr ""
 
@@ -4944,7 +4948,7 @@ msgstr ""
 msgid "There are no alternative parts that can be displayed inline."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:490
+#: lib/Dynamic/Mailbox.php:491
 #: templates/basic/mailbox/empty_mailbox.html.php:6
 msgid "There are no messages in this mailbox."
 msgstr ""
@@ -4974,7 +4978,7 @@ msgstr ""
 msgid "There was an error deleting the event: %s"
 msgstr ""
 
-#: lib/Message.php:692
+#: lib/Message.php:695
 #, php-format
 msgid "There was an error flagging messages in the mailbox \"%s\": %s."
 msgstr ""
@@ -5122,7 +5126,7 @@ msgstr ""
 msgid "Thread View"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:709 lib/Basic/Search.php:63 lib/Compose.php:2278
+#: lib/Basic/Mailbox.php:716 lib/Basic/Search.php:63 lib/Compose.php:2278
 #: lib/Dynamic/Mailbox.php:174 lib/Dynamic/Mailbox.php:241
 #: lib/Message/Ui.php:35 templates/basic/compose/redirect.html.php:30
 #: templates/contacts/contacts.html.php:40
@@ -5264,12 +5268,12 @@ msgstr ""
 msgid "Unsubscribe"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:487
+#: lib/Dynamic/Mailbox.php:488
 #, php-format
 msgid "Unsubscribe to %s?"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:488
+#: lib/Dynamic/Mailbox.php:489
 #, php-format
 msgid "Unsubscribe to all subfolders of %s?"
 msgstr ""
@@ -5328,7 +5332,7 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:478
+#: lib/Dynamic/Mailbox.php:479
 msgid "User Options"
 msgstr ""
 
@@ -5394,7 +5398,7 @@ msgstr ""
 msgid "View Message"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:692
+#: lib/Basic/Mailbox.php:699
 msgid "View Messages"
 msgstr ""
 
@@ -5437,7 +5441,7 @@ msgstr ""
 msgid "View key details."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:839
+#: lib/Basic/Mailbox.php:846
 #, php-format
 msgid "View messages in %s"
 msgstr ""
@@ -5454,7 +5458,7 @@ msgstr ""
 msgid "Viewing"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:368 lib/Basic/Mailbox.php:369
+#: lib/Basic/Mailbox.php:375 lib/Basic/Mailbox.php:376
 #: templates/prefs/searches.html.php:8 templates/search/search.html.php:94
 msgid "Virtual Folder"
 msgstr ""
@@ -5474,7 +5478,7 @@ msgstr ""
 msgid "Virtual Folder \"%s\" edited successfully."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:489
+#: lib/Dynamic/Mailbox.php:490
 #, php-format
 msgid "Virtual Folder: %s"
 msgstr ""
@@ -5554,7 +5558,7 @@ msgstr ""
 msgid "Years"
 msgstr ""
 
-#: config/prefs.php:564 config/prefs.php:1645 lib/Basic/Mailbox.php:359
+#: config/prefs.php:564 config/prefs.php:1645 lib/Basic/Mailbox.php:366
 #: templates/basic/compose/compose.html.php:295
 msgid "Yes"
 msgstr ""
@@ -5574,7 +5578,7 @@ msgstr ""
 msgid "You are attempting to delete the following mailbox(es)."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:352 lib/Basic/Message.php:432
+#: lib/Basic/Mailbox.php:359 lib/Basic/Message.php:432
 msgid "You are copying/moving to a new mailbox."
 msgstr ""
 
@@ -5687,7 +5691,7 @@ msgstr ""
 msgid "You must enter the passphrase used to encrypt this message to view it."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:358 lib/Basic/Message.php:434
+#: lib/Basic/Mailbox.php:365 lib/Basic/Message.php:434
 msgid "You must select a target mailbox first."
 msgstr ""
 
@@ -5695,11 +5699,11 @@ msgstr ""
 msgid "You must select an address first."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:354 lib/Basic/Mailbox.php:357
+#: lib/Basic/Mailbox.php:361 lib/Basic/Mailbox.php:364
 msgid "You must select at least one message first."
 msgstr ""
 
-#: lib/Basic/Mailbox.php:355
+#: lib/Basic/Mailbox.php:362
 msgid "You must select only one message for this action."
 msgstr ""
 
@@ -5865,7 +5869,7 @@ msgstr ""
 msgid "_Bcc"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:648 lib/Basic/Message.php:670
+#: lib/Basic/Mailbox.php:655 lib/Basic/Message.php:670
 msgid "_Blacklist"
 msgstr ""
 
@@ -5873,7 +5877,7 @@ msgstr ""
 msgid "_Cc"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:581 lib/Basic/Message.php:574
+#: lib/Basic/Mailbox.php:588 lib/Basic/Message.php:574
 msgid "_Delete"
 msgstr ""
 
@@ -5914,7 +5918,7 @@ msgstr ""
 msgid "_Send Message"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:719
+#: lib/Basic/Mailbox.php:726
 msgid "_Thread"
 msgstr ""
 
@@ -5922,7 +5926,7 @@ msgstr ""
 msgid "_To"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:589
+#: lib/Basic/Mailbox.php:596
 msgid "_Undelete"
 msgstr ""
 
@@ -5930,7 +5934,7 @@ msgstr ""
 msgid "_View Thread"
 msgstr ""
 
-#: lib/Basic/Mailbox.php:656 lib/Basic/Message.php:678
+#: lib/Basic/Mailbox.php:663 lib/Basic/Message.php:678
 msgid "_Whitelist"
 msgstr ""
 

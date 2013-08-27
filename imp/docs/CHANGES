@@ -6,8 +6,14 @@ v6.2.0-git
 
 
 ----------
-v6.1.4-git
+v6.1.5-git
 ----------
+
+
+
+------
+v6.1.4
+------
 
 [mms] Fix auto-complete of addresses on the dynamic redirect page.
 [mms] Fix updating flags in dynamic search view (Bug #12594).

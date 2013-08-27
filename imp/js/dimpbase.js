@@ -1180,6 +1180,15 @@ var DimpBase = {
             });
             break;
 
+       case 'ctx_flag_edit':
+            HordeCore.redirect(HordeCore.addURLParam(
+                DimpCore.conf.URI_PREFS_IMP,
+                {
+                    group: 'flags'
+                }
+            ));
+            break;
+
         default:
             if (menu == 'ctx_filteropts_filter') {
                 this.search = {
@@ -1467,6 +1476,12 @@ var DimpBase = {
                             new Element('DIV', { className: 'iconImg' })
                         ) .insert(
                             DimpCore.text.newflag
+                        )
+                    ).insert(
+                        new Element('A', { id: 'ctx_flag_edit' }).insert(
+                            new Element('DIV', { className: 'iconImg' })
+                        ) .insert(
+                            DimpCore.text.editflag
                         )
                     );
             }

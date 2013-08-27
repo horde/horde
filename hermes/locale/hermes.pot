@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (2.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-20 17:53+0200\n"
+"POT-Creation-Date: 2013-08-27 14:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 msgid "%s Deliverables"
 msgstr ""
 
-#: lib/Ajax.php:85
+#: lib/Ajax.php:86
 #, php-format
 msgid "%s notifications"
 msgstr ""
@@ -277,7 +277,7 @@ msgid "Deliverable successfully deleted."
 msgstr ""
 
 #: deliverables.php:49 lib/Api.php:359 lib/Application.php:183
-#: templates/dynamic/deliverables.inc:2 templates/dynamic/sidebar.html.php:29
+#: templates/dynamic/deliverables.inc:2 templates/dynamic/sidebar.html.php:18
 msgid "Deliverables"
 msgstr ""
 
@@ -346,7 +346,7 @@ msgstr ""
 msgid "Edit job type, Step 2"
 msgstr ""
 
-#: lib/Ajax.php:92
+#: lib/Ajax.php:93
 msgid "Editing Time Entry"
 msgstr ""
 
@@ -432,7 +432,7 @@ msgstr ""
 msgid "General Preferences"
 msgstr ""
 
-#: lib/Ajax.php:86
+#: lib/Ajax.php:87
 msgid "Hide Notifications"
 msgstr ""
 
@@ -481,7 +481,7 @@ msgid "Job Type"
 msgstr ""
 
 #: lib/Form/Search.php:37 templates/dynamic/jobtypes.inc:3
-#: templates/dynamic/sidebar.html.php:23
+#: templates/dynamic/sidebar.html.php:29
 msgid "Job Types"
 msgstr ""
 
@@ -557,7 +557,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: lib/Ajax.php:84
+#: lib/Ajax.php:85
 msgid "No Notifications"
 msgstr ""
 
@@ -595,11 +595,11 @@ msgid ""
 "Only time reviewers with edit permissions can post time for other users."
 msgstr ""
 
-#: lib/Ajax.php:89
+#: lib/Ajax.php:90
 msgid "Please enter correct values in the form first."
 msgstr ""
 
-#: lib/Ajax.php:88
+#: lib/Ajax.php:89
 msgid "Preferences"
 msgstr ""
 
@@ -668,7 +668,7 @@ msgstr ""
 msgid "Select Client"
 msgstr ""
 
-#: lib/Ajax.php:93
+#: lib/Ajax.php:94
 msgid "Select a Job Type"
 msgstr ""
 
@@ -879,7 +879,7 @@ msgstr ""
 msgid "Time Administration"
 msgstr ""
 
-#: lib/Ajax.php:91 templates/dynamic/slices.inc:5
+#: lib/Ajax.php:92 templates/dynamic/slices.inc:5
 msgid "Time Entry"
 msgstr ""
 
@@ -937,11 +937,11 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: lib/Ajax.php:94
+#: lib/Ajax.php:95
 msgid "You must select a client first."
 msgstr ""
 
-#: lib/Ajax.php:90
+#: lib/Ajax.php:91
 #, php-format
 msgid ""
 "You used an unknown date format \"%s\". Please try something like \"%s\"."
@@ -983,7 +983,7 @@ msgstr ""
 msgid "_Search"
 msgstr ""
 
-#: lib/Ajax.php:87
+#: lib/Ajax.php:88
 msgid "more..."
 msgstr ""
 

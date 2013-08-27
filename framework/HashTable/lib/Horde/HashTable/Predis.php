@@ -180,7 +180,7 @@ implements Horde_HashTable_Lock
     public function unlock($key)
     {
         $this->_predis->del($this->hkey($key) . self::LOCK_SUFFIX);
-        $this->_locks[$key] = false;
+        unset($this->_locks[$key]);
     }
 
 }

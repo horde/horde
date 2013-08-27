@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-20</date>
+ <date>2013-08-27</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3253,7 +3254,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-20</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix auto-complete of addresses on the dynamic redirect page.
@@ -3268,6 +3269,19 @@
 * [mms] Correctly save multipart/related data when saving compose message as a draft.
 * [mms] When checking for newmail in a mailbox, use the total number of recent messages seen at any time during the page access (Request #12447).
 * [mms] Workaround IE8&apos;s broken XMLHttpRequest when sending data in dynamic compose view (Bug #12474).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.5</release>
+    <api>6.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

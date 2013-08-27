@@ -16,10 +16,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-09</date>
- <time>15:02:51</time>
+ <date>2013-08-27</date>
+ <time>11:52:35</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Detect stock N900 browser as mobile browser (Request #12613; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -781,10 +781,23 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-09</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Detect stock N900 browser as mobile browser (Request #12613; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

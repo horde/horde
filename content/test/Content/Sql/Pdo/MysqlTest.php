@@ -13,10 +13,10 @@ class Content_Sql_Pdo_MysqlTest extends Content_Test_Sql_Base
             self::$reason = 'No mysql extension or no mysql PDO driver';
             return;
         }
-        $config = self::getConfig('GROUP_SQL_PDO_MYSQL_TEST_CONFIG',
+        $config = self::getConfig('CONTENT_SQL_PDO_MYSQL_TEST_CONFIG',
                                   __DIR__ . '/../..');
-        if ($config && !empty($config['group']['sql']['pdo_mysql'])) {
-            self::$db = new Horde_Db_Adapter_Pdo_Mysql($config['group']['sql']['pdo_mysql']);
+        if ($config && !empty($config['content']['sql']['pdo_mysql'])) {
+            self::$db = new Horde_Db_Adapter_Pdo_Mysql($config['content']['sql']['pdo_mysql']);
             parent::setUpBeforeClass();
         }
     }
