@@ -81,7 +81,7 @@ HermesCore = {
         switch (loc) {
         case 'adminjobs':
             // If user is not admin, this won't be present.
-            if (!$('hermeViewAdminjobs')) {
+            if (!$('hermesViewAdminjobs')) {
                 this.viewLoading.pop();
                 return;
             }

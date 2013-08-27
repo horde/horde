@@ -1032,7 +1032,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     $this->setGetChangesFlag($id);
                     continue;
                 } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
-                    // Thrown when state is unable to be initialized becuase the
+                    // Thrown when state is unable to be initialized because the
                     // collection has not yet been synched, but was requested to
                     // be pinged.
                     $this->_logger->err(sprintf(
