@@ -20,24 +20,23 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
- * @property-read boolean $settable  True if mailbox polling status is
- *                                   settable.
+ * @property-read boolean $locked  True if mailbox polling status is locked.
  */
 class IMP_Imap_Tree_Poll implements ArrayAccess, Horde_Shutdown_Task
 {
+    /**
+     * Is the mailbox polling status locked?
+     *
+     * @var boolean
+     */
+    protected $_locked;
+
     /**
      * Mailbox poll list.
      *
      * @var array
      */
     protected $_poll = array();
-
-    /**
-     * Is the mailbox polling status settable?
-     *
-     * @var boolean
-     */
-    protected $_settable;
 
     /**
      * Constructor.
@@ -47,8 +46,7 @@ class IMP_Imap_Tree_Poll implements ArrayAccess, Horde_Shutdown_Task
         global $prefs;
 
         if ($prefs->getValue('nav_poll_all')) {
-            $this->_poll = true;
-            $this->_settable = false;
+            $this->_locked = $this->_poll = true;
         } else {
             /* We ALWAYS poll the INBOX. */
             $this->_poll = array('INBOX' => 1);
@@ -58,7 +56,7 @@ class IMP_Imap_Tree_Poll implements ArrayAccess, Horde_Shutdown_Task
                 $this->_poll += $navPollList;
             }
 
-            $this->_settable = !$GLOBALS['prefs']->isLocked('nav_poll');
+            $this->_locked = $prefs->isLocked('nav_poll');
         }
     }
 
@@ -67,8 +65,8 @@ class IMP_Imap_Tree_Poll implements ArrayAccess, Horde_Shutdown_Task
     public function __get($name)
     {
         switch ($name) {
-        case 'settable':
-            return $this->_settable;
+        case 'locked':
+            return $this->_locked;
         }
     }
 
@@ -99,7 +97,7 @@ class IMP_Imap_Tree_Poll implements ArrayAccess, Horde_Shutdown_Task
      */
     public function offsetSet($offset, $value)
     {
-        if (($this[$offset] != $value) && $this->settable) {
+        if (($this[$offset] != $value) && !$this->locked) {
             if ($value) {
                 $this->_poll[$offset] = true;
             } else {

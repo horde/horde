@@ -1147,7 +1147,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     public function addPollList($id)
     {
         $this->_initPollList();
-        if (!$this->_cache['poll']->settable) {
+        if ($this->_cache['poll']->locked) {
             return;
         }
 
@@ -1182,7 +1182,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     public function removePollList($id)
     {
         $this->_initPollList();
-        if (!$this->_cache['poll']->settable) {
+        if ($this->_cache['poll']->locked) {
             return;
         }
 
