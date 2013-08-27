@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2013-08-27</date>
- <time>12:13:30</time>
+ <time>12:20:42</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Ukrainian translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -767,6 +767,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Ukrainian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
