@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-26</date>
- <time>10:57:23</time>
+ <date>2013-08-27</date>
+ <time>14:06:57</time>
  <version>
   <release>2.2.2</release>
   <api>2.2.0</api>
@@ -917,7 +917,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-26</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix detecting bad PGP signatures on some systems with non-English locales (Bug #10273).
