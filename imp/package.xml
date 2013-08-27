@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3281,7 +3281,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
    </notes>
   </release>
  </changelog>

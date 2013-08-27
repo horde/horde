@@ -354,7 +354,7 @@ class Horde_Session
 
             if (isset($this->_data[self::ENCRYPTED][$app][$key])) {
                 $secret = $injector->getInstance('Horde_Secret');
-                $value = $secret->read($secret->getKey(), $value);
+                $value = strval($secret->read($secret->getKey(), $value));
             }
 
             return @unserialize(
