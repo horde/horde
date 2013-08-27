@@ -1,6 +1,6 @@
-----------
-v4.1.2-git
-----------
+------
+v4.1.2
+------
 
 [jan] Fix fatal errors if DAV support is disabled (Bug #12481).
 [mjr] Fix deleting multiple contacts via the API (Bug #12554).
