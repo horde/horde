@@ -1240,7 +1240,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $this->_initPollList();
 
-        if (!$this->_cache['poll'][strval($elt)] ||
+        if (!$this->_cache['poll'][$elt['v']] ||
             $this->isNonImapElt($elt) ||
             $this->isContainer($elt)) {
             $this->_setAttribute($elt, self::ELT_NOT_POLLED, true);
@@ -1952,7 +1952,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $ob->un = 1;
             }
 
-            if ($ob->n && $ob->r) {
+            if (isset($ob->n) && isset($ob->r)) {
                 $ob->r = 2;
             }
 

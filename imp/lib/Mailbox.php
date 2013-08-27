@@ -669,7 +669,7 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
 
         case 'sortob':
-            return $this->imp_imap->canSort($mbox)
+            return $this->imp_imap->canSort($this)
                 ? $injector->getInstance('IMP_Prefs_Sort')
                 : $injector->getInstance('IMP_Prefs_Sort_None');
 
