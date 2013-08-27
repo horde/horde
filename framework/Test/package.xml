@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-18</date>
- <time>14:53:01</time>
+ <date>2013-08-27</date>
+ <time>13:47:36</time>
  <version>
   <release>2.2.3</release>
   <api>2.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Define missing Horde_Test_Stub_Registry property.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -422,10 +422,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-18</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Define missing Horde_Test_Stub_Registry property.
    </notes>
   </release>
  </changelog>
