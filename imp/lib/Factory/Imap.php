@@ -107,7 +107,9 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
         $out = array();
 
         foreach ($this->_instance as $val) {
-            $out = array_merge($out, $val->alerts());
+            if ($val->init) {
+                $out = array_merge($out, $val->alerts());
+            }
         }
 
         return $out;
