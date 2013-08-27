@@ -22,6 +22,9 @@
  */
 class IMP_Remote implements ArrayAccess, IteratorAggregate
 {
+    /* The mailbox remote prefix. */
+    const MBOX_PREFIX = "remotembox\0";
+
     /**
      * The list of remote accounts.
      *
@@ -45,6 +48,51 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
         $GLOBALS['prefs']->setValue('remote', serialize($this->_accounts));
     }
 
+    /**
+     * Is the given mailbox a remote mailbox?
+     *
+     * @param string $id  The mailbox name/identifier.
+     *
+     * @return boolean  Whether the given mailbox name is a remote mailbox.
+     */
+    public function isRemoteMbox($id)
+    {
+        return (strpos($id, self::MBOX_PREFIX) === 0);
+    }
+
+    /**
+     * Return the label for the given mailbox.
+     *
+     * @param string $id  The mailbox name/identifier.
+     *
+     * @return string  The mailbox label.
+     */
+    public function label($id)
+    {
+        if (isset($this[$id])) {
+            return $this[$id]->label;
+        }
+
+        return ($this->isRemoteMbox($id))
+            ? substr($id, strrpos($id, "\0") + 1)
+            : '';
+    }
+
+    /**
+     * Strip the identifying label from a mailbox ID.
+     *
+     * @param string $id  The mailbox query ID.
+     *
+     * @return string  The remote ID, with any IMP specific identifying
+                       information stripped off.
+     */
+    protected function _strip($id)
+    {
+        return $this->isRemoteMbox($id)
+            ? substr($id, strlen(self::MBOX_PREFIX))
+            : strval($id);
+    }
+
     /* ArrayAccess methods. */
 
     /**
@@ -56,7 +104,7 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function offsetExists($offset)
     {
-        return isset($this->_accounts[strval($offset)]);
+        return isset($this->_accounts[$this->_strip($offset)]);
     }
 
     /**
@@ -68,7 +116,7 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function offsetGet($offset)
     {
-        $offset = strval($offset);
+        $offset = $this->_strip($offset);
 
         return isset($this->_accounts[$offset])
             ? $this->_accounts[$offset]
@@ -83,7 +131,7 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function offsetSet($offset, $value)
     {
-        $this->_accounts[strval($offset)] = $value;
+        $this->_accounts[$this->_strip($offset)] = $value;
         $this->_save();
     }
 
@@ -94,7 +142,7 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function offsetUnset($offset)
     {
-        $offset = strval($offset);
+        $offset = $this->_strip($offset);
 
         if (isset($this->_accounts[$offset])) {
             unset($this->_accounts[$offset]);

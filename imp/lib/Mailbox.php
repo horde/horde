@@ -655,7 +655,8 @@ class IMP_Mailbox implements Serializable
                     !$acl[Horde_Imap_Client::ACL_WRITE]);
 
         case 'remote':
-            return $injector->getInstance('IMP_Imap_Tree')->isRemote($this->_mbox);
+            return (($this->_mbox == IMP_Imap_Tree::REMOTE_KEY) ||
+                    $injector->getInstance('IMP_Remote')->isRemoteMbox($this->_mbox));
 
         case 'search':
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
@@ -1607,8 +1608,7 @@ class IMP_Mailbox implements Serializable
 
         /* Handle remote mailboxes. */
         if ($this->remote) {
-            $remote = $injector->getInstance('IMP_Remote');
-            return $remote[$this->_mbox]->label;
+            return $injector->getInstance('IMP_Remote')->label($this->_mbox);
         }
 
         $ns_info = $this->namespace_info;

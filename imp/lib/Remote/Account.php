@@ -21,7 +21,7 @@
  * @package   IMP
  *
  * @property string $hostspec  Remote host.
- * @property-read string $id  Remote account ID (i.e. mailbox name).
+ * @property-read string $id  Remote account storage ID.
  * @property string $label  Remote account label.
  * @property integer $port  Remote server port.
  * @property mixed $secure  True if security required, false if no security,
@@ -52,11 +52,11 @@ class IMP_Remote_Account implements Serializable
     /**
      * String representation of object.
      *
-     * @return string  The remote account ID.
+     * @return string  The identifier (mailbox) ID.
      */
     public function __toString()
     {
-        return $this->_config['id'];
+        return IMP_Remote::MBOX_PREFIX . $this->_config['id'];
     }
 
     /**
@@ -122,14 +122,14 @@ class IMP_Remote_Account implements Serializable
     {
         global $injector;
 
-        return $injector->getInstance('IMP_Factory_Imap')->create($this->id)->createImapObject(array(
+        return $injector->getInstance('IMP_Factory_Imap')->create(strval($this))->createImapObject(array(
             'hostspec' => $this->hostspec,
             'password' => new IMP_Imap_Password($password),
             'port' => $this->port,
             // TODO: Secure
             'secure' => false,
             'username' => $this->username,
-        ), $this->type == self::IMAP, $this->id);
+        ), $this->type == self::IMAP, strval($this));
     }
 
     /* Serializable methods. */
