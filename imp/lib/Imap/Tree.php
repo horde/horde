@@ -1887,7 +1887,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *         DEFAULT: DimpCore.conf.base_mbox
      *   - po: (boolean) [polled] Is the element polled?
      *         DEFAULT: no
-     *   - r: (boolean) [remote] Is this a "remote" element?
+     *   - r: (integer) [remote] Is this a "remote" element? 1 is the remote
+     *        container, 2 is a remote account, and 3 is a remote mailbox.
+     *        DEFAULT: 0
      *   - s: (boolean) [special] Is this a "special" element?
      *        DEFAULT: no
      *   - t: (string) [title] Mailbox title.
@@ -1931,19 +1933,27 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         if ($elt->vfolder) {
             $ob->v = $elt->editvfolder ? 2 : 1;
+        }
+
+        if ($elt->nonimap) {
+            $ob->n = 1;
+            if ($elt->remote_container) {
+                $ob->r = 1;
+            }
         } elseif ($elt->remote) {
-            $ob->r = 1;
+            $ob->r = 3;
         }
 
         if ($this->isContainer($elt)) {
             $ob->cl = 'exp';
             $ob->co = 1;
-            if ($elt->nonimap) {
-                $ob->n = 1;
-            }
         } else {
             if (!$this->isSubscribed($elt)) {
                 $ob->un = 1;
+            }
+
+            if ($ob->n && $ob->r) {
+                $ob->r = 2;
             }
 
             if ($elt->polled) {

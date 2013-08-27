@@ -3306,18 +3306,28 @@ var DimpBase = {
                 ftype = 'vfolder';
             }
             title = label;
-        } else if (ob.co) {
-            if (ob.r) {
+        } else if (ob.r) {
+            switch (ob.r) {
+            case 1:
                 ftype = 'rcontainer';
-            } else if (ob.n) {
+                break;
+
+            case 2:
+                cname = 'imp-sidebar-remote';
+                ftype = 'remote';
+                break;
+
+            case 3:
+                ftype = 'remote';
+                break;
+            }
+        } else if (ob.co) {
+            if (ob.n) {
                 ftype = 'scontainer';
                 title = label;
             } else {
                 ftype = 'container';
             }
-        } else if (ob.r) {
-            cname = 'imp-sidebar-remote';
-            ftype = 'remote';
         } else {
             cname = 'imp-sidebar-mbox';
             ftype = ob.s ? 'special' : 'mbox';
