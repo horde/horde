@@ -119,12 +119,11 @@ class IMP_Remote_Account implements Serializable
      *
      * @param string $password  Password.
      *
-     * @return Horde_Imap_Client_Base  IMAP object.
      * @throws IMP_Imap_Exception
      */
     public function createImapObject($password)
     {
-        return $this->imp_imap->createImapObject(array(
+        $this->imp_imap->createImapObject(array(
             'hostspec' => $this->hostspec,
             'password' => new IMP_Imap_Password($password),
             'port' => $this->port,
