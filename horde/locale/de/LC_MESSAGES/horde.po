@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-20 17:52+0200\n"
-"PO-Revision-Date: 2013-08-20 18:11+0200\n"
+"POT-Creation-Date: 2013-08-27 14:52+0200\n"
+"PO-Revision-Date: 2013-08-27 14:54+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -191,7 +191,7 @@ msgstr ""
 msgid "A newer version (%s) exists."
 msgstr "Eine neuere Version (%s) existiert."
 
-#: lib/Prefs/Special/Activesync.php:76
+#: lib/Prefs/Special/Activesync.php:77
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -334,7 +334,7 @@ msgstr "Angemeldete Benutzer"
 msgid "All policy keys successfully reset."
 msgstr "Alle Richtlinien-Schlüssel wurden zurückgesetzt."
 
-#: lib/Prefs/Special/Activesync.php:91
+#: lib/Prefs/Special/Activesync.php:92
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -460,7 +460,7 @@ msgid "Attempt to edit a non-existent share."
 msgstr "Es wurde versucht, ein nicht existierendes Recht zu bearbeiten."
 
 #: templates/admin/sessions.html.php:11
-msgid "Authenticated Apps"
+msgid "Authenticated Applications"
 msgstr "Authentifizierte Anwendungen"
 
 #: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
@@ -1576,7 +1576,7 @@ msgstr "Inventar"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japanisch (ISO-2022-JP)"
 
-#: login.php:174
+#: login.php:164
 msgid ""
 "JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
@@ -1608,7 +1608,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "Koreanisch (EUC-KR)"
 
-#: login.php:364 templates/login/login.inc:52
+#: login.php:354 templates/login/login.inc:52
 msgid "Language"
 msgstr "Sprache"
 
@@ -1729,7 +1729,7 @@ msgstr "Benutzer sperren"
 msgid "Locks"
 msgstr "Sperren"
 
-#: login.php:291 templates/login/login.inc:61
+#: login.php:281 templates/login/login.inc:61
 msgid "Log in"
 msgstr "Anmelden"
 
@@ -1741,13 +1741,13 @@ msgstr "Abmelden"
 msgid "Logged in to Facebook"
 msgstr "Angemeldet bei Facebook"
 
-#: login.php:320
+#: login.php:310
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Die Anmeldung ist fehlgeschlagen, weil Sie Ihren Benutzernamen oder Ihr "
 "Passwort falsch eingegeben haben."
 
-#: login.php:316
+#: login.php:306
 msgid "Login failed."
 msgstr "Anmeldung fehlgeschlagen."
 
@@ -2193,7 +2193,7 @@ msgstr "Die POSIX-Erweiterung fehlt"
 msgid "P_HP Shell"
 msgstr "_PHP Shell"
 
-#: login.php:211 admin/config/index.php:397 admin/user.php:39
+#: login.php:201 admin/config/index.php:397 admin/user.php:39
 #: admin/user.php:53 config/registry.php:324
 #: templates/admin/user/update.inc:20
 msgid "Password"
@@ -2257,11 +2257,11 @@ msgstr "Fotos"
 msgid "Platitudes"
 msgstr "Plattheiten"
 
-#: login.php:217
+#: login.php:207
 msgid "Please enter a password."
 msgstr "Bitte geben Sie ein Passwort ein."
 
-#: login.php:216
+#: login.php:206
 msgid "Please enter a username."
 msgstr "Bitte geben Sie einen Benutzernamen ein."
 
@@ -2959,7 +2959,7 @@ msgstr ""
 msgid "Thai (TIS-620)"
 msgstr "Thailändisch (TIS-620)"
 
-#: lib/Prefs/Special/Activesync.php:82
+#: lib/Prefs/Special/Activesync.php:83
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr ""
@@ -3031,7 +3031,7 @@ msgstr "Die Registrierungsanfrage von \"%s\" wurde entfernt."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Die Registrierungsanfrage von \"%s\" wurde entfernt."
 
-#: lib/Prefs/Special/Activesync.php:97
+#: lib/Prefs/Special/Activesync.php:98
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -3080,7 +3080,7 @@ msgstr "Beim Löschen von \"%s\" aus dem System ist ein Problem aufgetreten: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Beim Aktualisieren von \"%s\" ist ein Problem aufgetreten: %s"
 
-#: lib/Prefs/Special/Activesync.php:100
+#: lib/Prefs/Special/Activesync.php:101
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
@@ -3343,7 +3343,7 @@ msgstr "Benutzerkonto nicht gefunden"
 msgid "User to add:"
 msgstr "Hinzuzufügender Benutzer:"
 
-#: login.php:206 admin/config/index.php:396 admin/user.php:36
+#: login.php:196 admin/config/index.php:396 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
 #: templates/admin/user/approve.inc:23
 msgid "Username"
@@ -3590,7 +3590,7 @@ msgstr ""
 "Sie haben den Benutzungsbedingungen nicht zugestimmt und dürfen sich "
 "deswegen nicht anmelden."
 
-#: login.php:312
+#: login.php:302
 msgid "You have been logged out."
 msgstr "Sie wurden abgemeldet."
 
@@ -3642,7 +3642,7 @@ msgstr "Ihre E-Mail-Adresse"
 msgid "Your Information"
 msgstr "Ihre Angaben"
 
-#: login.php:300
+#: login.php:290
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3672,7 +3672,7 @@ msgstr ""
 "Ihr Authentifizierungssystem erlaubt das Anzeigen der Benutzer nicht, oder "
 "diese Möglichkeit wurde ausgeschaltet."
 
-#: login.php:304
+#: login.php:294
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3692,7 +3692,7 @@ msgstr "Ihre aktuelle Zeitzone:"
 msgid "Your full name:"
 msgstr "Ihr vollständiger Name:"
 
-#: login.php:324
+#: login.php:314
 msgid "Your login has expired."
 msgstr "Ihr Zugang ist abgelaufen."
 
@@ -3733,15 +3733,15 @@ msgstr ""
 msgid "Your password has expired"
 msgstr "Ihr Passwort ist abgelaufen"
 
-#: login.php:185
+#: login.php:175
 msgid "Your password has expired."
 msgstr "Ihr Passwort ist abgelaufen."
 
-#: login.php:296
+#: login.php:286
 msgid "Your session has expired. Please login again."
 msgstr "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
 
-#: login.php:308
+#: login.php:298
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."

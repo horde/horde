@@ -1180,6 +1180,15 @@ var DimpBase = {
             });
             break;
 
+       case 'ctx_flag_edit':
+            HordeCore.redirect(HordeCore.addURLParam(
+                DimpCore.conf.URI_PREFS_IMP,
+                {
+                    group: 'flags'
+                }
+            ));
+            break;
+
         case 'ctx_rcontainer_prefs':
             HordeCore.redirect(HordeCore.addURLParam(
                 DimpCore.conf.URI_PREFS_IMP,
@@ -1474,6 +1483,12 @@ var DimpBase = {
                             new Element('DIV', { className: 'iconImg' })
                         ) .insert(
                             DimpCore.text.newflag
+                        )
+                    ).insert(
+                        new Element('A', { id: 'ctx_flag_edit' }).insert(
+                            new Element('DIV', { className: 'iconImg' })
+                        ) .insert(
+                            DimpCore.text.editflag
                         )
                     );
             }

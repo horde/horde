@@ -108,9 +108,14 @@ extends Components_Release_Task_Base
         }
 
         if (!$this->getTasks()->pretend()) {
-            $fm = $this->_getFreecode($options);
-            $fm->publish($publish_data);
-            $fm->updateLinks($link_data);
+            try {
+                $fm = $this->_getFreecode($options);
+                $fm->publish($publish_data);
+                $fm->updateLinks($link_data);
+            } catch (Exception $e) {
+                $this->getOutput()->warn('Failed to pulish to Freecode!');
+                $this->getOutput()->warn((string)$e);
+            }
         } else {
             $info = 'FREECODE
 

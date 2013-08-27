@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith H5 (4.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-08-20 17:52+0200\n"
+"POT-Creation-Date: 2013-08-27 14:53+0200\n"
 "PO-Revision-Date: 2013-08-20 18:07+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -564,12 +564,12 @@ msgstr "Beschäftigt"
 msgid "C_alendar"
 msgstr "_Kalender"
 
-#: lib/Form/EditCalendar.php:106 templates/chunks/calendar.php:112
+#: lib/Form/EditCalendar.php:107 templates/chunks/calendar.php:112
 #: templates/chunks/calendar.php:223
 msgid "CalDAV Account URL"
 msgstr "CalDAV-Konto-Adresse"
 
-#: lib/Form/EditCalendar.php:97 templates/chunks/calendar.php:107
+#: lib/Form/EditCalendar.php:98 templates/chunks/calendar.php:107
 #: templates/chunks/calendar.php:218
 msgid "CalDAV Subscription URL"
 msgstr "CalDAV-Abonnement-Adresse"
@@ -629,7 +629,7 @@ msgstr "Ein neuer Termin konnte nicht erstellt werden."
 #: lib/Form/DeleteCalendar.php:35 lib/Form/DeleteCalendar.php:44
 #: lib/Form/DeleteResource.php:38 lib/Form/DeleteResource.php:48
 #: lib/Form/DeleteResourceGroup.php:40 lib/Form/DeleteResourceGroup.php:49
-#: lib/Form/EditCalendar.php:170 lib/Form/EditCalendar.php:192
+#: lib/Form/EditCalendar.php:173 lib/Form/EditCalendar.php:195
 #: lib/Form/EditRemoteCalendar.php:36 lib/Form/EditRemoteCalendar.php:58
 #: lib/Form/EditResource.php:74 lib/Form/EditResource.php:139
 #: lib/Form/EditResourceGroup.php:50 lib/Form/EditResourceGroup.php:80
@@ -655,7 +655,7 @@ msgstr "Abgesagt"
 msgid "Cancelled: %s"
 msgstr "Abgesagt: %s"
 
-#: lib/Driver/Ical.php:518
+#: lib/Driver/Ical.php:527
 msgid "Cannot delete exceptions (yet)."
 msgstr "Ausnahmen können (noch) nicht gelöscht werden."
 
@@ -664,7 +664,7 @@ msgstr "Ausnahmen können (noch) nicht gelöscht werden."
 msgid "Cannot parse event description \"%s\""
 msgstr "Die Terminbeschreibung \"%s\" wurde nicht verstanden"
 
-#: lib/Form/EditCalendar.php:156
+#: lib/Form/EditCalendar.php:159
 msgid "Change Permissions"
 msgstr "Rechte Ändern"
 
@@ -799,31 +799,31 @@ msgstr ""
 "Benutzen Sie die folgende Adresse, wann immer Sie Ihre Frei/Gebucht-Adresse "
 "benötigen:"
 
-#: lib/Form/EditCalendar.php:110
+#: lib/Form/EditCalendar.php:111
 msgid "Copy this URL to a CalDAV client to subscribe to all your calendars"
 msgstr ""
 "Kopieren Sie diese Adresse in ein CalDAV-Programm um alle Ihre Kalender zu "
 "abonnieren."
 
-#: lib/Form/EditCalendar.php:101
+#: lib/Form/EditCalendar.php:102
 msgid "Copy this URL to a CalDAV client to subscribe to this calendar"
 msgstr ""
 "Kopieren Sie diese Adresse in ein CalDAV-Programm um diesen Kalender zu "
 "abonnieren."
 
-#: lib/Form/EditCalendar.php:124
+#: lib/Form/EditCalendar.php:127
 msgid "Copy this URL to a WebDAV or ICS client to subscribe to this calendar"
 msgstr ""
 "Kopieren Sie diese Adresse in ein WebDAV- oder ICS-Programm um diesen "
 "Kalender zu abonnieren."
 
-#: lib/Form/EditCalendar.php:136
+#: lib/Form/EditCalendar.php:139
 msgid "Copy this URL to a news feed reader to subscribe to this calendar"
 msgstr ""
 "Kopieren Sie diese Adresse in ein Newsfeed-Programm um diesen Kalender zu "
 "abonnieren."
 
-#: lib/Driver/Ical.php:574
+#: lib/Driver/Ical.php:583
 #, php-format
 msgid "Could not open %s: %s"
 msgstr "%s konnte nicht gelesen werden: %s"
@@ -944,7 +944,7 @@ msgstr "Delegieren"
 
 #: lib/Event.php:2316 lib/Event.php:3277 lib/Form/DeleteCalendar.php:34
 #: lib/Form/DeleteResource.php:37 lib/Form/DeleteResourceGroup.php:39
-#: lib/Form/EditCalendar.php:169 lib/Form/EditCalendar.php:187
+#: lib/Form/EditCalendar.php:172 lib/Form/EditCalendar.php:190
 #: lib/Form/EditResource.php:73 lib/Form/EditResource.php:133
 #: lib/Form/EditResourceGroup.php:49 lib/Form/EditResourceGroup.php:74
 #: templates/chunks/calendar.php:163 templates/chunks/calendar.php:248
@@ -996,7 +996,7 @@ msgid_plural "Deleted %d events older than %d days."
 msgstr[0] "%d Termin älter als %d Tage wurde gelöscht."
 msgstr[1] "%d Termine älter als %d Tage wurden gelöscht."
 
-#: lib/Driver/Ical.php:514
+#: lib/Driver/Ical.php:523
 msgid "Deleting events is not supported with this remote calendar."
 msgstr "Dieser externe Kalender unterstützt das Löschen von Terminen nicht."
 
@@ -1143,7 +1143,7 @@ msgstr "Skript für Einbetten"
 msgid "Embed calendar on external website"
 msgstr "Kalendar in externe Webseite einbetten"
 
-#: lib/Form/EditCalendar.php:143
+#: lib/Form/EditCalendar.php:146
 msgid "Embed code"
 msgstr "Code zum Einbetten"
 
@@ -1241,13 +1241,13 @@ msgstr "Termin gelöscht:"
 msgid "Event edited:"
 msgstr "Termin bearbeitet:"
 
-#: lib/Driver/Horde.php:167 lib/Driver/Ical.php:394 lib/Driver/Ical.php:413
+#: lib/Driver/Horde.php:177 lib/Driver/Ical.php:403 lib/Driver/Ical.php:422
 #: lib/Driver/Sql.php:467 lib/View/DeleteEvent.php:54
 #: lib/View/EditEvent.php:55 lib/View/Event.php:54 lib/View/ExportEvent.php:18
 msgid "Event not found"
 msgstr "Termin nicht gefunden"
 
-#: lib/Driver/Kolab.php:305 lib/Driver/Kolab.php:345
+#: lib/Driver/Kolab.php:318 lib/Driver/Kolab.php:358
 #, php-format
 msgid "Event not found: %s"
 msgstr "Termin nicht gefunden: %s"
@@ -1314,7 +1314,7 @@ msgstr "Kalender exportieren"
 msgid "Export ICS file"
 msgstr "ICS-Datei exportieren"
 
-#: lib/Form/EditCalendar.php:132 templates/chunks/calendar.php:122
+#: lib/Form/EditCalendar.php:135 templates/chunks/calendar.php:122
 msgid "Feed URL"
 msgstr "Feed-URL"
 
@@ -2335,7 +2335,7 @@ msgstr "Sa"
 msgid "Saturday"
 msgstr "Samstag"
 
-#: lib/Form/EditCalendar.php:168 lib/Form/EditCalendar.php:180
+#: lib/Form/EditCalendar.php:171 lib/Form/EditCalendar.php:183
 #: lib/Form/EditRemoteCalendar.php:34 lib/Form/EditRemoteCalendar.php:46
 #: lib/Form/EditResource.php:72 lib/Form/EditResource.php:84
 #: lib/Form/EditResourceGroup.php:48 lib/Form/EditResourceGroup.php:60
@@ -2844,15 +2844,15 @@ msgstr ""
 "Der Termin \"%s\", der am %3$s um %4$s Uhr stattfindet, wurde im Kalender "
 "\"%2$s\" geändert."
 
-#: lib/Driver/Ical.php:458
+#: lib/Driver/Ical.php:467
 msgid "The event could not be added to the remote server."
 msgstr "Der Termin konnte nicht auf dem externen Server gespeichert werden."
 
-#: lib/Driver/Ical.php:531
+#: lib/Driver/Ical.php:540
 msgid "The event could not be deleted from the remote server."
 msgstr "Der Termin konnte nicht auf dem externen Server gelöscht werden."
 
-#: lib/Driver/Ical.php:431
+#: lib/Driver/Ical.php:440
 msgid "The event could not be updated on the remote server."
 msgstr "Der Termin konnte nicht auf dem externen Server aktualisiert werden."
 
@@ -2893,7 +2893,7 @@ msgstr "Die Frei/Gebucht-URL für %s konnte nicht gelesen werden."
 msgid "The remote calendar was not found."
 msgstr "Externen Kalender nicht gefunden."
 
-#: lib/Driver/Ical.php:653
+#: lib/Driver/Ical.php:662
 msgid "The remote server URL does not point to a CalDAV directory."
 msgstr "Die URL des externen Servers verweist nicht auf einen CalDAV server."
 
@@ -3132,7 +3132,7 @@ msgstr "Um den Termin zu bestätigen:"
 msgid "To decline the event:"
 msgstr "Um den Termin abzulehnen:"
 
-#: lib/Form/EditCalendar.php:144
+#: lib/Form/EditCalendar.php:147
 msgid "To embed this calendar in another website, use the code above."
 msgstr ""
 "Um diesen Kalender in eine Webseite einzubetten, verwenden Sie bitte den "
@@ -3236,7 +3236,7 @@ msgstr "Der Kalender \"%s\" kann nicht gespeichert werden: %s"
 msgid "Unable to save resource \"%s\": %s"
 msgstr "Die Ressource \"%s\" kann nicht gespeichert werden: %s"
 
-#: lib/Driver/Ical.php:720
+#: lib/Driver/Ical.php:729
 msgid "Unexpected response from remote server."
 msgstr "Unerwartete Antwort des Servers."
 
@@ -3325,7 +3325,7 @@ msgstr "Mi"
 msgid "We would like to remind you of this upcoming event."
 msgstr "Wir möchten Sie an den folgenden Termin erinnern."
 
-#: lib/Form/EditCalendar.php:120 templates/chunks/calendar.php:117
+#: lib/Form/EditCalendar.php:123 templates/chunks/calendar.php:117
 #: templates/chunks/calendar.php:228
 msgid "WebDAV/ICS Subscription URL"
 msgstr "WebDAV/ICS-Abonnement-Adresse"
