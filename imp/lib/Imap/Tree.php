@@ -177,8 +177,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
     /**
      * Constructor.
+     *
+     * @param array $opts  Additional options (none defined in base object).
      */
-    public function __construct()
+    public function __construct(array $opts = array())
     {
         $this->init();
     }
@@ -203,7 +205,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         global $injector, $prefs, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $this->_getImpImapOb();
         $access_folders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
 
         $unsubmode = (!$access_folders ||
@@ -272,19 +274,35 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         /* Add remote servers. */
-        $this->insert(iterator_to_array($injector->getInstance('IMP_Remote')));
+        $this->_initRemote();
 
         /* Create the list (INBOX and all other hierarchies). */
         $this->_insert($this->_getList($this->_showunsub), $this->_showunsub ? null : true);
 
         /* Add virtual folders to the tree. */
-        $imp_search = $injector->getInstance('IMP_Search');
+        $this->_initVirtualFolders();
+
+        $this->track = $old_track;
+    }
+
+    /**
+     * Initialize remote servers.
+     */
+    protected function _initRemote()
+    {
+        $this->insert(iterator_to_array($GLOBALS['injector']->getInstance('IMP_Remote')));
+    }
+
+    /**
+     * Initialize Virtual Folders.
+     */
+    protected function _initVirtualFolders()
+    {
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
         foreach ($imp_search as $val) {
             $this->insert($val);
         }
-
-        $this->track = $old_track;
     }
 
     /**
@@ -308,7 +326,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $searches[] = $val . '*';
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $this->_getImpImapOb();
         $result = $imp_imap->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array(
             'attributes' => true,
             'delimiter' => true,
@@ -540,7 +558,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $this->_sortList($to_insert);
 
             try {
-                $this->_insert($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->listMailboxes($to_insert, Horde_Imap_Client::MBOX_ALL, array(
+                $this->_insert($this->_getImpImapOb()->listMailboxes($to_insert, Horde_Imap_Client::MBOX_ALL, array(
                     'attributes' => true,
                     'delimiter' => true,
                     'sort' => true,
@@ -1603,7 +1621,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     public function createMailboxName($parent, $new)
     {
         $ns_info = empty($parent)
-            ? $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->defaultNamespace()
+            ? $this->_getImpImapOb()->defaultNamespace()
             : $this->_getNamespace($parent);
 
         if (is_null($ns_info)) {
@@ -1978,6 +1996,16 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         return $ob;
+    }
+
+    /**
+     * Return the IMP_Imap object to use for this instance.
+     *
+     * @return IMP_Imap  IMP_Imap object.
+     */
+    protected function _getImpImapOb()
+    {
+        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
     }
 
     /* ArrayAccess methods. */
