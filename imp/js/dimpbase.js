@@ -926,9 +926,9 @@ var DimpBase = {
 
             HordeDialog.display({
                 form: new Element('DIV').insert(
-                          new Element('INPUT', { name: 'MAX_FILE_SIZE', value: DimpCore.conf.MAX_FILE_SIZE }).hide()
-                      ).insert(
                           new Element('INPUT', { name: 'import_file', type: 'file' })
+                      ).insert(
+                          new Element('INPUT', { name: 'MAX_FILE_SIZE', value: DimpCore.conf.MAX_FILE_SIZE }).hide()
                       ).insert(
                           new Element('INPUT', { name: 'import_mbox', value: tmp }).hide()
                       ),
@@ -2884,9 +2884,9 @@ var DimpBase = {
             } else if (elt.hasClassName('imp-sidebar-remote')) {
                 HordeDialog.display({
                     form: new Element('DIV').insert(
-                              new Element('INPUT', { name: 'remote_id', value: elt.retrieve('mbox') }).hide()
-                          ).insert(
                               new Element('INPUT', { name: 'remote_password', type: 'password' })
+                          ).insert(
+                              new Element('INPUT', { name: 'remote_id', value: elt.retrieve('mbox') }).hide()
                           ),
                     form_id: 'remote_login',
                     text: DimpCore.text.remote_password.sub('%s', this.fullMboxDisplay(elt))
