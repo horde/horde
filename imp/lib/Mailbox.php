@@ -111,6 +111,7 @@
  * @property-read boolean $remote_container  Is this mailbox a remote special
  *                                           element?
  * @property-read boolean $search  Is this a search mailbox?
+ * @property-read IMP_Prefs_Sort $sortob  Sort ob for use with this mailbox.
  * @property-read boolean $spam  Is this a Spam mailbox?
  * @property-read boolean $spam_show  Show the spam action in this mailbox?
  * @property-read boolean $special  Is this is a "special" element?
@@ -667,6 +668,11 @@ class IMP_Mailbox implements Serializable
         case 'search':
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
 
+        case 'sortob':
+            return $this->imp_imap->canSort($mbox)
+                ? $injector->getInstance('IMP_Prefs_Sort')
+                : $injector->getInstance('IMP_Prefs_Sort_None');
+
         case 'spam':
             $special = $this->getSpecialMailboxes();
             return ($this->_mbox == $special[self::SPECIAL_SPAM]);
@@ -1101,11 +1107,8 @@ class IMP_Mailbox implements Serializable
         $mbox = $this->search
             ? $this
             : self::get($this->pref_from);
-        $sortob = $this->imp_imap->canSort($mbox)
-            ? $injector->getInstance('IMP_Prefs_Sort')
-            : $injector->getInstance('IMP_Prefs_Sort_None');
 
-        $ob = $sortob[strval($mbox)];
+        $ob = $this->sortob[strval($mbox)];
         $ob->convertSortby();
 
         if ($convert && ($ob->sortby == IMP::IMAP_SORT_DATE)) {
@@ -1129,12 +1132,9 @@ class IMP_Mailbox implements Serializable
         $mbox = $this->search
             ? $this
             : self::get($this->pref_from);
-        $sortob = $this->imp_imap->canSort($mbox)
-            ? $injector->getInstance('IMP_Prefs_Sort')
-            : $injector->getInstance('IMP_Prefs_Sort_None');
 
         if ($delete) {
-            unset($sortob[strval($mbox)]);
+            unset($this->sortob[strval($mbox)]);
         } else {
             $change = array();
             if (!is_null($by)) {
@@ -1143,7 +1143,7 @@ class IMP_Mailbox implements Serializable
             if (!is_null($dir)) {
                 $change['dir'] = $dir;
             }
-            $sortob[strval($mbox)] = $change;
+            $this->sortob[strval($mbox)] = $change;
         }
     }
 
