@@ -22,9 +22,9 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
+ <date>2013-08-27</date>
  <version>
-  <release>6.1.4</release>
+  <release>6.1.5</release>
   <api>6.1.0</api>
  </version>
  <stability>
@@ -33,14 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Fix canceling/discarding compose message in basic view (Bug #12555).
-* [mms] Fix updating message index when deleting a message in basic message view (Bug #12539).
-* [mms] &apos;trailer&apos; hook now has the user&apos;s identity and the list of recipients passed as parameters.
-* [mms] Add ability to access all reply methods in smartmobile view.
-* [mms] Smarter sizing of popup windows in dynamic view.
-* [mms] Correctly save multipart/related data when saving compose message as a draft.
-* [mms] When checking for newmail in a mailbox, use the total number of recent messages seen at any time during the page access (Request #12447).
-* [mms] Workaround IE8&apos;s broken XMLHttpRequest when sending data in dynamic compose view (Bug #12474).
+* [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -253,6 +246,7 @@
      <file name="Acl.php" role="horde" />
      <file name="Config.php" role="horde" />
      <file name="Exception.php" role="horde" />
+     <file name="Password.php" role="horde" />
      <file name="PermanentFlags.php" role="horde" />
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
@@ -1144,7 +1138,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.5.0</min>
+    <min>2.7.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1200,7 +1194,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>2.12.0</min>
+    <min>2.14.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1262,13 +1256,6 @@
    </package>
    <package>
     <name>Horde_Perms</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Secret</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -1584,6 +1571,7 @@
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
    <install as="imp/lib/Imap/Config.php" name="lib/Imap/Config.php" />
    <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
+   <install as="imp/lib/Imap/Password.php" name="lib/Imap/Password.php" />
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
    <install as="imp/lib/Indices/Mailbox.php" name="lib/Indices/Mailbox.php" />
@@ -3266,9 +3254,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-16</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix auto-complete of addresses on the dynamic redirect page.
+* [mms] Fix updating flags in dynamic search view (Bug #12594).
+* [mms] Use Horde_Smtp to send messages via SMTP.
+* [mms] Fix applying the &apos;allow_folders&apos; permission.
 * [mms] Fix canceling/discarding compose message in basic view (Bug #12555).
 * [mms] Fix updating message index when deleting a message in basic message view (Bug #12539).
 * [mms] &apos;trailer&apos; hook now has the user&apos;s identity and the list of recipients passed as parameters.
@@ -3277,6 +3269,19 @@
 * [mms] Correctly save multipart/related data when saving compose message as a draft.
 * [mms] When checking for newmail in a mailbox, use the total number of recent messages seen at any time during the page access (Request #12447).
 * [mms] Workaround IE8&apos;s broken XMLHttpRequest when sending data in dynamic compose view (Bug #12474).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.5</release>
+    <api>6.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
    </notes>
   </release>
  </changelog>

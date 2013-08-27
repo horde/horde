@@ -21,10 +21,10 @@ class Content_Sql_MysqliTest extends Content_Test_Sql_Base
             self::$reason = 'No mysqli extension';
             return;
         }
-        $config = self::getConfig('GROUP_SQL_MYSQLI_TEST_CONFIG',
+        $config = self::getConfig('CONTENT_SQL_MYSQLI_TEST_CONFIG',
                                   __DIR__ . '/..');
-        if ($config && !empty($config['group']['sql']['mysqli'])) {
-            self::$db = new Horde_Db_Adapter_Mysqli($config['group']['sql']['mysqli']);
+        if ($config && !empty($config['content']['sql']['mysqli'])) {
+            self::$db = new Horde_Db_Adapter_Mysqli($config['content']['sql']['mysqli']);
             parent::setUpBeforeClass();
         }
     }

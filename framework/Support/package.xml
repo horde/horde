@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Horde_Support_Stub now handles array-like accesses.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -443,7 +443,7 @@
    <date>2013-04-08</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] Horde_Support_Stub now handles array-like accesses.
    </notes>
   </release>
  </changelog>

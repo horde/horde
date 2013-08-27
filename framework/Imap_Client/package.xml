@@ -10,11 +10,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-24</date>
- <time>01:03:53</time>
+ <date>2013-08-26</date>
+ <time>00:01:23</time>
  <version>
-  <release>2.12.1</release>
-  <api>2.12.0</api>
+  <release>2.14.1</release>
+  <api>2.14.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix returning list of expunged UIDs when expunging all messages in a mailbox that doesn&apos;t support CONDSTORE (Bug #12559).
-* [mms] Translate mailbox names from UTF7-IMAP -&gt; UTF-8 in return from Horde_Imap_Client_Base#getMetadata() (Bug #12541).
+* [mms] Fix adding status information to listMailboxes() return when LIST-STATUS is not available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -49,6 +48,7 @@
         <file name="Debug.php" role="php" />
         <file name="Deprecated.php" role="php" />
         <file name="Mailbox.php" role="php" />
+        <file name="Password.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Base -->
        <dir name="Cache">
         <dir name="Backend">
@@ -243,6 +243,7 @@
        <file name="MapTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="RemoteImapServerTest.php" role="test" />
+       <file name="RemotePop3ServerTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
        <file name="SocketTest.php" role="test" />
        <file name="SortTest.php" role="test" />
@@ -389,6 +390,7 @@
    <install as="Horde/Imap/Client/Base/Debug.php" name="lib/Horde/Imap/Client/Base/Debug.php" />
    <install as="Horde/Imap/Client/Base/Deprecated.php" name="lib/Horde/Imap/Client/Base/Deprecated.php" />
    <install as="Horde/Imap/Client/Base/Mailbox.php" name="lib/Horde/Imap/Client/Base/Mailbox.php" />
+   <install as="Horde/Imap/Client/Base/Password.php" name="lib/Horde/Imap/Client/Base/Password.php" />
    <install as="Horde/Imap/Client/Cache/Backend.php" name="lib/Horde/Imap/Client/Cache/Backend.php" />
    <install as="Horde/Imap/Client/Cache/Backend/Cache.php" name="lib/Horde/Imap/Client/Cache/Backend/Cache.php" />
    <install as="Horde/Imap/Client/Cache/Backend/Db.php" name="lib/Horde/Imap/Client/Cache/Backend/Db.php" />
@@ -472,6 +474,7 @@
    <install as="Horde/Imap/Client/MapTest.php" name="test/Horde/Imap/Client/MapTest.php" />
    <install as="Horde/Imap/Client/phpunit.xml" name="test/Horde/Imap/Client/phpunit.xml" />
    <install as="Horde/Imap/Client/RemoteImapServerTest.php" name="test/Horde/Imap/Client/RemoteImapServerTest.php" />
+   <install as="Horde/Imap/Client/RemotePop3ServerTest.php" name="test/Horde/Imap/Client/RemotePop3ServerTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SortTest.php" name="test/Horde/Imap/Client/SortTest.php" />
@@ -1868,11 +1871,97 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-24</date>
+   <date>2013-08-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix returning list of expunged UIDs when expunging all messages in a mailbox that doesn&apos;t support CONDSTORE (Bug #12559).
 * [mms] Translate mailbox names from UTF7-IMAP -&gt; UTF-8 in return from Horde_Imap_Client_Base#getMetadata() (Bug #12541).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.2</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add remote POP3 server test.
+* [mms] Fix sniffing capabilities for POP3 servers that don&apos;t support the CAPA command.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.12.3</release>
+    <api>2.12.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix regression in caching for POP3 servers.
+* [mms] Cache any data returned from POP3 capability sniffing.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.13.0</release>
+    <api>2.13.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix regression in POP3 SASL PLAIN authentication command.
+* [mms] Fix regression in mapping message sequence numbers to UIDs when doing an &apos;all&apos; activity in POP3.
+* [mms] Added support for the Google XOAUTH2 authentication mechanism for the IMAP Socket driver.
+* [mms] Fix regression in retrieving CAPABILITY information after we login.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.13.1</release>
+    <api>2.13.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix regression in setting CAPABILITY for IMAP servers that don&apos;t automatically send this information after login.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.14.0</release>
+    <api>2.14.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-25</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Added the &apos;statuscache&apos; property to Horde_Imap_Client_Base (Request #12589).
+* [mms] The &apos;xoauth2_token&apos; parameter now accepts a Horde_Imap_Client_Base_Password object.
+* [mms] Deprecated the &apos;encryptKey&apos; parameter and instead support passing a Horde_Imap_Client_Base_Password object into the &apos;password&apos; parameter.
+* [mms] Added the Horde_Imap_Client::STATUS_FORCE_REFRESH flag.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.14.1</release>
+    <api>2.14.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix adding status information to listMailboxes() return when LIST-STATUS is not available.
    </notes>
   </release>
  </changelog>

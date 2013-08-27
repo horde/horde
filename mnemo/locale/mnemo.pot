@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H5 (4.1.1-git)\n"
+"Project-Id-Version: Mnemo H5 (4.1.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-18 14:03+0200\n"
+"POT-Creation-Date: 2013-08-20 17:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,7 +234,7 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:419
+#: lib/Api.php:425
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 
@@ -258,7 +258,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: lib/Api.php:250 lib/Api.php:412
+#: lib/Api.php:250 lib/Api.php:418
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -447,7 +447,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:244 lib/Api.php:406
+#: lib/Api.php:244 lib/Api.php:412
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
@@ -489,7 +489,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 
-#: lib/Api.php:317 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
+#: lib/Api.php:323 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
 msgid "This note has been encrypted."
 msgstr ""
 
@@ -498,7 +498,7 @@ msgstr ""
 msgid "Unfiled"
 msgstr ""
 
-#: lib/Api.php:283 lib/Api.php:345 lib/Api.php:435
+#: lib/Api.php:289 lib/Api.php:351 lib/Api.php:441
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""

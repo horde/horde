@@ -65,11 +65,6 @@ $vars = $injector->getInstance('Horde_Variables');
 /* This ensures index.php doesn't pick up the 'url' parameter. */
 $horde_login_url = '';
 
-/* Initialize the Auth credentials key. */
-if (!$is_auth) {
-    $injector->getInstance('Horde_Secret')->setKey();
-}
-
 /* Get an Auth object. */
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create(($is_auth && $vars->app) ? $vars->app : null);
 
@@ -135,11 +130,6 @@ if ($logout_reason) {
     }
 
     $session->setup();
-
-    $secret = $injector->getInstance('Horde_Secret');
-    if ($secret->clearKey()) {
-        $secret->setKey();
-    }
 
     /* Explicitly set language in un-authenticated session. */
     $registry->setLanguage($GLOBALS['language']);

@@ -16,7 +16,8 @@
 <?php require __DIR__ . '/slices.inc' ?>
 
 <!-- Begin search form and results list -->
-<?php require __DIR__ . '/search.inc' ?>
+<?php require __DIR__ . '/search.inc';
+      require __DIR__ . '/deliverables.inc'; ?>
 
 <!-- Begin admin-only inclusions -->
 <?php if ($GLOBALS['registry']->isAdmin()):

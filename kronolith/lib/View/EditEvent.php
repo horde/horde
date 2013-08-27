@@ -95,7 +95,7 @@ class Kronolith_View_EditEvent
         if (!$this->_event->hasPermission(Horde_Perms::EDIT) &&
             ($GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') === true ||
              $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
-            $buttons[] = '<input type="submit" class="horde-default" name="saveAsNew" value="' . _("Save As New") . '" />';
+            $buttons[] = '<input type="submit" class="horde-create" name="saveAsNew" value="' . _("Save As New") . '" />';
         } else {
             if ($this->_event->hasPermission(Horde_Perms::EDIT)) {
                 $buttons[] = '<input type="submit" class="horde-default" name="save" value="' . _("Save Event") . '" />';
@@ -104,7 +104,7 @@ class Kronolith_View_EditEvent
                 if (!$this->_event->recurs() &&
                     ($GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') === true ||
                      $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
-                    $buttons[] = '<input type="submit" name="saveAsNew" value="' . _("Save As New") . '" />';
+                    $buttons[] = '<input type="submit" class="horde-create" name="saveAsNew" value="' . _("Save As New") . '" />';
                 }
             }
         }

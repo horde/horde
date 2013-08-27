@@ -241,12 +241,14 @@ var DimpMessage = {
         $('partlist').update(r.tree);
         $('msgHeaderAtc').down('TD.label').update(DimpCore.text.allparts_label + ':');
         $('msgHeaderAtc').show();
+
+        this.resizeWindow();
     },
 
     onDomLoad: function()
     {
         /* Resize height. */
-        window.resizeTo(window.outerWidth, screen.availHeight - window.screenY - 50);
+        window.resizeTo(window.outerWidth || document.documentElement.offsetWidth, screen.availHeight - (window.screenY || 0) - 50);
 
         HordeCore.initHandler('click');
 

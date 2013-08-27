@@ -2,7 +2,7 @@
 <div id="hermesViewTime" style="display:none">
 
   <!-- Time Entry Form -->
-  <div class="header"><span class="horde-collapse" id="hordeTimeFormCollapse"><?php echo _("Time Entry")?></span></div>
+  <div class="header"><span class="horde-collapse" id="hermesTimeFormCollapse"><?php echo _("Time Entry")?></span></div>
   <form id="hermesTimeForm" action="">
     <input type="hidden" name="id" id="hermesTimeFormId" value="0" />
     <div id="hermesTimeFormInputs">

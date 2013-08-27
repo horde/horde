@@ -68,11 +68,7 @@ class Gollem_Auth
         }
         if (!isset($credentials['password']) &&
             !empty($backend['params']['password'])) {
-            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            $credentials['password'] = $secret->read(
-                $secret->getKey(),
-                $backend['params']['password']
-            );
+            $credentials['password'] = $backend['params']['password'];
         }
 
         if (!isset($credentials['userId']) ||
@@ -108,8 +104,7 @@ class Gollem_Auth
             $backend['params']['username'] = $credentials['userId'];
         }
         if (!isset($backend['params']['password'])) {
-            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            $backend['params']['password'] = $secret->write($secret->getKey(), $credentials['password']);
+            $backend['params']['password'] = $credentials['password'];
         }
 
         // Make sure we have a 'root' parameter.
@@ -156,9 +151,9 @@ class Gollem_Auth
         }
 
         // Write the backend to the session.
-        $backends = $GLOBALS['session']->get('gollem', 'backends');
+        $backends = self::_getBackends();
         $backends[$credentials['backend_key']] = $backend;
-        $GLOBALS['session']->set('gollem', 'backends', $backends);
+        self::_setBackends($backends);
 
         return array('backend_key' => $credentials['backend_key']);
     }
@@ -205,7 +200,7 @@ class Gollem_Auth
      */
     static public function getBackend($backend = null)
     {
-        if (!($backends = $GLOBALS['session']->get('gollem', 'backends'))) {
+        if (!($backends = self::_getBackends())) {
             try {
                 $backends = Horde::loadConfiguration('backends.php', 'backends', 'gollem');
                 if (is_null($backends)) {
@@ -221,12 +216,8 @@ class Gollem_Auth
                     !Gollem::checkPermissions('backend', Horde_Perms::SHOW, $key)) {
                     unset($backends[$key]);
                 }
-                if (isset($backends[$key]['params']['password'])) {
-                    $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-                    $backends[$key]['params']['password'] = $secret->write($secret->getKey(), $backends[$key]['params']['password']);
-                }
             }
-            $GLOBALS['session']->set('gollem', 'backends', $backends);
+            self::_setBackends($backends);
         }
 
         if (is_null($backend)) {
@@ -330,6 +321,47 @@ class Gollem_Auth
     {
         $GLOBALS['session']->set('gollem', 'backend_key', $key);
         Gollem::$backend = self::getBackend($key);
+    }
+
+    /**
+     * Return stored backend list.
+     *
+     * @return array  Backend configuration list.
+     */
+    static protected function _getBackends()
+    {
+        global $session;
+
+        if ($backends = $session->get('gollem', 'backends', $session::TYPE_ARRAY)) {
+            foreach ($session->get('gollem', 'backends_password', $session::TYPE_ARRAY) as $key => $val) {
+                $backends[$key]['params']['password'] = $val;
+            }
+        }
+
+        return $backends;
+    }
+
+    /**
+     * Store backend list.
+     *
+     * @param array $backends  Backend configuration list.
+     */
+    static protected function _setBackends($backends)
+    {
+        global $session;
+
+        $passwords = array();
+        foreach ($backends as $key => $val) {
+            if (isset($val['params']['password'])) {
+                $passwords[$key] = $val['params']['password'];
+                unset($backends[$key]['params']['password']);
+            }
+        }
+
+        $session->set('gollem', 'backends', $backends);
+        if (!empty($passwords)) {
+            $session->set('gollem', 'backends_password', $passwords, $session::ENCRYPT);
+        }
     }
 
 }

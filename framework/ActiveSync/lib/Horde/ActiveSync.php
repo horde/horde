@@ -832,6 +832,7 @@ class Horde_ActiveSync
         // clients may allow changing the protocol version.
         $device->version = $version;
         $this->_device = $device;
+
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             $this->_doOptionsRequest();
@@ -854,6 +855,15 @@ class Horde_ActiveSync
         // We must send the eas header here, since some requests may start
         // output and be large enough to flush the buffer (e.g., GetAttachment)
         $this->activeSyncHeader();
+        if ($cmd != 'GetAttachment') {
+            $this->contentTypeHeader();
+        }
+
+        // Should we announce a new version is available to the client?
+        if ($device->version < $this->_maxVersion) {
+            header("X-MS-RP: ". $this->getSupportedVersions());
+        }
+
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
             $request = new $class($this);
@@ -976,9 +986,9 @@ class Horde_ActiveSync
     }
 
     /**
-     * Obtain the ActiveSync protocol version
+     * Obtain the ActiveSync protocol version requested by the client headers.
      *
-     * @return string
+     * @return long
      */
     public function getProtocolVersion()
     {
@@ -1080,6 +1090,23 @@ class Horde_ActiveSync
     public function checkGlobalError()
     {
         return $this->_globalError;
+    }
+
+    /**
+     * Send the content type header.
+     *
+     */
+    public function contentTypeHeader($content_type = null)
+    {
+        if (!empty($content_type)) {
+            header('Content-Type: ' . $content_type);
+            return;
+        }
+        if ($this->_multipart) {
+            header('Content-Type: application/vnd.ms-sync.multipart');
+        } else {
+            header('Content-Type: application/vnd.ms-sync.wbxml');
+        }
     }
 
     /**

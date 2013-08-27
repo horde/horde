@@ -387,17 +387,28 @@ abstract class Mnemo_Driver
         $message->subject = $memo['desc'];
         $bp = $options['bodyprefs'];
         $body = new Horde_ActiveSync_Message_AirSyncBaseBody();
-        $body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-        if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
-            if (Horde_String::length($memo['body']) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
-                $body->data = Horde_String::substr($memo['body'], 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
+        if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_HTML])) {
+            $body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
+            $memo['body'] = Horde_Text_Filter::filter($memo['body'], 'Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+            if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize']) &&
+                Horde_String::length($memo['body']) > $bp[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize']) {
+                $body->data = Horde_String::substr($memo['body'], $bp[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize']);
                 $body->truncated = 1;
-            } else {
-                $body->data = $memo['body'];
             }
-            $body->estimateddatasize = Horde_String::length($memo['body']);
+        } else {
+            $body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+            if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                if (Horde_String::length($memo['body']) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                    $body->data = Horde_String::substr($memo['body'], 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
+                    $body->truncated = 1;
+                } else {
+                    $body->data = $memo['body'];
+                }
+            }
+            $message->body = $body;
         }
-        $message->body = $body;
+        $body->estimateddatasize = Horde_String::length($memo['body']);
+
         if (!empty($memo['tags'])) {
             $message->categories = $memo['tags'];
         }
@@ -438,7 +449,7 @@ abstract class Mnemo_Driver
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         $log = $history->getHistory('mnemo:' . $memo['memolist_id'] . ':' . $memo['uid']);
         if ($log) {
-            foreach ($log->getData() as $entry) {
+            foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':
                     $created = $entry['ts'];
