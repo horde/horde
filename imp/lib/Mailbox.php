@@ -107,7 +107,9 @@
  * @property-read string $pref_to  Convert mailbox name to preference storage.
  * @property-read boolean $query  Is this a search query?
  * @property-read boolean $readonly  Is this mailbox read-only?
- * @property-read boolean $remote  Is this mailbox a remote element?
+ * @property-read boolean $remote  Is this mailbox on a remote server?
+ * @property-read boolean $remote_container  Is this mailbox a remote special
+ *                                           element?
  * @property-read boolean $search  Is this a search mailbox?
  * @property-read boolean $spam  Is this a Spam mailbox?
  * @property-read boolean $spam_show  Show the spam action in this mailbox?
@@ -655,8 +657,11 @@ class IMP_Mailbox implements Serializable
                     !$acl[Horde_Imap_Client::ACL_WRITE]);
 
         case 'remote':
+            return ($injector->getInstance('IMP_Remote')->getRemoteById($this->_mbox) != $this->_mbox);
+
+        case 'remote_container':
             return (($this->_mbox == IMP_Imap_Tree::REMOTE_KEY) ||
-                    $injector->getInstance('IMP_Remote')->isRemoteMbox($this->_mbox));
+                    ($injector->getInstance('IMP_Remote')->getRemoteById($this->_mbox) == $this->_mbox));
 
         case 'search':
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
@@ -1607,7 +1612,7 @@ class IMP_Mailbox implements Serializable
         }
 
         /* Handle remote mailboxes. */
-        if ($this->remote) {
+        if ($this->remote_container) {
             return $injector->getInstance('IMP_Remote')->label($this->_mbox);
         }
 

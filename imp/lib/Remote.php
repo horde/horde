@@ -69,13 +69,9 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function getRemoteById($id)
     {
-        if ($this->isRemoteMbox($id)) {
-            if (count($parts = explode("\0", $id)) > 1) {
-                return implode("\0", array_slice($parts, 0, 2));
-            }
-        }
-
-        return null;
+        return ($this->isRemoteMbox($id) && (count($parts = explode("\0", $id)) > 1))
+            ? implode("\0", array_slice($parts, 0, 2))
+            : null;
     }
 
     /**
