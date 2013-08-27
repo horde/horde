@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-02</date>
- <time>17:19:14</time>
+ <date>2013-08-27</date>
+ <time>12:24:45</time>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -433,7 +433,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-02</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Add method to get the most recent history entry for any given id (Request #12558, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
