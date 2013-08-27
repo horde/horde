@@ -120,6 +120,19 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
+ * x509_validate
+ * -------------
+ * This hook is called during initial authentication when using the X509 client
+ * certificate authentication driver. It provides a chance for custom logic to
+ * validate a certificate.
+ *
+ * Parameters in:
+ *   $certificate (certificate handle): A handle to the certificate which can be
+ *                                      passed to the openssl_x509 functions.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Auth_Exception] - Fatal error.
+ *    boolean True if certificate passes our validation rules, otherwise false.
  *
  * Login Hooks
  * ===========
@@ -983,5 +996,26 @@ class Horde_Hooks
     // {
     //     return true;
     // }
+
+   /**
+    * Hook for providing custom X509 certificate validation routines. You can
+    * parse the $cert handle provided and/or use any of the available SSL
+    * enviroment variables provided in $_SERVER by your webserver to determine
+    * if the certificate should be honored.
+    *
+    * @param mixed $cert  The certificate string or handle.
+    *
+    * @return boolean
+    */
+   // public function x509_validate($cert)
+   // {
+   //    $parsed = openssl_x509_parse($cert);
+   //    if ($parsed['issuer']['CN'] != 'My CA CN') {
+   //       return false;
+   //    }
+
+   //    return true;
+   // }
+
 
 }

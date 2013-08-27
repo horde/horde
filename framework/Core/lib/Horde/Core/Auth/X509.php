@@ -15,12 +15,12 @@
  */
 class Horde_Core_Auth_X509 extends Horde_Auth_X509
 {
-
     protected function _validate($certificate)
     {
         try {
-            return Horde::callHook('x509_validate', array($certificate))
-        } catch (Horde_Exception_HookNotSet $e) {}
+            return Horde::callHook('x509_validate', array($certificate));
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
 
         return true;
     }
