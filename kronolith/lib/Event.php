@@ -1469,10 +1469,13 @@ abstract class Kronolith_Event
                 if (!$rule->deleted) {
                     $event = $kronolith_driver->getEvent();
                     $times = $rule->getDatetime();
-                    $original = $rule->getExceptionStartTime();
+                    $original = clone $rule->getExceptionStartTime();
+                    $original->setTimezone($tz);
                     $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
-                    $event->start = $times['start'];
-                    $event->end = $times['end'];
+                    $event->start = clone $times['start'];
+                    $event->end = clone $times['end'];
+                    $event->start->setTimezone($tz);
+                    $event->end->setTimezone($tz);
                     $event->allday = $times['allday'];
                     $event->title = $rule->getSubject();
                     $event->description = $rule->getBody();
@@ -1482,7 +1485,8 @@ abstract class Kronolith_Event
                     $event->save();
                 } else {
                     /* For exceptions that are deletions, just add the exception */
-                    $exceptiondt = $rule->getExceptionStartTime();
+                    $exceptiondt = clone $rule->getExceptionStartTime();
+                    $exceptiondt->setTimezone($tz);
                     $this->recurrence->addException($exceptiondt->format('Y'), $exceptiondt->format('m'), $exceptiondt->format('d'));
                }
             }
