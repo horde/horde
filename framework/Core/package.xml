@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix active session counting from CLI script (Bug #12628).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3123,7 +3123,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix active session counting from CLI script (Bug #12628).
    </notes>
   </release>
  </changelog>

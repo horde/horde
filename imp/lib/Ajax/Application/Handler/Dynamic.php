@@ -299,7 +299,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $this->_base->queue->setMailboxOpt('all', 1);
         } else {
             if ($initreload) {
-                $mask |= $imptree::FLIST_ANCESTORS | $imptree::FLIST_SAMELEVEL;
+                $mask |= $imptree::FLIST_ANCESTORS | $imptree::FLIST_SAMELEVEL | $imptree::FLIST_NOSPECIALMBOXES;
+                $this->_base->queue->treemask = IMP_Imap_Tree::FLIST_NOSPECIALMBOXES;
+
                 if ($GLOBALS['prefs']->getValue('nav_expanded')) {
                     $this->_base->queue->setMailboxOpt('expand', 1);
                     $mask |= $imptree::FLIST_EXPANDED;

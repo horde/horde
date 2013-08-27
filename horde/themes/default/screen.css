@@ -2275,6 +2275,11 @@ left.horde-point-right {
     clear: left;
 }
 
+/* Session display. */
+.current-sessions {
+    width: 100%;
+}
+
 /* Print CSS. */
 @media print {
     body, .header, .smallheader {

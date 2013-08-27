@@ -9,6 +9,7 @@ v6.2.0-git
 v6.1.5-git
 ----------
 
+[mms] Don't display empty containers in dynamic folder list (Request #11425).
 
 
 ------

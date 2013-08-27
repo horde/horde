@@ -25,6 +25,13 @@
 class IMP_Ajax_Queue
 {
     /**
+     * Mask for the folder tree generation.
+     *
+     * @var integer
+     */
+    public $treemask = 0;
+
+    /**
      * The list of attachments.
      *
      * @var array
@@ -203,7 +210,7 @@ class IMP_Ajax_Queue
 
         /* Add folder tree information. */
         $imptree = $injector->getInstance('IMP_Imap_Tree');
-        $imptree->setIteratorFilter();
+        $imptree->setIteratorFilter($this->treemask);
         $out = $imptree->getAjaxResponse();
         if (!empty($out)) {
             $ajax->addTask('mailbox', array_merge($out, $this->_mailboxOpts));

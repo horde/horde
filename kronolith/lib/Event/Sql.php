@@ -67,6 +67,10 @@ class Kronolith_Event_Sql extends Kronolith_Event
         } else {
             $this->start = new Horde_Date($SQLEvent['event_start']);
             $this->end = new Horde_Date($SQLEvent['event_end']);
+            if ($this->end->hour == 23 && $this->end->min == 59) {
+                $this->end->hour = $this->end->min = $this->end->sec = 0;
+                $this->end->mday++;
+            }
         }
 
         $this->durMin = ($this->end->timestamp() - $this->start->timestamp()) / 60;
