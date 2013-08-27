@@ -246,7 +246,7 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsProductId()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('-//The Horde Project//Horde Application Framework 5//EN', $this->_getIcalendar()->getAttribute('PRODID'));
+        $this->assertRegExp('/-\/\/The Horde Project\/\/Horde Application Framework [1-9]+\/\/EN/', $this->_getIcalendar()->getAttribute('PRODID'));
     }
 
     public function testResultMessageIndicatesMethodReply()

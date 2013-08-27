@@ -100,7 +100,6 @@ div.msgSize {
 }
 
 #msglistHeaderContainer .horde-popdown {
-    display: -moz-inline-stack;
     display: inline-block;
     float: none;
     margin-bottom: -8px;
@@ -358,7 +357,6 @@ div.vpRowVert div.msgSubject span.flagUser {
 }
 
 #foldersSidebar .horde-popdown {
-    display: -moz-inline-stack;
     display: inline-block;
     float: none;
     height: 16px;
@@ -665,7 +663,6 @@ div.dimpActionsMsg #windowclose {
 }
 
 #noticerow .notices li {
-    display: -moz-inline-stack;
     display: inline-block;
     padding: 3px;
 }
@@ -725,12 +722,10 @@ div.dimpActionsMsg #windowclose {
 
 #upload_limit {
     color: darkred;
-    display: -moz-inline-stack;
     display: inline-block;
     margin-top: 4px;
 }
 #upload_wait {
-    display: -moz-inline-stack;
     display: inline-block;
     font-weight: bold;
     overflow: hidden;
@@ -764,7 +759,6 @@ span.attachmentImg {
 }
 .msgHeaders div.addrgroup-div {
     background-color: #aaa;
-    display: -moz-inline-stack;
     display: inline-block;
     margin: 1px;
     padding: 4px 2px 3px;

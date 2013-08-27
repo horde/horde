@@ -45,6 +45,10 @@ class Horde_ErrorHandler
                     'reason' => $error->getCode()
                 );
 
+                if ($registry->getAuth()) {
+                    $params['app'] = $error->application;
+                }
+
                 switch ($error->getCode()) {
                 case Horde_Auth::REASON_MESSAGE:
                     $params['msg'] = $error->getMessage();

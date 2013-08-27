@@ -135,12 +135,9 @@ class Horde_SessionHandler_Storage_Hashtable extends Horde_SessionHandler_Storag
 
         if ($track) {
             $this->_hash->lock($this->_trackID);
-            if (($ids = $this->_hash->get($this->_trackID)) === false) {
-                $ids = array();
-            }
-
+            $ids = $this->_getTrackIds();
             $ids[$id] = 1;
-            $this->_hash->set($this->_trackID, $ids);
+            $this->_hash->set($this->_trackID, json_encode($ids));
             $this->_hash->unlock($this->_trackID);
         }
 
@@ -160,9 +157,9 @@ class Horde_SessionHandler_Storage_Hashtable extends Horde_SessionHandler_Storag
 
         if (!empty($this->_params['track'])) {
             $this->_hash->lock($this->_trackID);
-            if (($ids = $this->_hash->get($this->_trackID)) !== false) {
+            if ($ids = $this->_getTrackIds()) {
                 unset($ids[$id]);
-                $this->_hash->set($this->_trackID, $ids);
+                $this->_hash->set($this->_trackID, json_encode($ids));
             }
             $this->_hash->unlock($this->_trackID);
         }
@@ -187,9 +184,7 @@ class Horde_SessionHandler_Storage_Hashtable extends Horde_SessionHandler_Storag
 
         $this->trackGC();
 
-        return (($ids = $this->_hash->get($this->_trackID)) === false)
-            ? array()
-            : array_keys($ids);
+        return array_keys($this->_getTrackIds());
     }
 
     /**
@@ -199,8 +194,7 @@ class Horde_SessionHandler_Storage_Hashtable extends Horde_SessionHandler_Storag
     {
         $this->_hash->lock($this->_trackID);
 
-        $ids = $this->_hash->get($this->_trackID);
-        if (!empty($ids)) {
+        if ($ids = $this->_getTrackIds()) {
             $alter = false;
 
             foreach (array_keys($ids) as $key) {
@@ -211,11 +205,26 @@ class Horde_SessionHandler_Storage_Hashtable extends Horde_SessionHandler_Storag
             }
 
             if ($alter) {
-                $this->_hash->set($this->_trackID, $ids);
+                $this->_hash->set($this->_trackID, json_encode($ids));
             }
         }
 
         $this->_hash->unlock($this->_trackID);
+    }
+
+    /**
+     * Get the tracking IDs.
+     *
+     * @return array  Tracking IDs.
+     */
+    protected function _getTrackIds()
+    {
+        if ((($ids = $this->_hash->get($this->_trackID)) === false) ||
+            !($ids = json_decode($ids, true))) {
+            $ids = array();
+        }
+
+        return $ids;
     }
 
 }

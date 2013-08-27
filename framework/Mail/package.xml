@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-16</date>
- <time>14:34:39</time>
+ <date>2013-08-26</date>
+ <time>13:09:41</time>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.2</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Added the Horde_Mail_Transport_Smtphorde driver.
-* [mms] Added the &apos;bare_addresses_idn&apos; property to Horde_Mail_Rfc822_List.
-* [mms] Added the &apos;bare_address_idn&apos; property to Horde_Mail_Rfc822_Address.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -482,12 +480,38 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-16</date>
+   <date>2013-08-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Added the Horde_Mail_Transport_Smtphorde driver.
 * [mms] Added the &apos;bare_addresses_idn&apos; property to Horde_Mail_Rfc822_List.
 * [mms] Added the &apos;bare_address_idn&apos; property to Horde_Mail_Rfc822_Address.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-26</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Workaround broken Net_SMTP handling regarding the end of message data (Bug #12614).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-26</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

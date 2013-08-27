@@ -49,7 +49,6 @@ div.partsTreeDiv span span:last-child {
 }
 
 .searchAdd, .searchElement {
-    display: -moz-inline-stack;
     display: inline-block;
 }
 
@@ -409,7 +408,6 @@ table.searchesmanagement td.searchdescription {
     background: #ffc;
     border: 1px solid #fff760;
     color: #000;
-    display: -moz-inline-stack;
     display: inline-block;
     margin-bottom: 3px;
     padding: 4px;

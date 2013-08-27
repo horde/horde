@@ -2270,15 +2270,6 @@ abstract class Kronolith_Event
                 $dur_hour_match += 24;
                 --$dur_day_match;
             }
-            if ($dur_hour_match == 0 && $dur_min_match == 0 &&
-                $this->end->mday - $this->start->mday == 1) {
-                $dur_day_match = 1;
-                $dur_hour_match = 0;
-                $dur_min_match = 0;
-                $whole_day_match = true;
-            } else {
-                $whole_day_match = false;
-            }
         } else {
             $dur_day_match = 0;
             $dur_hour_match = 1;
@@ -2290,7 +2281,7 @@ abstract class Kronolith_Event
         $this->_duration->day = $dur_day_match;
         $this->_duration->hour = $dur_hour_match;
         $this->_duration->min = $dur_min_match;
-        $this->_duration->wholeDay = $whole_day_match;
+        $this->_duration->wholeDay = $this->isAllDay();
 
         return $this->_duration;
     }
@@ -2686,8 +2677,8 @@ abstract class Kronolith_Event
             // From ajax interface.
             $this->end = Kronolith::parseDate($end_date . ' ' . Horde_Util::getFormData('end_time'), true, $this->timezone);
             if ($allDay) {
-                $this->end->hour = 23;
-                $this->end->min = $this->end->sec = 59;
+                $this->end->hour = $this->end->min = $this->end->sec = 0;
+                $this->end->mday++;
             }
         } elseif (Horde_Util::getFormData('end_or_dur') == 1) {
             // Event duration from traditional interface.

@@ -1,21 +1,28 @@
 <?php
 /**
- * The Horde_Registry:: class provides a set of methods for communication
- * between Horde applications and keeping track of application
- * configuration information.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Jon Parise <jon@horde.org>
- * @author   Anil Madhavapeddy <anil@recoil.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 1999-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * The registry provides a set of methods for communication between Horde
+ * applications and keeping track of application configuration information.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Jon Parise <jon@horde.org>
+ * @author    Anil Madhavapeddy <anil@recoil.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1999-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Registry
 {
@@ -266,7 +273,6 @@ class Horde_Registry
             case self::AUTH_FAILURE:
                 $failure = new Horde_Exception_AuthenticationFailure($e->getMessage());
                 $failure->application = $app;
-                $registry->clearAuth(true);
                 throw $failure;
 
             case self::NOT_ACTIVE:
@@ -2378,9 +2384,7 @@ class Horde_Registry
             $credentials[$credential] = $value;
         }
 
-        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $entry = $secret->write($secret->getKey(), serialize($credentials));
-
+        $entry = $credentials;
         if (($base_app = $session->get('horde', 'auth/credentials')) &&
             ($session->get('horde', 'auth_app/' . $base_app) == $entry)) {
             $entry = true;
@@ -2390,7 +2394,7 @@ class Horde_Registry
             $app = $base_app;
         }
 
-        $session->set('horde', 'auth_app/' . $app, $entry);
+        $session->set('horde', 'auth_app/' . $app, $entry, $session::ENCRYPT);
         $session->set('horde', 'auth_app_init/' . $app, true);
     }
 
@@ -2420,10 +2424,7 @@ class Horde_Registry
                 : false;
         }
 
-        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $data = $secret->read($secret->getKey(),
-                              $session->get('horde', 'auth_app/' . $app));
-        return @unserialize($data);
+        return $session->get('horde', 'auth_app/' . $app);
     }
 
     /**

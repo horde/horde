@@ -43,4 +43,31 @@ class Horde_Support_StubTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals('', (string)new Horde_Support_Stub());
     }
+
+    public function testArrayAccess()
+    {
+        $stub = new Horde_Support_Stub();
+
+        // Set
+        $stub['foo'] = 'bar';
+
+        // Isset
+        $this->assertFalse(isset($stub['foo']));
+
+        // Get
+        $this->assertNull($stub['foo']);
+
+        // Count
+        $this->assertEquals(
+            0,
+            count($stub)
+        );
+
+        // Iteration
+        $this->assertEmpty(iterator_to_array($stub));
+
+        // Unset
+        unset($stub['foo']);
+    }
+
 }

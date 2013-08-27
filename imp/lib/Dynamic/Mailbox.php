@@ -133,8 +133,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'URI_MESSAGE' => strval(IMP_Dynamic_Message::url()->setRaw(true)),
             'URI_PORTAL' => strval($registry->getServiceLink('portal')->setRaw(true)),
             'URI_PREFS_IMP' => strval($registry->getServiceLink('prefs', 'imp')->setRaw(true)),
-            'URI_SEARCH' => strval(IMP_Basic_Search::url()),
-            'URI_THREAD' => strval(IMP_Basic_Thread::url()),
+            'URI_SEARCH' => strval(IMP_Basic_Search::url(array('full' => true))),
+            'URI_THREAD' => strval(IMP_Basic_Thread::url(array('full' => true))),
 
             // IMAP Flags
             'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
@@ -461,6 +461,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'delete_mbox' => _("Permanently delete %s?"),
             'delete_mbox_subfolders' => _("Delete all subfolders of %s?"),
             'download_mbox' => _("All messages in this mailbox will be downloaded into the format that you choose. Depending on the size of the mailbox, this action may take awhile."),
+            'editflag' => _("Edit Flags..."),
             'empty_mbox' => _("Permanently delete all %d messages in %s?"),
             'import_mbox' => _("Mbox or .eml file:"),
             'import_mbox_loading' => _("Importing (this may take some time)..."),

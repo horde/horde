@@ -5556,7 +5556,6 @@ KronolithCore = {
         }
         $('kronolithEventUrl').setValue(ev.u);
         $('kronolithEventAllday').setValue(ev.al);
-        this.toggleAllDay(ev.al);
 
         if (ev.r && ev.rsd && ev.red) {
             // Save the original datetime, so we can properly create the
@@ -5589,6 +5588,7 @@ KronolithCore = {
         $('kronolithEventEndTime').setValue(ev.et);
         this.knl.kronolithEventEndTime.setSelected(ev.et);
         this.duration = Math.abs(Date.parse(ev.e).getTime() - Date.parse(ev.s).getTime()) / 60000;
+        this.toggleAllDay(ev.al);
         $('kronolithEventStatus').setValue(ev.x);
         $('kronolithEventDescription').setValue(ev.d);
         $('kronolithEventPrivate').setValue(ev.pv);
@@ -5974,8 +5974,23 @@ KronolithCore = {
      */
     toggleAllDay: function(on)
     {
+        var end = this.getDate('end'),
+            old = $('kronolithEventStartTimeLabel').getStyle('visibility') == 'hidden';
         if (Object.isUndefined(on)) {
             on = $('kronolithEventStartTimeLabel').getStyle('visibility') == 'visible';
+        }
+        if (end) {
+            if (on) {
+                if (end.getHours() == 0 && end.getMinutes() == 0) {
+                    end.add(-1).minute();
+                }
+            } else if (old) {
+                end.add(1).day();
+                end.setHours(0);
+                end.setMinutes(0);
+            }
+            $('kronolithEventEndDate').setValue(end.toString(Kronolith.conf.date_format));
+            $('kronolithEventEndTime').setValue(end.toString(Kronolith.conf.time_format));
         }
         $('kronolithEventStartTimeLabel').setStyle({ visibility: on ? 'hidden' : 'visible' });
         $('kronolithEventEndTimeLabel').setStyle({ visibility: on ? 'hidden' : 'visible' });

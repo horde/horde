@@ -323,18 +323,27 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 } catch (Horde_Icalendar_Exception $e) {}
 
                 /* Ignore events out of the period. */
+                $recurs = $event->recurs();
                 if (
                     /* Starts after the period. */
                     ($endDate && $event->start->compareDateTime($endDate) > 0) ||
                     /* End before the period and doesn't recur. */
-                    ($startDate && !$event->recurs() &&
-                     $event->end->compareDateTime($startDate) < 0) ||
-                    /* Recurs and ... */
-                    ($startDate && $event->recurs() &&
-                      /* ... has a recurrence end before the period. */
-                      ($event->recurrence->hasRecurEnd() &&
-                       $event->recurrence->recurEnd->compareDateTime($startDate) < 0))) {
+                    ($startDate && !$recurs &&
+                     $event->end->compareDateTime($startDate) < 0)) {
                     continue;
+                }
+
+                if ($recurs && $startDate) {
+                    // Fixed end date? Check if end is before start period.
+                    if ($event->recurrence->hasRecurEnd() &&
+                        $event->recurrence->recurEnd->compareDateTime($startDate) < 0) {
+                        continue;
+                    } else if ($endDate) {
+                        $next = $event->recurrence->nextRecurrence($startDate);
+                        if ($next == false || $next->compareDateTime($endDate) > 0) {
+                            continue;
+                        }
+                    }
                 }
 
                 $events[] = $event;
