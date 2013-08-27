@@ -129,7 +129,11 @@ class Horde_Auth_X509 extends Horde_Auth_Base
 
         // Set credentials
         $this->setCredential('userId', $_SERVER[$this->_params['username_field']]);
-        $this->setCredential('credentials', array('certificate_id' => $c_parsed['hash']));
+        $cred = array('certificate_id' => $c_parsed['hash']);
+        if (!empty($this->_params['password'])) {
+            $cred['password'] = $this->_params['password'];
+        }
+        $this->setCredential('credentials', $cred);
 
         return true;
     }
