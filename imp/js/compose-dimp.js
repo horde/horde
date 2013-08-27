@@ -1183,7 +1183,7 @@ var DimpCompose = {
         }
 
         /* Resize height. */
-        window.resizeTo(window.outerWidth, screen.availHeight - window.screenY - 50);
+        window.resizeTo(window.outerWidth || document.documentElement.offsetWidth, screen.availHeight - (window.screenY || 0) - 50);
 
         /* Attach event handlers. */
         if (Prototype.Browser.IE) {

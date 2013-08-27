@@ -65,6 +65,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
          * R/W to clear the RECENT flag. This call will catch invalid
          * mailboxes. */
         $imp_imap->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
+        $imp_mailbox = $mailbox->list_ob;
 
         /* Determine if mailbox is readonly. */
         $readonly = $mailbox->readonly;
@@ -121,7 +122,9 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             break;
 
         case 'delete_messages':
-            $injector->getInstance('IMP_Message')->delete($this->indices);
+            $injector->getInstance('IMP_Message')->delete($this->indices, array(
+                'mailboxob' => $imp_mailbox
+            ));
             break;
 
         case 'undelete_messages':
@@ -141,7 +144,10 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                     $targetMbox = IMP_Mailbox::formFrom($this->vars->targetMbox);
                     $newMbox = false;
                 }
-                $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $this->indices, array('create' => $newMbox));
+                $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $this->indices, array(
+                    'create' => $newMbox,
+                    'mailboxob' => $imp_mailbox
+                ));
             }
             break;
 
@@ -194,7 +200,9 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             break;
 
         case 'expunge_mailbox':
-            $injector->getInstance('IMP_Message')->expungeMailbox(array(strval($mailbox) => 1));
+            $injector->getInstance('IMP_Message')->expungeMailbox(array(strval($mailbox) => 1), array(
+                'mailboxob' => $imp_mailbox
+            ));
             break;
 
         case 'filter':
@@ -240,7 +248,6 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         }
 
         /* Build the list of messages in the mailbox. */
-        $imp_mailbox = $mailbox->list_ob;
         $pageOb = $imp_mailbox->buildMailboxPage($this->vars->mpage, $this->vars->start);
         $show_preview = $prefs->getValue('preview_enabled');
 

@@ -461,6 +461,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'delete_mbox' => _("Permanently delete %s?"),
             'delete_mbox_subfolders' => _("Delete all subfolders of %s?"),
             'download_mbox' => _("All messages in this mailbox will be downloaded into the format that you choose. Depending on the size of the mailbox, this action may take awhile."),
+            'editflag' => _("Edit Flags..."),
             'empty_mbox' => _("Permanently delete all %d messages in %s?"),
             'import_mbox' => _("Mbox or .eml file:"),
             'import_mbox_loading' => _("Importing (this may take some time)..."),

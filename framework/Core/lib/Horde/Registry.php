@@ -2384,6 +2384,7 @@ class Horde_Registry
             $credentials[$credential] = $value;
         }
 
+        $entry = $credentials;
         if (($base_app = $session->get('horde', 'auth/credentials')) &&
             ($session->get('horde', 'auth_app/' . $base_app) == $entry)) {
             $entry = true;

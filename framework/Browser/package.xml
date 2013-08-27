@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Detect stock N900 browser as mobile browser (Request #12613; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -784,7 +784,7 @@ Initial packaging
    <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Detect stock N900 browser as mobile browser (Request #12613; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
    </notes>
   </release>
  </changelog>
