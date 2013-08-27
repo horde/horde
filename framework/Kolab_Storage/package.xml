@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>16:56:16</time>
+ <date>2013-08-27</date>
+ <time>12:45:55</time>
  <version>
   <release>2.0.5</release>
   <api>2.0.0</api>
@@ -1317,7 +1317,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Catch errors in Kolab_Storage_Driver_Imap#fetchComplete() (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12584).
