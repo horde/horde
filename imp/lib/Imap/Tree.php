@@ -1046,15 +1046,16 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Is this element a remote element?
      *
-     * @param mixed $in  A mailbox name or a tree element.
+     * @param mixed $in      A mailbox name or a tree element.
+     * @param boolean $auth  Return true only if authenticated.
      *
      * @return boolean  True if the element is a remote element.
      */
-    public function isRemote($in)
+    protected function _isRemote($in, $auth = false)
     {
         $elt = $this->getElement($in);
 
-        return ($elt && ($elt['a'] & self::ELT_REMOTE));
+        return ($elt && ($elt['a'] & ($auth ? self::ELT_REMOTE_AUTH : self::ELT_REMOTE)));
     }
 
     /**
@@ -1443,7 +1444,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return null;
 
         default:
-            return ($this->isVfolder($mailbox) || $this->isRemote($mailbox))
+            return ($this->isVfolder($mailbox) || $this->_isRemote($mailbox))
                 ? null
                 : IMP_Mailbox::get($mailbox)->imp_imap->getNamespace($mailbox);
         }
@@ -1945,8 +1946,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if ($elt->remote_container) {
                 $ob->r = 1;
             }
-        } elseif ($elt->remote) {
-            $ob->r = 3;
         }
 
         if ($this->isContainer($elt)) {
@@ -1958,7 +1957,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             if (isset($ob->n) && isset($ob->r)) {
-                $ob->r = 2;
+                $ob->r = ($this->_isRemote($elt, true) ? 3 : 2);
             }
 
             if ($elt->polled) {
@@ -2244,7 +2243,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Show containers if NOCONTAINER is not set and children exist. */
         if ($this->isContainer($elt)) {
-            if ($this->isRemote($elt)) {
+            if ($this->_isRemote($elt)) {
                 if (!($c['mask'] & self::FLIST_REMOTE)) {
                     return false;
                 }
