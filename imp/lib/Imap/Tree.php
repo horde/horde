@@ -374,7 +374,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Check for polled status. */
         $this->_initPollList();
-        $this->_setPolled($elt, isset($this->_cache['poll'][$name]));
+        $this->_setPolled($elt, $this->_cache['poll'][$name]);
 
         /* Check for open status. */
         switch ($GLOBALS['prefs']->getValue('nav_expanded')) {
@@ -1118,7 +1118,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
         }
 
-        if ($sort) {
+        if ($sort && !empty($plist)) {
             $ns_new = $this->_getNamespace(null);
             $list_ob = new Horde_Imap_Client_Mailbox_List($plist);
             $plist = $list_ob->sort(array(
@@ -1134,15 +1134,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _initPollList()
     {
-        if (!isset($this->_cache['poll']) &&
-            !$GLOBALS['prefs']->getValue('nav_poll_all')) {
-            /* We ALWAYS poll the INBOX. */
-            $this->_cache['poll'] = array('INBOX' => 1);
-
-            /* Add the list of polled mailboxes from the prefs. */
-            if ($navPollList = @unserialize($GLOBALS['prefs']->getValue('nav_poll'))) {
-                $this->_cache['poll'] += $navPollList;
-            }
+        if (!isset($this->_cache['poll'])) {
+            $this->_cache['poll'] = new IMP_Imap_Tree_Poll();
         }
     }
 
@@ -1153,39 +1146,31 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function addPollList($id)
     {
+        $this->_initPollList();
+        if (!$this->_cache['poll']->settable) {
+            return;
+        }
+
         if (!is_array($id)) {
             $id = array($id);
         }
 
-        if (empty($id) ||
-            $GLOBALS['prefs']->getValue('nav_poll_all') ||
-            $GLOBALS['prefs']->isLocked('nav_poll')) {
-            return;
-        }
-
-        $changed = false;
-
-        $this->_initPollList();
+        $poll = $this->_cache['poll'];
 
         foreach (IMP_Mailbox::get($id) as $val) {
-            if ($val->nonimap || $this->isContainer($val)) {
+            $mbox_str = strval($val);
+
+            if ($poll[$mbox_str] ||
+                $val->nonimap ||
+                $this->isContainer($val)) {
                 continue;
             }
-
-            $mbox_str = strval($val);
 
             if (!$this->isSubscribed($this->_tree[$mbox_str])) {
                 $val->subscribe(true);
             }
             $this->_setPolled($this->_tree[$mbox_str], true);
-            if (empty($this->_cache['poll'][$mbox_str])) {
-                $this->_cache['poll'][$mbox_str] = true;
-                $changed = true;
-            }
-        }
-
-        if ($changed) {
-            $this->_updatePollList();
+            $poll[$mbox_str] = true;
         }
     }
 
@@ -1196,8 +1181,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function removePollList($id)
     {
-        if ($GLOBALS['prefs']->getValue('nav_poll_all') ||
-            $GLOBALS['prefs']->isLocked('nav_poll')) {
+        $this->_initPollList();
+        if (!$this->_cache['poll']->settable) {
             return;
         }
 
@@ -1205,33 +1190,16 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $id = array($id);
         }
 
-        $removed = false;
-
-        $this->_initPollList();
-
         foreach (IMP_Mailbox::get($id) as $val) {
-            if (!$val->inbox &&
-                isset($this->_cache['poll'][strval($val)])) {
-                unset($this->_cache['poll'][strval($val)]);
-                if (isset($this->_tree[strval($val)])) {
-                    $this->_setPolled($this->_tree[strval($val)], false);
+            $mbox_str = strval($val);
+
+            if (!$val->inbox && $this->_cache['poll'][$mbox_str]) {
+                unset($this->_cache['poll'][$mbox_str]);
+                if (isset($this->_tree[$mbox_str])) {
+                    $this->_setPolled($this->_tree[$mbox_str], false);
                 }
-                $removed = true;
             }
         }
-
-        if ($removed) {
-            $this->_updatePollList();
-        }
-    }
-
-    /**
-     * Update the nav_poll preference.
-     */
-    protected function _updatePollList()
-    {
-        $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_cache['poll']));
-        $this->_changed = true;
     }
 
     /**
@@ -1270,9 +1238,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
         }
 
-        if ($this->isNonImapElt($elt) ||
-            $this->isContainer($elt) ||
-            !$GLOBALS['prefs']->getValue('nav_poll_all')) {
+        $this->_initPollList();
+
+        if (!$this->_cache['poll'][strval($elt)] ||
+            $this->isNonImapElt($elt) ||
+            $this->isContainer($elt)) {
             $this->_setAttribute($elt, self::ELT_NOT_POLLED, true);
             return false;
         }

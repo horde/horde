@@ -69,40 +69,11 @@ class IMP_Imap_Tree_Remote extends IMP_Imap_Tree
 
     /**
      */
-    public function getPollList($sort = false)
-    {
-        return array();
-    }
-
-    /**
-     */
     protected function _initPollList()
     {
-    }
-
-    /**
-     */
-    public function addPollList($id)
-    {
-    }
-
-    /**
-     */
-    public function removePollList($id)
-    {
-    }
-
-    /**
-     */
-    public function isPolled($in)
-    {
-        return false;
-    }
-
-    /**
-     */
-    protected function _setPolled(&$elt, $bool)
-    {
+        if (!isset($this->_cache['poll'])) {
+            $this->_cache['poll'] = new Horde_Support_Stub();
+        }
     }
 
     /* Serializable methods. */

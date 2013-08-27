@@ -247,6 +247,7 @@
     </dir> <!-- /lib/Flag -->
     <dir name="Imap">
      <dir name="Tree">
+      <file name="Poll.php" role="horde" />
       <file name="Remote.php" role="horde" />
      </dir> <!-- /lib/Imap/Tree -->
      <file name="Acl.php" role="horde" />
@@ -1593,6 +1594,7 @@
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Remote.php" name="lib/Imap/Remote.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
+   <install as="imp/lib/Imap/Tree/Poll.php" name="lib/Imap/Tree/Poll.php" />
    <install as="imp/lib/Imap/Tree/Remote.php" name="lib/Imap/Tree/Remote.php" />
    <install as="imp/lib/Indices/Mailbox.php" name="lib/Indices/Mailbox.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
