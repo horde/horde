@@ -29,7 +29,11 @@
   <active>yes</active>
  </developer>
  <date>2013-08-27</date>
+<<<<<<< HEAD
  <time>12:09:33</time>
+=======
+ <time>11:35:31</time>
+>>>>>>> Add Horde config for x509 driver, and update package.xml
  <version>
   <release>2.7.1</release>
   <api>2.7.0</api>
@@ -360,6 +364,7 @@
        <file name="Ldap.php" role="php" />
        <file name="Msad.php" role="php" />
        <file name="Shibboleth.php" role="php" />
+       <file name="X509.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Auth -->
       <dir name="Autoloader">
        <dir name="Callback">
@@ -1693,6 +1698,7 @@
    <install as="Horde/Core/Auth/Ldap.php" name="lib/Horde/Core/Auth/Ldap.php" />
    <install as="Horde/Core/Auth/Msad.php" name="lib/Horde/Core/Auth/Msad.php" />
    <install as="Horde/Core/Auth/Shibboleth.php" name="lib/Horde/Core/Auth/Shibboleth.php" />
+   <install as="Horde/Core/Auth/X509.php" name="lib/Horde/Core/Auth/X509.php" />
    <install as="Horde/Core/Auth/Signup/Base.php" name="lib/Horde/Core/Auth/Signup/Base.php" />
    <install as="Horde/Core/Auth/Signup/Form.php" name="lib/Horde/Core/Auth/Signup/Form.php" />
    <install as="Horde/Core/Auth/Signup/Null.php" name="lib/Horde/Core/Auth/Signup/Null.php" />

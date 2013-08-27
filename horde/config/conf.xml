@@ -708,6 +708,23 @@
       </configswitch>
      </configsection>
     </case>
+    <case name="x509" desc="X509 Client Certificates">
+      <configsection name="params">
+        <configstring name="username_field" desc="The X509 field containing the username">
+        SSL_CLIENT_S_DN_CN</configstring>
+        <configswitch name="password_source" desc="Where should Horde attempt to
+        find user passwords?">
+          <case name="none" desc="Either no passwords are needed, or the
+          postauthenticate hook will provide them."/>
+          <case name="unified" desc="A single password will be used for all
+          users. ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING! YOUR SYSTEM MUST
+          BE PROPERLY SECURED!">
+            <configstring name="unified_password" desc="The password to use.">
+            </configstring>
+          </case>
+        </configswitch>
+      </configsection>
+    </case>
    </configswitch>
    <configsection name="params">
     <configboolean name="count_bad_logins" required="false" desc="Should Horde
