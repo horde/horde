@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-05</date>
+ <date>2013-08-27</date>
  <version>
   <release>5.1.3</release>
   <api>5.0.0</api>
@@ -3736,7 +3736,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-05</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Fix issue displaying ActiveSync pref page when it contains a wiped device entry.
