@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-27</date>
- <time>13:54:52</time>
+ <time>14:03:14</time>
  <version>
-  <release>2.2.1</release>
+  <release>2.2.2</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Use strpos() instead of preg_match() for simple string searches (Request #12603; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -352,6 +352,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Use strpos() instead of preg_match() for simple string searches (Request #12603; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
