@@ -10,11 +10,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
- <time>19:28:51</time>
+ <date>2013-08-26</date>
+ <time>13:09:41</time>
  <version>
-  <release>2.0.7</release>
-  <api>2.0.0</api>
+  <release>2.1.2</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Added the &apos;bare_addresses_idn&apos; property to Horde_Mail_Rfc822_List.
-* [mms] Added the &apos;bare_address_idn&apos; property to Horde_Mail_Rfc822_Address.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -51,6 +50,7 @@
        <file name="Null.php" role="php" />
        <file name="Sendmail.php" role="php" />
        <file name="Smtp.php" role="php" />
+       <file name="Smtphorde.php" role="php" />
        <file name="Smtpmx.php" role="php" />
       </dir> <!-- /lib/Horde/Mail/Transport -->
       <file name="Exception.php" role="php" />
@@ -109,6 +109,20 @@
   </required>
   <optional>
    <package>
+    <name>Horde_Smtp</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
@@ -143,6 +157,7 @@
    <install as="Horde/Mail/Transport/Null.php" name="lib/Horde/Mail/Transport/Null.php" />
    <install as="Horde/Mail/Transport/Sendmail.php" name="lib/Horde/Mail/Transport/Sendmail.php" />
    <install as="Horde/Mail/Transport/Smtp.php" name="lib/Horde/Mail/Transport/Smtp.php" />
+   <install as="Horde/Mail/Transport/Smtphorde.php" name="lib/Horde/Mail/Transport/Smtphorde.php" />
    <install as="Horde/Mail/Transport/Smtpmx.php" name="lib/Horde/Mail/Transport/Smtpmx.php" />
    <install as="Horde/Mail/AddressTest.php" name="test/Horde/Mail/AddressTest.php" />
    <install as="Horde/Mail/AllTests.php" name="test/Horde/Mail/AllTests.php" />
@@ -460,16 +475,43 @@
   </release>
   <release>
    <version>
-    <release>2.0.7</release>
-    <api>2.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-16</date>
+   <date>2013-08-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Added the Horde_Mail_Transport_Smtphorde driver.
 * [mms] Added the &apos;bare_addresses_idn&apos; property to Horde_Mail_Rfc822_List.
 * [mms] Added the &apos;bare_address_idn&apos; property to Horde_Mail_Rfc822_Address.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-26</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Workaround broken Net_SMTP handling regarding the end of message data (Bug #12614).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-26</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

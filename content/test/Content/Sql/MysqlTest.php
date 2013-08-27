@@ -21,10 +21,10 @@ class Content_Sql_MysqlTest extends Content_Test_Sql_Base
             self::$reason = 'No mysql extension';
             return;
         }
-        $config = self::getConfig('GROUP_SQL_MYSQL_TEST_CONFIG',
+        $config = self::getConfig('CONTENT_SQL_MYSQL_TEST_CONFIG',
                                   __DIR__ . '/..');
-        if ($config && !empty($config['group']['sql']['mysql'])) {
-            self::$db = new Horde_Db_Adapter_Mysql($config['group']['sql']['mysql']);
+        if ($config && !empty($config['content']['sql']['mysql'])) {
+            self::$db = new Horde_Db_Adapter_Mysql($config['content']['sql']['mysql']);
             parent::setUpBeforeClass();
         }
     }

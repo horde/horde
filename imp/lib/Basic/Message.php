@@ -247,7 +247,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $page_label = $mailbox->label;
 
         /* Generate the link to ourselves. */
-        $buid = $imp_mailbox->getBuid($mailbox, $msg_index['u']);
+        $buid = $imp_mailbox->getBuid($msg_index['m'], $msg_index['u']);
         $msgindex = $imp_mailbox->getIndex();
         $message_url = Horde::url('basic.php')->add('page', 'message');
         $message_token = $horde_token->get('imp.message');
@@ -391,7 +391,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $prev_msg = $imp_mailbox[$imp_mailbox->getIndex() - 1];
         if ($prev_msg) {
             $prev_url = self::url(array(
-                'buid' => $imp_mailbox->getBuid($mailbox, $prev_msg['u']),
+                'buid' => $imp_mailbox->getBuid($prev_msg['m'], $prev_msg['u']),
                 'mailbox' => $mailbox
             ))->setRaw(true);
             $page_output->addLinkTag(array(
@@ -407,7 +407,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $next_msg = $imp_mailbox[$imp_mailbox->getIndex() + 1];
         if ($next_msg) {
             $next_url = self::url(array(
-                'buid' => $imp_mailbox->getBuid($mailbox, $next_msg['u']),
+                'buid' => $imp_mailbox->getBuid($next_msg['m'], $next_msg['u']),
                 'mailbox' => $mailbox
             ))->setRaw(true);
             $page_output->addLinkTag(array(

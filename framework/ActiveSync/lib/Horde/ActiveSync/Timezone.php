@@ -91,6 +91,12 @@ class Horde_ActiveSync_Timezone
         $tz['timezone'] = $tz['bias'];
         $tz['timezonedst'] = $tz['dstbias'];
 
+        if (!self::_isLittleEndian()) {
+            $tz['bias'] = self::_chbo($tz['bias']);
+            $tz['stdbias'] = self::_chbo($tz['stdbias']);
+            $tz['dstbias'] = self::_chbo($tz['dstbias']);
+        }
+
         return $tz;
     }
 
@@ -104,6 +110,12 @@ class Horde_ActiveSync_Timezone
      */
     static public function getSyncTZFromOffsets(array $offsets)
     {
+        if (!self::_isLittleEndian()) {
+            $offsets['bias'] = self::_chbo($offsets['bias']);
+            $offsets['stdbias'] = self::_chbo($offsets['stdbias']);
+            $offsets['dstbias'] = self::_chbo($offsets['dstbias']);
+        }
+
         $packed = pack('la64vvvvvvvvla64vvvvvvvvl',
                 $offsets['bias'], '', 0, $offsets['stdmonth'], $offsets['stdday'], $offsets['stdweek'], $offsets['stdhour'], $offsets['stdminute'], $offsets['stdsecond'], $offsets['stdmillis'],
                 $offsets['stdbias'], '', 0, $offsets['dstmonth'], $offsets['dstday'], $offsets['dstweek'], $offsets['dsthour'], $offsets['dstminute'], $offsets['dstsecond'], $offsets['dstmillis'],
@@ -123,27 +135,27 @@ class Horde_ActiveSync_Timezone
     static public function getOffsetsFromDate(Horde_Date $date)
     {
         $offsets = array(
-	        'bias' => 0,
-	        'stdname' => '',
-	        'stdyear' => 0,
-	        'stdmonth' => 0,
-	        'stdday' => 0,
-	        'stdweek' => 0,
-	        'stdhour' => 0,
-	        'stdminute' => 0,
-	        'stdsecond' => 0,
-	        'stdmillis' => 0,
-	        'stdbias' => 0,
-	        'dstname' => '',
-	        'dstyear' => 0,
-	        'dstmonth' => 0,
-	        'dstday' => 0,
-	        'dstweek' => 0,
-	        'dsthour' => 0,
-	        'dstminute' => 0,
-	        'dstsecond' => 0,
-	        'dstmillis' => 0,
-	        'dstbias' => 0
+            'bias' => 0,
+            'stdname' => '',
+            'stdyear' => 0,
+            'stdmonth' => 0,
+            'stdday' => 0,
+            'stdweek' => 0,
+            'stdhour' => 0,
+            'stdminute' => 0,
+            'stdsecond' => 0,
+            'stdmillis' => 0,
+            'stdbias' => 0,
+            'dstname' => '',
+            'dstyear' => 0,
+            'dstmonth' => 0,
+            'dstday' => 0,
+            'dstweek' => 0,
+            'dsthour' => 0,
+            'dstminute' => 0,
+            'dstsecond' => 0,
+            'dstmillis' => 0,
+            'dstbias' => 0
         );
 
         $timezone = $date->toDateTime()->getTimezone();
@@ -206,21 +218,21 @@ class Horde_ActiveSync_Timezone
     }
 
     /**
-	 * Calculate the offsets for the specified transition
-	 *
-	 * @param array $offsets      A TZ offset hash
-	 * @param array $transition   A transition hash
-	 * @param string $type        Transition type - dst or std
+     * Calculate the offsets for the specified transition
      *
-	 * @return array  A populated offset hash
-	 */
-	static protected function _generateOffsetsForTransition(array $offsets, array $transition, $type)
-	{
+     * @param array $offsets      A TZ offset hash
+     * @param array $transition   A transition hash
+     * @param string $type        Transition type - dst or std
+     *
+     * @return array  A populated offset hash
+     */
+    static protected function _generateOffsetsForTransition(array $offsets, array $transition, $type)
+    {
         // We can't use Horde_Date directly here, since it is unable to
         // properly convert to UTC from local ON the exact hour of a std -> dst
         // transition. This is due to a conversion to DateTime in the localtime
         // zone internally before the timezone change is applied
-	    $transitionDate = new DateTime($transition['time']);
+        $transitionDate = new DateTime($transition['time']);
         $transitionDate->setTimezone(new DateTimeZone('UTC'));
         $transitionDate = new Horde_Date($transitionDate);
         $offsets[$type . 'month'] = $transitionDate->format('n');
@@ -235,8 +247,7 @@ class Horde_ActiveSync_Timezone
         }
 
         return $offsets;
-	}
-
+    }
 
     /**
      * Attempt to guess the timezone identifier from the $offsets array.
@@ -410,6 +421,32 @@ class Horde_ActiveSync_Timezone
             return $modified->month < $original->month &&
                    $modified2->month == $original->month;
        }
+    }
+
+    /**
+     * Determine if the current machine is little endian.
+     *
+     * @return boolean  True if endianness is little endian, otherwise false.
+     */
+    static protected function _isLittleEndian() {
+        $testint = 0x00FF;
+        $p = pack('S', $testint);
+
+        return ($testint === current(unpack('v', $p)));
+    }
+
+    /**
+     * Change the byte order of a number. Used to allow big endian machines to
+     * decode the timezone blobs, which are encoded in little endian order.
+     *
+     * @param integer $num  The number to reverse.
+     *
+     * @return integer  The number, in the reverse byte order.
+     */
+    static protected function _chbo($num) {
+        $u = unpack('l', strrev(pack('l', $num)));
+
+        return $u[1];
     }
 
 }

@@ -52,7 +52,7 @@
         echo $task_name;
     }?>
     <ul class='horde-tags'>
-    <?php foreach ($task->tags as $t): ?><li><?php echo $t ?></li><?php endforeach;?>
+     <?php foreach ($task->tags as $t): ?><li><?php echo $this->h($t) ?></li><?php endforeach;?>
     </ul>
   </td>
   <td><?php echo strlen($task->desc) ? Horde::img('note.png', _("Task Note")) : '&nbsp;' ?></td>

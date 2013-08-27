@@ -31,6 +31,13 @@ class Horde_Smtp_Debug
     const SLOW_CMD = 5;
 
     /**
+     * Is debugging active?
+     *
+     * @var boolean
+     */
+    public $active = true;
+
+    /**
      * The debug stream.
      *
      * @var resource
@@ -72,11 +79,12 @@ class Horde_Smtp_Debug
     /**
      * Write client output to debug log.
      *
-     * @param string $msg  Debug message.
+     * @param string $msg   Debug message.
+     * @param boolean $eol  Output EOL?
      */
-    public function client($msg)
+    public function client($msg, $eol = true)
     {
-        $this->_write($msg . "\n", 'C: ');
+        $this->_write($msg . ($eol ? "\n" : ''), 'C: ');
     }
 
     /**
@@ -117,7 +125,7 @@ class Horde_Smtp_Debug
      */
     protected function _write($msg, $pre = null)
     {
-        if (!$this->_stream) {
+        if (!$this->_stream || !$this->active) {
             return;
         }
 

@@ -146,12 +146,13 @@ class Horde
      * Add a signature + timestamp to a query string and return the signed
      * query string.
      *
-     * @param string $queryString  The query string to sign.
-     * @param integer $now         The timestamp at which to sign. Leave blank
-     *                             for generating signatures; specify when
-     *                             testing.
+     * @param mixed $queryString  The query string (or Horde_Url object)
+     *                            to sign.
+     * @param integer $now        The timestamp at which to sign. Leave blank
+     *                            for generating signatures; specify when
+     *                            testing.
      *
-     * @return string  The signed query string.
+     * @return mixed  The signed query string (or Horde_Url object).
      */
     static public function signQueryString($queryString, $now = null)
     {
@@ -161,6 +162,13 @@ class Horde
 
         if (is_null($now)) {
             $now = time();
+        }
+
+        if ($queryString instanceof Horde_Url) {
+            $queryString->setRaw(true)->add(array('_t' => $now, '_h' => ''));
+            $parse_url = parse_url($queryString);
+            $queryString->add('_h', Horde_Url::uriB64Encode(hash_hmac('sha1', $parse_url['query'] . '=', $GLOBALS['conf']['secret_key'], true)));
+            return $queryString;
         }
 
         $queryString .= '&_t=' . $now . '&_h=';
@@ -638,11 +646,7 @@ class Horde
             Horde_String::substr($url, 0, 7) == 'mailto:') {
             $ext = $url;
         } else {
-            $ext = $GLOBALS['registry']->getServiceLink('go', 'horde');
-
-            /* We must make sure there are no &amp's in the URL. */
-            $url = preg_replace(array('/(=?.*?)&amp;(.*?=)/', '/(=?.*?)&amp;(.*?=)/'), '$1&$2', $url);
-            $ext .= '?' . self::signQueryString('url=' . urlencode($url));
+            $ext = self::signQueryString($GLOBALS['registry']->getServiceLink('go', 'horde')->add('url', $url));
         }
 
         if ($tag) {

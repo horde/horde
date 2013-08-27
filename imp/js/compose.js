@@ -8,9 +8,9 @@
 var ImpCompose = {
 
     // Variables defined in PHP code:
-    //   cancel_url, cursor_pos, editor_wait, last_msg, max_attachments,
-    //   popup, redirect, reloaded, sc_submit, sm_check, skip_spellcheck,
-    //   spellcheck, text
+    //   cancel_url, cursor_pos, discard_url, editor_wait, last_msg,
+    //   max_attachments, popup, redirect, reloaded, sc_submit, sm_check,
+    //   skip_spellcheck, spellcheck, text
 
     display_unload_warning: true,
     seed: 3,
@@ -24,12 +24,12 @@ var ImpCompose = {
 
             if (this.popup) {
                 if (this.cancel_url) {
-                    self.location = this.cancel_url + '&actionID=' + (discard ? 'discard_compose' : 'cancel_compose');
+                    self.location = (discard ? this.discard_url : this.cancel_url);
                 } else {
                     self.close();
                 }
             } else {
-                window.location = this.cancel_url + '&actionID=' + (discard ? 'discard_compose' : 'cancel_compose');
+                window.location = (discard ? this.discard_url : this.cancel_url);
             }
         }
     },
@@ -381,7 +381,7 @@ var ImpCompose = {
             if (!e) {
                 return this.resize.bind(this).defer();
             }
-            d = Math.min(e, screen.height - 100) - document.viewport.getHeight();
+            d = Math.min(e, screen.height - 50) - document.viewport.getHeight();
             if (d > 0) {
                 window.resizeBy(0, d);
             }

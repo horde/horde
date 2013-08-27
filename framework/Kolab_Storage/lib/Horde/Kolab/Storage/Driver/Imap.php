@@ -52,11 +52,8 @@ extends Horde_Kolab_Storage_Driver_Base
     public function listFolders()
     {
         try {
-            return $this->decodeList(
-                $this->getBackend()->listMailboxes(
-                    '*', Horde_Imap_Client::MBOX_ALL, array('flat' => true)
-                )
-            );
+            return $this->getBackend()->listMailboxes(
+                '*', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);
         } catch (Horde_Imap_Client_Exception $e) {
@@ -241,7 +238,8 @@ extends Horde_Kolab_Storage_Driver_Base
                 $data[$folder] = $annotations[$annotation];
             }
         }
-        return $this->decodeListKeys($data);
+
+        return $data;
     }
 
     /**
@@ -365,7 +363,8 @@ extends Horde_Kolab_Storage_Driver_Base
             return $this->getBackend()->status(
                 $folder,
                 Horde_Imap_Client::STATUS_UIDNEXT |
-                Horde_Imap_Client::STATUS_UIDVALIDITY
+                Horde_Imap_Client::STATUS_UIDVALIDITY |
+                Horde_Imap_Client::STATUS_FORCE_REFRESH
             );
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);
@@ -416,6 +415,17 @@ extends Horde_Kolab_Storage_Driver_Base
                 $query,
                 array('ids' => new Horde_Imap_Client_Ids($uid))
             );
+
+            if (!isset($ret[$uid])) {
+                throw new Horde_Kolab_Storage_Exception(
+                    sprintf(
+                        Horde_Kolab_Storage_Translation::t(
+                            "Failed fetching message %s in folder %s."
+                        ), $uid, $folder
+                    )
+                );
+            }
+
             $msg = $ret[$uid]->getFullMsg();
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);

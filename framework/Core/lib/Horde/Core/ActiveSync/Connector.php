@@ -267,9 +267,9 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Delete the specified contact
      *
-     * @param string $uid  The UID of the contact to remove
+     * @param string|array $uid  The UID(s) of the contact(s) to remove.
      *
-     * @return bolean
+     * @return boolean
      */
     public function contacts_delete($uid)
     {

@@ -687,6 +687,9 @@ class IMP_Message
 
                 foreach ($action as $key => $val) {
                     $ajax_queue->flag($val, ($key == 'add'), $flag_change);
+                    if ($indices instanceof IMP_Indices_Mailbox) {
+                        $ajax_queue->flag($val, ($key == 'add'), $indices->mailbox->toBuids($flag_change));
+                    }
                 }
             } catch (Exception $e) {
                 $notification->push(sprintf(_("There was an error flagging messages in the mailbox \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');

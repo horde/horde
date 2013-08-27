@@ -62,7 +62,7 @@ class Horde_Release_Freecode
      *
      * @param array $params  The array of fm release parameters
      *
-     * @return mixed Result of the attempt / PEAR_Error on failure
+     * @return string  Result body of the request.
      */
     public function publish($params)
     {

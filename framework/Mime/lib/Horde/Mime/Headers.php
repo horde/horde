@@ -302,7 +302,7 @@ class Horde_Mime_Headers implements Serializable
     public function getUserAgent()
     {
         if (is_null($this->_agent)) {
-            $this->_agent = 'Horde Application Framework 4';
+            $this->_agent = 'Horde Application Framework 5';
         }
         return $this->_agent;
     }

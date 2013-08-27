@@ -60,13 +60,13 @@ extends Horde_Imap_Client_Socket_Connection
             $this->close();
             $this->_debug->info("ERROR: Server closed the connection.");
             throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("POP3 Server closed the connection unexpectedly."),
+                Horde_Imap_Client_Translation::t("Server closed the connection unexpectedly."),
                 Horde_Imap_Client_Exception::DISCONNECT
             );
         }
 
         if (($read = fgets($this->_stream)) === false) {
-            $this->_debug->info("ERROR: IMAP read/timeout error.");
+            $this->_debug->info("ERROR: read/timeout error.");
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
                 Horde_Imap_Client_Exception::SERVER_READERROR

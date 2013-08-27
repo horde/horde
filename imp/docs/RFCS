@@ -67,30 +67,45 @@ POP3
 
 The following POP3 extensions/features are supported
 
-:RFC 1734/RFC 5034: POP3 SASL
 :RFC 2195:          CRAM-MD5 authentication
 :RFC 2449:          POP3 extension mechanism
 :RFC 2595/RFC 4616: PLAIN authentication
 :RFC 3206:          The SYS and AUTH POP Response Codes
+:RFC 5034:          POP3 SASL
 
 
 Mail Messages
 =============
 
-:RFC 822/RFC 2822/RFC 3490/RFC 5322: Internet Message Format
-:RFC 2369: The Use of URLs as Meta-Syntax for Core Mail List Commands and their
-           and their Transport through Message Header Fields
-:RFC 2919: List-Id: A Structured Field and Namespace for the Identification of
-           Mailing Lists
-:RFC 3490: Internationalizing Domain Names in Applications (IDNA)
-:RFC 3798: Message Disposition Notification
+:RFC 2369:          The Use of URLs as Meta-Syntax for Core Mail List Commands
+                    and their and their Transport through Message Header
+                    Fields
+:RFC 2919:          List-Id: A Structured Field and Namespace for the
+                    Identification of Mailing Lists
+:RFC 3798:          Message Disposition Notification
+:RFC 5322:          Internet Message Format
+:RFC 5890/RFC 5891: Internationalizing Domain Names in Applications (IDNA)
 
 
 SMTP
 ====
 
-:RFC 821/RFC 2821/RFC 5321: Simple Mail Transfer Protocol
-:RFC 1652/RFC 6152:         SMTP Service Extension for 8bit MIME Transport
+:RFC 5321: Simple Mail Transfer Protocol
+
+The following SMTP extensions/features are supported
+
+:STD 10/RFC 1870: Message Size Declaration
+:RFC 2034:        Enhanced-Status-Codes
+:RFC 2195:        CRAM-MD5 (SASL Authentication)
+:RFC 2595/4616:   TLS & PLAIN (SASL Authentication)
+:RFC 2831:        DIGEST-MD5 authentication mechanism (obsoleted by RFC 6331)
+:STD 60/RFC 2920: Pipelining
+:RFC 3207:        Secure SMTP over TLS
+:RFC 3463:        Enhanced Mail System Status Codes
+:RFC 4422:        SASL Authentication (for DIGEST-MD5)
+:RFC 4954:        SMTP Authentication
+:STD 71/RFC 6152: 8bit-MIMEtransport
+:STD 72/RFC 6409: Message Submission for Mail
 
 
 MIME

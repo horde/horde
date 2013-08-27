@@ -16,7 +16,7 @@
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Support
  */
-class Horde_Support_Stub
+class Horde_Support_Stub implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * Cooerce to an empty string.
@@ -89,6 +89,52 @@ class Horde_Support_Stub
      */
     public static function __callStatic($method, $args)
     {
+    }
+
+    /* ArrayAccess methods. */
+
+     /**
+      */
+     public function offsetGet($offset)
+     {
+         return null;
+     }
+
+    /**
+     */
+    public function offsetSet($offset, $value)
+    {
+    }
+
+    /**
+     */
+    public function offsetExists($offset)
+    {
+        return false;
+    }
+
+    /**
+     */
+    public function offsetUnset($offset)
+    {
+    }
+
+    /* Countable methods. */
+
+    /**
+     */
+    public function count()
+    {
+        return 0;
+    }
+
+    /* IteratorAggregate method. */
+
+    /**
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator(array());
     }
 
 }

@@ -192,8 +192,15 @@ class Horde_History_Sql extends Horde_History
      *                         non-empty, will be searched for with a LIKE
      *                         '$parent:%' clause.
      *
-     * @return array  An array of history object ids, or an empty array if
-     *                none matched the criteria.
+     * @return array  An array of history object ids that have had at least one
+     *                match for the given $filters. Will return empty array if
+     *                none matched the criteria. If the same GUID has multiple
+     *                matches withing the range requested, there is no guarantee
+     *                which entry will be returned.
+     *
+     * Note: For BC reasons, the results are returned keyed by the object UID,
+     *       with a (fairly useless) history_id as the value. @todo This
+     *       should be changed for Horde 6.
      *
      * @throws Horde_History_Exception
      */
@@ -221,8 +228,8 @@ class Horde_History_Sql extends Horde_History
      * Return history objects with changes during a modseq interval, and
      * optionally filtered on other fields as well.
      *
-     * @param integer $start   The start of the modseq range.
-     * @param integer $end     The end of the modseq range.
+     * @param integer $start   The (exclusive) start of the modseq range.
+     * @param integer $end     The (inclusive) end of the modseq range.
      * @param array   $filters An array of additional (ANDed) criteria.
      *                         Each array value should be an array with 3
      *                         entries:
@@ -234,13 +241,25 @@ class Horde_History_Sql extends Horde_History
      *                         non-empty, will be searched for with a LIKE
      *                         '$parent:%' clause.
      *
-     * @return array  An array of history object ids, or an empty array if
-     *                none matched the criteria.
+     * @return array  An array of history object ids that have had at least one
+     *                match for the given $filters. Will return empty array if
+     *                none matched the criteria. If the same GUID has multiple
+     *                matches withing the range requested, there is no guarantee
+     *                which entry will be returned.
+     *
+     * Note: For BC reasons, the results are returned keyed by the object UID,
+     *       with a (fairly useless) history_id as the value. @todo This
+     *       should be changed for Horde 6.
      */
     protected function _getByModSeq($start, $end, $filters = array(), $parent = null)
     {
         // Build the modseq test.
-        $where = array("history_modseq > $start AND history_modseq <= $end");
+        $where = array(
+            sprintf(
+                'history_modseq > %d AND history_modseq <= %d',
+                $start,
+                $end)
+        );
 
         // Add additional filters, if there are any.
         if ($filters) {
@@ -305,7 +324,7 @@ class Horde_History_Sql extends Horde_History
         } catch (Horde_Db_Exception $e) {
             throw new Horde_History_Exception($e);
         }
-        if (is_null($modseq)) {
+        if (is_null($modseq) || $modseq === false) {
             try {
                 $modseq = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories_modseq');
             } catch (Horde_Db_Exception $e) {
@@ -336,6 +355,39 @@ class Horde_History_Sql extends Horde_History
         }
 
         return $result;
+    }
+
+    /**
+     * Gets the latest entry of $guid
+     *
+     * @param string   $guid    The name of the history entry to retrieve.
+     * @param boolean  $use_ts  If false we use the 'modseq' field to determine
+     *                          the latest entry. If true we use the timestamp
+     *                          instead of modseq to determine the latest entry.
+     *                          Note: Only 'modseq' can give a definitive answer.
+     *
+     * @return array|boolean    The latest history entry, or false if $guid does not exist.
+     *
+     * @throws Horde_History_Exception If the input parameters are not of type string.
+     * @since 2.2.0
+     */
+    public function getLatestEntry($guid, $use_ts = false)
+    {
+        $query = 'SELECT * from horde_histories WHERE object_uid = ? ORDER BY ';
+        if ($use_ts) {
+            $query .= 'history_ts ';
+        } else {
+            $query .= 'history_modseq ';
+        }
+        $query .= 'DESC LIMIT 1';
+
+        $row = $this->_db->selectOne($query, array($guid));
+        if (empty($row['history_id'])) {
+            return false;
+        }
+
+        $log = new Horde_History_Log($guid, array($row));
+        return $log[0];
     }
 
 }

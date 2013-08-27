@@ -76,6 +76,11 @@
  *    </li>
  *   </ul>
  *  </li>
+ *  <li>AUTH=XOAUTH2
+ *   <ul>
+ *    <li>https://developers.google.com/gmail/xoauth2_protocol</li>
+ *   </ul>
+ *  </li>
  * </ul>
  *
  * TODO (or not necessary?):
@@ -161,6 +166,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   - envelope_string: (integer) The maximum length of string fields
      *                      returned by the FETCH ENVELOPE command.
      *                      DEFAULT: 2048
+     *   - xoauth2_token: (mixed) If set, will authenticate via the XOAUTH2
+     *                    mechanism (if available) with this token. Either a
+     *                    string (since 2.13.0) or a
+     *                    Horde_Imap_Client_Base_Password object (since
+     *                    2.14.0).
      */
     public function __construct(array $params = array())
     {
@@ -169,6 +179,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'envelope_addrs' => 1000,
             'envelope_string' => 2048
         ), $params));
+    }
+
+    /**
+     */
+    public function getParam($key)
+    {
+        switch ($key) {
+        case 'xoauth2_token':
+            if ($this->_params[$key] instanceof Horde_Imap_Client_Base_Password) {
+                return $this->_params[$key]->getPassword();
+            }
+            break;
+        }
+
+        return parent::getParam($key);
     }
 
     /**
@@ -202,12 +227,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
-        /* Assume capabilities are additive. */
-        $c = empty($this->_init['capability'])
-            ? array()
-            : $this->_init['capability'];
+        $pipeline->data['capability_set'] = true;
 
-        $pipeline->data['capabilties_set'] = true;
+        $c = array();
 
         foreach ($data as $val) {
             $cap_list = explode('=', $val);
@@ -378,45 +400,54 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if ($first_login) {
-            $imap_auth_mech = array();
+            // Add authentication methods.
+            $auth_mech = array();
 
-            $auth_methods = $this->queryCapability('AUTH');
-            if (!empty($auth_methods)) {
-                // Add SASL methods. Prefer CRAM-MD5 over DIGEST-MD5, as the
-                // latter has been obsoleted (RFC 6331).
-                $imap_auth_mech = array_intersect(array('CRAM-MD5', 'DIGEST-MD5'), $auth_methods);
-
-                // Next, try 'PLAIN' authentication.
-                if (in_array('PLAIN', $auth_methods)) {
-                    $imap_auth_mech[] = 'PLAIN';
-                }
+            if ($auth = $this->queryCapability('AUTH')) {
+                $auth = array_flip($auth);
             }
+
+            // XOAUTH2
+            if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
+                $auth_mech[] = 'XOAUTH2';
+                unset($auth['XOAUTH2']);
+            }
+
+            // 'PLAIN' authentication always exists if under TLS. Use it over
+            // all over authentication methods.
+            if ($this->isSecureConnection()) {
+                $auth_mech[] = 'PLAIN';
+                unset($auth['PLAIN']);
+            }
+
+            // Prefer CRAM-MD5 over DIGEST-MD5, as the latter has been
+            // obsoleted (RFC 6331).
+            if (isset($auth['CRAM-MD5'])) {
+                $auth_mech[] = 'CRAM-MD5';
+            } elseif (isset($auth['DIGEST-MD5'])) {
+                $auth_mech[] = 'DIGEST-MD5';
+            }
+            unset($auth['CRAM-MD5'], $auth['DIGEST-MD5']);
 
             // Fall back to 'LOGIN' if available.
+            $auth_mech = array_merge($auth_mech, array_keys($auth));
             if (!$this->queryCapability('LOGINDISABLED')) {
-                $imap_auth_mech[] = 'LOGIN';
+                $auth_mech[] = 'LOGIN';
             }
 
-            if (empty($imap_auth_mech)) {
+            if (empty($auth_mech)) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("No supported IMAP authentication method could be found."),
                     Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD
                 );
             }
-
-            /* Use MD5 authentication first, if available. But no need to use
-             * special authentication if we are already using an encrypted
-             * connection. */
-            if ($this->isSecureConnection()) {
-                $imap_auth_mech = array_reverse($imap_auth_mech);
-            }
         } else {
-            $imap_auth_mech = array($this->_init['authmethod']);
+            $auth_mech = array($this->_init['authmethod']);
         }
 
         $login_err = null;
 
-        foreach ($imap_auth_mech as $method) {
+        foreach ($auth_mech as $method) {
             try {
                 $resp = $this->_tryLogin($method);
                 $data = $resp->data;
@@ -556,6 +587,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $username = $this->getParam('username');
         $password = $this->getParam('password');
 
+        $authenticate_cmd = false;
+
         switch ($method) {
         case 'CRAM-MD5':
         case 'CRAM-SHA1':
@@ -635,18 +668,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $username,
                 $password
             )));
-            $cmd = $this->_command('AUTHENTICATE')->add('PLAIN');
+            $authenticate_cmd = true;
+            break;
 
-            if ($this->queryCapability('SASL-IR')) {
-                // IMAP Extension for SASL Initial Client Response (RFC 4959)
-                $cmd->add($auth);
-                $cmd->debug = sprintf('[SASL-IR AUTHENTICATE Command - username: %s]', $username);
-            } else {
-                $cmd->add(new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($auth) {
-                    return new Horde_Imap_Client_Data_Format_List($auth);
-                }));
-                $cmd->debug = sprintf('[AUTHENTICATE Command - username: %s]', $username);
-            }
+        case 'XOAUTH2':
+            // Google XOAUTH2
+            $auth = $this->getParam('xoauth2_token');
+            $authenticate_cmd = true;
             break;
 
         default:
@@ -656,17 +684,30 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         }
 
-        $pipeline = $this->_pipeline($cmd);
+        if ($authenticate_cmd) {
+            $cmd = $this->_command('AUTHENTICATE')->add($method);
 
-        /* Set a flag indicating whether we have received a CAPABILITY
-         * response after we successfully login. Since capabilities may
-         * be different after login, we need to merge this information into
-         * the current CAPABILITY array (since some servers, e.g. Cyrus,
-         * may not include authentication capabilities that are still
-         * needed in the event this object is eventually serialized). */
-        $pipeline->data['in_login'] = true;
+            if ($this->queryCapability('SASL-IR')) {
+                // IMAP Extension for SASL Initial Client Response (RFC 4959)
+                $cmd->add($auth);
+                $cmd->debug = sprintf('[SASL-IR AUTHENTICATE Command - method: %s, username: %s]', $method, $username);
+            } else {
+                $cmd->add(new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($auth) {
+                    return new Horde_Imap_Client_Data_Format_List($auth);
+                }));
+                $cmd->debug = sprintf('[AUTHENTICATE Command - method: %s, username: %s]', $method, $username);
+            }
 
-        return $this->_sendCmd($pipeline);
+            /* This is an optional command continuation. E.g. XOAUTH2 will
+             * return error information in continuation response. */
+            $error_continuation = new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) {
+                return new Horde_Imap_Client_Data_Format_List();
+            });
+            $error_continuation->optional = true;
+            $cmd->add($error_continuation);
+        }
+
+        return $this->_sendCmd($this->_pipeline($cmd));
     }
 
     /**
@@ -675,7 +716,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @param boolean $firstlogin  Is this the first login?
      * @param array $resp          The data response from the login command.
      *                             May include:
-     *   - logincapset: (boolean) True if CAPABILITY sent after login.
+     *   - capability_set: (boolean) True if CAPABILITY was set after login.
      *   - proxyreuse: (boolean) True if re-used connection via imapproxy.
      *
      * @return boolean  True if global login tasks should be performed.
@@ -700,7 +741,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* If we logged in for first time, and server did not return
          * capability information, we need to mark for retrieval. */
-        if ($firstlogin && empty($resp['capabilities_set'])) {
+        if ($firstlogin && empty($resp['capability_set'])) {
             $this->_setInit('capability');
         }
 
@@ -1778,7 +1819,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $use_cache = $this->_initCache(true);
 
         if ($ids->all) {
-            if (!$uidplus && ($list_msgs || $use_cache)) {
+            if (!$uidplus || $list_msgs || $use_cache) {
                 $ids = $this->resolveIds($this->_selected, $ids, 2);
             }
         } elseif ($uidplus) {
@@ -3812,8 +3853,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $this->_debug->raw($val->tag . ' ' . $val->debug . "\n");
                     $this->_debug->debug = false;
                 }
-                $this->_processCmd($pipeline, $val, $val);
-                $this->_connection->write('', true);
+                if ($this->_processCmd($pipeline, $val, $val)) {
+                    $this->_connection->write('', true);
+                } else {
+                    $cmd_count = 0;
+                }
                 $this->_debug->debug = $old_debug;
             } catch (Horde_Imap_Client_Exception $e) {
                 $this->_debug->debug = $old_debug;
@@ -3871,6 +3915,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @param Horde_Imap_Client_Interaction_Command $cmd  The master command.
      * @param Horde_Imap_Client_Data_Format_List $data    Commands to send.
      *
+     * @return boolean  True if EOL needed to finish command.
      * @throws Horde_Imap_Client_Exception
      * @throws Horde_Imap_Client_Exception_NoSupport
      */
@@ -3880,10 +3925,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if ($val instanceof Horde_Imap_Client_Interaction_Command_Continuation) {
                 $this->_connection->write('', true);
 
+                /* Check for optional continuation responses when the command
+                 * has already finished. */
+                if (!$cmd_continuation = $this->_processCmdContinuation($pipeline, $val->optional)) {
+                    return false;
+                }
+
                 $this->_processCmd(
                     $pipeline,
                     $cmd,
-                    $val->getCommands($this->_processCmdContinuation($pipeline))
+                    $val->getCommands($cmd_continuation)
                 );
                 continue;
             }
@@ -3925,24 +3976,35 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_connection->write($val->escape());
             }
         }
+
+        return true;
     }
 
     /**
      * Process a command continuation response.
      *
-     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline The pipeline
-     *                                                         object.
+     * @param Horde_Imap_Client_Interaction_Pipeline $pipeline  The pipeline
+     *                                                          object.
+     * @param boolean $noexception                              Don't throw
+     *                                                          exception if
+     *                                                          continuation
+     *                                                          does not occur.
      *
-     * @return Horde_Imap_Client_Interaction_Server_Continuation  Continuation
-     *                                                            object.
+     * @return mixed  A Horde_Imap_Client_Interaction_Server_Continuation
+     *                object or false.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _processCmdContinuation($pipeline)
+    protected function _processCmdContinuation($pipeline, $noexception = false)
     {
-        $ob = $this->_getLine($pipeline);
+        do {
+            $ob = $this->_getLine($pipeline);
+        } while ($ob instanceof Horde_Imap_Client_Interaction_Server_Untagged);
+
         if ($ob instanceof Horde_Imap_Client_Interaction_Server_Continuation) {
             return $ob;
+        } elseif ($noexception) {
+            return false;
         }
 
         $this->_debug->info("ERROR: Unexpected response from server while waiting for a continuation request.");

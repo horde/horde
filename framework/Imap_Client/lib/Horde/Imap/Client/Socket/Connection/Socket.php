@@ -197,7 +197,7 @@ extends Horde_Imap_Client_Socket_Connection
         } while (true);
 
         if (!$got_data) {
-            $this->_debug->info("ERROR: IMAP read/timeout error.");
+            $this->_debug->info("ERROR: read/timeout error.");
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
                 Horde_Imap_Client_Exception::SERVER_READERROR

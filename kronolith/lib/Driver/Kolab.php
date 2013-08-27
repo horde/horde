@@ -261,19 +261,32 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
                 continue;
             }
 
+            if ($options['hide_exceptions'] && !empty($event->baseid)) {
+                continue;
+            }
+
             /* Ignore events out of the period. */
+            $recurs = $event->recurs();
             if (
                 /* Starts after the period. */
                 $event->start->compareDateTime($endDate) > 0 ||
                 /* End before the period and doesn't recur. */
-                (!$event->recurs() &&
-                 $event->end->compareDateTime($startDate) < 0) ||
-                /* Recurs and ... */
-                ($event->recurs() &&
-                  /* ... has a recurrence end before the period. */
-                  ($event->recurrence->hasRecurEnd() &&
-                   $event->recurrence->recurEnd->compareDateTime($startDate) < 0))) {
+                (!$recurs &&
+                 $event->end->compareDateTime($startDate) < 0)) {
                 continue;
+            }
+
+            if ($recurs) {
+                // Fixed end date? Check if end is before start period.
+                if ($event->recurrence->hasRecurEnd() &&
+                    $event->recurrence->recurEnd->compareDateTime($startDate) < 0) {
+                    continue;
+                } else {
+                    $next = $event->recurrence->nextRecurrence($startDate);
+                    if ($next == false || $next->compareDateTime($endDate) > 0) {
+                        continue;
+                    }
+                }
             }
 
             Kronolith::addEvents(
@@ -320,7 +333,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function getByUID($uid, $calendars = null, $getAll = false)
     {
         if (!is_array($calendars)) {
-            $calendars = array_keys(Kronolith::listInternalCalendars(true, Horde_Perms::READ));
+            $calendars = array_keys(Kronolith::listInternalCalendars(false, Horde_Perms::READ));
         }
         $id = Horde_Url::uriB64Encode($uid);
 

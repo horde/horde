@@ -35,6 +35,8 @@ var SpellChecker = Class.create({
     // Vars used and defaulting to null:
     //   bad, choices, disabled, htmlAreaParent, lc, locale, reviewDiv,
     //   statusButton, statusClass, suggestions, target, url
+
+    delimiter: "\1\0\1",
     options: {},
     resumeOnDblClick: true,
     state: 'CheckSpelling',
@@ -131,7 +133,7 @@ var SpellChecker = Class.create({
         content = this.targetValue();
         content = this.htmlAreaParent
             ? content.replace(/\r?\n/g, '')
-            : content.replace(/\r?\n/g, '~~~').escapeHTML();
+            : content.replace(/\r?\n/g, this.delimiter).escapeHTML();
 
         $A(bad).each(function(node) {
             var re_text = '<span index="' + (i++) + '" class="spellcheckIncorrect">' + node + '</span>';
@@ -160,7 +162,7 @@ var SpellChecker = Class.create({
         }
 
         if (!this.htmlAreaParent) {
-            content = content.replace(/~~~/g, '<br />');
+            content = content.replace(new RegExp(this.delimiter, 'g'), '<br />');
         }
         this.reviewDiv.update(content);
 
@@ -240,7 +242,7 @@ var SpellChecker = Class.create({
 
         t = this.reviewDiv.innerHTML;
         if (!this.htmlAreaParent) {
-            t = t.replace(/<br *\/?>/gi, '~~~').unescapeHTML().replace(/~~~/g, "\n");
+            t = t.replace(/<br *\/?>/gi, this.delimiter).unescapeHTML().replace(new RegExp(this.delimiter, 'g'), "\n");
         }
         this.target.setValue(t);
         this.target.enable();

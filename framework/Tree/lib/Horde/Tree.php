@@ -147,6 +147,7 @@ class Horde_Tree implements Countable
         foreach ($params as $p_id => $p_val) {
             // Set only non-null params.
             if (!is_null($p_val)) {
+                // TODO: In H6 don't convert to string here.
                 $this->_nodes[$id][$p_id] = is_object($p_val)
                     ? strval($p_val)
                     : $p_val;

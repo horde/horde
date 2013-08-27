@@ -11,6 +11,7 @@ SUMMARY:
  Escaped Comma in Description Field
 DESCRIPTION:
  There is a comma (escaped with a baskslash) in this sentence and some important words after it\, see anything here?
+CATEGORIES:Foo
 END:VEVENT
 BEGIN:VEVENT
 UID:20041120-8549-innerjoin-org
@@ -22,6 +23,7 @@ SUMMARY:
  Dash (rather than Comma) in the Description Field
 DESCRIPTION:
  There are important words after this dash - see anything here or have the words gone?
+CATEGORIES:Foo,Foo\,Bar,Bar
 ORGANIZER;SENT-BY="mailto
  :a@b.c":mailto:a@b.c
 END:VEVENT
