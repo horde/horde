@@ -22,10 +22,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>23:54:58</time>
+ <date>2013-08-28</date>
+ <time>00:02:48</time>
  <version>
-  <release>4.1.3</release>
+  <release>4.1.4</release>
   <api>4.1.0</api>
  </version>
  <stability>
@@ -34,13 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix inconsistent handling of all-day events (Bug #12627).
-* [mjr] Fix infinite loop for Kolab driver when event has recurrence (Bug #12160, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [jan] Fix fatal errors if DAV support is disabled (Bug #12481).
-* [jan] Fix synchronization of shared events in Kolab driver (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12585).
-* [jan] Link to CalDAV help text from calendar dialog.
-* [mjr] Fix requesting changes by modification sequence (Bug #12508, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2214,6 +2208,19 @@
 * [jan] Link to CalDAV help text from calendar dialog.
 * [mjr] Fix requesting changes by modification sequence (Bug #12508, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mjr] Fix subscribing to internal calendars via subscription URL (Bug #12495).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.4</release>
+    <api>4.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-28</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
