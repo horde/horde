@@ -24,7 +24,7 @@
  </lead>
  <date>2013-08-27</date>
  <version>
-  <release>6.1.4</release>
+  <release>6.1.5</release>
   <api>6.1.0</api>
  </version>
  <stability>
@@ -33,18 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Fix auto-complete of addresses on the dynamic redirect page.
-* [mms] Fix updating flags in dynamic search view (Bug #12594).
-* [mms] Use Horde_Smtp to send messages via SMTP.
-* [mms] Fix applying the &apos;allow_folders&apos; permission.
-* [mms] Fix canceling/discarding compose message in basic view (Bug #12555).
-* [mms] Fix updating message index when deleting a message in basic message view (Bug #12539).
-* [mms] &apos;trailer&apos; hook now has the user&apos;s identity and the list of recipients passed as parameters.
-* [mms] Add ability to access all reply methods in smartmobile view.
-* [mms] Smarter sizing of popup windows in dynamic view.
-* [mms] Correctly save multipart/related data when saving compose message as a draft.
-* [mms] When checking for newmail in a mailbox, use the total number of recent messages seen at any time during the page access (Request #12447).
-* [mms] Workaround IE8&apos;s broken XMLHttpRequest when sending data in dynamic compose view (Bug #12474).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3280,6 +3269,19 @@
 * [mms] Correctly save multipart/related data when saving compose message as a draft.
 * [mms] When checking for newmail in a mailbox, use the total number of recent messages seen at any time during the page access (Request #12447).
 * [mms] Workaround IE8&apos;s broken XMLHttpRequest when sending data in dynamic compose view (Bug #12474).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.1.5</release>
+    <api>6.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
