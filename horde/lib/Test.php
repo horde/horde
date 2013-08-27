@@ -283,9 +283,6 @@ class Horde_Test
         'Net_DNS2' => array(
             'error' => 'Net_DNS2 can speed up hostname lookups against broken DNS servers.'
         ),
-        'Net_SMTP' => array(
-            'error' => 'The Net_SMTP package is necessary if you want to use SMTP to send e-mails in Horded.',
-        ),
         'Services_Weather' => array(
             'error' => 'Services_Weather is used by the METAR weather applet/block on the portal page.'
         ),

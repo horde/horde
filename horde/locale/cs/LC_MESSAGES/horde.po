@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Horde 3.0.9\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-20 11:03+0100\n"
-"PO-Revision-Date: 2012-04-16 15:24+0200\n"
+"PO-Revision-Date: 2013-08-27 11:24+0200\n"
 "Last-Translator: Michal Foist <michal@foist.cz>\n"
 "Language-Team: Czech <i18n@lists.horde.org>\n"
 "Language: cs\n"
@@ -1451,7 +1451,7 @@ msgstr "Domovský adresář"
 
 #: config/registry.php:75
 msgid "Horde"
-msgstr "Active 24"
+msgstr "Horde"
 
 #: themes/hordeweb/info.php:2
 msgid "Horde Website"

@@ -15,7 +15,6 @@ div.browsefileoptions {
     margin: 0 0 8px 0;
 }
 div.browsefileoptions div {
-    display: -moz-inline-stack;
     display: inline-block;
     border: 1px solid #ddd;
     padding: 6px;

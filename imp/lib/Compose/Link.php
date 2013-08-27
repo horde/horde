@@ -87,7 +87,10 @@ class IMP_Compose_Link
         $callback = $raw = false;
         $view = $registry->getView();
 
-        if ($simplejs || ($view == Horde_Registry::VIEW_DYNAMIC)) {
+        if ($view == Horde_Registry::VIEW_SMARTMOBILE) {
+            $url = new Horde_Core_Smartmobile_Url(Horde::url('smartmobile.php'));
+            $url->setAnchor('compose');
+        } elseif ($simplejs || ($view == Horde_Registry::VIEW_DYNAMIC)) {
             $args['popup'] = 1;
 
             $url = ($view == Horde_Registry::VIEW_DYNAMIC)
@@ -95,9 +98,6 @@ class IMP_Compose_Link
                 : IMP_Basic_Compose::url();
             $raw = true;
             $callback = array($this, 'composeLinkSimpleCallback');
-        } elseif ($view == Horde_Registry::VIEW_SMARTMOBILE) {
-            $url = new Horde_Core_Smartmobile_Url(Horde::url('smartmobile.php'));
-            $url->setAnchor('compose');
         } elseif (($view != Horde_Registry::VIEW_MINIMAL) &&
                   $prefs->getValue('compose_popup') &&
                   $browser->hasFeature('javascript')) {

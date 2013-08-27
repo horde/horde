@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-11</date>
- <time>16:07:10</time>
+ <date>2013-08-27</date>
+ <time>16:08:42</time>
  <version>
   <release>5.1.0alpha1</release>
   <api>5.0.0</api>
@@ -687,7 +687,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-11</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [rla] Added ajax live password checks for dynamic view.
@@ -695,6 +695,19 @@
 * [jan] Don&apos;t install expect scripts as executables.
 * [jan] Fix fatal error in Samba/LDAP driver (Bug #12319).
 * [jan] Fix user name parameter in LDAP driver (Bug #12331).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.2</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
   <release>

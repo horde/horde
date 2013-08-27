@@ -112,7 +112,7 @@ if ($blocks->isEditable($blockInfo['app'], $blockInfo['block'])):
           </tr>
 <?php endforeach; endif; ?>
         </table>
-        <input type="submit" class="button" value="<?php echo _("Save") ?>" />
+        <input type="submit" class="horde-default" value="<?php echo _("Save") ?>" />
       </form>
     </td>
   </tr>

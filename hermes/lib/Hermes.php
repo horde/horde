@@ -90,8 +90,7 @@ class Hermes
         } else {
             $params = array('enabled' => true);
         }
-        $types = $GLOBALS['injector']->getInstance('Hermes_Driver')
-            ->listJobTypes($params);
+        $types = self::getJobTypeData($params);
         $select = '<select name="'
             . ($multi ? 'type[]' : 'type')
             . '" id="' . $id . '" '
@@ -102,6 +101,12 @@ class Hermes
         }
 
         return $select . '</select>';
+    }
+
+    public static function getJobTypeData($params = array())
+    {
+        return $GLOBALS['injector']->getInstance('Hermes_Driver')
+            ->listJobTypes($params);
     }
 
     /**

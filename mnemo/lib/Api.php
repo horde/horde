@@ -276,7 +276,13 @@ class Mnemo_Api extends Horde_Registry_Api
 
         case 'activesync':
             $category = is_array($content->categories) ? current($content->categories) : '';
-            $noteId = $storage->add($content->subject, $content->body->data, $category);
+            // We only support plaintext
+            if ($content->body->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+                $body = Horde_Text_Filter::filter($content->body->data, 'Html2text');
+            } else {
+                $body = $content->body->data;
+            }
+            $noteId = $storage->add($content->subject, $body, $category);
             break;
 
         default:
@@ -331,7 +337,7 @@ class Mnemo_Api extends Horde_Registry_Api
             // Create the new iCalendar container.
             $iCal = new Horde_Icalendar('1.1');
             $iCal->setAttribute('VERSION', '1.1');
-            $iCal->setAttribute('PRODID', '-//The Horde Project//Mnemo ' . $registry->getVersion() . '//EN');
+            $iCal->setAttribute('PRODID', '-//The Horde Project//Mnemo ' . $GLOBALS['registry']->getVersion() . '//EN');
             $iCal->setAttribute('METHOD', 'PUBLISH');
 
             // Create a new vNote.

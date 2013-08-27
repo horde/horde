@@ -32,6 +32,11 @@ extends PHPUnit_Framework_TestCase
 {
     public function testStore()
     {
+        if (version_compare(PHP_VERSION, '5.5.0', '>=') &&
+            version_compare(PHP_VERSION, '5.5.3', '<=')) {
+            $this->markTestSkipped('PHP version with broken quoted-printable-encode');
+        }
+
         $driver = new Horde_Kolab_Storage_Stub_Driver('user');
         $driver->setMessage('INBOX', 1, file_get_contents(__DIR__ . '/../../../../fixtures/note.eml'));
         $factory = new Horde_Kolab_Format_Factory();

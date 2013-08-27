@@ -55,10 +55,10 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         }
 
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-        $ns = $imp_imap->getNamespace();
         $recent = array();
 
         try {
+            $ns = $imp_imap->getNamespace();
             foreach ($imp_imap->statusMultiple($injector->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_RECENT_TOTAL, array('sort' => true, 'sort_delimiter' => $ns['delimiter'])) as $key => $val) {
                 if (!empty($val['recent_total'])) {
                     /* Open the mailbox R/W so we ensure the 'recent' flag is

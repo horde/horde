@@ -43,8 +43,15 @@
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
-class Horde_Mail_Transport_SmtpHorde extends Horde_Mail_Transport
+class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
 {
+    /**
+     * Send the message as 8bit?
+     *
+     * @var boolean
+     */
+    public $send8bit = false;
+
     /**
      * SMTP object.
      *
@@ -109,14 +116,7 @@ class Horde_Mail_Transport_SmtpHorde extends Horde_Mail_Transport
     public function send($recipients, array $headers, $body)
     {
         /* If we don't already have an SMTP object, create one. */
-        if (!$this->_smtp) {
-            $this->_smtp = new Horde_Smtp($this->_params);
-            try {
-                $this->_smtp->login();
-            } catch (Horde_Smtp_Exception $e) {
-                throw new Horde_Mail_Exception($e);
-            }
-        }
+        $this->getSMTPObject();
 
         $headers = $this->_sanitizeHeaders($headers);
         list($from, $textHeaders) = $this->prepareHeaders($headers);
@@ -129,10 +129,32 @@ class Horde_Mail_Transport_SmtpHorde extends Horde_Mail_Transport
         ));
 
         try {
-            $this->_smtp->send($from, $recipients, $swrapper->fopen());
+            $this->_smtp->send($from, $recipients, $swrapper->fopen(), array(
+                '8bit' => $this->send8bit
+            ));
         } catch (Horde_Smtp_Exception $e) {
             throw new Horde_Mail_Exception($e);
         }
+    }
+
+    /**
+     * Connect to the SMTP server by instantiating a Horde_Smtp object.
+     *
+     * @return Horde_Smtp  The SMTP object.
+     * @throws Horde_Mail_Exception
+     */
+    public function getSMTPObject()
+    {
+        if (!$this->_smtp) {
+            $this->_smtp = new Horde_Smtp($this->_params);
+            try {
+                $this->_smtp->login();
+            } catch (Horde_Smtp_Exception $e) {
+                throw new Horde_Mail_Exception($e);
+            }
+        }
+
+        return $this->_smtp;
     }
 
 }

@@ -224,8 +224,8 @@ abstract class Horde_History
      * Return history objects with changes during a modseq interval, and
      * optionally filtered on other fields as well.
      *
-     * @param integer $start   The start of the modseq range.
-     * @param integer $end     The end of the modseq range.
+     * @param integer $start   The (exclusive) start of the modseq range.
+     * @param integer $end     The (inclusive) end of the modseq range.
      * @param array   $filters An array of additional (ANDed) criteria.
      *                         Each array value should be an array with 3
      *                         entries:
@@ -342,7 +342,7 @@ abstract class Horde_History
      * @param string $parent  Restrict to entries a specific parent.
      *
      * @return integer  The modseq
-     * @since 2.2.0
+     * @since 2.1.0
      * @todo Make abstract in H6. Need to make this non-abstract for BC.
      */
     public function getHighestModSeq($parent = null)
@@ -359,7 +359,7 @@ abstract class Horde_History
      * @return integer  The modseq, or 0 if no matching entry is found.
      *
      * @throws Horde_History_Exception If the input parameters are not of type string.
-     * @since 2.2.0
+     * @since 2.1.0
      * @todo  Make abstract in H6.
      */
     public function getActionModSeq($guid, $action)
@@ -382,6 +382,45 @@ abstract class Horde_History
         }
 
         return (int)$last;
+    }
+
+    /**
+     * Gets the latest entry of $guid
+     *
+     * @param string   $guid    The name of the history entry to retrieve.
+     * @param boolean  $use_ts  If false we use the 'modseq' field to determine
+     *                          the latest entry. If true we use the timestamp
+     *                          instead of modseq to determine the latest entry.
+     *                          Note: Only 'modseq' can give a definitive answer.
+     *
+     * @return array|boolean    The latest history entry, or false if $guid does not exist.
+     *
+     * @throws Horde_History_Exception If the input parameters are not of type string.
+     * @since 2.2.0
+     */
+    public function getLatestEntry($guid, $use_ts = false)
+    {
+        $log = $this->getHistory($guid);
+        if (!count($log)) {
+            return false;
+        }
+
+        $last = array('modseq' => -1, 'ts' => -1);
+        if ($use_ts) {
+            foreach ($log as $entry) {
+                if ($entry['ts'] > $last['ts']) {
+                    $last = $entry;
+                }
+            }
+        } else {
+            foreach ($log as $entry) {
+                if ($entry['modseq'] > $last['modseq']) {
+                    $last = $entry;
+                }
+            }
+        }
+
+        return $last;
     }
 
 }

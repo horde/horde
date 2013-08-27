@@ -162,6 +162,25 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
 
         $headers = $this->_sanitizeHeaders($headers);
 
+        /* Make sure the message has a trailing newline. */
+        if (is_resource($body)) {
+            fseek($body, -1, SEEK_END);
+            switch (fgetc($body)) {
+            case "\r":
+                if (fgetc($body) != "\n") {
+                    fputs($body, "\n");
+                }
+                break;
+
+            default:
+                fputs($body, "\r\n");
+                break;
+            }
+            rewind($body);
+        } elseif (substr($body, -2, 0) != "\r\n") {
+            $body .= "\r\n";
+        }
+
         try {
             list($from, $textHeaders) = $this->prepareHeaders($headers);
         } catch (Horde_Mail_Exception $e) {

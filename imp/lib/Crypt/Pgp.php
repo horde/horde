@@ -465,13 +465,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             $id = 'personal';
         }
 
-        if (!($cache = $GLOBALS['session']->get('imp', 'pgp')) ||
-            !isset($cache[$type][$id])) {
-            return null;
-        }
-
-        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        return $secret->read($secret->getKey(), $cache[$type][$id]);
+        return (($cache = $GLOBALS['session']->get('imp', 'pgp')) && isset($cache[$type][$id]))
+            ? $cache[$type][$id]
+            : null;
     }
 
     /**
@@ -487,6 +483,8 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function storePassphrase($type, $passphrase, $id = null)
     {
+        global $session;
+
         if ($type == 'personal') {
             if ($this->verifyPassphrase($this->getPersonalPublicKey(), $this->getPersonalPrivateKey(), $passphrase) === false) {
                 return false;
@@ -494,11 +492,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             $id = 'personal';
         }
 
-        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-
-        $cache = $GLOBALS['session']->get('imp', 'pgp', Horde_Session::TYPE_ARRAY);
-        $cache[$type][$id] = $secret->write($secret->getKey(), $passphrase);
-        $GLOBALS['session']->set('imp', 'pgp', $cache);
+        $cache = $session->get('imp', 'pgp', Horde_Session::TYPE_ARRAY);
+        $cache[$type][$id] = $passphrase;
+        $session->set('imp', 'pgp', $cache, $session::ENCRYPT);
 
         return true;
     }

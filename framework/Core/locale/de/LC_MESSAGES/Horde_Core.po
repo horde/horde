@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"POT-Creation-Date: 2013-08-27 14:52+0200\n"
 "PO-Revision-Date: 2013-07-16 21:41+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde.php:1073
+#: lib/Horde.php:1077
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Zugriffstaste %s)"
 
-#: lib/Horde/Registry.php:1298 lib/Horde/Registry.php:1971
+#: lib/Horde/Registry.php:1304 lib/Horde/Registry.php:1977
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" ist in der Horde Registry nicht konfiguriert."
@@ -75,7 +75,7 @@ msgstr "6 Stunden"
 msgid "<Previous"
 msgstr "<Zurück"
 
-#: lib/Horde/ErrorHandler.php:83
+#: lib/Horde/ErrorHandler.php:91
 msgid "A fatal error has occurred"
 msgstr "Ein schwerer Fehler ist aufgetreten:"
 
@@ -152,7 +152,7 @@ msgstr "Adresse"
 msgid "Address Book"
 msgstr "Adressbuch"
 
-#: lib/Horde/Registry.php:302
+#: lib/Horde/Registry.php:308
 msgid ""
 "Admin authentication requested, but no admin users defined in configuration."
 msgstr ""
@@ -320,11 +320,11 @@ msgstr "Das Konto ablehnen:"
 msgid "Department"
 msgstr "Abteilung"
 
-#: lib/Horde/ErrorHandler.php:99
+#: lib/Horde/ErrorHandler.php:107
 msgid "Details"
 msgstr "Details"
 
-#: lib/Horde/ErrorHandler.php:106
+#: lib/Horde/ErrorHandler.php:114
 msgid "Details have been logged for the administrator."
 msgstr "Details wurden für den Administrator mitgeloggt."
 
@@ -371,7 +371,7 @@ msgstr "Zu bestätigende E-Mail-Adressen nicht gefunden."
 msgid "Emoticons"
 msgstr "Smileys"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1557
+#: lib/Horde/Core/ActiveSync/Driver.php:1558
 msgid "End forwarded message"
 msgstr "Ende der weitergeleiteten Nachricht"
 
@@ -411,11 +411,11 @@ msgstr "Verhältnis zurücksetzen"
 msgid "Flip"
 msgstr "Umdrehen"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1555
+#: lib/Horde/Core/ActiveSync/Driver.php:1556
 msgid "Forwarded message"
 msgstr "Weitergeleitete Nachricht"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1555
+#: lib/Horde/Core/ActiveSync/Driver.php:1556
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Weitergeleitete Nachricht von %s"
@@ -465,7 +465,7 @@ msgstr "Adresse privat"
 msgid "Home Phone"
 msgstr "Telefon privat"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2471
+#: lib/Horde/Core/ActiveSync/Driver.php:2468
 msgid "Inbox"
 msgstr "Posteingang"
 
@@ -615,12 +615,12 @@ msgid "No children can be added to this permission."
 msgstr ""
 "Unterhalb dieser Ebene können keine weiteren Unterrechte hinzugefügt werden."
 
-#: lib/Horde.php:489
+#: lib/Horde.php:497
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "Für %s wurden keine Konfigurationsinformationen angegeben."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1585
+#: lib/Horde/Core/ActiveSync/Driver.php:1586
 msgid "No message body text"
 msgstr "Kein Nachrichtentext"
 
@@ -636,7 +636,7 @@ msgstr "Keine gültige E-Mail-Adresse gefunden"
 msgid "No values"
 msgstr "Keine Werte"
 
-#: lib/Horde/Registry.php:260
+#: lib/Horde/Registry.php:267
 msgid "Not an admin"
 msgstr "Kein Administrator"
 
@@ -682,7 +682,7 @@ msgstr "Paketadresse"
 msgid "Permission"
 msgstr "Rechte"
 
-#: lib/Horde/Registry.php:313
+#: lib/Horde/Registry.php:319
 msgid "Permission denied."
 msgstr "Zugriff verweigert."
 
@@ -731,11 +731,11 @@ msgstr "Vorschau"
 msgid "Problem"
 msgstr "Probleme"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1578
+#: lib/Horde/Core/ActiveSync/Driver.php:1579
 msgid "Quoted"
 msgstr "Zitat"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1578
+#: lib/Horde/Core/ActiveSync/Driver.php:1579
 #, php-format
 msgid "Quoting %s"
 msgstr "Zitat von %s"
@@ -754,7 +754,7 @@ msgstr "Entfernen"
 msgid "Remove source"
 msgstr "Quelle entfernen"
 
-#: lib/Horde.php:498
+#: lib/Horde.php:506
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "\"%s\" wurde in der Konfiguration für %s nicht angegeben."
@@ -787,7 +787,7 @@ msgstr "Sa"
 msgid "Saturday"
 msgstr "Samstag"
 
-#: lib/Horde/Registry.php:212
+#: lib/Horde/Registry.php:219
 msgid "Script must be run from the command line"
 msgstr "Das Skript muss von der Kommandozeile ausgeführt werden"
 
@@ -825,7 +825,7 @@ msgstr "Ausgewählte Adressbücher:"
 msgid "Send SMS"
 msgstr "SMS verschicken"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2466
+#: lib/Horde/Core/ActiveSync/Driver.php:2463
 msgid "Sent"
 msgstr "Gesendet"
 
@@ -898,29 +898,29 @@ msgstr ""
 "Die E-Mail-Adresse %s wurde zu Ihren Identitäten hinzugefügt. Sie können "
 "dieses Fenster jetzt schließen."
 
-#: lib/Horde.php:272
+#: lib/Horde.php:280
 msgid "The encryption features require a secure web connection."
 msgstr ""
 "Die Verschlüsselungsfunktionen benötigen eine sichere Serververbindung."
 
-#: lib/Horde.php:499
+#: lib/Horde.php:507
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "Die Datei %s sollte einen %s Eintrag enthalten."
 
-#: lib/Horde.php:490
+#: lib/Horde.php:498
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "Die Datei %s sollte einige %s Einträge enthalten."
 
-#: lib/Horde/Registry.php:2616
+#: lib/Horde/Registry.php:2617
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
 "Bei den folgenden Anwendungen sind Fehler aufgetreten, während die "
 "Benutzerdaten entfernt wurden: %s"
 
-#: lib/Horde/ErrorHandler.php:100
+#: lib/Horde/ErrorHandler.php:108
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -993,7 +993,7 @@ msgstr "Beim Speichern Ihrer Einstellungen sind Fehler aufgetreten."
 msgid "This is the notification log."
 msgstr "Hier werden alte Meldungen angezeigt."
 
-#: lib/Horde/Registry.php:499
+#: lib/Horde/Registry.php:505
 msgid "This system is currently deactivated."
 msgstr "Dieses System ist zur Zeit deaktiviert."
 
@@ -1025,7 +1025,7 @@ msgstr ""
 msgid "Toggle Alerts Log"
 msgstr "Alte Meldungen ein-/ausblenden"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2461
+#: lib/Horde/Core/ActiveSync/Driver.php:2458
 msgid "Trash"
 msgstr "Papierkorb"
 
@@ -1117,7 +1117,7 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Sie dürfen nicht mehr als %d Block erstellen."
 msgstr[1] "Sie dürfen nicht mehr als %d Blöcke erstellen."
 
-#: lib/Horde/Registry.php:2583
+#: lib/Horde/Registry.php:2584
 msgid "You are not allowed to remove user data."
 msgstr "Sie dürfen keine Benutzerdaten löschen."
 

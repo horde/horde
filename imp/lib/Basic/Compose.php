@@ -628,7 +628,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     'compose_requestToken' => $horde_token->get('imp.compose'),
                     'composeCache' => $composeCacheID,
                     'popup' => 1
-                  ));
+                ));
                 $discard_url = clone $cancel_url;
                 $discard_url->add('actionID', 'discard_compose');
             } else {

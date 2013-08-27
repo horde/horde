@@ -45,11 +45,6 @@ class Gollem_Factory_Vfs extends Horde_Core_Factory_Base
             $be_config = Gollem_Auth::getBackend($backend);
             $params = $be_config['params'];
 
-            if (!empty($params['password'])) {
-                $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-                $params['password'] = $secret->read($secret->getKey(), $params['password']);
-            }
-
             switch (Horde_String::lower($be_config['driver'])) {
             case 'sql':
             case 'sqlfile':

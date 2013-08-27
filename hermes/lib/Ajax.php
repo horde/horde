@@ -76,7 +76,8 @@ class Hermes_Ajax
             'client_name_field' => $conf['client']['field'],
             'has_review_edit' => $injector->getInstance('Horde_Perms')->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
             'has_review' => $registry->isAdmin(array('permission' => 'hermes:review')),
-            'has_timeadmin' => $registry->isAdmin(array('permission' => 'hermes:timeadmin'))
+            'has_timeadmin' => $registry->isAdmin(array('permission' => 'hermes:timeadmin')),
+            'has_deliverableadmin' => $registry->isAdmin(array('permission' => 'hermes:deliverables'))
         );
 
         /* Gettext strings used in core javascript files. */
@@ -90,6 +91,8 @@ class Hermes_Ajax
             'wrong_date_format' => sprintf(_("You used an unknown date format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),
             'timeentry' => _("Time Entry"),
             'edittime' => _("Editing Time Entry"),
+            'select_jobtype' => _("Select a Job Type"),
+            'missing_client' => _("You must select a client first.")
         );
 
         return $js_vars;

@@ -9,25 +9,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-12-29 19:23+0100\n"
-"PO-Revision-Date: 2012-12-30 17:54+0200\n"
-"Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
+"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"PO-Revision-Date: 2013-08-26 12:42+0100\n"
+"Last-Translator: Jozef Sudolsky <azurit@pobox.sk>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde/Crypt/Pgp.php:1262
+#: lib/Horde/Crypt/Pgp.php:1275
 msgid "A passphrase is required to decrypt a message."
 msgstr "Na dešifrovanie správy je potrebné heslo."
 
-#: lib/Horde/Crypt/Pgp.php:1333
+#: lib/Horde/Crypt/Pgp.php:1346
 msgid "A public PGP key is required to verify a signed message."
 msgstr "Na overenie podpísanej správy je potrebný verejný PGP kľúč."
 
-#: lib/Horde/Crypt/Pgp.php:1193
+#: lib/Horde/Crypt/Pgp.php:1206
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
@@ -70,7 +70,7 @@ msgstr "Vlastník certifikátu"
 msgid "Certificate Policies"
 msgstr "Pravidlá pre certifikáty"
 
-#: lib/Horde/Crypt/Pgp.php:436
+#: lib/Horde/Crypt/Pgp.php:448
 msgid "Comment"
 msgstr "Komentár"
 
@@ -78,20 +78,20 @@ msgstr "Komentár"
 msgid "Common Name"
 msgstr "Bežné meno"
 
-#: lib/Horde/Crypt/Pgp.php:968
+#: lib/Horde/Crypt/Pgp.php:980
 msgid "Connection refused to the public keyserver."
 msgstr "Kľúč bol zamietnutý serverom verejných kľúčov."
 
-#: lib/Horde/Crypt/Pgp.php:979
+#: lib/Horde/Crypt/Pgp.php:991
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
 msgstr "Kľúč bol zamietnutý serverom verejných kľúčov. Dôvod: %s (%s)"
 
-#: lib/Horde/Crypt/Pgp.php:1161
+#: lib/Horde/Crypt/Pgp.php:1174
 msgid "Could not PGP encrypt message: "
 msgstr "Nepodarilo sa zašifrovať správu pomocou PGP: "
 
-#: lib/Horde/Crypt/Pgp.php:1230
+#: lib/Horde/Crypt/Pgp.php:1243
 msgid "Could not PGP sign message: "
 msgstr "Nepodarilo sa podpísať správu pomocou PGP: "
 
@@ -103,7 +103,7 @@ msgstr "Nepodarilo sa zašifrovať správu pomocou S/MIME."
 msgid "Could not S/MIME sign message."
 msgstr "Nepodarilo sa podpísať správu pomocou S/MIME."
 
-#: lib/Horde/Crypt/Pgp.php:1301
+#: lib/Horde/Crypt/Pgp.php:1314
 msgid "Could not decrypt PGP data: "
 msgstr "Nepodarilo sa dešifrovať údaje pomocou PGP: "
 
@@ -111,11 +111,11 @@ msgstr "Nepodarilo sa dešifrovať údaje pomocou PGP: "
 msgid "Could not decrypt S/MIME data."
 msgstr "Nepodarilo sa dešifrovať S/MIME údaje."
 
-#: lib/Horde/Crypt/Pgp.php:661
+#: lib/Horde/Crypt/Pgp.php:673
 msgid "Could not determine the recipient's e-mail address."
 msgstr "Nepodarilo sa určiť e-mailovú adresu príjemcu."
 
-#: lib/Horde/Crypt/Pgp.php:762 lib/Horde/Crypt/Pgp.php:876
+#: lib/Horde/Crypt/Pgp.php:774 lib/Horde/Crypt/Pgp.php:888
 msgid "Could not obtain public key from the keyserver."
 msgstr "Nepodarilo sa získať verejný kľúč zo servera kľúčov."
 
@@ -127,7 +127,7 @@ msgstr "Krajina"
 msgid "Description"
 msgstr "Popis"
 
-#: lib/Horde/Crypt/Pgp.php:437
+#: lib/Horde/Crypt/Pgp.php:449
 msgid "E-Mail"
 msgstr "E-mail"
 
@@ -140,7 +140,7 @@ msgstr "Emailová adresa:"
 msgid "Error parsing S/MIME certficate: %s"
 msgstr "Chyba pri spracovaní S/MIME certifikátu: %s"
 
-#: lib/Horde/Crypt/Pgp.php:1610 lib/Horde/Crypt/Pgp.php:1618
+#: lib/Horde/Crypt/Pgp.php:1623 lib/Horde/Crypt/Pgp.php:1631
 msgid "Error while talking to pgp binary."
 msgstr "Chyba pri komunikácii s pgp."
 
@@ -149,7 +149,7 @@ msgstr "Chyba pri komunikácii s pgp."
 msgid "Error while talking to smime binary."
 msgstr "Chyba pri komunikácii s smime."
 
-#: lib/Horde/Crypt/Pgp.php:434
+#: lib/Horde/Crypt/Pgp.php:446
 msgid "Expiration Date"
 msgstr "Dátum expirácie"
 
@@ -157,7 +157,7 @@ msgstr "Dátum expirácie"
 msgid "Given Name"
 msgstr "Krstné meno"
 
-#: lib/Horde/Crypt/Pgp.php:438
+#: lib/Horde/Crypt/Pgp.php:450
 msgid "Hash-Algorithm"
 msgstr "Algoritmus hashovacej funkcie"
 
@@ -165,23 +165,23 @@ msgstr "Algoritmus hashovacej funkcie"
 msgid "Issuer"
 msgstr "Vydavateľ"
 
-#: lib/Horde/Crypt/Pgp.php:433
+#: lib/Horde/Crypt/Pgp.php:445
 msgid "Key Creation"
 msgstr "Vytvorenie kľúča"
 
-#: lib/Horde/Crypt/Pgp.php:440
+#: lib/Horde/Crypt/Pgp.php:452
 msgid "Key Fingerprint"
 msgstr "Digitálny odtlačok kľúča"
 
-#: lib/Horde/Crypt/Pgp.php:439
+#: lib/Horde/Crypt/Pgp.php:451
 msgid "Key ID"
 msgstr "ID kľúča"
 
-#: lib/Horde/Crypt/Pgp.php:435
+#: lib/Horde/Crypt/Pgp.php:447
 msgid "Key Length"
 msgstr "Dĺžka kľúča"
 
-#: lib/Horde/Crypt/Pgp.php:432
+#: lib/Horde/Crypt/Pgp.php:444
 msgid "Key Type"
 msgstr "Typ kľúča"
 
@@ -189,7 +189,7 @@ msgstr "Typ kľúča"
 msgid "Key Usage"
 msgstr "Použitie kľúča"
 
-#: lib/Horde/Crypt/Pgp.php:785
+#: lib/Horde/Crypt/Pgp.php:797
 msgid "Key already exists on the public keyserver."
 msgstr "Kľúč už existuje na serveri verejných kľúčov."
 
@@ -208,11 +208,11 @@ msgstr ""
 msgid "Message verified successfully."
 msgstr "Správa bola úspešne overená."
 
-#: lib/Horde/Crypt/Pgp.php:431
+#: lib/Horde/Crypt/Pgp.php:443
 msgid "Name"
 msgstr "Meno"
 
-#: lib/Horde/Crypt/Pgp.php:463
+#: lib/Horde/Crypt/Pgp.php:475
 msgid "Never"
 msgstr "Nikdy"
 
@@ -224,7 +224,7 @@ msgstr ""
 "Nebola zadaná cesta k programu OpenSSL. Program OpenSSL je potrebný na prácu "
 "s údajmi PKCS 12."
 
-#: lib/Horde/Crypt/Pgp.php:465 lib/Horde/Crypt/Pgp.php:466
+#: lib/Horde/Crypt/Pgp.php:477 lib/Horde/Crypt/Pgp.php:478
 msgid "None"
 msgstr "Žiaden"
 
@@ -248,19 +248,19 @@ msgstr "Organizácia"
 msgid "Organisational Unit"
 msgstr "Organizačná jednotka"
 
-#: lib/Horde/Crypt/Pgp.php:1432
+#: lib/Horde/Crypt/Pgp.php:1445
 msgid "PGP Digital Signature"
 msgstr "Digitálny podpis PGP"
 
-#: lib/Horde/Crypt/Pgp.php:1476
+#: lib/Horde/Crypt/Pgp.php:1489
 msgid "PGP Encrypted Data"
 msgstr "Údaje zašifrované pomocou PGP"
 
-#: lib/Horde/Crypt/Pgp.php:1537
+#: lib/Horde/Crypt/Pgp.php:1550
 msgid "PGP Public Key"
 msgstr "PGP verejný kľúč"
 
-#: lib/Horde/Crypt/Pgp.php:1519
+#: lib/Horde/Crypt/Pgp.php:1532
 msgid "PGP Signed/Encrypted Data"
 msgstr "Údaje podpísané/zašifrované pomocou PGP"
 
@@ -268,33 +268,33 @@ msgstr "Údaje podpísané/zašifrované pomocou PGP"
 msgid "Password incorrect"
 msgstr "Nesprávne heslo"
 
-#: lib/Horde/Crypt/Pgp.php:461
+#: lib/Horde/Crypt/Pgp.php:473
 msgid "Private Key"
 msgstr "Privátny kľúč"
 
-#: lib/Horde/Crypt/Pgp.php:461
+#: lib/Horde/Crypt/Pgp.php:473
 msgid "Public Key"
 msgstr "Verejný kľúč"
 
-#: lib/Horde/Crypt/Pgp.php:231
+#: lib/Horde/Crypt/Pgp.php:243
 msgid "Public/Private keypair not generated successfully."
 msgstr "Verejný/privátny kľúčový pár nebol úspešne vygenerovaný."
 
-#: lib/Horde/Crypt/Pgp.php:233
+#: lib/Horde/Crypt/Pgp.php:245
 msgid "Returned error message:"
 msgstr "Navrátené chybové hlásenie:"
 
-#: lib/Horde/Crypt/Pgp.php:1670
+#: lib/Horde/Crypt/Pgp.php:1685
 msgid "Revocation key not generated successfully."
 msgstr "Revokačný kľúč nebol úspešne vytvorený."
-
-#: lib/Horde/Crypt/Smime.php:204
-msgid "S/MIME Cryptographic Signature"
-msgstr "S/MIME kryptografický podpis"
 
 #: lib/Horde/Crypt/Smime.php:238
 msgid "S/MIME Encrypted Message"
 msgstr "Správa zašifrovaná pomocou S/MIME"
+
+#: lib/Horde/Crypt/Smime.php:204
+msgid "S/MIME Signature"
+msgstr "S/MIME podpis"
 
 #: lib/Horde/Crypt/Smime.php:518
 msgid "Serial Number"
@@ -316,7 +316,7 @@ msgstr "Priezvisko"
 msgid "Telephone Number"
 msgstr "Telefónne číslo"
 
-#: lib/Horde/Crypt/Pgp.php:1337
+#: lib/Horde/Crypt/Pgp.php:1350
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
@@ -326,8 +326,8 @@ msgstr ""
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
 msgstr "Trieda Horde_Crypt_smime:: vyžaduje modul openssl."
 
-#: lib/Horde/Crypt/Pgp.php:467 lib/Horde/Crypt/Pgp.php:468
-#: lib/Horde/Crypt/Pgp.php:469
+#: lib/Horde/Crypt/Pgp.php:479 lib/Horde/Crypt/Pgp.php:480
+#: lib/Horde/Crypt/Pgp.php:481
 msgid "Unknown"
 msgstr "Neznáme"
 

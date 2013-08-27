@@ -32,12 +32,15 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     const UIDVALIDITY    = 'uidvalidity';
     const UIDNEXT        = 'uidnext';
     const HIGHESTMODSEQ  = 'highestmodseq';
+    const MESSAGES       = 'messages';
 
     /* Serialize version */
     const VERSION        = 1;
 
     /**
      * The folder's current message list.
+     * Note: This represents the folder list on the client and is affected by
+     * the FILTER on the collection.
      *
      * @var array
      */
@@ -162,7 +165,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
             foreach ($this->_added as $add) {
                 $this->_messages[] = $add;
             }
-            $this->_messages = array_intersect_key($this->_flags, array_flip($this->_messages));
+            $this->_messages = $this->_flags + array_flip($this->_messages);
         } else {
             foreach ($this->_added as $add) {
                 $this->_messages[] = $add;
@@ -213,6 +216,18 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         return empty($this->_status[self::HIGHESTMODSEQ])
             ? 0
             : $this->_status[self::HIGHESTMODSEQ];
+    }
+
+    /**
+     * Return the total, unfiltered number of messages in the folder.
+     *
+     * @return integer  The total number of messages.
+     */
+    public function total_messages()
+    {
+        return empty($this->_status[self::MESSAGES])
+            ? 0
+            : $this->_status[self::MESSAGES];
     }
 
     /**
@@ -310,7 +325,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     public function unserialize($data)
     {   $data = @unserialize($data);
         if (!is_array($data) || empty($data['v']) || $data['v'] != self::VERSION) {
-            throw new Horde_ActiveSync_Exception_StaleState('Cache vesion change');
+            throw new Horde_ActiveSync_Exception_StaleState('Cache version change');
         }
         $this->_status = $data['s'];
         $this->_messages = $data['m'];

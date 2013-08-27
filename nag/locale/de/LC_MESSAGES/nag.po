@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H5 (4.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"POT-Creation-Date: 2013-08-27 14:53+0200\n"
 "PO-Revision-Date: 2013-06-03 23:41+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -224,11 +224,11 @@ msgstr "Blocktitel"
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/Form/EditTaskList.php:115
+#: lib/Form/EditTaskList.php:116
 msgid "CalDAV Account URL"
 msgstr "CalDAV-Konto-Adresse"
 
-#: lib/Form/EditTaskList.php:106
+#: lib/Form/EditTaskList.php:107
 msgid "CalDAV Subscription URL"
 msgstr "CalDAV-Abonnement-Adresse"
 
@@ -237,7 +237,7 @@ msgid "Calendar"
 msgstr "Kalender"
 
 #: lib/Form/DeleteTaskList.php:43 lib/Form/DeleteTaskList.php:49
-#: lib/Form/EditTaskList.php:161 lib/Form/EditTaskList.php:180
+#: lib/Form/EditTaskList.php:164 lib/Form/EditTaskList.php:183
 #: templates/quick.inc:9 templates/smartmobile/taskform.html.php:62
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -246,7 +246,7 @@ msgstr "Abbrechen"
 msgid "Cannot add tasks to smart lists."
 msgstr "Aufgaben konnten nicht zur Smartliste hinzugefügt werden."
 
-#: lib/Form/EditTaskList.php:147
+#: lib/Form/EditTaskList.php:150
 msgid "Change Permissions"
 msgstr "Rechte Ändern"
 
@@ -405,19 +405,19 @@ msgstr "Fortschritt"
 msgid "Connection failed: %s"
 msgstr "Verbindung fehlgeschlagen: %s"
 
-#: lib/Form/EditTaskList.php:119
+#: lib/Form/EditTaskList.php:120
 msgid "Copy this URL to a CalDAV client to subscribe to all your task lists"
 msgstr ""
 "Kopieren Sie diese Adresse in ein CalDAV-Programm um alle Ihre "
 "Aufgabenlisten zu abonnieren."
 
-#: lib/Form/EditTaskList.php:110
+#: lib/Form/EditTaskList.php:111
 msgid "Copy this URL to a CalDAV client to subscribe to this task list"
 msgstr ""
 "Kopieren Sie diese Adresse in ein CalDAV-Programm um diese Aufgabenliste zu "
 "abonnieren."
 
-#: lib/Form/EditTaskList.php:133
+#: lib/Form/EditTaskList.php:136
 msgid "Copy this URL to a WebDAV or ICS client to subscribe to this task list"
 msgstr ""
 "Kopieren Sie diese Adresse in ein WebDAV- oder ICS-Programm um diese "
@@ -467,8 +467,8 @@ msgstr "Standardeinstellungen für neue Aufgaben"
 msgid "Delay Start Until"
 msgstr "Start verzögern bis"
 
-#: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:160
-#: lib/Form/EditTaskList.php:175 lib/Form/Task.php:143
+#: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:163
+#: lib/Form/EditTaskList.php:178 lib/Form/Task.php:143
 #: templates/smartmobile/taskform.html.php:63
 msgid "Delete"
 msgstr "Löschen"
@@ -909,7 +909,7 @@ msgstr "Aus der Suche entfernen"
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: lib/Form/EditTaskList.php:159 lib/Form/EditTaskList.php:168
+#: lib/Form/EditTaskList.php:162 lib/Form/EditTaskList.php:171
 #: lib/Form/Search.php:65 lib/Form/Task.php:141
 msgid "Save"
 msgstr "Speichern"
@@ -1348,7 +1348,7 @@ msgstr "Standard-Benachrichtigung verwenden"
 msgid "We would like to remind you of this due task."
 msgstr "Wir möchten Sie an diese fällige Aufgabe erinnern."
 
-#: lib/Form/EditTaskList.php:129
+#: lib/Form/EditTaskList.php:132
 msgid "WebDAV/ICS Subscription URL"
 msgstr "WebDAV/ICS-Abonnement-Adresse"
 

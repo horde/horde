@@ -42,34 +42,31 @@ class Horde_History_TestBase extends Horde_Test_Case
         self::$history->log('test_uid', array('who' => 'you', 'ts' => 2000, 'action' => 'yours_action'));
         self::$history->log('test_uid', array('who' => 'you', 'ts' => 2000, 'action' => 'yours_action'), true);
 
+        $expect = array(
+            1 => array(
+                'action' => 'test_action',
+                'desc'   => null,
+                'who'    => 'me',
+                'ts'     => 1000,
+            ),
+            2 => array(
+                'action' => 'test_action',
+                'desc'   => null,
+                'who'    => 'me',
+                'ts'     => 1000,
+            ),
+            4 => array(
+                'action' => 'yours_action',
+                'desc'   => '',
+                'who'    => 'you',
+                'ts'     => 2000,
+            ),
+        );
         $data = self::$history->getHistory('test_uid');
-        $expect = array(
-            'action' => 'test_action',
-            'desc'   => null,
-            'who'    => 'me',
-            'ts'     => 1000,
-        );
-        foreach ($expect as $key => $value) {
-            $this->assertEquals($value, $data[0][$key]);
-        }
-        $expect = array(
-            'action' => 'test_action',
-            'desc'   => null,
-            'who'    => 'me',
-            'ts'     => 1000,
-        );
-        foreach ($expect as $key => $value) {
-            $this->assertEquals($value, $data[1][$key]);
-        }
-
-        $expect = array(
-            'action' => 'yours_action',
-            'desc'   => '',
-            'who'    => 'you',
-            'ts'     => 2000,
-        );
-        foreach ($expect as $key => $value) {
-            $this->assertEquals($value, $data[2][$key]);
+        foreach ($data as $log) {
+            foreach ($expect[$log['modseq']] as $key => $value) {
+                $this->assertEquals($value, $log[$key]);
+            }
         }
     }
 
@@ -86,25 +83,26 @@ class Horde_History_TestBase extends Horde_Test_Case
     {
         self::$history->log('test_uid', array('who' => 'me', 'ts' => 1000, 'action' => 'test_action'));
         self::$history->log('test_uid', array('who' => 'you', 'ts' => 2000, 'action' => 'yours_action', 'extra' => array('a' => 'a')));
+        $expect = array(
+            1 => array(
+                'action' => 'test_action',
+                'desc'   => '',
+                'who'    => 'me',
+                'ts'     => 1000,
+            ),
+            2 => array(
+                'action' => 'yours_action',
+                'desc'   => '',
+                'who'    => 'you',
+                'ts'     => 2000,
+                'extra'  => array('a' => 'a'),
+            ),
+        );
         $data = self::$history->getHistory('test_uid');
-        $expect = array(
-            'action' => 'test_action',
-            'desc'   => '',
-            'who'    => 'me',
-            'ts'     => 1000,
-        );
-        foreach ($expect as $key => $value) {
-            $this->assertEquals($value, $data[0][$key]);
-        }
-        $expect = array(
-            'action' => 'yours_action',
-            'desc'   => '',
-            'who'    => 'you',
-            'ts'     => 2000,
-            'extra'  => array('a' => 'a'),
-        );
-        foreach ($expect as $key => $value) {
-            $this->assertEquals($value, $data[1][$key]);
+        foreach ($data as $log) {
+            foreach ($expect[$log['modseq']] as $key => $value) {
+                $this->assertEquals($value, $log[$key]);
+            }
         }
     }
 
@@ -265,9 +263,22 @@ class Horde_History_TestBase extends Horde_Test_Case
         $data = self::$history->getHistory('test_uid');
         $this->assertEquals($data[0]['modseq'], 1);
         self::$history->log('test_uid', array('who' => 'you', 'action' => 'your_action'));
+        $expect = array(
+            1 => array(
+                'who' => 'me',
+                'action' => 'test_action'
+            ),
+            2 => array(
+                'who' => 'you',
+                'action' => 'your_action'
+            )
+        );
         $data = self::$history->getHistory('test_uid');
-        $this->assertEquals($data[0]['modseq'], 1);
-        $this->assertEquals($data[1]['modseq'], 2);
+        foreach ($data as $log) {
+            foreach ($expect[$log['modseq']] as $key => $value) {
+                $this->assertEquals($value, $log[$key]);
+            }
+        }
     }
 
     public function testMethodLogHasPostConditionThatModSeqIsRecordedWhenLogIsOverwritten()
@@ -306,23 +317,29 @@ class Horde_History_TestBase extends Horde_Test_Case
 
         // Only have two unique UIDS.
         $result = self::$history->getByModSeq(0, 5);
-        $this->assertEquals(array('appone:test_uid' => 5, 'apptwo:test_uid' => 4), $result);
+        $this->assertCount(2, $result);
+        $this->assertArrayHasKey('appone:test_uid', $result);
+        $this->assertArrayHasKey('apptwo:test_uid', $result);
 
         $result = self::$history->getByModSeq(4, 8);
-        $this->assertEquals(array('appone:test_uid' => 8), $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey('appone:test_uid', $result);
 
         // Test using action filter.
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => 'test_special_action'));
         $result = self::$history->getByModSeq(0, 5, $filter);
-        $this->assertEquals(array('apptwo:test_uid' => 3), $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey('apptwo:test_uid', $result);
 
         // Test using parent
         $result = self::$history->getByModSeq(0, 5, array(), 'apptwo');
-        $this->assertEquals(array('apptwo:test_uid' => 4), $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey('apptwo:test_uid', $result);
 
         // Test parent AND filter
         $result = self::$history->getByModSeq(0, 5, $filter, 'apptwo');
-        $this->assertEquals(array('apptwo:test_uid' => 3), $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey('apptwo:test_uid', $result);
     }
 
     public function testConditionThatHigestModSeqPersistsAfterLogDeletion()
