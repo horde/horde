@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>13:01:44</time>
+ <date>2013-08-27</date>
+ <time>12:59:33</time>
  <version>
   <release>2.1.1</release>
   <api>2.1.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix unserialization notices in SQL driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -919,10 +919,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix unserialization notices in SQL driver.
    </notes>
   </release>
  </changelog>
