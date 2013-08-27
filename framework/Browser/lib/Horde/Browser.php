@@ -599,7 +599,8 @@ class Horde_Browser
                         $this->setFeature('utf');
                     }
                 }
-                if (stripos($agent, 'mobile') !== false) {
+                if (stripos($agent, 'mobile') !== false ||
+                    strpos($agent, 'RX-51 N900') !== false) {
                     $this->setMobile(true);
                 } elseif (stripos($agent, 'tablet') !== false) {
                     $this->setTablet(true);

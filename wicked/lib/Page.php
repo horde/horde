@@ -344,17 +344,18 @@ class Wicked_Page
         // Get content first, it might throw an exception.
         $inner = $this->displayContents(false);
 
+        $view = $injector->createInstance('Horde_View');
         $topbar = $injector->getInstance('Horde_View_Topbar');
         try {
-            $version = $this->version();
+            $view->version = $this->version();
             $diff_url = Horde::url('diff.php')
                 ->add(array(
                     'page' => $this->pageName(),
                     'v1' => '?',
-                    'v2' => $version
+                    'v2' => $view->version
                 ));
 
-            $diff_alt = sprintf(_("Show changes for %s"), $version);
+            $diff_alt = sprintf(_("Show changes for %s"), $view->version);
             $topbar->subinfo = $diff_url->link(array('title' => $diff_alt))
                 . sprintf(_("Last Modified %s by %s"),
                           $this->formatVersionCreated(),
@@ -363,14 +364,12 @@ class Wicked_Page
         } catch (Wicked_Exception $e) {
         }
 
-        $view = $injector->createInstance('Horde_View');
         $view->name = $this->pageName();
         if ($this->referrer()) {
             $view->referrer = Wicked::url($this->referrer())->link()
                 . htmlspecialchars($this->referrer()) . '</a>';
         }
         $view->isOld = $this->isOld();
-        $view->version = $version;
         $view->refresh = $this->pageUrl()
             ->link(array('title' => _("Reload Page")))
             . Horde::img('reload.png', _("Reload Page")) . '</a>';

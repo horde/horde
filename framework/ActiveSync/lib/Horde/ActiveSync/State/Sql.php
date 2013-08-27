@@ -828,15 +828,21 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function getLastSyncTimestamp($id = null, $user = null)
     {
-        if (empty($this->_deviceInfo) && empty($id) && empty($user)) {
+        if (empty($id) && empty($this->_deviceInfo)) {
             throw new Horde_ActiveSync_Exception('Device not loaded.');
         }
         $id = empty($id) ? $this->_deviceInfo->id : $id;
         $user = empty($user) ? $this->_deviceInfo->user : $user;
+        $params = array($id);
 
-        $sql = 'SELECT MAX(sync_timestamp) FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_user = ?';
+        $sql = 'SELECT MAX(sync_timestamp) FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ?';
+        if (!empty($user)) {
+            $sql .= ' AND sync_user = ?';
+            $params[] = $user;
+        }
+
         try {
-            return $this->_db->selectValue($sql, array($id, $user));
+            return $this->_db->selectValue($sql, $params);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -900,7 +906,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     !empty($options['ping']),
                     $this->_folder->haveInitialSync
                 );
-                $this->_folder->updateState();
+                if (empty($options['ping'])) {
+                    $this->_folder->updateState();
+                }
             } else {
                 $changes = array();
             }
@@ -1119,7 +1127,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function removeState(array $options)
     {
         $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE';
-        $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE';
+        $map_query = 'DELETE FROM %TABLE% WHERE';
+
         // If the device is flagged as wiped, and we are removing the state,
         // we MUST NOT restrict to user since it will not remove the device's
         // device table entry, and the device will continue to be wiped each
@@ -1205,7 +1214,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         try {
             $this->_db->delete($state_query, $state_values);
-            $this->_db->delete($map_query, $state_values);
+            $this->_db->delete(
+                str_replace('%TABLE%', $this->_syncMapTable, $map_query),
+                $state_values);
+            $this->_db->delete(
+                str_replace('%TABLE%', $this->_syncMailMapTable, $map_query),
+                $state_values);
+
             if (!empty($user_query)) {
                 $this->_db->delete($user_query, $values);
             }

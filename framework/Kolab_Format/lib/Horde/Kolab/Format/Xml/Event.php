@@ -78,8 +78,7 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
         $object = parent::load($xml, $options);
         if ($object['end-date']['date-only']) {
             $object['end-date']['date']
-                ->add(new DateInterval('P1D'))
-                ->sub(new DateInterval('PT1S'));
+                ->add(new DateInterval('P1D'));
         }
         $object['start-date'] = $object['start-date']['date'];
         $object['end-date'] = $object['end-date']['date'];
@@ -106,6 +105,14 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
         if (!empty($object['_is_all_day'])) {
             $this->_fields_specific['start-date'] = 'Horde_Kolab_Format_Xml_Type_EventDate';
             $this->_fields_specific['end-date'] = 'Horde_Kolab_Format_Xml_Type_EventDate';
+
+            $end_date = clone $object['end-date'];
+            if ($end_date->hour == 0 && $end_date->min == 0 && $end_date->sec == 0)
+            {
+                // move date to previous day 23:59:59. We cut off the time anyway.
+                $end_date->sub(new DateInterval('PT1S'));
+                $object['end-date'] = $end_date;
+            }
         }
         return parent::save($object, $options);
     }

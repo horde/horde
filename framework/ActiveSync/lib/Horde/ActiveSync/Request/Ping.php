@@ -107,6 +107,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $this->_procid,
             $now));
 
+        // Check global errors.
+        if ($error = $this->_activeSync->checkGlobalError()) {
+            $this->_statusCode = $error;
+            $this->_handleGlobalError();
+            return true;
+        }
+
         // Initialize the collections handler.
         try {
             $collections = $this->_activeSync->getCollectionsObject();

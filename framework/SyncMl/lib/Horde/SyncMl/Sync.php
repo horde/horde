@@ -700,10 +700,12 @@ class Horde_SyncMl_Sync
                                               $this->_serverAnchorNext);
 
         $s = sprintf(
-            'Finished sync of database %s. Failures: %d; '
+            'Finished sync of database %s user %s dev %s. Failures: %d; '
             . 'changes from client (Add, Replace, Delete, AddReplaces): %d, %d, %d, %d; '
             . 'changes from server (Add, Replace, Delete): %d, %d, %d',
             $this->_targetLocURI,
+       $GLOBALS['backend']->getuser(),
+       $GLOBALS['backend']->getSyncDeviceID(),
             $this->_errors,
             $this->_client_add_count,
             $this->_client_replace_count,

@@ -122,18 +122,18 @@ install any dependencies of Ansel too. If you want to install Ansel with all
 optional dependencies, but without the binary PECL packages that need to be
 compiled, specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/ansel-alpha
+   pear install -a -B horde/ansel
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/ansel-alpha
+   pear install horde/ansel
 
 If you want to install Ansel even with all binary dependencies, you need to
 remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
-   pear install -a horde/ansel-alpha
+   pear install -a horde/ansel
 
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~

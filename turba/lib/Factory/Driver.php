@@ -46,6 +46,7 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
     public function create($name)
     {
         if (is_array($name)) {
+            ksort($name);
             $key = md5(serialize($name));
             $srcName = '';
             $srcConfig = $name;

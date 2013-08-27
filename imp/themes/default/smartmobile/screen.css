@@ -109,7 +109,6 @@
 .mimeHeaders {
     border: 1px solid #ccc;
     background: #f9f9f9;
-    display: -moz-inline-stack;
     display: inline-block;
     margin: 5px 0 3px 0;
     padding: 5px;

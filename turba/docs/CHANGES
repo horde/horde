@@ -6,6 +6,17 @@ v4.2.0-git
 
 
 ------
+v4.1.2
+------
+
+[jan] Fix fatal errors if DAV support is disabled (Bug #12481).
+[mjr] Fix deleting multiple contacts via the API (Bug #12554).
+[mjr] Fix issue generating contact hashes from EAS contacts that could prevent
+      duplicate contact detection from working when certain properties have
+      empty values (Bug #12506).
+
+
+------
 v4.1.1
 ------
 

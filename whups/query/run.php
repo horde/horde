@@ -71,6 +71,7 @@ if ($whups_query->id) {
 
 $title = $whups_query->name ? $whups_query->name : _("Query Results");
 Whups::addFeedLink();
+$page_output->ajax = true;
 $page_output->header(array('title' => $title));
 $notification->notify(array('listeners' => 'status'));
 

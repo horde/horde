@@ -68,33 +68,36 @@ class Turba_Form_EditAddressBook extends Horde_Form
             $carddavUrl = $url . '/rpc.php/addressbooks/';
             $accountUrl = $url . '/rpc.php/';
         }
-        $accountUrl = Horde::url($accountUrl, true, -1)
-            . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
-        if ($addressbook->get('owner')) {
-            $carddavUrl = Horde::url($carddavUrl, true, -1)
-                . $addressbook->get('owner')
-                . '/'
-                . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($addressbook->getName(), 'contacts')
-                . '/';
+        try {
+            $accountUrl = Horde::url($accountUrl, true, -1)
+                . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
+            if ($addressbook->get('owner')) {
+                $carddavUrl = Horde::url($carddavUrl, true, -1)
+                    . $addressbook->get('owner')
+                    . '/'
+                    . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($addressbook->getName(), 'contacts')
+                    . '/';
+                $this->addVariable(
+                     _("CardDAV Subscription URL"), '', 'link', false, false, null,
+                     array(array(
+                         'url' => $carddavUrl,
+                         'text' => $carddavUrl,
+                     'title' => _("Copy this URL to a CardDAV client to subscribe to this address book"),
+                         'target' => '_blank')
+                     )
+                );
+            }
             $this->addVariable(
-                 _("CardDAV Subscription URL"), '', 'link', false, false, null,
+                 _("CardDAV Account URL"), '', 'link', false, false, null,
                  array(array(
-                     'url' => $carddavUrl,
-                     'text' => $carddavUrl,
-                 'title' => _("Copy this URL to a CardDAV client to subscribe to this address book"),
+                     'url' => $accountUrl,
+                     'text' => $accountUrl,
+                 'title' => _("Copy this URL to a CarddAV client to subscribe to all your address books"),
                      'target' => '_blank')
                  )
             );
+        } catch (Horde_Exception $e) {
         }
-        $this->addVariable(
-             _("CardDAV Account URL"), '', 'link', false, false, null,
-             array(array(
-                 'url' => $accountUrl,
-                 'text' => $accountUrl,
-             'title' => _("Copy this URL to a CarddAV client to subscribe to all your address books"),
-                 'target' => '_blank')
-             )
-        );
         $webdavUrl = Horde::url($webdavUrl, true, -1)
             . ($addressbook->get('owner')
                ? $addressbook->get('owner')

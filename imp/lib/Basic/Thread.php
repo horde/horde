@@ -202,7 +202,10 @@ class IMP_Basic_Thread extends IMP_Basic_Base
      */
     static public function url(array $opts = array())
     {
-        return Horde::url('basic.php')->add('page', 'thread')->unique();
+        return Horde::url('basic.php')
+            ->add('page', 'thread')
+            ->unique()
+            ->setRaw(!empty($opts['full']));
     }
 
 }
