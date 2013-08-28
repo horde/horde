@@ -367,13 +367,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_connect();
 
         $first_login = empty($this->_init['authmethod']);
+        $secure = $this->getParam('secure');
 
         // Switch to secure channel if using TLS.
         if (!$this->isSecureConnection() &&
-            ($this->getParam('secure') == 'tls')) {
+            (($secure === 'tls') ||
+             (($secure === true) && $this->queryCapability('LOGINDISABLED')))) {
             if ($first_login && !$this->queryCapability('STARTTLS')) {
-                // We should never hit this - STARTTLS is required pursuant
-                // to RFC 3501 [6.2.1].
+                /* We should never hit this - STARTTLS is required pursuant to
+                 * RFC 3501 [6.2.1]. */
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Server does not support TLS connections."),
                     Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
@@ -543,8 +545,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_temp['no_cap'] = true;
         }
 
-        /* Get greeting information.  This is untagged so we need to specially
-         * deal with it here. */
+        /* Get greeting information (untagged response). */
         try {
             $this->_getLine($this->_pipeline());
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
