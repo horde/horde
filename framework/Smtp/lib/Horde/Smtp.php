@@ -500,6 +500,19 @@ class Horde_Smtp implements Serializable
         try {
             $this->_getResponse(354, 'reset');
         } catch (Horde_Smtp_Exception $e) {
+            /* This is the place where a STARTTLS 530 error would occur. If
+             * so, explicitly use STARTTLS and try again. */
+            switch ($e->getSmtpCode()) {
+            case 530:
+                if (!$this->isSecureConnection()) {
+                    $this->logout();
+                    $this->setParam('secure', 'tls');
+                    $this->send($from, $to, $data, $opts);
+                    return;
+                }
+                break;
+            }
+
             throw ($error ? $error : $e);
         }
 
