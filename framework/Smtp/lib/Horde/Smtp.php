@@ -590,7 +590,7 @@ class Horde_Smtp implements Serializable
         $secure = $this->getParam('secure');
 
         if ($this->isSecureConnection() ||
-            (($secure !== true) && $secure != 'tls')) {
+            (($secure !== true) && ($secure !== 'tls'))) {
             return false;
         }
 

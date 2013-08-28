@@ -73,11 +73,7 @@ class Horde_Smtp_Connection
 
         $this->_debug = $debug;
 
-        if ($secure === true) {
-            $secure = 'tls';
-        }
-
-        switch ($secure) {
+        switch (strval($secure)) {
         case 'ssl':
         case 'sslv2':
         case 'sslv3':
@@ -156,7 +152,7 @@ class Horde_Smtp_Connection
     public function startTls()
     {
         if ($this->connected &&
-            !$this->_secure &&
+            !$this->secure &&
             (@stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) === true)) {
             $this->_secure = true;
             return true;
