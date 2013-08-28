@@ -767,7 +767,10 @@ class Horde_Smtp implements Serializable
             break;
 
         case 'reset':
-            $this->resetCmd();
+            /* RFC 3207: If we see 530, no need to send reset command. */
+            if ($code != 530) {
+                $this->resetCmd();
+            }
             break;
         }
 
