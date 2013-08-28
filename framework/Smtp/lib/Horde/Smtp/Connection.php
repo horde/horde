@@ -63,10 +63,19 @@ class Horde_Smtp_Connection
     {
         if (($secure = $client->getParam('secure')) &&
             !extension_loaded('openssl')) {
-            throw new InvalidArgumentException('Secure connections require the PHP openssl extension.');
+            if ($secure !== true) {
+                throw new InvalidArgumentException('Secure connections require the PHP openssl extension.');
+            }
+
+            $secure = false;
+            $client->setParam('secure', $secure);
         }
 
         $this->_debug = $debug;
+
+        if ($secure === true) {
+            $secure = 'tls';
+        }
 
         switch ($secure) {
         case 'ssl':

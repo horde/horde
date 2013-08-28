@@ -106,13 +106,14 @@ class Horde_Smtp implements Serializable
      *  </li>
      *  <li>
      *   secure: (string) Use SSL or TLS to connect.
-     *           DEFAULT: No encryption
+     *           DEFAULT: true (use TLS, if available)
      *   <ul>
      *    <li>false (No encryption)</li>
      *    <li>'ssl' (Auto-detect SSL version)</li>
      *    <li>'sslv2' (Force SSL version 3)</li>
      *    <li>'sslv3' (Force SSL version 2)</li>
      *    <li>'tls' (TLS)</li>
+     *    <li>true (Use TLS, if available) [@since 1.2.0]</li>
      *   </ul>
      *  </li>
      *  <li>
@@ -136,7 +137,7 @@ class Horde_Smtp implements Serializable
         $params = array_merge(array(
             'host' => 'localhost',
             'port' => 25,
-            'secure' => false,
+            'secure' => true,
             'timeout' => 30
         ), array_filter($params));
 
@@ -573,12 +574,18 @@ class Horde_Smtp implements Serializable
      */
     protected function _startTls()
     {
+        $secure = $this->getParam('secure');
+
         if ($this->isSecureConnection() ||
-            ($this->getParam('secure') != 'tls')) {
+            (($secure !== true) && $secure != 'tls')) {
             return false;
         }
 
         if (!$this->queryExtension('STARTTLS')) {
+            if ($secure === true) {
+                return false;
+            }
+
             throw new Horde_Smtp_Exception(
                 Horde_Smtp_Translation::t("Server does not support TLS connections."),
                 Horde_Smtp_Exception::LOGIN_TLSFAILURE

@@ -12,8 +12,8 @@
  </lead>
  <date>2013-08-22</date>
  <version>
-  <release>1.1.1</release>
-  <api>1.1.0</api>
+  <release>1.2.0</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Change default security to use TLS, if available.
 * [mms] Fix storing password object in the Horde_Smtp object.
  </notes>
  <contents>
@@ -171,14 +172,15 @@
   </release>
   <release>
    <version>
-    <release>1.1.1</release>
-    <api>1.1.0</api></version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-08-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Change default security to use TLS, if available.
 * [mms] Fix storing password object in the Horde_Smtp object.
    </notes>
   </release>
