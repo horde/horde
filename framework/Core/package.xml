@@ -29,14 +29,10 @@
   <active>yes</active>
  </developer>
  <date>2013-08-27</date>
-<<<<<<< HEAD
- <time>12:09:33</time>
-=======
- <time>11:35:31</time>
->>>>>>> Add Horde config for x509 driver, and update package.xml
+ <time>23:44:27</time>
  <version>
-  <release>2.7.1</release>
-  <api>2.7.0</api>
+  <release>2.8.0</release>
+  <api>2.8.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -44,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [rla] Add support for external links in topbar (Feature #11977).
+* [mjr] Add X509 client certificate authentication support.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3129,7 +3125,20 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Fix active session counting from CLI script (Bug #12628).
+* [rla] Add support for external links in topbar (Feature #11977).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.0</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Add X509 client certificate authentication support.
    </notes>
   </release>
  </changelog>
