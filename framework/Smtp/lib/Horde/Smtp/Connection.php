@@ -147,7 +147,7 @@ class Horde_Smtp_Connection
     public function startTls()
     {
         if ($this->connected &&
-            !$this->secure &&
+            !$this->_secure &&
             (@stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) === true)) {
             $this->_secure = true;
             return true;
