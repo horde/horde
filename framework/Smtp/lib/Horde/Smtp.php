@@ -265,7 +265,7 @@ class Horde_Smtp implements Serializable
     {
         switch ($key) {
         case 'password':
-            if ($this->_params[$key] instanceof Horde_Smtp_Password) {
+            if ($val instanceof Horde_Smtp_Password) {
                 break;
             }
 
