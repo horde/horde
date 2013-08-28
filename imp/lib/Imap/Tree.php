@@ -25,6 +25,7 @@
  * @package   IMP
  *
  * @property-read boolean $changed  Has the tree changed?
+ * @property-read string $inbox  The INBOX mailbox string.
  * @property-read integer $unseen  The number of unseen messages counted
  *                                 during the last tree iteration.
  */
@@ -194,6 +195,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         case 'changed':
             return $this->_changed;
 
+        case 'inbox':
+            return 'INBOX';
+
         case 'unseen':
             return $this->_unseen;
         }
@@ -342,11 +346,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $tmp = array();
         foreach ($result as $val) {
-            $tmp[strval($val['mailbox'])] = $val;
+            $tmp[$val['mailbox'] = $this->_normalize($val['mailbox'])] = $val;
         }
+
         $this->_cache[$showunsub ? 'fulllist' : 'subscribed'] = $tmp;
 
-        return $result;
+        return $tmp;
     }
 
     /**
@@ -366,11 +371,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _makeElt($name, $attributes = 0)
     {
+        $name = $this->_normalize($name);
+
         $elt = array(
             'a' => $attributes,
             'c' => 0,
             'p' => self::BASE_ELT,
-            'v' => strval($name)
+            'v' => $name
         );
 
         /* Check for polled status. */
@@ -432,7 +439,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 if (strpos($elt['p'], $ns_info['delimiter']) === false) {
                     $elt['p'] = self::BASE_ELT;
                 } elseif (strpos($elt['v'], $ns_info['name'] . 'INBOX' . $ns_info['delimiter']) === 0) {
-                    $elt['p'] = 'INBOX';
+                    $elt['p'] = $this->inbox;
                 }
             }
             break;
@@ -469,7 +476,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function expand($mbox, $expandall = false)
     {
-        $mbox = $this->_convertName($mbox);
+        $mbox = $this->_normalize($mbox);
 
         if (!isset($this->_tree[$mbox])) {
             return;
@@ -498,7 +505,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function collapse($mbox)
     {
-        $mbox = $this->_convertName($mbox);
+        $mbox = $this->_normalize($mbox);
 
         if (isset($this->_tree[$mbox])) {
             $this->_changed = true;
@@ -602,7 +609,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $parts = is_null($val['delimiter'])
                 ? array($key)
                 : explode($val['delimiter'], $key);
-            $parts[0] = $this->_convertName($parts[0]);
             for ($i = 1, $p_count = count($parts); $i <= $p_count; ++$i) {
                 $part = implode($val['delimiter'], array_slice($parts, 0, $i));
 
@@ -619,7 +625,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     if (!$sub_pref ||
                         (($i == $p_count) &&
                          (($sub === true) ||
-                          ($key == 'INBOX') ||
+                          ($key == $this->inbox) ||
                           in_array('\subscribed', $val['attributes'])))) {
                         $attributes |= self::ELT_IS_SUBSCRIBED;
                     } elseif (is_null($sub) && ($i == $p_count)) {
@@ -717,7 +723,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return true;
         }
 
-        $id = $this->_convertName($id);
+        $id = $this->_normalize($id);
         $vfolder_base = ($id == self::VFOLDER_KEY);
         $search_id = $GLOBALS['injector']->getInstance('IMP_Search')->createSearchId($id);
 
@@ -749,7 +755,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $ns_info = $this->_getNamespace($id);
 
-        if (($id == 'INBOX') ||
+        if (($id == $this->inbox) ||
             !isset($this->_tree[$id]) ||
             ($id == $ns_info['name'])) {
             return false;
@@ -822,7 +828,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         foreach ($id as $val) {
-            $val = $this->_convertName($val);
+            $val = $this->_normalize($val);
             if (isset($this->_tree[$val])) {
                 $this->_changed = true;
                 $this->_setSubscribed($this->_tree[$val], true);
@@ -848,10 +854,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         foreach ($id as $val) {
-            $val = $this->_convertName($val);
+            $val = $this->_normalize($val);
 
             /* INBOX can never be unsubscribed to. */
-            if (isset($this->_tree[$val]) && ($val != 'INBOX')) {
+            if (isset($this->_tree[$val]) && ($val != $this->inbox)) {
                 $this->_changed = true;
 
                 $elt = &$this->_tree[$val];
@@ -1393,12 +1399,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $basesort = $othersort = array();
         /* INBOX always appears first. */
-        $sorted = array('INBOX');
+        $sorted = array($this->inbox);
 
         foreach ($mbox as $key => $val) {
             if ($this->isNonImapElt($this->_tree[$val])) {
                 $othersort[$key] = IMP_Mailbox::get($val)->label;
-            } elseif ($val !== 'INBOX') {
+            } elseif ($val !== $this->inbox) {
                 $basesort[$key] = IMP_Mailbox::get($val)->label;
             }
         }
@@ -1413,19 +1419,18 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Convert a mailbox name to the correct, internal name (i.e. make sure
-     * INBOX is always capitalized for IMAP servers).
+     * Normalize a mailbox name to the correct, internal name.
      *
      * @param string $name  The mailbox name.
      *
      * @return string  The converted name.
      */
-    protected function _convertName($name)
+    protected function _normalize($name)
     {
         $str = strval($name);
 
-        return ((strlen($str) == 5) && (strcasecmp($str, 'INBOX') == 0))
-            ? 'INBOX'
+        return (strcasecmp($str, $this->inbox) == 0)
+            ? $this->inbox
             : $str;
     }
 
@@ -1819,7 +1824,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return $in;
         }
 
-        $in = $this->_convertName($in);
+        $in = $this->_normalize($in);
 
         return isset($this->_tree[$in])
             ? $this->_tree[$in]
@@ -1999,13 +2004,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
     public function offsetExists($offset)
     {
-        return isset($this->_tree[$this->_convertName($offset)]);
+        return isset($this->_tree[$this->_normalize($offset)]);
     }
 
     public function offsetGet($offset)
     {
         return $this->offsetExists($offset)
-            ? IMP_Mailbox::get($this->_convertName($offset))
+            ? IMP_Mailbox::get($this->_normalize($offset))
             : null;
     }
 

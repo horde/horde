@@ -19,6 +19,8 @@
  * @copyright 2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
+ *
+ * @property-read string $prefix  Mailbox prefix.
  */
 class IMP_Imap_Tree_Remote extends IMP_Imap_Tree
 {
@@ -47,6 +49,22 @@ class IMP_Imap_Tree_Remote extends IMP_Imap_Tree
 
     /**
      */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'inbox':
+            return $this->prefix . parent::__get($name);
+
+        case 'prefix':
+            return $this->_imapkey . "\0";
+
+        default:
+            return parent::__get($name);
+        }
+    }
+
+    /**
+     */
     protected function _initRemote()
     {
     }
@@ -59,10 +77,13 @@ class IMP_Imap_Tree_Remote extends IMP_Imap_Tree
 
     /**
      */
-    protected function _makeElt($name, $attributes = 0)
+    protected function _normalize($name)
     {
-        $name = $this->_imapkey . "\0" . $name;
-        return parent::_makeElt($name, $attributes);
+        $prefix = $this->prefix;
+
+        return (strpos($name, $prefix) === 0)
+            ? strval($name)
+            : parent::_normalize($prefix . $name);
     }
 
     /**
