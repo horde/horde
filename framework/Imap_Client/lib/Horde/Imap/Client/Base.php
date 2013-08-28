@@ -91,6 +91,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected $_debug = null;
 
     /**
+     * The default ports to use for a connection.
+     * First element is non-secure, second is SSL.
+     *
+     * @var array
+     */
+    protected $_defaultPorts = array();
+
+    /**
      * The fetch data object type to return.
      *
      * @var string
@@ -277,8 +285,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (!isset($params['port'])) {
             $params['port'] = (isset($params['secure']) && in_array($params['secure'], array('ssl', 'sslv2', 'sslv3')))
-                ? 993
-                : 143;
+                ? $this->_defaultPorts[1]
+                : $this->_defaultPorts[0];
         }
 
         if (empty($params['cache'])) {

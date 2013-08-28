@@ -130,6 +130,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected $_cmdQueue = array();
 
     /**
+     * The default ports to use for a connection.
+     *
+     * @var array
+     */
+    protected $_defaultPorts = array(143, 993);
+
+    /**
      * Mapping of status fields to IMAP names.
      *
      * @var array

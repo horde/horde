@@ -75,6 +75,13 @@
 class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 {
     /**
+     * The default ports to use for a connection.
+     *
+     * @var array
+     */
+    protected $_defaultPorts = array(110, 995);
+
+    /**
      * The list of deleted messages.
      *
      * @var array
@@ -87,17 +94,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * @var string
      */
     protected $_fetchDataClass = 'Horde_Imap_Client_Data_Fetch_Pop3';
-
-    /**
-     */
-    public function __construct(array $params = array())
-    {
-        parent::__construct($params);
-
-        if (empty($params['port'])) {
-            $this->setParam('port', in_array($this->getParam('secure'), array('ssl', 'sslv2', 'sslv3')) ? 995 : 110);
-        }
-    }
 
     /**
      */
