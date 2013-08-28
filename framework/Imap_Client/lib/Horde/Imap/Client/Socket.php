@@ -412,9 +412,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // Add authentication methods.
             $auth_mech = array();
 
-            if ($auth = $this->queryCapability('AUTH')) {
-                $auth = array_flip($auth);
-            }
+            $auth = ($auth = $this->queryCapability('AUTH'))
+                ? array_flip($auth)
+                : array();
 
             // XOAUTH2
             if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
