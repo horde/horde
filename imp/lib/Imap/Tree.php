@@ -717,7 +717,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return true;
         }
 
-        $id = $this->_convertName($id, true);
+        $id = $this->_convertName($id);
         $vfolder_base = ($id == self::VFOLDER_KEY);
         $search_id = $GLOBALS['injector']->getInstance('IMP_Search')->createSearchId($id);
 
