@@ -69,7 +69,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $query = sprintf('SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_internal FROM %s WHERE alarm_dismissed = 0 AND ((alarm_snooze IS NULL AND alarm_start <= ?) OR alarm_snooze <= ?) AND (alarm_end IS NULL OR alarm_end >= ?)%s ORDER BY alarm_start, alarm_end',
                          $this->_params['table'],
                          is_null($user) ? '' : ' AND (alarm_uid IS NULL OR alarm_uid = ? OR alarm_uid = ?)');
-        $dt = $time->setTimezone('UTC')->format('Y-m-d\TH:i:s');
+        $dt = $time->setTimezone('UTC')->format('Y-m-d H:i:s');
         $values = array($dt, $dt, $dt);
         if (!is_null($user)) {
             $values[] = '';
