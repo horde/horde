@@ -30,6 +30,7 @@ if ($files) {
     foreach ($files as $file) {
         $view->attachments[] = array_merge(
             array(
+                'timestamp' => $file['timestamp'],
                 'date' => strftime($format[0], $file['timestamp'])
                     . ' ' . strftime($format[1], $file['timestamp']),
                 'user' => Whups::formatUser(
@@ -51,6 +52,7 @@ if ($files) {
 Whups::addTopbarSearch();
 Whups::addFeedLink();
 $page_output->addLinkTag($ticket->feedLink());
+$page_output->addScriptFile('tables.js', 'horde');
 $page_output->header(array(
     'title' => sprintf(_("Attachments for %s"), '[#' . $id . '] ' . $ticket->get('summary'))
 ));
