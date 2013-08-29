@@ -795,7 +795,7 @@ class Horde_ActiveSync
                         'The device %s was disallowed for user %s per policy settings.',
                         $device->id,
                         $device->user);
-                    $this->logger->err($msg);
+                    self::$_logger->err($msg);
                     if ($version > self::VERSION_TWELVEONE) {
                         $this->_globalError = $callback_ret;
                     } else {
@@ -818,7 +818,7 @@ class Horde_ActiveSync
                         'The device %s was disallowed for user %s per policy settings.',
                         $device->id,
                         $device->user);
-                    $this->logger->err($msg);
+                    self::$_logger->err($msg);
                     if ($version > self::VERSION_TWELVEONE) {
                         $this->_globalError = $callback_ret;
                     } else {
