@@ -384,7 +384,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // Switch over to a TLS connection.
             // STARTTLS returns no untagged response.
-            $this->_sendCmd($this->_Command('STARTTLS'));
+            $this->_sendCmd($this->_command('STARTTLS'));
 
             if (!$this->_connection->startTls()) {
                 $this->logout();
