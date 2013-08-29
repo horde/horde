@@ -200,6 +200,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             } else {
                 $this->_sendLine('STLS');
 
+                $this->setParam('secure', 'tls');
+
                 if (!$this->_connection->startTls()) {
                     $this->logout();
                     throw new Horde_Imap_Client_Exception(
