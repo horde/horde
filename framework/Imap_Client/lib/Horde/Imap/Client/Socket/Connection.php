@@ -54,7 +54,7 @@ extends Horde_Imap_Client_Base_Connection
     {
         parent::__construct($base, $debug);
 
-        switch (strval($secure = $base->getParam('secure'))) {
+        switch ($secure = $base->getParam('secure')) {
         case 'ssl':
         case 'sslv2':
         case 'sslv3':

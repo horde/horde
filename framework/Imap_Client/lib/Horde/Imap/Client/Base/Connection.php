@@ -61,13 +61,8 @@ abstract class Horde_Imap_Client_Base_Connection
      */
     public function __construct(Horde_Imap_Client_Base $base, $debug)
     {
-        if (($secure = $base->getParam('secure')) &&
-            !extension_loaded('openssl')) {
-            if ($secure !== true) {
-                throw new InvalidArgumentException('Secure connections require the PHP openssl extension.');
-            }
-
-            $base->setParam('secure', false);
+        if ($base->getParam('secure') && !extension_loaded('openssl')) {
+            throw new InvalidArgumentException('Secure connections require the PHP openssl extension.');
         }
 
         $this->_debug = $debug;
