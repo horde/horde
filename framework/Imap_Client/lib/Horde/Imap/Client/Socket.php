@@ -394,6 +394,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 );
             }
 
+            $this->setParam('secure', 'tls');
+
             if ($first_login) {
                 // Expire cached CAPABILITY information (RFC 3501 [6.2.1])
                 $this->_setInit('capability');
