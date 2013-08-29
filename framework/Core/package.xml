@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-08-27</date>
- <time>12:09:33</time>
+ <date>2013-08-28</date>
+ <time>15:44:17</time>
  <version>
-  <release>2.7.1</release>
-  <api>2.7.0</api>
+  <release>2.8.0</release>
+  <api>2.8.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [rla] Add support for external links in topbar (Request #11977).
 * [mms] Fix active session counting from CLI script (Bug #12628).
  </notes>
  <contents>
@@ -3115,14 +3116,15 @@
   </release>
   <release>
    <version>
-    <release>2.7.1</release>
-    <api>2.7.0</api></version>
+    <release>2.8.0</release>
+    <api>2.8.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-08-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [rla] Add support for external links in topbar (Request #11977).
 * [mms] Fix active session counting from CLI script (Bug #12628).
    </notes>
   </release>

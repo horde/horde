@@ -57,7 +57,8 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
                     if ($file = Whups::getAttachments($ticket, $change['value'])) {
                         $changes[] = sprintf(
                             _("New Attachment: %s"),
-                            Whups::attachmentUrl($ticket, $file, $vars->get('queue')));
+                            implode(' ', Whups::attachmentUrl($ticket, $file, $vars->get('queue')))
+                        );
                     } else {
                         $changes[] = sprintf(
                             _("New Attachment: %s"),

@@ -1118,7 +1118,9 @@
        running Horde in a cluster (or behind a single web frontend), to use
        filesystem caching it is best to have every PHP backend server have
        access to a shared drive that is visible and mounted to the "static"
-       directory on the web frontend.
+       directory on the web frontend. (NOTE: if you manually change the CSS
+       files, you will need to manually delete the cached CSS static files to
+       see the changes.)
        </configdescription>
       </case>
       <case name="horde_cache" desc="Horde Cache">

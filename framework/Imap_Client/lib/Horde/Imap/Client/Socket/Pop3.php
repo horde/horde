@@ -75,6 +75,13 @@
 class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 {
     /**
+     * The default ports to use for a connection.
+     *
+     * @var array
+     */
+    protected $_defaultPorts = array(110, 995);
+
+    /**
      * The list of deleted messages.
      *
      * @var array
@@ -87,17 +94,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * @var string
      */
     protected $_fetchDataClass = 'Horde_Imap_Client_Data_Fetch_Pop3';
-
-    /**
-     */
-    public function __construct(array $params = array())
-    {
-        parent::__construct($params);
-
-        if (empty($params['port'])) {
-            $this->setParam('port', in_array($this->getParam('secure'), array('ssl', 'sslv2', 'sslv3')) ? 995 : 110);
-        }
-    }
 
     /**
      */
@@ -186,25 +182,33 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     {
         $this->_connect();
 
+        $secure = $this->getParam('secure');
+
         // Switch to secure channel if using TLS.
         if (!$this->isSecureConnection() &&
-            ($this->getParam('secure') == 'tls')) {
+            (($secure === 'tls') || $secure === true)) {
             // Switch over to a TLS connection.
             if (!$this->queryCapability('STLS')) {
-                throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("Could not open secure connection to the POP3 server.") . ' ' . Horde_Imap_Client_Translation::t("Server does not support secure connections."),
-                    Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
-                );
-            }
+                if ($secure === 'tls') {
+                    throw new Horde_Imap_Client_Exception(
+                        Horde_Imap_Client_Translation::t("Could not open secure connection to the POP3 server.") . ' ' . Horde_Imap_Client_Translation::t("Server does not support secure connections."),
+                        Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
+                    );
+                } else {
+                    $this->setParam('secure', false);
+                }
+            } else {
+                $this->_sendLine('STLS');
 
-            $this->_sendLine('STLS');
+                $this->setParam('secure', 'tls');
 
-            if (!$this->_connection->startTls()) {
-                $this->logout();
-                throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("Could not open secure connection to the POP3 server."),
-                    Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
-                );
+                if (!$this->_connection->startTls()) {
+                    $this->logout();
+                    throw new Horde_Imap_Client_Exception(
+                        Horde_Imap_Client_Translation::t("Could not open secure connection to the POP3 server."),
+                        Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
+                    );
+                }
             }
 
             // Expire cached CAPABILITY information

@@ -11,6 +11,17 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.15.0
+===================
+
+  - Horde_Imap_Client_Base
+
+    - Constructor
+
+      Added true as an option for the 'secure' configuration parameter. This
+      option is now the default.
+
+
 Upgrading to 2.14.0
 ===================
 
