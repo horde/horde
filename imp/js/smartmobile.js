@@ -729,7 +729,12 @@ var ImpMobile = {
         });
 
         data.headers.push({ name: IMP.text.subject, value: data.subject });
-        ImpMobile.headers = data.headers;
+        ImpMobile.headers = {
+            Cc: data.cc,
+            From: data.from,
+            headers: data.headers,
+            To: data.to
+        };
         ImpMobile.listmsg = (data.list_info && data.list_info.exists);
         ImpMobile.rowid = r.buid;
 
@@ -821,13 +826,47 @@ var ImpMobile = {
 
         h.children().remove();
 
-        $.each(ImpMobile.headers, function(k, header) {
+        $.each(ImpMobile.headers.headers, function(k, header) {
+            var td, tmp;
+
             if (header.value) {
+                td = $('<td class="imp-header-label-value"></td>');
+
+                switch (header.id) {
+                case 'Cc':
+                case 'From':
+                case 'To':
+                    tmp = ImpMobile.headers[header.id];
+
+                    if (tmp.raw) {
+                        td.html(tmp.raw);
+                    } else {
+                        $.each(tmp.addr, function(k2, addr) {
+                            if (addr.g) {
+                            } else if (addr.p || addr.b) {
+                                td.append(
+                                    $('<a></a>')
+                                        .attr('href', HordeMobile.createUrl('compose', { to: addr.b }))
+                                        .attr('data-role', 'button')
+                                        .attr('data-theme', 'b')
+                                        .text(addr.p ? (addr.p + ' <' + addr.b + '>') : addr.b)
+                                        .button()
+                                );
+                            }
+                        });
+                    }
+                    break;
+
+                default:
+                    td.html(header.value);
+                    break;
+                }
+
                 h.append($('<tr></tr>')
                     .append($('<td class="imp-header-label"></td>')
                         .html(header.name + ':'))
-                    .append($('<td></td>').html(header.value)
-                ));
+                    .append(td)
+                );
             }
         });
 

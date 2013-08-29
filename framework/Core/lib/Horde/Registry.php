@@ -685,7 +685,8 @@ class Horde_Registry
             if (!isset($app['status'])) {
                 $app['status'] = 'active';
             } elseif ($app['status'] == 'heading' ||
-                      $app['status'] == 'topbar') {
+                      $app['status'] == 'topbar'  ||
+                      $app['status'] == 'link') {
                 continue;
             }
 

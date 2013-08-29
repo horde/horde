@@ -15,7 +15,7 @@ class Whups_Form_TicketDetails extends Horde_Form
         $date_params = array($GLOBALS['prefs']->getValue('date_format'));
         $fields = array('summary', 'queue', 'version', 'type', 'state',
                         'priority', 'owner', 'requester', 'created', 'due',
-                        'updated', 'assigned', 'resolved', 'attachments');
+                        'updated', 'assigned', 'resolved');
         try {
             $attributes = $ticket->addAttributes();
         } catch (Whups_Exception $e) {
@@ -132,11 +132,6 @@ class Whups_Form_TicketDetails extends Horde_Form
                     $this->addVariable(
                         _("Resolved"), 'date_resolved', 'date', false, false,
                         null, $date_params);
-                    break;
-
-                case 'attachments':
-                    $this->addVariable(
-                        _("Attachments"), 'attachments', 'html', false);
                     break;
 
                 default:

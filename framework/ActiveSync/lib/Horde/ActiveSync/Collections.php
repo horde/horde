@@ -1162,12 +1162,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     $collection['serverid'],
                     $id));
                 $this->_cache->setPingableCollection($id);
-            } elseif (!empty($this->_collections[$id])) {
-                $this->_logger->notice(sprintf(
-                    'Received request to PING %s (%s), but we have an empty synckey (collection was not previously synched). Remembering collection, but not PINGing it.',
-                    $collection['serverid'],
-                    $id));
-                $this->_cache->setPingableCollection($id);
             } else {
                 $this->_logger->info(sprintf(
                     'UNSETTING collection %s (%s) PINGABLE flag.',
