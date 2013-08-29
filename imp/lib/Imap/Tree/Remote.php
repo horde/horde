@@ -65,6 +65,13 @@ class IMP_Imap_Tree_Remote extends IMP_Imap_Tree
 
     /**
      */
+    public function __toString()
+    {
+        return $this->_imapkey;
+    }
+
+    /**
+     */
     protected function _initRemote()
     {
     }
