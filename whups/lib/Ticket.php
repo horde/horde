@@ -481,7 +481,7 @@ class Whups_Ticket
         }
 
         // Get existing attachment names.
-        $used_names = $this->listAllAttachments();
+        $used_names = array_unique($this->listAllAttachments('value'));
 
         $dir = Whups::VFS_ATTACH_PATH . '/' . $this->_id;
         while ((array_search($attachment_name, $used_names) !== false) ||
@@ -552,25 +552,31 @@ class Whups_Ticket
      * Returns a list of all files that have been attached to this ticket,
      * whether they still exist or not.
      *
+     * @param string $filter  If set, only return this property of the change
+     *                        commit that included the attachment.
+     *
      * @return array  The list of file attachments
      * @throws Whups_Exception
      */
-    public function listAllAttachments()
+    public function listAllAttachments($filter = null)
     {
         $files = array();
         $history = $GLOBALS['whups_driver']->getHistory($this->_id);
         foreach ($history as $row) {
             if (isset($row['changes'])) {
-                foreach ($row['changes'] as $change) {
+                $changes = $row['changes'];
+                unset($row['changes']);
+                foreach ($changes as $change) {
                     if (isset($change['type']) &&
                         $change['type'] == 'attachment') {
-                        $files[] = $change['value'];
+                        $files[] = is_null($filter)
+                            ? array_merge($row, $change)
+                            : $change[$filter];
                     }
                 }
             }
         }
-
-        return array_unique($files);
+        return $files;
     }
 
     /**
@@ -640,21 +646,6 @@ class Whups_Ticket
         $vars->set('user_id_requester',
                    Whups::formatUser($this->get('user_id_requester')));
         $vars->set('user_id_owner', Whups::getOwners($this->_id));
-
-        /* Attachments. */
-        $attachments = array();
-        try {
-            $files = Whups::getAttachments($this->_id);
-        } catch (Whups_Exception $e) {
-            $GLOBALS['notification']->push($e->getMessage());
-        }
-        if ($files) {
-            foreach ($files as $file) {
-                $attachments[] = Whups::attachmentUrl(
-                    $this->_id, $file, $this->_details['queue']);
-            }
-            $vars->set('attachments', implode("<br />\n", $attachments));
-        }
     }
 
     /**
