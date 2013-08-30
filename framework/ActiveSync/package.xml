@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-08-30</date>
- <time>16:50:48</time>
+ <time>16:59:14</time>
  <version>
-  <release>2.7.0</release>
+  <release>2.7.1</release>
   <api>2.7.0</api>
  </version>
  <stability>
@@ -22,13 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix Wbxml output of SEARCH_TOTAL and SEARCH_RANGE values in SEARCH responses (Bug #12624).
-* [mjr] Allow reducing the amount of tag content that is logged to the Wbxml log.
-* [mjr] Fix broken wbxml in certain cases due to incorrect handling of encoding empty array values (Bug #12595).
-* [mjr] Detect IMAP message deletions on non-CONDSTORE servers during PING requests (Request #12597, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [mjr] Do not initiate a looping SYNC if there were any incoming changes, this prevents an unnecessary backend ping for each collection.
-* [mjr] Fix issue that could cause message deletions on the server to not be trasmitted to the client if the message falls outside of the FILTER window and the IMAP server does not support CONDSTORE.
-* [mjr] Don&apos;t filter out messages flagged as DELETED during initial sync request.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1644,6 +1638,19 @@
 * [mjr] Do not initiate a looping SYNC if there were any incoming changes, this prevents an unnecessary backend ping for each collection.
 * [mjr] Fix issue that could cause message deletions on the server to not be trasmitted to the client if the message falls outside of the FILTER window and the IMAP server does not support CONDSTORE.
 * [mjr] Don&apos;t filter out messages flagged as DELETED during initial sync request.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.1</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-08-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
