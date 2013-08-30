@@ -155,7 +155,7 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
                     array(
                         array('parselevel' => Horde_Text_Filter_Text2html::MICRO),
                         array(),
-                        array()));
+                        array('hideBlocks' => true)));
             if ($prefs->getValue('autolink_tickets') &&
                 $conf['prefs']['autolink_terms']) {
                 // Replace existing links by tokens to avoid double linking.
