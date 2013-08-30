@@ -160,8 +160,9 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                 IMP_Mailbox::CACHE_DISPLAY,
                 IMP_Mailbox::CACHE_LABEL
             ));
-            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete(strval($ob));
-            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($ob);
+            $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+            $imptree->delete($ob);
+            $imptree->insert($ob);
             break;
         }
 
@@ -500,9 +501,9 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                 if ($key == 'vfolders') {
                     $this->setVFolders($this->_search['vfolders']);
 
-                    $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-                    $imaptree->delete($value);
-                    $imaptree->insert($value);
+                    $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+                    $imptree->delete($value);
+                    $imptree->insert($value);
                 }
                 return;
             }

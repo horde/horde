@@ -46,7 +46,6 @@
  *                                      data information.
  * @property-read integer $changed  Has this object changed?
  * @property-read boolean $children  Does the element have children?
- * @property-read boolean $children_allowed  Can this element have children?
  * @property-read boolean $container  Is this a container element?
  * @property string $display  Display version of mailbox. Special mailboxes
  *                            are replaced with localized strings and
@@ -128,6 +127,9 @@
  *                                      query?
  * @property-read boolean $templates  Is this a Templates mailbox?
  * @property-read boolean $trash  Is this a Trash mailbox?
+ * @property-read IMP_Imap_Tree_Element $tree_elt  The tree element (null if
+ *                                                 it doesn't exist in the
+ *                                                 tree).
  * @property-read string $uidvalid  Returns the UIDVALIDITY string. Throws an
  *                                  IMP_Exception on error.
  * @property-read string $utf7imap  The UTF7-IMAP representation of this
@@ -280,7 +282,9 @@ class IMP_Mailbox implements Serializable
             throw new IMP_Exception('Mailbox name must not be empty.');
         }
 
-        $this->_mbox = $mbox;
+        $this->_mbox = ($mbox == IMP_Imap_Tree::BASE_ELT)
+            ? ''
+            : $mbox;
 
         if (!isset(self::$_temp[self::CACHE_HASACLHOOK])) {
             self::$_temp[self::CACHE_HASACLHOOK] = Horde::hookExists('mbox_acl', 'imp');
@@ -404,13 +408,10 @@ class IMP_Mailbox implements Serializable
             return $this->_changed;
 
         case 'children':
-            return $injector->getInstance('IMP_Imap_Tree')->hasChildren($this->_mbox);
-
-        case 'children_allowed':
-            return $injector->getInstance('IMP_Imap_Tree')->childrenAllowed($this->_mbox);
+            return (($elt = $this->tree_elt) && $elt->children);
 
         case 'container':
-            return $injector->getInstance('IMP_Imap_Tree')->isContainer($this->_mbox);
+            return (($elt = $this->tree_elt) && $elt->container);
 
         case 'display':
             return $this->nonimap
@@ -440,9 +441,8 @@ class IMP_Mailbox implements Serializable
                 return ($ob = $this->getSearchOb()) && $ob->enabled;
             }
 
-            $imaptree = $injector->getInstance('IMP_Imap_Tree');
-            if (isset($imaptree[$this->_mbox])) {
-                return !$imaptree[$this->_mbox]->container;
+            if ($elt = $this->tree_elt) {
+                return !$elt->container;
             }
 
             try {
@@ -472,13 +472,13 @@ class IMP_Mailbox implements Serializable
                     ((isset($p['display']) && empty($p['display'])) || $this->spam));
 
         case 'invisible':
-            return $injector->getInstance('IMP_Imap_Tree')->isInvisible($this->_mbox);
+            return (($elt = $this->tree_elt) && $elt->invisible);
 
         case 'is_imap':
             return $this->imp_imap->isImap();
 
         case 'is_open':
-            return $injector->getInstance('IMP_Imap_Tree')->isOpen($this->_mbox);
+            return (($elt = $this->tree_elt) && $elt->open);
 
         case 'label':
             if (!isset($this->_cache[self::CACHE_LABEL])) {
@@ -507,16 +507,13 @@ class IMP_Mailbox implements Serializable
                 : $this->_cache[self::CACHE_LABEL];
 
         case 'level':
-            $elt = $injector->getInstance('IMP_Imap_Tree')->getElement($this->_mbox);
-            return $elt
-                ? $elt['c']
-                : 0;
+            return ($elt = $this->tree_elt) ? $elt->level : 0;
 
         case 'list_ob':
             return $injector->getInstance('IMP_Factory_MailboxList')->create($this);
 
         case 'namespace':
-            return $injector->getInstance('IMP_Imap_Tree')->isNamespace($this->_mbox);
+            return (($elt = $this->tree_elt) && $elt->namespace);
 
         case 'namespace_append':
             $imp_imap = $this->imp_imap;
@@ -588,12 +585,10 @@ class IMP_Mailbox implements Serializable
 
         case 'nonimap':
             return ($this->search ||
-                    $injector->getInstance('IMP_Imap_Tree')->isNonImapElt($this->_mbox));
+                    (($elt = $this->tree_elt) && $elt->nonimap));
 
         case 'parent':
-            return ($elt = $injector->getInstance('IMP_Imap_Tree')->getElement($this->_mbox))
-                ? self::get($elt['p'])
-                : null;
+            return ($elt = $this->tree_elt) ? $elt->mbox_ob : null;
 
         case 'parent_imap':
             return (is_null($p = $this->parent) || ($p == IMP_Imap_Tree::BASE_ELT))
@@ -633,8 +628,8 @@ class IMP_Mailbox implements Serializable
             return $info;
 
         case 'polled':
-            return !$this->search &&
-                   $injector->getInstance('IMP_Imap_Tree')->isPolled($this->_mbox);
+            return (!$this->search &&
+                    (($elt = $this->tree_elt) && $elt->polled));
 
         case 'pref_from':
             return $this->prefFrom($this->_mbox);
@@ -712,7 +707,7 @@ class IMP_Mailbox implements Serializable
             return !$this->editvfolder;
 
         case 'sub':
-            return $injector->getInstance('IMP_Imap_Tree')->isSubscribed($this->_mbox);
+            return (($elt = $this->tree_elt) && $elt->subscribed);
 
         case 'subfolders':
             return $this->get(array_merge(array($this->_mbox), $this->subfolders_only));
@@ -730,6 +725,10 @@ class IMP_Mailbox implements Serializable
         case 'trash':
             $special = $this->getSpecialMailboxes();
             return ($this->_mbox == $special[self::SPECIAL_TRASH]);
+
+        case 'tree_elt':
+            $imptree = $injector->getInstance('IMP_Imap_Tree');
+            return $imptree[$this->_mbox];
 
         case 'uidvalid':
             // POP3 and non-IMAP mailboxes does not support UIDVALIDITY.
@@ -1386,6 +1385,19 @@ class IMP_Mailbox implements Serializable
         }
 
         return $out;
+    }
+
+    /**
+     * Determines the mailbox name to create given a parent and the new name.
+     *
+     * @param string $new  The new mailbox name (UTF-8).
+     *
+     * @return IMP_Mailbox  The new mailbox.
+     */
+    public function createMailboxName($new)
+    {
+        $ns_info = $this->namespace_info;
+        return self::get((strlen($this->_mbox) ? ($this->_mbox . $ns_info['delimiter']) : '') . $new);
     }
 
     /* Static methods. */

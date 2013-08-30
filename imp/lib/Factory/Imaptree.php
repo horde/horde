@@ -44,7 +44,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_
              * backend is setup. */
             $cache = $injector->getInstance('Horde_Cache');
             if ($cache instanceof Horde_Cache_Null) {
-                $this->_instance = $session->retrieve('imp_imaptree');
+                $this->_instance = $session->retrieve('imp_tree');
             } else {
                 try {
                     $this->_instance = @unserialize($cache->get($session->get('imp', 'treeob'), 0));
@@ -83,7 +83,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_
         if ($this->_instance->changed) {
             $cache = $this->_injector->getInstance('Horde_Cache');
             if ($cache instanceof Horde_Cache_Null) {
-                $session->store($this->_instance, true, 'imp_imaptree');
+                $session->store($this->_instance, true, 'imp_tree');
             } else {
                 $cache->set($session->get('imp', 'treeob'), serialize($this->_instance), 86400);
             }

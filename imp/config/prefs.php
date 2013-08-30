@@ -1667,9 +1667,9 @@ $_prefs['nav_expanded'] = array(
     'value' => 2,
     'type' => 'enum',
     'enum' => array(
-        0 => _("No"),
-        1 => _("Yes"),
-        2 => _("Remember the last view")
+        IMP_Imap_Tree_Prefs_Expanded::NO => _("No"),
+        IMP_Imap_Tree_Prefs_Expanded::YES => _("Yes"),
+        IMP_Imap_Tree_Prefs_Expanded::LAST => _("Remember the last view")
     ),
     'desc' => _("Expand the entire folder tree by default in the folders view?"),
     'suppress' => function() {

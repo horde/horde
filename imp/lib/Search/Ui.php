@@ -38,15 +38,15 @@ class IMP_Search_Ui
 
         $ob = new stdClass;
 
-        $imap_tree = $injector->getInstance('IMP_Imap_Tree');
-        $imap_tree->setIteratorFilter($unsub ? IMP_Imap_Tree::FLIST_UNSUB : 0);
+        $imptree = $injector->getInstance('IMP_Imap_Tree');
+        $imptree->setIteratorFilter($unsub ? IMP_Imap_Tree::FLIST_UNSUB : 0);
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/search'
         ));
         $view->allsearch = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
 
-        $ob->tree = $imap_tree->createTree('imp_search', array(
+        $ob->tree = $imptree->createTree('imp_search', array(
             'render_params' => array(
                 'abbrev' => 0,
                 'container_select' => true,
@@ -57,8 +57,9 @@ class IMP_Search_Ui
         ));
 
         $mbox_list = array();
-        foreach ($imap_tree as $val) {
-            $mbox_list[$val->form_to] = $val->display;
+        foreach ($imptree as $val) {
+            $mbox_ob = $val->mbox_ob;
+            $mbox_list[$mbox_ob->form_to] = $mbox_ob->display;
         }
         $ob->mbox_list = $mbox_list;
 

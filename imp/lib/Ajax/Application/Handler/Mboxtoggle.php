@@ -34,11 +34,9 @@ class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Applicatio
     public function expandMailboxes()
     {
         if (!empty($this->vars->mboxes)) {
-            $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-
-            foreach (Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON) as $val) {
-                $imptree->expand(IMP_Mailbox::formFrom($val));
-            }
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->expand(
+                IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON))
+            );
         }
 
         return true;
@@ -61,9 +59,9 @@ class IMP_Ajax_Application_Handler_Mboxtoggle extends Horde_Core_Ajax_Applicatio
         if ($this->vars->all) {
             $imptree->collapseAll();
         } elseif (!empty($this->vars->mboxes)) {
-            foreach (Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON) as $val) {
-                $imptree->collapse(IMP_Mailbox::formFrom($val));
-            }
+            $imptree->collapse(
+                IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON))
+            );
         }
 
         return true;

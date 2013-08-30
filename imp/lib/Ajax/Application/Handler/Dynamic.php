@@ -70,22 +70,18 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $result = false;
 
-        try {
-            $new_mbox = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createMailboxName(
-                isset($this->vars->parent) ? IMP_Mailbox::formFrom($this->vars->parent) : '',
-                $this->vars->mbox
-            );
+        $parent = isset($this->vars->parent)
+            ? IMP_Mailbox::formFrom($this->vars->parent)
+            : IMP_Mailbox::get(IMP_Imap_Tree::BASE_ELT);
+        $new_mbox = $parent->createMailboxName($this->vars->mbox);
 
-            if ($new_mbox->exists) {
-                $GLOBALS['notification']->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
-            } elseif ($new_mbox->create()) {
-                $result = true;
-                if (isset($this->vars->parent) && $this->vars->noexpand) {
-                    $this->_base->queue->setMailboxOpt('noexpand', 1);
-                }
+        if ($new_mbox->exists) {
+            $GLOBALS['notification']->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
+        } elseif ($new_mbox->create()) {
+            $result = true;
+            if (isset($this->vars->parent) && $this->vars->noexpand) {
+                $this->_base->queue->setMailboxOpt('noexpand', 1);
             }
-        } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e);
         }
 
         return $result;
@@ -157,20 +153,15 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             return false;
         }
 
-        try {
-            $old_name = IMP_Mailbox::formFrom($this->vars->old_name);
+        $old_name = IMP_Mailbox::formFrom($this->vars->old_name);
+        $parent = isset($this->vars->new_parent)
+            ? IMP_Mailbox::formFrom($this->vars->new_parent)
+            : IMP_Mailbox::get($old_name->parent_imap);
+        $new_name = $parent->createMailboxName($this->vars->new_name);
 
-            $new_name = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createMailboxName(
-                isset($this->vars->new_parent) ? IMP_Mailbox::formFrom($this->vars->new_parent) : $old_name->parent_imap,
-                $this->vars->new_name
-            );
-
-            if (($old_name != $new_name) && $old_name->rename($new_name)) {
-                $this->_base->queue->setMailboxOpt('switch', $new_name->form_to);
-                return true;
-            }
-        } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e);
+        if (($old_name != $new_name) && $old_name->rename($new_name)) {
+            $this->_base->queue->setMailboxOpt('switch', $new_name->form_to);
+            return true;
         }
 
         return false;
@@ -343,7 +334,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
          * slice requested, and need to be sorted logically. */
         if ($initreload) {
             foreach (IMP_Mailbox::getSpecialMailboxesSort() as $val) {
-                if ($imptree[$val]) {
+                if (isset($imptree[$val])) {
                     $imptree->addEltDiff($val);
                 }
             }

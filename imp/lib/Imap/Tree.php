@@ -13,7 +13,8 @@
 
 /**
  * Provides a tree view of the mailboxes on an IMAP server (a/k/a a folder
- * list; in IMP, folders = collection of mailboxes).
+ * list; in IMP, folders = collection of mailboxes), along with other display
+ * elements (Remote Accounts; Virtual Folders).
  *
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Anil Madhavapeddy <avsm@horde.org>
@@ -25,9 +26,10 @@
  * @package   IMP
  *
  * @property-read boolean $changed  Has the tree changed?
- * @property-read string $inbox  The INBOX mailbox string.
- * @property-read integer $unseen  The number of unseen messages counted
- *                                 during the last tree iteration.
+ * @property-read IMP_Imap_Tree_Prefs_Expanded $expanded  The expanded folders
+ *                                                        list.
+ * @property-read IMP_Imap_Tree_Prefs_Poll $poll  The poll list.
+ * @property-read boolean $showunsub  True if showing unsubscribed mailboxes.
  */
 class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 {
@@ -38,18 +40,14 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const ELT_IS_SUBSCRIBED = 8;
     const ELT_NOINFERIORS = 16;
     const ELT_IS_POLLED = 32;
-    const ELT_NEED_SORT = 64;
+    const ELT_NOT_POLLED = 64;
     const ELT_VFOLDER = 128;
     const ELT_NONIMAP = 256;
     const ELT_INVISIBLE = 512;
-    const ELT_NOT_POLLED = 1024;
+    const ELT_NEED_SORT = 1024;
     const ELT_REMOTE = 2048;
     const ELT_REMOTE_AUTH = 4096;
-
-    /* The isOpen() expanded mode constants. */
-    const OPEN_NONE = 0;
-    const OPEN_ALL = 1;
-    const OPEN_USER = 2;
+    const ELT_REMOTE_MBOX = 8192;
 
     /* The list filtering constants. */
     const FLIST_NOCONTAINER = 1;
@@ -89,16 +87,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     public $track = false;
 
     /**
-     * Cached data that is not saved across serialization.
+     * Account sources.
      *
      * @var array
      */
-    protected $_cache = array(
-        'filter' => array(
-            'base' => null,
-            'mask' => 0
-        )
-    );
+    protected $_accounts;
 
     /**
      * Tree changed flag.  Set when something in the tree has been altered.
@@ -122,11 +115,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     protected $_currparent;
 
     /**
-     * The string used for the IMAP delimiter.
+     * Array containing the mailbox elements.
      *
-     * @var string
+     * @var array
      */
-    protected $_delimiter;
+    protected $_elts;
 
     /**
      * List of element changes.
@@ -136,13 +129,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     protected $_eltdiff;
 
     /**
-     * The list of namespaces to add to the tree.
-     *
-     * @var array
-     */
-    protected $_namespaces;
-
-    /**
      * True if display_folder hook is not available.
      *
      * @var boolean
@@ -150,7 +136,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     protected $_nohook = false;
 
     /**
-     * Parent list.
+     * Parent/child list.
      *
      * @var array
      */
@@ -164,25 +150,21 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     protected $_showunsub;
 
     /**
-     * Array containing the mailbox tree.
+     * Temporary data that is not saved across serialization.
      *
      * @var array
      */
-    protected $_tree;
-
-    /**
-     * Unseen count.
-     *
-     * @var array
-     */
-    protected $_unseen = 0;
+    protected $_temp = array(
+        'filter' => array(
+            'base' => null,
+            'mask' => 0
+        )
+    );
 
     /**
      * Constructor.
-     *
-     * @param array $opts  Additional options (none defined in base object).
      */
-    public function __construct(array $opts = array())
+    public function __construct()
     {
         $this->init();
     }
@@ -195,331 +177,76 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         case 'changed':
             return $this->_changed;
 
-        case 'inbox':
-            return 'INBOX';
+        case 'expanded':
+            if (!isset($this->_temp['expanded'])) {
+                $this->_temp['expanded'] = new IMP_Imap_Tree_Prefs_Expanded();
+            }
+            return $this->_temp['expanded'];
 
-        case 'unseen':
-            return $this->_unseen;
+        case 'poll':
+            if (!isset($this->_temp['poll'])) {
+                $this->_temp['poll'] = new IMP_Imap_Tree_Prefs_Poll();
+            }
+            return $this->_temp['poll'];
+
+        case 'showunsub':
+            return $this->_showunsub;
         }
     }
 
     /**
-     * Initalize the tree.
+     * Initialize the tree.
      */
     public function init()
     {
         global $injector, $prefs, $session;
 
-        $imp_imap = $this->_getImpImapOb();
-        $access_folders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
-
-        $unsubmode = (!$access_folders ||
-                      !$prefs->getValue('subscribe') ||
-                      $session->get('imp', 'showunsub'));
+        $access_folders = $injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
 
         /* Reset class variables to the defaults. */
+        $this->_accounts = $this->_elts = $this->_parent = array();
         $this->_changed = true;
         $this->_currkey = $this->_currparent = null;
-        $this->_delimiter = null;
-        $this->_namespaces = $this->_parent = $this->_tree = array();
-        $this->_showunsub = $unsubmode;
-        unset($this->_cache['fulllist'], $this->_cache['subscribed']);
+        $this->_showunsub = (!$access_folders || !$prefs->getValue('subscribe') || $session->get('imp', 'showunsub'));
         $this->_resetEltDiff();
 
         /* Don't track initialization. */
         $old_track = $this->track;
         $this->track = false;
 
-        /* Do IMAP specific initialization. */
-        if ($imp_imap->isImap()) {
-            $ns = $imp_imap->getNamespaceList();
-            $ptr = reset($ns);
-            $this->_delimiter = $ptr['delimiter'];
-            if ($access_folders) {
-                $this->_namespaces = $ns;
-            }
-        }
-
-        /* Create a placeholder element to the base of the tree list so we can
+        /* Create a placeholder element to the base of the tree so we can
          * keep track of whether the base level needs to be sorted. */
-        $this->_tree[self::BASE_ELT] = array(
-            'a' => self::ELT_NEED_SORT | self::ELT_NONIMAP,
-            'v' => self::BASE_ELT
-        );
+        $this->_elts[self::BASE_ELT] = self::ELT_NEED_SORT | self::ELT_NONIMAP;
+        $this->_parent[self::BASE_ELT] = array();
 
-        /* Add INBOX and exit if folders aren't allowed or if we are using
-         * POP3. */
-        if (!$access_folders) {
-            $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
-            $this->track = $old_track;
-            return;
+        $mask = IMP_Imap_Tree_Account::INIT;
+        if ($this->_showunsub) {
+            $mask |= IMP_Imap_Tree_Account::UNSUB;
         }
 
-        /* Add namespace elements. */
-        if ($prefs->getValue('tree_view')) {
-            foreach ($this->_namespaces as $val) {
-                $type = null;
-
-                switch ($val['type']) {
-                case Horde_Imap_Client::NS_OTHER:
-                    $type = self::OTHER_KEY;
-                    break;
-
-                case Horde_Imap_Client::NS_SHARED:
-                    $type = self::SHARED_KEY;
-                    break;
-                }
-
-                if (!is_null($type) && !isset($this->_tree[$type])) {
-                    $this->_insertElt($this->_makeElt(
-                        $type,
-                        self::ELT_NOSELECT | self::ELT_NAMESPACE | self::ELT_NONIMAP
-                    ));
-                }
-            }
-        }
+        /* Add base account. */
+        $ob = $this->_accounts[self::BASE_ELT] = $access_folders
+            ? new IMP_Imap_Tree_Account_Imap()
+            : new IMP_Imap_Tree_Account_Inboxonly();
+        array_map(array($this, '_insertElt'), $ob->getList($mask));
 
         /* Add remote servers. */
-        $this->_initRemote();
+        $this->insert(iterator_to_array($injector->getInstance('IMP_Remote')));
 
-        /* Create the list (INBOX and all other hierarchies). */
-        $this->_insert($this->_getList($this->_showunsub), $this->_showunsub ? null : true);
-
-        /* Add virtual folders to the tree. */
-        $this->_initVirtualFolders();
+        /* Add virtual folders. */
+        $imp_search = $injector->getInstance('IMP_Search');
+        $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
+        $this->insert(iterator_to_array($imp_search));
 
         $this->track = $old_track;
     }
 
     /**
-     * Initialize remote servers.
-     */
-    protected function _initRemote()
-    {
-        $this->insert(iterator_to_array($GLOBALS['injector']->getInstance('IMP_Remote')));
-    }
-
-    /**
-     * Initialize Virtual Folders.
-     */
-    protected function _initVirtualFolders()
-    {
-        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-        $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
-        foreach ($imp_search as $val) {
-            $this->insert($val);
-        }
-    }
-
-    /**
-     * Returns the list of mailboxes on the server.
+     * Insert an element into the tree.
      *
-     * @param boolean $showunsub  Show unsubscribed mailboxes?
-     *
-     * @return array  See Horde_Imap_Client_Base::listMailboxes().
-     * @throws IMP_Imap_Exception
-     */
-    protected function _getList($showunsub)
-    {
-        if ($showunsub && isset($this->_cache['fulllist'])) {
-            return $this->_cache['fulllist'];
-        } elseif (!$showunsub && isset($this->_cache['subscribed'])) {
-            return $this->_cache['subscribed'];
-        }
-
-        $searches = array();
-        foreach (array_keys($this->_namespaces) as $val) {
-            $searches[] = $val . '*';
-        }
-
-        $imp_imap = $this->_getImpImapOb();
-        $result = $imp_imap->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array(
-            'attributes' => true,
-            'delimiter' => true,
-            'sort' => true,
-            'sort_delimiter' => $this->_delimiter
-        ));
-
-        /* INBOX must always appear. */
-        if (empty($result['INBOX'])) {
-            $result = $imp_imap->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true)) + $result;
-        }
-
-        $tmp = array();
-        foreach ($result as $val) {
-            $tmp[$val['mailbox'] = $this->_normalize($val['mailbox'])] = $val;
-        }
-
-        $this->_cache[$showunsub ? 'fulllist' : 'subscribed'] = $tmp;
-
-        return $tmp;
-    }
-
-    /**
-     * Make a single mailbox tree element.
-     *
-     * @param string $name         The mailbox name.
-     * @param integer $attributes  The mailbox's attributes.
-     *
-     * @return array  An array with the following keys (we use single letters
-     *                to save in session storage space):
-     *   - a: (integer) Attributes mask.
-     *   - c: (integer) Level count.
-     *   - p: (string) Parent node.
-     *   - v: (string) Value.
-     *
-     * @throws Horde_Exception
-     */
-    protected function _makeElt($name, $attributes = 0)
-    {
-        $name = $this->_normalize($name);
-
-        $elt = array(
-            'a' => $attributes,
-            'c' => 0,
-            'p' => self::BASE_ELT,
-            'v' => $name
-        );
-
-        /* Check for polled status. */
-        $this->_initPollList();
-        $this->_setPolled($elt, $this->_cache['poll'][$name]);
-
-        /* Check for open status. */
-        switch ($GLOBALS['prefs']->getValue('nav_expanded')) {
-        case self::OPEN_NONE:
-            $open = false;
-            break;
-
-        case self::OPEN_ALL:
-            $open = true;
-            break;
-
-        case self::OPEN_USER:
-            $this->_initExpandedList();
-            $open = !empty($this->_cache['expanded'][$name]);
-            break;
-        }
-        $this->_setOpen($elt, $open);
-
-        if (is_null($this->_delimiter)) {
-            $elt['c'] = 0;
-            return $elt;
-        }
-
-        $ns_info = ($elt['a'] & self::ELT_NONIMAP)
-            ? null
-            : $this->_getNamespace($name);
-        $delimiter = is_null($ns_info)
-            ? $this->_delimiter
-            : $ns_info['delimiter'];
-        $tmp = explode($delimiter, $name);
-        $elt['c'] = count($tmp) - 1;
-
-        if (!$this->_nohook) {
-            try {
-                $this->_setInvisible($elt, !Horde::callHook('display_folder', array($elt['v']), 'imp'));
-            } catch (Horde_Exception_HookNotSet $e) {
-                $this->_nohook = true;
-            }
-        }
-
-        if ($elt['c'] != 0) {
-            $elt['p'] = implode(is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'], array_slice($tmp, 0, $elt['c']));
-        }
-
-        if (is_null($ns_info)) {
-            return $elt;
-        }
-
-        switch ($ns_info['type']) {
-        case Horde_Imap_Client::NS_PERSONAL:
-            /* Strip personal namespace. */
-            if (!empty($ns_info['name']) && ($elt['c'] != 0)) {
-                --$elt['c'];
-                if (strpos($elt['p'], $ns_info['delimiter']) === false) {
-                    $elt['p'] = self::BASE_ELT;
-                } elseif (strpos($elt['v'], $ns_info['name'] . 'INBOX' . $ns_info['delimiter']) === 0) {
-                    $elt['p'] = $this->inbox;
-                }
-            }
-            break;
-
-        case Horde_Imap_Client::NS_OTHER:
-        case Horde_Imap_Client::NS_SHARED:
-            if (substr($ns_info['name'], 0, -1 * strlen($ns_info['delimiter'])) == $elt['v']) {
-                $elt['a'] = self::ELT_NOSELECT | self::ELT_NAMESPACE;
-            }
-
-            if ($GLOBALS['prefs']->getValue('tree_view')) {
-                /* Don't add namespace element to tree. */
-                if ($this->isNamespace($elt)) {
-                    return false;
-                }
-
-                if ($elt['c'] == 1) {
-                    $elt['p'] = ($ns_info['type'] == Horde_Imap_Client::NS_OTHER)
-                        ? self::OTHER_KEY
-                        : self::SHARED_KEY;
-                }
-            }
-            break;
-        }
-
-        return $elt;
-    }
-
-    /**
-     * Expand a mailbox.
-     *
-     * @param string $mbox        The mailbox name to expand.
-     * @param boolean $expandall  Expand all subfolders?
-     */
-    public function expand($mbox, $expandall = false)
-    {
-        $mbox = $this->_normalize($mbox);
-
-        if (!isset($this->_tree[$mbox])) {
-            return;
-        }
-        $elt = &$this->_tree[$mbox];
-
-        if ($this->hasChildren($elt)) {
-            if (!$this->isOpen($elt)) {
-                $this->_changed = true;
-                $this->_setOpen($elt, true);
-            }
-
-            /* Expand all children beneath this one. */
-            if ($expandall && !empty($this->_parent[$mbox])) {
-                foreach ($this->_parent[$mbox] as $val) {
-                    $this->expand($this->_tree[$val]['v'], true);
-                }
-            }
-        }
-    }
-
-    /**
-     * Collapse a mailbox.
-     *
-     * @param string $mbox  The mailbox name to collapse.
-     */
-    public function collapse($mbox)
-    {
-        $mbox = $this->_normalize($mbox);
-
-        if (isset($this->_tree[$mbox])) {
-            $this->_changed = true;
-            $this->_setOpen($this->_tree[$mbox], false);
-        }
-    }
-
-    /**
-     * Insert a mailbox/virtual folder into the tree.
-     *
-     * @param mixed $id  The name of the mailbox (or a list of mailboxes)
-     *                   to add. Can also be a virtual folder object or a
-     *                   remote account object.
+     * @param mixed $id  The name of the mailbox (or a list of mailboxes),
+     *                   an IMP_Search_Vfolder object, an IMP_Remote_Account
+     *                   object, or an array containing any mixture of these.
      */
     public function insert($id)
     {
@@ -544,167 +271,99 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 if ($val->imp_imap->init) {
                     $elt_mask |= self::ELT_REMOTE_AUTH;
                 }
+                $this->_accounts[strval($val)] = new IMP_Imap_Tree_Account_Remote($val);
             } else {
+                $to_insert[strval($this->getAccount($val))] = $this->_normalize($val);
                 $key = null;
             }
 
-            if (is_null($key)) {
-                $to_insert[] = IMP_Mailbox::getImapMboxOb($val);
-            } elseif (!isset($this->_tree[strval($val)])) {
-                if (!isset($this->_tree[$key])) {
-                    $elt = $this->_makeElt($key, $base_mask | self::ELT_NOSELECT | self::ELT_NONIMAP);
-                    $this->_insertElt($elt);
-                }
-
-                $elt = $this->_makeElt($val, $elt_mask | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP);
-                $elt['p'] = $key;
-                $this->_insertElt($elt);
-
-                if ($elt_mask & self::ELT_REMOTE_AUTH) {
-                    $tree = new IMP_Imap_Tree_Remote(array(
-                        'imapkey' => strval($val)
+            if (!is_null($key) && !isset($this[$val])) {
+                if (!isset($this->_elts[$key])) {
+                    $this->_insertElt(array(
+                        'a' => $base_mask | self::ELT_NOSELECT | self::ELT_NONIMAP,
+                        'v' => $key
                     ));
                 }
+
+                $elt = $this->_insertElt(array(
+                    'a' => $elt_mask | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP,
+                    'p' => $key,
+                    'v' => $val
+                ));
+
+                if ($elt_mask & self::ELT_REMOTE_AUTH) {
+                    $this->insert($this->_accounts[strval($val)]);
+                }
             }
         }
 
-        if (!empty($to_insert)) {
+        foreach ($to_insert as $key => $val) {
             /* We want to add from the BASE of the tree up for efficiency
              * sake. */
-            $this->_sortList($to_insert);
-
-            try {
-                $this->_insert($this->_getImpImapOb()->listMailboxes($to_insert, Horde_Imap_Client::MBOX_ALL, array(
-                    'attributes' => true,
-                    'delimiter' => true,
-                    'sort' => true,
-                    'sort_delimiter' => $this->_delimiter
-                )));
-            } catch (IMP_Imap_Exception $e) {}
+            $this->_sortList($val);
+            array_map(array($this, '_insertElt'), $this->_accounts[$key]->getList($val));
         }
     }
 
     /**
-     * Insert mailbox elements into the tree.
+     * Expand an element.
      *
-     * @param array $elts   See Horde_Imap_Client_Base::listMailboxes().
-     * @param boolean $sub  If set, the list of $elts are known to be either
-     *                      all subscribed (true) or unsubscribed (false). If
-     *                      null, subscribed status must be looked up on the
-     *                      server.
+     * @param mixed $elts         The element (or an array of elements) to
+     *                            expand.
+     * @param boolean $expandall  Expand all subelements?
      */
-    protected function _insert($elts, $sub = null)
+    public function expand($elts, $expandall = false)
     {
-        $sub_pref = $GLOBALS['prefs']->getValue('subscribe');
+        foreach ((is_array($elts) ? $elts : array($elts)) as $val) {
+            if (($elt = $this[$val]) && $elt->children) {
+                if (!$elt->open) {
+                    $elt->open = true;
+                }
 
-        foreach ($elts as $val) {
-            $key = strval($val['mailbox']);
-            if (isset($this->_tree[$key]) ||
-                in_array('\nonexistent', $val['attributes'])) {
-                continue;
-            }
-
-            /* Break apart the name via the delimiter and go step by
-             * step through the name to make sure all subfolders exist
-             * in the tree. */
-            $parts = is_null($val['delimiter'])
-                ? array($key)
-                : explode($val['delimiter'], $key);
-            for ($i = 1, $p_count = count($parts); $i <= $p_count; ++$i) {
-                $part = implode($val['delimiter'], array_slice($parts, 0, $i));
-
-                if (!isset($this->_tree[$part])) {
-                    $attributes = 0;
-
-                    /* Set subscribed values. We know the mailbox is
-                     * subscribed, without query of the IMAP server, in the
-                     * following situations:
-                     * + Subscriptions are turned off.
-                     * + $sub is true.
-                     * + Mailbox is INBOX.
-                     * + Mailbox has the \subscribed attribute set. */
-                    if (!$sub_pref ||
-                        (($i == $p_count) &&
-                         (($sub === true) ||
-                          ($key == $this->inbox) ||
-                          in_array('\subscribed', $val['attributes'])))) {
-                        $attributes |= self::ELT_IS_SUBSCRIBED;
-                    } elseif (is_null($sub) && ($i == $p_count)) {
-                        $this->_getList(false);
-                        if (isset($this->_cache['subscribed'][$part])) {
-                            $attributes |= self::ELT_IS_SUBSCRIBED;
-                        }
-                    }
-
-                    if (($i != $p_count) ||
-                        in_array('\noselect', $val['attributes'])) {
-                        $attributes |= self::ELT_NOSELECT;
-                    }
-
-                    if (in_array('\noinferiors', $val['attributes'])) {
-                        $attributes |= self::ELT_NOINFERIORS;
-                    }
-
-                    $this->_insertElt($this->_makeElt($part, $attributes));
+                /* Expand all children beneath this one. */
+                if ($expandall) {
+                    $this->expand($this->_parent[strval($elt)]);
                 }
             }
         }
     }
 
     /**
-     * Insert an element into the tree.
-     *
-     * @param array $elt  The element to insert. The key in the tree is the
-     *                    'v' (value) element of the element.
+     * Expand all elements.
      */
-    protected function _insertElt($elt)
+    public function expandAll()
     {
-        if (!$elt || isset($this->_tree[$elt['v']])) {
-            return;
+        $this->expand($this->_parent[self::BASE_ELT], true);
+    }
+
+    /**
+     * Collapse an element.
+     *
+     * @param mixed $elts  The element (or an array of elements) to expand.
+     */
+    public function collapse($elts)
+    {
+        foreach ((is_array($elts) ? $elts : array($elts)) as $val) {
+            if ($elt = $this[$val]) {
+                $elt->open = false;
+            }
         }
+    }
 
-        // UW fix - it may return both 'foo' and 'foo/' as mailbox names.
-        // Only add one of these (without the namespace character) to
-        // the tree.  See Ticket #5764.
-        $ns_info = ($elt['a'] & self::ELT_NONIMAP)
-            ? null
-            : $this->_getNamespace($elt['v']);
-        if (isset($this->_tree[rtrim($elt['v'], is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'])])) {
-            return;
-        }
-
-        $this->_changed = true;
-
-        $prev = $this->track
-            ? $this->hasChildren($this->_tree[$elt['p']])
-            : null;
-
-        /* Set the parent array to the value in $elt['p']. */
-        if (empty($this->_parent[$elt['p']])) {
-            $this->_parent[$elt['p']] = array();
-        }
-
-        $this->_parent[$elt['p']][] = $elt['v'];
-        $this->_tree[$elt['v']] = $elt;
-
-        $this->_addEltDiff($elt, 'a');
-        if (!is_null($prev) &&
-            ($this->hasChildren($this->_tree[$elt['p']]) != $prev)) {
-            $this->_addEltDiff($this->_tree[$elt['p']], 'c');
-        }
-
-        /* Make sure we are sorted correctly. */
-        if (count($this->_parent[$elt['p']]) > 1) {
-            $this->_setNeedSort($this->_tree[$elt['p']], true);
-        }
+    /**
+     * Collapse all elements.
+     */
+    public function collapseAll()
+    {
+        $this->collapse(
+            array_diff_key(array_keys($this->_elts), array(self::BASE_ELT))
+        );
     }
 
     /**
      * Delete an element from the tree.
      *
-     * @param mixed $id  The element name or an array of element names.
-     *
-     * @return boolean  Return true on success, false on error.
+     * @param mixed $elts  The element (or an array of elements) to delete.
      */
     public function delete($id)
     {
@@ -713,842 +372,68 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
              * parents have an accurate view of what children are left. */
             $this->_sortList($id);
             $id = array_reverse($id);
-
-            foreach ($id as $val) {
-                $currsuccess = $this->delete($val);
-                if (!$currsuccess) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        $id = $this->_normalize($id);
-        $vfolder_base = ($id == self::VFOLDER_KEY);
-        $search_id = $GLOBALS['injector']->getInstance('IMP_Search')->createSearchId($id);
-
-        if ($vfolder_base ||
-            (isset($this->_tree[$search_id]) &&
-             $this->isVFolder($this->_tree[$search_id]))) {
-            if (!$vfolder_base) {
-                $id = $search_id;
-            }
-
-            $parent = $this->_tree[$id]['p'];
-            $this->_addEltDiff($this->_tree[$id], 'd');
-            unset($this->_tree[$id]);
-
-            /* Delete the entry from the parent tree. */
-            $key = array_search($id, $this->_parent[$parent]);
-            unset($this->_parent[$parent][$key]);
-
-            /* Rebuild the parent tree. */
-            if (!$vfolder_base && empty($this->_parent[$parent])) {
-                $this->delete($parent);
-            } else {
-                $this->_parent[$parent] = array_values($this->_parent[$parent]);
-            }
-            $this->_changed = true;
-
-            return true;
-        }
-
-        $ns_info = $this->_getNamespace($id);
-
-        if (($id == $this->inbox) ||
-            !isset($this->_tree[$id]) ||
-            ($id == $ns_info['name'])) {
-            return false;
-        }
-
-        $this->_changed = true;
-
-        $elt = &$this->_tree[$id];
-
-        /* Delete the entry from the mailbox list cache(s). */
-        unset($this->_cache['fulllist'][$id], $this->_cache['subscribed'][$id]);
-
-        /* Do not delete from tree if there are child elements - instead,
-         * convert to a container element. */
-        if ($this->hasChildren($elt)) {
-            $this->_setContainer($elt, true);
-            return true;
-        }
-
-        $parent = $elt['p'];
-
-        /* Delete the tree entry. */
-        $this->_addEltDiff($elt, 'd');
-        unset($this->_tree[$id]);
-
-        /* Delete the entry from the parent tree. */
-        $key = array_search($id, $this->_parent[$parent]);
-        unset($this->_parent[$parent][$key]);
-
-        if (empty($this->_parent[$parent])) {
-            /* This mailbox is now completely empty (no children). */
-            unset($this->_parent[$parent]);
-            if (isset($this->_tree[$parent])) {
-                if ($this->isContainer($this->_tree[$parent]) &&
-                    !$this->isNamespace($this->_tree[$parent])) {
-                    $this->delete($parent);
-                } else {
-                    $this->_modifyExpandedList($parent, 'remove');
-                    $this->_setOpen($this->_tree[$parent], false);
-                    $this->_addEltDiff($this->_tree[$parent], 'c');
-                }
-            }
         } else {
-            /* Rebuild the parent tree. */
-            $this->_parent[$parent] = array_values($this->_parent[$parent]);
-
-            if (!$this->hasChildren($this->_tree[$parent])) {
-                $this->_addEltDiff($this->_tree[$parent], 'c');
-            }
-        }
-
-        /* Remove the mailbox from the expanded folders list. */
-        $this->_modifyExpandedList($id, 'remove');
-
-        /* Remove the mailbox from the nav_poll list. */
-        $this->removePollList($id);
-
-        return true;
-    }
-
-    /**
-     * Subscribe an element to the tree.
-     *
-     * @param mixed $id  The element name or an array of element names.
-     */
-    public function subscribe($id)
-    {
-        if (!is_array($id)) {
             $id = array($id);
         }
 
         foreach ($id as $val) {
-            $val = $this->_normalize($val);
-            if (isset($this->_tree[$val])) {
-                $this->_changed = true;
-                $this->_setSubscribed($this->_tree[$val], true);
-                $this->_setContainer($this->_tree[$val], false);
-            }
-        }
-    }
-
-    /**
-     * Unsubscribe an element from the tree.
-     *
-     * @param mixed $id  The element name or an array of element names.
-     */
-    public function unsubscribe($id)
-    {
-        if (!is_array($id)) {
-            $id = array($id);
-        } else {
-            /* We want to delete from the TOP of the tree down to ensure that
-             * parents have an accurate view of what children are left. */
-            $this->_sortList($id);
-            $id = array_reverse($id);
-        }
-
-        foreach ($id as $val) {
-            $val = $this->_normalize($val);
-
-            /* INBOX can never be unsubscribed to. */
-            if (isset($this->_tree[$val]) && ($val != $this->inbox)) {
-                $this->_changed = true;
-
-                $elt = &$this->_tree[$val];
-
-                /* Do not delete from tree if there are child elements -
-                 * instead, convert to a container element. */
-                if (!$this->_showunsub && $this->hasChildren($elt)) {
-                    $this->_setContainer($elt, true);
-                }
-
-                /* Set as unsubscribed, add to unsubscribed list, and remove
-                 * from subscribed list. */
-                $this->_setSubscribed($elt, false);
-            }
-        }
-    }
-
-    /**
-     * Set an attribute for an element.
-     *
-     * @param array &$elt     The tree element.
-     * @param integer $const  The constant to set/remove from the bitmask.
-     * @param boolean $bool   Should the attribute be set?
-     */
-    protected function _setAttribute(&$elt, $const, $bool)
-    {
-        if ($bool) {
-            $elt['a'] |= $const;
-        } else {
-            $elt['a'] &= ~$const;
-        }
-    }
-
-    /**
-     * Does the element have any active children?
-     *
-     * @param mixed $in        A mailbox name or a tree element.
-     * @param boolean $filter  If true, honors the current iterator filter
-     *                         settings when determining if active children
-     *                         exist.
-     *
-     * @return boolean  True if the element has active children.
-     */
-    public function hasChildren($in, $filter = false)
-    {
-        $elt = $this->getElement($in);
-
-        if ($elt && isset($this->_parent[$elt['v']])) {
-            foreach ($this->_parent[$elt['v']] as $val) {
-                $v = $this->_tree[$val];
-
-                if (($this->_showunsub &&
-                     !$this->isContainer($v) &&
-                     !$this->isNamespace($v)) ||
-                    $this->isSubscribed($v)) {
-                    /* If skipping special mailboxes, need to check an element
-                     * for at least one non-special child. */
-                    if (!$filter ||
-                        !($this->_cache['filter']['mask'] & self::FLIST_NOSPECIALMBOXES) ||
-                        !IMP_Mailbox::get($val)->special) {
-                        return true;
-                    }
-                }
-
-                /* So this element is not a visible child, but its children
-                 * may still be. */
-                if ($this->hasChildren($v, $filter)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Is the tree element open?
-     *
-     * @param mixed $in  A mailbox name or a tree element.
-     *
-     * @return boolean  True if the element is open.
-     */
-    public function isOpen($in)
-    {
-        $elt = $this->getElement($in);
-
-        return ($elt &&
-                ($elt['a'] & self::ELT_IS_OPEN) &&
-                $this->hasChildren($elt, true));
-    }
-
-    /**
-     * Set the open attribute for an element.
-     *
-     * @param array &$elt    A tree element.
-     * @param boolean $bool  The setting.
-     */
-    protected function _setOpen(&$elt, $bool)
-    {
-        $this->_setAttribute($elt, self::ELT_IS_OPEN, $bool);
-        $this->_modifyExpandedList($elt['v'], $bool ? 'add' : 'remove');
-    }
-
-    /**
-     * Is this element a container only, not a mailbox (meaning you can
-     * not open it)?
-     *
-     * @param mixed $in  A mailbox name or a tree element.
-     *
-     * @return boolean  True if the element is a container.
-     */
-    public function isContainer($in)
-    {
-        $elt = $this->getElement($in);
-
-        return ($elt &&
-                (($elt['a'] & self::ELT_NOSELECT) ||
-                 (((!$this->_showunsub && !$this->isSubscribed($elt)) ||
-                   $this->isInvisible($elt)) &&
-                  $this->hasChildren($elt, true))));
-    }
-
-    /**
-     * Set the element as a container?
-     *
-     * @param array &$elt    A tree element.
-     * @param boolean $bool  Is the element a container?
-     */
-    protected function _setContainer(&$elt, $bool)
-    {
-        $this->_setAttribute($elt, self::ELT_NOSELECT, $bool);
-        $this->_addEltDiff($elt, 'c');
-    }
-
-    /**
-     * Is the user subscribed to this element?
-     *
-     * @param mixed $in  A mailbox name or a tree element.
-     *
-     * @return boolean  True if the user is subscribed to the element.
-     */
-    public function isSubscribed($in)
-    {
-        $elt = $this->getElement($in);
-
-        return ($elt && ($elt['a'] & self::ELT_IS_SUBSCRIBED));
-    }
-
-    /**
-     * Set the subscription status for an element.
-     *
-     * @param array &$elt    A tree element.
-     * @param boolean $bool  Is the element subscribed to?
-     */
-    protected function _setSubscribed(&$elt, $bool)
-    {
-        $this->_setAttribute($elt, self::ELT_IS_SUBSCRIBED, $bool);
-        if (isset($this->_cache['subscribed'])) {
-            if ($bool) {
-                $this->_cache['subscribed'][$elt['v']] = 1;
-            } else {
-                unset($this->_cache['subscribed'][$elt['v']]);
-            }
-        }
-    }
-
-    /**
-     * Is the element a namespace container?
-     *
-     * @param mixed $in  A mailbox name or a tree element.
-     *
-     * @return boolean  True if the element is a namespace container.
-     */
-    public function isNamespace($in)
-    {
-        $elt = $this->getElement($in);
-
-        return ($elt && ($elt['a'] & self::ELT_NAMESPACE));
-    }
-
-    /**
-     * Is the element a non-IMAP element?
-     *
-     * @param mixed $in  A mailbox name or a tree element.
-     *
-     * @return boolean  True if the element is a non-IMAP element.
-     */
-    public function isNonImapElt($in)
-    {
-        $elt = $this->getElement($in);
-
-        return ($elt && ($elt['a'] & self::ELT_NONIMAP));
-    }
-
-    /**
-     * Is this element a remote element?
-     *
-     * @param mixed $in      A mailbox name or a tree element.
-     * @param boolean $auth  Return true only if authenticated.
-     *
-     * @return boolean  True if the element is a remote element.
-     */
-    protected function _isRemote($in, $auth = false)
-    {
-        $elt = $this->getElement($in);
-
-        return ($elt && ($elt['a'] & ($auth ? self::ELT_REMOTE_AUTH : self::ELT_REMOTE)));
-    }
-
-    /**
-     * Can the element have child elements?
-     *
-     * @param mixed $in  A mailbox name or a tree element.
-     *
-     * @return boolean  True if the element can have child elements.
-     */
-    public function childrenAllowed($in)
-    {
-        $elt = $this->getElement($in);
-
-        return !($elt && ($elt['a'] & self::ELT_NOINFERIORS));
-    }
-
-    /**
-     * Initialize the expanded folder list.
-     */
-    protected function _initExpandedList()
-    {
-        if (!isset($this->_cache['expanded'])) {
-            $serialized = $GLOBALS['prefs']->getValue('expanded_folders');
-            $this->_cache['expanded'] = $serialized
-                ? unserialize($serialized)
-                : array();
-        }
-    }
-
-    /**
-     * Add/remove an element to the expanded list.
-     *
-     * @param string $id      The element name to add/remove.
-     * @param string $action  Either 'add' or 'remove';
-     */
-    protected function _modifyExpandedList($id, $action)
-    {
-        $this->_initExpandedList();
-
-        if ($action == 'add') {
-            $change = empty($this->_cache['expanded'][$id]);
-            $this->_cache['expanded'][$id] = true;
-        } else {
-            $change = !empty($this->_cache['expanded'][$id]);
-            unset($this->_cache['expanded'][$id]);
-        }
-
-        if ($change) {
-            $GLOBALS['prefs']->setValue('expanded_folders', serialize($this->_cache['expanded']));
-        }
-    }
-
-    /**
-     * Initializes and returns the list of mailboxes to poll.
-     *
-     * @param boolean $sort  Sort the directory list?
-     *
-     * @return array  The list of mailboxes to poll (IMP_Mailbox objects).
-     */
-    public function getPollList($sort = false)
-    {
-        $plist = array();
-        foreach ($this->_tree as $key => $val) {
-            if ($this->isPolled($val)) {
-                $plist[] = $key;
-            }
-        }
-
-        if ($sort && !empty($plist)) {
-            $ns_new = $this->_getNamespace(null);
-            $list_ob = new Horde_Imap_Client_Mailbox_List($plist);
-            $plist = $list_ob->sort(array(
-                'delimiter' => $ns_new['delimiter']
-            ));
-        }
-
-        return IMP_Mailbox::get(array_filter($plist));
-    }
-
-    /**
-     * Init the poll list.
-     */
-    protected function _initPollList()
-    {
-        if (!isset($this->_cache['poll'])) {
-            $this->_cache['poll'] = new IMP_Imap_Tree_Poll();
-        }
-    }
-
-    /**
-     * Add element to the poll list.
-     *
-     * @param mixed $id  The element name or a list of element names to add.
-     */
-    public function addPollList($id)
-    {
-        $this->_initPollList();
-        if ($this->_cache['poll']->locked) {
-            return;
-        }
-
-        if (!is_array($id)) {
-            $id = array($id);
-        }
-
-        $poll = $this->_cache['poll'];
-
-        foreach (IMP_Mailbox::get($id) as $val) {
-            $mbox_str = strval($val);
-
-            if ($poll[$mbox_str] ||
-                $val->nonimap ||
-                $this->isContainer($val)) {
+            if (!($elt = $this[$val])) {
                 continue;
             }
 
-            if (!$this->isSubscribed($this->_tree[$mbox_str])) {
-                $val->subscribe(true);
-            }
-            $this->_setPolled($this->_tree[$mbox_str], true);
-            $poll[$mbox_str] = true;
-        }
-    }
+            if ($elt->vfolder) {
+                $parent = $this->_delete($elt);
 
-    /**
-     * Remove element from the poll list.
-     *
-     * @param mixed $id  The mailbox (or a list of mailboxes) to remove.
-     */
-    public function removePollList($id)
-    {
-        $this->_initPollList();
-        if ($this->_cache['poll']->locked) {
-            return;
-        }
-
-        if (!is_array($id)) {
-            $id = array($id);
-        }
-
-        foreach (IMP_Mailbox::get($id) as $val) {
-            $mbox_str = strval($val);
-
-            if (!$val->inbox && $this->_cache['poll'][$mbox_str]) {
-                unset($this->_cache['poll'][$mbox_str]);
-                if (isset($this->_tree[$mbox_str])) {
-                    $this->_setPolled($this->_tree[$mbox_str], false);
+                /* Rebuild the parent tree. */
+                if (empty($this->_parent[$parent])) {
+                    $this->delete($parent);
+                } else {
+                    $this->_parent[$parent] = array_values($this->_parent[$parent]);
                 }
-            }
-        }
-    }
-
-    /**
-     * Prune non-existent mailboxes from poll list.
-     */
-    public function prunePollList()
-    {
-        $prune = array();
-
-        $this->setIteratorFilter(self::FLIST_NOCONTAINER);
-        foreach ($this as $val) {
-            if (!$this->isPolled($val) || !$val->exists) {
-                $prune[] = $val;
-            }
-        }
-
-        $this->removePollList($prune);
-    }
-
-    /**
-     * Does the user want to poll this mailbox for new/unseen messages?
-     *
-     * @param mixed $in  A mailbox name or a tree element.
-     *
-     * @return boolean  True if the user wants to poll the element.
-     */
-    public function isPolled($in)
-    {
-        $elt = $this->getElement($in);
-
-        if ($elt) {
-            if ($elt['a'] & self::ELT_IS_POLLED) {
-                return true;
-            } elseif ($elt['a'] & self::ELT_NOT_POLLED) {
-                return false;
-            }
-        }
-
-        $this->_initPollList();
-
-        if (!$this->_cache['poll'][$elt['v']] ||
-            $this->isNonImapElt($elt) ||
-            $this->isContainer($elt)) {
-            $this->_setAttribute($elt, self::ELT_NOT_POLLED, true);
-            return false;
-        }
-
-        $this->_setPolled($elt, true);
-        return true;
-    }
-
-    /**
-     * Set the polled attribute for an element.
-     *
-     * @param array &$elt    A tree element.
-     * @param boolean $bool  The setting.
-     */
-    protected function _setPolled(&$elt, $bool)
-    {
-        $this->_setAttribute($elt, self::ELT_IS_POLLED, $bool);
-    }
-
-    /**
-     * Is the element invisible?
-     *
-     * @param mixed $in  A mailbox name or a tree element.
-     *
-     * @return boolean  True if the element is marked as invisible.
-     */
-    public function isInvisible($in)
-    {
-        $elt = $this->getElement($in);
-
-        return ($elt && ($elt['a'] & self::ELT_INVISIBLE));
-    }
-
-    /**
-     * Set the invisible attribute for an element.
-     *
-     * @param array &$elt    A tree element.
-     * @param boolean $bool  The setting.
-     */
-    protected function _setInvisible(&$elt, $bool)
-    {
-        $this->_setAttribute($elt, self::ELT_INVISIBLE, $bool);
-    }
-
-    /**
-     * Flag the element as needing its children to be sorted.
-     *
-     * @param array &$elt    A tree element.
-     * @param boolean $bool  The setting.
-     */
-    protected function _setNeedSort(&$elt, $bool)
-    {
-        $this->_setAttribute($elt, self::ELT_NEED_SORT, $bool);
-    }
-
-    /**
-     * Does this element's children need sorting?
-     *
-     * @param array $elt  A tree element.
-     *
-     * @return boolean  True if the children need to be sorted.
-     */
-    protected function _needSort($elt)
-    {
-        return (($elt['a'] & self::ELT_NEED_SORT) && (count($this->_parent[$elt['v']]) > 1));
-    }
-
-    /**
-     * Should we expand all elements?
-     */
-    public function expandAll()
-    {
-        foreach ($this->_parent[self::BASE_ELT] as $val) {
-            $this->expand($val, true);
-        }
-    }
-
-    /**
-     * Should we collapse all elements?
-     */
-    public function collapseAll()
-    {
-        foreach ($this->_tree as $key => $val) {
-            if ($key !== self::BASE_ELT) {
-                $this->collapse($val['v']);
-            }
-        }
-    }
-
-    /**
-     * Switch subscribed/unsubscribed viewing.
-     *
-     * @param boolean $unsub  Show unsubscribed elements?
-     */
-    public function showUnsubscribed($unsub)
-    {
-        if ((bool)$unsub === $this->_showunsub) {
-            return;
-        }
-
-        $this->_showunsub = $unsub;
-        $this->_changed = true;
-
-        /* If we are switching from unsubscribed to subscribed, no need
-         * to do anything (we just ignore unsubscribed stuff). */
-        if ($unsub === false) {
-            return;
-        }
-
-        /* If we are switching from subscribed to unsubscribed, we need
-         * to add all unsubscribed elements that live in currently
-         * discovered items. */
-        $old_track = $this->track;
-        $this->track = false;
-        $this->_insert($this->_getList(true), false);
-        $this->track = $old_track;
-    }
-
-    /**
-     * Sorts a list of mailboxes.
-     *
-     * @param array &$mbox   The list of mailboxes to sort.
-     * @param boolean $base  Are we sorting a list of mailboxes in the base
-     *                       of the tree.
-     */
-    protected function _sortList(&$mbox, $base = false)
-    {
-        if (count($mbox) < 2) {
-            return;
-        }
-
-        if (!$base) {
-            $list_ob = new Horde_Imap_Client_Mailbox_List($mbox);
-            $mbox = $list_ob->sort(array(
-                'delimiter' => $this->_delimiter
-            ));
-            return;
-        }
-
-        $basesort = $othersort = array();
-        /* INBOX always appears first. */
-        $sorted = array($this->inbox);
-
-        foreach ($mbox as $key => $val) {
-            if ($this->isNonImapElt($this->_tree[$val])) {
-                $othersort[$key] = IMP_Mailbox::get($val)->label;
-            } elseif ($val !== $this->inbox) {
-                $basesort[$key] = IMP_Mailbox::get($val)->label;
-            }
-        }
-
-        natcasesort($basesort);
-        natcasesort($othersort);
-        foreach (array_merge(array_keys($basesort), array_keys($othersort)) as $key) {
-            $sorted[] = $mbox[$key];
-        }
-
-        $mbox = $sorted;
-    }
-
-    /**
-     * Normalize a mailbox name to the correct, internal name.
-     *
-     * @param string $name  The mailbox name.
-     *
-     * @return string  The converted name.
-     */
-    protected function _normalize($name)
-    {
-        $str = strval($name);
-
-        return (strcasecmp($str, $this->inbox) == 0)
-            ? $this->inbox
-            : $str;
-    }
-
-    /**
-     * Get namespace info for a full mailbox path.
-     *
-     * @param string $mailbox  The mailbox path.
-     *
-     * @return mixed  The namespace info for the mailbox path, or null if the
-     *                path doesn't exist.
-     */
-    protected function _getNamespace($mailbox)
-    {
-        switch ($mailbox) {
-        case self::OTHER_KEY:
-        case self::REMOTE_KEY:
-        case self::SHARED_KEY:
-        case self::VFOLDER_KEY:
-            return null;
-
-        default:
-            return ($this->isVfolder($mailbox) || $this->_isRemote($mailbox))
-                ? null
-                : $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getNamespace($mailbox);
-        }
-    }
-
-    /**
-     * Explicitly mark an element as added.
-     *
-     * @param mixed $elt  A mailbox name or a tree element.
-     */
-    public function addEltDiff($elt)
-    {
-        $this->_addEltDiff($this->getElement($elt), 'a');
-    }
-
-    /**
-     * Mark an element as changed.
-     *
-     * @param array $elt    An element array.
-     * @param string $type  Either 'a', 'c', or 'd'.
-     */
-    protected function _addEltDiff($elt, $type)
-    {
-        if (!$this->track) {
-            return;
-        }
-
-        $ed = &$this->_eltdiff;
-        $id = $elt['v'];
-
-        if (array_key_exists($id, $ed['o'])) {
-            if (($type != 'd') && ($ed['o'][$id] == $elt)) {
-                unset(
-                    $ed['a'][$id],
-                    $ed['c'][$id],
-                    $ed['d'][$id],
-                    $ed['o'][$id]
-                );
-
-                /* Check for virtual folder change. */
-                if ($this->isVfolder($elt)) {
-                    $ed['c'][$id] = 1;
+                $this->_changed = true;
+            } else {
+                if ($elt->inbox || $elt->namespace) {
+                    continue;
                 }
-                return;
+
+                $this->_changed = true;
+
+                /* Do not delete from tree if there are child elements -
+                 * instead, convert to a container element. */
+                if ($elt->children) {
+                    $elt->container = true;
+                    continue;
+                }
+
+                $parent = $this->_delete($elt);
+
+                if (empty($this->_parent[$parent])) {
+                    /* This mailbox is now completely empty (no children). */
+                    unset($this->_parent[$parent]);
+                    if ($p_elt = $this[$parent]) {
+                        if ($p_elt->container && !$p_elt->namespace) {
+                            $this->delete($parent);
+                        } else {
+                            $p_elt->open = false;
+                            $this->_addEltDiff($parent, 'c');
+                        }
+                    }
+                } else {
+                    /* Rebuild the parent tree. */
+                    $this->_parent[$parent] = array_values($this->_parent[$parent]);
+
+                    if (!$this[$parent]->children) {
+                        $this->_addEltDiff($parent, 'c');
+                    }
+                }
+
+                /* Remove the mailbox from the expanded folders list. */
+                unset($this->expanded[$val]);
+
+                /* Remove the mailbox from the nav_poll list. */
+                $this->removePollList($val);
             }
-        } else {
-            $ed['o'][$id] = ($type == 'a')
-                ? null
-                : $elt;
         }
-
-        switch ($type) {
-        case 'a':
-            unset($ed['c'][$id], $ed['d'][$id]);
-            $ed['a'][$id] = 1;
-            break;
-
-        case 'c':
-            if (!isset($ed['a'][$id])) {
-                $ed['c'][$id] = 1;
-            }
-            break;
-
-        case 'd':
-            unset($ed['a'][$id], $ed['c'][$id]);
-            $ed['d'][$id] = 1;
-            break;
-        }
-    }
-
-    /**
-     * Reset eltdiff array.
-     */
-    protected function _resetEltDiff()
-    {
-        $this->_eltdiff = array(
-            'a' => array(),
-            'c' => array(),
-            'd' => array(),
-            'o' => array()
-        );
-    }
-
-    /**
-     * Returns whether this element is a virtual folder.
-     *
-     * @param mixed $in  A mailbox name or a tree element.
-     *
-     * @return boolean  True if the element is a virtual folder.
-     */
-    public function isVFolder($in)
-    {
-        $elt = $this->getElement($in);
-
-        return ($elt && ($elt['a'] & self::ELT_VFOLDER));
     }
 
     /**
@@ -1561,11 +446,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         $new_list = $polled = array();
 
-        $this->setIteratorFilter(self::FLIST_NOCONTAINER | self::FLIST_UNSUB | self::FLIST_NOBASE | self::FLIST_ASIS, $old);
-        $old_list = array_merge(
-            array(IMP_Mailbox::get($old)),
-            iterator_to_array($this)
-        );
+        $this->setIteratorFilter(self::FLIST_NOCONTAINER | self::FLIST_UNSUB | self::FLIST_ASIS, $old);
+        $old_list = iterator_to_array($this);
 
         foreach ($old_list as $val) {
             $new_list[] = $new_name = substr_replace($val, $new, 0, strlen($old));
@@ -1575,261 +457,398 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $this->insert($new_list);
-        $this->delete($old_list);
-
         $this->addPollList($polled);
+        $this->delete($old_list);
     }
 
     /**
-     * Sort a level in the tree.
+     * Subscribe an element to the tree.
      *
-     * @param string $id  The parent mailbox whose children need to be sorted.
+     * @param mixed $id  The element name or an array of element names.
      */
-    protected function _sortLevel($id)
+    public function subscribe($id)
     {
-        if ($this->_needSort($this->_tree[$id])) {
-            $this->_sortList($this->_parent[$id], ($id === self::BASE_ELT));
-            $this->_setNeedSort($this->_tree[$id], false);
-            $this->_changed = true;
+        foreach ((is_array($id) ? $id : array($id)) as $val) {
+            $this->setAttribute('subscribed', $val, true);
+            $this->setAttribute('container', $val, false);
         }
     }
 
     /**
-     * Determines the mailbox name to create given a parent and the new name.
+     * Unsubscribe an element from the tree.
      *
-     * @param string $parent  The parent name (UTF-8).
-     * @param string $new     The new mailbox name (UTF-8).
-     *
-     * @return IMP_Mailbox  The new mailbox.
-     * @throws IMP_Exception
+     * @param mixed $id  The element name or an array of element names.
      */
-    public function createMailboxName($parent, $new)
+    public function unsubscribe($id)
     {
-        $ns_info = empty($parent)
-            ? $this->_getImpImapOb()->defaultNamespace()
-            : $this->_getNamespace($parent);
-
-        if (is_null($ns_info)) {
-            if ($this->isNamespace($this->_tree[$parent])) {
-                $ns_info = $this->_getNamespace($new);
-                if (in_array($ns_info['type'], array(Horde_Imap_Client::NS_OTHER, Horde_Imap_Client::NS_SHARED))) {
-                    return IMP_Mailbox::get($new);
-                }
-            }
-            throw new IMP_Exception(_("Cannot directly create mailbox in this folder."));
-        }
-
-        $mbox = $ns_info['name'];
-        if (!empty($parent)) {
-            $mbox .= substr_replace($parent, '', 0, strlen($ns_info['name']));
-            $mbox = rtrim($mbox, $ns_info['delimiter']) . $ns_info['delimiter'];
-        }
-
-        return IMP_Mailbox::get($mbox . $new);
-    }
-
-    /**
-     * Creates a Horde_Tree representation of the current tree (respecting
-     * the current iterator filter).
-     *
-     * @param string|Horde_Tree $name  Either the tree name, or a Horde_Tree
-     *                                 object to add nodes to.
-     * @param array $opts              Additional options:
-     *   - basename: (boolean) Use raw basename instead of abbreviated label?
-     *               DEFAULT: false
-     *   - checkbox: (boolean) Display checkboxes?
-     *               DEFAULT: false
-     *   - editvfolder: (boolean) Display vfolder edit links?
-     *                  DEFAULT: false
-     *   - open: (boolean) Force child mailboxes to this status.
-     *           DEFAULT: null
-     *   - parent: (string) The parent object of the current level.
-     *             DEFAULT: null (add to base level)
-     *   - poll_info: (boolean) Include poll information?
-     *                DEFAULT: false
-     *   - render_params: (array) List of params to pass to renderer if
-     *                    auto-creating.
-     *                    DEFAULT: 'alternate', 'lines', and 'lines_base'
-     *                             are passed in with true values.
-     *   - render_type: (string) The renderer name.
-     *                  DEFAULT: Javascript
-     *
-     * @return Horde_Tree  The tree object.
-     */
-    public function createTree($name, array $opts = array())
-    {
-        global $injector, $registry;
-
-        $opts = array_merge(array(
-            'parent' => null,
-            'render_params' => array(),
-            'render_type' => 'Javascript'
-        ), $opts);
-
-        $this->_unseen = 0;
-        $view = $registry->getView();
-
-        if ($name instanceof Horde_Tree_Renderer_Base) {
-            $tree = $name;
-            $parent = $opts['parent'];
+        if (is_array($id)) {
+            /* We want to delete from the TOP of the tree down to ensure that
+             * parents have an accurate view of what children are left. */
+            $this->_sortList($id);
+            $id = array_reverse($id);
         } else {
-            $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create($name, $opts['render_type'], array_merge(array(
-                'alternate' => true,
-                'lines' => true,
-                'lines_base' => true,
-                'nosession' => true
-            ), $opts['render_params']));
-            $parent = null;
+            $id = array($id);
         }
+
+        foreach ($id as $val) {
+            /* INBOX can never be unsubscribed to. */
+            if (($elt = $this[$val]) && !$elt->inbox) {
+                $this->_changed = true;
+
+                /* Do not delete from tree if there are child elements -
+                 * instead, convert to a container element. */
+                if (!$this->showunsub && $elt->children) {
+                    $this->setAttribute('container', $elt, true);
+                }
+
+                /* Set as unsubscribed, add to unsubscribed list, and remove
+                 * from subscribed list. */
+                $this->setAttribute('subscribed', $elt, false);
+            }
+        }
+    }
+
+    /**
+     * Switch subscribed/unsubscribed viewing.
+     *
+     * @param boolean $unsub  Show unsubscribed elements?
+     */
+    public function showUnsubscribed($unsub)
+    {
+        if ((bool)$unsub === $this->showunsub) {
+            return;
+        }
+
+        $this->_changed = true;
+        $this->_showunsub = (bool)$unsub;
+
+        /* If we are switching from unsubscribed to subscribed, no need
+         * to do anything (we just ignore unsubscribed stuff). */
+        if (($this->_showunsub === false) ||
+            $this[self::BASE_ELT]->subscribed) {
+            return;
+        }
+
+        /* The BASE_ELT having the SUBSCRIBED mask indicates the unsubscribed
+         * mailboxes have been loaded into the object. */
+        $this->setAttribute('subscribed', self::BASE_ELT, true);
+
+        /* If we are switching from subscribed to unsubscribed, we need
+         * to add all unsubscribed elements that live in currently
+         * discovered items. */
+        $old_track = $this->track;
+        $this->track = false;
+        foreach ($this->_accounts as $val) {
+            array_map(array($this, '_insertElt'), $val->getList($val::UNSUB));
+        }
+        $this->track = $old_track;
+    }
+
+    /**
+     * Initializes and returns the list of mailboxes to poll.
+     *
+     * @param boolean $sort  Sort the directory list?
+     *
+     * @return array  The list of mailboxes to poll (IMP_Mailbox objects).
+     */
+    public function getPollList($sort = false)
+    {
+        $plist = array();
 
         foreach ($this as $val) {
-            $after = '';
-            $elt = $this->getElement($val);
-            $params = array();
-
-            switch ($opts['render_type']) {
-            case 'IMP_Tree_Flist':
-                if ($val->vfolder_container) {
-                    continue 2;
-                }
-
-                $is_open = true;
-                $label = $params['orig_label'] = empty($opts['basename'])
-                    ? $val->abbrev_label
-                    : $val->basename;
-                break;
-
-            case 'IMP_Tree_Jquerymobile':
-                $is_open = true;
-                $label = $val->display_html;
-                $icon = $val->icon;
-                $params['icon'] = $icon->icon;
-                $params['special'] = $val->inbox || $val->special;
-                $params['class'] = 'imp-folder';
-                $params['urlattributes'] = array(
-                    'id' => 'imp-mailbox-' . $val->form_to
-                );
-
-                /* Force to flat tree so that non-polled parents don't cause
-                 * polled children to be skipped by renderer (see Bug
-                 * #11238). */
-                $elt['c'] = 0;
-                break;
-
-            case 'IMP_Tree_Simplehtml':
-                $is_open = $this->isOpen($val);
-                if ($tree->shouldToggle($val->form_to)) {
-                    if ($is_open) {
-                        $this->collapse($val);
-                    } else {
-                        $this->expand($val);
-                    }
-                    $is_open = !$is_open;
-                }
-                $label = htmlspecialchars(Horde_String::abbreviate($val->display, 30 - ($elt['c'] * 2)));
-                break;
-
-            case 'Javascript':
-                $is_open = $this->isOpen($val);
-                $label = empty($opts['basename'])
-                    ? htmlspecialchars($val->abbrev_label)
-                    : htmlspecialchars($val->basename);
-                $icon = $val->icon;
-                $params['icon'] = $icon->icon;
-                $params['iconopen'] = $icon->iconopen;
-                break;
+            if ($val->polled) {
+                $plist[] = strval($val);
             }
-
-            if (!empty($opts['poll_info']) && $val->polled) {
-                $poll_info = $val->poll_info;
-
-                if ($poll_info->unseen) {
-                    switch ($opts['render_type']) {
-                    case 'IMP_Tree_Jquerymobile':
-                        $after = $poll_info->unseen;
-                        break;
-
-                    default:
-                        $this->_unseen += $poll_info->unseen;
-                        $label = '<strong>' . $label . '</strong>&nbsp;(' .
-                            $poll_info->unseen . ')';
-                    }
-                }
-            }
-
-            if ($this->isContainer($val)) {
-                $params['container'] = true;
-            } else {
-                switch ($view) {
-                case $registry::VIEW_MINIMAL:
-                    $params['url'] = IMP_Minimal_Mailbox::url(array('mailbox' => $val));
-                    break;
-
-                case $registry::VIEW_SMARTMOBILE:
-                    $url = new Horde_Core_Smartmobile_Url();
-                    $url->add('mbox', $val->form_to);
-                    $url->setAnchor('mailbox');
-                    $params['url'] = strval($url);
-                    break;
-
-                default:
-                    $params['url'] = $val->url('mailbox')->setRaw(true);
-                    break;
-                }
-
-                if ($this->_showunsub && !$this->isSubscribed($val)) {
-                    $params['class'] = 'mboxunsub';
-                }
-            }
-
-            $checkbox = empty($opts['checkbox'])
-                ? ''
-                : '<input type="checkbox" class="checkbox" name="mbox_list[]" value="' . $val->form_to . '"';
-
-            if ($val->nonimap) {
-                $checkbox .= ' disabled="disabled"';
-            }
-
-            if ($val->vfolder &&
-                !empty($opts['editvfolder']) &&
-                $this->isContainer($val)) {
-                $after = '&nbsp[' .
-                    $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
-                    ']';
-            }
-
-            $tree->addNode(array(
-                'id' => $val->form_to,
-                'parent' => ($elt['c']) ? $val->parent->form_to : $parent,
-                'label' => $label,
-                'expanded' => isset($opts['open']) ? $opts['open'] : $is_open,
-                'params' => $params,
-                'right' => $after,
-                'left' => empty($opts['checkbox']) ? null : $checkbox . ' />'
-            ));
         }
 
-        return $tree;
+        if ($sort) {
+            $this->_sortList($plist, true);
+        }
+
+        return IMP_Mailbox::get(array_filter($plist));
     }
 
     /**
-     * Returns the internal IMAP Tree element for a given mailbox.
+     * Add elements to the poll list.
      *
-     * @param mixed $in  A mailbox name or a tree element.
-     *
-     * @return mixed  The element array, or null if not found.
+     * @param mixed $id  The element name or a list of element names to add.
      */
-    public function getElement($in)
+    public function addPollList($id)
     {
-        if (is_array($in)) {
-            return $in;
+        if ($this->poll->locked) {
+            return;
         }
 
-        $in = $this->_normalize($in);
+        foreach ((is_array($id) ? $id : array($id)) as $val) {
+            if ($elt = $this[$val]) {
+                continue;
+            }
 
-        return isset($this->_tree[$in])
-            ? $this->_tree[$in]
-            : null;
+            if (!$elt->polled && !$elt->nonimap && !$elt->container) {
+                if (!$elt->subscribed) {
+                    $elt->subscribed = true;
+                }
+                $elt->polled = true;
+                $this->setAttribute('polled', $elt, true);
+            }
+        }
+    }
+
+    /**
+     * Remove elements from the poll list.
+     *
+     * @param mixed $id  The element name or a list of element names to
+     *                   remove.
+     */
+    public function removePollList($id)
+    {
+        $poll = $this->poll;
+        if (!$poll->locked) {
+            foreach (IMP_Mailbox::get(is_array($id) ? $id : array($id)) as $val) {
+                if (!$val->inbox) {
+                    unset($poll[strval($val)]);
+                    $this->setAttribute('polled', $val, false);
+                }
+            }
+        }
+    }
+
+    /**
+     * Get an attribute value.
+     *
+     * @param string $type  The attribute type.
+     * @param string $name  The element name.
+     *
+     * @return mixed  Boolean attribute result, or null if element or
+     *                attribute doesn't exist
+     */
+    public function getAttribute($type, $name)
+    {
+        if (!($elt = $this[$name])) {
+            return null;
+        }
+        $s_elt = strval($elt);
+
+        switch ($type) {
+        case 'children':
+        case 'children_filter':
+            if (isset($this->_parent[$s_elt])) {
+                foreach ($this->_parent[$s_elt] as $val) {
+                    $v = $this[$val];
+
+                    if ($v->subscribed ||
+                        ($this->showunsub &&
+                         !$v->container &&
+                         !$v->namespace)) {
+                        /* If skipping special mailboxes, need to check an
+                         * element for at least one non-special child. */
+                        if (($type == 'children') ||
+                            !($this->_temp['filter']['mask'] & self::FLIST_NOSPECIALMBOXES) ||
+                            !$v->mbox_ob->special) {
+                            return true;
+                        }
+                    }
+
+                    /* So this element is not a visible child, but its
+                     * children may still be. */
+                    if ($v->$type) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+
+        case 'container':
+            return (($this->_elts[$s_elt] & self::ELT_NOSELECT) ||
+                    (((!$this->showunsub && !$elt->subscribed) || $elt->invisible) &&
+                     $elt->children_filter));
+
+        case 'invisible':
+            $attr = self::ELT_INVISIBLE;
+            break;
+
+        case 'namespace':
+            $attr = self::ELT_NAMESPACE;
+            break;
+
+        case 'needsort':
+            if (count($this->_parent[$s_elt]) < 2) {
+                return false;
+            }
+            $attr = self::ELT_NEED_SORT;
+            break;
+
+        case 'nochildren':
+            $attr = self::ELT_NOINFERIORS;
+            break;
+
+        case 'nonimap':
+            $attr = self::ELT_NONIMAP;
+            break;
+
+        case 'open':
+            if (!$elt->children_filter) {
+                return false;
+            }
+            $attr = self::ELT_IS_OPEN;
+            break;
+
+        case 'polled':
+            if ($this->_elts[$s_elt] & self::ELT_IS_POLLED) {
+                return true;
+            } elseif ($this->_elts[$s_elt] & self::ELT_NOT_POLLED) {
+                return false;
+            }
+            return (!$this->poll[$elt] || $elt->nonimap || $elt->container);
+
+        case 'remote':
+            $attr = self::ELT_REMOTE;
+            break;
+
+        case 'remote_auth':
+            $attr = self::ELT_REMOTE_AUTH;
+            break;
+
+        case 'remote_mbox':
+            $attr = self::ELT_REMOTE_MBOX;
+            break;
+
+        case 'subscribed':
+            if ($elt->inbox) {
+                return true;
+            }
+            $attr = self::ELT_IS_SUBSCRIBED;
+            break;
+
+        case 'vfolder':
+            $attr = self::ELT_VFOLDER;
+            break;
+
+        default:
+            return null;
+        }
+
+        return ($this->_elts[$s_elt] & $attr);
+    }
+
+    /**
+     * Change an attribute value.
+     *
+     * @param string $type   The attribute type.
+     * @param string $elt    The element name.
+     * @param boolean $bool  The boolean value.
+     */
+    public function setAttribute($type, $elt, $bool)
+    {
+        if (!($elt = $this[$elt])) {
+            return;
+        }
+
+        $attr = null;
+        $s_elt = strval($elt);
+
+        switch ($type) {
+        case 'container':
+            $attr = self::ELT_NOSELECT;
+            $this->_addEltDiff($elt, 'c');
+            break;
+
+        case 'invisible':
+            $attr = self::ELT_INVISIBLE;
+            break;
+
+        case 'needsort':
+            $attr = self::ELT_NEED_SORT;
+            break;
+
+        case 'open':
+            $attr = self::ELT_IS_OPEN;
+            if ($bool) {
+                $this->expanded[$elt] = true;
+            } else {
+                unset($this->expanded[$elt]);
+            }
+            break;
+
+        case 'polled':
+            if ($bool) {
+                $add = self::ELT_IS_POLLED;
+                $remove = self::ELT_NOT_POLLED;
+            } else {
+                $add = self::ELT_NOT_POLLED;
+                $remove = self::ELT_IS_POLLED;
+            }
+            $this->_elts[$s_elt] |= $add;
+            $this->_elts[$s_elt] &= ~$remove;
+            return;
+
+        case 'subscribed':
+            $attr = self::ELT_IS_SUBSCRIBED;
+            break;
+
+        default:
+            return;
+        }
+
+        if ($bool) {
+            $this->_elts[$s_elt] |= $attr;
+        } else {
+            $this->_elts[$s_elt] &= ~$attr;
+        }
+
+        $this->_changed = true;
+    }
+
+    /**
+     * Get the account object for a given element ID.
+     *
+     * @param string $id  Element ID.
+     *
+     * @return IMP_Imap_Tree_Account  Account object.
+     */
+    public function getAccount($id)
+    {
+        foreach (array_diff(array_keys($this->_accounts), array(self::BASE_ELT)) as $val) {
+            if (strpos($id, $val) === 0) {
+                return $this->_accounts[$val];
+            }
+        }
+
+        return $this->_accounts[self::BASE_ELT];
+    }
+
+    /**
+     * Get the parent element for a given element ID.
+     *
+     * @param string $id  Element ID.
+     *
+     * @return mixed  IMP_Imap_Tree_Element object, or null if no parent.
+     */
+    public function getParent($id)
+    {
+        $id = strval($id);
+
+        if ($id == self::BASE_ELT) {
+            return null;
+        }
+
+        foreach ($this->_parent as $key => $val) {
+            if (in_array($id, $val, true)) {
+                return $this[$key];
+            }
+        }
+
+        return $this[self::BASE_ELT];
+    }
+
+    /**
+     * Explicitly mark an element as added.
+     *
+     * @param string $id  Element ID.
+     */
+    public function addEltDiff($id)
+    {
+        $this->_addEltDiff($id, 'a');
     }
 
     /**
@@ -1877,6 +896,221 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         return $result;
     }
 
+    /* Internal methods. */
+
+    /**
+     * Deletes an element and returns its parent.
+     *
+     * @param string $id  Element ID.
+     *
+     * @return string  Parent ID.
+     */
+    protected function _delete($id)
+    {
+        $parent = strval($this[$id]->parent);
+        $this->_addEltDiff($id, 'd');
+
+        /* Delete the entry from the parent tree. */
+        unset(
+            $this->_elts[strval($id)],
+            $this->_parent[$parent][array_search(strval($id), $this->_parent[$parent], true)]
+        );
+
+        return $parent;
+    }
+
+    /**
+     * Normalize an element ID to the correct, internal name.
+     *
+     * @param string $id  The element ID.
+     *
+     * @return string  The converted name.
+     */
+    protected function _normalize($id)
+    {
+        $id = strval($id);
+
+        return (strcasecmp($id, 'INBOX') == 0)
+            ? 'INBOX'
+            : $id;
+    }
+
+    /**
+     * Mark an element as changed.
+     *
+     * @param string $id    Element ID.
+     * @param string $type  Either 'a' (add), 'c' (changed), or 'd' (deleted).
+     */
+    protected function _addEltDiff($id, $type)
+    {
+        if (!$this->track || !($elt = $this[$id])) {
+            return;
+        }
+
+        $ed = &$this->_eltdiff;
+        $id = strval($elt);
+
+        if (array_key_exists($id, $ed['o'])) {
+            if (($type != 'd') && ($ed['o'][$id] == $elt)) {
+                unset(
+                    $ed['a'][$id],
+                    $ed['c'][$id],
+                    $ed['d'][$id],
+                    $ed['o'][$id]
+                );
+
+                /* Check for virtual folder change. */
+                if ($elt->vfolder) {
+                    $ed['c'][$id] = 1;
+                }
+                return;
+            }
+        } else {
+            $ed['o'][$id] = ($type == 'a')
+                ? null
+                : $elt;
+        }
+
+        switch ($type) {
+        case 'a':
+            unset($ed['c'][$id], $ed['d'][$id]);
+            $ed['a'][$id] = 1;
+            break;
+
+        case 'c':
+            if (!isset($ed['a'][$id])) {
+                $ed['c'][$id] = 1;
+            }
+            break;
+
+        case 'd':
+            unset($ed['a'][$id], $ed['c'][$id]);
+            $ed['d'][$id] = 1;
+            break;
+        }
+    }
+
+    /**
+     * Reset eltdiff array.
+     */
+    protected function _resetEltDiff()
+    {
+        $this->_eltdiff = array(
+            'a' => array(),
+            'c' => array(),
+            'd' => array(),
+            'o' => array()
+        );
+    }
+
+    /**
+     * Insert an element into the tree.
+     *
+     * @param array $elt  Element data. Keys:
+     * <pre>
+     *   - a: (integer) Attributes.
+     *   - p: (string) Parent element ID.
+     *   - v: (string) Mailbox ID.
+     * </pre>
+     */
+    protected function _insertElt($elt)
+    {
+        $name = $this->_normalize($elt['v']);
+        if (isset($this->_elts[$name])) {
+            return;
+        }
+
+        $p_elt = $this[isset($elt['p']) ? $elt['p'] : self::BASE_ELT];
+        $parent = strval($p_elt);
+
+        $this->_changed = true;
+
+        $prev = $this->track
+            ? $p_elt->children
+            : null;
+
+        $this->_parent[$parent][] = $name;
+        $this->_elts[$name] = $elt['a'];
+
+        /* Check for polled status. */
+        $this->setAttribute('polled', $name, $this->poll[$name]);
+
+        /* Check for expanded status. */
+        $this->setAttribute('open', $name, $this->expanded[$name]);
+
+        if (!$this->_nohook) {
+            try {
+                $this->setAttribute('invisible', $name, !Horde::callHook('display_folder', array($name), 'imp'));
+            } catch (Horde_Exception_HookNotSet $e) {
+                $this->_nohook = true;
+            }
+        }
+
+        /* Make sure we are sorted correctly. */
+        if (count($this->_parent[$parent]) > 1) {
+            $this->setAttribute('needsort', $p_elt, true);
+        }
+
+        $this->_addEltDiff($name, 'a');
+        if (!is_null($prev) && ($p_elt->children != $prev)) {
+            $this->_addEltDiff($p_elt, 'c');
+        }
+    }
+
+    /**
+     * Sort a level in the tree.
+     *
+     * @param string $id  The parent element whose children need to be sorted.
+     */
+    protected function _sortLevel($id)
+    {
+        if (($elt = $this[$id]) && $elt->needsort) {
+            $this->_sortList($this->_parent[strval($elt)], $elt->base_elt);
+            $this->setAttribute('needsort', $elt, false);
+        }
+    }
+
+    /**
+     * Sorts a list of mailboxes.
+     *
+     * @param array &$mbox   The list of mailboxes to sort.
+     * @param boolean $base  Are we sorting a list of mailboxes in the base
+     *                       of the tree.
+     */
+    protected function _sortList(&$mbox, $base = false)
+    {
+        if (count($mbox) < 2) {
+            return;
+        }
+
+        if (!$base) {
+            $list_ob = new Horde_Imap_Client_Mailbox_List($mbox);
+            $mbox = $list_ob->sort();
+            return;
+        }
+
+        $basesort = $othersort = array();
+        /* INBOX always appears first. */
+        $sorted = array('INBOX');
+
+        foreach ($mbox as $key => $val) {
+            $ob = $this[$val];
+            if ($ob->nonimap) {
+                $othersort[$key] = $ob->mbox_ob->label;
+            } elseif ($val !== 'INBOX') {
+                $basesort[$key] = $ob->mbox_ob->label;
+            }
+        }
+
+        natcasesort($basesort);
+        natcasesort($othersort);
+        foreach (array_merge(array_keys($basesort), array_keys($othersort)) as $key) {
+            $sorted[] = $mbox[$key];
+        }
+
+        $mbox = $sorted;
+    }
+
     /**
      * Create an object sent in an AJAX response.
      *
@@ -1920,67 +1154,68 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         if (!is_object($elt)) {
             $elt = $this[$elt];
         }
+        $mbox_ob = $elt->mbox_ob;
 
         $ob = new stdClass;
 
-        if ($this->hasChildren($elt, true)) {
+        if ($elt->children_filter) {
             $ob->ch = 1;
         }
-        $ob->m = $elt->form_to;
-        if (!$this->childrenAllowed($elt)) {
+        $ob->m = $mbox_ob->form_to;
+        if ($elt->nochildren) {
             $ob->nc = 1;
         }
 
-        $label = $elt->label;
+        $label = $mbox_ob->label;
         if ($ob->m != $label) {
             $ob->t = $label;
         }
 
-        $tmp = htmlspecialchars($elt->abbrev_label);
+        $tmp = htmlspecialchars($mbox_ob->abbrev_label);
         if ($ob->m != $tmp) {
             $ob->l = $tmp;
         }
 
         $parent = $elt->parent;
-        if ($parent != self::BASE_ELT) {
-            $ob->pa = $parent->form_to;
+        if (!$parent->base_elt) {
+            $ob->pa = $parent->mbox_ob->form_to;
         }
 
         if ($elt->vfolder) {
-            $ob->v = $elt->editvfolder ? 2 : 1;
+            $ob->v = $mbox_ob->editvfolder ? 2 : 1;
         }
 
         if ($elt->nonimap) {
             $ob->n = 1;
-            if ($elt->remote_container) {
+            if ($mbox_ob->remote_container) {
                 $ob->r = 1;
             }
         }
 
-        if ($this->isContainer($elt)) {
+        if ($elt->container) {
             $ob->cl = 'exp';
             $ob->co = 1;
         } else {
-            if (!$this->isSubscribed($elt)) {
+            if (!$elt->subscribed) {
                 $ob->un = 1;
             }
 
             if (isset($ob->n) && isset($ob->r)) {
-                $ob->r = ($this->_isRemote($elt, true) ? 3 : 2);
+                $ob->r = ($mbox_ob->remote_auth ? 3 : 2);
             }
 
             if ($elt->polled) {
                 $ob->po = 1;
             }
 
-            if ($elt->inbox || $elt->special) {
+            if ($elt->inbox || $mbox_ob->special) {
                 $ob->s = 1;
             } elseif (empty($ob->v) && !empty($ob->ch)) {
                 $ob->cl = 'exp';
             }
         }
 
-        $icon = $elt->icon;
+        $icon = $mbox_ob->icon;
         if ($icon->user_icon) {
             $ob->cl = 'customimg';
             $ob->i = strval($icon->icon);
@@ -1991,35 +1226,39 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         return $ob;
     }
 
-    /**
-     * Return the IMP_Imap object to use for this instance.
-     *
-     * @return IMP_Imap  IMP_Imap object.
-     */
-    protected function _getImpImapOb()
-    {
-        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-    }
-
     /* ArrayAccess methods. */
 
+    /**
+     */
     public function offsetExists($offset)
     {
-        return isset($this->_tree[$this->_normalize($offset)]);
+        return isset($this->_elts[$this->_normalize($offset)]);
     }
 
+    /**
+     * @return IMP_Imap_Tree_Element
+     */
     public function offsetGet($offset)
     {
-        return $this->offsetExists($offset)
-            ? IMP_Mailbox::get($this->_normalize($offset))
+        if ($offset instanceof IMP_Imap_Tree_Element) {
+            return $offset;
+        }
+
+        $offset = $this->_normalize($offset);
+        return isset($this->_elts[$offset])
+            ? new IMP_Imap_Tree_Element($offset, $this)
             : null;
     }
 
+    /**
+     */
     public function offsetSet($offset, $value)
     {
         $this->insert($offset);
     }
 
+    /**
+     */
     public function offsetUnset($offset)
     {
         $this->delete($offset);
@@ -2036,8 +1275,238 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         return count(iterator_to_array($this));
     }
 
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            // Serialized data ID.
+            $this->_accounts,
+            $this->_elts,
+            $this->track ? $this->_eltdiff : null,
+            $this->_parent,
+            $this->showunsub
+        ));
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data)) {
+            throw new Exception('Cache version change');
+        }
+
+        list(
+            $this->_accounts,
+            $this->_elts,
+            $eltdiff,
+            $this->_parent,
+            $this->showunsub
+        ) = $data;
+
+        $this->_eltdiff = is_null($eltdiff)
+            ? $this->_resetEltDiff()
+            : $eltdiff;
+    }
+
+    /**
+     * Creates a Horde_Tree representation of the current tree (respecting
+     * the current iterator filter).
+     *
+     * @param string|Horde_Tree $name  Either the tree name, or a Horde_Tree
+     *                                 object to add nodes to.
+     * @param array $opts              Additional options:
+     * <pre>
+     *   - basename: (boolean) Use raw basename instead of abbreviated label?
+     *               DEFAULT: false
+     *   - checkbox: (boolean) Display checkboxes?
+     *               DEFAULT: false
+     *   - editvfolder: (boolean) Display vfolder edit links?
+     *                  DEFAULT: false
+     *   - open: (boolean) Force child mailboxes to this status.
+     *           DEFAULT: null
+     *   - parent: (string) The parent object of the current level.
+     *             DEFAULT: null (add to base level)
+     *   - poll_info: (boolean) Include poll information in output?
+     *                DEFAULT: false
+     *   - render_params: (array) List of params to pass to renderer if
+     *                    auto-creating.
+     *                    DEFAULT: 'alternate', 'lines', and 'lines_base'
+     *                             are passed in with true values.
+     *   - render_type: (string) The renderer name.
+     *                  DEFAULT: Javascript
+     * </pre>
+     *
+     * @return Horde_Tree  The tree object.
+     */
+    public function createTree($name, array $opts = array())
+    {
+        global $injector, $registry;
+
+        $opts = array_merge(array(
+            'parent' => null,
+            'render_params' => array(),
+            'render_type' => 'Javascript'
+        ), $opts);
+
+        $view = $registry->getView();
+
+        if ($name instanceof Horde_Tree_Renderer_Base) {
+            $tree = $name;
+            $parent = $opts['parent'];
+        } else {
+            $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create($name, $opts['render_type'], array_merge(array(
+                'alternate' => true,
+                'lines' => true,
+                'lines_base' => true,
+                'nosession' => true
+            ), $opts['render_params']));
+            $parent = null;
+        }
+
+        foreach ($this as $val) {
+            $after = '';
+            $elt_parent = null;
+            $mbox_ob = $val->mbox_ob;
+            $params = array();
+
+            switch ($opts['render_type']) {
+            case 'IMP_Tree_Flist':
+                if ($mbox_ob->vfolder_container) {
+                    continue 2;
+                }
+
+                $is_open = true;
+                $label = $params['orig_label'] = empty($opts['basename'])
+                    ? $mbox_ob->abbrev_label
+                    : $mbox_ob->basename;
+                break;
+
+            case 'IMP_Tree_Jquerymobile':
+                $is_open = true;
+                $label = $mbox_ob->display_html;
+                $icon = $mbox_ob->icon;
+                $params['icon'] = $icon->icon;
+                $params['special'] = $mbox_ob->inbox || $mbox_ob->special;
+                $params['class'] = 'imp-folder';
+                $params['urlattributes'] = array(
+                    'id' => 'imp-mailbox-' . $mbox_ob->form_to
+                );
+
+                /* Force to flat tree so that non-polled parents don't cause
+                 * polled children to be skipped by renderer (see Bug
+                 * #11238). */
+                $elt_parent = $this[self::BASE_ELT];
+                break;
+
+            case 'IMP_Tree_Simplehtml':
+                $is_open = $val->open;
+                if ($tree->shouldToggle($mbox_ob->form_to)) {
+                    if ($is_open) {
+                        $this->collapse($val);
+                    } else {
+                        $this->expand($val);
+                    }
+                    $is_open = !$is_open;
+                }
+                $label = htmlspecialchars(Horde_String::abbreviate($mbox_ob->abbrev_label, 30 - ($elt->level * 2)));
+                break;
+
+            case 'Javascript':
+                $is_open = $val->open;
+                $label = empty($opts['basename'])
+                    ? htmlspecialchars($mbox_ob->abbrev_label)
+                    : htmlspecialchars($mbox_ob->basename);
+                $icon = $mbox_ob->icon;
+                $params['icon'] = $icon->icon;
+                $params['iconopen'] = $icon->iconopen;
+                break;
+            }
+
+            if (!empty($opts['poll_info']) && $val->polled) {
+                $poll_info = $mbox_ob->poll_info;
+
+                if ($poll_info->unseen) {
+                    switch ($opts['render_type']) {
+                    case 'IMP_Tree_Jquerymobile':
+                        $after = $poll_info->unseen;
+                        break;
+
+                    default:
+                        $label = '<strong>' . $label . '</strong>&nbsp;(' .
+                            $poll_info->unseen . ')';
+                    }
+                }
+            }
+
+            if ($val->container) {
+                $params['container'] = true;
+            } else {
+                switch ($view) {
+                case $registry::VIEW_MINIMAL:
+                    $params['url'] = IMP_Minimal_Mailbox::url(array('mailbox' => $mbox_ob));
+                    break;
+
+                case $registry::VIEW_SMARTMOBILE:
+                    $url = new Horde_Core_Smartmobile_Url();
+                    $url->add('mbox', $mbox_ob->form_to);
+                    $url->setAnchor('mailbox');
+                    $params['url'] = strval($url);
+                    break;
+
+                default:
+                    $params['url'] = $mbox_ob->url('mailbox')->setRaw(true);
+                    break;
+                }
+
+                if ($this->showunsub && !$val->subscribed) {
+                    $params['class'] = 'mboxunsub';
+                }
+            }
+
+            $checkbox = empty($opts['checkbox'])
+                ? ''
+                : '<input type="checkbox" class="checkbox" name="mbox_list[]" value="' . $mbox_ob->form_to . '"';
+
+            if ($val->nonimap) {
+                $checkbox .= ' disabled="disabled"';
+            }
+
+            if ($val->vfolder &&
+                !empty($opts['editvfolder']) &&
+                $val->container) {
+                $after = '&nbsp[' .
+                    $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
+                    ']';
+            }
+
+            if (is_null($elt_parent)) {
+                $elt_parent = $val->parent;
+            }
+
+            $tree->addNode(array(
+                'id' => $mbox_ob->form_to,
+                'parent' => $elt_parent->base_elt ? $parent : $elt_parent->mbox_ob->form_to,
+                'label' => $label,
+                'expanded' => isset($opts['open']) ? $opts['open'] : $is_open,
+                'params' => $params,
+                'right' => $after,
+                'left' => empty($opts['checkbox']) ? null : $checkbox . ' />'
+            ));
+        }
+
+        return $tree;
+    }
+
     /* Iterator methods. */
 
+    /**
+     */
     public function current()
     {
         return $this->valid()
@@ -2045,6 +1514,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             : null;
     }
 
+    /**
+     */
     public function key()
     {
         return $this->valid()
@@ -2052,6 +1523,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             : null;
     }
 
+    /**
+     */
     public function next()
     {
         $curr = $this->current();
@@ -2059,18 +1532,24 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return;
         }
 
-        $c = &$this->_cache['filter'];
+        $c = &$this->_temp['filter'];
 
-        $old_showunsub = $this->_showunsub;
+        $old_showunsub = $this->showunsub;
         if ($c['mask'] & self::FLIST_UNSUB) {
             $this->_showunsub = true;
         }
 
         if ($this->_activeEltChild($curr)) {
+            /* Store old pointer. */
+            $this->_temp['iterator'][] = array(
+                $this->_currkey + 1,
+                $this->_currparent
+            );
+
             /* Move into child element. */
             $this->_currkey = 0;
-            $this->_currparent = $curr->value;
-            $this->_sortLevel($curr->value);
+            $this->_currparent = strval($curr);
+            $this->_sortLevel($curr);
 
             $curr = $this->current();
         } else {
@@ -2080,10 +1559,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             /* Descend tree until we reach a level that has more leaves we
              * have not yet traversed. */
             while ((($curr = $this->current()) === null) &&
-                   (!isset($c['samelevel']) ||
-                    ($c['samelevel'] != $this->_currparent)) &&
-                   ($parent = $this->_getParent($this->_currparent, true))) {
-                list($this->_currparent, $this->_currkey) = $parent;
+                   !empty($this->_temp['iterator'])) {
+                list($this->_currkey, $this->_currparent) = array_pop($this->_temp['iterator']);
             }
         }
 
@@ -2098,17 +1575,20 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $this->_showunsub = $old_showunsub;
     }
 
+    /**
+     */
     public function rewind()
     {
         $this->_currkey = 0;
         $this->_currparent = self::BASE_ELT;
         $this->_sortLevel($this->_currparent);
+        $this->_temp['iterator'] = array();
 
-        $c = &$this->_cache['filter'];
+        $c = &$this->_temp['filter'];
 
         /* If showing unsubscribed, toggle subscribed flag to make sure we
          * have subscribed mailbox information. */
-        if (!$this->_showunsub &&
+        if (!$this->showunsub &&
             ($c['mask'] & self::FLIST_UNSUB) &&
             !($c['mask'] & self::FLIST_ASIS)) {
             $this->showUnsubscribed(true);
@@ -2119,18 +1599,14 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         if ($c['base']) {
             if ($tmp = $this[$c['base']]) {
                 if ($c['mask'] & self::FLIST_ANCESTORS) {
-                    $p = $tmp->value;
-                    $c['ancestors'] = array($p => null);
-                    while ($parent = $this->_getParent($p)) {
-                        $c['ancestors'][$parent[0]] = $parent[1];
-                        $p = $parent[0];
+                    $c['ancestors'] = array(strval($tmp) => null);
+                    while ($parent = $tmp->parent) {
+                        $p = strval($parent);
+                        $c['ancestors'][$p] = array_search($p, $this->_parent[$p], true);
+                        $tmp = $parent;
                     }
                 } elseif ($c['mask'] & self::FLIST_NOBASE) {
-                    $this->_currparent = $tmp->value;
-                    $this->_currkey = isset($this->_parent[$tmp->value])
-                        ? 0
-                        : null;
-                    $c['samelevel'] = $tmp->value;
+                    $this->_currparent = strval($tmp);
 
                     /* Check to make sure current element is valid. */
                     $curr = $this->current();
@@ -2141,11 +1617,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     }
                 } else {
                     $this->_currparent = strval($tmp->parent);
-                    $this->_currkey = array_search($tmp->value, $this->_parent[$this->_currparent]);
-
-                    if ($c['mask'] & self::FLIST_SAMELEVEL) {
-                        $this->_currkey = 0;
-                        $c['samelevel'] = $this->_currparent;
+                    if (!($c['mask'] & self::FLIST_SAMELEVEL)) {
+                        $this->_currkey = array_search(strval($tmp), $this->_parent[$this->_currparent]);
                     }
                 }
             } else {
@@ -2154,6 +1627,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
     }
 
+    /**
+     */
     public function valid()
     {
         return (!is_null($this->_currkey) &&
@@ -2226,7 +1701,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function setIteratorFilter($mask = 0, $base = null)
     {
-        $this->_cache['filter'] = array(
+        $this->_temp['filter'] = array(
             'base' => $base,
             'mask' => $mask
         );
@@ -2237,13 +1712,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * Is the given element an "active" element (i.e. an element that should
      * be worked with given the current viewing parameters).
      *
-     * @param IMP_Mailbox $elt  A mailbox element.
+     * @param IMP_Imap_Tree_Element $elt  A tree element.
      *
      * @return boolean  True if $elt is an active element.
      */
     protected function _activeElt($elt)
     {
-        $c = &$this->_cache['filter'];
+        $c = &$this->_temp['filter'];
 
         /* Skip virtual folders unless told to display them. */
         if ($elt->vfolder) {
@@ -2251,23 +1726,23 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         /* Show containers if NOCONTAINER is not set and children exist. */
-        if ($this->isContainer($elt)) {
-            if ($this->_isRemote($elt)) {
+        if ($elt->container) {
+            if ($elt->remote) {
                 if (!($c['mask'] & self::FLIST_REMOTE)) {
                     return false;
                 }
             } elseif (($c['mask'] & self::FLIST_NOCONTAINER) ||
-                      !$this->hasChildren($elt, true)) {
+                      !$elt->children_filter) {
                 return false;
             }
-        } elseif ($this->isInvisible($elt)) {
+        } elseif ($elt->invisible) {
             /* Skip invisible elements (do after container check since it may
              * need to be shown as a container). */
             return false;
-        } elseif (!$this->_showunsub && !$this->isSubscribed($elt)) {
+        } elseif (!$this->showunsub && !$elt->subscribed) {
             /* Don't show element if not subscribed. */
             return false;
-        } elseif ($elt->special) {
+        } elseif ($elt->mbox_ob->special) {
             /* Skip special mailboxes if requested. Otherwise, always show. */
             if ($c['mask'] & self::FLIST_NOSPECIALMBOXES) {
                 return false;
@@ -2289,10 +1764,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _activeEltChild($elt)
     {
-        $c = &$this->_cache['filter'];
+        $c = &$this->_temp['filter'];
 
         /* This will catch Virtual Folders (they don't have children). */
-        if (!isset($this->_parent[$elt->value])) {
+        if (!isset($this->_parent[strval($elt)])) {
             return false;
         }
 
@@ -2305,7 +1780,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         /* If expanded is requested, we assume it overrides nochildren. */
         if ($c['mask'] & self::FLIST_EXPANDED) {
-            return $this->isOpen($elt);
+            return $elt->open;
         }
 
         /* Explicitly don't return child elements. */
@@ -2314,70 +1789,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         return true;
-    }
-
-    /**
-     * Return the parent/key for the current element.
-     *
-     * @param string $parent  Parent element.
-     * @param boolean $inc    Increment key?
-     *
-     * @return mixed  An array with two values: parent name and the key.
-     *                Returns null if no parent.
-     */
-    protected function _getParent($parent, $inc = false)
-    {
-        if ($parent == self::BASE_ELT) {
-            return null;
-        }
-
-        $p = strval($this[$parent]->parent);
-
-        return array(
-            $p,
-            array_search($parent, $this->_parent[$p], true) + ($inc ? 1 : 0)
-        );
-    }
-
-    /* Serializable methods. */
-
-    /**
-     */
-    public function serialize()
-    {
-        return serialize(array(
-            // Serialized data ID.
-            $this->_delimiter,
-            $this->track ? $this->_eltdiff : null,
-            $this->_namespaces,
-            $this->_parent,
-            $this->_showunsub,
-            $this->_tree
-        ));
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function unserialize($data)
-    {
-        $data = @unserialize($data);
-        if (!is_array($data)) {
-            throw new Exception('Cache version change');
-        }
-
-        list(
-            $this->_delimiter,
-            $eltdiff,
-            $this->_namespaces,
-            $this->_parent,
-            $this->_showunsub,
-            $this->_tree
-        ) = $data;
-
-        $this->_eltdiff = is_null($eltdiff)
-            ? $this->_resetEltDiff()
-            : $eltdiff;
     }
 
 }

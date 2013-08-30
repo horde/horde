@@ -64,7 +64,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         ));
 
         /* Initialize the IMP_Imap_Tree object. */
-        $imaptree = $injector->getInstance('IMP_Imap_Tree');
+        $imptree = $injector->getInstance('IMP_Imap_Tree');
 
         /* $mbox_list entries are urlencoded. */
         $mbox_list = isset($this->vars->mbox_list)
@@ -99,15 +99,15 @@ class IMP_Basic_Folders extends IMP_Basic_Base
 
         switch ($this->vars->actionID) {
         case 'expand_all_folders':
-            $imaptree->expandAll();
+            $imptree->expandAll();
             break;
 
         case 'collapse_all_folders':
-            $imaptree->collapseAll();
+            $imptree->collapseAll();
             break;
 
         case 'rebuild_tree':
-            $imaptree->init();
+            $imptree->init();
             break;
 
         case 'expunge_mbox':
@@ -147,10 +147,10 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         case 'create_mbox':
             if (isset($this->vars->new_mailbox)) {
                 try {
-                    $new_mbox = $imaptree->createMailboxName(
-                        empty($mbox_list) ? null : $mbox_list[0],
-                        $this->vars->new_mailbox
-                    );
+                    $parent = empty($mbox_list)
+                        ? IMP_Mailbox::get(IMP_Imap_Tree::BASE_ELT)
+                        : $mbox_list[0];
+                    $new_mbox = $parent->createMailboxName($this->vars->new_mailbox);
                     if ($new_mbox->exists) {
                         $notification->push(sprintf(_("Mailbox \"%s\" already exists."), $new_mbox->display), 'horde.warning');
                     } else {
@@ -205,19 +205,19 @@ class IMP_Basic_Folders extends IMP_Basic_Base
             if ($subscribe) {
                 $showAll = !$showAll;
                 $session->set('imp', 'showunsub', $showAll);
-                $imaptree->showUnsubscribed($showAll);
+                $imptree->showUnsubscribed($showAll);
             }
             break;
 
         case 'poll_mbox':
             if (!empty($mbox_list)) {
-                $imaptree->addPollList($mbox_list);
+                $imptree->addPollList($mbox_list);
             }
             break;
 
         case 'nopoll_mbox':
             if (!empty($mbox_list)) {
-                $imaptree->removePollList($mbox_list);
+                $imptree->removePollList($mbox_list);
             }
             break;
 
@@ -412,8 +412,8 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         ));
 
         /* Build the folder tree. */
-        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
-        $tree = $imaptree->createTree('imp_folders', array(
+        $imptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
+        $tree = $imptree->createTree('imp_folders', array(
             'checkbox' => true,
             'editvfolder' => true,
             'poll_info' => true
@@ -421,12 +421,13 @@ class IMP_Basic_Folders extends IMP_Basic_Base
 
         $displayNames = $fullNames = array();
 
-        foreach ($imaptree as $key => $val) {
-            $tmp = $displayNames[] = $val->display;
+        foreach ($imptree as $val) {
+            $mbox_ob = $val->mbox_ob;
+            $tmp = $displayNames[] = $mbox_ob->display;
 
-            $tmp2 = $val->display_notranslate;
+            $tmp2 = $mbox_ob->display_notranslate;
             if ($tmp != $tmp2) {
-                $fullNames[$key] = $tmp2;
+                $fullNames[strval($val)] = $tmp2;
             }
         }
 

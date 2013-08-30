@@ -115,14 +115,15 @@ class IMP_Dynamic_Compose_Common
                 }
 
                 $flist = array();
-                $imaptree = $injector->getInstance('IMP_Imap_Tree');
-                $imaptree->setIteratorFilter();
+                $imptree = $injector->getInstance('IMP_Imap_Tree');
+                $imptree->setIteratorFilter();
 
-                foreach ($imaptree as $val) {
+                foreach ($imptree as $val) {
+                    $mbox_ob = $val->mbox_ob;
                     $tmp = array(
-                        'f' => $val->display,
-                        'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $val->basename, 30),
-                        'v' => $val->container ? '' : $val->form_to
+                        'f' => $mbox_ob->display,
+                        'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $mbox_ob->basename, 30),
+                        'v' => $val->container ? '' : $mbox_ob->form_to
                     );
                     if ($tmp['f'] == $tmp['v']) {
                         unset($tmp['f']);
