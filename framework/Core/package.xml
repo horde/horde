@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Always honor activesync_replyposition pref (Bug #12636, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [rla] Add support for external links in topbar (Request #11977).
 * [mms] Fix active session counting from CLI script (Bug #12628).
  </notes>
@@ -3131,6 +3132,7 @@
    <date>2013-08-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Always honor activesync_replyposition pref (Bug #12636, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [rla] Add support for external links in topbar (Request #11977).
 * [mms] Fix active session counting from CLI script (Bug #12628).
    </notes>
