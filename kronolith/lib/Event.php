@@ -1481,7 +1481,9 @@ abstract class Kronolith_Event
                     $event->end->setTimezone($tz);
                     $event->allday = $times['allday'];
                     $event->title = $rule->getSubject();
+                    $event->title = empty($event->title) ? $this->title : $event->title;
                     $event->description = $rule->getBody();
+                    $event->description = empty($event->description) ? $this->description : $event->description;
                     $event->baseid = $this->uid;
                     $event->exceptionoriginaldate = $original;
                     $event->initialized = true;
