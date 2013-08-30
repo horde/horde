@@ -51,6 +51,9 @@
     padding-right: 5px;
     vertical-align: top;
 }
+.imp-header-label-value {
+    width: 100%;
+}
 .imp-message-atc {
     margin-bottom: 0;
 }

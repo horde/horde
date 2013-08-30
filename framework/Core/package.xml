@@ -31,8 +31,8 @@
  <date>2013-08-27</date>
  <time>23:44:27</time>
  <version>
-  <release>2.8.0</release>
-  <api>2.8.0</api>
+  <release>2.9.0</release>
+  <api>2.9.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -1125,6 +1125,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Smtp</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
@@ -3117,20 +3124,22 @@
   </release>
   <release>
    <version>
-    <release>2.7.1</release>
-    <api>2.7.0</api></version>
+    <release>2.8.0</release>
+    <api>2.8.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-08-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [rla] Add support for external links in topbar (Feature #11977).
+* [mjr] Always honor activesync_replyposition pref (Bug #12636, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [rla] Add support for external links in topbar (Request #11977).
+* [mms] Fix active session counting from CLI script (Bug #12628).
    </notes>
   </release>
   <release>
    <version>
-    <release>2.8.0</release>
+    <release>2.9.0</release>
     <api>2.8.0</api></version>
    <stability>
     <release>stable</release>

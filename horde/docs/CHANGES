@@ -8,6 +8,12 @@ v5.2.0-git
 
 
 ------
+v5.1.4
+------
+
+[jan] Fix fatal error on ActiveSync preferences page (Bug #12631).
+
+------
 v5.1.3
 ------
 

@@ -35,7 +35,7 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         $view = new Horde_View(array(
             'templatePath' => HORDE_TEMPLATES . '/prefs'
         ));
-        $view->addHelper('tag');
+        $view->addHelper('Tag');
 
         $selfurl = $ui->selfUrl();
         $view->reset = $selfurl->copy()->add('reset', 1);

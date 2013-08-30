@@ -38,7 +38,6 @@
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
- <notes>
 * [mjr] Improve logging options for ActiveSync logging configuration.
 * [mjr] Add support for managing ActiveSync devices through the API.
 * [mjr] Add prefs for selecting From address when sending email via ActiveSync.
@@ -3754,7 +3753,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [jan] Fix fatal error on ActiveSync preferences page (Bug #12631).
    </notes>
   </release>
   <release>

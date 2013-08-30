@@ -757,6 +757,7 @@ class Ansel_ActionHandler
                 'window.opener.location.href = "' . $imageurl . '";',
                 'window.close();'
             ));
+            $page_output->outputInlineScript();
             exit;
 
         case 'previewgrayscale':

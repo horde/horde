@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t set default value for TEXT column.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -140,7 +140,7 @@
    <date>2013-08-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t set default value for TEXT column.
    </notes>
   </release>
  </changelog>

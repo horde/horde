@@ -149,6 +149,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         if (isset($SQLEvent['event_exceptionoriginaldate'])) {
             if ($driver->getParam('utc')) {
                $this->exceptionoriginaldate = new Horde_Date($SQLEvent['event_exceptionoriginaldate'], 'UTC');
+               $this->exceptionoriginaldate->setTimezone($tz_local);
             } else {
                 $this->exceptionoriginaldate = new Horde_Date($SQLEvent['event_exceptionoriginaldate']);
             }
