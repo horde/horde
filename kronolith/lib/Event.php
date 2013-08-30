@@ -1408,6 +1408,9 @@ abstract class Kronolith_Event
         $this->end = clone($dates['end']);
         $this->end->setTimezone($tz);
         $this->allday = $dates['allday'];
+        if ($tz != date_default_timezone_get()) {
+            $this->timezone = $tz;
+        }
 
         /* Sensitivity */
         $this->private = ($message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE || $message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_CONFIDENTIAL) ? true :  false;
@@ -1482,6 +1485,9 @@ abstract class Kronolith_Event
                     $event->baseid = $this->uid;
                     $event->exceptionoriginaldate = $original;
                     $event->initialized = true;
+                    if ($tz != date_default_timezone_get()) {
+                        $event->timezone = $tz;
+                    }
                     $event->save();
                 } else {
                     /* For exceptions that are deletions, just add the exception */
