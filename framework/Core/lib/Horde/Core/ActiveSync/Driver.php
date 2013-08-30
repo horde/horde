@@ -103,9 +103,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - imap: (Horde_ActiveSync_Imap_Adapter) The IMAP adapter if email
      *           support is desired.
      *           DEFAULT: none (No email support will be provided).
-     *   - reply_top: (boolean) true: Place email reply text above original.
-     *                         false: Place reply text below original.
-     *            DEFAULT (=if null): Determine via prefs backend during reply/forward
      */
     public function __construct(array $params = array())
     {
@@ -1403,10 +1400,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $parent,
                 $forward));
 
-            // Determine position of reply text from user pref
-            if (!isset($this->_params['reply_top'])) {
-                $this->_params['reply_top'] = $GLOBALS['prefs']->getValue('activesync_replyposition') == 'top';
-            }
+            // Reply top?
+            $this->_params['reply_top'] = $GLOBALS['prefs']->getValue('activesync_replyposition') == 'top';
 
             // Do we need to add to the HTML part?
             if (!empty($html_id)) {
