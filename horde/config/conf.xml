@@ -2068,6 +2068,55 @@
        <value desc="Exchange 2010sp2 (EAS 14.1)">14.1</value>
       </values>
      </configenum>
+     <configheader>Authentication</configheader>
+     <configdescription>ActiveSync can be configured to authenticate against
+     Horde using either Basic HTTP authentication, X509 client certificates, or
+     both. Note that if client certificates are used you will need to propertly
+     configure your webserver for this as well as provide some mechanism for
+     using hordeauth with the IMAP server. See http://wiki.horde.org/ActiveSync
+     for more details on client certificate authentication. If unsure, select
+     Basic. Also, if client certificates are used for general Horde
+     authentication then they must be used here as well.</configdescription>
+     <configsection name="auth">
+       <configswitch name="type" desc="Select the authentication methods that
+       should be supported.">basic
+         <case name="basic" desc="HTTP Basic"/>
+         <case name="cert" desc="Cient Certificates">
+           <configsection name="params">
+             <configstring name="username_field" desc="The X509 field containing the username">
+             SSL_CLIENT_S_DN_CN</configstring>
+             <configswitch name="password_source" desc="Where should Horde attempt to
+             find user passwords?">
+               <case name="none" desc="Either no passwords are needed, or the
+               postauthenticate hook will provide them."/>
+               <case name="unified" desc="A single password will be used for all
+               users. ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING! YOUR SYSTEM MUST
+               BE PROPERLY SECURED!">
+                 <configstring name="password" desc="The password to use.">
+                 </configstring>
+               </case>
+             </configswitch>
+           </configsection>
+         </case>
+         <case name="basic_cert" desc="HTTP Basic with Client Certificates">
+           <configsection name="params">
+             <configstring name="username_field" desc="The X509 field containing the username">
+             SSL_CLIENT_S_DN_CN</configstring>
+             <configswitch name="password_source" desc="Where should Horde attempt to
+             find user passwords?">
+               <case name="none" desc="Either no passwords are needed, or the
+               postauthenticate hook will provide them."/>
+               <case name="unified" desc="A single password will be used for all
+               users. ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING! YOUR SYSTEM MUST
+               BE PROPERLY SECURED!">
+                 <configstring name="password" desc="The password to use.">
+                 </configstring>
+               </case>
+             </configswitch>
+           </configsection>
+         </case>
+       </configswitch>
+     </configsection>
      <configheader>Autodiscovery</configheader>
      <configenum name="autodiscovery" desc="Some devices attempt to use an
      Autodiscovery service to configure the device's account using only the
