@@ -23,15 +23,17 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string id          The device id.
- * @property string deviceType  The device type string.
- * @property integer rwstatus   The RemoteWipe status - a
- *                              Horde_ActiveSync::RWSTATUS_* constant.
- * @property string userAgent   The device's user agent string.
- * @property string user        The user id for the current device account.
- * @property array supported    The SUPPORTED data sent from this device.
- * @property string policykey   The current policykey, if provisioned.
- * @property array properties   The device properties, as sent in DEVICEINFO.
+ * @property string id                The device id.
+ * @property string deviceType        The device type string.
+ * @property integer rwstatus         The RemoteWipe status - a
+ *                                    Horde_ActiveSync::RWSTATUS_* constant.
+ * @property string userAgent         The device's user agent string.
+ * @property string user              The userid for the current device account.
+ * @property array supported          The SUPPORTED data sent from this device.
+ * @property string policykey         The current policykey, if provisioned.
+ * @property array properties         The device properties, sent in DEVICEINFO.
+ * @property string announcedVersion  The most last EAS supported versions
+ *                                    announced to the device.
  *
  */
 class Horde_ActiveSync_Device
@@ -92,6 +94,27 @@ class Horde_ActiveSync_Device
     public function __isset($property)
     {
         return !empty($this->_properties[$property]);
+    }
+
+    /**
+     * Indicates if we need to announce new EAS version string to the client.
+     * If the property is empty, we don't send it since we are sending the
+     * EAS-Version header anyway and this is a new device.
+     *
+     * @boolean  True if we need to send the MS-RP header, otherwise false.
+     */
+    public function needsVersionUpdate($supported)
+    {
+        if (empty($this->_properties['announcedVersion'])) {
+            $this->_properties['announcedVersion'] = $supported;
+            return false;
+        }
+        if ($this->_properties['announcedVersion'] != $supported) {
+            $this->_properties['announcedVersion'] = $supported;
+            return true;
+        }
+
+        return false;
     }
 
     /**

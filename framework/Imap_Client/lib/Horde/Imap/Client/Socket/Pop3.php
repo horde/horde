@@ -234,7 +234,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 $this->_tryLogin($method);
                 $this->_setInit('authmethod', $method);
 
-                if (!empty($this->_temp['no_capa'])) {
+                if (!empty($this->_temp['no_capa']) ||
+                    !$this->queryCapability('UIDL')) {
                     $this->_capability();
                 }
 
@@ -1150,7 +1151,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $ob = array('resp' => '');
 
         $read = explode(' ', rtrim($this->_connection->read(), "\r\n"), 2);
-        if (!in_array($read[0], array('+OK', '-ERR'))) {
+        if (!in_array($read[0], array('+OK', '-ERR', '+'))) {
             $this->_debug->info("ERROR: IMAP read/timeout error.");
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
@@ -1167,6 +1168,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         switch ($read[0]) {
         case '+OK':
+        case '+':
             if ($respcode) {
                 $ob['resp'] = $respcode->text;
             } elseif (isset($read[1])) {
