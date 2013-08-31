@@ -573,25 +573,6 @@ class Horde_ActiveSync
             return false;
         }
 
-        // Some devices (incorrectly) only send the username in the httpauth
-        $get = $this->getGetVars();
-        if ($this->_request->getMethod() == 'POST' && empty($get['User'])) {
-            if ($serverVars['PHP_AUTH_USER']) {
-                $get['User'] = $serverVars['PHP_AUTH_USER'];
-            } elseif ($serverVars['HTTP_AUTHORIZATION']) {
-                $hash = str_replace('Basic ', '', $serverVars['Authorization']);
-                $hash = base64_decode($hash);
-                if (strpos($hash, ':') !== false) {
-                    list($get['User'], $pass) = explode(':', $hash, 2);
-                }
-            }
-
-            if (empty($get['User'])) {
-                self::$_logger->err('Missing required parameters.');
-                throw new Horde_ActiveSync_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
-            }
-        }
-
         if (!$this->_driver->setup($user)) {
             return false;
         }
