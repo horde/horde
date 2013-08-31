@@ -234,7 +234,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 $this->_tryLogin($method);
                 $this->_setInit('authmethod', $method);
 
-                if (!empty($this->_temp['no_capa'])) {
+                if (!empty($this->_temp['no_capa']) ||
+                    !$this->queryCapability('UIDL')) {
                     $this->_capability();
                 }
 
