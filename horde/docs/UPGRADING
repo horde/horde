@@ -41,9 +41,16 @@ Additionally, it is also possible to select between including the raw wbxml
 stream in the output, or prune tag content greater than 50 bytes. The
 ActiveSync configuration section should be revisited.
 
+It is now possible to use X509 certificates either in addition to, or in place
+of traditional HTTP Basic authentication for ActiveSync. Refer to the
+ActiveSync configuration section for more details.
+
 The following options were added::
 
     $conf['activesync']['logging']['level']
+    $conf['activesync']['auth']['type']
+    $conf['activesync']['auth']['params']
+
 
 The available options for the following options were changed:
 
