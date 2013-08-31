@@ -2087,13 +2087,16 @@
      </configenum>
      <configheader>Authentication</configheader>
      <configdescription>ActiveSync can be configured to authenticate against
-     Horde using either Basic HTTP authentication, X509 client certificates, or
-     both. Note that if client certificates are used you will need to propertly
-     configure your webserver for this as well as provide some mechanism for
-     using hordeauth with the IMAP server. See http://wiki.horde.org/ActiveSync
-     for more details on client certificate authentication. If unsure, select
-     Basic. Also, if client certificates are used for general Horde
-     authentication then they must be used here as well.</configdescription>
+     Horde using either HTTP Basic authentication, X509 client certificates, or
+     both. HTTP Basic will authenticate the credentials passed from the client
+     against the configured Horde authentication backend. If client certificates
+     are used you will need to properly configure your webserver for this as
+     well as provide some mechanism for using hordeauth with the IMAP server.
+     See http://wiki.horde.org/ActiveSync for more details on client certificate
+     authentication. If selecting both basic and client certificates, make sure
+     you are not already using client certificate authentication in Horde; if
+     client certificates are used for general Horde authentication then they
+     must be used here as well. If unsure, select Basic. </configdescription>
      <configsection name="auth">
        <configswitch name="type" desc="Select the authentication methods that
        should be supported.">basic
