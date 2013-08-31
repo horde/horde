@@ -1002,6 +1002,9 @@ class Horde_ActiveSync
             if (self::$_version == 121) {
                 self::$_version = 12.1;
             }
+            if (self::$_version == 140) {
+                self::$_version = 14;
+            }
             if (self::$_version == 141) {
                 self::$_version = 14.1;
             }
