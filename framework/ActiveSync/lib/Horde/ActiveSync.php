@@ -546,6 +546,9 @@ class Horde_ActiveSync
                 list($user, $pass) = explode(':', $hash, 2);
             }
             $user = !empty($username) ? $username : $user;
+        } elseif (!empty($username)) {
+            // Might not need a password, could be using X509 cert.
+            $user = $username;
         } else {
             // No provided username or Authorization header.
             self::$_logger->debug('Client did not provide authentication data.');
@@ -717,7 +720,7 @@ class Horde_ActiveSync
             return $result;
         }
 
-        if (!$this->authenticate()) {
+        if (!$this->authenticate(!empty($get['User']) ? $get['User'] : '')) {
             $this->activeSyncHeader();
             $this->versionHeader();
             $this->commandsHeader();
