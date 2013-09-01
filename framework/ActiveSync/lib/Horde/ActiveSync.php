@@ -865,6 +865,7 @@ class Horde_ActiveSync
 
         // Should we announce a new version is available to the client?
         if (!empty($needMsRp)) {
+            $this->_logger->info('Announcing X-MS-RP to client.');
             header("X-MS-RP: ". $this->getSupportedVersions());
         }
 
