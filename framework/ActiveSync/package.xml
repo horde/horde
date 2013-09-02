@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix definition of SMIME_ENCRYPTED and DEVICE_ENCRYPTION policies.
 * [mjr] Always try to send up to WINDOW_SIZE changes, even if some messages had errors.
 * [mjr] Disable (broken) sync loop detection.
  </notes>
@@ -1668,6 +1669,7 @@
    <date>2013-09-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix definition of SMIME_ENCRYPTED and DEVICE_ENCRYPTION policies.
 * [mjr] Always try to send up to WINDOW_SIZE changes, even if some messages had errors.
 * [mjr] Disable (broken) sync loop detection.
    </notes>
