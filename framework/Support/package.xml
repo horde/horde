@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2013-09-02</date>
- <time>21:09:37</time>
+ <time>21:16:20</time>
  <version>
-  <release>2.1.1</release>
+  <release>2.1.2</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Horde_Support_Stub now handles array-like accesses.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -444,6 +444,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Horde_Support_Stub now handles array-like accesses.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-02</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
