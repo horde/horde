@@ -136,7 +136,7 @@
       <file name="Wbxml.php" role="php" />
      </dir> <!-- /lib/Horde/ActiveSync -->
      <file name="ActiveSync.php" role="php">
-       <tasks:replace from="@2.x.y-git@" to="version" type="package-info" />
+       <tasks:replace from="2.x.y-git" to="version" type="package-info" />
      </file>
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->

@@ -291,7 +291,7 @@ class Horde_ActiveSync
     const AUTH_REASON_USER_DENIED               = 'user';
     const AUTH_REASON_DEVICE_DENIED             = 'device';
 
-    const LIBRARY_VERSION                       = '@2.x.y-git@';
+    const LIBRARY_VERSION                       = '2.x.y-git';
 
     /**
      * Logger
