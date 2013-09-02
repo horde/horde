@@ -105,12 +105,12 @@ class Horde_ActiveSync_Device
      */
     public function needsVersionUpdate($supported)
     {
-        if (empty($this->_properties['announcedVersion'])) {
-            $this->_properties['announcedVersion'] = $supported;
+        if (empty($this->properties['announcedVersion'])) {
+            $this->properties['announcedVersion'] = $supported;
             return false;
         }
-        if ($this->_properties['announcedVersion'] != $supported) {
-            $this->_properties['announcedVersion'] = $supported;
+        if ($this->properties['announcedVersion'] != $supported) {
+            $this->properties['announcedVersion'] = $supported;
             return true;
         }
 

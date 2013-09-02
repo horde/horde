@@ -770,7 +770,10 @@ class Horde_ActiveSync
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
-            $device->version = $version;
+            $device->properties['version'] = $version;
+            // Call this to be sure we add the announced versions.
+            $device->needsVersionUpdate($this->getSupportedVersions());
+
             // @TODO: Remove is_callable check (and extra else clause) for H6.
             if (is_callable(array($this->_driver, 'createDeviceCallback'))) {
                 $callback_ret = $this->_driver->createDeviceCallback($device);
@@ -793,9 +796,9 @@ class Horde_ActiveSync
             }
         } else {
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
-            $device->version = $version;
+            $device->properties['version'] = $version;
             // Check this here so we only need to save the device object once.
-            if ($device->version < $this->_maxVersion && $device->needsVersionUpdate($this->getSupportedVersions())) {
+            if ($device->properties['version'] < $this->_maxVersion && $device->needsVersionUpdate($this->getSupportedVersions())) {
                 $needMsRp = true;
             }
             $device->save();
@@ -849,6 +852,7 @@ class Horde_ActiveSync
 
         // Should we announce a new version is available to the client?
         if (!empty($needMsRp)) {
+            $this->_logger->info('Announcing X-MS-RP to client.');
             header("X-MS-RP: ". $this->getSupportedVersions());
         }
 
