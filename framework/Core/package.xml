@@ -40,7 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix definition of SMIME_ENCRYPTED and DEVICE_ENCRYPTION policies.
+* [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3145,7 +3146,8 @@
    <date>2013-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix definition of SMIME_ENCRYPTED and DEVICE_ENCRYPTION policies.
+* [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
    </notes>
   </release>
  </changelog>
