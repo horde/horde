@@ -141,6 +141,9 @@ implements Horde_Kolab_Storage_Data_Query_History
      */
     private function _completeSynchronization($prefix, $is_reset)
     {
+        $folder = $this->data->getPath();
+        Horde::log(sprintf('Performing full history sync for %s (folder: %s, is_reset: %d)', $prefix, $folder, $is_reset), 'INFO');
+
         $seen_objects = array();
         foreach ($this->data->getObjectToBackend() as $object => $bid) {
             $full_id = $prefix.$object;
