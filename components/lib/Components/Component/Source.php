@@ -410,7 +410,8 @@ class Components_Component_Source extends Components_Component_Base
         $files = array(
             'changes' => $sentinel->changesFileExists(),
             'app'     => $sentinel->applicationFileExists(),
-            'bundle'  => $sentinel->bundleFileExists()
+            'bundle'  => $sentinel->bundleFileExists(),
+            'library' => $sentinel->baseLibraryFileExists()
         );
         $result = array();
         foreach ($files as $key => $file) {
