@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-30</date>
- <time>16:59:14</time>
+ <date>2013-09-01</date>
+ <time>22:54:59</time>
  <version>
   <release>2.7.1</release>
   <api>2.7.0</api>
@@ -1647,7 +1647,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-30</date>
+   <date>2013-09-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Allow authentication to still be attempted without an available password, allowing for the use of setups using client certificates.
