@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-01</date>
- <time>23:11:46</time>
+ <date>2013-09-02</date>
+ <time>18:43:17</time>
  <version>
   <release>2.7.2</release>
   <api>2.7.0</api>
@@ -1666,7 +1666,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-01</date>
+   <date>2013-09-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix definition of SMIME_ENCRYPTED and DEVICE_ENCRYPTION policies.
