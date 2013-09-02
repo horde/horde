@@ -89,8 +89,9 @@ implements Horde_Kolab_Storage_Data_Query_History
         $prefix = $this->_constructHistoryPrefix();
         // Abort history update if we can't determine the prefix.
         // Otherwise we pollute the database with useless entries.
-        if (empty($prefix))
+        if (empty($prefix)) {
             return;
+        }
 
         // check if IMAP uidvalidity changed
         $is_reset = !empty($params['is_reset']);
@@ -103,8 +104,10 @@ implements Horde_Kolab_Storage_Data_Query_History
                 // Check if the object is really gone from the folder.
                 // Otherwise we just deleted a duplicated object or updated the original one.
                 // (An update results in an ADDED + DELETED folder action)
-                if ($this->data->objectIdExists($object_uid) == true)
+                if ($this->data->objectIdExists($object_uid) == true) {
+                    Horde::log('Skipping delete of still existing Kolab object ' . $object_uid, 'INFO');
                     continue;
+                }
 
                 $this->history->log(
                     $prefix.$object_uid, array('action' => 'delete', 'bid' => $bid), true
@@ -170,8 +173,10 @@ implements Horde_Kolab_Storage_Data_Query_History
             return $this->_prefix;
 
         $type = $this->_type2app($this->data->getType());
-        if (empty($type))
+        if (empty($type)) {
+            Horde::log('Unsupported app type: ' . $this->data->getType(), 'WARN');
             return '';
+        }
 
         // Determine share name
         $share_name = '';
@@ -185,8 +190,10 @@ implements Horde_Kolab_Storage_Data_Query_History
         $data = $query->getParameters($folder);
         if (isset($data['share_name']))
             $share_name = $data['share_name'];
-        else
+        else {
+            Horde::log("share_name not found. Can't compute history prefix for folder " . $folder, 'ERR');
             return '';
+        }
 
         $this->_prefix = $type.':'.$share_name.':';
 
