@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-09-02</date>
- <time>20:37:52</time>
+ <time>20:45:36</time>
  <version>
-   <release>1.1.1</release>
+   <release>1.1.2</release>
    <api>1.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Don&apos;t set default value for TEXT column.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -141,6 +141,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t set default value for TEXT column.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
