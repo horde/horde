@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Always try to send up to WINDOW_SIZE changes, even if some messages had errors.
+* [mjr] Disable (broken) sync loop detection.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1653,6 +1654,8 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Allow authentication to still be attempted without an available password, allowing for the use of setups using client certificates.
+* [mjr] Fix detecting EAS version on clients that only support up to 14.0, and send the version encoded in compressed parameters.
+* [mjr] Fix OPTIONS, SYNC loop due to incorrect determination of when to send the MS-RP header.
    </notes>
   </release>
   <release>
@@ -1665,7 +1668,8 @@
    <date>2013-09-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Always try to send up to WINDOW_SIZE changes, even if some messages had errors.
+* [mjr] Disable (broken) sync loop detection.
    </notes>
   </release>
  </changelog>
