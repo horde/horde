@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2013-09-02</date>
- <time>20:30:21</time>
+ <time>20:37:17</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix saving all day events when the end date is on the next day (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12627).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -710,6 +710,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix saving all day events when the end date is on the next day (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12627).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
