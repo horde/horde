@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
- <time>16:44:05</time>
+ <date>2013-09-02</date>
+ <time>20:30:21</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix saving all day events when the end date is on the next day (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12627).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -706,10 +706,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix saving all day events when the end date is on the next day (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #12627).
    </notes>
   </release>
  </changelog>
