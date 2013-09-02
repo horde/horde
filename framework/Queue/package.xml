@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-22</date>
- <time>13:49:54</time>
+ <date>2013-09-02</date>
+ <time>20:37:52</time>
  <version>
    <release>1.1.1</release>
    <api>1.1.0</api>
@@ -137,7 +137,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-22</date>
+   <date>2013-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t set default value for TEXT column.
