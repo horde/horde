@@ -2779,6 +2779,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             case Horde_ActiveSync_Policies::POLICY_ALLOW_BROWSER:
             case Horde_ActiveSync_Policies::POLICY_ALLOW_HTML:
             case Horde_ActiveSync_Policies::POLICY_MAX_EMAIL_AGE:
+            case Horde_ActiveSync_Policies::POLICY_DEVICE_ENCRYPTION:
+            case Horde_ActiveSync_Policies::POLICY_ENCRYPTION:
                 $allowed = max($allowed);
                 break;
             case Horde_ActiveSync_Policies::POLICY_MINLENGTH:
