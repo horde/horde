@@ -173,25 +173,6 @@ class Horde_Release_Sentinel
             chmod($tmp, $oldmode);
 
             system("mv -f $tmp $bundle");
-        } elseif ($basefile = $this->baseLibraryFileExists()) {
-            $tmp = Horde_Util::getTempFile();
-
-            $oldmode = fileperms($basefile);
-            $oldfp = fopen($basefile, 'r');
-            $newfp = fopen($tmp, 'w');
-            while ($line = fgets($oldfp)) {
-                $line = preg_replace(
-                    '/const LIBRARY_VERSION = \'[^\']*\';/',
-                    'const  LIBRARY_VERSION = \'' . $version . '\';',
-                    $line
-                );
-                fwrite($newfp, $line);
-            }
-            fclose($oldfp);
-            fclose($newfp);
-            chmod($tmp, $oldmode);
-
-            system("mv -f $tmp $basefile");
         }
     }
 
@@ -223,21 +204,6 @@ class Horde_Release_Sentinel
             return $application;
         }
         return false;
-    }
-
-    /**
-     * Indicates if the basefile for a framework package exists. E.g., for
-     * package Horde_Foo, checks if /lib/Horde/Foo.php exists.
-     *
-     * @return string|boolean  The path to the base file if it exists, false
-     *                         otherwise.
-     */
-    public function baseLibraryFileExists()
-    {
-        $libfile = $this->_component . '/lib/Horde/' . basename($this->_component) . '.php';
-        if (file_exists($libfile)) {
-            return $libfile;
-        }
     }
 
     /**
@@ -275,16 +241,6 @@ class Horde_Release_Sentinel
             $oldfp = fopen($bundle, 'r');
             while ($line = fgets($oldfp)) {
                 if (preg_match('/const VERSION = \'([^\']*)\';/', $line, $match)) {
-                    return $match[1];
-                }
-            }
-            fclose($oldfp);
-        }
-
-        if ($basefile = $this->baseLibraryFileExists()) {
-            $oldfp = fopen($basefile, 'r');
-            while ($line = fgets($oldfp)) {
-                if (preg_match('/const LIBRARY_VERSION = \'([^\']*)\';/', $line, $match)) {
                     return $match[1];
                 }
             }

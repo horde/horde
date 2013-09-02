@@ -13,8 +13,8 @@
  <date>2012-11-19</date>
  <time>15:15:02</time>
  <version>
-  <release>2.1.0</release>
-  <api>2.1.0</api>
+  <release>2.0.3</release>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -265,15 +265,15 @@
   </release>
   <release>
    <version>
-    <release>2.1.0</release>
-    <api>2.1.0</api></version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* 
    </notes>
   </release>
  </changelog>
