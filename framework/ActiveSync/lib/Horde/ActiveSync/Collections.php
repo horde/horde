@@ -815,9 +815,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * reset the collection state for any collection that has reached the
      * MAXIMUM_SYNCKEY_COUNTER value.
      *
-     * @TODO Disabled for now (always returns true) since in the current code
-     *       the counter will be increased even by a user explicitly triggering
-     *       a sync, and no changes were returned.
+     * @TODO: Disabled for now, since in the current code the counter will be
+     *        incremented everytime a sync is explicitly requested by the user
+     *        and no changes are found in a collection. So, e.g., after 10
+     *        explicitly requested syncs, if contacts have had no change, the
+     *        sync state would be reset. Will revisit in Horde 6 - probably need
+     *        to move this to the state object so it's only incremented when
+     *        there is a duplicate key error.
      *
      * @return boolean  True if counters validate, false if we have reached the
      *                  MAXIMUM_SYNCKEY_COUNTER value and cleared the state.
