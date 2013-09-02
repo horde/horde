@@ -172,30 +172,34 @@ implements Horde_Kolab_Storage_Data_Query_History
         if (!empty($this->_prefix))
             return $this->_prefix;
 
-        $type = $this->_type2app($this->data->getType());
-        if (empty($type)) {
+        $app = $this->_type2app($this->data->getType());
+        if (empty($app)) {
             Horde::log('Unsupported app type: ' . $this->data->getType(), 'WARN');
             return '';
         }
 
-        // Determine share name
-        $share_name = '';
+        // Determine share id
         $folder = $this->data->getPath();
+        $share_id = '';
 
-        // TODO: Access global Kolab_Storage object if possible
-        // We probably have to extend the class structure for this.
-        $query = $this->factory->create()->getList()
-                ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
+        // Create a share instance. The performance impact is minimal
+        // since the "real" app will create a share instance anyway.
+        $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($app);
+        $all_shares = $shares->listAllShares();
+        foreach($all_shares as $id => $share) {
+            if ($share->get('folder') == $folder) {
+                $share_id = $id;
+                break;
+            }
+        }
 
-        $data = $query->getParameters($folder);
-        if (isset($data['share_name']))
-            $share_name = $data['share_name'];
-        else {
-            Horde::log("share_name not found. Can't compute history prefix for folder " . $folder, 'ERR');
+        // bail out if we are unable to determine the share id
+        if (empty($share_id)) {
+            Horde::log("share_id not found. Can't compute history prefix for folder " . $folder, 'ERR');
             return '';
         }
 
-        $this->_prefix = $type.':'.$share_name.':';
+        $this->_prefix = $app.':'.$share_id.':';
 
         return $this->_prefix;
     }
