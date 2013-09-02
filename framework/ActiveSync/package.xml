@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-09-01</date>
- <time>22:54:59</time>
+ <time>23:11:46</time>
  <version>
-  <release>2.7.1</release>
+  <release>2.7.2</release>
   <api>2.7.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Allow authentication to still be attempted without an available password, allowing for the use of setups using client certificates.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1651,6 +1651,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Allow authentication to still be attempted without an available password, allowing for the use of setups using client certificates.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.2</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
