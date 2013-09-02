@@ -86,26 +86,31 @@ implements Horde_Kolab_Storage_Data_Query_History
      */
     public function synchronize($params = array())
     {
-        $prefix = $this->_constructHistoryPrefix();
-        // Abort history update if we can't determine the prefix.
-        // Otherwise we pollute the database with useless entries.
-        if (empty($prefix)) {
-            return;
-        }
-
         // check if IMAP uidvalidity changed
         $is_reset = !empty($params['is_reset']);
 
         if (isset($params['changes']) && !$is_reset) {
-            foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] as $bid => $object) {
+            $added = $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED];
+            $deleted = $params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED];
+
+            if (!empty($added) || !empty($deleted)) {
+                $prefix = $this->_constructHistoryPrefix();
+                // Abort history update if we can't determine the prefix.
+                // Otherwise we pollute the database with useless entries.
+                if (empty($prefix)) {
+                    return;
+                }
+            }
+
+            foreach ($added as $bid => $object) {
                 $this->_updateLog($prefix.$object['uid'], $bid);
             }
-            foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] as $bid => $object_uid) {
+            foreach ($deleted as $bid => $object_uid) {
                 // Check if the object is really gone from the folder.
                 // Otherwise we just deleted a duplicated object or updated the original one.
                 // (An update results in an ADDED + DELETED folder action)
                 if ($this->data->objectIdExists($object_uid) == true) {
-                    Horde::log('Skipping delete of still existing Kolab object ' . $object_uid, 'INFO');
+                    Horde::log('Skipping delete of still existing Kolab object ' . $object_uid, 'DEBUG');
                     continue;
                 }
 
@@ -114,6 +119,11 @@ implements Horde_Kolab_Storage_Data_Query_History
                 );
             }
         } else {
+            $prefix = $this->_constructHistoryPrefix();
+            if (empty($prefix)) {
+                return;
+            }
+
             // Full sync. Either our timestamp is too old
             // or the IMAP uidvalidity changed
             $this->_completeSynchronization($prefix, $is_reset);
