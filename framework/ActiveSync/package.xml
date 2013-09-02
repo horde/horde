@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Allow authentication to still be attempted without an available password, allowing for the use of setups using client certificates.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1650,7 +1650,7 @@
    <date>2013-08-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Allow authentication to still be attempted without an available password, allowing for the use of setups using client certificates.
    </notes>
   </release>
  </changelog>
