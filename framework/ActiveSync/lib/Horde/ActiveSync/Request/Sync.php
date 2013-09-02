@@ -590,8 +590,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                                $cnt_global < $this->_collections->getDefaultWindowSize() &&
                                $progress = $exporter->sendNextChange()) {
 
-                            ++$cnt_collection;
-                            ++$cnt_global;
+                            if ($progress === true) {
+                                ++$cnt_collection;
+                                ++$cnt_global;
+                            }
                         }
 
                         $this->_encoder->endTag();
