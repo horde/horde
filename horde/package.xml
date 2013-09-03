@@ -30,7 +30,7 @@
  </lead>
  <date>2013-09-03</date>
  <version>
-  <release>5.1.4</release>
+  <release>5.1.5</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mjr] Fix detecting ActiveSync policies for EAS version 12.0.
-* [jan] Fix fatal error on ActiveSync preferences page (Bug #12631).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3755,6 +3754,19 @@
    <notes>
 * [mjr] Fix detecting ActiveSync policies for EAS version 12.0.
 * [jan] Fix fatal error on ActiveSync preferences page (Bug #12631).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.1.5</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
