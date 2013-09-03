@@ -1434,6 +1434,9 @@ abstract class Kronolith_Event
         $this->originalStart = clone $this->start;
         $this->originalEnd = clone $this->end;
         $this->allday = $dates['allday'];
+        if ($tz != date_default_timezone_get()) {
+            $this->timezone = $tz;
+        }
 
         /* Sensitivity */
         $this->private = ($message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE || $message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_CONFIDENTIAL) ? true :  false;
@@ -1496,19 +1499,28 @@ abstract class Kronolith_Event
                     $event = $kronolith_driver->getEvent();
                     $times = $rule->getDatetime();
                     $original = $rule->getExceptionStartTime();
+                    $original->setTimezone($tz);
                     $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
                     $event->start = $times['start'];
                     $event->end = $times['end'];
+                    $event->start->setTimezone($tz);
+                    $event->end->setTimezone($tz);
                     $event->allday = $times['allday'];
                     $event->title = $rule->getSubject();
+                    $event->title = empty($event->title) ? $this->title : $event->title;
                     $event->description = $rule->getBody();
+                    $event->description = empty($event->description) ? $this->description : $event->description;
                     $event->baseid = $this->uid;
                     $event->exceptionoriginaldate = $original;
                     $event->initialized = true;
+                    if ($tz != date_default_timezone_get()) {
+                        $event->timezone = $tz;
+                    }
                     $event->save();
                 } else {
                     /* For exceptions that are deletions, just add the exception */
                     $exceptiondt = $rule->getExceptionStartTime();
+                    $exceptiondt->setTimezone($tz);
                     $this->recurrence->addException($exceptiondt->format('Y'), $exceptiondt->format('m'), $exceptiondt->format('d'));
                }
             }

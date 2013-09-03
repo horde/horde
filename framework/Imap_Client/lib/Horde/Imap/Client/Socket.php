@@ -130,6 +130,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected $_cmdQueue = array();
 
     /**
+     * The default ports to use for a connection.
+     *
+     * @var array
+     */
+    protected $_defaultPorts = array(143, 993);
+
+    /**
      * Mapping of status fields to IMAP names.
      *
      * @var array
@@ -360,13 +367,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_connect();
 
         $first_login = empty($this->_init['authmethod']);
+        $secure = $this->getParam('secure');
 
         // Switch to secure channel if using TLS.
         if (!$this->isSecureConnection() &&
-            ($this->getParam('secure') == 'tls')) {
+            (($secure === 'tls') ||
+             (($secure === true) && $this->queryCapability('LOGINDISABLED')))) {
             if ($first_login && !$this->queryCapability('STARTTLS')) {
-                // We should never hit this - STARTTLS is required pursuant
-                // to RFC 3501 [6.2.1].
+                /* We should never hit this - STARTTLS is required pursuant to
+                 * RFC 3501 [6.2.1]. */
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Server does not support TLS connections."),
                     Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
@@ -375,7 +384,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // Switch over to a TLS connection.
             // STARTTLS returns no untagged response.
-            $this->_sendCmd($this->_Command('STARTTLS'));
+            $this->_sendCmd($this->_command('STARTTLS'));
 
             if (!$this->_connection->startTls()) {
                 $this->logout();
@@ -384,6 +393,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
                 );
             }
+
+            $this->setParam('secure', 'tls');
 
             if ($first_login) {
                 // Expire cached CAPABILITY information (RFC 3501 [6.2.1])
@@ -403,9 +414,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // Add authentication methods.
             $auth_mech = array();
 
-            if ($auth = $this->queryCapability('AUTH')) {
-                $auth = array_flip($auth);
-            }
+            $auth = ($auth = $this->queryCapability('AUTH'))
+                ? array_flip($auth)
+                : array();
 
             // XOAUTH2
             if (isset($auth['XOAUTH2']) && $this->getParam('xoauth2_token')) {
@@ -536,8 +547,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_temp['no_cap'] = true;
         }
 
-        /* Get greeting information.  This is untagged so we need to specially
-         * deal with it here. */
+        /* Get greeting information (untagged response). */
         try {
             $this->_getLine($this->_pipeline());
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {

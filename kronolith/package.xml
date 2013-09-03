@@ -2220,7 +2220,7 @@
    <date>2013-08-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix some issues with recurring event exceptions due to improper timezone handling (Bug #12630).
    </notes>
   </release>
   <release>
