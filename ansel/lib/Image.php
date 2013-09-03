@@ -474,10 +474,18 @@ class Ansel_Image Implements Iterator
         // Watermark
         if (!empty($watermark)) {
             $this->watermark($view);
+
+            // Cache the data again
+            try {
+                $this->_data[$vHash] = $this->_image->raw();
+            } catch (Horde_Image_Exception $e) {
+                throw new Ansel_Exception($e);
+            }
+
             $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Vfs')
                 ->create('images')
-                ->writeData($vfspath, $this->getVFSName($view), $this->_image->_data);
+                ->writeData($vfspath, $this->getVFSName($view), $this->_data[$vHash]);
         }
 
         // Revert any type change

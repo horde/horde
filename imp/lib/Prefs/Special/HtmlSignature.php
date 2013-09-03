@@ -44,7 +44,10 @@ class IMP_Prefs_Special_HtmlSignature implements Horde_Core_Prefs_Ui_Special
             $js[$key] = $identity->getValue('signature_html', $key);
         };
 
+        $jsfile = new Horde_Script_File_JsDir('ckeditor/pasteignore.js', 'imp');
+
         $page_output->addInlineJsVars(array(
+            'ImpHtmlSignaturePrefs.pasteignore' => $jsfile->url->url,
             'ImpHtmlSignaturePrefs.sigs' => $js
         ));
 
