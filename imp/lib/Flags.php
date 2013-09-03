@@ -162,11 +162,12 @@ class IMP_Flags implements ArrayAccess, Serializable
      * @param string $label  The label to use for the new flag.
      *
      * @return string  The IMAP flag name.
+     * @throws IMP_Exception
      */
     public function addFlag($label)
     {
         if (strlen($label) == 0) {
-            return;
+            throw new IMP_Exception(_("Flag name must not be empty."));
         }
 
         $ob = new IMP_Flag_User($label);
