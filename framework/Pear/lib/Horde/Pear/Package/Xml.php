@@ -339,6 +339,7 @@ class Horde_Pear_Package_Xml
         if ($keepTime) {
             $this->replaceTextNode('/p:package/p:time', gmdate('H:i:s'));
         } elseif ($node = $this->findNode('/p:package/p:time')) {
+            $this->removeWhitespace($node->previousSibling);
             $this->_xml->documentElement->removeChild($node);
         }
 
@@ -518,6 +519,7 @@ class Horde_Pear_Package_Xml
         if ($keepTime) {
             $this->replaceTextNode('/p:package/p:time', gmdate('H:i:s'));
         } elseif ($node = $this->findNode('/p:package/p:time')) {
+            $this->removeWhitespace($node->previousSibling);
             $this->_xml->documentElement->removeChild($node);
         }
 
