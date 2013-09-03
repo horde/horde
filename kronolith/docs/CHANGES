@@ -2,6 +2,8 @@
 v4.1.4-git
 ----------
 
+[mjr] Fix some issues with recurring event exceptions due to improper timezone
+      handling (Bug #12630).
 
 
 ------

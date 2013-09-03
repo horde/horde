@@ -23,7 +23,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
+class IMP_Prefs_Identity extends Horde_Core_Prefs_Identity
 {
     /**
      * Cached data.

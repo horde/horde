@@ -351,7 +351,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Use strpos() instead of preg_match() for simple string searches (Request #12603; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [mms] Use strpos() instead of preg_match() for simple string searches (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Request #12603).
    </notes>
   </release>
   <release>

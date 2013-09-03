@@ -247,13 +247,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *     secure: (string) Use SSL or TLS to connect.
      *             VALUES:
      *     <ul>
-     *      <li>false</li>
+     *      <li>false (No encryption)</li>
      *      <li>'ssl' (Auto-detect SSL version)</li>
      *      <li>'sslv2' (Force SSL version 3)</li>
      *      <li>'sslv3' (Force SSL version 2)</li>
-     *      <li>'tls'</li>
+     *      <li>'tls' (TLS)</li>
+     *      <li>true (TLS if available/necessary) [since 2.15.0]</li>
      *     </ul>
-     *             DEFAULT: No encryption</li>
+     *             DEFAULT: true</li>
      *    </li>
      *    <li>
      *     timeout: (integer)  Connection timeout, in seconds.
@@ -275,16 +276,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $params = array_merge(array(
             'encryptKey' => null,
             'hostspec' => 'localhost',
-            'secure' => false,
+            'secure' => true,
             'timeout' => 30
         ), array_filter($params));
 
-        if ($params['secure'] === true) {
-            $params['secure'] = 'tls';
-        }
-
         if (!isset($params['port'])) {
-            $params['port'] = (isset($params['secure']) && in_array($params['secure'], array('ssl', 'sslv2', 'sslv3')))
+            $params['port'] = (!empty($params['secure']) && in_array($params['secure'], array('ssl', 'sslv2', 'sslv3'), true))
                 ? $this->_defaultPorts[1]
                 : $this->_defaultPorts[0];
         }

@@ -421,6 +421,7 @@ class Whups
         $queue = $vars->get('queue');
 
         $tabs->addTab(_("_History"), self::urlFor('ticket', $id), 'history');
+        $tabs->addTab(_("_Attachments"), self::urlFor('ticket_action', array('attachments', $id)), 'attachments');
         if (self::hasPermission($queue, 'queue', 'update')) {
             $tabs->addTab(_("_Update"),
                           self::urlFor('ticket_action', array('update', $id)),
@@ -813,7 +814,7 @@ class Whups
      */
     static public function formatColumn($info, $value)
     {
-        $url = Whups::urlFor('ticket', $info['id']);
+        $url = self::urlFor('ticket', $info['id']);
         $thevalue = isset($info[$value]) ? $info[$value] : '';
 
         if ($value == 'timestamp' || $value == 'due' ||
@@ -1013,43 +1014,70 @@ class Whups
      * @param integer $ticket  A ticket ID.
      * @param string $file     An attachment name.
      * @param integer $queue   The ticket's queue ID.
+     *
+     * @return array  List of URLs.
      */
     static public function attachmentUrl($ticket, $file, $queue)
     {
-        $link = '';
+        global $injector, $registry;
+
+        $links = array();
 
         // Can we view the attachment online?
         $mime_part = new Horde_Mime_Part();
         $mime_part->setType(Horde_Mime_Magic::extToMime($file['type']));
-        $viewer = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part);
+        $viewer = $injector->getInstance('Horde_Core_Factory_MimeViewer')
+            ->create($mime_part);
         if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {
-            $url = Horde::url('view.php')->add(array(
-                'actionID' => 'view_file',
-                'type' => $file['type'],
-                'file' => $file['name'],
-                'ticket' => $ticket));
-            $link .= Horde::link($url, $file['name'], null, '_blank') . $file['name'] . '</a>';
+            $links['view'] = Horde::url('view.php')
+                ->add(array(
+                    'actionID' => 'view_file',
+                    'type' => $file['type'],
+                    'file' => $file['name'],
+                    'ticket' => $ticket
+                ))
+                ->link(array('title' => $file['name'], 'target' => '_blank'))
+                . $file['name'] . '</a>';
         } else {
-            $link .= $file['name'];
+            $links['view'] = $file['name'];
         }
 
         // We can always download attachments.
         $url_params = array('actionID' => 'download_file',
                             'file' => $file['name'],
                             'ticket' => $ticket);
-        $link .= ' ' . Horde::link($GLOBALS['registry']->downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
+        $links['download'] =
+            $registry->downloadUrl($file['name'], $url_params)->link(array(
+                'title' => $file['name']
+            ))
+            . Horde::img('download.png', _("Download")) . '</a>';
 
         // Admins can delete attachments.
         if (self::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
-            $url = Horde::url('ticket/delete_attachment.php')->add(
-                array('file' => $file['name'],
-                      'id' => $ticket,
-                      'url' => Horde::selfUrl(true, false, true)));
-            $link .= ' ' . Horde::link($url, sprintf(_("Delete %s"), $file['name']), '', '', 'return window.confirm(\'' . addslashes(sprintf(_("Permanently delete %s?"), $file['name'])) . '\');') .
-                Horde::img('delete.png', sprintf(_("Delete %s"), $file['name'])) . '</a>';
+            $links['delete'] = Horde::url('ticket/delete_attachment.php')
+                ->add(
+                    array(
+                        'file' => $file['name'],
+                        'id' => $ticket,
+                        'url' => Horde::selfUrl(true, false, true)
+                    )
+                )
+                ->link(array(
+                    'title' => sprintf(_("Delete %s"), $file['name']),
+                    'onclick' => 'return window.confirm(\''
+                        . addslashes(
+                            sprintf(_("Permanently delete %s?"), $file['name'])
+                        )
+                        . '\');'
+                ))
+                . Horde::img(
+                    'delete.png',
+                    sprintf(_("Delete %s"), $file['name'])
+                )
+                . '</a>';
         }
 
-        return $link;
+        return $links;
     }
 
     /**

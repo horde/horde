@@ -291,7 +291,7 @@ class Horde_ActiveSync
     const AUTH_REASON_USER_DENIED               = 'user';
     const AUTH_REASON_DEVICE_DENIED             = 'device';
 
-    const LIBRARY_VERSION                       = '2.5.6';
+    const LIBRARY_VERSION                       = '2.x.y-git';
 
     /**
      * Logger
@@ -546,6 +546,9 @@ class Horde_ActiveSync
                 list($user, $pass) = explode(':', $hash, 2);
             }
             $user = !empty($username) ? $username : $user;
+        } elseif (!empty($username)) {
+            // Might not need a password, could be using X509 cert.
+            $user = $username;
         } else {
             // No provided username or Authorization header.
             self::$_logger->debug('Client did not provide authentication data.');
@@ -571,25 +574,6 @@ class Horde_ActiveSync
             }
         } else {
             return false;
-        }
-
-        // Some devices (incorrectly) only send the username in the httpauth
-        $get = $this->getGetVars();
-        if ($this->_request->getMethod() == 'POST' && empty($get['User'])) {
-            if ($serverVars['PHP_AUTH_USER']) {
-                $get['User'] = $serverVars['PHP_AUTH_USER'];
-            } elseif ($serverVars['HTTP_AUTHORIZATION']) {
-                $hash = str_replace('Basic ', '', $serverVars['Authorization']);
-                $hash = base64_decode($hash);
-                if (strpos($hash, ':') !== false) {
-                    list($get['User'], $pass) = explode(':', $hash, 2);
-                }
-            }
-
-            if (empty($get['User'])) {
-                self::$_logger->err('Missing required parameters.');
-                throw new Horde_ActiveSync_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
-            }
         }
 
         if (!$this->_driver->setup($user)) {
@@ -736,7 +720,7 @@ class Horde_ActiveSync
             return $result;
         }
 
-        if (!$this->authenticate()) {
+        if (!$this->authenticate(!empty($get['User']) ? $get['User'] : '')) {
             $this->activeSyncHeader();
             $this->versionHeader();
             $this->commandsHeader();
@@ -787,6 +771,9 @@ class Horde_ActiveSync
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
             $device->properties['version'] = $version;
+            // Call this to be sure we add the announced versions.
+            $device->needsVersionUpdate($this->getSupportedVersions());
+
             // @TODO: Remove is_callable check (and extra else clause) for H6.
             if (is_callable(array($this->_driver, 'createDeviceCallback'))) {
                 $callback_ret = $this->_driver->createDeviceCallback($device);
@@ -810,6 +797,10 @@ class Horde_ActiveSync
         } else {
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
             $device->properties['version'] = $version;
+            // Check this here so we only need to save the device object once.
+            if ($device->properties['version'] < $this->_maxVersion && $device->needsVersionUpdate($this->getSupportedVersions())) {
+                $needMsRp = true;
+            }
             $device->save();
             if (is_callable(array($this->_driver, 'deviceCallback'))) {
                 $callback_ret = $this->_driver->deviceCallback($device);
@@ -860,7 +851,8 @@ class Horde_ActiveSync
         }
 
         // Should we announce a new version is available to the client?
-        if ($device->version < $this->_maxVersion) {
+        if (!empty($needMsRp)) {
+            $this->_logger->info('Announcing X-MS-RP to client.');
             header("X-MS-RP: ". $this->getSupportedVersions());
         }
 
@@ -1001,6 +993,9 @@ class Horde_ActiveSync
             self::$_version = empty($get['ProtVer']) ? '1.0' : $get['ProtVer'];
             if (self::$_version == 121) {
                 self::$_version = 12.1;
+            }
+            if (self::$_version == 140) {
+                self::$_version = 14;
             }
             if (self::$_version == 141) {
                 self::$_version = 14.1;
