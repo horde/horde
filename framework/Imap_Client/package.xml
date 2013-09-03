@@ -10,8 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-26</date>
- <time>00:01:23</time>
+ <date>2013-09-03</date>
  <version>
   <release>2.15.0</release>
   <api>2.15.0</api>
@@ -1961,7 +1960,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-26</date>
+   <date>2013-09-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Workaround servers that don&apos;t advertise UIDL until after authentication.
