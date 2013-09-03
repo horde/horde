@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Correct dates with very large days-of-month more efficiently (Bug #12615).
 * [jan] Don&apos;t limit the argument to Horde_Date_Utils::isLeapYear() to 4 digits.
  </notes>
  <contents>
@@ -936,6 +937,7 @@
    <date>2013-05-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Correct dates with very large days-of-month more efficiently (Bug #12615).
 * [jan] Don&apos;t limit the argument to Horde_Date_Utils::isLeapYear() to 4 digits.
    </notes>
   </release>
