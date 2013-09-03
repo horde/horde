@@ -1173,11 +1173,7 @@ var DimpBase = {
             break;
 
        case 'ctx_flag_new':
-            HordeDialog.display({
-                form: $('flagnewContainer').down().clone(true),
-                form_id: 'flag_new',
-                text: DimpCore.text.newflag_name
-            });
+            this.displayFlagNew();
             break;
 
        case 'ctx_flag_edit':
@@ -3140,6 +3136,15 @@ var DimpBase = {
         }, this);
     },
 
+    displayFlagNew: function()
+    {
+        HordeDialog.display({
+            form: $('flagnewContainer').down().clone(true),
+            form_id: 'flag_new',
+            text: DimpCore.text.newflag_name
+        });
+    },
+
     _handleMboxMouseClick: function(e)
     {
         var tmp,
@@ -3995,8 +4000,12 @@ document.observe('HordeDialog:onClick', function(e) {
             flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
             flagname: $F(elt.down('INPUT[name="flagname"]'))
         }), {
-            callback: function() {
-                HordeDialog.close();
+            callback: function(r) {
+                if (r.success) {
+                    HordeDialog.close();
+                } else {
+                    this.displayFlagNew();
+                }
             }.bind(this),
             uids: this.viewport.getSelected()
         });
