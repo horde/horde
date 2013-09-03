@@ -331,12 +331,16 @@ class Horde_Pear_Package_Xml
     /**
      * Mark the package as being release and set the timestamps to now.
      *
-     * @return NULL
+     * @param boolean $keepTime  Keep the <time> element?
      */
-    public function timestamp()
+    public function timestamp($keepTime = false)
     {
-        $this->replaceTextNode('/p:package/p:date', date('Y-m-d'));
-        $this->replaceTextNode('/p:package/p:time', date('H:i:s'));
+        $this->replaceTextNode('/p:package/p:date', gmdate('Y-m-d'));
+        if ($keepTime) {
+            $this->replaceTextNode('/p:package/p:time', gmdate('H:i:s'));
+        } elseif ($node = $this->findNode('/p:package/p:time')) {
+            $this->_xml->documentElement->removeChild($node);
+        }
 
         $release = $this->_requireCurrentRelease();
 
@@ -486,12 +490,14 @@ class Horde_Pear_Package_Xml
      * @param string $initial_note      The text for the initial note.
      * @param string $stability_api     The API stability for the next release.
      * @param string $stability_release The stability for the next release.
+     * @param boolean $keepTime         Keep the <time> element?
      *
      * @return NULL
      */
     public function addNextVersion($version, $initial_note,
                                    $stability_api = null,
-                                   $stability_release = null)
+                                   $stability_release = null,
+                                   $keepTime = false)
     {
         $notes = "\n* " . $initial_note . "\n ";
         $api = $this->getNodeText('/p:package/p:version/p:api');
@@ -508,8 +514,12 @@ class Horde_Pear_Package_Xml
             './p:release', $version_node, $version
         );
         $this->replaceTextNode('/p:package/p:notes', $notes);
-        $this->replaceTextNode('/p:package/p:date', date('Y-m-d'));
-        $this->replaceTextNode('/p:package/p:time', date('H:i:s'));
+        $this->replaceTextNode('/p:package/p:date', gmdate('Y-m-d'));
+        if ($keepTime) {
+            $this->replaceTextNode('/p:package/p:time', gmdate('H:i:s'));
+        } elseif ($node = $this->findNode('/p:package/p:time')) {
+            $this->_xml->documentElement->removeChild($node);
+        }
 
         $changelog = $this->findNode('/p:package/p:changelog');
         $this->_insertWhiteSpace($changelog, ' ');
