@@ -317,6 +317,10 @@ var DimpCore = {
         if (typeof ContextSensitive != 'undefined') {
             this.DMenu = new ContextSensitive();
         }
+
+        /* Set popup height. */
+        HordeCore.conf.popup_height = screen.availHeight - 50 -
+            ((window.outerHeight && window.innerHeight) ? (window.outerHeight - window.innerHeight) : 150);
     }
 
 };

@@ -24,7 +24,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
-class Horde_Registry
+class Horde_Registry implements Horde_Shutdown_Task
 {
     /* Session flags. */
     const SESSION_NONE = 1;
@@ -531,7 +531,7 @@ class Horde_Registry
         $injector->getInstance('Horde_Core_Factory_Notification')->addApplicationHandlers();
         $GLOBALS['notification']->attach('status', null, $notify_class);
 
-        register_shutdown_function(array($this, 'shutdown'));
+        Horde_Shutdown::add($this);
     }
 
     /**
@@ -685,7 +685,8 @@ class Horde_Registry
             if (!isset($app['status'])) {
                 $app['status'] = 'active';
             } elseif ($app['status'] == 'heading' ||
-                      $app['status'] == 'topbar') {
+                      $app['status'] == 'topbar'  ||
+                      $app['status'] == 'link') {
                 continue;
             }
 

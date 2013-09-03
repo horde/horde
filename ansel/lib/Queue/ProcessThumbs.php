@@ -36,13 +36,14 @@
      */
      public function run()
      {
+        global $prefs;
+
          foreach ($this->_images as $id) {
             try {
                 $image = $GLOBALS['injector']
                     ->getInstance('Ansel_Storage')
                     ->getImage($id);
-                $image->createView('screen');
-                $image->createView('thumb');
+                $image->createView('screen', null, $prefs->getValue('watermark_auto') ? $prefs->getValue('watermark_text', '') : '');                $image->createView('thumb');
                 $image->createView('mini');
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e->getMessage, 'ERR');

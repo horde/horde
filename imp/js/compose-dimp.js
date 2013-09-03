@@ -1182,9 +1182,6 @@ var DimpCompose = {
             return;
         }
 
-        /* Resize height. */
-        window.resizeTo(window.outerWidth || document.documentElement.offsetWidth, screen.availHeight - (window.screenY || 0) - 50);
-
         /* Attach event handlers. */
         if (Prototype.Browser.IE) {
             // IE doesn't bubble change events.

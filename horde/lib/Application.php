@@ -254,7 +254,7 @@ class Horde_Application extends Horde_Registry_Application
         );
 
         // EAS 12.0 and above.
-        if ($GLOBALS['conf']['activesync']['version'] == Horde_ActiveSync::VERSION_TWELVE) {
+        if ($GLOBALS['conf']['activesync']['version'] >= Horde_ActiveSync::VERSION_TWELVE) {
             $permissions[$prefix . Horde_ActiveSync_Policies::POLICY_ATC] = array(
                 'title' => _("Attachment Download"),
                 'type' => 'boolean'

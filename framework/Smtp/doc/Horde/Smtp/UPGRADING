@@ -11,6 +11,17 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 1.2.0
+===================
+
+  - Horde_Smtp
+
+    - Constructor
+
+      Added the true option to the 'secure' parameter (and has become the
+      default option).
+
+
 Upgrading to 1.1.0
 ===================
 
