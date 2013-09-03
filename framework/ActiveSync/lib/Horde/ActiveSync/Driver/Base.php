@@ -68,7 +68,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @var float
      */
-    protected $_version;
+    protected $_version = Horde_ActiveSync::VERSION_FOURTEENONE;
 
     /**
      * The state driver for this request. Needs to be injected into this class.

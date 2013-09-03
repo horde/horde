@@ -228,12 +228,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_collections->validateFromCache();
             }
 
-            // Check for inifinite sync loops.
-            if (!$this->_collections->checkLoopCounters()) {
-                $this->_statusCode = Horde_ActiveSync_Status::SERVER_ERROR;
-                $this->_handleGlobalSyncError();
-            }
-
             // Full or partial sync request?
             if ($partial === true) {
                 $this->_logger->info(sprintf(
@@ -590,8 +584,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                                $cnt_global < $this->_collections->getDefaultWindowSize() &&
                                $progress = $exporter->sendNextChange()) {
 
-                            ++$cnt_collection;
-                            ++$cnt_global;
+                            if ($progress === true) {
+                                ++$cnt_collection;
+                                ++$cnt_global;
+                            }
                         }
 
                         $this->_encoder->endTag();

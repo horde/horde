@@ -136,7 +136,9 @@ class Horde_ActiveSync_Connector_Exporter
     /**
      * Sends the next change in the set to the client.
      *
-     * @return boolean  True if more changes can be sent, otherwise false.
+     * @return boolean|Horde_Exception True if more changes can be sent false if
+     *                                 all changes were sent, Horde_Exception if
+     *                                 there was an error sending an item.
      */
     public function sendNextChange()
     {
@@ -201,6 +203,8 @@ class Horde_ActiveSync_Connector_Exporter
                             $this->messageChange($change['id'], $message);
                         } catch (Horde_Exception_NotFound $e) {
                             $this->_logger->err('Message gone or error reading message from server: ' . $e->getMessage());
+                            $this->_as->state->updateState($change['type'], $change);
+                            return $e;
                         } catch (Horde_ActiveSync_Exception $e) {
                             $this->_logger->err('Unknown backend error skipping message: ' . $e->getMessage());
                         }

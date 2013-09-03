@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-08-31</date>
- <time>15:18:00</time>
+ <date>2013-09-02</date>
+ <time>20:29:44</time>
  <version>
-  <release>2.9.0</release>
-  <api>2.9.0</api>
+  <release>2.8.1</release>
+  <api>2.8.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Add X509 client certificate authentication support.
+* [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3131,7 +3131,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-28</date>
+   <date>2013-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Always honor activesync_replyposition pref (Bug #12636, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
@@ -3141,15 +3141,15 @@
   </release>
   <release>
    <version>
-    <release>2.9.0</release>
-    <api>2.9.0</api></version>
+    <release>2.8.1</release>
+    <api>2.8.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-31</date>
+   <date>2013-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mjr] Add X509 client certificate authentication support.
+* [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
    </notes>
   </release>
  </changelog>
