@@ -194,16 +194,16 @@ abstract class Kronolith_Event
      *
      * @var Horde_Date
      */
-    public $originalStart;
+    protected $_originalStart;
 
     /**
      * The original end time of the event.
      *
-     * @se $originalStart for details.
+     * @see $_originalStart for details.
      *
      * @var Horde_Date
      */
-    public $originalEnd;
+    protected $_originalEnd;
 
     /**
      * The duration of this event in minutes
@@ -383,8 +383,6 @@ abstract class Kronolith_Event
 
         if (!is_null($eventObject)) {
             $this->fromDriver($eventObject);
-            $this->originalStart = clone $this->start;
-            $this->originalEnd = clone $this->end;
         }
     }
 
@@ -439,11 +437,13 @@ abstract class Kronolith_Event
             }
             // Fall through.
         case 'creator':
-        case 'overlap':
-        case 'indent':
-        case 'span':
-        case 'rowspan':
         case 'geoLocation':
+        case 'indent':
+        case 'originalStart':
+        case 'originalEnd':
+        case 'overlap':
+        case 'rowspan':
+        case 'span':
         case 'tags':
             $this->{'_' . $name} = $value;
             return;
@@ -467,17 +467,30 @@ abstract class Kronolith_Event
     public function __get($name)
     {
         switch ($name) {
+        case 'id':
+        case 'indent':
+        case 'overlap':
+        case 'rowspan':
+        case 'span':
+            return $this->{'_' . $name};
         case 'creator':
             if (empty($this->_creator)) {
                 $this->_creator = $GLOBALS['registry']->getAuth();
             }
-            // Fall through.
-        case 'id':
-        case 'overlap':
-        case 'indent':
-        case 'span':
-        case 'rowspan':
-            return $this->{'_' . $name};
+            return $this->_creator;
+            break;
+        case 'originalStart':
+            if (empty($this->_originalStart)) {
+                $this->_originalStart = $this->start;
+            }
+            return $this->_originalStart;
+            break;
+        case 'originalEnd':
+            if (empty($this->_originalEnd)) {
+                $this->_originalEnd = $this->start;
+            }
+            return $this->_originalEnd;
+            break;
         case 'tags':
             if (!isset($this->_tags)) {
                 $this->synchronizeTags(Kronolith::getTagger()->getTags($this->uid, 'event'));
@@ -1130,7 +1143,6 @@ abstract class Kronolith_Event
                           'mday'  => (int)$start['mday']),
                     $tzid);
             }
-            $this->originalStart = clone $this->start;
         } catch (Horde_Icalendar_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -1164,7 +1176,6 @@ abstract class Kronolith_Event
                           'mday'  => (int)$end['mday']),
                     $tzid);
             }
-            $this->originalEnd = clone $this->end;
         } catch (Horde_Icalendar_Exception $e) {
             $end = null;
         }
@@ -1431,8 +1442,6 @@ abstract class Kronolith_Event
         $this->start->setTimezone($tz);
         $this->end = clone($dates['end']);
         $this->end->setTimezone($tz);
-        $this->originalStart = clone $this->start;
-        $this->originalEnd = clone $this->end;
         $this->allday = $dates['allday'];
         if ($tz != date_default_timezone_get()) {
             $this->timezone = $tz;
@@ -1888,7 +1897,6 @@ abstract class Kronolith_Event
                                                     'hour' => $time[0],
                                                     'min' => $time[1],
                                                     'sec' => $time[2]));
-                $this->originalStart = clone $this->start;
             }
         }
         if (!isset($this->start)) {
@@ -1910,7 +1918,6 @@ abstract class Kronolith_Event
             $hash['duration'] = ($weeks * 60 * 60 * 24 * 7) + ($days * 60 * 60 * 24) + ($hours * 60 * 60) + ($minutes * 60) + $seconds;
             $this->end = new Horde_Date($this->start);
             $this->end->sec += $hash['duration'];
-            $this->originalEnd = clone $this->end;
         }
         if (!empty($hash['end_date'])) {
             $date = array_map('intval', explode('-', $hash['end_date']));
@@ -1930,7 +1937,6 @@ abstract class Kronolith_Event
                                                   'hour' => $time[0],
                                                   'min' => $time[1],
                                                   'sec' => $time[2]));
-                $this->originalEnd = clone $this->end;
             }
         }
         if (!empty($hash['alarm'])) {

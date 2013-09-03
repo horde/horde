@@ -422,11 +422,14 @@ class Kronolith
                     /* It started before the beginning of the period. */
                     if ($event->recurs()) {
                         $eventStart = $event->recurrence->nextRecurrence($startDate);
+                        $originalStart = clone $eventStart;
                     } else {
                         $eventStart = clone $startDate;
+                        $originalStart = clone $event->start;
                     }
                 } else {
                     $eventStart = clone $event->start;
+                    $originalStart = clone $event->start;
                 }
 
                 /* Work out what day it ends on. */
@@ -435,8 +438,10 @@ class Kronolith
                     /* Ends after the end of the period. */
                     if (is_object($endDate)) {
                         $eventEnd = clone $endDate;
+                        $originalEnd = clone $event->end;
                     } else {
                         $eventEnd = $endDate;
+                        $originalEnd = new Horde_Date($endDate);
                     }
                 } else {
                     /* Need to perform some magic if this is a single instance
@@ -463,6 +468,7 @@ class Kronolith
                     } else {
                         $theEnd = clone $event->end;
                     }
+                    $originalEnd = clone $theEnd;
 
                     /* If the event doesn't end at 12am set the end date to
                      * the current end date. If it ends at 12am and does not
@@ -498,8 +504,8 @@ class Kronolith
                     if (!$allDay ||
                         $loopDate->compareDateTime($eventEnd) != 0) {
                         $addEvent = clone $event;
-                        $addEvent->originalStart = $eventStart;
-                        $addEvent->originalEnd = $eventEnd;
+                        $addEvent->originalStart = $originalStart;
+                        $addEvent->originalEnd = $originalEnd;
 
                         /* If this is the start day, set the start time to
                          * the real start time, otherwise set it to
