@@ -49,7 +49,7 @@ class Horde_ActiveSync_Policies
     const POLICY_ALLOW_POPIMAP                  = 'AllowPOPIMAPEmail';
     const POLICY_ALLOW_BROWSER                  = 'AllowBrowser';
     const POLICY_REQUIRE_SMIME_SIGNED           = 'RequireSignedSMIMEMessages';
-    const POLICY_REQUIRE_SMIME_ENCRYPTED        = 'RequireDeviceEncryption';
+    const POLICY_REQUIRE_SMIME_ENCRYPTED        = 'RequireEncryptedSMIMEMessages';
     const POLICY_DEVICE_ENCRYPTION              = 'RequireDeviceEncryption';
     const POLICY_ALLOW_HTML                     = 'AllowHTMLEmail';
     const POLICY_MAX_EMAIL_AGE                  = 'MaxEmailAgeFilter';

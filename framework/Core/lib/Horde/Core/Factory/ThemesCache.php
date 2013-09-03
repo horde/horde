@@ -25,7 +25,9 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Core_Factory_ThemesCache extends Horde_Core_Factory_Base
+class Horde_Core_Factory_ThemesCache
+extends Horde_Core_Factory_Base
+implements Horde_Shutdown_Task
 {
     /**
      * Instances.
@@ -67,9 +69,7 @@ class Horde_Core_Factory_ThemesCache extends Horde_Core_Factory_Base
                     $instance->build();
                 }
 
-                if (empty($this->_instances)) {
-                    register_shutdown_function(array($this, 'shutdown'));
-                }
+                Horde_Shutdown::add($this);
             }
 
             $this->_instances[$sig] = $instance;
