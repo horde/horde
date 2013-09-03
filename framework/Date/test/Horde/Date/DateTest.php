@@ -111,6 +111,9 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $d->day += 370;
         $this->assertEquals(2009, $d->year);
         $this->assertEquals(1, $d->month);
+        $d->day += 10000000;
+        $this->assertEquals(29388, $d->year);
+        $this->assertEquals(1, $d->month);
 
         $d = new Horde_Date('2008-01-01 00:00:00');
         $d->sec += 14400;
