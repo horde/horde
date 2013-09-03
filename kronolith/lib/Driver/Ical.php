@@ -338,7 +338,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                     if ($event->recurrence->hasRecurEnd() &&
                         $event->recurrence->recurEnd->compareDateTime($startDate) < 0) {
                         continue;
-                    } else if ($endDate) {
+                    } elseif ($endDate) {
                         $next = $event->recurrence->nextRecurrence($startDate);
                         if ($next == false || $next->compareDateTime($endDate) > 0) {
                             continue;
