@@ -254,7 +254,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *      <li>'tls' (TLS)</li>
      *      <li>true (TLS if available/necessary) [since 2.15.0]</li>
      *     </ul>
-     *             DEFAULT: true</li>
+     *             DEFAULT: false</li>
      *    </li>
      *    <li>
      *     timeout: (integer)  Connection timeout, in seconds.
@@ -276,7 +276,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $params = array_merge(array(
             'encryptKey' => null,
             'hostspec' => 'localhost',
-            'secure' => true,
+            'secure' => false,
             'timeout' => 30
         ), array_filter($params));
 
