@@ -325,8 +325,7 @@ abstract class Horde_ActiveSync_State_Base
             break;
         }
 
-        if (isset($back))
-        {
+        if (isset($back)) {
             $date = time() - $back;
             return $date;
         } else {

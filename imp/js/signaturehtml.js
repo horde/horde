@@ -25,8 +25,13 @@ var ImpHtmlSignaturePrefs = {
     onDomLoad: function()
     {
         CKEDITOR.on('instanceReady', function(e) {
-            ImpHtmlSignaturePrefs.ready = true;
-        });
+            this.ready = true;
+        }.bind(this));
+
+        CKEDITOR.on('loaded', function(e) {
+            CKEDITOR.plugins.addExternal("pasteignore", this.pasteignore, "");
+            CKEDITOR.config.extraPlugins = CKEDITOR.config.extraPlugins.split(",").concat("pasteignore").join(",");
+        }.bind(this));
     }
 
 };

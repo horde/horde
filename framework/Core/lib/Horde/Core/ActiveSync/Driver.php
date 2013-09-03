@@ -103,8 +103,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - imap: (Horde_ActiveSync_Imap_Adapter) The IMAP adapter if email
      *           support is desired.
      *           DEFAULT: none (No email support will be provided).
-     *   - reply_top: (boolean) Place email reply text above original.
-     *                DEFAULT: false (Place reply text below original).
      */
     public function __construct(array $params = array())
     {
@@ -120,10 +118,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if (empty($this->_params['auth']) ||
             !($this->_params['auth'] instanceof Horde_Auth_Base)) {
             throw new InvalidArgumentException('Missing required Auth object');
-        }
-
-        if (empty($this->_params['reply_top'])) {
-            $this->_params['reply_top'] = false;
         }
 
         $this->_connector = $params['connector'];
@@ -1405,6 +1399,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 (empty($forward) ? 'SMART_REPLY' : 'SMART_FORWARD'),
                 $parent,
                 $forward));
+
+            // Reply top?
+            $this->_params['reply_top'] = $GLOBALS['prefs']->getValue('activesync_replyposition') == 'top';
 
             // Do we need to add to the HTML part?
             if (!empty($html_id)) {
@@ -2782,6 +2779,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             case Horde_ActiveSync_Policies::POLICY_ALLOW_BROWSER:
             case Horde_ActiveSync_Policies::POLICY_ALLOW_HTML:
             case Horde_ActiveSync_Policies::POLICY_MAX_EMAIL_AGE:
+            case Horde_ActiveSync_Policies::POLICY_DEVICE_ENCRYPTION:
+            case Horde_ActiveSync_Policies::POLICY_ENCRYPTION:
                 $allowed = max($allowed);
                 break;
             case Horde_ActiveSync_Policies::POLICY_MINLENGTH:

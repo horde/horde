@@ -46,7 +46,7 @@ class Horde_Core_Topbar
         $current = $registry->getApp();
         $menu = array();
 
-        foreach ($registry->listApps(array('active', 'admin', 'noadmin', 'heading', 'notoolbar', 'topbar'), true, null) as $app => $params) {
+        foreach ($registry->listApps(array('active', 'admin', 'noadmin', 'heading', 'link', 'notoolbar', 'topbar'), true, null) as $app => $params) {
             /* Check if the current user has permisson to see this application,
              * and if the application is active. Headings are visible to
              * everyone (but get filtered out later if they have no
@@ -54,6 +54,7 @@ class Horde_Core_Topbar
              * those marked 'inactive'. */
             if ($app != 'horde' &&
                 ($params['status'] == 'heading' ||
+                $params['status'] == 'link' ||
                  (in_array($params['status'], array('active', 'admin', 'noadmin', 'topbar')) &&
                   $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW) &&
                   !($isAdmin && $params['status'] == 'noadmin')))) {

@@ -23,7 +23,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
-class Horde_Session_Null extends Horde_Session
+class Horde_Session_Null extends Horde_Session implements Horde_Shutdown_Task
 {
     /**
      * Constructor.
@@ -32,6 +32,14 @@ class Horde_Session_Null extends Horde_Session
     {
         // Store session data internally.
         $this->_data = array();
+    }
+
+    /**
+     * Shutdown tasks.
+     */
+    public function shutdown()
+    {
+        $this->destroy();
     }
 
     /**
@@ -61,7 +69,7 @@ class Horde_Session_Null extends Horde_Session
         session_start();
         session_write_close();
 
-        register_shutdown_function(array($this, 'destroy'));
+        Horde_Shutdown::add($this);
     }
 
     protected function _start()
