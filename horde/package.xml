@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
+ <date>2013-09-03</date>
  <version>
   <release>5.1.4</release>
   <api>5.0.0</api>
@@ -3750,7 +3750,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-09-03</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Fix detecting ActiveSync policies for EAS version 12.0.
