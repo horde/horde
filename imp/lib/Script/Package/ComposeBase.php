@@ -56,7 +56,6 @@ class IMP_Script_Package_ComposeBase extends Horde_Script_Package
                   'CKEDITOR.config.forcePasteAsPlainText = true;' .
                 '}); };'
             ), true);
-
         }
     }
 

@@ -1,7 +1,16 @@
 ----------
-v4.1.3-git
+v4.1.4-git
 ----------
 
+[mjr] Fix some issues with recurring event exceptions due to improper timezone
+      handling (Bug #12630).
+
+
+------
+v4.1.3
+------
+
+[jan] Fix inconsistent handling of all-day events (Bug #12627).
 [mjr] Fix infinite loop for Kolab driver when event has recurrence (Bug #12160,
       Thomas Jarosch <thomas.jarosch@intra2net.com>).
 [jan] Fix fatal errors if DAV support is disabled (Bug #12481).

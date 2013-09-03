@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 5.1.1.
+version 5.1.2.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
@@ -27,37 +27,23 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware version 5.1.0 are:
+The major changes compared to the Horde Groupware version 5.1.1 are:
 
 General changes:
-    * Improved logins from anonymous pages.
-    * Added support for improved history API.
-    * Fixed Basic Authentication with CGI versions of PHP
-    * Enabled Turkish translations on PHP 5.5.
-    * Small bugfixes and improvements.
+    * ActiveSync improvements.
+    * New SMTP library.
+    * Bugfixes and improvements.
 
-Address Book changes:
-    * Import generic phone attributes from vCard.
-
-Calendar and Tasks changes:
-    * Fixed system calendar and task list support via WebDAV/CalDAV.
-    * Prompt for sending cancellations when deleting an event.
-
-Bookmarks changes:
-    * Show recently used tags on-demand.
+Calendar changes:
+    * Display link to CalDAV help text in calendar dialog.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Improved logins from anonymous pages.
-Added support for improved history API.
-Fixed Basic Authentication with CGI versions of PHP.
-Enabled Turkish translations on PHP 5.5.
-Import generic phone attributes from vCard.
-Fixed system calendar and task list support via WebDAV/CalDAV.
-Prompt for sending cancellations when deleting an event.
-Show recently used bookmark tags on-demand.
-Small bugfixes and improvements.
+ActiveSync improvements.
+New SMTP library.
+Display link to CalDAV help text in calendar dialog.
+Bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Horde Groupware';
