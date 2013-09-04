@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).
 * [mms] Improved error handling when creating a new flag in dynamic view.
 * [mms] Make addresses in smartmobile full message header display clickable to open a compose window.
 * [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
@@ -3283,6 +3284,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).
 * [mms] Improved error handling when creating a new flag in dynamic view.
 * [mms] Make addresses in smartmobile full message header display clickable to open a compose window.
 * [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
