@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Improve finding like pages if name contains digits.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -996,7 +996,7 @@
    <date>2013-09-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Improve finding like pages if name contains digits.
    </notes>
   </release>
  </changelog>
