@@ -19,6 +19,9 @@
 <?php require __DIR__ . '/search.inc';
       require __DIR__ . '/deliverables.inc'; ?>
 
+<!-- Deliverable detail for redbox -->
+<?php require __DIR__ . '/deliverabledetail.inc'; ?>
+
 <!-- Begin admin-only inclusions -->
 <?php if ($GLOBALS['registry']->isAdmin()):
   require __DIR__ . '/jobtypes.inc';
