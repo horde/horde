@@ -16,8 +16,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-03</date>
- <time>11:03:55</time>
+ <date>2013-09-04</date>
  <version>
   <release>2.0.1</release>
   <api>2.0.0</api>
@@ -28,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix rendering pages in portal blocks.
 * [jan] Improve finding like pages if name contains digits.
  </notes>
  <contents>
@@ -383,6 +383,9 @@
    </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/block -->
      <dir name="graphics">
       <file name="AllPages.png" role="horde" />
       <file name="az.png" role="horde" />
@@ -815,6 +818,7 @@
    <install as="Wicked/Unit/RstTest.php" name="test/Wicked/Unit/RstTest.php" />
    <install as="Wicked/Unit/Driver/SqlTest.php" name="test/Wicked/Unit/Driver/SqlTest.php" />
    <install as="wicked/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="wicked/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="wicked/themes/default/graphics/AllPages.png" name="themes/default/graphics/AllPages.png" />
    <install as="wicked/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="wicked/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
@@ -993,9 +997,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-03</date>
+   <date>2013-09-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix rendering pages in portal blocks.
 * [jan] Improve finding like pages if name contains digits.
    </notes>
   </release>
