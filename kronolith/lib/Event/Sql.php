@@ -57,9 +57,9 @@ class Kronolith_Event_Sql extends Kronolith_Event
             $this->timezone = $SQLEvent['event_timezone'];
         }
 
+        $tz_local = date_default_timezone_get();
         $this->allday = (bool)$SQLEvent['event_allday'];
         if (!$this->allday && $driver->getParam('utc')) {
-            $tz_local = date_default_timezone_get();
             $this->start = new Horde_Date($SQLEvent['event_start'], 'UTC');
             $this->start->setTimezone($tz_local);
             $this->end = new Horde_Date($SQLEvent['event_end'], 'UTC');

@@ -1,3 +1,4 @@
+<?php if ($this->showTools): ?>
 <form name="display" action="#">
 <div class="horde-buttonbar">
   <ul>
@@ -40,6 +41,7 @@
   </ul>
 </div>
 </form>
+<?php endif ?>
 
 <div class="pagebody">
 <?php if ($this->attachments): ?>
@@ -49,10 +51,11 @@
   <?php echo $attachment ?><br />
 <?php endforeach ?>
  </div>
-<?php endif; ?>
+<?php endif ?>
 <?php echo $this->text ?>
 </div>
 
+<?php if ($this->showTools): ?>
 <div id="pagefooter">
  <?php echo _("Download this page as:") ?>
  <?php echo $this->downloadPlain ?>,
@@ -60,3 +63,4 @@
  <?php echo $this->downloadLatex ?>,
  <?php echo $this->downloadRest ?>
 </div>
+<?php endif ?>

@@ -6,7 +6,7 @@
 <input type="hidden" name="actionID" value="special" />
 
 <h1 class="header">
- <?php echo $this->pageName ?>: <a href="<?php echo $this->referrerLink ?>"><?php echo $this->referrer ?></a>
+ <?php echo $this->pageName ?>: <a href="<?php echo $this->referrerLink ?>"><?php echo $this->h($this->referrer) ?></a>
 </h1>
 
 <table>
@@ -17,7 +17,7 @@
    <span class="form-error"><?php echo $this->errors['new_name'] ?></span>
   </td>
   <td>
-   <input type="text" name="new_name" size="40" value="<?php echo $this->new_name ?>" />
+   <input type="text" name="new_name" size="40" value="<?php echo $this->h($this->new_name) ?>" />
   </td>
  </tr>
 

@@ -10,10 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-26</date>
- <time>00:01:23</time>
+ <date>2013-09-03</date>
  <version>
-  <release>2.15.0</release>
+  <release>2.15.1</release>
   <api>2.15.0</api>
  </version>
  <stability>
@@ -22,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Workaround servers who don&apos;t advertise UIDL until after authentication.
-* [mms] Fix parsing continuation requests sent in SASL AUTH command (RFC 5034).
-* [mms] By default, use TLS if available and necessary to login to server.
-* [mms] Fix adding status information to listMailboxes() return when LIST-STATUS is not available.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1961,13 +1957,26 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-26</date>
+   <date>2013-09-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Workaround servers who don&apos;t advertise UIDL until after authentication.
+* [mms] Workaround servers that don&apos;t advertise UIDL until after authentication.
 * [mms] Fix parsing continuation requests sent in SASL AUTH command (RFC 5034).
 * [mms] By default, use TLS if available and necessary to login to server.
 * [mms] Fix adding status information to listMailboxes() return when LIST-STATUS is not available.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.15.1</release>
+    <api>2.15.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

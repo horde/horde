@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-09-02</date>
- <time>20:29:44</time>
+ <date>2013-09-04</date>
+ <time>10:49:14</time>
  <version>
-  <release>2.8.1</release>
-  <api>2.8.0</api>
+  <release>2.9.0</release>
+  <api>2.9.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,6 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mjr] Support for X509 certificate authentication in ActiveSync requests.
 * [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
  </notes>
  <contents>
@@ -294,6 +296,7 @@
        <dir name="Logger">
         <file name="Factory.php" role="php" />
        </dir> <!-- /lib/Horde/Core/ActiveSync/Logger -->
+       <file name="Auth.php" role="php" />
        <file name="Connector.php" role="php" />
        <file name="Driver.php" role="php" />
       </dir> <!-- /lib/Horde/Core/ActiveSync -->
@@ -1661,6 +1664,7 @@
    <install as="Horde/Core/Topbar.php" name="lib/Horde/Core/Topbar.php" />
    <install as="Horde/Core/Secret.php" name="lib/Horde/Core/Secret.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
+   <install as="Horde/Core/ActiveSync/Auth.php" name="lib/Horde/Core/ActiveSync/Auth.php" />
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
    <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
    <install as="Horde/Core/ActiveSync/Imap/Factory.php" name="lib/Horde/Core/ActiveSync/Imap/Factory.php" />
@@ -3137,14 +3141,16 @@
   </release>
   <release>
    <version>
-    <release>2.8.1</release>
-    <api>2.8.0</api></version>
+    <release>2.9.0</release>
+    <api>2.9.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-02</date>
+   <date>2013-09-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mjr] Support for X509 certificate authentication in ActiveSync requests.
 * [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
    </notes>
   </release>

@@ -477,13 +477,13 @@ var DimpBase = {
                                 /* Until text-overflow is supported on all
                                  * browsers, need to truncate label text
                                  * ourselves. */
-                                ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l + '" style="background:' + ptr.b + ';color:' + ptr.f + '">' + ptr.l.truncate(10) + '</span>';
+                                ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l.escapeHTML() + '" style="background:' + ((ptr.b) ? ptr.b.escapeHTML() : '') + ';color:' + ptr.f.escapeHTML() + '">' + ptr.l.truncate(10).escapeHTML() + '</span>';
                             }
                             r.subjectdata += ptr.elt;
                         } else {
                             if (ptr.c) {
                                 if (!ptr.elt) {
-                                    ptr.elt = '<div class="iconImg msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
+                                    ptr.elt = '<div class="iconImg msgflags ' + ptr.c + '" title="' + ptr.l.escapeHTML() + '"></div>';
                                 }
                                 r.status += ptr.elt;
 
@@ -1173,11 +1173,7 @@ var DimpBase = {
             break;
 
        case 'ctx_flag_new':
-            HordeDialog.display({
-                form: $('flagnewContainer').down().clone(true),
-                form_id: 'flag_new',
-                text: DimpCore.text.newflag_name
-            });
+            this.displayFlagNew();
             break;
 
        case 'ctx_flag_edit':
@@ -3140,6 +3136,15 @@ var DimpBase = {
         }, this);
     },
 
+    displayFlagNew: function()
+    {
+        HordeDialog.display({
+            form: $('flagnewContainer').down().clone(true),
+            form_id: 'flag_new',
+            text: DimpCore.text.newflag_name
+        });
+    },
+
     _handleMboxMouseClick: function(e)
     {
         var tmp,
@@ -3995,8 +4000,12 @@ document.observe('HordeDialog:onClick', function(e) {
             flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
             flagname: $F(elt.down('INPUT[name="flagname"]'))
         }), {
-            callback: function() {
-                HordeDialog.close();
+            callback: function(r) {
+                if (r.success) {
+                    HordeDialog.close();
+                } else {
+                    this.displayFlagNew();
+                }
             }.bind(this),
             uids: this.viewport.getSelected()
         });

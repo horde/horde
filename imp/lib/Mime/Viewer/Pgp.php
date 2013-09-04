@@ -333,9 +333,6 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $new_part = Horde_Mime_Part::parseMessage($decrypted_data->message, array(
             'forcemime' => true
         ));
-        $new_part->setContents($decrypted_data->message, array(
-            'encoding' => 'binary'
-        ));
 
         if ($new_part->getType() == 'multipart/signed') {
             $data = new Horde_Stream_Temp();
@@ -344,7 +341,11 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                 $data->add("\n\n");
                 $data->add(Horde_Mime_Part::getRawPartText($decrypted_data->message, 'body', '1'));
             } catch (Horde_Mime_Exception $e) {}
+
             $new_part->setMetadata(self::PGP_SIGN_ENC, $data->stream);
+            $new_part->setContents($decrypted_data->message, array(
+                'encoding' => 'binary'
+            ));
         }
 
         return $new_part;

@@ -84,7 +84,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         $changed = $this->_base->changed(true);
 
         if (is_null($changed)) {
-            $this->_base->addTask('viewport', $GLOBALS['injector']->getInstance('IMP_Ajax_Application_ListMessages')->getBaseOb($this->_base->indices->mailbox));
+            $this->_base->addTask('viewport', new IMP_Ajax_Application_Viewport($this->_base->indices->mailbox));
             return true;
         }
 
@@ -336,7 +336,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         try {
             $compose = $this->_base->initCompose();
 
-            $fwd_msg = $compose->compose->forwardMessage($compose->ajax->forward_map[$this->vars->type], $compose->contents, true, array(
+            $type = $compose->ajax->forward_map[$this->vars->type];
+            $fwd_msg = $compose->compose->forwardMessage($type, $compose->contents, true, array(
                 'format' => $this->vars->format
             ));
 
@@ -344,11 +345,15 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 $result = $compose->ajax->getBaseResponse($fwd_msg);
                 $result->body = $fwd_msg['body'];
                 $result->format = $fwd_msg['format'];
+                $atc = ($type != IMP_Compose::FORWARD_BODY);
             } else {
                 $result = $compose->ajax->getResponse($fwd_msg);
+                $atc = true;
             }
 
-            $this->_base->queue->attachment($compose->compose, $fwd_msg['type']);
+            if ($atc) {
+                $this->_base->queue->attachment($compose->compose, $fwd_msg['type']);
+            }
         } catch (Horde_Exception $e) {
             $notification->push($e);
             $this->_base->checkUidvalidity();
@@ -664,7 +669,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             } elseif ($this->_base->indices->mailbox->cacheid_date != $this->vars->viewport->cacheid) {
                 /* Cache ID has changed due to viewing this message. So update
                  * the cacheid in the ViewPort. */
-                $this->_base->addTask('viewport', $this->_base->viewPortOb());
+                $this->_base->addTask('viewport', new IMP_Ajax_Application_Viewport($this->indices->mailbox));
             }
 
             if ($this->vars->preview) {
