@@ -19,6 +19,8 @@
  * @copyright 2010-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
+ *
+ * @property-read string $imapflag  The IMAP flag string.
  */
 abstract class IMP_Flag_Imap extends IMP_Flag_Base
 {
@@ -30,8 +32,6 @@ abstract class IMP_Flag_Imap extends IMP_Flag_Base
     protected $_imapflag;
 
     /**
-     * @param string $name  Additional properties:
-     *   - imapflag: (string) The IMAP flag string.
      */
     public function __get($name)
     {
