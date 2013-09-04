@@ -362,7 +362,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *           objects).
      *   - body: (string) The text of the body part.
      *   - format: (string) The format of the body message ('html', 'text').
-     *   - identity: (mixed) See Imp_Prefs_Identity#getMatchingIdentity().
+     *   - identity: (mixed) See IMP_Prefs_Identity#getMatchingIdentity().
      *   - priority: (string) The message priority.
      *   - readreceipt: (boolean) Add return receipt headers?
      *   - subject: (string) Formatted subject.
@@ -1933,7 +1933,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - attach: (boolean) True if original message was attached.
      *   - body: (string) The text of the body part.
      *   - format: (string) The format of the body message ('html', 'text').
-     *   - identity: (mixed) See Imp_Prefs_Identity#getMatchingIdentity().
+     *   - identity: (mixed) See IMP_Prefs_Identity#getMatchingIdentity().
      *   - subject: (string) Formatted subject.
      *   - title: (string) Title to use on page.
      *   - type: (integer) - The compose type.
@@ -2178,7 +2178,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param Horde_Mime_Headers $h  The headers object for the message.
      *
-     * @return mixed  See Imp_Prefs_Identity::getMatchingIdentity().
+     * @return mixed  See IMP_Prefs_Identity::getMatchingIdentity().
      */
     protected function _getMatchingIdentity($h)
     {

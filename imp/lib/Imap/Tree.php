@@ -251,6 +251,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
          * POP3. */
         if (!$access_folders) {
             $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
+            $this->track = $old_track;
             return;
         }
 

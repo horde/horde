@@ -9,6 +9,11 @@ v6.2.0-git
 v6.1.5-git
 ----------
 
+[mms] SECURITY: Fix XSS when flagging a message in dynamic view with a
+      user-defined flag (João Machado <geral@jpaulo.eu>).
+[mms] Fix regression where MIME headers were being displayed for PGP decrypted
+      messages (Bug #12648).
+[mms] Improved error handling when creating a new flag in dynamic view.
 [mms] Make addresses in smartmobile full message header display clickable to
       open a compose window.
 [mms] Don't display empty containers in dynamic folder list (Request #11425).

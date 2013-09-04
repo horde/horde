@@ -1,12 +1,15 @@
 ----------
-v2.0.0-git
+v2.0.1-git
 ----------
 
+[jan] Fix rendering of full text search results.
+[jan] Fix rendering pages in portal blocks.
+[jan] Improve finding like pages if name contains digits.
 
 
----------
-v2.0.0RC2
----------
+------
+v2.0.0
+------
 
 [jan] Fix generating the most recent changes.
 [jan] Request CAPTCHA when creating pages too.

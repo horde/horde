@@ -79,7 +79,7 @@ class Horde_Themes_Image extends Horde_Themes_Element
             $src = Horde_Themes::img($src, $opts['imgopts']);
         }
 
-        if (!empty($conf['nobase64_img'])) {
+        if (empty($conf['nobase64_img'])) {
             $src = self::base64ImgData($src);
         }
         if ($opts['fullsrc'] && (substr($src, 0, 10) != 'data:image')) {

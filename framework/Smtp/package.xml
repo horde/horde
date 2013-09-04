@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-28</date>
+ <date>2013-09-02</date>
  <version>
-  <release>1.2.1</release>
+  <release>1.2.2</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Transparently handle required TLS connection when no security was configured.
+* [mms] Don&apos;t auto-detect TLS availability again once we have done initial detection.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -190,10 +190,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-28</date>
+   <date>2013-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Transparently handle required TLS connection when no security was configured.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Don&apos;t auto-detect TLS availability again once we have done initial detection.
    </notes>
   </release>
  </changelog>

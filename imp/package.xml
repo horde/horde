@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
+ <date>2013-09-04</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -33,6 +33,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).
+* [mms] Improved error handling when creating a new flag in dynamic view.
 * [mms] Make addresses in smartmobile full message header display clickable to open a compose window.
 * [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
  </notes>
@@ -126,6 +129,7 @@
       <file name="Compose.php" role="horde" />
       <file name="ListMessages.php" role="horde" />
       <file name="ShowMessage.php" role="horde" />
+      <file name="Viewport.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
@@ -1496,6 +1500,7 @@
    <install as="imp/lib/Ajax/Application/Compose.php" name="lib/Ajax/Application/Compose.php" />
    <install as="imp/lib/Ajax/Application/ListMessages.php" name="lib/Ajax/Application/ListMessages.php" />
    <install as="imp/lib/Ajax/Application/ShowMessage.php" name="lib/Ajax/Application/ShowMessage.php" />
+   <install as="imp/lib/Ajax/Application/Viewport.php" name="lib/Ajax/Application/Viewport.php" />
    <install as="imp/lib/Ajax/Application/Handler/Common.php" name="lib/Ajax/Application/Handler/Common.php" />
    <install as="imp/lib/Ajax/Application/Handler/ComposeAttach.php" name="lib/Ajax/Application/Handler/ComposeAttach.php" />
    <install as="imp/lib/Ajax/Application/Handler/Draft.php" name="lib/Ajax/Application/Handler/Draft.php" />
@@ -3305,9 +3310,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2013-09-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).
+* [mms] Improved error handling when creating a new flag in dynamic view.
 * [mms] Make addresses in smartmobile full message header display clickable to open a compose window.
 * [mms] Don&apos;t display empty containers in dynamic folder list (Request #11425).
    </notes>

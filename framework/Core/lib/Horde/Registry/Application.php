@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
-class Horde_Registry_Application
+class Horde_Registry_Application implements Horde_Shutdown_Task
 {
     /**
      * The list of available authentication capabilities handled by this
@@ -103,6 +103,14 @@ class Horde_Registry_Application
     final public function init()
     {
         $this->_init();
+    }
+
+    /**
+     * Shutdown tasks.
+     */
+    public function shutdown()
+    {
+        $this->updateSessVars();
     }
 
 
@@ -411,7 +419,7 @@ class Horde_Registry_Application
     {
         if (!empty($vars)) {
             $this->_sessVars = array_merge($this->_sessVars, $vars);
-            register_shutdown_function(array($this, 'updateSessVars'));
+            Horde_Shutdown::add($this);
         }
     }
 

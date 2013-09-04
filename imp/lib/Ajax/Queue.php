@@ -110,7 +110,7 @@ class IMP_Ajax_Queue
      *   - uids: (string) Indices of the messages that have changed (IMAP
      *           sequence string; mboxes are base64url encoded).
      *
-     * For flag configuration data (key: 'flag-config'), an array containgin
+     * For flag configuration data (key: 'flag-config'), an array containing
      * flag data:
      *   - a: (boolean) Indicates a flag that can be *a*ltered.
      *   - b: (string) Background color.

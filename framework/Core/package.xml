@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-08-28</date>
- <time>15:44:17</time>
+ <date>2013-09-04</date>
+ <time>10:49:14</time>
  <version>
-  <release>2.8.0</release>
-  <api>2.8.0</api>
+  <release>2.9.0</release>
+  <api>2.9.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,8 +40,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [rla] Add support for external links in topbar (Request #11977).
-* [mms] Fix active session counting from CLI script (Bug #12628).
+* [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mjr] Support for X509 certificate authentication in ActiveSync requests.
+* [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -295,6 +296,7 @@
        <dir name="Logger">
         <file name="Factory.php" role="php" />
        </dir> <!-- /lib/Horde/Core/ActiveSync/Logger -->
+       <file name="Auth.php" role="php" />
        <file name="Connector.php" role="php" />
        <file name="Driver.php" role="php" />
       </dir> <!-- /lib/Horde/Core/ActiveSync -->
@@ -1127,6 +1129,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Smtp</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1655,6 +1664,7 @@
    <install as="Horde/Core/Topbar.php" name="lib/Horde/Core/Topbar.php" />
    <install as="Horde/Core/Secret.php" name="lib/Horde/Core/Secret.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
+   <install as="Horde/Core/ActiveSync/Auth.php" name="lib/Horde/Core/ActiveSync/Auth.php" />
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
    <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
    <install as="Horde/Core/ActiveSync/Imap/Factory.php" name="lib/Horde/Core/ActiveSync/Imap/Factory.php" />
@@ -3121,11 +3131,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-28</date>
+   <date>2013-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Always honor activesync_replyposition pref (Bug #12636, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [rla] Add support for external links in topbar (Request #11977).
 * [mms] Fix active session counting from CLI script (Bug #12628).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.0</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mjr] Support for X509 certificate authentication in ActiveSync requests.
+* [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
    </notes>
   </release>
  </changelog>

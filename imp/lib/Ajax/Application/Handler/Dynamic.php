@@ -224,7 +224,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $this->_base->queue->poll($mbox);
 
-        $vp = $this->_base->viewPortOb($mbox);
+        $vp = new IMP_Ajax_Application_Viewport($mbox);
         $vp->data_reset = 1;
         $vp->rowlist_reset = 1;
         $this->_base->addTask('viewport', $vp);
@@ -538,7 +538,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $this->_base->queue->poll(array_keys($this->_base->indices->indices()));
         }
 
-        $this->_base->addTask('viewport', $change ? $this->_base->viewPortData(true) : $this->_base->viewPortOb());
+        $this->_base->addTask('viewport', $change ? $this->_base->viewPortData(true) : new IMP_Ajax_Application_Viewport($this->indices->mailbox));
 
         return true;
     }
@@ -995,11 +995,17 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *   - flagcolor: (string) Background color for flag label.
      *   - flagname: (string) Flag name.
      *
-     * @return boolean  True.
+     * @return object  An object with the following properties:
+     * <pre>
+     *   - success: (boolean) True if successful.
+     * </pre>
      */
     public function createFlag()
     {
         global $injector, $notification;
+
+        $ret = new stdClass;
+        $ret->success = true;
 
         $imp_flags = $injector->getInstance('IMP_Flags');
 
@@ -1007,7 +1013,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $imp_flags->addFlag($this->vars->flagname);
         } catch (IMP_Exception $e) {
             $notification->push($e, 'horde.error');
-            return true;
+            $ret->success = false;
+            return $ret;
         }
 
         if (!empty($this->vars->flagcolor)) {
@@ -1022,10 +1029,10 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $name = 'imp:viewport';
         if ($this->_base->tasks->$name) {
-            IMP_Ajax_Application_ListMessages::addFlagMetadata($this->_base->tasks->$name, IMP_Mailbox::formFrom($this->_vars->mailbox));
+            $this->_base->tasks->$name->addFlagMetadata();
         }
 
-        return true;
+        return $ret;
     }
 
 }

@@ -103,8 +103,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - imap: (Horde_ActiveSync_Imap_Adapter) The IMAP adapter if email
      *           support is desired.
      *           DEFAULT: none (No email support will be provided).
-     *   - reply_top: (boolean) Place email reply text above original.
-     *                DEFAULT: false (Place reply text below original).
      */
     public function __construct(array $params = array())
     {
@@ -120,10 +118,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if (empty($this->_params['auth']) ||
             !($this->_params['auth'] instanceof Horde_Auth_Base)) {
             throw new InvalidArgumentException('Missing required Auth object');
-        }
-
-        if (empty($this->_params['reply_top'])) {
-            $this->_params['reply_top'] = false;
         }
 
         $this->_connector = $params['connector'];
@@ -161,7 +155,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Authenticate to Horde
      *
-     * @param string $username  The username to authenticate as
+     * @param string $username  The username to authenticate as (as passed by
+     *                          the device).
      * @param string $password  The password
      * @param string $domain    The user domain (unused in this driver).
      *
@@ -171,15 +166,37 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function authenticate($username, $password, $domain = null)
     {
-        global $injector;
+        global $injector, $conf;
 
         $this->_logger->info(sprintf(
             '[%s] Horde_Core_ActiveSync_Driver::authenticate() attempt for %s',
             $this->_pid,
             $username));
 
-        if (!$this->_auth->authenticate($username, array('password' => $password))) {
-            $injector->getInstance('Horde_Log_Logger')->err(sprintf('Login failed from ActiveSync client for user %s.', $username));
+        // First try transparent/X509. Happens for authtype == 'cert' || 'basic_cert'
+        if (!empty($conf['activesync']['auth']['type']) &&
+             $conf['activesync']['auth']['type'] != 'basic') {
+
+            if (!$this->_auth->transparent()) {
+                $injector->getInstance('Horde_Log_Logger')->notice(sprintf('Login failed ActiveSync client certificate for user %s.', $username));
+                return false;
+            }
+            if ($username != $GLOBALS['registry']->getAuth()) {
+                $injector->getInstance('Horde_Log_Logger')->notice(sprintf(
+                    'Access granted based on transparent authentication of user %s, but ActiveSync client is requesting access for %s.',
+                    $GLOBALS['registry']->getAuth(), $username));
+                return false;
+            }
+            $this->_logger->info(sprintf(
+                'Access granted based on transparent authentication for %s. Client certificate name: %s',
+                $GLOBALS['registry']->getAuth(), $username));
+        }
+
+        // Now check Basic. Happens for authtype == 'basic' || 'basic_cert'
+        if ((empty($conf['activesync']['auth']['type']) || (!empty($conf['activesync']['auth']['type']) && $conf['activesync']['auth']['type'] != 'cert')) &&
+            !$this->_auth->authenticate($username, array('password' => $password))) {
+
+            $injector->getInstance('Horde_Log_Logger')->notice(sprintf('Login failed from ActiveSync client for user %s.', $username));
             return false;
         }
 
@@ -1405,6 +1422,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 (empty($forward) ? 'SMART_REPLY' : 'SMART_FORWARD'),
                 $parent,
                 $forward));
+
+            // Reply top?
+            $this->_params['reply_top'] = $GLOBALS['prefs']->getValue('activesync_replyposition') == 'top';
 
             // Do we need to add to the HTML part?
             if (!empty($html_id)) {
@@ -2782,6 +2802,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             case Horde_ActiveSync_Policies::POLICY_ALLOW_BROWSER:
             case Horde_ActiveSync_Policies::POLICY_ALLOW_HTML:
             case Horde_ActiveSync_Policies::POLICY_MAX_EMAIL_AGE:
+            case Horde_ActiveSync_Policies::POLICY_DEVICE_ENCRYPTION:
+            case Horde_ActiveSync_Policies::POLICY_ENCRYPTION:
                 $allowed = max($allowed);
                 break;
             case Horde_ActiveSync_Policies::POLICY_MINLENGTH:
