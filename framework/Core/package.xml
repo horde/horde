@@ -29,7 +29,6 @@
   <active>yes</active>
  </developer>
  <date>2013-09-04</date>
- <time>10:49:14</time>
  <version>
   <release>2.9.0</release>
   <api>2.9.0</api>
@@ -101,6 +100,9 @@
      <file name="zh-CN.js" role="horde" />
      <file name="zh-TW.js" role="horde" />
     </dir> <!-- /js/date -->
+    <dir name="flotr2">
+     <file name="flotr2.js" role="horde" />
+    </dir> <!-- /js/flotr2 -->
     <dir name="jquery.mobile">
      <dir name="images">
       <file name="ajax-loader.gif" role="horde" />
@@ -1513,6 +1515,7 @@
    <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
    <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
    <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
+   <install as="js/flotr2/flotr2.js" name="js/flotr2/flotr2.js" />
    <install as="js/jquery.mobile/jquery.js" name="js/jquery.mobile/jquery.js" />
    <install as="js/jquery.mobile/jquery.min.js" name="js/jquery.mobile/jquery.min.js" />
    <install as="js/jquery.mobile/jquery.mobile.js" name="js/jquery.mobile/jquery.mobile.js" />
