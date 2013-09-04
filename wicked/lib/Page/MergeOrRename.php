@@ -133,7 +133,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page
         $view->referenceCount = sprintf(_("This page is referenced from %d other page(s)."), count($references));
         $view->formInput = Horde_Util::formInput();
         $view->errors = $this->_errors;
-        $view->new_name = Horde_Util::getFormData('new_name');
+        $view->new_name = Horde_Util::getFormData('new_name', $referrer);
 
         echo $view->render('display/MergeOrRename');
     }
