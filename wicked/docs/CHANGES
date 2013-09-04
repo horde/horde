@@ -2,6 +2,7 @@
 v2.0.1-git
 ----------
 
+[jan] Fix rendering of full text search results.
 [jan] Fix rendering pages in portal blocks.
 [jan] Improve finding like pages if name contains digits.
 
