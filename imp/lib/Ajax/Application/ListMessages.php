@@ -228,25 +228,26 @@ class IMP_Ajax_Application_ListMessages
             $imp_search = $injector->getInstance('IMP_Search');
 
             if ($mbox->vfolder) {
-                $md->slabel = $imp_search[$mbox]->label;
-                $md->vfolder = 1;
+                $result->setMetadata('slabel', $imp_search[$mbox]->label);
+                $result->setMetadata('vfolder', 1);
                 if (!$imp_search->isVFolder($mbox, true)) {
-                    $md->noedit = 1;
+                    $result->setMetadata('noedit', 1);
                 }
             } else {
-                $md->slabel = $imp_search[$mbox]->querytext;
+                $result->setMetadata('slabel', $imp_search[$mbox]->querytext);
             }
         }
 
         /* These entries may change during a session, so always need to
          * update them. */
-        $md->readonly = intval($mbox->readonly);
-        if (!$md->readonly) {
+        if ($mbox->readonly) {
+            $result->setMetadata('readonly', 1);
+        } else {
             if (!$mbox->access_deletemsgs) {
-                $md->nodelete = 1;
+                $result->setMetadata('nodelete', 1);
             }
             if (!$mbox->access_expunge) {
-                $md->noexpunge = 1;
+                $result->setMetadata('noexpunge', 1);
             }
         }
 
@@ -396,7 +397,7 @@ class IMP_Ajax_Application_ListMessages
                     : $tmp->raw;
             }
 
-            $md->thread = $thread;
+            $result->setMetadata('thread', $thread);
         }
 
         return $result;
