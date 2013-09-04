@@ -537,7 +537,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
     /**
      * @see Hermes_Driver::listDeliverables()
      */
-    public function listDeliverables($criteria = array())
+    public function listDeliverables($criteria = array(), $stats = false)
     {
         $where = array();
         $values = array();

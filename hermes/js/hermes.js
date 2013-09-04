@@ -103,7 +103,7 @@ HermesCore = {
                 if (!$('hermesView' + locCap)) {
                     break;
                 }
-                this.addHistory(fullloc);
+                this.addHistory(fullloc, loc != 'admindeliverables');
                 this.view = loc;
                 $('hermesView' + locCap).appear({
                     duration: this.effectDur,
@@ -316,6 +316,10 @@ HermesCore = {
                 this.go('search');
                 e.stop();
                 return;
+
+            case 'hermesDeliverablesClose':
+                RedBox.close();
+                return;
             }
 
             switch (elt.className) {
@@ -376,6 +380,10 @@ HermesCore = {
                 return;
             } else if (elt.hasClassName('deliverableDelete')) {
                 this.deleteDeliverable(elt.up().up());
+                e.stop();
+                return;
+            } else if (elt.hasClassName('deliverableDetail')) {
+                this.getDeliverableDetail(elt.up().up());
                 e.stop();
                 return;
             }
@@ -713,6 +721,120 @@ HermesCore = {
         $('hermesJobFormRate').setValue(job.rate);
         $('hermesJobSaveAsNew').show();
     },
+
+    /**
+     * Begin to show the detail view of the deliverable.
+     *
+     */
+     getDeliverableDetail: function(elt)
+     {
+        var dname = $(elt).down(0).innerHTML, budget = $(elt).down(2).innerHTML;
+        HordeCore.doAction('getDeliverableDetail',
+            { id: elt.retrieve('did') },
+            { callback: this.getDeliverableDetailCallback.curry(dname, budget).bind(this) }
+        );
+     },
+
+     getDeliverableDetailCallback: function(dname, budget, r)
+     {
+        var b = { 'billable': 0, 'nonbillable': 0 },
+        t = {}, h = 0;
+        r.each(function(s) {
+            // Billable data
+            b.billable += (s.b) ? (s.h * 1): 0;
+            b.nonbillable += (s.b) ? 0 : (s.h * 1);
+
+            // Jobtype data.
+            if (!t[s.tn]) {
+                t[s.tn] = 0;
+            }
+            t[s.tn] += (s.h * 1);
+
+            // Hours
+            h += (s.h * 1);
+        });
+
+        //this.doChart();
+        RedBox.onDisplay = function() {
+            if (this.redBoxOnDisplay) {
+                this.redBoxOnDisplay();
+            }
+
+            var statGraph = Flotr.draw(
+                $('hermesDeliverableStats'),
+                [
+                    { data: [ [ h, 0] ], label: 'one' },
+                    { data: [ [ budget * 1, 0] ], label: 'two' }
+                ],
+                {
+                    bars: {
+                        show: true,
+                        stacked: true,
+                        horizontal: true,
+                        barWidth: 0.6,
+                        lineWidth: 1,
+                        shadowSize: 0
+                    },
+                    yaxis: { showLabels: false },
+                    xaxis: { min: 0, max: budget },
+                    grid: {
+                        verticalLines: false,
+                        horizontalLines: false
+                    },
+                    legend: { show: false }
+                }
+            );
+            var billableGraph = Flotr.draw(
+                $('hermesDeliverableBillable'),
+                [
+                    { data: [ [0, b.billable ] ], label: "Billable", pie: { explode: 15 } },
+                    { data: [ [0, b.nonbillable ] ], label: "NonBillable" }
+                ],
+                {
+                    title: 'Hours',
+                    HtmlText: false,
+                    pie: { show: true, explode: 5 },
+                    mouse: { track: false }, // @TODO ToolTips
+                    grid: {
+                        verticalLines: false,
+                        horizontalLines: false,
+                        outlineWidth: 0
+                    },
+                    xaxis: { showLabels: false },
+                    yaxis: { showLabels: false },
+                    legend: { position: 'sw' }
+                }
+            );
+            var typeData = [];
+            $H(t).each(function (type) {
+                typeData.push({ data: [ [0, type.value] ], label: type.key });
+            });
+            var typeGraph = Flotr.draw(
+                $('hermesDeliverableType'),
+                typeData,
+                {
+                    title: 'Type',
+                    HtmlText: false,
+                    pie: { show: true, explode: 0 },
+                    mouse: { track: false }, // @TODO ToolTips
+                    grid: {
+                        verticalLines: false,
+                        horizontalLines: false,
+                        outlineWidth: 0
+                    },
+                    xaxis: { showLabels: false },
+                    yaxis: { showLabels: false, autoscale: true },
+                    legend: {
+                      position : 'sw',
+                      backgroundColor : '#D2E8FF'
+                    }
+                }
+            );
+
+        }
+        $('hermesDeliverableDetail').down('h2').update(dname);
+        RedBox.showHtml($('hermesDeliverableDetail').show());
+     },
 
     /**
      * Delete a deliverable.

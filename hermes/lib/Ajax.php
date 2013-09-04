@@ -24,6 +24,7 @@ class Hermes_Ajax
         $page_output->addScriptFile('tooltips.js', 'horde');
         $page_output->addScriptPackage('Datejs');
         $page_output->addScriptFile('quickfinder.js', 'horde');
+        $page_output->addScriptFile('flotr2/flotr2.js', 'horde');
         $page_output->addScriptFile('hermes.js');
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 
@@ -92,7 +93,11 @@ class Hermes_Ajax
             'timeentry' => _("Time Entry"),
             'edittime' => _("Editing Time Entry"),
             'select_jobtype' => _("Select a Job Type"),
-            'missing_client' => _("You must select a client first.")
+            'missing_client' => _("You must select a client first."),
+            'billable' => _("Billable"),
+            'nonbillable' => _("Non billable"),
+            'hours' => _("Hours"),
+            'type' => _("Type")
         );
 
         return $js_vars;

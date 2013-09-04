@@ -204,6 +204,26 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
            ->listDeliverables($params));
     }
 
+    public function getDeliverableDetail()
+    {
+        global $injector;
+
+        // last 30 days of hours for project
+        $today = new Horde_Date(time());
+        $monthback = $today->add(array('day' => -30));
+        $filters = array(
+            'start' => $monthback->timestamp(),
+            'costobject' => 'hermes:' . $this->vars->id
+        );
+        $hours = $injector->getInstance('Hermes_Driver')->getHours($filters);
+        $json = array();
+        foreach ($hours as $h) {
+            $json[] = $h->toJson();
+        }
+//return count($json);
+        return $json;
+    }
+
     /**
      * Return descriptions of job types. If $this->vars->id is present it is
      * used to filter by the requested id.
