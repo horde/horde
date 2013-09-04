@@ -172,10 +172,12 @@ class IMP_Flags implements ArrayAccess, Serializable
 
         $ob = new IMP_Flag_User($label);
 
-        if (!isset($this->_userflags[$ob->id])) {
-            $this->_userflags[$ob->id] = $ob;
-            $this->_save();
+        if (isset($this->_userflags[$ob->id])) {
+            throw new IMP_Exception(_("Flag name already exists."));
         }
+
+        $this->_userflags[$ob->id] = $ob;
+        $this->_save();
 
         return $ob->imapflag;
     }
