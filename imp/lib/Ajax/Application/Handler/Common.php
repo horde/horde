@@ -336,7 +336,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         try {
             $compose = $this->_base->initCompose();
 
-            $fwd_msg = $compose->compose->forwardMessage($compose->ajax->forward_map[$this->vars->type], $compose->contents, true, array(
+            $type = $compose->ajax->forward_map[$this->vars->type];
+            $fwd_msg = $compose->compose->forwardMessage($type, $compose->contents, true, array(
                 'format' => $this->vars->format
             ));
 
@@ -344,11 +345,15 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 $result = $compose->ajax->getBaseResponse($fwd_msg);
                 $result->body = $fwd_msg['body'];
                 $result->format = $fwd_msg['format'];
+                $atc = ($type != IMP_Compose::FORWARD_BODY);
             } else {
                 $result = $compose->ajax->getResponse($fwd_msg);
+                $atc = true;
             }
 
-            $this->_base->queue->attachment($compose->compose, $fwd_msg['type']);
+            if ($atc) {
+                $this->_base->queue->attachment($compose->compose, $fwd_msg['type']);
+            }
         } catch (Horde_Exception $e) {
             $notification->push($e);
             $this->_base->checkUidvalidity();
