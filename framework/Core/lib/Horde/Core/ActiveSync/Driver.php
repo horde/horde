@@ -174,7 +174,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $username));
 
         // First try transparent/X509. Happens for authtype == 'cert' || 'basic_cert'
-        if ($conf['activesync']['auth']['type'] != 'basic') {
+        if (!empty($conf['activesync']['auth']['type']) &&
+             $conf['activesync']['auth']['type'] != 'basic') {
+
             if (!$this->_auth->transparent()) {
                 $injector->getInstance('Horde_Log_Logger')->notice(sprintf('Login failed ActiveSync client certificate for user %s.', $username));
                 return false;
@@ -191,8 +193,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Now check Basic. Happens for authtype == 'basic' || 'basic_cert'
-        if ($conf['activesync']['auth']['type'] != 'cert' &&
-            !$this->_auth->authenticate($username, array('password' => $password))) {
+        if (empty($conf['activesync']['auth']['type']) ||
+            (!empty($conf['activesync']['auth']['type']) && $conf['activesync']['auth']['type'] != 'cert' &&
+            !$this->_auth->authenticate($username, array('password' => $password)))) {
+
             $injector->getInstance('Horde_Log_Logger')->notice(sprintf('Login failed from ActiveSync client for user %s.', $username));
             return false;
         }
