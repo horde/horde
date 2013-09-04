@@ -224,7 +224,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $this->_base->queue->poll($mbox);
 
-        $vp = $this->_base->viewPortOb($mbox);
+        $vp = new IMP_Ajax_Application_Viewport($mbox);
         $vp->data_reset = 1;
         $vp->rowlist_reset = 1;
         $this->_base->addTask('viewport', $vp);
@@ -538,7 +538,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $this->_base->queue->poll(array_keys($this->_base->indices->indices()));
         }
 
-        $this->_base->addTask('viewport', $change ? $this->_base->viewPortData(true) : $this->_base->viewPortOb());
+        $this->_base->addTask('viewport', $change ? $this->_base->viewPortData(true) : new IMP_Ajax_Application_Viewport($this->indices->mailbox));
 
         return true;
     }
@@ -1029,7 +1029,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $name = 'imp:viewport';
         if ($this->_base->tasks->$name) {
-            IMP_Ajax_Application_ListMessages::addFlagMetadata($this->_base->tasks->$name, IMP_Mailbox::formFrom($this->vars->mailbox));
+            $this->_base->tasks->$name->addFlagMetadata();
         }
 
         return $ret;
