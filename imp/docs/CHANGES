@@ -2,6 +2,8 @@
 v6.1.5-git
 ----------
 
+[mms] Fix regression where MIME headers were being displayed for PGP decrypted
+      messages (Bug #12648).
 [mms] Improved error handling when creating a new flag in dynamic view.
 [mms] Make addresses in smartmobile full message header display clickable to
       open a compose window.
