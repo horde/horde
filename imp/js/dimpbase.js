@@ -477,13 +477,13 @@ var DimpBase = {
                                 /* Until text-overflow is supported on all
                                  * browsers, need to truncate label text
                                  * ourselves. */
-                                ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l + '" style="background:' + ptr.b + ';color:' + ptr.f + '">' + ptr.l.truncate(10) + '</span>';
+                                ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l.escapeHTML() + '" style="background:' + ((ptr.b) ? ptr.b.escapeHTML() : '') + ';color:' + ptr.f.escapeHTML() + '">' + ptr.l.truncate(10).escapeHTML() + '</span>';
                             }
                             r.subjectdata += ptr.elt;
                         } else {
                             if (ptr.c) {
                                 if (!ptr.elt) {
-                                    ptr.elt = '<div class="iconImg msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
+                                    ptr.elt = '<div class="iconImg msgflags ' + ptr.c + '" title="' + ptr.l.escapeHTML() + '"></div>';
                                 }
                                 r.status += ptr.elt;
 
