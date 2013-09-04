@@ -188,7 +188,9 @@ html, body {
 .sliceDelete, .jobTypeDelete, .deliverableDelete {
   background:  url('../graphics/delete.png') no-repeat scroll 0 0 transparent;
 }
-
+.deliverableDetail {
+  background: url('../graphics/deliverable.png') no-repeat scroll 0 0 transparent;
+}
 .hermesTimeListRow .hermesTimeSliceOptions, .hermesJobTypeListOptions,
 .hermesDeliverablesOptions {
     visibility: hidden;
@@ -306,15 +308,18 @@ div.hermesJobTypeListName {
 div.hermesJobTypeListBillable, div.hermesJobTypeListEnabled {
   width: 8%;
 }
-div.hermesJobTypeListRate, div.hermesJobTypeListOptions {
+div.hermesJobTypeListRate, div.hermesJobTypeListOptions, div.hermesDeliverablesOptions {
   width: 10%;
 }
 
-div.hermesDeliverablesName, div.hermesDeliverablesEstimate {
+div.hermesDeliverablesName {
   width: 20%;
 }
+div.hermesDeliverablesEstimate {
+  width: 10%;
+}
 div.hermesDeliverablesActive {
-  width: 8%;
+  width: 5%;
 }
 div.hermesDeliverablesDesc {
   width: 30%;
@@ -404,6 +409,7 @@ div.hermesDeliverablesDesc {
 /* Dialogs */
 .hermesDialog {
     width: 700px;
+    min-height: 500px;
     padding: 10px 20px;
     background: #efefef;
     border: 1px #999 solid;
@@ -418,20 +424,6 @@ div.hermesDeliverablesDesc {
 .hermesDialog label {
     font-weight: bold;
 }
-.hermesDialog .tabset {
-    float: none;
-    width: auto;
-    background: none;
-    margin: 15px 0;
-}
-.hermesDialog .tabset ul {
-    float: left;
-    padding-left: 0;
-    margin: 0;
-}
-.hermesDialog .tabset .hermesSeparator {
-    float: left;
-}
 .hermesDialog hr {
    margin: 5px 0;
    height: 0;
@@ -440,15 +432,27 @@ div.hermesDeliverablesDesc {
    border-color: #ccc transparent #fff;
    border-style: solid none;
 }
-.hermesDialogInfo {
-    background: transparent url('../graphics/alerts/message.png') 0 0 no-repeat;
-    padding-left: 20px;
-    font-style: italic;
+#hermesDeliverableBillable, #hermesDeliverableType {
+  width: 45%;
+  float: right;
+  min-height: 175px;
+  padding: 10px;
 }
-
+#hermesDeliverableStats {
+  width: 100%;
+  min-height: 175px;
+  padding: 10px;
+}
 .hermesTimeFormShown {
    background: url("../graphics/minus.png") no-repeat scroll left  transparent;
 }
 .hermesTimeFormHidden {
     background: url("../graphics/plus.png") no-repeat scroll left transparent;
+}
+div.hermesFormActions {
+    margin: 5px 0;
+}
+/* Charts */
+.flotr-mouse-value {
+  display: none;
 }
