@@ -14,7 +14,7 @@
     <tr>
      <td>
       <?php echo $this->h($v['name']) ?>
-      (<?php echo $this->h($v['email']) ?>
+      (<?php echo $this->h($v['email']) ?>)
      </td>
      <td>
       [<?php echo $v['view'] ?><?php echo _("View") ?></a>]

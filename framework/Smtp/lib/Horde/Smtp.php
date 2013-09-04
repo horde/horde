@@ -615,6 +615,8 @@ class Horde_Smtp implements Serializable
             throw $e;
         }
 
+        $this->setParam('secure', 'tls');
+
         return true;
     }
 

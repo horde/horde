@@ -22,11 +22,7 @@ class Horde_Date_Utils
      */
     public static function isLeapYear($year)
     {
-        if (strlen($year) != 4 || preg_match('/\D/', $year)) {
-            return false;
-        }
-
-        return (($year % 4 == 0 && $year % 100 != 0) || $year % 400 == 0);
+        return ($year % 4 == 0 && $year % 100 != 0) || $year % 400 == 0;
     }
 
     /**

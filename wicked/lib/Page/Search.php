@@ -184,12 +184,12 @@ class Wicked_Page_Search extends Wicked_Page
     public function getContext($page, $searchtext)
     {
         try {
-            $text = strip_tags($page->displayContents(false));
+            $text = html_entity_decode(strip_tags($page->displayContents(true)), ENT_QUOTES | ENT_XHTML, 'UTF-8');
         } catch (Wicked_Exception $e) {
             $text = $page->getText();
         }
         if (preg_match('/.{0,100}' . preg_quote($searchtext, '/') . '.{0,100}/i', $text, $context)) {
-            return trim(preg_replace('/' . preg_quote($searchtext, '/') . '/i', '<span class="match">' . htmlspecialchars($searchtext) . '</span>', htmlspecialchars($context[0])));
+            return trim(preg_replace('/' . preg_quote($searchtext, '/') . '/i', '<span class="match">\0</span>', htmlspecialchars($context[0])));
         }
         return '';
     }

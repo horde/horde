@@ -1004,6 +1004,17 @@ class Horde_Date
         }
 
         if ($mask & self::MASK_DAY) {
+            while ($this->_mday > (366 + 31)) {
+                if ((Horde_Date_Utils::isLeapYear($this->_year) &&
+                     ($this->_month <= 2)) ||
+                    (Horde_Date_Utils::isLeapYear($this->_year + 1) &&
+                     ($this->_month > 2))) {
+                    $this->_mday -= 366;
+                } else {
+                    $this->_mday -= 365;
+                }
+                $this->_year++;
+            }
             while ($this->_mday > 28 &&
                    $this->_mday > Horde_Date_Utils::daysInMonth($this->_month, $this->_year)) {
                 if ($down) {
