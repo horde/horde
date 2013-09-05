@@ -248,7 +248,7 @@ class Hermes
      * filtered by client_ids.
      *
      */
-    public static function getCostObjects($client_ids = null)
+    public static function getCostObjects($client_ids = null, $external_only = false)
     {
        global $registry;
 
@@ -266,7 +266,8 @@ class Hermes
         foreach ($client_ids as $client_id) {
             $criteria['client_id'] = $client_id;
             foreach ($registry->listApps() as $app) {
-                if (!$registry->hasMethod('listCostObjects', $app)) {
+                if (($external_only && $app == 'hermes') ||
+                    !$registry->hasMethod('listCostObjects', $app)) {
                     continue;
                 }
 

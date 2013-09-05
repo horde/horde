@@ -1053,7 +1053,13 @@ HermesCore = {
         cell = cell.next().update(jt.estimate);
         cell = cell.next().update(jt.description);
         if (!Hermes.conf.has_deliverableadmin) {
+            // No delverabile admin perms
             cell.next().remove();
+        } else if (jt.is_external) {
+            // Can't edit|delete, it's an API cost object.
+            cell = cell.next();
+            cell.down().remove();
+            cell.down().remove();
         }
 
         return row;
