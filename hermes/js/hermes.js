@@ -738,7 +738,7 @@ HermesCore = {
      getDeliverableDetailCallback: function(dname, budget, r)
      {
         var b = { 'billable': 0, 'nonbillable': 0 },
-        t = {}, h = 0;
+        t = {}, h = 0, over = 0;
         r.each(function(s) {
             // Billable data
             b.billable += (s.b) ? (s.h * 1): 0;
@@ -753,7 +753,8 @@ HermesCore = {
             // Hours
             h += (s.h * 1);
         });
-
+        over = Math.max(h - budget, 0);
+        h -= over;
         //this.doChart();
         RedBox.onDisplay = function() {
             if (this.redBoxOnDisplay) {
@@ -763,23 +764,27 @@ HermesCore = {
             var statGraph = Flotr.draw(
                 $('hermesDeliverableStats'),
                 [
-                    { data: [ [ h, 0] ], label: 'one' },
-                    { data: [ [ budget * 1, 0] ], label: 'two' }
+                    { data: [ [ h, 0] ] },
+                    { data: [ [ budget - h, 0] ] },
+                    { data: [ [ over, 0] ] }
                 ],
                 {
+                    colors: ['green', 'transparent', 'red'],
+                    //title: Hermes.text['budget'],
                     bars: {
                         show: true,
                         stacked: true,
                         horizontal: true,
                         barWidth: 0.6,
-                        lineWidth: 1,
+                        lineWidth: 0,
                         shadowSize: 0
                     },
                     yaxis: { showLabels: false },
-                    xaxis: { min: 0, max: budget },
+                    xaxis: { min: 0, max: (budget > h + over) ? budget : h + over },
                     grid: {
                         verticalLines: false,
-                        horizontalLines: false
+                        horizontalLines: false,
+                        outlineWidth: 0
                     },
                     legend: { show: false }
                 }
@@ -791,7 +796,7 @@ HermesCore = {
                     { data: [ [0, b.nonbillable ] ], label: "NonBillable" }
                 ],
                 {
-                    title: 'Hours',
+                    title: Hermes.text['hours'],
                     HtmlText: false,
                     pie: { show: true, explode: 5 },
                     mouse: { track: false }, // @TODO ToolTips
@@ -813,7 +818,7 @@ HermesCore = {
                 $('hermesDeliverableType'),
                 typeData,
                 {
-                    title: 'Type',
+                    title: Hermes.text['type'],
                     HtmlText: false,
                     pie: { show: true, explode: 0 },
                     mouse: { track: false }, // @TODO ToolTips

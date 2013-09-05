@@ -409,7 +409,7 @@ div.hermesDeliverablesDesc {
 /* Dialogs */
 .hermesDialog {
     width: 700px;
-    min-height: 500px;
+    min-height: 45px;
     padding: 10px 20px;
     background: #efefef;
     border: 1px #999 solid;
@@ -434,14 +434,41 @@ div.hermesDeliverablesDesc {
 }
 #hermesDeliverableBillable, #hermesDeliverableType {
   width: 45%;
-  float: right;
+  float: left;
   min-height: 175px;
-  padding: 10px;
+  padding: 1px;
+}
+#hermesDeliverableType {
+  float: right;
+}
+
+.hermesBudget {
+  padding: 2px 10px 10px 10px;
+  clear: both;
 }
 #hermesDeliverableStats {
-  width: 100%;
-  min-height: 175px;
-  padding: 10px;
+  width: 300px;
+  min-height: 60px;
+  padding: 1px;
+  float: right;
+}
+#hermesStatText {
+  width: 200px;
+  float: left;
+}
+#hermesStatText table td, #hermesStatText table th {
+  padding: 5px 30px 0 0;
+}
+#hermesStatText table th {
+  font-weight: normal;
+}
+#hermesStatText table td {
+  font-weight: bold;
+  font-size: 150%;
+}
+.hermesBox {
+  border: 1px solid #000;
+  padding-bottom: 45px;
 }
 .hermesTimeFormShown {
    background: url("../graphics/minus.png") no-repeat scroll left  transparent;
