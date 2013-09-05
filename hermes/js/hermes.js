@@ -726,17 +726,17 @@ HermesCore = {
      * Begin to show the detail view of the deliverable.
      *
      */
-     getDeliverableDetail: function(elt)
-     {
+    getDeliverableDetail: function(elt)
+    {
         var dname = $(elt).down(0).innerHTML, budget = $(elt).down(2).innerHTML;
         HordeCore.doAction('getDeliverableDetail',
             { id: elt.retrieve('did') },
             { callback: this.getDeliverableDetailCallback.curry(dname, budget).bind(this) }
         );
-     },
+    },
 
-     getDeliverableDetailCallback: function(dname, budget, r)
-     {
+    getDeliverableDetailCallback: function(dname, budget, r)
+    {
         var b = { 'billable': 0, 'nonbillable': 0 },
         t = {}, h = 0, over = 0;
         r.each(function(s) {
