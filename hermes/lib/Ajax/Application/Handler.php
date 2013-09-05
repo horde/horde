@@ -192,7 +192,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      *  - c:   The client id
      *  - id:  The optional deliverable id, if requesting a specific deliverable.
      */
-    public function listLocalDeliverables()
+    public function listDeliverables()
     {
         global $injector;
         if (!$this->vars->id) {
