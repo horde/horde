@@ -755,6 +755,12 @@ HermesCore = {
         });
         over = Math.max(h - budget, 0);
         h -= over;
+
+        var cell = $('hermesStatText').down('td');
+        cell.update(h);
+        cell = cell.next().update(budget);
+        cell.next().update(budget - (h + over));
+
         //this.doChart();
         RedBox.onDisplay = function() {
             if (this.redBoxOnDisplay) {
@@ -835,7 +841,7 @@ HermesCore = {
             );
 
         }
-        $('hermesDeliverableDetail').down('h2').update(dname);
+        $('hermesDeliverableDetail').down('h1').update(dname);
         RedBox.showHtml($('hermesDeliverableDetail').show());
      },
 
