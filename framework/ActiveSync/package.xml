@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix possible infinite loop when a requested message is not found on the serer during a SYNC request.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1682,7 +1682,7 @@
    <date>2013-09-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix possible infinite loop when a requested message is not found on the serer during a SYNC request.
    </notes>
   </release>
  </changelog>
