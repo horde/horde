@@ -844,6 +844,7 @@ HermesCore = {
                     position: 'rm',
                     horizontal: true,
                     fontSize: 11,
+                    color: '#666',
                     labelFormatter: function(o) {
                         return emp[o.index];
                     }
@@ -886,7 +887,7 @@ HermesCore = {
             $('hermesDeliverableType'),
             typeData,
             {
-                colors: ['#C0D800', '#CB4B4B', '#4DA74D', '#9440ED'],
+                colors: ['#CB4B4B', '#4DA74D', '#9440ED', '#C0D800','#00A8F0'],
                 title: Hermes.text['type'],
                 HtmlText: false,
                 pie: { show: true, explode: 5, shadowSize: 2 },
@@ -899,7 +900,8 @@ HermesCore = {
                 xaxis: { showLabels: false },
                 yaxis: { showLabels: false, autoscale: true },
                 legend: {
-                  position : 'se'
+                  position : 'se',
+                  labelBoxBorderColor: 'transparent'
                 }
             }
         );
@@ -940,7 +942,7 @@ HermesCore = {
                 },
                 xaxis: { showLabels: false },
                 yaxis: { showLabels: false },
-                legend: { position: 'sw' }
+                legend: { position: 'sw', labelBoxBorderColor: 'transparent' }
             }
         );
     },
