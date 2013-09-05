@@ -808,8 +808,8 @@ HermesCore = {
         Flotr.draw(
             $('hermesDeliverableBillable'),
             [
-                { data: [ [0, b.billable ] ], label: "Billable", pie: { explode: 15 } },
-                { data: [ [0, b.nonbillable ] ], label: "NonBillable" }
+                { data: [ [0, b.billable ] ], label: Hermes.text['billable'], pie: { explode: 15 } },
+                { data: [ [0, b.nonbillable ] ], label: Hermes.text['nonbillable'] }
             ],
             {
                 title: Hermes.text['hours'],
