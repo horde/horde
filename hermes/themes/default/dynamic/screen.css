@@ -301,7 +301,9 @@ div.hermesDeliverablesOptions {
     white-space: pre-wrap;
     overflow: hidden;
 }
-
+div.hermesDeliverablesOptions {
+  float: right;
+}
 div.hermesJobTypeListName {
     width: 30%;
 }
