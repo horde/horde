@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-09-04</date>
+ <date>2013-09-05</date>
  <version>
   <release>2.9.0</release>
   <api>2.9.0</api>
@@ -100,6 +100,10 @@
      <file name="zh-CN.js" role="horde" />
      <file name="zh-TW.js" role="horde" />
     </dir> <!-- /js/date -->
+    <dir name="excanvas">
+     <file name="excanvas.js" role="horde" />
+     <file name="excanvas.min.js" role="horde" />
+    </dir> <!-- /js/excanvas -->
     <dir name="flotr2">
      <file name="flotr2.js" role="horde" />
     </dir> <!-- /js/flotr2 -->
@@ -1515,6 +1519,8 @@
    <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
    <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
    <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
+   <install as="js/excanvas/excanvas.js" name="js/excanvas/excanvas.js" />
+   <install as="js/excanvas/excanvas.min.js" name="js/excanvas/excanvas.min.js" />
    <install as="js/flotr2/flotr2.js" name="js/flotr2/flotr2.js" />
    <install as="js/jquery.mobile/jquery.js" name="js/jquery.mobile/jquery.js" />
    <install as="js/jquery.mobile/jquery.min.js" name="js/jquery.mobile/jquery.min.js" />
@@ -3149,7 +3155,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-04</date>
+   <date>2013-09-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).

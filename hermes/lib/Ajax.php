@@ -24,6 +24,9 @@ class Hermes_Ajax
         $page_output->addScriptFile('tooltips.js', 'horde');
         $page_output->addScriptPackage('Datejs');
         $page_output->addScriptFile('quickfinder.js', 'horde');
+        if ($GLOBALS['browser']->isBrowser('msie')) {
+            $page_output->addScriptFile('excanvas/excanvas.min.js', 'horde');
+        }
         $page_output->addScriptFile('flotr2/flotr2.js', 'horde');
         $page_output->addScriptFile('hermes.js');
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
