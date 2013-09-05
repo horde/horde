@@ -761,88 +761,102 @@ HermesCore = {
         cell = cell.next().update(budget);
         cell.next().update(budget - (h + over));
 
-        //this.doChart();
         RedBox.onDisplay = function() {
             if (this.redBoxOnDisplay) {
                 this.redBoxOnDisplay();
             }
 
-            var statGraph = Flotr.draw(
-                $('hermesDeliverableStats'),
-                [
-                    { data: [ [ h, 0] ] },
-                    { data: [ [ budget - h, 0] ] },
-                    { data: [ [ over, 0] ] }
-                ],
-                {
-                    colors: ['green', 'transparent', 'red'],
-                    bars: {
-                        show: true,
-                        stacked: true,
-                        horizontal: true,
-                        barWidth: 0.6,
-                        lineWidth: 0,
-                        shadowSize: 0
-                    },
-                    yaxis: { showLabels: false },
-                    xaxis: { min: 0, max: (budget > h + over) ? budget : h + over },
-                    grid: {
-                        verticalLines: false,
-                        horizontalLines: false,
-                        outlineWidth: 0
-                    },
-                    legend: { show: false }
-                }
-            );
-            var billableGraph = Flotr.draw(
-                $('hermesDeliverableBillable'),
-                [
-                    { data: [ [0, b.billable ] ], label: "Billable", pie: { explode: 15 } },
-                    { data: [ [0, b.nonbillable ] ], label: "NonBillable" }
-                ],
-                {
-                    title: Hermes.text['hours'],
-                    HtmlText: false,
-                    pie: { show: true, explode: 5 },
-                    mouse: { track: false }, // @TODO ToolTips
-                    grid: {
-                        verticalLines: false,
-                        horizontalLines: false,
-                        outlineWidth: 0
-                    },
-                    xaxis: { showLabels: false },
-                    yaxis: { showLabels: false },
-                    legend: { position: 'sw' }
-                }
-            );
+            this.drawBudgetGraph(h, budget, over);
+            this.drawBillableGraph(b);
             var typeData = [];
             $H(t).each(function (type) {
                 typeData.push({ data: [ [0, type.value] ], label: type.key });
             });
-            var typeGraph = Flotr.draw(
-                $('hermesDeliverableType'),
-                typeData,
-                {
-                    title: Hermes.text['type'],
-                    HtmlText: false,
-                    pie: { show: true, explode: 0 },
-                    mouse: { track: false }, // @TODO ToolTips
-                    grid: {
-                        verticalLines: false,
-                        horizontalLines: false,
-                        outlineWidth: 0
-                    },
-                    xaxis: { showLabels: false },
-                    yaxis: { showLabels: false, autoscale: true },
-                    legend: {
-                      position : 'sw'
-                    }
-                }
-            );
+            this.drawTypeGraph(typeData);
+        }.bind(this);
 
-        }
         $('hermesDeliverableDetail').down('h1').update(dname);
         RedBox.showHtml($('hermesDeliverableDetail').show());
+    },
+
+    drawTypeGraph: function(typeData)
+    {
+        Flotr.draw(
+            $('hermesDeliverableType'),
+            typeData,
+            {
+                title: Hermes.text['type'],
+                HtmlText: false,
+                pie: { show: true, explode: 0 },
+                mouse: { track: false }, // @TODO ToolTips
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                xaxis: { showLabels: false },
+                yaxis: { showLabels: false, autoscale: true },
+                legend: {
+                  position : 'sw'
+                }
+            }
+        );
+    },
+
+    drawBillableGraph: function(b)
+    {
+        Flotr.draw(
+            $('hermesDeliverableBillable'),
+            [
+                { data: [ [0, b.billable ] ], label: "Billable", pie: { explode: 15 } },
+                { data: [ [0, b.nonbillable ] ], label: "NonBillable" }
+            ],
+            {
+                title: Hermes.text['hours'],
+                HtmlText: false,
+                pie: { show: true, explode: 5 },
+                mouse: { track: false }, // @TODO ToolTips
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                xaxis: { showLabels: false },
+                yaxis: { showLabels: false },
+                legend: { position: 'sw' }
+            }
+        );
+    },
+
+    drawBudgetGraph: function(h, budget, over)
+    {
+        Flotr.draw(
+            $('hermesDeliverableStats'),
+            [
+                { data: [ [ h, 0] ] },
+                { data: [ [ budget - h, 0] ] },
+                { data: [ [ over, 0] ] }
+            ],
+            {
+                colors: ['green', 'transparent', 'red'],
+                bars: {
+                    show: true,
+                    stacked: true,
+                    horizontal: true,
+                    barWidth: 0.6,
+                    lineWidth: 0,
+                    shadowSize: 0
+                },
+                yaxis: { showLabels: false },
+                xaxis: { min: 0, max: (budget > h + over) ? budget : h + over },
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                legend: { show: false }
+            }
+        );
      },
 
     /**
