@@ -466,7 +466,7 @@ HermesCore = {
         $('hermesTimeSaveAsNew').show();
         $('hermesTimeFormClient').setValue(slice.c);
 
-        HordeCore.doAction('listDeliverablesMenu',
+        HordeCore.doAction('listDeliverablesSelect',
             { 'c': $F('hermesTimeFormClient') },
             { 'callback': function(r) {
                   this.listDeliverablesCallback(r);
@@ -684,13 +684,13 @@ HermesCore = {
     {
         if (this.view == 'time') {
             $('hermesLoadingTime').show();
-            HordeCore.doAction('listDeliverablesMenu',
+            HordeCore.doAction('listDeliverablesSelect',
                 { 'c': $F('hermesTimeFormClient') },
                 { 'callback': this.listDeliverablesCallback.bind(this) }
             );
         } else if (this.view == 'search') {
             $('hermesLoadingSearch').show();
-            HordeCore.doAction('listDeliverablesMenu',
+            HordeCore.doAction('listDeliverablesSelect',
                 { 'c': $F('hermesSearchFormClient') },
                 { 'callback': this.listDeliverablesCallback.bind(this) }
             );
@@ -1968,7 +1968,7 @@ HermesCore = {
         HordeCore.doAction('listTimers', [], { 'callback': this.listTimersCallback.bind(this) });
 
         // Populate the deliverables with the default list.
-        HordeCore.doAction('listDeliverablesMenu',
+        HordeCore.doAction('listDeliverablesSelect',
             { },
             { 'callback': function(r) {
                 this.updateCostObjects(r, 'time');
