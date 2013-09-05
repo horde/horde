@@ -97,7 +97,8 @@ class Hermes_Ajax
             'billable' => _("Billable"),
             'nonbillable' => _("Non billable"),
             'hours' => _("Hours"),
-            'type' => _("Type")
+            'type' => _("Type"),
+            'budget' => _("Budget hours")
         );
 
         return $js_vars;
