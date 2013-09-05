@@ -12,7 +12,7 @@
  </lead>
  <date>2013-09-05</date>
  <version>
-  <release>1.2.2</release>
+  <release>1.2.3</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix aborting a pipelined DATA command if only a subset of recipients were rejected (Bug #12659).
-* [mms] Don&apos;t auto-detect TLS availability again once we have done initial detection.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -209,6 +208,19 @@
    <notes>
 * [mms] Fix aborting a pipelined DATA command if only a subset of recipients were rejected (Bug #12659).
 * [mms] Don&apos;t auto-detect TLS availability again once we have done initial detection.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
