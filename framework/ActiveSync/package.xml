@@ -10,8 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-02</date>
- <time>18:50:01</time>
+ <date>2013-09-05</date>
  <version>
   <release>2.7.3</release>
   <api>2.7.0</api>
@@ -1679,7 +1678,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-02</date>
+   <date>2013-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix possible infinite loop when a requested message is not found on the serer during a SYNC request.
