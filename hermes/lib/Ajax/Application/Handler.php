@@ -173,14 +173,14 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     }
 
     /**
-     * Get a list of client deliverables suitable for building a select menu.
+     * Get a list of client deliverables suitable for building a select list.
      * Expects the following in $this->vars:
      *   - c: The client id, or an array of client ids if querying for specific
      *        clients. Returns all deliverables otherwise.
      *
      * @return array @see Hermes::getCostObjectType
      */
-    public function listDeliverablesMenu()
+    public function listDeliverablesSelect()
     {
         $client = !empty($this->vars->c) ? $this->vars->c : null;
 
