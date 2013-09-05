@@ -43,15 +43,23 @@ HermesCore = {
         parentfunc(r, e);
     },
 
+    /**
+     * Sets the page title.
+     *
+     * @param string title  The new page title
+     */
     setTitle: function(title)
     {
         document.title = Hermes.conf.name + ' :: ' + title;
         return title;
     },
 
-    // url = (string) URL to redirect to
-    // hash = (boolean) If true, url is treated as hash information to alter
-    //        on the current page
+    /**
+     * Redirect to the requested url
+     *
+     * @param string url    URL to redirect to
+     * @param boolean hash  If true, url is treated as hash information to alter
+     */
     redirect: function(url, hash)
     {
         if (hash) {
@@ -62,6 +70,9 @@ HermesCore = {
         }
     },
 
+    /**
+     * Go to the requested view.
+     */
     go: function(fullloc, data)
     {
         if (this.viewLoading.size()) {
@@ -164,6 +175,9 @@ HermesCore = {
         this.openLocation = loc;
     },
 
+    /**
+     * The click handler.
+     */
     clickHandler: function(e, dblclick)
     {
         var slice, sid, elt, id;
@@ -603,6 +617,14 @@ HermesCore = {
         }
     },
 
+    /**
+     * Replaces a slice, represented by sid, with the provided slice in the
+     * specified view.
+     *
+     * @param string sid    The slice id
+     * @param object slice  The new slice
+     * @param string view   The view to replace in. 'search' | 'time'
+     */
     replaceSliceInUI: function(sid, slice, view)
     {
         var t;
@@ -634,7 +656,8 @@ HermesCore = {
     /**
      * Removes sid's slice from cache
      *
-     * @param sid  The slice id
+     * @param string sid    The slice id
+     * @param string cache  Which cache to remove from. 'time' | 'search'
      */
     removeSliceFromCache: function(sid, cache)
     {
@@ -655,6 +678,9 @@ HermesCore = {
         }
     },
 
+    /**
+     * Returns the keys from the search results array.
+     */
     getSearchResultKeys: function()
     {
         var s = this.searchSlices.length,
@@ -735,6 +761,14 @@ HermesCore = {
         );
     },
 
+    /**
+     * Callback for handling deliverable details. Responsible for calculating
+     * any stats needed to display the various details and graphs.
+     *
+     * @param string dname  The display name of the deliverable.
+     * @param long budget   The budgeted amount for this deliverable.
+     * @param object r      The response data.
+     */
     getDeliverableDetailCallback: function(dname, budget, r)
     {
         var b = { 'billable': 0, 'nonbillable': 0 },
@@ -779,6 +813,11 @@ HermesCore = {
         RedBox.showHtml($('hermesDeliverableDetail').show());
     },
 
+    /**
+     * Draws the house by type chart.
+     *
+     * @param array  The data.
+     */
     drawTypeGraph: function(typeData)
     {
         Flotr.draw(
@@ -803,6 +842,12 @@ HermesCore = {
         );
     },
 
+    /**
+     * Draws the billable vs nonbillable chart.
+     *
+     * @param object b  An object containing billable and nonbillable properties
+     *                  containing the count of hours.
+     */
     drawBillableGraph: function(b)
     {
         var data;
@@ -835,6 +880,13 @@ HermesCore = {
         );
     },
 
+    /**
+     * Draw the budge bar chart.
+     *
+     * @param long h       The number of hours used, with a max value of budget.
+     * @param long budget  The budgeted hours.
+     * @param long over    Then number of hours over budget.
+     */
     drawBudgetGraph: function(h, budget, over)
     {
         Flotr.draw(
@@ -1150,6 +1202,9 @@ HermesCore = {
         this.buildSliceTable();
     },
 
+    /**
+     * Initiate a timeslice search. Response received in this.searchCallback
+     */
     search: function()
     {
         var params = $H($('hermesSearchForm').serialize({ hash: true }));
@@ -1161,6 +1216,11 @@ HermesCore = {
         );
     },
 
+    /**
+     * Callback for timeslice search.
+     *
+     * @param array r  List of slices matching search.
+     */
     searchCallback: function(r)
     {
         $('hermesLoadingSearch').hide();
@@ -1636,6 +1696,10 @@ HermesCore = {
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
+    /**
+     * Updates the sum  of the timeslices in the UI matching the current search
+     * results.
+     */
     updateSearchTotal: function()
     {
         var total = 0;
@@ -1727,6 +1791,9 @@ HermesCore = {
         return row;
     },
 
+    /**
+     * Handles sorting the timeslice grid.
+     */
     handleEntrySort: function(e)
     {
         if (this.sortbyfield == e.identify()) {
@@ -1739,6 +1806,9 @@ HermesCore = {
         this.buildSliceTable();
     },
 
+    /**
+     * Handles sorting the search results grid.
+     */
     handleSearchSort: function(e)
     {
         if (this.searchSortbyfield == e.identify()) {
@@ -1882,6 +1952,12 @@ HermesCore = {
         return [start, end];
     },
 
+    /**
+     * Callback for the poll request.
+     *
+     * @param array r  The polling response. Contains an array of updated timer
+     *                 data.
+     */
     pollCallback: function(r)
     {
         // Update timers.
@@ -1897,6 +1973,10 @@ HermesCore = {
         }
     },
 
+    /**
+     * Check that any dates entered match a know recognizable format for the
+     * current locale and notify the user if not.
+     */
     checkDate: function(e) {
         var elm = e.element();
         if ($F(elm)) {
