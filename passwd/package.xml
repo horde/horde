@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>16:08:42</time>
+ <date>2013-09-05</date>
+ <time>09:57:49</time>
  <version>
   <release>5.1.0alpha1</release>
   <api>5.0.0</api>
@@ -47,9 +47,16 @@
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
+    <file name="dynamic.js" role="horde" />
     <file name="passwd.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
+    <dir name="Ajax">
+     <dir name="Application">
+      <file name="Handler.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
     <dir name="Driver">
      <file name="Adsi.php" role="horde" />
      <file name="Composite.php" role="horde" />
@@ -79,7 +86,9 @@
     <file name="Application.php" role="horde" />
     <file name="Basic.php" role="horde" />
     <file name="Driver.php" role="horde" />
+    <file name="Dynamic.php" role="horde" />
     <file name="Exception.php" role="horde" />
+    <file name="Policy.php" role="horde" />
     <file name="Test.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
@@ -297,6 +306,7 @@
    </dir> <!-- /scripts -->
    <dir name="templates">
     <file name=".htaccess" role="horde" />
+    <file name="dynamic.html.php" role="horde" />
     <file name="index.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -319,12 +329,16 @@
    <dir name="themes">
     <dir name="default">
      <dir name="graphics">
+      <file name="failed.png" role="horde" />
       <file name="favicon.ico" role="horde" />
+      <file name="passed.png" role="horde" />
       <file name="passwd.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
    </dir> <!-- /themes -->
    <file name="COPYING" role="doc" />
+   <file name="dynamic.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="README" role="doc" />
   </dir> <!-- / -->
@@ -442,6 +456,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="COPYING" />
+   <install as="passwd/dynamic.php" name="dynamic.php" />
    <install as="passwd/index.php" name="index.php" />
    <install as="README" name="README" />
    <install as="passwd/config/.htaccess" name="config/.htaccess" />
@@ -454,13 +469,18 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="passwd/js/dynamic.js" name="js/dynamic.js" />
    <install as="passwd/js/passwd.js" name="js/passwd.js" />
    <install as="passwd/lib/.htaccess" name="lib/.htaccess" />
    <install as="passwd/lib/Application.php" name="lib/Application.php" />
    <install as="passwd/lib/Basic.php" name="lib/Basic.php" />
    <install as="passwd/lib/Driver.php" name="lib/Driver.php" />
+   <install as="passwd/lib/Dynamic.php" name="lib/Dynamic.php" />
    <install as="passwd/lib/Exception.php" name="lib/Exception.php" />
+   <install as="passwd/lib/Policy.php" name="lib/Policy.php" />
    <install as="passwd/lib/Test.php" name="lib/Test.php" />
+   <install as="passwd/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="passwd/lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
    <install as="passwd/lib/Driver/Adsi.php" name="lib/Driver/Adsi.php" />
    <install as="passwd/lib/Driver/Composite.php" name="lib/Driver/Composite.php" />
    <install as="passwd/lib/Driver/Expect.php" name="lib/Driver/Expect.php" />
@@ -562,6 +582,7 @@
    <install as="passwd/scripts/passwd-expect" name="scripts/passwd-expect" />
    <install as="passwd/scripts/passwd-expect-kerberos" name="scripts/passwd-expect-kerberos" />
    <install as="passwd/templates/.htaccess" name="templates/.htaccess" />
+   <install as="passwd/templates/dynamic.html.php" name="templates/dynamic.html.php" />
    <install as="passwd/templates/index.html.php" name="templates/index.html.php" />
    <install as="Passwd/AllTests.php" name="test/Passwd/AllTests.php" />
    <install as="Passwd/Autoload.php" name="test/Passwd/Autoload.php" />
@@ -570,7 +591,10 @@
    <install as="Passwd/TestCase.php" name="test/Passwd/TestCase.php" />
    <install as="Passwd/Unit/Driver/SqlTest.php" name="test/Passwd/Unit/Driver/SqlTest.php" />
    <install as="Passwd/Unit/Factory/DriverTest.php" name="test/Passwd/Unit/Factory/DriverTest.php" />
+   <install as="passwd/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="passwd/themes/default/graphics/failed.png" name="themes/default/graphics/failed.png" />
    <install as="passwd/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="passwd/themes/default/graphics/passed.png" name="themes/default/graphics/passed.png" />
    <install as="passwd/themes/default/graphics/passwd.png" name="themes/default/graphics/passwd.png" />
   </filelist>
  </phprelease>
@@ -711,7 +735,7 @@
    </notes>
   </release>
   <release>
-   <date>2013-06-11</date>
+   <date>2013-09-05</date>
    <time>16:07:10</time>
    <version>
     <release>5.1.0alpha1</release>
