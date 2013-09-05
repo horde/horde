@@ -3,6 +3,7 @@
  <h2><?php echo _("Deliverable") ?></h2>
  <div class="hermesBox">
  <div class="hermesBudget">
+   <h3><?php echo _("Budget") ?></h3>
    <div id="hermesStatText">
      <table><tbody>
        <tr><th><?php echo _("Logged")?></th><th><?php echo _("Budget") ?></th><th><?php echo _("Remaining") ?></th></tr>

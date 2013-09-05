@@ -770,7 +770,6 @@ HermesCore = {
                 ],
                 {
                     colors: ['green', 'transparent', 'red'],
-                    //title: Hermes.text['budget'],
                     bars: {
                         show: true,
                         stacked: true,
@@ -830,8 +829,7 @@ HermesCore = {
                     xaxis: { showLabels: false },
                     yaxis: { showLabels: false, autoscale: true },
                     legend: {
-                      position : 'sw',
-                      backgroundColor : '#D2E8FF'
+                      position : 'sw'
                     }
                 }
             );
