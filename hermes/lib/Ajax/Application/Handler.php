@@ -221,7 +221,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         foreach ($hours as $h) {
             $json[] = $h->toJson();
         }
-//return count($json);
+
         return $json;
     }
 
