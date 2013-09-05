@@ -538,7 +538,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $this->_base->queue->poll(array_keys($this->_base->indices->indices()));
         }
 
-        $this->_base->addTask('viewport', $change ? $this->_base->viewPortData(true) : new IMP_Ajax_Application_Viewport($this->indices->mailbox));
+        $this->_base->addTask('viewport', $change ? $this->_base->viewPortData(true) : new IMP_Ajax_Application_Viewport($this->_base->indices->mailbox));
 
         return true;
     }
