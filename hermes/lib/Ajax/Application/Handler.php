@@ -238,12 +238,8 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     {
         global $injector;
 
-        // last 30 days of hours for project
-        $today = new Horde_Date(time());
-        $monthback = $today->add(array('day' => -30));
         $filters = array(
-            'start' => $monthback->timestamp(),
-            'costobject' => 'hermes:' . $this->vars->id
+            'costobject' => $this->vars->id
         );
         $hours = $injector->getInstance('Hermes_Driver')->getHours($filters);
         $json = array();
