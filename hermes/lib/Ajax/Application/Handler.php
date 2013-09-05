@@ -196,19 +196,28 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     {
         global $injector;
 
-        if ($this->vars->id) {
+        if (!empty($this->vars->id)) {
             $params = array('id' => $this->vars->id);
             return array_values($injector->getInstance('Hermes_Driver')->listDeliverables($params));
         }
-        $elts = $injector->getInstance('Hermes_Driver')
-            ->listDeliverables(array('client_id' => $this->vars->c));
-        foreach (Hermes::getCostObjects($this->vars->c. true) as $category) {
+
+        // Only poll Hermes' deliverables if we have a client id since they
+        // are ALWAYS tied to a client. Otherwise, just return the list of
+        // external cost objects.
+        $client_id = !empty($this->vars->c) ? $this->vars->c : null;
+        if (!empty($client_id)) {
+            $elts = $injector->getInstance('Hermes_Driver')
+                ->listDeliverables(array('client_id' => $client_id));
+        } else {
+            $elts = array();
+        }
+        foreach (Hermes::getCostObjects($client_id, true) as $category) {
             Horde_Array::arraySort($category['objects'], 'name');
             foreach ($category['objects'] as $object) {
                 $elts[] = array(
                     'id' => $object['id'],
                     'client_id' => false,
-                    'name' => Horde_String::truncate($object['name'], 80),
+                    'name' => sprintf('%s (%s)', htmlspecialchars(Horde_String::truncate($object['name'], 80)), htmlspecialchars($category['category'])),
                     'parent' => empty($object['parent']) ? 0 : $object['parent'],
                     'estimate' => empty($object['estimate']) ? 0 : $object['estimate'],
                     'active' => true,
