@@ -542,7 +542,7 @@ class Horde_Smtp implements Serializable
     }
 
     /**
-     * Send a RESET command.
+     * Send a reset command.
      *
      * @throws Horde_Smtp_Exception
      */
@@ -574,7 +574,6 @@ class Horde_Smtp implements Serializable
             $this->_getResponse(250);
         }
     }
-
 
     /* Internal methods. */
 
