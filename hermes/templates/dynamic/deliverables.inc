@@ -23,7 +23,7 @@
       </div>
     </div>
   </form>
-  <div class="header"><?php echo Hermes::getClientSelect('hermesDeliverablesClientSelect');?></div>
+  <div class="header"><?php echo Hermes::getClientSelect('hermesDeliverablesClientSelect', false, true);?></div>
   <div id="hermesDeliverablesListHeader">
     <div class="hermesDeliverablesName hermesBorderLeft"><?php echo _("Name") ?></div>
     <div class="hermesDeliverablesActive hermesBorderLeft"><?php echo _("Active") ?></div>
