@@ -805,12 +805,19 @@ HermesCore = {
 
     drawBillableGraph: function(b)
     {
-        Flotr.draw(
-            $('hermesDeliverableBillable'),
-            [
+        var data;
+
+        if (b.billable == 0 && b.nonbillable == 0) {
+            $('hermesDeliverableBillable').update();
+        } else {
+            data = [
                 { data: [ [0, b.billable ] ], label: Hermes.text['billable'], pie: { explode: 15 } },
                 { data: [ [0, b.nonbillable ] ], label: Hermes.text['nonbillable'] }
-            ],
+            ];
+        }
+        Flotr.draw(
+            $('hermesDeliverableBillable'),
+            data,
             {
                 title: Hermes.text['hours'],
                 HtmlText: false,
