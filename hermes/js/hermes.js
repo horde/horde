@@ -103,7 +103,7 @@ HermesCore = {
                 if (!$('hermesView' + locCap)) {
                     break;
                 }
-                this.addHistory(fullloc);
+                this.addHistory(fullloc, loc != 'admindeliverables');
                 this.view = loc;
                 $('hermesView' + locCap).appear({
                     duration: this.effectDur,
@@ -316,6 +316,10 @@ HermesCore = {
                 this.go('search');
                 e.stop();
                 return;
+
+            case 'hermesDeliverablesClose':
+                RedBox.close();
+                return;
             }
 
             switch (elt.className) {
@@ -376,6 +380,10 @@ HermesCore = {
                 return;
             } else if (elt.hasClassName('deliverableDelete')) {
                 this.deleteDeliverable(elt.up().up());
+                e.stop();
+                return;
+            } else if (elt.hasClassName('deliverableDetail')) {
+                this.getDeliverableDetail(elt.up().up());
                 e.stop();
                 return;
             }
@@ -458,7 +466,7 @@ HermesCore = {
         $('hermesTimeSaveAsNew').show();
         $('hermesTimeFormClient').setValue(slice.c);
 
-        HordeCore.doAction('listDeliverables',
+        HordeCore.doAction('listDeliverablesMenu',
             { 'c': $F('hermesTimeFormClient') },
             { 'callback': function(r) {
                   this.listDeliverablesCallback(r);
@@ -676,13 +684,13 @@ HermesCore = {
     {
         if (this.view == 'time') {
             $('hermesLoadingTime').show();
-            HordeCore.doAction('listDeliverables',
+            HordeCore.doAction('listDeliverablesMenu',
                 { 'c': $F('hermesTimeFormClient') },
                 { 'callback': this.listDeliverablesCallback.bind(this) }
             );
         } else if (this.view == 'search') {
             $('hermesLoadingSearch').show();
-            HordeCore.doAction('listDeliverables',
+            HordeCore.doAction('listDeliverablesMenu',
                 { 'c': $F('hermesSearchFormClient') },
                 { 'callback': this.listDeliverablesCallback.bind(this) }
             );
@@ -715,6 +723,150 @@ HermesCore = {
     },
 
     /**
+     * Begin to show the detail view of the deliverable.
+     *
+     */
+    getDeliverableDetail: function(elt)
+    {
+        var dname = $(elt).down(0).innerHTML, budget = $(elt).down(2).innerHTML;
+        HordeCore.doAction('getDeliverableDetail',
+            { id: elt.retrieve('did') },
+            { callback: this.getDeliverableDetailCallback.curry(dname, budget).bind(this) }
+        );
+    },
+
+    getDeliverableDetailCallback: function(dname, budget, r)
+    {
+        var b = { 'billable': 0, 'nonbillable': 0 },
+        t = {}, h = 0, over = 0;
+        r.each(function(s) {
+            // Billable data
+            b.billable += (s.b) ? (s.h * 1): 0;
+            b.nonbillable += (s.b) ? 0 : (s.h * 1);
+
+            // Jobtype data.
+            if (!t[s.tn]) {
+                t[s.tn] = 0;
+            }
+            t[s.tn] += (s.h * 1);
+
+            // Hours
+            h += (s.h * 1);
+        });
+        over = Math.max(h - budget, 0);
+        h -= over;
+
+        var cell = $('hermesStatText').down('td');
+        cell.update(h);
+        cell = cell.next().update(budget);
+        cell.next().update(budget - (h + over));
+
+        RedBox.onDisplay = function() {
+            if (this.redBoxOnDisplay) {
+                this.redBoxOnDisplay();
+            }
+
+            this.drawBudgetGraph(h, budget, over);
+            this.drawBillableGraph(b);
+            var typeData = [];
+            $H(t).each(function (type) {
+                typeData.push({ data: [ [0, type.value] ], label: type.key });
+            });
+            this.drawTypeGraph(typeData);
+        }.bind(this);
+
+        $('hermesDeliverableDetail').down('h1').update(dname);
+        RedBox.showHtml($('hermesDeliverableDetail').show());
+    },
+
+    drawTypeGraph: function(typeData)
+    {
+        Flotr.draw(
+            $('hermesDeliverableType'),
+            typeData,
+            {
+                title: Hermes.text['type'],
+                HtmlText: false,
+                pie: { show: true, explode: 0 },
+                mouse: { track: false }, // @TODO ToolTips
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                xaxis: { showLabels: false },
+                yaxis: { showLabels: false, autoscale: true },
+                legend: {
+                  position : 'sw'
+                }
+            }
+        );
+    },
+
+    drawBillableGraph: function(b)
+    {
+        var data;
+
+        if (b.billable == 0 && b.nonbillable == 0) {
+            $('hermesDeliverableBillable').update();
+        } else {
+            data = [
+                { data: [ [0, b.billable ] ], label: Hermes.text['billable'], pie: { explode: 15 } },
+                { data: [ [0, b.nonbillable ] ], label: Hermes.text['nonbillable'] }
+            ];
+        }
+        Flotr.draw(
+            $('hermesDeliverableBillable'),
+            data,
+            {
+                title: Hermes.text['hours'],
+                HtmlText: false,
+                pie: { show: true, explode: 5 },
+                mouse: { track: false }, // @TODO ToolTips
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                xaxis: { showLabels: false },
+                yaxis: { showLabels: false },
+                legend: { position: 'sw' }
+            }
+        );
+    },
+
+    drawBudgetGraph: function(h, budget, over)
+    {
+        Flotr.draw(
+            $('hermesDeliverableStats'),
+            [
+                { data: [ [ h, 0] ] },
+                { data: [ [ budget - h, 0] ] },
+                { data: [ [ over, 0] ] }
+            ],
+            {
+                colors: ['green', 'transparent', 'red'],
+                bars: {
+                    show: true,
+                    stacked: true,
+                    horizontal: true,
+                    barWidth: 0.6,
+                    lineWidth: 0,
+                    shadowSize: 0
+                },
+                yaxis: { showLabels: false },
+                xaxis: { min: 0, max: (budget > h + over) ? budget : h + over },
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                legend: { show: false }
+            }
+        );
+     },
+
+    /**
      * Delete a deliverable.
      */
     deleteDeliverable: function(elt)
@@ -738,7 +890,7 @@ HermesCore = {
      */
      deliverableEdit: function(id)
      {
-        HordeCore.doAction('listLocalDeliverables',
+        HordeCore.doAction('listDeliverables',
             { 'id': id },
             { 'callback': this.deliverableEditCallback.bind(this) }
         );
@@ -807,7 +959,7 @@ HermesCore = {
      */
     saveDeliverableCallback: function(r)
     {
-        HordeCore.doAction('listLocalDeliverables',
+        HordeCore.doAction('listDeliverables',
             { 'c': $F('hermesDeliverablesClientSelect') },
             { 'callback': this.listDeliverablesAdminCallback.bind(this) }
         );
@@ -889,7 +1041,7 @@ HermesCore = {
      */
     deliverablesClientChangeHandler: function()
     {
-        HordeCore.doAction('listLocalDeliverables',
+        HordeCore.doAction('listDeliverables',
             { 'c': $F('hermesDeliverablesClientSelect') },
             { 'callback': this.listDeliverablesAdminCallback.bind(this) }
         );
@@ -922,7 +1074,13 @@ HermesCore = {
         cell = cell.next().update(jt.estimate);
         cell = cell.next().update(jt.description);
         if (!Hermes.conf.has_deliverableadmin) {
+            // No delverabile admin perms
             cell.next().remove();
+        } else if (jt.is_external) {
+            // Can't edit|delete, it's an API cost object.
+            cell = cell.next();
+            cell.down().remove();
+            cell.down().remove();
         }
 
         return row;
@@ -1810,7 +1968,7 @@ HermesCore = {
         HordeCore.doAction('listTimers', [], { 'callback': this.listTimersCallback.bind(this) });
 
         // Populate the deliverables with the default list.
-        HordeCore.doAction('listDeliverables',
+        HordeCore.doAction('listDeliverablesMenu',
             { },
             { 'callback': function(r) {
                 this.updateCostObjects(r, 'time');
