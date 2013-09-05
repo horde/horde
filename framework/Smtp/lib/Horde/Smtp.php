@@ -474,11 +474,10 @@ class Horde_Smtp implements Serializable
             $cmds[] = 'RCPT TO:<' . $val . '>';
         }
 
-        $error = null;
-
         if ($this->queryExtension('PIPELINING')) {
-            $this->_connection->write(array_merge($cmds, array('DATA')));
+            $this->_connection->write($cmds);
 
+            $error = null;
             foreach ($cmds as $val) {
                 try {
                     $this->_getResponse(array(250, 251));
@@ -488,14 +487,21 @@ class Horde_Smtp implements Serializable
                     }
                 }
             }
+
+            /* Can't pipeline DATA since we want to throw an exception if
+             * ANY of the recipients are bad. */
+            if (!is_null($error)) {
+                $this->resetCmd();
+                throw $error;
+            }
         } else {
             foreach ($cmds as $val) {
                 $this->_connection->write($val);
                 $this->_getResponse(array(250, 251), 'reset');
             }
-
-            $this->_connection->write('DATA');
         }
+
+        $this->_connection->write('DATA');
 
         try {
             $this->_getResponse(354, 'reset');
@@ -513,32 +519,25 @@ class Horde_Smtp implements Serializable
                 break;
             }
 
-            throw ($error ? $error : $e);
+            throw $e;
         }
 
-        if (!$error) {
-            if (!is_resource($data)) {
-                $stream = fopen('php://temp', 'r+');
-                fwrite($stream, $data);
-                $data = $stream;
-            }
-            rewind($data);
-
-            // Add SMTP escape filter.
-            stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
-            $res = stream_filter_append($data, 'horde_smtp_data', STREAM_FILTER_READ);
-
-            $this->_connection->write($data);
-            stream_filter_remove($res);
+        if (!is_resource($data)) {
+            $stream = fopen('php://temp', 'r+');
+            fwrite($stream, $data);
+            $data = $stream;
         }
+        rewind($data);
+
+        // Add SMTP escape filter.
+        stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
+        $res = stream_filter_append($data, 'horde_smtp_data', STREAM_FILTER_READ);
+
+        $this->_connection->write($data);
+        stream_filter_remove($res);
 
         $this->_connection->write('.');
-
-        try {
-            $this->_getResponse(250, 'reset');
-        } catch (Horde_Smtp_Exception $e) {
-            throw ($error ? $error : $e);
-        }
+        $this->_getResponse(250, 'reset');
     }
 
     /**
