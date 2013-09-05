@@ -354,7 +354,7 @@ abstract class Horde_ActiveSync_Driver_Base
         if ($id = $this->_state->getFolderUidForBackendId($imap)) {
             return $id;
         } elseif (empty($this->_tempMap[$imap])) {
-            $this->_tempMap[$imap] = sprintf('%04x%04x', mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ));
+            $this->_tempMap[$imap] = sprintf('%04x%04x', mt_rand(0, 0xffff), mt_rand(0, 0xffff));
             $this->_logger->info(sprintf(
                 '[%s] Creating new folder uuid for %s: %s',
                 getmypid(),
