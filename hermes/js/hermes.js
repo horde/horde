@@ -772,11 +772,11 @@ HermesCore = {
     getDeliverableDetailCallback: function(dname, budget, r)
     {
         var b = { 'billable': 0, 'nonbillable': 0 },
-        t = {}, h = 0, over = 0;
+        t = {}, h = 0, over = 0, employees = {};
         r.each(function(s) {
             // Billable data
-            b.billable += (s.b) ? (s.h * 1): 0;
-            b.nonbillable += (s.b) ? 0 : (s.h * 1);
+            b.billable += (s.b * 1) ? (s.h * 1) : 0;
+            b.nonbillable += (s.b * 1) ? 0 : (s.h * 1);
 
             // Jobtype data.
             if (!t[s.tn]) {
@@ -786,11 +786,21 @@ HermesCore = {
 
             // Hours
             h += (s.h * 1);
+
+            // Employee
+            if (!employees[s.e]) {
+                employees[s.e] = {
+                    billable: 0,
+                    nonbillable: 0
+                };
+            }
+            employees[s.e].billable += (s.b * 1) ? (s.h * 1) : 0;
+            employees[s.e].nonbillable += (s.b * 1) ? 0 : (s.h * 1);
         });
         over = Math.max(h - budget, 0);
         h -= over;
 
-        var cell = $('hermesStatText').down('td');
+        var cell = $('hermesStatText').down('th');
         cell.update(h);
         cell = cell.next().update(budget);
         cell.next().update(budget - (h + over));
@@ -807,11 +817,63 @@ HermesCore = {
                 typeData.push({ data: [ [0, type.value] ], label: type.key });
             });
             this.drawTypeGraph(typeData);
+            this.doDeliverableEmployeeStats(employees);
         }.bind(this);
 
-        $('hermesDeliverableDetail').down('h1').update(dname);
+        $('hermesDeliverableDetail').down('h1').down('span').update(dname);
         RedBox.showHtml($('hermesDeliverableDetail').show());
     },
+
+    /**
+     * Handles updating the employee detail of the deliverable view.
+     */
+     doDeliverableEmployeeStats: function(employees)
+     {
+        var i = -1, data, b_data = [], nb_data = [], emp = [];
+        $H(employees).each(function(m) {
+            i++;
+            b_data.push([m.value.billable, i]);
+            nb_data.push([m.value.nonbillable, i]);
+            emp[i] = m.key;
+        });
+        data = [
+            {
+                data: b_data,
+                markers: {
+                    show: true,
+                    position: 'rm',
+                    horizontal: true,
+                    fontSize: 11,
+                    labelFormatter: function(o) {
+                        return emp[o.index];
+                    }
+                }
+            },
+            { data: nb_data }
+        ];
+
+        Flotr.draw(
+            $('hermesDeliverableEmployees'),
+            data,
+            {
+                bars: {
+                    show: true,
+                    stacked: true,
+                    horizontal: true,
+                    barWidth: 0.6,
+                    lineWidth: 1,
+                    shadowSize: 0
+                },
+                yaxis: { showLabels: false },
+                grid: {
+                    verticalLines: false,
+                    horizontalLines: false,
+                    outlineWidth: 0
+                },
+                legend: { show: false }
+            }
+        );
+     },
 
     /**
      * Draws the house by type chart.
@@ -824,9 +886,10 @@ HermesCore = {
             $('hermesDeliverableType'),
             typeData,
             {
+                colors: ['#C0D800', '#CB4B4B', '#4DA74D', '#9440ED'],
                 title: Hermes.text['type'],
                 HtmlText: false,
-                pie: { show: true, explode: 0 },
+                pie: { show: true, explode: 0, shadowSize: 0 },
                 mouse: { track: false }, // @TODO ToolTips
                 grid: {
                     verticalLines: false,
@@ -866,7 +929,7 @@ HermesCore = {
             {
                 title: Hermes.text['hours'],
                 HtmlText: false,
-                pie: { show: true, explode: 5 },
+                pie: { show: true, explode: 5, shadowSize: 0 },
                 mouse: { track: false }, // @TODO ToolTips
                 grid: {
                     verticalLines: false,
@@ -897,13 +960,13 @@ HermesCore = {
                 { data: [ [ over, 0] ] }
             ],
             {
-                colors: ['green', 'transparent', 'red'],
+                colors: ['#00ff00', 'transparent', '#ff0000'], // Green, transparent, red
                 bars: {
                     show: true,
                     stacked: true,
                     horizontal: true,
                     barWidth: 0.6,
-                    lineWidth: 0,
+                    lineWidth: 0.5,
                     shadowSize: 0
                 },
                 yaxis: { showLabels: false },
