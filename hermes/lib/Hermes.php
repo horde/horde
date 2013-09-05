@@ -55,19 +55,28 @@ class Hermes
      * Return the HTML needed to build an enum or multienum for selecting
      * clients.
      *
-     * @param string $id      The DOM id to identify the select list.
-     * @param boolean $multi  Allow multi select?
+     * @param string $id           The DOM id to identify the select list.
+     * @param boolean $multi       Allow multi select?
+     * @param boolean $use_cotext  Instead of 'Select A Client', use 'General
+     *                             Cost Objects' for the top choice.
      *
      * @return string  The HTML to render the select element.
      */
-    public static function getClientSelect($id, $multi = false)
+    public static function getClientSelect($id, $multi = false, $use_cotext = false)
     {
         $clients = self::listClients();
         $select = '<select name="'
             . ($multi ? 'client[]' : 'client')
             . '" id="' . $id . '" '
             . ($multi ? 'multiple = "multiple"' : '') . '>';
-        $select .= '<option value="">' . _("--- Select A Client ---") . '</option>';
+        $select .= '<option value="">';
+        if ($use_cotext) {
+            $select .= _("--- General Cost Objects ---");
+        } else {
+            $select .= _("--- Select A Client ---");
+        }
+        $select .= '</option>';
+
         foreach ($clients as $cid => $client) {
             $select .= '<option value="' . $cid . '">' . htmlspecialchars($client) . '</option>';
         }
