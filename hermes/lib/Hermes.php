@@ -244,21 +244,16 @@ class Hermes
     }
 
     /**
-     * Return data for costobjects, optionally filtered by client_ids.
+     * Return a list of cost objects exported by available APIs, optionally
+     * filtered by client_ids.
      *
-     * @param mixed $client_ids  A client id or an array of client ids to
-     *                           filter cost obejcts by.
-     *
-     * @return array  An array of cost objects data.
      */
-    public static function getCostObjectType($client_ids = null)
+    public static function getCostObjects($client_ids = null)
     {
-        global $registry;
+       global $registry;
 
-        // Check to see if any other active applications are exporting cost
-        // objects to which we might want to bill our time.
         $criteria = array(
-            'user'   => $GLOBALS['registry']->getAuth(),
+            'user'   => $registry->getAuth(),
             'active' => true
         );
         if (empty($client_ids)) {
@@ -297,9 +292,22 @@ class Hermes
             }
         }
 
+        return $costobjects;
+    }
+
+    /**
+     * Return data for costobjects, optionally filtered by client_ids.
+     *
+     * @param mixed $client_ids  A client id or an array of client ids to
+     *                           filter cost obejcts by.
+     *
+     * @return array  An array of cost objects data.
+     */
+    public static function getCostObjectType($client_ids = null)
+    {
         $elts = array('' => _("--- No Cost Object ---"));
         $counter = 0;
-        foreach ($costobjects as $category) {
+        foreach (self::getCostObjects($client_ids) as $category) {
             Horde_Array::arraySort($category['objects'], 'name');
             $elts['category%' . $counter++] = sprintf('--- %s ---', $category['category']);
             foreach ($category['objects'] as $object) {
