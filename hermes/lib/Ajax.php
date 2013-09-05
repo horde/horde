@@ -100,7 +100,7 @@ class Hermes_Ajax
             'billable' => _("Billable"),
             'nonbillable' => _("Non billable"),
             'hours' => _("Hours"),
-            'type' => _("Type"),
+            'type' => _("Job Type"),
             'budget' => _("Budget hours")
         );
 

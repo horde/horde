@@ -422,6 +422,7 @@ div.hermesDeliverablesDesc {
 .hermesDialog td {
     padding-right: 10px;
     vertical-align: top;
+    color: #515151;
 }
 .hermesDialog label {
     font-weight: bold;
@@ -434,6 +435,15 @@ div.hermesDeliverablesDesc {
    border-color: #ccc transparent #fff;
    border-style: solid none;
 }
+.hermesDialog h1 {
+  color: #414141;
+}
+.hermesDialog h1 span {
+  color: #000;
+}
+.hermesDialog h3 {
+  color: #616161;
+}
 #hermesDeliverableBillable, #hermesDeliverableType {
   width: 45%;
   float: left;
@@ -443,17 +453,29 @@ div.hermesDeliverablesDesc {
 #hermesDeliverableType {
   float: right;
 }
-
-.hermesBudget {
-  padding: 2px 10px 10px 10px;
-  clear: both;
+.hermesDeliverablePies {
+  min-height: 200px;
 }
+
+#hermesDeliverableEmployees {
+  min-height: 175px;
+  width: 100%;
+  float: left;
+}
+.hermesDeliverableParticipants {
+  min-height: 185px;
+}
+
 #hermesDeliverableStats {
   width: 300px;
   min-height: 60px;
   padding: 1px;
   float: right;
 }
+.hermesBudget {
+  min-height: 70px;
+}
+
 #hermesStatText {
   width: 200px;
   float: left;
@@ -461,16 +483,16 @@ div.hermesDeliverablesDesc {
 #hermesStatText table td, #hermesStatText table th {
   padding: 5px 30px 0 0;
 }
-#hermesStatText table th {
+#hermesStatText table td {
   font-weight: normal;
 }
-#hermesStatText table td {
+#hermesStatText table th {
   font-weight: bold;
   font-size: 150%;
 }
-.hermesBudgetBox {
-  border: 1px solid #000;
-  padding-bottom: 45px;
+
+.hermesBox {
+  border-bottom: 1px solid #ddd;
 }
 .hermesTimeFormShown {
    background: url("../graphics/minus.png") no-repeat scroll left  transparent;
