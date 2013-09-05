@@ -1982,6 +1982,15 @@ HermesCore = {
             { 'callback': this.loadJobListCallback.bind(this) }
         );
 
+        // Setup the deliverables
+        if ($('hermesDeliverablesClientSelect')) {
+            $('hermesDeliverablesClientSelect').observe('change', HermesCore.deliverablesClientChangeHandler.bindAsEventListener(HermesCore));
+            HordeCore.doAction('listDeliverables',
+                { },
+                { 'callback': this.listDeliverablesAdminCallback.bind(this) }
+            );
+        }
+
         new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll', {}, { 'callback': this.pollCallback.bind(this) }), 60);
     }
 };
