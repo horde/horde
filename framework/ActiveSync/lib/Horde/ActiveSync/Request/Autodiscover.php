@@ -45,6 +45,8 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
             if (strpos($hash, ':') !== false) {
                 list($email, $pass) = explode(':', $hash, 2);
             }
+        } elseif (empty($values)) {
+            throw new Horde_Exception_AuthenticationFailure('No username provided.');
         } else {
             $email = $values[2]['value'];
         }
