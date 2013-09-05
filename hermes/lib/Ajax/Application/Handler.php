@@ -206,8 +206,13 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         // external cost objects.
         $client_id = !empty($this->vars->c) ? $this->vars->c : null;
         if (!empty($client_id)) {
-            return array_values($injector->getInstance('Hermes_Driver')
+            $objs = array_values($injector->getInstance('Hermes_Driver')
                 ->listDeliverables(array('client_id' => $client_id)));
+            foreach ($objs as &$obj) {
+                $obj['id'] = 'hermes:' . $obj['id'];
+            }
+
+            return $objs;
         }
 
         $elts = array();

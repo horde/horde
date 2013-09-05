@@ -889,7 +889,7 @@ HermesCore = {
                 colors: ['#C0D800', '#CB4B4B', '#4DA74D', '#9440ED'],
                 title: Hermes.text['type'],
                 HtmlText: false,
-                pie: { show: true, explode: 0, shadowSize: 0 },
+                pie: { show: true, explode: 5, shadowSize: 2 },
                 mouse: { track: false }, // @TODO ToolTips
                 grid: {
                     verticalLines: false,
@@ -913,15 +913,17 @@ HermesCore = {
      */
     drawBillableGraph: function(b)
     {
-        var data;
+        var data = [];
 
         if (b.billable == 0 && b.nonbillable == 0) {
             $('hermesDeliverableBillable').update();
         } else {
-            data = [
-                { data: [ [0, b.billable ] ], label: Hermes.text['billable'], pie: { explode: 15 } },
-                { data: [ [0, b.nonbillable ] ], label: Hermes.text['nonbillable'] }
-            ];
+            if (b.billable != 0) {
+                data.push({ data: [ [0, b.billable ] ], label: Hermes.text['billable'] });
+            }
+            if (b.nonbillable != 0) {
+                data.push({ data: [ [0, b.nonbillable ] ], label: Hermes.text['nonbillable'] });
+            }
         }
         Flotr.draw(
             $('hermesDeliverableBillable'),
@@ -929,7 +931,7 @@ HermesCore = {
             {
                 title: Hermes.text['hours'],
                 HtmlText: false,
-                pie: { show: true, explode: 5, shadowSize: 0 },
+                pie: { show: true, explode: 5, shadowSize: 2 },
                 mouse: { track: false }, // @TODO ToolTips
                 grid: {
                     verticalLines: false,
