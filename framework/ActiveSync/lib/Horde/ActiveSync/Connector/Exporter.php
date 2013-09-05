@@ -203,6 +203,9 @@ class Horde_ActiveSync_Connector_Exporter
                             $this->messageChange($change['id'], $message);
                         } catch (Horde_Exception_NotFound $e) {
                             $this->_logger->err('Message gone or error reading message from server: ' . $e->getMessage());
+                            $this->_as->state->updateState($change['type'], $change);
+                            $this->_step++;
+                            return $e;
                         } catch (Horde_ActiveSync_Exception $e) {
                             $this->_logger->err('Unknown backend error skipping message: ' . $e->getMessage());
                         }
