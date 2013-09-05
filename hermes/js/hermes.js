@@ -899,7 +899,7 @@ HermesCore = {
                 xaxis: { showLabels: false },
                 yaxis: { showLabels: false, autoscale: true },
                 legend: {
-                  position : 'sw'
+                  position : 'se'
                 }
             }
         );
