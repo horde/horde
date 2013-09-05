@@ -195,14 +195,29 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     public function listDeliverables()
     {
         global $injector;
-        if (!$this->vars->id) {
-            $params = array('client_id' => $this->vars->c);
-        } else {
+
+        if ($this->vars->id) {
             $params = array('id' => $this->vars->id);
+            return array_values($injector->getInstance('Hermes_Driver')->listDeliverables($params));
+        }
+        $elts = $injector->getInstance('Hermes_Driver')
+            ->listDeliverables(array('client_id' => $this->vars->c));
+        foreach (Hermes::getCostObjects($this->vars->c. true) as $category) {
+            Horde_Array::arraySort($category['objects'], 'name');
+            foreach ($category['objects'] as $object) {
+                $elts[] = array(
+                    'id' => $object['id'],
+                    'client_id' => false,
+                    'name' => Horde_String::truncate($object['name'], 80),
+                    'parent' => empty($object['parent']) ? 0 : $object['parent'],
+                    'estimate' => empty($object['estimate']) ? 0 : $object['estimate'],
+                    'active' => true,
+                    'is_external' => true
+                );
+            }
         }
 
-        return array_values($injector->getInstance('Hermes_Driver')
-           ->listDeliverables($params));
+        return array_values($elts);
     }
 
     public function getDeliverableDetail()
