@@ -869,7 +869,7 @@ HermesCore = {
      */
      deliverableEdit: function(id)
      {
-        HordeCore.doAction('listLocalDeliverables',
+        HordeCore.doAction('listDeliverables',
             { 'id': id },
             { 'callback': this.deliverableEditCallback.bind(this) }
         );
@@ -938,7 +938,7 @@ HermesCore = {
      */
     saveDeliverableCallback: function(r)
     {
-        HordeCore.doAction('listLocalDeliverables',
+        HordeCore.doAction('listDeliverables',
             { 'c': $F('hermesDeliverablesClientSelect') },
             { 'callback': this.listDeliverablesAdminCallback.bind(this) }
         );
@@ -1020,7 +1020,7 @@ HermesCore = {
      */
     deliverablesClientChangeHandler: function()
     {
-        HordeCore.doAction('listLocalDeliverables',
+        HordeCore.doAction('listDeliverables',
             { 'c': $F('hermesDeliverablesClientSelect') },
             { 'callback': this.listDeliverablesAdminCallback.bind(this) }
         );
