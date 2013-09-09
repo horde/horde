@@ -133,14 +133,6 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends Horde_Db_Adapter_Pdo_PgsqlBase
     # Database Statements
     ##########################################################################*/
 
-    public function testExecute()
-    {
-        $sql = "SELECT * FROM unit_tests WHERE id='1'";
-        $result = $this->_conn->execute($sql);
-        $row = $result->fetch();
-        $this->assertEquals(1, $row['id']);
-    }
-
     public function testSelect()
     {
         $sql = "SELECT * FROM unit_tests WHERE id='1'";
