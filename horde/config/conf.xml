@@ -2104,7 +2104,7 @@
              <configboolean name="ssl" desc="Use SSL?" />
            </configsection>
            <configsection name="smtp">
-             <configstring name="host" desc="SMTP host" required="false"></configstring>
+             <configstring name="host" desc="SMTP host"></configstring>
              <configinteger name="port" desc="SMTP port" required="false"></configinteger>
              <configboolean name="popauth" desc="Require Pop Auth?" required="false" />
              <configboolean name="ssl" desc="Use SSL?" />
