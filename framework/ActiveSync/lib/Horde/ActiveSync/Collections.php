@@ -274,7 +274,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     synckey could be found. Most likely a client error in
                     requesting a collection during PING before it has issued a
                     SYNC.', $this->_procid));
-                return;
             }
 
             $this->_logger->info(sprintf(
