@@ -532,7 +532,13 @@ class Horde_ActiveSync_SyncCache
      */
     public function validateCollectionsFromCache(&$collections)
     {
+        // Temp array so we don't modify the $collections array while iterating it.
+        $unset = array();
         foreach ($collections as $key => $values) {
+            if (empty($this->_data['folders'][$values['id']])) {
+                $this->_logger->err('Unknown collection when trying to validate collections from the synccache. Most likely a client error, removing collection from cache.');
+                $unset[] = $key;
+            }
             if (!isset($values['class']) && isset($this->_data['folders'][$values['id']]['class'])) {
                 $collections[$key]['class'] = $this->_data['folders'][$values['id']]['class'];
             }
@@ -581,6 +587,9 @@ class Horde_ActiveSync_SyncCache
             if (!isset($values['pingable']) && isset($this->_data['collections'][$values['id']]['pingable'])) {
                 $collections[$key]['pingable'] = $this->_data['collections'][$values['id']]['pingable'];
             }
+        }
+        foreach ($unset as $id) {
+            unset($collections[$id]);
         }
     }
 
