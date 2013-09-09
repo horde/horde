@@ -27,6 +27,7 @@
  * @property string $label  The view label.
  * @property object $metadata  Metadata.
  * @property boolean $metadata_reset  True if metadata should be reset.
+ * @property array $rangelist  Results of a range request.
  * @property array $rowlist  The rowlist array.
  * @property boolean $rowlist_reset  True if rowlist data should be reset.
  * @property integer $rownum  The row number of the provided UID.
@@ -80,6 +81,7 @@ class IMP_Ajax_Application_Viewport
         case 'disappear':
         case 'label':
         case 'metadata_reset':
+        case 'rangelist':
         case 'rowlist':
         case 'rowlist_reset':
         case 'rownum':
@@ -88,8 +90,8 @@ class IMP_Ajax_Application_Viewport
                 ? $this->_data->$name
                 : false;
 
-       case 'metadata':
-           return (object)$this->_metadata;
+        case 'metadata':
+            return (object)$this->_metadata;
 
         case 'view':
             return $this->_mbox->form_to;
@@ -109,6 +111,7 @@ class IMP_Ajax_Application_Viewport
 
         case 'data':
         case 'disappear':
+        case 'rangelist':
         case 'rowlist':
             $this->_data->$name = $value;
             break;
