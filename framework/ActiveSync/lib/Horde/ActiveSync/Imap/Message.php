@@ -209,7 +209,9 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getMessageBodyData(array $options = array())
     {
-        $version = empty($options['protocolversion']) ? 2.5 : $options['protocolversion'];
+        $version = empty($options['protocolversion']) ?
+            Horde_ActiveSync::VERSION_TWOFIVE :
+            $options['protocolversion'];
 
         // Look for the parts we need. We try to detect and fetch only the parts
         // we need, while ensuring we have something to return. So, e.g., if we
