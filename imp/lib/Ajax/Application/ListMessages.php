@@ -373,16 +373,15 @@ class IMP_Ajax_Application_ListMessages
                 $data[$seq] = 1;
             }
         }
-        $result->rowlist = $rowlist;
 
         /* Build the list for rangeslice information. */
         if ($args['rangeslice']) {
-            $slice = new stdClass;
+            $slice = new IMP_Ajax_Application_Viewport($mbox);
             $slice->rangelist = array_keys($rowlist);
-            $slice->view = $mbox->form_to;
-
             return $slice;
         }
+
+        $result->rowlist = $rowlist;
 
         /* Build the overview list. */
         $result->data = $this->_getOverviewData($mbox, array_keys($data));
