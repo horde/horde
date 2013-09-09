@@ -268,6 +268,15 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 ? $cached_collections[$collection['id']]['lastsynckey']
                 : 0;
 
+            if ($collection['synckey'] == 0) {
+                $this->_logger->err(sprintf('[%s] Attempting to add a collection
+                    to the sync cache while requiring a synckey, but no
+                    synckey could be found. Most likely a client error in
+                    requesting a collection during PING before it has issued a
+                    SYNC.', $this->_procid));
+                return;
+            }
+
             $this->_logger->info(sprintf(
                 '[%s] Obtained synckey for collection %s from cache: %s',
                 $this->_procid, $collection['id'], $collection['synckey']));
