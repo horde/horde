@@ -206,7 +206,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      * @param   string  $sql
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
-     * @return  array
+     * @return  Horde_Db_Adapter_Mysqli_Result
      */
     public function select($sql, $arg1=null, $arg2=null)
     {
@@ -294,6 +294,9 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      * @param   string  $sql
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
+     *
+     * @return boolean|mysqli_result
+     * @throws Horde_Db_Exception
      */
     public function execute($sql, $arg1=null, $arg2=null)
     {

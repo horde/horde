@@ -23,11 +23,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-22</date>
- <time>11:07:26</time>
+ <date>2013-09-09</date>
  <version>
-  <release>2.0.5</release>
-  <api>1.2.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,7 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Make execute() and select() abstract methods in Horde_Db_Adapter_Base.
+* [jan] Deprecate execute() method.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -50,6 +50,7 @@
       <file name="COPYING" role="doc" />
       <file name="README_TESTING" role="doc" />
       <file name="TODO" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Db -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -256,6 +257,7 @@
    <install as="COPYING" name="doc/Horde/Db/COPYING" />
    <install as="README_TESTING" name="doc/Horde/Db/README_TESTING" />
    <install as="TODO" name="doc/Horde/Db/TODO" />
+   <install as="UPGRADING" name="doc/Horde/Db/UPGRADING" />
    <install as="Horde/Db.php" name="lib/Horde/Db.php" />
    <install as="Horde/Db/Adapter.php" name="lib/Horde/Db/Adapter.php" />
    <install as="Horde/Db/Exception.php" name="lib/Horde/Db/Exception.php" />
@@ -694,15 +696,16 @@
   </release>
   <release>
    <version>
-    <release>2.0.5</release>
-    <api>1.2.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-22</date>
+   <date>2013-09-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Make execute() and select() abstract methods in Horde_Db_Adapter_Base.
+* [jan] Deprecate execute() method.
    </notes>
   </release>
  </changelog>

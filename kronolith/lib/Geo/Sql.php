@@ -51,13 +51,14 @@ class Kronolith_Geo_Sql extends Kronolith_Geo_Base
 
         /* INSERT or UPDATE */
         $params = array($point['lat'], $point['lon'], $point['zoom'], $event_id);
-        if ($count) {
-            $sql = 'UPDATE kronolith_events_geo SET event_lat = ?, event_lon = ?, event_zoom = ? WHERE event_id = ?';
-        } else {
-            $sql = 'INSERT into kronolith_events_geo (event_lat, event_lon, event_zoom, event_id) VALUES(?, ?, ?, ?)';
-        }
         try {
-            $this->_db->execute($sql, $params);
+            if ($count) {
+                $sql = 'UPDATE kronolith_events_geo SET event_lat = ?, event_lon = ?, event_zoom = ? WHERE event_id = ?';
+                $this->_db->update($sql, $params);
+            } else {
+                $sql = 'INSERT into kronolith_events_geo (event_lat, event_lon, event_zoom, event_id) VALUES(?, ?, ?, ?)';
+                $this->_db->insert($sql, $params);
+            }
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Exception($e);
         }

@@ -195,14 +195,6 @@ class Horde_Db_Adapter_MysqlTest extends Horde_Test_Case
     # Database Statements
     ##########################################################################*/
 
-    public function testExecute()
-    {
-        $sql = "SELECT * FROM unit_tests WHERE id='1'";
-        $result = $this->_conn->execute($sql);
-        $row = mysql_fetch_assoc($result);
-        $this->assertEquals(1, $row['id']);
-    }
-
     public function testSelect()
     {
         $sql = "SELECT * FROM unit_tests WHERE id='1'";

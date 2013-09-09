@@ -71,6 +71,24 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     ##########################################################################*/
 
     /**
+     * Returns an array of records with the column names as keys, and
+     * column values as values.
+     *
+     * @param string  $sql   SQL statement.
+     * @param mixed $arg1    Either an array of bound parameters or a query
+     *                       name.
+     * @param string $arg2   If $arg1 contains bound parameters, the query
+     *                       name.
+     *
+     * @return PDOStatement
+     * @throws Horde_Db_Exception
+     */
+    public function select($sql, $arg1 = null, $arg2 = null)
+    {
+        return $this->execute($sql, $arg1, $arg2);
+    }
+
+    /**
      * Returns an array of record hashes with the column names as keys and
      * column values as values.
      *
@@ -142,6 +160,47 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     {
         $result = $this->execute($sql, $arg1, $arg2);
         return $result ? $result->fetchAll(PDO::FETCH_KEY_PAIR) : array();
+    }
+
+    /**
+     * Executes the SQL statement in the context of this connection.
+     *
+     * @param string $sql   SQL statement.
+     * @param mixed $arg1   Either an array of bound parameters or a query
+     *                      name.
+     * @param string $arg2  If $arg1 contains bound parameters, the query
+     *                      name.
+     *
+     * @return PDOStatement
+     * @throws Horde_Db_Exception
+     */
+    public function execute($sql, $arg1 = null, $arg2 = null)
+    {
+        if (!$this->isActive()) { $this->reconnect(); }
+
+        if (is_array($arg1)) {
+            $sql = $this->_replaceParameters($sql, $arg1);
+            $name = $arg2;
+        } else {
+            $name = $arg1;
+        }
+
+        $t = new Horde_Support_Timer;
+        $t->push();
+
+        try {
+            $this->_lastQuery = $sql;
+            $stmt = $this->_connection->query($sql);
+        } catch (Exception $e) {
+            $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
+            $this->_logInfo($sql, $name);
+            throw new Horde_Db_Exception($e);
+        }
+
+        $this->_logInfo($sql, $name, $t->pop());
+        $this->_rowCount = $stmt ? $stmt->rowCount() : 0;
+
+        return $stmt;
     }
 
 

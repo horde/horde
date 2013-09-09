@@ -397,13 +397,10 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      * @param string $arg2   If $arg1 contains bound parameters, the query
      *                       name.
      *
-     * @return PDOStatement
+     * @return Traversable
      * @throws Horde_Db_Exception
      */
-    public function select($sql, $arg1 = null, $arg2 = null)
-    {
-        return $this->execute($sql, $arg1, $arg2);
-    }
+    abstract public function select($sql, $arg1 = null, $arg2 = null);
 
     /**
      * Returns an array of record hashes with the column names as keys and
@@ -523,43 +520,19 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     /**
      * Executes the SQL statement in the context of this connection.
      *
+     * @deprecated Use select() instead. Will be removed from the public API in
+     *             Horde_Db 3.0.0.
+     *
      * @param string $sql   SQL statement.
      * @param mixed $arg1   Either an array of bound parameters or a query
      *                      name.
      * @param string $arg2  If $arg1 contains bound parameters, the query
      *                      name.
      *
-     * @return PDOStatement
+     * @return mixed
      * @throws Horde_Db_Exception
      */
-    public function execute($sql, $arg1 = null, $arg2 = null)
-    {
-        if (!$this->isActive()) { $this->reconnect(); }
-
-        if (is_array($arg1)) {
-            $sql = $this->_replaceParameters($sql, $arg1);
-            $name = $arg2;
-        } else {
-            $name = $arg1;
-        }
-
-        $t = new Horde_Support_Timer;
-        $t->push();
-
-        try {
-            $this->_lastQuery = $sql;
-            $stmt = $this->_connection->query($sql);
-        } catch (Exception $e) {
-            $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
-            $this->_logInfo($sql, $name);
-            throw new Horde_Db_Exception($e);
-        }
-
-        $this->_logInfo($sql, $name, $t->pop());
-        $this->_rowCount = $stmt ? $stmt->rowCount() : 0;
-
-        return $stmt;
-    }
+    abstract public function execute($sql, $arg1 = null, $arg2 = null);
 
     /**
      * Inserts a row into a table.
