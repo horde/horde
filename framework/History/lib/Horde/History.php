@@ -246,6 +246,11 @@ abstract class Horde_History
             throw new Horde_History_Exception('The modseq values must be integers!');
         }
 
+        // Exit early if there is no range.
+        if ($start == $end) {
+            return array();
+        }
+
         return $this->_getByModSeq($start, $end, $filters, $parent);
     }
 
