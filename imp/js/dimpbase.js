@@ -2757,7 +2757,6 @@ var DimpBase = {
             });
             break;
 
-        case 'msg_newwin':
         case 'msg_newwin_options':
         case 'ppane_view_error':
             this.msgWindow(this.viewport.getSelection(this.pp.VP_view).search({
@@ -3865,6 +3864,12 @@ var DimpBase = {
 
         DimpCore.addPopdown($('preview_other_opts').down('A'), 'preview', {
             trigger: true
+        });
+        DimpCore.addContextMenu({
+            elt: $('preview_other'),
+            left: true,
+            offset: $('preview_other').down('SPAN'),
+            type: 'preview'
         });
 
         if (DimpCore.conf.disable_compose) {

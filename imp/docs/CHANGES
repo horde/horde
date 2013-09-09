@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[jan] Display "Other Options" icon instead of "New Window" icon in collapsed
+      preview headers.
 [mms] More advanced auto-completion for smartmobile view.
 
 

@@ -1008,10 +1008,11 @@ div.msgSubject span.horde-tree-image {
 }
 
 /* Other images */
-#msg_newwin span.iconImg, #msg_newwin_options span.iconImg {
+#msg_newwin_options span.iconImg {
     background-image: url("../graphics/newwin.png");
 }
-#msg_newwin span.iconImg {
+#preview_other span.iconImg {
+    background-image: url("../graphics/plus.png");
     cursor: pointer;
     float: right;
     margin-left: 4px;

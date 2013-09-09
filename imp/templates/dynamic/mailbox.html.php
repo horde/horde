@@ -72,7 +72,7 @@
     <div id="previewMsg" style="display:none">
      <div class="msgHeaders">
       <div id="msgHeadersColl">
-       <a id="msg_newwin"><span class="iconImg" title="<?php echo _("Open in new window") ?>"></span></a>
+       <a id="preview_other"><span class="iconImg" title="<?php echo _("Other Options") ?>"></span></a>
        <span class="date"></span>
        <span class="iconImg" id="th_expand"></span>
        <span class="subject allowTextSelection" title="<?php echo _("Expand Headers") ?>"></span>
