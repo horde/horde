@@ -37,6 +37,13 @@ class IMP_Quota_Ui
             return false;
         }
 
+        if (!is_null($mailbox)) {
+            $mailbox = IMP_Mailbox::get($mailbox);
+            if ($mailbox->nonimap) {
+                return false;
+            }
+        }
+
         try {
             $quotaDriver = $injector->getInstance('IMP_Quota');
             $quota = $quotaDriver->getQuota($mailbox);

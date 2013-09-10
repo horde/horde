@@ -669,7 +669,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             } elseif ($this->_base->indices->mailbox->cacheid_date != $this->vars->viewport->cacheid) {
                 /* Cache ID has changed due to viewing this message. So update
                  * the cacheid in the ViewPort. */
-                $this->_base->addTask('viewport', new IMP_Ajax_Application_Viewport($this->indices->mailbox));
+                $this->_base->addTask('viewport', new IMP_Ajax_Application_Viewport($this->_base->indices->mailbox));
             }
 
             if ($this->vars->preview) {

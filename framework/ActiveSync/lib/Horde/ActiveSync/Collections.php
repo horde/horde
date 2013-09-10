@@ -268,6 +268,14 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 ? $cached_collections[$collection['id']]['lastsynckey']
                 : 0;
 
+            if ($collection['synckey'] == 0) {
+                $this->_logger->err(sprintf('[%s] Attempting to add a collection
+                    to the sync cache while requiring a synckey, but no
+                    synckey could be found. Most likely a client error in
+                    requesting a collection during PING before it has issued a
+                    SYNC.', $this->_procid));
+            }
+
             $this->_logger->info(sprintf(
                 '[%s] Obtained synckey for collection %s from cache: %s',
                 $this->_procid, $collection['id'], $collection['synckey']));
@@ -1177,6 +1185,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         return $this->_changes;
     }
 
+    /**
+     * Return the count of the current collection's chagnes.
+     *
+     * @param boolean $ping  Only ping the collection if true.
+     *
+     * @return integer  The change count.
+     */
     public function getCollectionChangeCount($ping = false)
     {
         if (empty($this->_changes)) {

@@ -53,6 +53,11 @@ class Horde_Core_Factory_Mail extends Horde_Core_Factory_Base
             unset($params['username'], $params['password']);
         }
 
+        /* TODO: Default to port 25 for H5. Change to 587 for H6. */
+        if (empty($params['port'])) {
+            $params['port'] = 25;
+        }
+
         $class = $this->_getDriverName($transport, 'Horde_Mail_Transport');
         $ob = new $class($params);
 

@@ -1858,7 +1858,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // Bring in the host configuration if needed.
         if (!empty($GLOBALS['conf']['activesync']['outlookdiscovery'])) {
-            $params = array_merge($params, $GLOBALS['conf']['activesync']['hosts']);
+            $ol = $GLOBALS['conf']['activesync']['hosts'];
+            if (empty($ol['imap']['host'])) {
+                unset($ol['imap']);
+            } else {
+                if (empty($ol['imap']['port'])) {
+                    unset($ol['imap']['port']);
+                }
+            }
+            if (empty($ol['pop']['host'])) {
+                unset($ol['pop']);
+            } else {
+                if (empty($ol['port']['port'])) {
+                    unset($ol['imap']['port']);
+                }
+            }
+            $params = array_merge($params, $ol);
         }
 
         try {

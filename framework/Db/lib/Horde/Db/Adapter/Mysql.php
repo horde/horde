@@ -237,6 +237,9 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
      * @param   string  $sql
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
+     *
+     * @return boolean|resource
+     * @throws Horde_Db_Exception
      */
     public function execute($sql, $arg1=null, $arg2=null)
     {

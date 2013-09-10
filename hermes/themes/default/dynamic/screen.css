@@ -188,7 +188,9 @@ html, body {
 .sliceDelete, .jobTypeDelete, .deliverableDelete {
   background:  url('../graphics/delete.png') no-repeat scroll 0 0 transparent;
 }
-
+.deliverableDetail {
+  background: url('../graphics/deliverable.png') no-repeat scroll 0 0 transparent;
+}
 .hermesTimeListRow .hermesTimeSliceOptions, .hermesJobTypeListOptions,
 .hermesDeliverablesOptions {
     visibility: hidden;
@@ -299,22 +301,27 @@ div.hermesDeliverablesOptions {
     white-space: pre-wrap;
     overflow: hidden;
 }
-
+div.hermesDeliverablesOptions {
+  float: right;
+}
 div.hermesJobTypeListName {
     width: 30%;
 }
 div.hermesJobTypeListBillable, div.hermesJobTypeListEnabled {
   width: 8%;
 }
-div.hermesJobTypeListRate, div.hermesJobTypeListOptions {
+div.hermesJobTypeListRate, div.hermesJobTypeListOptions, div.hermesDeliverablesOptions {
   width: 10%;
 }
 
-div.hermesDeliverablesName, div.hermesDeliverablesEstimate {
+div.hermesDeliverablesName {
   width: 20%;
 }
+div.hermesDeliverablesEstimate {
+  width: 10%;
+}
 div.hermesDeliverablesActive {
-  width: 8%;
+  width: 5%;
 }
 div.hermesDeliverablesDesc {
   width: 30%;
@@ -403,7 +410,8 @@ div.hermesDeliverablesDesc {
 
 /* Dialogs */
 .hermesDialog {
-    width: 700px;
+    width: 800px;
+    min-height: 45px;
     padding: 10px 20px;
     background: #efefef;
     border: 1px #999 solid;
@@ -414,23 +422,10 @@ div.hermesDeliverablesDesc {
 .hermesDialog td {
     padding-right: 10px;
     vertical-align: top;
+    color: #515151;
 }
 .hermesDialog label {
     font-weight: bold;
-}
-.hermesDialog .tabset {
-    float: none;
-    width: auto;
-    background: none;
-    margin: 15px 0;
-}
-.hermesDialog .tabset ul {
-    float: left;
-    padding-left: 0;
-    margin: 0;
-}
-.hermesDialog .tabset .hermesSeparator {
-    float: left;
 }
 .hermesDialog hr {
    margin: 5px 0;
@@ -440,15 +435,75 @@ div.hermesDeliverablesDesc {
    border-color: #ccc transparent #fff;
    border-style: solid none;
 }
-.hermesDialogInfo {
-    background: transparent url('../graphics/alerts/message.png') 0 0 no-repeat;
-    padding-left: 20px;
-    font-style: italic;
+.hermesDialog h1 {
+  color: #414141;
+}
+.hermesDialog h1 span {
+  color: #000;
+}
+.hermesDialog h3 {
+  color: #616161;
+}
+#hermesDeliverableBillable, #hermesDeliverableType {
+  width: 45%;
+  float: left;
+  min-height: 175px;
+  padding: 1px;
+}
+#hermesDeliverableType {
+  float: right;
+}
+.hermesDeliverablePies {
+  min-height: 200px;
 }
 
+#hermesDeliverableEmployees {
+  min-height: 175px;
+  width: 100%;
+  float: left;
+}
+.hermesDeliverableParticipants {
+  min-height: 185px;
+}
+
+#hermesDeliverableStats {
+  width: 300px;
+  min-height: 60px;
+  padding: 1px;
+  float: right;
+}
+.hermesBudget {
+  min-height: 70px;
+}
+
+#hermesStatText {
+  width: 200px;
+  float: left;
+}
+#hermesStatText table td, #hermesStatText table th {
+  padding: 5px 30px 0 0;
+}
+#hermesStatText table td {
+  font-weight: normal;
+}
+#hermesStatText table th {
+  font-weight: bold;
+  font-size: 150%;
+}
+
+.hermesBox {
+  border-bottom: 1px solid #ddd;
+}
 .hermesTimeFormShown {
    background: url("../graphics/minus.png") no-repeat scroll left  transparent;
 }
 .hermesTimeFormHidden {
     background: url("../graphics/plus.png") no-repeat scroll left transparent;
+}
+div.hermesFormActions {
+    margin: 5px 0;
+}
+/* Charts */
+.flotr-mouse-value {
+  display: none;
 }

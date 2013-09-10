@@ -63,6 +63,17 @@ class Horde_Db_Adapter_Pdo_Sqlite extends Horde_Db_Adapter_Pdo_Base
         return $this->_sqliteVersion >= '3.2.6';
     }
 
+    /**
+     * Does this adapter support using INTERVAL statements?  This is +true+
+     * for all adapters except sqlite.
+     *
+     * @return boolean
+     */
+    public function supportsInterval()
+    {
+        return false;
+    }
+
     public function supportsAutoIncrement()
     {
         return $this->_sqliteVersion >= '3.1.0';

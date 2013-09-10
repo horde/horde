@@ -173,13 +173,14 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     }
 
     /**
-     * Get a list of client deliverables. Expects the following in $this->vars:
+     * Get a list of client deliverables suitable for building a select list.
+     * Expects the following in $this->vars:
      *   - c: The client id, or an array of client ids if querying for specific
      *        clients. Returns all deliverables otherwise.
      *
      * @return array @see Hermes::getCostObjectType
      */
-    public function listDeliverables()
+    public function listDeliverablesSelect()
     {
         $client = !empty($this->vars->c) ? $this->vars->c : null;
 
@@ -191,17 +192,62 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      *  - c:   The client id
      *  - id:  The optional deliverable id, if requesting a specific deliverable.
      */
-    public function listLocalDeliverables()
+    public function listDeliverables()
     {
         global $injector;
-        if (!$this->vars->id) {
-            $params = array('client_id' => $this->vars->c);
-        } else {
+
+        if (!empty($this->vars->id)) {
             $params = array('id' => $this->vars->id);
+            return array_values($injector->getInstance('Hermes_Driver')->listDeliverables($params));
         }
 
-        return array_values($injector->getInstance('Hermes_Driver')
-           ->listDeliverables($params));
+        // Only poll Hermes' deliverables if we have a client id since they
+        // are ALWAYS tied to a client. Otherwise, just return the list of
+        // external cost objects.
+        $client_id = !empty($this->vars->c) ? $this->vars->c : null;
+        if (!empty($client_id)) {
+            $objs = array_values($injector->getInstance('Hermes_Driver')
+                ->listDeliverables(array('client_id' => $client_id)));
+            foreach ($objs as &$obj) {
+                $obj['id'] = 'hermes:' . $obj['id'];
+            }
+
+            return $objs;
+        }
+
+        $elts = array();
+        foreach (Hermes::getCostObjects($client_id, true) as $category) {
+            Horde_Array::arraySort($category['objects'], 'name');
+            foreach ($category['objects'] as $object) {
+                $elts[] = array(
+                    'id' => $object['id'],
+                    'client_id' => false,
+                    'name' => sprintf('%s (%s)', htmlspecialchars(Horde_String::truncate($object['name'], 80)), htmlspecialchars($category['category'])),
+                    'parent' => empty($object['parent']) ? 0 : $object['parent'],
+                    'estimate' => empty($object['estimate']) ? 0 : $object['estimate'],
+                    'active' => true,
+                    'is_external' => true
+                );
+            }
+        }
+
+        return array_values($elts);
+    }
+
+    public function getDeliverableDetail()
+    {
+        global $injector;
+
+        $filters = array(
+            'costobject' => $this->vars->id
+        );
+        $hours = $injector->getInstance('Hermes_Driver')->getHours($filters);
+        $json = array();
+        foreach ($hours as $h) {
+            $json[] = $h->toJson();
+        }
+
+        return $json;
     }
 
     /**
