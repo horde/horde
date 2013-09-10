@@ -215,6 +215,10 @@ class Horde_ActiveSync_Connector_Exporter
                         $this->messageDeletion($change['id']);
                         break;
 
+                    case Horde_ActiveSync::CHANGES_TYPE_SOFTDELETE:
+                        $this->messageDeletion($change['id'], true);
+                        break;
+
                     case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                         // Read flag.
                         $message = Horde_ActiveSync::messageFactory('Mail');
@@ -307,10 +311,15 @@ class Horde_ActiveSync_Connector_Exporter
      * Stream a message deletion to the PIM
      *
      * @param string $id  The uid of the message we are deleting.
+     * @param boolean $soft  If true, send a SOFTDELETE, otherwise a REMOVE.
      */
-    public function messageDeletion($id)
+    public function messageDeletion($id, $soft = false)
     {
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
+        if ($soft) {
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SOFTDELETE);
+        } else {
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
+        }
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
         $this->_encoder->content($id);
         $this->_encoder->endTag();
