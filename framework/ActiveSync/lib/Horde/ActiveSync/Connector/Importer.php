@@ -137,10 +137,6 @@ class Horde_ActiveSync_Connector_Importer
         $id, Horde_ActiveSync_Message_Base $message,
         Horde_ActiveSync_Device $device, $clientid, $class = null)
     {
-        if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-            return false;
-        }
-
         // Don't support SMS, but can't tell client that. Send back a phoney
         // UID for any imported SMS objects.
         if ($class == Horde_ActiveSync::CLASS_SMS) {
@@ -205,10 +201,6 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importMessageDeletion(array $ids, $collection)
     {
-        if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-            return;
-        }
-
         // Tell backend about the deletion
         $mod = $this->_as->driver->getSyncStamp($this->_folderId);
         $ids = $this->_as->driver->deleteMessage($this->_folderId, $ids);
@@ -235,10 +227,6 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importMessageReadFlag($id, $flag)
     {
-        if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-            return;
-        }
-
         $change = array();
         $change['id'] = $id;
         $change['flags'] = array('read' => $flag);
@@ -309,11 +297,6 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importFolderChange($uid, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-        // do nothing if it is a dummy folder
-        if ($parent === Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-            return false;
-        }
-
         // TODO: BC HACK. For now, we need to convert the uid -> folderid.
         $collections = $this->_as->getCollectionsObject();
         if (!empty($parent)) {
@@ -354,10 +337,6 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importFolderDeletion($uid, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-        /* Do nothing if it is a dummy folder */
-        if ($parent === Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-            return;
-        }
         $collections = $this->_as->getCollectionsObject();
         if (!empty($parent)) {
             $parent_sid = $collections->getBackendIdForFolderUid($parent);

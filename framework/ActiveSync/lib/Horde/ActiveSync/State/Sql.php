@@ -887,43 +887,39 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_folder->serverid()
                 ));
 
-            if ($this->_collection['id'] != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-                if (!empty($this->_changes)) {
-                    $this->_logger->info(sprintf(
-                        '[%s] Returning previously found changes.',
-                        $this->_procid));
-                    return $this->_changes;
-                }
-
-                // Get the current syncStamp from the backend.
-                $this->_thisSyncStamp = $this->_backend->getSyncStamp(
-                    empty($this->_collection['id']) ? null : $this->_collection['id'],
-                    $this->_lastSyncStamp);
-                if ($this->_thisSyncStamp === false) {
-                    throw new Horde_ActiveSync_Exception_StaleState(
-                        'Detecting a change in timestamp or modification sequence. Reseting state.');
-                }
-
+            if (!empty($this->_changes)) {
                 $this->_logger->info(sprintf(
-                    '[%s] Using MODSEQ %s for %s.',
-                    $this->_procid,
-                    $this->_thisSyncStamp,
-                    $this->_collection['id']));
+                    '[%s] Returning previously found changes.',
+                    $this->_procid));
+                return $this->_changes;
+            }
 
-                // No existing changes, poll the backend
-                $changes = $this->_backend->getServerChanges(
-                    $this->_folder,
-                    (int)$this->_lastSyncStamp,
-                    (int)$this->_thisSyncStamp,
-                    $cutoffdate,
-                    !empty($options['ping']),
-                    $this->_folder->haveInitialSync
-                );
-                if (empty($options['ping'])) {
-                    $this->_folder->updateState();
-                }
-            } else {
-                $changes = array();
+            // Get the current syncStamp from the backend.
+            $this->_thisSyncStamp = $this->_backend->getSyncStamp(
+                empty($this->_collection['id']) ? null : $this->_collection['id'],
+                $this->_lastSyncStamp);
+            if ($this->_thisSyncStamp === false) {
+                throw new Horde_ActiveSync_Exception_StaleState(
+                    'Detecting a change in timestamp or modification sequence. Reseting state.');
+            }
+
+            $this->_logger->info(sprintf(
+                '[%s] Using MODSEQ %s for %s.',
+                $this->_procid,
+                $this->_thisSyncStamp,
+                $this->_collection['id']));
+
+            // No existing changes, poll the backend
+            $changes = $this->_backend->getServerChanges(
+                $this->_folder,
+                (int)$this->_lastSyncStamp,
+                (int)$this->_thisSyncStamp,
+                $cutoffdate,
+                !empty($options['ping']),
+                $this->_folder->haveInitialSync
+            );
+            if (empty($options['ping'])) {
+                $this->_folder->updateState();
             }
 
             $this->_logger->info(sprintf(
