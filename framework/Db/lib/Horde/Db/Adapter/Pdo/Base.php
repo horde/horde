@@ -176,8 +176,6 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function execute($sql, $arg1 = null, $arg2 = null)
     {
-        if (!$this->isActive()) { $this->reconnect(); }
-
         if (is_array($arg1)) {
             $sql = $this->_replaceParameters($sql, $arg1);
             $name = $arg2;
