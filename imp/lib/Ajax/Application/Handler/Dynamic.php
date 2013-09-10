@@ -277,9 +277,16 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $initreload = ($this->vars->initial || $this->vars->reload);
 
-        $mask = $imptree::FLIST_VFOLDER | $imptree::FLIST_REMOTE;
+        if ($this->vars->reload) {
+            $imptree->init();
+        }
+
+        $iterator = 'IMP_Imap_Tree_IteratorFilter';
         if ($this->vars->unsub) {
-            $mask |= $imptree::FLIST_UNSUB;
+            $imptree->loadUnsubscribed();
+            $mask = IMP_Imap_Tree_IteratorFilter::UNSUB;
+        } else {
+            $mask = 0;
         }
 
         if (isset($this->vars->base)) {
@@ -290,25 +297,16 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $this->_base->queue->setMailboxOpt('all', 1);
         } else {
             if ($initreload) {
-                $mask |= $imptree::FLIST_ANCESTORS | $imptree::FLIST_SAMELEVEL;
-
+                $iterator = 'IMP_Imap_Tree_IteratorFilter_Ancestors';
                 if ($GLOBALS['prefs']->getValue('nav_expanded')) {
                     $this->_base->queue->setMailboxOpt('expand', 1);
-                    $mask |= $imptree::FLIST_EXPANDED;
                 } else {
-                    $mask |= $imptree::FLIST_NOCHILDREN;
+                    $mask |= IMP_Imap_Tree_IteratorFilter::NO_CHILDREN;
                 }
             } else {
                 $this->_base->queue->setMailboxOpt('expand', 1);
-                $mask |= $imptree::FLIST_EXPANDED | $imptree::FLIST_NOBASE;
             }
         }
-
-        if ($this->vars->reload) {
-            $imptree->init();
-        }
-
-        $imptree->showUnsubscribed($this->vars->unsub);
 
         if (!empty($this->vars->mboxes)) {
             $mboxes = IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON));
@@ -317,14 +315,15 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             }
 
             foreach ($mboxes as $val) {
-                $imptree->setIteratorFilter($mask, $val);
-                foreach ($imptree as $val2) {
-                    $imptree->addEltDiff($val2);
-                    $this->_base->queue->poll($val2);
-                }
+                if ($val = $imptree[$val]) {
+                    foreach ($iterator::create($mask, $val) as $val2) {
+                        $imptree->addEltDiff($val2);
+                        $this->_base->queue->poll($val2);
+                    }
 
-                if (!$initreload) {
-                    $imptree->expand($val);
+                    if (!$initreload) {
+                        $imptree->expand($val);
+                    }
                 }
             }
         }
@@ -387,24 +386,24 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      */
     public function modifyPoll()
     {
+        global $injector;
+
         if (!$this->vars->mbox) {
             return false;
         }
 
         $mbox = IMP_Mailbox::formFrom($this->vars->mbox);
 
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-
         $result = new stdClass;
         $result->add = intval($this->vars->add);
         $result->mbox = $this->vars->mbox;
 
         if ($this->vars->add) {
-            $imptree->addPollList($mbox);
+            $injector->getInstance('IMP_Imap_Tree')->addPollList($mbox);
             $this->_base->queue->poll($mbox);
             $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox now polled for new mail."), $mbox->display), 'horde.success');
         } else {
-            $imptree->removePollList($mbox);
+            $injector->getInstance('IMP_Imap_Tree')->removePollList($mbox);
             $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox no longer polled for new mail."), $mbox->display), 'horde.success');
         }
 

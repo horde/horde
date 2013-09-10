@@ -205,7 +205,9 @@ class IMP_Basic_Folders extends IMP_Basic_Base
             if ($subscribe) {
                 $showAll = !$showAll;
                 $session->set('imp', 'showunsub', $showAll);
-                $imptree->showUnsubscribed($showAll);
+                if ($showAll) {
+                    $imptree->loadUnsubscribed();
+                }
             }
             break;
 
@@ -412,10 +414,10 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         ));
 
         /* Build the folder tree. */
-        $imptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
         $tree = $imptree->createTree('imp_folders', array(
             'checkbox' => true,
             'editvfolder' => true,
+            'iterator' => IMP_Imap_Tree_IteratorFilter::create(IMP_Imap_Tree_IteratorFilter::NO_REMOTE | IMP_Imap_Tree_IteratorFilter::NO_VFOLDER),
             'poll_info' => true
         ));
 

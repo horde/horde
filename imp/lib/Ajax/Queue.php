@@ -202,14 +202,7 @@ class IMP_Ajax_Queue
         }
 
         /* Add folder tree information. */
-        $imptree = $injector->getInstance('IMP_Imap_Tree');
-        $imptree->setIteratorFilter(
-            ($registry->getView() == $registry::VIEW_DYNAMIC)
-                ? $imptree::FLIST_NOSPECIALMBOXES
-                : 0
-        );
-        $out = $imptree->getAjaxResponse();
-        if (!empty($out)) {
+        if ($out = $injector->getInstance('IMP_Imap_Tree')->getAjaxResponse()) {
             $ajax->addTask('mailbox', array_merge($out, $this->_mailboxOpts));
         }
 

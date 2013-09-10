@@ -40,18 +40,16 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function execute()
     {
+        global $injector, $notification, $prefs;
+
         /* Get list of all mailboxes, parse through and get the list of all
          * old sent-mail mailboxes. Then sort this array according to the
          * date. */
-        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-        $sent_mail = $identity->getAllSentmail();
-
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
+        $sent_mail =$injector->getInstance('IMP_Identity')->getAllSentmail();
 
         $mbox_list = array();
 
-        foreach (array_map('strval', $imptree) as $k) {
+        foreach (array_map('strval', $injector->getInstance('IMP_Imap_Tree')->getIterator()) as $k) {
             foreach ($sent_mail as $mbox) {
                 if (preg_match('/^' . str_replace('/', '\/', $mbox) . '-([^-]+)-([0-9]{4})$/i', $k, $regs)) {
                     $mbox_list[$k] = is_numeric($regs[1])
@@ -65,9 +63,9 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
         $return_val = false;
 
         /* See if any mailboxes need to be purged. */
-        $purge = array_slice(array_keys($mbox_list), $GLOBALS['prefs']->getValue('delete_sentmail_monthly_keep'));
+        $purge = array_slice(array_keys($mbox_list), $prefs->getValue('delete_sentmail_monthly_keep'));
         if (count($purge)) {
-            $GLOBALS['notification']->push(_("Old sent-mail mailboxes being purged."), 'horde.message');
+            $notification->push(_("Old sent-mail mailboxes being purged."), 'horde.message');
 
             /* Delete the old mailboxes now. */
             foreach (IMP_Mailbox::get($purge) as $val) {

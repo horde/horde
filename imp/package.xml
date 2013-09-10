@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-04</date>
+ <date>2013-09-12</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -254,13 +254,21 @@
        <file name="Inboxonly.php" role="horde" />
        <file name="Remote.php" role="horde" />
       </dir> <!-- /lib/Imap/Tree/Account -->
+      <dir name="IteratorFilter">
+       <file name="Ancestors.php" role="horde" />
+       <file name="Nocontainers.php" role="horde" />
+       <file name="Prefetch.php" role="horde" />
+      </dir> <!-- /lib/Imap/Tree/IteratorFilter -->
       <dir name="Prefs">
        <file name="Expanded.php" role="horde" />
        <file name="Poll.php" role="horde" />
       </dir> <!-- /lib/Imap/Tree/Prefs -->
       <file name="Account.php" role="horde" />
       <file name="Element.php" role="horde" />
+      <file name="Iterator.php" role="horde" />
+      <file name="IteratorFilter.php" role="horde" />
       <file name="Prefs.php" role="horde" />
+      <file name="Select.php" role="horde" />
      </dir> <!-- /lib/Imap/Tree -->
      <file name="Acl.php" role="horde" />
      <file name="Config.php" role="horde" />
@@ -1609,10 +1617,16 @@
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
    <install as="imp/lib/Imap/Tree/Account.php" name="lib/Imap/Tree/Account.php" />
    <install as="imp/lib/Imap/Tree/Element.php" name="lib/Imap/Tree/Element.php" />
+   <install as="imp/lib/Imap/Tree/Iterator.php" name="lib/Imap/Tree/Iterator.php" />
+   <install as="imp/lib/Imap/Tree/IteratorFilter.php" name="lib/Imap/Tree/IteratorFilter.php" />
    <install as="imp/lib/Imap/Tree/Prefs.php" name="lib/Imap/Tree/Prefs.php" />
+   <install as="imp/lib/Imap/Tree/Select.php" name="lib/Imap/Tree/Select.php" />
    <install as="imp/lib/Imap/Tree/Account/Imap.php" name="lib/Imap/Tree/Account/Imap.php" />
    <install as="imp/lib/Imap/Tree/Account/Inboxonly.php" name="lib/Imap/Tree/Account/Inboxonly.php" />
    <install as="imp/lib/Imap/Tree/Account/Remote.php" name="lib/Imap/Tree/Account/Remote.php" />
+   <install as="imp/lib/Imap/Tree/IteratorFilter/Ancestors.php" name="lib/Imap/Tree/IteratorFilter/Ancestors.php" />
+   <install as="imp/lib/Imap/Tree/IteratorFilter/Nocontainers.php" name="lib/Imap/Tree/IteratorFilter/Nocontainers.php" />
+   <install as="imp/lib/Imap/Tree/IteratorFilter/Prefetch.php" name="lib/Imap/Tree/IteratorFilter/Prefetch.php" />
    <install as="imp/lib/Imap/Tree/Prefs/Expanded.php" name="lib/Imap/Tree/Prefs/Expanded.php" />
    <install as="imp/lib/Imap/Tree/Prefs/Poll.php" name="lib/Imap/Tree/Prefs/Poll.php" />
    <install as="imp/lib/Indices/Mailbox.php" name="lib/Indices/Mailbox.php" />

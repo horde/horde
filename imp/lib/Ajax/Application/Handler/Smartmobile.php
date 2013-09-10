@@ -69,13 +69,18 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         /* Poll all mailboxes on initial display. */
         $this->_base->queue->poll($imptree->getPollList());
 
-        $mask = $imptree::FLIST_VFOLDER;
+        $mask = IMP_Imap_Tree_IteratorFilter::NO_REMOTE |
+                IMP_Imap_Tree_IteratorFilter::NO_VFOLDER;
         if (!$this->vars->all) {
-            $mask |= $imptree::FLIST_POLLED;
+            $mask |= IMP_Imap_Tree_IteratorFilter::NO_UNPOLLED;
         }
-        $imptree->setIteratorFilter($mask);
+
+        $iterator = new IMP_Imap_Tree_IteratorFilter_Nocontainers(
+            IMP_Imap_Tree_IteratorFilter::create($mask)
+        );
 
         return $imptree->createTree($this->vars->all ? 'smobile_folders_all' : 'smobile_folders', array(
+            'iterator' => $iterator,
             'render_type' => 'IMP_Tree_Jquerymobile'
         ))->getTree(true);
     }

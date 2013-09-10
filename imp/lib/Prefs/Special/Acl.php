@@ -66,8 +66,9 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
         $view->current = sprintf(_("Current access to %s"), $mbox->display_html);
         $view->hasacl = count($curr_acl);
         $view->mbox = $mbox->form_to;
-        $view->options = IMP::flistSelect(array(
+        $view->options = new IMP_Imap_Tree_Select(array(
             'basename' => true,
+            'iterator' => IMP_Imap_Tree_Iterator_Filter::create(null, IMP_Imap_Tree_IteratorFilter::NO_NONIMAP),
             'selected' => $mbox
         ));
 

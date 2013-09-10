@@ -239,10 +239,11 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
         /* Generate folder options list. */
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $folder_options = IMP::flistSelect(array(
+            $folder_options = new IMP_Imap_Tree_Select(array(
                 'heading' => _("Messages to"),
                 'inc_notepads' => true,
                 'inc_tasklists' => true,
+                'iterator' => IMP_Imap_Tree_IteratorFilter::create(IMP_Imap_Tree_IteratorFilter::NO_NONIMAP),
                 'new_mbox' => true
             ));
         }

@@ -95,19 +95,23 @@ class IMP_Imap_Tree_Account_Imap extends IMP_Imap_Tree_Account
                 $part = implode($val['delimiter'], array_slice($parts, 0, $i));
 
                 if (!isset($out[$part])) {
-                    $attr = 0;
+                    if ($p_count == $i) {
+                        $attr = 0;
 
-                    if (!$unsub ||
-                        in_array('\subscribed', $val['attributes'])) {
-                        $attr |= IMP_Imap_Tree::ELT_IS_SUBSCRIBED;
-                    }
+                        if (!$unsub ||
+                            in_array('\subscribed', $val['attributes'])) {
+                            $attr |= IMP_Imap_Tree::ELT_IS_SUBSCRIBED;
+                        }
 
-                    if (in_array('\noselect', $val['attributes'])) {
-                        $attr |= IMP_Imap_Tree::ELT_NOSELECT;
-                    }
+                        if (in_array('\noselect', $val['attributes'])) {
+                            $attr |= IMP_Imap_Tree::ELT_NOSELECT;
+                        }
 
-                    if (in_array('\noinferiors', $val['attributes'])) {
-                        $attr |= IMP_Imap_Tree::ELT_NOINFERIORS;
+                        if (in_array('\noinferiors', $val['attributes'])) {
+                            $attr |= IMP_Imap_Tree::ELT_NOINFERIORS;
+                        }
+                    } else {
+                        $attr = IMP_Imap_Tree::ELT_NOSELECT;
                     }
 
                     $out[$part] = array(

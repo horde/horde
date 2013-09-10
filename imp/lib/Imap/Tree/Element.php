@@ -24,9 +24,7 @@
  *                                                element.
  * @property-read boolean $base_elt  True if this is the base element.
  * @property-read boolean $children  True if this element has children.
- * @property-read boolean $children_filter  True if this element has children
- *                                          as determined by current filter
- *                                          settings.
+ * @property-read array $child_list  The list of the element's children.
  * @property boolean $container  True if this element is a container.
  * @property-read boolean $inbox  True if this is the INBOX.
  * @property boolean $invisible  True if this element is invisible.
@@ -104,6 +102,9 @@ class IMP_Imap_Tree_Element
 
         case 'base_elt':
             return ($this->_id == IMP_Imap_Tree::BASE_ELT);
+
+        case 'child_list':
+            return $this->_tree->getChildren($this->_id);
 
         case 'inbox':
             return ($this->_id == 'INBOX');

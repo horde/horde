@@ -258,20 +258,22 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
+        global $injector;
+
         if (IMP_Compose::canCompose()) {
             $clink = new IMP_Compose_Link();
             $sidebar->addNewButton(_("_New Message"), $clink->link());
         }
 
         /* Folders. */
-        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+        if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             try {
-                $tree = $GLOBALS['injector']
+                $tree = $injector
                     ->getInstance('Horde_Core_Factory_Tree')
                     ->create('imp_menu', 'Horde_Tree_Renderer_Sidebar', array('nosession' => true));
-                $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-                $imptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
-                $tree = $imptree->createTree($tree, array(
+
+                $tree = $injector->getInstance('IMP_Imap_Tree')->createTree($tree, array(
+                    'iterator' => IMP_Imap_Tree_IteratorFilter::create(IMP_Imap_Tree_IteratorFilter::NO_REMOTE | IMP_Imap_Tree_IteratorFilter::NO_VFOLDER),
                     'open' => false,
                     'poll_info' => true
                 ));
