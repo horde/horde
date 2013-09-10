@@ -918,6 +918,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 !empty($options['ping']),
                 $this->_folder->haveInitialSync
             );
+
+            // Only update the folderstate if we are not PINGing.
             if (empty($options['ping'])) {
                 $this->_folder->updateState();
             }
@@ -928,6 +930,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 count($changes),
                 $this->_collection['id']));
 
+            // Check changes for mirrored client chagnes, but only if we KNOW
+            // we have some client changes.
             $this->_changes = array();
             if (count($changes) && $this->_havePIMChanges()) {
                 $this->_logger->info(sprintf(
@@ -947,8 +951,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                                 $change['ignore'] = true;
                             }
                             $this->_changes[] = $change;
-
                             break;
+
                         case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                             if ($this->_isPIMChange($change['id'], true, $change['type'])) {
                                $this->_logger->info(sprintf(
@@ -959,12 +963,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                             }
                             $this->_changes[] = $change;
                             break;
+
                         default:
                             // New message.
                             $this->_changes[] = $change;
                         }
                     }
                     break;
+
                 default:
                     foreach ($changes as $change) {
                         $pim_ts = $this->_getPIMChangeTS($change['id'], $change['type']);
