@@ -1015,7 +1015,7 @@ div.msgSubject span.horde-tree-image {
     background-image: url("../graphics/plus.png");
     cursor: pointer;
     float: right;
-    margin-left: 4px;
+    margin: -2px 0 0 4px;
 }
 #th_expand, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
