@@ -858,7 +858,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @return array  An array of hashes describing each change:
      *   - id:      The id of the item being changed.
-     *   - type:    The type of change. a Horde_ActiveSync::CHANGETYPE_*
+     *   - type:    The type of change. a Horde_ActiveSync::CHANGE_TYPE_*
      *              constant.
      *   - flags:   Used to transport email message flags when type is
      *              Horde_ActiveSync::CHANGE_TYPE_FLAGS or set to
