@@ -191,6 +191,7 @@ class Horde_ActiveSync
     const FOLDER_TYPE_USER_NOTE                 =  17;
     const FOLDER_TYPE_UNKNOWN                   =  18;
     const FOLDER_TYPE_RECIPIENT_CACHE           =  19;
+    // @TODO, remove const definition in H6, not used anymore.
     const FOLDER_TYPE_DUMMY                     =  999999;
 
     /* Origin of changes **/
@@ -231,6 +232,7 @@ class Horde_ActiveSync
     const CHANGE_TYPE_FLAGS                     = 'flags';
     const CHANGE_TYPE_MOVE                      = 'move';
     const CHANGE_TYPE_FOLDERSYNC                = 'foldersync';
+    const CHANGE_TYPE_SOFTDELETE                = 'softdelete';
 
     /* Internal flags to indicate change is a change in reply/forward state */
     const CHANGE_REPLY_STATE                    = '@--reply--@';

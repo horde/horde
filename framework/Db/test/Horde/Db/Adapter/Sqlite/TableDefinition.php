@@ -12,8 +12,6 @@
  * @subpackage UnitTests
  */
 
-require_once __DIR__ . '/../Pdo/PgsqlBase.php';
-
 /**
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -24,19 +22,8 @@ require_once __DIR__ . '/../Pdo/PgsqlBase.php';
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Postgresql_TableDefinitionTest extends Horde_Db_Adapter_Pdo_PgsqlBase
+class Horde_Db_Adapter_Sqlite_TableDefinition
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        list($this->_conn,) = self::getConnection();
-    }
-
-
-    /*##########################################################################
-    # Public methods
-    ##########################################################################*/
-
     public function testConstruct()
     {
     }
