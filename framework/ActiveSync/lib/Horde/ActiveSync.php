@@ -232,6 +232,7 @@ class Horde_ActiveSync
     const CHANGE_TYPE_FLAGS                     = 'flags';
     const CHANGE_TYPE_MOVE                      = 'move';
     const CHANGE_TYPE_FOLDERSYNC                = 'foldersync';
+    const CHANGE_TYPE_SOFTDELETE                = 'softdelete';
 
     /* Internal flags to indicate change is a change in reply/forward state */
     const CHANGE_REPLY_STATE                    = '@--reply--@';
