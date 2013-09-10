@@ -784,9 +784,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             if (!empty($collection['importedchanges'])) {
                 $this->_collections->importedChanges = true;
             }
-            if ($collection['fetchids']) {
-                $this->_fetchids = true;
-            }
             if ($this->_collections->collectionExists($collection['id']) && !empty($collection['windowsize'])) {
                 $this->_collections->updateWindowSize($collection['id'], $collection['windowsize']);
             }
