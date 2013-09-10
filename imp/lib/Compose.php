@@ -976,19 +976,21 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $ob->addHeader('From', $headers['from']);
         }
 
-        if (isset($headers['to']) && strlen($headers['to'])) {
+        if (isset($headers['to']) &&
+            (is_object($headers['to']) || strlen($headers['to']))) {
             $ob->addHeader('To', $headers['to']);
         } elseif (!isset($headers['cc'])) {
             $ob->addHeader('To', 'undisclosed-recipients:;');
         }
 
-        if (isset($headers['cc']) && strlen($headers['cc'])) {
+        if (isset($headers['cc']) &&
+            (is_object($headers['cc']) || strlen($headers['cc']))) {
             $ob->addHeader('Cc', $headers['cc']);
         }
 
         if (!empty($opts['bcc']) &&
             isset($headers['bcc']) &&
-            strlen($headers['bcc'])) {
+            (is_object($headers['bcc']) || strlen($headers['bcc']))) {
             $ob->addHeader('Bcc', $headers['bcc']);
         }
 
@@ -1231,9 +1233,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         foreach (array('to', 'cc', 'bcc') as $key) {
             if (isset($hdr[$key])) {
-                $obs = IMP::parseAddressList($hdr[$key]);
+                if (count($obs = IMP::parseAddressList($hdr[$key]))) {
+                    $addrlist->add($obs);
+                } else {
+                    $obs = null;
+                }
                 $header[$key] = $obs;
-                $addrlist->add($obs);
             }
         }
 
