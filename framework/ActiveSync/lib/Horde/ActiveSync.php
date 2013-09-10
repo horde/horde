@@ -191,6 +191,7 @@ class Horde_ActiveSync
     const FOLDER_TYPE_USER_NOTE                 =  17;
     const FOLDER_TYPE_UNKNOWN                   =  18;
     const FOLDER_TYPE_RECIPIENT_CACHE           =  19;
+    // @TODO, remove const definition in H6, not used anymore.
     const FOLDER_TYPE_DUMMY                     =  999999;
 
     /* Origin of changes **/
