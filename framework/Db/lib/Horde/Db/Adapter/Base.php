@@ -303,6 +303,17 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     }
 
     /**
+     * Does this adapter support using INTERVAL statements?  This is +true+
+     * for all adapters except sqlite.
+     *
+     * @return boolean
+     */
+    public function supportsInterval()
+    {
+        return true;
+    }
+
+    /**
      * Should primary key values be selected from their corresponding
      * sequence before the insert statement?  If true, next_sequence_value
      * is called before each insert to set the record's primary key.

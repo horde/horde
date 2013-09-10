@@ -6,6 +6,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
@@ -16,49 +17,35 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @group      horde_db
  * @category   Horde
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
+abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
 {
+    abstract protected static function _available();
+
     public static function setUpBeforeClass()
     {
-        if (extension_loaded('pdo') &&
-            in_array('sqlite', PDO::getAvailableDrivers())) {
+        if (static::_available()) {
             self::$_skip = false;
             list($conn,) = static::_getConnection();
+            if (self::$_skip) {
+                return;
+            }
             $conn->disconnect();
         }
-        self::$_columnTest = new Horde_Db_Adapter_Sqlite_ColumnDefinition();
-        self::$_tableTest = new Horde_Db_Adapter_Sqlite_TableDefinition();
-    }
-
-    protected static function _getConnection($overrides = array())
-    {
-        $config = array(
-            'dbname' => ':memory:',
-        );
-        $config = array_merge($config, $overrides);
-        $conn = new Horde_Db_Adapter_Pdo_Sqlite($config);
-
-        $cache = new Horde_Cache(new Horde_Cache_Storage_Mock());
-        $conn->setCache($cache);
-
-        return array($conn, $cache);
+        self::$_columnTest = new Horde_Db_Adapter_Mysql_ColumnDefinition();
+        self::$_tableTest = new Horde_Db_Adapter_Mysql_TableDefinition();
     }
 
 
     /*##########################################################################
     # Accessor
     ##########################################################################*/
-
-    public function testAdapterName()
-    {
-        $this->assertEquals('PDO_SQLite', $this->_conn->adapterName());
-    }
 
     public function testSupportsMigrations()
     {
@@ -67,18 +54,52 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
 
     public function testSupportsCountDistinct()
     {
-        $version = $this->_conn->selectValue('SELECT sqlite_version(*)');
-        if ($version >= '3.2.6') {
-            $this->assertTrue($this->_conn->supportsCountDistinct());
-        } else {
-            $this->assertFalse($this->_conn->supportsCountDistinct());
-        }
+        $this->assertTrue($this->_conn->supportsCountDistinct());
     }
 
     public function testSupportsInterval()
     {
-        $this->assertFalse($this->_conn->supportsInterval());
+        $this->assertTrue($this->_conn->supportsInterval());
     }
+
+    public function testGetCharset()
+    {
+        $this->assertEquals('utf8', strtolower($this->_conn->getCharset()));
+    }
+
+
+    /*##########################################################################
+    # Database Statements
+    ##########################################################################*/
+
+    public function testTransactionCommit()
+    {
+        parent::testTransactionCommit();
+
+        // query without transaction and with new connection (see bug #10578).
+        $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (8, 1000)";
+        $this->_conn->insert($sql);
+
+        // make sure it inserted
+        $this->_conn->reconnect();
+        $sql = "SELECT integer_value FROM unit_tests WHERE id='8'";
+        $this->assertEquals('1000', $this->_conn->selectValue($sql));
+    }
+
+    public function testTransactionRollback()
+    {
+        parent::testTransactionRollback();
+
+        // query without transaction and with new connection (see bug #10578).
+        $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
+        $this->_conn->insert($sql, null, null, 'id', 7);
+
+        // make sure it inserted
+        $this->_conn->reconnect();
+        $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
+        $this->assertEquals(999, $this->_conn->selectValue($sql));
+    }
+
 
     /*##########################################################################
     # Quoting
@@ -118,12 +139,12 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
 
     public function testQuoteDirtyString()
     {
-        $this->assertEquals("'derek''s string'", $this->_conn->quote('derek\'s string'));
+        $this->assertEquals("'derek\'s string'", $this->_conn->quote('derek\'s string'));
     }
 
     public function testQuoteColumnName()
     {
-        $col = new Horde_Db_Adapter_Sqlite_Column('age', 'NULL', 'int(11)');
+        $col = new Horde_Db_Adapter_Mysql_Column('age', 'NULL', 'int(11)');
         $this->assertEquals('1', $this->_conn->quote(true, $col));
     }
 
@@ -131,11 +152,91 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
     /*##########################################################################
     # Schema Statements
     ##########################################################################*/
- 
+
+    /**
+     * We specifically do a manual INSERT here, and then test only the SELECT
+     * functionality. This allows us to more easily catch INSERT being broken,
+     * but SELECT actually working fine.
+     */
+    public function testNativeDecimalInsertManualVsAutomatic()
+    {
+        $this->_createTestUsersTable();
+
+        $correctValue = 12345678901234567890.0123456789;
+
+        $this->_conn->addColumn("users", "wealth", 'decimal', array('precision' => 30, 'scale' => 10));
+
+        // do a manual insertion
+        $this->_conn->execute("INSERT INTO users (wealth) VALUES ('12345678901234567890.0123456789')");
+
+        // SELECT @todo - type cast attribute values
+        $user = (object)$this->_conn->selectOne('SELECT * FROM users');
+        // assert_kind_of BigDecimal, row.wealth
+
+        // If this assert fails, that means the SELECT is broken!
+        $this->assertEquals($correctValue, $user->wealth);
+
+        // Reset to old state
+        $this->_conn->delete('DELETE FROM users');
+
+        // Now use the Adapter insertion
+        $this->_conn->insert('INSERT INTO users (wealth) VALUES (12345678901234567890.0123456789)');
+
+        // SELECT @todo - type cast attribute values
+        $user = (object)$this->_conn->selectOne('SELECT * FROM users');
+        // assert_kind_of BigDecimal, row.wealth
+
+        // If these asserts fail, that means the INSERT (create function, or cast to SQL) is broken!
+        $this->assertEquals($correctValue, $user->wealth);
+    }
+
+    public function testNativeTypes()
+    {
+        $this->_createTestUsersTable();
+
+        $this->_conn->addColumn("users", "last_name",       'string');
+        $this->_conn->addColumn("users", "bio",             'text');
+        $this->_conn->addColumn("users", "age",             'integer');
+        $this->_conn->addColumn("users", "height",          'float');
+        $this->_conn->addColumn("users", "wealth",          'decimal', array('precision' => '30', 'scale' => '10'));
+        $this->_conn->addColumn("users", "birthday",        'datetime');
+        $this->_conn->addColumn("users", "favorite_day",    'date');
+        $this->_conn->addColumn("users", "moment_of_truth", 'datetime');
+        $this->_conn->addColumn("users", "male",            'boolean');
+
+        $this->_conn->insert('INSERT INTO users (first_name, last_name, bio, age, height, wealth, birthday, favorite_day, moment_of_truth, male, company_id) ' .
+                             "VALUES ('bob', 'bobsen', 'I was born ....', 18, 1.78, 12345678901234567890.0123456789, '2005-01-01 12:23:40', '1980-03-05', '1582-10-10 21:40:18', 1, 1)");
+
+        $bob = (object)$this->_conn->selectOne('SELECT * FROM users');
+        $this->assertEquals('bob',             $bob->first_name);
+        $this->assertEquals('bobsen',          $bob->last_name);
+        $this->assertEquals('I was born ....', $bob->bio);
+        $this->assertEquals(18,                $bob->age);
+
+        // Test for 30 significent digits (beyond the 16 of float), 10 of them
+        // after the decimal place.
+        $this->assertEquals('12345678901234567890.0123456789', $bob->wealth);
+        $this->assertEquals(1,                                 $bob->male);
+
+        // @todo - type casting
+    }
+
     public function testNativeDatabaseTypes()
     {
         $types = $this->_conn->nativeDatabaseTypes();
-        $this->assertEquals(array('name' => 'int', 'limit' => null), $types['integer']);
+        $this->assertEquals(array('name' => 'int', 'limit' => 11), $types['integer']);
+    }
+
+    public function testUnabstractedDatabaseDependentTypes()
+    {
+        $this->_createTestUsersTable();
+        $this->_conn->delete('DELETE FROM users');
+
+        $this->_conn->addColumn('users', 'intelligence_quotient', 'tinyint');
+        $this->_conn->insert('INSERT INTO users (intelligence_quotient) VALUES (300)');
+
+        $jonnyg = (object)$this->_conn->selectOne('SELECT * FROM users');
+        $this->assertEquals('127', $jonnyg->intelligence_quotient);
     }
 
     public function testTableAliasLength()
@@ -147,21 +248,22 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
     public function testColumns()
     {
         $col = parent::testColumns();
-        $this->assertEquals(null,      $col->getLimit());
-        $this->assertEquals('INTEGER', $col->getSqlType());
+        $this->assertEquals(10,        $col->getLimit());
+        $this->assertEquals(true,      $col->isUnsigned());
+        $this->assertEquals('int(10) unsigned', $col->getSqlType());
     }
 
     public function testCreateTableWithSeparatePk()
     {
         $pkColumn = parent::testCreateTableWithSeparatePk();
-        $this->assertEquals('"foo" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL', $pkColumn->toSql());
+        $this->assertEquals('`foo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY', $pkColumn->toSql());
     }
 
     public function testChangeColumnType()
     {
         $this->_createTestTable('sports');
         $beforeChange = $this->_getColumn('sports', 'is_college');
-        $this->assertEquals('boolean', $beforeChange->getSqlType());
+        $this->assertEquals('tinyint(1)', $beforeChange->getSqlType());
 
         $this->_conn->changeColumn('sports', 'is_college', 'string');
 
@@ -177,7 +279,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
         $this->_conn->changeColumn('text_to_binary', 'data', 'binary');
 
         $afterChange = $this->_getColumn('text_to_binary', 'data');
-        $this->assertEquals('blob', $afterChange->getSqlType());
+        $this->assertEquals('longblob', $afterChange->getSqlType());
         $this->assertEquals(
             "foo",
             $this->_conn->selectValue('SELECT data FROM text_to_binary'));
@@ -187,7 +289,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
     {
         $this->_createTestTable('sports');
         $beforeChange = $this->_getColumn('sports', 'is_college');
-        $this->assertEquals('boolean', $beforeChange->getSqlType());
+        $this->assertEquals('tinyint(1)', $beforeChange->getSqlType());
 
         $this->_conn->changeColumn('sports', 'is_college', 'string',
                                    array('limit' => '40'));
@@ -200,13 +302,33 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
     {
         $this->_createTestTable('sports');
         $beforeChange = $this->_getColumn('sports', 'is_college');
-        $this->assertEquals('boolean', $beforeChange->getSqlType());
+        $this->assertEquals('tinyint(1)', $beforeChange->getSqlType());
 
         $this->_conn->changeColumn('sports', 'is_college', 'decimal',
                                    array('precision' => '5', 'scale' => '2'));
 
         $afterChange = $this->_getColumn('sports', 'is_college');
-        $this->assertRegExp('/^decimal\(5,\s*2\)$/', $afterChange->getSqlType());
+        $this->assertEquals('decimal(5,2)', $afterChange->getSqlType());
+    }
+
+    public function testChangeColumnUnsigned()
+    {
+        $table = $this->_conn->createTable('testings');
+        $table->column('foo', 'integer');
+        $table->end();
+
+        $beforeChange = $this->_getColumn('testings', 'foo');
+        $this->assertFalse($beforeChange->isUnsigned());
+
+        $this->_conn->execute('INSERT INTO testings (id, foo) VALUES (1, -1)');
+
+        $this->_conn->changeColumn('testings', 'foo', 'integer', array('unsigned' => true));
+
+        $afterChange = $this->_getColumn('testings', 'foo');
+        $this->assertTrue($afterChange->isUnsigned());
+
+        $row = (object)$this->_conn->selectOne('SELECT * FROM testings');
+        $this->assertEquals(0, $row->foo);
     }
 
     public function testRenameColumn()
@@ -219,18 +341,18 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
         $this->_createTestTable('sports');
 
         $beforeChange = $this->_getColumn('sports', 'is_college');
-        $this->assertEquals('boolean', $beforeChange->getSqlType());
+        $this->assertEquals('tinyint(1)', $beforeChange->getSqlType());
 
         $this->_conn->renameColumn('sports', 'is_college', 'is_renamed');
 
         $afterChange = $this->_getColumn('sports', 'is_renamed');
-        $this->assertEquals('boolean', $afterChange->getSqlType());
+        $this->assertEquals('tinyint(1)', $afterChange->getSqlType());
     }
 
     public function testTypeToSqlTypePrimaryKey()
     {
         $result = $this->_conn->typeToSql('autoincrementKey');
-        $this->assertEquals('INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL', $result);
+        $this->assertEquals('int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY', $result);
     }
 
     public function testTypeToSqlTypeString()
@@ -248,7 +370,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
     public function testTypeToSqlTypeBinary()
     {
         $result = $this->_conn->typeToSql('binary');
-        $this->assertEquals('blob', $result);
+        $this->assertEquals('longblob', $result);
     }
 
     public function testTypeToSqlTypeFloat()
@@ -272,7 +394,13 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
     public function testTypeToSqlInt()
     {
         $result = $this->_conn->typeToSql('integer');
-        $this->assertEquals('int', $result);
+        $this->assertEquals('int(11)', $result);
+    }
+
+    public function testTypeToSqlIntUnsigned()
+    {
+        $result = $this->_conn->typeToSql('integer', null, null, null, true);
+        $this->assertEquals('int(10) UNSIGNED', $result);
     }
 
     public function testTypeToSqlIntLimit()
@@ -296,40 +424,46 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
     public function testTypeToSqlBoolean()
     {
         $result = $this->_conn->typeToSql('boolean');
-        $this->assertEquals('boolean', $result);
+        $this->assertEquals('tinyint(1)', $result);
     }
 
     public function testAddColumnOptions()
     {
-        $result = $this->_conn->addColumnOptions('test', array());
-        $this->assertEquals('test', $result);
+        $result = $this->_conn->addColumnOptions("test", array());
+        $this->assertEquals("test", $result);
     }
 
     public function testAddColumnOptionsDefault()
     {
         $options = array('default' => '0');
-        $result = $this->_conn->addColumnOptions('test', $options);
+        $result = $this->_conn->addColumnOptions("test", $options);
         $this->assertEquals("test DEFAULT '0'", $result);
     }
 
     public function testAddColumnOptionsNull()
     {
         $options = array('null' => true);
-        $result = $this->_conn->addColumnOptions('test', $options);
-        $this->assertEquals('test', $result);
+        $result = $this->_conn->addColumnOptions("test", $options);
+        $this->assertEquals("test", $result);
     }
 
     public function testAddColumnOptionsNotNull()
     {
         $options = array('null' => false);
-        $result = $this->_conn->addColumnOptions('test', $options);
-        $this->assertEquals('test NOT NULL', $result);
+        $result = $this->_conn->addColumnOptions("test", $options);
+        $this->assertEquals("test NOT NULL", $result);
+    }
+
+    public function testInterval()
+    {
+        $this->assertEquals('INTERVAL  1 DAY',
+                            $this->_conn->interval('1 DAY', ''));
     }
 
     public function testModifyDate()
     {
         $modifiedDate = $this->_conn->modifyDate('start', '+', 1, 'DAY');
-        $this->assertEquals('datetime(start, \'+1 days\')', $modifiedDate);
+        $this->assertEquals('start + INTERVAL \'1\' DAY', $modifiedDate);
 
         $t = $this->_conn->createTable('dates');
         $t->column('start', 'datetime');
@@ -347,22 +481,6 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
             $this->_conn->selectValue('SELECT COUNT(*) FROM dates WHERE '
                                       . $modifiedDate . ' = end')
         );
-
-        $this->assertEquals(
-            'datetime(start, \'+2 seconds\')',
-            $this->_conn->modifyDate('start', '+', 2, 'SECOND'));
-        $this->assertEquals(
-            'datetime(start, \'+3 minutes\')',
-            $this->_conn->modifyDate('start', '+', 3, 'MINUTE'));
-        $this->assertEquals(
-            'datetime(start, \'+4 hours\')',
-            $this->_conn->modifyDate('start', '+', 4, 'HOUR'));
-        $this->assertEquals(
-            'datetime(start, \'-2 months\')',
-            $this->_conn->modifyDate('start', '-', 2, 'MONTH'));
-        $this->assertEquals(
-            'datetime(start, \'-3 years\')',
-            $this->_conn->modifyDate('start', '-', 3, 'YEAR'));
     }
 
     public function testBuildClause()
@@ -428,7 +546,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
         $table->column('text', 'string');
         $table->end();
 
-        $input = file_get_contents(__DIR__ . '/../../fixtures/charsets/cp1257.txt');
+        $input = file_get_contents(__DIR__ . '/../fixtures/charsets/cp1257.txt');
         $conn->insert('INSERT INTO charset_cp1257 (text) VALUES (?)', array($input));
         $output = $conn->selectValue('SELECT text FROM charset_cp1257');
 
@@ -453,5 +571,10 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
             $this->_conn->insert($sql);
         } catch (Exception $e) {
         }
+    }
+
+    public function testColumnToSqlUnsigned()
+    {
+        self::$_columnTest->testToSqlUnsigned();
     }
 }
