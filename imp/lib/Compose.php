@@ -225,6 +225,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed because it contains an invalid e-mail address: %s."), strval($val), $e->getMessage()), $e->getCode());
             }
         }
+        $headers = array_merge($headers, $recip_list['header']);
 
         /* Initalize a header object for the draft. */
         $draft_headers = $this->_prepareHeaders($headers, array_merge($opts, array('bcc' => true)));
