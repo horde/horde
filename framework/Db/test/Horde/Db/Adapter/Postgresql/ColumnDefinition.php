@@ -12,8 +12,6 @@
  * @subpackage UnitTests
  */
 
-require_once __DIR__ . '/../Pdo/SqliteBase.php';
-
 /**
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -24,25 +22,14 @@ require_once __DIR__ . '/../Pdo/SqliteBase.php';
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Sqlite_ColumnDefinitionTest extends Horde_Db_Adapter_Pdo_SqliteBase
+class Horde_Db_Adapter_Postgresql_ColumnDefinition extends Horde_Test_Case
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        list($this->_conn,) = self::getConnection();
-    }
-
-    protected function tearDown()
-    {
-        // close connection
-        $this->_conn->disconnect();
-    }
-
+    public $conn;
 
     public function testConstruct()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
+            $this->conn, 'col_name', 'string'
         );
         $this->assertEquals('col_name', $col->getName());
         $this->assertEquals('string',   $col->getType());
@@ -51,36 +38,36 @@ class Horde_Db_Adapter_Sqlite_ColumnDefinitionTest extends Horde_Db_Adapter_Pdo_
     public function testToSql()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
+            $this->conn, 'col_name', 'string'
         );
-        $this->assertEquals('"col_name" varchar(255)', $col->toSql());
+        $this->assertEquals('"col_name" character varying(255)', $col->toSql());
     }
 
     public function testToSqlLimit()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', 40
+            $this->conn, 'col_name', 'string', 40
         );
-        $this->assertEquals('"col_name" varchar(40)', $col->toSql());
+        $this->assertEquals('"col_name" character varying(40)', $col->toSql());
 
         // set attribute instead
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
+            $this->conn, 'col_name', 'string'
         );
         $col->setLimit(40);
-        $this->assertEquals('"col_name" varchar(40)', $col->toSql());
+        $this->assertEquals('"col_name" character varying(40)', $col->toSql());
     }
 
     public function testToSqlPrecisionScale()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'decimal', null, 5, 2
+            $this->conn, 'col_name', 'decimal', null, 5, 2
         );
         $this->assertEquals('"col_name" decimal(5, 2)', $col->toSql());
 
         // set attribute instead
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'decimal'
+            $this->conn, 'col_name', 'decimal'
         );
         $col->setPrecision(5);
         $col->setScale(2);
@@ -90,37 +77,30 @@ class Horde_Db_Adapter_Sqlite_ColumnDefinitionTest extends Horde_Db_Adapter_Pdo_
     public function testToSqlNotNull()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', null, null, null, null, null, false
+            $this->conn, 'col_name', 'string', null, null, null, null, null, false
         );
-        $this->assertEquals('"col_name" varchar(255) NOT NULL', $col->toSql());
+        $this->assertEquals('"col_name" character varying(255) NOT NULL', $col->toSql());
 
         // set attribute instead
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
+            $this->conn, 'col_name', 'string'
         );
         $col->setNull(false);
-        $this->assertEquals('"col_name" varchar(255) NOT NULL', $col->toSql());
-
-        // set attribute to the default (true)
-        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
-        );
-        $col->setNull(true);
-        $this->assertEquals('"col_name" varchar(255)', $col->toSql());
+        $this->assertEquals('"col_name" character varying(255) NOT NULL', $col->toSql());
     }
 
     public function testToSqlDefault()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', null, null, null, null, 'test', null
+            $this->conn, 'col_name', 'string', null, null, null, null, 'test'
         );
-        $this->assertEquals('"col_name" varchar(255) DEFAULT \'test\'', $col->toSql());
+        $this->assertEquals('"col_name" character varying(255) DEFAULT \'test\'', $col->toSql());
 
         // set attribute instead
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
+            $this->conn, 'col_name', 'string'
         );
         $col->setDefault('test');
-        $this->assertEquals('"col_name" varchar(255) DEFAULT \'test\'', $col->toSql());
+        $this->assertEquals('"col_name" character varying(255) DEFAULT \'test\'', $col->toSql());
     }
 }
