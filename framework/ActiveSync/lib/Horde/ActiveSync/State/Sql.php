@@ -856,7 +856,20 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *                          any messages.
      *               DEFAULT: false (Build full change array).
      *
-     * @return array
+     * @return array  An array of hashes describing each change:
+     *   - id:      The id of the item being changed.
+     *   - type:    The type of change. a Horde_ActiveSync::CHANGETYPE_*
+     *              constant.
+     *   - flags:   Used to transport email message flags when type is
+     *              Horde_ActiveSync::CHANGE_TYPE_FLAGS or set to
+     *              Horde_ActiveSync::FLAG_NEWMESSAGE when type is
+     *              Horde_ActiveSync::CHANGE_TYPE_CHANGE and the message
+     *              represents a new message, as opposed to a change in an
+     *              existing message.
+     *   - ignore:  Set to true when the change should be ignored, and not sent
+     *              to the client by the exporter. Usually due to the change
+     *              being the result of a client originated change.
+     *
      * @throws Horde_ActiveSync_Exception_StaleState
      */
     public function getChanges(array $options = array())
