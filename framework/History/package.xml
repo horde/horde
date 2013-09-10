@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Only query History when we have a range of modSeq values to query (Bug #12660, arjen+horde@de-korte.org).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -449,7 +449,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Only query History when we have a range of modSeq values to query (Bug #12660, arjen+horde@de-korte.org).
    </notes>
   </release>
  </changelog>

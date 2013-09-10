@@ -11,6 +11,7 @@ v6.2.0-git
 v6.1.5-git
 ----------
 
+[jan] Don't attach address book behavior if contacts API is unavailable.
 [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a
       user-defined flag (João Machado <geral@jpaulo.eu>).
 [mms] Fix regression where MIME headers were being displayed for PGP decrypted

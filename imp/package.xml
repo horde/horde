@@ -3283,6 +3283,7 @@
    <date>2013-09-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t attach address book behavior if contacts API is unavailable.
 * [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).
 * [mms] Improved error handling when creating a new flag in dynamic view.

@@ -956,7 +956,7 @@ var DimpCompose = {
         case 'sendcc':
         case 'sendbcc':
         case 'sendto':
-            if (elt.match('TD.label SPAN')) {
+            if (DimpCore.conf.URI_ABOOK && elt.match('TD.label SPAN')) {
                 this.openAddressbook();
             }
             break;
