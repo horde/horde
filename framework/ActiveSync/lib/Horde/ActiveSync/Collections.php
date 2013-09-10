@@ -1185,6 +1185,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         return $this->_changes;
     }
 
+    /**
+     * Return the count of the current collection's chagnes.
+     *
+     * @param boolean $ping  Only ping the collection if true.
+     *
+     * @return integer  The change count.
+     */
     public function getCollectionChangeCount($ping = false)
     {
         if (empty($this->_changes)) {
