@@ -904,7 +904,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
 
             $this->_logger->info(sprintf(
-                '[%s] Using MODSEQ %s for %s.',
+                '[%s] Using SYNCSTAMP %s for %s.',
                 $this->_procid,
                 $this->_thisSyncStamp,
                 $this->_collection['id']));
