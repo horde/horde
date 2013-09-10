@@ -220,7 +220,7 @@ class Horde_ActiveSync_Connector_Exporter
                         $this->messageDeletion($change['id']);
                         break;
 
-                    case Horde_ActiveSync::CHANGES_TYPE_SOFTDELETE:
+                    case Horde_ActiveSync::CHANGE_TYPE_SOFTDELETE:
                         $this->messageDeletion($change['id'], true);
                         break;
 
