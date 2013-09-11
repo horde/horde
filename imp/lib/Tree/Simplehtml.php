@@ -27,4 +27,18 @@ class IMP_Tree_Simplehtml extends Horde_Core_Tree_Renderer_Simplehtml
         return ($this->_tree->nodeId($id) == $GLOBALS['injector']->getInstance('Horde_Variables')->get(Horde_Tree::TOGGLE . $this->_tree->instance));
     }
 
+    /**
+     * Generate a link URL tag.
+     *
+     * @param string $node_id  The node ID.
+     *
+     * @return string  The link tag.
+     */
+    protected function _generateUrlTag($node_id)
+    {
+        return IMP_Minimal_Folders::url()
+            ->add(Horde_Tree::TOGGLE . $this->_tree->instance, $node_id)
+            ->link();
+    }
+
 }
