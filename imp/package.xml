@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
 * [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Don&apos;t attempt to get quota information from non-IMAP mailboxes (Bug #12608).
 * [jan] Don&apos;t attach address book behavior if contacts API is unavailable.
@@ -3289,6 +3290,7 @@
    <date>2013-09-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
 * [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Don&apos;t attempt to get quota information from non-IMAP mailboxes (Bug #12608).
 * [jan] Don&apos;t attach address book behavior if contacts API is unavailable.
