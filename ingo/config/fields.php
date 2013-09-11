@@ -107,7 +107,7 @@ $ingo_fields = array(
         'tests' => array(
             'contains', 'not contain', 'is', 'not is', 'begins with',
             'not begins with', 'ends with', 'not ends with', 'regex',
-            'matches', 'not matches'
+            'not regex', 'matches', 'not matches'
         )
     )
 );

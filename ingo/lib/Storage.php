@@ -270,6 +270,7 @@ class Ingo_Storage
             'exists' =>  _("Exists"),
             'not exist' => _("Doesn't exist"),
             'regex' => _("Regular expression"),
+            'not regex' => _("Doesn't match regular expression"),
             'matches' => _("Matches (with placeholders)"),
             'not matches' => _("Doesn't match (with placeholders)"),
             'less than' => _("Less than"),
@@ -292,7 +293,7 @@ class Ingo_Storage
             'text' => array(
                 'contains', 'not contain', 'is', 'not is', 'begins with',
                 'not begins with', 'ends with', 'not ends with', 'regex',
-                'matches', 'not matches'
+                'not regex', 'matches', 'not matches'
             )
         );
 
