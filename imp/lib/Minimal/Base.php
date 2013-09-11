@@ -93,7 +93,7 @@ abstract class IMP_Minimal_Base
             $items[] = array(_("Folders"), IMP_Minimal_Folders::url());
         }
 
-        $items[] = array(_("Log out"), $GLOBALS['registry']->getServiceLink('logout', 'imp'));
+        $items[] = array(_("Log out"), $GLOBALS['registry']->getServiceLink('logout', 'imp')->setRaw(false));
 
         $menu = new Horde_Menu();
         foreach ($menu->getSiteLinks() as $menuitem) {
