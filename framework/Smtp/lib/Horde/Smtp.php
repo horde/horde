@@ -764,7 +764,7 @@ class Horde_Smtp implements Serializable
         $details = reset($text);
         if (!is_null($this->_extensions) &&
             $this->queryExtension('ENHANCEDSTATUSCODES')) {
-            list($enhanced, $details) = explode(' '. $details, 2);
+            list($enhanced, $details) = explode(' ', $details, 2);
         } else {
             $enhanced = null;
         }

@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix parsing SMTP error message on servers that support ENHANCEDSTATUSCODES (Bug #12666).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -220,7 +220,7 @@
    <date>2013-09-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix parsing SMTP error message on servers that support ENHANCEDSTATUSCODES (Bug #12666).
    </notes>
   </release>
  </changelog>
