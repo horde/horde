@@ -2,6 +2,8 @@
 v6.1.5-git
 ----------
 
+[mms] Correctly enforce file size attachment limits on the first attachment
+      (Bug #12663).
 [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a
       user-defined flag (João Machado <geral@jpaulo.eu>).
 [mms] Don't attempt to get quota information from non-IMAP mailboxes (Bug
