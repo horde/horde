@@ -2939,10 +2939,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             foreach ($this as $val) {
                 if ($val->linked == $linked) {
                     $total_size -= $val->getPart()->getBytes();
-                    if ($total_size < 0) {
-                        throw new IMP_Compose_Exception(strlen($filename) ? sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename) : _("Attached file exceeds the attachment size limits. File NOT attached."));
-                    }
                 }
+            }
+
+            if ($total_size < 0) {
+                throw new IMP_Compose_Exception(strlen($filename) ? sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename) : _("Attached file exceeds the attachment size limits. File NOT attached."));
             }
         }
 
