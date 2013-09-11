@@ -1455,7 +1455,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         default:
             return ($this->isVfolder($mailbox) || $this->_isRemote($mailbox))
                 ? null
-                : IMP_Mailbox::get($mailbox)->imp_imap->getNamespace($mailbox);
+                : $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getNamespace($mailbox);
         }
     }
 
