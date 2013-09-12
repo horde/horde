@@ -562,15 +562,8 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      * @return integer  Last inserted ID.
      * @throws Horde_Db_Exception
      */
-    public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
-                           $idValue = null, $sequenceName = null)
-    {
-        $this->execute($sql, $arg1, $arg2);
-
-        return $idValue
-            ? $idValue
-            : $this->_connection->lastInsertId($sequenceName);
-    }
+    abstract public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
+                                    $idValue = null, $sequenceName = null);
 
     /**
      * Executes the update statement and returns the number of rows affected.
@@ -621,38 +614,18 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     /**
      * Begins the transaction (and turns off auto-committing).
      */
-    public function beginDbTransaction()
-    {
-        if (!$this->_transactionStarted) {
-            $this->_connection->beginTransaction();
-        }
-        $this->_transactionStarted++;
-    }
+    abstract public function beginDbTransaction();
 
     /**
      * Commits the transaction (and turns on auto-committing).
      */
-    public function commitDbTransaction()
-    {
-        $this->_transactionStarted--;
-        if (!$this->_transactionStarted) {
-            $this->_connection->commit();
-        }
-    }
+    abstract public function commitDbTransaction();
 
     /**
      * Rolls back the transaction (and turns on auto-committing). Must be
      * done if the transaction block raises an exception or returns false.
      */
-    public function rollbackDbTransaction()
-    {
-        if (!$this->_transactionStarted) {
-            return;
-        }
-
-        $this->_connection->rollBack();
-        $this->_transactionStarted = 0;
-    }
+    abstract public function rollbackDbTransaction();
 
     /**
      * Appends LIMIT and OFFSET options to a SQL statement.

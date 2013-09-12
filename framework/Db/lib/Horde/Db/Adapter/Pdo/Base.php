@@ -201,6 +201,69 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
         return $stmt;
     }
 
+    /**
+     * Inserts a row into a table.
+     *
+     * @param string $sql           SQL statement.
+     * @param array|string $arg1    Either an array of bound parameters or a
+     *                              query name.
+     * @param string $arg2          If $arg1 contains bound parameters, the
+     *                              query name.
+     * @param string $pk            The primary key column.
+     * @param integer $idValue      The primary key value. This parameter is
+     *                              required if the primary key is inserted
+     *                              manually.
+     * @param string $sequenceName  The sequence name.
+     *
+     * @return integer  Last inserted ID.
+     * @throws Horde_Db_Exception
+     */
+    public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
+                           $idValue = null, $sequenceName = null)
+    {
+        $this->execute($sql, $arg1, $arg2);
+
+        return $idValue
+            ? $idValue
+            : $this->_connection->lastInsertId($sequenceName);
+    }
+
+    /**
+     * Begins the transaction (and turns off auto-committing).
+     */
+    public function beginDbTransaction()
+    {
+        if (!$this->_transactionStarted) {
+            $this->_connection->beginTransaction();
+        }
+        $this->_transactionStarted++;
+    }
+
+    /**
+     * Commits the transaction (and turns on auto-committing).
+     */
+    public function commitDbTransaction()
+    {
+        $this->_transactionStarted--;
+        if (!$this->_transactionStarted) {
+            $this->_connection->commit();
+        }
+    }
+
+    /**
+     * Rolls back the transaction (and turns on auto-committing). Must be
+     * done if the transaction block raises an exception or returns false.
+     */
+    public function rollbackDbTransaction()
+    {
+        if (!$this->_transactionStarted) {
+            return;
+        }
+
+        $this->_connection->rollBack();
+        $this->_transactionStarted = 0;
+    }
+
 
     /*##########################################################################
     # Quoting
