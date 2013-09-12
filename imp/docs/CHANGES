@@ -2,6 +2,8 @@
 v6.1.5-git
 ----------
 
+[mms] Fixed regression in enforcing max_recipients and max_timelimit
+      permissions (Bug #12674).
 [mms] Correctly enforce file size attachment limits on the first attachment
       (Bug #12663).
 [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a
