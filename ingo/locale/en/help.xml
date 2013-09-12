@@ -102,7 +102,7 @@
     <title>Filter Rule: Combine Options</title>
     <para>You may define multiple conditions within a single rule. You may
     group them together logically using "and"/"or". You may not create complex
-    filters containg both types of conditions.</para>
+    filters containing both types of conditions.</para>
     <heading>And</heading>
     <para>If you select AND, an incoming message must match every condition
     that you specify in order for the actions to be executed.</para>
