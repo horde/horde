@@ -55,12 +55,12 @@ class IMP_Imap_Tree_IteratorFilter extends RecursiveFilterIterator
      *
      * @return Iterator  Filter iterator.
      */
-     static public function create($mask = 0, $elt = null)
-     {
-         $ob = new self(new IMP_Imap_Tree_Iterator($elt));
-         $ob->setFilter($mask);
-         return $ob->getIterator();
-     }
+    static public function create($mask = 0, $elt = null)
+    {
+        $ob = new self(new IMP_Imap_Tree_Iterator($elt));
+        $ob->setFilter($mask);
+        return $ob->getIterator();
+    }
 
     /**
      * Set the iterator filter and reset the internal pointer.

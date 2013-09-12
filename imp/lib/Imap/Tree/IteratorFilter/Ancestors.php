@@ -26,18 +26,18 @@ extends IMP_Imap_Tree_IteratorFilter
 {
     /**
      */
-     static public function create($mask = 0, $elt = null)
-     {
-         $elts = array();
+    static public function create($mask = 0, $elt = null)
+    {
+        $elts = array();
 
-         while ($elt = $elt->parent) {
-             $elts = array_merge($elt->child_list, $elts);
-         }
+        while ($elt = $elt->parent) {
+            $elts = array_merge($elt->child_list, $elts);
+        }
 
-         $ob = new self(new IMP_Imap_Tree_Iterator($elts));
-         $ob->setFilter($mask | self::NO_CHILDREN);
+        $ob = new self(new IMP_Imap_Tree_Iterator($elts));
+        $ob->setFilter($mask | self::NO_CHILDREN);
 
-         return $ob->getIterator();
-     }
+        return $ob->getIterator();
+    }
 
 }
