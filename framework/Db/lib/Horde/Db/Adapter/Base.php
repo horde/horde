@@ -531,8 +531,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     /**
      * Executes the SQL statement in the context of this connection.
      *
-     * @deprecated Use select() instead. Will be removed from the public API in
-     *             Horde_Db 3.0.0.
+     * @deprecated  Deprecated for external usage. Use select() instead.
      *
      * @param string $sql   SQL statement.
      * @param mixed $arg1   Either an array of bound parameters or a query

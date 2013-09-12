@@ -285,11 +285,15 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     /**
      * Executes the SQL statement in the context of this connection.
      *
-     * @param   string  $sql
-     * @param   mixed   $arg1  Either an array of bound parameters or a query name.
-     * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
+     * @deprecated  Deprecated for external usage. Use select() instead.
      *
-     * @return boolean|mysqli_result
+     * @param string $sql   SQL statement.
+     * @param mixed $arg1   Either an array of bound parameters or a query
+     *                      name.
+     * @param string $arg2  If $arg1 contains bound parameters, the query
+     *                      name.
+     *
+     * @return mysqli_result
      * @throws Horde_Db_Exception
      */
     public function execute($sql, $arg1=null, $arg2=null)
