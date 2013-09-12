@@ -26,12 +26,6 @@
 class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
 {
     /**
-     * Mysql database connection handle.
-     * @var resource
-     */
-    protected $_connection = null;
-
-    /**
      * Last auto-generated insert_id
      * @var integer
      */
@@ -154,7 +148,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
      * @param   string  $sql
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
-     * @return  array
+     * @return  Horde_Db_Adapter_Mysql_Result
      */
     public function select($sql, $arg1 = null, $arg2 = null)
     {
@@ -234,11 +228,15 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
     /**
      * Executes the SQL statement in the context of this connection.
      *
-     * @param   string  $sql
-     * @param   mixed   $arg1  Either an array of bound parameters or a query name.
-     * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
+     * @deprecated  Deprecated for external usage. Use select() instead.
      *
-     * @return boolean|resource
+     * @param string $sql   SQL statement.
+     * @param mixed $arg1   Either an array of bound parameters or a query
+     *                      name.
+     * @param string $arg2  If $arg1 contains bound parameters, the query
+     *                      name.
+     *
+     * @return resource
      * @throws Horde_Db_Exception
      */
     public function execute($sql, $arg1=null, $arg2=null)

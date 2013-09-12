@@ -26,7 +26,10 @@
  */
 abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
 {
-    abstract protected static function _available();
+    static protected function _available()
+    {
+        throw new LogicException('_available() must be implemented in a sub-class.');
+    }
 
     public static function setUpBeforeClass()
     {
