@@ -6,6 +6,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
@@ -13,218 +14,52 @@
  */
 
 /**
+ * This class represents the result set of a SELECT query from the MySQL
+ * driver.
+ *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Mysql_Result implements Iterator
+class Horde_Db_Adapter_Mysql_Result extends Horde_Db_Adapter_Base_Result
 {
     /**
-     * @var Horde_Db_Adapter
-     */
-    protected $_adapter;
-
-    /**
-     * @var string
-     */
-    protected $_sql;
-
-    /**
-     * @var mixed
-     */
-    protected $_arg1;
-
-    /**
-     * @var string
-     */
-    protected $_arg2;
-
-    /**
-     * Result resource
-     * @var resource
-     */
-    protected $_result;
-
-    /**
-     * Current row
+     * Maps Horde_Db fetch mode constant to the extension constants.
+     *
      * @var array
      */
-    protected $_current;
+    protected $_map = array(
+        Horde_Db::FETCH_ASSOC => MYSQL_ASSOC,
+        Horde_Db::FETCH_NUM   => MYSQL_NUM,
+        Horde_Db::FETCH_BOTH  => MYSQL_BOTH
+    );
 
     /**
-     * Current offset
-     * @var integer
-     */
-    protected $_index;
-
-    /**
-     * Are we at the end of the result?
-     * @var boolean
-     */
-    protected $_eof;
-
-    /**
-     * Which kind of keys to use for results.
-     */
-    protected $_fetchMode = MYSQL_ASSOC;
-
-    /**
-     * Constructor
+     * Returns a row from a resultset.
      *
-     * @param   Horde_Db_Adapter $adapter
-     * @param   string  $sql
-     * @param   mixed   $arg1  Either an array of bound parameters or a query name.
-     * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
+     * @return array|boolean  The next row in the resultset or false if there
+     *                        are no more results.
      */
-    public function __construct($adapter, $sql, $arg1 = null, $arg2 = null)
+    protected function _fetchArray()
     {
-        $this->_adapter = $adapter;
-        $this->_sql = $sql;
-        $this->_arg1 = $arg1;
-        $this->_arg2 = $arg2;
+        return mysql_fetch_array(
+            $this->_result,
+            $this->_map[$this->_fetchMode]
+        );
     }
 
     /**
-     * Destructor - release any resources.
-     */
-    public function __destruct()
-    {
-        if ($this->_result) {
-            unset($this->_result);
-        }
-    }
-
-    /**
-     * Implementation of the rewind() method for iterator.
-     */
-    public function rewind()
-    {
-        if ($this->_result) {
-            unset($this->_result);
-        }
-        $this->_current = null;
-        $this->_index = null;
-        $this->_eof = true;
-        $this->_result = $this->_adapter->execute($this->_sql, $this->_arg1, $this->_arg2);
-
-        $this->next();
-    }
-
-    /**
-     * Implementation of the current() method for iterator.
-     *
-     * @return mixed The current row, or null if no rows.
-     */
-    public function current()
-    {
-        if (is_null($this->_result)) {
-            $this->rewind();
-        }
-        return $this->_current;
-    }
-
-    /**
-     * Implementation of the key() method for iterator.
-     *
-     * @return mixed The current row number (starts at 0), or NULL if no rows
-     */
-    public function key()
-    {
-        if (is_null($this->_result)) {
-            $this->rewind();
-        }
-        return $this->_index;
-    }
-
-    /**
-     * Implementation of the next() method.
-     *
-     * @return array|null The next row in the resultset or null if there are no
-     * more results.
-     */
-    public function next()
-    {
-        if (is_null($this->_result)) {
-            $this->rewind();
-        }
-
-        if ($this->_result) {
-            $row = mysql_fetch_array($this->_result, $this->_fetchMode);
-            if (!$row) {
-                $this->_eof = true;
-            } else {
-                $this->_eof = false;
-
-                if (is_null($this->_index)) {
-                    $this->_index = 0;
-                } else {
-                    ++$this->_index;
-                }
-
-                $this->_current = $row;
-            }
-        }
-
-        return $this->_current;
-    }
-
-    /**
-     * Returns the current row and advances the recordset one row.
-     *
-     * @param integer $fetchmode  The default fetch mode for this result. One
-     *                            of the Horde_Db::FETCH_* constants.
-     */
-    public function fetch($fetchmode = Horde_Db::FETCH_ASSOC)
-    {
-        if (!$this->valid()) {
-            return null;
-        }
-        $this->setFetchMode($fetchmode);
-        $row = $this->current();
-        $this->next();
-        return $row;
-    }
-
-    /**
-     * Implementation of the valid() method for iterator
-     *
-     * @return boolean Whether the iteration is valid
-     */
-    public function valid()
-    {
-        if (is_null($this->_result)) {
-            $this->rewind();
-        }
-        return !$this->_eof;
-    }
-
-    /**
-     * Sets the default fetch mode for this result.
-     *
-     * @param integer $fetchmode  One of the Horde_Db::FETCH_* constants.
-     */
-    public function setFetchMode($fetchmode)
-    {
-        $map = array(Horde_Db::FETCH_ASSOC => MYSQL_ASSOC,
-                     Horde_Db::FETCH_NUM   => MYSQL_NUM,
-                     Horde_Db::FETCH_BOTH  => MYSQL_BOTH);
-        $this->_fetchMode = $map[$fetchmode];
-    }
-
-    /**
-     * Returns the number of columns in the result set
+     * Returns the number of columns in the result set.
      *
      * @return integer  Number of columns.
      */
-    public function columnCount()
+    protected function _columnCount()
     {
-        if (is_null($this->_result)) {
-            $this->rewind();
-        }
         return mysql_num_fields($this->_result);
     }
 }

@@ -1,11 +1,7 @@
 <?php
 /**
- * Copyright 2007 Maintainable Software, LLC
- * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2013 Horde LLC (http://www.horde.org/)
  *
- * @author     Mike Naberezny <mike@maintainable.com>
- * @author     Derek DeVries <derek@maintainable.com>
- * @author     Chuck Hagenbuch <chuck@horde.org>
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
@@ -14,19 +10,15 @@
  */
 
 /**
- * This class represents the result set of a SELECT query from the MySQLi
- * driver.
+ * This class represents the result set of a SELECT query from the PDO drivers.
  *
- * @author     Mike Naberezny <mike@maintainable.com>
- * @author     Derek DeVries <derek@maintainable.com>
- * @author     Chuck Hagenbuch <chuck@horde.org>
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Mysqli_Result extends Horde_Db_Adapter_Base_Result
+class Horde_Db_Adapter_Pdo_Result extends Horde_Db_Adapter_Base_Result
 {
     /**
      * Maps Horde_Db fetch mode constant to the extension constants.
@@ -34,9 +26,9 @@ class Horde_Db_Adapter_Mysqli_Result extends Horde_Db_Adapter_Base_Result
      * @var array
      */
     protected $_map = array(
-        Horde_Db::FETCH_ASSOC => MYSQLI_ASSOC,
-        Horde_Db::FETCH_NUM   => MYSQLI_NUM,
-        Horde_Db::FETCH_BOTH  => MYSQLI_BOTH
+        Horde_Db::FETCH_ASSOC => PDO::FETCH_ASSOC,
+        Horde_Db::FETCH_NUM   => PDO::FETCH_NUM,
+        Horde_Db::FETCH_BOTH  => PDO::FETCH_BOTH
     );
 
     /**
@@ -47,7 +39,7 @@ class Horde_Db_Adapter_Mysqli_Result extends Horde_Db_Adapter_Base_Result
      */
     protected function _fetchArray()
     {
-        return $this->_result->fetch_array($this->_map[$this->_fetchMode]);
+        return $this->_result->fetch($this->_map[$this->_fetchMode]);
     }
 
     /**
@@ -57,6 +49,6 @@ class Horde_Db_Adapter_Mysqli_Result extends Horde_Db_Adapter_Base_Result
      */
     protected function _columnCount()
     {
-        return $this->_result->field_count;
+        return $this->_result->rowCount();
     }
 }

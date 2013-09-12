@@ -1122,14 +1122,29 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         if (!$imp_imap->accessCompose(IMP_Imap::ACCESS_COMPOSE_TIMELIMIT, $email_count)) {
             Horde::permissionDeniedError('imp', 'max_timelimit');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $imp_imap->max_compose_timelimit, $injector->getInstance('IMP_Sentmail')->limit_period));
+            throw new IMP_Compose_Exception(sprintf(
+                ngettext(
+                    "You are not allowed to send messages to more than %d recipient within %d hours.",
+                    "You are not allowed to send messages to more than %d recipients within %d hours.",
+                    $imp_imap->max_compose_timelimit
+                ),
+                $imp_imap->max_compose_timelimit,
+                $injector->getInstance('IMP_Sentmail')->limit_period
+            ));
         }
 
         /* Count recipients if necessary. We need to split email groups
          * because the group members count as separate recipients. */
         if (!$imp_imap->accessCompose(IMP_Imap::ACCESS_COMPOSE_RECIPIENTS, $email_count)) {
             Horde::permissionDeniedError('imp', 'max_recipients');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $imp_imap->max_compose_recipients));
+            throw new IMP_Compose_Exception(sprintf(
+                ngettext(
+                    "You are not allowed to send messages to more than %d recipient.",
+                    "You are not allowed to send messages to more than %d recipients.",
+                    $imp_imap->max_compose_recipients
+                ),
+                $imp_imap->max_compose_recipients
+            ));
         }
 
         /* Pass to hook to allow alteration of message details. */
