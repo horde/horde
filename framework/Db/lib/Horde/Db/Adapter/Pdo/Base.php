@@ -80,12 +80,12 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      * @param string $arg2   If $arg1 contains bound parameters, the query
      *                       name.
      *
-     * @return PDOStatement
+     * @return Horde_Db_Adapter_Pdo_Result
      * @throws Horde_Db_Exception
      */
     public function select($sql, $arg1 = null, $arg2 = null)
     {
-        return $this->execute($sql, $arg1, $arg2);
+        return new Horde_Db_Adapter_Pdo_Result($this, $sql, $arg1, $arg2);
     }
 
     /**
