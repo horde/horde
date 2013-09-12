@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix incorrect usage of Horde_Db API in cache backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1976,7 +1976,7 @@
    <date>2013-09-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix incorrect usage of Horde_Db API in cache backend.
    </notes>
   </release>
  </changelog>
