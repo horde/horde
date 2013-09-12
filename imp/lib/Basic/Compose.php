@@ -32,7 +32,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $browser, $conf, $injector, $notification, $page_output, $prefs, $registry, $session;
+        global $browser, $injector, $notification, $page_output, $prefs, $registry, $session;
 
         /* Mailto link handler: redirect based on current view. */
         if ($this->vars->actionID == 'mailto_link') {

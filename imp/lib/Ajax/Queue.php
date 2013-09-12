@@ -154,7 +154,7 @@ class IMP_Ajax_Queue
      */
     public function add(IMP_Ajax_Application $ajax)
     {
-        global $injector, $registry;
+        global $injector;
 
         /* Add compose attachment information. */
         if (!empty($this->_atc)) {

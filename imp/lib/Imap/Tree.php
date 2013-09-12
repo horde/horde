@@ -233,7 +233,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
                     ));
                 }
 
-                $elt = $this->_insertElt(array(
+                $this->_insertElt(array(
                     'a' => $elt_mask | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP,
                     'p' => $key,
                     'v' => $val
@@ -1352,7 +1352,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
                     }
                     $is_open = !$is_open;
                 }
-                $label = htmlspecialchars(Horde_String::abbreviate($mbox_ob->abbrev_label, 30 - ($elt->level * 2)));
+                $label = htmlspecialchars(Horde_String::abbreviate($mbox_ob->abbrev_label, 30 - ($val->level * 2)));
                 break;
 
             case 'Javascript':

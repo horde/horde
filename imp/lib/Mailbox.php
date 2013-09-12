@@ -1101,7 +1101,7 @@ class IMP_Mailbox implements Serializable
      */
     public function getSort($convert = false)
     {
-        global $injector, $prefs;
+        global $prefs;
 
         $mbox = $this->search
             ? $this
@@ -1126,8 +1126,6 @@ class IMP_Mailbox implements Serializable
      */
     public function setSort($by = null, $dir = null, $delete = false)
     {
-        global $injector;
-
         $mbox = $this->search
             ? $this
             : self::get($this->pref_from);
