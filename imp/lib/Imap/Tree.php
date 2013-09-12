@@ -397,7 +397,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
             array($old),
             iterator_to_array(
                 IMP_Imap_Tree_Iterator_Filter::create(0, $old),
-                true
+                false
             )
         );
 

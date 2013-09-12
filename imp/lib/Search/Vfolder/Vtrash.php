@@ -49,7 +49,7 @@ class IMP_Search_Vfolder_Vtrash extends IMP_Search_Vfolder_Builtin
                 IMP_Imap_Tree_IteratorFilter::create()
             );
 
-            return array_map('strval', iterator_to_array($iterator, true));
+            return array_map('strval', iterator_to_array($iterator, false));
         }
 
         return parent::__get($name);
