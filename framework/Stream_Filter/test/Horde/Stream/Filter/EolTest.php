@@ -21,6 +21,11 @@ class Horde_Stream_Filter_EolTest extends Horde_Test_Case
         fwrite($this->fp, "A\r\nB\rC\nD\r\n\r\nE\r\rF\n\nG\r\n\n\r\nH\r\n\r\r\nI");
     }
 
+    public function tearDown()
+    {
+        fclose($this->fp);
+    }
+
     public static function lineEndingProvider()
     {
         return array(
@@ -39,7 +44,19 @@ class Horde_Stream_Filter_EolTest extends Horde_Test_Case
         $filter = stream_filter_prepend($this->fp, 'horde_eol', STREAM_FILTER_READ, array('eol' => $eol));
         rewind($this->fp);
         $this->assertEquals($expected, stream_get_contents($this->fp));
-        stream_filter_remove($filter);
-        fclose($this->fp);
     }
+
+    public function testBug12673()
+    {
+        $test = str_repeat(str_repeat("A", 1) . "\r\n", 4000);
+
+        rewind($this->fp);
+        fwrite($this->fp, $test);
+
+        $filter = stream_filter_prepend($this->fp, 'horde_eol', STREAM_FILTER_READ, array('eol' => "\r\n"));
+        rewind($this->fp);
+
+        $this->assertEquals($test, stream_get_contents($this->fp));
+    }
+
 }
