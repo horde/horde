@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Always return a Horde_Db_Adapter_Base_Result sub-class from the select() method.
 * [jan] Don&apos;t ping server before each query in PDO drivers (Bug #12656).
 * [jan] Re-organize unit tests.
 * [jan] Make several methods abstract in Horde_Db_Adapter_Base.
@@ -64,6 +65,7 @@
         <file name="Column.php" role="php" />
         <file name="ColumnDefinition.php" role="php" />
         <file name="Index.php" role="php" />
+        <file name="Result.php" role="php" />
         <file name="Schema.php" role="php" />
         <file name="Table.php" role="php" />
         <file name="TableDefinition.php" role="php" />
@@ -76,10 +78,15 @@
        <dir name="Mysqli">
         <file name="Result.php" role="php" />
        </dir> <!-- /lib/Horde/Db/Adapter/Mysqli -->
+       <dir name="Oracle">
+        <file name="#Result.php#" role="php" />
+        <file name="Result.php" role="php" />
+       </dir> <!-- /lib/Horde/Db/Adapter/Oracle -->
        <dir name="Pdo">
         <file name="Base.php" role="php" />
         <file name="Mysql.php" role="php" />
         <file name="Pgsql.php" role="php" />
+        <file name="Result.php" role="php" />
         <file name="Sqlite.php" role="php" />
        </dir> <!-- /lib/Horde/Db/Adapter/Pdo -->
        <dir name="Postgresql">
@@ -249,6 +256,9 @@
     <name>mysqli</name>
    </extension>
    <extension>
+    <name>oci8</name>
+   </extension>
+   <extension>
     <name>PDO</name>
    </extension>
   </optional>
@@ -273,6 +283,7 @@
    <install as="Horde/Db/Adapter/Base/Column.php" name="lib/Horde/Db/Adapter/Base/Column.php" />
    <install as="Horde/Db/Adapter/Base/ColumnDefinition.php" name="lib/Horde/Db/Adapter/Base/ColumnDefinition.php" />
    <install as="Horde/Db/Adapter/Base/Index.php" name="lib/Horde/Db/Adapter/Base/Index.php" />
+   <install as="Horde/Db/Adapter/Base/Result.php" name="lib/Horde/Db/Adapter/Base/Result.php" />
    <install as="Horde/Db/Adapter/Base/Schema.php" name="lib/Horde/Db/Adapter/Base/Schema.php" />
    <install as="Horde/Db/Adapter/Base/Table.php" name="lib/Horde/Db/Adapter/Base/Table.php" />
    <install as="Horde/Db/Adapter/Base/TableDefinition.php" name="lib/Horde/Db/Adapter/Base/TableDefinition.php" />
@@ -280,9 +291,12 @@
    <install as="Horde/Db/Adapter/Mysql/Result.php" name="lib/Horde/Db/Adapter/Mysql/Result.php" />
    <install as="Horde/Db/Adapter/Mysql/Schema.php" name="lib/Horde/Db/Adapter/Mysql/Schema.php" />
    <install as="Horde/Db/Adapter/Mysqli/Result.php" name="lib/Horde/Db/Adapter/Mysqli/Result.php" />
+   <install as="Horde/Db/Adapter/Oracle/#Result.php#" name="lib/Horde/Db/Adapter/Oracle/#Result.php#" />
+   <install as="Horde/Db/Adapter/Oracle/Result.php" name="lib/Horde/Db/Adapter/Oracle/Result.php" />
    <install as="Horde/Db/Adapter/Pdo/Base.php" name="lib/Horde/Db/Adapter/Pdo/Base.php" />
    <install as="Horde/Db/Adapter/Pdo/Mysql.php" name="lib/Horde/Db/Adapter/Pdo/Mysql.php" />
    <install as="Horde/Db/Adapter/Pdo/Pgsql.php" name="lib/Horde/Db/Adapter/Pdo/Pgsql.php" />
+   <install as="Horde/Db/Adapter/Pdo/Result.php" name="lib/Horde/Db/Adapter/Pdo/Result.php" />
    <install as="Horde/Db/Adapter/Pdo/Sqlite.php" name="lib/Horde/Db/Adapter/Pdo/Sqlite.php" />
    <install as="Horde/Db/Adapter/Postgresql/Column.php" name="lib/Horde/Db/Adapter/Postgresql/Column.php" />
    <install as="Horde/Db/Adapter/Postgresql/Schema.php" name="lib/Horde/Db/Adapter/Postgresql/Schema.php" />
@@ -706,6 +720,7 @@
    <date>2013-09-12</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Always return a Horde_Db_Adapter_Base_Result sub-class from the select() method.
 * [jan] Don&apos;t ping server before each query in PDO drivers (Bug #12656).
 * [jan] Re-organize unit tests.
 * [jan] Make several methods abstract in Horde_Db_Adapter_Base.
