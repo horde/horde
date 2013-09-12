@@ -165,6 +165,8 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     /**
      * Executes the SQL statement in the context of this connection.
      *
+     * @deprecated  Deprecated for external usage. Use select() instead.
+     *
      * @param string $sql   SQL statement.
      * @param mixed $arg1   Either an array of bound parameters or a query
      *                      name.

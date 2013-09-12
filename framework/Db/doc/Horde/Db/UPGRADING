@@ -20,8 +20,8 @@ Upgrading to 2.1.0
       commitDbTransaction(), and rollbackDbTransaction() methods are abstract
       now.
 
-    - The execute() method has been deprecated and will be removed in Horde_Db
-      3.0.0. Use the select() method instead or one of the other query methods.
+    - The execute() method has been deprecated for external usage. Use the
+      select() method instead or one of the other query methods.
 
     - The select() method always returns a Horde_Db_Adapter_Base_Result
       sub-class now.

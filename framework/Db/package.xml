@@ -38,7 +38,7 @@
 * [jan] Don&apos;t ping server before each query in PDO drivers (Bug #12656).
 * [jan] Re-organize unit tests.
 * [jan] Make several methods abstract in Horde_Db_Adapter_Base.
-* [jan] Deprecate execute() method.
+* [jan] Deprecate external usage of execute() method.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -724,7 +724,7 @@
 * [jan] Don&apos;t ping server before each query in PDO drivers (Bug #12656).
 * [jan] Re-organize unit tests.
 * [jan] Make several methods abstract in Horde_Db_Adapter_Base.
-* [jan] Deprecate execute() method.
+* [jan] Deprecate external usage of execute() method.
    </notes>
   </release>
  </changelog>
