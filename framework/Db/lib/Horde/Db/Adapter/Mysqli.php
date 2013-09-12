@@ -26,12 +26,6 @@
 class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
 {
     /**
-     * Mysqli database connection object.
-     * @var mysqli
-     */
-    protected $_connection = null;
-
-    /**
      * Last auto-generated insert_id
      * @var integer
      */
