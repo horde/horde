@@ -26,12 +26,6 @@
 class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
 {
     /**
-     * Mysql database connection handle.
-     * @var resource
-     */
-    protected $_connection = null;
-
-    /**
      * Last auto-generated insert_id
      * @var integer
      */
