@@ -56,7 +56,7 @@ class Horde_Db_Adapter_Mysql_Column extends Horde_Db_Adapter_Base_Column
      */
     protected function _simplifiedType($fieldType)
     {
-        if (strpos(strtolower($fieldType), 'tinyint(1)') !== false) {
+        if (strpos(Horde_String::lower($fieldType), 'tinyint(1)') !== false) {
             return 'boolean';
         } elseif (preg_match('/enum/i', $fieldType)) {
             return 'string';
