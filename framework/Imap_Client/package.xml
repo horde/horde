@@ -12,7 +12,7 @@
  </lead>
  <date>2013-09-13</date>
  <version>
-  <release>2.15.1</release>
+  <release>2.15.2</release>
   <api>2.15.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Ensure Horde_Imap_Client_Base#search() always returns the &apos;count&apos; value (Bug #12682).
-* [jan] Fix incorrect usage of Horde_Db API in cache backend.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1979,6 +1978,19 @@
    <notes>
 * [mms] Ensure Horde_Imap_Client_Base#search() always returns the &apos;count&apos; value (Bug #12682).
 * [jan] Fix incorrect usage of Horde_Db API in cache backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.15.2</release>
+    <api>2.15.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
