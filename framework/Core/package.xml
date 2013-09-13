@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Support ActiveSync SOFTDELETE.
 * [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Support for X509 certificate authentication in ActiveSync requests.
 * [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
@@ -3158,6 +3159,7 @@
    <date>2013-09-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Support ActiveSync SOFTDELETE.
 * [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Support for X509 certificate authentication in ActiveSync requests.
 * [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
