@@ -78,7 +78,7 @@ class Horde_Db_SearchParser
                 $token = '!OR';
             } elseif (preg_match('/^(AND|OR|NOT)([^a-z].*)?$/i', $expr,
                                  $matches)) {
-                $token = '!' . strtoupper($matches[1]);
+                $token = '!' . Horde_String::lower($matches[1]);
                 $expr = substr($expr, strlen($matches[1]));
             } elseif (preg_match('/^"(([^"]|\\[0-7]+|\\[Xx][0-9a-fA-F]+|\\[^Xx0-7])*)"/',
                                  $expr, $matches)) {
@@ -155,7 +155,7 @@ class Horde_Db_SearchParser
             throw new Horde_Db_Exception('Expected bare word or quoted search term');
         }
 
-        $val = strtolower(substr(array_shift($tokens), 1));
+        $val = Horde_String::lower(substr(array_shift($tokens), 1));
         $val = addslashes(ereg_replace("([\\%])", "\\\\1", $val));
 
         return "(LOWER($column) LIKE '%$val%')";

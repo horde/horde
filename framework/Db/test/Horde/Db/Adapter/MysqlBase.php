@@ -67,7 +67,7 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
 
     public function testGetCharset()
     {
-        $this->assertEquals('utf8', strtolower($this->_conn->getCharset()));
+        $this->assertEquals('utf8', Horde_String::lower($this->_conn->getCharset()));
     }
 
 
