@@ -114,13 +114,25 @@ abstract class Horde_ActiveSync_Folder_Base
         $this->_status = $status;
     }
 
-    public function setSoftDelete($sincedate, $ts)
+    /**
+     * Set the last softdelete timestamps used.
+     *
+     * @param long $sincedate  The sincedate used in the last softdelete check.
+     * @param long $ts         Time the softdelete check was performed.
+     */
+    public function setSoftDeleteTimes($sincedate, $ts)
     {
         $this->_lastSinceDate = $sincedate;
         $this->_softdelete = $ts;
     }
 
-    public function getSoftDelete()
+    /**
+     * Return the softdelete timestamps.
+     *
+     * @return array  An array with the last sincedate in the 0 element and
+     *                the last timestamp in the 1 element.
+     */
+    public function getSoftDeleteTimes()
     {
         return array($this->_lastSinceDate, $this->_softdelete);
     }
