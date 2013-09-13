@@ -149,6 +149,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
             foreach ($soft as $id) {
                 unset($this->_messages[$id]);
             }
+
+            return $soft;
         } else {
             return $this->_softDeleted;
         }
