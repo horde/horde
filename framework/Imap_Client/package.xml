@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Use strict RFC-compliant workaround for servers that don&apos;t support the UNSELECT IMAP extension.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1990,7 +1990,7 @@
    <date>2013-09-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Use strict RFC-compliant workaround for servers that don&apos;t support the UNSELECT IMAP extension.
    </notes>
   </release>
  </changelog>
