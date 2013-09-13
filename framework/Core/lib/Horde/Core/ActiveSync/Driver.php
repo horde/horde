@@ -708,7 +708,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
                     $soft = true;
                 } else {
-                    $soft = true;
+                    $soft = false;
                 }
 
                 try {
