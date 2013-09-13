@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-04</date>
+ <date>2013-09-13</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -76,6 +76,7 @@
     <dir name="jquery.mobile">
      <dir name="plugins">
       <file name="listviewtaphold.js" role="horde" />
+      <file name="textchange.js" role="horde" />
      </dir> <!-- /js/jquery.mobile/plugins -->
     </dir> <!-- /js/jquery.mobile -->
     <file name="acl.js" role="horde" />
@@ -417,6 +418,7 @@
      </dir> <!-- /lib/Search/Vfolder -->
      <file name="Element.php" role="horde" />
      <file name="Filter.php" role="horde" />
+     <file name="IteratorFilter.php" role="horde" />
      <file name="Query.php" role="horde" />
      <file name="Ui.php" role="horde" />
      <file name="Vfolder.php" role="horde" />
@@ -1447,6 +1449,7 @@
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
    <install as="imp/js/jquery.mobile/plugins/listviewtaphold.js" name="js/jquery.mobile/plugins/listviewtaphold.js" />
+   <install as="imp/js/jquery.mobile/plugins/textchange.js" name="js/jquery.mobile/plugins/textchange.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
@@ -1666,6 +1669,7 @@
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
    <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />
    <install as="imp/lib/Search/Filter.php" name="lib/Search/Filter.php" />
+   <install as="imp/lib/Search/IteratorFilter.php" name="lib/Search/IteratorFilter.php" />
    <install as="imp/lib/Search/Query.php" name="lib/Search/Query.php" />
    <install as="imp/lib/Search/Ui.php" name="lib/Search/Ui.php" />
    <install as="imp/lib/Search/Vfolder.php" name="lib/Search/Vfolder.php" />

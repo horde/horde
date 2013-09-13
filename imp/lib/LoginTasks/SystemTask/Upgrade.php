@@ -594,9 +594,12 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     protected function _upgradeVirtualFolders6()
     {
         $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-        $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
+        $iterator = IMP_Search_IteratorFilter::create(
+            IMP_Search_IteratorFilter::VFOLDER |
+            IMP_Search_IteratorFilter::DISABLED
+        );
 
-        foreach ($imp_search as $key => $val) {
+        foreach ($iterator as $val) {
             $replace = false;
             $tmp = $val->query;
 
@@ -634,7 +637,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
 
             if ($replace) {
                 $val->replace($tmp);
-                $imp_search[$key] = $val;
+                $imp_search[$val->id] = $val;
             }
         }
     }

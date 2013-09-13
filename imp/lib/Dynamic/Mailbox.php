@@ -437,13 +437,14 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 '*advanced' => _("Advanced Search...")
             );
             /* Generate filter array. */
-            $imp_search = $injector->getInstance('IMP_Search');
-            $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
+            $iterator = IMP_Search_IteratorFilter::create(
+                IMP_Search_IteratorFilter::FILTER
+            );
 
             $context['ctx_filter'] = array();
-            foreach (iterator_to_array($imp_search) as $key => $val) {
+            foreach ($iterator as $val) {
                 if ($val->enabled) {
-                    $context['ctx_filter']['*' . $key] = $val->label;
+                    $context['ctx_filter']['*' . $val->id] = $val->label;
                 }
             }
         }

@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Search implements ArrayAccess, Iterator, Serializable
+class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
 {
     /* The mailbox search prefix. */
     const MBOX_PREFIX = "impsearch\0";
@@ -29,12 +29,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     const BASIC_SEARCH = 'impbsearch';
     const DIMP_FILTERSEARCH = 'dimpfsearch';
     const DIMP_QUICKSEARCH = 'dimpqsearch';
-
-    /* Bitmask filters for iterator. */
-    const LIST_FILTER = 1;
-    const LIST_QUERY = 2;
-    const LIST_VFOLDER = 4;
-    const LIST_DISABLED = 8;
 
     /* Query creation types. */
     const CREATE_FILTER = 1;
@@ -47,13 +41,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * @var boolean
      */
     public $changed = false;
-
-    /**
-     * Iterator filter mask.
-     *
-     * @var integer
-     */
-    protected $_filter = 0;
 
     /**
      * Search queries.
@@ -542,112 +529,17 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         }
     }
 
-    /* Iterator methods. */
-
-    public function current()
-    {
-        return (($key = key($this->_search)) !== null)
-            ? current($this->_search[$key])
-            : null;
-    }
-
-    public function key()
-    {
-        return (($key = key($this->_search)) !== null)
-            ? key($this->_search[$key])
-            : null;
-    }
-
-    public function next()
-    {
-        $curr = null;
-
-        while (($skey = key($this->_search)) !== null) {
-            /* When switching between search types, need to catch the first
-             * element of the new array. */
-            $curr = is_null($curr)
-                ? next($this->_search[$skey])
-                : current($this->_search[$skey]);
-
-            while ($curr !== false) {
-                if ($this->_currValid()) {
-                    return;
-                }
-                $curr = next($this->_search[$skey]);
-            }
-
-            next($this->_search);
-        }
-    }
-
-    public function rewind()
-    {
-        foreach (array_keys($this->_search) as $key) {
-            reset($this->_search[$key]);
-        }
-        reset($this->_search);
-
-        if ($this->valid() && !$this->_currValid()) {
-            $this->next();
-        }
-    }
-
-    public function valid()
-    {
-        return (key($this->_search) !== null);
-    }
-
-    /* Helper functions for Iterator methods. */
+    /* IteratorAggregate method. */
 
     /**
-     * Set the current iterator filter and reset the internal pointer.
-     *
-     * @param integer $mask  A mask with the following possible elements:
-     *   - IMP_Search::LIST_DISABLED: List even if disabled.
-     *   - IMP_Search::LIST_FILTER: List filters.
-     *   - IMP_Search::LIST_QUERY: List search queries.
-     *   - IMP_Search::LIST_VFOLDER: List virtual folders.
      */
-    public function setIteratorFilter($mask = 0)
+    public function getIterator()
     {
-        $this->_filter = $mask;
-        reset($this);
-    }
-
-    /**
-     * Returns true if the current object is valid given the current filter.
-     *
-     * @return boolean  True if the object should be displayed.
-     */
-    protected function _currValid()
-    {
-        if (!($ob = $this->current())) {
-            return false;
+        $iterator = new AppendIterator();
+        foreach ($this->_search as $val) {
+            $iterator->append(new ArrayIterator($val));
         }
-
-        if ($ob->enabled ||
-            ($this->_filter & self::LIST_DISABLED)) {
-            if (!$this->_filter) {
-                return true;
-            }
-
-            if (($this->_filter & self::LIST_FILTER) &&
-                $this->isFilter($ob)) {
-                return true;
-            }
-
-            if (($this->_filter & self::LIST_QUERY) &&
-                $this->isQuery($ob)) {
-                return true;
-            }
-
-            if (($this->_filter & self::LIST_VFOLDER) &&
-                $this->isVFolder($ob)) {
-                return true;
-            }
-        }
-
-        return false;
+        return $iterator;
     }
 
     /* Serializable methods. */

@@ -274,11 +274,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $this->_insert($this->_getList($this->_showunsub), $this->_showunsub ? null : true);
 
         /* Add virtual folders to the tree. */
-        $imp_search = $injector->getInstance('IMP_Search');
-        $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
-        foreach ($imp_search as $val) {
-            $this->insert($val);
-        }
+        $iterator = IMP_Search_IteratorFilter::create(
+            IMP_Search_IteratorFilter::VFOLDER
+        );
+        array_map(array($this, 'insert'), iterator_to_array($iterator));
 
         $this->track = $old_track;
     }
