@@ -1,18 +1,25 @@
 <?php
 /**
- * This class handles date-related search queries.
- *
- * @deprecated  Use IMP_Search_Element_Daterange instead.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Date-related search queries.
+ *
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2010-2013 Horde LLC
+ * @deprecated Use IMP_Search_Element_Daterange instead.
+ * @license    http://www.horde.org/licenses/gpl GPL
+ * @package    IMP
  */
 class IMP_Search_Element_Date extends IMP_Search_Element
 {
