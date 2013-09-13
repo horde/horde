@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Support for SOFTDELETE.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1694,7 +1694,7 @@
    <date>2013-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [mjr] Support for SOFTDELETE.
    </notes>
   </release>
  </changelog>
