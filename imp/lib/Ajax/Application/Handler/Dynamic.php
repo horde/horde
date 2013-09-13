@@ -317,7 +317,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             foreach ($mboxes as $val) {
                 if ($val = $ftree[$val]) {
                     foreach ($iterator::create($mask, $val) as $val2) {
-                        $ftree->addEltDiff($val2);
+                        $ftree->eltdiff->add($val2);
                         $this->_base->queue->poll($val2);
                     }
 
@@ -334,7 +334,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         if ($initreload) {
             foreach (IMP_Mailbox::getSpecialMailboxesSort() as $val) {
                 if (isset($ftree[$val])) {
-                    $ftree->addEltDiff($val);
+                    $ftree->eltdiff->add($val2);
                 }
             }
 

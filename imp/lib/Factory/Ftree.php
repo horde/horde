@@ -65,7 +65,7 @@ implements Horde_Shutdown_Task
         switch ($registry->getView()) {
         case $registry::VIEW_DYNAMIC:
         case $registry::VIEW_SMARTMOBILE:
-            $this->_instance->track = true;
+            $this->_instance->eltdiff->track = true;
             break;
         }
 

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-13</date>
+ <date>2013-09-16</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -265,6 +265,7 @@
      </dir> <!-- /lib/Ftree/Prefs -->
      <file name="Account.php" role="horde" />
      <file name="Element.php" role="horde" />
+     <file name="Eltdiff.php" role="horde" />
      <file name="Iterator.php" role="horde" />
      <file name="IteratorFilter.php" role="horde" />
      <file name="Prefs.php" role="horde" />
@@ -1613,6 +1614,7 @@
    <install as="imp/lib/Flag/System/Match/Header.php" name="lib/Flag/System/Match/Header.php" />
    <install as="imp/lib/Ftree/Account.php" name="lib/Ftree/Account.php" />
    <install as="imp/lib/Ftree/Element.php" name="lib/Ftree/Element.php" />
+   <install as="imp/lib/Ftree/Eltdiff.php" name="lib/Ftree/Eltdiff.php" />
    <install as="imp/lib/Ftree/Iterator.php" name="lib/Ftree/Iterator.php" />
    <install as="imp/lib/Ftree/IteratorFilter.php" name="lib/Ftree/IteratorFilter.php" />
    <install as="imp/lib/Ftree/Prefs.php" name="lib/Ftree/Prefs.php" />

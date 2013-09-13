@@ -202,9 +202,7 @@ class IMP_Ajax_Queue
         }
 
         /* Add folder tree information. */
-        if ($out = $injector->getInstance('IMP_Ftree')->getAjaxResponse()) {
-            $ajax->addTask('mailbox', array_merge($out, $this->_mailboxOpts));
-        }
+        $this->_addFtreeInfo($ajax);
 
         /* Add mail log information. */
         if (!empty($this->_maillog)) {
@@ -444,6 +442,157 @@ class IMP_Ajax_Queue
     public function quota($mailbox)
     {
         $this->_quota = $mailbox;
+    }
+
+    /**
+     * Add folder tree information.
+     *
+     * @param IMP_Ajax_Application $ajax  The AJAX object.
+     */
+    protected function _addFtreeInfo(IMP_Ajax_Application $ajax)
+    {
+        global $injector;
+
+        $eltdiff = $injector->getInstance('IMP_Ftree')->eltdiff;
+        $out = array();
+
+        if ($add = $eltdiff->add) {
+            $out['a'] = array_map(array($this, '_ftreeElt'), $add);
+            $poll = $add;
+        } else {
+            $poll = array();
+        }
+
+        if ($change = $eltdiff->change) {
+            $out['c'] = array_map(array($this, '_ftreeElt'), $change);
+            $poll = array_merge($poll, $change);
+        }
+
+        if ($delete = $eltdiff->delete) {
+            $out['d'] = array_reverse($delete);
+        }
+
+        if (!empty($out)) {
+            $eltdiff->clear();
+            $ajax->addTask('mailbox', array_merge($out, $this->_mailboxOpts));
+            $this->poll($poll);
+        }
+    }
+
+    /**
+     * Create a folder tree element.
+     *
+     * @return stdClass  The element object. Contains the following items:
+     * <pre>
+     *   - ch: (boolean) [children] Does the mailbox contain children?
+     *         DEFAULT: no
+     *   - cl: (string) [class] The CSS class.
+     *         DEFAULT: 'base'
+     *   - co: (boolean) [container] Is this mailbox a container element?
+     *         DEFAULT: no
+     *   - i: (string) [icon] A user defined icon to use.
+     *        DEFAULT: none
+     *   - l: (string) [label] The mailbox display label.
+     *        DEFAULT: 'm' val
+     *   - m: (string) [mbox] The mailbox value (base64url encoded).
+     *   - n: (boolean) [non-imap] A non-IMAP element?
+     *        DEFAULT: no
+     *   - nc: (boolean) [no children] Does the element not allow children?
+     *         DEFAULT: no
+     *   - pa: (string) [parent] The parent element.
+     *         DEFAULT: DimpCore.conf.base_mbox
+     *   - po: (boolean) [polled] Is the element polled?
+     *         DEFAULT: no
+     *   - r: (integer) [remote] Is this a "remote" element? 1 is the remote
+     *        container, 2 is a remote account, and 3 is a remote mailbox.
+     *        DEFAULT: 0
+     *   - s: (boolean) [special] Is this a "special" element?
+     *        DEFAULT: no
+     *   - t: (string) [title] Mailbox title.
+     *        DEFAULT: 'm' val
+     *   - un: (boolean) [unsubscribed] Is this mailbox unsubscribed?
+     *         DEFAULT: no
+     *   - v: (integer) [virtual] Virtual folder? 0 = not vfolder, 1 = system
+     *        vfolder, 2 = user vfolder
+     *        DEFAULT: 0
+     *  </pre>
+     */
+    protected function _ftreeElt($id)
+    {
+        global $injector;
+
+        $ftree = $injector->getInstance('IMP_Ftree');
+        $elt = $ftree[$id];
+        $mbox_ob = $elt->mbox_ob;
+
+        $ob = new stdClass;
+
+        if ($elt->children) {
+            $ob->ch = 1;
+        }
+        $ob->m = $mbox_ob->form_to;
+        if ($elt->nochildren) {
+            $ob->nc = 1;
+        }
+
+        $label = $mbox_ob->label;
+        if ($ob->m != $label) {
+            $ob->t = $label;
+        }
+
+        $tmp = htmlspecialchars($mbox_ob->abbrev_label);
+        if ($ob->m != $tmp) {
+            $ob->l = $tmp;
+        }
+
+        $parent = $elt->parent;
+        if (!$parent->base_elt) {
+            $ob->pa = $parent->mbox_ob->form_to;
+        }
+
+        if ($elt->vfolder) {
+            $ob->v = $mbox_ob->editvfolder ? 2 : 1;
+        }
+
+        if ($elt->nonimap) {
+            $ob->n = 1;
+            if ($mbox_ob->remote_container) {
+                $ob->r = 1;
+            }
+        }
+
+        if ($elt->container) {
+            $ob->cl = 'exp';
+            $ob->co = 1;
+        } else {
+            if (!$elt->subscribed) {
+                $ob->un = 1;
+            }
+
+            if (isset($ob->n) && isset($ob->r)) {
+                $ob->r = ($mbox_ob->remote_auth ? 3 : 2);
+            }
+
+            if ($elt->polled) {
+                $ob->po = 1;
+            }
+
+            if ($elt->inbox || $mbox_ob->special) {
+                $ob->s = 1;
+            } elseif (empty($ob->v) && !empty($ob->ch)) {
+                $ob->cl = 'exp';
+            }
+        }
+
+        $icon = $mbox_ob->icon;
+        if ($icon->user_icon) {
+            $ob->cl = 'customimg';
+            $ob->i = strval($icon->icon);
+        } else {
+            $ob->cl = $icon->class;
+        }
+
+        return $ob;
     }
 
 }

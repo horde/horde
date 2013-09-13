@@ -26,8 +26,9 @@
  * @package   IMP
  *
  * @property-read boolean $changed  Has the tree changed?
- * @property-read IMP_ap_Tree_Prefs_Expanded $expanded  The expanded folders
- *                                                        list.
+ * @property-read IMP_Ftree_Eltdiff $eltdiff  Element diff tracker.
+ * @property-read IMP_FTree_Prefs_Expanded $expanded  The expanded folders
+ *                                                    list.
  * @property-read IMP_Ftree_Prefs_Poll $poll  The poll list.
  */
 class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializable
@@ -65,13 +66,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     const OTHER_KEY = "other\0";
 
     /**
-     * Track element changes?
-     *
-     * @var boolean
-     */
-    public $track = false;
-
-    /**
      * Account sources.
      *
      * @var array
@@ -86,18 +80,18 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     protected $_changed = false;
 
     /**
+     * Element diff tracking.
+     *
+     * @var IMP_Ftree_Eltdiff
+     */
+    protected $_eltdiff;
+
+    /**
      * Array containing the mailbox elements.
      *
      * @var array
      */
     protected $_elts;
-
-    /**
-     * List of element changes.
-     *
-     * @var array
-     */
-    protected $_eltdiff;
 
     /**
      * Parent/child list.
@@ -127,13 +121,16 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     {
         switch ($name) {
         case 'changed':
-            return $this->_changed;
+            return ($this->_changed || $this->eltdiff->changed);
 
         case 'expanded':
             if (!isset($this->_temp['expanded'])) {
                 $this->_temp['expanded'] = new IMP_Ftree_Prefs_Expanded();
             }
             return $this->_temp['expanded'];
+
+        case 'eltdiff':
+            return $this->_eltdiff;
 
         case 'poll':
             if (!isset($this->_temp['poll'])) {
@@ -155,11 +152,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         /* Reset class variables to the defaults. */
         $this->_accounts = $this->_elts = $this->_parent = array();
         $this->_changed = true;
-        $this->_resetEltDiff();
-
-        /* Don't track initialization. */
-        $old_track = $this->track;
-        $this->track = false;
+        $this->_eltdiff = new IMP_Ftree_Eltdiff();
 
         /* Create a placeholder element to the base of the tree so we can
          * keep track of whether the base level needs to be sorted. */
@@ -186,8 +179,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             IMP_Search_IteratorFilter::VFOLDER
         );
         array_map(array($this, 'insert'), iterator_to_array($iterator));
-
-        $this->track = $old_track;
     }
 
     /**
@@ -364,16 +355,11 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                             $this->delete($parent);
                         } else {
                             $p_elt->open = false;
-                            $this->_addEltDiff($parent, 'c');
                         }
                     }
                 } else {
                     /* Rebuild the parent tree. */
                     $this->_parent[$parent] = array_values($this->_parent[$parent]);
-
-                    if (!$this[$parent]->children) {
-                        $this->_addEltDiff($parent, 'c');
-                    }
                 }
 
                 /* Remove the mailbox from the expanded folders list. */
@@ -481,12 +467,12 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         /* If we are switching from subscribed to unsubscribed, we need
          * to add all unsubscribed elements that live in currently
          * discovered items. */
-        $old_track = $this->track;
-        $this->track = false;
+        $old_track = $this->eltdiff->track;
+        $this->eltdiff->track = false;
         foreach ($this->_accounts as $val) {
             array_map(array($this, '_insertElt'), $val->getList($val::UNSUB));
         }
-        $this->track = $old_track;
+        $this->eltdiff->track = $old_track;
     }
 
     /**
@@ -669,11 +655,12 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         switch ($type) {
         case 'container':
             $attr = self::ELT_NOSELECT;
-            $this->_addEltDiff($elt, 'c');
+            $this->eltdiff->change($elt);
             break;
 
         case 'invisible':
             $attr = self::ELT_INVISIBLE;
+            $this->eltdiff->change($elt);
             break;
 
         case 'needsort':
@@ -703,6 +690,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 
         case 'subscribed':
             $attr = self::ELT_IS_SUBSCRIBED;
+            $this->eltdiff->change($elt);
             break;
 
         default:
@@ -779,79 +767,24 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         return $this[self::BASE_ELT];
     }
 
-    /**
-     * Explicitly mark an element as added.
-     *
-     * @param string $id  Element ID.
-     */
-    public function addEltDiff($id)
-    {
-        $this->_addEltDiff($id, 'a');
-    }
-
-    /**
-     * Prepares an AJAX Mailbox response.
-     *
-     * @return array  The object used by JS code to update the tree.
-     */
-    public function getAjaxResponse()
-    {
-        $changes = $this->_eltdiff;
-        $this->_resetEltDiff();
-        if ($changes != $this->_eltdiff) {
-            $this->_changed = true;
-        }
-
-        $poll = $result = array();
-
-        if (!empty($changes['a'])) {
-            $result['a'] = array();
-            foreach (array_keys($changes['a']) as $val) {
-                $result['a'][] = $this->_ajaxElt($val);
-                $poll[] = $val;
-            }
-        }
-
-        if (!empty($changes['c'])) {
-            $result['c'] = array();
-            // Skip the base element, since any change there won't ever be
-            // updated on-screen.
-            foreach (array_diff(array_keys($changes['c']), array(self::BASE_ELT)) as $val) {
-                $result['c'][] = $this->_ajaxElt($val);
-                $poll[] = $val;
-            }
-        }
-
-        if (!empty($changes['d'])) {
-            $result['d'] = array();
-            foreach (array_reverse(array_keys($changes['d'])) as $val) {
-                $result['d'][] = IMP_Mailbox::get($val)->form_to;
-            }
-        }
-
-        $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->poll($poll);
-
-        return $result;
-    }
-
     /* Internal methods. */
 
     /**
      * Deletes an element and returns its parent.
      *
-     * @param string $id  Element ID.
+     * @param IMP_Ftree_Element $elt  Element.
      *
      * @return string  Parent ID.
      */
-    protected function _delete($id)
+    protected function _delete($elt)
     {
-        $parent = strval($this[$id]->parent);
-        $this->_addEltDiff($id, 'd');
+        $parent = strval($elt->parent);
+        $this->eltdiff->delete($elt);
 
         /* Delete the entry from the parent tree. */
         unset(
-            $this->_elts[strval($id)],
-            $this->_parent[$parent][array_search(strval($id), $this->_parent[$parent], true)]
+            $this->_elts[strval($elt)],
+            $this->_parent[$parent][array_search(strval($elt), $this->_parent[$parent], true)]
         );
 
         return $parent;
@@ -871,74 +804,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         return (strcasecmp($id, 'INBOX') == 0)
             ? 'INBOX'
             : $id;
-    }
-
-    /**
-     * Mark an element as changed.
-     *
-     * @param string $id    Element ID.
-     * @param string $type  Either 'a' (add), 'c' (changed), or 'd' (deleted).
-     */
-    protected function _addEltDiff($id, $type)
-    {
-        if (!$this->track || !($elt = $this[$id])) {
-            return;
-        }
-
-        $ed = &$this->_eltdiff;
-        $id = strval($elt);
-
-        if (array_key_exists($id, $ed['o'])) {
-            if (($type != 'd') && ($ed['o'][$id] == $elt)) {
-                unset(
-                    $ed['a'][$id],
-                    $ed['c'][$id],
-                    $ed['d'][$id],
-                    $ed['o'][$id]
-                );
-
-                /* Check for virtual folder change. */
-                if ($elt->vfolder) {
-                    $ed['c'][$id] = 1;
-                }
-                return;
-            }
-        } else {
-            $ed['o'][$id] = ($type == 'a')
-                ? null
-                : $elt;
-        }
-
-        switch ($type) {
-        case 'a':
-            unset($ed['c'][$id], $ed['d'][$id]);
-            $ed['a'][$id] = 1;
-            break;
-
-        case 'c':
-            if (!isset($ed['a'][$id])) {
-                $ed['c'][$id] = 1;
-            }
-            break;
-
-        case 'd':
-            unset($ed['a'][$id], $ed['c'][$id]);
-            $ed['d'][$id] = 1;
-            break;
-        }
-    }
-
-    /**
-     * Reset eltdiff array.
-     */
-    protected function _resetEltDiff()
-    {
-        $this->_eltdiff = array(
-            'a' => array(),
-            'c' => array(),
-            'd' => array(),
-            'o' => array()
-        );
     }
 
     /**
@@ -983,7 +848,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         /* Make sure we are sorted correctly. */
         $this->setAttribute('needsort', $p_elt, true);
 
-        $this->_addEltDiff($name, 'a');
+        $this->eltdiff->add($name);
     }
 
     /**
@@ -1040,121 +905,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         }
 
         $mbox = $sorted;
-    }
-
-    /**
-     * Create an object sent in an AJAX response.
-     *
-     * @param mixed $elt  A mailbox object/string.
-     *
-     * @return stdClass  The element object. Contains the following items:
-     *   - ch: (boolean) [children] Does the mailbox contain children?
-     *         DEFAULT: no
-     *   - cl: (string) [class] The CSS class.
-     *         DEFAULT: 'base'
-     *   - co: (boolean) [container] Is this mailbox a container element?
-     *         DEFAULT: no
-     *   - i: (string) [icon] A user defined icon to use.
-     *        DEFAULT: none
-     *   - l: (string) [label] The mailbox display label.
-     *        DEFAULT: 'm' val
-     *   - m: (string) [mbox] The mailbox value (base64url encoded).
-     *   - n: (boolean) [non-imap] A non-IMAP element?
-     *        DEFAULT: no
-     *   - nc: (boolean) [no children] Does the element not allow children?
-     *         DEFAULT: no
-     *   - pa: (string) [parent] The parent element.
-     *         DEFAULT: DimpCore.conf.base_mbox
-     *   - po: (boolean) [polled] Is the element polled?
-     *         DEFAULT: no
-     *   - r: (integer) [remote] Is this a "remote" element? 1 is the remote
-     *        container, 2 is a remote account, and 3 is a remote mailbox.
-     *        DEFAULT: 0
-     *   - s: (boolean) [special] Is this a "special" element?
-     *        DEFAULT: no
-     *   - t: (string) [title] Mailbox title.
-     *        DEFAULT: 'm' val
-     *   - un: (boolean) [unsubscribed] Is this mailbox unsubscribed?
-     *         DEFAULT: no
-     *   - v: (integer) [virtual] Virtual folder? 0 = not vfolder, 1 = system
-     *        vfolder, 2 = user vfolder
-     *        DEFAULT: 0
-     */
-    protected function _ajaxElt($elt)
-    {
-        if (!is_object($elt)) {
-            $elt = $this[$elt];
-        }
-        $mbox_ob = $elt->mbox_ob;
-
-        $ob = new stdClass;
-
-        if ($elt->children) {
-            $ob->ch = 1;
-        }
-        $ob->m = $mbox_ob->form_to;
-        if ($elt->nochildren) {
-            $ob->nc = 1;
-        }
-
-        $label = $mbox_ob->label;
-        if ($ob->m != $label) {
-            $ob->t = $label;
-        }
-
-        $tmp = htmlspecialchars($mbox_ob->abbrev_label);
-        if ($ob->m != $tmp) {
-            $ob->l = $tmp;
-        }
-
-        $parent = $elt->parent;
-        if (!$parent->base_elt) {
-            $ob->pa = $parent->mbox_ob->form_to;
-        }
-
-        if ($elt->vfolder) {
-            $ob->v = $mbox_ob->editvfolder ? 2 : 1;
-        }
-
-        if ($elt->nonimap) {
-            $ob->n = 1;
-            if ($mbox_ob->remote_container) {
-                $ob->r = 1;
-            }
-        }
-
-        if ($elt->container) {
-            $ob->cl = 'exp';
-            $ob->co = 1;
-        } else {
-            if (!$elt->subscribed) {
-                $ob->un = 1;
-            }
-
-            if (isset($ob->n) && isset($ob->r)) {
-                $ob->r = ($mbox_ob->remote_auth ? 3 : 2);
-            }
-
-            if ($elt->polled) {
-                $ob->po = 1;
-            }
-
-            if ($elt->inbox || $mbox_ob->special) {
-                $ob->s = 1;
-            } elseif (empty($ob->v) && !empty($ob->ch)) {
-                $ob->cl = 'exp';
-            }
-        }
-
-        $icon = $mbox_ob->icon;
-        if ($icon->user_icon) {
-            $ob->cl = 'customimg';
-            $ob->i = strval($icon->icon);
-        } else {
-            $ob->cl = $icon->class;
-        }
-
-        return $ob;
     }
 
     /* ArrayAccess methods. */
@@ -1220,8 +970,8 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         return serialize(array(
             // Serialized data ID.
             $this->_accounts,
+            $this->_eltdiff,
             $this->_elts,
-            $this->track ? $this->_eltdiff : null,
             $this->_parent
         ));
     }
@@ -1238,14 +988,10 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 
         list(
             $this->_accounts,
+            $this->_eltdiff,
             $this->_elts,
-            $eltdiff,
             $this->_parent
         ) = $data;
-
-        $this->_eltdiff = is_null($eltdiff)
-            ? $this->_resetEltDiff()
-            : $eltdiff;
     }
 
     /**
