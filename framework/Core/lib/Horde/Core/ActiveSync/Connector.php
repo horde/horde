@@ -771,6 +771,47 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Return message UIDs that should be SOFTDELETEd from the client.
+     *
+     * @param string $collection  The collection type.
+     * @param long $from_ts       The start of the time period to search.
+     * @param long $to_ts         The end of the time period to search.
+     *
+     * @return array  An array of message UIDs that occur within the $from_ts
+     *                and $to_ts range that are to be SOFTDELETEd from the
+     *                client.
+     */
+    public function softDelete($collection, $from_ts, $to_ts)
+    {
+        $results = array();
+        switch ($collection) {
+        case 'calendar':
+            // Need to use listEvents instead of listUids since we must
+            // ignore recurring events when softdeleting or else we run
+            // the risk of removing a still active recurrence.
+            $events = $this->_registry->calendar->listEvents(
+                $from_ts,
+                $to_ts,
+                null,  // Calendars
+                false, // showRecurrence
+                false, // alarmsOnly
+                false, // showRemote
+                true,  // hideExceptions
+                false // coverDates
+            );
+            foreach ($events as $day) {
+                foreach ($day as $e) {
+                    if (empty($e->recurrence)) {
+                        $results[] = $e->uid;
+                    }
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    /**
      * Clear the authentication and destroy the current session.
      */
     public function clearAuth()
