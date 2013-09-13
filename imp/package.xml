@@ -201,9 +201,9 @@
      <file name="ComposeAtc.php" role="horde" />
      <file name="Contents.php" role="horde" />
      <file name="Flags.php" role="horde" />
+     <file name="Ftree.php" role="horde" />
      <file name="Identity.php" role="horde" />
      <file name="Imap.php" role="horde" />
-     <file name="Imaptree.php" role="horde" />
      <file name="Mail.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="MailboxList.php" role="horde" />
@@ -247,36 +247,36 @@
      <file name="Imap.php" role="horde" />
      <file name="User.php" role="horde" />
     </dir> <!-- /lib/Flag -->
+    <dir name="Ftree">
+     <dir name="Account">
+      <file name="Imap.php" role="horde" />
+      <file name="Inboxonly.php" role="horde" />
+      <file name="Remote.php" role="horde" />
+     </dir> <!-- /lib/Ftree/Account -->
+     <dir name="IteratorFilter">
+      <file name="Ancestors.php" role="horde" />
+      <file name="Mailboxes.php" role="horde" />
+      <file name="Nocontainers.php" role="horde" />
+      <file name="Prefetch.php" role="horde" />
+     </dir> <!-- /lib/Ftree/IteratorFilter -->
+     <dir name="Prefs">
+      <file name="Expanded.php" role="horde" />
+      <file name="Poll.php" role="horde" />
+     </dir> <!-- /lib/Ftree/Prefs -->
+     <file name="Account.php" role="horde" />
+     <file name="Element.php" role="horde" />
+     <file name="Iterator.php" role="horde" />
+     <file name="IteratorFilter.php" role="horde" />
+     <file name="Prefs.php" role="horde" />
+     <file name="Select.php" role="horde" />
+    </dir> <!-- /lib/Ftree -->
     <dir name="Imap">
-     <dir name="Tree">
-      <dir name="Account">
-       <file name="Imap.php" role="horde" />
-       <file name="Inboxonly.php" role="horde" />
-       <file name="Remote.php" role="horde" />
-      </dir> <!-- /lib/Imap/Tree/Account -->
-      <dir name="IteratorFilter">
-       <file name="Ancestors.php" role="horde" />
-       <file name="Nocontainers.php" role="horde" />
-       <file name="Prefetch.php" role="horde" />
-      </dir> <!-- /lib/Imap/Tree/IteratorFilter -->
-      <dir name="Prefs">
-       <file name="Expanded.php" role="horde" />
-       <file name="Poll.php" role="horde" />
-      </dir> <!-- /lib/Imap/Tree/Prefs -->
-      <file name="Account.php" role="horde" />
-      <file name="Element.php" role="horde" />
-      <file name="Iterator.php" role="horde" />
-      <file name="IteratorFilter.php" role="horde" />
-      <file name="Prefs.php" role="horde" />
-      <file name="Select.php" role="horde" />
-     </dir> <!-- /lib/Imap/Tree -->
      <file name="Acl.php" role="horde" />
      <file name="Config.php" role="horde" />
      <file name="Exception.php" role="horde" />
      <file name="Password.php" role="horde" />
      <file name="PermanentFlags.php" role="horde" />
      <file name="Remote.php" role="horde" />
-     <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
     <dir name="Indices">
      <file name="Mailbox.php" role="horde" />
@@ -483,6 +483,7 @@
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
     <file name="Flags.php" role="horde" />
+    <file name="Ftree.php" role="horde" />
     <file name="Images.php" role="horde" />
     <file name="Imap.php" role="horde" />
     <file name="IMP.php" role="horde" />
@@ -1495,6 +1496,7 @@
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
    <install as="imp/lib/Flags.php" name="lib/Flags.php" />
+   <install as="imp/lib/Ftree.php" name="lib/Ftree.php" />
    <install as="imp/lib/Images.php" name="lib/Images.php" />
    <install as="imp/lib/Imap.php" name="lib/Imap.php" />
    <install as="imp/lib/IMP.php" name="lib/IMP.php" />
@@ -1572,9 +1574,9 @@
    <install as="imp/lib/Factory/ComposeAtc.php" name="lib/Factory/ComposeAtc.php" />
    <install as="imp/lib/Factory/Contents.php" name="lib/Factory/Contents.php" />
    <install as="imp/lib/Factory/Flags.php" name="lib/Factory/Flags.php" />
+   <install as="imp/lib/Factory/Ftree.php" name="lib/Factory/Ftree.php" />
    <install as="imp/lib/Factory/Identity.php" name="lib/Factory/Identity.php" />
    <install as="imp/lib/Factory/Imap.php" name="lib/Factory/Imap.php" />
-   <install as="imp/lib/Factory/Imaptree.php" name="lib/Factory/Imaptree.php" />
    <install as="imp/lib/Factory/Mail.php" name="lib/Factory/Mail.php" />
    <install as="imp/lib/Factory/Mailbox.php" name="lib/Factory/Mailbox.php" />
    <install as="imp/lib/Factory/MailboxList.php" name="lib/Factory/MailboxList.php" />
@@ -1609,27 +1611,27 @@
    <install as="imp/lib/Flag/System/Match/Address.php" name="lib/Flag/System/Match/Address.php" />
    <install as="imp/lib/Flag/System/Match/Flag.php" name="lib/Flag/System/Match/Flag.php" />
    <install as="imp/lib/Flag/System/Match/Header.php" name="lib/Flag/System/Match/Header.php" />
+   <install as="imp/lib/Ftree/Account.php" name="lib/Ftree/Account.php" />
+   <install as="imp/lib/Ftree/Element.php" name="lib/Ftree/Element.php" />
+   <install as="imp/lib/Ftree/Iterator.php" name="lib/Ftree/Iterator.php" />
+   <install as="imp/lib/Ftree/IteratorFilter.php" name="lib/Ftree/IteratorFilter.php" />
+   <install as="imp/lib/Ftree/Prefs.php" name="lib/Ftree/Prefs.php" />
+   <install as="imp/lib/Ftree/Select.php" name="lib/Ftree/Select.php" />
+   <install as="imp/lib/Ftree/Account/Imap.php" name="lib/Ftree/Account/Imap.php" />
+   <install as="imp/lib/Ftree/Account/Inboxonly.php" name="lib/Ftree/Account/Inboxonly.php" />
+   <install as="imp/lib/Ftree/Account/Remote.php" name="lib/Ftree/Account/Remote.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Ancestors.php" name="lib/Ftree/IteratorFilter/Ancestors.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Mailboxes.php" name="lib/Ftree/IteratorFilter/Mailboxes.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Nocontainers.php" name="lib/Ftree/IteratorFilter/Nocontainers.php" />
+   <install as="imp/lib/Ftree/IteratorFilter/Prefetch.php" name="lib/Ftree/IteratorFilter/Prefetch.php" />
+   <install as="imp/lib/Ftree/Prefs/Expanded.php" name="lib/Ftree/Prefs/Expanded.php" />
+   <install as="imp/lib/Ftree/Prefs/Poll.php" name="lib/Ftree/Prefs/Poll.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
    <install as="imp/lib/Imap/Config.php" name="lib/Imap/Config.php" />
    <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
    <install as="imp/lib/Imap/Password.php" name="lib/Imap/Password.php" />
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Remote.php" name="lib/Imap/Remote.php" />
-   <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
-   <install as="imp/lib/Imap/Tree/Account.php" name="lib/Imap/Tree/Account.php" />
-   <install as="imp/lib/Imap/Tree/Element.php" name="lib/Imap/Tree/Element.php" />
-   <install as="imp/lib/Imap/Tree/Iterator.php" name="lib/Imap/Tree/Iterator.php" />
-   <install as="imp/lib/Imap/Tree/IteratorFilter.php" name="lib/Imap/Tree/IteratorFilter.php" />
-   <install as="imp/lib/Imap/Tree/Prefs.php" name="lib/Imap/Tree/Prefs.php" />
-   <install as="imp/lib/Imap/Tree/Select.php" name="lib/Imap/Tree/Select.php" />
-   <install as="imp/lib/Imap/Tree/Account/Imap.php" name="lib/Imap/Tree/Account/Imap.php" />
-   <install as="imp/lib/Imap/Tree/Account/Inboxonly.php" name="lib/Imap/Tree/Account/Inboxonly.php" />
-   <install as="imp/lib/Imap/Tree/Account/Remote.php" name="lib/Imap/Tree/Account/Remote.php" />
-   <install as="imp/lib/Imap/Tree/IteratorFilter/Ancestors.php" name="lib/Imap/Tree/IteratorFilter/Ancestors.php" />
-   <install as="imp/lib/Imap/Tree/IteratorFilter/Nocontainers.php" name="lib/Imap/Tree/IteratorFilter/Nocontainers.php" />
-   <install as="imp/lib/Imap/Tree/IteratorFilter/Prefetch.php" name="lib/Imap/Tree/IteratorFilter/Prefetch.php" />
-   <install as="imp/lib/Imap/Tree/Prefs/Expanded.php" name="lib/Imap/Tree/Prefs/Expanded.php" />
-   <install as="imp/lib/Imap/Tree/Prefs/Poll.php" name="lib/Imap/Tree/Prefs/Poll.php" />
    <install as="imp/lib/Indices/Mailbox.php" name="lib/Indices/Mailbox.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />

@@ -12,8 +12,8 @@
  */
 
 /**
- * Iterator filter for the IMP_Imap_Tree object that allows filtering of
- * specific mailbox names.
+ * Iterator filter for the IMP_Ftree object that allows filtering of specific
+ * mailbox names.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -21,7 +21,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Tree_IteratorFilter_Mailboxes extends FilterIterator
+class IMP_Ftree_IteratorFilter_Mailboxes extends FilterIterator
 {
     /**
      * Mailboxes to filter.

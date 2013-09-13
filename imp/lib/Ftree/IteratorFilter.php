@@ -12,7 +12,7 @@
  */
 
 /**
- * Iterator filter for the IMP_Imap_Tree object.
+ * Iterator filter for the IMP_Ftree object.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Tree_IteratorFilter extends RecursiveFilterIterator
+class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
 {
     /* The list filtering constants. */
     const NO_CHILDREN = 1;
@@ -50,14 +50,14 @@ class IMP_Imap_Tree_IteratorFilter extends RecursiveFilterIterator
     /**
      * Creates an Iterator object.
      *
-     * @param integer $mask               Any mask to apply to the filter.
-     * @param IMP_Imap_Tree_Element $elt  Base element.
+     * @param integer $mask           Any mask to apply to the filter.
+     * @param IMP_Ftree_Element $elt  Base element.
      *
      * @return Iterator  Filter iterator.
      */
     static public function create($mask = 0, $elt = null)
     {
-        $ob = new self(new IMP_Imap_Tree_Iterator($elt));
+        $ob = new self(new IMP_Ftree_Iterator($elt));
         $ob->setFilter($mask);
         return $ob->getIterator();
     }
@@ -154,8 +154,8 @@ class IMP_Imap_Tree_IteratorFilter extends RecursiveFilterIterator
         $key = $this->key();
 
         if (isset($this->_cache[$key])) {
-            $filter = new IMP_Imap_Tree_IteratorFilter_Prefetch(
-                new IMP_Imap_Tree_Iterator($this->_cache[$key])
+            $filter = new IMP_Ftree_IteratorFilter_Prefetch(
+                new IMP_Ftree_Iterator($this->_cache[$key])
             );
             unset($this->_cache[$key]);
         } else {

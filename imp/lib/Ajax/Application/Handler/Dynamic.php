@@ -72,7 +72,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $parent = isset($this->vars->parent)
             ? IMP_Mailbox::formFrom($this->vars->parent)
-            : IMP_Mailbox::get(IMP_Imap_Tree::BASE_ELT);
+            : IMP_Mailbox::get(IMP_Ftree::BASE_ELT);
         $new_mbox = $parent->createMailboxName($this->vars->mbox);
 
         if ($new_mbox->exists) {
@@ -274,17 +274,17 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $GLOBALS['session']->close();
         }
 
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $ftree = $GLOBALS['injector']->getInstance('IMP_Ftree');
         $initreload = ($this->vars->initial || $this->vars->reload);
 
         if ($this->vars->reload) {
-            $imptree->init();
+            $ftree->init();
         }
 
-        $iterator = 'IMP_Imap_Tree_IteratorFilter';
+        $iterator = 'IMP_Ftree_IteratorFilter';
         if ($this->vars->unsub) {
-            $imptree->loadUnsubscribed();
-            $mask = IMP_Imap_Tree_IteratorFilter::UNSUB;
+            $ftree->loadUnsubscribed();
+            $mask = IMP_Ftree_IteratorFilter::UNSUB;
         } else {
             $mask = 0;
         }
@@ -297,11 +297,11 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $this->_base->queue->setMailboxOpt('all', 1);
         } else {
             if ($initreload) {
-                $iterator = 'IMP_Imap_Tree_IteratorFilter_Ancestors';
+                $iterator = 'IMP_Ftree_IteratorFilter_Ancestors';
                 if ($GLOBALS['prefs']->getValue('nav_expanded')) {
                     $this->_base->queue->setMailboxOpt('expand', 1);
                 } else {
-                    $mask |= IMP_Imap_Tree_IteratorFilter::NO_CHILDREN;
+                    $mask |= IMP_Ftree_IteratorFilter::NO_CHILDREN;
                 }
             } else {
                 $this->_base->queue->setMailboxOpt('expand', 1);
@@ -315,14 +315,14 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             }
 
             foreach ($mboxes as $val) {
-                if ($val = $imptree[$val]) {
+                if ($val = $ftree[$val]) {
                     foreach ($iterator::create($mask, $val) as $val2) {
-                        $imptree->addEltDiff($val2);
+                        $ftree->addEltDiff($val2);
                         $this->_base->queue->poll($val2);
                     }
 
                     if (!$initreload) {
-                        $imptree->expand($val);
+                        $ftree->expand($val);
                     }
                 }
             }
@@ -333,13 +333,13 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
          * slice requested, and need to be sorted logically. */
         if ($initreload) {
             foreach (IMP_Mailbox::getSpecialMailboxesSort() as $val) {
-                if (isset($imptree[$val])) {
-                    $imptree->addEltDiff($val);
+                if (isset($ftree[$val])) {
+                    $ftree->addEltDiff($val);
                 }
             }
 
             /* Poll all mailboxes on initial display. */
-            $this->_base->queue->poll($imptree->getPollList());
+            $this->_base->queue->poll($ftree->getPollList());
         }
 
         $this->_base->queue->quota($this->_base->indices->mailbox);
@@ -399,11 +399,11 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $result->mbox = $this->vars->mbox;
 
         if ($this->vars->add) {
-            $injector->getInstance('IMP_Imap_Tree')->addPollList($mbox);
+            $injector->getInstance('IMP_Ftree')->addPollList($mbox);
             $this->_base->queue->poll($mbox);
             $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox now polled for new mail."), $mbox->display), 'horde.success');
         } else {
-            $injector->getInstance('IMP_Imap_Tree')->removePollList($mbox);
+            $injector->getInstance('IMP_Ftree')->removePollList($mbox);
             $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox no longer polled for new mail."), $mbox->display), 'horde.success');
         }
 

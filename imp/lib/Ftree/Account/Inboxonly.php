@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Tree_Account_Inboxonly extends IMP_Imap_Tree_Account
+class IMP_Ftree_Account_Inboxonly extends IMP_Ftree_Account
 {
     /**
      */
@@ -28,7 +28,7 @@ class IMP_Imap_Tree_Account_Inboxonly extends IMP_Imap_Tree_Account
     {
         return array(
             array(
-                'a' => IMP_Imap_Tree::ELT_IS_SUBSCRIBED,
+                'a' => IMP_Ftree::ELT_IS_SUBSCRIBED,
                 'v' => 'INBOX'
             )
         );

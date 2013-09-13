@@ -1659,7 +1659,7 @@ $_prefs['subscribe'] = array(
     'type' => 'checkbox',
     'desc' => _("Use IMAP mailbox subscriptions?"),
     'on_change' => function() {
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
+        $GLOBALS['injector']->getInstance('IMP_Ftree')->init();
     }
 );
 
@@ -1667,9 +1667,9 @@ $_prefs['nav_expanded'] = array(
     'value' => 2,
     'type' => 'enum',
     'enum' => array(
-        IMP_Imap_Tree_Prefs_Expanded::NO => _("No"),
-        IMP_Imap_Tree_Prefs_Expanded::YES => _("Yes"),
-        IMP_Imap_Tree_Prefs_Expanded::LAST => _("Remember the last view")
+        IMP_Ftree_Prefs_Expanded::NO => _("No"),
+        IMP_Ftree_Prefs_Expanded::YES => _("Yes"),
+        IMP_Ftree_Prefs_Expanded::LAST => _("Remember the last view")
     ),
     'desc' => _("Expand the entire folder tree by default in the folders view?"),
     'suppress' => function() {
@@ -1690,7 +1690,7 @@ $_prefs['tree_view'] = array(
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     },
     'on_change' => function() {
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
+        $GLOBALS['injector']->getInstance('IMP_Ftree')->init();
     }
 );
 
@@ -1709,7 +1709,7 @@ $_prefs['nav_poll_all'] = array(
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     },
     'on_change' => function() {
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
+        $GLOBALS['injector']->getInstance('IMP_Ftree')->init();
     }
 );
 

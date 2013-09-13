@@ -202,7 +202,7 @@ class IMP_Ajax_Queue
         }
 
         /* Add folder tree information. */
-        if ($out = $injector->getInstance('IMP_Imap_Tree')->getAjaxResponse()) {
+        if ($out = $injector->getInstance('IMP_Ftree')->getAjaxResponse()) {
             $ajax->addTask('mailbox', array_merge($out, $this->_mailboxOpts));
         }
 

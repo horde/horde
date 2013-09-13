@@ -902,8 +902,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $sent_mail = IMP_Mailbox::formFrom($this->vars->sent_mail);
                 }
                 if (!$prefs->isLocked(IMP_Mailbox::MBOX_SENT)) {
-                    $iterator = new IMP_Imap_Tree_IteratorFilter_Mailboxes(
-                        IMP_Imap_Tree_IteratorFilter::create(IMP_Imap_Tree_IteratorFilter::NO_NONIMAP)
+                    $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
+                        IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP)
                     );
                     $iterator->setFilter(array('INBOX'));
 
@@ -920,7 +920,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                         $sent_mail->create();
                     }
 
-                    $view->ssm_mboxes = new IMP_Imap_Tree_Select($ssm_options);
+                    $view->ssm_mboxes = new IMP_Ftree_Select($ssm_options);
                 } else {
                     if ($sent_mail) {
                         $sent_mail = '&quot;' . $sent_mail->display_html . '&quot;';

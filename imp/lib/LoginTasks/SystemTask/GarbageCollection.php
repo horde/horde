@@ -39,7 +39,7 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
         /* These require mail server authentication. */
         try {
             /* Purge non-existent nav_poll entries. */
-            $injector->getInstance('IMP_Imap_Tree')->poll->prunePollList();
+            $injector->getInstance('IMP_Ftree')->poll->prunePollList();
 
             /* Purge non-existent search sorts. */
             $injector->getInstance('IMP_Prefs_Sort')->gc();

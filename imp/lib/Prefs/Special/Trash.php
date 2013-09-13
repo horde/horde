@@ -49,12 +49,12 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         $view->addHelper('Horde_Core_View_Helper_Label');
         $view->addHelper('Tag');
 
-        $iterator = new IMP_Imap_Tree_IteratorFilter_Mailboxes(
-            IMP_Imap_Tree_IteratorFilter::create(IMP_Imap_Tree_IteratorFilter::NO_NONIMAP)
+        $iterator = new IMP_Ftree_IteratorFilter_Mailboxes(
+            IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP)
         );
         $iterator->setFilter(array('INBOX'));
 
-        $view->flist = new IMP_Imap_Tree_Select(array(
+        $view->flist = new IMP_Ftree_Select(array(
             'basename' => true,
             'iterator' => $iterator,
             'new_mbox' => true,

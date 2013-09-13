@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Tree_Prefs_Poll extends IMP_Imap_Tree_Prefs
+class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
 {
     /**
      * Constructor.
@@ -66,7 +66,7 @@ class IMP_Imap_Tree_Prefs_Poll extends IMP_Imap_Tree_Prefs
             }
         }
 
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->removePollList($prune);
+        $GLOBALS['injector']->getInstance('IMP_Ftree')->removePollList($prune);
     }
 
 }

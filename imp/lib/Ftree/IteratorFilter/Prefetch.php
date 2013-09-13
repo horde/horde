@@ -12,10 +12,10 @@
  */
 
 /**
- * Stores/delivers pre-fetched IMP_Imap_Tree_IteratorFilter data. Needed
- * because IMP_Imap_Tree_IteratorFilter requires a RecursiveFilterIterator
- * object to be returned (otherwise, this could be accomplished by using
- * something simpler like an ArrayIterator instead).
+ * Stores/delivers pre-fetched IMP_Ftree_IteratorFilter data. Needed
+ * because IMP_Ftree_IteratorFilter requires a RecursiveFilterIterator object
+ * to be returned (otherwise, this could be accomplished by using something
+ * simpler like an ArrayIterator instead).
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -23,7 +23,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Tree_IteratorFilter_Prefetch extends RecursiveFilterIterator
+class IMP_Ftree_IteratorFilter_Prefetch extends RecursiveFilterIterator
 {
     /**
      */
@@ -37,7 +37,7 @@ class IMP_Imap_Tree_IteratorFilter_Prefetch extends RecursiveFilterIterator
     public function getChildren()
     {
         /* This should never be reached. */
-        return new self(new IMP_Imap_Tree_IteratorFilter(array()));
+        return new self(new IMP_Ftree_IteratorFilter(array()));
     }
 
     /**

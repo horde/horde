@@ -34,22 +34,22 @@ class IMP_Minimal_Folders extends IMP_Minimal_Base
         $subscribe = $prefs->getValue('subscribe');
         $showAll = (!$subscribe || $session->get('imp', 'showunsub'));
 
-        /* Initialize the IMP_Imap_Tree object. */
-        $imptree = $injector->getInstance('IMP_Imap_Tree');
-        $mask = IMP_Imap_Tree_IteratorFilter::NO_REMOTE;
+        /* Initialize the IMP_Ftree object. */
+        $ftree = $injector->getInstance('IMP_Ftree');
+        $mask = IMP_Ftree_IteratorFilter::NO_REMOTE;
 
         /* Toggle subscribed view, if necessary. */
         if ($subscribe && $this->vars->ts) {
             $showAll = !$showAll;
             $session->set('imp', 'showunsub', $showAll);
             if ($showAll) {
-                $imptree->loadUnsubscribed();
-                $mask |= IMP_Imap_Tree_IteratorFilter::UNSUB;
+                $ftree->loadUnsubscribed();
+                $mask |= IMP_Ftree_IteratorFilter::UNSUB;
             }
         }
 
-        $tree = $imptree->createTree('mimp_folders', array(
-            'iterator' => IMP_Imap_Tree_IteratorFilter::create($mask),
+        $tree = $ftree->createTree('mimp_folders', array(
+            'iterator' => IMP_Ftree_IteratorFilter::create($mask),
             'poll_info' => true,
             'render_type' => 'IMP_Tree_Simplehtml'
         ));

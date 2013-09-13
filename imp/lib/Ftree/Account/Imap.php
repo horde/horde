@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Tree_Account_Imap extends IMP_Imap_Tree_Account
+class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
 {
     /**
      */
@@ -42,17 +42,17 @@ class IMP_Imap_Tree_Account_Imap extends IMP_Imap_Tree_Account
 
                         switch ($val['type']) {
                         case Horde_Imap_Client::NS_OTHER:
-                            $type = IMP_Imap_Tree::OTHER_KEY;
+                            $type = IMP_Ftree::OTHER_KEY;
                             break;
 
                         case Horde_Imap_Client::NS_SHARED:
-                            $type = IMP_Imap_Tree::SHARED_KEY;
+                            $type = IMP_Ftree::SHARED_KEY;
                             break;
                         }
 
                         if (!is_null($type)) {
                             $out[$type] = array(
-                                'a' => IMP_Imap_Tree::ELT_NOSELECT | IMP_Imap_Tree::ELT_NAMESPACE | IMP_Imap_Tree::ELT_NONIMAP,
+                                'a' => IMP_Ftree::ELT_NOSELECT | IMP_Ftree::ELT_NAMESPACE | IMP_Ftree::ELT_NONIMAP,
                                 'v' => $type
                             );
                         }
@@ -100,18 +100,18 @@ class IMP_Imap_Tree_Account_Imap extends IMP_Imap_Tree_Account
 
                         if (!$unsub ||
                             in_array('\subscribed', $val['attributes'])) {
-                            $attr |= IMP_Imap_Tree::ELT_IS_SUBSCRIBED;
+                            $attr |= IMP_Ftree::ELT_IS_SUBSCRIBED;
                         }
 
                         if (in_array('\noselect', $val['attributes'])) {
-                            $attr |= IMP_Imap_Tree::ELT_NOSELECT;
+                            $attr |= IMP_Ftree::ELT_NOSELECT;
                         }
 
                         if (in_array('\noinferiors', $val['attributes'])) {
-                            $attr |= IMP_Imap_Tree::ELT_NOINFERIORS;
+                            $attr |= IMP_Ftree::ELT_NOINFERIORS;
                         }
                     } else {
-                        $attr = IMP_Imap_Tree::ELT_NOSELECT;
+                        $attr = IMP_Ftree::ELT_NOSELECT;
                     }
 
                     $out[$part] = array(

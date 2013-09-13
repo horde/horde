@@ -59,7 +59,7 @@ extends Horde_Core_Notification_Handler_Decorator_Base
 
         try {
             $ns = $imp_imap->getNamespace();
-            foreach ($imp_imap->statusMultiple($injector->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_RECENT_TOTAL, array('sort' => true, 'sort_delimiter' => $ns['delimiter'])) as $key => $val) {
+            foreach ($imp_imap->statusMultiple($injector->getInstance('IMP_Ftree')->getPollList(), Horde_Imap_Client::STATUS_RECENT_TOTAL, array('sort' => true, 'sort_delimiter' => $ns['delimiter'])) as $key => $val) {
                 if (!empty($val['recent_total'])) {
                     /* Open the mailbox R/W so we ensure the 'recent' flag is
                      * cleared. */

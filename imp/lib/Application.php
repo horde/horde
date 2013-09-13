@@ -101,7 +101,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Crypt_Smime' => 'IMP_Factory_Smime',
             'IMP_Flags' => 'IMP_Factory_Flags',
             'IMP_Identity' => 'IMP_Factory_Identity',
-            'IMP_Imap_Tree' => 'IMP_Factory_Imaptree',
+            'IMP_Ftree' => 'IMP_Factory_Ftree',
             'IMP_Mail' => 'IMP_Factory_Mail',
             'IMP_Maillog' => 'IMP_Factory_Maillog',
             'IMP_Prefs_Sort' => 'IMP_Factory_PrefsSort',
@@ -272,8 +272,8 @@ class IMP_Application extends Horde_Registry_Application
                     ->getInstance('Horde_Core_Factory_Tree')
                     ->create('imp_menu', 'Horde_Tree_Renderer_Sidebar', array('nosession' => true));
 
-                $tree = $injector->getInstance('IMP_Imap_Tree')->createTree($tree, array(
-                    'iterator' => IMP_Imap_Tree_IteratorFilter::create(IMP_Imap_Tree_IteratorFilter::NO_REMOTE | IMP_Imap_Tree_IteratorFilter::NO_VFOLDER),
+                $tree = $injector->getInstance('IMP_Ftree')->createTree($tree, array(
+                    'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE | IMP_Ftree_IteratorFilter::NO_VFOLDER),
                     'open' => false,
                     'poll_info' => true
                 ));
@@ -462,7 +462,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function changeLanguage()
     {
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
+        $GLOBALS['injector']->getInstance('IMP_Ftree')->init();
     }
 
     /* NoSQL methods. */

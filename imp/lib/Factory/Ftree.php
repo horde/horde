@@ -12,7 +12,7 @@
  */
 
 /**
- * A Horde_Injector based factory for the IMP_Imap_Tree object.
+ * A Horde_Injector based factory for the IMP_Ftree object.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,23 +20,25 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_Shutdown_Task
+class IMP_Factory_Ftree
+extends Horde_Core_Factory_Injector
+implements Horde_Shutdown_Task
 {
     /**
-     * @var IMP_Imap_Tree
+     * @var IMP_Ftree
      */
     private $_instance;
 
     /**
-     * Return the IMP_Imap_Tree object.
+     * Return the IMP_Ftree object.
      *
-     * @return IMP_Imap_Tree  The singleton instance.
+     * @return IMP_Ftree  The singleton instance.
      */
     public function create(Horde_Injector $injector)
     {
         global $registry, $session;
 
-        /* If an IMP_Imap_Tree object is currently stored in the cache,
+        /* If an IMP_Ftree object is currently stored in the cache,
          * re-create that object.  Else, create a new instance. */
         if ($session->exists('imp', 'treeob')) {
             /* Since IMAP tree generation is so expensive/time-consuming,
@@ -49,15 +51,15 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_
                 try {
                     $this->_instance = @unserialize($cache->get($session->get('imp', 'treeob'), 0));
                 } catch (Exception $e) {
-                    Horde::log('Could not unserialize stored IMP_Imap_Tree object.', 'DEBUG');
+                    Horde::log('Could not unserialize stored IMP_Ftree object.', 'DEBUG');
                 }
             }
         } else {
             $session->set('imp', 'treeob', strval(new Horde_Support_Randomid()));
         }
 
-        if (!($this->_instance instanceof IMP_Imap_Tree)) {
-            $this->_instance = new IMP_Imap_Tree();
+        if (!($this->_instance instanceof IMP_Ftree)) {
+            $this->_instance = new IMP_Ftree();
         }
 
         switch ($registry->getView()) {

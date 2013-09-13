@@ -127,9 +127,8 @@
  *                                      query?
  * @property-read boolean $templates  Is this a Templates mailbox?
  * @property-read boolean $trash  Is this a Trash mailbox?
- * @property-read IMP_Imap_Tree_Element $tree_elt  The tree element (null if
- *                                                 it doesn't exist in the
- *                                                 tree).
+ * @property-read IMP_Ftree_Element $tree_elt  The tree element (null if it
+ *                                             doesn't exist in the tree).
  * @property-read string $uidvalid  Returns the UIDVALIDITY string. Throws an
  *                                  IMP_Exception on error.
  * @property-read string $utf7imap  The UTF7-IMAP representation of this
@@ -282,7 +281,7 @@ class IMP_Mailbox implements Serializable
             throw new IMP_Exception('Mailbox name must not be empty.');
         }
 
-        $this->_mbox = ($mbox == IMP_Imap_Tree::BASE_ELT)
+        $this->_mbox = ($mbox == IMP_Ftree::BASE_ELT)
             ? ''
             : $mbox;
 
@@ -591,7 +590,7 @@ class IMP_Mailbox implements Serializable
             return ($elt = $this->tree_elt) ? $elt->mbox_ob : null;
 
         case 'parent_imap':
-            return (is_null($p = $this->parent) || ($p == IMP_Imap_Tree::BASE_ELT))
+            return (is_null($p = $this->parent) || ($p == IMP_Ftree::BASE_ELT))
                 ? null
                 : $p;
 
@@ -657,7 +656,7 @@ class IMP_Mailbox implements Serializable
             return (!is_null($tmp) && ($tmp != $this->_mbox));
 
         case 'remote_container':
-            return (($this->_mbox == IMP_Imap_Tree::REMOTE_KEY) ||
+            return (($this->_mbox == IMP_Ftree::REMOTE_KEY) ||
                     ($injector->getInstance('IMP_Remote')->getRemoteById($this->_mbox) == $this->_mbox));
 
         case 'search':
@@ -727,8 +726,8 @@ class IMP_Mailbox implements Serializable
             return ($this->_mbox == $special[self::SPECIAL_TRASH]);
 
         case 'tree_elt':
-            $imptree = $injector->getInstance('IMP_Imap_Tree');
-            return $imptree[$this->_mbox];
+            $ftree = $injector->getInstance('IMP_Ftree');
+            return $ftree[$this->_mbox];
 
         case 'uidvalid':
             // POP3 and non-IMAP mailboxes does not support UIDVALIDITY.
@@ -759,7 +758,7 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Search')->isVFolder($this->_mbox);
 
         case 'vfolder_container':
-            return ($this->_mbox == IMP_Imap_Tree::VFOLDER_KEY);
+            return ($this->_mbox == IMP_Ftree::VFOLDER_KEY);
 
         case 'vinbox':
             return $injector->getInstance('IMP_Search')->isVinbox($this->_mbox);
@@ -853,7 +852,7 @@ class IMP_Mailbox implements Serializable
         }
 
         /* Update the mailbox tree. */
-        $injector->getInstance('IMP_Imap_Tree')->insert($this->_mbox);
+        $injector->getInstance('IMP_Ftree')->insert($this->_mbox);
 
         return true;
     }
@@ -913,7 +912,7 @@ class IMP_Mailbox implements Serializable
         }
 
         if (!empty($deleted)) {
-            $injector->getInstance('IMP_Imap_Tree')->delete($deleted);
+            $injector->getInstance('IMP_Ftree')->delete($deleted);
             $this->_onDelete($deleted);
         }
 
@@ -954,7 +953,7 @@ class IMP_Mailbox implements Serializable
 
         $notification->push(sprintf(_("The mailbox \"%s\" was successfully renamed to \"%s\"."), $this->display, $new_mbox->display), 'horde.success');
 
-        $injector->getInstance('IMP_Imap_Tree')->rename($this->_mbox, strval($new_mbox));
+        $injector->getInstance('IMP_Ftree')->rename($this->_mbox, strval($new_mbox));
         $this->_onDelete($old_list);
 
         return true;
@@ -1000,7 +999,7 @@ class IMP_Mailbox implements Serializable
             return false;
         }
 
-        $imap_tree = $injector->getInstance('IMP_Imap_Tree');
+        $imap_tree = $injector->getInstance('IMP_Ftree');
         if ($sub) {
             $imap_tree->subscribe($this->_mbox);
         } else {
@@ -1609,16 +1608,16 @@ class IMP_Mailbox implements Serializable
 
         /* Handle special container mailboxes. */
         switch ($this->_mbox) {
-        case IMP_Imap_Tree::OTHER_KEY:
+        case IMP_Ftree::OTHER_KEY:
             return _("Other Users");
 
-        case IMP_Imap_Tree::REMOTE_KEY:
+        case IMP_Ftree::REMOTE_KEY:
             return _("Remote Accounts");
 
-        case IMP_Imap_Tree::SHARED_KEY:
+        case IMP_Ftree::SHARED_KEY:
             return _("Shared");
 
-        case IMP_Imap_Tree::VFOLDER_KEY:
+        case IMP_Ftree::VFOLDER_KEY:
             return _("Virtual Folders");
         }
 

@@ -61,9 +61,9 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
             $res->success = true;
             $notification->push(sprintf(_("Successfully authenticated to %s."), $remote_ob->label), 'horde.success');
 
-            $imptree = $injector->getInstance('IMP_Imap_Tree');
-            $imptree->delete($remote_ob);
-            $imptree->insert($remote_ob);
+            $ftree = $injector->getInstance('IMP_Ftree');
+            $ftree->delete($remote_ob);
+            $ftree->insert($remote_ob);
         } catch (Exception $e) {
             $notification->push(sprintf(_("Could not authenticate to %s."), $remote_ob->label), 'horde.error');
         }

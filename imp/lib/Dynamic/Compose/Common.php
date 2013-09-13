@@ -116,7 +116,7 @@ class IMP_Dynamic_Compose_Common
 
                 $flist = array();
 
-                foreach ($injector->getInstance('IMP_Imap_Tree') as $val) {
+                foreach ($injector->getInstance('IMP_Ftree') as $val) {
                     $mbox_ob = $val->mbox_ob;
                     $tmp = array(
                         'f' => $mbox_ob->display,

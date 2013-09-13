@@ -12,9 +12,9 @@
  */
 
 /**
- * Provides a tree view of the mailboxes on an IMAP server (a/k/a a folder
- * list; in IMP, folders = collection of mailboxes), along with other display
- * elements (Remote Accounts; Virtual Folders).
+ * IMP_Ftree (folder tree) provides a tree view of the mailboxes on a backend
+ * (a/k/a a folder list; in IMP, folders = collection of mailboxes), along
+ * with other display elements (Remote Accounts; Virtual Folders).
  *
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Anil Madhavapeddy <avsm@horde.org>
@@ -26,11 +26,11 @@
  * @package   IMP
  *
  * @property-read boolean $changed  Has the tree changed?
- * @property-read IMP_Imap_Tree_Prefs_Expanded $expanded  The expanded folders
+ * @property-read IMP_ap_Tree_Prefs_Expanded $expanded  The expanded folders
  *                                                        list.
- * @property-read IMP_Imap_Tree_Prefs_Poll $poll  The poll list.
+ * @property-read IMP_Ftree_Prefs_Poll $poll  The poll list.
  */
-class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serializable
+class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializable
 {
     /* Constants for mailboxElt attributes. */
     const ELT_NOSELECT = 1;
@@ -131,13 +131,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
 
         case 'expanded':
             if (!isset($this->_temp['expanded'])) {
-                $this->_temp['expanded'] = new IMP_Imap_Tree_Prefs_Expanded();
+                $this->_temp['expanded'] = new IMP_Ftree_Prefs_Expanded();
             }
             return $this->_temp['expanded'];
 
         case 'poll':
             if (!isset($this->_temp['poll'])) {
-                $this->_temp['poll'] = new IMP_Imap_Tree_Prefs_Poll();
+                $this->_temp['poll'] = new IMP_Ftree_Prefs_Poll();
             }
             return $this->_temp['poll'];
         }
@@ -166,16 +166,16 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
         $this->_elts[self::BASE_ELT] = self::ELT_NEED_SORT | self::ELT_NONIMAP;
         $this->_parent[self::BASE_ELT] = array();
 
-        $mask = IMP_Imap_Tree_Account::INIT;
+        $mask = IMP_Ftree_Account::INIT;
         if (!$access_folders || !$prefs->getValue('subscribe') || $session->get('imp', 'showunsub')) {
-            $mask |= IMP_Imap_Tree_Account::UNSUB;
+            $mask |= IMP_Ftree_Account::UNSUB;
             $this->setAttribute('subscribed', self::BASE_ELT, true);
         }
 
         /* Add base account. */
         $ob = $this->_accounts[self::BASE_ELT] = $access_folders
-            ? new IMP_Imap_Tree_Account_Imap()
-            : new IMP_Imap_Tree_Account_Inboxonly();
+            ? new IMP_Ftree_Account_Imap()
+            : new IMP_Ftree_Account_Inboxonly();
         array_map(array($this, '_insertElt'), $ob->getList($mask));
 
         /* Add remote servers. */
@@ -220,7 +220,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
                 if ($val->imp_imap->init) {
                     $elt_mask |= self::ELT_REMOTE_AUTH;
                 }
-                $this->_accounts[strval($val)] = new IMP_Imap_Tree_Account_Remote($val);
+                $this->_accounts[strval($val)] = new IMP_Ftree_Account_Remote($val);
             } else {
                 $to_insert[strval($this->getAccount($val))] = $this->_normalize($val);
                 $key = null;
@@ -397,7 +397,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
         $old_list = array_merge(
             array($old),
             iterator_to_array(
-                IMP_Imap_Tree_Iterator_Filter::create(0, $old),
+                IMP_Ftree_Iterator_Filter::create(0, $old),
                 false
             )
         );
@@ -723,7 +723,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
      *
      * @param string $id  Element ID.
      *
-     * @return IMP_Imap_Tree_Account  Account object.
+     * @return IMP_Ftree_Account  Account object.
      */
     public function getAccount($id)
     {
@@ -760,7 +760,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
      *
      * @param string $id  Element ID.
      *
-     * @return mixed  IMP_Imap_Tree_Element object, or null if no parent.
+     * @return mixed  IMP_Ftree_Element object, or null if no parent.
      */
     public function getParent($id)
     {
@@ -1167,17 +1167,17 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
     }
 
     /**
-     * @return IMP_Imap_Tree_Element
+     * @return IMP_Ftree_Element
      */
     public function offsetGet($offset)
     {
-        if ($offset instanceof IMP_Imap_Tree_Element) {
+        if ($offset instanceof IMP_Ftree_Element) {
             return $offset;
         }
 
         $offset = $this->_normalize($offset);
         return isset($this->_elts[$offset])
-            ? new IMP_Imap_Tree_Element($offset, $this)
+            ? new IMP_Ftree_Element($offset, $this)
             : null;
     }
 
@@ -1205,8 +1205,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
         $this->loadUnsubscribed();
 
         return iterator_count(
-            IMP_Imap_Tree_IteratorFilter::create(
-                IMP_Imap_Tree_IteratorFilter::NO_NONIMAP | IMP_Imap_Tree_IteratorFilter::UNSUB
+            IMP_Ftree_IteratorFilter::create(
+                IMP_Ftree_IteratorFilter::NO_NONIMAP | IMP_Ftree_IteratorFilter::UNSUB
             )
         );
     }
@@ -1448,7 +1448,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
      */
     public function getIterator()
     {
-        return new IMP_Imap_Tree_Iterator($this[self::BASE_ELT]);
+        return new IMP_Ftree_Iterator($this[self::BASE_ELT]);
     }
 
 }

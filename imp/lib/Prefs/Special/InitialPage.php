@@ -46,10 +46,10 @@ class IMP_Prefs_Special_InitialPage implements Horde_Core_Prefs_Ui_Special
         }
         $view->folder_page = IMP_Mailbox::formTo(IMP::INITIAL_FOLDERS);
         $view->folder_sel = ($initial_page == IMP::INITIAL_FOLDERS);
-        $view->flist = new IMP_Imap_Tree_Select(array(
+        $view->flist = new IMP_Ftree_Select(array(
             'basename' => true,
             'inc_vfolder' => true,
-            'iterator' => IMP_Imap_Tree_IteratorFilter::create(IMP_Imap_Tree_IteratorFilter::NO_REMOTE),
+            'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE),
             'selected' => $initial_page
         ));
 

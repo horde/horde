@@ -22,7 +22,7 @@
  *
  * @property-read boolean $locked  True if pref is locked.
  */
-class IMP_Imap_Tree_Prefs implements ArrayAccess, Horde_Shutdown_Task
+class IMP_Ftree_Prefs implements ArrayAccess, Horde_Shutdown_Task
 {
     /**
      * Preference data.

@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Tree_Prefs_Expanded extends IMP_Imap_Tree_Prefs
+class IMP_Ftree_Prefs_Expanded extends IMP_Ftree_Prefs
 {
     /* Constants for nav_expanded. */
     const NO = 0;

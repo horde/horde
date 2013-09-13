@@ -154,9 +154,9 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
                 IMP_Mailbox::CACHE_DISPLAY,
                 IMP_Mailbox::CACHE_LABEL
             ));
-            $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-            $imptree->delete($ob);
-            $imptree->insert($ob);
+            $ftree = $GLOBALS['injector']->getInstance('IMP_Ftree');
+            $ftree->delete($ob);
+            $ftree->insert($ob);
             break;
         }
 
@@ -495,9 +495,9 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
                 if ($key == 'vfolders') {
                     $this->setVFolders($this->_search['vfolders']);
 
-                    $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-                    $imptree->delete($value);
-                    $imptree->insert($value);
+                    $ftree = $GLOBALS['injector']->getInstance('IMP_Ftree');
+                    $ftree->delete($value);
+                    $ftree->insert($value);
                 }
                 return;
             }
@@ -523,7 +523,7 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
 
                 if ($val == 'vfolders') {
                     $this->setVFolders($this->_search['vfolders']);
-                    $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete($value);
+                    $GLOBALS['injector']->getInstance('IMP_Ftree')->delete($value);
                 }
                 break;
             }

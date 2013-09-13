@@ -83,7 +83,7 @@ class IMP_Perms
             ),
             'max_create_mboxes' => array(
                 'handle' => function($allowed, $opts) {
-                    return (intval($allowed) >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
+                    return (intval($allowed) >= count($GLOBALS['injector']->getInstance('IMP_Ftree')));
                 },
                 'imaponly' => true,
                 'title' => _("Maximum Number of Mailboxes"),

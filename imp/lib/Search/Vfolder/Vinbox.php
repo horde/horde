@@ -50,9 +50,9 @@ class IMP_Search_Vfolder_Vinbox extends IMP_Search_Vfolder_Builtin
     {
         switch ($name) {
         case 'mboxes':
-            $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-            $imptree->poll->prunePollList();
-            return $imptree->getPollList(true);
+            $ftree = $GLOBALS['injector']->getInstance('IMP_Ftree');
+            $ftree->poll->prunePollList();
+            return $ftree->getPollList(true);
         }
 
         return parent::__get($name);

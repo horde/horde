@@ -91,7 +91,7 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
 
                 $notification->push(sprintf(_("Account \"%s\" added."), $ui->vars->remote_server), 'horde.success');
 
-                $injector->getInstance('IMP_Imap_Tree')->insert($ob);
+                $injector->getInstance('IMP_Ftree')->insert($ob);
             } catch (IMP_Exception $e) {
                 $notification->push($e->getMessage(), 'horde.error');
             }
@@ -103,7 +103,7 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
                 unset($remote[$ui->vars->remote_data]);
                 $notification->push(sprintf(_("Account \"%s\" deleted."), $ob->label), 'horde.success');
 
-                $injector->getInstance('IMP_Imap_Tree')->delete($ob);
+                $injector->getInstance('IMP_Ftree')->delete($ob);
             }
             break;
         }

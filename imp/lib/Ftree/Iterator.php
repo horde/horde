@@ -12,7 +12,7 @@
  */
 
 /**
- * Iterator for the IMP_Imap_Tree object.
+ * Iterator for the IMP_Ftree object.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Tree_Iterator implements RecursiveIterator
+class IMP_Ftree_Iterator implements RecursiveIterator
 {
     /**
      * Sorted list of elements.
@@ -32,7 +32,7 @@ class IMP_Imap_Tree_Iterator implements RecursiveIterator
     /**
      * Constructor.
      *
-     * @param mixed $data  Either the parent element (IMP_Imap_Tree_Element
+     * @param mixed $data  Either the parent element (IMP_Ftree_Element
      *                     object), or a flat list of elements to use as
      *                     the level, or null.
      */
@@ -41,10 +41,10 @@ class IMP_Imap_Tree_Iterator implements RecursiveIterator
         global $injector;
 
         if (is_null($elt)) {
-            $elt = $injector->getInstance('IMP_Imap_Tree')->getChildren(IMP_Imap_Tree::BASE_ELT);
+            $elt = $injector->getInstance('IMP_Ftree')->getChildren(IMP_Ftree::BASE_ELT);
         }
 
-        $this->_elts = ($elt instanceof IMP_Imap_Tree_Element)
+        $this->_elts = ($elt instanceof IMP_Ftree_Element)
             ? $elt->child_list
             : $elt;
     }

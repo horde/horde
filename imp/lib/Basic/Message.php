@@ -522,11 +522,11 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 'title' => _("Copy"),
                 'nocheck' => true
             ));
-            $n_view->options = new IMP_Imap_Tree_Select(array(
+            $n_view->options = new IMP_Ftree_Select(array(
                 'heading' => _("This message to"),
                 'inc_tasklists' => true,
                 'inc_notepads' => true,
-                'iterator' => IMP_Imap_Tree_IteratorFilter::create(IMP_Imap_Tree_IteratorFilter::NO_NONIMAP),
+                'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP),
                 'new_mbox' => true
             ));
         }

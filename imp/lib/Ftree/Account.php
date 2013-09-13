@@ -22,7 +22,7 @@
  *
  * @property-read IMP_Imap $imp_imap  IMP IMAP object.
  */
-abstract class IMP_Imap_Tree_Account implements Serializable
+abstract class IMP_Ftree_Account implements Serializable
 {
     /* Mask constants for getList(). */
     const INIT = 1;
@@ -40,7 +40,7 @@ abstract class IMP_Imap_Tree_Account implements Serializable
      *
      * @param string $id  Account ID.
      */
-    public function __construct($id = IMP_Imap_Tree::BASE_ELT)
+    public function __construct($id = IMP_Ftree::BASE_ELT)
     {
         $this->_id = strval($id);
     }
@@ -59,7 +59,7 @@ abstract class IMP_Imap_Tree_Account implements Serializable
     {
         switch ($name) {
         case 'imp_imap':
-            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create($this->_id == IMP_Imap_Tree::BASE_ELT ? null : $this->_id);
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create($this->_id == IMP_Ftree::BASE_ELT ? null : $this->_id);
         }
     }
 
@@ -70,7 +70,7 @@ abstract class IMP_Imap_Tree_Account implements Serializable
      *                      or an array of search queries.
      *
      * @return array  Array of elements to be added via
-     *                IMP_Imap_Tree#_insertElt().
+     *                IMP_Ftree#_insertElt().
      */
     abstract public function getList($query = null);
 

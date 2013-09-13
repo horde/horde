@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Tree_Account_Remote extends IMP_Imap_Tree_Account_Imap
+class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
 {
     /**
      */
@@ -42,7 +42,7 @@ class IMP_Imap_Tree_Account_Remote extends IMP_Imap_Tree_Account_Imap
         if ($this->imp_imap->init) {
             foreach (parent::getList($query) as $val) {
                 $out[] = array_filter(array(
-                    'a' => $val['a'] | IMP_Imap_Tree::ELT_REMOTE_MBOX,
+                    'a' => $val['a'] | IMP_Ftree::ELT_REMOTE_MBOX,
                     'p' => isset($val['p']) ? $val['p'] : null,
                     'v' => $this->_id . "\0" . $val['v']
                 ));

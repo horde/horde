@@ -105,9 +105,9 @@ class IMP_Smartmobile
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($this->view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $this->view->options = new IMP_Imap_Tree_Select(array(
+            $this->view->options = new IMP_Ftree_Select(array(
                 'heading' => _("This message to"),
-                'iterator' => IMP_Imap_Tree_IteratorFilter::create(IMP_Imap_Tree_IteratorFilter::NO_REMOTE),
+                'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_REMOTE),
                 'optgroup' => true,
                 'inc_tasklists' => true,
                 'inc_notepads' => true,

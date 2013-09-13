@@ -20,8 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
- * @property-read IMP_Imap_Tree_Account $account  Account object for this
- *                                                element.
+ * @property-read IMP_Ftree_Account $account  Account object for this element.
  * @property-read boolean $base_elt  True if this is the base element.
  * @property-read boolean $children  True if this element has children.
  * @property-read array $child_list  The list of the element's children.
@@ -39,8 +38,8 @@
  *                                     children.
  * @property-read boolean $nonimap  True if this is a non-IMAP element.
  * @property boolean $open  True if this element is open (a/k/a expanded).
- * @property-read IMP_Imap_Tree_Element $parent  The parent element (null if
- *                                               not found).
+ * @property-read IMP_Ftree_Element $parent  The parent element (null if not
+ *                                           found).
  * @property boolean $polled  True if this element is polled.
  * @property-read boolean $remote  True if this is a remote container.
  * @property-read boolean $remote_auth  True if this is a remote account that
@@ -49,7 +48,7 @@
  * @property boolean $subscribed  True if the element is subscribed.
  * @property-read boolean $vfolder  True if this element is a virtual folder.
  */
-class IMP_Imap_Tree_Element
+class IMP_Ftree_Element
 {
     /**
      * The element ID.
@@ -59,19 +58,19 @@ class IMP_Imap_Tree_Element
     protected $_id;
 
     /**
-     * IMP tree object.
+     * IMP folder tree object.
      *
-     * @var IMP_Imap_Tree
+     * @var IMP_Ftree
      */
     protected $_tree;
 
     /**
      * Constructor.
      *
-     * @param string $id           Element ID.
-     * @param IMP_Imap_Tree $tree  The base tree object.
+     * @param string $id       Element ID.
+     * @param IMP_Ftree $tree  The base tree object.
      */
-    public function __construct($id, IMP_Imap_Tree $tree)
+    public function __construct($id, IMP_Ftree $tree)
     {
         $this->_id = $id;
         $this->_tree = $tree;
@@ -101,7 +100,7 @@ class IMP_Imap_Tree_Element
             return $this->_tree->getAccount($this->_id);
 
         case 'base_elt':
-            return ($this->_id == IMP_Imap_Tree::BASE_ELT);
+            return ($this->_id == IMP_Ftree::BASE_ELT);
 
         case 'child_list':
             return $this->_tree->getChildren($this->_id);

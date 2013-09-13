@@ -38,17 +38,16 @@ class IMP_Search_Ui
 
         $ob = new stdClass;
 
-        $imptree = $injector->getInstance('IMP_Imap_Tree');
-        $filter = IMP_Imap_Tree_IteratorFilter::create(
-            $unsub ? IMP_Imap_Tree_IteratorFilter::UNSUB : 0
-        );
-
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/search'
         ));
         $view->allsearch = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
 
-        $ob->tree = $imptree->createTree('imp_search', array(
+        $filter = IMP_Ftree_IteratorFilter::create(
+            $unsub ? IMP_Ftree_IteratorFilter::UNSUB : 0
+        );
+
+        $ob->tree = $injector->getInstance('IMP_Ftree')->createTree('imp_search', array(
             'iterator' => $filter,
             'render_params' => array(
                 'abbrev' => 0,

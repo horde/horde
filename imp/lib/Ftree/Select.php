@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Tree_Select
+class IMP_Ftree_Select
 {
     /**
      * Generated tree.
@@ -62,7 +62,7 @@ class IMP_Imap_Tree_Select
     {
         global $injector;
 
-        $this->_tree = $injector->getInstance('IMP_Imap_Tree')->createTree(strval(new Horde_Support_Randomid()), array(
+        $this->_tree = $injector->getInstance('IMP_Ftree')->createTree(strval(new Horde_Support_Randomid()), array(
             'basename' => !empty($opts['basename']),
             'iterator' => empty($opts['iterator']) ? null : $opts['iterator'],
             'render_type' => 'IMP_Tree_Flist'

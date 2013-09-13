@@ -213,8 +213,8 @@ class IMP_Search_Query implements Serializable
 
                 if ($this->all) {
                     $mbox = array();
-                    $iterator = new IMP_Imap_Tree_IteratorFilter_Nocontainers(
-                        IMP_Imap_Tree_IteratorFilter::create()
+                    $iterator = new IMP_Ftree_IteratorFilter_Nocontainers(
+                        IMP_Ftree_IteratorFilter::create()
                     );
 
                     foreach ($iterator as $val) {

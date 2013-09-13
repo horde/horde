@@ -47,8 +47,8 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
          * date. */
         $sent_mail =$injector->getInstance('IMP_Identity')->getAllSentmail();
 
-        $iterator = new IMP_Imap_Tree_IteratorFilter_Nocontainers(
-            IMP_Imap_Tree_IteratorFilter::create()
+        $iterator = new IMP_Imap_Ftree_IteratorFilter_Nocontainers(
+            IMP_Ftree_IteratorFilter::create()
         );
         $mbox_list = array();
 
