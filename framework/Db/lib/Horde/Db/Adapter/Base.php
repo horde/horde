@@ -399,21 +399,6 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     ##########################################################################*/
 
     /**
-     * Returns an array of records with the column names as keys, and
-     * column values as values.
-     *
-     * @param string  $sql   SQL statement.
-     * @param mixed $arg1    Either an array of bound parameters or a query
-     *                       name.
-     * @param string $arg2   If $arg1 contains bound parameters, the query
-     *                       name.
-     *
-     * @return Horde_Db_Adapter_Base_Result
-     * @throws Horde_Db_Exception
-     */
-    abstract public function select($sql, $arg1 = null, $arg2 = null);
-
-    /**
      * Returns an array of record hashes with the column names as keys and
      * column values as values.
      *
@@ -529,42 +514,6 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     }
 
     /**
-     * Executes the SQL statement in the context of this connection.
-     *
-     * @deprecated  Deprecated for external usage. Use select() instead.
-     *
-     * @param string $sql   SQL statement.
-     * @param mixed $arg1   Either an array of bound parameters or a query
-     *                      name.
-     * @param string $arg2  If $arg1 contains bound parameters, the query
-     *                      name.
-     *
-     * @return mixed
-     * @throws Horde_Db_Exception
-     */
-    abstract public function execute($sql, $arg1 = null, $arg2 = null);
-
-    /**
-     * Inserts a row into a table.
-     *
-     * @param string $sql           SQL statement.
-     * @param array|string $arg1    Either an array of bound parameters or a
-     *                              query name.
-     * @param string $arg2          If $arg1 contains bound parameters, the
-     *                              query name.
-     * @param string $pk            The primary key column.
-     * @param integer $idValue      The primary key value. This parameter is
-     *                              required if the primary key is inserted
-     *                              manually.
-     * @param string $sequenceName  The sequence name.
-     *
-     * @return integer  Last inserted ID.
-     * @throws Horde_Db_Exception
-     */
-    abstract public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
-                                    $idValue = null, $sequenceName = null);
-
-    /**
      * Executes the update statement and returns the number of rows affected.
      *
      * @param string $sql   SQL statement.
@@ -609,22 +558,6 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     {
         return (bool)$this->_transactionStarted;
     }
-
-    /**
-     * Begins the transaction (and turns off auto-committing).
-     */
-    abstract public function beginDbTransaction();
-
-    /**
-     * Commits the transaction (and turns on auto-committing).
-     */
-    abstract public function commitDbTransaction();
-
-    /**
-     * Rolls back the transaction (and turns on auto-committing). Must be
-     * done if the transaction block raises an exception or returns false.
-     */
-    abstract public function rollbackDbTransaction();
 
     /**
      * Appends LIMIT and OFFSET options to a SQL statement.
