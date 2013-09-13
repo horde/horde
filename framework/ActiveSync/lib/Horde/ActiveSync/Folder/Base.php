@@ -54,8 +54,19 @@ abstract class Horde_ActiveSync_Folder_Base
      */
     public $haveInitialSync = true;
 
+    /**
+     * Timestamp for the last sincedate used for SOFTDELETE.
+     *
+     * @var integer
+     */
     protected $_lastSinceDate = 0;
-    protected $_softdelete = 0;
+
+    /**
+     * Timestamp for the last time we performed a SOFTDELETE
+     *
+     * @var integer
+     */
+    protected $_softDelete = 0;
 
     /**
      * Const'r
@@ -123,7 +134,7 @@ abstract class Horde_ActiveSync_Folder_Base
     public function setSoftDeleteTimes($sincedate, $ts)
     {
         $this->_lastSinceDate = $sincedate;
-        $this->_softdelete = $ts;
+        $this->_softDelete = $ts;
     }
 
     /**
@@ -134,7 +145,7 @@ abstract class Horde_ActiveSync_Folder_Base
      */
     public function getSoftDeleteTimes()
     {
-        return array($this->_lastSinceDate, $this->_softdelete);
+        return array($this->_lastSinceDate, $this->_softDelete);
     }
 
     /**

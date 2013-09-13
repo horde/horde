@@ -703,13 +703,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     return array();
                 }
             } else {
+                // Calculate SOFTDELETE if needed?
+                $sd = $folder->getSoftDeleteTimes();
+                if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
+                    $soft = true;
+                } else {
+                    $soft = true;
+                }
+
                 try {
-                    // Poll IMAP server for changes.
                     $folder = $this->_imap->getMessageChanges(
                         $folder,
                         array(
                             'sincedate' => (int)$cutoffdate,
-                            'protocolversion' => $this->_version));
+                            'protocolversion' => $this->_version,
+                            'softdelete' => $soft));
                     // Poll the maillog for reply/forward state changes.
                     $folder = $this->_getMaillogChanges($folder, $from_ts);
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
@@ -729,6 +737,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $changes['add'] = $folder->added();
                 $changes['delete'] = $folder->removed();
                 $changes['modify'] = $folder->changed();
+                $changes['soft'] = $folder->getSoftDeleted();
             }
         }
 
@@ -740,7 +749,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
         }
 
-        // For CLASS_EMAIL, all changes are a change in flags.
+        // For CLASS_EMAIL, all changes are a change in flags or softdelete.
         if ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL) {
             $flags = $folder->flags();
             foreach ($changes['modify'] as $uid) {

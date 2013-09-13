@@ -251,6 +251,8 @@ class Horde_ActiveSync_Imap_Adapter
      *               DEFAULT: 0 (Don't filter).
      *  - protocolversion: (float)  EAS protocol version to support.
      *                     DEFAULT: none REQUIRED
+     *  - softdelete: (boolean)  If true, calculate SOFTDELETE data.
+     *                           @since 2.8.0
      *
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
@@ -337,6 +339,32 @@ class Horde_ActiveSync_Imap_Adapter
                 throw new Horde_ActiveSync_Exception($e);
             }
             $folder->setRemoved($deleted->ids);
+
+            if (!empty($options['softdelete']) && !empty($options['sincedate'])) {
+                $sd = $folder->getSoftDeleteTimes();
+                $this->_logger->info(sprintf(
+                    '[%s] Polling for SOFTDELETE in %s before %d',
+                    getmypid(), $folder->serverid(), $options['sincedate']));
+
+                $query = new Horde_Imap_Client_Search_Query();
+                $query->dateSearch(
+                    new Horde_Date($options['sincedate']),
+                    Horde_Imap_Client_Search_Query::DATE_BEFORE);
+                $query->ids(new Horde_Imap_Client_Ids($folder->messages()));
+                $search_ret = $imap->search(
+                    $mbox,
+                    $query,
+                    array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
+                // @todo change to $search_ret['count'] when Bug: 12682 is fixed
+                if (count($search_ret['match']->ids)) {
+                    $this->_logger->info(sprintf('Found %d messages to SOFTDELETE.', count($search_ret['match']->ids)));
+                    $folder->setSoftDeleted($search_ret['match']->ids);
+                } else {
+                     $this->_logger->info('Found NO messages to SOFTDELETE.');
+                }
+                $folder->setSoftDeleteTimes($options['sincedate'], time());
+            }
+
         } elseif ($folder->uidnext() == 0) {
             $this->_logger->info('INITIAL SYNC');
             $query = new Horde_Imap_Client_Search_Query();
@@ -349,7 +377,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $mbox,
                 $query,
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
-
+            // @todo change to $search_ret['count'] when Bug: 12682 is fixed
             if ($modseq && $folder->modseq() > 0 && count($search_ret['match']->ids)) {
                 $folder->setChanges($search_ret['match']->ids, array());
             } elseif (count($search_ret['match']->ids)) {
