@@ -243,10 +243,7 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Return a list of messages from the specified mailbox. If CONDSTORE is NOT
-     * available, or if CONDSTORE IS available, but this is the first request
-     * then the entire message list is returned. Otherwise, only changes since
-     * the last MODSEQ value are taken into consideration.
+     * Return message changes from the specified mailbox.
      *
      * @param Horde_ActiveSync_Folder_Imap $folder  The folder object.
      * @param array $options                        Additional options:
