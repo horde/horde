@@ -12,8 +12,8 @@
  </lead>
  <date>2013-09-05</date>
  <version>
-  <release>2.7.4</release>
-  <api>2.7.0</api>
+  <release>2.8.0</release>
+  <api>2.8.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1686,15 +1686,15 @@
   </release>
   <release>
    <version>
-    <release>2.7.4</release>
-    <api>2.7.0</api></version>
+    <release>2.8.0</release>
+    <api>2.8.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
