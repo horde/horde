@@ -1486,9 +1486,9 @@ abstract class Kronolith_Event
              * delete all existing exceptions and re-create them. The only drawback
              * to this is that the UIDs will change.
              */
+            $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
             $this->recurrence = $rrule;
             if (!empty($this->uid)) {
-                $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
                 $search = new StdClass();
                 $search->start = $rrule->getRecurStart();
                 $search->end = $rrule->getRecurEnd();
