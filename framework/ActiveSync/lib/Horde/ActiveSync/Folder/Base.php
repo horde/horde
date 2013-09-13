@@ -54,6 +54,9 @@ abstract class Horde_ActiveSync_Folder_Base
      */
     public $haveInitialSync = true;
 
+    protected $_lastSinceDate = 0;
+    protected $_softdelete = 0;
+
     /**
      * Const'r
      *
@@ -109,6 +112,17 @@ abstract class Horde_ActiveSync_Folder_Base
     public function setStatus(array $status)
     {
         $this->_status = $status;
+    }
+
+    public function setSoftDelete($sincedate, $ts)
+    {
+        $this->_lastSinceDate = $sincedate;
+        $this->_softdelete = $ts;
+    }
+
+    public function getSoftDelete()
+    {
+        return array($this->_lastSinceDate, $this->_softdelete);
     }
 
     /**
