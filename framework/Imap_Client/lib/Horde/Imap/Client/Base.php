@@ -2245,6 +2245,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 Horde_Imap_Client::SEARCH_RESULTS_MATCH,
                 Horde_Imap_Client::SEARCH_RESULTS_COUNT
             );
+        } elseif (!in_array(Horde_Imap_Client::SEARCH_RESULTS_COUNT, $options['results'])) {
+            $options['results'][] = Horde_Imap_Client::SEARCH_RESULTS_COUNT;
         }
 
         // Default to an ALL search.
@@ -2363,12 +2365,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
             $ret = $this->_search($query, $options);
         } else {
-            $ret = array(
-                'count' => 0
-            );
+            $ret = array();
 
             foreach ($options['results'] as $val) {
                 switch ($val) {
+                case Horde_Imap_Client::SEARCH_RESULTS_COUNT:
+                    $ret['count'] = 0;
+                    break;
+
                 case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
                     $ret['match'] = $this->getIdsOb();
                     break;
