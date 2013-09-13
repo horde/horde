@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Ensure Horde_Imap_Client_Base#search() always returns the &apos;count&apos; value (Bug #12682).
 * [jan] Fix incorrect usage of Horde_Db API in cache backend.
  </notes>
  <contents>
@@ -1976,6 +1977,7 @@
    <date>2013-09-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Ensure Horde_Imap_Client_Base#search() always returns the &apos;count&apos; value (Bug #12682).
 * [jan] Fix incorrect usage of Horde_Db API in cache backend.
    </notes>
   </release>
