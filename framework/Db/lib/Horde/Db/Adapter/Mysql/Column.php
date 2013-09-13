@@ -26,7 +26,7 @@ class Horde_Db_Adapter_Mysql_Column extends Horde_Db_Adapter_Base_Column
     /**
      * @var array
      */
-    protected static $_hasEmptyStringDefault = array('binary', 'string', 'text');
+    protected $_hasEmptyStringDefault = array('binary', 'string', 'text');
 
     /**
      * @var string
@@ -78,7 +78,7 @@ class Horde_Db_Adapter_Mysql_Column extends Horde_Db_Adapter_Base_Column
     protected function _isMissingDefaultForgedAsEmptyString()
     {
         return !$this->_null && $this->_originalDefault == '' &&
-               !in_array($this->_type, self::$_hasEmptyStringDefault);
+            !in_array($this->_type, $this->_hasEmptyStringDefault);
     }
 
 }
