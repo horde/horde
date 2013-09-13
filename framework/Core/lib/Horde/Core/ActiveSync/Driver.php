@@ -774,11 +774,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'id' => $deleted,
                 'type' => Horde_ActiveSync::CHANGE_TYPE_DELETE);
         }
-        foreach ($changes['soft'] as $deleted) {
-            $results[] = array(
-                'id' => $deleted,
-                'type' => Horde_ActiveSync::CHANGE_TYPE_SOFTDELETE
-            );
+        if (!empty($changes['soft'])) {
+            foreach ($changes['soft'] as $deleted) {
+                $results[] = array(
+                    'id' => $deleted,
+                    'type' => Horde_ActiveSync::CHANGE_TYPE_SOFTDELETE
+                );
+            }
         }
 
         $this->_endBuffer();
