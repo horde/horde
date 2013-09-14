@@ -386,33 +386,6 @@ class Horde_ActiveSync
     protected $_collectionsObj;
 
     /**
-     * Map of commands when query string is base64 encoded (EAS 12.1)
-     *
-     * @var array
-     */
-    protected $_commandMap = array(
-        0  => 'Sync',
-        1  => 'SendMail',
-        2  => 'SmartForward',
-        3  => 'SmartReply',
-        4  => 'GetAttachment',
-        9  => 'FolderSync',
-        10 => 'FolderCreate',
-        11 => 'FolderDelete',
-        12 => 'FolderUpdate',
-        13 => 'MoveItems',
-        14 => 'GetItemEstimate',
-        15 => 'MeetingResponse',
-        16 => 'Search',
-        17 => 'Settings',
-        18 => 'Ping',
-        19 => 'ItemOperations',
-        20 => 'Provision',
-        21 => 'ResolveRecipients',
-        22 => 'ValidateCert'
-    );
-
-    /**
      * Global error flag.
      *
      * @var boolean
@@ -839,7 +812,7 @@ class Horde_ActiveSync
         // Support Multipart response for ITEMOPERATIONS requests?
         $headers = $this->_request->getHeaders();
         if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
-            (isset($get['Options']) && ($get['Options'] & 0x02))) {
+            !empty($get['AcceptMultiPart'])) {
             $this->_multipart = true;
             self::$_logger->debug('MULTIPART REQUEST');
         }
@@ -965,9 +938,9 @@ class Horde_ActiveSync
      */
     public function getPolicyKey()
     {
+        // Policy key can come from header or encoded request parameters.
         $this->_policykey = $this->_request->getHeader('X-MS-PolicyKey');
         if (empty($this->_policykey)) {
-            // Try the get request.
             $get = $this->getGetVars();
             if (!empty($get['PolicyKey'])) {
                 $this->_policykey = $get['PolicyKey'];
@@ -993,15 +966,6 @@ class Horde_ActiveSync
         if (empty(self::$_version)) {
             $get = $this->getGetVars();
             self::$_version = empty($get['ProtVer']) ? '1.0' : $get['ProtVer'];
-            if (self::$_version == 121) {
-                self::$_version = 12.1;
-            }
-            if (self::$_version == 140) {
-                self::$_version = 14;
-            }
-            if (self::$_version == 141) {
-                self::$_version = 14.1;
-            }
         }
         return self::$_version;
     }
@@ -1020,13 +984,14 @@ class Horde_ActiveSync
 
         $results = array();
         $get = $this->_request->getGetVars();
+
+        // Do we need to decode the request parameters?
         if (!isset($get['Cmd']) && !isset($get['DeviceId']) && !isset($get['DeviceType'])) {
             $serverVars = $this->_request->getServerVars();
             if (isset($serverVars['QUERY_STRING']) && strlen($serverVars['QUERY_STRING']) >= 10) {
-                $decoded = Horde_ActiveSync_Utils::decodeBase64($serverVars['QUERY_STRING']);
-                $results['DeviceId'] = $decoded['DevID'];
-                $results['PolicyKey'] = $decoded['PolKey'];
-                switch ($decoded['DevType']) {
+                $results = Horde_ActiveSync_Utils::decodeBase64($serverVars['QUERY_STRING']);
+                // Normalize values.
+                switch ($results['DeviceType']) {
                 case 'PPC':
                     $results['DeviceType'] = 'PocketPC';
                     break;
@@ -1036,38 +1001,6 @@ class Horde_ActiveSync
                 case 'WP':
                     $results['DeviceType'] = 'WindowsPhone';
                 }
-                $results['Cmd'] = $this->_commandMap[$decoded['Command']];
-                if (isset($decoded['AttachmentName'])) {
-                    $results['AttachmentName'] = $decoded['AttachmentName'];
-                }
-                if (isset($decoded['ItemId'])) {
-                    $results['ItemId'] = $decoded['ItemId'];
-                }
-                if (isset($decoded['CollectionId'])) {
-                    $results['CollectionId'] = $decoded['CollectionId'];
-                }
-                if (isset($decoded['CollectionName'])) {
-                    $results['CollectionName'] = $decoded['CollectionName'];
-                }
-                if (isset($decoded['ParentId'])) {
-                    $results['ParentId'] = $decoded['ParentId'];
-                }
-                if (isset($decoded['LongId'])) {
-                    $results['LongId'] = $decoded['LongId'];
-                }
-                if (isset($decoded['Occurrence'])) {
-                    $results['Occurrence'] = $decoded['Occurrence'];
-                }
-                if (isset($decoded['Options'])) {
-                    $results['Options'] = bin2hex($decoded['Options']) * 1;
-                }
-                if (isset($decoded['User'])) {
-                    $results['User'] = $decoded['User'];
-                }
-                if (isset($decoded['ProtVer'])) {
-                    $results['ProtVer'] = $decoded['ProtVer'];
-                }
-
                 $this->_get = $results;
             }
         } else {
