@@ -41,10 +41,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
         exit;
     }
     $filename = $injector->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('thumb', $style), $image->getVFSName('thumb'));
-    header('Content-Type: ' . $image->getType('thumb'));
-    header('X-LIGHTTPD-send-file: ' . $filename);
-    header('X-Sendfile: ' . $filename);
-    exit;
+    Ansel::doSendFile($filename, $image->getType('thumb'));
 }
 
 $image->display('thumb', $style);
