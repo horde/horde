@@ -44,7 +44,10 @@ if (($image_id = Horde_Util::getFormData('image')) !== null) {
 
 $vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, $title);
-$form->setButtons(array(_("Report"), _("Cancel")));
+$form->setButtons(array(
+    array('class' => 'horde-default', 'value' => _("Report")),
+    array('class' => 'horde-cancel', 'value' => _("Cancel")))
+);
 
 $enum = array('advertisement' => _("Advertisement content"),
               'terms' => _("Terms and conditions infringement"),
@@ -61,6 +64,10 @@ $form->addVariable(_("Report type"), 'type', 'radio', true, false, null, array($
 $form->addVariable(_("Report reason"), 'reason', 'longtext', true);
 
 $gallery_id = Horde_Util::getFormData('id');
+
+if ($vars->get('submitbutton') == _("Cancel")) {
+    Horde::url('', true)->redirect();
+}
 
 if ($form->validate()) {
     if (Horde_Util::getFormData('submitbutton') == _("Report")) {
