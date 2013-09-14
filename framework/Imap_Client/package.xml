@@ -12,7 +12,7 @@
  </lead>
  <date>2013-09-14</date>
  <version>
-  <release>2.15.2</release>
+  <release>2.15.3</release>
   <api>2.15.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Handle case-insensitive INBOX return from the server.
-* [mms] Use strict RFC-compliant workaround for servers that don&apos;t support the UNSELECT IMAP extension.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1993,6 +1992,19 @@
    <notes>
 * [mms] Handle case-insensitive INBOX return from the server.
 * [mms] Use strict RFC-compliant workaround for servers that don&apos;t support the UNSELECT IMAP extension.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.15.3</release>
+    <api>2.15.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
