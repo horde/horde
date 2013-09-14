@@ -68,6 +68,10 @@ class Horde_Imap_Client_Mailbox implements Serializable
      */
     public function __construct($mbox, $utf7imap = false)
     {
+        if (strcasecmp($mbox, 'INBOX') === 0) {
+            $mbox = 'INBOX';
+        }
+
         if ($utf7imap) {
             $this->_utf7imap = $mbox;
         } else {
