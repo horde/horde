@@ -69,7 +69,7 @@ class Ansel_Block_Gallery extends Horde_Core_Block
     {
         try {
             $gallery = $this->_getGallery();
-        } catch (Horde_Exception $e) {
+        } catch (Ansel_Exception $e) {
             return Ansel::getUrlFor('view', array('view' => 'List'), true)->link() . $this->getName() . '</a>';
         }
 
@@ -95,7 +95,7 @@ class Ansel_Block_Gallery extends Horde_Core_Block
     {
         try {
            $gallery = $this->_getGallery();
-        } catch (Horde_Exception $e) {
+        } catch (Ansel_Exception $e) {
             return $e->getMessage();
         }
 

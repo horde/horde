@@ -160,7 +160,7 @@ class Ansel_ImageGenerator
                 $img->load('screen');
                 $images[] = $img->getHordeImage();
                 $cnt--;
-            } catch (Exception $e) {
+            } catch (Ansel_Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
         }
@@ -174,7 +174,7 @@ class Ansel_ImageGenerator
                     $aimg->load('screen');
                     $images[] = $aimg->getHordeImage();
                 }
-            } catch (Exception $e) {
+            } catch (Ansel_Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
         }

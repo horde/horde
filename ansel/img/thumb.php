@@ -36,7 +36,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
     /* Need to ensure the file exists */
     try {
         $image->createView('thumb', $style);
-    } catch (Horde_Exception $e) {
+    } catch (Ansel_Exception $e) {
         Horde::logMessage($e, 'ERR');
         exit;
     }

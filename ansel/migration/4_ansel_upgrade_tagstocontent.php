@@ -21,7 +21,7 @@ class AnselUpgradeTagsToContent extends Horde_Db_Migration_Base
 
         $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
         if (!class_exists('Content_Tagger')) {
-            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
+            throw new Ansel_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
         }
         $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
         $types = $type_mgr->ensureTypes(array('gallery', 'image'));

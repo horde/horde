@@ -1110,7 +1110,7 @@ class Ansel_Api extends Horde_Registry_Api
 
         try {
             $view = new $classname($params);
-        } catch (Horde_Exception $e) {
+        } catch (Ansel_Exception $e) {
             $return['html'] = $e->getMessage();
             $return['crumbs'] = array();
             return $return;
