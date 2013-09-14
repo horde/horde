@@ -1797,10 +1797,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_sendCmd($this->_command('UNSELECT'));
             } else {
                 /* RFC 3501 [6.4.2]: to close a mailbox without expunge,
-                 * select a non-existent mailbox. See:
-                 * http://mailman2.u.washington.edu/pipermail/imap-protocol/2005-September/000053.html */
+                 * select a non-existent mailbox. */
                 try {
-                    $this->_sendCmd($this->_command('EXAMINE')->add('&#-&#/#'));
+                    $this->_sendCmd($this->_command('EXAMINE')->add(
+                        new Horde_Imap_Client_Data_Format_Mailbox("\24nonexist\24")
+                    ));
+
                     /* Not pipelining, since the odds that this CLOSE is even
                      * needed is tiny; and it returns BAD, which should be
                      * avoided, if possible. */
