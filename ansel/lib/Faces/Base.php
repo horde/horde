@@ -358,7 +358,7 @@ class Ansel_Faces_Base
 
         // Load the image for this face
         if (!$this->viewExists($face['image_id'], $face_id, true)) {
-            throw new Horde_Exception(sprintf("Unable to create or locate face_id %u", $face_id));
+            throw new Ansel_Exception(sprintf("Unable to create or locate face_id %u", $face_id));
         }
         $vfspath = Ansel_Faces::getVFSPath($face['image_id']) . 'faces';
         $vfsname = $face_id . Ansel_Faces::getExtension();
@@ -768,7 +768,7 @@ class Ansel_Faces_Base
             throw new Ansel_Exception($e);
         }
         if (empty($face)) {
-           throw new Ansel_Exception('Face does not exist');
+           throw new Horde_Exception_NotFound('Face does not exist');
         }
 
         if ($full && $GLOBALS['conf']['faces']['search'] &&
@@ -788,7 +788,7 @@ class Ansel_Faces_Base
             throw new Ansel_Exception($e);
         }
         if (empty($galleries)) {
-            throw new Horde_Exception('Face does not exist');
+            throw new Horde_Exception_NotFound('Face does not exist');
         }
 
         foreach ($galleries as $gallery) {

@@ -22,7 +22,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
     /* Need to ensure the file exists */
     try {
         $image->createView('mini', Ansel::getStyleDefinition('ansel_default'));
-    } catch (Horde_Exception $e) {
+    } catch (Ansel_Exception $e) {
         Horde::logMessage($e, 'ERR');
         exit;
     }

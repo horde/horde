@@ -780,7 +780,7 @@ class Ansel_Gallery implements Serializable
                     ->ensureHash($styleHash);
 
                 return $newImg->id;
-            } catch (Horde_Exception $e) {
+            } catch (Ansel_Exception $e) {
                 // Might not support the requested style...try ansel_default
                 // but protect against infinite recursion.
                 Horde::logMessage($e->getMessage(), 'DEBUG');
@@ -813,7 +813,7 @@ class Ansel_Gallery implements Serializable
                             return $default_img;
                         }
                     }
-                } catch (Horde_Exception $e) {
+                } catch (Ansel_Exception $e) {
                     return false;
                 }
             }
@@ -835,7 +835,7 @@ class Ansel_Gallery implements Serializable
             return $GLOBALS['injector']->getInstance('Ansel_Tagger')
                 ->getTags($this->id, 'gallery');
         } else {
-            throw new Horde_Exception(_("Access denied viewing this gallery."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied viewing this gallery."));
         }
     }
 

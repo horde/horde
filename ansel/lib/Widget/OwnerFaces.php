@@ -27,7 +27,7 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
         $this->_owner = $this->_view->gallery->get('owner');
         try {
             $this->_count = $this->_faces->countOwnerFaces($this->_owner);
-        } catch (Horde_Exception $e) {
+        } catch (Ansel_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             $this->_count = 0;
         }

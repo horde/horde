@@ -34,7 +34,7 @@ if (($reload || empty($results))) {
                 $GLOBALS['prefs']->getValue('watermark_text', '') : '')
             );
         $results = $faces->getFromPicture($image_id, true);
-    } catch (Horde_Exception $e) {
+    } catch (Ansel_Exception $e) {
         Horde::logMessage($e, 'ERR');
         $results = null;
     }

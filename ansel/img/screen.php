@@ -27,7 +27,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
             ($GLOBALS['prefs']->getValue('watermark_auto') ?
                 $GLOBALS['prefs']->getValue('watermark_text', '') : '')
         );
-    } catch (Horde_Exception $e) {
+    } catch (Ansel_Exception $e) {
         Horde::logMessage($result, 'ERR');
         exit;
     }

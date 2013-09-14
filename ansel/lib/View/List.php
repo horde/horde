@@ -306,7 +306,7 @@ class Ansel_View_List extends Ansel_View_Ansel
      */
     public function getGalleryCrumbData()
     {
-        throw new Horde_Exception('Ansel_View_List::getGalleryCrumbData not implemented.');
+        throw new Ansel_Exception('Ansel_View_List::getGalleryCrumbData not implemented.');
     }
 
 }
