@@ -117,7 +117,7 @@ class Horde_Core_Topbar
 
         /* Add preferences. */
         if ($registry->showService('prefs') &&
-            !($GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create() instanceof Horde_Prefs_Session)) {
+            !($GLOBALS['prefs'] instanceof Horde_Prefs_Session)) {
             $menu['prefs'] = array(
                 'icon' => Horde_Themes::img('prefs.png'),
                 'menu_parent' => 'settings',
