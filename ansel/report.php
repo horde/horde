@@ -19,7 +19,7 @@ $gallery_id = (int)Horde_Util::getFormData('gallery');
 try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
-    $notification->push($gallery->getMessage());
+    $notification->push($e->getMessage());
     Horde::url('view.php?view=List', true)->redirect();
     exit;
 }
