@@ -229,7 +229,7 @@ abstract class Ansel_View_GalleryRenderer_Base
      */
     protected function _getHordeView()
     {
-        global $registry, $injector;
+        global $registry, $injector, $prefs;
 
         $view = $injector->getInstance('Horde_View');
         $view->addTemplatePath(ANSEL_TEMPLATES .  '/view' . (!empty($this->view->api) ? '/api' : ''));
@@ -269,7 +269,7 @@ abstract class Ansel_View_GalleryRenderer_Base
                 $prefs->setValue('show_actions', (int)!$prefs->getValue('show_actions'));
             }
         }
-        $view->tilesperrow = $this->view->tilesperrow ? $this->view->tilesperrow : $GLOBALS['prefs']->getValue('tilesperrow');
+        $view->tilesperrow = $this->view->tilesperrow ? $this->view->tilesperrow : $prefs->getValue('tilesperrow');
         $view->cellwidth = round(100 / $view->tilesperrow);
         $this->_setupPager($view);
 
