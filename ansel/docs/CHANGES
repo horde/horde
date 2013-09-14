@@ -2,6 +2,9 @@
 v3.0.1-git
 ----------
 
+[mjr] Fix cancel button behavior on reporting page (Bug #12667).
+[mjr] Prevent protected images from leaking into gallery thumbnails (Bug
+      #12668).
 [mjr] Fix adding custom watermark (Bug #12634).
 
 
