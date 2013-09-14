@@ -13,17 +13,13 @@ class Horde_ActiveSync_UtilsTest extends Horde_Test_Case
         /* Provision Request for version 12.1 */
         $url = 'eRQJBBCuTs0Z9ZK6Vldwb/dM8JusBHx8TOgDUFBD';
         $results = Horde_ActiveSync_Utils::decodeBase64($url);
-
         $fixture = array(
-            'ProtVer' => 121,
-            'Command' => 20,
+            'ProtVer' => '12.1',
+            'Cmd' => 'Provision',
             'Locale' => 1033,
-            'DevIDLen' => 16,
-            'DevID' => 'ae4ecd19f592ba5657706ff74cf09bac',
-            'PolKeyLen' => 4,
-            'PolKey' => 3897326716,
-            'DevTypeLen' => 3,
-            'DevType' => 'PPC'
+            'DeviceId' => 'ae4ecd19f592ba5657706ff74cf09bac',
+            'PolicyKey' => 3897326716,
+            'DeviceType' => 'PPC'
         );
         $this->assertEquals($fixture, $results);
 
@@ -32,20 +28,17 @@ class Horde_ActiveSync_UtilsTest extends Horde_Test_Case
         $results = Horde_ActiveSync_Utils::decodeBase64($url);
 
         // This is binary data, test it separately.
-        $this->assertEquals('01', bin2hex($results['Options']));
-        unset($results['Options']);
         $fixture = array(
-            'ProtVer' => 121,
-            'Command' => 2,
+            'ProtVer' => '12.1',
+            'Cmd' => 'SmartForward',
             'Locale' => 1033,
-            'DevIDLen' => 16,
-            'DevID' => 'ae4ecd19f592ba5657706ff74cf09bac',
-            'PolKeyLen' => 4,
-            'PolKey' => 2216451701,
-            'DevTypeLen' => 3,
-            'DevType' => 'PPC',
-            'ItemId' => 119281,
-            'CollectionId' => 'INBOX'
+            'DeviceId' => 'ae4ecd19f592ba5657706ff74cf09bac',
+            'PolicyKey' => 2216451701,
+            'DeviceType' => 'PPC',
+            'ItemId' => '119281',
+            'CollectionId' => 'INBOX',
+            'AcceptMultiPart' => false,
+            'SaveInSent' => true
         );
         $this->assertEquals($fixture, $results);
     }
