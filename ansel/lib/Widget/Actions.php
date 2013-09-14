@@ -32,7 +32,9 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
      */
     public function html()
     {
-        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        global $injector, $registry;
+
+        $view = $injector->getInstance('Horde_View');
         $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
         $view->title = _("Gallery Actions");
         $view->background = $this->_style->background;
@@ -72,7 +74,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
         // Upload and new subgallery Urls
         if ($this->_view->gallery->hasFeature('upload') &&
-            $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            $this->_view->gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
 
             $view->uploadurl_link = Horde::url('img/upload.php')->add(array(
                 'gallery' => $id,
@@ -86,7 +88,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             }
         }
         $this->_getGalleryActions($view);
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')
+        $injector->getInstance('Horde_Core_Factory_Imple')
             ->create('Ansel_Ajax_Imple_ToggleGalleryActions',
                      array('id' => 'gallery-actions-toggle'));
 
@@ -141,7 +143,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         }
 
         // Image upload, subgalleries, captions etc..
-        if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+        if ($this->_view->gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             $view->hasEdit = true;
             $view->properties_url = $galleryurl->copy()->add(array('actionID' => 'modify', 'url' => $selfurl))->link(array('class' => 'widget'));
             if ($count) {
@@ -166,8 +168,8 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             }
         }
 
-        if ($GLOBALS['registry']->getAuth() &&
-            $this->_view->gallery->get('owner') == $GLOBALS['registry']->getAuth()) {
+        if ($registry->getAuth() &&
+            $this->_view->gallery->get('owner') == $registry->getAuth()) {
 
              $url = new Horde_Url('#');
              $view->perms_link = $url->link(array('class' => 'popup widget', 'onclick' => Horde::popupJs(Horde::url('perms.php'), array('params' => array('cid' => $this->_view->gallery->id), 'urlencode' => true)) . 'return false;'));
@@ -179,7 +181,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             $view->report_url = Horde::url('report.php')->add('gallery', $id)->link(array('class' => 'widget'));
         }
 
-        if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
+        if ($this->_view->gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
             $view->have_delete = true;
             $view->deleteall_url = $galleryurl->copy()->add('actionID', 'empty')->link(array('class' => 'widget'));
             $view->deletegallery_url = $galleryurl->copy()->add('actionID', 'delete')->link(array('class' => 'widget'));
