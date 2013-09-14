@@ -150,21 +150,28 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
                 $data = ob_get_contents();
                 ob_end_clean();
                 ob_start();
-                $blockstart = ((count($this->_parts) + 1) * 2) * 4 + 4;
-                $sizeinfo = pack('iii', count($this->_parts) + 1, $blockstart, $len);
-                $this->_logger->debug('Multipart Debug Output Total parts ' . (count($this->_parts) + 1));
+
+                $totalCount = count($this->_parts) + 1;
+                $header = pack('i', $totalCount);
+                $offset = (($totalCount * 2) * 4) + 4;
+                $header .= pack('ii', $offset, $len);
+                $offset += $len;
+
+                // start/length of parts
                 foreach ($this->_parts as $bp) {
-                    $blockstart = $blockstart + $len;
                     if (is_resource($bp)) {
                         rewind($bp);
-                        fseek($bp, 0, SEEK_END);
-                        $len = ftell($bp);
+                        $stat = fstat($bp);
+                        $len = $stat['size'];
                     } else {
                         $len = strlen(bin2hex($bp)) / 2;
                     }
-                    $sizeinfo .= pack('ii', $blockstart, $len);
+                    $header .= pack('ii', $offset, $len);
+                    $offset += $len;
                 }
-                fwrite($this->_stream, $sizeinfo);
+
+                // Output
+                fwrite($this->_stream, $header);
                 fwrite($this->_stream, $data);
                 foreach($this->_parts as $bp) {
                     if (is_resource($bp)) {

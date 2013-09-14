@@ -820,6 +820,7 @@ class Horde_ActiveSync
         // Load the request handler to handle the request
         // We must send the eas header here, since some requests may start
         // output and be large enough to flush the buffer (e.g., GetAttachment)
+        // See Bug: 12486
         $this->activeSyncHeader();
         if ($cmd != 'GetAttachment') {
             $this->contentTypeHeader();
