@@ -133,6 +133,26 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
+     * Returns a quoted boolean true.
+     *
+     * @return string  The quoted boolean true.
+     */
+    public function quoteTrue()
+    {
+        return "'t'";
+    }
+
+    /**
+     * Returns a quoted boolean false.
+     *
+     * @return string  The quoted boolean false.
+     */
+    public function quoteFalse()
+    {
+        return "'f'";
+    }
+
+    /**
      * Returns a quoted binary value.
      *
      * @param mixed  A binary value.
@@ -162,6 +182,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         return sprintf('\\\\%03.o', ord($matches[0]));
     }
+
 
     /*##########################################################################
     # Schema Statements
