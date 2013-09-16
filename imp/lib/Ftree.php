@@ -492,7 +492,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     {
         $plist = array();
 
-        foreach ($this as $val) {
+        foreach ($this->getIterator()->getIterator() as $val) {
             if ($val->polled) {
                 $plist[] = strval($val);
             }
