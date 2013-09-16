@@ -294,9 +294,7 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'addAttachment':
-                this.uploading = false;
-                $('upload_wait').hide();
-                this.initAttachList();
+                this._addAttachmentEnd();
                 break;
             }
         } else {
@@ -767,6 +765,13 @@ var DimpCompose = {
         }
 
         this.resizeMsgArea();
+    },
+
+    _addAttachmentEnd: function()
+    {
+        this.uploading = false;
+        $('upload_wait').hide();
+        this.initAttachList();
     },
 
     resizeMsgArea: function(e)
@@ -1300,6 +1305,13 @@ document.observe('ImpPassphraseDialog:success', DimpCompose.retrySubmit.bind(Dim
 /* Catch tasks. */
 document.observe('HordeCore:runTasks', function(e) {
     this.tasksHandler(e.memo);
+}.bindAsEventListener(DimpCompose));
+
+/* AJAX related events. */
+document.observe('HordeCore:ajaxFailure', function(e) {
+    if (this.uploading) {
+        this._addAttachmentEnd();
+    }
 }.bindAsEventListener(DimpCompose));
 
 

@@ -17,30 +17,37 @@ Horde_Registry::appInit('ansel');
 $title = _("Do you really want to report this gallery?");
 $gallery_id = (int)Horde_Util::getFormData('gallery');
 try {
-    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
+    $gallery = $injector->getInstance('Ansel_Storage')->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
-    $notification->push($gallery->getMessage());
+    $notification->push($e->getMessage());
     Horde::url('view.php?view=List', true)->redirect();
     exit;
 }
 
 if (($image_id = Horde_Util::getFormData('image')) !== null) {
     $title = _("Do you really want to report this photo?");
-    $return_url = Ansel::getUrlFor('view',
-                                   array('view' => 'Image',
-                                         'image' => $image_id,
-                                         'gallery' => $gallery_id),
-                                   true);
+    $return_url = Ansel::getUrlFor(
+      'view',
+       array('view' => 'Image',
+             'image' => $image_id,
+             'gallery' => $gallery_id),
+      true
+    );
 } else {
-    $return_url = Ansel::getUrlFor('view',
-                                   array('gallery' => $gallery_id,
-                                         'view' => 'Gallery'),
-                                   true);
+    $return_url = Ansel::getUrlFor(
+      'view',
+       array('gallery' => $gallery_id,
+             'view' => 'Gallery'),
+       true
+    );
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, $title);
-$form->setButtons(array(_("Report"), _("Cancel")));
+$form->setButtons(array(
+    array('class' => 'horde-default', 'value' => _("Report")),
+    array('class' => 'horde-cancel', 'value' => _("Cancel")))
+);
 
 $enum = array('advertisement' => _("Advertisement content"),
               'terms' => _("Terms and conditions infringement"),
@@ -57,6 +64,10 @@ $form->addVariable(_("Report type"), 'type', 'radio', true, false, null, array($
 $form->addVariable(_("Report reason"), 'reason', 'longtext', true);
 
 $gallery_id = Horde_Util::getFormData('id');
+
+if ($vars->get('submitbutton') == _("Cancel")) {
+    Horde::url('', true)->redirect();
+}
 
 if ($form->validate()) {
     if (Horde_Util::getFormData('submitbutton') == _("Report")) {

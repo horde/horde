@@ -384,9 +384,12 @@ class IMP_Basic_Search extends IMP_Basic_Base
             }
         } else {
             /* Process list of recent searches. */
+            $iterator = IMP_Search_IteratorFilter::create(
+                IMP_Search_IteratorFilter::QUERY
+            );
             $rs = array();
-            $imp_search->setIteratorFilter(IMP_Search::LIST_QUERY);
-            foreach ($imp_search as $val) {
+
+            foreach ($iterator as $val) {
                 $rs[$val->formid] = array(
                     'c' => $val->criteria,
                     'f' => array(

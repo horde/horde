@@ -64,7 +64,7 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
         if ($this->_params['gallery'] != 'all') {
             try {
                 $gallery = $this->_getGallery();
-            } catch (Horde_Exception $e) {
+            } catch (Ansel_Exception $e) {
                 return Ansel::getUrlFor('view', array('view' => 'List'), true)->link() . _("Gallery") . '</a>';
             }
             // Build the gallery name.
@@ -99,7 +99,7 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
         } else {
             try {
                 $gallery = $this->_getGallery();
-            } catch (Horde_Exception $e) {
+            } catch (Ansel_Exception $e) {
                 return $e->getMessage();
             }
             $results = array();
@@ -142,7 +142,7 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
                     . '</a></td><td class="nowrap">'
                     . $comment['message_subject'] . '</td><td class="nowrap">'
                     . $comment['message_author'] . '</td></tr>';
-            } catch (Horde_Exception $e) {}
+            } catch (Ansel_Exception $e) {}
         }
         $html .= '</tbody></table>';
 

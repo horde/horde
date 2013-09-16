@@ -39,6 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
+* [mjr] Support ActiveSync SOFTDELETE.
 * [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Support for X509 certificate authentication in ActiveSync requests.
 * [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
@@ -1216,7 +1218,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.4.0</min>
+    <min>2.8.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3158,6 +3160,8 @@
    <date>2013-09-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
+* [mjr] Support ActiveSync SOFTDELETE.
 * [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Support for X509 certificate authentication in ActiveSync requests.
 * [mjr] Fix calculating policy value for SD card encryption and device encryption policies.

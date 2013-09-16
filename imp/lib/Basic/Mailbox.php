@@ -527,8 +527,11 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
             if (!$search_mbox && $mailbox->access_filters) {
                 $filters = array();
-                $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
-                foreach ($imp_search as $val) {
+                $iterator = IMP_Search_IteratorFilter::create(
+                    IMP_Search_IteratorFilter::FILTER
+                );
+
+                foreach ($iterator as $val) {
                     $filters[] = array(
                         'l' => $val->label,
                         'v' => IMP_Mailbox::formTo($val)

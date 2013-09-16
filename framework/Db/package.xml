@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Fix issues with active Turkish locale.
 * [jan] Always return a Horde_Db_Adapter_Base_Result sub-class from the select() method.
 * [jan] Don&apos;t ping server before each query in PDO drivers (Bug #12656).
 * [jan] Re-organize unit tests.
@@ -214,6 +215,13 @@
    </package>
    <package>
     <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -720,6 +728,7 @@
    <date>2013-09-12</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Fix issues with active Turkish locale.
 * [jan] Always return a Horde_Db_Adapter_Base_Result sub-class from the select() method.
 * [jan] Don&apos;t ping server before each query in PDO drivers (Bug #12656).
 * [jan] Re-organize unit tests.

@@ -36,15 +36,12 @@ if ($conf['vfs']['src'] == 'sendfile') {
     /* Need to ensure the file exists */
     try {
         $image->createView('thumb', $style);
-    } catch (Horde_Exception $e) {
+    } catch (Ansel_Exception $e) {
         Horde::logMessage($e, 'ERR');
         exit;
     }
     $filename = $injector->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('thumb', $style), $image->getVFSName('thumb'));
-    header('Content-Type: ' . $image->getType('thumb'));
-    header('X-LIGHTTPD-send-file: ' . $filename);
-    header('X-Sendfile: ' . $filename);
-    exit;
+    Ansel::doSendFile($filename, $image->getType('thumb'));
 }
 
 $image->display('thumb', $style);

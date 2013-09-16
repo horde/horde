@@ -39,11 +39,6 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
      */
     public static $moneyPrecision = 19;
 
-    /**
-     * @var array
-     */
-    protected static $_hasEmptyStringDefault = array('binary', 'string', 'text');
-
 
     /**
      * Construct

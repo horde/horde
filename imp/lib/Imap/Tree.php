@@ -181,10 +181,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, IteratorAggregate, Serial
         /* Add remote servers. */
         $this->insert(iterator_to_array($injector->getInstance('IMP_Remote')));
 
-        /* Add virtual folders. */
-        $imp_search = $injector->getInstance('IMP_Search');
-        $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
-        $this->insert(iterator_to_array($imp_search));
+        /* Add virtual folders to the tree. */
+        $iterator = IMP_Search_IteratorFilter::create(
+            IMP_Search_IteratorFilter::VFOLDER
+        );
+        array_map(array($this, 'insert'), iterator_to_array($iterator));
 
         $this->track = $old_track;
     }

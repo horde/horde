@@ -55,7 +55,7 @@ if ($face_id) {
         if (!empty($face['face_name'])) {
             $name = $face['face_name'];
         }
-    } catch (Horde_Exception $e) {
+    } catch (Ansel_Exception $e) {
         $notification->push($e->getMessage());
         Horde::url('list.php')->redirect();
     }
