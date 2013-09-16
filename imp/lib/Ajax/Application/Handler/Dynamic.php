@@ -300,6 +300,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
                 $iterator = 'IMP_Ftree_IteratorFilter_Ancestors';
                 if ($GLOBALS['prefs']->getValue('nav_expanded')) {
                     $this->_base->queue->setMailboxOpt('expand', 1);
+                    $mask |= IMP_Ftree_IteratorFilter::NO_UNEXPANDED;
                 } else {
                     $mask |= IMP_Ftree_IteratorFilter::NO_CHILDREN;
                 }

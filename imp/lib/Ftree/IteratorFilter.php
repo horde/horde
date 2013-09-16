@@ -170,10 +170,6 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
      */
     public function hasChildren()
     {
-        if (isset($this->_cache[$this->key()])) {
-            return true;
-        }
-
         /* Check for the existence of children in the first place. Use this
          * recursive hasChildren() call since it will cache the results. */
         if (!$this->getInnerIterator()->hasChildren()) {
@@ -183,6 +179,10 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
         /* If expanded is requested, we assume it overrides child filter. */
         if ($this->_mask & self::NO_UNEXPANDED && !$this->current()->open) {
             return false;
+        }
+
+        if (isset($this->_cache[$this->key()])) {
+            return true;
         }
 
         /* Explicitly don't return child elements. */
