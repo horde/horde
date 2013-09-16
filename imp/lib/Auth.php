@@ -218,7 +218,7 @@ class IMP_Auth
             $registry->getAuth() &&
             !empty($servers[$server_key]->hordeauth)) {
             return array(
-                'userId' => $registry->getAuth((strcasecmp($servers[$server_key]->hordeauth, 'full') == 0) ? null : 'bare'),
+                'userId' => $registry->getAuth((strcasecmp($servers[$server_key]->hordeauth, 'full') === 0) ? null : 'bare'),
                 'password' => $registry->getAuthCredential('password'),
                 'server' => $server_key
             );

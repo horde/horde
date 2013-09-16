@@ -1402,7 +1402,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         $str = strval($name);
 
-        return ((strlen($str) == 5) && (strcasecmp($str, 'INBOX') == 0))
+        return ((strlen($str) == 5) && (strcasecmp($str, 'INBOX') === 0))
             ? 'INBOX'
             : $str;
     }
