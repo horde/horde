@@ -1355,7 +1355,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if ($ml['check'] &&
             $ml['subexist'] &&
-            // subscribed list is in UTF-8
+            // Subscribed list is in UTF-8.
             !isset($ml['subscribed'][strval($mbox)])) {
             return;
         } elseif ((!$ml['check'] && $ml['subexist']) ||
