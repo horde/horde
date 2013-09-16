@@ -333,8 +333,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                 /* Rebuild the parent tree. */
                 if (empty($this->_parent[$parent])) {
                     $this->delete($parent);
-                } else {
-                    $this->_parent[$parent] = array_values($this->_parent[$parent]);
                 }
                 $this->_changed = true;
             } else {
@@ -358,14 +356,11 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                     unset($this->_parent[$parent]);
                     if ($p_elt = $this[$parent]) {
                         if ($p_elt->container && !$p_elt->namespace) {
-                            $this->delete($parent);
+                            $this->delete($p_elt);
                         } else {
                             $p_elt->open = false;
                         }
                     }
-                } else {
-                    /* Rebuild the parent tree. */
-                    $this->_parent[$parent] = array_values($this->_parent[$parent]);
                 }
 
                 /* Remove the mailbox from the expanded folders list. */
@@ -373,6 +368,10 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 
                 /* Remove the mailbox from the nav_poll list. */
                 $this->removePollList($val);
+            }
+
+            if (!empty($this->_parent[$parent])) {
+                $this->_parent[$parent] = array_values($this->_parent[$parent]);
             }
         }
     }
@@ -680,6 +679,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             } else {
                 unset($this->expanded[$elt]);
             }
+            $this->eltdiff->change($elt);
             break;
 
         case 'polled':
@@ -833,6 +833,9 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 
         $this->_changed = true;
 
+        if (!isset($this->_parent[$parent])) {
+            $this->eltdiff->change($p_elt);
+        }
         $this->_parent[$parent][] = $name;
         $this->_elts[$name] = $elt['a'];
 

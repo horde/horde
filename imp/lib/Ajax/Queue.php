@@ -473,7 +473,7 @@ class IMP_Ajax_Queue
         }
 
         if ($delete = $eltdiff->delete) {
-            $out['d'] = array_reverse($delete);
+            $out['d'] = IMP_Mailbox::formTo($delete);
         }
 
         if (!empty($out)) {
