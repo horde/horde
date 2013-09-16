@@ -454,17 +454,21 @@ class IMP_Ajax_Queue
         global $injector;
 
         $eltdiff = $injector->getInstance('IMP_Ftree')->eltdiff;
-        $out = array();
+        $out = $poll = array();
 
-        if ($add = $eltdiff->add) {
-            $out['a'] = array_map(array($this, '_ftreeElt'), $add);
-            $poll = $add;
-        } else {
-            $poll = array();
+        if (!$eltdiff->track) {
+            return;
         }
 
-        if ($change = $eltdiff->change) {
-            $out['c'] = array_map(array($this, '_ftreeElt'), $change);
+        if (($add = $eltdiff->add) &&
+            ($elts = array_values(array_filter(array_map(array($this, '_ftreeElt'), $add))))) {
+            $out['a'] = $elts;
+            $poll = $add;
+        }
+
+        if (($change = $eltdiff->change) &&
+            ($elts = array_values(array_filter(array_map(array($this, '_ftreeElt'), $change))))) {
+            $out['c'] = $elts;
             $poll = array_merge($poll, $change);
         }
 
@@ -482,7 +486,8 @@ class IMP_Ajax_Queue
     /**
      * Create a folder tree element.
      *
-     * @return stdClass  The element object. Contains the following items:
+     * @return mixed  The element object, or null if the element is not
+     *                active. Object contains the following properties:
      * <pre>
      *   - ch: (boolean) [children] Does the mailbox contain children?
      *         DEFAULT: no
@@ -519,19 +524,34 @@ class IMP_Ajax_Queue
      */
     protected function _ftreeElt($id)
     {
-        global $injector;
+        global $injector, $registry;
 
         $ftree = $injector->getInstance('IMP_Ftree');
-        $elt = $ftree[$id];
+        if (!($elt = $ftree[$id])) {
+            return null;
+        }
+
         $mbox_ob = $elt->mbox_ob;
 
         $ob = new stdClass;
+        $ob->m = $mbox_ob->form_to;
 
         if ($elt->children) {
-            $ob->ch = 1;
-        }
-        $ob->m = $mbox_ob->form_to;
-        if ($elt->nochildren) {
+            if ($registry->getView() == $registry::VIEW_DYNAMIC) {
+                $filter = IMP_Ftree_IteratorFilter::create(
+                    IMP_Ftree_IteratorFilter::NO_SPECIALMBOXES,
+                    $elt
+                );
+
+                /* Only need to check for a single child. */
+                foreach ($filter as $val) {
+                    $ob->ch = 1;
+                    break;
+                }
+            } else {
+                $ob->ch = 1;
+            }
+        } elseif ($elt->nochildren) {
             $ob->nc = 1;
         }
 
@@ -562,6 +582,9 @@ class IMP_Ajax_Queue
         }
 
         if ($elt->container) {
+            if (empty($ob->ch)) {
+                return null;
+            }
             $ob->cl = 'exp';
             $ob->co = 1;
         } else {
