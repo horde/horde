@@ -906,6 +906,8 @@ abstract class Horde_Db_Adapter_Base_Schema
      *
      * @param string $sql     Existing SQL definition for a column.
      * @param array $options  Column options:
+     *                        - column: (Horde_Db_Adapter_Base_ColumnDefinition
+     *                          The column definition class.
      *                        - null: (boolean) Whether to allow NULL values.
      *                        - default: (mixed) Default column value.
      *                        - autoincrement: (boolean) Whether the column is
