@@ -105,13 +105,13 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             return "'" . $value . "'";
         }
         if (is_string($value) && substr($column->getSqlType(), 0, 3) == 'bit') {
-            if (preg_match('/^[01]*$/', $value)) {
-                // Bit-string notation
-                return "B'" . $value . "'";
-            }
             if (preg_match('/^[0-9A-F]*$/i')) {
                 // Hexadecimal notation
                 return "X'" . $value . "'";
+            }
+            if (preg_match('/^[01]*$/', $value)) {
+                // Bit-string notation
+                return "B'" . $value . "'";
             }
         }
 
