@@ -192,8 +192,8 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
             $this->_lastQuery = $sql;
             $stmt = $this->_connection->query($sql);
         } catch (Exception $e) {
-            $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
             $this->_logInfo($sql, $name);
+            $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
             throw new Horde_Db_Exception($e);
         }
 
