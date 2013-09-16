@@ -337,10 +337,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      *
      * @return array  A database type map.
      */
-    public function nativeDatabaseTypes()
-    {
-        return array();
-    }
+    abstract public function nativeDatabaseTypes();
 
     /**
      * Returns the maximum length a table alias can have.
