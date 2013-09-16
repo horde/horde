@@ -1,8 +1,5 @@
 <?php
 /**
- * Base class for managing database schemes and handling database-specific SQL
- * dialects and quoting.
- *
  * Copyright 2007 Maintainable Software, LLC
  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
@@ -17,6 +14,9 @@
  */
 
 /**
+ * Base class for managing database schemes and handling database-specific SQL
+ * dialects and quoting.
+ *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
@@ -259,7 +259,10 @@ abstract class Horde_Db_Adapter_Base_Schema
      *
      * @return string  The quoted column name.
      */
-    abstract public function quoteColumnName($name);
+    public function quoteColumnName($name)
+    {
+        return '"' . str_replace('"', '""', $name) . '"';
+    }
 
     /**
      * Returns a quoted form of the table name.

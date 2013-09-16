@@ -1,8 +1,5 @@
 <?php
 /**
- * Class for MySQL-specific managing of database schemes and handling of SQL
- * dialects and quoting.
- *
  * Copyright 2007 Maintainable Software, LLC
  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
@@ -17,6 +14,9 @@
  */
 
 /**
+ * Class for MySQL-specific managing of database schemes and handling of SQL
+ * dialects and quoting.
+ *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>

@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Gracefully deal with columns removed from the backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1696,7 +1696,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Gracefully deal with columns removed from the backend.
    </notes>
   </release>
  </changelog>

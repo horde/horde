@@ -1,8 +1,5 @@
 <?php
 /**
- * Class for SQLite-specific managing of database schemes and handling of SQL
- * dialects and quoting.
- *
  * Copyright 2007 Maintainable Software, LLC
  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
@@ -17,6 +14,9 @@
  */
 
 /**
+ * Class for SQLite-specific managing of database schemes and handling of SQL
+ * dialects and quoting.
+ *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
@@ -56,18 +56,6 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     /*##########################################################################
     # Quoting
     ##########################################################################*/
-
-    /**
-     * Returns a quoted form of the column name.
-     *
-     * @param string $name  A column name.
-     *
-     * @return string  The quoted column name.
-     */
-    public function quoteColumnName($name)
-    {
-        return '"' . str_replace('"', '""', $name) . '"';
-    }
 
     /**
      * Returns a quoted boolean true.
