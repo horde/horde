@@ -354,8 +354,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         array_map(
-            array_unique(array($ftree->eltdiff, 'add')),
-            iterator_to_array($iterator, false)
+            array($ftree->eltdiff, 'add'),
+            array_unique(iterator_to_array($iterator, false))
         );
 
         $this->_base->queue->quota($this->_base->indices->mailbox);
