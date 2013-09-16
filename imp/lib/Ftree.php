@@ -684,15 +684,14 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 
         case 'polled':
             if ($bool) {
-                $add = self::ELT_IS_POLLED;
+                $attr = self::ELT_IS_POLLED;
                 $remove = self::ELT_NOT_POLLED;
             } else {
-                $add = self::ELT_NOT_POLLED;
+                $attr = self::ELT_NOT_POLLED;
                 $remove = self::ELT_IS_POLLED;
             }
-            $this->_elts[$s_elt] |= $add;
             $this->_elts[$s_elt] &= ~$remove;
-            return;
+            break;
 
         case 'subscribed':
             $attr = self::ELT_IS_SUBSCRIBED;
