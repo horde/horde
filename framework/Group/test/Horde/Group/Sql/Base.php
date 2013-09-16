@@ -127,12 +127,8 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_TestBase
 
     public static function setUpBeforeClass()
     {
-        $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
+        $logger = new Horde_Log_Logger(new Horde_Log_Handler_Cli());
         //self::$db->setLogger($logger);
-        $logger = new Horde_Log_Logger(
-            new Horde_Log_Handler_Stream(
-                STDOUT, null,
-                new Horde_Log_Formatter_Simple('%message%' . PHP_EOL)));
         $dir = __DIR__ . '/../../../../migration/Horde/Group';
         if (!is_dir($dir)) {
             error_reporting(E_ALL & ~E_DEPRECATED);
