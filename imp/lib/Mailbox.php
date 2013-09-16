@@ -277,7 +277,7 @@ class IMP_Mailbox implements Serializable
      */
     public function __construct($mbox)
     {
-        if (strlen($mbox) == 0) {
+        if (strlen($mbox) === 0) {
             throw new IMP_Exception('Mailbox name must not be empty.');
         }
 

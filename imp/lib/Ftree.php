@@ -806,7 +806,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     {
         $id = strval($id);
 
-        return (strcasecmp($id, 'INBOX') == 0)
+        return (strcasecmp($id, 'INBOX') === 0)
             ? 'INBOX'
             : $id;
     }

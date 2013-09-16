@@ -1202,7 +1202,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'ext' => false,
             'options' => $options,
             'subexist' => ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS),
-            'subscribed' => ($check ? array_flip(array_map('strval', $subscribed)) : null)
+            'subscribed' => ($check ? array_merge(array_flip(array_map('strval', $subscribed)), array('INBOX' => 1)) : null)
         );
         $pipeline->data['listresponse'] = array();
 
@@ -1355,7 +1355,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if ($ml['check'] &&
             $ml['subexist'] &&
-            // subscribed list is in UTF-8
+            // Subscribed list is in UTF-8.
             !isset($ml['subscribed'][strval($mbox)])) {
             return;
         } elseif ((!$ml['check'] && $ml['subexist']) ||
