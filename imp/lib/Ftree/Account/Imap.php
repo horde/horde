@@ -88,7 +88,9 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
             /* Break apart the name via the delimiter and go step by
              * step through the name to make sure all subfolders exist
              * in the tree. */
-            $parts = explode($val['delimiter'], $key);
+            $parts = strlen($val['delimiter'])
+                ? explode($val['delimiter'], $key)
+                : array($key);
             $parent = null;
 
             for ($i = 1, $p_count = count($parts); $i <= $p_count; ++$i) {
