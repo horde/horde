@@ -152,6 +152,8 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         /* Reset class variables to the defaults. */
         $this->_accounts = $this->_elts = $this->_parent = array();
         $this->_changed = true;
+
+        $old_track = (isset($this->_eltdiff) && $this->_eltdiff->track);
         $this->_eltdiff = new IMP_Ftree_Eltdiff();
 
         /* Create a placeholder element to the base of the tree so we can
@@ -179,6 +181,10 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             IMP_Search_IteratorFilter::VFOLDER
         );
         array_map(array($this, 'insert'), iterator_to_array($iterator));
+
+        if ($old_track) {
+            $this->eltdiff->track = true;
+        }
     }
 
     /**
