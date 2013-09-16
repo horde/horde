@@ -181,10 +181,6 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
             return false;
         }
 
-        if (isset($this->_cache[$this->key()])) {
-            return true;
-        }
-
         /* Explicitly don't return child elements. */
         if ($this->_mask & self::NO_CHILDREN) {
             return false;

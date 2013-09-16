@@ -269,19 +269,21 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      */
     public function listMailboxes()
     {
+        global $injector, $prefs, $session;
+
         /* This might be a long running operation. */
         if ($this->vars->initial) {
-            $GLOBALS['session']->close();
+            $session->close();
         }
 
-        $ftree = $GLOBALS['injector']->getInstance('IMP_Ftree');
+        $ftree = $injector->getInstance('IMP_Ftree');
         $initreload = ($this->vars->initial || $this->vars->reload);
 
         if ($this->vars->reload) {
             $ftree->init();
         }
 
-        $iterator = 'IMP_Ftree_IteratorFilter';
+        $iterator = new AppendIterator();
         if ($this->vars->unsub) {
             $ftree->loadUnsubscribed();
             $mask = IMP_Ftree_IteratorFilter::UNSUB;
@@ -295,58 +297,71 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         if ($this->vars->all) {
             $this->_base->queue->setMailboxOpt('all', 1);
-        } else {
-            if ($initreload) {
-                $iterator = 'IMP_Ftree_IteratorFilter_Ancestors';
-                if ($GLOBALS['prefs']->getValue('nav_expanded')) {
-                    $this->_base->queue->setMailboxOpt('expand', 1);
-                    $mask |= IMP_Ftree_IteratorFilter::NO_UNEXPANDED;
-                } else {
-                    $mask |= IMP_Ftree_IteratorFilter::NO_CHILDREN;
-                }
-            } else {
+            $iterator->append(IMP_Ftree_IteratorFilter::create($mask));
+        } elseif ($initreload) {
+            $no_mbox = false;
+
+            switch ($prefs->getValue('nav_expanded')) {
+            case IMP_Ftree_Prefs_Expanded::NO:
+                $iterator->append(IMP_Ftree_IteratorFilter::create(
+                    $mask | IMP_Ftree_IteratorFilter::NO_CHILDREN
+                ));
+                break;
+
+            case IMP_Ftree_Prefs_Expanded::YES:
+                $iterator->append(IMP_Ftree_IteratorFilter::create($mask));
                 $this->_base->queue->setMailboxOpt('expand', 1);
+                $no_mbox = true;
+                break;
+
+            case IMP_Ftree_Prefs_Expanded::LAST:
+                $iterator->append(IMP_Ftree_IteratorFilter::create(
+                    $mask | IMP_Ftree_IteratorFilter::NO_UNEXPANDED
+                ));
+                $this->_base->queue->setMailboxOpt('expand', 1);
+                break;
             }
-        }
 
-        if (!empty($this->vars->mboxes)) {
-            $mboxes = IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON));
-            if ($initreload) {
-                $mboxes = array_merge(array('INBOX'), array_diff($mboxes, array('INBOX')));
-            }
-
-            foreach ($mboxes as $val) {
-                if ($val = $ftree[$val]) {
-                    foreach ($iterator::create($mask, $val) as $val2) {
-                        $ftree->eltdiff->add($val2);
-                        $this->_base->queue->poll($val2);
-                    }
-
-                    if (!$initreload) {
-                        $ftree->expand($val);
+            if (!$no_mbox) {
+                $mboxes = IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON));
+                foreach ($mboxes as $val) {
+                    if (!$val->inbox) {
+                        $iterator->append(
+                            IMP_Ftree_IteratorFilter_Ancestors::create($mask, $val->tree_elt)
+                        );
                     }
                 }
             }
-        }
-
-        /* Add special mailboxes explicitly to the initial folder list, since
-         * they are ALWAYS displayed, may appear outside of the folder
-         * slice requested, and need to be sorted logically. */
-        if ($initreload) {
+            /* Add special mailboxes explicitly to the initial folder list,
+             * since they are ALWAYS displayed, may appear outside of the
+             * folder slice requested, and need to be sorted logically. */
+            $special = new ArrayIterator();
             foreach (IMP_Mailbox::getSpecialMailboxesSort() as $val) {
                 if (isset($ftree[$val])) {
-                    $ftree->eltdiff->add($val2);
+                    $special->append($val);
                 }
             }
-
-            /* Poll all mailboxes on initial display. */
-            $this->_base->queue->poll($ftree->getPollList());
+            $iterator->append($special);
+        } else {
+            $this->_base->queue->setMailboxOpt('expand', 1);
+            foreach (IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON)) as $val) {
+                $iterator->append(IMP_Ftree_IteratorFilter::create(
+                    $mask | IMP_Ftree_IteratorFilter::NO_UNEXPANDED,
+                    $val->tree_elt
+                ));
+                $ftree->expand($val);
+            }
         }
+
+        array_map(
+            array_unique(array($ftree->eltdiff, 'add')),
+            iterator_to_array($iterator, false)
+        );
 
         $this->_base->queue->quota($this->_base->indices->mailbox);
 
         if ($this->vars->initial) {
-            $GLOBALS['session']->start();
+            $session->start();
         }
 
         return true;
