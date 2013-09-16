@@ -40,11 +40,17 @@ class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
         $out = array();
 
         if ($this->imp_imap->init) {
+            if (!strlen($query = substr($query, strlen($this->_id)))) {
+                $query = self::INIT;
+            }
+
+            $prefix = $this->_id . "\0";
+
             foreach (parent::getList($query) as $val) {
                 $out[] = array_filter(array(
                     'a' => $val['a'] | IMP_Ftree::ELT_REMOTE_MBOX,
-                    'p' => isset($val['p']) ? $val['p'] : null,
-                    'v' => $this->_id . "\0" . $val['v']
+                    'p' => isset($val['p']) ? ($prefix . $val['p']) : $this->_id,
+                    'v' => $prefix . $val['v']
                 ));
             }
         }

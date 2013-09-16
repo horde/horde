@@ -593,7 +593,7 @@ class IMP_Ajax_Queue
             }
 
             if (isset($ob->n) && isset($ob->r)) {
-                $ob->r = ($mbox_ob->remote_auth ? 3 : 2);
+                $ob->r = ($mbox_ob->remote_account->imp_imap->init ? 3 : 2);
             }
 
             if ($elt->polled) {

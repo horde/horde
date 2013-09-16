@@ -107,6 +107,10 @@
  * @property-read boolean $query  Is this a search query?
  * @property-read boolean $readonly  Is this mailbox read-only?
  * @property-read boolean $remote  Is this mailbox on a remote server?
+ * @property-read IMP_Remote_Account $remote_account  Return the account
+ *                                                    object for this element
+ *                                                    (null if not a remote
+ *                                                    element).
  * @property-read boolean $remote_container  Is this mailbox a remote special
  *                                           element?
  * @property-read boolean $search  Is this a search mailbox?
@@ -652,12 +656,17 @@ class IMP_Mailbox implements Serializable
                     !$acl[Horde_Imap_Client::ACL_WRITE]);
 
         case 'remote':
-            $tmp = $injector->getInstance('IMP_Remote')->getRemoteById($this->_mbox);
-            return (!is_null($tmp) && ($tmp != $this->_mbox));
+            return (($elt = $this->tree_elt) && $elt->remote_mbox);
+
+        case 'remote_account':
+            $remote = $injector->getInstance('IMP_Remote');
+            $account = ($this->remote_container)
+                ? $remote[$this->_mbox]
+                : $remote->getRemoteById($this->_mbox);
+            return $account ?: null;
 
         case 'remote_container':
-            return (($this->_mbox == IMP_Ftree::REMOTE_KEY) ||
-                    ($injector->getInstance('IMP_Remote')->getRemoteById($this->_mbox) == $this->_mbox));
+            return (($elt = $this->tree_elt) && $elt->remote);
 
         case 'search':
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
@@ -1622,7 +1631,7 @@ class IMP_Mailbox implements Serializable
         }
 
         /* Handle remote mailboxes. */
-        if ($this->remote_container) {
+        if ($this->remote || $this->remote_container) {
             return $injector->getInstance('IMP_Remote')->label($this->_mbox);
         }
 
