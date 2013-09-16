@@ -285,7 +285,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function quoteTrue()
     {
-        return "'t'";
+        return '1';
     }
 
     /**
@@ -295,7 +295,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function quoteFalse()
     {
-        return "'f'";
+        return '0';
     }
 
     /**
