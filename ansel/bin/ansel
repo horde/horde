@@ -533,7 +533,7 @@ class Ansel_Cli_Helper_Remote extends Ansel_Cli_Helper_Base
 
     public function exif($gallery)
     {
-        throw new Horde_Exception('Not supported for remote galleries');
+        throw new Ansel_Exception('Not supported for remote galleries');
     }
 
 }

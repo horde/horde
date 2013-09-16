@@ -541,7 +541,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $changes = array(
             'add' => array(),
             'delete' => array(),
-            'modify' => array()
+            'modify' => array(),
+            'soft' => array()
         );
 
         ob_start();
@@ -561,6 +562,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return array();
                 }
+                $folder->setSoftDeleteTimes($cutoffdate, time());
+                // @TODO, do we need to save the folder here?
+
             } else {
                 try {
                     $changes = $this->_connector->getChanges('calendar', $from_ts, $to_ts);
@@ -571,6 +575,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
                     return array();
+                }
+
+                // Softdelete. We check this once per close-to 24 hour period.
+                // We introduce an element of randomness in the time to help
+                // avoid a large number of clients performing a softdelete at
+                // once. It's 23 hours + some random number of minutes < 60.
+                $sd = $folder->getSoftDeleteTimes();
+                if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
+                    $this->_logger->info(sprintf(
+                        '[%s] Polling for SOFTDELETE items in calendar collection',
+                        getmypid()));
+                    // Gets the list of ids contained between the last softdelete
+                    // run and the current cutoffdate.
+                    $changes['soft'] = $this->_connector->softDelete('calendar', $sd[0], $cutoffdate);
+                    $folder->setSoftDeleteTimes($cutoffdate, time());
                 }
             }
             break;
@@ -684,13 +703,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     return array();
                 }
             } else {
+                // Calculate SOFTDELETE if needed?
+                $sd = $folder->getSoftDeleteTimes();
+                if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
+                    $soft = true;
+                } else {
+                    $soft = false;
+                }
+
                 try {
-                    // Poll IMAP server for changes.
                     $folder = $this->_imap->getMessageChanges(
                         $folder,
                         array(
                             'sincedate' => (int)$cutoffdate,
-                            'protocolversion' => $this->_version));
+                            'protocolversion' => $this->_version,
+                            'softdelete' => $soft));
                     // Poll the maillog for reply/forward state changes.
                     $folder = $this->_getMaillogChanges($folder, $from_ts);
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
@@ -710,6 +737,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $changes['add'] = $folder->added();
                 $changes['delete'] = $folder->removed();
                 $changes['modify'] = $folder->changed();
+                $changes['soft'] = $folder->getSoftDeleted();
             }
         }
 
@@ -721,7 +749,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
         }
 
-        // For CLASS_EMAIL, all changes are a change in flags.
+        // For CLASS_EMAIL, all changes are a change in flags or softdelete.
         if ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL) {
             $flags = $folder->flags();
             foreach ($changes['modify'] as $uid) {
@@ -740,14 +768,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         }
 
-        // Server Deletions
+        // Server Deletions and Softdeletions
         foreach ($changes['delete'] as $deleted) {
             $results[] = array(
                 'id' => $deleted,
                 'type' => Horde_ActiveSync::CHANGE_TYPE_DELETE);
         }
-        $this->_endBuffer();
+        if (!empty($changes['soft'])) {
+            foreach ($changes['soft'] as $deleted) {
+                $results[] = array(
+                    'id' => $deleted,
+                    'type' => Horde_ActiveSync::CHANGE_TYPE_SOFTDELETE
+                );
+            }
+        }
 
+        $this->_endBuffer();
         return $results;
     }
 

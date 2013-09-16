@@ -1796,11 +1796,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 // RFC 3691 defines 'UNSELECT' for precisely this purpose
                 $this->_sendCmd($this->_command('UNSELECT'));
             } else {
-                // RFC 3501 [6.4.2]: to close a mailbox without expunge,
-                // select a non-existent mailbox. Selecting a null mailbox
-                // should do the trick.
+                /* RFC 3501 [6.4.2]: to close a mailbox without expunge,
+                 * select a non-existent mailbox. */
                 try {
-                    $this->_sendCmd($this->_command('SELECT')->add(''));
+                    $this->_sendCmd($this->_command('EXAMINE')->add(
+                        new Horde_Imap_Client_Data_Format_Mailbox("\24nonexist\24")
+                    ));
+
+                    /* Not pipelining, since the odds that this CLOSE is even
+                     * needed is tiny; and it returns BAD, which should be
+                     * avoided, if possible. */
+                    $this->_sendCmd($this->_command('CLOSE'));
                 } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
                     // Ignore error; it is expected.
                 }

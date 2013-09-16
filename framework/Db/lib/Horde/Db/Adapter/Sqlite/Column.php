@@ -23,12 +23,6 @@
  */
 class Horde_Db_Adapter_Sqlite_Column extends Horde_Db_Adapter_Base_Column
 {
-    /**
-     * @var array
-     */
-    protected static $_hasEmptyStringDefault = array('binary', 'string', 'text');
-
-
     public function extractDefault($default)
     {
         $default = parent::extractDefault($default);

@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-03</date>
+ <date>2013-09-14</date>
  <version>
-  <release>2.15.1</release>
+  <release>2.15.3</release>
   <api>2.15.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix incorrect usage of Horde_Db API in cache backend.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1973,10 +1973,38 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-03</date>
+   <date>2013-09-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Ensure Horde_Imap_Client_Base#search() always returns the &apos;count&apos; value (Bug #12682).
 * [jan] Fix incorrect usage of Horde_Db API in cache backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.15.2</release>
+    <api>2.15.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Handle case-insensitive INBOX return from the server.
+* [mms] Use strict RFC-compliant workaround for servers that don&apos;t support the UNSELECT IMAP extension.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.15.3</release>
+    <api>2.15.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

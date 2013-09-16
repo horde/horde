@@ -944,20 +944,16 @@ class Ansel_Image Implements Iterator
      *
      * @param string $view  Which view to wrap up.
      *
-     * @throws Ansel_Exception
+     * @return string  Path to temporary file.
+     * @deprecated Not used anywhere, remove in A4.
      */
     public function toFile($view = 'full')
     {
-        try {
-            $this->load($view);
-            return $this->_image->toFile(
-                $this->_dirty ?
-                    false :
-                    $this->_data[$view]);
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            throw new Ansel_Exception($e);
-        }
+        $this->load($view);
+        return $this->_image->toFile(
+            $this->_dirty ?
+                false :
+                $this->_data[$view]);
     }
 
     /**
@@ -966,17 +962,11 @@ class Ansel_Image Implements Iterator
      * @param string $view  The view (full, screen etc..) to get dimensions for
      *
      * @return array  A hash of 'width and 'height' dimensions.
-     * @throws Ansel_Exception
      */
     public function getDimensions($view = 'full')
     {
-        try {
-            $this->load($view);
-            return $this->_image->getDimensions();
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'INFO');
-            throw new Ansel_Exception($e);
-        }
+        $this->load($view);
+        return $this->_image->getDimensions();
     }
 
     /**

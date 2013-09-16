@@ -274,7 +274,7 @@ class Horde_Db_Adapter_Base_Column
             return $value;
         }
 
-        $value = strtolower($value);
+        $value = Horde_String::lower($value);
         return $value == 'true' || $value == 't' || $value == '1';
     }
 

@@ -54,6 +54,21 @@ class Horde_Core_ActiveSync_Auth extends Horde_Auth_Base
      *
      * @throws Horde_Auth_Exception
      */
+    public function authenticate($userId, $credentials, $login = true)
+    {
+        $this->_authenticate($userId, $credentials);
+
+        return true;
+    }
+
+    /**
+     * Find out if a set of login credentials are valid.
+     *
+     * @param string $userId      The userId to check.
+     * @param array $credentials  The credentials to use.
+     *
+     * @throws Horde_Auth_Exception
+     */
     protected function _authenticate($userId, $credentials)
     {
         if (!$this->_params['base_driver']->authenticate($userId, $credentials)) {
