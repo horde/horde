@@ -166,7 +166,7 @@ class IMP_Flags implements ArrayAccess, Serializable
      */
     public function addFlag($label)
     {
-        if (strlen($label) == 0) {
+        if (strlen($label) === 0) {
             throw new IMP_Exception(_("Flag name must not be empty."));
         }
 

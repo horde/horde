@@ -80,7 +80,7 @@ if (count($ids)) {
     }
 }
 
-$description = ($total_num == 0)
+$description = ($total_num === 0)
     ? _("No Messages")
     : sprintf(_("%u of %u messages in %s unread."), $unseen_num, $total_num, $mailbox->label);
 
