@@ -25,8 +25,7 @@
  * @property-read IMP_Imap_Remote $imp_imap  IMP IMAP object.
  * @property string $label  Remote account label.
  * @property integer $port  Remote server port.
- * @property mixed $secure  True if security required, false if no security,
- *                          or null to use security if available.
+ * @property mixed $secure  See backends.php ('secure' parameter).
  * @property integer $type  The connection type (self::IMAP or self::POP3).
  * @property string $username  Remote username.
  */
@@ -109,7 +108,7 @@ class IMP_Remote_Account implements Serializable
             break;
 
         case 'secure':
-            $this->_config[$name] = (bool)$value;
+            $this->_config[$name] = $value;
             break;
         }
     }
@@ -127,8 +126,7 @@ class IMP_Remote_Account implements Serializable
             'hostspec' => $this->hostspec,
             'password' => new IMP_Imap_Password($password),
             'port' => $this->port,
-            // TODO: Secure
-            'secure' => false,
+            'secure' => $this->secure,
             'username' => $this->username,
         ), $this->type == self::IMAP, strval($this));
     }

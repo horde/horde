@@ -80,9 +80,37 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
                 if ($ui->vars->remote_port) {
                     $ob->port = $ui->vars->remote_port;
                 }
-                if (($secure = $ui->vars->remote_secure) != 'auto') {
-                    $ob->secure = ($secure == 'yes');
+
+                switch ($ui->vars->remote_secure) {
+                case 'auto':
+                    /* Check for non-SSL connection. */
+                    $ob->secure = false;
+                    if ($stream = @stream_socket_client($ob->hostspec . ':' . $ob->port)) {
+                        stream_set_timeout($stream, 2);
+                        if (fread($stream, 1024)) {
+                            unset($ob->secure);
+                        }
+                        fclose($stream);
+                    }
+                    break;
+
+                case 'no':
+                    $ob->secure = false;
+                    break;
+
+                case 'yes':
+                    /* Check for non-SSL connection. */
+                    $ob->secure = 'ssl';
+                    if ($stream = @stream_socket_client($ob->hostspec . ':' . $ob->port)) {
+                        stream_set_timeout($stream, 2);
+                        if (fread($stream, 1024)) {
+                            $ob->secure = 'tls';
+                        }
+                        fclose($stream);
+                    }
+                    break;
                 }
+
                 if ($ui->vars->get('remote_type') == 'pop3') {
                     $ob->type = $ob::POP3;
                 }

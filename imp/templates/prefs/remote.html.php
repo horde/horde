@@ -79,10 +79,10 @@
    <td><?php echo $this->h($v->port) ?></td>
 <?php if (is_null($v->secure)): ?>
    <td><?php echo _("Auto") ?></td>
-<?php elseif ($v->secure): ?>
-   <td class="remoteSecure"><?php echo _("Yes") ?></td>
-<?php else: ?>
+<?php elseif (!$v->secure): ?>
    <td class="remoteNotSecure"><?php echo _("No") ?></td>
+<?php else: ?>
+   <td class="remoteSecure"><?php echo _("Yes") ?></td>
 <?php endif; ?>
    <td>
     <a class="remotedelete" href="#" data-id="<?php echo $v->id ?>"><?php echo $this->hordeImage('delete.png') ?></a>
