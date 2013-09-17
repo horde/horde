@@ -234,6 +234,10 @@ class IMP_Mailbox implements Serializable
             return array_filter(array_map(array(__CLASS__, 'get'), $mbox));
         }
 
+        if ($mbox instanceof IMP_Mailbox) {
+            return $mbox;
+        }
+
         try {
             return $GLOBALS['injector']
                 ->getInstance('IMP_Factory_Mailbox')
@@ -254,6 +258,10 @@ class IMP_Mailbox implements Serializable
     {
         if (is_array($mbox)) {
             return array_filter(array_map(array(__CLASS__, 'getImapMboxOb'), $mbox));
+        }
+
+        if ($mbox instanceof Horde_Imap_Client_Mailbox) {
+            return $mbox;
         }
 
         // Mailbox names are always UTF-8 within IMP.
