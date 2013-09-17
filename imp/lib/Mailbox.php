@@ -964,7 +964,7 @@ class IMP_Mailbox implements Serializable
         $old_list = $this->subfolders;
 
         try {
-            $this->imp_imap->renameMailbox($this->_mbox, strval($new_mbox));
+            $this->imp_imap->renameMailbox($this->_mbox, $new_mbox);
         } catch (IMP_Imap_Exception $e) {
             $e->notify(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), $this->display, $new_mbox->display) . ': ' . $e->getMessage());
             return false;
@@ -972,7 +972,7 @@ class IMP_Mailbox implements Serializable
 
         $notification->push(sprintf(_("The mailbox \"%s\" was successfully renamed to \"%s\"."), $this->display, $new_mbox->display), 'horde.success');
 
-        $injector->getInstance('IMP_Ftree')->rename($this->_mbox, strval($new_mbox));
+        $injector->getInstance('IMP_Ftree')->rename($this->_mbox, $new_mbox);
         $this->_onDelete($old_list);
 
         return true;
@@ -1412,8 +1412,16 @@ class IMP_Mailbox implements Serializable
      */
     public function createMailboxName($new)
     {
-        $ns_info = $this->namespace_info;
-        return self::get((strlen($this->_mbox) ? ($this->_mbox . $ns_info['delimiter']) : '') . $new);
+        if (strlen($this->_mbox)) {
+            if ($this->remote_container) {
+                $new = $this->_mbox . "\0" . $new;
+            } else {
+                $ns_info = $this->namespace_info;
+                $new = $this->_mbox . $ns_info['delimiter'] . $new;
+            }
+        }
+
+        return self::get($new);
     }
 
     /* Static methods. */
