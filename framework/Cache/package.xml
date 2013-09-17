@@ -16,11 +16,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-07-16</date>
- <time>19:18:23</time>
+ <date>2013-09-17</date>
  <version>
-  <release>2.2.2</release>
-  <api>2.2.0</api>
+  <release>2.3.0</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Horde_Cache_Storage_Memoryoverlay driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -52,6 +51,7 @@
        <file name="File.php" role="php" />
        <file name="Hashtable.php" role="php" />
        <file name="Memcache.php" role="php" />
+       <file name="Memoryoverlay.php" role="php" />
        <file name="Mock.php" role="php" />
        <file name="Mongo.php" role="php" />
        <file name="Null.php" role="php" />
@@ -170,6 +170,7 @@
    <install as="Horde/Cache/Storage/File.php" name="lib/Horde/Cache/Storage/File.php" />
    <install as="Horde/Cache/Storage/Hashtable.php" name="lib/Horde/Cache/Storage/Hashtable.php" />
    <install as="Horde/Cache/Storage/Memcache.php" name="lib/Horde/Cache/Storage/Memcache.php" />
+   <install as="Horde/Cache/Storage/Memoryoverlay.php" name="lib/Horde/Cache/Storage/Memoryoverlay.php" />
    <install as="Horde/Cache/Storage/Mock.php" name="lib/Horde/Cache/Storage/Mock.php" />
    <install as="Horde/Cache/Storage/Mongo.php" name="lib/Horde/Cache/Storage/Mongo.php" />
    <install as="Horde/Cache/Storage/Null.php" name="lib/Horde/Cache/Storage/Null.php" />
@@ -509,15 +510,15 @@ Initial packaging.
   </release>
   <release>
    <version>
-    <release>2.2.2</release>
-    <api>2.2.0</api></version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-07-16</date>
+   <date>2013-09-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Horde_Cache_Storage_Memoryoverlay driver.
    </notes>
   </release>
  </changelog>
