@@ -388,7 +388,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         $old_list = array_merge(
             array($old),
             iterator_to_array(
-                IMP_Ftree_Iterator_Filter::create(0, $old),
+                IMP_Ftree_IteratorFilter::create(0, $old),
                 false
             )
         );
