@@ -601,7 +601,7 @@ class IMP_Mailbox implements Serializable
                     (($elt = $this->tree_elt) && $elt->nonimap));
 
         case 'parent':
-            return ($elt = $this->tree_elt) ? $elt->mbox_ob : null;
+            return ($elt = $this->tree_elt) ? $elt->parent->mbox_ob : null;
 
         case 'parent_imap':
             return (is_null($p = $this->parent) || ($p == IMP_Ftree::BASE_ELT))
