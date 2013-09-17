@@ -69,16 +69,4 @@ class IMP_Imap_Remote extends IMP_Imap
     {
     }
 
-    /**
-     */
-    protected function _getMboxOb($mbox)
-    {
-        $convert = array_map(
-            array($GLOBALS['injector']->getInstance('IMP_Remote'), 'mailbox'),
-            is_array($mbox) ? $mbox : array($mbox)
-        );
-
-        return parent::_getMboxOb(is_array($mbox) ? $convert : reset($convert));
-    }
-
 }

@@ -583,15 +583,15 @@ class IMP_Imap implements Serializable
         case 'thread':
             // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
             // their first parameter.
-            $params[0] = $this->_getMboxOb($params[0]);
+            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
             break;
 
         case 'copy':
         case 'renameMailbox':
             // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
             // their first two parameters.
-            $params[0] = $this->_getMboxOb($params[0]);
-            $params[1] = $this->_getMboxOb($params[1]);
+            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
+            $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
             break;
 
         case 'openMailbox':
@@ -599,7 +599,7 @@ class IMP_Imap implements Serializable
                 /* Can't open a search mailbox. */
                 return;
             }
-            $params[0] = $this->_getMboxOb($params[0]);
+            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
             break;
 
         case 'search':
@@ -651,18 +651,6 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Return the IMAP mailbox object given an IMP mailbox ID.
-     *
-     * @param string $mbox  IMP mailbox ID.
-     *
-     * @return Horde_Imap_Client_Mailbox  IMAP client mailbox object.
-     */
-    protected function _getMboxOb($mbox)
-    {
-        return IMP_Mailbox::getImapMboxOb($mbox);
-    }
-
-    /**
      * Prepares an IMAP search query.  Needed because certain configuration
      * parameters may need to be dynamically altered before passed to the
      * Imap_Client object.
@@ -699,7 +687,7 @@ class IMP_Imap implements Serializable
             $query->charset('UTF-8', false);
         }
 
-        return array($this->_getMboxOb($mailbox), $query, $opts);
+        return array($mailbox->imap_mbox_ob, $query, $opts);
     }
 
     /* Static methods. */

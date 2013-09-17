@@ -257,7 +257,9 @@ class IMP_Mailbox implements Serializable
         }
 
         // Mailbox names are always UTF-8 within IMP.
-        return Horde_Imap_Client_Mailbox::get(strval($mbox));
+        return Horde_Imap_Client_Mailbox::get(strval(
+            $GLOBALS['injector']->getInstance('IMP_Remote')->mailbox($mbox) ?: $mbox
+        ));
     }
 
     /**
