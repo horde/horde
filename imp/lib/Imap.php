@@ -614,6 +614,67 @@ class IMP_Imap implements Serializable
     }
 
     /**
+     * Handle copy() calls. This call may hit multiple servers, so
+     * need to handle separately from other IMAP calls.
+     *
+     * @see Horde_Imap_Client_Base#copy()
+     */
+    public function copy()
+    {
+        global $injector;
+
+        $args = func_get_args();
+        $source = IMP_Mailbox::get($args[0]);
+        $dest = IMP_Mailbox::get($args[1]);
+
+        if ($source->remote_account == $dest->remote_account) {
+            return $this->__call('copy', $args);
+        }
+
+        $imap_factory = $injector->getInstance('IMP_Factory_Imap');
+        $source_imap = $imap_factory->create($source);
+        $dest_imap = $imap_factory->create($dest);
+
+        $create = !empty($args[2]['create']);
+        $ids = isset($args[2]['ids'])
+            ? $args[2]['ids']
+            : $source_imap->getIdsOb(Horde_Imap_Client_Ids::ALL);
+        $move = !empty($args[2]['move']);
+
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->fullText(array(
+            'peek' => true
+        ));
+
+        foreach ($this->getSlices($source, $ids) as $val) {
+            try {
+                $res = $source_imap->fetch($source, $query, array(
+                    'ids' => $val,
+                    'nocache' => true
+                ));
+
+                $append = array();
+                foreach ($res as $msg) {
+                    $append[] = array(
+                        'data' => $msg->getFullMsg(true)
+                    );
+                }
+
+                $dest_imap->append($dest, $append, array(
+                    'create' => $create
+                ));
+
+                if ($move) {
+                    $source_imap->expunge($source, array(
+                        'delete' => true,
+                        'ids' => $val
+                    ));
+                }
+            } catch (IMP_Imap_Exception $e) {}
+        }
+    }
+
+    /**
      * All other calls to this class are routed to the underlying
      * Horde_Imap_Client_Base object.
      *
@@ -657,6 +718,7 @@ class IMP_Imap implements Serializable
         case 'setMetadata':
         case 'setQuota':
         case 'status':
+        // case 'statusMultiple': (Handled in statusMultiple() command)
         case 'store':
         case 'subscribeMailbox':
         case 'sync':
