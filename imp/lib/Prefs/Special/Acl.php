@@ -68,7 +68,7 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
         $view->mbox = $mbox->form_to;
         $view->options = new IMP_Ftree_Select(array(
             'basename' => true,
-            'iterator' => IMP_Ftree_Iterator_Filter::create(null, IMP_Ftree_IteratorFilter::NO_NONIMAP),
+            'iterator' => IMP_Ftree_IteratorFilter::create(IMP_Ftree_IteratorFilter::NO_NONIMAP),
             'selected' => $mbox
         ));
 
