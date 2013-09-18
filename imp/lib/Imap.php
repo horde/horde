@@ -533,6 +533,39 @@ class IMP_Imap implements Serializable
     }
 
     /**
+     * Handle statusMultiple() calls. This call may hit multiple servers, so
+     * need to handle separately from other IMAP calls.
+     *
+     * @see Horde_Imap_Client_Base#statusMultiple()
+     */
+    public function statusMultiple()
+    {
+        global $injector;
+
+        $args = func_get_args();
+        $mboxes = $out = array();
+
+        foreach (IMP_Mailbox::get($args[0]) as $val) {
+            $mboxes[strval($val->remote_account)][] = $val;
+        }
+
+        foreach ($mboxes as $key => $val) {
+            $imap = $injector->getInstance('IMP_Factory_Imap')->create($key);
+            if ($imap->init) {
+                $tmp = $args;
+                $tmp[0] = IMP_Mailbox::getImapMboxOb($val);
+                $key = $key ? ($key . "\0") : '';
+
+                foreach ($imap->__call('statusMultiple', $tmp) as $key2 => $val2) {
+                    $out[$key . $key2] = $val2;
+                }
+            }
+        }
+
+        return $out;
+    }
+
+    /**
      * All other calls to this class are routed to the underlying
      * Horde_Imap_Client_Base object.
      *
@@ -576,7 +609,6 @@ class IMP_Imap implements Serializable
         case 'setMetadata':
         case 'setQuota':
         case 'status':
-        case 'statusMultiple':
         case 'store':
         case 'subscribeMailbox':
         case 'sync':
