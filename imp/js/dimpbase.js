@@ -856,6 +856,7 @@ var DimpBase = {
         switch (id) {
         case 'ctx_container_create':
         case 'ctx_mbox_create':
+        case 'ctx_remoteauth_create':
             tmp = this.contextMbox(e);
             DimpCore.doAction('createMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
@@ -1280,6 +1281,7 @@ var DimpBase = {
 
         case 'ctx_container':
         case 'ctx_noactions':
+        case 'ctx_remoteauth':
         case 'ctx_vfolder':
             baseelt = this.contextMbox(e);
             $(ctx_id).down('DIV.mboxName').update(this.fullMboxDisplay(baseelt));
@@ -3180,6 +3182,7 @@ var DimpBase = {
             case 'container':
             case 'rcontainer':
             case 'remote':
+            case 'remoteauth':
             case 'scontainer':
             case 'vcontainer':
                 e.stop();
@@ -3337,7 +3340,7 @@ var DimpBase = {
                 break;
 
             case 3:
-                ftype = 'remote';
+                ftype = 'remoteauth';
                 break;
             }
         } else if (ob.co) {
@@ -3467,6 +3470,10 @@ var DimpBase = {
         case 'remote':
         case 'scontainer':
             ftype = 'noactions';
+            break;
+
+        case 'remoteauth':
+            ftype = 'remoteauth';
             break;
 
         case 'vfolder':

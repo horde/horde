@@ -932,7 +932,7 @@ span.logoutIcon {
 #ctx_oa_layout_vert span.iconImg {
     background-image: url("../graphics/application_tile_horizontal.png");
 }
-#ctx_mbox_create span.iconImg, #ctx_container_create span.iconImg, #ctx_folderopts_new span.iconImg {
+#ctx_mbox_create span.iconImg, #ctx_container_create span.iconImg, #ctx_folderopts_new span.iconImg, #ctx_remoteauth_create span.iconImg {
     background-image: url("../graphics/folders/create.png");
 }
 #ctx_mbox_rename span.iconImg, #ctx_container_rename span.iconImg, #ctx_vcontainer_edit span.iconImg, #ctx_vfolder_edit span.iconImg {
