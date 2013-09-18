@@ -105,8 +105,8 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
                 if (!$elt->subscribed) {
                     $elt->subscribed = true;
                 }
+                $this[$elt] = true;
                 $elt->polled = true;
-                $this->_ftree->setAttribute('polled', $elt, true);
             }
         }
     }
@@ -123,12 +123,11 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
             foreach ((is_array($id) ? $id : array($id)) as $val) {
                 if ($elt = $this->_ftree[$val]) {
                     if (!$elt->inbox) {
-                        unset($poll[strval($val)]);
+                        unset($this[$val]);
                         $elt->polled = false;
-                        $this->_ftree->setAttribute('polled', $elt, false);
                     }
                 } elseif (!IMP_Mailbox::get($val)->inbox) {
-                    unset($poll[strval($val)]);
+                    unset($this[$val]);
                 }
             }
         }
