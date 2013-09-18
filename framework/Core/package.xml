@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Cache permission results within a PHP access.
 * [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
 * [mjr] Support ActiveSync SOFTDELETE.
 * [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
@@ -978,7 +979,7 @@
    <package>
     <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.3.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3160,6 +3161,7 @@
    <date>2013-09-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Cache permission results within a PHP access.
 * [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
 * [mjr] Support ActiveSync SOFTDELETE.
 * [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).

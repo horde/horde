@@ -251,8 +251,6 @@ class Horde_Db_Adapter_Base_Column
     }
 
     /**
-     * @TODO Return a Horde_Date object instead?
-     *
      * @param   string  $string
      * @return  Horde_Date
      */

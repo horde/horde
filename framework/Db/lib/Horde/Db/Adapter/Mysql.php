@@ -254,8 +254,8 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
         $this->_lastQuery = $sql;
         $stmt = mysql_query($sql, $this->_connection);
         if (!$stmt) {
-            $this->_logInfo($sql, 'QUERY FAILED: ' . mysql_error($this->_connection));
             $this->_logInfo($sql, $name);
+            $this->_logError($sql, 'QUERY FAILED: ' . mysql_error($this->_connection));
             throw new Horde_Db_Exception('QUERY FAILED: ' . mysql_error($this->_connection) . "\n\n" . $sql,
                                          $this->_errorCode(null, mysql_errno($this->_connection)));
         }

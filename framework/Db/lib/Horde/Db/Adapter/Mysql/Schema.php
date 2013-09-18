@@ -83,26 +83,6 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         return str_replace('.', '`.`', $this->quoteColumnName($name));
     }
 
-    /**
-     * Returns a quoted boolean true.
-     *
-     * @return string  The quoted boolean true.
-     */
-    public function quoteTrue()
-    {
-        return '1';
-    }
-
-    /**
-     * Returns a quoted boolean false.
-     *
-     * @return string  The quoted boolean false.
-     */
-    public function quoteFalse()
-    {
-        return '0';
-    }
-
 
     /*##########################################################################
     # Schema Statements

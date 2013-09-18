@@ -105,13 +105,13 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             return "'" . $value . "'";
         }
         if (is_string($value) && substr($column->getSqlType(), 0, 3) == 'bit') {
-            if (preg_match('/^[01]*$/', $value)) {
-                // Bit-string notation
-                return "B'" . $value . "'";
-            }
             if (preg_match('/^[0-9A-F]*$/i')) {
                 // Hexadecimal notation
                 return "X'" . $value . "'";
+            }
+            if (preg_match('/^[01]*$/', $value)) {
+                // Bit-string notation
+                return "B'" . $value . "'";
             }
         }
 
@@ -130,6 +130,26 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     public function quoteSequenceName($name)
     {
         return '\'' . str_replace('"', '""', $name) . '\'';
+    }
+
+    /**
+     * Returns a quoted boolean true.
+     *
+     * @return string  The quoted boolean true.
+     */
+    public function quoteTrue()
+    {
+        return "'t'";
+    }
+
+    /**
+     * Returns a quoted boolean false.
+     *
+     * @return string  The quoted boolean false.
+     */
+    public function quoteFalse()
+    {
+        return "'f'";
     }
 
     /**
@@ -162,6 +182,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         return sprintf('\\\\%03.o', ord($matches[0]));
     }
+
 
     /*##########################################################################
     # Schema Statements

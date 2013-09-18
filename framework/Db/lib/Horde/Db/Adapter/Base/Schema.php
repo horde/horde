@@ -285,7 +285,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function quoteTrue()
     {
-        return "'t'";
+        return '1';
     }
 
     /**
@@ -295,7 +295,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function quoteFalse()
     {
-        return "'f'";
+        return '0';
     }
 
     /**
@@ -337,10 +337,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      *
      * @return array  A database type map.
      */
-    public function nativeDatabaseTypes()
-    {
-        return array();
-    }
+    abstract public function nativeDatabaseTypes();
 
     /**
      * Returns the maximum length a table alias can have.
@@ -909,6 +906,8 @@ abstract class Horde_Db_Adapter_Base_Schema
      *
      * @param string $sql     Existing SQL definition for a column.
      * @param array $options  Column options:
+     *                        - column: (Horde_Db_Adapter_Base_ColumnDefinition
+     *                          The column definition class.
      *                        - null: (boolean) Whether to allow NULL values.
      *                        - default: (mixed) Default column value.
      *                        - autoincrement: (boolean) Whether the column is
