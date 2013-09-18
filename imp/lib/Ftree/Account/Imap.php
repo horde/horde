@@ -28,11 +28,12 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
     {
         global $prefs;
 
+        $imp_imap = $this->imp_imap;
         $out = $searches = array();
         $unsub = false;
 
         if (is_integer($query)) {
-            $ns = $this->imp_imap->getNamespaceList();
+            $ns = $imp_imap->getNamespaceList();
 
             if ($query & self::INIT) {
                 /* Add namespace elements. */
@@ -72,25 +73,41 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
             $unsub = true;
         }
 
-        $res = $this->imp_imap->listMailboxes($searches, $unsub ? Horde_Imap_Client::MBOX_UNSUBSCRIBED : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array(
+        $res = $imp_imap->listMailboxes($searches, $unsub ? Horde_Imap_Client::MBOX_UNSUBSCRIBED : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array(
             'attributes' => true,
             'delimiter' => true,
             'sort' => true
         ));
 
         foreach ($res as $val) {
-            $key = strval($val['mailbox']);
-            if (isset($out[$key]) ||
-                in_array('\nonexistent', $val['attributes'])) {
+            if (in_array('\nonexistent', $val['attributes'])) {
                 continue;
+            }
+
+            $mbox = strval($val['mailbox']);
+            $ns_info = $imp_imap->getNamespace($mbox);
+
+            switch ($ns_info['type']) {
+            case Horde_Imap_Client::NS_PERSONAL:
+                /* Strip personal namespace. */
+                if (!empty($ns_info['name']) &&
+                    (strpos($mbox, $ns_info['name']) === 0)) {
+                    $mbox = substr($mbox, strlen($ns_info['name']));
+                }
+                break;
+
+            case Horde_Imap_Client::NS_OTHER:
+            case Horde_Imap_Client::NS_SHARED:
+                // TODO
+                break;
             }
 
             /* Break apart the name via the delimiter and go step by
              * step through the name to make sure all subfolders exist
              * in the tree. */
             $parts = strlen($val['delimiter'])
-                ? explode($val['delimiter'], $key)
-                : array($key);
+                ? explode($val['delimiter'], $mbox)
+                : array($mbox);
             $parent = null;
 
             for ($i = 1, $p_count = count($parts); $i <= $p_count; ++$i) {
