@@ -53,12 +53,6 @@ class IMP_Mbox_Generate
         foreach (IMP_Mailbox::get($mboxes) as $val) {
             $imp_imap = $val->imp_imap;
 
-            try {
-                $status = $imp_imap->status($val, Horde_Imap_Client::STATUS_MESSAGES);
-            } catch (IMP_Imap_Exception $e) {
-                continue;
-            }
-
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->size();
 
@@ -72,11 +66,12 @@ class IMP_Mbox_Generate
             }
 
             $curr_size = 0;
+            $msgs = count($size);
             $start = 1;
             $slices = array();
 
             /* Handle 5 MB chunks of data at a time. */
-            for ($i = 1; $i <= $status['messages']; ++$i) {
+            for ($i = 1; $i <= $msgs; ++$i) {
                 if (isset($size[$i])) {
                     $curr_size += $size[$i]->getSize();
                     if ($curr_size > 5242880) {
@@ -87,8 +82,8 @@ class IMP_Mbox_Generate
                 }
             }
 
-            if ($start <= $status['messages']) {
-                $slices[] = $imp_imap->getIdsOb(range($start, $status['messages']), true);
+            if ($start <= $msgs) {
+                $slices[] = $imp_imap->getIdsOb(range($start, $msgs), true);
             }
 
             unset($size);
