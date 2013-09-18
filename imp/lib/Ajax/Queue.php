@@ -495,6 +495,8 @@ class IMP_Ajax_Queue
      *         DEFAULT: 'base'
      *   - co: (boolean) [container] Is this mailbox a container element?
      *         DEFAULT: no
+     *   - fs: (boolean) [boolean] Fixed element for sorting purposes.
+     *         DEFAULT: no
      *   - i: (string) [icon] A user defined icon to use.
      *        DEFAULT: none
      *   - l: (string) [label] The mailbox display label.
@@ -503,6 +505,8 @@ class IMP_Ajax_Queue
      *   - n: (boolean) [non-imap] A non-IMAP element?
      *        DEFAULT: no
      *   - nc: (boolean) [no children] Does the element not allow children?
+     *         DEFAULT: no
+     *   - ns: (boolean) [no sort] Don't sort on browser.
      *         DEFAULT: no
      *   - pa: (string) [parent] The parent element.
      *         DEFAULT: DimpCore.conf.base_mbox
@@ -568,10 +572,14 @@ class IMP_Ajax_Queue
         $parent = $elt->parent;
         if (!$parent->base_elt) {
             $ob->pa = $parent->mbox_ob->form_to;
+            if (($label == 'INBOX') && $parent->remote) {
+                $ob->fs = 1;
+            }
         }
 
         if ($elt->vfolder) {
             $ob->v = $mbox_ob->editvfolder ? 2 : 1;
+            $ob->ns = 1;
         }
 
         if ($elt->nonimap) {
@@ -601,7 +609,7 @@ class IMP_Ajax_Queue
             }
 
             if ($elt->inbox || $mbox_ob->special) {
-                $ob->s = 1;
+                $ob->ns = $ob->s = 1;
             } elseif (empty($ob->v) && !empty($ob->ch)) {
                 $ob->cl = 'exp';
             }

@@ -3371,6 +3371,9 @@ var DimpBase = {
             .insert(div)
             .insert(new Element('DIV', { className: 'horde-subnavi-point' })
                         .insert(new Element('A').insert(label)));
+        if (ob.fs) {
+            li.store('fs', true);
+        }
 
         if (ob.s) {
             div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
@@ -3398,10 +3401,14 @@ var DimpBase = {
                 : $('imp-normalmboxes');
         }
 
-        /* Virtual folders and special mailboxes are sorted on the server. */
-        if (!ob.v && !ob.s) {
+        /* Insert into correct place in level. */
+        if (!ob.ns) {
             ll = label.toLowerCase();
             f_node = parent_e.childElements().find(function(node) {
+                if (node.retrieve('fs')) {
+                    return false;
+                }
+
                 var l = node.retrieve('l');
                 return (l && (ll < l.toLowerCase()));
             });

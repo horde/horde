@@ -494,7 +494,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         }
 
         if ($sort) {
-            $this->_sortList($plist, true);
+            $this->_sortList($plist, $this[self::BASE_ELT]);
         }
 
         return IMP_Mailbox::get(array_filter($plist));
@@ -864,7 +864,10 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     {
         if (($elt = $this[$id]) && $elt->needsort) {
             if (count($this->_parent[strval($elt)]) > 1) {
-                $this->_sortList($this->_parent[strval($elt)], $elt->base_elt);
+                $this->_sortList($this->_parent[strval($elt)], $elt);
+                if ($elt->parent) {
+                    Horde::debug($this, null, false);
+                }
             }
             $this->setAttribute('needsort', $elt, false);
         }
@@ -873,9 +876,8 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     /**
      * Sorts a list of mailboxes.
      *
-     * @param array &$mbox   The list of mailboxes to sort.
-     * @param boolean $base  Are we sorting a list of mailboxes in the base
-     *                       of the tree.
+     * @param array &$mbox             The list of mailboxes to sort.
+     * @param IMP_Ftree_Element $base  The base element.
      */
     protected function _sortList(&$mbox, $base = false)
     {
@@ -883,21 +885,25 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             return;
         }
 
-        if (!$base) {
+        if (!$base || (!$base->base_elt && !$base->remote_auth)) {
             $list_ob = new Horde_Imap_Client_Mailbox_List($mbox);
             $mbox = $list_ob->sort();
             return;
         }
 
+        $prefix = $base->base_elt
+            ? ''
+            : (strval($this->getAccount($base)) . "\0");
+
         $basesort = $othersort = array();
         /* INBOX always appears first. */
-        $sorted = array('INBOX');
+        $sorted = array($prefix . 'INBOX');
 
         foreach ($mbox as $key => $val) {
             $ob = $this[$val];
             if ($ob->nonimap) {
                 $othersort[$key] = $ob->mbox_ob->label;
-            } elseif ($val !== 'INBOX') {
+            } elseif ($val !== ($prefix . 'INBOX')) {
                 $basesort[$key] = $ob->mbox_ob->label;
             }
         }
