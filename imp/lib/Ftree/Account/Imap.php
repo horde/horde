@@ -86,20 +86,12 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
 
             $mbox = strval($val['mailbox']);
             $ns_info = $imp_imap->getNamespace($mbox);
+            $parent = null;
 
-            switch ($ns_info['type']) {
-            case Horde_Imap_Client::NS_PERSONAL:
-                /* Strip personal namespace. */
-                if (!empty($ns_info['name']) &&
-                    (strpos($mbox, $ns_info['name']) === 0)) {
-                    $mbox = substr($mbox, strlen($ns_info['name']));
-                }
-                break;
-
-            case Horde_Imap_Client::NS_OTHER:
-            case Horde_Imap_Client::NS_SHARED:
-                // TODO
-                break;
+            /* Strip personal namespace. */
+            if (!empty($ns_info['name']) &&
+                (strpos($mbox, $ns_info['name']) === 0)) {
+                $mbox = substr($mbox, strlen($ns_info['name']));
             }
 
             /* Break apart the name via the delimiter and go step by
@@ -108,7 +100,18 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
             $parts = strlen($val['delimiter'])
                 ? explode($val['delimiter'], $mbox)
                 : array($mbox);
-            $parent = null;
+
+            switch ($ns_info['type']) {
+            case Horde_Imap_Client::NS_OTHER:
+            case Horde_Imap_Client::NS_SHARED:
+                if ($prefs->getValue('tree_view')) {
+                    $parent = $ns_info['type']
+                        ? IMP_Ftree::OTHER_KEY
+                        : IMP_Ftree::SHARED_KEY;
+                    $parts[0] = $ns_info['name'] . $parts[0];
+                }
+                break;
+            }
 
             for ($i = 1, $p_count = count($parts); $i <= $p_count; ++$i) {
                 $part = implode($val['delimiter'], array_slice($parts, 0, $i));
