@@ -1215,11 +1215,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $pipeline->data['mailboxlist']['ext'] = true;
 
             $select_opts = new Horde_Imap_Client_Data_Format_List();
+            $subscribed = false;
 
             if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ||
                 ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS)) {
                 $select_opts->add('SUBSCRIBED');
                 $return_opts->add('SUBSCRIBED');
+                $subscribed = true;
             }
 
             if (!empty($options['remote'])) {
@@ -1237,9 +1239,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $tmp = new Horde_Imap_Client_Data_Format_List();
             foreach ($pattern as $val) {
-                $tmp->add(new Horde_Imap_Client_Data_Format_ListMailbox($val));
+                if ($subscribed && (strcasecmp($val, 'INBOX') === 0)) {
+                    $cmds[] = $this->_command('LIST')->add(array(
+                        '',
+                        'INBOX'
+                    ));
+                } else {
+                    $tmp->add(new Horde_Imap_Client_Data_Format_ListMailbox($val));
+                }
             }
-            $cmd->add($tmp);
+
+            if (count($tmp)) {
+                $cmd->add($tmp);
+                $cmds[] = $cmd;
+            }
 
             if (!empty($options['children'])) {
                 $return_opts->add('CHILDREN');
@@ -1248,8 +1261,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($options['special_use'])) {
                 $return_opts->add('SPECIAL-USE');
             }
-
-            $cmds[] = $cmd;
         } else {
             foreach ($pattern as $val) {
                 $cmds[] = $this->_command(
