@@ -291,6 +291,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $mask = 0;
         }
 
+        $this->_base->queue->ftreemask |= $mask |
+            IMP_Ftree_IteratorFilter::NO_SPECIALMBOXES;
+
         if (isset($this->vars->base)) {
             $this->_base->queue->setMailboxOpt('base', $this->vars->base);
         }
