@@ -88,7 +88,7 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
                     if ($stream = @stream_socket_client($ob->hostspec . ':' . $ob->port)) {
                         stream_set_timeout($stream, 2);
                         if (fread($stream, 1024)) {
-                            unset($ob->secure);
+                            $ob->secure = true;
                         }
                         fclose($stream);
                     }
