@@ -80,7 +80,7 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
         }
 
         if ($sort) {
-            $this->_ftree->sortList($plist, $this->_ftree[self::BASE_ELT]);
+            $this->_ftree->sortList($plist, $this->_ftree[IMP_Ftree::BASE_ELT]);
         }
 
         return IMP_Mailbox::get($plist);
