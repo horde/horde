@@ -181,7 +181,7 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
         }
 
         /* If expanded is requested, we assume it overrides child filter. */
-        if ($this->_mask & self::NO_UNEXPANDED && !$this->current()->open) {
+        if (($this->_mask & self::NO_UNEXPANDED) && !$this->current()->open) {
             return false;
         }
 
