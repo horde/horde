@@ -511,11 +511,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             return;
         }
 
-        foreach ((is_array($id) ? $id : array($id)) as $val) {
-            if ($elt = $this[$val]) {
-                continue;
-            }
-
+        foreach (array_filter(array_map(array($this, 'offsetGet'), is_array($id) ? $id : array($id))) as $elt) {
             if (!$elt->polled && !$elt->nonimap && !$elt->container) {
                 if (!$elt->subscribed) {
                     $elt->subscribed = true;
