@@ -106,13 +106,14 @@
  * @property-read string $pref_to  Convert mailbox name to preference storage.
  * @property-read boolean $query  Is this a search query?
  * @property-read boolean $readonly  Is this mailbox read-only?
- * @property-read boolean $remote  Is this mailbox on a remote server?
+ * @property-read boolean $remote  Is this a remote element?
  * @property-read IMP_Remote_Account $remote_account  Return the account
  *                                                    object for this element
  *                                                    (null if not a remote
  *                                                    element).
  * @property-read boolean $remote_container  Is this mailbox a remote special
  *                                           element?
+ * @property-read boolean $remote_mbox  Is this mailbox on a remote server?
  * @property-read boolean $search  Is this a search mailbox?
  * @property-read IMP_Prefs_Sort $sortob  Sort ob for use with this mailbox.
  * @property-read boolean $spam  Is this a Spam mailbox?
@@ -666,7 +667,7 @@ class IMP_Mailbox implements Serializable
                     !$acl[Horde_Imap_Client::ACL_WRITE]);
 
         case 'remote':
-            return (($elt = $this->tree_elt) && $elt->remote_mbox);
+            return $injector->getInstance('IMP_Remote')->isRemoteMbox($this->_mbox);
 
         case 'remote_account':
             $remote = $injector->getInstance('IMP_Remote');
@@ -677,6 +678,9 @@ class IMP_Mailbox implements Serializable
 
         case 'remote_container':
             return (($elt = $this->tree_elt) && $elt->remote);
+
+        case 'remote_mbox':
+            return (($elt = $this->tree_elt) && $elt->remote_mbox);
 
         case 'search':
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
@@ -1649,7 +1653,7 @@ class IMP_Mailbox implements Serializable
         }
 
         /* Handle remote mailboxes. */
-        if ($this->remote || $this->remote_container) {
+        if ($this->remote) {
             return $injector->getInstance('IMP_Remote')->label($this->_mbox);
         }
 

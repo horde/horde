@@ -322,11 +322,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             $id = array($id);
         }
 
-        foreach ($id as $val) {
-            if (!($elt = $this[$val])) {
-                continue;
-            }
-
+        foreach (array_filter(array_map(array($this, 'offsetGet'), $id)) as $elt) {
             if ($elt->vfolder) {
                 $parent = $this->_delete($elt);
 
@@ -364,10 +360,10 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                 }
 
                 /* Remove the mailbox from the expanded folders list. */
-                unset($this->expanded[$val]);
+                unset($this->expanded[$elt]);
 
                 /* Remove the mailbox from the nav_poll list. */
-                $this->removePollList($val);
+                $this->removePollList($elt);
             }
 
             if (!empty($this->_parent[$parent])) {

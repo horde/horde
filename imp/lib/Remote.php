@@ -70,7 +70,7 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
     public function getRemoteById($id)
     {
         return ($this->isRemoteMbox($id) && (count($parts = explode("\0", $id)) > 1))
-            ? implode("\0", array_slice($parts, 0, 2))
+            ? $this[implode("\0", array_slice($parts, 0, 2))]
             : null;
     }
 
@@ -97,8 +97,8 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
      */
     public function mailbox($id)
     {
-        return ($this->isRemoteMbox($id))
-            ? substr($id, strrpos($id, "\0") + 1)
+        return ($account = $this->getRemoteById($id))
+            ? substr($id, strlen($account) + 1)
             : '';
     }
 
