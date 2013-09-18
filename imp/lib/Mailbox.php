@@ -965,6 +965,13 @@ class IMP_Mailbox implements Serializable
         }
 
         $new_mbox = $this->get($new_name);
+
+        /* TODO(?): Don't allow moving mailboxes between accounts. */
+        if ($this->remote_account != $new_mbox->remote_account) {
+            $notification->push(_("You cannot move mailboxes between accounts."), 'horde.error');
+            return false;
+        }
+
         $old_list = $this->subfolders;
 
         try {

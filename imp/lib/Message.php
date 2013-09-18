@@ -100,6 +100,10 @@ class IMP_Message
                     throw new IMP_Exception(_("The source directory is read-only."));
                 }
 
+                if ($ob->mbox->remote_account != $targetMbox->remote_account) {
+                    throw new IMP_Exception(_("You cannot move messages between accounts."));
+                }
+
                 $ob->mbox->uidvalid;
 
                 /* Attempt to copy/move messages to new mailbox. */
