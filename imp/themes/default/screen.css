@@ -293,15 +293,13 @@ table.searchesmanagement td.searchdescription {
     border-top-width: 0;
 }
 
+div.remotemanagement table {
+    width: auto;
+}
 table.remotemanagement {
-    padding-bottom: 10px;
-}
-table.remotemanagement td {
-    padding-right: 12px;
-}
-table.remotemanagement thead td {
-    font-weight: bold;
-    text-decoration: underline;
+    margin-bottom: 10px;
+    border-left: 1px solid #d0d0d0;
+    border-right: 1px solid #d0d0d0;
 }
 table.remotemanagement td.required, .remoteNotSecure {
     color: red;

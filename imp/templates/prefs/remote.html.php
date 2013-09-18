@@ -1,18 +1,19 @@
 <input type="hidden" name="remote_action" id="remote_action" />
 <input type="hidden" name="remote_data" id="remote_data" />
 
-<table class="remotemanagement">
 <?php if ($this->new): ?>
+<div class="horde-form remotemanagement">
+<table>
  <tr>
-  <td class="item"><?php echo _("Label") ?>:</td>
-  <td class="item">
+  <td class="horde-form-label"><?php echo _("Label") ?>:</td>
+  <td>
    <input name="remote_label" size="30" />
   </td>
   <td></td>
  </tr>
  <tr>
-  <td class="item"><?php echo _("Type") ?>:</td>
-  <td class="item">
+  <td class="horde-form-label"><?php echo _("Type") ?>:</td>
+  <td>
    <select name="remote_type">
     <option value="imap" selected="selected"><?php echo _("IMAP") ?></option>
     <option value="pop3"><?php echo _("POP3") ?></option>
@@ -21,29 +22,29 @@
   <td class="required"><?php echo Horde::img('required.png', '*') ?></td>
  </tr>
  <tr>
-  <td class="item"><?php echo _("Server") ?>:</td>
-  <td class="item">
+  <td class="horde-form-label"><?php echo _("Server") ?>:</td>
+  <td>
    <input name="remote_server" size="30" />
   </td>
   <td class="required"><?php echo Horde::img('required.png', '*') ?></td>
  </tr>
  <tr>
-  <td class="item"><?php echo _("Username") ?>:</td>
-  <td class="item">
+  <td class="horde-form-label"><?php echo _("Username") ?>:</td>
+  <td>
    <input name="remote_user" size="30" />
   </td>
   <td class="required"><?php echo Horde::img('required.png', '*') ?></td>
  </tr>
  <tr>
-  <td class="item"><?php echo _("Port") ?>:</td>
-  <td class="item">
+  <td class="horde-form-label"><?php echo _("Port") ?>:</td>
+  <td>
    <input name="remote_port" size="10" />
   </td>
   <td></td>
  </tr>
  <tr>
-  <td class="item"><?php echo _("Use secure connection?") ?></td>
-  <td class="item">
+  <td class="horde-form-label"><?php echo _("Use secure connection?") ?></td>
+  <td>
    <select name="remote_secure">
     <option value="yes" selected="selected"><?php echo _("Required") ?></option>
     <option value="auto"><?php echo _("Use if available") ?></option>
@@ -53,19 +54,21 @@
   <td></td>
  </tr>
 </table>
+</div>
 
 <input id="add_button" type="button" class="horde-default" value="<?php echo _("Save") ?>" />
 <input id="cancel_button" type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
 <?php else: ?>
+<table class="horde-table remotemanagement">
  <thead>
   <tr>
-   <td><?php echo _("Label") ?></td>
-   <td><?php echo _("Type") ?></td>
-   <td><?php echo _("Server") ?></td>
-   <td><?php echo _("Username") ?></td>
-   <td><?php echo _("Port") ?></td>
-   <td><?php echo _("Secure") ?></td>
-   <td></td>
+   <th><?php echo _("Label") ?></th>
+   <th><?php echo _("Type") ?></th>
+   <th><?php echo _("Server") ?></th>
+   <th><?php echo _("Username") ?></th>
+   <th><?php echo _("Port") ?></th>
+   <th><?php echo _("Secure") ?></th>
+   <th></th>
   </tr>
  </thead>
  <tbody>
