@@ -129,10 +129,14 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
 
                 if ($prefetch = iterator_to_array($this->getChildren()->getIterator(), false)) {
                     $this->_cache[$this->key()] = $prefetch;
-                    return true;
+                } else {
+                    return false;
                 }
             }
-        } elseif ($elt->mbox_ob->special) {
+            return true;
+        }
+
+        if ($elt->mbox_ob->special) {
             if ($this->_mask & self::NO_SPECIALMBOXES) {
                 return false;
             }
