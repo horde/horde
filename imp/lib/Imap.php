@@ -537,7 +537,7 @@ class IMP_Imap implements Serializable
      * Horde_Imap_Client_Base object.
      *
      * @param string $method  Method name.
-     * @param array $params   Method Parameters.
+     * @param array $params   Method parameters.
      *
      * @return mixed  The return from the requested method.
      * @throws BadMethodCallException
