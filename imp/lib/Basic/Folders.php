@@ -301,10 +301,8 @@ class IMP_Basic_Folders extends IMP_Basic_Base
                 $loop = array();
                 $sum = 0;
 
-                $imp_message = $injector->getInstance('IMP_Message');
-
                 foreach ($mbox_list as $val) {
-                    $size = $imp_message->sizeMailbox($val, false);
+                    $size = $this->_sizeMailbox($val, false);
                     $data = array(
                         'name' => $val->display,
                         'size' => sprintf(_("%.2fMB"), $size / (1024 * 1024)),
@@ -462,6 +460,38 @@ class IMP_Basic_Folders extends IMP_Basic_Base
     static public function url(array $opts = array())
     {
         return Horde::url('basic.php')->add('page', 'folders');
+    }
+
+    /**
+     * Obtains the size of a mailbox.
+     *
+     * @param IMP_Mailbox $mbox   The mailbox to obtain the size of.
+     * @param boolean $formatted  Whether to return a human readable value.
+     *
+     * @return mixed  Either the size of the mailbox (in bytes) or a formatted
+     *                string with this information.
+     */
+    protected function _sizeMailbox(IMP_Mailbox $mbox, $formatted = true)
+    {
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->size();
+
+        try {
+            $imp_imap = $mbox->imp_imap;
+            $res = $imp_imap->fetch($mbox, $query, array(
+                'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
+            ));
+
+            $size = 0;
+            foreach ($res as $v) {
+                $size += $v->getSize();
+            }
+            return ($formatted)
+                ? sprintf(_("%.2fMB"), $size / (1024 * 1024))
+                : $size;
+        } catch (IMP_Imap_Exception $e) {
+            return 0;
+        }
     }
 
 }
