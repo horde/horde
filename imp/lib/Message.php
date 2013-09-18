@@ -210,7 +210,10 @@ class IMP_Message
             $ids_ob = $imp_imap->getIdsOb($ob->uids);
 
             /* Trash is only valid for IMAP mailboxes. */
-            if ($use_trash_mbox && ($ob->mbox != $trash)) {
+            if ($use_trash_mbox &&
+                ($ob->mbox != $trash) &&
+                /* TODO(?): Don't use Trash mailbox for remote accounts. */
+                !$ob->mbox->remote_mbox) {
                 if ($ob->mbox->access_expunge) {
                     try {
                         if ($mark_seen) {
@@ -269,7 +272,8 @@ class IMP_Message
                 if (!$use_vtrash &&
                     (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
                      !empty($opts['nuke']) ||
-                     ($use_trash && ($ob->mbox == $trash)))) {
+                     ($use_trash &&
+                      ($ob->mbox == $trash) || $ob->mbox->remote_mbox))) {
                     /* Purge messages immediately. */
                     $expunge_now = !$no_expunge;
                 } elseif ($mark_seen) {
