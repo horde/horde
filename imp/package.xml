@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Allow configurable access to remote accounts from within a session (Request #8077).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

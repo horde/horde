@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Allow configurable access to remote accounts from within a session
+      (Request #8077).
 [jan] Display "Other Options" icon instead of "New Window" icon in collapsed
       preview headers.
 [mms] More advanced auto-completion for smartmobile view.
