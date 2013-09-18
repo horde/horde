@@ -841,9 +841,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         if (($elt = $this[$id]) && $elt->needsort) {
             if (count($this->_parent[strval($elt)]) > 1) {
                 $this->sortList($this->_parent[strval($elt)], $elt);
-                if ($elt->parent) {
-                    Horde::debug($this, null, false);
-                }
             }
             $this->setAttribute('needsort', $elt, false);
         }
