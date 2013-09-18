@@ -131,6 +131,18 @@ class IMP_Remote_Account implements Serializable
         ), $this->type == self::IMAP, strval($this));
     }
 
+    /**
+     * Return mailbox name.
+     *
+     * @param string $id  Base IMAP name.
+     *
+     * @return string  IMP mailbox name.
+     */
+    public function mailbox($id)
+    {
+        return strval($this) . "\0" . $id;
+    }
+
     /* Serializable methods. */
 
     /**

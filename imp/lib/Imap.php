@@ -543,21 +543,24 @@ class IMP_Imap implements Serializable
         global $injector;
 
         $args = func_get_args();
-        $mboxes = $out = array();
+        $imap_factory = $injector->getInstance('IMP_Factory_Imap');
+        $accounts = $mboxes = $out = array();
 
         foreach (IMP_Mailbox::get($args[0]) as $val) {
-            $mboxes[strval($val->remote_account)][] = $val;
+            if ($raccount = $val->remote_account) {
+                $accounts[strval($raccount)] = $raccount;
+            }
+            $mboxes[strval($raccount)][] = $val;
         }
 
         foreach ($mboxes as $key => $val) {
-            $imap = $injector->getInstance('IMP_Factory_Imap')->create($key);
+            $imap = $imap_factory->create($key);
             if ($imap->init) {
                 $tmp = $args;
                 $tmp[0] = IMP_Mailbox::getImapMboxOb($val);
-                $key = $key ? ($key . "\0") : '';
 
                 foreach ($imap->__call('statusMultiple', $tmp) as $key2 => $val2) {
-                    $out[$key . $key2] = $val2;
+                    $out[isset($accounts[$key]) ? $accounts[$key]->mailbox($key2) : $key2] = $val2;
                 }
             }
         }

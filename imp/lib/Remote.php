@@ -75,6 +75,20 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
     }
 
     /**
+     * Return the IMAP mailbox name for the given remote mailbox identifier.
+     *
+     * @param string $id  The mailbox name/identifier.
+     *
+     * @return string  The IMAP mailbox name.
+     */
+    public function getMailboxById($id)
+    {
+        return ($account = $this->getRemoteById($id))
+            ? substr($id, strlen($account) + 1)
+            : '';
+    }
+
+    /**
      * Return the label for the given mailbox.
      *
      * @param string $id  The mailbox name/identifier.
@@ -85,21 +99,7 @@ class IMP_Remote implements ArrayAccess, IteratorAggregate
     {
         return isset($this[$id])
             ? $this[$id]->label
-            : strval($this->mailbox($id));
-    }
-
-    /**
-     * Return the IMAP mailbox name for the given remote mailbox identifier.
-     *
-     * @param string $id  The mailbox name/identifier.
-     *
-     * @return string  The IMAP mailbox name.
-     */
-    public function mailbox($id)
-    {
-        return ($account = $this->getRemoteById($id))
-            ? substr($id, strlen($account) + 1)
-            : '';
+            : strval($this->getMailboxById($id));
     }
 
     /**
