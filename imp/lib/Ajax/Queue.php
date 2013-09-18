@@ -531,7 +531,7 @@ class IMP_Ajax_Queue
         global $injector, $registry;
 
         $ftree = $injector->getInstance('IMP_Ftree');
-        if (!($elt = $ftree[$id])) {
+        if (!($elt = $ftree[$id]) || $elt->base_elt) {
             return null;
         }
 
