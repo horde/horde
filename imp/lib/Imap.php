@@ -533,6 +533,51 @@ class IMP_Imap implements Serializable
     }
 
     /**
+     * Returns a list of messages, split into slices based on the total
+     * message size.
+     *
+     * @param string $mbox                IMAP mailbox.
+     * @param Horde_Imap_Client_Ids $ids  ID list.
+     * @param integer $size               Maximum size of a slice.
+     *
+     * @return array  An array of Horde_Imap_Client_Ids objects.
+     */
+    public function getSlices(
+        $mbox, Horde_Imap_Client_Ids $ids, $size = 5242880
+    )
+    {
+        $imp_imap = IMP_Mailbox::get($mbox)->imp_imap;
+
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->size();
+
+        try {
+            $res = $imp_imap->fetch($mbox, $query, array(
+                'ids' => $ids,
+                'nocache' => true
+            ));
+        } catch (IMP_Imap_Exception $e) {
+            return array();
+        }
+
+        $curr = $slices = array();
+        $curr_size = 0;
+
+        foreach ($res as $key => $val) {
+            $curr_size += $val->getSize();
+            if ($curr_size > $size) {
+                $slices[] = $imp_imap->getIdsOb($curr, $ids->sequence);
+                $curr = array();
+            }
+            $curr[] = $key;
+        }
+
+        $slices[] = $imp_imap->getIdsOb($curr, $ids->sequence);
+
+        return $slices;
+    }
+
+    /**
      * Handle statusMultiple() calls. This call may hit multiple servers, so
      * need to handle separately from other IMAP calls.
      *
