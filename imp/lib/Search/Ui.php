@@ -34,7 +34,7 @@ class IMP_Search_Ui
      */
     public function getSearchMboxList($unsub = false)
     {
-        global $injector;
+        global $injector, $registry;
 
         $ob = new stdClass;
 
@@ -43,9 +43,13 @@ class IMP_Search_Ui
         ));
         $view->allsearch = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
 
-        $filter = IMP_Ftree_IteratorFilter::create(
-            $unsub ? IMP_Ftree_IteratorFilter::UNSUB : 0
-        );
+        $mask = $unsub
+            ? IMP_Ftree_IteratorFilter::UNSUB
+            : 0;
+        if ($registry->getView() != $registry::VIEW_DYNAMIC) {
+            $mask |= IMP_Ftree_IteratorFilter::NO_REMOTE;
+        }
+        $filter = IMP_Ftree_IteratorFilter::create($mask);
 
         $ob->tree = $injector->getInstance('IMP_Ftree')->createTree('imp_search', array(
             'iterator' => $filter,
