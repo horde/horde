@@ -614,67 +614,6 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Handle copy() calls. This call may hit multiple servers, so
-     * need to handle separately from other IMAP calls.
-     *
-     * @see Horde_Imap_Client_Base#copy()
-     */
-    public function copy()
-    {
-        global $injector;
-
-        $args = func_get_args();
-        $source = IMP_Mailbox::get($args[0]);
-        $dest = IMP_Mailbox::get($args[1]);
-
-        if ($source->remote_account == $dest->remote_account) {
-            return $this->__call('copy', $args);
-        }
-
-        $imap_factory = $injector->getInstance('IMP_Factory_Imap');
-        $source_imap = $imap_factory->create($source);
-        $dest_imap = $imap_factory->create($dest);
-
-        $create = !empty($args[2]['create']);
-        $ids = isset($args[2]['ids'])
-            ? $args[2]['ids']
-            : $source_imap->getIdsOb(Horde_Imap_Client_Ids::ALL);
-        $move = !empty($args[2]['move']);
-
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->fullText(array(
-            'peek' => true
-        ));
-
-        foreach ($this->getSlices($source, $ids) as $val) {
-            try {
-                $res = $source_imap->fetch($source, $query, array(
-                    'ids' => $val,
-                    'nocache' => true
-                ));
-
-                $append = array();
-                foreach ($res as $msg) {
-                    $append[] = array(
-                        'data' => $msg->getFullMsg(true)
-                    );
-                }
-
-                $dest_imap->append($dest, $append, array(
-                    'create' => $create
-                ));
-
-                if ($move) {
-                    $source_imap->expunge($source, array(
-                        'delete' => true,
-                        'ids' => $val
-                    ));
-                }
-            } catch (IMP_Imap_Exception $e) {}
-        }
-    }
-
-    /**
      * All other calls to this class are routed to the underlying
      * Horde_Imap_Client_Base object.
      *
@@ -730,10 +669,17 @@ class IMP_Imap implements Serializable
 
         case 'copy':
         case 'renameMailbox':
+            // These calls may hit multiple servers.
+            $source = IMP_Mailbox::get($params[0]);
+            $dest = IMP_Mailbox::get($params[1]);
+            if ($source->remote_account != $dest->remote_account) {
+                return call_user_func_array(array($this, '_' . $method), $params);
+            }
+
             // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
             // their first two parameters.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-            $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
+            $params[0] = $source->imap_mbox_ob;
+            $params[1] = $dest->imap_mbox_ob;
             break;
 
         case 'openMailbox':
@@ -830,6 +776,82 @@ class IMP_Imap implements Serializable
         }
 
         return array($mailbox->imap_mbox_ob, $query, $opts);
+    }
+
+    /**
+     * Handle copy() calls that hit multiple servers.
+     *
+     * @see Horde_Imap_Client_Base#copy()
+     */
+    protected function _copy()
+    {
+        global $injector;
+
+        $args = func_get_args();
+        $imap_factory = $injector->getInstance('IMP_Factory_Imap');
+        $source_imap = $imap_factory->create($args[0]);
+        $dest_imap = $imap_factory->create($args[1]);
+
+        $create = !empty($args[2]['create']);
+        $ids = isset($args[2]['ids'])
+            ? $args[2]['ids']
+            : $source_imap->getIdsOb(Horde_Imap_Client_Ids::ALL);
+        $move = !empty($args[2]['move']);
+        $retval = true;
+
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->fullText(array(
+            'peek' => true
+        ));
+
+        foreach ($this->getSlices($args[0], $ids) as $val) {
+            try {
+                $res = $source_imap->fetch($args[0], $query, array(
+                    'ids' => $val,
+                    'nocache' => true
+                ));
+
+                $append = array();
+                foreach ($res as $msg) {
+                    $append[] = array(
+                        'data' => $msg->getFullMsg(true)
+                    );
+                }
+
+                $dest_imap->append($args[1], $append, array(
+                    'create' => $create
+                ));
+
+                if ($move) {
+                    $source_imap->expunge($args[0], array(
+                        'delete' => true,
+                        'ids' => $val
+                    ));
+                }
+            } catch (IMP_Imap_Exception $e) {
+                $retval = false;
+            }
+        }
+
+        return $retval;
+    }
+
+    /**
+     * Handle copy() calls. This call may hit multiple servers, so
+     * need to handle separately from other IMAP calls.
+     *
+     * @see Horde_Imap_Client_Base#renameMailbox()
+     */
+    protected function _renameMailbox()
+    {
+        $args = func_get_args();
+        $source = IMP_Mailbox::get($args[0]);
+
+        if ($source->create() && $this->copy($source, $args[1])) {
+            $source->delete();
+        } else {
+            throw new IMP_Imap_Exception(_("Could not move all messages between mailboxes, so the original mailbox was not removed."));
+        }
     }
 
     /* Static methods. */
