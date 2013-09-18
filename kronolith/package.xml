@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix setting DTEND in iCalendar data if event has a timezone (Bug #12693).
 * [mjr] Fix importing new ActiveSync events created on the client with recurrence.
 * [mjr] Fix some issues with recurring event exceptions due to improper timezone handling (Bug #12630).
  </notes>
@@ -2221,6 +2222,7 @@
    <date>2013-08-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix setting DTEND in iCalendar data if event has a timezone (Bug #12693).
 * [mjr] Fix importing new ActiveSync events created on the client with recurrence.
 * [mjr] Fix some issues with recurring event exceptions due to improper timezone handling (Bug #12630).
    </notes>
