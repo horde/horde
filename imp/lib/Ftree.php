@@ -134,7 +134,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 
         case 'poll':
             if (!isset($this->_temp['poll'])) {
-                $this->_temp['poll'] = new IMP_Ftree_Prefs_Poll();
+                $this->_temp['poll'] = new IMP_Ftree_Prefs_Poll($this);
             }
             return $this->_temp['poll'];
         }
@@ -246,7 +246,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         foreach ($to_insert as $key => $val) {
             /* We want to add from the BASE of the tree up for efficiency
              * sake. */
-            $this->_sortList($val);
+            $this->sortList($val);
             array_map(array($this, '_insertElt'), $this->_accounts[$key]->getList($val));
         }
     }
@@ -316,7 +316,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         if (is_array($id)) {
             /* We want to delete from the TOP of the tree down to ensure that
              * parents have an accurate view of what children are left. */
-            $this->_sortList($id);
+            $this->sortList($id);
             $id = array_reverse($id);
         } else {
             $id = array($id);
@@ -362,8 +362,8 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                 /* Remove the mailbox from the expanded folders list. */
                 unset($this->expanded[$elt]);
 
-                /* Remove the mailbox from the nav_poll list. */
-                $this->removePollList($elt);
+                /* Remove the mailbox from the polled list. */
+                $this->poll->removePollList($elt);
             }
 
             if (!empty($this->_parent[$parent])) {
@@ -397,7 +397,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         }
 
         $this->insert($new_list);
-        $this->addPollList($polled);
+        $this->poll->addPollList($polled);
         $this->delete($old_list);
     }
 
@@ -424,7 +424,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         if (is_array($id)) {
             /* We want to delete from the TOP of the tree down to ensure that
              * parents have an accurate view of what children are left. */
-            $this->_sortList($id);
+            $this->sortList($id);
             $id = array_reverse($id);
         } else {
             $id = array($id);
@@ -474,71 +474,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             array_map(array($this, '_insertElt'), $val->getList($val::UNSUB));
         }
         $this->eltdiff->track = $old_track;
-    }
-
-    /**
-     * Initializes and returns the list of mailboxes to poll.
-     *
-     * @param boolean $sort  Sort the directory list?
-     *
-     * @return array  The list of mailboxes to poll (IMP_Mailbox objects).
-     */
-    public function getPollList($sort = false)
-    {
-        $plist = array();
-
-        foreach ($this->getIterator()->getIterator() as $val) {
-            if ($val->polled) {
-                $plist[] = strval($val);
-            }
-        }
-
-        if ($sort) {
-            $this->_sortList($plist, $this[self::BASE_ELT]);
-        }
-
-        return IMP_Mailbox::get(array_filter($plist));
-    }
-
-    /**
-     * Add elements to the poll list.
-     *
-     * @param mixed $id  The element name or a list of element names to add.
-     */
-    public function addPollList($id)
-    {
-        if ($this->poll->locked) {
-            return;
-        }
-
-        foreach (array_filter(array_map(array($this, 'offsetGet'), is_array($id) ? $id : array($id))) as $elt) {
-            if (!$elt->polled && !$elt->nonimap && !$elt->container) {
-                if (!$elt->subscribed) {
-                    $elt->subscribed = true;
-                }
-                $elt->polled = true;
-                $this->setAttribute('polled', $elt, true);
-            }
-        }
-    }
-
-    /**
-     * Remove elements from the poll list.
-     *
-     * @param mixed $id  The element name or a list of element names to
-     *                   remove.
-     */
-    public function removePollList($id)
-    {
-        $poll = $this->poll;
-        if (!$poll->locked) {
-            foreach (IMP_Mailbox::get(is_array($id) ? $id : array($id)) as $val) {
-                if (!$val->inbox) {
-                    unset($poll[strval($val)]);
-                    $this->setAttribute('polled', $val, false);
-                }
-            }
-        }
     }
 
     /**
@@ -764,6 +699,51 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         return $this[self::BASE_ELT];
     }
 
+    /**
+     * Sorts a list of mailboxes.
+     *
+     * @param array &$mbox             The list of mailboxes to sort.
+     * @param IMP_Ftree_Element $base  The base element.
+     */
+    public function sortList(&$mbox, $base = false)
+    {
+        if (count($mbox) < 2) {
+            return;
+        }
+
+        if (!$base || (!$base->base_elt && !$base->remote_auth)) {
+            $list_ob = new Horde_Imap_Client_Mailbox_List($mbox);
+            $mbox = $list_ob->sort();
+            return;
+        }
+
+        $prefix = $base->base_elt
+            ? ''
+            : (strval($this->getAccount($base)) . "\0");
+
+        $basesort = $othersort = array();
+        /* INBOX always appears first. */
+        $sorted = array($prefix . 'INBOX');
+
+        foreach ($mbox as $key => $val) {
+            $ob = $this[$val];
+            if ($ob->nonimap) {
+                $othersort[$key] = $ob->mbox_ob->label;
+            } elseif ($val !== ($prefix . 'INBOX')) {
+                $basesort[$key] = $ob->mbox_ob->label;
+            }
+        }
+
+        natcasesort($basesort);
+        natcasesort($othersort);
+        foreach (array_merge(array_keys($basesort), array_keys($othersort)) as $key) {
+            $sorted[] = $mbox[$key];
+        }
+
+        $mbox = $sorted;
+    }
+
+
     /* Internal methods. */
 
     /**
@@ -860,57 +840,13 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     {
         if (($elt = $this[$id]) && $elt->needsort) {
             if (count($this->_parent[strval($elt)]) > 1) {
-                $this->_sortList($this->_parent[strval($elt)], $elt);
+                $this->sortList($this->_parent[strval($elt)], $elt);
                 if ($elt->parent) {
                     Horde::debug($this, null, false);
                 }
             }
             $this->setAttribute('needsort', $elt, false);
         }
-    }
-
-    /**
-     * Sorts a list of mailboxes.
-     *
-     * @param array &$mbox             The list of mailboxes to sort.
-     * @param IMP_Ftree_Element $base  The base element.
-     */
-    protected function _sortList(&$mbox, $base = false)
-    {
-        if (count($mbox) < 2) {
-            return;
-        }
-
-        if (!$base || (!$base->base_elt && !$base->remote_auth)) {
-            $list_ob = new Horde_Imap_Client_Mailbox_List($mbox);
-            $mbox = $list_ob->sort();
-            return;
-        }
-
-        $prefix = $base->base_elt
-            ? ''
-            : (strval($this->getAccount($base)) . "\0");
-
-        $basesort = $othersort = array();
-        /* INBOX always appears first. */
-        $sorted = array($prefix . 'INBOX');
-
-        foreach ($mbox as $key => $val) {
-            $ob = $this[$val];
-            if ($ob->nonimap) {
-                $othersort[$key] = $ob->mbox_ob->label;
-            } elseif ($val !== ($prefix . 'INBOX')) {
-                $basesort[$key] = $ob->mbox_ob->label;
-            }
-        }
-
-        natcasesort($basesort);
-        natcasesort($othersort);
-        foreach (array_merge(array_keys($basesort), array_keys($othersort)) as $key) {
-            $sorted[] = $mbox[$key];
-        }
-
-        $mbox = $sorted;
     }
 
     /* ArrayAccess methods. */

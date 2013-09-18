@@ -415,11 +415,11 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $result->mbox = $this->vars->mbox;
 
         if ($this->vars->add) {
-            $injector->getInstance('IMP_Ftree')->addPollList($mbox);
+            $injector->getInstance('IMP_Ftree')->poll->addPollList($mbox);
             $this->_base->queue->poll($mbox);
             $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox now polled for new mail."), $mbox->display), 'horde.success');
         } else {
-            $injector->getInstance('IMP_Ftree')->removePollList($mbox);
+            $injector->getInstance('IMP_Ftree')->poll->removePollList($mbox);
             $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox no longer polled for new mail."), $mbox->display), 'horde.success');
         }
 

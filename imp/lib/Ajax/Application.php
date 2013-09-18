@@ -114,7 +114,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $poll = Horde_Serialize::unserialize($this->_vars->poll, Horde_Serialize::JSON);
             $this->queue->poll(
                 empty($poll)
-                    ? $injector->getInstance('IMP_Ftree')->getPollList()
+                    ? $injector->getInstance('IMP_Ftree')->poll->getPollList()
                     : IMP_Mailbox::formFrom($poll)
             );
         }

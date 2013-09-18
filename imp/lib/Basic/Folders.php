@@ -213,13 +213,13 @@ class IMP_Basic_Folders extends IMP_Basic_Base
 
         case 'poll_mbox':
             if (!empty($mbox_list)) {
-                $ftree->addPollList($mbox_list);
+                $ftree->poll->addPollList($mbox_list);
             }
             break;
 
         case 'nopoll_mbox':
             if (!empty($mbox_list)) {
-                $ftree->removePollList($mbox_list);
+                $ftree->poll->removePollList($mbox_list);
             }
             break;
 

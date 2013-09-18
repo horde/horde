@@ -23,11 +23,22 @@
 class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
 {
     /**
-     * Constructor.
+     * Tree object.
+     *
+     * @var IMP_Ftree
      */
-    public function __construct()
+    private $_ftree;
+
+    /**
+     * Constructor.
+     *
+     * @param IMP_Ftree $ftree  Tree object.
+     */
+    public function __construct(IMP_Ftree $ftree)
     {
         global $prefs;
+
+        $this->_ftree = $ftree;
 
         if ($prefs->getValue('nav_poll_all')) {
             $this->_data = $this->_locked = true;
@@ -52,21 +63,89 @@ class IMP_Ftree_Prefs_Poll extends IMP_Ftree_Prefs
     }
 
     /**
+     * Returns the list of mailboxes to poll.
+     *
+     * @param boolean $sort  Sort the directory list?
+     *
+     * @return array  The list of mailboxes to poll (IMP_Mailbox objects).
+     */
+    public function getPollList($sort = false)
+    {
+        $plist = array();
+
+        foreach ($this->_ftree->getIterator()->getIterator() as $val) {
+            if ($val->polled) {
+                $plist[] = strval($val);
+            }
+        }
+
+        if ($sort) {
+            $this->_ftree->sortList($plist, $this->_ftree[self::BASE_ELT]);
+        }
+
+        return IMP_Mailbox::get($plist);
+    }
+
+    /**
+     * Add elements to the poll list.
+     *
+     * @param mixed $id  The element name or a list of element names to add.
+     */
+    public function addPollList($id)
+    {
+        if ($this->locked) {
+            return;
+        }
+
+        foreach ((is_array($id) ? $id : array($id)) as $val) {
+            if (($elt = $this->_ftree[$val]) &&
+                !$elt->polled &&
+                !$elt->nonimap &&
+                !$elt->container) {
+                if (!$elt->subscribed) {
+                    $elt->subscribed = true;
+                }
+                $elt->polled = true;
+                $this->_ftree->setAttribute('polled', $elt, true);
+            }
+        }
+    }
+
+    /**
+     * Remove elements from the poll list.
+     *
+     * @param mixed $id  The element name or a list of element names to
+     *                   remove.
+     */
+    public function removePollList($id)
+    {
+        if (!$this->locked) {
+            foreach ((is_array($id) ? $id : array($id)) as $val) {
+                if ($elt = $this->_ftree[$val]) {
+                    if (!$elt->inbox) {
+                        unset($poll[strval($val)]);
+                        $elt->polled = false;
+                        $this->_ftree->setAttribute('polled', $elt, false);
+                    }
+                } elseif (!IMP_Mailbox::get($val)->inbox) {
+                    unset($poll[strval($val)]);
+                }
+            }
+        }
+    }
+
+    /**
      * Prune non-existent mailboxes from poll list.
      */
     public function prunePollList()
     {
-        $prune = array();
-
         if (!$this->locked) {
             foreach (IMP_Mailbox::get($this->_data) as $val) {
                 if (!$val->mbox_ob->exists) {
-                    $prune[] = $val;
+                    $this->removePollList($val);
                 }
             }
         }
-
-        $GLOBALS['injector']->getInstance('IMP_Ftree')->removePollList($prune);
     }
 
 }
