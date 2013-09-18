@@ -140,7 +140,7 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
             return false;
         }
 
-        if (($this->_mask & self::UNSUB) && !$elt->subscribed) {
+        if (!($this->_mask & self::UNSUB) && !$elt->subscribed) {
             return false;
         }
 
