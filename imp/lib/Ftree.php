@@ -907,11 +907,12 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     public function serialize()
     {
         return serialize(array(
-            // Serialized data ID.
             $this->_accounts,
             $this->_eltdiff,
-            $this->_elts,
-            $this->_parent
+            json_encode(array(
+                $this->_elts,
+                $this->_parent
+            ))
         ));
     }
 
@@ -925,12 +926,8 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             throw new Exception('Cache version change');
         }
 
-        list(
-            $this->_accounts,
-            $this->_eltdiff,
-            $this->_elts,
-            $this->_parent
-        ) = $data;
+        list($this->_accounts, $this->_eltdiff, $json_data) = $data;
+        list($this->_elts, $this->_parent) = json_decode($json_data, true);
     }
 
     /**
