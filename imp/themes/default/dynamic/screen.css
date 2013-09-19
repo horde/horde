@@ -815,6 +815,9 @@ span.attachmentImg {
 .RB_Form input {
     margin: .2em;
 }
+#mbox_import {
+    overflow: hidden;
+}
 
 /* Popup message styling. */
 .headercloseimg {
