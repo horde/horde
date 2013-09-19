@@ -88,29 +88,31 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
             $ns_info = $imp_imap->getNamespace($mbox);
             $parent = null;
 
-            /* Strip personal namespace. */
-            if (!empty($ns_info['name']) &&
-                (strpos($mbox, $ns_info['name']) === 0)) {
-                $mbox = substr($mbox, strlen($ns_info['name']));
-            }
-
             /* Break apart the name via the delimiter and go step by
              * step through the name to make sure all subfolders exist
              * in the tree. */
-            $parts = strlen($val['delimiter'])
-                ? explode($val['delimiter'], $mbox)
-                : array($mbox);
-
-            switch ($ns_info['type']) {
-            case Horde_Imap_Client::NS_OTHER:
-            case Horde_Imap_Client::NS_SHARED:
-                if ($prefs->getValue('tree_view')) {
-                    $parent = $ns_info['type']
-                        ? IMP_Ftree::OTHER_KEY
-                        : IMP_Ftree::SHARED_KEY;
+            if (strlen($val['delimiter'])) {
+                /* Strip personal namespace. */
+                if (!empty($ns_info['name']) &&
+                    (strpos($mbox, $ns_info['name']) === 0)) {
+                    $parts = explode($val['delimiter'], substr($mbox, strlen($ns_info['name'])));
                     $parts[0] = $ns_info['name'] . $parts[0];
+                } else {
+                    $parts = explode($val['delimiter'], $mbox);
                 }
-                break;
+
+                switch ($ns_info['type']) {
+                case Horde_Imap_Client::NS_OTHER:
+                case Horde_Imap_Client::NS_SHARED:
+                    if ($prefs->getValue('tree_view')) {
+                        $parent = $ns_info['type']
+                            ? IMP_Ftree::OTHER_KEY
+                            : IMP_Ftree::SHARED_KEY;
+                    }
+                    break;
+                }
+            } else {
+                $parts = array($mbox);
             }
 
             for ($i = 1, $p_count = count($parts); $i <= $p_count; ++$i) {
