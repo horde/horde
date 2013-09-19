@@ -173,14 +173,16 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             : new IMP_Ftree_Account_Inboxonly();
         array_map(array($this, '_insertElt'), $ob->getList($mask));
 
-        /* Add remote servers. */
-        $this->insert(iterator_to_array($injector->getInstance('IMP_Remote')));
+        if ($access_folders) {
+            /* Add remote servers. */
+            $this->insert(iterator_to_array($injector->getInstance('IMP_Remote')));
 
-        /* Add virtual folders to the tree. */
-        $iterator = IMP_Search_IteratorFilter::create(
-            IMP_Search_IteratorFilter::VFOLDER
-        );
-        array_map(array($this, 'insert'), iterator_to_array($iterator));
+            /* Add virtual folders to the tree. */
+            $iterator = IMP_Search_IteratorFilter::create(
+                IMP_Search_IteratorFilter::VFOLDER
+            );
+            array_map(array($this, 'insert'), iterator_to_array($iterator));
+        }
 
         if ($old_track) {
             $this->eltdiff->track = true;
