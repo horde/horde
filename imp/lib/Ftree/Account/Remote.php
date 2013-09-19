@@ -44,7 +44,9 @@ class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
         if ($this->imp_imap->init) {
             $remote = $injector->getInstance('IMP_Remote');
             $raccount = $remote[strval($this)];
-            $query = $remote->getMailboxById($query) ?: self::INIT;
+            if (!is_integer($query)) {
+                $query = $remote->getMailboxById($query) ?: self::INIT;
+            }
 
             foreach (parent::getList($query) as $val) {
                 $out[] = array_filter(array(
