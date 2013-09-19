@@ -277,13 +277,12 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         $ftree = $injector->getInstance('IMP_Ftree');
-        $initreload = ($this->vars->initial || $this->vars->reload);
+        $iterator = new AppendIterator();
 
         if ($this->vars->reload) {
             $ftree->init();
         }
 
-        $iterator = new AppendIterator();
         if ($this->vars->unsub) {
             $ftree->loadUnsubscribed();
             $mask = IMP_Ftree_IteratorFilter::UNSUB;
@@ -301,7 +300,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         if ($this->vars->all) {
             $this->_base->queue->setMailboxOpt('all', 1);
             $iterator->append(IMP_Ftree_IteratorFilter::create($mask));
-        } elseif ($initreload) {
+        } elseif ($this->vars->initial || $this->vars->reload) {
             $no_mbox = false;
 
             switch ($prefs->getValue('nav_expanded')) {
