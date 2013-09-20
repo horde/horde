@@ -101,39 +101,7 @@ class IMP_Dynamic_Compose_Common
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
             !$prefs->isLocked('save_sent_mail')) {
             $view->save_sent_mail = true;
-
-            if (!$prefs->isLocked(IMP_Mailbox::MBOX_SENT)) {
-                $view->save_sent_mail_select = true;
-
-                /* Check to make sure the sent-mail mailboxes are created;
-                 * they need to exist to show up in drop-down list. */
-                foreach (array_keys($identity->getAll('id')) as $ident) {
-                    $mbox = $identity->getValue(IMP_Mailbox::MBOX_SENT, $ident);
-                    if ($mbox instanceof IMP_Mailbox) {
-                        $mbox->create();
-                    }
-                }
-
-                $flist = array();
-                $iterator = IMP_Ftree_IteratorFilter::create(
-                    IMP_Ftree_IteratorFilter::NO_NONIMAP
-                );
-
-                foreach ($iterator as $val) {
-                    $mbox_ob = $val->mbox_ob;
-                    $tmp = array(
-                        'f' => $mbox_ob->display,
-                        'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $mbox_ob->basename, 30),
-                        'v' => $val->container ? '' : $mbox_ob->form_to
-                    );
-                    if ($tmp['f'] == $tmp['v']) {
-                        unset($tmp['f']);
-                    }
-                    $flist[] = $tmp;
-                }
-
-                $base->js_conf['flist'] = $flist;
-            }
+            $view->save_sent_mail_select = !$prefs->isLocked(IMP_Mailbox::MBOX_SENT);
         }
 
         $view->drafts = ($imp_imap->access(IMP_Imap::ACCESS_DRAFTS) &&

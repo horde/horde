@@ -103,7 +103,12 @@ var DimpCompose = {
     {
         var identity = ImpComposeBase.identities[$F('identity')];
 
-        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display);
+        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display, {
+            opts: {
+                input: 'save_sent_mail_mbox',
+                label: 'sent_mail_label'
+            }
+        });
         if (identity.bcc) {
             $('bcc').setValue(($F('bcc') ? $F('bcc') + ', ' : '') + identity.bcc);
             this.toggleCC('bcc');
@@ -136,12 +141,13 @@ var DimpCompose = {
         });
     },
 
-    setPopdownLabel: function(id, s, l)
+    setPopdownLabel: function(id, s, l, k)
     {
-        var k = this.knl[id];
-
         if (!k) {
-            return;
+            k = this.knl[id];
+            if (!k) {
+                return;
+            }
         }
 
         if (!l) {
@@ -161,10 +167,8 @@ var DimpCompose = {
         $(k.opts.input).setValue(s);
         $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
-        k.knl.setSelected(s);
-
-        if (id == 'sm') {
-            this.setSaveSentMail(true);
+        if (k.knl) {
+            k.knl.setSelected(s);
         }
     },
 
@@ -864,6 +868,19 @@ var DimpCompose = {
         this.resizeMsgArea();
     },
 
+    sentMailListCallback: function(r)
+    {
+        $('save_sent_mail_load').remove();
+        this.createPopdown('sm', {
+            base: 'save_sent_mail',
+            data: r.flist,
+            input: 'save_sent_mail_mbox',
+            label: 'sent_mail_label'
+        });
+        this.knl['sm'].knl.setSelected($F('save_sent_mail_mbox'));
+        this.knl['sm'].knl.show();
+    },
+
     /* Open the addressbook window. */
     openAddressbook: function(params)
     {
@@ -1032,6 +1049,12 @@ var DimpCompose = {
                 this.knl[tmp].knl.ignoreClick(e.memo);
                 e.stop();
             }
+            break;
+
+        case 'save_sent_mail_load':
+            DimpCore.doAction('sentMailList', {}, {
+                callback: this.sentMailListCallback.bind(this)
+            });
             break;
         }
     },
@@ -1223,14 +1246,8 @@ var DimpCompose = {
         }
 
         /* Create sent-mail list. */
-        if (DimpCore.conf.flist) {
-            this.createPopdown('sm', {
-                base: 'save_sent_mail',
-                data: DimpCore.conf.flist,
-                input: 'save_sent_mail_mbox',
-                label: 'sent_mail_label'
-            });
-            this.setPopdownLabel('sm', ImpComposeBase.identities[$F('identity')].sm_name);
+        if ($('save_sent_mail_mbox')) {
+            this.changeIdentity();
         }
 
         /* Create priority list. */

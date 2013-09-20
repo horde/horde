@@ -1043,4 +1043,52 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         return $ret;
     }
 
+    /**
+     * AJAX action: Generate the sent-mail select list.
+     *
+     * Variables used: NONE
+     *
+     * @return object  An object with the following properties:
+     * <pre>
+     *   - flist: (array) TODO
+     * </pre>
+     */
+    public function sentMailList()
+    {
+        global $injector;
+
+        /* Check to make sure the sent-mail mailboxes are created; they need
+         * to exist to show up in drop-down list. */
+        $identity = $injector->getInstance('IMP_Identity');
+        foreach (array_keys($identity->getAll('id')) as $ident) {
+            $mbox = $identity->getValue(IMP_Mailbox::MBOX_SENT, $ident);
+            if ($mbox instanceof IMP_Mailbox) {
+                $mbox->create();
+            }
+        }
+
+        $flist = array();
+        $iterator = IMP_Ftree_IteratorFilter::create(
+            IMP_Ftree_IteratorFilter::NO_NONIMAP
+        );
+
+        foreach ($iterator as $val) {
+            $mbox_ob = $val->mbox_ob;
+            $tmp = array(
+                'f' => $mbox_ob->display,
+                'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $mbox_ob->basename, 30),
+                'v' => $val->container ? '' : $mbox_ob->form_to
+            );
+            if ($tmp['f'] == $tmp['v']) {
+                unset($tmp['f']);
+            }
+            $flist[] = $tmp;
+        }
+
+        $ret = new stdClass;
+        $ret->flist = $flist;
+
+        return $ret;
+    }
+
 }

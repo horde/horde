@@ -399,6 +399,10 @@ div.vpRowVert div.msgSubject span.flagUser {
     font-weight: bold;
 }
 
+#save_sent_mail_load {
+    padding-right: 0;
+}
+
 /* Actions */
 #button_compose {
     display: none;

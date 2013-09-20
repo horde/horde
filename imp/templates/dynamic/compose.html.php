@@ -64,6 +64,7 @@
      <label>
       <?php echo $this->checkBoxTag('save_sent_mail', 1, false, array('class' => 'checkbox')) . _("Save in") ?>
       <span id="sent_mail_label"></span>
+      <span class="iconImg horde-popdown" id="save_sent_mail_load"></span>
      </label>
      <?php echo $this->hiddenFieldTag('save_sent_mail_mbox') ?>
     </div>
