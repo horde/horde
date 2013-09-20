@@ -105,12 +105,12 @@ class IMP_Ftree_IteratorFilter extends RecursiveFilterIterator
     {
         $elt = $this->current();
 
-        if ($elt->vfolder) {
-            return !($this->_mask & self::NO_VFOLDER);
-        }
-
         if (($this->_mask & self::NO_NONIMAP) && $elt->nonimap) {
             return false;
+        }
+
+        if ($elt->vfolder) {
+            return !($this->_mask & self::NO_VFOLDER);
         }
 
         if ($elt->invisible && !($this->_mask & self::INVISIBLE)) {
