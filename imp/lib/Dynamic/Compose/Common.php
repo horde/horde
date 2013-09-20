@@ -115,8 +115,11 @@ class IMP_Dynamic_Compose_Common
                 }
 
                 $flist = array();
+                $iterator = IMP_Ftree_IteratorFilter::create(
+                    IMP_Ftree_IteratorFilter::NO_NONIMAP
+                );
 
-                foreach ($injector->getInstance('IMP_Ftree') as $val) {
+                foreach ($iterator as $val) {
                     $mbox_ob = $val->mbox_ob;
                     $tmp = array(
                         'f' => $mbox_ob->display,
