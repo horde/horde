@@ -1680,10 +1680,8 @@ var IMP_JS = {
 
     iframeResize: function(id)
     {
-        $(id).height(Math.max(
-            $(id.get(0).contentWindow.document.lastChild).height(),
-            $(id.get(0).contentWindow.document.body).height()
-        ) + 25);
+        id = $(id);
+        id.height('100%').height(id.contents().height() + 25);
     },
 
     /**
