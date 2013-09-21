@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-16</date>
+ <date>2013-09-21</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -941,6 +941,7 @@
      </dir> <!-- /test/Imp/fixtures -->
      <dir name="Stub">
       <file name="HtmlViewer.php" role="test" />
+      <file name="Imap.php" role="test" />
       <file name="ItipRequest.php" role="test" />
      </dir> <!-- /test/Imp/Stub -->
      <dir name="Unit">
@@ -1979,6 +1980,7 @@
    <install as="Imp/fixtures/test.eml" name="test/Imp/fixtures/test.eml" />
    <install as="Imp/fixtures/test.mbox" name="test/Imp/fixtures/test.mbox" />
    <install as="Imp/Stub/HtmlViewer.php" name="test/Imp/Stub/HtmlViewer.php" />
+   <install as="Imp/Stub/Imap.php" name="test/Imp/Stub/Imap.php" />
    <install as="Imp/Stub/ItipRequest.php" name="test/Imp/Stub/ItipRequest.php" />
    <install as="Imp/Unit/ComposeTest.php" name="test/Imp/Unit/ComposeTest.php" />
    <install as="Imp/Unit/MboxParseTest.php" name="test/Imp/Unit/MboxParseTest.php" />

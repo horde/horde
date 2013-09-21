@@ -13,4 +13,5 @@
 Horde_Test_Autoload::addPrefix('IMP', __DIR__ . '/../../lib');
 
 require_once 'Stub/HtmlViewer.php';
+require_once 'Stub/Imap.php';
 require_once 'Stub/ItipRequest.php';
