@@ -3579,7 +3579,9 @@ var DimpBase = {
         $('foldersSidebar').hide();
 
         [ Object.values(this.mboxes), Object.values(this.smboxes) ].flatten().compact().each(function(elt) {
-            this.deleteMboxElt(elt, true);
+            try {
+                this.deleteMboxElt(elt, true);
+            } catch (e) {}
         }, this);
 
         this._listMboxes({ reload: 1, mboxes: this.view });
