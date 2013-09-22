@@ -982,7 +982,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                      * input strings (at least 8 KB), so 7 KB is as good as
                      * any guess as to an upper limit. If this occurs, provide
                      * a range string (min -> max) instead. */
-                    if (strlen($uid_str = strval($uids)) > 7000) {
+                    if (strlen($uid_str = $uids->tostring_sort) > 7000) {
                         $uid_str = $uids->range_string;
                     }
                 } else {
