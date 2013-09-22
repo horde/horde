@@ -33,6 +33,10 @@
  * @property-read boolean $namespace  True if this is a namespace container
  *                                    element.
  * @property-read array $namespace_info  Namespace info.
+ * @property-read boolean $namespace_other  True if this is an 'Other'
+ *                                          namespace.
+ * @property-read boolean $namespace_shared  True if this is a 'Shared'
+ *                                           namespace.
  * @property boolean $needsort  True if this level needs a sort.
  * @property-read boolean $nochildren  True if this element doesn't allow
  *                                     children.
@@ -115,6 +119,9 @@ class IMP_Ftree_Element
 
         case 'mbox_ob':
             return IMP_Mailbox::get($this->_id);
+
+        case 'namespace':
+            return ($this->namespace_other || $this->namespace_shared);
 
         case 'namespace_info':
             return $this->mbox_ob->imp_imap->getNamespace($this->_id);

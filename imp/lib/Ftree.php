@@ -35,29 +35,26 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 {
     /* Constants for mailboxElt attributes. */
     const ELT_NOSELECT = 1;
-    const ELT_NAMESPACE = 2;
-    const ELT_IS_OPEN = 4;
-    const ELT_IS_SUBSCRIBED = 8;
-    const ELT_NOINFERIORS = 16;
-    const ELT_IS_POLLED = 32;
-    const ELT_NOT_POLLED = 64;
-    const ELT_VFOLDER = 128;
-    const ELT_NONIMAP = 256;
-    const ELT_INVISIBLE = 512;
-    const ELT_NEED_SORT = 1024;
-    const ELT_REMOTE = 2048;
-    const ELT_REMOTE_AUTH = 4096;
-    const ELT_REMOTE_MBOX = 8192;
+    const ELT_NAMESPACE_OTHER = 2;
+    const ELT_NAMESPACE_SHARED = 4;
+    const ELT_IS_OPEN = 8;
+    const ELT_IS_SUBSCRIBED = 16;
+    const ELT_NOINFERIORS = 32;
+    const ELT_IS_POLLED = 64;
+    const ELT_NOT_POLLED = 128;
+    const ELT_VFOLDER = 256;
+    const ELT_NONIMAP = 512;
+    const ELT_INVISIBLE = 1024;
+    const ELT_NEED_SORT = 2048;
+    const ELT_REMOTE = 4096;
+    const ELT_REMOTE_AUTH = 8192;
+    const ELT_REMOTE_MBOX = 16384;
 
     /* The string used to indicate the base of the tree. This must include
      * null since this is the only 7-bit character not allowed in IMAP
      * mailboxes (nulls allow us to sort by name but never conflict with an
      * IMAP mailbox). */
     const BASE_ELT = "base\0";
-
-    /* Defines used with namespace display. */
-    const SHARED_KEY = "shared\0";
-    const OTHER_KEY = "other\0";
 
     /**
      * Account sources.
@@ -485,8 +482,12 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
             $attr = self::ELT_INVISIBLE;
             break;
 
-        case 'namespace':
-            $attr = self::ELT_NAMESPACE;
+        case 'namespace_other':
+            $attr = self::ELT_NAMESPACE_OTHER;
+            break;
+
+        case 'namespace_shared':
+            $attr = self::ELT_NAMESPACE_SHARED;
             break;
 
         case 'needsort':

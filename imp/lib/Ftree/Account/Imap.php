@@ -24,6 +24,10 @@
  */
 class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
 {
+    /* Defines used with namespace display. */
+    const OTHER_KEY = "other\0";
+    const SHARED_KEY = "shared\0";
+
     /**
      */
     public function __get($name)
@@ -55,17 +59,19 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
 
                         switch ($val['type']) {
                         case Horde_Imap_Client::NS_OTHER:
-                            $type = IMP_Ftree::OTHER_KEY;
+                            $attr = IMP_Ftree::ELT_NAMESPACE_OTHER;
+                            $type = self::OTHER_KEY;
                             break;
 
                         case Horde_Imap_Client::NS_SHARED:
-                            $type = IMP_Ftree::SHARED_KEY;
+                            $attr = IMP_Ftree::ELT_NAMESPACE_SHARED;
+                            $type = self::SHARED_KEY;
                             break;
                         }
 
                         if (!is_null($type)) {
                             $out[$type] = array(
-                                'a' => IMP_Ftree::ELT_NOSELECT | IMP_Ftree::ELT_NAMESPACE | IMP_Ftree::ELT_NONIMAP,
+                                'a' => $attr | IMP_Ftree::ELT_NOSELECT | IMP_Ftree::ELT_NONIMAP,
                                 'v' => $type
                             );
                         }
@@ -118,8 +124,8 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
                 case Horde_Imap_Client::NS_SHARED:
                     if ($prefs->getValue('tree_view')) {
                         $parent = $ns_info['type']
-                            ? IMP_Ftree::OTHER_KEY
-                            : IMP_Ftree::SHARED_KEY;
+                            ? self::OTHER_KEY
+                            : self::SHARED_KEY;
                     }
                     break;
                 }

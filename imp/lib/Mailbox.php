@@ -1638,18 +1638,16 @@ class IMP_Mailbox implements Serializable
         }
 
         /* Handle special container mailboxes. */
-        switch ($this->_mbox) {
-        case IMP_Ftree::OTHER_KEY:
-            return _("Other Users");
-
-        case IMP_Ftree_Account_Remote::REMOTE_KEY:
-            return _("Remote Accounts");
-
-        case IMP_Ftree::SHARED_KEY:
-            return _("Shared");
-
-        case IMP_Ftree_Account_Vfolder::VFOLDER_KEY:
-            return _("Virtual Folders");
+        if (($elt = $this->tree_elt) && $elt->nonimap && $elt->container) {
+            if ($elt->remote) {
+                return _("Remote Accounts");
+            } elseif ($elt->vfolder) {
+                return _("Virtual Folders");
+            } elseif ($elt->namespace_other) {
+                return _("Other Users");
+            } elseif ($elt->namespace_shared) {
+                return _("Shared");
+            }
         }
 
         /* Handle remote mailboxes. */
