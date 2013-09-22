@@ -355,6 +355,7 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                     continue;
                 }
 
+                $remote = $elt->remote_mbox;
                 $parent = $this->_delete($elt);
 
                 if (empty($this->_parent[$parent])) {
@@ -370,10 +371,12 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                 }
 
                 /* Remove the mailbox from the expanded folders list. */
-                unset($this->expanded[$elt]);
+                if (!$remote) {
+                    unset($this->expanded[$elt]);
 
-                /* Remove the mailbox from the polled list. */
-                $this->poll->removePollList($elt);
+                    /* Remove the mailbox from the polled list. */
+                    $this->poll->removePollList($elt);
+                }
             }
 
             if (!empty($this->_parent[$parent])) {
