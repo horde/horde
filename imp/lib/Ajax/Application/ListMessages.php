@@ -302,8 +302,9 @@ class IMP_Ajax_Application_ListMessages
                 return $result;
             }
             $rownum = $mailbox_list->getArrayIndex(reset($uid_search));
-        } elseif (!empty($args['search_uid'])) {
-            $rownum = $mailbox_list->getArrayIndex($args['search_uid'], $mbox);
+        } elseif (!empty($args['search_buid'])) {
+            $search_buid = $mailbox_list->resolveBuid($args['search_buid']);
+            $rownum = $mailbox_list->getArrayIndex($search_buid['u'], $search_buid['m']);
         }
 
         /* If this is the initial request for a mailbox, figure out the
