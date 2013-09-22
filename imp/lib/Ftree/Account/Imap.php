@@ -19,9 +19,21 @@
  * @copyright 2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
+ *
+ * @property-read IMP_Imap $imp_imap  IMP IMAP object.
  */
 class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
 {
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'imp_imap':
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create($this->_id == IMP_Ftree::BASE_ELT ? null : $this->_id);
+        }
+    }
+
     /**
      */
     public function getList($query = null)

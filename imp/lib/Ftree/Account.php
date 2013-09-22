@@ -19,8 +19,6 @@
  * @copyright 2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
- *
- * @property-read IMP_Imap $imp_imap  IMP IMAP object.
  */
 abstract class IMP_Ftree_Account implements Serializable
 {
@@ -51,16 +49,6 @@ abstract class IMP_Ftree_Account implements Serializable
     public function __toString()
     {
         return $this->_id;
-    }
-
-    /**
-     */
-    public function __get($name)
-    {
-        switch ($name) {
-        case 'imp_imap':
-            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create($this->_id == IMP_Ftree::BASE_ELT ? null : $this->_id);
-        }
     }
 
     /**
