@@ -35,7 +35,7 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
      */
     public function remoteLogin()
     {
-        global $injector, $notification;
+        global $injector, $notification, $prefs;
 
         $remote = $injector->getInstance('IMP_Remote');
         $remoteid = IMP_Mailbox::formFrom($this->vars->remoteid);
@@ -62,8 +62,34 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
             $notification->push(sprintf(_("Successfully authenticated to %s."), $remote_ob->label), 'horde.success');
 
             $ftree = $injector->getInstance('IMP_Ftree');
+
+            $ftree->eltdiff->track = false;
             $ftree->delete($remote_ob);
             $ftree->insert($remote_ob);
+            $ftree->eltdiff->track = true;
+
+            $ftree[$remote_ob]->open = true;
+            $this->_base->queue->setMailboxOpt('expand', 1);
+
+            switch ($prefs->getValue('nav_expanded')) {
+            case IMP_Ftree_Prefs_Expanded::NO:
+                $mask = IMP_Ftree_IteratorFilter::NO_CHILDREN;
+                break;
+
+            case IMP_Ftree_Prefs_Expanded::YES:
+                $mask = 0;
+                break;
+
+            case IMP_Ftree_Prefs_Expanded::LAST:
+                $mask = IMP_Ftree_IteratorFilter::NO_UNEXPANDED;
+                break;
+            }
+
+            $iterator = IMP_Ftree_IteratorFilter::create($mask);
+            array_map(
+                array($ftree->eltdiff, 'add'),
+                array_unique(iterator_to_array($iterator, false))
+            );
         } catch (Exception $e) {
             $notification->push(sprintf(_("Could not authenticate to %s."), $remote_ob->label), 'horde.error');
         }
