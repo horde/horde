@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Upgrade prototype.js to most recent git version (e3d5200cef3236b257ddcfb1eb3eabc5c586bedd).
 * [mms] Cache permission results within a PHP access.
 * [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
 * [mjr] Support ActiveSync SOFTDELETE.
@@ -3161,6 +3162,7 @@
    <date>2013-09-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Upgrade prototype.js to most recent git version (e3d5200cef3236b257ddcfb1eb3eabc5c586bedd).
 * [mms] Cache permission results within a PHP access.
 * [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
 * [mjr] Support ActiveSync SOFTDELETE.
