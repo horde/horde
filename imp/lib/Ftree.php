@@ -286,27 +286,27 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 
         foreach (array_filter(array_map(array($this, 'offsetGet'), $id)) as $elt) {
             if ($elt->vfolder) {
-                $parent = $this->_delete($elt);
-
-                /* Rebuild the parent tree. */
-                if (empty($this->_parent[$parent])) {
-                    $this->delete($parent);
-                }
-                $this->_changed = true;
+                unset($this->_accounts[strval($elt)]);
             } elseif ($elt->remote_auth) {
-                $this->delete(iterator_to_array(
+                $iterator = iterator_to_array(
                     IMP_Ftree_IteratorFilter::create(0, $elt),
                     false
-                ));
-                $this->_delete($elt);
-                unset($this->_parent[strval($elt)]);
-                $this->_changed = true;
+                );
+                foreach (array_map('strval', $iterator) as $val) {
+                    unset(
+                        $this->_elts[$val],
+                        $this->_parent[$val]
+                    );
+                    $this->eltdiff->delete($val);
+                }
+                unset(
+                    $this->_accounts[strval($elt)],
+                    $this->_parent[strval($elt)]
+                );
             } else {
                 if ($elt->inbox || $elt->namespace) {
                     continue;
                 }
-
-                $this->_changed = true;
 
                 /* Do not delete from tree if there are child elements -
                  * instead, convert to a container element. */
@@ -315,27 +315,33 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                     continue;
                 }
 
-                $remote = $elt->remote_mbox;
-                $parent = $this->_delete($elt);
-
-                if (empty($this->_parent[$parent])) {
-                    /* This mailbox is now completely empty (no children). */
-                    unset($this->_parent[$parent]);
-                    if ($p_elt = $this[$parent]) {
-                        if ($p_elt->container && !$p_elt->namespace) {
-                            $this->delete($p_elt);
-                        } else {
-                            $p_elt->open = false;
-                        }
-                    }
-                }
-
                 /* Remove the mailbox from the expanded folders list. */
-                if (!$remote) {
-                    unset($this->expanded[$elt]);
+                unset($this->expanded[$elt]);
 
-                    /* Remove the mailbox from the polled list. */
-                    $this->poll->removePollList($elt);
+                /* Remove the mailbox from the polled list. */
+                $this->poll->removePollList($elt);
+            }
+
+            $this->_changed = true;
+
+            $parent = strval($elt->parent);
+            $this->eltdiff->delete($elt);
+
+            /* Delete the entry from the parent tree. */
+            unset(
+                $this->_elts[strval($elt)],
+                $this->_parent[$parent][array_search(strval($elt), $this->_parent[$parent], true)]
+            );
+
+            if (empty($this->_parent[$parent])) {
+                /* This mailbox is now completely empty (no children). */
+                unset($this->_parent[$parent]);
+                if ($p_elt = $this[$parent]) {
+                    if ($p_elt->container && !$p_elt->namespace) {
+                        $this->delete($p_elt);
+                    } else {
+                        $p_elt->open = false;
+                    }
                 }
             }
 
@@ -718,27 +724,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 
 
     /* Internal methods. */
-
-    /**
-     * Deletes an element and returns its parent.
-     *
-     * @param IMP_Ftree_Element $elt  Element.
-     *
-     * @return string  Parent ID.
-     */
-    protected function _delete($elt)
-    {
-        $parent = strval($elt->parent);
-        $this->eltdiff->delete($elt);
-
-        /* Delete the entry from the parent tree. */
-        unset(
-            $this->_elts[strval($elt)],
-            $this->_parent[$parent][array_search(strval($elt), $this->_parent[$parent], true)]
-        );
-
-        return $parent;
-    }
 
     /**
      * Normalize an element ID to the correct, internal name.
