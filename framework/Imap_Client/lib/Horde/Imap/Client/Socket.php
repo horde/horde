@@ -394,6 +394,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 );
             }
 
+            $this->_debug->info('Successfully completed TLS negotiation.');
+
             $this->setParam('secure', 'tls');
 
             if ($first_login) {
