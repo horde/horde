@@ -31,6 +31,12 @@
  */
 class IMP_Ftree_Eltdiff implements Serializable
 {
+    /* Constants for $_changes values. */
+    const ADD = 1;
+    const CHANGE = 2;
+    const DELETE = 4;
+    const EXIST = 8;
+
     /**
      * Has the internal data structure changed?
      *
@@ -44,17 +50,6 @@ class IMP_Ftree_Eltdiff implements Serializable
      * @var array
      */
     protected $_changes = array();
-
-    /**
-     * Type map.
-     *
-     * @var array
-     */
-    protected $_map = array(
-        'add' => 1,
-        'change' => 2,
-        'delete' => 3
-    );
 
     /**
      * Is tracking active?
@@ -72,7 +67,44 @@ class IMP_Ftree_Eltdiff implements Serializable
         case 'change':
         case 'delete':
             if ($this->track) {
-                $this->_changes[strval(reset($args))] = $this->_map[$name];
+                $elt = strval(reset($args));
+                $value = isset($this->_changes[$elt])
+                    ? $this->_changes[$elt]
+                    : null;
+
+                switch ($name) {
+                case 'add':
+                    if (is_null($value)) {
+                        $value = self::ADD;
+                    } elseif ($value & self::EXIST) {
+                        $value = self::CHANGE | self::EXIST;
+                    } else {
+                        $value &= ~self::CHANGE & ~self::DELETE;
+                        $value |= self::ADD;
+                    }
+                    break;
+
+                case 'change':
+                    if (is_null($value)) {
+                        $value = self::CHANGE | self::EXIST;
+                    } elseif (($value & self::EXIST) ||
+                              !($value & self::ADD)) {
+                        $value &= ~self::ADD & ~self::DELETE;
+                        $value |= self::CHANGE;
+                    }
+                    break;
+
+                case 'delete':
+                    if (is_null($value)) {
+                        $value = self::DELETE | self::EXIST;
+                    } else {
+                        $value &= ~self::ADD & ~self::CHANGE;
+                        $value |= self::DELETE;
+                    }
+                    break;
+                }
+
+                $this->_changes[$elt] = $value;
             }
             break;
         }
@@ -86,7 +118,27 @@ class IMP_Ftree_Eltdiff implements Serializable
         case 'add':
         case 'change':
         case 'delete':
-            return array_keys($this->_changes, $this->_map[$name]);
+            switch ($name) {
+            case 'add':
+                $mask = self::ADD;
+                break;
+
+            case 'change':
+                $mask = self::CHANGE;
+                break;
+
+            case 'delete':
+                $mask = self::DELETE;
+                break;
+            }
+
+            $out = array();
+            foreach ($this->_changes as $key => $val) {
+                if ($val & $mask) {
+                    $out[] = $key;
+                }
+            }
+            return $out;
 
         case 'track':
             return $this->_track;

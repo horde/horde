@@ -813,6 +813,8 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         $this->_parent[$parent][] = $name;
         $this->_elts[$name] = $elt['a'];
 
+        $this->eltdiff->add($name);
+
         /* Check for polled status. */
         $this->setAttribute('polled', $name, $this->poll[$name]);
 
@@ -829,8 +831,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
 
         /* Make sure we are sorted correctly. */
         $this->setAttribute('needsort', $p_elt, true);
-
-        $this->eltdiff->add($name);
     }
 
     /**
