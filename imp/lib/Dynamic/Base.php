@@ -197,5 +197,4 @@ abstract class IMP_Dynamic_Base
      */
     abstract protected function _init();
 
-
 }
