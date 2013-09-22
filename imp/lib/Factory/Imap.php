@@ -82,6 +82,23 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
     }
 
     /**
+     * Destroys an IMP_Imap instance.
+     *
+     * @param string $id  Mailbox/identifier.
+     */
+    public function destroy($id)
+    {
+        global $session;
+
+        $id = strval($id);
+
+        if ($id != self::BASE_OB) {
+            $session->remove('imp', 'imap_ob/' . $id);
+            unset($this->_instance[$id]);
+        }
+    }
+
+    /**
      * Saves IMP_Imap instance to the session on shutdown.
      */
     public function shutdown()

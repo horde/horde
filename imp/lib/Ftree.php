@@ -333,6 +333,14 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                     $this->delete($parent);
                 }
                 $this->_changed = true;
+            } elseif ($elt->remote_auth) {
+                $this->delete(iterator_to_array(
+                    IMP_Ftree_IteratorFilter::create(0, $elt),
+                    false
+                ));
+                $this->_delete($elt);
+                unset($this->_parent[strval($elt)]);
+                $this->_changed = true;
             } else {
                 if ($elt->inbox || $elt->namespace) {
                     continue;

@@ -1193,6 +1193,12 @@ var DimpBase = {
             ));
             break;
 
+        case 'ctx_remoteauth_logout':
+            DimpCore.doAction('remoteLogout', {
+                remoteid: this.contextMbox(e).retrieve('mbox')
+            });
+            break;
+
         default:
             if (menu == 'ctx_filteropts_filter') {
                 this.search = {

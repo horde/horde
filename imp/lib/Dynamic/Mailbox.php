@@ -243,7 +243,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'ctx_remoteauth' => array(
                 '_mbox' => '',
                 '_sep1' => null,
-                'create' => _("Create Mailbox")
+                'create' => _("Create Mailbox"),
+                'logout' => _("Log Out")
             ),
             'ctx_sortopts' => array(
                 'from' => _("From"),

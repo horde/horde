@@ -98,4 +98,31 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
         return $res;
     }
 
+    /**
+     * AJAX action: Logout from a remote account.
+     *
+     * Variables used:
+     *   - remoteid: (string) Remote server ID (base64url encoded).
+     *
+     * @return boolean  True.
+     */
+    public function remoteLogout()
+    {
+        global $injector, $notification;
+
+        $remote = $injector->getInstance('IMP_Remote');
+        $remoteid = IMP_Mailbox::formFrom($this->vars->remoteid);
+        $remote_ob = $remote[$remoteid];
+
+        $injector->getInstance('IMP_Factory_Imap')->destroy($remoteid);
+
+        $ftree = $injector->getInstance('IMP_Ftree');
+        $ftree->delete($remote_ob);
+        $ftree->insert($remote_ob);
+
+        $notification->push(sprintf(_("Logged out of %s."), $remote_ob->label), 'horde.success');
+
+        return true;
+    }
+
 }
