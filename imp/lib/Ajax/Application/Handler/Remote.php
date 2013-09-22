@@ -29,6 +29,7 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
      *   - password: (string) Remote server password.
      *   - password_base64: (boolean) If true, password is base64 encoded.
      *   - remoteid: (string) Remote server ID (base64url encoded).
+     *   - unsub: (boolean) If true, show unsubscribed mailboxes.
      *
      * @return boolean  An object with the following properties:
      *   - success: (boolean) True if login was successful.
@@ -71,17 +72,17 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
             $ftree[$remote_ob]->open = true;
             $this->_base->queue->setMailboxOpt('expand', 1);
 
+            $mask = $this->vars->unsub
+                ? IMP_Ftree_Iterator_Filter::UNSUB
+                : 0;
+
             switch ($prefs->getValue('nav_expanded')) {
             case IMP_Ftree_Prefs_Expanded::NO:
-                $mask = IMP_Ftree_IteratorFilter::NO_CHILDREN;
-                break;
-
-            case IMP_Ftree_Prefs_Expanded::YES:
-                $mask = 0;
+                $mask |= IMP_Ftree_IteratorFilter::NO_CHILDREN;
                 break;
 
             case IMP_Ftree_Prefs_Expanded::LAST:
-                $mask = IMP_Ftree_IteratorFilter::NO_UNEXPANDED;
+                $mask |= IMP_Ftree_IteratorFilter::NO_UNEXPANDED;
                 break;
             }
 

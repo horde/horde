@@ -4088,7 +4088,8 @@ document.observe('HordeDialog:onClick', function(e) {
             // in the event of some sort of data dump.
             password: Base64.encode($F(elt.down('INPUT[name="remote_password"]'))),
             password_base64: true,
-            remoteid: $F(elt.down('INPUT[name="remote_id"]'))
+            remoteid: $F(elt.down('INPUT[name="remote_id"]')),
+            unsub: Number(this.showunsub)
         }, {
             callback: function(r) {
                 if (r.success) {
