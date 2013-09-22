@@ -866,6 +866,8 @@ var DimpCompose = {
         }
 
         this.resizeMsgArea();
+
+        $(type).focus();
     },
 
     sentMailListCallback: function(r)
