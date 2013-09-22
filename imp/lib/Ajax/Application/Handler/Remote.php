@@ -23,7 +23,7 @@
 class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Handler
 {
     /**
-     * AJAX action: Create mailbox select list for advanced search page.
+     * AJAX action: Login to a remote account.
      *
      * Variables used:
      *   - password: (string) Remote server password.
