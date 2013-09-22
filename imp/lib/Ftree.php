@@ -58,9 +58,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     /* Virtual folder key. */
     const VFOLDER_KEY = "vfolder\0";
 
-    /* Remote account key. */
-    const REMOTE_KEY = "remote\0";
-
     /* Defines used with namespace display. */
     const SHARED_KEY = "shared\0";
     const OTHER_KEY = "other\0";
@@ -201,58 +198,39 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
      */
     public function insert($id)
     {
-        if (!is_array($id)) {
-            $id = array($id);
-        }
-
-        $to_insert = array();
-
-        foreach ($id as $val) {
+        foreach ((is_array($id) ? $id : array($id)) as $val) {
             if ($val instanceof IMP_Search_Vfolder) {
                 /* Virtual Folders. */
-                if (!$val->enabled) {
+                if (!$val->enabled || isset($this[$val])) {
                     continue;
                 }
-                $key = self::VFOLDER_KEY;
-                $base_mask = $elt_mask = self::ELT_VFOLDER;
-            } elseif ($val instanceof IMP_Remote_Account) {
-                /* Remote accounts. */
-                $key = self::REMOTE_KEY;
-                $base_mask = $elt_mask = self::ELT_REMOTE;
-                if ($val->imp_imap->init) {
-                    $elt_mask |= self::ELT_REMOTE_AUTH;
-                }
-                $this->_accounts[strval($val)] = new IMP_Ftree_Account_Remote($val);
-            } else {
-                $to_insert[strval($this->getAccount($val))] = $this->_normalize($val);
-                $key = null;
-            }
 
-            if (!is_null($key) && !isset($this[$val])) {
+                $key = self::VFOLDER_KEY;
+
                 if (!isset($this->_elts[$key])) {
                     $this->_insertElt(array(
-                        'a' => $base_mask | self::ELT_NOSELECT | self::ELT_NONIMAP,
+                        'a' => self::ELT_VFOLDER | self::ELT_NOSELECT | self::ELT_NONIMAP,
                         'v' => $key
                     ));
                 }
 
                 $this->_insertElt(array(
-                    'a' => $elt_mask | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP,
+                    'a' => self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP,
                     'p' => $key,
                     'v' => $val
                 ));
-
-                if ($elt_mask & self::ELT_REMOTE_AUTH) {
-                    $this->insert($this->_accounts[strval($val)]);
+            } else {
+                if (($val instanceof IMP_Remote_Account) &&
+                    !isset($this->_accounts[strval($val)])) {
+                    /* Remote accounts. */
+                    $this->_accounts[strval($val)] = new IMP_Ftree_Account_Remote($val);
                 }
-            }
-        }
 
-        foreach ($to_insert as $key => $val) {
-            /* We want to add from the BASE of the tree up for efficiency
-             * sake. */
-            $this->sortList($val);
-            array_map(array($this, '_insertElt'), $this->_accounts[$key]->getList($val));
+                array_map(
+                    array($this, '_insertElt'),
+                    $this->getAccount($val)->getList($this->_normalize($val))
+                );
+            }
         }
     }
 

@@ -1642,7 +1642,7 @@ class IMP_Mailbox implements Serializable
         case IMP_Ftree::OTHER_KEY:
             return _("Other Users");
 
-        case IMP_Ftree::REMOTE_KEY:
+        case IMP_Ftree_Account_Remote::REMOTE_KEY:
             return _("Remote Accounts");
 
         case IMP_Ftree::SHARED_KEY:
