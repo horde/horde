@@ -781,7 +781,7 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Search')->isVFolder($this->_mbox);
 
         case 'vfolder_container':
-            return ($this->_mbox == IMP_Ftree::VFOLDER_KEY);
+            return ($this->_mbox == IMP_Ftree_Account_Vfolder::VFOLDER_KEY);
 
         case 'vinbox':
             return $injector->getInstance('IMP_Search')->isVinbox($this->_mbox);
@@ -1648,7 +1648,7 @@ class IMP_Mailbox implements Serializable
         case IMP_Ftree::SHARED_KEY:
             return _("Shared");
 
-        case IMP_Ftree::VFOLDER_KEY:
+        case IMP_Ftree_Account_Vfolder::VFOLDER_KEY:
             return _("Virtual Folders");
         }
 

@@ -55,9 +55,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
      * IMAP mailbox). */
     const BASE_ELT = "base\0";
 
-    /* Virtual folder key. */
-    const VFOLDER_KEY = "vfolder\0";
-
     /* Defines used with namespace display. */
     const SHARED_KEY = "shared\0";
     const OTHER_KEY = "other\0";
@@ -199,38 +196,20 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
     public function insert($id)
     {
         foreach ((is_array($id) ? $id : array($id)) as $val) {
-            if ($val instanceof IMP_Search_Vfolder) {
+            if (($val instanceof IMP_Search_Vfolder) &&
+                !isset($this->_accounts[strval($val)])) {
                 /* Virtual Folders. */
-                if (!$val->enabled || isset($this[$val])) {
-                    continue;
-                }
-
-                $key = self::VFOLDER_KEY;
-
-                if (!isset($this->_elts[$key])) {
-                    $this->_insertElt(array(
-                        'a' => self::ELT_VFOLDER | self::ELT_NOSELECT | self::ELT_NONIMAP,
-                        'v' => $key
-                    ));
-                }
-
-                $this->_insertElt(array(
-                    'a' => self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP,
-                    'p' => $key,
-                    'v' => $val
-                ));
+                $account = $this->_accounts[strval($val)] = new IMP_Ftree_Account_Vfolder($val);
+            } elseif (($val instanceof IMP_Remote_Account) &&
+                      !isset($this->_accounts[strval($val)])) {
+                /* Remote accounts. */
+                $account = $this->_accounts[strval($val)] = new IMP_Ftree_Account_Remote($val);
             } else {
-                if (($val instanceof IMP_Remote_Account) &&
-                    !isset($this->_accounts[strval($val)])) {
-                    /* Remote accounts. */
-                    $this->_accounts[strval($val)] = new IMP_Ftree_Account_Remote($val);
-                }
-
-                array_map(
-                    array($this, '_insertElt'),
-                    $this->getAccount($val)->getList($this->_normalize($val))
-                );
+                $account = $this->getAccount($val);
+                $val = $this->_normalize($val);
             }
+
+            array_map(array($this, '_insertElt'), $account->getList($val));
         }
     }
 

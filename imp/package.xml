@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-21</date>
+ <date>2013-09-22</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -251,6 +251,7 @@
       <file name="Imap.php" role="horde" />
       <file name="Inboxonly.php" role="horde" />
       <file name="Remote.php" role="horde" />
+      <file name="Vfolder.php" role="horde" />
      </dir> <!-- /lib/Ftree/Account -->
      <dir name="IteratorFilter">
       <file name="Ancestors.php" role="horde" />
@@ -1622,6 +1623,7 @@
    <install as="imp/lib/Ftree/Account/Imap.php" name="lib/Ftree/Account/Imap.php" />
    <install as="imp/lib/Ftree/Account/Inboxonly.php" name="lib/Ftree/Account/Inboxonly.php" />
    <install as="imp/lib/Ftree/Account/Remote.php" name="lib/Ftree/Account/Remote.php" />
+   <install as="imp/lib/Ftree/Account/Vfolder.php" name="lib/Ftree/Account/Vfolder.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Ancestors.php" name="lib/Ftree/IteratorFilter/Ancestors.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Mailboxes.php" name="lib/Ftree/IteratorFilter/Mailboxes.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Nocontainers.php" name="lib/Ftree/IteratorFilter/Nocontainers.php" />
