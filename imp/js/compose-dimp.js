@@ -1030,7 +1030,7 @@ var DimpCompose = {
                 tmp = elt.retrieve('popdown_id');
                 this.knl[tmp].knl.show();
                 this.knl[tmp].knl.ignoreClick(e.memo);
-                e.stop();
+                e.memo.stop();
             }
             break;
         }
