@@ -172,4 +172,13 @@ class IMP_Ftree_Account_Imap extends IMP_Ftree_Account
         return $out;
     }
 
+    /**
+     */
+    public function delete(IMP_Ftree_Element $elt)
+    {
+        return ($elt->inbox || $elt->namespace)
+            ? 0
+            : self::DELETE_ELEMENT;
+    }
+
 }

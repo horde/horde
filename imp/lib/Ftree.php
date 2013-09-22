@@ -285,9 +285,14 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
         }
 
         foreach (array_filter(array_map(array($this, 'offsetGet'), $id)) as $elt) {
-            if ($elt->vfolder) {
-                unset($this->_accounts[strval($elt)]);
-            } elseif ($elt->remote_auth) {
+            $account = $this->getAccount($elt);
+            if (!($mask = $account->delete($elt))) {
+                continue;
+            }
+
+            $this->_changed = true;
+
+            if ($mask & IMP_Ftree_Account::DELETE_RECURSIVE) {
                 $iterator = iterator_to_array(
                     IMP_Ftree_IteratorFilter::create(0, $elt),
                     false
@@ -299,15 +304,14 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                     );
                     $this->eltdiff->delete($val);
                 }
-                unset(
-                    $this->_accounts[strval($elt)],
-                    $this->_parent[strval($elt)]
-                );
-            } else {
-                if ($elt->inbox || $elt->namespace) {
-                    continue;
-                }
+                unset($this->_parent[strval($elt)]);
+            }
 
+            if (strval($account) == strval($elt)) {
+                unset($this->_accounts[strval($elt)]);
+            }
+
+            if ($mask & IMP_Ftree_Account::DELETE_ELEMENT) {
                 /* Do not delete from tree if there are child elements -
                  * instead, convert to a container element. */
                 if ($elt->children) {
@@ -321,8 +325,6 @@ class IMP_Ftree implements ArrayAccess, Countable, IteratorAggregate, Serializab
                 /* Remove the mailbox from the polled list. */
                 $this->poll->removePollList($elt);
             }
-
-            $this->_changed = true;
 
             $parent = strval($elt->parent);
             $this->eltdiff->delete($elt);

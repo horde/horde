@@ -79,4 +79,17 @@ class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
         return $out;
     }
 
+    /**
+     */
+    public function delete(IMP_Ftree_Element $elt)
+    {
+        if ($elt->remote_auth) {
+            return self::DELETE_ELEMENT_QUICK | self::DELETE_RECURSIVE;
+        }
+
+        return $elt->remote
+            ? self::DELETE_ELEMENT_QUICK
+            : self::DELETE_ELEMENT;
+    }
+
 }

@@ -34,4 +34,11 @@ class IMP_Ftree_Account_Inboxonly extends IMP_Ftree_Account
         );
     }
 
+    /**
+     */
+    public function delete(IMP_Ftree_Element $elt)
+    {
+        return 0;
+    }
+
 }

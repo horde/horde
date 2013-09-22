@@ -60,4 +60,11 @@ class IMP_Ftree_Account_Vfolder extends IMP_Ftree_Account
         return $out;
     }
 
+    /**
+     */
+    public function delete(IMP_Ftree_Element $elt)
+    {
+        return self::DELETE_ELEMENT_QUICK;
+    }
+
 }
