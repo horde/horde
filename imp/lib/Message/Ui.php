@@ -238,7 +238,7 @@ class IMP_Message_Ui
 
         $add_link = null;
         $addr_array = array();
-        $mimp_view = ($registry->getView() == Horde_Registry::VIEW_MINIMAL);
+        $minimal = ($registry->getView() == Horde_Registry::VIEW_MINIMAL);
 
         /* Set up the add address icon link if contact manager is
          * available. */
@@ -255,7 +255,7 @@ class IMP_Message_Ui
             if ($ob instanceof Horde_Mail_Rfc822_Group) {
                 $group_array = array();
                 foreach ($ob->addresses as $ad) {
-                    $ret = $mimp_view
+                    $ret = $minimal
                         ? strval($ad)
                         : htmlspecialchars(strval($ad));
 
@@ -278,13 +278,13 @@ class IMP_Message_Ui
                     $group_array[] = $ret;
                 }
 
-                $groupname = $mimp_view
+                $groupname = $minimal
                     ? $ob->groupname
                     : htmlspecialchars($ob->groupname);
 
                 $addr_array[] = $groupname . ':' . (count($group_array) ? ' ' . implode(', ', $group_array) : '');
             } else {
-                $ret = $mimp_view
+                $ret = $minimal
                     ? strval($ob)
                     : htmlspecialchars(strval($ob));
 
@@ -308,7 +308,7 @@ class IMP_Message_Ui
             }
         }
 
-        if ($mimp_view) {
+        if ($minimal) {
             return implode(', ', $addr_array);
         }
 
