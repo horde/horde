@@ -20,9 +20,13 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
- * @property-read array $add
- * @property-read array $change
- * @property-read array $delete
+ * @method void add(string $elt)  Element added to tree.
+ * @method void change(string $elt)  Element changed in tree.
+ * @method void delete(string $elt)  Element deleted in tree.
+ *
+ * @property-read array $add  List of added elements.
+ * @property-read array $change  List of changed elements.
+ * @property-read array $delete  List of deleted elements.
  * @property boolean $track  Is tracking active?
  */
 class IMP_Ftree_Eltdiff implements Serializable
