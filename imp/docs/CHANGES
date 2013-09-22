@@ -2,6 +2,7 @@
 v6.1.5-git
 ----------
 
+[mms] Improved UI for dropping attachments on dynamic compose screen.
 [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a
       user-defined flag (João Machado <geral@jpaulo.eu>).
 [mms] Fix manually loading all addresses in a header.

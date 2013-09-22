@@ -1208,7 +1208,8 @@ var DimpCompose = {
                 }
             }.bindAsEventListener(this));
             DragHandler.dropelt = $('atcdrop');
-            DragHandler.droptarget = $('atctd');
+            DragHandler.droptarget = $('atcdiv');
+            DragHandler.hoverclass = 'atcdrop_over';
             DimpCore.addPopdown($('upload'), 'atc', {
                 no_offset: true
             });
