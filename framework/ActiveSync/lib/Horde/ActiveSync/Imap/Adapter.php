@@ -852,10 +852,14 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->displayto = $eas_message->to;
         }
 
+        // Ensure we don't send broken UTF8 data to the client. It makes clients
+        // angry. And we don't like angry clients.
+        $hdr_charset = $imap_message->getStructure()->getHeaderCharset();
+
         // Fill in other header data
         $eas_message->from = $imap_message->getFromAddress();
-        $eas_message->subject = $imap_message->getSubject();
-        $eas_message->threadtopic = $imap_message->getSubject();
+        $eas_message->subject = $this->_validateUtf8($imap_message->getSubject(), $hdr_charset);
+        $eas_message->threadtopic = $eas_message->subject;
         $eas_message->datereceived = $imap_message->getDate();
         $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
         $eas_message->cc = $imap_message->getCc();
