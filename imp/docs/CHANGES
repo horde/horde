@@ -2,9 +2,9 @@
 v6.1.5-git
 ----------
 
+[mms] SECURITY: Fix XSS in message and search screens resulting from a
+      user-defined flag label (João Machado <geral@jpaulo.eu>).
 [mms] Improved UI for dropping attachments on dynamic compose screen.
-[mms] SECURITY: Fix XSS when flagging a message in dynamic view with a
-      user-defined flag (João Machado <geral@jpaulo.eu>).
 [mms] Fix manually loading all addresses in a header.
 [mms] Fix regression where reloading dynamic view would not load the previously
       selected message.

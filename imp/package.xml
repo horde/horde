@@ -33,8 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Improved UI for dropping attachments on dynamic compose screen.
-* [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Fix manually loading all addresses in a header.
 * [mms] Fix regression where reloading dynamic view would not load the previously selected message.
 * [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
@@ -3294,8 +3294,8 @@
    <date>2013-09-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Improved UI for dropping attachments on dynamic compose screen.
-* [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Fix manually loading all addresses in a header.
 * [mms] Fix regression where reloading dynamic view would not load the previously selected message.
 * [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
