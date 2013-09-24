@@ -352,6 +352,18 @@ class Horde_Stream implements Serializable
         return (fseek($this->stream, $offset, SEEK_END) === 0);
     }
 
+    /**
+     * Has the end of the stream been reached?
+     *
+     * @since 1.4.0
+     *
+     * @return boolean  True if the end of the stream has been reached.
+     */
+    public function eof()
+    {
+        return feof($this->stream);
+    }
+
     /* Serializable methods. */
 
     /**
