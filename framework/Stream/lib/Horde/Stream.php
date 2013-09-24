@@ -325,6 +325,10 @@ class Horde_Stream implements Serializable
      *
      * @since 1.4.0
      *
+     * @param boolean $curr  If true, offset is from current position. If
+     *                       false, offset is from beginning of stream.
+     *
+     *
      * @return boolean  True if successful.
      */
     public function seek($offset = 0, $curr = true)
