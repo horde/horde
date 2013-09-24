@@ -15,8 +15,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
     public function testFgetToChar()
     {
         $stream = new Horde_Stream_Temp();
-        fwrite($stream->stream, 'A B');
-        rewind($stream->stream);
+        $stream->add('A B', true);
 
         $this->assertEquals(
             'A',
@@ -32,8 +31,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
 
         $stream2 = new Horde_Stream_Temp();
-        fwrite($stream2->stream, 'A  B  ');
-        rewind($stream2->stream);
+        $stream2->add('A  B  ', true);
 
         $this->assertEquals(
             'A',
@@ -52,7 +50,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
     public function testLength()
     {
         $stream = new Horde_Stream_Temp();
-        fwrite($stream->stream, 'A B ');
+        $stream->add('A B ');
 
         $this->assertEquals(
             4,
@@ -75,7 +73,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
     public function testGetString()
     {
         $stream = new Horde_Stream_Temp();
-        fwrite($stream->stream, 'A B C');
+        $stream->add('A B C');
 
         $this->assertEquals(
             '',
@@ -119,8 +117,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
     public function testPeek()
     {
         $stream = new Horde_Stream_Temp();
-        fwrite($stream->stream, 'A B');
-        rewind($stream->stream);
+        $stream->add('A B', true);
 
         $this->assertEquals(
             'A',
@@ -146,8 +143,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
     public function testSearch()
     {
         $stream = new Horde_Stream_Temp();
-        fwrite($stream->stream, '0123456789');
-        rewind($stream->stream);
+        $stream->add('0123456789', true);
 
         $this->assertEquals(
             5,
@@ -212,7 +208,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $stream->rewind();
 
         $stream2 = new Horde_Stream_Temp();
-        $stream2->add($stream->stream, true);
+        $stream2->add($stream, true);
 
         $this->assertEquals(
             3,
