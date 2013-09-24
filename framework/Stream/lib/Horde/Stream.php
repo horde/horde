@@ -312,10 +312,12 @@ class Horde_Stream implements Serializable
      * Rewind the internal stream to the beginning.
      *
      * @since 1.4.0
+     *
+     * @return boolean  True if successful.
      */
     public function rewind()
     {
-        rewind($this->stream);
+        return rewind($this->stream);
     }
 
     /**
