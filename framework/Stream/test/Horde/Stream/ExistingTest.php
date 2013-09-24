@@ -48,7 +48,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
         );
         $this->assertEquals(
             'A',
-            fgetc($this->stream->stream)
+            $this->stream->getChar()
         );
     }
 
@@ -105,7 +105,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
         );
         $this->assertEquals(
             'A',
-            fgetc($this->stream->stream)
+            $this->stream->getChar()
         );
 
         $this->stream->end(-1);

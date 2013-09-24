@@ -56,7 +56,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             4,
             $stream->length()
         );
-        $this->assertFalse(fgetc($stream->stream));
+        $this->assertFalse($stream->getChar());
 
         $stream->rewind();
 
@@ -66,7 +66,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
         $this->assertEquals(
             'A',
-            fgetc($stream->stream)
+            $stream->getChar()
         );
     }
 
@@ -125,7 +125,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
         $this->assertEquals(
             'A',
-            fgetc($stream->stream)
+            $stream->getChar()
         );
 
         $stream->end(-1);
@@ -136,7 +136,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
         $this->assertEquals(
             'B',
-            fgetc($stream->stream)
+            $stream->getChar()
         );
     }
 
@@ -310,6 +310,52 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $this->assertEquals(
             "\n",
             $stream->getEOL()
+        );
+    }
+
+    public function testUtf8Parsing()
+    {
+        $test = 'Aönön';
+
+        $stream = new Horde_Stream_Temp();
+        $stream->add($test, true);
+
+        $i = 0;
+        while ($stream->getChar() !== false) {
+            ++$i;
+        }
+
+        $this->assertEquals(
+            7,
+            $i
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            $test,
+            $stream->getToChar('ö')
+        );
+
+        $stream = new Horde_Stream_Temp();
+        $stream->add($test, true);
+        $stream->utf8_char = true;
+
+        $i = 0;
+        while ($stream->getChar() !== false) {
+            ++$i;
+        }
+
+        $this->assertEquals(
+            5,
+            $i
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            'Aö',
+            $stream->getToChar('n')
         );
     }
 

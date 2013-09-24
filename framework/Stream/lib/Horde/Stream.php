@@ -31,6 +31,13 @@ class Horde_Stream implements Serializable
     public $stream;
 
     /**
+     * Parse character as UTF-8 instead of single byte.
+     *
+     * @var boolean
+     */
+    public $utf8_char = false;
+
+    /**
      * Configuration parameters.
      *
      * @var array
@@ -162,11 +169,11 @@ class Horde_Stream implements Serializable
         $found_end = false;
         $out = '';
 
-        while (($c = fgetc($this->stream)) !== false) {
+        while (($c = $this->getChar()) !== false) {
             if ($c == $end) {
                 $found_end = true;
             } elseif ($found_end) {
-                fseek($this->stream, -1, SEEK_CUR);
+                fseek($this->stream, strlen($c) * -1, SEEK_CUR);
                 break;
             } else {
                 $out .= $c;
@@ -183,8 +190,8 @@ class Horde_Stream implements Serializable
      */
     public function peek()
     {
-        if (($c = fgetc($this->stream)) !== false) {
-            fseek($this->stream, -1, SEEK_CUR);
+        if (($c = $this->getChar()) !== false) {
+            fseek($this->stream, strlen($c) * -1, SEEK_CUR);
         }
 
         return $c;
@@ -207,13 +214,13 @@ class Horde_Stream implements Serializable
         if ($reverse) {
             for ($i = $pos - 1; $i >= 0; --$i) {
                 fseek($this->stream, $i);
-                if (fgetc($this->stream) == $char) {
+                if ($this->getChar() == $char) {
                     $found_pos = $i;
                     break;
                 }
             }
         } else {
-            while (($c = fgetc($this->stream)) !== false) {
+            while (($c = $this->getChar()) !== false) {
                 if ($c == $char) {
                     $found_pos = ftell($this->stream) - 1;
                     break;
@@ -294,6 +301,46 @@ class Horde_Stream implements Serializable
         fseek($this->stream, $pos);
 
         return $eol;
+    }
+
+    /**
+     * Return a character from the string.
+     *
+     * @since 1.4.0
+     *
+     * @return string  Character (single byte, or UTF-8 character if
+     *                 $utf8_char is true).
+     */
+    public function getChar()
+    {
+        $char = fgetc($this->stream);
+        if (!$this->utf8_char) {
+            return $char;
+        }
+
+        $c = ord($char);
+        if ($c < 0x80) {
+            return $char;
+        }
+
+        if ($c < 0xe0) {
+            $n = 1;
+        } elseif ($c < 0xf0) {
+            $n = 2;
+        } elseif ($c < 0xf8) {
+            $n = 3;
+        } else {
+            throw new Horde_Stream_Exception('ERROR');
+        }
+
+        for ($i = 0; $i < $n; ++$i) {
+            if (($c = fgetc($this->stream)) === false) {
+                throw new Horde_Stream_Exception('ERROR');
+            }
+            $char .= $c;
+        }
+
+        return $char;
     }
 
     /**

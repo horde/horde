@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add support for parsing UTF-8 characters in stream via Horde_Stream#getChar().
 * [mms] Add Horde_Stream#eof().
 * [mms] Add Horde_Stream#end().
 * [mms] Add Horde_Stream#seek().
@@ -199,6 +200,7 @@
    <date>2013-08-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add support for parsing UTF-8 characters in stream via Horde_Stream#getChar().
 * [mms] Add Horde_Stream#eof().
 * [mms] Add Horde_Stream#end().
 * [mms] Add Horde_Stream#seek().
