@@ -77,7 +77,11 @@ class Horde_Stream implements Serializable
     }
 
     /**
+     * String representation of object.
+     *
      * @since 1.1.0
+     *
+     * @return string  The full stream converted to a string.
      */
     public function __toString()
     {
@@ -144,7 +148,7 @@ class Horde_Stream implements Serializable
     }
 
     /**
-     * Stream utility method: get a string up to a certain character (or EOF).
+     * Get a string up to a certain character (or EOF).
      *
      * @oaram string $end  The character to stop reading at.
      *
