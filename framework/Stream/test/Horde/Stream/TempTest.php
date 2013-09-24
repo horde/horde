@@ -404,17 +404,10 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $stream = new Horde_Stream_Temp();
         $stream->add($test, true);
 
-        $i = 0;
-        while ($stream->getChar() !== false) {
-            ++$i;
-        }
-
         $this->assertEquals(
             7,
-            $i
+            $stream->length()
         );
-
-        $stream->rewind();
 
         $this->assertEquals(
             $test,
@@ -425,17 +418,10 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $stream->add($test, true);
         $stream->utf8_char = true;
 
-        $i = 0;
-        while ($stream->getChar() !== false) {
-            ++$i;
-        }
-
         $this->assertEquals(
             5,
-            $i
+            $stream->length(true)
         );
-
-        $stream->rewind();
 
         $this->assertEquals(
             'Aö',

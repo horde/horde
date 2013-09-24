@@ -126,19 +126,32 @@ class Horde_Stream implements Serializable
     /**
      * Returns the length of the data. Does not change the stream position.
      *
+     * @param boolean $utf8  If true, determines the UTF-8 length of the
+     *                       stream (as of 1.4.0). If false, determines the
+     *                       byte length of the stream.
+     *
      * @return integer  Stream size.
      *
      * @throws Horde_Stream_Exception
      */
-    public function length()
+    public function length($utf8 = false)
     {
         $pos = $this->pos();
 
-        if (!$this->end()) {
-            throw new Horde_Stream_Exception('ERROR');
-        }
+        if ($utf8 && $this->utf8_char) {
+            $this->rewind();
+            $len = 0;
+            while ($this->getChar() !== false) {
+                ++$len;
+            }
+        } else {
 
-        $len = $this->pos();
+            if (!$this->end()) {
+                throw new Horde_Stream_Exception('ERROR');
+            }
+
+            $len = $this->pos();
+        }
 
         if (!$this->seek($pos, false)) {
             throw new Horde_Stream_Exception('ERROR');
