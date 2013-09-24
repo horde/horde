@@ -56,18 +56,6 @@ class Horde_Stream implements Serializable
     }
 
     /**
-     * Destructor.
-     *
-     * @since 1.4.0
-     */
-    public function __destruct()
-    {
-        if ($this->stream) {
-            fclose($this->stream);
-        }
-    }
-
-    /**
      * Initialization method.
      */
     protected function _init()
@@ -409,6 +397,18 @@ class Horde_Stream implements Serializable
     public function eof()
     {
         return feof($this->stream);
+    }
+
+    /**
+     * Close the stream.
+     *
+     * @since 1.4.0
+     */
+    public function close()
+    {
+        if ($this->stream) {
+            fclose($this->stream);
+        }
     }
 
     /* Serializable methods. */
