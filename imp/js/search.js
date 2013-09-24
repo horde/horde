@@ -152,7 +152,7 @@ var ImpSearch = {
     resetCriteria: function()
     {
         var elts = $('search_criteria').childElements();
-        if (elts) {
+        if (elts.size()) {
             elts.invoke('remove');
             $('no_search_criteria', 'search_criteria').invoke('toggle');
             this.criteria = {};
