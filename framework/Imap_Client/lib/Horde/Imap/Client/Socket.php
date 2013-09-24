@@ -1648,7 +1648,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if ($catenate) {
                     $cmd->add($tmp);
                 } else {
-                    $cmd->add($this->_appendData($data_stream->stream, $asize));
+                    $cmd->add($this->_appendData($data_stream, $asize));
                 }
             } else {
                 $cmd->add($this->_appendData($data[$key]['data'], $asize));
@@ -1728,15 +1728,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Prepares append message data for insertion into the IMAP command
      * string.
      *
-     * @param mixed $data      Either a resource or a string.
+     * @param mixed $data      Either a Horde_Stream object or a string.
      * @param integer &$asize  Total append size.
      *
      * @return Horde_Imap_Client_Data_Format_String  The data object.
      */
     protected function _appendData($data, &$asize)
     {
-        if (is_resource($data)) {
-            rewind($data);
+        if ($data instanceof Horde_Stream) {
+            $data->rewind();
         }
 
         $ob = new Horde_Imap_Client_Data_Format_String($data, array(
