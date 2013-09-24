@@ -41,6 +41,7 @@ class IMP_Perms
                 'type' => 'boolean'
             ),
             'allow_remote' => array(
+                'imaponly' => true,
                 'title' => _("Allow remote account access?"),
                 'type' => 'boolean'
             ),
