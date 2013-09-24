@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Stream#end().
 * [mms] Add Horde_Stream#seek().
 * [mms] Add Horde_Stream#rewind().
 * [mms] Add Horde_Stream#pos().
@@ -197,6 +198,7 @@
    <date>2013-08-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Stream#end().
 * [mms] Add Horde_Stream#seek().
 * [mms] Add Horde_Stream#rewind().
 * [mms] Add Horde_Stream#pos().

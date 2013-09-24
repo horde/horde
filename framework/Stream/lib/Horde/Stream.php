@@ -343,7 +343,7 @@ class Horde_Stream implements Serializable
      *
      * @since 1.4.0
      *
-     * @param integer $offset  TODO
+     * @param integer $offset  Move this offset from the end.
      *
      * @return boolean  True if successful.
      */
