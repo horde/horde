@@ -135,7 +135,7 @@ class Horde_Stream implements Serializable
     {
         $pos = ftell($this->stream);
 
-        if (fseek($this->stream, 0, SEEK_END) == -1) {
+        if (!$this->end()) {
             throw new Horde_Stream_Exception('ERROR');
         }
 
@@ -278,7 +278,7 @@ class Horde_Stream implements Serializable
     {
         $pos = ftell($this->stream);
 
-        rewind($this->stream);
+        $this->rewind();
         $pos2 = $this->search("\n", false, false);
         if ($pos2) {
             fseek($this->stream, -1, SEEK_CUR);
@@ -294,6 +294,56 @@ class Horde_Stream implements Serializable
         fseek($this->stream, $pos);
 
         return $eol;
+    }
+
+    /**
+     * Return the current stream pointer position.
+     *
+     * @since 1.4.0
+     *
+     * @return mixed  The current position (integer), or false.
+     */
+    public function pos()
+    {
+        return ftell($this->stream);
+    }
+
+    /**
+     * Rewind the internal stream to the beginning.
+     *
+     * @since 1.4.0
+     */
+    public function rewind()
+    {
+        rewind($this->stream);
+    }
+
+    /**
+     * Move internal pointer.
+     *
+     * @since 1.4.0
+     *
+     * @return boolean  True if successful.
+     */
+    public function seek($offset = 0, $curr = true)
+    {
+        return $offset
+            ? (fseek($this->stream, $offset, $curr ? SEEK_CUR : SEEK_SET) === 0)
+            : true;
+    }
+
+    /**
+     * Move internal pointer to the end of the stream.
+     *
+     * @since 1.4.0
+     *
+     * @param integer $offset  TODO
+     *
+     * @return boolean  True if successful.
+     */
+    public function end($offset = 0)
+    {
+        return (fseek($this->stream, $offset, SEEK_END) === 0);
     }
 
     /* Serializable methods. */

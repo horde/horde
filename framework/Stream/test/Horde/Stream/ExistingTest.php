@@ -22,7 +22,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
 
     public function testFgetToChar()
     {
-        rewind($this->stream->stream);
+        $this->stream->rewind();
 
         $this->assertEquals(
             'A',
@@ -40,7 +40,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
 
     public function testLength()
     {
-        rewind($this->stream->stream);
+        $this->stream->rewind();
 
         $this->assertEquals(
             3,
@@ -54,7 +54,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
 
     public function testGetString()
     {
-        rewind($this->stream->stream);
+        $this->stream->rewind();
 
         $this->assertEquals(
             'A B',
@@ -65,7 +65,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
             $this->stream->getString(0)
         );
 
-        rewind($this->stream->stream);
+        $this->stream->rewind();
 
         $this->assertEquals(
             'A B',
@@ -76,19 +76,19 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
             $this->stream->getString(0)
         );
 
-        fseek($this->stream->stream, 2, SEEK_SET);
+        $this->stream->seek(2, false);
         $this->assertEquals(
             'B',
             $this->stream->getString()
         );
 
-        fseek($this->stream->stream, 2, SEEK_SET);
+        $this->stream->seek(2, false);
         $this->assertEquals(
             'A ',
             $this->stream->getString(0, -1)
         );
 
-        fseek($this->stream->stream, 0, SEEK_END);
+        $this->stream->end();
         $this->assertEquals(
             '',
             $this->stream->getString(null, -1)
@@ -97,7 +97,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
 
     public function testPeek()
     {
-        rewind($this->stream->stream);
+        $this->stream->rewind();
 
         $this->assertEquals(
             'A',
@@ -108,7 +108,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
             fgetc($this->stream->stream)
         );
 
-        fseek($this->stream->stream, -1, SEEK_END);
+        $this->stream->end(-1);
 
         $this->assertEquals(
             'B',
@@ -116,13 +116,13 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
         );
         $this->assertEquals(
             'B',
-            fgetc($this->stream->stream)
+            $this->stream->getChar()
         );
     }
 
     public function testSearch()
     {
-        rewind($this->stream->stream);
+        $this->stream->rewind();
 
         $this->assertEquals(
             2,
@@ -134,7 +134,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
         );
         $this->assertEquals(
             0,
-            ftell($this->stream->stream)
+            $this->stream->pos()
         );
 
         $this->assertEquals(
@@ -149,7 +149,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
         );
         $this->assertEquals(
             2,
-            ftell($this->stream->stream)
+            $this->stream->pos()
         );
 
         $this->assertEquals(
@@ -158,7 +158,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
         );
         $this->assertEquals(
             0,
-            ftell($this->stream->stream)
+            $this->stream->pos()
         );
     }
 

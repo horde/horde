@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Stream#pos().
 * [mms] Add Horde_Stream#__destruct().
  </notes>
  <contents>
@@ -194,6 +195,7 @@
    <date>2013-08-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Stream#pos().
 * [mms] Add Horde_Stream#__destruct().
    </notes>
   </release>
