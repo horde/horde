@@ -12,11 +12,83 @@
  */
 class Horde_Stream_TempTest extends Horde_Test_Case
 {
+    public function testPos()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $this->assertEquals(
+            3,
+            $stream->pos()
+        );
+    }
+
+    public function testRewind()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $this->assertTrue($stream->rewind());
+        $this->assertEquals(
+            0,
+            $stream->pos()
+        );
+    }
+
+    public function testSeek()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $this->assertTrue($stream->seek(-2));
+        $this->assertEquals(
+            1,
+            $stream->pos()
+        );
+
+        $this->assertTrue($stream->seek(1));
+        $this->assertEquals(
+            2,
+            $stream->pos()
+        );
+
+        $this->assertTrue($stream->seek(1, false));
+        $this->assertEquals(
+            1,
+            $stream->pos()
+        );
+    }
+
+    public function testEnd()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $stream->rewind();
+
+        $this->assertTrue($stream->end());
+        $this->assertEquals(
+            3,
+            $stream->pos()
+        );
+    }
+
+    public function testEof()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $this->assertFalse($stream->eof());
+
+        $stream->getChar();
+
+        $this->assertTrue($stream->eof());
+    }
+
     public function testFgetToChar()
     {
         $stream = new Horde_Stream_Temp();
-        fwrite($stream->stream, 'A B');
-        rewind($stream->stream);
+        $stream->add('A B', true);
 
         $this->assertEquals(
             'A',
@@ -32,8 +104,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
 
         $stream2 = new Horde_Stream_Temp();
-        fwrite($stream2->stream, 'A  B  ');
-        rewind($stream2->stream);
+        $stream2->add('A  B  ', true);
 
         $this->assertEquals(
             'A',
@@ -52,15 +123,15 @@ class Horde_Stream_TempTest extends Horde_Test_Case
     public function testLength()
     {
         $stream = new Horde_Stream_Temp();
-        fwrite($stream->stream, 'A B ');
+        $stream->add('A B ');
 
         $this->assertEquals(
             4,
             $stream->length()
         );
-        $this->assertFalse(fgetc($stream->stream));
+        $this->assertFalse($stream->getChar());
 
-        rewind($stream->stream);
+        $stream->rewind();
 
         $this->assertEquals(
             4,
@@ -68,14 +139,14 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
         $this->assertEquals(
             'A',
-            fgetc($stream->stream)
+            $stream->getChar()
         );
     }
 
     public function testGetString()
     {
         $stream = new Horde_Stream_Temp();
-        fwrite($stream->stream, 'A B C');
+        $stream->add('A B C');
 
         $this->assertEquals(
             '',
@@ -86,7 +157,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream->getString(0)
         );
 
-        rewind($stream->stream);
+        $stream->rewind();
 
         $this->assertEquals(
             'A B C',
@@ -97,19 +168,19 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream->getString(0)
         );
 
-        fseek($stream->stream, 2, SEEK_SET);
+        $stream->seek(2, false);
         $this->assertEquals(
             'B C',
             $stream->getString()
         );
 
-        fseek($stream->stream, 2, SEEK_SET);
+        $stream->seek(2, false);
         $this->assertEquals(
             'B',
             $stream->getString(null, -2)
         );
 
-        fseek($stream->stream, 0, SEEK_END);
+        $stream->end();
         $this->assertEquals(
             '',
             $stream->getString(null, -1)
@@ -119,8 +190,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
     public function testPeek()
     {
         $stream = new Horde_Stream_Temp();
-        fwrite($stream->stream, 'A B');
-        rewind($stream->stream);
+        $stream->add('A B', true);
 
         $this->assertEquals(
             'A',
@@ -128,10 +198,10 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
         $this->assertEquals(
             'A',
-            fgetc($stream->stream)
+            $stream->getChar()
         );
 
-        fseek($stream->stream, -1, SEEK_END);
+        $stream->end(-1);
 
         $this->assertEquals(
             'B',
@@ -139,15 +209,14 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
         $this->assertEquals(
             'B',
-            fgetc($stream->stream)
+            $stream->getChar()
         );
     }
 
     public function testSearch()
     {
         $stream = new Horde_Stream_Temp();
-        fwrite($stream->stream, '0123456789');
-        rewind($stream->stream);
+        $stream->add('0123456789', true);
 
         $this->assertEquals(
             5,
@@ -163,7 +232,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
         $this->assertEquals(
             0,
-            ftell($stream->stream)
+            $stream->pos()
         );
 
         $this->assertEquals(
@@ -182,7 +251,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
         $this->assertEquals(
             8,
-            ftell($stream->stream)
+            $stream->pos()
         );
 
         $this->assertEquals(
@@ -191,7 +260,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
         $this->assertEquals(
             3,
-            ftell($stream->stream)
+            $stream->pos()
         );
     }
 
@@ -209,10 +278,10 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream->getString(0)
         );
 
-        fseek($stream->stream, 0);
+        $stream->rewind();
 
         $stream2 = new Horde_Stream_Temp();
-        $stream2->add($stream->stream, true);
+        $stream2->add($stream, true);
 
         $this->assertEquals(
             3,
@@ -227,7 +296,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             $stream2->getString(0)
         );
 
-        fseek($stream->stream, 0);
+        $stream->rewind();
 
         $stream3 = new Horde_Stream_Temp();
         $stream3->add($stream);
@@ -277,7 +346,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
         $stream2 = clone $stream;
 
-        fclose($stream->stream);
+        $stream->close();
 
         $this->assertEquals(
             '123',
@@ -314,6 +383,52 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $this->assertEquals(
             "\n",
             $stream->getEOL()
+        );
+    }
+
+    public function testUtf8Parsing()
+    {
+        $test = 'Aönön';
+
+        $stream = new Horde_Stream_Temp();
+        $stream->add($test, true);
+
+        $i = 0;
+        while ($stream->getChar() !== false) {
+            ++$i;
+        }
+
+        $this->assertEquals(
+            7,
+            $i
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            $test,
+            $stream->getToChar('ö')
+        );
+
+        $stream = new Horde_Stream_Temp();
+        $stream->add($test, true);
+        $stream->utf8_char = true;
+
+        $i = 0;
+        while ($stream->getChar() !== false) {
+            ++$i;
+        }
+
+        $this->assertEquals(
+            5,
+            $i
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            'Aö',
+            $stream->getToChar('n')
         );
     }
 

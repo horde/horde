@@ -810,27 +810,21 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $sentmail = $injector->getInstance('IMP_Sentmail');
 
         foreach ($send_msgs as $val) {
-            switch ($this->_replytype) {
-            case self::COMPOSE:
-                $senttype = IMP_Sentmail::NEWMSG;
-                break;
-
+            switch (intval($this->replyType(true))) {
             case self::REPLY:
-            case self::REPLY_ALL:
-            case self::REPLY_LIST:
-            case self::REPLY_SENDER:
                 $senttype = IMP_Sentmail::REPLY;
                 break;
 
             case self::FORWARD:
-            case self::FORWARD_ATTACH:
-            case self::FORWARD_BODY:
-            case self::FORWARD_BOTH:
                 $senttype = IMP_Sentmail::FORWARD;
                 break;
 
             case self::REDIRECT:
                 $senttype = IMP_Sentmail::REDIRECT;
+                break;
+
+            default:
+                $senttype = IMP_Sentmail::NEWMSG;
                 break;
             }
 

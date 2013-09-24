@@ -9,13 +9,12 @@
 
 var DragHandler = {
 
-    dragtrack: [],
     // dropelt,
     // droptarget,
+    // hoverclass,
 
     handleDrop: function(e)
     {
-        this.dragtrack = [];
         this.dropelt.hide();
         this.droptarget.show();
         this.dropelt.fire('DragHandler:drop', e);
@@ -24,26 +23,21 @@ var DragHandler = {
 
     handleEnter: function(e)
     {
-        if (!Object.isElement(e.target)) {
-            this.dragtrack.push(e.target);
-        } else if (!this.dropelt.visible()) {
+        if (!this.dropelt.visible()) {
             this.dropelt.clonePosition(this.droptarget).show();
             this.droptarget.hide();
-
-            if (e.target != this.droptarget &&
-                !e.target.descendantOf(this.droptarget)) {
-                this.dragtrack.push(e.target);
-            }
-        } else if (this.dragtrack.lastIndexOf(e.target) == -1) {
-            this.dragtrack.push(e.target);
         }
     },
 
     handleLeave: function(e)
     {
-        this.dragtrack = this.dragtrack.without(e.target);
+        var pointer = e.pointer(),
+            vp = document.viewport.getDimensions();
 
-        if (!this.dragtrack.length) {
+        if (pointer.x <= 0 ||
+            pointer.x >= vp.width ||
+            pointer.y <= 0 ||
+            pointer.y >= vp.height) {
             this.dropelt.hide();
             this.droptarget.show();
         }
@@ -52,14 +46,21 @@ var DragHandler = {
     handleOver: function(e)
     {
         if (e.target == this.dropelt) {
+            this.dropelt.addClassName(this.hoverclass);
             e.stop();
+        } else {
+            this.dropelt.removeClassName(this.hoverclass);
         }
+    },
+
+    onDomLoad: function()
+    {
+        document.on('dragenter', 'body', this.handleEnter.bindAsEventListener(this));
+        document.on('dragleave', 'body', this.handleLeave.bindAsEventListener(this));
+        document.observe('dragover', this.handleOver.bindAsEventListener(this));
+        document.observe('drop', this.handleDrop.bind(this));
     }
 
 };
 
-document.observe('dragenter', DragHandler.handleEnter.bindAsEventListener(DragHandler));
-document.observe('dragleave', DragHandler.handleLeave.bindAsEventListener(DragHandler));
-document.observe('dragover', DragHandler.handleOver.bindAsEventListener(DragHandler));
-document.observe('drop', DragHandler.handleDrop.bind(DragHandler));
-
+document.observe('dom:loaded', DragHandler.onDomLoad.bind(DragHandler));

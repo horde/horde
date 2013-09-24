@@ -613,6 +613,8 @@ class Horde_Smtp implements Serializable
             throw $e;
         }
 
+        $this->_debug->info('Successfully completed TLS negotiation.');
+
         $this->setParam('secure', 'tls');
 
         return true;
