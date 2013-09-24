@@ -12,6 +12,79 @@
  */
 class Horde_Stream_TempTest extends Horde_Test_Case
 {
+    public function testPos()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $this->assertEquals(
+            3,
+            $stream->pos()
+        );
+    }
+
+    public function testRewind()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $this->assertTrue($stream->rewind());
+        $this->assertEquals(
+            0,
+            $stream->pos()
+        );
+    }
+
+    public function testSeek()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $this->assertTrue($stream->seek(-2));
+        $this->assertEquals(
+            1,
+            $stream->pos()
+        );
+
+        $this->assertTrue($stream->seek(1));
+        $this->assertEquals(
+            2,
+            $stream->pos()
+        );
+
+        $this->assertTrue($stream->seek(1, false));
+        $this->assertEquals(
+            1,
+            $stream->pos()
+        );
+    }
+
+    public function testEnd()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $stream->rewind();
+
+        $this->assertTrue($stream->end());
+        $this->assertEquals(
+            3,
+            $stream->pos()
+        );
+    }
+
+    public function testEof()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $this->assertFalse($stream->eof());
+
+        $stream->getChar();
+
+        $this->assertTrue($stream->eof());
+    }
+
     public function testFgetToChar()
     {
         $stream = new Horde_Stream_Temp();
