@@ -176,17 +176,26 @@ class Horde_Stream implements Serializable
     }
 
     /**
-     * Return the current character without moving the pointer.
+     * Return the current character(s) without moving the pointer.
+     *
+     * @param integer $length  The peek length (since 1.4.0).
      *
      * @return string  The current character.
      */
-    public function peek()
+    public function peek($length = 1)
     {
-        if (($c = $this->getChar()) !== false) {
-            $this->seek(strlen($c) * -1);
+        $out = '';
+
+        for ($i = 0; $i < $length; ++$i) {
+            if (($c = $this->getChar()) === false) {
+                break;
+            }
+            $out .= $c;
         }
 
-        return $c;
+        $this->seek(strlen($out) * -1);
+
+        return $out;
     }
 
     /**

@@ -211,6 +211,17 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             'B',
             $stream->getChar()
         );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            'A ',
+            $stream->peek(2)
+        );
+        $this->assertEquals(
+            'A',
+            $stream->getChar()
+        );
     }
 
     public function testSearch()
@@ -429,6 +440,17 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $this->assertEquals(
             'Aö',
             $stream->getToChar('n')
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            'Aö',
+            $stream->peek(2)
+        );
+        $this->assertEquals(
+            'A',
+            $stream->getChar()
         );
     }
 
