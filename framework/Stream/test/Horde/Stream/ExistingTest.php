@@ -188,7 +188,7 @@ class Horde_Stream_ExistingTest extends Horde_Test_Case
     {
         $stream2 = clone $this->stream;
 
-        fclose($this->stream->stream);
+        unset($this->stream);
 
         $this->assertEquals(
             'A B',

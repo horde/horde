@@ -277,7 +277,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
         $stream2 = clone $stream;
 
-        fclose($stream->stream);
+        unset($stream);
 
         $this->assertEquals(
             '123',
