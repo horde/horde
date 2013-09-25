@@ -55,8 +55,8 @@ class Horde_Editor_Ckeditor extends Horde_Editor
 
         if (isset($params['id'])) {
             $this->_js['script'] = array(
-                'CKEDITOR.replace("' . $params['id'] . '",' . $params['config'] . ');',
-                'CKEDITOR.config.toolbar_Full.push(["Code"]);'
+                'CKEDITOR.replace("' . $params['id'] . '",' . $params['config'] . ')',
+                'CKEDITOR.config.toolbar_Full.push(["Code"])'
             );
         }
     }
