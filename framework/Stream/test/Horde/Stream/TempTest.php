@@ -211,6 +211,17 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             'B',
             $stream->getChar()
         );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            'A ',
+            $stream->peek(2)
+        );
+        $this->assertEquals(
+            'A',
+            $stream->getChar()
+        );
     }
 
     public function testSearch()
@@ -262,6 +273,15 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             3,
             $stream->pos()
         );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            3,
+            $stream->search('34')
+        );
+
+        $this->assertNull($stream->search('35'));
     }
 
     public function testAddMethod()
@@ -393,20 +413,13 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $stream = new Horde_Stream_Temp();
         $stream->add($test, true);
 
-        $i = 0;
-        while ($stream->getChar() !== false) {
-            ++$i;
-        }
-
         $this->assertEquals(
             7,
-            $i
+            $stream->length()
         );
 
-        $stream->rewind();
-
         $this->assertEquals(
-            $test,
+            'A',
             $stream->getToChar('ö')
         );
 
@@ -414,21 +427,39 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $stream->add($test, true);
         $stream->utf8_char = true;
 
-        $i = 0;
-        while ($stream->getChar() !== false) {
-            ++$i;
-        }
-
         $this->assertEquals(
             5,
-            $i
+            $stream->length(true)
+        );
+
+        $this->assertEquals(
+            'Aö',
+            $stream->getToChar('n')
         );
 
         $stream->rewind();
 
         $this->assertEquals(
             'Aö',
-            $stream->getToChar('n')
+            $stream->peek(2)
+        );
+        $this->assertEquals(
+            'A',
+            $stream->getChar()
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            1,
+            $stream->search('ön')
+        );
+
+        $stream->end();
+
+        $this->assertEquals(
+            4,
+            $stream->search('ön', true)
         );
     }
 
