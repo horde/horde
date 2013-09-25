@@ -948,6 +948,7 @@ class Horde_Core_Prefs_Ui
             }
         }
 
+        // TODO: Remove for H6
         if ($id == -2) {
             return;
         }
