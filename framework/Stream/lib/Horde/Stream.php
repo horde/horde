@@ -222,27 +222,32 @@ class Horde_Stream implements Serializable
      */
     public function search($char, $reverse = false, $reset = true)
     {
-        $pos = $this->pos();
         $found_pos = null;
 
-        if ($reverse) {
-            for ($i = $pos - 1; $i >= 0; --$i) {
-                $this->seek($i, false);
-                if ($this->getChar() == $char) {
-                    $found_pos = $i;
-                    break;
-                }
-            }
-        } else {
-            while (($c = $this->getChar()) !== false) {
-                if ($c == $char) {
-                    $found_pos = $this->pos() - 1;
-                    break;
-                }
-            }
-        }
+        if (strlen($char)) {
+            $pos = $this->pos();
 
-        $this->seek(($reset || is_null($found_pos)) ? $pos : $found_pos, false);
+            if ($reverse) {
+                for ($i = $pos - 1; $i >= 0; --$i) {
+                    $this->seek($i, false);
+                    if ($this->getChar() == $char) {
+                        $found_pos = $i;
+                        break;
+                    }
+                }
+            } else {
+                while (($c = $this->getChar()) !== false) {
+                    if ($c == $char) {
+                        $found_pos = $this->pos() - 1;
+                        break;
+                    }
+                }
+            }
+
+            $this->seek(
+                ($reset || is_null($found_pos)) ? $pos : $found_pos, false
+            );
+        }
 
         return $found_pos;
     }
