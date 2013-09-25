@@ -1,17 +1,25 @@
 <?php
 /**
- * This driver provides the code needed to initialize the CKeditor javascript
- * WYSIWYG editor.
- *
  * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Editor
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Editor
+ */
+
+/**
+ * This driver provides the code needed to initialize the CKeditor javascript
+ * WYSIWYG editor.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Editor
  */
 class Horde_Editor_Ckeditor extends Horde_Editor
 {
