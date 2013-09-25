@@ -212,40 +212,55 @@ class Horde_Stream implements Serializable
     }
 
     /**
-     * Search for a character and return its position.
+     * Search for character(s) and return its position.
      *
-     * @param string $char      The character to search for.
+     * @param string $char      The character to search for. As of 1.4.0,
+     *                          $char can be a multi-character string.
      * @param boolean $reverse  Do a reverse search?
      * @param boolean $reset    Reset the pointer to the original position?
      *
-     * @return mixed  The position (integer), or null if character not found.
+     * @return mixed  The start position of the search string (integer), or
+     *                null if character not found.
      */
     public function search($char, $reverse = false, $reset = true)
     {
         $found_pos = null;
 
-        if (strlen($char)) {
-            $pos = $this->pos();
+        if ($len = strlen($char)) {
+            do {
+                $pos = $this->pos();
 
-            if ($reverse) {
-                for ($i = $pos - 1; $i >= 0; --$i) {
-                    $this->seek($i, false);
-                    if ($this->getChar() == $char) {
-                        $found_pos = $i;
-                        break;
+                if ($reverse) {
+                    for ($i = $pos - 1; $i >= 0; --$i) {
+                        $this->seek($i, false);
+                        $c = $this->peek();
+                        if ($c == substr($char, 0, strlen($c))) {
+                            $found_pos = $i;
+                            break;
+                        }
+                    }
+                } else {
+                    while (($c = $this->getChar()) !== false) {
+                        if ($c == substr($char, 0, strlen($c))) {
+                            $found_pos = $this->pos() - strlen($c);
+                            break;
+                        }
                     }
                 }
-            } else {
-                while (($c = $this->getChar()) !== false) {
-                    if ($c == $char) {
-                        $found_pos = $this->pos() - 1;
-                        break;
-                    }
+
+                if (is_null($found_pos) ||
+                    ($len == 1) ||
+                    ($this->getString($found_pos, $found_pos + $len - 1) == $char)) {
+                    break;
                 }
-            }
+
+                $this->seek($found_pos + ($reverse ? 0 : 1), false);
+                $found_pos = null;
+            } while (true);
 
             $this->seek(
-                ($reset || is_null($found_pos)) ? $pos : $found_pos, false
+                ($reset || is_null($found_pos)) ? $pos : $found_pos,
+                false
             );
         }
 

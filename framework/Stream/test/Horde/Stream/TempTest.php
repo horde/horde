@@ -273,6 +273,15 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             3,
             $stream->pos()
         );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            3,
+            $stream->search('34')
+        );
+
+        $this->assertNull($stream->search('35'));
     }
 
     public function testAddMethod()
@@ -437,6 +446,20 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $this->assertEquals(
             'A',
             $stream->getChar()
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            1,
+            $stream->search('ön')
+        );
+
+        $stream->end();
+
+        $this->assertEquals(
+            4,
+            $stream->search('ön', true)
         );
     }
 
