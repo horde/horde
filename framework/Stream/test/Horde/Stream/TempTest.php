@@ -419,7 +419,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
 
         $this->assertEquals(
-            $test,
+            'A',
             $stream->getToChar('ö')
         );
 
