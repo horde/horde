@@ -122,23 +122,10 @@ var IMP_JS = {
 
     iframeResize: function(id)
     {
-        if (!(id = $(id))) {
-            return;
-        }
-
-        var lc = id.contentWindow.document.lastChild,
-            body = id.contentWindow.document.body;
-
-        lc = (lc.scrollHeight > body.scrollHeight) ? lc : body;
-
-        // Try expanding IFRAME if we detect a scroll.
-        if (lc.clientHeight != lc.scrollHeight ||
-            id.clientHeight != lc.clientHeight) {
-            id.setStyle({ height: lc.scrollHeight + 'px' });
-            if (lc.clientHeight != lc.scrollHeight) {
-                // Finally, brute force if it still isn't working.
-                id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
-            }
+        if (id = $(id)) {
+            id.setStyle({
+                height: ((Element.getHeight(id.contentWindow.document.lastChild) + 10) + 'px')
+            });
         }
     },
 
