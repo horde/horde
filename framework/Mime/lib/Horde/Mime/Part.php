@@ -564,8 +564,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 'filter' => array(
                     'convert.quoted-printable-encode' => array_filter(array(
                         'line-break-chars' => $stream->getEOL(),
-                        'line-length' => 76,
-                        'binary' => true
+                        'line-length' => 76
                     ))
                 )
             ));
