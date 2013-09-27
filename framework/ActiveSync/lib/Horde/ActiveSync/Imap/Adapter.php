@@ -935,7 +935,6 @@ class Horde_ActiveSync_Imap_Adapter
                         stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
                         $plain_mime->setContents($stream->stream);
                         $stream->close();
-
                         $plain_mime->setCharset('UTF-8');
                         $mime->addPart($plain_mime);
                     }
