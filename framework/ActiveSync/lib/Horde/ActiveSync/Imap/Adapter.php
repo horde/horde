@@ -917,16 +917,25 @@ class Horde_ActiveSync_Imap_Adapter
                     $mime = new Horde_Mime_Part();
                     $mime->setType('multipart/alternative');
 
+                    // We will need the eol filter to work around PHP bug 65776.
+                    stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+
                     // Populate the text/plain part if we have one.
                     if (!empty($message_body_data['plain'])) {
                         $plain_mime = new Horde_Mime_Part();
                         $plain_mime->setType('text/plain');
-                        $plain_mime->setTransferEncoding('base64', array('send' => true));
                         $message_body_data['plain']['body'] = $this->_validateUtf8(
                             $message_body_data['plain']['body'],
                             $message_body_data['plain']['charset']
                         );
-                        $plain_mime->setContents($message_body_data['plain']['body']);
+
+                        // PHP Bug 65776
+                        $stream = new Horde_Stream();
+                        $stream->add($message_body_data['plain']['body']);
+                        stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
+                        $plain_mime->setContents($stream->stream);
+                        $stream->close();
+
                         $plain_mime->setCharset('UTF-8');
                         $mime->addPart($plain_mime);
                     }
@@ -935,12 +944,17 @@ class Horde_ActiveSync_Imap_Adapter
                     if (!empty($message_body_data['html'])) {
                         $html_mime = new Horde_Mime_Part();
                         $html_mime->setType('text/html');
-                        $html_mime->setTransferEncoding('base64', array('send' => true));
                         $message_body_data['html']['body'] = $this->_validateUtf8(
                             $message_body_data['html']['body'],
                             $message_body_data['html']['charset']
                         );
-                        $html_mime->setContents($message_body_data['html']['body']);
+
+                        // PHP Bug 65776
+                        $stream = new Horde_Stream();
+                        $stream->add($message_body_data['html']['body']);
+                        stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
+                        $html_mime->setContents($stream->stream);
+                        $stream->close();
                         $html_mime->setCharset('UTF-8');
                         $mime->addPart($html_mime);
                     }
