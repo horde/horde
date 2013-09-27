@@ -17,8 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-22</date>
- <time>13:30:15</time>
+ <date>2013-09-27</date>
  <version>
   <release>2.2.6</release>
   <api>2.2.0</api>
@@ -1207,7 +1206,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-22</date>
+   <date>2013-09-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Work around broken PHP behavior that could cause a segfault when encoding certain strings as quoted-printable.
