@@ -921,6 +921,7 @@ class Horde_ActiveSync_Imap_Adapter
                     if (!empty($message_body_data['plain'])) {
                         $plain_mime = new Horde_Mime_Part();
                         $plain_mime->setType('text/plain');
+                        $plain_mime->setTransferEncoding('base64', array('send' => true));
                         $message_body_data['plain']['body'] = $this->_validateUtf8(
                             $message_body_data['plain']['body'],
                             $message_body_data['plain']['charset']
@@ -934,6 +935,7 @@ class Horde_ActiveSync_Imap_Adapter
                     if (!empty($message_body_data['html'])) {
                         $html_mime = new Horde_Mime_Part();
                         $html_mime->setType('text/html');
+                        $html_mime->setTransferEncoding('base64', array('send' => true));
                         $message_body_data['html']['body'] = $this->_validateUtf8(
                             $message_body_data['html']['body'],
                             $message_body_data['html']['charset']
