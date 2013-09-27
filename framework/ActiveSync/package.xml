@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Ignore incoming SMS delete command. Prevents breaking sync on clients that send SMS data, even though we do not return it as an available collection.
+* [mjr] Prevent sending invalid UTF-8 data in the Subject header, which could break sync in some clients.
 * [mjr] Support for SOFTDELETE.
  </notes>
  <contents>
@@ -1694,6 +1696,8 @@
    <date>2013-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Ignore incoming SMS delete command. Prevents breaking sync on clients that send SMS data, even though we do not return it as an available collection.
+* [mjr] Prevent sending invalid UTF-8 data in the Subject header, which could break sync in some clients.
 * [mjr] Support for SOFTDELETE.
    </notes>
   </release>
