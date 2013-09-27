@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Work around for PHP bug 65776, preventing segfaults with certain emails.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1712,7 +1712,7 @@
    <date>2013-09-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Work around for PHP bug 65776, preventing segfaults with certain emails.
    </notes>
   </release>
  </changelog>
