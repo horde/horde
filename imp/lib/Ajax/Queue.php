@@ -184,7 +184,7 @@ class IMP_Ajax_Queue
 
         /* Add flag information. */
         if (!empty($this->_flag)) {
-            $ajax->addTask('flag', $this->_flag);
+            $ajax->addTask('flag', array_unique($this->_flag));
             $this->_flag = array();
         }
 
