@@ -548,8 +548,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return $this->_writeStream($fp, array(
                 'filter' => array(
                     'convert.base64-encode' => array(
-                        'line-break-chars' => $this->getEOL(),
-                        'line-length' => 76
+                        'line-break-chars' => $this->getEOL()
                     )
                 )
             ));
