@@ -354,6 +354,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/search'
         ));
+        $view->addHelper('Text');
         $view->addHelper('Tag');
         $view->addHelper('FormTag');
 

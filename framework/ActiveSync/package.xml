@@ -10,9 +10,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-05</date>
+ <date>2013-09-27</date>
  <version>
-  <release>2.8.0</release>
+  <release>2.8.2</release>
   <api>2.8.0</api>
  </version>
  <stability>
@@ -200,6 +200,7 @@
       <file name="17_horde_activesync_clearallstate.php" role="data" />
       <file name="18_horde_activesync_addmapdeleteflag.php" role="data" />
       <file name="19_horde_activesync_addtimestamp.php" role="data" />
+      <file name="20_horde_activesync_removesynccounters.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -448,6 +449,7 @@
    <install as="migration/17_horde_activesync_clearallstate.php" name="migration/Horde/ActiveSync/17_horde_activesync_clearallstate.php" />
    <install as="migration/18_horde_activesync_addmapdeleteflag.php" name="migration/Horde/ActiveSync/18_horde_activesync_addmapdeleteflag.php" />
    <install as="migration/19_horde_activesync_addtimestamp.php" name="migration/Horde/ActiveSync/19_horde_activesync_addtimestamp.php" />
+   <install as="migration/20_horde_activesync_removesynccounters.php" name="migration/Horde/ActiveSync/20_horde_activesync_removesynccounters.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
@@ -1691,7 +1693,36 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-05</date>
+   <date>2013-09-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Remove loop counter code that was incorrectly growing sync_cache data (Bug #12707).
+* [mjr] Ignore incoming SMS delete command. Prevents breaking sync on clients that send SMS data, even though we do not return it as an available collection.
+* [mjr] Prevent sending invalid UTF-8 data in the Subject header, which could break sync in some clients.
+* [mjr] Support for SOFTDELETE.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.1</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Work around for PHP bug 65776, preventing segfaults with certain emails.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.2</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-09-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Support for SOFTDELETE.

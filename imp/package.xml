@@ -33,9 +33,18 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+<<<<<<< HEAD
 * [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
 * [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
 * [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
+=======
+* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Improved UI for dropping attachments on dynamic compose screen.
+* [mms] Fix manually loading all addresses in a header.
+* [mms] Fix regression where reloading dynamic view would not load the previously selected message.
+* [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
+* [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
+>>>>>>> master
 * [mms] Don&apos;t attempt to get quota information from non-IMAP mailboxes (Bug #12608).
 * [jan] Don&apos;t attach address book behavior if contacts API is unavailable.
 * [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).
@@ -3291,9 +3300,18 @@
    <date>2013-09-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+<<<<<<< HEAD
 * [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
 * [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
 * [mms] SECURITY: Fix XSS when flagging a message in dynamic view with a user-defined flag (João Machado &lt;geral@jpaulo.eu&gt;).
+=======
+* [mms] SECURITY: Fix XSS in message and search screens resulting from a user-defined flag label (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Improved UI for dropping attachments on dynamic compose screen.
+* [mms] Fix manually loading all addresses in a header.
+* [mms] Fix regression where reloading dynamic view would not load the previously selected message.
+* [mms] Fixed regression in enforcing max_recipients and max_timelimit permissions (Bug #12674).
+* [mms] Correctly enforce file size attachment limits on the first attachment (Bug #12663).
+>>>>>>> master
 * [mms] Don&apos;t attempt to get quota information from non-IMAP mailboxes (Bug #12608).
 * [jan] Don&apos;t attach address book behavior if contacts API is unavailable.
 * [mms] Fix regression where MIME headers were being displayed for PGP decrypted messages (Bug #12648).

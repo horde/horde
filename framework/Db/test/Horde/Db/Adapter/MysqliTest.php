@@ -39,10 +39,10 @@ class Horde_Db_Adapter_MysqliTest extends Horde_Db_Adapter_MysqlBase
                                                    'username' => '',
                                                    'password' => '',
                                                    'dbname' => 'test'));
-        if (isset($config['db']['adapter']['mysqli']['test'])) {
+        if (isset($config['db']['adapter']['mysqli']['test']) &&
+            is_array($config['db']['adapter']['mysqli']['test'])) {
             $config = $config['db']['adapter']['mysqli']['test'];
-        }
-        if (!is_array($config)) {
+        } else {
             self::$_skip = true;
             self::$_reason = 'No configuration for mysqli test';
             return;

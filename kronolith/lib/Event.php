@@ -670,10 +670,6 @@ abstract class Kronolith_Event
         $v1 = $calendar->getAttribute('VERSION') == '1.0';
         $vEvents = array();
 
-        /* DTEND is non-inclusive, but $this->end is inclusive. */
-        $end = clone $this->end;
-        $end->sec++;
-
         // For certain recur types, we must output in the event's timezone
         // so that the BYDAY values do not get out of sync with the UTC
         // date-time. See Bug: 11339
@@ -689,6 +685,10 @@ abstract class Kronolith_Event
         }
 
         if ($this->isAllDay()) {
+            /* DTEND is non-inclusive, but $this->end is inclusive. */
+            $end = clone $this->end;
+            $end->sec++;
+
             $vEvent->setAttribute('DTSTART', $this->start, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('DTEND', $end, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('X-FUNAMBOL-ALLDAY', 1);
@@ -703,6 +703,12 @@ abstract class Kronolith_Event
                 } catch (Horde_Exception $e) {
                 }
             }
+
+            /* DTEND is non-inclusive, but $this->end is inclusive. This needs
+             * to be done AFTER setting the timezone. */
+            $end = clone $this->end;
+            $end->sec++;
+
             $vEvent->setAttribute('DTSTART', clone $this->start, $params);
             $vEvent->setAttribute('DTEND', clone $end, $params);
         }

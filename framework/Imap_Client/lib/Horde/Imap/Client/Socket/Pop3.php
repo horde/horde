@@ -209,6 +209,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                         Horde_Imap_Client_Exception::LOGIN_TLSFAILURE
                     );
                 }
+                $this->_debug->info('Successfully completed TLS negotiation.');
             }
 
             // Expire cached CAPABILITY information

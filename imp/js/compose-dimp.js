@@ -1030,7 +1030,7 @@ var DimpCompose = {
                 tmp = elt.retrieve('popdown_id');
                 this.knl[tmp].knl.show();
                 this.knl[tmp].knl.ignoreClick(e.memo);
-                e.stop();
+                e.memo.stop();
             }
             break;
         }
@@ -1208,7 +1208,8 @@ var DimpCompose = {
                 }
             }.bindAsEventListener(this));
             DragHandler.dropelt = $('atcdrop');
-            DragHandler.droptarget = $('atctd');
+            DragHandler.droptarget = $('atcdiv');
+            DragHandler.hoverclass = 'atcdrop_over';
             DimpCore.addPopdown($('upload'), 'atc', {
                 no_offset: true
             });

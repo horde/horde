@@ -196,11 +196,14 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @param array $ids          Server message uids to delete
      * @param string $collection  The server collection type.
-     *
-     * @return array An array of successfully deleted uids.
      */
     public function importMessageDeletion(array $ids, $collection)
     {
+        // Don't support SMS, but can't tell client that.
+        if ($collection == Horde_ActiveSync::CLASS_SMS) {
+            return;
+        }
+
         // Tell backend about the deletion
         $mod = $this->_as->driver->getSyncStamp($this->_folderId);
         $ids = $this->_as->driver->deleteMessage($this->_folderId, $ids);

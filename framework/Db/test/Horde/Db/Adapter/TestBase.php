@@ -41,11 +41,12 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     protected function setUp()
     {
-        if (self::$_skip) {
+        if (self::$_skip ||
+            !($res = static::_getConnection())) {
             $this->markTestSkipped(self::$_reason);
         }
 
-        list($this->_conn, $this->_cache) = static::_getConnection();
+        list($this->_conn, $this->_cache) = $res;
         self::$_columnTest->conn = $this->_conn;
         self::$_tableTest->conn = $this->_conn;
 

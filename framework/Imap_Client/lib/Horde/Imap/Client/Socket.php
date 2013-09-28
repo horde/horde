@@ -394,6 +394,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 );
             }
 
+            $this->_debug->info('Successfully completed TLS negotiation.');
+
             $this->setParam('secure', 'tls');
 
             if ($first_login) {
@@ -982,7 +984,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                      * input strings (at least 8 KB), so 7 KB is as good as
                      * any guess as to an upper limit. If this occurs, provide
                      * a range string (min -> max) instead. */
-                    if (strlen($uid_str = strval($uids)) > 7000) {
+                    if (strlen($uid_str = $uids->tostring_sort) > 7000) {
                         $uid_str = $uids->range_string;
                     }
                 } else {
@@ -1646,7 +1648,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if ($catenate) {
                     $cmd->add($tmp);
                 } else {
-                    $cmd->add($this->_appendData($data_stream->stream, $asize));
+                    $cmd->add($this->_appendData($data_stream, $asize));
                 }
             } else {
                 $cmd->add($this->_appendData($data[$key]['data'], $asize));
@@ -1726,7 +1728,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Prepares append message data for insertion into the IMAP command
      * string.
      *
-     * @param mixed $data      Either a resource or a string.
+     * @param mixed $data      Either a Horde_Stream object, a resource,
+     *                         or a string.
      * @param integer &$asize  Total append size.
      *
      * @return Horde_Imap_Client_Data_Format_String  The data object.
@@ -1734,7 +1737,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _appendData($data, &$asize)
     {
         if (is_resource($data)) {
-            rewind($data);
+            $data = new Horde_Stream_Existing(array(
+                'stream' => $data
+            ));
+        }
+
+        if ($data instanceof Horde_Stream) {
+            $data->rewind();
         }
 
         $ob = new Horde_Imap_Client_Data_Format_String($data, array(

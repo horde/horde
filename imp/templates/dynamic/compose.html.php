@@ -148,18 +148,24 @@
      <td class="label">
       <span class="iconImg attachmentImg"></span>:
      </td>
-     <td id="atctd">
-      <span id="upload_limit" style="display:none"><?php echo _("The attachment limit has been reached.") ?></span>
-      <span id="upload_wait" style="display:none"></span>
-      <span>
-       <label id="compose_upload_add" for="upload"><?php echo _("Add Attachment") ?></label>
-       <?php echo $this->fileFieldTag('file_upload', array('id' => 'upload')) ?>
-      </span>
+     <td>
+      <div id="atcdrop" style="display:none">
+       <?php echo _("Drop file here to attach.") ?>
+      </div>
+      <div id="atcdiv">
+       <span id="upload_limit" style="display:none"><?php echo _("The attachment limit has been reached.") ?></span>
+       <span id="upload_wait" style="display:none"></span>
+       <span>
+        <label id="compose_upload_add" for="upload"><?php echo _("Add Attachment") ?></label>
+        <?php echo $this->fileFieldTag('file_upload', array('id' => 'upload')) ?>
+       </span>
 <?php else: ?>
      <td></td>
      <td>
+      <div>
 <?php endif; ?>
-      <ul id="attach_list" style="display:none"></ul>
+       <ul id="attach_list" style="display:none"></ul>
+      </div>
      </td>
     </tr>
     <tr id="noticerow" style="display:none">
@@ -196,7 +202,3 @@
   </div>
  </div>
 </form>
-
-<div id="atcdrop" style="display:none">
- <?php echo _("Drop file here to attach.") ?>
-</div>

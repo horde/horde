@@ -40,15 +40,15 @@
     <option value="or" style="display:none"><?php echo _("Add OR clause") ?></option>
     <option value="" disabled="disabled" style="display:none">- - - - - - - - -</option>
 <?php foreach ($this->clist as $v): ?>
-    <?php echo $this->optionTag($v['v'], $v['l']) ?>
+    <?php echo $this->optionTag($v['v'], $this->h($v['l'])) ?>
 <?php endforeach; ?>
     <option value="" disabled="disabled">- - - - - - - - -</option>
 <?php foreach ($this->filterlist as $v): ?>
-    <?php echo $this->optionTag($v['v'], $v['l']) ?>
+    <?php echo $this->optionTag($v['v'], $this->h($v['l'])) ?>
 <?php endforeach; ?>
     <option value="" disabled="disabled">- - - - - - - - -</option>
 <?php foreach ($this->flist as $v): ?>
-    <?php echo $this->optionTag($v['v'], $v['l']) ?>
+    <?php echo $this->optionTag($v['v'], $this->h($v['l'])) ?>
 <?php endforeach; ?>
    </select>
   </div>

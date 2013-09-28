@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Sort UID list before sending in QRESYNC parameter.
 * [mms] Ensure that INBOX always appears in subscribed mailbox list when using a server that supports LIST-EXTENDED.
  </notes>
  <contents>
@@ -288,7 +289,7 @@
    <package>
     <name>Horde_Stream</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.4.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -2017,6 +2018,7 @@
    <date>2013-09-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Sort UID list before sending in QRESYNC parameter.
 * [mms] Ensure that INBOX always appears in subscribed mailbox list when using a server that supports LIST-EXTENDED.
    </notes>
   </release>
