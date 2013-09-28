@@ -48,7 +48,7 @@ if ($has_tasks) {
 }
 // Calendars
 foreach (array(true, false) as $my) {
-    foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
+    foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_CALENDARS) as $id => $calendar) {
         $owner = $GLOBALS['registry']->getAuth() &&
             $calendar->owner() == $GLOBALS['registry']->getAuth();
         if (($my && $owner) || (!$my && !$owner)) {
@@ -59,7 +59,7 @@ foreach (array(true, false) as $my) {
                 'owner' => $owner,
                 'fg' => $calendar->foreground(),
                 'bg' => $calendar->background(),
-                'show' => in_array($id, $GLOBALS['display_calendars']),
+                'show' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)),
                 'edit' => $calendar->hasPermission(Horde_Perms::EDIT),
                 'feed' => (string)Kronolith::feedUrl($id),
                 'embed' => Kronolith::embedCode($id));
@@ -83,7 +83,7 @@ foreach (array(true, false) as $my) {
                 'owner' => $owner,
                 'fg' => Kronolith::foregroundColor($tasklist),
                 'bg' => Kronolith::backgroundColor($tasklist),
-                'show' => in_array('tasks/' . $id, $GLOBALS['display_external_calendars']),
+                'show' => in_array('tasks/' . $id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS),
                 'edit' => $tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT));
             if ($owner) {
                 $code['conf']['calendars']['tasklists']['tasks/' . $id]['perms'] = Kronolith::permissionToJson($tasklist->getPermission());
@@ -93,7 +93,7 @@ foreach (array(true, false) as $my) {
 }
 
 // Timeobjects
-foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
+foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $id => $calendar) {
     if ($calendar->api() == 'tasks') {
         continue;
     }
@@ -105,28 +105,28 @@ foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
         'fg' => $calendar->foreground(),
         'bg' => $calendar->background(),
         'api' => $registry->get('name', $registry->hasInterface($calendar->api())),
-        'show' => in_array($id, $GLOBALS['display_external_calendars']));
+        'show' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS)));
 }
 
 // Remote calendars
-foreach ($GLOBALS['all_remote_calendars'] as $url => $calendar) {
+foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_REMOTE_CALENDARS) as $url => $calendar) {
     $code['conf']['calendars']['remote'][$url] = array_merge(
         array('name' => $calendar->name(),
               'desc' => $calendar->description(),
               'owner' => true,
               'fg' => $calendar->foreground(),
               'bg' => $calendar->background(),
-              'show' => in_array($url, $GLOBALS['display_remote_calendars'])),
+              'show' => in_array($url, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_REMOTE_CALENDARS))),
         $calendar->credentials());
 }
 
 // Holidays
-foreach ($GLOBALS['all_holidays'] as $id => $calendar) {
+foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_HOLIDAYS) as $id => $calendar) {
     $code['conf']['calendars']['holiday'][$id] = array(
         'name' => $calendar->name(),
         'fg' => $calendar->foreground(),
         'bg' => $calendar->background(),
-        'show' => in_array($id, $GLOBALS['display_holidays']));
+        'show' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_HOLIDAYS)));
 }
 
 /* Gettext strings used in core javascript files. */

@@ -86,7 +86,7 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
                 $all_events = $driver->listEvents(
                     $startDate, $endDate, array('show_recurrence' => true));
             } else {
-                $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
+                $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS));
             }
         } catch (Exception $e) {
             return '<em>' . $e->getMessage() . '</em>';

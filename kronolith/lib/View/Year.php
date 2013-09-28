@@ -28,7 +28,7 @@ class Kronolith_View_Year
                                         'mday' => 31));
 
         try {
-            $this->_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
+            $this->_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS));
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
             $this->_events = array();

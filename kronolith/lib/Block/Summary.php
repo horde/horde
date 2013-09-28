@@ -107,7 +107,7 @@ class Kronolith_Block_Summary extends Horde_Core_Block
                 );
             } else {
                 $all_events = Kronolith::listEvents(
-                    $startDate, $endDate, $GLOBALS['display_calendars']);
+                    $startDate, $endDate, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS));
             }
         } catch (Exception $e) {
             return '<em>' . $e->getMessage() . '</em>';

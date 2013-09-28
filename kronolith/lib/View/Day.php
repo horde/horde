@@ -33,7 +33,7 @@ class Kronolith_View_Day extends Kronolith_Day
         $this->sidebyside = $GLOBALS['prefs']->getValue('show_shared_side_by_side');
         if ($this->sidebyside) {
             $allCalendars = Kronolith::listInternalCalendars();
-            foreach ($GLOBALS['display_calendars'] as $cid) {
+            foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS) as $cid) {
                  $this->_currentCalendars[$cid] = $allCalendars[$cid];
                  $this->all_day_events[$cid] = array();
             }

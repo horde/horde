@@ -37,9 +37,9 @@ class Kronolith_Event_Sql extends Kronolith_Event
         parent::__construct($driver, $eventObject);
 
         if (!empty($this->calendar) &&
-            isset($GLOBALS['all_calendars'][$this->calendar])) {
-            $this->_backgroundColor = $GLOBALS['all_calendars'][$this->calendar]->background();
-            $this->_foregroundColor = $GLOBALS['all_calendars'][$this->calendar]->foreground();
+            $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar) !== false) {
+            $this->_backgroundColor = $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)->background();
+            $this->_foregroundColor = $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)->foreground();
         }
     }
 

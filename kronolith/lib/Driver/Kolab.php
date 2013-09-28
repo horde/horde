@@ -75,8 +75,8 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      */
     public function backgroundColor()
     {
-        if (isset($GLOBALS['all_calendars'][$this->calendar])) {
-            return $GLOBALS['all_calendars'][$this->calendar]->background();
+        if ($GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar) !== false) {
+            return $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)->background();
         }
         return '#dddddd';
     }
@@ -102,7 +102,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         // Connect to the Kolab backend
         try {
             $this->_data = $this->_kolab->getData(
-                $GLOBALS['all_calendars'][$this->calendar]->share()->get('folder'),
+                $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)->share()->get('folder'),
                 'event'
             );
         } catch (Kolab_Storage_Exception $e) {

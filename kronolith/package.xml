@@ -22,8 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-16</date>
- <time>15:41:55</time>
+ <date>2013-09-24</date>
  <version>
   <release>4.2.0alpha1</release>
   <api>4.1.0</api>
@@ -243,6 +242,7 @@
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Calendar.php" role="horde" />
+    <file name="CalendarsManager.php" role="horde" />
     <file name="Day.php" role="horde" />
     <file name="Driver.php" role="horde" />
     <file name="Event.php" role="horde" />
@@ -1119,6 +1119,7 @@
    <install as="kronolith/lib/Api.php" name="lib/Api.php" />
    <install as="kronolith/lib/Application.php" name="lib/Application.php" />
    <install as="kronolith/lib/Calendar.php" name="lib/Calendar.php" />
+   <install as="kronolith/lib/CalendarsManager.php" name="lib/CalendarsManager.php" />
    <install as="kronolith/lib/Day.php" name="lib/Day.php" />
    <install as="kronolith/lib/Driver.php" name="lib/Driver.php" />
    <install as="kronolith/lib/Event.php" name="lib/Event.php" />
@@ -2241,7 +2242,7 @@
    <stability>
     <release>alpha</release>
     <api>stable</api></stability>
-   <date>2013-08-16</date>
+   <date>2013-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Improve sort order of events in month view (Request #11155).

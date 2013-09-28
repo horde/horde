@@ -93,7 +93,7 @@ class Kronolith_Calendar_Resource extends Kronolith_Calendar
      */
     public function display()
     {
-        return in_array($this->_resource->get('calendar'), $GLOBALS['display_calendars']);
+        return in_array($this->_resource->get('calendar'), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS));
     }
 
     /**

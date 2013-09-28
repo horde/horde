@@ -69,9 +69,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     public function backgroundColor()
     {
-        return empty($GLOBALS['all_remote_calendars'][$this->calendar])
-            ? '#dddddd'
-            : $GLOBALS['all_remote_calendars'][$this->calendar]->background();
+        return $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_REMOTE_CALENDARS, $this->calendar)
+            ? $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_REMOTE_CALENDARS, $this->calendar)->background()
+            : '#dddddd';
     }
 
     public function listAlarms($date, $fullevent = false)

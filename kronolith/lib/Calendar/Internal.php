@@ -108,7 +108,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
     {
         return $this->owner() == $GLOBALS['registry']->getAuth() ||
             empty($GLOBALS['conf']['share']['hidden']) ||
-            in_array($this->_share->getName(), $GLOBALS['display_calendars']);
+            in_array($this->_share->getName(), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS));
     }
 
     /**
@@ -135,7 +135,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
         $hash = parent::toHash();
         $hash['name']  = $this->name();
         $hash['owner'] = $owner;
-        $hash['show']  = in_array($id, $GLOBALS['display_calendars']);
+        $hash['show']  = in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS));
         $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);
         try {
             $hash['caldav']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/calendars/' : '/rpc.php/calendars/'), true, -1)
