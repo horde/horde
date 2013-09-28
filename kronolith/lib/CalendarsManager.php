@@ -105,18 +105,17 @@ class Kronolith_CalendarsManager
      * Sets up various display lists and session variables:
      *
      * Always set:
-     *  - allRemote
      *  - allCalendars
      *  - displayCalendars
      *  - displayResource
-     *  - displayRemote
      *
      * Lazy loaded:
+     *  - allRemote
      *  - allExternal
      *  - allHolidays
+     *  - displayRemote
      *  - displayExternal
      *  - displayHolidays
-     *
      */
     public function __construct()
     {
