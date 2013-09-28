@@ -40,7 +40,7 @@ class Kronolith_CalendarsManager
      *
      * @var array
      */
-    protected $_allRemote = array();
+    protected $_allRemote = false;
 
     /**
      * List of all available external calendars.
@@ -130,23 +130,7 @@ class Kronolith_CalendarsManager
         foreach (Kronolith::listInternalCalendars() as $id => $calendar) {
             $this->_allCalendars[$id] = new Kronolith_Calendar_Internal(array('share' => $calendar));
         }
-
         $this->_displayCalendars = array_intersect($this->_displayCalendars, array_keys($this->_allCalendars));
-
-        // Check that all selected remote calendars are still configured.
-        $tmp = $this->_displayRemote;
-        $this->_allRemote = $this->_displayRemote = array();
-        $calendars = @unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-        if (!is_array($calendars)) {
-            $calendars = array();
-        }
-        foreach ($calendars as $calendar) {
-            $this->_allRemote[$calendar['url']] = new Kronolith_Calendar_Remote($calendar);
-            if (in_array($calendar['url'], $tmp)) {
-                $this->_displayRemote[] = $calendar['url'];
-            }
-        }
-        $GLOBALS['prefs']->setValue('display_remote_cals', serialize($this->_displayRemote));
 
         // Check that the user owns a calendar.
         $this->_checkForOwnedCalendar();
@@ -162,15 +146,27 @@ class Kronolith_CalendarsManager
     public function get($list)
     {
         switch ($list) {
-        case Kronolith::ALL_REMOTE_CALENDARS:
         case Kronolith::ALL_CALENDARS:
         case Kronolith::DISPLAY_CALENDARS:
         case Kronolith::DISPLAY_RESOURCE_CALENDARS:
-        case Kronolith::DISPLAY_REMOTE_CALENDARS:
             $property = '_' . $list;
             return $this->$property;
 
         //Lazy loaded
+        case Kronolith::ALL_REMOTE_CALENDARS:
+            if ($this->_allRemote !== false) {
+                return $this->_allRemote;
+            }
+            return $this->_getRemoteCalendars();
+
+        case Kronolith::DISPLAY_REMOTE_CALENDARS:
+            // Need to run this at least once to validate remote calendars
+            // still exist in prefs.
+            if ($this->_allRemote === false) {
+                $this->_getRemoteCalendars();
+            }
+            return $this->_displayRemote;
+
         case Kronolith::ALL_EXTERNAL_CALENDARS:
             if ($this->_allExternal !== false) {
                 return $this->_allExternal;
@@ -544,6 +540,28 @@ class Kronolith_CalendarsManager
         $GLOBALS['prefs']->setValue('holiday_drivers', serialize($this->_displayHolidays));
 
         return $this->_displayHolidays;
+    }
+
+    protected function _getRemoteCalendars()
+    {
+        if ($this->_allRemote === false) {
+            // Check that all selected remote calendars are still configured.
+            $tmp = $this->_displayRemote;
+            $this->_allRemote = $this->_displayRemote = array();
+            $calendars = @unserialize($GLOBALS['prefs']->getValue('remote_cals'));
+            if (!is_array($calendars)) {
+                $calendars = array();
+            }
+            foreach ($calendars as $calendar) {
+                $this->_allRemote[$calendar['url']] = new Kronolith_Calendar_Remote($calendar);
+                if (in_array($calendar['url'], $tmp)) {
+                    $this->_displayRemote[] = $calendar['url'];
+                }
+            }
+            $GLOBALS['prefs']->setValue('display_remote_cals', serialize($this->_displayRemote));
+        }
+
+        return $this->_allRemote;
     }
 
 }
