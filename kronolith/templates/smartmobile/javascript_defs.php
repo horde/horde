@@ -83,7 +83,7 @@ foreach (array(true, false) as $my) {
                 'owner' => $owner,
                 'fg' => Kronolith::foregroundColor($tasklist),
                 'bg' => Kronolith::backgroundColor($tasklist),
-                'show' => in_array('tasks/' . $id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS),
+                'show' => in_array('tasks/' . $id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS)),
                 'edit' => $tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT));
             if ($owner) {
                 $code['conf']['calendars']['tasklists']['tasks/' . $id]['perms'] = Kronolith::permissionToJson($tasklist->getPermission());
