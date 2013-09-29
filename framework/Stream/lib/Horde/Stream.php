@@ -124,6 +124,18 @@ class Horde_Stream implements Serializable
     }
 
     /**
+     * Read $length number of bytes from the stream.
+     *
+     * @param integer $length  The number of bytes to read from the stream.
+     *
+     * @return string  The characters read from the stream.
+     */
+    public function read($length)
+    {
+        return fread($this->stream, $length);
+    }
+
+    /**
      * Returns the length of the data. Does not change the stream position.
      *
      * @param boolean $utf8  If true, determines the UTF-8 length of the
