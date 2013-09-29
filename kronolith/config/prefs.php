@@ -482,6 +482,12 @@ $_prefs['fb_cals'] = array(
             }
         }
         $ui->prefs['fb_cals']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+        $key = 'kronolith.fb.u.' . $GLOBALS['registry']->getAuth();
+        Horde::debug($key);
+        $cache->expire($key);
     }
 );
 
