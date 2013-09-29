@@ -83,7 +83,7 @@ class Horde_ActiveSync_Rfc822
         // Position to after the headers.
         fseek($this->_stream->stream, $this->_hdr_pos + $this->_eol);
         $new_stream = new Horde_Stream_Temp(array('max_memory' => self::$memoryLimit));
-        $new_stream->add($this->_stream->stream, true);
+        $new_stream->add($this->_stream, true);
         return $new_stream;
     }
 
