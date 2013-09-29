@@ -1194,7 +1194,7 @@ KronolithCore = {
             break;
         }
 
-        if ($w('tasklists remote external holiday').include(type)) {
+        if ($w('tasklists remote external holiday resource').include(type)) {
             calendar = type + '_' + calendar;
         }
         HordeCore.doAction('saveCalPref', { toggle_calendar: calendar });
