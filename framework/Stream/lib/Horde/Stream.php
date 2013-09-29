@@ -111,7 +111,7 @@ class Horde_Stream implements Serializable
         } elseif ($data instanceof Horde_Stream) {
             $dpos = $data->pos();
             while (!$data->eof()) {
-                $this->add($data->getString(null, 65536));
+                $this->add($data->read(65536));
             }
             $data->seek($dpos, false);
         } else {
@@ -129,6 +129,7 @@ class Horde_Stream implements Serializable
      * @param integer $length  The number of bytes to read from the stream.
      *
      * @return string  The characters read from the stream.
+     * @since 1.4.0
      */
     public function read($length)
     {
