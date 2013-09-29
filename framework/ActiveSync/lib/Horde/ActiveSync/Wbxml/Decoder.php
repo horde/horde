@@ -123,7 +123,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         $this->_getTempStream();
         $this->_buffer->add($this->_stream);
         $this->_buffer->rewind();
-        return $this->_buffer;
+        return $this->_buffer->stream;
     }
 
     /**
