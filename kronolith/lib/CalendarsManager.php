@@ -119,8 +119,6 @@ class Kronolith_CalendarsManager
      */
     public function __construct()
     {
-        global $conf, $prefs, $registry, $session;
-
         // Always perform the display related checks.
         $this->_checkDisplayCals();
         $this->_checkToggleCalendars();
@@ -225,7 +223,7 @@ class Kronolith_CalendarsManager
      */
     protected function _checkDisplayCals()
     {
-        global $session, $prefs;
+        global $session, $prefs, $conf;
 
         // Update preferences for which calendars to display. If the
         // user doesn't have any selected calendars to view then fall
@@ -290,7 +288,8 @@ class Kronolith_CalendarsManager
      */
     protected function _checkToggleCalendars()
     {
-        global $prefs;
+        global $prefs, $registry;
+
         if (($calId = Horde_Util::getFormData('toggle_calendar')) !== null) {
             if (strncmp($calId, 'remote_', 7) === 0) {
                 $calId = substr($calId, 7);
@@ -350,10 +349,10 @@ class Kronolith_CalendarsManager
      */
     protected function _checkForOwnedCalendar()
     {
-        global $prefs;
+        global $prefs, $registry, $conf;
 
-        if (!empty($GLOBALS['conf']['share']['auto_create']) &&
-            $GLOBALS['registry']->getAuth() &&
+        if (!empty($conf['share']['auto_create']) &&
+            $registry->getAuth() &&
             !count(Kronolith::listInternalCalendars(true))) {
             $calendars = $GLOBALS['injector']
                 ->getInstance('Kronolith_Factory_Calendars')
@@ -362,12 +361,12 @@ class Kronolith_CalendarsManager
             $share = $calendars->createDefaultShare();
             $this->_allCalendars[$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
             $this->_displayCalendars[] = $share->getName();
-            $GLOBALS['prefs']->setValue('default_share', $share->getName());
+            $prefs->setValue('default_share', $share->getName());
 
             // Calendar auto-sharing with the user's groups
-            if ($GLOBALS['conf']['autoshare']['shareperms'] != 'none') {
+            if ($conf['autoshare']['shareperms'] != 'none') {
                 $perm_value = 0;
-                switch ($GLOBALS['conf']['autoshare']['shareperms']) {
+                switch ($conf['autoshare']['shareperms']) {
                 case 'read':
                     $perm_value = Horde_Perms::READ | Horde_Perms::SHOW;
                     break;
@@ -382,7 +381,7 @@ class Kronolith_CalendarsManager
                 try {
                     $group_list = $GLOBALS['injector']
                         ->getInstance('Horde_Group')
-                        ->listGroups($GLOBALS['registry']->getAuth());
+                        ->listGroups($registry->getAuth());
                     if (count($group_list)) {
                         $perm = $share->getPermission();
                         // Add the default perm, not added otherwise
@@ -395,7 +394,7 @@ class Kronolith_CalendarsManager
                 } catch (Horde_Group_Exception $e) {}
             }
 
-            $GLOBALS['prefs']->setValue('display_cals', serialize($this->_displayCalendars));
+            $prefs->setValue('display_cals', serialize($this->_displayCalendars));
         }
     }
 
@@ -477,7 +476,7 @@ class Kronolith_CalendarsManager
      */
     protected function _getDisplayExternal()
     {
-        global $registry, $session, $injector, $prefs;
+        global $registry, $prefs;
 
        // Make sure all the external calendars still exist.
         $_tasklists = $_temp = $this->_displayExternal;
