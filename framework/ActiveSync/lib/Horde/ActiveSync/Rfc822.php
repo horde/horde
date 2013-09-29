@@ -94,7 +94,7 @@ class Horde_ActiveSync_Rfc822
      */
     public function getString()
     {
-        rewind($this->_stream->stream);
+        $this->_stream->rewind();
         return $this->_stream->stream;
     }
 
@@ -105,7 +105,7 @@ class Horde_ActiveSync_Rfc822
      */
     public function getHeaders()
     {
-        rewind($this->_stream->stream);
+        $this->_stream->rewind();
         $hdr_text = $this->_stream->getString(null, $this->_hdr_pos);
         return Horde_Mime_Headers::parseHeaders($hdr_text);
     }
@@ -117,7 +117,7 @@ class Horde_ActiveSync_Rfc822
      */
     public function getMimeObject()
     {
-        rewind($this->_stream->stream);
+        $this->_stream->rewind();
         $part = Horde_Mime_Part::parseMessage($this->_stream->getString());
         $part->isBasePart(true);
 
@@ -147,9 +147,8 @@ class Horde_ActiveSync_Rfc822
     protected function _findHeader()
     {
         $i = 0;
-        while (is_resource($this->_stream->stream) &&
-               !feof($this->_stream->stream)) {
-            $data = fread($this->_stream->stream, 8192);
+        while (!$this->_stream->eof())
+            $data = $this->_stream->string(null, 8192);
             $hdr_pos = strpos($data, "\r\n\r\n");
             if ($hdr_pos !== false) {
                 return array($hdr_pos + ($i * 8192), 4);
@@ -160,8 +159,8 @@ class Horde_ActiveSync_Rfc822
             }
             $i++;
         }
-        fseek($this->_stream->stream, 0, SEEK_END);
-        return array(ftell($$this->_stream->stream), 0);
+        $this->_stream->end();
+        return array($this->_stream->pos(), 0);
     }
 
 }
