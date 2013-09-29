@@ -1506,6 +1506,15 @@ class Horde_ActiveSync_Imap_Adapter
         return $text;
     }
 
+    /**
+     * Converts and validates the message body data structure.
+     *
+     * @param array $data  Message body data structure.
+     *
+     * @return array  The message body data structure, with the [html][body] and
+     *                [plain][body] data converted to UTF-8, EOL normalized and
+     *                placed in a stream.
+     */
     protected function _validateMessageBodyData($data)
     {
         //We will need the eol filter to work around PHP bug 65776.
