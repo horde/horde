@@ -6585,7 +6585,13 @@ KronolithCore = {
         }
 
         /* Start polling. */
-        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
+        new PeriodicalExecuter(function()
+            {
+                HordeCore.doAction('poll');
+                $(kronolithGotoToday).update(Date.today().toString(Kronolith.conf.date_format));
+            },
+            6
+        );
     }
 
 };
