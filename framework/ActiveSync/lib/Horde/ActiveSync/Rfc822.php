@@ -146,8 +146,8 @@ class Horde_ActiveSync_Rfc822
     protected function _findHeader()
     {
         $i = 0;
-        while (!$this->_stream->eof())
-            $data = $this->_stream->string(null, 8192);
+        while (!$this->_stream->eof()) {
+            $data = $this->_stream->read(8192);
             $hdr_pos = strpos($data, "\r\n\r\n");
             if ($hdr_pos !== false) {
                 return array($hdr_pos + ($i * 8192), 4);
