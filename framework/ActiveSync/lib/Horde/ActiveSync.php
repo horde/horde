@@ -828,7 +828,7 @@ class Horde_ActiveSync
 
         // Should we announce a new version is available to the client?
         if (!empty($needMsRp)) {
-            $this->_logger->info('Announcing X-MS-RP to client.');
+            self::$_logger->info('Announcing X-MS-RP to client.');
             header("X-MS-RP: ". $this->getSupportedVersions());
         }
 
@@ -837,7 +837,7 @@ class Horde_ActiveSync
             $request = new $class($this);
             $request->setLogger(self::$_logger);
             $result = $request->handle();
-            $this->_driver->clearAuthentication();
+            self::$_logger->debug('Maximum memory usage for ActiveSync request: '  . memory_get_peak_usage());
 
             return $result;
         }
