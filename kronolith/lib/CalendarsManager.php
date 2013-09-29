@@ -298,6 +298,7 @@ class Kronolith_CalendarsManager
                 } else {
                     unset($this->_displayRemote[$key]);
                 }
+                $prefs->setValue('display_remote_cals', serialize($this->_displayRemote));
             } elseif ((strncmp($calId, 'external_', 9) === 0 &&
                        ($calId = substr($calId, 9))) ||
                       (strncmp($calId, 'tasklists_', 10) === 0 &&
@@ -307,6 +308,7 @@ class Kronolith_CalendarsManager
                 } else {
                     unset($this->_displayExternal[$key]);
                 }
+                $prefs->setValue('display_external_cals', serialize($this->_displayExternal));
 
                 if (strpos($calId, 'tasks/') === 0) {
                     $tasklists = array();
@@ -326,6 +328,7 @@ class Kronolith_CalendarsManager
                 } else {
                     unset($this->_displayHolidaysInternal[$key]);
                 }
+                $prefs->setValue('holiday_drivers', serialize($this->_displayHolidaysInternal));
             } elseif (strncmp($calId, 'resource_', 9) === 0) {
                 $calId = substr($calId, 9);
                 if (($key = array_search($calId, $this->_displayResource)) === false) {
