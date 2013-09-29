@@ -1015,7 +1015,7 @@ class Horde_ActiveSync_Imap_Adapter
         // Preview?
         if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && !empty($options['bodyprefs']['preview'])) {
             $eas_message->airsyncbasebody->preview =
-                $message_body_data['plain']['body']->getString(0, $options['bodyprefs']['preview']);
+                $message_body_data['plain']['body']->read($options['bodyprefs']['preview'], true);
         }
 
         // Check for special message types.
