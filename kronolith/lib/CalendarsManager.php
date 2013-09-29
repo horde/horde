@@ -534,7 +534,7 @@ class Kronolith_CalendarsManager
     {
         $this->_displayHolidays = array();
         foreach (array_keys($this->get(Kronolith::ALL_HOLIDAYS)) as $id) {
-            if (in_array($id, $_this->_displayHolidaysInternal)) {
+            if (in_array($id, $this->_displayHolidaysInternal)) {
                 $this->_displayHolidays[] = $id;
             }
         }
