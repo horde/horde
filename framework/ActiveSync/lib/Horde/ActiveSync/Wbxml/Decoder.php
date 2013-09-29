@@ -79,8 +79,8 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         $this->_readVersion();
         if ($this->version != self::WBXML_VERSION) {
             // Not Wbxml - save the byte we already read.
-            $this->_buffer = fopen('php://temp/maxmemory:2097152', 'r+');
-            fwrite($this->_buffer, chr($this->version));
+            $this->_getTempStream();
+            $this->_buffer->add(chr($this->version));
             $this->_isWbxml = false;
             return;
         } else {
@@ -120,14 +120,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     public function getFullInputStream()
     {
         // Ensure the buffer was created
-        if (!isset($this->_buffer)) {
-            $this->_buffer = fopen('php://temp/maxmemory:2097152', 'r+');
-        }
-        while (!feof($this->_stream)) {
-            fwrite($this->_buffer, fread($this->_stream, 8192));
-        }
-        rewind($this->_buffer);
-
+        $this->_getTempStream();
+        $this->_buffer->add($this->_stream);
+        $this->_buffer->rewind();
         return $this->_buffer;
     }
 
@@ -711,6 +706,20 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
                 return $this->_dtd['codes'][$cp][$id];
             }
         }
+    }
+
+    /**
+     * Return the temporary buffer stream.
+     *
+     * @return stream
+     */
+    protected function _getTempStream()
+    {
+        if (!isset($this->_buffer)) {
+            $this->_buffer = new Horde_Stream_Temp();
+        }
+
+        return $this->_buffer;
     }
 
 }
