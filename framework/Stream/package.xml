@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Add Horde_Stream#read().
 * [mms] Horde_Stream#getToChar() now supports multiple characters in search string.
 * [mms] Horde_Stream#search() now supports multiple characters in search string.
 * [mms] Add ability to get UTF-8 character length of stream from Horde_Stream#length().
@@ -205,6 +206,7 @@
    <date>2013-08-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Add Horde_Stream#read().
 * [mms] Horde_Stream#getToChar() now supports multiple characters in search string.
 * [mms] Horde_Stream#search() now supports multiple characters in search string.
 * [mms] Add ability to get UTF-8 character length of stream from Horde_Stream#length().
