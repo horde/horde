@@ -124,15 +124,20 @@ class Horde_Stream implements Serializable
     }
 
     /**
-     * Read $length number of bytes from the stream.
+     * Read $length number of bytes from the stream, and move pointer.
      *
      * @param integer $length  The number of bytes to read from the stream.
+     * @param boolean $rewind  Should the stream pointer be moved to the
+     *                         start of the stream before reading?
      *
      * @return string  The characters read from the stream.
      * @since 1.4.0
      */
-    public function read($length)
+    public function read($length, $rewind = false)
     {
+        if ($rewind) {
+            $this->rewind();
+        }
         return fread($this->stream, $length);
     }
 
