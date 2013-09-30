@@ -106,7 +106,7 @@ extends Horde_Imap_Client_Socket_Connection
 
         $data->rewind();
         while (!$data->eof()) {
-            if (fwrite($this->_stream, $data->getString(null, 8192)) === false) {
+            if (fwrite($this->_stream, $data->getString(null, $data->pos() + 8192)) === false) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Server write error."),
                     Horde_Imap_Client_Exception::SERVER_WRITEERROR
@@ -117,7 +117,7 @@ extends Horde_Imap_Client_Socket_Connection
         if ($this->_debugliteral) {
             $data->rewind();
             while (!$data->eof()) {
-                $this->_debug->raw($data->getString(null, 8192));
+                $this->_debug->raw($data->getString(null, $data->pos() + 8192));
             }
         } else {
             $this->_debug->client('[' . ($binary ? 'BINARY' : 'LITERAL') . ' DATA: ' . $length . ' bytes]');
