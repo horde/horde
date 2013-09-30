@@ -599,7 +599,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         while (1) {
             $l = (($len - strlen($d)) > 8192) ? 8192 : ($len - strlen($d));
             if ($l > 0) {
-                $data = $this->_stream->read($l);
+                $data = $this->_stream->getString(null, $this->_stream->pos() + $l);
                 // Stream ends prematurely on instable connections and big mails
                 if ($data === false || $this->_stream->eof()) {
                     throw new Horde_ActiveSync_Exception(sprintf(
@@ -625,7 +625,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      */
     private function _getByte()
     {
-        $ch = $this->_stream->read(1);
+        $ch = $this->_stream->getChar();
         if (strlen($ch) > 0) {
             $ch = ord($ch);
             return $ch;
@@ -665,7 +665,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         $stringtable = '';
         $length = $this->_getMBUInt();
         if ($length > 0) {
-            $stringtable = $this->_stream->read($length);
+            $stringtable = $this->_stream->getString(null, $this->_stream->pos() + $length);
         }
 
         return $stringtable;
