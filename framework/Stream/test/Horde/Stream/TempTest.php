@@ -463,4 +463,25 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
     }
 
+    public function testParsingAnExistingStreamObject()
+    {
+        $stream = new Horde_Stream_Temp();
+        // 100000 byte stream.
+        $stream->add(str_repeat('1234567890', 10000));
+        $stream->rewind();
+
+        $this->assertEquals(
+            100000,
+            $stream->length()
+        );
+
+        $stream2 = new Horde_Stream_Temp();
+        $stream2->add($stream);
+
+        $this->assertEquals(
+            100000,
+            $stream2->length()
+        );
+    }
+
 }

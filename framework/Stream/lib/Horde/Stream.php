@@ -111,7 +111,7 @@ class Horde_Stream implements Serializable
         } elseif ($data instanceof Horde_Stream) {
             $dpos = $data->pos();
             while (!$data->eof()) {
-                $this->add($data->read(65536));
+                $this->add($data->getString(null, $data->pos() + 65536));
             }
             $data->seek($dpos, false);
         } else {
@@ -287,41 +287,46 @@ class Horde_Stream implements Serializable
     }
 
     /**
-     * Returns the stream (or a portion of it) as a string.
+     * Returns the stream (or a portion of it) as a string. Position values
+     * are the byte position in the stream.
      *
-     * @param integer $start  The starting position. If null, starts from the
-     *                        current position. If negative, starts this far
-     *                        back from the current position.
-     * @param integer $end    The ending position. If null, reads the entire
-     *                        stream. If negative, sets ending this far from
-     *                        the end of the stream.
+     * @param integer $start  The starting position. If positive, start from
+     *                        this position. If negative, starts this length
+     *                        back from the current position. If null, starts
+     *                        from the current position.
+     * @param integer $end    The ending position relative to the starting
+     *                        position (if positive). If negative, end this
+     *                        length back from the end of the stream. If null,
+     *                        reads to the end of the stream.
      *
      * @return string  A string.
      */
     public function getString($start = null, $end = null)
     {
-        if (!is_null($start) && ($start < 0)) {
-            $this->seek($start);
-            $start = $this->pos();
+        if (!is_null($start)) {
+            $this->seek($start, ($start < 0));
         }
 
-        if (!is_null($end)) {
-            $curr = is_null($start)
-                ? $this->pos()
-                : $start;
+        if (is_null($end)) {
+            $len = 8192;
+        } else {
             $end = ($end >= 0)
-                ? $end - $curr + 1
-                : $this->length() - $curr + $end;
-            if ($end < 0) {
-                $end = 0;
+                ? $end - $this->pos() + 1
+                : $this->length() - $this->pos() + $end;
+            $len = max($end, 0);
+        }
+
+        $out = '';
+
+        while (!feof($this->stream) && (is_null($end) || $len)) {
+            $read = fread($this->stream, $len);
+            $out .= $read;
+            if (!is_null($end)) {
+                $len -= strlen($read);
             }
         }
 
-        return stream_get_contents(
-            $this->stream,
-            is_null($end) ? -1 : $end,
-            is_null($start) ? -1 : $start
-        );
+        return $out;
     }
 
     /**
