@@ -105,7 +105,8 @@ class Horde_ActiveSync_Rfc822
      */
     public function getHeaders()
     {
-        $hdr_text = $this->_stream->read($this->_hdr_pos, true);
+        $this->_stream->rewind();
+        $hdr_text = $this->_stream->getString(null, $this->_hdr_pos);
         return Horde_Mime_Headers::parseHeaders($hdr_text);
     }
 
