@@ -545,4 +545,81 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
     }
 
+    public function testSubstring()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('1234567890');
+        $stream->rewind();
+
+        $this->assertEquals(
+            '123',
+            $stream->substring(0, 3)
+        );
+        $this->assertEquals(
+            '456',
+            $stream->substring(0, 3)
+        );
+        $this->assertEquals(
+            '7890',
+            $stream->substring(0)
+        );
+        $this->assertEquals(
+            '',
+            $stream->substring(0, 3)
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            '456',
+            $stream->substring(3, 3)
+        );
+        $this->assertEquals(
+            '',
+            $stream->substring(10, 3)
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            '123',
+            $stream->substring(-3, 3)
+        );
+        $this->assertEquals(
+            '123',
+            $stream->substring(-3, 3)
+        );
+
+        $stream2 = new Horde_Stream_Temp();
+        $stream2->add('AönönAönön');
+        $stream2->utf8_char = true;
+        $stream2->rewind();
+
+        $this->assertEquals(
+            'Aö',
+            $stream2->substring(0, 3)
+        );
+
+        $stream2->rewind();
+
+        $this->assertEquals(
+            'Aön',
+            $stream2->substring(0, 3, true)
+        );
+
+        $stream2->rewind();
+
+        $this->assertEquals(
+            'AönönAönön',
+            $stream2->substring(0, null, true)
+        );
+
+        $stream2->rewind();
+
+        $this->assertEquals(
+            'Aönön',
+            $stream2->substring(5, null, true)
+        );
+    }
+
 }

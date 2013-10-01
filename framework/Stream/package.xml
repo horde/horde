@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Stream#substring().
 * [mms] Fix getString() in certain use cases.
 * [mms] Horde_Stream#getToChar() now supports multiple characters in search string.
 * [mms] Horde_Stream#search() now supports multiple characters in search string.
@@ -206,6 +207,7 @@
    <date>2013-08-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Stream#substring().
 * [mms] Fix getString() in certain use cases.
 * [mms] Horde_Stream#getToChar() now supports multiple characters in search string.
 * [mms] Horde_Stream#search() now supports multiple characters in search string.

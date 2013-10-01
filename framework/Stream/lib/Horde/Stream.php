@@ -89,7 +89,8 @@ class Horde_Stream implements Serializable
      */
     public function __toString()
     {
-        return $this->getString(0);
+        $this->rewind();
+        return $this->substring();
     }
 
     /**
@@ -115,7 +116,7 @@ class Horde_Stream implements Serializable
         } elseif ($data instanceof Horde_Stream) {
             $dpos = $data->pos();
             while (!$data->eof()) {
-                $this->add($data->getString(null, $data->pos() + 65536));
+                $this->add($data->substring(0, 65536));
             }
             $data->seek($dpos, false);
         } else {
@@ -149,7 +150,6 @@ class Horde_Stream implements Serializable
                 ++$len;
             }
         } else {
-
             if (!$this->end()) {
                 throw new Horde_Stream_Exception('ERROR');
             }
@@ -179,7 +179,7 @@ class Horde_Stream implements Serializable
         $res = $this->search($end);
 
         if (is_null($res)) {
-            return $this->getString();
+            return $this->substring();
         }
 
         $len = strlen($end);
@@ -289,12 +289,13 @@ class Horde_Stream implements Serializable
      */
     public function getString($start = null, $end = null)
     {
-        if (!is_null($start)) {
-            $this->seek($start, ($start < 0));
+        if (!is_null($start) && ($start >= 0)) {
+            $this->seek($start, false);
+            $start = 0;
         }
 
         if (is_null($end)) {
-            $len = 8192;
+            $len = null;
         } else {
             $end = ($end >= 0)
                 ? $end - $this->pos() + 1
@@ -302,13 +303,64 @@ class Horde_Stream implements Serializable
             $len = max($end, 0);
         }
 
-        $out = '';
+        return $this->substring($start, $len);
+    }
 
-        while (!feof($this->stream) && (is_null($end) || $len)) {
-            $read = fread($this->stream, $len);
+    /**
+     * Return part of the stream as a string.
+     *
+     * @since 1.4.0
+     *
+     * @param integer $start   Start, as an offset from the current postion.
+     * @param integer $length  Length of string to return. If null, returns
+     *                         rest of the stream. If negative, this many
+     *                         characters will be omitted from the end of the
+     *                         stream.
+     * @param boolean $char    If true, $start/$length is the length in
+     *                         characters. If false, $start/$length is the
+     *                         length in bytes.
+     *
+     * @return string  The substring.
+     */
+    public function substring($start = 0, $length = null, $char = false)
+    {
+        if ($start !== 0) {
+            $this->seek($start, true, $char);
+        }
+
+        $out = '';
+        $to_end = is_null($length);
+
+        /* If length is greater than remaining stream, use more efficient
+         * algorithm below. Also, if doing a negative length, deal with that
+         * below also. */
+        if ($char &&
+            $this->utf8_char &&
+            !$to_end &&
+            ($length >= 0) &&
+            ($length < ($this->length() - $this->pos()))) {
+            while ($length-- && (($char = $this->getChar()) !== false)) {
+                $out .= $char;
+            }
+            return $out;
+        }
+
+        if (!$to_end && ($length < 0)) {
+            $pos = $this->pos();
+            $this->end();
+            $this->seek($length, true, $char);
+            $length = $this->pos() - $pos;
+            $this->seek($pos, false);
+            if ($length < 0) {
+                return '';
+            }
+        }
+
+        while (!feof($this->stream) && ($to_end || $length)) {
+            $read = fread($this->stream, $to_end ? 16384 : $length);
             $out .= $read;
-            if (!is_null($end)) {
-                $len -= strlen($read);
+            if (!$to_end) {
+                $length -= strlen($read);
             }
         }
 
