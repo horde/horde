@@ -26,12 +26,16 @@ class Horde_Stream implements Serializable
     /**
      * Stream resource.
      *
+     * @deprecated  Will be removed in 2.0.0
+     *
      * @var resource
      */
     public $stream;
 
     /**
      * Parse character as UTF-8 instead of single byte.
+     *
+     * @since 1.4.0
      *
      * @var boolean
      */
