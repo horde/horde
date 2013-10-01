@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Remove dependency on unreleased Horde_Stream code.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1732,7 +1732,7 @@
    <date>2013-09-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [mjr] Remove dependency on unreleased Horde_Stream code.
    </notes>
   </release>
  </changelog>
