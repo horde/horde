@@ -33,7 +33,7 @@ class Horde_Stream implements Serializable
     public $stream;
 
     /**
-     * Parse character as UTF-8 instead of single byte.
+     * Parse character as UTF-8 data instead of single byte.
      *
      * @since 1.4.0
      *
@@ -168,11 +168,11 @@ class Horde_Stream implements Serializable
      * Get a string up to a certain character (or EOF).
      *
      * @param string $end  The character to stop reading at. As of 1.4.0,
-     *                     $char can be a multi-character string.
+     *                     $char can be a multi-character UTF-8 string.
      *
      * @return string  The string up to $end (stream is positioned after the
      *                 end character(s), all of which are stripped from the
-                       return data).
+     *                 return data).
      */
     public function getToChar($end)
     {
@@ -220,7 +220,7 @@ class Horde_Stream implements Serializable
      * Search for character(s) and return its position.
      *
      * @param string $char      The character to search for. As of 1.4.0,
-     *                          $char can be a multi-character string.
+     *                          $char can be a multi-character UTF-8 string.
      * @param boolean $reverse  Do a reverse search?
      * @param boolean $reset    Reset the pointer to the original position?
      *
@@ -413,8 +413,9 @@ class Horde_Stream implements Serializable
      *
      * @since 1.4.0
      *
-     * @param boolean $curr  If true, offset is from current position. If
-     *                       false, offset is from beginning of stream.
+     * @param integer $offset  The offset.
+     * @param boolean $curr    If true, offset is from current position. If
+     *                         false, offset is from beginning of stream.
      *
      * @return boolean  True if successful.
      */
