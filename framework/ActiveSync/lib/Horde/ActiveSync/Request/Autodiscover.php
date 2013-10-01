@@ -32,9 +32,11 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
      */
     public function handle()
     {
-        $input_stream = $this->_decoder->getStream();
         $parser = xml_parser_create();
-        xml_parse_into_struct($parser, stream_get_contents($input_stream), $values);
+        xml_parse_into_struct(
+          $parser,
+          $this->_decoder->getStream()->getString(),
+          $values);
 
         // Some broken clients *cough* android *cough* don't send the actual
         // XML data structure at all, but instead use the email address as

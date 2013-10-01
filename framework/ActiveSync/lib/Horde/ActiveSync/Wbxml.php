@@ -839,7 +839,7 @@ class Horde_ActiveSync_Wbxml
     /**
      * Input or Output stream
      *
-     * @var stream resource
+     * @var Horde_Stream
      */
      protected $_stream;
 
