@@ -882,11 +882,13 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message->importance = $this->_getEASImportance($priority);
 
         // Get the body data and ensure we have something to send.
-        $message_body_data = $this->_validateMessageBodyData($imap_message->getMessageBodyData($options));
-
+        $message_body_data = $imap_message->getMessageBodyData($options);
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
-            $eas_message->body = $message_body_data['plain']['body']->stream;
-            $eas_message->bodysize = $message_body_data['plain']['body']->length(true);
+            $eas_message->body = $this->_validateUtf8(
+                $message_body_data['plain']['body'],
+                $message_body_data['plain']['charset']
+            );
+            $eas_message->bodysize = Horde_String::length($eas_message->body);
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
         } else {
@@ -915,11 +917,24 @@ class Horde_ActiveSync_Imap_Adapter
                     $mime = new Horde_Mime_Part();
                     $mime->setType('multipart/alternative');
 
+                    // We will need the eol filter to work around PHP bug 65776.
+                    stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+
                     // Populate the text/plain part if we have one.
                     if (!empty($message_body_data['plain'])) {
                         $plain_mime = new Horde_Mime_Part();
                         $plain_mime->setType('text/plain');
-                        $plain_mime->setContents($message_body_data['plain']['body']->stream, array('usestream' => true));
+                        $message_body_data['plain']['body'] = $this->_validateUtf8(
+                            $message_body_data['plain']['body'],
+                            $message_body_data['plain']['charset']
+                        );
+
+                        // PHP Bug 65776
+                        $stream = new Horde_Stream();
+                        $stream->add($message_body_data['plain']['body']);
+                        stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
+                        $plain_mime->setContents($stream->stream);
+                        $stream->close();
                         $plain_mime->setCharset('UTF-8');
                         $mime->addPart($plain_mime);
                     }
@@ -928,7 +943,17 @@ class Horde_ActiveSync_Imap_Adapter
                     if (!empty($message_body_data['html'])) {
                         $html_mime = new Horde_Mime_Part();
                         $html_mime->setType('text/html');
-                        $html_mime->setContents($message_body_data['html']['body']->stream, array('usestream' => true));
+                        $message_body_data['html']['body'] = $this->_validateUtf8(
+                            $message_body_data['html']['body'],
+                            $message_body_data['html']['charset']
+                        );
+
+                        // PHP Bug 65776
+                        $stream = new Horde_Stream();
+                        $stream->add($message_body_data['html']['body']);
+                        stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
+                        $html_mime->setContents($stream->stream);
+                        $stream->close();
                         $html_mime->setCharset('UTF-8');
                         $mime->addPart($html_mime);
                     }
@@ -989,23 +1014,31 @@ class Horde_ActiveSync_Imap_Adapter
                     $message_body_data['html'] = array(
                         'body' => $message_body_data['plain']['body'],
                         'estimated_size' => $message_body_data['plain']['size'],
-                        'truncated' => $message_body_data['plain']['truncated']
+                        'truncated' => $message_body_data['plain']['truncated'],
+                        'charset' => $message_body_data['plain']['charset']
                     );
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
                 }
                 $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
                 $airsync_body->truncated = $message_body_data['html']['truncated'];
-                $airsync_body->data = $message_body_data['html']['body']->stream;
+                $airsync_body->data = $this->_validateUtf8(
+                    $message_body_data['html']['body'],
+                    $message_body_data['html']['charset']
+                );
                 $eas_message->airsyncbasebody = $airsync_body;
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN])) {
 
                 // Non MIME encoded plaintext
                 $this->_logger->info('Sending PLAINTEXT Message.');
+                $message_body_data['plain']['body'] = $this->_validateUtf8(
+                    $message_body_data['plain']['body'],
+                    $message_body_data['plain']['charset']
+                );
                 $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
                 $airsync_body->truncated = $message_body_data['plain']['truncated'];
-                $airsync_body->data = $message_body_data['plain']['body']->stream;
+                $airsync_body->data = $message_body_data['plain']['body'];
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                 $eas_message->airsyncbasebody = $airsync_body;
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
@@ -1014,8 +1047,14 @@ class Horde_ActiveSync_Imap_Adapter
 
         // Preview?
         if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && !empty($options['bodyprefs']['preview'])) {
-            $eas_message->airsyncbasebody->preview =
-                $message_body_data['plain']['body']->getString(0, $options['bodyprefs']['preview']);
+            $eas_message->airsyncbasebody->preview = Horde_String::substr(
+                $message_body_data['plain']['body'],
+                0,
+                $options['bodyprefs']['preview'],
+                $message_body_data['plain']['charset']);
+            $eas_message->airsyncbasebody->preview = $this->_validateUtf8(
+                $eas_message->airsyncbasebody->preview,
+                $message_body_data['plain']['charset']);
         }
 
         // Check for special message types.
@@ -1504,29 +1543,6 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return $text;
-    }
-
-    protected function _validateMessageBodyData($data)
-    {
-        //We will need the eol filter to work around PHP bug 65776.
-        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-
-        if (!empty($data['plain'])) {
-            $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
-            $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-            $stream->add($this->_validateUtf8($data['plain']['body'], $data['plain']['charset']), true);
-            stream_filter_remove($filter_h);
-            $data['plain']['body'] = $stream;
-        }
-        if (!empty($data['html'])) {
-            $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
-            $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-            $stream->add($this->_validateUtf8($data['html']['body'], $data['html']['charset']), true);
-            stream_filter_remove($filter_h);
-            $data['html']['body'] = $stream;
-        }
-
-        return $data;
     }
 
 }
