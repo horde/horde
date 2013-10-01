@@ -67,10 +67,13 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
         if (is_resource($att['data'])) {
             $this->_logger->info('Copying attachment data directly from stream to stream.');
             rewind($att['data']);
+            while (!feof($att['data'])) {
+                fwrite($this->_encoder->getStream(), fread($att['data'], 8192));
+            }
         } else {
             $this->_logger->info('Writing attachment data from string to stream.');
+            fwrite($this->_encoder->getStream(), $att['data']);
         }
-        $this->_encoder->getStream()->add($att['data']);
 
         // Indicate the content-type
         // @TODO This is for BC only. Can remove for H6.
