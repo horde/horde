@@ -105,7 +105,7 @@ extends Horde_Imap_Client_Socket_Connection
         }
 
         $data->rewind();
-        while (!$data->eof()) {
+        while ($data->eof()) {
             if (fwrite($this->_stream, $data->getString(null, 8192)) === false) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Server write error."),
