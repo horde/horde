@@ -421,6 +421,14 @@ class Horde_Stream implements Serializable
      */
     public function seek($offset = 0, $curr = true)
     {
+        if ($offset < 0) {
+            if (!$curr) {
+                return true;
+            } elseif (abs($offset) > $this->pos()) {
+                return $this->rewind();
+            }
+        }
+
         return (fseek($this->stream, $offset, $curr ? SEEK_CUR : SEEK_SET) === 0);
     }
 

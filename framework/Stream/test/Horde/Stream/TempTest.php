@@ -57,6 +57,20 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             1,
             $stream->pos()
         );
+
+        $this->assertTrue($stream->seek(-10));
+        $this->assertEquals(
+            0,
+            $stream->pos()
+        );
+
+        $stream->seek(2);
+
+        $this->assertTrue($stream->seek(-10, true));
+        $this->assertEquals(
+            0,
+            $stream->pos()
+        );
     }
 
     public function testEnd()
