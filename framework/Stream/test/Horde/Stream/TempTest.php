@@ -71,6 +71,53 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             0,
             $stream->pos()
         );
+
+        $stream2 = new Horde_Stream_Temp();
+        $stream2->add('Aönön');
+        $stream2->utf8_char = true;
+        $stream2->rewind();
+
+        $this->assertTrue($stream2->seek(2));
+        $this->assertEquals(
+            2,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(2));
+        $this->assertEquals(
+            4,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(2, false));
+        $this->assertEquals(
+            2,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(2, false, true));
+        $this->assertEquals(
+            3,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(2, true, true));
+        $this->assertEquals(
+            6,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(-2, true, true));
+        $this->assertEquals(
+            3,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(-10, true, true));
+        $this->assertEquals(
+            0,
+            $stream2->pos()
+        );
     }
 
     public function testEnd()

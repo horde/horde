@@ -416,17 +416,47 @@ class Horde_Stream implements Serializable
      * @param integer $offset  The offset.
      * @param boolean $curr    If true, offset is from current position. If
      *                         false, offset is from beginning of stream.
+     * @param boolean $char    If true, $offset is the length in characters.
+     *                         If false, $offset is the length in bytes.
      *
      * @return boolean  True if successful.
      */
-    public function seek($offset = 0, $curr = true)
+    public function seek($offset = 0, $curr = true, $char = false)
     {
+        if (!$offset) {
+            return (bool)$curr ?: $this->rewind();
+        }
+
         if ($offset < 0) {
             if (!$curr) {
                 return true;
             } elseif (abs($offset) > $this->pos()) {
                 return $this->rewind();
             }
+        }
+
+        if ($char && $this->utf8_char) {
+            if ($offset > 0) {
+                if (!$curr) {
+                    $this->rewind();
+                }
+
+                do {
+                    $this->getChar();
+                } while (--$offset);
+            } else {
+                $pos = $this->pos();
+                $offset = abs($offset);
+
+                while ($pos-- && $offset) {
+                    fseek($this->stream, -1, SEEK_CUR);
+                    if ((ord($this->peek()) & 0xC0) != 0x80) {
+                        --$offset;
+                    }
+                }
+            }
+
+            return true;
         }
 
         return (fseek($this->stream, $offset, $curr ? SEEK_CUR : SEEK_SET) === 0);
