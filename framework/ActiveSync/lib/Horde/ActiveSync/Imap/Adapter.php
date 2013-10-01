@@ -934,7 +934,7 @@ class Horde_ActiveSync_Imap_Adapter
                         $stream->add($message_body_data['plain']['body']);
                         stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
                         $plain_mime->setContents($stream->stream);
-                        $stream->close();
+                        fclose($stream->stream);
                         $plain_mime->setCharset('UTF-8');
                         $mime->addPart($plain_mime);
                     }
@@ -953,7 +953,7 @@ class Horde_ActiveSync_Imap_Adapter
                         $stream->add($message_body_data['html']['body']);
                         stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_READ, array('eol' => $stream->getEOL()));
                         $html_mime->setContents($stream->stream);
-                        $stream->close();
+                        fclose($stream->stream);
                         $html_mime->setCharset('UTF-8');
                         $mime->addPart($html_mime);
                     }
