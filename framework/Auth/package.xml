@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Password strength testing is now case-insensitive (delrio@mie.utoronto.ca; Request #12708).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -892,7 +892,7 @@
    <date>2013-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Password strength testing is now case-insensitive (delrio@mie.utoronto.ca; Request #12708).
    </notes>
   </release>
  </changelog>
