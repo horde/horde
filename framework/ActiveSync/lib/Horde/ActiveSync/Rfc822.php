@@ -105,8 +105,7 @@ class Horde_ActiveSync_Rfc822
      */
     public function getHeaders()
     {
-        $this->_stream->rewind();
-        $this->_stream->getStream(null, $this->_hdr_pos);
+        $hdr_text = $this->_stream->read($this->_hdr_pos, true);
         return Horde_Mime_Headers::parseHeaders($hdr_text);
     }
 
@@ -148,7 +147,7 @@ class Horde_ActiveSync_Rfc822
     {
         $i = 0;
         while (!$this->_stream->eof()) {
-            $data = $this->_stream->getString(null, $this->_stream->pos() + 8192);
+            $data = $this->_stream->read(8192);
             $hdr_pos = strpos($data, "\r\n\r\n");
             if ($hdr_pos !== false) {
                 return array($hdr_pos + ($i * 8192), 4);
