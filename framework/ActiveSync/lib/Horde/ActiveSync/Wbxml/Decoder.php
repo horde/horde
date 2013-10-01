@@ -599,9 +599,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         while (1) {
             $l = (($len - strlen($d)) > 8192) ? 8192 : ($len - strlen($d));
             if ($l > 0) {
-                $data = $this->_stream->read($l);
+                $data = fread($this->_stream, $l);
                 // Stream ends prematurely on instable connections and big mails
-                if ($data === false || $this->_stream->eof()) {
+                if ($data === false || feof($this->_stream)) {
                     throw new Horde_ActiveSync_Exception(sprintf(
                         'Connection unavailable while trying to read %d bytes from stream. Aborting after %d bytes read.',
                         $len,
@@ -625,7 +625,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      */
     private function _getByte()
     {
-        $ch = $this->_stream->read(1);
+        $ch = fread($this->_stream, 1);
         if (strlen($ch) > 0) {
             $ch = ord($ch);
             return $ch;
@@ -665,7 +665,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         $stringtable = '';
         $length = $this->_getMBUInt();
         if ($length > 0) {
-            $stringtable = $this->_stream->read($length);
+            $stringtable = fread($this->_stream, $length);
         }
 
         return $stringtable;
