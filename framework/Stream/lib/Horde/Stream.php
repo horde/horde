@@ -168,7 +168,7 @@ class Horde_Stream implements Serializable
      *
      * @return string  The string up to $end (stream is positioned after the
      *                 end character(s), all of which are stripped from the
-     *                 return data).
+                       return data).
      */
     public function getToChar($end)
     {

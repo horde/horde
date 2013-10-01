@@ -234,8 +234,8 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         $out = array();
 
         do {
-            $out[] = $id->getString(null, $length + $id->pos()) . $id->getToChar(',');
-        } while (!$id->eof());
+            $out[] = stream_get_contents($id->stream, $length) . $id->getToChar(',');
+        } while (!feof($id->stream));
 
         return $out;
     }
