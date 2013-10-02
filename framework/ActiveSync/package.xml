@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1745,7 +1745,7 @@
    <date>2013-10-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
    </notes>
   </release>
  </changelog>
