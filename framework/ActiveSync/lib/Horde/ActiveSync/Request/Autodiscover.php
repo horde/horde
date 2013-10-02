@@ -68,7 +68,11 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                 }
             }
         } else {
-            $params = array();
+            // Assume broken clients want these schemas.
+            $params = array(
+              'request_schema' => 'http://schemas.microsoft.com/exchange/autodiscover/mobilesync/requestschema/2006',
+              'response_schema' => 'http://schemas.microsoft.com/exchange/autodiscover/mobilesync/responseschema/2006'
+            );
         }
         $results = $this->_driver->autoDiscover($params);
 
