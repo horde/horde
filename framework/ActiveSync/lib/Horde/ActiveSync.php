@@ -515,8 +515,12 @@ class Horde_ActiveSync
         if (!empty($serverVars['PHP_AUTH_PW'])) {
             $user = empty($username) ? $serverVars['PHP_AUTH_USER'] : $username;
             $pass = $serverVars['PHP_AUTH_PW'];
-        } elseif (!empty($serverVars['Authorization'])) {
-            $hash = base64_decode(str_replace('Basic ', '', $serverVars['Authorization']));
+        } elseif (!empty($serverVars['HTTP_AUTHORIZATION']) || !empty($serverVars['Authorization'])) {
+            // Some clients use the non-standard 'Authorization' header.
+            $authorization = !empty($serverVars['HTTP_AUTHORIZATION'])
+                ? $serverVars['HTTP_AUTHORIZATION']
+                : $serverVars['Autorization'];
+            $hash = base64_decode(str_replace('Basic ', '', $authorization));
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);
             }
