@@ -995,6 +995,12 @@ span.logoutIcon {
     background-image: url("../graphics/filters.png");
 }
 
+#ctx_contacts img.contactimg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #ctx_flag span.iconImg.flagUser, #ctx_flag_search span.iconImg.flagUser {
     border: 1px black solid;
     height: 17px;

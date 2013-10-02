@@ -142,6 +142,19 @@
   </configsection>
  </configtab>
 
+ <configtab name="contactsimage" desc="Contacts Images">
+  <configsection name="contactsimage">
+   <configmultienum name="backends" required="false" desc="The backends to
+   query for contacts images.">IMP_Contacts_Image_Addressbook,IMP_Contacts_Image_Unknown
+    <values>
+     <value desc="Horde addressbook application">IMP_Contacts_Image_Addressbook</value>
+     <value desc="Gravatar">IMP_Contacts_Image_Gravatar</value>
+     <value desc="Default (unknown user)">IMP_Contacts_Image_Unknown</value>
+    </values>
+   </configmultienum>
+  </configsection>
+ </configtab>
+
  <configtab name="otherapps" desc="Other Applications">
   <configsection name="tasklist">
    <configboolean name="use_tasklist" desc="If Nag is installed on the local

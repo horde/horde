@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-09-22</date>
+ <date>2013-10-04</date>
  <version>
   <release>6.2.0</release>
   <api>6.1.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add support for showing a contact image in the contacts popup box in dynamic view.
 * [mms] Add ability to create a new filter rule from the contacts dropdown in the dynamic view.
 * [mms] More intelligent sizing of raw message parts opened in a popup window.
  </notes>
@@ -176,6 +177,15 @@
      <file name="Ui.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Compose -->
+    <dir name="Contacts">
+     <dir name="Image">
+      <file name="Addressbook.php" role="horde" />
+      <file name="Backend.php" role="horde" />
+      <file name="Gravatar.php" role="horde" />
+      <file name="Unknown.php" role="horde" />
+     </dir> <!-- /lib/Contacts/Image -->
+     <file name="Image.php" role="horde" />
+    </dir> <!-- /lib/Contacts -->
     <dir name="Contents">
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Contents -->
@@ -1105,6 +1115,7 @@
       <file name="spellcheck.png" role="horde" />
       <file name="thread.png" role="horde" />
       <file name="undelete.png" role="horde" />
+      <file name="unknown_contact.jpg" role="horde" />
       <file name="unseen.png" role="horde" />
       <file name="warning.png" role="horde" />
       <file name="whitelist.png" role="horde" />
@@ -1421,6 +1432,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Service_Gravatar</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Text_Filter_Csstidy</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1563,6 +1581,11 @@
    <install as="imp/lib/Compose/Attachment/Linked/Metadata.php" name="lib/Compose/Attachment/Linked/Metadata.php" />
    <install as="imp/lib/Compose/Attachment/Storage/Vfs.php" name="lib/Compose/Attachment/Storage/Vfs.php" />
    <install as="imp/lib/Compose/Attachment/Storage/VfsLinked.php" name="lib/Compose/Attachment/Storage/VfsLinked.php" />
+   <install as="imp/lib/Contacts/Image.php" name="lib/Contacts/Image.php" />
+   <install as="imp/lib/Contacts/Image/Addressbook.php" name="lib/Contacts/Image/Addressbook.php" />
+   <install as="imp/lib/Contacts/Image/Backend.php" name="lib/Contacts/Image/Backend.php" />
+   <install as="imp/lib/Contacts/Image/Gravatar.php" name="lib/Contacts/Image/Gravatar.php" />
+   <install as="imp/lib/Contacts/Image/Unknown.php" name="lib/Contacts/Image/Unknown.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
@@ -2064,6 +2087,7 @@
    <install as="imp/themes/default/graphics/spellcheck.png" name="themes/default/graphics/spellcheck.png" />
    <install as="imp/themes/default/graphics/thread.png" name="themes/default/graphics/thread.png" />
    <install as="imp/themes/default/graphics/undelete.png" name="themes/default/graphics/undelete.png" />
+   <install as="imp/themes/default/graphics/unknown_contact.jpg" name="themes/default/graphics/unknown_contact.jpg" />
    <install as="imp/themes/default/graphics/unseen.png" name="themes/default/graphics/unseen.png" />
    <install as="imp/themes/default/graphics/warning.png" name="themes/default/graphics/warning.png" />
    <install as="imp/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />

@@ -1129,4 +1129,29 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
     }
 
+    /**
+     * AJAX action: Return the contacts image for a given e-mail address.
+     *
+     * Variables used:
+     * <pre>
+     *   - addr: (string) The e-mail address.
+     * </pre>
+     *
+     * @return object  An object with the following properties:
+     * <pre>
+     *   - url: (string) The URL of the image.
+     * </pre>
+     */
+    public function getContactsImage()
+    {
+        try {
+            $out = new stdClass;
+            $out->url = strval(new IMP_Contacts_Image($this->vars->addr));
+        } catch (IMP_Exception $e) {
+            $out = false;
+        }
+
+        return $out;
+    }
+
 }

@@ -250,22 +250,35 @@ var DimpCore = {
 
     contextOnShow: function(e)
     {
-        var tmp;
+        var remove = [],
+            tmp, tmp2;
 
         switch (e.memo) {
         case 'ctx_contacts':
-            tmp = $(e.memo).down('DIV.contactAddr');
-            if (tmp) {
-                tmp.next().remove();
-                tmp.remove();
+            tmp = $(e.memo);
+            remove.push(tmp.down('IMG.contactimg'));
+            tmp2 = tmp.down('DIV.contactAddr');
+            if (tmp2) {
+                remove.push(tmp2.next());
+                remove.push(tmp2);
             }
+            remove.compact().invoke('remove');
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if ((tmp = e.element().retrieve('email')) && !tmp.g && tmp.p) {
-                $(e.memo)
-                    .insert({ top: new Element('DIV', { className: 'sep' }) })
-                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp.b.escapeHTML()) });
+            if ((tmp2 = e.element().retrieve('email')) && !tmp2.g && tmp2.p) {
+                tmp.insert({ top: new Element('DIV', { className: 'sep' }) })
+                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp2.b.escapeHTML()) });
+
+                this.doAction('getContactsImage', {
+                    addr: tmp2.b
+                }, {
+                    callback: function (r) {
+                        tmp.insert({
+                            top: new Element('IMG', { src: r.url }).addClassName('contactimg')
+                        });
+                    }
+                });
             }
             break;
         }

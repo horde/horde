@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Add support for showing a contact image in the contacts popup box in
+      dynamic view.
 [mms] Add ability to create a new filter rule from the contacts dropdown in the
       dynamic view.
 [mms] More intelligent sizing of raw message parts opened in a popup window.
