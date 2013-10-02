@@ -3079,17 +3079,12 @@ var DimpBase = {
     /* Mailbox action callback functions. */
     mailboxCallback: function(r)
     {
-        var base,
-            nm = $('imp-normalmboxes');
-
-        if (r.base) {
-            // Need to find the submailbox and look to parent to ensure we get
-            // the non-special container.
-            base = this.getSubMboxElt(r.base).previous();
-        }
+        var nm = $('imp-normalmboxes');
 
         if (r.expand) {
-            this.expandmbox = base ? base : true;
+            this.expandmbox = r.base
+                ? this.getSubMboxElt(r.base).previous()
+                : true;
         }
 
         if (r['switch']) {
@@ -3108,9 +3103,7 @@ var DimpBase = {
 
         this.expandmbox = this.switchmbox = false;
 
-        if (base) {
-            this._toggleSubFolder(base, 'tog', false, true);
-        } else if (r.all) {
+        if (r.all) {
             this._toggleSubFolder(nm, 'expall', true);
         }
 
