@@ -59,11 +59,11 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         }
 
         if (!empty($values)) {
-            $params = array('request_schema' => $values[0]['attributes']['XMLNS']);
+            $params = array('request_schema' => trim($values[0]['attributes']['XMLNS']));
             // Response Schema is not in a set place.
             foreach ($values as $value) {
                 if ($value['tag'] == 'ACCEPTABLERESPONSESCHEMA') {
-                    $params['response_schema'] = $value['value'];
+                    $params['response_schema'] = trim($value['value']);
                     break;
                 }
             }
