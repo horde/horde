@@ -699,7 +699,7 @@ class Horde_ActiveSync
                 $request->setLogger(self::$_logger);
             }
 
-            $result = $request->handle();
+            $result = $request->handle($this->_request);
             $this->_driver->clearAuthentication();
             return $result;
         }

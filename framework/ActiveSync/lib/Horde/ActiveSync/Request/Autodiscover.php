@@ -30,18 +30,21 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
      *
      * @return text  The content type of the response (text/xml).
      */
-    public function handle()
+    public function handle(Horde_Controller_Request $request = null)
     {
         $input_stream = $this->_decoder->getStream();
         $parser = xml_parser_create();
         xml_parse_into_struct($parser, stream_get_contents($input_stream), $values);
 
+        // Get $_SERVER
+        $server = $request->getServerVars();
+
         // Some broken clients *cough* android *cough* don't send the actual
         // XML data structure at all, but instead use the email address as
         // the username in the HTTP_AUTHENTICATION data. There are so many things
         // wrong with this, but try to work around it if we can.
-        if (empty($values) && !empty($_SERVER['HTTP_AUTHORIZATION'])) {
-            $hash = base64_decode(str_replace('Basic ', '', $_SERVER['HTTP_AUTHORIZATION']));
+        if (empty($values) && !empty($server['HTTP_AUTHORIZATION'])) {
+            $hash = base64_decode(str_replace('Basic ', '', $server['HTTP_AUTHORIZATION']));
             if (strpos($hash, ':') !== false) {
                 list($email, $pass) = explode(':', $hash, 2);
             }
