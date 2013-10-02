@@ -868,14 +868,14 @@ class IMP_Mailbox implements Serializable
 
         $notification->push(sprintf(_("The mailbox \"%s\" was successfully created."), $this->display), 'horde.success');
 
+        /* Update the mailbox tree. */
+        $injector->getInstance('IMP_Ftree')->insert($this->_mbox);
+
         /* Subscribe, if requested. */
         if ((!isset($opts['subscribe']) && $prefs->getValue('subscribe')) ||
             !empty($opts['subscribe'])) {
             $this->subscribe(true);
         }
-
-        /* Update the mailbox tree. */
-        $injector->getInstance('IMP_Ftree')->insert($this->_mbox);
 
         return true;
     }
