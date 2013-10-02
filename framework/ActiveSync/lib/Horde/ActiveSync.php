@@ -519,7 +519,7 @@ class Horde_ActiveSync
             // Some clients use the non-standard 'Authorization' header.
             $authorization = !empty($serverVars['HTTP_AUTHORIZATION'])
                 ? $serverVars['HTTP_AUTHORIZATION']
-                : $serverVars['Autorization'];
+                : $serverVars['Authorization'];
             $hash = base64_decode(str_replace('Basic ', '', $authorization));
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);
