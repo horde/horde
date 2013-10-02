@@ -126,7 +126,7 @@ abstract class IMP_Dynamic_Base
      */
     protected function _addBaseVars()
     {
-        global $prefs, $session;
+        global $prefs, $registry, $session;
 
         /* Variables used in core javascript files. */
         $this->js_conf = array_filter(array(
@@ -157,6 +157,10 @@ abstract class IMP_Dynamic_Base
                 'reply_list' => _("To List")
             )
         );
+
+        if ($registry->hasInterface('mail/newEmailFilter')) {
+            $context['ctx_contacts']['addfilter'] = _("Create Filter");
+        }
 
         /* Forward context menu. */
         $context['ctx_forward'] = array(

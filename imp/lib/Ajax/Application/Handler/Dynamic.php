@@ -1091,4 +1091,42 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         return $ret;
     }
 
+    /**
+     * AJAX action: Redirect to the filter edit page and pre-populate with
+     * an e-mail address.
+     *
+     * Variables used:
+     * <pre>
+     *   - addr: (string) The e-mail address to use.
+     * </pre>
+     *
+     * @return Horde_Core_Ajax_Response_HordeCore_Reload  Object with URL to
+     *                                                    redirect to.
+     */
+    public function newFilter()
+    {
+        global $injector, $notification, $registry;
+
+        $addr_ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr);
+
+        // TODO: Currently supports only a single, non-group contact.
+        $ob = $addr_ob[0];
+        if (!$ob) {
+            return false;
+        } elseif ($ob instanceof Horde_Mail_Rfc822_Group) {
+            $notification->push(_("Editing group lists not currently supported."), 'horde.warning');
+            return false;
+        }
+
+        try {
+            return new Horde_Core_Ajax_Response_HordeCore_Reload(
+                $registry->link('mail/newEmailFilter', array(
+                    'email' => $ob->bare_address
+                ))
+            );
+        } catch (Horde_Exception $e) {
+            return false;
+        }
+    }
+
 }

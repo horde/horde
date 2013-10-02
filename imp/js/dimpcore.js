@@ -226,15 +226,21 @@ var DimpCore = {
         var baseelt = e.element();
 
         switch (e.memo.elt.readAttribute('id')) {
-        case 'ctx_contacts_new':
-            this.compose('new', {
-                to_json: Object.toJSON(baseelt.retrieve('email'))
-            });
-            break;
-
         case 'ctx_contacts_add':
             this.doAction('addContact', {
                 addr: Object.toJSON(baseelt.retrieve('email'))
+            });
+            break;
+
+        case 'ctx_contacts_addfilter':
+            this.doAction('newFilter', {
+                addr: Object.toJSON(baseelt.retrieve('email'))
+            });
+            break;
+
+        case 'ctx_contacts_new':
+            this.compose('new', {
+                to_json: Object.toJSON(baseelt.retrieve('email'))
             });
             break;
         }

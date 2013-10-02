@@ -991,7 +991,7 @@ span.logoutIcon {
 #ctx_preview_thread span.iconImg {
     background-image: url("../graphics/thread.png");
 }
-#ctx_filteropts_applyfilters span.iconImg {
+#ctx_contacts_addfilter span.iconImg, #ctx_filteropts_applyfilters span.iconImg {
     background-image: url("../graphics/filters.png");
 }
 
