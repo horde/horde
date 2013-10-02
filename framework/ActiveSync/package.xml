@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-01</date>
+ <date>2013-10-02</date>
  <version>
   <release>2.8.3</release>
   <api>2.8.0</api>
@@ -231,6 +231,7 @@
       </dir> <!-- /test/Horde/ActiveSync/StateTest -->
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
+      <file name="AutodiscoverTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="CacheTest.php" role="test" />
       <file name="conf.php.dist" role="test" />
@@ -459,6 +460,7 @@
    <install as="migration/20_horde_activesync_removesynccounters.php" name="migration/Horde/ActiveSync/20_horde_activesync_removesynccounters.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
+   <install as="Horde/ActiveSync/AutodiscoverTest.php" name="test/Horde/ActiveSync/AutodiscoverTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
    <install as="Horde/ActiveSync/conf.php.dist" name="test/Horde/ActiveSync/conf.php.dist" />
@@ -1742,7 +1744,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-01</date>
+   <date>2013-10-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
