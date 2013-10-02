@@ -280,8 +280,8 @@ class Horde_Stream implements Serializable
      *                        this position. If negative, starts this length
      *                        back from the current position. If null, starts
      *                        from the current position.
-     * @param integer $end    The ending position relative to the starting
-     *                        position (if positive). If negative, end this
+     * @param integer $end    The ending position relative to the beginning of
+     *                        the stream (if positive). If negative, end this
      *                        length back from the end of the stream. If null,
      *                        reads to the end of the stream.
      *

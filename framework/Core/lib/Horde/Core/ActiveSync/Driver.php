@@ -193,6 +193,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Now check Basic. Happens for authtype == 'basic' || 'basic_cert'
+        if (empty($password)) {
+            $this->_logger->notice('Device failed to pass the user password.');
+            return false;
+        }
         if ((empty($conf['activesync']['auth']['type']) || (!empty($conf['activesync']['auth']['type']) && $conf['activesync']['auth']['type'] != 'cert')) &&
             !$this->_auth->authenticate($username, array('password' => $password))) {
 
