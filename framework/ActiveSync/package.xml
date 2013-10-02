@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix some authentication issues when certain clients issue broken AutoDiscover requests.
 * [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
  </notes>
  <contents>
@@ -1747,6 +1748,7 @@
    <date>2013-10-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix some authentication issues when certain clients issue broken AutoDiscover requests.
 * [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
    </notes>
   </release>
