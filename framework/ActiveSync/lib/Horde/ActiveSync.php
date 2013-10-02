@@ -515,8 +515,12 @@ class Horde_ActiveSync
         if (!empty($serverVars['PHP_AUTH_PW'])) {
             $user = empty($username) ? $serverVars['PHP_AUTH_USER'] : $username;
             $pass = $serverVars['PHP_AUTH_PW'];
-        } elseif (!empty($serverVars['Authorization'])) {
-            $hash = base64_decode(str_replace('Basic ', '', $serverVars['Authorization']));
+        } elseif (!empty($serverVars['HTTP_AUTHORIZATION']) || !empty($serverVars['Authorization'])) {
+            // Some clients use the non-standard 'Authorization' header.
+            $authorization = !empty($serverVars['HTTP_AUTHORIZATION'])
+                ? $serverVars['HTTP_AUTHORIZATION']
+                : $serverVars['Authorization'];
+            $hash = base64_decode(str_replace('Basic ', '', $authorization));
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);
             }
@@ -623,11 +627,13 @@ class Horde_ActiveSync
 
     protected function _setLogger(array $options)
     {
-        self::$_logger = $this->_loggerFactory->create($options);
-        $this->_encoder->setLogger(self::$_logger);
-        $this->_decoder->setLogger(self::$_logger);
-        $this->_driver->setLogger(self::$_logger);
-        $this->_state->setLogger(self::$_logger);
+        if (!empty($this->_loggerFactory)) {
+            self::$_logger = $this->_loggerFactory->create($options);
+            $this->_encoder->setLogger(self::$_logger);
+            $this->_decoder->setLogger(self::$_logger);
+            $this->_driver->setLogger(self::$_logger);
+            $this->_state->setLogger(self::$_logger);
+        }
     }
 
     /**
@@ -688,9 +694,12 @@ class Horde_ActiveSync
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new Horde_ActiveSync_Device($this->_state));
-            $request->setLogger(self::$_logger);
 
-            $result = $request->handle();
+            if (!empty(self::$_logger)) {
+                $request->setLogger(self::$_logger);
+            }
+
+            $result = $request->handle($this->_request);
             $this->_driver->clearAuthentication();
             return $result;
         }

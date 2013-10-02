@@ -177,7 +177,9 @@ var DimpCore = {
     toggleCheck: function(elt, on)
     {
         if (on === null) {
-            elt.hide();
+            if (elt) {
+                elt.hide();
+            }
             return;
         }
 
