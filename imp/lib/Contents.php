@@ -967,7 +967,7 @@ class IMP_Contents
 
         $url = Horde::popupJs(Horde::url('view.php'), array(
             'menu' => true,
-            'onload' => empty($options['onload']) ? '' : $options['onload'],
+            'onload' => empty($options['onload']) ? 'IMP_JS.resizeViewPopup' : $options['onload'],
             'params' => $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array()),
             'urlencode' => true
         ));

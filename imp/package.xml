@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] More intelligent sizing of raw message parts opened in a popup window.
+
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

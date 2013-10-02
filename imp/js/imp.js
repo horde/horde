@@ -138,6 +138,26 @@ var IMP_JS = {
         }
         win.print();
         win.close();
+    },
+
+    resizeViewPopup: function(win)
+    {
+        var b = win.document.body,
+            h = 0,
+            w = 0;
+
+        w = b.scrollWidth - b.clientWidth;
+        if (w) {
+            w = Math.min(w, screen.availWidth - win.outerWidth - 100);
+        }
+        h = b.scrollHeight - b.clientHeight;
+        if (h) {
+            h = Math.min(h, screen.availHeight - win.outerHeight - 100);
+        }
+
+        if (w || h) {
+            win.resizeBy(w, h);
+        }
     }
 
 };

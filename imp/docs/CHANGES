@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] More intelligent sizing of raw message parts opened in a popup window.
 [mms] Load sent-mail mailbox list on demand in dynamic view.
 [mms] Allow configurable access to remote accounts from within a session
       (Request #8077).
