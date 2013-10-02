@@ -57,6 +57,67 @@ class Horde_Stream_TempTest extends Horde_Test_Case
             1,
             $stream->pos()
         );
+
+        $this->assertTrue($stream->seek(-10));
+        $this->assertEquals(
+            0,
+            $stream->pos()
+        );
+
+        $stream->seek(2);
+
+        $this->assertTrue($stream->seek(-10, true));
+        $this->assertEquals(
+            0,
+            $stream->pos()
+        );
+
+        $stream2 = new Horde_Stream_Temp();
+        $stream2->add('Aönön');
+        $stream2->utf8_char = true;
+        $stream2->rewind();
+
+        $this->assertTrue($stream2->seek(2));
+        $this->assertEquals(
+            2,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(2));
+        $this->assertEquals(
+            4,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(2, false));
+        $this->assertEquals(
+            2,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(2, false, true));
+        $this->assertEquals(
+            3,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(2, true, true));
+        $this->assertEquals(
+            6,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(-2, true, true));
+        $this->assertEquals(
+            3,
+            $stream2->pos()
+        );
+
+        $this->assertTrue($stream2->seek(-10, true, true));
+        $this->assertEquals(
+            0,
+            $stream2->pos()
+        );
     }
 
     public function testEnd()
@@ -460,6 +521,104 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         $this->assertEquals(
             4,
             $stream->search('ön', true)
+        );
+    }
+
+    public function testParsingAnExistingStreamObject()
+    {
+        $stream = new Horde_Stream_Temp();
+        // 100000 byte stream.
+        $stream->add(str_repeat('1234567890', 10000));
+        $stream->rewind();
+
+        $this->assertEquals(
+            100000,
+            $stream->length()
+        );
+
+        $stream2 = new Horde_Stream_Temp();
+        $stream2->add($stream);
+
+        $this->assertEquals(
+            100000,
+            $stream2->length()
+        );
+    }
+
+    public function testSubstring()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('1234567890');
+        $stream->rewind();
+
+        $this->assertEquals(
+            '123',
+            $stream->substring(0, 3)
+        );
+        $this->assertEquals(
+            '456',
+            $stream->substring(0, 3)
+        );
+        $this->assertEquals(
+            '7890',
+            $stream->substring(0)
+        );
+        $this->assertEquals(
+            '',
+            $stream->substring(0, 3)
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            '456',
+            $stream->substring(3, 3)
+        );
+        $this->assertEquals(
+            '',
+            $stream->substring(10, 3)
+        );
+
+        $stream->rewind();
+
+        $this->assertEquals(
+            '123',
+            $stream->substring(-3, 3)
+        );
+        $this->assertEquals(
+            '123',
+            $stream->substring(-3, 3)
+        );
+
+        $stream2 = new Horde_Stream_Temp();
+        $stream2->add('AönönAönön');
+        $stream2->utf8_char = true;
+        $stream2->rewind();
+
+        $this->assertEquals(
+            'Aö',
+            $stream2->substring(0, 3)
+        );
+
+        $stream2->rewind();
+
+        $this->assertEquals(
+            'Aön',
+            $stream2->substring(0, 3, true)
+        );
+
+        $stream2->rewind();
+
+        $this->assertEquals(
+            'AönönAönön',
+            $stream2->substring(0, null, true)
+        );
+
+        $stream2->rewind();
+
+        $this->assertEquals(
+            'Aönön',
+            $stream2->substring(5, null, true)
         );
     }
 

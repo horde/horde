@@ -79,10 +79,6 @@
        <dir name="Mysqli">
         <file name="Result.php" role="php" />
        </dir> <!-- /lib/Horde/Db/Adapter/Mysqli -->
-       <dir name="Oracle">
-        <file name="#Result.php#" role="php" />
-        <file name="Result.php" role="php" />
-       </dir> <!-- /lib/Horde/Db/Adapter/Oracle -->
        <dir name="Pdo">
         <file name="Base.php" role="php" />
         <file name="Mysql.php" role="php" />
@@ -299,8 +295,6 @@
    <install as="Horde/Db/Adapter/Mysql/Result.php" name="lib/Horde/Db/Adapter/Mysql/Result.php" />
    <install as="Horde/Db/Adapter/Mysql/Schema.php" name="lib/Horde/Db/Adapter/Mysql/Schema.php" />
    <install as="Horde/Db/Adapter/Mysqli/Result.php" name="lib/Horde/Db/Adapter/Mysqli/Result.php" />
-   <install as="Horde/Db/Adapter/Oracle/#Result.php#" name="lib/Horde/Db/Adapter/Oracle/#Result.php#" />
-   <install as="Horde/Db/Adapter/Oracle/Result.php" name="lib/Horde/Db/Adapter/Oracle/Result.php" />
    <install as="Horde/Db/Adapter/Pdo/Base.php" name="lib/Horde/Db/Adapter/Pdo/Base.php" />
    <install as="Horde/Db/Adapter/Pdo/Mysql.php" name="lib/Horde/Db/Adapter/Pdo/Mysql.php" />
    <install as="Horde/Db/Adapter/Pdo/Pgsql.php" name="lib/Horde/Db/Adapter/Pdo/Pgsql.php" />

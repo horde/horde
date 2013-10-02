@@ -131,12 +131,14 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             break;
 
         case 'POST':
-            $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
             // Autodiscover Request
             if (stripos($serverVars['REQUEST_URI'], 'autodiscover/autodiscover.xml') !== false) {
                 $this->_get['Cmd'] = 'Autodiscover';
                 $this->_get['DeviceId'] = null;
             }
+
+            $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
+
             try {
                 $ret = $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
                 if ($ret === false) {

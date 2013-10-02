@@ -2,6 +2,7 @@
 v4.1.4-git
 ----------
 
+[mjr] Expire fb cache when fb_cals preference changes (Bug #12714).
 [jan] Fix setting DTEND in iCalendar data if event has a timezone (Bug #12693).
 [mjr] Fix importing new ActiveSync events created on the client with
       recurrence.

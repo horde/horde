@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [mjr] Fix sourceselect preference handling (Bug #12718).
 * [jan] Hide citings in comments by default.
 * [jan] Move attachments list to separate ticket tab.
  </notes>
@@ -1050,6 +1051,7 @@
    <date>2013-08-29</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [mjr] Fix sourceselect preference handling (Bug #12718).
 * [jan] Hide citings in comments by default.
 * [jan] Move attachments list to separate ticket tab.
    </notes>

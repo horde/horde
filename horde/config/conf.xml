@@ -1834,7 +1834,7 @@
        </configinteger>
       </configsection>
     </case>
-    <case name="Wwo" desc="World Weather Online API. Free, requires registration. Slighty more detailed than Google.">
+    <case name="Wwo" desc="World Weather Online API. Free, requires registration.">
       <configsection name="params">
         <configstring name="key" desc="API Key. For information on registration
         and obtaining an API key for this driver, see

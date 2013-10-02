@@ -98,15 +98,13 @@ extends Horde_Imap_Client_Socket_Connection
     {
         $this->_buffer = '';
 
-        if (is_resource($data)) {
-            $data = new Horde_Stream_Existing(array(
-                'stream' => $data
-            ));
+        if ($data instanceof Horde_Stream) {
+            $data = $data->stream;
         }
 
-        $data->rewind();
-        while (!$data->eof()) {
-            if (fwrite($this->_stream, $data->getString(null, 8192)) === false) {
+        rewind($data);
+        while (!feof($data)) {
+            if (fwrite($this->_stream, fread($data, 8192)) === false) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Server write error."),
                     Horde_Imap_Client_Exception::SERVER_WRITEERROR
@@ -115,9 +113,9 @@ extends Horde_Imap_Client_Socket_Connection
         }
 
         if ($this->_debugliteral) {
-            $data->rewind();
-            while (!$data->eof()) {
-                $this->_debug->raw($data->getString(null, 8192));
+            rewind($data);
+            while (!feof($data)) {
+                $this->_debug->raw(fread($data, 8192));
             }
         } else {
             $this->_debug->client('[' . ($binary ? 'BINARY' : 'LITERAL') . ' DATA: ' . $length . ' bytes]');
