@@ -21,12 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-<<<<<<< HEAD
 *
-=======
-* [mjr] Fix some authentication issues when certain clients issue broken AutoDiscover requests.
-* [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
->>>>>>> master
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1749,7 +1744,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-02</date>
+   <date>2013-10-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix some authentication issues when certain clients issue broken AutoDiscover requests.
