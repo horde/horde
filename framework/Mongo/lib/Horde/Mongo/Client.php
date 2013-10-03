@@ -76,8 +76,11 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
      */
     public function selectDB($name)
     {
-        $this->dbname = $name;
-        return parent::selectDB($name);
+        if (!empty($name)) {
+            $this->dbname = $name;
+        }
+
+        return parent::selectDB($this->dbname);
     }
 
     /* Horde_Mongo_Client specific methods. */
