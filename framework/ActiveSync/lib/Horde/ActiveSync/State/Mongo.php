@@ -575,7 +575,12 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $query['users.device_user'] = $user;
         }
 
-        return $this->_db->device->find($query)->limit(1)->count();
+        try {
+            return $this->_db->device->find($query)->limit(1)->count();
+        } catch (Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_ActiveSync_Exception($e);
+        }
     }
 
     /**
