@@ -284,6 +284,58 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
+     * Return an array of known folders. This is essentially the state for a
+     * FOLDERSYNC request. AS uses a seperate synckey for FOLDERSYNC requests
+     * also, so need to treat it as any other collection.
+     *
+     * @return array  An array of folder uids.
+     */
+    public function getKnownFolders()
+    {
+        if (!isset($this->_folder)) {
+            throw new Horde_ActiveSync_Exception('Sync state not loaded');
+        }
+        $folders = array();
+        foreach ($this->_folder as $folder) {
+            $folders[] = $folder['id'];
+        }
+
+        return $folders;
+    }
+
+    /**
+     * Get a EAS Folder Uid for the given backend server id.
+     *
+     * @param string $serverid  The backend server id. E.g., 'INBOX'.
+     *
+     * @return string|boolean  The EAS UID for the requested serverid, or false
+     *                         if it is not found.
+     * @since 2.4.0
+     */
+    public function getFolderUidForBackendId($serverid)
+    {
+        $cache = $this->getSyncCache($this->_deviceInfo->id, $this->_deviceInfo->user);
+        $folders = $cache['folders'];
+        foreach ($folders as $id => $folder) {
+            if ($folder['serverid'] == $serverid) {
+                $this->_logger->info(sprintf(
+                    '[%s] Found serverid for %s: %s',
+                    $this->_procid,
+                    $serverid,
+                    $id));
+                return $id;
+            }
+        }
+
+        $this->_logger->info(sprintf(
+            '[%s] No folderid found for %s',
+            $this->_procid,
+            $serverid));
+
+        return false;
+    }
+
+    /**
      * Gets the new sync key for a specified sync key. You must save the new
      * sync state under this sync key when done sync'ing by calling
      * setNewSyncKey(), then save().
@@ -538,17 +590,50 @@ abstract class Horde_ActiveSync_State_Base
         $this->_loadState($type);
     }
 
+    /**
+     * Load the state represented by $syncKey from storage.
+     *
+     * @param string $type       The type of state a
+     *                           Horde_ActiveSync::REQUEST_TYPE constant.
+     *
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone
+     */
     protected function _loadState($type)
     {
-        throw new Horde_ActiveSync_Exception('Not implemented.');
+        throw new Horde_ActiveSync_Exception('Must be implemented in concrete class.');
     }
 
     /**
-     * Get the list of known folders for the specified syncState
+     * Check for the existence of ANY entries in the map table for this device
+     * and user.
      *
-     * @return array  An array of server folder ids
+     * An extra database query for each sync, but the payoff is that we avoid
+     * having to stat every message change we send to the PIM if there are no
+     * PIM generated changes for this sync period.
+     *
+     * @return boolean
+     * @throws Horde_ActiveSync_Exception
      */
-    abstract public function getKnownFolders();
+    protected function _havePIMChanges()
+    {
+        throw new Horde_ActiveSync_Exception('Must be implemented in concrete class.');
+    }
+
+    /**
+     * Determines if a specific email change originated from the client. Used to
+     * avoid mirroring back client initiated changes.
+     *
+     * @param string $id     The object id.
+     * @param array  $flags  An array of item flags.
+     * @param string $type   The type of change;
+     *                       A Horde_ActiveSync::CHANGE_TYPE_* constant.
+     *
+     * @return boolean  True if changes is due to an incoming client change.
+     */
+    protected function _isPIMChange($id, $flags, $type)
+    {
+        throw new Horde_ActiveSync_Exception('Must be implemented in concrete class.');
+    }
 
     /**
      * Save the current syncstate to storage
@@ -730,16 +815,5 @@ abstract class Horde_ActiveSync_State_Base
      * @throws Horde_ActiveSync_Exception
      */
      abstract public function isDuplicatePIMAddition($id);
-
-    /**
-     * Get a EAS Folder Uid for the given backend server id.
-     *
-     * @param string $serverid  The backend server id. E.g., 'INBOX'.
-     *
-     * @return string|boolean  The EAS UID for the requested serverid, or false
-     *                         if it is not found.
-     * @since 2.4.0
-     */
-    abstract public function getFolderUidForBackendId($serverid);
 
 }

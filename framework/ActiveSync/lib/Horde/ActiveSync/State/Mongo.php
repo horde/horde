@@ -396,26 +396,6 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     }
 
     /**
-     * Return an array of known folders. This is essentially the state for a
-     * FOLDERSYNC request. AS uses a seperate synckey for FOLDERSYNC requests
-     * also, so need to treat it as any other collection.
-     *
-     * @return array  An array of folder uids.
-     */
-    public function getKnownFolders()
-    {
-        if (!isset($this->_folder)) {
-            throw new Horde_ActiveSync_Exception('Sync state not loaded');
-        }
-        $folders = array();
-        foreach ($this->_folder as $folder) {
-            $folders[] = $folder['id'];
-        }
-
-        return $folders;
-    }
-
-    /**
      * Load the device object.
      *
      * @param string $devId   The device id to obtain
@@ -636,7 +616,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         //     $this->_db->device->update(
         //         array(),
         //         array('$set' => array('users.device_policykey' => 0)),
-        //         array('multi' => true)
+        //         array('multiple' => true)
         //     );
         // } catch (Exception $e) {
         //     $this->_logger->err($e->getMessage());
@@ -1261,38 +1241,6 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
-    }
-
-    /**
-     * Get a EAS Folder Uid for the given backend server id.
-     *
-     * @param string $serverid  The backend server id. E.g., 'INBOX'.
-     *
-     * @return string|boolean  The EAS UID for the requested serverid, or false
-     *                         if it is not found.
-     * @since 2.4.0
-     */
-    public function getFolderUidForBackendId($serverid)
-    {
-        $cache = $this->getSyncCache($this->_deviceInfo->id, $this->_deviceInfo->user);
-        $folders = $cache['folders'];
-        foreach ($folders as $id => $folder) {
-            if ($folder['serverid'] == $serverid) {
-                $this->_logger->info(sprintf(
-                    '[%s] Found serverid for %s: %s',
-                    $this->_procid,
-                    $serverid,
-                    $id));
-                return $id;
-            }
-        }
-
-        $this->_logger->info(sprintf(
-            '[%s] No folderid found for %s',
-            $this->_procid,
-            $serverid));
-
-        return false;
     }
 
     /**
