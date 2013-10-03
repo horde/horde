@@ -61,20 +61,6 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     protected $_indexes = array();
 
     /**
-     * The timestamp for the last syncKey
-     *
-     * @var timestamp
-     */
-    protected $_lastSyncStamp = 0;
-
-    /**
-     * The current sync timestamp
-     *
-     * @var timestamp
-     */
-    protected $_thisSyncStamp = 0;
-
-    /**
      * Const'r
      *
      * @param array  $params   Must contain:

@@ -62,6 +62,20 @@ abstract class Horde_ActiveSync_State_Base
     protected $_procid;
 
     /**
+     * The timestamp for the last syncKey
+     *
+     * @var timestamp
+     */
+    protected $_lastSyncStamp = 0;
+
+    /**
+     * The current sync timestamp
+     *
+     * @var timestamp
+     */
+    protected $_thisSyncStamp = 0;
+
+    /**
      * The collection array for the collection we are currently syncing.
      * Keys include:
      *   - class:       The collection class Contacts, Calendar etc...
