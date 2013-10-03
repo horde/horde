@@ -127,65 +127,15 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     }
 
     /**
-     * Load and initialize the sync state
+     * Load the state represented by $syncKey from storage.
      *
-     * @param array $collection  The collection array for the collection, if
-     *                           a FOLDERSYNC, pass an empty array.
-     * @param string $syncKey    The synckey of the state to load. If empty will
-     *                           force a reset of the state for the class
-     *                           specified in $id
      * @param string $type       The type of state a
      *                           Horde_ActiveSync::REQUEST_TYPE constant.
-     * @param string $id         The folder id this state represents. If empty
-     *                           assumed to be a foldersync state.
      *
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone
      */
-    public function loadState(array $collection, $syncKey, $type = null, $id = null)
+    protected function _loadState($type)
     {
-        // Initialize the local members.
-        $this->_collection = $collection;
-        $this->_changes = null;
-        $this->_type = $type;
-
-        // If this is a FOLDERSYNC, mock the device id.
-        if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC && empty($id)) {
-            $id = Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC;
-        }
-
-        // synckey == 0 is an initial sync or reset.
-        if (empty($syncKey)) {
-            $this->_logger->notice(sprintf(
-                '[%s] Horde_ActiveSync_State_Mongo::loadState: clearing folder state.',
-                $this->_procid));
-            if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
-                $this->_folder = array();
-            } else {
-                // Create a new folder object.
-                $this->_folder = ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL) ?
-                    new Horde_ActiveSync_Folder_Imap($this->_collection['serverid'], Horde_ActiveSync::CLASS_EMAIL) :
-                    new Horde_ActiveSync_Folder_Collection($this->_collection['serverid'], $this->_collection['class']);
-            }
-            $this->_syncKey = '0';
-            $this->_resetDeviceState($id);
-            return;
-        }
-
-        $this->_logger->info(
-            sprintf('[%s] Loading state for synckey %s',
-                $this->_procid,
-                $syncKey)
-        );
-
-        // Check if synckey is allowed
-        if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
-            throw new Horde_ActiveSync_Exception('Invalid sync key');
-        }
-        $this->_syncKey = $syncKey;
-
-        // Cleanup older syncstates
-        $this->_gc($syncKey);
-
         // Load the previous syncState from storage
         try {
             $results = $this->_db->state->findOne(
@@ -206,7 +156,6 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
         $this->_loadStateFromResults($results, $type);
     }
-
     /**
      * Actually load the state data into the object from the query results.
      *
