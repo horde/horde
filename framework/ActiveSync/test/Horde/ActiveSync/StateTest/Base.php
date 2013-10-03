@@ -31,7 +31,7 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         $deviceInfo->userAgent = 'Horde Tests';
         $deviceInfo->id = 'dev123';
         $deviceInfo->user = 'mike';
-        $deviceInfo->policykey = 0;
+        $deviceInfo->policykey = 456;
         $deviceInfo->supported = array();
 
         self::$state->setDeviceInfo($deviceInfo);
@@ -39,6 +39,69 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
 
         $di = self::$state->loadDeviceInfo('dev123', 'mike');
         $this->assertEquals($deviceInfo, $di);
+    }
+
+    /**
+     * @return [type] [description]
+     */
+    protected function _testListDevices()
+    {
+        $devices = self::$state->listDevices();
+        $this->assertCount(1, $devices);
+
+        $deviceInfo = new Horde_ActiveSync_Device(self::$state);
+        $deviceInfo->rwstatus = 0;
+        $deviceInfo->deviceType = 'Test Device';
+        $deviceInfo->userAgent = 'Horde Tests';
+        $deviceInfo->id = 'dev123';
+        $deviceInfo->user = 'ashley';
+        $deviceInfo->policykey = 123;
+        $deviceInfo->supported = array();
+        self::$state->setDeviceInfo($deviceInfo);
+
+        $devices = self::$state->listDevices();
+        $this->assertCount(2, $devices);
+    }
+
+    protected function _testPolicyKeys()
+    {
+        $device = self::$state->loadDeviceInfo('dev123', 'mike');
+        $this->assertEquals(456, $device->policykey);
+        self::$state->setPolicyKey('dev123', 789);
+
+        // Make sure it took without affected other data
+        // (need to load a different device first, to clear
+        // the local copy of the data)
+        $device = self::$state->loadDeviceInfo('dev123', 'ashley');
+        $this->assertEquals(123, $device->policykey);
+        $device = self::$state->loadDeviceInfo('dev123', 'mike');
+        $this->assertEquals(789, $device->policykey);
+
+        self::$state->resetAllPolicyKeys();
+        $device = self::$state->loadDeviceInfo('dev123', 'ashley');
+        $this->assertEquals(0, $device->policykey);
+        $device = self::$state->loadDeviceInfo('dev123', 'mike');
+        $this->assertEquals(0, $device->policykey);
+    }
+
+    protected function _testDuplicatePIMAddition()
+    {
+        // @TODO. Need to implement getChanges/saveState tests.
+    }
+
+    /**
+     * Not much testing here yet, just run through a save and check for
+     * fatals.
+     *
+     */
+    protected function _loadStateTest()
+    {
+        $collection = array(
+            'folderid' => '@Contacts@',
+            'class' => Horde_ActiveSync::CLASS_CONTACTS);
+        self::$state->loadState($collection, 0, Horde_ActiveSync::REQUEST_TYPE_SYNC, 'abcdef');
+        self::$state->setNewSyncKey('{51941e99-0b9c-41f8-b678-1532c0a8015f}1');
+        self::$state->save();
     }
 
     protected function _testCacheInitialState()
