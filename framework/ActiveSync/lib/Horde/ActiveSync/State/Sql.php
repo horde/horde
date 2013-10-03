@@ -133,13 +133,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected $_syncCacheTable;
 
     /**
-     * The process id (used for logging).
-     *
-     * @var integer
-     */
-    protected $_procid;
-
-    /**
      * Const'r
      *
      * @param array  $params   Must contain:
@@ -154,7 +147,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             throw new InvalidArgumentException('Missing or invalid Horde_Db parameter.');
         }
 
-        $this->_procid = getmypid();
         $this->_syncStateTable   = 'horde_activesync_state';
         $this->_syncMapTable     = 'horde_activesync_map';
         $this->_syncDeviceTable  = 'horde_activesync_device';

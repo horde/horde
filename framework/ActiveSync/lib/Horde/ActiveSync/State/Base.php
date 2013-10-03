@@ -55,6 +55,13 @@ abstract class Horde_ActiveSync_State_Base
     protected $_backend;
 
     /**
+     * The process id (used for logging).
+     *
+     * @var integer
+     */
+    protected $_procid;
+
+    /**
      * The collection array for the collection we are currently syncing.
      * Keys include:
      *   - class:       The collection class Contacts, Calendar etc...
@@ -119,6 +126,7 @@ abstract class Horde_ActiveSync_State_Base
         } else {
             $this->_logger = $params['logger'];
         }
+        $this->_procid = getmypid();
     }
 
     /**
