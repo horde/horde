@@ -257,6 +257,33 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
+     * Determines if the server version of the message represented by $stat
+     * conflicts with the PIM version of the message.  For this driver, this is
+     * true whenever $lastSyncTime is older then $stat['mod']. Method is only
+     * called from the Importer during an import of a non-new change from the
+     * PIM.
+     *
+     * @param array $stat   A message stat array
+     * @param string $type  The type of change (change, delete, add)
+     *
+     * @return boolean
+     */
+    public function isConflict($stat, $type)
+    {
+        // $stat == server's message information
+        if ($stat['mod'] > $this->_lastSyncStamp &&
+            ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE ||
+             $type == Horde_ActiveSync::CHANGE_TYPE_CHANGE)) {
+
+             // changed here - deleted there
+             // changed here - changed there
+             return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Gets the new sync key for a specified sync key. You must save the new
      * sync state under this sync key when done sync'ing by calling
      * setNewSyncKey(), then save().
@@ -563,18 +590,6 @@ abstract class Horde_ActiveSync_State_Base
      * @return array
      */
     abstract public function getChanges(array $options = array());
-
-    /**
-     * Determines if the server version of the message represented by $stat
-     * conflicts with the PIM version of the message according to the current
-     * state.
-     *
-     * @param array $stat   A message stat array
-     * @param string $type  The type of change (change, delete, add)
-     *
-     * @return boolean
-     */
-    abstract public function isConflict($stat, $type);
 
     /**
      * Save a new device policy key to storage.

@@ -270,33 +270,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Determines if the server version of the message represented by $stat
-     * conflicts with the PIM version of the message.  For this driver, this is
-     * true whenever $lastSyncTime is older then $stat['mod']. Method is only
-     * called from the Importer during an import of a non-new change from the
-     * PIM.
-     *
-     * @param array $stat   A message stat array
-     * @param string $type  The type of change (change, delete, add)
-     *
-     * @return boolean
-     */
-    public function isConflict($stat, $type)
-    {
-        // $stat == server's message information
-        if ($stat['mod'] > $this->_lastSyncStamp &&
-            ($type == Horde_ActiveSync::CHANGE_TYPE_DELETE ||
-             $type == Horde_ActiveSync::CHANGE_TYPE_CHANGE)) {
-
-             // changed here - deleted there
-             // changed here - changed there
-             return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Save the current state to storage
      *
      * @throws Horde_ActiveSync_Exception
