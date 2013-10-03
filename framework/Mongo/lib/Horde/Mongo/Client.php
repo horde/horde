@@ -52,7 +52,7 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
      * @deprecated
      * @see MongoClient#dropDB
      */
-    public function dropDB($db = null)
+    public function dropDB($db)
     {
         if (empty($db)) {
             $db = $this->dbname;
@@ -63,7 +63,7 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
     /**
      * @see MongoClient#selectCollection
      */
-    public function selectCollection($db = null, $collection = null)
+    public function selectCollection($db, $collection = null)
     {
         if (empty($db)) {
             $db = $this->dbname;
