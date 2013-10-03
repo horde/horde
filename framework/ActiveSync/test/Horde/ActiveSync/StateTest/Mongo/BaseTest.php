@@ -209,7 +209,11 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
         if (!class_exists('MongoDB')) {
             $this->markTestSkipped('MongoDB extension not loaded.');
         }
-        $mongo = new Horde_Mongo_Client();
+        try {
+            $mongo = new Horde_Mongo_Client();
+        } catch (MongoConnectionException $e) {
+            $this->markTestSkipped('Mongo connection failed.');
+        }
         self::$state = new Horde_ActiveSync_State_Mongo(array('connection' => $mongo->activesync_test));
         $backend = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Base');
         $backend->expects($this->any())->method('getUser')->will($this->returnValue('mike'));
