@@ -61,14 +61,6 @@ class Horde_Mongo_Client extends MongoClient implements Serializable
     }
 
     /**
-     * @see MongoClient#__get
-     */
-    public function __get($dbname)
-    {
-        return parent::__get($dbname);
-    }
-
-    /**
      * @see MongoClient#selectCollection
      */
     public function selectCollection($db = null, $collection = null)
