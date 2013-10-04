@@ -690,7 +690,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     public function setDeviceRWStatus($devId, $status)
     {
         $query = array('_id' => $devId);
-        $new_data = array('device_rwstate' => $status);
+        $new_data = array('device_rwstatus' => $status);
         if ($status == Horde_ActiveSync::RWSTATUS_PENDING) {
             $new_data['users.device_policykey'] = 0;
         }
@@ -840,7 +840,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         if (!empty($options['devId']) && !empty($options['user'])) {
             $query = array(
                 'device_id' => $options['devId'],
-                '$or' => array(array('device_rwstate' => Horde_ActiveSync::RWSTATUS_PENDING), array('device_rwstate' => Horde_ActiveSync::RWSTATUS_WIPED))
+                '$or' => array(array('device_rwstatus' => Horde_ActiveSync::RWSTATUS_PENDING), array('device_rwstatus' => Horde_ActiveSync::RWSTATUS_WIPED))
             );
             try {
                 $results = $this->_db->device->findOne($query);
@@ -1286,9 +1286,6 @@ EOT;
         }
 EOT;
         foreach (array($this->_db->map, $this->_db->mailmap) as $c) {
-            $remove = array();
-            $sql = 'SELECT sync_key FROM ' . $table
-                . ' WHERE sync_devid = ? AND sync_user = ?';
             $query = array(
                 'sync_devid' => $this->_deviceInfo->id,
                 'sync_user' => $this->_deviceInfo->user,
