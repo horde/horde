@@ -27,19 +27,26 @@ class IMP_Contacts_Image_Gravatar implements IMP_Contacts_Image_Backend
     public function rawImage($email)
     {
         if (class_exists('Horde_Service_Gravatar')) {
-            $gravatar = new Horde_Service_Gravatar();
+            $gravatar = new Horde_Service_Gravatar(
+                Horde_Service_Gravatar::STANDARD,
+                $GLOBALS['injector']->getInstance('Horde_Http_Client')
+            );
+
             $data = $gravatar->fetchAvatar($email, array(
                 'default' => 404,
                 'size' => 80
             ));
-            rewind($data);
-            $img_data = stream_get_contents($data);
 
-            if (strlen($img_data)) {
-                return Horde_Url_Data::create(
-                    'image/jpeg',
-                    $img_data
-                );
+            if (!is_null($data)) {
+                rewind($data);
+                $img_data = stream_get_contents($data);
+
+                if (strlen($img_data)) {
+                    return Horde_Url_Data::create(
+                        'image/jpeg',
+                        $img_data
+                    );
+                }
             }
         }
 
