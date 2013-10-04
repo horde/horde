@@ -1178,7 +1178,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      * Perform the change query.
      *
      * @param string $id     The object id
-     * @param array  $flag   The flag value.
+     * @param integer  $flag   The flag value.
      * @param string $field  The field containing the change type.
      *
      * @return boolean
