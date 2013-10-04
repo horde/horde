@@ -58,8 +58,54 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      *
      * @var array
      */
-    protected $_indexes = array();
-
+    protected $_indexes = array(
+        'device' => array(
+            'index_id_user' => array(
+                '_id' => 1,
+                'users.device_user' => 1
+            )
+        ),
+        'state' => array(
+            'index_devid_folderid' => array(
+                'sync_devid' => 1,
+                'sync_folderid' => 1
+            )
+        ),
+        'map' => array(
+            'index_folder_dev_uid_user' => array(
+                'sync_devid' => 1,
+                'sync_user' => 1,
+                'sync_folderid' => 1,
+                'message_uid' => 1
+            ),
+            'index_dev_user_uid_key' => array(
+                'sync_devid' => 1,
+                'sync_user' => 1,
+                'message_uid' => 1,
+                'sync_key' => 1,
+                'sync_deleted' => 1,
+            ),
+            'index_client_user_dev' => array(
+                'sync_clientid' => 1,
+                'sync_user' => 1,
+                'sync_devid' => 1
+            )
+        ),
+        'mailmap' => array(
+            'index_folder_dev_uid_user' => array(
+                'sync_devid' => 1,
+                'sync_user' => 1,
+                'sync_folderid' => 1,
+                'message_uid' => 1
+            )
+        ),
+        'cache' => array(
+            'index_dev_user' => array(
+                'cache_devid' => 1,
+                'cache_user' => 1
+            )
+        )
+    );
     /**
      * Const'r
      *
@@ -1061,9 +1107,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $keys[] = $v;
         }
         $match = array(
-            'message_uid' => $uid,
             'sync_devid' => $this->_deviceInfo->id,
             'sync_user' => $this->_deviceInfo->user,
+            'message_uid' => $uid,
             'sync_key' => array('$in' => $keys)
         );
 
@@ -1158,10 +1204,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     protected function _isPIMChangeQuery($id, $flag, $field)
     {
         $query = array(
-            'sync_folderid' => $this->_collection['id'],
             'sync_devid' => $this->_deviceInfo->id,
+            'sync_user' => $this->_deviceInfo->user,
+            'sync_folderid' => $this->_collection['id'],
             'message_uid' => $id,
-            'sync_user' => $this->_deviceInfo->user
         );
         try {
             $result = $this->_db->mailmap->findOne(
@@ -1264,14 +1310,21 @@ EOT;
      */
     public function checkMongoIndices()
     {
-        //return $this->_mongo->checkIndices($this->_db, $this->_indices);
+        foreach ($this->_indexes as $collection => $indices) {
+            if (!$this->_mongo->checkIndices($collection, $indices)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
      */
     public function createMongoIndices()
     {
-        //$this->_mongo->createIndices($this->_db, $this->_indices);
+        foreach ($this->_indexes as $collection => $indices) {
+            $this->_mongo->createIndices($collection, $indices);
+        }
     }
 
 }
