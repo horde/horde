@@ -459,9 +459,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             return $this->_deviceInfo;
         }
 
-        if (empty($user)) {
-            $query = array('_id' => $devId);
-        } else {
+        $query = array('_id' => $devId);
+        if (!empty($user)) {
             $query['users.device_user'] = $user;
         }
 
