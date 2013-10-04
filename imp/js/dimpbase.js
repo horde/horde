@@ -3135,7 +3135,7 @@ var DimpBase = {
 
     flagCallback: function(r)
     {
-        r.each(function(entry) {
+        Object.values(r).each(function(entry) {
             $H(entry.buids).each(function(m) {
                 var s = this.viewport.createSelectionBuffer(m.key).search({
                     VP_id: { equal: m.value.parseViewportUidString() }
