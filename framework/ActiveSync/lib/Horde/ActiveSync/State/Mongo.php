@@ -1190,8 +1190,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             'sync_devid' => $this->_deviceInfo->id,
             'sync_user' => $this->_deviceInfo->user,
             'sync_folderid' => $this->_collection['id'],
-            'message_uid' => $id,
+            'message_uid' => "$id",
         );
+
         try {
             $result = $this->_db->mailmap->findOne(
                 $query,
