@@ -97,14 +97,20 @@ class Horde_Service_Gravatar
      * @param integer $size  An optional size parameter. Valid values are
      *                       between 1 and 512.
      *
-     * @return string  The image URL.
+     * @return Horde_Url  The image URL.
      */
     public function getAvatarUrl($mail, $size = null)
     {
         if (!empty($size) && ($size < 1 || $size > 512)) {
             throw InvalidArgumentException('The size parameter is out of bounds');
         }
-        return $this->_base . '/avatar/' . $this->getId($mail) . (!empty($size) ? '?s=' . $size : '');
+
+        $url = new Horde_Url($this->_base . '/avatar/' . $this->getId($mail));
+        if ($size) {
+            $url->add('s', $size);
+        }
+
+        return $url;
     }
 
     /**
