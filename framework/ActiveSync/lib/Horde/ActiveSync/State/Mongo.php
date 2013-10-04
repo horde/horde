@@ -933,16 +933,17 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             return;
         }
 
-        // Do the state/map deletions.
+        // Do the state/map deletions and GC the device collection.
         try {
             $this->_db->state->remove($query);
             $this->_db->map->remove($query);
             $this->_db->mailmap->remove($query);
+            $this->_db->device->remove(array('users' => array('$size' => 0)));
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
-        // @TODO: GC the device table if all users are removed.
+
     }
 
     /**
