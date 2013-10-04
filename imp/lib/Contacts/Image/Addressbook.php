@@ -28,8 +28,6 @@ class IMP_Contacts_Image_Addressbook implements IMP_Contacts_Image_Backend
     {
         global $injector, $registry;
 
-        return null;
-
         if ($registry->hasMethod('contacts/search')) {
             $sparams = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
 
@@ -45,10 +43,19 @@ class IMP_Contacts_Image_Addressbook implements IMP_Contacts_Image_Backend
                 ));
 
                 if (isset($res[$email][0]['photo'])) {
-                    return Horde_Url_Data::create(
-                        $res[$email][0]['photo'],
-                        $res[$email][0]['phototype']
-                    );
+                    try {
+                        $img = $injector->getInstance('Horde_Core_Factory_Image')->create();
+                        $img->loadString($res[$email][0]['photo']['load']['data']);
+                        $img->resize(80, 80, true);
+
+                        $data = $img->raw(true);
+                        $type = $img->getContentType();
+                    } catch (Horde_Exception $e) {
+                        $data = $res[$email][0]['photo']['load']['data'];
+                        $type = $res[$email][0]['phototype'];
+                    }
+
+                    return Horde_Url_Data::create($type, $data);
                 }
             } catch (Horde_Exception $e) {}
         }
