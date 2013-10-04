@@ -503,47 +503,29 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     public function setDeviceInfo($data)
     {
-        // @TODO: Look to see if any of this can be combined into less queries.
-        if (!$this->_db->device->find(array('_id' => $data->id))->limit(1)->count()) {
-            $this->_logger->info(sprintf('[%s] Device entry does not exist for %s creating it.', $this->_procid, $data->id));
-            $device = array(
-                '_id' => $data->id,
-                'device_type' => $data->deviceType,
-                'device_agent' => !empty($data->userAgent) ? $data->userAgent : '',
-                'device_rwstatus' => $data->rwstatus,
-                'device_id' => $data->id,
-                'device_supported' => empty($data->supported) ? $data->supported : array()
-            );
-            try {
-                $this->_db->device->insert($device);
-            } catch (Exception $e) {
-                $this->_logger->err($e->getMessage());
-                throw new Horde_ActiveSync_Exception($e);
-            }
-        } else {
-            $this->_logger->info((sprintf(
-                '[%s] Device entry exists for %s, updating userAgent and version.',
-                 $this->_procid,
-                 $data->id)));
-        }
-
-        $new_data = array(
+        $user_data = array(
+            'device_user' => $data->user,
+            'device_policykey' => $data->policykey
+        );
+        $device = array(
+            'device_type' => $data->deviceType,
             'device_agent' => !empty($data->userAgent) ? $data->userAgent : '',
+            'device_rwstatus' => $data->rwstatus,
+            'device_id' => $data->id,
+            'device_supported' => empty($data->supported) ? $data->supported : array(),
             'device_properties' => $data->properties,
         );
         try {
             $this->_db->device->update(
                 array('_id' => $data->id),
-                array('$set' => $new_data)
+                array('$set' => $device),
+                array('upsert' => true)
             );
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
-        $user_data = array(
-            'device_user' => $data->user,
-            'device_policykey' => $data->policykey
-        );
+
         try {
             $this->_db->device->update(
                 array('_id' => $data->id),
