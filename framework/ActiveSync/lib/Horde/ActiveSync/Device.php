@@ -97,7 +97,7 @@ class Horde_ActiveSync_Device
      */
     public function __set($property, $value)
     {
-        if ($value != $this->_properties[$property]) {
+        if (!isset($this->_properties[$property]) || $value != $this->_properties[$property]) {
             $this->_dirty = true;
             $this->_properties[$property] = $value;
         }
