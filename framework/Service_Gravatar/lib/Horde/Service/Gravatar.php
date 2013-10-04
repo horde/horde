@@ -175,11 +175,15 @@ class Horde_Service_Gravatar
      * @param string $mail  The mail address.
      * @param mixed $opts   Additional options. See getAvatarUrl().
      *
-     * @return resource  The image as stream resource.
+     * @return resource  The image as stream resource, or null if the server
+     *                   returned an error.
      */
     public function fetchAvatar($mail, $opts = array())
     {
-        return $this->_client->get($this->getAvatarUrl($mail, $opts))->getStream();
+        $get = $this->_client->get($this->getAvatarUrl($mail, $opts));
+        return ($get->code == 404)
+            ? null
+            : $get->getStream();
     }
 
 }
