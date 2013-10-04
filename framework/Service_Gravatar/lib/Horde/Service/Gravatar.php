@@ -93,21 +93,30 @@ class Horde_Service_Gravatar
      * returned URL can be directly used with an IMG tag e.g.:
      * &lt;img src="http://www.gravatar.com/avatar/hash" /&gt;
      *
-     * @param string $mail   The mail address.
-     * @param integer $size  An optional size parameter. Valid values are
-     *                       between 1 and 512.
+     * @param string $mail  The mail address.
+     * @param mixed $opts   Additional options. If an integer, treated as the
+     *                      'size' option.  If an array, the following options
+     *                      are available:
+     * <pre>
+     *   - size: (integer) Image size. Valid values are between 1 and 512.
+     * </pre>
      *
      * @return Horde_Url  The image URL.
      */
-    public function getAvatarUrl($mail, $size = null)
+    public function getAvatarUrl($mail, $opts = array())
     {
-        if (!empty($size) && ($size < 1 || $size > 512)) {
+        if (is_integer($opts)) {
+            $opts = array('size' => $opts);
+        }
+
+        if (!empty($opts['size']) &&
+            (($opts['size'] < 1) || ($opts['size'] > 512))) {
             throw InvalidArgumentException('The size parameter is out of bounds');
         }
 
         $url = new Horde_Url($this->_base . '/avatar/' . $this->getId($mail));
-        if ($size) {
-            $url->add('s', $size);
+        if (!empty($opts['size'])) {
+            $url->add('s', $opts['size']);
         }
 
         return $url;
@@ -153,14 +162,14 @@ class Horde_Service_Gravatar
     /**
      * Fetch the avatar image.
      *
-     * @param string $mail   The mail address.
-     * @param integer $size  An optional size parameter.
+     * @param string $mail  The mail address.
+     * @param mixed $opts   Additional options. See getAvatarUrl().
      *
      * @return resource  The image as stream resource.
      */
-    public function fetchAvatar($mail, $size = null)
+    public function fetchAvatar($mail, $opts = array())
     {
-        return $this->_client->get($this->getAvatarUrl($mail, $size))->getStream();
+        return $this->_client->get($this->getAvatarUrl($mail, $opts))->getStream();
     }
 
 }

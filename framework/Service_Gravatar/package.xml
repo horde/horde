@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Change second parameter to getAvatarUrl() and fetchAvatar() to an array so that additional options can be provided.
 * [mms] getAvatarUrl() now returns a Horde_Url object.
 * Initial release.
  </notes>
@@ -125,6 +126,7 @@
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Change second parameter to getAvatarUrl() and fetchAvatar() to an array so that additional options can be provided.
 * [mms] getAvatarUrl() now returns a Horde_Url object.
 * Initial release.
    </notes>
