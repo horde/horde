@@ -61,6 +61,13 @@ class Horde_ActiveSync_Device
     protected $_state;
 
     /**
+     * Dirty flag
+     *
+     * @var boolean
+     */
+    protected $_dirty = false;
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_State_Base $state  The state driver.
@@ -77,7 +84,11 @@ class Horde_ActiveSync_Device
      */
     public function &__get($property)
     {
-        return $this->_properties[$property];
+        if (isset($this->_properties[$property])) {
+            return $this->_properties[$property];
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -85,7 +96,10 @@ class Horde_ActiveSync_Device
      */
     public function __set($property, $value)
     {
-        $this->_properties[$property] = $value;
+        if ($value != $this->_properties[$property]) {
+            $this->_dirty = true;
+            $this->_properties[$property] = $value;
+        }
     }
 
     /**
@@ -216,7 +230,10 @@ class Horde_ActiveSync_Device
 
     public function save()
     {
-        $this->_state->setDeviceInfo($this);
+        if ($this->_dirty) {
+            $this->_state->setDeviceInfo($this);
+            $this->_dirty = false;
+        }
     }
 
 }
