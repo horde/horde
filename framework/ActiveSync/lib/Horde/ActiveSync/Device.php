@@ -87,7 +87,8 @@ class Horde_ActiveSync_Device
         if (isset($this->_properties[$property])) {
             return $this->_properties[$property];
         } else {
-            return null;
+            $return = null;
+            return $return;
         }
     }
 
