@@ -196,7 +196,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $this->_logger->err(sprintf(
                 '[%s] Could not find state for synckey %s.',
                 $this->_procid,
-                $syncKey));
+                $this->_syncKey));
             throw new Horde_ActiveSync_Exception_StateGone();
         }
 
@@ -276,9 +276,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             'sync_timestamp' => time());
 
         $this->_logger->info(
-            sprintf('[%s] Saving state for sync_key %s',
+            sprintf('[%s] Saving state for sync_key %s: %s',
                 $this->_procid,
-                $this->_syncKey));
+                $this->_syncKey,
+                serialize($document)));
         try {
             $this->_db->state->insert($document);
         } catch (Exception $e) {
