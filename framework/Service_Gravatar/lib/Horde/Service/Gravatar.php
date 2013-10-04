@@ -98,6 +98,10 @@ class Horde_Service_Gravatar
      *                      'size' option.  If an array, the following options
      *                      are available:
      * <pre>
+     *   - default: (string) Default behavior. Valid values are '404', 'mm',
+     *              'identicon', 'monsterid', 'wavatar', 'retro', 'blank', or
+     *              a URL-encoded URL to use as the default image.
+     *   - rating: (string) Rating. Valid values are 'g', 'pg', 'r', and 'x'.
      *   - size: (integer) Image size. Valid values are between 1 and 512.
      * </pre>
      *
@@ -115,6 +119,12 @@ class Horde_Service_Gravatar
         }
 
         $url = new Horde_Url($this->_base . '/avatar/' . $this->getId($mail));
+        if (!empty($opts['default'])) {
+            $url->add('d', $opts['default']);
+        }
+        if (!empty($opts['rating'])) {
+            $url->add('r', $opts['rating']);
+        }
         if (!empty($opts['size'])) {
             $url->add('s', $opts['size']);
         }
