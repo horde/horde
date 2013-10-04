@@ -864,7 +864,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                         'class' => 'widget',
                         'id' => 'addressbook_popup'
                     )),
-                    'img' => Horde::img('addressbook_browse.png'),
+                    'img' => Horde_Themes_Image::tag('addressbook_browse.png'),
                     'label' => _("Address Book")
                 );
                 $js_vars['ImpCompose.contacts_url'] = strval(IMP_Basic_Contacts::url()->setRaw(true));
@@ -883,7 +883,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 $url = new Horde_Url('#attachments');
                 $compose_options[] = array(
                     'url' => $url->link(array('class' => 'widget')),
-                    'img' => Horde::img('attachment.png'),
+                    'img' => Horde_Themes_Image::tag('attachment.png'),
                     'label' => _("Attachments")
                 );
             }
