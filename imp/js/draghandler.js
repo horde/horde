@@ -15,9 +15,11 @@ var DragHandler = {
 
     handleDrop: function(e)
     {
-        this.dropelt.hide();
-        this.droptarget.show();
-        this.dropelt.fire('DragHandler:drop', e);
+        if (this.dropelt.hasClassName(this.hoverclass)) {
+            this.dropelt.hide();
+            this.droptarget.show();
+            this.dropelt.fire('DragHandler:drop', e);
+        }
         e.stop();
     },
 
@@ -47,10 +49,10 @@ var DragHandler = {
     {
         if (e.target == this.dropelt) {
             this.dropelt.addClassName(this.hoverclass);
-            e.stop();
         } else {
             this.dropelt.removeClassName(this.hoverclass);
         }
+        e.stop();
     },
 
     onDomLoad: function()
