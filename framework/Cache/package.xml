@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix key expiration for APC, Eaccelerator, and Xcache (Bug #12735).
 * [mms] Add Horde_Cache_Storage_Memoryoverlay driver.
  </notes>
  <contents>
@@ -518,6 +519,7 @@ Initial packaging.
    <date>2013-09-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix key expiration for APC, Eaccelerator, and Xcache (Bug #12735).
 * [mms] Add Horde_Cache_Storage_Memoryoverlay driver.
    </notes>
   </release>
