@@ -2656,7 +2656,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         ob_start();
         $return = array(
             'rows' => array(),
-            'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS
+            'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS,
+            'total' => 0
         );
         try {
             $results = $this->_connector->contacts_search(
@@ -2669,11 +2670,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Honor range, and don't bother if no results
+        $results = array_pop($results);
         $count = count($results);
         if (!$count) {
             $this->_endBuffer();
             return $return;
         }
+        $return['total'] = $count;
         $this->_logger->info(sprintf(
             "[%s] Horde_Core_ActiveSync_Driver::_searchGal() found %d matches.",
             $this->_pid,
@@ -2683,9 +2686,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             preg_match('/(.*)\-(.*)/', $query['range'], $matches);
             $return_count = $matches[2] - $matches[1];
             $rows = array_slice($results, $matches[1], $return_count + 1, true);
-            $rows = array_pop($rows);
-        } else {
-            $rows = array_pop($results);
         }
 
         $picture_count = 0;
