@@ -330,14 +330,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folders[] = $this->getFolder(self::NOTES_FOLDER_UID);
             }
 
-            if (array_search('mail', $supported) !== false) {
-                try {
-                    $folders = array_merge($folders, $this->_getMailFolders());
-                } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    $this->_endBuffer();
-                    return array();
-                }
+            // Always return at least the "dummy" IMAP folders since some
+            // clients refuse to consider a FOLDERSYNC successful without
+            // at least an INBOX, even with email sync turned off.
+            try {
+                $folders = array_merge($folders, $this->_getMailFolders());
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                $this->_endBuffer();
+                return array();
             }
 
             $this->_endBuffer();
