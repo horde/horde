@@ -155,11 +155,12 @@ class Horde_ActiveSync_Device
         }
 
         // X-MS-WL header check for Outlook and Windows 8 Mail.
-        if (!empty($this->_headers['x-ms-wl'])) {
-            if (strpos($this->_headers['x-ms-wl'], 'WindowsMail') !== false ||
-                strpos($this->_headers['x-ms-wl'], 'Outlook') !== false) {
+        if (!empty($this->_headers['x-ms-wl']) &&
+            (strpos($this->_headers['x-ms-wl'], 'WindowsMail') !== false ||
+             strpos($this->_headers['x-ms-wl'], 'Outlook') !== false)) {
 
                 return true;
+            }
         }
 
         // Last chance to catch Windows 8 Mail.
