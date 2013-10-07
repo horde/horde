@@ -745,9 +745,8 @@ class Horde_ActiveSync
             // Device might exist, but with a new (additional) user account
             if ($this->_state->deviceExists($devId)) {
                 $device = $this->_state->loadDeviceInfo($devId);
-                $device->headers = $this->_request->getHeaders();
             } else {
-                $device = new Horde_ActiveSync_Device($this->_state, $this->_request->getHeaders());
+                $device = new Horde_ActiveSync_Device($this->_state);
             }
             $device->policykey = 0;
             $device->userAgent = $this->_request->getHeader('User-Agent');
