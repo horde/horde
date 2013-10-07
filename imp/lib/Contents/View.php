@@ -266,24 +266,42 @@ class IMP_Contents_View
                 }
             }
 
-            $css = $page_output->css;
-            $style = '';
+            /* Cache CSS. */
+            $cache_list = array();
+            $cache_ob = $injector->getInstance('Horde_Cache');
 
-            try {
-                $css_parser = new Horde_Css_Parser($css->loadCssFiles($css->getStylesheets()));
+            $css_list = $page_output->css->getStylesheets();
+            foreach ($css_list as $val) {
+                $cache_list[] = $val;
+                $cache_list[] = filemtime($val);
+            }
+            $cache_id = hash('md5', implode('', $cache_list));
 
-                foreach ($css_parser->doc->getContents() as $val) {
-                    if (($val instanceof Sabberworm\CSS\RuleSet\DeclarationBlock) &&
-                        array_intersect($selectors, array_map('strval', $val->getSelectors()))) {
-                        $style .= implode('', array_map('strval', $val->getRules()));
+            if (($style = $cache_ob->get($cache_id, 0)) === false) {
+                try {
+                    $css_parser = new Horde_Css_Parser(
+                        $page_output->css->loadCssFiles(
+                            $page_output->css->getStylesheets()
+                        )
+                    );
+
+                    $style = '';
+
+                    foreach ($css_parser->doc->getContents() as $val) {
+                        if (($val instanceof Sabberworm\CSS\RuleSet\DeclarationBlock) &&
+                            array_intersect($selectors, array_map('strval', $val->getSelectors()))) {
+                            $style .= implode('', array_map('strval', $val->getRules()));
+                        }
                     }
-                }
 
-                if (strlen($style)) {
-                    $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
+                    $cache_ob->set($cache_id, $style, 86400);
+                } catch (Exception $e) {
+                    // Ignore CSS if it can't be parsed.
                 }
-            } catch (Exception $e) {
-                // Ignore CSS if it can't be parsed.
+            }
+
+            if (strlen($style)) {
+                $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
             }
         }
 

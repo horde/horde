@@ -2,6 +2,7 @@
 v6.2.0-git
 ----------
 
+[mms] Cache generation of print-specific CSS.
 [mms] Add support for showing a contact image in the contacts popup box in
       dynamic view.
 [mms] Add ability to create a new filter rule from the contacts dropdown in the
