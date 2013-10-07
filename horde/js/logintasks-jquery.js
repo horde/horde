@@ -19,6 +19,13 @@ $(document).on('click', function(e) {
     }
 });
 
+$(document).bind("pageinit", function() {
+    $("#logintasks form").on('submit', function() {
+        $(this).find('button[type="submit"]').button('disable');
+        $.mobile.showPageLoadingMsg();
+    });
+});
+
 $(function() {
     $('#logintasks_skip').show();
 });
