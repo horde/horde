@@ -2,6 +2,8 @@
 v6.2.0-git
 ----------
 
+[mms] Add ability to specify maximum total attachment size in composed message
+      before all attachments are converted to links.
 [mms] Cache generation of print-specific CSS.
 [mms] Add support for showing a contact image in the contacts popup box in
       dynamic view.

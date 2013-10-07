@@ -2560,10 +2560,30 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _linkAttachments(&$body, $html)
     {
+        global $conf;
+
+        $link_all = false;
         $linked = array();
 
-        foreach ($this as $val) {
-            if (!$val->related && $val->linked) {
+        if (!empty($conf['compose']['link_attach_size_hard'])) {
+            $limit = intval($conf['compose']['link_attach_size_hard']);
+            foreach ($this as $val) {
+                if (($limit -= $val->getPart()->getBytes()) < 0) {
+                    $link_all = true;
+                    break;
+                }
+            }
+        }
+
+        foreach (iterator_to_array($this) as $key => $val) {
+            if ($link_all && !$val->linked) {
+                $val = new IMP_Compose_Attachment($this, $val->getPart(), $val->storage->getTempFile());
+                $val->forceLinked = true;
+                unset($this[$key]);
+                $this[$key] = $val;
+            }
+
+            if ($val->linked && !$val->related) {
                 $linked[] = $val;
             }
         }

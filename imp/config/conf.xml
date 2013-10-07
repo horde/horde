@@ -42,6 +42,9 @@
      <configinteger name="link_attach_size_limit" desc="The maximum total size
      of linked attachments allowed per message (in bytes)? Set to 0 for no
      limit.">0</configinteger>
+     <configinteger name="link_attach_size_hard" desc="The maximum total size
+     of attachments to a message (in bytes) before ALL attachments are linked.
+     Set to 0 to not enforce a hard limit.">0</configinteger>
     </case>
     <case name="false" desc="No" />
    </configswitch>

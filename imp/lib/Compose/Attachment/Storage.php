@@ -93,6 +93,30 @@ abstract class IMP_Compose_Attachment_Storage
     abstract public function write($filename, Horde_Mime_Part $part);
 
     /**
+     * Writes attachment data to a temporary file.
+     *
+     * @return string  Temporary file path.
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function getTempFile()
+    {
+        $stream = $this->read();
+        rewind($stream);
+
+        $tmp = Horde::getTempFile('impatt');
+        $fd = fopen($tmp, 'w+');
+
+        while (!feof($stream)) {
+            fwrite($fd, fread($stream, 8192));
+        }
+                                                                                        fclose($stream);
+        fclose($fd);
+
+        return $tmp;
+    }
+
+    /**
      * Delete data from storage.
      */
     abstract public function delete();

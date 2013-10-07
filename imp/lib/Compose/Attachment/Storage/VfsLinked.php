@@ -30,6 +30,13 @@ class IMP_Compose_Attachment_Storage_VfsLinked extends IMP_Compose_Attachment_St
     const VFS_LINK_ATTACH_PATH = '.horde/imp/attachments';
 
     /**
+     * Force this attachment to be linked.
+     *
+     * @var boolean
+     */
+    public $forceLinked = false;
+
+    /**
      * Cached metadata information.
      *
      * @var array
@@ -73,7 +80,8 @@ class IMP_Compose_Attachment_Storage_VfsLinked extends IMP_Compose_Attachment_St
     {
         global $browser, $conf;
 
-        if (filesize($filename) < intval($conf['compose']['link_attach_threshold'])) {
+        if (!$this->forceLinked &&
+            (filesize($filename) < intval($conf['compose']['link_attach_threshold']))) {
             $this->_vfspath = self::VFS_ATTACH_PATH;
             parent::write($filename, $part);
             return;

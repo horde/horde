@@ -35,7 +35,10 @@ Upgrading IMP From 6.1.x To 6.2
 Configuration Options (conf.php)
 --------------------------------
 
-The $conf['contactsimage']['backends'] options has been added.
+The following options have been added::
+
+   $conf['compose']['link_attach_size_hard']
+   $conf['contactsimage']['backends']
 
 
 
