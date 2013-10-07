@@ -34,7 +34,7 @@
  * @property array properties         The device properties, sent in DEVICEINFO.
  * @property string announcedVersion  The most last EAS supported versions
  *                                    announced to the device.
- *
+ * @property array headers            Current request headers.
  */
 class Horde_ActiveSync_Device
 {
@@ -61,15 +61,23 @@ class Horde_ActiveSync_Device
     protected $_state;
 
     /**
+     * Request headers
+     *
+     * @var array
+     */
+    protected $_headers;
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_State_Base $state  The state driver.
      * @param array $data                         The current device data.
      */
-    public function __construct(Horde_ActiveSync_State_Base $state, array $data = array())
+    public function __construct(Horde_ActiveSync_State_Base $state, array $data = array(), array $headers = array())
     {
         $this->_state = $state;
         $this->_properties = $data;
+        $this->_headers = $headers;
     }
 
     /**
@@ -77,6 +85,10 @@ class Horde_ActiveSync_Device
      */
     public function &__get($property)
     {
+        if ($property == 'headers') {
+            return $this->_headers;
+        }
+
         return $this->_properties[$property];
     }
 
@@ -85,7 +97,11 @@ class Horde_ActiveSync_Device
      */
     public function __set($property, $value)
     {
-        $this->_properties[$property] = $value;
+        if ($value == 'headers') {
+            $this->_headers = $value;
+        } else {
+            $this->_properties[$property] = $value;
+        }
     }
 
     /**
@@ -130,11 +146,24 @@ class Horde_ActiveSync_Device
     {
         // Outlook? The specs say that "Windows Communication Apps" should
         // provide the 'OS' parameter of the ITEMSETTINGS data equal to 'Windows',
-        // but Outlook 2013 doesn't even sent the ITEMSETTINGS command, so we
+        // but Outlook 2013 doesn't even send the ITEMSETTINGS command, so we
         // need to check the userAgent header. Early versions used Microsoft.Outlook,
         // but after some update it was changed to 'Outlook/15.0'
         if (strpos($this->deviceType, 'MicrosoftOutlook') !== false ||
             strpos($this->userAgent, 'Outlook') !== false) {
+            return true;
+        }
+
+        // X-MS-WL header check for Outlook and Windows 8 Mail.
+        if (!empty($this->_headers['x-ms-wl'])) {
+            if (strpos($this->_headers['x-ms-wl'], 'WindowsMail') !== false ||
+                strpos($this->_headers['x-ms-wl'], 'Outlook') !== false) {
+
+                return true;
+        }
+
+        // Last chance to catch Windows 8 Mail.
+        if (strpos($this->_deviceType, 'WindowsMail') !== false) {
             return true;
         }
 
