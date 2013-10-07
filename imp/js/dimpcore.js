@@ -266,10 +266,7 @@ var DimpCore = {
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if ((tmp2 = e.element().retrieve('email')) && !tmp2.g && tmp2.p) {
-                tmp.insert({ top: new Element('DIV', { className: 'sep' }) })
-                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp2.b.escapeHTML()) });
-
+            if (tmp2 = e.element().retrieve('email')) {
                 this.doAction('getContactsImage', {
                     addr: tmp2.b
                 }, {
@@ -279,6 +276,11 @@ var DimpCore = {
                         });
                     }
                 });
+
+                if (!tmp2.g && tmp2.p) {
+                    tmp.insert({ top: new Element('DIV', { className: 'sep' }) })
+                        .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp2.b.escapeHTML()) });
+                }
             }
             break;
         }
