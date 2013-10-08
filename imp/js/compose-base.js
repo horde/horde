@@ -72,6 +72,13 @@ var ImpComposeBase = {
         }
 
         elt.setValue(v + e.memo.value + ', ');
+    },
+
+    focus: function(elt)
+    {
+        elt = $(elt);
+        elt.focus();
+        $(document).fire('AutoComplete:focus', elt);
     }
 
 };

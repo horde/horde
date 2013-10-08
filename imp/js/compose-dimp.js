@@ -572,8 +572,7 @@ var DimpCompose = {
         this.setBodyText(ob);
         this.resizeMsgArea();
 
-        Field.focus(ob.opts.focus || 'to');
-        $(document).fire('AutoComplete:focus', $(ob.opts.focus || 'to'));
+        ImpComposeBase.focus(ob.opts.focus || 'to');
 
         this.fillFormHash();
     },
@@ -869,7 +868,7 @@ var DimpCompose = {
 
         this.resizeMsgArea();
 
-        $(type).focus();
+        ImpComposeBase.focus(type);
     },
 
     sentMailListCallback: function(r)

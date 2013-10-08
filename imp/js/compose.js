@@ -87,7 +87,7 @@ var ImpCompose = {
         case 'redirect':
             if ($F('to').empty()) {
                 alert(this.text.recipient);
-                $('to').focus();
+                ImpComposeBase.focus('to');
                 return;
             }
 
@@ -152,6 +152,8 @@ var ImpCompose = {
         default:
             return;
         }
+
+        $(document).fire('AutoComplete:submit');
 
         if (this.editor_wait && ImpComposeBase.editor_on) {
             return this.uniqSubmit.bind(this, actionID, e).defer();
@@ -290,7 +292,7 @@ var ImpCompose = {
         HordeCore.initHandler('click');
 
         if (this.redirect) {
-            $('to').focus();
+            ImpComposeBase.focus('to');
         } else {
             handler = this.keyDownHandler.bindAsEventListener(this);
             /* Prevent Return from sending messages - it should bring us out
@@ -308,7 +310,7 @@ var ImpCompose = {
                 $('subject').observe('keydown', function(e) {
                     if (e.keyCode == Event.KEY_TAB && !e.shiftKey) {
                         e.stop();
-                        $('composeMessage').focus();
+                        ImpComposeBase.focus('composeMessage');
                     }
                 });
             }
@@ -319,13 +321,9 @@ var ImpCompose = {
             }
 
             if ($('to') && !$F('to')) {
-                $('to').focus();
+                ImpComposeBase.focus('to');
             } else if (!$F('subject')) {
-                if (ImpComposeBase.editor_on) {
-                    $('subject').focus();
-                } else {
-                    $('composeMessage').focus();
-                }
+                ImpComposeBase.focus(ImpComposeBase.editor_on ? 'subject' : 'composeMessage');
             }
 
             document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
