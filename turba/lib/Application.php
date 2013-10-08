@@ -448,7 +448,7 @@ class Turba_Application extends Horde_Registry_Application
             }
 
             try {
-                $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create('documents');
+                $vfs = $object->vfsInit();
             } catch (Horde_Vfs_Exception $e) {
                 throw new Turba_Exception(_("Data cannot be downloaded as no VFS driver is configured."));
             }

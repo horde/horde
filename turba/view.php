@@ -32,7 +32,7 @@ if (!$object->hasPermission(Horde_Perms::READ)) {
 }
 
 try {
-    $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create('documents');
+    $vfs = $object->vfsInit();
 } catch (Horde_Exception $e) {
     throw new Turba_Exception($e);
 }
