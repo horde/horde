@@ -17,11 +17,10 @@
  */
 var IMP_PrettyAutocompleter = Class.create({
 
-    // Vars used and defaulting to null/false:
-    //   initialized, p
-
     initialize: function(elt, params)
     {
+        var active;
+
         this.p = Object.extend({
             // Outer div/fake input box and CSS class
             // box (created below)
@@ -45,21 +44,6 @@ var IMP_PrettyAutocompleter = Class.create({
             // field that hold the text values.
             elt: $(elt)
         }, params || {});
-
-        this.init();
-    },
-
-    /**
-     * Initializes the autocompleter, builds the dom structure, registers
-     * events...
-     */
-    init: function()
-    {
-        var active;
-
-        if (this.initialized) {
-            return;
-        }
 
         this.p.box = new Element('DIV', { className: this.p.boxClass });
 
