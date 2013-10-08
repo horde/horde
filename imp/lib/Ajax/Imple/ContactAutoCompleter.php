@@ -24,6 +24,15 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
 {
     /**
      */
+    protected function _getAutoCompleter()
+    {
+        return new IMP_Ajax_Imple_AutoCompleter_Pretty(
+            $this->_getAutoCompleterParams()
+        );
+    }
+
+    /**
+     */
     protected function _getAutoCompleterParams()
     {
         global $conf;

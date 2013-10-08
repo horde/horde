@@ -540,3 +540,19 @@ span.mimePartInfoSize {
 .refreshIcon {
     background-image: url("graphics/reload.png");
 }
+
+/* Autocomplete styles. */
+.impACBox {
+    display: inline-block;
+    max-height: 150px;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 3px;
+    width: 500px;
+}
+.impACListItem li {
+    font-size: 100% !important;
+}
+.impACItemRemove {
+    padding-left: 3px;
+}

@@ -626,8 +626,10 @@ div.dimpActionsMsg #windowclose {
     font-weight: bold;
 }
 .msgwrite span.loadingImg {
-    padding: 1px;
-    position: absolute;
+    display: inline-block;
+    margin: 0 0 0 10px;
+    padding: 2px;
+    position: relative;
     right: 10px;
     top: 4px;
     filter: alpha(opacity=75);
@@ -665,12 +667,6 @@ div.dimpActionsMsg #windowclose {
 .atcdrop_over {
     border-color: #111 !important;
     color: #111 !important;
-}
-
-.msgwrite .sendtextarea {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
 }
 
 #noticerow .notices li {

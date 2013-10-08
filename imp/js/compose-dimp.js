@@ -856,8 +856,6 @@ var DimpCompose = {
         var t = $('toggle' + type),
             s = t.siblings().first();
 
-        new TextareaResize(type);
-
         $('send' + type).show();
         if (s && s.visible()) {
             t.hide();
@@ -1196,7 +1194,6 @@ var DimpCompose = {
         /* Initialize redirect elements. */
         if (DimpCore.conf.redirect) {
             $('redirect').observe('submit', Event.stop);
-            new TextareaResize('redirect_to');
             if (DimpCore.conf.URI_ABOOK) {
                 $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
             }
@@ -1275,8 +1272,6 @@ var DimpCompose = {
             this.setPopdownLabel('e', $F('encrypt'));
         }
 
-        new TextareaResize('to');
-
         /* Add addressbook link formatting. */
         if (DimpCore.conf.URI_ABOOK) {
             $('sendto', 'sendcc', 'sendbcc', 'redirect_sendto').compact().each(function(a) {
@@ -1307,7 +1302,6 @@ Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bindAsEventListener(Di
 
 /* Other UI event handlers. */
 document.observe('ImpContacts:update', DimpCompose.onContactsUpdate.bindAsEventListener(DimpCompose));
-document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
 
 /* ContextSensitive functions. */
 document.observe('ContextSensitive:click', DimpCompose.contextOnClick.bindAsEventListener(DimpCompose));
