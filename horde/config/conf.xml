@@ -2076,7 +2076,8 @@
       </configboolean>
       <configenum name="version" desc="What is the highest version of EAS that
       Horde should support? All versions are backwards compatible so selecting
-      a higher version also includes support for the lower versions as well.">14
+      a higher version also includes support for the lower versions as well. Set
+      to EAS 14.1 unless you have a good reason not to.">14.1
       <values>
        <value desc="Exchange 2003 (EAS 2.5)">2.5</value>
        <value desc="Exchange 2007 (EAS 12.0)">12</value>
