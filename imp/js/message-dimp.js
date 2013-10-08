@@ -54,7 +54,10 @@ var DimpMessage = {
             type: type,
             view: this.mbox
         }, {
-            callback: DimpCompose.fillForm.bind(DimpCompose),
+            callback: function(r) {
+                DimpCompose.fillForm(r);
+                $('compose').fire('AutoComplete:reset');
+            },
             uids: [ this.buid ]
         });
     },

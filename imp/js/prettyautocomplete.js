@@ -12,7 +12,7 @@
 var IMP_PrettyAutocompleter = Class.create({
 
     // Vars used and defaulting to null/false:
-    //   initialized, p
+    //   ignore, initialized, p
 
     initialize: function(elt, params)
     {
@@ -40,7 +40,7 @@ var IMP_PrettyAutocompleter = Class.create({
             elt: $(elt)
         }, params || {});
 
-        this.reset();
+        this.init();
     },
 
     /**
@@ -59,28 +59,33 @@ var IMP_PrettyAutocompleter = Class.create({
         // Look for clicks on the box to simulate clicking in an input box
         this.p.box.observe('click', this.clickHandler.bindAsEventListener(this));
 
-        this.p.input.observe('blur', this.processValue.bind(this))
-            .observe('keydown', this.keydownHandler.bindAsEventListener(this));
+        this.p.input.observe('blur', function() {
+            if (!this.ignore) {
+                this.processValue($F(this.p.input));
+                this.p.input.setValue('');
+            }
+        }.bind(this));
+        this.p.input.observe('keydown', this.keydownHandler.bindAsEventListener(this));
 
+        this.p.onShow = function() { this.ignore = true; }.bind(this);
+        this.p.onHide = function() { this.ignore = false; }.bind(this);
         this.p.onSelect = this.updateElement.bind(this);
         this.p.paramName = this.p.elt.readAttribute('name');
 
         new Ajax.Autocompleter(this.p.input, this.p.uri, this.p);
 
+        this.processValue($F(this.p.elt));
+
+        document.observe('AutoComplete:reset', this.reset.bind(this));
+
         this.initialized = true;
     },
 
-    /**
-     * Resets the autocompleter's state.
-     */
     reset: function()
     {
-        if (!this.initialized) {
-            this.init();
-        }
-
-        // Clear the hidden items field
-        this.p.elt.setValue('');
+        this.currentEntries().invoke('remove');
+        this.p.input.setValue('');
+        this.processValue($F(this.p.elt));
     },
 
     buildStructure: function()
@@ -105,15 +110,13 @@ var IMP_PrettyAutocompleter = Class.create({
         // move the old element into the structure while making sure it's
         // hidden.
         this.p.box.insert(this.p.elt.replace(this.p.box).hide());
-
-        this.processValue();
     },
 
-    processValue: function()
+    processValue: function(value)
     {
-        $F(this.p.input).split(',').each(function(a) {
-            if (!a.empty()) {
-                this.updateElement(a.strip());
+        value.split(',').invoke('strip').each(function(a) {
+            if (!a.empty() && this.addNewItem(a)) {
+                this.p.onAdd(a);
             }
         }, this);
     },
@@ -123,6 +126,7 @@ var IMP_PrettyAutocompleter = Class.create({
     {
         if (this.addNewItem(item)) {
             this.p.onAdd(item);
+            this.p.input.setValue('');
         }
     },
 
@@ -153,7 +157,6 @@ var IMP_PrettyAutocompleter = Class.create({
                         )
                         .store('raw', value)
         });
-        this.p.input.setValue('');
 
         // Add to hidden input field.
         this.updateHiddenInput();
@@ -170,9 +173,14 @@ var IMP_PrettyAutocompleter = Class.create({
         });
     },
 
+    currentEntries: function()
+    {
+        return this.p.input.up('UL').select('LI.' + this.p.listClassItem);
+    },
+
     currentValues: function()
     {
-        return this.p.input.up('UL').select('LI.' + this.p.listClassItem).collect(function(elt) {
+        return this.currentEntries().collect(function(elt) {
             return elt.retrieve('raw');
         });
     },
@@ -201,7 +209,8 @@ var IMP_PrettyAutocompleter = Class.create({
         // Check for a comma
         if (e.keyCode == 188) {
             if (!this.p.requireSelection) {
-                this.processValue();
+                this.processValue($F(this.p.input));
+                this.p.input.setValue('');
             }
             e.stop();
         } else {
