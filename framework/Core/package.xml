@@ -30,7 +30,7 @@
  </developer>
  <date>2013-10-08</date>
  <version>
-  <release>2.9.0</release>
+  <release>2.9.1</release>
   <api>2.9.0</api>
  </version>
  <stability>
@@ -39,14 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Send back dummy mail folders when the Mail API is not available (Bug #12738).
-* [mms] Upgrade prototype.js to most recent git version (e3d5200cef3236b257ddcfb1eb3eabc5c586bedd).
-* [mms] Cache permission results within a PHP access.
-* [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
-* [mjr] Support ActiveSync SOFTDELETE.
-* [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
-* [mjr] Support for X509 certificate authentication in ActiveSync requests.
-* [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3171,6 +3164,19 @@
 * [mms] Respect &apos;nobase64_img&apos; configuration when generating image tags (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Support for X509 certificate authentication in ActiveSync requests.
 * [mjr] Fix calculating policy value for SD card encryption and device encryption policies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.1</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
