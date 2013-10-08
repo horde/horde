@@ -2705,8 +2705,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 Horde_ActiveSync::GAL_OFFICE => !empty($row['office']) ? $row['office'] : '',
             );
             if (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_PICTURE])) {
-                $picture = new Horde_ActiveSync_Message_GalPicture(
-                    array('protocolversion' => $this->_version, 'logger' => $this->_logger));
+                $picture = Horde_ActiveSync::messageFactory('GalPicture');
                 if (empty($row['photo'])) {
                     $picture->status = Horde_ActiveSync_Status::NO_PICTURE;
                 } elseif (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_MAXPICTURES]) &&
@@ -2716,7 +2715,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                           strlen($row['photo']) > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXSIZE]) {
                     $picture->status = Horde_ActiveSync_Status::PICTURE_TOO_LARGE;
                 } else {
-                    $picture->data = $row['photo'];
+                    $picture->data = base64_encode($row['photo']['load']['data']);
                     $picture->status = Horde_ActiveSync_Status::PICTURE_SUCCESS;
                     ++$picture_count;
                 }

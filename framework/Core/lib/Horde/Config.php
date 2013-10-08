@@ -110,7 +110,7 @@ class Horde_Config
      * @return array  Keys are app names, values are arrays with two keys:
      *                'version' and 'url'.
      * @throws Horde_Exception
-     * @throws Horde_Http_Client_Exception
+     * @throws Horde_Http_Exception, Horde_Exception
      */
     public function checkVersions()
     {

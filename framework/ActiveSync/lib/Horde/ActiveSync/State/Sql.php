@@ -492,6 +492,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     'class' => $change['class'],
                     'id' => $change['folderuid']);
             }
+            $syncKey = empty($this->_syncKey)
+                ? $this->getLatestSynckeyForCollection($this->_collection['id'])
+                : $this->_syncKey;
 
             // This is an incoming change from the PIM, store it so we
             // don't mirror it back to device.
@@ -525,7 +528,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 }
                 $params = array(
                     $change['id'],
-                    (empty($this->_syncKey) ? 0 : $this->_syncKey),
+                    $syncKey,
                     $this->_deviceInfo->id,
                     $this->_collection['id'],
                     $user,
@@ -541,7 +544,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $params = array(
                    $change['id'],
                    $change['mod'],
-                   empty($this->_syncKey) ? 0 : $this->_syncKey,
+                   $syncKey,
                    $this->_deviceInfo->id,
                    $change['serverid'],
                    $user,
@@ -1313,6 +1316,25 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         } else {
             return $data;
         }
+    }
+
+    /**
+     * Return the most recent synckey for the specified collection.
+     *
+     * @param  string $collection_id  The activesync collection id.
+     *
+     * @return string|integer  The synckey or 0 if not found.
+     * @since 2.9.0
+     */
+    public function getLatestSynckeyForCollection($collection_id)
+    {
+        // For now, pull in the raw cache_data. Will change when each bit of
+        // data gets it's own field.
+        $data = $this->getSyncCache($this->_deviceInfo->id, $this->_deviceInfo->user);
+
+        return !empty($data['collections'][$collection_id]['lastsynckey'])
+            ? $data['collections'][$collection_id]['lastsynckey']
+            : 0;
     }
 
     /**

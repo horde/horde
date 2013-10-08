@@ -102,7 +102,7 @@ class Horde_Service_Facebook_Request_Graph extends Horde_Service_Facebook_Reques
                     'Content-Length' => strlen($content)
                 )
             );
-        } catch (Horde_Http_Client_Exception $e) {
+        } catch (Horde_Http_Exception $e) {
             throw new Horde_Service_Facebook_Exception(sprintf(Horde_Service_Facebook_Translation::t("Upload failed: %s"), $e->getMessage()));
         }
 
@@ -130,7 +130,7 @@ class Horde_Service_Facebook_Request_Graph extends Horde_Service_Facebook_Reques
 
         try {
             $result = $this->_http->request($this->_request, $this->_endpoint->toString(true), $params);
-        } catch (Horde_Http_Client_Exception $e) {
+        } catch (Horde_Http_Exception $e) {
             $this->_facebook->logger->err($e->getMessage());
             throw new Horde_Service_Facebook_Exception($e);
         }

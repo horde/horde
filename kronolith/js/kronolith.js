@@ -6590,7 +6590,7 @@ KronolithCore = {
                 HordeCore.doAction('poll');
                 $(kronolithGotoToday).update(Date.today().toString(Kronolith.conf.date_format));
             },
-            6
+            60
         );
     }
 
