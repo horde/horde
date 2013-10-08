@@ -124,6 +124,21 @@ The following items are not required, but are strongly **RECOMMENDED**:
 The following items are not required, but if present will enable advanced
 features in IMP:
 
+1. Kronolith, the Horde calendar application.
+
+   Kronolith is the Horde calendar application, designed to be integrated with
+   other Horde applications to provide a unified interface to provide calendar
+   features throughout the Horde suite.
+
+   Kronolith is available from:
+
+      http://www.horde.org/apps/kronolith
+
+   Kronolith allows a user to create/edit calendar events based on attachments
+   to email messages.
+
+   You must use the 4.x branch of Kronolith.
+
 1. Nag, the Horde tasks manager.
 
    Nag is the Horde tasks management application, designed to be integrated
@@ -136,7 +151,7 @@ features in IMP:
 
    Nag allows a user to create new tasks from individual email messages.
 
-   You must use the 3.x branch of Nag with IMP 5.x.
+   You must use the 3.x branch of Nag.
 
 
 Installing IMP

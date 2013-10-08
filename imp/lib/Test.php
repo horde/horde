@@ -69,8 +69,12 @@ class IMP_Test extends Horde_Test
      */
     protected $_appList = array(
         'ingo' => array(
-            'error' => 'Ingo provides basic mail filtering capabilities to IMP.',
+            'error' => 'Ingo provides mail filtering capabilities to IMP.',
             'version' => '3.0'
+        ),
+        'kronolith' => array(
+            'error' => 'Kronolith provides calendaring capabilities to IMP.',
+            'version' => '4.0'
         ),
         'nag' => array(
             'error' => 'Nag allows tasks to be directly created from e-mail data.',
