@@ -1371,6 +1371,7 @@ div.GrowlerNoticeExit {
     background:transparent none repeat scroll 0 0;
     border:0 none;
     display:inline;
+    outline: none;
     position:static;
     width:80px;
     font-size: 111%;
