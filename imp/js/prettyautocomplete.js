@@ -2,6 +2,12 @@
  * An autocompleter implementation that provides a more advanced UI
  * (completed elements are stored in separate DIV elements).
  *
+ * Events handled by this class:
+ *   - AutoCompleter:focus
+ *   - AutoCompleter:reset
+ *   - AutoCompleter:submit
+ *
+ *
  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
