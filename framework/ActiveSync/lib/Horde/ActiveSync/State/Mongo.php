@@ -511,7 +511,6 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             'device_type' => $data->deviceType,
             'device_agent' => !empty($data->userAgent) ? $data->userAgent : '',
             'device_rwstatus' => $data->rwstatus,
-            'device_id' => $data->id,
             'device_supported' => empty($data->supported) ? $data->supported : array(),
             'device_properties' => $data->properties,
         );
@@ -822,7 +821,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         // time it connects.
         if (!empty($options['devId']) && !empty($options['user'])) {
             $query = array(
-                'device_id' => $options['devId'],
+                '_id' => $options['devId'],
                 '$or' => array(array('device_rwstatus' => Horde_ActiveSync::RWSTATUS_PENDING), array('device_rwstatus' => Horde_ActiveSync::RWSTATUS_WIPED))
             );
             try {
@@ -861,7 +860,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             // Remove device data for user
             try {
                 $this->_db->device->update(
-                    array('device_id' => $options['devId'], 'users.device_user' => $options['user']),
+                    array('_id' => $options['devId'], 'users.device_user' => $options['user']),
                     array('$pull' => array('users' => array('device_user' => $options['user'])))
                 );
             } catch (Exception $e) {
