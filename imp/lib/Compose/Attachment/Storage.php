@@ -110,7 +110,7 @@ abstract class IMP_Compose_Attachment_Storage
         while (!feof($stream)) {
             fwrite($fd, fread($stream, 8192));
         }
-                                                                                        fclose($stream);
+        fclose($stream);
         fclose($fd);
 
         return $tmp;
