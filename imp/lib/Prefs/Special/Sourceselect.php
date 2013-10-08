@@ -50,7 +50,6 @@ class IMP_Prefs_Special_Sourceselect implements Horde_Core_Prefs_Ui_Special
 
         if (isset($data['sources'])) {
             $prefs->setValue('search_sources', $data['sources']);
-            $session->remove('imp', 'ac_ajax');
             $updated = true;
         }
 

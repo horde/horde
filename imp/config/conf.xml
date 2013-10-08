@@ -67,13 +67,6 @@
    no limit.">200000</configinteger>
 
    <configheader>Address Autocompletion</configheader>
-   <configinteger name="ac_browser" desc="For autocompletion of addresses,
-   the maximum number of entries present in the user's addressbook before the
-   queries will be handled by the server. For addressbooks with less than this
-   value, the entire addressbook will be transmitted to the browser in the
-   compose page. The latter results in faster lookups, but requires additional
-   processing when generating the compose page. Set to 0 to
-   disable.">50</configinteger>
    <configinteger name="ac_threshold" desc="When autocompleting addresses on
    the compose screen, the minimum number of characters required before the
    the addressbook is searched.">3</configinteger>

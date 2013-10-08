@@ -40,6 +40,10 @@ The following options have been added::
    $conf['compose']['link_attach_size_hard']
    $conf['contactsimage']['backends']
 
+The following options have been removed::
+
+   $conf['compose']['ac_threshold']
+
 
 
 Upgrading IMP From 6.1.x To 6.1.4
