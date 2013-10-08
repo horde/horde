@@ -553,7 +553,7 @@ abstract class Horde_ActiveSync_State_Base
         if (empty($syncKey)) {
             return '{' . new Horde_Support_Uuid() . '}' . '1';
         } else {
-            if (preg_match('/^s{0,1}\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
+            if (preg_match('/^\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
                 $n = $matches[2];
                 $n++;
 
@@ -572,7 +572,7 @@ abstract class Horde_ActiveSync_State_Base
      */
     static public function getSyncKeyCounter($syncKey)
     {
-       if (preg_match('/^s{0,1}\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
+       if (preg_match('/^\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             $n = $matches[2];
             return $n;
         }
@@ -589,7 +589,7 @@ abstract class Horde_ActiveSync_State_Base
      */
     static public function getSyncKeyUid($syncKey)
     {
-       if (preg_match('/^s{0,1}(\{[a-fA-F0-9-]+\})([0-9]+)$/', $syncKey, $matches)) {
+       if (preg_match('/^(\{[a-fA-F0-9-]+\})([0-9]+)$/', $syncKey, $matches)) {
             return $matches[1];
         }
     }
@@ -781,7 +781,7 @@ abstract class Horde_ActiveSync_State_Base
         );
 
         // Check if synckey is allowed
-        if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
+        if (!preg_match('/^\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             throw new Horde_ActiveSync_Exception('Invalid sync key');
         }
         $this->_syncKey = $syncKey;

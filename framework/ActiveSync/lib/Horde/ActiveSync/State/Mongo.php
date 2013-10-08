@@ -1219,7 +1219,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     protected function _gc($syncKey)
     {
-        if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
+        if (!preg_match('/^\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             return;
         }
         $guid = $matches[1];
@@ -1230,7 +1230,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         // key if the PIM never received the new key in a SYNC response.
         $js = <<<EOT
         function() {
-            var p = /^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/;
+            var p = /^\{([0-9A-Za-z-]+)\}([0-9]+)$/;
             var results = this.sync_key.match(p);
             if (results && results[1] == "{$guid}" && results[2] < {$n}) {
                 return true;
@@ -1261,7 +1261,7 @@ EOT;
         // above.
         $js = <<<EOT
         function() {
-            var p = /^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/;
+            var p = /^\{([0-9A-Za-z-]+)\}([0-9]+)$/;
             var results = this.sync_key.match(p);
             if (results && results[1] == "{$guid}" && results[2] < {$n}) {
                 return true;

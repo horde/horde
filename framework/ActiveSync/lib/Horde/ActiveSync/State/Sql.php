@@ -1219,7 +1219,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     protected function _gc($syncKey)
     {
-        if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
+        if (!preg_match('/^\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             return;
         }
         $guid = $matches[1];
@@ -1245,7 +1245,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $remove = array();
         $guids = array($guid);
         foreach ($results as $oldkey) {
-            if (preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $oldkey['sync_key'], $matches)) {
+            if (preg_match('/^\{([0-9A-Za-z-]+)\}([0-9]+)$/', $oldkey['sync_key'], $matches)) {
                 if ($matches[1] == $guid && $matches[2] < ($n - 1)) {
                     $remove[] = $oldkey['sync_key'];
                 }
@@ -1285,7 +1285,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 throw new Horde_ActiveSync_Exception($e);
             }
             foreach ($maps as $key) {
-                if (preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $key, $matches)) {
+                if (preg_match('/^\{([0-9A-Za-z-]+)\}([0-9]+)$/', $key, $matches)) {
                     if ($matches[1] == $guid && $matches[2] < ($n - 1)) {
                         $remove[] = $key;
                     }
