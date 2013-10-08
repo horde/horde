@@ -354,8 +354,7 @@ class Horde_ActiveSync_Imap_Adapter
                     $mbox,
                     $query,
                     array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
-                // @todo change to $search_ret['count'] when Bug: 12682 is fixed
-                if (count($search_ret['match']->ids)) {
+                if ($search_ret['count']) {
                     $this->_logger->info(sprintf('Found %d messages to SOFTDELETE.', count($search_ret['match']->ids)));
                     $folder->setSoftDeleted($search_ret['match']->ids);
                 } else {
