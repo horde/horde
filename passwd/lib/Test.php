@@ -37,10 +37,6 @@ class Passwd_Test extends Horde_Test
             'descrip' => 'Mcrypt Support',
             'error' => 'If you will be using the smbldap driver for password changes, PHP must have mcrypt support. Compile PHP <code>--with-mcrypt</code> before continuing.'
         ),
-        'mhash' => array(
-            'descrip' => 'Mhash Support',
-            'error' => 'If you will be using the smbldap driver for password changes, PHP must have mhash support. Compile PHP <code>--with-mhash</code> before continuing.'
-        ),
         'soap' => array(
             'descrip' => 'SOAP Support',
             'error' => 'If you will be using the SOAP driver for password changes, PHP must have soap support. Compile PHP with <code>--enable-soap</code> before continuing.'
