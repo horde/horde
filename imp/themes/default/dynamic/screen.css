@@ -990,7 +990,7 @@ span.logoutIcon {
     background-image: url("../graphics/filters.png");
 }
 
-#ctx_contacts img.contactimg {
+#ctx_contacts img.contactimg, #ctx_contacts img.flagimg {
     display: block;
     margin-left: auto;
     margin-right: auto;

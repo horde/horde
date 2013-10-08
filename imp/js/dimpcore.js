@@ -250,13 +250,12 @@ var DimpCore = {
 
     contextOnShow: function(e)
     {
-        var remove = [],
-            tmp, tmp2;
+        var remove, tmp, tmp2;
 
         switch (e.memo) {
         case 'ctx_contacts':
             tmp = $(e.memo);
-            remove.push(tmp.down('IMG.contactimg'));
+            remove = tmp.select('IMG');
             tmp2 = tmp.down('DIV.contactAddr');
             if (tmp2) {
                 remove.push(tmp2.next());
@@ -271,9 +270,15 @@ var DimpCore = {
                     addr: tmp2.b
                 }, {
                     callback: function (r) {
-                        tmp.insert({
-                            top: new Element('IMG', { src: r.url }).addClassName('contactimg')
-                        });
+                        if (r.flagimg) {
+                            tmp.insert({ top: r.flagimg })
+                                .down().addClassName('flagimg');
+                        }
+                        if (r.url) {
+                            tmp.insert({
+                                top: new Element('IMG', { src: r.url }).addClassName('contactimg')
+                            });
+                        }
                     }
                 });
 
