@@ -1232,7 +1232,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         function() {
             var p = /^\{([0-9A-Za-z-]+)\}([0-9]+)$/;
             var results = this.sync_key.match(p);
-            if (results && results[1] == "{$guid}" && results[2] < {$n}) {
+            if (results && (results[1] == "$guid") && (results[2] < $n)) {
                 return true;
             } else if (!results) {
                 return true;
@@ -1263,7 +1263,7 @@ EOT;
         function() {
             var p = /^\{([0-9A-Za-z-]+)\}([0-9]+)$/;
             var results = this.sync_key.match(p);
-            if (results && results[1] == "{$guid}" && results[2] < {$n}) {
+            if (results && (results[1] == "$guid") && (results[2] < $n)) {
                 return true;
             }
 
