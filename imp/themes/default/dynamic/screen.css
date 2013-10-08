@@ -626,12 +626,11 @@ div.dimpActionsMsg #windowclose {
     font-weight: bold;
 }
 .msgwrite span.loadingImg {
-    display: inline-block;
-    margin: 0 0 0 10px;
+    float: right;
+    margin-top: auto;
     padding: 2px;
     position: relative;
-    right: 10px;
-    top: 4px;
+    right: 8px;
     filter: alpha(opacity=75);
     -moz-opacity: .75;
     opacity: .75;
