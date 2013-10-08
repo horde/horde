@@ -12,7 +12,7 @@
 var IMP_PrettyAutocompleter = Class.create({
 
     // Vars used and defaulting to null/false:
-    //   ignore, initialized, p
+    //   initialized, p
 
     initialize: function(elt, params)
     {
@@ -83,16 +83,8 @@ var IMP_PrettyAutocompleter = Class.create({
         // Look for clicks on the box to simulate clicking in an input box
         this.p.box.observe('click', this.clickHandler.bindAsEventListener(this));
 
-        this.p.input.observe('blur', function() {
-            if (!this.ignore) {
-                this.processValue($F(this.p.input));
-                this.p.input.setValue('');
-            }
-        }.bind(this));
         this.p.input.observe('keydown', this.keydownHandler.bindAsEventListener(this));
 
-        this.p.onShow = function() { this.ignore = true; }.bind(this);
-        this.p.onHide = function() { this.ignore = false; }.bind(this);
         this.p.onSelect = this.updateElement.bind(this);
         this.p.paramName = this.p.elt.readAttribute('name');
 
@@ -107,6 +99,7 @@ var IMP_PrettyAutocompleter = Class.create({
             }
         }.bindAsEventListener(this));
         document.observe('AutoComplete:reset', this.reset.bind(this));
+        document.observe('AutoComplete:submit', this.processInput.bind(this));
 
         this.initialized = true;
     },
@@ -121,6 +114,12 @@ var IMP_PrettyAutocompleter = Class.create({
         this.currentEntries().invoke('remove');
         this.p.input.setValue('');
         this.processValue($F(this.p.elt));
+    },
+
+    processInput: function()
+    {
+        this.processValue($F(this.p.input));
+        this.p.input.setValue('');
     },
 
     processValue: function(value)
@@ -223,8 +222,7 @@ var IMP_PrettyAutocompleter = Class.create({
         case 188:
             // Comma
             if (!this.p.requireSelection) {
-                this.processValue($F(this.p.input));
-                this.p.input.setValue('');
+                this.processInput();
             }
             e.stop();
             return;

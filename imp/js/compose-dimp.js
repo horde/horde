@@ -218,6 +218,9 @@ var DimpCompose = {
                 (function() { if (this.disabled) { this.uniqueSubmit(action); } }).bind(this).delay(0.25);
                 return;
             }
+
+            $(document).fire('AutoComplete:submit');
+            break;
         }
 
         this.skip_spellcheck = false;
