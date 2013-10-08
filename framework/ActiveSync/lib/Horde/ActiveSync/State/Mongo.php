@@ -1230,7 +1230,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $js = <<<EOT
         function() {
             var p = /^\{([0-9A-Za-z-]+)\}([0-9]+)$/;
-            var results = this.sync_key.match(p);
+            var results = p.exec(this.sync_key);
             if (results && (results[1] == "$guid") && (results[2] < $n)) {
                 return true;
             } else if (!results) {
@@ -1261,7 +1261,7 @@ EOT;
         $js = <<<EOT
         function() {
             var p = /^\{([0-9A-Za-z-]+)\}([0-9]+)$/;
-            var results = this.sync_key.match(p);
+            var results = p.exec(this.sync_key);
             if (results && (results[1] == "$guid") && (results[2] < $n)) {
                 return true;
             }
