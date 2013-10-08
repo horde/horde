@@ -343,7 +343,7 @@ class Horde_Themes_Css
                 } else {
                     if ($dataurl) {
                         /* Limit data to 16 KB in stylesheets. */
-                        $url_ob->setString(Horde::base64ImgData($path . $url_str, 16384));
+                        $url_ob->setString(Horde_Themes_Image::base64ImgData($path . $url_str, 16384));
                     } else {
                         $url_ob->setString($path . $url_str);
                     }
