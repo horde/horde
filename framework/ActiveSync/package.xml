@@ -12,7 +12,7 @@
  </lead>
  <date>2013-10-08</date>
  <version>
-  <release>2.8.3</release>
+  <release>2.8.4</release>
   <api>2.8.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix returning contact image in GAL search for those clients that support it.
-* [mjr] Fix GAL searching for clients that depend on SEARCH_RANGE values.
-* [mjr] Fix some authentication issues when certain clients issue broken AutoDiscover requests.
-* [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1754,6 +1751,19 @@
 * [mjr] Fix GAL searching for clients that depend on SEARCH_RANGE values.
 * [mjr] Fix some authentication issues when certain clients issue broken AutoDiscover requests.
 * [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.4</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
