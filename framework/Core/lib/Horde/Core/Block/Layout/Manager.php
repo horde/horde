@@ -579,7 +579,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
         }
 
         return Horde::link($url, $title) .
-            Horde::img('block/' . $img . '.png', $title) . '</a>';
+            Horde_Themes_Image::tag('block/' . $img . '.png', array('alt' => $title)) . '</a>';
     }
 
     /**
