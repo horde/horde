@@ -96,7 +96,7 @@ var IMP_PrettyAutocompleter = Class.create({
         this.p.input = new Element('INPUT', {
             autocomplete: 'off',
             className: this.p.growingInputClass
-        }).setValue($F(this.p.elt));
+        });
 
         // Build the outer box
         this.p.box.insert(
