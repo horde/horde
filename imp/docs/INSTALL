@@ -139,7 +139,7 @@ features in IMP:
 
    You must use the 4.x branch of Kronolith.
 
-1. Nag, the Horde tasks manager.
+2. Nag, the Horde tasks manager.
 
    Nag is the Horde tasks management application, designed to be integrated
    with other Horde applications to provide a unified interface to task
