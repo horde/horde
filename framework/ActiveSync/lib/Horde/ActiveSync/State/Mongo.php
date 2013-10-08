@@ -787,9 +787,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $this->_logger->err('Device not loaded');
             throw new Horde_ActiveSync_Exception('Device not loaded');
         }
-
+        $this->_logger->debug(sprintf('Setting policykey: %s, %s, %s', $devId, $this->_backend->getUser(), $key));
         $query = array('_id' => $devId, 'users.device_user' => $this->_backend->getUser());
-        $update = array('$set' => array('users.$.device_policykey' => $key));
+        $update = array('$set' => array('users.$.device_policykey' => "$key"));
         try {
             $this->_db->device->update($query, $update);
         } catch (Exception $e) {
