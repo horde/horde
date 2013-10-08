@@ -787,7 +787,7 @@ abstract class Horde_ActiveSync_State_Base
         $this->_syncKey = $syncKey;
 
         // Cleanup older syncstates
-        //$this->_gc($syncKey);
+        $this->_gc($syncKey);
 
         // Load the state
         $this->_loadState($type);
