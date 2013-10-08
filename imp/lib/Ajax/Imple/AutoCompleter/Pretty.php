@@ -37,6 +37,7 @@ extends Horde_Core_Ajax_Imple_AutoCompleter_Ajax
             array(
                 'boxClass' => 'hordeACBox impACBox',
                 'deleteIcon' => strval(Horde_Themes::img('delete-small.png')),
+                'listClass' => 'hordeACList impACList',
                 'removeClass' => 'hordeACItemRemove impACItemRemove',
                 'triggerContainer' => strval(new Horde_Support_Randomid())
             ), $params)

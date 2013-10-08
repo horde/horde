@@ -570,6 +570,7 @@ var DimpCompose = {
         this.resizeMsgArea();
 
         Field.focus(ob.opts.focus || 'to');
+        $(document).fire('AutoComplete:focus', $(ob.opts.focus || 'to'));
 
         this.fillFormHash();
     },

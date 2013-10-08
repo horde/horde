@@ -49,12 +49,36 @@ var IMP_PrettyAutocompleter = Class.create({
      */
     init: function()
     {
+        var active;
+
         if (this.initialized) {
             return;
         }
 
-        // Build the DOM structure
-        this.buildStructure();
+        this.p.box = new Element('DIV', { className: this.p.boxClass });
+
+        // The input element and the <li> wrapper
+        this.p.input = new Element('INPUT', {
+            autocomplete: 'off',
+            className: this.p.growingInputClass
+        });
+
+        // Build the outer box
+        this.p.box.insert(
+            // The list - where the chosen items are placed as <li> nodes
+            new Element('UL', { className: this.p.listClass }).insert(
+                new Element('LI').insert(this.p.input)
+            )
+        );
+
+        // Replace the single input element with the new structure and
+        // move the old element into the structure while making sure it's
+        // hidden.
+        active = (document.activeElement && (document.activeElement == this.p.elt));
+        this.p.box.insert(this.p.elt.replace(this.p.box).hide());
+        if (active) {
+            this.focus();
+        }
 
         // Look for clicks on the box to simulate clicking in an input box
         this.p.box.observe('click', this.clickHandler.bindAsEventListener(this));
@@ -76,9 +100,20 @@ var IMP_PrettyAutocompleter = Class.create({
 
         this.processValue($F(this.p.elt));
 
+        document.observe('AutoComplete:focus', function(e) {
+            if (e.memo == this.p.elt) {
+                this.focus();
+                e.stop();
+            }
+        }.bindAsEventListener(this));
         document.observe('AutoComplete:reset', this.reset.bind(this));
 
         this.initialized = true;
+    },
+
+    focus: function()
+    {
+        this.p.input.focus();
     },
 
     reset: function()
@@ -86,30 +121,6 @@ var IMP_PrettyAutocompleter = Class.create({
         this.currentEntries().invoke('remove');
         this.p.input.setValue('');
         this.processValue($F(this.p.elt));
-    },
-
-    buildStructure: function()
-    {
-        this.p.box = new Element('DIV', { className: this.p.boxClass });
-
-        // The input element and the <li> wrapper
-        this.p.input = new Element('INPUT', {
-            autocomplete: 'off',
-            className: this.p.growingInputClass
-        });
-
-        // Build the outer box
-        this.p.box.insert(
-            // The list - where the chosen items are placed as <li> nodes
-            new Element('UL', { className: this.p.listClass }).insert(
-                new Element('LI').insert(this.p.input)
-            )
-        );
-
-        // Replace the single input element with the new structure and
-        // move the old element into the structure while making sure it's
-        // hidden.
-        this.p.box.insert(this.p.elt.replace(this.p.box).hide());
     },
 
     processValue: function(value)
@@ -201,23 +212,40 @@ var IMP_PrettyAutocompleter = Class.create({
             this.updateHiddenInput();
         }
 
-        this.p.input.focus();
+        this.focus();
     },
 
     keydownHandler: function(e)
     {
-        // Check for a comma
-        if (e.keyCode == 188) {
+        var tmp;
+
+        switch (e.keyCode || e.charCode) {
+        case 188:
+            // Comma
             if (!this.p.requireSelection) {
                 this.processValue($F(this.p.input));
                 this.p.input.setValue('');
             }
             e.stop();
-        } else {
-            this.p.input.setStyle({
-                width: Math.max(80, $F(this.p.input).length * 9) + 'px'
-            });
+            return;
+
+        case Event.KEY_DELETE:
+        case Event.KEY_BACKSPACE:
+            if (!$F(this.p.input).length) {
+                tmp = this.currentEntries().last();
+                if (tmp) {
+                    this.p.input.setValue(tmp.retrieve('raw'));
+                    tmp.remove();
+                    this.updateHiddenInput();
+                    e.stop();
+                }
+            }
+            break;
         }
+
+        this.p.input.setStyle({
+            width: Math.max(80, $F(this.p.input).length * 9) + 'px'
+        });
     }
 
 });

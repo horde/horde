@@ -56,7 +56,7 @@ var DimpMessage = {
         }, {
             callback: function(r) {
                 DimpCompose.fillForm(r);
-                $('compose').fire('AutoComplete:reset');
+                $(document).fire('AutoComplete:reset');
             },
             uids: [ this.buid ]
         });

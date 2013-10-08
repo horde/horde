@@ -550,8 +550,8 @@ span.mimePartInfoSize {
     padding: 3px;
     width: 500px;
 }
-.impACListItem li {
-    font-size: 100% !important;
+.impACList li.hordeACListItem {
+    font-size: 100%;
 }
 .impACItemRemove {
     padding-left: 3px;
