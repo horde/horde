@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix returning contact image in GAL search for those clients that support it.
 * [mjr] Fix GAL searching for clients that depend on SEARCH_RANGE values.
 * [mjr] Fix some authentication issues when certain clients issue broken AutoDiscover requests.
 * [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
@@ -1749,6 +1750,7 @@
    <date>2013-10-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix returning contact image in GAL search for those clients that support it.
 * [mjr] Fix GAL searching for clients that depend on SEARCH_RANGE values.
 * [mjr] Fix some authentication issues when certain clients issue broken AutoDiscover requests.
 * [mjr] Fix some minor issues with Autodiscover requests caught by unit testing.
