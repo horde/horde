@@ -29,7 +29,7 @@ class Horde_Core_Ui_FlagImage
             return '';
         }
 
-        $img = strval(Horde::img('flags/' . $data['code'] . '.png', $data['name'], array('title' => $data['name'])));
+        $img = Horde_Themes_Image::tag('flags/' . $data['code'] . '.png', $data['name'], array('attr' => array('title' => $data['name'])));
 
         return $img
             ? $img
