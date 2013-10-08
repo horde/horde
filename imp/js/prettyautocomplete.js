@@ -247,7 +247,7 @@ var IMP_PrettyAutocompleter = Class.create({
     {
         var tmp;
 
-        switch (e.keyCode || e.charCode) {
+        switch (!e.shiftKey && (e.which || e.keyCode || e.charCode)) {
         case 188:
             // Comma
             if (!this.p.requireSelection) {
