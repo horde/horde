@@ -156,15 +156,18 @@ var IMP_PrettyAutocompleter = Class.create({
         displayValue = this.p.displayFilter(value);
 
         this.p.input.up('LI').insert({
-            before: new Element('LI', { className: this.p.listClassItem })
-                        .insert(displayValue)
-                        .insert(
-                            new Element('IMG', {
-                                className: this.p.removeClass,
-                                src: this.p.deleteIcon
-                            })
-                        )
-                        .store('raw', value)
+            before: new Element('LI', {
+                        className: this.p.listClassItem,
+                        title: value
+                    })
+                    .insert(displayValue)
+                    .insert(
+                        new Element('IMG', {
+                            className: this.p.removeClass,
+                            src: this.p.deleteIcon
+                        })
+                    )
+                    .store('raw', value)
         });
 
         // Add to hidden input field.
