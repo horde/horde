@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Address autocompleter on dynamic and basic page now uses a fancy UI.
 * [mms] Add ability to specify maximum total attachment size in composed message before all attachments are converted to links.
 * [mms] Cache generation of print-specific CSS.
 * [mms] Add support for showing a contact image in the contacts popup box in dynamic view.
