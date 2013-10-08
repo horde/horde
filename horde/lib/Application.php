@@ -211,9 +211,9 @@ class Horde_Application extends Horde_Registry_Application
             'type' => 'enum',
             'params' => array(array(
                 false => '',
-                'false' => _("Never"),
-                'true' => _("Force"),
-                'allow' => _("Allow"),
+                'true' => _("Enable"),
+                'allow' => _("Allow non-provisionable devices"),
+                'false' => _("Disable (not recommended)")
             ))
         );
 
