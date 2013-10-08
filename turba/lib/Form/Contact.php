@@ -30,15 +30,17 @@ class Turba_Form_Contact extends Turba_Form_ContactBase
         $this->_addFields($contact, $tabs);
 
         /* List files. */
-        $v_params = $injector->getInstance('Horde_Core_Factory_Vfs')->getConfig('documents');
-        if ($v_params['type'] != 'none') {
-            try {
-                $files = $contact->listFiles();
-                $this->addVariable(_("Files"), '__vfs', 'html', false);
-                $vars->set('__vfs', implode('<br />', array_map(array($contact, 'vfsEditUrl'), $files)));
-            } catch (Turba_Exception $e) {
-                $notification->push($files, 'horde.error');
-            }
+        try {
+            /* This throws Horde_Exception if VFS not available. */
+            $injector->getInstance('Horde_Core_Factory_Vfs')->create('documents');
+
+            $files = $contact->listFiles();
+            $this->addVariable(_("Files"), '__vfs', 'html', false);
+            $vars->set('__vfs', implode('<br />', array_map(array($contact, 'vfsEditUrl'), $files)));
+        } catch (Turba_Exception $e) {
+            $notification->push($files, 'horde.error');
+        } catch (Horde_Exception $e) {
+            /* Ignore: VFS is not active. */
         }
     }
 
