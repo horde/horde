@@ -997,25 +997,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Return the most recent synckey for the specified collection.
-     *
-     * @param  string $collection_id  The activesync collection id.
-     *
-     * @return string|integer  The synckey or 0 if not found.
-     * @since 2.9.0
-     */
-    public function getLatestSynckeyForCollection($collection_id)
-    {
-        // For now, pull in the raw cache_data. Will change when each bit of
-        // data gets it's own field.
-        $data = $this->getSyncCache($this->_deviceInfo->id, $this->_deviceInfo->user);
-
-        return !empty($data['collections'][$collection_id]['lastsynckey'])
-            ? $data['collections'][$collection_id]['lastsynckey']
-            : 0;
-    }
-
-    /**
      * Save the provided sync_cache.
      *
      * @param array $cache   The cache to save.
