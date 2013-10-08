@@ -89,6 +89,9 @@ var IMP_PrettyAutocompleter = Class.create({
         // Look for clicks on the box to simulate clicking in an input box
         this.p.box.observe('click', this.clickHandler.bindAsEventListener(this));
 
+        // Double-clicks cause an edit on existing entries.
+        this.p.box.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
+
         this.p.input.observe('keydown', this.keydownHandler.bindAsEventListener(this));
 
         this.p.onSelect = this.updateElement.bind(this);
@@ -118,14 +121,14 @@ var IMP_PrettyAutocompleter = Class.create({
     reset: function()
     {
         this.currentEntries().invoke('remove');
-        this.p.input.setValue('');
+        this.updateInput('');
         this.processValue($F(this.p.elt));
     },
 
     processInput: function()
     {
         this.processValue($F(this.p.input));
-        this.p.input.setValue('');
+        this.updateInput('');
     },
 
     processValue: function(value)
@@ -142,7 +145,7 @@ var IMP_PrettyAutocompleter = Class.create({
     {
         if (this.addNewItem(item)) {
             this.p.onAdd(item);
-            this.p.input.setValue('');
+            this.updateInput('');
         }
     },
 
@@ -201,9 +204,27 @@ var IMP_PrettyAutocompleter = Class.create({
         });
     },
 
+    updateInput: function(input)
+    {
+        if (Object.isElement(input)) {
+            input = input.remove().retrieve('raw');
+            this.updateHiddenInput();
+        }
+
+        this.p.input.setValue(input);
+        this.resize();
+    },
+
     updateHiddenInput: function()
     {
         this.p.elt.setValue(this.currentValues().join(', '));
+    },
+
+    resize: function()
+    {
+        this.p.input.setStyle({
+            width: Math.max(80, $F(this.p.input).length * 9) + 'px'
+        });
     },
 
     /* Event handlers. */
@@ -215,6 +236,17 @@ var IMP_PrettyAutocompleter = Class.create({
         if (elt.hasClassName(this.p.removeClass)) {
             elt.up('LI').remove();
             this.updateHiddenInput();
+        }
+
+        this.focus();
+    },
+
+    dblclickHandler: function(e)
+    {
+        var elt = e.findElement('LI');
+
+        if (elt.hasClassName(this.p.listClassItem)) {
+            this.updateInput(elt);
         }
 
         this.focus();
@@ -235,21 +267,16 @@ var IMP_PrettyAutocompleter = Class.create({
 
         case Event.KEY_DELETE:
         case Event.KEY_BACKSPACE:
-            if (!$F(this.p.input).length) {
-                tmp = this.currentEntries().last();
-                if (tmp) {
-                    this.p.input.setValue(tmp.retrieve('raw'));
-                    tmp.remove();
-                    this.updateHiddenInput();
-                    e.stop();
-                }
+            if (!$F(this.p.input).length &&
+                (tmp = this.currentEntries().last())) {
+                this.updateInput(tmp);
+                e.stop();
+                return;
             }
             break;
         }
 
-        this.p.input.setStyle({
-            width: Math.max(80, $F(this.p.input).length * 9) + 'px'
-        });
+        this.resize();
     }
 
 });
