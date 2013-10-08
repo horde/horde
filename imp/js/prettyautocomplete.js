@@ -199,9 +199,9 @@ var IMP_PrettyAutocompleter = Class.create({
         if (elt.hasClassName(this.p.removeClass)) {
             elt.up('LI').remove();
             this.updateHiddenInput();
-        } else {
-            this.p.input.focus();
         }
+
+        this.p.input.focus();
     },
 
     keydownHandler: function(e)
