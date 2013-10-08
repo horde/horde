@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-09-05</date>
+ <date>2013-10-08</date>
  <version>
   <release>2.9.0</release>
   <api>2.9.0</api>
@@ -3160,10 +3160,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-09-05</date>
+   <date>2013-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mjr] Send back dummy mail folders when the Mail API is not available (Bug #12378).
+* [mjr] Send back dummy mail folders when the Mail API is not available (Bug #12738).
 * [mms] Upgrade prototype.js to most recent git version (e3d5200cef3236b257ddcfb1eb3eabc5c586bedd).
 * [mms] Cache permission results within a PHP access.
 * [mms] Don&apos;t initialize unnecessary prefs object when creating the topbar.
