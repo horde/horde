@@ -341,7 +341,6 @@ class Horde_ActiveSync_Imap_Adapter
             $folder->setRemoved($deleted->ids);
 
             if (!empty($options['softdelete']) && !empty($options['sincedate'])) {
-                $sd = $folder->getSoftDeleteTimes();
                 $this->_logger->info(sprintf(
                     '[%s] Polling for SOFTDELETE in %s before %d',
                     getmypid(), $folder->serverid(), $options['sincedate']));
