@@ -25,6 +25,7 @@ var IMP_PrettyAutocompleter = Class.create({
             // Outer div/fake input box and CSS class
             // box (created below)
             boxClass: 'hordeACBox',
+            boxClassFocus: '',
             // <ul> CSS class
             listClass: 'hordeACList',
             listClassItem: 'hordeACListItem',
@@ -76,6 +77,7 @@ var IMP_PrettyAutocompleter = Class.create({
         // Double-clicks cause an edit on existing entries.
         this.p.box.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
 
+        this.p.input.observe('blur', this.blur.bind(this));
         this.p.input.observe('keydown', this.keydownHandler.bindAsEventListener(this));
 
         this.p.onSelect = this.updateElement.bind(this);
@@ -93,13 +95,17 @@ var IMP_PrettyAutocompleter = Class.create({
         }.bindAsEventListener(this));
         document.observe('AutoComplete:reset', this.reset.bind(this));
         document.observe('AutoComplete:submit', this.processInput.bind(this));
-
-        this.initialized = true;
     },
 
     focus: function()
     {
         this.p.input.focus();
+        this.p.box.addClassName(this.p.boxClassFocus);
+    },
+
+    blur: function()
+    {
+        this.p.box.removeClassName(this.p.boxClassFocus);
     },
 
     reset: function()
@@ -197,6 +203,7 @@ var IMP_PrettyAutocompleter = Class.create({
 
         this.p.input.setValue(input);
         this.resize();
+        this.focus();
     },
 
     updateHiddenInput: function()
@@ -231,9 +238,9 @@ var IMP_PrettyAutocompleter = Class.create({
 
         if (elt.hasClassName(this.p.listClassItem)) {
             this.updateInput(elt);
+        } else {
+            this.focus();
         }
-
-        this.focus();
     },
 
     keydownHandler: function(e)

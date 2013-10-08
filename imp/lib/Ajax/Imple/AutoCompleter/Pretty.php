@@ -36,6 +36,7 @@ extends Horde_Core_Ajax_Imple_AutoCompleter_Ajax
         parent::__construct(array_merge(
             array(
                 'boxClass' => 'hordeACBox impACBox',
+                'boxClassFocus' => 'impACBoxFocus',
                 'deleteIcon' => strval(Horde_Themes::img('delete-small.png')),
                 'listClass' => 'hordeACList impACList',
                 'removeClass' => 'hordeACItemRemove impACItemRemove',

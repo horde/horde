@@ -543,12 +543,16 @@ span.mimePartInfoSize {
 
 /* Autocomplete styles. */
 .impACBox {
+    background-color: #ebeff0;
     display: inline-block;
     max-height: 150px;
     min-height: 0;
     overflow-y: auto;
     padding: 3px;
     width: 500px;
+}
+.impACBoxFocus {
+    background-color: #fff;
 }
 .impACList li.hordeACListItem {
     font-size: 100%;
