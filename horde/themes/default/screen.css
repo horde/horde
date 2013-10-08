@@ -1349,7 +1349,6 @@ div.GrowlerNoticeExit {
     background:white none repeat scroll 0 0;
     border: 1px solid #d0d0d0;
     cursor:default;
-    /*overflow:hidden;*/
     text-align:left;
     min-height: 58px;
     padding: 4px;
@@ -1376,11 +1375,6 @@ div.GrowlerNoticeExit {
     width:80px;
     font-size: 111%;
 }
-/*.hordeACContainer {
-    height:18px;
-    margin:2px;
-    padding:2px 2px 2px 0;
-}*/
 .hordeACItemRemove:hover {
     cursor:pointer;
 }
