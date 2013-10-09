@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add ability to expire CSS cache based on file modification time.
 * [mms] Allow disabling VFS via the configuration interface.
  </notes>
  <contents>
@@ -3176,6 +3177,7 @@
    <date>2013-10-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add ability to expire CSS cache based on file modification time.
 * [mms] Allow disabling VFS via the configuration interface.
    </notes>
   </release>
