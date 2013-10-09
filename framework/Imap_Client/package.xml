@@ -12,7 +12,7 @@
  </lead>
  <date>2013-10-09</date>
  <version>
-  <release>2.15.4</release>
+  <release>2.15.5</release>
   <api>2.15.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Sort UID list before sending in QRESYNC parameter.
-* [mms] Ensure that INBOX always appears in subscribed mailbox list when using a server that supports LIST-EXTENDED.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2020,6 +2019,19 @@
    <notes>
 * [mms] Sort UID list before sending in QRESYNC parameter.
 * [mms] Ensure that INBOX always appears in subscribed mailbox list when using a server that supports LIST-EXTENDED.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.15.5</release>
+    <api>2.15.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-10-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
