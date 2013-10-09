@@ -24,6 +24,15 @@
 class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
 {
     /**
+     * Javscript files to be loaded by the browser.
+     *
+     * @since 2.10.0
+     *
+     * @var array
+     */
+    public $jsfiles = array();
+
+    /**
      * Task data to send to the browser.
      *
      * @var object
@@ -54,6 +63,10 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
      * HordeCore JSON responses are a structured object which always
      * includes the response in the 'response' property.
      *
+     * The object may include a 'jsfiles' property, which is an array of
+     * URL-accessible javascript files to be loaded by the browser (since
+     * 2.10.0).
+     *
      * The object may include a 'msgs' property, which is an array of
      * notification message objects with 2 properties: message and type.
      *
@@ -71,8 +84,13 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
             'listeners' => array('status', 'audio'),
             'raw' => true
         ));
+
         if (!empty($stack)) {
             $ob->msgs = $stack;
+        }
+
+        if (!empty($this->jsfiles)) {
+            $ob->jsfiles = array_unique($this->jsfiles);
         }
 
         if (!empty($this->tasks)) {
