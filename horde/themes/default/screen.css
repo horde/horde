@@ -380,7 +380,7 @@ form[action^="https://"] input[type="submit"].horde-default {
     background-image: url("graphics/locked-inv.png"), url("graphics/button-default.png");
     background-position: 95% center, left top;
     background-repeat: no-repeat, repeat-x;
-    padding-right: 33px;
+    padding: 2px 33px 2px 4px;
 }
 input[disabled], input[disabled]:hover, textarea[disabled], option[disabled] {
     background-color: #e9e9e9;
