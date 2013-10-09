@@ -1,16 +1,24 @@
 <?php
 /**
- * Defines the AJAX actions used in Horde.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl LGPL-2
- * @package  Horde
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
+ */
+
+/**
+ * Defines the AJAX actions used in Horde.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
  */
 class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 {

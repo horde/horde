@@ -1,17 +1,25 @@
 <?php
 /**
- * A data object that represents the full JSON data expected by the HordeCore
- * javascript framework.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * A data object that represents the full JSON data expected by the HordeCore
+ * javascript framework.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
 {
