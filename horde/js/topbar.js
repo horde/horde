@@ -22,7 +22,8 @@ var HordeTopbar = {
     refreshTopbar: function()
     {
         HordeCore.doAction('topbarUpdate', {
-            app: this.conf.app
+            app: this.conf.app,
+            hash: this.conf.hash
         }, {
             callback: this.onUpdateTopbar.bind(this),
             uri: this.conf.URI_AJAX
@@ -31,8 +32,11 @@ var HordeTopbar = {
 
     onUpdateTopbar: function(r)
     {
-        $('horde-navigation').update();
-        this._renderTree(r.nodes, r.root_nodes);
+        if (this.conf.hash != r.hash) {
+            $('horde-navigation').update();
+            this._renderTree(r.nodes, r.root_nodes);
+            this.conf.hash = r.hash;
+        }
     },
 
     _renderTree: function(nodes, root_nodes)

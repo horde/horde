@@ -49,10 +49,9 @@ class Horde_View_Topbar extends Horde_View
         }
 
         /* Main menu. */
-        $this->menu = $injector
-            ->getInstance('Horde_Core_Factory_Topbar')
-            ->create('Horde_Tree_Renderer_Menu', array('nosession' => true))
-            ->getTree();
+        $topbar = $injector->getInstance('Horde_Core_Factory_Topbar')
+            ->create('Horde_Tree_Renderer_Menu', array('nosession' => true));
+        $this->menu = $topbar->getTree();
 
         /* Search form. */
         $this->searchAction = '#';
@@ -92,6 +91,7 @@ class Horde_View_Topbar extends Horde_View
             'URI_AJAX' => $registry->getServiceLink('ajax', 'horde')->url,
             'app' => $registry->getApp(),
             'format' => Horde_Core_Script_Package_Datejs::translateFormat($prefs->getValue('date_format')),
+            'hash' => $topbar->getHash(),
             'refresh' => intval($prefs->getValue('menu_refresh_time'))
         )));
 

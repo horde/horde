@@ -32,11 +32,18 @@ class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         global $injector, $registry;
 
         $registry->pushApp($this->vars->app);
-        $node_defs = $injector->getInstance('Horde_Core_Factory_Topbar')
-            ->create('Horde_Tree_Renderer_Menu', array('nosession' => true))
-            ->getTree()
-            ->renderNodeDefinitions();
+        $topbar = $injector->getInstance('Horde_Core_Factory_Topbar')
+            ->create('Horde_Tree_Renderer_Menu', array('nosession' => true));
+        $hash = $topbar->getHash();
+        $tree = $topbar->getTree();
         $registry->popApp();
+
+        if ($this->vars->hash == $hash) {
+            return false;
+        }
+
+        $node_defs = $tree->renderNodeDefinitions();
+        $node_defs->hash = $hash;
 
         if (isset($node_defs->files)) {
             $jsfiles = $node_defs->files;
