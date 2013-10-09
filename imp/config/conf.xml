@@ -143,7 +143,7 @@
    <configmultienum name="backends" required="false" desc="The backends to
    query for contacts images.">IMP_Contacts_Image_Addressbook,IMP_Contacts_Image_Unknown
     <values>
-     <value desc="Horde addressbook application">IMP_Contacts_Image_Addressbook</value>
+     <value desc="Horde address book">IMP_Contacts_Image_Addressbook</value>
      <value desc="Gravatar">IMP_Contacts_Image_Gravatar</value>
      <value desc="Default (unknown user)">IMP_Contacts_Image_Unknown</value>
     </values>
