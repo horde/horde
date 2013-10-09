@@ -22,24 +22,16 @@ var HordeTopbar = {
 
     refreshTopbar: function()
     {
-        var params = $H({ app: this.conf.app });
-        if (this.conf.SID) {
-            params.update(this.conf.SID.toQueryParams());
-        }
-        params.set('token', this.conf.TOKEN);
-        new Ajax.Request(this.conf.URI_AJAX + 'topbarUpdate', {
-            onComplete: this.onUpdateTopbar.bind(this),
-            parameters: params
+        HordeCore.doAction('topbarUpdate', {
+            app: this.conf.app
+        }, {
+            callback: this.onUpdateTopbar.bind(this),
+            uri: this.conf.URI_AJAX
         });
     },
 
-    onUpdateTopbar: function(response)
+    onUpdateTopbar: function(r)
     {
-        if (!response.responseJSON) {
-            return;
-        }
-
-        var r = response.responseJSON.response;
         $('horde-navigation').update();
 
         this._renderTree(r.nodes, r.root_nodes);
